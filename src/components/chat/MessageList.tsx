@@ -1,0 +1,189 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+import { Message } from '@/types/chat';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Copy, Download, FileText, User, Bot, Loader2 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeKatex from 'rehype-katex';
+import remarkMath from 'remark-math';
+import 'katex/dist/katex.min.css';
+
+interface MessageListProps {
+  messages: Message[];
+  isLoading: boolean;
+  onCopyMessage: (content: string) => void;
+  onRegenerateMessage: (messageId: string) => void;
+}
+
+export function MessageList({ 
+  messages, 
+  isLoading, 
+  onCopyMessage, 
+  onRegenerateMessage 
+}: MessageListProps) {
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isLoading]);
+
+  if (messages.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="flex-1 overflow-y-auto px-6 py-8 space-y-6 max-w-6xl mx-auto w-full">
+      {messages.map((message) => (
+        <div
+          key={message.id}
+          className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+        >
+          <div className={`flex max-w-[85%] ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start space-x-3`}>
+            {/* Avatar removed for minimal look */}
+
+            {/* Message content */}
+            <Card className={`p-4 ${
+              message.role === 'user' 
+                ? 'bg-card text-card-foreground border border-border' 
+                : 'bg-card text-card-foreground border border-border'
+            }`}>
+              <div className="space-y-3">
+                {/* Attachments */}
+                {message.attachments && message.attachments.length > 0 && (
+                  <div className="space-y-2">
+                    {message.attachments.map((attachment) => (
+                      <div
+                        key={attachment.id}
+                        className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-md bg-muted text-sm text-foreground border border-border"
+                      >
+                        <FileText className="w-4 h-4" />
+                        <span className="truncate max-w-[320px]" title={attachment.name}>
+                          {attachment.name}
+                        </span>
+                        <span className="text-xs text-muted-foreground whitespace-nowrap">
+                          {Math.round(attachment.size / 1024)}KB
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Message content */}
+                <div className={`prose prose-sm max-w-none`}>
+                  {message.role === 'assistant' ? (
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm, remarkMath]}
+                      rehypePlugins={[rehypeKatex]}
+                      components={{
+                        code: ({ node, inline, className, children, ...props }) => {
+                          const match = /language-(\w+)/.exec(className || '');
+                          return !inline && match ? (
+                            <pre className="bg-muted p-3 rounded-md overflow-x-auto">
+                              <code className={className} {...props}>
+                                {children}
+                              </code>
+                            </pre>
+                          ) : (
+                            <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
+                              {children}
+                            </code>
+                          );
+                        },
+                        table: ({ children }) => (
+                          <div className="overflow-x-auto">
+                            <table className="min-w-full border-collapse border border-border">
+                              {children}
+                            </table>
+                          </div>
+                        ),
+                        th: ({ children }) => (
+                          <th className="border border-border px-3 py-2 bg-muted font-semibold text-left">
+                            {children}
+                          </th>
+                        ),
+                        td: ({ children }) => (
+                          <td className="border border-border px-3 py-2">
+                            {children}
+                          </td>
+                        ),
+                      }}
+                    >
+                      {message.content}
+                    </ReactMarkdown>
+                  ) : (
+                    <p className="whitespace-pre-wrap">{message.content}</p>
+                  )}
+                </div>
+
+                {/* Citations */}
+                {message.citations && message.citations.length > 0 && (
+                  <div className="space-y-1">
+                    <div className="text-xs font-semibold text-muted-foreground">Sources:</div>
+                    {message.citations.map((citation) => (
+                      <a
+                        key={citation.id}
+                        href={citation.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block text-xs text-primary hover:underline"
+                      >
+                        {citation.title}
+                      </a>
+                    ))}
+                  </div>
+                )}
+
+                {/* Message actions */}
+                <div className="flex items-center space-x-2 pt-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onCopyMessage(message.content)}
+                    className={`h-8 px-2 text-muted-foreground hover:bg-muted`}
+                  >
+                    <Copy className="w-3 h-3" />
+                    <span className="sr-only">Copy message</span>
+                  </Button>
+                  
+                  {/* Per-message download icon removed */}
+                </div>
+              </div>
+              {/* Sender label */}
+              <div className={`pt-2 text-[10px] text-muted-foreground ${
+                message.role === 'user' ? 'text-right' : 'text-left'
+              }`}>
+                {message.role === 'assistant' ? 'Junas' : 'User'}
+              </div>
+            </Card>
+          </div>
+        </div>
+      ))}
+
+      {/* Loading indicator */}
+      {isLoading && (
+        <div className="flex justify-start">
+          <div className="flex items-start space-x-2">
+            <div className="w-8 h-8 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center">
+              <Bot className="w-4 h-4" />
+            </div>
+            <Card className="p-4">
+              <div className="flex items-center space-x-2">
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span className="text-sm text-muted-foreground">Thinking...</span>
+              </div>
+            </Card>
+          </div>
+        </div>
+      )}
+
+      <div ref={messagesEndRef} />
+    </div>
+  );
+}
