@@ -5,7 +5,7 @@ export class GeminiProvider {
   private client: GoogleGenerativeAI;
   private model: string;
 
-  constructor(apiKey: string, model: string = 'gemini-1.5-flash-latest') {
+  constructor(apiKey: string, model: string = 'gemini-1.5-flash') {
     this.client = new GoogleGenerativeAI(apiKey);
     this.model = model;
   }
@@ -17,8 +17,8 @@ export class GeminiProvider {
       supportsVision: true,
       maxContextLength: 1000000, // 1M tokens
       availableModels: [
-        'gemini-1.5-flash-latest',
-        'gemini-1.5-pro-latest',
+        'gemini-1.5-flash',
+        'gemini-1.5-pro',
         'gemini-1.0-pro',
       ],
     };
