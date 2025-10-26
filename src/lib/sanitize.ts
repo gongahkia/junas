@@ -1,5 +1,3 @@
-import DOMPurify from 'isomorphic-dompurify';
-
 /**
  * Sanitization utilities for user input
  */
@@ -7,7 +5,9 @@ import DOMPurify from 'isomorphic-dompurify';
 /**
  * Sanitize HTML content to prevent XSS attacks
  */
-export function sanitizeHTML(dirty: string): string {
+export async function sanitizeHTML(dirty: string): Promise<string> {
+  // Dynamic import to avoid ESM/CommonJS issues with Turbopack
+  const DOMPurify = (await import('isomorphic-dompurify')).default;
   return DOMPurify.sanitize(dirty, {
     ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li', 'code', 'pre'],
     ALLOWED_ATTR: ['href', 'title'],
@@ -34,9 +34,9 @@ export function sanitizePlainText(text: string): string {
 /**
  * Sanitize message content for chat
  */
-export function sanitizeMessageContent(content: string, allowHTML: boolean = false): string {
+export async function sanitizeMessageContent(content: string, allowHTML: boolean = false): Promise<string> {
   if (allowHTML) {
-    return sanitizeHTML(content);
+    return await sanitizeHTML(content);
   }
   return sanitizePlainText(content);
 }

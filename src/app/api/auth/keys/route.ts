@@ -41,16 +41,25 @@ export async function GET() {
   try {
     const session = await getSession();
 
-    // Return which providers have keys configured (without exposing the keys)
-    const providers = {
+    // Return which providers have keys configured
+    const configured = {
       gemini: !!session.apiKeys?.gemini,
       openai: !!session.apiKeys?.openai,
       claude: !!session.apiKeys?.claude,
     };
 
+    // Return the actual keys for populating the UI
+    // These are already stored securely in the user's session
+    const keys = {
+      gemini: session.apiKeys?.gemini || '',
+      openai: session.apiKeys?.openai || '',
+      claude: session.apiKeys?.claude || '',
+    };
+
     return NextResponse.json({
-      configured: providers,
-      hasAnyKey: Object.values(providers).some(Boolean),
+      configured,
+      keys,
+      hasAnyKey: Object.values(configured).some(Boolean),
     });
   } catch (error) {
     console.error('Error retrieving API key status:', error);

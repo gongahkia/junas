@@ -57,8 +57,16 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
     try {
       const response = await fetch('/api/auth/keys');
       if (response.ok) {
-        const { configured } = await response.json();
+        const { configured, keys } = await response.json();
         setConfigured(configured);
+        // Populate input fields with existing keys
+        if (keys) {
+          setApiKeys({
+            ...(keys.gemini && { gemini: keys.gemini }),
+            ...(keys.openai && { openai: keys.openai }),
+            ...(keys.claude && { claude: keys.claude }),
+          });
+        }
       }
     } catch (error) {
       console.error('Failed to load API key status:', error);
