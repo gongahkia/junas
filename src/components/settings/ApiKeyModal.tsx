@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Eye, EyeOff, ExternalLink, Check, X } from 'lucide-react';
-import { StorageManager } from '@/lib/storage';
 
 interface ApiKeyModalProps {
   isOpen: boolean;
@@ -41,13 +40,30 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
   const [apiKeys, setApiKeys] = useState<Record<string, string>>({});
   const [showKeys, setShowKeys] = useState<Record<string, boolean>>({});
   const [isSaving, setIsSaving] = useState(false);
+  const [configured, setConfigured] = useState<Record<string, boolean>>({
+    gemini: false,
+    openai: false,
+    claude: false,
+  });
 
   useEffect(() => {
     if (isOpen) {
-      const storedKeys = StorageManager.getApiKeys();
-      setApiKeys(storedKeys);
+      // Load current configuration status from session
+      loadConfigStatus();
     }
   }, [isOpen]);
+
+  const loadConfigStatus = async () => {
+    try {
+      const response = await fetch('/api/auth/keys');
+      if (response.ok) {
+        const { configured } = await response.json();
+        setConfigured(configured);
+      }
+    } catch (error) {
+      console.error('Failed to load API key status:', error);
+    }
+  };
 
   const handleKeyChange = (provider: string, value: string) => {
     setApiKeys(prev => ({ ...prev, [provider]: value }));
@@ -60,10 +76,23 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
   const handleSave = async () => {
     setIsSaving(true);
     try {
-      StorageManager.saveApiKeys(apiKeys);
+      // Send keys to backend session storage
+      const response = await fetch('/api/auth/keys', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(apiKeys),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save API keys');
+      }
+
+      // Clear local state and close
+      setApiKeys({});
       onClose();
     } catch (error) {
       console.error('Failed to save API keys:', error);
+      alert('Failed to save API keys. Please try again.');
     } finally {
       setIsSaving(false);
     }
@@ -95,7 +124,7 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
                     <CardDescription>{provider.description}</CardDescription>
                   </div>
                   <div className="flex items-center space-x-2">
-                    {apiKeys[provider.id] && apiKeys[provider.id].trim() !== '' ? (
+                    {(apiKeys[provider.id] && apiKeys[provider.id].trim() !== '') || configured[provider.id] ? (
                       <div className="flex items-center space-x-1 text-green-600">
                         <Check className="w-4 h-4" />
                         <span className="text-sm">Configured</span>
@@ -167,8 +196,8 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
         </div>
 
         <div className="text-xs text-muted-foreground space-y-1">
-          <p><strong>Security Notice:</strong> Your API keys are stored locally in your browser and never sent to our servers.</p>
-          <p><strong>Privacy:</strong> All AI requests are made directly from your browser to the respective AI providers.</p>
+          <p><strong>Security Notice:</strong> Your API keys are stored in encrypted HTTP-only cookies for maximum security.</p>
+          <p><strong>Privacy:</strong> All AI requests are proxied through our backend to protect your keys from client-side exposure.</p>
         </div>
       </DialogContent>
     </Dialog>
