@@ -6,7 +6,7 @@ export class GeminiProvider {
   private model: string;
   private apiKey: string;
 
-  constructor(apiKey: string, model: string = 'gemini-1.5-flash') {
+  constructor(apiKey: string, model: string = 'gemini-2.0-flash-exp') {
     this.client = new GoogleGenerativeAI(apiKey);
     this.model = model;
     this.apiKey = apiKey;
@@ -19,10 +19,10 @@ export class GeminiProvider {
       supportsVision: true,
       maxContextLength: 1000000, // 1M tokens
       availableModels: [
+        'gemini-2.0-flash-exp',
         'gemini-1.5-flash',
         'gemini-1.5-pro',
         'gemini-1.0-pro',
-        'gemini-2.0-flash-exp',
         'gemini-pro',
       ],
     };
@@ -155,7 +155,7 @@ export class GeminiProvider {
     if (error.message?.includes('not found') || error.message?.includes('404')) {
       return {
         code: 'MODEL_NOT_FOUND',
-        message: `Model "${this.model}" not found. Try these models: "gemini-1.5-flash", "gemini-1.5-pro", or "gemini-pro". Check available models at https://ai.google.dev/gemini-api/docs/models/gemini`,
+        message: `Model "${this.model}" not found. Try these models: "gemini-2.0-flash-exp", "gemini-1.5-flash", "gemini-1.5-pro", or "gemini-pro". Check available models at https://ai.google.dev/gemini-api/docs/models/gemini`,
         retryable: false,
       };
     }

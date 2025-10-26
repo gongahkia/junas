@@ -12,40 +12,21 @@ import { generateId } from '@/lib/utils';
 
 interface ChatInterfaceProps {
   onSettings: () => void;
-  onExport: () => void;
+  onMessagesChange?: (messages: Message[]) => void;
 }
 
-export function ChatInterface({ onSettings, onExport }: ChatInterfaceProps) {
+export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMessages, setHasMessages] = useState(false);
   const { addToast } = useToast();
-  
-  // Export listener
+
+  // Notify parent when messages change
   useEffect(() => {
-    const handler = () => {
-      const mdLines: string[] = [];
-      mdLines.push(`# Junas Conversation\n`);
-      mdLines.push(`Generated: ${new Date().toISOString()}\n`);
-      for (const m of messages) {
-        mdLines.push(`## ${m.role.toUpperCase()}\n`);
-        mdLines.push(m.content);
-        mdLines.push('');
-      }
-      const blob = new Blob([mdLines.join('\n')], { type: 'text/markdown;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `junas-conversation-${Date.now()}.md`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-      addToast({ type: 'success', title: 'Exported', description: 'Conversation downloaded as Markdown', duration: 3000 });
-    };
-    window.addEventListener('junas-export', handler);
-    return () => window.removeEventListener('junas-export', handler);
-  }, [messages, addToast]);
+    if (onMessagesChange) {
+      onMessagesChange(messages);
+    }
+  }, [messages, onMessagesChange]);
 
   // Load messages from storage on mount
   useEffect(() => {
@@ -55,6 +36,22 @@ export function ChatInterface({ onSettings, onExport }: ChatInterfaceProps) {
       setHasMessages(chatState.messages.length > 0);
     }
   }, []);
+
+  // Handle import messages
+  useEffect(() => {
+    const handler = (event: any) => {
+      const importedMessages = event.detail.messages;
+      setMessages(prev => [...prev, ...importedMessages]);
+      addToast({
+        type: 'success',
+        title: 'Imported',
+        description: 'Previous conversation has been summarized and added as context',
+        duration: 3000
+      });
+    };
+    window.addEventListener('junas-import', handler);
+    return () => window.removeEventListener('junas-import', handler);
+  }, [addToast]);
 
   // Save messages to storage whenever they change
   useEffect(() => {
