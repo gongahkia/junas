@@ -5,23 +5,34 @@ import { Layout } from '@/components/Layout';
 import { ChatInterface } from '@/components/chat/ChatInterface';
 import { ApiKeyModal } from '@/components/settings/ApiKeyModal';
 import { NewChatDialog } from '@/components/chat/NewChatDialog';
-import { ExportButton } from '@/components/chat/ExportButton';
+import { ExportDialog } from '@/components/chat/ExportDialog';
+import { ImportDialog } from '@/components/chat/ImportDialog';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ProviderSelector } from '@/components/settings/ProviderSelector';
 import { StorageManager } from '@/lib/storage';
+import { Message } from '@/types/chat';
 
 export default function Home() {
   const [showApiKeyModal, setShowApiKeyModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showNewChatDialog, setShowNewChatDialog] = useState(false);
+  const [showExportDialog, setShowExportDialog] = useState(false);
+  const [showImportDialog, setShowImportDialog] = useState(false);
   const [currentProvider, setCurrentProvider] = useState('gemini');
   const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const handleExport = () => {
-    // Proxy to ChatInterface export via custom event
-    const evt = new CustomEvent('junas-export');
+    setShowExportDialog(true);
+  };
+
+  const handleImport = (importedMessages: Message[]) => {
+    // Dispatch import event to ChatInterface
+    const evt = new CustomEvent('junas-import', {
+      detail: { messages: importedMessages }
+    });
     window.dispatchEvent(evt);
   };
 
@@ -49,8 +60,12 @@ export default function Home() {
     setShowNewChatDialog(false);
   };
 
-  // Check if there are messages in localStorage
-  const hasMessages = typeof window !== 'undefined' && StorageManager.getChatState()?.messages?.length > 0;
+  const handleMessagesChange = (newMessages: Message[]) => {
+    setMessages(newMessages);
+  };
+
+  // Check if there are messages
+  const hasMessages = messages.length > 0;
 
   return (
     <Layout
@@ -58,11 +73,12 @@ export default function Home() {
       onExport={handleExport}
       onSettings={handleSettings}
       onNewChat={handleNewChat}
+      onImport={() => setShowImportDialog(true)}
     >
       <ChatInterface
         key={chatKey}
         onSettings={handleSettings}
-        onExport={handleExport}
+        onMessagesChange={handleMessagesChange}
       />
 
       {/* API Key Modal */}
@@ -76,6 +92,20 @@ export default function Home() {
         isOpen={showNewChatDialog}
         onClose={() => setShowNewChatDialog(false)}
         onConfirm={handleConfirmNewChat}
+      />
+
+      {/* Export Dialog */}
+      <ExportDialog
+        isOpen={showExportDialog}
+        onClose={() => setShowExportDialog(false)}
+        messages={messages}
+      />
+
+      {/* Import Dialog */}
+      <ImportDialog
+        isOpen={showImportDialog}
+        onClose={() => setShowImportDialog(false)}
+        onImport={handleImport}
       />
 
       {/* Settings Modal */}

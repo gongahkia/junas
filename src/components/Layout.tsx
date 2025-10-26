@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Moon, Sun, Settings, Download, Plus } from 'lucide-react';
+import { Settings, Download, Plus, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ToastProvider } from '@/components/ui/toast';
 import { cn } from '@/lib/utils';
@@ -10,11 +10,12 @@ interface LayoutProps {
   children: React.ReactNode;
   hasMessages?: boolean;
   onExport?: () => void;
+  onImport?: () => void;
   onSettings?: () => void;
   onNewChat?: () => void;
 }
 
-export function Layout({ children, hasMessages = false, onExport, onSettings, onNewChat }: LayoutProps) {
+export function Layout({ children, hasMessages = false, onExport, onImport, onSettings, onNewChat }: LayoutProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -49,8 +50,21 @@ export function Layout({ children, hasMessages = false, onExport, onSettings, on
                 </Button>
               )}
 
+              {/* Import button */}
+              {onImport && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={onImport}
+                  className="h-9 px-3"
+                >
+                  <Upload className="h-4 w-4 mr-2" />
+                  Import
+                </Button>
+              )}
+
               {/* Export button - only show when there are messages */}
-              {onExport && (
+              {onExport && hasMessages && (
                 <Button
                   variant="ghost"
                   size="sm"
