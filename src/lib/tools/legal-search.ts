@@ -1,6 +1,7 @@
 import { LegalSearchResult } from '@/types/tool';
 import { ssoScraper } from '@/lib/scrapers/sso-scraper';
 import { caseScraper } from '@/lib/scrapers/case-scraper';
+import { SearchRanker } from '@/lib/search-ranking';
 
 /**
  * Enhanced Legal Search Engine using real scrapers
@@ -130,7 +131,7 @@ export class LegalSearchEngine {
   }
 
   /**
-   * Search all sources
+   * Search all sources with intelligent ranking
    */
   static async searchAll(query: string): Promise<LegalSearchResult[]> {
     try {
@@ -141,10 +142,14 @@ export class LegalSearchEngine {
         this.searchRegulations(query),
       ]);
 
-      // Combine all results and sort by relevance
-      return [...statutes, ...cases, ...regulations]
-        .sort((a, b) => (b.relevanceScore || 0) - (a.relevanceScore || 0))
-        .slice(0, 20); // Limit to top 20 results
+      // Combine all results
+      const allResults = [...statutes, ...cases, ...regulations];
+
+      // Re-rank using intelligent ranking algorithm
+      const rankedResults = SearchRanker.rankResults(allResults, query);
+
+      // Filter by relevance threshold and limit results
+      return SearchRanker.filterByRelevance(rankedResults, 0.3).slice(0, 20);
     } catch (error) {
       console.error('Error in comprehensive search:', error);
       return [];
