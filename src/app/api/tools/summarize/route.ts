@@ -24,13 +24,13 @@ export async function POST(request: NextRequest) {
     let summary: DocumentSummary;
 
     if (type === 'contract') {
-      summary = await this.summarizeContract(text);
+      summary = await summarizeContract(text);
     } else if (type === 'case') {
-      summary = await this.summarizeCase(text);
+      summary = await summarizeCase(text);
     } else if (type === 'statute') {
-      summary = await this.summarizeStatute(text);
+      summary = await summarizeStatute(text);
     } else {
-      summary = await this.summarizeGeneral(text);
+      summary = await summarizeGeneral(text);
     }
 
     return NextResponse.json({
