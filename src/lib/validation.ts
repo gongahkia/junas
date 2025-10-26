@@ -1,0 +1,86 @@
+import { z } from 'zod';
+
+/**
+ * Validation schemas for API endpoints using Zod
+ */
+
+// Message schema for chat
+export const MessageSchema = z.object({
+  role: z.enum(['user', 'assistant', 'system']),
+  content: z.string().min(1, 'Message content cannot be empty').max(50000, 'Message too long'),
+});
+
+// Chat endpoint schema
+export const ChatRequestSchema = z.object({
+  messages: z.array(MessageSchema).min(1, 'At least one message is required'),
+  model: z.string().optional(),
+  temperature: z.number().min(0).max(2).optional(),
+  maxTokens: z.number().min(1).max(100000).optional(),
+  stream: z.boolean().optional(),
+});
+
+// Tool endpoints common schema
+export const TextInputSchema = z.object({
+  text: z.string()
+    .min(1, 'Text is required')
+    .max(100000, 'Text exceeds maximum length of 100,000 characters'),
+});
+
+// Contract analysis schema
+export const AnalyzeRequestSchema = z.object({
+  text: z.string()
+    .min(10, 'Text too short for analysis')
+    .max(100000, 'Text exceeds maximum length'),
+  type: z.enum(['contract', 'case', 'statute']).optional(),
+});
+
+// Summarization schema
+export const SummarizeRequestSchema = z.object({
+  text: z.string()
+    .min(10, 'Text too short for summarization')
+    .max(100000, 'Text exceeds maximum length'),
+  type: z.enum(['contract', 'case', 'statute', 'general']).optional(),
+});
+
+// Legal search schema
+export const SearchRequestSchema = z.object({
+  query: z.string()
+    .min(2, 'Search query too short')
+    .max(500, 'Search query too long'),
+  type: z.enum(['statute', 'case', 'regulation', 'all']).optional(),
+  limit: z.number().min(1).max(100).optional(),
+});
+
+// NER schema
+export const NERRequestSchema = z.object({
+  text: z.string()
+    .min(1, 'Text is required')
+    .max(100000, 'Text exceeds maximum length'),
+  entityTypes: z.array(z.enum(['PERSON', 'ORG', 'DATE', 'MONEY', 'LAW', 'GPE'])).optional(),
+});
+
+// File upload schema (for metadata validation)
+export const FileUploadSchema = z.object({
+  filename: z.string().min(1),
+  mimeType: z.string().regex(/^(application\/pdf|application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.document|image\/(jpeg|png|gif|bmp|webp))$/),
+  size: z.number().max(10485760, 'File size exceeds 10MB limit'),
+});
+
+/**
+ * Validate data against a schema
+ */
+export function validateData<T>(schema: z.ZodSchema<T>, data: unknown): { success: true; data: T } | { success: false; error: string } {
+  try {
+    const validData = schema.parse(data);
+    return { success: true, data: validData };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const firstError = error.errors[0];
+      return {
+        success: false,
+        error: firstError?.message || 'Validation failed',
+      };
+    }
+    return { success: false, error: 'Validation failed' };
+  }
+}
