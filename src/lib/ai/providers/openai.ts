@@ -8,7 +8,7 @@ export class OpenAIProvider {
   constructor(apiKey: string, model: string = 'gpt-4') {
     this.client = new OpenAI({
       apiKey,
-      dangerouslyAllowBrowser: true, // Required for client-side usage
+      // No dangerouslyAllowBrowser needed - this runs server-side via proxy
     });
     this.model = model;
   }
