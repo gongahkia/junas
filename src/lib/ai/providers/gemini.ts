@@ -5,7 +5,7 @@ export class GeminiProvider {
   private client: GoogleGenerativeAI;
   private model: string;
 
-  constructor(apiKey: string, model: string = 'gemini-1.5-flash') {
+  constructor(apiKey: string, model: string = 'gemini-1.5-flash-latest') {
     this.client = new GoogleGenerativeAI(apiKey);
     this.model = model;
   }
@@ -17,9 +17,10 @@ export class GeminiProvider {
       supportsVision: true,
       maxContextLength: 1000000, // 1M tokens
       availableModels: [
-        'gemini-1.5-flash',
-        'gemini-1.5-pro',
-        'gemini-1.0-pro',
+        'gemini-1.5-flash-latest',
+        'gemini-1.5-pro-latest',
+        'gemini-1.0-pro-latest',
+        'gemini-2.0-flash-exp',
       ],
     };
   }
@@ -123,7 +124,15 @@ export class GeminiProvider {
         retryable: false,
       };
     }
-    
+
+    if (error.message?.includes('not found') || error.message?.includes('404')) {
+      return {
+        code: 'MODEL_NOT_FOUND',
+        message: `Model "${this.model}" not found. Please try using "gemini-1.5-flash-latest" or "gemini-1.5-pro-latest". Check available models at https://ai.google.dev/models/gemini`,
+        retryable: false,
+      };
+    }
+
     if (error.message?.includes('quota')) {
       return {
         code: 'QUOTA_EXCEEDED',
@@ -131,7 +140,7 @@ export class GeminiProvider {
         retryable: true,
       };
     }
-    
+
     if (error.message?.includes('safety')) {
       return {
         code: 'SAFETY_FILTER',
@@ -139,7 +148,7 @@ export class GeminiProvider {
         retryable: false,
       };
     }
-    
+
     return {
       code: 'UNKNOWN_ERROR',
       message: error.message || 'An unknown error occurred',

@@ -47,7 +47,7 @@ export class ProviderFactory {
           ...baseConfig,
           name: 'gemini',
           displayName: 'Google Gemini',
-          model: 'gemini-1.5-flash',
+          model: 'gemini-1.5-flash-latest',
         };
       case 'openai':
         return {
