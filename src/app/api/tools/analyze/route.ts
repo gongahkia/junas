@@ -1,21 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ContractAnalyzer } from '@/lib/tools/contract-analyzer';
+import { validateTextInput, calculateRiskLevel } from '@/lib/api-utils';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { text } = body;
 
-    if (!text || typeof text !== 'string') {
+    // Validate input
+    const validation = validateTextInput(text, 100000);
+    if (!validation.valid) {
       return NextResponse.json(
-        { error: 'Text is required' },
-        { status: 400 }
-      );
-    }
-
-    if (text.length > 100000) {
-      return NextResponse.json(
-        { error: 'Text too long. Maximum length is 100,000 characters.' },
+        { error: validation.error },
         { status: 400 }
       );
     }
@@ -44,16 +40,6 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}
-
-function calculateRiskLevel(riskFlags: any[]): string {
-  const highRiskCount = riskFlags.filter(flag => flag.severity === 'high').length;
-  const mediumRiskCount = riskFlags.filter(flag => flag.severity === 'medium').length;
-  
-  if (highRiskCount > 0) return 'high';
-  if (mediumRiskCount > 2) return 'medium';
-  if (riskFlags.length > 0) return 'low';
-  return 'none';
 }
 
 export async function GET() {
