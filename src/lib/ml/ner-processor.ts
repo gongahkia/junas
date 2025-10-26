@@ -1,4 +1,5 @@
 import { pipeline, TokenClassificationPipeline } from '@xenova/transformers';
+import { globalModelCache } from './model-cache';
 
 /**
  * ML-based Named Entity Recognition using Transformers.js
@@ -23,8 +24,6 @@ export interface NERResult {
  */
 export class MLNERProcessor {
   private static instance: MLNERProcessor;
-  private pipeline: TokenClassificationPipeline | null = null;
-  private isLoading: boolean = false;
   private modelName: string = 'Xenova/bert-base-NER';
 
   private constructor() {}
@@ -40,32 +39,25 @@ export class MLNERProcessor {
   }
 
   /**
-   * Initialize the NER pipeline
+   * Initialize the NER pipeline with caching
    */
-  async initialize(): Promise<void> {
-    if (this.pipeline || this.isLoading) {
-      return;
-    }
+  async initialize(): Promise<TokenClassificationPipeline> {
+    // Use model cache for efficient loading
+    const modelPipeline = await globalModelCache.getModel(
+      this.modelName,
+      async () => {
+        console.log(`Loading NER model: ${this.modelName}`);
+        return await pipeline(
+          'token-classification',
+          this.modelName,
+          {
+            quantized: true, // Use quantized model for faster inference
+          }
+        ) as TokenClassificationPipeline;
+      }
+    );
 
-    this.isLoading = true;
-
-    try {
-      // Load the token classification model
-      this.pipeline = await pipeline(
-        'token-classification',
-        this.modelName,
-        {
-          quantized: true, // Use quantized model for faster inference
-        }
-      ) as TokenClassificationPipeline;
-
-      console.log('NER model loaded successfully');
-    } catch (error) {
-      console.error('Failed to load NER model:', error);
-      throw new Error('Failed to initialize NER model');
-    } finally {
-      this.isLoading = false;
-    }
+    return modelPipeline;
   }
 
   /**
@@ -74,18 +66,12 @@ export class MLNERProcessor {
   async extractEntities(text: string): Promise<NERResult> {
     const startTime = performance.now();
 
-    // Initialize if not already done
-    if (!this.pipeline) {
-      await this.initialize();
-    }
-
-    if (!this.pipeline) {
-      throw new Error('NER pipeline not initialized');
-    }
-
     try {
+      // Get pipeline from cache
+      const pipeline = await this.initialize();
+
       // Run NER inference
-      const output = await this.pipeline(text, {
+      const output = await pipeline(text, {
         ignore_labels: ['O'], // Ignore non-entity tokens
       });
 
@@ -238,15 +224,29 @@ export class MLNERProcessor {
    */
   async changeModel(modelName: string): Promise<void> {
     this.modelName = modelName;
-    this.pipeline = null;
-    await this.initialize();
+    // Model will be loaded from cache on next use
   }
 
   /**
-   * Check if model is loaded
+   * Check if model is loaded in cache
    */
   isReady(): boolean {
-    return this.pipeline !== null;
+    const modelInfo = globalModelCache.getModelInfo(this.modelName);
+    return modelInfo !== undefined;
+  }
+
+  /**
+   * Clear model from cache
+   */
+  clearCache(): void {
+    globalModelCache.clearModel(this.modelName);
+  }
+
+  /**
+   * Get cache statistics
+   */
+  getCacheStats() {
+    return globalModelCache.getStats();
   }
 }
 
