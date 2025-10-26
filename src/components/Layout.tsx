@@ -5,6 +5,7 @@ import { Settings, Download, Plus, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ToastProvider } from '@/components/ui/toast';
 import { cn } from '@/lib/utils';
+import { migrateApiKeysToSession } from '@/lib/migrate-keys';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -20,6 +21,11 @@ export function Layout({ children, hasMessages = false, onExport, onImport, onSe
 
   useEffect(() => {
     setMounted(true);
+
+    // Migrate old localStorage API keys to secure session storage
+    migrateApiKeysToSession().catch((error) => {
+      console.error('Failed to migrate API keys:', error);
+    });
   }, []);
 
   if (!mounted) {
