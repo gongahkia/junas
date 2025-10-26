@@ -1,30 +1,27 @@
 import { Message } from '@/types/chat';
-import { ProviderFactory } from './provider-factory';
 import { StorageManager } from '@/lib/storage';
 
 export class ChatService {
-  private static async getProvider() {
-    const apiKeys = StorageManager.getApiKeys();
-    const settings = StorageManager.getSettings();
-    
-    // Find the first available provider
-    const availableProviders = ['gemini', 'openai', 'claude'];
-    for (const provider of availableProviders) {
-      if (apiKeys[provider] && apiKeys[provider].trim() !== '') {
-        return ProviderFactory.createProvider(provider as any, {
-          name: provider,
-          displayName: provider,
-          apiKey: apiKeys[provider],
-          model: provider === 'gemini' ? 'gemini-2.0-flash-exp' :
-                 provider === 'openai' ? 'gpt-4' : 'claude-3-5-sonnet-20241022',
-          temperature: settings.temperature,
-          maxTokens: settings.maxTokens,
-          enabled: true,
-        });
+  private static async getAvailableProvider(): Promise<string | null> {
+    // Check which provider is configured via session
+    try {
+      const response = await fetch('/api/auth/keys');
+      if (!response.ok) return null;
+
+      const { configured } = await response.json();
+
+      // Return first available provider in priority order
+      const availableProviders = ['gemini', 'openai', 'claude'];
+      for (const provider of availableProviders) {
+        if (configured[provider]) {
+          return provider;
+        }
       }
+    } catch (error) {
+      console.error('Error checking provider status:', error);
     }
-    
-    throw new Error('No API keys configured. Please add an API key in settings.');
+
+    return null;
   }
 
   static async sendMessage(
@@ -32,8 +29,14 @@ export class ChatService {
     onChunk?: (chunk: string) => void
   ): Promise<string> {
     try {
-      const provider = await this.getProvider();
-      
+      const provider = await this.getAvailableProvider();
+
+      if (!provider) {
+        throw new Error('No API keys configured. Please add an API key in settings.');
+      }
+
+      const settings = StorageManager.getSettings();
+
       // Convert messages to provider format
       const formattedMessages = messages.map(msg => ({
         role: msg.role,
@@ -57,21 +60,76 @@ Always provide accurate, helpful legal information while being clear about limit
         ...formattedMessages,
       ];
 
+      // Determine model based on provider
+      const model = provider === 'gemini' ? 'gemini-2.0-flash-exp' :
+                   provider === 'openai' ? 'gpt-4o' : 'claude-3-5-sonnet-20241022';
+
       let fullResponse = '';
 
       if (onChunk) {
-        // Streaming response
-        for await (const chunk of provider.generateStreamingResponse(messagesWithSystem)) {
-          if (chunk.content) {
-            fullResponse += chunk.content;
-            onChunk(chunk.content);
+        // Streaming response via proxy
+        const response = await fetch(`/api/providers/${provider}/chat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: messagesWithSystem,
+            model,
+            temperature: settings.temperature,
+            maxTokens: settings.maxTokens,
+            stream: true,
+          }),
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || 'Failed to get AI response');
+        }
+
+        const reader = response.body?.getReader();
+        const decoder = new TextDecoder();
+
+        if (reader) {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            const chunk = decoder.decode(value);
+            const lines = chunk.split('\n').filter(line => line.trim());
+
+            for (const line of lines) {
+              try {
+                const data = JSON.parse(line);
+                if (data.content) {
+                  fullResponse += data.content;
+                  onChunk(data.content);
+                }
+              } catch (e) {
+                // Skip invalid JSON lines
+              }
+            }
           }
-          if (chunk.done) break;
         }
       } else {
-        // Non-streaming response
-        const response = await provider.generateResponse(messagesWithSystem);
-        fullResponse = response.content;
+        // Non-streaming response via proxy
+        const response = await fetch(`/api/providers/${provider}/chat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: messagesWithSystem,
+            model,
+            temperature: settings.temperature,
+            maxTokens: settings.maxTokens,
+            stream: false,
+          }),
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || 'Failed to get AI response');
+        }
+
+        const result = await response.json();
+        fullResponse = result.content;
       }
 
       return fullResponse;
