@@ -1,17 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { LegalSearchEngine } from '@/lib/tools/legal-search';
+import { SearchRequestSchema, validateData } from '@/lib/validation';
+import { sanitizeSearchQuery } from '@/lib/sanitize';
+import { formatErrorResponse } from '@/lib/api-utils';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { query, type, topic } = body;
 
-    if (!query || typeof query !== 'string') {
+    // Validate input with Zod schema
+    const validation = validateData(SearchRequestSchema, body);
+    if (!validation.success) {
       return NextResponse.json(
-        { error: 'Query is required' },
+        { error: validation.error },
         { status: 400 }
       );
     }
+
+    // Sanitize search query
+    const query = sanitizeSearchQuery(validation.data.query);
+    const type = body.type;
+    const topic = body.topic;
 
     let results;
 
@@ -40,13 +49,8 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('Legal search API error:', error);
-    
     return NextResponse.json(
-      { 
-        error: error.message || 'Legal search failed',
-        success: false,
-      },
+      formatErrorResponse(error, 'Legal search'),
       { status: 500 }
     );
   }
