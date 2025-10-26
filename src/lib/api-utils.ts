@@ -50,3 +50,34 @@ export function calculateReadingTime(text: string, wordsPerMinute: number = 200)
 export function countWords(text: string): number {
   return text.split(/\s+/).filter(word => word.length > 0).length;
 }
+
+/**
+ * Format API error response with consistent structure
+ */
+export function formatErrorResponse(error: any, context: string): { error: string; code?: string; success: boolean } {
+  console.error(`API error in ${context}:`, error);
+
+  // Check for specific error types
+  if (error.message?.includes('timeout')) {
+    return {
+      error: 'Request timed out. Please try again.',
+      code: 'TIMEOUT',
+      success: false,
+    };
+  }
+
+  if (error.message?.includes('network')) {
+    return {
+      error: 'Network error. Please check your connection.',
+      code: 'NETWORK_ERROR',
+      success: false,
+    };
+  }
+
+  // Default error response
+  return {
+    error: error.message || `${context} failed`,
+    code: error.code || 'UNKNOWN_ERROR',
+    success: false,
+  };
+}

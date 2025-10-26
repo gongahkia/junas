@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { DocumentSummary } from '@/types/tool';
-import { validateTextInput, countWords, calculateReadingTime } from '@/lib/api-utils';
+import { validateTextInput, countWords, calculateReadingTime, formatErrorResponse } from '@/lib/api-utils';
 
 export async function POST(request: NextRequest) {
   try {
@@ -40,13 +40,8 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('Document summarization API error:', error);
-    
     return NextResponse.json(
-      { 
-        error: error.message || 'Document summarization failed',
-        success: false,
-      },
+      formatErrorResponse(error, 'Document summarization'),
       { status: 500 }
     );
   }

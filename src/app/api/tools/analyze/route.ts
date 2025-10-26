@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ContractAnalyzer } from '@/lib/tools/contract-analyzer';
-import { validateTextInput, calculateRiskLevel } from '@/lib/api-utils';
+import { validateTextInput, calculateRiskLevel, formatErrorResponse } from '@/lib/api-utils';
 
 export async function POST(request: NextRequest) {
   try {
@@ -30,13 +30,8 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('Contract analysis API error:', error);
-    
     return NextResponse.json(
-      { 
-        error: error.message || 'Contract analysis failed',
-        success: false,
-      },
+      formatErrorResponse(error, 'Contract analysis'),
       { status: 500 }
     );
   }
