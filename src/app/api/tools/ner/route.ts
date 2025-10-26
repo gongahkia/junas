@@ -1,24 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { NERProcessor } from '@/lib/tools/ner';
+import { NERRequestSchema, validateData } from '@/lib/validation';
+import { sanitizePlainText } from '@/lib/sanitize';
+import { formatErrorResponse } from '@/lib/api-utils';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { text } = body;
 
-    if (!text || typeof text !== 'string') {
+    // Validate input with Zod schema
+    const validation = validateData(NERRequestSchema, body);
+    if (!validation.success) {
       return NextResponse.json(
-        { error: 'Text is required' },
+        { error: validation.error },
         { status: 400 }
       );
     }
 
-    if (text.length > 100000) {
-      return NextResponse.json(
-        { error: 'Text too long. Maximum length is 100,000 characters.' },
-        { status: 400 }
-      );
-    }
+    // Sanitize text input
+    const text = sanitizePlainText(validation.data.text);
 
     // Extract entities
     const entities = await NERProcessor.extractEntities(text);
@@ -41,13 +41,8 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: any) {
-    console.error('NER API error:', error);
-    
     return NextResponse.json(
-      { 
-        error: error.message || 'NER processing failed',
-        success: false,
-      },
+      formatErrorResponse(error, 'NER processing'),
       { status: 500 }
     );
   }
