@@ -6,21 +6,25 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { gemini, openai, claude } = body;
 
-    // Validate that at least one key is provided
-    if (!gemini && !openai && !claude) {
-      return NextResponse.json(
-        { error: 'At least one API key must be provided' },
-        { status: 400 }
-      );
-    }
-
-    // Get session and store keys
+    // Get session and merge with existing keys
     const session = await getSession();
+
+    // Start with existing keys or empty object
+    const existingKeys = session.apiKeys || {};
+
+    // Update only the keys that were provided (preserve existing ones)
     session.apiKeys = {
-      ...(gemini && { gemini }),
-      ...(openai && { openai }),
-      ...(claude && { claude }),
+      ...existingKeys,
+      ...(gemini !== undefined && { gemini }),
+      ...(openai !== undefined && { openai }),
+      ...(claude !== undefined && { claude }),
     };
+
+    // Remove empty keys
+    if (gemini === '') delete session.apiKeys.gemini;
+    if (openai === '') delete session.apiKeys.openai;
+    if (claude === '') delete session.apiKeys.claude;
+
     session.createdAt = Date.now();
     await session.save();
 

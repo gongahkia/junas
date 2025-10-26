@@ -50,6 +50,9 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
     if (isOpen) {
       // Load current configuration status from session
       loadConfigStatus();
+    } else {
+      // Reset visibility state when modal closes
+      setShowKeys({});
     }
   }, [isOpen]);
 
