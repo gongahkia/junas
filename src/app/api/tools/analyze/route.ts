@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
       metadata: {
         textLength: text.length,
         processingTime: Date.now(),
-        riskLevel: this.calculateRiskLevel(analysis.riskFlags),
+        riskLevel: calculateRiskLevel(analysis.riskFlags),
       },
     });
 
