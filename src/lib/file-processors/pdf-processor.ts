@@ -1,10 +1,64 @@
-import * as pdfParse from 'pdf-parse';
-
-const pdf = (pdfParse as any).default || pdfParse;
-
 /**
  * PDF processing utilities with metadata extraction
  */
+
+// Setup canvas polyfills for Node.js environment
+let canvasPolyfillsLoaded = false;
+async function setupCanvasPolyfills() {
+  if (canvasPolyfillsLoaded) return;
+
+  try {
+    // Minimal polyfills for pdf.js canvas operations
+    // These are used by pdf.js but not required for text extraction
+    if (typeof globalThis.DOMMatrix === 'undefined') {
+      // @ts-ignore - Minimal DOMMatrix polyfill
+      globalThis.DOMMatrix = class DOMMatrix {
+        a = 1; b = 0; c = 0; d = 1; e = 0; f = 0;
+        constructor(values?: any) {
+          if (Array.isArray(values)) {
+            this.a = values[0] || 1;
+            this.b = values[1] || 0;
+            this.c = values[2] || 0;
+            this.d = values[3] || 1;
+            this.e = values[4] || 0;
+            this.f = values[5] || 0;
+          }
+        }
+        scale(x: number, y?: number) { return this; }
+        translate(x: number, y: number) { return this; }
+        multiply(other: any) { return this; }
+      };
+    }
+
+    if (typeof globalThis.ImageData === 'undefined') {
+      // @ts-ignore - Minimal ImageData polyfill
+      globalThis.ImageData = class ImageData {
+        width: number;
+        height: number;
+        data: Uint8ClampedArray;
+        constructor(width: number, height: number) {
+          this.width = width;
+          this.height = height;
+          this.data = new Uint8ClampedArray(width * height * 4);
+        }
+      };
+    }
+
+    if (typeof globalThis.Path2D === 'undefined') {
+      // @ts-ignore - Minimal Path2D polyfill
+      globalThis.Path2D = class Path2D {
+        moveTo(x: number, y: number) {}
+        lineTo(x: number, y: number) {}
+        bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number) {}
+        closePath() {}
+      };
+    }
+
+    canvasPolyfillsLoaded = true;
+  } catch (error) {
+    console.warn('Failed to load canvas polyfills:', error);
+  }
+}
 
 export interface PDFMetadata {
   title?: string;
@@ -32,6 +86,13 @@ export interface PDFProcessingResult {
  */
 export async function processPDF(buffer: Buffer): Promise<PDFProcessingResult> {
   try {
+    // Setup canvas polyfills before loading pdf-parse
+    await setupCanvasPolyfills();
+
+    // Dynamic import to avoid loading in wrong context
+    const pdfParse = await import('pdf-parse');
+    const pdf = (pdfParse as any).default || pdfParse;
+
     const data = await pdf(buffer);
 
     // Extract metadata

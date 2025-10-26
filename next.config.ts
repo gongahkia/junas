@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   // Turbopack configuration for Next.js 16+
   turbopack: {},
 
+  // Server-only modules
+  serverExternalPackages: ['pdf-parse'],
+
   // Keep webpack config for fallback/compatibility
   webpack: (config, { isServer }) => {
     // Add WebAssembly support
@@ -36,6 +39,14 @@ const nextConfig: NextConfig = {
         fs: false,
         path: false,
         crypto: false,
+      };
+    }
+
+    // Exclude pdf-parse from client bundles
+    if (!isServer) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        'pdf-parse': false,
       };
     }
 
