@@ -110,7 +110,7 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
         <DialogHeader>
           <DialogTitle>API Key Configuration</DialogTitle>
           <DialogDescription>
-            Configure your API keys for different AI providers. Your keys are stored locally and never sent to our servers.
+            Configure your API keys for different AI providers. Your keys are stored securely in encrypted server-side sessions.
           </DialogDescription>
         </DialogHeader>
 
@@ -196,8 +196,9 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
         </div>
 
         <div className="text-xs text-muted-foreground space-y-1">
-          <p><strong>Security Notice:</strong> Your API keys are stored in encrypted HTTP-only cookies for maximum security.</p>
-          <p><strong>Privacy:</strong> All AI requests are proxied through our backend to protect your keys from client-side exposure.</p>
+          <p><strong>Security:</strong> Your API keys are stored in encrypted HTTP-only session cookies on our server and never exposed to the browser.</p>
+          <p><strong>Privacy:</strong> All AI requests are proxied through our backend, so your keys remain secure and protected from client-side exposure.</p>
+          <p><strong>Storage:</strong> Keys are stored in server-side sessions and cleared when your session ends. Your keys are never logged or persisted to our database.</p>
         </div>
       </DialogContent>
     </Dialog>

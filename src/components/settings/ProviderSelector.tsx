@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Check, X } from 'lucide-react';
-import { StorageManager } from '@/lib/storage';
 
 interface ProviderSelectorProps {
   currentProvider: string;
@@ -36,15 +35,31 @@ const providers = [
 ];
 
 export function ProviderSelector({ currentProvider, onProviderChange }: ProviderSelectorProps) {
-  const [apiKeys, setApiKeys] = useState<Record<string, string>>({});
+  const [configured, setConfigured] = useState<Record<string, boolean>>({
+    gemini: false,
+    openai: false,
+    claude: false,
+  });
 
   useEffect(() => {
-    const keys = StorageManager.getApiKeys();
-    setApiKeys(keys);
+    // Load configuration status from server-side session
+    loadConfigStatus();
   }, []);
 
+  const loadConfigStatus = async () => {
+    try {
+      const response = await fetch('/api/auth/keys');
+      if (response.ok) {
+        const { configured: configuredKeys } = await response.json();
+        setConfigured(configuredKeys);
+      }
+    } catch (error) {
+      console.error('Failed to load API key status:', error);
+    }
+  };
+
   const hasApiKey = (provider: string) => {
-    return apiKeys[provider] && apiKeys[provider].trim() !== '';
+    return configured[provider];
   };
 
   return (
@@ -127,7 +142,7 @@ export function ProviderSelector({ currentProvider, onProviderChange }: Provider
 
       <div className="text-xs text-muted-foreground">
         <p>
-          <strong>Note:</strong> You need to configure an API key for your chosen provider in the API Keys section.
+          <strong>Note:</strong> Configure API keys in the API Keys section. Keys are securely stored in your server-side session.
         </p>
       </div>
     </div>

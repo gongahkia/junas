@@ -1,4 +1,6 @@
-import pdf from 'pdf-parse';
+import * as pdfParse from 'pdf-parse';
+
+const pdf = (pdfParse as any).default || pdfParse;
 
 /**
  * PDF processing utilities with metadata extraction

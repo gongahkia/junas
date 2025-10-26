@@ -3,7 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
 
-  // Enable WebAssembly support for Transformers.js
+  // Turbopack configuration for Next.js 16+
+  turbopack: {},
+
+  // Keep webpack config for fallback/compatibility
   webpack: (config, { isServer }) => {
     // Add WebAssembly support
     config.experiments = {
