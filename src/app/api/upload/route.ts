@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { validateFile } from '@/lib/file-validation';
+import { sanitizeFilename } from '@/lib/sanitize';
+import { formatErrorResponse } from '@/lib/api-utils';
 
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const file = formData.get('file') as File;
-    
+
     if (!file) {
       return NextResponse.json(
         { error: 'No file provided' },
@@ -12,55 +15,43 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check file size (10MB limit)
-    const maxSize = 10 * 1024 * 1024; // 10MB
-    if (file.size > maxSize) {
+    // Sanitize filename
+    const safeName = sanitizeFilename(file.name);
+
+    // Read file buffer for magic number validation
+    const buffer = await file.arrayBuffer();
+
+    // Validate file using magic numbers (not just MIME type)
+    const validation = await validateFile({
+      buffer,
+      name: safeName,
+      size: file.size,
+    });
+
+    if (!validation.valid) {
       return NextResponse.json(
-        { error: 'File too large. Maximum size is 10MB.' },
+        { error: validation.error || 'File validation failed' },
         { status: 400 }
       );
     }
 
-    // Check file type
-    const allowedTypes = [
-      'application/pdf',
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'image/jpeg',
-      'image/png',
-      'image/gif',
-      'image/bmp',
-      'image/webp',
-    ];
-
-    if (!allowedTypes.includes(file.type)) {
-      return NextResponse.json(
-        { error: 'Unsupported file type. Only PDF, DOCX, and image files are supported.' },
-        { status: 400 }
-      );
-    }
-
-    // For now, return a simple success response
-    // File processing will be handled client-side to avoid server-side issues
+    // Return validated file information
     return NextResponse.json({
       success: true,
-      text: `File "${file.name}" uploaded successfully. File processing will be implemented client-side.`,
+      text: `File "${safeName}" uploaded and validated successfully.`,
       metadata: {
-        fileName: file.name,
+        fileName: safeName,
         fileSize: file.size,
-        fileType: file.type,
-        wordCount: 0,
-        readingTime: 0,
+        fileType: validation.mimeType,
+        detectedExtension: validation.ext,
+        wordCount: 0, // To be implemented in file processing task
+        readingTime: 0, // To be implemented in file processing task
       },
     });
 
   } catch (error: any) {
-    console.error('File upload API error:', error);
-    
     return NextResponse.json(
-      { 
-        error: error.message || 'File upload failed',
-        success: false,
-      },
+      formatErrorResponse(error, 'File upload'),
       { status: 500 }
     );
   }
