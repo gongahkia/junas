@@ -1,20 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { DocumentSummary } from '@/types/tool';
-import { validateTextInput, countWords, calculateReadingTime, formatErrorResponse } from '@/lib/api-utils';
+import { countWords, calculateReadingTime, formatErrorResponse } from '@/lib/api-utils';
+import { SummarizeRequestSchema, validateData } from '@/lib/validation';
+import { sanitizePlainText } from '@/lib/sanitize';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { text, type } = body;
 
-    // Validate input
-    const validation = validateTextInput(text, 100000);
-    if (!validation.valid) {
+    // Validate input with Zod schema
+    const validation = validateData(SummarizeRequestSchema, body);
+    if (!validation.success) {
       return NextResponse.json(
         { error: validation.error },
         { status: 400 }
       );
     }
+
+    // Sanitize text input
+    const text = sanitizePlainText(validation.data.text);
+    const type = validation.data.type || 'general';
 
     // Generate summary based on type
     let summary: DocumentSummary;
