@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { NERProcessor } from '@/lib/tools/ner';
+import { extractLegalEntities } from '@/lib/ml/ner-processor';
 import { NERRequestSchema, validateData } from '@/lib/validation';
 import { sanitizePlainText } from '@/lib/sanitize';
 import { formatErrorResponse } from '@/lib/api-utils';
@@ -20,23 +21,43 @@ export async function POST(request: NextRequest) {
     // Sanitize text input
     const text = sanitizePlainText(validation.data.text);
 
-    // Extract entities
-    const entities = await NERProcessor.extractEntities(text);
-    
-    // Extract additional information
-    const parties = await NERProcessor.extractParties(text);
+    const startTime = performance.now();
+
+    // Use ML-based entity extraction for general entities
+    const mlEntities = await extractLegalEntities(text);
+
+    // Use specialized extractors for legal-specific entities
     const dates = await NERProcessor.extractDates(text);
     const monetaryAmounts = await NERProcessor.extractMonetaryAmounts(text);
+    const parties = await NERProcessor.extractParties(text);
+
+    // Combine ML and regex-based results
+    const combinedEntities = {
+      PERSON: mlEntities.parties.map(e => e.text),
+      ORGANIZATION: mlEntities.organizations.map(e => e.text),
+      LOCATION: mlEntities.locations.map(e => e.text),
+      DATE: [...new Set([...mlEntities.dates.map(e => e.text), ...dates.dates])],
+      MONEY: monetaryAmounts.amounts,
+      // Keep additional ML entities
+      ALL_ML: mlEntities.allEntities,
+    };
+
+    const processingTime = performance.now() - startTime;
 
     return NextResponse.json({
       success: true,
-      entities,
+      entities: combinedEntities,
       parties,
       dates,
       monetaryAmounts,
+      mlConfidence: mlEntities.allEntities.length > 0
+        ? mlEntities.allEntities.reduce((sum, e) => sum + e.score, 0) / mlEntities.allEntities.length
+        : 0,
       metadata: {
         textLength: text.length,
-        processingTime: Date.now(),
+        processingTime,
+        mlEntitiesCount: mlEntities.allEntities.length,
+        method: 'hybrid-ml',
       },
     });
 
