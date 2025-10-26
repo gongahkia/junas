@@ -4,10 +4,12 @@ import { ProviderResponse, StreamingResponse, ToolCall, ProviderCapabilities, Pr
 export class GeminiProvider {
   private client: GoogleGenerativeAI;
   private model: string;
+  private apiKey: string;
 
-  constructor(apiKey: string, model: string = 'gemini-1.5-flash-latest') {
+  constructor(apiKey: string, model: string = 'gemini-1.5-flash') {
     this.client = new GoogleGenerativeAI(apiKey);
     this.model = model;
+    this.apiKey = apiKey;
   }
 
   static getCapabilities(): ProviderCapabilities {
@@ -17,12 +19,35 @@ export class GeminiProvider {
       supportsVision: true,
       maxContextLength: 1000000, // 1M tokens
       availableModels: [
-        'gemini-1.5-flash-latest',
-        'gemini-1.5-pro-latest',
-        'gemini-1.0-pro-latest',
+        'gemini-1.5-flash',
+        'gemini-1.5-pro',
+        'gemini-1.0-pro',
         'gemini-2.0-flash-exp',
+        'gemini-pro',
       ],
     };
+  }
+
+  async listAvailableModels(): Promise<string[]> {
+    try {
+      // Try to list models using the API
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models?key=${this.apiKey}`,
+        { method: 'GET' }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        const models = data.models?.map((m: any) => m.name.replace('models/', '')) || [];
+        console.log('[Gemini] Available models:', models);
+        return models;
+      }
+    } catch (error) {
+      console.error('[Gemini] Failed to list models:', error);
+    }
+
+    // Fallback to default models
+    return GeminiProvider.getCapabilities().availableModels;
   }
 
   async generateResponse(
@@ -34,7 +59,8 @@ export class GeminiProvider {
     }
   ): Promise<ProviderResponse> {
     try {
-      const model = this.client.getGenerativeModel({ 
+      console.log('[Gemini] Using model:', this.model);
+      const model = this.client.getGenerativeModel({
         model: this.model,
         generationConfig: {
           temperature: options?.temperature || 0.7,
@@ -44,7 +70,7 @@ export class GeminiProvider {
 
       // Convert messages to Gemini format
       const prompt = this.formatMessagesForGemini(messages);
-      
+
       const result = await model.generateContent(prompt);
       const response = await result.response;
       const text = response.text();
@@ -55,6 +81,7 @@ export class GeminiProvider {
         finishReason: 'stop',
       };
     } catch (error: any) {
+      console.error('[Gemini] Error details:', error);
       throw this.handleError(error);
     }
   }
@@ -128,7 +155,7 @@ export class GeminiProvider {
     if (error.message?.includes('not found') || error.message?.includes('404')) {
       return {
         code: 'MODEL_NOT_FOUND',
-        message: `Model "${this.model}" not found. Please try using "gemini-1.5-flash-latest" or "gemini-1.5-pro-latest". Check available models at https://ai.google.dev/models/gemini`,
+        message: `Model "${this.model}" not found. Try these models: "gemini-1.5-flash", "gemini-1.5-pro", or "gemini-pro". Check available models at https://ai.google.dev/gemini-api/docs/models/gemini`,
         retryable: false,
       };
     }

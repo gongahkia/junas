@@ -15,7 +15,7 @@ export class ChatService {
           name: provider,
           displayName: provider,
           apiKey: apiKeys[provider],
-          model: provider === 'gemini' ? 'gemini-1.5-flash-latest' :
+          model: provider === 'gemini' ? 'gemini-1.5-flash' :
                  provider === 'openai' ? 'gpt-4' : 'claude-3-5-sonnet-20241022',
           temperature: settings.temperature,
           maxTokens: settings.maxTokens,
