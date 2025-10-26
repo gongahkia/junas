@@ -1,21 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { DocumentSummary } from '@/types/tool';
+import { validateTextInput, countWords, calculateReadingTime } from '@/lib/api-utils';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { text, type } = body;
 
-    if (!text || typeof text !== 'string') {
+    // Validate input
+    const validation = validateTextInput(text, 100000);
+    if (!validation.valid) {
       return NextResponse.json(
-        { error: 'Text is required' },
-        { status: 400 }
-      );
-    }
-
-    if (text.length > 100000) {
-      return NextResponse.json(
-        { error: 'Text too long. Maximum length is 100,000 characters.' },
+        { error: validation.error },
         { status: 400 }
       );
     }
@@ -78,8 +74,8 @@ async function summarizeContract(text: string): Promise<DocumentSummary> {
     oneSentence,
     paragraph,
     keyPoints,
-    wordCount: text.split(/\s+/).length,
-    readingTime: Math.ceil(text.split(/\s+/).length / 200),
+    wordCount: countWords(text),
+    readingTime: calculateReadingTime(text),
   };
 }
 
@@ -105,8 +101,8 @@ async function summarizeCase(text: string): Promise<DocumentSummary> {
     oneSentence,
     paragraph,
     keyPoints,
-    wordCount: text.split(/\s+/).length,
-    readingTime: Math.ceil(text.split(/\s+/).length / 200),
+    wordCount: countWords(text),
+    readingTime: calculateReadingTime(text),
   };
 }
 
@@ -132,8 +128,8 @@ async function summarizeStatute(text: string): Promise<DocumentSummary> {
     oneSentence,
     paragraph,
     keyPoints,
-    wordCount: text.split(/\s+/).length,
-    readingTime: Math.ceil(text.split(/\s+/).length / 200),
+    wordCount: countWords(text),
+    readingTime: calculateReadingTime(text),
   };
 }
 
