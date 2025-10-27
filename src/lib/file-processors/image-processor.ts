@@ -1,5 +1,4 @@
 import Tesseract, { createWorker } from 'tesseract.js';
-import path from 'path';
 
 /**
  * Image processing utilities with OCR support
@@ -34,13 +33,8 @@ export async function processImage(
   language: string = 'eng'
 ): Promise<ImageProcessingResult> {
   try {
-    // Find the tesseract.js node_modules path dynamically
-    const tesseractPath = path.dirname(require.resolve('tesseract.js'));
-
-    // Use worker-based approach with explicit paths for Next.js
+    // Use simple worker creation - let tesseract.js handle paths automatically
     const worker = await createWorker(language, 1, {
-      workerPath: path.join(tesseractPath, 'src', 'worker-script', 'node', 'index.js'),
-      corePath: path.join(tesseractPath, 'src', 'worker-script', 'node'),
       logger: (m) => {
         // Optional: Log progress
         if (m.status === 'recognizing text') {

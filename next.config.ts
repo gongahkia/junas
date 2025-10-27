@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   turbopack: {},
 
   // Server-only modules
-  serverExternalPackages: ['pdf-parse', 'tesseract.js'],
+  serverExternalPackages: ['pdf-parse'],
 
   // Keep webpack config for fallback/compatibility
   webpack: (config, { isServer }) => {

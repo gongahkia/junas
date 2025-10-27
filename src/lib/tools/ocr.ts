@@ -1,6 +1,5 @@
 import { createWorker } from 'tesseract.js';
 import { OCRResult, BoundingBox } from '@/types/tool';
-import path from 'path';
 
 export class OCRProcessor {
   private static worker: any = null;
@@ -10,13 +9,8 @@ export class OCRProcessor {
     if (this.isInitialized) return;
 
     try {
-      // Find the tesseract.js node_modules path dynamically
-      const tesseractPath = path.dirname(require.resolve('tesseract.js'));
-
-      this.worker = await createWorker('eng', 1, {
-        workerPath: path.join(tesseractPath, 'src', 'worker-script', 'node', 'index.js'),
-        corePath: path.join(tesseractPath, 'src', 'worker-script', 'node'),
-      });
+      // Use simple worker creation - let tesseract.js handle paths automatically
+      this.worker = await createWorker('eng');
       this.isInitialized = true;
     } catch (error) {
       console.error('Failed to initialize OCR worker:', error);
