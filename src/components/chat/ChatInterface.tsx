@@ -37,6 +37,21 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
     }
   }, []);
 
+  // Handle import messages
+  useEffect(() => {
+    const handler = (event: any) => {
+      const importedMessages = event.detail.messages;
+      setMessages(prev => [...prev, ...importedMessages]);
+      addToast({
+        type: 'success',
+        title: 'Imported',
+        description: 'Previous conversation has been summarized and added as context',
+        duration: 3000
+      });
+    };
+    window.addEventListener('junas-import', handler);
+    return () => window.removeEventListener('junas-import', handler);
+  }, [addToast]);
 
   // Save messages to storage whenever they change
   useEffect(() => {

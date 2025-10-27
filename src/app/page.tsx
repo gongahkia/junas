@@ -6,6 +6,7 @@ import { ChatInterface } from '@/components/chat/ChatInterface';
 import { ApiKeyModal } from '@/components/settings/ApiKeyModal';
 import { NewChatDialog } from '@/components/chat/NewChatDialog';
 import { ExportDialog } from '@/components/chat/ExportDialog';
+import { ImportDialog } from '@/components/chat/ImportDialog';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,12 +19,21 @@ export default function Home() {
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showNewChatDialog, setShowNewChatDialog] = useState(false);
   const [showExportDialog, setShowExportDialog] = useState(false);
+  const [showImportDialog, setShowImportDialog] = useState(false);
   const [currentProvider, setCurrentProvider] = useState('gemini');
   const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
   const [messages, setMessages] = useState<Message[]>([]);
 
   const handleExport = () => {
     setShowExportDialog(true);
+  };
+
+  const handleImport = (importedMessages: Message[]) => {
+    // Dispatch import event to ChatInterface
+    const evt = new CustomEvent('junas-import', {
+      detail: { messages: importedMessages }
+    });
+    window.dispatchEvent(evt);
   };
 
   const handleSettings = () => {
@@ -61,6 +71,7 @@ export default function Home() {
     <Layout
       hasMessages={hasMessages}
       onExport={handleExport}
+      onImport={() => setShowImportDialog(true)}
       onSettings={handleSettings}
       onNewChat={handleNewChat}
     >
@@ -88,6 +99,13 @@ export default function Home() {
         isOpen={showExportDialog}
         onClose={() => setShowExportDialog(false)}
         messages={messages}
+      />
+
+      {/* Import Dialog */}
+      <ImportDialog
+        isOpen={showImportDialog}
+        onClose={() => setShowImportDialog(false)}
+        onImport={handleImport}
       />
 
       {/* Settings Modal */}
