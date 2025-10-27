@@ -1,4 +1,5 @@
-import Tesseract from 'tesseract.js';
+import Tesseract, { createWorker } from 'tesseract.js';
+import path from 'path';
 
 /**
  * Image processing utilities with OCR support
@@ -33,18 +34,24 @@ export async function processImage(
   language: string = 'eng'
 ): Promise<ImageProcessingResult> {
   try {
-    // Perform OCR using Tesseract with explicit worker paths
-    const result = await Tesseract.recognize(buffer, language, {
-      workerPath: 'https://cdn.jsdelivr.net/npm/tesseract.js@6.0.1/dist/worker.min.js',
-      langPath: 'https://tessdata.projectnaptha.com/4.0.0',
-      corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@6.0.1/tesseract-core.wasm.js',
+    // Find the tesseract.js node_modules path dynamically
+    const tesseractPath = path.dirname(require.resolve('tesseract.js'));
+
+    // Use worker-based approach with explicit paths for Next.js
+    const worker = await createWorker(language, 1, {
+      workerPath: path.join(tesseractPath, 'src', 'worker-script', 'node', 'index.js'),
+      corePath: path.join(tesseractPath, 'src', 'worker-script', 'node'),
       logger: (m) => {
         // Optional: Log progress
         if (m.status === 'recognizing text') {
-          console.log(`OCR Progress: ${Math.round(m.progress * 100)}%`);
+          console.log(`OCR Progress: ${Math.round((m.progress || 0) * 100)}%`);
         }
       },
     });
+
+    const result = await worker.recognize(buffer);
+
+    await worker.terminate();
 
     const cleanText = cleanOCRText(result.data.text);
     const wordCount = countWords(cleanText);
@@ -62,6 +69,10 @@ export async function processImage(
       success: true,
     };
   } catch (error) {
+    console.error('Image processing error:', error);
+    if (error instanceof Error) {
+      console.error('Error stack:', error.stack);
+    }
     return {
       text: '',
       confidence: 0,

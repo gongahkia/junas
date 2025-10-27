@@ -69,6 +69,8 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: any) {
+    console.error('Upload error:', error);
+    console.error('Error stack:', error.stack);
     return NextResponse.json(
       formatErrorResponse(error, 'File upload'),
       { status: 500 }
