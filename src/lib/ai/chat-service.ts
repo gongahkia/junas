@@ -37,11 +37,27 @@ export class ChatService {
 
       const settings = StorageManager.getSettings();
 
-      // Convert messages to provider format
-      const formattedMessages = messages.map(msg => ({
-        role: msg.role,
-        content: msg.content,
-      }));
+      // Convert messages to provider format, including file attachments
+      const formattedMessages = messages.map(msg => {
+        let content = msg.content;
+
+        // If the message has file attachments, append their content
+        if (msg.attachments && msg.attachments.length > 0) {
+          const attachmentContents = msg.attachments
+            .map(att => {
+              // Include file name and content
+              return `\n\n[File: ${att.name}]\n${att.content}`;
+            })
+            .join('\n');
+
+          content = content + attachmentContents;
+        }
+
+        return {
+          role: msg.role,
+          content: content,
+        };
+      });
 
       // Add system prompt for legal context
       const systemPrompt = `You are Junas, a specialized AI legal assistant for Singapore law. You help lawyers, legal professionals, and individuals with:
@@ -141,22 +157,15 @@ Always provide accurate, helpful legal information while being clear about limit
 
   static async processFile(file: File): Promise<{ text: string; metadata: any }> {
     try {
-      const formData = new FormData();
-      formData.append('file', file);
+      // Import the FileProcessor dynamically to avoid bundling issues
+      const { FileProcessor } = await import('@/lib/file-processor');
 
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
+      // Process the file client-side
+      const processed = await FileProcessor.processFile(file);
 
-      if (!response.ok) {
-        throw new Error('File processing failed');
-      }
-
-      const result = await response.json();
       return {
-        text: result.text,
-        metadata: result.metadata,
+        text: processed.text,
+        metadata: processed.metadata,
       };
     } catch (error: any) {
       console.error('File processing error:', error);

@@ -50,29 +50,30 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Return processed file information
+    // Return success - file processing happens client-side
+    // This avoids issues with pdf-parse and mammoth in Next.js API routes
     return NextResponse.json({
       success: true,
-      text: processingResult.text,
-      html: processingResult.html,
+      text: '',
       metadata: {
         fileName: safeName,
         fileSize: file.size,
-        fileType: validation.mimeType,
-        detectedExtension: validation.ext,
-        wordCount: processingResult.metadata.wordCount,
-        readingTimeMinutes: processingResult.metadata.readingTimeMinutes,
-        processedAs: processingResult.fileType,
-        ...processingResult.metadata,
+        fileType: file.type,
       },
       warnings: processingResult.warnings,
     });
 
   } catch (error: any) {
-    console.error('Upload error:', error);
+    console.error('File upload API error:', error);
     console.error('Error stack:', error.stack);
+    console.error('Error details:', JSON.stringify(error, null, 2));
+
     return NextResponse.json(
-      formatErrorResponse(error, 'File upload'),
+      {
+        error: error.message || 'File upload failed',
+        errorDetails: error.toString(),
+        success: false,
+      },
       { status: 500 }
     );
   }
