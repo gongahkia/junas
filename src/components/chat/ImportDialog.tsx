@@ -13,6 +13,8 @@ import { Button } from '@/components/ui/button';
 import { Message } from '@/types/chat';
 import { Upload, FileJson, FileText, FileType } from 'lucide-react';
 import { useToast } from '@/components/ui/toast';
+import { ChatService } from '@/lib/ai/chat-service';
+import { generateId } from '@/lib/utils';
 
 interface ImportDialogProps {
   isOpen: boolean;
@@ -41,11 +43,24 @@ export function ImportDialog({ isOpen, onClose, onImport }: ImportDialogProps) {
         throw new Error('No messages found in the imported file');
       }
 
-      onImport(messages);
+      // Summarize the imported conversation
+      const summary = await summarizeConversation(messages);
+
+      // Create a system message with the summary
+      const summaryMessage: Message = {
+        id: generateId(),
+        role: 'system',
+        content: `Previous conversation summary:\n\n${summary}\n\nThe user is now continuing this conversation. Use this summary as context for the ongoing discussion.`,
+        timestamp: new Date(),
+      };
+
+      // Send only the summary message
+      onImport([summaryMessage]);
+
       addToast({
         type: 'success',
         title: 'Import Successful',
-        description: `Imported ${messages.length} messages`,
+        description: `Summarized ${messages.length} messages and added to context`,
         duration: 3000,
       });
       onClose();
@@ -62,6 +77,48 @@ export function ImportDialog({ isOpen, onClose, onImport }: ImportDialogProps) {
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
+    }
+  };
+
+  const summarizeConversation = async (messages: Message[]): Promise<string> => {
+    try {
+      // Format the conversation for summarization
+      const conversationText = messages
+        .map(msg => `${msg.role.toUpperCase()}: ${msg.content}`)
+        .join('\n\n');
+
+      // Create a summarization prompt
+      const summarizationPrompt: Message[] = [
+        {
+          id: 'system-prompt',
+          role: 'system',
+          content: 'You are a legal AI assistant specializing in Singapore law. You are reviewing a previous conversation to provide a concise summary.',
+          timestamp: new Date(),
+        },
+        {
+          id: 'user-prompt',
+          role: 'user',
+          content: `Please provide a comprehensive but concise summary of the following legal conversation. Focus on:
+- The main legal topics and questions discussed
+- Key legal issues, statutes, cases, or regulations mentioned
+- Important conclusions or advice given
+- Any action items or next steps mentioned
+
+Conversation to summarize:
+
+${conversationText}
+
+Provide the summary in a clear, structured format that will help me continue this conversation with full context.`,
+          timestamp: new Date(),
+        },
+      ];
+
+      // Get the summary from the AI
+      const summary = await ChatService.sendMessage(summarizationPrompt);
+      return summary;
+    } catch (error: any) {
+      console.error('Summarization error:', error);
+      throw new Error('Failed to summarize conversation. Please check your API keys.');
     }
   };
 
@@ -250,7 +307,7 @@ export function ImportDialog({ isOpen, onClose, onImport }: ImportDialogProps) {
 
         {isProcessing && (
           <div className="text-sm text-muted-foreground text-center py-2">
-            Processing import...
+            Importing and summarizing conversation...
           </div>
         )}
 
