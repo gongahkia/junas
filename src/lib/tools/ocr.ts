@@ -7,12 +7,13 @@ export class OCRProcessor {
 
   static async initialize(): Promise<void> {
     if (this.isInitialized) return;
-    
+
     try {
-      this.worker = await createWorker('eng');
-      await this.worker.load();
-      await this.worker.loadLanguage('eng');
-      await this.worker.initialize('eng');
+      this.worker = await createWorker('eng', 1, {
+        workerPath: 'https://cdn.jsdelivr.net/npm/tesseract.js@6.0.1/dist/worker.min.js',
+        langPath: 'https://tessdata.projectnaptha.com/4.0.0',
+        corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@6.0.1/tesseract-core.wasm.js',
+      });
       this.isInitialized = true;
     } catch (error) {
       console.error('Failed to initialize OCR worker:', error);

@@ -33,8 +33,11 @@ export async function processImage(
   language: string = 'eng'
 ): Promise<ImageProcessingResult> {
   try {
-    // Perform OCR using Tesseract
+    // Perform OCR using Tesseract with explicit worker paths
     const result = await Tesseract.recognize(buffer, language, {
+      workerPath: 'https://cdn.jsdelivr.net/npm/tesseract.js@6.0.1/dist/worker.min.js',
+      langPath: 'https://tessdata.projectnaptha.com/4.0.0',
+      corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@6.0.1/tesseract-core.wasm.js',
       logger: (m) => {
         // Optional: Log progress
         if (m.status === 'recognizing text') {
