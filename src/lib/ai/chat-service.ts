@@ -33,12 +33,28 @@ export class ChatService {
   ): Promise<string> {
     try {
       const provider = await this.getProvider();
-      
-      // Convert messages to provider format
-      const formattedMessages = messages.map(msg => ({
-        role: msg.role,
-        content: msg.content,
-      }));
+
+      // Convert messages to provider format, including file attachments
+      const formattedMessages = messages.map(msg => {
+        let content = msg.content;
+
+        // If the message has file attachments, append their content
+        if (msg.attachments && msg.attachments.length > 0) {
+          const attachmentContents = msg.attachments
+            .map(att => {
+              // Include file name and content
+              return `\n\n[File: ${att.name}]\n${att.content}`;
+            })
+            .join('\n');
+
+          content = content + attachmentContents;
+        }
+
+        return {
+          role: msg.role,
+          content: content,
+        };
+      });
 
       // Add system prompt for legal context
       const systemPrompt = `You are Junas, a specialized AI legal assistant for Singapore law. You help lawyers, legal professionals, and individuals with:
