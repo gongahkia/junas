@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { DocumentParser } from '@/lib/tools/document-parser';
 
 export async function POST(request: NextRequest) {
   try {
@@ -40,72 +39,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Process document files (PDF, DOCX)
-    if (file.type === 'application/pdf' ||
-        file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
-
-      const arrayBuffer = await file.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
-
-      const parsed = await DocumentParser.parseDocument(buffer, file.name);
-
-      if (!parsed.success) {
-        return NextResponse.json(
-          { error: parsed.error || 'Failed to parse document' },
-          { status: 500 }
-        );
-      }
-
-      return NextResponse.json({
-        success: true,
-        text: parsed.text,
-        metadata: {
-          fileName: file.name,
-          fileSize: file.size,
-          fileType: file.type,
-          wordCount: parsed.metadata.wordCount,
-          readingTime: DocumentParser.calculateReadingTime(parsed.text),
-          pageCount: parsed.metadata.pageCount,
-          title: parsed.metadata.title,
-          author: parsed.metadata.author,
-        },
-      });
-    }
-
-    // For image files, return basic info (OCR will be handled separately if needed)
-    if (file.type.startsWith('image/')) {
-      return NextResponse.json({
-        success: true,
-        text: `[Image file: ${file.name}]`,
-        metadata: {
-          fileName: file.name,
-          fileSize: file.size,
-          fileType: file.type,
-          wordCount: 0,
-          readingTime: 0,
-        },
-      });
-    }
-
-    // Fallback for other file types
+    // Return success - file processing happens client-side
+    // This avoids issues with pdf-parse and mammoth in Next.js API routes
     return NextResponse.json({
       success: true,
-      text: `[Attached file: ${file.name}]`,
+      text: '',
       metadata: {
         fileName: file.name,
         fileSize: file.size,
         fileType: file.type,
-        wordCount: 0,
-        readingTime: 0,
       },
     });
 
   } catch (error: any) {
     console.error('File upload API error:', error);
+    console.error('Error stack:', error.stack);
+    console.error('Error details:', JSON.stringify(error, null, 2));
 
     return NextResponse.json(
       {
         error: error.message || 'File upload failed',
+        errorDetails: error.toString(),
         success: false,
       },
       { status: 500 }
