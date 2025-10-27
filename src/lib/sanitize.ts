@@ -42,26 +42,6 @@ export async function sanitizeMessageContent(content: string, allowHTML: boolean
 }
 
 /**
- * Sanitize filename to prevent path traversal attacks
- */
-export function sanitizeFilename(filename: string): string {
-  // Remove any path components
-  let sanitized = filename.replace(/^.*[\\\/]/, '');
-
-  // Remove potentially dangerous characters
-  sanitized = sanitized.replace(/[<>:"|?*\x00-\x1F]/g, '');
-
-  // Limit length
-  if (sanitized.length > 255) {
-    const ext = sanitized.split('.').pop() || '';
-    const nameWithoutExt = sanitized.slice(0, sanitized.lastIndexOf('.'));
-    sanitized = nameWithoutExt.slice(0, 255 - ext.length - 1) + '.' + ext;
-  }
-
-  return sanitized || 'unnamed';
-}
-
-/**
  * Sanitize search query to prevent injection attacks
  */
 export function sanitizeSearchQuery(query: string): string {

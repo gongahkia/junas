@@ -59,13 +59,6 @@ export const NERRequestSchema = z.object({
   entityTypes: z.array(z.enum(['PERSON', 'ORG', 'DATE', 'MONEY', 'LAW', 'GPE'])).optional(),
 });
 
-// File upload schema (for metadata validation)
-export const FileUploadSchema = z.object({
-  filename: z.string().min(1),
-  mimeType: z.string().regex(/^(application\/pdf|application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.document|image\/(jpeg|png|gif|bmp|webp))$/),
-  size: z.number().max(10485760, 'File size exceeds 10MB limit'),
-});
-
 /**
  * Validate data against a schema
  */

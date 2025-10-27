@@ -6,23 +6,8 @@ const nextConfig: NextConfig = {
   // Turbopack configuration for Next.js 16+
   turbopack: {},
 
-  // Server-only modules
-  serverExternalPackages: ['pdf-parse'],
-
   // Keep webpack config for fallback/compatibility
   webpack: (config, { isServer }) => {
-    // Add WebAssembly support
-    config.experiments = {
-      ...config.experiments,
-      asyncWebAssembly: true,
-    };
-
-    // Handle .wasm files
-    config.module.rules.push({
-      test: /\.wasm$/,
-      type: 'webassembly/async',
-    });
-
     // Transformers.js specific configuration
     config.resolve.alias = {
       ...config.resolve.alias,
@@ -42,22 +27,7 @@ const nextConfig: NextConfig = {
       };
     }
 
-    // Exclude pdf-parse from client bundles
-    if (!isServer) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        'pdf-parse': false,
-      };
-    }
-
     return config;
-  },
-
-  // Increase body size limit for file uploads
-  experimental: {
-    serverActions: {
-      bodySizeLimit: '10mb',
-    },
   },
 };
 

@@ -37,27 +37,11 @@ export class ChatService {
 
       const settings = StorageManager.getSettings();
 
-      // Convert messages to provider format, including file attachments
-      const formattedMessages = messages.map(msg => {
-        let content = msg.content;
-
-        // If the message has file attachments, append their content
-        if (msg.attachments && msg.attachments.length > 0) {
-          const attachmentContents = msg.attachments
-            .map(att => {
-              // Include file name and content
-              return `\n\n[File: ${att.name}]\n${att.content}`;
-            })
-            .join('\n');
-
-          content = content + attachmentContents;
-        }
-
-        return {
-          role: msg.role,
-          content: content,
-        };
-      });
+      // Convert messages to provider format
+      const formattedMessages = messages.map(msg => ({
+        role: msg.role,
+        content: msg.content,
+      }));
 
       // Add system prompt for legal context
       const systemPrompt = `You are Junas, a specialized AI legal assistant for Singapore law. You help lawyers, legal professionals, and individuals with:
@@ -155,23 +139,6 @@ Always provide accurate, helpful legal information while being clear about limit
     }
   }
 
-  static async processFile(file: File): Promise<{ text: string; metadata: any }> {
-    try {
-      // Import the FileProcessor dynamically to avoid bundling issues
-      const { FileProcessor } = await import('@/lib/file-processor');
-
-      // Process the file client-side
-      const processed = await FileProcessor.processFile(file);
-
-      return {
-        text: processed.text,
-        metadata: processed.metadata,
-      };
-    } catch (error: any) {
-      console.error('File processing error:', error);
-      throw new Error(error.message || 'Failed to process file');
-    }
-  }
 
   static async analyzeDocument(text: string, type: 'contract' | 'case' | 'statute' = 'contract') {
     try {

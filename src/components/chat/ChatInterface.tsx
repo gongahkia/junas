@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Message, FileAttachment } from '@/types/chat';
+import { Message } from '@/types/chat';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
 import { HeroMarquee } from './HeroMarquee';
@@ -37,21 +37,6 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
     }
   }, []);
 
-  // Handle import messages
-  useEffect(() => {
-    const handler = (event: any) => {
-      const importedMessages = event.detail.messages;
-      setMessages(prev => [...prev, ...importedMessages]);
-      addToast({
-        type: 'success',
-        title: 'Imported',
-        description: 'Previous conversation has been summarized and added as context',
-        duration: 3000
-      });
-    };
-    window.addEventListener('junas-import', handler);
-    return () => window.removeEventListener('junas-import', handler);
-  }, [addToast]);
 
   // Save messages to storage whenever they change
   useEffect(() => {
@@ -67,7 +52,7 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
     }
   }, [messages, isLoading]);
 
-  const handleSendMessage = useCallback(async (content: string, attachments?: FileAttachment[]) => {
+  const handleSendMessage = useCallback(async (content: string) => {
     if (!content.trim()) return;
 
     const userMessage: Message = {
@@ -75,7 +60,6 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
       role: 'user',
       content,
       timestamp: new Date(),
-      attachments,
     };
 
     setMessages(prev => [...prev, userMessage]);
@@ -149,37 +133,6 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
     }
   }, [messages]);
 
-  const handleFileUpload = useCallback(async (files: File[]): Promise<FileAttachment[]> => {
-    try {
-      const attachments: FileAttachment[] = [];
-      
-      for (const file of files) {
-        const result = await ChatService.processFile(file);
-        attachments.push({
-          id: generateId(),
-          name: file.name,
-          type: file.type,
-          size: file.size,
-          content: result.text,
-          preview: file.type.startsWith('image/') ? URL.createObjectURL(file) : undefined,
-        });
-      }
-      
-      return attachments;
-    } catch (error: any) {
-      console.error('File upload error:', error);
-      
-      // Show error toast
-      addToast({
-        type: 'error',
-        title: 'File Upload Error',
-        description: error.message || 'Failed to process files. Please try again.',
-        duration: 5000,
-      });
-      
-      throw new Error(error.message || 'Failed to process files');
-    }
-  }, []);
 
   const handlePromptSelect = useCallback((prompt: string) => {
     handleSendMessage(prompt);
@@ -221,7 +174,6 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
       {/* Input area */}
       <MessageInput
         onSendMessage={handleSendMessage}
-        onFileUpload={handleFileUpload}
         isLoading={isLoading}
       />
     </div>

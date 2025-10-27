@@ -3,18 +3,8 @@ export interface Message {
   role: 'user' | 'assistant' | 'system';
   content: string;
   timestamp: Date;
-  attachments?: FileAttachment[];
   toolCalls?: ToolCall[];
   citations?: Citation[];
-}
-
-export interface FileAttachment {
-  id: string;
-  name: string;
-  type: string;
-  size: number;
-  content?: string; // Extracted text content
-  preview?: string; // Base64 preview for images
 }
 
 export interface ToolCall {

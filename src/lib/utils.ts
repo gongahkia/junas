@@ -68,10 +68,6 @@ export function throttle<T extends (...args: any[]) => any>(
   };
 }
 
-export function sanitizeFilename(filename: string): string {
-  return filename.replace(/[^a-z0-9.-]/gi, '_');
-}
-
 export function getReadingTime(text: string): number {
   const wordsPerMinute = 200;
   const wordCount = text.split(/\s+/).length;

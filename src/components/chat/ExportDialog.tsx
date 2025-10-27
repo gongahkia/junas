@@ -36,7 +36,6 @@ export function ExportDialog({ isOpen, onClose, messages }: ExportDialogProps) {
         role: m.role,
         content: m.content,
         timestamp: m.timestamp,
-        attachments: m.attachments,
       })),
     };
 
@@ -57,14 +56,6 @@ export function ExportDialog({ isOpen, onClose, messages }: ExportDialogProps) {
       lines.push(`## ${m.role === 'user' ? 'User' : 'Assistant'}\n`);
       lines.push(m.content);
       lines.push('\n');
-
-      if (m.attachments && m.attachments.length > 0) {
-        lines.push('**Attachments:**');
-        m.attachments.forEach(att => {
-          lines.push(`- ${att.name}`);
-        });
-        lines.push('\n');
-      }
     }
 
     const blob = new Blob([lines.join('\n')], {
@@ -88,14 +79,6 @@ export function ExportDialog({ isOpen, onClose, messages }: ExportDialogProps) {
       lines.push('-'.repeat(50));
       lines.push(m.content);
       lines.push('');
-
-      if (m.attachments && m.attachments.length > 0) {
-        lines.push('Attachments:');
-        m.attachments.forEach(att => {
-          lines.push(`  - ${att.name}`);
-        });
-        lines.push('');
-      }
     }
 
     const blob = new Blob([lines.join('\n')], {
