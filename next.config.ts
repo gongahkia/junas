@@ -4,11 +4,6 @@ import { withSentryConfig } from '@sentry/nextjs';
 const nextConfig: NextConfig = {
   /* config options here */
 
-  // Enable instrumentation for Sentry
-  experimental: {
-    instrumentationHook: true,
-  },
-
   // Turbopack configuration for Next.js 16+
   turbopack: {},
 
