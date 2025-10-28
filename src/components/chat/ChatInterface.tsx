@@ -9,6 +9,7 @@ import { LegalDisclaimer } from '@/components/LegalDisclaimer';
 import { TemplateSelector } from './TemplateSelector';
 import { StorageManager } from '@/lib/storage';
 import { ChatService } from '@/lib/ai/chat-service';
+import { extractAndLookupCitations } from '@/lib/tools/citation-extractor';
 import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
 
@@ -117,11 +118,14 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
         fullResponse = await ChatService.sendMessage(allMessages);
       }
 
-      // Final update with complete response
-      setMessages(prev => 
-        prev.map(msg => 
-          msg.id === assistantMessage.id 
-            ? { ...msg, content: fullResponse }
+      // Extract and lookup citations from the response
+      const citations = await extractAndLookupCitations(fullResponse);
+
+      // Final update with complete response and citations
+      setMessages(prev =>
+        prev.map(msg =>
+          msg.id === assistantMessage.id
+            ? { ...msg, content: fullResponse, citations }
             : msg
         )
       );

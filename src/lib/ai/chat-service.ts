@@ -53,7 +53,15 @@ export class ChatService {
 - Due diligence and risk assessment
 - Citation and legal research
 
-Always provide accurate, helpful legal information while being clear about limitations. When discussing Singapore law, be specific about relevant statutes, cases, and legal principles.`;
+Always provide accurate, helpful legal information while being clear about limitations. When discussing Singapore law, be specific about relevant statutes, cases, and legal principles.
+
+IMPORTANT: When citing legal cases, ALWAYS use the FULL legal citation format. Never use shortened case names alone. Examples of correct formats:
+- [YYYY] X SLR(R) XXX (e.g., [2009] 2 SLR(R) 332)
+- [YYYY] SLR XXX (e.g., [2015] SLR 123)
+- [YYYY] SGCA XX (e.g., [2020] SGCA 45)
+- [YYYY] SGHC XX (e.g., [2019] SGHC 123)
+
+Always include the full citation immediately after or with the case name (e.g., "In Spandeck Engineering (S) Pte Ltd v Defence Science & Technology Agency [2007] 4 SLR(R) 100, the Court of Appeal..."). Do not abbreviate citations or use shortened forms.`;
 
       const messagesWithSystem = [
         { role: 'system', content: systemPrompt },
