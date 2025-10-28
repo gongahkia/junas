@@ -60,7 +60,12 @@ export function exportToPDF(messages: Message[], filename: string = 'junas-conve
     const headerText = isUser ? 'User' : 'Junas (AI Assistant)'
     const timestamp = message.timestamp ? new Date(message.timestamp).toLocaleString() : ''
 
-    doc.setTextColor(isUser ? 31, 119, 180 : 72, 187, 120) // Blue for user, green for assistant
+    // Blue for user, green for assistant
+    if (isUser) {
+      doc.setTextColor(31, 119, 180)
+    } else {
+      doc.setTextColor(72, 187, 120)
+    }
     doc.text(headerText, margin, yPosition)
 
     if (timestamp) {
