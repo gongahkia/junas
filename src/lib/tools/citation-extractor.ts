@@ -90,7 +90,6 @@ function isFalsePositiveCaseName(caseName: string): boolean {
  */
 export async function extractAndLookupCitations(text: string): Promise<Citation[]> {
   const citations: Citation[] = []
-  const searchEngine = new LegalSearchEngine()
 
   // Extract citations from text
   const citationStrings = extractCitations(text)
@@ -98,7 +97,7 @@ export async function extractAndLookupCitations(text: string): Promise<Citation[
   // Look up each citation
   for (const citation of citationStrings) {
     try {
-      const results = await searchEngine.searchByCitation(citation)
+      const results = await LegalSearchEngine.searchByCitation(citation)
 
       if (results.length > 0) {
         const result = results[0]
@@ -122,7 +121,7 @@ export async function extractAndLookupCitations(text: string): Promise<Citation[
 
   for (const caseName of caseNames) {
     try {
-      const results = await searchEngine.searchCaseLaw(caseName)
+      const results = await LegalSearchEngine.searchCaseLaw(caseName)
 
       if (results.length > 0) {
         const result = results[0]
