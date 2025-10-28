@@ -5,6 +5,8 @@ import { Message } from '@/types/chat';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
 import { HeroMarquee } from './HeroMarquee';
+import { LegalDisclaimer } from '@/components/LegalDisclaimer';
+import { TemplateSelector } from './TemplateSelector';
 import { StorageManager } from '@/lib/storage';
 import { ChatService } from '@/lib/ai/chat-service';
 import { useToast } from '@/components/ui/toast';
@@ -19,6 +21,7 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMessages, setHasMessages] = useState(false);
+  const [showTemplateSelector, setShowTemplateSelector] = useState(false);
   const { addToast } = useToast();
 
   // Notify parent when messages change
@@ -168,8 +171,17 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
     console.log('Regenerate message:', messageId);
   }, []);
 
+  const handleSelectTemplate = useCallback((prompt: string) => {
+    handleSendMessage(prompt);
+  }, [handleSendMessage]);
+
   return (
     <div className="flex flex-col h-full max-w-6xl mx-auto w-full">
+      {/* Legal Disclaimer */}
+      <div className="px-4 pt-4">
+        <LegalDisclaimer />
+      </div>
+
       {/* Messages area */}
       <div className="flex-1 overflow-hidden">
         {messages.length === 0 ? (
@@ -190,6 +202,14 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
       <MessageInput
         onSendMessage={handleSendMessage}
         isLoading={isLoading}
+        onOpenTemplates={() => setShowTemplateSelector(true)}
+      />
+
+      {/* Template Selector */}
+      <TemplateSelector
+        isOpen={showTemplateSelector}
+        onClose={() => setShowTemplateSelector(false)}
+        onSelectTemplate={handleSelectTemplate}
       />
     </div>
   );

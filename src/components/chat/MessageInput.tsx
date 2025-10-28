@@ -3,18 +3,20 @@
 import { useState, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Send } from 'lucide-react';
+import { Send, FileText } from 'lucide-react';
 
 interface MessageInputProps {
   onSendMessage: (content: string) => void;
   isLoading: boolean;
   placeholder?: string;
+  onOpenTemplates?: () => void;
 }
 
 export function MessageInput({
   onSendMessage,
   isLoading,
-  placeholder = "Ask Junas anything about Singapore law..."
+  placeholder = "Ask Junas anything about Singapore law...",
+  onOpenTemplates
 }: MessageInputProps) {
   const [message, setMessage] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -64,9 +66,23 @@ export function MessageInput({
             </Button>
           </div>
 
-          {/* Help text */}
-          <div className="text-xs text-muted-foreground text-center">
-            Press Enter to send, Shift+Enter for new line.
+          {/* Template button and help text */}
+          <div className="flex items-center justify-between">
+            {onOpenTemplates && (
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={onOpenTemplates}
+                className="text-xs"
+              >
+                <FileText className="w-3 h-3 mr-1" />
+                Legal Templates
+              </Button>
+            )}
+            <div className="text-xs text-muted-foreground ml-auto">
+              Press Enter to send, Shift+Enter for new line.
+            </div>
           </div>
         </form>
       </div>

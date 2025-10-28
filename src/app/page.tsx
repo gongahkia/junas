@@ -7,6 +7,7 @@ import { ApiKeyModal } from '@/components/settings/ApiKeyModal';
 import { NewChatDialog } from '@/components/chat/NewChatDialog';
 import { ExportDialog } from '@/components/chat/ExportDialog';
 import { ImportDialog } from '@/components/chat/ImportDialog';
+import { SearchDialog } from '@/components/chat/SearchDialog';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -20,6 +21,7 @@ export default function Home() {
   const [showNewChatDialog, setShowNewChatDialog] = useState(false);
   const [showExportDialog, setShowExportDialog] = useState(false);
   const [showImportDialog, setShowImportDialog] = useState(false);
+  const [showSearchDialog, setShowSearchDialog] = useState(false);
   const [currentProvider, setCurrentProvider] = useState('gemini');
   const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
   const [messages, setMessages] = useState<Message[]>([]);
@@ -74,6 +76,7 @@ export default function Home() {
       onImport={() => setShowImportDialog(true)}
       onSettings={handleSettings}
       onNewChat={handleNewChat}
+      onSearch={() => setShowSearchDialog(true)}
     >
       <ChatInterface
         key={chatKey}
@@ -106,6 +109,13 @@ export default function Home() {
         isOpen={showImportDialog}
         onClose={() => setShowImportDialog(false)}
         onImport={handleImport}
+      />
+
+      {/* Search Dialog */}
+      <SearchDialog
+        isOpen={showSearchDialog}
+        onClose={() => setShowSearchDialog(false)}
+        messages={messages}
       />
 
       {/* Settings Modal */}

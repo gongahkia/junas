@@ -1,30 +1,43 @@
 import { AIProvider, ProviderConfig } from '@/types/provider';
-import { GeminiProvider } from './providers/gemini';
-import { OpenAIProvider } from './providers/openai';
-import { ClaudeProvider } from './providers/claude';
 
+/**
+ * ProviderFactory with dynamic imports to reduce bundle size
+ * Each provider SDK is only loaded when actually used
+ */
 export class ProviderFactory {
-  static createProvider(provider: AIProvider, config: ProviderConfig) {
+  static async createProvider(provider: AIProvider, config: ProviderConfig) {
     switch (provider) {
-      case 'gemini':
+      case 'gemini': {
+        const { GeminiProvider } = await import('./providers/gemini');
         return new GeminiProvider(config.apiKey, config.model);
-      case 'openai':
+      }
+      case 'openai': {
+        const { OpenAIProvider } = await import('./providers/openai');
         return new OpenAIProvider(config.apiKey, config.model);
-      case 'claude':
+      }
+      case 'claude': {
+        const { ClaudeProvider } = await import('./providers/claude');
         return new ClaudeProvider(config.apiKey, config.model);
+      }
       default:
         throw new Error(`Unsupported provider: ${provider}`);
     }
   }
 
-  static getProviderCapabilities(provider: AIProvider) {
+  static async getProviderCapabilities(provider: AIProvider) {
     switch (provider) {
-      case 'gemini':
+      case 'gemini': {
+        const { GeminiProvider } = await import('./providers/gemini');
         return GeminiProvider.getCapabilities();
-      case 'openai':
+      }
+      case 'openai': {
+        const { OpenAIProvider } = await import('./providers/openai');
         return OpenAIProvider.getCapabilities();
-      case 'claude':
+      }
+      case 'claude': {
+        const { ClaudeProvider } = await import('./providers/claude');
         return ClaudeProvider.getCapabilities();
+      }
       default:
         throw new Error(`Unsupported provider: ${provider}`);
     }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Settings, Download, Plus, Upload } from 'lucide-react';
+import { Settings, Download, Plus, Upload, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ToastProvider } from '@/components/ui/toast';
 import { cn } from '@/lib/utils';
@@ -14,9 +14,10 @@ interface LayoutProps {
   onImport?: () => void;
   onSettings?: () => void;
   onNewChat?: () => void;
+  onSearch?: () => void;
 }
 
-export function Layout({ children, hasMessages = false, onExport, onImport, onSettings, onNewChat }: LayoutProps) {
+export function Layout({ children, hasMessages = false, onExport, onImport, onSettings, onNewChat, onSearch }: LayoutProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -53,6 +54,19 @@ export function Layout({ children, hasMessages = false, onExport, onImport, onSe
                 >
                   <Plus className="h-4 w-4 mr-2" />
                   New Chat
+                </Button>
+              )}
+
+              {/* Search button - only show when there are messages */}
+              {onSearch && hasMessages && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={onSearch}
+                  className="h-9 px-3"
+                >
+                  <Search className="h-4 w-4 mr-2" />
+                  Search
                 </Button>
               )}
 

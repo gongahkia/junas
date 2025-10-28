@@ -12,6 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Message } from '@/types/chat';
 import { FileDown, FileJson, FileText, FileType } from 'lucide-react';
+import { exportToPDF } from '@/lib/pdf-export';
 
 interface ExportDialogProps {
   isOpen: boolean;
@@ -19,10 +20,10 @@ interface ExportDialogProps {
   messages: Message[];
 }
 
-type ExportFormat = 'json' | 'markdown' | 'txt';
+type ExportFormat = 'json' | 'markdown' | 'txt' | 'pdf';
 
 export function ExportDialog({ isOpen, onClose, messages }: ExportDialogProps) {
-  const [selectedFormat, setSelectedFormat] = useState<ExportFormat>('markdown');
+  const [selectedFormat, setSelectedFormat] = useState<ExportFormat>('pdf');
 
   const exportAsJSON = () => {
     const data = {
@@ -98,6 +99,10 @@ export function ExportDialog({ isOpen, onClose, messages }: ExportDialogProps) {
     URL.revokeObjectURL(url);
   };
 
+  const exportAsPDF = () => {
+    exportToPDF(messages, `junas-conversation-${Date.now()}`);
+  };
+
   const handleExport = () => {
     switch (selectedFormat) {
       case 'json':
@@ -109,11 +114,20 @@ export function ExportDialog({ isOpen, onClose, messages }: ExportDialogProps) {
       case 'txt':
         exportAsText();
         break;
+      case 'pdf':
+        exportAsPDF();
+        break;
     }
     onClose();
   };
 
   const formatOptions = [
+    {
+      value: 'pdf' as ExportFormat,
+      label: 'PDF',
+      description: 'Professional document format (recommended)',
+      icon: FileDown,
+    },
     {
       value: 'json' as ExportFormat,
       label: 'JSON',

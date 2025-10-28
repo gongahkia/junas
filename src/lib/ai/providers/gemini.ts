@@ -68,10 +68,15 @@ export class GeminiProvider {
         },
       });
 
-      // Convert messages to Gemini format
-      const prompt = this.formatMessagesForGemini(messages);
+      // Convert messages to Gemini chat format
+      const { history, currentMessage } = this.formatMessagesForGemini(messages);
 
-      const result = await model.generateContent(prompt);
+      // Use chat session for proper conversation context
+      const chat = model.startChat({
+        history,
+      });
+
+      const result = await chat.sendMessage(currentMessage);
       const response = await result.response;
       const text = response.text();
 
@@ -95,7 +100,7 @@ export class GeminiProvider {
     }
   ): AsyncGenerator<StreamingResponse> {
     try {
-      const model = this.client.getGenerativeModel({ 
+      const model = this.client.getGenerativeModel({
         model: this.model,
         generationConfig: {
           temperature: options?.temperature || 0.7,
@@ -103,22 +108,28 @@ export class GeminiProvider {
         },
       });
 
-      const prompt = this.formatMessagesForGemini(messages);
-      
-      const result = await model.generateContentStream(prompt);
-      
+      // Convert messages to Gemini chat format
+      const { history, currentMessage } = this.formatMessagesForGemini(messages);
+
+      // Use chat session for proper conversation context
+      const chat = model.startChat({
+        history,
+      });
+
+      const result = await chat.sendMessageStream(currentMessage);
+
       let fullContent = '';
-      
+
       for await (const chunk of result.stream) {
         const chunkText = chunk.text();
         fullContent += chunkText;
-        
+
         yield {
           content: chunkText,
           done: false,
         };
       }
-      
+
       yield {
         content: '',
         done: true,
@@ -128,19 +139,32 @@ export class GeminiProvider {
     }
   }
 
-  private formatMessagesForGemini(messages: Array<{ role: string; content: string }>): string {
-    // Gemini doesn't use a message array format, so we concatenate the conversation
-    return messages
-      .map(msg => {
-        if (msg.role === 'user') {
-          return `User: ${msg.content}`;
-        } else if (msg.role === 'assistant') {
-          return `Assistant: ${msg.content}`;
-        } else {
-          return msg.content;
-        }
-      })
-      .join('\n\n');
+  private formatMessagesForGemini(messages: Array<{ role: string; content: string }>): {
+    history: Array<{ role: 'user' | 'model'; parts: Array<{ text: string }> }>;
+    currentMessage: string;
+  } {
+    // Gemini uses 'user' and 'model' roles
+    // History should contain all messages except the last one
+    // Last message is sent separately
+
+    if (messages.length === 0) {
+      return { history: [], currentMessage: '' };
+    }
+
+    // Convert all messages except the last to Gemini format
+    const history = messages.slice(0, -1).map(msg => ({
+      role: msg.role === 'assistant' ? ('model' as const) : ('user' as const),
+      parts: [{ text: msg.content }],
+    }));
+
+    // Get the last message content
+    const lastMessage = messages[messages.length - 1];
+    const currentMessage = lastMessage.content;
+
+    return {
+      history,
+      currentMessage,
+    };
   }
 
   private handleError(error: any): ProviderError {

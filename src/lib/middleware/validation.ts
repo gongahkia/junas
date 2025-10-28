@@ -50,13 +50,54 @@ export function withValidation<T extends z.ZodSchema>(
 }
 
 /**
- * Rate limiting state (simple in-memory implementation)
- * In production, use Redis or similar
+ * Rate limiting with Upstash Redis (production-ready)
+ * Falls back to in-memory if Upstash is not configured
  */
+
+// In-memory fallback for development
 const requestCounts = new Map<string, { count: number; resetAt: number }>();
 
+// Lazy-load Upstash to avoid errors if not configured
+let rateLimiter: any = null;
+
+async function getRateLimiter() {
+  if (rateLimiter) return rateLimiter;
+
+  // Check if Upstash is configured
+  const upstashUrl = process.env.UPSTASH_REDIS_REST_URL;
+  const upstashToken = process.env.UPSTASH_REDIS_REST_TOKEN;
+
+  if (upstashUrl && upstashToken) {
+    try {
+      const { Ratelimit } = await import('@upstash/ratelimit');
+      const { Redis } = await import('@upstash/redis');
+
+      const redis = new Redis({
+        url: upstashUrl,
+        token: upstashToken,
+      });
+
+      rateLimiter = new Ratelimit({
+        redis,
+        limiter: Ratelimit.slidingWindow(100, '60 s'),
+        analytics: true,
+        prefix: 'junas:ratelimit',
+      });
+
+      console.log('[RateLimit] Using Upstash Redis for rate limiting');
+      return rateLimiter;
+    } catch (error) {
+      console.error('[RateLimit] Failed to initialize Upstash, falling back to in-memory:', error);
+      return null;
+    }
+  }
+
+  console.log('[RateLimit] Using in-memory rate limiting (set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN for production)');
+  return null;
+}
+
 /**
- * Simple rate limiting middleware
+ * Rate limiting middleware with Upstash support
  */
 export function withRateLimit(
   maxRequests: number = 100,
@@ -65,63 +106,106 @@ export function withRateLimit(
   return (handler: (request: NextRequest) => Promise<NextResponse>) => {
     return async (request: NextRequest): Promise<NextResponse> => {
       // Get client identifier (IP or session)
-      const clientId = request.headers.get('x-forwarded-for') || 'anonymous';
-      const now = Date.now();
+      const clientId = request.headers.get('x-forwarded-for') ||
+                       request.headers.get('x-real-ip') ||
+                       'anonymous';
 
-      // Get or create rate limit entry
-      let entry = requestCounts.get(clientId);
+      const limiter = await getRateLimiter();
 
-      if (!entry || now > entry.resetAt) {
-        // Reset or create new entry
-        entry = { count: 1, resetAt: now + windowMs };
-        requestCounts.set(clientId, entry);
-      } else {
-        entry.count++;
-      }
+      if (limiter) {
+        // Use Upstash rate limiting
+        try {
+          const { success, limit, remaining, reset } = await limiter.limit(clientId);
 
-      // Check if limit exceeded
-      if (entry.count > maxRequests) {
-        const retryAfter = Math.ceil((entry.resetAt - now) / 1000);
-        return NextResponse.json(
-          {
-            error: 'Rate limit exceeded. Please try again later.',
-            code: 'RATE_LIMIT_EXCEEDED',
-            retryAfter,
-            success: false,
-          },
-          {
-            status: 429,
-            headers: {
-              'Retry-After': retryAfter.toString(),
-              'X-RateLimit-Limit': maxRequests.toString(),
-              'X-RateLimit-Remaining': Math.max(0, maxRequests - entry.count).toString(),
-              'X-RateLimit-Reset': new Date(entry.resetAt).toISOString(),
-            },
+          if (!success) {
+            const resetDate = new Date(reset);
+            const retryAfter = Math.ceil((reset - Date.now()) / 1000);
+
+            return NextResponse.json(
+              {
+                error: 'Rate limit exceeded. Please try again later.',
+                code: 'RATE_LIMIT_EXCEEDED',
+                retryAfter,
+                success: false,
+              },
+              {
+                status: 429,
+                headers: {
+                  'Retry-After': retryAfter.toString(),
+                  'X-RateLimit-Limit': limit.toString(),
+                  'X-RateLimit-Remaining': remaining.toString(),
+                  'X-RateLimit-Reset': resetDate.toISOString(),
+                },
+              }
+            );
           }
-        );
+
+          // Call handler and add rate limit headers
+          const response = await handler(request);
+          response.headers.set('X-RateLimit-Limit', limit.toString());
+          response.headers.set('X-RateLimit-Remaining', remaining.toString());
+          response.headers.set('X-RateLimit-Reset', new Date(reset).toISOString());
+
+          return response;
+        } catch (error) {
+          console.error('[RateLimit] Upstash error, proceeding without rate limit:', error);
+          // Fallback: allow request if Upstash fails
+          return await handler(request);
+        }
+      } else {
+        // Fallback to in-memory rate limiting
+        const now = Date.now();
+        let entry = requestCounts.get(clientId);
+
+        if (!entry || now > entry.resetAt) {
+          entry = { count: 1, resetAt: now + windowMs };
+          requestCounts.set(clientId, entry);
+        } else {
+          entry.count++;
+        }
+
+        if (entry.count > maxRequests) {
+          const retryAfter = Math.ceil((entry.resetAt - now) / 1000);
+          return NextResponse.json(
+            {
+              error: 'Rate limit exceeded. Please try again later.',
+              code: 'RATE_LIMIT_EXCEEDED',
+              retryAfter,
+              success: false,
+            },
+            {
+              status: 429,
+              headers: {
+                'Retry-After': retryAfter.toString(),
+                'X-RateLimit-Limit': maxRequests.toString(),
+                'X-RateLimit-Remaining': Math.max(0, maxRequests - entry.count).toString(),
+                'X-RateLimit-Reset': new Date(entry.resetAt).toISOString(),
+              },
+            }
+          );
+        }
+
+        const response = await handler(request);
+        response.headers.set('X-RateLimit-Limit', maxRequests.toString());
+        response.headers.set('X-RateLimit-Remaining', Math.max(0, maxRequests - entry.count).toString());
+        response.headers.set('X-RateLimit-Reset', new Date(entry.resetAt).toISOString());
+
+        return response;
       }
-
-      // Call handler
-      const response = await handler(request);
-
-      // Add rate limit headers to successful responses
-      response.headers.set('X-RateLimit-Limit', maxRequests.toString());
-      response.headers.set('X-RateLimit-Remaining', Math.max(0, maxRequests - entry.count).toString());
-      response.headers.set('X-RateLimit-Reset', new Date(entry.resetAt).toISOString());
-
-      return response;
     };
   };
 }
 
 /**
- * Clean up expired rate limit entries periodically
+ * Clean up expired in-memory rate limit entries periodically
  */
-setInterval(() => {
-  const now = Date.now();
-  for (const [clientId, entry] of requestCounts.entries()) {
-    if (now > entry.resetAt) {
-      requestCounts.delete(clientId);
+if (typeof global !== 'undefined') {
+  setInterval(() => {
+    const now = Date.now();
+    for (const [clientId, entry] of requestCounts.entries()) {
+      if (now > entry.resetAt) {
+        requestCounts.delete(clientId);
+      }
     }
-  }
-}, 60000); // Clean up every minute
+  }, 60000); // Clean up every minute
+}
