@@ -1,90 +1,336 @@
-[![](https://img.shields.io/badge/poor_cli_1.0.0-passing-green)](https://github.com/gongahkia/poor-cli/releases/tag/1.0.0)
+# Junas
 
-# `poor-cli`
+**AI-Powered Legal Assistant for Singapore Law**
 
-[BYOK](https://en.wikipedia.org/wiki/Bring_your_own_encryption) Agentic Coding Helper that lives in your Terminal.
+Junas is an intelligent legal research and drafting assistant specifically designed for Singapore's legal system. Built with cutting-edge AI technology, Junas helps legal professionals, law students, and individuals navigate Singapore law through structured analysis, document drafting, and comprehensive legal research.
 
-<div align="center">
-    <img src="./asset/logo/1.png" width="35%">
-</div>
+## Features
 
-## Stack
+### 🎯 Legal Analysis Tools
 
-* *Script*: [Python](https://www.python.org/)
+Junas provides six structured analysis workflows with intelligent pop-up assistance:
+
+| Tool | Trigger Keywords | Purpose |
+|------|-----------------|---------|
+| **IRAC Analysis** | `irac`, `analyze`, `legal analysis` | Structure legal problems using Issue, Rule, Application, Conclusion |
+| **Case Facts Extraction** | `facts`, `case facts`, `extract facts` | Extract and organize material facts from case law |
+| **Ruling Analysis** | `ruling`, `judgment`, `decision` | Analyze court decisions, reasoning, and remedies |
+| **Obiter Dicta** | `obiter`, `dicta`, `remarks` | Identify non-binding judicial observations |
+| **Ratio Decidendi** | `ratio`, `binding principle`, `precedent` | Extract binding legal principles from cases |
+| **Legal Argumentation** | `argue`, `argument`, `submission` | Build persuasive legal arguments with authorities |
+
+### 📝 Document Templates
+
+13 comprehensive templates for Singapore legal documents:
+
+- **Contracts**: NDA, Service Agreement, Partnership Agreement, Settlement Agreement
+- **Employment**: Employment Contract
+- **Corporate**: Shareholders Agreement, Corporate Resolution
+- **Property**: Tenancy Agreement, Loan Agreement
+- **Intellectual Property**: IP Assignment Agreement
+- **Clauses**: Confidentiality, Force Majeure, Dispute Resolution
+
+### 🔍 Research & Analysis
+
+- **Citation Extraction**: Automatically recognizes and validates Singapore legal citations
+- **Case Law Search**: Search Singapore cases with relevance scoring
+- **Named Entity Recognition**: Extract parties, organizations, dates, and legal entities
+- **Contract Analysis**: Identify key terms, risks, and missing provisions
+- **Web Scraping**: Fetch legal information from Singapore legal databases
+
+### 🤖 Multi-Provider AI Support
+
+- **Google Gemini** (Free tier available)
+- **OpenAI GPT-4**
+- **Anthropic Claude**
+- Automatic fallback between providers
+
+### 💾 Privacy-First Design
+
+- All data stored locally in browser (localStorage)
+- No backend database - your legal research stays private
+- BYOK (Bring Your Own Key) - use your own API keys
+
+## Tech Stack
+
+**Frontend Framework:**
+- Next.js 16.0.0 (React 19.2.0)
+- TypeScript
+- Tailwind CSS
+
+**UI Components:**
+- Radix UI primitives
+- shadcn/ui design system
+- Lucide React icons
+
+**AI & ML:**
+- Anthropic Claude SDK
+- Google Generative AI
+- OpenAI SDK
+- Transformers.js (Named Entity Recognition)
+
+**Utilities:**
+- Zustand (State management)
+- React Markdown (with KaTeX for math)
+- jsPDF (Document export)
+- Cheerio (Web scraping)
+- Fuse.js (Fuzzy search)
+
+## Installation
+
+### Prerequisites
+
+- Node.js 20+ (recommended)
+- npm or yarn
+
+### Setup
+
+1. **Clone the repository**
+
+```bash
+git clone <repository-url>
+cd junas
+```
+
+2. **Install dependencies**
+
+```bash
+npm install
+```
+
+3. **Configure API keys**
+
+Junas supports multiple AI providers. You'll need at least one API key:
+
+- **Google Gemini**: [Get API Key](https://aistudio.google.com/) (Free tier available)
+- **OpenAI**: [Get API Key](https://platform.openai.com/)
+- **Anthropic**: [Get API Key](https://console.anthropic.com/)
+
+API keys are configured directly in the app's settings (stored in browser localStorage).
+
+4. **Run the development server**
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+5. **Build for production**
+
+```bash
+npm run build
+npm start
+```
 
 ## Usage
 
-The below instructions are for locally hosting `poor-cli`. See screenshots [here](#screenshots).
+### Getting Started
 
-1. First run the below
+1. **Configure your API keys**: Click the settings icon and add at least one AI provider key
+2. **Select your provider**: Choose between Gemini, OpenAI, or Claude
+3. **Start chatting**: Ask questions about Singapore law or use the intelligent templates
 
-```console
-$ git clone && cd poor-cli
-$ python3 -m venv .venv && source .venv/bin/activate
-$ pip install -r requirements.txt
+### Using Legal Analysis Tools
+
+Simply type a trigger keyword in the message input:
+
+```
+irac breach of contract
 ```
 
-2. Copy `.env.example` to `.env` and configure your preferred LLM providers by setting your API keys in `.env`. `poor-cli` supports [Gemini](https://aistudio.google.com/) *(free tier)*, [OpenAI](https://platform.openai.com/docs/models), [Anthropic](https://docs.claude.com/en/docs/about-claude/models/overview) and [Ollama](https://ollama.com/) *(local)*.
+A pop-up will appear showing the analysis structure. Click to start or press Enter.
 
-```console
-$ cp .env.example .env
+### Drafting Documents
+
+Type "draft" followed by the document type:
+
+```
+draft nda
 ```
 
-3. Now run the below
+Junas will show matching templates. Select one and fill in the dynamic form.
 
-```console
-$ ./run.sh
-$ python -m poor_cli
-$ pip install -e .
-$ poor-cli
-$ ./uninstall.sh
+### Citation Recognition
+
+Junas automatically recognizes Singapore legal citations:
+
+- `[2023] SGCA 15` - Court of Appeal
+- `[2023] SGHC 45` - High Court
+- `[2023] SGDC 120` - District Court
+
+### Example Prompts
+
+- "What is the test for breach of contract under Singapore law?"
+- "Analyze the ratio decidendi in *Ngee Ann Development v Takashimaya*"
+- "Draft an employment contract for a senior software engineer"
+- "Extract the facts from *Spandeck Engineering v Defence Science*"
+- "What are the remedies for breach of fiduciary duty?"
+
+## Project Structure
+
+```
+junas/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── api/               # API routes (chat, providers, tools)
+│   │   ├── layout.tsx         # Root layout
+│   │   └── page.tsx           # Main chat interface
+│   ├── components/
+│   │   ├── chat/              # Chat components
+│   │   │   ├── ChatInterface.tsx
+│   │   │   ├── MessageInput.tsx
+│   │   │   ├── MessageList.tsx
+│   │   │   ├── AnalysisToolPreview.tsx  # NEW: Legal analysis pop-ups
+│   │   │   └── TemplateForm.tsx
+│   │   ├── settings/          # Settings components
+│   │   └── ui/                # Reusable UI components
+│   ├── lib/
+│   │   ├── ai/                # AI provider abstractions
+│   │   │   ├── chat-service.ts
+│   │   │   ├── claude.ts
+│   │   │   ├── gemini.ts
+│   │   │   └── openai.ts
+│   │   ├── ml/                # Machine learning utilities
+│   │   │   └── ner.ts         # Named Entity Recognition
+│   │   ├── scrapers/          # Legal database scrapers
+│   │   │   ├── lawnet.ts
+│   │   │   ├── commonlii.ts
+│   │   │   └── statutes.ts
+│   │   ├── tools/             # Legal analysis tools
+│   │   │   ├── citation-extractor.ts
+│   │   │   ├── contract-analyzer.ts
+│   │   │   └── legal-search.ts
+│   │   ├── templates.ts       # Legal templates & analysis tools
+│   │   └── storage.ts         # Browser storage management
+│   └── types/                 # TypeScript type definitions
+├── public/                    # Static assets
+└── package.json
 ```
 
-## Available Commands
+## Legal Analysis Tools (Detailed)
 
-**Session Management:**
-- `/help` - Show help message
-- `/quit` - Exit the REPL
-- `/clear` - Clear current conversation
-- `/history [N]` - Show recent messages (default: 10)
-- `/sessions` - List all previous sessions
-- `/new-session` - Start fresh session
+### IRAC Analysis
+Structure legal problems systematically:
+- **Issue**: Identify the precise legal question
+- **Rule**: State applicable Singapore law and precedents
+- **Application**: Apply law to facts with case comparisons
+- **Conclusion**: Provide clear answer with practical implications
 
-**Checkpoints & Undo:**
-- `/checkpoints` - List all checkpoints
-- `/checkpoint` - Create manual checkpoint
-- `/rewind [ID]` - Restore checkpoint (ID or 'last')
-- `/diff <f1> <f2>` - Compare two files
+### Case Facts Extraction
+Organize case information:
+- Parties and their roles
+- Background context
+- Material facts (legally significant only)
+- Procedural history through court levels
+- Chronological timeline
 
-**Provider Management:**
-- `/provider` - Show current provider info
-- `/providers` - List all available providers and models
-- `/switch` - Switch AI provider
+### Ruling Analysis
+Comprehensive decision breakdown:
+- Court's holding and decision
+- Chain of reasoning
+- Remedies granted/denied
+- Specific orders made
+- Costs allocation
 
-**Export & Archive:**
-- `/export [format]` - Export conversation (json, md, txt)
+### Obiter Dicta Identification
+Separate binding precedent from persuasive remarks:
+- Identify non-essential judicial statements
+- Contextualize why courts made these remarks
+- Assess persuasive value for future cases
 
-**Configuration:**
-- `/config` - Show current configuration
-- `/verbose` - Toggle verbose logging
-- `/plan-mode` - Toggle plan mode
+### Ratio Decidendi Extraction
+Extract binding legal principles:
+- State the legal issue precisely
+- Identify material facts essential to the decision
+- Formulate the binding rule of law
+- Define scope and limitations
 
-## Available Tools
+### Legal Argumentation Builder
+Construct persuasive submissions:
+- Clear position statement
+- Legal basis with Singapore authorities
+- Application to your facts
+- Anticipate counter-arguments
+- Conclusion with relief sought
 
-`poor-cli` can currently use these tools.
+## Document Templates (Detailed)
 
-- read_file: Read file contents with optional line ranges
-- write_file: Create or overwrite files
-- edit_file: Edit files using string replacement or line-based editing
-- glob_files: Find files matching patterns (e.g., `**/*.py`)
-- grep_files: Search for text in files using regex
-- bash: Execute bash commands with timeout support
+All templates include:
+- ✅ Singapore law compliance
+- ✅ Detailed clause-by-clause guidance
+- ✅ Relevant statutory references
+- ✅ Common law principles
+- ✅ Execution blocks and formalities
 
-## Screenshots
+Each template provides comprehensive drafting instructions tailored to Singapore's legal framework.
 
-![](./asset/reference/1.png)
-![](./asset/reference/2.png)
-![](./asset/reference/3.png)
-![](./asset/reference/6.png)
-![](./asset/reference/4.png)
-![](./asset/reference/5.png)
+## Configuration
+
+Settings are stored in browser localStorage:
+
+- **API Keys**: Provider-specific API keys
+- **Temperature**: Controls response creativity (0.0 - 1.0)
+- **Max Tokens**: Maximum response length
+- **Auto-save**: Automatically save conversation history
+- **Dark Mode**: Theme preference
+
+## Privacy & Security
+
+- **No backend database**: All data stays in your browser
+- **Local storage only**: Conversations, settings, and API keys stored locally
+- **BYOK model**: You control your own API keys
+- **No tracking**: No analytics or user tracking
+- **No server logs**: API requests go directly from browser to providers
+
+## Important Disclaimers
+
+⚠️ **Legal Disclaimer**:
+- Junas is a research and drafting assistant tool
+- **NOT a substitute for professional legal advice**
+- Always consult a qualified lawyer for legal matters
+- No attorney-client relationship is created
+- Use at your own risk
+
+⚠️ **Singapore Law Focus**:
+- Optimized specifically for Singapore legal system
+- Templates comply with Singapore statutes
+- Case law references are Singapore courts
+- May not be suitable for other jurisdictions
+
+⚠️ **AI Limitations**:
+- AI responses may contain errors or outdated information
+- Always verify legal principles and citations
+- Cross-reference with official legal sources
+- AI models have knowledge cutoff dates
+
+## Contributing
+
+Contributions are welcome! Areas for improvement:
+
+- Additional legal templates for Singapore
+- More analysis tools and workflows
+- Enhanced citation recognition
+- Integration with legal databases
+- Export formats (PDF, Word)
+- Collaborative features
+
+## License
+
+This project is private and proprietary.
+
+## Acknowledgments
+
+Built with:
+- Next.js and React
+- Anthropic Claude, Google Gemini, and OpenAI APIs
+- shadcn/ui component library
+- Radix UI primitives
+- The open-source community
+
+---
+
+**Version**: 0.1.0
+**Status**: Active Development
+**Focus**: Singapore Law
+**Privacy**: Local-first, BYOK
