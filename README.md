@@ -2,8 +2,6 @@
 
 # `Junas`
 
-**AI-Powered Legal Assistant for Singapore Law**
-
 `Junas` is a [BYOK](https://en.wikipedia.org/wiki/Bring_your_own_encryption) Web App that automates out the [boring part](#tools) of legal tasks.
 
 ## Stack
