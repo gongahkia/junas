@@ -12,6 +12,20 @@ export interface LegalTemplate {
   icon?: string;
 }
 
+/**
+ * Legal Analysis Tools - Similar to templates but for analysis workflows
+ */
+export interface LegalAnalysisTool {
+  id: string;
+  name: string;
+  category: 'analysis' | 'research' | 'drafting';
+  keywords: string[];
+  description: string;
+  prompt: string;
+  structure?: string[];
+  icon?: string;
+}
+
 export const legalTemplates: LegalTemplate[] = [
   // Contracts & Agreements
   {
@@ -2121,6 +2135,354 @@ This clause reflects Singapore's status as leading seat for international arbitr
   },
 ];
 
+/**
+ * Legal Analysis Tools - Structured workflows for legal analysis tasks
+ */
+export const legalAnalysisTools: LegalAnalysisTool[] = [
+  {
+    id: 'irac',
+    name: 'IRAC Analysis',
+    category: 'analysis',
+    keywords: ['irac', 'analyze', 'legal analysis', 'issue spotting', 'problem analysis', 'structure', 'irac method'],
+    description: 'Structure legal problems using Issue, Rule, Application, Conclusion framework',
+    structure: ['Issue', 'Rule', 'Application', 'Conclusion'],
+    icon: '🎯',
+    prompt: `Conduct a comprehensive IRAC analysis for Singapore law following this structured approach:
+
+ISSUE (Identify the legal question):
+- What is the precise legal question that needs to be answered?
+- What are the relevant facts that give rise to this issue?
+- Frame the issue as a specific question (e.g., "Whether X breached the contract by...")
+
+RULE (State the applicable legal principles):
+- What are the relevant statutes, regulations, or common law principles?
+- State the black letter law clearly and precisely
+- Cite relevant Singapore cases that establish or clarify the rule
+- Include exceptions or qualifications to the rule
+- Reference any relevant Singaporean legislation (e.g., Contracts Act, Sale of Goods Act, etc.)
+
+APPLICATION (Apply the rule to the facts):
+- How do the facts of this case fit within the legal rule?
+- Analyze each element of the legal test systematically
+- Compare to precedent cases - how are the facts similar or different?
+- Consider arguments on both sides
+- Address counterarguments and distinguish unfavorable cases
+- Apply Singapore-specific interpretations and approaches
+
+CONCLUSION (Answer the issue):
+- Provide a clear answer to the legal question posed in the Issue
+- Explain the most likely outcome based on the analysis
+- Note any uncertainties or areas requiring additional information
+- Consider practical implications of the conclusion
+
+Additional requirements:
+- Use Singapore legal citation format (e.g., [YYYY] SGCA XX, [YYYY] SGHC XX)
+- Reference relevant Singapore statutes with proper section citations
+- Consider both statute and common law where applicable
+- Flag any areas of legal uncertainty or developing law
+- Maintain objective analysis while noting stronger/weaker arguments
+
+Please provide a thorough IRAC analysis of the legal issue presented.`
+  },
+  {
+    id: 'case-facts',
+    name: 'Case Facts Extraction',
+    category: 'research',
+    keywords: ['facts', 'case facts', 'extract facts', 'summarize facts', 'factual background', 'material facts', 'fact pattern'],
+    description: 'Extract and organize material facts from case law',
+    structure: ['Parties', 'Background', 'Material Facts', 'Procedural History', 'Timeline'],
+    icon: '📋',
+    prompt: `Extract and organize the material facts from the case with the following structured approach:
+
+PARTIES:
+- Identify all parties involved (plaintiffs, defendants, appellants, respondents)
+- Include their roles, relationships, and relevant characteristics
+- Note any corporate entities, partnerships, or other legal persons
+- Identify any third parties or interveners
+
+BACKGROUND:
+- Provide context for the dispute
+- Explain the relationship between parties before the dispute arose
+- Describe the business or personal context
+- Note any relevant contractual or legal relationships
+
+MATERIAL FACTS:
+- Extract only facts that are legally significant to the case outcome
+- Distinguish between facts found by the court and allegations
+- Organize chronologically or thematically as appropriate
+- Highlight disputed vs. agreed facts
+- Note any facts emphasized by the court as particularly important
+- Flag any missing or unclear factual elements
+
+PROCEDURAL HISTORY:
+- Track the case through different court levels
+- Note key procedural steps (filing, hearings, judgments)
+- Identify what relief was sought at each stage
+- Record outcomes at each level (if the case was appealed)
+
+TIMELINE:
+- Create a chronological sequence of key events
+- Include both factual events and procedural milestones
+- Use specific dates where available
+- Note any limitation period or timing issues
+
+For Singapore cases:
+- Note the court level (District Court, High Court, Court of Appeal)
+- Identify the presiding judge(s)
+- Record the case citation in Singapore format
+- Flag any references to Singapore-specific legal or business context
+
+Focus on facts that matter for the legal issues, avoiding unnecessary narrative details.`
+  },
+  {
+    id: 'ruling',
+    name: 'Ruling Analysis',
+    category: 'research',
+    keywords: ['ruling', 'judgment', 'decision', 'court held', 'outcome', 'verdict', 'holding', 'order'],
+    description: 'Analyze the court\'s decision, reasoning, and remedies ordered',
+    structure: ['Holding', 'Reasoning', 'Remedies', 'Orders Made', 'Costs'],
+    icon: '⚖️',
+    prompt: `Analyze the court's ruling with comprehensive attention to the following elements:
+
+HOLDING:
+- What did the court decide? (Allow/Dismiss appeal, Find for plaintiff/defendant, etc.)
+- State the core decision clearly and unambiguously
+- Note if the decision was unanimous or if there were dissenting/concurring opinions
+- Identify which party succeeded and on what grounds
+
+REASONING:
+- What was the court's chain of reasoning?
+- How did the court interpret and apply the relevant law?
+- What facts did the court find most persuasive?
+- How did the court distinguish or follow precedent?
+- Note any new legal principles established
+- Identify the court's treatment of each argument raised
+
+REMEDIES:
+- What remedies were granted or denied?
+- If damages: amount, basis of calculation, categories (compensatory, punitive, etc.)
+- If injunctions: scope, duration, conditions
+- If specific performance or other equitable remedies: precise terms
+- If declaratory relief: exact wording of declarations
+
+ORDERS MADE:
+- List all specific orders made by the court
+- Include any interim or ancillary orders
+- Note deadlines or timeframes for compliance
+- Identify any conditions or qualifications
+- Record any orders for further proceedings
+
+COSTS:
+- Who was ordered to pay costs?
+- On what basis? (Standard basis, indemnity basis, etc.)
+- Any special costs orders or considerations?
+- Were costs reserved or subject to further submissions?
+
+For Singapore cases specifically:
+- Note citation and court level
+- Identify applicable Singapore statutes and local precedents cited
+- Flag any departure from or development of Singapore legal principles
+- Consider the ruling's precedential value and scope
+
+Provide a complete and accurate analysis of what the court decided and why.`
+  },
+  {
+    id: 'obiter',
+    name: 'Obiter Dicta Identification',
+    category: 'research',
+    keywords: ['obiter', 'obiter dicta', 'dicta', 'remarks', 'observations', 'commentary', 'judicial comments', 'non-binding'],
+    description: 'Identify non-binding judicial remarks, observations, and commentary',
+    structure: ['Obiter Statements', 'Context', 'Significance', 'Persuasive Value'],
+    icon: '💬',
+    prompt: `Identify and analyze obiter dicta in the judgment - statements that are not essential to the decision:
+
+WHAT IS OBITER DICTA:
+Obiter dicta are judicial statements or observations that are:
+- Not directly necessary for the decision reached
+- Made "by the way" or in passing
+- Not part of the ratio decidendi (binding principle)
+- Potentially persuasive but not binding on future courts
+
+OBITER STATEMENTS:
+- Extract specific passages that constitute obiter
+- Quote the relevant judicial observations
+- Identify hypothetical scenarios discussed by the court
+- Note comments on alternative legal approaches not adopted
+- Flag discussions of law not directly applicable to the facts
+- Include judicial commentary on policy considerations
+- Record observations about other cases or legal developments
+
+CONTEXT:
+- Why did the court make these obiter remarks?
+- What prompted the judge to venture beyond the necessary decision?
+- Were the remarks responding to counsel's arguments?
+- Did the court address hypothetical situations raised?
+- Was the court providing guidance for future cases?
+
+SIGNIFICANCE:
+- Why are these obiter remarks noteworthy?
+- Do they signal the court's thinking on unsettled areas of law?
+- Do they critique or comment on existing precedent?
+- Do they suggest how the court might rule in different circumstances?
+- Are there any proposals for law reform or legislative consideration?
+
+PERSUASIVE VALUE:
+- While not binding, how persuasive might these remarks be?
+- Consider the seniority of the court and judge
+- Assess the depth of analysis in the obiter remarks
+- Note if the obiter has been cited or followed in subsequent cases
+- Evaluate whether the obiter may influence future development of the law
+
+For Singapore cases:
+- Distinguish clearly between ratio and obiter
+- Note the court level (Court of Appeal dicta generally more persuasive)
+- Identify any obiter about the application of Singapore legislation
+- Flag any comparative law discussions or references to foreign jurisprudence
+
+Remember: Obiter dicta can be valuable for understanding judicial thinking and predicting future legal developments, even though they are not binding precedent.`
+  },
+  {
+    id: 'ratio',
+    name: 'Ratio Decidendi Extraction',
+    category: 'research',
+    keywords: ['ratio', 'ratio decidendi', 'binding principle', 'legal principle', 'precedent', 'holding', 'core principle', 'rule of law'],
+    description: 'Extract the binding legal principle essential to the decision',
+    structure: ['Legal Issue', 'Material Facts', 'Ratio Decidendi', 'Binding Authority', 'Scope of Application'],
+    icon: '⭐',
+    prompt: `Extract the ratio decidendi - the binding legal principle at the heart of the case:
+
+WHAT IS RATIO DECIDENDI:
+The ratio decidendi is:
+- The legal principle or rule that was essential to the court's decision
+- The binding precedent that must be followed by lower courts
+- The rule of law for which the case stands as authority
+- Derived from the court's application of law to the material facts
+
+LEGAL ISSUE:
+- State the specific legal question the court had to decide
+- Frame it precisely as determined by the court
+- Distinguish from other issues that may have been argued but were not essential
+
+MATERIAL FACTS:
+- Identify the facts that were essential to the legal reasoning
+- These are the facts upon which the ratio depends
+- Facts that, if changed, would lead to a different outcome
+- Distinguish material facts from background or incidental facts
+
+RATIO DECIDENDI:
+- State the legal principle clearly and precisely
+- Express as a rule: "When X circumstances exist, Y legal consequence follows"
+- Keep it as narrow as necessary to fit the facts decided
+- Avoid over-generalizing beyond what the court actually decided
+- If there are multiple judgments, identify the ratio of the court (majority view)
+
+BINDING AUTHORITY:
+- What is the precedential value of this ratio?
+- Which courts are bound to follow it?
+- For Singapore cases:
+  * Court of Appeal decisions bind the High Court and lower courts
+  * High Court decisions bind the State Courts
+  * Identify if this case overruled or modified earlier precedent
+- Note if the case has been subsequently followed, distinguished, or overruled
+
+SCOPE OF APPLICATION:
+- To what situations does this ratio apply?
+- What are the boundaries or limitations of the principle?
+- What factual variations would take a case outside this ratio?
+- Are there exceptions or qualifications stated by the court?
+- How broad or narrow is the principle?
+
+DISTINGUISHING RATIO FROM OBITER:
+- Clearly separate the binding ratio from persuasive dicta
+- Explain why this principle was essential to the outcome
+- Show how the ratio directly led to the court's decision
+
+For Singapore cases:
+- Use proper citation format
+- Note any statutory basis for the ratio
+- Identify how the ratio fits within Singapore's legal framework
+- Flag if this represents a development or clarification of Singapore law
+- Consider hierarchical precedent within Singapore courts
+
+The ratio decidendi is the most important takeaway from any case - extract it with precision and clarity.`
+  },
+  {
+    id: 'legal-argument',
+    name: 'Legal Argumentation Builder',
+    category: 'analysis',
+    keywords: ['argue', 'argument', 'legal argument', 'submission', 'advocacy', 'make case', 'persuade', 'contention'],
+    description: 'Structure persuasive legal arguments with authorities and reasoning',
+    structure: ['Position', 'Legal Basis', 'Authorities', 'Application', 'Counter-Arguments', 'Conclusion'],
+    icon: '🗣️',
+    prompt: `Construct a persuasive legal argument suitable for Singapore courts with the following comprehensive structure:
+
+POSITION:
+- State your client's position clearly and concisely
+- What outcome are you seeking?
+- What is the core legal contention?
+- Frame the argument favorably but honestly
+
+LEGAL BASIS:
+- Identify all applicable Singapore statutes and regulations
+- State the relevant common law principles
+- Cite the specific sections and provisions that support your position
+- Explain the purpose and policy behind these legal rules
+- Note any relevant Constitutional provisions (if applicable)
+
+AUTHORITIES:
+- Cite controlling Singapore precedents that support your argument
+- Include Court of Appeal decisions (highest binding authority)
+- Include relevant High Court decisions
+- Quote key passages from judgments
+- Explain how each case supports your position
+- Organize by strength - strongest authorities first
+- Include persuasive foreign authorities if Singapore law is unsettled (Commonwealth jurisdictions preferred)
+
+APPLICATION:
+- Apply the legal principles to your specific facts
+- Walk through each element of the legal test systematically
+- Draw analogies to favorable precedents
+- Highlight factual similarities with cases you cited
+- Show why your client's situation falls within the legal rule
+- Address each component of the cause of action or defense
+- Use clear, logical progression of reasoning
+
+COUNTER-ARGUMENTS:
+- Anticipate opposing arguments
+- Address weaknesses in your position proactively
+- Distinguish unfavorable cases
+- Explain why counter-authorities don't apply
+- Provide alternative interpretations of ambiguous points
+- Minimize (don't ignore) unfavorable facts
+- Show why opposing legal theories should not prevail
+
+CONCLUSION:
+- Summarize why your position should succeed
+- Restate the key supporting authorities
+- Emphasize the strongest points
+- Request the specific relief sought
+- End with a clear, confident statement
+
+PERSUASIVE TECHNIQUES FOR SINGAPORE COURTS:
+- Maintain objectivity and avoid hyperbole
+- Use precise legal terminology
+- Cite Singapore authorities wherever possible
+- Show awareness of policy implications
+- Demonstrate thorough legal research
+- Address all relevant legal tests completely
+- Structure arguments logically and clearly
+- Be concise - Singapore courts value economy of expression
+
+PRACTICAL CONSIDERATIONS:
+- Consider whether your argument advances Singapore law appropriately
+- Note any areas requiring the court to develop or clarify the law
+- Flag if you're asking the court to depart from precedent (requires strong justification)
+- Consider remedies available and most appropriate for your client
+
+Construct a well-reasoned, properly supported legal argument that would be persuasive to a Singapore court.`
+  }
+];
+
 export const templateCategories = [
   'All',
   'Contracts',
@@ -2193,6 +2555,35 @@ export function searchTemplatesByKeywords(query: string): LegalTemplate[] {
 export function extractDraftQuery(input: string): string | null {
   const match = input.match(/\bdraft\b\s*(.*)/i);
   return match ? match[1].trim() : null;
+}
+
+/**
+ * Extract analysis tool query - detects keywords that trigger legal analysis workflows
+ * Returns the matched tool and the remaining query text
+ */
+export function extractAnalysisQuery(input: string): {
+  tool: LegalAnalysisTool;
+  query: string;
+} | null {
+  const lowerInput = input.toLowerCase();
+
+  // Check each tool's keywords for a match
+  for (const tool of legalAnalysisTools) {
+    for (const keyword of tool.keywords) {
+      // Create a regex pattern for the keyword as a whole word
+      const pattern = new RegExp(`\\b${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b(.*)`, 'i');
+      const match = lowerInput.match(pattern);
+
+      if (match) {
+        return {
+          tool,
+          query: input.substring(match.index! + keyword.length).trim()
+        };
+      }
+    }
+  }
+
+  return null;
 }
 
 export type FieldType = 'text' | 'textarea' | 'number' | 'date' | 'email' | 'select';

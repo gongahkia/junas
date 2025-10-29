@@ -5,7 +5,14 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Send, FileText, Sparkles } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { extractDraftQuery, searchTemplatesByKeywords, type LegalTemplate } from '@/lib/templates';
+import {
+  extractDraftQuery,
+  searchTemplatesByKeywords,
+  extractAnalysisQuery,
+  type LegalTemplate,
+  type LegalAnalysisTool
+} from '@/lib/templates';
+import { AnalysisToolPreview } from './AnalysisToolPreview';
 
 interface MessageInputProps {
   onSendMessage: (content: string) => void;
@@ -25,26 +32,56 @@ export function MessageInput({
   const [matchedTemplates, setMatchedTemplates] = useState<LegalTemplate[]>([]);
   const [showTemplatePreview, setShowTemplatePreview] = useState(false);
   const [draftQuery, setDraftQuery] = useState<string | null>(null);
+  const [analysisMatch, setAnalysisMatch] = useState<{
+    tool: LegalAnalysisTool;
+    query: string;
+  } | null>(null);
+  const [showAnalysisPreview, setShowAnalysisPreview] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Detect "draft" keyword and search for matching templates
+  // Detect keywords and search for matching templates or analysis tools
   useEffect(() => {
-    const query = extractDraftQuery(message);
-    setDraftQuery(query);
+    // First check for analysis tool keywords
+    const analysis = extractAnalysisQuery(message);
+    setAnalysisMatch(analysis);
 
-    if (query !== null) {
-      const templates = searchTemplatesByKeywords(query);
-      setMatchedTemplates(templates);
-      setShowTemplatePreview(templates.length > 0);
-    } else {
-      setMatchedTemplates([]);
+    if (analysis) {
+      // Analysis tool detected - show analysis preview
+      setShowAnalysisPreview(true);
       setShowTemplatePreview(false);
+      setDraftQuery(null);
+      setMatchedTemplates([]);
+    } else {
+      // No analysis tool - check for draft keyword
+      const query = extractDraftQuery(message);
+      setDraftQuery(query);
+      setShowAnalysisPreview(false);
+
+      if (query !== null) {
+        const templates = searchTemplatesByKeywords(query);
+        setMatchedTemplates(templates);
+        setShowTemplatePreview(templates.length > 0);
+      } else {
+        setMatchedTemplates([]);
+        setShowTemplatePreview(false);
+      }
     }
   }, [message]);
 
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim() || isLoading) return;
+
+    // If analysis tool is detected, use its prompt with the query
+    if (analysisMatch) {
+      const combinedPrompt = analysisMatch.query
+        ? `${analysisMatch.tool.prompt}\n\nUser context: ${analysisMatch.query}`
+        : analysisMatch.tool.prompt;
+      onSendMessage(combinedPrompt);
+      setMessage('');
+      setShowAnalysisPreview(false);
+      return;
+    }
 
     // If "draft" keyword is detected and we have matching templates, auto-select the best match
     if (draftQuery !== null && matchedTemplates.length > 0) {
@@ -58,17 +95,21 @@ export function MessageInput({
     // Otherwise, send the message as normal
     onSendMessage(message.trim());
     setMessage('');
-  }, [message, isLoading, onSendMessage, draftQuery, matchedTemplates]);
+  }, [message, isLoading, onSendMessage, draftQuery, matchedTemplates, analysisMatch]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e);
-    } else if (e.key === 'Escape' && showTemplatePreview) {
+    } else if (e.key === 'Escape') {
       e.preventDefault();
-      setShowTemplatePreview(false);
+      if (showAnalysisPreview) {
+        setShowAnalysisPreview(false);
+      } else if (showTemplatePreview) {
+        setShowTemplatePreview(false);
+      }
     }
-  }, [handleSubmit, showTemplatePreview]);
+  }, [handleSubmit, showTemplatePreview, showAnalysisPreview]);
 
   const handleTemplateSelect = useCallback((template: LegalTemplate) => {
     onSendMessage(template.prompt);
@@ -76,7 +117,17 @@ export function MessageInput({
     setShowTemplatePreview(false);
   }, [onSendMessage]);
 
+  const handleAnalysisToolSelect = useCallback((tool: LegalAnalysisTool) => {
+    const combinedPrompt = analysisMatch?.query
+      ? `${tool.prompt}\n\nUser context: ${analysisMatch.query}`
+      : tool.prompt;
+    onSendMessage(combinedPrompt);
+    setMessage('');
+    setShowAnalysisPreview(false);
+  }, [onSendMessage, analysisMatch]);
+
   const isDraftDetected = draftQuery !== null;
+  const isAnalysisDetected = analysisMatch !== null;
 
   return (
     <div className="border-t bg-background relative">
@@ -97,7 +148,17 @@ export function MessageInput({
               />
 
               {/* Inline suggestion chip */}
-              {isDraftDetected && !showTemplatePreview && (
+              {isAnalysisDetected && !showAnalysisPreview && analysisMatch && (
+                <div className="absolute bottom-2 right-2 flex items-center gap-1">
+                  <div className="bg-primary/10 text-primary px-2 py-1 rounded-md text-xs flex items-center gap-1 animate-in fade-in slide-in-from-bottom-2">
+                    <span className="text-lg">{analysisMatch.tool.icon}</span>
+                    <span className="font-medium">
+                      {analysisMatch.tool.name} ready
+                    </span>
+                  </div>
+                </div>
+              )}
+              {!isAnalysisDetected && isDraftDetected && !showTemplatePreview && (
                 <div className="absolute bottom-2 right-2 flex items-center gap-1">
                   <div className="bg-primary/10 text-primary px-2 py-1 rounded-md text-xs flex items-center gap-1 animate-in fade-in slide-in-from-bottom-2">
                     <Sparkles className="w-3 h-3" />
@@ -121,6 +182,16 @@ export function MessageInput({
               <span className="sr-only">Send message</span>
             </Button>
           </div>
+
+          {/* Analysis Tool preview */}
+          {showAnalysisPreview && analysisMatch && (
+            <AnalysisToolPreview
+              tool={analysisMatch.tool}
+              query={analysisMatch.query}
+              onSelect={handleAnalysisToolSelect}
+              onDismiss={() => setShowAnalysisPreview(false)}
+            />
+          )}
 
           {/* Template preview dropdown */}
           {showTemplatePreview && matchedTemplates.length > 0 && (
@@ -182,7 +253,9 @@ export function MessageInput({
           {/* Help text */}
           <div className="flex items-center justify-end">
             <div className="text-xs text-muted-foreground">
-              Press Enter to send, Shift+Enter for new line. {isDraftDetected && 'Type "draft [document]" to see templates.'}
+              Press Enter to send, Shift+Enter for new line.
+              {isAnalysisDetected && ' Use analysis tools like "irac", "ratio", "obiter".'}
+              {!isAnalysisDetected && isDraftDetected && ' Type "draft [document]" to see templates.'}
             </div>
           </div>
         </form>
