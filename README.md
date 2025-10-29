@@ -18,7 +18,53 @@
 
 ## Screenshots
 
-...
+### Landing page
+
+<div align="center">
+    <img width="100%" src="./asset/reference/1.png">
+</div>
+
+### Draft documents, IRAC Analysis
+
+<div align="center">
+    <img width="45%" src="./asset/reference/2.png">
+    <img width="45%" src="./asset/reference/3.png">
+</div>
+
+### Case facts, Case ruling
+
+<div align="center">
+    <img width="45%" src="./asset/reference/4.png">
+    <img width="45%" src="./asset/reference/5.png">
+</div>
+
+### Obiter, Ratio, Legal argumentation
+
+<div align="center">
+    <img width="33%" src="./asset/reference/6.png">
+    <img width="33%" src="./asset/reference/7.png">
+    <img width="33%" src="./asset/reference/8.png">
+</div>
+
+### Sample response
+
+<div align="center">
+    <img width="100%" src="./asset/reference/9.png">
+</div>
+
+### Export conversation, Import conversation history
+
+<div align="center">
+    <img width="45%" src="./asset/reference/10.png">
+    <img width="45%" src="./asset/reference/12.png">
+</div>
+
+### Start a new chat, Configure API Keys
+
+<div align="center">
+    <img width="45%" src="./asset/reference/11.png">
+    <img width="45%" src="./asset/reference/13.png">
+</div>
 
 ## Usage
 
