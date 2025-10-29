@@ -48,18 +48,46 @@ export async function POST(request: NextRequest) {
       const encoder = new TextEncoder();
       const readable = new ReadableStream({
         async start(controller) {
+          let isClosed = false;
+
+          const safeEnqueue = (data: Uint8Array) => {
+            if (!isClosed) {
+              try {
+                controller.enqueue(data);
+              } catch (error) {
+                isClosed = true;
+              }
+            }
+          };
+
+          const safeClose = () => {
+            if (!isClosed) {
+              try {
+                controller.close();
+                isClosed = true;
+              } catch (error) {
+                // Already closed, ignore
+              }
+            }
+          };
+
           try {
             for await (const chunk of result.stream) {
+              if (isClosed) break; // Stop if stream was closed
+
               const text = chunk.text();
               if (text) {
                 const data = JSON.stringify({ content: text }) + '\n';
-                controller.enqueue(encoder.encode(data));
+                safeEnqueue(encoder.encode(data));
               }
             }
-            controller.close();
+            safeClose();
           } catch (error) {
             console.error('Streaming error:', error);
-            controller.error(error);
+            if (!isClosed) {
+              controller.error(error);
+              isClosed = true;
+            }
           }
         },
       });
