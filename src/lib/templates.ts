@@ -2145,3 +2145,52 @@ export function getTemplatesByCategory(category: TemplateCategory): LegalTemplat
 export function getTemplateById(id: string): LegalTemplate | undefined {
   return legalTemplates.find(template => template.id === id);
 }
+
+/**
+ * Search templates by keyword matching in name, description, and category
+ * Returns templates sorted by relevance (number of keyword matches)
+ */
+export function searchTemplatesByKeywords(query: string): LegalTemplate[] {
+  if (!query.trim()) {
+    return legalTemplates;
+  }
+
+  const keywords = query.toLowerCase().split(/\s+/).filter(k => k.length > 0);
+
+  // Score each template based on keyword matches
+  const scoredTemplates = legalTemplates.map(template => {
+    let score = 0;
+
+    keywords.forEach(keyword => {
+      // Exact match in name gets highest score
+      if (template.name.toLowerCase().includes(keyword)) {
+        score += 10;
+      }
+      // Match in category gets medium score
+      if (template.category.toLowerCase().includes(keyword)) {
+        score += 5;
+      }
+      // Match in description gets lower score
+      if (template.description.toLowerCase().includes(keyword)) {
+        score += 3;
+      }
+    });
+
+    return { template, score };
+  });
+
+  // Filter templates with at least one match and sort by score
+  return scoredTemplates
+    .filter(item => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map(item => item.template);
+}
+
+/**
+ * Extract the query text after the "draft" keyword
+ * Case-insensitive, returns the text after "draft" or empty string if not found
+ */
+export function extractDraftQuery(input: string): string | null {
+  const match = input.match(/\bdraft\b\s*(.*)/i);
+  return match ? match[1].trim() : null;
+}
