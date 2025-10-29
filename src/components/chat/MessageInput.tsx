@@ -12,6 +12,7 @@ interface MessageInputProps {
   isLoading: boolean;
   placeholder?: string;
   onOpenTemplates?: () => void;
+  onSelectTemplate?: (template: LegalTemplate) => void;
 }
 
 export function MessageInput({

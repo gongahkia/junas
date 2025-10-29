@@ -7,11 +7,13 @@ import { MessageInput } from './MessageInput';
 import { HeroMarquee } from './HeroMarquee';
 import { LegalDisclaimer } from '@/components/LegalDisclaimer';
 import { TemplateSelector } from './TemplateSelector';
+import { TemplateForm } from './TemplateForm';
 import { StorageManager } from '@/lib/storage';
 import { ChatService } from '@/lib/ai/chat-service';
 import { extractAndLookupCitations } from '@/lib/tools/citation-extractor';
 import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
+import { extractTemplateFields, type LegalTemplate, type TemplateField } from '@/lib/templates';
 
 interface ChatInterfaceProps {
   onSettings: () => void;
@@ -23,6 +25,7 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
   const [isLoading, setIsLoading] = useState(false);
   const [hasMessages, setHasMessages] = useState(false);
   const [showTemplateSelector, setShowTemplateSelector] = useState(false);
+  const [activeTemplate, setActiveTemplate] = useState<{ template: LegalTemplate; fields: TemplateField[] } | null>(null);
   const { addToast } = useToast();
 
   // Notify parent when messages change
@@ -175,9 +178,50 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
     console.log('Regenerate message:', messageId);
   }, []);
 
-  const handleSelectTemplate = useCallback((prompt: string) => {
-    handleSendMessage(prompt);
-  }, [handleSendMessage]);
+  const handleSelectTemplate = useCallback((template: LegalTemplate) => {
+    // Extract fields from the template prompt
+    const fields = extractTemplateFields(template.prompt);
+
+    // Show the template form
+    setActiveTemplate({ template, fields });
+    setShowTemplateSelector(false);
+  }, []);
+
+  const handleTemplateFormSubmit = useCallback((formData: Record<string, string>) => {
+    if (!activeTemplate) return;
+
+    // Construct enriched prompt with user-provided data
+    let enrichedPrompt = activeTemplate.template.prompt;
+
+    // Add user context at the beginning
+    const userContext = Object.entries(formData)
+      .map(([key, value]) => {
+        const field = activeTemplate.fields.find(f => f.id === key);
+        return field ? `${field.label}: ${value}` : null;
+      })
+      .filter(Boolean)
+      .join('\n');
+
+    const finalPrompt = `Please draft the following legal document using the provided information and template guidelines.
+
+USER PROVIDED INFORMATION:
+${userContext}
+
+TEMPLATE INSTRUCTIONS:
+${activeTemplate.template.prompt}
+
+Please generate a complete, professional legal document incorporating all the provided information. Ensure compliance with Singapore law and include all necessary clauses and provisions.`;
+
+    // Close the form
+    setActiveTemplate(null);
+
+    // Send to AI
+    handleSendMessage(finalPrompt);
+  }, [activeTemplate, handleSendMessage]);
+
+  const handleTemplateFormCancel = useCallback(() => {
+    setActiveTemplate(null);
+  }, []);
 
   return (
     <div className="flex flex-col h-full max-w-6xl mx-auto w-full">
@@ -202,12 +246,22 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
         )}
       </div>
 
-      {/* Input area */}
-      <MessageInput
-        onSendMessage={handleSendMessage}
-        isLoading={isLoading}
-        onOpenTemplates={() => setShowTemplateSelector(true)}
-      />
+      {/* Input area or Template Form */}
+      {activeTemplate ? (
+        <TemplateForm
+          template={activeTemplate.template}
+          fields={activeTemplate.fields}
+          onSubmit={handleTemplateFormSubmit}
+          onCancel={handleTemplateFormCancel}
+        />
+      ) : (
+        <MessageInput
+          onSendMessage={handleSendMessage}
+          isLoading={isLoading}
+          onOpenTemplates={() => setShowTemplateSelector(true)}
+          onSelectTemplate={handleSelectTemplate}
+        />
+      )}
 
       {/* Template Selector */}
       <TemplateSelector
