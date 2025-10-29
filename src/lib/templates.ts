@@ -2194,3 +2194,119 @@ export function extractDraftQuery(input: string): string | null {
   const match = input.match(/\bdraft\b\s*(.*)/i);
   return match ? match[1].trim() : null;
 }
+
+export type FieldType = 'text' | 'textarea' | 'number' | 'date' | 'email' | 'select';
+
+export interface TemplateField {
+  id: string;
+  label: string;
+  type: FieldType;
+  placeholder?: string;
+  required: boolean;
+  options?: string[]; // For select fields
+  description?: string;
+}
+
+/**
+ * Extract form fields from template prompt by parsing placeholders
+ * Looks for patterns like [FIELD_NAME], {field_name}, or <<field>>
+ */
+export function extractTemplateFields(prompt: string): TemplateField[] {
+  const fields: TemplateField[] = [];
+  const seenFields = new Set<string>();
+
+  // Pattern 1: [FIELD_NAME] or [Field Name]
+  const bracketPattern = /\[([^\]]+)\]/g;
+  let match;
+
+  while ((match = bracketPattern.exec(prompt)) !== null) {
+    const fieldText = match[1].trim();
+
+    // Skip if it's likely not a placeholder (too long, contains punctuation, etc.)
+    if (fieldText.length > 50 || fieldText.includes(',') || fieldText.includes('.')) {
+      continue;
+    }
+
+    const fieldId = fieldText.toLowerCase().replace(/\s+/g, '_');
+
+    if (seenFields.has(fieldId)) {
+      continue;
+    }
+    seenFields.add(fieldId);
+
+    // Determine field type based on name patterns
+    let fieldType: FieldType = 'text';
+    let placeholder = '';
+
+    if (fieldText.toLowerCase().includes('email')) {
+      fieldType = 'email';
+      placeholder = 'example@company.com';
+    } else if (fieldText.toLowerCase().includes('date') || fieldText.toLowerCase().includes('commencement')) {
+      fieldType = 'date';
+    } else if (
+      fieldText.toLowerCase().includes('amount') ||
+      fieldText.toLowerCase().includes('price') ||
+      fieldText.toLowerCase().includes('fee') ||
+      fieldText.toLowerCase().includes('salary') ||
+      fieldText.toLowerCase().includes('number') ||
+      fieldText.toLowerCase().includes('uen') ||
+      fieldText.toLowerCase().includes('nric')
+    ) {
+      fieldType = 'text'; // Use text for amounts/IDs to allow formatting
+      if (fieldText.toLowerCase().includes('amount') || fieldText.toLowerCase().includes('price')) {
+        placeholder = 'e.g., 100,000.00';
+      }
+    } else if (
+      fieldText.toLowerCase().includes('address') ||
+      fieldText.toLowerCase().includes('description') ||
+      fieldText.toLowerCase().includes('background') ||
+      fieldText.toLowerCase().includes('purpose')
+    ) {
+      fieldType = 'textarea';
+    } else if (
+      fieldText.toLowerCase().includes('type') ||
+      fieldText.toLowerCase().includes('category')
+    ) {
+      fieldType = 'select';
+    }
+
+    fields.push({
+      id: fieldId,
+      label: fieldText,
+      type: fieldType,
+      placeholder,
+      required: true,
+      description: generateFieldDescription(fieldText),
+    });
+  }
+
+  return fields;
+}
+
+/**
+ * Generate helpful descriptions for common field types
+ */
+function generateFieldDescription(fieldLabel: string): string {
+  const lower = fieldLabel.toLowerCase();
+
+  if (lower.includes('full legal name') || lower === 'name') {
+    return 'Enter the complete legal name as it appears on official documents';
+  }
+  if (lower.includes('uen') || lower.includes('registration number')) {
+    return 'Unique Entity Number (UEN) or company registration number';
+  }
+  if (lower.includes('nric') || lower.includes('fin')) {
+    return 'Singapore NRIC or Foreign Identification Number';
+  }
+  if (lower.includes('address')) {
+    return 'Full registered address including postal code';
+  }
+  if (lower.includes('date')) {
+    return 'Select the appropriate date';
+  }
+  if (lower.includes('amount')) {
+    return 'Enter the amount in SGD (Singapore Dollars)';
+  }
+
+  return '';
+}
