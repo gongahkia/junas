@@ -8,23 +8,13 @@
 
 ## Stack
 
-* **Frontend**: [Next.js 16](https://nextjs.org/), [React 19](https://react.dev/), [Tailwind CSS 3](https://tailwindcss.com/), [TypeScript 5](https://www.typescriptlang.org/)
-* **UI Components**: [Radix UI](https://www.radix-ui.com/) (Alert Dialog, Dialog, Dropdown Menu, Select, Slot, Switch)
-* **State Management**: [Zustand](https://zustand-demo.pmnd.rs/)
-* **AI Providers**: [Anthropic SDK](https://www.anthropic.com/) (Claude), [Google Generative AI](https://ai.google.dev/) (Gemini), [OpenAI](https://platform.openai.com/) (GPT)
-* **Machine Learning**: [Xenova Transformers](https://xenova.github.io/transformers.js/) (Named Entity Recognition for legal entities)
-* **Markdown Rendering**: [react-markdown](https://remarkjs.github.io/react-markdown/), [remark-gfm](https://github.com/remarkjs/remark-gfm), [remark-math](https://github.com/remarkjs/remark-math), [rehype-katex](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex), [KaTeX](https://katex.org/)
-* **PDF Export**: [jsPDF](https://github.com/parallax/jsPDF)
-* **Web Scraping**: [Cheerio](https://cheerio.js.org/), [Axios](https://axios-http.com/)
-* **Search**: [Fuse.js](https://www.fusejs.io/) (Fuzzy search for legal documents)
-* **Session Management**: [iron-session](https://github.com/vvo/iron-session)
-* **Rate Limiting**: [Upstash Redis](https://upstash.com/), [Upstash Ratelimit](https://github.com/upstash/ratelimit)
-* **Monitoring**: [Sentry](https://sentry.io/)
-* **Theming**: [next-themes](https://github.com/pacocoursey/next-themes)
-* **Icons**: [Lucide React](https://lucide.dev/)
-* **Sanitization**: [isomorphic-dompurify](https://github.com/kkomelin/isomorphic-dompurify)
-* **Validation**: [Zod](https://zod.dev/)
-* **Styling Utilities**: [class-variance-authority](https://cva.style/), [clsx](https://github.com/lukeed/clsx), [tailwind-merge](https://github.com/dcastil/tailwind-merge), [tailwindcss-animate](https://github.com/jamiebuilds/tailwindcss-animate)
+* *Frontend*: [Next.js 16](https://nextjs.org/), [React 19](https://react.dev/), [Tailwind CSS 3](https://tailwindcss.com/), [TypeScript 5](https://www.typescriptlang.org/)
+* *AI Providers*: [Anthropic SDK](https://www.anthropic.com/) (Claude), [Google Generative AI](https://ai.google.dev/) (Gemini), [OpenAI](https://platform.openai.com/) (GPT)
+* *Markdown Rendering*: [react-markdown](https://remarkjs.github.io/react-markdown/), [remark-gfm](https://github.com/remarkjs/remark-gfm), [remark-math](https://github.com/remarkjs/remark-math), [rehype-katex](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex), [KaTeX](https://katex.org/)
+* *Web Scraping*: [Cheerio](https://cheerio.js.org/), [Axios](https://axios-http.com/)
+* *Session Management*: [iron-session](https://github.com/vvo/iron-session)
+* *Rate Limiting*: [Upstash Redis](https://upstash.com/), [Upstash Ratelimit](https://github.com/upstash/ratelimit)
+* *Monitoring*: [Sentry](https://sentry.io/)
 
 ## Screenshots
 
