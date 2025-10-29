@@ -1,336 +1,290 @@
-# Junas
+[![](https://img.shields.io/badge/junas_1.0.0-passing-green)](https://github.com/gongahkia/junas/releases/tag/1.0.0)
+
+# `Junas`
 
 **AI-Powered Legal Assistant for Singapore Law**
 
-Junas is an intelligent legal research and drafting assistant specifically designed for Singapore's legal system. Built with cutting-edge AI technology, Junas helps legal professionals, law students, and individuals navigate Singapore law through structured analysis, document drafting, and comprehensive legal research.
+`Junas` is a [BYOK](https://en.wikipedia.org/wiki/Bring_your_own_encryption) Web App that automates out the [boring part](#tools) of legal tasks.
 
-## Features
+## Stack
 
-### 🎯 Legal Analysis Tools
+* **Frontend**: [Next.js 16](https://nextjs.org/), [React 19](https://react.dev/), [Tailwind CSS 3](https://tailwindcss.com/), [TypeScript 5](https://www.typescriptlang.org/)
+* **UI Components**: [Radix UI](https://www.radix-ui.com/) (Alert Dialog, Dialog, Dropdown Menu, Select, Slot, Switch)
+* **State Management**: [Zustand](https://zustand-demo.pmnd.rs/)
+* **AI Providers**: [Anthropic SDK](https://www.anthropic.com/) (Claude), [Google Generative AI](https://ai.google.dev/) (Gemini), [OpenAI](https://platform.openai.com/) (GPT)
+* **Machine Learning**: [Xenova Transformers](https://xenova.github.io/transformers.js/) (Named Entity Recognition for legal entities)
+* **Markdown Rendering**: [react-markdown](https://remarkjs.github.io/react-markdown/), [remark-gfm](https://github.com/remarkjs/remark-gfm), [remark-math](https://github.com/remarkjs/remark-math), [rehype-katex](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex), [KaTeX](https://katex.org/)
+* **PDF Export**: [jsPDF](https://github.com/parallax/jsPDF)
+* **Web Scraping**: [Cheerio](https://cheerio.js.org/), [Axios](https://axios-http.com/)
+* **Search**: [Fuse.js](https://www.fusejs.io/) (Fuzzy search for legal documents)
+* **Session Management**: [iron-session](https://github.com/vvo/iron-session)
+* **Rate Limiting**: [Upstash Redis](https://upstash.com/), [Upstash Ratelimit](https://github.com/upstash/ratelimit)
+* **Monitoring**: [Sentry](https://sentry.io/)
+* **Theming**: [next-themes](https://github.com/pacocoursey/next-themes)
+* **Icons**: [Lucide React](https://lucide.dev/)
+* **Sanitization**: [isomorphic-dompurify](https://github.com/kkomelin/isomorphic-dompurify)
+* **Validation**: [Zod](https://zod.dev/)
+* **Styling Utilities**: [class-variance-authority](https://cva.style/), [clsx](https://github.com/lukeed/clsx), [tailwind-merge](https://github.com/dcastil/tailwind-merge), [tailwindcss-animate](https://github.com/jamiebuilds/tailwindcss-animate)
 
-Junas provides six structured analysis workflows with intelligent pop-up assistance:
+## Screenshots
 
-| Tool | Trigger Keywords | Purpose |
-|------|-----------------|---------|
-| **IRAC Analysis** | `irac`, `analyze`, `legal analysis` | Structure legal problems using Issue, Rule, Application, Conclusion |
-| **Case Facts Extraction** | `facts`, `case facts`, `extract facts` | Extract and organize material facts from case law |
-| **Ruling Analysis** | `ruling`, `judgment`, `decision` | Analyze court decisions, reasoning, and remedies |
-| **Obiter Dicta** | `obiter`, `dicta`, `remarks` | Identify non-binding judicial observations |
-| **Ratio Decidendi** | `ratio`, `binding principle`, `precedent` | Extract binding legal principles from cases |
-| **Legal Argumentation** | `argue`, `argument`, `submission` | Build persuasive legal arguments with authorities |
-
-### 📝 Document Templates
-
-13 comprehensive templates for Singapore legal documents:
-
-- **Contracts**: NDA, Service Agreement, Partnership Agreement, Settlement Agreement
-- **Employment**: Employment Contract
-- **Corporate**: Shareholders Agreement, Corporate Resolution
-- **Property**: Tenancy Agreement, Loan Agreement
-- **Intellectual Property**: IP Assignment Agreement
-- **Clauses**: Confidentiality, Force Majeure, Dispute Resolution
-
-### 🔍 Research & Analysis
-
-- **Citation Extraction**: Automatically recognizes and validates Singapore legal citations
-- **Case Law Search**: Search Singapore cases with relevance scoring
-- **Named Entity Recognition**: Extract parties, organizations, dates, and legal entities
-- **Contract Analysis**: Identify key terms, risks, and missing provisions
-- **Web Scraping**: Fetch legal information from Singapore legal databases
-
-### 🤖 Multi-Provider AI Support
-
-- **Google Gemini** (Free tier available)
-- **OpenAI GPT-4**
-- **Anthropic Claude**
-- Automatic fallback between providers
-
-### 💾 Privacy-First Design
-
-- All data stored locally in browser (localStorage)
-- No backend database - your legal research stays private
-- BYOK (Bring Your Own Key) - use your own API keys
-
-## Tech Stack
-
-**Frontend Framework:**
-- Next.js 16.0.0 (React 19.2.0)
-- TypeScript
-- Tailwind CSS
-
-**UI Components:**
-- Radix UI primitives
-- shadcn/ui design system
-- Lucide React icons
-
-**AI & ML:**
-- Anthropic Claude SDK
-- Google Generative AI
-- OpenAI SDK
-- Transformers.js (Named Entity Recognition)
-
-**Utilities:**
-- Zustand (State management)
-- React Markdown (with KaTeX for math)
-- jsPDF (Document export)
-- Cheerio (Web scraping)
-- Fuse.js (Fuzzy search)
-
-## Installation
-
-### Prerequisites
-
-- Node.js 20+ (recommended)
-- npm or yarn
-
-### Setup
-
-1. **Clone the repository**
-
-```bash
-git clone <repository-url>
-cd junas
-```
-
-2. **Install dependencies**
-
-```bash
-npm install
-```
-
-3. **Configure API keys**
-
-Junas supports multiple AI providers. You'll need at least one API key:
-
-- **Google Gemini**: [Get API Key](https://aistudio.google.com/) (Free tier available)
-- **OpenAI**: [Get API Key](https://platform.openai.com/)
-- **Anthropic**: [Get API Key](https://console.anthropic.com/)
-
-API keys are configured directly in the app's settings (stored in browser localStorage).
-
-4. **Run the development server**
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-5. **Build for production**
-
-```bash
-npm run build
-npm start
-```
+...
 
 ## Usage
 
-### Getting Started
+> [!IMPORTANT]  
+> Read the [legal disclaimer](#legal-disclaimer) before using `Junas`.
 
-1. **Configure your API keys**: Click the settings icon and add at least one AI provider key
-2. **Select your provider**: Choose between Gemini, OpenAI, or Claude
-3. **Start chatting**: Ask questions about Singapore law or use the intelligent templates
+The below instructions are for locally hosting `Junas`.
 
-### Using Legal Analysis Tools
+1. First run the below.
 
-Simply type a trigger keyword in the message input:
-
-```
-irac breach of contract
+```console
+$ git clone https://github.com/gongahkia/junas && cd junas
+$ npm install
 ```
 
-A pop-up will appear showing the analysis structure. Click to start or press Enter.
+2. Then execute the following to run the local dev server or build for production.
 
-### Drafting Documents
-
-Type "draft" followed by the document type:
-
-```
-draft nda
+```console
+$ npm run dev
+$ npm run build
+$ npm start
 ```
 
-Junas will show matching templates. Select one and fill in the dynamic form.
+3. Finally, get your API keys from the below sources, then configure them inside the `Junas` web app settings.
+    1. [Google Gemini](https://aistudio.google.com/) *(free tier available)*
+    2. [OpenAI](https://platform.openai.com/)
+    3. [Anthropic](https://console.anthropic.com/)
 
-### Citation Recognition
+## Tools
 
-Junas automatically recognizes Singapore legal citations:
+`Junas` currently provides 6 structured analysis workflows, explicitly called by their keywords.
 
-- `[2023] SGCA 15` - Court of Appeal
-- `[2023] SGHC 45` - High Court
-- `[2023] SGDC 120` - District Court
+| Tool | Keywords | Purpose |
+|------|-----------------|---------|
+| Document Drafting | `draft`,  | Drafts legal documents based off 13 comprehensive templates |
+| IRAC Analysis | `irac`, `analyze`, `legal analysis` | Structure legal problems using Issue, Rule, Application, Conclusion |
+| Case Facts Extraction | `facts`, `case facts`, `extract facts` | Extract and organize material facts from case law |
+| Ruling Analysis | `ruling`, `judgment`, `decision` | Analyze court decisions, reasoning, and remedies |
+| Obiter Dicta | `obiter`, `dicta`, `remarks` | Identify non-binding judicial observations |
+| Ratio Decidendi | `ratio`, `binding principle`, `precedent` | Extract binding legal principles from cases |
+| Legal Argumentation | `argue`, `argument`, `submission` | Build persuasive legal arguments with authorities |
 
-### Example Prompts
+## Architecture
 
-- "What is the test for breach of contract under Singapore law?"
-- "Analyze the ratio decidendi in *Ngee Ann Development v Takashimaya*"
-- "Draft an employment contract for a senior software engineer"
-- "Extract the facts from *Spandeck Engineering v Defence Science*"
-- "What are the remedies for breach of fiduciary duty?"
+### C4 Context Diagram (Level 1)
 
-## Project Structure
+Shows Junas in its environment with users and external systems.
 
-```
-junas/
-├── src/
-│   ├── app/                    # Next.js App Router
-│   │   ├── api/               # API routes (chat, providers, tools)
-│   │   ├── layout.tsx         # Root layout
-│   │   └── page.tsx           # Main chat interface
-│   ├── components/
-│   │   ├── chat/              # Chat components
-│   │   │   ├── ChatInterface.tsx
-│   │   │   ├── MessageInput.tsx
-│   │   │   ├── MessageList.tsx
-│   │   │   ├── AnalysisToolPreview.tsx  # NEW: Legal analysis pop-ups
-│   │   │   └── TemplateForm.tsx
-│   │   ├── settings/          # Settings components
-│   │   └── ui/                # Reusable UI components
-│   ├── lib/
-│   │   ├── ai/                # AI provider abstractions
-│   │   │   ├── chat-service.ts
-│   │   │   ├── claude.ts
-│   │   │   ├── gemini.ts
-│   │   │   └── openai.ts
-│   │   ├── ml/                # Machine learning utilities
-│   │   │   └── ner.ts         # Named Entity Recognition
-│   │   ├── scrapers/          # Legal database scrapers
-│   │   │   ├── lawnet.ts
-│   │   │   ├── commonlii.ts
-│   │   │   └── statutes.ts
-│   │   ├── tools/             # Legal analysis tools
-│   │   │   ├── citation-extractor.ts
-│   │   │   ├── contract-analyzer.ts
-│   │   │   └── legal-search.ts
-│   │   ├── templates.ts       # Legal templates & analysis tools
-│   │   └── storage.ts         # Browser storage management
-│   └── types/                 # TypeScript type definitions
-├── public/                    # Static assets
-└── package.json
+```mermaid
+C4Context
+    title System Context Diagram for Junas
+
+    Person(user, "Legal Professional", "Lawyers, law students, legal researchers who need assistance with legal analysis and document drafting")
+
+    System(junas, "Junas", "AI-Powered Legal Assistant that provides legal analysis tools, document drafting, and case law processing for Singapore Law")
+
+    System_Ext(gemini, "Google Gemini API", "Provides AI language model capabilities")
+    System_Ext(openai, "OpenAI API", "Provides GPT model capabilities")
+    System_Ext(anthropic, "Anthropic API", "Provides Claude model capabilities")
+    System_Ext(legal_sources, "Legal Data Sources", "Singapore legal databases and case law sources")
+
+    Rel(user, junas, "Uses for legal analysis and document drafting", "HTTPS")
+    Rel(junas, gemini, "Sends prompts and receives AI-generated analysis", "HTTPS/API")
+    Rel(junas, openai, "Sends prompts and receives AI-generated analysis", "HTTPS/API")
+    Rel(junas, anthropic, "Sends prompts and receives AI-generated analysis", "HTTPS/API")
+    Rel(junas, legal_sources, "Scrapes case law and legal information", "HTTPS")
+
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
 ```
 
-## Legal Analysis Tools (Detailed)
+### C4 Container Diagram (Level 2)
 
-### IRAC Analysis
-Structure legal problems systematically:
-- **Issue**: Identify the precise legal question
-- **Rule**: State applicable Singapore law and precedents
-- **Application**: Apply law to facts with case comparisons
-- **Conclusion**: Provide clear answer with practical implications
+Shows the high-level technical building blocks of Junas.
 
-### Case Facts Extraction
-Organize case information:
-- Parties and their roles
-- Background context
-- Material facts (legally significant only)
-- Procedural history through court levels
-- Chronological timeline
+```mermaid
+C4Container
+    title Container Diagram for Junas
 
-### Ruling Analysis
-Comprehensive decision breakdown:
-- Court's holding and decision
-- Chain of reasoning
-- Remedies granted/denied
-- Specific orders made
-- Costs allocation
+    Person(user, "Legal Professional", "Uses Junas for legal tasks")
 
-### Obiter Dicta Identification
-Separate binding precedent from persuasive remarks:
-- Identify non-essential judicial statements
-- Contextualize why courts made these remarks
-- Assess persuasive value for future cases
+    System_Boundary(junas_boundary, "Junas System") {
+        Container(web_app, "Web Application", "Next.js, React, TypeScript", "Provides user interface for legal analysis, chat interaction, and document management")
+        Container(api, "API Routes", "Next.js API Routes", "Handles requests for AI processing, authentication, tool execution, and data scraping")
+        ContainerDb(browser_storage, "Browser Storage", "LocalStorage, Zustand", "Stores user API keys (BYOK), chat history, and user preferences locally")
+        Container(ml_engine, "ML/NER Engine", "Xenova Transformers", "Performs Named Entity Recognition for legal entities and case citations")
+    }
 
-### Ratio Decidendi Extraction
-Extract binding legal principles:
-- State the legal issue precisely
-- Identify material facts essential to the decision
-- Formulate the binding rule of law
-- Define scope and limitations
+    System_Ext(ai_providers, "AI Provider APIs", "Google Gemini, OpenAI, Anthropic")
+    System_Ext(legal_sources, "Legal Data Sources", "Singapore legal databases")
+    System_Ext(sentry, "Sentry", "Error tracking and monitoring")
 
-### Legal Argumentation Builder
-Construct persuasive submissions:
-- Clear position statement
-- Legal basis with Singapore authorities
-- Application to your facts
-- Anticipate counter-arguments
-- Conclusion with relief sought
+    Rel(user, web_app, "Interacts with", "HTTPS")
+    Rel(web_app, api, "Makes API calls", "JSON/HTTPS")
+    Rel(web_app, browser_storage, "Reads/writes", "Browser API")
+    Rel(api, ai_providers, "Sends prompts, receives completions", "HTTPS/API")
+    Rel(api, legal_sources, "Scrapes legal data", "HTTPS")
+    Rel(api, ml_engine, "Extracts legal entities", "Function calls")
+    Rel(api, sentry, "Sends error logs", "HTTPS")
 
-## Document Templates (Detailed)
+    UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="1")
+```
 
-All templates include:
-- ✅ Singapore law compliance
-- ✅ Detailed clause-by-clause guidance
-- ✅ Relevant statutory references
-- ✅ Common law principles
-- ✅ Execution blocks and formalities
+### C4 Component Diagram (Level 3)
 
-Each template provides comprehensive drafting instructions tailored to Singapore's legal framework.
+Shows the internal components of the Junas application.
 
-## Configuration
+```mermaid
+C4Component
+    title Component Diagram for Junas API and Application
 
-Settings are stored in browser localStorage:
+    Container_Boundary(web_boundary, "Web Application") {
+        Component(chat_ui, "Chat Interface", "React Components", "Manages chat interaction, message display, and user input")
+        Component(template_ui, "Template Selector", "React Components", "Provides UI for selecting and using legal document templates")
+        Component(settings_ui, "Settings Manager", "React Components", "Manages API keys and provider selection")
+        Component(export_ui, "Export Components", "React Components", "Handles PDF export and data import/export")
+    }
 
-- **API Keys**: Provider-specific API keys
-- **Temperature**: Controls response creativity (0.0 - 1.0)
-- **Max Tokens**: Maximum response length
-- **Auto-save**: Automatically save conversation history
-- **Dark Mode**: Theme preference
+    Container_Boundary(api_boundary, "API Routes") {
+        Component(chat_api, "Chat API", "Next.js API Route", "Processes chat requests and coordinates AI responses")
+        Component(tools_api, "Tools API", "Next.js API Route", "Executes legal analysis tools (IRAC, case facts, etc.)")
+        Component(auth_api, "Auth API", "Next.js API Route", "Manages session authentication")
+        Component(providers_api, "Providers API", "Next.js API Route", "Lists available AI providers")
+    }
 
-## Privacy & Security
+    Container_Boundary(lib_boundary, "Core Libraries") {
+        Component(provider_factory, "Provider Factory", "TypeScript", "Creates appropriate AI provider instances based on user selection")
+        Component(chat_service, "Chat Service", "TypeScript", "Orchestrates AI chat interactions and streaming responses")
+        Component(tool_system, "Legal Tools System", "TypeScript", "Implements IRAC, case analysis, ratio decidendi, obiter dicta tools")
+        Component(ner_processor, "NER Processor", "Xenova Transformers", "Extracts legal entities, case names, and citations")
+        Component(scrapers, "Web Scrapers", "Cheerio, Axios", "Scrapes Singapore case law and statute data")
+        Component(template_engine, "Template Engine", "TypeScript", "Manages legal document templates")
+        Component(session_mgmt, "Session Management", "iron-session", "Handles secure session storage")
+        Component(storage_mgmt, "Storage Manager", "Zustand", "Manages client-side state and persistence")
+    }
 
-- **No backend database**: All data stays in your browser
-- **Local storage only**: Conversations, settings, and API keys stored locally
-- **BYOK model**: You control your own API keys
-- **No tracking**: No analytics or user tracking
-- **No server logs**: API requests go directly from browser to providers
+    System_Ext(ai_apis, "AI Provider APIs")
+    System_Ext(legal_data, "Legal Data Sources")
 
-## Important Disclaimers
+    Rel(chat_ui, chat_api, "Sends messages", "JSON/HTTPS")
+    Rel(template_ui, tools_api, "Requests document drafts", "JSON/HTTPS")
+    Rel(settings_ui, providers_api, "Updates provider config", "JSON/HTTPS")
+    Rel(settings_ui, storage_mgmt, "Stores API keys", "Browser API")
 
-⚠️ **Legal Disclaimer**:
-- Junas is a research and drafting assistant tool
-- **NOT a substitute for professional legal advice**
-- Always consult a qualified lawyer for legal matters
-- No attorney-client relationship is created
-- Use at your own risk
+    Rel(chat_api, chat_service, "Uses")
+    Rel(tools_api, tool_system, "Executes")
+    Rel(auth_api, session_mgmt, "Uses")
 
-⚠️ **Singapore Law Focus**:
-- Optimized specifically for Singapore legal system
-- Templates comply with Singapore statutes
-- Case law references are Singapore courts
-- May not be suitable for other jurisdictions
+    Rel(chat_service, provider_factory, "Creates providers")
+    Rel(provider_factory, ai_apis, "Calls")
+    Rel(tool_system, ner_processor, "Extracts entities")
+    Rel(tool_system, scrapers, "Fetches legal data")
+    Rel(scrapers, legal_data, "Scrapes")
+    Rel(tool_system, template_engine, "Uses templates")
 
-⚠️ **AI Limitations**:
-- AI responses may contain errors or outdated information
-- Always verify legal principles and citations
-- Cross-reference with official legal sources
-- AI models have knowledge cutoff dates
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
+```
 
-## Contributing
+### Data Flow Diagram
 
-Contributions are welcome! Areas for improvement:
+Shows how data flows through the system during a typical legal analysis request.
 
-- Additional legal templates for Singapore
-- More analysis tools and workflows
-- Enhanced citation recognition
-- Integration with legal databases
-- Export formats (PDF, Word)
-- Collaborative features
+```mermaid
+sequenceDiagram
+    actor User
+    participant UI as Web Interface
+    participant Storage as Browser Storage
+    participant API as API Routes
+    participant Tools as Legal Tools
+    participant NER as NER Engine
+    participant AI as AI Provider
+    participant Scraper as Web Scraper
+    participant Legal as Legal Sources
 
-## License
+    User->>UI: Input legal query with tool keyword
+    UI->>Storage: Retrieve API key
+    Storage-->>UI: Return API key
+    UI->>API: POST /api/chat (query, provider, API key)
 
-This project is private and proprietary.
+    API->>Tools: Detect and route to appropriate tool
 
-## Acknowledgments
+    alt Tool requires entity extraction
+        Tools->>NER: Extract legal entities
+        NER-->>Tools: Return entities (cases, statutes)
+    end
 
-Built with:
-- Next.js and React
-- Anthropic Claude, Google Gemini, and OpenAI APIs
-- shadcn/ui component library
-- Radix UI primitives
-- The open-source community
+    alt Tool requires legal data
+        Tools->>Scraper: Fetch case law/statutes
+        Scraper->>Legal: HTTP request
+        Legal-->>Scraper: Return legal data
+        Scraper-->>Tools: Parsed legal information
+    end
 
----
+    Tools->>AI: Generate analysis with structured prompt
+    AI-->>Tools: Stream AI response
+    Tools-->>API: Stream processed response
+    API-->>UI: SSE stream
+    UI-->>User: Display analysis results
 
-**Version**: 0.1.0
-**Status**: Active Development
-**Focus**: Singapore Law
-**Privacy**: Local-first, BYOK
+    User->>UI: Export to PDF
+    UI->>UI: Generate PDF locally
+    UI-->>User: Download PDF file
+```
+
+## Legal Disclaimer
+
+### For Informational Purposes Only
+
+The information provided on Junas is for general informational purposes only. While we strive to ensure the accuracy and reliability of the legal analysis workflows and templates provided, Junas makes no guarantees, representations, or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability of the information. Users should independently verify any information before making decisions based on it.
+
+### No Professional Advice
+
+Junas does not provide professional legal advice or consultation services. The legal analysis tools, document drafting templates, and case law analysis features should not be considered as a substitute for professional advice from qualified legal practitioners or attorneys. Users are encouraged to consult with appropriate legal professionals regarding their specific legal matters and requirements.
+
+### No Endorsement
+
+The inclusion of any legal templates, analysis methodologies, or reference to any legal principles on Junas does not constitute an endorsement or recommendation of specific legal strategies or approaches. Junas is not affiliated with any law firms, legal institutions, or bar associations unless explicitly stated otherwise.
+
+### AI-Generated Content
+
+Junas utilizes artificial intelligence models to generate legal analysis and drafts. AI-generated content may contain errors, omissions, or inaccuracies. The quality of AI outputs depends on various factors including the quality of input, the limitations of the underlying AI models, and the complexity of legal issues. We do not control or guarantee the accuracy of AI-generated content. Using AI-generated legal analysis and documents is at your own risk, and Junas is not responsible for any errors, misinterpretations, or damages resulting from their use.
+
+### Use at Your Own Risk
+
+Users access, use, and rely on legal analysis and documents generated by Junas at their own risk. Legal information may become outdated or inaccurate without notice, and legal landscapes may change rapidly. Junas disclaims all liability for any loss, injury, or damage, direct or indirect, arising from reliance on the information provided on this platform. This includes but is not limited to legal misinformation, outdated legal precedents, incorrect interpretations, AI hallucinations, or decisions made based on the content generated.
+
+### Limitation of Liability
+
+To the fullest extent permitted by law:
+
+* Junas shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising out of your use of this web app or reliance on any legal analysis or documents generated by it.
+* Junas disclaims all liability for errors or omissions in the content provided.
+* Our total liability under any circumstances shall not exceed the amount paid by you (if any) for using Junas.
+
+### User Responsibility
+
+Users are solely responsible for:
+
+* Verifying the accuracy and currency of any legal information generated through Junas.
+* Seeking appropriate professional legal advice for their specific circumstances.
+* Complying with all applicable laws, regulations, and professional conduct rules.
+* Understanding that AI-generated legal analysis and documents are not substitutes for formal legal counsel.
+* Exercising independent judgment when interpreting legal information and using generated content.
+* Reviewing and editing all AI-generated documents before use in any legal proceedings or official capacity.
+
+### Copyright and Intellectual Property
+
+Junas respects intellectual property rights. The legal templates and analysis methodologies provided are for general use. If you believe your copyrighted work has been inappropriately used or displayed on Junas, please contact us to request its removal.
+
+### Data Collection and Privacy
+
+Junas may collect user data to improve service functionality. By using Junas, you consent to our data collection practices. Your API keys remain private and are stored locally on your device as part of the BYOK (Bring Your Own Key) model. We do not have access to your API keys or the content you process through the platform.
+
+### Changes to Content
+
+Junas reserves the right to modify, update, or remove any content on this platform at any time without prior notice. Legal analysis tools, templates, and methodologies may change without notice due to various factors including updates to legal standards, improvements to AI models, or changes in best practices.
+
+### Jurisdiction
+
+This disclaimer and your use of Junas shall be governed by and construed in accordance with the laws of Singapore. Any disputes arising out of or in connection with this disclaimer shall be subject to the exclusive jurisdiction of the courts in Singapore.
