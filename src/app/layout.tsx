@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Junas - AI Legal Assistant",
+  title: "Junas",
   description: "Your AI legal assistant specialized in Singapore law. Get help with contract analysis, case law research, and legal document drafting.",
   keywords: ["legal", "AI", "Singapore", "law", "assistant", "contract", "case law"],
   authors: [{ name: "Junas Team" }],
