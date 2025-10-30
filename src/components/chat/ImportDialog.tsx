@@ -143,8 +143,8 @@ Provide the summary in a clear, structured format that will help me continue thi
       ];
 
       // Get the summary from the AI
-      const summary = await ChatService.sendMessage(summarizationPrompt);
-      return summary;
+      const result = await ChatService.sendMessage(summarizationPrompt);
+      return result.content;
     } catch (error: any) {
       console.error('Summarization error:', error);
       throw new Error('Failed to summarize conversation. Please check your API keys.');

@@ -1,13 +1,14 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Message } from '@/types/chat';
+import { Message, ReasoningMetadata } from '@/types/chat';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
 import { HeroMarquee } from './HeroMarquee';
 import { LegalDisclaimer } from '@/components/LegalDisclaimer';
 import { TemplateSelector } from './TemplateSelector';
 import { TemplateForm } from './TemplateForm';
+import { ReasoningProgress } from './ReasoningIndicator';
 import { StorageManager } from '@/lib/storage';
 import { ChatService } from '@/lib/ai/chat-service';
 import { extractAndLookupCitations } from '@/lib/tools/citation-extractor';
@@ -26,6 +27,7 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
   const [hasMessages, setHasMessages] = useState(false);
   const [showTemplateSelector, setShowTemplateSelector] = useState(false);
   const [activeTemplate, setActiveTemplate] = useState<{ template: LegalTemplate; fields: TemplateField[] } | null>(null);
+  const [currentStage, setCurrentStage] = useState<{ stage: string; current: number; total: number } | null>(null);
   const { addToast } = useToast();
 
   // Notify parent when messages change
@@ -101,34 +103,52 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
       // Get all messages including the new user message
       const allMessages = [...messages, userMessage];
 
+      // Track reasoning metadata
+      let reasoningMetadata: ReasoningMetadata | undefined;
+
       // Try streaming first, then fallback to non-streaming if provider doesn't support endpoint
       let fullResponse = '';
       try {
-        fullResponse = await ChatService.sendMessage(
+        const result = await ChatService.sendMessage(
           allMessages,
           (chunk: string) => {
-            setMessages(prev => 
-              prev.map(msg => 
-                msg.id === assistantMessage.id 
+            setMessages(prev =>
+              prev.map(msg =>
+                msg.id === assistantMessage.id
                   ? { ...msg, content: msg.content + chunk }
                   : msg
               )
             );
+          },
+          {
+            onStageChange: (stage, current, total) => {
+              setCurrentStage({ stage, current, total });
+            },
+            onReasoningUpdate: (metadata) => {
+              reasoningMetadata = metadata;
+            },
           }
         );
+        fullResponse = result.content;
+        reasoningMetadata = result.reasoning;
       } catch (e: any) {
         // Fallback to non-streaming
-        fullResponse = await ChatService.sendMessage(allMessages);
+        const result = await ChatService.sendMessage(allMessages);
+        fullResponse = result.content;
+        reasoningMetadata = result.reasoning;
       }
+
+      // Clear stage indicator
+      setCurrentStage(null);
 
       // Extract and lookup citations from the response
       const citations = await extractAndLookupCitations(fullResponse);
 
-      // Final update with complete response and citations
+      // Final update with complete response, citations, and reasoning metadata
       setMessages(prev =>
         prev.map(msg =>
           msg.id === assistantMessage.id
-            ? { ...msg, content: fullResponse, citations }
+            ? { ...msg, content: fullResponse, citations, reasoning: reasoningMetadata }
             : msg
         )
       );
@@ -232,12 +252,26 @@ Please generate a complete, professional legal document incorporating all the pr
             <HeroMarquee />
           </div>
         ) : (
-          <MessageList
-            messages={messages}
-            isLoading={isLoading}
-            onCopyMessage={handleCopyMessage}
-            onRegenerateMessage={handleRegenerateMessage}
-          />
+          <div className="h-full flex flex-col">
+            {/* Reasoning progress indicator */}
+            {currentStage && isLoading && (
+              <div className="px-4 py-2 border-b bg-muted/30">
+                <ReasoningProgress
+                  currentStage={currentStage.current}
+                  totalStages={currentStage.total}
+                  stage={currentStage.stage}
+                />
+              </div>
+            )}
+            <div className="flex-1 overflow-hidden">
+              <MessageList
+                messages={messages}
+                isLoading={isLoading}
+                onCopyMessage={handleCopyMessage}
+                onRegenerateMessage={handleRegenerateMessage}
+              />
+            </div>
+          </div>
         )}
       </div>
 

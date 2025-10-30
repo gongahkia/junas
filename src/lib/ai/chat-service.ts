@@ -1,8 +1,13 @@
-import { Message } from '@/types/chat';
+import { Message, ReasoningMetadata } from '@/types/chat';
 import { StorageManager } from '@/lib/storage';
 import { analyzeQuery, overrideComplexity, type QueryAnalysis } from '@/lib/prompts/query-classifier';
 import { StreamingReasoningEngine } from '@/lib/prompts/reasoning-engine';
 import { ReasoningDepth } from '@/lib/prompts/system-prompts';
+
+export interface SendMessageResult {
+  content: string;
+  reasoning: ReasoningMetadata;
+}
 
 export class ChatService {
   private static async getAvailableProvider(): Promise<string | null> {
@@ -33,8 +38,10 @@ export class ChatService {
     options?: {
       reasoningDepth?: ReasoningDepth;
       skipMultiStage?: boolean;
+      onReasoningUpdate?: (metadata: ReasoningMetadata) => void;
+      onStageChange?: (stage: string, current: number, total: number) => void;
     }
-  ): Promise<string> {
+  ): Promise<SendMessageResult> {
     try {
       const provider = await this.getAvailableProvider();
 
@@ -154,13 +161,32 @@ export class ChatService {
           messages,
           apiCallFn,
           (stage, current, total) => {
-            // Stage start callback - can be used for UI updates
+            // Stage start callback - notify UI
             console.log(`Reasoning stage ${current}/${total}: ${stage}`);
+            if (options?.onStageChange) {
+              options.onStageChange(stage, current, total);
+            }
           },
           onChunk
         );
 
-        return result.finalResponse;
+        const reasoningMetadata: ReasoningMetadata = {
+          complexity: analysis.complexity,
+          reasoningDepth: analysis.reasoningDepth,
+          stages: result.stages.length,
+          multiStage: result.stages.length > 1,
+          reasoningTime: result.reasoningTime,
+        };
+
+        // Notify about final reasoning metadata
+        if (options?.onReasoningUpdate) {
+          options.onReasoningUpdate(reasoningMetadata);
+        }
+
+        return {
+          content: result.finalResponse,
+          reasoning: reasoningMetadata,
+        };
       } else {
         // Non-streaming: use regular reasoning engine
         const { ReasoningEngine } = await import('@/lib/prompts/reasoning-engine');
@@ -171,7 +197,23 @@ export class ChatService {
           apiCallFn
         );
 
-        return result.finalResponse;
+        const reasoningMetadata: ReasoningMetadata = {
+          complexity: analysis.complexity,
+          reasoningDepth: analysis.reasoningDepth,
+          stages: result.stages.length,
+          multiStage: result.stages.length > 1,
+          reasoningTime: result.reasoningTime,
+        };
+
+        // Notify about final reasoning metadata
+        if (options?.onReasoningUpdate) {
+          options.onReasoningUpdate(reasoningMetadata);
+        }
+
+        return {
+          content: result.finalResponse,
+          reasoning: reasoningMetadata,
+        };
       }
     } catch (error: any) {
       console.error('Chat service error:', error);

@@ -13,6 +13,15 @@ export interface Message {
   toolCalls?: ToolCall[];
   citations?: Citation[];
   attachments?: Attachment[];
+  reasoning?: ReasoningMetadata;
+}
+
+export interface ReasoningMetadata {
+  complexity: 'simple' | 'moderate' | 'complex' | 'expert';
+  reasoningDepth: 'quick' | 'standard' | 'deep' | 'expert';
+  stages: number;
+  multiStage: boolean;
+  reasoningTime?: number;
 }
 
 export interface ToolCall {

@@ -5,6 +5,7 @@ import { Message } from '@/types/chat';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Copy, Download, FileText, User, Bot, Loader2 } from 'lucide-react';
+import { ReasoningIndicator } from './ReasoningIndicator';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
@@ -120,6 +121,18 @@ const MessageItem = memo(({
                     {citation.title}
                   </a>
                 ))}
+              </div>
+            )}
+
+            {/* Reasoning indicator for assistant messages */}
+            {message.role === 'assistant' && message.reasoning && (
+              <div className="pt-2">
+                <ReasoningIndicator
+                  complexity={message.reasoning.complexity}
+                  reasoningDepth={message.reasoning.reasoningDepth}
+                  stage={message.reasoning.stages > 1 ? 'complete' : undefined}
+                  totalStages={message.reasoning.stages}
+                />
               </div>
             )}
 
