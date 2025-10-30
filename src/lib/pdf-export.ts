@@ -9,6 +9,15 @@ import { Message } from '@/types/chat'
 export function exportToPDF(messages: Message[], filename: string = 'junas-conversation'): void {
   const doc = new jsPDF()
 
+  // Add Junas metadata to PDF properties
+  doc.setProperties({
+    title: 'Junas Legal Consultation',
+    subject: 'AI-Generated Legal Consultation',
+    author: 'Junas - Legal AI Assistant',
+    keywords: '__JUNAS_EXPORT__:true __JUNAS_VERSION__:1.0.0 __JUNAS_SIGNATURE__:JUNAS_LEGAL_AI_EXPORT',
+    creator: 'Junas Legal AI Assistant'
+  })
+
   // Document settings
   const pageWidth = doc.internal.pageSize.getWidth()
   const pageHeight = doc.internal.pageSize.getHeight()
@@ -28,7 +37,13 @@ export function exportToPDF(messages: Message[], filename: string = 'junas-conve
   doc.text(`Generated on: ${new Date().toLocaleString()}`, margin, yPosition)
   yPosition += 5
   doc.text(`Total messages: ${messages.length}`, margin, yPosition)
-  yPosition += 15
+  yPosition += 5
+
+  // Add visible signature for validation
+  doc.setFontSize(6)
+  doc.setTextColor(240)
+  doc.text('__JUNAS_EXPORT__:true __JUNAS_VERSION__:1.0.0 __JUNAS_SIGNATURE__:JUNAS_LEGAL_AI_EXPORT', margin, yPosition)
+  yPosition += 10
 
   // Legal disclaimer
   doc.setFillColor(255, 243, 205) // Light yellow background
