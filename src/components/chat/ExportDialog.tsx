@@ -27,6 +27,9 @@ export function ExportDialog({ isOpen, onClose, messages }: ExportDialogProps) {
 
   const exportAsJSON = () => {
     const data = {
+      __junas_export__: true,
+      __junas_version__: '1.0.0',
+      __junas_signature__: 'JUNAS_LEGAL_AI_EXPORT',
       metadata: {
         exportDate: new Date().toISOString(),
         messageCount: messages.length,
@@ -48,6 +51,7 @@ export function ExportDialog({ isOpen, onClose, messages }: ExportDialogProps) {
 
   const exportAsMarkdown = () => {
     const lines: string[] = [];
+    lines.push('<!-- __JUNAS_EXPORT__:true __JUNAS_VERSION__:1.0.0 __JUNAS_SIGNATURE__:JUNAS_LEGAL_AI_EXPORT -->\n');
     lines.push('# Junas Conversation\n');
     lines.push(`**Generated:** ${new Date().toLocaleString()}\n`);
     lines.push(`**Total Messages:** ${messages.length}\n`);
@@ -67,6 +71,7 @@ export function ExportDialog({ isOpen, onClose, messages }: ExportDialogProps) {
 
   const exportAsText = () => {
     const lines: string[] = [];
+    lines.push('__JUNAS_EXPORT__:true __JUNAS_VERSION__:1.0.0 __JUNAS_SIGNATURE__:JUNAS_LEGAL_AI_EXPORT');
     lines.push('JUNAS CONVERSATION');
     lines.push('='.repeat(50));
     lines.push(`Generated: ${new Date().toLocaleString()}`);

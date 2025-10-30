@@ -145,6 +145,11 @@ Provide the summary in a clear, structured format that will help me continue thi
   const parseJSON = (content: string): Message[] => {
     const data = JSON.parse(content);
 
+    // Validate Junas export signature
+    if (!data.__junas_export__ || data.__junas_signature__ !== 'JUNAS_LEGAL_AI_EXPORT') {
+      throw new Error('This file was not exported from Junas. Only Junas-exported files can be imported.');
+    }
+
     // Handle Junas export format
     if (data.messages && Array.isArray(data.messages)) {
       return data.messages.map((msg: any, index: number) => ({
@@ -155,20 +160,16 @@ Provide the summary in a clear, structured format that will help me continue thi
       }));
     }
 
-    // Handle array of messages
-    if (Array.isArray(data)) {
-      return data.map((msg: any, index: number) => ({
-        id: msg.id || `imported-${Date.now()}-${index}`,
-        role: msg.role || 'user',
-        content: msg.content || '',
-        timestamp: msg.timestamp ? new Date(msg.timestamp) : new Date(),
-      }));
-    }
-
-    throw new Error('Invalid JSON format');
+    throw new Error('Invalid Junas export format');
   };
 
   const parseMarkdown = (content: string): Message[] => {
+    // Validate Junas export signature
+    const signatureMatch = content.match(/<!--\s*__JUNAS_EXPORT__:true\s+__JUNAS_VERSION__:\S+\s+__JUNAS_SIGNATURE__:JUNAS_LEGAL_AI_EXPORT\s*-->/);
+    if (!signatureMatch) {
+      throw new Error('This file was not exported from Junas. Only Junas-exported files can be imported.');
+    }
+
     const messages: Message[] = [];
     const lines = content.split('\n');
     let currentRole: 'user' | 'assistant' | 'system' = 'user';
@@ -203,6 +204,12 @@ Provide the summary in a clear, structured format that will help me continue thi
   };
 
   const parseText = (content: string): Message[] => {
+    // Validate Junas export signature (should be in the first line)
+    const firstLine = content.split('\n')[0];
+    if (!firstLine.includes('__JUNAS_EXPORT__:true') || !firstLine.includes('__JUNAS_SIGNATURE__:JUNAS_LEGAL_AI_EXPORT')) {
+      throw new Error('This file was not exported from Junas. Only Junas-exported files can be imported.');
+    }
+
     const messages: Message[] = [];
     const lines = content.split('\n');
     let currentRole: 'user' | 'assistant' | 'system' = 'user';
@@ -222,6 +229,11 @@ Provide the summary in a clear, structured format that will help me continue thi
     };
 
     for (const line of lines) {
+      // Skip the signature line
+      if (line.includes('__JUNAS_EXPORT__') && line.includes('__JUNAS_SIGNATURE__')) {
+        continue;
+      }
+
       // Check for role markers
       if (line.match(/^\[\d+\]\s*(USER|ASSISTANT|SYSTEM)/i)) {
         saveCurrentMessage();
