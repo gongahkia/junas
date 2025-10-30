@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   keywords: ["legal", "AI", "Singapore", "law", "assistant", "contract", "case law"],
   authors: [{ name: "Junas Team" }],
   robots: "index, follow",
+  icons: {
+    icon: "/bishop.png",
+  },
 };
 
 export const viewport = {
