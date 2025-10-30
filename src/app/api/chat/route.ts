@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create provider instance
-    const providerInstance = ProviderFactory.createProvider(provider, {
+    const providerInstance = await ProviderFactory.createProvider(provider, {
       name: provider,
       displayName: provider,
       apiKey,
