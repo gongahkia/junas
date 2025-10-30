@@ -1,3 +1,10 @@
+export interface Attachment {
+  id: string;
+  name: string;
+  size: number;
+  type?: string;
+}
+
 export interface Message {
   id: string;
   role: 'user' | 'assistant' | 'system';
@@ -5,6 +12,7 @@ export interface Message {
   timestamp: Date;
   toolCalls?: ToolCall[];
   citations?: Citation[];
+  attachments?: Attachment[];
 }
 
 export interface ToolCall {
