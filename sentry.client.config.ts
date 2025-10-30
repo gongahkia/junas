@@ -41,7 +41,7 @@ Sentry.init({
 
     // Filter out localStorage data that might contain API keys
     if (event.contexts?.browser?.localStorage) {
-      const filtered = { ...event.contexts.browser.localStorage }
+      const filtered: Record<string, any> = { ...event.contexts.browser.localStorage }
       Object.keys(filtered).forEach(key => {
         if (key.includes('api') || key.includes('key')) {
           filtered[key] = '[FILTERED]'
