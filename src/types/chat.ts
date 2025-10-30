@@ -54,4 +54,7 @@ export interface ChatSettings {
   systemPrompt: string;
   autoSave: boolean;
   darkMode: boolean;
+  enableAdvancedReasoning: boolean;
+  defaultReasoningDepth: 'quick' | 'standard' | 'deep' | 'expert';
+  showReasoningStages: boolean;
 }

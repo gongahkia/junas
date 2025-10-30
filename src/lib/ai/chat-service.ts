@@ -1,5 +1,8 @@
 import { Message } from '@/types/chat';
 import { StorageManager } from '@/lib/storage';
+import { analyzeQuery, overrideComplexity, type QueryAnalysis } from '@/lib/prompts/query-classifier';
+import { StreamingReasoningEngine } from '@/lib/prompts/reasoning-engine';
+import { ReasoningDepth } from '@/lib/prompts/system-prompts';
 
 export class ChatService {
   private static async getAvailableProvider(): Promise<string | null> {
@@ -26,7 +29,11 @@ export class ChatService {
 
   static async sendMessage(
     messages: Message[],
-    onChunk?: (chunk: string) => void
+    onChunk?: (chunk: string) => void,
+    options?: {
+      reasoningDepth?: ReasoningDepth;
+      skipMultiStage?: boolean;
+    }
   ): Promise<string> {
     try {
       const provider = await this.getAvailableProvider();
@@ -37,110 +44,135 @@ export class ChatService {
 
       const settings = StorageManager.getSettings();
 
-      // Convert messages to provider format
-      const formattedMessages = messages.map(msg => ({
-        role: msg.role,
-        content: msg.content,
-      }));
+      // Get the last user message for complexity analysis
+      const lastUserMessage = messages.filter(m => m.role === 'user').slice(-1)[0];
+      const query = lastUserMessage?.content || '';
 
-      // Add system prompt for legal context
-      const systemPrompt = `You are Junas, a specialized AI legal assistant for Singapore law. You help lawyers, legal professionals, and individuals with:
+      // Analyze query complexity
+      let analysis = analyzeQuery(query);
 
-- Contract analysis and review
-- Case law research and analysis
-- Statutory interpretation and compliance
-- Legal document drafting
-- Due diligence and risk assessment
-- Citation and legal research
+      // Override with user preference if provided
+      if (options?.reasoningDepth) {
+        analysis = overrideComplexity(analysis, options.reasoningDepth);
+      }
 
-Always provide accurate, helpful legal information while being clear about limitations. When discussing Singapore law, be specific about relevant statutes, cases, and legal principles.
+      // Check if user disabled multi-stage in settings
+      const enableAdvancedReasoning = settings.enableAdvancedReasoning !== false;
+      const skipMultiStage = options?.skipMultiStage || !enableAdvancedReasoning;
 
-IMPORTANT: When citing legal cases, ALWAYS use the FULL legal citation format. Never use shortened case names alone. Examples of correct formats:
-- [YYYY] X SLR(R) XXX (e.g., [2009] 2 SLR(R) 332)
-- [YYYY] SLR XXX (e.g., [2015] SLR 123)
-- [YYYY] SGCA XX (e.g., [2020] SGCA 45)
-- [YYYY] SGHC XX (e.g., [2019] SGHC 123)
-
-Always include the full citation immediately after or with the case name (e.g., "In Spandeck Engineering (S) Pte Ltd v Defence Science & Technology Agency [2007] 4 SLR(R) 100, the Court of Appeal..."). Do not abbreviate citations or use shortened forms.`;
-
-      const messagesWithSystem = [
-        { role: 'system', content: systemPrompt },
-        ...formattedMessages,
-      ];
+      if (skipMultiStage) {
+        analysis.useMultiStage = false;
+        analysis.useReAct = false;
+      }
 
       // Determine model based on provider
       const model = provider === 'gemini' ? 'gemini-2.0-flash-exp' :
                    provider === 'openai' ? 'gpt-4o' : 'claude-3-5-sonnet-20241022';
 
-      let fullResponse = '';
+      // Create API call function for reasoning engine
+      const apiCallFn = async (
+        formattedMessages: any[],
+        config: { temperature: number; maxTokens: number },
+        chunkCallback?: (chunk: string) => void
+      ): Promise<string> => {
+        let fullResponse = '';
 
-      if (onChunk) {
-        // Streaming response via proxy
-        const response = await fetch(`/api/providers/${provider}/chat`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            messages: messagesWithSystem,
-            model,
-            temperature: settings.temperature,
-            maxTokens: settings.maxTokens,
-            stream: true,
-          }),
-        });
+        if (chunkCallback) {
+          // Streaming
+          const response = await fetch(`/api/providers/${provider}/chat`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              messages: formattedMessages,
+              model,
+              temperature: config.temperature,
+              maxTokens: config.maxTokens,
+              stream: true,
+            }),
+          });
 
-        if (!response.ok) {
-          const error = await response.json();
-          throw new Error(error.error || 'Failed to get AI response');
-        }
+          if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'Failed to get AI response');
+          }
 
-        const reader = response.body?.getReader();
-        const decoder = new TextDecoder();
+          const reader = response.body?.getReader();
+          const decoder = new TextDecoder();
 
-        if (reader) {
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
+          if (reader) {
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
 
-            const chunk = decoder.decode(value);
-            const lines = chunk.split('\n').filter(line => line.trim());
+              const chunk = decoder.decode(value);
+              const lines = chunk.split('\n').filter(line => line.trim());
 
-            for (const line of lines) {
-              try {
-                const data = JSON.parse(line);
-                if (data.content) {
-                  fullResponse += data.content;
-                  onChunk(data.content);
+              for (const line of lines) {
+                try {
+                  const data = JSON.parse(line);
+                  if (data.content) {
+                    fullResponse += data.content;
+                    chunkCallback(data.content);
+                  }
+                } catch (e) {
+                  // Skip invalid JSON lines
                 }
-              } catch (e) {
-                // Skip invalid JSON lines
               }
             }
           }
+        } else {
+          // Non-streaming
+          const response = await fetch(`/api/providers/${provider}/chat`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              messages: formattedMessages,
+              model,
+              temperature: config.temperature,
+              maxTokens: config.maxTokens,
+              stream: false,
+            }),
+          });
+
+          if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'Failed to get AI response');
+          }
+
+          const result = await response.json();
+          fullResponse = result.content;
         }
+
+        return fullResponse;
+      };
+
+      // Use multi-stage reasoning engine for streaming
+      if (onChunk) {
+        const result = await StreamingReasoningEngine.processQueryStreaming(
+          query,
+          analysis,
+          messages,
+          apiCallFn,
+          (stage, current, total) => {
+            // Stage start callback - can be used for UI updates
+            console.log(`Reasoning stage ${current}/${total}: ${stage}`);
+          },
+          onChunk
+        );
+
+        return result.finalResponse;
       } else {
-        // Non-streaming response via proxy
-        const response = await fetch(`/api/providers/${provider}/chat`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            messages: messagesWithSystem,
-            model,
-            temperature: settings.temperature,
-            maxTokens: settings.maxTokens,
-            stream: false,
-          }),
-        });
+        // Non-streaming: use regular reasoning engine
+        const { ReasoningEngine } = await import('@/lib/prompts/reasoning-engine');
+        const result = await ReasoningEngine.processQuery(
+          query,
+          analysis,
+          messages,
+          apiCallFn
+        );
 
-        if (!response.ok) {
-          const error = await response.json();
-          throw new Error(error.error || 'Failed to get AI response');
-        }
-
-        const result = await response.json();
-        fullResponse = result.content;
+        return result.finalResponse;
       }
-
-      return fullResponse;
     } catch (error: any) {
       console.error('Chat service error:', error);
       throw new Error(error.message || 'Failed to get AI response');

@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ProviderSelector } from '@/components/settings/ProviderSelector';
+import { ReasoningSettings } from '@/components/settings/ReasoningSettings';
 import { StorageManager } from '@/lib/storage';
 import { Message } from '@/types/chat';
 import { LegalDisclaimerContent } from '@/components/LegalDisclaimer';
@@ -150,6 +151,9 @@ export default function Home() {
                 </Button>
               </CardContent>
             </Card>
+
+            {/* Advanced Reasoning Settings */}
+            <ReasoningSettings />
 
             {/* App Info */}
             <Card>
