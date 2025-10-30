@@ -16,7 +16,7 @@ import {
 interface TemplateSelectorProps {
   isOpen: boolean
   onClose: () => void
-  onSelectTemplate: (prompt: string) => void
+  onSelectTemplate: (template: LegalTemplate) => void
 }
 
 export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: TemplateSelectorProps) {
@@ -27,7 +27,7 @@ export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: Template
 
   const handleUseTemplate = () => {
     if (selectedTemplate) {
-      onSelectTemplate(selectedTemplate.prompt)
+      onSelectTemplate(selectedTemplate)
       setSelectedTemplate(null)
       onClose()
     }
