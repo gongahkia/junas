@@ -22,7 +22,6 @@ export function AnalysisToolPreview({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="text-2xl">{tool.icon}</span>
           <span className="text-sm font-semibold">{tool.name}</span>
         </div>
         <Button

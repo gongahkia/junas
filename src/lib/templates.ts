@@ -9,7 +9,6 @@ export interface LegalTemplate {
   category: string;
   description: string;
   prompt: string;
-  icon?: string;
 }
 
 /**
@@ -23,7 +22,6 @@ export interface LegalAnalysisTool {
   description: string;
   prompt: string;
   structure?: string[];
-  icon?: string;
 }
 
 export const legalTemplates: LegalTemplate[] = [
@@ -2146,7 +2144,6 @@ export const legalAnalysisTools: LegalAnalysisTool[] = [
     keywords: ['irac', 'analyze', 'legal analysis', 'issue spotting', 'problem analysis', 'structure', 'irac method'],
     description: 'Structure legal problems using Issue, Rule, Application, Conclusion framework',
     structure: ['Issue', 'Rule', 'Application', 'Conclusion'],
-    icon: '',
     prompt: `Conduct a comprehensive IRAC analysis for Singapore law following this structured approach:
 
 ISSUE (Identify the legal question):
@@ -2191,7 +2188,6 @@ Please provide a thorough IRAC analysis of the legal issue presented.`
     keywords: ['facts', 'case facts', 'extract facts', 'summarize facts', 'factual background', 'material facts', 'fact pattern'],
     description: 'Extract and organize material facts from case law',
     structure: ['Parties', 'Background', 'Material Facts', 'Procedural History', 'Timeline'],
-    icon: '',
     prompt: `Extract and organize the material facts from the case with the following structured approach:
 
 PARTIES:
@@ -2241,7 +2237,6 @@ Focus on facts that matter for the legal issues, avoiding unnecessary narrative 
     keywords: ['ruling', 'judgment', 'decision', 'court held', 'outcome', 'verdict', 'holding', 'order'],
     description: 'Analyze the court\'s decision, reasoning, and remedies ordered',
     structure: ['Holding', 'Reasoning', 'Remedies', 'Orders Made', 'Costs'],
-    icon: '️',
     prompt: `Analyze the court's ruling with comprehensive attention to the following elements:
 
 HOLDING:
@@ -2293,7 +2288,6 @@ Provide a complete and accurate analysis of what the court decided and why.`
     keywords: ['obiter', 'obiter dicta', 'dicta', 'remarks', 'observations', 'commentary', 'judicial comments', 'non-binding'],
     description: 'Identify non-binding judicial remarks, observations, and commentary',
     structure: ['Obiter Statements', 'Context', 'Significance', 'Persuasive Value'],
-    icon: '',
     prompt: `Identify and analyze obiter dicta in the judgment - statements that are not essential to the decision:
 
 WHAT IS OBITER DICTA:
@@ -2348,7 +2342,6 @@ Remember: Obiter dicta can be valuable for understanding judicial thinking and p
     keywords: ['ratio', 'ratio decidendi', 'binding principle', 'legal principle', 'precedent', 'holding', 'core principle', 'rule of law'],
     description: 'Extract the binding legal principle essential to the decision',
     structure: ['Legal Issue', 'Material Facts', 'Ratio Decidendi', 'Binding Authority', 'Scope of Application'],
-    icon: '',
     prompt: `Extract the ratio decidendi - the binding legal principle at the heart of the case:
 
 WHAT IS RATIO DECIDENDI:
@@ -2413,7 +2406,6 @@ The ratio decidendi is the most important takeaway from any case - extract it wi
     keywords: ['argue', 'argument', 'legal argument', 'submission', 'advocacy', 'make case', 'persuade', 'contention'],
     description: 'Structure persuasive legal arguments with authorities and reasoning',
     structure: ['Position', 'Legal Basis', 'Authorities', 'Application', 'Counter-Arguments', 'Conclusion'],
-    icon: '',
     prompt: `Construct a persuasive legal argument suitable for Singapore courts with the following comprehensive structure:
 
 POSITION:

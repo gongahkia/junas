@@ -151,7 +151,6 @@ export function MessageInput({
               {isAnalysisDetected && !showAnalysisPreview && analysisMatch && (
                 <div className="absolute bottom-2 right-2 flex items-center gap-1">
                   <div className="bg-primary/10 text-primary px-2 py-1 rounded-md text-xs flex items-center gap-1 animate-in fade-in slide-in-from-bottom-2">
-                    <span className="text-lg">{analysisMatch.tool.icon}</span>
                     <span className="font-medium">
                       {analysisMatch.tool.name} ready
                     </span>
