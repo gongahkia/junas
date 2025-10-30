@@ -1,14 +1,13 @@
 'use client'
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertTriangle, X } from "lucide-react"
+import { AlertTriangle } from "lucide-react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 import { StorageManager } from "@/lib/storage"
 
 interface LegalDisclaimerProps {
   onDismiss?: () => void;
-  showCloseButton?: boolean;
 }
 
 export function LegalDisclaimerContent() {
@@ -27,8 +26,8 @@ export function LegalDisclaimerContent() {
   );
 }
 
-export function LegalDisclaimer({ onDismiss, showCloseButton = true }: LegalDisclaimerProps = {}) {
-  const [isVisible, setIsVisible] = useState(() => {
+export function LegalDisclaimer({ onDismiss }: LegalDisclaimerProps = {}) {
+  const [isOpen, setIsOpen] = useState(() => {
     if (typeof window !== 'undefined') {
       // Show disclaimer only if user hasn't seen it before
       return !StorageManager.hasSeenDisclaimer()
@@ -36,36 +35,36 @@ export function LegalDisclaimer({ onDismiss, showCloseButton = true }: LegalDisc
     return true
   })
 
-  const handleDismiss = () => {
-    setIsVisible(false)
+  const handleAccept = () => {
+    setIsOpen(false)
     StorageManager.setDisclaimerSeen()
     if (onDismiss) {
       onDismiss()
     }
   }
 
-  if (!isVisible) return null
-
   return (
-    <Alert variant="warning" className="mb-4 relative">
-      {showCloseButton && (
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={handleDismiss}
-          className="absolute top-2 left-2 h-6 w-6 p-0 z-10"
-          aria-label="Dismiss disclaimer"
-        >
-          <X className="h-4 w-4" />
-        </Button>
-      )}
-      <div className="pl-8">
-        <AlertTriangle className="h-4 w-4" />
-        <AlertTitle>Legal Disclaimer</AlertTitle>
-        <AlertDescription>
-          <LegalDisclaimerContent />
-        </AlertDescription>
-      </div>
-    </Alert>
+    <Dialog open={isOpen} onOpenChange={() => {}}>
+      <DialogContent
+        className="sm:max-w-[500px] bg-white"
+        onPointerDownOutside={(e) => e.preventDefault()}
+        onEscapeKeyDown={(e) => e.preventDefault()}
+      >
+        <DialogHeader>
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="h-5 w-5 text-amber-500" />
+            <DialogTitle>Legal Disclaimer</DialogTitle>
+          </div>
+          <DialogDescription className="text-left pt-2">
+            <LegalDisclaimerContent />
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <Button onClick={handleAccept} className="w-full sm:w-auto">
+            I Agree
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
 }

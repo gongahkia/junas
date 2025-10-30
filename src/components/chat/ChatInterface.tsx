@@ -225,11 +225,6 @@ Please generate a complete, professional legal document incorporating all the pr
 
   return (
     <div className="flex flex-col h-full max-w-6xl mx-auto w-full">
-      {/* Legal Disclaimer */}
-      <div className="px-4 pt-4">
-        <LegalDisclaimer />
-      </div>
-
       {/* Messages area */}
       <div className="flex-1 overflow-hidden">
         {messages.length === 0 ? (
@@ -269,6 +264,9 @@ Please generate a complete, professional legal document incorporating all the pr
         onClose={() => setShowTemplateSelector(false)}
         onSelectTemplate={handleSelectTemplate}
       />
+
+      {/* Legal Disclaimer Overlay */}
+      <LegalDisclaimer />
     </div>
   );
 }

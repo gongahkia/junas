@@ -165,15 +165,17 @@ export default function Home() {
                   <p>Built with Next.js 14 and TypeScript</p>
                   <p>Privacy-focused: All data stays in your browser</p>
                 </div>
+              </CardContent>
+            </Card>
 
-                {/* Legal Disclaimer Section */}
-                <div className="pt-2 border-t">
-                  <div className="border rounded-lg p-4">
-                    <h4 className="font-semibold mb-2">Legal Disclaimer</h4>
-                    <div className="text-sm text-muted-foreground">
-                      <LegalDisclaimerContent />
-                    </div>
-                  </div>
+            {/* Legal Disclaimer */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Legal Disclaimer</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-sm text-muted-foreground">
+                  <LegalDisclaimerContent />
                 </div>
               </CardContent>
             </Card>
