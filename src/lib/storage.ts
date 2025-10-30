@@ -5,6 +5,7 @@ const STORAGE_KEYS = {
   API_KEYS: 'junas_api_keys',
   SETTINGS: 'junas_settings',
   CONVERSATIONS: 'junas_conversations',
+  DISCLAIMER_SEEN: 'junas_disclaimer_seen',
 } as const;
 
 export class StorageManager {
@@ -137,6 +138,39 @@ export class StorageManager {
     Object.values(STORAGE_KEYS).forEach(key => {
       window.localStorage.removeItem(key);
     });
+  }
+
+  // Disclaimer Management
+  static hasSeenDisclaimer(): boolean {
+    try {
+      if (typeof window === 'undefined') return false;
+
+      // Check new key first
+      const seen = window.localStorage.getItem(STORAGE_KEYS.DISCLAIMER_SEEN);
+      if (seen === 'true') return true;
+
+      // Migrate from old key if it exists
+      const oldDismissed = window.localStorage.getItem('junas_disclaimer_dismissed');
+      if (oldDismissed === 'true') {
+        this.setDisclaimerSeen();
+        window.localStorage.removeItem('junas_disclaimer_dismissed');
+        return true;
+      }
+
+      return false;
+    } catch (error) {
+      console.error('Error checking disclaimer status:', error);
+      return false;
+    }
+  }
+
+  static setDisclaimerSeen(): void {
+    try {
+      if (typeof window === 'undefined') return;
+      window.localStorage.setItem(STORAGE_KEYS.DISCLAIMER_SEEN, 'true');
+    } catch (error) {
+      console.error('Error setting disclaimer status:', error);
+    }
   }
 
   // Utility methods

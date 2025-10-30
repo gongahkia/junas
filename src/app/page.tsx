@@ -14,6 +14,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { ProviderSelector } from '@/components/settings/ProviderSelector';
 import { StorageManager } from '@/lib/storage';
 import { Message } from '@/types/chat';
+import { LegalDisclaimerContent } from '@/components/LegalDisclaimer';
 
 export default function Home() {
   const [showApiKeyModal, setShowApiKeyModal] = useState(false);
@@ -158,11 +159,21 @@ export default function Home() {
                   Your AI legal assistant for Singapore law.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-2">
+              <CardContent className="space-y-4">
                 <div className="text-sm text-muted-foreground">
                   <p>Version: 1.0.0</p>
                   <p>Built with Next.js 14 and TypeScript</p>
                   <p>Privacy-focused: All data stays in your browser</p>
+                </div>
+
+                {/* Legal Disclaimer Section */}
+                <div className="pt-2 border-t">
+                  <div className="border rounded-lg p-4">
+                    <h4 className="font-semibold mb-2">Legal Disclaimer</h4>
+                    <div className="text-sm text-muted-foreground">
+                      <LegalDisclaimerContent />
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>

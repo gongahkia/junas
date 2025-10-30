@@ -26,8 +26,24 @@ type ImportFormat = 'json' | 'markdown' | 'txt';
 
 export function ImportDialog({ isOpen, onClose, onImport }: ImportDialogProps) {
   const [isProcessing, setIsProcessing] = useState(false);
+  const [selectedFormat, setSelectedFormat] = useState<ImportFormat | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { addToast } = useToast();
+
+  const validateFileFormat = (file: File, expectedFormat: ImportFormat): boolean => {
+    const extension = file.name.split('.').pop()?.toLowerCase();
+
+    switch (expectedFormat) {
+      case 'json':
+        return extension === 'json';
+      case 'markdown':
+        return extension === 'md' || extension === 'markdown';
+      case 'txt':
+        return extension === 'txt';
+      default:
+        return false;
+    }
+  };
 
   const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -35,49 +51,62 @@ export function ImportDialog({ isOpen, onClose, onImport }: ImportDialogProps) {
 
     setIsProcessing(true);
 
-    try {
-      const text = await file.text();
-      const messages = parseImportedFile(text, file.name);
+    // Use setTimeout to ensure errors are caught by our handler, not React's error boundary
+    setTimeout(async () => {
+      try {
+        // Validate file format matches the selected button
+        if (selectedFormat && !validateFileFormat(file, selectedFormat)) {
+          const expectedExtensions = selectedFormat === 'json' ? '.json' :
+                                    selectedFormat === 'markdown' ? '.md or .markdown' :
+                                    '.txt';
+          throw new Error(`Invalid file format. Please select a ${expectedExtensions} file for ${selectedFormat.toUpperCase()} import.`);
+        }
 
-      if (messages.length === 0) {
-        throw new Error('No messages found in the imported file');
+        const text = await file.text();
+        const messages = parseImportedFile(text, file.name);
+
+        if (messages.length === 0) {
+          throw new Error('No messages found in the imported file');
+        }
+
+        // Summarize the imported conversation
+        const summary = await summarizeConversation(messages);
+
+        // Create a system message with the summary
+        const summaryMessage: Message = {
+          id: generateId(),
+          role: 'system',
+          content: `Previous conversation summary:\n\n${summary}\n\nThe user is now continuing this conversation. Use this summary as context for the ongoing discussion.`,
+          timestamp: new Date(),
+        };
+
+        // Send only the summary message
+        onImport([summaryMessage]);
+
+        addToast({
+          type: 'success',
+          title: 'Import Successful',
+          description: `Summarized ${messages.length} messages and added to context`,
+          duration: 3000,
+        });
+        onClose();
+      } catch (error: any) {
+        console.error('Import error:', error);
+        addToast({
+          type: 'error',
+          title: 'Import Failed',
+          description: error.message || 'Failed to import conversation',
+          duration: 5000,
+        });
+        onClose(); // Close dialog on error
+      } finally {
+        setIsProcessing(false);
+        setSelectedFormat(null);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
       }
-
-      // Summarize the imported conversation
-      const summary = await summarizeConversation(messages);
-
-      // Create a system message with the summary
-      const summaryMessage: Message = {
-        id: generateId(),
-        role: 'system',
-        content: `Previous conversation summary:\n\n${summary}\n\nThe user is now continuing this conversation. Use this summary as context for the ongoing discussion.`,
-        timestamp: new Date(),
-      };
-
-      // Send only the summary message
-      onImport([summaryMessage]);
-
-      addToast({
-        type: 'success',
-        title: 'Import Successful',
-        description: `Summarized ${messages.length} messages and added to context`,
-        duration: 3000,
-      });
-      onClose();
-    } catch (error: any) {
-      console.error('Import error:', error);
-      addToast({
-        type: 'error',
-        title: 'Import Failed',
-        description: error.message || 'Failed to import conversation',
-        duration: 5000,
-      });
-    } finally {
-      setIsProcessing(false);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-    }
+    }, 0);
   };
 
   const summarizeConversation = async (messages: Message[]): Promise<string> => {
@@ -291,7 +320,14 @@ Provide the summary in a clear, structured format that will help me continue thi
             return (
               <div key={option.value} className="w-full">
                 <button
-                  onClick={() => fileInputRef.current?.click()}
+                  onClick={() => {
+                    setSelectedFormat(option.value);
+                    // Set the accept attribute dynamically
+                    if (fileInputRef.current) {
+                      fileInputRef.current.accept = option.accept;
+                      fileInputRef.current.click();
+                    }
+                  }}
                   disabled={isProcessing}
                   className="w-full flex items-start space-x-3 p-4 rounded-lg border-2 border-border hover:border-primary/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
@@ -312,7 +348,6 @@ Provide the summary in a clear, structured format that will help me continue thi
         <input
           ref={fileInputRef}
           type="file"
-          accept=".json,.md,.markdown,.txt"
           onChange={handleFileSelect}
           className="hidden"
         />
