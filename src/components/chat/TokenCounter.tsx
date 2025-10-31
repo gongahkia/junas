@@ -22,7 +22,9 @@ function formatTime(ms: number): string {
 }
 
 // Cost per 1K tokens (as of 2024)
-const PRICING = {
+type PricingInfo = { input: number; output: number };
+
+const PRICING: Record<string, Record<string, PricingInfo>> = {
   gemini: {
     'gemini-2.0-flash-exp': { input: 0, output: 0 }, // Free during preview
     'gemini-1.5-pro': { input: 0.00125, output: 0.005 },
@@ -38,10 +40,10 @@ const PRICING = {
 };
 
 function estimateCost(tokens: number, provider: string, model: string): number {
-  const providerPricing = PRICING[provider as keyof typeof PRICING];
+  const providerPricing = PRICING[provider];
   if (!providerPricing) return 0;
 
-  const pricing = providerPricing[model as keyof typeof providerPricing] || { input: 0, output: 0 };
+  const pricing: PricingInfo = providerPricing[model] || { input: 0, output: 0 };
   // Assuming output tokens for simplicity
   return (tokens / 1000) * pricing.output;
 }
