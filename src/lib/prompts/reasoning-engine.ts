@@ -255,6 +255,12 @@ Provide your final, refined analysis.`;
   }
 }
 
+export interface ThinkingStageData {
+  stage: 'initial' | 'critique' | 'react';
+  content: string;
+  label: string;
+}
+
 /**
  * Streaming wrapper for multi-stage reasoning
  * Allows streaming of each stage separately
@@ -269,7 +275,8 @@ export class StreamingReasoningEngine {
     messages: Message[],
     apiCallFn: (messages: any[], config: any, onChunk?: (chunk: string) => void) => Promise<string>,
     onStageStart?: (stage: string, stageNumber: number, totalStages: number) => void,
-    onChunk?: (chunk: string) => void
+    onChunk?: (chunk: string) => void,
+    onThinkingStage?: (stage: ThinkingStageData) => void
   ): Promise<ReasoningResult> {
     const startTime = Date.now();
     const stages: ReasoningStage[] = [];
@@ -277,14 +284,12 @@ export class StreamingReasoningEngine {
     // Calculate total stages
     const totalStages = 1 + (analysis.useMultiStage ? 1 : 0) + (analysis.useReAct ? 1 : 0);
     let currentStage = 0;
+    const isMultiStage = totalStages > 1;
 
     // Stage 1: Initial analysis
     currentStage++;
     if (onStageStart) {
       onStageStart('initial', currentStage, totalStages);
-      if (totalStages > 1 && onChunk) {
-        onChunk(`\n\n> 🧠 **Multi-Stage Reasoning** (Stage ${currentStage}/${totalStages}): Initial Analysis\n\n`);
-      }
     }
 
     const config = getDefaultPromptConfig(analysis.reasoningDepth);
@@ -299,13 +304,16 @@ export class StreamingReasoningEngine {
     ];
 
     let initialResponse = '';
+
+    // For multi-stage, don't stream initial stage to main output
+    // For single stage, stream to main output
     const response1 = await apiCallFn(
       messagesWithSystem,
       {
         temperature: analysis.temperature,
         maxTokens: analysis.tokenBudget,
       },
-      onChunk
+      isMultiStage ? undefined : onChunk  // Only stream if it's the final stage
     );
     initialResponse = response1;
 
@@ -316,16 +324,24 @@ export class StreamingReasoningEngine {
       metadata: { reasoningDepth: analysis.reasoningDepth },
     });
 
+    // If multi-stage, send initial as thinking stage
+    if (isMultiStage && onThinkingStage && initialResponse) {
+      onThinkingStage({
+        stage: 'initial',
+        content: initialResponse,
+        label: 'Initial Analysis'
+      });
+    }
+
     let finalResponse = initialResponse;
 
     // Stage 2: Self-critique
     if (analysis.useMultiStage) {
       currentStage++;
+      const isFinalStage = !analysis.useReAct;
+
       if (onStageStart) {
         onStageStart('critique', currentStage, totalStages);
-        if (onChunk) {
-          onChunk(`\n\n---\n\n> 🔍 **Stage ${currentStage}/${totalStages}**: Self-Critique & Refinement\n\n`);
-        }
       }
 
       const critiquePrompt = getSelfCritiquePrompt(query, initialResponse);
@@ -340,7 +356,7 @@ export class StreamingReasoningEngine {
       const response2 = await apiCallFn(
         critiqueMessages,
         { temperature: 0.5, maxTokens: 4096 },
-        onChunk
+        isFinalStage ? onChunk : undefined  // Only stream if it's the final stage
       );
 
       stages.push({
@@ -349,17 +365,23 @@ export class StreamingReasoningEngine {
         response: response2,
       });
 
+      // If not final stage, send as thinking
+      if (!isFinalStage && onThinkingStage && response2) {
+        onThinkingStage({
+          stage: 'critique',
+          content: response2,
+          label: 'Self-Critique & Refinement'
+        });
+      }
+
       finalResponse = response2;
     }
 
-    // Stage 3: ReAct
+    // Stage 3: ReAct (always the final stage if present)
     if (analysis.useReAct) {
       currentStage++;
       if (onStageStart) {
         onStageStart('react', currentStage, totalStages);
-        if (onChunk) {
-          onChunk(`\n\n---\n\n> ⚡ **Stage ${currentStage}/${totalStages}**: Expert ReAct Analysis\n\n`);
-        }
       }
 
       const reactPrompt = `Apply ReAct pattern to this query and previous analysis:
@@ -383,7 +405,7 @@ Provide your final, refined analysis with strategic insights.`;
       const response3 = await apiCallFn(
         reactMessages,
         { temperature: 0.7, maxTokens: 6144 },
-        onChunk
+        onChunk  // Always stream to main output as this is the final stage
       );
 
       stages.push({

@@ -1,4 +1,4 @@
-import { Message, ReasoningMetadata } from '@/types/chat';
+import { Message, ReasoningMetadata, ThinkingStage } from '@/types/chat';
 import { StorageManager } from '@/lib/storage';
 import { analyzeQuery, overrideComplexity, type QueryAnalysis } from '@/lib/prompts/query-classifier';
 import { StreamingReasoningEngine } from '@/lib/prompts/reasoning-engine';
@@ -40,6 +40,7 @@ export class ChatService {
       skipMultiStage?: boolean;
       onReasoningUpdate?: (metadata: ReasoningMetadata) => void;
       onStageChange?: (stage: string, current: number, total: number) => void;
+      onThinkingStage?: (stage: ThinkingStage) => void;
     }
   ): Promise<SendMessageResult> {
     try {
@@ -167,7 +168,8 @@ export class ChatService {
               options.onStageChange(stage, current, total);
             }
           },
-          onChunk
+          onChunk,
+          options?.onThinkingStage
         );
 
         const reasoningMetadata: ReasoningMetadata = {

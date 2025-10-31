@@ -5,6 +5,12 @@ export interface Attachment {
   type?: string;
 }
 
+export interface ThinkingStage {
+  stage: 'initial' | 'critique' | 'react';
+  content: string;
+  label: string;
+}
+
 export interface Message {
   id: string;
   role: 'user' | 'assistant' | 'system';
@@ -14,6 +20,7 @@ export interface Message {
   citations?: Citation[];
   attachments?: Attachment[];
   reasoning?: ReasoningMetadata;
+  thinkingStages?: ThinkingStage[];
 }
 
 export interface ReasoningMetadata {

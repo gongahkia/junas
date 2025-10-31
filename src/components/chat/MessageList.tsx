@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useRef, memo } from 'react';
-import { Message } from '@/types/chat';
+import { Message, ThinkingStage } from '@/types/chat';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Copy, Download, FileText, User, Bot, Loader2 } from 'lucide-react';
 import { ReasoningIndicator } from './ReasoningIndicator';
+import { ThinkingStages } from './ThinkingStages';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
@@ -17,6 +18,7 @@ interface MessageListProps {
   isLoading: boolean;
   onCopyMessage: (content: string) => void;
   onRegenerateMessage: (messageId: string) => void;
+  currentThinkingStages?: ThinkingStage[];
 }
 
 // Memoized message item component to prevent unnecessary re-renders
@@ -163,11 +165,12 @@ const MessageItem = memo(({
 
 MessageItem.displayName = 'MessageItem';
 
-export const MessageList = memo(function MessageList({ 
-  messages, 
-  isLoading, 
-  onCopyMessage, 
-  onRegenerateMessage 
+export const MessageList = memo(function MessageList({
+  messages,
+  isLoading,
+  onCopyMessage,
+  onRegenerateMessage,
+  currentThinkingStages
 }: MessageListProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -177,7 +180,7 @@ export const MessageList = memo(function MessageList({
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, isLoading]);
+  }, [messages, isLoading, currentThinkingStages]);
 
   if (messages.length === 0) {
     return null;
@@ -185,13 +188,24 @@ export const MessageList = memo(function MessageList({
 
   return (
     <div className="flex-1 overflow-y-auto px-6 py-8 space-y-6 max-w-6xl mx-auto w-full">
-      {messages.map((message) => (
-        <MessageItem
-          key={message.id}
-          message={message}
-          onCopyMessage={onCopyMessage}
-        />
+      {messages.map((message, index) => (
+        <div key={message.id}>
+          {/* Show thinking stages if this message has them */}
+          {message.role === 'assistant' && message.thinkingStages && message.thinkingStages.length > 0 && (
+            <ThinkingStages stages={message.thinkingStages} />
+          )}
+
+          <MessageItem
+            message={message}
+            onCopyMessage={onCopyMessage}
+          />
+        </div>
       ))}
+
+      {/* Show live thinking stages during streaming */}
+      {isLoading && currentThinkingStages && currentThinkingStages.length > 0 && (
+        <ThinkingStages stages={currentThinkingStages} />
+      )}
 
       {/* Enhanced loading indicator */}
       {isLoading && (

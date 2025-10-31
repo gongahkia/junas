@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Message, ReasoningMetadata } from '@/types/chat';
+import { Message, ReasoningMetadata, ThinkingStage } from '@/types/chat';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
 import { HeroMarquee } from './HeroMarquee';
@@ -28,6 +28,7 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
   const [showTemplateSelector, setShowTemplateSelector] = useState(false);
   const [activeTemplate, setActiveTemplate] = useState<{ template: LegalTemplate; fields: TemplateField[] } | null>(null);
   const [currentStage, setCurrentStage] = useState<{ stage: string; current: number; total: number } | null>(null);
+  const [currentThinkingStages, setCurrentThinkingStages] = useState<ThinkingStage[]>([]);
   const { addToast } = useToast();
 
   // Notify parent when messages change
@@ -103,8 +104,9 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
       // Get all messages including the new user message
       const allMessages = [...messages, userMessage];
 
-      // Track reasoning metadata
+      // Track reasoning metadata and thinking stages
       let reasoningMetadata: ReasoningMetadata | undefined;
+      const thinkingStages: ThinkingStage[] = [];
 
       // Try streaming first, then fallback to non-streaming if provider doesn't support endpoint
       let fullResponse = '';
@@ -127,6 +129,10 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
             onReasoningUpdate: (metadata) => {
               reasoningMetadata = metadata;
             },
+            onThinkingStage: (stage) => {
+              thinkingStages.push(stage);
+              setCurrentThinkingStages([...thinkingStages]);
+            },
           }
         );
         fullResponse = result.content;
@@ -138,17 +144,24 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
         reasoningMetadata = result.reasoning;
       }
 
-      // Clear stage indicator
+      // Clear stage indicators
       setCurrentStage(null);
+      setCurrentThinkingStages([]);
 
       // Extract and lookup citations from the response
       const citations = await extractAndLookupCitations(fullResponse);
 
-      // Final update with complete response, citations, and reasoning metadata
+      // Final update with complete response, citations, reasoning metadata, and thinking stages
       setMessages(prev =>
         prev.map(msg =>
           msg.id === assistantMessage.id
-            ? { ...msg, content: fullResponse, citations, reasoning: reasoningMetadata }
+            ? {
+                ...msg,
+                content: fullResponse,
+                citations,
+                reasoning: reasoningMetadata,
+                thinkingStages: thinkingStages.length > 0 ? thinkingStages : undefined
+              }
             : msg
         )
       );
@@ -269,6 +282,7 @@ Please generate a complete, professional legal document incorporating all the pr
                 isLoading={isLoading}
                 onCopyMessage={handleCopyMessage}
                 onRegenerateMessage={handleRegenerateMessage}
+                currentThinkingStages={currentThinkingStages}
               />
             </div>
           </div>
