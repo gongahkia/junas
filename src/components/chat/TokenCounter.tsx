@@ -38,7 +38,10 @@ const PRICING = {
 };
 
 function estimateCost(tokens: number, provider: string, model: string): number {
-  const pricing = PRICING[provider as keyof typeof PRICING]?.[model] || { input: 0, output: 0 };
+  const providerPricing = PRICING[provider as keyof typeof PRICING];
+  if (!providerPricing) return 0;
+
+  const pricing = providerPricing[model as keyof typeof providerPricing] || { input: 0, output: 0 };
   // Assuming output tokens for simplicity
   return (tokens / 1000) * pricing.output;
 }
