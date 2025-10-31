@@ -13,10 +13,10 @@ interface ReasoningIndicatorProps {
 }
 
 const complexityColors = {
-  simple: 'text-green-600 bg-green-50 border-green-200',
-  moderate: 'text-blue-600 bg-blue-50 border-blue-200',
-  complex: 'text-purple-600 bg-purple-50 border-purple-200',
-  expert: 'text-amber-600 bg-amber-50 border-amber-200',
+  simple: 'text-muted-foreground bg-muted border-border',
+  moderate: 'text-muted-foreground bg-muted border-border',
+  complex: 'text-foreground bg-muted border-border',
+  expert: 'text-foreground bg-muted border-border',
 };
 
 const complexityLabels = {

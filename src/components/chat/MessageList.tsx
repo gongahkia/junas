@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/card';
 import { Copy, Download, FileText, User, Bot, Loader2 } from 'lucide-react';
 import { ReasoningIndicator } from './ReasoningIndicator';
 import { ThinkingStages } from './ThinkingStages';
+import { TokenCounter } from './TokenCounter';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
@@ -135,6 +136,13 @@ const MessageItem = memo(({
                   stage={message.reasoning.stages > 1 ? 'complete' : undefined}
                   totalStages={message.reasoning.stages}
                 />
+              </div>
+            )}
+
+            {/* Token counter for assistant messages */}
+            {message.role === 'assistant' && (
+              <div className="pt-2">
+                <TokenCounter content={message.content} />
               </div>
             )}
 
