@@ -49,13 +49,13 @@ export function ReasoningSettings() {
 
         {/* Default Reasoning Depth */}
         <div className="space-y-2">
-          <Label htmlFor="reasoning-depth">Default Reasoning Depth</Label>
+          <Label htmlFor="reasoning-depth" className="pl-0">Default Reasoning Depth</Label>
           <Select
             value={settings.defaultReasoningDepth}
             onValueChange={(value) => updateSetting('defaultReasoningDepth', value)}
             disabled={!settings.enableAdvancedReasoning}
           >
-            <SelectTrigger id="reasoning-depth">
+            <SelectTrigger id="reasoning-depth" className="pl-3">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -85,7 +85,7 @@ export function ReasoningSettings() {
               </SelectItem>
             </SelectContent>
           </Select>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-muted-foreground pl-0">
             Junas automatically adjusts reasoning depth based on query complexity
           </p>
         </div>
