@@ -75,6 +75,7 @@ export interface LegalSearchResult {
   url: string;
   type: 'case' | 'statute' | 'regulation';
   jurisdiction: string;
+  court?: string;
   year: number;
   summary: string;
   relevanceScore: number;
