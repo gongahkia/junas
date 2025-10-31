@@ -16,6 +16,13 @@ import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
 import { extractTemplateFields, type LegalTemplate, type TemplateField } from '@/lib/templates';
 
+function getGreeting(): string {
+  const hour = new Date().getHours();
+  if (hour < 12) return 'Good morning';
+  if (hour < 18) return 'Good afternoon';
+  return 'Good evening';
+}
+
 interface ChatInterfaceProps {
   onSettings: () => void;
   onMessagesChange?: (messages: Message[]) => void;
@@ -29,7 +36,14 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
   const [activeTemplate, setActiveTemplate] = useState<{ template: LegalTemplate; fields: TemplateField[] } | null>(null);
   const [currentStage, setCurrentStage] = useState<{ stage: string; current: number; total: number } | null>(null);
   const [currentThinkingStages, setCurrentThinkingStages] = useState<ThinkingStage[]>([]);
+  const [userName, setUserName] = useState<string | undefined>(() => StorageManager.getSettings().userName);
   const { addToast } = useToast();
+
+  // Update userName when settings change
+  useEffect(() => {
+    const settings = StorageManager.getSettings();
+    setUserName(settings.userName);
+  }, []);
 
   // Notify parent when messages change
   useEffect(() => {
@@ -274,20 +288,18 @@ Please generate a complete, professional legal document incorporating all the pr
       <div className="flex-1 overflow-hidden">
         {messages.length === 0 ? (
           <div className="pt-6">
+            <div className="text-center mb-8">
+              <h1 className="text-4xl font-semibold text-foreground mb-2">
+                {getGreeting()}{userName ? `, ${userName}` : ''}
+              </h1>
+              <p className="text-lg text-muted-foreground">
+                How can I assist you today?
+              </p>
+            </div>
             <HeroMarquee />
           </div>
         ) : (
           <div className="h-full flex flex-col">
-            {/* Reasoning progress indicator */}
-            {currentStage && isLoading && (
-              <div className="px-4 py-2 border-b bg-muted/30">
-                <ReasoningProgress
-                  currentStage={currentStage.current}
-                  totalStages={currentStage.total}
-                  stage={currentStage.stage}
-                />
-              </div>
-            )}
             <div className="flex-1 overflow-hidden">
               <MessageList
                 messages={messages}
@@ -300,6 +312,17 @@ Please generate a complete, professional legal document incorporating all the pr
           </div>
         )}
       </div>
+
+      {/* Reasoning progress indicator - above input */}
+      {currentStage && isLoading && (
+        <div className="px-4 py-2 border-t bg-muted/30">
+          <ReasoningProgress
+            currentStage={currentStage.current}
+            totalStages={currentStage.total}
+            stage={currentStage.stage}
+          />
+        </div>
+      )}
 
       {/* Input area or Template Form */}
       {activeTemplate ? (
