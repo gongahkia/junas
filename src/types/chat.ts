@@ -9,6 +9,8 @@ export interface ThinkingStage {
   stage: 'initial' | 'critique' | 'react';
   content: string;
   label: string;
+  isComplete?: boolean;
+  isStreaming?: boolean;
 }
 
 export interface Message {

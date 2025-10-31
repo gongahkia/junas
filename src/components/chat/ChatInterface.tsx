@@ -129,8 +129,14 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
             onReasoningUpdate: (metadata) => {
               reasoningMetadata = metadata;
             },
-            onThinkingStage: (stage) => {
-              thinkingStages.push(stage);
+            onThinkingStage: (stageUpdate) => {
+              // Find existing stage of same type and update, or add new
+              const existingIndex = thinkingStages.findIndex(s => s.stage === stageUpdate.stage);
+              if (existingIndex >= 0) {
+                thinkingStages[existingIndex] = stageUpdate;
+              } else {
+                thinkingStages.push(stageUpdate);
+              }
               setCurrentThinkingStages([...thinkingStages]);
             },
           }

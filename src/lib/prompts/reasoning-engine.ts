@@ -307,7 +307,17 @@ export class StreamingReasoningEngine {
 
     let initialResponse = '';
 
-    // For multi-stage, don't stream initial stage to main output
+    // If multi-stage, send stage start notification
+    if (isMultiStage && onThinkingStage) {
+      onThinkingStage({
+        stage: 'initial',
+        content: '',
+        label: 'Initial Analysis',
+        isStreaming: true
+      });
+    }
+
+    // For multi-stage, stream thinking stage content live
     // For single stage, stream to main output
     const response1 = await apiCallFn(
       messagesWithSystem,
@@ -315,7 +325,19 @@ export class StreamingReasoningEngine {
         temperature: analysis.temperature,
         maxTokens: analysis.tokenBudget,
       },
-      isMultiStage ? undefined : onChunk  // Only stream if it's the final stage
+      isMultiStage
+        ? (chunk: string) => {
+            initialResponse += chunk;
+            if (onThinkingStage) {
+              onThinkingStage({
+                stage: 'initial',
+                content: initialResponse,
+                label: 'Initial Analysis',
+                isStreaming: true
+              });
+            }
+          }
+        : onChunk  // Single stage streams to main output
     );
     initialResponse = response1;
 
@@ -326,12 +348,13 @@ export class StreamingReasoningEngine {
       metadata: { reasoningDepth: analysis.reasoningDepth },
     });
 
-    // If multi-stage, send initial as thinking stage
+    // If multi-stage, mark stage as complete
     if (isMultiStage && onThinkingStage && initialResponse) {
       onThinkingStage({
         stage: 'initial',
         content: initialResponse,
-        label: 'Initial Analysis'
+        label: 'Initial Analysis',
+        isComplete: true
       });
     }
 
@@ -346,6 +369,16 @@ export class StreamingReasoningEngine {
         onStageStart('critique', currentStage, totalStages);
       }
 
+      // Send stage start notification if not final
+      if (!isFinalStage && onThinkingStage) {
+        onThinkingStage({
+          stage: 'critique',
+          content: '',
+          label: 'Self-Critique & Refinement',
+          isStreaming: true
+        });
+      }
+
       const critiquePrompt = getSelfCritiquePrompt(query, initialResponse);
       const critiqueMessages = [
         {
@@ -355,11 +388,25 @@ export class StreamingReasoningEngine {
         { role: 'user', content: critiquePrompt },
       ];
 
+      let critiqueResponse = '';
       const response2 = await apiCallFn(
         critiqueMessages,
         { temperature: 0.5, maxTokens: 4096 },
-        isFinalStage ? onChunk : undefined  // Only stream if it's the final stage
+        isFinalStage
+          ? onChunk  // Stream to main if final stage
+          : (chunk: string) => {
+              critiqueResponse += chunk;
+              if (onThinkingStage) {
+                onThinkingStage({
+                  stage: 'critique',
+                  content: critiqueResponse,
+                  label: 'Self-Critique & Refinement',
+                  isStreaming: true
+                });
+              }
+            }
       );
+      critiqueResponse = response2;
 
       stages.push({
         stage: 'critique',
@@ -367,12 +414,13 @@ export class StreamingReasoningEngine {
         response: response2,
       });
 
-      // If not final stage, send as thinking
+      // Mark stage as complete if not final
       if (!isFinalStage && onThinkingStage && response2) {
         onThinkingStage({
           stage: 'critique',
           content: response2,
-          label: 'Self-Critique & Refinement'
+          label: 'Self-Critique & Refinement',
+          isComplete: true
         });
       }
 
