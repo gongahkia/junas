@@ -76,7 +76,8 @@ export interface LegalSearchResult {
   type: 'case' | 'statute' | 'regulation';
   jurisdiction: string;
   court?: string;
-  year: number;
+  year?: number;
+  citation?: string;
   summary: string;
   relevanceScore: number;
 }
