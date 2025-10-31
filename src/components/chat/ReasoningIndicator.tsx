@@ -114,7 +114,7 @@ export function ReasoningProgress({ currentStage, totalStages, stage }: Reasonin
       </div>
       <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
         <div
-          className="h-full bg-primary transition-all duration-500 ease-out rounded-full"
+          className="h-full bg-foreground transition-all duration-500 ease-out rounded-full"
           style={{ width: `${progress}%` }}
         />
       </div>

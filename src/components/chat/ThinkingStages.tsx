@@ -18,9 +18,9 @@ const stageIcons = {
 };
 
 const stageColors = {
-  initial: 'text-blue-500',
-  critique: 'text-purple-500',
-  react: 'text-amber-500',
+  initial: 'text-muted-foreground',
+  critique: 'text-muted-foreground',
+  react: 'text-muted-foreground',
 };
 
 export function ThinkingStages({ stages }: ThinkingStagesProps) {
