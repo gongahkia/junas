@@ -139,12 +139,10 @@ const MessageItem = memo(({
               </div>
             )}
 
-            {/* Token counter for assistant messages */}
-            {message.role === 'assistant' && (
-              <div className="pt-2">
-                <TokenCounter content={message.content} />
-              </div>
-            )}
+            {/* Token counter for all messages */}
+            <div className="pt-2">
+              <TokenCounter content={message.content} responseTime={message.responseTime} />
+            </div>
 
             {/* Message actions */}
             <div className="flex items-center space-x-2 pt-2">

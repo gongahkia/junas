@@ -7,11 +7,18 @@ interface TokenCounterProps {
   isStreaming?: boolean;
   provider?: string;
   model?: string;
+  responseTime?: number; // in milliseconds
 }
 
 // Token estimation (rough approximation: 1 token ≈ 4 characters)
 function estimateTokens(text: string): number {
   return Math.ceil(text.length / 4);
+}
+
+// Format time in seconds
+function formatTime(ms: number): string {
+  if (ms < 1000) return `${ms}ms`;
+  return `${(ms / 1000).toFixed(1)}s`;
 }
 
 // Cost per 1K tokens (as of 2024)
@@ -36,7 +43,7 @@ function estimateCost(tokens: number, provider: string, model: string): number {
   return (tokens / 1000) * pricing.output;
 }
 
-export function TokenCounter({ content, isStreaming, provider = 'gemini', model = 'gemini-2.0-flash-exp' }: TokenCounterProps) {
+export function TokenCounter({ content, isStreaming, provider = 'gemini', model = 'gemini-2.0-flash-exp', responseTime }: TokenCounterProps) {
   const [tokens, setTokens] = useState(0);
   const [cost, setCost] = useState(0);
 
@@ -57,6 +64,12 @@ export function TokenCounter({ content, isStreaming, provider = 'gemini', model 
           <span className="animate-pulse">...</span>
         )}
       </div>
+      {responseTime && (
+        <div className="flex items-center gap-1.5">
+          <span className="opacity-60">·</span>
+          <span className="font-mono">{formatTime(responseTime)}</span>
+        </div>
+      )}
       {cost > 0 && (
         <div className="flex items-center gap-1.5">
           <span className="opacity-60">·</span>

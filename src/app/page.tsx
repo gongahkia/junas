@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ProviderSelector } from '@/components/settings/ProviderSelector';
 import { ReasoningSettings } from '@/components/settings/ReasoningSettings';
+import { UserSettings } from '@/components/settings/UserSettings';
 import { StorageManager } from '@/lib/storage';
 import { Message } from '@/types/chat';
 import { LegalDisclaimerContent } from '@/components/LegalDisclaimer';
@@ -131,6 +132,9 @@ export default function Home() {
           </DialogHeader>
 
           <div className="space-y-6">
+            {/* User Preferences */}
+            <UserSettings />
+
             {/* Provider Selection */}
             <ProviderSelector
               currentProvider={currentProvider}

@@ -23,6 +23,7 @@ export interface Message {
   attachments?: Attachment[];
   reasoning?: ReasoningMetadata;
   thinkingStages?: ThinkingStage[];
+  responseTime?: number; // Time in milliseconds
 }
 
 export interface ReasoningMetadata {
@@ -75,4 +76,5 @@ export interface ChatSettings {
   enableAdvancedReasoning: boolean;
   defaultReasoningDepth: 'quick' | 'standard' | 'deep' | 'expert';
   showReasoningStages: boolean;
+  userName?: string;
 }

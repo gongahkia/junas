@@ -90,6 +90,8 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
     setMessages(prev => [...prev, userMessage]);
     setIsLoading(true);
 
+    const startTime = Date.now(); // Track start time
+
     try {
       // Create assistant message for streaming
       const assistantMessage: Message = {
@@ -157,7 +159,10 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
       // Extract and lookup citations from the response
       const citations = await extractAndLookupCitations(fullResponse);
 
-      // Final update with complete response, citations, reasoning metadata, and thinking stages
+      // Calculate response time
+      const responseTime = Date.now() - startTime;
+
+      // Final update with complete response, citations, reasoning metadata, thinking stages, and response time
       setMessages(prev =>
         prev.map(msg =>
           msg.id === assistantMessage.id
@@ -166,7 +171,8 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
                 content: fullResponse,
                 citations,
                 reasoning: reasoningMetadata,
-                thinkingStages: thinkingStages.length > 0 ? thinkingStages : undefined
+                thinkingStages: thinkingStages.length > 0 ? thinkingStages : undefined,
+                responseTime
               }
             : msg
         )
