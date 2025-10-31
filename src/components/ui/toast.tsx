@@ -34,26 +34,26 @@ export function Toast({ id, title, description, type = 'info', duration = 5000, 
   const getIcon = () => {
     switch (type) {
       case 'success':
-        return <CheckCircle className="h-5 w-5 text-green-600" />;
+        return <CheckCircle className="h-5 w-5 text-foreground" />;
       case 'error':
-        return <AlertCircle className="h-5 w-5 text-red-600" />;
+        return <AlertCircle className="h-5 w-5 text-foreground" />;
       case 'warning':
-        return <AlertTriangle className="h-5 w-5 text-yellow-600" />;
+        return <AlertTriangle className="h-5 w-5 text-foreground" />;
       default:
-        return <Info className="h-5 w-5 text-blue-600" />;
+        return <Info className="h-5 w-5 text-muted-foreground" />;
     }
   };
 
   const getBackgroundColor = () => {
     switch (type) {
       case 'success':
-        return 'bg-green-50 border-green-200';
+        return 'bg-muted border-border';
       case 'error':
-        return 'bg-red-50 border-red-200';
+        return 'bg-muted border-border';
       case 'warning':
-        return 'bg-yellow-50 border-yellow-200';
+        return 'bg-muted border-border';
       default:
-        return 'bg-blue-50 border-blue-200';
+        return 'bg-muted border-border';
     }
   };
 

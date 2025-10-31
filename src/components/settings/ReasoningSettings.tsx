@@ -34,7 +34,7 @@ export function ReasoningSettings() {
           <div className="flex-1 space-y-1">
             <div className="flex items-center gap-2">
               <Label htmlFor="advanced-reasoning">Enable Advanced Reasoning</Label>
-              <Sparkles className="h-4 w-4 text-amber-500" />
+              <Sparkles className="h-4 w-4 text-muted-foreground" />
             </div>
             <p className="text-sm text-muted-foreground">
               Automatically use multi-stage reasoning and self-critique for complex queries
@@ -109,7 +109,7 @@ export function ReasoningSettings() {
         {/* Info Box */}
         <div className="rounded-lg border bg-muted/50 p-4">
           <div className="flex gap-3">
-            <Info className="h-5 w-5 text-blue-500 flex-shrink-0 mt-0.5" />
+            <Info className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
             <div className="space-y-2 text-sm">
               <p className="font-medium">How Advanced Reasoning Works</p>
               <ul className="space-y-1 text-muted-foreground">

@@ -38,13 +38,9 @@ export function Layout({ children, hasMessages = false, onExport, onImport, onSe
         <div className="min-h-screen bg-background flex flex-col">
         {/* Header */}
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="max-w-7xl mx-auto flex h-16 items-center justify-between px-6">
-            {/* Left side intentionally minimal (brand hidden) */}
-            <div />
-
-            {/* Right side controls */}
-            <div className="flex items-center space-x-3">
-              {/* New Chat button */}
+          <div className="max-w-7xl mx-auto flex h-16 items-center gap-6 px-6">
+            {/* Left side - New Chat button */}
+            <div className="flex items-center">
               {onNewChat && (
                 <Button
                   variant="outline"
@@ -56,20 +52,25 @@ export function Layout({ children, hasMessages = false, onExport, onImport, onSe
                   New Chat
                 </Button>
               )}
+            </div>
 
-              {/* Search button - only show when there are messages */}
+            {/* Center - Search bar */}
+            <div className="flex-1 max-w-2xl mx-auto">
               {onSearch && hasMessages && (
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   size="sm"
                   onClick={onSearch}
-                  className="h-9 px-3"
+                  className="h-9 w-full justify-start text-muted-foreground hover:text-foreground"
                 >
                   <Search className="h-4 w-4 mr-2" />
-                  Search
+                  Search conversations...
                 </Button>
               )}
+            </div>
 
+            {/* Right side controls */}
+            <div className="flex items-center space-x-3">
               {/* Import button */}
               {onImport && (
                 <Button
