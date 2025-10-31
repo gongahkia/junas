@@ -101,9 +101,12 @@ export class ClaudeProvider {
             done: false,
           };
         }
-        
-        if (event.type === 'message_stop') {
-          inputTokens = event.usage.input_tokens;
+
+        if (event.type === 'message_start') {
+          inputTokens = event.message.usage.input_tokens;
+        }
+
+        if (event.type === 'message_delta') {
           outputTokens = event.usage.output_tokens;
         }
       }
