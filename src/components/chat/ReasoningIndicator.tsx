@@ -73,16 +73,16 @@ export function ReasoningIndicator({
       {reasoningDepth && reasoningDepth !== 'quick' && (
         <div className="flex items-center gap-1 text-muted-foreground">
           <span className="text-xs">
-            {reasoningDepth === 'deep' && '🧠 Deep Reasoning'}
-            {reasoningDepth === 'expert' && '⚡ Expert Reasoning'}
-            {reasoningDepth === 'standard' && '💡 Standard Reasoning'}
+            {reasoningDepth === 'deep' && 'Deep Reasoning'}
+            {reasoningDepth === 'expert' && 'Expert Reasoning'}
+            {reasoningDepth === 'standard' && 'Standard Reasoning'}
           </span>
         </div>
       )}
 
       {/* Complete indicator */}
       {stage === 'complete' && totalStages && totalStages > 1 && (
-        <div className="flex items-center gap-1.5 text-green-600">
+        <div className="flex items-center gap-1.5 text-muted-foreground">
           <CheckCircle className="h-3.5 w-3.5" />
           <span>Multi-stage analysis complete ({totalStages} stages)</span>
         </div>
