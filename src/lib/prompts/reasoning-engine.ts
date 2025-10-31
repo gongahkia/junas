@@ -259,6 +259,8 @@ export interface ThinkingStageData {
   stage: 'initial' | 'critique' | 'react';
   content: string;
   label: string;
+  isComplete?: boolean;
+  isStreaming?: boolean;
 }
 
 /**
