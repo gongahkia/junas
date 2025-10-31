@@ -102,7 +102,7 @@ export const ENTITY_TYPES: Record<string, EntityTypeConfig> = {
 /**
  * Legal document-specific entity types
  */
-export const LEGAL_ENTITY_TYPES = {
+export const LEGAL_ENTITY_TYPES: Record<string, EntityTypeConfig> = {
   CONTRACT_PARTY: {
     name: 'CONTRACT_PARTY',
     label: 'Contract Party',
