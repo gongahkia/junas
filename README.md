@@ -1,4 +1,5 @@
 [![](https://img.shields.io/badge/junas_1.0.0-passing-green)](https://github.com/gongahkia/junas/releases/tag/1.0.0)
+![Vercel Deploy](https://deploy-badge.vercel.app/vercel/junas)
 
 # `Junas`
 
@@ -13,6 +14,13 @@
 * *Session Management*: [iron-session](https://github.com/vvo/iron-session)
 * *Rate Limiting*: [Upstash Redis](https://upstash.com/), [Upstash Ratelimit](https://github.com/upstash/ratelimit)
 * *Monitoring*: [Sentry](https://sentry.io/)
+
+## Usage
+
+> [!IMPORTANT]  
+> Read the [legal disclaimer](#legal-disclaimer) before using `Junas`.
+
+Use the live website [**here**](https://junas.vercel.app/).
 
 ## Screenshots
 
@@ -64,10 +72,7 @@
     <img width="45%" src="./asset/reference/13.png">
 </div>
 
-## Usage
-
-> [!IMPORTANT]  
-> Read the [legal disclaimer](#legal-disclaimer) before using `Junas`.
+## Local Usage
 
 The below instructions are for locally hosting `Junas`.
 
