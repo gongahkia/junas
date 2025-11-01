@@ -287,12 +287,12 @@ Please generate a complete, professional legal document incorporating all the pr
       {/* Messages area */}
       <div className="flex-1 overflow-hidden">
         {messages.length === 0 ? (
-          <div className="pt-6">
-            <div className="text-center mb-8">
-              <h1 className="text-4xl font-semibold text-foreground mb-2">
+          <div className="pt-4 md:pt-6 px-4 md:px-0">
+            <div className="text-center mb-6 md:mb-8">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground mb-2">
                 {getGreeting()}{userName ? `, ${userName}` : ''}
               </h1>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-base md:text-lg text-muted-foreground">
                 How can I assist you today?
               </p>
             </div>
@@ -315,7 +315,7 @@ Please generate a complete, professional legal document incorporating all the pr
 
       {/* Reasoning progress indicator - above input */}
       {currentStage && isLoading && (
-        <div className="px-4 py-2 border-t bg-muted/30">
+        <div className="px-3 md:px-4 py-2 border-t bg-muted/30">
           <ReasoningProgress
             currentStage={currentStage.current}
             totalStages={currentStage.total}

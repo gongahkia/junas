@@ -123,15 +123,15 @@ export default function Home() {
 
       {/* Settings Modal */}
       <Dialog open={showSettingsModal} onOpenChange={setShowSettingsModal}>
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[85vh] md:max-h-[80vh] overflow-y-auto w-[95vw] md:w-full">
           <DialogHeader>
-            <DialogTitle>Settings</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-base md:text-lg">Settings</DialogTitle>
+            <DialogDescription className="text-xs md:text-sm">
               Configure your AI provider and application settings.
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-6">
+          <div className="space-y-4 md:space-y-6">
             {/* User Preferences */}
             <UserSettings />
 

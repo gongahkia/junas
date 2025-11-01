@@ -34,8 +34,8 @@ const MessageItem = memo(({
     <div
       className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
     >
-      <div className={`flex max-w-[85%] ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start space-x-3`}>
-        <Card className={`p-4 ${
+      <div className={`flex w-full md:max-w-[85%] ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start space-x-3`}>
+        <Card className={`p-3 md:p-4 ${
           message.role === 'user'
             ? 'bg-card text-card-foreground border border-border'
             : 'bg-card text-card-foreground border border-border'
@@ -47,10 +47,10 @@ const MessageItem = memo(({
                 {message.attachments.map((attachment) => (
                   <div
                     key={attachment.id}
-                    className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-md bg-muted text-sm text-foreground border border-border"
+                    className="inline-flex items-center space-x-2 px-2 md:px-3 py-1.5 rounded-md bg-muted text-xs md:text-sm text-foreground border border-border"
                   >
-                    <FileText className="w-4 h-4" />
-                    <span className="truncate max-w-[320px]" title={attachment.name}>
+                    <FileText className="w-3 h-3 md:w-4 md:h-4" />
+                    <span className="truncate max-w-[200px] md:max-w-[320px]" title={attachment.name}>
                       {attachment.name}
                     </span>
                     <span className="text-xs text-muted-foreground whitespace-nowrap">
@@ -193,7 +193,7 @@ export const MessageList = memo(function MessageList({
   }
 
   return (
-    <div className="flex-1 overflow-y-auto px-6 py-8 space-y-6 max-w-6xl mx-auto w-full">
+    <div className="flex-1 overflow-y-auto px-3 md:px-6 py-4 md:py-8 space-y-4 md:space-y-6 max-w-6xl mx-auto w-full">
       {messages.map((message, index) => (
         <div key={message.id}>
           {/* Show thinking stages if this message has them */}
@@ -216,12 +216,12 @@ export const MessageList = memo(function MessageList({
       {/* Enhanced loading indicator */}
       {isLoading && (
         <div className="flex justify-start">
-          <div className="flex items-start space-x-2 max-w-[85%]">
-            <Card className="p-4">
-              <div className="flex items-center space-x-3">
-                <Loader2 className="w-5 h-5 animate-spin text-primary" />
+          <div className="flex items-start space-x-2 w-full md:max-w-[85%]">
+            <Card className="p-3 md:p-4">
+              <div className="flex items-center space-x-2 md:space-x-3">
+                <Loader2 className="w-4 h-4 md:w-5 md:h-5 animate-spin text-primary flex-shrink-0" />
                 <div className="space-y-1">
-                  <span className="text-sm font-medium">Junas is analyzing your request...</span>
+                  <span className="text-xs md:text-sm font-medium">Junas is analyzing your request...</span>
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
                     <div className="w-2 h-2 bg-primary rounded-full animate-pulse delay-75" />

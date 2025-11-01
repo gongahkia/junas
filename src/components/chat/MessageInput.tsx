@@ -131,9 +131,9 @@ export function MessageInput({
 
   return (
     <div className="border-t bg-background relative">
-      <div className="max-w-6xl mx-auto px-6 py-6">
+      <div className="max-w-6xl mx-auto px-3 md:px-6 py-3 md:py-6">
         {/* Input form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
           <div className="flex items-end space-x-2">
             <div className="flex-1 relative">
               <Textarea
@@ -143,14 +143,14 @@ export function MessageInput({
                 onKeyDown={handleKeyDown}
                 placeholder={placeholder}
                 disabled={isLoading}
-                className="min-h-[80px] max-h-[300px] resize-none"
+                className="min-h-[60px] md:min-h-[80px] max-h-[200px] md:max-h-[300px] resize-none text-sm md:text-base"
                 rows={1}
               />
 
               {/* Inline suggestion chip */}
               {isAnalysisDetected && !showAnalysisPreview && analysisMatch && (
-                <div className="absolute bottom-2 right-2 flex items-center gap-1">
-                  <div className="bg-primary/10 text-primary px-2 py-1 rounded-md text-xs flex items-center gap-1 animate-in fade-in slide-in-from-bottom-2">
+                <div className="absolute bottom-1 md:bottom-2 right-1 md:right-2 flex items-center gap-1">
+                  <div className="bg-primary/10 text-primary px-1.5 md:px-2 py-0.5 md:py-1 rounded-md text-[10px] md:text-xs flex items-center gap-1 animate-in fade-in slide-in-from-bottom-2">
                     <span className="font-medium">
                       {analysisMatch.tool.name} ready
                     </span>
@@ -158,13 +158,16 @@ export function MessageInput({
                 </div>
               )}
               {!isAnalysisDetected && isDraftDetected && !showTemplatePreview && (
-                <div className="absolute bottom-2 right-2 flex items-center gap-1">
-                  <div className="bg-primary/10 text-primary px-2 py-1 rounded-md text-xs flex items-center gap-1 animate-in fade-in slide-in-from-bottom-2">
+                <div className="absolute bottom-1 md:bottom-2 right-1 md:right-2 flex items-center gap-1">
+                  <div className="bg-primary/10 text-primary px-1.5 md:px-2 py-0.5 md:py-1 rounded-md text-[10px] md:text-xs flex items-center gap-1 animate-in fade-in slide-in-from-bottom-2">
                     <Sparkles className="w-3 h-3" />
-                    <span className="font-medium">
+                    <span className="font-medium hidden sm:inline">
                       {matchedTemplates.length > 0
                         ? `${matchedTemplates.length} template${matchedTemplates.length > 1 ? 's' : ''} available`
                         : 'Searching templates...'}
+                    </span>
+                    <span className="font-medium sm:hidden">
+                      {matchedTemplates.length > 0 ? `${matchedTemplates.length}` : '...'}
                     </span>
                   </div>
                 </div>
@@ -175,9 +178,9 @@ export function MessageInput({
             <Button
               type="submit"
               disabled={!message.trim() || isLoading}
-              className="h-10 w-10"
+              className="h-9 w-9 md:h-10 md:w-10 flex-shrink-0"
             >
-              <Send className="h-4 w-4" />
+              <Send className="h-3.5 w-3.5 md:h-4 md:w-4" />
               <span className="sr-only">Send message</span>
             </Button>
           </div>
@@ -194,11 +197,11 @@ export function MessageInput({
 
           {/* Template preview dropdown */}
           {showTemplatePreview && matchedTemplates.length > 0 && (
-            <div className="border rounded-lg bg-card p-4 space-y-3 animate-in fade-in slide-in-from-top-2">
+            <div className="border rounded-lg bg-card p-3 md:p-4 space-y-2 md:space-y-3 animate-in fade-in slide-in-from-top-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-semibold">
+                  <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4 text-primary" />
+                  <span className="text-xs md:text-sm font-semibold">
                     {matchedTemplates.length === 1
                       ? 'Matching Template'
                       : `${matchedTemplates.length} Matching Templates`}
@@ -215,24 +218,24 @@ export function MessageInput({
                 </Button>
               </div>
 
-              <div className="grid grid-cols-1 gap-2 max-h-[300px] overflow-y-auto">
+              <div className="grid grid-cols-1 gap-2 max-h-[200px] md:max-h-[300px] overflow-y-auto">
                 {matchedTemplates.slice(0, 5).map((template) => (
                   <Card
                     key={template.id}
                     className="cursor-pointer hover:border-primary hover:bg-accent transition-all"
                     onClick={() => handleTemplateSelect(template)}
                   >
-                    <CardHeader className="p-3">
+                    <CardHeader className="p-2 md:p-3">
                       <div className="flex items-start gap-2">
-                        <FileText className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                        <FileText className="w-3.5 h-3.5 md:w-4 md:h-4 text-primary mt-0.5 flex-shrink-0" />
                         <div className="flex-1 min-w-0">
-                          <CardTitle className="text-sm font-semibold">
+                          <CardTitle className="text-xs md:text-sm font-semibold">
                             {template.name}
                           </CardTitle>
-                          <CardDescription className="text-xs mt-1">
+                          <CardDescription className="text-[10px] md:text-xs mt-1">
                             {template.description}
                           </CardDescription>
-                          <div className="text-xs text-muted-foreground mt-1">
+                          <div className="text-[10px] md:text-xs text-muted-foreground mt-1">
                             {template.category}
                           </div>
                         </div>
@@ -242,8 +245,9 @@ export function MessageInput({
                 ))}
               </div>
 
-              <div className="text-xs text-muted-foreground text-center pt-2 border-t">
-                Click a template to use it, or press Enter to use the best match
+              <div className="text-[10px] md:text-xs text-muted-foreground text-center pt-2 border-t">
+                <span className="hidden sm:inline">Click a template to use it, or press Enter to use the best match</span>
+                <span className="sm:hidden">Tap to use</span>
                 {matchedTemplates.length > 5 && ` • Showing top 5 of ${matchedTemplates.length} matches`}
               </div>
             </div>
@@ -251,10 +255,11 @@ export function MessageInput({
 
           {/* Help text */}
           <div className="flex items-center justify-end">
-            <div className="text-xs text-muted-foreground">
-              Press Enter to send, Shift+Enter for new line.
-              {isAnalysisDetected && ' Use analysis tools like "irac", "ratio", "obiter".'}
-              {!isAnalysisDetected && isDraftDetected && ' Type "draft [document]" to see templates.'}
+            <div className="text-[10px] md:text-xs text-muted-foreground">
+              <span className="hidden sm:inline">Press Enter to send, Shift+Enter for new line.</span>
+              <span className="sm:hidden">Enter to send</span>
+              {isAnalysisDetected && <span className="hidden md:inline"> Use analysis tools like "irac", "ratio", "obiter".</span>}
+              {!isAnalysisDetected && isDraftDetected && <span className="hidden md:inline"> Type "draft [document]" to see templates.</span>}
             </div>
           </div>
         </form>

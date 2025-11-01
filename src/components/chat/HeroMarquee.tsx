@@ -132,36 +132,36 @@ const row1Items = [
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center h-[40vh] select-none overflow-hidden gap-6">
+    <div className="flex flex-col items-center justify-center h-[30vh] md:h-[40vh] select-none overflow-hidden gap-3 md:gap-6">
       {/* Row 1 - Fast */}
       <div className="relative w-full">
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent pointer-events-none z-10" />
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent pointer-events-none z-10" />
-        <div className="whitespace-nowrap animate-[marquee_25s_linear_infinite] text-3xl font-semibold text-muted-foreground">
+        <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-background to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-background to-transparent pointer-events-none z-10" />
+        <div className="whitespace-nowrap animate-[marquee_25s_linear_infinite] text-lg md:text-2xl lg:text-3xl font-semibold text-muted-foreground">
           {row1Items.concat(row1Items).map((text, idx) => (
-            <span key={idx} className="mx-8 opacity-80 hover:opacity-100 transition-opacity">{text}</span>
+            <span key={idx} className="mx-4 md:mx-8 opacity-80 hover:opacity-100 transition-opacity">{text}</span>
           ))}
         </div>
       </div>
 
       {/* Row 2 - Medium (reverse direction) */}
       <div className="relative w-full">
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent pointer-events-none z-10" />
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent pointer-events-none z-10" />
-        <div className="whitespace-nowrap animate-[marquee-reverse_35s_linear_infinite] text-3xl font-semibold text-muted-foreground">
+        <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-background to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-background to-transparent pointer-events-none z-10" />
+        <div className="whitespace-nowrap animate-[marquee-reverse_35s_linear_infinite] text-lg md:text-2xl lg:text-3xl font-semibold text-muted-foreground">
           {row2Items.concat(row2Items).map((text, idx) => (
-            <span key={idx} className="mx-8 opacity-70 hover:opacity-100 transition-opacity">{text}</span>
+            <span key={idx} className="mx-4 md:mx-8 opacity-70 hover:opacity-100 transition-opacity">{text}</span>
           ))}
         </div>
       </div>
 
       {/* Row 3 - Slow */}
       <div className="relative w-full">
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent pointer-events-none z-10" />
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent pointer-events-none z-10" />
-        <div className="whitespace-nowrap animate-[marquee_45s_linear_infinite] text-3xl font-semibold text-muted-foreground">
+        <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-background to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-background to-transparent pointer-events-none z-10" />
+        <div className="whitespace-nowrap animate-[marquee_45s_linear_infinite] text-lg md:text-2xl lg:text-3xl font-semibold text-muted-foreground">
           {row3Items.concat(row3Items).map((text, idx) => (
-            <span key={idx} className="mx-8 opacity-60 hover:opacity-100 transition-opacity">{text}</span>
+            <span key={idx} className="mx-4 md:mx-8 opacity-60 hover:opacity-100 transition-opacity">{text}</span>
           ))}
         </div>
       </div>

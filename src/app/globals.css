@@ -165,24 +165,60 @@
   color: hsl(var(--card-foreground)) !important;
 }
 
-/* Desktop-first optimizations */
+/* Mobile-first optimizations */
+@media (max-width: 768px) {
+  /* Prevent text zoom on input focus in iOS Safari */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea {
+    font-size: 16px;
+  }
+
+  /* Better touch targets for mobile */
+  button,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Optimize spacing for small screens */
+  .mobile-compact {
+    padding: 0.75rem;
+  }
+
+  /* Full width containers on mobile */
+  .mobile-full-width {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .tablet-optimized {
+    padding: 1.25rem;
+  }
+}
+
+/* Desktop optimizations */
 @media (min-width: 1024px) {
   .desktop-container {
     max-width: 1200px;
     margin: 0 auto;
   }
-  
+
   /* Improve desktop chat experience */
   .chat-container {
     max-width: 1000px;
     margin: 0 auto;
   }
-  
+
   /* Better spacing for desktop */
   .message-spacing {
     margin-bottom: 1.5rem;
   }
-  
+
   /* Desktop input sizing */
   .desktop-input {
     min-height: 80px;
@@ -190,9 +226,11 @@
   }
 }
 
-/* Remove mobile-specific constraints */
-@media (max-width: 1023px) {
-  .mobile-optimized {
-    padding: 1rem;
+/* Mobile landscape mode */
+@media (max-width: 768px) and (orientation: landscape) {
+  /* Reduce vertical spacing in landscape */
+  .landscape-compact {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }
 }
