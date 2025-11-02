@@ -130,7 +130,7 @@ export function MessageInput({
   const isAnalysisDetected = analysisMatch !== null;
 
   return (
-    <div className="border-t bg-background relative">
+    <div className="border-t bg-background sticky bottom-0 z-50 shadow-sm">
       <div className="max-w-6xl mx-auto px-3 md:px-6 py-3 md:py-6">
         {/* Input form */}
         <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
