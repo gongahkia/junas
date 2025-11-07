@@ -241,21 +241,6 @@ export class StorageManager {
   }
 
 
-// Helpers
-function cryptoRandomId(): string {
-  try {
-    // @ts-ignore
-    const arr = crypto?.getRandomValues?.(new Uint32Array(4));
-    if (arr) return Array.from(arr).map((n) => n.toString(16)).join('');
-  } catch {}
-  return Math.random().toString(36).slice(2) + Date.now().toString(36);
-}
-
-function generateConversationTitle(messages: Message[]): string {
-  const firstUser = messages.find((m) => m.role === 'user');
-  const base = firstUser?.content?.slice(0, 60) || 'New Conversation';
-  return base.replace(/\s+/g, ' ').trim();
-}
   static clearAllData(): void {
     if (typeof window === 'undefined') return;
     Object.values(STORAGE_KEYS).forEach(key => {
@@ -335,4 +320,20 @@ function generateConversationTitle(messages: Message[]): string {
       return false;
     }
   }
+}
+
+// Helpers (outside class to avoid syntax errors inside class scope)
+function cryptoRandomId(): string {
+  try {
+    // @ts-ignore
+    const arr = crypto?.getRandomValues?.(new Uint32Array(4));
+    if (arr) return Array.from(arr).map((n) => n.toString(16)).join('');
+  } catch {}
+  return Math.random().toString(36).slice(2) + Date.now().toString(36);
+}
+
+function generateConversationTitle(messages: Message[]): string {
+  const firstUser = messages.find((m) => m.role === 'user');
+  const base = firstUser?.content?.slice(0, 60) || 'New Conversation';
+  return base.replace(/\s+/g, ' ').trim();
 }
