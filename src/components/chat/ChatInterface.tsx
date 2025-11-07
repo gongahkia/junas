@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Message, ReasoningMetadata, ThinkingStage } from '@/types/chat';
+import { Message, ReasoningMetadata, ThinkingStage, Conversation } from '@/types/chat';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
 import { HeroMarquee } from './HeroMarquee';
@@ -15,6 +15,7 @@ import { extractAndLookupCitations } from '@/lib/tools/citation-extractor';
 import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
 import { extractTemplateFields, type LegalTemplate, type TemplateField } from '@/lib/templates';
+import { ConversationSwitcher } from './ConversationSwitcher';
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -30,6 +31,8 @@ interface ChatInterfaceProps {
 
 export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [conversations, setConversations] = useState<Conversation[]>(() => StorageManager.getConversationObjects());
+  const [activeConversationId, setActiveConversationId] = useState<string | null>(conversations.length ? conversations[conversations.length - 1].id : null);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMessages, setHasMessages] = useState(false);
   const [showTemplateSelector, setShowTemplateSelector] = useState(false);
@@ -52,7 +55,7 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
     }
   }, [messages, onMessagesChange]);
 
-  // Load messages from storage on mount
+  // Load messages from storage on mount (legacy chat state)
   useEffect(() => {
     const chatState = StorageManager.getChatState();
     if (chatState?.messages) {
@@ -60,6 +63,17 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
       setHasMessages(chatState.messages.length > 0);
     }
   }, []);
+
+  // If we have conversation objects and no messages loaded yet, load the active conversation
+  useEffect(() => {
+    if (messages.length === 0 && activeConversationId) {
+      const conv = conversations.find(c => c.id === activeConversationId);
+      if (conv) {
+        setMessages(conv.messages);
+        setHasMessages(conv.messages.length > 0);
+      }
+    }
+  }, [activeConversationId, conversations]);
 
   // Handle import messages
   useEffect(() => {
@@ -80,6 +94,7 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
   // Save messages to storage whenever they change
   useEffect(() => {
     if (messages.length > 0) {
+      // Persist legacy chat state for backward compatibility
       StorageManager.saveChatState({
         messages,
         isLoading,
@@ -88,8 +103,17 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
         settings: StorageManager.getSettings(),
       });
       setHasMessages(true);
+      // Update active conversation object if exists
+      if (activeConversationId) {
+        const conv = conversations.find(c => c.id === activeConversationId);
+        if (conv) {
+          const updated: Conversation = { ...conv, messages, updatedAt: new Date() };
+          StorageManager.saveConversationObject(updated);
+          setConversations(prev => prev.map(c => c.id === updated.id ? updated : c));
+        }
+      }
     }
-  }, [messages, isLoading]);
+  }, [messages, isLoading, activeConversationId, conversations]);
 
   const handleSendMessage = useCallback(async (content: string) => {
     if (!content.trim()) return;
@@ -101,7 +125,7 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
       timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
+  setMessages(prev => [...prev, userMessage]);
     setIsLoading(true);
 
     const startTime = Date.now(); // Track start time
@@ -115,10 +139,10 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
         timestamp: new Date(),
       };
 
-      setMessages(prev => [...prev, assistantMessage]);
+  setMessages(prev => [...prev, assistantMessage]);
 
       // Get all messages including the new user message
-      const allMessages = [...messages, userMessage];
+  const allMessages = [...messages, userMessage];
 
       // Track reasoning metadata and thinking stages
       let reasoningMetadata: ReasoningMetadata | undefined;
@@ -218,6 +242,42 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
   }, [messages]);
 
 
+  const handleBranchFromMessage = useCallback((messageId: string) => {
+    // Create a branch conversation up to messageId
+    const branch = StorageManager.createBranchFrom(messages, messageId, { parentId: activeConversationId || undefined });
+    setConversations(prev => [...prev, branch]);
+    setActiveConversationId(branch.id);
+    setMessages(branch.messages);
+    addToast({
+      type: 'info',
+      title: 'Conversation Branched',
+      description: 'A new conversation branch was created from this point.',
+      duration: 3000,
+    });
+  }, [messages, activeConversationId, addToast]);
+
+  const handleSelectConversation = useCallback((conversationId: string) => {
+    const conv = conversations.find(c => c.id === conversationId);
+    if (!conv) return;
+    setActiveConversationId(conv.id);
+    setMessages(conv.messages);
+  }, [conversations]);
+
+  const handleDeleteConversation = useCallback((conversationId: string) => {
+    if (conversationId === activeConversationId) {
+      setActiveConversationId(null);
+      setMessages([]);
+    }
+    StorageManager.deleteConversation(conversationId);
+    setConversations(prev => prev.filter(c => c.id !== conversationId));
+    addToast({
+      type: 'success',
+      title: 'Deleted',
+      description: 'Conversation removed',
+      duration: 2000,
+    });
+  }, [activeConversationId, addToast]);
+
   const handlePromptSelect = useCallback((prompt: string) => {
     handleSendMessage(prompt);
   }, [handleSendMessage]);
@@ -286,6 +346,15 @@ Please generate a complete, professional legal document incorporating all the pr
     <div className="flex flex-col h-full max-w-6xl mx-auto w-full">
       {/* Messages area */}
       <div className="flex-1 overflow-hidden">
+        {/* Conversation switcher */}
+        <div className="px-3 md:px-4 py-2 border-b bg-muted/30 flex items-center justify-between">
+          <ConversationSwitcher
+            conversations={conversations}
+            activeId={activeConversationId}
+            onSelect={handleSelectConversation}
+            onDelete={handleDeleteConversation}
+          />
+        </div>
         {messages.length === 0 ? (
           <div className="pt-4 md:pt-6 px-4 md:px-0">
             <div className="text-center mb-6 md:mb-8">
@@ -306,6 +375,7 @@ Please generate a complete, professional legal document incorporating all the pr
                 isLoading={isLoading}
                 onCopyMessage={handleCopyMessage}
                 onRegenerateMessage={handleRegenerateMessage}
+                onBranchFromMessage={handleBranchFromMessage}
                 currentThinkingStages={currentThinkingStages}
               />
             </div>
