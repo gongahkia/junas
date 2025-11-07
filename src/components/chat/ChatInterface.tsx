@@ -12,6 +12,7 @@ import { ReasoningProgress } from './ReasoningIndicator';
 import { StorageManager } from '@/lib/storage';
 import { ChatService } from '@/lib/ai/chat-service';
 import { extractAndLookupCitations } from '@/lib/tools/citation-extractor';
+import { exportToBibTeX, exportToEndNote, exportToZotero, downloadCitationFile } from '@/lib/citation-export';
 import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
 import { extractTemplateFields, type LegalTemplate, type TemplateField } from '@/lib/templates';
@@ -486,6 +487,36 @@ Please generate a complete, professional legal document incorporating all the pr
   const handleTemplateFormCancel = useCallback(() => {
     setActiveTemplate(null);
   }, []);
+
+  const handleExportCitations = useCallback((format: 'endnote' | 'zotero' | 'bibtex') => {
+    const allCitations = messages.flatMap(m => m.citations || []);
+    if (allCitations.length === 0) {
+      addToast({
+        type: 'error',
+        title: 'No Citations',
+        description: 'No citations to export in this conversation.',
+        duration: 2500,
+      });
+      return;
+    }
+
+    let content = '';
+    if (format === 'bibtex') {
+      content = exportToBibTeX(allCitations);
+    } else if (format === 'endnote') {
+      content = exportToEndNote(allCitations);
+    } else {
+      content = exportToZotero(allCitations);
+    }
+
+    downloadCitationFile(content, format);
+    addToast({
+      type: 'success',
+      title: 'Exported',
+      description: `Citations exported to ${format.toUpperCase()}.`,
+      duration: 2500,
+    });
+  }, [messages, addToast]);
 
   return (
     <div className="flex flex-col h-full max-w-6xl mx-auto w-full">
