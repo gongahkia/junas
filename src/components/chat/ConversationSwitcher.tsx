@@ -48,6 +48,9 @@ export function ConversationSwitcher({ conversations, activeId, onSelect, onDele
       {onNew && (
         <Button variant="outline" size="sm" className="h-8" onClick={onNew}>New</Button>
       )}
+      {activeConversation && onUpdateTags && (
+        <TagManager conversation={activeConversation} onUpdateTags={onUpdateTags} />
+      )}
       {activeId && (
         <Button
           variant="ghost"
