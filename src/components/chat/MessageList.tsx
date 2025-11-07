@@ -10,6 +10,7 @@ import { ReasoningIndicator } from './ReasoningIndicator';
 import { ThinkingStages } from './ThinkingStages';
 import { TokenCounter } from './TokenCounter';
 import { CitationPreview } from './CitationPreview';
+import { MessageBubbleSkeleton } from '@/components/ui/skeleton';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';

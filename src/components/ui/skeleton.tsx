@@ -46,3 +46,42 @@ export function ChatSkeleton() {
     </div>
   )
 }
+
+export function MessageBubbleSkeleton() {
+  return (
+    <div className="flex justify-start">
+      <div className="flex w-full md:max-w-[85%] items-start space-x-3">
+        <div className="border rounded-lg p-3 md:p-4 w-full bg-card">
+          <div className="space-y-3">
+            <Skeleton className="h-4 w-3/4" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-5/6" />
+            <div className="flex gap-2 pt-2">
+              <Skeleton className="h-6 w-16" />
+              <Skeleton className="h-6 w-16" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function TemplateCardSkeleton() {
+  return (
+    <div className="border rounded-lg p-4 bg-card">
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-5 w-5 rounded-full" />
+          <Skeleton className="h-5 w-32" />
+        </div>
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-4/5" />
+        <div className="flex gap-2">
+          <Skeleton className="h-6 w-20" />
+          <Skeleton className="h-6 w-24" />
+        </div>
+      </div>
+    </div>
+  );
+}
