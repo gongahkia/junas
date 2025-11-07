@@ -17,6 +17,7 @@ import { generateId } from '@/lib/utils';
 import { extractTemplateFields, type LegalTemplate, type TemplateField } from '@/lib/templates';
 import { ConversationSwitcher } from '@/components/chat/ConversationSwitcher';
 import { ChatSearch } from '@/components/chat/ChatSearch';
+import { CitationManager } from '@/components/chat/CitationManager';
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -42,6 +43,7 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
   const [currentThinkingStages, setCurrentThinkingStages] = useState<ThinkingStage[]>([]);
   const [userName, setUserName] = useState<string | undefined>(() => StorageManager.getSettings().userName);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isCitationManagerOpen, setIsCitationManagerOpen] = useState(false);
   const { addToast } = useToast();
 
   // Update userName when settings change
