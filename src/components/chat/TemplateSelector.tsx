@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { FileText, X, Search, Briefcase, Users, Building, Home, DollarSign, Scale, Lightbulb, FileSignature } from 'lucide-react'
+import { FileText, X, Search, Briefcase, Users, Building, Home, DollarSign, Scale, Lightbulb, FileSignature, Star, Plus } from 'lucide-react'
 import {
   legalTemplates,
   templateCategories,
@@ -14,6 +14,8 @@ import {
   type TemplateCategory,
   type LegalTemplate,
 } from '@/lib/templates'
+import { getCustomTemplates, type CustomTemplate } from '@/lib/custom-templates'
+import { CustomTemplateDialog } from './CustomTemplateDialog'
 
 interface TemplateSelectorProps {
   isOpen: boolean
@@ -25,6 +27,23 @@ export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: Template
   const [selectedCategory, setSelectedCategory] = useState<TemplateCategory>('All')
   const [selectedTemplate, setSelectedTemplate] = useState<LegalTemplate | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
+  const [customTemplates, setCustomTemplates] = useState<CustomTemplate[]>([])
+  const [showCustomDialog, setShowCustomDialog] = useState(false)
+  const [templateToClone, setTemplateToClone] = useState<LegalTemplate | undefined>()
+
+  // Load custom templates on mount
+  useEffect(() => {
+    setCustomTemplates(getCustomTemplates())
+  }, [isOpen]) // Reload when dialog opens
+
+  const refreshCustomTemplates = () => {
+    setCustomTemplates(getCustomTemplates())
+  }
+
+  // Combine built-in and custom templates
+  const allTemplates = useMemo(() => {
+    return [...legalTemplates, ...customTemplates]
+  }, [customTemplates])
 
   // Category icons mapping
   const categoryIcons: Record<TemplateCategory, any> = {
@@ -41,21 +60,24 @@ export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: Template
 
   // Filter templates by both category and search query
   const filteredTemplates = useMemo(() => {
-    let templates = getTemplatesByCategory(selectedCategory)
+    let templates = selectedCategory === 'All' 
+      ? allTemplates 
+      : allTemplates.filter(t => t.category === selectedCategory)
     
     if (searchQuery.trim()) {
-      // If there's a search query, apply keyword search
-      const searchResults = searchTemplatesByKeywords(searchQuery)
-      // Intersect with category filter
-      if (selectedCategory !== 'All') {
-        templates = searchResults.filter(t => templates.some(ct => ct.id === t.id))
-      } else {
-        templates = searchResults
-      }
+      // If there's a search query, apply keyword search to all templates
+      const keywords = searchQuery.toLowerCase().split(/\s+/).filter(k => k.length > 0)
+      templates = templates.filter(template => {
+        return keywords.some(keyword => 
+          template.name.toLowerCase().includes(keyword) ||
+          template.category.toLowerCase().includes(keyword) ||
+          template.description.toLowerCase().includes(keyword)
+        )
+      })
     }
     
     return templates
-  }, [selectedCategory, searchQuery])
+  }, [selectedCategory, searchQuery, allTemplates])
 
   const handleUseTemplate = () => {
     if (selectedTemplate) {
@@ -73,6 +95,20 @@ export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: Template
           <DialogDescription>
             Select a template to get started with common legal documents for Singapore law
           </DialogDescription>
+          <div className="pt-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                setTemplateToClone(undefined)
+                setShowCustomDialog(true)
+              }}
+              className="gap-2"
+            >
+              <Plus className="w-4 h-4" />
+              Create Custom Template
+            </Button>
+          </div>
         </DialogHeader>
 
         <div className="flex-1 overflow-y-auto">
@@ -127,37 +163,43 @@ export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: Template
 
               {/* Template Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {filteredTemplates.map((template) => (
-                  <Card
-                    key={template.id}
-                    className="cursor-pointer hover:border-primary hover:shadow-md transition-all group"
-                    onClick={() => setSelectedTemplate(template)}
-                  >
-                    <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-center space-x-2 flex-1">
-                          <FileText className="w-5 h-5 text-primary flex-shrink-0" />
-                          <CardTitle className="text-lg group-hover:text-primary transition-colors">
-                            {template.name}
-                          </CardTitle>
+                {filteredTemplates.map((template) => {
+                  const isCustom = 'isCustom' in template && template.isCustom
+                  return (
+                    <Card
+                      key={template.id}
+                      className="cursor-pointer hover:border-primary hover:shadow-md transition-all group"
+                      onClick={() => setSelectedTemplate(template)}
+                    >
+                      <CardHeader>
+                        <div className="flex items-start justify-between">
+                          <div className="flex items-center space-x-2 flex-1">
+                            <FileText className="w-5 h-5 text-primary flex-shrink-0" />
+                            <CardTitle className="text-lg group-hover:text-primary transition-colors">
+                              {template.name}
+                            </CardTitle>
+                            {isCustom && (
+                              <Star className="w-4 h-4 text-yellow-500 fill-yellow-500 flex-shrink-0" title="Custom template" />
+                            )}
+                          </div>
                         </div>
-                      </div>
-                      <CardDescription className="line-clamp-2 group-hover:line-clamp-none transition-all">
-                        {template.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center justify-between text-xs text-muted-foreground">
-                        <span className="bg-secondary px-2 py-1 rounded-md">
-                          {template.category}
-                        </span>
-                        <span className="text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                          Click to view →
-                        </span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                        <CardDescription className="line-clamp-2 group-hover:line-clamp-none transition-all">
+                          {template.description}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex items-center justify-between text-xs text-muted-foreground">
+                          <span className="bg-secondary px-2 py-1 rounded-md">
+                            {template.category}
+                          </span>
+                          <span className="text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                            Click to view →
+                          </span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )
+                })}
               </div>
 
               {filteredTemplates.length === 0 && (
@@ -233,18 +275,42 @@ export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: Template
                 </CardContent>
               </Card>
 
-              <div className="flex justify-end space-x-2">
-                <Button variant="outline" onClick={() => setSelectedTemplate(null)}>
-                  Cancel
+              <div className="flex justify-between space-x-2">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setTemplateToClone(selectedTemplate)
+                    setShowCustomDialog(true)
+                  }}
+                  className="gap-2"
+                >
+                  <Star className="w-4 h-4" />
+                  Save as Custom
                 </Button>
-                <Button onClick={handleUseTemplate}>
-                  Use This Template
-                </Button>
+                <div className="flex space-x-2">
+                  <Button variant="outline" onClick={() => setSelectedTemplate(null)}>
+                    Cancel
+                  </Button>
+                  <Button onClick={handleUseTemplate}>
+                    Use This Template
+                  </Button>
+                </div>
               </div>
             </div>
           )}
         </div>
       </DialogContent>
+
+      {/* Custom Template Creator Dialog */}
+      <CustomTemplateDialog
+        isOpen={showCustomDialog}
+        onClose={() => {
+          setShowCustomDialog(false)
+          setTemplateToClone(undefined)
+        }}
+        onSaved={refreshCustomTemplates}
+        baseTemplate={templateToClone}
+      />
     </Dialog>
   )
 }
