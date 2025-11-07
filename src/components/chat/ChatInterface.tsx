@@ -308,12 +308,10 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
       }
       const contextMessages = messages.slice(0, startIdx + 1);
 
-      // Alternate reasoning depth
-      const currentDepth = target.reasoning?.reasoningDepth || StorageManager.getSettings().defaultReasoningDepth;
-      const cycle: Array<ReasoningMetadata['reasoningDepth']> = ['quick','standard','deep','expert'];
-      const nextDepth = cycle[(cycle.indexOf(currentDepth) + 1) % cycle.length];
+  // Regeneration always uses standard depth per user request
+  const nextDepth: ReasoningMetadata['reasoningDepth'] = 'standard';
 
-      const result = await ChatService.sendMessage(contextMessages);
+  const result = await ChatService.sendMessage(contextMessages, undefined, { reasoningDepth: nextDepth });
 
       // Extract citations
       const citations = await extractAndLookupCitations(result.content);
@@ -347,6 +345,63 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
         type: 'error',
         title: 'Regeneration failed',
         description: e.message || 'Could not regenerate response.',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  }, [messages, addToast]);
+
+  const handleEditUserMessage = useCallback(async (messageId: string, newContent: string) => {
+    const idx = messages.findIndex(m => m.id === messageId);
+    if (idx === -1) return;
+    const target = messages[idx];
+    if (target.role !== 'user') return;
+    // Update content and trim subsequent messages
+    const trimmed = messages.slice(0, idx + 1).map(m => m.id === messageId ? { ...m, content: newContent } : m);
+    setMessages(trimmed);
+    setIsLoading(true);
+    try {
+      // Send new assistant response based on edited context
+      const userMessage = trimmed[idx];
+      const assistantMessage: Message = {
+        id: generateId(),
+        role: 'assistant',
+        content: '',
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, assistantMessage]);
+
+      const allMessages = [...trimmed];
+      let reasoningMetadata: ReasoningMetadata | undefined;
+      const thinkingStages: ThinkingStage[] = [];
+      let fullResponse = '';
+      try {
+        const result = await ChatService.sendMessage(
+          allMessages,
+          (chunk: string) => {
+            setMessages(prev => prev.map(msg => msg.id === assistantMessage.id ? { ...msg, content: msg.content + chunk } : msg));
+          }
+        );
+        fullResponse = result.content;
+        reasoningMetadata = result.reasoning;
+      } catch (e: any) {
+        const result = await ChatService.sendMessage(allMessages);
+        fullResponse = result.content;
+        reasoningMetadata = result.reasoning;
+      }
+      const citations = await extractAndLookupCitations(fullResponse);
+      setMessages(prev => prev.map(msg => msg.id === assistantMessage.id ? { ...msg, content: fullResponse, citations, reasoning: reasoningMetadata, thinkingStages: thinkingStages.length ? thinkingStages : undefined } : msg));
+      addToast({
+        type: 'success',
+        title: 'Message Edited',
+        description: 'Conversation updated from edited point.',
+        duration: 2500,
+      });
+    } catch (e: any) {
+      addToast({
+        type: 'error',
+        title: 'Edit failed',
+        description: e.message || 'Could not re-run after edit.',
       });
     } finally {
       setIsLoading(false);
@@ -450,6 +505,7 @@ Please generate a complete, professional legal document incorporating all the pr
                 onRegenerateMessage={handleRegenerateMessage}
                 onSelectMessageVersion={handleSelectMessageVersion}
                 onBranchFromMessage={handleBranchFromMessage}
+                onEditUserMessage={handleEditUserMessage}
                 currentThinkingStages={currentThinkingStages}
               />
             </div>

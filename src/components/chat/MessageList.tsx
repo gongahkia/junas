@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, memo } from 'react';
+import { useEffect, useRef, memo, useState } from 'react';
 import { Message, ThinkingStage } from '@/types/chat';
 import { Button } from '@/components/ui/button';
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
@@ -22,6 +22,7 @@ interface MessageListProps {
   onRegenerateMessage: (messageId: string) => void;
   onBranchFromMessage?: (messageId: string) => void;
   onSelectMessageVersion?: (messageId: string, versionId: string | null) => void; // null selects base/original
+  onEditUserMessage?: (messageId: string, newContent: string) => void;
   currentThinkingStages?: ThinkingStage[];
 }
 
@@ -31,14 +32,18 @@ const MessageItem = memo(({
   onCopyMessage,
   onRegenerateMessage,
   onBranchFromMessage,
-  onSelectMessageVersion
+  onSelectMessageVersion,
+  onEditUserMessage
 }: {
   message: Message;
   onCopyMessage: (content: string) => void;
   onRegenerateMessage: (messageId: string) => void;
   onBranchFromMessage?: (messageId: string) => void;
   onSelectMessageVersion?: (messageId: string, versionId: string | null) => void;
+  onEditUserMessage?: (messageId: string, newContent: string) => void;
 }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [draft, setDraft] = useState(message.content);
   const displayContent = (() => {
     if (message.selectedAltId && message.alternatives && message.alternatives.length) {
       const alt = message.alternatives.find(a => a.id === message.selectedAltId);
@@ -79,49 +84,65 @@ const MessageItem = memo(({
 
             {/* Message content */}
             <div className={`prose prose-sm max-w-none`}>
-              {message.role === 'assistant' ? (
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm, remarkMath]}
-                  rehypePlugins={[rehypeKatex]}
-                  components={{
-                    code: ({ node, className, children, ...props }: any) => {
-                      const match = /language-(\w+)/.exec(className || '');
-                      const inline = !match;
-                      return !inline && match ? (
-                        <pre className="bg-muted p-3 rounded-md overflow-x-auto">
-                          <code className={className} {...props}>
-                            {children}
-                          </code>
-                        </pre>
-                      ) : (
-                        <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
-                          {children}
-                        </code>
-                      );
-                    },
-                    table: ({ children }) => (
-                      <div className="overflow-x-auto">
-                        <table className="min-w-full border-collapse border border-border">
-                          {children}
-                        </table>
-                      </div>
-                    ),
-                    th: ({ children }) => (
-                      <th className="border border-border px-3 py-2 bg-muted font-semibold text-left">
-                        {children}
-                      </th>
-                    ),
-                    td: ({ children }) => (
-                      <td className="border border-border px-3 py-2">
-                        {children}
-                      </td>
-                    ),
-                  }}
-                >
-                  {displayContent}
-                </ReactMarkdown>
+              {isEditing && message.role === 'user' ? (
+                <div className="space-y-2">
+                  <textarea
+                    className="w-full h-28 p-2 border rounded-md bg-background text-foreground"
+                    value={draft}
+                    onChange={(e) => setDraft(e.target.value)}
+                  />
+                  <div className="flex gap-2">
+                    <Button size="sm" onClick={() => { setIsEditing(false); onEditUserMessage?.(message.id, draft); }}>Save & Re-run</Button>
+                    <Button size="sm" variant="outline" onClick={() => { setIsEditing(false); setDraft(message.content); }}>Cancel</Button>
+                  </div>
+                </div>
               ) : (
-                <p className="whitespace-pre-wrap">{displayContent}</p>
+                <>
+                  {message.role === 'assistant' ? (
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm, remarkMath]}
+                      rehypePlugins={[rehypeKatex]}
+                      components={{
+                        code: ({ node, className, children, ...props }: any) => {
+                          const match = /language-(\w+)/.exec(className || '');
+                          const inline = !match;
+                          return !inline && match ? (
+                            <pre className="bg-muted p-3 rounded-md overflow-x-auto">
+                              <code className={className} {...props}>
+                                {children}
+                              </code>
+                            </pre>
+                          ) : (
+                            <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
+                              {children}
+                            </code>
+                          );
+                        },
+                        table: ({ children }) => (
+                          <div className="overflow-x-auto">
+                            <table className="min-w-full border-collapse border border-border">
+                              {children}
+                            </table>
+                          </div>
+                        ),
+                        th: ({ children }) => (
+                          <th className="border border-border px-3 py-2 bg-muted font-semibold text-left">
+                            {children}
+                          </th>
+                        ),
+                        td: ({ children }) => (
+                          <td className="border border-border px-3 py-2">
+                            {children}
+                          </td>
+                        ),
+                      }}
+                    >
+                      {displayContent}
+                    </ReactMarkdown>
+                  ) : (
+                    <p className="whitespace-pre-wrap">{displayContent}</p>
+                  )}
+                </>
               )}
             </div>
 
@@ -171,6 +192,16 @@ const MessageItem = memo(({
                 <Copy className="w-3 h-3" />
                 <span className="sr-only">Copy message</span>
               </Button>
+              {message.role === 'user' && onEditUserMessage && !isEditing && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsEditing(true)}
+                  className="h-8 px-2 text-muted-foreground hover:bg-muted"
+                >
+                  <span className="text-xs font-semibold">Edit</span>
+                </Button>
+              )}
               {onBranchFromMessage && (
                 <Button
                   variant="ghost"
@@ -240,6 +271,7 @@ export const MessageList = memo(function MessageList({
   onRegenerateMessage,
   onBranchFromMessage,
   onSelectMessageVersion,
+  onEditUserMessage,
   currentThinkingStages
 }: MessageListProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -271,6 +303,7 @@ export const MessageList = memo(function MessageList({
             onRegenerateMessage={onRegenerateMessage}
             onBranchFromMessage={onBranchFromMessage}
             onSelectMessageVersion={onSelectMessageVersion}
+            onEditUserMessage={onEditUserMessage}
           />
         </div>
       ))}
