@@ -19,16 +19,19 @@ interface MessageListProps {
   isLoading: boolean;
   onCopyMessage: (content: string) => void;
   onRegenerateMessage: (messageId: string) => void;
+  onBranchFromMessage?: (messageId: string) => void;
   currentThinkingStages?: ThinkingStage[];
 }
 
 // Memoized message item component to prevent unnecessary re-renders
 const MessageItem = memo(({
   message,
-  onCopyMessage
+  onCopyMessage,
+  onBranchFromMessage
 }: {
   message: Message;
   onCopyMessage: (content: string) => void;
+  onBranchFromMessage?: (messageId: string) => void;
 }) => {
   return (
     <div
@@ -155,6 +158,18 @@ const MessageItem = memo(({
                 <Copy className="w-3 h-3" />
                 <span className="sr-only">Copy message</span>
               </Button>
+              {onBranchFromMessage && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onBranchFromMessage(message.id)}
+                  className="h-8 px-2 text-muted-foreground hover:bg-muted"
+                >
+                  {/* Simple branch icon using unicode fallback if lucide not imported */}
+                  <span className="text-xs font-semibold">Branch</span>
+                  <span className="sr-only">Branch from this message</span>
+                </Button>
+              )}
             </div>
           </div>
           {/* Sender label */}
@@ -176,6 +191,7 @@ export const MessageList = memo(function MessageList({
   isLoading,
   onCopyMessage,
   onRegenerateMessage,
+  onBranchFromMessage,
   currentThinkingStages
 }: MessageListProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -204,6 +220,7 @@ export const MessageList = memo(function MessageList({
           <MessageItem
             message={message}
             onCopyMessage={onCopyMessage}
+            onBranchFromMessage={onBranchFromMessage}
           />
         </div>
       ))}
