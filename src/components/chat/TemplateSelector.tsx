@@ -130,21 +130,30 @@ export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: Template
                 {filteredTemplates.map((template) => (
                   <Card
                     key={template.id}
-                    className="cursor-pointer hover:border-primary transition-colors"
+                    className="cursor-pointer hover:border-primary hover:shadow-md transition-all group"
                     onClick={() => setSelectedTemplate(template)}
                   >
                     <CardHeader>
                       <div className="flex items-start justify-between">
-                        <div className="flex items-center space-x-2">
-                          <FileText className="w-5 h-5 text-primary" />
-                          <CardTitle className="text-lg">{template.name}</CardTitle>
+                        <div className="flex items-center space-x-2 flex-1">
+                          <FileText className="w-5 h-5 text-primary flex-shrink-0" />
+                          <CardTitle className="text-lg group-hover:text-primary transition-colors">
+                            {template.name}
+                          </CardTitle>
                         </div>
                       </div>
-                      <CardDescription>{template.description}</CardDescription>
+                      <CardDescription className="line-clamp-2 group-hover:line-clamp-none transition-all">
+                        {template.description}
+                      </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-xs text-muted-foreground">
-                        Category: {template.category}
+                      <div className="flex items-center justify-between text-xs text-muted-foreground">
+                        <span className="bg-secondary px-2 py-1 rounded-md">
+                          {template.category}
+                        </span>
+                        <span className="text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                          Click to view →
+                        </span>
                       </div>
                     </CardContent>
                   </Card>
