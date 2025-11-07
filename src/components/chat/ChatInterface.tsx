@@ -320,13 +320,13 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
 
       // Create alternative entry
       const altId = generateId();
-      const alternative = {
+      const alternative: NonNullable<Message['alternatives']>[number] = {
         id: altId,
         content: result.content,
         createdAt: new Date(),
         citations,
         reasoning: { ...result.reasoning, reasoningDepth: nextDepth },
-      } as Message['alternatives'][number];
+      };
 
       // Update target message with new alternative and selection
       setMessages(prev => prev.map((m, i) => {
