@@ -16,6 +16,7 @@ import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
 import { extractTemplateFields, type LegalTemplate, type TemplateField } from '@/lib/templates';
 import { ConversationSwitcher } from '@/components/chat/ConversationSwitcher';
+import { ChatSearch } from '@/components/chat/ChatSearch';
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -40,6 +41,7 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
   const [currentStage, setCurrentStage] = useState<{ stage: string; current: number; total: number } | null>(null);
   const [currentThinkingStages, setCurrentThinkingStages] = useState<ThinkingStage[]>([]);
   const [userName, setUserName] = useState<string | undefined>(() => StorageManager.getSettings().userName);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { addToast } = useToast();
 
   // Update userName when settings change
@@ -47,6 +49,21 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
     const settings = StorageManager.getSettings();
     setUserName(settings.userName);
   }, []);
+
+  // Keyboard shortcut for search (Ctrl/Cmd+F)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+        e.preventDefault();
+        setIsSearchOpen(true);
+      }
+      if (e.key === 'Escape' && isSearchOpen) {
+        setIsSearchOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isSearchOpen]);
 
   // Notify parent when messages change
   useEffect(() => {
@@ -550,6 +567,13 @@ Please generate a complete, professional legal document incorporating all the pr
 
       {/* Legal Disclaimer Overlay */}
       <LegalDisclaimer />
+
+      {/* Search Overlay */}
+      <ChatSearch
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+        messages={messages.map(m => ({ id: m.id, content: m.content, role: m.role }))}
+      />
     </div>
   );
 }

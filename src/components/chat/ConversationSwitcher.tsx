@@ -3,9 +3,10 @@
 import { Conversation } from '@/types/chat';
 import { Button } from '@/components/ui/button';
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
-import { Trash2, GitBranch } from 'lucide-react';
+import { Trash2, GitBranch, Tag } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { TagManager } from './TagManager';
 
 interface ConversationSwitcherProps {
   conversations: Conversation[];
@@ -13,6 +14,7 @@ interface ConversationSwitcherProps {
   onSelect: (id: string) => void;
   onDelete: (id: string) => void;
   onNew?: () => void;
+  onUpdateTags?: (conversationId: string, tags: string[]) => void;
 }
 
 export function ConversationSwitcher({ conversations, activeId, onSelect, onDelete, onNew }: ConversationSwitcherProps) {
