@@ -1,14 +1,16 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { FileText, X } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import { FileText, X, Search } from 'lucide-react'
 import {
   legalTemplates,
   templateCategories,
   getTemplatesByCategory,
+  searchTemplatesByKeywords,
   type TemplateCategory,
   type LegalTemplate,
 } from '@/lib/templates'
@@ -22,8 +24,25 @@ interface TemplateSelectorProps {
 export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: TemplateSelectorProps) {
   const [selectedCategory, setSelectedCategory] = useState<TemplateCategory>('All')
   const [selectedTemplate, setSelectedTemplate] = useState<LegalTemplate | null>(null)
+  const [searchQuery, setSearchQuery] = useState('')
 
-  const filteredTemplates = getTemplatesByCategory(selectedCategory)
+  // Filter templates by both category and search query
+  const filteredTemplates = useMemo(() => {
+    let templates = getTemplatesByCategory(selectedCategory)
+    
+    if (searchQuery.trim()) {
+      // If there's a search query, apply keyword search
+      const searchResults = searchTemplatesByKeywords(searchQuery)
+      // Intersect with category filter
+      if (selectedCategory !== 'All') {
+        templates = searchResults.filter(t => templates.some(ct => ct.id === t.id))
+      } else {
+        templates = searchResults
+      }
+    }
+    
+    return templates
+  }, [selectedCategory, searchQuery])
 
   const handleUseTemplate = () => {
     if (selectedTemplate) {
@@ -46,18 +65,46 @@ export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: Template
         <div className="flex-1 overflow-y-auto">
           {!selectedTemplate ? (
             <div className="space-y-4">
-              {/* Category Filter */}
-              <div className="flex flex-wrap gap-2">
-                {templateCategories.map((category) => (
-                  <Button
-                    key={category}
-                    variant={selectedCategory === category ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setSelectedCategory(category)}
+              {/* Search Bar */}
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  type="text"
+                  placeholder="Search templates by name, category, or description..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 pr-10"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    aria-label="Clear search"
                   >
-                    {category}
-                  </Button>
-                ))}
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+
+              {/* Category Filter */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex flex-wrap gap-2">
+                    {templateCategories.map((category) => (
+                      <Button
+                        key={category}
+                        variant={selectedCategory === category ? 'default' : 'outline'}
+                        size="sm"
+                        onClick={() => setSelectedCategory(category)}
+                      >
+                        {category}
+                      </Button>
+                    ))}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    {filteredTemplates.length} {filteredTemplates.length === 1 ? 'template' : 'templates'}
+                  </div>
+                </div>
               </div>
 
               {/* Template Grid */}
@@ -87,8 +134,28 @@ export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: Template
               </div>
 
               {filteredTemplates.length === 0 && (
-                <div className="text-center py-8 text-muted-foreground">
-                  No templates found in this category
+                <div className="text-center py-12 text-muted-foreground">
+                  <FileText className="w-12 h-12 mx-auto mb-4 opacity-20" />
+                  <p className="text-lg font-medium mb-2">No templates found</p>
+                  <p className="text-sm">
+                    {searchQuery 
+                      ? `No templates match "${searchQuery}". Try a different search term.`
+                      : `No templates found in the "${selectedCategory}" category.`
+                    }
+                  </p>
+                  {(searchQuery || selectedCategory !== 'All') && (
+                    <Button
+                      variant="link"
+                      size="sm"
+                      onClick={() => {
+                        setSearchQuery('')
+                        setSelectedCategory('All')
+                      }}
+                      className="mt-2"
+                    >
+                      Clear filters
+                    </Button>
+                  )}
                 </div>
               )}
             </div>
