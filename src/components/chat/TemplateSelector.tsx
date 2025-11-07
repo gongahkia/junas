@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { FileText, X, Search } from 'lucide-react'
+import { FileText, X, Search, Briefcase, Users, Building, Home, DollarSign, Scale, Lightbulb, FileSignature } from 'lucide-react'
 import {
   legalTemplates,
   templateCategories,
@@ -25,6 +25,19 @@ export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: Template
   const [selectedCategory, setSelectedCategory] = useState<TemplateCategory>('All')
   const [selectedTemplate, setSelectedTemplate] = useState<LegalTemplate | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
+
+  // Category icons mapping
+  const categoryIcons: Record<TemplateCategory, any> = {
+    'All': FileText,
+    'Contracts': FileSignature,
+    'Employment': Users,
+    'Corporate': Building,
+    'Property': Home,
+    'Finance': DollarSign,
+    'Dispute Resolution': Scale,
+    'Intellectual Property': Lightbulb,
+    'Clauses': Briefcase,
+  }
 
   // Filter templates by both category and search query
   const filteredTemplates = useMemo(() => {
@@ -90,18 +103,23 @@ export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: Template
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="flex flex-wrap gap-2">
-                    {templateCategories.map((category) => (
-                      <Button
-                        key={category}
-                        variant={selectedCategory === category ? 'default' : 'outline'}
-                        size="sm"
-                        onClick={() => setSelectedCategory(category)}
-                      >
-                        {category}
-                      </Button>
-                    ))}
+                    {templateCategories.map((category) => {
+                      const Icon = categoryIcons[category]
+                      return (
+                        <Button
+                          key={category}
+                          variant={selectedCategory === category ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => setSelectedCategory(category)}
+                          className="gap-1.5"
+                        >
+                          <Icon className="w-4 h-4" />
+                          {category}
+                        </Button>
+                      )
+                    })}
                   </div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-sm text-muted-foreground whitespace-nowrap ml-4">
                     {filteredTemplates.length} {filteredTemplates.length === 1 ? 'template' : 'templates'}
                   </div>
                 </div>
