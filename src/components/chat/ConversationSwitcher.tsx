@@ -17,12 +17,14 @@ interface ConversationSwitcherProps {
   onUpdateTags?: (conversationId: string, tags: string[]) => void;
 }
 
-export function ConversationSwitcher({ conversations, activeId, onSelect, onDelete, onNew }: ConversationSwitcherProps) {
+export function ConversationSwitcher({ conversations, activeId, onSelect, onDelete, onNew, onUpdateTags }: ConversationSwitcherProps) {
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
   if (!conversations.length) {
     return <div className="text-xs text-muted-foreground">No conversations yet</div>;
   }
+
+  const activeConversation = conversations.find(c => c.id === activeId);
 
   return (
     <div className="flex items-center gap-2 w-full">
