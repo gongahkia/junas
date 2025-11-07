@@ -19,6 +19,7 @@ import { extractTemplateFields, type LegalTemplate, type TemplateField } from '@
 import { ConversationSwitcher } from '@/components/chat/ConversationSwitcher';
 import { ChatSearch } from '@/components/chat/ChatSearch';
 import { CitationManager } from '@/components/chat/CitationManager';
+import { ReasoningProgressBar } from '@/components/chat/ReasoningProgressBar';
 import { Button } from '@/components/ui/button';
 
 function getGreeting(): string {
