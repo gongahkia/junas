@@ -630,6 +630,14 @@ Please generate a complete, professional legal document incorporating all the pr
         onClose={() => setIsSearchOpen(false)}
         messages={messages.map(m => ({ id: m.id, content: m.content, role: m.role }))}
       />
+
+      {/* Citation Manager */}
+      <CitationManager
+        isOpen={isCitationManagerOpen}
+        onClose={() => setIsCitationManagerOpen(false)}
+        citations={messages.flatMap(m => m.citations || [])}
+        onExport={handleExportCitations}
+      />
     </div>
   );
 }
