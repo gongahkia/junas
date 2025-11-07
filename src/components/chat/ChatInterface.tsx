@@ -292,9 +292,69 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
     });
   }, [addToast]);
 
-  const handleRegenerateMessage = useCallback((messageId: string) => {
-    // TODO: Implement message regeneration
-    console.log('Regenerate message:', messageId);
+  const handleRegenerateMessage = useCallback(async (messageId: string) => {
+    const idx = messages.findIndex(m => m.id === messageId);
+    if (idx === -1) return;
+    const target = messages[idx];
+    if (target.role !== 'assistant') return;
+
+    try {
+      setIsLoading(true);
+
+      // Determine the context up to and including the prior user prompt
+      let startIdx = idx;
+      for (let i = idx; i >= 0; i--) {
+        if (messages[i].role === 'user') { startIdx = i; break; }
+      }
+      const contextMessages = messages.slice(0, startIdx + 1);
+
+      // Alternate reasoning depth
+      const currentDepth = target.reasoning?.reasoningDepth || StorageManager.getSettings().defaultReasoningDepth;
+      const cycle: Array<ReasoningMetadata['reasoningDepth']> = ['quick','standard','deep','expert'];
+      const nextDepth = cycle[(cycle.indexOf(currentDepth) + 1) % cycle.length];
+
+      const result = await ChatService.sendMessage(contextMessages);
+
+      // Extract citations
+      const citations = await extractAndLookupCitations(result.content);
+
+      // Create alternative entry
+      const altId = generateId();
+      const alternative = {
+        id: altId,
+        content: result.content,
+        createdAt: new Date(),
+        citations,
+        reasoning: { ...result.reasoning, reasoningDepth: nextDepth },
+      } as Message['alternatives'][number];
+
+      // Update target message with new alternative and selection
+      setMessages(prev => prev.map((m, i) => {
+        if (i !== idx) return m;
+        const alts = m.alternatives ? [...m.alternatives, alternative] : [alternative];
+        return { ...m, alternatives: alts, selectedAltId: altId };
+      }));
+
+      addToast({
+        type: 'success',
+        title: 'Regenerated',
+        description: 'Generated an alternative response.',
+        duration: 2500,
+      });
+    } catch (e: any) {
+      console.error('Regenerate failed', e);
+      addToast({
+        type: 'error',
+        title: 'Regeneration failed',
+        description: e.message || 'Could not regenerate response.',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  }, [messages, addToast]);
+
+  const handleSelectMessageVersion = useCallback((messageId: string, versionId: string | null) => {
+    setMessages(prev => prev.map(m => m.id === messageId ? { ...m, selectedAltId: versionId || undefined } : m));
   }, []);
 
   const handleSelectTemplate = useCallback((template: LegalTemplate) => {
@@ -388,6 +448,7 @@ Please generate a complete, professional legal document incorporating all the pr
                 isLoading={isLoading}
                 onCopyMessage={handleCopyMessage}
                 onRegenerateMessage={handleRegenerateMessage}
+                onSelectMessageVersion={handleSelectMessageVersion}
                 onBranchFromMessage={handleBranchFromMessage}
                 currentThinkingStages={currentThinkingStages}
               />
