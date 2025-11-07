@@ -9,6 +9,7 @@ import { Copy, Download, FileText, User, Bot, Loader2 } from 'lucide-react';
 import { ReasoningIndicator } from './ReasoningIndicator';
 import { ThinkingStages } from './ThinkingStages';
 import { TokenCounter } from './TokenCounter';
+import { CitationPreview } from './CitationPreview';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
@@ -150,17 +151,11 @@ const MessageItem = memo(({
             {message.citations && message.citations.length > 0 && (
               <div className="space-y-1">
                 <div className="text-xs font-semibold text-muted-foreground">Sources:</div>
-                {message.citations.map((citation) => (
-                  <a
-                    key={citation.id}
-                    href={citation.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-xs text-primary hover:underline"
-                  >
-                    {citation.title}
-                  </a>
-                ))}
+                <div className="flex flex-wrap gap-2">
+                  {message.citations.map((citation) => (
+                    <CitationPreview key={citation.id} citation={citation} />
+                  ))}
+                </div>
               </div>
             )}
 

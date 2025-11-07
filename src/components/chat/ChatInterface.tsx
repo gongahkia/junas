@@ -295,6 +295,17 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
     });
   }, [activeConversationId, addToast]);
 
+  const handleUpdateTags = useCallback((conversationId: string, tags: string[]) => {
+    StorageManager.updateConversationTags(conversationId, tags);
+    setConversations(prev => prev.map(c => c.id === conversationId ? { ...c, tags } : c));
+    addToast({
+      type: 'success',
+      title: 'Tags Updated',
+      description: 'Conversation tags saved.',
+      duration: 2000,
+    });
+  }, [addToast]);
+
   const handlePromptSelect = useCallback((prompt: string) => {
     handleSendMessage(prompt);
   }, [handleSendMessage]);
@@ -485,6 +496,7 @@ Please generate a complete, professional legal document incorporating all the pr
             activeId={activeConversationId}
             onSelect={handleSelectConversation}
             onDelete={handleDeleteConversation}
+            onUpdateTags={handleUpdateTags}
             onNew={() => {
               const empty: Conversation = {
                 id: crypto.randomUUID?.() || Math.random().toString(36).slice(2),
