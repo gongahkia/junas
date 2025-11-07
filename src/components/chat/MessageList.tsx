@@ -29,11 +29,13 @@ interface MessageListProps {
 const MessageItem = memo(({
   message,
   onCopyMessage,
+  onRegenerateMessage,
   onBranchFromMessage,
   onSelectMessageVersion
 }: {
   message: Message;
   onCopyMessage: (content: string) => void;
+  onRegenerateMessage: (messageId: string) => void;
   onBranchFromMessage?: (messageId: string) => void;
   onSelectMessageVersion?: (messageId: string, versionId: string | null) => void;
 }) => {
@@ -266,6 +268,7 @@ export const MessageList = memo(function MessageList({
           <MessageItem
             message={message}
             onCopyMessage={onCopyMessage}
+            onRegenerateMessage={onRegenerateMessage}
             onBranchFromMessage={onBranchFromMessage}
             onSelectMessageVersion={onSelectMessageVersion}
           />
