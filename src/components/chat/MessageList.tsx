@@ -3,6 +3,7 @@
 import { useEffect, useRef, memo } from 'react';
 import { Message, ThinkingStage } from '@/types/chat';
 import { Button } from '@/components/ui/button';
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
 import { Card } from '@/components/ui/card';
 import { Copy, Download, FileText, User, Bot, Loader2 } from 'lucide-react';
 import { ReasoningIndicator } from './ReasoningIndicator';
@@ -20,6 +21,7 @@ interface MessageListProps {
   onCopyMessage: (content: string) => void;
   onRegenerateMessage: (messageId: string) => void;
   onBranchFromMessage?: (messageId: string) => void;
+  onSelectMessageVersion?: (messageId: string, versionId: string | null) => void; // null selects base/original
   currentThinkingStages?: ThinkingStage[];
 }
 
@@ -27,12 +29,21 @@ interface MessageListProps {
 const MessageItem = memo(({
   message,
   onCopyMessage,
-  onBranchFromMessage
+  onBranchFromMessage,
+  onSelectMessageVersion
 }: {
   message: Message;
   onCopyMessage: (content: string) => void;
   onBranchFromMessage?: (messageId: string) => void;
+  onSelectMessageVersion?: (messageId: string, versionId: string | null) => void;
 }) => {
+  const displayContent = (() => {
+    if (message.selectedAltId && message.alternatives && message.alternatives.length) {
+      const alt = message.alternatives.find(a => a.id === message.selectedAltId);
+      if (alt) return alt.content;
+    }
+    return message.content;
+  })();
   return (
     <div
       className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
@@ -105,10 +116,10 @@ const MessageItem = memo(({
                     ),
                   }}
                 >
-                  {message.content}
+                  {displayContent}
                 </ReactMarkdown>
               ) : (
-                <p className="whitespace-pre-wrap">{message.content}</p>
+                <p className="whitespace-pre-wrap">{displayContent}</p>
               )}
             </div>
 
@@ -170,6 +181,40 @@ const MessageItem = memo(({
                   <span className="sr-only">Branch from this message</span>
                 </Button>
               )}
+              {message.role === 'assistant' && (
+                <>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onRegenerateMessage(message.id)}
+                    className="h-8 px-2 text-muted-foreground hover:bg-muted"
+                  >
+                    {/* Regenerate */}
+                    <span className="text-xs font-semibold">Regenerate</span>
+                    <span className="sr-only">Regenerate this reply</span>
+                  </Button>
+                  {(message.alternatives && message.alternatives.length > 0 && onSelectMessageVersion) && (
+                    <div className="min-w-[160px]">
+                      <Select
+                        value={message.selectedAltId || 'base'}
+                        onValueChange={(val) => onSelectMessageVersion(message.id, val === 'base' ? null : val)}
+                      >
+                        <SelectTrigger className="h-8 text-xs">
+                          <SelectValue placeholder="Version" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="base" className="text-xs">v1 Original</SelectItem>
+                          {message.alternatives.map((alt, i) => (
+                            <SelectItem key={alt.id} value={alt.id} className="text-xs">
+                              v{2 + i} Regenerated
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
           {/* Sender label */}
@@ -192,6 +237,7 @@ export const MessageList = memo(function MessageList({
   onCopyMessage,
   onRegenerateMessage,
   onBranchFromMessage,
+  onSelectMessageVersion,
   currentThinkingStages
 }: MessageListProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -221,6 +267,7 @@ export const MessageList = memo(function MessageList({
             message={message}
             onCopyMessage={onCopyMessage}
             onBranchFromMessage={onBranchFromMessage}
+            onSelectMessageVersion={onSelectMessageVersion}
           />
         </div>
       ))}

@@ -24,6 +24,17 @@ export interface Message {
   reasoning?: ReasoningMetadata;
   thinkingStages?: ThinkingStage[];
   responseTime?: number; // Time in milliseconds
+  // Regeneration support
+  alternatives?: Array<{
+    id: string;
+    content: string;
+    createdAt: Date;
+    citations?: Citation[];
+    reasoning?: ReasoningMetadata;
+    thinkingStages?: ThinkingStage[];
+    responseTime?: number;
+  }>;
+  selectedAltId?: string; // when set, display this alternative instead of base content
 }
 
 export interface ReasoningMetadata {
