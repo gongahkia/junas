@@ -15,6 +15,7 @@ import {
   type LegalTemplate,
 } from '@/lib/templates'
 import { getCustomTemplates, type CustomTemplate } from '@/lib/custom-templates'
+import { getFavoriteTemplates, toggleFavorite, isFavorite } from '@/lib/template-favorites'
 import { CustomTemplateDialog } from './CustomTemplateDialog'
 
 interface TemplateSelectorProps {
@@ -30,14 +31,23 @@ export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: Template
   const [customTemplates, setCustomTemplates] = useState<CustomTemplate[]>([])
   const [showCustomDialog, setShowCustomDialog] = useState(false)
   const [templateToClone, setTemplateToClone] = useState<LegalTemplate | undefined>()
+  const [favorites, setFavorites] = useState<string[]>([])
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false)
 
-  // Load custom templates on mount
+  // Load custom templates and favorites on mount
   useEffect(() => {
     setCustomTemplates(getCustomTemplates())
+    setFavorites(getFavoriteTemplates())
   }, [isOpen]) // Reload when dialog opens
 
   const refreshCustomTemplates = () => {
     setCustomTemplates(getCustomTemplates())
+  }
+
+  const handleToggleFavorite = (templateId: string, e: React.MouseEvent) => {
+    e.stopPropagation() // Prevent card click
+    toggleFavorite(templateId)
+    setFavorites(getFavoriteTemplates())
   }
 
   // Combine built-in and custom templates
@@ -64,6 +74,11 @@ export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: Template
       ? allTemplates 
       : allTemplates.filter(t => t.category === selectedCategory)
     
+    // Filter by favorites if enabled
+    if (showFavoritesOnly) {
+      templates = templates.filter(t => favorites.includes(t.id))
+    }
+    
     if (searchQuery.trim()) {
       // If there's a search query, apply keyword search to all templates
       const keywords = searchQuery.toLowerCase().split(/\s+/).filter(k => k.length > 0)
@@ -76,8 +91,15 @@ export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: Template
       })
     }
     
-    return templates
-  }, [selectedCategory, searchQuery, allTemplates])
+    // Sort: favorites first, then alphabetically
+    return templates.sort((a, b) => {
+      const aFav = favorites.includes(a.id)
+      const bFav = favorites.includes(b.id)
+      if (aFav && !bFav) return -1
+      if (!aFav && bFav) return 1
+      return a.name.localeCompare(b.name)
+    })
+  }, [selectedCategory, searchQuery, allTemplates, favorites, showFavoritesOnly])
 
   const handleUseTemplate = () => {
     if (selectedTemplate) {
@@ -139,14 +161,26 @@ export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: Template
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="flex flex-wrap gap-2">
+                    <Button
+                      variant={showFavoritesOnly ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
+                      className="gap-1.5"
+                    >
+                      <Star className={showFavoritesOnly ? "w-4 h-4 fill-current" : "w-4 h-4"} />
+                      Favorites
+                    </Button>
                     {templateCategories.map((category) => {
                       const Icon = categoryIcons[category]
                       return (
                         <Button
                           key={category}
-                          variant={selectedCategory === category ? 'default' : 'outline'}
+                          variant={selectedCategory === category && !showFavoritesOnly ? 'default' : 'outline'}
                           size="sm"
-                          onClick={() => setSelectedCategory(category)}
+                          onClick={() => {
+                            setSelectedCategory(category)
+                            setShowFavoritesOnly(false)
+                          }}
                           className="gap-1.5"
                         >
                           <Icon className="w-4 h-4" />
@@ -165,13 +199,27 @@ export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: Template
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {filteredTemplates.map((template) => {
                   const isCustom = 'isCustom' in template && template.isCustom
+                  const isFav = favorites.includes(template.id)
                   return (
                     <Card
                       key={template.id}
-                      className="cursor-pointer hover:border-primary hover:shadow-md transition-all group"
+                      className="cursor-pointer hover:border-primary hover:shadow-md transition-all group relative"
                       onClick={() => setSelectedTemplate(template)}
                     >
-                      <CardHeader>
+                      {/* Favorite Star Button */}
+                      <button
+                        onClick={(e) => handleToggleFavorite(template.id, e)}
+                        className="absolute top-3 right-3 p-1.5 rounded-md hover:bg-secondary transition-colors z-10"
+                        title={isFav ? "Remove from favorites" : "Add to favorites"}
+                      >
+                        <Star className={`w-5 h-5 transition-all ${
+                          isFav 
+                            ? 'text-yellow-500 fill-yellow-500' 
+                            : 'text-muted-foreground hover:text-yellow-500'
+                        }`} />
+                      </button>
+                      
+                      <CardHeader className="pr-12">
                         <div className="flex items-start justify-between">
                           <div className="flex items-center space-x-2 flex-1">
                             <FileText className="w-5 h-5 text-primary flex-shrink-0" />
@@ -179,7 +227,9 @@ export function TemplateSelector({ isOpen, onClose, onSelectTemplate }: Template
                               {template.name}
                             </CardTitle>
                             {isCustom && (
-                              <Star className="w-4 h-4 text-yellow-500 fill-yellow-500 flex-shrink-0" title="Custom template" />
+                              <span className="px-2 py-0.5 text-xs bg-primary/10 text-primary rounded-md" title="Custom template">
+                                Custom
+                              </span>
                             )}
                           </div>
                         </div>
