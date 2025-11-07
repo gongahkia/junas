@@ -19,6 +19,7 @@ import { extractTemplateFields, type LegalTemplate, type TemplateField } from '@
 import { ConversationSwitcher } from '@/components/chat/ConversationSwitcher';
 import { ChatSearch } from '@/components/chat/ChatSearch';
 import { CitationManager } from '@/components/chat/CitationManager';
+import { Button } from '@/components/ui/button';
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -544,6 +545,16 @@ Please generate a complete, professional legal document incorporating all the pr
               setMessages([]);
             }}
           />
+          {messages.length > 0 && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-8 text-xs"
+              onClick={() => setIsCitationManagerOpen(true)}
+            >
+              Citations
+            </Button>
+          )}
         </div>
         {messages.length === 0 ? (
           <div className="pt-4 md:pt-6 px-4 md:px-0">
