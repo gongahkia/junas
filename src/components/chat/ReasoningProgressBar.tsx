@@ -20,11 +20,14 @@ export function ReasoningProgressBar({ currentStage, totalStages, stage, isActiv
     complete: 'Complete',
   };
 
-  const stageIcons: Record<string, JSX.Element> = {
-    initial: <Brain className="w-4 h-4" />,
-    critique: <Sparkles className="w-4 h-4" />,
-    react: <Brain className="w-4 h-4" />,
-    complete: <CheckCircle2 className="w-4 h-4" />,
+  const getStageIcon = (stageName: string) => {
+    switch (stageName) {
+      case 'initial': return <Brain className="w-4 h-4" />;
+      case 'critique': return <Sparkles className="w-4 h-4" />;
+      case 'react': return <Brain className="w-4 h-4" />;
+      case 'complete': return <CheckCircle2 className="w-4 h-4" />;
+      default: return <Brain className="w-4 h-4" />;
+    }
   };
 
   return (
@@ -37,7 +40,7 @@ export function ReasoningProgressBar({ currentStage, totalStages, stage, isActiv
               {isActive ? (
                 <Loader2 className="w-4 h-4 animate-spin text-primary" />
               ) : (
-                stageIcons[stage] || <Brain className="w-4 h-4" />
+                getStageIcon(stage)
               )}
               <span className="font-medium">
                 {stageLabels[stage] || stage}
