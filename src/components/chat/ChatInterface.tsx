@@ -15,7 +15,7 @@ import { extractAndLookupCitations } from '@/lib/tools/citation-extractor';
 import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
 import { extractTemplateFields, type LegalTemplate, type TemplateField } from '@/lib/templates';
-import { ConversationSwitcher } from './ConversationSwitcher';
+import { ConversationSwitcher } from '@/components/chat/ConversationSwitcher';
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -353,6 +353,19 @@ Please generate a complete, professional legal document incorporating all the pr
             activeId={activeConversationId}
             onSelect={handleSelectConversation}
             onDelete={handleDeleteConversation}
+            onNew={() => {
+              const empty: Conversation = {
+                id: crypto.randomUUID?.() || Math.random().toString(36).slice(2),
+                title: 'New Conversation',
+                messages: [],
+                createdAt: new Date(),
+                updatedAt: new Date(),
+              };
+              StorageManager.saveConversationObject(empty);
+              setConversations(prev => [...prev, empty]);
+              setActiveConversationId(empty.id);
+              setMessages([]);
+            }}
           />
         </div>
         {messages.length === 0 ? (
