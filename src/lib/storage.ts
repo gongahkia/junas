@@ -1,4 +1,4 @@
-import { ChatState, ChatSettings, Message } from '@/types/chat';
+import { ChatState, ChatSettings, Message, Conversation } from '@/types/chat';
 
 const STORAGE_KEYS = {
   CHAT_STATE: 'junas_chat_state',
@@ -112,7 +112,17 @@ export class StorageManager {
     try {
       if (typeof window === 'undefined') return [];
       const stored = window.localStorage.getItem(STORAGE_KEYS.CONVERSATIONS);
-      return stored ? JSON.parse(stored) : [];
+      if (!stored) return [];
+      const parsed = JSON.parse(stored);
+      // Backward compatibility: previously stored as Message[][]
+      if (Array.isArray(parsed) && parsed.length > 0 && Array.isArray(parsed[0])) {
+        return parsed as Message[][];
+      }
+      // If stored as Conversation[], map to Message[][] for legacy callers
+      if (Array.isArray(parsed) && parsed[0] && parsed[0].messages) {
+        return (parsed as Conversation[]).map(c => c.messages);
+      }
+      return [];
     } catch (error) {
       console.error('Error loading conversations:', error);
       return [];
@@ -121,21 +131,131 @@ export class StorageManager {
 
   static saveConversation(messages: Message[]): void {
     try {
-      const conversations = this.getConversations();
-      conversations.push(messages);
-      
-      // Keep only last 10 conversations to prevent storage bloat
-      if (conversations.length > 10) {
-        conversations.splice(0, conversations.length - 10);
+      // Migrate to Conversation[] format
+      const existing = this.getConversationObjects();
+      const conv: Conversation = {
+        id: cryptoRandomId(),
+        title: generateConversationTitle(messages),
+        messages,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      existing.push(conv);
+
+      // Keep only last 20 conversations to prevent storage bloat
+      if (existing.length > 20) {
+        existing.splice(0, existing.length - 20);
       }
-      
+
       if (typeof window === 'undefined') return;
-      window.localStorage.setItem(STORAGE_KEYS.CONVERSATIONS, JSON.stringify(conversations));
+      window.localStorage.setItem(STORAGE_KEYS.CONVERSATIONS, JSON.stringify(existing));
     } catch (error) {
       console.error('Error saving conversation:', error);
     }
   }
 
+  // New: Full conversation object APIs
+  static getConversationObjects(): Conversation[] {
+    try {
+      if (typeof window === 'undefined') return [];
+      const stored = window.localStorage.getItem(STORAGE_KEYS.CONVERSATIONS);
+      if (!stored) return [];
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed) && parsed[0] && parsed[0].messages) {
+        // Parse dates
+        return (parsed as any[]).map((c) => ({
+          ...c,
+          createdAt: c.createdAt ? new Date(c.createdAt) : new Date(),
+          updatedAt: c.updatedAt ? new Date(c.updatedAt) : new Date(),
+        }));
+      }
+      // Legacy migration from Message[][]
+      if (Array.isArray(parsed) && parsed.length > 0 && Array.isArray(parsed[0])) {
+        const migrated: Conversation[] = (parsed as Message[][]).map((msgs, i) => ({
+          id: cryptoRandomId(),
+          title: generateConversationTitle(msgs),
+          messages: msgs,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }));
+        window.localStorage.setItem(STORAGE_KEYS.CONVERSATIONS, JSON.stringify(migrated));
+        return migrated;
+      }
+      return [];
+    } catch (error) {
+      console.error('Error loading conversation objects:', error);
+      return [];
+    }
+  }
+
+  static saveConversationObject(conversation: Conversation): void {
+    try {
+      const list = this.getConversationObjects();
+      const idx = list.findIndex((c) => c.id === conversation.id);
+      if (idx >= 0) {
+        list[idx] = { ...conversation, updatedAt: new Date() };
+      } else {
+        list.push({ ...conversation, createdAt: new Date(), updatedAt: new Date() });
+      }
+      if (typeof window === 'undefined') return;
+      window.localStorage.setItem(STORAGE_KEYS.CONVERSATIONS, JSON.stringify(list));
+    } catch (error) {
+      console.error('Error saving conversation object:', error);
+    }
+  }
+
+  static createBranchFrom(messages: Message[], atMessageId: string, opts?: { title?: string; tags?: string[]; parentId?: string }): Conversation {
+    const index = messages.findIndex((m) => m.id === atMessageId);
+    const branched = index >= 0 ? messages.slice(0, index + 1) : messages.slice();
+    const conv: Conversation = {
+      id: cryptoRandomId(),
+      title: opts?.title || generateConversationTitle(branched),
+      messages: branched,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      tags: opts?.tags,
+      parentId: opts?.parentId,
+    };
+    this.saveConversationObject(conv);
+    return conv;
+  }
+
+  static updateConversationTags(conversationId: string, tags: string[]) {
+    const list = this.getConversationObjects();
+    const idx = list.findIndex((c) => c.id === conversationId);
+    if (idx >= 0) {
+      list[idx].tags = tags;
+      list[idx].updatedAt = new Date();
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem(STORAGE_KEYS.CONVERSATIONS, JSON.stringify(list));
+      }
+    }
+  }
+
+  static deleteConversation(conversationId: string) {
+    const list = this.getConversationObjects();
+    const filtered = list.filter((c) => c.id !== conversationId);
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(STORAGE_KEYS.CONVERSATIONS, JSON.stringify(filtered));
+    }
+  }
+
+
+// Helpers
+function cryptoRandomId(): string {
+  try {
+    // @ts-ignore
+    const arr = crypto?.getRandomValues?.(new Uint32Array(4));
+    if (arr) return Array.from(arr).map((n) => n.toString(16)).join('');
+  } catch {}
+  return Math.random().toString(36).slice(2) + Date.now().toString(36);
+}
+
+function generateConversationTitle(messages: Message[]): string {
+  const firstUser = messages.find((m) => m.role === 'user');
+  const base = firstUser?.content?.slice(0, 60) || 'New Conversation';
+  return base.replace(/\s+/g, ' ').trim();
+}
   static clearAllData(): void {
     if (typeof window === 'undefined') return;
     Object.values(STORAGE_KEYS).forEach(key => {

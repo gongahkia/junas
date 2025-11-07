@@ -57,6 +57,8 @@ export interface Conversation {
   messages: Message[];
   createdAt: Date;
   updatedAt: Date;
+  tags?: string[]; // User-defined labels for organization
+  parentId?: string; // If this conversation was branched from another
 }
 
 export interface ChatState {
