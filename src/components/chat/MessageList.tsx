@@ -210,10 +210,18 @@ export const MessageList = memo(function MessageList({
           ref={(el) => { messageRefs.current[message.id] = el; }}
           className="transition-all duration-300 rounded-lg"
         >
-          <MessageItem
-            message={message}
-            onCopyMessage={onCopyMessage}
-          />
+          {message.role === 'system' && message.content === 'loading' ? (
+            <div className="flex justify-center py-4">
+              <div className="text-sm text-muted-foreground/60 animate-pulse">
+                Summarising your past conversation...
+              </div>
+            </div>
+          ) : (
+            <MessageItem
+              message={message}
+              onCopyMessage={onCopyMessage}
+            />
+          )}
         </div>
       ))}
 

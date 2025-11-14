@@ -71,19 +71,81 @@ export function ChatInterface({ onSettings, onMessagesChange, scrollToMessageId 
 
   // Handle import messages
   useEffect(() => {
-    const handler = (event: any) => {
+    const handler = async (event: any) => {
       const importedMessages = event.detail.messages;
-      setMessages(prev => [...prev, ...importedMessages]);
-      addToast({
-        type: 'success',
-        title: 'Imported',
-        description: 'Previous conversation has been summarized and added as context',
-        duration: 3000
-      });
+      
+      // Show loading message
+      const loadingMessage: Message = {
+        id: 'import-loading',
+        role: 'system',
+        content: 'loading',
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, loadingMessage]);
+      setIsLoading(true);
+      
+      try {
+        // Summarize the conversation
+        const summary = await summarizeImportedConversation(importedMessages);
+        
+        // Remove loading message and add the summary response
+        setMessages(prev => {
+          const filtered = prev.filter(m => m.id !== 'import-loading');
+          return [
+            ...filtered,
+            {
+              id: generateId(),
+              role: 'assistant',
+              content: summary,
+              timestamp: new Date(),
+            }
+          ];
+        });
+        
+        addToast({
+          type: 'success',
+          title: 'Imported',
+          description: 'Previous conversation has been summarized',
+          duration: 3000
+        });
+      } catch (error) {
+        // Remove loading message on error
+        setMessages(prev => prev.filter(m => m.id !== 'import-loading'));
+        addToast({
+          type: 'error',
+          title: 'Import Failed',
+          description: 'Failed to summarize conversation',
+          duration: 3000
+        });
+      } finally {
+        setIsLoading(false);
+      }
     };
     window.addEventListener('junas-import', handler);
     return () => window.removeEventListener('junas-import', handler);
   }, [addToast]);
+
+  const summarizeImportedConversation = async (messages: Message[]): Promise<string> => {
+    const conversationText = messages
+      .map(msg => `${msg.role.toUpperCase()}: ${msg.content}`)
+      .join('\n\n');
+
+    const summarizationPrompt: Message[] = [
+      {
+        id: 'user-prompt',
+        role: 'user',
+        content: `Provide a single sentence (maximum 20 words) summarizing what the following conversation was about:
+
+${conversationText}
+
+Reply ONLY with: "You were previously talking about [summary]. Feel free to continue asking about it."`,
+        timestamp: new Date(),
+      },
+    ];
+
+    const result = await ChatService.sendMessage(summarizationPrompt);
+    return result.content;
+  };
 
   // Save messages to storage whenever they change
   useEffect(() => {
