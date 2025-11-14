@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Copy, Download, FileText, User, Bot, Loader2 } from 'lucide-react';
 import { TokenCounter } from './TokenCounter';
+import { StorageManager } from '@/lib/storage';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
@@ -28,6 +29,8 @@ const MessageItem = memo(({
   message: Message;
   onCopyMessage: (content: string) => void;
 }) => {
+  const userName = StorageManager.getSettings().userName || 'User';
+  
   return (
     <div
       className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
@@ -147,7 +150,7 @@ const MessageItem = memo(({
           <div className={`pt-2 text-[10px] text-muted-foreground ${
             message.role === 'user' ? 'text-right' : 'text-left'
           }`}>
-            {message.role === 'assistant' ? 'Junas' : 'User'}
+            {message.role === 'assistant' ? 'Junas' : userName}
           </div>
         </Card>
       </div>

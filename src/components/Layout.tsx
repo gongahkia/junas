@@ -72,10 +72,10 @@ export function Layout({ children, hasMessages = false, onExport, onImport, onSe
 
             {/* Right side controls */}
             <div className="flex items-center space-x-1 md:space-x-3">
-              {/* Import button */}
-              {onImport && (
+              {/* Import button - only show when there are NO messages */}
+              {onImport && !hasMessages && (
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   size="sm"
                   onClick={onImport}
                   className="h-9 px-2 md:px-3"
@@ -88,7 +88,7 @@ export function Layout({ children, hasMessages = false, onExport, onImport, onSe
               {/* Export button - only show when there are messages */}
               {onExport && hasMessages && (
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   size="sm"
                   onClick={onExport}
                   className="h-9 px-2 md:px-3"
@@ -101,7 +101,7 @@ export function Layout({ children, hasMessages = false, onExport, onImport, onSe
               {/* Settings button */}
               {onSettings && (
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   size="sm"
                   onClick={onSettings}
                   className="h-9 px-2 md:px-3"

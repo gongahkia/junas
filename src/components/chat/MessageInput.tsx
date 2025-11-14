@@ -63,14 +63,6 @@ export function MessageInput({
               <span className="sr-only">Send message</span>
             </Button>
           </div>
-
-          {/* Help text */}
-          <div className="flex items-center justify-end">
-            <div className="text-[10px] md:text-xs text-muted-foreground">
-              <span className="hidden sm:inline">Press Enter to send, Shift+Enter for new line</span>
-              <span className="sm:hidden">Enter to send</span>
-            </div>
-          </div>
         </form>
       </div>
     </div>

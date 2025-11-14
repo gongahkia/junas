@@ -13,9 +13,25 @@ import { generateId } from '@/lib/utils';
 
 function getGreeting(): string {
   const hour = new Date().getHours();
-  if (hour < 12) return 'Good morning';
-  if (hour < 18) return 'Good afternoon';
-  return 'Good evening';
+  const greetings = [
+    'Good morning',
+    'Good afternoon', 
+    'Good evening',
+    'Howdy',
+    "What's shaking",
+    'Hey there',
+    'Greetings',
+    'Welcome back'
+  ];
+  
+  // Time-based greetings during appropriate hours
+  if (hour < 12) {
+    return Math.random() < 0.7 ? 'Good morning' : greetings[Math.floor(Math.random() * 3) + 3];
+  }
+  if (hour < 18) {
+    return Math.random() < 0.7 ? 'Good afternoon' : greetings[Math.floor(Math.random() * 3) + 3];
+  }
+  return Math.random() < 0.7 ? 'Good evening' : greetings[Math.floor(Math.random() * 3) + 3];
 }
 
 interface ChatInterfaceProps {
@@ -205,7 +221,7 @@ export function ChatInterface({ onSettings, onMessagesChange, scrollToMessageId 
           <div className="pt-4 md:pt-6 px-4 md:px-0">
             <div className="text-center mb-6 md:mb-8">
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground mb-2">
-                {getGreeting()}{userName ? `, ${userName}` : ''}
+                {userName ? `${getGreeting()}, ${userName}` : getGreeting()}
               </h1>
               <p className="text-base md:text-lg text-muted-foreground">
                 How can I assist you today?
