@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Layout } from '@/components/Layout';
 import { ChatInterface } from '@/components/chat/ChatInterface';
 import { ApiKeyModal } from '@/components/settings/ApiKeyModal';
@@ -28,8 +28,19 @@ export default function Home() {
   const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
   const [messages, setMessages] = useState<Message[]>([]);
   const [scrollToMessageId, setScrollToMessageId] = useState<string | undefined>();
-  const [tempSettings, setTempSettings] = useState(StorageManager.getSettings());
+  const [tempSettings, setTempSettings] = useState({
+    temperature: 0.7,
+    maxTokens: 4000,
+    systemPrompt: 'You are Junas, a legal AI assistant specialized in Singapore law.',
+    autoSave: true,
+    darkMode: false,
+  });
   const [isSavingSettings, setIsSavingSettings] = useState(false);
+
+  // Load settings on mount
+  useEffect(() => {
+    setTempSettings(StorageManager.getSettings());
+  }, []);
 
   const handleExport = () => {
     setShowExportDialog(true);

@@ -14,14 +14,26 @@ import { generateId } from '@/lib/utils';
 function getGreeting(): string {
   const hour = new Date().getHours();
   const greetings = [
-    'Good morning',
-    'Good afternoon', 
-    'Good evening',
-    'Howdy',
+    "Good morning",
+    "Good afternoon", 
+    "Good evening",
+    "What's up",
     "What's shaking",
-    'Hey there',
-    'Greetings',
-    'Welcome back'
+    "Hey there",
+    "Hi there",
+    "Hello",
+    "Howdy",
+    "Greetings",
+    "Welcome back",
+    "Salutations",
+    "Ahoy",
+    "Yo",
+    "How's it going",
+    "Long time no see",
+    "Glad you're back",
+    "Great to see you",
+    "Pleasure to have you back",
+    "It's been a minute",
   ];
   
   // Time-based greetings during appropriate hours

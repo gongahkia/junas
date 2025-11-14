@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Serif } from "next/font/google";
+import { Noto_Serif } from "next/font/google";
 import "./globals.css";
 
-const ibmPlexSerif = IBM_Plex_Serif({
+const notoSerif = Noto_Serif({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-ibm-plex-serif",
+  weight: ["400"],
+  variable: "--font-noto-serif",
 });
 
 export const metadata: Metadata = {
@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${ibmPlexSerif.variable} font-serif antialiased`}>
+      <body className={`${notoSerif.variable} font-serif antialiased`}>
         {children}
       </body>
     </html>

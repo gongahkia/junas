@@ -169,6 +169,7 @@ export const MessageList = memo(function MessageList({
 }: MessageListProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messageRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const hasScrolledToMessage = useRef(false);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -177,6 +178,7 @@ export const MessageList = memo(function MessageList({
   // Scroll to specific message when scrollToMessageId changes
   useEffect(() => {
     if (scrollToMessageId && messageRefs.current[scrollToMessageId]) {
+      hasScrolledToMessage.current = true;
       messageRefs.current[scrollToMessageId]?.scrollIntoView({ 
         behavior: 'smooth',
         block: 'center'
@@ -189,11 +191,15 @@ export const MessageList = memo(function MessageList({
           element.classList.remove('ring-2', 'ring-primary', 'ring-offset-2');
         }, 2000);
       }
+      // Reset the flag after a delay to allow normal scrolling again
+      setTimeout(() => {
+        hasScrolledToMessage.current = false;
+      }, 2500);
     }
   }, [scrollToMessageId]);
 
   useEffect(() => {
-    if (!scrollToMessageId) {
+    if (!scrollToMessageId && !hasScrolledToMessage.current) {
       scrollToBottom();
     }
   }, [messages, isLoading, scrollToMessageId]);
