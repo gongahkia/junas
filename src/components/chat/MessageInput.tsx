@@ -14,109 +14,25 @@ interface MessageInputProps {
 export function MessageInput({
   onSendMessage,
   isLoading,
-  placeholder = "Ask Junas anything about Singapore law...",
-  onOpenTemplates
+  placeholder = "Ask Junas anything about Singapore law..."
 }: MessageInputProps) {
   const [message, setMessage] = useState('');
-  const [matchedTemplates, setMatchedTemplates] = useState<LegalTemplate[]>([]);
-  const [showTemplatePreview, setShowTemplatePreview] = useState(false);
-  const [draftQuery, setDraftQuery] = useState<string | null>(null);
-  const [analysisMatch, setAnalysisMatch] = useState<{
-    tool: LegalAnalysisTool;
-    query: string;
-  } | null>(null);
-  const [showAnalysisPreview, setShowAnalysisPreview] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  // Detect keywords and search for matching templates or analysis tools
-  useEffect(() => {
-    // First check for analysis tool keywords
-    const analysis = extractAnalysisQuery(message);
-    setAnalysisMatch(analysis);
-
-    if (analysis) {
-      // Analysis tool detected - show analysis preview
-      setShowAnalysisPreview(true);
-      setShowTemplatePreview(false);
-      setDraftQuery(null);
-      setMatchedTemplates([]);
-    } else {
-      // No analysis tool - check for draft keyword
-      const query = extractDraftQuery(message);
-      setDraftQuery(query);
-      setShowAnalysisPreview(false);
-
-      if (query !== null) {
-        const templates = searchTemplatesByKeywords(query);
-        setMatchedTemplates(templates);
-        setShowTemplatePreview(templates.length > 0);
-      } else {
-        setMatchedTemplates([]);
-        setShowTemplatePreview(false);
-      }
-    }
-  }, [message]);
 
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim() || isLoading) return;
 
-    // If analysis tool is detected, use its prompt with the query
-    if (analysisMatch) {
-      const combinedPrompt = analysisMatch.query
-        ? `${analysisMatch.tool.prompt}\n\nUser context: ${analysisMatch.query}`
-        : analysisMatch.tool.prompt;
-      onSendMessage(combinedPrompt);
-      setMessage('');
-      setShowAnalysisPreview(false);
-      return;
-    }
-
-    // If "draft" keyword is detected and we have matching templates, auto-select the best match
-    if (draftQuery !== null && matchedTemplates.length > 0) {
-      const bestMatch = matchedTemplates[0];
-      onSendMessage(bestMatch.prompt);
-      setMessage('');
-      setShowTemplatePreview(false);
-      return;
-    }
-
-    // Otherwise, send the message as normal
     onSendMessage(message.trim());
     setMessage('');
-  }, [message, isLoading, onSendMessage, draftQuery, matchedTemplates, analysisMatch]);
+  }, [message, isLoading, onSendMessage]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e);
-    } else if (e.key === 'Escape') {
-      e.preventDefault();
-      if (showAnalysisPreview) {
-        setShowAnalysisPreview(false);
-      } else if (showTemplatePreview) {
-        setShowTemplatePreview(false);
-      }
     }
-  }, [handleSubmit, showTemplatePreview, showAnalysisPreview]);
-
-  const handleTemplateSelect = useCallback((template: LegalTemplate) => {
-    onSendMessage(template.prompt);
-    setMessage('');
-    setShowTemplatePreview(false);
-  }, [onSendMessage]);
-
-  const handleAnalysisToolSelect = useCallback((tool: LegalAnalysisTool) => {
-    const combinedPrompt = analysisMatch?.query
-      ? `${tool.prompt}\n\nUser context: ${analysisMatch.query}`
-      : tool.prompt;
-    onSendMessage(combinedPrompt);
-    setMessage('');
-    setShowAnalysisPreview(false);
-  }, [onSendMessage, analysisMatch]);
-
-  const isDraftDetected = draftQuery !== null;
-  const isAnalysisDetected = analysisMatch !== null;
+  }, [handleSubmit]);
 
   return (
     <div className="border-t bg-background sticky bottom-0 z-50 shadow-sm">
