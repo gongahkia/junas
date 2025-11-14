@@ -28,6 +28,8 @@ export default function Home() {
   const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
   const [messages, setMessages] = useState<Message[]>([]);
   const [scrollToMessageId, setScrollToMessageId] = useState<string | undefined>();
+  const [tempSettings, setTempSettings] = useState(StorageManager.getSettings());
+  const [isSavingSettings, setIsSavingSettings] = useState(false);
 
   const handleExport = () => {
     setShowExportDialog(true);
@@ -42,7 +44,27 @@ export default function Home() {
   };
 
   const handleSettings = () => {
+    setTempSettings(StorageManager.getSettings());
     setShowSettingsModal(true);
+  };
+
+  const handleSaveSettings = () => {
+    setIsSavingSettings(true);
+    try {
+      StorageManager.saveSettings(tempSettings);
+      setShowSettingsModal(false);
+    } finally {
+      setIsSavingSettings(false);
+    }
+  };
+
+  const handleCancelSettings = () => {
+    setTempSettings(StorageManager.getSettings());
+    setShowSettingsModal(false);
+  };
+
+  const handleSettingChange = (key: string, value: any) => {
+    setTempSettings(prev => ({ ...prev, [key]: value }));
   };
 
   const handleProviderChange = (provider: string) => {
@@ -130,7 +152,7 @@ export default function Home() {
       />
 
       {/* Settings Modal */}
-      <Dialog open={showSettingsModal} onOpenChange={setShowSettingsModal}>
+      <Dialog open={showSettingsModal} onOpenChange={handleCancelSettings}>
         <DialogContent className="max-w-2xl max-h-[85vh] md:max-h-[80vh] overflow-y-auto w-[95vw] md:w-full">
           <DialogHeader>
             <DialogTitle className="text-base md:text-lg">Settings</DialogTitle>
@@ -141,7 +163,10 @@ export default function Home() {
 
           <div className="space-y-4 md:space-y-6">
             {/* User Preferences */}
-            <UserSettings />
+            <UserSettings 
+              settings={tempSettings}
+              onSettingChange={handleSettingChange}
+            />
 
             {/* Provider Selection */}
             <ProviderSelector
@@ -192,6 +217,15 @@ export default function Home() {
                 </div>
               </CardContent>
             </Card>
+          </div>
+
+          <div className="flex justify-end space-x-2 pt-4 border-t">
+            <Button variant="outline" onClick={handleCancelSettings}>
+              Cancel
+            </Button>
+            <Button onClick={handleSaveSettings} disabled={isSavingSettings}>
+              {isSavingSettings ? 'Saving...' : 'Save Settings'}
+            </Button>
           </div>
         </DialogContent>
       </Dialog>

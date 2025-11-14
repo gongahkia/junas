@@ -1,21 +1,17 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { StorageManager } from '@/lib/storage';
+import { ChatSettings } from '@/types/chat';
 import { User } from 'lucide-react';
 
-export function UserSettings() {
-  const [settings, setSettings] = useState(() => StorageManager.getSettings());
+interface UserSettingsProps {
+  settings: ChatSettings;
+  onSettingChange: (key: keyof ChatSettings, value: any) => void;
+}
 
-  const updateSetting = (key: keyof typeof settings, value: any) => {
-    const newSettings = { ...settings, [key]: value };
-    setSettings(newSettings);
-    StorageManager.saveSettings(newSettings);
-  };
-
+export function UserSettings({ settings, onSettingChange }: UserSettingsProps) {
   return (
     <Card>
       <CardHeader>
@@ -35,7 +31,7 @@ export function UserSettings() {
             type="text"
             placeholder="Enter your name"
             value={settings.userName || ''}
-            onChange={(e) => updateSetting('userName', e.target.value)}
+            onChange={(e) => onSettingChange('userName', e.target.value)}
             className="max-w-md"
           />
           <p className="text-xs text-muted-foreground">
