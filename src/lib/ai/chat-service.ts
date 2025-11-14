@@ -31,14 +31,7 @@ export class ChatService {
 
   static async sendMessage(
     messages: Message[],
-    onChunk?: (chunk: string) => void,
-    options?: {
-      reasoningDepth?: ReasoningDepth;
-      skipMultiStage?: boolean;
-      onReasoningUpdate?: (metadata: ReasoningMetadata) => void;
-      onStageChange?: (stage: string, current: number, total: number) => void;
-      onThinkingStage?: (stage: ThinkingStage) => void;
-    }
+    onChunk?: (chunk: string) => void
   ): Promise<SendMessageResult> {
     try {
       const provider = await this.getAvailableProvider();
@@ -49,171 +42,93 @@ export class ChatService {
 
       const settings = StorageManager.getSettings();
 
-      // Get the last user message for complexity analysis
-      const lastUserMessage = messages.filter(m => m.role === 'user').slice(-1)[0];
-      const query = lastUserMessage?.content || '';
-
-      // Analyze query complexity
-      let analysis = analyzeQuery(query);
-
-      // Override with user preference if provided
-      if (options?.reasoningDepth) {
-        analysis = overrideComplexity(analysis, options.reasoningDepth);
-      }
-
-      // Check if user disabled multi-stage in settings
-      const enableAdvancedReasoning = settings.enableAdvancedReasoning !== false;
-      const skipMultiStage = options?.skipMultiStage || !enableAdvancedReasoning;
-
-      if (skipMultiStage) {
-        analysis.useMultiStage = false;
-        analysis.useReAct = false;
-      }
-
       // Determine model based on provider
       const model = provider === 'gemini' ? 'gemini-2.0-flash-exp' :
                    provider === 'openai' ? 'gpt-4o' : 'claude-3-5-sonnet-20241022';
 
-      // Create API call function for reasoning engine
-      const apiCallFn = async (
-        formattedMessages: any[],
-        config: { temperature: number; maxTokens: number },
-        chunkCallback?: (chunk: string) => void
-      ): Promise<string> => {
-        let fullResponse = '';
+      // Get default system prompt config
+      const config = getDefaultPromptConfig('standard');
 
-        if (chunkCallback) {
-          // Streaming
-          const response = await fetch(`/api/providers/${provider}/chat`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              messages: formattedMessages,
-              model,
-              temperature: config.temperature,
-              maxTokens: config.maxTokens,
-              stream: true,
-            }),
-          });
+      // Format messages with system prompt
+      const formattedMessages = [
+        { role: 'system', content: config.systemPrompt },
+        ...messages.map(msg => ({
+          role: msg.role,
+          content: msg.content,
+        })),
+      ];
 
-          if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.error || 'Failed to get AI response');
-          }
+      let fullResponse = '';
 
-          const reader = response.body?.getReader();
-          const decoder = new TextDecoder();
+      if (onChunk) {
+        // Streaming
+        const response = await fetch(`/api/providers/${provider}/chat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: formattedMessages,
+            model,
+            temperature: 0.7,
+            maxTokens: 4096,
+            stream: true,
+          }),
+        });
 
-          if (reader) {
-            while (true) {
-              const { done, value } = await reader.read();
-              if (done) break;
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || 'Failed to get AI response');
+        }
 
-              const chunk = decoder.decode(value);
-              const lines = chunk.split('\n').filter(line => line.trim());
+        const reader = response.body?.getReader();
+        const decoder = new TextDecoder();
 
-              for (const line of lines) {
-                try {
-                  const data = JSON.parse(line);
-                  if (data.content) {
-                    fullResponse += data.content;
-                    chunkCallback(data.content);
-                  }
-                } catch (e) {
-                  // Skip invalid JSON lines
+        if (reader) {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            const chunk = decoder.decode(value);
+            const lines = chunk.split('\n').filter(line => line.trim());
+
+            for (const line of lines) {
+              try {
+                const data = JSON.parse(line);
+                if (data.content) {
+                  fullResponse += data.content;
+                  onChunk(data.content);
                 }
+              } catch (e) {
+                // Skip invalid JSON lines
               }
             }
           }
-        } else {
-          // Non-streaming
-          const response = await fetch(`/api/providers/${provider}/chat`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              messages: formattedMessages,
-              model,
-              temperature: config.temperature,
-              maxTokens: config.maxTokens,
-              stream: false,
-            }),
-          });
-
-          if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.error || 'Failed to get AI response');
-          }
-
-          const result = await response.json();
-          fullResponse = result.content;
         }
-
-        return fullResponse;
-      };
-
-      // Use multi-stage reasoning engine for streaming
-      if (onChunk) {
-        const result = await StreamingReasoningEngine.processQueryStreaming(
-          query,
-          analysis,
-          messages,
-          apiCallFn,
-          (stage, current, total) => {
-            // Stage start callback - notify UI
-            console.log(`Reasoning stage ${current}/${total}: ${stage}`);
-            if (options?.onStageChange) {
-              options.onStageChange(stage, current, total);
-            }
-          },
-          onChunk,
-          options?.onThinkingStage
-        );
-
-        const reasoningMetadata: ReasoningMetadata = {
-          complexity: analysis.complexity,
-          reasoningDepth: analysis.reasoningDepth,
-          stages: result.stages.length,
-          multiStage: result.stages.length > 1,
-          reasoningTime: result.reasoningTime,
-        };
-
-        // Notify about final reasoning metadata
-        if (options?.onReasoningUpdate) {
-          options.onReasoningUpdate(reasoningMetadata);
-        }
-
-        return {
-          content: result.finalResponse,
-          reasoning: reasoningMetadata,
-        };
       } else {
-        // Non-streaming: use regular reasoning engine
-        const { ReasoningEngine } = await import('@/lib/prompts/reasoning-engine');
-        const result = await ReasoningEngine.processQuery(
-          query,
-          analysis,
-          messages,
-          apiCallFn
-        );
+        // Non-streaming
+        const response = await fetch(`/api/providers/${provider}/chat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: formattedMessages,
+            model,
+            temperature: 0.7,
+            maxTokens: 4096,
+            stream: false,
+          }),
+        });
 
-        const reasoningMetadata: ReasoningMetadata = {
-          complexity: analysis.complexity,
-          reasoningDepth: analysis.reasoningDepth,
-          stages: result.stages.length,
-          multiStage: result.stages.length > 1,
-          reasoningTime: result.reasoningTime,
-        };
-
-        // Notify about final reasoning metadata
-        if (options?.onReasoningUpdate) {
-          options.onReasoningUpdate(reasoningMetadata);
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || 'Failed to get AI response');
         }
 
-        return {
-          content: result.finalResponse,
-          reasoning: reasoningMetadata,
-        };
+        const result = await response.json();
+        fullResponse = result.content;
       }
+
+      return {
+        content: fullResponse,
+      };
     } catch (error: any) {
       console.error('Chat service error:', error);
       throw new Error(error.message || 'Failed to get AI response');
