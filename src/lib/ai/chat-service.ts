@@ -1,12 +1,9 @@
-import { Message, ReasoningMetadata, ThinkingStage } from '@/types/chat';
+import { Message } from '@/types/chat';
 import { StorageManager } from '@/lib/storage';
-import { analyzeQuery, overrideComplexity, type QueryAnalysis } from '@/lib/prompts/query-classifier';
-import { StreamingReasoningEngine } from '@/lib/prompts/reasoning-engine';
-import { ReasoningDepth } from '@/lib/prompts/system-prompts';
+import { getDefaultPromptConfig } from '@/lib/prompts/system-prompts';
 
 export interface SendMessageResult {
   content: string;
-  reasoning: ReasoningMetadata;
 }
 
 export class ChatService {
