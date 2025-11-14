@@ -27,6 +27,7 @@ export default function Home() {
   const [currentProvider, setCurrentProvider] = useState('gemini');
   const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
   const [messages, setMessages] = useState<Message[]>([]);
+  const [scrollToMessageId, setScrollToMessageId] = useState<string | undefined>();
 
   const handleExport = () => {
     setShowExportDialog(true);
@@ -68,6 +69,12 @@ export default function Home() {
     setMessages(newMessages);
   };
 
+  const handleMessageSelect = (messageId: string) => {
+    setScrollToMessageId(messageId);
+    // Reset after a short delay to allow future selections of the same message
+    setTimeout(() => setScrollToMessageId(undefined), 100);
+  };
+
   // Check if there are messages
   const hasMessages = messages.length > 0;
 
@@ -84,6 +91,7 @@ export default function Home() {
         key={chatKey}
         onSettings={handleSettings}
         onMessagesChange={handleMessagesChange}
+        scrollToMessageId={scrollToMessageId}
       />
 
       {/* API Key Modal */}
@@ -118,6 +126,7 @@ export default function Home() {
         isOpen={showSearchDialog}
         onClose={() => setShowSearchDialog(false)}
         messages={messages}
+        onMessageSelect={handleMessageSelect}
       />
 
       {/* Settings Modal */}

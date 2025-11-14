@@ -17,6 +17,7 @@ interface MessageListProps {
   isLoading: boolean;
   onCopyMessage: (content: string) => void;
   onRegenerateMessage: (messageId: string) => void;
+  scrollToMessageId?: string;
 }
 
 // Memoized message item component to prevent unnecessary re-renders
@@ -161,17 +162,38 @@ export const MessageList = memo(function MessageList({
   isLoading,
   onCopyMessage,
   onRegenerateMessage,
-  currentThinkingStages
+  scrollToMessageId
 }: MessageListProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messageRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Scroll to specific message when scrollToMessageId changes
   useEffect(() => {
-    scrollToBottom();
-  }, [messages, isLoading, currentThinkingStages]);
+    if (scrollToMessageId && messageRefs.current[scrollToMessageId]) {
+      messageRefs.current[scrollToMessageId]?.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      });
+      // Add highlight effect
+      const element = messageRefs.current[scrollToMessageId];
+      if (element) {
+        element.classList.add('ring-2', 'ring-primary', 'ring-offset-2');
+        setTimeout(() => {
+          element.classList.remove('ring-2', 'ring-primary', 'ring-offset-2');
+        }, 2000);
+      }
+    }
+  }, [scrollToMessageId]);
+
+  useEffect(() => {
+    if (!scrollToMessageId) {
+      scrollToBottom();
+    }
+  }, [messages, isLoading, scrollToMessageId]);
 
   if (messages.length === 0) {
     return null;
@@ -180,7 +202,11 @@ export const MessageList = memo(function MessageList({
   return (
     <div className="flex-1 overflow-y-auto px-3 md:px-6 py-4 md:py-8 space-y-4 md:space-y-6 max-w-6xl mx-auto w-full">
       {messages.map((message, index) => (
-        <div key={message.id}>
+        <div 
+          key={message.id}
+          ref={(el) => { messageRefs.current[message.id] = el; }}
+          className="transition-all duration-300 rounded-lg"
+        >
           <MessageItem
             message={message}
             onCopyMessage={onCopyMessage}

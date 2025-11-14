@@ -21,9 +21,10 @@ function getGreeting(): string {
 interface ChatInterfaceProps {
   onSettings: () => void;
   onMessagesChange?: (messages: Message[]) => void;
+  scrollToMessageId?: string;
 }
 
-export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfaceProps) {
+export function ChatInterface({ onSettings, onMessagesChange, scrollToMessageId }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMessages, setHasMessages] = useState(false);
@@ -220,6 +221,7 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
                 isLoading={isLoading}
                 onCopyMessage={handleCopyMessage}
                 onRegenerateMessage={handleRegenerateMessage}
+                scrollToMessageId={scrollToMessageId}
               />
             </div>
           </div>
