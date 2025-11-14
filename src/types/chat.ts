@@ -5,14 +5,6 @@ export interface Attachment {
   type?: string;
 }
 
-export interface ThinkingStage {
-  stage: 'initial' | 'critique' | 'react';
-  content: string;
-  label: string;
-  isComplete?: boolean;
-  isStreaming?: boolean;
-}
-
 export interface Message {
   id: string;
   role: 'user' | 'assistant' | 'system';
@@ -21,17 +13,7 @@ export interface Message {
   toolCalls?: ToolCall[];
   citations?: Citation[];
   attachments?: Attachment[];
-  reasoning?: ReasoningMetadata;
-  thinkingStages?: ThinkingStage[];
   responseTime?: number; // Time in milliseconds
-}
-
-export interface ReasoningMetadata {
-  complexity: 'simple' | 'moderate' | 'complex' | 'expert';
-  reasoningDepth: 'quick' | 'standard' | 'deep' | 'expert';
-  stages: number;
-  multiStage: boolean;
-  reasoningTime?: number;
 }
 
 export interface ToolCall {
@@ -73,8 +55,5 @@ export interface ChatSettings {
   systemPrompt: string;
   autoSave: boolean;
   darkMode: boolean;
-  enableAdvancedReasoning: boolean;
-  defaultReasoningDepth: 'quick' | 'standard' | 'deep' | 'expert';
-  showReasoningStages: boolean;
   userName?: string;
 }

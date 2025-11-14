@@ -124,18 +124,6 @@ const MessageItem = memo(({
               </div>
             )}
 
-            {/* Reasoning indicator for assistant messages */}
-            {message.role === 'assistant' && message.reasoning && (
-              <div className="pt-2">
-                <ReasoningIndicator
-                  complexity={message.reasoning.complexity}
-                  reasoningDepth={message.reasoning.reasoningDepth}
-                  stage={message.reasoning.stages > 1 ? 'complete' : undefined}
-                  totalStages={message.reasoning.stages}
-                />
-              </div>
-            )}
-
             {/* Token counter for all messages */}
             <div className="pt-2">
               <TokenCounter content={message.content} responseTime={message.responseTime} />
@@ -193,22 +181,12 @@ export const MessageList = memo(function MessageList({
     <div className="flex-1 overflow-y-auto px-3 md:px-6 py-4 md:py-8 space-y-4 md:space-y-6 max-w-6xl mx-auto w-full">
       {messages.map((message, index) => (
         <div key={message.id}>
-          {/* Show thinking stages if this message has them */}
-          {message.role === 'assistant' && message.thinkingStages && message.thinkingStages.length > 0 && (
-            <ThinkingStages stages={message.thinkingStages} />
-          )}
-
           <MessageItem
             message={message}
             onCopyMessage={onCopyMessage}
           />
         </div>
       ))}
-
-      {/* Show live thinking stages during streaming */}
-      {isLoading && currentThinkingStages && currentThinkingStages.length > 0 && (
-        <ThinkingStages stages={currentThinkingStages} />
-      )}
 
       {/* Enhanced loading indicator */}
       {isLoading && (
