@@ -36,72 +36,15 @@ IMPORTANT: When citing legal cases, ALWAYS use the FULL legal citation format. N
  * Chain-of-Thought reasoning instructions
  */
 const CHAIN_OF_THOUGHT_INSTRUCTIONS = {
-  quick: `Before answering, briefly consider the key legal points.`,
-
   standard: `Before providing your answer, think through the problem step-by-step:
 1. Identify the core legal question
 2. Determine applicable law (statutes, cases, principles)
 3. Apply law to the facts
-4. Draw conclusions
+4. Consider counterarguments and alternative interpretations
+5. Synthesize findings into a coherent analysis
+6. Draw nuanced conclusions with appropriate caveats
 
 Present your reasoning clearly so the user can follow your analysis.`,
-
-  deep: `Use deep analytical reasoning for this query. Follow this structured approach:
-
-**ANALYSIS PHASE:**
-1. **Question Decomposition**: Break down the query into sub-questions
-2. **Legal Framework**: Identify all relevant:
-   - Statutory provisions
-   - Case law precedents
-   - Legal principles and tests
-3. **Factual Analysis**: Extract and categorize key facts
-4. **Legal Application**: Apply each legal element systematically
-5. **Counterarguments**: Consider opposing views and limitations
-6. **Synthesis**: Integrate findings into coherent conclusion
-
-**OUTPUT REQUIREMENTS:**
-- Show your reasoning process explicitly
-- Explain why certain precedents are more relevant
-- Acknowledge uncertainties and gaps
-- Provide confidence levels for conclusions`,
-
-  expert: `Deploy EXPERT-LEVEL legal reasoning with maximum depth and rigor.
-
-**PHASE 1: COMPREHENSIVE ANALYSIS**
-1. **Multi-Dimensional Question Mapping**:
-   - Primary legal issues
-   - Secondary/ancillary issues
-   - Jurisdictional considerations
-   - Temporal factors (when laws changed)
-   - Policy considerations
-
-2. **Exhaustive Legal Research Framework**:
-   - Statute hierarchy and interpretation rules
-   - Binding vs. persuasive precedents
-   - Ratio decidendi vs. obiter dicta
-   - Evolution of legal tests over time
-   - Conflicting authorities and their resolution
-
-3. **Rigorous Factual Analysis**:
-   - Material facts vs. background facts
-   - Facts in issue
-   - Burden of proof considerations
-   - Evidentiary gaps and assumptions
-
-**PHASE 2: MULTI-PATH REASONING**
-- Consider multiple legal theories simultaneously
-- Analyze best-case, worst-case, and most-likely scenarios
-- Identify critical facts that could change outcomes
-- Map decision trees for complex issues
-
-**PHASE 3: CRITICAL EVALUATION**
-- Self-critique: Where is your reasoning weakest?
-- Alternative interpretations
-- Risks and uncertainties quantified
-- Practical implications and strategic considerations
-
-**OUTPUT FORMAT:**
-Present findings in structured sections with clear reasoning trails, citations, and confidence assessments.`
 };
 
 /**
@@ -112,19 +55,19 @@ const STRUCTURED_OUTPUT_INSTRUCTIONS = `
 
 Format your response with clear sections:
 
-## 🔍 Analysis
+## Analysis
 [Your step-by-step reasoning process - make your thinking transparent]
 
-## 📋 Key Findings
+## Key Findings
 [Bullet points of critical conclusions]
 
-## ⚖️ Legal Opinion
+## Legal Opinion
 [Your main answer and recommendations]
 
-## ⚠️ Important Caveats
+## Important Caveats
 [Limitations, uncertainties, and risk factors]
 
-## 📚 Citations
+## Citations
 [All cases and statutes referenced, with full citations]
 `;
 
@@ -186,32 +129,11 @@ export function generateSystemPrompt(config: PromptConfig): string {
  */
 export function getDefaultPromptConfig(depth: ReasoningDepth = 'standard'): PromptConfig {
   const configs: Record<ReasoningDepth, PromptConfig> = {
-    quick: {
-      systemPrompt: '',
-      reasoningDepth: 'quick',
-      useChainOfThought: true,
-      useSelfCritique: false,
-      useStructuredOutput: false,
-    },
     standard: {
       systemPrompt: '',
       reasoningDepth: 'standard',
       useChainOfThought: true,
       useSelfCritique: false,
-      useStructuredOutput: true,
-    },
-    deep: {
-      systemPrompt: '',
-      reasoningDepth: 'deep',
-      useChainOfThought: true,
-      useSelfCritique: true,
-      useStructuredOutput: true,
-    },
-    expert: {
-      systemPrompt: '',
-      reasoningDepth: 'expert',
-      useChainOfThought: true,
-      useSelfCritique: true,
       useStructuredOutput: true,
     },
   };
