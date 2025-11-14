@@ -1,12 +1,10 @@
 'use client';
 
 import { useEffect, useRef, memo } from 'react';
-import { Message, ThinkingStage } from '@/types/chat';
+import { Message } from '@/types/chat';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Copy, Download, FileText, User, Bot, Loader2 } from 'lucide-react';
-import { ReasoningIndicator } from './ReasoningIndicator';
-import { ThinkingStages } from './ThinkingStages';
 import { TokenCounter } from './TokenCounter';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -19,7 +17,6 @@ interface MessageListProps {
   isLoading: boolean;
   onCopyMessage: (content: string) => void;
   onRegenerateMessage: (messageId: string) => void;
-  currentThinkingStages?: ThinkingStage[];
 }
 
 // Memoized message item component to prevent unnecessary re-renders
