@@ -217,23 +217,11 @@ export const MessageList = memo(function MessageList({
         </div>
       ))}
 
-      {/* Enhanced loading indicator */}
+      {/* Minimal loading indicator */}
       {isLoading && (
-        <div className="flex justify-start">
-          <div className="flex items-start space-x-2 w-full md:max-w-[85%]">
-            <Card className="p-3 md:p-4">
-              <div className="flex items-center space-x-2 md:space-x-3">
-                <Loader2 className="w-4 h-4 md:w-5 md:h-5 animate-spin text-primary flex-shrink-0" />
-                <div className="space-y-1">
-                  <span className="text-xs md:text-sm font-medium">Junas is analyzing your request...</span>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                    <div className="w-2 h-2 bg-primary rounded-full animate-pulse delay-75" />
-                    <div className="w-2 h-2 bg-primary rounded-full animate-pulse delay-150" />
-                  </div>
-                </div>
-              </div>
-            </Card>
+        <div className="flex justify-center py-4">
+          <div className="text-sm text-muted-foreground/60 animate-pulse">
+            Junas is analyzing your request...
           </div>
         </div>
       )}
