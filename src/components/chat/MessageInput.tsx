@@ -1,25 +1,14 @@
 'use client';
 
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Send, FileText, Sparkles } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  extractDraftQuery,
-  searchTemplatesByKeywords,
-  extractAnalysisQuery,
-  type LegalTemplate,
-  type LegalAnalysisTool
-} from '@/lib/templates';
-import { AnalysisToolPreview } from './AnalysisToolPreview';
+import { Send } from 'lucide-react';
 
 interface MessageInputProps {
   onSendMessage: (content: string) => void;
   isLoading: boolean;
   placeholder?: string;
-  onOpenTemplates?: () => void;
-  onSelectTemplate?: (template: LegalTemplate) => void;
 }
 
 export function MessageInput({

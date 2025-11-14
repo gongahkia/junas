@@ -1,20 +1,15 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Message, ReasoningMetadata, ThinkingStage } from '@/types/chat';
+import { Message } from '@/types/chat';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
 import { HeroMarquee } from './HeroMarquee';
 import { LegalDisclaimer } from '@/components/LegalDisclaimer';
-import { TemplateSelector } from './TemplateSelector';
-import { TemplateForm } from './TemplateForm';
-import { ReasoningProgress } from './ReasoningIndicator';
 import { StorageManager } from '@/lib/storage';
 import { ChatService } from '@/lib/ai/chat-service';
-import { extractAndLookupCitations } from '@/lib/tools/citation-extractor';
 import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
-import { extractTemplateFields, type LegalTemplate, type TemplateField } from '@/lib/templates';
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -32,10 +27,6 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMessages, setHasMessages] = useState(false);
-  const [showTemplateSelector, setShowTemplateSelector] = useState(false);
-  const [activeTemplate, setActiveTemplate] = useState<{ template: LegalTemplate; fields: TemplateField[] } | null>(null);
-  const [currentStage, setCurrentStage] = useState<{ stage: string; current: number; total: number } | null>(null);
-  const [currentThinkingStages, setCurrentThinkingStages] = useState<ThinkingStage[]>([]);
   const [userName, setUserName] = useState<string | undefined>(() => StorageManager.getSettings().userName);
   const { addToast } = useToast();
 
@@ -120,10 +111,6 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
       // Get all messages including the new user message
       const allMessages = [...messages, userMessage];
 
-      // Track reasoning metadata and thinking stages
-      let reasoningMetadata: ReasoningMetadata | undefined;
-      const thinkingStages: ThinkingStage[] = [];
-
       // Try streaming first, then fallback to non-streaming if provider doesn't support endpoint
       let fullResponse = '';
       try {
@@ -137,55 +124,25 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
                   : msg
               )
             );
-          },
-          {
-            onStageChange: (stage, current, total) => {
-              setCurrentStage({ stage, current, total });
-            },
-            onReasoningUpdate: (metadata) => {
-              reasoningMetadata = metadata;
-            },
-            onThinkingStage: (stageUpdate) => {
-              // Find existing stage of same type and update, or add new
-              const existingIndex = thinkingStages.findIndex(s => s.stage === stageUpdate.stage);
-              if (existingIndex >= 0) {
-                thinkingStages[existingIndex] = stageUpdate;
-              } else {
-                thinkingStages.push(stageUpdate);
-              }
-              setCurrentThinkingStages([...thinkingStages]);
-            },
           }
         );
         fullResponse = result.content;
-        reasoningMetadata = result.reasoning;
       } catch (e: any) {
         // Fallback to non-streaming
         const result = await ChatService.sendMessage(allMessages);
         fullResponse = result.content;
-        reasoningMetadata = result.reasoning;
       }
-
-      // Clear stage indicators
-      setCurrentStage(null);
-      setCurrentThinkingStages([]);
-
-      // Extract and lookup citations from the response
-      const citations = await extractAndLookupCitations(fullResponse);
 
       // Calculate response time
       const responseTime = Date.now() - startTime;
 
-      // Final update with complete response, citations, reasoning metadata, thinking stages, and response time
+      // Final update with complete response and response time
       setMessages(prev =>
         prev.map(msg =>
           msg.id === assistantMessage.id
             ? {
                 ...msg,
                 content: fullResponse,
-                citations,
-                reasoning: reasoningMetadata,
-                thinkingStages: thinkingStages.length > 0 ? thinkingStages : undefined,
                 responseTime
               }
             : msg
@@ -237,50 +194,7 @@ export function ChatInterface({ onSettings, onMessagesChange }: ChatInterfacePro
     console.log('Regenerate message:', messageId);
   }, []);
 
-  const handleSelectTemplate = useCallback((template: LegalTemplate) => {
-    // Extract fields from the template prompt
-    const fields = extractTemplateFields(template.prompt);
 
-    // Show the template form
-    setActiveTemplate({ template, fields });
-    setShowTemplateSelector(false);
-  }, []);
-
-  const handleTemplateFormSubmit = useCallback((formData: Record<string, string>) => {
-    if (!activeTemplate) return;
-
-    // Construct enriched prompt with user-provided data
-    let enrichedPrompt = activeTemplate.template.prompt;
-
-    // Add user context at the beginning
-    const userContext = Object.entries(formData)
-      .map(([key, value]) => {
-        const field = activeTemplate.fields.find(f => f.id === key);
-        return field ? `${field.label}: ${value}` : null;
-      })
-      .filter(Boolean)
-      .join('\n');
-
-    const finalPrompt = `Please draft the following legal document using the provided information and template guidelines.
-
-USER PROVIDED INFORMATION:
-${userContext}
-
-TEMPLATE INSTRUCTIONS:
-${activeTemplate.template.prompt}
-
-Please generate a complete, professional legal document incorporating all the provided information. Ensure compliance with Singapore law and include all necessary clauses and provisions.`;
-
-    // Close the form
-    setActiveTemplate(null);
-
-    // Send to AI
-    handleSendMessage(finalPrompt);
-  }, [activeTemplate, handleSendMessage]);
-
-  const handleTemplateFormCancel = useCallback(() => {
-    setActiveTemplate(null);
-  }, []);
 
   return (
     <div className="flex flex-col h-full max-w-6xl mx-auto w-full">
@@ -306,46 +220,16 @@ Please generate a complete, professional legal document incorporating all the pr
                 isLoading={isLoading}
                 onCopyMessage={handleCopyMessage}
                 onRegenerateMessage={handleRegenerateMessage}
-                currentThinkingStages={currentThinkingStages}
               />
             </div>
           </div>
         )}
       </div>
 
-      {/* Reasoning progress indicator - above input */}
-      {currentStage && isLoading && (
-        <div className="px-3 md:px-4 py-2 border-t bg-muted/30">
-          <ReasoningProgress
-            currentStage={currentStage.current}
-            totalStages={currentStage.total}
-            stage={currentStage.stage}
-          />
-        </div>
-      )}
-
-      {/* Input area or Template Form */}
-      {activeTemplate ? (
-        <TemplateForm
-          template={activeTemplate.template}
-          fields={activeTemplate.fields}
-          onSubmit={handleTemplateFormSubmit}
-          onCancel={handleTemplateFormCancel}
-        />
-      ) : (
-        <MessageInput
-          onSendMessage={handleSendMessage}
-          isLoading={isLoading}
-          onOpenTemplates={() => setShowTemplateSelector(true)}
-          onSelectTemplate={handleSelectTemplate}
-        />
-      )}
-
-      {/* Template Selector */}
-      <TemplateSelector
-        isOpen={showTemplateSelector}
-        onClose={() => setShowTemplateSelector(false)}
-        onSelectTemplate={handleSelectTemplate}
+      {/* Input area */}
+      <MessageInput
+        onSendMessage={handleSendMessage}
+        isLoading={isLoading}
       />
 
       {/* Legal Disclaimer Overlay */}
