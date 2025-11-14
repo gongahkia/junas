@@ -3,7 +3,7 @@
  * Implements Chain-of-Thought, structured thinking, and multi-stage reasoning
  */
 
-export type ReasoningDepth = 'quick' | 'standard' | 'deep' | 'expert';
+export type ReasoningDepth = 'standard';
 export type QueryComplexity = 'simple' | 'moderate' | 'complex' | 'expert';
 
 export interface PromptConfig {
