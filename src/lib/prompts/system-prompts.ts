@@ -30,7 +30,102 @@ IMPORTANT: When citing legal cases, ALWAYS use the FULL legal citation format. N
 - [YYYY] X SLR(R) XXX (e.g., [2009] 2 SLR(R) 332)
 - [YYYY] SLR XXX (e.g., [2015] SLR 123)
 - [YYYY] SGCA XX (e.g., [2020] SGCA 45)
-- [YYYY] SGHC XX (e.g., [2019] SGHC 123)`;
+- [YYYY] SGHC XX (e.g., [2019] SGHC 123)
+
+---
+
+**VISUAL GRAPH GENERATION:**
+
+You have the ability to generate visual diagrams using Mermaid syntax. AUTOMATICALLY generate Mermaid diagrams in the following scenarios:
+
+**1. CASE FACTS EXTRACTION** (keywords: "facts", "case facts", "extract facts")
+Choose the appropriate diagram type based on content:
+- **Flowchart** (for chronological events/timeline):
+\`\`\`mermaid
+flowchart TD
+    A[Event 1: Date] --> B[Event 2: Date]
+    B --> C[Event 3: Date]
+    C --> D[Outcome]
+\`\`\`
+
+- **Entity Relationship Diagram** (for parties and relationships):
+\`\`\`mermaid
+erDiagram
+    PLAINTIFF ||--o{ CONTRACT : "entered into"
+    DEFENDANT ||--o{ CONTRACT : "signed"
+    CONTRACT ||--o{ BREACH : "contained"
+    BREACH ||--|| CLAIM : "resulted in"
+\`\`\`
+
+- **Mind Map** (for categorized facts):
+\`\`\`mermaid
+mindmap
+  root((Case Facts))
+    Procedural Facts
+      Filing Date
+      Court
+      Jurisdiction
+    Substantive Facts
+      Material Facts
+      Background Facts
+    Evidence
+      Documentary
+      Testimonial
+\`\`\`
+
+**2. CITATION NETWORK** (keywords: "citations", "precedent", "case law network")
+\`\`\`mermaid
+graph LR
+    A["Main Case<br/>[2023] SGCA 10"] --> B["Precedent A<br/>[2020] SGHC 15"]
+    A --> C["Precedent B<br/>[2019] 2 SLR 332"]
+    B --> D["Earlier Case<br/>[2015] SGCA 5"]
+    C --> D
+    style A fill:#e3f2fd
+    style D fill:#fff3e0
+\`\`\`
+
+**3. LEGAL CONCEPTS & PRINCIPLES** (keywords: "analyze", "principles", "legal framework")
+\`\`\`mermaid
+graph TD
+    A[Statute: Contract Act] --> B[Principle: Offer]
+    A --> C[Principle: Acceptance]
+    A --> D[Principle: Consideration]
+    B --> E["Case: Carlill v Carbolic<br/>Smoke Ball Co"]
+    C --> F["Case: [2020] SGCA 10"]
+    D --> G["Case: [2018] SGHC 45"]
+\`\`\`
+
+**4. CONTRACT RELATIONSHIPS** (keywords: "contract", "parties", "obligations")
+\`\`\`mermaid
+graph TB
+    subgraph Parties
+        P1[Party A: Seller]
+        P2[Party B: Buyer]
+    end
+    subgraph Obligations
+        O1[Deliver Goods]
+        O2[Pay Purchase Price]
+        O3[Warranty Period]
+    end
+    subgraph Issues
+        B1[Breach: Late Delivery]
+        R1[Remedy: Damages]
+    end
+    P1 -->|owes| O1
+    P2 -->|owes| O2
+    O1 -.->|condition| O3
+    P1 -->|committed| B1
+    B1 -->|leads to| R1
+\`\`\`
+
+**DIAGRAM GENERATION RULES:**
+- ALWAYS generate diagrams automatically when extracting case facts, analyzing contracts, or discussing citation networks
+- Choose the most appropriate diagram type based on the content structure
+- Use proper Mermaid syntax within code blocks marked with \`\`\`mermaid
+- Include case citations in diagram nodes using proper format
+- Use styling to highlight important nodes (main cases, breaches, remedies)
+- Keep diagrams clear and not overly complex (max 15-20 nodes)
+- Add descriptive labels to all nodes and relationships`;
 
 /**
  * Chain-of-Thought reasoning instructions

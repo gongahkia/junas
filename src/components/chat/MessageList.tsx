@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/card';
 import { Copy, Download, FileText, User, Bot, Loader2 } from 'lucide-react';
 import { TokenCounter } from './TokenCounter';
 import { StorageManager } from '@/lib/storage';
+import { MermaidDiagram } from './MermaidDiagram';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
@@ -72,6 +73,13 @@ const MessageItem = memo(({
                     code: ({ node, className, children, ...props }: any) => {
                       const match = /language-(\w+)/.exec(className || '');
                       const inline = !match;
+                      const language = match?.[1];
+
+                      // Handle Mermaid diagrams
+                      if (!inline && language === 'mermaid') {
+                        return <MermaidDiagram chart={String(children).trim()} />;
+                      }
+
                       return !inline && match ? (
                         <pre className="bg-muted p-3 rounded-md overflow-x-auto">
                           <code className={className} {...props}>

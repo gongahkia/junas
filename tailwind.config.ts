@@ -50,8 +50,8 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-noto-serif)", "system-ui", "serif"],
-        serif: ["var(--font-noto-serif)", "Georgia", "serif"],
+        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-geist-mono)", "monospace"],
       },
       animation: {
         "fade-in": "fadeIn 0.5s ease-in-out",
