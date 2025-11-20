@@ -1,48 +1,87 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import mermaid from 'mermaid';
 
 interface MermaidDiagramProps {
   chart: string;
 }
 
+// Track if mermaid has been initialized globally
+let mermaidInitialized = false;
+
 export function MermaidDiagram({ chart }: MermaidDiagramProps) {
-  const ref = useRef<HTMLDivElement>(null);
   const [svg, setSvg] = useState<string>('');
   const [error, setError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    mermaid.initialize({
-      startOnLoad: false,
-      theme: 'default',
-      securityLevel: 'loose',
-      fontFamily: 'var(--font-geist-sans), sans-serif',
-      flowchart: {
-        useMaxWidth: true,
-        htmlLabels: true,
-        curve: 'basis',
-      },
-    });
-  }, []);
+    let mounted = true;
 
-  useEffect(() => {
     const renderDiagram = async () => {
-      if (!chart || !ref.current) return;
+      if (!chart) return;
 
       try {
+        setIsLoading(true);
         setError('');
-        const id = `mermaid-${Math.random().toString(36).substring(7)}`;
-        const { svg } = await mermaid.render(id, chart);
-        setSvg(svg);
+
+        // Dynamically import mermaid to avoid SSR issues
+        const mermaid = (await import('mermaid')).default;
+
+        // Initialize mermaid only once
+        if (!mermaidInitialized) {
+          mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            securityLevel: 'loose',
+            fontFamily: 'var(--font-geist-sans), sans-serif',
+            flowchart: {
+              useMaxWidth: true,
+              htmlLabels: true,
+              curve: 'basis',
+            },
+            themeVariables: {
+              fontSize: '14px',
+            },
+          });
+          mermaidInitialized = true;
+        }
+
+        // Generate unique ID for this diagram
+        const id = `mermaid-${Date.now()}-${Math.random().toString(36).substring(7)}`;
+
+        // Render the diagram
+        const { svg: renderedSvg } = await mermaid.render(id, chart);
+
+        if (mounted) {
+          setSvg(renderedSvg);
+          setIsLoading(false);
+        }
       } catch (err) {
         console.error('Mermaid rendering error:', err);
-        setError(err instanceof Error ? err.message : 'Failed to render diagram');
+        if (mounted) {
+          setError(err instanceof Error ? err.message : 'Failed to render diagram');
+          setIsLoading(false);
+        }
       }
     };
 
     renderDiagram();
+
+    // Cleanup function
+    return () => {
+      mounted = false;
+    };
   }, [chart]);
+
+  if (isLoading) {
+    return (
+      <div className="my-4 flex items-center justify-center rounded-lg border bg-card p-8">
+        <div className="text-sm text-muted-foreground animate-pulse">
+          Rendering diagram...
+        </div>
+      </div>
+    );
+  }
 
   if (error) {
     return (
@@ -65,7 +104,6 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
 
   return (
     <div
-      ref={ref}
       className="my-4 flex items-center justify-center overflow-x-auto rounded-lg border bg-card p-4"
       dangerouslySetInnerHTML={{ __html: svg }}
     />

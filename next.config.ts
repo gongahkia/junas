@@ -28,6 +28,14 @@ const nextConfig: NextConfig = {
       };
     }
 
+    // Suppress specific warnings from dependencies
+    config.ignoreWarnings = [
+      // Suppress warnings from mermaid and its dependencies
+      /Critical dependency: the request of a dependency is an expression/,
+      /Module not found: Can't resolve 'canvas'/,
+      /Module not found: Can't resolve 'jsdom'/,
+    ];
+
     return config;
   },
 };
