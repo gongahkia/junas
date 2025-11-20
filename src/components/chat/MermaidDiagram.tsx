@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface MermaidDiagramProps {
   chart: string;
@@ -42,24 +42,73 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
             themeVariables: {
               fontSize: '14px',
             },
+            logLevel: 'fatal', // Suppress internal logging
           });
           mermaidInitialized = true;
         }
 
-        // Generate unique ID for this diagram
+        // Create a temporary container for rendering
+        const tempContainer = document.createElement('div');
+        tempContainer.style.position = 'absolute';
+        tempContainer.style.visibility = 'hidden';
+        tempContainer.style.pointerEvents = 'none';
+        document.body.appendChild(tempContainer);
+
+        // Generate unique ID
         const id = `mermaid-${Date.now()}-${Math.random().toString(36).substring(7)}`;
 
-        // Render the diagram
-        const { svg: renderedSvg } = await mermaid.render(id, chart);
+        // Suppress ALL console methods during rendering
+        const originalConsole = {
+          error: console.error,
+          warn: console.warn,
+          log: console.log,
+        };
+        console.error = () => {};
+        console.warn = () => {};
+        console.log = () => {};
 
-        if (mounted) {
-          setSvg(renderedSvg);
-          setIsLoading(false);
+        try {
+          // Render the diagram
+          const { svg: renderedSvg } = await mermaid.render(id, chart);
+
+          // Check if the rendered SVG contains error indicators
+          const hasError = renderedSvg.includes('Syntax error') ||
+                          renderedSvg.includes('Parse error') ||
+                          renderedSvg.includes('error in text');
+
+          if (hasError) {
+            throw new Error('Diagram contains syntax errors');
+          }
+
+          if (mounted && renderedSvg && renderedSvg.length > 0) {
+            setSvg(renderedSvg);
+            setIsLoading(false);
+          } else {
+            throw new Error('Failed to generate diagram');
+          }
+        } finally {
+          // Always restore console and cleanup
+          console.error = originalConsole.error;
+          console.warn = originalConsole.warn;
+          console.log = originalConsole.log;
+
+          // Remove temporary container
+          if (tempContainer.parentNode) {
+            tempContainer.parentNode.removeChild(tempContainer);
+          }
+
+          // Clean up any Mermaid error elements that might have been added to DOM
+          const errorElements = document.querySelectorAll('[id^="' + id + '"]');
+          errorElements.forEach(el => {
+            if (el.parentNode) {
+              el.parentNode.removeChild(el);
+            }
+          });
         }
       } catch (err) {
-        console.error('Mermaid rendering error:', err);
         if (mounted) {
-          setError(err instanceof Error ? err.message : 'Failed to render diagram');
+          const errorMessage = err instanceof Error ? err.message : 'Failed to render diagram';
+          setError(errorMessage);
           setIsLoading(false);
         }
       }

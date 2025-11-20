@@ -125,7 +125,49 @@ graph TB
 - Include case citations in diagram nodes using proper format
 - Use styling to highlight important nodes (main cases, breaches, remedies)
 - Keep diagrams clear and not overly complex (max 15-20 nodes)
-- Add descriptive labels to all nodes and relationships`;
+- Add descriptive labels to all nodes and relationships
+
+**CRITICAL MERMAID SYNTAX RULES (MUST FOLLOW):**
+1. **Node Labels with Special Characters**:
+   - For labels with parentheses, quotes, or special chars, wrap the ENTIRE label in quotes
+   - CORRECT: A["Company Name (Pte Ltd)"]
+   - WRONG: A[Company Name (Pte Ltd)]
+
+2. **Multi-word Labels**:
+   - Simple text: A[Simple Label]
+   - Complex text with spaces: A["Complex Label Here"]
+   - With line breaks: A["Line 1<br/>Line 2"]
+
+3. **Case Citations in Nodes**:
+   - Always wrap in quotes: A["Case Name [2023] SGCA 10"]
+   - With line break: A["Case Name<br/>[2023] SGCA 10"]
+
+4. **Edge Labels**:
+   - Use pipes for edge labels: A -->|"label text"| B
+   - Keep edge labels short and simple
+
+5. **Subgraph Names**:
+   - Use quotes for multi-word names: subgraph "Party Details"
+   - Simple names don't need quotes: subgraph Parties
+
+6. **Avoid These Common Errors**:
+   - DON'T use parentheses in unquoted labels: A[Text (Note)] ❌
+   - DO use quotes: A["Text (Note)"] ✓
+   - DON'T break lines mid-label without <br/>
+   - DON'T use special chars unescaped: & % $ @
+   - DO keep node IDs simple: A, B, C1, Party1 (no spaces or special chars)
+
+**EXAMPLE OF CORRECT SYNTAX:**
+\`\`\`mermaid
+graph TD
+    A["Plaintiff: ABC Company (Pte Ltd)"] --> B["Contract Signed<br/>Date: 15 Jan 2023"]
+    B --> C["Breach Occurred<br/>Type: Non-payment"]
+    C --> D["Damages Claimed<br/>Amount: SGD 100,000"]
+    style A fill:#e3f2fd
+    style D fill:#ffebee
+\`\`\`
+
+Follow these rules STRICTLY to ensure diagrams render without errors.`;
 
 /**
  * Chain-of-Thought reasoning instructions
