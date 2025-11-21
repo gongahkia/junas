@@ -6,6 +6,7 @@ const STORAGE_KEYS = {
   SETTINGS: 'junas_settings',
   CONVERSATIONS: 'junas_conversations',
   DISCLAIMER_SEEN: 'junas_disclaimer_seen',
+  ONBOARDING_COMPLETED: 'junas_onboarding_completed',
 } as const;
 
 export class StorageManager {
@@ -171,6 +172,26 @@ export class StorageManager {
       window.localStorage.setItem(STORAGE_KEYS.DISCLAIMER_SEEN, 'true');
     } catch (error) {
       console.error('Error setting disclaimer status:', error);
+    }
+  }
+
+  // Onboarding Management
+  static hasCompletedOnboarding(): boolean {
+    try {
+      if (typeof window === 'undefined') return false;
+      return window.localStorage.getItem(STORAGE_KEYS.ONBOARDING_COMPLETED) === 'true';
+    } catch (error) {
+      console.error('Error checking onboarding status:', error);
+      return false;
+    }
+  }
+
+  static setOnboardingCompleted(): void {
+    try {
+      if (typeof window === 'undefined') return;
+      window.localStorage.setItem(STORAGE_KEYS.ONBOARDING_COMPLETED, 'true');
+    } catch (error) {
+      console.error('Error setting onboarding status:', error);
     }
   }
 

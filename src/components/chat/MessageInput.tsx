@@ -50,6 +50,7 @@ export function MessageInput({
                 disabled={isLoading}
                 className="min-h-[60px] md:min-h-[80px] max-h-[200px] md:max-h-[300px] resize-none text-sm md:text-base"
                 rows={1}
+                data-tour="message-input"
               />
             </div>
 
@@ -58,6 +59,7 @@ export function MessageInput({
               type="submit"
               disabled={!message.trim() || isLoading}
               className="h-9 w-9 md:h-10 md:w-10 flex-shrink-0"
+              data-tour="send-button"
             >
               <Send className="h-3.5 w-3.5 md:h-4 md:w-4" />
               <span className="sr-only">Send message</span>

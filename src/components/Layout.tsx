@@ -47,6 +47,7 @@ export function Layout({ children, hasMessages = false, onExport, onImport, onSe
                   size="sm"
                   onClick={onNewChat}
                   className="h-9 px-2 md:px-3"
+                  data-tour="new-chat"
                 >
                   <Plus className="h-4 w-4 md:mr-2" />
                   <span className="hidden md:inline">New Chat</span>
@@ -79,6 +80,7 @@ export function Layout({ children, hasMessages = false, onExport, onImport, onSe
                   size="sm"
                   onClick={onImport}
                   className="h-9 px-2 md:px-3"
+                  data-tour="import"
                 >
                   <Upload className="h-4 w-4 md:mr-2" />
                   <span className="hidden lg:inline">Import</span>
@@ -105,6 +107,7 @@ export function Layout({ children, hasMessages = false, onExport, onImport, onSe
                   size="sm"
                   onClick={onSettings}
                   className="h-9 px-2 md:px-3"
+                  data-tour="settings"
                 >
                   <Settings className="h-4 w-4 md:mr-2" />
                   <span className="hidden md:inline">Settings</span>

@@ -18,6 +18,7 @@ import { DiagramRenderer } from '@/types/chat';
 import { StorageManager } from '@/lib/storage';
 import { Message } from '@/types/chat';
 import { LegalDisclaimerContent } from '@/components/LegalDisclaimer';
+import { OnboardingTour } from '@/components/OnboardingTour';
 
 export default function Home() {
   const [showApiKeyModal, setShowApiKeyModal] = useState(false);
@@ -39,6 +40,24 @@ export default function Home() {
     diagramRenderer: 'mermaid' as DiagramRenderer,
   });
   const [isSavingSettings, setIsSavingSettings] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  // Check if onboarding should be shown on mount
+  useEffect(() => {
+    const hasCompletedOnboarding = StorageManager.hasCompletedOnboarding();
+    const hasSeenDisclaimer = StorageManager.hasSeenDisclaimer();
+    // Show onboarding only if disclaimer has been seen but onboarding hasn't been completed
+    if (hasSeenDisclaimer && !hasCompletedOnboarding) {
+      // Small delay to let the UI render first
+      const timer = setTimeout(() => setShowOnboarding(true), 500);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const handleOnboardingComplete = () => {
+    StorageManager.setOnboardingCompleted();
+    setShowOnboarding(false);
+  };
 
   // Load settings on mount
   useEffect(() => {
@@ -261,6 +280,11 @@ export default function Home() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Onboarding Tour */}
+      {showOnboarding && (
+        <OnboardingTour onComplete={handleOnboardingComplete} />
+      )}
     </Layout>
   );
 }
