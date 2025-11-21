@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, ChevronLeft, X } from 'lucide-react';
 
@@ -64,39 +64,79 @@ export function OnboardingTour({ onComplete }: OnboardingTourProps) {
     }
   }, [currentStep]);
 
-  useEffect(() => {
-    updateTargetPosition();
-    window.addEventListener('resize', updateTargetPosition);
-    window.addEventListener('scroll', updateTargetPosition);
+  const handleComplete = useCallback(() => {
+    setIsVisible(false);
+    onComplete();
+  }, [onComplete]);
 
-    return () => {
-      window.removeEventListener('resize', updateTargetPosition);
-      window.removeEventListener('scroll', updateTargetPosition);
-    };
-  }, [updateTargetPosition]);
+  const handleSkip = useCallback(() => {
+    handleComplete();
+  }, [handleComplete]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (currentStep < tourSteps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
       handleComplete();
     }
-  };
+  }, [currentStep, handleComplete]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     }
-  };
+  }, [currentStep]);
 
-  const handleComplete = () => {
-    setIsVisible(false);
-    onComplete();
-  };
+  // Block all background interactions
+  useEffect(() => {
+    if (!isVisible) return;
 
-  const handleSkip = () => {
-    handleComplete();
-  };
+    // Prevent scrolling
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    // Prevent keyboard interactions on background
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Allow Escape to skip tour
+      if (e.key === 'Escape') {
+        handleSkip();
+        return;
+      }
+      // Block Tab to prevent focus moving to background elements
+      if (e.key === 'Tab') {
+        e.preventDefault();
+      }
+    };
+
+    // Prevent wheel/touch scroll on background
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('wheel', handleWheel, { passive: false });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('wheel', handleWheel);
+      document.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [isVisible, handleSkip]);
+
+  useEffect(() => {
+    updateTargetPosition();
+    window.addEventListener('resize', updateTargetPosition);
+
+    return () => {
+      window.removeEventListener('resize', updateTargetPosition);
+    };
+  }, [updateTargetPosition]);
 
   if (!isVisible) return null;
 
