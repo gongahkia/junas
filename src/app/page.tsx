@@ -13,6 +13,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ProviderSelector } from '@/components/settings/ProviderSelector';
 import { UserSettings } from '@/components/settings/UserSettings';
+import { DiagramSelector } from '@/components/settings/DiagramSelector';
+import { DiagramRenderer } from '@/types/chat';
 import { StorageManager } from '@/lib/storage';
 import { Message } from '@/types/chat';
 import { LegalDisclaimerContent } from '@/components/LegalDisclaimer';
@@ -34,12 +36,17 @@ export default function Home() {
     systemPrompt: 'You are Junas, a legal AI assistant specialized in Singapore law.',
     autoSave: true,
     darkMode: false,
+    diagramRenderer: 'mermaid' as DiagramRenderer,
   });
   const [isSavingSettings, setIsSavingSettings] = useState(false);
 
   // Load settings on mount
   useEffect(() => {
-    setTempSettings(StorageManager.getSettings());
+    const loaded = StorageManager.getSettings();
+    setTempSettings({
+      ...loaded,
+      diagramRenderer: loaded.diagramRenderer || 'mermaid',
+    });
   }, []);
 
   const handleExport = () => {
@@ -55,7 +62,11 @@ export default function Home() {
   };
 
   const handleSettings = () => {
-    setTempSettings(StorageManager.getSettings());
+    const loaded = StorageManager.getSettings();
+    setTempSettings({
+      ...loaded,
+      diagramRenderer: loaded.diagramRenderer || 'mermaid',
+    });
     setShowSettingsModal(true);
   };
 
@@ -70,7 +81,11 @@ export default function Home() {
   };
 
   const handleCancelSettings = () => {
-    setTempSettings(StorageManager.getSettings());
+    const loaded = StorageManager.getSettings();
+    setTempSettings({
+      ...loaded,
+      diagramRenderer: loaded.diagramRenderer || 'mermaid',
+    });
     setShowSettingsModal(false);
   };
 
@@ -183,6 +198,12 @@ export default function Home() {
             <ProviderSelector
               currentProvider={currentProvider}
               onProviderChange={handleProviderChange}
+            />
+
+            {/* Diagram Renderer Selection */}
+            <DiagramSelector
+              currentRenderer={tempSettings.diagramRenderer || 'mermaid'}
+              onRendererChange={(renderer) => handleSettingChange('diagramRenderer', renderer)}
             />
 
             {/* API Keys Section */}

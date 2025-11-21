@@ -8,6 +8,10 @@ import { Copy, Download, FileText, User, Bot, Loader2 } from 'lucide-react';
 import { TokenCounter } from './TokenCounter';
 import { StorageManager } from '@/lib/storage';
 import { MermaidDiagram } from './MermaidDiagram';
+import { PlantUMLDiagram } from './PlantUMLDiagram';
+import { D2Diagram } from './D2Diagram';
+import { GraphvizDiagram } from './GraphvizDiagram';
+import { DiagramRenderer } from '@/types/chat';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
@@ -74,10 +78,41 @@ const MessageItem = memo(({
                       const match = /language-(\w+)/.exec(className || '');
                       const inline = !match;
                       const language = match?.[1];
+                      const diagramRenderer = StorageManager.getSettings().diagramRenderer || 'mermaid';
 
-                      // Handle Mermaid diagrams
-                      if (!inline && language === 'mermaid') {
-                        return <MermaidDiagram chart={String(children).trim()} />;
+                      // Handle diagram code blocks
+                      const diagramLanguages = ['mermaid', 'plantuml', 'd2', 'graphviz', 'dot'];
+                      if (!inline && language && diagramLanguages.includes(language)) {
+                        const chartCode = String(children).trim();
+
+                        // If specific language matches renderer, use that component
+                        if (language === 'mermaid') {
+                          return <MermaidDiagram chart={chartCode} />;
+                        }
+                        if (language === 'plantuml') {
+                          return <PlantUMLDiagram chart={chartCode} />;
+                        }
+                        if (language === 'd2') {
+                          return <D2Diagram chart={chartCode} />;
+                        }
+                        if (language === 'graphviz' || language === 'dot') {
+                          return <GraphvizDiagram chart={chartCode} />;
+                        }
+                      }
+
+                      // For generic diagram blocks, use user's preferred renderer
+                      if (!inline && language === 'diagram') {
+                        const chartCode = String(children).trim();
+                        switch (diagramRenderer) {
+                          case 'plantuml':
+                            return <PlantUMLDiagram chart={chartCode} />;
+                          case 'd2':
+                            return <D2Diagram chart={chartCode} />;
+                          case 'graphviz':
+                            return <GraphvizDiagram chart={chartCode} />;
+                          default:
+                            return <MermaidDiagram chart={chartCode} />;
+                        }
                       }
 
                       return !inline && match ? (

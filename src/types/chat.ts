@@ -49,6 +49,8 @@ export interface ChatState {
   settings: ChatSettings;
 }
 
+export type DiagramRenderer = 'mermaid' | 'd2' | 'plantuml' | 'graphviz';
+
 export interface ChatSettings {
   temperature: number;
   maxTokens: number;
@@ -56,4 +58,5 @@ export interface ChatSettings {
   autoSave: boolean;
   darkMode: boolean;
   userName?: string;
+  diagramRenderer?: DiagramRenderer;
 }
