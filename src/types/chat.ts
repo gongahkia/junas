@@ -57,3 +57,5 @@ export interface ChatSettings {
   darkMode: boolean;
   userName?: string;
 }
+
+export type DiagramRenderer = 'mermaid' | 'plantuml' | 'graphviz' | 'd2';
