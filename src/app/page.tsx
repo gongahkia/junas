@@ -117,12 +117,6 @@ export default function Home() {
       {/* Settings Modal */}
       <Dialog open={showSettingsModal} onOpenChange={setShowSettingsModal}>
         <DialogContent className="max-w-2xl max-h-[85vh] md:max-h-[80vh] overflow-y-auto w-[95vw] md:w-full">
-          <DialogHeader>
-            <DialogTitle className="text-base md:text-lg">About & Legal</DialogTitle>
-            <DialogDescription className="text-xs md:text-sm">
-              Information about Junas and legal disclaimer.
-            </DialogDescription>
-          </DialogHeader>
 
           <div className="space-y-4 md:space-y-6">
             {/* App Info */}
@@ -135,8 +129,9 @@ export default function Home() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="text-sm text-muted-foreground">
-                  <p>Version: 1.0.0</p>
+                  <p>Version: 1.0.1</p>
                   <p>Built with Next.js 14 and TypeScript</p>
+                  <p>Bring your own keys: Use your own models</p>
                   <p>Privacy-focused: All data stays in your browser</p>
                 </div>
               </CardContent>
