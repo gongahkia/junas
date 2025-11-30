@@ -202,21 +202,46 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
       // Get all messages including the new user message
       const allMessages = [...messages, userMessage];
 
+      // Batching variables for smooth streaming
+      let accumulatedContent = '';
+      let rafId: number | null = null;
+      let lastUpdate = 0;
+
+      const updateMessage = () => {
+        setMessages(prev =>
+          prev.map(msg =>
+            msg.id === assistantMessage.id
+              ? { ...msg, content: accumulatedContent }
+              : msg
+          )
+        );
+        rafId = null;
+      };
+
       // Try streaming first, then fallback to non-streaming if provider doesn't support endpoint
       let fullResponse = '';
       try {
         const result = await ChatService.sendMessage(
           allMessages,
           (chunk: string) => {
-            setMessages(prev =>
-              prev.map(msg =>
-                msg.id === assistantMessage.id
-                  ? { ...msg, content: msg.content + chunk }
-                  : msg
-              )
-            );
+            accumulatedContent += chunk;
+
+            // Batch updates using requestAnimationFrame for smooth rendering
+            // Only update at most every 16ms (60fps) to reduce jitter
+            const now = Date.now();
+            if (!rafId && now - lastUpdate > 16) {
+              lastUpdate = now;
+              rafId = requestAnimationFrame(updateMessage);
+            }
           }
         );
+
+        // Ensure final update is applied
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+        }
+        updateMessage();
+
         fullResponse = result.content;
       } catch (e: any) {
         // Fallback to non-streaming

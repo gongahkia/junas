@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, memo } from 'react';
+import { useEffect, useRef, memo, useState } from 'react';
 import { Message } from '@/types/chat';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -12,6 +12,7 @@ import { PlantUMLDiagram } from './PlantUMLDiagram';
 import { D2Diagram } from './D2Diagram';
 import { GraphvizDiagram } from './GraphvizDiagram';
 import { DiagramRenderer } from '@/types/chat';
+import { ThinkingIndicator } from './ThinkingIndicator';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
@@ -27,7 +28,7 @@ interface MessageListProps {
 }
 
 // Memoized message item component to prevent unnecessary re-renders
-const MessageItem = memo(({
+const MessageItemComponent = ({
   message,
   onCopyMessage
 }: {
@@ -35,16 +36,16 @@ const MessageItem = memo(({
   onCopyMessage: (content: string) => void;
 }) => {
   const userName = StorageManager.getSettings().userName || 'User';
-  
+
   return (
     <div
-      className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+      className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in-up`}
     >
-      <div className={`flex w-full md:max-w-[85%] ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start space-x-3`}>
-        <Card className={`p-3 md:p-4 ${
+      <div className={`flex w-full md:max-w-[75%] ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start gap-3`}>
+        <div className={`flex-1 rounded-2xl px-5 py-4 ${
           message.role === 'user'
-            ? 'bg-card text-card-foreground border border-border'
-            : 'bg-card text-card-foreground border border-border'
+            ? 'bg-primary/10 border-none shadow-sm'
+            : 'bg-muted/30 border-none shadow-sm'
         }`}>
           <div className="space-y-3">
             {/* Attachments */}
@@ -53,10 +54,10 @@ const MessageItem = memo(({
                 {message.attachments.map((attachment) => (
                   <div
                     key={attachment.id}
-                    className="inline-flex items-center space-x-2 px-2 md:px-3 py-1.5 rounded-md bg-muted text-xs md:text-sm text-foreground border border-border"
+                    className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-background/60 text-sm text-foreground border-none"
                   >
-                    <FileText className="w-3 h-3 md:w-4 md:h-4" />
-                    <span className="truncate max-w-[200px] md:max-w-[320px]" title={attachment.name}>
+                    <FileText className="w-4 h-4" />
+                    <span className="truncate max-w-[320px]" title={attachment.name}>
                       {attachment.name}
                     </span>
                     <span className="text-xs text-muted-foreground whitespace-nowrap">
@@ -68,7 +69,7 @@ const MessageItem = memo(({
             )}
 
             {/* Message content */}
-            <div className={`prose prose-sm max-w-none`}>
+            <div className={`prose prose-sm md:prose-base max-w-none leading-relaxed`}>
               {message.role === 'assistant' ? (
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm, remarkMath]}
@@ -172,35 +173,48 @@ const MessageItem = memo(({
             )}
 
             {/* Token counter for all messages */}
-            <div className="pt-2">
-              <TokenCounter content={message.content} responseTime={message.responseTime} />
-            </div>
+            {message.responseTime && (
+              <div className="pt-1">
+                <TokenCounter content={message.content} responseTime={message.responseTime} />
+              </div>
+            )}
 
             {/* Message actions */}
-            <div className="flex items-center space-x-2 pt-2">
+            <div className="flex items-center gap-1 pt-2 -mx-1">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => onCopyMessage(message.content)}
-                className={`h-8 px-2 text-muted-foreground hover:bg-muted`}
+                className="h-7 px-2 text-muted-foreground/60 hover:text-foreground hover:bg-transparent transition-colors"
               >
-                <Copy className="w-3 h-3" />
+                <Copy className="w-3.5 h-3.5" />
                 <span className="sr-only">Copy message</span>
               </Button>
             </div>
+
+            {/* Sender label */}
+            <div className={`pt-2 text-[11px] font-medium text-muted-foreground/70 ${
+              message.role === 'user' ? 'text-right' : 'text-left'
+            }`}>
+              {message.role === 'assistant' ? 'Junas' : userName}
+            </div>
           </div>
-          {/* Sender label */}
-          <div className={`pt-2 text-[10px] text-muted-foreground ${
-            message.role === 'user' ? 'text-right' : 'text-left'
-          }`}>
-            {message.role === 'assistant' ? 'Junas' : userName}
-          </div>
-        </Card>
+        </div>
       </div>
     </div>
   );
-});
+};
 
+// Custom comparison to prevent re-renders unless content actually changes
+const arePropsEqual = (prevProps: any, nextProps: any) => {
+  return (
+    prevProps.message.id === nextProps.message.id &&
+    prevProps.message.content === nextProps.message.content &&
+    prevProps.message.responseTime === nextProps.message.responseTime
+  );
+};
+
+const MessageItem = memo(MessageItemComponent, arePropsEqual);
 MessageItem.displayName = 'MessageItem';
 
 export const MessageList = memo(function MessageList({
@@ -213,9 +227,13 @@ export const MessageList = memo(function MessageList({
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messageRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const hasScrolledToMessage = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToBottom = (smooth = true) => {
+    if (messagesEndRef.current && isAutoScrolling) {
+      messagesEndRef.current.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto' });
+    }
   };
 
   // Scroll to specific message when scrollToMessageId changes
@@ -252,12 +270,14 @@ export const MessageList = memo(function MessageList({
   }
 
   return (
-    <div className="flex-1 overflow-y-auto px-3 md:px-6 py-4 md:py-8 space-y-4 md:space-y-6 max-w-6xl mx-auto w-full">
+    <div
+      ref={containerRef}
+      className="flex-1 overflow-y-auto px-4 md:px-6 py-6 md:py-10 space-y-6 md:space-y-8 max-w-4xl mx-auto w-full scroll-smooth"
+    >
       {messages.map((message, index) => (
-        <div 
+        <div
           key={message.id}
           ref={(el) => { messageRefs.current[message.id] = el; }}
-          className="transition-all duration-300 rounded-lg"
         >
           {message.role === 'system' && message.content === 'loading' ? (
             <div className="flex justify-center py-4">
@@ -274,14 +294,8 @@ export const MessageList = memo(function MessageList({
         </div>
       ))}
 
-      {/* Minimal loading indicator */}
-      {isLoading && (
-        <div className="flex justify-center py-4">
-          <div className="text-sm text-muted-foreground/60 animate-pulse">
-            Junas is analyzing your request...
-          </div>
-        </div>
-      )}
+      {/* ChatGPT-style thinking indicator */}
+      {isLoading && <ThinkingIndicator />}
 
       <div ref={messagesEndRef} />
     </div>

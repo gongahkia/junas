@@ -76,9 +76,10 @@
   @apply bg-foreground;
 }
 
-/* Markdown styles */
+/* Markdown styles - Enhanced for readability */
 .prose {
   @apply text-foreground;
+  line-height: 1.75;
 }
 
 .prose-invert {
@@ -87,42 +88,58 @@
 
 .prose-invert h1, .prose-invert h2, .prose-invert h3, .prose-invert h4, .prose-invert h5, .prose-invert h6 {
   @apply text-primary-foreground font-semibold;
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
 }
 
 .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
   @apply text-foreground font-semibold;
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+  line-height: 1.3;
+}
+
+.prose p {
+  margin-bottom: 1.25em;
 }
 
 .prose code {
-  @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono;
+  @apply bg-muted/50 px-1.5 py-0.5 rounded text-sm font-mono;
+  font-size: 0.9em;
 }
 
 .prose-invert code {
-  @apply bg-primary-foreground/20 px-1.5 py-0.5 rounded text-sm font-mono text-primary-foreground;
+  @apply bg-primary-foreground/10 px-1.5 py-0.5 rounded text-sm font-mono text-primary-foreground;
 }
 
 .prose pre {
-  @apply bg-muted p-4 rounded-lg overflow-x-auto;
+  @apply bg-muted/40 p-4 rounded-xl overflow-x-auto;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
 }
 
 .prose-invert pre {
-  @apply bg-primary-foreground/20 p-4 rounded-lg overflow-x-auto;
+  @apply bg-primary-foreground/10 p-4 rounded-xl overflow-x-auto;
 }
 
 .prose blockquote {
-  @apply border-l-4 border-primary pl-4 italic;
+  @apply border-l-2 border-primary/30 pl-4 italic;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
 }
 
 .prose-invert blockquote {
-  @apply border-l-4 border-primary-foreground pl-4 italic;
+  @apply border-l-2 border-primary-foreground/30 pl-4 italic;
 }
 
 .prose ul, .prose ol {
   @apply pl-6;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .prose li {
-  @apply mb-1;
+  @apply mb-2;
 }
 
 /* LaTeX math styling */
@@ -146,6 +163,27 @@
 
 .animate-pulse-slow {
   animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Message animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Smooth scroll behavior */
+.scroll-smooth {
+  scroll-behavior: smooth;
 }
 
 /* Message text contrast fixes */
