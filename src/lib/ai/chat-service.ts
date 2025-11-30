@@ -35,7 +35,7 @@ export class ChatService {
     preferredProvider?: string
   ): Promise<SendMessageResult> {
     try {
-      let provider = preferredProvider;
+      let provider: string | null = preferredProvider || null;
 
       // If no preferred provider or it's not configured, get available provider
       if (!provider) {
