@@ -18,9 +18,24 @@ export function LegalDisclaimerContent() {
         The information provided is for general informational purposes only and should not be relied upon
         as a substitute for professional legal counsel.
       </p>
-      <p className="text-xs">
+      <p className="mb-2 text-xs">
         For specific legal matters, please consult a qualified lawyer licensed to practice in Singapore.
         By using Junas, you acknowledge that AI-generated responses may contain errors or inaccuracies.
+      </p>
+      <p className="mb-2 text-xs">
+        <strong>No Attorney-Client Relationship:</strong> Use of this service does not create an attorney-client
+        relationship between you and the developers or operators of Junas. Any information you provide is not
+        protected by attorney-client privilege.
+      </p>
+      <p className="mb-2 text-xs">
+        <strong>Accuracy and Reliability:</strong> While we strive to provide accurate information, AI models
+        can make mistakes, misinterpret context, or provide outdated information. Always verify critical legal
+        information with authoritative sources or qualified legal professionals.
+      </p>
+      <p className="text-xs">
+        <strong>Limitation of Liability:</strong> To the fullest extent permitted by law, we disclaim all
+        liability for any damages arising from your use of or reliance on information provided by Junas.
+        This includes, but is not limited to, direct, indirect, incidental, consequential, or punitive damages.
       </p>
     </>
   );
