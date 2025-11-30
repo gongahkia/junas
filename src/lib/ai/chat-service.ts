@@ -31,10 +31,26 @@ export class ChatService {
 
   static async sendMessage(
     messages: Message[],
-    onChunk?: (chunk: string) => void
+    onChunk?: (chunk: string) => void,
+    preferredProvider?: string
   ): Promise<SendMessageResult> {
     try {
-      const provider = await this.getAvailableProvider();
+      let provider = preferredProvider;
+
+      // If no preferred provider or it's not configured, get available provider
+      if (!provider) {
+        provider = await this.getAvailableProvider();
+      } else {
+        // Verify the preferred provider is configured
+        const response = await fetch('/api/auth/keys');
+        if (response.ok) {
+          const { configured } = await response.json();
+          if (!configured[provider]) {
+            // Fall back to any available provider
+            provider = await this.getAvailableProvider();
+          }
+        }
+      }
 
       if (!provider) {
         throw new Error('No API keys configured. Please add an API key in settings.');

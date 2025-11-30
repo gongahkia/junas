@@ -56,6 +56,7 @@ export function ChatInterface({ onSettings, onMessagesChange, scrollToMessageId 
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMessages, setHasMessages] = useState(false);
+  const [currentProvider, setCurrentProvider] = useState<string>('gemini');
   const [userName, setUserName] = useState<string | undefined>(() => StorageManager.getSettings().userName);
   const { addToast } = useToast();
 
@@ -78,6 +79,9 @@ export function ChatInterface({ onSettings, onMessagesChange, scrollToMessageId 
     if (chatState?.messages) {
       setMessages(chatState.messages);
       setHasMessages(chatState.messages.length > 0);
+    }
+    if (chatState?.currentProvider) {
+      setCurrentProvider(chatState.currentProvider);
     }
   }, []);
 
@@ -155,7 +159,7 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
       },
     ];
 
-    const result = await ChatService.sendMessage(summarizationPrompt);
+    const result = await ChatService.sendMessage(summarizationPrompt, undefined, currentProvider);
     return result.content;
   };
 
@@ -165,13 +169,13 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
       StorageManager.saveChatState({
         messages,
         isLoading,
-        currentProvider: 'gemini',
+        currentProvider,
         apiKeys: StorageManager.getApiKeys(),
         settings: StorageManager.getSettings(),
       });
       setHasMessages(true);
     }
-  }, [messages, isLoading]);
+  }, [messages, isLoading, currentProvider]);
 
   const handleSendMessage = useCallback(async (content: string) => {
     if (!content.trim()) return;
@@ -233,7 +237,8 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
               lastUpdate = now;
               rafId = requestAnimationFrame(updateMessage);
             }
-          }
+          },
+          currentProvider
         );
 
         // Ensure final update is applied
@@ -245,7 +250,7 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
         fullResponse = result.content;
       } catch (e: any) {
         // Fallback to non-streaming
-        const result = await ChatService.sendMessage(allMessages);
+        const result = await ChatService.sendMessage(allMessages, undefined, currentProvider);
         fullResponse = result.content;
       }
 
@@ -347,6 +352,8 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
       <MessageInput
         onSendMessage={handleSendMessage}
         isLoading={isLoading}
+        currentProvider={currentProvider}
+        onProviderChange={setCurrentProvider}
       />
 
       {/* Legal Disclaimer Overlay */}

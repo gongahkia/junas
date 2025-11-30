@@ -4,17 +4,22 @@ import { useState, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Send } from 'lucide-react';
+import { InlineProviderSelector } from './InlineProviderSelector';
 
 interface MessageInputProps {
   onSendMessage: (content: string) => void;
   isLoading: boolean;
   placeholder?: string;
+  currentProvider: string;
+  onProviderChange: (provider: string) => void;
 }
 
 export function MessageInput({
   onSendMessage,
   isLoading,
   placeholder = "Ask Junas anything about Singapore law...",
+  currentProvider,
+  onProviderChange,
 }: MessageInputProps) {
   const [message, setMessage] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -48,10 +53,18 @@ export function MessageInput({
                 onKeyDown={handleKeyDown}
                 placeholder={placeholder}
                 disabled={isLoading}
-                className="min-h-[60px] md:min-h-[80px] max-h-[200px] md:max-h-[300px] resize-none text-sm md:text-base"
+                className="min-h-[60px] md:min-h-[80px] max-h-[200px] md:max-h-[300px] resize-none text-sm md:text-base pb-10"
                 rows={1}
                 data-tour="message-input"
               />
+              
+              {/* Provider selector - positioned at bottom left inside textarea */}
+              <div className="absolute bottom-2 left-2 z-10">
+                <InlineProviderSelector
+                  currentProvider={currentProvider}
+                  onProviderChange={onProviderChange}
+                />
+              </div>
             </div>
 
             {/* Send button */}
