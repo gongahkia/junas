@@ -134,6 +134,30 @@ export default function Home() {
                   <p>Bring your own keys: Use your own models</p>
                   <p>Privacy-focused: All data stays in your browser</p>
                 </div>
+                <div className="pt-4 border-t text-xs text-muted-foreground space-y-1">
+                  <p>
+                    Made with ❤️ by{' '}
+                    <a
+                      href="https://gabrielongzm.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline"
+                    >
+                      Gabriel Ong
+                    </a>
+                  </p>
+                  <p>
+                    Source code{' '}
+                    <a
+                      href="https://github.com/gongahkia/junas"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline"
+                    >
+                      here
+                    </a>
+                  </p>
+                </div>
               </CardContent>
             </Card>
 
