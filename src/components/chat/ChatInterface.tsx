@@ -57,7 +57,6 @@ export function ChatInterface({ onSettings, onMessagesChange, scrollToMessageId 
   const [isLoading, setIsLoading] = useState(false);
   const [hasMessages, setHasMessages] = useState(false);
   const [userName, setUserName] = useState<string | undefined>(() => StorageManager.getSettings().userName);
-  const [currentProvider, setCurrentProvider] = useState('gemini');
   const { addToast } = useToast();
 
   // Update userName when settings change
@@ -348,8 +347,6 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
       <MessageInput
         onSendMessage={handleSendMessage}
         isLoading={isLoading}
-        currentProvider={currentProvider}
-        onProviderChange={setCurrentProvider}
       />
 
       {/* Legal Disclaimer Overlay */}
