@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { Layout } from '@/components/Layout';
 import { ChatInterface } from '@/components/chat/ChatInterface';
-import { ApiKeyModal } from '@/components/settings/ApiKeyModal';
 import { NewChatDialog } from '@/components/chat/NewChatDialog';
 import { ExportDialog } from '@/components/chat/ExportDialog';
 import { ImportDialog } from '@/components/chat/ImportDialog';
@@ -11,44 +10,20 @@ import { SearchDialog } from '@/components/chat/SearchDialog';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ProviderSelector } from '@/components/settings/ProviderSelector';
-import { UserSettings } from '@/components/settings/UserSettings';
-import { DiagramSelector } from '@/components/settings/DiagramSelector';
-import { DiagramRenderer } from '@/types/chat';
 import { StorageManager } from '@/lib/storage';
 import { Message } from '@/types/chat';
 import { LegalDisclaimerContent } from '@/components/LegalDisclaimer';
 import { UsernamePrompt } from '@/components/UsernamePrompt';
 
 export default function Home() {
-  const [showApiKeyModal, setShowApiKeyModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showNewChatDialog, setShowNewChatDialog] = useState(false);
   const [showExportDialog, setShowExportDialog] = useState(false);
   const [showImportDialog, setShowImportDialog] = useState(false);
   const [showSearchDialog, setShowSearchDialog] = useState(false);
-  const [currentProvider, setCurrentProvider] = useState('gemini');
   const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
   const [messages, setMessages] = useState<Message[]>([]);
   const [scrollToMessageId, setScrollToMessageId] = useState<string | undefined>();
-  const [tempSettings, setTempSettings] = useState({
-    temperature: 0.7,
-    maxTokens: 4000,
-    systemPrompt: 'You are Junas, a legal AI assistant specialized in Singapore law.',
-    autoSave: true,
-    darkMode: false,
-    diagramRenderer: 'mermaid' as DiagramRenderer,
-  });
-  const [isSavingSettings, setIsSavingSettings] = useState(false);
-
-  // Load settings on mount
-  useEffect(() => {
-    const loaded = StorageManager.getSettings();
-    setTempSettings({
-      ...loaded,
-      diagramRenderer: loaded.diagramRenderer || 'mermaid',
-    });
-  }, []);
 
   const handleExport = () => {
     setShowExportDialog(true);
@@ -63,40 +38,7 @@ export default function Home() {
   };
 
   const handleSettings = () => {
-    const loaded = StorageManager.getSettings();
-    setTempSettings({
-      ...loaded,
-      diagramRenderer: loaded.diagramRenderer || 'mermaid',
-    });
     setShowSettingsModal(true);
-  };
-
-  const handleSaveSettings = () => {
-    setIsSavingSettings(true);
-    try {
-      StorageManager.saveSettings(tempSettings);
-      setShowSettingsModal(false);
-    } finally {
-      setIsSavingSettings(false);
-    }
-  };
-
-  const handleCancelSettings = () => {
-    const loaded = StorageManager.getSettings();
-    setTempSettings({
-      ...loaded,
-      diagramRenderer: loaded.diagramRenderer || 'mermaid',
-    });
-    setShowSettingsModal(false);
-  };
-
-  const handleSettingChange = (key: string, value: any) => {
-    setTempSettings(prev => ({ ...prev, [key]: value }));
-  };
-
-  const handleProviderChange = (provider: string) => {
-    setCurrentProvider(provider);
-    // TODO: Save provider preference
   };
 
   const handleNewChat = () => {
@@ -143,12 +85,6 @@ export default function Home() {
         scrollToMessageId={scrollToMessageId}
       />
 
-      {/* API Key Modal */}
-      <ApiKeyModal
-        isOpen={showApiKeyModal}
-        onClose={() => setShowApiKeyModal(false)}
-      />
-
       {/* New Chat Dialog */}
       <NewChatDialog
         isOpen={showNewChatDialog}
@@ -179,49 +115,16 @@ export default function Home() {
       />
 
       {/* Settings Modal */}
-      <Dialog open={showSettingsModal} onOpenChange={handleCancelSettings}>
+      <Dialog open={showSettingsModal} onOpenChange={setShowSettingsModal}>
         <DialogContent className="max-w-2xl max-h-[85vh] md:max-h-[80vh] overflow-y-auto w-[95vw] md:w-full">
           <DialogHeader>
-            <DialogTitle className="text-base md:text-lg">Settings</DialogTitle>
+            <DialogTitle className="text-base md:text-lg">About & Legal</DialogTitle>
             <DialogDescription className="text-xs md:text-sm">
-              Configure your AI provider and application settings.
+              Information about Junas and legal disclaimer.
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4 md:space-y-6">
-            {/* User Preferences */}
-            <UserSettings 
-              settings={tempSettings}
-              onSettingChange={handleSettingChange}
-            />
-
-            {/* Provider Selection */}
-            <ProviderSelector
-              currentProvider={currentProvider}
-              onProviderChange={handleProviderChange}
-            />
-
-            {/* Diagram Renderer Selection */}
-            <DiagramSelector
-              currentRenderer={tempSettings.diagramRenderer || 'mermaid'}
-              onRendererChange={(renderer) => handleSettingChange('diagramRenderer', renderer)}
-            />
-
-            {/* API Keys Section */}
-            <Card>
-              <CardHeader>
-                <CardTitle>API Keys</CardTitle>
-                <CardDescription>
-                  Configure your API keys for different AI providers.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button onClick={() => setShowApiKeyModal(true)}>
-                  Manage API Keys
-                </Button>
-              </CardContent>
-            </Card>
-
             {/* App Info */}
             <Card>
               <CardHeader>
@@ -252,12 +155,9 @@ export default function Home() {
             </Card>
           </div>
 
-          <div className="flex justify-end space-x-2 pt-4 border-t">
-            <Button variant="outline" onClick={handleCancelSettings}>
-              Cancel
-            </Button>
-            <Button onClick={handleSaveSettings} disabled={isSavingSettings}>
-              {isSavingSettings ? 'Saving...' : 'Save Settings'}
+          <div className="flex justify-end pt-4 border-t">
+            <Button onClick={() => setShowSettingsModal(false)}>
+              Close
             </Button>
           </div>
         </DialogContent>
