@@ -4,17 +4,22 @@ import { useState, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Send } from 'lucide-react';
+import { InlineProviderSelector } from './InlineProviderSelector';
 
 interface MessageInputProps {
   onSendMessage: (content: string) => void;
   isLoading: boolean;
   placeholder?: string;
+  currentProvider?: string;
+  onProviderChange?: (provider: string) => void;
 }
 
 export function MessageInput({
   onSendMessage,
   isLoading,
-  placeholder = "Ask Junas anything about Singapore law..."
+  placeholder = "Ask Junas anything about Singapore law...",
+  currentProvider = 'gemini',
+  onProviderChange = () => {},
 }: MessageInputProps) {
   const [message, setMessage] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -38,7 +43,7 @@ export function MessageInput({
     <div className="border-t bg-background sticky bottom-0 z-50 shadow-sm">
       <div className="max-w-6xl mx-auto px-3 md:px-6 py-3 md:py-6">
         {/* Input form */}
-        <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3">
           <div className="flex items-end space-x-2">
             <div className="flex-1 relative">
               <Textarea
@@ -64,6 +69,14 @@ export function MessageInput({
               <Send className="h-3.5 w-3.5 md:h-4 md:w-4" />
               <span className="sr-only">Send message</span>
             </Button>
+          </div>
+
+          {/* Inline Provider Selector */}
+          <div className="flex justify-end">
+            <InlineProviderSelector
+              currentProvider={currentProvider}
+              onProviderChange={onProviderChange}
+            />
           </div>
         </form>
       </div>
