@@ -44,7 +44,7 @@ export function CommandPalette({
   const commands: CommandItem[] = [
     {
       id: 'search-case-law',
-      label: 'Search case law',
+      label: 'search-case-law',
       description: 'Search Singapore legal database for relevant cases',
       icon: <Search className="h-4 w-4" />,
       category: 'research',
@@ -52,7 +52,7 @@ export function CommandPalette({
     },
     {
       id: 'analyze-contract',
-      label: 'Analyze contract',
+      label: 'analyze-contract',
       description: 'Extract key terms, obligations, and risks from contract',
       icon: <FileSearch className="h-4 w-4" />,
       category: 'analysis',
@@ -60,7 +60,7 @@ export function CommandPalette({
     },
     {
       id: 'extract-entities',
-      label: 'Extract entities',
+      label: 'extract-entities',
       description: 'Identify persons, organizations, dates, and legal references',
       icon: <Users className="h-4 w-4" />,
       category: 'analysis',
@@ -68,7 +68,7 @@ export function CommandPalette({
     },
     {
       id: 'summarize-document',
-      label: 'Summarize document',
+      label: 'summarize-document',
       description: 'Generate concise summary of legal document',
       icon: <FileText className="h-4 w-4" />,
       category: 'analysis',
@@ -76,7 +76,7 @@ export function CommandPalette({
     },
     {
       id: 'draft-clause',
-      label: 'Draft clause',
+      label: 'draft-clause',
       description: 'Generate legal clause based on requirements',
       icon: <FileSignature className="h-4 w-4" />,
       category: 'drafting',
@@ -84,7 +84,7 @@ export function CommandPalette({
     },
     {
       id: 'check-compliance',
-      label: 'Check compliance',
+      label: 'check-compliance',
       description: 'Verify regulatory compliance for Singapore law',
       icon: <Scale className="h-4 w-4" />,
       category: 'tools',
@@ -92,15 +92,15 @@ export function CommandPalette({
     },
     {
       id: 'research-statute',
-      label: 'Research statute',
+      label: 'research-statute',
       description: 'Look up statutory provisions and interpretations',
       icon: <BookOpen className="h-4 w-4" />,
       category: 'research',
       action: () => {},
     },
     {
-      id: 'due-diligence',
-      label: 'Due diligence review',
+      id: 'due-diligence-review',
+      label: 'due-diligence-review',
       description: 'Conduct legal due diligence checklist',
       icon: <Briefcase className="h-4 w-4" />,
       category: 'analysis',
@@ -161,7 +161,7 @@ export function CommandPalette({
   }, [inputValue, cursorPosition]);
 
   const handleCommandSelect = (command: CommandItem) => {
-    const commandText = `/${command.id.replace(/-/g, ' ')}`;
+    const commandText = `/${command.id}`;
     onCommandSelect(command.id, commandText);
   };
 
