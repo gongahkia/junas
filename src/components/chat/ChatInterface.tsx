@@ -10,6 +10,7 @@ import { StorageManager } from '@/lib/storage';
 import { ChatService } from '@/lib/ai/chat-service';
 import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
+import { AttachedFile } from './ContextAttachment';
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -177,13 +178,28 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
     }
   }, [messages, isLoading, currentProvider]);
 
-  const handleSendMessage = useCallback(async (content: string) => {
+  const handleSendMessage = useCallback(async (content: string, attachedFiles?: AttachedFile[]) => {
     if (!content.trim()) return;
+
+    // Process attached files and add context to the message
+    let enrichedContent = content;
+    
+    if (attachedFiles && attachedFiles.length > 0) {
+      const filesContext = attachedFiles.map(file => {
+        return `\n\n[Attached File: ${file.name}]\n${
+          file.type.startsWith('image/') 
+            ? '[Image file - content embedded]' 
+            : file.content.slice(0, 5000) // Limit to first 5000 chars
+        }\n[End of ${file.name}]`;
+      }).join('\n');
+      
+      enrichedContent = `${content}\n\n--- Context from attached files ---${filesContext}`;
+    }
 
     const userMessage: Message = {
       id: generateId(),
       role: 'user',
-      content,
+      content: enrichedContent,
       timestamp: new Date(),
     };
 
