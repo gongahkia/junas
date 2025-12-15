@@ -280,7 +280,7 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
 
 
   return (
-    <div className="flex flex-col h-full max-w-6xl mx-auto w-full">
+    <div className="flex flex-col h-full w-full">
       {/* Messages area */}
       <div className="flex-1 overflow-hidden">
         <div className="h-full flex flex-col">

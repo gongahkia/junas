@@ -133,7 +133,7 @@ export function MessageInput({
 
   return (
     <div className="border-t bg-background sticky bottom-0 z-50 shadow-sm">
-      <div className="max-w-6xl mx-auto px-3 md:px-6 py-3 md:py-6">
+      <div className="max-w-5xl mx-auto px-4 md:px-8 py-4 md:py-6">
         {/* Input form */}
         <form onSubmit={handleSubmit} className="space-y-3">
           <div className="flex items-end space-x-2">
@@ -155,13 +155,13 @@ export function MessageInput({
                 onKeyDown={handleKeyDown}
                 placeholder={placeholder}
                 disabled={isLoading}
-                className="min-h-[60px] md:min-h-[80px] max-h-[200px] md:max-h-[300px] resize-none text-sm md:text-base pb-10"
+                className="min-h-[60px] md:min-h-[80px] max-h-[200px] md:max-h-[300px] resize-none text-sm md:text-base pb-12 px-3 md:px-4 pt-3 md:pt-4"
                 rows={1}
                 data-tour="message-input"
               />
               
               {/* Bottom toolbar inside textarea */}
-              <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between z-10">
+              <div className="absolute bottom-3 left-3 right-3 md:bottom-3 md:left-4 md:right-4 flex items-center justify-between z-10">
                 <div className="flex items-center gap-1">
                   {/* Provider selector */}
                   <InlineProviderSelector
@@ -192,10 +192,10 @@ export function MessageInput({
             <Button
               type="submit"
               disabled={!message.trim() || isLoading}
-              className="h-9 w-9 md:h-10 md:w-10 flex-shrink-0"
+              className="h-[60px] w-[60px] md:h-[80px] md:w-[80px] flex-shrink-0 rounded-xl"
               data-tour="send-button"
             >
-              <Send className="h-3.5 w-3.5 md:h-4 md:w-4" />
+              <Send className="h-4 w-4 md:h-5 md:w-5" />
               <span className="sr-only">Send message</span>
             </Button>
           </div>

@@ -37,8 +37,8 @@ const MessageItemComponent = ({
     <div
       className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in-up`}
     >
-      <div className={`flex w-full md:max-w-[75%] ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start gap-3`}>
-        <div className={`flex-1 rounded-2xl px-5 py-4 ${
+      <div className={`flex w-full md:max-w-[80%] ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start gap-3`}>
+        <div className={`flex-1 rounded-2xl px-4 md:px-6 py-3 md:py-4 ${
           message.role === 'user'
             ? 'bg-primary/10 border-none shadow-sm'
             : 'bg-muted/30 border-none shadow-sm'
@@ -239,7 +239,7 @@ export const MessageList = memo(function MessageList({
   return (
     <div
       ref={containerRef}
-      className="flex-1 overflow-y-auto px-4 md:px-6 py-6 md:py-10 space-y-6 md:space-y-8 max-w-4xl mx-auto w-full scroll-smooth"
+      className="flex-1 overflow-y-auto px-4 md:px-8 py-8 md:py-12 space-y-6 md:space-y-8 max-w-5xl mx-auto w-full scroll-smooth"
     >
       {messages.map((message, index) => (
         <div

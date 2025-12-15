@@ -33,7 +33,7 @@ export function Layout({ children, onImport, onNewChat }: LayoutProps) {
         <div className="min-h-screen bg-background flex flex-col">
         {/* Header */}
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="max-w-7xl mx-auto flex h-14 md:h-16 items-center gap-2 md:gap-6 px-3 md:px-6">
+          <div className="max-w-7xl mx-auto flex h-14 md:h-16 items-center gap-2 md:gap-6 px-4 md:px-8">
             {/* Left side - New Chat button */}
             <div className="flex items-center">
               {onNewChat && (
@@ -41,7 +41,7 @@ export function Layout({ children, onImport, onNewChat }: LayoutProps) {
                   variant="outline"
                   size="sm"
                   onClick={onNewChat}
-                  className="h-9 px-2 md:px-3"
+                  className="h-9 md:h-10 px-3 md:px-4"
                   data-tour="new-chat"
                 >
                   <Plus className="h-4 w-4 md:mr-2" />
@@ -61,11 +61,11 @@ export function Layout({ children, onImport, onNewChat }: LayoutProps) {
                   variant="outline"
                   size="sm"
                   onClick={onImport}
-                  className="h-9 px-2 md:px-3"
+                  className="h-9 md:h-10 px-3 md:px-4"
                   data-tour="import"
                 >
                   <Upload className="h-4 w-4 md:mr-2" />
-                  <span className="hidden lg:inline">Import</span>
+                  <span className="hidden md:inline">Import</span>
                 </Button>
               )}
 
@@ -79,8 +79,8 @@ export function Layout({ children, onImport, onNewChat }: LayoutProps) {
         </main>
 
         {/* Footer */}
-        <footer className="border-t bg-background py-4 px-6">
-          <div className="max-w-7xl mx-auto text-center text-sm text-muted-foreground">
+        <footer className="border-t bg-background py-4 md:py-6 px-4 md:px-8">
+          <div className="max-w-7xl mx-auto text-center text-xs md:text-sm text-muted-foreground">
             <p>
               Made by{' '}
               <a
