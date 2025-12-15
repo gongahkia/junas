@@ -11,24 +11,14 @@ import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
 import { AttachedFile } from './ContextAttachment';
 
-interface ChatInterfaceProps {
-  onMessagesChange?: (messages: Message[]) => void;
-  scrollToMessageId?: string;
-}
+interface ChatInterfaceProps {}
 
-export function ChatInterface({ onMessagesChange, scrollToMessageId }: ChatInterfaceProps) {
+export function ChatInterface({}: ChatInterfaceProps = {}) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMessages, setHasMessages] = useState(false);
   const [currentProvider, setCurrentProvider] = useState<string>('gemini');
   const { addToast } = useToast();
-
-  // Notify parent when messages change
-  useEffect(() => {
-    if (onMessagesChange) {
-      onMessagesChange(messages);
-    }
-  }, [messages, onMessagesChange]);
 
   // Load messages from storage on mount
   useEffect(() => {

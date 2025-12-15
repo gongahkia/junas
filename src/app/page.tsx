@@ -39,17 +39,10 @@ export default function Home() {
 
   return (
     <Layout
-      hasMessages={hasMessages}
-      onExport={handleExport}
       onImport={() => setShowImportDialog(true)}
       onNewChat={handleNewChat}
-      onSearch={() => setShowSearchDialog(true)}
     >
-      <ChatInterface
-        key={chatKey}
-        onMessagesChange={handleMessagesChange}
-        scrollToMessageId={scrollToMessageId}
-      />
+      <ChatInterface key={chatKey} />
 
       {/* New Chat Dialog */}
       <NewChatDialog
@@ -58,26 +51,11 @@ export default function Home() {
         onConfirm={handleConfirmNewChat}
       />
 
-      {/* Export Dialog */}
-      <ExportDialog
-        isOpen={showExportDialog}
-        onClose={() => setShowExportDialog(false)}
-        messages={messages}
-      />
-
       {/* Import Dialog */}
       <ImportDialog
         isOpen={showImportDialog}
         onClose={() => setShowImportDialog(false)}
         onImport={handleImport}
-      />
-
-      {/* Search Dialog */}
-      <SearchDialog
-        isOpen={showSearchDialog}
-        onClose={() => setShowSearchDialog(false)}
-        messages={messages}
-        onMessageSelect={handleMessageSelect}
       />
     </Layout>
   );
