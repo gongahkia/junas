@@ -226,7 +226,6 @@ export function ContextAttachment({
                   </>
                 ) : (
                   <>
-                    <span className="text-2xl">📎</span>
                     <span className="font-medium">
                       Click to upload files
                     </span>
