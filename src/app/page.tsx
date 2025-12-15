@@ -42,6 +42,7 @@ export default function Home() {
     <Layout
       onImport={() => setShowImportDialog(true)}
       onNewChat={handleNewChat}
+      onConfig={() => setShowConfigDialog(true)}
     >
       <ChatInterface key={chatKey} />
 
@@ -57,6 +58,12 @@ export default function Home() {
         isOpen={showImportDialog}
         onClose={() => setShowImportDialog(false)}
         onImport={handleImport}
+      />
+
+      {/* Profile Config Dialog */}
+      <ProfileConfigDialog
+        isOpen={showConfigDialog}
+        onClose={() => setShowConfigDialog(false)}
       />
     </Layout>
   );
