@@ -177,13 +177,12 @@ export function CommandPalette({
   return (
     <div
       ref={containerRef}
-      className="absolute bottom-full left-0 right-0 mb-2 bg-background border rounded-lg shadow-lg max-h-[40vh] md:max-h-[50vh] overflow-y-auto z-50"
+      className="absolute bottom-full left-0 right-0 mb-2 bg-background border border-muted-foreground/30 shadow-lg max-h-[40vh] md:max-h-[50vh] overflow-y-auto z-50 font-mono"
     >
-      <div className="sticky top-0 bg-background border-b px-3 py-2 flex items-center gap-2">
-        <Command className="h-4 w-4 text-muted-foreground" />
-        <span className="text-sm font-medium">Commands</span>
+      <div className="sticky top-0 bg-background border-b px-3 py-2 flex items-center gap-2 text-xs">
+        <span className="font-medium">[ Commands ]</span>
         {searchQuery && (
-          <span className="text-xs text-muted-foreground ml-auto">
+          <span className="text-muted-foreground ml-auto">
             {filteredCommands.length} results
           </span>
         )}
