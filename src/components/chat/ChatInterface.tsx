@@ -281,7 +281,14 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
     handleSendMessage(prompt);
   }, [handleSendMessage]);
 
+  const copyTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   const handleCopyMessage = useCallback((content: string) => {
+    // Prevent multiple rapid copy toasts
+    if (copyTimeoutRef.current) {
+      return;
+    }
+
     navigator.clipboard.writeText(content);
     addToast({
       type: 'success',
@@ -289,6 +296,11 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
       description: 'Message copied to clipboard',
       duration: 2000,
     });
+
+    // Set a timeout to prevent multiple toasts within 2 seconds
+    copyTimeoutRef.current = setTimeout(() => {
+      copyTimeoutRef.current = null;
+    }, 2000);
   }, [addToast]);
 
   const handleRegenerateMessage = useCallback((messageId: string) => {
