@@ -283,16 +283,29 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
     <div className="flex flex-col h-full w-full">
       {/* Messages area */}
       <div className="flex-1 overflow-hidden">
-        <div className="h-full flex flex-col">
-          <div className="flex-1 overflow-hidden">
-            <MessageList
-              messages={messages}
-              isLoading={isLoading}
-              onCopyMessage={handleCopyMessage}
-              onRegenerateMessage={handleRegenerateMessage}
-            />
+        {messages.length === 0 ? (
+          <div className="flex items-center justify-center h-full px-4">
+            <pre className="text-muted-foreground text-xs md:text-sm font-mono leading-tight">
+{`     ██╗██╗   ██╗███╗   ██╗ █████╗ ███████╗
+     ██║██║   ██║████╗  ██║██╔══██╗██╔════╝
+     ██║██║   ██║██╔██╗ ██║███████║███████╗
+██   ██║██║   ██║██║╚██╗██║██╔══██║╚════██║
+╚█████╔╝╚██████╔╝██║ ╚████║██║  ██║███████║
+ ╚════╝  ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝`}
+            </pre>
           </div>
-        </div>
+        ) : (
+          <div className="h-full flex flex-col">
+            <div className="flex-1 overflow-hidden">
+              <MessageList
+                messages={messages}
+                isLoading={isLoading}
+                onCopyMessage={handleCopyMessage}
+                onRegenerateMessage={handleRegenerateMessage}
+              />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Input area */}
