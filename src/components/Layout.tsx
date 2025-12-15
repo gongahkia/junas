@@ -82,7 +82,7 @@ export function Layout({ children, onImport, onNewChat }: LayoutProps) {
         <footer className="border-t bg-background py-4 px-6">
           <div className="max-w-7xl mx-auto text-center text-sm text-muted-foreground">
             <p>
-              Made with ❤️ by{' '}
+              Made by{' '}
               <a
                 href="https://gabrielongzm.com"
                 target="_blank"

@@ -175,9 +175,9 @@ export function CommandPalette({
   let commandIndex = 0;
 
   return (
-    <div 
+    <div
       ref={containerRef}
-      className="absolute bottom-full left-0 right-0 mb-2 bg-background border rounded-lg shadow-lg max-h-96 overflow-y-auto z-50"
+      className="absolute bottom-full left-0 right-0 mb-2 bg-background border rounded-lg shadow-lg max-h-[40vh] md:max-h-[50vh] overflow-y-auto z-50"
     >
       <div className="sticky top-0 bg-background border-b px-3 py-2 flex items-center gap-2">
         <Command className="h-4 w-4 text-muted-foreground" />
