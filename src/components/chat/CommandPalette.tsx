@@ -208,29 +208,20 @@ export function CommandPalette({
                     key={command.id}
                     onClick={() => handleCommandSelect(command)}
                     className={`
-                      w-full px-3 py-2 flex items-start gap-3 text-left transition-colors
-                      ${isSelected 
-                        ? 'bg-primary/10 text-primary' 
+                      w-full px-3 py-2 flex items-start gap-3 text-left transition-colors text-xs
+                      ${isSelected
+                        ? 'bg-primary/10 text-primary'
                         : 'hover:bg-muted/50'
                       }
                     `}
                   >
-                    <div className={`
-                      mt-0.5 flex-shrink-0
-                      ${isSelected ? 'text-primary' : 'text-muted-foreground'}
-                    `}>
-                      {command.icon}
-                    </div>
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium">
-                        {command.label}
+                      <div className="font-medium">
+                        {isSelected ? '> ' : ''}{command.label}
                       </div>
                       <div className="text-xs text-muted-foreground line-clamp-1">
                         {command.description}
                       </div>
-                    </div>
-                    <div className="text-xs text-muted-foreground font-mono flex-shrink-0">
-                      /{command.id}
                     </div>
                   </button>
                 );
