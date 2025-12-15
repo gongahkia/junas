@@ -1,9 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Send } from 'lucide-react';
 import { InlineProviderSelector } from './InlineProviderSelector';
 import { CommandPalette } from './CommandPalette';
 import { ContextAttachment, AttachedFile } from './ContextAttachment';
@@ -136,68 +134,55 @@ export function MessageInput({
       <div className="max-w-5xl mx-auto px-4 md:px-8 py-4 md:py-6">
         {/* Input form */}
         <form onSubmit={handleSubmit} className="space-y-3">
-          <div className="flex items-end space-x-2">
-            <div className="flex-1 relative">
-              {/* Command Palette */}
-              {showCommandPalette && (
-                <CommandPalette
-                  onCommandSelect={handleCommandSelect}
-                  onClose={() => setShowCommandPalette(false)}
-                  inputValue={message}
-                  cursorPosition={cursorPosition}
-                />
-              )}
-
-              <Textarea
-                ref={textareaRef}
-                value={message}
-                onChange={handleMessageChange}
-                onKeyDown={handleKeyDown}
-                placeholder={placeholder}
-                disabled={isLoading}
-                className="min-h-[60px] md:min-h-[80px] max-h-[200px] md:max-h-[300px] resize-none text-sm md:text-base pb-12 px-3 md:px-4 pt-3 md:pt-4"
-                rows={1}
-                data-tour="message-input"
+          <div className="flex-1 relative">
+            {/* Command Palette */}
+            {showCommandPalette && (
+              <CommandPalette
+                onCommandSelect={handleCommandSelect}
+                onClose={() => setShowCommandPalette(false)}
+                inputValue={message}
+                cursorPosition={cursorPosition}
               />
-              
-              {/* Bottom toolbar inside textarea */}
-              <div className="absolute bottom-3 left-3 right-3 md:bottom-3 md:left-4 md:right-4 flex items-center justify-between z-10">
-                <div className="flex items-center gap-1">
-                  {/* Provider selector */}
-                  <InlineProviderSelector
-                    currentProvider={currentProvider}
-                    onProviderChange={onProviderChange}
-                  />
-                  
-                  {/* Context attachment button */}
-                  <ContextAttachment
-                    onFilesAttach={handleFilesAttach}
-                    attachedFiles={attachedFiles}
-                    onFileRemove={handleFileRemove}
-                    disabled={isLoading}
-                  />
-                </div>
+            )}
 
-                {/* Helper text */}
-                <div className="text-xs text-muted-foreground hidden md:block">
-                  <kbd className="px-1.5 py-0.5 text-xs font-semibold bg-muted rounded border">
-                    /
-                  </kbd>
-                  {' '}for commands
-                </div>
+            <Textarea
+              ref={textareaRef}
+              value={message}
+              onChange={handleMessageChange}
+              onKeyDown={handleKeyDown}
+              placeholder={placeholder}
+              disabled={isLoading}
+              className="min-h-[60px] md:min-h-[80px] max-h-[200px] md:max-h-[300px] resize-none text-sm md:text-base pb-12 px-3 md:px-4 pt-3 md:pt-4"
+              rows={1}
+              data-tour="message-input"
+            />
+
+            {/* Bottom toolbar inside textarea */}
+            <div className="absolute bottom-3 left-3 right-3 md:bottom-3 md:left-4 md:right-4 flex items-center justify-between z-10">
+              <div className="flex items-center gap-1">
+                {/* Provider selector */}
+                <InlineProviderSelector
+                  currentProvider={currentProvider}
+                  onProviderChange={onProviderChange}
+                />
+
+                {/* Context attachment button */}
+                <ContextAttachment
+                  onFilesAttach={handleFilesAttach}
+                  attachedFiles={attachedFiles}
+                  onFileRemove={handleFileRemove}
+                  disabled={isLoading}
+                />
+              </div>
+
+              {/* Helper text */}
+              <div className="text-xs text-muted-foreground hidden md:block">
+                <kbd className="px-1.5 py-0.5 text-xs font-semibold bg-muted rounded border">
+                  /
+                </kbd>
+                {' '}for commands
               </div>
             </div>
-
-            {/* Send button */}
-            <Button
-              type="submit"
-              disabled={!message.trim() || isLoading}
-              className="h-[60px] w-[60px] md:h-[80px] md:w-[80px] flex-shrink-0 rounded-xl"
-              data-tour="send-button"
-            >
-              <Send className="h-4 w-4 md:h-5 md:w-5" />
-              <span className="sr-only">Send message</span>
-            </Button>
           </div>
 
           {/* Attached files display */}
