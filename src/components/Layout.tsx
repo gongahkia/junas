@@ -50,21 +50,8 @@ export function Layout({ children, onImport, onNewChat }: LayoutProps) {
               )}
             </div>
 
-            {/* Center - Search bar */}
-            <div className="flex-1 max-w-2xl mx-auto">
-              {onSearch && hasMessages && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={onSearch}
-                  className="h-9 w-full justify-start text-muted-foreground hover:text-foreground px-2 md:px-3"
-                >
-                  <Search className="h-4 w-4 md:mr-2" />
-                  <span className="hidden sm:inline truncate">Search conversations...</span>
-                  <span className="sm:hidden">Search</span>
-                </Button>
-              )}
-            </div>
+            {/* Spacer */}
+            <div className="flex-1"></div>
 
             {/* Right side controls */}
             <div className="flex items-center space-x-1 md:space-x-3">

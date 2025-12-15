@@ -4,24 +4,15 @@ import { useState, useEffect } from 'react';
 import { Layout } from '@/components/Layout';
 import { ChatInterface } from '@/components/chat/ChatInterface';
 import { NewChatDialog } from '@/components/chat/NewChatDialog';
-import { ExportDialog } from '@/components/chat/ExportDialog';
 import { ImportDialog } from '@/components/chat/ImportDialog';
-import { SearchDialog } from '@/components/chat/SearchDialog';
 import { StorageManager } from '@/lib/storage';
 import { Message } from '@/types/chat';
 
 export default function Home() {
   const [showNewChatDialog, setShowNewChatDialog] = useState(false);
-  const [showExportDialog, setShowExportDialog] = useState(false);
   const [showImportDialog, setShowImportDialog] = useState(false);
-  const [showSearchDialog, setShowSearchDialog] = useState(false);
   const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
   const [messages, setMessages] = useState<Message[]>([]);
-  const [scrollToMessageId, setScrollToMessageId] = useState<string | undefined>();
-
-  const handleExport = () => {
-    setShowExportDialog(true);
-  };
 
   const handleImport = (importedMessages: Message[]) => {
     // Dispatch import event to ChatInterface
