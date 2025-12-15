@@ -134,12 +134,7 @@ export function MessageInput({
       <div className="max-w-5xl mx-auto px-4 md:px-8 py-4 md:py-6">
         {/* Input form */}
         <form onSubmit={handleSubmit} className="space-y-3">
-          <div className="flex-1 relative border border-muted-foreground/30 bg-muted/10">
-            {/* ASCII top border */}
-            <div className="text-xs text-muted-foreground/50 px-2 pt-1 font-mono">
-              ┌{'─'.repeat(70)}
-            </div>
-
+          <div className="flex-1 relative">
             {/* Command Palette */}
             {showCommandPalette && (
               <CommandPalette
@@ -150,45 +145,42 @@ export function MessageInput({
               />
             )}
 
-            <Textarea
-              ref={textareaRef}
-              value={message}
-              onChange={handleMessageChange}
-              onKeyDown={handleKeyDown}
-              placeholder={placeholder}
-              disabled={isLoading}
-              className="min-h-[60px] md:min-h-[80px] max-h-[200px] md:max-h-[300px] resize-none text-sm md:text-base pb-12 px-3 md:px-4 pt-2 md:pt-3 font-mono border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
-              rows={1}
-              data-tour="message-input"
-            />
+            <div className="border border-muted-foreground/30 bg-muted/10">
+              <Textarea
+                ref={textareaRef}
+                value={message}
+                onChange={handleMessageChange}
+                onKeyDown={handleKeyDown}
+                placeholder={placeholder}
+                disabled={isLoading}
+                className="min-h-[60px] md:min-h-[80px] max-h-[200px] md:max-h-[300px] resize-none text-sm md:text-base px-3 md:px-4 pt-3 md:pt-4 pb-12 font-mono border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 w-full"
+                rows={1}
+                data-tour="message-input"
+              />
 
-            {/* Bottom toolbar inside textarea */}
-            <div className="px-3 md:px-4 pb-2 flex items-center justify-between text-xs font-mono">
-              <div className="flex items-center gap-2 md:gap-3">
-                {/* Provider selector */}
-                <InlineProviderSelector
-                  currentProvider={currentProvider}
-                  onProviderChange={onProviderChange}
-                />
+              {/* Bottom toolbar */}
+              <div className="border-t border-muted-foreground/30 px-3 md:px-4 py-2 flex items-center justify-between text-xs font-mono bg-muted/5">
+                <div className="flex items-center gap-2 md:gap-3">
+                  {/* Provider selector */}
+                  <InlineProviderSelector
+                    currentProvider={currentProvider}
+                    onProviderChange={onProviderChange}
+                  />
 
-                {/* Context attachment button */}
-                <ContextAttachment
-                  onFilesAttach={handleFilesAttach}
-                  attachedFiles={attachedFiles}
-                  onFileRemove={handleFileRemove}
-                  disabled={isLoading}
-                />
+                  {/* Context attachment button */}
+                  <ContextAttachment
+                    onFilesAttach={handleFilesAttach}
+                    attachedFiles={attachedFiles}
+                    onFileRemove={handleFileRemove}
+                    disabled={isLoading}
+                  />
+                </div>
+
+                {/* Helper text */}
+                <div className="text-xs text-muted-foreground hidden md:block">
+                  [ / for commands ]
+                </div>
               </div>
-
-              {/* Helper text */}
-              <div className="text-xs text-muted-foreground hidden md:block">
-                [ / for commands ]
-              </div>
-            </div>
-
-            {/* ASCII bottom border */}
-            <div className="text-xs text-muted-foreground/50 px-2 pb-1 font-mono">
-              └{'─'.repeat(70)}
             </div>
           </div>
 

@@ -1,14 +1,11 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { Button } from '@/components/ui/button';
-import { 
-  Paperclip, 
-  X, 
-  FileText, 
+import {
+  X,
+  FileText,
   Image as ImageIcon,
-  File,
-  Loader2
+  File
 } from 'lucide-react';
 import {
   Dialog,
@@ -17,7 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { validateFile, formatFileSize } from '@/lib/file-processing';
+import { validateFile } from '@/lib/file-processing';
 
 export interface AttachedFile {
   id: string;
@@ -66,7 +63,7 @@ export function ContextAttachment({
         const content = await readFileContent(file);
         
         processedFiles.push({
-          id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          id: `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
           name: file.name,
           type: file.type,
           size: file.size,

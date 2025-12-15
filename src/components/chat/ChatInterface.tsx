@@ -304,15 +304,17 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
       <div className="flex-1 overflow-hidden">
         {messages.length === 0 ? (
           <div className="flex items-center justify-center h-full px-4 py-8">
-            <div className="text-center max-w-2xl">
-              <pre className="text-muted-foreground text-xs md:text-sm font-mono leading-tight">
+            <div className="text-center max-w-2xl w-full">
+              <div className="overflow-x-auto">
+                <pre className="text-muted-foreground text-xs md:text-sm font-mono leading-tight inline-block">
 {`     ██╗██╗   ██╗███╗   ██╗ █████╗ ███████╗
      ██║██║   ██║████╗  ██║██╔══██╗██╔════╝
      ██║██║   ██║██╔██╗ ██║███████║███████╗
 ██   ██║██║   ██║██║╚██╗██║██╔══██║╚════██║
 ╚█████╔╝╚██████╔╝██║ ╚████║██║  ██║███████║
  ╚════╝  ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝`}
-              </pre>
+                </pre>
+              </div>
               <p className="text-xs text-muted-foreground font-mono mt-4">v0.1.0</p>
               <div className="mt-6 text-xs md:text-sm text-muted-foreground font-mono leading-relaxed space-y-2">
                 <p>
