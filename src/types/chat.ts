@@ -56,6 +56,8 @@ export interface ChatSettings {
   autoSave: boolean;
   darkMode: boolean;
   userName?: string;
+  userRole?: string;
+  userPurpose?: string;
 }
 
 export type DiagramRenderer = 'mermaid' | 'plantuml' | 'graphviz' | 'd2';
