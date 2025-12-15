@@ -11,9 +11,10 @@ export interface ToastProps {
   type?: 'success' | 'error' | 'warning' | 'info';
   duration?: number;
   onClose?: () => void;
+  index?: number;
 }
 
-export function Toast({ id, title, description, type = 'info', duration = 5000, onClose }: ToastProps) {
+export function Toast({ id, title, description, type = 'info', duration = 5000, onClose, index = 0 }: ToastProps) {
   const [isVisible, setIsVisible] = React.useState(true);
 
   React.useEffect(() => {
