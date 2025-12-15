@@ -38,12 +38,16 @@ const MessageItemComponent = ({
       className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in-up`}
     >
       <div className={`flex w-full md:max-w-[80%] ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start gap-3`}>
-        <div className={`flex-1 rounded-2xl px-4 md:px-6 py-3 md:py-4 ${
+        <div className={`flex-1 border ${
           message.role === 'user'
-            ? 'bg-primary/10 border-none shadow-sm'
-            : 'bg-muted/30 border-none shadow-sm'
-        }`}>
-          <div className="space-y-3">
+            ? 'bg-primary/5 border-primary/30'
+            : 'bg-muted/20 border-muted-foreground/30'
+        } font-mono`}>
+          {/* ASCII top border */}
+          <div className="text-xs text-muted-foreground/50 px-2 pt-1">
+            ┌{'─'.repeat(50)}
+          </div>
+          <div className="space-y-3 px-4 py-2">
             {/* Attachments */}
             {message.attachments && message.attachments.length > 0 && (
               <div className="space-y-2">
