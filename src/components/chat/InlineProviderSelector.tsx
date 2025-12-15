@@ -147,61 +147,46 @@ export function InlineProviderSelector({
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <Button 
-          variant="ghost" 
-          size="sm" 
-          className="h-7 gap-1.5 text-xs px-2 hover:bg-accent"
-        >
-          <span className="font-medium">
-            {hasConfiguredProvider 
-              ? (currentProviderData?.name || 'Select Provider')
-              : 'No models configured'
-            }
-          </span>
-          {hasConfiguredProvider && (
-            isCurrentProviderConfigured ? (
-              <Check className="h-3 w-3 text-green-600" />
-            ) : (
-              <X className="h-3 w-3 text-muted-foreground" />
-            )
-          )}
-          <ChevronDown className="h-3 w-3 text-muted-foreground" />
-        </Button>
+        <button className="text-xs hover:bg-accent px-2 py-1 transition-colors font-mono">
+          {hasConfiguredProvider
+            ? `[ ${currentProviderData?.name || 'Provider'} ${isCurrentProviderConfigured ? '✓' : '✗'} ]`
+            : '[ No models ✗ ]'
+          }
+        </button>
       </PopoverTrigger>
-      <PopoverContent className="w-80" align="start" side="top">
+      <PopoverContent className="w-80 font-mono" align="start" side="top">
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h4 className="font-semibold text-sm mb-1">AI Provider</h4>
-              <p className="text-xs text-muted-foreground">
-                Select a provider and configure API keys
-              </p>
-            </div>
-            {/* Provider selection buttons */}
-            <div className="flex gap-1">
-              {providers.map((provider) => {
-                const isConfigured = configuredProviders[provider.id];
-                const isSelected = selectedProvider === provider.id;
-                
-                return (
-                  <button
-                    key={provider.id}
-                    onClick={() => handleProviderSelect(provider.id)}
-                    disabled={!isConfigured}
-                    title={`${provider.name}${!isConfigured ? ' - API key required' : ''}`}
-                    className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
-                      isSelected
-                        ? 'bg-primary text-primary-foreground'
-                        : isConfigured
-                        ? 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
-                        : 'bg-muted text-muted-foreground cursor-not-allowed opacity-50'
-                    }`}
-                  >
-                    {provider.name}
-                  </button>
-                );
-              })}
-            </div>
+          <div>
+            <h4 className="font-semibold text-sm mb-1">[ AI Provider ]</h4>
+            <p className="text-xs text-muted-foreground">
+              Select a provider and configure API keys
+            </p>
+          </div>
+
+          {/* Provider selection buttons */}
+          <div className="flex flex-wrap gap-2">
+            {providers.map((provider) => {
+              const isConfigured = configuredProviders[provider.id];
+              const isSelected = selectedProvider === provider.id;
+
+              return (
+                <button
+                  key={provider.id}
+                  onClick={() => handleProviderSelect(provider.id)}
+                  disabled={!isConfigured}
+                  title={`${provider.name}${!isConfigured ? ' - API key required' : ''}`}
+                  className={`px-2 py-1 text-xs transition-colors ${
+                    isSelected
+                      ? 'bg-primary text-primary-foreground'
+                    : isConfigured
+                      ? 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+                      : 'bg-muted text-muted-foreground cursor-not-allowed opacity-50'
+                  }`}
+                >
+                  {isSelected ? `> ${provider.name}` : provider.name}
+                </button>
+              );
+            })}
           </div>
 
           {/* API Key Configuration */}
@@ -230,40 +215,33 @@ export function InlineProviderSelector({
                     placeholder={provider.apiKeyPlaceholder}
                     value={apiKeys[provider.id] || ''}
                     onChange={(e) => handleApiKeyChange(provider.id, e.target.value)}
-                    className="pr-10 text-xs h-8"
+                    className="pr-10 text-xs h-8 font-mono"
                   />
                   <button
                     type="button"
                     onClick={() => toggleKeyVisibility(provider.id)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground text-xs font-mono"
                   >
-                    {showKeys[provider.id] ? (
-                      <EyeOff className="h-3.5 w-3.5" />
-                    ) : (
-                      <Eye className="h-3.5 w-3.5" />
-                    )}
+                    {showKeys[provider.id] ? '👁' : '•'}
                   </button>
                 </div>
               </div>
             ))}
 
             <div className="flex justify-end gap-2 pt-2">
-              <Button
-                variant="outline"
-                size="sm"
+              <button
                 onClick={() => setIsOpen(false)}
-                className="h-8"
+                className="px-3 py-1 text-xs hover:bg-muted transition-colors"
               >
-                Cancel
-              </Button>
-              <Button
-                size="sm"
+                [ Cancel ]
+              </button>
+              <button
                 onClick={handleSaveKeys}
                 disabled={isSaving}
-                className="h-8"
+                className="px-3 py-1 text-xs bg-primary text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50"
               >
-                {isSaving ? 'Saving...' : 'Save Keys'}
-              </Button>
+                [ {isSaving ? 'Saving...' : 'Save'} ]
+              </button>
             </div>
           </div>
         </div>
