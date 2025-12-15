@@ -18,7 +18,14 @@ export function ChatInterface({}: ChatInterfaceProps = {}) {
   const [isLoading, setIsLoading] = useState(false);
   const [hasMessages, setHasMessages] = useState(false);
   const [currentProvider, setCurrentProvider] = useState<string>('gemini');
+  const [hasProfileConfig, setHasProfileConfig] = useState(false);
   const { addToast } = useToast();
+
+  // Check if user has configured their profile
+  useEffect(() => {
+    const settings = StorageManager.getSettings();
+    setHasProfileConfig(!!(settings.userRole || settings.userPurpose));
+  }, [messages]);
 
   // Load messages from storage on mount
   useEffect(() => {
@@ -129,17 +136,29 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
 
     // Process attached files and add context to the message
     let enrichedContent = content;
-    
+
+    // Add user context pre-prompt to the first message
+    if (messages.length === 0) {
+      const settings = StorageManager.getSettings();
+      if (settings.userRole || settings.userPurpose) {
+        const contextParts = [];
+        if (settings.userRole) contextParts.push(`a ${settings.userRole}`);
+        if (settings.userPurpose) contextParts.push(`using Junas for ${settings.userPurpose}`);
+        const contextPrompt = `[Context: I am ${contextParts.join(' ')}]\n\n`;
+        enrichedContent = contextPrompt + content;
+      }
+    }
+
     if (attachedFiles && attachedFiles.length > 0) {
       const filesContext = attachedFiles.map(file => {
         return `\n\n[Attached File: ${file.name}]\n${
-          file.type.startsWith('image/') 
-            ? '[Image file - content embedded]' 
+          file.type.startsWith('image/')
+            ? '[Image file - content embedded]'
             : file.content.slice(0, 5000) // Limit to first 5000 chars
         }\n[End of ${file.name}]`;
       }).join('\n');
-      
-      enrichedContent = `${content}\n\n--- Context from attached files ---${filesContext}`;
+
+      enrichedContent = `${enrichedContent}\n\n--- Context from attached files ---${filesContext}`;
     }
 
     const userMessage: Message = {
