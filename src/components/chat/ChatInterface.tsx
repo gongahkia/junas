@@ -290,7 +290,6 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
               isLoading={isLoading}
               onCopyMessage={handleCopyMessage}
               onRegenerateMessage={handleRegenerateMessage}
-              scrollToMessageId={scrollToMessageId}
             />
           </div>
         </div>

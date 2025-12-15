@@ -12,7 +12,6 @@ export default function Home() {
   const [showNewChatDialog, setShowNewChatDialog] = useState(false);
   const [showImportDialog, setShowImportDialog] = useState(false);
   const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
-  const [messages, setMessages] = useState<Message[]>([]);
 
   const handleImport = (importedMessages: Message[]) => {
     // Dispatch import event to ChatInterface
