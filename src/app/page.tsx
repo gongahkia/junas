@@ -5,12 +5,14 @@ import { Layout } from '@/components/Layout';
 import { ChatInterface } from '@/components/chat/ChatInterface';
 import { NewChatDialog } from '@/components/chat/NewChatDialog';
 import { ImportDialog } from '@/components/chat/ImportDialog';
+import { ProfileConfigDialog } from '@/components/ProfileConfigDialog';
 import { StorageManager } from '@/lib/storage';
 import { Message } from '@/types/chat';
 
 export default function Home() {
   const [showNewChatDialog, setShowNewChatDialog] = useState(false);
   const [showImportDialog, setShowImportDialog] = useState(false);
+  const [showConfigDialog, setShowConfigDialog] = useState(false);
   const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
 
   const handleImport = (importedMessages: Message[]) => {

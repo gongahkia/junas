@@ -8,9 +8,10 @@ interface LayoutProps {
   children: React.ReactNode;
   onImport?: () => void;
   onNewChat?: () => void;
+  onConfig?: () => void;
 }
 
-export function Layout({ children, onImport, onNewChat }: LayoutProps) {
+export function Layout({ children, onImport, onNewChat, onConfig }: LayoutProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -50,6 +51,16 @@ export function Layout({ children, onImport, onNewChat }: LayoutProps) {
 
             {/* Right side controls */}
             <div className="flex items-center space-x-2 md:space-x-4">
+              {/* Config button */}
+              {onConfig && (
+                <button
+                  onClick={onConfig}
+                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
+                  title="Configure profile"
+                >
+                  [ ⚙ Config ]
+                </button>
+              )}
               {/* Import button */}
               {onImport && (
                 <button
