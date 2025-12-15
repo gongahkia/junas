@@ -233,9 +233,9 @@ export function CommandPalette({
 
       <div className="sticky bottom-0 bg-muted/50 border-t px-3 py-2 text-xs text-muted-foreground">
         <div className="flex items-center justify-between">
-          <span>↑↓ Navigate</span>
-          <span>↵ Select</span>
-          <span>Esc Close</span>
+          <span>[ ↑↓ Navigate ]</span>
+          <span>[ ↵ Select ]</span>
+          <span>[ Esc Close ]</span>
         </div>
       </div>
     </div>

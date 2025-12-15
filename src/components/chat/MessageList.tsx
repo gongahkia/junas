@@ -2,10 +2,7 @@
 
 import { useEffect, useRef, memo, useState } from 'react';
 import { Message } from '@/types/chat';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Copy, Download, FileText, User, Bot, Loader2 } from 'lucide-react';
-import { TokenCounter } from './TokenCounter';
+import { FileText } from 'lucide-react';
 import { StorageManager } from '@/lib/storage';
 import { MermaidDiagram } from './MermaidDiagram';
 import { ThinkingIndicator } from './ThinkingIndicator';
@@ -152,15 +149,13 @@ const MessageItemComponent = ({
 
             {/* Message actions */}
             <div className="flex items-center gap-1 pt-2 -mx-1">
-              <Button
-                variant="ghost"
-                size="sm"
+              <button
                 onClick={() => onCopyMessage(message.content)}
-                className="h-7 px-2 text-muted-foreground/60 hover:text-foreground hover:bg-transparent transition-colors"
+                className="text-xs px-2 py-1 text-muted-foreground/60 hover:text-foreground hover:bg-muted/30 transition-colors font-mono"
+                title="Copy message"
               >
-                <Copy className="w-3.5 h-3.5" />
-                <span className="sr-only">Copy message</span>
-              </Button>
+                [ Copy ]
+              </button>
             </div>
 
             {/* Sender label */}
