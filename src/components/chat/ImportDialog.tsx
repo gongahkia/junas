@@ -242,20 +242,18 @@ export function ImportDialog({ isOpen, onClose, onImport }: ImportDialogProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md font-mono">
         <DialogHeader>
-          <DialogTitle className="flex items-center space-x-2">
-            <Upload className="h-5 w-5" />
-            <span>Import Conversation</span>
+          <DialogTitle className="text-sm">
+            [ ↑ Import Conversation ]
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-xs">
             Import a previous Junas conversation export to continue where you left off
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-3 py-4">
+        <div className="space-y-2 py-4">
           {formatOptions.map(option => {
-            const Icon = option.icon;
             return (
               <div key={option.value} className="w-full">
                 <button
@@ -268,12 +266,11 @@ export function ImportDialog({ isOpen, onClose, onImport }: ImportDialogProps) {
                     }
                   }}
                   disabled={isProcessing}
-                  className="w-full flex items-start space-x-3 p-4 rounded-lg border-2 border-border hover:border-primary/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full flex items-start space-x-3 p-3 border border-muted-foreground/30 hover:bg-muted/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-xs"
                 >
-                  <Icon className="h-5 w-5 mt-0.5 flex-shrink-0" />
                   <div className="text-left flex-1">
-                    <div className="font-medium">{option.label}</div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="font-medium">&gt; {option.label}</div>
+                    <div className="text-muted-foreground">
                       {option.description}
                     </div>
                   </div>
@@ -292,15 +289,19 @@ export function ImportDialog({ isOpen, onClose, onImport }: ImportDialogProps) {
         />
 
         {isProcessing && (
-          <div className="text-sm text-muted-foreground text-center py-2">
-            Importing and summarizing conversation...
+          <div className="text-xs text-muted-foreground text-center py-2">
+            [ Importing and summarizing conversation... ]
           </div>
         )}
 
         <DialogFooter>
-          <Button variant="outline" onClick={onClose} disabled={isProcessing}>
-            Cancel
-          </Button>
+          <button
+            onClick={onClose}
+            disabled={isProcessing}
+            className="px-3 py-2 text-xs hover:bg-muted transition-colors disabled:opacity-50"
+          >
+            [ Cancel ]
+          </button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

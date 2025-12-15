@@ -191,10 +191,10 @@ export function ContextAttachment({
 
       {/* File upload dialog */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md font-mono">
           <DialogHeader>
-            <DialogTitle>Add context</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-sm">[ 📎 Add Context ]</DialogTitle>
+            <DialogDescription className="text-xs">
               Upload documents, images, or text files to provide context for your question.
               Supported formats: PDF, TXT, JSON, DOC, DOCX, images.
             </DialogDescription>
@@ -202,7 +202,7 @@ export function ContextAttachment({
 
           <div className="space-y-4">
             {/* File input */}
-            <div className="border-2 border-dashed rounded-lg p-8 text-center">
+            <div className="border border-muted-foreground/30 bg-muted/10 p-8 text-center">
               <input
                 ref={fileInputRef}
                 type="file"
@@ -215,22 +215,22 @@ export function ContextAttachment({
               />
               <label
                 htmlFor="file-upload"
-                className="cursor-pointer flex flex-col items-center gap-2"
+                className="cursor-pointer flex flex-col items-center gap-2 text-xs"
               >
                 {isProcessing ? (
                   <>
-                    <Loader2 className="h-8 w-8 text-muted-foreground animate-spin" />
-                    <span className="text-sm text-muted-foreground">
-                      Processing files...
+                    <span className="text-2xl">⏳</span>
+                    <span className="text-muted-foreground">
+                      [ Processing files... ]
                     </span>
                   </>
                 ) : (
                   <>
-                    <Paperclip className="h-8 w-8 text-muted-foreground" />
-                    <span className="text-sm font-medium">
+                    <span className="text-2xl">📎</span>
+                    <span className="font-medium">
                       Click to upload files
                     </span>
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-muted-foreground">
                       or drag and drop files here
                     </span>
                   </>
@@ -241,21 +241,18 @@ export function ContextAttachment({
             {/* Current attachments preview */}
             {attachedFiles.length > 0 && (
               <div className="space-y-2">
-                <h4 className="text-sm font-medium">Currently attached:</h4>
+                <h4 className="text-xs font-medium">&gt; Currently attached:</h4>
                 <div className="space-y-2 max-h-48 overflow-y-auto">
                   {attachedFiles.map((file) => (
                     <div
                       key={file.id}
-                      className="flex items-start gap-2 p-2 border rounded-md bg-muted/30"
+                      className="flex items-start gap-2 p-2 border border-muted-foreground/30 bg-muted/10 text-xs"
                     >
-                      <div className="text-muted-foreground mt-0.5">
-                        {getFileIcon(file.type)}
-                      </div>
                       <div className="flex-1 min-w-0">
-                        <div className="font-medium text-sm truncate">
+                        <div className="font-medium truncate">
                           {file.name}
                         </div>
-                        <div className="text-xs text-muted-foreground">
+                        <div className="text-muted-foreground">
                           {formatFileSize(file.size)}
                         </div>
                       </div>
@@ -264,7 +261,7 @@ export function ContextAttachment({
                         className="text-muted-foreground hover:text-foreground transition-colors"
                         title="Remove file"
                       >
-                        <X className="h-4 w-4" />
+                        [ X ]
                       </button>
                     </div>
                   ))}
@@ -273,13 +270,13 @@ export function ContextAttachment({
             )}
 
             {/* Tips */}
-            <div className="text-xs text-muted-foreground space-y-1 bg-muted/50 p-3 rounded-md">
-              <p className="font-medium">Tips:</p>
-              <ul className="list-disc list-inside space-y-0.5 ml-2">
-                <li>Attach contracts for clause analysis</li>
-                <li>Upload case documents for fact extraction</li>
-                <li>Include relevant statutes for compliance checks</li>
-                <li>Max file size: 10MB per file</li>
+            <div className="text-xs text-muted-foreground space-y-1 bg-muted/10 p-3 border border-muted-foreground/30">
+              <p className="font-medium">&gt; Tips:</p>
+              <ul className="space-y-0.5 ml-4">
+                <li>• Attach contracts for clause analysis</li>
+                <li>• Upload case documents for fact extraction</li>
+                <li>• Include relevant statutes for compliance checks</li>
+                <li>• Max file size: 10MB per file</li>
               </ul>
             </div>
           </div>
