@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Settings, Download, Plus, Upload, Search } from 'lucide-react';
+import { Download, Plus, Upload, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ToastProvider } from '@/components/ui/toast';
 import { cn } from '@/lib/utils';
@@ -12,12 +12,11 @@ interface LayoutProps {
   hasMessages?: boolean;
   onExport?: () => void;
   onImport?: () => void;
-  onSettings?: () => void;
   onNewChat?: () => void;
   onSearch?: () => void;
 }
 
-export function Layout({ children, hasMessages = false, onExport, onImport, onSettings, onNewChat, onSearch }: LayoutProps) {
+export function Layout({ children, hasMessages = false, onExport, onImport, onNewChat, onSearch }: LayoutProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -100,20 +99,6 @@ export function Layout({ children, hasMessages = false, onExport, onImport, onSe
                 </Button>
               )}
 
-              {/* Settings button */}
-              {onSettings && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={onSettings}
-                  className="h-9 px-2 md:px-3"
-                  data-tour="settings"
-                >
-                  <Settings className="h-4 w-4 md:mr-2" />
-                  <span className="hidden md:inline">Settings</span>
-                </Button>
-              )}
-
             </div>
           </div>
         </header>
@@ -122,6 +107,34 @@ export function Layout({ children, hasMessages = false, onExport, onImport, onSe
         <main className="flex-1 flex flex-col">
           {children}
         </main>
+
+        {/* Footer */}
+        <footer className="border-t bg-background py-4 px-6">
+          <div className="max-w-7xl mx-auto text-center text-sm text-muted-foreground">
+            <p>
+              Made with ❤️ by{' '}
+              <a
+                href="https://gabrielongzm.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                Gabriel Ong
+              </a>
+            </p>
+            <p className="mt-1">
+              Source code{' '}
+              <a
+                href="https://github.com/gongahkia/junas"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                here
+              </a>
+            </p>
+          </div>
+        </footer>
         </div>
       </ToastProvider>
   );
