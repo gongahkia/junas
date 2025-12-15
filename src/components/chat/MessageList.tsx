@@ -136,12 +136,6 @@ const MessageItemComponent = ({
               </div>
             )}
 
-            {/* Token counter for all messages */}
-            {message.responseTime && (
-              <div className="pt-1">
-                <TokenCounter content={message.content} responseTime={message.responseTime} />
-              </div>
-            )}
 
             {/* Message actions */}
             <div className="flex items-center gap-1 pt-2 -mx-1">
