@@ -339,15 +339,6 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
                 <p className="text-xs opacity-75">
                   [ Bring your own API keys • Privacy-focused • All data stays in your browser ]
                 </p>
-                {!hasProfileConfig && (
-                  <div className="mt-6 p-3 border border-primary/30 bg-primary/5 text-xs">
-                    <p className="font-medium text-primary mb-1">💡 Tip:</p>
-                    <p className="text-muted-foreground">
-                      Configure your profile in [ ⚙ Config ] to help Junas provide more relevant assistance.
-                      Set your role and purpose to get better context-aware responses.
-                    </p>
-                  </div>
-                )}
               </div>
             </div>
           </div>
