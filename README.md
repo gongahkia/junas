@@ -100,7 +100,19 @@ $ npm start
 
 ### [V2.0.0](https://github.com/gongahkia/junas/releases/tag/2.0.0)
 
-> To add screenshots here
+<div align="center">
+    <img width="45%" src="./asset/reference/1.png">
+    <img width="45%" src="./asset/reference/2.png">
+</div>
+
+<div align="center">
+    <img width="45%" src="./asset/reference/3.png">
+    <img width="45%" src="./asset/reference/4.png">
+</div>
+
+<div align="center">
+    <img width="45%" src="./asset/reference/5.png">
+</div>
 
 ## Architecture
 
