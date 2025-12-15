@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { Download, Plus, Upload, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ToastProvider } from '@/components/ui/toast';
-import { cn } from '@/lib/utils';
 import { migrateApiKeysToSession } from '@/lib/migrate-keys';
 
 interface LayoutProps {
