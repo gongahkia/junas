@@ -9,7 +9,6 @@ import { ImportDialog } from '@/components/chat/ImportDialog';
 import { SearchDialog } from '@/components/chat/SearchDialog';
 import { StorageManager } from '@/lib/storage';
 import { Message } from '@/types/chat';
-import { UsernamePrompt } from '@/components/UsernamePrompt';
 
 export default function Home() {
   const [showNewChatDialog, setShowNewChatDialog] = useState(false);
@@ -102,9 +101,6 @@ export default function Home() {
         messages={messages}
         onMessageSelect={handleMessageSelect}
       />
-
-      {/* Username Prompt */}
-      <UsernamePrompt />
     </Layout>
   );
 }
