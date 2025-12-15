@@ -62,31 +62,30 @@ export function Toast({ id, title, description, type = 'info', duration = 5000, 
   return (
     <div
       className={cn(
-        'fixed top-4 right-4 z-50 w-full max-w-sm transform transition-all duration-300 ease-in-out',
-        isVisible ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
+        'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md transform transition-all duration-500 ease-in-out font-mono',
+        isVisible ? 'translate-x-0 opacity-100' : 'translate-x-[150vw] opacity-0'
       )}
     >
       <div
         className={cn(
-          'rounded-lg border p-4 shadow-lg',
+          'border-2 border-muted-foreground/30 p-6 shadow-lg bg-background',
           getBackgroundColor()
         )}
       >
-        <div className="flex items-start space-x-3">
-          {getIcon()}
+        <div className="flex items-start gap-4">
           <div className="flex-1 min-w-0">
             {title && (
-              <p className="text-sm font-medium text-gray-900">{title}</p>
+              <p className="text-base md:text-lg font-semibold mb-2">[ {title} ]</p>
             )}
             {description && (
-              <p className="mt-1 text-sm text-gray-600">{description}</p>
+              <p className="text-sm md:text-base text-muted-foreground">{description}</p>
             )}
           </div>
           <button
             onClick={handleClose}
-            className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
+            className="flex-shrink-0 text-muted-foreground hover:text-foreground transition-colors text-xs"
           >
-            <X className="h-4 w-4" />
+            [ X ]
           </button>
         </div>
       </div>
@@ -106,7 +105,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   const [toasts, setToasts] = React.useState<ToastProps[]>([]);
 
   const addToast = React.useCallback((toast: Omit<ToastProps, 'id'>) => {
-    const id = Math.random().toString(36).substr(2, 9);
+    const id = Math.random().toString(36).substring(2, 11);
     setToasts(prev => [...prev, { ...toast, id }]);
   }, []);
 
@@ -117,15 +116,13 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   return (
     <ToastContext.Provider value={{ toasts, addToast, removeToast }}>
       {children}
-      <div className="fixed top-4 right-4 z-50 space-y-2">
-        {toasts.map(toast => (
-          <Toast
-            key={toast.id}
-            {...toast}
-            onClose={() => removeToast(toast.id)}
-          />
-        ))}
-      </div>
+      {toasts.map(toast => (
+        <Toast
+          key={toast.id}
+          {...toast}
+          onClose={() => removeToast(toast.id)}
+        />
+      ))}
     </ToastContext.Provider>
   );
 }
