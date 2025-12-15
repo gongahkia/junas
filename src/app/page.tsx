@@ -29,26 +29,13 @@ export default function Home() {
   const handleConfirmNewChat = () => {
     // Clear chat state from localStorage
     StorageManager.clearChatState();
-    
+
     // Force re-render of ChatInterface by changing key
     setChatKey(prev => prev + 1);
-    
+
     // Close dialog
     setShowNewChatDialog(false);
   };
-
-  const handleMessagesChange = (newMessages: Message[]) => {
-    setMessages(newMessages);
-  };
-
-  const handleMessageSelect = (messageId: string) => {
-    setScrollToMessageId(messageId);
-    // Reset after a short delay to allow future selections of the same message
-    setTimeout(() => setScrollToMessageId(undefined), 100);
-  };
-
-  // Check if there are messages
-  const hasMessages = messages.length > 0;
 
   return (
     <Layout
