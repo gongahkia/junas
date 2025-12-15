@@ -32,10 +32,6 @@ export default function Home() {
     window.dispatchEvent(evt);
   };
 
-  const handleSettings = () => {
-    setShowSettingsModal(true);
-  };
-
   const handleNewChat = () => {
     setShowNewChatDialog(true);
   };
@@ -69,13 +65,11 @@ export default function Home() {
       hasMessages={hasMessages}
       onExport={handleExport}
       onImport={() => setShowImportDialog(true)}
-      onSettings={handleSettings}
       onNewChat={handleNewChat}
       onSearch={() => setShowSearchDialog(true)}
     >
       <ChatInterface
         key={chatKey}
-        onSettings={handleSettings}
         onMessagesChange={handleMessagesChange}
         scrollToMessageId={scrollToMessageId}
       />
