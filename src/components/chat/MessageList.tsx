@@ -39,12 +39,8 @@ const MessageItemComponent = ({
           message.role === 'user'
             ? 'bg-primary/5 border-primary/30'
             : 'bg-muted/20 border-muted-foreground/30'
-        } font-mono`}>
-          {/* ASCII top border */}
-          <div className="text-xs text-muted-foreground/50 px-2 pt-1">
-            ┌{'─'.repeat(50)}
-          </div>
-          <div className="space-y-3 px-4 py-2">
+        } font-mono overflow-hidden`}>
+          <div className="space-y-3 px-4 py-3">
             {/* Attachments */}
             {message.attachments && message.attachments.length > 0 && (
               <div className="space-y-2">
@@ -159,15 +155,11 @@ const MessageItemComponent = ({
             </div>
 
             {/* Sender label */}
-            <div className={`pt-2 text-[11px] font-medium text-muted-foreground/70 ${
+            <div className={`pt-2 text-[11px] font-medium text-muted-foreground/70 border-t border-muted-foreground/20 mt-3 ${
               message.role === 'user' ? 'text-right' : 'text-left'
             }`}>
               {message.role === 'assistant' ? '> Junas' : `> ${userName}`}
             </div>
-          </div>
-          {/* ASCII bottom border */}
-          <div className="text-xs text-muted-foreground/50 px-2 pb-1">
-            └{'─'.repeat(50)}
           </div>
         </div>
       </div>
