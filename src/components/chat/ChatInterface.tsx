@@ -4,48 +4,12 @@ import { useState, useEffect, useCallback } from 'react';
 import { Message } from '@/types/chat';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
-import { HeroMarquee } from './HeroMarquee';
 import { LegalDisclaimer } from '@/components/LegalDisclaimer';
 import { StorageManager } from '@/lib/storage';
 import { ChatService } from '@/lib/ai/chat-service';
 import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
 import { AttachedFile } from './ContextAttachment';
-
-function getGreeting(): string {
-  const hour = new Date().getHours();
-  const greetings = [
-    "Good morning",
-    "Good afternoon", 
-    "Good evening",
-    "What's up",
-    "What's shaking",
-    "Hey there",
-    "Hi there",
-    "Hello",
-    "Howdy",
-    "Greetings",
-    "Welcome back",
-    "Salutations",
-    "Ahoy",
-    "Yo",
-    "How's it going",
-    "Long time no see",
-    "Glad you're back",
-    "Great to see you",
-    "Pleasure to have you back",
-    "It's been a minute",
-  ];
-  
-  // Time-based greetings during appropriate hours
-  if (hour < 12) {
-    return Math.random() < 0.7 ? 'Good morning' : greetings[Math.floor(Math.random() * 3) + 3];
-  }
-  if (hour < 18) {
-    return Math.random() < 0.7 ? 'Good afternoon' : greetings[Math.floor(Math.random() * 3) + 3];
-  }
-  return Math.random() < 0.7 ? 'Good evening' : greetings[Math.floor(Math.random() * 3) + 3];
-}
 
 interface ChatInterfaceProps {
   onMessagesChange?: (messages: Message[]) => void;
@@ -57,14 +21,7 @@ export function ChatInterface({ onMessagesChange, scrollToMessageId }: ChatInter
   const [isLoading, setIsLoading] = useState(false);
   const [hasMessages, setHasMessages] = useState(false);
   const [currentProvider, setCurrentProvider] = useState<string>('gemini');
-  const [userName, setUserName] = useState<string | undefined>(() => StorageManager.getSettings().userName);
   const { addToast } = useToast();
-
-  // Update userName when settings change
-  useEffect(() => {
-    const settings = StorageManager.getSettings();
-    setUserName(settings.userName);
-  }, []);
 
   // Notify parent when messages change
   useEffect(() => {
@@ -336,31 +293,17 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
     <div className="flex flex-col h-full max-w-6xl mx-auto w-full">
       {/* Messages area */}
       <div className="flex-1 overflow-hidden">
-        {messages.length === 0 ? (
-          <div className="pt-4 md:pt-6 px-4 md:px-0">
-            <div className="text-center mb-6 md:mb-8">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground mb-2">
-                {userName ? `${getGreeting()}, ${userName}` : getGreeting()}
-              </h1>
-              <p className="text-base md:text-lg text-muted-foreground">
-                How can I assist you today?
-              </p>
-            </div>
-            <HeroMarquee />
+        <div className="h-full flex flex-col">
+          <div className="flex-1 overflow-hidden">
+            <MessageList
+              messages={messages}
+              isLoading={isLoading}
+              onCopyMessage={handleCopyMessage}
+              onRegenerateMessage={handleRegenerateMessage}
+              scrollToMessageId={scrollToMessageId}
+            />
           </div>
-        ) : (
-          <div className="h-full flex flex-col">
-            <div className="flex-1 overflow-hidden">
-              <MessageList
-                messages={messages}
-                isLoading={isLoading}
-                onCopyMessage={handleCopyMessage}
-                onRegenerateMessage={handleRegenerateMessage}
-                scrollToMessageId={scrollToMessageId}
-              />
-            </div>
-          </div>
-        )}
+        </div>
       </div>
 
       {/* Input area */}
