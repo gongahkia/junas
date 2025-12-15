@@ -1,21 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Download, Plus, Upload, Search } from 'lucide-react';
+import { Plus, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ToastProvider } from '@/components/ui/toast';
 import { migrateApiKeysToSession } from '@/lib/migrate-keys';
 
 interface LayoutProps {
   children: React.ReactNode;
-  hasMessages?: boolean;
-  onExport?: () => void;
   onImport?: () => void;
   onNewChat?: () => void;
-  onSearch?: () => void;
 }
 
-export function Layout({ children, hasMessages = false, onExport, onImport, onNewChat, onSearch }: LayoutProps) {
+export function Layout({ children, onImport, onNewChat }: LayoutProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -71,8 +68,8 @@ export function Layout({ children, hasMessages = false, onExport, onImport, onNe
 
             {/* Right side controls */}
             <div className="flex items-center space-x-1 md:space-x-3">
-              {/* Import button - only show when there are NO messages */}
-              {onImport && !hasMessages && (
+              {/* Import button */}
+              {onImport && (
                 <Button
                   variant="outline"
                   size="sm"
@@ -82,19 +79,6 @@ export function Layout({ children, hasMessages = false, onExport, onImport, onNe
                 >
                   <Upload className="h-4 w-4 md:mr-2" />
                   <span className="hidden lg:inline">Import</span>
-                </Button>
-              )}
-
-              {/* Export button - only show when there are messages */}
-              {onExport && hasMessages && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={onExport}
-                  className="h-9 px-2 md:px-3"
-                >
-                  <Download className="h-4 w-4 md:mr-2" />
-                  <span className="hidden lg:inline">Export</span>
                 </Button>
               )}
 
