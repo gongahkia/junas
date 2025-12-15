@@ -23,7 +23,7 @@ export class ChatService {
         }
       }
     } catch (error) {
-      console.error('Error checking provider status:', error);
+      // Silently handle provider check errors - user will see toast notification
     }
 
     return null;
@@ -146,7 +146,10 @@ export class ChatService {
         content: fullResponse,
       };
     } catch (error: any) {
-      console.error('Chat service error:', error);
+      // Don't log expected API key configuration errors to console
+      if (!error.message?.includes('No API keys configured')) {
+        console.error('Chat service error:', error);
+      }
       throw new Error(error.message || 'Failed to get AI response');
     }
   }
