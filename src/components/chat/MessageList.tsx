@@ -167,8 +167,12 @@ const MessageItemComponent = ({
             <div className={`pt-2 text-[11px] font-medium text-muted-foreground/70 ${
               message.role === 'user' ? 'text-right' : 'text-left'
             }`}>
-              {message.role === 'assistant' ? 'Junas' : userName}
+              {message.role === 'assistant' ? '> Junas' : `> ${userName}`}
             </div>
+          </div>
+          {/* ASCII bottom border */}
+          <div className="text-xs text-muted-foreground/50 px-2 pb-1">
+            └{'─'.repeat(50)}
           </div>
         </div>
       </div>
