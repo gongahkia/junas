@@ -146,7 +146,10 @@ const MessageItemComponent = ({
             {/* Message actions */}
             <div className="flex items-center gap-1 pt-2 -mx-1">
               <button
-                onClick={() => onCopyMessage(message.content)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onCopyMessage(message.content);
+                }}
                 className="text-xs px-2 py-1 text-muted-foreground/60 hover:text-foreground hover:bg-muted/30 transition-colors font-mono"
                 title="Copy message"
               >
