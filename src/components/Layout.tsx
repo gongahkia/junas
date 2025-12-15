@@ -70,8 +70,8 @@ export function Layout({ children, onImport, onNewChat }: LayoutProps) {
         </main>
 
         {/* Footer */}
-        <footer className="border-t bg-background py-4 md:py-6 px-4 md:px-8">
-          <div className="max-w-7xl mx-auto text-center text-xs md:text-sm text-muted-foreground">
+        <footer className="border-t bg-background py-3 md:py-4 px-4 md:px-8">
+          <div className="max-w-7xl mx-auto text-center text-xs md:text-sm text-muted-foreground font-mono">
             <p>
               Made by{' '}
               <a
@@ -82,16 +82,14 @@ export function Layout({ children, onImport, onNewChat }: LayoutProps) {
               >
                 Gabriel Ong
               </a>
-            </p>
-            <p className="mt-1">
-              Source code{' '}
+              {' | '}
               <a
                 href="https://github.com/gongahkia/junas"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
               >
-                here
+                Source
               </a>
             </p>
           </div>
