@@ -7,11 +7,12 @@ import { migrateApiKeysToSession } from '@/lib/migrate-keys';
 interface LayoutProps {
   children: React.ReactNode;
   onImport?: () => void;
+  onExport?: () => void;
   onNewChat?: () => void;
   onConfig?: () => void;
 }
 
-export function Layout({ children, onImport, onNewChat, onConfig }: LayoutProps) {
+export function Layout({ children, onImport, onExport, onNewChat, onConfig }: LayoutProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -61,7 +62,7 @@ export function Layout({ children, onImport, onNewChat, onConfig }: LayoutProps)
                   [ ⚙ Config ]
                 </button>
               )}
-              {/* Import button */}
+              {/* Import button - only show when no messages */}
               {onImport && (
                 <button
                   onClick={onImport}
@@ -69,6 +70,16 @@ export function Layout({ children, onImport, onNewChat, onConfig }: LayoutProps)
                   data-tour="import"
                 >
                   [ ↑ Import ]
+                </button>
+              )}
+              {/* Export button - only show when there are messages */}
+              {onExport && (
+                <button
+                  onClick={onExport}
+                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
+                  data-tour="export"
+                >
+                  [ ↓ Export ]
                 </button>
               )}
             </div>

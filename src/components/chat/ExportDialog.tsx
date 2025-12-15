@@ -155,50 +155,53 @@ export function ExportDialog({ isOpen, onClose, messages }: ExportDialogProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md w-[95vw]">
+      <DialogContent className="sm:max-w-md font-mono">
         <DialogHeader>
-          <DialogTitle className="flex items-center space-x-2 text-base md:text-lg">
-            <FileDown className="h-4 w-4 md:h-5 md:w-5" />
-            <span>Export Conversation</span>
+          <DialogTitle className="text-sm">
+            [ ↓ Export Conversation ]
           </DialogTitle>
-          <DialogDescription className="text-xs md:text-sm">
+          <DialogDescription className="text-xs">
             Choose a format to export your conversation
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-2 md:space-y-3 py-3 md:py-4">
+        <div className="space-y-2 py-4">
           {formatOptions.map(option => {
-            const Icon = option.icon;
             return (
-              <button
-                key={option.value}
-                onClick={() => setSelectedFormat(option.value)}
-                className={`w-full flex items-start space-x-2 md:space-x-3 p-3 md:p-4 rounded-lg border-2 transition-all ${
-                  selectedFormat === option.value
-                    ? 'border-primary bg-primary/5'
-                    : 'border-border hover:border-primary/50'
-                }`}
-              >
-                <Icon className="h-4 w-4 md:h-5 md:w-5 mt-0.5 flex-shrink-0" />
-                <div className="text-left flex-1">
-                  <div className="font-medium text-sm md:text-base">{option.label}</div>
-                  <div className="text-xs md:text-sm text-muted-foreground">
-                    {option.description}
+              <div key={option.value} className="w-full">
+                <button
+                  onClick={() => setSelectedFormat(option.value)}
+                  className={`w-full flex items-start space-x-3 p-3 border transition-all text-xs ${
+                    selectedFormat === option.value
+                      ? 'border-primary bg-primary/5'
+                      : 'border-muted-foreground/30 hover:bg-muted/30'
+                  }`}
+                >
+                  <div className="text-left flex-1">
+                    <div className="font-medium">&gt; {option.label}</div>
+                    <div className="text-muted-foreground">
+                      {option.description}
+                    </div>
                   </div>
-                </div>
-              </button>
+                </button>
+              </div>
             );
           })}
         </div>
 
-        <DialogFooter className="flex-col-reverse sm:flex-row gap-2">
-          <Button variant="outline" onClick={onClose} className="w-full sm:w-auto">
-            Cancel
-          </Button>
-          <Button onClick={handleExport} className="w-full sm:w-auto">
-            <span className="hidden sm:inline">Export as {selectedFormat.toUpperCase()}</span>
-            <span className="sm:hidden">Export</span>
-          </Button>
+        <DialogFooter>
+          <button
+            onClick={onClose}
+            className="px-3 py-2 text-xs hover:bg-muted transition-colors mr-2"
+          >
+            [ Cancel ]
+          </button>
+          <button
+            onClick={handleExport}
+            className="px-3 py-2 text-xs hover:bg-muted transition-colors"
+          >
+            [ Export as {selectedFormat.toUpperCase()} ]
+          </button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

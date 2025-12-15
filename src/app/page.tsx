@@ -5,6 +5,7 @@ import { Layout } from '@/components/Layout';
 import { ChatInterface } from '@/components/chat/ChatInterface';
 import { NewChatDialog } from '@/components/chat/NewChatDialog';
 import { ImportDialog } from '@/components/chat/ImportDialog';
+import { ExportDialog } from '@/components/chat/ExportDialog';
 import { ProfileConfigDialog } from '@/components/ProfileConfigDialog';
 import { StorageManager } from '@/lib/storage';
 import { Message } from '@/types/chat';
@@ -12,8 +13,27 @@ import { Message } from '@/types/chat';
 export default function Home() {
   const [showNewChatDialog, setShowNewChatDialog] = useState(false);
   const [showImportDialog, setShowImportDialog] = useState(false);
+  const [showExportDialog, setShowExportDialog] = useState(false);
   const [showConfigDialog, setShowConfigDialog] = useState(false);
   const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
+  const [hasMessages, setHasMessages] = useState(false);
+  const [currentMessages, setCurrentMessages] = useState<Message[]>([]);
+
+  // Check if there are messages on mount and update periodically
+  useEffect(() => {
+    const checkMessages = () => {
+      const chatState = StorageManager.getChatState();
+      const messages = chatState?.messages || [];
+      setHasMessages(messages.length > 0);
+      setCurrentMessages(messages);
+    };
+
+    checkMessages();
+
+    // Check every second for message changes
+    const interval = setInterval(checkMessages, 1000);
+    return () => clearInterval(interval);
+  }, [chatKey]);
 
   const handleImport = (importedMessages: Message[]) => {
     // Dispatch import event to ChatInterface
@@ -40,8 +60,9 @@ export default function Home() {
 
   return (
     <Layout
-      onImport={() => setShowImportDialog(true)}
-      onNewChat={handleNewChat}
+      onImport={!hasMessages ? () => setShowImportDialog(true) : undefined}
+      onExport={hasMessages ? () => setShowExportDialog(true) : undefined}
+      onNewChat={hasMessages ? handleNewChat : undefined}
       onConfig={() => setShowConfigDialog(true)}
     >
       <ChatInterface key={chatKey} />
@@ -58,6 +79,13 @@ export default function Home() {
         isOpen={showImportDialog}
         onClose={() => setShowImportDialog(false)}
         onImport={handleImport}
+      />
+
+      {/* Export Dialog */}
+      <ExportDialog
+        isOpen={showExportDialog}
+        onClose={() => setShowExportDialog(false)}
+        messages={currentMessages}
       />
 
       {/* Profile Config Dialog */}
