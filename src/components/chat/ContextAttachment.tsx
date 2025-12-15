@@ -150,18 +150,15 @@ export function ContextAttachment({
   return (
     <>
       {/* Attach button */}
-      <Button
+      <button
         type="button"
-        variant="ghost"
-        size="sm"
         onClick={() => setIsOpen(true)}
         disabled={disabled}
-        className="h-8 px-2"
+        className="text-xs hover:bg-accent px-2 py-1 transition-colors font-mono disabled:opacity-50"
         title="Add context"
       >
-        <Paperclip className="h-4 w-4" />
-        <span className="sr-only">Add context</span>
-      </Button>
+        [ 📎 ]
+      </button>
 
       {/* Attached files display */}
       {attachedFiles.length > 0 && (
