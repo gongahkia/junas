@@ -1,8 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, Upload } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { ToastProvider } from '@/components/ui/toast';
 import { migrateApiKeysToSession } from '@/lib/migrate-keys';
 
@@ -33,20 +31,17 @@ export function Layout({ children, onImport, onNewChat }: LayoutProps) {
         <div className="min-h-screen bg-background flex flex-col">
         {/* Header */}
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="max-w-7xl mx-auto flex h-14 md:h-16 items-center gap-2 md:gap-6 px-4 md:px-8">
+          <div className="max-w-7xl mx-auto flex h-14 md:h-16 items-center gap-2 md:gap-6 px-4 md:px-8 font-mono">
             {/* Left side - New Chat button */}
             <div className="flex items-center">
               {onNewChat && (
-                <Button
-                  variant="outline"
-                  size="sm"
+                <button
                   onClick={onNewChat}
-                  className="h-9 md:h-10 px-3 md:px-4"
+                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
                   data-tour="new-chat"
                 >
-                  <Plus className="h-4 w-4 md:mr-2" />
-                  <span className="hidden md:inline">New Chat</span>
-                </Button>
+                  [ + New Chat ]
+                </button>
               )}
             </div>
 
@@ -54,21 +49,17 @@ export function Layout({ children, onImport, onNewChat }: LayoutProps) {
             <div className="flex-1"></div>
 
             {/* Right side controls */}
-            <div className="flex items-center space-x-1 md:space-x-3">
+            <div className="flex items-center space-x-2 md:space-x-4">
               {/* Import button */}
               {onImport && (
-                <Button
-                  variant="outline"
-                  size="sm"
+                <button
                   onClick={onImport}
-                  className="h-9 md:h-10 px-3 md:px-4"
+                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
                   data-tour="import"
                 >
-                  <Upload className="h-4 w-4 md:mr-2" />
-                  <span className="hidden md:inline">Import</span>
-                </Button>
+                  [ ↑ Import ]
+                </button>
               )}
-
             </div>
           </div>
         </header>
