@@ -60,12 +60,18 @@ export function Toast({ id, title, description, type = 'info', duration = 5000, 
 
   if (!isVisible) return null;
 
+  const verticalOffset = index * 140; // Stack toasts with 140px spacing
+
   return (
     <div
       className={cn(
-        'fixed top-1/2 left-1/2 -translate-y-1/2 z-50 w-full max-w-md transform transition-all duration-500 ease-in-out font-mono',
+        'fixed left-1/2 z-50 w-full max-w-md transform transition-all duration-500 ease-in-out font-mono',
         isVisible ? '-translate-x-1/2 opacity-100' : 'translate-x-[150vw] opacity-0'
       )}
+      style={{
+        top: `calc(50% - ${verticalOffset}px)`,
+        transform: isVisible ? 'translateX(-50%)' : 'translateX(150vw)'
+      }}
     >
       <div
         className={cn(
