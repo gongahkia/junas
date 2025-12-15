@@ -62,8 +62,8 @@ export function Toast({ id, title, description, type = 'info', duration = 5000, 
   return (
     <div
       className={cn(
-        'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md transform transition-all duration-500 ease-in-out font-mono',
-        isVisible ? 'translate-x-0 opacity-100' : 'translate-x-[150vw] opacity-0'
+        'fixed top-1/2 left-1/2 -translate-y-1/2 z-50 w-full max-w-md transform transition-all duration-500 ease-in-out font-mono',
+        isVisible ? '-translate-x-1/2 opacity-100' : 'translate-x-[150vw] opacity-0'
       )}
     >
       <div
