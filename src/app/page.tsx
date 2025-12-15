@@ -7,16 +7,11 @@ import { NewChatDialog } from '@/components/chat/NewChatDialog';
 import { ExportDialog } from '@/components/chat/ExportDialog';
 import { ImportDialog } from '@/components/chat/ImportDialog';
 import { SearchDialog } from '@/components/chat/SearchDialog';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { StorageManager } from '@/lib/storage';
 import { Message } from '@/types/chat';
-import { LegalDisclaimerContent } from '@/components/LegalDisclaimer';
 import { UsernamePrompt } from '@/components/UsernamePrompt';
 
 export default function Home() {
-  const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showNewChatDialog, setShowNewChatDialog] = useState(false);
   const [showExportDialog, setShowExportDialog] = useState(false);
   const [showImportDialog, setShowImportDialog] = useState(false);
