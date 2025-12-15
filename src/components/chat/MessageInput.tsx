@@ -163,8 +163,8 @@ export function MessageInput({
             />
 
             {/* Bottom toolbar inside textarea */}
-            <div className="absolute bottom-3 left-3 right-3 md:bottom-3 md:left-4 md:right-4 flex items-center justify-between z-10">
-              <div className="flex items-center gap-1">
+            <div className="px-3 md:px-4 pb-2 flex items-center justify-between text-xs font-mono">
+              <div className="flex items-center gap-2 md:gap-3">
                 {/* Provider selector */}
                 <InlineProviderSelector
                   currentProvider={currentProvider}
@@ -182,11 +182,13 @@ export function MessageInput({
 
               {/* Helper text */}
               <div className="text-xs text-muted-foreground hidden md:block">
-                <kbd className="px-1.5 py-0.5 text-xs font-semibold bg-muted rounded border">
-                  /
-                </kbd>
-                {' '}for commands
+                [ / for commands ]
               </div>
+            </div>
+
+            {/* ASCII bottom border */}
+            <div className="text-xs text-muted-foreground/50 px-2 pb-1 font-mono">
+              └{'─'.repeat(70)}
             </div>
           </div>
 
