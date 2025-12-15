@@ -35,40 +35,43 @@ export function NewChatDialog({ isOpen, onClose, onConfirm }: NewChatDialogProps
 
   return (
     <AlertDialog open={isOpen} onOpenChange={onClose}>
-      <AlertDialogContent>
+      <AlertDialogContent className="font-mono">
         <AlertDialogHeader>
-          <AlertDialogTitle className="flex items-center space-x-2">
-            <Plus className="h-5 w-5" />
-            <span>Start New Chat</span>
+          <AlertDialogTitle className="text-sm">
+            [ + Start New Chat ]
           </AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogDescription className="text-xs">
             This will clear your current conversation and start a fresh chat session.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <div className="space-y-3">
+        <div className="space-y-3 text-xs">
           <div className="font-semibold text-destructive">
-            Warning: Your current conversation will be permanently deleted from your browser.
+            ! Warning: Your current conversation will be permanently deleted from your browser.
           </div>
-          <div className="bg-muted p-3 rounded-md border border-border">
-            <div className="text-sm font-medium text-foreground mb-1">
-              Before you continue:
+          <div className="bg-muted/30 p-3 border border-muted-foreground/30">
+            <div className="font-medium mb-1">
+              &gt; Before you continue:
             </div>
-            <div className="text-sm text-muted-foreground">
+            <div className="text-muted-foreground">
               Consider exporting your conversation to save it for future reference. You can export as JSON, Markdown, or plain text, and re-import it later to provide context to the AI.
             </div>
           </div>
         </div>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isLoading}>
-            Cancel
-          </AlertDialogCancel>
-          <AlertDialogAction
+          <button
+            onClick={onClose}
+            disabled={isLoading}
+            className="px-3 py-2 text-xs hover:bg-muted transition-colors disabled:opacity-50"
+          >
+            [ Cancel ]
+          </button>
+          <button
             onClick={handleConfirm}
             disabled={isLoading}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            className="px-3 py-2 text-xs bg-destructive text-destructive-foreground hover:bg-destructive/90 transition-colors disabled:opacity-50"
           >
-            {isLoading ? 'Starting...' : 'Start New Chat'}
-          </AlertDialogAction>
+            [ {isLoading ? 'Starting...' : 'Start New Chat'} ]
+          </button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
