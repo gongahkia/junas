@@ -60,17 +60,18 @@ export function Toast({ id, title, description, type = 'info', duration = 5000, 
 
   if (!isVisible) return null;
 
-  const verticalOffset = index * 140; // Stack toasts with 140px spacing
+  const verticalOffset = index * 150; // Stack toasts with 150px spacing
 
   return (
     <div
       className={cn(
-        'fixed left-1/2 z-50 w-full max-w-md transform transition-all duration-500 ease-in-out font-mono',
-        isVisible ? '-translate-x-1/2 opacity-100' : 'translate-x-[150vw] opacity-0'
+        'fixed left-1/2 z-50 w-full max-w-md font-mono',
+        isVisible ? 'opacity-100' : 'opacity-0'
       )}
       style={{
         top: `calc(50% - ${verticalOffset}px)`,
-        transform: isVisible ? 'translateX(-50%)' : 'translateX(150vw)'
+        transform: isVisible ? 'translateX(-50%)' : 'translateX(150vw)',
+        transition: 'transform 500ms ease-in-out, opacity 500ms ease-in-out, top 500ms ease-in-out'
       }}
     >
       <div
@@ -113,7 +114,11 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
 
   const addToast = React.useCallback((toast: Omit<ToastProps, 'id'>) => {
     const id = Math.random().toString(36).substring(2, 11);
-    setToasts(prev => [...prev, { ...toast, id }]);
+    setToasts(prev => {
+      // Keep only the last 5 toasts to prevent overflow
+      const newToasts = [...prev, { ...toast, id }];
+      return newToasts.slice(-5);
+    });
   }, []);
 
   const removeToast = React.useCallback((id: string) => {
@@ -123,10 +128,11 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   return (
     <ToastContext.Provider value={{ toasts, addToast, removeToast }}>
       {children}
-      {toasts.map(toast => (
+      {[...toasts].reverse().map((toast, index) => (
         <Toast
           key={toast.id}
           {...toast}
+          index={index}
           onClose={() => removeToast(toast.id)}
         />
       ))}
