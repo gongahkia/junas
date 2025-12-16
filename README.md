@@ -101,17 +101,17 @@ $ npm start
 ### [V2.0.0](https://github.com/gongahkia/junas/releases/tag/2.0.0)
 
 <div align="center">
-    <img width="45%" src="./asset/v2/reference/1.png">
-    <img width="45%" src="./asset/v2/reference/2.png">
+    <img width="45%" src="./asset/reference/v2/1.png">
+    <img width="45%" src="./asset/reference/v2/2.png">
 </div>
 
 <div align="center">
-    <img width="45%" src="./asset/v2/reference/3.png">
-    <img width="45%" src="./asset/v2/reference/4.png">
+    <img width="45%" src="./asset/reference/v2/3.png">
+    <img width="45%" src="./asset/reference/v2/4.png">
 </div>
 
 <div align="center">
-    <img width="45%" src="./asset/v2/reference/5.png">
+    <img width="45%" src="./asset/reference/v2/5.png">
 </div>
 
 ## Architecture
