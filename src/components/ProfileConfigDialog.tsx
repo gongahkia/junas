@@ -63,9 +63,6 @@ export function ProfileConfigDialog({ isOpen, onClose }: ProfileConfigDialogProp
               onChange={(e) => setUserRole(e.target.value)}
               className="text-xs font-mono"
             />
-            <p className="text-xs text-muted-foreground">
-              What is your profession or role?
-            </p>
           </div>
 
           <div className="space-y-2">
@@ -79,14 +76,13 @@ export function ProfileConfigDialog({ isOpen, onClose }: ProfileConfigDialogProp
               onChange={(e) => setUserPurpose(e.target.value)}
               className="text-xs font-mono"
             />
-            <p className="text-xs text-muted-foreground">
-              What are you using Junas for?
-            </p>
           </div>
 
-          <div className="bg-muted/10 p-3 border border-muted-foreground/30 text-xs">
-            <p className="font-medium mb-1">&gt; Example Context:</p>
-            <p className="text-muted-foreground">
+          <div className="space-y-2">
+            <Label className="text-xs font-mono">
+              &gt; What are you using Junas for?
+            </Label>
+            <p className="text-xs text-muted-foreground pl-1">
               {userRole || '[Your Role]'} using Junas for {userPurpose || '[Your Purpose]'}
             </p>
           </div>

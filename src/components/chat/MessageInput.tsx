@@ -4,10 +4,9 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { InlineProviderSelector } from './InlineProviderSelector';
 import { CommandPalette } from './CommandPalette';
-import { ContextAttachment, AttachedFile } from './ContextAttachment';
 
 interface MessageInputProps {
-  onSendMessage: (content: string, attachedFiles?: AttachedFile[]) => void;
+  onSendMessage: (content: string) => void;
   isLoading: boolean;
   placeholder?: string;
   currentProvider: string;
@@ -24,7 +23,6 @@ export function MessageInput({
   const [message, setMessage] = useState('');
   const [showCommandPalette, setShowCommandPalette] = useState(false);
   const [cursorPosition, setCursorPosition] = useState(0);
-  const [attachedFiles, setAttachedFiles] = useState<AttachedFile[]>([]);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Handle input changes and detect "/" for command palette
@@ -75,22 +73,13 @@ export function MessageInput({
     setShowCommandPalette(false);
   }, [message, cursorPosition]);
 
-  const handleFilesAttach = useCallback((files: AttachedFile[]) => {
-    setAttachedFiles(prev => [...prev, ...files]);
-  }, []);
-
-  const handleFileRemove = useCallback((fileId: string) => {
-    setAttachedFiles(prev => prev.filter(f => f.id !== fileId));
-  }, []);
-
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim() || isLoading) return;
 
-    onSendMessage(message.trim(), attachedFiles.length > 0 ? attachedFiles : undefined);
+    onSendMessage(message.trim());
     setMessage('');
-    setAttachedFiles([]);
-  }, [message, isLoading, attachedFiles, onSendMessage]);
+  }, [message, isLoading, onSendMessage]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     // Close command palette on Escape
