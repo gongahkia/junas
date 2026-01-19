@@ -169,8 +169,11 @@ export async function downloadModel(
       status: 'downloading',
     });
 
+    // Get pipeline from dynamic import
+    const { pipeline: pipelineFn } = await getTransformers();
+
     // Create pipeline with progress callback
-    const pipelineInstance = await pipeline(
+    const pipelineInstance = await pipelineFn(
       modelInfo.type === 'ner' ? 'token-classification' :
       modelInfo.type === 'embeddings' ? 'feature-extraction' :
       modelInfo.type,
