@@ -233,7 +233,10 @@ export async function loadModel(modelId: string): Promise<boolean> {
     throw new Error(`Unknown model: ${modelId}`);
   }
 
-  const pipelineInstance = await pipeline(
+  // Get pipeline from dynamic import
+  const { pipeline: pipelineFn } = await getTransformers();
+
+  const pipelineInstance = await pipelineFn(
     modelInfo.type === 'ner' ? 'token-classification' :
     modelInfo.type === 'embeddings' ? 'feature-extraction' :
     modelInfo.type,
