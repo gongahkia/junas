@@ -155,14 +155,6 @@ export function MessageInput({
                     currentProvider={currentProvider}
                     onProviderChange={onProviderChange}
                   />
-
-                  {/* Context attachment button */}
-                  <ContextAttachment
-                    onFilesAttach={handleFilesAttach}
-                    attachedFiles={attachedFiles}
-                    onFileRemove={handleFileRemove}
-                    disabled={isLoading}
-                  />
                 </div>
 
                 {/* Helper text */}
@@ -172,16 +164,6 @@ export function MessageInput({
               </div>
             </div>
           </div>
-
-          {/* Attached files display */}
-          {attachedFiles.length > 0 && (
-            <ContextAttachment
-              onFilesAttach={handleFilesAttach}
-              attachedFiles={attachedFiles}
-              onFileRemove={handleFileRemove}
-              disabled={isLoading}
-            />
-          )}
         </form>
       </div>
     </div>

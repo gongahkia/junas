@@ -9,7 +9,6 @@ import { StorageManager } from '@/lib/storage';
 import { ChatService } from '@/lib/ai/chat-service';
 import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
-import { AttachedFile } from './ContextAttachment';
 
 interface ChatInterfaceProps {}
 
@@ -131,10 +130,9 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
     }
   }, [messages, isLoading, currentProvider]);
 
-  const handleSendMessage = useCallback(async (content: string, attachedFiles?: AttachedFile[]) => {
+  const handleSendMessage = useCallback(async (content: string) => {
     if (!content.trim()) return;
 
-    // Process attached files and add context to the message
     let enrichedContent = content;
 
     // Add user context pre-prompt to the first message
@@ -147,18 +145,6 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
         const contextPrompt = `[Context: I am ${contextParts.join(' ')}]\n\n`;
         enrichedContent = contextPrompt + content;
       }
-    }
-
-    if (attachedFiles && attachedFiles.length > 0) {
-      const filesContext = attachedFiles.map(file => {
-        return `\n\n[Attached File: ${file.name}]\n${
-          file.type.startsWith('image/')
-            ? '[Image file - content embedded]'
-            : file.content.slice(0, 5000) // Limit to first 5000 chars
-        }\n[End of ${file.name}]`;
-      }).join('\n');
-
-      enrichedContent = `${enrichedContent}\n\n--- Context from attached files ---${filesContext}`;
     }
 
     const userMessage: Message = {
