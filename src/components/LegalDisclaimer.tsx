@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 import { StorageManager } from "@/lib/storage"
 
 interface LegalDisclaimerProps {
@@ -67,9 +67,9 @@ export function LegalDisclaimer({ onDismiss }: LegalDisclaimerProps = {}) {
           <DialogTitle className="text-sm">
             ⚠️ Legal Disclaimer
           </DialogTitle>
-          <DialogDescription className="text-left pt-2">
+          <div className="text-sm text-muted-foreground text-left pt-2">
             <LegalDisclaimerContent />
-          </DialogDescription>
+          </div>
         </DialogHeader>
         <DialogFooter>
           <button

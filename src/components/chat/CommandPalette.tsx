@@ -123,20 +123,26 @@ export function CommandPalette({
     return acc;
   }, {} as Record<string, CommandItem[]>);
 
+  // Create a flat array in display order (matching how they appear in the UI)
+  const categoryOrder = ['research', 'analysis', 'drafting', 'tools'];
+  const displayOrderCommands = categoryOrder.flatMap(
+    category => groupedCommands[category] || []
+  );
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        setSelectedIndex(prev => 
-          prev < filteredCommands.length - 1 ? prev + 1 : prev
+        setSelectedIndex(prev =>
+          prev < displayOrderCommands.length - 1 ? prev + 1 : prev
         );
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
         setSelectedIndex(prev => (prev > 0 ? prev - 1 : prev));
       } else if (e.key === 'Enter') {
         e.preventDefault();
-        if (filteredCommands[selectedIndex]) {
-          handleCommandSelect(filteredCommands[selectedIndex]);
+        if (displayOrderCommands[selectedIndex]) {
+          handleCommandSelect(displayOrderCommands[selectedIndex]);
         }
       } else if (e.key === 'Escape') {
         e.preventDefault();
@@ -146,7 +152,7 @@ export function CommandPalette({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedIndex, filteredCommands, onClose]);
+  }, [selectedIndex, displayOrderCommands, onClose]);
 
   // Update search query from input
   useEffect(() => {
@@ -194,7 +200,10 @@ export function CommandPalette({
         </div>
       ) : (
         <div className="py-2">
-          {Object.entries(groupedCommands).map(([category, cmds]) => (
+          {categoryOrder.map((category) => {
+            const cmds = groupedCommands[category];
+            if (!cmds || cmds.length === 0) return null;
+            return (
             <div key={category}>
               <div className="px-3 py-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                 {categoryLabels[category as keyof typeof categoryLabels]}
@@ -227,17 +236,11 @@ export function CommandPalette({
                 );
               })}
             </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
-      <div className="sticky bottom-0 bg-muted/50 border-t px-3 py-2 text-xs text-muted-foreground">
-        <div className="flex items-center justify-between">
-          <span>[ ↑↓ Navigate ]</span>
-          <span>[ ↵ Select ]</span>
-          <span>[ Esc Close ]</span>
-        </div>
-      </div>
     </div>
   );
 }
