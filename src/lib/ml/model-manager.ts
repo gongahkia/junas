@@ -1,22 +1,17 @@
 /**
  * ONNX Model Manager for browser-based ML inference
- * Uses @xenova/transformers for WebAssembly-based model execution
+ * Uses @huggingface/transformers for WebAssembly-based model execution
  */
 
 // Dynamic import to avoid SSR issues - transformers.js only works in browser
-let pipeline: any = null;
-let env: any = null;
+let pipelineCache: any = null;
 
 async function getTransformers() {
-  if (!pipeline) {
-    const transformers = await import('@xenova/transformers');
-    pipeline = transformers.pipeline;
-    env = transformers.env;
-    // Configure transformers.js to use browser cache
-    env.useBrowserCache = true;
-    env.allowLocalModels = false;
+  if (!pipelineCache) {
+    const transformers = await import('@huggingface/transformers');
+    pipelineCache = transformers.pipeline;
   }
-  return { pipeline, env };
+  return { pipeline: pipelineCache };
 }
 
 export type ModelType = 'summarization' | 'ner' | 'embeddings' | 'text-classification';
