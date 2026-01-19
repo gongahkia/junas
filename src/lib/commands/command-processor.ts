@@ -47,6 +47,24 @@ export const COMMANDS: CommandInfo[] = [
     isLocal: true,
   },
   {
+    id: 'summarize-local',
+    label: 'summarize-local',
+    description: 'Summarize text using local ONNX model (requires download)',
+    isLocal: true,
+  },
+  {
+    id: 'ner-advanced',
+    label: 'ner-advanced',
+    description: 'Advanced NER using BERT model (requires download)',
+    isLocal: true,
+  },
+  {
+    id: 'classify-text',
+    label: 'classify-text',
+    description: 'Classify text sentiment using local model (requires download)',
+    isLocal: true,
+  },
+  {
     id: 'search-case-law',
     label: 'search-case-law',
     description: 'Search Singapore legal database for relevant cases',
