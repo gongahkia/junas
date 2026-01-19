@@ -3,11 +3,21 @@
  * Uses @xenova/transformers for WebAssembly-based model execution
  */
 
-import { pipeline, env } from '@xenova/transformers';
+// Dynamic import to avoid SSR issues - transformers.js only works in browser
+let pipeline: any = null;
+let env: any = null;
 
-// Configure transformers.js to use browser cache
-env.useBrowserCache = true;
-env.allowLocalModels = false;
+async function getTransformers() {
+  if (!pipeline) {
+    const transformers = await import('@xenova/transformers');
+    pipeline = transformers.pipeline;
+    env = transformers.env;
+    // Configure transformers.js to use browser cache
+    env.useBrowserCache = true;
+    env.allowLocalModels = false;
+  }
+  return { pipeline, env };
+}
 
 export type ModelType = 'summarization' | 'ner' | 'embeddings' | 'text-classification';
 

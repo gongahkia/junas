@@ -9,7 +9,7 @@ import { StorageManager } from '@/lib/storage';
 import { ChatService } from '@/lib/ai/chat-service';
 import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
-import { parseCommand, processLocalCommand } from '@/lib/commands/command-processor';
+import { parseCommand, processLocalCommand, processAsyncLocalCommand } from '@/lib/commands/command-processor';
 
 interface ChatInterfaceProps {}
 
@@ -178,8 +178,58 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
     // Handle local commands without AI
     if (parsedCommand && parsedCommand.isLocal) {
       const result = processLocalCommand(parsedCommand);
-      const responseTime = Date.now() - startTime;
 
+      // Check if model is not downloaded
+      if (!result.success && result.requiresModel) {
+        const responseTime = Date.now() - startTime;
+        setMessages(prev =>
+          prev.map(msg =>
+            msg.id === assistantMessage.id
+              ? { ...msg, content: result.content, responseTime }
+              : msg
+          )
+        );
+        setIsLoading(false);
+        return;
+      }
+
+      // Check if this is an async model command
+      if (result.content === '__ASYNC_MODEL_COMMAND__') {
+        // Show loading state
+        setMessages(prev =>
+          prev.map(msg =>
+            msg.id === assistantMessage.id
+              ? { ...msg, content: 'Loading model and processing...' }
+              : msg
+          )
+        );
+
+        try {
+          const asyncResult = await processAsyncLocalCommand(parsedCommand);
+          const responseTime = Date.now() - startTime;
+          setMessages(prev =>
+            prev.map(msg =>
+              msg.id === assistantMessage.id
+                ? { ...msg, content: asyncResult.content, responseTime }
+                : msg
+            )
+          );
+        } catch (error: any) {
+          const responseTime = Date.now() - startTime;
+          setMessages(prev =>
+            prev.map(msg =>
+              msg.id === assistantMessage.id
+                ? { ...msg, content: `Error processing command: ${error.message}`, responseTime }
+                : msg
+            )
+          );
+        }
+        setIsLoading(false);
+        return;
+      }
+
+      // Regular sync local command
+      const responseTime = Date.now() - startTime;
       setMessages(prev =>
         prev.map(msg =>
           msg.id === assistantMessage.id

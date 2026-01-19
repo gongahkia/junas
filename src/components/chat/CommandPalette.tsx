@@ -10,7 +10,10 @@ import {
   Scale,
   BookOpen,
   Briefcase,
-  FileSignature
+  FileSignature,
+  Cpu,
+  Sparkles,
+  Tags
 } from 'lucide-react';
 
 export interface CommandItem {
@@ -73,6 +76,33 @@ export function CommandPalette({
       label: 'analyze-document',
       description: 'Get statistics, readability, keywords, structure (no AI)',
       icon: <BarChart className="h-4 w-4" />,
+      category: 'analysis',
+      isLocal: true,
+      action: () => {},
+    },
+    {
+      id: 'summarize-local',
+      label: 'summarize-local',
+      description: 'Summarize text using local ONNX model (requires download)',
+      icon: <Cpu className="h-4 w-4" />,
+      category: 'analysis',
+      isLocal: true,
+      action: () => {},
+    },
+    {
+      id: 'ner-advanced',
+      label: 'ner-advanced',
+      description: 'Advanced NER using BERT model (requires download)',
+      icon: <Tags className="h-4 w-4" />,
+      category: 'analysis',
+      isLocal: true,
+      action: () => {},
+    },
+    {
+      id: 'classify-text',
+      label: 'classify-text',
+      description: 'Classify text sentiment using local model (requires download)',
+      icon: <Sparkles className="h-4 w-4" />,
       category: 'analysis',
       isLocal: true,
       action: () => {},

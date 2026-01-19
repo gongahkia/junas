@@ -117,6 +117,12 @@ export interface ProcessedCommand {
 export interface LocalCommandResult {
   success: boolean;
   content: string;
+  requiresModel?: string; // Model ID required for this command
+}
+
+export interface AsyncLocalCommandResult {
+  success: boolean;
+  content: string;
 }
 
 /**
@@ -146,6 +152,18 @@ export function parseCommand(message: string): ProcessedCommand | null {
 }
 
 /**
+ * Check if a command requires an ONNX model
+ */
+export function requiresModel(commandType: CommandType): string | null {
+  const modelMap: Partial<Record<CommandType, string>> = {
+    'summarize-local': 'summarization',
+    'ner-advanced': 'ner',
+    'classify-text': 'text-classification',
+  };
+  return modelMap[commandType] || null;
+}
+
+/**
  * Process a local command (no AI required)
  */
 export function processLocalCommand(command: ProcessedCommand): LocalCommandResult {
@@ -156,6 +174,18 @@ export function processLocalCommand(command: ProcessedCommand): LocalCommandResu
       success: false,
       content: `Please provide text after the /${commandType} command.\n\nExample:\n\`/${commandType} [your text here]\``,
     };
+  }
+
+  // Check if this command requires a model
+  const requiredModel = requiresModel(commandType);
+  if (requiredModel) {
+    if (!isModelDownloaded(requiredModel)) {
+      return {
+        success: false,
+        content: `This command requires the "${requiredModel}" model to be downloaded.\n\nGo to ⚙ Configuration → Models to download it.`,
+        requiresModel: requiredModel,
+      };
+    }
   }
 
   switch (commandType) {
@@ -174,11 +204,77 @@ export function processLocalCommand(command: ProcessedCommand): LocalCommandResu
       };
     }
 
+    // ONNX model commands return a placeholder - actual processing is async
+    case 'summarize-local':
+    case 'ner-advanced':
+    case 'classify-text':
+      return {
+        success: true,
+        content: '__ASYNC_MODEL_COMMAND__', // Signal to ChatInterface to use async processing
+        requiresModel: requiredModel || undefined,
+      };
+
     default:
       return {
         success: false,
         content: `Command /${commandType} is not a local command.`,
       };
+  }
+}
+
+/**
+ * Process a local command that requires an ONNX model (async)
+ */
+export async function processAsyncLocalCommand(command: ProcessedCommand): Promise<AsyncLocalCommandResult> {
+  const { command: commandType, args } = command;
+
+  try {
+    switch (commandType) {
+      case 'summarize-local': {
+        const summary = await summarize(args);
+        return {
+          success: true,
+          content: `**Summary:**\n\n${summary}`,
+        };
+      }
+
+      case 'ner-advanced': {
+        const entities = await extractNamedEntities(args);
+        if (entities.length === 0) {
+          return {
+            success: true,
+            content: '**Named Entity Recognition (BERT)**\n\nNo entities detected in the provided text.',
+          };
+        }
+        const formatted = entities
+          .map(e => `- **${e.word}** (${e.entity}) - confidence: ${(e.score * 100).toFixed(1)}%`)
+          .join('\n');
+        return {
+          success: true,
+          content: `**Named Entity Recognition (BERT)**\n\nFound ${entities.length} entities:\n\n${formatted}`,
+        };
+      }
+
+      case 'classify-text': {
+        const classifications = await classifyText(args);
+        const top = classifications[0];
+        return {
+          success: true,
+          content: `**Text Classification**\n\nSentiment: **${top.label}**\nConfidence: ${(top.score * 100).toFixed(1)}%`,
+        };
+      }
+
+      default:
+        return {
+          success: false,
+          content: `Command /${commandType} does not support async processing.`,
+        };
+    }
+  } catch (error: any) {
+    return {
+      success: false,
+      content: `Error processing command: ${error.message}`,
+    };
   }
 }
 
