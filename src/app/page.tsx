@@ -6,7 +6,7 @@ import { ChatInterface } from '@/components/chat/ChatInterface';
 import { NewChatDialog } from '@/components/chat/NewChatDialog';
 import { ImportDialog } from '@/components/chat/ImportDialog';
 import { ExportDialog } from '@/components/chat/ExportDialog';
-import { ProfileConfigDialog } from '@/components/ProfileConfigDialog';
+import { ConfigDialog } from '@/components/ConfigDialog';
 import { StorageManager } from '@/lib/storage';
 import { Message } from '@/types/chat';
 
@@ -88,8 +88,8 @@ export default function Home() {
         messages={currentMessages}
       />
 
-      {/* Profile Config Dialog */}
-      <ProfileConfigDialog
+      {/* Config Dialog */}
+      <ConfigDialog
         isOpen={showConfigDialog}
         onClose={() => setShowConfigDialog(false)}
       />

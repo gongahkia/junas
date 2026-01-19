@@ -153,47 +153,4 @@ export class ChatService {
       throw new Error(error.message || 'Failed to get AI response');
     }
   }
-
-
-  static async analyzeDocument(text: string, type: 'contract' | 'case' | 'statute' = 'contract') {
-    try {
-      const response = await fetch('/api/tools/analyze', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ text, type }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Document analysis failed');
-      }
-
-      return await response.json();
-    } catch (error: any) {
-      console.error('Document analysis error:', error);
-      throw new Error(error.message || 'Failed to analyze document');
-    }
-  }
-
-  static async searchLegalDatabase(query: string, type?: string) {
-    try {
-      const response = await fetch('/api/tools/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query, type }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Legal search failed');
-      }
-
-      return await response.json();
-    } catch (error: any) {
-      console.error('Legal search error:', error);
-      throw new Error(error.message || 'Failed to search legal database');
-    }
-  }
 }

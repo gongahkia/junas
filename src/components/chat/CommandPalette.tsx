@@ -1,13 +1,11 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Command } from 'lucide-react';
-import { 
-  Database, 
-  Search, 
-  FileText, 
-  Users, 
-  BarChart, 
+import {
+  Search,
+  FileText,
+  Users,
+  BarChart,
   FileSearch,
   Scale,
   BookOpen,
@@ -21,6 +19,7 @@ export interface CommandItem {
   description: string;
   icon: React.ReactNode;
   category: 'research' | 'analysis' | 'drafting' | 'tools';
+  isLocal: boolean; // true = processed locally without AI
   action: () => void;
 }
 
@@ -48,46 +47,7 @@ export function CommandPalette({
       description: 'Search Singapore legal database for relevant cases',
       icon: <Search className="h-4 w-4" />,
       category: 'research',
-      action: () => {},
-    },
-    {
-      id: 'analyze-contract',
-      label: 'analyze-contract',
-      description: 'Extract key terms, obligations, and risks from contract',
-      icon: <FileSearch className="h-4 w-4" />,
-      category: 'analysis',
-      action: () => {},
-    },
-    {
-      id: 'extract-entities',
-      label: 'extract-entities',
-      description: 'Identify persons, organizations, dates, and legal references',
-      icon: <Users className="h-4 w-4" />,
-      category: 'analysis',
-      action: () => {},
-    },
-    {
-      id: 'summarize-document',
-      label: 'summarize-document',
-      description: 'Generate concise summary of legal document',
-      icon: <FileText className="h-4 w-4" />,
-      category: 'analysis',
-      action: () => {},
-    },
-    {
-      id: 'draft-clause',
-      label: 'draft-clause',
-      description: 'Generate legal clause based on requirements',
-      icon: <FileSignature className="h-4 w-4" />,
-      category: 'drafting',
-      action: () => {},
-    },
-    {
-      id: 'check-compliance',
-      label: 'check-compliance',
-      description: 'Verify regulatory compliance for Singapore law',
-      icon: <Scale className="h-4 w-4" />,
-      category: 'tools',
+      isLocal: false,
       action: () => {},
     },
     {
@@ -96,6 +56,43 @@ export function CommandPalette({
       description: 'Look up statutory provisions and interpretations',
       icon: <BookOpen className="h-4 w-4" />,
       category: 'research',
+      isLocal: false,
+      action: () => {},
+    },
+    {
+      id: 'extract-entities',
+      label: 'extract-entities',
+      description: 'Extract people, organizations, dates, citations (no AI)',
+      icon: <Users className="h-4 w-4" />,
+      category: 'analysis',
+      isLocal: true,
+      action: () => {},
+    },
+    {
+      id: 'analyze-document',
+      label: 'analyze-document',
+      description: 'Get statistics, readability, keywords, structure (no AI)',
+      icon: <BarChart className="h-4 w-4" />,
+      category: 'analysis',
+      isLocal: true,
+      action: () => {},
+    },
+    {
+      id: 'analyze-contract',
+      label: 'analyze-contract',
+      description: 'Extract key terms, obligations, and risks from contract',
+      icon: <FileSearch className="h-4 w-4" />,
+      category: 'analysis',
+      isLocal: false,
+      action: () => {},
+    },
+    {
+      id: 'summarize-document',
+      label: 'summarize-document',
+      description: 'Generate concise summary of legal document',
+      icon: <FileText className="h-4 w-4" />,
+      category: 'analysis',
+      isLocal: false,
       action: () => {},
     },
     {
@@ -104,6 +101,25 @@ export function CommandPalette({
       description: 'Conduct legal due diligence checklist',
       icon: <Briefcase className="h-4 w-4" />,
       category: 'analysis',
+      isLocal: false,
+      action: () => {},
+    },
+    {
+      id: 'draft-clause',
+      label: 'draft-clause',
+      description: 'Generate legal clause based on requirements',
+      icon: <FileSignature className="h-4 w-4" />,
+      category: 'drafting',
+      isLocal: false,
+      action: () => {},
+    },
+    {
+      id: 'check-compliance',
+      label: 'check-compliance',
+      description: 'Verify regulatory compliance for Singapore law',
+      icon: <Scale className="h-4 w-4" />,
+      category: 'tools',
+      isLocal: false,
       action: () => {},
     },
   ];
@@ -225,8 +241,13 @@ export function CommandPalette({
                     `}
                   >
                     <div className="flex-1 min-w-0">
-                      <div className="font-medium">
+                      <div className="font-medium flex items-center gap-2">
                         {isSelected ? '> ' : ''}{command.label}
+                        {command.isLocal && (
+                          <span className="text-[10px] px-1.5 py-0.5 bg-green-500/20 text-green-600 dark:text-green-400 rounded">
+                            LOCAL
+                          </span>
+                        )}
                       </div>
                       <div className="text-xs text-muted-foreground line-clamp-1">
                         {command.description}

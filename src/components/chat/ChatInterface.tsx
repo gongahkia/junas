@@ -9,6 +9,7 @@ import { StorageManager } from '@/lib/storage';
 import { ChatService } from '@/lib/ai/chat-service';
 import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
+import { parseCommand, processLocalCommand } from '@/lib/commands/command-processor';
 
 interface ChatInterfaceProps {}
 
@@ -133,10 +134,15 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
   const handleSendMessage = useCallback(async (content: string) => {
     if (!content.trim()) return;
 
+    // Check if this is a local command
+    const parsedCommand = parseCommand(content);
+
+    // For user message display, don't add context prefix to local commands
+    let displayContent = content;
     let enrichedContent = content;
 
-    // Add user context pre-prompt to the first message
-    if (messages.length === 0) {
+    // Add user context pre-prompt to the first message (only for AI commands)
+    if (messages.length === 0 && (!parsedCommand || !parsedCommand.isLocal)) {
       const settings = StorageManager.getSettings();
       if (settings.userRole || settings.userPurpose) {
         const contextParts = [];
@@ -150,7 +156,7 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
     const userMessage: Message = {
       id: generateId(),
       role: 'user',
-      content: enrichedContent,
+      content: parsedCommand?.isLocal ? displayContent : enrichedContent,
       timestamp: new Date(),
     };
 
@@ -159,17 +165,33 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
 
     const startTime = Date.now(); // Track start time
 
+    // Create assistant message (outside try so we can update it on error)
+    const assistantMessage: Message = {
+      id: generateId(),
+      role: 'assistant',
+      content: '',
+      timestamp: new Date(),
+    };
+
+    setMessages(prev => [...prev, assistantMessage]);
+
+    // Handle local commands without AI
+    if (parsedCommand && parsedCommand.isLocal) {
+      const result = processLocalCommand(parsedCommand);
+      const responseTime = Date.now() - startTime;
+
+      setMessages(prev =>
+        prev.map(msg =>
+          msg.id === assistantMessage.id
+            ? { ...msg, content: result.content, responseTime }
+            : msg
+        )
+      );
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      // Create assistant message for streaming
-      const assistantMessage: Message = {
-        id: generateId(),
-        role: 'assistant',
-        content: '',
-        timestamp: new Date(),
-      };
-
-      setMessages(prev => [...prev, assistantMessage]);
-
       // Get all messages including the new user message
       const allMessages = [...messages, userMessage];
 
@@ -239,7 +261,7 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
 
     } catch (error: any) {
       console.error('Error sending message:', error);
-      
+
       // Show error toast
       addToast({
         type: 'error',
@@ -247,16 +269,18 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
         description: error.message || 'Failed to send message. Please check your API keys in settings.',
         duration: 5000,
       });
-      
-      // Add error message
-      const errorMessage: Message = {
-        id: generateId(),
-        role: 'assistant',
-        content: `Sorry, I encountered an error: ${error.message}. Please check your API keys in settings.`,
-        timestamp: new Date(),
-      };
-      
-      setMessages(prev => [...prev, errorMessage]);
+
+      // Update the existing assistant message with error content (don't add a new one)
+      setMessages(prev =>
+        prev.map(msg =>
+          msg.id === assistantMessage.id
+            ? {
+                ...msg,
+                content: `Sorry, I encountered an error: ${error.message}. Please check your API keys in settings.`
+              }
+            : msg
+        )
+      );
     } finally {
       setIsLoading(false);
     }
@@ -269,24 +293,63 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
 
   const copyTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleCopyMessage = useCallback((content: string) => {
+  const handleCopyMessage = useCallback(async (content: string) => {
     // Prevent multiple rapid copy toasts
     if (copyTimeoutRef.current) {
       return;
     }
 
-    navigator.clipboard.writeText(content);
-    addToast({
-      type: 'success',
-      title: 'Copied',
-      description: 'Message copied to clipboard',
-      duration: 2000,
-    });
+    const copyToClipboard = async (text: string): Promise<boolean> => {
+      // Try modern clipboard API first
+      try {
+        if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(text);
+          return true;
+        }
+      } catch {
+        // Fall through to fallback
+      }
 
-    // Set a timeout to prevent multiple toasts within 2 seconds
-    copyTimeoutRef.current = setTimeout(() => {
-      copyTimeoutRef.current = null;
-    }, 2000);
+      // Fallback for older browsers or non-HTTPS contexts
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        const success = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        return success;
+      } catch {
+        return false;
+      }
+    };
+
+    const success = await copyToClipboard(content);
+
+    if (success) {
+      addToast({
+        type: 'success',
+        title: 'Copied',
+        description: 'Message copied to clipboard',
+        duration: 2000,
+      });
+
+      // Set a timeout to prevent multiple toasts within 2 seconds
+      copyTimeoutRef.current = setTimeout(() => {
+        copyTimeoutRef.current = null;
+      }, 2000);
+    } else {
+      addToast({
+        type: 'error',
+        title: 'Copy failed',
+        description: 'Unable to copy to clipboard',
+        duration: 2000,
+      });
+    }
   }, [addToast]);
 
   const handleRegenerateMessage = useCallback((messageId: string) => {
