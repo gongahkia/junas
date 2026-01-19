@@ -175,16 +175,28 @@ export async function downloadModel(
       modelInfo.modelId,
       {
         progress_callback: (data: any) => {
-          if (data.status === 'progress' && onProgress) {
-            onProgress({
-              modelId,
-              progress: Math.round((data.loaded / data.total) * 100),
-              loaded: data.loaded,
-              total: data.total,
-              status: 'downloading',
-            });
+          if (onProgress && data && typeof data === 'object') {
+            // Handle different progress event formats
+            if (data.status === 'progress' && data.loaded && data.total) {
+              onProgress({
+                modelId,
+                progress: Math.round((data.loaded / data.total) * 100),
+                loaded: data.loaded,
+                total: data.total,
+                status: 'downloading',
+              });
+            } else if (data.progress !== undefined) {
+              onProgress({
+                modelId,
+                progress: Math.round(data.progress * 100),
+                loaded: data.loaded || 0,
+                total: data.total || 0,
+                status: 'downloading',
+              });
+            }
           }
         },
+        dtype: 'fp32', // Use fp32 for better browser compatibility
       }
     );
 

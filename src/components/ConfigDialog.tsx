@@ -10,6 +10,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { StorageManager } from '@/lib/storage';
+import { useToast } from '@/components/ui/toast';
 import {
   AVAILABLE_MODELS,
   getModelsWithStatus,
@@ -37,6 +38,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   // Models state
   const [models, setModels] = useState<ModelInfo[]>([]);
   const [downloadingModels, setDownloadingModels] = useState<Record<string, DownloadProgress>>({});
+  const { addToast } = useToast();
 
   useEffect(() => {
     if (isOpen) {
@@ -83,6 +85,15 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       // Refresh models list
       setModels(getModelsWithStatus());
 
+      // Get model name for toast
+      const modelInfo = AVAILABLE_MODELS.find(m => m.id === modelId);
+      addToast({
+        type: 'success',
+        title: 'Model Ready',
+        description: `${modelInfo?.name || modelId} has been downloaded and is ready to use.`,
+        duration: 4000,
+      });
+
       // Clear from downloading state after a delay
       setTimeout(() => {
         setDownloadingModels(prev => {
@@ -103,6 +114,14 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
           error: error.message,
         },
       }));
+
+      const modelInfo = AVAILABLE_MODELS.find(m => m.id === modelId);
+      addToast({
+        type: 'error',
+        title: 'Download Failed',
+        description: `Failed to download ${modelInfo?.name || modelId}: ${error.message}`,
+        duration: 5000,
+      });
     }
   };
 
