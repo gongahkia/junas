@@ -65,7 +65,7 @@ export function LegalDisclaimer({ onDismiss }: LegalDisclaimerProps = {}) {
       >
         <DialogHeader>
           <DialogTitle className="text-sm">
-            ⚠️ Legal Disclaimer
+            Legal Disclaimer
           </DialogTitle>
           <div className="text-sm text-muted-foreground text-left pt-2">
             <LegalDisclaimerContent />
