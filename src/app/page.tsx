@@ -9,6 +9,7 @@ import { ExportDialog } from '@/components/chat/ExportDialog';
 import { ConfigDialog } from '@/components/ConfigDialog';
 import { StorageManager } from '@/lib/storage';
 import { Message } from '@/types/chat';
+import IntroAnimation from '@/components/IntroAnimation';
 
 export default function Home() {
   const [showNewChatDialog, setShowNewChatDialog] = useState(false);
@@ -18,6 +19,15 @@ export default function Home() {
   const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
   const [hasMessages, setHasMessages] = useState(false);
   const [currentMessages, setCurrentMessages] = useState<Message[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2500); // Show intro for 2.5 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Check if there are messages on mount and update periodically
   useEffect(() => {
@@ -58,41 +68,47 @@ export default function Home() {
     setShowNewChatDialog(false);
   };
 
+  if (loading) {
+    return <IntroAnimation />;
+  }
+
   return (
-    <Layout
-      onImport={!hasMessages ? () => setShowImportDialog(true) : undefined}
-      onExport={hasMessages ? () => setShowExportDialog(true) : undefined}
-      onNewChat={hasMessages ? handleNewChat : undefined}
-      onConfig={() => setShowConfigDialog(true)}
-    >
-      <ChatInterface key={chatKey} />
+    <div className="fade-in">
+      <Layout
+        onImport={!hasMessages ? () => setShowImportDialog(true) : undefined}
+        onExport={hasMessages ? () => setShowExportDialog(true) : undefined}
+        onNewChat={hasMessages ? handleNewChat : undefined}
+        onConfig={() => setShowConfigDialog(true)}
+      >
+        <ChatInterface key={chatKey} />
 
-      {/* New Chat Dialog */}
-      <NewChatDialog
-        isOpen={showNewChatDialog}
-        onClose={() => setShowNewChatDialog(false)}
-        onConfirm={handleConfirmNewChat}
-      />
+        {/* New Chat Dialog */}
+        <NewChatDialog
+          isOpen={showNewChatDialog}
+          onClose={() => setShowNewChatDialog(false)}
+          onConfirm={handleConfirmNewChat}
+        />
 
-      {/* Import Dialog */}
-      <ImportDialog
-        isOpen={showImportDialog}
-        onClose={() => setShowImportDialog(false)}
-        onImport={handleImport}
-      />
+        {/* Import Dialog */}
+        <ImportDialog
+          isOpen={showImportDialog}
+          onClose={() => setShowImportDialog(false)}
+          onImport={handleImport}
+        />
 
-      {/* Export Dialog */}
-      <ExportDialog
-        isOpen={showExportDialog}
-        onClose={() => setShowExportDialog(false)}
-        messages={currentMessages}
-      />
+        {/* Export Dialog */}
+        <ExportDialog
+          isOpen={showExportDialog}
+          onClose={() => setShowExportDialog(false)}
+          messages={currentMessages}
+        />
 
-      {/* Config Dialog */}
-      <ConfigDialog
-        isOpen={showConfigDialog}
-        onClose={() => setShowConfigDialog(false)}
-      />
-    </Layout>
+        {/* Config Dialog */}
+        <ConfigDialog
+          isOpen={showConfigDialog}
+          onClose={() => setShowConfigDialog(false)}
+        />
+      </Layout>
+    </div>
   );
 }

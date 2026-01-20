@@ -10,6 +10,7 @@ import { ChatService } from '@/lib/ai/chat-service';
 import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
 import { parseCommand, processLocalCommand, processAsyncLocalCommand } from '@/lib/commands/command-processor';
+import { JUNAS_ASCII_LOGO } from '@/lib/constants';
 
 interface ChatInterfaceProps {}
 
@@ -430,12 +431,7 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
               </div>
               <div className="overflow-x-auto my-8">
                 <pre className="text-muted-foreground text-xs md:text-sm font-mono leading-tight inline-block">
-{`     ██╗██╗   ██╗███╗   ██╗ █████╗ ███████╗
-     ██║██║   ██║████╗  ██║██╔══██╗██╔════╝
-     ██║██║   ██║██╔██╗ ██║███████║███████╗
-██   ██║██║   ██║██║╚██╗██║██╔══██║╚════██║
-╚█████╔╝╚██████╔╝██║ ╚████║██║  ██║███████║
- ╚════╝  ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝`}
+                  {JUNAS_ASCII_LOGO}
                 </pre>
               </div>
               <p className="text-xs text-muted-foreground font-mono mt-6">v0.1.0</p>
