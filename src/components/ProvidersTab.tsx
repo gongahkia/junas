@@ -82,13 +82,12 @@ export function ProvidersTab() {
   return (
     <div className="space-y-4">
       <div>
-        <h4 className="font-semibold text-sm mb-1">[ AI Provider ]</h4>
         <p className="text-xs text-muted-foreground">
           Select a provider and configure API keys
         </p>
       </div>
-      <div className="border-t pt-3 space-y-3">
-        <p className="text-xs font-medium">Configure API Keys</p>
+      <div className="pt-3 space-y-3">
+        <p className="text-xs font-medium">&gt; Configure API Keys</p>
         {providers.map((provider) => (
           <div key={provider.id} className="space-y-2">
             <div className="flex items-center justify-between">

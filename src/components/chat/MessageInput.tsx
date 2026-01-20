@@ -4,6 +4,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 // import { InlineProviderSelector } from './InlineProviderSelector';
 import { CommandPalette } from './CommandPalette';
+import { ModelProviderStatus } from './ModelProviderStatus';
 
 interface MessageInputProps {
   // Removed InlineProviderSelector import as provider selection is now in ConfigDialog
@@ -152,19 +153,8 @@ export function MessageInput({
               {/* Bottom toolbar */}
               <div className="border-t border-muted-foreground/30 px-3 md:px-4 py-2 flex items-center justify-between text-xs font-mono bg-muted/5">
                 <div className="flex items-center gap-2 md:gap-3">
-                  {/* Provider selector replaced with Config button */}
-                  <button
-                    type="button"
-                    className="text-xs hover:bg-accent px-2 py-1 transition-colors font-mono"
-                    onClick={() => {
-                      if (typeof window !== 'undefined') {
-                        const event = new CustomEvent('open-config-dialog', { detail: { tab: 'providers' } });
-                        window.dispatchEvent(event);
-                      }
-                    }}
-                  >
-                    [ Configure Providers ]
-                  </button>
+                  {/* Model/provider status display */}
+                  <span className="px-2 py-1"><ModelProviderStatus /></span>
                 </div>
 
                 {/* Helper text */}
