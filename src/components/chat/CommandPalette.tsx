@@ -7,6 +7,7 @@ import {
   Upload,
   Info,
   Book,
+  Plus,
   FileText,
   Users,
   BarChart,
@@ -38,6 +39,7 @@ interface CommandPaletteProps {
   onOpenConfig: () => void;
   onOpenImport: () => void;
   onOpenAbout: () => void;
+  onNewChat?: () => void;
 }
 
 export function CommandPalette({ 
@@ -45,7 +47,8 @@ export function CommandPalette({
   onClose,
   onOpenConfig,
   onOpenImport,
-  onOpenAbout
+  onOpenAbout,
+  onNewChat
 }: CommandPaletteProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
@@ -63,6 +66,14 @@ export function CommandPalette({
   }, [isOpen]);
 
   const systemCommands: CommandItem[] = [
+    ...(onNewChat ? [{
+      id: 'new-chat',
+      label: 'New Chat',
+      description: 'Start a fresh conversation',
+      icon: <Plus className="h-4 w-4" />,
+      category: 'system' as const,
+      action: onNewChat
+    }] : []),
     {
       id: 'config',
       label: 'Configuration',

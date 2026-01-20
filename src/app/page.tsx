@@ -135,6 +135,7 @@ export default function Home() {
           onOpenConfig={() => setShowConfigDialog(true)}
           onOpenImport={() => setShowImportDialog(true)}
           onOpenAbout={() => setShowAboutDialog(true)}
+          onNewChat={hasMessages ? handleNewChat : undefined}
         />
       </Layout>
     </div>
