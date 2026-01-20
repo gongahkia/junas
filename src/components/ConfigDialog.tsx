@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { StorageManager } from '@/lib/storage';
 import { useToast } from '@/components/ui/toast';
+import { ProvidersTab } from '@/components/ProvidersTab';
 import {
   AVAILABLE_MODELS,
   getModelsWithStatus,
@@ -26,10 +27,21 @@ interface ConfigDialogProps {
   onClose: () => void;
 }
 
-type Tab = 'profile' | 'models';
+type Tab = 'profile' | 'localModels' | 'providers';
 
 export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   const [activeTab, setActiveTab] = useState<Tab>('profile');
+
+  // Listen for custom event to open Providers tab
+  useEffect(() => {
+    const handler = (e: any) => {
+      if (e.detail && e.detail.tab === 'providers') {
+        setActiveTab('providers');
+      }
+    };
+    window.addEventListener('open-config-dialog', handler);
+    return () => window.removeEventListener('open-config-dialog', handler);
+  }, []);
 
   // Profile state
   const [userRole, setUserRole] = useState('');
@@ -150,14 +162,24 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
             Profile
           </button>
           <button
-            onClick={() => setActiveTab('models')}
+            onClick={() => setActiveTab('localModels')}
             className={`px-4 py-2 text-xs transition-colors ${
-              activeTab === 'models'
+              activeTab === 'localModels'
                 ? 'border-b-2 border-primary text-primary'
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            Models
+            Local Models
+          </button>
+          <button
+            onClick={() => setActiveTab('providers')}
+            className={`px-4 py-2 text-xs transition-colors ${
+              activeTab === 'providers'
+                ? 'border-b-2 border-primary text-primary'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            Providers
           </button>
         </div>
 
@@ -206,12 +228,6 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
 
               <div className="flex justify-end gap-2 pt-4">
                 <button
-                  onClick={onClose}
-                  className="px-3 py-2 text-xs hover:bg-muted transition-colors"
-                >
-                  [ Cancel ]
-                </button>
-                <button
                   onClick={handleSaveProfile}
                   className="px-3 py-2 text-xs bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
                 >
@@ -221,7 +237,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
             </div>
           )}
 
-          {activeTab === 'models' && (
+          {activeTab === 'localModels' && (
             <div className="space-y-4">
               <div className="text-xs text-muted-foreground space-y-1">
                 <p>Download local ML models for offline processing.</p>
@@ -318,6 +334,9 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
                 <p>First download may take a while depending on your connection.</p>
               </div>
             </div>
+          )}
+          {activeTab === 'providers' && (
+            <ProvidersTab />
           )}
         </div>
       </DialogContent>
