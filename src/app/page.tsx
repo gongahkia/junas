@@ -7,6 +7,7 @@ import { NewChatDialog } from '@/components/chat/NewChatDialog';
 import { ImportDialog } from '@/components/chat/ImportDialog';
 import { ExportDialog } from '@/components/chat/ExportDialog';
 import { ConfigDialog } from '@/components/ConfigDialog';
+import { AboutDialog } from '@/components/AboutDialog';
 import { StorageManager } from '@/lib/storage';
 import { Message } from '@/types/chat';
 import IntroAnimation from '@/components/IntroAnimation';
@@ -16,6 +17,7 @@ export default function Home() {
   const [showImportDialog, setShowImportDialog] = useState(false);
   const [showExportDialog, setShowExportDialog] = useState(false);
   const [showConfigDialog, setShowConfigDialog] = useState(false);
+  const [showAboutDialog, setShowAboutDialog] = useState(false);
   const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
   const [hasMessages, setHasMessages] = useState(false);
   const [currentMessages, setCurrentMessages] = useState<Message[]>([]);
@@ -71,6 +73,7 @@ export default function Home() {
         onExport={hasMessages ? () => setShowExportDialog(true) : undefined}
         onNewChat={hasMessages ? handleNewChat : undefined}
         onConfig={() => setShowConfigDialog(true)}
+        onAbout={() => setShowAboutDialog(true)}
       >
         <ChatInterface key={chatKey} />
 
@@ -99,6 +102,12 @@ export default function Home() {
         <ConfigDialog
           isOpen={showConfigDialog}
           onClose={() => setShowConfigDialog(false)}
+        />
+
+        {/* About Dialog */}
+        <AboutDialog
+          isOpen={showAboutDialog}
+          onClose={() => setShowAboutDialog(false)}
         />
       </Layout>
     </div>

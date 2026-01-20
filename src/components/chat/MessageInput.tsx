@@ -19,7 +19,7 @@ interface MessageInputProps {
 export function MessageInput({
   onSendMessage,
   isLoading,
-  placeholder = "Ask Junas anything about Singapore law... (Type / for commands)",
+  placeholder = "Ask Junas anything about Singapore law...",
   currentProvider,
   onProviderChange,
 }: MessageInputProps) {
@@ -159,7 +159,7 @@ export function MessageInput({
 
                 {/* Helper text */}
                 <div className="text-xs text-muted-foreground hidden md:block">
-                  [ / for commands ]
+                  [ / for commands ] [ Ctrl + P for command palette ]
                 </div>
               </div>
             </div>
