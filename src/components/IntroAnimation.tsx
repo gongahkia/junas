@@ -4,35 +4,38 @@ import { useEffect, useState } from 'react';
 import { JUNAS_ASCII_LOGO } from '@/lib/constants';
 
 const IntroAnimation = () => {
-  const [visibleChars, setVisibleChars] = useState(0);
+  const [visibleLines, setVisibleLines] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
+    const lines = JUNAS_ASCII_LOGO.split('\n');
+    let fadeOutTimer: NodeJS.Timeout | null = null;
     const artInterval = setInterval(() => {
-      setVisibleChars(prev => {
-        const next = prev + 20;
-        if (next >= JUNAS_ASCII_LOGO.length) {
+      setVisibleLines(prev => {
+        const next = prev + 1;
+        if (next >= lines.length) {
           clearInterval(artInterval);
-          return JUNAS_ASCII_LOGO.length;
+          // Start fade out only after all lines are visible
+          fadeOutTimer = setTimeout(() => {
+            setFadeOut(true);
+          }, 700); // Fast fade out after short pause
+          return lines.length;
         }
         return next;
       });
-    }, 10);
-
-    const fadeOutTimer = setTimeout(() => {
-      setFadeOut(true);
-    }, 2000); // Start fade out after 2 seconds
+    }, 300); // Reveal one line every 300ms
 
     return () => {
       clearInterval(artInterval);
-      clearTimeout(fadeOutTimer);
+      if (fadeOutTimer) clearTimeout(fadeOutTimer);
     };
   }, []);
 
+  const lines = JUNAS_ASCII_LOGO.split('\n');
   return (
-    <div className={`fixed inset-0 z-50 flex items-center justify-center bg-white text-black transition-opacity duration-500 ${fadeOut ? 'fade-out' : 'fade-in'}`}>
+    <div className={`fixed inset-0 z-50 flex items-center justify-center bg-white text-black transition-opacity ${fadeOut ? 'duration-200' : 'duration-500'} ${fadeOut ? 'fade-out' : 'fade-in'}`}>
       <pre className="text-xs font-mono whitespace-pre-wrap">
-        {JUNAS_ASCII_LOGO.substring(0, visibleChars)}
+        {lines.slice(0, visibleLines).join('\n')}
       </pre>
     </div>
   );
