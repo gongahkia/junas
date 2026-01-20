@@ -288,11 +288,6 @@ export function CommandPalette({
             placeholder={showManual ? "Search manual..." : "Type a command..."}
             className="border-0 focus-visible:ring-0 px-0 h-9 text-sm"
           />
-          {showManual && (
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] bg-muted px-2 py-1 rounded text-muted-foreground">BSC to back</span>
-            </div>
-          )}
         </div>
 
         <div className="max-h-[300px] overflow-y-auto py-2">
@@ -369,9 +364,6 @@ export function CommandPalette({
             <span className="font-semibold">↑↓</span> to navigate
             <span className="mx-2">·</span>
             <span className="font-semibold">↵</span> to select
-          </div>
-          <div>
-            <span className="font-semibold">Esc</span> to close
           </div>
         </div>
       </DialogContent>
