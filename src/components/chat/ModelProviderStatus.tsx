@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { getModelsWithStatus } from '@/lib/ml/model-manager';
+import { getModelsWithStatus, AVAILABLE_MODELS } from '@/lib/ml/model-manager';
 
 export function ModelProviderStatus() {
   const [modelCount, setModelCount] = useState(0);
+  const [areAllModelsDownloaded, setAreAllModelsDownloaded] = useState(false);
   const [providerCount, setProviderCount] = useState(0);
   const [providerNames, setProviderNames] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
@@ -11,7 +12,9 @@ export function ModelProviderStatus() {
     async function fetchStatus() {
       // Local models
       const models = getModelsWithStatus();
-      setModelCount(models.filter(m => m.isDownloaded).length);
+      const downloadedCount = models.filter(m => m.isDownloaded).length;
+      setModelCount(downloadedCount);
+      setAreAllModelsDownloaded(downloadedCount === AVAILABLE_MODELS.length);
 
       // Providers
       try {
@@ -37,6 +40,11 @@ export function ModelProviderStatus() {
   }, []);
 
   if (loading) return <span className="text-xs text-muted-foreground">[ ... ]</span>;
+  
+  if (areAllModelsDownloaded) {
+    return <span className="text-xs text-muted-foreground">[ Local Models ]</span>;
+  }
+
   if (modelCount === 0 && providerCount === 0) return <span className="text-xs text-muted-foreground">[ No models ✗ ]</span>;
 
   const parts = [];
