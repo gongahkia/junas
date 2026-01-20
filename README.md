@@ -15,6 +15,10 @@
 * *Rate Limiting*: [Upstash Redis](https://upstash.com/), [Upstash Ratelimit](https://github.com/upstash/ratelimit)
 * *Monitoring*: [Sentry](https://sentry.io/)
 
+## Screenshots
+
+...
+
 ## Usage
 
 > [!IMPORTANT]  
@@ -45,74 +49,6 @@ $ npm start
     1. [Google Gemini](https://aistudio.google.com/) *(free tier available)*
     2. [OpenAI](https://platform.openai.com/)
     3. [Anthropic](https://console.anthropic.com/)
-
-## Screenshots
-
-### [V1.0.0](https://github.com/gongahkia/junas/releases/tag/1.0.0)
-
-#### Landing page
-
-<div align="center">
-    <img width="100%" src="./asset/reference/v1/1.png">
-</div>
-
-#### Draft documents, IRAC Analysis
-
-<div align="center">
-    <img width="45%" src="./asset/reference/v1/2.png">
-    <img width="45%" src="./asset/reference/v1/3.png">
-</div>
-
-#### Case facts, Case ruling
-
-<div align="center">
-    <img width="45%" src="./asset/reference/v1/4.png">
-    <img width="45%" src="./asset/reference/v1/5.png">
-</div>
-
-#### Obiter, Ratio, Legal argumentation
-
-<div align="center">
-    <img width="33%" src="./asset/reference/v1/6.png">
-    <img width="33%" src="./asset/reference/v1/7.png">
-    <img width="33%" src="./asset/reference/v1/8.png">
-</div>
-
-#### Sample response
-
-<div align="center">
-    <img width="100%" src="./asset/reference/v1/9.png">
-</div>
-
-#### Export conversation, Import conversation history
-
-<div align="center">
-    <img width="45%" src="./asset/reference/v1/10.png">
-    <img width="45%" src="./asset/reference/v1/12.png">
-</div>
-
-#### Start a new chat, Configure API Keys
-
-<div align="center">
-    <img width="45%" src="./asset/reference/v1/11.png">
-    <img width="45%" src="./asset/reference/v1/13.png">
-</div>
-
-### [V2.0.0](https://github.com/gongahkia/junas/releases/tag/2.0.0)
-
-<div align="center">
-    <img width="45%" src="./asset/reference/v2/1.png">
-    <img width="45%" src="./asset/reference/v2/2.png">
-</div>
-
-<div align="center">
-    <img width="45%" src="./asset/reference/v2/3.png">
-    <img width="45%" src="./asset/reference/v2/4.png">
-</div>
-
-<div align="center">
-    <img width="45%" src="./asset/reference/v2/5.png">
-</div>
 
 ## Architecture
 

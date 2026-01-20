@@ -73,16 +73,6 @@ export function Layout({ children, onImport, onExport, onNewChat, onConfig, onAb
                   [ ↑ Import ]
                 </button>
               )}
-              {/* About button */}
-              {onAbout && (
-                <button
-                  onClick={onAbout}
-                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
-                  title="About Junas"
-                >
-                  [ ? About ]
-                </button>
-              )}
               {/* Export button - only show when there are messages */}
               {onExport && (
                 <button
@@ -91,6 +81,16 @@ export function Layout({ children, onImport, onExport, onNewChat, onConfig, onAb
                   data-tour="export"
                 >
                   [ ↓ Export ]
+                </button>
+              )}
+              {/* About button */}
+              {onAbout && (
+                <button
+                  onClick={onAbout}
+                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
+                  title="About Junas"
+                >
+                  [ ? About ]
                 </button>
               )}
             </div>
