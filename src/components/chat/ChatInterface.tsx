@@ -417,18 +417,6 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
         {messages.length === 0 ? (
           <div className="flex items-center justify-center h-full px-4 py-8">
             <div className="text-center max-w-2xl w-full">
-              <div className="mt-6 text-xs md:text-sm text-muted-foreground font-mono leading-relaxed space-y-2">
-                <p>
-                  Your AI-powered legal assistant for Singapore law.
-                </p>
-                <p>
-                  Junas helps you research case law, analyze contracts, draft legal documents,
-                  and navigate Singapore's legal framework with ease.
-                </p>
-                <p className="text-xs opacity-75">
-                  [ Bring your own API keys • Privacy-focused • All data stays in your browser ]
-                </p>
-              </div>
               <div className="overflow-x-auto my-8">
                 <pre className="text-muted-foreground text-xs md:text-sm font-mono leading-tight inline-block">
                   {JUNAS_ASCII_LOGO}

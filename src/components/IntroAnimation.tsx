@@ -78,8 +78,8 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
         {readyToFade && !fadeOut && (
           <>
             <div className="mt-2 text-[10px] font-mono text-muted-foreground opacity-50">v0.1.0</div>
-            <div className="mt-8 text-sm font-sans text-muted-foreground select-none pointer-events-none animate-pulse">
-              Click or press <b>Space</b> to continue
+            <div className="mt-8 text-xs font-mono text-muted-foreground select-none pointer-events-none animate-pulse">
+              [ Click or press <b>Space</b> to continue ]
             </div>
           </>
         )}

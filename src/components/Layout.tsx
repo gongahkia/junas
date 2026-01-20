@@ -10,9 +10,10 @@ interface LayoutProps {
   onExport?: () => void;
   onNewChat?: () => void;
   onConfig?: () => void;
+  onAbout?: () => void;
 }
 
-export function Layout({ children, onImport, onExport, onNewChat, onConfig }: LayoutProps) {
+export function Layout({ children, onImport, onExport, onNewChat, onConfig, onAbout }: LayoutProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
