@@ -1,3 +1,5 @@
+import { COMMANDS } from '@/lib/commands/command-processor';
+
 /**
  * Provider-agnostic system prompts with advanced reasoning capabilities
  * Implements Chain-of-Thought, structured thinking, and multi-stage reasoning
@@ -12,6 +14,7 @@ export interface PromptConfig {
   useChainOfThought: boolean;
   useSelfCritique: boolean;
   useStructuredOutput: boolean;
+  useTools: boolean;
 }
 
 /**
@@ -170,6 +173,32 @@ graph TD
 Follow these rules STRICTLY to ensure diagrams render without errors.`;
 
 /**
+ * Tool usage instructions for ReAct pattern
+ */
+const TOOL_USAGE_INSTRUCTIONS = `
+**AVAILABLE TOOLS:**
+
+You have access to the following tools. If the user's request requires external information or specific analysis, you MUST use the appropriate tool.
+
+To use a tool, reply with ONLY the following format:
+COMMAND: <tool_id> <arguments>
+
+**List of Available Tools:**
+${COMMANDS.map(cmd => `- ${cmd.id}: ${cmd.description}`).join('\n')}
+
+**Usage Rules:**
+1. If a tool is needed, your ENTIRE response must be just the command line. Do not add explanation before or after.
+2. If the user asks to "search" or "find cases", use 'search-case-law'.
+3. If the user asks to "extract entities" or "identify people", use 'extract-entities'.
+4. If the user asks to "summarize" a document provided in text, use 'summarize-document' (for AI) or 'summarize-local'.
+5. After the tool executes, you will receive the result and can then answer the user.
+
+**Example:**
+User: "Search for cases about negligence"
+You: COMMAND: search-case-law negligence
+`;
+
+/**
  * Chain-of-Thought reasoning instructions
  */
 const CHAIN_OF_THOUGHT_INSTRUCTIONS = {
@@ -243,6 +272,11 @@ Repeat this cycle as needed for multi-step problems, showing each iteration.`;
 export function generateSystemPrompt(config: PromptConfig): string {
   let prompt = BASE_IDENTITY;
 
+  // Add tool usage instructions
+  if (config.useTools) {
+    prompt += '\n\n' + TOOL_USAGE_INSTRUCTIONS;
+  }
+
   // Add chain-of-thought instructions based on depth
   if (config.useChainOfThought) {
     prompt += '\n\n' + CHAIN_OF_THOUGHT_INSTRUCTIONS[config.reasoningDepth];
@@ -272,6 +306,7 @@ export function getDefaultPromptConfig(depth: ReasoningDepth = 'standard'): Prom
       useChainOfThought: true,
       useSelfCritique: false,
       useStructuredOutput: true,
+      useTools: true, // Enable tools by default
     },
   };
 
