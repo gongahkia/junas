@@ -14,7 +14,7 @@ async function getTransformers() {
   return { pipeline: pipelineCache };
 }
 
-export type ModelType = 'summarization' | 'ner' | 'embeddings' | 'text-classification';
+export type ModelType = 'summarization' | 'ner' | 'embeddings' | 'text-classification' | 'text2text-generation';
 
 export interface ModelInfo {
   id: string;
@@ -39,6 +39,14 @@ export interface DownloadProgress {
 
 // Available models
 export const AVAILABLE_MODELS: Omit<ModelInfo, 'isDownloaded' | 'isLoading' | 'downloadProgress'>[] = [
+  {
+    id: 'chat',
+    name: 'Local Chat (LaMini)',
+    type: 'text2text-generation',
+    modelId: 'Xenova/LaMini-Flan-T5-248M',
+    size: '~250MB',
+    description: 'General purpose chat and instruction following',
+  },
   {
     id: 'summarization',
     name: 'Summarization',
@@ -274,6 +282,34 @@ export async function summarize(text: string, maxLength: number = 150): Promise<
   });
 
   return result[0].summary_text;
+}
+
+/**
+ * Generate text using the local chat model
+ */
+export async function generateText(prompt: string, maxNewTokens: number = 256): Promise<string> {
+  const modelId = 'chat';
+
+  if (!loadedPipelines.has(modelId)) {
+    if (!isModelDownloaded(modelId)) {
+      throw new Error('Chat model not downloaded. Please download it from Config > Models.');
+    }
+    await loadModel(modelId);
+  }
+
+  const generator = loadedPipelines.get(modelId);
+  const result = await generator(prompt, {
+    max_new_tokens: maxNewTokens,
+    do_sample: true,
+    temperature: 0.7,
+  });
+
+  // Handle different return formats depending on model type
+  if (Array.isArray(result) && result.length > 0) {
+    return result[0].generated_text || result[0].summary_text || JSON.stringify(result[0]);
+  }
+  
+  return typeof result === 'string' ? result : JSON.stringify(result);
 }
 
 /**
