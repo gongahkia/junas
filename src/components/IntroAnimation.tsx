@@ -8,16 +8,15 @@ const IntroAnimation = () => {
   const lines = JUNAS_ASCII_LOGO.split('\n');
   const [lineCharCounts, setLineCharCounts] = useState(Array(lines.length).fill(0));
   const [fadeOut, setFadeOut] = useState(false);
+  const [readyToFade, setReadyToFade] = useState(false);
+
 
   useEffect(() => {
-    let fadeOutTimer: NodeJS.Timeout | null = null;
     let lineTimers: NodeJS.Timeout[] = [];
     let charIntervals: NodeJS.Timeout[] = [];
 
-    // For each line, schedule its character animation at the right time
     lines.forEach((line, i) => {
       const lineTimer = setTimeout(() => {
-        // Animate this line's characters one by one
         let charIdx = 0;
         const charInterval = setInterval(() => {
           charIdx++;
@@ -28,31 +27,49 @@ const IntroAnimation = () => {
           });
           if (charIdx >= line.length) {
             clearInterval(charInterval);
-            // If this is the last line, start fade out after a pause
+            // If this is the last line, allow fade out trigger
             if (i === lines.length - 1) {
-              fadeOutTimer = setTimeout(() => {
-                setFadeOut(true);
-              }, 700);
+              setTimeout(() => setReadyToFade(true), 200); // Small pause for polish
             }
           }
-        }, 20); // Character-by-character speed
+        }, 20);
         charIntervals.push(charInterval);
-      }, i * 300); // Line-by-line timing
+      }, i * 300);
       lineTimers.push(lineTimer);
     });
 
     return () => {
       lineTimers.forEach(clearTimeout);
       charIntervals.forEach(clearInterval);
-      if (fadeOutTimer) clearTimeout(fadeOutTimer);
     };
   }, [lines.length]);
+
+  // Handler for user interaction to trigger fade out
+  useEffect(() => {
+    if (!readyToFade) return;
+    const handle = (e: KeyboardEvent | MouseEvent) => {
+      if (fadeOut) return;
+      if (e instanceof KeyboardEvent && e.code !== 'Space') return;
+      setFadeOut(true);
+    };
+    window.addEventListener('mousedown', handle);
+    window.addEventListener('keydown', handle);
+    return () => {
+      window.removeEventListener('mousedown', handle);
+      window.removeEventListener('keydown', handle);
+    };
+  }, [readyToFade, fadeOut]);
 
   return (
     <div className={`fixed inset-0 z-50 flex items-center justify-center bg-white text-black transition-opacity ${fadeOut ? 'duration-200' : 'duration-500'} ${fadeOut ? 'fade-out' : 'fade-in'}`}>
       <pre className="text-xs font-mono whitespace-pre-wrap">
         {lines.map((line, i) => line.substring(0, lineCharCounts[i])).join('\n')}
       </pre>
+      {readyToFade && !fadeOut && (
+        <div className="absolute bottom-8 left-0 right-0 text-center text-xs text-muted-foreground select-none pointer-events-none">
+          Click or press <b>Space</b> to continue
+        </div>
+      )}
     </div>
   );
 };
