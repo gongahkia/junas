@@ -5,6 +5,7 @@ import {
   Search,
   Settings,
   Upload,
+  Download,
   Info,
   Book,
   Plus,
@@ -38,8 +39,10 @@ interface CommandPaletteProps {
   onClose: () => void;
   onOpenConfig: () => void;
   onOpenImport: () => void;
+  onOpenExport: () => void;
   onOpenAbout: () => void;
   onNewChat?: () => void;
+  hasMessages: boolean;
 }
 
 export function CommandPalette({ 
@@ -47,8 +50,10 @@ export function CommandPalette({
   onClose,
   onOpenConfig,
   onOpenImport,
+  onOpenExport,
   onOpenAbout,
-  onNewChat
+  onNewChat,
+  hasMessages
 }: CommandPaletteProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
@@ -82,14 +87,22 @@ export function CommandPalette({
       category: 'system',
       action: onOpenConfig
     },
-    {
+    ...(!hasMessages ? [{
       id: 'import',
       label: 'Import Chat',
       description: 'Import a previous conversation',
       icon: <Upload className="h-4 w-4" />,
-      category: 'system',
+      category: 'system' as const,
       action: onOpenImport
-    },
+    }] : []),
+    ...(hasMessages ? [{
+      id: 'export',
+      label: 'Export Chat',
+      description: 'Export this conversation',
+      icon: <Download className="h-4 w-4" />,
+      category: 'system' as const,
+      action: onOpenExport
+    }] : []),
     {
       id: 'about',
       label: 'About Junas',
