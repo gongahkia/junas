@@ -71,19 +71,19 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
 
   return (
     <div className={`fixed inset-0 z-50 flex items-center justify-center bg-white text-black transition-opacity ${fadeOut ? 'duration-200' : 'duration-500'} ${fadeOut ? 'fade-out' : 'fade-in'}`}>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center text-center">
         <pre className="text-xs font-mono whitespace-pre-wrap">
           {lines.map((line, i) => line.substring(0, lineCharCounts[i])).join('\n')}
         </pre>
         {readyToFade && !fadeOut && (
-          <div className="mt-2 text-xs font-mono text-muted-foreground">v0.1.0</div>
+          <>
+            <div className="mt-2 text-[10px] font-mono text-muted-foreground opacity-50">v0.1.0</div>
+            <div className="mt-8 text-sm font-sans text-muted-foreground select-none pointer-events-none animate-pulse">
+              Click or press <b>Space</b> to continue
+            </div>
+          </>
         )}
       </div>
-      {readyToFade && !fadeOut && (
-        <div className="absolute bottom-8 left-0 right-0 text-center text-xs text-muted-foreground select-none pointer-events-none">
-          Click or press <b>Space</b> to continue
-        </div>
-      )}
     </div>
   );
 };
