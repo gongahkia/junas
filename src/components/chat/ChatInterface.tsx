@@ -11,6 +11,7 @@ import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
 import { parseCommand, processLocalCommand, processAsyncLocalCommand } from '@/lib/commands/command-processor';
 import { JUNAS_ASCII_LOGO } from '@/lib/constants';
+import { getModelsWithStatus, generateText, AVAILABLE_MODELS } from '@/lib/ml/model-manager';
 
 interface ChatInterfaceProps {}
 
@@ -31,12 +32,19 @@ export function ChatInterface({}: ChatInterfaceProps = {}) {
   // Load messages from storage on mount
   useEffect(() => {
     const chatState = StorageManager.getChatState();
+    
+    // Check local model status
+    const models = getModelsWithStatus();
+    const downloadedCount = models.filter(m => m.isDownloaded).length;
+    if (downloadedCount === AVAILABLE_MODELS.length) {
+      setCurrentProvider('local');
+    } else if (chatState?.currentProvider) {
+      setCurrentProvider(chatState.currentProvider);
+    }
+
     if (chatState?.messages) {
       setMessages(chatState.messages);
       setHasMessages(chatState.messages.length > 0);
-    }
-    if (chatState?.currentProvider) {
-      setCurrentProvider(chatState.currentProvider);
     }
   }, []);
 
@@ -113,6 +121,16 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
         timestamp: new Date(),
       },
     ];
+
+    if (currentProvider === 'local') {
+      try {
+        const prompt = `Summarize conversation: ${conversationText}`;
+        return await generateText(prompt);
+      } catch (e) {
+        console.error("Local summarization failed", e);
+        return "Conversation imported.";
+      }
+    }
 
     const result = await ChatService.sendMessage(summarizationPrompt, undefined, currentProvider);
     return result.content;
@@ -261,6 +279,38 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
         );
         rafId = null;
       };
+
+      // Local Processing Logic
+      if (currentProvider === 'local') {
+        try {
+          // Construct prompt for local model
+          // Simple concatenation of recent context
+          const prompt = allMessages
+            .slice(-4) // Keep context window small for local models
+            .map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`)
+            .join('\n') + '\nAssistant:';
+
+          const generatedText = await generateText(prompt);
+          
+          accumulatedContent = generatedText;
+          updateMessage();
+
+          const responseTime = Date.now() - startTime;
+          setMessages(prev =>
+            prev.map(msg =>
+              msg.id === assistantMessage.id
+                ? { ...msg, content: generatedText, responseTime }
+                : msg
+            )
+          );
+          setIsLoading(false);
+          return;
+        } catch (e: any) {
+           // Fallback or error
+           console.error('Local generation failed:', e);
+           throw e;
+        }
+      }
 
       // Try streaming first, then fallback to non-streaming if provider doesn't support endpoint
       let fullResponse = '';
