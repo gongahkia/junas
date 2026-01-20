@@ -53,16 +53,6 @@ export function Layout({ children, onImport, onExport, onNewChat, onConfig, onAb
 
             {/* Right side controls */}
             <div className="flex items-center space-x-2 md:space-x-4">
-              {/* About button */}
-              {onAbout && (
-                <button
-                  onClick={onAbout}
-                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
-                  title="About Junas"
-                >
-                  [ ? About ]
-                </button>
-              )}
               {/* Config button */}
               {onConfig && (
                 <button
@@ -81,6 +71,16 @@ export function Layout({ children, onImport, onExport, onNewChat, onConfig, onAb
                   data-tour="import"
                 >
                   [ ↑ Import ]
+                </button>
+              )}
+              {/* About button */}
+              {onAbout && (
+                <button
+                  onClick={onAbout}
+                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
+                  title="About Junas"
+                >
+                  [ ? About ]
                 </button>
               )}
               {/* Export button - only show when there are messages */}
