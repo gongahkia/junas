@@ -153,7 +153,7 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
   const handleSendMessage = useCallback(async (content: string) => {
     if (!content.trim()) return;
 
-    // Check if this is a local command
+    // Check if this is a local command (legacy direct command)
     const parsedCommand = parseCommand(content);
 
     // For user message display, don't add context prefix to local commands
@@ -182,9 +182,9 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
     setMessages(prev => [...prev, userMessage]);
     setIsLoading(true);
 
-    const startTime = Date.now(); // Track start time
+    const startTime = Date.now();
 
-    // Create assistant message (outside try so we can update it on error)
+    // Create assistant message
     const assistantMessage: Message = {
       id: generateId(),
       role: 'assistant',
@@ -194,11 +194,10 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
 
     setMessages(prev => [...prev, assistantMessage]);
 
-    // Handle local commands without AI
+    // Legacy Local Command Handling
     if (parsedCommand && parsedCommand.isLocal) {
       const result = processLocalCommand(parsedCommand);
 
-      // Check if model is not downloaded
       if (!result.success && result.requiresModel) {
         const responseTime = Date.now() - startTime;
         setMessages(prev =>
@@ -212,9 +211,7 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
         return;
       }
 
-      // Check if this is an async model command
       if (result.content === '__ASYNC_MODEL_COMMAND__') {
-        // Show loading state
         setMessages(prev =>
           prev.map(msg =>
             msg.id === assistantMessage.id
@@ -247,7 +244,6 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
         return;
       }
 
-      // Regular sync local command
       const responseTime = Date.now() - startTime;
       setMessages(prev =>
         prev.map(msg =>
@@ -260,131 +256,129 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
       return;
     }
 
-    try {
-      // Get all messages including the new user message
-      const allMessages = [...messages, userMessage];
+    // AI Processing Loop (ReAct Pattern)
+    // Supports both Local LLM and API Providers
+    const processAIResponse = async (currentMessages: Message[], recursionDepth = 0) => {
+      if (recursionDepth > 3) { // Limit tool loops
+        return "Error: Maximum tool recursion depth reached.";
+      }
 
-      // Batching variables for smooth streaming
-      let accumulatedContent = '';
+      let aiResponseText = "";
       let rafId: number | null = null;
       let lastUpdate = 0;
 
-      const updateMessage = () => {
+      const updateMessageContent = (text: string) => {
         setMessages(prev =>
           prev.map(msg =>
             msg.id === assistantMessage.id
-              ? { ...msg, content: accumulatedContent }
+              ? { ...msg, content: text }
               : msg
           )
         );
-        rafId = null;
       };
 
-      // Local Processing Logic
-      if (currentProvider === 'local') {
-        try {
-          // Construct prompt for local model
-          // Simple concatenation of recent context
-          const prompt = allMessages
-            .slice(-4) // Keep context window small for local models
-            .map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`)
-            .join('\n') + '\nAssistant:';
-
-          const generatedText = await generateText(prompt);
-          
-          accumulatedContent = generatedText;
-          updateMessage();
-
-          const responseTime = Date.now() - startTime;
-          setMessages(prev =>
-            prev.map(msg =>
-              msg.id === assistantMessage.id
-                ? { ...msg, content: generatedText, responseTime }
-                : msg
-            )
-          );
-          setIsLoading(false);
-          return;
-        } catch (e: any) {
-           // Fallback or error
-           console.error('Local generation failed:', e);
-           throw e;
-        }
-      }
-
-      // Try streaming first, then fallback to non-streaming if provider doesn't support endpoint
-      let fullResponse = '';
       try {
-        const result = await ChatService.sendMessage(
-          allMessages,
-          (chunk: string) => {
-            accumulatedContent += chunk;
-
-            // Batch updates using requestAnimationFrame for smooth rendering
-            // Only update at most every 16ms (60fps) to reduce jitter
-            const now = Date.now();
-            if (!rafId && now - lastUpdate > 16) {
-              lastUpdate = now;
-              rafId = requestAnimationFrame(updateMessage);
-            }
-          },
-          currentProvider
-        );
-
-        // Ensure final update is applied
-        if (rafId) {
-          cancelAnimationFrame(rafId);
+        // 1. Get response from Provider (Local or API)
+        if (currentProvider === 'local') {
+          // Local Generation
+          const prompt = currentMessages
+            .slice(-6) // Slightly larger context
+            .map(m => `${m.role === 'user' ? 'User' : m.role === 'system' ? 'System' : 'Assistant'}: ${m.content}`)
+            .join('\n') + '\nAssistant:';
+          
+          aiResponseText = await generateText(prompt);
+          updateMessageContent(aiResponseText);
+        } else {
+          // API Generation
+          const result = await ChatService.sendMessage(
+            currentMessages,
+            (chunk: string) => {
+              aiResponseText += chunk;
+              const now = Date.now();
+              if (!rafId && now - lastUpdate > 16) {
+                lastUpdate = now;
+                rafId = requestAnimationFrame(() => updateMessageContent(aiResponseText));
+              }
+            },
+            currentProvider
+          );
+          
+          if (rafId) cancelAnimationFrame(rafId);
+          updateMessageContent(result.content);
+          aiResponseText = result.content;
         }
-        updateMessage();
 
-        fullResponse = result.content;
-      } catch (e: any) {
-        // Fallback to non-streaming
-        const result = await ChatService.sendMessage(allMessages, undefined, currentProvider);
-        fullResponse = result.content;
+        // 2. Check for Tool Commands (ReAct)
+        // Expected format: COMMAND: <tool_id> <args>
+        const commandMatch = aiResponseText.match(/^COMMAND:\s*([a-z-]+)\s*([\s\S]*)/i);
+        
+        if (commandMatch) {
+          const commandId = commandMatch[1].toLowerCase() as any;
+          const args = commandMatch[2].trim();
+          const toolCommand = { command: commandId, args, isLocal: true }; // Treat as local execution context
+
+          // Update UI to show we are executing a tool
+          const toolStatusMsg = `[Executing tool: ${commandId}...]`;
+          updateMessageContent(toolStatusMsg);
+
+          let toolResultContent = "";
+
+          // Execute Tool
+          const syncResult = processLocalCommand(toolCommand);
+          
+          if (syncResult.content === '__ASYNC_MODEL_COMMAND__') {
+             // Handle async tool
+             const asyncResult = await processAsyncLocalCommand(toolCommand);
+             toolResultContent = asyncResult.success ? asyncResult.content : `Tool Error: ${asyncResult.content}`;
+          } else {
+             // Handle sync tool
+             toolResultContent = syncResult.success ? syncResult.content : `Tool Error: ${syncResult.content}`;
+          }
+
+          // 3. Feed result back to AI
+          const updatedMessages = [
+            ...currentMessages,
+            { role: 'assistant', content: aiResponseText } as Message, // The command itself
+            { role: 'system', content: `Tool Output for ${commandId}:\n${toolResultContent}\n\nBased on this output, provide the final answer to the user.` } as Message
+          ];
+
+          // Recursive call
+          return await processAIResponse(updatedMessages, recursionDepth + 1);
+        }
+
+        // Final response (no tool command)
+        return aiResponseText;
+
+      } catch (error: any) {
+        console.error("AI Processing Error:", error);
+        throw error;
       }
+    };
 
-      // Calculate response time
+    try {
+      const allMessages = [...messages, userMessage];
+      const finalResponse = await processAIResponse(allMessages);
+      
       const responseTime = Date.now() - startTime;
-
-      // Final update with complete response and response time
       setMessages(prev =>
         prev.map(msg =>
           msg.id === assistantMessage.id
-            ? {
-                ...msg,
-                content: fullResponse,
-                responseTime
-              }
+            ? { ...msg, content: finalResponse, responseTime }
             : msg
         )
       );
-
     } catch (error: any) {
-      console.error('Error sending message:', error);
-
-      // Show error toast
-      addToast({
-        type: 'error',
-        title: 'Error',
-        description: error.message || 'Failed to send message. Please check your API keys in settings.',
-        duration: 5000,
-      });
-
-      // Update the existing assistant message with error content (don't add a new one)
       setMessages(prev =>
         prev.map(msg =>
           msg.id === assistantMessage.id
-            ? {
-                ...msg,
-                content: `Sorry, I encountered an error: ${error.message}. Please check your API keys in settings.`
-              }
+            ? { ...msg, content: `Error: ${error.message}` }
             : msg
         )
       );
     } finally {
       setIsLoading(false);
     }
+
   }, [messages]);
 
 
