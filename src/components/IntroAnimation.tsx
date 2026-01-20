@@ -3,39 +3,55 @@
 import { useEffect, useState } from 'react';
 import { JUNAS_ASCII_LOGO } from '@/lib/constants';
 
+
 const IntroAnimation = () => {
-  const [visibleLines, setVisibleLines] = useState(0);
+  const lines = JUNAS_ASCII_LOGO.split('\n');
+  const [lineCharCounts, setLineCharCounts] = useState(Array(lines.length).fill(0));
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    const lines = JUNAS_ASCII_LOGO.split('\n');
     let fadeOutTimer: NodeJS.Timeout | null = null;
-    const artInterval = setInterval(() => {
-      setVisibleLines(prev => {
-        const next = prev + 1;
-        if (next >= lines.length) {
-          clearInterval(artInterval);
-          // Start fade out only after all lines are visible
-          fadeOutTimer = setTimeout(() => {
-            setFadeOut(true);
-          }, 700); // Fast fade out after short pause
-          return lines.length;
-        }
-        return next;
-      });
-    }, 300); // Reveal one line every 300ms
+    let lineTimers: NodeJS.Timeout[] = [];
+    let charIntervals: NodeJS.Timeout[] = [];
+
+    // For each line, schedule its character animation at the right time
+    lines.forEach((line, i) => {
+      const lineTimer = setTimeout(() => {
+        // Animate this line's characters one by one
+        let charIdx = 0;
+        const charInterval = setInterval(() => {
+          charIdx++;
+          setLineCharCounts(prev => {
+            const next = [...prev];
+            next[i] = Math.min(charIdx, line.length);
+            return next;
+          });
+          if (charIdx >= line.length) {
+            clearInterval(charInterval);
+            // If this is the last line, start fade out after a pause
+            if (i === lines.length - 1) {
+              fadeOutTimer = setTimeout(() => {
+                setFadeOut(true);
+              }, 700);
+            }
+          }
+        }, 20); // Character-by-character speed
+        charIntervals.push(charInterval);
+      }, i * 300); // Line-by-line timing
+      lineTimers.push(lineTimer);
+    });
 
     return () => {
-      clearInterval(artInterval);
+      lineTimers.forEach(clearTimeout);
+      charIntervals.forEach(clearInterval);
       if (fadeOutTimer) clearTimeout(fadeOutTimer);
     };
-  }, []);
+  }, [lines.length]);
 
-  const lines = JUNAS_ASCII_LOGO.split('\n');
   return (
     <div className={`fixed inset-0 z-50 flex items-center justify-center bg-white text-black transition-opacity ${fadeOut ? 'duration-200' : 'duration-500'} ${fadeOut ? 'fade-out' : 'fade-in'}`}>
       <pre className="text-xs font-mono whitespace-pre-wrap">
-        {lines.slice(0, visibleLines).join('\n')}
+        {lines.map((line, i) => line.substring(0, lineCharCounts[i])).join('\n')}
       </pre>
     </div>
   );
