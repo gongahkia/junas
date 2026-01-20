@@ -8,6 +8,7 @@ import { ImportDialog } from '@/components/chat/ImportDialog';
 import { ExportDialog } from '@/components/chat/ExportDialog';
 import { ConfigDialog } from '@/components/ConfigDialog';
 import { AboutDialog } from '@/components/AboutDialog';
+import { CommandPalette } from '@/components/chat/CommandPalette';
 import { StorageManager } from '@/lib/storage';
 import { Message } from '@/types/chat';
 import IntroAnimation from '@/components/IntroAnimation';
@@ -18,6 +19,7 @@ export default function Home() {
   const [showExportDialog, setShowExportDialog] = useState(false);
   const [showConfigDialog, setShowConfigDialog] = useState(false);
   const [showAboutDialog, setShowAboutDialog] = useState(false);
+  const [showCommandPalette, setShowCommandPalette] = useState(false);
   const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
   const [hasMessages, setHasMessages] = useState(false);
   const [currentMessages, setCurrentMessages] = useState<Message[]>([]);
@@ -38,6 +40,22 @@ export default function Home() {
     const interval = setInterval(checkMessages, 1000);
     return () => clearInterval(interval);
   }, [chatKey]);
+
+  // Global Cmd/Ctrl+Shift+P listener
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+      const isCmdOrCtrl = isMac ? e.metaKey : e.ctrlKey;
+      
+      if (isCmdOrCtrl && e.shiftKey && e.key.toLowerCase() === 'p') {
+        e.preventDefault();
+        setShowCommandPalette(true);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const handleImport = (importedMessages: Message[]) => {
     // Dispatch import event to ChatInterface
@@ -108,6 +126,15 @@ export default function Home() {
         <AboutDialog
           isOpen={showAboutDialog}
           onClose={() => setShowAboutDialog(false)}
+        />
+
+        {/* Command Palette */}
+        <CommandPalette
+          isOpen={showCommandPalette}
+          onClose={() => setShowCommandPalette(false)}
+          onOpenConfig={() => setShowConfigDialog(true)}
+          onOpenImport={() => setShowImportDialog(true)}
+          onOpenAbout={() => setShowAboutDialog(true)}
         />
       </Layout>
     </div>

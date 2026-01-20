@@ -3,7 +3,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 // import { InlineProviderSelector } from './InlineProviderSelector';
-import { CommandPalette } from './CommandPalette';
 import { ModelProviderStatus } from './ModelProviderStatus';
 
 interface MessageInputProps {
@@ -24,57 +23,17 @@ export function MessageInput({
   onProviderChange,
 }: MessageInputProps) {
   const [message, setMessage] = useState('');
-  const [showCommandPalette, setShowCommandPalette] = useState(false);
-  const [cursorPosition, setCursorPosition] = useState(0);
+  const [isMac, setIsMac] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Handle input changes and detect "/" for command palette
+  useEffect(() => {
+    setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
+  }, []);
+
+  // Handle input changes
   const handleMessageChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newValue = e.target.value;
-    const newCursorPos = e.target.selectionStart || 0;
-    
-    setMessage(newValue);
-    setCursorPosition(newCursorPos);
-
-    // Check if user typed "/" at the start or after a space
-    const beforeCursor = newValue.slice(0, newCursorPos);
-    const lastChar = beforeCursor[beforeCursor.length - 1];
-    const charBeforeLast = beforeCursor[beforeCursor.length - 2];
-    
-    if (lastChar === '/' && (!charBeforeLast || charBeforeLast === ' ' || charBeforeLast === '\n')) {
-      setShowCommandPalette(true);
-    } else if (showCommandPalette) {
-      // Check if we should close the palette
-      const lastSlashIndex = beforeCursor.lastIndexOf('/');
-      if (lastSlashIndex === -1 || beforeCursor.slice(lastSlashIndex).includes(' ')) {
-        setShowCommandPalette(false);
-      }
-    }
-  }, [showCommandPalette]);
-
-  const handleCommandSelect = useCallback((commandId: string, commandText: string) => {
-    if (!textareaRef.current) return;
-
-    const beforeCursor = message.slice(0, cursorPosition);
-    const afterCursor = message.slice(cursorPosition);
-    const lastSlashIndex = beforeCursor.lastIndexOf('/');
-    
-    if (lastSlashIndex !== -1) {
-      const newMessage = beforeCursor.slice(0, lastSlashIndex) + commandText + ' ' + afterCursor;
-      setMessage(newMessage);
-      
-      // Set cursor position after the command
-      setTimeout(() => {
-        if (textareaRef.current) {
-          const newCursorPos = lastSlashIndex + commandText.length + 1;
-          textareaRef.current.setSelectionRange(newCursorPos, newCursorPos);
-          textareaRef.current.focus();
-        }
-      }, 0);
-    }
-    
-    setShowCommandPalette(false);
-  }, [message, cursorPosition]);
+    setMessage(e.target.value);
+  }, []);
 
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
@@ -85,41 +44,11 @@ export function MessageInput({
   }, [message, isLoading, onSendMessage]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    // Close command palette on Escape
-    if (e.key === 'Escape' && showCommandPalette) {
-      e.preventDefault();
-      setShowCommandPalette(false);
-      return;
-    }
-
-    // Don't submit when command palette is open and user presses Enter
-    if (e.key === 'Enter' && showCommandPalette) {
-      return; // Let CommandPalette handle it
-    }
-
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e);
     }
-  }, [handleSubmit, showCommandPalette]);
-
-  // Update cursor position on selection change
-  useEffect(() => {
-    const textarea = textareaRef.current;
-    if (!textarea) return;
-
-    const handleSelect = () => {
-      setCursorPosition(textarea.selectionStart || 0);
-    };
-
-    textarea.addEventListener('select', handleSelect);
-    textarea.addEventListener('click', handleSelect);
-
-    return () => {
-      textarea.removeEventListener('select', handleSelect);
-      textarea.removeEventListener('click', handleSelect);
-    };
-  }, []);
+  }, [handleSubmit]);
 
   return (
     <div className="border-t bg-background sticky bottom-0 z-50 shadow-sm">
@@ -127,15 +56,6 @@ export function MessageInput({
         {/* Input form */}
         <form onSubmit={handleSubmit} className="space-y-3">
           <div className="flex-1 relative">
-            {/* Command Palette */}
-            {showCommandPalette && (
-              <CommandPalette
-                onCommandSelect={handleCommandSelect}
-                onClose={() => setShowCommandPalette(false)}
-                inputValue={message}
-                cursorPosition={cursorPosition}
-              />
-            )}
 
             <div className="border border-muted-foreground/30 bg-muted/10">
               <Textarea
@@ -159,7 +79,7 @@ export function MessageInput({
 
                 {/* Helper text */}
                 <div className="text-xs text-muted-foreground hidden md:block">
-                  [ / for commands ] [ Ctrl + P for command palette ]
+                  [ {isMac ? '⌘' : 'Ctrl'} + Shift + P for command palette ]
                 </div>
               </div>
             </div>
