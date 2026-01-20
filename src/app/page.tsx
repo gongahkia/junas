@@ -21,14 +21,6 @@ export default function Home() {
   const [currentMessages, setCurrentMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2500); // Show intro for 2.5 seconds
-
-    return () => clearTimeout(timer);
-  }, []);
-
   // Check if there are messages on mount and update periodically
   useEffect(() => {
     const checkMessages = () => {
@@ -69,7 +61,7 @@ export default function Home() {
   };
 
   if (loading) {
-    return <IntroAnimation />;
+    return <IntroAnimation onComplete={() => setLoading(false)} />;
   }
 
   return (
