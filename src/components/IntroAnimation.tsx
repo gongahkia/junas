@@ -47,16 +47,19 @@ const IntroAnimation = () => {
   // Handler for user interaction to trigger fade out
   useEffect(() => {
     if (!readyToFade) return;
+    let fadeTimeout: NodeJS.Timeout | null = null;
     const handle = (e: KeyboardEvent | MouseEvent) => {
       if (fadeOut) return;
       if (e instanceof KeyboardEvent && e.code !== 'Space') return;
-      setFadeOut(true);
+      // Wait 3 seconds before fading out
+      fadeTimeout = setTimeout(() => setFadeOut(true), 3000);
     };
     window.addEventListener('mousedown', handle);
     window.addEventListener('keydown', handle);
     return () => {
       window.removeEventListener('mousedown', handle);
       window.removeEventListener('keydown', handle);
+      if (fadeTimeout) clearTimeout(fadeTimeout);
     };
   }, [readyToFade, fadeOut]);
 
