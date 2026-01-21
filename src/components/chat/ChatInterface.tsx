@@ -544,7 +544,7 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
                   {JUNAS_ASCII_LOGO}
                 </pre>
               </div>
-              <p className="text-xs text-muted-foreground font-mono mt-6">v0.1.0</p>
+              <p className="text-xs text-muted-foreground font-mono mt-6">v2.0.0</p>
             </div>
           </div>
         ) : (
