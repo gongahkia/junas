@@ -280,13 +280,13 @@ export function generateSystemPrompt(config: PromptConfig): string {
 
   // Add Dynamic Context (Date, User Info)
   const date = config.currentDate || new Date().toLocaleDateString('en-SG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-  prompt = \`Current Date: \${date}\n\n\` + prompt;
+  prompt = `Current Date: ${date}\n\n` + prompt;
 
   if (config.userContext) {
     let contextStr = '\n\n**User Context:**\n';
-    if (config.userContext.role) contextStr += \`- Role: \${config.userContext.role}\n\`;
-    if (config.userContext.jurisdiction) contextStr += \`- Jurisdiction: \${config.userContext.jurisdiction}\n\`;
-    if (config.userContext.preferences) contextStr += \`- Preferences: \${config.userContext.preferences}\n\`;
+    if (config.userContext.role) contextStr += `- Role: ${config.userContext.role}\n`;
+    if (config.userContext.jurisdiction) contextStr += `- Jurisdiction: ${config.userContext.jurisdiction}\n`;
+    if (config.userContext.preferences) contextStr += `- Preferences: ${config.userContext.preferences}\n`;
     prompt += contextStr;
   }
 
