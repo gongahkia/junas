@@ -87,12 +87,11 @@ export function ProvidersTab() {
         </p>
       </div>
       <div className="pt-3 space-y-3">
-        <p className="text-xs font-medium">&gt; Configure API Keys</p>
         {providers.map((provider) => (
           <div key={provider.id} className="space-y-2">
             <div className="flex items-center justify-between">
               <Label htmlFor={`key-${provider.id}`} className="text-xs">
-                {provider.name}
+                &gt; {provider.name}
               </Label>
               <a
                 href={provider.getKeyUrl}

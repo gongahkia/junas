@@ -7,6 +7,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { StorageManager } from '@/lib/storage';
@@ -51,6 +61,8 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   // Models state
   const [models, setModels] = useState<ModelInfo[]>([]);
   const [downloadingModels, setDownloadingModels] = useState<Record<string, DownloadProgress>>({});
+  const [showDeleteModelsConfirm, setShowDeleteModelsConfirm] = useState(false);
+  const [showClearDataConfirm, setShowClearDataConfirm] = useState(false);
   const { addToast } = useToast();
 
   useEffect(() => {
@@ -144,40 +156,38 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   };
 
   const handleDeleteAllModels = async () => {
-    if (confirm('Are you sure you want to delete all downloaded models? This will free up disk space but you will need to download them again to use local AI features.')) {
-      try {
-        await clearAllModels();
-        setModels(getModelsWithStatus());
+    setShowDeleteModelsConfirm(false);
+    try {
+      await clearAllModels();
+      setModels(getModelsWithStatus());
+      addToast({
+        type: 'success',
+        title: 'Models Deleted',
+        description: 'All local models have been removed from your device.',
+        duration: 3000,
+      });
+    } catch (error: any) {
         addToast({
-          type: 'success',
-          title: 'Models Deleted',
-          description: 'All local models have been removed from your device.',
-          duration: 3000,
-        });
-      } catch (error: any) {
-         addToast({
-          type: 'error',
-          title: 'Error',
-          description: 'Failed to delete models: ' + error.message,
-          duration: 3000,
-        });
-      }
+        type: 'error',
+        title: 'Error',
+        description: 'Failed to delete models: ' + error.message,
+        duration: 3000,
+      });
     }
   };
 
   const handleClearSiteData = () => {
-    if (confirm('Are you sure you want to clear all site data? This will delete your chat history, settings, and API keys. This action cannot be undone.')) {
-      try {
-        localStorage.clear();
-        sessionStorage.clear();
-        
-        // Also try to clear model cache
-        clearAllModels().then(() => {
-           window.location.reload();
-        });
-      } catch (error) {
-        window.location.reload();
-      }
+    setShowClearDataConfirm(false);
+    try {
+      localStorage.clear();
+      sessionStorage.clear();
+      
+      // Also try to clear model cache
+      clearAllModels().then(() => {
+          window.location.reload();
+      });
+    } catch (error) {
+      window.location.reload();
     }
   };
 
@@ -373,25 +383,21 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
                 <p>First download may take a while depending on your connection.</p>
               </div>
 
-              <div className="pt-4 mt-6 border-t border-red-200 dark:border-red-900/30">
-                <h4 className="text-xs font-semibold text-red-600 dark:text-red-400 mb-2 flex items-center gap-2">
-                  <AlertCircle className="h-3 w-3" />
-                  Danger Zone
-                </h4>
+              <div className="">
                 <div className="flex gap-2">
                   <button
-                    onClick={handleDeleteAllModels}
+                    onClick={() => setShowDeleteModelsConfirm(true)}
                     className="px-3 py-2 text-xs border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex items-center gap-2 rounded-sm"
                   >
                     <Trash2 className="h-3 w-3" />
                     Delete Local Models
                   </button>
                   <button
-                    onClick={handleClearSiteData}
+                    onClick={() => setShowClearDataConfirm(true)}
                     className="px-3 py-2 text-xs bg-red-600 text-white hover:bg-red-700 transition-colors flex items-center gap-2 rounded-sm"
                   >
                     <Trash2 className="h-3 w-3" />
-                    Clear Site Data
+                    Delete All Data
                   </button>
                 </div>
               </div>
@@ -402,6 +408,36 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
           )}
         </div>
       </DialogContent>
+
+      <AlertDialog open={showDeleteModelsConfirm} onOpenChange={setShowDeleteModelsConfirm}>
+        <AlertDialogContent className="font-mono">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete all local models?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will remove all downloaded model files from your device to free up disk space. You will need to download them again to use local AI features.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="text-xs">Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDeleteAllModels} className="bg-red-600 hover:bg-red-700 text-xs">Delete Models</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog open={showClearDataConfirm} onOpenChange={setShowClearDataConfirm}>
+        <AlertDialogContent className="font-mono">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Clear all site data?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your chat history, settings, API keys, and local models.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="text-xs">Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleClearSiteData} className="bg-red-600 hover:bg-red-700 text-xs">Clear Everything</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Dialog>
   );
 }
