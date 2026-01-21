@@ -8,7 +8,7 @@ import { MessageList } from '@/components/chat/MessageList';
 import { Button } from '@/components/ui/button';
 import { StorageManager } from '@/lib/storage';
 import { JUNAS_ASCII_LOGO } from '@/lib/constants';
-import { useToast } from '@/components/ui/toast';
+import { useToast, ToastProvider } from '@/components/ui/toast';
 import { Download } from 'lucide-react';
 import { Layout } from '@/components/Layout';
 
@@ -151,7 +151,9 @@ function SharePageContent() {
 export default function SharePage() {
   return (
     <Suspense fallback={<div className="p-8 font-mono text-sm">[ Loading... ]</div>}>
-      <SharePageContent />
+      <ToastProvider>
+        <SharePageContent />
+      </ToastProvider>
     </Suspense>
   );
 }
