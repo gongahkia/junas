@@ -55,6 +55,7 @@ function SharePageContent() {
 
       StorageManager.saveChatState({
         messages: messages,
+        artifacts: [], // Initialize with empty artifacts for imported chat
         isLoading: false,
         currentProvider: currentChat?.currentProvider || 'gemini', // Default or keep existing
         apiKeys: StorageManager.getApiKeys(), // Keep existing keys

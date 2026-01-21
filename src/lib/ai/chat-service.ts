@@ -1,6 +1,6 @@
 import { Message } from '@/types/chat';
 import { StorageManager } from '@/lib/storage';
-import { getDefaultPromptConfig } from '@/lib/prompts/system-prompts';
+import { getDefaultPromptConfig, generateSystemPrompt } from '@/lib/prompts/system-prompts';
 
 export interface SendMessageResult {
   content: string;
