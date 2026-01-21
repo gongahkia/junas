@@ -30,6 +30,13 @@ const providers = [
     getKeyUrl: "https://ollama.com",
     isUrl: true,
   },
+  {
+    id: "lmstudio",
+    name: "LM Studio (Local)",
+    apiKeyPlaceholder: "Enter LM Studio Base URL (default: http://localhost:1234/v1)",
+    getKeyUrl: "https://lmstudio.ai",
+    isUrl: true,
+  },
 ];
 
 export function ProvidersTab() {
@@ -71,6 +78,7 @@ export function ProvidersTab() {
         openai: apiKeys.openai,
         claude: apiKeys.claude,
         ollama: apiKeys.ollama,
+        lmstudio: apiKeys.lmstudio,
       };
       const response = await fetch("/api/auth/keys", {
         method: "POST",
