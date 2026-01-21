@@ -24,6 +24,11 @@ export class ProviderFactory {
         // For Ollama, apiKey field is repurposed as baseUrl
         return new OllamaProvider(config.apiKey || 'http://localhost:11434', config.model);
       }
+      case 'lmstudio': {
+        const { LMStudioProvider } = await import('./providers/lmstudio');
+        // For LM Studio, apiKey field is repurposed as baseUrl
+        return new LMStudioProvider(config.apiKey || 'http://localhost:1234/v1', config.model);
+      }
       default:
         throw new Error(`Unsupported provider: ${provider}`);
     }
@@ -47,13 +52,17 @@ export class ProviderFactory {
         const { OllamaProvider } = await import('./providers/ollama');
         return OllamaProvider.getCapabilities();
       }
+      case 'lmstudio': {
+        const { LMStudioProvider } = await import('./providers/lmstudio');
+        return LMStudioProvider.getCapabilities();
+      }
       default:
         throw new Error(`Unsupported provider: ${provider}`);
     }
   }
 
   static getAvailableProviders(): AIProvider[] {
-    return ['gemini', 'openai', 'claude', 'ollama'];
+    return ['gemini', 'openai', 'claude', 'ollama', 'lmstudio'];
   }
 
   static getDefaultConfig(provider: AIProvider): Partial<ProviderConfig> {
@@ -93,6 +102,14 @@ export class ProviderFactory {
           model: 'llama3',
           apiKey: 'http://localhost:11434', // Repurposed as Base URL
         };
+      case 'lmstudio':
+        return {
+          ...baseConfig,
+          name: 'lmstudio',
+          displayName: 'LM Studio (Local)',
+          model: 'local-model',
+          apiKey: 'http://localhost:1234/v1', // Repurposed as Base URL
+        };
       default:
         throw new Error(`Unsupported provider: ${provider}`);
     }
@@ -105,7 +122,7 @@ export class ProviderFactory {
       errors.push('Provider name is required');
     }
 
-    if (config.name !== 'ollama' && (!config.apiKey || config.apiKey.trim() === '')) {
+    if (config.name !== 'ollama' && config.name !== 'lmstudio' && (!config.apiKey || config.apiKey.trim() === '')) {
       errors.push('API key is required');
     }
 
