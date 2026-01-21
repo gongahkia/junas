@@ -16,7 +16,7 @@ export class ChatService {
       const { configured } = await response.json();
 
       // Return first available provider in priority order
-      const availableProviders = ['gemini', 'openai', 'claude'];
+      const availableProviders = ['gemini', 'openai', 'claude', 'ollama'];
       for (const provider of availableProviders) {
         if (configured[provider]) {
           return provider;
@@ -60,7 +60,8 @@ export class ChatService {
 
       // Determine model based on provider
       const model = provider === 'gemini' ? 'gemini-2.0-flash-exp' :
-                   provider === 'openai' ? 'gpt-4o' : 'claude-3-5-sonnet-20241022';
+                   provider === 'openai' ? 'gpt-4o' : 
+                   provider === 'claude' ? 'claude-3-5-sonnet-20241022' : 'llama3';
 
       // Get default system prompt config
       const config = getDefaultPromptConfig('standard');

@@ -23,6 +23,13 @@ const providers = [
     apiKeyPlaceholder: "Enter your Anthropic API key",
     getKeyUrl: "https://console.anthropic.com/settings/keys",
   },
+  {
+    id: "ollama",
+    name: "Ollama (Local)",
+    apiKeyPlaceholder: "Enter Ollama Base URL (default: http://localhost:11434)",
+    getKeyUrl: "https://ollama.com",
+    isUrl: true,
+  },
 ];
 
 export function ProvidersTab() {
@@ -63,6 +70,7 @@ export function ProvidersTab() {
         gemini: apiKeys.gemini,
         openai: apiKeys.openai,
         claude: apiKeys.claude,
+        ollama: apiKeys.ollama,
       };
       const response = await fetch("/api/auth/keys", {
         method: "POST",
@@ -99,26 +107,28 @@ export function ProvidersTab() {
                 rel="noopener noreferrer"
                 className="text-xs text-primary hover:underline flex items-center gap-1"
               >
-                Get key
+                {provider.isUrl ? 'Download' : 'Get key'}
                 <ExternalLink className="h-3 w-3" />
               </a>
             </div>
             <div className="relative">
               <Input
                 id={`key-${provider.id}`}
-                type={showKeys[provider.id] ? "text" : "password"}
+                type={provider.isUrl || showKeys[provider.id] ? "text" : "password"}
                 placeholder={provider.apiKeyPlaceholder}
                 value={apiKeys[provider.id] || ""}
                 onChange={(e) => handleApiKeyChange(provider.id, e.target.value)}
                 className="pr-10 text-xs h-8 font-mono"
               />
-              <button
-                type="button"
-                onClick={() => toggleKeyVisibility(provider.id)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground text-xs font-mono"
-              >
-                {showKeys[provider.id] ? "👁" : "•"}
-              </button>
+              {!provider.isUrl && (
+                <button
+                  type="button"
+                  onClick={() => toggleKeyVisibility(provider.id)}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground text-xs font-mono"
+                >
+                  {showKeys[provider.id] ? "👁" : "•"}
+                </button>
+              )}
             </div>
           </div>
         ))}

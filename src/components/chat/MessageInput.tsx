@@ -2,8 +2,8 @@
 
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { Textarea } from '@/components/ui/textarea';
-// import { InlineProviderSelector } from './InlineProviderSelector';
-import { ModelProviderStatus } from './ModelProviderStatus';
+import { InlineProviderSelector } from './InlineProviderSelector';
+// import { ModelProviderStatus } from './ModelProviderStatus';
 
 interface MessageInputProps {
   // Removed InlineProviderSelector import as provider selection is now in ConfigDialog
@@ -74,7 +74,11 @@ export function MessageInput({
               <div className="border-t border-muted-foreground/30 px-3 md:px-4 py-2 flex items-center justify-between text-xs font-mono bg-muted/5">
                 <div className="flex items-center gap-2 md:gap-3">
                   {/* Model/provider status display */}
-                  <span className="px-2 py-1"><ModelProviderStatus /></span>
+                  <InlineProviderSelector 
+                    currentProvider={currentProvider}
+                    onProviderChange={onProviderChange}
+                    disabled={isLoading}
+                  />
                 </div>
 
                 {/* Helper text */}
