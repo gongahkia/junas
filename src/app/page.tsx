@@ -6,6 +6,7 @@ import { ChatInterface } from '@/components/chat/ChatInterface';
 import { NewChatDialog } from '@/components/chat/NewChatDialog';
 import { ImportDialog } from '@/components/chat/ImportDialog';
 import { ExportDialog } from '@/components/chat/ExportDialog';
+import { ShareDialog } from '@/components/chat/ShareDialog';
 import { ConfigDialog } from '@/components/ConfigDialog';
 import { AboutDialog } from '@/components/AboutDialog';
 import { CommandPalette } from '@/components/chat/CommandPalette';
@@ -17,6 +18,7 @@ export default function Home() {
   const [showNewChatDialog, setShowNewChatDialog] = useState(false);
   const [showImportDialog, setShowImportDialog] = useState(false);
   const [showExportDialog, setShowExportDialog] = useState(false);
+  const [showShareDialog, setShowShareDialog] = useState(false);
   const [showConfigDialog, setShowConfigDialog] = useState(false);
   const [showAboutDialog, setShowAboutDialog] = useState(false);
   const [showCommandPalette, setShowCommandPalette] = useState(false);
@@ -89,6 +91,7 @@ export default function Home() {
       <Layout
         onImport={!hasMessages ? () => setShowImportDialog(true) : undefined}
         onExport={hasMessages ? () => setShowExportDialog(true) : undefined}
+        onShare={hasMessages ? () => setShowShareDialog(true) : undefined}
         onNewChat={hasMessages ? handleNewChat : undefined}
         onConfig={() => setShowConfigDialog(true)}
         onAbout={() => setShowAboutDialog(true)}
@@ -116,6 +119,13 @@ export default function Home() {
           messages={currentMessages}
         />
 
+        {/* Share Dialog */}
+        <ShareDialog
+          isOpen={showShareDialog}
+          onClose={() => setShowShareDialog(false)}
+          messages={currentMessages}
+        />
+
         {/* Config Dialog */}
         <ConfigDialog
           isOpen={showConfigDialog}
@@ -135,6 +145,7 @@ export default function Home() {
           onOpenConfig={() => setShowConfigDialog(true)}
           onOpenImport={() => setShowImportDialog(true)}
           onOpenExport={() => setShowExportDialog(true)}
+          onOpenShare={() => setShowShareDialog(true)}
           onOpenAbout={() => setShowAboutDialog(true)}
           onNewChat={hasMessages ? handleNewChat : undefined}
           hasMessages={hasMessages}
