@@ -24,7 +24,8 @@ export type CommandType =
   | 'summarize-document'
   | 'draft-clause'
   | 'check-compliance'
-  | 'due-diligence-review';
+  | 'due-diligence-review'
+  | 'generate-document';
 
 export interface CommandInfo {
   id: CommandType;
@@ -106,6 +107,12 @@ export const COMMANDS: CommandInfo[] = [
     description: 'Conduct legal due diligence checklist',
     isLocal: false,
   },
+  {
+    id: 'generate-document',
+    label: 'generate-document',
+    description: 'Generate a downloadable text or markdown document',
+    isLocal: true, // Processed locally to save the artifact
+  },
 ];
 
 export interface ProcessedCommand {
@@ -118,6 +125,11 @@ export interface LocalCommandResult {
   success: boolean;
   content: string;
   requiresModel?: string; // Model ID required for this command
+  artifact?: {
+    title: string;
+    type: 'text' | 'markdown';
+    content: string;
+  };
 }
 
 export interface AsyncLocalCommandResult {
@@ -201,6 +213,44 @@ export function processLocalCommand(command: ProcessedCommand): LocalCommandResu
       return {
         success: true,
         content: formatTextAnalysis(args),
+      };
+    }
+
+    case 'generate-document': {
+      // Expected args: JSON string or formatted text
+      // Try to parse JSON first
+      let title = 'Generated Document';
+      let type: 'text' | 'markdown' = 'markdown';
+      let content = args;
+
+      try {
+        // Try to find JSON-like structure
+        const jsonMatch = args.match(/({[\s\S]*})/);
+        if (jsonMatch) {
+          const parsed = JSON.parse(jsonMatch[1]);
+          if (parsed.title) title = parsed.title;
+          if (parsed.type) type = parsed.type;
+          if (parsed.content) content = parsed.content;
+        } else {
+            // If not JSON, try to extract title from first line if it starts with #
+            const lines = args.split('\n');
+            if (lines.length > 0 && lines[0].startsWith('#')) {
+                title = lines[0].replace(/^#+\s*/, '').trim();
+            }
+        }
+      } catch (e) {
+        // Fallback to using raw args as content
+        console.warn('Failed to parse generate-document args as JSON', e);
+      }
+
+      return {
+        success: true,
+        content: `Document "${title}" generated successfully. Check the Artifacts tab.`,
+        artifact: {
+            title,
+            type,
+            content
+        }
       };
     }
 

@@ -33,16 +33,27 @@ export interface Citation {
   year?: number;
 }
 
+export interface Artifact {
+  id: string;
+  type: 'text' | 'markdown';
+  title: string;
+  content: string;
+  createdAt: number; // Timestamp
+  messageId: string; // ID of the message that generated this artifact
+}
+
 export interface Conversation {
   id: string;
   title: string;
   messages: Message[];
+  artifacts?: Artifact[];
   createdAt: Date;
   updatedAt: Date;
 }
 
 export interface ChatState {
   messages: Message[];
+  artifacts: Artifact[];
   isLoading: boolean;
   currentProvider: string;
   apiKeys: Record<string, string>;
