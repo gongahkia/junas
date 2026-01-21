@@ -249,6 +249,7 @@ export const MessageList = memo(function MessageList({
   isLoading,
   onCopyMessage,
   onRegenerateMessage,
+  onEditMessage,
   scrollToMessageId
 }: MessageListProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
