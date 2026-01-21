@@ -119,13 +119,12 @@ function SharePageContent() {
           [ Shared Conversation ]
         </div>
         <div className="flex items-center gap-4">
-           <Button 
+           <button 
             onClick={handleImport} 
-            size="sm" 
-            className="font-mono text-xs"
+            className="px-2 py-1 text-xs font-mono hover:bg-muted transition-colors text-black"
           >
             [ Import & Continue ]
-          </Button>
+          </button>
         </div>
       </header>
       
