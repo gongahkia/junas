@@ -4,7 +4,7 @@ import { getSession } from '@/lib/session';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { gemini, openai, claude } = body;
+    const { gemini, openai, claude, ollama } = body;
 
     // Get session and merge with existing keys
     const session = await getSession();
@@ -18,12 +18,14 @@ export async function POST(request: NextRequest) {
       ...(gemini !== undefined && { gemini }),
       ...(openai !== undefined && { openai }),
       ...(claude !== undefined && { claude }),
+      ...(ollama !== undefined && { ollama }),
     };
 
     // Remove empty keys
     if (gemini === '') delete session.apiKeys.gemini;
     if (openai === '') delete session.apiKeys.openai;
     if (claude === '') delete session.apiKeys.claude;
+    if (ollama === '') delete session.apiKeys.ollama;
 
     session.createdAt = Date.now();
     await session.save();
@@ -50,6 +52,7 @@ export async function GET() {
       gemini: !!session.apiKeys?.gemini,
       openai: !!session.apiKeys?.openai,
       claude: !!session.apiKeys?.claude,
+      ollama: !!session.apiKeys?.ollama,
     };
 
     // Return the actual keys for populating the UI
@@ -58,6 +61,7 @@ export async function GET() {
       gemini: session.apiKeys?.gemini || '',
       openai: session.apiKeys?.openai || '',
       claude: session.apiKeys?.claude || '',
+      ollama: session.apiKeys?.ollama || '',
     };
 
     return NextResponse.json({
