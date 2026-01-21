@@ -8,12 +8,13 @@ interface LayoutProps {
   children: React.ReactNode;
   onImport?: () => void;
   onExport?: () => void;
+  onShare?: () => void;
   onNewChat?: () => void;
   onConfig?: () => void;
   onAbout?: () => void;
 }
 
-export function Layout({ children, onImport, onExport, onNewChat, onConfig, onAbout }: LayoutProps) {
+export function Layout({ children, onImport, onExport, onShare, onNewChat, onConfig, onAbout }: LayoutProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -81,6 +82,16 @@ export function Layout({ children, onImport, onExport, onNewChat, onConfig, onAb
                   data-tour="export"
                 >
                   [ ↓ Export ]
+                </button>
+              )}
+              {/* Share button */}
+              {onShare && (
+                <button
+                  onClick={onShare}
+                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
+                  title="Share conversation"
+                >
+                  [ ↗ Share ]
                 </button>
               )}
               {/* About button */}

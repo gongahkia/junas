@@ -40,6 +40,7 @@ interface CommandPaletteProps {
   onOpenConfig: () => void;
   onOpenImport: () => void;
   onOpenExport: () => void;
+  onOpenShare: () => void;
   onOpenAbout: () => void;
   onNewChat?: () => void;
   hasMessages: boolean;
@@ -51,6 +52,7 @@ export function CommandPalette({
   onOpenConfig,
   onOpenImport,
   onOpenExport,
+  onOpenShare,
   onOpenAbout,
   onNewChat,
   hasMessages
@@ -102,6 +104,14 @@ export function CommandPalette({
       icon: <Download className="h-4 w-4" />,
       category: 'system' as const,
       action: onOpenExport
+    }] : []),
+    ...(hasMessages ? [{
+      id: 'share',
+      label: 'Share Chat',
+      description: 'Generate a shareable link for this conversation',
+      icon: <Users className="h-4 w-4" />,
+      category: 'system' as const,
+      action: onOpenShare
     }] : []),
     {
       id: 'about',
