@@ -1,4 +1,4 @@
-export type AIProvider = 'gemini' | 'openai' | 'claude';
+export type AIProvider = 'gemini' | 'openai' | 'claude' | 'ollama';
 
 export interface ProviderConfig {
   name: string;

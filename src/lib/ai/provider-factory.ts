@@ -19,6 +19,11 @@ export class ProviderFactory {
         const { ClaudeProvider } = await import('./providers/claude');
         return new ClaudeProvider(config.apiKey, config.model);
       }
+      case 'ollama': {
+        const { OllamaProvider } = await import('./providers/ollama');
+        // For Ollama, apiKey field is repurposed as baseUrl
+        return new OllamaProvider(config.apiKey || 'http://localhost:11434', config.model);
+      }
       default:
         throw new Error(`Unsupported provider: ${provider}`);
     }
@@ -38,13 +43,17 @@ export class ProviderFactory {
         const { ClaudeProvider } = await import('./providers/claude');
         return ClaudeProvider.getCapabilities();
       }
+      case 'ollama': {
+        const { OllamaProvider } = await import('./providers/ollama');
+        return OllamaProvider.getCapabilities();
+      }
       default:
         throw new Error(`Unsupported provider: ${provider}`);
     }
   }
 
   static getAvailableProviders(): AIProvider[] {
-    return ['gemini', 'openai', 'claude'];
+    return ['gemini', 'openai', 'claude', 'ollama'];
   }
 
   static getDefaultConfig(provider: AIProvider): Partial<ProviderConfig> {
@@ -76,6 +85,14 @@ export class ProviderFactory {
           displayName: 'Anthropic Claude',
           model: 'claude-3-5-sonnet-20241022',
         };
+      case 'ollama':
+        return {
+          ...baseConfig,
+          name: 'ollama',
+          displayName: 'Ollama (Local)',
+          model: 'llama3',
+          apiKey: 'http://localhost:11434', // Repurposed as Base URL
+        };
       default:
         throw new Error(`Unsupported provider: ${provider}`);
     }
@@ -88,7 +105,7 @@ export class ProviderFactory {
       errors.push('Provider name is required');
     }
 
-    if (!config.apiKey || config.apiKey.trim() === '') {
+    if (config.name !== 'ollama' && (!config.apiKey || config.apiKey.trim() === '')) {
       errors.push('API key is required');
     }
 
