@@ -4,7 +4,7 @@ import { getSession } from '@/lib/session';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { gemini, openai, claude, ollama } = body;
+    const { gemini, openai, claude, ollama, lmstudio } = body;
 
     // Get session and merge with existing keys
     const session = await getSession();
@@ -19,6 +19,7 @@ export async function POST(request: NextRequest) {
       ...(openai !== undefined && { openai }),
       ...(claude !== undefined && { claude }),
       ...(ollama !== undefined && { ollama }),
+      ...(lmstudio !== undefined && { lmstudio }),
     };
 
     // Remove empty keys
@@ -26,6 +27,7 @@ export async function POST(request: NextRequest) {
     if (openai === '') delete session.apiKeys.openai;
     if (claude === '') delete session.apiKeys.claude;
     if (ollama === '') delete session.apiKeys.ollama;
+    if (lmstudio === '') delete session.apiKeys.lmstudio;
 
     session.createdAt = Date.now();
     await session.save();
@@ -53,6 +55,7 @@ export async function GET() {
       openai: !!session.apiKeys?.openai,
       claude: !!session.apiKeys?.claude,
       ollama: !!session.apiKeys?.ollama,
+      lmstudio: !!session.apiKeys?.lmstudio,
     };
 
     // Return the actual keys for populating the UI
@@ -62,6 +65,7 @@ export async function GET() {
       openai: session.apiKeys?.openai || '',
       claude: session.apiKeys?.claude || '',
       ollama: session.apiKeys?.ollama || '',
+      lmstudio: session.apiKeys?.lmstudio || '',
     };
 
     return NextResponse.json({
