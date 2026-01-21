@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { Message } from '@/types/chat';
+import { Message, Artifact } from '@/types/chat';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
+import { ArtifactsTab } from './ArtifactsTab';
 import { LegalDisclaimer } from '@/components/LegalDisclaimer';
 import { StorageManager } from '@/lib/storage';
 import { ChatService } from '@/lib/ai/chat-service';
@@ -12,11 +13,15 @@ import { generateId } from '@/lib/utils';
 import { parseCommand, processLocalCommand, processAsyncLocalCommand } from '@/lib/commands/command-processor';
 import { JUNAS_ASCII_LOGO } from '@/lib/constants';
 import { getModelsWithStatus, generateText, AVAILABLE_MODELS } from '@/lib/ml/model-manager';
+import { FileText, MessageSquare } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface ChatInterfaceProps {}
 
 export function ChatInterface({}: ChatInterfaceProps = {}) {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [artifacts, setArtifacts] = useState<Artifact[]>([]);
+  const [activeTab, setActiveTab] = useState<'chat' | 'artifacts'>('chat');
   const [isLoading, setIsLoading] = useState(false);
   const [hasMessages, setHasMessages] = useState(false);
   const [currentProvider, setCurrentProvider] = useState<string>('gemini');
@@ -45,6 +50,9 @@ export function ChatInterface({}: ChatInterfaceProps = {}) {
     if (chatState?.messages) {
       setMessages(chatState.messages);
       setHasMessages(chatState.messages.length > 0);
+    }
+    if (chatState?.artifacts) {
+      setArtifacts(chatState.artifacts);
     }
   }, []);
 
@@ -138,17 +146,18 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
 
   // Save messages to storage whenever they change
   useEffect(() => {
-    if (messages.length > 0) {
+    if (messages.length > 0 || artifacts.length > 0) {
       StorageManager.saveChatState({
         messages,
+        artifacts,
         isLoading,
         currentProvider,
         apiKeys: StorageManager.getApiKeys(),
         settings: StorageManager.getSettings(),
       });
-      setHasMessages(true);
+      setHasMessages(messages.length > 0);
     }
-  }, [messages, isLoading, currentProvider]);
+  }, [messages, artifacts, isLoading, currentProvider]);
 
   const handleSendMessage = useCallback(async (content: string) => {
     if (!content.trim()) return;
@@ -197,6 +206,22 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
     // Legacy Local Command Handling
     if (parsedCommand && parsedCommand.isLocal) {
       const result = processLocalCommand(parsedCommand);
+
+      // Handle artifact generation
+      if (result.success && result.artifact) {
+        const newArtifact: Artifact = {
+          id: generateId(),
+          ...result.artifact,
+          createdAt: Date.now(),
+          messageId: assistantMessage.id
+        };
+        setArtifacts(prev => [newArtifact, ...prev]);
+        addToast({
+          title: "Artifact Generated",
+          description: `Created ${newArtifact.title}`,
+        });
+        setActiveTab('artifacts'); // Switch to artifacts tab
+      }
 
       if (!result.success && result.requiresModel) {
         const responseTime = Date.now() - startTime;
@@ -326,6 +351,21 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
           // Execute Tool
           const syncResult = processLocalCommand(toolCommand);
           
+          if (syncResult.success && syncResult.artifact) {
+            const newArtifact: Artifact = {
+              id: generateId(),
+              ...syncResult.artifact,
+              createdAt: Date.now(),
+              messageId: assistantMessage.id
+            };
+            setArtifacts(prev => [newArtifact, ...prev]);
+            addToast({
+              title: "Artifact Generated",
+              description: `Created ${newArtifact.title}`,
+            });
+            // We don't auto-switch tab here to avoid disrupting chat flow, but the toast helps
+          }
+
           if (syncResult.content === '__ASYNC_MODEL_COMMAND__') {
              // Handle async tool
              const asyncResult = await processAsyncLocalCommand(toolCommand);
@@ -456,8 +496,37 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
 
   return (
     <div className="flex flex-col h-full w-full">
+      {/* Tab Header */}
+      <div className="flex items-center border-b px-4 h-10 shrink-0 gap-4">
+        <button 
+            onClick={() => setActiveTab('chat')}
+            className={cn(
+                "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2",
+                activeTab === 'chat' 
+                    ? "border-primary text-foreground" 
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+            )}
+        >
+            <MessageSquare className="h-3 w-3" />
+            CHAT
+        </button>
+        <button 
+            onClick={() => setActiveTab('artifacts')}
+            className={cn(
+                "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2",
+                activeTab === 'artifacts' 
+                    ? "border-primary text-foreground" 
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+            )}
+        >
+            <FileText className="h-3 w-3" />
+            ARTIFACTS {artifacts.length > 0 && `(${artifacts.length})`}
+        </button>
+      </div>
+
       {/* Messages area */}
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1 overflow-hidden relative">
+        <div className={cn("absolute inset-0 flex flex-col transition-opacity duration-200", activeTab === 'chat' ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none")}>
         {messages.length === 0 ? (
           <div className="flex items-center justify-center h-full px-4 py-8">
             <div className="text-center max-w-2xl w-full">
@@ -481,15 +550,26 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
             </div>
           </div>
         )}
+        </div>
+        
+        <div className={cn("absolute inset-0 bg-background transition-opacity duration-200", activeTab === 'artifacts' ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none")}>
+            <ArtifactsTab artifacts={artifacts} />
+        </div>
       </div>
 
-      {/* Input area */}
-      <MessageInput
-        onSendMessage={handleSendMessage}
-        isLoading={isLoading}
-        currentProvider={currentProvider}
-        onProviderChange={setCurrentProvider}
-      />
+      {/* Input area - Only show when in chat tab or leave always visible? 
+          Usually input is relevant for chat. 
+          If in artifacts tab, maybe hide input or disable it? 
+          Let's keep it visible but maybe disabled if in artifacts, or just let user type command.
+      */}
+      <div className={cn("transition-all duration-200", activeTab === 'artifacts' ? "opacity-50 pointer-events-none" : "opacity-100")}>
+        <MessageInput
+            onSendMessage={handleSendMessage}
+            isLoading={isLoading}
+            currentProvider={currentProvider}
+            onProviderChange={setCurrentProvider}
+        />
+      </div>
 
       {/* Legal Disclaimer Overlay */}
       <LegalDisclaimer />
