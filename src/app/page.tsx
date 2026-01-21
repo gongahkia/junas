@@ -26,6 +26,7 @@ export default function Home() {
   const [hasMessages, setHasMessages] = useState(false);
   const [currentMessages, setCurrentMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState<'chat' | 'artifacts'>('chat');
 
   // Check if there are messages on mount and update periodically
   useEffect(() => {
@@ -96,7 +97,11 @@ export default function Home() {
         onConfig={() => setShowConfigDialog(true)}
         onAbout={() => setShowAboutDialog(true)}
       >
-        <ChatInterface key={chatKey} />
+        <ChatInterface 
+          key={chatKey} 
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+        />
 
         {/* New Chat Dialog */}
         <NewChatDialog
@@ -148,6 +153,8 @@ export default function Home() {
           onOpenShare={() => setShowShareDialog(true)}
           onOpenAbout={() => setShowAboutDialog(true)}
           onNewChat={hasMessages ? handleNewChat : undefined}
+          onSwitchToChat={() => setActiveTab('chat')}
+          onSwitchToArtifacts={() => setActiveTab('artifacts')}
           hasMessages={hasMessages}
         />
       </Layout>

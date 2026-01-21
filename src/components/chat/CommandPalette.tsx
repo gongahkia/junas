@@ -19,7 +19,8 @@ import {
   FileSignature,
   Cpu,
   Sparkles,
-  Tags
+  Tags,
+  MessageSquare
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -43,6 +44,8 @@ interface CommandPaletteProps {
   onOpenShare: () => void;
   onOpenAbout: () => void;
   onNewChat?: () => void;
+  onSwitchToChat?: () => void;
+  onSwitchToArtifacts?: () => void;
   hasMessages: boolean;
 }
 
@@ -55,6 +58,8 @@ export function CommandPalette({
   onOpenShare,
   onOpenAbout,
   onNewChat,
+  onSwitchToChat,
+  onSwitchToArtifacts,
   hasMessages
 }: CommandPaletteProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -80,6 +85,22 @@ export function CommandPalette({
       icon: <Plus className="h-4 w-4" />,
       category: 'system' as const,
       action: onNewChat
+    }] : []),
+    ...(onSwitchToChat ? [{
+      id: 'switch-to-chat',
+      label: 'Switch to Chat',
+      description: 'Go to the chat interface',
+      icon: <MessageSquare className="h-4 w-4" />,
+      category: 'system' as const,
+      action: onSwitchToChat
+    }] : []),
+    ...(onSwitchToArtifacts ? [{
+      id: 'switch-to-artifacts',
+      label: 'Switch to Artifacts',
+      description: 'Go to the artifacts view',
+      icon: <FileText className="h-4 w-4" />,
+      category: 'system' as const,
+      action: onSwitchToArtifacts
     }] : []),
     {
       id: 'config',

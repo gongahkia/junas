@@ -16,12 +16,19 @@ import { getModelsWithStatus, generateText, AVAILABLE_MODELS } from '@/lib/ml/mo
 import { FileText, MessageSquare } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-interface ChatInterfaceProps {}
+interface ChatInterfaceProps {
+  activeTab?: 'chat' | 'artifacts';
+  onTabChange?: (tab: 'chat' | 'artifacts') => void;
+}
 
-export function ChatInterface({}: ChatInterfaceProps = {}) {
+export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInterfaceProps = {}) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [artifacts, setArtifacts] = useState<Artifact[]>([]);
-  const [activeTab, setActiveTab] = useState<'chat' | 'artifacts'>('chat');
+  
+  const [localActiveTab, setLocalActiveTab] = useState<'chat' | 'artifacts'>('chat');
+  const activeTab = propActiveTab ?? localActiveTab;
+  const setActiveTab = onTabChange ?? setLocalActiveTab;
+
   const [isLoading, setIsLoading] = useState(false);
   const [hasMessages, setHasMessages] = useState(false);
   const [currentProvider, setCurrentProvider] = useState<string>('gemini');
