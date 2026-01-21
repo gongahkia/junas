@@ -57,12 +57,13 @@ export function InlineProviderSelector({
       case 'openai': return 'OpenAI GPT-4';
       case 'claude': return 'Anthropic Claude';
       case 'ollama': return 'Ollama (Local)';
+      case 'lmstudio': return 'LM Studio (Local)';
       default: return id.charAt(0).toUpperCase() + id.slice(1);
     }
   };
 
   const getProviderIcon = (id: string) => {
-    if (id === 'local' || id === 'ollama') return <Cpu className="h-3 w-3" />;
+    if (id === 'local' || id === 'ollama' || id === 'lmstudio') return <Cpu className="h-3 w-3" />;
     return <Cloud className="h-3 w-3" />;
   };
 
