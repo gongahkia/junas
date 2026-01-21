@@ -17,18 +17,44 @@ interface MessageListProps {
   isLoading: boolean;
   onCopyMessage: (content: string) => void;
   onRegenerateMessage: (messageId: string) => void;
+  onEditMessage?: (messageId: string, newContent: string) => void;
   scrollToMessageId?: string;
 }
 
 // Memoized message item component to prevent unnecessary re-renders
 const MessageItemComponent = ({
   message,
-  onCopyMessage
+  onCopyMessage,
+  onEditMessage
 }: {
   message: Message;
   onCopyMessage: (content: string) => void;
+  onEditMessage?: (messageId: string, newContent: string) => void;
 }) => {
   const userName = StorageManager.getSettings().userName || 'User';
+  const [isEditing, setIsEditing] = useState(false);
+  const [editContent, setEditContent] = useState(message.content);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (isEditing && textareaRef.current) {
+      textareaRef.current.focus();
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [isEditing]);
+
+  const handleSaveEdit = () => {
+    if (editContent.trim() !== message.content) {
+      onEditMessage?.(message.id, editContent);
+    }
+    setIsEditing(false);
+  };
+
+  const handleCancelEdit = () => {
+    setEditContent(message.content);
+    setIsEditing(false);
+  };
 
   return (
     <div
@@ -63,7 +89,35 @@ const MessageItemComponent = ({
 
             {/* Message content */}
             <div className={`prose prose-sm md:prose-base max-w-none leading-relaxed`}>
-              {message.role === 'assistant' ? (
+              {isEditing ? (
+                <div className="space-y-2">
+                  <textarea
+                    ref={textareaRef}
+                    value={editContent}
+                    onChange={(e) => {
+                      setEditContent(e.target.value);
+                      e.target.style.height = 'auto';
+                      e.target.style.height = `${e.target.scrollHeight}px`;
+                    }}
+                    className="w-full bg-background/50 border border-input rounded-md p-2 text-sm font-mono focus:outline-none focus:ring-1 focus:ring-ring resize-none"
+                    rows={1}
+                  />
+                  <div className="flex justify-end gap-2">
+                    <button
+                      onClick={handleCancelEdit}
+                      className="px-2 py-1 text-xs bg-muted hover:bg-muted/80 text-muted-foreground rounded transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleSaveEdit}
+                      className="px-2 py-1 text-xs bg-primary text-primary-foreground hover:bg-primary/90 rounded transition-colors"
+                    >
+                      Save & Submit
+                    </button>
+                  </div>
+                </div>
+              ) : message.role === 'assistant' ? (
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm, remarkMath]}
                   rehypePlugins={[rehypeKatex]}
@@ -138,18 +192,32 @@ const MessageItemComponent = ({
 
 
             {/* Message actions */}
-            <div className="flex items-center gap-1 pt-2 -mx-1">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onCopyMessage(message.content);
-                }}
-                className="text-xs px-2 py-1 text-muted-foreground/60 hover:text-foreground hover:bg-muted/30 transition-colors font-mono"
-                title="Copy message"
-              >
-                [ Copy ]
-              </button>
-            </div>
+            {!isEditing && (
+              <div className="flex items-center gap-1 pt-2 -mx-1">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onCopyMessage(message.content);
+                  }}
+                  className="text-xs px-2 py-1 text-muted-foreground/60 hover:text-foreground hover:bg-muted/30 transition-colors font-mono"
+                  title="Copy message"
+                >
+                  [ Copy ]
+                </button>
+                {message.role === 'user' && onEditMessage && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsEditing(true);
+                    }}
+                    className="text-xs px-2 py-1 text-muted-foreground/60 hover:text-foreground hover:bg-muted/30 transition-colors font-mono"
+                    title="Edit message"
+                  >
+                    [ Edit ]
+                  </button>
+                )}
+              </div>
+            )}
 
             {/* Sender label */}
             <div className={`pt-2 text-[11px] font-medium text-muted-foreground/70 border-t border-muted-foreground/20 mt-3 ${
@@ -248,6 +316,7 @@ export const MessageList = memo(function MessageList({
             <MessageItem
               message={message}
               onCopyMessage={onCopyMessage}
+              onEditMessage={onEditMessage}
             />
           )}
         </div>
