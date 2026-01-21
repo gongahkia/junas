@@ -17,6 +17,7 @@ import {
   getModelsWithStatus,
   downloadModel,
   removeModelFromDownloaded,
+  clearAllModels,
   type ModelInfo,
   type DownloadProgress,
 } from '@/lib/ml/model-manager';
@@ -140,6 +141,44 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   const handleRemoveModel = (modelId: string) => {
     removeModelFromDownloaded(modelId);
     setModels(getModelsWithStatus());
+  };
+
+  const handleDeleteAllModels = async () => {
+    if (confirm('Are you sure you want to delete all downloaded models? This will free up disk space but you will need to download them again to use local AI features.')) {
+      try {
+        await clearAllModels();
+        setModels(getModelsWithStatus());
+        addToast({
+          type: 'success',
+          title: 'Models Deleted',
+          description: 'All local models have been removed from your device.',
+          duration: 3000,
+        });
+      } catch (error: any) {
+         addToast({
+          type: 'error',
+          title: 'Error',
+          description: 'Failed to delete models: ' + error.message,
+          duration: 3000,
+        });
+      }
+    }
+  };
+
+  const handleClearSiteData = () => {
+    if (confirm('Are you sure you want to clear all site data? This will delete your chat history, settings, and API keys. This action cannot be undone.')) {
+      try {
+        localStorage.clear();
+        sessionStorage.clear();
+        
+        // Also try to clear model cache
+        clearAllModels().then(() => {
+           window.location.reload();
+        });
+      } catch (error) {
+        window.location.reload();
+      }
+    }
   };
 
   return (
@@ -332,6 +371,29 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
               <div className="text-[10px] text-muted-foreground pt-2 border-t border-muted-foreground/20">
                 <p>Models are powered by ONNX Runtime and run entirely in your browser.</p>
                 <p>First download may take a while depending on your connection.</p>
+              </div>
+
+              <div className="pt-4 mt-6 border-t border-red-200 dark:border-red-900/30">
+                <h4 className="text-xs font-semibold text-red-600 dark:text-red-400 mb-2 flex items-center gap-2">
+                  <AlertCircle className="h-3 w-3" />
+                  Danger Zone
+                </h4>
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleDeleteAllModels}
+                    className="px-3 py-2 text-xs border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex items-center gap-2 rounded-sm"
+                  >
+                    <Trash2 className="h-3 w-3" />
+                    Delete Local Models
+                  </button>
+                  <button
+                    onClick={handleClearSiteData}
+                    className="px-3 py-2 text-xs bg-red-600 text-white hover:bg-red-700 transition-colors flex items-center gap-2 rounded-sm"
+                  >
+                    <Trash2 className="h-3 w-3" />
+                    Clear Site Data
+                  </button>
+                </div>
               </div>
             </div>
           )}

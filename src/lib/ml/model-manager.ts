@@ -121,6 +121,29 @@ export function removeModelFromDownloaded(modelId: string) {
 }
 
 /**
+ * Clear all downloaded models from storage and cache
+ */
+export async function clearAllModels(): Promise<void> {
+  // Clear local storage
+  localStorage.removeItem(STORAGE_KEY);
+  loadedPipelines.clear();
+
+  // Clear browser cache used by transformers.js
+  if (typeof window !== 'undefined' && 'caches' in window) {
+    try {
+      const cacheNames = await caches.keys();
+      for (const cacheName of cacheNames) {
+        if (cacheName.startsWith('transformers-cache')) {
+          await caches.delete(cacheName);
+        }
+      }
+    } catch (e) {
+      console.error('Failed to clear model cache:', e);
+    }
+  }
+}
+
+/**
  * Check if a model is downloaded
  */
 export function isModelDownloaded(modelId: string): boolean {

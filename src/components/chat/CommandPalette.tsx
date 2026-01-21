@@ -88,16 +88,16 @@ export function CommandPalette({
     }] : []),
     ...(onSwitchToChat ? [{
       id: 'switch-to-chat',
-      label: 'Switch to Chat',
-      description: 'Go to the chat interface',
+      label: 'Chat',
+      description: 'Switch to the chat interface',
       icon: <MessageSquare className="h-4 w-4" />,
       category: 'system' as const,
       action: onSwitchToChat
     }] : []),
     ...(onSwitchToArtifacts ? [{
       id: 'switch-to-artifacts',
-      label: 'Switch to Artifacts',
-      description: 'Go to the artifacts view',
+      label: 'Artifacts',
+      description: 'Switch to the artifacts view',
       icon: <FileText className="h-4 w-4" />,
       category: 'system' as const,
       action: onSwitchToArtifacts
