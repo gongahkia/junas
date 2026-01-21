@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { ToastProvider } from '@/components/ui/toast';
 import { migrateApiKeysToSession } from '@/lib/migrate-keys';
+import { StorageManager } from '@/lib/storage';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -20,10 +21,34 @@ export function Layout({ children, onImport, onExport, onShare, onNewChat, onCon
   useEffect(() => {
     setMounted(true);
 
+    // Apply dark mode preference
+    const settings = StorageManager.getSettings();
+    if (settings.darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    // Listen for theme changes
+    const handleThemeChange = (e: CustomEvent) => {
+      const isDark = e.detail.darkMode;
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    };
+
+    window.addEventListener('junas-theme-change', handleThemeChange as EventListener);
+
     // Migrate old localStorage API keys to secure session storage
     migrateApiKeysToSession().catch((error) => {
       console.error('Failed to migrate API keys:', error);
     });
+
+    return () => {
+      window.removeEventListener('junas-theme-change', handleThemeChange as EventListener);
+    };
   }, []);
 
   if (!mounted) {
