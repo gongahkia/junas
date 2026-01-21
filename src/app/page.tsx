@@ -30,6 +30,14 @@ export default function Home() {
 
   // Check if there are messages on mount and update periodically
   useEffect(() => {
+    // Apply dark mode preference immediately
+    const settings = StorageManager.getSettings();
+    if (settings.darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
     const checkMessages = () => {
       const chatState = StorageManager.getChatState();
       const messages = chatState?.messages || [];
@@ -39,9 +47,25 @@ export default function Home() {
 
     checkMessages();
 
+    // Listen for theme changes
+    const handleThemeChange = (e: CustomEvent) => {
+      const isDark = e.detail.darkMode;
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    };
+
+    window.addEventListener('junas-theme-change', handleThemeChange as EventListener);
+
     // Check every second for message changes
     const interval = setInterval(checkMessages, 1000);
-    return () => clearInterval(interval);
+    
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('junas-theme-change', handleThemeChange as EventListener);
+    };
   }, [chatKey]);
 
   // Global Cmd/Ctrl+Shift+P listener

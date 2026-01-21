@@ -31,7 +31,8 @@ import {
   type ModelInfo,
   type DownloadProgress,
 } from '@/lib/ml/model-manager';
-import { Download, Trash2, Check, Loader2, AlertCircle } from 'lucide-react';
+import { Download, Trash2, Check, Loader2, AlertCircle, Moon, Sun } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
 
 interface ConfigDialogProps {
   isOpen: boolean;
@@ -57,6 +58,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   // Profile state
   const [userRole, setUserRole] = useState('');
   const [userPurpose, setUserPurpose] = useState('');
+  const [darkMode, setDarkMode] = useState(false);
 
   // Models state
   const [models, setModels] = useState<ModelInfo[]>([]);
@@ -71,6 +73,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       const settings = StorageManager.getSettings();
       setUserRole(settings.userRole || '');
       setUserPurpose(settings.userPurpose || '');
+      setDarkMode(settings.darkMode || false);
 
       // Load models status
       setModels(getModelsWithStatus());
@@ -83,7 +86,14 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       ...settings,
       userRole,
       userPurpose,
+      darkMode,
     });
+    
+    // Dispatch theme change event
+    window.dispatchEvent(new CustomEvent('junas-theme-change', { 
+      detail: { darkMode } 
+    }));
+
     onClose();
   };
 
@@ -263,6 +273,18 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
                   value={userPurpose}
                   onChange={(e) => setUserPurpose(e.target.value)}
                   className="text-xs font-mono"
+                />
+              </div>
+
+              <div className="flex items-center justify-between py-2 border-t border-muted-foreground/20">
+                <div className="flex items-center gap-2">
+                  {darkMode ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+                  <Label htmlFor="darkMode" className="text-xs font-mono">Dark Mode</Label>
+                </div>
+                <Switch
+                  id="darkMode"
+                  checked={darkMode}
+                  onCheckedChange={setDarkMode}
                 />
               </div>
 

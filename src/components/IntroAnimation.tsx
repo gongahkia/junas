@@ -70,7 +70,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
   }, [readyToFade, fadeOut, onComplete]);
 
   return (
-    <div className={`fixed inset-0 z-50 flex items-center justify-center bg-white text-black transition-opacity ${fadeOut ? 'duration-200' : 'duration-500'} ${fadeOut ? 'fade-out' : 'fade-in'}`}>
+    <div className={`fixed inset-0 z-50 flex items-center justify-center bg-background text-foreground transition-opacity ${fadeOut ? 'duration-200' : 'duration-500'} ${fadeOut ? 'fade-out' : 'fade-in'}`}>
       <div className="flex flex-col items-center text-center">
         <pre className="text-xs font-mono whitespace-pre-wrap">
           {lines.map((line, i) => line.substring(0, lineCharCounts[i])).join('\n')}
