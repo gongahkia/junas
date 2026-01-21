@@ -526,7 +526,9 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
 
       {/* Messages area */}
       <div className="flex-1 overflow-hidden relative">
-        <div className={cn("absolute inset-0 flex flex-col transition-opacity duration-200", activeTab === 'chat' ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none")}>
+        <div 
+          className={cn("h-full flex flex-col", activeTab === 'chat' ? "flex" : "hidden")}
+        >
         {messages.length === 0 ? (
           <div className="flex items-center justify-center h-full px-4 py-8">
             <div className="text-center max-w-2xl w-full">
@@ -552,7 +554,9 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
         )}
         </div>
         
-        <div className={cn("absolute inset-0 bg-background transition-opacity duration-200", activeTab === 'artifacts' ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none")}>
+        <div 
+          className={cn("h-full bg-background", activeTab === 'artifacts' ? "block" : "hidden")}
+        >
             <ArtifactsTab artifacts={artifacts} />
         </div>
       </div>

@@ -46,7 +46,7 @@ export function ArtifactsTab({ artifacts }: ArtifactsTabProps) {
 
   if (artifacts.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-full text-muted-foreground p-8">
+      <div className="flex flex-col items-center justify-center h-full text-muted-foreground p-8 font-mono">
         <FileText className="h-12 w-12 mb-4 opacity-20" />
         <p>No artifacts generated yet.</p>
         <p className="text-sm mt-2">Ask Junas to "generate a document" to see it here.</p>
