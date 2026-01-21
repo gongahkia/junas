@@ -9,6 +9,7 @@ import { ExportDialog } from '@/components/chat/ExportDialog';
 import { ShareDialog } from '@/components/chat/ShareDialog';
 import { ConfigDialog } from '@/components/ConfigDialog';
 import { AboutDialog } from '@/components/AboutDialog';
+import { ThemeDialog } from '@/components/ThemeDialog';
 import { CommandPalette } from '@/components/chat/CommandPalette';
 import { StorageManager } from '@/lib/storage';
 import { Message } from '@/types/chat';
@@ -21,6 +22,7 @@ export default function Home() {
   const [showShareDialog, setShowShareDialog] = useState(false);
   const [showConfigDialog, setShowConfigDialog] = useState(false);
   const [showAboutDialog, setShowAboutDialog] = useState(false);
+  const [showThemeDialog, setShowThemeDialog] = useState(false);
   const [showCommandPalette, setShowCommandPalette] = useState(false);
   const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
   const [hasMessages, setHasMessages] = useState(false);
@@ -119,6 +121,7 @@ export default function Home() {
         onShare={hasMessages ? () => setShowShareDialog(true) : undefined}
         onNewChat={hasMessages ? handleNewChat : undefined}
         onConfig={() => setShowConfigDialog(true)}
+        onTheme={() => setShowThemeDialog(true)}
         onAbout={() => setShowAboutDialog(true)}
       >
         <ChatInterface 
@@ -161,6 +164,12 @@ export default function Home() {
           onClose={() => setShowConfigDialog(false)}
         />
 
+        {/* Theme Dialog */}
+        <ThemeDialog
+          isOpen={showThemeDialog}
+          onClose={() => setShowThemeDialog(false)}
+        />
+
         {/* About Dialog */}
         <AboutDialog
           isOpen={showAboutDialog}
@@ -172,6 +181,7 @@ export default function Home() {
           isOpen={showCommandPalette}
           onClose={() => setShowCommandPalette(false)}
           onOpenConfig={() => setShowConfigDialog(true)}
+          onOpenTheme={() => setShowThemeDialog(true)}
           onOpenImport={() => setShowImportDialog(true)}
           onOpenExport={() => setShowExportDialog(true)}
           onOpenShare={() => setShowShareDialog(true)}

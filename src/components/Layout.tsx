@@ -12,10 +12,11 @@ interface LayoutProps {
   onShare?: () => void;
   onNewChat?: () => void;
   onConfig?: () => void;
+  onTheme?: () => void;
   onAbout?: () => void;
 }
 
-export function Layout({ children, onImport, onExport, onShare, onNewChat, onConfig, onAbout }: LayoutProps) {
+export function Layout({ children, onImport, onExport, onShare, onNewChat, onConfig, onTheme, onAbout }: LayoutProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -63,6 +64,16 @@ export function Layout({ children, onImport, onExport, onShare, onNewChat, onCon
                   title="Configure profile"
                 >
                   [ ⚙ Config ]
+                </button>
+              )}
+              {/* Theme button */}
+              {onTheme && (
+                <button
+                  onClick={onTheme}
+                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
+                  title="Theme settings"
+                >
+                  [ 🎨 Theme ]
                 </button>
               )}
               {/* Import button - only show when no messages */}

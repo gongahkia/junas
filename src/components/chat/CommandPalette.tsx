@@ -39,6 +39,7 @@ interface CommandPaletteProps {
   isOpen: boolean;
   onClose: () => void;
   onOpenConfig: () => void;
+  onOpenTheme?: () => void;
   onOpenImport: () => void;
   onOpenExport: () => void;
   onOpenShare: () => void;
@@ -53,6 +54,7 @@ export function CommandPalette({
   isOpen, 
   onClose,
   onOpenConfig,
+  onOpenTheme,
   onOpenImport,
   onOpenExport,
   onOpenShare,
@@ -110,6 +112,14 @@ export function CommandPalette({
       category: 'system',
       action: onOpenConfig
     },
+    ...(onOpenTheme ? [{
+      id: 'theme',
+      label: 'Theme Settings',
+      description: 'Toggle dark mode and customize appearance',
+      icon: <Sparkles className="h-4 w-4" />,
+      category: 'system' as const,
+      action: onOpenTheme
+    }] : []),
     ...(!hasMessages ? [{
       id: 'import',
       label: 'Import Chat',
