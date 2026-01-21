@@ -47,7 +47,7 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[400px] font-mono">
         <DialogHeader>
-          <DialogTitle className="text-sm">[ 🎨 Theme Settings ]</DialogTitle>
+          <DialogTitle className="text-sm">[ Theme Settings ]</DialogTitle>
         </DialogHeader>
 
         <div className="py-4 space-y-4">

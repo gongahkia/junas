@@ -72,7 +72,7 @@ export function Layout({ children, onImport, onExport, onShare, onNewChat, onCon
                   className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
                   title="Theme settings"
                 >
-                  [ 🎨 Theme ]
+                  [ Theme ]
                 </button>
               )}
               {/* Import button - only show when no messages */}
