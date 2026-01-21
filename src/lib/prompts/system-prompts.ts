@@ -15,6 +15,12 @@ export interface PromptConfig {
   useSelfCritique: boolean;
   useStructuredOutput: boolean;
   useTools: boolean;
+  currentDate?: string;
+  userContext?: {
+    role?: string;
+    jurisdiction?: string;
+    preferences?: string;
+  };
 }
 
 /**
@@ -272,6 +278,18 @@ Repeat this cycle as needed for multi-step problems, showing each iteration.`;
 export function generateSystemPrompt(config: PromptConfig): string {
   let prompt = BASE_IDENTITY;
 
+  // Add Dynamic Context (Date, User Info)
+  const date = config.currentDate || new Date().toLocaleDateString('en-SG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  prompt = \`Current Date: \${date}\n\n\` + prompt;
+
+  if (config.userContext) {
+    let contextStr = '\n\n**User Context:**\n';
+    if (config.userContext.role) contextStr += \`- Role: \${config.userContext.role}\n\`;
+    if (config.userContext.jurisdiction) contextStr += \`- Jurisdiction: \${config.userContext.jurisdiction}\n\`;
+    if (config.userContext.preferences) contextStr += \`- Preferences: \${config.userContext.preferences}\n\`;
+    prompt += contextStr;
+  }
+
   // Add tool usage instructions
   if (config.useTools) {
     prompt += '\n\n' + TOOL_USAGE_INSTRUCTIONS;
@@ -307,6 +325,7 @@ export function getDefaultPromptConfig(depth: ReasoningDepth = 'standard'): Prom
       useSelfCritique: false,
       useStructuredOutput: true,
       useTools: true, // Enable tools by default
+      currentDate: new Date().toLocaleDateString('en-SG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
     },
   };
 
