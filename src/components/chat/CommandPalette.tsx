@@ -18,7 +18,8 @@ import {
   Cpu,
   Sparkles,
   Tags,
-  MessageSquare
+  MessageSquare,
+  GitGraph
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -44,6 +45,7 @@ interface CommandPaletteProps {
   onNewChat?: () => void;
   onSwitchToChat?: () => void;
   onSwitchToArtifacts?: () => void;
+  onSwitchToTree?: () => void;
   hasMessages: boolean;
 }
 
@@ -58,6 +60,7 @@ export function CommandPalette({
   onNewChat,
   onSwitchToChat,
   onSwitchToArtifacts,
+  onSwitchToTree,
   hasMessages
 }: CommandPaletteProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -107,6 +110,14 @@ export function CommandPalette({
       icon: <FileText className="h-4 w-4" />,
       category: 'system' as const,
       action: onSwitchToArtifacts
+    }] : []),
+    ...(onSwitchToTree ? [{
+      id: 'switch-to-tree',
+      label: 'Conversation Tree',
+      description: 'View the branching history of this conversation',
+      icon: <GitGraph className="h-4 w-4" />,
+      category: 'system' as const,
+      action: onSwitchToTree
     }] : []),
     {
       id: 'config',

@@ -195,6 +195,7 @@ export default function Home() {
           onNewChat={hasMessages ? handleNewChat : undefined}
           onSwitchToChat={() => setActiveTab('chat')}
           onSwitchToArtifacts={() => setActiveTab('artifacts')}
+          onSwitchToTree={() => setActiveTab('tree')}
           hasMessages={hasMessages}
         />
       </Layout>

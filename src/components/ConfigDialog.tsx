@@ -504,7 +504,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
         </div>
 
         {/* Tab Content */}
-        <div className="flex-1 overflow-y-auto py-4">
+        <div className="flex-1 overflow-y-auto py-4 no-scrollbar">
           {activeTab === 'profile' && (
             <div className="space-y-4">
               <div className="flex items-center gap-2 mb-4">
