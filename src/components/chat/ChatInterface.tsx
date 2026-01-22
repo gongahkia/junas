@@ -870,19 +870,15 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
             </div>
           </div>
         ) : (
-          <div className="h-full flex flex-col">
-            <div className="flex-1 overflow-hidden">
-              <MessageList
-                messages={messages}
-                nodeMap={nodeMap}
-                isLoading={isLoading}
-                onCopyMessage={handleCopyMessage}
-                onRegenerateMessage={handleRegenerateMessage}
-                onEditMessage={handleEditMessage}
-                onBranchSwitch={handleBranchSwitch}
-              />
-            </div>
-          </div>
+          <MessageList
+            messages={messages}
+            nodeMap={nodeMap}
+            isLoading={isLoading}
+            onCopyMessage={handleCopyMessage}
+            onRegenerateMessage={handleRegenerateMessage}
+            onEditMessage={handleEditMessage}
+            onBranchSwitch={handleBranchSwitch}
+          />
         )}
         </div>
         
