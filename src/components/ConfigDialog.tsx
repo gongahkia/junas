@@ -22,7 +22,7 @@ import { Label } from '@/components/ui/label';
 import { StorageManager } from '@/lib/storage';
 import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
-import { ContextProfile } from '@/types/chat';
+import { ContextProfile, Snippet } from '@/types/chat';
 import { ProvidersTab } from '@/components/ProvidersTab';
 import { ToolsTab } from '@/components/ToolsTab';
 import {
@@ -34,14 +34,14 @@ import {
   type ModelInfo,
   type DownloadProgress,
 } from '@/lib/ml/model-manager';
-import { Download, Trash2, Check, Loader2, AlertCircle, Plus, Copy } from 'lucide-react';
+import { Download, Trash2, Check, Loader2, AlertCircle, Plus, Copy, Edit2, Book } from 'lucide-react';
 
 interface ConfigDialogProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-type Tab = 'profile' | 'generation' | 'localModels' | 'providers' | 'tools';
+type Tab = 'profile' | 'generation' | 'localModels' | 'providers' | 'tools' | 'snippets';
 
 export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   const [activeTab, setActiveTab] = useState<Tab>('profile');
@@ -63,6 +63,12 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   const [profiles, setProfiles] = useState<ContextProfile[]>([]);
   const [activeProfileId, setActiveProfileId] = useState<string>('');
   const [profileName, setProfileName] = useState('');
+
+  // Snippet state
+  const [snippets, setSnippets] = useState<Snippet[]>([]);
+  const [editingSnippetId, setEditingSnippetId] = useState<string | null>(null);
+  const [snippetTitle, setSnippetTitle] = useState('');
+  const [snippetContent, setSnippetContent] = useState('');
 
   // Generation state
   const [temperature, setTemperature] = useState(0.7);
@@ -87,6 +93,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       setUserRole(settings.userRole || '');
       setUserPurpose(settings.userPurpose || '');
       setProfiles(settings.profiles || []);
+      setSnippets(settings.snippets || []);
       
       const currentProfileId = settings.activeProfileId || '';
       setActiveProfileId(currentProfileId);
@@ -200,6 +207,57 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
         description: "Generation parameters have been updated.",
         duration: 2000,
     });
+  };
+
+  const handleCreateSnippet = () => {
+      setEditingSnippetId('new');
+      setSnippetTitle('');
+      setSnippetContent('');
+  };
+
+  const handleEditSnippet = (snippet: Snippet) => {
+      setEditingSnippetId(snippet.id);
+      setSnippetTitle(snippet.title);
+      setSnippetContent(snippet.content);
+  };
+
+  const handleSaveSnippet = () => {
+      const settings = StorageManager.getSettings();
+      let newSnippets = [...snippets];
+
+      if (editingSnippetId === 'new') {
+          const newSnippet: Snippet = {
+              id: generateId(),
+              title: snippetTitle || 'Untitled Snippet',
+              content: snippetContent,
+              createdAt: Date.now(),
+          };
+          newSnippets.push(newSnippet);
+      } else {
+          newSnippets = newSnippets.map(s => 
+            s.id === editingSnippetId 
+                ? { ...s, title: snippetTitle, content: snippetContent }
+                : s
+          );
+      }
+
+      setSnippets(newSnippets);
+      StorageManager.saveSettings({ ...settings, snippets: newSnippets });
+      setEditingSnippetId(null);
+      
+      addToast({
+        title: "Snippet Saved",
+        description: "Your snippet has been saved.",
+        duration: 2000,
+      });
+  };
+
+  const handleDeleteSnippet = (id: string) => {
+      const settings = StorageManager.getSettings();
+      const newSnippets = snippets.filter(s => s.id !== id);
+      setSnippets(newSnippets);
+      StorageManager.saveSettings({ ...settings, snippets: newSnippets });
+      if (editingSnippetId === id) setEditingSnippetId(null);
   };
 
   const handleDownloadModel = async (modelId: string) => {
@@ -364,6 +422,16 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
             }`}
           >
             Tools
+          </button>
+          <button
+            onClick={() => setActiveTab('snippets')}
+            className={`px-4 py-2 text-xs transition-colors ${
+              activeTab === 'snippets'
+                ? 'border-b-2 border-primary text-primary'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            Snippets
           </button>
         </div>
 

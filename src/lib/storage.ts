@@ -101,6 +101,7 @@ export class StorageManager {
       focusMode: false,
       profiles: [],
       activeProfileId: undefined,
+      snippets: [],
     };
   }
 
