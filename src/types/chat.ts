@@ -62,9 +62,22 @@ export interface ChatState {
   settings: ChatSettings;
 }
 
+export interface ContextProfile {
+  id: string;
+  name: string;
+  description?: string;
+  userRole: string;
+  userPurpose: string;
+  systemPrompt?: string;
+}
+
 export interface ChatSettings {
   temperature: number;
   maxTokens: number;
+  topP?: number;
+  topK?: number;
+  frequencyPenalty?: number;
+  presencePenalty?: number;
   systemPrompt: string;
   autoSave: boolean;
   darkMode: boolean;
@@ -73,6 +86,8 @@ export interface ChatSettings {
   userName?: string;
   userRole?: string;
   userPurpose?: string;
+  profiles?: ContextProfile[];
+  activeProfileId?: string;
 }
 
 export type DiagramRenderer = 'mermaid' | 'plantuml' | 'graphviz' | 'd2';

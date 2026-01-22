@@ -90,11 +90,17 @@ export class StorageManager {
     return {
       temperature: 0.7,
       maxTokens: 4000,
+      topP: 0.95,
+      topK: 40,
+      frequencyPenalty: 0.0,
+      presencePenalty: 0.0,
       systemPrompt: 'You are Junas, a legal AI assistant specialized in Singapore law. Provide accurate, helpful legal information while being clear about limitations.',
       autoSave: true,
       darkMode: false,
       agentMode: false,
       focusMode: false,
+      profiles: [],
+      activeProfileId: undefined,
     };
   }
 

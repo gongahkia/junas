@@ -21,6 +21,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { StorageManager } from '@/lib/storage';
 import { useToast } from '@/components/ui/toast';
+import { generateId } from '@/lib/utils';
+import { ContextProfile } from '@/types/chat';
 import { ProvidersTab } from '@/components/ProvidersTab';
 import { ToolsTab } from '@/components/ToolsTab';
 import {
@@ -32,14 +34,14 @@ import {
   type ModelInfo,
   type DownloadProgress,
 } from '@/lib/ml/model-manager';
-import { Download, Trash2, Check, Loader2, AlertCircle } from 'lucide-react';
+import { Download, Trash2, Check, Loader2, AlertCircle, Plus, Copy } from 'lucide-react';
 
 interface ConfigDialogProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-type Tab = 'profile' | 'localModels' | 'providers' | 'tools';
+type Tab = 'profile' | 'generation' | 'localModels' | 'providers' | 'tools';
 
 export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   const [activeTab, setActiveTab] = useState<Tab>('profile');
@@ -58,6 +60,18 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   // Profile state
   const [userRole, setUserRole] = useState('');
   const [userPurpose, setUserPurpose] = useState('');
+  const [profiles, setProfiles] = useState<ContextProfile[]>([]);
+  const [activeProfileId, setActiveProfileId] = useState<string>('');
+  const [profileName, setProfileName] = useState('');
+
+  // Generation state
+  const [temperature, setTemperature] = useState(0.7);
+  const [maxTokens, setMaxTokens] = useState(4000);
+  const [topP, setTopP] = useState(0.95);
+  const [topK, setTopK] = useState(40);
+  const [frequencyPenalty, setFrequencyPenalty] = useState(0.0);
+  const [presencePenalty, setPresencePenalty] = useState(0.0);
+  const [systemPrompt, setSystemPrompt] = useState('');
 
   // Models state
   const [models, setModels] = useState<ModelInfo[]>([]);
@@ -72,21 +86,120 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       const settings = StorageManager.getSettings();
       setUserRole(settings.userRole || '');
       setUserPurpose(settings.userPurpose || '');
+      setProfiles(settings.profiles || []);
+      
+      const currentProfileId = settings.activeProfileId || '';
+      setActiveProfileId(currentProfileId);
+      
+      if (currentProfileId && settings.profiles) {
+         const p = settings.profiles.find(p => p.id === currentProfileId);
+         if (p) {
+             setProfileName(p.name);
+             setUserRole(p.userRole);
+             setUserPurpose(p.userPurpose);
+         }
+      }
+
+      setTemperature(settings.temperature ?? 0.7);
+      setMaxTokens(settings.maxTokens ?? 4000);
+      setTopP(settings.topP ?? 0.95);
+      setTopK(settings.topK ?? 40);
+      setFrequencyPenalty(settings.frequencyPenalty ?? 0.0);
+      setPresencePenalty(settings.presencePenalty ?? 0.0);
+      setSystemPrompt(settings.systemPrompt || '');
 
       // Load models status
       setModels(getModelsWithStatus());
     }
   }, [isOpen]);
 
+  const handleProfileChange = (id: string) => {
+    if (id === 'global') {
+        const settings = StorageManager.getSettings();
+        setUserRole(settings.userRole || '');
+        setUserPurpose(settings.userPurpose || '');
+        setProfileName('');
+        setActiveProfileId('');
+    } else {
+        const p = profiles.find(p => p.id === id);
+        if (p) {
+            setUserRole(p.userRole);
+            setUserPurpose(p.userPurpose);
+            setProfileName(p.name);
+            setActiveProfileId(id);
+        }
+    }
+  };
+
+  const handleCreateProfile = () => {
+    const newProfile: ContextProfile = {
+        id: generateId(),
+        name: 'New Profile',
+        userRole: userRole,
+        userPurpose: userPurpose,
+    };
+    setProfiles([...profiles, newProfile]);
+    setActiveProfileId(newProfile.id);
+    setProfileName(newProfile.name);
+  };
+  
+  const handleDeleteProfile = () => {
+      if (!activeProfileId) return;
+      const newProfiles = profiles.filter(p => p.id !== activeProfileId);
+      setProfiles(newProfiles);
+      handleProfileChange('global'); // Switch back to global
+  };
+
   const handleSaveProfile = () => {
     const settings = StorageManager.getSettings();
+    
+    let updatedProfiles = [...profiles];
+    
+    // If active profile, update it in the array
+    if (activeProfileId) {
+        updatedProfiles = updatedProfiles.map(p => 
+            p.id === activeProfileId 
+                ? { ...p, name: profileName, userRole, userPurpose }
+                : p
+        );
+        setProfiles(updatedProfiles);
+    }
+    
     StorageManager.saveSettings({
       ...settings,
-      userRole,
-      userPurpose,
+      userRole: activeProfileId ? settings.userRole : userRole, // Only update global if global selected
+      userPurpose: activeProfileId ? settings.userPurpose : userPurpose,
+      profiles: updatedProfiles,
+      activeProfileId: activeProfileId || undefined
     });
     
     onClose();
+    
+    addToast({
+        title: "Profile Saved",
+        description: activeProfileId ? `Profile "${profileName}" updated.` : "Global context updated.",
+        duration: 2000,
+    });
+  };
+
+  const handleSaveGeneration = () => {
+    const settings = StorageManager.getSettings();
+    StorageManager.saveSettings({
+      ...settings,
+      temperature,
+      maxTokens,
+      topP,
+      topK,
+      frequencyPenalty,
+      presencePenalty,
+      systemPrompt,
+    });
+    
+    addToast({
+        title: "Settings Saved",
+        description: "Generation parameters have been updated.",
+        duration: 2000,
+    });
   };
 
   const handleDownloadModel = async (modelId: string) => {
@@ -213,6 +326,16 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
             Profile
           </button>
           <button
+            onClick={() => setActiveTab('generation')}
+            className={`px-4 py-2 text-xs transition-colors ${
+              activeTab === 'generation'
+                ? 'border-b-2 border-primary text-primary'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            Generation
+          </button>
+          <button
             onClick={() => setActiveTab('localModels')}
             className={`px-4 py-2 text-xs transition-colors ${
               activeTab === 'localModels'
@@ -248,6 +371,57 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
         <div className="flex-1 overflow-y-auto py-4">
           {activeTab === 'profile' && (
             <div className="space-y-4">
+              <div className="flex items-center gap-2 mb-4">
+                 <div className="flex-1">
+                    <Label className="text-xs font-mono mb-1.5 block">Active Profile</Label>
+                    <div className="relative">
+                        <select
+                            value={activeProfileId || 'global'}
+                            onChange={(e) => handleProfileChange(e.target.value)}
+                            className="w-full text-xs font-mono bg-background border border-input rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary appearance-none"
+                        >
+                            <option value="global">Global (Default)</option>
+                            {profiles.map(p => (
+                                <option key={p.id} value={p.id}>{p.name}</option>
+                            ))}
+                        </select>
+                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground text-[10px]">▼</div>
+                    </div>
+                 </div>
+                 <div className="flex items-end gap-1">
+                    <button 
+                        onClick={handleCreateProfile}
+                        className="p-2 border border-input rounded-md hover:bg-muted transition-colors"
+                        title="Create New Profile"
+                    >
+                        <Plus className="h-4 w-4" />
+                    </button>
+                    {activeProfileId && (
+                         <button 
+                             onClick={handleDeleteProfile}
+                             className="p-2 border border-red-200 text-red-500 rounded-md hover:bg-red-50 transition-colors"
+                             title="Delete Profile"
+                         >
+                             <Trash2 className="h-4 w-4" />
+                         </button>
+                    )}
+                 </div>
+              </div>
+
+              {activeProfileId && (
+                  <div className="space-y-2 p-3 bg-muted/20 rounded-md border border-muted-foreground/10">
+                    <Label htmlFor="profileName" className="text-xs font-mono">
+                      Profile Name
+                    </Label>
+                    <Input
+                      id="profileName"
+                      value={profileName}
+                      onChange={(e) => setProfileName(e.target.value)}
+                      className="text-xs font-mono bg-background"
+                    />
+                  </div>
+              )}
+
               <p className="text-xs text-muted-foreground">
                 Set your role and purpose to help Junas provide more relevant assistance.
               </p>
@@ -290,6 +464,121 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
               <div className="flex justify-end gap-2 pt-4">
                 <button
                   onClick={handleSaveProfile}
+                  className="px-3 py-2 text-xs bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                >
+                  [ Save ]
+                </button>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'generation' && (
+            <div className="space-y-4 px-1">
+              <p className="text-xs text-muted-foreground">
+                Fine-tune how the AI generates responses.
+              </p>
+
+              <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="temp" className="text-xs font-mono flex justify-between">
+                        <span>Temperature</span>
+                        <span className="text-muted-foreground">{temperature}</span>
+                    </Label>
+                    <input
+                      id="temp"
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.1"
+                      value={temperature}
+                      onChange={(e) => setTemperature(parseFloat(e.target.value))}
+                      className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="topP" className="text-xs font-mono flex justify-between">
+                        <span>Top P</span>
+                        <span className="text-muted-foreground">{topP}</span>
+                    </Label>
+                    <input
+                      id="topP"
+                      type="range"
+                      min="0"
+                      max="1"
+                      step="0.05"
+                      value={topP}
+                      onChange={(e) => setTopP(parseFloat(e.target.value))}
+                      className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                    />
+                  </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="freqPen" className="text-xs font-mono flex justify-between">
+                        <span>Frequency Penalty</span>
+                        <span className="text-muted-foreground">{frequencyPenalty}</span>
+                    </Label>
+                    <input
+                      id="freqPen"
+                      type="range"
+                      min="-2"
+                      max="2"
+                      step="0.1"
+                      value={frequencyPenalty}
+                      onChange={(e) => setFrequencyPenalty(parseFloat(e.target.value))}
+                      className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="presPen" className="text-xs font-mono flex justify-between">
+                        <span>Presence Penalty</span>
+                        <span className="text-muted-foreground">{presencePenalty}</span>
+                    </Label>
+                    <input
+                      id="presPen"
+                      type="range"
+                      min="-2"
+                      max="2"
+                      step="0.1"
+                      value={presencePenalty}
+                      onChange={(e) => setPresencePenalty(parseFloat(e.target.value))}
+                      className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                    />
+                  </div>
+              </div>
+
+               <div className="space-y-2">
+                <Label htmlFor="maxTokens" className="text-xs font-mono">
+                  Max Tokens
+                </Label>
+                <Input
+                  id="maxTokens"
+                  type="number"
+                  value={maxTokens}
+                  onChange={(e) => setMaxTokens(parseInt(e.target.value))}
+                  className="text-xs font-mono"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="systemPrompt" className="text-xs font-mono">
+                  System Prompt
+                </Label>
+                <textarea
+                  id="systemPrompt"
+                  value={systemPrompt}
+                  onChange={(e) => setSystemPrompt(e.target.value)}
+                  className="w-full h-32 p-3 text-xs font-mono bg-background border rounded-md resize-none focus:outline-none focus:ring-1 focus:ring-primary"
+                  placeholder="Enter custom system instructions..."
+                />
+              </div>
+
+              <div className="flex justify-end gap-2 pt-4">
+                <button
+                  onClick={handleSaveGeneration}
                   className="px-3 py-2 text-xs bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
                 >
                   [ Save ]
