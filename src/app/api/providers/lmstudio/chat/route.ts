@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     // Note: ensure baseUrl includes /v1 if LM Studio is running on default port, usually http://localhost:1234/v1
     const endpoint = baseUrl.endsWith('/chat/completions') 
         ? baseUrl 
-        : `${baseUrl.replace(///$/, '')}/chat/completions`;
+        : `${baseUrl.replace(/\/$/, '')}/chat/completions`;
 
     const response = await fetch(endpoint, {
       method: 'POST',
