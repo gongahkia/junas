@@ -25,10 +25,12 @@ interface MessageListProps {
 const MessageItemComponent = ({
   message,
   onCopyMessage,
+  onRegenerateMessage,
   onEditMessage
 }: {
   message: Message;
   onCopyMessage: (content: string) => void;
+  onRegenerateMessage: (messageId: string) => void;
   onEditMessage?: (messageId: string, newContent: string) => void;
 }) => {
   const userName = StorageManager.getSettings().userName || 'User';
@@ -329,6 +331,7 @@ export const MessageList = memo(function MessageList({
             <MessageItem
               message={message}
               onCopyMessage={onCopyMessage}
+              onRegenerateMessage={onRegenerateMessage}
               onEditMessage={onEditMessage}
             />
           )}
