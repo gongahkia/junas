@@ -27,6 +27,7 @@ export default function Home() {
   const [currentMessages, setCurrentMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'chat' | 'artifacts'>('chat');
+  const [focusMode, setFocusMode] = useState(false);
 
   // Check if there are messages on mount and update periodically
   useEffect(() => {
@@ -37,6 +38,7 @@ export default function Home() {
     } else {
       document.documentElement.classList.remove('dark');
     }
+    setFocusMode(settings.focusMode);
 
     const checkMessages = () => {
       const chatState = StorageManager.getChatState();
@@ -47,7 +49,7 @@ export default function Home() {
 
     checkMessages();
 
-    // Listen for theme changes
+    // Listen for theme and settings changes
     const handleThemeChange = (e: CustomEvent) => {
       const isDark = e.detail.darkMode;
       if (isDark) {
@@ -57,7 +59,13 @@ export default function Home() {
       }
     };
 
+    const handleSettingsChange = () => {
+       const newSettings = StorageManager.getSettings();
+       setFocusMode(newSettings.focusMode);
+    };
+
     window.addEventListener('junas-theme-change', handleThemeChange as EventListener);
+    window.addEventListener('junas-settings-change', handleSettingsChange);
 
     // Check every second for message changes
     const interval = setInterval(checkMessages, 1000);
@@ -65,6 +73,7 @@ export default function Home() {
     return () => {
       clearInterval(interval);
       window.removeEventListener('junas-theme-change', handleThemeChange as EventListener);
+      window.removeEventListener('junas-settings-change', handleSettingsChange);
     };
   }, [chatKey]);
 
@@ -121,6 +130,7 @@ export default function Home() {
   return (
     <div className="fade-in">
       <Layout
+        focusMode={focusMode}
         onShare={hasMessages ? () => setShowShareDialog(true) : undefined}
         onNewChat={hasMessages ? handleNewChat : undefined}
         onConfig={() => setShowConfigDialog(true)}

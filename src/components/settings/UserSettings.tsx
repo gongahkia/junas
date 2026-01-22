@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import { ChatSettings } from '@/types/chat';
-import { User, Zap } from 'lucide-react';
+import { User, Zap, Minimize } from 'lucide-react';
 
 interface UserSettingsProps {
   settings: ChatSettings;
@@ -54,6 +54,22 @@ export function UserSettings({ settings, onSettingChange }: UserSettingsProps) {
             <Switch
               checked={settings.agentMode}
               onCheckedChange={(checked) => onSettingChange('agentMode', checked)}
+            />
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="space-y-0.5">
+              <div className="flex items-center gap-2">
+                <Minimize className="h-4 w-4 text-primary" />
+                <Label className="text-sm font-semibold">Focus Mode</Label>
+              </div>
+              <p className="text-[10px] text-muted-foreground">
+                Hide header, footer, and non-essential UI elements for a distraction-free experience.
+              </p>
+            </div>
+            <Switch
+              checked={settings.focusMode}
+              onCheckedChange={(checked) => onSettingChange('focusMode', checked)}
             />
           </div>
         </div>

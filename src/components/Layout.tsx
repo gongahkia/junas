@@ -6,6 +6,7 @@ import { migrateApiKeysToSession } from '@/lib/migrate-keys';
 
 interface LayoutProps {
   children: React.ReactNode;
+  focusMode?: boolean;
   onImport?: () => void;
   onExport?: () => void;
   onShare?: () => void;
@@ -16,7 +17,7 @@ interface LayoutProps {
   onHistory?: () => void;
 }
 
-export function Layout({ children, onImport, onExport, onShare, onNewChat, onConfig, onTheme, onAbout, onHistory }: LayoutProps) {
+export function Layout({ children, focusMode = false, onImport, onExport, onShare, onNewChat, onConfig, onTheme, onAbout, onHistory }: LayoutProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -36,6 +37,7 @@ export function Layout({ children, onImport, onExport, onShare, onNewChat, onCon
       <ToastProvider>
         <div className="min-h-screen bg-background flex flex-col">
         {/* Header */}
+        {!focusMode && (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="max-w-7xl mx-auto flex h-14 md:h-16 items-center gap-2 md:gap-6 px-4 md:px-8 font-mono">
             {/* Left side - New Chat button */}
@@ -128,6 +130,7 @@ export function Layout({ children, onImport, onExport, onShare, onNewChat, onCon
             </div>
           </div>
         </header>
+        )}
 
         {/* Main content */}
         <main className="flex-1 flex flex-col">
@@ -135,6 +138,7 @@ export function Layout({ children, onImport, onExport, onShare, onNewChat, onCon
         </main>
 
         {/* Footer */}
+        {!focusMode && (
         <footer className="border-t bg-background py-3 md:py-4 px-4 md:px-8">
           <div className="max-w-7xl mx-auto text-center text-xs md:text-sm text-muted-foreground font-mono">
             <p>
@@ -159,6 +163,7 @@ export function Layout({ children, onImport, onExport, onShare, onNewChat, onCon
             </p>
           </div>
         </footer>
+        )}
         </div>
       </ToastProvider>
   );

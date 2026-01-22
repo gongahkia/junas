@@ -102,6 +102,7 @@ export class StorageManager {
     try {
       if (typeof window === 'undefined') return;
       window.localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(settings));
+      window.dispatchEvent(new Event('junas-settings-change'));
     } catch (error) {
       console.error('Error saving settings:', error);
     }
