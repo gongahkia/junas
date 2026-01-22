@@ -35,7 +35,8 @@ export function TreeDialog({ isOpen, onClose, nodeMap, currentLeafId, onSelectNo
         setIsLoading(true);
         setError('');
 
-        const chart = generateDotTree(nodeMap, currentLeafId);
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        const chart = generateDotTree(nodeMap, currentLeafId, isDarkMode);
 
         // Dynamically import viz.js
         const { instance } = await import('@viz-js/viz');
