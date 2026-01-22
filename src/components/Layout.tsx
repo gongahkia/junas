@@ -35,10 +35,10 @@ export function Layout({ children, focusMode = false, onImport, onExport, onShar
 
   return (
       <ToastProvider>
-        <div className="min-h-screen bg-background flex flex-col">
+        <div className="h-screen bg-background flex flex-col overflow-hidden">
         {/* Header */}
         {!focusMode && (
-        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <header className="shrink-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="max-w-7xl mx-auto flex h-14 md:h-16 items-center gap-2 md:gap-6 px-4 md:px-8 font-mono">
             {/* Left side - New Chat button */}
             <div className="flex items-center gap-2 md:gap-4">
@@ -74,7 +74,7 @@ export function Layout({ children, focusMode = false, onImport, onExport, onShar
                   className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
                   title="Configure profile"
                 >
-                  [ ⚙ Config ]
+                  [ Config ]
                 </button>
               )}
               {/* Theme button */}
@@ -124,7 +124,7 @@ export function Layout({ children, focusMode = false, onImport, onExport, onShar
                   className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
                   title="About Junas"
                 >
-                  [ ? About ]
+                  [ About ]
                 </button>
               )}
             </div>
@@ -133,13 +133,13 @@ export function Layout({ children, focusMode = false, onImport, onExport, onShar
         )}
 
         {/* Main content */}
-        <main className="flex-1 flex flex-col">
+        <main className="flex-1 flex flex-col min-h-0 relative">
           {children}
         </main>
 
         {/* Footer */}
         {!focusMode && (
-        <footer className="border-t bg-background py-3 md:py-4 px-4 md:px-8">
+        <footer className="shrink-0 border-t bg-background py-3 md:py-4 px-4 md:px-8">
           <div className="max-w-7xl mx-auto text-center text-xs md:text-sm text-muted-foreground font-mono">
             <p>
               Made by{' '}
