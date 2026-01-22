@@ -6,6 +6,14 @@ import { InlineProviderSelector } from './InlineProviderSelector';
 import { CommandSuggestions } from './CommandSuggestions';
 import { COMMANDS } from '@/lib/commands/command-processor';
 import Fuse from 'fuse.js';
+import { Book } from 'lucide-react';
+import { StorageManager } from '@/lib/storage';
+import { Snippet } from '@/types/chat';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 
 interface MessageInputProps {
   onSendMessage: (content: string) => void;
@@ -30,7 +38,10 @@ export function MessageInput({
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [draft, setDraft] = useState('');
-  
+
+  // Snippet state
+  const [snippets, setSnippets] = useState<Snippet[]>([]);
+
   // Suggestion state
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [commandQuery, setCommandQuery] = useState('');
@@ -47,6 +58,15 @@ export function MessageInput({
 
   useEffect(() => {
     setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
+    
+    // Load snippets
+    const loadSnippets = () => {
+        const settings = StorageManager.getSettings();
+        setSnippets(settings.snippets || []);
+    };
+    loadSnippets();
+    window.addEventListener('junas-settings-change', loadSnippets);
+    return () => window.removeEventListener('junas-settings-change', loadSnippets);
   }, []);
 
   // Handle input changes
@@ -79,6 +99,27 @@ export function MessageInput({
     setMessage(`/${commandId} `);
     setShowSuggestions(false);
     textareaRef.current?.focus();
+  };
+
+  const insertSnippet = (content: string) => {
+      // Insert at cursor position or append
+      if (textareaRef.current) {
+          const start = textareaRef.current.selectionStart;
+          const end = textareaRef.current.selectionEnd;
+          const text = message;
+          const newText = text.substring(0, start) + content + text.substring(end);
+          setMessage(newText);
+          
+          // Move cursor
+          setTimeout(() => {
+              if (textareaRef.current) {
+                  textareaRef.current.selectionStart = textareaRef.current.selectionEnd = start + content.length;
+                  textareaRef.current.focus();
+              }
+          }, 0);
+      } else {
+          setMessage(prev => prev + content);
+      }
   };
 
   const handleSubmit = useCallback((e: React.FormEvent) => {
@@ -199,6 +240,37 @@ export function MessageInput({
                     onProviderChange={onProviderChange}
                     disabled={isLoading}
                   />
+
+                  {/* Snippets Button */}
+                  {snippets.length > 0 && (
+                      <Popover>
+                        <PopoverTrigger asChild>
+                            <button 
+                                className="flex items-center gap-1.5 px-2 py-1 hover:bg-muted/50 rounded-sm transition-colors text-muted-foreground hover:text-foreground"
+                                title="Insert Snippet"
+                                type="button"
+                            >
+                                <Book className="h-3.5 w-3.5" />
+                                <span className="hidden sm:inline">Snippets</span>
+                            </button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-64 p-2" align="start">
+                            <div className="space-y-1">
+                                <h4 className="font-medium text-xs px-2 py-1 text-muted-foreground uppercase tracking-wider">Saved Snippets</h4>
+                                {snippets.map(snippet => (
+                                    <button
+                                        key={snippet.id}
+                                        onClick={() => insertSnippet(snippet.content)}
+                                        className="w-full text-left px-2 py-1.5 text-xs hover:bg-muted rounded-sm truncate transition-colors font-mono"
+                                        title={snippet.content}
+                                    >
+                                        {snippet.title}
+                                    </button>
+                                ))}
+                            </div>
+                        </PopoverContent>
+                      </Popover>
+                  )}
                 </div>
 
                 {/* Helper text */}

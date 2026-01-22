@@ -16,6 +16,8 @@ export interface Message {
   responseTime?: number; // Time in milliseconds
   tokenCount?: number;
   cost?: number;
+  parentId?: string;
+  childrenIds?: string[];
 }
 
 export interface ToolCall {
@@ -48,6 +50,8 @@ export interface Conversation {
   id: string;
   title: string;
   messages: Message[];
+  nodeMap?: Record<string, Message>; // Full tree structure
+  currentLeafId?: string; // Tip of current branch
   artifacts?: Artifact[];
   createdAt: Date;
   updatedAt: Date;
