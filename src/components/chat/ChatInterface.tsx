@@ -670,6 +670,13 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
             <FileText className="h-3 w-3" />
             ARTIFACTS {artifacts.length > 0 && `(${artifacts.length})`}
         </button>
+
+        {totalTokens > 0 && (
+           <div className="ml-auto flex items-center gap-3 text-[10px] text-muted-foreground font-mono">
+              <span>{totalTokens.toLocaleString()} tokens</span>
+              {totalCost > 0 && <span>${totalCost.toFixed(4)}</span>}
+           </div>
+        )}
       </div>
 
       {/* Messages area */}
