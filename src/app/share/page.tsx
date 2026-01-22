@@ -95,6 +95,30 @@ function SharePageContent() {
     }
   };
 
+  const handleBranchSwitch = (messageId: string, direction: 'prev' | 'next') => {
+      if (!nodeMap || Object.keys(nodeMap).length === 0) return;
+      const siblings = getBranchSiblings(nodeMap, messageId);
+      const currentIndex = siblings.indexOf(messageId);
+      
+      let nextId = messageId;
+      if (direction === 'prev' && currentIndex > 0) {
+          nextId = siblings[currentIndex - 1];
+      } else if (direction === 'next' && currentIndex < siblings.length - 1) {
+          nextId = siblings[currentIndex + 1];
+      }
+      
+      if (nextId !== messageId) {
+          let leaf = nextId;
+          while(true) {
+              const node = nodeMap[leaf];
+              if (!node?.childrenIds || node.childrenIds.length === 0) break;
+              leaf = node.childrenIds[node.childrenIds.length - 1];
+          }
+          setMessages(getLinearHistory(nodeMap, leaf));
+          setCurrentLeafId(leaf);
+      }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -139,9 +163,11 @@ function SharePageContent() {
       <main className="flex-1 overflow-hidden flex flex-col relative">
         <MessageList 
           messages={messages} 
+          nodeMap={nodeMap}
           isLoading={false} 
           onCopyMessage={handleCopyMessage}
           onRegenerateMessage={() => {}} // No-op for read-only
+          onBranchSwitch={handleBranchSwitch}
         />
         
         {/* Overlay to indicate read-only state at the bottom */}
