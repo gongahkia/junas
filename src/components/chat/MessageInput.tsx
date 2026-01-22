@@ -25,6 +25,11 @@ export function MessageInput({
   const [message, setMessage] = useState('');
   const [isMac, setIsMac] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // History state
+  const [history, setHistory] = useState<string[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const [draft, setDraft] = useState('');
   
   // Suggestion state
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -80,7 +85,16 @@ export function MessageInput({
     e.preventDefault();
     if (!message.trim() || isLoading) return;
 
-    onSendMessage(message.trim());
+    const trimmedMessage = message.trim();
+    onSendMessage(trimmedMessage);
+    
+    setHistory(prev => {
+        // Don't duplicate if identical to last message
+        if (prev.length > 0 && prev[prev.length - 1] === trimmedMessage) return prev;
+        return [...prev, trimmedMessage];
+    });
+    setHistoryIndex(-1);
+    setDraft('');
     setMessage('');
     setShowSuggestions(false);
   }, [message, isLoading, onSendMessage]);
@@ -110,11 +124,42 @@ export function MessageInput({
       return;
     }
 
+    // History navigation
+    if (e.key === 'ArrowUp') {
+      if (history.length > 0) {
+        e.preventDefault();
+        const newIndex = historyIndex === -1 ? history.length - 1 : Math.max(0, historyIndex - 1);
+        if (historyIndex === -1) setDraft(message);
+        setHistoryIndex(newIndex);
+        setMessage(history[newIndex]);
+        
+        // Move cursor to end (needs timeout to wait for render)
+        setTimeout(() => {
+            if (textareaRef.current) {
+                textareaRef.current.selectionStart = textareaRef.current.value.length;
+                textareaRef.current.selectionEnd = textareaRef.current.value.length;
+            }
+        }, 0);
+      }
+    } else if (e.key === 'ArrowDown') {
+      if (historyIndex !== -1) {
+        e.preventDefault();
+        const newIndex = historyIndex + 1;
+        if (newIndex >= history.length) {
+          setHistoryIndex(-1);
+          setMessage(draft);
+        } else {
+          setHistoryIndex(newIndex);
+          setMessage(history[newIndex]);
+        }
+      }
+    }
+
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e);
     }
-  }, [handleSubmit, showSuggestions, suggestionIndex, commandQuery, fuse]);
+  }, [handleSubmit, showSuggestions, suggestionIndex, commandQuery, fuse, history, historyIndex, draft, message]);
   
   return (
     <div className="border-t bg-background sticky bottom-0 z-50 shadow-sm">
