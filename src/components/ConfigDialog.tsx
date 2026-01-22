@@ -232,6 +232,16 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
           >
             Providers
           </button>
+          <button
+            onClick={() => setActiveTab('tools')}
+            className={`px-4 py-2 text-xs transition-colors ${
+              activeTab === 'tools'
+                ? 'border-b-2 border-primary text-primary'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            Tools
+          </button>
         </div>
 
         {/* Tab Content */}
@@ -407,6 +417,9 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
           )}
           {activeTab === 'providers' && (
             <ProvidersTab />
+          )}
+          {activeTab === 'tools' && (
+            <ToolsTab />
           )}
         </div>
       </DialogContent>
