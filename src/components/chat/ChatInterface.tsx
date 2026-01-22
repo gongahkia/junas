@@ -448,8 +448,6 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     setCurrentLeafId(assistantMessage.id);
     setMessages(prev => [...prev, assistantMessage]);
 
-    const updateMessageContent = (text: string) => {
-
     // Legacy Local Command Handling
     if (parsedCommand && parsedCommand.isLocal) {
       const result = processLocalCommand(parsedCommand);
