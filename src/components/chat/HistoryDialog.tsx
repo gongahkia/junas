@@ -10,7 +10,6 @@ import {
 import { StorageManager } from '@/lib/storage';
 import { Conversation } from '@/types/chat';
 import { MessageSquare, Trash2, Clock, Calendar } from 'lucide-react';
-import { format } from 'date-fns';
 
 interface HistoryDialogProps {
   isOpen: boolean;
@@ -35,7 +34,13 @@ export function HistoryDialog({ isOpen, onClose, onSelectConversation }: History
 
   const formatDate = (date: any) => {
     try {
-        return format(new Date(date), 'MMM d, h:mm a');
+        return new Intl.DateTimeFormat('en-US', {
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true
+        }).format(new Date(date));
     } catch {
         return 'Unknown date';
     }
