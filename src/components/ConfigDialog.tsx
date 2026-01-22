@@ -778,6 +778,94 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
           {activeTab === 'tools' && (
             <ToolsTab />
           )}
+          {activeTab === 'snippets' && (
+             <div className="space-y-4 px-1 h-full flex flex-col">
+                {editingSnippetId ? (
+                    <div className="space-y-4 flex-1 flex flex-col">
+                        <div className="flex items-center justify-between">
+                            <h3 className="text-xs font-semibold uppercase tracking-wider">{editingSnippetId === 'new' ? 'New Snippet' : 'Edit Snippet'}</h3>
+                            <button onClick={() => setEditingSnippetId(null)} className="text-xs text-muted-foreground hover:text-foreground">[ Cancel ]</button>
+                        </div>
+                        
+                        <div className="space-y-2">
+                             <Label className="text-xs font-mono">Title</Label>
+                             <Input 
+                                value={snippetTitle}
+                                onChange={(e) => setSnippetTitle(e.target.value)}
+                                className="text-xs font-mono"
+                                placeholder="e.g. Legal Disclaimer"
+                             />
+                        </div>
+                        
+                        <div className="space-y-2 flex-1 flex flex-col">
+                             <Label className="text-xs font-mono">Content</Label>
+                             <textarea 
+                                value={snippetContent}
+                                onChange={(e) => setSnippetContent(e.target.value)}
+                                className="flex-1 w-full p-3 text-xs font-mono bg-background border rounded-md resize-none focus:outline-none focus:ring-1 focus:ring-primary min-h-[150px]"
+                                placeholder="Enter prompt text..."
+                             />
+                        </div>
+                        
+                        <div className="pt-2 flex justify-end">
+                            <button
+                                onClick={handleSaveSnippet}
+                                className="px-3 py-2 text-xs bg-primary text-primary-foreground hover:bg-primary/90 transition-colors rounded-sm"
+                            >
+                                [ Save Snippet ]
+                            </button>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="space-y-4">
+                        <div className="flex justify-between items-center">
+                            <p className="text-xs text-muted-foreground">Save frequently used prompts.</p>
+                            <button
+                                onClick={handleCreateSnippet}
+                                className="px-2 py-1.5 text-xs border border-input hover:bg-muted transition-colors rounded-sm flex items-center gap-1"
+                            >
+                                <Plus className="h-3 w-3" /> New
+                            </button>
+                        </div>
+                        
+                        <div className="space-y-2">
+                            {snippets.length === 0 ? (
+                                <div className="text-center py-8 text-muted-foreground text-xs border border-dashed rounded-md">
+                                    No snippets saved yet.
+                                </div>
+                            ) : (
+                                snippets.map(snippet => (
+                                    <div key={snippet.id} className="p-3 border rounded-md hover:bg-muted/30 transition-colors flex justify-between items-start group">
+                                        <div className="flex-1 min-w-0 pr-3">
+                                            <h4 className="text-xs font-medium truncate">{snippet.title}</h4>
+                                            <p className="text-[10px] text-muted-foreground line-clamp-2 font-mono mt-1 opacity-70">
+                                                {snippet.content}
+                                            </p>
+                                        </div>
+                                        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button
+                                                onClick={() => handleEditSnippet(snippet)}
+                                                className="p-1.5 hover:bg-muted rounded text-muted-foreground hover:text-foreground"
+                                                title="Edit"
+                                            >
+                                                <Edit2 className="h-3.5 w-3.5" />
+                                            </button>
+                                             <button
+                                                onClick={() => handleDeleteSnippet(snippet.id)}
+                                                className="p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 rounded text-muted-foreground hover:text-red-500"
+                                                title="Delete"
+                                            >
+                                                <Trash2 className="h-3.5 w-3.5" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))
+                            )}
+                        </div>
+                    </div>
+                )}
+             </div>
+          )}
         </div>
       </DialogContent>
 
