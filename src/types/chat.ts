@@ -71,6 +71,13 @@ export interface ContextProfile {
   systemPrompt?: string;
 }
 
+export interface Snippet {
+  id: string;
+  title: string;
+  content: string;
+  createdAt: number;
+}
+
 export interface ChatSettings {
   temperature: number;
   maxTokens: number;
@@ -88,6 +95,7 @@ export interface ChatSettings {
   userPurpose?: string;
   profiles?: ContextProfile[];
   activeProfileId?: string;
+  snippets?: Snippet[];
 }
 
 export type DiagramRenderer = 'mermaid' | 'plantuml' | 'graphviz' | 'd2';
