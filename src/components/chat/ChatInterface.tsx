@@ -16,6 +16,7 @@ import { getModelsWithStatus, generateText, AVAILABLE_MODELS } from '@/lib/ml/mo
 import { FileText, MessageSquare, GitGraph } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ConfirmationDialog } from './ConfirmationDialog';
+import { TreeDialog } from './TreeDialog';
 import { estimateTokens, estimateCost } from '@/lib/ai/token-utils';
 import { createTreeFromLinear, addChild, getLinearHistory, getBranchSiblings } from '@/lib/chat-tree';
 
@@ -36,6 +37,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
   const activeTab = propActiveTab ?? localActiveTab;
   const setActiveTab = onTabChange ?? setLocalActiveTab;
 
+  const [showTree, setShowTree] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMessages, setHasMessages] = useState(false);
   const [currentProvider, setCurrentProvider] = useState<string>('gemini');
@@ -726,6 +728,13 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       }
   }, [nodeMap]);
 
+  const handleSelectNode = useCallback((nodeId: string) => {
+      if (nodeMap[nodeId]) {
+          setCurrentLeafId(nodeId);
+          setMessages(getLinearHistory(nodeMap, nodeId));
+      }
+  }, [nodeMap]);
+
 
   const handlePromptSelect = useCallback((prompt: string) => {
     handleSendMessage(prompt);
@@ -820,6 +829,13 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
             <FileText className="h-3 w-3" />
             ARTIFACTS {artifacts.length > 0 && `(${artifacts.length})`}
         </button>
+        <button 
+            onClick={() => setShowTree(true)}
+            className="flex items-center gap-2 h-full text-xs font-mono border-b-2 border-transparent text-muted-foreground hover:text-foreground transition-colors px-2"
+        >
+            <GitGraph className="h-3 w-3" />
+            TREE
+        </button>
 
         {totalTokens > 0 && (
            <div className="ml-auto flex items-center gap-3 text-[10px] text-muted-foreground font-mono">
@@ -889,6 +905,15 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
       {/* Legal Disclaimer Overlay */}
       <LegalDisclaimer />
+
+      {/* Tree Visualization Dialog */}
+      <TreeDialog 
+        isOpen={showTree}
+        onClose={() => setShowTree(false)}
+        nodeMap={nodeMap}
+        currentLeafId={currentLeafId}
+        onSelectNode={handleSelectNode}
+      />
 
       {/* Confirmation Dialog */}
       <ConfirmationDialog
