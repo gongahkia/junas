@@ -1,4 +1,4 @@
-import { ChatState, ChatSettings, Message } from '@/types/chat';
+import { ChatState, ChatSettings, Message, Conversation } from '@/types/chat';
 
 const STORAGE_KEYS = {
   CHAT_STATE: 'junas_chat_state',
