@@ -292,15 +292,22 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
           const parsed = parseToml(tomlContent);
           const settings = StorageManager.getSettings();
           
-          const newSettings = { ...settings, ...parsed };
+          // Use 'any' to allow property manipulation before saving
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const mergedConfig: any = { ...settings, ...parsed };
           
           if (parsed.profile) {
-              newSettings.userRole = parsed.profile.userRole;
-              newSettings.userPurpose = parsed.profile.userPurpose;
-              delete newSettings.profile;
+              mergedConfig.userRole = parsed.profile.userRole || mergedConfig.userRole;
+              mergedConfig.userPurpose = parsed.profile.userPurpose || mergedConfig.userPurpose;
+              delete mergedConfig.profile;
           }
           
-          StorageManager.saveSettings(newSettings);
+          StorageManager.saveSettings(mergedConfig);
+          
+          // Update local state to reflect changes
+          setTemperature(mergedConfig.temperature ?? temperature);
+          setMaxTokens(mergedConfig.maxTokens ?? maxTokens);
+          setTopP(mergedConfig.topP ?? topP);
           
           addToast({
               title: "Configuration Applied",
