@@ -28,7 +28,7 @@ export default function Home() {
   const [currentNodeMap, setCurrentNodeMap] = useState<Record<string, Message>>({});
   const [currentLeafId, setCurrentLeafId] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'chat' | 'artifacts'>('chat');
+  const [activeTab, setActiveTab] = useState<'chat' | 'artifacts' | 'tree'>('chat');
   const [focusMode, setFocusMode] = useState(false);
 
   // Check if there are messages on mount and update periodically
