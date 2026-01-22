@@ -1,11 +1,14 @@
 'use client';
 
-import { useEffect, useRef, memo, useState } from 'react';
+import { useEffect, useRef, memo, useState, useMemo } from 'react';
 import { Message } from '@/types/chat';
 import { FileText } from 'lucide-react';
 import { StorageManager } from '@/lib/storage';
 import { MermaidDiagram } from './MermaidDiagram';
 import { ThinkingIndicator } from './ThinkingIndicator';
+import { CommandSuggestions } from './CommandSuggestions';
+import { COMMANDS } from '@/lib/commands/command-processor';
+import Fuse from 'fuse.js';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
@@ -38,6 +41,19 @@ const MessageItemComponent = ({
   const [editContent, setEditContent] = useState(message.content);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  // Suggestion state
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [commandQuery, setCommandQuery] = useState('');
+  const [suggestionIndex, setSuggestionIndex] = useState(0);
+
+  const fuse = useMemo(() => {
+    return new Fuse(COMMANDS, {
+      keys: ['id', 'description', 'label'],
+      threshold: 0.4,
+      distance: 100,
+    });
+  }, []);
+
   useEffect(() => {
     if (isEditing && textareaRef.current) {
       textareaRef.current.focus();
@@ -51,11 +67,69 @@ const MessageItemComponent = ({
       onEditMessage?.(message.id, editContent);
     }
     setIsEditing(false);
+    setShowSuggestions(false);
   };
 
   const handleCancelEdit = () => {
     setEditContent(message.content);
     setIsEditing(false);
+    setShowSuggestions(false);
+  };
+
+  const handleEditChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newValue = e.target.value;
+    setEditContent(newValue);
+    e.target.style.height = 'auto';
+    e.target.style.height = `${e.target.scrollHeight}px`;
+
+    // Check for command trigger
+    if (newValue.startsWith('/')) {
+      if (newValue.includes(' ')) {
+        setShowSuggestions(false);
+        return;
+      }
+      const match = newValue.match(/^\/([a-zA-Z0-9-]*)$/);
+      if (match) {
+        setShowSuggestions(true);
+        setCommandQuery(match[1]);
+        setSuggestionIndex(0);
+      } else {
+        setShowSuggestions(false);
+      }
+    } else {
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleCommandSelect = (commandId: string) => {
+    setEditContent(`/${commandId} `);
+    setShowSuggestions(false);
+    textareaRef.current?.focus();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (showSuggestions) {
+      const matches = commandQuery 
+        ? fuse.search(commandQuery).map(r => r.item)
+        : COMMANDS;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setSuggestionIndex(prev => (prev + 1) % matches.length);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSuggestionIndex(prev => (prev - 1 + matches.length) % matches.length);
+      } else if (e.key === 'Enter' || e.key === 'Tab') {
+        e.preventDefault();
+        if (matches[suggestionIndex]) {
+          handleCommandSelect(matches[suggestionIndex].id);
+        }
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        setShowSuggestions(false);
+      }
+      return;
+    }
   };
 
   return (
@@ -90,17 +164,22 @@ const MessageItemComponent = ({
             )}
 
             {/* Message content */}
-            <div className={`prose prose-sm md:prose-base max-w-none leading-relaxed`}>
+            <div className={`prose prose-sm md:prose-base max-w-none leading-relaxed relative`}>
               {isEditing ? (
-                <div className="space-y-2">
+                <div className="space-y-2 relative">
+                  {showSuggestions && (
+                    <CommandSuggestions 
+                      query={commandQuery} 
+                      onSelect={handleCommandSelect}
+                      isOpen={showSuggestions}
+                      selectedIndex={suggestionIndex}
+                    />
+                  )}
                   <textarea
                     ref={textareaRef}
                     value={editContent}
-                    onChange={(e) => {
-                      setEditContent(e.target.value);
-                      e.target.style.height = 'auto';
-                      e.target.style.height = `${e.target.scrollHeight}px`;
-                    }}
+                    onChange={handleEditChange}
+                    onKeyDown={handleKeyDown}
                     className="w-full bg-background/50 border border-input rounded-md p-2 text-sm font-mono focus:outline-none focus:ring-1 focus:ring-ring resize-none"
                     rows={1}
                   />
