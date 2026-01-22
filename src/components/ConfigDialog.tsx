@@ -430,7 +430,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
         </DialogHeader>
 
         {/* Tabs */}
-        <div className="flex border-b border-muted-foreground/30 overflow-x-auto scrollbar-none whitespace-nowrap">
+        <div className="flex border-b border-muted-foreground/30 overflow-x-auto no-scrollbar whitespace-nowrap">
           <button
             onClick={() => setActiveTab('profile')}
             className={`px-4 py-2 text-xs transition-colors flex-shrink-0 ${

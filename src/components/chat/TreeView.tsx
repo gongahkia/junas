@@ -87,7 +87,7 @@ export function TreeView({ nodeMap, currentLeafId, onSelectNode }: TreeViewProps
 
   return (
     <div className="flex-1 flex flex-col h-full overflow-hidden p-4">
-        <div className="flex-1 overflow-auto bg-muted/10 rounded-md p-4 flex items-center justify-center min-h-[300px] border border-muted-foreground/10">
+        <div className="flex-1 overflow-auto bg-muted/10 rounded-md p-4 flex items-center justify-center min-h-[300px] border border-muted-foreground/10 no-scrollbar">
             {isLoading ? (
                 <div className="text-sm text-muted-foreground animate-pulse">Generating tree view...</div>
             ) : error ? (
