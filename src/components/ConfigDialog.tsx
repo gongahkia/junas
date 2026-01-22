@@ -424,16 +424,16 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg font-mono max-h-[80vh] overflow-hidden flex flex-col">
+      <DialogContent className="sm:max-w-2xl font-mono max-h-[90vh] overflow-hidden flex flex-col">
         <DialogHeader>
           <DialogTitle className="text-sm">[ ⚙ Configuration ]</DialogTitle>
         </DialogHeader>
 
         {/* Tabs */}
-        <div className="flex border-b border-muted-foreground/30">
+        <div className="flex border-b border-muted-foreground/30 overflow-x-auto scrollbar-none whitespace-nowrap">
           <button
             onClick={() => setActiveTab('profile')}
-            className={`px-4 py-2 text-xs transition-colors ${
+            className={`px-4 py-2 text-xs transition-colors flex-shrink-0 ${
               activeTab === 'profile'
                 ? 'border-b-2 border-primary text-primary'
                 : 'text-muted-foreground hover:text-foreground'
@@ -443,7 +443,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
           </button>
           <button
             onClick={() => setActiveTab('generation')}
-            className={`px-4 py-2 text-xs transition-colors ${
+            className={`px-4 py-2 text-xs transition-colors flex-shrink-0 ${
               activeTab === 'generation'
                 ? 'border-b-2 border-primary text-primary'
                 : 'text-muted-foreground hover:text-foreground'
@@ -453,7 +453,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
           </button>
           <button
             onClick={() => setActiveTab('localModels')}
-            className={`px-4 py-2 text-xs transition-colors ${
+            className={`px-4 py-2 text-xs transition-colors flex-shrink-0 ${
               activeTab === 'localModels'
                 ? 'border-b-2 border-primary text-primary'
                 : 'text-muted-foreground hover:text-foreground'
@@ -463,7 +463,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
           </button>
           <button
             onClick={() => setActiveTab('providers')}
-            className={`px-4 py-2 text-xs transition-colors ${
+            className={`px-4 py-2 text-xs transition-colors flex-shrink-0 ${
               activeTab === 'providers'
                 ? 'border-b-2 border-primary text-primary'
                 : 'text-muted-foreground hover:text-foreground'
@@ -473,7 +473,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
           </button>
           <button
             onClick={() => setActiveTab('tools')}
-            className={`px-4 py-2 text-xs transition-colors ${
+            className={`px-4 py-2 text-xs transition-colors flex-shrink-0 ${
               activeTab === 'tools'
                 ? 'border-b-2 border-primary text-primary'
                 : 'text-muted-foreground hover:text-foreground'
@@ -483,7 +483,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
           </button>
           <button
             onClick={() => setActiveTab('snippets')}
-            className={`px-4 py-2 text-xs transition-colors ${
+            className={`px-4 py-2 text-xs transition-colors flex-shrink-0 ${
               activeTab === 'snippets'
                 ? 'border-b-2 border-primary text-primary'
                 : 'text-muted-foreground hover:text-foreground'
@@ -493,7 +493,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
           </button>
           <button
             onClick={() => setActiveTab('developer')}
-            className={`px-4 py-2 text-xs transition-colors ${
+            className={`px-4 py-2 text-xs transition-colors flex-shrink-0 ${
               activeTab === 'developer'
                 ? 'border-b-2 border-primary text-primary'
                 : 'text-muted-foreground hover:text-foreground'
