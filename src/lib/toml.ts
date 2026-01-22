@@ -1,5 +1,7 @@
-export function parseToml(toml: string): any {
-  const result: any = {};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function parseToml(toml: string): Record<string, any> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const result: Record<string, any> = {};
   let currentSection = result;
 
   const lines = toml.split('\n');
@@ -20,7 +22,8 @@ export function parseToml(toml: string): any {
     const kvMatch = trimmed.match(/^([\w\d_-]+)\s*=\s*(.*)$/);
     if (kvMatch) {
       const key = kvMatch[1];
-      let valueStr = kvMatch[2];
+      const valueStr = kvMatch[2];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let value: any = valueStr;
 
       // Handle strings
@@ -41,7 +44,8 @@ export function parseToml(toml: string): any {
   return result;
 }
 
-export function stringifyToml(data: any): string {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function stringifyToml(data: Record<string, any>): string {
   let toml = '';
   const sections: string[] = [];
 
