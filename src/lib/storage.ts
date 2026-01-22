@@ -106,7 +106,7 @@ export class StorageManager {
   }
 
   // Conversation Management
-  static getConversations(): Message[][] {
+  static getConversations(): Conversation[] {
     try {
       if (typeof window === 'undefined') return [];
       const stored = window.localStorage.getItem(STORAGE_KEYS.CONVERSATIONS);
@@ -117,14 +117,20 @@ export class StorageManager {
     }
   }
 
-  static saveConversation(messages: Message[]): void {
+  static saveConversation(conversation: Conversation): void {
     try {
       const conversations = this.getConversations();
-      conversations.push(messages);
+      const index = conversations.findIndex(c => c.id === conversation.id);
       
-      // Keep only last 10 conversations to prevent storage bloat
-      if (conversations.length > 10) {
-        conversations.splice(0, conversations.length - 10);
+      if (index !== -1) {
+        conversations[index] = conversation;
+      } else {
+        conversations.unshift(conversation);
+      }
+      
+      // Keep only last 20 conversations to prevent storage bloat
+      if (conversations.length > 20) {
+        conversations.splice(20);
       }
       
       if (typeof window === 'undefined') return;
@@ -132,6 +138,22 @@ export class StorageManager {
     } catch (error) {
       console.error('Error saving conversation:', error);
     }
+  }
+
+  static deleteConversation(id: string): void {
+    try {
+      const conversations = this.getConversations();
+      const filtered = conversations.filter(c => c.id !== id);
+      if (typeof window === 'undefined') return;
+      window.localStorage.setItem(STORAGE_KEYS.CONVERSATIONS, JSON.stringify(filtered));
+    } catch (error) {
+      console.error('Error deleting conversation:', error);
+    }
+  }
+
+  static clearConversations(): void {
+    if (typeof window === 'undefined') return;
+    window.localStorage.removeItem(STORAGE_KEYS.CONVERSATIONS);
   }
 
   static clearAllData(): void {

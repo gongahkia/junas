@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ExternalLink } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const providers = [
   {
@@ -44,9 +45,11 @@ export function ProvidersTab() {
   const [showKeys, setShowKeys] = useState<Record<string, boolean>>({});
   const [isSaving, setIsSaving] = useState(false);
   const [configuredProviders, setConfiguredProviders] = useState<Record<string, boolean>>({});
+  const [providerHealth, setProviderHealth] = useState<Record<string, string>>({});
 
   useEffect(() => {
     checkConfiguredProviders();
+    checkHealth();
   }, []);
 
   const checkConfiguredProviders = async () => {
@@ -59,6 +62,18 @@ export function ProvidersTab() {
       }
     } catch (error) {
       console.error("Error checking providers:", error);
+    }
+  };
+
+  const checkHealth = async () => {
+    try {
+      const response = await fetch("/api/providers/health");
+      if (response.ok) {
+        const healthData = await response.json();
+        setProviderHealth(healthData);
+      }
+    } catch (error) {
+      console.error("Error checking health:", error);
     }
   };
 
@@ -87,12 +102,20 @@ export function ProvidersTab() {
       });
       if (response.ok) {
         await checkConfiguredProviders();
+        await checkHealth();
       }
     } catch (error) {
       console.error("Error saving API keys:", error);
     } finally {
       setIsSaving(false);
     }
+  };
+
+  const getHealthIndicator = (id: string) => {
+    const status = providerHealth[id];
+    if (status === 'online') return <div className="h-1.5 w-1.5 rounded-full bg-green-500" title="Online" />;
+    if (status === 'offline') return <div className="h-1.5 w-1.5 rounded-full bg-red-500" title="Offline" />;
+    return <div className="h-1.5 w-1.5 rounded-full bg-gray-400" title="Unconfigured" />;
   };
 
   return (
@@ -106,9 +129,12 @@ export function ProvidersTab() {
         {providers.map((provider) => (
           <div key={provider.id} className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor={`key-${provider.id}`} className="text-xs">
-                &gt; {provider.name}
-              </Label>
+              <div className="flex items-center gap-2">
+                <Label htmlFor={`key-${provider.id}`} className="text-xs">
+                  &gt; {provider.name}
+                </Label>
+                {getHealthIndicator(provider.id)}
+              </div>
               <a
                 href={provider.getKeyUrl}
                 target="_blank"

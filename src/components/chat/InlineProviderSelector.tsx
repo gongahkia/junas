@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ChevronDown, Cpu, Cloud, Globe } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface InlineProviderSelectorProps {
   currentProvider: string;
@@ -22,32 +23,50 @@ export function InlineProviderSelector({
   disabled 
 }: InlineProviderSelectorProps) {
   const [configuredProviders, setConfiguredProviders] = useState<string[]>([]);
+  const [providerHealth, setProviderHealth] = useState<Record<string, string>>({});
   const [hasLocalModels, setHasLocalModels] = useState(false);
 
-  useEffect(() => {
-    const checkStatus = async () => {
-      // Check local models
-      const models = getModelsWithStatus();
-      const downloadedCount = models.filter(m => m.isDownloaded).length;
-      setHasLocalModels(downloadedCount === AVAILABLE_MODELS.length);
+  const checkStatus = async () => {
+    // Check local models
+    const models = getModelsWithStatus();
+    const downloadedCount = models.filter(m => m.isDownloaded).length;
+    setHasLocalModels(downloadedCount === AVAILABLE_MODELS.length);
 
-      // Check API providers
-      try {
-        const res = await fetch('/api/auth/keys');
-        if (res.ok) {
-          const { configured } = await res.json();
-          const providers = Object.keys(configured).filter(k => configured[k]);
-          setConfiguredProviders(providers);
-        }
-      } catch (e) {
-        console.error('Failed to fetch provider status', e);
+    // Check API providers configuration
+    try {
+      const res = await fetch('/api/auth/keys');
+      if (res.ok) {
+        const { configured } = await res.json();
+        const providers = Object.keys(configured).filter(k => configured[k]);
+        setConfiguredProviders(providers);
       }
-    };
+    } catch (e) {
+      console.error('Failed to fetch provider status', e);
+    }
 
+    // Check health status
+    try {
+      const healthRes = await fetch('/api/providers/health');
+      if (healthRes.ok) {
+        const healthData = await healthRes.json();
+        setProviderHealth(healthData);
+      }
+    } catch (e) {
+      console.error('Failed to fetch health status', e);
+    }
+  };
+
+  useEffect(() => {
     checkStatus();
-    // Re-check every 5 seconds or on focus could be better, but once on mount is okay for now
+    
+    // Refresh health every 30 seconds
+    const interval = setInterval(checkStatus, 30000);
+
     window.addEventListener('focus', checkStatus);
-    return () => window.removeEventListener('focus', checkStatus);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('focus', checkStatus);
+    };
   }, []);
 
   const getProviderLabel = (id: string) => {
@@ -67,6 +86,15 @@ export function InlineProviderSelector({
     return <Cloud className="h-3 w-3" />;
   };
 
+  const getHealthIndicator = (id: string) => {
+    if (id === 'local') return <div className="h-1.5 w-1.5 rounded-full bg-green-500" title="Available" />;
+    
+    const status = providerHealth[id];
+    if (status === 'online') return <div className="h-1.5 w-1.5 rounded-full bg-green-500" title="Online" />;
+    if (status === 'offline') return <div className="h-1.5 w-1.5 rounded-full bg-red-500" title="Offline" />;
+    return <div className="h-1.5 w-1.5 rounded-full bg-gray-400" title="Unconfigured" />;
+  };
+
   const availableOptions = [
     ...(hasLocalModels ? ['local'] : []),
     ...configuredProviders
@@ -78,12 +106,17 @@ export function InlineProviderSelector({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger disabled={disabled} className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50 outline-none">
-        {getProviderIcon(currentProvider)}
-        <span className="font-mono">{getProviderLabel(currentProvider)}</span>
-        <ChevronDown className="h-3 w-3 opacity-50" />
+      <DropdownMenuTrigger disabled={disabled} className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50 outline-none">
+        <div className="flex items-center gap-1.5">
+          {getProviderIcon(currentProvider)}
+          <span className="font-mono">{getProviderLabel(currentProvider)}</span>
+        </div>
+        <div className="flex items-center gap-1.5 ml-1">
+          {getHealthIndicator(currentProvider)}
+          <ChevronDown className="h-3 w-3 opacity-50" />
+        </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-48">
+      <DropdownMenuContent align="start" className="w-56">
         {availableOptions.map(id => (
           <DropdownMenuItem 
             key={id}
@@ -91,8 +124,11 @@ export function InlineProviderSelector({
             className="flex items-center gap-2 text-xs font-mono cursor-pointer"
           >
             {getProviderIcon(id)}
-            {getProviderLabel(id)}
-            {currentProvider === id && <span className="ml-auto">✓</span>}
+            <span className="flex-1">{getProviderLabel(id)}</span>
+            <div className="flex items-center gap-2">
+              {getHealthIndicator(id)}
+              {currentProvider === id && <span className="text-[10px]">✓</span>}
+            </div>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
