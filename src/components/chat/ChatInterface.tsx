@@ -15,6 +15,7 @@ import { JUNAS_ASCII_LOGO } from '@/lib/constants';
 import { getModelsWithStatus, generateText, AVAILABLE_MODELS } from '@/lib/ml/model-manager';
 import { FileText, MessageSquare } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ConfirmationDialog } from './ConfirmationDialog';
 
 interface ChatInterfaceProps {
   activeTab?: 'chat' | 'artifacts';
@@ -36,6 +37,31 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
   const [currentProvider, setCurrentProvider] = useState<string>('gemini');
   const [hasProfileConfig, setHasProfileConfig] = useState(false);
   const { addToast } = useToast();
+
+  const [confirmation, setConfirmation] = useState({
+    isOpen: false,
+    title: '',
+    description: '',
+    resolve: undefined as ((value: boolean) => void) | undefined,
+  });
+
+  const requestConfirmation = (title: string, description: string): Promise<boolean> => {
+    return new Promise((resolve) => {
+      setConfirmation({
+        isOpen: true,
+        title,
+        description,
+        resolve,
+      });
+    });
+  };
+
+  const handleConfirmationResult = (result: boolean) => {
+    if (confirmation.resolve) {
+      confirmation.resolve(result);
+    }
+    setConfirmation(prev => ({ ...prev, isOpen: false }));
+  };
 
   // Check if user has configured their profile
   useEffect(() => {
@@ -142,11 +168,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       {
         id: 'user-prompt',
         role: 'user',
-        content: `Provide a single sentence (maximum 20 words) summarizing what the following conversation was about:
-
-${conversationText}
-
-Reply ONLY with: "You were previously talking about [summary]. Feel free to continue asking about it."`,
+        content: `Provide a single sentence (maximum 20 words) summarizing what the following conversation was about:\n\n${conversationText}\n\nReply ONLY with: "You were previously talking about [summary]. Feel free to continue asking about it."`,
         timestamp: new Date(),
       },
     ];
@@ -280,6 +302,24 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
       if (commandMatch) {
         const commandId = commandMatch[1].toLowerCase() as any;
         const args = commandMatch[2].trim();
+        
+        // Check for destructive commands requiring confirmation
+        if (['generate-document', 'write-file', 'delete-file'].includes(commandId)) {
+          const approved = await requestConfirmation(
+            "Execute Tool?",
+            `The AI wants to run '${commandId}'. This action might modify or create files.`
+          );
+          
+          if (!approved) {
+             const updatedMessages = [
+              ...currentMessages,
+              { role: 'assistant', content: aiResponseText } as Message,
+              { role: 'system', content: `Tool Execution Denied: User cancelled execution of ${commandId}.` } as Message
+            ];
+            return await generateResponse(updatedMessages, assistantMessageId, recursionDepth + 1);
+          }
+        }
+
         const toolCommand = { command: commandId, args, isLocal: true };
 
         updateMessageContent(`[Executing tool: ${commandId}...]`);
@@ -474,6 +514,56 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
 
   }, [messages, generateResponse, addToast, setActiveTab]);
 
+  const handleRegenerateMessage = useCallback(async (messageId: string) => {
+    const messageIndex = messages.findIndex(m => m.id === messageId);
+    if (messageIndex === -1) return;
+
+    // We can only regenerate assistant messages
+    if (messages[messageIndex].role !== 'assistant') return;
+
+    // Get context up to this message (excluding the message itself)
+    const contextMessages = messages.slice(0, messageIndex);
+    
+    // Reset state to this point
+    setIsLoading(true);
+    
+    // Create new assistant message placeholder
+    const newAssistantMessage: Message = {
+      id: generateId(),
+      role: 'assistant',
+      content: '',
+      timestamp: new Date(),
+    };
+
+    // Update messages: Keep context + new placeholder
+    setMessages([...contextMessages, newAssistantMessage]);
+
+    const startTime = Date.now();
+
+    try {
+      const finalResponse = await generateResponse(contextMessages, newAssistantMessage.id);
+      
+      const responseTime = Date.now() - startTime;
+      setMessages(prev =>
+        prev.map(msg =>
+          msg.id === newAssistantMessage.id
+            ? { ...msg, content: finalResponse, responseTime }
+            : msg
+        )
+      );
+    } catch (error: any) {
+      setMessages(prev =>
+        prev.map(msg =>
+          msg.id === newAssistantMessage.id
+            ? { ...msg, content: `Error: ${error.message}` }
+            : msg
+        )
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  }, [messages, generateResponse]);
+
   const handleEditMessage = useCallback(async (messageId: string, newContent: string) => {
     const messageIndex = messages.findIndex(m => m.id === messageId);
     if (messageIndex === -1) return;
@@ -595,58 +685,6 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
     }
   }, [addToast]);
 
-  const handleRegenerateMessage = useCallback(async (messageId: string) => {
-    const messageIndex = messages.findIndex(m => m.id === messageId);
-    if (messageIndex === -1) return;
-
-    // We can only regenerate assistant messages
-    if (messages[messageIndex].role !== 'assistant') return;
-
-    // Get context up to this message (excluding the message itself)
-    const contextMessages = messages.slice(0, messageIndex);
-    
-    // Reset state to this point
-    setIsLoading(true);
-    
-    // Create new assistant message placeholder
-    const newAssistantMessage: Message = {
-      id: generateId(),
-      role: 'assistant',
-      content: '',
-      timestamp: new Date(),
-    };
-
-    // Update messages: Keep context + new placeholder
-    setMessages([...contextMessages, newAssistantMessage]);
-
-    const startTime = Date.now();
-
-    try {
-      const finalResponse = await generateResponse(contextMessages, newAssistantMessage.id);
-      
-      const responseTime = Date.now() - startTime;
-      setMessages(prev =>
-        prev.map(msg =>
-          msg.id === newAssistantMessage.id
-            ? { ...msg, content: finalResponse, responseTime }
-            : msg
-        )
-      );
-    } catch (error: any) {
-      setMessages(prev =>
-        prev.map(msg =>
-          msg.id === newAssistantMessage.id
-            ? { ...msg, content: `Error: ${error.message}` }
-            : msg
-        )
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  }, [messages, generateResponse]);
-
-
-
   return (
     <div className="flex flex-col h-full w-full">
       {/* Tab Header */}
@@ -656,7 +694,7 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
             className={cn(
                 "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2",
                 activeTab === 'chat' 
-                    ? "border-primary text-foreground" 
+                    ? "border-primary text-foreground"
                     : "border-transparent text-muted-foreground hover:text-foreground"
             )}
         >
@@ -668,7 +706,7 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
             className={cn(
                 "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2",
                 activeTab === 'artifacts' 
-                    ? "border-primary text-foreground" 
+                    ? "border-primary text-foreground"
                     : "border-transparent text-muted-foreground hover:text-foreground"
             )}
         >
@@ -723,11 +761,7 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
         </div>
       </div>
 
-      {/* Input area - Only show when in chat tab or leave always visible? 
-          Usually input is relevant for chat. 
-          If in artifacts tab, maybe hide input or disable it? 
-          Let's keep it visible but maybe disabled if in artifacts, or just let user type command.
-      */}
+      {/* Input area */}
       <div className={cn("transition-all duration-200", activeTab === 'artifacts' ? "opacity-50 pointer-events-none" : "opacity-100")}>
         <MessageInput
             onSendMessage={handleSendMessage}
@@ -739,6 +773,15 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
 
       {/* Legal Disclaimer Overlay */}
       <LegalDisclaimer />
+
+      {/* Confirmation Dialog */}
+      <ConfirmationDialog
+        isOpen={confirmation.isOpen}
+        title={confirmation.title}
+        description={confirmation.description}
+        onConfirm={() => handleConfirmationResult(true)}
+        onCancel={() => handleConfirmationResult(false)}
+      />
     </div>
   );
 }
