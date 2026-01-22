@@ -94,6 +94,7 @@ export class StorageManager {
       autoSave: true,
       darkMode: false,
       agentMode: false,
+      focusMode: false,
     };
   }
 
