@@ -13,9 +13,10 @@ interface LayoutProps {
   onConfig?: () => void;
   onTheme?: () => void;
   onAbout?: () => void;
+  onHistory?: () => void;
 }
 
-export function Layout({ children, onImport, onExport, onShare, onNewChat, onConfig, onTheme, onAbout }: LayoutProps) {
+export function Layout({ children, onImport, onExport, onShare, onNewChat, onConfig, onTheme, onAbout, onHistory }: LayoutProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -38,7 +39,7 @@ export function Layout({ children, onImport, onExport, onShare, onNewChat, onCon
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="max-w-7xl mx-auto flex h-14 md:h-16 items-center gap-2 md:gap-6 px-4 md:px-8 font-mono">
             {/* Left side - New Chat button */}
-            <div className="flex items-center">
+            <div className="flex items-center gap-2 md:gap-4">
               {onNewChat && (
                 <button
                   onClick={onNewChat}
@@ -46,6 +47,15 @@ export function Layout({ children, onImport, onExport, onShare, onNewChat, onCon
                   data-tour="new-chat"
                 >
                   [ + New Chat ]
+                </button>
+              )}
+              {onHistory && (
+                <button
+                  onClick={onHistory}
+                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
+                  title="View chat history"
+                >
+                  [ History ]
                 </button>
               )}
             </div>
