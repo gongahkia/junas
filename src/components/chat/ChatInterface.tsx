@@ -839,7 +839,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
             )}
         >
             <GitGraph className="h-3 w-3" />
-            TREE
+            CONVERSATION TREE
         </button>
 
         {totalTokens > 0 && (
