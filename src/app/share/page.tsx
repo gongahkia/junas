@@ -11,11 +11,14 @@ import { JUNAS_ASCII_LOGO } from '@/lib/constants';
 import { useToast, ToastProvider } from '@/components/ui/toast';
 import { Download } from 'lucide-react';
 import { Layout } from '@/components/Layout';
+import { getLinearHistory, getBranchSiblings } from '@/lib/chat-tree';
 
 function SharePageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [messages, setMessages] = useState<Message[]>([]);
+  const [nodeMap, setNodeMap] = useState<Record<string, Message>>({});
+  const [currentLeafId, setCurrentLeafId] = useState<string | undefined>(undefined);
   const [isValid, setIsValid] = useState(false);
   const [loading, setLoading] = useState(true);
   const { addToast } = useToast();
@@ -25,8 +28,10 @@ function SharePageContent() {
     if (data) {
       try {
         const decompressed = decompressChat(data);
-        if (decompressed && decompressed.length > 0) {
-          setMessages(decompressed);
+        if (decompressed && decompressed.messages && decompressed.messages.length > 0) {
+          setMessages(decompressed.messages);
+          if (decompressed.nodeMap) setNodeMap(decompressed.nodeMap);
+          if (decompressed.currentLeafId) setCurrentLeafId(decompressed.currentLeafId);
           setIsValid(true);
         } else {
           setIsValid(false);
@@ -55,6 +60,8 @@ function SharePageContent() {
 
       StorageManager.saveChatState({
         messages: messages,
+        nodeMap: nodeMap,
+        currentLeafId: currentLeafId,
         artifacts: [], // Initialize with empty artifacts for imported chat
         isLoading: false,
         currentProvider: currentChat?.currentProvider || 'gemini', // Default or keep existing
