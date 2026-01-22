@@ -211,6 +211,7 @@ export default function Home() {
           onOpenExport={() => setShowExportDialog(true)}
           onOpenShare={() => setShowShareDialog(true)}
           onOpenAbout={() => setShowAboutDialog(true)}
+          onOpenHistory={() => setShowHistoryDialog(true)}
           onNewChat={hasMessages ? handleNewChat : undefined}
           onSwitchToChat={() => setActiveTab('chat')}
           onSwitchToArtifacts={() => setActiveTab('artifacts')}

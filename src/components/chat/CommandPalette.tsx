@@ -44,6 +44,7 @@ interface CommandPaletteProps {
   onOpenExport: () => void;
   onOpenShare: () => void;
   onOpenAbout: () => void;
+  onOpenHistory?: () => void;
   onNewChat?: () => void;
   onSwitchToChat?: () => void;
   onSwitchToArtifacts?: () => void;
@@ -59,6 +60,7 @@ export function CommandPalette({
   onOpenExport,
   onOpenShare,
   onOpenAbout,
+  onOpenHistory,
   onNewChat,
   onSwitchToChat,
   onSwitchToArtifacts,
@@ -87,6 +89,14 @@ export function CommandPalette({
       icon: <Plus className="h-4 w-4" />,
       category: 'system' as const,
       action: onNewChat
+    }] : []),
+    ...(onOpenHistory ? [{
+      id: 'history',
+      label: 'Chat History',
+      description: 'View and resume past conversations',
+      icon: <Book className="h-4 w-4" />,
+      category: 'system' as const,
+      action: onOpenHistory
     }] : []),
     ...(onSwitchToChat ? [{
       id: 'switch-to-chat',
