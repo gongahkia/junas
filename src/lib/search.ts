@@ -97,6 +97,29 @@ export function searchConversations(
 }
 
 /**
+ * Search through multiple conversations objects
+ * @param query - Search query string
+ * @param conversations - Array of Conversation objects
+ * @returns Grouped search results by conversation
+ */
+export function searchGlobalConversations(
+  query: string,
+  conversations: { id: string; title: string; messages: Message[] }[]
+): { conversationId: string; title: string; results: SearchResult[] }[] {
+  if (!query.trim()) {
+    return []
+  }
+
+  return conversations
+    .map((conv) => ({
+      conversationId: conv.id,
+      title: conv.title,
+      results: searchMessages(query, conv.messages),
+    }))
+    .filter((item) => item.results.length > 0)
+}
+
+/**
  * Highlight search query in text
  * @param text - Text to highlight
  * @param query - Query to highlight
