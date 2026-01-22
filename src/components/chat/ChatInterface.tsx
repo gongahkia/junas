@@ -564,61 +564,6 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     }
   }, [messages, generateResponse]);
 
-  const handleEditMessage = useCallback(async (messageId: string, newContent: string) => {
-    const messageIndex = messages.findIndex(m => m.id === messageId);
-    if (messageIndex === -1) return;
-
-    // Truncate messages to the edited message
-    const previousMessages = messages.slice(0, messageIndex);
-    const editedMessage: Message = {
-      ...messages[messageIndex],
-      content: newContent,
-      timestamp: new Date()
-    };
-
-    // Construct new history
-    const updatedMessages = [...previousMessages, editedMessage];
-    
-    // Set state immediately to show truncated history and edited message
-    setMessages(updatedMessages);
-    setIsLoading(true);
-
-    const startTime = Date.now();
-
-    // Create placeholder for new assistant response
-    const assistantMessage: Message = {
-      id: generateId(),
-      role: 'assistant',
-      content: '',
-      timestamp: new Date(),
-    };
-
-    setMessages(prev => [...prev, assistantMessage]);
-
-    try {
-      const finalResponse = await generateResponse(updatedMessages, assistantMessage.id);
-      
-      const responseTime = Date.now() - startTime;
-      setMessages(prev =>
-        prev.map(msg =>
-          msg.id === assistantMessage.id
-            ? { ...msg, content: finalResponse, responseTime }
-            : msg
-        )
-      );
-    } catch (error: any) {
-      setMessages(prev =>
-        prev.map(msg =>
-          msg.id === assistantMessage.id
-            ? { ...msg, content: `Error: ${error.message}` }
-            : msg
-        )
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  }, [messages, generateResponse]);
-
 
   const handlePromptSelect = useCallback((prompt: string) => {
     handleSendMessage(prompt);
@@ -747,7 +692,6 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
                 isLoading={isLoading}
                 onCopyMessage={handleCopyMessage}
                 onRegenerateMessage={handleRegenerateMessage}
-                onEditMessage={handleEditMessage}
               />
             </div>
           </div>

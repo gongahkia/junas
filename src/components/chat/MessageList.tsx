@@ -1,14 +1,11 @@
 'use client';
 
-import { useEffect, useRef, memo, useState, useMemo } from 'react';
+import { useEffect, useRef, memo } from 'react';
 import { Message } from '@/types/chat';
 import { FileText } from 'lucide-react';
 import { StorageManager } from '@/lib/storage';
 import { MermaidDiagram } from './MermaidDiagram';
 import { ThinkingIndicator } from './ThinkingIndicator';
-import { CommandSuggestions } from './CommandSuggestions';
-import { COMMANDS } from '@/lib/commands/command-processor';
-import Fuse from 'fuse.js';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeKatex from 'rehype-katex';
@@ -198,17 +195,16 @@ export const MessageList = memo(function MessageList({
   isLoading,
   onCopyMessage,
   onRegenerateMessage,
-  onEditMessage,
   scrollToMessageId
 }: MessageListProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messageRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const hasScrolledToMessage = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
+  // Unused state removed: isAutoScrolling
 
   const scrollToBottom = (smooth = true) => {
-    if (messagesEndRef.current && isAutoScrolling) {
+    if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto' });
     }
   };
@@ -267,7 +263,6 @@ export const MessageList = memo(function MessageList({
               message={message}
               onCopyMessage={onCopyMessage}
               onRegenerateMessage={onRegenerateMessage}
-              onEditMessage={onEditMessage}
             />
           )}
         </div>
