@@ -930,6 +930,30 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
                 )}
              </div>
           )}
+          {activeTab === 'developer' && (
+            <div className="space-y-4 h-full flex flex-col px-1">
+                <div className="space-y-2 flex-1 flex flex-col">
+                    <Label className="text-xs font-mono">Junas Configuration (TOML)</Label>
+                    <p className="text-[10px] text-muted-foreground">
+                        Paste your junas.toml script here to configure everything at once.
+                    </p>
+                    <textarea
+                        value={tomlContent}
+                        onChange={(e) => setTomlContent(e.target.value)}
+                        className="flex-1 w-full p-3 text-xs font-mono bg-background border rounded-md resize-none focus:outline-none focus:ring-1 focus:ring-primary min-h-[300px]"
+                        spellCheck={false}
+                    />
+                </div>
+                <div className="flex justify-end gap-2">
+                    <button
+                        onClick={handleSaveToml}
+                        className="px-3 py-2 text-xs bg-primary text-primary-foreground hover:bg-primary/90 transition-colors rounded-sm"
+                    >
+                        [ Apply Configuration ]
+                    </button>
+                </div>
+            </div>
+          )}
         </div>
       </DialogContent>
 
