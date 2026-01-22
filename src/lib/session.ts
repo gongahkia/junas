@@ -6,6 +6,8 @@ export interface SessionData {
     gemini?: string;
     openai?: string;
     claude?: string;
+    ollama?: string;
+    lmstudio?: string;
   };
   createdAt?: number;
 }
