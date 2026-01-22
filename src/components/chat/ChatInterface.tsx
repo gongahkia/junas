@@ -17,7 +17,7 @@ import { FileText, MessageSquare, GitGraph } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ConfirmationDialog } from './ConfirmationDialog';
 import { estimateTokens, estimateCost } from '@/lib/ai/token-utils';
-import { createTreeFromLinear, addChild, getLinearHistory } from '@/lib/chat-tree';
+import { createTreeFromLinear, addChild, getLinearHistory, getBranchSiblings } from '@/lib/chat-tree';
 
 interface ChatInterfaceProps {
   activeTab?: 'chat' | 'artifacts';
@@ -643,6 +643,96 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       setIsLoading(false);
     }
   }, [messages, generateResponse, nodeMap, currentProvider]);
+
+  const handleEditMessage = useCallback(async (messageId: string, newContent: string) => {
+    const originalMessage = nodeMap[messageId];
+    if (!originalMessage) return;
+    
+    const parentId = originalMessage.parentId;
+    
+    // Create new sibling
+    const newMessage: Message = {
+        ...originalMessage,
+        id: generateId(),
+        content: newContent,
+        timestamp: new Date(),
+        tokenCount: estimateTokens(newContent),
+        cost: estimateCost(estimateTokens(newContent), currentProvider, '', 'input'),
+    };
+    
+    // Update tree
+    const nextNodeMap = addChild(nodeMap, parentId || '', newMessage);
+    setNodeMap(nextNodeMap);
+    setCurrentLeafId(newMessage.id);
+    
+    // Calculate context for AI
+    const history = getLinearHistory(nextNodeMap, newMessage.id);
+    setMessages(history);
+    
+    setIsLoading(true);
+    const startTime = Date.now();
+    
+    // Create assistant placeholder
+    const assistantMessage: Message = {
+        id: generateId(),
+        role: 'assistant',
+        content: '',
+        timestamp: new Date(),
+        parentId: newMessage.id
+    };
+    
+    const afterAssistantMap = addChild(nextNodeMap, newMessage.id, assistantMessage);
+    setNodeMap(afterAssistantMap);
+    setCurrentLeafId(assistantMessage.id);
+    setMessages([...history, assistantMessage]);
+    
+    try {
+        const finalResponse = await generateResponse(history, assistantMessage.id);
+        const responseTime = Date.now() - startTime;
+        const tokens = estimateTokens(finalResponse);
+        const cost = estimateCost(tokens, currentProvider, '', 'output');
+
+        const finalAssistant = { 
+            ...assistantMessage, 
+            content: finalResponse, 
+            responseTime, 
+            tokenCount: tokens, 
+            cost 
+        };
+
+        setMessages(prev => prev.map(m => m.id === assistantMessage.id ? finalAssistant : m));
+        setNodeMap(prev => ({ ...prev, [assistantMessage.id]: finalAssistant }));
+    } catch (e: any) {
+        setMessages(prev => prev.map(m => m.id === assistantMessage.id ? { ...m, content: `Error: ${e.message}` } : m));
+    } finally {
+        setIsLoading(false);
+    }
+  }, [nodeMap, currentProvider, generateResponse]);
+
+  const handleBranchSwitch = useCallback((messageId: string, direction: 'prev' | 'next') => {
+      const siblings = getBranchSiblings(nodeMap, messageId);
+      const currentIndex = siblings.indexOf(messageId);
+      
+      let nextId = messageId;
+      if (direction === 'prev' && currentIndex > 0) {
+          nextId = siblings[currentIndex - 1];
+      } else if (direction === 'next' && currentIndex < siblings.length - 1) {
+          nextId = siblings[currentIndex + 1];
+      }
+      
+      if (nextId !== messageId) {
+          // Find the latest leaf for this branch
+          let leaf = nextId;
+          while(true) {
+              const node = nodeMap[leaf];
+              if (!node?.childrenIds || node.childrenIds.length === 0) break;
+              leaf = node.childrenIds[node.childrenIds.length - 1];
+          }
+          
+          setCurrentLeafId(leaf);
+          setMessages(getLinearHistory(nodeMap, leaf));
+      }
+  }, [nodeMap]);
 
 
   const handlePromptSelect = useCallback((prompt: string) => {
