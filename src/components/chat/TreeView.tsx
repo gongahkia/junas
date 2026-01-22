@@ -52,30 +52,36 @@ export function TreeView({ nodeMap, currentLeafId, onSelectNode }: TreeViewProps
     };
   }, [nodeMap, currentLeafId]);
 
-  // Attach click listeners
+  // Attach click listeners using event delegation
   useEffect(() => {
     if (!containerRef.current || !svg) return;
 
-    const nodes = containerRef.current.querySelectorAll('.node');
-    const handlers: { element: Element, handler: () => void }[] = [];
+    const container = containerRef.current;
 
+    // Apply cursor pointer to nodes
+    const nodes = container.querySelectorAll('[id^="node_"]');
     nodes.forEach(node => {
-        const id = node.id.replace('node_', '');
-        // Apply cursor pointer
         (node as HTMLElement).style.cursor = 'pointer';
-        
-        const handler = () => {
-            onSelectNode(id);
-        };
-        
-        node.addEventListener('click', handler);
-        handlers.push({ element: node, handler });
     });
 
+    const handleClick = (e: MouseEvent) => {
+        let target = e.target as Element | null;
+        
+        // Traverse up to find the node group
+        while (target && target !== container) {
+            if (target.id && target.id.startsWith('node_')) {
+                const id = target.id.replace('node_', '');
+                onSelectNode(id);
+                return;
+            }
+            target = target.parentElement;
+        }
+    };
+
+    container.addEventListener('click', handleClick);
+
     return () => {
-        handlers.forEach(({ element, handler }) => {
-            element.removeEventListener('click', handler);
-        });
+        container.removeEventListener('click', handleClick);
     };
   }, [svg, onSelectNode]);
 
