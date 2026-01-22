@@ -66,12 +66,22 @@ export class ChatService {
 
       // Get default system prompt config
       const config = getDefaultPromptConfig('standard');
+      config.useTools = settings.agentMode; // Explicitly enable tools based on agentMode
       
       // Ensure current date is set dynamically if not already
       if (!config.currentDate) {
           config.currentDate = new Date().toLocaleDateString('en-SG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-          config.systemPrompt = generateSystemPrompt(config); // Regenerate prompt with date
       }
+
+      // Add user context if configured
+      if (settings.userRole || settings.userPurpose) {
+          config.userContext = {
+              role: settings.userRole,
+              preferences: settings.userPurpose
+          };
+      }
+
+      config.systemPrompt = generateSystemPrompt(config); // Regenerate prompt with full config
 
       // Format messages with system prompt
       const formattedMessages = [

@@ -10,9 +10,10 @@ import { ShareDialog } from '@/components/chat/ShareDialog';
 import { ConfigDialog } from '@/components/ConfigDialog';
 import { AboutDialog } from '@/components/AboutDialog';
 import { ThemeDialog } from '@/components/ThemeDialog';
+import { HistoryDialog } from '@/components/chat/HistoryDialog';
 import { CommandPalette } from '@/components/chat/CommandPalette';
 import { StorageManager } from '@/lib/storage';
-import { Message } from '@/types/chat';
+import { Message, Conversation } from '@/types/chat';
 import IntroAnimation from '@/components/IntroAnimation';
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
   const [showConfigDialog, setShowConfigDialog] = useState(false);
   const [showAboutDialog, setShowAboutDialog] = useState(false);
   const [showThemeDialog, setShowThemeDialog] = useState(false);
+  const [showHistoryDialog, setShowHistoryDialog] = useState(false);
   const [showCommandPalette, setShowCommandPalette] = useState(false);
   const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
   const [hasMessages, setHasMessages] = useState(false);
@@ -109,6 +111,21 @@ export default function Home() {
     setShowNewChatDialog(false);
   };
 
+  const handleSelectConversation = (conversation: Conversation) => {
+    // Save to current chat state
+    StorageManager.saveChatState({
+      messages: conversation.messages,
+      artifacts: conversation.artifacts || [],
+      isLoading: false,
+      currentProvider: 'gemini', // Default or from metadata if we store it
+      apiKeys: StorageManager.getApiKeys(),
+      settings: StorageManager.getSettings(),
+    });
+
+    // Force re-render
+    setChatKey(prev => prev + 1);
+  };
+
   if (loading) {
     return <IntroAnimation onComplete={() => setLoading(false)} />;
   }
@@ -123,6 +140,7 @@ export default function Home() {
         onConfig={() => setShowConfigDialog(true)}
         onTheme={() => setShowThemeDialog(true)}
         onAbout={() => setShowAboutDialog(true)}
+        onHistory={() => setShowHistoryDialog(true)}
       >
         <ChatInterface 
           key={chatKey} 
@@ -135,6 +153,13 @@ export default function Home() {
           isOpen={showNewChatDialog}
           onClose={() => setShowNewChatDialog(false)}
           onConfirm={handleConfirmNewChat}
+        />
+
+        {/* History Dialog */}
+        <HistoryDialog
+          isOpen={showHistoryDialog}
+          onClose={() => setShowHistoryDialog(false)}
+          onSelectConversation={handleSelectConversation}
         />
 
         {/* Import Dialog */}

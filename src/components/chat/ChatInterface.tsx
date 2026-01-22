@@ -24,6 +24,8 @@ interface ChatInterfaceProps {
 export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInterfaceProps = {}) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [artifacts, setArtifacts] = useState<Artifact[]>([]);
+  const [conversationId, setConversationId] = useState<string>(generateId());
+  const [conversationTitle, setConversationTitle] = useState<string>('');
   
   const [localActiveTab, setLocalActiveTab] = useState<'chat' | 'artifacts'>('chat');
   const activeTab = propActiveTab ?? localActiveTab;
@@ -60,6 +62,18 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     }
     if (chatState?.artifacts) {
       setArtifacts(chatState.artifacts);
+    }
+
+    // Try to find if this chat matches an existing conversation
+    const conversations = StorageManager.getConversations();
+    const matchingConv = conversations.find(c => 
+        c.messages.length === chatState?.messages?.length && 
+        c.messages[0]?.id === chatState?.messages?.[0]?.id
+    );
+
+    if (matchingConv) {
+        setConversationId(matchingConv.id);
+        setConversationTitle(matchingConv.title);
     }
   }, []);
 
@@ -163,8 +177,46 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
         settings: StorageManager.getSettings(),
       });
       setHasMessages(messages.length > 0);
+
+      // Save to conversations history
+      StorageManager.saveConversation({
+        id: conversationId,
+        title: conversationTitle || messages[0]?.content?.substring(0, 40) + (messages[0]?.content?.length > 40 ? '...' : '') || 'New Conversation',
+        messages,
+        artifacts,
+        createdAt: messages[0]?.timestamp || new Date(),
+        updatedAt: new Date(),
+      });
     }
-  }, [messages, artifacts, isLoading, currentProvider]);
+  }, [messages, artifacts, isLoading, currentProvider, conversationId, conversationTitle]);
+
+  // Generate a title for the conversation after first exchange
+  useEffect(() => {
+    if (messages.length >= 2 && !conversationTitle && !isLoading) {
+      const generateTitle = async () => {
+        try {
+          const titlePrompt = [
+            { role: 'user', content: `Summarize this conversation start into a 3-5 word title. Reply ONLY with the title text.\n\nUser: ${messages[0].content}\nAssistant: ${messages[1].content}` } as Message
+          ];
+          
+          let title = '';
+          if (currentProvider === 'local') {
+             title = await generateText(`Title for: ${messages[0].content}`);
+          } else {
+             const result = await ChatService.sendMessage(titlePrompt, undefined, currentProvider);
+             title = result.content.replace(/^["']|["']$/g, '').trim();
+          }
+          
+          if (title) {
+            setConversationTitle(title);
+          }
+        } catch (e) {
+          console.error("Failed to generate title", e);
+        }
+      };
+      generateTitle();
+    }
+  }, [messages, conversationTitle, isLoading, currentProvider]);
 
   // AI Processing Loop (ReAct Pattern)
   const generateResponse = useCallback(async (
@@ -172,7 +224,10 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
     assistantMessageId: string,
     recursionDepth = 0
   ) => {
-    if (recursionDepth > 3) {
+    const settings = StorageManager.getSettings();
+    const maxDepth = settings.agentMode ? 10 : 3;
+
+    if (recursionDepth > maxDepth) {
       return "Error: Maximum tool recursion depth reached.";
     }
 

@@ -93,6 +93,7 @@ export class StorageManager {
       systemPrompt: 'You are Junas, a legal AI assistant specialized in Singapore law. Provide accurate, helpful legal information while being clear about limitations.',
       autoSave: true,
       darkMode: false,
+      agentMode: false,
     };
   }
 

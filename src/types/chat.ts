@@ -66,6 +66,7 @@ export interface ChatSettings {
   systemPrompt: string;
   autoSave: boolean;
   darkMode: boolean;
+  agentMode: boolean;
   userName?: string;
   userRole?: string;
   userPurpose?: string;
