@@ -4,8 +4,6 @@ import { useState, useEffect } from 'react';
 import { Layout } from '@/components/Layout';
 import { ChatInterface } from '@/components/chat/ChatInterface';
 import { NewChatDialog } from '@/components/chat/NewChatDialog';
-import { ImportDialog } from '@/components/chat/ImportDialog';
-import { ExportDialog } from '@/components/chat/ExportDialog';
 import { ShareDialog } from '@/components/chat/ShareDialog';
 import { ConfigDialog } from '@/components/ConfigDialog';
 import { AboutDialog } from '@/components/AboutDialog';
@@ -18,8 +16,6 @@ import IntroAnimation from '@/components/IntroAnimation';
 
 export default function Home() {
   const [showNewChatDialog, setShowNewChatDialog] = useState(false);
-  const [showImportDialog, setShowImportDialog] = useState(false);
-  const [showExportDialog, setShowExportDialog] = useState(false);
   const [showShareDialog, setShowShareDialog] = useState(false);
   const [showConfigDialog, setShowConfigDialog] = useState(false);
   const [showAboutDialog, setShowAboutDialog] = useState(false);
@@ -88,14 +84,6 @@ export default function Home() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const handleImport = (importedMessages: Message[]) => {
-    // Dispatch import event to ChatInterface
-    const evt = new CustomEvent('junas-import', {
-      detail: { messages: importedMessages }
-    });
-    window.dispatchEvent(evt);
-  };
-
   const handleNewChat = () => {
     setShowNewChatDialog(true);
   };
@@ -133,8 +121,6 @@ export default function Home() {
   return (
     <div className="fade-in">
       <Layout
-        onImport={!hasMessages ? () => setShowImportDialog(true) : undefined}
-        onExport={hasMessages ? () => setShowExportDialog(true) : undefined}
         onShare={hasMessages ? () => setShowShareDialog(true) : undefined}
         onNewChat={hasMessages ? handleNewChat : undefined}
         onConfig={() => setShowConfigDialog(true)}
@@ -160,20 +146,6 @@ export default function Home() {
           isOpen={showHistoryDialog}
           onClose={() => setShowHistoryDialog(false)}
           onSelectConversation={handleSelectConversation}
-        />
-
-        {/* Import Dialog */}
-        <ImportDialog
-          isOpen={showImportDialog}
-          onClose={() => setShowImportDialog(false)}
-          onImport={handleImport}
-        />
-
-        {/* Export Dialog */}
-        <ExportDialog
-          isOpen={showExportDialog}
-          onClose={() => setShowExportDialog(false)}
-          messages={currentMessages}
         />
 
         {/* Share Dialog */}
@@ -207,8 +179,6 @@ export default function Home() {
           onClose={() => setShowCommandPalette(false)}
           onOpenConfig={() => setShowConfigDialog(true)}
           onOpenTheme={() => setShowThemeDialog(true)}
-          onOpenImport={() => setShowImportDialog(true)}
-          onOpenExport={() => setShowExportDialog(true)}
           onOpenShare={() => setShowShareDialog(true)}
           onOpenAbout={() => setShowAboutDialog(true)}
           onOpenHistory={() => setShowHistoryDialog(true)}
