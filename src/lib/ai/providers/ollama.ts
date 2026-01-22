@@ -1,4 +1,4 @@
-import { ProviderConfig, ProviderCapabilities } from '@/types/provider';
+import { ProviderConfig, ProviderCapabilities, ProviderResponse } from '@/types/provider';
 
 export class OllamaProvider {
   private baseUrl: string;
@@ -29,6 +29,47 @@ export class OllamaProvider {
       console.error('Failed to fetch Ollama models:', e);
       return [];
     }
+  }
+
+  async generateResponse(
+    messages: Array<{ role: string; content: string }>,
+    tools?: Array<{ name: string; description: string; parameters: any }>,
+    options?: {
+      temperature?: number;
+      maxTokens?: number;
+    }
+  ): Promise<ProviderResponse> {
+    const payload = {
+      model: this.model,
+      messages: messages.map(m => ({ role: m.role, content: m.content })),
+      stream: false,
+      options: {
+        temperature: options?.temperature,
+        num_predict: options?.maxTokens,
+      }
+    };
+
+    const response = await fetch(`${this.baseUrl}/api/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+       throw new Error(`Ollama API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return {
+      content: data.message.content,
+      model: this.model,
+      usage: {
+          promptTokens: data.prompt_eval_count || 0,
+          completionTokens: data.eval_count || 0,
+          totalTokens: (data.prompt_eval_count || 0) + (data.eval_count || 0)
+      },
+      finishReason: data.done ? 'stop' : undefined
+    };
   }
 
   // Note: Actual chat handling for Ollama will likely be client-side only 
