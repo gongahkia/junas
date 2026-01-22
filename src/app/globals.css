@@ -299,3 +299,13 @@
 .fade-out {
   animation: fadeOut 1s ease-in-out forwards;
 }
+
+@keyframes chunk-jiggle {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1px); }
+  75% { transform: translateX(1px); }
+}
+
+.animate-chunk-jiggle {
+  animation: chunk-jiggle 2s ease-in-out infinite;
+}
