@@ -22,6 +22,7 @@ import { Label } from '@/components/ui/label';
 import { StorageManager } from '@/lib/storage';
 import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
+import { parseToml, stringifyToml } from '@/lib/toml';
 import { ContextProfile, Snippet } from '@/types/chat';
 import { ProvidersTab } from '@/components/ProvidersTab';
 import { ToolsTab } from '@/components/ToolsTab';
@@ -41,7 +42,7 @@ interface ConfigDialogProps {
   onClose: () => void;
 }
 
-type Tab = 'profile' | 'generation' | 'localModels' | 'providers' | 'tools' | 'snippets';
+type Tab = 'profile' | 'generation' | 'localModels' | 'providers' | 'tools' | 'snippets' | 'developer';
 
 export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   const [activeTab, setActiveTab] = useState<Tab>('profile');
@@ -69,6 +70,8 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   const [editingSnippetId, setEditingSnippetId] = useState<string | null>(null);
   const [snippetTitle, setSnippetTitle] = useState('');
   const [snippetContent, setSnippetContent] = useState('');
+
+  const [tomlContent, setTomlContent] = useState('');
 
   // Generation state
   const [temperature, setTemperature] = useState(0.7);
@@ -119,6 +122,30 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       setModels(getModelsWithStatus());
     }
   }, [isOpen]);
+
+  useEffect(() => {
+      if (activeTab === 'developer' && isOpen) {
+          const settings = StorageManager.getSettings();
+          const config = {
+              temperature: settings.temperature,
+              maxTokens: settings.maxTokens,
+              topP: settings.topP,
+              topK: settings.topK,
+              frequencyPenalty: settings.frequencyPenalty,
+              presencePenalty: settings.presencePenalty,
+              systemPrompt: settings.systemPrompt,
+              autoSave: settings.autoSave,
+              darkMode: settings.darkMode,
+              agentMode: settings.agentMode,
+              focusMode: settings.focusMode,
+              profile: {
+                  userRole: settings.userRole,
+                  userPurpose: settings.userPurpose
+              }
+          };
+          setTomlContent(stringifyToml(config));
+      }
+  }, [activeTab, isOpen]);
 
   const handleProfileChange = (id: string) => {
     if (id === 'global') {
@@ -433,6 +460,16 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
           >
             Snippets
           </button>
+          <button
+            onClick={() => setActiveTab('developer')}
+            className={`px-4 py-2 text-xs transition-colors ${
+              activeTab === 'developer'
+                ? 'border-b-2 border-primary text-primary'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            Developer
+          </button>
         </div>
 
         {/* Tab Content */}
@@ -548,72 +585,68 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
 
               <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="temp" className="text-xs font-mono flex justify-between">
-                        <span>Temperature</span>
-                        <span className="text-muted-foreground">{temperature}</span>
+                    <Label htmlFor="temp" className="text-xs font-mono">
+                        Temperature
                     </Label>
-                    <input
+                    <Input
                       id="temp"
-                      type="range"
+                      type="number"
                       min="0"
-                      max="1"
+                      max="2"
                       step="0.1"
                       value={temperature}
                       onChange={(e) => setTemperature(parseFloat(e.target.value))}
-                      className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                      className="text-xs font-mono"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="topP" className="text-xs font-mono flex justify-between">
-                        <span>Top P</span>
-                        <span className="text-muted-foreground">{topP}</span>
+                    <Label htmlFor="topP" className="text-xs font-mono">
+                        Top P
                     </Label>
-                    <input
+                    <Input
                       id="topP"
-                      type="range"
+                      type="number"
                       min="0"
                       max="1"
-                      step="0.05"
+                      step="0.01"
                       value={topP}
                       onChange={(e) => setTopP(parseFloat(e.target.value))}
-                      className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                      className="text-xs font-mono"
                     />
                   </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="freqPen" className="text-xs font-mono flex justify-between">
-                        <span>Frequency Penalty</span>
-                        <span className="text-muted-foreground">{frequencyPenalty}</span>
+                    <Label htmlFor="freqPen" className="text-xs font-mono">
+                        Frequency Penalty
                     </Label>
-                    <input
+                    <Input
                       id="freqPen"
-                      type="range"
+                      type="number"
                       min="-2"
                       max="2"
                       step="0.1"
                       value={frequencyPenalty}
                       onChange={(e) => setFrequencyPenalty(parseFloat(e.target.value))}
-                      className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                      className="text-xs font-mono"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="presPen" className="text-xs font-mono flex justify-between">
-                        <span>Presence Penalty</span>
-                        <span className="text-muted-foreground">{presencePenalty}</span>
+                    <Label htmlFor="presPen" className="text-xs font-mono">
+                        Presence Penalty
                     </Label>
-                    <input
+                    <Input
                       id="presPen"
-                      type="range"
+                      type="number"
                       min="-2"
                       max="2"
                       step="0.1"
                       value={presencePenalty}
                       onChange={(e) => setPresencePenalty(parseFloat(e.target.value))}
-                      className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                      className="text-xs font-mono"
                     />
                   </div>
               </div>
