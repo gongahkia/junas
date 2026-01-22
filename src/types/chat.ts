@@ -59,6 +59,8 @@ export interface Conversation {
 
 export interface ChatState {
   messages: Message[];
+  nodeMap?: Record<string, Message>;
+  currentLeafId?: string;
   artifacts: Artifact[];
   isLoading: boolean;
   currentProvider: string;
