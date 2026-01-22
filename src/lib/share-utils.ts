@@ -1,12 +1,19 @@
 import LZString from 'lz-string';
 import { Message } from '@/types/chat';
 
+export interface SharedData {
+  messages: Message[];
+  nodeMap?: Record<string, Message>;
+  currentLeafId?: string;
+  version?: number;
+}
+
 /**
- * Compresses the chat messages into a URL-safe string.
+ * Compresses the chat data into a URL-safe string.
  */
-export function compressChat(messages: Message[]): string {
+export function compressChat(data: Message[] | SharedData): string {
   try {
-    const json = JSON.stringify(messages);
+    const json = JSON.stringify(data);
     return LZString.compressToEncodedURIComponent(json);
   } catch (error) {
     console.error('Failed to compress chat:', error);
@@ -15,19 +22,21 @@ export function compressChat(messages: Message[]): string {
 }
 
 /**
- * Decompresses a URL-safe string back into chat messages.
+ * Decompresses a URL-safe string back into chat data.
  */
-export function decompressChat(compressed: string): Message[] | null {
+export function decompressChat(compressed: string): SharedData | null {
   try {
     const json = LZString.decompressFromEncodedURIComponent(compressed);
     if (!json) return null;
     
-    const messages = JSON.parse(json);
+    const data = JSON.parse(json);
     
-    // Basic validation to ensure it's an array
-    if (!Array.isArray(messages)) return null;
+    // Backward compatibility: if array, it's just messages
+    if (Array.isArray(data)) {
+      return { messages: data };
+    }
     
-    return messages;
+    return data as SharedData;
   } catch (error) {
     console.error('Failed to decompress chat:', error);
     return null;
