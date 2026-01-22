@@ -13,10 +13,11 @@ import { generateId } from '@/lib/utils';
 import { parseCommand, processLocalCommand, processAsyncLocalCommand } from '@/lib/commands/command-processor';
 import { JUNAS_ASCII_LOGO } from '@/lib/constants';
 import { getModelsWithStatus, generateText, AVAILABLE_MODELS } from '@/lib/ml/model-manager';
-import { FileText, MessageSquare } from 'lucide-react';
+import { FileText, MessageSquare, GitGraph } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ConfirmationDialog } from './ConfirmationDialog';
 import { estimateTokens, estimateCost } from '@/lib/ai/token-utils';
+import { createTreeFromLinear, addChild, getLinearHistory } from '@/lib/chat-tree';
 
 interface ChatInterfaceProps {
   activeTab?: 'chat' | 'artifacts';
@@ -25,6 +26,8 @@ interface ChatInterfaceProps {
 
 export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInterfaceProps = {}) {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [nodeMap, setNodeMap] = useState<Record<string, Message>>({});
+  const [currentLeafId, setCurrentLeafId] = useState<string | undefined>(undefined);
   const [artifacts, setArtifacts] = useState<Artifact[]>([]);
   const [conversationId, setConversationId] = useState<string>(generateId());
   const [conversationTitle, setConversationTitle] = useState<string>('');
@@ -87,7 +90,17 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     }
 
     if (chatState?.messages) {
-      setMessages(chatState.messages);
+      if (chatState.nodeMap && chatState.currentLeafId) {
+          setNodeMap(chatState.nodeMap);
+          setCurrentLeafId(chatState.currentLeafId);
+          setMessages(getLinearHistory(chatState.nodeMap, chatState.currentLeafId));
+      } else {
+          // Migration from linear to tree
+          const { nodeMap: newMap, leafId } = createTreeFromLinear(chatState.messages);
+          setNodeMap(newMap);
+          setCurrentLeafId(leafId);
+          setMessages(chatState.messages);
+      }
       setHasMessages(chatState.messages.length > 0);
     }
     if (chatState?.artifacts) {
@@ -196,6 +209,8 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     if (messages.length > 0 || artifacts.length > 0) {
       StorageManager.saveChatState({
         messages,
+        nodeMap,
+        currentLeafId,
         artifacts,
         isLoading,
         currentProvider,
@@ -209,12 +224,14 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         id: conversationId,
         title: conversationTitle || messages[0]?.content?.substring(0, 40) + (messages[0]?.content?.length > 40 ? '...' : '') || 'New Conversation',
         messages,
+        nodeMap,
+        currentLeafId,
         artifacts,
         createdAt: messages[0]?.timestamp || new Date(),
         updatedAt: new Date(),
       });
     }
-  }, [messages, artifacts, isLoading, currentProvider, conversationId, conversationTitle]);
+  }, [messages, artifacts, isLoading, currentProvider, conversationId, conversationTitle, nodeMap, currentLeafId]);
 
   // Generate a title for the conversation after first exchange
   useEffect(() => {
@@ -269,6 +286,10 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
             : msg
         )
       );
+      setNodeMap(prev => ({
+          ...prev,
+          [assistantMessageId]: { ...prev[assistantMessageId], content: text }
+      }));
     };
 
     try {
@@ -399,9 +420,15 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       timestamp: new Date(),
       tokenCount: estimateTokens(parsedCommand?.isLocal ? displayContent : enrichedContent),
       cost: estimateCost(estimateTokens(parsedCommand?.isLocal ? displayContent : enrichedContent), currentProvider, '', 'input'),
+      parentId: currentLeafId,
     };
 
+    // Update tree
+    const afterUserMap = addChild(nodeMap, currentLeafId || '', userMessage);
+    setNodeMap(afterUserMap);
+    setCurrentLeafId(userMessage.id);
     setMessages(prev => [...prev, userMessage]);
+
     setIsLoading(true);
 
     const startTime = Date.now();
@@ -412,9 +439,22 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       role: 'assistant',
       content: '',
       timestamp: new Date(),
+      parentId: userMessage.id,
     };
 
+    // Update tree with assistant
+    const afterAssistantMap = addChild(afterUserMap, userMessage.id, assistantMessage);
+    setNodeMap(afterAssistantMap);
+    setCurrentLeafId(assistantMessage.id);
     setMessages(prev => [...prev, assistantMessage]);
+
+    // Helper to update node content during streaming
+    const updateNodeContent = (id: string, updates: Partial<Message>) => {
+        setNodeMap(prev => ({
+            ...prev,
+            [id]: { ...prev[id], ...updates }
+        }));
+    };
 
     // Legacy Local Command Handling
     if (parsedCommand && parsedCommand.isLocal) {
@@ -509,6 +549,16 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
             : msg
         )
       );
+      setNodeMap(prev => ({
+          ...prev,
+          [assistantMessage.id]: { 
+              ...prev[assistantMessage.id], 
+              content: finalResponse, 
+              responseTime, 
+              tokenCount: tokens, 
+              cost 
+          }
+      }));
     } catch (error: any) {
       setMessages(prev =>
         prev.map(msg =>
@@ -526,23 +576,31 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
   const handleRegenerateMessage = useCallback(async (messageId: string) => {
     const messageIndex = messages.findIndex(m => m.id === messageId);
     if (messageIndex === -1) return;
+    const msgToRegenerate = messages[messageIndex];
 
     // We can only regenerate assistant messages
-    if (messages[messageIndex].role !== 'assistant') return;
+    if (msgToRegenerate.role !== 'assistant') return;
 
     // Get context up to this message (excluding the message itself)
     const contextMessages = messages.slice(0, messageIndex);
+    const parentId = msgToRegenerate.parentId;
     
     // Reset state to this point
     setIsLoading(true);
     
-    // Create new assistant message placeholder
+    // Create new assistant message placeholder (sibling)
     const newAssistantMessage: Message = {
       id: generateId(),
       role: 'assistant',
       content: '',
       timestamp: new Date(),
+      parentId: parentId,
     };
+
+    // Update tree: Add new sibling and switch branch
+    const afterRegenMap = addChild(nodeMap, parentId || '', newAssistantMessage);
+    setNodeMap(afterRegenMap);
+    setCurrentLeafId(newAssistantMessage.id);
 
     // Update messages: Keep context + new placeholder
     setMessages([...contextMessages, newAssistantMessage]);
@@ -563,6 +621,16 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
             : msg
         )
       );
+      setNodeMap(prev => ({
+          ...prev,
+          [newAssistantMessage.id]: { 
+              ...prev[newAssistantMessage.id], 
+              content: finalResponse, 
+              responseTime, 
+              tokenCount: tokens, 
+              cost 
+          }
+      }));
     } catch (error: any) {
       setMessages(prev =>
         prev.map(msg =>
@@ -574,7 +642,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     } finally {
       setIsLoading(false);
     }
-  }, [messages, generateResponse]);
+  }, [messages, generateResponse, nodeMap, currentProvider]);
 
 
   const handlePromptSelect = useCallback((prompt: string) => {
