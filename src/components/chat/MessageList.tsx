@@ -20,7 +20,6 @@ interface MessageListProps {
   isLoading: boolean;
   onCopyMessage: (content: string) => void;
   onRegenerateMessage: (messageId: string) => void;
-  onEditMessage?: (messageId: string, newContent: string) => void;
   scrollToMessageId?: string;
 }
 
@@ -29,108 +28,12 @@ const MessageItemComponent = ({
   message,
   onCopyMessage,
   onRegenerateMessage,
-  onEditMessage
 }: {
   message: Message;
   onCopyMessage: (content: string) => void;
   onRegenerateMessage: (messageId: string) => void;
-  onEditMessage?: (messageId: string, newContent: string) => void;
 }) => {
   const userName = StorageManager.getSettings().userName || 'User';
-  const [isEditing, setIsEditing] = useState(false);
-  const [editContent, setEditContent] = useState(message.content);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  // Suggestion state
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [commandQuery, setCommandQuery] = useState('');
-  const [suggestionIndex, setSuggestionIndex] = useState(0);
-
-  const fuse = useMemo(() => {
-    return new Fuse(COMMANDS, {
-      keys: ['id', 'description', 'label'],
-      threshold: 0.4,
-      distance: 100,
-    });
-  }, []);
-
-  useEffect(() => {
-    if (isEditing && textareaRef.current) {
-      textareaRef.current.focus();
-      textareaRef.current.style.height = 'auto';
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  }, [isEditing]);
-
-  const handleSaveEdit = () => {
-    if (editContent.trim() !== message.content) {
-      onEditMessage?.(message.id, editContent);
-    }
-    setIsEditing(false);
-    setShowSuggestions(false);
-  };
-
-  const handleCancelEdit = () => {
-    setEditContent(message.content);
-    setIsEditing(false);
-    setShowSuggestions(false);
-  };
-
-  const handleEditChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newValue = e.target.value;
-    setEditContent(newValue);
-    e.target.style.height = 'auto';
-    e.target.style.height = `${e.target.scrollHeight}px`;
-
-    // Check for command trigger
-    if (newValue.startsWith('/')) {
-      if (newValue.includes(' ')) {
-        setShowSuggestions(false);
-        return;
-      }
-      const match = newValue.match(/^\/([a-zA-Z0-9-]*)$/);
-      if (match) {
-        setShowSuggestions(true);
-        setCommandQuery(match[1]);
-        setSuggestionIndex(0);
-      } else {
-        setShowSuggestions(false);
-      }
-    } else {
-      setShowSuggestions(false);
-    }
-  };
-
-  const handleCommandSelect = (commandId: string) => {
-    setEditContent(`/${commandId} `);
-    setShowSuggestions(false);
-    textareaRef.current?.focus();
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (showSuggestions) {
-      const matches = commandQuery 
-        ? fuse.search(commandQuery).map(r => r.item)
-        : COMMANDS;
-
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        setSuggestionIndex(prev => (prev + 1) % matches.length);
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        setSuggestionIndex(prev => (prev - 1 + matches.length) % matches.length);
-      } else if (e.key === 'Enter' || e.key === 'Tab') {
-        e.preventDefault();
-        if (matches[suggestionIndex]) {
-          handleCommandSelect(matches[suggestionIndex].id);
-        }
-      } else if (e.key === 'Escape') {
-        e.preventDefault();
-        setShowSuggestions(false);
-      }
-      return;
-    }
-  };
 
   return (
     <div
@@ -165,40 +68,7 @@ const MessageItemComponent = ({
 
             {/* Message content */}
             <div className={`prose prose-sm md:prose-base max-w-none leading-relaxed relative`}>
-              {isEditing ? (
-                <div className="space-y-2 relative">
-                  {showSuggestions && (
-                    <CommandSuggestions 
-                      query={commandQuery} 
-                      onSelect={handleCommandSelect}
-                      isOpen={showSuggestions}
-                      selectedIndex={suggestionIndex}
-                    />
-                  )}
-                  <textarea
-                    ref={textareaRef}
-                    value={editContent}
-                    onChange={handleEditChange}
-                    onKeyDown={handleKeyDown}
-                    className="w-full bg-background/50 border border-input rounded-md p-2 text-sm font-mono focus:outline-none focus:ring-1 focus:ring-ring resize-none"
-                    rows={1}
-                  />
-                  <div className="flex justify-end gap-2">
-                    <button
-                      onClick={handleCancelEdit}
-                      className="px-2 py-1 text-xs bg-muted hover:bg-muted/80 text-muted-foreground rounded transition-colors"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      onClick={handleSaveEdit}
-                      className="px-2 py-1 text-xs bg-primary text-primary-foreground hover:bg-primary/90 rounded transition-colors"
-                    >
-                      Save & Submit
-                    </button>
-                  </div>
-                </div>
-              ) : message.role === 'assistant' ? (
+              {message.role === 'assistant' ? (
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm, remarkMath]}
                   rehypePlugins={[rehypeKatex]}
@@ -273,44 +143,30 @@ const MessageItemComponent = ({
 
 
             {/* Message actions */}
-            {!isEditing && (
-              <div className="flex items-center gap-1 pt-2 -mx-1">
+            <div className="flex items-center gap-1 pt-2 -mx-1">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onCopyMessage(message.content);
+                }}
+                className="text-xs px-2 py-1 text-muted-foreground/60 hover:text-foreground hover:bg-muted/30 transition-colors font-mono"
+                title="Copy message"
+              >
+                [ Copy ]
+              </button>
+              {message.role === 'assistant' && (
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    onCopyMessage(message.content);
+                    onRegenerateMessage(message.id);
                   }}
                   className="text-xs px-2 py-1 text-muted-foreground/60 hover:text-foreground hover:bg-muted/30 transition-colors font-mono"
-                  title="Copy message"
+                  title="Regenerate response"
                 >
-                  [ Copy ]
+                  [ Regenerate ]
                 </button>
-                {message.role === 'assistant' && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onRegenerateMessage(message.id);
-                    }}
-                    className="text-xs px-2 py-1 text-muted-foreground/60 hover:text-foreground hover:bg-muted/30 transition-colors font-mono"
-                    title="Regenerate response"
-                  >
-                    [ Regenerate ]
-                  </button>
-                )}
-                {message.role === 'user' && onEditMessage && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setIsEditing(true);
-                    }}
-                    className="text-xs px-2 py-1 text-muted-foreground/60 hover:text-foreground hover:bg-muted/30 transition-colors font-mono"
-                    title="Edit message"
-                  >
-                    [ Edit ]
-                  </button>
-                )}
-              </div>
-            )}
+              )}
+            </div>
 
             {/* Sender label */}
             <div className={`pt-2 text-[11px] font-medium text-muted-foreground/70 border-t border-muted-foreground/20 mt-3 ${
