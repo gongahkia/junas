@@ -166,10 +166,18 @@ const MessageItemComponent = ({
             </div>
 
             {/* Sender label */}
-            <div className={`pt-2 text-[11px] font-medium text-muted-foreground/70 border-t border-muted-foreground/20 mt-3 ${
-              message.role === 'user' ? 'text-right' : 'text-left'
+            <div className={`pt-2 text-[11px] font-medium text-muted-foreground/70 border-t border-muted-foreground/20 mt-3 flex flex-wrap gap-2 items-center ${
+              message.role === 'user' ? 'justify-end' : 'justify-between'
             }`}>
-              {message.role === 'assistant' ? '> Junas' : `> ${userName}`}
+              <span>{message.role === 'assistant' ? '> Junas' : `> ${userName}`}</span>
+              
+              {(message.tokenCount || message.cost || message.responseTime) && (
+                 <span className="flex items-center gap-2 opacity-60 font-mono text-[10px]">
+                   {message.tokenCount && <span>{message.tokenCount.toLocaleString()} tks</span>}
+                   {message.cost !== undefined && message.cost > 0 && <span>${message.cost.toFixed(5)}</span>}
+                   {message.responseTime && <span>{(message.responseTime/1000).toFixed(1)}s</span>}
+                 </span>
+               )}
             </div>
           </div>
         </div>

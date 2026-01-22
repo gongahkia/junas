@@ -16,6 +16,7 @@ import { getModelsWithStatus, generateText, AVAILABLE_MODELS } from '@/lib/ml/mo
 import { FileText, MessageSquare } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ConfirmationDialog } from './ConfirmationDialog';
+import { estimateTokens, estimateCost } from '@/lib/ai/token-utils';
 
 interface ChatInterfaceProps {
   activeTab?: 'chat' | 'artifacts';
@@ -37,6 +38,9 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
   const [currentProvider, setCurrentProvider] = useState<string>('gemini');
   const [hasProfileConfig, setHasProfileConfig] = useState(false);
   const { addToast } = useToast();
+
+  const totalTokens = messages.reduce((acc, msg) => acc + (msg.tokenCount || 0), 0);
+  const totalCost = messages.reduce((acc, msg) => acc + (msg.cost || 0), 0);
 
   const [confirmation, setConfirmation] = useState({
     isOpen: false,
@@ -393,6 +397,8 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       role: 'user',
       content: parsedCommand?.isLocal ? displayContent : enrichedContent,
       timestamp: new Date(),
+      tokenCount: estimateTokens(parsedCommand?.isLocal ? displayContent : enrichedContent),
+      cost: estimateCost(estimateTokens(parsedCommand?.isLocal ? displayContent : enrichedContent), currentProvider, '', 'input'),
     };
 
     setMessages(prev => [...prev, userMessage]);
@@ -493,10 +499,13 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       const finalResponse = await generateResponse(allMessages, assistantMessage.id);
       
       const responseTime = Date.now() - startTime;
+      const tokens = estimateTokens(finalResponse);
+      const cost = estimateCost(tokens, currentProvider, '', 'output');
+      
       setMessages(prev =>
         prev.map(msg =>
           msg.id === assistantMessage.id
-            ? { ...msg, content: finalResponse, responseTime }
+            ? { ...msg, content: finalResponse, responseTime, tokenCount: tokens, cost }
             : msg
         )
       );
@@ -544,10 +553,13 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       const finalResponse = await generateResponse(contextMessages, newAssistantMessage.id);
       
       const responseTime = Date.now() - startTime;
+      const tokens = estimateTokens(finalResponse);
+      const cost = estimateCost(tokens, currentProvider, '', 'output');
+
       setMessages(prev =>
         prev.map(msg =>
           msg.id === newAssistantMessage.id
-            ? { ...msg, content: finalResponse, responseTime }
+            ? { ...msg, content: finalResponse, responseTime, tokenCount: tokens, cost }
             : msg
         )
       );

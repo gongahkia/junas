@@ -14,6 +14,8 @@ export interface Message {
   citations?: Citation[];
   attachments?: Attachment[];
   responseTime?: number; // Time in milliseconds
+  tokenCount?: number;
+  cost?: number;
 }
 
 export interface ToolCall {

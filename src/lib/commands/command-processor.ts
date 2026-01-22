@@ -25,7 +25,8 @@ export type CommandType =
   | 'draft-clause'
   | 'check-compliance'
   | 'due-diligence-review'
-  | 'generate-document';
+  | 'generate-document'
+  | 'fetch-url';
 
 export interface CommandInfo {
   id: CommandType;
@@ -112,6 +113,12 @@ export const COMMANDS: CommandInfo[] = [
     label: 'generate-document',
     description: 'Generate a downloadable text or markdown document',
     isLocal: true, // Processed locally to save the artifact
+  },
+  {
+    id: 'fetch-url',
+    label: 'fetch-url',
+    description: 'Fetch and extract text content from a URL',
+    isLocal: true,
   },
 ];
 
@@ -258,6 +265,7 @@ export function processLocalCommand(command: ProcessedCommand): LocalCommandResu
     case 'summarize-local':
     case 'ner-advanced':
     case 'classify-text':
+    case 'fetch-url':
       return {
         success: true,
         content: '__ASYNC_MODEL_COMMAND__', // Signal to ChatInterface to use async processing
@@ -312,6 +320,35 @@ export async function processAsyncLocalCommand(command: ProcessedCommand): Promi
           success: true,
           content: `**Text Classification**\n\nSentiment: **${top.label}**\nConfidence: ${(top.score * 100).toFixed(1)}%`,
         };
+      }
+
+      case 'fetch-url': {
+        try {
+          const response = await fetch('/api/tools/fetch-url', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: args }),
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+             return {
+              success: false,
+              content: `Error fetching URL: ${data.error || response.statusText}`,
+            };
+          }
+
+          return {
+            success: true,
+            content: `**Fetched Content from ${args}:**\n\n${data.content}`,
+          };
+        } catch (e: any) {
+           return {
+              success: false,
+              content: `Network error: ${e.message}`,
+            };
+        }
       }
 
       default:
