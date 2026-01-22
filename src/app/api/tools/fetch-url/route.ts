@@ -2,13 +2,19 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   try {
-    const { url } = await req.json();
+    const body = await req.json();
+    let url = body.url;
 
     if (!url) {
       return NextResponse.json(
         { error: 'URL is required' },
         { status: 400 }
       );
+    }
+
+    // Normalize URL: append https:// if missing protocol
+    if (!/^https?:\/\//i.test(url)) {
+        url = 'https://' + url;
     }
 
     try {
