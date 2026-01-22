@@ -18,9 +18,11 @@ interface ShareDialogProps {
   isOpen: boolean;
   onClose: () => void;
   messages: Message[];
+  nodeMap?: Record<string, Message>;
+  currentLeafId?: string;
 }
 
-export function ShareDialog({ isOpen, onClose, messages }: ShareDialogProps) {
+export function ShareDialog({ isOpen, onClose, messages, nodeMap, currentLeafId }: ShareDialogProps) {
   const [shareLink, setShareLink] = useState<string>('');
   const [isCopied, setIsCopied] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -31,7 +33,7 @@ export function ShareDialog({ isOpen, onClose, messages }: ShareDialogProps) {
     // Use setTimeout to allow UI update before heavy compression
     setTimeout(() => {
       try {
-        const compressed = compressChat(messages);
+        const compressed = compressChat({ messages, nodeMap, currentLeafId });
         const url = `${window.location.origin}/share?d=${compressed}`;
         setShareLink(url);
       } catch (error) {
