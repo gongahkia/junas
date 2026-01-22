@@ -48,7 +48,7 @@ export function Layout({ children, focusMode = false, onImport, onExport, onShar
                   className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
                   data-tour="new-chat"
                 >
-                  [ + New Chat ]
+                  [ New Chat ]
                 </button>
               )}
               {onHistory && (
@@ -114,7 +114,7 @@ export function Layout({ children, focusMode = false, onImport, onExport, onShar
                   className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
                   title="Share conversation"
                 >
-                  [ ↗ Share ]
+                  [ Share ]
                 </button>
               )}
               {/* About button */}

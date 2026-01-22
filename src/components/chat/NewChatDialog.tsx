@@ -38,7 +38,7 @@ export function NewChatDialog({ isOpen, onClose, onConfirm }: NewChatDialogProps
       <AlertDialogContent className="font-mono">
         <AlertDialogHeader>
           <AlertDialogTitle className="text-sm">
-            [ + Start New Chat ]
+            [ Start New Chat ]
           </AlertDialogTitle>
           <AlertDialogDescription className="text-xs">
             This will clear your current conversation and start a fresh chat session.
