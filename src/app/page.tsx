@@ -25,6 +25,8 @@ export default function Home() {
   const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
   const [hasMessages, setHasMessages] = useState(false);
   const [currentMessages, setCurrentMessages] = useState<Message[]>([]);
+  const [currentNodeMap, setCurrentNodeMap] = useState<Record<string, Message>>({});
+  const [currentLeafId, setCurrentLeafId] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'chat' | 'artifacts'>('chat');
   const [focusMode, setFocusMode] = useState(false);
@@ -45,6 +47,9 @@ export default function Home() {
       const messages = chatState?.messages || [];
       setHasMessages(messages.length > 0);
       setCurrentMessages(messages);
+      
+      if (chatState?.nodeMap) setCurrentNodeMap(chatState.nodeMap);
+      if (chatState?.currentLeafId) setCurrentLeafId(chatState.currentLeafId);
     };
 
     checkMessages();
@@ -163,6 +168,8 @@ export default function Home() {
           isOpen={showShareDialog}
           onClose={() => setShowShareDialog(false)}
           messages={currentMessages}
+          nodeMap={currentNodeMap}
+          currentLeafId={currentLeafId}
         />
 
         {/* Config Dialog */}
