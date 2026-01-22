@@ -4,8 +4,6 @@ import { useState, useEffect, useRef } from 'react';
 import {
   Search,
   Settings,
-  Upload,
-  Download,
   Info,
   Book,
   Plus,
@@ -40,8 +38,6 @@ interface CommandPaletteProps {
   onClose: () => void;
   onOpenConfig: () => void;
   onOpenTheme?: () => void;
-  onOpenImport: () => void;
-  onOpenExport: () => void;
   onOpenShare: () => void;
   onOpenAbout: () => void;
   onOpenHistory?: () => void;
@@ -56,8 +52,6 @@ export function CommandPalette({
   onClose,
   onOpenConfig,
   onOpenTheme,
-  onOpenImport,
-  onOpenExport,
   onOpenShare,
   onOpenAbout,
   onOpenHistory,
@@ -129,22 +123,6 @@ export function CommandPalette({
       icon: <Sparkles className="h-4 w-4" />,
       category: 'system' as const,
       action: onOpenTheme
-    }] : []),
-    ...(!hasMessages ? [{
-      id: 'import',
-      label: 'Import Chat',
-      description: 'Import a previous conversation',
-      icon: <Upload className="h-4 w-4" />,
-      category: 'system' as const,
-      action: onOpenImport
-    }] : []),
-    ...(hasMessages ? [{
-      id: 'export',
-      label: 'Export Chat',
-      description: 'Export this conversation',
-      icon: <Download className="h-4 w-4" />,
-      category: 'system' as const,
-      action: onOpenExport
     }] : []),
     ...(hasMessages ? [{
       id: 'share',
