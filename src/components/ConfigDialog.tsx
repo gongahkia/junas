@@ -287,6 +287,37 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       if (editingSnippetId === id) setEditingSnippetId(null);
   };
 
+  const handleSaveToml = () => {
+      try {
+          const parsed = parseToml(tomlContent);
+          const settings = StorageManager.getSettings();
+          
+          const newSettings = { ...settings, ...parsed };
+          
+          if (parsed.profile) {
+              newSettings.userRole = parsed.profile.userRole;
+              newSettings.userPurpose = parsed.profile.userPurpose;
+              delete newSettings.profile;
+          }
+          
+          StorageManager.saveSettings(newSettings);
+          
+          addToast({
+              title: "Configuration Applied",
+              description: "Settings updated from TOML.",
+              duration: 2000,
+          });
+          onClose();
+      } catch (e: any) {
+          addToast({
+              type: "error",
+              title: "Parse Error",
+              description: "Invalid TOML format.",
+              duration: 3000,
+          });
+      }
+  };
+
   const handleDownloadModel = async (modelId: string) => {
     try {
       setDownloadingModels(prev => ({
