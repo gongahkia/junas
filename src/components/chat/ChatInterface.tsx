@@ -448,13 +448,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     setCurrentLeafId(assistantMessage.id);
     setMessages(prev => [...prev, assistantMessage]);
 
-    // Helper to update node content during streaming
-    const updateNodeContent = (id: string, updates: Partial<Message>) => {
-        setNodeMap(prev => ({
-            ...prev,
-            [id]: { ...prev[id], ...updates }
-        }));
-    };
+    const updateMessageContent = (text: string) => {
 
     // Legacy Local Command Handling
     if (parsedCommand && parsedCommand.isLocal) {
