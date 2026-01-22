@@ -204,6 +204,18 @@ const MessageItemComponent = ({
                 >
                   [ Copy ]
                 </button>
+                {message.role === 'assistant' && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onRegenerateMessage(message.id);
+                    }}
+                    className="text-xs px-2 py-1 text-muted-foreground/60 hover:text-foreground hover:bg-muted/30 transition-colors font-mono"
+                    title="Regenerate response"
+                  >
+                    [ Regenerate ]
+                  </button>
+                )}
                 {message.role === 'user' && onEditMessage && (
                   <button
                     onClick={(e) => {

@@ -595,10 +595,55 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
     }
   }, [addToast]);
 
-  const handleRegenerateMessage = useCallback((messageId: string) => {
-    // TODO: Implement message regeneration
-    console.log('Regenerate message:', messageId);
-  }, []);
+  const handleRegenerateMessage = useCallback(async (messageId: string) => {
+    const messageIndex = messages.findIndex(m => m.id === messageId);
+    if (messageIndex === -1) return;
+
+    // We can only regenerate assistant messages
+    if (messages[messageIndex].role !== 'assistant') return;
+
+    // Get context up to this message (excluding the message itself)
+    const contextMessages = messages.slice(0, messageIndex);
+    
+    // Reset state to this point
+    setIsLoading(true);
+    
+    // Create new assistant message placeholder
+    const newAssistantMessage: Message = {
+      id: generateId(),
+      role: 'assistant',
+      content: '',
+      timestamp: new Date(),
+    };
+
+    // Update messages: Keep context + new placeholder
+    setMessages([...contextMessages, newAssistantMessage]);
+
+    const startTime = Date.now();
+
+    try {
+      const finalResponse = await generateResponse(contextMessages, newAssistantMessage.id);
+      
+      const responseTime = Date.now() - startTime;
+      setMessages(prev =>
+        prev.map(msg =>
+          msg.id === newAssistantMessage.id
+            ? { ...msg, content: finalResponse, responseTime }
+            : msg
+        )
+      );
+    } catch (error: any) {
+      setMessages(prev =>
+        prev.map(msg =>
+          msg.id === newAssistantMessage.id
+            ? { ...msg, content: `Error: ${error.message}` }
+            : msg
+        )
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  }, [messages, generateResponse]);
 
 
 

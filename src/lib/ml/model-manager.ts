@@ -287,6 +287,7 @@ export async function loadModel(modelId: string): Promise<boolean> {
 
 /**
  * Summarize text using the summarization model
+ * Handles large documents by chunking and recursive summarization
  */
 export async function summarize(text: string, maxLength: number = 150): Promise<string> {
   const modelId = 'summarization';
@@ -299,12 +300,55 @@ export async function summarize(text: string, maxLength: number = 150): Promise<
   }
 
   const summarizer = loadedPipelines.get(modelId);
-  const result = await summarizer(text, {
+  
+  // Simple chunking by character count (approximate token count)
+  // DistilBART usually handles ~1024 tokens. 1 token ~ 4 chars.
+  // Safe chunk size ~3000 chars
+  const CHUNK_SIZE = 3000;
+  
+  if (text.length <= CHUNK_SIZE) {
+    const result = await summarizer(text, {
+      max_length: maxLength,
+      min_length: Math.min(30, text.length),
+    });
+    return result[0].summary_text;
+  }
+
+  // Split into chunks
+  const chunks = [];
+  for (let i = 0; i < text.length; i += CHUNK_SIZE) {
+    chunks.push(text.slice(i, i + CHUNK_SIZE));
+  }
+
+  // Summarize each chunk
+  const chunkSummaries = await Promise.all(chunks.map(async (chunk) => {
+    try {
+      const result = await summarizer(chunk, {
+        max_length: Math.max(50, Math.floor(maxLength / 2)),
+        min_length: 20,
+      });
+      return result[0].summary_text;
+    } catch (e) {
+      console.error('Error summarizing chunk:', e);
+      return '';
+    }
+  }));
+
+  // Combine summaries and summarize again
+  const combinedSummary = chunkSummaries.join(' ');
+  
+  // If combined summary is still too big, recurse (rare but possible)
+  if (combinedSummary.length > CHUNK_SIZE) {
+    return summarize(combinedSummary, maxLength);
+  }
+
+  // Final pass
+  const finalResult = await summarizer(combinedSummary, {
     max_length: maxLength,
-    min_length: 30,
+    min_length: 50,
   });
 
-  return result[0].summary_text;
+  return finalResult[0].summary_text;
 }
 
 /**
