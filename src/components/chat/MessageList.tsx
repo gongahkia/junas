@@ -141,7 +141,7 @@ const MessageItemComponent = ({
           message.role === 'user'
             ? 'bg-primary/5 border-primary/30'
             : 'bg-muted/20 border-muted-foreground/30'
-        } font-mono overflow-hidden`}>
+        } font-mono`}>
           <div className="space-y-3 px-4 py-3">
             {/* Attachments */}
             {message.attachments && message.attachments.length > 0 && (
