@@ -22,6 +22,7 @@ import { Label } from '@/components/ui/label';
 import { StorageManager } from '@/lib/storage';
 import { useToast } from '@/components/ui/toast';
 import { ProvidersTab } from '@/components/ProvidersTab';
+import { ToolsTab } from '@/components/ToolsTab';
 import {
   AVAILABLE_MODELS,
   getModelsWithStatus,
@@ -38,7 +39,7 @@ interface ConfigDialogProps {
   onClose: () => void;
 }
 
-type Tab = 'profile' | 'localModels' | 'providers';
+type Tab = 'profile' | 'localModels' | 'providers' | 'tools';
 
 export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   const [activeTab, setActiveTab] = useState<Tab>('profile');
