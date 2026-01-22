@@ -587,7 +587,15 @@ Reply ONLY with: "You were previously talking about [summary]. Feel free to cont
             <div className="text-center max-w-2xl w-full">
               <div className="overflow-x-auto my-8">
                 <pre className="text-muted-foreground text-xs md:text-sm font-mono leading-tight inline-block">
-                  {JUNAS_ASCII_LOGO}
+                  {JUNAS_ASCII_LOGO.split('\n').map((line, i) => (
+                    <div 
+                      key={i} 
+                      className="animate-chunk-jiggle" 
+                      style={{ animationDelay: `${i * 0.15}s` }}
+                    >
+                      {line}
+                    </div>
+                  ))}
                 </pre>
               </div>
               <p className="text-xs text-muted-foreground font-mono mt-6">v2.0.0</p>
