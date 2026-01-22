@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { InlineProviderSelector } from './InlineProviderSelector';
-// import { ModelProviderStatus } from './ModelProviderStatus';
+import { CommandSuggestions } from './CommandSuggestions';
+import { COMMANDS } from '@/lib/commands/command-processor';
+import Fuse from 'fuse.js';
 
 interface MessageInputProps {
-  // Removed InlineProviderSelector import as provider selection is now in ConfigDialog
-  // import { InlineProviderSelector } from './InlineProviderSelector';
   onSendMessage: (content: string) => void;
   isLoading: boolean;
   placeholder?: string;
@@ -25,6 +25,20 @@ export function MessageInput({
   const [message, setMessage] = useState('');
   const [isMac, setIsMac] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  
+  // Suggestion state
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [commandQuery, setCommandQuery] = useState('');
+  const [suggestionIndex, setSuggestionIndex] = useState(0);
+
+  // Fuse instance for matching logic in handleKeyDown
+  const fuse = useMemo(() => {
+    return new Fuse(COMMANDS, {
+      keys: ['id', 'description', 'label'],
+      threshold: 0.4,
+      distance: 100,
+    });
+  }, []);
 
   useEffect(() => {
     setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
@@ -32,8 +46,35 @@ export function MessageInput({
 
   // Handle input changes
   const handleMessageChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setMessage(e.target.value);
+    const newValue = e.target.value;
+    setMessage(newValue);
+
+    // Check for command trigger
+    if (newValue.startsWith('/')) {
+      // Check if there's a space, which means command is finished
+      if (newValue.includes(' ')) {
+        setShowSuggestions(false);
+        return;
+      }
+
+      const match = newValue.match(/^\/([a-zA-Z0-9-]*)$/);
+      if (match) {
+        setShowSuggestions(true);
+        setCommandQuery(match[1]);
+        setSuggestionIndex(0);
+      } else {
+        setShowSuggestions(false);
+      }
+    } else {
+      setShowSuggestions(false);
+    }
   }, []);
+
+  const handleCommandSelect = (commandId: string) => {
+    setMessage(`/${commandId} `);
+    setShowSuggestions(false);
+    textareaRef.current?.focus();
+  };
 
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
@@ -41,21 +82,55 @@ export function MessageInput({
 
     onSendMessage(message.trim());
     setMessage('');
+    setShowSuggestions(false);
   }, [message, isLoading, onSendMessage]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (showSuggestions) {
+      // Calculate matches to know the count for clamping
+      const matches = commandQuery 
+        ? fuse.search(commandQuery).map(r => r.item)
+        : COMMANDS;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setSuggestionIndex(prev => (prev + 1) % matches.length);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSuggestionIndex(prev => (prev - 1 + matches.length) % matches.length);
+      } else if (e.key === 'Enter' || e.key === 'Tab') {
+        e.preventDefault();
+        if (matches[suggestionIndex]) {
+          handleCommandSelect(matches[suggestionIndex].id);
+        }
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        setShowSuggestions(false);
+      }
+      return;
+    }
+
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e);
     }
-  }, [handleSubmit]);
-
+  }, [handleSubmit, showSuggestions, suggestionIndex, commandQuery, fuse]);
+  
   return (
     <div className="border-t bg-background sticky bottom-0 z-50 shadow-sm">
       <div className="max-w-5xl mx-auto px-4 md:px-8 py-4 md:py-6">
         {/* Input form */}
         <form onSubmit={handleSubmit} className="space-y-3">
           <div className="flex-1 relative">
+            
+            {showSuggestions && (
+               <CommandSuggestions 
+                  query={commandQuery} 
+                  onSelect={handleCommandSelect}
+                  isOpen={showSuggestions}
+                  selectedIndex={suggestionIndex}
+               />
+            )}
 
             <div className="border border-muted-foreground/30 bg-muted/10">
               <Textarea
