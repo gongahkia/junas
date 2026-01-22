@@ -10,7 +10,7 @@ import {
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { StorageManager } from '@/lib/storage';
-import { Moon, Sun } from 'lucide-react';
+import { Moon, Sun, Minimize } from 'lucide-react';
 
 interface ThemeDialogProps {
   isOpen: boolean;
@@ -19,11 +19,13 @@ interface ThemeDialogProps {
 
 export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
   const [darkMode, setDarkMode] = useState(false);
+  const [focusMode, setFocusMode] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
       const settings = StorageManager.getSettings();
       setDarkMode(settings.darkMode || false);
+      setFocusMode(settings.focusMode || false);
     }
   }, [isOpen]);
 
@@ -43,6 +45,17 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
     }));
   };
 
+  const handleSaveFocusMode = (isFocus: boolean) => {
+    setFocusMode(isFocus);
+    
+    // Save settings
+    const settings = StorageManager.getSettings();
+    StorageManager.saveSettings({
+      ...settings,
+      focusMode: isFocus,
+    });
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[400px] font-mono">
@@ -50,7 +63,7 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
           <DialogTitle className="text-sm">[ Theme Settings ]</DialogTitle>
         </DialogHeader>
 
-        <div className="py-4 space-y-4">
+        <div className="py-4 space-y-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className={`p-2 rounded-full ${darkMode ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground'}`}>
@@ -67,6 +80,25 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
               id="darkMode"
               checked={darkMode}
               onCheckedChange={handleSaveTheme}
+            />
+          </div>
+
+          <div className="flex items-center justify-between border-t pt-4 border-muted-foreground/10">
+            <div className="flex items-center gap-3">
+              <div className={`p-2 rounded-full ${focusMode ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground'}`}>
+                <Minimize className="h-4 w-4" />
+              </div>
+              <div className="space-y-0.5">
+                <Label htmlFor="focusMode" className="text-sm font-medium">Focus Mode</Label>
+                <p className="text-[10px] text-muted-foreground">
+                  {focusMode ? 'UI elements hidden' : 'Standard UI view'}
+                </p>
+              </div>
+            </div>
+            <Switch
+              id="focusMode"
+              checked={focusMode}
+              onCheckedChange={handleSaveFocusMode}
             />
           </div>
         </div>
