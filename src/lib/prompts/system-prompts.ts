@@ -10,6 +10,7 @@ export type QueryComplexity = 'simple' | 'moderate' | 'complex' | 'expert';
 
 export interface PromptConfig {
   systemPrompt: string;
+  baseSystemPrompt?: string;
   reasoningDepth: ReasoningDepth;
   useChainOfThought: boolean;
   useSelfCritique: boolean;
@@ -281,7 +282,7 @@ Repeat this cycle as needed for multi-step problems, showing each iteration.`;
  * Generate system prompt based on configuration
  */
 export function generateSystemPrompt(config: PromptConfig): string {
-  let prompt = BASE_IDENTITY;
+  let prompt = config.baseSystemPrompt || BASE_IDENTITY;
 
   // Add Dynamic Context (Date, User Info)
   const date = config.currentDate || new Date().toLocaleDateString('en-SG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });

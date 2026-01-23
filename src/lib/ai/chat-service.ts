@@ -73,12 +73,27 @@ export class ChatService {
           config.currentDate = new Date().toLocaleDateString('en-SG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
       }
 
-      // Add user context if configured
-      if (settings.userRole || settings.userPurpose) {
+      // Resolve active profile and user context
+      // Logic: Active Profile > Global Settings
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let activeProfile: any = null;
+      if (settings.activeProfileId && settings.profiles) {
+          activeProfile = settings.profiles.find(p => p.id === settings.activeProfileId);
+      }
+
+      const role = activeProfile?.userRole || settings.userRole;
+      const purpose = activeProfile?.userPurpose || settings.userPurpose;
+      const customSystemPrompt = activeProfile?.systemPrompt || settings.systemPrompt;
+
+      if (role || purpose) {
           config.userContext = {
-              role: settings.userRole,
-              preferences: settings.userPurpose
+              role: role || undefined,
+              preferences: purpose || undefined
           };
+      }
+
+      if (customSystemPrompt) {
+          config.baseSystemPrompt = customSystemPrompt;
       }
 
       config.systemPrompt = generateSystemPrompt(config); // Regenerate prompt with full config
