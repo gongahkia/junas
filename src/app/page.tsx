@@ -14,7 +14,15 @@ import { StorageManager } from '@/lib/storage';
 import { Message, Conversation } from '@/types/chat';
 import IntroAnimation from '@/components/IntroAnimation';
 
+import { useJunasContext } from '@/lib/context/JunasContext';
+
 export default function Home() {
+  const {
+    settings,
+    chatState,
+    updateChatState
+  } = useJunasContext();
+
   const [showNewChatDialog, setShowNewChatDialog] = useState(false);
   const [showShareDialog, setShowShareDialog] = useState(false);
   const [showConfigDialog, setShowConfigDialog] = useState(false);
@@ -22,90 +30,15 @@ export default function Home() {
   const [showThemeDialog, setShowThemeDialog] = useState(false);
   const [showHistoryDialog, setShowHistoryDialog] = useState(false);
   const [showCommandPalette, setShowCommandPalette] = useState(false);
-  const [chatKey, setChatKey] = useState(0); // Key to force re-render of ChatInterface
-  const [hasMessages, setHasMessages] = useState(false);
-  const [currentMessages, setCurrentMessages] = useState<Message[]>([]);
-  const [currentNodeMap, setCurrentNodeMap] = useState<Record<string, Message>>({});
-  const [currentLeafId, setCurrentLeafId] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'chat' | 'artifacts' | 'tree'>('chat');
-  const [focusMode, setFocusMode] = useState(false);
 
-  // Check if there are messages on mount and listen for changes
-  useEffect(() => {
-    // Apply dark mode preference immediately
-    const settings = StorageManager.getSettings();
-    if (settings.darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    setFocusMode(settings.focusMode);
+  const hasMessages = (chatState?.messages?.length || 0) > 0;
+  const currentMessages = chatState?.messages || [];
+  const currentNodeMap = chatState?.nodeMap || {};
+  const currentLeafId = chatState?.currentLeafId;
 
-    const updateChatState = () => {
-      const chatState = StorageManager.getChatState();
-      const messages = chatState?.messages || [];
-      setHasMessages(messages.length > 0);
-      setCurrentMessages(messages);
-
-      if (chatState?.nodeMap) setCurrentNodeMap(chatState.nodeMap);
-      if (chatState?.currentLeafId) setCurrentLeafId(chatState.currentLeafId);
-    };
-
-    const applyTheme = () => {
-      const settings = StorageManager.getSettings();
-      const isDark = settings.darkMode;
-      const theme = settings.theme || 'vanilla';
-
-      if (isDark) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-
-      document.documentElement.setAttribute('data-theme', theme);
-      setFocusMode(settings.focusMode);
-    };
-
-    // Initial load
-    applyTheme();
-    updateChatState();
-
-    // Listen for theme and settings changes
-    const handleThemeChange = (e: CustomEvent) => {
-      const { darkMode: isDark, theme } = e.detail;
-
-      if (isDark) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-
-      if (theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-      }
-    };
-
-    const handleSettingsChange = () => {
-      const newSettings = StorageManager.getSettings();
-      setFocusMode(newSettings.focusMode);
-    };
-
-    // Listen for chat state changes (event-driven instead of polling)
-    const handleChatStateChange = () => {
-      updateChatState();
-    };
-
-    window.addEventListener('junas-theme-change', handleThemeChange as EventListener);
-    window.addEventListener('junas-settings-change', handleSettingsChange);
-    window.addEventListener('junas-chat-state-change', handleChatStateChange);
-
-    return () => {
-      window.removeEventListener('junas-theme-change', handleThemeChange as EventListener);
-      window.removeEventListener('junas-settings-change', handleSettingsChange);
-      window.removeEventListener('junas-chat-state-change', handleChatStateChange);
-    };
-  }, [chatKey]);
+  // Cleanup: Remove old event listeners logic as it is now handled by context and provider
 
   // Global Cmd/Ctrl+Shift+P listener
   useEffect(() => {
@@ -128,28 +61,31 @@ export default function Home() {
   };
 
   const handleConfirmNewChat = () => {
-    // Clear chat state from localStorage
-    StorageManager.clearChatState();
+    // Clear chat state via context
+    updateChatState({
+      messages: [],
+      artifacts: [],
+      isLoading: false,
+      currentProvider: chatState?.currentProvider || 'gemini',
+      settings: settings
+    });
 
-    // Force re-render of ChatInterface by changing key
-    setChatKey(prev => prev + 1);
+    // Explicitly clear storage key if needed, though updateChatState handles standard saving
+    StorageManager.clearChatState();
 
     // Close dialog
     setShowNewChatDialog(false);
   };
 
   const handleSelectConversation = (conversation: Conversation) => {
-    // Save to current chat state
-    StorageManager.saveChatState({
+    // Load conversation into active state
+    updateChatState({
       messages: conversation.messages,
       artifacts: conversation.artifacts || [],
       isLoading: false,
-      currentProvider: 'gemini', // Default or from metadata if we store it
-      settings: StorageManager.getSettings(),
+      currentProvider: 'gemini',
+      settings: settings,
     });
-
-    // Force re-render
-    setChatKey(prev => prev + 1);
   };
 
   if (loading) {
