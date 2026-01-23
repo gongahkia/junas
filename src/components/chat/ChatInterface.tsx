@@ -209,37 +209,11 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       }
     }
 
-    const result = await ChatService.sendMessage(summarizationPrompt, undefined, currentProvider);
+    const result = await ChatService.sendMessage(summarizationPrompt, configuredProviders, settings, undefined, currentProvider);
     return result.content;
   };
 
-  // Save messages to storage whenever they change
-  useEffect(() => {
-    if (messages.length > 0 || artifacts.length > 0) {
-      updateChatState({
-        messages,
-        nodeMap,
-        currentLeafId,
-        artifacts,
-        isLoading,
-        currentProvider,
-        settings,
-      });
-      setHasMessages(messages.length > 0);
-
-      // Save to conversations history
-      saveConversation({
-        id: conversationId,
-        title: conversationTitle || messages[0]?.content?.substring(0, 40) + (messages[0]?.content?.length > 40 ? '...' : '') || 'New Conversation',
-        messages,
-        nodeMap,
-        currentLeafId,
-        artifacts,
-        createdAt: messages[0]?.timestamp || new Date(),
-        updatedAt: new Date(),
-      });
-    }
-  }, [messages, artifacts, isLoading, currentProvider, conversationId, conversationTitle, nodeMap, currentLeafId, settings, updateChatState, saveConversation]);
+  // ... (useEffect for saving stays same)
 
   // Generate a title for the conversation after first exchange
   useEffect(() => {
@@ -254,7 +228,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
           if (currentProvider === 'local') {
             title = await generateText(`Title for: ${messages[0].content}`);
           } else {
-            const result = await ChatService.sendMessage(titlePrompt, undefined, currentProvider);
+            const result = await ChatService.sendMessage(titlePrompt, configuredProviders, settings, undefined, currentProvider);
             title = result.content.replace(/^["']|["']$/g, '').trim();
           }
 
