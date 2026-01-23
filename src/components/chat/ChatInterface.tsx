@@ -296,7 +296,12 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     try {
       // 1. Get response from Provider (Local or API)
       if (currentProvider === 'local') {
-        const prompt = currentMessages
+        let prompt = "";
+        if (settings.agentMode) {
+            prompt = "System: You are Junas, a Singapore legal AI. You can use tools by replying ONLY with COMMAND: tool-id args. Available tools: web-search (for online info), fetch-url (for websites), extract-entities (for legal names), summarize-local (for summaries). If you need to search the web, use COMMAND: web-search query.\n\n";
+        }
+        
+        prompt += currentMessages
           .slice(-6)
           .map(m => `${m.role === 'user' ? 'User' : m.role === 'system' ? 'System' : 'Assistant'}: ${m.content}`)
           .join('\n') + '\nAssistant:';

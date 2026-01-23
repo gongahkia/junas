@@ -1,7 +1,8 @@
 [ ] Remove the various UI choices that now conflict with each other (eg. having both a new chat button and a warning on deletion but then the conversation history)
 [ ] Ensure can deploy to vercel
 [ ] Make the Config various subtabs vertical instead of horizontal as it currently is
-[ ] Ensure the toml file is easy to understand
+[ ] Ensure the toml file is easy to understand for users to diectly configure Junas if they want
+[ ] Tweak the web search functionality, it should use the curl implementation for URLs by default (meaning no search API required) but provide advanced features if users want it
 
 [ ] Optimise the web app where possible to make it less slow
 [ ] Fix duplicate type definitions
@@ -20,26 +21,28 @@
 [ ] Replace deprecated methods
 [ ] Remove console.log statements in production code
 [ ] Implement onRegenerateMessage callback
-[ ] Clean up ChatService dead methods
 [ ] Reduce usage of 'any' type
+[ ] Run npm audit
+[ ] Clean up ChatService dead methods
 [ ] Consistent API key storage pattern
 [ ] Fix in-memory rate limiter for serverless
 [ ] Add React Error Boundaries
 [ ] Replace polling with proper state management
 [ ] Fix memory leak in rate limiter cleanup
-[ ] Remove CustomEvent communication pattern
 [ ] Deduplicate provider initialization logic
+
+[ ] Remove CustomEvent communication pattern
 [ ] Secure session password handling
+
 [ ] Add testing framework
 [ ] Add unit tests for core utilities
-[ ] Add pre-commit hooks
 [ ] Add integration tests for API routes
+[ ] Review API key endpoint security
+
+[ ] Add pre-commit hooks
 [ ] Add Prettier configuration
 [ ] Add .nvmrc file
-[ ] Add Dependabot configuration
 [ ] Fix session secret fallback
-[ ] Review API key endpoint security
-[ ] Run npm audit
 [ ] Add CSRF protection
 [ ] Apply validation middleware consistently
 [ ] Review CORS settings
@@ -52,5 +55,6 @@
 [ ] Update dependencies
 [ ] Remove unused dependencies
 [ ] Consider replacing react-mermaid
+
 [ ] Implement document analysis or remove endpoint
 [ ] Implement legal search or remove endpoint

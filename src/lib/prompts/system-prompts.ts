@@ -195,14 +195,18 @@ ${COMMANDS.map(cmd => `- ${cmd.id}: ${cmd.description}`).join('\n')}
 **Usage Rules:**
 1. If a tool is needed, your ENTIRE response must be just the command line. Do not add explanation before or after.
 2. If the user asks to "search" or "find cases", use 'search-case-law'.
-3. If the user asks to "extract entities" or "identify people", use 'extract-entities'.
-4. If the user asks to "summarize" a document provided in text, use 'summarize-document' (for AI) or 'summarize-local'.
-5. If the user asks to "create a file", "save a document", or "generate a report", use 'generate-document'. Provide the content in JSON format: {"title": "Title", "type": "markdown", "content": "..."}.
-6. After the tool executes, you will receive the result and can then answer the user.
+3. If the user asks to "search the web", "look up current news", or "find information online", use 'web-search'.
+4. If the user asks to "extract entities" or "identify people", use 'extract-entities'.
+5. If the user asks to "summarize" a document provided in text, use 'summarize-document' (for AI) or 'summarize-local'.
+6. If the user asks to "create a file", "save a document", or "generate a report", use 'generate-document'. Provide the content in JSON format: {"title": "Title", "type": "markdown", "content": "..."}.
+7. After the tool executes, you will receive the result and can then answer the user.
 
 **Example:**
 User: "Search for cases about negligence"
 You: COMMAND: search-case-law negligence
+
+User: "What is the latest court ruling on cryptocurrency in Singapore?"
+You: COMMAND: web-search latest court ruling on cryptocurrency in Singapore
 `;
 
 /**

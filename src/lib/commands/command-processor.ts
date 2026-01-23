@@ -26,7 +26,8 @@ export type CommandType =
   | 'check-compliance'
   | 'due-diligence-review'
   | 'generate-document'
-  | 'fetch-url';
+  | 'fetch-url'
+  | 'web-search';
 
 export interface CommandInfo {
   id: CommandType;
@@ -118,6 +119,12 @@ export const COMMANDS: CommandInfo[] = [
     id: 'fetch-url',
     label: 'fetch-url',
     description: 'Fetch and extract text content from a URL',
+    isLocal: true,
+  },
+  {
+    id: 'web-search',
+    label: 'web-search',
+    description: 'Search the web for information',
     isLocal: true,
   },
 ];
@@ -266,6 +273,7 @@ export function processLocalCommand(command: ProcessedCommand): LocalCommandResu
     case 'ner-advanced':
     case 'classify-text':
     case 'fetch-url':
+    case 'web-search':
       return {
         success: true,
         content: '__ASYNC_MODEL_COMMAND__', // Signal to ChatInterface to use async processing
@@ -342,6 +350,47 @@ export async function processAsyncLocalCommand(command: ProcessedCommand): Promi
           return {
             success: true,
             content: `**Fetched Content from ${args}:**\n\n${data.content}`,
+          };
+        } catch (e: any) {
+           return {
+              success: false,
+              content: `Network error: ${e.message}`,
+            };
+        }
+      }
+
+      case 'web-search': {
+        try {
+          const response = await fetch('/api/tools/web-search', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query: args }),
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+             return {
+              success: false,
+              content: `Error searching web: ${data.error || response.statusText}`,
+            };
+          }
+
+          let resultText = `**Web Search Results for "${args}":**\n\n`;
+          if (data.results && data.results.length > 0) {
+              data.results.forEach((r: any, i: number) => {
+                  resultText += `${i + 1}. **[${r.title}](${r.link})**\n${r.snippet}\n\n`;
+              });
+              if (data.warning) {
+                  resultText += `\n*Note: ${data.warning}*`;
+              }
+          } else {
+              resultText += 'No results found.';
+          }
+
+          return {
+            success: true,
+            content: resultText,
           };
         } catch (e: any) {
            return {
