@@ -24,6 +24,15 @@ interface MessageListProps {
   scrollToMessageId?: string;
 }
 
+interface MessageItemProps {
+  message: Message;
+  nodeMap?: Record<string, Message>;
+  onCopyMessage: (content: string) => void;
+  onRegenerateMessage: (messageId: string) => void;
+  onEditMessage?: (messageId: string, newContent: string) => void;
+  onBranchSwitch?: (messageId: string, direction: 'prev' | 'next') => void;
+}
+
 // Memoized message item component to prevent unnecessary re-renders
 const MessageItemComponent = ({
   message,
@@ -32,14 +41,7 @@ const MessageItemComponent = ({
   onRegenerateMessage,
   onEditMessage,
   onBranchSwitch,
-}: {
-  message: Message;
-  nodeMap?: Record<string, Message>;
-  onCopyMessage: (content: string) => void;
-  onRegenerateMessage: (messageId: string) => void;
-  onEditMessage?: (messageId: string, newContent: string) => void;
-  onBranchSwitch?: (messageId: string, direction: 'prev' | 'next') => void;
-}) => {
+}: MessageItemProps) => {
   const userName = StorageManager.getSettings().userName || 'User';
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(message.content);
@@ -212,7 +214,7 @@ const MessageItemComponent = ({
 };
 
 // Custom comparison to prevent re-renders unless content actually changes
-const arePropsEqual = (prevProps: any, nextProps: any) => {
+const arePropsEqual = (prevProps: MessageItemProps, nextProps: MessageItemProps) => {
   return (
     prevProps.message.id === nextProps.message.id &&
     prevProps.message.content === nextProps.message.content &&

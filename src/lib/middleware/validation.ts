@@ -7,14 +7,14 @@ import { formatErrorResponse } from '@/lib/api-utils';
  * Validation middleware for API routes
  */
 
-type Handler = (request: NextRequest, validatedData: any) => Promise<NextResponse>;
+type Handler<T> = (request: NextRequest, validatedData: T) => Promise<NextResponse>;
 
 /**
  * Wrap an API route handler with validation middleware
  */
 export function withValidation<T extends z.ZodSchema>(
   schema: T,
-  handler: Handler
+  handler: Handler<z.infer<T>>
 ) {
   return async (request: NextRequest): Promise<NextResponse> => {
     try {
@@ -32,9 +32,12 @@ export function withValidation<T extends z.ZodSchema>(
       }
 
       // Call the actual handler with validated data
-      return await handler(request, validation.data);
-    } catch (error: any) {
-      if (error.message?.includes('JSON')) {
+      return await handler(request, validation.data as z.infer<T>);
+    } catch (error: unknown) {
+      // Handle known error patterns safely
+      const errorMessage = error instanceof Error ? error.message : String(error);
+
+      if (errorMessage.includes('JSON')) {
         return NextResponse.json(
           { error: 'Invalid JSON in request body', success: false },
           { status: 400 }
@@ -84,7 +87,6 @@ async function getRateLimiter() {
         prefix: 'junas:ratelimit',
       });
 
-      console.log('[RateLimit] Using Upstash Redis for rate limiting');
       return rateLimiter;
     } catch (error) {
       console.error('[RateLimit] Failed to initialize Upstash, falling back to in-memory:', error);
@@ -92,7 +94,6 @@ async function getRateLimiter() {
     }
   }
 
-  console.log('[RateLimit] Using in-memory rate limiting (set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN for production)');
   return null;
 }
 
@@ -107,8 +108,8 @@ export function withRateLimit(
     return async (request: NextRequest): Promise<NextResponse> => {
       // Get client identifier (IP or session)
       const clientId = request.headers.get('x-forwarded-for') ||
-                       request.headers.get('x-real-ip') ||
-                       'anonymous';
+        request.headers.get('x-real-ip') ||
+        'anonymous';
 
       const limiter = await getRateLimiter();
 

@@ -391,7 +391,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
       return aiResponseText;
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("AI Processing Error:", error);
       throw error;
     }
@@ -514,12 +514,13 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
                 : msg
             )
           );
-        } catch (error: any) {
+        } catch (error: unknown) {
+          const errorMessage = error instanceof Error ? error.message : String(error);
           const responseTime = Date.now() - startTime;
           setMessages(prev =>
             prev.map(msg =>
               msg.id === assistantMessage.id
-                ? { ...msg, content: `Error processing command: ${error.message}`, responseTime }
+                ? { ...msg, content: `Error processing command: ${errorMessage}`, responseTime }
                 : msg
             )
           );
@@ -565,11 +566,12 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
           cost
         }
       }));
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       setMessages(prev =>
         prev.map(msg =>
           msg.id === assistantMessage.id
-            ? { ...msg, content: `Error: ${error.message}` }
+            ? { ...msg, content: `Error: ${errorMessage}` }
             : msg
         )
       );
@@ -637,11 +639,12 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
           cost
         }
       }));
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       setMessages(prev =>
         prev.map(msg =>
           msg.id === newAssistantMessage.id
-            ? { ...msg, content: `Error: ${error.message}` }
+            ? { ...msg, content: `Error: ${errorMessage}` }
             : msg
         )
       );
@@ -708,8 +711,9 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
       setMessages(prev => prev.map(m => m.id === assistantMessage.id ? finalAssistant : m));
       setNodeMap(prev => ({ ...prev, [assistantMessage.id]: finalAssistant }));
-    } catch (e: any) {
-      setMessages(prev => prev.map(m => m.id === assistantMessage.id ? { ...m, content: `Error: ${e.message}` } : m));
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : String(e);
+      setMessages(prev => prev.map(m => m.id === assistantMessage.id ? { ...m, content: `Error: ${errorMessage}` } : m));
     } finally {
       setIsLoading(false);
     }

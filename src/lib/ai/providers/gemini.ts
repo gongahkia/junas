@@ -38,8 +38,7 @@ export class GeminiProvider {
 
       if (response.ok) {
         const data = await response.json();
-        const models = data.models?.map((m: any) => m.name.replace('models/', '')) || [];
-        console.log('[Gemini] Available models:', models);
+        const models = data.models?.map((m: { name: string }) => m.name.replace('models/', '')) || [];
         return models;
       }
     } catch (error) {
@@ -59,7 +58,6 @@ export class GeminiProvider {
     }
   ): Promise<ProviderResponse> {
     try {
-      console.log('[Gemini] Using model:', this.model);
       const model = this.client.getGenerativeModel({
         model: this.model,
         generationConfig: {
@@ -85,7 +83,7 @@ export class GeminiProvider {
         model: this.model,
         finishReason: 'stop',
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('[Gemini] Error details:', error);
       throw this.handleError(error);
     }
@@ -134,7 +132,7 @@ export class GeminiProvider {
         content: '',
         done: true,
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       throw this.handleError(error);
     }
   }
@@ -167,8 +165,10 @@ export class GeminiProvider {
     };
   }
 
-  private handleError(error: any): ProviderError {
-    if (error.message?.includes('API key')) {
+  private handleError(error: unknown): ProviderError {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+
+    if (errorMessage.includes('API key')) {
       return {
         code: 'INVALID_API_KEY',
         message: 'Invalid API key. Please check your Gemini API key.',
@@ -176,7 +176,7 @@ export class GeminiProvider {
       };
     }
 
-    if (error.message?.includes('not found') || error.message?.includes('404')) {
+    if (errorMessage.includes('not found') || errorMessage.includes('404')) {
       return {
         code: 'MODEL_NOT_FOUND',
         message: `Model "${this.model}" not found. Try these models: "gemini-2.0-flash-exp", "gemini-1.5-flash", "gemini-1.5-pro", or "gemini-pro". Check available models at https://ai.google.dev/gemini-api/docs/models/gemini`,
@@ -184,7 +184,7 @@ export class GeminiProvider {
       };
     }
 
-    if (error.message?.includes('quota')) {
+    if (errorMessage.includes('quota')) {
       return {
         code: 'QUOTA_EXCEEDED',
         message: 'API quota exceeded. Please try again later.',
@@ -192,7 +192,7 @@ export class GeminiProvider {
       };
     }
 
-    if (error.message?.includes('safety')) {
+    if (errorMessage.includes('safety')) {
       return {
         code: 'SAFETY_FILTER',
         message: 'Response blocked by safety filters. Please rephrase your request.',
@@ -202,7 +202,7 @@ export class GeminiProvider {
 
     return {
       code: 'UNKNOWN_ERROR',
-      message: error.message || 'An unknown error occurred',
+      message: errorMessage || 'An unknown error occurred',
       retryable: true,
     };
   }
