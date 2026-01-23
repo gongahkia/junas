@@ -148,24 +148,24 @@ html[data-theme="everforest"].dark {
 /* Tokyo Night Theme */
 html[data-theme="tokyo-night"] {
   /* Light (Day) */
-  --background: 228 14% 89%;
-  --foreground: 222 55% 48%;
+  --background: 228 14% 89%; /* #e1e2e7 */
+  --foreground: 226 26% 27%; /* #343b58 - Fixed contrast */
   --card: 228 14% 89%;
-  --card-foreground: 222 55% 48%;
+  --card-foreground: 226 26% 27%;
   --popover: 228 14% 89%;
-  --popover-foreground: 222 55% 48%;
-  --primary: 223 45% 44%;
+  --popover-foreground: 226 26% 27%;
+  --primary: 223 45% 44%; /* #3d59a1 */
   --primary-foreground: 228 14% 89%;
-  --secondary: 227 15% 85%;
-  --secondary-foreground: 222 55% 48%;
+  --secondary: 227 15% 85%; /* #d5d6db */
+  --secondary-foreground: 226 26% 27%;
   --muted: 227 15% 85%;
-  --muted-foreground: 222 25% 68%;
+  --muted-foreground: 226 15% 55%;
   --accent: 227 15% 85%;
-  --accent-foreground: 222 55% 48%;
-  --destructive: 345 54% 64%;
+  --accent-foreground: 226 26% 27%;
+  --destructive: 345 54% 64%; /* #f52a65 */
   --destructive-foreground: 228 14% 89%;
-  --border: 222 55% 80%;
-  --input: 222 55% 80%;
+  --border: 226 26% 80%;
+  --input: 226 26% 80%;
   --ring: 223 45% 44%;
 }
 
@@ -190,6 +190,194 @@ html[data-theme="tokyo-night"].dark {
   --border: 234 16% 23%;
   --input: 234 16% 23%;
   --ring: 221 87% 72%;
+}
+
+/* Catppuccin Theme */
+html[data-theme="catppuccin"] {
+  /* Light (Latte) */
+  --background: 220 23% 95%; /* #eff1f5 */
+  --foreground: 234 16% 35%; /* #4c4f69 */
+  --card: 220 23% 95%;
+  --card-foreground: 234 16% 35%;
+  --popover: 220 23% 95%;
+  --popover-foreground: 234 16% 35%;
+  --primary: 267 83% 58%; /* #8839ef (Mauve) */
+  --primary-foreground: 220 23% 95%;
+  --secondary: 228 20% 90%; /* #e6e9ef */
+  --secondary-foreground: 234 16% 35%;
+  --muted: 228 20% 90%;
+  --muted-foreground: 233 10% 55%;
+  --accent: 228 20% 90%;
+  --accent-foreground: 234 16% 35%;
+  --destructive: 350 75% 62%; /* #d20f39 */
+  --destructive-foreground: 220 23% 95%;
+  --border: 232 10% 80%;
+  --input: 232 10% 80%;
+  --ring: 267 83% 58%;
+}
+
+html[data-theme="catppuccin"].dark {
+  /* Dark (Mocha) */
+  --background: 240 21% 15%; /* #1e1e2e */
+  --foreground: 226 64% 88%; /* #cdd6f4 */
+  --card: 240 21% 15%;
+  --card-foreground: 226 64% 88%;
+  --popover: 240 21% 15%;
+  --popover-foreground: 226 64% 88%;
+  --primary: 267 84% 81%; /* #cba6f7 */
+  --primary-foreground: 240 21% 15%;
+  --secondary: 237 16% 23%; /* #313244 */
+  --secondary-foreground: 226 64% 88%;
+  --muted: 237 16% 23%;
+  --muted-foreground: 228 24% 72%;
+  --accent: 237 16% 23%;
+  --accent-foreground: 226 64% 88%;
+  --destructive: 343 81% 75%; /* #f38ba8 */
+  --destructive-foreground: 240 21% 15%;
+  --border: 237 16% 23%;
+  --input: 237 16% 23%;
+  --ring: 267 84% 81%;
+}
+
+/* Solarized Theme */
+html[data-theme="solarized"] {
+  /* Light */
+  --background: 44 87% 94%; /* #fdf6e3 */
+  --foreground: 205 13% 45%; /* #657b83 */
+  --card: 44 87% 94%;
+  --card-foreground: 205 13% 45%;
+  --popover: 44 87% 94%;
+  --popover-foreground: 205 13% 45%;
+  --primary: 205 69% 49%; /* #268bd2 */
+  --primary-foreground: 44 87% 94%;
+  --secondary: 44 60% 90%; /* #eee8d5 */
+  --secondary-foreground: 205 13% 45%;
+  --muted: 44 60% 90%;
+  --muted-foreground: 205 8% 55%;
+  --accent: 44 60% 90%;
+  --accent-foreground: 205 13% 45%;
+  --destructive: 1 71% 52%; /* #dc322f */
+  --destructive-foreground: 44 87% 94%;
+  --border: 44 60% 85%;
+  --input: 44 60% 85%;
+  --ring: 205 69% 49%;
+}
+
+html[data-theme="solarized"].dark {
+  /* Dark */
+  --background: 192 100% 11%; /* #002b36 */
+  --foreground: 192 8% 55%; /* #839496 */
+  --card: 192 100% 11%;
+  --card-foreground: 192 8% 55%;
+  --popover: 192 100% 11%;
+  --popover-foreground: 192 8% 55%;
+  --primary: 205 69% 49%; /* #268bd2 */
+  --primary-foreground: 192 100% 11%;
+  --secondary: 192 81% 14%; /* #073642 */
+  --secondary-foreground: 192 8% 55%;
+  --muted: 192 81% 14%;
+  --muted-foreground: 192 8% 40%;
+  --accent: 192 81% 14%;
+  --accent-foreground: 192 8% 55%;
+  --destructive: 1 71% 52%; /* #dc322f */
+  --destructive-foreground: 192 100% 11%;
+  --border: 192 81% 14%;
+  --input: 192 81% 14%;
+  --ring: 205 69% 49%;
+}
+
+/* Rose Pine Theme */
+html[data-theme="rose-pine"] {
+  /* Light (Dawn) */
+  --background: 34 33% 95%; /* #faf4ed */
+  --foreground: 250 17% 40%; /* #575279 */
+  --card: 34 33% 95%;
+  --card-foreground: 250 17% 40%;
+  --popover: 34 33% 95%;
+  --popover-foreground: 250 17% 40%;
+  --primary: 268 22% 57%; /* #907aa9 (Iris) */
+  --primary-foreground: 34 33% 95%;
+  --secondary: 33 24% 94%; /* #fffaf3 */
+  --secondary-foreground: 250 17% 40%;
+  --muted: 33 24% 94%;
+  --muted-foreground: 247 9% 59%;
+  --accent: 33 24% 94%;
+  --accent-foreground: 250 17% 40%;
+  --destructive: 350 49% 56%; /* #b4637a */
+  --destructive-foreground: 34 33% 95%;
+  --border: 247 9% 90%;
+  --input: 247 9% 90%;
+  --ring: 268 22% 57%;
+}
+
+html[data-theme="rose-pine"].dark {
+  /* Dark (Main) */
+  --background: 249 22% 12%; /* #191724 */
+  --foreground: 245 50% 91%; /* #e0def4 */
+  --card: 249 22% 12%;
+  --card-foreground: 245 50% 91%;
+  --popover: 249 22% 12%;
+  --popover-foreground: 245 50% 91%;
+  --primary: 267 57% 78%; /* #c4a7e7 */
+  --primary-foreground: 249 22% 12%;
+  --secondary: 248 19% 16%; /* #1f1d2e */
+  --secondary-foreground: 245 50% 91%;
+  --muted: 248 19% 16%;
+  --muted-foreground: 247 23% 60%;
+  --accent: 248 19% 16%;
+  --accent-foreground: 245 50% 91%;
+  --destructive: 356 65% 71%; /* #eb6f92 */
+  --destructive-foreground: 249 22% 12%;
+  --border: 248 19% 25%;
+  --input: 248 19% 25%;
+  --ring: 267 57% 78%;
+}
+
+/* Kanagawa Theme */
+html[data-theme="kanagawa"] {
+  /* Light (Lotus) */
+  --background: 53 65% 84%; /* #f2ecbc */
+  --foreground: 240 8% 36%; /* #545464 */
+  --card: 53 65% 84%;
+  --card-foreground: 240 8% 36%;
+  --popover: 53 65% 84%;
+  --popover-foreground: 240 8% 36%;
+  --primary: 137 17% 50%; /* #698b69 (Green) */
+  --primary-foreground: 53 65% 84%;
+  --secondary: 53 38% 85%; /* #e5e6c5 */
+  --secondary-foreground: 240 8% 36%;
+  --muted: 53 38% 85%;
+  --muted-foreground: 240 4% 46%;
+  --accent: 53 38% 85%;
+  --accent-foreground: 240 8% 36%;
+  --destructive: 348 40% 50%; /* #c84053 */
+  --destructive-foreground: 53 65% 84%;
+  --border: 240 8% 80%;
+  --input: 240 8% 80%;
+  --ring: 137 17% 50%;
+}
+
+html[data-theme="kanagawa"].dark {
+  /* Dark (Wave) */
+  --background: 235 12% 14%; /* #1f1f28 */
+  --foreground: 60 30% 80%; /* #dcd7ba */
+  --card: 235 12% 14%;
+  --card-foreground: 60 30% 80%;
+  --popover: 235 12% 14%;
+  --popover-foreground: 60 30% 80%;
+  --primary: 104 17% 50%; /* #76946a */
+  --primary-foreground: 235 12% 14%;
+  --secondary: 233 9% 18%; /* #2a2a37 */
+  --secondary-foreground: 60 30% 80%;
+  --muted: 233 9% 18%;
+  --muted-foreground: 234 6% 47%;
+  --accent: 233 9% 18%;
+  --accent-foreground: 60 30% 80%;
+  --destructive: 350 48% 54%; /* #c34043 */
+  --destructive-foreground: 235 12% 14%;
+  --border: 233 9% 25%;
+  --input: 233 9% 25%;
+  --ring: 104 17% 50%;
 }
 
 @layer base {
