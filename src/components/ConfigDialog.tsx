@@ -433,7 +433,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-2xl font-mono max-h-[90vh] overflow-hidden flex flex-col">
         <DialogHeader>
-          <DialogTitle className="text-sm">[ ⚙ Configuration ]</DialogTitle>
+          <DialogTitle className="text-sm">[ Configuration ]</DialogTitle>
         </DialogHeader>
 
         {/* Tabs */}
