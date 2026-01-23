@@ -19,7 +19,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { StorageManager } from '@/lib/storage';
 import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
 import { parseToml, stringifyToml } from '@/lib/toml';
