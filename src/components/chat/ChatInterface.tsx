@@ -33,7 +33,8 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     chatState,
     conversations,
     updateChatState,
-    saveConversation
+    saveConversation,
+    configuredProviders
   } = useJunasContext();
 
   const [messages, setMessages] = useState<Message[]>([]);
@@ -292,6 +293,8 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       } else {
         const result = await ChatService.sendMessage(
           currentMessages,
+          configuredProviders,
+          settings,
           (chunk: string) => {
             aiResponseText += chunk;
             const now = Date.now();
