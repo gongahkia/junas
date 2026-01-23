@@ -50,9 +50,9 @@ function SharePageContent() {
       // For simplicity, we'll just save it as the current conversation context.
       // If the user already has a chat, this might be destructive if we just use `saveChatState`.
       // A safer approach: Load these messages into the chat state.
-      
+
       const currentChat = StorageManager.getChatState();
-      
+
       if (currentChat && currentChat.messages.length > 0) {
         const confirmed = window.confirm('Importing this chat will replace your current active conversation. Do you want to proceed?');
         if (!confirmed) return;
@@ -65,7 +65,6 @@ function SharePageContent() {
         artifacts: [], // Initialize with empty artifacts for imported chat
         isLoading: false,
         currentProvider: currentChat?.currentProvider || 'gemini', // Default or keep existing
-        apiKeys: StorageManager.getApiKeys(), // Keep existing keys
         settings: StorageManager.getSettings(), // Keep existing settings
       });
 
@@ -96,27 +95,27 @@ function SharePageContent() {
   };
 
   const handleBranchSwitch = (messageId: string, direction: 'prev' | 'next') => {
-      if (!nodeMap || Object.keys(nodeMap).length === 0) return;
-      const siblings = getBranchSiblings(nodeMap, messageId);
-      const currentIndex = siblings.indexOf(messageId);
-      
-      let nextId = messageId;
-      if (direction === 'prev' && currentIndex > 0) {
-          nextId = siblings[currentIndex - 1];
-      } else if (direction === 'next' && currentIndex < siblings.length - 1) {
-          nextId = siblings[currentIndex + 1];
+    if (!nodeMap || Object.keys(nodeMap).length === 0) return;
+    const siblings = getBranchSiblings(nodeMap, messageId);
+    const currentIndex = siblings.indexOf(messageId);
+
+    let nextId = messageId;
+    if (direction === 'prev' && currentIndex > 0) {
+      nextId = siblings[currentIndex - 1];
+    } else if (direction === 'next' && currentIndex < siblings.length - 1) {
+      nextId = siblings[currentIndex + 1];
+    }
+
+    if (nextId !== messageId) {
+      let leaf = nextId;
+      while (true) {
+        const node = nodeMap[leaf];
+        if (!node?.childrenIds || node.childrenIds.length === 0) break;
+        leaf = node.childrenIds[node.childrenIds.length - 1];
       }
-      
-      if (nextId !== messageId) {
-          let leaf = nextId;
-          while(true) {
-              const node = nodeMap[leaf];
-              if (!node?.childrenIds || node.childrenIds.length === 0) break;
-              leaf = node.childrenIds[node.childrenIds.length - 1];
-          }
-          setMessages(getLinearHistory(nodeMap, leaf));
-          setCurrentLeafId(leaf);
-      }
+      setMessages(getLinearHistory(nodeMap, leaf));
+      setCurrentLeafId(leaf);
+    }
   };
 
   if (loading) {
@@ -151,30 +150,30 @@ function SharePageContent() {
           [ Shared Conversation ]
         </div>
         <div className="flex items-center gap-4">
-           <button 
-            onClick={handleImport} 
+          <button
+            onClick={handleImport}
             className="px-2 py-1 text-xs font-mono hover:bg-muted transition-colors text-black"
           >
             [ Import & Continue ]
           </button>
         </div>
       </header>
-      
+
       <main className="flex-1 overflow-hidden flex flex-col relative">
-        <MessageList 
-          messages={messages} 
+        <MessageList
+          messages={messages}
           nodeMap={nodeMap}
-          isLoading={false} 
+          isLoading={false}
           onCopyMessage={handleCopyMessage}
-          onRegenerateMessage={() => {}} // No-op for read-only
+          onRegenerateMessage={() => { }} // No-op for read-only
           onBranchSwitch={handleBranchSwitch}
         />
-        
+
         {/* Overlay to indicate read-only state at the bottom */}
         <div className="absolute bottom-0 w-full p-4 bg-gradient-to-t from-background to-transparent pointer-events-none flex justify-center pb-8">
-           <div className="px-4 py-2 bg-muted/80 backdrop-blur rounded-full text-xs font-mono text-muted-foreground border shadow-sm pointer-events-auto">
-             Read-only mode. Click "Import & Continue" to chat.
-           </div>
+          <div className="px-4 py-2 bg-muted/80 backdrop-blur rounded-full text-xs font-mono text-muted-foreground border shadow-sm pointer-events-auto">
+            Read-only mode. Click "Import & Continue" to chat.
+          </div>
         </div>
       </main>
     </div>

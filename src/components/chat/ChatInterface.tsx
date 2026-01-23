@@ -215,7 +215,6 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         artifacts,
         isLoading,
         currentProvider,
-        apiKeys: StorageManager.getApiKeys(),
         settings: StorageManager.getSettings(),
       });
       setHasMessages(messages.length > 0);

@@ -87,8 +87,8 @@ export default function Home() {
     };
 
     const handleSettingsChange = () => {
-       const newSettings = StorageManager.getSettings();
-       setFocusMode(newSettings.focusMode);
+      const newSettings = StorageManager.getSettings();
+      setFocusMode(newSettings.focusMode);
     };
 
     // Listen for chat state changes (event-driven instead of polling)
@@ -112,7 +112,7 @@ export default function Home() {
     const handleKeyDown = (e: KeyboardEvent) => {
       const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
       const isCmdOrCtrl = isMac ? e.metaKey : e.ctrlKey;
-      
+
       if (isCmdOrCtrl && e.shiftKey && e.key.toLowerCase() === 'p') {
         e.preventDefault();
         setShowCommandPalette(true);
@@ -145,7 +145,6 @@ export default function Home() {
       artifacts: conversation.artifacts || [],
       isLoading: false,
       currentProvider: 'gemini', // Default or from metadata if we store it
-      apiKeys: StorageManager.getApiKeys(),
       settings: StorageManager.getSettings(),
     });
 
@@ -168,8 +167,8 @@ export default function Home() {
         onAbout={() => setShowAboutDialog(true)}
         onHistory={() => setShowHistoryDialog(true)}
       >
-        <ChatInterface 
-          key={chatKey} 
+        <ChatInterface
+          key={chatKey}
           activeTab={activeTab}
           onTabChange={setActiveTab}
         />
