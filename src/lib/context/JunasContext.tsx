@@ -71,6 +71,11 @@ export function JunasProvider({ children }: { children: ReactNode }) {
         setConversations(StorageManager.getConversations()); // Reload list
     };
 
+    const deleteConversation = (id: string) => {
+        StorageManager.deleteConversation(id);
+        setConversations(StorageManager.getConversations()); // Reload list
+    };
+
     return (
         <JunasContext.Provider value={{
             settings,
@@ -80,6 +85,7 @@ export function JunasProvider({ children }: { children: ReactNode }) {
             updateSettings,
             updateChatState,
             saveConversation,
+            deleteConversation,
             refreshConfiguredProviders
         }}>
             {children}
