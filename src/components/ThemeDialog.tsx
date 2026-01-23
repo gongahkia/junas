@@ -93,22 +93,6 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="space-y-0.5">
-                <Label htmlFor="darkMode" className="text-sm font-medium">Dark Mode</Label>
-                <p className="text-[10px] text-muted-foreground">
-                  {darkMode ? 'Dark theme enabled' : 'Light theme enabled'}
-                </p>
-              </div>
-            </div>
-            <Switch
-              id="darkMode"
-              checked={darkMode}
-              onCheckedChange={handleSaveTheme}
-            />
-          </div>
-
-          <div className="flex items-center justify-between border-t pt-4 border-muted-foreground/10">
-            <div className="flex items-center gap-3">
-              <div className="space-y-0.5">
                 <Label htmlFor="theme" className="text-sm font-medium">Color Theme</Label>
                 <p className="text-[10px] text-muted-foreground">
                   Select color palette
@@ -121,21 +105,22 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
               className="w-[140px] h-8 text-xs font-mono"
               placeholder="vanilla"
             />
-            {/* <Select value={theme} onValueChange={handleThemeChange}>
-              <SelectTrigger className="w-[140px] h-8 text-xs">
-                <SelectValue placeholder="Select theme" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="vanilla">Vanilla (B&W)</SelectItem>
-                <SelectItem value="gruvbox">Gruvbox</SelectItem>
-                <SelectItem value="everforest">Everforest</SelectItem>
-                <SelectItem value="tokyo-night">Tokyo Night</SelectItem>
-                <SelectItem value="catppuccin">Catppuccin</SelectItem>
-                <SelectItem value="solarized">Solarized</SelectItem>
-                <SelectItem value="rose-pine">Rose Pine</SelectItem>
-                <SelectItem value="kanagawa">Kanagawa</SelectItem>
-              </SelectContent>
-            </Select> */}
+          </div>
+
+          <div className="flex items-center justify-between border-t pt-4 border-muted-foreground/10">
+            <div className="flex items-center gap-3">
+              <div className="space-y-0.5">
+                <Label htmlFor="darkMode" className="text-sm font-medium">Dark Mode</Label>
+                <p className="text-[10px] text-muted-foreground">
+                  {darkMode ? 'Dark theme enabled' : 'Light theme enabled'}
+                </p>
+              </div>
+            </div>
+            <Switch
+              id="darkMode"
+              checked={darkMode}
+              onCheckedChange={handleSaveTheme}
+            />
           </div>
 
           <div className="flex items-center justify-between border-t pt-4 border-muted-foreground/10">
