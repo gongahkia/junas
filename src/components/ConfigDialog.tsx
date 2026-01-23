@@ -153,7 +153,6 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
 
   const handleProfileChange = (id: string) => {
     if (id === 'global') {
-      const settings = StorageManager.getSettings();
       setUserRole(settings.userRole || '');
       setUserPurpose(settings.userPurpose || '');
       setProfileSystemPrompt('');
@@ -192,8 +191,6 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   };
 
   const handleSaveProfile = () => {
-    const settings = StorageManager.getSettings();
-
     let updatedProfiles = [...profiles];
 
     // If active profile, update it in the array
@@ -206,7 +203,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       setProfiles(updatedProfiles);
     }
 
-    StorageManager.saveSettings({
+    updateSettings({
       ...settings,
       userRole: activeProfileId ? settings.userRole : userRole, // Only update global if global selected
       userPurpose: activeProfileId ? settings.userPurpose : userPurpose,
@@ -224,8 +221,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   };
 
   const handleSaveGeneration = () => {
-    const settings = StorageManager.getSettings();
-    StorageManager.saveSettings({
+    updateSettings({
       ...settings,
       temperature,
       maxTokens,
@@ -256,7 +252,6 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   };
 
   const handleSaveSnippet = () => {
-    const settings = StorageManager.getSettings();
     let newSnippets = [...snippets];
 
     if (editingSnippetId === 'new') {
@@ -276,7 +271,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
     }
 
     setSnippets(newSnippets);
-    StorageManager.saveSettings({ ...settings, snippets: newSnippets });
+    updateSettings({ ...settings, snippets: newSnippets });
     setEditingSnippetId(null);
 
     addToast({
@@ -287,17 +282,15 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   };
 
   const handleDeleteSnippet = (id: string) => {
-    const settings = StorageManager.getSettings();
     const newSnippets = snippets.filter(s => s.id !== id);
     setSnippets(newSnippets);
-    StorageManager.saveSettings({ ...settings, snippets: newSnippets });
+    updateSettings({ ...settings, snippets: newSnippets });
     if (editingSnippetId === id) setEditingSnippetId(null);
   };
 
   const handleSaveToml = () => {
     try {
       const parsed = parseToml(tomlContent);
-      const settings = StorageManager.getSettings();
 
       // Use 'any' to allow property manipulation before saving
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -309,7 +302,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
         delete mergedConfig.profile;
       }
 
-      StorageManager.saveSettings(mergedConfig);
+      updateSettings(mergedConfig);
 
       // Update local state to reflect changes
       setTemperature(mergedConfig.temperature ?? temperature);
