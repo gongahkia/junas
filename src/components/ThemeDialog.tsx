@@ -91,9 +91,6 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
         <div className="py-4 space-y-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-full ${darkMode ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground'}`}>
-                {darkMode ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
-              </div>
               <div className="space-y-0.5">
                 <Label htmlFor="darkMode" className="text-sm font-medium">Dark Mode</Label>
                 <p className="text-[10px] text-muted-foreground">
@@ -110,9 +107,6 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
 
           <div className="flex items-center justify-between border-t pt-4 border-muted-foreground/10">
              <div className="flex items-center gap-3">
-              <div className="p-2 rounded-full bg-muted text-muted-foreground">
-                <Palette className="h-4 w-4" />
-              </div>
               <div className="space-y-0.5">
                 <Label htmlFor="theme" className="text-sm font-medium">Color Theme</Label>
                 <p className="text-[10px] text-muted-foreground">
@@ -139,9 +133,6 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
 
           <div className="flex items-center justify-between border-t pt-4 border-muted-foreground/10">
             <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-full ${focusMode ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground'}`}>
-                <Minimize className="h-4 w-4" />
-              </div>
               <div className="space-y-0.5">
                 <Label htmlFor="focusMode" className="text-sm font-medium">Focus Mode</Label>
                 <p className="text-[10px] text-muted-foreground">
