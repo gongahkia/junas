@@ -51,11 +51,11 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
   // Handler for user interaction to trigger fade out
   useEffect(() => {
     if (!readyToFade) return;
-    
+
     const handle = (e: KeyboardEvent | MouseEvent) => {
       if (fadeOut) return;
       if (e instanceof KeyboardEvent && e.code !== 'Space') return;
-      
+
       setFadeOut(true);
       // Wait for fade out animation to complete
       setTimeout(onComplete, 200);
@@ -72,7 +72,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
   return (
     <div className={`fixed inset-0 z-50 flex items-center justify-center bg-background text-foreground transition-opacity ${fadeOut ? 'duration-200' : 'duration-500'} ${fadeOut ? 'fade-out' : 'fade-in'}`}>
       <div className="flex flex-col items-center text-center">
-        <pre className="text-xs font-mono whitespace-pre-wrap">
+        <pre className="text-[0.5rem] leading-[0.6rem] md:text-xs font-mono whitespace-pre">
           {lines.map((line, i) => line.substring(0, lineCharCounts[i])).join('\n')}
         </pre>
         {readyToFade && !fadeOut && (
