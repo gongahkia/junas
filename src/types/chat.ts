@@ -64,7 +64,6 @@ export interface ChatState {
   artifacts: Artifact[];
   isLoading: boolean;
   currentProvider: string;
-  apiKeys: Record<string, string>;
   settings: ChatSettings;
 }
 
