@@ -762,32 +762,16 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     }
 
     const copyToClipboard = async (text: string): Promise<boolean> => {
-      // Try modern clipboard API first
+      // Try modern clipboard API
       try {
         if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
           await navigator.clipboard.writeText(text);
           return true;
         }
       } catch {
-        // Fall through to fallback
-      }
-
-      // Fallback for older browsers or non-HTTPS contexts
-      try {
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        textArea.style.position = 'fixed';
-        textArea.style.left = '-999999px';
-        textArea.style.top = '-999999px';
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        const success = document.execCommand('copy');
-        document.body.removeChild(textArea);
-        return success;
-      } catch {
         return false;
       }
+      return false;
     };
 
     const success = await copyToClipboard(content);

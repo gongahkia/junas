@@ -33,7 +33,6 @@ export async function migrateApiKeysToSession(): Promise<boolean> {
         // Migration successful - remove old keys and mark as migrated
         localStorage.removeItem('junas_api_keys');
         localStorage.setItem('junas_keys_migrated', 'true');
-        console.log('Successfully migrated API keys to secure session storage');
         return true;
       } else {
         console.error('Failed to migrate API keys to session');
