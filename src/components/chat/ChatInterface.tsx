@@ -32,7 +32,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
   const [artifacts, setArtifacts] = useState<Artifact[]>([]);
   const [conversationId, setConversationId] = useState<string>(generateId());
   const [conversationTitle, setConversationTitle] = useState<string>('');
-  
+
   const [localActiveTab, setLocalActiveTab] = useState<'chat' | 'artifacts' | 'tree'>('chat');
   const activeTab = propActiveTab ?? localActiveTab;
   const setActiveTab = onTabChange ?? setLocalActiveTab;
@@ -80,7 +80,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
   // Load messages from storage on mount
   useEffect(() => {
     const chatState = StorageManager.getChatState();
-    
+
     // Check local model status
     const models = getModelsWithStatus();
     const downloadedCount = models.filter(m => m.isDownloaded).length;
@@ -92,15 +92,15 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
     if (chatState?.messages) {
       if (chatState.nodeMap && chatState.currentLeafId) {
-          setNodeMap(chatState.nodeMap);
-          setCurrentLeafId(chatState.currentLeafId);
-          setMessages(getLinearHistory(chatState.nodeMap, chatState.currentLeafId));
+        setNodeMap(chatState.nodeMap);
+        setCurrentLeafId(chatState.currentLeafId);
+        setMessages(getLinearHistory(chatState.nodeMap, chatState.currentLeafId));
       } else {
-          // Migration from linear to tree
-          const { nodeMap: newMap, leafId } = createTreeFromLinear(chatState.messages);
-          setNodeMap(newMap);
-          setCurrentLeafId(leafId);
-          setMessages(chatState.messages);
+        // Migration from linear to tree
+        const { nodeMap: newMap, leafId } = createTreeFromLinear(chatState.messages);
+        setNodeMap(newMap);
+        setCurrentLeafId(leafId);
+        setMessages(chatState.messages);
       }
       setHasMessages(chatState.messages.length > 0);
     }
@@ -110,14 +110,14 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
     // Try to find if this chat matches an existing conversation
     const conversations = StorageManager.getConversations();
-    const matchingConv = conversations.find(c => 
-        c.messages.length === chatState?.messages?.length && 
-        c.messages[0]?.id === chatState?.messages?.[0]?.id
+    const matchingConv = conversations.find(c =>
+      c.messages.length === chatState?.messages?.length &&
+      c.messages[0]?.id === chatState?.messages?.[0]?.id
     );
 
     if (matchingConv) {
-        setConversationId(matchingConv.id);
-        setConversationTitle(matchingConv.title);
+      setConversationId(matchingConv.id);
+      setConversationTitle(matchingConv.title);
     }
   }, []);
 
@@ -125,7 +125,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
   useEffect(() => {
     const handler = async (event: any) => {
       const importedMessages = event.detail.messages;
-      
+
       // Show loading message
       const loadingMessage: Message = {
         id: 'import-loading',
@@ -135,11 +135,11 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       };
       setMessages(prev => [...prev, loadingMessage]);
       setIsLoading(true);
-      
+
       try {
         // Summarize the conversation
         const summary = await summarizeImportedConversation(importedMessages);
-        
+
         // Remove loading message and add the summary response
         setMessages(prev => {
           const filtered = prev.filter(m => m.id !== 'import-loading');
@@ -153,7 +153,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
             }
           ];
         });
-        
+
         addToast({
           type: 'success',
           title: 'Imported',
@@ -242,15 +242,15 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
           const titlePrompt = [
             { role: 'user', content: `Summarize this conversation start into a 3-5 word title. Reply ONLY with the title text.\n\nUser: ${messages[0].content}\nAssistant: ${messages[1].content}` } as Message
           ];
-          
+
           let title = '';
           if (currentProvider === 'local') {
-             title = await generateText(`Title for: ${messages[0].content}`);
+            title = await generateText(`Title for: ${messages[0].content}`);
           } else {
-             const result = await ChatService.sendMessage(titlePrompt, undefined, currentProvider);
-             title = result.content.replace(/^["']|["']$/g, '').trim();
+            const result = await ChatService.sendMessage(titlePrompt, undefined, currentProvider);
+            title = result.content.replace(/^["']|["']$/g, '').trim();
           }
-          
+
           if (title) {
             setConversationTitle(title);
           }
@@ -264,7 +264,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
   // AI Processing Loop (ReAct Pattern)
   const generateResponse = useCallback(async (
-    currentMessages: Message[], 
+    currentMessages: Message[],
     assistantMessageId: string,
     recursionDepth = 0
   ) => {
@@ -288,8 +288,8 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         )
       );
       setNodeMap(prev => ({
-          ...prev,
-          [assistantMessageId]: { ...prev[assistantMessageId], content: text }
+        ...prev,
+        [assistantMessageId]: { ...prev[assistantMessageId], content: text }
       }));
     };
 
@@ -298,14 +298,14 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       if (currentProvider === 'local') {
         let prompt = "";
         if (settings.agentMode) {
-            prompt = "System: You are Junas, a Singapore legal AI. You can use tools by replying ONLY with COMMAND: tool-id args. Available tools: web-search (for online info), fetch-url (for websites), extract-entities (for legal names), summarize-local (for summaries). If you need to search the web, use COMMAND: web-search query.\n\n";
+          prompt = "System: You are Junas, a Singapore legal AI. You can use tools by replying ONLY with COMMAND: tool-id args. Available tools: web-search (for online info), fetch-url (for websites), extract-entities (for legal names), summarize-local (for summaries). If you need to search the web, use COMMAND: web-search query.\n\n";
         }
-        
+
         prompt += currentMessages
           .slice(-6)
           .map(m => `${m.role === 'user' ? 'User' : m.role === 'system' ? 'System' : 'Assistant'}: ${m.content}`)
           .join('\n') + '\nAssistant:';
-        
+
         aiResponseText = await generateText(prompt);
         updateMessageContent(aiResponseText);
       } else {
@@ -321,7 +321,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
           },
           currentProvider
         );
-        
+
         if (rafId) cancelAnimationFrame(rafId);
         updateMessageContent(result.content);
         aiResponseText = result.content;
@@ -329,20 +329,20 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
       // 2. Check for Tool Commands
       const commandMatch = aiResponseText.match(/^COMMAND:\s*([a-z-]+)\s*([\s\S]*)/i);
-      
+
       if (commandMatch) {
         const commandId = commandMatch[1].toLowerCase() as any;
         const args = commandMatch[2].trim();
-        
+
         // Check for destructive commands requiring confirmation
         if (['generate-document', 'write-file', 'delete-file'].includes(commandId)) {
           const approved = await requestConfirmation(
             "Execute Tool?",
             `The AI wants to run '${commandId}'. This action might modify or create files.`
           );
-          
+
           if (!approved) {
-             const updatedMessages = [
+            const updatedMessages = [
               ...currentMessages,
               { role: 'assistant', content: aiResponseText } as Message,
               { role: 'system', content: `Tool Execution Denied: User cancelled execution of ${commandId}.` } as Message
@@ -357,7 +357,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
         let toolResultContent = "";
         const syncResult = processLocalCommand(toolCommand);
-        
+
         if (syncResult.success && syncResult.artifact) {
           const newArtifact: Artifact = {
             id: generateId(),
@@ -373,10 +373,10 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         }
 
         if (syncResult.content === '__ASYNC_MODEL_COMMAND__') {
-           const asyncResult = await processAsyncLocalCommand(toolCommand);
-           toolResultContent = asyncResult.success ? asyncResult.content : `Tool Error: ${asyncResult.content}`;
+          const asyncResult = await processAsyncLocalCommand(toolCommand);
+          toolResultContent = asyncResult.success ? asyncResult.content : `Tool Error: ${asyncResult.content}`;
         } else {
-           toolResultContent = syncResult.success ? syncResult.content : `Tool Error: ${syncResult.content}`;
+          toolResultContent = syncResult.success ? syncResult.content : `Tool Error: ${syncResult.content}`;
         }
 
         // 3. Feed result back to AI
@@ -400,8 +400,16 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
   const handleSendMessage = useCallback(async (content: string) => {
     if (!content.trim()) return;
 
+    // Resolve chained commands (e.g. /summarize (/fetch-url ...))
+    // We do this before determining if it is a command or simple message
+    // Note: importing resolveCommandString dynamically to ensure no circular deps if any, 
+    // although it is imported at top level in my plan, but let's be safe or just use the one from imports if I added it.
+    // I need to add import to the top of file too.
+    const { resolveCommandString } = await import('@/lib/commands/command-processor');
+    const resolvedContent = await resolveCommandString(content);
+
     // Check if this is a local command (legacy direct command)
-    const parsedCommand = parseCommand(content);
+    const parsedCommand = parseCommand(resolvedContent);
 
     // For user message display, don't add context prefix to local commands
     let displayContent = content;
@@ -535,11 +543,11 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     try {
       const allMessages = [...messages, userMessage];
       const finalResponse = await generateResponse(allMessages, assistantMessage.id);
-      
+
       const responseTime = Date.now() - startTime;
       const tokens = estimateTokens(finalResponse);
       const cost = estimateCost(tokens, currentProvider, '', 'output');
-      
+
       setMessages(prev =>
         prev.map(msg =>
           msg.id === assistantMessage.id
@@ -548,14 +556,14 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         )
       );
       setNodeMap(prev => ({
-          ...prev,
-          [assistantMessage.id]: { 
-              ...prev[assistantMessage.id], 
-              content: finalResponse, 
-              responseTime, 
-              tokenCount: tokens, 
-              cost 
-          }
+        ...prev,
+        [assistantMessage.id]: {
+          ...prev[assistantMessage.id],
+          content: finalResponse,
+          responseTime,
+          tokenCount: tokens,
+          cost
+        }
       }));
     } catch (error: any) {
       setMessages(prev =>
@@ -582,10 +590,10 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     // Get context up to this message (excluding the message itself)
     const contextMessages = messages.slice(0, messageIndex);
     const parentId = msgToRegenerate.parentId;
-    
+
     // Reset state to this point
     setIsLoading(true);
-    
+
     // Create new assistant message placeholder (sibling)
     const newAssistantMessage: Message = {
       id: generateId(),
@@ -607,7 +615,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
     try {
       const finalResponse = await generateResponse(contextMessages, newAssistantMessage.id);
-      
+
       const responseTime = Date.now() - startTime;
       const tokens = estimateTokens(finalResponse);
       const cost = estimateCost(tokens, currentProvider, '', 'output');
@@ -620,14 +628,14 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         )
       );
       setNodeMap(prev => ({
-          ...prev,
-          [newAssistantMessage.id]: { 
-              ...prev[newAssistantMessage.id], 
-              content: finalResponse, 
-              responseTime, 
-              tokenCount: tokens, 
-              cost 
-          }
+        ...prev,
+        [newAssistantMessage.id]: {
+          ...prev[newAssistantMessage.id],
+          content: finalResponse,
+          responseTime,
+          tokenCount: tokens,
+          cost
+        }
       }));
     } catch (error: any) {
       setMessages(prev =>
@@ -645,99 +653,99 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
   const handleEditMessage = useCallback(async (messageId: string, newContent: string) => {
     const originalMessage = nodeMap[messageId];
     if (!originalMessage) return;
-    
+
     const parentId = originalMessage.parentId;
-    
+
     // Create new sibling
     const newMessage: Message = {
-        ...originalMessage,
-        id: generateId(),
-        content: newContent,
-        timestamp: new Date(),
-        tokenCount: estimateTokens(newContent),
-        cost: estimateCost(estimateTokens(newContent), currentProvider, '', 'input'),
+      ...originalMessage,
+      id: generateId(),
+      content: newContent,
+      timestamp: new Date(),
+      tokenCount: estimateTokens(newContent),
+      cost: estimateCost(estimateTokens(newContent), currentProvider, '', 'input'),
     };
-    
+
     // Update tree
     const nextNodeMap = addChild(nodeMap, parentId || '', newMessage);
     setNodeMap(nextNodeMap);
     setCurrentLeafId(newMessage.id);
-    
+
     // Calculate context for AI
     const history = getLinearHistory(nextNodeMap, newMessage.id);
     setMessages(history);
-    
+
     setIsLoading(true);
     const startTime = Date.now();
-    
+
     // Create assistant placeholder
     const assistantMessage: Message = {
-        id: generateId(),
-        role: 'assistant',
-        content: '',
-        timestamp: new Date(),
-        parentId: newMessage.id
+      id: generateId(),
+      role: 'assistant',
+      content: '',
+      timestamp: new Date(),
+      parentId: newMessage.id
     };
-    
+
     const afterAssistantMap = addChild(nextNodeMap, newMessage.id, assistantMessage);
     setNodeMap(afterAssistantMap);
     setCurrentLeafId(assistantMessage.id);
     setMessages([...history, assistantMessage]);
-    
+
     try {
-        const finalResponse = await generateResponse(history, assistantMessage.id);
-        const responseTime = Date.now() - startTime;
-        const tokens = estimateTokens(finalResponse);
-        const cost = estimateCost(tokens, currentProvider, '', 'output');
+      const finalResponse = await generateResponse(history, assistantMessage.id);
+      const responseTime = Date.now() - startTime;
+      const tokens = estimateTokens(finalResponse);
+      const cost = estimateCost(tokens, currentProvider, '', 'output');
 
-        const finalAssistant = { 
-            ...assistantMessage, 
-            content: finalResponse, 
-            responseTime, 
-            tokenCount: tokens, 
-            cost 
-        };
+      const finalAssistant = {
+        ...assistantMessage,
+        content: finalResponse,
+        responseTime,
+        tokenCount: tokens,
+        cost
+      };
 
-        setMessages(prev => prev.map(m => m.id === assistantMessage.id ? finalAssistant : m));
-        setNodeMap(prev => ({ ...prev, [assistantMessage.id]: finalAssistant }));
+      setMessages(prev => prev.map(m => m.id === assistantMessage.id ? finalAssistant : m));
+      setNodeMap(prev => ({ ...prev, [assistantMessage.id]: finalAssistant }));
     } catch (e: any) {
-        setMessages(prev => prev.map(m => m.id === assistantMessage.id ? { ...m, content: `Error: ${e.message}` } : m));
+      setMessages(prev => prev.map(m => m.id === assistantMessage.id ? { ...m, content: `Error: ${e.message}` } : m));
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
   }, [nodeMap, currentProvider, generateResponse]);
 
   const handleBranchSwitch = useCallback((messageId: string, direction: 'prev' | 'next') => {
-      const siblings = getBranchSiblings(nodeMap, messageId);
-      const currentIndex = siblings.indexOf(messageId);
-      
-      let nextId = messageId;
-      if (direction === 'prev' && currentIndex > 0) {
-          nextId = siblings[currentIndex - 1];
-      } else if (direction === 'next' && currentIndex < siblings.length - 1) {
-          nextId = siblings[currentIndex + 1];
+    const siblings = getBranchSiblings(nodeMap, messageId);
+    const currentIndex = siblings.indexOf(messageId);
+
+    let nextId = messageId;
+    if (direction === 'prev' && currentIndex > 0) {
+      nextId = siblings[currentIndex - 1];
+    } else if (direction === 'next' && currentIndex < siblings.length - 1) {
+      nextId = siblings[currentIndex + 1];
+    }
+
+    if (nextId !== messageId) {
+      // Find the latest leaf for this branch
+      let leaf = nextId;
+      while (true) {
+        const node = nodeMap[leaf];
+        if (!node?.childrenIds || node.childrenIds.length === 0) break;
+        leaf = node.childrenIds[node.childrenIds.length - 1];
       }
-      
-      if (nextId !== messageId) {
-          // Find the latest leaf for this branch
-          let leaf = nextId;
-          while(true) {
-              const node = nodeMap[leaf];
-              if (!node?.childrenIds || node.childrenIds.length === 0) break;
-              leaf = node.childrenIds[node.childrenIds.length - 1];
-          }
-          
-          setCurrentLeafId(leaf);
-          setMessages(getLinearHistory(nodeMap, leaf));
-      }
+
+      setCurrentLeafId(leaf);
+      setMessages(getLinearHistory(nodeMap, leaf));
+    }
   }, [nodeMap]);
 
   const handleSelectNode = useCallback((nodeId: string) => {
-      if (nodeMap[nodeId]) {
-          setCurrentLeafId(nodeId);
-          setMessages(getLinearHistory(nodeMap, nodeId));
-          setActiveTab('chat');
-      }
+    if (nodeMap[nodeId]) {
+      setCurrentLeafId(nodeId);
+      setMessages(getLinearHistory(nodeMap, nodeId));
+      setActiveTab('chat');
+    }
   }, [nodeMap, setActiveTab]);
 
 
@@ -810,112 +818,112 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     <div className="flex flex-col h-full w-full">
       {/* Tab Header */}
       <div className="flex items-center border-b px-4 h-10 shrink-0 gap-4">
-        <button 
-            onClick={() => setActiveTab('chat')}
-            className={cn(
-                "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2",
-                activeTab === 'chat' 
-                    ? "border-primary text-foreground"
-                    : "border-transparent text-muted-foreground hover:text-foreground"
-            )}
+        <button
+          onClick={() => setActiveTab('chat')}
+          className={cn(
+            "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2",
+            activeTab === 'chat'
+              ? "border-primary text-foreground"
+              : "border-transparent text-muted-foreground hover:text-foreground"
+          )}
         >
-            <MessageSquare className="h-3 w-3" />
-            CHAT
+          <MessageSquare className="h-3 w-3" />
+          CHAT
         </button>
-        <button 
-            onClick={() => setActiveTab('artifacts')}
-            className={cn(
-                "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2",
-                activeTab === 'artifacts' 
-                    ? "border-primary text-foreground"
-                    : "border-transparent text-muted-foreground hover:text-foreground"
-            )}
+        <button
+          onClick={() => setActiveTab('artifacts')}
+          className={cn(
+            "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2",
+            activeTab === 'artifacts'
+              ? "border-primary text-foreground"
+              : "border-transparent text-muted-foreground hover:text-foreground"
+          )}
         >
-            <FileText className="h-3 w-3" />
-            ARTIFACTS {artifacts.length > 0 && `(${artifacts.length})`}
+          <FileText className="h-3 w-3" />
+          ARTIFACTS {artifacts.length > 0 && `(${artifacts.length})`}
         </button>
-        <button 
-            onClick={() => setActiveTab('tree')}
-            className={cn(
-                "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2",
-                activeTab === 'tree' 
-                    ? "border-primary text-foreground"
-                    : "border-transparent text-muted-foreground hover:text-foreground"
-            )}
+        <button
+          onClick={() => setActiveTab('tree')}
+          className={cn(
+            "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2",
+            activeTab === 'tree'
+              ? "border-primary text-foreground"
+              : "border-transparent text-muted-foreground hover:text-foreground"
+          )}
         >
-            <GitGraph className="h-3 w-3" />
-            CONVERSATION TREE
+          <GitGraph className="h-3 w-3" />
+          CONVERSATION TREE
         </button>
 
         {totalTokens > 0 && (
-           <div className="ml-auto flex items-center gap-3 text-[10px] text-muted-foreground font-mono">
-              <span>{totalTokens.toLocaleString()} tokens</span>
-              {totalCost > 0 && <span>${totalCost.toFixed(4)}</span>}
-           </div>
+          <div className="ml-auto flex items-center gap-3 text-[10px] text-muted-foreground font-mono">
+            <span>{totalTokens.toLocaleString()} tokens</span>
+            {totalCost > 0 && <span>${totalCost.toFixed(4)}</span>}
+          </div>
         )}
       </div>
 
       {/* Messages area */}
       <div className="flex-1 overflow-hidden relative">
-        <div 
+        <div
           className={cn("h-full flex flex-col", activeTab === 'chat' ? "flex" : "hidden")}
         >
-        {messages.length === 0 ? (
-          <div className="flex items-center justify-center h-full px-4 py-8">
-            <div className="text-center max-w-2xl w-full">
-              <div className="overflow-x-auto my-8">
-                <pre className="text-muted-foreground text-xs md:text-sm font-mono leading-tight inline-block">
-                  {JUNAS_ASCII_LOGO.split('\n').map((line, i) => (
-                    <div 
-                      key={i} 
-                      className="animate-chunk-jiggle" 
-                      style={{ animationDelay: `${i * 0.15}s` }}
-                    >
-                      {line}
-                    </div>
-                  ))}
-                </pre>
+          {messages.length === 0 ? (
+            <div className="flex items-center justify-center h-full px-4 py-8">
+              <div className="text-center max-w-2xl w-full">
+                <div className="overflow-x-auto my-8">
+                  <pre className="text-muted-foreground text-xs md:text-sm font-mono leading-tight inline-block">
+                    {JUNAS_ASCII_LOGO.split('\n').map((line, i) => (
+                      <div
+                        key={i}
+                        className="animate-chunk-jiggle"
+                        style={{ animationDelay: `${i * 0.15}s` }}
+                      >
+                        {line}
+                      </div>
+                    ))}
+                  </pre>
+                </div>
+                <p className="text-xs text-muted-foreground font-mono mt-6">v2.0.0</p>
               </div>
-              <p className="text-xs text-muted-foreground font-mono mt-6">v2.0.0</p>
             </div>
-          </div>
-        ) : (
-          <MessageList
-            messages={messages}
-            nodeMap={nodeMap}
-            isLoading={isLoading}
-            onCopyMessage={handleCopyMessage}
-            onRegenerateMessage={handleRegenerateMessage}
-            onEditMessage={handleEditMessage}
-            onBranchSwitch={handleBranchSwitch}
-          />
-        )}
-        </div>
-        
-        <div 
-          className={cn("h-full bg-background", activeTab === 'artifacts' ? "block" : "hidden")}
-        >
-            <ArtifactsTab artifacts={artifacts} />
+          ) : (
+            <MessageList
+              messages={messages}
+              nodeMap={nodeMap}
+              isLoading={isLoading}
+              onCopyMessage={handleCopyMessage}
+              onRegenerateMessage={handleRegenerateMessage}
+              onEditMessage={handleEditMessage}
+              onBranchSwitch={handleBranchSwitch}
+            />
+          )}
         </div>
 
-        <div 
+        <div
+          className={cn("h-full bg-background", activeTab === 'artifacts' ? "block" : "hidden")}
+        >
+          <ArtifactsTab artifacts={artifacts} />
+        </div>
+
+        <div
           className={cn("h-full bg-background", activeTab === 'tree' ? "block" : "hidden")}
         >
-            <TreeView 
-                nodeMap={nodeMap}
-                currentLeafId={currentLeafId}
-                onSelectNode={handleSelectNode}
-            />
+          <TreeView
+            nodeMap={nodeMap}
+            currentLeafId={currentLeafId}
+            onSelectNode={handleSelectNode}
+          />
         </div>
       </div>
 
       {/* Input area */}
       <div className={cn("transition-all duration-200", (activeTab === 'artifacts' || activeTab === 'tree') ? "opacity-50 pointer-events-none" : "opacity-100")}>
         <MessageInput
-            onSendMessage={handleSendMessage}
-            isLoading={isLoading}
-            currentProvider={currentProvider}
-            onProviderChange={setCurrentProvider}
+          onSendMessage={handleSendMessage}
+          isLoading={isLoading}
+          currentProvider={currentProvider}
+          onProviderChange={setCurrentProvider}
         />
       </div>
 

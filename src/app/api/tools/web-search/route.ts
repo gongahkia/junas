@@ -12,6 +12,38 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Check if the query is a URL
+    const isUrl = /^(https?:\/\/[^\s]+)$/.test(query);
+
+    if (isUrl) {
+      // Use the curl implementation (fetch-url behavior)
+      try {
+        // We can reuse the same logic as the fetch-url tool endpoint if available, but here we just fetch.
+        // Or we can invoke the fetch-url logic. For now, simple fetch.
+        const res = await fetch(query);
+        const text = await res.text();
+
+        return NextResponse.json({
+          results: [{
+            title: `Content from ${query}`,
+            link: query,
+            snippet: text.substring(0, 300) + '...', // Preview
+            fullContent: text, // The client might need this if it expects a "curl" result
+            isDirectUrl: true
+          }]
+        });
+      } catch (e: any) {
+        return NextResponse.json({
+          results: [{
+            title: `Failed to fetch ${query}`,
+            link: query,
+            snippet: `Error fetching URL: ${e.message}`,
+            error: true
+          }]
+        });
+      }
+    }
+
     // This is a placeholder for a real search API (e.g., Serper, Tavily, Google Custom Search)
     // Since we don't have a key, we'll simulate results or use a free/public service if available.
     // For now, we'll provide a mock implementation that suggests using a real API.

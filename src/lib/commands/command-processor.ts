@@ -323,3 +323,50 @@ export function isLocalCommand(commandId: string): boolean {
   const command = COMMANDS.find(c => c.id === commandId);
   return command?.isLocal ?? false;
 }
+
+/**
+ * Recursively resolve nested commands in a string.
+ * Pattern: (/command args)
+ * Replaces the pattern with the output of the command.
+ */
+export async function resolveCommandString(text: string): Promise<string> {
+  const commandPattern = /\(\s*\/([\w-]+)(?:\s+([^)]*))?\s*\)/;
+  let currentText = text;
+  let match = currentText.match(commandPattern);
+  let depth = 0;
+  const MAX_DEPTH = 5; // Prevent infinite loops
+
+  while (match && depth < MAX_DEPTH) {
+    const fullMatch = match[0];
+    const commandId = match[1] as CommandType;
+    const args = match[2] || '';
+
+    // Process the inner command
+    const commandData: ProcessedCommand = {
+      command: commandId,
+      args: args.trim(),
+      isLocal: isLocalCommand(commandId)
+    };
+
+    let result = "";
+
+    // Try sync processing first
+    const syncResult = processLocalCommand(commandData);
+
+    if (syncResult.content === '__ASYNC_MODEL_COMMAND__') {
+      const asyncResult = await processAsyncLocalCommand(commandData);
+      result = asyncResult.success ? asyncResult.content : `[Error: ${asyncResult.content}]`;
+    } else {
+      result = syncResult.success ? syncResult.content : `[Error: ${syncResult.content}]`;
+    }
+
+    // Replace the matched pattern with the result
+    currentText = currentText.replace(fullMatch, result);
+
+    // Find next match
+    match = currentText.match(commandPattern);
+    depth++;
+  }
+
+  return currentText;
+}

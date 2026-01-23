@@ -29,9 +29,9 @@ export function parseToml(toml: string): Record<string, any> {
       // Handle strings
       if (valueStr.startsWith('"') && valueStr.endsWith('"')) {
         value = valueStr.slice(1, -1);
-      } else if (valueStr.startsWith("'" ) && valueStr.endsWith("'" )) {
+      } else if (valueStr.startsWith("'") && valueStr.endsWith("'")) {
         value = valueStr.slice(1, -1);
-      } 
+      }
       // Handle booleans
       else if (valueStr === 'true') value = true;
       else if (valueStr === 'false') value = false;
@@ -46,36 +46,48 @@ export function parseToml(toml: string): Record<string, any> {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function stringifyToml(data: Record<string, any>): string {
-  let toml = '';
+  let toml = '# JUNAS CONFIGURATION FILE\n# Edit this file to configure your assistant settings.\n\n';
   const sections: string[] = [];
+  const topLevel: string[] = [];
 
-  // Top level
+  // Separate keys into top-level and sections
   for (const [key, value] of Object.entries(data)) {
     if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
       sections.push(key);
-      continue;
+    } else {
+      if (!Array.isArray(value)) {
+        topLevel.push(key);
+      }
     }
-    if (Array.isArray(value)) continue; // Skip arrays for now (snippets/profiles) or handle simplified
-
-    let valStr = String(value);
-    if (typeof value === 'string') {
-        // Simple escaping
-        valStr = `"${value.replace(/"/g, '\"').replace(/\n/g, '\\n')}"`;
-    }
-    toml += `${key} = ${valStr}\n`;
   }
 
-  // Sections
+  // Write top level keys
+  if (topLevel.length > 0) {
+    toml += '# --- Global Settings ---\n';
+    for (const key of topLevel) {
+      const value = data[key];
+      let valStr = String(value);
+      if (typeof value === 'string') {
+        valStr = `"${value.replace(/"/g, '\"').replace(/\n/g, '\\n')}"`;
+      }
+      toml += `${key} = ${valStr}\n`;
+    }
+    toml += '\n';
+  }
+
+  // Write sections
   for (const section of sections) {
-    toml += `\n[${section}]\n`;
+    toml += `# --- ${section.charAt(0).toUpperCase() + section.slice(1)} Settings ---\n`;
+    toml += `[${section}]\n`;
     const sectionData = data[section];
     for (const [key, value] of Object.entries(sectionData)) {
-       let valStr = String(value);
-       if (typeof value === 'string') {
-           valStr = `"${value.replace(/"/g, '\"').replace(/\n/g, '\\n')}"`;
-       }
-       toml += `${key} = ${valStr}\n`;
+      let valStr = String(value);
+      if (typeof value === 'string') {
+        valStr = `"${value.replace(/"/g, '\"').replace(/\n/g, '\\n')}"`;
+      }
+      toml += `${key} = ${valStr}\n`;
     }
+    toml += '\n';
   }
 
   return toml;

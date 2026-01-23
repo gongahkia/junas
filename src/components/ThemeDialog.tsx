@@ -9,13 +9,14 @@ import {
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from '@/components/ui/select';
 import { StorageManager } from '@/lib/storage';
 import { Moon, Sun, Minimize, Palette } from 'lucide-react';
 
@@ -40,23 +41,23 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
 
   const handleSaveTheme = (isDark: boolean) => {
     setDarkMode(isDark);
-    
+
     // Save settings
     const settings = StorageManager.getSettings();
     StorageManager.saveSettings({
       ...settings,
       darkMode: isDark,
     });
-    
+
     // Dispatch theme change event (handled by page.tsx)
-    window.dispatchEvent(new CustomEvent('junas-theme-change', { 
-      detail: { darkMode: isDark, theme: theme } 
+    window.dispatchEvent(new CustomEvent('junas-theme-change', {
+      detail: { darkMode: isDark, theme: theme }
     }));
   };
 
   const handleSaveFocusMode = (isFocus: boolean) => {
     setFocusMode(isFocus);
-    
+
     // Save settings
     const settings = StorageManager.getSettings();
     StorageManager.saveSettings({
@@ -67,17 +68,17 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
 
   const handleThemeChange = (value: string) => {
     setTheme(value);
-    
+
     // Save settings
     const settings = StorageManager.getSettings();
     StorageManager.saveSettings({
       ...settings,
       theme: value as any,
     });
-    
+
     // Dispatch theme change event
-    window.dispatchEvent(new CustomEvent('junas-theme-change', { 
-      detail: { darkMode, theme: value } 
+    window.dispatchEvent(new CustomEvent('junas-theme-change', {
+      detail: { darkMode, theme: value }
     }));
   };
 
@@ -106,7 +107,7 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
           </div>
 
           <div className="flex items-center justify-between border-t pt-4 border-muted-foreground/10">
-             <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3">
               <div className="space-y-0.5">
                 <Label htmlFor="theme" className="text-sm font-medium">Color Theme</Label>
                 <p className="text-[10px] text-muted-foreground">
@@ -114,7 +115,13 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
                 </p>
               </div>
             </div>
-            <Select value={theme} onValueChange={handleThemeChange}>
+            <Input
+              value={theme}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleThemeChange(e.target.value)}
+              className="w-[140px] h-8 text-xs font-mono"
+              placeholder="vanilla"
+            />
+            {/* <Select value={theme} onValueChange={handleThemeChange}>
               <SelectTrigger className="w-[140px] h-8 text-xs">
                 <SelectValue placeholder="Select theme" />
               </SelectTrigger>
@@ -128,7 +135,7 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
                 <SelectItem value="rose-pine">Rose Pine</SelectItem>
                 <SelectItem value="kanagawa">Kanagawa</SelectItem>
               </SelectContent>
-            </Select>
+            </Select> */}
           </div>
 
           <div className="flex items-center justify-between border-t pt-4 border-muted-foreground/10">
