@@ -216,19 +216,19 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
   // Save messages to storage whenever they change
   useEffect(() => {
     if (messages.length > 0 || artifacts.length > 0) {
-      StorageManager.saveChatState({
+      updateChatState({
         messages,
         nodeMap,
         currentLeafId,
         artifacts,
         isLoading,
         currentProvider,
-        settings: StorageManager.getSettings(),
+        settings,
       });
       setHasMessages(messages.length > 0);
 
       // Save to conversations history
-      StorageManager.saveConversation({
+      saveConversation({
         id: conversationId,
         title: conversationTitle || messages[0]?.content?.substring(0, 40) + (messages[0]?.content?.length > 40 ? '...' : '') || 'New Conversation',
         messages,
@@ -239,7 +239,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         updatedAt: new Date(),
       });
     }
-  }, [messages, artifacts, isLoading, currentProvider, conversationId, conversationTitle, nodeMap, currentLeafId]);
+  }, [messages, artifacts, isLoading, currentProvider, conversationId, conversationTitle, nodeMap, currentLeafId, settings, updateChatState, saveConversation]);
 
   // Generate a title for the conversation after first exchange
   useEffect(() => {
