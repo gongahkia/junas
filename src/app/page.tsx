@@ -43,6 +43,22 @@ export default function Home() {
     setFocusMode(settings.focusMode);
 
     const checkMessages = () => {
+      // Apply theme and dark mode on load
+      const settings = StorageManager.getSettings();
+      const isDark = settings.darkMode;
+      const theme = settings.theme || 'vanilla';
+      
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+
+      // Apply theme data attribute
+      document.documentElement.setAttribute('data-theme', theme);
+
+      setFocusMode(settings.focusMode);
+
       const chatState = StorageManager.getChatState();
       const messages = chatState?.messages || [];
       setHasMessages(messages.length > 0);
@@ -56,11 +72,16 @@ export default function Home() {
 
     // Listen for theme and settings changes
     const handleThemeChange = (e: CustomEvent) => {
-      const isDark = e.detail.darkMode;
+      const { darkMode: isDark, theme } = e.detail;
+      
       if (isDark) {
         document.documentElement.classList.add('dark');
       } else {
         document.documentElement.classList.remove('dark');
+      }
+      
+      if (theme) {
+        document.documentElement.setAttribute('data-theme', theme);
       }
     };
 

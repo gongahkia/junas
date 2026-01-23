@@ -102,6 +102,7 @@ export interface ChatSettings {
   profiles?: ContextProfile[];
   activeProfileId?: string;
   snippets?: Snippet[];
+  theme?: 'vanilla' | 'gruvbox' | 'everforest' | 'tokyo-night';
 }
 
 export type DiagramRenderer = 'mermaid' | 'plantuml' | 'graphviz' | 'd2';

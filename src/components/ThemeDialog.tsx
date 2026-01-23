@@ -9,8 +9,15 @@ import {
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { StorageManager } from '@/lib/storage';
-import { Moon, Sun, Minimize } from 'lucide-react';
+import { Moon, Sun, Minimize, Palette } from 'lucide-react';
 
 interface ThemeDialogProps {
   isOpen: boolean;
@@ -20,12 +27,14 @@ interface ThemeDialogProps {
 export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
   const [darkMode, setDarkMode] = useState(false);
   const [focusMode, setFocusMode] = useState(false);
+  const [theme, setTheme] = useState('vanilla');
 
   useEffect(() => {
     if (isOpen) {
       const settings = StorageManager.getSettings();
       setDarkMode(settings.darkMode || false);
       setFocusMode(settings.focusMode || false);
+      setTheme(settings.theme || 'vanilla');
     }
   }, [isOpen]);
 
@@ -39,9 +48,9 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
       darkMode: isDark,
     });
     
-    // Dispatch theme change event
+    // Dispatch theme change event (handled by page.tsx)
     window.dispatchEvent(new CustomEvent('junas-theme-change', { 
-      detail: { darkMode: isDark } 
+      detail: { darkMode: isDark, theme: theme } 
     }));
   };
 
@@ -54,6 +63,22 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
       ...settings,
       focusMode: isFocus,
     });
+  };
+
+  const handleThemeChange = (value: string) => {
+    setTheme(value);
+    
+    // Save settings
+    const settings = StorageManager.getSettings();
+    StorageManager.saveSettings({
+      ...settings,
+      theme: value as any,
+    });
+    
+    // Dispatch theme change event
+    window.dispatchEvent(new CustomEvent('junas-theme-change', { 
+      detail: { darkMode, theme: value } 
+    }));
   };
 
   return (
@@ -81,6 +106,31 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
               checked={darkMode}
               onCheckedChange={handleSaveTheme}
             />
+          </div>
+
+          <div className="flex items-center justify-between border-t pt-4 border-muted-foreground/10">
+             <div className="flex items-center gap-3">
+              <div className="p-2 rounded-full bg-muted text-muted-foreground">
+                <Palette className="h-4 w-4" />
+              </div>
+              <div className="space-y-0.5">
+                <Label htmlFor="theme" className="text-sm font-medium">Color Theme</Label>
+                <p className="text-[10px] text-muted-foreground">
+                  Select color palette
+                </p>
+              </div>
+            </div>
+            <Select value={theme} onValueChange={handleThemeChange}>
+              <SelectTrigger className="w-[140px] h-8 text-xs">
+                <SelectValue placeholder="Select theme" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="vanilla">Vanilla (B&W)</SelectItem>
+                <SelectItem value="gruvbox">Gruvbox</SelectItem>
+                <SelectItem value="everforest">Everforest</SelectItem>
+                <SelectItem value="tokyo-night">Tokyo Night</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="flex items-center justify-between border-t pt-4 border-muted-foreground/10">

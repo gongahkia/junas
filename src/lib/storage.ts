@@ -99,6 +99,7 @@ export class StorageManager {
       darkMode: false,
       agentMode: false,
       focusMode: false,
+      theme: 'vanilla',
       profiles: [],
       activeProfileId: undefined,
       snippets: [],
