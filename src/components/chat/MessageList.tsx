@@ -4,14 +4,14 @@ import { useEffect, useRef, memo, useState } from 'react';
 import { Message } from '@/types/chat';
 import { FileText, ChevronLeft, ChevronRight, Edit2 } from 'lucide-react';
 import { StorageManager } from '@/lib/storage';
-import { MermaidDiagram } from './MermaidDiagram';
-import { ThinkingIndicator } from './ThinkingIndicator';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeKatex from 'rehype-katex';
-import remarkMath from 'remark-math';
+import dynamic from 'next/dynamic';
 import { getBranchSiblings } from '@/lib/chat-tree';
-import 'katex/dist/katex.min.css';
+import { ThinkingIndicator } from './ThinkingIndicator';
+
+const MarkdownRenderer = dynamic(() => import('./MarkdownRenderer'), {
+  loading: () => <div className="h-4 w-full animate-pulse bg-muted rounded" />,
+  ssr: false
+});
 
 interface MessageListProps {
   messages: Message[];
@@ -50,10 +50,10 @@ const MessageItemComponent = ({
   const totalSiblings = siblings.length;
 
   const handleSaveEdit = () => {
-      if (editContent.trim() !== message.content) {
-          onEditMessage?.(message.id, editContent);
-      }
-      setIsEditing(false);
+    if (editContent.trim() !== message.content) {
+      onEditMessage?.(message.id, editContent);
+    }
+    setIsEditing(false);
   };
 
   return (
@@ -61,33 +61,32 @@ const MessageItemComponent = ({
       className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in-up group`}
     >
       <div className={`flex w-full md:max-w-[80%] ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start gap-3`}>
-        <div className={`flex-1 border ${
-          message.role === 'user'
-            ? 'bg-primary/5 border-primary/30'
-            : 'bg-muted/20 border-muted-foreground/30'
-        } font-mono relative`}>
+        <div className={`flex-1 border ${message.role === 'user'
+          ? 'bg-primary/5 border-primary/30'
+          : 'bg-muted/20 border-muted-foreground/30'
+          } font-mono relative`}>
           <div className="space-y-3 px-4 py-3">
             {/* Branch Navigation */}
             {totalSiblings > 1 && (
-                <div className={`absolute -top-3 ${message.role === 'user' ? 'right-2' : 'left-2'} flex items-center gap-1 bg-background border rounded-full px-1.5 py-0.5 text-[10px] text-muted-foreground shadow-sm`}>
-                    <button 
-                        onClick={() => onBranchSwitch?.(message.id, 'prev')}
-                        disabled={currentSiblingIndex === 0}
-                        className="hover:text-foreground disabled:opacity-30"
-                    >
-                        <ChevronLeft className="h-3 w-3" />
-                    </button>
-                    <span className="font-mono">
-                        {currentSiblingIndex + 1}/{totalSiblings}
-                    </span>
-                    <button 
-                        onClick={() => onBranchSwitch?.(message.id, 'next')}
-                        disabled={currentSiblingIndex === totalSiblings - 1}
-                        className="hover:text-foreground disabled:opacity-30"
-                    >
-                        <ChevronRight className="h-3 w-3" />
-                    </button>
-                </div>
+              <div className={`absolute -top-3 ${message.role === 'user' ? 'right-2' : 'left-2'} flex items-center gap-1 bg-background border rounded-full px-1.5 py-0.5 text-[10px] text-muted-foreground shadow-sm`}>
+                <button
+                  onClick={() => onBranchSwitch?.(message.id, 'prev')}
+                  disabled={currentSiblingIndex === 0}
+                  className="hover:text-foreground disabled:opacity-30"
+                >
+                  <ChevronLeft className="h-3 w-3" />
+                </button>
+                <span className="font-mono">
+                  {currentSiblingIndex + 1}/{totalSiblings}
+                </span>
+                <button
+                  onClick={() => onBranchSwitch?.(message.id, 'next')}
+                  disabled={currentSiblingIndex === totalSiblings - 1}
+                  className="hover:text-foreground disabled:opacity-30"
+                >
+                  <ChevronRight className="h-3 w-3" />
+                </button>
+              </div>
             )}
 
             {/* Attachments */}
@@ -113,71 +112,23 @@ const MessageItemComponent = ({
             {/* Message content */}
             <div className={`prose prose-sm md:prose-base max-w-none leading-relaxed relative`}>
               {isEditing ? (
-                  <div className="space-y-2">
-                      <textarea 
-                          value={editContent}
-                          onChange={(e) => setEditContent(e.target.value)}
-                          className="w-full min-h-[100px] p-2 text-sm bg-background border rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
-                      />
-                      <div className="flex justify-end gap-2">
-                          <button onClick={() => setIsEditing(false)} className="text-xs px-2 py-1 bg-muted hover:bg-muted/80 rounded">Cancel</button>
-                          <button onClick={handleSaveEdit} className="text-xs px-2 py-1 bg-primary text-primary-foreground hover:bg-primary/90 rounded">Save & Switch Branch</button>
-                      </div>
+                <div className="space-y-2">
+                  <textarea
+                    value={editContent}
+                    onChange={(e) => setEditContent(e.target.value)}
+                    className="w-full min-h-[100px] p-2 text-sm bg-background border rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                  <div className="flex justify-end gap-2">
+                    <button onClick={() => setIsEditing(false)} className="text-xs px-2 py-1 bg-muted hover:bg-muted/80 rounded">Cancel</button>
+                    <button onClick={handleSaveEdit} className="text-xs px-2 py-1 bg-primary text-primary-foreground hover:bg-primary/90 rounded">Save & Switch Branch</button>
                   </div>
+                </div>
               ) : (
-                  message.role === 'assistant' ? (
-                    <ReactMarkdown
-                      remarkPlugins={[remarkGfm, remarkMath]}
-                      rehypePlugins={[rehypeKatex]}
-                      components={{
-                        code: ({ node, className, children, ...props }: any) => {
-                          const match = /language-(\w+)/.exec(className || '');
-                          const inline = !match;
-                          const language = match?.[1];
-
-                          // Handle diagram code blocks - always use Mermaid
-                          const diagramLanguages = ['mermaid', 'diagram', 'plantuml', 'd2', 'graphviz', 'dot'];
-                          if (!inline && language && diagramLanguages.includes(language)) {
-                            const chartCode = String(children).trim();
-                            return <MermaidDiagram chart={chartCode} />;
-                          }
-
-                          return !inline && match ? (
-                            <pre className="bg-muted p-3 rounded-md overflow-x-auto">
-                              <code className={className} {...props}>
-                                {children}
-                              </code>
-                            </pre>
-                          ) : (
-                            <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
-                              {children}
-                            </code>
-                          );
-                        },
-                        table: ({ children }) => (
-                          <div className="overflow-x-auto">
-                            <table className="min-w-full border-collapse border border-border">
-                              {children}
-                            </table>
-                          </div>
-                        ),
-                        th: ({ children }) => (
-                          <th className="border border-border px-3 py-2 bg-muted font-semibold text-left">
-                            {children}
-                          </th>
-                        ),
-                        td: ({ children }) => (
-                          <td className="border border-border px-3 py-2">
-                            {children}
-                          </td>
-                        ),
-                      }}
-                    >
-                      {message.content}
-                    </ReactMarkdown>
-                  ) : (
-                    <p className="whitespace-pre-wrap">{message.content}</p>
-                  )
+                message.role === 'assistant' ? (
+                  <MarkdownRenderer content={message.content} />
+                ) : (
+                  <p className="whitespace-pre-wrap">{message.content}</p>
+                )
               )}
             </div>
 
@@ -202,57 +153,56 @@ const MessageItemComponent = ({
 
             {/* Message actions */}
             {!isEditing && (
-                <div className="flex items-center gap-1 pt-2 -mx-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <div className="flex items-center gap-1 pt-2 -mx-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onCopyMessage(message.content);
+                  }}
+                  className="text-xs px-2 py-1 text-muted-foreground/60 hover:text-foreground hover:bg-muted/30 transition-colors font-mono"
+                  title="Copy message"
+                >
+                  [ Copy ]
+                </button>
+                {message.role === 'assistant' && (
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      onCopyMessage(message.content);
+                      onRegenerateMessage(message.id);
                     }}
                     className="text-xs px-2 py-1 text-muted-foreground/60 hover:text-foreground hover:bg-muted/30 transition-colors font-mono"
-                    title="Copy message"
+                    title="Regenerate response (new branch)"
                   >
-                    [ Copy ]
+                    [ Regenerate ]
                   </button>
-                  {message.role === 'assistant' && (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onRegenerateMessage(message.id);
-                      }}
-                      className="text-xs px-2 py-1 text-muted-foreground/60 hover:text-foreground hover:bg-muted/30 transition-colors font-mono"
-                      title="Regenerate response (new branch)"
-                    >
-                      [ Regenerate ]
-                    </button>
-                  )}
-                  {message.role === 'user' && (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setIsEditing(true);
-                      }}
-                      className="text-xs px-2 py-1 text-muted-foreground/60 hover:text-foreground hover:bg-muted/30 transition-colors font-mono flex items-center gap-1"
-                      title="Edit message (new branch)"
-                    >
-                      <Edit2 className="h-3 w-3" /> [ Edit ]
-                    </button>
-                  )}
-                </div>
+                )}
+                {message.role === 'user' && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsEditing(true);
+                    }}
+                    className="text-xs px-2 py-1 text-muted-foreground/60 hover:text-foreground hover:bg-muted/30 transition-colors font-mono flex items-center gap-1"
+                    title="Edit message (new branch)"
+                  >
+                    <Edit2 className="h-3 w-3" /> [ Edit ]
+                  </button>
+                )}
+              </div>
             )}
 
             {/* Sender label */}
-            <div className={`pt-2 text-[11px] font-medium text-muted-foreground/70 border-t border-muted-foreground/20 mt-3 flex flex-wrap gap-2 items-center ${
-              message.role === 'user' ? 'justify-end' : 'justify-between'
-            }`}>
+            <div className={`pt-2 text-[11px] font-medium text-muted-foreground/70 border-t border-muted-foreground/20 mt-3 flex flex-wrap gap-2 items-center ${message.role === 'user' ? 'justify-end' : 'justify-between'
+              }`}>
               <span>{message.role === 'assistant' ? '> Junas' : `> ${userName}`}</span>
-              
+
               {(message.tokenCount || message.cost || message.responseTime) && (
-                 <span className="flex items-center gap-2 opacity-60 font-mono text-[10px]">
-                   {message.tokenCount && <span>{message.tokenCount.toLocaleString()} tks</span>}
-                   {message.cost !== undefined && message.cost > 0 && <span>${message.cost.toFixed(5)}</span>}
-                   {message.responseTime && <span>{(message.responseTime/1000).toFixed(1)}s</span>}
-                 </span>
-               )}
+                <span className="flex items-center gap-2 opacity-60 font-mono text-[10px]">
+                  {message.tokenCount && <span>{message.tokenCount.toLocaleString()} tks</span>}
+                  {message.cost !== undefined && message.cost > 0 && <span>${message.cost.toFixed(5)}</span>}
+                  {message.responseTime && <span>{(message.responseTime / 1000).toFixed(1)}s</span>}
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -300,7 +250,7 @@ export const MessageList = memo(function MessageList({
   useEffect(() => {
     if (scrollToMessageId && messageRefs.current[scrollToMessageId]) {
       hasScrolledToMessage.current = true;
-      messageRefs.current[scrollToMessageId]?.scrollIntoView({ 
+      messageRefs.current[scrollToMessageId]?.scrollIntoView({
         behavior: 'smooth',
         block: 'center'
       });
