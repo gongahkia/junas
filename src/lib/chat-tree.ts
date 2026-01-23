@@ -5,7 +5,7 @@ export function getLinearHistory(nodeMap: Record<string, Message>, leafId: strin
   let currentId: string | undefined = leafId;
 
   while (currentId && nodeMap[currentId]) {
-    const node = nodeMap[currentId];
+    const node: Message = nodeMap[currentId];
     history.unshift(node);
     currentId = node.parentId;
   }
@@ -43,7 +43,7 @@ export function createTreeFromLinear(messages: Message[]): { nodeMap: Record<str
   let leafId = '';
 
   messages.forEach((msg, index) => {
-    const node = { ...msg, parentId: prevId, childrenIds: [] };
+    const node = { ...msg, parentId: prevId, childrenIds: [] as string[] };
     if (index < messages.length - 1) {
         node.childrenIds = [messages[index + 1].id];
     }

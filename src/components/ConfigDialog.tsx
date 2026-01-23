@@ -61,6 +61,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   // Profile state
   const [userRole, setUserRole] = useState('');
   const [userPurpose, setUserPurpose] = useState('');
+  const [profileSystemPrompt, setProfileSystemPrompt] = useState('');
   const [profiles, setProfiles] = useState<ContextProfile[]>([]);
   const [activeProfileId, setActiveProfileId] = useState<string>('');
   const [profileName, setProfileName] = useState('');
