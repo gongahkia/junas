@@ -14,6 +14,7 @@ interface JunasState {
     updateSettings: (settings: ChatSettings) => void;
     updateChatState: (state: ChatState) => void;
     saveConversation: (conversation: Conversation) => void;
+    deleteConversation: (id: string) => void;
     refreshConfiguredProviders: () => Promise<void>;
 }
 

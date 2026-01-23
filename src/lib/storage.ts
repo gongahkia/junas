@@ -26,7 +26,6 @@ export class StorageManager {
     try {
       if (typeof window === 'undefined') return;
       window.localStorage.setItem(STORAGE_KEYS.CHAT_STATE, JSON.stringify(state));
-      window.dispatchEvent(new Event('junas-chat-state-change'));
     } catch (error) {
       console.error('Error saving chat state:', error);
     }
@@ -35,7 +34,6 @@ export class StorageManager {
   static clearChatState(): void {
     if (typeof window === 'undefined') return;
     window.localStorage.removeItem(STORAGE_KEYS.CHAT_STATE);
-    window.dispatchEvent(new Event('junas-chat-state-change'));
   }
 
   // Settings Management
@@ -74,7 +72,6 @@ export class StorageManager {
     try {
       if (typeof window === 'undefined') return;
       window.localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(settings));
-      window.dispatchEvent(new Event('junas-settings-change'));
     } catch (error) {
       console.error('Error saving settings:', error);
     }

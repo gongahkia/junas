@@ -8,10 +8,10 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { StorageManager } from '@/lib/storage';
 import { searchGlobalConversations, highlightQuery } from '@/lib/search';
 import { Conversation } from '@/types/chat';
 import { MessageSquare, Trash2, Clock, Calendar, Search } from 'lucide-react';
+import { useJunasContext } from '@/lib/context/JunasContext';
 
 interface HistoryDialogProps {
   isOpen: boolean;
@@ -20,38 +20,37 @@ interface HistoryDialogProps {
 }
 
 export function HistoryDialog({ isOpen, onClose, onSelectConversation }: HistoryDialogProps) {
-  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const { conversations, deleteConversation } = useJunasContext();
   const [searchQuery, setSearchQuery] = useState('');
 
+  // No need for useEffect just to load conversations, they come from context
   useEffect(() => {
     if (isOpen) {
-      setConversations(StorageManager.getConversations());
       setSearchQuery(''); // Reset search on open
     }
   }, [isOpen]);
 
   const handleDelete = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    StorageManager.deleteConversation(id);
-    setConversations(StorageManager.getConversations());
+    deleteConversation(id);
   };
 
   const formatDate = (date: any) => {
     try {
-        return new Intl.DateTimeFormat('en-US', {
-            month: 'short',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: '2-digit',
-            hour12: true
-        }).format(new Date(date));
+      return new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      }).format(new Date(date));
     } catch {
-        return 'Unknown date';
+      return 'Unknown date';
     }
   };
 
-  const searchResults = searchQuery 
-    ? searchGlobalConversations(searchQuery, conversations) 
+  const searchResults = searchQuery
+    ? searchGlobalConversations(searchQuery, conversations)
     : [];
 
   return (
@@ -79,7 +78,7 @@ export function HistoryDialog({ isOpen, onClose, onSelectConversation }: History
         <div className="flex-1 overflow-y-auto pr-2 space-y-2 py-2">
           {searchQuery ? (
             searchResults.length === 0 ? (
-               <div className="text-center py-8 text-muted-foreground text-xs">
+              <div className="text-center py-8 text-muted-foreground text-xs">
                 No matching conversations found.
               </div>
             ) : (
@@ -95,27 +94,27 @@ export function HistoryDialog({ isOpen, onClose, onSelectConversation }: History
                   }}
                   className="group relative border border-muted-foreground/20 p-3 cursor-pointer hover:bg-muted/50 transition-colors"
                 >
-                   <h3 className="text-xs font-semibold truncate mb-2 text-primary">
-                      {result.title || 'Untitled Conversation'}
-                    </h3>
-                    
-                    <div className="space-y-2">
-                      {result.results.slice(0, 2).map((match, idx) => (
-                         <div key={idx} className="text-[10px] text-muted-foreground bg-muted/30 p-1.5 rounded border border-muted-foreground/10">
-                            <span className="font-bold uppercase text-[9px] opacity-70 mb-0.5 block">{match.message.role}</span>
-                            <div 
-                              dangerouslySetInnerHTML={{ 
-                                __html: highlightQuery(match.matchedText, searchQuery) 
-                              }} 
-                            />
-                         </div>
-                      ))}
-                      {result.results.length > 2 && (
-                        <div className="text-[9px] text-muted-foreground/70 italic px-1">
-                          +{result.results.length - 2} more matches
-                        </div>
-                      )}
-                    </div>
+                  <h3 className="text-xs font-semibold truncate mb-2 text-primary">
+                    {result.title || 'Untitled Conversation'}
+                  </h3>
+
+                  <div className="space-y-2">
+                    {result.results.slice(0, 2).map((match, idx) => (
+                      <div key={idx} className="text-[10px] text-muted-foreground bg-muted/30 p-1.5 rounded border border-muted-foreground/10">
+                        <span className="font-bold uppercase text-[9px] opacity-70 mb-0.5 block">{match.message.role}</span>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: highlightQuery(match.matchedText, searchQuery)
+                          }}
+                        />
+                      </div>
+                    ))}
+                    {result.results.length > 2 && (
+                      <div className="text-[9px] text-muted-foreground/70 italic px-1">
+                        +{result.results.length - 2} more matches
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))
             )
@@ -165,12 +164,12 @@ export function HistoryDialog({ isOpen, onClose, onSelectConversation }: History
         </div>
 
         <div className="mt-4 pt-4 border-t border-muted-foreground/10 text-center">
-            <button 
-                onClick={onClose}
-                className="text-[10px] text-muted-foreground hover:text-foreground transition-colors"
-            >
-                [ CLOSE ]
-            </button>
+          <button
+            onClick={onClose}
+            className="text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+          >
+            [ CLOSE ]
+          </button>
         </div>
       </DialogContent>
     </Dialog>
