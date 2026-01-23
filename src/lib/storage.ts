@@ -38,44 +38,6 @@ export class StorageManager {
     window.dispatchEvent(new Event('junas-chat-state-change'));
   }
 
-  // API Keys Management
-  static getApiKeys(): Record<string, string> {
-    try {
-      if (typeof window === 'undefined') return {};
-      const stored = window.localStorage.getItem(STORAGE_KEYS.API_KEYS);
-      return stored ? JSON.parse(stored) : {};
-    } catch (error) {
-      console.error('Error loading API keys:', error);
-      return {};
-    }
-  }
-
-  static saveApiKeys(keys: Record<string, string>): void {
-    try {
-      if (typeof window === 'undefined') return;
-      window.localStorage.setItem(STORAGE_KEYS.API_KEYS, JSON.stringify(keys));
-    } catch (error) {
-      console.error('Error saving API keys:', error);
-    }
-  }
-
-  static getApiKey(provider: string): string | null {
-    const keys = this.getApiKeys();
-    return keys[provider] || null;
-  }
-
-  static setApiKey(provider: string, key: string): void {
-    const keys = this.getApiKeys();
-    keys[provider] = key;
-    this.saveApiKeys(keys);
-  }
-
-  static removeApiKey(provider: string): void {
-    const keys = this.getApiKeys();
-    delete keys[provider];
-    this.saveApiKeys(keys);
-  }
-
   // Settings Management
   static getSettings(): ChatSettings {
     try {
@@ -87,7 +49,7 @@ export class StorageManager {
     } catch (error) {
       console.error('Error loading settings:', error);
     }
-    
+
     // Return default settings
     return {
       temperature: 0.7,
@@ -134,18 +96,18 @@ export class StorageManager {
     try {
       const conversations = this.getConversations();
       const index = conversations.findIndex(c => c.id === conversation.id);
-      
+
       if (index !== -1) {
         conversations[index] = conversation;
       } else {
         conversations.unshift(conversation);
       }
-      
+
       // Keep only last 20 conversations to prevent storage bloat
       if (conversations.length > 20) {
         conversations.splice(20);
       }
-      
+
       if (typeof window === 'undefined') return;
       window.localStorage.setItem(STORAGE_KEYS.CONVERSATIONS, JSON.stringify(conversations));
     } catch (error) {
@@ -247,21 +209,21 @@ export class StorageManager {
       conversations: this.getConversations(),
       exportDate: new Date().toISOString(),
     };
-    
+
     return JSON.stringify(data, null, 2);
   }
 
   static importData(jsonData: string): boolean {
     try {
       const data = JSON.parse(jsonData);
-      
+
       if (data.chatState) this.saveChatState(data.chatState);
       if (data.apiKeys) this.saveApiKeys(data.apiKeys);
       if (data.settings) this.saveSettings(data.settings);
       if (data.conversations) {
         localStorage.setItem(STORAGE_KEYS.CONVERSATIONS, JSON.stringify(data.conversations));
       }
-      
+
       return true;
     } catch (error) {
       console.error('Error importing data:', error);
