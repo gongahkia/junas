@@ -192,19 +192,11 @@ export class StorageManager {
   }
 
   // Utility methods
-  static hasApiKey(provider: string): boolean {
-    return !!this.getApiKey(provider);
-  }
-
-  static hasAnyApiKey(): boolean {
-    const keys = this.getApiKeys();
-    return Object.values(keys).some(key => key && key.trim() !== '');
-  }
 
   static exportData(): string {
     const data = {
       chatState: this.getChatState(),
-      apiKeys: this.getApiKeys(),
+      // apiKeys excluded for security
       settings: this.getSettings(),
       conversations: this.getConversations(),
       exportDate: new Date().toISOString(),
@@ -218,10 +210,12 @@ export class StorageManager {
       const data = JSON.parse(jsonData);
 
       if (data.chatState) this.saveChatState(data.chatState);
-      if (data.apiKeys) this.saveApiKeys(data.apiKeys);
+      // apiKeys import disabled
       if (data.settings) this.saveSettings(data.settings);
       if (data.conversations) {
-        localStorage.setItem(STORAGE_KEYS.CONVERSATIONS, JSON.stringify(data.conversations));
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(STORAGE_KEYS.CONVERSATIONS, JSON.stringify(data.conversations));
+        }
       }
 
       return true;
