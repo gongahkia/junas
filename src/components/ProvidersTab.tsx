@@ -85,6 +85,8 @@ export function ProvidersTab() {
     setShowKeys((prev) => ({ ...prev, [providerId]: !prev[providerId] }));
   };
 
+  const { refreshConfiguredProviders } = useJunasContext();
+
   const handleSaveKeys = async () => {
     setIsSaving(true);
     try {
@@ -101,6 +103,7 @@ export function ProvidersTab() {
         body: JSON.stringify(payload),
       });
       if (response.ok) {
+        await refreshConfiguredProviders();
         await checkConfiguredProviders();
         await checkHealth();
       }
