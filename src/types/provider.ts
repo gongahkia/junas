@@ -31,7 +31,7 @@ export interface StreamingResponse {
   };
 }
 
-export interface ToolCall {
+export interface ProviderToolCall {
   name: string;
   parameters: Record<string, any>;
 }
