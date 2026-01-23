@@ -1,5 +1,4 @@
-import { Message } from '@/types/chat';
-import { StorageManager } from '@/lib/storage';
+import { Message, ChatSettings } from '@/types/chat';
 import { getDefaultPromptConfig, generateSystemPrompt } from '@/lib/prompts/system-prompts';
 
 export interface SendMessageResult {
@@ -7,30 +6,21 @@ export interface SendMessageResult {
 }
 
 export class ChatService {
-  private static async getAvailableProvider(): Promise<string | null> {
-    // Check which provider is configured via session
-    try {
-      const response = await fetch('/api/auth/keys');
-      if (!response.ok) return null;
-
-      const { configured } = await response.json();
-
-      // Return first available provider in priority order
-      const availableProviders = ['gemini', 'openai', 'claude', 'ollama', 'lmstudio'];
-      for (const provider of availableProviders) {
-        if (configured[provider]) {
-          return provider;
-        }
+  private static getAvailableProvider(configuredProviders: Record<string, boolean>): string | null {
+    // Return first available provider in priority order
+    const availableProviders = ['gemini', 'openai', 'claude', 'ollama', 'lmstudio'];
+    for (const provider of availableProviders) {
+      if (configuredProviders[provider]) {
+        return provider;
       }
-    } catch (error) {
-      // Silently handle provider check errors - user will see toast notification
     }
-
     return null;
   }
 
   static async sendMessage(
     messages: Message[],
+    configuredProviders: Record<string, boolean>,
+    settings: ChatSettings,
     onChunk?: (chunk: string) => void,
     preferredProvider?: string
   ): Promise<SendMessageResult> {
@@ -39,16 +29,12 @@ export class ChatService {
 
       // If no preferred provider or it's not configured, get available provider
       if (!provider) {
-        provider = await this.getAvailableProvider();
+        provider = this.getAvailableProvider(configuredProviders);
       } else {
         // Verify the preferred provider is configured
-        const response = await fetch('/api/auth/keys');
-        if (response.ok) {
-          const { configured } = await response.json();
-          if (!configured[provider]) {
-            // Fall back to any available provider
-            provider = await this.getAvailableProvider();
-          }
+        if (!configuredProviders[provider]) {
+          // Fall back to any available provider
+          provider = this.getAvailableProvider(configuredProviders);
         }
       }
 
@@ -56,21 +42,19 @@ export class ChatService {
         throw new Error('No API keys configured. Please add an API key in settings.');
       }
 
-      const settings = StorageManager.getSettings();
-
       // Determine model based on provider
       const model = provider === 'gemini' ? 'gemini-2.0-flash-exp' :
-                   provider === 'openai' ? 'gpt-4o' : 
-                   provider === 'claude' ? 'claude-3-5-sonnet-20241022' : 
-                   provider === 'ollama' ? 'llama3' : 'local-model';
+        provider === 'openai' ? 'gpt-4o' :
+          provider === 'claude' ? 'claude-3-5-sonnet-20241022' :
+            provider === 'ollama' ? 'llama3' : 'local-model';
 
       // Get default system prompt config
       const config = getDefaultPromptConfig('standard');
       config.useTools = settings.agentMode; // Explicitly enable tools based on agentMode
-      
+
       // Ensure current date is set dynamically if not already
       if (!config.currentDate) {
-          config.currentDate = new Date().toLocaleDateString('en-SG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        config.currentDate = new Date().toLocaleDateString('en-SG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
       }
 
       // Resolve active profile and user context
@@ -78,7 +62,7 @@ export class ChatService {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let activeProfile: any = null;
       if (settings.activeProfileId && settings.profiles) {
-          activeProfile = settings.profiles.find(p => p.id === settings.activeProfileId);
+        activeProfile = settings.profiles.find(p => p.id === settings.activeProfileId);
       }
 
       const role = activeProfile?.userRole || settings.userRole;
@@ -86,14 +70,14 @@ export class ChatService {
       const customSystemPrompt = activeProfile?.systemPrompt || settings.systemPrompt;
 
       if (role || purpose) {
-          config.userContext = {
-              role: role || undefined,
-              preferences: purpose || undefined
-          };
+        config.userContext = {
+          role: role || undefined,
+          preferences: purpose || undefined
+        };
       }
 
       if (customSystemPrompt) {
-          config.baseSystemPrompt = customSystemPrompt;
+        config.baseSystemPrompt = customSystemPrompt;
       }
 
       config.systemPrompt = generateSystemPrompt(config); // Regenerate prompt with full config
