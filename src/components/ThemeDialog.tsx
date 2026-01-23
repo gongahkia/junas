@@ -17,7 +17,9 @@ import { Input } from '@/components/ui/input';
 //   SelectTrigger,
 //   SelectValue,
 // } from '@/components/ui/select';
-import { StorageManager } from '@/lib/storage';
+// } from '@/components/ui/select';
+// import { StorageManager } from '@/lib/storage'; // Removed
+import { useJunasContext } from '@/lib/context/JunasContext';
 import { Moon, Sun, Minimize, Palette } from 'lucide-react';
 
 interface ThemeDialogProps {
@@ -26,60 +28,37 @@ interface ThemeDialogProps {
 }
 
 export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
-  const [darkMode, setDarkMode] = useState(false);
-  const [focusMode, setFocusMode] = useState(false);
-  const [theme, setTheme] = useState('vanilla');
+  const { settings, updateSettings } = useJunasContext();
+  const [localTheme, setLocalTheme] = useState('vanilla');
 
   useEffect(() => {
     if (isOpen) {
-      const settings = StorageManager.getSettings();
-      setDarkMode(settings.darkMode || false);
-      setFocusMode(settings.focusMode || false);
-      setTheme(settings.theme || 'vanilla');
+      setLocalTheme(settings.theme || 'vanilla');
     }
-  }, [isOpen]);
+  }, [isOpen, settings]);
 
   const handleSaveTheme = (isDark: boolean) => {
-    setDarkMode(isDark);
-
-    // Save settings
-    const settings = StorageManager.getSettings();
-    StorageManager.saveSettings({
+    updateSettings({
       ...settings,
       darkMode: isDark,
     });
-
-    // Dispatch theme change event (handled by page.tsx)
-    window.dispatchEvent(new CustomEvent('junas-theme-change', {
-      detail: { darkMode: isDark, theme: theme }
-    }));
   };
 
   const handleSaveFocusMode = (isFocus: boolean) => {
-    setFocusMode(isFocus);
-
-    // Save settings
-    const settings = StorageManager.getSettings();
-    StorageManager.saveSettings({
+    updateSettings({
       ...settings,
       focusMode: isFocus,
     });
   };
 
   const handleThemeChange = (value: string) => {
-    setTheme(value);
+    setLocalTheme(value);
 
-    // Save settings
-    const settings = StorageManager.getSettings();
-    StorageManager.saveSettings({
+    // Note: We might want to debounce this if it causes too many re-renders
+    updateSettings({
       ...settings,
       theme: value as any,
     });
-
-    // Dispatch theme change event
-    window.dispatchEvent(new CustomEvent('junas-theme-change', {
-      detail: { darkMode, theme: value }
-    }));
   };
 
   return (
@@ -100,7 +79,7 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
               </div>
             </div>
             <Input
-              value={theme}
+              value={localTheme}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleThemeChange(e.target.value)}
               className="w-[140px] h-8 text-xs font-mono"
               placeholder="vanilla"
@@ -112,13 +91,13 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
               <div className="space-y-0.5">
                 <Label htmlFor="darkMode" className="text-sm font-medium">Dark Mode</Label>
                 <p className="text-[10px] text-muted-foreground">
-                  {darkMode ? 'Dark theme enabled' : 'Light theme enabled'}
+                  {settings.darkMode ? 'Dark theme enabled' : 'Light theme enabled'}
                 </p>
               </div>
             </div>
             <Switch
               id="darkMode"
-              checked={darkMode}
+              checked={settings.darkMode}
               onCheckedChange={handleSaveTheme}
             />
           </div>
@@ -128,13 +107,13 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
               <div className="space-y-0.5">
                 <Label htmlFor="focusMode" className="text-sm font-medium">Focus Mode</Label>
                 <p className="text-[10px] text-muted-foreground">
-                  {focusMode ? 'UI elements hidden' : 'Standard UI view'}
+                  {settings.focusMode ? 'UI elements hidden' : 'Standard UI view'}
                 </p>
               </div>
             </div>
             <Switch
               id="focusMode"
-              checked={focusMode}
+              checked={settings.focusMode}
               onCheckedChange={handleSaveFocusMode}
             />
           </div>

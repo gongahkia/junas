@@ -19,6 +19,7 @@ import { ConfirmationDialog } from './ConfirmationDialog';
 import { TreeView } from './TreeView';
 import { estimateTokens, estimateCost } from '@/lib/ai/token-utils';
 import { createTreeFromLinear, addChild, getLinearHistory, getBranchSiblings } from '@/lib/chat-tree';
+import { useJunasContext } from '@/lib/context/JunasContext';
 
 interface ChatInterfaceProps {
   activeTab?: 'chat' | 'artifacts' | 'tree';
@@ -26,6 +27,15 @@ interface ChatInterfaceProps {
 }
 
 export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInterfaceProps = {}) {
+  // Use centralized state from context
+  const {
+    settings,
+    chatState,
+    conversations,
+    updateChatState,
+    saveConversation
+  } = useJunasContext();
+
   const [messages, setMessages] = useState<Message[]>([]);
   const [nodeMap, setNodeMap] = useState<Record<string, Message>>({});
   const [currentLeafId, setCurrentLeafId] = useState<string | undefined>(undefined);
@@ -73,24 +83,23 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
   // Check if user has configured their profile
   useEffect(() => {
-    const settings = StorageManager.getSettings();
     setHasProfileConfig(!!(settings.userRole || settings.userPurpose));
-  }, [messages]);
+  }, [messages, settings]);
 
-  // Load messages from storage on mount
+  // Sync with context chat state on load
   useEffect(() => {
-    const chatState = StorageManager.getChatState();
+    if (!chatState) return;
 
-    // Check local model status
+    // Check local model status (this logic stays local until we move ML manager to context too)
     const models = getModelsWithStatus();
     const downloadedCount = models.filter(m => m.isDownloaded).length;
     if (downloadedCount === AVAILABLE_MODELS.length) {
       setCurrentProvider('local');
-    } else if (chatState?.currentProvider) {
+    } else if (chatState.currentProvider) {
       setCurrentProvider(chatState.currentProvider);
     }
 
-    if (chatState?.messages) {
+    if (chatState.messages) {
       if (chatState.nodeMap && chatState.currentLeafId) {
         setNodeMap(chatState.nodeMap);
         setCurrentLeafId(chatState.currentLeafId);
@@ -104,22 +113,21 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       }
       setHasMessages(chatState.messages.length > 0);
     }
-    if (chatState?.artifacts) {
+    if (chatState.artifacts) {
       setArtifacts(chatState.artifacts);
     }
 
-    // Try to find if this chat matches an existing conversation
-    const conversations = StorageManager.getConversations();
+    // Find matching conversation in history to set ID/Title
     const matchingConv = conversations.find(c =>
-      c.messages.length === chatState?.messages?.length &&
-      c.messages[0]?.id === chatState?.messages?.[0]?.id
+      c.messages.length === chatState.messages?.length &&
+      c.messages[0]?.id === chatState.messages?.[0]?.id
     );
 
     if (matchingConv) {
       setConversationId(matchingConv.id);
       setConversationTitle(matchingConv.title);
     }
-  }, []);
+  }, [chatState]); // Only re-run if context chatState changes externally (e.g. history selection)
 
   // Handle import messages
   useEffect(() => {

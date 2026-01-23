@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { JunasProvider } from "@/lib/context/JunasContext";
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -40,7 +41,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
         <ErrorBoundary>
-          {children}
+          <JunasProvider>
+            {children}
+          </JunasProvider>
         </ErrorBoundary>
       </body>
     </html>
