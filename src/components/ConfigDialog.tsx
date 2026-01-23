@@ -35,19 +35,15 @@ import {
   type ModelInfo,
   type DownloadProgress,
 } from '@/lib/ml/model-manager';
-import { Download, Trash2, Check, Loader2, AlertCircle, Plus, Copy, Edit2, Book } from 'lucide-react';
-
-interface ConfigDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-type Tab = 'profile' | 'generation' | 'localModels' | 'providers' | 'tools' | 'snippets' | 'developer';
+import { useJunasContext } from '@/lib/context/JunasContext';
+// ...
 
 export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
+  const { settings, updateSettings } = useJunasContext();
   const [activeTab, setActiveTab] = useState<Tab>('profile');
 
   // Listen for custom event to open Providers tab
+  // Keeping this for now as it might be triggered from other non-React parts or simple commands
   useEffect(() => {
     const handler = (e: any) => {
       if (e.detail && e.detail.tab === 'providers') {
@@ -59,41 +55,11 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   }, []);
 
   // Profile state
-  const [userRole, setUserRole] = useState('');
-  const [userPurpose, setUserPurpose] = useState('');
-  const [profileSystemPrompt, setProfileSystemPrompt] = useState('');
-  const [profiles, setProfiles] = useState<ContextProfile[]>([]);
-  const [activeProfileId, setActiveProfileId] = useState<string>('');
-  const [profileName, setProfileName] = useState('');
+  // ... (keeping state variables)
 
-  // Snippet state
-  const [snippets, setSnippets] = useState<Snippet[]>([]);
-  const [editingSnippetId, setEditingSnippetId] = useState<string | null>(null);
-  const [snippetTitle, setSnippetTitle] = useState('');
-  const [snippetContent, setSnippetContent] = useState('');
-
-  const [tomlContent, setTomlContent] = useState('');
-
-  // Generation state
-  const [temperature, setTemperature] = useState(0.7);
-  const [maxTokens, setMaxTokens] = useState(4000);
-  const [topP, setTopP] = useState(0.95);
-  const [topK, setTopK] = useState(40);
-  const [frequencyPenalty, setFrequencyPenalty] = useState(0.0);
-  const [presencePenalty, setPresencePenalty] = useState(0.0);
-  const [systemPrompt, setSystemPrompt] = useState('');
-
-  // Models state
-  const [models, setModels] = useState<ModelInfo[]>([]);
-  const [downloadingModels, setDownloadingModels] = useState<Record<string, DownloadProgress>>({});
-  const [showDeleteModelsConfirm, setShowDeleteModelsConfirm] = useState(false);
-  const [showClearDataConfirm, setShowClearDataConfirm] = useState(false);
-  const { addToast } = useToast();
-
+  // Sync state with settings from context when dialog opens
   useEffect(() => {
     if (isOpen) {
-      // Load profile settings
-      const settings = StorageManager.getSettings();
       setUserRole(settings.userRole || '');
       setUserPurpose(settings.userPurpose || '');
       setProfiles(settings.profiles || []);
@@ -122,13 +88,12 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       // Load models status
       setModels(getModelsWithStatus());
     }
-  }, [isOpen]);
+  }, [isOpen, settings]);
 
   useEffect(() => {
     if (activeTab === 'developer' && isOpen) {
-      const settings = StorageManager.getSettings();
       const config = {
-        // Core Settings
+        // ... (use settings directly)
         temperature: settings.temperature,
         maxTokens: settings.maxTokens,
         topP: settings.topP,
@@ -136,15 +101,11 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
         frequencyPenalty: settings.frequencyPenalty,
         presencePenalty: settings.presencePenalty,
         systemPrompt: settings.systemPrompt,
-
-        // App Behavior
         autoSave: settings.autoSave,
         darkMode: settings.darkMode,
         agentMode: settings.agentMode,
         focusMode: settings.focusMode,
         theme: settings.theme,
-
-        // Profile Settings (Active)
         profile: {
           userRole: settings.userRole,
           userPurpose: settings.userPurpose
@@ -152,7 +113,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       };
       setTomlContent(stringifyToml(config));
     }
-  }, [activeTab, isOpen]);
+  }, [activeTab, isOpen, settings]);
 
   const handleProfileChange = (id: string) => {
     if (id === 'global') {
@@ -462,8 +423,8 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as Tab)}
                 className={`px-4 py-2.5 text-xs text-left transition-colors font-medium border-l-2 ${activeTab === tab.id
-                    ? 'border-primary bg-primary/5 text-primary'
-                    : 'border-transparent text-muted-foreground hover:bg-muted hover:text-foreground'
+                  ? 'border-primary bg-primary/5 text-primary'
+                  : 'border-transparent text-muted-foreground hover:bg-muted hover:text-foreground'
                   }`}
               >
                 {tab.label}
