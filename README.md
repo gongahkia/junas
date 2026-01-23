@@ -45,7 +45,7 @@ $ npm run build
 $ npm start
 ```
 
-3. Alternatively, deploy with docker compose.
+3. Alternatively, deploy with docker compose and access the app at [localhost:3000](http://localhost:3000/).
 
 ```console
 $ docker compose up -d
