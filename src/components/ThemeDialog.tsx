@@ -129,6 +129,10 @@ export function ThemeDialog({ isOpen, onClose }: ThemeDialogProps) {
                 <SelectItem value="gruvbox">Gruvbox</SelectItem>
                 <SelectItem value="everforest">Everforest</SelectItem>
                 <SelectItem value="tokyo-night">Tokyo Night</SelectItem>
+                <SelectItem value="catppuccin">Catppuccin</SelectItem>
+                <SelectItem value="solarized">Solarized</SelectItem>
+                <SelectItem value="rose-pine">Rose Pine</SelectItem>
+                <SelectItem value="kanagawa">Kanagawa</SelectItem>
               </SelectContent>
             </Select>
           </div>
