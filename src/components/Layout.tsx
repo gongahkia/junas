@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { ToastProvider } from '@/components/ui/toast';
 import { migrateApiKeysToSession } from '@/lib/migrate-keys';
+import { MobileMenu } from './MobileMenu';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -34,102 +35,122 @@ export function Layout({ children, focusMode = false, onImport, onExport, onShar
   }
 
   return (
-      <ToastProvider>
-        <div className="h-screen bg-background flex flex-col overflow-hidden">
+    <ToastProvider>
+      <div className="h-screen bg-background flex flex-col overflow-hidden">
         {/* Header */}
         {!focusMode && (
-        <header className="shrink-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="max-w-7xl mx-auto flex h-14 md:h-16 items-center gap-2 md:gap-6 px-4 md:px-8 font-mono">
-            {/* Left side - New Chat button */}
-            <div className="flex items-center gap-2 md:gap-4">
-              {onNewChat && (
-                <button
-                  onClick={onNewChat}
-                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
-                  data-tour="new-chat"
-                >
-                  [ New Chat ]
-                </button>
-              )}
-              {onHistory && (
-                <button
-                  onClick={onHistory}
-                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
-                  title="View chat history"
-                >
-                  [ History ]
-                </button>
-              )}
-            </div>
+          <header className="shrink-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="max-w-7xl mx-auto flex h-14 md:h-16 items-center justify-between px-4 md:px-8 font-mono">
+              {/* Logo / Brand (Optional: added for structure) */}
+              <div className="font-bold text-sm md:hidden">JUNAS</div>
 
-            {/* Spacer */}
-            <div className="flex-1"></div>
+              {/* Desktop Navigation */}
+              <div className="hidden md:flex flex-1 items-center gap-6">
+                {/* Left side - New Chat button */}
+                <div className="flex items-center gap-4">
+                  {onNewChat && (
+                    <button
+                      onClick={onNewChat}
+                      className="px-2 py-1 text-sm hover:bg-muted transition-colors"
+                      data-tour="new-chat"
+                    >
+                      [ New Chat ]
+                    </button>
+                  )}
+                  {onHistory && (
+                    <button
+                      onClick={onHistory}
+                      className="px-2 py-1 text-sm hover:bg-muted transition-colors"
+                      title="View chat history"
+                    >
+                      [ History ]
+                    </button>
+                  )}
+                </div>
 
-            {/* Right side controls */}
-            <div className="flex items-center space-x-2 md:space-x-4">
-              {/* Config button */}
-              {onConfig && (
-                <button
-                  onClick={onConfig}
-                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
-                  title="Configure profile"
-                >
-                  [ Config ]
-                </button>
-              )}
-              {/* Theme button */}
-              {onTheme && (
-                <button
-                  onClick={onTheme}
-                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
-                  title="Theme settings"
-                >
-                  [ Theme ]
-                </button>
-              )}
-              {/* Import button - only show when no messages */}
-              {onImport && (
-                <button
-                  onClick={onImport}
-                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
-                  data-tour="import"
-                >
-                  [ ↑ Import ]
-                </button>
-              )}
-              {/* Export button - only show when there are messages */}
-              {onExport && (
-                <button
-                  onClick={onExport}
-                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
-                  data-tour="export"
-                >
-                  [ ↓ Export ]
-                </button>
-              )}
-              {/* Share button */}
-              {onShare && (
-                <button
-                  onClick={onShare}
-                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
-                  title="Share conversation"
-                >
-                  [ Share ]
-                </button>
-              )}
-              {/* About button */}
-              {onAbout && (
-                <button
-                  onClick={onAbout}
-                  className="px-2 py-1 text-xs md:text-sm hover:bg-muted transition-colors"
-                  title="About Junas"
-                >
-                  [ About ]
-                </button>
-              )}
+                {/* Spacer */}
+                <div className="flex-1"></div>
+
+                {/* Right side controls */}
+                <div className="flex items-center space-x-4">
+                  {/* Config button */}
+                  {onConfig && (
+                    <button
+                      onClick={onConfig}
+                      className="px-2 py-1 text-sm hover:bg-muted transition-colors"
+                      title="Configure profile"
+                    >
+                      [ Config ]
+                    </button>
+                  )}
+                  {/* Theme button */}
+                  {onTheme && (
+                    <button
+                      onClick={onTheme}
+                      className="px-2 py-1 text-sm hover:bg-muted transition-colors"
+                      title="Theme settings"
+                    >
+                      [ Theme ]
+                    </button>
+                  )}
+                  {/* Import button - only show when no messages */}
+                  {onImport && (
+                    <button
+                      onClick={onImport}
+                      className="px-2 py-1 text-sm hover:bg-muted transition-colors"
+                      data-tour="import"
+                    >
+                      [ ↑ Import ]
+                    </button>
+                  )}
+                  {/* Export button - only show when there are messages */}
+                  {onExport && (
+                    <button
+                      onClick={onExport}
+                      className="px-2 py-1 text-sm hover:bg-muted transition-colors"
+                      data-tour="export"
+                    >
+                      [ ↓ Export ]
+                    </button>
+                  )}
+                  {/* Share button */}
+                  {onShare && (
+                    <button
+                      onClick={onShare}
+                      className="px-2 py-1 text-sm hover:bg-muted transition-colors"
+                      title="Share conversation"
+                    >
+                      [ Share ]
+                    </button>
+                  )}
+                  {/* About button */}
+                  {onAbout && (
+                    <button
+                      onClick={onAbout}
+                      className="px-2 py-1 text-sm hover:bg-muted transition-colors"
+                      title="About Junas"
+                    >
+                      [ About ]
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Mobile Menu Button */}
+              <div className="md:hidden flex items-center">
+                <MobileMenu
+                  onNewChat={onNewChat}
+                  onHistory={onHistory}
+                  onConfig={onConfig}
+                  onTheme={onTheme}
+                  onImport={onImport}
+                  onExport={onExport}
+                  onShare={onShare}
+                  onAbout={onAbout}
+                />
+              </div>
             </div>
-          </div>
-        </header>
+          </header>
         )}
 
         {/* Main content */}
@@ -139,33 +160,33 @@ export function Layout({ children, focusMode = false, onImport, onExport, onShar
 
         {/* Footer */}
         {!focusMode && (
-        <footer className="shrink-0 border-t bg-background py-3 md:py-4 px-4 md:px-8">
-          <div className="max-w-7xl mx-auto text-center text-xs md:text-sm text-muted-foreground font-mono">
-            <p>
-              Made by{' '}
-              <a
-                href="https://gabrielongzm.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                Gabriel Ong
-              </a>
-              {' | '}
-              <a
-                href="https://github.com/gongahkia/junas"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                Source
-              </a>
-            </p>
-          </div>
-        </footer>
+          <footer className="shrink-0 border-t bg-background py-3 md:py-4 px-4 md:px-8">
+            <div className="max-w-7xl mx-auto text-center text-xs md:text-sm text-muted-foreground font-mono">
+              <p>
+                Made by{' '}
+                <a
+                  href="https://gabrielongzm.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  Gabriel Ong
+                </a>
+                {' | '}
+                <a
+                  href="https://github.com/gongahkia/junas"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  Source
+                </a>
+              </p>
+            </div>
+          </footer>
         )}
-        </div>
-      </ToastProvider>
+      </div>
+    </ToastProvider>
   );
 }
 
