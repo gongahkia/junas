@@ -4,7 +4,7 @@ import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { InlineProviderSelector } from './InlineProviderSelector';
 import { CommandSuggestions } from './CommandSuggestions';
-import { COMMANDS } from '@/lib/commands/command-processor';
+import { COMMANDS } from '@/lib/commands/definitions';
 import Fuse from 'fuse.js';
 import { Book } from 'lucide-react';
 import { StorageManager } from '@/lib/storage';
@@ -58,11 +58,11 @@ export function MessageInput({
 
   useEffect(() => {
     setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
-    
+
     // Load snippets
     const loadSnippets = () => {
-        const settings = StorageManager.getSettings();
-        setSnippets(settings.snippets || []);
+      const settings = StorageManager.getSettings();
+      setSnippets(settings.snippets || []);
     };
     loadSnippets();
     window.addEventListener('junas-settings-change', loadSnippets);
@@ -102,24 +102,24 @@ export function MessageInput({
   };
 
   const insertSnippet = (content: string) => {
-      // Insert at cursor position or append
-      if (textareaRef.current) {
-          const start = textareaRef.current.selectionStart;
-          const end = textareaRef.current.selectionEnd;
-          const text = message;
-          const newText = text.substring(0, start) + content + text.substring(end);
-          setMessage(newText);
-          
-          // Move cursor
-          setTimeout(() => {
-              if (textareaRef.current) {
-                  textareaRef.current.selectionStart = textareaRef.current.selectionEnd = start + content.length;
-                  textareaRef.current.focus();
-              }
-          }, 0);
-      } else {
-          setMessage(prev => prev + content);
-      }
+    // Insert at cursor position or append
+    if (textareaRef.current) {
+      const start = textareaRef.current.selectionStart;
+      const end = textareaRef.current.selectionEnd;
+      const text = message;
+      const newText = text.substring(0, start) + content + text.substring(end);
+      setMessage(newText);
+
+      // Move cursor
+      setTimeout(() => {
+        if (textareaRef.current) {
+          textareaRef.current.selectionStart = textareaRef.current.selectionEnd = start + content.length;
+          textareaRef.current.focus();
+        }
+      }, 0);
+    } else {
+      setMessage(prev => prev + content);
+    }
   };
 
   const handleSubmit = useCallback((e: React.FormEvent) => {
@@ -128,11 +128,11 @@ export function MessageInput({
 
     const trimmedMessage = message.trim();
     onSendMessage(trimmedMessage);
-    
+
     setHistory(prev => {
-        // Don't duplicate if identical to last message
-        if (prev.length > 0 && prev[prev.length - 1] === trimmedMessage) return prev;
-        return [...prev, trimmedMessage];
+      // Don't duplicate if identical to last message
+      if (prev.length > 0 && prev[prev.length - 1] === trimmedMessage) return prev;
+      return [...prev, trimmedMessage];
     });
     setHistoryIndex(-1);
     setDraft('');
@@ -143,7 +143,7 @@ export function MessageInput({
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (showSuggestions) {
       // Calculate matches to know the count for clamping
-      const matches = commandQuery 
+      const matches = commandQuery
         ? fuse.search(commandQuery).map(r => r.item)
         : COMMANDS;
 
@@ -173,13 +173,13 @@ export function MessageInput({
         if (historyIndex === -1) setDraft(message);
         setHistoryIndex(newIndex);
         setMessage(history[newIndex]);
-        
+
         // Move cursor to end (needs timeout to wait for render)
         setTimeout(() => {
-            if (textareaRef.current) {
-                textareaRef.current.selectionStart = textareaRef.current.value.length;
-                textareaRef.current.selectionEnd = textareaRef.current.value.length;
-            }
+          if (textareaRef.current) {
+            textareaRef.current.selectionStart = textareaRef.current.value.length;
+            textareaRef.current.selectionEnd = textareaRef.current.value.length;
+          }
         }, 0);
       }
     } else if (e.key === 'ArrowDown') {
@@ -201,21 +201,21 @@ export function MessageInput({
       handleSubmit(e);
     }
   }, [handleSubmit, showSuggestions, suggestionIndex, commandQuery, fuse, history, historyIndex, draft, message]);
-  
+
   return (
     <div className="border-t bg-background sticky bottom-0 z-50 shadow-sm">
       <div className="max-w-5xl mx-auto px-4 md:px-8 py-4 md:py-6">
         {/* Input form */}
         <form onSubmit={handleSubmit} className="space-y-3">
           <div className="flex-1 relative">
-            
+
             {showSuggestions && (
-               <CommandSuggestions 
-                  query={commandQuery} 
-                  onSelect={handleCommandSelect}
-                  isOpen={showSuggestions}
-                  selectedIndex={suggestionIndex}
-               />
+              <CommandSuggestions
+                query={commandQuery}
+                onSelect={handleCommandSelect}
+                isOpen={showSuggestions}
+                selectedIndex={suggestionIndex}
+              />
             )}
 
             <div className="border border-muted-foreground/30 bg-muted/10">
@@ -235,7 +235,7 @@ export function MessageInput({
               <div className="border-t border-muted-foreground/30 px-3 md:px-4 py-2 flex items-center justify-between text-xs font-mono bg-muted/5">
                 <div className="flex items-center gap-2 md:gap-3">
                   {/* Model/provider status display */}
-                  <InlineProviderSelector 
+                  <InlineProviderSelector
                     currentProvider={currentProvider}
                     onProviderChange={onProviderChange}
                     disabled={isLoading}
@@ -243,33 +243,33 @@ export function MessageInput({
 
                   {/* Snippets Button */}
                   {snippets.length > 0 && (
-                      <Popover>
-                        <PopoverTrigger asChild>
-                            <button 
-                                className="flex items-center gap-1.5 px-2 py-1 hover:bg-muted/50 rounded-sm transition-colors text-muted-foreground hover:text-foreground"
-                                title="Insert Snippet"
-                                type="button"
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <button
+                          className="flex items-center gap-1.5 px-2 py-1 hover:bg-muted/50 rounded-sm transition-colors text-muted-foreground hover:text-foreground"
+                          title="Insert Snippet"
+                          type="button"
+                        >
+                          <Book className="h-3.5 w-3.5" />
+                          <span className="hidden sm:inline">Snippets</span>
+                        </button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-64 p-2" align="start">
+                        <div className="space-y-1">
+                          <h4 className="font-medium text-xs px-2 py-1 text-muted-foreground uppercase tracking-wider">Saved Snippets</h4>
+                          {snippets.map(snippet => (
+                            <button
+                              key={snippet.id}
+                              onClick={() => insertSnippet(snippet.content)}
+                              className="w-full text-left px-2 py-1.5 text-xs hover:bg-muted rounded-sm truncate transition-colors font-mono"
+                              title={snippet.content}
                             >
-                                <Book className="h-3.5 w-3.5" />
-                                <span className="hidden sm:inline">Snippets</span>
+                              {snippet.title}
                             </button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-64 p-2" align="start">
-                            <div className="space-y-1">
-                                <h4 className="font-medium text-xs px-2 py-1 text-muted-foreground uppercase tracking-wider">Saved Snippets</h4>
-                                {snippets.map(snippet => (
-                                    <button
-                                        key={snippet.id}
-                                        onClick={() => insertSnippet(snippet.content)}
-                                        className="w-full text-left px-2 py-1.5 text-xs hover:bg-muted rounded-sm truncate transition-colors font-mono"
-                                        title={snippet.content}
-                                    >
-                                        {snippet.title}
-                                    </button>
-                                ))}
-                            </div>
-                        </PopoverContent>
-                      </Popover>
+                          ))}
+                        </div>
+                      </PopoverContent>
+                    </Popover>
                   )}
                 </div>
 
