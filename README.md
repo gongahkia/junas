@@ -45,10 +45,11 @@ $ npm run build
 $ npm start
 ```
 
-3. Finally, get your API keys from the below sources, then configure them inside the `Junas` web app settings.
-    1. [Google Gemini](https://aistudio.google.com/) *(free tier available)*
-    2. [OpenAI](https://platform.openai.com/)
-    3. [Anthropic](https://console.anthropic.com/)
+3. Alternatively, deploy with docker compose.
+
+```console
+$ docker compose up -d
+```
 
 ## Architecture
 
