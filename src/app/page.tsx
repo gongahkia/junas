@@ -31,7 +31,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<'chat' | 'artifacts' | 'tree'>('chat');
   const [focusMode, setFocusMode] = useState(false);
 
-  // Check if there are messages on mount and update periodically
+  // Check if there are messages on mount and listen for changes
   useEffect(() => {
     // Apply dark mode preference immediately
     const settings = StorageManager.getSettings();
@@ -42,44 +42,45 @@ export default function Home() {
     }
     setFocusMode(settings.focusMode);
 
-    const checkMessages = () => {
-      // Apply theme and dark mode on load
-      const settings = StorageManager.getSettings();
-      const isDark = settings.darkMode;
-      const theme = settings.theme || 'vanilla';
-      
-      if (isDark) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-
-      // Apply theme data attribute
-      document.documentElement.setAttribute('data-theme', theme);
-
-      setFocusMode(settings.focusMode);
-
+    const updateChatState = () => {
       const chatState = StorageManager.getChatState();
       const messages = chatState?.messages || [];
       setHasMessages(messages.length > 0);
       setCurrentMessages(messages);
-      
+
       if (chatState?.nodeMap) setCurrentNodeMap(chatState.nodeMap);
       if (chatState?.currentLeafId) setCurrentLeafId(chatState.currentLeafId);
     };
 
-    checkMessages();
+    const applyTheme = () => {
+      const settings = StorageManager.getSettings();
+      const isDark = settings.darkMode;
+      const theme = settings.theme || 'vanilla';
 
-    // Listen for theme and settings changes
-    const handleThemeChange = (e: CustomEvent) => {
-      const { darkMode: isDark, theme } = e.detail;
-      
       if (isDark) {
         document.documentElement.classList.add('dark');
       } else {
         document.documentElement.classList.remove('dark');
       }
-      
+
+      document.documentElement.setAttribute('data-theme', theme);
+      setFocusMode(settings.focusMode);
+    };
+
+    // Initial load
+    applyTheme();
+    updateChatState();
+
+    // Listen for theme and settings changes
+    const handleThemeChange = (e: CustomEvent) => {
+      const { darkMode: isDark, theme } = e.detail;
+
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+
       if (theme) {
         document.documentElement.setAttribute('data-theme', theme);
       }
@@ -90,16 +91,19 @@ export default function Home() {
        setFocusMode(newSettings.focusMode);
     };
 
+    // Listen for chat state changes (event-driven instead of polling)
+    const handleChatStateChange = () => {
+      updateChatState();
+    };
+
     window.addEventListener('junas-theme-change', handleThemeChange as EventListener);
     window.addEventListener('junas-settings-change', handleSettingsChange);
+    window.addEventListener('junas-chat-state-change', handleChatStateChange);
 
-    // Check every second for message changes
-    const interval = setInterval(checkMessages, 1000);
-    
     return () => {
-      clearInterval(interval);
       window.removeEventListener('junas-theme-change', handleThemeChange as EventListener);
       window.removeEventListener('junas-settings-change', handleSettingsChange);
+      window.removeEventListener('junas-chat-state-change', handleChatStateChange);
     };
   }, [chatKey]);
 

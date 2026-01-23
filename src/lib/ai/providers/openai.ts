@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import { ProviderResponse, StreamingResponse, ToolCall, ProviderCapabilities, ProviderError } from '@/types/provider';
+import { ProviderResponse, StreamingResponse, ProviderCapabilities, ProviderError } from '@/types/provider';
 
 export class OpenAIProvider {
   private client: OpenAI;

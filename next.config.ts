@@ -4,6 +4,9 @@ import { withSentryConfig } from '@sentry/nextjs';
 const nextConfig: NextConfig = {
   /* config options here */
 
+  // Enable standalone output for Docker deployment
+  output: 'standalone',
+
   // Turbopack configuration for Next.js 16+
   turbopack: {},
 

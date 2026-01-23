@@ -1,5 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk';
-import { ProviderResponse, StreamingResponse, ToolCall, ProviderCapabilities, ProviderError } from '@/types/provider';
+import { ProviderResponse, StreamingResponse, ProviderCapabilities, ProviderError } from '@/types/provider';
 
 export class ClaudeProvider {
   private client: Anthropic;

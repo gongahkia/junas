@@ -1,5 +1,5 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { ProviderResponse, StreamingResponse, ToolCall, ProviderCapabilities, ProviderError } from '@/types/provider';
+import { ProviderResponse, StreamingResponse, ProviderCapabilities, ProviderError } from '@/types/provider';
 
 export class GeminiProvider {
   private client: GoogleGenerativeAI;
