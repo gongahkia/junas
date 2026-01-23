@@ -17,10 +17,10 @@ interface InlineProviderSelectorProps {
   disabled?: boolean;
 }
 
-export function InlineProviderSelector({ 
-  currentProvider, 
+export function InlineProviderSelector({
+  currentProvider,
   onProviderChange,
-  disabled 
+  disabled
 }: InlineProviderSelectorProps) {
   const [configuredProviders, setConfiguredProviders] = useState<string[]>([]);
   const [providerHealth, setProviderHealth] = useState<Record<string, string>>({});
@@ -58,7 +58,7 @@ export function InlineProviderSelector({
 
   useEffect(() => {
     checkStatus();
-    
+
     // Refresh health every 30 seconds
     const interval = setInterval(checkStatus, 30000);
 
@@ -88,7 +88,7 @@ export function InlineProviderSelector({
 
   const getHealthIndicator = (id: string) => {
     if (id === 'local') return <div className="h-1.5 w-1.5 rounded-full bg-green-500" title="Available" />;
-    
+
     const status = providerHealth[id];
     if (status === 'online') return <div className="h-1.5 w-1.5 rounded-full bg-green-500" title="Online" />;
     if (status === 'offline') return <div className="h-1.5 w-1.5 rounded-full bg-red-500" title="Offline" />;
@@ -109,7 +109,7 @@ export function InlineProviderSelector({
       <DropdownMenuTrigger disabled={disabled} className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50 outline-none">
         <div className="flex items-center gap-1.5">
           {getProviderIcon(currentProvider)}
-          <span className="font-mono">{getProviderLabel(currentProvider)}</span>
+          <span className="font-mono hidden md:inline">{getProviderLabel(currentProvider)}</span>
         </div>
         <div className="flex items-center gap-1.5 ml-1">
           {getHealthIndicator(currentProvider)}
@@ -118,7 +118,7 @@ export function InlineProviderSelector({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="w-56">
         {availableOptions.map(id => (
-          <DropdownMenuItem 
+          <DropdownMenuItem
             key={id}
             onClick={() => onProviderChange(id)}
             className="flex items-center gap-2 text-xs font-mono cursor-pointer"

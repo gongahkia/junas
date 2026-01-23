@@ -282,7 +282,7 @@ export const MessageList = memo(function MessageList({
   return (
     <div
       ref={containerRef}
-      className="flex-1 overflow-y-auto px-4 md:px-8 py-8 md:py-12 space-y-6 md:space-y-8 max-w-5xl mx-auto w-full scroll-smooth no-scrollbar"
+      className="flex-1 overflow-y-auto px-3 md:px-8 py-4 md:py-12 space-y-4 md:space-y-8 max-w-5xl mx-auto w-full scroll-smooth no-scrollbar"
     >
       {messages.map((message, index) => (
         <div

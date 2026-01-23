@@ -817,11 +817,11 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
   return (
     <div className="flex flex-col h-full w-full">
       {/* Tab Header */}
-      <div className="flex items-center border-b px-4 h-10 shrink-0 gap-4">
+      <div className="flex items-center border-b px-2 md:px-4 h-10 shrink-0 gap-2 md:gap-4 overflow-x-auto no-scrollbar">
         <button
           onClick={() => setActiveTab('chat')}
           className={cn(
-            "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2",
+            "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2 shrink-0",
             activeTab === 'chat'
               ? "border-primary text-foreground"
               : "border-transparent text-muted-foreground hover:text-foreground"
@@ -833,7 +833,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         <button
           onClick={() => setActiveTab('artifacts')}
           className={cn(
-            "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2",
+            "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2 shrink-0",
             activeTab === 'artifacts'
               ? "border-primary text-foreground"
               : "border-transparent text-muted-foreground hover:text-foreground"
@@ -845,18 +845,18 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         <button
           onClick={() => setActiveTab('tree')}
           className={cn(
-            "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2",
+            "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2 shrink-0",
             activeTab === 'tree'
               ? "border-primary text-foreground"
               : "border-transparent text-muted-foreground hover:text-foreground"
           )}
         >
           <GitGraph className="h-3 w-3" />
-          CONVERSATION TREE
+          TREE
         </button>
 
         {totalTokens > 0 && (
-          <div className="ml-auto flex items-center gap-3 text-[10px] text-muted-foreground font-mono">
+          <div className="ml-auto hidden md:flex items-center gap-3 text-[10px] text-muted-foreground font-mono">
             <span>{totalTokens.toLocaleString()} tokens</span>
             {totalCost > 0 && <span>${totalCost.toFixed(4)}</span>}
           </div>
