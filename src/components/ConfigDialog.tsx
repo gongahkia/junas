@@ -152,6 +152,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
         const settings = StorageManager.getSettings();
         setUserRole(settings.userRole || '');
         setUserPurpose(settings.userPurpose || '');
+        setProfileSystemPrompt('');
         setProfileName('');
         setActiveProfileId('');
     } else {
@@ -159,6 +160,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
         if (p) {
             setUserRole(p.userRole);
             setUserPurpose(p.userPurpose);
+            setProfileSystemPrompt(p.systemPrompt || '');
             setProfileName(p.name);
             setActiveProfileId(id);
         }
@@ -171,6 +173,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
         name: 'New Profile',
         userRole: userRole,
         userPurpose: userPurpose,
+        systemPrompt: profileSystemPrompt,
     };
     setProfiles([...profiles, newProfile]);
     setActiveProfileId(newProfile.id);
@@ -193,7 +196,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
     if (activeProfileId) {
         updatedProfiles = updatedProfiles.map(p => 
             p.id === activeProfileId 
-                ? { ...p, name: profileName, userRole, userPurpose }
+                ? { ...p, name: profileName, userRole, userPurpose, systemPrompt: profileSystemPrompt }
                 : p
         );
         setProfiles(updatedProfiles);
@@ -592,6 +595,19 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
                   value={userPurpose}
                   onChange={(e) => setUserPurpose(e.target.value)}
                   className="text-xs font-mono"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="profileSystemPrompt" className="text-xs font-mono">
+                  &gt; Custom System Prompt (Optional)
+                </Label>
+                <textarea
+                  id="profileSystemPrompt"
+                  value={profileSystemPrompt}
+                  onChange={(e) => setProfileSystemPrompt(e.target.value)}
+                  className="w-full h-24 p-3 text-xs font-mono bg-background border rounded-md resize-none focus:outline-none focus:ring-1 focus:ring-primary"
+                  placeholder="Override the default system prompt for this profile..."
                 />
               </div>
 
