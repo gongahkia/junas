@@ -35,8 +35,15 @@ import {
   type ModelInfo,
   type DownloadProgress,
 } from '@/lib/ml/model-manager';
+import { Download, Trash2, Check, Loader2, AlertCircle, Plus, Copy, Edit2, Book } from 'lucide-react';
 import { useJunasContext } from '@/lib/context/JunasContext';
-// ...
+
+interface ConfigDialogProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+type Tab = 'profile' | 'generation' | 'localModels' | 'providers' | 'tools' | 'snippets' | 'developer';
 
 export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   const { settings, updateSettings } = useJunasContext();
@@ -55,7 +62,36 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   }, []);
 
   // Profile state
-  // ... (keeping state variables)
+  const [userRole, setUserRole] = useState('');
+  const [userPurpose, setUserPurpose] = useState('');
+  const [profileSystemPrompt, setProfileSystemPrompt] = useState('');
+  const [profiles, setProfiles] = useState<ContextProfile[]>([]);
+  const [activeProfileId, setActiveProfileId] = useState<string>('');
+  const [profileName, setProfileName] = useState('');
+
+  // Snippet state
+  const [snippets, setSnippets] = useState<Snippet[]>([]);
+  const [editingSnippetId, setEditingSnippetId] = useState<string | null>(null);
+  const [snippetTitle, setSnippetTitle] = useState('');
+  const [snippetContent, setSnippetContent] = useState('');
+
+  const [tomlContent, setTomlContent] = useState('');
+
+  // Generation state
+  const [temperature, setTemperature] = useState(0.7);
+  const [maxTokens, setMaxTokens] = useState(4000);
+  const [topP, setTopP] = useState(0.95);
+  const [topK, setTopK] = useState(40);
+  const [frequencyPenalty, setFrequencyPenalty] = useState(0.0);
+  const [presencePenalty, setPresencePenalty] = useState(0.0);
+  const [systemPrompt, setSystemPrompt] = useState('');
+
+  // Models state
+  const [models, setModels] = useState<ModelInfo[]>([]);
+  const [downloadingModels, setDownloadingModels] = useState<Record<string, DownloadProgress>>({});
+  const [showDeleteModelsConfirm, setShowDeleteModelsConfirm] = useState(false);
+  const [showClearDataConfirm, setShowClearDataConfirm] = useState(false);
+  const { addToast } = useToast();
 
   // Sync state with settings from context when dialog opens
   useEffect(() => {
