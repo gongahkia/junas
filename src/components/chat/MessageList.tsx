@@ -6,7 +6,6 @@ import { FileText, ChevronLeft, ChevronRight, Edit2 } from 'lucide-react';
 import { StorageManager } from '@/lib/storage';
 import dynamic from 'next/dynamic';
 import { getBranchSiblings } from '@/lib/chat-tree';
-import { ThinkingIndicator } from './ThinkingIndicator';
 
 const MarkdownRenderer = dynamic(() => import('./MarkdownRenderer'), {
   loading: () => <div className="h-4 w-full animate-pulse bg-muted rounded" />,
@@ -311,8 +310,6 @@ export const MessageList = memo(function MessageList({
       ))}
 
       {/* ChatGPT-style thinking indicator */}
-      {isLoading && <ThinkingIndicator />}
-
       <div ref={messagesEndRef} />
     </div>
   );
