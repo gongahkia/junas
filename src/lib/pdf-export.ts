@@ -1,4 +1,3 @@
-import jsPDF from 'jspdf'
 import { Message } from '@/types/chat'
 
 /**
@@ -6,7 +5,8 @@ import { Message } from '@/types/chat'
  * @param messages - Array of messages to export
  * @param filename - Name of the PDF file (without extension)
  */
-export function exportToPDF(messages: Message[], filename: string = 'junas-conversation'): void {
+export async function exportToPDF(messages: Message[], filename: string = 'junas-conversation'): Promise<void> {
+  const { default: jsPDF } = await import('jspdf');
   const doc = new jsPDF()
 
   // Add Junas metadata to PDF properties
@@ -141,7 +141,8 @@ export function exportToPDF(messages: Message[], filename: string = 'junas-conve
  * @param messages - Array of messages to export
  * @param filename - Name of the PDF file (without extension)
  */
-export function exportSummaryToPDF(messages: Message[], filename: string = 'junas-summary'): void {
+export async function exportSummaryToPDF(messages: Message[], filename: string = 'junas-summary'): Promise<void> {
+  const { default: jsPDF } = await import('jspdf');
   const doc = new jsPDF()
 
   const pageWidth = doc.internal.pageSize.getWidth()
