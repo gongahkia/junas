@@ -95,7 +95,7 @@ export default function Home() {
   return (
     <div className="fade-in">
       <Layout
-        focusMode={focusMode}
+        focusMode={settings.focusMode}
         onShare={hasMessages ? () => setShowShareDialog(true) : undefined}
         onNewChat={hasMessages ? handleNewChat : undefined}
         onConfig={() => setShowConfigDialog(true)}
@@ -104,7 +104,6 @@ export default function Home() {
         onHistory={() => setShowHistoryDialog(true)}
       >
         <ChatInterface
-          key={chatKey}
           activeTab={activeTab}
           onTabChange={setActiveTab}
         />
