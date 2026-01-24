@@ -67,8 +67,8 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   // Keeping this for now as it might be triggered from other non-React parts or simple commands
   useEffect(() => {
     const handler = (e: any) => {
-      if (e.detail && e.detail.tab === 'providers') {
-        setActiveTab('providers');
+      if (e.detail && e.detail.tab) {
+        setActiveTab(e.detail.tab);
       }
     };
     window.addEventListener('open-config-dialog', handler);
