@@ -14,7 +14,7 @@ interface LayoutProps {
   onNewChat?: () => void;
   onCommandPalette?: () => void;
   onConfig?: () => void;
-  onTheme?: () => void;
+  onConfig?: () => void;
   onAbout?: () => void;
   onHistory?: () => void;
 }
