@@ -11,24 +11,34 @@ export const MessageSchema = z.object({
 });
 
 // Chat endpoint schema
+// Chat endpoint schema
 export const ChatRequestSchema = z.object({
   messages: z.array(MessageSchema).min(1, 'At least one message is required'),
-  model: z.string().optional(),
-  temperature: z.number().min(0).max(2).optional(),
-  maxTokens: z.number().min(1).max(100000).optional(),
-  stream: z.boolean().optional(),
+  provider: z.string().optional(),
+  apiKey: z.string().optional(),
+  tools: z.array(z.any()).optional(),
+  options: z
+    .object({
+      model: z.string().optional(),
+      temperature: z.number().optional(),
+      maxTokens: z.number().optional(),
+      stream: z.boolean().optional(),
+    })
+    .optional(),
 });
 
 // Tool endpoints common schema
 export const TextInputSchema = z.object({
-  text: z.string()
+  text: z
+    .string()
     .min(1, 'Text is required')
     .max(100000, 'Text exceeds maximum length of 100,000 characters'),
 });
 
 // Contract analysis schema
 export const AnalyzeRequestSchema = z.object({
-  text: z.string()
+  text: z
+    .string()
     .min(10, 'Text too short for analysis')
     .max(100000, 'Text exceeds maximum length'),
   type: z.enum(['contract', 'case', 'statute']).optional(),
@@ -36,7 +46,8 @@ export const AnalyzeRequestSchema = z.object({
 
 // Summarization schema
 export const SummarizeRequestSchema = z.object({
-  text: z.string()
+  text: z
+    .string()
     .min(10, 'Text too short for summarization')
     .max(100000, 'Text exceeds maximum length'),
   type: z.enum(['contract', 'case', 'statute', 'general']).optional(),
@@ -44,25 +55,24 @@ export const SummarizeRequestSchema = z.object({
 
 // Legal search schema
 export const SearchRequestSchema = z.object({
-  query: z.string()
-    .min(2, 'Search query too short')
-    .max(500, 'Search query too long'),
+  query: z.string().min(2, 'Search query too short').max(500, 'Search query too long'),
   type: z.enum(['statute', 'case', 'regulation', 'all']).optional(),
   limit: z.number().min(1).max(100).optional(),
 });
 
 // NER schema
 export const NERRequestSchema = z.object({
-  text: z.string()
-    .min(1, 'Text is required')
-    .max(100000, 'Text exceeds maximum length'),
+  text: z.string().min(1, 'Text is required').max(100000, 'Text exceeds maximum length'),
   entityTypes: z.array(z.enum(['PERSON', 'ORG', 'DATE', 'MONEY', 'LAW', 'GPE'])).optional(),
 });
 
 /**
  * Validate data against a schema
  */
-export function validateData<T>(schema: z.ZodSchema<T>, data: unknown): { success: true; data: T } | { success: false; error: string } {
+export function validateData<T>(
+  schema: z.ZodSchema<T>,
+  data: unknown
+): { success: true; data: T } | { success: false; error: string } {
   try {
     const validData = schema.parse(data);
     return { success: true, data: validData };

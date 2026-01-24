@@ -16,6 +16,22 @@ export class ChatService {
     }
     return null;
   }
+  private static csrfToken: string | null = null;
+
+  private static async getCsrfToken(): Promise<string> {
+    if (this.csrfToken) return this.csrfToken;
+    try {
+      const res = await fetch('/api/auth/csrf');
+      const token = res.headers.get('X-CSRF-Token');
+      if (token) {
+        this.csrfToken = token;
+        return token;
+      }
+    } catch (e) {
+      console.error('Failed to fetch CSRF token', e);
+    }
+    return '';
+  }
 
   static async sendMessage(
     messages: Message[],
@@ -25,6 +41,7 @@ export class ChatService {
     preferredProvider?: string
   ): Promise<SendMessageResult> {
     try {
+      const csrfToken = await this.getCsrfToken();
       let provider: string | null = preferredProvider || null;
 
       // If no preferred provider or it's not configured, get available provider
@@ -43,10 +60,16 @@ export class ChatService {
       }
 
       // Determine model based on provider
-      const model = provider === 'gemini' ? 'gemini-2.0-flash-exp' :
-        provider === 'openai' ? 'gpt-4o' :
-          provider === 'claude' ? 'claude-3-5-sonnet-20241022' :
-            provider === 'ollama' ? 'llama3' : 'local-model';
+      const model =
+        provider === 'gemini'
+          ? 'gemini-2.0-flash-exp'
+          : provider === 'openai'
+            ? 'gpt-4o'
+            : provider === 'claude'
+              ? 'claude-3-5-sonnet-20241022'
+              : provider === 'ollama'
+                ? 'llama3'
+                : 'local-model';
 
       // Get default system prompt config
       const config = getDefaultPromptConfig('standard');
@@ -54,7 +77,12 @@ export class ChatService {
 
       // Ensure current date is set dynamically if not already
       if (!config.currentDate) {
-        config.currentDate = new Date().toLocaleDateString('en-SG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        config.currentDate = new Date().toLocaleDateString('en-SG', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        });
       }
 
       // Resolve active profile and user context
@@ -62,7 +90,7 @@ export class ChatService {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let activeProfile: any = null;
       if (settings.activeProfileId && settings.profiles) {
-        activeProfile = settings.profiles.find(p => p.id === settings.activeProfileId);
+        activeProfile = settings.profiles.find((p) => p.id === settings.activeProfileId);
       }
 
       const role = activeProfile?.userRole || settings.userRole;
@@ -72,7 +100,7 @@ export class ChatService {
       if (role || purpose) {
         config.userContext = {
           role: role || undefined,
-          preferences: purpose || undefined
+          preferences: purpose || undefined,
         };
       }
 
@@ -85,7 +113,7 @@ export class ChatService {
       // Format messages with system prompt
       const formattedMessages = [
         { role: 'system', content: config.systemPrompt },
-        ...messages.map(msg => ({
+        ...messages.map((msg) => ({
           role: msg.role,
           content: msg.content,
         })),
@@ -97,7 +125,10 @@ export class ChatService {
         // Streaming
         const response = await fetch(`/api/providers/${provider}/chat`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': csrfToken,
+          },
           body: JSON.stringify({
             messages: formattedMessages,
             model,
@@ -121,7 +152,7 @@ export class ChatService {
             if (done) break;
 
             const chunk = decoder.decode(value);
-            const lines = chunk.split('\n').filter(line => line.trim());
+            const lines = chunk.split('\n').filter((line) => line.trim());
 
             for (const line of lines) {
               try {
@@ -140,7 +171,10 @@ export class ChatService {
         // Non-streaming
         const response = await fetch(`/api/providers/${provider}/chat`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': csrfToken,
+          },
           body: JSON.stringify({
             messages: formattedMessages,
             model,

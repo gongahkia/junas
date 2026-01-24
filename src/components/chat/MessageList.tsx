@@ -9,7 +9,7 @@ import { getBranchSiblings } from '@/lib/chat-tree';
 
 const MarkdownRenderer = dynamic(() => import('./MarkdownRenderer'), {
   loading: () => <div className="h-4 w-full animate-pulse bg-muted rounded" />,
-  ssr: false
+  ssr: false,
 });
 
 interface MessageListProps {
@@ -61,15 +61,22 @@ const MessageItemComponent = ({
     <div
       className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in-up group`}
     >
-      <div className={`flex w-full md:max-w-[80%] ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start gap-3`}>
-        <div className={`flex-1 border ${message.role === 'user'
-          ? 'bg-primary/5 border-primary/30'
-          : 'bg-muted/20 border-muted-foreground/30'
-          } font-mono relative`}>
+      <div
+        className={`flex w-full md:max-w-[80%] ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start gap-3`}
+      >
+        <div
+          className={`flex-1 border ${
+            message.role === 'user'
+              ? 'bg-primary/5 border-primary/30'
+              : 'bg-muted/20 border-muted-foreground/30'
+          } font-mono relative`}
+        >
           <div className="space-y-3 px-4 py-3">
             {/* Branch Navigation */}
             {totalSiblings > 1 && (
-              <div className={`absolute -top-3 ${message.role === 'user' ? 'right-2' : 'left-2'} flex items-center gap-1 bg-background border rounded-full px-1.5 py-0.5 text-[10px] text-muted-foreground shadow-sm`}>
+              <div
+                className={`absolute -top-3 ${message.role === 'user' ? 'right-2' : 'left-2'} flex items-center gap-1 bg-background border rounded-full px-1.5 py-0.5 text-[10px] text-muted-foreground shadow-sm`}
+              >
                 <button
                   onClick={() => onBranchSwitch?.(message.id, 'prev')}
                   disabled={currentSiblingIndex === 0}
@@ -120,16 +127,24 @@ const MessageItemComponent = ({
                     className="w-full min-h-[100px] p-2 text-sm bg-background border rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
                   />
                   <div className="flex justify-end gap-2">
-                    <button onClick={() => setIsEditing(false)} className="text-xs px-2 py-1 bg-muted hover:bg-muted/80 rounded">Cancel</button>
-                    <button onClick={handleSaveEdit} className="text-xs px-2 py-1 bg-primary text-primary-foreground hover:bg-primary/90 rounded">Save & Switch Branch</button>
+                    <button
+                      onClick={() => setIsEditing(false)}
+                      className="text-xs px-2 py-1 bg-muted hover:bg-muted/80 rounded"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleSaveEdit}
+                      className="text-xs px-2 py-1 bg-primary text-primary-foreground hover:bg-primary/90 rounded"
+                    >
+                      Save & Switch Branch
+                    </button>
                   </div>
                 </div>
+              ) : message.role === 'assistant' ? (
+                <MarkdownRenderer content={message.content} />
               ) : (
-                message.role === 'assistant' ? (
-                  <MarkdownRenderer content={message.content} />
-                ) : (
-                  <p className="whitespace-pre-wrap">{message.content}</p>
-                )
+                <p className="whitespace-pre-wrap">{message.content}</p>
               )}
             </div>
 
@@ -150,7 +165,6 @@ const MessageItemComponent = ({
                 ))}
               </div>
             )}
-
 
             {/* Message actions */}
             {!isEditing && (
@@ -193,14 +207,19 @@ const MessageItemComponent = ({
             )}
 
             {/* Sender label */}
-            <div className={`pt-2 text-[11px] font-medium text-muted-foreground/70 border-t border-muted-foreground/20 mt-3 flex flex-wrap gap-2 items-center ${message.role === 'user' ? 'justify-end' : 'justify-between'
-              }`}>
+            <div
+              className={`pt-2 text-[11px] font-medium text-muted-foreground/70 border-t border-muted-foreground/20 mt-3 flex flex-wrap gap-2 items-center ${
+                message.role === 'user' ? 'justify-end' : 'justify-between'
+              }`}
+            >
               <span>{message.role === 'assistant' ? '> Junas' : `> ${userName}`}</span>
 
               {(message.tokenCount || message.cost || message.responseTime) && (
                 <span className="flex items-center gap-2 opacity-60 font-mono text-[10px]">
                   {message.tokenCount && <span>{message.tokenCount.toLocaleString()} tks</span>}
-                  {message.cost !== undefined && message.cost > 0 && <span>${message.cost.toFixed(5)}</span>}
+                  {message.cost !== undefined && message.cost > 0 && (
+                    <span>${message.cost.toFixed(5)}</span>
+                  )}
                   {message.responseTime && <span>{(message.responseTime / 1000).toFixed(1)}s</span>}
                 </span>
               )}
@@ -225,6 +244,8 @@ const arePropsEqual = (prevProps: MessageItemProps, nextProps: MessageItemProps)
 const MessageItem = memo(MessageItemComponent, arePropsEqual);
 MessageItem.displayName = 'MessageItem';
 
+import { Virtuoso, VirtuosoHandle } from 'react-virtuoso';
+
 export const MessageList = memo(function MessageList({
   messages,
   nodeMap,
@@ -233,84 +254,58 @@ export const MessageList = memo(function MessageList({
   onRegenerateMessage,
   onEditMessage,
   onBranchSwitch,
-  scrollToMessageId
+  scrollToMessageId,
 }: MessageListProps) {
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const messageRefs = useRef<Record<string, HTMLDivElement | null>>({});
-  const hasScrolledToMessage = useRef(false);
+  const virtuosoRef = useRef<VirtuosoHandle>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  // Unused state removed: isAutoScrolling
-
-  const scrollToBottom = (smooth = true) => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto' });
-    }
-  };
 
   // Scroll to specific message when scrollToMessageId changes
   useEffect(() => {
-    if (scrollToMessageId && messageRefs.current[scrollToMessageId]) {
-      hasScrolledToMessage.current = true;
-      messageRefs.current[scrollToMessageId]?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
-      });
-      // Add highlight effect
-      const element = messageRefs.current[scrollToMessageId];
-      if (element) {
-        element.classList.add('ring-2', 'ring-primary', 'ring-offset-2');
-        setTimeout(() => {
-          element.classList.remove('ring-2', 'ring-primary', 'ring-offset-2');
-        }, 2000);
+    if (scrollToMessageId) {
+      const index = messages.findIndex((m) => m.id === scrollToMessageId);
+      if (index !== -1 && virtuosoRef.current) {
+        virtuosoRef.current.scrollToIndex({ index, align: 'center', behavior: 'smooth' });
       }
-      // Reset the flag after a delay to allow normal scrolling again
-      setTimeout(() => {
-        hasScrolledToMessage.current = false;
-      }, 2500);
     }
-  }, [scrollToMessageId]);
-
-  useEffect(() => {
-    if (!scrollToMessageId && !hasScrolledToMessage.current) {
-      scrollToBottom();
-    }
-  }, [messages, isLoading, scrollToMessageId]);
+  }, [scrollToMessageId, messages]);
 
   if (messages.length === 0) {
     return null;
   }
 
   return (
-    <div
-      ref={containerRef}
-      className="flex-1 overflow-y-auto px-3 md:px-8 py-4 md:py-12 space-y-4 md:space-y-8 max-w-5xl mx-auto w-full scroll-smooth no-scrollbar"
-    >
-      {messages.map((message, index) => (
-        <div
-          key={message.id}
-          ref={(el) => { messageRefs.current[message.id] = el; }}
-        >
-          {message.role === 'system' && message.content === 'loading' ? (
-            <div className="flex justify-center py-4">
-              <div className="text-sm text-muted-foreground/60 animate-pulse">
-                Summarising your past conversation...
+    <div ref={containerRef} className="flex-1 h-full w-full max-w-5xl mx-auto px-3 md:px-8">
+      <Virtuoso
+        ref={virtuosoRef}
+        data={messages}
+        followOutput={'smooth'}
+        initialTopMostItemIndex={messages.length - 1}
+        itemContent={(index, message) => (
+          <div className="py-4 md:py-6">
+            {message.role === 'system' && message.content === 'loading' ? (
+              <div className="flex justify-center py-4">
+                <div className="text-sm text-muted-foreground/60 animate-pulse">
+                  Summarising your past conversation...
+                </div>
               </div>
-            </div>
-          ) : (
-            <MessageItem
-              message={message}
-              nodeMap={nodeMap}
-              onCopyMessage={onCopyMessage}
-              onRegenerateMessage={onRegenerateMessage}
-              onEditMessage={onEditMessage}
-              onBranchSwitch={onBranchSwitch}
-            />
-          )}
-        </div>
-      ))}
-
-      {/* ChatGPT-style thinking indicator */}
-      <div ref={messagesEndRef} />
+            ) : (
+              <MessageItem
+                message={message}
+                nodeMap={nodeMap}
+                onCopyMessage={onCopyMessage}
+                onRegenerateMessage={onRegenerateMessage}
+                onEditMessage={onEditMessage}
+                onBranchSwitch={onBranchSwitch}
+              />
+            )}
+            {/* Adding the "thinking" indicator at the bottom if this is the last message and it's from user? No, logic was separate div. */}
+          </div>
+        )}
+        components={{
+          Footer: () => <div className="pb-4">{/* Spacer at bottom */}</div>,
+        }}
+        className="no-scrollbar"
+      />
     </div>
   );
 });
