@@ -914,6 +914,8 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
                             <option value="solarized">solarized</option>
                             <option value="rose-pine">rose-pine</option>
                             <option value="kanagawa">kanagawa</option>
+                            <option value="nord">nord</option>
+                            <option value="cyberpunk">cyberpunk</option>
                           </select>
                           <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground text-[8px]">
                             ▼
