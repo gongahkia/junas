@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Switch } from '@/components/ui/switch';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -891,7 +892,72 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
                     </p>
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-4 pt-4 border-t">
+                    <h3 className="text-sm font-bold mb-1">Theme & Display</h3>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label className="text-xs font-mono">Color Theme</Label>
+                        <div className="relative">
+                          <select
+                            value={settings.theme || 'vanilla'}
+                            onChange={(e) =>
+                              updateSettings({ ...settings, theme: e.target.value as any })
+                            }
+                            className="w-full text-xs font-mono bg-background border border-input rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary appearance-none"
+                          >
+                            <option value="vanilla">vanilla</option>
+                            <option value="gruvbox">gruvbox</option>
+                            <option value="everforest">everforest</option>
+                            <option value="tokyo-night">tokyo-night</option>
+                            <option value="catppuccin">catppuccin</option>
+                            <option value="solarized">solarized</option>
+                            <option value="rose-pine">rose-pine</option>
+                            <option value="kanagawa">kanagawa</option>
+                          </select>
+                          <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground text-[8px]">
+                            ▼
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between border-t pt-4 border-muted-foreground/10">
+                      <div className="flex items-center gap-3">
+                        <div className="space-y-0.5">
+                          <Label className="text-xs font-mono font-medium">Dark Mode</Label>
+                          <p className="text-[10px] text-muted-foreground">
+                            {settings.darkMode ? 'Dark theme enabled' : 'Light theme enabled'}
+                          </p>
+                        </div>
+                      </div>
+                      <Switch
+                        checked={settings.darkMode}
+                        onCheckedChange={(checked) =>
+                          updateSettings({ ...settings, darkMode: checked })
+                        }
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between border-t pt-4 border-muted-foreground/10">
+                      <div className="flex items-center gap-3">
+                        <div className="space-y-0.5">
+                          <Label className="text-xs font-mono font-medium">Focus Mode</Label>
+                          <p className="text-[10px] text-muted-foreground">
+                            {settings.focusMode ? 'UI elements hidden' : 'Standard UI view'}
+                          </p>
+                        </div>
+                      </div>
+                      <Switch
+                        checked={settings.focusMode}
+                        onCheckedChange={(checked) =>
+                          updateSettings({ ...settings, focusMode: checked })
+                        }
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 pt-4 border-t">
                     <Label className="text-xs font-mono">ASCII Logo Style</Label>
                     <select
                       value={settings.asciiLogo || '5'}
