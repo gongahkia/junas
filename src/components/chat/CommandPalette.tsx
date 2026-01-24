@@ -16,6 +16,8 @@ import {
   Briefcase,
   FileSignature,
   Cpu,
+  Sparkles,
+  Tags,
   MessageSquare,
   GitGraph,
 } from 'lucide-react';
