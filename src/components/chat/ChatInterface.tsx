@@ -903,7 +903,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
               <div className="text-center max-w-2xl w-full">
                 <div className="overflow-x-auto my-8">
                   <pre className="text-muted-foreground text-xs md:text-sm font-mono leading-tight inline-block">
-                    {JUNAS_ASCII_LOGO.split('\n').map((line, i) => (
+                    {startupLogo.split('\n').map((line, i) => (
                       <div
                         key={i}
                         className="animate-chunk-jiggle"
