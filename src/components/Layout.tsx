@@ -135,7 +135,6 @@ export function Layout({ children, focusMode = false, onConfig, onAbout, onHisto
                   onCommandPalette={onCommandPalette}
                   onHistory={onHistory}
                   onConfig={onConfig}
-                  onTheme={onTheme}
                   onImport={onImport}
                   onExport={onExport}
                   onShare={onShare}

@@ -14,7 +14,6 @@ interface MobileMenuProps {
   onCommandPalette?: () => void;
   onHistory?: () => void;
   onConfig?: () => void;
-  onTheme?: () => void;
   onImport?: () => void;
   onExport?: () => void;
   onShare?: () => void;
@@ -26,7 +25,6 @@ export function MobileMenu({
   onCommandPalette,
   onHistory,
   onConfig,
-  onTheme,
   onImport,
   onExport,
   onShare,
@@ -61,11 +59,6 @@ export function MobileMenu({
         {onConfig && (
           <DropdownMenuItem onClick={onConfig} className="cursor-pointer">
             [ Config ]
-          </DropdownMenuItem>
-        )}
-        {onTheme && (
-          <DropdownMenuItem onClick={onTheme} className="cursor-pointer">
-            [ Theme ]
           </DropdownMenuItem>
         )}
 
