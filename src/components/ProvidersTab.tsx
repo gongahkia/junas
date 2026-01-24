@@ -174,8 +174,8 @@ export function ProvidersTab() {
               <Alert variant="warning" className="py-2 mt-2">
                 <Info className="h-4 w-4" />
                 <AlertDescription className="text-xs">
-                  <strong>Note for Vercel Deployments:</strong> Local providers require a public
-                  tunneling URL (e.g., ngrok) to be accessible from Vercel serverless functions.{' '}
+                  <strong>Note for local hardware models:</strong> Local providers require a public
+                  tunneling URL.{' '}
                   <a
                     href="https://ngrok.com/docs"
                     target="_blank"
