@@ -109,7 +109,9 @@ export interface ChatSettings {
     | 'catppuccin'
     | 'solarized'
     | 'rose-pine'
-    | 'kanagawa';
+    | 'kanagawa'
+    | 'nord'
+    | 'cyberpunk';
   asciiLogo?: string;
 }
 
