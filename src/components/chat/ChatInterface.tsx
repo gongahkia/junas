@@ -15,7 +15,7 @@ import {
   processLocalCommand,
   processAsyncLocalCommand,
 } from '@/lib/commands/command-processor';
-import { JUNAS_ASCII_LOGO } from '@/lib/constants';
+import { ASCII_LOGOS } from '@/lib/ascii-logos';
 import { getModelsWithStatus, generateText, AVAILABLE_MODELS } from '@/lib/ml/model-manager';
 import { FileText, MessageSquare, GitGraph } from 'lucide-react';
 import { cn } from '@/lib/utils';

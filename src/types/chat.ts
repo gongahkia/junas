@@ -101,7 +101,16 @@ export interface ChatSettings {
   profiles?: ContextProfile[];
   activeProfileId?: string;
   snippets?: Snippet[];
-  theme?: 'vanilla' | 'gruvbox' | 'everforest' | 'tokyo-night' | 'catppuccin' | 'solarized' | 'rose-pine' | 'kanagawa';
+  theme?:
+    | 'vanilla'
+    | 'gruvbox'
+    | 'everforest'
+    | 'tokyo-night'
+    | 'catppuccin'
+    | 'solarized'
+    | 'rose-pine'
+    | 'kanagawa';
+  asciiLogo?: string;
 }
 
 export type DiagramRenderer = 'mermaid' | 'plantuml' | 'graphviz' | 'd2';

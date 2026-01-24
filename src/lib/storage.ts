@@ -27,6 +27,7 @@ const DEFAULT_SETTINGS: ChatSettings = {
   profiles: [],
   activeProfileId: undefined,
   snippets: [],
+  asciiLogo: '5',
 };
 
 export class StorageManager {

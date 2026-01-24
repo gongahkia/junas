@@ -1,12 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,7 +11,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+} from '@/components/ui/alert-dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/toast';
@@ -34,15 +29,34 @@ import {
   type ModelInfo,
   type DownloadProgress,
 } from '@/lib/ml/model-manager';
-import { Download, Trash2, Check, Loader2, AlertCircle, Plus, Copy, Edit2, Book } from 'lucide-react';
+import {
+  Download,
+  Trash2,
+  Check,
+  Loader2,
+  AlertCircle,
+  Plus,
+  Copy,
+  Edit2,
+  Book,
+} from 'lucide-react';
 import { useJunasContext } from '@/lib/context/JunasContext';
+import { ASCII_LOGOS } from '@/lib/ascii-logos';
 
 interface ConfigDialogProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-type Tab = 'profile' | 'generation' | 'localModels' | 'providers' | 'tools' | 'snippets' | 'developer';
+type Tab =
+  | 'profile'
+  | 'generation'
+  | 'localModels'
+  | 'providers'
+  | 'tools'
+  | 'snippets'
+  | 'interface'
+  | 'developer';
 
 export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   const { settings, updateSettings } = useJunasContext();
@@ -104,7 +118,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       setActiveProfileId(currentProfileId);
 
       if (currentProfileId && settings.profiles) {
-        const p = settings.profiles.find(p => p.id === currentProfileId);
+        const p = settings.profiles.find((p) => p.id === currentProfileId);
         if (p) {
           setProfileName(p.name);
           setUserRole(p.userRole);
@@ -143,8 +157,8 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
         theme: settings.theme,
         profile: {
           userRole: settings.userRole,
-          userPurpose: settings.userPurpose
-        }
+          userPurpose: settings.userPurpose,
+        },
       };
       setTomlContent(stringifyToml(config));
     }
@@ -158,7 +172,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       setProfileName('');
       setActiveProfileId('');
     } else {
-      const p = profiles.find(p => p.id === id);
+      const p = profiles.find((p) => p.id === id);
       if (p) {
         setUserRole(p.userRole);
         setUserPurpose(p.userPurpose);
@@ -184,7 +198,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
 
   const handleDeleteProfile = () => {
     if (!activeProfileId) return;
-    const newProfiles = profiles.filter(p => p.id !== activeProfileId);
+    const newProfiles = profiles.filter((p) => p.id !== activeProfileId);
     setProfiles(newProfiles);
     handleProfileChange('global'); // Switch back to global
   };
@@ -194,7 +208,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
 
     // If active profile, update it in the array
     if (activeProfileId) {
-      updatedProfiles = updatedProfiles.map(p =>
+      updatedProfiles = updatedProfiles.map((p) =>
         p.id === activeProfileId
           ? { ...p, name: profileName, userRole, userPurpose, systemPrompt: profileSystemPrompt }
           : p
@@ -207,14 +221,16 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       userRole: activeProfileId ? settings.userRole : userRole, // Only update global if global selected
       userPurpose: activeProfileId ? settings.userPurpose : userPurpose,
       profiles: updatedProfiles,
-      activeProfileId: activeProfileId || undefined
+      activeProfileId: activeProfileId || undefined,
     });
 
     onClose();
 
     addToast({
-      title: "Profile Saved",
-      description: activeProfileId ? `Profile "${profileName}" updated.` : "Global context updated.",
+      title: 'Profile Saved',
+      description: activeProfileId
+        ? `Profile "${profileName}" updated.`
+        : 'Global context updated.',
       duration: 2000,
     });
   };
@@ -232,8 +248,8 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
     });
 
     addToast({
-      title: "Settings Saved",
-      description: "Generation parameters have been updated.",
+      title: 'Settings Saved',
+      description: 'Generation parameters have been updated.',
       duration: 2000,
     });
   };
@@ -262,10 +278,8 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       };
       newSnippets.push(newSnippet);
     } else {
-      newSnippets = newSnippets.map(s =>
-        s.id === editingSnippetId
-          ? { ...s, title: snippetTitle, content: snippetContent }
-          : s
+      newSnippets = newSnippets.map((s) =>
+        s.id === editingSnippetId ? { ...s, title: snippetTitle, content: snippetContent } : s
       );
     }
 
@@ -274,14 +288,14 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
     setEditingSnippetId(null);
 
     addToast({
-      title: "Snippet Saved",
-      description: "Your snippet has been saved.",
+      title: 'Snippet Saved',
+      description: 'Your snippet has been saved.',
       duration: 2000,
     });
   };
 
   const handleDeleteSnippet = (id: string) => {
-    const newSnippets = snippets.filter(s => s.id !== id);
+    const newSnippets = snippets.filter((s) => s.id !== id);
     setSnippets(newSnippets);
     updateSettings({ ...settings, snippets: newSnippets });
     if (editingSnippetId === id) setEditingSnippetId(null);
@@ -309,16 +323,16 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       setTopP(mergedConfig.topP ?? topP);
 
       addToast({
-        title: "Configuration Applied",
-        description: "Settings updated from TOML.",
+        title: 'Configuration Applied',
+        description: 'Settings updated from TOML.',
         duration: 2000,
       });
       onClose();
     } catch (e: any) {
       addToast({
-        type: "error",
-        title: "Parse Error",
-        description: "Invalid TOML format.",
+        type: 'error',
+        title: 'Parse Error',
+        description: 'Invalid TOML format.',
         duration: 3000,
       });
     }
@@ -326,7 +340,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
 
   const handleDownloadModel = async (modelId: string) => {
     try {
-      setDownloadingModels(prev => ({
+      setDownloadingModels((prev) => ({
         ...prev,
         [modelId]: {
           modelId,
@@ -338,7 +352,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       }));
 
       await downloadModel(modelId, (progress) => {
-        setDownloadingModels(prev => ({
+        setDownloadingModels((prev) => ({
           ...prev,
           [modelId]: progress,
         }));
@@ -348,7 +362,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       setModels(getModelsWithStatus());
 
       // Get model name for toast
-      const modelInfo = AVAILABLE_MODELS.find(m => m.id === modelId);
+      const modelInfo = AVAILABLE_MODELS.find((m) => m.id === modelId);
       addToast({
         type: 'success',
         title: 'Model Ready',
@@ -358,14 +372,14 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
 
       // Clear from downloading state after a delay
       setTimeout(() => {
-        setDownloadingModels(prev => {
+        setDownloadingModels((prev) => {
           const updated = { ...prev };
           delete updated[modelId];
           return updated;
         });
       }, 2000);
     } catch (error: any) {
-      setDownloadingModels(prev => ({
+      setDownloadingModels((prev) => ({
         ...prev,
         [modelId]: {
           modelId,
@@ -377,7 +391,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
         },
       }));
 
-      const modelInfo = AVAILABLE_MODELS.find(m => m.id === modelId);
+      const modelInfo = AVAILABLE_MODELS.find((m) => m.id === modelId);
       addToast({
         type: 'error',
         title: 'Download Failed',
@@ -431,7 +445,6 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-4xl font-mono h-[80vh] flex flex-row p-0 overflow-hidden gap-0">
-
         {/* Sidebar */}
         <div className="w-56 bg-muted/30 border-r flex flex-col shrink-0">
           <DialogHeader className="p-4 border-b bg-background/50">
@@ -444,16 +457,19 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
               { id: 'localModels', label: 'Local Models' },
               { id: 'providers', label: 'Providers' },
               { id: 'tools', label: 'Tools' },
+              { id: 'tools', label: 'Tools' },
               { id: 'snippets', label: 'Snippets' },
-              { id: 'developer', label: 'Developer' }
+              { id: 'interface', label: 'Interface' },
+              { id: 'developer', label: 'Developer' },
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as Tab)}
-                className={`px-4 py-2.5 text-xs text-left transition-colors font-medium border-l-2 ${activeTab === tab.id
-                  ? 'border-primary bg-primary/5 text-primary'
-                  : 'border-transparent text-muted-foreground hover:bg-muted hover:text-foreground'
-                  }`}
+                className={`px-4 py-2.5 text-xs text-left transition-colors font-medium border-l-2 ${
+                  activeTab === tab.id
+                    ? 'border-primary bg-primary/5 text-primary'
+                    : 'border-transparent text-muted-foreground hover:bg-muted hover:text-foreground'
+                }`}
               >
                 {tab.label}
               </button>
@@ -467,7 +483,6 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
 
         {/* Content Area */}
         <div className="flex-1 flex flex-col min-w-0 bg-background">
-
           {/* Tab Content */}
           {/* Tab Content */}
           <div className="flex-1 overflow-y-auto p-6 no-scrollbar">
@@ -483,11 +498,15 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
                         className="w-full text-xs font-mono bg-background border border-input rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary appearance-none"
                       >
                         <option value="global">Global (Default)</option>
-                        {profiles.map(p => (
-                          <option key={p.id} value={p.id}>{p.name}</option>
+                        {profiles.map((p) => (
+                          <option key={p.id} value={p.id}>
+                            {p.name}
+                          </option>
                         ))}
                       </select>
-                      <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground text-[10px]">▼</div>
+                      <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground text-[10px]">
+                        ▼
+                      </div>
                     </div>
                   </div>
                   <div className="flex items-end gap-1">
@@ -568,9 +587,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-xs font-mono">
-                    &gt; Context Preview
-                  </Label>
+                  <Label className="text-xs font-mono">&gt; Context Preview</Label>
                   <p className="text-xs text-muted-foreground pl-1">
                     {userRole || '[Your Role]'} using Junas for {userPurpose || '[Your Purpose]'}
                   </p>
@@ -708,7 +725,9 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
                 <div className="space-y-3">
                   {models.map((model) => {
                     const downloadProgress = downloadingModels[model.id];
-                    const isDownloading = downloadProgress?.status === 'downloading' || downloadProgress?.status === 'loading';
+                    const isDownloading =
+                      downloadProgress?.status === 'downloading' ||
+                      downloadProgress?.status === 'loading';
                     const hasError = downloadProgress?.status === 'error';
                     const justCompleted = downloadProgress?.status === 'ready';
 
@@ -798,36 +817,128 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
                 <div className="">
                   <div className="flex gap-2">
                     <button
-                      onClick={() => setShowDeleteModelsConfirm(true)}
-                      className="px-3 py-2 text-xs border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors flex items-center gap-2 rounded-sm"
+                      onClick={handleDeleteAllModels}
+                      className="px-3 py-2 text-xs bg-red-500/10 text-red-500 hover:bg-red-500/20 transition-colors rounded-md"
                     >
-                      <Trash2 className="h-3 w-3" />
-                      Delete Local Models
+                      Delete All Models
                     </button>
                     <button
-                      onClick={() => setShowClearDataConfirm(true)}
-                      className="px-3 py-2 text-xs bg-red-600 text-white hover:bg-red-700 transition-colors flex items-center gap-2 rounded-sm"
+                      onClick={handleClearSiteData}
+                      className="px-3 py-2 text-xs border border-red-200 text-red-500 hover:bg-red-50 transition-colors rounded-md ml-auto"
                     >
-                      <Trash2 className="h-3 w-3" />
-                      Delete All Data
+                      Clear All Site Data
                     </button>
+                  </div>
+
+                  {showDeleteModelsConfirm && (
+                    <div className="mt-2 p-3 bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 text-xs rounded-md">
+                      <p className="font-bold mb-1">Delete all models?</p>
+                      <p className="mb-2">
+                        This will remove all downloaded model files. You will need to download them
+                        again to use local AI.
+                      </p>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleDeleteAllModels()}
+                          className="underline font-bold"
+                        >
+                          Confirm
+                        </button>
+                        <button
+                          onClick={() => setShowDeleteModelsConfirm(false)}
+                          className="underline"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {showClearDataConfirm && (
+                    <div className="mt-2 p-3 bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 text-xs rounded-md">
+                      <p className="font-bold mb-1">Clear all data?</p>
+                      <p className="mb-2">
+                        This will wipe all settings, chats, and models. This action cannot be
+                        undone.
+                      </p>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleClearSiteData()}
+                          className="underline font-bold"
+                        >
+                          Confirm Wipe
+                        </button>
+                        <button
+                          onClick={() => setShowClearDataConfirm(false)}
+                          className="underline"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'interface' && (
+              <div className="space-y-6">
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-sm font-bold mb-1">Startup Appearance</h3>
+                    <p className="text-xs text-muted-foreground">
+                      Customize the ASCII art shown when you start a new chat.
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="text-xs font-mono">ASCII Logo Style</Label>
+                    <select
+                      value={settings.asciiLogo || '5'}
+                      onChange={(e) => updateSettings({ ...settings, asciiLogo: e.target.value })}
+                      className="w-full text-xs font-mono bg-background border border-input rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary appearance-none"
+                    >
+                      <option value="random">Random (Surprise Me)</option>
+                      {Object.keys(ASCII_LOGOS)
+                        .sort((a, b) => parseInt(a) - parseInt(b))
+                        .map((key) => (
+                          <option key={key} value={key}>
+                            Style {key}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="text-xs font-mono">Preview</Label>
+                    <div className="p-4 border rounded-md bg-muted/20 overflow-x-auto">
+                      <pre className="text-[10px] md:text-xs font-mono leading-tight whitespace-pre text-muted-foreground">
+                        {settings.asciiLogo === 'random'
+                          ? ASCII_LOGOS['1'] + '\n\n(Randomly selected on load)'
+                          : ASCII_LOGOS[settings.asciiLogo || '5'] || ASCII_LOGOS['5']}
+                      </pre>
+                    </div>
                   </div>
                 </div>
               </div>
             )}
-            {activeTab === 'providers' && (
-              <ProvidersTab />
-            )}
-            {activeTab === 'tools' && (
-              <ToolsTab />
-            )}
+
+            {activeTab === 'providers' && <ProvidersTab />}
+            {activeTab === 'tools' && <ToolsTab />}
             {activeTab === 'snippets' && (
               <div className="space-y-4 px-1 h-full flex flex-col">
                 {editingSnippetId ? (
                   <div className="space-y-4 flex-1 flex flex-col">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-xs font-semibold uppercase tracking-wider">{editingSnippetId === 'new' ? 'New Snippet' : 'Edit Snippet'}</h3>
-                      <button onClick={() => setEditingSnippetId(null)} className="text-xs text-muted-foreground hover:text-foreground">[ Cancel ]</button>
+                      <h3 className="text-xs font-semibold uppercase tracking-wider">
+                        {editingSnippetId === 'new' ? 'New Snippet' : 'Edit Snippet'}
+                      </h3>
+                      <button
+                        onClick={() => setEditingSnippetId(null)}
+                        className="text-xs text-muted-foreground hover:text-foreground"
+                      >
+                        [ Cancel ]
+                      </button>
                     </div>
 
                     <div className="space-y-2">
@@ -877,8 +988,11 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
                           No snippets saved yet.
                         </div>
                       ) : (
-                        snippets.map(snippet => (
-                          <div key={snippet.id} className="p-3 border rounded-md hover:bg-muted/30 transition-colors flex justify-between items-start group">
+                        snippets.map((snippet) => (
+                          <div
+                            key={snippet.id}
+                            className="p-3 border rounded-md hover:bg-muted/30 transition-colors flex justify-between items-start group"
+                          >
                             <div className="flex-1 min-w-0 pr-3">
                               <h4 className="text-xs font-medium truncate">{snippet.title}</h4>
                               <p className="text-[10px] text-muted-foreground line-clamp-2 font-mono mt-1 opacity-70">
@@ -942,12 +1056,18 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
           <AlertDialogHeader>
             <AlertDialogTitle>Delete all local models?</AlertDialogTitle>
             <AlertDialogDescription>
-              This will remove all downloaded model files from your device to free up disk space. You will need to download them again to use local AI features.
+              This will remove all downloaded model files from your device to free up disk space.
+              You will need to download them again to use local AI features.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel className="text-xs">Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDeleteAllModels} className="bg-red-600 hover:bg-red-700 text-xs">Delete Models</AlertDialogAction>
+            <AlertDialogAction
+              onClick={handleDeleteAllModels}
+              className="bg-red-600 hover:bg-red-700 text-xs"
+            >
+              Delete Models
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -957,12 +1077,18 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
           <AlertDialogHeader>
             <AlertDialogTitle>Clear all site data?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your chat history, settings, API keys, and local models.
+              This action cannot be undone. This will permanently delete your chat history,
+              settings, API keys, and local models.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel className="text-xs">Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleClearSiteData} className="bg-red-600 hover:bg-red-700 text-xs">Clear Everything</AlertDialogAction>
+            <AlertDialogAction
+              onClick={handleClearSiteData}
+              className="bg-red-600 hover:bg-red-700 text-xs"
+            >
+              Clear Everything
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
