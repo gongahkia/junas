@@ -24,11 +24,11 @@
 > [!IMPORTANT]  
 > Read the [legal disclaimer](#legal-disclaimer) before using `Junas`.
 
-Use the live website [**here**](https://junas.vercel.app/).
+The easiest way to access `Junas` is through the live website at [**junas.vercel.app**](https://junas.vercel.app/).
 
 ## Local Usage
 
-The below instructions are for locally hosting `Junas`.
+For those interested, the below instructions are for locally hosting `Junas`.
 
 1. First run the below.
 
