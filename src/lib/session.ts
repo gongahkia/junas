@@ -13,7 +13,11 @@ export interface SessionData {
 }
 
 export const sessionOptions: SessionOptions = {
-  password: process.env.SESSION_SECRET || 'complex_password_at_least_32_characters_long_for_security',
+  password:
+    process.env.SESSION_SECRET ||
+    (() => {
+      throw new Error('SESSION_SECRET is not defined');
+    })(),
   cookieName: 'junas_session',
   cookieOptions: {
     httpOnly: true,
