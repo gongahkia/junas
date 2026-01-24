@@ -8,12 +8,15 @@
 
 ## Stack
 
-- _Frontend_: [Next.js 16](https://nextjs.org/), [React 19](https://react.dev/), [Tailwind CSS 3](https://tailwindcss.com/), [TypeScript 5](https://www.typescriptlang.org/)
-- _AI Providers_: [Anthropic SDK](https://www.anthropic.com/) (Claude), [Google Generative AI](https://ai.google.dev/) (Gemini), [OpenAI](https://platform.openai.com/) (GPT)
+- _Frontend_: [Next.js 16](https://nextjs.org/), [React 19](https://react.dev/), [Tailwind CSS 3](https://tailwindcss.com/) + [Radix UI](https://www.radix-ui.com/), [TypeScript 5](https://www.typescriptlang.org/)
+- _State Management_: [Zustand](https://zustand.docs.pmnd.rs/)
+- _Validation_: [Zod](https://zod.dev/)
+- _AI Providers_: [Anthropic SDK](https://www.anthropic.com/) (Claude), [Google Generative AI](https://ai.google.dev/) (Gemini), [OpenAI](https://platform.openai.com/) (GPT), [HuggingFace](https://huggingface.co/)
 - _Markdown Rendering_: [react-markdown](https://remarkjs.github.io/react-markdown/), [remark-gfm](https://github.com/remarkjs/remark-gfm), [remark-math](https://github.com/remarkjs/remark-math), [rehype-katex](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex), [KaTeX](https://katex.org/)
 - _Session Management_: [iron-session](https://github.com/vvo/iron-session)
 - _Rate Limiting_: [Upstash Redis](https://upstash.com/), [Upstash Ratelimit](https://github.com/upstash/ratelimit)
 - _Monitoring_: [Sentry](https://sentry.io/)
+- _Utils_: [Lucide React](https://lucide.dev/), [clsx](https://github.com/lukeed/clsx), [tailwind-merge](https://github.com/dcastil/tailwind-merge)
 
 ## Screenshots
 
@@ -47,7 +50,7 @@ $ npm start
 
 ## Architecture
 
-> To add diagramascode diagram later
+![](./asset/reference/architecture/junas_architecture.png)
 
 ## Legal Disclaimer
 
