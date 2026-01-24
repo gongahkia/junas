@@ -156,6 +156,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
         agentMode: settings.agentMode,
         focusMode: settings.focusMode,
         theme: settings.theme,
+        asciiLogo: settings.asciiLogo,
         profile: {
           userRole: settings.userRole,
           userPurpose: settings.userPurpose,

@@ -145,6 +145,142 @@ export function CommandPalette({
       category: 'system',
       action: onOpenConfig,
     },
+    {
+      id: 'config-profile',
+      label: 'Configuration > Profile',
+      description: 'Manage user persona and roles',
+      icon: <Settings className="h-4 w-4" />,
+      category: 'system',
+      action: () => {
+        onOpenConfig();
+        setTimeout(
+          () =>
+            window.dispatchEvent(
+              new CustomEvent('open-config-dialog', { detail: { tab: 'profile' } })
+            ),
+          100
+        );
+      },
+    },
+    {
+      id: 'config-generation',
+      label: 'Configuration > Generation',
+      description: 'Adjust temperature, tokens, and model parameters',
+      icon: <Settings className="h-4 w-4" />,
+      category: 'system',
+      action: () => {
+        onOpenConfig();
+        setTimeout(
+          () =>
+            window.dispatchEvent(
+              new CustomEvent('open-config-dialog', { detail: { tab: 'generation' } })
+            ),
+          100
+        );
+      },
+    },
+    {
+      id: 'config-local-models',
+      label: 'Configuration > Local Models',
+      description: 'Manage downloaded AI models',
+      icon: <Settings className="h-4 w-4" />,
+      category: 'system',
+      action: () => {
+        onOpenConfig();
+        setTimeout(
+          () =>
+            window.dispatchEvent(
+              new CustomEvent('open-config-dialog', { detail: { tab: 'localModels' } })
+            ),
+          100
+        );
+      },
+    },
+    {
+      id: 'config-providers',
+      label: 'Configuration > Providers',
+      description: 'Configure API keys for external providers',
+      icon: <Settings className="h-4 w-4" />,
+      category: 'system',
+      action: () => {
+        onOpenConfig();
+        setTimeout(
+          () =>
+            window.dispatchEvent(
+              new CustomEvent('open-config-dialog', { detail: { tab: 'providers' } })
+            ),
+          100
+        );
+      },
+    },
+    {
+      id: 'config-tools',
+      label: 'Configuration > Tools',
+      description: 'Enable or disable analysis tools',
+      icon: <Settings className="h-4 w-4" />,
+      category: 'system',
+      action: () => {
+        onOpenConfig();
+        setTimeout(
+          () =>
+            window.dispatchEvent(
+              new CustomEvent('open-config-dialog', { detail: { tab: 'tools' } })
+            ),
+          100
+        );
+      },
+    },
+    {
+      id: 'config-snippets',
+      label: 'Configuration > Snippets',
+      description: 'Manage reusable prompt snippets',
+      icon: <Settings className="h-4 w-4" />,
+      category: 'system',
+      action: () => {
+        onOpenConfig();
+        setTimeout(
+          () =>
+            window.dispatchEvent(
+              new CustomEvent('open-config-dialog', { detail: { tab: 'snippets' } })
+            ),
+          100
+        );
+      },
+    },
+    {
+      id: 'config-interface',
+      label: 'Configuration > Interface',
+      description: 'Customize theme and appearance',
+      icon: <Settings className="h-4 w-4" />,
+      category: 'system',
+      action: () => {
+        onOpenConfig();
+        setTimeout(
+          () =>
+            window.dispatchEvent(
+              new CustomEvent('open-config-dialog', { detail: { tab: 'interface' } })
+            ),
+          100
+        );
+      },
+    },
+    {
+      id: 'config-developer',
+      label: 'Configuration > Developer',
+      description: 'Advanced settings and TOML configuration',
+      icon: <Settings className="h-4 w-4" />,
+      category: 'system',
+      action: () => {
+        onOpenConfig();
+        setTimeout(
+          () =>
+            window.dispatchEvent(
+              new CustomEvent('open-config-dialog', { detail: { tab: 'developer' } })
+            ),
+          100
+        );
+      },
+    },
     ...(hasMessages
       ? [
           {
