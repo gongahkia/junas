@@ -14,24 +14,11 @@ interface LayoutProps {
   onNewChat?: () => void;
   onCommandPalette?: () => void;
   onConfig?: () => void;
-  onConfig?: () => void;
   onAbout?: () => void;
   onHistory?: () => void;
 }
 
-export function Layout({
-  children,
-  focusMode = false,
-  onImport,
-  onExport,
-  onShare,
-  onNewChat,
-  onCommandPalette,
-  onConfig,
-  onTheme,
-  onAbout,
-  onHistory,
-}: LayoutProps) {
+export function Layout({ children, focusMode = false, onConfig, onAbout, onHistory }: LayoutProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
