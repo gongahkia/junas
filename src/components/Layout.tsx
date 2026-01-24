@@ -18,7 +18,18 @@ interface LayoutProps {
   onHistory?: () => void;
 }
 
-export function Layout({ children, focusMode = false, onConfig, onAbout, onHistory }: LayoutProps) {
+export function Layout({
+  children,
+  focusMode = false,
+  onImport,
+  onExport,
+  onShare,
+  onNewChat,
+  onCommandPalette,
+  onConfig,
+  onAbout,
+  onHistory,
+}: LayoutProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
