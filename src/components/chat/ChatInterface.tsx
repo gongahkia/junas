@@ -10,7 +10,11 @@ import { StorageManager } from '@/lib/storage';
 import { ChatService } from '@/lib/ai/chat-service';
 import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
-import { parseCommand, processLocalCommand, processAsyncLocalCommand } from '@/lib/commands/command-processor';
+import {
+  parseCommand,
+  processLocalCommand,
+  processAsyncLocalCommand,
+} from '@/lib/commands/command-processor';
 import { JUNAS_ASCII_LOGO } from '@/lib/constants';
 import { getModelsWithStatus, generateText, AVAILABLE_MODELS } from '@/lib/ml/model-manager';
 import { FileText, MessageSquare, GitGraph } from 'lucide-react';
@@ -18,7 +22,12 @@ import { cn } from '@/lib/utils';
 import { ConfirmationDialog } from './ConfirmationDialog';
 import { TreeView } from './TreeView';
 import { estimateTokens, estimateCost } from '@/lib/ai/token-utils';
-import { createTreeFromLinear, addChild, getLinearHistory, getBranchSiblings } from '@/lib/chat-tree';
+import {
+  createTreeFromLinear,
+  addChild,
+  getLinearHistory,
+  getBranchSiblings,
+} from '@/lib/chat-tree';
 import { useJunasContext } from '@/lib/context/JunasContext';
 
 interface ChatInterfaceProps {
@@ -34,7 +43,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     conversations,
     updateChatState,
     saveConversation,
-    configuredProviders
+    configuredProviders,
   } = useJunasContext();
 
   const [messages, setMessages] = useState<Message[]>([]);
@@ -79,7 +88,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     if (confirmation.resolve) {
       confirmation.resolve(result);
     }
-    setConfirmation(prev => ({ ...prev, isOpen: false }));
+    setConfirmation((prev) => ({ ...prev, isOpen: false }));
   };
 
   // Check if user has configured their profile
@@ -93,7 +102,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
     // Check local model status (this logic stays local until we move ML manager to context too)
     const models = getModelsWithStatus();
-    const downloadedCount = models.filter(m => m.isDownloaded).length;
+    const downloadedCount = models.filter((m) => m.isDownloaded).length;
     if (downloadedCount === AVAILABLE_MODELS.length) {
       setCurrentProvider('local');
     } else if (chatState.currentProvider) {
@@ -119,9 +128,10 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     }
 
     // Find matching conversation in history to set ID/Title
-    const matchingConv = conversations.find(c =>
-      c.messages.length === chatState.messages?.length &&
-      c.messages[0]?.id === chatState.messages?.[0]?.id
+    const matchingConv = conversations.find(
+      (c) =>
+        c.messages.length === chatState.messages?.length &&
+        c.messages[0]?.id === chatState.messages?.[0]?.id
     );
 
     if (matchingConv) {
@@ -142,7 +152,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         content: 'loading',
         timestamp: new Date(),
       };
-      setMessages(prev => [...prev, loadingMessage]);
+      setMessages((prev) => [...prev, loadingMessage]);
       setIsLoading(true);
 
       try {
@@ -150,8 +160,8 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         const summary = await summarizeImportedConversation(importedMessages);
 
         // Remove loading message and add the summary response
-        setMessages(prev => {
-          const filtered = prev.filter(m => m.id !== 'import-loading');
+        setMessages((prev) => {
+          const filtered = prev.filter((m) => m.id !== 'import-loading');
           return [
             ...filtered,
             {
@@ -159,7 +169,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
               role: 'assistant',
               content: summary,
               timestamp: new Date(),
-            }
+            },
           ];
         });
 
@@ -167,16 +177,16 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
           type: 'success',
           title: 'Imported',
           description: 'Previous conversation has been summarized',
-          duration: 3000
+          duration: 3000,
         });
       } catch (error) {
         // Remove loading message on error
-        setMessages(prev => prev.filter(m => m.id !== 'import-loading'));
+        setMessages((prev) => prev.filter((m) => m.id !== 'import-loading'));
         addToast({
           type: 'error',
           title: 'Import Failed',
           description: 'Failed to summarize conversation',
-          duration: 3000
+          duration: 3000,
         });
       } finally {
         setIsLoading(false);
@@ -188,7 +198,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
   const summarizeImportedConversation = async (messages: Message[]): Promise<string> => {
     const conversationText = messages
-      .map(msg => `${msg.role.toUpperCase()}: ${msg.content}`)
+      .map((msg) => `${msg.role.toUpperCase()}: ${msg.content}`)
       .join('\n\n');
 
     const summarizationPrompt: Message[] = [
@@ -205,12 +215,18 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         const prompt = `Summarize conversation: ${conversationText}`;
         return await generateText(prompt);
       } catch (e) {
-        console.error("Local summarization failed", e);
-        return "Conversation imported.";
+        console.error('Local summarization failed', e);
+        return 'Conversation imported.';
       }
     }
 
-    const result = await ChatService.sendMessage(summarizationPrompt, configuredProviders, settings, undefined, currentProvider);
+    const result = await ChatService.sendMessage(
+      summarizationPrompt,
+      configuredProviders,
+      settings,
+      undefined,
+      currentProvider
+    );
     return result.content;
   };
 
@@ -222,14 +238,23 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       const generateTitle = async () => {
         try {
           const titlePrompt = [
-            { role: 'user', content: `Summarize this conversation start into a 3-5 word title. Reply ONLY with the title text.\n\nUser: ${messages[0].content}\nAssistant: ${messages[1].content}` } as Message
+            {
+              role: 'user',
+              content: `Summarize this conversation start into a 3-5 word title. Reply ONLY with the title text.\n\nUser: ${messages[0].content}\nAssistant: ${messages[1].content}`,
+            } as Message,
           ];
 
           let title = '';
           if (currentProvider === 'local') {
             title = await generateText(`Title for: ${messages[0].content}`);
           } else {
-            const result = await ChatService.sendMessage(titlePrompt, configuredProviders, settings, undefined, currentProvider);
+            const result = await ChatService.sendMessage(
+              titlePrompt,
+              configuredProviders,
+              settings,
+              undefined,
+              currentProvider
+            );
             title = result.content.replace(/^["']|["']$/g, '').trim();
           }
 
@@ -237,7 +262,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
             setConversationTitle(title);
           }
         } catch (e) {
-          console.error("Failed to generate title", e);
+          console.error('Failed to generate title', e);
         }
       };
       generateTitle();
@@ -245,601 +270,634 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
   }, [messages, conversationTitle, isLoading, currentProvider]);
 
   // AI Processing Loop (ReAct Pattern)
-  const generateResponse = useCallback(async (
-    currentMessages: Message[],
-    assistantMessageId: string,
-    recursionDepth = 0
-  ) => {
-    const settings = StorageManager.getSettings();
-    const maxDepth = settings.agentMode ? 10 : 3;
-
-    if (recursionDepth > maxDepth) {
-      return "Error: Maximum tool recursion depth reached.";
-    }
-
-    let aiResponseText = "";
-    let rafId: number | null = null;
-    let lastUpdate = 0;
-
-    const updateMessageContent = (text: string) => {
-      setMessages(prev =>
-        prev.map(msg =>
-          msg.id === assistantMessageId
-            ? { ...msg, content: text }
-            : msg
-        )
-      );
-      setNodeMap(prev => ({
-        ...prev,
-        [assistantMessageId]: { ...prev[assistantMessageId], content: text }
-      }));
-    };
-
-    try {
-      // 1. Get response from Provider (Local or API)
-      if (currentProvider === 'local') {
-        let prompt = "";
-        if (settings.agentMode) {
-          prompt = "System: You are Junas, a Singapore legal AI. You can use tools by replying ONLY with COMMAND: tool-id args. Available tools: web-search (for online info), fetch-url (for websites), extract-entities (for legal names), summarize-local (for summaries). If you need to search the web, use COMMAND: web-search query.\n\n";
-        }
-
-        prompt += currentMessages
-          .slice(-6)
-          .map(m => `${m.role === 'user' ? 'User' : m.role === 'system' ? 'System' : 'Assistant'}: ${m.content}`)
-          .join('\n') + '\nAssistant:';
-
-        aiResponseText = await generateText(prompt);
-        updateMessageContent(aiResponseText);
-      } else {
-        const result = await ChatService.sendMessage(
-          currentMessages,
-          configuredProviders,
-          settings,
-          (chunk: string) => {
-            aiResponseText += chunk;
-            const now = Date.now();
-            if (!rafId && now - lastUpdate > 16) {
-              lastUpdate = now;
-              rafId = requestAnimationFrame(() => updateMessageContent(aiResponseText));
-            }
-          },
-          currentProvider
-        );
-
-        if (rafId) cancelAnimationFrame(rafId);
-        updateMessageContent(result.content);
-        aiResponseText = result.content;
-      }
-
-      // 2. Check for Tool Commands
-      const commandMatch = aiResponseText.match(/^COMMAND:\s*([a-z-]+)\s*([\s\S]*)/i);
-
-      if (commandMatch) {
-        const commandId = commandMatch[1].toLowerCase() as any;
-        const args = commandMatch[2].trim();
-
-        // Check for destructive commands requiring confirmation
-        if (['generate-document', 'write-file', 'delete-file'].includes(commandId)) {
-          const approved = await requestConfirmation(
-            "Execute Tool?",
-            `The AI wants to run '${commandId}'. This action might modify or create files.`
-          );
-
-          if (!approved) {
-            const updatedMessages = [
-              ...currentMessages,
-              { role: 'assistant', content: aiResponseText } as Message,
-              { role: 'system', content: `Tool Execution Denied: User cancelled execution of ${commandId}.` } as Message
-            ];
-            return await generateResponse(updatedMessages, assistantMessageId, recursionDepth + 1);
-          }
-        }
-
-        const toolCommand = { command: commandId, args, isLocal: true };
-
-        updateMessageContent(`[Executing tool: ${commandId}...]`);
-
-        let toolResultContent = "";
-        const syncResult = processLocalCommand(toolCommand);
-
-        if (syncResult.success && syncResult.artifact) {
-          const newArtifact: Artifact = {
-            id: generateId(),
-            ...syncResult.artifact,
-            createdAt: Date.now(),
-            messageId: assistantMessageId
-          };
-          setArtifacts(prev => [newArtifact, ...prev]);
-          addToast({
-            title: "Artifact Generated",
-            description: `Created ${newArtifact.title}`,
-          });
-        }
-
-        if (syncResult.content === '__ASYNC_MODEL_COMMAND__') {
-          const asyncResult = await processAsyncLocalCommand(toolCommand);
-          toolResultContent = asyncResult.success ? asyncResult.content : `Tool Error: ${asyncResult.content}`;
-        } else {
-          toolResultContent = syncResult.success ? syncResult.content : `Tool Error: ${syncResult.content}`;
-        }
-
-        // 3. Feed result back to AI
-        const updatedMessages = [
-          ...currentMessages,
-          { role: 'assistant', content: aiResponseText } as Message,
-          { role: 'system', content: `Tool Output for ${commandId}:\n${toolResultContent}\n\nBased on this output, provide the final answer to the user.` } as Message
-        ];
-
-        return await generateResponse(updatedMessages, assistantMessageId, recursionDepth + 1);
-      }
-
-      return aiResponseText;
-
-    } catch (error: unknown) {
-      console.error("AI Processing Error:", error);
-      throw error;
-    }
-  }, [currentProvider, addToast]);
-
-  const handleSendMessage = useCallback(async (content: string) => {
-    if (!content.trim()) return;
-
-    // Resolve chained commands (e.g. /summarize (/fetch-url ...))
-    // We do this before determining if it is a command or simple message
-    // Note: importing resolveCommandString dynamically to ensure no circular deps if any, 
-    // although it is imported at top level in my plan, but let's be safe or just use the one from imports if I added it.
-    // I need to add import to the top of file too.
-    const { resolveCommandString } = await import('@/lib/commands/command-processor');
-    const resolvedContent = await resolveCommandString(content);
-
-    // Check if this is a local command (legacy direct command)
-    const parsedCommand = parseCommand(resolvedContent);
-
-    // For user message display, don't add context prefix to local commands
-    let displayContent = content;
-    let enrichedContent = content;
-
-    // Add user context pre-prompt to the first message (only for AI commands)
-    if (messages.length === 0 && (!parsedCommand || !parsedCommand.isLocal)) {
+  const generateResponse = useCallback(
+    async (currentMessages: Message[], assistantMessageId: string, recursionDepth = 0) => {
       const settings = StorageManager.getSettings();
-      if (settings.userRole || settings.userPurpose) {
-        const contextParts = [];
-        if (settings.userRole) contextParts.push(`a ${settings.userRole}`);
-        if (settings.userPurpose) contextParts.push(`using Junas for ${settings.userPurpose}`);
-        const contextPrompt = `[Context: I am ${contextParts.join(' ')}]\n\n`;
-        enrichedContent = contextPrompt + content;
-      }
-    }
+      const maxDepth = settings.agentMode ? 10 : 3;
 
-    const userMessage: Message = {
-      id: generateId(),
-      role: 'user',
-      content: parsedCommand?.isLocal ? displayContent : enrichedContent,
-      timestamp: new Date(),
-      tokenCount: estimateTokens(parsedCommand?.isLocal ? displayContent : enrichedContent),
-      cost: estimateCost(estimateTokens(parsedCommand?.isLocal ? displayContent : enrichedContent), currentProvider, '', 'input'),
-      parentId: currentLeafId,
-    };
-
-    // Update tree
-    const afterUserMap = addChild(nodeMap, currentLeafId || '', userMessage);
-    setNodeMap(afterUserMap);
-    setCurrentLeafId(userMessage.id);
-    setMessages(prev => [...prev, userMessage]);
-
-    setIsLoading(true);
-
-    const startTime = Date.now();
-
-    // Create assistant message
-    const assistantMessage: Message = {
-      id: generateId(),
-      role: 'assistant',
-      content: '',
-      timestamp: new Date(),
-      parentId: userMessage.id,
-    };
-
-    // Update tree with assistant
-    const afterAssistantMap = addChild(afterUserMap, userMessage.id, assistantMessage);
-    setNodeMap(afterAssistantMap);
-    setCurrentLeafId(assistantMessage.id);
-    setMessages(prev => [...prev, assistantMessage]);
-
-    // Legacy Local Command Handling
-    if (parsedCommand && parsedCommand.isLocal) {
-      const result = processLocalCommand(parsedCommand);
-
-      // Handle artifact generation
-      if (result.success && result.artifact) {
-        const newArtifact: Artifact = {
-          id: generateId(),
-          ...result.artifact,
-          createdAt: Date.now(),
-          messageId: assistantMessage.id
-        };
-        setArtifacts(prev => [newArtifact, ...prev]);
-        addToast({
-          title: "Artifact Generated",
-          description: `Created ${newArtifact.title}`,
-        });
-        setActiveTab('artifacts'); // Switch to artifacts tab
+      if (recursionDepth > maxDepth) {
+        return 'Error: Maximum tool recursion depth reached.';
       }
 
-      if (!result.success && result.requiresModel) {
-        const responseTime = Date.now() - startTime;
-        setMessages(prev =>
-          prev.map(msg =>
-            msg.id === assistantMessage.id
-              ? { ...msg, content: result.content, responseTime }
-              : msg
-          )
+      let aiResponseText = '';
+      let rafId: number | null = null;
+      let lastUpdate = 0;
+
+      const updateMessageContent = (text: string) => {
+        setMessages((prev) =>
+          prev.map((msg) => (msg.id === assistantMessageId ? { ...msg, content: text } : msg))
         );
-        setIsLoading(false);
-        return;
-      }
-
-      if (result.content === '__ASYNC_MODEL_COMMAND__') {
-        setMessages(prev =>
-          prev.map(msg =>
-            msg.id === assistantMessage.id
-              ? { ...msg, content: 'Loading model and processing...' }
-              : msg
-          )
-        );
-
-        try {
-          const asyncResult = await processAsyncLocalCommand(parsedCommand);
-          const responseTime = Date.now() - startTime;
-          setMessages(prev =>
-            prev.map(msg =>
-              msg.id === assistantMessage.id
-                ? { ...msg, content: asyncResult.content, responseTime }
-                : msg
-            )
-          );
-        } catch (error: unknown) {
-          const errorMessage = error instanceof Error ? error.message : String(error);
-          const responseTime = Date.now() - startTime;
-          setMessages(prev =>
-            prev.map(msg =>
-              msg.id === assistantMessage.id
-                ? { ...msg, content: `Error processing command: ${errorMessage}`, responseTime }
-                : msg
-            )
-          );
-        }
-        setIsLoading(false);
-        return;
-      }
-
-      const responseTime = Date.now() - startTime;
-      setMessages(prev =>
-        prev.map(msg =>
-          msg.id === assistantMessage.id
-            ? { ...msg, content: result.content, responseTime }
-            : msg
-        )
-      );
-      setIsLoading(false);
-      return;
-    }
-
-    try {
-      const allMessages = [...messages, userMessage];
-      const finalResponse = await generateResponse(allMessages, assistantMessage.id);
-
-      const responseTime = Date.now() - startTime;
-      const tokens = estimateTokens(finalResponse);
-      const cost = estimateCost(tokens, currentProvider, '', 'output');
-
-      setMessages(prev =>
-        prev.map(msg =>
-          msg.id === assistantMessage.id
-            ? { ...msg, content: finalResponse, responseTime, tokenCount: tokens, cost }
-            : msg
-        )
-      );
-      setNodeMap(prev => ({
-        ...prev,
-        [assistantMessage.id]: {
-          ...prev[assistantMessage.id],
-          content: finalResponse,
-          responseTime,
-          tokenCount: tokens,
-          cost
-        }
-      }));
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      setMessages(prev =>
-        prev.map(msg =>
-          msg.id === assistantMessage.id
-            ? { ...msg, content: `Error: ${errorMessage}` }
-            : msg
-        )
-      );
-    } finally {
-      setIsLoading(false);
-    }
-
-  }, [messages, generateResponse, addToast, setActiveTab]);
-
-  const handleRegenerateMessage = useCallback(async (messageId: string) => {
-    const messageIndex = messages.findIndex(m => m.id === messageId);
-    if (messageIndex === -1) return;
-    const msgToRegenerate = messages[messageIndex];
-
-    // We can only regenerate assistant messages
-    if (msgToRegenerate.role !== 'assistant') return;
-
-    // Get context up to this message (excluding the message itself)
-    const contextMessages = messages.slice(0, messageIndex);
-    const parentId = msgToRegenerate.parentId;
-
-    // Reset state to this point
-    setIsLoading(true);
-
-    // Create new assistant message placeholder (sibling)
-    const newAssistantMessage: Message = {
-      id: generateId(),
-      role: 'assistant',
-      content: '',
-      timestamp: new Date(),
-      parentId: parentId,
-    };
-
-    // Update tree: Add new sibling and switch branch
-    const afterRegenMap = addChild(nodeMap, parentId || '', newAssistantMessage);
-    setNodeMap(afterRegenMap);
-    setCurrentLeafId(newAssistantMessage.id);
-
-    // Update messages: Keep context + new placeholder
-    setMessages([...contextMessages, newAssistantMessage]);
-
-    const startTime = Date.now();
-
-    try {
-      const finalResponse = await generateResponse(contextMessages, newAssistantMessage.id);
-
-      const responseTime = Date.now() - startTime;
-      const tokens = estimateTokens(finalResponse);
-      const cost = estimateCost(tokens, currentProvider, '', 'output');
-
-      setMessages(prev =>
-        prev.map(msg =>
-          msg.id === newAssistantMessage.id
-            ? { ...msg, content: finalResponse, responseTime, tokenCount: tokens, cost }
-            : msg
-        )
-      );
-      setNodeMap(prev => ({
-        ...prev,
-        [newAssistantMessage.id]: {
-          ...prev[newAssistantMessage.id],
-          content: finalResponse,
-          responseTime,
-          tokenCount: tokens,
-          cost
-        }
-      }));
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      setMessages(prev =>
-        prev.map(msg =>
-          msg.id === newAssistantMessage.id
-            ? { ...msg, content: `Error: ${errorMessage}` }
-            : msg
-        )
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  }, [messages, generateResponse, nodeMap, currentProvider]);
-
-  const handleEditMessage = useCallback(async (messageId: string, newContent: string) => {
-    const originalMessage = nodeMap[messageId];
-    if (!originalMessage) return;
-
-    const parentId = originalMessage.parentId;
-
-    // Create new sibling
-    const newMessage: Message = {
-      ...originalMessage,
-      id: generateId(),
-      content: newContent,
-      timestamp: new Date(),
-      tokenCount: estimateTokens(newContent),
-      cost: estimateCost(estimateTokens(newContent), currentProvider, '', 'input'),
-    };
-
-    // Update tree
-    const nextNodeMap = addChild(nodeMap, parentId || '', newMessage);
-    setNodeMap(nextNodeMap);
-    setCurrentLeafId(newMessage.id);
-
-    // Calculate context for AI
-    const history = getLinearHistory(nextNodeMap, newMessage.id);
-    setMessages(history);
-
-    setIsLoading(true);
-    const startTime = Date.now();
-
-    // Create assistant placeholder
-    const assistantMessage: Message = {
-      id: generateId(),
-      role: 'assistant',
-      content: '',
-      timestamp: new Date(),
-      parentId: newMessage.id
-    };
-
-    const afterAssistantMap = addChild(nextNodeMap, newMessage.id, assistantMessage);
-    setNodeMap(afterAssistantMap);
-    setCurrentLeafId(assistantMessage.id);
-    setMessages([...history, assistantMessage]);
-
-    try {
-      const finalResponse = await generateResponse(history, assistantMessage.id);
-      const responseTime = Date.now() - startTime;
-      const tokens = estimateTokens(finalResponse);
-      const cost = estimateCost(tokens, currentProvider, '', 'output');
-
-      const finalAssistant = {
-        ...assistantMessage,
-        content: finalResponse,
-        responseTime,
-        tokenCount: tokens,
-        cost
+        setNodeMap((prev) => ({
+          ...prev,
+          [assistantMessageId]: { ...prev[assistantMessageId], content: text },
+        }));
       };
 
-      setMessages(prev => prev.map(m => m.id === assistantMessage.id ? finalAssistant : m));
-      setNodeMap(prev => ({ ...prev, [assistantMessage.id]: finalAssistant }));
-    } catch (e: unknown) {
-      const errorMessage = e instanceof Error ? e.message : String(e);
-      setMessages(prev => prev.map(m => m.id === assistantMessage.id ? { ...m, content: `Error: ${errorMessage}` } : m));
-    } finally {
-      setIsLoading(false);
-    }
-  }, [nodeMap, currentProvider, generateResponse]);
+      try {
+        // 1. Get response from Provider (Local or API)
+        if (currentProvider === 'local') {
+          let prompt = '';
+          if (settings.agentMode) {
+            prompt =
+              'System: You are Junas, a Singapore legal AI. You can use tools by replying ONLY with COMMAND: tool-id args. Available tools: web-search (for online info), fetch-url (for websites), extract-entities (for legal names), summarize-local (for summaries). If you need to search the web, use COMMAND: web-search query.\n\n';
+          }
 
-  const handleBranchSwitch = useCallback((messageId: string, direction: 'prev' | 'next') => {
-    const siblings = getBranchSiblings(nodeMap, messageId);
-    const currentIndex = siblings.indexOf(messageId);
+          prompt +=
+            currentMessages
+              .slice(-6)
+              .map(
+                (m) =>
+                  `${m.role === 'user' ? 'User' : m.role === 'system' ? 'System' : 'Assistant'}: ${m.content}`
+              )
+              .join('\n') + '\nAssistant:';
 
-    let nextId = messageId;
-    if (direction === 'prev' && currentIndex > 0) {
-      nextId = siblings[currentIndex - 1];
-    } else if (direction === 'next' && currentIndex < siblings.length - 1) {
-      nextId = siblings[currentIndex + 1];
-    }
+          aiResponseText = await generateText(prompt);
+          updateMessageContent(aiResponseText);
+        } else {
+          const result = await ChatService.sendMessage(
+            currentMessages,
+            configuredProviders,
+            settings,
+            (chunk: string) => {
+              aiResponseText += chunk;
+              const now = Date.now();
+              if (!rafId && now - lastUpdate > 16) {
+                lastUpdate = now;
+                rafId = requestAnimationFrame(() => updateMessageContent(aiResponseText));
+              }
+            },
+            currentProvider
+          );
 
-    if (nextId !== messageId) {
-      // Find the latest leaf for this branch
-      let leaf = nextId;
-      while (true) {
-        const node = nodeMap[leaf];
-        if (!node?.childrenIds || node.childrenIds.length === 0) break;
-        leaf = node.childrenIds[node.childrenIds.length - 1];
+          if (rafId) cancelAnimationFrame(rafId);
+          updateMessageContent(result.content);
+          aiResponseText = result.content;
+        }
+
+        // 2. Check for Tool Commands
+        const commandMatch = aiResponseText.match(/^COMMAND:\s*([a-z-]+)\s*([\s\S]*)/i);
+
+        if (commandMatch) {
+          const commandId = commandMatch[1].toLowerCase() as any;
+          const args = commandMatch[2].trim();
+
+          // Check for destructive commands requiring confirmation
+          if (['generate-document', 'write-file', 'delete-file'].includes(commandId)) {
+            const approved = await requestConfirmation(
+              'Execute Tool?',
+              `The AI wants to run '${commandId}'. This action might modify or create files.`
+            );
+
+            if (!approved) {
+              const updatedMessages = [
+                ...currentMessages,
+                { role: 'assistant', content: aiResponseText } as Message,
+                {
+                  role: 'system',
+                  content: `Tool Execution Denied: User cancelled execution of ${commandId}.`,
+                } as Message,
+              ];
+              return await generateResponse(
+                updatedMessages,
+                assistantMessageId,
+                recursionDepth + 1
+              );
+            }
+          }
+
+          const toolCommand = { command: commandId, args, isLocal: true };
+
+          updateMessageContent(`[Executing tool: ${commandId}...]`);
+
+          let toolResultContent = '';
+          const syncResult = processLocalCommand(toolCommand);
+
+          if (syncResult.success && syncResult.artifact) {
+            const newArtifact: Artifact = {
+              id: generateId(),
+              ...syncResult.artifact,
+              createdAt: Date.now(),
+              messageId: assistantMessageId,
+            };
+            setArtifacts((prev) => [newArtifact, ...prev]);
+            addToast({
+              title: 'Artifact Generated',
+              description: `Created ${newArtifact.title}`,
+            });
+          }
+
+          if (syncResult.content === '__ASYNC_MODEL_COMMAND__') {
+            const asyncResult = await processAsyncLocalCommand(toolCommand);
+            toolResultContent = asyncResult.success
+              ? asyncResult.content
+              : `Tool Error: ${asyncResult.content}`;
+          } else {
+            toolResultContent = syncResult.success
+              ? syncResult.content
+              : `Tool Error: ${syncResult.content}`;
+          }
+
+          // 3. Feed result back to AI
+          const updatedMessages = [
+            ...currentMessages,
+            { role: 'assistant', content: aiResponseText } as Message,
+            {
+              role: 'system',
+              content: `Tool Output for ${commandId}:\n${toolResultContent}\n\nBased on this output, provide the final answer to the user.`,
+            } as Message,
+          ];
+
+          return await generateResponse(updatedMessages, assistantMessageId, recursionDepth + 1);
+        }
+
+        return aiResponseText;
+      } catch (error: unknown) {
+        console.error('AI Processing Error:', error);
+        throw error;
+      }
+    },
+    [currentProvider, addToast]
+  );
+
+  const handleSendMessage = useCallback(
+    async (content: string) => {
+      if (!content.trim()) return;
+
+      // Resolve chained commands (e.g. /summarize (/fetch-url ...))
+      // We do this before determining if it is a command or simple message
+      // Note: importing resolveCommandString dynamically to ensure no circular deps if any,
+      // although it is imported at top level in my plan, but let's be safe or just use the one from imports if I added it.
+      // I need to add import to the top of file too.
+      const { resolveCommandString } = await import('@/lib/commands/command-processor');
+      const resolvedContent = await resolveCommandString(content);
+
+      // Check if this is a local command (legacy direct command)
+      const parsedCommand = parseCommand(resolvedContent);
+
+      // For user message display, don't add context prefix to local commands
+      let displayContent = content;
+      let enrichedContent = content;
+
+      // Add user context pre-prompt to the first message (only for AI commands)
+      if (messages.length === 0 && (!parsedCommand || !parsedCommand.isLocal)) {
+        const settings = StorageManager.getSettings();
+        if (settings.userRole || settings.userPurpose) {
+          const contextParts = [];
+          if (settings.userRole) contextParts.push(`a ${settings.userRole}`);
+          if (settings.userPurpose) contextParts.push(`using Junas for ${settings.userPurpose}`);
+          const contextPrompt = `[Context: I am ${contextParts.join(' ')}]\n\n`;
+          enrichedContent = contextPrompt + content;
+        }
       }
 
-      setCurrentLeafId(leaf);
-      setMessages(getLinearHistory(nodeMap, leaf));
-    }
-  }, [nodeMap]);
+      const userMessage: Message = {
+        id: generateId(),
+        role: 'user',
+        content: parsedCommand?.isLocal ? displayContent : enrichedContent,
+        timestamp: new Date(),
+        tokenCount: estimateTokens(parsedCommand?.isLocal ? displayContent : enrichedContent),
+        cost: estimateCost(
+          estimateTokens(parsedCommand?.isLocal ? displayContent : enrichedContent),
+          currentProvider,
+          '',
+          'input'
+        ),
+        parentId: currentLeafId,
+      };
 
-  const handleSelectNode = useCallback((nodeId: string) => {
-    if (nodeMap[nodeId]) {
-      setCurrentLeafId(nodeId);
-      setMessages(getLinearHistory(nodeMap, nodeId));
-      setActiveTab('chat');
-    }
-  }, [nodeMap, setActiveTab]);
+      // Update tree
+      const afterUserMap = addChild(nodeMap, currentLeafId || '', userMessage);
+      setNodeMap(afterUserMap);
+      setCurrentLeafId(userMessage.id);
+      setMessages((prev) => [...prev, userMessage]);
 
+      setIsLoading(true);
 
-  const handlePromptSelect = useCallback((prompt: string) => {
-    handleSendMessage(prompt);
-  }, [handleSendMessage]);
+      const startTime = Date.now();
+
+      // Create assistant message
+      const assistantMessage: Message = {
+        id: generateId(),
+        role: 'assistant',
+        content: '',
+        timestamp: new Date(),
+        parentId: userMessage.id,
+      };
+
+      // Update tree with assistant
+      const afterAssistantMap = addChild(afterUserMap, userMessage.id, assistantMessage);
+      setNodeMap(afterAssistantMap);
+      setCurrentLeafId(assistantMessage.id);
+      setMessages((prev) => [...prev, assistantMessage]);
+
+      // Legacy Local Command Handling
+      if (parsedCommand && parsedCommand.isLocal) {
+        const result = processLocalCommand(parsedCommand);
+
+        // Handle artifact generation
+        if (result.success && result.artifact) {
+          const newArtifact: Artifact = {
+            id: generateId(),
+            ...result.artifact,
+            createdAt: Date.now(),
+            messageId: assistantMessage.id,
+          };
+          setArtifacts((prev) => [newArtifact, ...prev]);
+          addToast({
+            title: 'Artifact Generated',
+            description: `Created ${newArtifact.title}`,
+          });
+          setActiveTab('artifacts'); // Switch to artifacts tab
+        }
+
+        if (!result.success && result.requiresModel) {
+          const responseTime = Date.now() - startTime;
+          setMessages((prev) =>
+            prev.map((msg) =>
+              msg.id === assistantMessage.id
+                ? { ...msg, content: result.content, responseTime }
+                : msg
+            )
+          );
+          setIsLoading(false);
+          return;
+        }
+
+        if (result.content === '__ASYNC_MODEL_COMMAND__') {
+          setMessages((prev) =>
+            prev.map((msg) =>
+              msg.id === assistantMessage.id
+                ? { ...msg, content: 'Loading model and processing...' }
+                : msg
+            )
+          );
+
+          try {
+            const asyncResult = await processAsyncLocalCommand(parsedCommand);
+            const responseTime = Date.now() - startTime;
+            setMessages((prev) =>
+              prev.map((msg) =>
+                msg.id === assistantMessage.id
+                  ? { ...msg, content: asyncResult.content, responseTime }
+                  : msg
+              )
+            );
+          } catch (error: unknown) {
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            const responseTime = Date.now() - startTime;
+            setMessages((prev) =>
+              prev.map((msg) =>
+                msg.id === assistantMessage.id
+                  ? { ...msg, content: `Error processing command: ${errorMessage}`, responseTime }
+                  : msg
+              )
+            );
+          }
+          setIsLoading(false);
+          return;
+        }
+
+        const responseTime = Date.now() - startTime;
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === assistantMessage.id ? { ...msg, content: result.content, responseTime } : msg
+          )
+        );
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        const allMessages = [...messages, userMessage];
+        const finalResponse = await generateResponse(allMessages, assistantMessage.id);
+
+        const responseTime = Date.now() - startTime;
+        const tokens = estimateTokens(finalResponse);
+        const cost = estimateCost(tokens, currentProvider, '', 'output');
+
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === assistantMessage.id
+              ? { ...msg, content: finalResponse, responseTime, tokenCount: tokens, cost }
+              : msg
+          )
+        );
+        setNodeMap((prev) => ({
+          ...prev,
+          [assistantMessage.id]: {
+            ...prev[assistantMessage.id],
+            content: finalResponse,
+            responseTime,
+            tokenCount: tokens,
+            cost,
+          },
+        }));
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === assistantMessage.id ? { ...msg, content: `Error: ${errorMessage}` } : msg
+          )
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [messages, generateResponse, addToast, setActiveTab]
+  );
+
+  const handleRegenerateMessage = useCallback(
+    async (messageId: string) => {
+      const messageIndex = messages.findIndex((m) => m.id === messageId);
+      if (messageIndex === -1) return;
+      const msgToRegenerate = messages[messageIndex];
+
+      // We can only regenerate assistant messages
+      if (msgToRegenerate.role !== 'assistant') return;
+
+      // Get context up to this message (excluding the message itself)
+      const contextMessages = messages.slice(0, messageIndex);
+      const parentId = msgToRegenerate.parentId;
+
+      // Reset state to this point
+      setIsLoading(true);
+
+      // Create new assistant message placeholder (sibling)
+      const newAssistantMessage: Message = {
+        id: generateId(),
+        role: 'assistant',
+        content: '',
+        timestamp: new Date(),
+        parentId: parentId,
+      };
+
+      // Update tree: Add new sibling and switch branch
+      const afterRegenMap = addChild(nodeMap, parentId || '', newAssistantMessage);
+      setNodeMap(afterRegenMap);
+      setCurrentLeafId(newAssistantMessage.id);
+
+      // Update messages: Keep context + new placeholder
+      setMessages([...contextMessages, newAssistantMessage]);
+
+      const startTime = Date.now();
+
+      try {
+        const finalResponse = await generateResponse(contextMessages, newAssistantMessage.id);
+
+        const responseTime = Date.now() - startTime;
+        const tokens = estimateTokens(finalResponse);
+        const cost = estimateCost(tokens, currentProvider, '', 'output');
+
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === newAssistantMessage.id
+              ? { ...msg, content: finalResponse, responseTime, tokenCount: tokens, cost }
+              : msg
+          )
+        );
+        setNodeMap((prev) => ({
+          ...prev,
+          [newAssistantMessage.id]: {
+            ...prev[newAssistantMessage.id],
+            content: finalResponse,
+            responseTime,
+            tokenCount: tokens,
+            cost,
+          },
+        }));
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === newAssistantMessage.id ? { ...msg, content: `Error: ${errorMessage}` } : msg
+          )
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [messages, generateResponse, nodeMap, currentProvider]
+  );
+
+  const handleEditMessage = useCallback(
+    async (messageId: string, newContent: string) => {
+      const originalMessage = nodeMap[messageId];
+      if (!originalMessage) return;
+
+      const parentId = originalMessage.parentId;
+
+      // Create new sibling
+      const newMessage: Message = {
+        ...originalMessage,
+        id: generateId(),
+        content: newContent,
+        timestamp: new Date(),
+        tokenCount: estimateTokens(newContent),
+        cost: estimateCost(estimateTokens(newContent), currentProvider, '', 'input'),
+      };
+
+      // Update tree
+      const nextNodeMap = addChild(nodeMap, parentId || '', newMessage);
+      setNodeMap(nextNodeMap);
+      setCurrentLeafId(newMessage.id);
+
+      // Calculate context for AI
+      const history = getLinearHistory(nextNodeMap, newMessage.id);
+      setMessages(history);
+
+      setIsLoading(true);
+      const startTime = Date.now();
+
+      // Create assistant placeholder
+      const assistantMessage: Message = {
+        id: generateId(),
+        role: 'assistant',
+        content: '',
+        timestamp: new Date(),
+        parentId: newMessage.id,
+      };
+
+      const afterAssistantMap = addChild(nextNodeMap, newMessage.id, assistantMessage);
+      setNodeMap(afterAssistantMap);
+      setCurrentLeafId(assistantMessage.id);
+      setMessages([...history, assistantMessage]);
+
+      try {
+        const finalResponse = await generateResponse(history, assistantMessage.id);
+        const responseTime = Date.now() - startTime;
+        const tokens = estimateTokens(finalResponse);
+        const cost = estimateCost(tokens, currentProvider, '', 'output');
+
+        const finalAssistant = {
+          ...assistantMessage,
+          content: finalResponse,
+          responseTime,
+          tokenCount: tokens,
+          cost,
+        };
+
+        setMessages((prev) => prev.map((m) => (m.id === assistantMessage.id ? finalAssistant : m)));
+        setNodeMap((prev) => ({ ...prev, [assistantMessage.id]: finalAssistant }));
+      } catch (e: unknown) {
+        const errorMessage = e instanceof Error ? e.message : String(e);
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === assistantMessage.id ? { ...m, content: `Error: ${errorMessage}` } : m
+          )
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [nodeMap, currentProvider, generateResponse]
+  );
+
+  const handleBranchSwitch = useCallback(
+    (messageId: string, direction: 'prev' | 'next') => {
+      const siblings = getBranchSiblings(nodeMap, messageId);
+      const currentIndex = siblings.indexOf(messageId);
+
+      let nextId = messageId;
+      if (direction === 'prev' && currentIndex > 0) {
+        nextId = siblings[currentIndex - 1];
+      } else if (direction === 'next' && currentIndex < siblings.length - 1) {
+        nextId = siblings[currentIndex + 1];
+      }
+
+      if (nextId !== messageId) {
+        // Find the latest leaf for this branch
+        let leaf = nextId;
+        while (true) {
+          const node = nodeMap[leaf];
+          if (!node?.childrenIds || node.childrenIds.length === 0) break;
+          leaf = node.childrenIds[node.childrenIds.length - 1];
+        }
+
+        setCurrentLeafId(leaf);
+        setMessages(getLinearHistory(nodeMap, leaf));
+      }
+    },
+    [nodeMap]
+  );
+
+  const handleSelectNode = useCallback(
+    (nodeId: string) => {
+      if (nodeMap[nodeId]) {
+        setCurrentLeafId(nodeId);
+        setMessages(getLinearHistory(nodeMap, nodeId));
+        setActiveTab('chat');
+      }
+    },
+    [nodeMap, setActiveTab]
+  );
+
+  const handlePromptSelect = useCallback(
+    (prompt: string) => {
+      handleSendMessage(prompt);
+    },
+    [handleSendMessage]
+  );
 
   const copyTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleCopyMessage = useCallback(async (content: string) => {
-    // Prevent multiple rapid copy toasts
-    if (copyTimeoutRef.current) {
-      return;
-    }
-
-    const copyToClipboard = async (text: string): Promise<boolean> => {
-      // Try modern clipboard API
-      try {
-        if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
-          await navigator.clipboard.writeText(text);
-          return true;
-        }
-      } catch {
-        return false;
+  const handleCopyMessage = useCallback(
+    async (content: string) => {
+      // Prevent multiple rapid copy toasts
+      if (copyTimeoutRef.current) {
+        return;
       }
-      return false;
-    };
 
-    const success = await copyToClipboard(content);
+      const copyToClipboard = async (text: string): Promise<boolean> => {
+        // Try modern clipboard API
+        try {
+          if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(text);
+            return true;
+          }
+        } catch {
+          return false;
+        }
+        return false;
+      };
 
-    if (success) {
-      addToast({
-        type: 'success',
-        title: 'Copied',
-        description: 'Message copied to clipboard',
-        duration: 2000,
-      });
+      const success = await copyToClipboard(content);
 
-      // Set a timeout to prevent multiple toasts within 2 seconds
-      copyTimeoutRef.current = setTimeout(() => {
-        copyTimeoutRef.current = null;
-      }, 2000);
-    } else {
-      addToast({
-        type: 'error',
-        title: 'Copy failed',
-        description: 'Unable to copy to clipboard',
-        duration: 2000,
-      });
-    }
-  }, [addToast]);
+      if (success) {
+        addToast({
+          type: 'success',
+          title: 'Copied',
+          description: 'Message copied to clipboard',
+          duration: 2000,
+        });
+
+        // Set a timeout to prevent multiple toasts within 2 seconds
+        copyTimeoutRef.current = setTimeout(() => {
+          copyTimeoutRef.current = null;
+        }, 2000);
+      } else {
+        addToast({
+          type: 'error',
+          title: 'Copy failed',
+          description: 'Unable to copy to clipboard',
+          duration: 2000,
+        });
+      }
+    },
+    [addToast]
+  );
 
   return (
     <div className="flex flex-col h-full w-full">
       {/* Tab Header */}
-      <div className="flex items-center border-b px-2 md:px-4 h-10 shrink-0 gap-2 md:gap-4 overflow-x-auto no-scrollbar">
-        <button
-          onClick={() => setActiveTab('chat')}
-          className={cn(
-            "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2 shrink-0",
-            activeTab === 'chat'
-              ? "border-primary text-foreground"
-              : "border-transparent text-muted-foreground hover:text-foreground"
-          )}
-        >
-          <MessageSquare className="h-3 w-3" />
-          CHAT
-        </button>
-        <button
-          onClick={() => setActiveTab('artifacts')}
-          className={cn(
-            "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2 shrink-0",
-            activeTab === 'artifacts'
-              ? "border-primary text-foreground"
-              : "border-transparent text-muted-foreground hover:text-foreground"
-          )}
-        >
-          <FileText className="h-3 w-3" />
-          ARTIFACTS {artifacts.length > 0 && `(${artifacts.length})`}
-        </button>
-        <button
-          onClick={() => setActiveTab('tree')}
-          className={cn(
-            "flex items-center gap-2 h-full text-xs font-mono border-b-2 transition-colors px-2 shrink-0",
-            activeTab === 'tree'
-              ? "border-primary text-foreground"
-              : "border-transparent text-muted-foreground hover:text-foreground"
-          )}
-        >
-          <GitGraph className="h-3 w-3" />
-          TREE
-        </button>
+      <div className="shrink-0 border-b">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 h-10 flex items-center gap-6 overflow-x-auto no-scrollbar font-mono text-xs">
+          <button
+            onClick={() => setActiveTab('chat')}
+            className={cn(
+              'flex items-center gap-2 hover:bg-muted/50 transition-colors px-2 py-1',
+              activeTab === 'chat' ? 'font-bold' : 'text-muted-foreground hover:text-foreground'
+            )}
+          >
+            [ Chat ]
+          </button>
 
-        {totalTokens > 0 && (
-          <div className="ml-auto hidden md:flex items-center gap-3 text-[10px] text-muted-foreground font-mono">
-            <span>{totalTokens.toLocaleString()} tokens</span>
-            {totalCost > 0 && <span>${totalCost.toFixed(4)}</span>}
-          </div>
-        )}
+          <button
+            onClick={() => setActiveTab('artifacts')}
+            className={cn(
+              'flex items-center gap-2 hover:bg-muted/50 transition-colors px-2 py-1',
+              activeTab === 'artifacts'
+                ? 'font-bold'
+                : 'text-muted-foreground hover:text-foreground'
+            )}
+          >
+            [ Artifacts ]
+            {artifacts.length > 0 && (
+              <span className="text-[10px] opacity-70">({artifacts.length})</span>
+            )}
+          </button>
+
+          <button
+            onClick={() => setActiveTab('tree')}
+            className={cn(
+              'flex items-center gap-2 hover:bg-muted/50 transition-colors px-2 py-1',
+              activeTab === 'tree' ? 'font-bold' : 'text-muted-foreground hover:text-foreground'
+            )}
+          >
+            [ Tree ]
+          </button>
+
+          {totalTokens > 0 && (
+            <div className="ml-auto hidden md:flex items-center gap-3 text-[10px] text-muted-foreground font-mono">
+              <span>{totalTokens.toLocaleString()} tokens</span>
+              {totalCost > 0 && <span>${totalCost.toFixed(4)}</span>}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Messages area */}
       <div className="flex-1 overflow-hidden relative">
-        <div
-          className={cn("h-full flex flex-col", activeTab === 'chat' ? "flex" : "hidden")}
-        >
+        <div className={cn('h-full flex flex-col', activeTab === 'chat' ? 'flex' : 'hidden')}>
           {messages.length === 0 ? (
             <div className="flex items-center justify-center h-full px-4 py-8">
               <div className="text-center max-w-2xl w-full">
@@ -872,15 +930,11 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
           )}
         </div>
 
-        <div
-          className={cn("h-full bg-background", activeTab === 'artifacts' ? "block" : "hidden")}
-        >
+        <div className={cn('h-full bg-background', activeTab === 'artifacts' ? 'block' : 'hidden')}>
           <ArtifactsTab artifacts={artifacts} />
         </div>
 
-        <div
-          className={cn("h-full bg-background", activeTab === 'tree' ? "block" : "hidden")}
-        >
+        <div className={cn('h-full bg-background', activeTab === 'tree' ? 'block' : 'hidden')}>
           <TreeView
             nodeMap={nodeMap}
             currentLeafId={currentLeafId}
@@ -890,7 +944,14 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       </div>
 
       {/* Input area */}
-      <div className={cn("transition-all duration-200", (activeTab === 'artifacts' || activeTab === 'tree') ? "opacity-50 pointer-events-none" : "opacity-100")}>
+      <div
+        className={cn(
+          'transition-all duration-200',
+          activeTab === 'artifacts' || activeTab === 'tree'
+            ? 'opacity-50 pointer-events-none'
+            : 'opacity-100'
+        )}
+      >
         <MessageInput
           onSendMessage={handleSendMessage}
           isLoading={isLoading}

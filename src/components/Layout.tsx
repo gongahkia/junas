@@ -70,15 +70,7 @@ export function Layout({
                       [ New Chat ]
                     </button>
                   )}
-                  {onCommandPalette && (
-                    <button
-                      onClick={onCommandPalette}
-                      className="px-2 py-1 text-sm hover:bg-muted transition-colors"
-                      title="Command Palette (Cmd+Shift+P)"
-                    >
-                      [ Cmd ]
-                    </button>
-                  )}
+                  {/* Command Palette button removed from desktop view as per request */}
                   {onHistory && (
                     <button
                       onClick={onHistory}
