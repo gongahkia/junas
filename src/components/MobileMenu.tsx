@@ -2,92 +2,99 @@
 
 import { Menu } from 'lucide-react';
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 interface MobileMenuProps {
-    onNewChat?: () => void;
-    onHistory?: () => void;
-    onConfig?: () => void;
-    onTheme?: () => void;
-    onImport?: () => void;
-    onExport?: () => void;
-    onShare?: () => void;
-    onAbout?: () => void;
+  onNewChat?: () => void;
+  onCommandPalette?: () => void;
+  onHistory?: () => void;
+  onConfig?: () => void;
+  onTheme?: () => void;
+  onImport?: () => void;
+  onExport?: () => void;
+  onShare?: () => void;
+  onAbout?: () => void;
 }
 
 export function MobileMenu({
-    onNewChat,
-    onHistory,
-    onConfig,
-    onTheme,
-    onImport,
-    onExport,
-    onShare,
-    onAbout
+  onNewChat,
+  onCommandPalette,
+  onHistory,
+  onConfig,
+  onTheme,
+  onImport,
+  onExport,
+  onShare,
+  onAbout,
 }: MobileMenuProps) {
-    return (
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <button className="p-2 -mr-2 text-foreground/80 hover:text-foreground">
-                    <Menu className="h-6 w-6" />
-                </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-[200px] font-mono">
-                {onNewChat && (
-                    <DropdownMenuItem onClick={onNewChat} className="cursor-pointer">
-                        [ New Chat ]
-                    </DropdownMenuItem>
-                )}
-                {onHistory && (
-                    <DropdownMenuItem onClick={onHistory} className="cursor-pointer">
-                        [ History ]
-                    </DropdownMenuItem>
-                )}
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="p-2 -mr-2 text-foreground/80 hover:text-foreground">
+          <Menu className="h-6 w-6" />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-[200px] font-mono">
+        {onNewChat && (
+          <DropdownMenuItem onClick={onNewChat} className="cursor-pointer">
+            [ New Chat ]
+          </DropdownMenuItem>
+        )}
+        {onCommandPalette && (
+          <DropdownMenuItem onClick={onCommandPalette} className="cursor-pointer">
+            [ Command Palette ]
+          </DropdownMenuItem>
+        )}
+        {onHistory && (
+          <DropdownMenuItem onClick={onHistory} className="cursor-pointer">
+            [ History ]
+          </DropdownMenuItem>
+        )}
 
-                <DropdownMenuSeparator />
+        <DropdownMenuSeparator />
 
-                {onConfig && (
-                    <DropdownMenuItem onClick={onConfig} className="cursor-pointer">
-                        [ Config ]
-                    </DropdownMenuItem>
-                )}
-                {onTheme && (
-                    <DropdownMenuItem onClick={onTheme} className="cursor-pointer">
-                        [ Theme ]
-                    </DropdownMenuItem>
-                )}
+        {onConfig && (
+          <DropdownMenuItem onClick={onConfig} className="cursor-pointer">
+            [ Config ]
+          </DropdownMenuItem>
+        )}
+        {onTheme && (
+          <DropdownMenuItem onClick={onTheme} className="cursor-pointer">
+            [ Theme ]
+          </DropdownMenuItem>
+        )}
 
-                <DropdownMenuSeparator />
+        <DropdownMenuSeparator />
 
-                {onImport && (
-                    <DropdownMenuItem onClick={onImport} className="cursor-pointer">
-                        [ ↑ Import ]
-                    </DropdownMenuItem>
-                )}
-                {onExport && (
-                    <DropdownMenuItem onClick={onExport} className="cursor-pointer">
-                        [ ↓ Export ]
-                    </DropdownMenuItem>
-                )}
+        {onImport && (
+          <DropdownMenuItem onClick={onImport} className="cursor-pointer">
+            [ ↑ Import ]
+          </DropdownMenuItem>
+        )}
+        {onExport && (
+          <DropdownMenuItem onClick={onExport} className="cursor-pointer">
+            [ ↓ Export ]
+          </DropdownMenuItem>
+        )}
 
-                <DropdownMenuSeparator />
+        <DropdownMenuSeparator />
 
-                {onShare && (
-                    <DropdownMenuItem onClick={onShare} className="cursor-pointer">
-                        [ Share ]
-                    </DropdownMenuItem>
-                )}
-                {onAbout && (
-                    <DropdownMenuItem onClick={onAbout} className="cursor-pointer">
-                        [ About ]
-                    </DropdownMenuItem>
-                )}
-            </DropdownMenuContent>
-        </DropdownMenu>
-    );
+        {onShare && (
+          <DropdownMenuItem onClick={onShare} className="cursor-pointer">
+            [ Share ]
+          </DropdownMenuItem>
+        )}
+        {onAbout && (
+          <DropdownMenuItem onClick={onAbout} className="cursor-pointer">
+            [ About ]
+          </DropdownMenuItem>
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 }

@@ -17,11 +17,7 @@ import IntroAnimation from '@/components/IntroAnimation';
 import { useJunasContext } from '@/lib/context/JunasContext';
 
 export default function Home() {
-  const {
-    settings,
-    chatState,
-    updateChatState
-  } = useJunasContext();
+  const { settings, chatState, updateChatState } = useJunasContext();
 
   const [showNewChatDialog, setShowNewChatDialog] = useState(false);
   const [showShareDialog, setShowShareDialog] = useState(false);
@@ -67,7 +63,7 @@ export default function Home() {
       artifacts: [],
       isLoading: false,
       currentProvider: chatState?.currentProvider || 'gemini',
-      settings: settings
+      settings: settings,
     });
 
     // Explicitly clear storage key if needed, though updateChatState handles standard saving
@@ -97,16 +93,14 @@ export default function Home() {
       <Layout
         focusMode={settings.focusMode}
         onShare={hasMessages ? () => setShowShareDialog(true) : undefined}
-        onNewChat={hasMessages ? handleNewChat : undefined}
+        onNewChat={handleNewChat}
+        onCommandPalette={() => setShowCommandPalette(true)}
         onConfig={() => setShowConfigDialog(true)}
         onTheme={() => setShowThemeDialog(true)}
         onAbout={() => setShowAboutDialog(true)}
         onHistory={() => setShowHistoryDialog(true)}
       >
-        <ChatInterface
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
-        />
+        <ChatInterface activeTab={activeTab} onTabChange={setActiveTab} />
 
         {/* New Chat Dialog */}
         <NewChatDialog
@@ -132,22 +126,13 @@ export default function Home() {
         />
 
         {/* Config Dialog */}
-        <ConfigDialog
-          isOpen={showConfigDialog}
-          onClose={() => setShowConfigDialog(false)}
-        />
+        <ConfigDialog isOpen={showConfigDialog} onClose={() => setShowConfigDialog(false)} />
 
         {/* Theme Dialog */}
-        <ThemeDialog
-          isOpen={showThemeDialog}
-          onClose={() => setShowThemeDialog(false)}
-        />
+        <ThemeDialog isOpen={showThemeDialog} onClose={() => setShowThemeDialog(false)} />
 
         {/* About Dialog */}
-        <AboutDialog
-          isOpen={showAboutDialog}
-          onClose={() => setShowAboutDialog(false)}
-        />
+        <AboutDialog isOpen={showAboutDialog} onClose={() => setShowAboutDialog(false)} />
 
         {/* Command Palette */}
         <CommandPalette

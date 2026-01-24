@@ -12,13 +12,26 @@ interface LayoutProps {
   onExport?: () => void;
   onShare?: () => void;
   onNewChat?: () => void;
+  onCommandPalette?: () => void;
   onConfig?: () => void;
   onTheme?: () => void;
   onAbout?: () => void;
   onHistory?: () => void;
 }
 
-export function Layout({ children, focusMode = false, onImport, onExport, onShare, onNewChat, onConfig, onTheme, onAbout, onHistory }: LayoutProps) {
+export function Layout({
+  children,
+  focusMode = false,
+  onImport,
+  onExport,
+  onShare,
+  onNewChat,
+  onCommandPalette,
+  onConfig,
+  onTheme,
+  onAbout,
+  onHistory,
+}: LayoutProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -55,6 +68,15 @@ export function Layout({ children, focusMode = false, onImport, onExport, onShar
                       data-tour="new-chat"
                     >
                       [ New Chat ]
+                    </button>
+                  )}
+                  {onCommandPalette && (
+                    <button
+                      onClick={onCommandPalette}
+                      className="px-2 py-1 text-sm hover:bg-muted transition-colors"
+                      title="Command Palette (Cmd+Shift+P)"
+                    >
+                      [ Cmd ]
                     </button>
                   )}
                   {onHistory && (
@@ -140,6 +162,7 @@ export function Layout({ children, focusMode = false, onImport, onExport, onShar
               <div className="md:hidden flex items-center">
                 <MobileMenu
                   onNewChat={onNewChat}
+                  onCommandPalette={onCommandPalette}
                   onHistory={onHistory}
                   onConfig={onConfig}
                   onTheme={onTheme}
@@ -154,9 +177,7 @@ export function Layout({ children, focusMode = false, onImport, onExport, onShar
         )}
 
         {/* Main content */}
-        <main className="flex-1 flex flex-col min-h-0 relative">
-          {children}
-        </main>
+        <main className="flex-1 flex flex-col min-h-0 relative">{children}</main>
 
         {/* Footer */}
         {!focusMode && (
