@@ -96,6 +96,15 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     setHasProfileConfig(!!(settings.userRole || settings.userPurpose));
   }, [messages, settings]);
 
+  const startupLogo = useMemo(() => {
+    if (settings.asciiLogo === 'random') {
+      const keys = Object.keys(ASCII_LOGOS);
+      const randomKey = keys[Math.floor(Math.random() * keys.length)];
+      return ASCII_LOGOS[randomKey];
+    }
+    return ASCII_LOGOS[settings.asciiLogo || '5'] || ASCII_LOGOS['5'];
+  }, [settings.asciiLogo]);
+
   // Sync with context chat state on load
   useEffect(() => {
     if (!chatState) return;
