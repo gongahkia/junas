@@ -6,9 +6,13 @@
 
 `Junas` is a [BYOK](https://en.wikipedia.org/wiki/Bring_your_own_encryption) Web App that [automates](#architecture) away legal [busy work](https://en.wikipedia.org/wiki/Busy_work) in mind.
 
+<div align="center">
+    <img src="./asset/reference/v2/1.png" width="75%">
+</div>
+
 ## Stack
 
-- _Frontend_: [Next.js 16](https://nextjs.org/), [React 19](https://react.dev/), [Tailwind CSS 3](https://tailwindcss.com/) + [Radix UI](https://www.radix-ui.com/), [TypeScript 5](https://www.typescriptlang.org/)
+- _Frontend_: [Next.js 16](https://nextjs.org/), [React 19](https://react.dev/), [Tailwind CSS 3](https://tailwindcss.com/), [Radix UI](https://www.radix-ui.com/), [TypeScript 5](https://www.typescriptlang.org/)
 - _State Management_: [Zustand](https://zustand.docs.pmnd.rs/)
 - _Validation_: [Zod](https://zod.dev/)
 - _AI Providers_: [Anthropic SDK](https://www.anthropic.com/) (Claude), [Google Generative AI](https://ai.google.dev/) (Gemini), [OpenAI](https://platform.openai.com/) (GPT), [HuggingFace](https://huggingface.co/)
@@ -20,7 +24,20 @@
 
 ## Screenshots
 
-...
+<div align="center">
+    <img src="./asset/reference/v2/3.png" width="48%">
+    <img src="./asset/reference/v2/2.png" width="45.5%">
+</div>
+
+<div align="center">
+    <img src="./asset/reference/v2/4.png" width="48%">
+    <img src="./asset/reference/v2/5.png" width="46%">
+</div>
+
+<div align="center">
+    <img src="./asset/reference/v2/6.png" width="46.5%">
+    <img src="./asset/reference/v2/7.png" width="48%">
+</div>
 
 ## Usage
 
@@ -50,7 +67,9 @@ $ npm start
 
 ## Architecture
 
-![](./asset/reference/architecture/junas_architecture.png)
+<div align="center">
+    <img src="./asset/reference/architecture/junas_architecture.png" width="65%">
+</div>
 
 ## Legal Disclaimer
 
