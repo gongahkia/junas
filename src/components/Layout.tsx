@@ -97,16 +97,7 @@ export function Layout({
                       [ Config ]
                     </button>
                   )}
-                  {/* Theme button */}
-                  {onTheme && (
-                    <button
-                      onClick={onTheme}
-                      className="px-2 py-1 text-sm hover:bg-muted transition-colors"
-                      title="Theme settings"
-                    >
-                      [ Theme ]
-                    </button>
-                  )}
+                  {/* Theme button removed as requested */}
                   {/* Import button - only show when no messages */}
                   {onImport && (
                     <button
