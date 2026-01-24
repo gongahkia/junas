@@ -16,10 +16,8 @@ import {
   Briefcase,
   FileSignature,
   Cpu,
-  Sparkles,
-  Tags,
   MessageSquare,
-  GitGraph
+  GitGraph,
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -38,7 +36,6 @@ interface CommandPaletteProps {
   isOpen: boolean;
   onClose: () => void;
   onOpenConfig: () => void;
-  onOpenTheme?: () => void;
   onOpenShare: () => void;
   onOpenAbout: () => void;
   onOpenHistory?: () => void;
@@ -49,11 +46,10 @@ interface CommandPaletteProps {
   hasMessages: boolean;
 }
 
-export function CommandPalette({ 
-  isOpen, 
+export function CommandPalette({
+  isOpen,
   onClose,
   onOpenConfig,
-  onOpenTheme,
   onOpenShare,
   onOpenAbout,
   onOpenHistory,
@@ -61,7 +57,7 @@ export function CommandPalette({
   onSwitchToChat,
   onSwitchToArtifacts,
   onSwitchToTree,
-  hasMessages
+  hasMessages,
 }: CommandPaletteProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
@@ -79,77 +75,93 @@ export function CommandPalette({
   }, [isOpen]);
 
   const systemCommands: CommandItem[] = [
-    ...(onNewChat ? [{
-      id: 'new-chat',
-      label: 'New Chat',
-      description: 'Start a fresh conversation',
-      icon: <Plus className="h-4 w-4" />,
-      category: 'system' as const,
-      action: onNewChat
-    }] : []),
-    ...(onOpenHistory ? [{
-      id: 'history',
-      label: 'Chat History',
-      description: 'View and resume past conversations',
-      icon: <Book className="h-4 w-4" />,
-      category: 'system' as const,
-      action: onOpenHistory
-    }] : []),
-    ...(onSwitchToChat ? [{
-      id: 'switch-to-chat',
-      label: 'Chat',
-      description: 'Switch to the chat interface',
-      icon: <MessageSquare className="h-4 w-4" />,
-      category: 'system' as const,
-      action: onSwitchToChat
-    }] : []),
-    ...(onSwitchToArtifacts ? [{
-      id: 'switch-to-artifacts',
-      label: 'Artifacts',
-      description: 'Switch to the artifacts view',
-      icon: <FileText className="h-4 w-4" />,
-      category: 'system' as const,
-      action: onSwitchToArtifacts
-    }] : []),
-    ...(onSwitchToTree ? [{
-      id: 'switch-to-tree',
-      label: 'Conversation Tree',
-      description: 'View the branching history of this conversation',
-      icon: <GitGraph className="h-4 w-4" />,
-      category: 'system' as const,
-      action: onSwitchToTree
-    }] : []),
+    ...(onNewChat
+      ? [
+          {
+            id: 'new-chat',
+            label: 'New Chat',
+            description: 'Start a fresh conversation',
+            icon: <Plus className="h-4 w-4" />,
+            category: 'system' as const,
+            action: onNewChat,
+          },
+        ]
+      : []),
+    ...(onOpenHistory
+      ? [
+          {
+            id: 'history',
+            label: 'Chat History',
+            description: 'View and resume past conversations',
+            icon: <Book className="h-4 w-4" />,
+            category: 'system' as const,
+            action: onOpenHistory,
+          },
+        ]
+      : []),
+    ...(onSwitchToChat
+      ? [
+          {
+            id: 'switch-to-chat',
+            label: 'Chat',
+            description: 'Switch to the chat interface',
+            icon: <MessageSquare className="h-4 w-4" />,
+            category: 'system' as const,
+            action: onSwitchToChat,
+          },
+        ]
+      : []),
+    ...(onSwitchToArtifacts
+      ? [
+          {
+            id: 'switch-to-artifacts',
+            label: 'Artifacts',
+            description: 'Switch to the artifacts view',
+            icon: <FileText className="h-4 w-4" />,
+            category: 'system' as const,
+            action: onSwitchToArtifacts,
+          },
+        ]
+      : []),
+    ...(onSwitchToTree
+      ? [
+          {
+            id: 'switch-to-tree',
+            label: 'Conversation Tree',
+            description: 'View the branching history of this conversation',
+            icon: <GitGraph className="h-4 w-4" />,
+            category: 'system' as const,
+            action: onSwitchToTree,
+          },
+        ]
+      : []),
     {
       id: 'config',
       label: 'Configuration',
       description: 'Manage API keys and user profile settings',
       icon: <Settings className="h-4 w-4" />,
       category: 'system',
-      action: onOpenConfig
+      action: onOpenConfig,
     },
-    ...(onOpenTheme ? [{
-      id: 'theme',
-      label: 'Theme Settings',
-      description: 'Toggle dark mode and customize appearance',
-      icon: <Sparkles className="h-4 w-4" />,
-      category: 'system' as const,
-      action: onOpenTheme
-    }] : []),
-    ...(hasMessages ? [{
-      id: 'share',
-      label: 'Share Chat',
-      description: 'Generate a shareable link for this conversation',
-      icon: <Users className="h-4 w-4" />,
-      category: 'system' as const,
-      action: onOpenShare
-    }] : []),
+    ...(hasMessages
+      ? [
+          {
+            id: 'share',
+            label: 'Share Chat',
+            description: 'Generate a shareable link for this conversation',
+            icon: <Users className="h-4 w-4" />,
+            category: 'system' as const,
+            action: onOpenShare,
+          },
+        ]
+      : []),
     {
       id: 'about',
       label: 'About Junas',
       description: 'Learn more about this application',
       icon: <Info className="h-4 w-4" />,
       category: 'system',
-      action: onOpenAbout
+      action: onOpenAbout,
     },
     {
       id: 'manual',
@@ -157,8 +169,8 @@ export function CommandPalette({
       description: 'View all available AI commands and tools',
       icon: <Book className="h-4 w-4" />,
       category: 'system',
-      action: () => setShowManual(true)
-    }
+      action: () => setShowManual(true),
+    },
   ];
 
   const toolCommands: CommandItem[] = [
@@ -264,28 +276,28 @@ export function CommandPalette({
   const activeCommands = showManual ? toolCommands : systemCommands;
 
   // Filter commands based on search query
-  const filteredCommands = activeCommands.filter(cmd => 
-    cmd.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    cmd.description.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredCommands = activeCommands.filter(
+    (cmd) =>
+      cmd.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      cmd.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   // Group commands by category (only relevant for manual view)
-  const groupedCommands = filteredCommands.reduce((acc, cmd) => {
-    if (!acc[cmd.category]) {
-      acc[cmd.category] = [];
-    }
-    acc[cmd.category].push(cmd);
-    return acc;
-  }, {} as Record<string, CommandItem[]>);
+  const groupedCommands = filteredCommands.reduce(
+    (acc, cmd) => {
+      if (!acc[cmd.category]) {
+        acc[cmd.category] = [];
+      }
+      acc[cmd.category].push(cmd);
+      return acc;
+    },
+    {} as Record<string, CommandItem[]>
+  );
 
   // Create a flat array in display order
-  const categoryOrder = showManual 
-    ? ['research', 'analysis', 'drafting', 'tools']
-    : ['system'];
-    
-  const displayOrderCommands = categoryOrder.flatMap(
-    category => groupedCommands[category] || []
-  );
+  const categoryOrder = showManual ? ['research', 'analysis', 'drafting', 'tools'] : ['system'];
+
+  const displayOrderCommands = categoryOrder.flatMap((category) => groupedCommands[category] || []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -293,12 +305,10 @@ export function CommandPalette({
 
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        setSelectedIndex(prev =>
-          prev < displayOrderCommands.length - 1 ? prev + 1 : prev
-        );
+        setSelectedIndex((prev) => (prev < displayOrderCommands.length - 1 ? prev + 1 : prev));
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
-        setSelectedIndex(prev => (prev > 0 ? prev - 1 : prev));
+        setSelectedIndex((prev) => (prev > 0 ? prev - 1 : prev));
       } else if (e.key === 'Enter') {
         e.preventDefault();
         if (displayOrderCommands[selectedIndex]) {
@@ -339,7 +349,7 @@ export function CommandPalette({
         <DialogHeader className="hidden">
           <DialogTitle>Command Palette</DialogTitle>
         </DialogHeader>
-        
+
         <div className="flex items-center border-b px-3 py-2">
           <Search className="h-4 w-4 mr-2 text-muted-foreground" />
           <Input
@@ -349,7 +359,7 @@ export function CommandPalette({
               setSearchQuery(e.target.value);
               setSelectedIndex(0);
             }}
-            placeholder={showManual ? "Search manual..." : "Type a command..."}
+            placeholder={showManual ? 'Search manual...' : 'Type a command...'}
             className="border-0 focus-visible:ring-0 px-0 h-9 text-sm"
           />
         </div>
@@ -364,7 +374,7 @@ export function CommandPalette({
               {categoryOrder.map((category) => {
                 const cmds = groupedCommands[category];
                 if (!cmds || cmds.length === 0) return null;
-                
+
                 return (
                   <div key={category}>
                     {showManual && (
@@ -372,30 +382,29 @@ export function CommandPalette({
                         {categoryLabels[category as keyof typeof categoryLabels]}
                       </div>
                     )}
-                    
+
                     {cmds.map((command) => {
                       const currentIndex = commandIndex++;
                       const isSelected = currentIndex === selectedIndex;
-                      
+
                       return (
                         <button
                           key={command.id}
                           onClick={() => handleCommandSelect(command)}
                           className={`
                             w-full px-3 py-2 flex items-center gap-3 text-left transition-colors text-sm
-                            ${isSelected
-                              ? 'bg-primary/10 text-primary'
-                              : 'hover:bg-muted/50'
-                            }
+                            ${isSelected ? 'bg-primary/10 text-primary' : 'hover:bg-muted/50'}
                           `}
                         >
-                          <div className={`
+                          <div
+                            className={`
                             flex items-center justify-center h-8 w-8 rounded-md 
                             ${isSelected ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground'}
-                          `}>
+                          `}
+                          >
                             {command.icon}
                           </div>
-                          
+
                           <div className="flex-1 min-w-0">
                             <div className="font-medium flex items-center gap-2">
                               {command.label}
@@ -409,10 +418,8 @@ export function CommandPalette({
                               {command.description}
                             </div>
                           </div>
-                          
-                          {isSelected && (
-                            <span className="text-xs text-muted-foreground">↵</span>
-                          )}
+
+                          {isSelected && <span className="text-xs text-muted-foreground">↵</span>}
                         </button>
                       );
                     })}
@@ -422,7 +429,7 @@ export function CommandPalette({
             </>
           )}
         </div>
-        
+
         <div className="bg-muted/50 px-3 py-2 border-t text-[10px] text-muted-foreground flex justify-between">
           <div>
             <span className="font-semibold">↑↓</span> to navigate

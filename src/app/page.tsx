@@ -7,7 +7,6 @@ import { NewChatDialog } from '@/components/chat/NewChatDialog';
 import { ShareDialog } from '@/components/chat/ShareDialog';
 import { ConfigDialog } from '@/components/ConfigDialog';
 import { AboutDialog } from '@/components/AboutDialog';
-import { ThemeDialog } from '@/components/ThemeDialog';
 import { HistoryDialog } from '@/components/chat/HistoryDialog';
 import { CommandPalette } from '@/components/chat/CommandPalette';
 import { StorageManager } from '@/lib/storage';
@@ -23,7 +22,6 @@ export default function Home() {
   const [showShareDialog, setShowShareDialog] = useState(false);
   const [showConfigDialog, setShowConfigDialog] = useState(false);
   const [showAboutDialog, setShowAboutDialog] = useState(false);
-  const [showThemeDialog, setShowThemeDialog] = useState(false);
   const [showHistoryDialog, setShowHistoryDialog] = useState(false);
   const [showCommandPalette, setShowCommandPalette] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -96,7 +94,6 @@ export default function Home() {
         onNewChat={handleNewChat}
         onCommandPalette={() => setShowCommandPalette(true)}
         onConfig={() => setShowConfigDialog(true)}
-        onTheme={() => setShowThemeDialog(true)}
         onAbout={() => setShowAboutDialog(true)}
         onHistory={() => setShowHistoryDialog(true)}
       >
@@ -128,9 +125,6 @@ export default function Home() {
         {/* Config Dialog */}
         <ConfigDialog isOpen={showConfigDialog} onClose={() => setShowConfigDialog(false)} />
 
-        {/* Theme Dialog */}
-        <ThemeDialog isOpen={showThemeDialog} onClose={() => setShowThemeDialog(false)} />
-
         {/* About Dialog */}
         <AboutDialog isOpen={showAboutDialog} onClose={() => setShowAboutDialog(false)} />
 
@@ -139,7 +133,6 @@ export default function Home() {
           isOpen={showCommandPalette}
           onClose={() => setShowCommandPalette(false)}
           onOpenConfig={() => setShowConfigDialog(true)}
-          onOpenTheme={() => setShowThemeDialog(true)}
           onOpenShare={() => setShowShareDialog(true)}
           onOpenAbout={() => setShowAboutDialog(true)}
           onOpenHistory={() => setShowHistoryDialog(true)}
