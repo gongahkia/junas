@@ -7,7 +7,6 @@ import { decompressChat } from '@/lib/share-utils';
 import { MessageList } from '@/components/chat/MessageList';
 import { Button } from '@/components/ui/button';
 import { StorageManager } from '@/lib/storage';
-import { JUNAS_ASCII_LOGO } from '@/lib/constants';
 import { useToast, ToastProvider } from '@/components/ui/toast';
 import { Download } from 'lucide-react';
 import { Layout } from '@/components/Layout';
@@ -54,7 +53,9 @@ function SharePageContent() {
       const currentChat = StorageManager.getChatState();
 
       if (currentChat && currentChat.messages.length > 0) {
-        const confirmed = window.confirm('Importing this chat will replace your current active conversation. Do you want to proceed?');
+        const confirmed = window.confirm(
+          'Importing this chat will replace your current active conversation. Do you want to proceed?'
+        );
         if (!confirmed) return;
       }
 
@@ -134,7 +135,8 @@ function SharePageContent() {
         </div>
         <h1 className="text-xl font-bold font-mono">Invalid or Expired Link</h1>
         <p className="text-muted-foreground max-w-md font-mono text-sm">
-          The shared link appears to be invalid or corrupted. Please ask the sender to generate a new link.
+          The shared link appears to be invalid or corrupted. Please ask the sender to generate a
+          new link.
         </p>
         <Button onClick={() => router.push('/')} variant="outline" className="font-mono text-xs">
           [ Return Home ]
@@ -146,9 +148,7 @@ function SharePageContent() {
   return (
     <div className="flex flex-col h-screen bg-background">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur px-4 md:px-8 py-3 flex items-center justify-between">
-        <div className="font-mono text-sm font-semibold">
-          [ Shared Conversation ]
-        </div>
+        <div className="font-mono text-sm font-semibold">[ Shared Conversation ]</div>
         <div className="flex items-center gap-4">
           <button
             onClick={handleImport}
@@ -165,7 +165,7 @@ function SharePageContent() {
           nodeMap={nodeMap}
           isLoading={false}
           onCopyMessage={handleCopyMessage}
-          onRegenerateMessage={() => { }} // No-op for read-only
+          onRegenerateMessage={() => {}} // No-op for read-only
           onBranchSwitch={handleBranchSwitch}
         />
 

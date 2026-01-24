@@ -1,21 +1,38 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { JUNAS_ASCII_LOGO } from '@/lib/constants';
-
-const lines = JUNAS_ASCII_LOGO.split('\n');
+import { ASCII_LOGOS } from '@/lib/ascii-logos';
+import { StorageManager } from '@/lib/storage';
 
 interface IntroAnimationProps {
   onComplete: () => void;
 }
 
 const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
-  const [lineCharCounts, setLineCharCounts] = useState(Array(lines.length).fill(0));
+  const [lines, setLines] = useState<string[]>([]);
+  const [lineCharCounts, setLineCharCounts] = useState<number[]>([]);
   const [fadeOut, setFadeOut] = useState(false);
   const [readyToFade, setReadyToFade] = useState(false);
 
+  useEffect(() => {
+    // Load logo preference
+    const settings = StorageManager.getSettings();
+    let logoKey = settings.asciiLogo || '5';
+
+    if (logoKey === 'random') {
+      const keys = Object.keys(ASCII_LOGOS);
+      logoKey = keys[Math.floor(Math.random() * keys.length)];
+    }
+
+    const selectedLogo = ASCII_LOGOS[logoKey] || ASCII_LOGOS['5'];
+    const splitLines = selectedLogo.split('\n');
+    setLines(splitLines);
+    setLineCharCounts(Array(splitLines.length).fill(0));
+  }, []);
 
   useEffect(() => {
+    if (lines.length === 0) return;
+
     const lineTimers: NodeJS.Timeout[] = [];
     const charIntervals: NodeJS.Timeout[] = [];
 
@@ -24,9 +41,12 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
         let charIdx = 0;
         const charInterval = setInterval(() => {
           charIdx++;
-          setLineCharCounts(prev => {
+          setLineCharCounts((prev) => {
             const next = [...prev];
-            next[i] = Math.min(charIdx, line.length);
+            // Safety check in case lines changed
+            if (i < next.length) {
+              next[i] = Math.min(charIdx, line.length);
+            }
             return next;
           });
           if (charIdx >= line.length) {
@@ -46,7 +66,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
       lineTimers.forEach(clearTimeout);
       charIntervals.forEach(clearInterval);
     };
-  }, []);
+  }, [lines]);
 
   // Handler for user interaction to trigger fade out
   useEffect(() => {
@@ -70,14 +90,18 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
   }, [readyToFade, fadeOut, onComplete]);
 
   return (
-    <div className={`fixed inset-0 z-50 flex items-center justify-center bg-background text-foreground transition-opacity ${fadeOut ? 'duration-200' : 'duration-500'} ${fadeOut ? 'fade-out' : 'fade-in'}`}>
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-background text-foreground transition-opacity ${fadeOut ? 'duration-200' : 'duration-500'} ${fadeOut ? 'fade-out' : 'fade-in'}`}
+    >
       <div className="flex flex-col items-center text-center">
         <pre className="text-[0.5rem] leading-[0.6rem] md:text-xs font-mono whitespace-pre">
           {lines.map((line, i) => line.substring(0, lineCharCounts[i])).join('\n')}
         </pre>
         {readyToFade && !fadeOut && (
           <>
-            <div className="mt-2 text-[10px] font-mono text-muted-foreground opacity-50">v2.0.0</div>
+            <div className="mt-2 text-[10px] font-mono text-muted-foreground opacity-50">
+              v2.0.0
+            </div>
             <div className="mt-8 text-xs font-mono text-muted-foreground select-none pointer-events-none animate-pulse">
               [ Click or press <b>Space</b> to continue ]
             </div>
