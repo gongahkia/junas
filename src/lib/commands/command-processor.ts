@@ -3,9 +3,22 @@
  * Routes commands to either local NLP services or AI
  */
 
-import { CommandType, COMMANDS, ProcessedCommand, LocalCommandResult, AsyncLocalCommandResult } from './definitions';
+import {
+  CommandType,
+  COMMANDS,
+  ProcessedCommand,
+  LocalCommandResult,
+  AsyncLocalCommandResult,
+  CommandInfo,
+} from './definitions';
 
-export type { CommandType, ProcessedCommand, LocalCommandResult, AsyncLocalCommandResult };
+export type {
+  CommandType,
+  ProcessedCommand,
+  LocalCommandResult,
+  AsyncLocalCommandResult,
+  CommandInfo,
+};
 export { COMMANDS };
 
 /**
@@ -22,7 +35,7 @@ export function parseCommand(message: string): ProcessedCommand | null {
   const commandId = match[1].toLowerCase() as CommandType;
   const args = match[2].trim();
 
-  const commandInfo = COMMANDS.find(c => c.id === commandId);
+  const commandInfo = COMMANDS.find((c) => c.id === commandId);
   if (!commandInfo) {
     return null;
   }
@@ -157,8 +170,8 @@ export function processLocalCommand(command: ProcessedCommand): LocalCommandResu
         artifact: {
           title,
           type: type as any,
-          content
-        }
+          content,
+        },
       };
     }
 
@@ -173,7 +186,9 @@ export function processLocalCommand(command: ProcessedCommand): LocalCommandResu
 /**
  * Process a local command (async)
  */
-export async function processAsyncLocalCommand(command: ProcessedCommand): Promise<AsyncLocalCommandResult> {
+export async function processAsyncLocalCommand(
+  command: ProcessedCommand
+): Promise<AsyncLocalCommandResult> {
   const { command: commandType, args } = command;
 
   try {
@@ -210,11 +225,14 @@ export async function processAsyncLocalCommand(command: ProcessedCommand): Promi
         if (entities.length === 0) {
           return {
             success: true,
-            content: '**Named Entity Recognition (BERT)**\n\nNo entities detected in the provided text.',
+            content:
+              '**Named Entity Recognition (BERT)**\n\nNo entities detected in the provided text.',
           };
         }
         const formatted = entities
-          .map((e: any) => `- **${e.word}** (${e.entity}) - confidence: ${(e.score * 100).toFixed(1)}%`)
+          .map(
+            (e: any) => `- **${e.word}** (${e.entity}) - confidence: ${(e.score * 100).toFixed(1)}%`
+          )
           .join('\n');
         return {
           success: true,
@@ -320,7 +338,7 @@ export async function processAsyncLocalCommand(command: ProcessedCommand): Promi
  * Check if a command should be processed locally
  */
 export function isLocalCommand(commandId: string): boolean {
-  const command = COMMANDS.find(c => c.id === commandId);
+  const command = COMMANDS.find((c) => c.id === commandId);
   return command?.isLocal ?? false;
 }
 
@@ -345,10 +363,10 @@ export async function resolveCommandString(text: string): Promise<string> {
     const commandData: ProcessedCommand = {
       command: commandId,
       args: args.trim(),
-      isLocal: isLocalCommand(commandId)
+      isLocal: isLocalCommand(commandId),
     };
 
-    let result = "";
+    let result = '';
 
     // Try sync processing first
     const syncResult = processLocalCommand(commandData);
