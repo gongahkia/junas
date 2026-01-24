@@ -458,7 +458,6 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
               { id: 'localModels', label: 'Local Models' },
               { id: 'providers', label: 'Providers' },
               { id: 'tools', label: 'Tools' },
-              { id: 'tools', label: 'Tools' },
               { id: 'snippets', label: 'Snippets' },
               { id: 'interface', label: 'Interface' },
               { id: 'developer', label: 'Developer' },
