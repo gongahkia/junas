@@ -965,7 +965,10 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
                     >
                       <option value="random">Random (Surprise Me)</option>
                       {Object.keys(ASCII_LOGOS)
-                        .filter((key) => !['1', '8', '10', '11', '12', '13', '20'].includes(key))
+                        .filter((key) => {
+                          const num = parseInt(key);
+                          return num >= 1 && num <= 14;
+                        })
                         .sort((a, b) => parseInt(a) - parseInt(b))
                         .map((key) => (
                           <option key={key} value={key}>
