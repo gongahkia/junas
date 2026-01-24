@@ -39,7 +39,27 @@ export class StorageManager {
   // Settings Management
   static getSettings(): ChatSettings {
     try {
-      if (typeof window === 'undefined') throw new Error('no window');
+      if (typeof window === 'undefined') {
+        // Return default settings on server side
+        return {
+          temperature: 0.7,
+          maxTokens: 4000,
+          topP: 0.95,
+          topK: 40,
+          frequencyPenalty: 0.0,
+          presencePenalty: 0.0,
+          systemPrompt:
+            'You are Junas, a legal AI assistant specialized in Singapore law. Provide accurate, helpful legal information while being clear about limitations.',
+          autoSave: true,
+          darkMode: false,
+          agentMode: false,
+          focusMode: false,
+          theme: 'vanilla',
+          profiles: [],
+          activeProfileId: undefined,
+          snippets: [],
+        };
+      }
       const stored = window.localStorage.getItem(STORAGE_KEYS.SETTINGS);
       if (stored) {
         return JSON.parse(stored);
@@ -56,7 +76,8 @@ export class StorageManager {
       topK: 40,
       frequencyPenalty: 0.0,
       presencePenalty: 0.0,
-      systemPrompt: 'You are Junas, a legal AI assistant specialized in Singapore law. Provide accurate, helpful legal information while being clear about limitations.',
+      systemPrompt:
+        'You are Junas, a legal AI assistant specialized in Singapore law. Provide accurate, helpful legal information while being clear about limitations.',
       autoSave: true,
       darkMode: false,
       agentMode: false,
@@ -92,7 +113,7 @@ export class StorageManager {
   static saveConversation(conversation: Conversation): void {
     try {
       const conversations = this.getConversations();
-      const index = conversations.findIndex(c => c.id === conversation.id);
+      const index = conversations.findIndex((c) => c.id === conversation.id);
 
       if (index !== -1) {
         conversations[index] = conversation;
@@ -115,7 +136,7 @@ export class StorageManager {
   static deleteConversation(id: string): void {
     try {
       const conversations = this.getConversations();
-      const filtered = conversations.filter(c => c.id !== id);
+      const filtered = conversations.filter((c) => c.id !== id);
       if (typeof window === 'undefined') return;
       window.localStorage.setItem(STORAGE_KEYS.CONVERSATIONS, JSON.stringify(filtered));
     } catch (error) {
@@ -130,7 +151,7 @@ export class StorageManager {
 
   static clearAllData(): void {
     if (typeof window === 'undefined') return;
-    Object.values(STORAGE_KEYS).forEach(key => {
+    Object.values(STORAGE_KEYS).forEach((key) => {
       window.localStorage.removeItem(key);
     });
   }
