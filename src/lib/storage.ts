@@ -9,6 +9,26 @@ const STORAGE_KEYS = {
   ONBOARDING_COMPLETED: 'junas_onboarding_completed',
 } as const;
 
+// Default settings constant
+const DEFAULT_SETTINGS: ChatSettings = {
+  temperature: 0.7,
+  maxTokens: 4000,
+  topP: 0.95,
+  topK: 40,
+  frequencyPenalty: 0.0,
+  presencePenalty: 0.0,
+  systemPrompt:
+    'You are Junas, a legal AI assistant specialized in Singapore law. Provide accurate, helpful legal information while being clear about limitations.',
+  autoSave: true,
+  darkMode: false,
+  agentMode: false,
+  focusMode: false,
+  theme: 'vanilla',
+  profiles: [],
+  activeProfileId: undefined,
+  snippets: [],
+};
+
 export class StorageManager {
   // Chat State Management
   static getChatState(): ChatState | null {
@@ -41,24 +61,7 @@ export class StorageManager {
     try {
       if (typeof window === 'undefined') {
         // Return default settings on server side
-        return {
-          temperature: 0.7,
-          maxTokens: 4000,
-          topP: 0.95,
-          topK: 40,
-          frequencyPenalty: 0.0,
-          presencePenalty: 0.0,
-          systemPrompt:
-            'You are Junas, a legal AI assistant specialized in Singapore law. Provide accurate, helpful legal information while being clear about limitations.',
-          autoSave: true,
-          darkMode: false,
-          agentMode: false,
-          focusMode: false,
-          theme: 'vanilla',
-          profiles: [],
-          activeProfileId: undefined,
-          snippets: [],
-        };
+        return DEFAULT_SETTINGS;
       }
       const stored = window.localStorage.getItem(STORAGE_KEYS.SETTINGS);
       if (stored) {
@@ -69,24 +72,7 @@ export class StorageManager {
     }
 
     // Return default settings
-    return {
-      temperature: 0.7,
-      maxTokens: 4000,
-      topP: 0.95,
-      topK: 40,
-      frequencyPenalty: 0.0,
-      presencePenalty: 0.0,
-      systemPrompt:
-        'You are Junas, a legal AI assistant specialized in Singapore law. Provide accurate, helpful legal information while being clear about limitations.',
-      autoSave: true,
-      darkMode: false,
-      agentMode: false,
-      focusMode: false,
-      theme: 'vanilla',
-      profiles: [],
-      activeProfileId: undefined,
-      snippets: [],
-    };
+    return DEFAULT_SETTINGS;
   }
 
   static saveSettings(settings: ChatSettings): void {
