@@ -52,6 +52,7 @@
 (B) update src/app/globals.css to remove any next.js specific CSS imports, keep tailwind directives +migrate
 (B) audit all imports across src/ for any remaining next/* or @sentry/* or @upstash/* imports and remove them +strip
 (B) add ort (ONNX Runtime) crate to src-tauri/Cargo.toml for native ML inference +ml
+(B)"Legal-Diff" Statutory Version Explorer --> A legal tech tool that treats law like a codebase, enabling git-diff style comparisons between different versions of state or federal acts . Value Prop: Lawyers and researchers can see exactly what language was added or removed in a legislative session without reading 500-page bills .
 (B) implement tauri rust command load_model(model_type: String) that loads ONNX model from bundled resources or downloads to $APPDATA/junas/models/ +ml
 (B) implement tauri rust command run_ner(text: String) that runs BERT NER ONNX model and returns entity spans with labels +ml
 (B) implement tauri rust command run_summarize(text: String, max_length: u32) that runs DistilBART ONNX model for text summarization +ml
