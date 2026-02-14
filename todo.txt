@@ -1,0 +1,96 @@
+(B) scaffold tauri v2 project in src-tauri/ dir with cargo init, tauri.conf.json targeting webview, set identifier to com.gongahkia.junas, window title "Junas", default size 1200x800 +scaffold
+(B) install tauri-cli and @tauri-apps/api as devDependency, add tauri dev/build scripts to package.json +scaffold
+(B) create tauri.conf.json with allowlist for fs (read/write scope to $APPDATA/junas/), shell (none), http (allow api.anthropic.com, generativelanguage.googleapis.com, api.openai.com), os (all) +scaffold
+(B) replace next.js with vite as frontend bundler: install vite, @vitejs/plugin-react, update tsconfig to vite paths, create vite.config.ts with react plugin and tailwind postcss +migrate
+(B) convert src/app/page.tsx and src/app/layout.tsx into standard react SPA entry: create src/main.tsx with ReactDOM.createRoot, import App component wrapping JunasProvider +migrate
+(B) create index.html in project root for vite entry point referencing src/main.tsx +migrate
+(B) remove next.config.ts, instrumentation.ts, postcss.config.mjs (recreate postcss for vite if needed), .nvmrc +strip
+(B) remove all files under src/app/api/ directory (13 route files) — these become tauri rust commands +strip
+(B) remove @sentry/nextjs dependency and delete sentry.client.config.ts, sentry.edge.config.ts, sentry.server.config.ts +strip
+(B) remove @upstash/ratelimit and @upstash/redis dependencies and all rate-limiting logic from api routes +strip
+(B) remove edge-csrf dependency and src/app/api/auth/csrf/route.ts +strip
+(B) remove iron-session dependency and src/app/api/auth/keys/route.ts — keys move to OS keychain +strip
+(B) remove next, next-themes, eslint-config-next from dependencies +strip
+(B) remove package-lock.json and pnpm-lock.yaml (regenerate with chosen pkg manager after migration) +strip
+(B) remove .husky/pre-commit hook referencing next lint — replace with vite-compatible lint hook if desired +strip
+(B) install @tauri-apps/plugin-os and @tauri-apps/plugin-fs for frontend filesystem and OS access +scaffold
+(B) implement tauri rust command get_api_key(provider: String) that reads from macos keychain via security-framework crate, returns encrypted key +rust-backend
+(B) implement tauri rust command set_api_key(provider: String, key: String) that stores key in macos keychain via security-framework crate +rust-backend
+(B) implement tauri rust command delete_api_key(provider: String) that removes key from macos keychain +rust-backend
+(B) implement tauri rust command chat_claude(messages: Vec<Message>, model: String, settings: ChatSettings) that calls anthropic API using reqwest with streaming support via tauri event emitter +rust-backend
+(B) implement tauri rust command chat_openai(messages: Vec<Message>, model: String, settings: ChatSettings) that calls openai API using reqwest with SSE streaming via tauri event emitter +rust-backend
+(B) implement tauri rust command chat_gemini(messages: Vec<Message>, model: String, settings: ChatSettings) that calls google generativeai REST API using reqwest with streaming via tauri event emitter +rust-backend
+(B) implement tauri rust command chat_ollama(messages: Vec<Message>, model: String, endpoint: String, settings: ChatSettings) for local ollama calls via reqwest +rust-backend
+(B) implement tauri rust command chat_lmstudio(messages: Vec<Message>, model: String, endpoint: String, settings: ChatSettings) for local lmstudio openai-compatible calls +rust-backend
+(B) define shared rust structs for Message, ChatSettings, ProviderResponse, StreamChunk in src-tauri/src/types.rs with serde Serialize/Deserialize +rust-backend
+(B) implement tauri rust command fetch_url(url: String) that fetches URL content, sanitizes HTML, returns markdown text +rust-backend
+(B) implement tauri rust command web_search(query: String, api_key: String) that calls serper.dev API and returns search results +rust-backend
+(B) implement tauri rust command health_check(provider: String, endpoint: Option<String>) that verifies provider connectivity +rust-backend
+(B) add reqwest (with rustls-tls feature), serde, serde_json, security-framework, tokio as cargo dependencies in src-tauri/Cargo.toml +rust-backend
+(B) create src/lib/tauri-bridge.ts that wraps all tauri invoke() calls with typed TS interfaces matching rust command signatures +migrate
+(B) refactor src/lib/ai/chat-service.ts to call tauri-bridge functions instead of fetch('/api/providers/...'), handle streaming via tauri event listeners instead of ReadableStream +migrate
+(B) refactor src/lib/ai/provider-factory.ts to remove dynamic SDK imports (anthropic, openai, google-generativeai) — these are now rust-side, factory returns thin wrappers calling tauri-bridge +migrate
+(B) remove @anthropic-ai/sdk, openai, @google/generative-ai npm packages — API calls now handled by rust +strip
+(B) create src/lib/storage/file-storage.ts using @tauri-apps/plugin-fs to read/write JSON files in $APPDATA/junas/ directory +storage
+(B) implement saveConversation(id, data) in file-storage.ts that writes conversation JSON to $APPDATA/junas/conversations/{id}.json +storage
+(B) implement loadConversation(id) in file-storage.ts that reads conversation JSON from $APPDATA/junas/conversations/{id}.json +storage
+(B) implement listConversations() in file-storage.ts that lists all .json files in $APPDATA/junas/conversations/ and returns metadata array +storage
+(B) implement deleteConversation(id) in file-storage.ts that deletes $APPDATA/junas/conversations/{id}.json +storage
+(B) implement saveSettings(settings) in file-storage.ts that writes settings to $APPDATA/junas/settings.json +storage
+(B) implement loadSettings() in file-storage.ts that reads $APPDATA/junas/settings.json with defaults fallback +storage
+(B) implement saveProfiles(profiles) and loadProfiles() in file-storage.ts for $APPDATA/junas/profiles.json +storage
+(B) implement saveSnippets(snippets) and loadSnippets() in file-storage.ts for $APPDATA/junas/snippets.json +storage
+(B) refactor src/lib/storage.ts (StorageManager) to use file-storage.ts instead of localStorage, keep same public API +storage
+(B) refactor src/lib/context/JunasContext.tsx to use file-storage for persistence instead of localStorage +storage
+(B) refactor src/components/ConfigDialog.tsx to call tauri-bridge set_api_key/get_api_key instead of fetch('/api/auth/keys') +migrate
+(B) refactor src/components/ProvidersTab.tsx to use tauri-bridge for provider health checks instead of fetch('/api/providers/health') +migrate
+(B) remove CSRF token logic from chat-service.ts and any component that fetches /api/auth/csrf +strip
+(B) replace next-themes usage in layout.tsx with a custom ThemeProvider using CSS class toggling on document.documentElement +migrate
+(B) replace any next/image imports with standard HTML img tags or a lightweight image component +migrate
+(B) replace any next/link imports with standard anchor tags or react-router-dom if multi-page needed +migrate
+(B) replace any next/font imports with direct CSS @font-face declarations or google fonts link +migrate
+(B) update src/app/globals.css to remove any next.js specific CSS imports, keep tailwind directives +migrate
+(B) audit all imports across src/ for any remaining next/* or @sentry/* or @upstash/* imports and remove them +strip
+(B) add ort (ONNX Runtime) crate to src-tauri/Cargo.toml for native ML inference +ml
+(B) implement tauri rust command load_model(model_type: String) that loads ONNX model from bundled resources or downloads to $APPDATA/junas/models/ +ml
+(B) implement tauri rust command run_ner(text: String) that runs BERT NER ONNX model and returns entity spans with labels +ml
+(B) implement tauri rust command run_summarize(text: String, max_length: u32) that runs DistilBART ONNX model for text summarization +ml
+(B) implement tauri rust command run_classify(text: String) that runs DistilBERT ONNX model for text classification +ml
+(B) implement tauri rust command run_embeddings(text: String) that runs MiniLM ONNX model and returns embedding vector +ml
+(B) create src/lib/ml/tauri-ml-bridge.ts that wraps ONNX-related tauri invoke() calls with typed interfaces +ml
+(B) refactor src/lib/ml/model-manager.ts to use tauri-ml-bridge instead of @huggingface/transformers WASM, keep same public API +ml
+(B) remove @huggingface/transformers npm dependency — inference now handled by rust ONNX runtime +strip
+(B) refactor src/lib/commands/command-processor.ts async commands (summarize-local, ner-advanced, classify-text) to call tauri-ml-bridge instead of model-manager WASM functions +migrate
+(B) refactor fetch-url and web-search commands in command-processor.ts to call tauri-bridge fetch_url/web_search instead of fetch('/api/tools/...') +migrate
+(B) update src/components/chat/ChatInterface.tsx streaming logic to use tauri event listener (listen/unlisten from @tauri-apps/api/event) instead of ReadableStream/fetch streaming +migrate
+(B) create src-tauri/src/streaming.rs module that implements SSE parsing for anthropic/openai/gemini streaming responses and emits tauri events per chunk +rust-backend
+(B) add tauri window menu with File (New Chat, Open Chat, Save Chat As, Export PDF, Quit), Edit (Undo, Redo, Cut, Copy, Paste), View (Toggle Sidebar, Focus Mode, Theme submenu), Help (About, Legal Disclaimer) +feature
+(B) implement native file dialog for "Save Chat As" and "Export PDF" using tauri dialog plugin instead of browser download +feature
+(B) implement global keyboard shortcuts via tauri globalShortcut plugin: Cmd+N (new chat), Cmd+, (settings), Cmd+K (command palette) +feature
+(B) add app icon (use existing public/bishop.png) in src-tauri/icons/ — generate icns for macos using tauri icon command +scaffold
+(B) configure tauri.conf.json bundle settings for macos: identifier, icon, category "Productivity", minimumSystemVersion "10.15" +scaffold
+(B) create .github/workflows/build.yml github action that builds tauri app for macos (apple silicon + intel universal binary) on push to main +build
+(B) configure github action to create github release with DMG artifact on version tag push +build
+(B) create homebrew-junas tap repo formula or generate homebrew cask definition pointing to github releases DMG URL +build
+(B) add tauri updater plugin configuration in tauri.conf.json pointing to github releases for auto-update support +build
+(B) implement update check on app launch using tauri updater API, show non-intrusive notification if update available +feature
+(B) remove vercel.json or any vercel-specific config files if present +strip
+(B) remove .github/FUNDING.yml or update it for desktop-only context +strip
+(B) update tailwind.config.ts content paths from next.js app dir convention to vite src/ convention +migrate
+(B) create src-tauri/src/error.rs with custom error types implementing serde::Serialize for tauri command error handling +rust-backend
+(B) add proper error propagation in all tauri rust commands using thiserror crate with user-friendly error messages +rust-backend
+(B) implement conversation export to JSON file via tauri save dialog + fs write +feature
+(B) implement conversation import from JSON file via tauri open dialog + fs read +feature
+(B) add system tray icon with quick actions: New Chat, Toggle Window, Quit using tauri tray plugin +feature
+(B) implement window state persistence (position, size) using tauri-plugin-window-state so app remembers its position +feature
+(B) add native notification support via tauri notification plugin for long-running AI responses completing +feature
+(B) remove react-virtuoso if not needed (evaluate if chat message list virtualization still required with desktop perf) +refactor
+(B) remove isomorphic-dompurify — replace with DOMPurify directly since no SSR context in tauri +refactor
+(B) remove import-in-the-middle and require-in-the-middle dependencies (sentry instrumentation artifacts) +strip
+(B) create src-tauri/tauri.conf.json security allowlist restricting IPC commands to only defined command names +security
+(B) implement Content-Security-Policy in tauri.conf.json security section instead of next.js headers middleware +security
+(B) add integrity checks on loaded ONNX model files using sha256 hash verification before loading +security
+(B) create dev setup script (scripts/setup.sh) that installs rust toolchain, tauri prerequisites, and npm deps in one command +scaffold
+(B) remove env.example file — replace with $APPDATA/junas/config.json managed by settings UI +strip
+(B) update junas.config.toml to include desktop-specific settings: windowOpacity, alwaysOnTop, startMinimized, autoUpdate +migrate
+(B) test full chat flow end-to-end: settings config → api key entry (keychain) → send message → streaming response → save conversation (JSON file) → reload conversation +scaffold
