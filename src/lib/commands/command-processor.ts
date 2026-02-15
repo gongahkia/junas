@@ -252,71 +252,25 @@ export async function processAsyncLocalCommand(
 
       case 'fetch-url': {
         try {
-          const response = await fetch('/api/tools/fetch-url', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ url: args }),
-          });
-
-          const data = await response.json();
-
-          if (!response.ok) {
-            return {
-              success: false,
-              content: `Error fetching URL: ${data.error || response.statusText}`,
-            };
-          }
-
-          return {
-            success: true,
-            content: `**Fetched Content from ${args}:**\n\n${data.content}`,
-          };
+          const { fetchUrl } = await import('@/lib/tauri-bridge');
+          const content = await fetchUrl(args);
+          return { success: true, content: `**Fetched Content from ${args}:**\n\n${content}` };
         } catch (e: any) {
-          return {
-            success: false,
-            content: `Network error: ${e.message}`,
-          };
+          return { success: false, content: `Error fetching URL: ${e.message || String(e)}` };
         }
       }
-
       case 'web-search': {
         try {
-          const response = await fetch('/api/tools/web-search', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ query: args }),
-          });
-
-          const data = await response.json();
-
-          if (!response.ok) {
-            return {
-              success: false,
-              content: `Error searching web: ${data.error || response.statusText}`,
-            };
-          }
-
+          const { webSearch, getApiKey } = await import('@/lib/tauri-bridge');
+          const apiKey = await getApiKey('serper');
+          const results = await webSearch(args, apiKey);
           let resultText = `**Web Search Results for "${args}":**\n\n`;
-          if (data.results && data.results.length > 0) {
-            data.results.forEach((r: any, i: number) => {
-              resultText += `${i + 1}. **[${r.title}](${r.link})**\n${r.snippet}\n\n`;
-            });
-            if (data.warning) {
-              resultText += `\n*Note: ${data.warning}*`;
-            }
-          } else {
-            resultText += 'No results found.';
-          }
-
-          return {
-            success: true,
-            content: resultText,
-          };
+          if (results.length > 0) {
+            results.forEach((r: any, i: number) => { resultText += `${i + 1}. **[${r.title}](${r.url})**\n${r.snippet}\n\n`; });
+          } else { resultText += 'No results found.'; }
+          return { success: true, content: resultText };
         } catch (e: any) {
-          return {
-            success: false,
-            content: `Network error: ${e.message}`,
-          };
+          return { success: false, content: `Error searching web: ${e.message || String(e)}` };
         }
       }
 

@@ -1,5 +1,6 @@
 mod error;
 mod keychain;
+mod ml;
 mod providers;
 mod streaming;
 mod tools;
@@ -29,6 +30,11 @@ pub fn run() {
             tools::fetch_url,
             tools::web_search,
             tools::health_check,
+            ml::load_model,
+            ml::run_ner,
+            ml::run_summarize,
+            ml::run_classify,
+            ml::run_embeddings,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
