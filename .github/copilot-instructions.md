@@ -1,1 +1,0 @@
-/home/gongahkia/.copilot/copilot-instructions.md
