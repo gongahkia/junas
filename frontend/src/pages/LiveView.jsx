@@ -7,6 +7,7 @@ export default function LiveView() {
   const canvasRef = useRef(null);
   const [running, setRunning] = useState(false);
   const [useLocalDetection, setUseLocalDetection] = useState(false);
+  const [cameraError, setCameraError] = useState(null);
   const [detections, setDetections] = useState([]);
   const [avgByLabel, setAvgByLabel] = useState({});
   const [trackGrams, setTrackGrams] = useState([]); // Store grams data per track
@@ -143,18 +144,26 @@ export default function LiveView() {
     return dets;
   };
 
+  const initCamera = async () => {
+    setCameraError(null);
+    try {
+      const s = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+      if (videoRef.current) {
+        videoRef.current.srcObject = s;
+        await videoRef.current.play();
+      }
+      return s;
+    } catch (e) {
+      console.error('getUserMedia error', e);
+      setCameraError(e.name === 'NotAllowedError' ? 'Camera permission denied.' : `Camera error: ${e.message}`);
+      return null;
+    }
+  };
+
   useEffect(() => {
     let stream;
     (async () => {
-      try {
-        stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          await videoRef.current.play();
-        }
-      } catch (e) {
-        console.error('getUserMedia error', e);
-      }
+      stream = await initCamera();
     })();
     return () => {
       if (stream) stream.getTracks().forEach(t => t.stop());
@@ -390,10 +399,17 @@ export default function LiveView() {
         </div>
       )}
 
-      <div style={{ position: 'relative', width: '100%', maxWidth: 900 }}>
-        <video ref={videoRef} style={{ width: '100%', border: '1px solid #ccc' }} muted playsInline />
-        <canvas ref={canvasRef} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%' }} />
-      </div>
+      {cameraError ? (
+        <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 6, padding: 24, textAlign: 'center', maxWidth: 900 }}>
+          <p style={{ color: '#dc2626', marginBottom: 12 }}>{cameraError}</p>
+          <button onClick={initCamera}>Retry Camera</button>
+        </div>
+      ) : (
+        <div style={{ position: 'relative', width: '100%', maxWidth: 900 }}>
+          <video ref={videoRef} style={{ width: '100%', border: '1px solid #ccc' }} muted playsInline />
+          <canvas ref={canvasRef} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%' }} />
+        </div>
+      )}
 
       <div style={{ marginTop: 12 }}>
         <strong>Rolling averages:</strong>
