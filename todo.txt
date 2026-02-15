@@ -1,0 +1,20 @@
+(B) Remove @tensorflow/tfjs-node from backend/package.json and its unused import in visionService.js +refactor
+(B) Add AbortController with 5s timeout to fetch calls in frontend/src/pages/LiveView.jsx analyzeFrame loop to fix frame hang +feature
+(B) Add loading spinner and error toast state to LiveView.jsx macros button (currently silent failure) +feature
+(B) Reset rollingWindow.current to empty object when running state toggles true in LiveView.jsx +feature
+(B) Fix canvas overlay sizing: set canvas.width=video.videoWidth and canvas.height=video.videoHeight in LiveView.jsx frame loop +feature
+(B) Cache Dish.find() result in visionService.js using module-level variable with 60s TTL instead of querying MongoDB every frame +infra
+(B) Add input sanitization for derivedText in liveController.js macros endpoint: strip non-printable chars, cap length at 2000 chars +security
+(B) Improve Gemini prompt in llmService.js: include matched dish names and their per-100g nutrition from DB so LLM anchors estimates to real data +feature
+(B) Add retry logic (1 retry with exponential backoff) to Gemini API call in llmService.js for transient failures +infra
+(B) Replace random bounding box generation in visionService.js with grid-based region proposal (divide frame into NxN cells, assign detections to cells based on color profile per region) +feature
+(B) Implement proper IoU-based NMS in visionService.js backend to deduplicate overlapping detections before returning to frontend +feature
+(B) Add camera permission denied fallback UI in LiveView.jsx: show message with retry button instead of silent console.error +feature
+(B) Remove unimplemented API endpoints (Users, Preferences, Favorites, Dishes search) from README.md API Reference section +refactor
+(B) Replace hardcoded MongoDB credentials in docker-compose.yml with environment variable references and update .env.example +security
+(B) Add multi-stage production Dockerfile for frontend: build stage with vite build, serve stage with nginx:alpine +infra
+(B) Add MongoDB connectivity check to GET /health endpoint in server.js (return degraded status if DB unreachable) +infra
+(B) Fix button disabled logic bug in LiveView.jsx line 365: change avgByLabel.length to Object.keys(avgByLabel).length +feature
+(B) Add confidence threshold filter (0.4 minimum) in LiveView.jsx overlay rendering to suppress low-confidence noise +feature
+(B) Add proper .env.example files for both backend and frontend with all required variables documented +infra
+(B) Add structured error response from macros endpoint when Gemini returns placeholder zeros so frontend can distinguish error from real result +feature

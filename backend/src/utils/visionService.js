@@ -5,7 +5,6 @@
  * For this implementation, we use feature matching and heuristics
  */
 
-const tf = require('@tensorflow/tfjs-node');
 const sharp = require('sharp');
 const Dish = require('../models/Dish');
 
