@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { Message, Artifact } from '@/types/chat';
 import { MessageList } from './MessageList';

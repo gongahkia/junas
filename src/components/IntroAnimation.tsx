@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useState } from 'react';
 import { ASCII_LOGOS } from '@/lib/ascii-logos';
 import { StorageManager } from '@/lib/storage';

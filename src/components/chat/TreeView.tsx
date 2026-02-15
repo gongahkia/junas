@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useState, useRef } from 'react';
 import { Message } from '@/types/chat';
 import { generateDotTree } from '@/lib/chat-tree';

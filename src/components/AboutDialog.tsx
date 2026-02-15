@@ -1,5 +1,3 @@
-'use client';
-
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
 interface AboutDialogProps {

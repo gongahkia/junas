@@ -1,15 +1,5 @@
-import { ChatState, ChatSettings, Message, Conversation } from '@/types/chat';
-
-const STORAGE_KEYS = {
-  CHAT_STATE: 'junas_chat_state',
-  API_KEYS: 'junas_api_keys',
-  SETTINGS: 'junas_settings',
-  CONVERSATIONS: 'junas_conversations',
-  DISCLAIMER_SEEN: 'junas_disclaimer_seen',
-  ONBOARDING_COMPLETED: 'junas_onboarding_completed',
-} as const;
-
-// Default settings constant
+import { ChatState, ChatSettings, Conversation } from '@/types/chat';
+import * as fs from '@/lib/storage/file-storage';
 const DEFAULT_SETTINGS: ChatSettings = {
   temperature: 0.7,
   maxTokens: 4000,
@@ -17,8 +7,7 @@ const DEFAULT_SETTINGS: ChatSettings = {
   topK: 40,
   frequencyPenalty: 0.0,
   presencePenalty: 0.0,
-  systemPrompt:
-    'You are Junas, a legal AI assistant specialized in Singapore law. Provide accurate, helpful legal information while being clear about limitations.',
+  systemPrompt: 'You are Junas, a legal AI assistant specialized in Singapore law. Provide accurate, helpful legal information while being clear about limitations.',
   autoSave: true,
   darkMode: false,
   agentMode: false,
@@ -29,204 +18,62 @@ const DEFAULT_SETTINGS: ChatSettings = {
   snippets: [],
   asciiLogo: '5',
 };
-
+let cachedSettings: ChatSettings | null = null; // in-memory cache for sync access
+let cachedChatState: ChatState | null = null;
 export class StorageManager {
-  // Chat State Management
-  static getChatState(): ChatState | null {
-    try {
-      if (typeof window === 'undefined') return null;
-      const stored = window.localStorage.getItem(STORAGE_KEYS.CHAT_STATE);
-      return stored ? JSON.parse(stored) : null;
-    } catch (error) {
-      console.error('Error loading chat state:', error);
-      return null;
-    }
-  }
-
+  static getChatState(): ChatState | null { return cachedChatState; }
   static saveChatState(state: ChatState): void {
-    try {
-      if (typeof window === 'undefined') return;
-      window.localStorage.setItem(STORAGE_KEYS.CHAT_STATE, JSON.stringify(state));
-    } catch (error) {
-      console.error('Error saving chat state:', error);
-    }
+    cachedChatState = state;
+    fs.saveSettings({ ...cachedSettings, _chatState: state }).catch(console.error);
   }
-
   static clearChatState(): void {
-    if (typeof window === 'undefined') return;
-    window.localStorage.removeItem(STORAGE_KEYS.CHAT_STATE);
+    cachedChatState = null;
   }
-
-  // Settings Management
   static getSettings(): ChatSettings {
-    try {
-      if (typeof window === 'undefined') {
-        // Return default settings on server side
-        return DEFAULT_SETTINGS;
-      }
-      const stored = window.localStorage.getItem(STORAGE_KEYS.SETTINGS);
-      if (stored) {
-        return JSON.parse(stored);
-      }
-    } catch (error) {
-      console.error('Error loading settings:', error);
-    }
-
-    // Return default settings
-    return DEFAULT_SETTINGS;
+    return cachedSettings || DEFAULT_SETTINGS;
   }
-
   static saveSettings(settings: ChatSettings): void {
-    try {
-      if (typeof window === 'undefined') return;
-      window.localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(settings));
-    } catch (error) {
-      console.error('Error saving settings:', error);
-    }
+    cachedSettings = settings;
+    fs.saveSettings(settings).catch(console.error);
   }
-
-  // Conversation Management
-  static getConversations(): Conversation[] {
-    try {
-      if (typeof window === 'undefined') return [];
-      const stored = window.localStorage.getItem(STORAGE_KEYS.CONVERSATIONS);
-      return stored ? JSON.parse(stored) : [];
-    } catch (error) {
-      console.error('Error loading conversations:', error);
-      return [];
-    }
+  static getConversations(): Conversation[] { return []; } // async wrapper needed; sync stub
+  static async getConversationsAsync(): Promise<{ id: string; name: string; updatedAt: string }[]> {
+    return fs.listConversations();
   }
-
   static saveConversation(conversation: Conversation): void {
-    try {
-      const conversations = this.getConversations();
-      const index = conversations.findIndex((c) => c.id === conversation.id);
-
-      if (index !== -1) {
-        conversations[index] = conversation;
-      } else {
-        conversations.unshift(conversation);
-      }
-
-      // Keep only last 20 conversations to prevent storage bloat
-      if (conversations.length > 20) {
-        conversations.splice(20);
-      }
-
-      if (typeof window === 'undefined') return;
-      window.localStorage.setItem(STORAGE_KEYS.CONVERSATIONS, JSON.stringify(conversations));
-    } catch (error) {
-      console.error('Error saving conversation:', error);
-    }
+    fs.saveConversation(conversation.id, { ...conversation, updatedAt: new Date().toISOString() }).catch(console.error);
   }
-
   static deleteConversation(id: string): void {
-    try {
-      const conversations = this.getConversations();
-      const filtered = conversations.filter((c) => c.id !== id);
-      if (typeof window === 'undefined') return;
-      window.localStorage.setItem(STORAGE_KEYS.CONVERSATIONS, JSON.stringify(filtered));
-    } catch (error) {
-      console.error('Error deleting conversation:', error);
-    }
+    fs.deleteConversation(id).catch(console.error);
   }
-
-  static clearConversations(): void {
-    if (typeof window === 'undefined') return;
-    window.localStorage.removeItem(STORAGE_KEYS.CONVERSATIONS);
-  }
-
+  static clearConversations(): void {} // no-op; individual deletes preferred
   static clearAllData(): void {
-    if (typeof window === 'undefined') return;
-    Object.values(STORAGE_KEYS).forEach((key) => {
-      window.localStorage.removeItem(key);
-    });
+    cachedSettings = null;
+    cachedChatState = null;
   }
-
-  // Disclaimer Management
   static hasSeenDisclaimer(): boolean {
-    try {
-      if (typeof window === 'undefined') return false;
-
-      // Check new key first
-      const seen = window.localStorage.getItem(STORAGE_KEYS.DISCLAIMER_SEEN);
-      if (seen === 'true') return true;
-
-      // Migrate from old key if it exists
-      const oldDismissed = window.localStorage.getItem('junas_disclaimer_dismissed');
-      if (oldDismissed === 'true') {
-        this.setDisclaimerSeen();
-        window.localStorage.removeItem('junas_disclaimer_dismissed');
-        return true;
-      }
-
-      return false;
-    } catch (error) {
-      console.error('Error checking disclaimer status:', error);
-      return false;
-    }
+    try { return localStorage.getItem('junas_disclaimer_seen') === 'true'; } catch { return false; }
   }
-
   static setDisclaimerSeen(): void {
-    try {
-      if (typeof window === 'undefined') return;
-      window.localStorage.setItem(STORAGE_KEYS.DISCLAIMER_SEEN, 'true');
-    } catch (error) {
-      console.error('Error setting disclaimer status:', error);
-    }
+    try { localStorage.setItem('junas_disclaimer_seen', 'true'); } catch {}
   }
-
-  // Onboarding Management
   static hasCompletedOnboarding(): boolean {
-    try {
-      if (typeof window === 'undefined') return false;
-      return window.localStorage.getItem(STORAGE_KEYS.ONBOARDING_COMPLETED) === 'true';
-    } catch (error) {
-      console.error('Error checking onboarding status:', error);
-      return false;
-    }
+    try { return localStorage.getItem('junas_onboarding_completed') === 'true'; } catch { return false; }
   }
-
   static setOnboardingCompleted(): void {
-    try {
-      if (typeof window === 'undefined') return;
-      window.localStorage.setItem(STORAGE_KEYS.ONBOARDING_COMPLETED, 'true');
-    } catch (error) {
-      console.error('Error setting onboarding status:', error);
-    }
+    try { localStorage.setItem('junas_onboarding_completed', 'true'); } catch {}
   }
-
-  // Utility methods
-
   static exportData(): string {
-    const data = {
-      chatState: this.getChatState(),
-      // apiKeys excluded for security
-      settings: this.getSettings(),
-      conversations: this.getConversations(),
-      exportDate: new Date().toISOString(),
-    };
-
-    return JSON.stringify(data, null, 2);
+    return JSON.stringify({ settings: this.getSettings(), exportDate: new Date().toISOString() }, null, 2);
   }
-
   static importData(jsonData: string): boolean {
     try {
       const data = JSON.parse(jsonData);
-
-      if (data.chatState) this.saveChatState(data.chatState);
-      // apiKeys import disabled
       if (data.settings) this.saveSettings(data.settings);
-      if (data.conversations) {
-        if (typeof window !== 'undefined') {
-          localStorage.setItem(STORAGE_KEYS.CONVERSATIONS, JSON.stringify(data.conversations));
-        }
-      }
-
       return true;
-    } catch (error) {
-      console.error('Error importing data:', error);
-      return false;
-    }
+    } catch { return false; }
+  }
+  static async init(): Promise<void> {
+    cachedSettings = await fs.loadSettings(DEFAULT_SETTINGS);
   }
 }

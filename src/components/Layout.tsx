@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 import { ToastProvider } from '@/components/ui/toast';
 import { migrateApiKeysToSession } from '@/lib/migrate-keys';

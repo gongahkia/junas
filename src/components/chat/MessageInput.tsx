@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { InlineProviderSelector } from './InlineProviderSelector';

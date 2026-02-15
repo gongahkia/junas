@@ -1,16 +1,10 @@
-'use client';
-
-import { useEffect, useRef, memo, useState } from 'react';
+import { useEffect, useRef, memo, useState, lazy, Suspense } from 'react';
 import { Message } from '@/types/chat';
 import { FileText, ChevronLeft, ChevronRight, Edit2 } from 'lucide-react';
 import { StorageManager } from '@/lib/storage';
-import dynamic from 'next/dynamic';
 import { getBranchSiblings } from '@/lib/chat-tree';
 
-const MarkdownRenderer = dynamic(() => import('./MarkdownRenderer'), {
-  loading: () => <div className="h-4 w-full animate-pulse bg-muted rounded" />,
-  ssr: false,
-});
+const MarkdownRenderer = lazy(() => import('./MarkdownRenderer'));
 
 interface MessageListProps {
   messages: Message[];
@@ -142,7 +136,9 @@ const MessageItemComponent = ({
                   </div>
                 </div>
               ) : message.role === 'assistant' ? (
-                <MarkdownRenderer content={message.content} />
+                <Suspense fallback={<div className="h-4 w-full animate-pulse bg-muted rounded" />}>
+                  <MarkdownRenderer content={message.content} />
+                </Suspense>
               ) : (
                 <p className="whitespace-pre-wrap">{message.content}</p>
               )}

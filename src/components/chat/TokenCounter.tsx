@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useState } from 'react';
 import { estimateTokens, estimateCost } from '@/lib/ai/token-utils';
 

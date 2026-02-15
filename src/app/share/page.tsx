@@ -1,7 +1,4 @@
-'use client';
-
-import { useEffect, useState, Suspense } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useEffect, useState, useMemo } from 'react';
 import { Message } from '@/types/chat';
 import { decompressChat } from '@/lib/share-utils';
 import { MessageList } from '@/components/chat/MessageList';
@@ -13,8 +10,7 @@ import { Layout } from '@/components/Layout';
 import { getLinearHistory, getBranchSiblings } from '@/lib/chat-tree';
 
 function SharePageContent() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
+  const searchParams = useMemo(() => new URLSearchParams(window.location.search), []);
   const [messages, setMessages] = useState<Message[]>([]);
   const [nodeMap, setNodeMap] = useState<Record<string, Message>>({});
   const [currentLeafId, setCurrentLeafId] = useState<string | undefined>(undefined);
@@ -69,7 +65,7 @@ function SharePageContent() {
         settings: StorageManager.getSettings(), // Keep existing settings
       });
 
-      router.push('/');
+      window.location.href = '/';
       addToast({
         type: 'success',
         title: 'Chat Imported',
@@ -138,7 +134,7 @@ function SharePageContent() {
           The shared link appears to be invalid or corrupted. Please ask the sender to generate a
           new link.
         </p>
-        <Button onClick={() => router.push('/')} variant="outline" className="font-mono text-xs">
+        <Button onClick={() => window.location.href = '/'} variant="outline" className="font-mono text-xs">
           [ Return Home ]
         </Button>
       </div>
@@ -182,10 +178,8 @@ function SharePageContent() {
 
 export default function SharePage() {
   return (
-    <Suspense fallback={<div className="p-8 font-mono text-sm">[ Loading... ]</div>}>
-      <ToastProvider>
-        <SharePageContent />
-      </ToastProvider>
-    </Suspense>
+    <ToastProvider>
+      <SharePageContent />
+    </ToastProvider>
   );
 }

@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useState, useMemo } from 'react';
 import Fuse from 'fuse.js';
 import { COMMANDS, CommandInfo } from '@/lib/commands/command-processor';

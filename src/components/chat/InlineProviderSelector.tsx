@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 import { getModelsWithStatus, AVAILABLE_MODELS } from '@/lib/ml/model-manager';
 import {

@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 import { COMMANDS, CommandInfo } from '@/lib/commands/command-processor';
 import { Switch } from '@/components/ui/switch';
