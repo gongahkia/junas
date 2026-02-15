@@ -55,11 +55,26 @@ async function callGeminiForMacros(derivedText) {
     ]
   };
 
-  const resp = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  });
+  // Retry once with exponential backoff for transient failures
+  let resp;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      resp = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (resp.ok || resp.status < 500) break;
+    } catch (fetchErr) {
+      if (attempt === 1) {
+        return {
+          macros: { calories: 0, protein: 0, carbs: 0, fat: 0 },
+          narrative: `Gemini API fetch error: ${fetchErr.message}`
+        };
+      }
+    }
+    if (attempt === 0) await new Promise(r => setTimeout(r, 1000));
+  }
 
   if (!resp.ok) {
     return {
