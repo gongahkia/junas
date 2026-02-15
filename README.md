@@ -1,12 +1,13 @@
 [![](https://img.shields.io/badge/junas_1.0.0-passing-light_green)](https://github.com/gongahkia/junas/releases/tag/1.0.0)
 [![](https://img.shields.io/badge/junas_2.0.0-passing-green)](https://github.com/gongahkia/junas/releases/tag/2.0.0)
+![](https://github.com/gongahkia/junas/actions/workflows/ci.yml/badge.svg)
 
 # `Junas`
 
 `Junas` is a [BYOK](https://en.wikipedia.org/wiki/Bring_your_own_encryption) desktop application that [automates](#architecture) away legal [busy work](https://en.wikipedia.org/wiki/Busy_work) in mind.
 
 <div align="center">
-    <img src="./asset/reference/v2/1.png" width="75%">
+    <img src="./asset/reference/v2/1.png" width="50%">
 </div>
 
 ## Stack
@@ -59,7 +60,7 @@ $ npm run build
 ## Architecture
 
 <div align="center">
-    <img src="./asset/reference/architecture/junas_architecture_v2.png" width="65%">
+    <img src="./asset/reference/architecture/junas_architecture_v2.png">
 </div>
 
 ## Legal Disclaimer
