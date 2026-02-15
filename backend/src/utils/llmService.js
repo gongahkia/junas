@@ -3,6 +3,8 @@
  * Calls Google Gemini with derived text (no image data) to estimate macros
  */
 
+const Dish = require('../models/Dish');
+
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const MODEL = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
 
@@ -10,9 +12,23 @@ if (!global.fetch) {
   // Node 18+ has fetch; fallback not implemented intentionally
 }
 
-const buildPrompt = (derivedText) => `You are a nutrition assistant. From the following structured description of a cai fan meal, estimate total macros for the plate. 
-Return concise JSON with fields: calories (kcal), protein (g), carbs (g), fat (g) and a brief narrative field. Be conservative.
+async function getDishNutritionContext() {
+  try {
+    const dishes = await Dish.find({}, 'name category nutrition').lean().maxTimeMS(2000);
+    if (!dishes.length) return '';
+    const lines = dishes.map(d =>
+      `${d.name} (${d.category}): ${d.nutrition.calories}kcal, ${d.nutrition.protein}g protein, ${d.nutrition.carbohydrates}g carbs, ${d.nutrition.fat}g fat per 100g`
+    );
+    return `\nReference dish nutrition (per 100g):\n${lines.join('\n')}\n`;
+  } catch (_) {
+    return '';
+  }
+}
 
+const buildPrompt = (derivedText, dishContext) => `You are a nutrition assistant. From the following structured description of a cai fan meal, estimate total macros for the plate.
+Anchor your estimates to the reference nutrition data provided below when dish names match detected categories.
+Return concise JSON with fields: calories (kcal), protein (g), carbs (g), fat (g) and a brief narrative field. Be conservative.
+${dishContext}
 Description:\n${derivedText}
 
 Output JSON only, like: {"calories": 650, "protein": 28, "carbs": 75, "fat": 22, "narrative": "..."}`;
@@ -25,7 +41,8 @@ async function callGeminiForMacros(derivedText) {
     };
   }
 
-  const prompt = buildPrompt(derivedText);
+  const dishContext = await getDishNutritionContext();
+  const prompt = buildPrompt(derivedText, dishContext);
 
   // Google AI Studio Generative Language API endpoint
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${GEMINI_API_KEY}`;

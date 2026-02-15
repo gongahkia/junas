@@ -1,4 +1,3 @@
-(B) Add input sanitization for derivedText in liveController.js macros endpoint: strip non-printable chars, cap length at 2000 chars +security
 (B) Improve Gemini prompt in llmService.js: include matched dish names and their per-100g nutrition from DB so LLM anchors estimates to real data +feature
 (B) Add retry logic (1 retry with exponential backoff) to Gemini API call in llmService.js for transient failures +infra
 (B) Replace random bounding box generation in visionService.js with grid-based region proposal (divide frame into NxN cells, assign detections to cells based on color profile per region) +feature
