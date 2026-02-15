@@ -272,7 +272,7 @@ export default function LiveView() {
             return '#a3a3a3'; // gray
           };
           tracks.forEach(t => {
-            if (!t.box) return;
+            if (!t.box || (t.avg || 0) < 0.4) return;
             const { x, y, width, height } = t.box;
             ctx.strokeStyle = colorFor(t.label);
             ctx.strokeRect(x, y, width, height);
