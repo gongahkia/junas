@@ -188,12 +188,19 @@ export default function LiveView() {
           dets = analyzeLocal(ctx, w, h);
         } else {
           // Send to backend for analysis
-          const resp = await fetch(`${API_URL}/live/analyze`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ imageBase64: dataUrl })
-          });
-          const json = await resp.json();
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 5000);
+          try {
+            const resp = await fetch(`${API_URL}/live/analyze`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ imageBase64: dataUrl }),
+              signal: controller.signal
+            });
+            var json = await resp.json();
+          } finally {
+            clearTimeout(timeoutId);
+          }
           if (json?.success) {
             dets = json.detections || [];
           }
