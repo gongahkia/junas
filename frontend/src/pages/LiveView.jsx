@@ -163,6 +163,7 @@ export default function LiveView() {
 
   useEffect(() => {
     if (!running) return;
+    rollingWindow.current = {};
     let timer;
 
     const tick = async () => {
