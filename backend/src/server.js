@@ -14,6 +14,8 @@ const path = require('path');
 // Load environment variables
 dotenv.config();
 
+const mongoose = require('mongoose');
+
 // Import configuration and middleware
 const connectDB = require('./config/database');
 const { errorHandler } = require('./middleware/errorHandler');
@@ -59,9 +61,12 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'cAI-png server is running',
+  const dbState = mongoose.connection.readyState; // 0=disconnected,1=connected,2=connecting,3=disconnecting
+  const dbOk = dbState === 1;
+  res.status(dbOk ? 200 : 503).json({
+    success: dbOk,
+    message: dbOk ? 'cAI-png server is running' : 'cAI-png server is running (database degraded)',
+    database: dbOk ? 'connected' : 'unavailable',
     timestamp: new Date().toISOString()
   });
 });
