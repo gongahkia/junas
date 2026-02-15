@@ -12,6 +12,8 @@ export default function LiveView() {
   const [trackGrams, setTrackGrams] = useState([]); // Store grams data per track
   const [macros, setMacros] = useState(null);
   const [narrative, setNarrative] = useState('');
+  const [macrosLoading, setMacrosLoading] = useState(false);
+  const [macrosError, setMacrosError] = useState('');
   const frameIntervalMs = 150; // ~6-7 fps target; adjustable up to ~100ms for ~10 fps
   const rollingWindow = useRef({}); // { label: { sum, count } }
   const tracksRef = useRef([]); // IoU tracker: [{ id, label, box, avg, hits, misses, lastConf }]
@@ -322,6 +324,8 @@ export default function LiveView() {
 
   const estimateMacros = async () => {
     const derivedText = buildDerivedText();
+    setMacrosLoading(true);
+    setMacrosError('');
     try {
       const resp = await fetch(`${API_URL}/live/macros`, {
         method: 'POST',
@@ -332,9 +336,14 @@ export default function LiveView() {
       if (json?.success) {
         setMacros(json.macros || null);
         setNarrative(json.narrative || '');
+      } else {
+        setMacrosError(json?.message || 'Failed to estimate macros');
       }
     } catch (e) {
       console.error('macros error', e);
+      setMacrosError('Network error estimating macros');
+    } finally {
+      setMacrosLoading(false);
     }
   };
 
@@ -369,10 +378,16 @@ export default function LiveView() {
           <input type="checkbox" checked={useLocalDetection} onChange={e=>setUseLocalDetection(e.target.checked)} />
           Use local detection
         </label>
-        <button onClick={estimateMacros} disabled={!running && Object.keys(avgByLabel).length === 0}>
-          Estimate Macros
+        <button onClick={estimateMacros} disabled={macrosLoading || (!running && Object.keys(avgByLabel).length === 0)}>
+          {macrosLoading ? '⏳ Estimating...' : 'Estimate Macros'}
         </button>
       </div>
+
+      {macrosError && (
+        <div style={{ background: '#fef2f2', color: '#dc2626', border: '1px solid #fecaca', borderRadius: 6, padding: '8px 12px', marginBottom: 8 }}>
+          {macrosError}
+        </div>
+      )}
 
       <div style={{ position: 'relative', width: '100%', maxWidth: 900 }}>
         <video ref={videoRef} style={{ width: '100%', border: '1px solid #ccc' }} muted playsInline />
