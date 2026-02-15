@@ -6,8 +6,7 @@
  * Sanitize HTML content to prevent XSS attacks
  */
 export async function sanitizeHTML(dirty: string): Promise<string> {
-  // Dynamic import to avoid ESM/CommonJS issues with Turbopack
-  const DOMPurify = (await import('isomorphic-dompurify')).default;
+  const DOMPurify = (await import('dompurify')).default;
   return DOMPurify.sanitize(dirty, {
     ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li', 'code', 'pre'],
     ALLOWED_ATTR: ['href', 'title'],
