@@ -392,7 +392,7 @@ export default function LiveView() {
 
       <div style={{ position: 'relative', width: '100%', maxWidth: 900 }}>
         <video ref={videoRef} style={{ width: '100%', border: '1px solid #ccc' }} muted playsInline />
-        <canvas ref={canvasRef} style={{ position: 'absolute', left: 0, top: 0 }} />
+        <canvas ref={canvasRef} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%' }} />
       </div>
 
       <div style={{ marginTop: 12 }}>
