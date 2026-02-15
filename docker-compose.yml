@@ -6,9 +6,9 @@ services:
     container_name: caipng_mongodb
     restart: unless-stopped
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: admin123
-      MONGO_INITDB_DATABASE: caipng
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-admin123}
+      MONGO_INITDB_DATABASE: ${MONGO_DATABASE:-caipng}
     ports:
       - "27017:27017"
     volumes:
@@ -24,7 +24,7 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: development
-      MONGODB_URI: mongodb://admin:admin123@mongodb:27017/caipng?authSource=admin
+      MONGODB_URI: mongodb://${MONGO_USERNAME:-admin}:${MONGO_PASSWORD:-admin123}@mongodb:27017/${MONGO_DATABASE:-caipng}?authSource=admin
       JWT_SECRET: your_jwt_secret_change_in_production
       PORT: 5000
     ports:
