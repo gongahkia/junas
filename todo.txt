@@ -1,4 +1,3 @@
-(B) Add retry logic (1 retry with exponential backoff) to Gemini API call in llmService.js for transient failures +infra
 (B) Replace random bounding box generation in visionService.js with grid-based region proposal (divide frame into NxN cells, assign detections to cells based on color profile per region) +feature
 (B) Implement proper IoU-based NMS in visionService.js backend to deduplicate overlapping detections before returning to frontend +feature
 (B) Add camera permission denied fallback UI in LiveView.jsx: show message with retry button instead of silent console.error +feature

@@ -69,23 +69,82 @@ class VisionService {
     try {
       const startTime = Date.now();
 
-      // Extract image features
-      const imageFeatures = await this.extractImageFeatures(imagePath);
+      // Extract per-region features using NxN grid
+      const N = 3;
+      const image = sharp(imagePath);
+      const metadata = await image.metadata();
+      const { width, height } = metadata;
+      const cellW = Math.floor(width / N);
+      const cellH = Math.floor(height / N);
 
-      // Match features against dish database
-      const matches = await this.matchDishes(imageFeatures);
+      const regionDetections = [];
 
-      // Sort by confidence and return top matches
-      const topMatches = matches
+      for (let row = 0; row < N; row++) {
+        for (let col = 0; col < N; col++) {
+          const rx = col * cellW;
+          const ry = row * cellH;
+          const rw = col === N - 1 ? width - rx : cellW;
+          const rh = row === N - 1 ? height - ry : cellH;
+
+          const regionBuf = await sharp(imagePath)
+            .extract({ left: rx, top: ry, width: rw, height: rh })
+            .toBuffer();
+          const stats = await sharp(regionBuf).stats();
+
+          const [r, g, b] = stats.channels;
+          const avgBrightness = (r.mean + g.mean + b.mean) / 3;
+          const colorProfile = {
+            isGreenish: g.mean > r.mean && g.mean > b.mean,
+            isReddish: r.mean > g.mean && r.mean > b.mean,
+            isBrownish: Math.abs(r.mean - g.mean) < 20 && r.mean > b.mean,
+            isWhitish: avgBrightness > 180,
+            isDarkish: avgBrightness < 100
+          };
+
+          // Find best matching dish for this cell
+          let bestDish = null;
+          let bestConf = 0;
+
+          for (const dish of this.dishDatabase) {
+            let confidence = 0.3;
+            if (dish.category === 'vegetable' && colorProfile.isGreenish) confidence += 0.4;
+            if (dish.category === 'protein' && (colorProfile.isReddish || colorProfile.isBrownish)) confidence += 0.3;
+            if (dish.category === 'starch' && (colorProfile.isWhitish || colorProfile.isBrownish)) confidence += 0.35;
+            if (dish.subcategory === 'leafy-green' && colorProfile.isGreenish) confidence += 0.15;
+            if (dish.subcategory === 'tofu' && colorProfile.isWhitish) confidence += 0.2;
+
+            const randomFactor = (Math.random() * 0.2) - 0.1;
+            confidence = Math.max(0.1, Math.min(0.95, confidence + randomFactor));
+
+            if (confidence > bestConf) {
+              bestConf = confidence;
+              bestDish = dish;
+            }
+          }
+
+          if (bestDish && bestConf > 0.3) {
+            regionDetections.push({
+              dish: bestDish._id,
+              dishName: bestDish.name,
+              confidence: Math.round(bestConf * 100) / 100,
+              category: bestDish.category,
+              boundingBox: { x: rx, y: ry, width: rw, height: rh }
+            });
+          }
+        }
+      }
+
+      // Keep top 5 by confidence
+      const topMatches = regionDetections
         .sort((a, b) => b.confidence - a.confidence)
-        .slice(0, 5); // Return top 5 matches
+        .slice(0, 5);
 
       const processingTime = Date.now() - startTime;
 
       return {
         identifiedDishes: topMatches,
         processingTime,
-        imageFeatures
+        imageFeatures: { dimensions: { width, height } }
       };
     } catch (error) {
       console.error('Error analyzing dish:', error);
@@ -144,110 +203,6 @@ class VisionService {
       console.error('Error extracting image features:', error);
       throw error;
     }
-  }
-
-  /**
-   * Match extracted features against dish database
-   * @param {Object} imageFeatures - Extracted image features
-   * @returns {Array} - Array of dish matches with confidence scores
-   */
-  async matchDishes(imageFeatures) {
-    const matches = [];
-    const { colorProfile, avgBrightness, textureComplexity } = imageFeatures;
-
-    for (const dish of this.dishDatabase) {
-      let confidence = 0.3; // Base confidence
-
-      // Match based on category and color profile
-      if (dish.category === 'vegetable' && colorProfile.isGreenish) {
-        confidence += 0.4;
-      }
-
-      if (dish.category === 'protein') {
-        if (colorProfile.isReddish || colorProfile.isBrownish) {
-          confidence += 0.3;
-        }
-      }
-
-      if (dish.category === 'starch') {
-        if (colorProfile.isWhitish || colorProfile.isBrownish) {
-          confidence += 0.35;
-        }
-      }
-
-      // Adjust based on subcategory
-      if (dish.subcategory === 'leafy-green' && colorProfile.isGreenish) {
-        confidence += 0.15;
-      }
-
-      if (dish.subcategory === 'tofu' && colorProfile.isWhitish) {
-        confidence += 0.2;
-      }
-
-      // Add some randomness to simulate varying detection accuracy
-      const randomFactor = (Math.random() * 0.2) - 0.1; // -0.1 to +0.1
-      confidence = Math.max(0.1, Math.min(0.95, confidence + randomFactor));
-
-      // Only include dishes with reasonable confidence
-      if (confidence > 0.2) {
-        matches.push({
-          dish: dish._id,
-          dishName: dish.name,
-          confidence: Math.round(confidence * 100) / 100,
-          category: dish.category,
-          boundingBox: this.generateBoundingBox(imageFeatures.dimensions)
-        });
-      }
-    }
-
-    // Return random subset if too many matches (simulate real detection)
-    if (matches.length > 8) {
-      return this.selectTopMatches(matches, 5);
-    }
-
-    return matches;
-  }
-
-  /**
-   * Select top matches using weighted random selection
-   * @param {Array} matches - All matches
-   * @param {Number} count - Number of matches to return
-   * @returns {Array} - Selected matches
-   */
-  selectTopMatches(matches, count) {
-    // Sort by confidence
-    matches.sort((a, b) => b.confidence - a.confidence);
-    
-    // Take top matches plus some random ones for variety
-    const topN = Math.ceil(count * 0.7);
-    const top = matches.slice(0, topN);
-    const remaining = matches.slice(topN);
-    
-    // Randomly select from remaining
-    const randomCount = count - topN;
-    for (let i = 0; i < randomCount && remaining.length > 0; i++) {
-      const randomIndex = Math.floor(Math.random() * remaining.length);
-      top.push(remaining.splice(randomIndex, 1)[0]);
-    }
-    
-    return top;
-  }
-
-  /**
-   * Generate bounding box coordinates (simulated)
-   * @param {Object} dimensions - Image dimensions
-   * @returns {Object} - Bounding box coordinates
-   */
-  generateBoundingBox(dimensions) {
-    const { width, height } = dimensions;
-    
-    // Generate random but realistic bounding box
-    const boxWidth = Math.floor(width * (0.3 + Math.random() * 0.4));
-    const boxHeight = Math.floor(height * (0.3 + Math.random() * 0.4));
-    const x = Math.floor(Math.random() * (width - boxWidth));
-    const y = Math.floor(Math.random() * (height - boxHeight));
-
-    return { x, y, width: boxWidth, height: boxHeight };
   }
 
   /**
