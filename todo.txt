@@ -1,4 +1,3 @@
-(B) Cache Dish.find() result in visionService.js using module-level variable with 60s TTL instead of querying MongoDB every frame +infra
 (B) Add input sanitization for derivedText in liveController.js macros endpoint: strip non-printable chars, cap length at 2000 chars +security
 (B) Improve Gemini prompt in llmService.js: include matched dish names and their per-100g nutrition from DB so LLM anchors estimates to real data +feature
 (B) Add retry logic (1 retry with exponential backoff) to Gemini API call in llmService.js for transient failures +infra

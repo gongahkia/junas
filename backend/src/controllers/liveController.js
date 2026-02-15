@@ -68,10 +68,13 @@ exports.analyzeFrame = async (req, res, next) => {
  */
 exports.estimateMacros = async (req, res, next) => {
   try {
-    const { derivedText } = req.body || {};
+    let { derivedText } = req.body || {};
     if (!derivedText) {
       return res.status(400).json({ success: false, message: 'derivedText is required' });
     }
+
+    // Sanitize: strip non-printable chars (keep newlines/tabs), cap at 2000 chars
+    derivedText = derivedText.replace(/[^\x20-\x7E\n\t]/g, '').slice(0, 2000);
 
     const result = await callGeminiForMacros(derivedText);
     return res.status(200).json({ success: true, ...result });
