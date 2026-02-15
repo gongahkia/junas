@@ -134,8 +134,11 @@ class VisionService {
         }
       }
 
+      // Apply IoU-based NMS to deduplicate overlapping detections
+      const nmsResults = this.nonMaxSuppression(regionDetections, 0.5);
+
       // Keep top 5 by confidence
-      const topMatches = regionDetections
+      const topMatches = nmsResults
         .sort((a, b) => b.confidence - a.confidence)
         .slice(0, 5);
 
@@ -150,6 +153,36 @@ class VisionService {
       console.error('Error analyzing dish:', error);
       throw new Error('Failed to analyze dish image');
     }
+  }
+
+  /**
+   * IoU-based Non-Maximum Suppression
+   */
+  nonMaxSuppression(detections, iouThreshold = 0.5) {
+    if (!detections || detections.length === 0) return [];
+    const sorted = [...detections].sort((a, b) => b.confidence - a.confidence);
+    const keep = [];
+
+    for (const det of sorted) {
+      let dominated = false;
+      for (const kept of keep) {
+        if (det.category !== kept.category) continue;
+        const a = det.boundingBox;
+        const b = kept.boundingBox;
+        const x1 = Math.max(a.x, b.x);
+        const y1 = Math.max(a.y, b.y);
+        const x2 = Math.min(a.x + a.width, b.x + b.width);
+        const y2 = Math.min(a.y + a.height, b.y + b.height);
+        const inter = Math.max(0, x2 - x1) * Math.max(0, y2 - y1);
+        const union = a.width * a.height + b.width * b.height - inter;
+        if (union > 0 && inter / union > iouThreshold) {
+          dominated = true;
+          break;
+        }
+      }
+      if (!dominated) keep.push(det);
+    }
+    return keep;
   }
 
   /**
