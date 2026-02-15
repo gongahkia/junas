@@ -59,7 +59,7 @@ $ npm run build
 ## Architecture
 
 <div align="center">
-    <img src="./asset/reference/architecture/junas_architecture.png" width="65%">
+    <img src="./asset/reference/architecture/junas_architecture_v2.png" width="65%">
 </div>
 
 ## Legal Disclaimer
