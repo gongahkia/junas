@@ -11,12 +11,12 @@
 
 ## Stack
 
-- _Desktop Runtime_: [Tauri 2](https://v2.tauri.app/) (Rust)
-- _Frontend_: [React 19](https://react.dev/), [Vite 7](https://vite.dev/), [Tailwind CSS 3](https://tailwindcss.com/), [Radix UI](https://www.radix-ui.com/), [TypeScript 5](https://www.typescriptlang.org/)
-- _Backend (Rust)_: [reqwest](https://docs.rs/reqwest) (HTTP), [serde](https://serde.rs/) (serialization), [keyring](https://docs.rs/keyring) (OS Keychain), [ort](https://docs.rs/ort) (ONNX), [futures-util](https://docs.rs/futures-util) (streaming)
-- _State Management_: [React Context](https://react.dev/) + [Zustand](https://zustand.docs.pmnd.rs/)
-- _AI Providers_: [Anthropic](https://www.anthropic.com/) (Claude), [OpenAI](https://platform.openai.com/) (GPT), [Google](https://ai.google.dev/) (Gemini), [Ollama](https://ollama.com/), [LM Studio](https://lmstudio.ai/)
-- _Diagrams_: [Mermaid](https://mermaid.js.org/), [Graphviz](https://github.com/nicknisi/viz-js) (Viz.js), [PlantUML](https://plantuml.com/), [D2](https://d2lang.com/)
+- _Desktop Runtime_: [Rust](https://rust-lang.org/), [Tauri](https://v2.tauri.app/) 
+- _Frontend_: [TypeScript](https://www.typescriptlang.org/), [React](https://react.dev/), [Vite](https://vite.dev/), [Tailwind CSS](https://tailwindcss.com/), [Radix UI](https://www.radix-ui.com/)
+- _Backend_: [reqwest](https://docs.rs/reqwest), [serde](https://serde.rs/), [MacOS keyring](https://docs.rs/keyring), [ort](https://docs.rs/ort), [futures-util](https://docs.rs/futures-util) 
+- _State Management_: [React Context](https://react.dev/), [Zustand](https://zustand.docs.pmnd.rs/)
+- _AI Providers_: [Anthropic](https://www.anthropic.com/), [OpenAI](https://platform.openai.com/), [Google](https://ai.google.dev/), [Ollama](https://ollama.com/), [LM Studio](https://lmstudio.ai/)
+- _Diagrams_: [Mermaid](https://mermaid.js.org/), [Graphviz](https://github.com/nicknisi/viz-js), [PlantUML](https://plantuml.com/), [D2](https://d2lang.com/)
 - _Markdown_: [react-markdown](https://remarkjs.github.io/react-markdown/), [remark-gfm](https://github.com/remarkjs/remark-gfm), [remark-math](https://github.com/remarkjs/remark-math), [rehype-katex](https://github.com/remarkjs/remark-math/tree/main/packages/rehype-katex)
 - _Utils_: [Lucide React](https://lucide.dev/), [clsx](https://github.com/lukeed/clsx), [tailwind-merge](https://github.com/dcastil/tailwind-merge), [jsPDF](https://github.com/parallax/jsPDF), [DOMPurify](https://github.com/cure53/DOMPurify), [Fuse.js](https://www.fusejs.io/), [Compromise.js](https://compromise.cool/)
 
