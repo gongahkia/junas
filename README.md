@@ -1,5 +1,6 @@
-[![](https://img.shields.io/badge/caipng_1.0.0-passing-light_green)](https://github.com/gongahkia/caipng/releases/tag/1.0.0)
-[![](https://img.shields.io/badge/caipng_2.0.0-passing-green)](https://github.com/gongahkia/caipng/releases/tag/2.0.0)
+[![](https://img.shields.io/badge/caipng_1.0.0-passing-%23004D00)](https://github.com/gongahkia/caipng/releases/tag/1.0.0)
+[![](https://img.shields.io/badge/caipng_2.0.0-passing-%23228B22)](https://github.com/gongahkia/caipng/releases/tag/2.0.0)
+[![](https://img.shields.io/badge/caipng_3.0.0-passing-%2332CD32)](https://github.com/gongahkia/caipng/releases/tag/3.0.0)
 
 # `cAI-png`
 
