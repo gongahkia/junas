@@ -1,12 +1,10 @@
 from diagrams import Diagram, Cluster, Edge
-from diagrams.custom import Custom
 from diagrams.onprem.client import User
 from diagrams.programming.framework import React
-from diagrams.programming.language import Rust, TypeScript
-from diagrams.onprem.mlops import MlFlow
-from diagrams.onprem.database import PostgreSQL
+from diagrams.programming.language import Rust
 from diagrams.generic.storage import Storage
 from diagrams.generic.blank import Blank
+from diagrams.custom import Custom
 graph_attr = {"bgcolor": "white", "pad": "0.5", "nodesep": "0.8", "ranksep": "1.2"}
 with Diagram("Junas Architecture", filename="junas_architecture", outformat="png", show=False, direction="TB", graph_attr=graph_attr):
     user = User("User")
@@ -16,7 +14,7 @@ with Diagram("Junas Architecture", filename="junas_architecture", outformat="png
             cmd = React("Command Palette")
             diagrams_r = React("Diagram Renderers")
             settings = React("Settings / Config")
-        ipc = Blank("Tauri IPC Bridge")
+        ipc = Custom("Tauri IPC Bridge", "./tauri.webp")
         with Cluster("Rust Backend"):
             providers = Rust("providers.rs")
             streaming = Rust("streaming.rs")
@@ -28,16 +26,16 @@ with Diagram("Junas Architecture", filename="junas_architecture", outformat="png
             conversations = Storage("conversations/")
             profiles = Storage("profiles.json")
     with Cluster("AI Providers"):
-        claude = Blank("Claude")
-        gpt = Blank("GPT")
-        gemini = Blank("Gemini")
-        ollama = Blank("Ollama")
-        lmstudio = Blank("LM Studio")
+        claude = Custom("Claude", "./claude.png")
+        gpt = Custom("GPT", "./openai.webp")
+        gemini = Custom("Gemini", "./gemini.png")
+        ollama = Custom("Ollama", "./ollama.png")
+        lmstudio = Custom("LM Studio", "./lmstudio.png")
     with Cluster("External Services"):
-        serper = Blank("Serper.dev")
-        url_fetch = Blank("URL Fetch")
-    keychain_os = Blank("macOS Keychain")
-    onnx = Blank("ONNX Runtime")
+        serper = Custom("Serper.dev", "./serper.png")
+        url_fetch = Custom("URL Fetch", "./url_fetch.png")
+    keychain_os = Custom("macOS Keychain", "./keychain.webp")
+    onnx = Custom("ONNX Runtime", "./onnx.png")
     user >> Edge(label="launches") >> chat
     chat >> ipc # frontend -> IPC
     cmd >> ipc
