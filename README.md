@@ -16,7 +16,7 @@ Available [backend endpoints](#architecture) are [here](#api-reference).
 * Frontend: [React](https://react.dev), [Vite](https://vitejs.dev) 
 * Backend: [Node.js](https://nodejs.org), [Express.js](https://expressjs.com), [Mongoose](https://mongoosejs.com)
 * Database: [MongoDB](https://www.mongodb.com) 
-* Computer Vision: [Sharp](https://sharp.pixelplumbing.com), [tfjs-node](https://www.npmjs.com/package/@tensorflow/tfjs-node) 
+* Computer Vision: [Sharp](https://sharp.pixelplumbing.com) 
 * LLM: [Gemini](https://ai.google.dev) 
 * Package: [Docker](https://www.docker.com), [Docker Compose](https://docs.docker.com/compose/)
 
@@ -262,58 +262,6 @@ GET /health
 }
 ```
 
-#### Get All Dishes
-```http
-GET /api/dishes?category=vegetable&vegetarian=true&page=1&limit=20
-```
-
-**Query Parameters**:
-- `category` - Filter by category (vegetable, protein, starch, combination)
-- `vegetarian` - Filter vegetarian dishes (true/false)
-- `maxCalories` - Maximum calories
-- `page` - Page number (default: 1)
-- `limit` - Items per page (default: 20)
-- `sortBy` - Sort field (e.g., nutrition.protein)
-- `order` - Sort order (asc/desc)
-
-**Response**:
-```json
-{
-  "success": true,
-  "count": 10,
-  "totalPages": 3,
-  "currentPage": 1,
-  "data": [
-    {
-      "_id": "507f1f77bcf86cd799439011",
-      "name": "Stir-Fried Bok Choy",
-      "chineseName": "清炒白菜",
-      "category": "vegetable",
-      "nutrition": {
-        "calories": 45,
-        "protein": 2.5,
-        "carbohydrates": 8,
-        "fat": 1.2,
-        "fiber": 2.5,
-        "sodium": 250
-      },
-      "characteristics": {
-        "isVegetarian": true,
-        "isVegan": true,
-        "isGlutenFree": true
-      },
-      "averagePrice": 1.50,
-      "healthScore": 85
-    }
-  ]
-}
-```
-
-#### Search Dishes
-```http
-GET /api/dishes/search?q=chicken
-```
-
 #### Live Analyze Frame
 ```http
 POST /api/live/analyze
@@ -351,22 +299,4 @@ Response:
   "macros": { "calories": 640, "protein": 28, "carbs": 70, "fat": 20 },
   "narrative": "Estimated based on detected categories and common portions."
 }
-```
-
-#### User Authentication
-```http
-POST /api/users/register
-POST /api/users/login
-GET /api/users/me (requires auth)
-POST /api/users/favorites/:dishId (requires auth)
-DELETE /api/users/favorites/:dishId (requires auth)
-```
-
-#### Preferences Management
-```http
-POST /api/preferences
-GET /api/preferences/:userId
-PUT /api/preferences/dietary
-PUT /api/preferences/nutritional-goals
-PUT /api/preferences/budget
 ```
