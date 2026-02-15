@@ -8,6 +8,10 @@
 const sharp = require('sharp');
 const Dish = require('../models/Dish');
 
+// Module-level dish cache with 60s TTL
+let dishCache = null;
+let dishCacheExpiry = 0;
+
 /**
  * Simple dish recognition service
  * Uses color analysis and pattern matching as a simplified CV approach
@@ -25,18 +29,23 @@ class VisionService {
    */
   async initialize() {
     try {
-      // Try to load dishes from database, but fallback to empty if DB unavailable
-      try {
-        this.dishDatabase = await Dish.find({}).lean().maxTimeMS(2000);
-        console.log('✅ Vision service initialized with', this.dishDatabase.length, 'dishes');
-      } catch (dbError) {
-        console.warn('⚠️  Database unavailable, using fallback dish list');
-        // Fallback: use simple hardcoded dish categories for detection without DB
-        this.dishDatabase = [
-          { _id: 'fallback-veg', dishName: 'Vegetable', category: 'vegetable' },
-          { _id: 'fallback-protein', dishName: 'Protein', category: 'protein' },
-          { _id: 'fallback-starch', dishName: 'Starch', category: 'starch' },
-        ];
+      const now = Date.now();
+      if (dishCache && now < dishCacheExpiry) {
+        this.dishDatabase = dishCache;
+      } else {
+        try {
+          this.dishDatabase = await Dish.find({}).lean().maxTimeMS(2000);
+          dishCache = this.dishDatabase;
+          dishCacheExpiry = now + 60000;
+          console.log('✅ Vision service initialized with', this.dishDatabase.length, 'dishes');
+        } catch (dbError) {
+          console.warn('⚠️  Database unavailable, using fallback dish list');
+          this.dishDatabase = [
+            { _id: 'fallback-veg', dishName: 'Vegetable', category: 'vegetable' },
+            { _id: 'fallback-protein', dishName: 'Protein', category: 'protein' },
+            { _id: 'fallback-starch', dishName: 'Starch', category: 'starch' },
+          ];
+        }
       }
       this.modelLoaded = true;
     } catch (error) {
