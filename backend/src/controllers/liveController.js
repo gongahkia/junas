@@ -77,6 +77,20 @@ exports.estimateMacros = async (req, res, next) => {
     derivedText = derivedText.replace(/[^\x20-\x7E\n\t]/g, '').slice(0, 2000);
 
     const result = await callGeminiForMacros(derivedText);
+
+    // Detect placeholder zeros indicating LLM failure
+    const m = result.macros || {};
+    const allZero = m.calories === 0 && m.protein === 0 && m.carbs === 0 && m.fat === 0;
+    if (allZero) {
+      return res.status(200).json({
+        success: false,
+        error: 'llm_placeholder',
+        message: result.narrative || 'LLM returned placeholder values; estimates unavailable.',
+        macros: m,
+        narrative: result.narrative || ''
+      });
+    }
+
     return res.status(200).json({ success: true, ...result });
   } catch (err) {
     next(err);
