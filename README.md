@@ -20,6 +20,28 @@
 * *LLM*: [Gemini](https://ai.google.dev) 
 * *Training*: [PyTorch](https://pytorch.org), [ONNX Runtime](https://onnxruntime.ai)
 
+## Screenshot
+
+<div align="center">
+  <img src="./asset/reference/1.png" width="90%">
+  <img src="./asset/reference/2.png" width="90%">
+</div>
+
+<div align="center">
+  <img src="./asset/reference/3.png" width="90%">
+  <img src="./asset/reference/4.png" width="90%">
+</div>
+
+<div align="center">
+  <img src="./asset/reference/5.png" width="90%">
+  <img src="./asset/reference/6.png" width="90%">
+</div>
+
+<div align="center">
+  <img src="./asset/reference/7.png" width="90%">
+  <img src="./asset/reference/8.png" width="90%">
+</div>
+
 ## Usage
 
 The below instructions are for locally hosting `cAI-png`.
@@ -71,13 +93,6 @@ $ cd frontend && npm run dev
 * Frontend: http://localhost:3000
 * Backend API: http://localhost:5000
 * Health Check: http://localhost:5000/health
-
-## Screenshot
-
-<div align="center">
-  <img src="./asset/reference/1.png" width="90%">
-  <img src="./asset/reference/2.png" width="90%">
-</div>
 
 ## Architecture
 
