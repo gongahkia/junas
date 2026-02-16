@@ -1,6 +1,6 @@
 /**
  * Live Controller (V2)
- * - analyzeFrame: accepts base64 image data, runs heuristic analysis and returns boxes/labels/confidence
+ * - analyzeFrame: accepts base64 image data, runs neural network inference and returns boxes/labels/confidence
  * - estimateMacros: accepts derived text (no images), calls Gemini and returns macros
  */
 
