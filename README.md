@@ -178,7 +178,7 @@ Content-Type: application/json
 }
 ```
 
-Response:
+**Response**:
 ```json
 {
   "success": true,

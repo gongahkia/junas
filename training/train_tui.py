@@ -391,7 +391,10 @@ class TrainingTUI:
         with open(history_path, 'w') as f:
             json.dump(history, f, indent=2)
 
-        # Run detailed evaluation on validation set
+        return True
+
+    def run_evaluation(self):
+        """Run detailed evaluation on validation set (optional, can be slow on large datasets)"""
         console.print("\n[bold yellow]📊 Detailed Evaluation[/bold yellow]")
         console.print("=" * 60)
 
@@ -414,8 +417,6 @@ class TrainingTUI:
         with open(eval_path, 'w') as f:
             json.dump(eval_export, f, indent=2)
         console.print(f"[green]✓ Eval results saved to {eval_path}[/green]")
-
-        return True
     
     def export_onnx(self):
         """Export model to ONNX format"""
@@ -478,10 +479,13 @@ class TrainingTUI:
         
         if not self.train():
             return
-        
+
         if Confirm.ask("\n[bold]Export model to ONNX for backend?[/bold]", default=True):
             self.export_onnx()
-        
+
+        if Confirm.ask("\n[bold]Run detailed evaluation (confusion matrix, P/R/F1)?[/bold] [dim](can be slow on large datasets)[/dim]", default=False):
+            self.run_evaluation()
+
         # Final instructions
         console.print("\n[bold green]🎉 All Done![/bold green]")
         console.print(Panel(
