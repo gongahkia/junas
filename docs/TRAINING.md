@@ -180,7 +180,7 @@ The backend automatically:
 1. Checks for `backend/models/caifan_model.onnx`
 2. Loads the model if found
 3. Uses neural network for inference
-4. Falls back to heuristics if model missing
+4. Returns an error if model is missing (no fallback)
 
 ### Logs to Watch
 
@@ -188,15 +188,11 @@ The backend automatically:
 ✅ Neural network model loaded successfully
    Classes: 101
    Model: /path/to/backend/models/caifan_model.onnx
-✅ Using NEURAL NETWORK for food recognition
 ```
 
-Or if model not found:
+If model not found:
 ```
-⚠️  Model file not found. Using fallback mode.
-   Expected model at: /path/to/backend/models/caifan_model.onnx
-   💡 Tip: Train the model first using training/train_tui.py
-⚠️  Using HEURISTIC fallback for food recognition
+❌ No trained model found. Train one first: cd training && python train_tui.py
 ```
 
 ## Troubleshooting
