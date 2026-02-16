@@ -12,12 +12,13 @@
 
 ## Stack
 
-* Frontend: [React](https://react.dev), [Vite](https://vitejs.dev) 
-* Backend: [Node.js](https://nodejs.org), [Express.js](https://expressjs.com), [Mongoose](https://mongoosejs.com)
-* Database: [MongoDB](https://www.mongodb.com) 
-* Computer Vision: [Sharp](https://sharp.pixelplumbing.com) 
-* LLM: [Gemini](https://ai.google.dev) 
-* Training: [PyTorch](https://pytorch.org), [ONNX Runtime](https://onnxruntime.ai)
+* *Frontend*: [React](https://react.dev), [Vite](https://vitejs.dev) 
+* *Backend*: [Node.js](https://nodejs.org), [Express.js](https://expressjs.com), [Mongoose](https://mongoosejs.com)
+* *Database*: [MongoDB](https://www.mongodb.com) 
+* *Dataset*: [Food 101](https://www.kaggle.com/datasets/dansbecker/food-101)
+* *Computer Vision*: [Sharp](https://sharp.pixelplumbing.com) 
+* *LLM*: [Gemini](https://ai.google.dev) 
+* *Training*: [PyTorch](https://pytorch.org), [ONNX Runtime](https://onnxruntime.ai)
 
 ## Usage
 
