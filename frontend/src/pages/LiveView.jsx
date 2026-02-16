@@ -420,7 +420,7 @@ export default function LiveView() {
             onClick={() => setShowSettings(!showSettings)}
             title="Settings"
           >
-            [cfg]
+            [config]
           </button>
         </div>
       </div>
