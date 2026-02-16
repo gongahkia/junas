@@ -25,35 +25,35 @@
 ### Classification Model Training (TUI)
 
 <div align="center">
-  <img src="./asset/reference/1.png" width="90%">
-  <img src="./asset/reference/2.png" width="90%">
+  <img src="./asset/reference/1.png" width="40%">
+  <img src="./asset/reference/2.png" width="40%">
 </div>
 
 <div align="center">
-  <img src="./asset/reference/3.png" width="90%">
-  <img src="./asset/reference/4.png" width="90%">
+  <img src="./asset/reference/3.png" width="40%">
+  <img src="./asset/reference/4.png" width="40%">
 </div>
 
 <div align="center">
-  <img src="./asset/reference/5.png" width="90%">
-  <img src="./asset/reference/6.png" width="90%">
+  <img src="./asset/reference/5.png" width="40%">
+  <img src="./asset/reference/6.png" width="40%">
 </div>
 
 ### Macros Estimation Frontend (Web App)
 
 <div align="center">
-  <img src="./asset/reference/7.png" width="90%">
-  <img src="./asset/reference/8.png" width="90%">
+  <img src="./asset/reference/7.png" width="40%">
+  <img src="./asset/reference/8.png" width="40%">
 </div>
 
 <div align="center">
-  <img src="./asset/reference/9.png" width="90%">
-  <img src="./asset/reference/10.png" width="90%">
+  <img src="./asset/reference/9.png" width="40%">
+  <img src="./asset/reference/10.png" width="40%">
 </div>
 
 <div align="center">
-  <img src="./asset/reference/11.png" width="90%">
-  <img src="./asset/reference/12.png" width="90%">
+  <img src="./asset/reference/11.png" width="40%">
+  <img src="./asset/reference/12.png" width="40%">
 </div>
 
 ## Usage
