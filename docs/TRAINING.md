@@ -1,6 +1,6 @@
 # Neural Network Training Guide
 
-This guide explains how to train and deploy the real neural network for food recognition, replacing the heuristic approach.
+This guide explains how to train and deploy the neural network for food recognition.
 
 ## Overview
 
