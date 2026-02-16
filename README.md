@@ -46,6 +46,17 @@
   <img src="./asset/reference/9.png" width="90%">
 </div>
 
+## Architecture
+
+* Browser captures frames
+* Backend runs neural network inference and returns bounding boxes with confidences at ~5–10 FPS
+* Derived text summary is sent to Gemini to estimate macros
+* No images are sent to the LLM
+
+<div align="center">
+  <image src="./asset/reference/architecture.png" width="100%">
+</div>
+
 ## Usage
 
 The below instructions are for locally hosting `cAIpng`.
@@ -99,15 +110,6 @@ $ cd frontend && npm run dev
 * Frontend: http://localhost:3000
 * Backend API: http://localhost:5000
 * Health Check: http://localhost:5000/health
-
-## Architecture
-
-* Browser captures frames
-* Backend runs neural network inference and returns bounding boxes with confidences at ~5–10 FPS
-* Derived text summary is sent to Gemini to estimate macros
-* No images are sent to the LLM
-
-<image src="./asset/reference/architecture.png" width="90%">
 
 ## API Reference
 
