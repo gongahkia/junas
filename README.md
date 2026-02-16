@@ -81,7 +81,7 @@ $ cd frontend && npm run dev
 ## Architecture
 
 * Browser captures frames
-* Backend runs heuristic detection and returns bounding boxes with confidences at ~5–10 FPS
+* Backend runs neural network inference and returns bounding boxes with confidences at ~5–10 FPS
 * Derived text summary is sent to Gemini to estimate macros
 * No images are sent to the LLM
 
