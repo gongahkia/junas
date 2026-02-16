@@ -11,6 +11,7 @@ from torchvision import models
 import os
 import json
 import time
+import logging
 from pathlib import Path
 from datetime import datetime
 
@@ -29,6 +30,16 @@ from metrics import evaluate_model, print_confusion_matrix, print_classification
 from validate_data import validate_dataset, print_validation_report
 
 console = Console()
+
+# file logger — writes to logs/training.log (shared with backend)
+LOG_DIR = os.path.join(os.path.dirname(__file__), 'logs')
+os.makedirs(LOG_DIR, exist_ok=True)
+LOG_PATH = os.path.join(LOG_DIR, 'training.log')
+_fh = logging.FileHandler(LOG_PATH, mode='w', encoding='utf-8')
+_fh.setFormatter(logging.Formatter('%(asctime)s  %(message)s', datefmt='%Y-%m-%d %H:%M:%S'))
+tlog = logging.getLogger('tui')
+tlog.setLevel(logging.INFO)
+tlog.addHandler(_fh)
 
 class TrainingTUI:
     def __init__(self):
