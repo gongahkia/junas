@@ -53,9 +53,6 @@ function App() {
           </div>
         </div>
       </header>
-      <div className="barebones-notice">
-        barebones frontend — focus is on model training & backend inference
-      </div>
       <main className="app-main">
         <LiveView />
       </main>
