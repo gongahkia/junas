@@ -52,8 +52,9 @@ def check_training_files():
     
     files = [
         ('train_tui.py', 'Training TUI'),
-        ('train.py', 'Training Script'),
         ('dataset.py', 'Dataset Module'),
+        ('metrics.py', 'Metrics Module'),
+        ('validate_data.py', 'Data Validation'),
         ('download_data.py', 'Data Download Script'),
         ('requirements.txt', 'Requirements File')
     ]

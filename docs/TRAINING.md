@@ -43,23 +43,19 @@ python download_data.py --sample
 
 ### 3. Train the Model
 
-**Interactive TUI (Recommended):**
 ```bash
 python train_tui.py
 ```
 
 The TUI will guide you through:
-- ✅ Configuration (data path, epochs, batch size, etc.)
-- ✅ Dataset loading and verification
-- ✅ Model initialization
-- ✅ Training progress with live metrics
-- ✅ Validation accuracy tracking
-- ✅ Automatic model export to ONNX
-
-**Command Line (Original):**
-```bash
-python train.py --data_dir ./data/organized --output_dir ./models --epochs 10
-```
+- Configuration (data path, epochs, batch size, etc.)
+- Dataset validation (corrupt files, duplicates, class distribution)
+- Dataset loading and verification
+- Model initialization
+- Training progress with live metrics
+- Validation accuracy tracking
+- Detailed evaluation (confusion matrix, per-class P/R/F1)
+- Automatic model export to ONNX
 
 ### 4. Deploy to Backend
 
@@ -260,7 +256,7 @@ model.load_state_dict(checkpoint)
 The model uses pre-trained ImageNet weights by default. For fine-tuning:
 
 ```python
-# In train.py or train_tui.py
+# In train_tui.py
 model = models.mobilenet_v3_small(weights='DEFAULT')  # Use pre-trained
 # vs
 model = models.mobilenet_v3_small(weights=None)       # Train from scratch
@@ -302,8 +298,9 @@ model = models.mobilenet_v3_small(weights=None)       # Train from scratch
 |------|---------|
 | `download_data.py` | Downloads Food-101 dataset |
 | `train_tui.py` | Interactive training interface |
-| `train.py` | Command-line training script |
 | `dataset.py` | PyTorch dataset implementation |
+| `metrics.py` | Evaluation metrics (confusion matrix, P/R/F1) |
+| `validate_data.py` | Dataset validation (corrupt/duplicate detection) |
 | `requirements.txt` | Python dependencies |
 
 ## Questions?
