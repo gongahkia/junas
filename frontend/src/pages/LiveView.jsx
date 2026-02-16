@@ -15,7 +15,7 @@ export default function LiveView() {
   const [narrative, setNarrative] = useState('');
   const [macrosLoading, setMacrosLoading] = useState(false);
   const [macrosError, setMacrosError] = useState('');
-  const [frameIntervalMs, setFrameIntervalMs] = useState(150);
+  const [frameIntervalMs, setFrameIntervalMs] = useState(5000);
   const [history, setHistory] = useState([]);
   const [showSettings, setShowSettings] = useState(false);
   const [fps, setFps] = useState(0);
