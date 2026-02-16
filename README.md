@@ -77,7 +77,10 @@ $ make docker-up
 
 ## Screenshot
 
-![](./asset/reference/1.png)
+<div align="center">
+  <img src="./asset/reference/1.png" width="90%">
+  <img src="./asset/reference/2.png" width="90%">
+</div>
 
 ## Architecture
 
@@ -86,160 +89,7 @@ $ make docker-up
 * Derived text summary is sent to Gemini to estimate macros
 * No images are sent to the LLM
 
-### System Context Diagram
-
-```mermaid
-C4Context
-    title System Context Diagram for cAI-png
-
-    Person(user, "User", "Uploads cai fan images and receives personalized meal recommendations")
-
-  System(web_app, "cAI-png Web Application", "React SPA with live webcam overlay")
-  System(backend_api, "Backend API", "Express.js server handling live frame analysis and LLM macros")
-  System(database, "MongoDB Database", "Stores dish reference data only")
-    
-  System_Ext(image_processor, "Image Processing", "Sharp-based feature extraction")
-  System_Ext(vision_service, "Vision Service", "Heuristic matching for dish/categories")
-  System_Ext(llm, "Gemini LLM", "Text-only macro estimation")
-
-    Rel(user, web_app, "Uploads images, sets preferences", "HTTPS")
-    Rel(web_app, backend_api, "Makes API calls", "REST API")
-    Rel(backend_api, database, "Queries and stores data", "MongoDB Protocol")
-    Rel(backend_api, image_processor, "Processes uploaded images", "Library")
-  Rel(backend_api, vision_service, "Analyzes frames")
-  Rel(backend_api, llm, "Text prompt with derived detections")
-```
-
-### Container Diagram
-
-```mermaid
-C4Container
-    title Container Diagram for cAI-png
-
-    Person(user, "User")
-
-    Container_Boundary(caipng_system, "cAI-png System") {
-  Container(react_app, "React Frontend", "React 18, Vite", "Single live page with webcam and overlay")
-  Container(express_api, "Express Backend", "Node.js, Express", "REST API for live analyze + macros")
-  Container(vision_service, "Vision Service", "Sharp heuristics", "Frame analysis with boxes/confidences")
-  ContainerDb(mongodb, "MongoDB", "NoSQL Database", "Stores dish reference data")
-    }
-
-    Rel(user, react_app, "Interacts with", "HTTPS")
-    Rel(react_app, express_api, "API calls", "REST/JSON")
-    Rel(express_api, vision_service, "Analyzes images")
-  Rel(express_api, mongodb, "Reads dish data", "Mongoose ODM")
-  Rel(vision_service, mongodb, "Fetches dish features", "Mongoose ODM")
-```
-
-### Live Analysis Flow
-
-```mermaid
-C4Component
-    title Image Analysis Component Flow
-
-  Person(user, "User", "Holds plate in front of webcam")
-
-    Container_Boundary(backend_system, "Backend System") {
-  Component(live_controller, "Live Controller", "Express.js", "Accepts frames, returns boxes+confidences")
-  Component(image_processor, "Image Processor", "Sharp", "Extracts features")
-  Component(vision_service, "Vision Service", "Heuristics", "Identifies likely dishes/categories")
-    }
-
-    Container_Boundary(data_layer, "Data Layer") {
-        ComponentDb(mongodb, "MongoDB", "Database", "Dish library with visual features")
-        ComponentDb(uploads_storage, "File Storage", "Disk", "Uploaded images")
-    }
-
-  Rel(user, live_controller, "POST /api/live/analyze (base64 frame)", "JSON")
-  Rel(live_controller, image_processor, "Extract features")
-  Rel(image_processor, uploads_storage, "Temp files (optional)")
-  Rel(live_controller, vision_service, "Analyze frame")
-  Rel(live_controller, user, "Return boxes + confidences", "JSON")
-```
-
-### Macros Estimation Flow
-
-```mermaid
-sequenceDiagram
-    participant U as User
-    participant API as Express API
-    participant Pref as Preference Store
-    participant Rec as Recommendation Engine
-    participant DB as Dish Database
-
-  participant U as User
-  participant API as Express API
-  participant LLM as Gemini
-
-  U->>API: POST /api/live/macros (derived text: labels + avg confidences)
-  API->>LLM: Prompt with derived text (no images)
-  LLM->>API: JSON with macros + narrative
-  API->>U: Return macros summary
-```
-
-### Data Model
-
-```mermaid
-erDiagram
-    USERS ||--o{ PREFERENCES : has
-    USERS ||--o{ FAVORITES : has
-    USERS ||--o{ ANALYSES : creates
-    DISHES ||--o{ FAVORITES : "in"
-    DISHES ||--o{ ANALYSIS_DISHES : "identified in"
-    ANALYSES ||--o{ ANALYSIS_DISHES : contains
-    
-    USERS {
-        ObjectId _id PK
-        string name
-        string email UK
-        string password "bcrypt hashed"
-        array favoriteDishes "Array of Dish IDs"
-        timestamp createdAt
-        timestamp updatedAt
-    }
-    
-    DISHES {
-        ObjectId _id PK
-        string name
-        string chineseName
-        enum category "vegetable, protein, starch, combination"
-        string subcategory
-        string description
-        object nutrition "calories, protein, carbs, fat, fiber, sodium"
-        object characteristics "vegetarian, vegan, glutenFree, spicy"
-        decimal averagePrice
-        array ingredients
-        object visualFeatures "dominantColors, textureDescription"
-        int healthScore
-        int popularityScore
-        timestamp createdAt
-    }
-    
-    PREFERENCES {
-        ObjectId _id PK
-        ObjectId userId FK
-        object dietaryRestrictions "vegetarian, vegan, glutenFree, halal"
-        object nutritionalGoals "goalType, targets"
-        object budgetPreferences "maxPricePerMeal, preferBudgetOptions"
-        object tastePreferences "maxSpicyLevel, dislikedIngredients"
-        object healthPriorities "prioritizeHighProtein, prioritizeLowCalorie"
-        object mealComposition "preferredVegetableCount, preferredProteinCount"
-        timestamp createdAt
-        timestamp updatedAt
-    }
-    
-    ANALYSES {
-        ObjectId _id PK
-        ObjectId userId FK "optional"
-        string imageUrl
-        array identifiedDishes "Array of identified dish objects"
-        object nutritionalSummary "totals"
-        object metadata "processingTime, modelVersion"
-        enum status "completed, failed, processing"
-        timestamp createdAt
-    }
-```
+<image src="./asset/reference/architecture.png" width="90%">
 
 ## API Reference
 

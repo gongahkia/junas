@@ -1,31 +1,31 @@
 /**
  * Computer Vision Service
- * Handles dish recognition using a simplified CV approach
- * In production, this would use TensorFlow.js or a trained model
- * For this implementation, we use feature matching and heuristics
+ * Handles dish recognition using trained neural network
+ * Falls back to heuristic approach if model is not available
  */
 
 const sharp = require('sharp');
 const Dish = require('../models/Dish');
+const modelService = require('./modelService');
 
 // Module-level dish cache with 60s TTL
 let dishCache = null;
 let dishCacheExpiry = 0;
 
 /**
- * Simple dish recognition service
- * Uses color analysis and pattern matching as a simplified CV approach
- * In production, replace with actual trained CNN model
+ * Vision service with neural network support
+ * Uses trained CNN model when available, falls back to heuristics
  */
 class VisionService {
   constructor() {
     this.modelLoaded = false;
     this.dishDatabase = null;
+    this.useNeuralNetwork = false;
   }
 
   /**
    * Initialize the vision service
-   * Load dish database for matching
+   * Load dish database and neural network model
    */
   async initialize() {
     try {
@@ -47,6 +47,17 @@ class VisionService {
           ];
         }
       }
+      
+      // Try to initialize neural network
+      const modelReady = await modelService.initialize();
+      this.useNeuralNetwork = modelReady;
+      
+      if (this.useNeuralNetwork) {
+        console.log('✅ Using NEURAL NETWORK for food recognition');
+      } else {
+        console.log('⚠️  Using HEURISTIC fallback for food recognition');
+      }
+      
       this.modelLoaded = true;
     } catch (error) {
       console.error('❌ Failed to initialize vision service:', error);
@@ -58,6 +69,7 @@ class VisionService {
 
   /**
    * Analyze image and identify dishes
+   * Uses neural network if available, otherwise falls back to heuristics
    * @param {String} imagePath - Path to image file
    * @returns {Array} - Array of identified dishes with confidence scores
    */
@@ -67,7 +79,32 @@ class VisionService {
     }
 
     try {
-      const startTime = Date.now();
+      // Use neural network if available
+      if (this.useNeuralNetwork) {
+        return await modelService.analyzeDish(imagePath);
+      }
+      
+      // Fall back to heuristic method
+      return await this.analyzeDishHeuristic(imagePath);
+      
+    } catch (error) {
+      console.error('Error analyzing dish:', error);
+      
+      // If neural network fails, fall back to heuristics
+      if (this.useNeuralNetwork) {
+        console.warn('⚠️  Neural network failed, falling back to heuristics');
+        return await this.analyzeDishHeuristic(imagePath);
+      }
+      
+      throw new Error('Failed to analyze dish image');
+    }
+  }
+
+  /**
+   * Original heuristic-based analysis (fallback)
+   */
+  async analyzeDishHeuristic(imagePath) {
+    const startTime = Date.now();
 
       // Extract per-region features using NxN grid
       const N = 3;
@@ -147,11 +184,11 @@ class VisionService {
       return {
         identifiedDishes: topMatches,
         processingTime,
-        imageFeatures: { dimensions: { width, height } }
+        imageFeatures: { dimensions: { width, height }, method: 'heuristic' }
       };
     } catch (error) {
-      console.error('Error analyzing dish:', error);
-      throw new Error('Failed to analyze dish image');
+      console.error('Error in heuristic analysis:', error);
+      throw error;
     }
   }
 
