@@ -7,24 +7,24 @@
 }
 
 :root {
-  --bg-primary: #0a0a0b;
-  --bg-secondary: #111113;
-  --bg-card: #161618;
-  --bg-elevated: #1c1c1f;
-  --border-color: #27272a;
-  --border-subtle: #1e1e21;
-  --text-primary: #fafafa;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
-  --accent: #8b5cf6;
-  --accent-dim: #7c3aed;
-  --success: #22c55e;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --blue: #3b82f6;
-  --orange: #f97316;
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9f9f9;
+  --bg-card: #f3f3f3;
+  --bg-elevated: #ebebeb;
+  --border-color: #d4d4d8;
+  --border-subtle: #e4e4e7;
+  --text-primary: #18181b;
+  --text-secondary: #52525b;
+  --text-muted: #a1a1aa;
+  --accent: #7c3aed;
+  --accent-dim: #6d28d9;
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --blue: #2563eb;
+  --orange: #ea580c;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.1);
   --radius: 8px;
   --radius-lg: 12px;
   --transition: all 0.2s ease;
@@ -196,7 +196,7 @@ code {
 .settings-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.15s ease-out;
 }
 
@@ -363,25 +363,25 @@ code {
 .btn-start {
   background: var(--success);
   border-color: var(--success);
-  color: #000;
+  color: #fff;
   font-weight: 600;
 }
 
 .btn-start:hover:not(:disabled) {
-  background: #16a34a;
-  border-color: #16a34a;
+  background: #15803d;
+  border-color: #15803d;
 }
 
 .btn-stop {
   background: var(--warning);
   border-color: var(--warning);
-  color: #000;
+  color: #fff;
   font-weight: 600;
 }
 
 .btn-stop:hover:not(:disabled) {
-  background: #d97706;
-  border-color: #d97706;
+  background: #b45309;
+  border-color: #b45309;
 }
 
 .btn-secondary {
@@ -444,9 +444,9 @@ code {
 }
 
 .alert-error {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.25);
-  color: #fca5a5;
+  background: rgba(220, 38, 38, 0.06);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  color: var(--danger);
 }
 
 .alert-icon {
@@ -574,7 +574,7 @@ code {
 .camera-error {
   padding: 3rem 1.5rem;
   text-align: center;
-  background: rgba(239, 68, 68, 0.05);
+  background: rgba(220, 38, 38, 0.04);
 }
 
 .error-icon {
@@ -587,7 +587,7 @@ code {
 }
 
 .error-message {
-  color: #fca5a5;
+  color: var(--danger);
   font-size: 0.9rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
