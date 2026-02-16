@@ -114,7 +114,14 @@ class TrainingTUI:
         """Load and prepare dataset"""
         console.print("\n[bold yellow]📊 Loading Dataset[/bold yellow]")
         console.print("=" * 60)
-        
+
+        # Validate dataset first
+        console.print("[bold]Running dataset validation...[/bold]")
+        vstats = validate_dataset(self.config['data_dir'])
+        print_validation_report(vstats)
+        if vstats.get("corrupt"):
+            console.print(f"[yellow]⚠️  {len(vstats['corrupt'])} corrupt files found. They may cause errors during training.[/yellow]")
+
         with console.status("[bold green]Loading dataset...", spinner="dots"):
             try:
                 full_dataset = CaiFanDataset(
