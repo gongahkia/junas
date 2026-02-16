@@ -365,31 +365,37 @@ export default function LiveView() {
   return (
     <div className="live-view-container">
       {showSettings && (
-        <div className="settings-panel card">
-          <h3 className="settings-title">settings</h3>
-          <div className="settings-grid">
-            <div className="setting-item">
-              <label>frame rate</label>
-              <select
-                value={frameIntervalMs}
-                onChange={e => setFrameIntervalMs(Number(e.target.value))}
-                className="setting-select"
-              >
-                <option value={250}>~4 FPS (slower)</option>
-                <option value={150}>~6-7 FPS (balanced)</option>
-                <option value={100}>~10 FPS (faster)</option>
-              </select>
+        <div className="settings-overlay">
+          <div className="settings-backdrop" onClick={() => setShowSettings(false)} />
+          <div className="settings-panel">
+            <div className="settings-header">
+              <h3 className="settings-title">config</h3>
+              <button className="settings-close" onClick={() => setShowSettings(false)}>[close]</button>
             </div>
-            <div className="setting-item">
-              <label className="checkbox-label">
-                <input
-                  type="checkbox"
-                  checked={useLocalDetection}
-                  onChange={e => setUseLocalDetection(e.target.checked)}
-                />
-                <span>use local detection (offline mode)</span>
-              </label>
-              <p className="setting-hint">local mode uses color analysis instead of ML</p>
+            <div className="settings-grid">
+              <div className="setting-item">
+                <label>frame rate</label>
+                <select
+                  value={frameIntervalMs}
+                  onChange={e => setFrameIntervalMs(Number(e.target.value))}
+                  className="setting-select"
+                >
+                  <option value={250}>~4 FPS (slower)</option>
+                  <option value={150}>~6-7 FPS (balanced)</option>
+                  <option value={100}>~10 FPS (faster)</option>
+                </select>
+              </div>
+              <div className="setting-item">
+                <label className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    checked={useLocalDetection}
+                    onChange={e => setUseLocalDetection(e.target.checked)}
+                  />
+                  <span>use local detection (offline mode)</span>
+                </label>
+                <p className="setting-hint">local mode uses color analysis instead of ML</p>
+              </div>
             </div>
           </div>
         </div>
