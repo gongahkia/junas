@@ -1,8 +1,8 @@
-[![](https://img.shields.io/badge/caipng_1.0.0-passing-%23004D00)](https://github.com/gongahkia/caipng/releases/tag/1.0.0)
-[![](https://img.shields.io/badge/caipng_2.0.0-passing-%23228B22)](https://github.com/gongahkia/caipng/releases/tag/2.0.0)
-[![](https://img.shields.io/badge/caipng_3.0.0-passing-%2332CD32)](https://github.com/gongahkia/caipng/releases/tag/3.0.0)
+[![](https://img.shields.io/badge/cAIpng_1.0.0-passing-%23004D00)](https://github.com/gongahkia/caipng/releases/tag/1.0.0)
+[![](https://img.shields.io/badge/cAIpng_2.0.0-passing-%23228B22)](https://github.com/gongahkia/caipng/releases/tag/2.0.0)
+[![](https://img.shields.io/badge/cAIpng_3.0.0-passing-%2332CD32)](https://github.com/gongahkia/caipng/releases/tag/3.0.0)
 
-# `cAI-png`
+# `cAIpng`
 
 [Cai Fan](https://en.wikipedia.org/wiki/Economy_rice) [Macros](https://www.calculator.net/macro-calculator.html) Estimation Web App, [built](#architecture) atop dual [Classification](https://www.ibm.com/think/topics/classification-models) and [Computer Vision](https://www.ibm.com/think/topics/computer-vision) Engines.
 
