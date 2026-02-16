@@ -465,6 +465,7 @@ class TrainingTUI:
                     opset_version=12
                 )
                 
+                tlog.info('EXPORT  onnx exported to %s', onnx_path)
                 console.print(f"[green]✓ ONNX model exported to: {onnx_path}[/green]")
                 
                 # Display file sizes
@@ -484,6 +485,7 @@ class TrainingTUI:
                 return True
                 
             except Exception as e:
+                tlog.info('ERROR  onnx export failed: %s', e)
                 console.print(f"[red]✗ Export failed: {e}[/red]")
                 return False
     
@@ -511,6 +513,7 @@ class TrainingTUI:
             self.run_evaluation()
 
         # Final instructions
+        tlog.info('=== TUI session ended ===')
         console.print("\n[bold green]🎉 All Done![/bold green]")
         console.print(Panel(
             f"[bold]Next Steps:[/bold]\n\n"

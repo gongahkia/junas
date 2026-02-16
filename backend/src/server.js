@@ -71,6 +71,17 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Training logs endpoint
+const fs = require('fs');
+const TRAINING_LOG = path.resolve(__dirname, '../../training/logs/training.log');
+app.get('/api/logs', (req, res) => {
+  if (!fs.existsSync(TRAINING_LOG)) {
+    return res.json({ success: true, logs: '(no training logs yet — run train_tui.py first)' });
+  }
+  const content = fs.readFileSync(TRAINING_LOG, 'utf-8');
+  res.json({ success: true, logs: content });
+});
+
 // API Routes (V2)
 app.use('/api/live', liveRoutes);
 

@@ -18,6 +18,9 @@ export default function LiveView() {
   const [frameIntervalMs, setFrameIntervalMs] = useState(5000);
   const [history, setHistory] = useState([]);
   const [showSettings, setShowSettings] = useState(false);
+  const [showLogs, setShowLogs] = useState(false);
+  const [logsContent, setLogsContent] = useState('');
+  const [logsLoading, setLogsLoading] = useState(false);
   const [fps, setFps] = useState(0);
   const fpsRef = useRef({ frames: 0, lastTime: Date.now() });
   const rollingWindow = useRef({});
@@ -354,6 +357,20 @@ export default function LiveView() {
     return () => clearInterval(interval);
   }, [running]);
 
+  const fetchLogs = async () => {
+    setLogsLoading(true);
+    try {
+      const resp = await fetch(`${API_URL}/logs`);
+      const json = await resp.json();
+      setLogsContent(json.logs || '(empty)');
+    } catch (e) {
+      setLogsContent(`failed to fetch logs: ${e.message}`);
+    } finally {
+      setLogsLoading(false);
+      setShowLogs(true);
+    }
+  };
+
   const colorFor = (label) => {
     const l = (label||'').toLowerCase();
     if (l.includes('veg')) return '#22c55e';
@@ -421,6 +438,13 @@ export default function LiveView() {
           <div className="fps-badge" title="Frames per second">
             {running ? `${fps} FPS` : '--'}
           </div>
+          <button
+            className="btn btn-icon-only"
+            onClick={fetchLogs}
+            title="Training Logs"
+          >
+            {logsLoading ? '...' : '[logs]'}
+          </button>
           <button
             className="btn btn-icon-only"
             onClick={() => setShowSettings(!showSettings)}
