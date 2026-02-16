@@ -26,6 +26,7 @@ from rich.text import Text
 
 from dataset import CaiFanDataset, get_transforms
 from metrics import evaluate_model, print_confusion_matrix, print_classification_report
+from validate_data import validate_dataset, print_validation_report
 
 console = Console()
 
