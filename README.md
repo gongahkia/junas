@@ -78,6 +78,8 @@ GEMINI_MODEL=gemini-1.5-flash
 MAX_FILE_SIZE=10485760
 UPLOAD_PATH=./uploads
 CORS_ORIGIN=http://localhost:3000
+RATE_LIMIT_WINDOW=15
+RATE_LIMIT_MAX_REQUESTS=100
 ```
 
 4. Create and fill up `frontend/.env`.
@@ -87,7 +89,7 @@ VITE_API_URL=http://localhost:5000/api
 VITE_MAX_IMAGE_SIZE=10485760
 ```
 
-4. Install dependencies and seed database:
+5. Install dependencies and seed database.
 
 ```console
 $ cd backend && npm install
@@ -96,7 +98,7 @@ $ cd ../frontend && npm install
 $ cd ..
 ```
 
-5. Run in separate terminals.
+6. Run in separate terminals.
 
 ```console
 $ cd backend && npm run dev
@@ -134,6 +136,7 @@ GET /health
 {
   "success": true,
   "message": "cAIpng server is running",
+  "database": "connected",
   "timestamp": "2024-01-01T12:00:00.000Z"
 }
 ```
