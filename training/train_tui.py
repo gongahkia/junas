@@ -439,6 +439,7 @@ class TrainingTUI:
         }
         with open(eval_path, 'w') as f:
             json.dump(eval_export, f, indent=2)
+        tlog.info('EVAL  accuracy=%.4f avg_loss=%.4f saved=%s', eval_results["accuracy"], eval_results["avg_loss"], eval_path)
         console.print(f"[green]✓ Eval results saved to {eval_path}[/green]")
     
     def export_onnx(self):
