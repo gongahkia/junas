@@ -6,6 +6,7 @@ from torchvision import models
 import argparse
 import os
 from dataset import CaiFanDataset, get_transforms
+from metrics import evaluate_model, print_confusion_matrix, print_classification_report
 from tqdm import tqdm
 import json
 
@@ -101,6 +102,21 @@ def train_model(data_dir, output_dir, epochs=10, batch_size=32, learning_rate=0.
     # Save PyTorch Model
     torch.save(model.state_dict(), os.path.join(output_dir, 'caifan_model.pth'))
     print("Training complete. Model saved.")
+
+    # Detailed evaluation
+    print("\n--- Detailed Evaluation ---")
+    eval_results = evaluate_model(model, val_loader, full_dataset.classes, device)
+    print_confusion_matrix(eval_results["confusion_matrix"], full_dataset.classes)
+    print_classification_report(eval_results["per_class"], eval_results["accuracy"])
+
+    eval_export = {
+        "accuracy": eval_results["accuracy"],
+        "avg_loss": eval_results["avg_loss"],
+        "per_class": {k: {"precision": v.precision, "recall": v.recall, "f1": v.f1, "support": v.support} for k, v in eval_results["per_class"].items()}
+    }
+    with open(os.path.join(output_dir, 'eval_results.json'), 'w') as f:
+        json.dump(eval_export, f, indent=2)
+    print(f"Eval results saved to {output_dir}/eval_results.json")
     
     # Export to ONNX
     print("Exporting to ONNX...")

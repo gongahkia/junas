@@ -25,6 +25,7 @@ from rich import box
 from rich.text import Text
 
 from dataset import CaiFanDataset, get_transforms
+from metrics import evaluate_model, print_confusion_matrix, print_classification_report
 
 console = Console()
 
@@ -376,12 +377,36 @@ class TrainingTUI:
         # Save final model
         final_model_path = os.path.join(self.config['output_dir'], 'caifan_model.pth')
         torch.save(self.model.state_dict(), final_model_path)
-        
+
         # Save history
         history_path = os.path.join(self.config['output_dir'], 'history.json')
         with open(history_path, 'w') as f:
             json.dump(history, f, indent=2)
-        
+
+        # Run detailed evaluation on validation set
+        console.print("\n[bold yellow]📊 Detailed Evaluation[/bold yellow]")
+        console.print("=" * 60)
+
+        # Load best model for evaluation
+        best_path = os.path.join(self.config['output_dir'], 'best_model.pth')
+        if os.path.exists(best_path):
+            self.model.load_state_dict(torch.load(best_path, map_location=self.device))
+
+        eval_results = evaluate_model(self.model, self.val_loader, self.classes, self.device)
+        print_confusion_matrix(eval_results["confusion_matrix"], self.classes)
+        print_classification_report(eval_results["per_class"], eval_results["accuracy"])
+
+        # Save eval results
+        eval_path = os.path.join(self.config['output_dir'], 'eval_results.json')
+        eval_export = {
+            "accuracy": eval_results["accuracy"],
+            "avg_loss": eval_results["avg_loss"],
+            "per_class": {k: {"precision": v.precision, "recall": v.recall, "f1": v.f1, "support": v.support} for k, v in eval_results["per_class"].items()}
+        }
+        with open(eval_path, 'w') as f:
+            json.dump(eval_export, f, indent=2)
+        console.print(f"[green]✓ Eval results saved to {eval_path}[/green]")
+
         return True
     
     def export_onnx(self):
