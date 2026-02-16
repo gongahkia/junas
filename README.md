@@ -151,12 +151,19 @@ Content-Type: application/json
 }
 ```
 
-Response:
+**Response**:
 ```json
 {
   "success": true,
+  "fpsHint": 5,
   "detections": [
-    { "label": "vegetable", "confidence": 0.76, "box": { "x": 100, "y": 60, "width": 180, "height": 140 } }
+    {
+      "label": "vegetable",
+      "confidence": 0.76,
+      "box": { "x": 100, "y": 60, "width": 180, "height": 140 },
+      "category": "vegetable",
+      "dishId": null
+    }
   ]
 }
 ```
