@@ -53,8 +53,8 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('combined'));
 }
 
-// Rate limiting
-app.use('/api/', rateLimiter);
+// Rate limiting (only on Gemini-calling routes, not local inference)
+app.use('/api/live/macros', rateLimiter);
 
 // Static files for uploads (may be unused in V2, kept for temp storage)
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
