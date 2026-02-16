@@ -10,14 +10,18 @@ export default function LiveView() {
   const [cameraError, setCameraError] = useState(null);
   const [detections, setDetections] = useState([]);
   const [avgByLabel, setAvgByLabel] = useState({});
-  const [trackGrams, setTrackGrams] = useState([]); // Store grams data per track
+  const [trackGrams, setTrackGrams] = useState([]);
   const [macros, setMacros] = useState(null);
   const [narrative, setNarrative] = useState('');
   const [macrosLoading, setMacrosLoading] = useState(false);
   const [macrosError, setMacrosError] = useState('');
-  const frameIntervalMs = 150; // ~6-7 fps target; adjustable up to ~100ms for ~10 fps
-  const rollingWindow = useRef({}); // { label: { sum, count } }
-  const tracksRef = useRef([]); // IoU tracker: [{ id, label, box, avg, hits, misses, lastConf }]
+  const [frameIntervalMs, setFrameIntervalMs] = useState(150);
+  const [history, setHistory] = useState([]);
+  const [showSettings, setShowSettings] = useState(false);
+  const [fps, setFps] = useState(0);
+  const fpsRef = useRef({ frames: 0, lastTime: Date.now() });
+  const rollingWindow = useRef({});
+  const tracksRef = useRef([]);
 
   const iou = (a, b) => {
     const x1 = Math.max(a.x, b.x);
