@@ -22,6 +22,8 @@
 
 ## Screenshot
 
+### Classification Model Training (TUI)
+
 <div align="center">
   <img src="./asset/reference/1.png" width="90%">
   <img src="./asset/reference/2.png" width="90%">
@@ -31,6 +33,8 @@
   <img src="./asset/reference/3.png" width="90%">
   <img src="./asset/reference/4.png" width="90%">
 </div>
+
+### Macros Estimation Frontend (Web App)
 
 <div align="center">
   <img src="./asset/reference/5.png" width="90%">
