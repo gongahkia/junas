@@ -25,7 +25,7 @@ const DishSchema = new mongoose.Schema({
   },
   subcategory: {
     type: String,
-    enum: ['chicken', 'pork', 'fish', 'beef', 'tofu', 'egg', 'leafy-green', 'root-vegetable', 'rice', 'noodle', 'mixed']
+    enum: ['chicken', 'pork', 'fish', 'beef', 'tofu', 'egg', 'leafy-green', 'root-vegetable', 'rice', 'noodle', 'mixed', 'seafood', 'mushroom', 'pickled', 'snack']
   },
   description: {
     type: String,
