@@ -418,6 +418,19 @@ export default function LiveView() {
         </div>
       )}
 
+      {showLogs && (
+        <div className="settings-overlay">
+          <div className="settings-backdrop" onClick={() => setShowLogs(false)} />
+          <div className="logs-panel">
+            <div className="settings-header">
+              <h3 className="settings-title">training logs</h3>
+              <button className="settings-close" onClick={() => setShowLogs(false)}>[close]</button>
+            </div>
+            <pre className="logs-content">{logsContent}</pre>
+          </div>
+        </div>
+      )}
+
       <div className="control-bar">
         <div className="control-group">
           <button
