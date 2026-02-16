@@ -61,6 +61,7 @@ class TrainingTUI:
         
     def display_banner(self):
         """Display welcome banner"""
+        tlog.info('=== TUI session started ===')
         banner = Panel(
             "[bold cyan]🍱 Cai Fan Neural Network Training TUI[/bold cyan]\n"
             "[dim]Train a real food recognition model for your backend[/dim]",
@@ -119,6 +120,7 @@ class TrainingTUI:
         
         console.print(config_table)
         
+        tlog.info('CONFIG  %s', json.dumps(self.config, default=str))
         return Confirm.ask("\n[bold]Proceed with training?[/bold]", default=True)
     
     def load_dataset(self):
