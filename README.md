@@ -7,7 +7,7 @@
 [Cai Fan](https://en.wikipedia.org/wiki/Economy_rice) [Macros](https://www.calculator.net/macro-calculator.html) Estimation Web App, [built](#architecture) atop dual [Classification](https://www.ibm.com/think/topics/classification-models) and [Computer Vision](https://www.ibm.com/think/topics/computer-vision) Engines.
 
 <div align="center">
-  <img src="./asset/logo/caifan.jpg" width="65%">
+  <img src="./asset/logo/ascii-caifan.png" width="50%">
 </div>
 
 ## Stack
