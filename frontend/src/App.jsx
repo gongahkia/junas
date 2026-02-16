@@ -57,7 +57,7 @@ function App() {
         <LiveView />
       </main>
       <footer className="app-footer">
-        <p>made by <a href="https://gabrielongzm.com">gabriel ong</a> {'\u00B7'} gemini nutrition analysis</p>
+        <p>made by <a href="https://gabrielongzm.com">gabriel ong</a> {'\u00B7'} source code <a href="https://github.com/gongahkia/caipng">here</a></p>
       </footer>
     </div>
   );
