@@ -1,6 +1,6 @@
 # GitHub Actions Release Workflow
 
-This document explains the automated release workflow for cAI-png.
+This document explains the automated release workflow for cAIpng.
 
 ## Overview
 

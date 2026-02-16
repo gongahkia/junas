@@ -2,7 +2,7 @@
 
 ## Overview
 
-The cAI-png v2.0 frontend has been completely redesigned with modern UI/UX patterns, enhanced visualizations, and improved user experience while maintaining the lightweight React architecture.
+The cAIpng v2.0 frontend has been completely redesigned with modern UI/UX patterns, enhanced visualizations, and improved user experience while maintaining the lightweight React architecture.
 
 ## New Features
 

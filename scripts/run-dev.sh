@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Run both backend and frontend dev servers for cAI-png V2
+# Run both backend and frontend dev servers for cAIpng V2
 # - Starts backend on :5000 and frontend on :3000
 # - Streams logs from both to ./logs and tails them
 

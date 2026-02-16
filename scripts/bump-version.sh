@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Version Bump Script for cAI-png
+# Version Bump Script for cAIpng
 # Usage: ./scripts/bump-version.sh [major|minor|patch]
 
 set -euo pipefail
@@ -16,7 +16,7 @@ NC='\033[0m' # No Color
 
 print_usage() {
   cat <<EOF
-${BLUE}cAI-png Version Bump Utility${NC}
+${BLUE}cAIpng Version Bump Utility${NC}
 
 Usage: $0 [major|minor|patch] [OPTIONS]
 

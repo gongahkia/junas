@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# cAI-png Quick Start Script
+# cAIpng Quick Start Script
 # This script sets up the entire application automatically
 
 set -e  # Exit on error
 
-echo "🍱 cAI-png Quick Start Setup"
+echo "🍱 cAIpng Quick Start Setup"
 echo "=============================="
 echo ""
 

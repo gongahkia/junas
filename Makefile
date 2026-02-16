@@ -2,7 +2,7 @@
 
 # Default target - show help
 help:
-	@echo "cAI-png Development Commands"
+	@echo "cAIpng Development Commands"
 	@echo "=============================="
 	@echo ""
 	@echo "  make dev           - Start both frontend and backend in development mode"
@@ -19,7 +19,7 @@ help:
 
 # Development commands
 dev:
-	@echo "🚀 Starting cAI-png in development mode..."
+	@echo "🚀 Starting cAIpng in development mode..."
 	@echo "Frontend: http://localhost:3000"
 	@echo "Backend: http://localhost:5000"
 	@echo ""

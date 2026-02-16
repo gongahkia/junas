@@ -1,5 +1,5 @@
 /**
- * Main server entry point for cAI-png backend
+ * Main server entry point for cAIpng backend
  * Sets up Express server, middleware, routes, and database connection
  */
 
@@ -65,7 +65,7 @@ app.get('/health', (req, res) => {
   const dbOk = dbState === 1;
   res.status(dbOk ? 200 : 503).json({
     success: dbOk,
-    message: dbOk ? 'cAI-png server is running' : 'cAI-png server is running (database degraded)',
+    message: dbOk ? 'cAIpng server is running' : 'cAIpng server is running (database degraded)',
     database: dbOk ? 'connected' : 'unavailable',
     timestamp: new Date().toISOString()
   });
@@ -88,7 +88,7 @@ app.use(errorHandler);
 // Start server
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
-  console.log(`🚀 cAI-png server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+  console.log(`🚀 cAIpng server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
 });
 
 // Handle unhandled promise rejections

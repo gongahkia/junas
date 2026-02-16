@@ -41,7 +41,7 @@ function App() {
         <div className="header-content">
           <div className="title-section">
             <h1 className="app-title">
-              cAI-png
+              cAIpng
               <span className="version-badge">v2.0</span>
             </h1>
           </div>

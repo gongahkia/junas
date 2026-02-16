@@ -178,7 +178,7 @@ jobs:
           
           # Create changelog content
           cat > CHANGELOG.tmp <<EOF
-          ## 🎉 cAI-png $VERSION
+          ## 🎉 cAIpng $VERSION
           
           ### 📦 Versions
           - Backend: v${{ needs.check-version.outputs.backend_version }}
@@ -266,7 +266,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ needs.check-version.outputs.version }}
-          name: cAI-png v${{ needs.check-version.outputs.version }}
+          name: cAIpng v${{ needs.check-version.outputs.version }}
           body: ${{ steps.changelog.outputs.changelog }}
           draft: false
           prerelease: false
