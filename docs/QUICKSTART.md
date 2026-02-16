@@ -1,6 +1,6 @@
 # Quick Reference - Neural Network Integration
 
-## 🚀 Quick Start (5 Minutes)
+## Quick Start (5 Minutes)
 
 ```bash
 # 1. Install Python dependencies
@@ -25,34 +25,36 @@ npm install
 npm run dev
 ```
 
-## 📁 Key Files
+## Key Files
 
 | File | Purpose |
 |------|---------|
-| `training/train_tui.py` | **Main training interface** (use this!) |
+| `training/train_tui.py` | Training interface |
+| `training/metrics.py` | Evaluation metrics (confusion matrix, P/R/F1) |
+| `training/validate_data.py` | Dataset validation |
 | `training/download_data.py` | Download Food-101 dataset |
-| `backend/src/utils/modelService.js` | ONNX inference engine |
-| `backend/src/utils/visionService.js` | Auto NN/heuristic selection |
-| `training/TRAINING.md` | Complete training guide |
+| `backend/src/utils/modelService.js` | ONNX inference engine (with cache + abstention) |
+| `backend/src/utils/visionService.js` | Vision service (requires trained model) |
 
-## 🎯 Features
+## Features
 
-### Training TUI Features
-- ✅ Interactive configuration
-- ✅ Live progress tracking
-- ✅ Real-time metrics (loss, accuracy)
-- ✅ Automatic checkpointing
-- ✅ ONNX export built-in
-- ✅ Clear next-step instructions
+### Training TUI
+- Interactive configuration
+- Dataset validation (corrupt/duplicate detection)
+- Live progress tracking
+- Real-time metrics (loss, accuracy)
+- Automatic checkpointing
+- Detailed evaluation (confusion matrix, per-class P/R/F1)
+- ONNX export built-in
 
-### Backend Features
-- ✅ Automatic model detection
-- ✅ ONNX Runtime inference
-- ✅ Heuristic fallback
-- ✅ ~50-100ms per image
-- ✅ Drop-in replacement for old system
+### Backend
+- Automatic model detection
+- ONNX Runtime inference
+- SHA256-keyed inference cache (30s TTL)
+- Abstention logic (rejects low-confidence / ambiguous predictions)
+- ~50-100ms per image
 
-## 📊 Expected Results
+## Expected Results
 
 ### Training (Full Food-101)
 - **Time**: 1-8 hours (CPU), 1-2 hours (GPU)
@@ -60,18 +62,18 @@ npm run dev
 - **Model Size**: ~10-15 MB
 
 ### Inference
-- **Speed**: 50-100ms/image (CPU)
+- **Speed**: 50-100ms/image (CPU), cached frames near-instant
 - **Format**: ONNX (Node.js compatible)
-- **Input**: 224×224 RGB images
+- **Input**: 224x224 RGB images
 
-## 🔍 Verification
+## Verification
 
 ### Check if model is loaded:
 ```bash
 cd backend
 npm run dev
 # Look for:
-# ✅ Using NEURAL NETWORK for food recognition
+# ✅ Neural network model loaded successfully
 ```
 
 ### Run integration test:
@@ -80,16 +82,15 @@ cd training
 python test_integration.py
 ```
 
-## 🆘 Common Issues
+## Common Issues
 
 ### "Module not found"
 ```bash
 pip install -r requirements.txt
 ```
 
-### "Model file not found" in backend
+### "No trained model available" in backend
 ```bash
-# Copy from training to backend
 cp training/models/caifan_model.onnx backend/models/
 cp training/models/classes.json backend/models/
 ```
@@ -98,24 +99,3 @@ cp training/models/classes.json backend/models/
 - Reduce batch size (16 or 8)
 - Use fewer epochs (5-10)
 - Use sample dataset first
-
-## 📖 Documentation
-
-- **Training Guide**: `training/TRAINING.md` (detailed)
-- **Main README**: Updated with NN integration info
-- **Implementation Summary**: `.copilot/session-state/.../files/IMPLEMENTATION_SUMMARY.md`
-
-## 💡 Pro Tips
-
-1. **Start with sample dataset** to test pipeline
-2. **Use the TUI** - it's much easier than CLI
-3. **Monitor logs** - they tell you what's happening
-4. **Backend auto-falls back** if model missing
-5. **Model files are gitignored** - train locally
-
-## 🎉 What's New
-
-**Before**: Heuristic color-based detection (unreliable)
-**Now**: Real MobileNetV3 neural network (accurate)
-
-The system automatically uses the neural network when available and falls back to heuristics if not. This means zero breaking changes!
