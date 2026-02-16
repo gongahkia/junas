@@ -181,6 +181,7 @@ export default function LiveView() {
 
     const tick = async () => {
       try {
+        fpsRef.current.frames += 1;
         const video = videoRef.current;
         const canvas = canvasRef.current;
         if (!video || !canvas || video.readyState < 2) {
@@ -348,8 +349,19 @@ export default function LiveView() {
       });
       const json = await resp.json();
       if (json?.success) {
-        setMacros(json.macros || null);
+        const newMacros = json.macros || null;
+        setMacros(newMacros);
         setNarrative(json.narrative || '');
+        
+        // Add to history
+        if (newMacros && trackGrams.length > 0) {
+          const historyEntry = {
+            timestamp: new Date().toLocaleTimeString(),
+            macros: newMacros,
+            foods: trackGrams.map(t => ({ label: t.label, grams: t.grams }))
+          };
+          setHistory(prev => [historyEntry, ...prev].slice(0, 5));
+        }
       } else {
         setMacrosError(json?.message || 'Failed to estimate macros');
       }
@@ -361,92 +373,226 @@ export default function LiveView() {
     }
   };
 
+  // FPS counter
+  useEffect(() => {
+    if (!running) return;
+    const interval = setInterval(() => {
+      const now = Date.now();
+      const elapsed = (now - fpsRef.current.lastTime) / 1000;
+      setFps((fpsRef.current.frames / elapsed).toFixed(1));
+      fpsRef.current.frames = 0;
+      fpsRef.current.lastTime = now;
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [running]);
+
   return (
-    <div>
-      {/* Color Legend */}
-      <div style={{ display: 'flex', gap: 16, alignItems: 'center', marginBottom: 12, padding: '8px 12px', background: '#f9fafb', borderRadius: 6, border: '1px solid #e5e7eb' }}>
-        <strong style={{ fontSize: 13, color: '#6b7280' }}>Legend:</strong>
-        <div style={{ display: 'flex', gap: 12, fontSize: 13 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 16, height: 16, background: '#22c55e', borderRadius: 3 }} />
-            <span>Vegetables</span>
+    <div className="live-view-container">
+      {/* Settings Panel */}
+      {showSettings && (
+        <div className="settings-panel card">
+          <h3 className="settings-title">⚙️ Settings</h3>
+          <div className="settings-grid">
+            <div className="setting-item">
+              <label>Frame Rate</label>
+              <select 
+                value={frameIntervalMs} 
+                onChange={e => setFrameIntervalMs(Number(e.target.value))}
+                className="setting-select"
+              >
+                <option value={250}>~4 FPS (Slower)</option>
+                <option value={150}>~6-7 FPS (Balanced)</option>
+                <option value={100}>~10 FPS (Faster)</option>
+              </select>
+            </div>
+            <div className="setting-item">
+              <label className="checkbox-label">
+                <input 
+                  type="checkbox" 
+                  checked={useLocalDetection} 
+                  onChange={e => setUseLocalDetection(e.target.checked)} 
+                />
+                <span>Use Local Detection (Offline Mode)</span>
+              </label>
+              <p className="setting-hint">Local mode uses color analysis instead of ML</p>
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 16, height: 16, background: '#f97316', borderRadius: 3 }} />
-            <span>Protein</span>
+        </div>
+      )}
+
+      {/* Control Bar */}
+      <div className="control-bar">
+        <div className="control-group">
+          <button 
+            className={`btn btn-control ${running ? 'btn-stop' : 'btn-start'}`}
+            onClick={() => setRunning(v => !v)}
+          >
+            <span className="btn-icon">{running ? '⏸️' : '▶️'}</span>
+            {running ? 'Pause Detection' : 'Start Detection'}
+          </button>
+          <button 
+            className="btn btn-control btn-secondary"
+            onClick={estimateMacros} 
+            disabled={macrosLoading || (!running && Object.keys(avgByLabel).length === 0)}
+          >
+            <span className="btn-icon">{macrosLoading ? '⏳' : '🍽️'}</span>
+            {macrosLoading ? 'Analyzing...' : 'Estimate Nutrition'}
+          </button>
+        </div>
+        <div className="control-group">
+          <div className="fps-badge" title="Frames per second">
+            {running ? `${fps} FPS` : '—'}
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 16, height: 16, background: '#3b82f6', borderRadius: 3 }} />
-            <span>Starch/Rice</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 16, height: 16, background: '#a3a3a3', borderRadius: 3 }} />
-            <span>Unknown</span>
-          </div>
+          <button 
+            className="btn btn-icon-only"
+            onClick={() => setShowSettings(!showSettings)}
+            title="Settings"
+          >
+            ⚙️
+          </button>
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 8 }}>
-        <button onClick={() => setRunning((v) => !v)}>{running ? 'Stop' : 'Start'} Live</button>
-        <label style={{ display:'inline-flex', alignItems:'center', gap:6 }}>
-          <input type="checkbox" checked={useLocalDetection} onChange={e=>setUseLocalDetection(e.target.checked)} />
-          Use local detection
-        </label>
-        <button onClick={estimateMacros} disabled={macrosLoading || (!running && Object.keys(avgByLabel).length === 0)}>
-          {macrosLoading ? '⏳ Estimating...' : 'Estimate Macros'}
-        </button>
-      </div>
-
+      {/* Error Display */}
       {macrosError && (
-        <div style={{ background: '#fef2f2', color: '#dc2626', border: '1px solid #fecaca', borderRadius: 6, padding: '8px 12px', marginBottom: 8 }}>
+        <div className="alert alert-error">
+          <span className="alert-icon">⚠️</span>
           {macrosError}
         </div>
       )}
 
-      {cameraError ? (
-        <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 6, padding: 24, textAlign: 'center', maxWidth: 900 }}>
-          <p style={{ color: '#dc2626', marginBottom: 12 }}>{cameraError}</p>
-          <button onClick={initCamera}>Retry Camera</button>
-        </div>
-      ) : (
-        <div style={{ position: 'relative', width: '100%', maxWidth: 900 }}>
-          <video ref={videoRef} style={{ width: '100%', border: '1px solid #ccc' }} muted playsInline />
-          <canvas ref={canvasRef} style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%' }} />
-        </div>
-      )}
-
-      <div style={{ marginTop: 12 }}>
-        <strong>Rolling averages:</strong>
-        <pre style={{ background: '#f5f5f5', padding: 8 }}>
-{JSON.stringify(avgByLabel, null, 2)}
-        </pre>
-      </div>
-
-      {trackGrams.length > 0 && (
-        <div style={{ marginTop: 12 }}>
-          <strong>Estimated grams per item:</strong>
-          <div style={{ background: '#f5f5f5', padding: 8, marginTop: 4 }}>
-            {trackGrams.map((item, idx) => (
-              <div key={idx} style={{ marginBottom: 6, fontSize: 13 }}>
-                <strong>{item.label}</strong>: {item.grams}g
-                <span style={{ color: '#6b7280', marginLeft: 8 }}>
-                  (area: {(item.areaRatio * 100).toFixed(1)}%, conf: {(item.confidence * 100).toFixed(0)}%)
-                </span>
-              </div>
-            ))}
+      {/* Main Content Grid */}
+      <div className="content-grid">
+        {/* Video Feed */}
+        <div className="video-section card">
+          <div className="card-header">
+            <h3 className="card-title">📹 Live Feed</h3>
+            <div className="legend-compact">
+              <span className="legend-item" style={{ '--color': '#22c55e' }}>🥬 Veg</span>
+              <span className="legend-item" style={{ '--color': '#f97316' }}>🍗 Protein</span>
+              <span className="legend-item" style={{ '--color': '#3b82f6' }}>🍚 Starch</span>
+              <span className="legend-item" style={{ '--color': '#a3a3a3' }}>❓ Other</span>
+            </div>
           </div>
+          {cameraError ? (
+            <div className="camera-error">
+              <span className="error-icon">📷</span>
+              <p className="error-message">{cameraError}</p>
+              <button className="btn btn-retry" onClick={initCamera}>
+                🔄 Retry Camera
+              </button>
+            </div>
+          ) : (
+            <div className="video-wrapper">
+              <video ref={videoRef} className="video-element" muted playsInline />
+              <canvas ref={canvasRef} className="canvas-overlay" />
+              {!running && (
+                <div className="video-overlay-message">
+                  <p className="overlay-text">Press "Start Detection" to begin</p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
-      )}
 
-      {macros && (
-        <div style={{ marginTop: 12 }}>
-          <strong>Estimated Macros:</strong>
-          <pre style={{ background: '#f5f5f5', padding: 8 }}>
-{JSON.stringify(macros, null, 2)}
-          </pre>
-          {narrative && <p style={{ marginTop: 8 }}>{narrative}</p>}
+        {/* Detection Stats */}
+        <div className="stats-section">
+          {trackGrams.length > 0 && (
+            <div className="card stats-card">
+              <h3 className="card-title">📊 Detected Foods</h3>
+              <div className="food-list">
+                {trackGrams.map((item, idx) => (
+                  <div key={idx} className="food-item">
+                    <div className="food-info">
+                      <span className="food-emoji">
+                        {item.label.toLowerCase().includes('veg') ? '🥬' : 
+                         item.label.toLowerCase().includes('protein') ? '🍗' : 
+                         item.label.toLowerCase().includes('starch') || item.label.toLowerCase().includes('rice') ? '🍚' : '🍽️'}
+                      </span>
+                      <div className="food-details">
+                        <strong className="food-label">{item.label}</strong>
+                        <span className="food-weight">{item.grams}g</span>
+                      </div>
+                    </div>
+                    <div className="confidence-bar-container">
+                      <div 
+                        className="confidence-bar" 
+                        style={{ width: `${(item.confidence * 100)}%` }}
+                      />
+                    </div>
+                    <span className="confidence-text">{(item.confidence * 100).toFixed(0)}%</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Macros Display */}
+          {macros && (
+            <div className="card macros-card">
+              <h3 className="card-title">🍱 Nutrition Estimate</h3>
+              <div className="macros-grid">
+                <div className="macro-item">
+                  <div className="macro-icon">🔥</div>
+                  <div className="macro-details">
+                    <span className="macro-label">Calories</span>
+                    <span className="macro-value">{macros.calories || 0}</span>
+                    <span className="macro-unit">kcal</span>
+                  </div>
+                </div>
+                <div className="macro-item">
+                  <div className="macro-icon">💪</div>
+                  <div className="macro-details">
+                    <span className="macro-label">Protein</span>
+                    <span className="macro-value">{macros.protein || 0}</span>
+                    <span className="macro-unit">g</span>
+                  </div>
+                </div>
+                <div className="macro-item">
+                  <div className="macro-icon">🌾</div>
+                  <div className="macro-details">
+                    <span className="macro-label">Carbs</span>
+                    <span className="macro-value">{macros.carbs || 0}</span>
+                    <span className="macro-unit">g</span>
+                  </div>
+                </div>
+                <div className="macro-item">
+                  <div className="macro-icon">🥑</div>
+                  <div className="macro-details">
+                    <span className="macro-label">Fat</span>
+                    <span className="macro-value">{macros.fat || 0}</span>
+                    <span className="macro-unit">g</span>
+                  </div>
+                </div>
+              </div>
+              {narrative && (
+                <div className="narrative-section">
+                  <p className="narrative-text">{narrative}</p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* History */}
+          {history.length > 0 && (
+            <div className="card history-card">
+              <h3 className="card-title">📜 Recent Analyses</h3>
+              <div className="history-list">
+                {history.map((entry, idx) => (
+                  <div key={idx} className="history-entry">
+                    <div className="history-time">{entry.timestamp}</div>
+                    <div className="history-summary">
+                      <span className="history-stat">{entry.macros.calories} kcal</span>
+                      <span className="history-separator">•</span>
+                      <span className="history-foods">{entry.foods.map(f => f.label).join(', ')}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }
