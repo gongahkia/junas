@@ -390,6 +390,7 @@ class TrainingTUI:
         # Training complete
         total_time = time.time() - start_time
         
+        tlog.info('DONE  training complete in %.2f min, best_val_acc=%.2f%%', total_time/60, best_val_acc)
         console.print("\n[bold green]✓ Training Complete![/bold green]")
         
         summary_table = Table(title="Training Summary", box=box.ROUNDED)
@@ -416,6 +417,7 @@ class TrainingTUI:
 
     def run_evaluation(self):
         """Run detailed evaluation on validation set (optional, can be slow on large datasets)"""
+        tlog.info('EVAL  starting detailed evaluation')
         console.print("\n[bold yellow]📊 Detailed Evaluation[/bold yellow]")
         console.print("=" * 60)
 
