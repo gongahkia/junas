@@ -35,48 +35,37 @@ export default function LiveView() {
 
   const nonMaxSuppression = (detections, iouThreshold = 0.5) => {
     if (!detections || detections.length === 0) return [];
-
-    // Sort by confidence (descending)
     const sorted = [...detections].sort((a, b) => (b.confidence || 0) - (a.confidence || 0));
     const keep = [];
-
     for (let i = 0; i < sorted.length; i++) {
       const current = sorted[i];
       if (!current.box) {
         keep.push(current);
         continue;
       }
-
       let shouldKeep = true;
       for (let j = 0; j < keep.length; j++) {
         const kept = keep[j];
         if (!kept.box) continue;
-
-        // Only suppress if same category/label
         const currentLabel = (current.label || current.category || '').toLowerCase();
         const keptLabel = (kept.label || kept.category || '').toLowerCase();
         if (currentLabel !== keptLabel) continue;
-
         const overlap = iou(current.box, kept.box);
         if (overlap > iouThreshold) {
           shouldKeep = false;
           break;
         }
       }
-
       if (shouldKeep) {
         keep.push(current);
       }
     }
-
     return keep;
   };
 
   const updateTracks = (newDets) => {
     const tracks = tracksRef.current.slice();
     const used = new Array(newDets.length).fill(false);
-
-    // Match existing tracks to new detections
     tracks.forEach(t => {
       let bestIdx = -1;
       let bestScore = 0;
@@ -90,7 +79,6 @@ export default function LiveView() {
         }
       });
       if (bestIdx >= 0 && bestScore > 0.2) {
-        // Update track
         const d = newDets[bestIdx];
         t.box = d.box;
   t.avg = (t.avg * t.hits + (d.confidence || 0)) / (t.hits + 1);
@@ -102,22 +90,17 @@ export default function LiveView() {
         t.misses += 1;
       }
     });
-
-    // Create new tracks for unmatched detections
     newDets.forEach((d, i) => {
       if (used[i]) return;
       const id = Math.random().toString(36).slice(2, 9);
   tracks.push({ id, label: d.label || d.category || 'unknown', box: d.box, avg: d.confidence || 0, hits: 1, misses: 0, lastConf: d.confidence || 0 });
     });
-
-    // Prune stale tracks
     const next = tracks.filter(t => t.misses <= 8);
     tracksRef.current = next;
     return next;
   };
 
   const analyzeLocal = (ctx, w, h) => {
-    // Simple quadrant analysis: infer category by color dominance
     const regions = [
       { x: 0, y: 0, width: Math.floor(w/2), height: Math.floor(h/2) },
       { x: Math.floor(w/2), y: 0, width: Math.ceil(w/2), height: Math.floor(h/2) },
@@ -189,7 +172,6 @@ export default function LiveView() {
           return;
         }
 
-        // Draw current frame to canvas
         const w = video.videoWidth;
         const h = video.videoHeight;
         canvas.width = w;
@@ -197,14 +179,12 @@ export default function LiveView() {
         const ctx = canvas.getContext('2d');
         ctx.drawImage(video, 0, 0, w, h);
 
-        // Get base64
         const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
 
         let dets = [];
         if (useLocalDetection) {
           dets = analyzeLocal(ctx, w, h);
         } else {
-          // Send to backend for analysis
           const controller = new AbortController();
           const timeoutId = setTimeout(() => controller.abort(), 5000);
           try {
@@ -223,12 +203,9 @@ export default function LiveView() {
           }
         }
         if (dets.length >= 0) {
-          // Apply non-max suppression to remove overlapping boxes
           dets = nonMaxSuppression(dets, 0.5);
-
           setDetections(dets);
 
-          // Update rolling averages by label
           dets.forEach(d => {
             const key = d.label || d.category || 'unknown';
             if (!rollingWindow.current[key]) rollingWindow.current[key] = { sum: 0, count: 0 };
@@ -242,17 +219,14 @@ export default function LiveView() {
           });
           setAvgByLabel(nextAvg);
 
-          // Update tracks and use their averages for per-box overlays
           let tracks = updateTracks(dets);
-          // Sort tracks by avg confidence desc and limit to maxItems
           const maxItems = 10;
           tracks = tracks
             .filter(t => t.box)
             .sort((a,b) => (b.avg||0) - (a.avg||0))
             .slice(0, maxItems);
 
-          // Calculate grams for each track
-          const plateGrams = 500; // heuristic: full-frame ~500g of food
+          const plateGrams = 500;
           const gramsData = tracks.map(t => {
             const area = (t.box?.width || 0) * (t.box?.height || 0);
             const ratio = area / (w * h);
@@ -266,15 +240,14 @@ export default function LiveView() {
           });
           setTrackGrams(gramsData);
 
-          // Draw boxes
           ctx.lineWidth = 2;
-          ctx.font = '14px sans-serif';
+          ctx.font = '14px monospace';
           const colorFor = (label) => {
             const l = (label||'').toLowerCase();
-            if (l.includes('veg')) return '#22c55e';     // green
-            if (l.includes('protein')) return '#f97316'; // orange
-            if (l.includes('starch') || l.includes('rice') || l.includes('noodle')) return '#3b82f6'; // blue
-            return '#a3a3a3'; // gray
+            if (l.includes('veg')) return '#22c55e';
+            if (l.includes('protein')) return '#f97316';
+            if (l.includes('starch') || l.includes('rice') || l.includes('noodle')) return '#3b82f6';
+            return '#a3a3a3';
           };
           tracks.forEach(t => {
             if (!t.box || (t.avg || 0) < 0.4) return;
@@ -284,7 +257,6 @@ export default function LiveView() {
             const label = t.label || 'unknown';
             const avg = t.avg || 0;
             const labelAvg = nextAvg[label] || avg || 0;
-            // Compose value block to the right of the box
             const lines = [
               `${label}`,
               `conf ${(t.lastConf*100||0).toFixed(0)}%`,
@@ -294,12 +266,10 @@ export default function LiveView() {
             const lineH = 18;
             const blockW = Math.max(...lines.map(l => ctx.measureText(l).width)) + pad*2;
             const blockH = lines.length * lineH + pad*2;
-            const rx = Math.min(w - blockW - 2, x + width + 6); // prefer right side
+            const rx = Math.min(w - blockW - 2, x + width + 6);
             const ry = Math.max(2, Math.min(h - blockH - 2, y));
-            // Block background
             ctx.fillStyle = 'rgba(0,0,0,0.55)';
             ctx.fillRect(rx, ry, blockW, blockH);
-            // Text
             ctx.fillStyle = '#fff';
             lines.forEach((ln, i) => ctx.fillText(ln, rx + pad, ry + pad + lineH*(i+0.7)));
           });
@@ -320,7 +290,7 @@ export default function LiveView() {
     const w = video?.videoWidth || 1;
     const h = video?.videoHeight || 1;
     const tracks = tracksRef.current || [];
-    const plateGrams = 500; // heuristic: full-frame ~500g of food
+    const plateGrams = 500;
 
     const lines = tracks.map(t => {
       const area = (t.box?.width || 0) * (t.box?.height || 0);
@@ -352,8 +322,7 @@ export default function LiveView() {
         const newMacros = json.macros || null;
         setMacros(newMacros);
         setNarrative(json.narrative || '');
-        
-        // Add to history
+
         if (newMacros && trackGrams.length > 0) {
           const historyEntry = {
             timestamp: new Date().toLocaleTimeString(),
@@ -373,7 +342,6 @@ export default function LiveView() {
     }
   };
 
-  // FPS counter
   useEffect(() => {
     if (!running) return;
     const interval = setInterval(() => {
@@ -386,100 +354,101 @@ export default function LiveView() {
     return () => clearInterval(interval);
   }, [running]);
 
+  const colorFor = (label) => {
+    const l = (label||'').toLowerCase();
+    if (l.includes('veg')) return '#22c55e';
+    if (l.includes('protein')) return '#f97316';
+    if (l.includes('starch') || l.includes('rice')) return '#3b82f6';
+    return '#a3a3a3';
+  };
+
   return (
     <div className="live-view-container">
-      {/* Settings Panel */}
       {showSettings && (
         <div className="settings-panel card">
-          <h3 className="settings-title">⚙️ Settings</h3>
+          <h3 className="settings-title">settings</h3>
           <div className="settings-grid">
             <div className="setting-item">
-              <label>Frame Rate</label>
-              <select 
-                value={frameIntervalMs} 
+              <label>frame rate</label>
+              <select
+                value={frameIntervalMs}
                 onChange={e => setFrameIntervalMs(Number(e.target.value))}
                 className="setting-select"
               >
-                <option value={250}>~4 FPS (Slower)</option>
-                <option value={150}>~6-7 FPS (Balanced)</option>
-                <option value={100}>~10 FPS (Faster)</option>
+                <option value={250}>~4 FPS (slower)</option>
+                <option value={150}>~6-7 FPS (balanced)</option>
+                <option value={100}>~10 FPS (faster)</option>
               </select>
             </div>
             <div className="setting-item">
               <label className="checkbox-label">
-                <input 
-                  type="checkbox" 
-                  checked={useLocalDetection} 
-                  onChange={e => setUseLocalDetection(e.target.checked)} 
+                <input
+                  type="checkbox"
+                  checked={useLocalDetection}
+                  onChange={e => setUseLocalDetection(e.target.checked)}
                 />
-                <span>Use Local Detection (Offline Mode)</span>
+                <span>use local detection (offline mode)</span>
               </label>
-              <p className="setting-hint">Local mode uses color analysis instead of ML</p>
+              <p className="setting-hint">local mode uses color analysis instead of ML</p>
             </div>
           </div>
         </div>
       )}
 
-      {/* Control Bar */}
       <div className="control-bar">
         <div className="control-group">
-          <button 
+          <button
             className={`btn btn-control ${running ? 'btn-stop' : 'btn-start'}`}
             onClick={() => setRunning(v => !v)}
           >
-            <span className="btn-icon">{running ? '⏸️' : '▶️'}</span>
-            {running ? 'Pause Detection' : 'Start Detection'}
+            {running ? '[ pause ]' : '[ start ]'}
           </button>
-          <button 
+          <button
             className="btn btn-control btn-secondary"
-            onClick={estimateMacros} 
+            onClick={estimateMacros}
             disabled={macrosLoading || (!running && Object.keys(avgByLabel).length === 0)}
           >
-            <span className="btn-icon">{macrosLoading ? '⏳' : '🍽️'}</span>
-            {macrosLoading ? 'Analyzing...' : 'Estimate Nutrition'}
+            {macrosLoading ? 'analyzing...' : '[ estimate ]'}
           </button>
         </div>
         <div className="control-group">
           <div className="fps-badge" title="Frames per second">
-            {running ? `${fps} FPS` : '—'}
+            {running ? `${fps} FPS` : '--'}
           </div>
-          <button 
+          <button
             className="btn btn-icon-only"
             onClick={() => setShowSettings(!showSettings)}
             title="Settings"
           >
-            ⚙️
+            [cfg]
           </button>
         </div>
       </div>
 
-      {/* Error Display */}
       {macrosError && (
         <div className="alert alert-error">
-          <span className="alert-icon">⚠️</span>
+          <span className="alert-icon">!</span>
           {macrosError}
         </div>
       )}
 
-      {/* Main Content Grid */}
       <div className="content-grid">
-        {/* Video Feed */}
         <div className="video-section card">
           <div className="card-header">
-            <h3 className="card-title">📹 Live Feed</h3>
+            <h3 className="card-title">live feed</h3>
             <div className="legend-compact">
-              <span className="legend-item" style={{ '--color': '#22c55e' }}>🥬 Veg</span>
-              <span className="legend-item" style={{ '--color': '#f97316' }}>🍗 Protein</span>
-              <span className="legend-item" style={{ '--color': '#3b82f6' }}>🍚 Starch</span>
-              <span className="legend-item" style={{ '--color': '#a3a3a3' }}>❓ Other</span>
+              <span className="legend-item" style={{ '--color': '#22c55e' }}>veg</span>
+              <span className="legend-item" style={{ '--color': '#f97316' }}>protein</span>
+              <span className="legend-item" style={{ '--color': '#3b82f6' }}>starch</span>
+              <span className="legend-item" style={{ '--color': '#a3a3a3' }}>other</span>
             </div>
           </div>
           {cameraError ? (
             <div className="camera-error">
-              <span className="error-icon">📷</span>
+              <span className="error-icon">camera error</span>
               <p className="error-message">{cameraError}</p>
               <button className="btn btn-retry" onClick={initCamera}>
-                🔄 Retry Camera
+                retry camera
               </button>
             </div>
           ) : (
@@ -488,35 +457,33 @@ export default function LiveView() {
               <canvas ref={canvasRef} className="canvas-overlay" />
               {!running && (
                 <div className="video-overlay-message">
-                  <p className="overlay-text">Press "Start Detection" to begin</p>
+                  <p className="overlay-text">press [ start ] to begin</p>
                 </div>
               )}
             </div>
           )}
         </div>
 
-        {/* Detection Stats */}
         <div className="stats-section">
           {trackGrams.length > 0 && (
             <div className="card stats-card">
-              <h3 className="card-title">📊 Detected Foods</h3>
+              <h3 className="card-title">detected foods</h3>
               <div className="food-list">
                 {trackGrams.map((item, idx) => (
                   <div key={idx} className="food-item">
                     <div className="food-info">
-                      <span className="food-emoji">
-                        {item.label.toLowerCase().includes('veg') ? '🥬' : 
-                         item.label.toLowerCase().includes('protein') ? '🍗' : 
-                         item.label.toLowerCase().includes('starch') || item.label.toLowerCase().includes('rice') ? '🍚' : '🍽️'}
-                      </span>
+                      <span
+                        className="food-indicator"
+                        style={{ background: colorFor(item.label) }}
+                      />
                       <div className="food-details">
                         <strong className="food-label">{item.label}</strong>
                         <span className="food-weight">{item.grams}g</span>
                       </div>
                     </div>
                     <div className="confidence-bar-container">
-                      <div 
-                        className="confidence-bar" 
+                      <div
+                        className="confidence-bar"
                         style={{ width: `${(item.confidence * 100)}%` }}
                       />
                     </div>
@@ -527,39 +494,38 @@ export default function LiveView() {
             </div>
           )}
 
-          {/* Macros Display */}
           {macros && (
             <div className="card macros-card">
-              <h3 className="card-title">🍱 Nutrition Estimate</h3>
+              <h3 className="card-title">nutrition estimate</h3>
               <div className="macros-grid">
                 <div className="macro-item">
-                  <div className="macro-icon">🔥</div>
+                  <div className="macro-icon">cal</div>
                   <div className="macro-details">
-                    <span className="macro-label">Calories</span>
+                    <span className="macro-label">calories</span>
                     <span className="macro-value">{macros.calories || 0}</span>
                     <span className="macro-unit">kcal</span>
                   </div>
                 </div>
                 <div className="macro-item">
-                  <div className="macro-icon">💪</div>
+                  <div className="macro-icon">pro</div>
                   <div className="macro-details">
-                    <span className="macro-label">Protein</span>
+                    <span className="macro-label">protein</span>
                     <span className="macro-value">{macros.protein || 0}</span>
                     <span className="macro-unit">g</span>
                   </div>
                 </div>
                 <div className="macro-item">
-                  <div className="macro-icon">🌾</div>
+                  <div className="macro-icon">crb</div>
                   <div className="macro-details">
-                    <span className="macro-label">Carbs</span>
+                    <span className="macro-label">carbs</span>
                     <span className="macro-value">{macros.carbs || 0}</span>
                     <span className="macro-unit">g</span>
                   </div>
                 </div>
                 <div className="macro-item">
-                  <div className="macro-icon">🥑</div>
+                  <div className="macro-icon">fat</div>
                   <div className="macro-details">
-                    <span className="macro-label">Fat</span>
+                    <span className="macro-label">fat</span>
                     <span className="macro-value">{macros.fat || 0}</span>
                     <span className="macro-unit">g</span>
                   </div>
@@ -573,17 +539,16 @@ export default function LiveView() {
             </div>
           )}
 
-          {/* History */}
           {history.length > 0 && (
             <div className="card history-card">
-              <h3 className="card-title">📜 Recent Analyses</h3>
+              <h3 className="card-title">recent analyses</h3>
               <div className="history-list">
                 {history.map((entry, idx) => (
                   <div key={idx} className="history-entry">
                     <div className="history-time">{entry.timestamp}</div>
                     <div className="history-summary">
                       <span className="history-stat">{entry.macros.calories} kcal</span>
-                      <span className="history-separator">•</span>
+                      <span className="history-separator">/</span>
                       <span className="history-foods">{entry.foods.map(f => f.label).join(', ')}</span>
                     </div>
                   </div>

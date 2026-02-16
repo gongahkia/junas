@@ -57,7 +57,7 @@ function App() {
         <LiveView />
       </main>
       <footer className="app-footer">
-        <p>real-time ML detection &middot; gemini nutrition analysis</p>
+        <p>made by <a href="https://gabrielongzm.com">gabriel ong</a> {'\u00B7'} gemini nutrition analysis</p>
       </footer>
     </div>
   );
