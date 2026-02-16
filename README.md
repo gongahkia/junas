@@ -17,7 +17,7 @@
 * Database: [MongoDB](https://www.mongodb.com) 
 * Computer Vision: [Sharp](https://sharp.pixelplumbing.com) 
 * LLM: [Gemini](https://ai.google.dev) 
-* Package: [Docker](https://www.docker.com), [Docker Compose](https://docs.docker.com/compose/)
+* Training: [PyTorch](https://pytorch.org), [ONNX Runtime](https://onnxruntime.ai)
 
 ## Usage
 
