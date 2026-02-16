@@ -130,9 +130,11 @@ class TrainingTUI:
         console.print("=" * 60)
 
         # Validate dataset first
+        tlog.info('VALIDATE  running dataset validation on %s', self.config['data_dir'])
         console.print("[bold]Running dataset validation...[/bold]")
         vstats = validate_dataset(self.config['data_dir'])
         print_validation_report(vstats)
+        tlog.info('VALIDATE  corrupt=%d duplicates=%d classes=%d', len(vstats.get('corrupt', [])), len(vstats.get('duplicates', [])), len(vstats.get('class_counts', {})))
         if vstats.get("corrupt"):
             console.print(f"[yellow]⚠️  {len(vstats['corrupt'])} corrupt files found. They may cause errors during training.[/yellow]")
 
@@ -184,10 +186,11 @@ class TrainingTUI:
                 
                 # Show sample classes
                 console.print(f"\n[bold]Sample Classes:[/bold] {', '.join(self.classes[:10])}...")
-                
+                tlog.info('DATASET  loaded %d images, %d classes, train=%d val=%d', len(full_dataset), len(self.classes), train_size, val_size)
                 return True
-                
+
             except Exception as e:
+                tlog.info('ERROR  dataset load failed: %s', e)
                 console.print(f"[red]✗ Failed to load dataset: {e}[/red]")
                 return False
     
@@ -224,9 +227,10 @@ class TrainingTUI:
             model_table.add_row("Total Parameters", f"{total_params:,}")
             model_table.add_row("Trainable Parameters", f"{trainable_params:,}")
             model_table.add_row("Device", str(self.device).upper())
-            
+
             console.print(model_table)
-        
+            tlog.info('MODEL  MobileNetV3-Small, %d classes, %s params, device=%s', len(self.classes), f'{trainable_params:,}', self.device)
+
         return True
     
     def train_epoch(self, epoch, optimizer, criterion, progress, task):
@@ -332,6 +336,7 @@ class TrainingTUI:
         
         best_val_acc = 0.0
         start_time = time.time()
+        tlog.info('TRAIN  starting %d epochs, batch=%d, lr=%s', self.config['epochs'], self.config['batch_size'], self.config['learning_rate'])
         
         # Training loop with progress bars
         with Progress(
@@ -367,6 +372,7 @@ class TrainingTUI:
                 history['val_acc'].append(val_acc)
                 
                 # Display epoch summary
+                tlog.info('EPOCH %d/%d  train_loss=%.4f train_acc=%.2f%% val_loss=%.4f val_acc=%.2f%%', epoch, self.config['epochs'], train_loss, train_acc, val_loss, val_acc)
                 console.print(
                     f"\n[bold green]Epoch {epoch}/{self.config['epochs']}:[/bold green] "
                     f"Train Loss: {train_loss:.4f}, Train Acc: {train_acc:.2f}% | "
@@ -378,6 +384,7 @@ class TrainingTUI:
                     best_val_acc = val_acc
                     best_model_path = os.path.join(self.config['output_dir'], 'best_model.pth')
                     torch.save(self.model.state_dict(), best_model_path)
+                    tlog.info('CHECKPOINT  best model saved, val_acc=%.2f%%', val_acc)
                     console.print(f"[green]✓ Best model saved (Val Acc: {val_acc:.2f}%)[/green]")
         
         # Training complete
