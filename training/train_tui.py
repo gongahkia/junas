@@ -83,6 +83,7 @@ class TrainingTUI:
         )
         
         if not os.path.exists(self.config['data_dir']):
+            tlog.info('ERROR  dataset dir not found: %s', self.config['data_dir'])
             console.print(f"[red]✗ Directory not found: {self.config['data_dir']}[/red]")
             console.print("[yellow]💡 Tip: Run 'python download_data.py' first[/yellow]")
             return False
