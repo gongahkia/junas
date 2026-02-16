@@ -60,13 +60,11 @@ $ cd ../frontend && npm install
 $ cd ..
 ```
 
-5. Run with Docker Compose or the Makefile.
+5. Run in separate terminals.
 
 ```console
-$ docker-compose up -d
-$ docker-compose exec backend npm run seed
-$ make install
-$ make docker-up
+$ cd backend && npm run dev
+$ cd frontend && npm run dev
 ```
 
 * Frontend: http://localhost:3000
