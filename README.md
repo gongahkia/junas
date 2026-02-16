@@ -4,9 +4,7 @@
 
 # `cAI-png`
 
-[Cai Fan](https://en.wikipedia.org/wiki/Economy_rice) [Macros](https://www.calculator.net/macro-calculator.html) Estimation Web App, [built](#architecture) atop a [Computer Vision](https://www.ibm.com/think/topics/computer-vision) Engine.
-
-Available [backend endpoints](#architecture) are [here](#api-reference).
+[Cai Fan](https://en.wikipedia.org/wiki/Economy_rice) [Macros](https://www.calculator.net/macro-calculator.html) Estimation Web App, [built](#architecture) atop dual [Classification](https://www.ibm.com/think/topics/classification-models) and [Computer Vision](https://www.ibm.com/think/topics/computer-vision) Engines.
 
 <div align="center">
   <img src="./asset/logo/caifan.jpg" width="65%">
