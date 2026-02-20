@@ -4,6 +4,38 @@ Per-layer input/output contracts for the Noupe MNPI pipeline.
 
 ---
 
+## Training Data — `TrainingDocument`
+
+All training data JSON files must conform to this schema (validated by `scripts/validate_training_data.py` on commit).
+
+```json
+{
+  "document_creation": "ISO 8601 datetime string (e.g. 2024-01-15T09:30:00)",
+  "document_name": "string",
+  "document_sentence_array": [
+    {"text": "string", "label": "string"},
+    {"text": "string", "label": "string"}
+  ]
+}
+```
+
+| Field | Type | Constraints |
+|---|---|---|
+| `document_creation` | `datetime` (ISO 8601) | required |
+| `document_name` | `str` | required |
+| `document_sentence_array` | `list[TrainingSentence]` | min 1 element |
+
+`TrainingSentence`:
+
+| Field | Type | Description |
+|---|---|---|
+| `text` | `str` | raw sentence text |
+| `label` | `str` | class label (e.g. `"public"`, `"non_public"`, `"low_risk"`, `"high_risk"`) |
+
+**Validation:** `scripts/validate_training_data.py <file.json>` — exits `0` on pass, `1` on failure. Runs automatically as a pre-commit hook on all staged `.json` files.
+
+---
+
 ## `lexicon/` — Rule-based Lexicon Filter
 
 ### Input
