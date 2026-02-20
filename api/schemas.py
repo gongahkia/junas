@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 from enum import Enum
 from typing import Optional
+from datetime import datetime
 
 class Classification(str, Enum):
     SAFE = "SAFE"
@@ -37,6 +38,15 @@ class ClassifyResponse(BaseModel):
     lexicon: LexiconResponse
     model1: Optional[Model1Response] = None # none if lexicon short-circuits
     model2: Optional[Model2Response] = None # none if model1 says safe
+
+class TrainingSentence(BaseModel):
+    text: str
+    label: str
+
+class TrainingDocument(BaseModel):
+    document_creation: datetime
+    document_name: str
+    document_sentence_array: list[TrainingSentence] = Field(..., min_length=1)
 
 class HealthResponse(BaseModel):
     status: str
