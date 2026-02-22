@@ -37,9 +37,16 @@
 - default hyperparams: lr=2e-5, epochs=5, batch=16, max_seq_len=512
 - only invoked when model-1 outputs risk (label=1)
 
-## Clustering (not implemented)
-- isolation forest in `model-1/train_isolation_forest.py` is a separate anomaly detection layer
-- anomaly scores intended as downstream feature for XGBoost regression (not implemented)
+## Clustering (Isolation Forest — `clustering/isolation_forest.py`)
+- fits on public/baseline document embeddings produced by `embeddings/generate_embeddings.py`
+- no explicit PCA: `max_features=0.3` (random subsampling of ~230/768 dims per tree) handles the curse of dimensionality without the p >> n instability of PCA on small datasets
+- `contamination=0.05`: upper bound on expected anomaly fraction in training data — lower = stricter
+- `n_estimators=100`: sufficient for datasets in the hundreds; raise as data grows
+- checkpoint saved as `clustering/checkpoints/anomaly_detector.joblib` via `joblib`
+- inference: `MNPIAnomalyDetector.score(embedding)` returns `anomaly_score` (0–1, sigmoid-inverted; higher = more anomalous), `is_anomaly` (bool), and `raw_score` (raw IF value)
+- `anomaly_score` is intended as a soft input feature for XGBoost regression, not a hard decision gate
+- all three IF hyperparameters are configurable via env vars: `IF_CONTAMINATION`, `IF_MAX_FEATURES`, `IF_N_ESTIMATORS`
+- plan to retrain when switching from synthetic to real data; synthetic corpus produces a narrower "normal" boundary than real-world data
 
 ## Regression (not implemented)
 - XGBoost multivariate regression combines lexicon hits, anomaly score, BERT score, mosaic freq

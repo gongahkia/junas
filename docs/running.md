@@ -73,6 +73,9 @@ Outputs `public_embeddings.npy` and `violation_embeddings.npy`. Requires `public
 | `MNPI_PCT_THRESHOLD` | `5.0` | Percentage that triggers lexicon high-risk flag |
 | `MODEL1_THRESHOLD` | `0.5` | Model-1 risk probability cutoff |
 | `MODEL2_THRESHOLD` | `0.5` | Model-2 high-risk probability cutoff |
+| `IF_CONTAMINATION` | `0.05` | Expected anomaly fraction in IF training data |
+| `IF_MAX_FEATURES` | `0.3` | Fraction of embedding dims each IF tree randomly samples |
+| `IF_N_ESTIMATORS` | `100` | Number of trees in the Isolation Forest |
 
 ## Restricted List
 
@@ -84,9 +87,22 @@ Edit `lexicon/restricted_list.json` to add/remove entities. Schema:
 
 Matches are case-insensitive on name, exact on ticker/ISIN.
 
+## Training the Anomaly Detector (Isolation Forest)
+
+Requires a `.npy` file of pre-computed public document embeddings (output of `embeddings/generate_embeddings.py`).
+
+```sh
+python3 clustering/isolation_forest.py public_embeddings.npy
+```
+
+Checkpoint saved to `clustering/checkpoints/anomaly_detector.joblib`. An optional second argument overrides the output path:
+
+```sh
+python3 clustering/isolation_forest.py public_embeddings.npy path/to/output.joblib
+```
+
 ## Not Yet Implemented
 
-- Clustering (Isolation Forest anomaly detection)
 - Mosaic aggregation (Redis TTL-based fragment tracking)
 - XGBoost regression (multivariate risk scoring)
 
