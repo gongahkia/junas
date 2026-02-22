@@ -13,6 +13,28 @@
 5. Classification model 2 (gab, lexuan)
 6. Regression (astin)
 
+## Architecture
+
+```mermaid
+flowchart TD
+    In[Ingestion] --> L1[1. Lexicon Check]
+    
+    L1 --> L2[2. Embeddings Generation]
+    
+    %% Parallel processing
+    L2 --> L3[3. Clustering]
+    L2 --> L4[4. Classification Model 1]
+    
+    %% Sequential from Model 1
+    L4 --> L5[5. Classification Model 2]
+    
+    %% Convergence to Regression
+    L3 --> Reg[6. Regression]
+    L5 --> Reg
+    
+    Reg --> Out[Final Output]
+```
+
 ## Timeline
 
 * 19 January 2026: Internal check 1 for repo efficacy
