@@ -96,20 +96,46 @@ Model: `all-mpnet-base-v2` (768-dim embeddings).
 
 ---
 
-## `clustering/` — Isolation Forest (not fully implemented)
+## `clustering/` — Isolation Forest Anomaly Detector
 
-### Input
+### Training Input
+
+`train(embeddings_path: str, save_path: str)`
 
 | Param | Type | Description |
 |---|---|---|
-| `public_embeddings` | `np.ndarray` shape `(n, 768)` | pre-computed SBERT embeddings |
+| `embeddings_path` | `str` | path to `.npy` file of public document embeddings, shape `(n, 768)` |
+| `save_path` | `str` | output path for the joblib checkpoint (default: `clustering/checkpoints/anomaly_detector.joblib`) |
 
-### Output
+### Training Output
 
-| Method | Returns | Description |
+Joblib checkpoint saved to `clustering/checkpoints/anomaly_detector.joblib` containing the fitted `IsolationForest` object.
+
+### Inference Input
+
+`MNPIAnomalyDetector.score(embedding: np.ndarray)`
+
+| Param | Type | Description |
 |---|---|---|
-| `iso.predict(X)` | `np.ndarray` of `{1, -1}` | `1` = inlier, `-1` = anomaly |
-| `iso.score_samples(X)` | `np.ndarray` of `float` | anomaly score (lower = more anomalous) |
+| `embedding` | `np.ndarray` shape `(768,)` | single document embedding vector |
+
+### Inference Output
+
+`dict`:
+
+| Field | Type | Description |
+|---|---|---|
+| `anomaly_score` | `float` (0–1) | sigmoid-inverted IF score; higher = more anomalous. Use as regression input feature. |
+| `is_anomaly` | `bool` | `True` if IF predicts this point as an outlier |
+| `raw_score` | `float` | raw `score_samples` value from IF; lower (more negative) = more anomalous |
+
+### Config
+
+| Env Var | Default | Description |
+|---|---|---|
+| `IF_CONTAMINATION` | `0.05` | expected anomaly fraction in training data |
+| `IF_MAX_FEATURES` | `0.3` | fraction of embedding dims sampled per tree (replaces PCA) |
+| `IF_N_ESTIMATORS` | `100` | number of trees |
 
 ---
 
