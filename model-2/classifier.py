@@ -11,7 +11,20 @@ OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "checkpoints")
 
 class ViolationDataset(Dataset): # expects df with columns: text, label (violation corpus only, no public/safe data)
     def __init__(self, texts, labels, tokenizer, max_len=MAX_SEQ_LEN):
-        self.encodings = tokenizer(texts, truncation=True, padding=True, max_length=max_len, return_tensors="pt")
+        from tqdm import tqdm
+        print("Tokenizing texts for ViolationDataset...")
+        input_ids, attention_masks = [], []
+        batch_size = 1000
+        for i in tqdm(range(0, len(texts), batch_size), desc="Tokenizing", unit="batch"):
+            batch_texts = texts[i:i + batch_size]
+            encoded = tokenizer(batch_texts, truncation=True, padding="max_length", max_length=max_len, return_tensors="pt")
+            input_ids.append(encoded["input_ids"])
+            attention_masks.append(encoded["attention_mask"])
+            
+        self.encodings = {
+            "input_ids": torch.cat(input_ids, dim=0),
+            "attention_mask": torch.cat(attention_masks, dim=0)
+        }
         self.labels = torch.tensor(labels, dtype=torch.long)
     def __len__(self):
         return len(self.labels)
@@ -21,8 +34,12 @@ class ViolationDataset(Dataset): # expects df with columns: text, label (violati
         return item
 
 def load_data(csv_path: str) -> tuple: # schema: text,label where label ∈ {0=low_risk, 1=high_risk}
+    print(f"Loading data from {csv_path}...")
     df = pd.read_csv(csv_path)
-    return df["text"].tolist(), df["label"].tolist()
+    from tqdm import tqdm
+    texts = [t for t in tqdm(df["text"].tolist(), desc="Reading texts", unit="record")]
+    labels = [l for l in tqdm(df["label"].tolist(), desc="Reading labels", unit="record")]
+    return texts, labels
 
 def compute_class_weights(labels: list) -> torch.Tensor: # inverse frequency weighting for 90/10 imbalance
     counts = np.bincount(labels)

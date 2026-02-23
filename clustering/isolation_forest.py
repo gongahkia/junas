@@ -91,10 +91,19 @@ def train(embeddings_path: str, save_path: str = CHECKPOINT_PATH) -> MNPIAnomaly
     Usage:
         python3 clustering/isolation_forest.py public_embeddings.npy
     """
+    from tqdm import tqdm
+    
+    # Fake load progress for consistency in "nice loading indicators"
+    print(f"Loading embeddings from {embeddings_path}...")
     embeddings = np.load(embeddings_path)
     print(f"Loaded embeddings: {embeddings.shape}")
+    
     detector = MNPIAnomalyDetector()
-    detector.fit(embeddings)
+    
+    with tqdm(total=1, desc="Fitting Isolation Forest Model", unit="step") as pbar:
+        detector.fit(embeddings)
+        pbar.update(1)
+        
     detector.save(save_path)
     print(f"Saved anomaly detector to {save_path}")
     print(f"  contamination={CONTAMINATION}, max_features={MAX_FEATURES}, n_estimators={N_ESTIMATORS}")

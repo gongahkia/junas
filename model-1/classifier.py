@@ -10,7 +10,22 @@ OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "checkpoints")
 
 class MNPIDataset(Dataset): # expects df with columns: text, label
     def __init__(self, texts, labels, tokenizer, max_len=MAX_SEQ_LEN):
-        self.encodings = tokenizer(texts, truncation=True, padding=True, max_length=max_len, return_tensors="pt")
+        # We manually tokenize in batches to show a progress bar
+        from tqdm import tqdm
+        print("Tokenizing texts for MNPIDataset...")
+        input_ids, attention_masks = [], []
+        # Process in batches of 1000 for efficiency while showing progress
+        batch_size = 1000
+        for i in tqdm(range(0, len(texts), batch_size), desc="Tokenizing", unit="batch"):
+            batch_texts = texts[i:i + batch_size]
+            encoded = tokenizer(batch_texts, truncation=True, padding="max_length", max_length=max_len, return_tensors="pt")
+            input_ids.append(encoded["input_ids"])
+            attention_masks.append(encoded["attention_mask"])
+            
+        self.encodings = {
+            "input_ids": torch.cat(input_ids, dim=0),
+            "attention_mask": torch.cat(attention_masks, dim=0)
+        }
         self.labels = torch.tensor(labels, dtype=torch.long)
     def __len__(self):
         return len(self.labels)
@@ -20,8 +35,13 @@ class MNPIDataset(Dataset): # expects df with columns: text, label
         return item
 
 def load_data(csv_path: str) -> tuple: # schema: text,label where label ∈ {0=public, 1=non_public}
+    print(f"Loading data from {csv_path}...")
     df = pd.read_csv(csv_path)
-    return df["text"].tolist(), df["label"].tolist()
+    from tqdm import tqdm
+    # Simulate a small loading bar for reading dataset just so the user sees progress
+    texts = [t for t in tqdm(df["text"].tolist(), desc="Reading texts", unit="record")]
+    labels = [l for l in tqdm(df["label"].tolist(), desc="Reading labels", unit="record")]
+    return texts, labels
 
 def train(train_csv: str, val_csv: str = None, epochs: int = 3, lr: float = 2e-5, batch_size: int = 16):
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
