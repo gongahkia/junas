@@ -30,7 +30,7 @@ All training data JSON files must conform to this schema (validated by `scripts/
 | Field | Type | Description |
 |---|---|---|
 | `text` | `str` | raw sentence text |
-| `label` | `str` | class label (e.g. `"public"`, `"non_public"`, `"low_risk"`, `"high_risk"`) |
+| `label` | `str` | class label (`"non"`, `"low"`, `"high"`) |
 
 **Validation:** `scripts/validate_training_data.py <file.json>` — exits `0` on pass, `1` on failure. Runs automatically as a pre-commit hook on all staged `.json` files.
 
