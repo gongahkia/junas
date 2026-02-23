@@ -23,10 +23,11 @@ def parse_and_convert(input_file, output_dir="docs/json"):
     with open(input_file, 'r', encoding='utf-8') as f:
         content = f.read()
     
+    from tqdm import tqdm
     json_objects = list(extract_json_objects(content))
     print(f"Found {len(json_objects)} JSON object(s) in {input_file}.")
     
-    for idx, doc in enumerate(json_objects):
+    for idx, doc in enumerate(tqdm(json_objects, desc="Ingesting Documents", unit="doc")):
         # 1. Handle document_name vs document_id
         doc_name = doc.get("document_name", doc.get("document_id", f"document_{idx}"))
         doc_name_str = str(doc_name)
