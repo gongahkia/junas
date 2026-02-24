@@ -1,4 +1,3 @@
-(A) Implement selective region compositor: accept full frame + list of SensitiveMatch bounding boxes + selected TransformMode, apply transformation only to matched regions, leave rest of frame untouched +transform
 (A) Add transformation intensity control: configurable strength parameter (0.0-1.0) that blends between original and transformed pixels — 1.0 = full transformation, 0.5 = partial overlay for softer effect +transform
 (A) Implement virtual camera output on Linux using v4l2loopback: open `/dev/video<N>` loopback device, write transformed RGBA frames converted to YUYV format at capture FPS +output
 (A) Implement virtual camera output on macOS using CoreMediaIO virtual device via `camera-virtual` approach: create DAL plugin-based virtual camera, feed transformed frames as CMSampleBuffers +output

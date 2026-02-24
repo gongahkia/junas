@@ -9,5 +9,6 @@ pub mod ascii;
 pub mod blur;
 pub mod cartoon;
 pub mod compositor;
+pub mod intensity;
 pub mod pixelate;
 pub mod registry;
