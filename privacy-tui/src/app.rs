@@ -29,6 +29,12 @@ pub struct App {
     pub stats: PipelineStats,
     pub log_entries: Vec<LogEntry>,
     pub started_at: Instant,
+    /// Raw capture preview pixels (RGBA, half-res).
+    pub raw_preview_pixels: Option<Vec<u8>>,
+    /// Transformed output preview pixels (RGBA, half-res).
+    pub tx_preview_pixels: Option<Vec<u8>>,
+    pub preview_width: u32,
+    pub preview_height: u32,
 }
 
 #[derive(Debug, Clone)]
@@ -49,6 +55,10 @@ impl App {
             stats: PipelineStats::default(),
             log_entries: Vec::new(),
             started_at: Instant::now(),
+            raw_preview_pixels: None,
+            tx_preview_pixels: None,
+            preview_width: 0,
+            preview_height: 0,
         }
     }
 
