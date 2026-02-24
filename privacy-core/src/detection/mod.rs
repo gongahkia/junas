@@ -7,6 +7,7 @@ pub trait SensitivityDetector: Send {
 
 pub mod default_patterns;
 pub mod expand;
+pub mod frame_diff;
 pub mod line_expand;
 pub mod pii_patterns;
 pub mod incremental;
