@@ -1,10 +1,8 @@
-const chatHistory = document.getElementById('chat-history');
-const messageInput = document.getElementById('message-input');
-const sendBtn = document.getElementById('send-btn');
-const statusDot = document.querySelector('.status-dot');
-const debugToggle = document.getElementById('debug-toggle');
-const debugSidebar = document.getElementById('debug-sidebar');
+const analyzeInput = document.getElementById('analyze-input');
+const classifyBtn = document.getElementById('classify-btn');
+const resultsDisplay = document.getElementById('results-display');
 const debugContent = document.getElementById('debug-content');
+const statusDot = document.querySelector('.status-dot');
 
 const API_BASE = 'http://localhost:8000';
 
@@ -28,63 +26,42 @@ async function checkHealth() {
 setInterval(checkHealth, 10000);
 checkHealth();
 
-// Sidebar Toggle
-debugToggle.addEventListener('click', () => {
-    debugSidebar.classList.toggle('hidden');
-});
+function updateResults(data) {
+    resultsDisplay.classList.remove('hidden');
 
-function appendMessage(text, isUser = false, responseData = null) {
-    const msgDiv = document.createElement('div');
-    msgDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+    const classification = data.classification;
+    const badgeClass = `badge-${classification.toLowerCase().replace('_', '-')}`;
 
-    if (isUser) {
-        msgDiv.textContent = text;
+    let html = `
+        <div class="classification-badge ${badgeClass}">${classification}</div>
+        <div style="font-size: 1.1rem; line-height: 1.4;">
+            Analysis indicates this content is <strong>${classification.replace('_', ' ')}</strong>.
+        </div>
+        <div class="details">
+    `;
+
+    // Lexicon
+    if (data.lexicon && data.lexicon.flagged) {
+        html += `<div class="detail-item"><span>Lexicon Filter:</span> <span style="color: var(--high-red); font-weight: 600;">FLAGGED</span></div>`;
+        data.lexicon.hits.forEach(hit => {
+            html += `<div style="font-size: 0.75rem; color: var(--high-red); margin-left: 12px; margin-top: -8px; margin-bottom: 8px;">&bull; Match: "${hit.matched_text}" (${hit.rule})</div>`;
+        });
     } else {
-        if (responseData) {
-            const classification = responseData.classification;
-            const badgeClass = `badge-${classification.toLowerCase().replace('_', '-')}`;
-
-            let html = `<div class="classification-badge ${badgeClass}">${classification}</div>`;
-            html += `<div>Analysis complete. The input is flagged as <strong>${classification}</strong>.</div>`;
-
-            html += `<div class="details">`;
-
-            if (responseData.lexicon && responseData.lexicon.flagged) {
-                html += `<div class="detail-item"><span>Lexicon Check:</span> <span>Flagged</span></div>`;
-                responseData.lexicon.hits.forEach(hit => {
-                    html += `<div class="detail-item" style="font-size: 0.7rem; color: var(--high-red);"><span>&bull; ${hit.rule}:</span> <span>"${hit.matched_text}"</span></div>`;
-                });
-            } else {
-                html += `<div class="detail-item"><span>Lexicon Check:</span> <span>Clean</span></div>`;
-            }
-
-            if (responseData.model1) {
-                html += `<div class="detail-item"><span>FinBERT (Public/Private):</span> <span>${(responseData.model1.confidence * 100).toFixed(1)}% ${responseData.model1.label}</span></div>`;
-            }
-
-            if (responseData.model2) {
-                html += `<div class="detail-item"><span>Severity Classifier:</span> <span>${(responseData.model2.confidence * 100).toFixed(1)}% ${responseData.model2.label}</span></div>`;
-            }
-
-            html += `</div>`;
-            msgDiv.innerHTML = html;
-        } else {
-            msgDiv.textContent = text;
-        }
+        html += `<div class="detail-item"><span>Lexicon Filter:</span> <span style="color: var(--safe-green);">CLEAN</span></div>`;
     }
 
-    chatHistory.appendChild(msgDiv);
-    chatHistory.scrollTop = chatHistory.scrollHeight;
-}
+    // Model 1
+    if (data.model1) {
+        html += `<div class="detail-item"><span>NLP Model 1 (Public/Private):</span> <span>${(data.model1.confidence * 100).toFixed(1)}% ${data.model1.label}</span></div>`;
+    }
 
-function showTypingIndicator() {
-    const indicator = document.createElement('div');
-    indicator.className = 'typing-indicator';
-    indicator.id = 'typing-indicator';
-    indicator.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
-    chatHistory.appendChild(indicator);
-    chatHistory.scrollTop = chatHistory.scrollHeight;
-    return indicator;
+    // Model 2
+    if (data.model2) {
+        html += `<div class="detail-item"><span>NLP Model 2 (Severity):</span> <span>${(data.model2.confidence * 100).toFixed(1)}% ${data.model2.label.replace('_', ' ')}</span></div>`;
+    }
+
+    html += `</div>`;
+    resultsDisplay.innerHTML = html;
 }
 
 function addDebugLog(text, responseData) {
@@ -93,32 +70,37 @@ function addDebugLog(text, responseData) {
 
     const curl = `curl -X POST "${API_BASE}/classify" \\
      -H "Content-Type: application/json" \\
-     -d '{"text": "${text.replace(/'/g, "'\\''")}"}'`;
+     -d '{"text": "${text.replace(/'/g, "'\\''").replace(/"/g, '\\"')}"}'`;
+
+    const jsonResponse = JSON.stringify(responseData, null, 2);
 
     logItem.innerHTML = `
         <div class="debug-section">
             <h3>cURL Request</h3>
-            <pre>${curl}</pre>
+            <pre><code class="language-bash">${curl}</code></pre>
         </div>
         <div class="debug-section">
             <h3>JSON Response</h3>
-            <pre>${JSON.stringify(responseData, null, 2)}</pre>
+            <pre><code class="language-json">${jsonResponse}</code></pre>
         </div>
-        <hr style="border: 0; border-top: 1px solid var(--glass-border); margin: 20px 0;">
     `;
 
     debugContent.appendChild(logItem);
+
+    // apply syntax highlighting
+    logItem.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightElement(block);
+    });
+
     debugContent.scrollTop = debugContent.scrollHeight;
 }
 
-async function handleSendMessage() {
-    const text = messageInput.value.trim();
+async function handleClassify() {
+    const text = analyzeInput.value.trim();
     if (!text) return;
 
-    messageInput.value = '';
-    appendMessage(text, true);
-
-    const indicator = showTypingIndicator();
+    classifyBtn.disabled = true;
+    classifyBtn.textContent = 'Analyzing...';
 
     try {
         const response = await fetch(`${API_BASE}/classify`, {
@@ -130,16 +112,15 @@ async function handleSendMessage() {
         if (!response.ok) throw new Error('API request failed');
 
         const data = await response.json();
-        indicator.remove();
-        appendMessage('', false, data);
+        updateResults(data);
         addDebugLog(text, data);
     } catch (err) {
-        indicator.remove();
-        appendMessage(`Error: ${err.message}. Make sure the backend API is running at ${API_BASE}.`, false);
+        resultsDisplay.classList.remove('hidden');
+        resultsDisplay.innerHTML = `<div style="color: var(--high-red);">Error: ${err.message}. Check if backend is running.</div>`;
+    } finally {
+        classifyBtn.disabled = false;
+        classifyBtn.textContent = 'Classify Text';
     }
 }
 
-sendBtn.addEventListener('click', handleSendMessage);
-messageInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') handleSendMessage();
-});
+classifyBtn.addEventListener('click', handleClassify);
