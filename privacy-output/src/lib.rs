@@ -12,6 +12,7 @@ pub mod v4l2;
 #[cfg(target_os = "macos")]
 pub mod coremedia;
 
+pub mod audio;
 pub mod autodetect;
 pub mod mjpeg;
 pub mod obs_websocket;
