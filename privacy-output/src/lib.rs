@@ -14,6 +14,7 @@ pub mod coremedia;
 
 pub mod audio;
 pub mod autodetect;
+pub mod twitch;
 pub mod mjpeg;
 pub mod obs_websocket;
 pub mod recorder;
