@@ -132,6 +132,24 @@ impl Default for OutputConfig {
     }
 }
 
+/// A named profile that overrides transform mode and pattern sets.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(default)]
+pub struct ProfileConfig {
+    /// Transform mode override: "blur" | "cartoon" | "neural" | etc.
+    pub transform_mode: String,
+    /// Transform intensity override (0.0–1.0).
+    pub intensity: f32,
+    /// Optional list of extra pattern names to enable for this profile.
+    pub extra_patterns: Vec<String>,
+}
+
+impl Default for ProfileConfig {
+    fn default() -> Self {
+        Self { transform_mode: "blur".into(), intensity: 1.0, extra_patterns: Vec::new() }
+    }
+}
+
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 #[serde(default)]
 pub struct AppConfig {
@@ -139,6 +157,8 @@ pub struct AppConfig {
     pub detection: DetectionConfig,
     pub transform: TransformConfig,
     pub output: OutputConfig,
+    /// Named profiles: [profiles.streaming], [profiles.pairing], etc.
+    pub profiles: std::collections::HashMap<String, ProfileConfig>,
 }
 
 impl AppConfig {

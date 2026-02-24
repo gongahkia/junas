@@ -136,6 +136,10 @@ pub struct App {
     pub first_detection_flash: Option<Instant>,
     /// Recording start time (Some = currently recording)
     pub recording_started_at: Option<Instant>,
+    /// Active profile name (None = default)
+    pub active_profile: Option<String>,
+    /// Available profile names (loaded from config)
+    pub profile_names: Vec<String>,
 }
 
 #[derive(Debug, Clone)]
@@ -174,6 +178,8 @@ impl App {
             latency_history: VecDeque::with_capacity(LATENCY_HISTORY_LEN),
             first_detection_flash: None,
             recording_started_at: None,
+            active_profile: None,
+            profile_names: Vec::new(),
         }
     }
 
@@ -201,6 +207,14 @@ impl App {
         }
         self.stats_overlay.record(&entry.pattern_name, entry.bounds.clone());
         self.log_entries.push(entry);
+    }
+
+    /// Switch to profile at 1-based index (from `1-9` keybindings).
+    pub fn switch_profile(&mut self, idx: usize) {
+        if idx == 0 || idx > self.profile_names.len() { return; }
+        let name = self.profile_names[idx - 1].clone();
+        log::info!("switching to profile: {name}");
+        self.active_profile = Some(name);
     }
 
     pub fn record_latency(&mut self, ms: u64) {

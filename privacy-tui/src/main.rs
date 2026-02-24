@@ -250,6 +250,10 @@ fn handle_event(app: &mut app::App, ev: Event) {
                     }
                 }
                 KeyCode::Char('e') => export_session_log(&app),
+                KeyCode::Char(c @ '1'..='9') => {
+                    let idx = (c as u8 - b'0') as usize;
+                    app.switch_profile(idx);
+                }
                 _ => {}
             }
         }
