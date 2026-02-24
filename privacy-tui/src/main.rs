@@ -156,6 +156,13 @@ fn handle_event(app: &mut app::App, ev: Event) {
                 KeyCode::Char('-') => app.adjust_intensity(-0.1),
                 KeyCode::Char('h') => app.heatmap.enabled = !app.heatmap.enabled,
                 KeyCode::Char('s') => app.stats_overlay.open = !app.stats_overlay.open,
+                KeyCode::Char('r') => {
+                    if app.recording_started_at.is_some() {
+                        app.recording_started_at = None; // signal stop (actual stop done in pipeline)
+                    } else {
+                        app.recording_started_at = Some(std::time::Instant::now());
+                    }
+                }
                 _ => {}
             }
         }

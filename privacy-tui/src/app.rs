@@ -134,6 +134,8 @@ pub struct App {
     pub latency_history: VecDeque<u64>,
     /// Flash raw-preview border red on first detection
     pub first_detection_flash: Option<Instant>,
+    /// Recording start time (Some = currently recording)
+    pub recording_started_at: Option<Instant>,
 }
 
 #[derive(Debug, Clone)]
@@ -171,6 +173,7 @@ impl App {
             stats_overlay: StatsOverlayState::new(),
             latency_history: VecDeque::with_capacity(LATENCY_HISTORY_LEN),
             first_detection_flash: None,
+            recording_started_at: None,
         }
     }
 

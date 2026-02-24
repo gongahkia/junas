@@ -22,6 +22,16 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
     let s = &app.stats;
     let total_lat = s.capture_latency_ms + s.ocr_latency_ms + s.transform_latency_ms + s.output_latency_ms;
 
+    let rec_span = if let Some(t) = app.recording_started_at {
+        let secs = t.elapsed().as_secs();
+        Span::styled(
+            format!(" ● REC {:02}:{:02} ", secs / 60, secs % 60),
+            Style::default().fg(Color::Red).add_modifier(Modifier::BOLD),
+        )
+    } else {
+        Span::raw("")
+    };
+
     let line = Line::from(vec![
         Span::styled(" aki ", Style::default().fg(Color::Cyan).add_modifier(Modifier::BOLD)),
         Span::raw("│ "),
@@ -38,6 +48,7 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
             app.transform_intensity * 100.0,
             s.dropped_frames,
         )),
+        rec_span,
     ]);
 
     frame.render_widget(Paragraph::new(line), area);
