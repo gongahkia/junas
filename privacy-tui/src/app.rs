@@ -35,6 +35,9 @@ pub struct App {
     pub tx_preview_pixels: Option<Vec<u8>>,
     pub preview_width: u32,
     pub preview_height: u32,
+    /// Currently selected capture window id (None = full screen).
+    pub selected_window_id: Option<u64>,
+    pub window_selector: crate::ui::window_selector::WindowSelectorState,
 }
 
 #[derive(Debug, Clone)]
@@ -59,6 +62,8 @@ impl App {
             tx_preview_pixels: None,
             preview_width: 0,
             preview_height: 0,
+            selected_window_id: None,
+            window_selector: crate::ui::window_selector::WindowSelectorState::new(),
         }
     }
 

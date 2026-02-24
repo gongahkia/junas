@@ -37,13 +37,34 @@ fn run(terminal: &mut tui::Tui, app: &mut app::App) -> Result<()> {
 fn handle_event(app: &mut app::App, ev: Event) {
     use crossterm::event::KeyCode;
     match ev {
-        Event::Key(k) => match k.code {
-            KeyCode::Char(' ') => app.toggle_pipeline(),
-            KeyCode::Char('t') => app.cycle_transform(),
-            KeyCode::Char('+') | KeyCode::Char('=') => app.adjust_intensity(0.1),
-            KeyCode::Char('-') => app.adjust_intensity(-0.1),
-            _ => {}
-        },
-        Event::Tick => {} // stats updates handled by pipeline threads
+        Event::Key(k) => {
+            if app.window_selector.open {
+                match k.code {
+                    KeyCode::Char('j') | KeyCode::Down => app.window_selector.move_down(),
+                    KeyCode::Char('k') | KeyCode::Up => app.window_selector.move_up(),
+                    KeyCode::Enter => {
+                        let id = app.window_selector.selected_window().map(|w| w.id);
+                        if let Some(id) = id { app.selected_window_id = Some(id); }
+                        app.window_selector.close();
+                    }
+                    KeyCode::Esc => app.window_selector.close(),
+                    _ => {}
+                }
+                return;
+            }
+            match k.code {
+                KeyCode::Char('w') => {
+                    let windows = privacy_core::capture::window_picker::list_windows()
+                        .unwrap_or_default();
+                    app.window_selector.open(windows);
+                }
+                KeyCode::Char(' ') => app.toggle_pipeline(),
+                KeyCode::Char('t') => app.cycle_transform(),
+                KeyCode::Char('+') | KeyCode::Char('=') => app.adjust_intensity(0.1),
+                KeyCode::Char('-') => app.adjust_intensity(-0.1),
+                _ => {}
+            }
+        }
+        Event::Tick => {}
     }
 }
