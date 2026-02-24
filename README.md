@@ -3,11 +3,23 @@
 
 # `Aki`
 
-...
+Real-time privacy filter for screen capture and livestreaming. Detects sensitive information (API keys, tokens, passwords, PII) in captured frames via OCR, transforms sensitive regions using configurable effects (blur, pixelation, cartoon, ASCII art), and outputs the sanitized feed to a virtual camera for use with OBS or other streaming software.
 
 ## Stack
 
-...
+| Layer | Technology |
+|-------|-----------|
+| Language | Rust |
+| TUI | Ratatui + Crossterm |
+| Screen capture (macOS) | ScreenCaptureKit (`screencapturekit-rs`) |
+| Screen capture (Linux X11) | XCB |
+| Screen capture (Linux Wayland) | PipeWire via `ashpd` |
+| OCR | Tesseract (`tesseract-rs`) |
+| Virtual camera (Linux) | v4l2loopback |
+| Virtual camera (macOS) | CoreMediaIO DAL plugin |
+| Fallback output | HTTP MJPEG stream |
+| Channels | `crossbeam-channel` |
+| Config | TOML (`~/.config/ascii-privacy/config.toml`) |
 
 ## Screenshot
 
@@ -18,15 +30,33 @@
 The below instructions are for locally running `Aki`.
 
 ```console
+# run with TUI
+aki run
 
+# list available windows
+aki list-windows
+
+# test sensitivity patterns against text input
+aki test-patterns "SECRET_KEY=abc123"
+
+# verify virtual camera availability
+aki check-output
 ```
-
-...
 
 ## Architecture
 
-...
+```
+CaptureSource
+    ↓ RawFrame (RGBA + dims + timestamp)
+SensitivityDetector  (OCR → pattern matching)
+    ↓ DetectedRegions
+Transformer  (blur / pixelate / cartoon / ASCII)
+    ↓ TransformedFrame
+OutputSink  (v4l2loopback / CoreMediaIO / HTTP MJPEG)
+```
+
+All pipeline stages communicate via bounded `crossbeam` channels (capacity 3 frames). Backpressure drops oldest frame to maintain real-time performance.
 
 ## Reference
 
-The name `Aki` is in reference to...
+The name `Aki` is in reference to the Japanese 空き (*aki*) which roughly means *empty*, *vacant*, or *a gap* — as seen in 空き容量 (*aki yōryō*, free disk space). The tool creates a "gap" in the stream where sensitive data used to be.
