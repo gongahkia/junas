@@ -154,6 +154,8 @@ fn handle_event(app: &mut app::App, ev: Event) {
                 KeyCode::Char('t') => app.cycle_transform(),
                 KeyCode::Char('+') | KeyCode::Char('=') => app.adjust_intensity(0.1),
                 KeyCode::Char('-') => app.adjust_intensity(-0.1),
+                KeyCode::Char('h') => app.heatmap.enabled = !app.heatmap.enabled,
+                KeyCode::Char('s') => app.stats_overlay.open = !app.stats_overlay.open,
                 _ => {}
             }
         }

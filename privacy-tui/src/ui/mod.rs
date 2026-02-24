@@ -2,8 +2,10 @@
 
 pub mod braille;
 pub mod detection_log;
+pub mod heatmap;
 pub mod pattern_manager;
 pub mod stats_bar;
+pub mod stats_overlay;
 pub mod window_selector;
 
 use crate::app::App;
@@ -32,15 +34,24 @@ pub fn render(frame: &mut Frame, app: &mut App) {
         .constraints([Constraint::Percentage(50), Constraint::Percentage(50)])
         .split(rows[1]);
 
-    braille::render_preview(
-        frame,
-        app.raw_preview_pixels.as_deref(),
-        app.preview_width,
-        app.preview_height,
-        "Raw Capture",
-        Color::DarkGray,
-        cols[0],
-    );
+    if app.heatmap.enabled {
+        heatmap::render(frame, app, cols[0]);
+    } else {
+        // flash raw-preview border red on first detection (2s)
+        let raw_border = if app.first_detection_flash
+            .map(|t| t.elapsed().as_secs() < 2)
+            .unwrap_or(false)
+        { Color::Red } else { Color::DarkGray };
+        braille::render_preview(
+            frame,
+            app.raw_preview_pixels.as_deref(),
+            app.preview_width,
+            app.preview_height,
+            "Raw Capture",
+            raw_border,
+            cols[0],
+        );
+    }
 
     braille::render_preview(
         frame,
@@ -56,4 +67,5 @@ pub fn render(frame: &mut Frame, app: &mut App) {
 
     window_selector::render(frame, &mut app.window_selector);
     pattern_manager::render(frame, &mut app.pattern_manager, &app.pattern_registry);
+    stats_overlay::render(frame, app, rows[2]);
 }
