@@ -53,7 +53,19 @@ impl SharedState {
 /// Spawn all pipeline threads. Returns a handle that stops everything when dropped.
 pub struct PipelineHandle {
     pub state: Arc<SharedState>,
-    _threads: Vec<thread::JoinHandle<()>>,
+    threads: Vec<Option<thread::JoinHandle<()>>>,
+}
+
+impl PipelineHandle {
+    /// Signal stop and join all threads in pipeline order.
+    pub fn shutdown(mut self) {
+        self.state.running.store(false, Ordering::SeqCst);
+        for h in self.threads.iter_mut() {
+            if let Some(handle) = h.take() {
+                let _ = handle.join();
+            }
+        }
+    }
 }
 
 pub fn spawn_pipeline(
@@ -173,12 +185,22 @@ pub fn spawn_pipeline(
 
     Ok(PipelineHandle {
         state,
-        _threads: vec![cap_thread, det_thread, tx_thread, out_thread],
+        threads: vec![
+            Some(cap_thread),
+            Some(det_thread),
+            Some(tx_thread),
+            Some(out_thread),
+        ],
     })
 }
 
 impl Drop for PipelineHandle {
     fn drop(&mut self) {
-        self.state.running.store(false, Ordering::Relaxed);
+        self.state.running.store(false, Ordering::SeqCst);
+        for h in self.threads.iter_mut() {
+            if let Some(handle) = h.take() {
+                let _ = handle.join();
+            }
+        }
     }
 }

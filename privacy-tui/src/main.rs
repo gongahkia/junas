@@ -1,5 +1,6 @@
 mod app;
 mod event;
+mod shutdown;
 mod tui;
 mod ui;
 
@@ -48,6 +49,8 @@ fn cmd_run() -> Result<()> {
     let mut app = app::App::new();
     let result = run(&mut terminal, &mut app);
     tui::restore()?;
+    // ordered shutdown: pipeline handle + output sink are None until pipeline wired at runtime
+    shutdown::ordered_shutdown(None, None)?;
     result
 }
 
