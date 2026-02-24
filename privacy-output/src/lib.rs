@@ -14,6 +14,7 @@ pub mod coremedia;
 
 pub mod autodetect;
 pub mod mjpeg;
+pub mod obs_websocket;
 pub mod recorder;
 
 /// Which output sink to use.
