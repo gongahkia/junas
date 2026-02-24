@@ -45,6 +45,13 @@ impl PatternManagerState {
             }
         }
     }
+
+    /// Cycle severity of the selected pattern (Low→Medium→High→Low).
+    pub fn cycle_severity(&self, registry: &mut PatternRegistry) {
+        if let Some(i) = self.list_state.selected() {
+            registry.cycle_severity(i);
+        }
+    }
 }
 
 impl Default for PatternManagerState { fn default() -> Self { Self::new() } }
@@ -80,7 +87,7 @@ pub fn render(frame: &mut Frame, state: &mut PatternManagerState, registry: &Pat
     let list = List::new(items)
         .block(
             Block::default()
-                .title(" Pattern Manager (Space=toggle  j/k=nav  Esc=close) ")
+                .title(" Pattern Manager (Space=toggle  ]=severity  j/k=nav  Esc=close) ")
                 .borders(Borders::ALL)
                 .border_style(Style::default().fg(Color::Magenta)),
         )

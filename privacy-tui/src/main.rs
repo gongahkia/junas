@@ -138,6 +138,7 @@ fn handle_event(app: &mut app::App, ev: Event) {
                     KeyCode::Char('j') | KeyCode::Down => app.pattern_manager.move_down(len),
                     KeyCode::Char('k') | KeyCode::Up => app.pattern_manager.move_up(len),
                     KeyCode::Char(' ') => app.pattern_manager.toggle(&mut app.pattern_registry),
+                    KeyCode::Char(']') => app.pattern_manager.cycle_severity(&mut app.pattern_registry),
                     KeyCode::Esc => app.pattern_manager.close(),
                     _ => {}
                 }

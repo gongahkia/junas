@@ -66,4 +66,15 @@ impl PatternRegistry {
     pub fn enabled(&self) -> impl Iterator<Item = &SensitivityPattern> {
         self.patterns.iter().filter(|p| p.enabled)
     }
+
+    /// Cycle severity of pattern at index: Low → Medium → High → Low.
+    pub fn cycle_severity(&mut self, idx: usize) {
+        if let Some(p) = self.patterns.get_mut(idx) {
+            p.severity = match p.severity {
+                Severity::Low => Severity::Medium,
+                Severity::Medium => Severity::High,
+                Severity::High => Severity::Low,
+            };
+        }
+    }
 }
