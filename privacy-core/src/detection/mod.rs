@@ -6,6 +6,7 @@ pub trait SensitivityDetector: Send {
 }
 
 pub mod default_patterns;
+pub mod expand;
 pub mod pii_patterns;
 pub mod incremental;
 pub mod ocr;
