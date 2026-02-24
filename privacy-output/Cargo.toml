@@ -7,6 +7,12 @@ edition.workspace = true
 privacy-common = { path = "../privacy-common" }
 anyhow = { workspace = true }
 thiserror = { workspace = true }
+chrono = { workspace = true }
 
 [target.'cfg(target_os = "linux")'.dependencies]
 v4l = "0.14"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+core-foundation = "0.10"
+core-video-rs = "0.3"
+core-media-rs = "0.3"
