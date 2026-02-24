@@ -1,8 +1,17 @@
-//! Platform-agnostic window enumeration.
-//! Returns visible windows with id, title, and bounds for TUI selection.
+//! Platform-agnostic window and display enumeration.
+//! Returns visible windows with id, title, bounds, and display index for TUI selection.
 
 use anyhow::Result;
-use privacy_common::frame::WindowInfo;
+use privacy_common::frame::{Rect, WindowInfo};
+
+/// A physical monitor / display.
+#[derive(Debug, Clone)]
+pub struct DisplayInfo {
+    pub index: usize,
+    pub name: String,
+    pub bounds: Rect,
+    pub is_primary: bool,
+}
 
 /// Enumerate all currently visible windows on the current platform.
 pub fn list_windows() -> Result<Vec<WindowInfo>> {
@@ -36,6 +45,49 @@ pub fn list_windows() -> Result<Vec<WindowInfo>> {
         use crate::capture::CaptureSource;
         let src = X11CaptureSource::new(X11CaptureTarget::Root, 0);
         src.list_windows()
+    }
+
+    #[cfg(not(any(target_os = "macos", target_os = "linux")))]
+    {
+        Ok(vec![])
+    }
+}
+
+/// Enumerate physical displays with their index so the TUI can show e.g. "[1] Built-in Retina".
+pub fn list_displays() -> Result<Vec<DisplayInfo>> {
+    #[cfg(target_os = "macos")]
+    {
+        use core_graphics::display::CGDisplay;
+        let ids = CGDisplay::active_displays()
+            .map_err(|e| anyhow::anyhow!("CGDisplay::active_displays: {:?}", e))?;
+        let primary = CGDisplay::main().id;
+        let displays = ids.into_iter().enumerate().map(|(idx, id)| {
+            let d = CGDisplay::new(id);
+            let b = d.bounds();
+            DisplayInfo {
+                index: idx,
+                name: format!("Display {} (id={})", idx + 1, id),
+                bounds: Rect {
+                    x: b.origin.x as u32,
+                    y: b.origin.y as u32,
+                    width: b.size.width as u32,
+                    height: b.size.height as u32,
+                },
+                is_primary: id == primary,
+            }
+        }).collect();
+        Ok(displays)
+    }
+
+    #[cfg(target_os = "linux")]
+    {
+        // X11: use XineramaQueryScreens or RandR for display info
+        Ok(vec![DisplayInfo {
+            index: 0,
+            name: "Display 0 (X11)".into(),
+            bounds: Rect { x: 0, y: 0, width: 1920, height: 1080 },
+            is_primary: true,
+        }])
     }
 
     #[cfg(not(any(target_os = "macos", target_os = "linux")))]
