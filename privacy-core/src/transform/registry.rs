@@ -6,11 +6,15 @@ use privacy_common::{
     frame::{RawFrame, TransformedFrame},
     transform::TransformMode,
 };
+use std::time::Instant;
 
 use super::{
     ascii::apply_ascii, blur::apply_blur, cartoon::apply_cartoon,
     neural::apply_neural, pixelate::apply_pixelate,
 };
+
+/// >30ms per region triggers cartoon fallback for that frame
+const NEURAL_LATENCY_GUARD_MS: u128 = 30;
 
 /// Apply the selected `TransformMode` to the frame at the detected regions.
 /// `intensity` is in [0.0, 1.0]. Returns a `TransformedFrame`.
@@ -38,9 +42,18 @@ pub fn apply_transform(
             TransformMode::Cartoon => apply_cartoon(&mut region_pixels, r.width, r.height, intensity),
             TransformMode::Ascii => apply_ascii(&mut region_pixels, r.width, r.height, intensity),
             TransformMode::Neural => {
-                // fallback to cartoon if model absent / inference fails
-                if apply_neural(&mut region_pixels, r.width, r.height, intensity).is_err() {
+                let t0 = Instant::now();
+                let ok = apply_neural(&mut region_pixels, r.width, r.height, intensity).is_ok();
+                let elapsed = t0.elapsed().as_millis();
+                if !ok || elapsed > NEURAL_LATENCY_GUARD_MS {
+                    if elapsed > NEURAL_LATENCY_GUARD_MS {
+                        log::warn!("neural inference took {}ms (>{}ms budget), falling back to cartoon", elapsed, NEURAL_LATENCY_GUARD_MS);
+                    }
+                    // re-extract (region_pixels may be partially mutated); apply cartoon
+                    let mut region_pixels = extract_region(&pixels, w, r.x, r.y, r.width, r.height);
                     apply_cartoon(&mut region_pixels, r.width, r.height, intensity);
+                    paste_region(&mut pixels, w, r.x, r.y, r.width, r.height, &region_pixels);
+                    continue;
                 }
             }
         }
