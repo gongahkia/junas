@@ -1,4 +1,3 @@
-(B) Add adaptive quality scaling: if pipeline latency exceeds frame budget (33ms at 30FPS), automatically reduce OCR grid resolution and transformation quality until pipeline meets target +infra
 (B) Implement multi-region parallel transformation: process multiple detected sensitive regions concurrently using rayon parallel iterator, merge results back into frame +transform
 (B) Add "safe zone" configuration: user defines screen regions (as rects) that are NEVER redacted (e.g., bottom status bar of terminal), even if patterns match within them +detect
 (B) Add "always redact zone" configuration: user defines screen regions that are ALWAYS transformed regardless of pattern matches (e.g., top 3 lines where shell prompt shows env) +detect

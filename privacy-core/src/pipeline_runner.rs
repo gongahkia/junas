@@ -24,12 +24,17 @@ use privacy_common::{
 };
 use std::{
     sync::{
-        atomic::{AtomicBool, Ordering},
+        atomic::{AtomicBool, AtomicU32, Ordering},
         Arc, Mutex,
     },
     thread,
-    time::Duration,
+    time::{Duration, Instant},
 };
+
+/// 30fps frame budget in ms
+const FRAME_BUDGET_MS: u128 = 33;
+/// Minimum OCR grid dimensions under load
+const MIN_GRID: u32 = 2;
 
 /// Shared mutable state accessible across threads.
 pub struct SharedState {
@@ -37,6 +42,11 @@ pub struct SharedState {
     pub transform_mode: Mutex<TransformMode>,
     pub transform_intensity: Mutex<f32>,
     pub registry: Mutex<PatternRegistry>,
+    /// adaptive quality: target OCR grid cols/rows (0 = default)
+    pub target_grid_cols: AtomicU32,
+    pub target_grid_rows: AtomicU32,
+    /// adaptive quality scale multiplier applied to transform intensity [0.5..1.0]
+    pub quality_scale: Mutex<f32>,
 }
 
 impl SharedState {
@@ -46,6 +56,9 @@ impl SharedState {
             transform_mode: Mutex::new(TransformMode::default()),
             transform_intensity: Mutex::new(1.0),
             registry: Mutex::new(registry),
+            target_grid_cols: AtomicU32::new(GRID_COLS),
+            target_grid_rows: AtomicU32::new(GRID_ROWS),
+            quality_scale: Mutex::new(1.0),
         })
     }
 }
@@ -112,8 +125,15 @@ pub fn spawn_pipeline(
             };
             let mut ocr = IncrementalOcr::new(ocr_engine, GRID_COLS, GRID_ROWS);
             while state_d.running.load(Ordering::Relaxed) {
+                // apply adaptive grid if it changed
+                let tgt_cols = state_d.target_grid_cols.load(Ordering::Relaxed);
+                let tgt_rows = state_d.target_grid_rows.load(Ordering::Relaxed);
+                if tgt_cols != ocr.cols() || tgt_rows != ocr.rows() {
+                    ocr.resize_grid(tgt_cols, tgt_rows);
+                }
                 match raw_rx.recv_timeout(Duration::from_millis(100)) {
                     Ok(frame) => {
+                        let t0 = Instant::now();
                         let regions = match ocr.extract(&frame) {
                             Ok(text_regions) => {
                                 let reg = state_d.registry.lock().unwrap();
@@ -125,6 +145,27 @@ pub fn spawn_pipeline(
                             }
                             Err(_) => DetectedRegions::default(),
                         };
+                        let elapsed = t0.elapsed().as_millis();
+                        // adaptive quality scaling: reduce grid if over budget
+                        if elapsed > FRAME_BUDGET_MS {
+                            let cur_cols = state_d.target_grid_cols.load(Ordering::Relaxed);
+                            let cur_rows = state_d.target_grid_rows.load(Ordering::Relaxed);
+                            if cur_cols > MIN_GRID || cur_rows > MIN_GRID {
+                                state_d.target_grid_cols.store(cur_cols.saturating_sub(1).max(MIN_GRID), Ordering::Relaxed);
+                                state_d.target_grid_rows.store(cur_rows.saturating_sub(1).max(MIN_GRID), Ordering::Relaxed);
+                                *state_d.quality_scale.lock().unwrap() = 0.8;
+                                log::warn!("adaptive quality: detection {}ms > {}ms budget, grid {}x{}", elapsed, FRAME_BUDGET_MS, cur_cols.saturating_sub(1).max(MIN_GRID), cur_rows.saturating_sub(1).max(MIN_GRID));
+                            }
+                        } else if elapsed < FRAME_BUDGET_MS / 2 {
+                            // recovery: gradually increase grid back toward defaults
+                            let cur_cols = state_d.target_grid_cols.load(Ordering::Relaxed);
+                            let cur_rows = state_d.target_grid_rows.load(Ordering::Relaxed);
+                            if cur_cols < GRID_COLS || cur_rows < GRID_ROWS {
+                                state_d.target_grid_cols.store((cur_cols + 1).min(GRID_COLS), Ordering::Relaxed);
+                                state_d.target_grid_rows.store((cur_rows + 1).min(GRID_ROWS), Ordering::Relaxed);
+                                *state_d.quality_scale.lock().unwrap() = 1.0;
+                            }
+                        }
                         if !detection_tx.is_full() {
                             let _ = detection_tx.try_send((frame, regions));
                         }
@@ -146,7 +187,9 @@ pub fn spawn_pipeline(
                 match detection_rx.recv_timeout(Duration::from_millis(100)) {
                     Ok((frame, regions)) => {
                         let mode = *state_t.transform_mode.lock().unwrap();
-                        let intensity = *state_t.transform_intensity.lock().unwrap();
+                        let base_intensity = *state_t.transform_intensity.lock().unwrap();
+                        let qscale = *state_t.quality_scale.lock().unwrap();
+                        let intensity = (base_intensity * qscale).clamp(0.0, 1.0);
                         let result = apply_transform(&frame, &regions, mode, intensity)
                             .unwrap_or_else(|_| TransformedFrame {
                                 pixels: frame.pixels.clone(),

@@ -101,6 +101,22 @@ impl IncrementalOcr {
             c.regions.clear();
         }
     }
+
+    /// Resize the OCR grid (clamps to min 2×2); invalidates cache.
+    pub fn resize_grid(&mut self, cols: u32, rows: u32) {
+        let cols = cols.max(2);
+        let rows = rows.max(2);
+        if self.cols == cols && self.rows == rows {
+            return;
+        }
+        self.cols = cols;
+        self.rows = rows;
+        self.cache = vec![CellCache::default(); (cols * rows) as usize];
+        log::debug!("adaptive quality: OCR grid resized to {}x{}", cols, rows);
+    }
+
+    pub fn cols(&self) -> u32 { self.cols }
+    pub fn rows(&self) -> u32 { self.rows }
 }
 
 /// Fast pixel hash for a rectangular sub-region of an RGBA frame.
