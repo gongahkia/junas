@@ -44,6 +44,23 @@ fn main() -> Result<()> {
     }
 }
 
+fn export_session_log(app: &app::App) {
+    use serde_json::{json, Value};
+    let entries: Vec<Value> = app.log_entries.iter().map(|e| json!({
+        "timestamp": e.timestamp.to_rfc3339(),
+        "pattern": e.pattern_name,
+        "severity": format!("{:?}", e.severity),
+        "snippet": e.snippet,
+        "bounds": e.bounds.as_ref().map(|b| json!({"x":b.x,"y":b.y,"w":b.width,"h":b.height})),
+    })).collect();
+    let ts = chrono::Utc::now().format("%Y%m%d_%H%M%S");
+    let path = format!("aki_session_{ts}.json");
+    match std::fs::write(&path, serde_json::to_string_pretty(&entries).unwrap_or_default()) {
+        Ok(_) => log::info!("session log exported to {path}"),
+        Err(e) => log::error!("export failed: {e}"),
+    }
+}
+
 fn cmd_run() -> Result<()> {
     let mut terminal = tui::init()?;
     let mut app = app::App::new();
@@ -164,6 +181,7 @@ fn handle_event(app: &mut app::App, ev: Event) {
                         app.recording_started_at = Some(std::time::Instant::now());
                     }
                 }
+                KeyCode::Char('e') => export_session_log(&app),
                 _ => {}
             }
         }
