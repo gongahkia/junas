@@ -1,4 +1,3 @@
-(A) Implement output sink abstraction: trait OutputSink with `fn write_frame(frame: &TransformedFrame)`, implementations for v4l2loopback, CoreMediaIO, and HTTP MJPEG, selected by platform + config +output
 (A) Add auto-detection of virtual camera availability: on Linux check for `/dev/video*` loopback devices, on macOS check for DAL plugin, fall back to HTTP MJPEG if neither available, log selected output method +output
 (A) Implement Ratatui TUI scaffold: async tokio runtime, event loop handling keyboard input (crossterm), tick events for UI refresh (10Hz), and frame pipeline stats updates +tui
 (A) Build TUI layout with 4 zones: top bar (app name + FPS counter + output status), left pane (live raw capture preview as half-resolution braille art), right pane (live transformed output preview as braille art), bottom panel (detection log + controls + status) +tui
