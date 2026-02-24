@@ -36,6 +36,8 @@ enum Command {
     CheckOutput,
     /// Capture 10 frames, run detection, print summary of found sensitive regions.
     TestScreen,
+    /// Run detection pipeline self-test against synthetic sensitive data.
+    SelfTest,
 }
 
 fn main() -> Result<()> {
@@ -50,6 +52,7 @@ fn main() -> Result<()> {
         Command::TestPatterns { text } => cmd_test_patterns(&text),
         Command::CheckOutput => cmd_check_output(),
         Command::TestScreen => cmd_test_screen(),
+        Command::SelfTest => cmd_self_test(),
     }
 }
 
@@ -127,6 +130,42 @@ fn cmd_test_patterns(text: &str) -> Result<()> {
     } else {
         println!("\n{} pattern(s) matched", hits);
     }
+    Ok(())
+}
+
+fn cmd_self_test() -> Result<()> {
+    use privacy_core::detection::{
+        default_patterns::default_registry,
+        pii_patterns::pii_patterns,
+        scanner::scan,
+    };
+    println!("aki self-test: verifying detection pipeline against synthetic data");
+    let test_cases = [
+        ("AWS key", "AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE"),
+        ("GitHub token", "GITHUB_TOKEN=ghp_16C7e42F292c6912E7710c838347Ae178B4a"),
+        ("IP address", "Server at 192.168.1.1"),
+        ("Email", "contact: user@example.com"),
+        ("SSH private key", "-----BEGIN RSA PRIVATE KEY-----"),
+    ];
+    let mut registry = default_registry();
+    registry.patterns.extend(pii_patterns());
+    let mut passed = 0;
+    let total = test_cases.len();
+    for (label, input) in &test_cases {
+        let mut dummy_region = vec![privacy_common::detection::TextRegion {
+            text: input.to_string(),
+            bounds: privacy_common::frame::Rect { x: 0, y: 0, width: 100, height: 20 },
+            confidence: 95.0,
+        }];
+        let matches = scan(&dummy_region, &registry);
+        if matches.is_empty() {
+            println!("  FAIL  {label}");
+        } else {
+            println!("  PASS  {label} → {} match(es)", matches.len());
+            passed += 1;
+        }
+    }
+    println!("\nself-test: {passed}/{total} passed (readiness: {:.0}%)", passed as f32 / total as f32 * 100.0);
     Ok(())
 }
 
