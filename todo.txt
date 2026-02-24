@@ -1,4 +1,3 @@
-(A) Define sensitivity pattern registry: Vec of SensitivityPattern structs with fields: name (str), regex (compiled), severity (HIGH/MEDIUM/LOW), category (env_var/token/password/api_key/pii) +detect
 (A) Implement default sensitivity patterns: `[A-Z_]+=.{8,}` (env var assignments), `(api[_-]?key|token|secret|password|passwd|credential)\s*[:=]\s*\S+` (secret keywords), `(sk|pk|ghp|gho|glpat|xox[bsp])-[a-zA-Z0-9]{10,}` (known API key prefixes for Stripe, GitHub, GitLab, Slack) +detect
 (A) Add PII sensitivity patterns: email regex, IPv4/IPv6 addresses, AWS access key format (`AKIA[0-9A-Z]{16}`), SSH private key headers (`-----BEGIN.*PRIVATE KEY-----`), JWT tokens (`eyJ[a-zA-Z0-9_-]+\.eyJ[a-zA-Z0-9_-]+`) +detect
 (A) Implement sensitivity scanner: accept OCR TextRegions, run all active patterns against each region's text, return list of SensitiveMatch structs with bounding box, matched pattern name, severity, matched text snippet +detect
