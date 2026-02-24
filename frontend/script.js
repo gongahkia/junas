@@ -1,6 +1,8 @@
 const chatHistory = document.getElementById('chat-history');
 const messageInput = document.getElementById('message-input');
 const sendBtn = document.getElementById('send-btn');
+const uploadBtn = document.getElementById('upload-btn');
+const fileInput = document.getElementById('file-input');
 const statusDot = document.querySelector('.status-dot');
 const debugToggle = document.getElementById('debug-toggle');
 const debugSidebar = document.getElementById('debug-sidebar');
@@ -33,12 +35,19 @@ debugToggle.addEventListener('click', () => {
     debugSidebar.classList.toggle('hidden');
 });
 
-function appendMessage(text, isUser = false, responseData = null) {
+function appendMessage(text, isUser = false, responseData = null, isFile = false) {
     const msgDiv = document.createElement('div');
     msgDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
 
     if (isUser) {
-        msgDiv.textContent = text;
+        if (isFile) {
+            msgDiv.innerHTML = `<div style="display: flex; align-items: center; gap: 8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                <span>${text}</span>
+            </div>`;
+        } else {
+            msgDiv.textContent = text;
+        }
     } else {
         if (responseData) {
             const classification = responseData.classification;
@@ -87,13 +96,19 @@ function showTypingIndicator() {
     return indicator;
 }
 
-function addDebugLog(text, responseData) {
+function addDebugLog(text, responseData, isFile = false) {
     const logItem = document.createElement('div');
     logItem.className = 'debug-log-item';
 
-    const curl = `curl -X POST "${API_BASE}/classify" \\
+    let curl = "";
+    if (isFile) {
+        curl = `curl -X POST "${API_BASE}/classify-file" \\
+     -F "file=@${text}"`;
+    } else {
+        curl = `curl -X POST "${API_BASE}/classify" \\
      -H "Content-Type: application/json" \\
      -d '{"text": "${text.replace(/'/g, "'\\''")}"}'`;
+    }
 
     logItem.innerHTML = `
         <div class="debug-section">
@@ -139,6 +154,39 @@ async function handleSendMessage() {
     }
 }
 
+async function handleFileUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    appendMessage(file.name, true, null, true);
+    const indicator = showTypingIndicator();
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+        const response = await fetch(`${API_BASE}/classify-file`, {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) throw new Error('File upload/processing failed');
+
+        const data = await response.json();
+        indicator.remove();
+        appendMessage('', false, data);
+        addDebugLog(file.name, data, true);
+    } catch (err) {
+        indicator.remove();
+        appendMessage(`Error: ${err.message}.`, false);
+    }
+
+    // Reset file input
+    fileInput.value = '';
+}
+
+uploadBtn.addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', handleFileUpload);
 sendBtn.addEventListener('click', handleSendMessage);
 messageInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') handleSendMessage();
