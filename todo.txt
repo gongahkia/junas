@@ -1,11 +1,3 @@
-(A) Implement real-time stats display in top bar: actual capture FPS, processing latency (ms per frame), OCR latency, transformation latency, output write latency, dropped frame count +tui
-(A) Implement keybinding `Space` to toggle pipeline on/off (pause capture + output), `t` to cycle transformation mode (cartoon→ascii→pixelate→blur), `+/-` to adjust transformation intensity +tui
-(A) Implement window selector view: keybinding `w` opens overlay listing available windows from window picker module, j/k to navigate, Enter to select, applies immediately +tui
-(A) Implement pattern manager view: keybinding `p` opens overlay listing all active sensitivity patterns with name, regex preview, severity, enabled toggle — Space to enable/disable pattern, changes take effect immediately +tui
-(A) Implement config file at `~/.config/ascii-privacy/config.toml`: sections `[capture]` (source, window_title_match, fps, region), `[detection]` (ocr_engine, min_confidence, grid_cells), `[transform]` (mode, intensity), `[output]` (sink, http_port, v4l2_device) +cli
-(A) Implement CLI entrypoint using `clap`: subcommands `run` (launch TUI + pipeline), `list-windows` (print available windows), `test-patterns <text>` (run patterns against input), `check-output` (verify virtual camera availability) +cli
-(A) Wire full pipeline: capture thread → detection thread → transformation thread → output thread, connected via bounded crossbeam channels (capacity 3 frames), backpressure drops oldest frame +infra
-(A) Implement graceful shutdown: Ctrl+C or `q` in TUI triggers ordered shutdown — stop capture → drain pipeline → flush last frame to output → close virtual camera device → exit +cli
 (B) Implement ML-based neural style transfer transformation using `ort` crate (ONNX Runtime): load AnimeGAN v2 ONNX model (~8MB), run inference on sensitive regions, stylize into anime/cartoon aesthetic +transform
 (B) Implement ONNX model download on first use: check `~/.cache/ascii-privacy/models/animegan_v2.onnx`, download from GitHub releases if missing, verify SHA-256 checksum +transform
 (B) Add GPU acceleration for neural style transfer: configure ONNX Runtime execution provider — CUDA on Linux, CoreML on macOS, fallback to CPU — selectable via `[transform].accelerator` config +transform

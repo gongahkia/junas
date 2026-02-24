@@ -8,7 +8,8 @@ use privacy_common::{
 };
 
 use super::{
-    ascii::apply_ascii, blur::apply_blur, cartoon::apply_cartoon, pixelate::apply_pixelate,
+    ascii::apply_ascii, blur::apply_blur, cartoon::apply_cartoon,
+    neural::apply_neural, pixelate::apply_pixelate,
 };
 
 /// Apply the selected `TransformMode` to the frame at the detected regions.
@@ -36,6 +37,12 @@ pub fn apply_transform(
             TransformMode::Pixelate => apply_pixelate(&mut region_pixels, r.width, r.height, intensity),
             TransformMode::Cartoon => apply_cartoon(&mut region_pixels, r.width, r.height, intensity),
             TransformMode::Ascii => apply_ascii(&mut region_pixels, r.width, r.height, intensity),
+            TransformMode::Neural => {
+                // fallback to cartoon if model absent / inference fails
+                if apply_neural(&mut region_pixels, r.width, r.height, intensity).is_err() {
+                    apply_cartoon(&mut region_pixels, r.width, r.height, intensity);
+                }
+            }
         }
 
         // write transformed region back into full-frame pixels

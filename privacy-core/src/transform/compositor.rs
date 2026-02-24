@@ -9,7 +9,10 @@ use privacy_common::{
     transform::TransformMode,
 };
 
-use super::{ascii::apply_ascii, blur::apply_blur, cartoon::apply_cartoon, pixelate::apply_pixelate};
+use super::{
+    ascii::apply_ascii, blur::apply_blur, cartoon::apply_cartoon,
+    neural::apply_neural, pixelate::apply_pixelate,
+};
 
 /// Apply the selected transform to the regions indicated by `matches`,
 /// leaving all other pixels in `frame` unchanged.
@@ -34,6 +37,11 @@ pub fn apply_regions(
             TransformMode::Pixelate => apply_pixelate(&mut region, r.width, r.height, intensity),
             TransformMode::Cartoon => apply_cartoon(&mut region, r.width, r.height, intensity),
             TransformMode::Ascii => apply_ascii(&mut region, r.width, r.height, intensity),
+            TransformMode::Neural => {
+                if apply_neural(&mut region, r.width, r.height, intensity).is_err() {
+                    apply_cartoon(&mut region, r.width, r.height, intensity);
+                }
+            }
         }
         paste_region(&mut pixels, w, r.x, r.y, r.width, r.height, &region);
     }

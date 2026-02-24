@@ -10,5 +10,6 @@ pub mod blur;
 pub mod cartoon;
 pub mod compositor;
 pub mod intensity;
+pub mod neural;
 pub mod pixelate;
 pub mod registry;
