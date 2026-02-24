@@ -38,7 +38,7 @@
 - only invoked when model-1 outputs risk (label=1)
 
 ## Clustering (Isolation Forest — `clustering/isolation_forest.py`)
-- fits on public/baseline document embeddings produced by `embeddings/generate_embeddings.py`
+- fits on all-sentence embeddings (public + violation combined, `all_embeddings.npy`) produced by `embeddings/generate_embeddings.py` — trains on the full distribution of known data so the IF flags only true unknown unknowns of MNPI
 - no explicit PCA: `max_features=0.3` (random subsampling of ~230/768 dims per tree) handles the curse of dimensionality without the p >> n instability of PCA on small datasets
 - `contamination=0.05`: upper bound on expected anomaly fraction in training data — lower = stricter
 - `n_estimators=100`: sufficient for datasets in the hundreds; raise as data grows

@@ -88,8 +88,11 @@ def train(embeddings_path: str, save_path: str = CHECKPOINT_PATH) -> MNPIAnomaly
     """
     Train and save the anomaly detector from a .npy embeddings file.
 
+    Train on all_embeddings.npy (public + violation) so the IF learns the full
+    distribution of known data and flags only true unknown unknowns as anomalies.
+
     Usage:
-        python3 clustering/isolation_forest.py public_embeddings.npy
+        python3 clustering/isolation_forest.py all_embeddings.npy
     """
     from tqdm import tqdm
     
@@ -112,6 +115,6 @@ def train(embeddings_path: str, save_path: str = CHECKPOINT_PATH) -> MNPIAnomaly
 
 if __name__ == "__main__":
     import sys
-    emb_path = sys.argv[1] if len(sys.argv) > 1 else "public_embeddings.npy"
+    emb_path = sys.argv[1] if len(sys.argv) > 1 else "all_embeddings.npy"
     out_path = sys.argv[2] if len(sys.argv) > 2 else CHECKPOINT_PATH
     train(emb_path, out_path)
