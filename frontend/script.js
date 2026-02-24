@@ -44,12 +44,12 @@ function appendMessage(text, isUser = false, responseData = null) {
             html += `<div class="details">`;
 
             if (responseData.lexicon && responseData.lexicon.flagged) {
-                html += `<div class="detail-item"><span>Lexicon Check:</span> <span>⚠️ Flagged</span></div>`;
+                html += `<div class="detail-item"><span>Lexicon Check:</span> <span>Flagged</span></div>`;
                 responseData.lexicon.hits.forEach(hit => {
-                    html += `<div class="detail-item" style="font-size: 0.7rem; color: #ef4444;"><span>&bull; ${hit.rule}:</span> <span>"${hit.matched_text}"</span></div>`;
+                    html += `<div class="detail-item" style="font-size: 0.7rem; color: var(--high-red);"><span>&bull; ${hit.rule}:</span> <span>"${hit.matched_text}"</span></div>`;
                 });
             } else {
-                html += `<div class="detail-item"><span>Lexicon Check:</span> <span>✅ Plain Text</span></div>`;
+                html += `<div class="detail-item"><span>Lexicon Check:</span> <span>Clean</span></div>`;
             }
 
             if (responseData.model1) {
