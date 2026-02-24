@@ -2,8 +2,11 @@ const chatHistory = document.getElementById('chat-history');
 const messageInput = document.getElementById('message-input');
 const sendBtn = document.getElementById('send-btn');
 const statusDot = document.querySelector('.status-dot');
+const debugToggle = document.getElementById('debug-toggle');
+const debugSidebar = document.getElementById('debug-sidebar');
+const debugContent = document.getElementById('debug-content');
 
-const API_BASE = 'http://localhost:8000'; // Adjust if backend is on a different port
+const API_BASE = 'http://localhost:8000';
 
 async function checkHealth() {
     try {
@@ -22,9 +25,13 @@ async function checkHealth() {
     }
 }
 
-// Check health every 10 seconds
 setInterval(checkHealth, 10000);
 checkHealth();
+
+// Sidebar Toggle
+debugToggle.addEventListener('click', () => {
+    debugSidebar.classList.toggle('hidden');
+});
 
 function appendMessage(text, isUser = false, responseData = null) {
     const msgDiv = document.createElement('div');
@@ -40,7 +47,6 @@ function appendMessage(text, isUser = false, responseData = null) {
             let html = `<div class="classification-badge ${badgeClass}">${classification}</div>`;
             html += `<div>Analysis complete. The input is flagged as <strong>${classification}</strong>.</div>`;
 
-            // Details breakdown
             html += `<div class="details">`;
 
             if (responseData.lexicon && responseData.lexicon.flagged) {
@@ -81,6 +87,30 @@ function showTypingIndicator() {
     return indicator;
 }
 
+function addDebugLog(text, responseData) {
+    const logItem = document.createElement('div');
+    logItem.className = 'debug-log-item';
+
+    const curl = `curl -X POST "${API_BASE}/classify" \\
+     -H "Content-Type: application/json" \\
+     -d '{"text": "${text.replace(/'/g, "'\\''")}"}'`;
+
+    logItem.innerHTML = `
+        <div class="debug-section">
+            <h3>cURL Request</h3>
+            <pre>${curl}</pre>
+        </div>
+        <div class="debug-section">
+            <h3>JSON Response</h3>
+            <pre>${JSON.stringify(responseData, null, 2)}</pre>
+        </div>
+        <hr style="border: 0; border-top: 1px solid var(--glass-border); margin: 20px 0;">
+    `;
+
+    debugContent.appendChild(logItem);
+    debugContent.scrollTop = debugContent.scrollHeight;
+}
+
 async function handleSendMessage() {
     const text = messageInput.value.trim();
     if (!text) return;
@@ -102,6 +132,7 @@ async function handleSendMessage() {
         const data = await response.json();
         indicator.remove();
         appendMessage('', false, data);
+        addDebugLog(text, data);
     } catch (err) {
         indicator.remove();
         appendMessage(`Error: ${err.message}. Make sure the backend API is running at ${API_BASE}.`, false);

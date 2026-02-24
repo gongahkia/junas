@@ -27,8 +27,18 @@ body {
     overflow: hidden;
 }
 
+#main-layout {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    padding: 20px;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
 #app-container {
-    width: 90%;
+    flex: 1;
     max-width: 600px;
     height: 85vh;
     background: var(--bg-color);
@@ -38,6 +48,7 @@ body {
     flex-direction: column;
     position: relative;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
 }
 
 header {
@@ -53,6 +64,23 @@ header h1 {
     font-weight: 800;
     letter-spacing: 0.15em;
     text-transform: uppercase;
+    color: var(--text-primary);
+}
+
+#debug-toggle {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+#debug-toggle:hover {
+    background: rgba(0, 0, 0, 0.05);
     color: var(--text-primary);
 }
 
@@ -195,6 +223,78 @@ header h1 {
 #send-btn:hover {
     transform: translateY(-2px);
     filter: brightness(1.1);
+}
+
+/* Sidebar Styles */
+#debug-sidebar {
+    width: 400px;
+    height: 85vh;
+    background: #ffffff;
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+#debug-sidebar.hidden {
+    display: none;
+}
+
+#debug-sidebar header {
+    background: #fafafa;
+}
+
+#debug-sidebar header h2 {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+#debug-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.debug-section h3 {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+#curl-display,
+#response-display,
+.debug-section pre {
+    background: #f8f8f8;
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 12px;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.65rem;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.debug-log-item {
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.debug-log-item:last-child {
+    border-bottom: none;
 }
 
 .typing-indicator {
