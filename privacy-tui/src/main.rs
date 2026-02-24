@@ -1,4 +1,5 @@
 mod app;
+mod control_server;
 mod event;
 mod shutdown;
 mod tui;
@@ -91,6 +92,11 @@ fn export_session_log(app: &app::App) {
 fn cmd_run() -> Result<()> {
     let mut terminal = tui::init()?;
     let mut app = app::App::new();
+    // spawn WebSocket control server sharing state with the app
+    control_server::spawn(
+        std::sync::Arc::clone(&app.control_state),
+        control_server::DEFAULT_CONTROL_PORT,
+    );
     let result = run(&mut terminal, &mut app);
     tui::restore()?;
     // ordered shutdown: pipeline handle + output sink are None until pipeline wired at runtime

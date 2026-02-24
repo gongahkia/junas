@@ -1,5 +1,6 @@
 //! Application state shared across all TUI components.
 
+use crate::control_server::ControlState;
 use privacy_common::{frame::Rect, transform::TransformMode};
 use privacy_core::detection::{
     default_patterns::default_registry,
@@ -8,6 +9,7 @@ use privacy_core::detection::{
 };
 use std::{
     collections::{HashMap, VecDeque},
+    sync::Arc,
     time::{Duration, Instant},
 };
 
@@ -144,6 +146,8 @@ pub struct App {
     pub active_profile: Option<String>,
     /// Available profile names (loaded from config)
     pub profile_names: Vec<String>,
+    /// Shared state with the WebSocket control server.
+    pub control_state: Arc<ControlState>,
 }
 
 #[derive(Debug, Clone)]
@@ -186,6 +190,7 @@ impl App {
             recording_started_at: None,
             active_profile: None,
             profile_names: Vec::new(),
+            control_state: ControlState::new(TransformMode::default(), 1.0),
         }
     }
 
@@ -200,12 +205,32 @@ impl App {
         self.prev_tx_preview_pixels = self.tx_preview_pixels.clone(); // snapshot for crossfade
         self.transition_frames_left = 10;
         self.transform_mode = self.transform_mode.next();
+        *self.control_state.transform_mode.lock().unwrap() = self.transform_mode; // sync
     }
 
     /// Advance crossfade counter by one tick; call once per Event::Tick.
+    /// Also drains any pending commands from the WebSocket control server.
     pub fn tick_transition(&mut self) {
         if self.transition_frames_left > 0 {
             self.transition_frames_left -= 1;
+        }
+        // apply pending pause/resume from control server
+        if let Ok(mut g) = self.control_state.pending_pause.try_lock() {
+            if let Some(paused) = g.take() {
+                self.pipeline_state = if paused {
+                    PipelineState::Paused
+                } else {
+                    PipelineState::Running
+                };
+            }
+        }
+        // apply pending mode switch from control server (with crossfade)
+        if let Ok(mut g) = self.control_state.pending_mode.try_lock() {
+            if let Some(mode) = g.take() {
+                self.prev_tx_preview_pixels = self.tx_preview_pixels.clone();
+                self.transition_frames_left = 10;
+                self.transform_mode = mode;
+            }
         }
     }
 
@@ -229,6 +254,7 @@ impl App {
 
     pub fn adjust_intensity(&mut self, delta: f32) {
         self.transform_intensity = (self.transform_intensity + delta).clamp(0.0, 1.0);
+        *self.control_state.intensity.lock().unwrap() = self.transform_intensity; // sync
     }
 
     pub fn push_log(&mut self, entry: LogEntry) {
