@@ -17,5 +17,6 @@ pub mod linux;
 pub use linux::x11::X11CaptureSource;
 
 pub mod fps;
+pub mod pty;
 pub mod region;
 pub mod window_picker;
