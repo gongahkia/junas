@@ -96,8 +96,48 @@ class LexiconFilter:
     def _check_ner(self, text: str) -> list:
         hits = []
         doc = self.nlp(text)
+        
+        # Critical corporate event keywords
+        critical_events = {
+            "merger", "merge", "acquisition", "acquire", "buyout", "takeover",
+            "bankruptcy", "bankrupt", "insolvent", "liquidate",
+            "dividend", "earnings", "guidance", "scandal", "fraud",
+            "resign", "resignation", "terminate", "layoff"
+        }
+        
+        # Analyze entity interactions within sentence bounds
+        for sent in doc.sents:
+            sent_text_lower = sent.text.lower()
+            found_events = [word for word in critical_events if word in sent_text_lower]
+            
+            orgs = [ent for ent in sent.ents if ent.label_ == "ORG"]
+            people = [ent for ent in sent.ents if ent.label_ == "PERSON"]
+            money = [ent for ent in sent.ents if ent.label_ == "MONEY"]
+            
+            # High risk: Critical event + Organization or Key Person
+            if found_events and (orgs or people):
+                entities_str = ", ".join([e.text for e in orgs + people])
+                hits.append(LexiconHit(
+                    rule="ner_event_entity_correlation",
+                    matched_text=sent.text.strip(),
+                    severity="high",
+                    detail=f"events={found_events} entities=[{entities_str}]"
+                ))
+                
+            # Info: Organization + Money mentioned together
+            if orgs and money:
+                org_str = ", ".join([e.text for e in orgs])
+                money_str = ", ".join([e.text for e in money])
+                hits.append(LexiconHit(
+                    rule="ner_org_money_correlation",
+                    matched_text=sent.text.strip(),
+                    severity="info",
+                    detail=f"orgs=[{org_str}] money=[{money_str}]"
+                ))
+
+        # Basic entity logging
         for ent in doc.ents:
-            if ent.label_ in ("MONEY", "ORG", "PERSON"):
+            if ent.label_ in ("MONEY", "ORG", "PERSON", "GPE", "LAW"):
                 hits.append(LexiconHit(rule=f"ner_{ent.label_.lower()}", matched_text=ent.text, severity="info", detail=f"spaCy label={ent.label_}"))
         return hits
     def _check_presidio(self, text: str) -> list:
@@ -117,5 +157,7 @@ class LexiconFilter:
         result.hits.extend(self._check_presidio(text)) # Presidio PII/financial
         high_hits = [h for h in result.hits if h.severity == "high"]
         result.flagged = len(high_hits) > 0
-        result.high_risk_short_circuit = len(restricted_ents) > 0 or any(h.rule == "money_threshold" for h in high_hits) # short-circuit if restricted entity or large financial figure
+        
+        short_circuit_rules = {"money_threshold", "ner_event_entity_correlation"}
+        result.high_risk_short_circuit = len(restricted_ents) > 0 or any(h.rule in short_circuit_rules for h in high_hits)
         return result
