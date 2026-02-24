@@ -1,10 +1,14 @@
 //! ML-based neural style transfer via ONNX Runtime (ort crate).
 //! Uses AnimeGAN v2 to stylize sensitive regions into anime/cartoon aesthetic.
+//! Session is cached process-wide (OnceLock) — loaded once on first call.
 
 use anyhow::{Context, Result};
 use ndarray::Array4;
 use ort::{inputs, session::Session, value::TensorRef};
-use std::path::PathBuf;
+use std::{
+    path::PathBuf,
+    sync::{Mutex, OnceLock},
+};
 
 /// Returns the expected model cache path.
 pub fn model_path() -> PathBuf {
@@ -22,12 +26,15 @@ pub struct NeuralStyleTransfer {
     input_name: String,
 }
 
+// Safety: ort::Session is Send + Sync in v2; we only access via Mutex.
+unsafe impl Send for NeuralStyleTransfer {}
+
 impl NeuralStyleTransfer {
-    /// Load the ONNX model. Returns error if model file is absent.
+    /// Load the ONNX model from model_path(). Returns error if absent.
     pub fn load() -> Result<Self> {
         let path = model_path();
         if !path.exists() {
-            anyhow::bail!("AnimeGAN v2 model not found at {}; run download first", path.display());
+            anyhow::bail!("AnimeGAN v2 model not found at {}; download first", path.display());
         }
         let session = Session::builder()
             .context("building ONNX session")?
@@ -39,12 +46,11 @@ impl NeuralStyleTransfer {
         Ok(Self { session, input_name })
     }
 
-    /// Run inference on an RGBA pixel region.
-    /// Returns stylized RGBA pixels of the same dimensions.
+    /// Run inference on an RGBA pixel region; returns stylized RGBA pixels.
     pub fn run(&mut self, pixels: &[u8], width: u32, height: u32) -> Result<Vec<u8>> {
         let h = height as usize;
         let w = width as usize;
-        // normalize to [-1, 1] RGB float (drop alpha), layout NCHW
+        // normalize to [-1, 1] RGB float (drop alpha), NCHW layout
         let mut arr = Array4::<f32>::zeros((1, 3, h, w));
         for y in 0..h {
             for x in 0..w {
@@ -57,8 +63,7 @@ impl NeuralStyleTransfer {
         let tensor = TensorRef::from_array_view(arr.view())
             .context("creating input tensor")?;
         let inp = inputs![self.input_name.as_str() => tensor];
-        let outputs = self.session.run(inp)
-            .context("ONNX inference failed")?;
+        let outputs = self.session.run(inp).context("ONNX inference failed")?;
         let out_arr = outputs[0]
             .try_extract_array::<f32>()
             .context("extracting output tensor")?;
@@ -77,11 +82,20 @@ impl NeuralStyleTransfer {
     }
 }
 
+// process-level cached session — loaded once on first apply_neural call
+static SESSION: OnceLock<Mutex<Option<NeuralStyleTransfer>>> = OnceLock::new();
+
+fn session_store() -> &'static Mutex<Option<NeuralStyleTransfer>> {
+    SESSION.get_or_init(|| Mutex::new(NeuralStyleTransfer::load().ok()))
+}
+
 /// Apply neural style transfer to an RGBA pixel buffer in-place.
-/// `intensity` blends between original (0.0) and stylized (1.0).
+/// `intensity` blends between original (0.0) and fully stylized (1.0).
+/// Returns Err if model is unavailable (caller should fallback to cartoon).
 pub fn apply_neural(pixels: &mut Vec<u8>, width: u32, height: u32, intensity: f32) -> Result<()> {
-    let mut session = NeuralStyleTransfer::load()?;
-    let stylized = session.run(pixels, width, height)?;
+    let mut guard = session_store().lock().unwrap();
+    let sess = guard.as_mut().ok_or_else(|| anyhow::anyhow!("model not available"))?;
+    let stylized = sess.run(pixels, width, height)?;
     let alpha = intensity.clamp(0.0, 1.0);
     let beta = 1.0 - alpha;
     for (orig, styled) in pixels.iter_mut().zip(stylized.iter()) {
