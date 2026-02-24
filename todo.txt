@@ -1,4 +1,4 @@
-(B) Implement ML-based neural style transfer transformation using `ort` crate (ONNX Runtime): load AnimeGAN v2 ONNX model (~8MB), run inference on sensitive regions, stylize into anime/cartoon aesthetic +transform
+(B) Implement ML-based neural style transfer transformation using `ort` crate (ONNX Runtime): load AnimeGAN v2 ONNX model (~8MB), run inference on sensitive regions, stylize into anime/cartoon aesthetic +transform 
 (B) Implement ONNX model download on first use: check `~/.cache/ascii-privacy/models/animegan_v2.onnx`, download from GitHub releases if missing, verify SHA-256 checksum +transform
 (B) Add GPU acceleration for neural style transfer: configure ONNX Runtime execution provider — CUDA on Linux, CoreML on macOS, fallback to CPU — selectable via `[transform].accelerator` config +transform
 (B) Implement neural style transfer latency guard: if inference takes >30ms per region (risking frame drops), auto-fallback to algorithmic cartoon for remainder of that frame, log warning +transform
