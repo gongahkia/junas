@@ -3,6 +3,7 @@
 pub mod braille;
 pub mod detection_log;
 pub mod heatmap;
+pub mod latency_graph;
 pub mod pattern_manager;
 pub mod stats_bar;
 pub mod stats_overlay;
@@ -23,6 +24,7 @@ pub fn render(frame: &mut Frame, app: &mut App) {
         .constraints([
             Constraint::Length(1),
             Constraint::Min(0),
+            Constraint::Length(4),  // latency sparkline
             Constraint::Length(6),
         ])
         .split(area);
@@ -33,6 +35,7 @@ pub fn render(frame: &mut Frame, app: &mut App) {
         .direction(Direction::Horizontal)
         .constraints([Constraint::Percentage(50), Constraint::Percentage(50)])
         .split(rows[1]);
+
 
     if app.heatmap.enabled {
         heatmap::render(frame, app, cols[0]);
@@ -63,9 +66,10 @@ pub fn render(frame: &mut Frame, app: &mut App) {
         cols[1],
     );
 
-    detection_log::render(frame, app, rows[2]);
+    latency_graph::render(frame, app, rows[2]);
+    detection_log::render(frame, app, rows[3]);
 
     window_selector::render(frame, &mut app.window_selector);
     pattern_manager::render(frame, &mut app.pattern_manager, &app.pattern_registry);
-    stats_overlay::render(frame, app, rows[2]);
+    stats_overlay::render(frame, app, rows[3]);
 }
