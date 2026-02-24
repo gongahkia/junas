@@ -6,6 +6,7 @@ use privacy_common::{
     frame::{RawFrame, TransformedFrame},
     transform::TransformMode,
 };
+use rayon::prelude::*;
 use std::time::Instant;
 
 use super::{
@@ -24,18 +25,22 @@ pub fn apply_transform(
     mode: TransformMode,
     intensity: f32,
 ) -> Result<TransformedFrame> {
-    let mut pixels = frame.pixels.clone();
+    let pixels_snapshot = frame.pixels.clone();
+    let mut pixels = pixels_snapshot.clone();
     let w = frame.width;
     let h = frame.height;
 
-    for m in &regions.matches {
-        let r = &m.bounds;
-        if r.x + r.width > w || r.y + r.height > h || r.width == 0 || r.height == 0 {
-            continue;
-        }
-        // extract region sub-slice (row-contiguous copy)
-        let mut region_pixels = extract_region(&pixels, w, r.x, r.y, r.width, r.height);
+    // process all valid regions in parallel, collect (bounds, transformed_pixels)
+    let valid: Vec<_> = regions.matches.iter()
+        .filter(|m| {
+            let r = &m.bounds;
+            r.x + r.width <= w && r.y + r.height <= h && r.width > 0 && r.height > 0
+        })
+        .collect();
 
+    let transformed: Vec<_> = valid.par_iter().map(|m| {
+        let r = &m.bounds;
+        let mut region_pixels = extract_region(&pixels_snapshot, w, r.x, r.y, r.width, r.height);
         match mode {
             TransformMode::Blur => apply_blur(&mut region_pixels, r.width, r.height, 15.0, intensity),
             TransformMode::Pixelate => apply_pixelate(&mut region_pixels, r.width, r.height, intensity),
@@ -47,18 +52,19 @@ pub fn apply_transform(
                 let elapsed = t0.elapsed().as_millis();
                 if !ok || elapsed > NEURAL_LATENCY_GUARD_MS {
                     if elapsed > NEURAL_LATENCY_GUARD_MS {
-                        log::warn!("neural inference took {}ms (>{}ms budget), falling back to cartoon", elapsed, NEURAL_LATENCY_GUARD_MS);
+                        log::warn!("neural inference {}ms > {}ms budget, cartoon fallback", elapsed, NEURAL_LATENCY_GUARD_MS);
                     }
-                    // re-extract (region_pixels may be partially mutated); apply cartoon
-                    let mut region_pixels = extract_region(&pixels, w, r.x, r.y, r.width, r.height);
-                    apply_cartoon(&mut region_pixels, r.width, r.height, intensity);
-                    paste_region(&mut pixels, w, r.x, r.y, r.width, r.height, &region_pixels);
-                    continue;
+                    let mut fallback = extract_region(&pixels_snapshot, w, r.x, r.y, r.width, r.height);
+                    apply_cartoon(&mut fallback, r.width, r.height, intensity);
+                    return (r, fallback);
                 }
             }
         }
+        (r, region_pixels)
+    }).collect();
 
-        // write transformed region back into full-frame pixels
+    // sequential merge back into full-frame buffer (write ordering doesn't matter for non-overlapping regions)
+    for (r, region_pixels) in transformed {
         paste_region(&mut pixels, w, r.x, r.y, r.width, r.height, &region_pixels);
     }
 
