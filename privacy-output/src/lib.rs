@@ -16,6 +16,7 @@ pub mod autodetect;
 pub mod mjpeg;
 pub mod obs_websocket;
 pub mod recorder;
+pub mod tray;
 
 /// Which output sink to use.
 #[derive(Debug, Clone)]
