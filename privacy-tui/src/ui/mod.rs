@@ -56,9 +56,10 @@ pub fn render(frame: &mut Frame, app: &mut App) {
         );
     }
 
+    let blended = app.blended_tx_pixels();
     braille::render_preview(
         frame,
-        app.tx_preview_pixels.as_deref(),
+        blended.as_deref(),
         app.preview_width,
         app.preview_height,
         "Transformed",

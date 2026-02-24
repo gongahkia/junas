@@ -296,6 +296,6 @@ fn handle_event(app: &mut app::App, ev: Event) {
                 _ => {}
             }
         }
-        Event::Tick => {}
+        Event::Tick => app.tick_transition(),
     }
 }

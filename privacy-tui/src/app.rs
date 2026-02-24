@@ -121,6 +121,10 @@ pub struct App {
     pub raw_preview_pixels: Option<Vec<u8>>,
     /// Transformed output preview pixels (RGBA, half-res).
     pub tx_preview_pixels: Option<Vec<u8>>,
+    /// Snapshot of tx pixels before last mode switch (for crossfade).
+    pub prev_tx_preview_pixels: Option<Vec<u8>>,
+    /// Frames remaining in mode-switch crossfade (0 = inactive, counts down 10→0).
+    pub transition_frames_left: u8,
     pub preview_width: u32,
     pub preview_height: u32,
     /// Currently selected capture window id (None = full screen).
@@ -163,6 +167,8 @@ impl App {
             started_at: Instant::now(),
             raw_preview_pixels: None,
             tx_preview_pixels: None,
+            prev_tx_preview_pixels: None,
+            transition_frames_left: 0,
             preview_width: 0,
             preview_height: 0,
             selected_window_id: None,
@@ -191,7 +197,34 @@ impl App {
     }
 
     pub fn cycle_transform(&mut self) {
+        self.prev_tx_preview_pixels = self.tx_preview_pixels.clone(); // snapshot for crossfade
+        self.transition_frames_left = 10;
         self.transform_mode = self.transform_mode.next();
+    }
+
+    /// Advance crossfade counter by one tick; call once per Event::Tick.
+    pub fn tick_transition(&mut self) {
+        if self.transition_frames_left > 0 {
+            self.transition_frames_left -= 1;
+        }
+    }
+
+    /// Returns blended transformed pixels during transition, current pixels otherwise.
+    pub fn blended_tx_pixels(&self) -> Option<Vec<u8>> {
+        if self.transition_frames_left == 0 {
+            return self.tx_preview_pixels.clone();
+        }
+        let old_w = self.transition_frames_left as f32 / 10.0; // old weight
+        let new_w = 1.0 - old_w;
+        match (&self.prev_tx_preview_pixels, &self.tx_preview_pixels) {
+            (Some(prev), Some(curr)) if prev.len() == curr.len() => {
+                let blended = prev.iter().zip(curr.iter())
+                    .map(|(&p, &c)| (p as f32 * old_w + c as f32 * new_w) as u8)
+                    .collect();
+                Some(blended)
+            }
+            _ => self.tx_preview_pixels.clone(),
+        }
     }
 
     pub fn adjust_intensity(&mut self, delta: f32) {

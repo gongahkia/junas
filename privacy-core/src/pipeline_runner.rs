@@ -14,7 +14,7 @@ use crate::{
         expand::expand_and_merge,
     },
     pipeline::{PipelineChannels, CHANNEL_CAPACITY},
-    transform::registry::apply_transform,
+    transform::registry::{apply_transform, apply_transform_full},
 };
 use crossbeam_channel::{RecvTimeoutError, Sender};
 use privacy_common::{
@@ -39,6 +39,7 @@ const MIN_GRID: u32 = 2;
 /// Shared mutable state accessible across threads.
 pub struct SharedState {
     pub running: AtomicBool,
+    pub paused: AtomicBool,
     pub transform_mode: Mutex<TransformMode>,
     pub transform_intensity: Mutex<f32>,
     pub registry: Mutex<PatternRegistry>,
@@ -47,19 +48,34 @@ pub struct SharedState {
     pub target_grid_rows: AtomicU32,
     /// adaptive quality scale multiplier applied to transform intensity [0.5..1.0]
     pub quality_scale: Mutex<f32>,
+    /// crossfade: previous mode during transition (None = no transition active)
+    pub transition_from: Mutex<Option<TransformMode>>,
+    /// crossfade: frames remaining in transition (0 = no transition)
+    pub transition_frames: AtomicU32,
 }
 
 impl SharedState {
     pub fn new(registry: PatternRegistry) -> Arc<Self> {
         Arc::new(Self {
             running: AtomicBool::new(true),
+            paused: AtomicBool::new(false),
             transform_mode: Mutex::new(TransformMode::default()),
             transform_intensity: Mutex::new(1.0),
             registry: Mutex::new(registry),
             target_grid_cols: AtomicU32::new(GRID_COLS),
             target_grid_rows: AtomicU32::new(GRID_ROWS),
             quality_scale: Mutex::new(1.0),
+            transition_from: Mutex::new(None),
+            transition_frames: AtomicU32::new(0),
         })
+    }
+
+    /// Switch transform mode with a 10-frame crossfade transition.
+    pub fn begin_mode_transition(&self, new_mode: TransformMode) {
+        let old = *self.transform_mode.lock().unwrap();
+        *self.transition_from.lock().unwrap() = Some(old);
+        self.transition_frames.store(10, Ordering::SeqCst);
+        *self.transform_mode.lock().unwrap() = new_mode;
     }
 }
 
@@ -184,19 +200,54 @@ pub fn spawn_pipeline(
         .name("aki-transform".into())
         .spawn(move || {
             while state_t.running.load(Ordering::Relaxed) {
+                if state_t.paused.load(Ordering::Relaxed) {
+                    thread::sleep(Duration::from_millis(50));
+                    continue;
+                }
                 match detection_rx.recv_timeout(Duration::from_millis(100)) {
                     Ok((frame, regions)) => {
                         let mode = *state_t.transform_mode.lock().unwrap();
                         let base_intensity = *state_t.transform_intensity.lock().unwrap();
                         let qscale = *state_t.quality_scale.lock().unwrap();
                         let intensity = (base_intensity * qscale).clamp(0.0, 1.0);
-                        let result = apply_transform(&frame, &regions, mode, intensity)
-                            .unwrap_or_else(|_| TransformedFrame {
-                                pixels: frame.pixels.clone(),
-                                width: frame.width,
-                                height: frame.height,
-                                timestamp: frame.timestamp,
-                            });
+                        // crossfade: if transition active, blend old and new transforms
+                        let t_frames = state_t.transition_frames.load(Ordering::Relaxed);
+                        let from_mode = *state_t.transition_from.lock().unwrap();
+                        let result = if t_frames > 0 {
+                            if let Some(old_mode) = from_mode {
+                                let old_alpha = t_frames as f32 / 10.0; // old weight (1.0→0.0)
+                                let new_alpha = 1.0 - old_alpha;
+                                let old_frame = apply_transform_full(
+                                    &frame, &regions, old_mode, intensity, &[], &[], 1.0,
+                                );
+                                let new_frame = apply_transform_full(
+                                    &frame, &regions, mode, intensity, &[], &[], 1.0,
+                                );
+                                state_t.transition_frames.fetch_sub(1, Ordering::Relaxed);
+                                match (old_frame, new_frame) {
+                                    (Ok(o), Ok(n)) => {
+                                        // pixel-blend old * old_alpha + new * new_alpha
+                                        let blended: Vec<u8> = o.pixels.iter().zip(n.pixels.iter())
+                                            .map(|(&op, &np)| (op as f32 * old_alpha + np as f32 * new_alpha) as u8)
+                                            .collect();
+                                        Ok(TransformedFrame { pixels: blended, width: o.width, height: o.height, timestamp: o.timestamp })
+                                    }
+                                    (_, Ok(n)) => Ok(n),
+                                    (Ok(o), _) => Ok(o),
+                                    _ => Err(anyhow::anyhow!("both transforms failed")),
+                                }
+                            } else {
+                                apply_transform(&frame, &regions, mode, intensity)
+                            }
+                        } else {
+                            apply_transform(&frame, &regions, mode, intensity)
+                        };
+                        let result = result.unwrap_or_else(|_| TransformedFrame {
+                            pixels: frame.pixels.clone(),
+                            width: frame.width,
+                            height: frame.height,
+                            timestamp: frame.timestamp,
+                        });
                         if !transformed_tx.is_full() {
                             let _ = transformed_tx.try_send(result);
                         }
