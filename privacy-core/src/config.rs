@@ -75,15 +75,24 @@ impl Default for DetectionConfig {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(default)]
 pub struct TransformConfig {
-    /// "cartoon" | "ascii" | "pixelate" | "blur"
+    /// "cartoon" | "ascii" | "pixelate" | "blur" | "neural"
     pub mode: String,
     /// 0.0 – 1.0
     pub intensity: f32,
+    /// ONNX Runtime execution provider: "auto" | "cuda" | "coreml" | "cpu"
+    pub accelerator: String,
+    /// Blending alpha for transformed regions (0.0 = transparent, 1.0 = opaque)
+    pub region_alpha: f32,
 }
 
 impl Default for TransformConfig {
     fn default() -> Self {
-        Self { mode: "blur".into(), intensity: 1.0 }
+        Self {
+            mode: "blur".into(),
+            intensity: 1.0,
+            accelerator: "auto".into(),
+            region_alpha: 1.0,
+        }
     }
 }
 

@@ -1,4 +1,3 @@
-(B) Add GPU acceleration for neural style transfer: configure ONNX Runtime execution provider — CUDA on Linux, CoreML on macOS, fallback to CPU — selectable via `[transform].accelerator` config +transform
 (B) Implement neural style transfer latency guard: if inference takes >30ms per region (risking frame drops), auto-fallback to algorithmic cartoon for remainder of that frame, log warning +transform
 (B) Add adaptive quality scaling: if pipeline latency exceeds frame budget (33ms at 30FPS), automatically reduce OCR grid resolution and transformation quality until pipeline meets target +infra
 (B) Implement multi-region parallel transformation: process multiple detected sensitive regions concurrently using rayon parallel iterator, merge results back into frame +transform

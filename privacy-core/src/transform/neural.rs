@@ -10,6 +10,48 @@ use std::{
     sync::{Mutex, OnceLock},
 };
 
+/// Build an ONNX session with the preferred execution provider.
+/// Falls back to CPU if the requested EP fails to initialise.
+fn build_session_with_ep(accel: &str, path: &std::path::Path) -> Result<Session> {
+    let effective = if accel == "auto" {
+        #[cfg(target_os = "macos")] { "coreml" }
+        #[cfg(not(target_os = "macos"))] { "cpu" }
+    } else {
+        accel
+    };
+    // ort v2 EP registration — falls back to CPU when EP libs absent
+    let builder = Session::builder().context("building ONNX session")?;
+    let session = match effective {
+        "coreml" => {
+            // CoreML EP: macOS / iOS hardware acceleration
+            builder
+                .with_execution_providers([
+                    ort::execution_providers::CoreMLExecutionProvider::default().build(),
+                ])
+                .unwrap_or_else(|e| {
+                    log::warn!("CoreML EP unavailable ({e}), using CPU");
+                    Session::builder().expect("session builder")
+                })
+                .commit_from_file(path)
+                .context("loading ONNX model (CoreML)")?
+        }
+        "cuda" => {
+            builder
+                .with_execution_providers([
+                    ort::execution_providers::CUDAExecutionProvider::default().build(),
+                ])
+                .unwrap_or_else(|e| {
+                    log::warn!("CUDA EP unavailable ({e}), using CPU");
+                    Session::builder().expect("session builder")
+                })
+                .commit_from_file(path)
+                .context("loading ONNX model (CUDA)")?
+        }
+        _ => builder.commit_from_file(path).context("loading ONNX model (CPU)")?,
+    };
+    Ok(session)
+}
+
 /// Returns the expected model cache path.
 pub fn model_path() -> PathBuf {
     let cache = std::env::var("XDG_CACHE_HOME")
@@ -40,10 +82,8 @@ impl NeuralStyleTransfer {
         if !path.exists() {
             anyhow::bail!("AnimeGAN v2 model not found at {}; download first", path.display());
         }
-        let session = Session::builder()
-            .context("building ONNX session")?
-            .commit_from_file(&path)
-            .context("loading ONNX model")?;
+        let accel = ACCELERATOR.get().map(|s| s.as_str()).unwrap_or("auto");
+        let session = build_session_with_ep(accel, &path)?;
         let input_name = session.inputs().first()
             .map(|i| i.name().to_string())
             .unwrap_or_else(|| "input".into());
@@ -84,6 +124,14 @@ impl NeuralStyleTransfer {
         }
         Ok(result)
     }
+}
+
+/// Accelerator preference: "auto" | "cuda" | "coreml" | "cpu".
+static ACCELERATOR: OnceLock<String> = OnceLock::new();
+
+/// Call once at startup (before any inference) to set the preferred EP.
+pub fn configure_accelerator(accel: impl Into<String>) {
+    let _ = ACCELERATOR.set(accel.into());
 }
 
 // process-level cached session — loaded once on first apply_neural call
