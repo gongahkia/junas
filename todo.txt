@@ -1,4 +1,3 @@
-(A) Implement ASCII-art transformation for sensitive regions: convert pixel block to average luminance, map to ASCII character density ramp (` .,:;i1tfLCG08@`), render ASCII characters back as pixels using embedded monospace font bitmap +transform
 (A) Implement pixelation transformation for sensitive regions: downscale region to 1/8 resolution using nearest-neighbor, upscale back to original size — fastest option, ~0.1ms per region +transform
 (A) Implement blur transformation for sensitive regions: apply Gaussian blur with configurable sigma (default 15.0) using separable horizontal+vertical passes for O(n) performance +transform
 (A) Create transformation registry: enum TransformMode {Cartoon, Ascii, Pixelate, Blur} with factory returning trait object implementing `fn apply(region: &mut ImageRegion)`, selected via config +transform
