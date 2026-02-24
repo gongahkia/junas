@@ -30,9 +30,13 @@ pub struct NeuralStyleTransfer {
 unsafe impl Send for NeuralStyleTransfer {}
 
 impl NeuralStyleTransfer {
-    /// Load the ONNX model from model_path(). Returns error if absent.
+    /// Load the ONNX model from model_path(). Auto-downloads if absent.
     pub fn load() -> Result<Self> {
         let path = model_path();
+        // attempt auto-download; non-fatal if network unavailable
+        if let Err(e) = super::model_download::ensure_model(&path) {
+            log::warn!("model auto-download failed: {e}");
+        }
         if !path.exists() {
             anyhow::bail!("AnimeGAN v2 model not found at {}; download first", path.display());
         }
