@@ -11,6 +11,7 @@ pub mod line_expand;
 pub mod pii_patterns;
 pub mod incremental;
 pub mod user_patterns;
+pub mod whitelist;
 pub mod ocr;
 pub mod patterns;
 pub mod scanner;
