@@ -1,4 +1,3 @@
-(A) Implement macOS screen capture using `screencapturekit-rs` crate (ScreenCaptureKit bindings): capture specific window by window ID or full screen region, deliver frames as raw RGBA byte buffers at configurable FPS +capture
 (A) Implement Linux X11 screen capture using `xcb` crate: connect to X display, capture target window pixmap via `xcb_get_image`, convert to RGBA frame buffer +capture
 (A) Implement Linux Wayland screen capture using PipeWire screencast portal via `ashpd` crate (XDG Desktop Portal): request screen share, receive PipeWire stream, decode frames to RGBA +capture
 (A) Implement window picker module: enumerate visible windows with titles using platform APIs (macOS: CGWindowListCopyWindowInfo, Linux: _NET_CLIENT_LIST), return list of (window_id, title, bounds) for user selection in TUI +capture
