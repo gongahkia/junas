@@ -1,4 +1,3 @@
-(A) Implement window picker module: enumerate visible windows with titles using platform APIs (macOS: CGWindowListCopyWindowInfo, Linux: _NET_CLIENT_LIST), return list of (window_id, title, bounds) for user selection in TUI +capture
 (A) Implement capture region selection: accept either window_id (capture specific window) or manual rect (x, y, width, height) from config, crop captured frames to selected region +capture
 (A) Implement frame rate controller: regulate capture to target FPS (default 30, configurable 15-60), drop frames if processing pipeline falls behind, track actual vs target FPS for stats +capture
 (A) Implement OCR-based text extraction from captured frames using `tesseract-rs` (Tesseract C API bindings): accept RGBA frame, run OCR with `--psm 6` (block of text), return list of TextRegion structs with text content, bounding box (x, y, w, h), and confidence +detect

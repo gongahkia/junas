@@ -16,4 +16,5 @@ pub mod linux;
 #[cfg(target_os = "linux")]
 pub use linux::x11::X11CaptureSource;
 
+pub mod region;
 pub mod window_picker;
