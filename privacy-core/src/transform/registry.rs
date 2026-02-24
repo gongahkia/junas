@@ -2,8 +2,8 @@
 
 use anyhow::Result;
 use privacy_common::{
-    detection::DetectedRegions,
-    frame::{RawFrame, TransformedFrame},
+    detection::{DetectedRegions, SensitiveMatch, Severity, PatternCategory},
+    frame::{RawFrame, Rect, TransformedFrame},
     transform::TransformMode,
 };
 use rayon::prelude::*;
@@ -17,7 +17,16 @@ use super::{
 /// >30ms per region triggers cartoon fallback for that frame
 const NEURAL_LATENCY_GUARD_MS: u128 = 30;
 
+/// Check if rect `r` overlaps any zone in the list.
+fn in_any_zone(r: &privacy_common::frame::Rect, zones: &[privacy_common::frame::Rect]) -> bool {
+    zones.iter().any(|z| {
+        r.x < z.x + z.width && r.x + r.width > z.x &&
+        r.y < z.y + z.height && r.y + r.height > z.y
+    })
+}
+
 /// Apply the selected `TransformMode` to the frame at the detected regions.
+/// Respects safe_zones (never redact) and always_redact_zones (always redact).
 /// `intensity` is in [0.0, 1.0]. Returns a `TransformedFrame`.
 pub fn apply_transform(
     frame: &RawFrame,
@@ -25,20 +34,48 @@ pub fn apply_transform(
     mode: TransformMode,
     intensity: f32,
 ) -> Result<TransformedFrame> {
+    apply_transform_with_zones(frame, regions, mode, intensity, &[], &[])
+}
+
+pub fn apply_transform_with_zones(
+    frame: &RawFrame,
+    regions: &DetectedRegions,
+    mode: TransformMode,
+    intensity: f32,
+    safe_zones: &[Rect],
+    always_redact_zones: &[Rect],
+) -> Result<TransformedFrame> {
     let pixels_snapshot = frame.pixels.clone();
     let mut pixels = pixels_snapshot.clone();
     let w = frame.width;
     let h = frame.height;
 
+    // synthetic matches for always-redact zones
+    let always_matches: Vec<SensitiveMatch> = always_redact_zones.iter()
+        .map(|z| SensitiveMatch {
+            bounds: z.clone(),
+            pattern_name: "always_redact_zone".into(),
+            severity: Severity::High,
+            snippet: "***".into(),
+        })
+        .collect();
+
+    // combine pattern matches (excluding safe zones) with always-redact synthetic matches
+    let combined: Vec<&SensitiveMatch> = regions.matches.iter()
+        .filter(|m| !in_any_zone(&m.bounds, safe_zones))
+        .chain(always_matches.iter())
+        .collect();
+
     // process all valid regions in parallel, collect (bounds, transformed_pixels)
-    let valid: Vec<_> = regions.matches.iter()
+    let valid: Vec<_> = combined.iter()
         .filter(|m| {
             let r = &m.bounds;
             r.x + r.width <= w && r.y + r.height <= h && r.width > 0 && r.height > 0
         })
         .collect();
 
-    let transformed: Vec<_> = valid.par_iter().map(|m| {
+    let transformed: Vec<_> = valid.par_iter().map(|&&m| {
+        let m = m;
         let r = &m.bounds;
         let mut region_pixels = extract_region(&pixels_snapshot, w, r.x, r.y, r.width, r.height);
         match mode {

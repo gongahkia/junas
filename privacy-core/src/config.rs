@@ -59,6 +59,10 @@ pub struct DetectionConfig {
     pub grid_cells_x: u32,
     /// Grid rows for incremental OCR.
     pub grid_cells_y: u32,
+    /// Screen regions (as "x,y,w,h") that are NEVER redacted even if patterns match.
+    pub safe_zones: Vec<String>,
+    /// Screen regions (as "x,y,w,h") that are ALWAYS transformed regardless of pattern matches.
+    pub always_redact_zones: Vec<String>,
 }
 
 impl Default for DetectionConfig {
@@ -68,8 +72,19 @@ impl Default for DetectionConfig {
             min_confidence: 40,
             grid_cells_x: 8,
             grid_cells_y: 6,
+            safe_zones: Vec::new(),
+            always_redact_zones: Vec::new(),
         }
     }
+}
+
+/// Parse a "x,y,w,h" rect string.
+pub fn parse_rect(s: &str) -> Option<privacy_common::frame::Rect> {
+    let parts: Vec<u32> = s.split(',')
+        .map(|p| p.trim().parse().ok())
+        .collect::<Option<Vec<_>>>()?;
+    if parts.len() != 4 { return None; }
+    Some(privacy_common::frame::Rect { x: parts[0], y: parts[1], width: parts[2], height: parts[3] })
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
