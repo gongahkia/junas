@@ -1,4 +1,3 @@
-(A) Add auto-detection of virtual camera availability: on Linux check for `/dev/video*` loopback devices, on macOS check for DAL plugin, fall back to HTTP MJPEG if neither available, log selected output method +output
 (A) Implement Ratatui TUI scaffold: async tokio runtime, event loop handling keyboard input (crossterm), tick events for UI refresh (10Hz), and frame pipeline stats updates +tui
 (A) Build TUI layout with 4 zones: top bar (app name + FPS counter + output status), left pane (live raw capture preview as half-resolution braille art), right pane (live transformed output preview as braille art), bottom panel (detection log + controls + status) +tui
 (A) Implement raw capture preview widget: downscale captured frame to fit TUI pane dimensions, render as unicode braille characters (2x4 dot patterns via `⠀`-`⣿` block) with 256-color approximation, update at 10 FPS +tui
