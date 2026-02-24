@@ -1,4 +1,3 @@
-(A) Implement Linux Wayland screen capture using PipeWire screencast portal via `ashpd` crate (XDG Desktop Portal): request screen share, receive PipeWire stream, decode frames to RGBA +capture
 (A) Implement window picker module: enumerate visible windows with titles using platform APIs (macOS: CGWindowListCopyWindowInfo, Linux: _NET_CLIENT_LIST), return list of (window_id, title, bounds) for user selection in TUI +capture
 (A) Implement capture region selection: accept either window_id (capture specific window) or manual rect (x, y, width, height) from config, crop captured frames to selected region +capture
 (A) Implement frame rate controller: regulate capture to target FPS (default 30, configurable 15-60), drop frames if processing pipeline falls behind, track actual vs target FPS for stats +capture
