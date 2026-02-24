@@ -1,4 +1,3 @@
-(A) Add PII sensitivity patterns: email regex, IPv4/IPv6 addresses, AWS access key format (`AKIA[0-9A-Z]{16}`), SSH private key headers (`-----BEGIN.*PRIVATE KEY-----`), JWT tokens (`eyJ[a-zA-Z0-9_-]+\.eyJ[a-zA-Z0-9_-]+`) +detect
 (A) Implement sensitivity scanner: accept OCR TextRegions, run all active patterns against each region's text, return list of SensitiveMatch structs with bounding box, matched pattern name, severity, matched text snippet +detect
 (A) Implement context-aware expansion for detected sensitive regions: expand bounding box by 10% padding on each side to account for OCR bbox imprecision, merge overlapping expanded boxes into single regions +detect
 (A) Implement line-level redaction expansion: when a sensitive match is found mid-line, expand redaction region to cover the full value (everything after `=` or `:` to end of line or next whitespace) to prevent partial secret leakage +detect
