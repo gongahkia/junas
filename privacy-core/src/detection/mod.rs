@@ -10,6 +10,7 @@ pub mod expand;
 pub mod line_expand;
 pub mod pii_patterns;
 pub mod incremental;
+pub mod training;
 pub mod user_patterns;
 pub mod whitelist;
 pub mod ocr;
