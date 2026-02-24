@@ -45,6 +45,20 @@ pub fn apply_transform_with_zones(
     safe_zones: &[Rect],
     always_redact_zones: &[Rect],
 ) -> Result<TransformedFrame> {
+    apply_transform_full(frame, regions, mode, intensity, safe_zones, always_redact_zones, 1.0)
+}
+
+/// Like `apply_transform_with_zones` but also accepts `region_alpha` [0.0-1.0]:
+/// blends transformed region with the original via alpha compositing.
+pub fn apply_transform_full(
+    frame: &RawFrame,
+    regions: &DetectedRegions,
+    mode: TransformMode,
+    intensity: f32,
+    safe_zones: &[Rect],
+    always_redact_zones: &[Rect],
+    region_alpha: f32,
+) -> Result<TransformedFrame> {
     let pixels_snapshot = frame.pixels.clone();
     let mut pixels = pixels_snapshot.clone();
     let w = frame.width;
@@ -100,9 +114,25 @@ pub fn apply_transform_with_zones(
         (r, region_pixels)
     }).collect();
 
-    // sequential merge back into full-frame buffer (write ordering doesn't matter for non-overlapping regions)
+    // sequential merge back into full-frame buffer with optional alpha blending
+    let alpha = region_alpha.clamp(0.0, 1.0);
+    let beta = 1.0 - alpha;
     for (r, region_pixels) in transformed {
-        paste_region(&mut pixels, w, r.x, r.y, r.width, r.height, &region_pixels);
+        if (alpha - 1.0).abs() < 1e-4 {
+            // fully opaque — fast path
+            paste_region(&mut pixels, w, r.x, r.y, r.width, r.height, &region_pixels);
+        } else {
+            // alpha blend: transformed * alpha + original * (1-alpha)
+            let orig_region = extract_region(&pixels_snapshot, w, r.x, r.y, r.width, r.height);
+            let blended: Vec<u8> = region_pixels.iter().zip(orig_region.iter())
+                .enumerate()
+                .map(|(i, (&tx, &orig))| {
+                    if i % 4 == 3 { tx } // preserve alpha channel
+                    else { (tx as f32 * alpha + orig as f32 * beta) as u8 }
+                })
+                .collect();
+            paste_region(&mut pixels, w, r.x, r.y, r.width, r.height, &blended);
+        }
     }
 
     Ok(TransformedFrame {
