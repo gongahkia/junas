@@ -1,4 +1,3 @@
-(A) Implement line-level redaction expansion: when a sensitive match is found mid-line, expand redaction region to cover the full value (everything after `=` or `:` to end of line or next whitespace) to prevent partial secret leakage +detect
 (A) Implement user-defined custom pattern support: read additional patterns from `~/.config/ascii-privacy/patterns.toml` as array of {name, regex, severity} entries, merge with built-in patterns +detect
 (A) Implement pattern whitelist/exclusion: `~/.config/ascii-privacy/whitelist.toml` with regex patterns for known-safe strings (e.g., `PATH=`, `HOME=`, `TERM=`) that should never trigger redaction +detect
 (A) Implement algorithmic cartoon transformation for sensitive regions using `image` crate: apply bilateral filter approximation (weighted Gaussian on 5x5 kernel) for smoothing + Sobel edge detection + color quantization to 8 levels per channel — produces cartoon effect that destroys text readability +transform
