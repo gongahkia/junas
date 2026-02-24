@@ -4,6 +4,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")) # add project 
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from api.schemas import ClassifyRequest, ClassifyResponse, Classification, LexiconResponse, LexiconHitResponse, Model1Response, Model2Response, HealthResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 _state = {} # mutable singleton for app-scoped resources
 
@@ -29,6 +30,14 @@ async def lifespan(app: FastAPI):
     _state.clear()
 
 app = FastAPI(title="Noupe MNPI Classifier", version="0.1.0", lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/health", response_model=HealthResponse)
 async def health():

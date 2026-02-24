@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noupe | MNPI Classifier</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app-container">
+        <header>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <h1>Noupe</h1>
+                <span style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px;">MNPI AI</span>
+            </div>
+            <div id="connection-status" title="API Status">
+                <div class="status-dot"></div>
+            </div>
+        </header>
+
+        <div id="chat-history">
+            <div class="message bot-message">
+                Hello! I'm the Noupe MNPI Classifier. Send me any text (like a financial statement or internal memo) and I'll analyze it for sensitive non-public information.
+            </div>
+        </div>
+
+        <div id="input-area">
+            <input type="text" id="message-input" placeholder="Type a sentence to classify..." autocomplete="off">
+            <button id="send-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
