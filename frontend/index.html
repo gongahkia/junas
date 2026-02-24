@@ -15,6 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js"></script>
 </head>
 
 <body>
@@ -22,8 +23,11 @@
         <div id="analyzer-container">
             <header>
                 <h1>Noupe</h1>
-                <div id="connection-status" title="API Status">
+                <div id="connection-status" title="API Status" style="display: flex; align-items: center; gap: 8px;">
                     <div class="status-dot"></div>
+                    <span id="connection-text"
+                        style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);">Backend at :8000
+                        DOWN</span>
                 </div>
             </header>
 
@@ -44,7 +48,22 @@
                 <h2>Request log</h2>
             </header>
             <div id="debug-content">
-                <!-- Debug logs appended here -->
+                <div class="debug-section">
+                    <h3>cURL Request</h3>
+                    <pre><code id="curl-code" class="language-bash">No requests sent yet.</code></pre>
+                </div>
+                <div class="debug-section">
+                    <h3>JSON Response</h3>
+                    <pre><code id="json-code" class="language-json">Waiting for data...</code></pre>
+                </div>
+                <div class="debug-section">
+                    <h3>Architecture Trace</h3>
+                    <div id="architecture-diagram"
+                        style="background: white; border: 1px solid #e5e5e5; border-radius: 8px; padding: 16px; min-height: 200px; display: flex; align-items: center; justify-content: center;">
+                        <span style="color: #999; font-size: 0.8rem; font-family: 'Space Mono', monospace;">Waiting for
+                            classification...</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
