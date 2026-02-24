@@ -1,5 +1,3 @@
-(A) Implement raw capture preview widget: downscale captured frame to fit TUI pane dimensions, render as unicode braille characters (2x4 dot patterns via `⠀`-`⣿` block) with 256-color approximation, update at 10 FPS +tui
-(A) Implement transformed output preview widget: same braille rendering as raw preview but showing post-transformation frame, displayed side-by-side with raw for comparison +tui
 (A) Implement detection log widget: scrollable list in bottom panel showing last 50 detected sensitive regions with timestamp, pattern name, severity badge (colored), and truncated matched text (first 4 chars + "***") +tui
 (A) Implement real-time stats display in top bar: actual capture FPS, processing latency (ms per frame), OCR latency, transformation latency, output write latency, dropped frame count +tui
 (A) Implement keybinding `Space` to toggle pipeline on/off (pause capture + output), `t` to cycle transformation mode (cartoon→ascii→pixelate→blur), `+/-` to adjust transformation intensity +tui
