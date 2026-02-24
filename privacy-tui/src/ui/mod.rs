@@ -2,6 +2,7 @@
 
 pub mod braille;
 pub mod detection_log;
+pub mod pattern_manager;
 pub mod stats_bar;
 pub mod window_selector;
 
@@ -54,4 +55,5 @@ pub fn render(frame: &mut Frame, app: &mut App) {
     detection_log::render(frame, app, rows[2]);
 
     window_selector::render(frame, &mut app.window_selector);
+    pattern_manager::render(frame, &mut app.pattern_manager, &app.pattern_registry);
 }

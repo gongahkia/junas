@@ -52,12 +52,24 @@ fn handle_event(app: &mut app::App, ev: Event) {
                 }
                 return;
             }
+            if app.pattern_manager.open {
+                let len = app.pattern_registry.patterns.len();
+                match k.code {
+                    KeyCode::Char('j') | KeyCode::Down => app.pattern_manager.move_down(len),
+                    KeyCode::Char('k') | KeyCode::Up => app.pattern_manager.move_up(len),
+                    KeyCode::Char(' ') => app.pattern_manager.toggle(&mut app.pattern_registry),
+                    KeyCode::Esc => app.pattern_manager.close(),
+                    _ => {}
+                }
+                return;
+            }
             match k.code {
                 KeyCode::Char('w') => {
                     let windows = privacy_core::capture::window_picker::list_windows()
                         .unwrap_or_default();
                     app.window_selector.open(windows);
                 }
+                KeyCode::Char('p') => app.pattern_manager.open(),
                 KeyCode::Char(' ') => app.toggle_pipeline(),
                 KeyCode::Char('t') => app.cycle_transform(),
                 KeyCode::Char('+') | KeyCode::Char('=') => app.adjust_intensity(0.1),

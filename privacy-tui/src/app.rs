@@ -1,6 +1,11 @@
 //! Application state shared across all TUI components.
 
 use privacy_common::transform::TransformMode;
+use privacy_core::detection::{
+    default_patterns::default_registry,
+    patterns::PatternRegistry,
+    pii_patterns::pii_patterns,
+};
 use std::time::Instant;
 
 /// Pipeline running state.
@@ -38,6 +43,8 @@ pub struct App {
     /// Currently selected capture window id (None = full screen).
     pub selected_window_id: Option<u64>,
     pub window_selector: crate::ui::window_selector::WindowSelectorState,
+    pub pattern_manager: crate::ui::pattern_manager::PatternManagerState,
+    pub pattern_registry: PatternRegistry,
 }
 
 #[derive(Debug, Clone)]
@@ -64,6 +71,12 @@ impl App {
             preview_height: 0,
             selected_window_id: None,
             window_selector: crate::ui::window_selector::WindowSelectorState::new(),
+            pattern_manager: crate::ui::pattern_manager::PatternManagerState::new(),
+            pattern_registry: {
+                let mut r = default_registry();
+                r.patterns.extend(pii_patterns());
+                r
+            },
         }
     }
 
