@@ -2,12 +2,9 @@ import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")) # add project root to path
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException, File, UploadFile
+from fastapi import FastAPI, HTTPException
 from api.schemas import ClassifyRequest, ClassifyResponse, Classification, LexiconResponse, LexiconHitResponse, Model1Response, Model2Response, HealthResponse
 from fastapi.middleware.cors import CORSMiddleware
-import io
-import pypdf
-import docx
 
 _state = {} # mutable singleton for app-scoped resources
 
@@ -42,27 +39,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-async def extract_text(file: UploadFile) -> str:
-    content = await file.read()
-    if file.filename.endswith(".pdf"):
-        reader = pypdf.PdfReader(io.BytesIO(content))
-        return " ".join([page.extract_text() for page in reader.pages if page.extract_text()])
-    elif file.filename.endswith(".docx"):
-        doc = docx.Document(io.BytesIO(content))
-        return " ".join([para.text for para in doc.paragraphs])
-    else:
-        return content.decode("utf-8", errors="ignore")
-
 @app.get("/health", response_model=HealthResponse)
 async def health():
     return HealthResponse(status="ok", lexicon_loaded=_state.get("lexicon") is not None, model1_loaded=_state.get("model1") is not None, model2_loaded=_state.get("model2") is not None)
-
-@app.post("/classify-file", response_model=ClassifyResponse)
-async def classify_file(file: UploadFile = File(...)):
-    text = await extract_text(file)
-    if not text.strip():
-        raise HTTPException(status_code=400, detail="could not extract text from file")
-    return await classify(ClassifyRequest(text=text))
 
 @app.post("/classify", response_model=ClassifyResponse)
 async def classify(req: ClassifyRequest):
