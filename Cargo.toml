@@ -1,0 +1,25 @@
+[workspace]
+members = [
+    "privacy-common",
+    "privacy-core",
+    "privacy-tui",
+    "privacy-output",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["gongahkia"]
+license = "MIT"
+
+[workspace.dependencies]
+# shared across crates
+serde = { version = "1", features = ["derive"] }
+tokio = { version = "1", features = ["full"] }
+crossbeam-channel = "0.5"
+anyhow = "1"
+thiserror = "1"
+image = "0.25"
+regex = "1"
+chrono = { version = "0.4", features = ["serde"] }

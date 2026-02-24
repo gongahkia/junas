@@ -1,0 +1,1 @@
+// macOS ScreenCaptureKit capture stub

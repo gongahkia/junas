@@ -1,0 +1,16 @@
+[package]
+name = "privacy-tui"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "aki"
+path = "src/main.rs"
+
+[dependencies]
+privacy-common = { path = "../privacy-common" }
+privacy-core = { path = "../privacy-core" }
+privacy-output = { path = "../privacy-output" }
+tokio = { workspace = true }
+anyhow = { workspace = true }
+serde = { workspace = true }

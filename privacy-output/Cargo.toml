@@ -1,0 +1,12 @@
+[package]
+name = "privacy-output"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+privacy-common = { path = "../privacy-common" }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+# v4l added when implementing v4l2loopback output task

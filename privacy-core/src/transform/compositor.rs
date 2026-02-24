@@ -1,0 +1,1 @@
+// Selective region compositor stub

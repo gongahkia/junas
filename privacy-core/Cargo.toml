@@ -1,0 +1,20 @@
+[package]
+name = "privacy-core"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+privacy-common = { path = "../privacy-common" }
+crossbeam-channel = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+image = { workspace = true }
+regex = { workspace = true }
+chrono = { workspace = true }
+serde = { workspace = true }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+# screencapturekit-rs added when implementing macOS capture task
+
+[target.'cfg(target_os = "linux")'.dependencies]
+# xcb and ashpd added when implementing Linux capture tasks

@@ -1,4 +1,3 @@
-(A) Project name is Aki +meta
 (A) Initialize Rust workspace with three crates: `privacy-core` (capture, detection, transformation), `privacy-tui` (Ratatui dashboard), `privacy-output` (virtual camera output), shared types in `privacy-common` +infra
 (A) Define frame pipeline architecture: CaptureSource → RawFrame(RGBA pixels + dimensions + timestamp) → SensitivityDetector → DetectedRegions → Transformer → TransformedFrame → OutputSink, all connected via crossbeam channels +infra
 (A) Implement macOS screen capture using `screencapturekit-rs` crate (ScreenCaptureKit bindings): capture specific window by window ID or full screen region, deliver frames as raw RGBA byte buffers at configurable FPS +capture
