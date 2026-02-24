@@ -1,4 +1,3 @@
-(B) Implement notification on first detection: flash border of raw preview red briefly when first sensitive region detected in a new screen state, confirms to user the filter is working +tui
 (B) Add system tray indicator on macOS using `tray-item` crate: show green/red dot for pipeline status, click to open TUI or quit — provides visual confirmation filter is running +output
 (C) Implement PTY-based capture: instead of screen capture, wrap user's shell in a PTY, intercept terminal output byte stream, render to virtual terminal (using `vt100` crate), capture rendered framebuffer — OS-independent, no screen capture permissions needed +capture
 (C) Add Wayland wlr-screencopy protocol support as alternative to PipeWire for wlroots-based compositors (Sway, Hyprland) +capture
