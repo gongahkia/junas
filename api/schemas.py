@@ -35,9 +35,12 @@ class Model2Response(BaseModel):
 
 class ClassifyResponse(BaseModel):
     classification: Classification
-    lexicon: LexiconResponse
+    lexicon: Optional[LexiconResponse] = None
     model1: Optional[Model1Response] = None # none if lexicon short-circuits
     model2: Optional[Model2Response] = None # none if model1 says safe
+    embedding: Optional[list[float]] = None
+    clustering: Optional[dict] = None
+    regression: Optional[dict] = None
 
 class TrainingSentence(BaseModel):
     text: str
@@ -53,3 +56,6 @@ class HealthResponse(BaseModel):
     lexicon_loaded: bool
     model1_loaded: bool
     model2_loaded: bool
+    embedding_loaded: bool = False
+    clustering_loaded: bool = False
+    regression_loaded: bool = False
