@@ -189,3 +189,16 @@ async def classify(req: ClassifyRequest):
         clustering=clust_resp,
         regression=reg_resp
     )
+
+if __name__ == "__main__":
+    import uvicorn
+    filtered_args = []
+    i = 0
+    while i < len(sys.argv):
+        if sys.argv[i] == "--layers":
+            i += 2
+        else:
+            filtered_args.append(sys.argv[i])
+            i += 1
+    sys.argv = filtered_args
+    uvicorn.run("api.main:app", host="0.0.0.0", port=8000, reload=True)
