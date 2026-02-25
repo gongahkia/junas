@@ -1,31 +1,95 @@
 import sys
 import os
+import argparse
+
+try:
+    import tomllib
+except ImportError:
+    import tomli as tomllib
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")) # add project root to path
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from api.schemas import ClassifyRequest, ClassifyResponse, Classification, LexiconResponse, LexiconHitResponse, Model1Response, Model2Response, HealthResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-_state = {} # mutable singleton for app-scoped resources
+_state = {}
+
+def load_config():
+    # 1. Parse from CLI flags if passed
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument("--layers", type=str)
+    args, _ = parser.parse_known_args()
+
+    if args.layers:
+        return [l.strip() for l in args.layers.split(",") if l.strip()]
+
+    # 2. Parse from env vars
+    env_layers = os.environ.get("PIPELINE_LAYERS")
+    if env_layers:
+         return [l.strip() for l in env_layers.split(",") if l.strip()]
+
+    # 3. Parse from config.toml
+    config_path = os.environ.get("NOUPE_CONFIG", os.path.join(os.path.dirname(__file__), "..", "config.toml"))
+    if os.path.exists(config_path):
+        with open(config_path, "rb") as f:
+            try:
+                cfg = tomllib.load(f)
+                return cfg.get("pipeline", {}).get("layers", ["lexicon", "model1", "model2"])
+            except Exception as e:
+                print(f"Error parsing config.toml: {e}")
+                
+    # Default fallback
+    return ["lexicon", "model1", "model2"]
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    from lexicon.filter import LexiconFilter
-    _state["lexicon"] = LexiconFilter()
-    _state["model1"] = None
-    _state["model2"] = None
-    try: # lazy-load models; skip if checkpoints don't exist yet
-        from importlib.machinery import SourceFileLoader
-        m1_mod = SourceFileLoader("m1_inf", os.path.join(os.path.dirname(__file__), "..", "model-1", "inference.py")).load_module()
-        _state["model1"] = m1_mod.FinBERTClassifier()
-    except Exception:
-        pass
-    try:
-        from importlib.machinery import SourceFileLoader
-        m2_mod = SourceFileLoader("m2_inf", os.path.join(os.path.dirname(__file__), "..", "model-2", "inference.py")).load_module()
-        _state["model2"] = m2_mod.BERTSeverityClassifier()
-    except Exception:
-        pass
+    layers = load_config()
+    _state["pipeline"] = layers
+    _state["models"] = {}
+
+    from importlib.machinery import SourceFileLoader
+
+    for layer in layers:
+        if layer == "lexicon":
+            try:
+                from lexicon.filter import LexiconFilter
+                _state["models"]["lexicon"] = LexiconFilter()
+            except Exception as e:
+                print(f"Failed to load lexicon: {e}")
+
+        elif layer == "embedding":
+            try:
+                emb_mod = SourceFileLoader("emb_inf", os.path.join(os.path.dirname(__file__), "..", "embeddings", "inference.py")).load_module()
+                _state["models"]["embedding"] = emb_mod.EmbeddingsEncoder.get_instance()
+            except Exception as e:
+                print(f"Failed to load embedding: {e}")
+
+        elif layer == "clustering":
+            try:
+                clust_mod = SourceFileLoader("clust_inf", os.path.join(os.path.dirname(__file__), "..", "clustering", "isolation_forest.py")).load_module()
+                _state["models"]["clustering"] = clust_mod.MNPIAnomalyDetector.load()
+            except Exception as e:
+                print(f"Failed to load clustering: {e}")
+
+        elif layer == "model1":
+            try:
+                m1_mod = SourceFileLoader("m1_inf", os.path.join(os.path.dirname(__file__), "..", "model-1", "inference.py")).load_module()
+                _state["models"]["model1"] = m1_mod.FinBERTClassifier()
+            except Exception as e:
+                print(f"Failed to load model1: {e}")
+
+        elif layer == "model2":
+            try:
+                m2_mod = SourceFileLoader("m2_inf", os.path.join(os.path.dirname(__file__), "..", "model-2", "inference.py")).load_module()
+                _state["models"]["model2"] = m2_mod.BERTSeverityClassifier()
+            except Exception as e:
+                print(f"Failed to load model2: {e}")
+
+        elif layer == "regression":
+            _state["models"]["regression"] = "stub"
+
+    print(f"Initialized pipeline layers: {layers}")
     yield
     _state.clear()
 
@@ -41,33 +105,87 @@ app.add_middleware(
 
 @app.get("/health", response_model=HealthResponse)
 async def health():
-    return HealthResponse(status="ok", lexicon_loaded=_state.get("lexicon") is not None, model1_loaded=_state.get("model1") is not None, model2_loaded=_state.get("model2") is not None)
+    models = _state.get("models", {})
+    return HealthResponse(
+        status="ok",
+        lexicon_loaded="lexicon" in models,
+        model1_loaded="model1" in models,
+        model2_loaded="model2" in models,
+        embedding_loaded="embedding" in models,
+        clustering_loaded="clustering" in models,
+        regression_loaded="regression" in models
+    )
 
 @app.post("/classify", response_model=ClassifyResponse)
 async def classify(req: ClassifyRequest):
-    lexicon_filter = _state.get("lexicon")
-    if not lexicon_filter:
-        raise HTTPException(status_code=503, detail="lexicon filter not loaded")
-    lex_result = lexicon_filter.run(req.text) # layer 1: lexicon check
-    lex_resp = LexiconResponse(
-        flagged=lex_result.flagged, high_risk_short_circuit=lex_result.high_risk_short_circuit,
-        hits=[LexiconHitResponse(rule=h.rule, matched_text=h.matched_text, severity=h.severity, detail=h.detail) for h in lex_result.hits],
-        restricted_entities=lex_result.restricted_entities_found,
+    pipeline = _state.get("pipeline", [])
+    models = _state.get("models", {})
+
+    lex_resp = None
+    m1_resp = None
+    m2_resp = None
+    emb_resp = None
+    clust_resp = None
+    reg_resp = None
+
+    final_classification = Classification.SAFE
+    current_embedding = None
+
+    for layer in pipeline:
+        if layer == "lexicon":
+            lexicon_filter = models.get("lexicon")
+            if lexicon_filter:
+                lex_result = lexicon_filter.run(req.text)
+                lex_resp = LexiconResponse(
+                    flagged=lex_result.flagged, high_risk_short_circuit=lex_result.high_risk_short_circuit,
+                    hits=[LexiconHitResponse(rule=h.rule, matched_text=h.matched_text, severity=h.severity, detail=h.detail) for h in lex_result.hits],
+                    restricted_entities=lex_result.restricted_entities_found,
+                )
+                if lex_result.flagged:
+                    final_classification = Classification.HIGH_RISK
+                if lex_result.high_risk_short_circuit:
+                    final_classification = Classification.HIGH_RISK
+                    break # Short circuit
+
+        elif layer == "embedding":
+            encoder = models.get("embedding")
+            if encoder:
+                current_embedding = encoder.encode(req.text)
+                emb_resp = current_embedding.tolist()
+
+        elif layer == "clustering":
+            detector = models.get("clustering")
+            if detector and current_embedding is not None:
+                clust_resp = detector.score(current_embedding)
+
+        elif layer == "model1":
+            model1 = models.get("model1")
+            if model1:
+                m1_result = model1.predict(req.text)
+                m1_resp = Model1Response(label=m1_result.label, confidence=m1_result.confidence, risk_score=m1_result.risk_score)
+                if m1_result.label == "safe":
+                    final_classification = Classification.SAFE
+                    break
+                else:
+                    final_classification = Classification.LOW_RISK # or wait for model2
+
+        elif layer == "model2":
+            model2 = models.get("model2")
+            if model2:
+                m2_result = model2.predict(req.text)
+                m2_resp = Model2Response(label=m2_result.label, confidence=m2_result.confidence, high_risk_score=m2_result.high_risk_score)
+                final_classification = Classification.HIGH_RISK if m2_result.label == "high_risk" else Classification.LOW_RISK
+
+        elif layer == "regression":
+            if "regression" in models:
+                reg_resp = {"status": "not_implemented"}
+
+    return ClassifyResponse(
+        classification=final_classification,
+        lexicon=lex_resp,
+        model1=m1_resp,
+        model2=m2_resp,
+        embedding=emb_resp,
+        clustering=clust_resp,
+        regression=reg_resp
     )
-    if lex_result.high_risk_short_circuit: # short-circuit: restricted list entity or massive financial figure
-        return ClassifyResponse(classification=Classification.HIGH_RISK, lexicon=lex_resp)
-    model1 = _state.get("model1") # layer 2: model-1 (public vs non-public)
-    if not model1:
-        final = Classification.HIGH_RISK if lex_result.flagged else Classification.SAFE # fallback: lexicon-only classification
-        return ClassifyResponse(classification=final, lexicon=lex_resp)
-    m1_result = model1.predict(req.text)
-    m1_resp = Model1Response(label=m1_result.label, confidence=m1_result.confidence, risk_score=m1_result.risk_score)
-    if m1_result.label == "safe":
-        return ClassifyResponse(classification=Classification.SAFE, lexicon=lex_resp, model1=m1_resp)
-    model2 = _state.get("model2") # layer 3: model-2 (high risk vs low risk) — only if model-1 flagged risk
-    if not model2:
-        return ClassifyResponse(classification=Classification.LOW_RISK, lexicon=lex_resp, model1=m1_resp) # fallback: no model-2 → default to low risk
-    m2_result = model2.predict(req.text)
-    m2_resp = Model2Response(label=m2_result.label, confidence=m2_result.confidence, high_risk_score=m2_result.high_risk_score)
-    final = Classification.HIGH_RISK if m2_result.label == "high_risk" else Classification.LOW_RISK
-    return ClassifyResponse(classification=final, lexicon=lex_resp, model1=m1_resp, model2=m2_resp)
