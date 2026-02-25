@@ -63,7 +63,7 @@ Checkpoints saved to `model-2/checkpoints/best/`.
 python3 embeddings/generate_embeddings.py
 ```
 
-Outputs `public_embeddings.npy` and `violation_embeddings.npy`. Requires `public_texts` and `violation_texts` variables to be defined (currently a placeholder script).
+Outputs `public_embeddings.npy`, `violation_embeddings.npy`, and `all_embeddings.npy` (all sentences combined, used to train the Isolation Forest). Requires `docs/json/` to contain valid training JSON files.
 
 ## Configuration
 
@@ -89,16 +89,16 @@ Matches are case-insensitive on name, exact on ticker/ISIN.
 
 ## Training the Anomaly Detector (Isolation Forest)
 
-Requires a `.npy` file of pre-computed public document embeddings (output of `embeddings/generate_embeddings.py`).
+Requires `all_embeddings.npy` (output of `embeddings/generate_embeddings.py`). The IF trains on all known sentences (public + violation) so it can detect truly novel/unknown MNPI patterns as anomalies.
 
 ```sh
-python3 clustering/isolation_forest.py public_embeddings.npy
+python3 clustering/isolation_forest.py all_embeddings.npy
 ```
 
 Checkpoint saved to `clustering/checkpoints/anomaly_detector.joblib`. An optional second argument overrides the output path:
 
 ```sh
-python3 clustering/isolation_forest.py public_embeddings.npy path/to/output.joblib
+python3 clustering/isolation_forest.py all_embeddings.npy path/to/output.joblib
 ```
 
 ## Not Yet Implemented

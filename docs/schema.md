@@ -84,6 +84,7 @@ All training data JSON files must conform to this schema (validated by `scripts/
 |---|---|---|
 | `public_texts` | `list[str]` | corpus of public/safe text |
 | `violation_texts` | `list[str]` | corpus of violation text |
+| `all_texts` | `list[str]` | all sentences regardless of label (used for IsolationForest) |
 
 ### Output
 
@@ -91,6 +92,7 @@ All training data JSON files must conform to this schema (validated by `scripts/
 |---|---|---|
 | `public_embeddings.npy` | `(n, 768)` | float32 ndarray, one 768-dim vector per public text |
 | `violation_embeddings.npy` | `(m, 768)` | float32 ndarray, one 768-dim vector per violation text |
+| `all_embeddings.npy` | `(n+m, 768)` | float32 ndarray, all sentences combined — used to train the Isolation Forest |
 
 Model: `all-mpnet-base-v2` (768-dim embeddings).
 
@@ -104,7 +106,7 @@ Model: `all-mpnet-base-v2` (768-dim embeddings).
 
 | Param | Type | Description |
 |---|---|---|
-| `embeddings_path` | `str` | path to `.npy` file of public document embeddings, shape `(n, 768)` |
+| `embeddings_path` | `str` | path to `.npy` file of all-sentence embeddings (public + violation), shape `(n, 768)` — use `all_embeddings.npy` |
 | `save_path` | `str` | output path for the joblib checkpoint (default: `clustering/checkpoints/anomaly_detector.joblib`) |
 
 ### Training Output
