@@ -1,14 +1,17 @@
 import re
+import sys
 import os
 import json
 import spacy
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+from config import get_config_val
 from dataclasses import dataclass, field
 from presidio_analyzer import AnalyzerEngine, PatternRecognizer, Pattern
 from typing import Optional
 
 RESTRICTED_LIST_PATH = os.path.join(os.path.dirname(__file__), "restricted_list.json")
-ABS_THRESHOLD = float(os.getenv("MNPI_ABS_THRESHOLD", "1000000")) # $1M default
-PCT_THRESHOLD = float(os.getenv("MNPI_PCT_THRESHOLD", "5.0")) # 5% default
+ABS_THRESHOLD = get_config_val("thresholds", "mnpi_abs", "MNPI_ABS_THRESHOLD", 1000000.0, float)
+PCT_THRESHOLD = get_config_val("thresholds", "mnpi_pct", "MNPI_PCT_THRESHOLD", 5.0, float)
 
 MONEY_PATTERN = re.compile( # matches $1,000,000 | €500K | £2.5M | ¥100B | 1.5 billion etc
     r'[\$€£¥]?\s*\d[\d,]*\.?\d*\s*(?:thousand|million|billion|trillion|[KMBT])\b'

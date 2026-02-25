@@ -7,3 +7,17 @@ layers = [
     "model2",
     "regression"
 ]
+
+[thresholds]
+mnpi_abs = 1000000.0
+mnpi_pct = 5.0
+model1 = 0.5
+model2 = 0.5
+
+[isolation_forest]
+contamination = 0.05
+max_features = 0.3
+n_estimators = 100
+
+[embeddings]
+model_name = "all-mpnet-base-v2"

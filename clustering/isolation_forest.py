@@ -18,17 +18,20 @@ Design notes:
   higher values = more anomalous, suitable as a regression feature.
 """
 
+import sys
 import os
 import numpy as np
 import joblib
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+from config import get_config_val
 from sklearn.ensemble import IsolationForest
 
 CHECKPOINT_DIR = os.path.join(os.path.dirname(__file__), "checkpoints")
 CHECKPOINT_PATH = os.path.join(CHECKPOINT_DIR, "anomaly_detector.joblib")
 
-CONTAMINATION = float(os.getenv("IF_CONTAMINATION", "0.05"))
-MAX_FEATURES = float(os.getenv("IF_MAX_FEATURES", "0.3"))
-N_ESTIMATORS = int(os.getenv("IF_N_ESTIMATORS", "100"))
+CONTAMINATION = get_config_val("isolation_forest", "contamination", "IF_CONTAMINATION", 0.05, float)
+MAX_FEATURES = get_config_val("isolation_forest", "max_features", "IF_MAX_FEATURES", 0.3, float)
+N_ESTIMATORS = get_config_val("isolation_forest", "n_estimators", "IF_N_ESTIMATORS", 100, int)
 
 
 class MNPIAnomalyDetector:

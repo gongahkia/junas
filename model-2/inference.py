@@ -1,11 +1,14 @@
+import sys
 import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+from config import get_config_val
 import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from dataclasses import dataclass
 
 CHECKPOINT_DIR = os.path.join(os.path.dirname(__file__), "checkpoints", "best")
 MAX_SEQ_LEN = 512
-THRESHOLD = float(os.getenv("MODEL2_THRESHOLD", "0.5"))
+THRESHOLD = get_config_val("thresholds", "model2", "MODEL2_THRESHOLD", 0.5, float)
 
 @dataclass
 class Model2Result:
