@@ -144,7 +144,13 @@ async def classify(req: ClassifyRequest):
     final_classification = Classification.SAFE
     current_embedding = None
 
+    skip_to_regression = False
+    skip_model2 = False
+
     for layer in pipeline:
+        if skip_to_regression and layer != "regression":
+            continue
+
         if layer == "lexicon":
             lexicon_filter = models.get("lexicon")
             if lexicon_filter:
@@ -157,7 +163,7 @@ async def classify(req: ClassifyRequest):
                 )
                 if lex_result.high_risk_short_circuit:
                     final_classification = Classification.HIGH_RISK
-                    break # Short circuit
+                    skip_to_regression = True
 
         elif layer == "embedding":
             encoder = models.get("embedding")
@@ -177,16 +183,19 @@ async def classify(req: ClassifyRequest):
                 m1_resp = Model1Response(label=m1_result.label, confidence=m1_result.confidence, risk_score=m1_result.risk_score)
                 if m1_result.label == "safe":
                     final_classification = Classification.SAFE
-                    break
+                    skip_model2 = True
                 else:
                     final_classification = Classification.LOW_RISK # or wait for model2
 
         elif layer == "model2":
+            if skip_model2:
+                continue
             model2 = models.get("model2")
             if model2:
                 m2_result = model2.predict(req.text)
                 m2_resp = Model2Response(label=m2_result.label, confidence=m2_result.confidence, high_risk_score=m2_result.high_risk_score)
                 final_classification = Classification.HIGH_RISK if m2_result.label == "high_risk" else Classification.LOW_RISK
+
 
         elif layer == "mosaic":
             mosaic_agg = models.get("mosaic")

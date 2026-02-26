@@ -13,7 +13,7 @@ Noupe is a multi-layered Material Non-Public Information (MNPI) classification e
   - BERT base uncased (severity classification)
 - **Anomaly Detection:** Scikit-Learn (Isolation Forest for clustering unknown unknowns)
 - **State Tracking (Mosaic Layer):** Redis (TTL-based fragment frequency tracking across queries)
-- **Regression / Final Scoring:** NumPy (currently a fast mathematical stub), XGBoost (planned for true ML feature synthesis)
+- **Regression / Final Scoring:** NumPy, XGBoost (implemented for true ML feature synthesis)
 - **Interface:** HTML/JS dashboard using Mermaid.js for dynamic visualization
 
 ## Data Flow & Pipeline Diagram
