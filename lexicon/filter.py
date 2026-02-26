@@ -4,7 +4,7 @@ import os
 import json
 import spacy
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-from config import get_config_val
+from config import get_config_val, _cfg
 from dataclasses import dataclass, field
 from presidio_analyzer import AnalyzerEngine, PatternRecognizer, Pattern
 from typing import Optional
@@ -12,6 +12,16 @@ from typing import Optional
 RESTRICTED_LIST_PATH = os.path.join(os.path.dirname(__file__), "restricted_list.json")
 ABS_THRESHOLD = get_config_val("thresholds", "mnpi_abs", "MNPI_ABS_THRESHOLD", 1000000.0, float)
 PCT_THRESHOLD = get_config_val("thresholds", "mnpi_pct", "MNPI_PCT_THRESHOLD", 5.0, float)
+
+LEXICON_SCORE_THRESHOLD = float(_cfg.get("lexicon", {}).get("score_threshold", 10.0))
+LEXICON_WEIGHTS = _cfg.get("lexicon_weights", {})
+DEFAULT_HIGH_WEIGHT = float(LEXICON_WEIGHTS.get("default_high", 3.0))
+DEFAULT_INFO_WEIGHT = float(LEXICON_WEIGHTS.get("default_info", 0.5))
+
+def get_rule_weight(rule: str, severity: str) -> float:
+    if rule in LEXICON_WEIGHTS:
+        return float(LEXICON_WEIGHTS[rule])
+    return DEFAULT_HIGH_WEIGHT if severity == "high" else DEFAULT_INFO_WEIGHT
 
 MONEY_PATTERN = re.compile( # matches $1,000,000 | €500K | £2.5M | ¥100B | 1.5 billion etc
     r'[\$€£¥]?\s*\d[\d,]*\.?\d*\s*(?:thousand|million|billion|trillion|[KMBT])\b'
@@ -41,11 +51,13 @@ class LexiconHit:
     matched_text: str
     severity: str # "high" or "info"
     detail: str = ""
+    score: float = 0.0
 
 @dataclass
 class LexiconResult:
     flagged: bool = False
     high_risk_short_circuit: bool = False # if true, skip downstream models
+    total_score: float = 0.0
     hits: list = field(default_factory=list)
     restricted_entities_found: list = field(default_factory=list)
 
@@ -158,9 +170,16 @@ class LexiconFilter:
         result.restricted_entities_found = restricted_ents
         result.hits.extend(self._check_ner(text)) # spaCy NER
         result.hits.extend(self._check_presidio(text)) # Presidio PII/financial
+        
+        total_score = 0.0
+        for h in result.hits:
+            h.score = get_rule_weight(h.rule, h.severity)
+            total_score += h.score
+            
+        result.total_score = total_score
+        
         high_hits = [h for h in result.hits if h.severity == "high"]
         result.flagged = len(high_hits) > 0
         
-        short_circuit_rules = {"money_threshold", "ner_event_entity_correlation"}
-        result.high_risk_short_circuit = len(restricted_ents) > 0 or any(h.rule in short_circuit_rules for h in high_hits)
+        result.high_risk_short_circuit = result.total_score >= LEXICON_SCORE_THRESHOLD
         return result

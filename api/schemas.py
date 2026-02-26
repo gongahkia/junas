@@ -16,10 +16,12 @@ class LexiconHitResponse(BaseModel):
     matched_text: str
     severity: str
     detail: str = ""
+    score: float = 0.0
 
 class LexiconResponse(BaseModel):
     flagged: bool
     high_risk_short_circuit: bool
+    total_score: float = 0.0
     hits: list[LexiconHitResponse] = []
     restricted_entities: list[dict] = []
 
@@ -33,6 +35,10 @@ class Model2Response(BaseModel):
     confidence: float
     high_risk_score: float
 
+class RegressionResponse(BaseModel):
+    risk_score: float
+    reasoning: str = ""
+
 class ClassifyResponse(BaseModel):
     classification: Classification
     lexicon: Optional[LexiconResponse] = None
@@ -40,7 +46,7 @@ class ClassifyResponse(BaseModel):
     model2: Optional[Model2Response] = None # none if model1 says safe
     embedding: Optional[list[float]] = None
     clustering: Optional[dict] = None
-    regression: Optional[dict] = None
+    regression: Optional[RegressionResponse] = None
 
 class TrainingSentence(BaseModel):
     text: str

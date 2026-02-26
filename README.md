@@ -19,7 +19,8 @@
 flowchart TD
     In[Ingestion] --> L1[1. Lexicon Check]
     
-    L1 --> L2[2. Embeddings Generation]
+    L1 -- "Score < Threshold" --> L2[2. Embeddings Generation]
+    L1 -- "Score >= Threshold" --> Out[Final Output (SHORT CIRCUIT)]
     
     %% Parallel processing
     L2 --> L3[3. Clustering]
@@ -122,6 +123,7 @@ flowchart TD
 
     // layer 1
     document_lexicon_check: Boolean,
+    document_lexicon_score: Double,
     document_lexicon_blacklist: Null|[String],
 
     // layer 2

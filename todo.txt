@@ -1,16 +1,8 @@
-add scoring mechansim for lexicon checks (step 1)
-    - is it first-line-of-defence or should it be a first-pass check that continues to later workflow?
-    - binary/scored output?
-    - perhaps purpose of lexicon check shouldn't be to shortcircuit, feed into regression model instead as a independent variable
-experiment with removing layers 
-
 evalaution metrics and whether they change
 - experiment with taking out a few layers (e.g. clustering / lexicon) to see if accuracy scores differ
 - make it configurable diff layers swap out) via a .toml/.json file
 
 implement validation for determining size of dataset
 - do train/val split and then retrieve val accuracy score, once no longer increasing/minimal increase, stop adding data to the dataset
-
-sanitisation script that handles user's upload (raw text --> doctojson json schema --> final schema --> generate embeddings)
 
 try manually evaluating accuracy of classification result and then compare with f1 score

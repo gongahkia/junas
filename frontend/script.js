@@ -55,13 +55,19 @@ function updateResults(data) {
     `;
 
     // Lexicon
-    if (data.lexicon && data.lexicon.flagged) {
-        html += `<div class="detail-item"><span>Lexicon Filter:</span> <span style="color: var(--high-red); font-weight: 600;">FLAGGED</span></div>`;
+    if (data.lexicon && (data.lexicon.flagged || data.lexicon.total_score > 0)) {
+        if (data.lexicon.high_risk_short_circuit) {
+            html += `<div class="detail-item"><span>Lexicon Filter:</span> <span style="color: var(--high-red); font-weight: 600;">SHORT-CIRCUIT (Score: ${data.lexicon.total_score})</span></div>`;
+        } else if (data.lexicon.flagged) {
+            html += `<div class="detail-item"><span>Lexicon Filter:</span> <span style="color: var(--high-red); font-weight: 600;">FLAGGED (Score: ${data.lexicon.total_score})</span></div>`;
+        } else {
+            html += `<div class="detail-item"><span>Lexicon Filter:</span> <span style="color: var(--safe-green); font-weight: 600;">INFO HIT (Score: ${data.lexicon.total_score})</span></div>`;
+        }
         data.lexicon.hits.forEach(hit => {
-            html += `<div style="font-size: 0.75rem; color: var(--high-red); margin-left: 12px; margin-top: -8px; margin-bottom: 8px;">&bull; Match: "${hit.matched_text}" (${hit.rule})</div>`;
+            html += `<div style="font-size: 0.75rem; color: #555; margin-left: 12px; margin-top: -8px; margin-bottom: 8px;">&bull; Match: "${hit.matched_text}" (${hit.rule}) - Score: ${hit.score}</div>`;
         });
     } else {
-        html += `<div class="detail-item"><span>Lexicon Filter:</span> <span style="color: var(--safe-green);">CLEAN</span></div>`;
+        html += `<div class="detail-item"><span>Lexicon Filter:</span> <span style="color: var(--safe-green);">CLEAN (Score: 0)</span></div>`;
     }
 
     // Model 1
@@ -72,6 +78,14 @@ function updateResults(data) {
     // Model 2
     if (data.model2) {
         html += `<div class="detail-item"><span>NLP Model 2 (Severity):</span> <span>${(data.model2.confidence * 100).toFixed(1)}% ${data.model2.label.replace('_', ' ')}</span></div>`;
+    }
+
+    // Regression
+    if (data.regression && !data.regression.status) {
+        html += `<div class="detail-item"><span>Regression (Final Score):</span> <span>${data.regression.risk_score.toFixed(3)}</span></div>`;
+        if (data.regression.reasoning) {
+            html += `<div style="font-size: 0.75rem; color: #555; margin-left: 12px; margin-top: -8px; margin-bottom: 8px;">&bull; ${data.regression.reasoning}</div>`;
+        }
     }
 
     html += `</div>`;
@@ -101,36 +115,37 @@ flowchart TD
         mermaidDef += `    class L1 red;\n`;
         mermaidDef += `    L1 -.-> Out;\n`;
         mermaidDef += `    class Out red;\n`;
-    } else if (responseData.lexicon && responseData.lexicon.flagged && !responseData.model1) {
-        mermaidDef += `    class L1 red;\n`;
-        mermaidDef += `    L1 -.-> Out;\n`;
-        mermaidDef += `    class Out red;\n`;
     } else {
-        mermaidDef += `    class L1 green;\n`;
+        if (responseData.lexicon && responseData.lexicon.flagged) {
+            mermaidDef += `    class L1 red;\n`;
+        } else {
+            mermaidDef += `    class L1 green;\n`;
+        }
         mermaidDef += `    class L2 green;\n`;
 
         if (responseData.model1) {
             if (responseData.model1.label === "safe") {
                 mermaidDef += `    class L4 green;\n`;
-                mermaidDef += `    L4 -.-> Out;\n`;
-                mermaidDef += `    class Out green;\n`;
+                mermaidDef += `    L4 -.-> Reg;\n`;
             } else {
                 mermaidDef += `    class L4 red;\n`;
                 if (responseData.model2) {
                     if (responseData.model2.label === "high_risk") {
                         mermaidDef += `    class L5 red;\n`;
-                        mermaidDef += `    L5 -.-> Out;\n`;
-                        mermaidDef += `    class Out red;\n`;
                     } else {
                         mermaidDef += `    class L5 green;\n`;
-                        mermaidDef += `    L5 -.-> Out;\n`;
-                        mermaidDef += `    class Out green;\n`;
                     }
+                    mermaidDef += `    L5 -.-> Reg;\n`;
                 } else {
-                    mermaidDef += `    L4 -.-> Out;\n`;
-                    mermaidDef += `    class Out red;\n`;
+                    mermaidDef += `    L4 -.-> Reg;\n`;
                 }
             }
+        }
+
+        if (responseData.regression && !responseData.regression.status) {
+            mermaidDef += `    class Reg ${responseData.regression.risk_score > 0.7 ? "red" : "green"};\n`;
+            mermaidDef += `    Reg -.-> Out;\n`;
+            mermaidDef += `    class Out ${responseData.regression.risk_score > 0.7 ? "red" : "green"};\n`;
         }
     }
 
