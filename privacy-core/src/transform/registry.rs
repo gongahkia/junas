@@ -14,8 +14,13 @@ use super::{
     neural::apply_neural, pixelate::apply_pixelate,
 };
 
-/// >30ms per region triggers cartoon fallback for that frame
-const NEURAL_LATENCY_GUARD_MS: u128 = 30;
+/// Read neural latency guard from config, defaulting to 100ms for CPU inference.
+fn neural_latency_guard_ms() -> u128 {
+    crate::config::AppConfig::load()
+        .unwrap_or_default()
+        .transform
+        .neural_latency_guard_ms as u128
+}
 
 /// Check if rect `r` overlaps any zone in the list.
 fn in_any_zone(r: &privacy_common::frame::Rect, zones: &[privacy_common::frame::Rect]) -> bool {
@@ -98,12 +103,13 @@ pub fn apply_transform_full(
             TransformMode::Cartoon => apply_cartoon(&mut region_pixels, r.width, r.height, intensity),
             TransformMode::Ascii => apply_ascii(&mut region_pixels, r.width, r.height, intensity),
             TransformMode::Neural => {
+                let guard = neural_latency_guard_ms();
                 let t0 = Instant::now();
                 let ok = apply_neural(&mut region_pixels, r.width, r.height, intensity).is_ok();
                 let elapsed = t0.elapsed().as_millis();
-                if !ok || elapsed > NEURAL_LATENCY_GUARD_MS {
-                    if elapsed > NEURAL_LATENCY_GUARD_MS {
-                        log::warn!("neural inference {}ms > {}ms budget, cartoon fallback", elapsed, NEURAL_LATENCY_GUARD_MS);
+                if !ok || elapsed > guard {
+                    if elapsed > guard {
+                        log::warn!("neural inference {}ms > {}ms budget, cartoon fallback", elapsed, guard);
                     }
                     let mut fallback = extract_region(&pixels_snapshot, w, r.x, r.y, r.width, r.height);
                     apply_cartoon(&mut fallback, r.width, r.height, intensity);

@@ -98,6 +98,8 @@ pub struct TransformConfig {
     pub accelerator: String,
     /// Blending alpha for transformed regions (0.0 = transparent, 1.0 = opaque)
     pub region_alpha: f32,
+    /// Max neural inference ms before cartoon fallback (default 100ms for CPU)
+    pub neural_latency_guard_ms: u64,
 }
 
 impl Default for TransformConfig {
@@ -107,6 +109,7 @@ impl Default for TransformConfig {
             intensity: 1.0,
             accelerator: "auto".into(),
             region_alpha: 1.0,
+            neural_latency_guard_ms: 100,
         }
     }
 }
