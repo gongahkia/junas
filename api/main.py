@@ -89,7 +89,7 @@ async def lifespan(app: FastAPI):
         elif layer == "regression":
             try:
                 reg_mod = SourceFileLoader("reg_inf", os.path.join(os.path.dirname(__file__), "..", "regression", "inference.py")).load_module()
-                _state["models"]["regression"] = reg_mod.RegressionStub()
+                _state["models"]["regression"] = reg_mod.XGBoostRegression()
             except Exception as e:
                 print(f"Failed to load regression: {e}")
 
