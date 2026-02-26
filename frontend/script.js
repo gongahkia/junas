@@ -180,10 +180,15 @@ flowchart TD
 
         mermaidDef += `    L5 -.-> Reg[6. Regression]\n`;
 
-        if (responseData.regression && !responseData.regression.status) {
-            mermaidDef += `    class Reg ${responseData.regression.risk_score > 0.7 ? "red" : "green"};\n`;
+        if (responseData.regression) {
+            let regColor = responseData.regression.risk_score > 0.7 ? "red" : (responseData.regression.risk_score > 0.4 ? "yellow" : "green");
+            if (responseData.classification === "HIGH_RISK") regColor = "red";
+
+            mermaidDef += `    class Reg ${regColor};\n`;
             mermaidDef += `    Reg -.-> Out[Final Output];\n`;
-            mermaidDef += `    class Out ${responseData.regression.risk_score > 0.7 ? "red" : "green"};\n`;
+
+            let outColor = responseData.classification === "HIGH_RISK" ? "red" : (responseData.classification === "LOW_RISK" ? "yellow" : "green");
+            mermaidDef += `    class Out ${outColor};\n`;
         } else {
             mermaidDef += `    class Reg gray;\n`;
             mermaidDef += `    Reg -.-> Out[Final Output];\n`;
