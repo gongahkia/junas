@@ -25,7 +25,7 @@ pub enum PipelineState {
 }
 
 /// Aggregate pipeline statistics updated each tick.
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone)]
 pub struct PipelineStats {
     pub actual_fps: f32,
     pub capture_latency_ms: f32,
@@ -33,6 +33,27 @@ pub struct PipelineStats {
     pub transform_latency_ms: f32,
     pub output_latency_ms: f32,
     pub dropped_frames: u64,
+    /// adaptive quality scale (1.0 = full, 0.8 = reduced)
+    pub quality_scale: f32,
+    /// current adaptive OCR grid dimensions
+    pub ocr_grid_cols: u32,
+    pub ocr_grid_rows: u32,
+}
+
+impl Default for PipelineStats {
+    fn default() -> Self {
+        Self {
+            actual_fps: 0.0,
+            capture_latency_ms: 0.0,
+            ocr_latency_ms: 0.0,
+            transform_latency_ms: 0.0,
+            output_latency_ms: 0.0,
+            dropped_frames: 0,
+            quality_scale: 1.0,
+            ocr_grid_cols: privacy_core::detection::incremental::GRID_COLS,
+            ocr_grid_rows: privacy_core::detection::incremental::GRID_ROWS,
+        }
+    }
 }
 
 const HEATMAP_GRID_X: u8 = 20;
@@ -166,6 +187,8 @@ pub struct App {
     pub pipeline_restart_needed: bool,
     /// Active recorder (Some = recording in progress).
     pub recorder: Option<privacy_output::recorder::Recorder>,
+    /// Reference to pipeline SharedState for reading adaptive quality metrics.
+    pub pipeline_shared_state: Option<std::sync::Arc<privacy_core::pipeline_runner::SharedState>>,
 }
 
 #[derive(Debug, Clone)]
@@ -225,6 +248,7 @@ impl App {
             preview_rx: None,
             pipeline_restart_needed: false,
             recorder: None,
+            pipeline_shared_state: None,
         }
     }
 
@@ -266,6 +290,13 @@ impl App {
                 }
                 self.tx_preview_pixels = Some(upd.pixels);
             }
+        }
+        // update adaptive quality stats from pipeline SharedState
+        if let Some(ref ps) = self.pipeline_shared_state {
+            use std::sync::atomic::Ordering;
+            self.stats.quality_scale = *ps.quality_scale.lock().unwrap();
+            self.stats.ocr_grid_cols = ps.target_grid_cols.load(Ordering::Relaxed);
+            self.stats.ocr_grid_rows = ps.target_grid_rows.load(Ordering::Relaxed);
         }
         // apply pending pause/resume from control server
         if let Ok(mut g) = self.control_state.pending_pause.try_lock() {

@@ -37,7 +37,7 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
         Span::raw("│ "),
         Span::styled(pipeline_icon, Style::default().fg(pipeline_color)),
         Span::raw(format!(
-            " {:.1}fps  │  cap:{:.0}ms ocr:{:.0}ms tx:{:.0}ms out:{:.0}ms tot:{:.0}ms  │  {:?} {:.0}%  │  drop:{} ",
+            " {:.1}fps  │  cap:{:.0}ms ocr:{:.0}ms tx:{:.0}ms out:{:.0}ms tot:{:.0}ms  │  {:?} {:.0}%  │  drop:{}  grid:{}x{} q:{:.0}% ",
             s.actual_fps,
             s.capture_latency_ms,
             s.ocr_latency_ms,
@@ -47,6 +47,9 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
             app.transform_mode,
             app.transform_intensity * 100.0,
             s.dropped_frames,
+            s.ocr_grid_cols,
+            s.ocr_grid_rows,
+            s.quality_scale * 100.0,
         )),
         rec_span,
     ]);

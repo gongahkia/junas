@@ -124,6 +124,7 @@ fn spawn_capture_pipeline(
     let source = create_capture_source(app.selected_window_id);
     let registry = app.pattern_registry.clone();
     let handle = spawn_pipeline(source, None, registry, out_tx)?;
+    app.pipeline_shared_state = Some(std::sync::Arc::clone(&handle.state));
     let (preview_tx, preview_rx) = bounded::<app::PreviewUpdate>(2);
     app.preview_rx = Some(preview_rx);
     std::thread::Builder::new()
