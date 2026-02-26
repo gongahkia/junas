@@ -400,6 +400,26 @@ fn handle_event(app: &mut app::App, ev: Event) {
                         }
                     }
                 }
+                KeyCode::Char('f') => {
+                    if let (Some(entry), Some(ref pixels)) = (app.log_entries.last(), &app.tx_preview_pixels) {
+                        let frame = privacy_common::frame::RawFrame {
+                            pixels: pixels.clone(),
+                            width: app.preview_width,
+                            height: app.preview_height,
+                            timestamp: chrono::Utc::now(),
+                        };
+                        let m = privacy_common::detection::SensitiveMatch {
+                            bounds: entry.bounds.clone().unwrap_or(privacy_common::frame::Rect { x: 0, y: 0, width: 100, height: 20 }),
+                            pattern_name: entry.pattern_name.clone(),
+                            severity: entry.severity,
+                            snippet: entry.snippet.clone(),
+                        };
+                        match privacy_core::detection::training::save_false_positive(&frame, &m) {
+                            Ok(p) => log::info!("false positive saved: {}", p.display()),
+                            Err(e) => log::error!("save_false_positive: {e}"),
+                        }
+                    }
+                }
                 KeyCode::Char('e') => export_session_log(&app),
                 KeyCode::Char(c @ '1'..='9') => {
                     let idx = (c as u8 - b'0') as usize;
