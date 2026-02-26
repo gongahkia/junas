@@ -364,6 +364,18 @@ impl App {
         if idx == 0 || idx > self.profile_names.len() { return; }
         let name = self.profile_names[idx - 1].clone();
         log::info!("switching to profile: {name}");
+        if let Ok(cfg) = AppConfig::load() {
+            if let Some(profile) = cfg.profiles.get(&name) {
+                self.transform_mode = match profile.transform_mode.as_str() {
+                    "cartoon" => privacy_common::transform::TransformMode::Cartoon,
+                    "ascii"   => privacy_common::transform::TransformMode::Ascii,
+                    "pixelate"=> privacy_common::transform::TransformMode::Pixelate,
+                    "neural"  => privacy_common::transform::TransformMode::Neural,
+                    _         => privacy_common::transform::TransformMode::Blur,
+                };
+                self.transform_intensity = profile.intensity.clamp(0.0, 1.0);
+            }
+        }
         self.active_profile = Some(name);
     }
 
