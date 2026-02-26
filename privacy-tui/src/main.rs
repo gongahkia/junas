@@ -388,6 +388,7 @@ fn cmd_check_output() -> Result<()> {
         SinkKind::V4l2(dev) => println!("v4l2loopback available: {}", dev),
         SinkKind::CoreMedia => println!("CoreMediaIO virtual camera available"),
         SinkKind::HttpMjpeg(port) => println!("fallback: MJPEG HTTP on port {}", port),
+        SinkKind::Obs(port) => println!("OBS WebSocket + MJPEG on port {}", port),
     }
     Ok(())
 }
@@ -409,6 +410,10 @@ fn handle_event(app: &mut app::App, ev: Event) {
     use crossterm::event::KeyCode;
     match ev {
         Event::Key(k) => {
+            if app.help_open {
+                app.help_open = false; // any key closes help
+                return;
+            }
             if app.window_selector.open {
                 match k.code {
                     KeyCode::Char('j') | KeyCode::Down => app.window_selector.move_down(),
@@ -494,6 +499,14 @@ fn handle_event(app: &mut app::App, ev: Event) {
                         }
                     }
                 }
+                KeyCode::Char('j') => {
+                    let max = app.log_entries.len().saturating_sub(20);
+                    app.log_scroll_offset = (app.log_scroll_offset + 1).min(max);
+                }
+                KeyCode::Char('k') => {
+                    app.log_scroll_offset = app.log_scroll_offset.saturating_sub(1);
+                }
+                KeyCode::Char('?') => app.help_open = !app.help_open,
                 KeyCode::Char('e') => export_session_log(&app),
                 KeyCode::Char(c @ '1'..='9') => {
                     let idx = (c as u8 - b'0') as usize;

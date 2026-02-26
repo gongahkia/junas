@@ -191,6 +191,12 @@ pub struct App {
     pub pipeline_shared_state: Option<std::sync::Arc<privacy_core::pipeline_runner::SharedState>>,
     /// Most recent capture error message (None = ok).
     pub capture_error: Option<String>,
+    /// Scroll offset for detection log (0 = most recent).
+    pub log_scroll_offset: usize,
+    /// Help overlay visibility.
+    pub help_open: bool,
+    /// Active output sink kind (for status bar display).
+    pub active_sink_kind: Option<privacy_output::SinkKind>,
 }
 
 #[derive(Debug, Clone)]
@@ -252,6 +258,9 @@ impl App {
             recorder: None,
             pipeline_shared_state: None,
             capture_error: None,
+            log_scroll_offset: 0,
+            help_open: false,
+            active_sink_kind: None,
         }
     }
 

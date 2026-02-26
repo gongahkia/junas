@@ -16,14 +16,13 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
         .constraints([Constraint::Min(0), Constraint::Length(36)])
         .split(area);
 
-    // ── scrollable detection log (last 50 entries, most recent first) ─────────
-    let log_height = cols[0].height.saturating_sub(2) as usize; // subtract border rows
+    // ── scrollable detection log (20 entries, j=older k=newer) ───────────────
     let items: Vec<ListItem> = app
         .log_entries
         .iter()
         .rev()
-        .take(50)
-        .take(log_height)
+        .skip(app.log_scroll_offset)
+        .take(20)
         .map(|e| {
             let sev_color = match e.severity {
                 Severity::High => Color::Red,
@@ -59,9 +58,14 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
         })
         .collect();
 
+    let scroll_hint = if app.log_scroll_offset > 0 {
+        format!(" [{} older hidden — j/k to scroll] ", app.log_scroll_offset)
+    } else {
+        String::new()
+    };
     let log_widget = List::new(items).block(
         Block::default()
-            .title(format!(" Detections ({}) ", app.log_entries.len()))
+            .title(format!(" Detections ({}){}  j↓ k↑ ", app.log_entries.len(), scroll_hint))
             .borders(Borders::ALL),
     );
     frame.render_widget(log_widget, cols[0]);
