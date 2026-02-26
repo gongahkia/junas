@@ -167,6 +167,7 @@ fn cmd_test_patterns(text: &str) -> Result<()> {
     use privacy_core::detection::{
         default_patterns::default_registry,
         pii_patterns::pii_patterns,
+        whitelist::Whitelist,
     };
     let mut registry = default_registry();
     registry.patterns.extend(pii_patterns());
@@ -190,6 +191,7 @@ fn cmd_self_test() -> Result<()> {
         default_patterns::default_registry,
         pii_patterns::pii_patterns,
         scanner::scan,
+        whitelist::Whitelist,
     };
     println!("aki self-test: verifying detection pipeline against synthetic data");
     let test_cases = [
@@ -209,7 +211,7 @@ fn cmd_self_test() -> Result<()> {
             bounds: privacy_common::frame::Rect { x: 0, y: 0, width: 100, height: 20 },
             confidence: 95.0,
         }];
-        let matches = scan(&dummy_region, &registry);
+        let matches = scan(&dummy_region, &registry, &Whitelist::empty());
         if matches.is_empty() {
             println!("  FAIL  {label}");
         } else {
@@ -229,6 +231,7 @@ fn cmd_test_screen() -> Result<()> {
         pii_patterns::pii_patterns,
         scanner::scan,
         expand::expand_and_merge,
+        whitelist::Whitelist,
     };
     use privacy_core::capture::window_picker::list_windows;
     println!("test-screen: listing windows to select capture target...");
@@ -253,7 +256,7 @@ fn cmd_test_screen() -> Result<()> {
             timestamp: chrono::Utc::now(),
         };
         let regions = incremental.extract(&frame).unwrap_or_default();
-        let matches = scan(&regions, &registry);
+        let matches = scan(&regions, &registry, &Whitelist::empty());
         let merged = expand_and_merge(matches, 640, 480, 0.10);
         total_matches += merged.len();
         println!("  frame {}: {} sensitive regions", i + 1, merged.len());

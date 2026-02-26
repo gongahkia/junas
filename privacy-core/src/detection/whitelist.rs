@@ -40,6 +40,11 @@ pub struct Whitelist {
 }
 
 impl Whitelist {
+    /// Create an empty whitelist (blocks nothing).
+    pub fn empty() -> Self { Self { regexes: vec![] } }
+}
+
+impl Whitelist {
     /// Load from the default config path. Returns an empty whitelist if the file is absent.
     pub fn load() -> Result<Self> {
         Self::load_from(config_path())

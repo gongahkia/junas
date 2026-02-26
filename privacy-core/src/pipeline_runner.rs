@@ -12,6 +12,7 @@ use crate::{
         patterns::PatternRegistry,
         scanner::scan,
         expand::expand_and_merge,
+        whitelist::Whitelist,
     },
     pipeline::{PipelineChannels, CHANNEL_CAPACITY},
     transform::registry::{apply_transform, apply_transform_full},
@@ -48,6 +49,8 @@ pub struct SharedState {
     pub target_grid_rows: AtomicU32,
     /// adaptive quality scale multiplier applied to transform intensity [0.5..1.0]
     pub quality_scale: Mutex<f32>,
+    /// whitelist of safe strings — scanner skips matching regions
+    pub whitelist: Mutex<Whitelist>,
     /// crossfade: previous mode during transition (None = no transition active)
     pub transition_from: Mutex<Option<TransformMode>>,
     /// crossfade: frames remaining in transition (0 = no transition)
@@ -56,6 +59,7 @@ pub struct SharedState {
 
 impl SharedState {
     pub fn new(registry: PatternRegistry) -> Arc<Self> {
+        let whitelist = Whitelist::load().unwrap_or_else(|_| Whitelist::empty());
         Arc::new(Self {
             running: AtomicBool::new(true),
             paused: AtomicBool::new(false),
@@ -67,6 +71,7 @@ impl SharedState {
             quality_scale: Mutex::new(1.0),
             transition_from: Mutex::new(None),
             transition_frames: AtomicU32::new(0),
+            whitelist: Mutex::new(whitelist),
         })
     }
 
@@ -157,7 +162,9 @@ pub fn spawn_pipeline(
                         let regions = match ocr.extract(&frame) {
                             Ok(text_regions) => {
                                 let reg = state_d.registry.lock().unwrap();
-                                let matches = scan(&text_regions, &reg);
+                                let wl = state_d.whitelist.lock().unwrap();
+                                let matches = scan(&text_regions, &reg, &wl);
+                                drop(wl);
                                 let merged = expand_and_merge(
                                     matches, frame.width, frame.height, 0.10,
                                 );
