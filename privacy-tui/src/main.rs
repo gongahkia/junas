@@ -158,7 +158,7 @@ fn export_session_log(app: &app::App) {
 }
 
 fn cmd_run() -> Result<()> {
-    use privacy_output::{autodetect::detect_best_sink, create_sink};
+    use privacy_output::{autodetect::detect_best_sink, create_sink, tray};
     use std::sync::{Arc, Mutex};
     let mut terminal = tui::init()?;
     let mut app = app::App::new();
@@ -166,7 +166,12 @@ fn cmd_run() -> Result<()> {
     let sink_kind = detect_best_sink(9876);
     let sink = Arc::new(Mutex::new(create_sink(sink_kind)?));
     let mut handle = spawn_capture_pipeline(&mut app, Arc::clone(&sink))?;
+    // spawn macOS tray icon (no-op on other platforms)
+    let (tray_tx, tray_rx) = std::sync::mpsc::channel::<bool>();
+    let _ = tray::spawn_tray(tray_rx);
+    let _ = tray_tx.send(true); // signal running
     let result = run_with_pipeline_restart(&mut terminal, &mut app, &sink, &mut handle);
+    let _ = tray_tx.send(false); // signal stopped
     tui::restore()?;
     shutdown::ordered_shutdown(Some(handle), Some(sink))?;
     result
