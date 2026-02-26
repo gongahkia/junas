@@ -29,6 +29,8 @@ pub enum SinkKind {
     CoreMedia,
     /// HTTP MJPEG stream (all platforms)
     HttpMjpeg(u16),
+    /// OBS WebSocket v5 (planned): setup Browser Source pointing to MJPEG endpoint
+    Obs(u16),
 }
 
 /// Create the appropriate `OutputSink` boxed trait object from a `SinkKind`.
@@ -41,6 +43,14 @@ pub fn create_sink(kind: SinkKind) -> Result<Box<dyn OutputSink>> {
         SinkKind::CoreMedia => Ok(Box::new(coremedia::CoreMediaSink::new())),
 
         SinkKind::HttpMjpeg(port) => Ok(Box::new(mjpeg::MjpegSink::new(port)?)),
+
+        SinkKind::Obs(mjpeg_port) => {
+            // attempt OBS Browser Source setup; fall back to MJPEG sink regardless
+            if let Err(e) = obs_websocket::ObsClient::default_local().connect_and_setup(mjpeg_port) {
+                log::warn!("OBS WebSocket setup failed ({e}), falling back to MJPEG on :{mjpeg_port}");
+            }
+            Ok(Box::new(mjpeg::MjpegSink::new(mjpeg_port)?))
+        }
 
         // Fall through for unsupported platform/kind combos
         #[allow(unreachable_patterns)]
