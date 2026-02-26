@@ -82,9 +82,18 @@ fn export_session_log(app: &app::App) {
         "bounds": e.bounds.as_ref().map(|b| json!({"x":b.x,"y":b.y,"w":b.width,"h":b.height})),
     })).collect();
     let ts = chrono::Utc::now().format("%Y%m%d_%H%M%S");
-    let path = format!("aki_session_{ts}.json");
+    let sessions_dir = {
+        let base = std::env::var("XDG_CONFIG_HOME")
+            .map(std::path::PathBuf::from)
+            .unwrap_or_else(|_| {
+                std::path::PathBuf::from(std::env::var("HOME").unwrap_or_default()).join(".config")
+            });
+        base.join("ascii-privacy").join("sessions")
+    };
+    let _ = std::fs::create_dir_all(&sessions_dir);
+    let path = sessions_dir.join(format!("aki_session_{ts}.json"));
     match std::fs::write(&path, serde_json::to_string_pretty(&entries).unwrap_or_default()) {
-        Ok(_) => log::info!("session log exported to {path}"),
+        Ok(_) => log::info!("session log exported to {}", path.display()),
         Err(e) => log::error!("export failed: {e}"),
     }
 }
