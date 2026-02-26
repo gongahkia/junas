@@ -225,7 +225,10 @@ async def classify(req: ClassifyRequest):
                 reg_result = reg_model.predict(features)
                 reg_resp = RegressionResponse(risk_score=reg_result["risk_score"], reasoning=reg_result["reasoning"])
                 
-                final_classification = Classification.HIGH_RISK if reg_result["label"] == "high_risk" else (Classification.LOW_RISK if reg_result["label"] == "low_risk" else Classification.SAFE)
+                reg_class = Classification.HIGH_RISK if reg_result["label"] == "high_risk" else (Classification.LOW_RISK if reg_result["label"] == "low_risk" else Classification.SAFE)
+                # Ensure Regression does not downgrade deterministic rule outputs (Short-Circuit or Mosaic Escalate).
+                if final_classification != Classification.HIGH_RISK:
+                    final_classification = reg_class
 
     return ClassifyResponse(
         classification=final_classification,

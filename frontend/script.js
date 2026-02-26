@@ -91,7 +91,7 @@ function updateResults(data) {
     }
 
     // Regression
-    if (data.regression && !data.regression.status) {
+    if (data.regression) {
         html += `<div class="detail-item"><span>Regression (Final Score):</span> <span>${data.regression.risk_score.toFixed(3)}</span></div>`;
         if (data.regression.reasoning) {
             html += `<div style="font-size: 0.75rem; color: #555; margin-left: 12px; margin-top: -8px; margin-bottom: 8px;">&bull; ${data.regression.reasoning}</div>`;
@@ -117,8 +117,16 @@ flowchart TD
 
     if (responseData.lexicon && responseData.lexicon.high_risk_short_circuit) {
         mermaidDef += `    class L1 red;\n`;
-        mermaidDef += `    L1 -.-> Out[Final Output];\n`;
-        mermaidDef += `    class Out red;\n`;
+        mermaidDef += `    L1 -.-> Reg[6. Regression]\n`;
+        if (responseData.regression) {
+            mermaidDef += `    class Reg red;\n`;
+            mermaidDef += `    Reg -.-> Out[Final Output]\n`;
+            mermaidDef += `    class Out red;\n`;
+        } else {
+            mermaidDef += `    class Reg gray;\n`;
+            mermaidDef += `    Reg -.-> Out[Final Output]\n`;
+            mermaidDef += `    class Out red;\n`;
+        }
     } else {
         if (responseData.lexicon && responseData.lexicon.flagged) {
             mermaidDef += `    class L1 red;\n`;
