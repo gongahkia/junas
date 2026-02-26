@@ -8,6 +8,7 @@ use privacy_core::{
         default_patterns::default_registry,
         patterns::PatternRegistry,
         pii_patterns::pii_patterns,
+        user_patterns::load_user_patterns,
     },
 };
 use std::{
@@ -204,6 +205,9 @@ impl App {
             pattern_registry: {
                 let mut r = default_registry();
                 r.patterns.extend(pii_patterns());
+                if let Ok(user) = load_user_patterns() {
+                    r.patterns.extend(user);
+                }
                 r
             },
             heatmap: HeatmapState::new(),
