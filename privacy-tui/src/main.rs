@@ -57,17 +57,76 @@ fn main() -> Result<()> {
     }
 }
 
-/// Headless mode: pipeline runs without TUI; Ctrl-C to stop.
+/// Headless mode: full pipeline without TUI; logs stats to XDG config dir; Ctrl-C to stop.
 fn cmd_headless() -> Result<()> {
-    use std::sync::{Arc, atomic::{AtomicBool, Ordering}};
+    use crossbeam_channel::bounded;
+    use privacy_common::frame::TransformedFrame;
+    use privacy_core::{
+        detection::{default_patterns::default_registry, pii_patterns::pii_patterns},
+        pipeline_runner::spawn_pipeline,
+    };
+    use privacy_output::{autodetect::detect_best_sink, create_sink};
+    use std::sync::{Arc, Mutex, atomic::{AtomicBool, Ordering}};
+
     let running = Arc::new(AtomicBool::new(true));
     let r = running.clone();
     ctrlc::set_handler(move || { r.store(false, Ordering::SeqCst); })
         .unwrap_or_else(|_| log::warn!("failed to set Ctrl-C handler"));
-    log::info!("running in headless mode — Ctrl-C to stop");
+
+    let sink_kind = detect_best_sink(9876);
+    let sink = Arc::new(Mutex::new(create_sink(sink_kind)?));
+    let mut registry = default_registry();
+    registry.patterns.extend(pii_patterns());
+    let source = create_capture_source(None);
+    let (out_tx, out_rx) = bounded::<TransformedFrame>(8);
+    let handle = spawn_pipeline(source, None, registry, out_tx)?;
+
+    // stats log path
+    let stats_path = {
+        let base = std::env::var("XDG_CONFIG_HOME")
+            .map(std::path::PathBuf::from)
+            .unwrap_or_else(|_| {
+                std::path::PathBuf::from(std::env::var("HOME").unwrap_or_default()).join(".config")
+            });
+        let dir = base.join("ascii-privacy").join("sessions");
+        let _ = std::fs::create_dir_all(&dir);
+        let ts = chrono::Utc::now().format("%Y%m%d_%H%M%S");
+        dir.join(format!("headless_{ts}.log"))
+    };
+    log::info!("headless mode: stats → {}", stats_path.display());
+
+    let mut frame_count = 0u64;
+    let mut fps_start = Instant::now();
+    let mut last_log = Instant::now();
+
     while running.load(Ordering::SeqCst) {
-        std::thread::sleep(Duration::from_millis(500));
+        match out_rx.recv_timeout(Duration::from_millis(200)) {
+            Ok(frame) => {
+                if let Ok(mut s) = sink.lock() { let _ = s.write_frame(&frame); }
+                frame_count += 1;
+            }
+            Err(_) => {}
+        }
+        // log stats every 5 seconds
+        if last_log.elapsed() >= Duration::from_secs(5) {
+            let elapsed = fps_start.elapsed().as_secs_f32();
+            let fps = if elapsed > 0.0 { frame_count as f32 / elapsed } else { 0.0 };
+            let dropped = handle.state.dropped_frames.load(Ordering::Relaxed);
+            let line = format!(
+                "[{}] fps={:.1} frames={} dropped={}\n",
+                chrono::Utc::now().to_rfc3339(),
+                fps, frame_count, dropped,
+            );
+            if let Ok(mut f) = std::fs::OpenOptions::new().create(true).append(true).open(&stats_path) {
+                use std::io::Write;
+                let _ = f.write_all(line.as_bytes());
+            }
+            log::info!("headless: {}", line.trim());
+            last_log = Instant::now();
+        }
     }
+
+    handle.shutdown();
     log::info!("headless mode stopped");
     Ok(())
 }
