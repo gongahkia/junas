@@ -108,6 +108,12 @@ pub fn spawn_pipeline(
     registry: PatternRegistry,
     output_tx: Sender<TransformedFrame>, // caller reads from here
 ) -> anyhow::Result<PipelineHandle> {
+    // apply accelerator preference from config before any neural inference
+    let accel = crate::config::AppConfig::load()
+        .unwrap_or_default()
+        .transform
+        .accelerator;
+    crate::transform::neural::configure_accelerator(accel);
     let channels = PipelineChannels::new();
     let state = SharedState::new(registry);
 
