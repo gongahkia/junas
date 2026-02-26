@@ -5,8 +5,9 @@
 pub fn apply_pixelate(pixels: &mut [u8], width: u32, height: u32, intensity: f32) {
     let w = width as usize;
     let h = height as usize;
-    // block size: 1/8 of each dimension, minimum 2
-    let block = (w.min(h) / 8).max(2);
+    // block size scales with intensity: 2px (min) → dim/8 (max)
+    let max_block = (w.min(h) / 8).max(2);
+    let block = (2.0 + intensity * (max_block as f32 - 2.0)).round() as usize;
     let intensity = intensity.clamp(0.0, 1.0);
 
     let mut y = 0;

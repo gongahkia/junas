@@ -98,7 +98,7 @@ pub fn apply_transform_full(
         let r = &m.bounds;
         let mut region_pixels = extract_region(&pixels_snapshot, w, r.x, r.y, r.width, r.height);
         match mode {
-            TransformMode::Blur => apply_blur(&mut region_pixels, r.width, r.height, 15.0, intensity),
+            TransformMode::Blur => apply_blur(&mut region_pixels, r.width, r.height, (intensity * 15.0).max(0.5), 1.0),
             TransformMode::Pixelate => apply_pixelate(&mut region_pixels, r.width, r.height, intensity),
             TransformMode::Cartoon => apply_cartoon(&mut region_pixels, r.width, r.height, intensity),
             TransformMode::Ascii => apply_ascii(&mut region_pixels, r.width, r.height, intensity),
