@@ -11,7 +11,7 @@
 use privacy_common::transform::TransformMode;
 use serde_json::json;
 use std::sync::{
-    atomic::{AtomicBool, Ordering},
+    atomic::{AtomicBool, AtomicUsize, Ordering},
     Arc, Mutex,
 };
 use tungstenite::{accept, Message};
@@ -49,17 +49,31 @@ pub fn spawn(state: Arc<ControlState>, port: u16) {
         .ok();
 }
 
+const MAX_CONNECTIONS: usize = 10;
+
 fn run_server(state: Arc<ControlState>, port: u16) {
     let listener = match std::net::TcpListener::bind(format!("127.0.0.1:{port}")) {
         Ok(l) => l,
         Err(e) => { log::error!("control server: bind 127.0.0.1:{port} failed: {e}"); return; }
     };
     log::info!("control server: ws://127.0.0.1:{port}");
+    let conn_count = Arc::new(AtomicUsize::new(0));
     for stream in listener.incoming() {
         match stream {
             Ok(s) => {
+                let cur = conn_count.load(Ordering::Relaxed);
+                if cur >= MAX_CONNECTIONS {
+                    log::warn!("control server: connection limit ({MAX_CONNECTIONS}) reached, dropping");
+                    drop(s);
+                    continue;
+                }
+                conn_count.fetch_add(1, Ordering::Relaxed);
                 let st = Arc::clone(&state);
-                std::thread::spawn(move || handle_client(s, st));
+                let counter = Arc::clone(&conn_count);
+                std::thread::spawn(move || {
+                    handle_client(s, st);
+                    counter.fetch_sub(1, Ordering::Relaxed);
+                });
             }
             Err(e) => log::warn!("control server: accept error: {e}"),
         }
