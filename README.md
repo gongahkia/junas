@@ -10,7 +10,8 @@
 2. Embeddings (lexuan)
 3. Clustering (astin)
 4. Classification model 1 (gab, lexuan)
-5. Classification model 2 (gab, lexuan)
+4b. Classification model 2 (gab, lexuan)
+5. Mosaic Aggregation (astin)
 6. Regression (astin)
 
 ## Architecture
@@ -27,11 +28,14 @@ flowchart TD
     L2 --> L4[4. Classification Model 1]
     
     %% Sequential from Model 1
-    L4 --> L5[5. Classification Model 2]
+    L4 --> L4b[4b. Classification Model 2]
+    
+    %% Convergence to Mosaic
+    L3 --> L5[5. Mosaic Aggregation Logic]
+    L4b --> L5
     
     %% Convergence to Regression
-    L3 --> Reg[6. Regression]
-    L5 --> Reg
+    L5 --> Reg[6. Regression]
     
     Reg --> Out[Final Output]
 ```
@@ -140,8 +144,8 @@ flowchart TD
     document_classification_model_2_classification_score: Double,
 
     // layer 5
-    document_mosiac_aggregation_check: Boolean,
-    document_mosiac_aggregation_score: Null|Double,
+    document_mosaic_aggregation_check: Boolean,
+    document_mosaic_aggregation_score: Null|Double,
 
     // layer 6
     document_risk_probability: Double,

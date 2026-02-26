@@ -32,6 +32,8 @@ The `/classify` endpoint runs layers sequentially:
 1. **Lexicon filter** — regex, spaCy NER, Presidio PII, restricted list cross-ref. Short-circuits to `HIGH_RISK` if a restricted entity or financial figure above threshold ($1M default) is detected.
 2. **Model-1 (FinBERT)** — binary classifier: safe vs risk. Only runs if lexicon doesn't short-circuit. Skipped if checkpoint doesn't exist (falls back to lexicon-only).
 3. **Model-2 (BERT)** — binary classifier: low_risk vs high_risk. Only runs if Model-1 outputs risk. Skipped if checkpoint doesn't exist (defaults to `LOW_RISK`).
+4. **Mosaic Aggregation** — Redis TTL-based fragment tracking. Escalates `LOW_RISK` outputs to `HIGH_RISK` if multiple occurrences are detected for the same entity within a configured time window.
+5. **Regression** — Combines scores from previous layers (currently a stub, not yet fully trained).
 
 ## Training Models
 
@@ -76,6 +78,8 @@ Outputs `public_embeddings.npy`, `violation_embeddings.npy`, and `all_embeddings
 | `IF_CONTAMINATION` | `0.05` | Expected anomaly fraction in IF training data |
 | `IF_MAX_FEATURES` | `0.3` | Fraction of embedding dims each IF tree randomly samples |
 | `IF_N_ESTIMATORS` | `100` | Number of trees in the Isolation Forest |
+| `MOSAIC_TTL_HOURS` | `24` | Hours to retain history for an entity's occurrences |
+| `MOSAIC_THRESHOLD` | `10` | Disparate low-risk events needed for high-risk escalation |
 
 ## Restricted List
 
@@ -103,7 +107,6 @@ python3 clustering/isolation_forest.py all_embeddings.npy path/to/output.joblib
 
 ## Not Yet Implemented
 
-- Mosaic aggregation (Redis TTL-based fragment tracking)
-- XGBoost regression (multivariate risk scoring)
+- Complete XGBoost regression training (currently using a stub)
 
 See `docs/assumption.md` for all assumed schemas and thresholds.

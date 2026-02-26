@@ -5,6 +5,7 @@ layers = [
     "clustering",
     "model1",
     "model2",
+    "mosaic",
     "regression"
 ]
 
@@ -21,6 +22,13 @@ n_estimators = 100
 
 [embeddings]
 model_name = "all-mpnet-base-v2"
+
+[mosaic]
+ttl_hours = 24.0
+threshold = 10
+redis_host = "localhost"
+redis_port = 6379
+
 [lexicon]
 score_threshold = 10.0
 

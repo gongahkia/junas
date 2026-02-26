@@ -1,4 +1,5 @@
 const analyzeInput = document.getElementById('analyze-input');
+const entityInput = document.getElementById('entity-input');
 const classifyBtn = document.getElementById('classify-btn');
 const resultsDisplay = document.getElementById('results-display');
 const connectionText = document.getElementById('connection-text');
@@ -80,6 +81,15 @@ function updateResults(data) {
         html += `<div class="detail-item"><span>NLP Model 2 (Severity):</span> <span>${(data.model2.confidence * 100).toFixed(1)}% ${data.model2.label.replace('_', ' ')}</span></div>`;
     }
 
+    // Mosaic
+    if (data.mosaic) {
+        if (data.mosaic.escalated) {
+            html += `<div class="detail-item"><span>Mosaic Aggregation:</span> <span style="color: var(--high-red); font-weight: 600;">ESCALATED (${data.mosaic.count} recent hits)</span></div>`;
+        } else {
+            html += `<div class="detail-item"><span>Mosaic Aggregation:</span> <span style="color: var(--low-yellow);">TRACKED (${data.mosaic.count} recent hits)</span></div>`;
+        }
+    }
+
     // Regression
     if (data.regression && !data.regression.status) {
         html += `<div class="detail-item"><span>Regression (Final Score):</span> <span>${data.regression.risk_score.toFixed(3)}</span></div>`;
@@ -98,22 +108,16 @@ flowchart TD
     classDef default fill:#fff,stroke:#333,stroke-width:1px,color:#000;
     classDef green fill:#dcfce7,stroke:#16a34a,color:#16a34a;
     classDef red fill:#fee2e2,stroke:#dc2626,color:#dc2626;
+    classDef yellow fill:#fef08a,stroke:#ca8a04,color:#ca8a04;
+    classDef gray fill:#f3f4f6,stroke:#9ca3af,color:#6b7280,stroke-dasharray: 5 5;
 
     In[Ingestion] --> L1[1. Lexicon Check]
-    L1 --> L2[2. Embeddings Generation]
-    L2 --> L3[3. Clustering]
-    L2 --> L4[4. Classification Model 1]
-    L4 --> L5[5. Classification Model 2]
-    L3 --> Reg[6. Regression]
-    L5 --> Reg
-    Reg --> Out[Final Output]
-
     class In green;
 `;
 
     if (responseData.lexicon && responseData.lexicon.high_risk_short_circuit) {
         mermaidDef += `    class L1 red;\n`;
-        mermaidDef += `    L1 -.-> Out;\n`;
+        mermaidDef += `    L1 -.-> Out[Final Output];\n`;
         mermaidDef += `    class Out red;\n`;
     } else {
         if (responseData.lexicon && responseData.lexicon.flagged) {
@@ -121,31 +125,61 @@ flowchart TD
         } else {
             mermaidDef += `    class L1 green;\n`;
         }
+
+        mermaidDef += `    L1 --> L2[2. Embeddings Generation]\n`;
         mermaidDef += `    class L2 green;\n`;
+
+        mermaidDef += `    L2 --> L3[3. Clustering]\n`;
+        if (responseData.clustering) {
+            mermaidDef += `    class L3 green;\n`;
+        } else {
+            mermaidDef += `    class L3 gray;\n`;
+        }
+
+        mermaidDef += `    L2 --> L4[4. Classification Model 1]\n`;
+
+        let pathFromModel1 = "L4";
 
         if (responseData.model1) {
             if (responseData.model1.label === "safe") {
                 mermaidDef += `    class L4 green;\n`;
-                mermaidDef += `    L4 -.-> Reg;\n`;
             } else {
                 mermaidDef += `    class L4 red;\n`;
+                mermaidDef += `    L4 --> L4b[4b. Classification Model 2]\n`;
                 if (responseData.model2) {
                     if (responseData.model2.label === "high_risk") {
-                        mermaidDef += `    class L5 red;\n`;
+                        mermaidDef += `    class L4b red;\n`;
                     } else {
-                        mermaidDef += `    class L5 green;\n`;
+                        mermaidDef += `    class L4b green;\n`;
                     }
-                    mermaidDef += `    L5 -.-> Reg;\n`;
                 } else {
-                    mermaidDef += `    L4 -.-> Reg;\n`;
+                    mermaidDef += `    class L4b gray;\n`;
                 }
+                pathFromModel1 = "L4b";
             }
+        } else {
+            mermaidDef += `    class L4 gray;\n`;
         }
+
+        mermaidDef += `    L3 -.-> L5[5. Mosaic Aggregation]\n`;
+        mermaidDef += `    ${pathFromModel1} -.-> L5\n`;
+
+        if (responseData.mosaic) {
+            mermaidDef += `    class L5 ${responseData.mosaic.escalated ? "red" : "yellow"};\n`;
+        } else {
+            mermaidDef += `    class L5 gray;\n`;
+        }
+
+        mermaidDef += `    L5 -.-> Reg[6. Regression]\n`;
 
         if (responseData.regression && !responseData.regression.status) {
             mermaidDef += `    class Reg ${responseData.regression.risk_score > 0.7 ? "red" : "green"};\n`;
-            mermaidDef += `    Reg -.-> Out;\n`;
+            mermaidDef += `    Reg -.-> Out[Final Output];\n`;
             mermaidDef += `    class Out ${responseData.regression.risk_score > 0.7 ? "red" : "green"};\n`;
+        } else {
+            mermaidDef += `    class Reg gray;\n`;
+            mermaidDef += `    Reg -.-> Out[Final Output];\n`;
+            mermaidDef += `    class Out default;\n`;
         }
     }
 
@@ -159,10 +193,10 @@ flowchart TD
     }
 }
 
-function updateDebugView(text, responseData) {
+function updateDebugView(reqBody, responseData) {
     const curl = `curl -X POST "${API_BASE}/classify" \\
      -H "Content-Type: application/json" \\
-     -d '{"text": "${text.replace(/'/g, "'\\''").replace(/"/g, '\\"')}"}'`;
+     -d '${JSON.stringify(reqBody).replace(/'/g, "'\\''")}'`;
 
     const jsonResponse = JSON.stringify(responseData, null, 2);
 
@@ -188,21 +222,28 @@ async function handleClassify() {
     const text = analyzeInput.value.trim();
     if (!text) return;
 
+    const entity_id = entityInput ? entityInput.value.trim() : "";
+
     classifyBtn.disabled = true;
     classifyBtn.textContent = 'Analyzing...';
+
+    const reqBody = { text };
+    if (entity_id) {
+        reqBody.entity_id = entity_id;
+    }
 
     try {
         const response = await fetch(`${API_BASE}/classify`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text })
+            body: JSON.stringify(reqBody)
         });
 
         if (!response.ok) throw new Error('API request failed');
 
         const data = await response.json();
         updateResults(data);
-        updateDebugView(text, data);
+        updateDebugView(reqBody, data);
     } catch (err) {
         resultsDisplay.classList.remove('hidden');
         resultsDisplay.innerHTML = `<div style="color: var(--high-red);">Error: ${err.message}. Check if backend is running.</div>`;

@@ -52,13 +52,12 @@
 - XGBoost multivariate regression combines lexicon hits, anomaly score, BERT score, mosaic freq
 - not implemented in this iteration
 
-## Mosaic Aggregation (not implemented)
+## Mosaic Aggregation
 - Redis TTL-based fragment tracking (24-48h window)
 - escalation threshold: 10+ low-risk fragments on same entity → high risk
-- not implemented in this iteration
 
 ## FastAPI Orchestration
-- pipeline: lexicon → model-1 → (if risk) model-2
+- pipeline: lexicon → embeddings → clustering → model-1 → (if risk) model-2 → mosaic → regression
 - response includes per-layer scores and final classification
 - classification enum: SAFE, LOW_RISK, HIGH_RISK
 - lexicon layer can short-circuit to HIGH_RISK if restricted list entity detected or financial threshold exceeded
