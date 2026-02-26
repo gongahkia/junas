@@ -1,6 +1,7 @@
 //! Top status bar: app name, FPS, processing latencies, output status, transform mode.
 
 use crate::app::{App, PipelineState};
+use privacy_common::transform::TransformMode;
 use ratatui::{
     layout::Rect,
     style::{Color, Modifier, Style},
@@ -37,7 +38,7 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
         Span::raw("│ "),
         Span::styled(pipeline_icon, Style::default().fg(pipeline_color)),
         Span::raw(format!(
-            " {:.1}fps  │  cap:{:.0}ms ocr:{:.0}ms tx:{:.0}ms out:{:.0}ms tot:{:.0}ms  │  {:?} {:.0}%  │  drop:{}  grid:{}x{} q:{:.0}% ",
+            " {:.1}fps  │  cap:{:.0}ms ocr:{:.0}ms tx:{:.0}ms out:{:.0}ms tot:{:.0}ms  │  {:?} {:.0}%",
             s.actual_fps,
             s.capture_latency_ms,
             s.ocr_latency_ms,
@@ -46,6 +47,21 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
             total_lat,
             app.transform_mode,
             app.transform_intensity * 100.0,
+        )),
+        {
+            let neural_status = if app.transform_mode == TransformMode::Neural {
+                if privacy_core::transform::neural::model_path().exists() {
+                    Span::styled(" [neural:ready]", Style::default().fg(Color::Green))
+                } else {
+                    Span::styled(" [neural:unavailable]", Style::default().fg(Color::Red))
+                }
+            } else {
+                Span::raw("")
+            };
+            neural_status
+        },
+        Span::raw(format!(
+            "  │  drop:{}  grid:{}x{} q:{:.0}% ",
             s.dropped_frames,
             s.ocr_grid_cols,
             s.ocr_grid_rows,
