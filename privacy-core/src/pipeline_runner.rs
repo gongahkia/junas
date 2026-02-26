@@ -12,6 +12,7 @@ use crate::{
         patterns::PatternRegistry,
         scanner::scan,
         expand::expand_and_merge,
+        line_expand::expand_to_end_of_line,
         whitelist::Whitelist,
     },
     pipeline::{PipelineChannels, CHANNEL_CAPACITY},
@@ -174,6 +175,7 @@ pub fn spawn_pipeline(
                                 let merged = expand_and_merge(
                                     matches, frame.width, frame.height, 0.10,
                                 );
+                                let merged = expand_to_end_of_line(merged, frame.width);
                                 DetectedRegions { matches: merged }
                             }
                             Err(_) => DetectedRegions::default(),
