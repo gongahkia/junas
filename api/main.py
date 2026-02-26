@@ -10,7 +10,7 @@ except ImportError:
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")) # add project root to path
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
-from api.schemas import ClassifyRequest, ClassifyResponse, Classification, LexiconResponse, LexiconHitResponse, Model1Response, Model2Response, HealthResponse, RegressionResponse
+from api.schemas import ClassifyRequest, ClassifyResponse, Classification, LexiconResponse, LexiconHitResponse, Model1Response, Model2Response, HealthResponse, RegressionResponse, MosaicResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 _state = {}
@@ -40,7 +40,7 @@ def load_config():
                 print(f"Error parsing config.toml: {e}")
                 
     # Default fallback
-    return ["lexicon", "model1", "model2"]
+    return ["lexicon", "embedding", "clustering", "model1", "model2", "mosaic", "regression"]
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -93,6 +93,13 @@ async def lifespan(app: FastAPI):
             except Exception as e:
                 print(f"Failed to load regression: {e}")
 
+        elif layer == "mosaic":
+            try:
+                from mosaic.inference import MosaicAggregator
+                _state["models"]["mosaic"] = MosaicAggregator.load()
+            except Exception as e:
+                print(f"Failed to load mosaic: {e}")
+
     print(f"Initialized pipeline layers: {layers}")
     yield
     _state.clear()
@@ -117,6 +124,7 @@ async def health():
         model2_loaded="model2" in models,
         embedding_loaded="embedding" in models,
         clustering_loaded="clustering" in models,
+        mosaic_loaded="mosaic" in models,
         regression_loaded="regression" in models
     )
 
@@ -130,6 +138,7 @@ async def classify(req: ClassifyRequest):
     m2_resp = None
     emb_resp = None
     clust_resp = None
+    mosaic_resp = None
     reg_resp = None
 
     final_classification = Classification.SAFE
@@ -179,6 +188,21 @@ async def classify(req: ClassifyRequest):
                 m2_resp = Model2Response(label=m2_result.label, confidence=m2_result.confidence, high_risk_score=m2_result.high_risk_score)
                 final_classification = Classification.HIGH_RISK if m2_result.label == "high_risk" else Classification.LOW_RISK
 
+        elif layer == "mosaic":
+            mosaic_agg = models.get("mosaic")
+            if mosaic_agg:
+                entity_id = req.entity_id
+                if not entity_id and lex_resp and lex_resp.restricted_entities:
+                    entity_id = lex_resp.restricted_entities[0].get("name")
+                    
+                if entity_id:
+                    is_lr = (final_classification == Classification.LOW_RISK)
+                    m_result = mosaic_agg.aggregate(entity_id=entity_id, is_low_risk=is_lr)
+                    mosaic_resp = MosaicResponse(escalated=m_result["escalate_to_high_risk"], count=m_result["count"])
+                    
+                    if is_lr and m_result["escalate_to_high_risk"]:
+                        final_classification = Classification.HIGH_RISK
+
         elif layer == "regression":
             reg_model = models.get("regression")
             if reg_model:
@@ -186,8 +210,9 @@ async def classify(req: ClassifyRequest):
                 m1_score = m1_resp.risk_score if m1_resp else 0.0
                 m2_score = m2_resp.high_risk_score if m2_resp else 0.0
                 clust_score = clust_resp.get("anomaly_score", 0.0) if clust_resp else 0.0
+                m_count = mosaic_resp.count if mosaic_resp else 0
                 
-                features = [lex_score, m1_score, m2_score, clust_score]
+                features = [lex_score, m1_score, m2_score, clust_score, m_count]
                 reg_result = reg_model.predict(features)
                 reg_resp = RegressionResponse(risk_score=reg_result["risk_score"], reasoning=reg_result["reasoning"])
                 
@@ -200,6 +225,7 @@ async def classify(req: ClassifyRequest):
         model2=m2_resp,
         embedding=emb_resp,
         clustering=clust_resp,
+        mosaic=mosaic_resp,
         regression=reg_resp
     )
 

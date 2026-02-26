@@ -10,6 +10,7 @@ class Classification(str, Enum):
 
 class ClassifyRequest(BaseModel):
     text: str = Field(..., min_length=1, description="text to classify for MNPI sensitivity")
+    entity_id: Optional[str] = Field(None, description="Optional entity identifier for Mosaic tracking")
 
 class LexiconHitResponse(BaseModel):
     rule: str
@@ -39,6 +40,10 @@ class RegressionResponse(BaseModel):
     risk_score: float
     reasoning: str = ""
 
+class MosaicResponse(BaseModel):
+    escalated: bool
+    count: int
+
 class ClassifyResponse(BaseModel):
     classification: Classification
     lexicon: Optional[LexiconResponse] = None
@@ -46,6 +51,7 @@ class ClassifyResponse(BaseModel):
     model2: Optional[Model2Response] = None # none if model1 says safe
     embedding: Optional[list[float]] = None
     clustering: Optional[dict] = None
+    mosaic: Optional[MosaicResponse] = None
     regression: Optional[RegressionResponse] = None
 
 class TrainingSentence(BaseModel):
@@ -64,4 +70,5 @@ class HealthResponse(BaseModel):
     model2_loaded: bool
     embedding_loaded: bool = False
     clustering_loaded: bool = False
+    mosaic_loaded: bool = False
     regression_loaded: bool = False

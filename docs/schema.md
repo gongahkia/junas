@@ -233,7 +233,8 @@ HuggingFace checkpoint saved to `model-2/checkpoints/best/` (model weights, toke
     "restricted_entities": [{"name": "str", "ticker": "str", "isin": "str"}]
   },
   "model1": {"label": "str", "confidence": "float", "risk_score": "float"} | null,
-  "model2": {"label": "str", "confidence": "float", "high_risk_score": "float"} | null
+  "model2": {"label": "str", "confidence": "float", "high_risk_score": "float"} | null,
+  "mosaic": {"escalated": "bool", "count": "int"} | null
 }
 ```
 
@@ -244,8 +245,28 @@ HuggingFace checkpoint saved to `model-2/checkpoints/best/` (model weights, toke
 **Response:**
 
 ```json
-{"status": "ok", "lexicon_loaded": "bool", "model1_loaded": "bool", "model2_loaded": "bool"}
+{"status": "ok", "lexicon_loaded": "bool", "model1_loaded": "bool", "model2_loaded": "bool", "mosaic_loaded": "bool"}
 ```
+
+---
+
+## `mosaic/` — Redis-backed State Tracking
+
+### Tracking Output
+
+| Field | Type | Description |
+|---|---|---|
+| `escalated` | `bool` | `True` if entity has 10+ Low Risk events within TTL (escalated to High Risk) |
+| `count` | `int` | Number of previous Low Risk fragments assigned to this entity within TTL |
+
+### Config
+
+| Env Var | Default | Description |
+|---|---|---|
+| `MOSAIC_TTL_HOURS` | `24` | Hours to retain history for an entity's occurrences |
+| `MOSAIC_THRESHOLD` | `10` | The number of Low Risk occurrences that triggers escalation to High Risk |
+| `REDIS_HOST` | `localhost` | Redis instance hostname |
+| `REDIS_PORT` | `6379` | Redis port config |
 
 ---
 
@@ -259,6 +280,6 @@ Intended input features:
 | `anomaly_score` | clustering layer | `float` |
 | `bert_risk_score` | model-1 | `float` |
 | `bert_severity_score` | model-2 | `float` |
-| `mosaic_frequency` | Redis mosaic aggregation | `int` |
+| `mosaic_count` | mosaic layer | `int` |
 
 Intended output: single `float` MNPI risk probability (0.0–1.0).

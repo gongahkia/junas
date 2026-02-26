@@ -17,10 +17,14 @@ def run_tests():
     for item in tests:
         text = item.get("text", "")
         test_id = item.get("id", "unknown")
-        
+        entity_id = item.get("entity_id")
+        req_data = {"text": text}
+        if entity_id:
+            req_data["entity_id"] = entity_id
+            
         req = urllib.request.Request(
             url, 
-            data=json.dumps({"text": text}).encode('utf-8'),
+            data=json.dumps(req_data).encode('utf-8'),
             headers=headers,
             method="POST"
         )
@@ -35,6 +39,8 @@ def run_tests():
                     print(f"      Model1: {resp_data['model1']['label']} (conf: {resp_data['model1']['confidence']:.2f})")
                 if resp_data.get("model2"):
                     print(f"      Model2: {resp_data['model2']['label']} (conf: {resp_data['model2']['confidence']:.2f})")
+                if resp_data.get("mosaic"):
+                    print(f"      Mosaic: escalated={resp_data['mosaic']['escalated']} (count: {resp_data['mosaic']['count']})")
                 print("-" * 60)
         except urllib.error.URLError as e:
             print(f"[{test_id}] Request failed: {e}")
