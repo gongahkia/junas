@@ -2,10 +2,13 @@
 
 use crate::control_server::ControlState;
 use privacy_common::{frame::Rect, transform::TransformMode};
-use privacy_core::detection::{
-    default_patterns::default_registry,
-    patterns::PatternRegistry,
-    pii_patterns::pii_patterns,
+use privacy_core::{
+    config::AppConfig,
+    detection::{
+        default_patterns::default_registry,
+        patterns::PatternRegistry,
+        pii_patterns::pii_patterns,
+    },
 };
 use std::{
     collections::{HashMap, VecDeque},
@@ -171,11 +174,21 @@ pub struct LogEntry {
 
 impl App {
     pub fn new() -> Self {
+        let cfg = AppConfig::load().unwrap_or_default();
+        let transform_mode = match cfg.transform.mode.as_str() {
+            "cartoon" => TransformMode::Cartoon,
+            "ascii" => TransformMode::Ascii,
+            "pixelate" => TransformMode::Pixelate,
+            "neural" => TransformMode::Neural,
+            _ => TransformMode::Blur,
+        };
+        let transform_intensity = cfg.transform.intensity.clamp(0.0, 1.0);
+        let profile_names: Vec<String> = cfg.profiles.keys().cloned().collect();
         Self {
             running: true,
             pipeline_state: PipelineState::Running,
-            transform_mode: TransformMode::default(),
-            transform_intensity: 1.0,
+            transform_mode,
+            transform_intensity,
             stats: PipelineStats::default(),
             log_entries: Vec::new(),
             started_at: Instant::now(),
@@ -199,8 +212,8 @@ impl App {
             first_detection_flash: None,
             recording_started_at: None,
             active_profile: None,
-            profile_names: Vec::new(),
-            control_state: ControlState::new(TransformMode::default(), 1.0),
+            profile_names,
+            control_state: ControlState::new(transform_mode, transform_intensity),
             preview_rx: None,
         }
     }
