@@ -76,9 +76,18 @@ pub fn render(frame: &mut Frame, state: &mut PatternManagerState, registry: &Pat
         } else {
             regex_preview
         };
+        let cat_abbr = match p.category {
+            privacy_common::detection::PatternCategory::EnvVar  => "ENV",
+            privacy_common::detection::PatternCategory::Token   => "TOK",
+            privacy_common::detection::PatternCategory::Password=> "PWD",
+            privacy_common::detection::PatternCategory::ApiKey  => "API",
+            privacy_common::detection::PatternCategory::Pii     => "PII",
+        };
         ListItem::new(Line::from(vec![
             Span::styled(format!(" {} ", toggle), Style::default().fg(toggle_color)),
             Span::styled(format!("{:<20}", p.name), Style::default().fg(Color::White).add_modifier(Modifier::BOLD)),
+            Span::styled(format!("{:<4}", cat_abbr), Style::default().fg(Color::Magenta)),
+            Span::raw(" "),
             Span::styled(format!("{:<6}", format!("{:?}", p.severity)), Style::default().fg(sev_color)),
             Span::styled(regex_preview, Style::default().fg(Color::DarkGray)),
         ]))
