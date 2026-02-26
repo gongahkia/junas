@@ -300,6 +300,7 @@ impl App {
             self.stats.quality_scale = *ps.quality_scale.lock().unwrap();
             self.stats.ocr_grid_cols = ps.target_grid_cols.load(Ordering::Relaxed);
             self.stats.ocr_grid_rows = ps.target_grid_rows.load(Ordering::Relaxed);
+            self.stats.dropped_frames = ps.dropped_frames.load(Ordering::Relaxed);
             if let Ok(mut err) = ps.capture_error.try_lock() {
                 if err.is_some() { self.capture_error = err.take(); }
             }

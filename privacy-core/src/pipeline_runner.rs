@@ -26,7 +26,7 @@ use privacy_common::{
 };
 use std::{
     sync::{
-        atomic::{AtomicBool, AtomicU32, Ordering},
+        atomic::{AtomicBool, AtomicU32, AtomicU64, Ordering},
         Arc, Mutex,
     },
     thread,
@@ -58,6 +58,8 @@ pub struct SharedState {
     pub transition_frames: AtomicU32,
     /// capture error message (None = ok, Some = failed)
     pub capture_error: Mutex<Option<String>>,
+    /// frames dropped due to full channels in any pipeline thread
+    pub dropped_frames: AtomicU64,
 }
 
 impl SharedState {
@@ -76,6 +78,7 @@ impl SharedState {
             transition_frames: AtomicU32::new(0),
             whitelist: Mutex::new(whitelist),
             capture_error: Mutex::new(None),
+            dropped_frames: AtomicU64::new(0),
         })
     }
 
@@ -134,7 +137,8 @@ pub fn spawn_pipeline(
             while state_c.running.load(Ordering::Relaxed) {
                 match source.next_frame() {
                     Ok(Some(frame)) => {
-                        if raw_tx.is_full() { // drop oldest — discard new
+                        if raw_tx.is_full() {
+                            state_c.dropped_frames.fetch_add(1, Ordering::Relaxed);
                         } else {
                             let _ = raw_tx.try_send(frame);
                         }
@@ -207,7 +211,9 @@ pub fn spawn_pipeline(
                                 *state_d.quality_scale.lock().unwrap() = 1.0;
                             }
                         }
-                        if !detection_tx.is_full() {
+                        if detection_tx.is_full() {
+                            state_d.dropped_frames.fetch_add(1, Ordering::Relaxed);
+                        } else {
                             let _ = detection_tx.try_send((frame, regions));
                         }
                     }
@@ -273,7 +279,9 @@ pub fn spawn_pipeline(
                             height: frame.height,
                             timestamp: frame.timestamp,
                         });
-                        if !transformed_tx.is_full() {
+                        if transformed_tx.is_full() {
+                            state_t.dropped_frames.fetch_add(1, Ordering::Relaxed);
+                        } else {
                             let _ = transformed_tx.try_send(result);
                         }
                     }
