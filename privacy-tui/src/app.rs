@@ -111,6 +111,14 @@ impl Default for StatsOverlayState {
 /// Latency history for sparkline (last 120 frames, ms per frame).
 pub const LATENCY_HISTORY_LEN: usize = 120;
 
+/// Preview frame update sent from the pipeline background thread.
+pub struct PreviewUpdate {
+    pub pixels: Vec<u8>,
+    pub width: u32,
+    pub height: u32,
+    pub fps: f32,
+}
+
 pub struct App {
     pub running: bool,
     pub pipeline_state: PipelineState,
@@ -148,6 +156,8 @@ pub struct App {
     pub profile_names: Vec<String>,
     /// Shared state with the WebSocket control server.
     pub control_state: Arc<ControlState>,
+    /// Receives preview frame updates from the pipeline background thread.
+    pub preview_rx: Option<crossbeam_channel::Receiver<PreviewUpdate>>,
 }
 
 #[derive(Debug, Clone)]
@@ -191,6 +201,7 @@ impl App {
             active_profile: None,
             profile_names: Vec::new(),
             control_state: ControlState::new(TransformMode::default(), 1.0),
+            preview_rx: None,
         }
     }
 
@@ -213,6 +224,15 @@ impl App {
     pub fn tick_transition(&mut self) {
         if self.transition_frames_left > 0 {
             self.transition_frames_left -= 1;
+        }
+        // drain preview updates from pipeline background thread
+        if let Some(ref rx) = self.preview_rx {
+            while let Ok(upd) = rx.try_recv() {
+                if upd.fps > 0.0 { self.stats.actual_fps = upd.fps; }
+                self.preview_width = upd.width;
+                self.preview_height = upd.height;
+                self.tx_preview_pixels = Some(upd.pixels);
+            }
         }
         // apply pending pause/resume from control server
         if let Ok(mut g) = self.control_state.pending_pause.try_lock() {

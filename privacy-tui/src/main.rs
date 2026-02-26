@@ -106,13 +106,31 @@ fn cmd_run() -> Result<()> {
     let sink = create_sink(sink_kind)?;
     let sink = Arc::new(Mutex::new(sink));
     let sink_w = Arc::clone(&sink);
+    let (preview_tx, preview_rx) = crossbeam_channel::bounded::<app::PreviewUpdate>(2);
+    app.preview_rx = Some(preview_rx);
     std::thread::Builder::new()
         .name("aki-sink".into())
         .spawn(move || {
+            let mut frame_count = 0u64;
+            let mut fps_start = std::time::Instant::now();
+            let mut current_fps = 0.0f32;
             while let Ok(frame) = out_rx.recv() {
                 if let Ok(mut s) = sink_w.lock() {
                     let _ = s.write_frame(&frame);
                 }
+                frame_count += 1;
+                let elapsed = fps_start.elapsed().as_secs_f32();
+                if elapsed >= 1.0 {
+                    current_fps = frame_count as f32 / elapsed;
+                    frame_count = 0;
+                    fps_start = std::time::Instant::now();
+                }
+                let _ = preview_tx.try_send(app::PreviewUpdate {
+                    pixels: frame.pixels.clone(),
+                    width: frame.width,
+                    height: frame.height,
+                    fps: current_fps,
+                });
             }
         })?;
     let result = run(&mut terminal, &mut app);
