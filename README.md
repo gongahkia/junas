@@ -18,22 +18,22 @@
 ```mermaid
 flowchart TD
     In[Ingestion] --> L1[1. Lexicon Check]
-    
-    L1 -- "Score < Threshold" --> L2[2. Embeddings Generation]
-    L1 -- "Score >= Threshold" --> Out[Final Output (SHORT CIRCUIT)]
-    
+
+    L1 -->|"Score < Threshold"| L2[2. Embeddings Generation]
+    L1 -->|"Score >= Threshold"| Out2
+
     %% Parallel processing
     L2 --> L3[3. Clustering]
     L2 --> L4[4. Classification Model 1]
-    
+
     %% Sequential from Model 1
     L4 --> L5[5. Classification Model 2]
-    
+
     %% Convergence to Regression
     L3 --> Reg[6. Regression]
     L5 --> Reg
-    
-    Reg --> Out[Final Output]
+
+    Reg --> Out2["Final Output"]
 ```
 
 ## Timeline
@@ -169,4 +169,5 @@ flowchart TD
         // ... 
     ]
 }
+
 ```
