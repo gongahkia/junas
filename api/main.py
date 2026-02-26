@@ -10,7 +10,7 @@ except ImportError:
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")) # add project root to path
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
-from api.schemas import ClassifyRequest, ClassifyResponse, Classification, LexiconResponse, LexiconHitResponse, Model1Response, Model2Response, HealthResponse
+from api.schemas import ClassifyRequest, ClassifyResponse, Classification, LexiconResponse, LexiconHitResponse, Model1Response, Model2Response, HealthResponse, RegressionResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 _state = {}
@@ -87,7 +87,11 @@ async def lifespan(app: FastAPI):
                 print(f"Failed to load model2: {e}")
 
         elif layer == "regression":
-            _state["models"]["regression"] = "stub"
+            try:
+                reg_mod = SourceFileLoader("reg_inf", os.path.join(os.path.dirname(__file__), "..", "regression", "inference.py")).load_module()
+                _state["models"]["regression"] = reg_mod.RegressionStub()
+            except Exception as e:
+                print(f"Failed to load regression: {e}")
 
     print(f"Initialized pipeline layers: {layers}")
     yield
@@ -138,11 +142,10 @@ async def classify(req: ClassifyRequest):
                 lex_result = lexicon_filter.run(req.text)
                 lex_resp = LexiconResponse(
                     flagged=lex_result.flagged, high_risk_short_circuit=lex_result.high_risk_short_circuit,
-                    hits=[LexiconHitResponse(rule=h.rule, matched_text=h.matched_text, severity=h.severity, detail=h.detail) for h in lex_result.hits],
+                    total_score=lex_result.total_score,
+                    hits=[LexiconHitResponse(rule=h.rule, matched_text=h.matched_text, severity=h.severity, detail=h.detail, score=h.score) for h in lex_result.hits],
                     restricted_entities=lex_result.restricted_entities_found,
                 )
-                if lex_result.flagged:
-                    final_classification = Classification.HIGH_RISK
                 if lex_result.high_risk_short_circuit:
                     final_classification = Classification.HIGH_RISK
                     break # Short circuit
@@ -177,8 +180,18 @@ async def classify(req: ClassifyRequest):
                 final_classification = Classification.HIGH_RISK if m2_result.label == "high_risk" else Classification.LOW_RISK
 
         elif layer == "regression":
-            if "regression" in models:
-                reg_resp = {"status": "not_implemented"}
+            reg_model = models.get("regression")
+            if reg_model:
+                lex_score = lex_resp.total_score if lex_resp else 0.0
+                m1_score = m1_resp.risk_score if m1_resp else 0.0
+                m2_score = m2_resp.high_risk_score if m2_resp else 0.0
+                clust_score = clust_resp.get("anomaly_score", 0.0) if clust_resp else 0.0
+                
+                features = [lex_score, m1_score, m2_score, clust_score]
+                reg_result = reg_model.predict(features)
+                reg_resp = RegressionResponse(risk_score=reg_result["risk_score"], reasoning=reg_result["reasoning"])
+                
+                final_classification = Classification.HIGH_RISK if reg_result["label"] == "high_risk" else (Classification.LOW_RISK if reg_result["label"] == "low_risk" else Classification.SAFE)
 
     return ClassifyResponse(
         classification=final_classification,

@@ -21,3 +21,24 @@ n_estimators = 100
 
 [embeddings]
 model_name = "all-mpnet-base-v2"
+[lexicon]
+score_threshold = 10.0
+
+[lexicon_weights]
+money_threshold = 2.0
+pct_threshold = 1.0
+restricted_list = 5.0
+ner_event_entity_correlation = 4.0
+ner_org_money_correlation = 1.0
+ner_org = 0.5
+ner_person = 0.5
+ner_money = 0.5
+ner_gpe = 0.5
+ner_law = 0.5
+presidio_financial_id = 5.0
+presidio_credit_card = 5.0
+presidio_iban_code = 5.0
+presidio_phone_number = 1.0
+presidio_email_address = 1.0
+default_high = 3.0
+default_info = 0.5
