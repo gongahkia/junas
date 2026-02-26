@@ -4,7 +4,7 @@
 
 use crate::app::App;
 use ratatui::{
-    layout::Rect,
+    layout::{Constraint, Direction, Layout, Rect},
     style::{Color, Style},
     text::{Line, Span},
     widgets::{Block, Borders, Paragraph},
@@ -14,13 +14,17 @@ use ratatui::{
 /// Render the heatmap overlay inside `area` (replaces raw preview content when enabled).
 pub fn render(frame: &mut Frame, app: &mut App, area: Rect) {
     let (gx, gy) = crate::app::HeatmapState::grid_dims();
+    let rows = Layout::default()
+        .direction(Direction::Vertical)
+        .constraints([Constraint::Min(0), Constraint::Length(1)])
+        .split(area);
     let inner = {
         let block = Block::default()
             .title(" Heatmap (60s) — red=frequent blue=never  [h=close] ")
             .borders(Borders::ALL)
             .border_style(Style::default().fg(Color::Yellow));
-        let inner = block.inner(area);
-        frame.render_widget(block, area);
+        let inner = block.inner(rows[0]);
+        frame.render_widget(block, rows[0]);
         inner
     };
 
@@ -43,6 +47,22 @@ pub fn render(frame: &mut Frame, app: &mut App, area: Rect) {
     }
     let para = Paragraph::new(lines);
     frame.render_widget(para, inner);
+
+    // ── color scale legend ────────────────────────────────────────────────────
+    let legend = Line::from(vec![
+        Span::raw(" Scale: "),
+        Span::styled("█", Style::default().fg(Color::Blue)),
+        Span::raw(" 0 "),
+        Span::styled("█", Style::default().fg(Color::Cyan)),
+        Span::raw(" 1-7 "),
+        Span::styled("█", Style::default().fg(Color::Green)),
+        Span::raw(" 8-14 "),
+        Span::styled("█", Style::default().fg(Color::Yellow)),
+        Span::raw(" 15-22 "),
+        Span::styled("█", Style::default().fg(Color::Red)),
+        Span::raw(" 23-30+ hits/60s"),
+    ]);
+    frame.render_widget(Paragraph::new(legend), rows[1]);
 }
 
 /// Map heat [0.0-1.0] to a color: blue → cyan → green → yellow → red.
