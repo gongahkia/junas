@@ -4,6 +4,7 @@ use privacy_common::detection::{PatternCategory, Severity};
 use regex::Regex;
 
 /// A compiled sensitivity pattern ready for matching.
+#[derive(Clone)]
 pub struct SensitivityPattern {
     pub name: &'static str,
     pub regex: Regex,
@@ -44,6 +45,7 @@ impl SensitivityPattern {
 }
 
 /// Registry holding all active sensitivity patterns.
+#[derive(Clone)]
 pub struct PatternRegistry {
     pub patterns: Vec<SensitivityPattern>,
 }

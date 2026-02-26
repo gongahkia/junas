@@ -90,18 +90,46 @@ fn export_session_log(app: &app::App) {
 }
 
 fn cmd_run() -> Result<()> {
+    use crossbeam_channel::bounded;
+    use privacy_common::frame::TransformedFrame;
+    use privacy_core::pipeline_runner::spawn_pipeline;
+    use privacy_output::{autodetect::detect_best_sink, create_sink};
+    use std::sync::{Arc, Mutex};
     let mut terminal = tui::init()?;
     let mut app = app::App::new();
-    // spawn WebSocket control server sharing state with the app
-    control_server::spawn(
-        std::sync::Arc::clone(&app.control_state),
-        control_server::DEFAULT_CONTROL_PORT,
-    );
+    control_server::spawn(Arc::clone(&app.control_state), control_server::DEFAULT_CONTROL_PORT);
+    let (out_tx, out_rx) = bounded::<TransformedFrame>(8);
+    let source = create_capture_source(app.selected_window_id);
+    let registry = app.pattern_registry.clone();
+    let handle = spawn_pipeline(source, None, registry, out_tx)?;
+    let sink_kind = detect_best_sink(9876);
+    let sink = create_sink(sink_kind)?;
+    let sink = Arc::new(Mutex::new(sink));
+    let sink_w = Arc::clone(&sink);
+    std::thread::Builder::new()
+        .name("aki-sink".into())
+        .spawn(move || {
+            while let Ok(frame) = out_rx.recv() {
+                if let Ok(mut s) = sink_w.lock() {
+                    let _ = s.write_frame(&frame);
+                }
+            }
+        })?;
     let result = run(&mut terminal, &mut app);
     tui::restore()?;
-    // ordered shutdown: pipeline handle + output sink are None until pipeline wired at runtime
-    shutdown::ordered_shutdown(None, None)?;
+    shutdown::ordered_shutdown(Some(handle), Some(sink))?;
     result
+}
+
+fn create_capture_source(window_id: Option<u64>) -> Box<dyn privacy_core::capture::CaptureSource + Send> {
+    #[cfg(target_os = "macos")]
+    {
+        use privacy_core::capture::macos::{CaptureTarget, MacosCaptureSource};
+        let target = window_id.map(CaptureTarget::Window).unwrap_or(CaptureTarget::Display(0));
+        return Box::new(MacosCaptureSource::new(target, 30));
+    }
+    #[allow(unreachable_code)]
+    { let _ = window_id; panic!("platform not supported"); }
 }
 
 fn cmd_list_windows() -> Result<()> {
