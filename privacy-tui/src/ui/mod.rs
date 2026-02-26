@@ -3,6 +3,7 @@
 pub mod braille;
 pub mod detection_log;
 pub mod heatmap;
+pub mod help_overlay;
 pub mod latency_graph;
 pub mod pattern_manager;
 pub mod stats_bar;
@@ -73,4 +74,5 @@ pub fn render(frame: &mut Frame, app: &mut App) {
     window_selector::render(frame, &mut app.window_selector);
     pattern_manager::render(frame, &mut app.pattern_manager, &app.pattern_registry);
     stats_overlay::render(frame, app, rows[3]);
+    help_overlay::render(frame, app, rows[3]);
 }
