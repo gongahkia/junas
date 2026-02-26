@@ -368,10 +368,26 @@ fn handle_event(app: &mut app::App, ev: Event) {
                 KeyCode::Char('h') => app.heatmap.enabled = !app.heatmap.enabled,
                 KeyCode::Char('s') => app.stats_overlay.open = !app.stats_overlay.open,
                 KeyCode::Char('r') => {
-                    if app.recording_started_at.is_some() {
-                        app.recording_started_at = None; // signal stop (actual stop done in pipeline)
+                    if app.recorder.is_some() {
+                        if let Some(rec) = app.recorder.take() {
+                            match rec.stop() {
+                                Ok(path) => log::info!("recording saved: {path}"),
+                                Err(e) => log::error!("recorder stop: {e}"),
+                            }
+                        }
+                        app.recording_started_at = None;
                     } else {
-                        app.recording_started_at = Some(std::time::Instant::now());
+                        let w = app.preview_width.max(640);
+                        let h = app.preview_height.max(480);
+                        let ts = chrono::Utc::now().format("%Y%m%d_%H%M%S");
+                        let path = format!("aki_recording_{ts}.mp4");
+                        match privacy_output::recorder::Recorder::start(&path, w, h, 30) {
+                            Ok(rec) => {
+                                app.recorder = Some(rec);
+                                app.recording_started_at = Some(std::time::Instant::now());
+                            }
+                            Err(e) => log::error!("recorder start: {e}"),
+                        }
                     }
                 }
                 KeyCode::Char('e') => export_session_log(&app),

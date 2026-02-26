@@ -164,6 +164,8 @@ pub struct App {
     pub preview_rx: Option<crossbeam_channel::Receiver<PreviewUpdate>>,
     /// Set true when window selector confirms a new window, triggering pipeline restart.
     pub pipeline_restart_needed: bool,
+    /// Active recorder (Some = recording in progress).
+    pub recorder: Option<privacy_output::recorder::Recorder>,
 }
 
 #[derive(Debug, Clone)]
@@ -222,6 +224,7 @@ impl App {
             control_state: ControlState::new(transform_mode, transform_intensity),
             preview_rx: None,
             pipeline_restart_needed: false,
+            recorder: None,
         }
     }
 
@@ -251,6 +254,16 @@ impl App {
                 if upd.fps > 0.0 { self.stats.actual_fps = upd.fps; }
                 self.preview_width = upd.width;
                 self.preview_height = upd.height;
+                // feed frame to recorder if active
+                if let Some(ref mut rec) = self.recorder {
+                    let tf = privacy_common::frame::TransformedFrame {
+                        pixels: upd.pixels.clone(),
+                        width: upd.width,
+                        height: upd.height,
+                        timestamp: chrono::Utc::now(),
+                    };
+                    let _ = rec.write_frame(&tf);
+                }
                 self.tx_preview_pixels = Some(upd.pixels);
             }
         }
