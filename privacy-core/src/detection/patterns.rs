@@ -6,7 +6,7 @@ use regex::Regex;
 /// A compiled sensitivity pattern ready for matching.
 #[derive(Clone)]
 pub struct SensitivityPattern {
-    pub name: &'static str,
+    pub name: String,
     pub regex: Regex,
     pub severity: Severity,
     pub category: PatternCategory,
@@ -15,13 +15,13 @@ pub struct SensitivityPattern {
 
 impl SensitivityPattern {
     pub fn new(
-        name: &'static str,
+        name: impl Into<String>,
         pattern: &str,
         severity: Severity,
         category: PatternCategory,
     ) -> Self {
         Self {
-            name,
+            name: name.into(),
             regex: Regex::new(pattern).expect("invalid sensitivity pattern regex"),
             severity,
             category,

@@ -89,7 +89,7 @@ pub fn load_from_path(path: &Path) -> Result<Vec<SensitivityPattern>> {
         .into_iter()
         .map(|entry| {
             SensitivityPattern::new(
-                Box::leak(entry.name.into_boxed_str()), // 'static lifetime for name
+                entry.name,
                 &entry.regex,
                 entry.severity.into(),
                 PatternCategory::Token, // user patterns default to Token category
