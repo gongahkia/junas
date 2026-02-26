@@ -56,6 +56,20 @@ pub fn pii_patterns() -> Vec<SensitivityPattern> {
             Severity::High,
             PatternCategory::Token,
         ),
+        // ── credit card number (13-19 digit sequence, Luhn-format heuristic) ─────
+        SensitivityPattern::new(
+            "credit_card",
+            r"\b(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11})\b",
+            Severity::High,
+            PatternCategory::Pii,
+        ),
+        // ── SSH private key footer (END block) ───────────────────────────────────
+        SensitivityPattern::new(
+            "ssh_private_key_end",
+            r"-----END (?:RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----",
+            Severity::High,
+            PatternCategory::Token,
+        ),
     ]
 }
 
