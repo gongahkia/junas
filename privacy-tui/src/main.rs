@@ -18,6 +18,9 @@ struct Cli {
     /// Run without TUI (headless mode) — log stats to file, output to virtual camera only.
     #[arg(long)]
     headless: bool,
+    /// Use PTY capture (intercept shell output) instead of screen capture.
+    #[arg(long)]
+    pty: bool,
     #[command(subcommand)]
     command: Option<Command>,
 }
@@ -45,10 +48,10 @@ fn main() -> Result<()> {
     env_logger::init();
     let cli = Cli::parse();
     if cli.headless {
-        return cmd_headless();
+        return cmd_headless(cli.pty);
     }
     match cli.command.unwrap_or(Command::Run) {
-        Command::Run => cmd_run(),
+        Command::Run => cmd_run(cli.pty),
         Command::ListWindows => cmd_list_windows(),
         Command::TestPatterns { text } => cmd_test_patterns(&text),
         Command::CheckOutput => cmd_check_output(),
@@ -58,7 +61,7 @@ fn main() -> Result<()> {
 }
 
 /// Headless mode: full pipeline without TUI; logs stats to XDG config dir; Ctrl-C to stop.
-fn cmd_headless() -> Result<()> {
+fn cmd_headless(use_pty: bool) -> Result<()> {
     use crossbeam_channel::bounded;
     use privacy_common::frame::TransformedFrame;
     use privacy_core::{
@@ -77,7 +80,7 @@ fn cmd_headless() -> Result<()> {
     let sink = Arc::new(Mutex::new(create_sink(sink_kind)?));
     let mut registry = default_registry();
     registry.patterns.extend(pii_patterns());
-    let source = create_capture_source(None);
+    let source = create_capture_source(None, use_pty);
     let (out_tx, out_rx) = bounded::<TransformedFrame>(8);
     let handle = spawn_pipeline(source, None, registry, out_tx)?;
 
@@ -157,11 +160,12 @@ fn export_session_log(app: &app::App) {
     }
 }
 
-fn cmd_run() -> Result<()> {
+fn cmd_run(use_pty: bool) -> Result<()> {
     use privacy_output::{autodetect::detect_best_sink, create_sink, tray};
     use std::sync::{Arc, Mutex};
     let mut terminal = tui::init()?;
     let mut app = app::App::new();
+    app.use_pty = use_pty;
     control_server::spawn(Arc::clone(&app.control_state), control_server::DEFAULT_CONTROL_PORT);
     let sink_kind = detect_best_sink(9876);
     let sink = Arc::new(Mutex::new(create_sink(sink_kind)?));
@@ -185,7 +189,7 @@ fn spawn_capture_pipeline(
     use privacy_common::frame::TransformedFrame;
     use privacy_core::pipeline_runner::spawn_pipeline;
     let (out_tx, out_rx) = bounded::<TransformedFrame>(8);
-    let source = create_capture_source(app.selected_window_id);
+    let source = create_capture_source(app.selected_window_id, app.use_pty);
     let registry = app.pattern_registry.clone();
     let handle = spawn_pipeline(source, None, registry, out_tx)?;
     app.pipeline_shared_state = Some(std::sync::Arc::clone(&handle.state));
@@ -241,7 +245,11 @@ fn run_with_pipeline_restart(
     Ok(())
 }
 
-fn create_capture_source(window_id: Option<u64>) -> Box<dyn privacy_core::capture::CaptureSource + Send> {
+fn create_capture_source(window_id: Option<u64>, use_pty: bool) -> Box<dyn privacy_core::capture::CaptureSource + Send> {
+    if use_pty {
+        use privacy_core::capture::pty::PtyCaptureSource;
+        return Box::new(PtyCaptureSource::new(PtyCaptureSource::default_shell()));
+    }
     #[cfg(target_os = "macos")]
     {
         use privacy_core::capture::macos::{CaptureTarget, MacosCaptureSource};
@@ -350,7 +358,7 @@ fn cmd_test_screen() -> Result<()> {
     let mut total_matches = 0usize;
     println!("capturing 10 frames for analysis...");
     // start a real capture from the first available window
-    let mut source = create_capture_source(Some(windows[0].id));
+    let mut source = create_capture_source(Some(windows[0].id), false);
     source.start()?;
     for i in 0..10 {
         // poll for a real frame (timeout ~500ms)

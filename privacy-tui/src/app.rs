@@ -197,6 +197,8 @@ pub struct App {
     pub help_open: bool,
     /// Active output sink kind (for status bar display).
     pub active_sink_kind: Option<privacy_output::SinkKind>,
+    /// Use PTY capture instead of screen capture.
+    pub use_pty: bool,
 }
 
 #[derive(Debug, Clone)]
@@ -261,6 +263,7 @@ impl App {
             log_scroll_offset: 0,
             help_open: false,
             active_sink_kind: None,
+            use_pty: false,
         }
     }
 
