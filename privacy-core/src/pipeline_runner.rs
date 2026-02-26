@@ -124,6 +124,14 @@ pub fn spawn_pipeline(
     let channels = PipelineChannels::new();
     let state = SharedState::new(registry);
 
+    // load capture sub-region from config (optional "x,y,w,h")
+    let capture_region_rect = crate::config::AppConfig::load()
+        .unwrap_or_default()
+        .capture
+        .region
+        .as_deref()
+        .and_then(crate::config::parse_rect);
+
     // ── capture thread ──────────────────────────────────────────────────────
     let raw_tx = channels.raw_tx.clone();
     let state_c = Arc::clone(&state);
@@ -137,6 +145,14 @@ pub fn spawn_pipeline(
             while state_c.running.load(Ordering::Relaxed) {
                 match source.next_frame() {
                     Ok(Some(frame)) => {
+                        let frame = if let Some(ref rect) = capture_region_rect {
+                            match crate::capture::region::crop_frame(&frame, rect) {
+                                Ok(cropped) => cropped,
+                                Err(e) => { log::warn!("crop_frame: {e}"); frame }
+                            }
+                        } else {
+                            frame
+                        };
                         if raw_tx.is_full() {
                             state_c.dropped_frames.fetch_add(1, Ordering::Relaxed);
                         } else {
