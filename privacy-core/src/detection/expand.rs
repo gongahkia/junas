@@ -32,8 +32,8 @@ pub fn expand_and_merge(
         if let Some(last) = merged.last_mut() {
             if rects_overlap(&last.bounds, &m.bounds) {
                 last.bounds = union_rect(&last.bounds, &m.bounds);
-                // keep highest severity
-                if (m.severity as u8) > (last.severity as u8) {
+                // keep highest severity (rank(): High=2 > Medium=1 > Low=0)
+                if m.severity.rank() > last.severity.rank() {
                     last.severity = m.severity;
                 }
                 continue;

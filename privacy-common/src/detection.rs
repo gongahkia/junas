@@ -8,6 +8,14 @@ pub enum Severity {
     Low,
 }
 
+impl Severity {
+    /// Ordinal rank: High=2, Medium=1, Low=0 — higher is more severe.
+    #[inline]
+    pub fn rank(self) -> u8 {
+        match self { Severity::High => 2, Severity::Medium => 1, Severity::Low => 0 }
+    }
+}
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum PatternCategory {
     EnvVar,
