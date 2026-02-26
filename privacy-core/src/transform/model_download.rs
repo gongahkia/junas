@@ -6,12 +6,12 @@ use anyhow::{Context, Result};
 use sha2::{Digest, Sha256};
 use std::path::Path;
 
-/// Public mirror — bryandlee/animegan2-pytorch ONNX export.
+/// Public mirror — hpc203/AnimeGAN-onnxruntime ONNX export.
 const MODEL_URL: &str =
-    "https://github.com/bryandlee/animegan2-pytorch/releases/download/v0.1.0/face_paint_512_v2.onnx";
+    "https://raw.githubusercontent.com/hpc203/AnimeGAN-onnxruntime/main/face_paint_512_v2_0.onnx";
 /// Expected SHA-256 hex string (update if model file changes).
 const MODEL_SHA256: &str =
-    "0000000000000000000000000000000000000000000000000000000000000000"; // placeholder — verified at runtime
+    "1381b17ed988e14a1f3cf8954d88073c0884ff4b70128ebe599f0d6021bca63e";
 
 /// Ensure the AnimeGAN v2 model exists at `path`, downloading it if absent.
 /// Logs a warning if the SHA-256 does not match (non-fatal — allows custom models).
