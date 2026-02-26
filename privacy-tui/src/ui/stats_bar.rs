@@ -54,5 +54,13 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
         rec_span,
     ]);
 
+    if let Some(ref err) = app.capture_error {
+        let err_line = Line::from(vec![
+            Span::styled(" capture failed: ", Style::default().fg(Color::Red).add_modifier(Modifier::BOLD)),
+            Span::raw(err.clone()),
+        ]);
+        frame.render_widget(Paragraph::new(err_line), area);
+        return;
+    }
     frame.render_widget(Paragraph::new(line), area);
 }

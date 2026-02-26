@@ -189,6 +189,8 @@ pub struct App {
     pub recorder: Option<privacy_output::recorder::Recorder>,
     /// Reference to pipeline SharedState for reading adaptive quality metrics.
     pub pipeline_shared_state: Option<std::sync::Arc<privacy_core::pipeline_runner::SharedState>>,
+    /// Most recent capture error message (None = ok).
+    pub capture_error: Option<String>,
 }
 
 #[derive(Debug, Clone)]
@@ -249,6 +251,7 @@ impl App {
             pipeline_restart_needed: false,
             recorder: None,
             pipeline_shared_state: None,
+            capture_error: None,
         }
     }
 
@@ -291,12 +294,15 @@ impl App {
                 self.tx_preview_pixels = Some(upd.pixels);
             }
         }
-        // update adaptive quality stats from pipeline SharedState
+        // update adaptive quality stats and capture errors from pipeline SharedState
         if let Some(ref ps) = self.pipeline_shared_state {
             use std::sync::atomic::Ordering;
             self.stats.quality_scale = *ps.quality_scale.lock().unwrap();
             self.stats.ocr_grid_cols = ps.target_grid_cols.load(Ordering::Relaxed);
             self.stats.ocr_grid_rows = ps.target_grid_rows.load(Ordering::Relaxed);
+            if let Ok(mut err) = ps.capture_error.try_lock() {
+                if err.is_some() { self.capture_error = err.take(); }
+            }
         }
         // apply pending pause/resume from control server
         if let Ok(mut g) = self.control_state.pending_pause.try_lock() {

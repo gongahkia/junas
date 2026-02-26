@@ -56,6 +56,8 @@ pub struct SharedState {
     pub transition_from: Mutex<Option<TransformMode>>,
     /// crossfade: frames remaining in transition (0 = no transition)
     pub transition_frames: AtomicU32,
+    /// capture error message (None = ok, Some = failed)
+    pub capture_error: Mutex<Option<String>>,
 }
 
 impl SharedState {
@@ -73,6 +75,7 @@ impl SharedState {
             transition_from: Mutex::new(None),
             transition_frames: AtomicU32::new(0),
             whitelist: Mutex::new(whitelist),
+            capture_error: Mutex::new(None),
         })
     }
 
@@ -124,7 +127,10 @@ pub fn spawn_pipeline(
     let cap_thread = thread::Builder::new()
         .name("aki-capture".into())
         .spawn(move || {
-            if source.start().is_err() { return; }
+            if let Err(e) = source.start() {
+                *state_c.capture_error.lock().unwrap() = Some(format!("capture failed: {e}"));
+                return;
+            }
             while state_c.running.load(Ordering::Relaxed) {
                 match source.next_frame() {
                     Ok(Some(frame)) => {
