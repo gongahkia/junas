@@ -162,6 +162,8 @@ pub struct App {
     pub control_state: Arc<ControlState>,
     /// Receives preview frame updates from the pipeline background thread.
     pub preview_rx: Option<crossbeam_channel::Receiver<PreviewUpdate>>,
+    /// Set true when window selector confirms a new window, triggering pipeline restart.
+    pub pipeline_restart_needed: bool,
 }
 
 #[derive(Debug, Clone)]
@@ -219,6 +221,7 @@ impl App {
             profile_names,
             control_state: ControlState::new(transform_mode, transform_intensity),
             preview_rx: None,
+            pipeline_restart_needed: false,
         }
     }
 

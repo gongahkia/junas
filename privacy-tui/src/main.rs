@@ -90,23 +90,32 @@ fn export_session_log(app: &app::App) {
 }
 
 fn cmd_run() -> Result<()> {
-    use crossbeam_channel::bounded;
-    use privacy_common::frame::TransformedFrame;
-    use privacy_core::pipeline_runner::spawn_pipeline;
     use privacy_output::{autodetect::detect_best_sink, create_sink};
     use std::sync::{Arc, Mutex};
     let mut terminal = tui::init()?;
     let mut app = app::App::new();
     control_server::spawn(Arc::clone(&app.control_state), control_server::DEFAULT_CONTROL_PORT);
+    let sink_kind = detect_best_sink(9876);
+    let sink = Arc::new(Mutex::new(create_sink(sink_kind)?));
+    let mut handle = spawn_capture_pipeline(&mut app, Arc::clone(&sink))?;
+    let result = run_with_pipeline_restart(&mut terminal, &mut app, &sink, &mut handle);
+    tui::restore()?;
+    shutdown::ordered_shutdown(Some(handle), Some(sink))?;
+    result
+}
+
+fn spawn_capture_pipeline(
+    app: &mut app::App,
+    sink: std::sync::Arc<std::sync::Mutex<Box<dyn privacy_output::OutputSink>>>,
+) -> Result<privacy_core::pipeline_runner::PipelineHandle> {
+    use crossbeam_channel::bounded;
+    use privacy_common::frame::TransformedFrame;
+    use privacy_core::pipeline_runner::spawn_pipeline;
     let (out_tx, out_rx) = bounded::<TransformedFrame>(8);
     let source = create_capture_source(app.selected_window_id);
     let registry = app.pattern_registry.clone();
     let handle = spawn_pipeline(source, None, registry, out_tx)?;
-    let sink_kind = detect_best_sink(9876);
-    let sink = create_sink(sink_kind)?;
-    let sink = Arc::new(Mutex::new(sink));
-    let sink_w = Arc::clone(&sink);
-    let (preview_tx, preview_rx) = crossbeam_channel::bounded::<app::PreviewUpdate>(2);
+    let (preview_tx, preview_rx) = bounded::<app::PreviewUpdate>(2);
     app.preview_rx = Some(preview_rx);
     std::thread::Builder::new()
         .name("aki-sink".into())
@@ -115,7 +124,7 @@ fn cmd_run() -> Result<()> {
             let mut fps_start = std::time::Instant::now();
             let mut current_fps = 0.0f32;
             while let Ok(frame) = out_rx.recv() {
-                if let Ok(mut s) = sink_w.lock() {
+                if let Ok(mut s) = sink.lock() {
                     let _ = s.write_frame(&frame);
                 }
                 frame_count += 1;
@@ -133,10 +142,29 @@ fn cmd_run() -> Result<()> {
                 });
             }
         })?;
-    let result = run(&mut terminal, &mut app);
-    tui::restore()?;
-    shutdown::ordered_shutdown(Some(handle), Some(sink))?;
-    result
+    Ok(handle)
+}
+
+fn run_with_pipeline_restart(
+    terminal: &mut tui::Tui,
+    app: &mut app::App,
+    sink: &std::sync::Arc<std::sync::Mutex<Box<dyn privacy_output::OutputSink>>>,
+    handle: &mut privacy_core::pipeline_runner::PipelineHandle,
+) -> Result<()> {
+    use std::mem;
+    while app.running {
+        terminal.draw(|frame| ui::render(frame, app))?;
+        let ev = next_event(TICK_RATE)?;
+        if is_quit(&ev) { app.running = false; break; }
+        handle_event(app, ev);
+        if app.pipeline_restart_needed {
+            app.pipeline_restart_needed = false;
+            let new_handle = spawn_capture_pipeline(app, std::sync::Arc::clone(sink))?;
+            let old = mem::replace(handle, new_handle);
+            old.shutdown();
+        }
+    }
+    Ok(())
 }
 
 fn create_capture_source(window_id: Option<u64>) -> Box<dyn privacy_core::capture::CaptureSource + Send> {
@@ -303,7 +331,10 @@ fn handle_event(app: &mut app::App, ev: Event) {
                     KeyCode::Char('k') | KeyCode::Up => app.window_selector.move_up(),
                     KeyCode::Enter => {
                         let id = app.window_selector.selected_window().map(|w| w.id);
-                        if let Some(id) = id { app.selected_window_id = Some(id); }
+                        if let Some(id) = id {
+                            app.selected_window_id = Some(id);
+                            app.pipeline_restart_needed = true;
+                        }
                         app.window_selector.close();
                     }
                     KeyCode::Esc => app.window_selector.close(),
