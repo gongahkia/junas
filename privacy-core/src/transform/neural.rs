@@ -7,7 +7,7 @@ use ndarray::Array4;
 use ort::{inputs, session::Session, value::TensorRef};
 use std::{
     path::PathBuf,
-    sync::{Mutex, OnceLock},
+    sync::Mutex,
 };
 
 /// Build an ONNX session with the preferred execution provider.
@@ -82,7 +82,8 @@ impl NeuralStyleTransfer {
         if !path.exists() {
             anyhow::bail!("AnimeGAN v2 model not found at {}; download first", path.display());
         }
-        let accel = ACCELERATOR.get().map(|s| s.as_str()).unwrap_or("auto");
+        let accel_guard = ACCELERATOR.lock().unwrap();
+        let accel = accel_guard.as_deref().unwrap_or("auto");
         let session = build_session_with_ep(accel, &path)?;
         let input_name = session.inputs().first()
             .map(|i| i.name().to_string())
@@ -127,25 +128,25 @@ impl NeuralStyleTransfer {
 }
 
 /// Accelerator preference: "auto" | "cuda" | "coreml" | "cpu".
-static ACCELERATOR: OnceLock<String> = OnceLock::new();
+static ACCELERATOR: Mutex<Option<String>> = Mutex::new(None);
 
 /// Call once at startup (before any inference) to set the preferred EP.
 pub fn configure_accelerator(accel: impl Into<String>) {
-    let _ = ACCELERATOR.set(accel.into());
+    if let Ok(mut g) = ACCELERATOR.lock() { *g = Some(accel.into()); }
 }
 
-// process-level cached session — loaded once on first apply_neural call
-static SESSION: OnceLock<Mutex<Option<NeuralStyleTransfer>>> = OnceLock::new();
-
-fn session_store() -> &'static Mutex<Option<NeuralStyleTransfer>> {
-    SESSION.get_or_init(|| Mutex::new(NeuralStyleTransfer::load().ok()))
-}
+// process-level session cache — Mutex<Option<...>> allows retry after model download
+static SESSION: Mutex<Option<NeuralStyleTransfer>> = Mutex::new(None);
 
 /// Apply neural style transfer to an RGBA pixel buffer in-place.
 /// `intensity` blends between original (0.0) and fully stylized (1.0).
 /// Returns Err if model is unavailable (caller should fallback to cartoon).
 pub fn apply_neural(pixels: &mut Vec<u8>, width: u32, height: u32, intensity: f32) -> Result<()> {
-    let mut guard = session_store().lock().unwrap();
+    let mut guard = SESSION.lock().unwrap();
+    // lazy-load: attempt to load model if not yet loaded
+    if guard.is_none() {
+        *guard = NeuralStyleTransfer::load().ok();
+    }
     let sess = guard.as_mut().ok_or_else(|| anyhow::anyhow!("model not available"))?;
     let stylized = sess.run(pixels, width, height)?;
     let alpha = intensity.clamp(0.0, 1.0);
