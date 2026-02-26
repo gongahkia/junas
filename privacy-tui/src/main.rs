@@ -261,7 +261,7 @@ fn cmd_test_screen() -> Result<()> {
         expand::expand_and_merge,
         whitelist::Whitelist,
     };
-    use privacy_core::capture::window_picker::list_windows;
+    use privacy_core::capture::{window_picker::list_windows, CaptureSource};
     println!("test-screen: listing windows to select capture target...");
     let windows = list_windows()?;
     if windows.is_empty() {
@@ -275,23 +275,33 @@ fn cmd_test_screen() -> Result<()> {
     registry.patterns.extend(pii_patterns());
     let mut total_matches = 0usize;
     println!("capturing 10 frames for analysis...");
+    // start a real capture from the first available window
+    let mut source = create_capture_source(Some(windows[0].id));
+    source.start()?;
     for i in 0..10 {
-        // create a blank synthetic frame since we don't have a live capture source here
-        let frame = privacy_common::frame::RawFrame {
-            pixels: vec![0u8; 640 * 480 * 4],
-            width: 640,
-            height: 480,
-            timestamp: chrono::Utc::now(),
+        // poll for a real frame (timeout ~500ms)
+        let frame = {
+            let mut f = None;
+            for _ in 0..50 {
+                if let Ok(Some(raw)) = source.next_frame() { f = Some(raw); break; }
+                std::thread::sleep(std::time::Duration::from_millis(10));
+            }
+            f.unwrap_or_else(|| privacy_common::frame::RawFrame {
+                pixels: vec![0u8; 640 * 480 * 4],
+                width: 640, height: 480, timestamp: chrono::Utc::now(),
+            })
         };
+        let (fw, fh) = (frame.width, frame.height);
         let regions = incremental.extract(&frame).unwrap_or_default();
         let matches = scan(&regions, &registry, &Whitelist::empty());
-        let merged = expand_and_merge(matches, 640, 480, 0.10);
+        let merged = expand_and_merge(matches, fw, fh, 0.10);
         total_matches += merged.len();
         println!("  frame {}: {} sensitive regions", i + 1, merged.len());
         for m in &merged {
             println!("    [{:?}] {} @ ({},{} {}x{})", m.severity, m.pattern_name, m.bounds.x, m.bounds.y, m.bounds.width, m.bounds.height);
         }
     }
+    let _ = source.stop();
     println!("\ntest-screen complete: {} total sensitive regions across 10 frames", total_matches);
     Ok(())
 }
