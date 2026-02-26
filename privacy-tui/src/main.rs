@@ -166,9 +166,10 @@ fn cmd_run(use_pty: bool) -> Result<()> {
     let mut terminal = tui::init()?;
     let mut app = app::App::new();
     app.use_pty = use_pty;
-    control_server::spawn(Arc::clone(&app.control_state), control_server::DEFAULT_CONTROL_PORT);
     let sink_kind = detect_best_sink(9876);
+    app.active_sink_kind = Some(sink_kind.clone());
     let sink = Arc::new(Mutex::new(create_sink(sink_kind)?));
+    control_server::spawn(Arc::clone(&app.control_state), control_server::DEFAULT_CONTROL_PORT);
     let mut handle = spawn_capture_pipeline(&mut app, Arc::clone(&sink))?;
     // spawn macOS tray icon (no-op on other platforms)
     let (tray_tx, tray_rx) = std::sync::mpsc::channel::<bool>();

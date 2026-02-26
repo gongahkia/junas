@@ -2,6 +2,7 @@
 
 use crate::app::{App, PipelineState};
 use privacy_common::transform::TransformMode;
+use privacy_output::SinkKind;
 use ratatui::{
     layout::Rect,
     style::{Color, Modifier, Style},
@@ -68,6 +69,17 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
             s.quality_scale * 100.0,
         )),
         rec_span,
+        {
+            let sink_str = match &app.active_sink_kind {
+                Some(SinkKind::V4l2(dev)) => format!("  │  sink:v4l2:{}", dev),
+                Some(SinkKind::CoreMedia) => "  │  sink:coremedia".to_string(),
+                Some(SinkKind::HttpMjpeg(port)) => format!("  │  sink:mjpeg:{}", port),
+                Some(SinkKind::Obs(port)) => format!("  │  sink:obs:{}", port),
+                Some(SinkKind::Twitch) => "  │  sink:twitch(planned)".to_string(),
+                None => String::new(),
+            };
+            Span::styled(sink_str, Style::default().fg(Color::DarkGray))
+        },
     ]);
 
     if let Some(ref err) = app.capture_error {
