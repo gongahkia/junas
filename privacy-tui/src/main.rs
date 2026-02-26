@@ -389,6 +389,7 @@ fn cmd_check_output() -> Result<()> {
         SinkKind::CoreMedia => println!("CoreMediaIO virtual camera available"),
         SinkKind::HttpMjpeg(port) => println!("fallback: MJPEG HTTP on port {}", port),
         SinkKind::Obs(port) => println!("OBS WebSocket + MJPEG on port {}", port),
+        SinkKind::Twitch => println!("Twitch RTMP (planned — not yet wired)"),
     }
     Ok(())
 }

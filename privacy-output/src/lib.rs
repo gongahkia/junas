@@ -31,6 +31,8 @@ pub enum SinkKind {
     HttpMjpeg(u16),
     /// OBS WebSocket v5 (planned): setup Browser Source pointing to MJPEG endpoint
     Obs(u16),
+    /// Twitch RTMP output (planned): stream filtered output to rtmp://live.twitch.tv/app/<key>
+    Twitch,
 }
 
 /// Create the appropriate `OutputSink` boxed trait object from a `SinkKind`.
@@ -50,6 +52,11 @@ pub fn create_sink(kind: SinkKind) -> Result<Box<dyn OutputSink>> {
                 log::warn!("OBS WebSocket setup failed ({e}), falling back to MJPEG on :{mjpeg_port}");
             }
             Ok(Box::new(mjpeg::MjpegSink::new(mjpeg_port)?))
+        }
+
+        SinkKind::Twitch => {
+            // planned: RTMP output via ffmpeg/gstreamer to rtmp://live.twitch.tv/app/<key>
+            anyhow::bail!("Twitch RTMP output is not yet implemented; planned feature")
         }
 
         // Fall through for unsupported platform/kind combos
