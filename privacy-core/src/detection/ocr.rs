@@ -16,17 +16,23 @@ pub const MIN_CONFIDENCE: f32 = 60.0;
 /// OCR engine wrapping a LepTess instance.
 pub struct OcrEngine {
     lt: LepTess,
+    min_confidence: f32,
 }
 
 impl OcrEngine {
     /// Create OCR engine. `data_path` is the tessdata directory; None uses system default.
     pub fn new(data_path: Option<&str>) -> Result<Self> {
+        Self::new_with_confidence(data_path, MIN_CONFIDENCE)
+    }
+
+    /// Create OCR engine with a custom minimum confidence threshold (0–100).
+    pub fn new_with_confidence(data_path: Option<&str>, min_conf: f32) -> Result<Self> {
         let mut lt = LepTess::new(data_path, "eng")
             .map_err(|e| anyhow!("Tesseract init: {}", e))?;
         // PSM 6 = single block of text
         lt.set_variable(Variable::TesseditPagesegMode, "6")
             .map_err(|_| anyhow!("failed to set PSM 6"))?;
-        Ok(Self { lt })
+        Ok(Self { lt, min_confidence: min_conf })
     }
 
     /// Run OCR on a raw RGBA frame, return all detected text regions above min confidence.
@@ -59,7 +65,7 @@ impl OcrEngine {
                 continue;
             }
             let conf = self.lt.mean_text_conf() as f32;
-            if conf < MIN_CONFIDENCE {
+            if conf < self.min_confidence {
                 continue;
             }
             let geo = b.get_geometry();

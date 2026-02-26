@@ -132,10 +132,14 @@ pub fn spawn_pipeline(
     let raw_rx = channels.raw_rx;
     let detection_tx = channels.detection_tx.clone();
     let state_d = Arc::clone(&state);
+    let min_conf = crate::config::AppConfig::load()
+        .unwrap_or_default()
+        .detection
+        .min_confidence as f32;
     let det_thread = thread::Builder::new()
         .name("aki-detect".into())
         .spawn(move || {
-            let ocr_engine = match OcrEngine::new(ocr_data_path.as_deref()) {
+            let ocr_engine = match OcrEngine::new_with_confidence(ocr_data_path.as_deref(), min_conf) {
                 Ok(o) => o,
                 Err(_) => return,
             };
