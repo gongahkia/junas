@@ -56,6 +56,20 @@ pub fn default_registry() -> PatternRegistry {
             Severity::High,
             PatternCategory::ApiKey,
         ),
+        // ── Hugging Face API tokens ───────────────────────────────────────────────
+        SensitivityPattern::new(
+            "huggingface_token",
+            r"hf_[a-zA-Z0-9]{34,}",
+            Severity::High,
+            PatternCategory::ApiKey,
+        ),
+        // ── Anthropic API keys ───────────────────────────────────────────────────
+        SensitivityPattern::new(
+            "anthropic_api_key",
+            r"sk-ant-[a-zA-Z0-9\-_]{90,}",
+            Severity::High,
+            PatternCategory::ApiKey,
+        ),
     ])
 }
 
