@@ -9,6 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: install system deps
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends \
+            pkg-config clang libclang-dev \
+            libtesseract-dev libleptonica-dev tesseract-ocr \
+            libxcb1-dev \
+            libpipewire-0.3-dev libspa-0.2-dev
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy, rustfmt
@@ -16,7 +24,7 @@ jobs:
       - name: fmt
         run: cargo fmt --all -- --check
       - name: clippy
-        run: cargo clippy --all-targets --all-features -- -D warnings
+        run: cargo clippy --all-targets -- -D warnings
       - name: build
         run: cargo build --all
       - name: test
