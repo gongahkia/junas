@@ -1,11 +1,10 @@
-#![cfg(target_os = "linux")]
 //! Virtual camera output via v4l2loopback device.
 //! Converts RGBA frames to YUYV and writes to /dev/video<N>.
 
 use anyhow::{anyhow, Result};
 use privacy_common::frame::TransformedFrame;
 use std::path::PathBuf;
-use v4l::{format::fourcc::FourCC, prelude::*, Format};
+use v4l::{format::fourcc::FourCC, prelude::*, video::Capture, Format};
 
 use crate::OutputSink;
 
@@ -49,19 +48,15 @@ impl OutputSink for V4l2Sink {
             self.open_device(frame.width, frame.height)?;
         }
         let yuyv = rgba_to_yuyv(&frame.pixels, frame.width, frame.height);
-        use std::io::Write;
         // v4l2 loopback device accepts raw write() after VIDIOC_S_FMT
-        let dev = self.device.as_ref().unwrap();
-        // access raw fd for write
-        use std::os::unix::io::AsRawFd;
-        let fd = dev.as_raw_fd();
-        let written = unsafe { libc::write(fd, yuyv.as_ptr() as *const libc::c_void, yuyv.len()) };
-        if written < 0 {
-            return Err(anyhow!("v4l2 write failed: errno {}", unsafe {
-                *libc::__errno_location()
-            }));
-        }
-        Ok(())
+        use std::fs::OpenOptions;
+        use std::io::Write;
+        OpenOptions::new()
+            .write(true)
+            .open(&self.device_path)
+            .map_err(|e| anyhow!("open v4l2 for write: {}", e))?
+            .write_all(&yuyv)
+            .map_err(|e| anyhow!("v4l2 write: {}", e))
     }
 
     fn close(&mut self) -> Result<()> {

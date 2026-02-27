@@ -96,34 +96,33 @@ impl WaylandCaptureSource {
                         return;
                     }
                     let data = &datas[0];
-                    if let Some(chunk) = data.chunk() {
-                        let bytes: &[u8] = data.data().map_or(&[], |v| v);
-                        let offset = chunk.offset() as usize;
-                        let size = chunk.size() as usize;
-                        if offset + size > bytes.len() {
-                            return;
-                        }
-                        let raw: &[u8] = &bytes[offset..offset + size];
-                        // assume BGRA — swap B↔R
-                        let mut rgba: Vec<u8> = raw.to_vec();
-                        for px in rgba.chunks_exact_mut(4) {
-                            px.swap(0, 2);
-                        }
-                        // width/height from spa_video_info requires format negotiation;
-                        // using chunk stride as placeholder until proper SPA format parsing
-                        let stride = chunk.stride() as u32;
-                        let w = if stride > 0 { stride / 4 } else { 0 };
-                        let h = if w > 0 { rgba.len() as u32 / 4 / w } else { 0 };
-                        if w == 0 || h == 0 {
-                            return;
-                        }
-                        let _ = tx_clone.try_send(RawFrame {
-                            pixels: rgba,
-                            width: w,
-                            height: h,
-                            timestamp: Utc::now(),
-                        });
+                    let chunk = data.chunk();
+                    let bytes: &[u8] = data.data().map_or(&[], |v| v);
+                    let offset = chunk.offset() as usize;
+                    let size = chunk.size() as usize;
+                    if offset + size > bytes.len() {
+                        return;
                     }
+                    let raw: &[u8] = &bytes[offset..offset + size];
+                    // assume BGRA — swap B↔R
+                    let mut rgba: Vec<u8> = raw.to_vec();
+                    for chunk_px in rgba.chunks_exact_mut(4) {
+                        chunk_px.swap(0, 2);
+                    }
+                    // width/height from spa_video_info requires format negotiation;
+                    // using chunk stride as placeholder until proper SPA format parsing
+                    let stride = chunk.stride() as u32;
+                    let w = if stride > 0 { stride / 4 } else { 0 };
+                    let h = if w > 0 { rgba.len() as u32 / 4 / w } else { 0 };
+                    if w == 0 || h == 0 {
+                        return;
+                    }
+                    let _ = tx_clone.try_send(RawFrame {
+                        pixels: rgba,
+                        width: w,
+                        height: h,
+                        timestamp: Utc::now(),
+                    });
                 })
                 .register()
                 .expect("register listener");
