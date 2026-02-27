@@ -42,7 +42,7 @@ impl X11CaptureSource {
         match target {
             X11CaptureTarget::Root => Ok(screen.root()),
             X11CaptureTarget::Window(wid) => {
-                let win = unsafe { x::Window::new(*wid as u32) };
+                let win = x::Window::new(*wid as u32);
                 Ok(win)
             }
         }
@@ -155,7 +155,7 @@ impl CaptureSource for X11CaptureSource {
 
         let mut windows = Vec::with_capacity(window_ids.len());
         for &raw_id in window_ids {
-            let win = unsafe { x::Window::new(raw_id) };
+            let win = x::Window::new(raw_id);
             // get geometry
             let geo_cookie = conn.send_request(&x::GetGeometry {
                 drawable: x::Drawable::Window(win),

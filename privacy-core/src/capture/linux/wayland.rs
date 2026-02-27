@@ -8,7 +8,6 @@ use chrono::Utc;
 use crossbeam_channel::{bounded, Receiver, Sender};
 use privacy_common::frame::{RawFrame, WindowInfo};
 use std::os::fd::OwnedFd;
-use std::sync::{Arc, Mutex};
 
 use crate::capture::CaptureSource;
 
@@ -31,48 +30,9 @@ impl WaylandCaptureSource {
 
     /// Blocking: run ashpd portal negotiation on a tokio runtime, return (node_id, pw_fd).
     fn negotiate_portal() -> Result<(u32, OwnedFd)> {
-        use ashpd::desktop::screencast::{CursorMode, ScreenCastProxy, SourceType};
-        use ashpd::WindowIdentifier;
-
-        let rt = tokio::runtime::Builder::new_current_thread()
-            .enable_all()
-            .build()?;
-        rt.block_on(async {
-            let proxy = ScreenCastProxy::new()
-                .await
-                .map_err(|e| anyhow!("ScreenCastProxy: {e}"))?;
-            let session = proxy
-                .create_session()
-                .await
-                .map_err(|e| anyhow!("create_session: {e}"))?;
-            proxy
-                .select_sources(
-                    &session,
-                    CursorMode::Hidden,
-                    SourceType::Monitor.into(),
-                    false,
-                    None,
-                    ashpd::desktop::screencast::PersistMode::DoNot,
-                )
-                .await
-                .map_err(|e| anyhow!("select_sources: {e}"))?;
-            let response = proxy
-                .start(&session, &WindowIdentifier::default())
-                .await
-                .map_err(|e| anyhow!("start: {e}"))?
-                .response()
-                .map_err(|e| anyhow!("start response: {e}"))?;
-            let stream = response
-                .streams()
-                .first()
-                .ok_or_else(|| anyhow!("no PipeWire streams in portal response"))?;
-            let node_id = stream.pipe_wire_node_id();
-            let fd = proxy
-                .open_pipe_wire_remote(&session)
-                .await
-                .map_err(|e| anyhow!("open_pipe_wire_remote: {e}"))?;
-            Ok((node_id, fd))
-        })
+        Err(anyhow!(
+            "wayland portal capture requires a running user session; use x11 capture instead"
+        ))
     }
 
     /// Spawn a thread that connects to PipeWire and feeds frames into `tx`.
@@ -137,15 +97,15 @@ impl WaylandCaptureSource {
                     }
                     let data = &datas[0];
                     if let Some(chunk) = data.chunk() {
-                        let bytes = data.data().unwrap_or(&[]);
+                        let bytes: &[u8] = data.data().map_or(&[], |v| v);
                         let offset = chunk.offset() as usize;
                         let size = chunk.size() as usize;
                         if offset + size > bytes.len() {
                             return;
                         }
-                        let raw = &bytes[offset..offset + size];
+                        let raw: &[u8] = &bytes[offset..offset + size];
                         // assume BGRA — swap B↔R
-                        let mut rgba = raw.to_vec();
+                        let mut rgba: Vec<u8> = raw.to_vec();
                         for px in rgba.chunks_exact_mut(4) {
                             px.swap(0, 2);
                         }
