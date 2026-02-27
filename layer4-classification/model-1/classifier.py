@@ -45,7 +45,7 @@ def load_data(csv_path: str) -> tuple: # schema: text,label where label ∈ {0=p
 
 def train(train_csv: str, val_csv: str = None, epochs: int = 3, lr: float = 2e-5, batch_size: int = 16):
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-    model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=2)
+    model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=2, ignore_mismatched_sizes=True)
     train_texts, train_labels = load_data(train_csv)
     train_dataset = MNPIDataset(train_texts, train_labels, tokenizer)
     val_dataset = None
