@@ -16,6 +16,10 @@ echo "  Noupe Training Pipeline"
 echo "════════════════════════════════════════════════"
 echo ""
 
+# ── Pre-check: verify critical deps ──
+python3 -c "import accelerate" 2>/dev/null || { echo "❌ Missing 'accelerate'. Run: pip install 'accelerate>=0.26.0'"; exit 1; }
+
+
 # ── Step 0: Validate training data ──
 echo "📋 Step 0/5: Validating training JSON files..."
 python3 "$ROOT/scripts/validate_training_data.py" "$DATA_DIR"/*.json
