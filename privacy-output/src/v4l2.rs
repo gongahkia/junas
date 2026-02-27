@@ -5,10 +5,7 @@
 use anyhow::{anyhow, Result};
 use privacy_common::frame::TransformedFrame;
 use std::path::PathBuf;
-use v4l::{
-    buffer::Type as BufType, format::fourcc::FourCC, io::traits::CaptureStream, prelude::*,
-    video::Capture, Format, FourCC as V4lFourCC,
-};
+use v4l::{format::fourcc::FourCC, prelude::*, Format};
 
 use crate::OutputSink;
 

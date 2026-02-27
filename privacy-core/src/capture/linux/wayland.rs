@@ -43,7 +43,7 @@ impl WaylandCaptureSource {
     ) -> std::thread::JoinHandle<()> {
         use pipewire::stream::{Stream, StreamFlags};
         use pipewire::{context::Context, main_loop::MainLoop, properties::properties};
-        use std::os::fd::IntoRawFd;
+        use std::os::fd::{FromRawFd, IntoRawFd};
 
         std::thread::spawn(move || {
             let ml = match MainLoop::new(None) {
