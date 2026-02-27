@@ -91,12 +91,53 @@ Currently `Aki` blocks the below by default.
 
 Currently `Aki` supports the below morphs.
 
-| Transform | Description |
-|-----------|-------------|
-| Blur | Separable Gaussian blur (σ=15 default); two-pass horizontal + vertical for O(n) performance |
-| Pixelate | Block-averaging at 2px–dim/8 block size scaled by intensity; nearest-neighbour upscale |
-| Cartoon | Bilateral filter approximation + Sobel edge detection + k-means colour quantization (k=8 colours); destroys text readability while preserving colour |
-| ASCII | Pixel luminance mapped to a 15-level density ramp (` .,:;i1tfLCG08@`); each 8×16 pixel block rendered as a uniform grey cell |
+<table>
+<thead>
+<tr><th>Transform</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Blur</strong></td>
+<td><ul>
+<li>Separable Gaussian blur (σ=15 default)</li>
+<li>Two-pass horizontal + vertical for O(n) performance</li>
+</ul></td>
+</tr>
+<tr>
+<td><strong>Pixelate</strong></td>
+<td><ul>
+<li>Block-averaging at 2px–dim/8 block size</li>
+<li>Block size scales linearly with intensity</li>
+<li>Nearest-neighbour upscale back to original dimensions</li>
+</ul></td>
+</tr>
+<tr>
+<td><strong>Cartoon</strong></td>
+<td><ul>
+<li>Bilateral filter approximation (smoothing)</li>
+<li>Sobel edge detection overlay</li>
+<li>k-means colour quantization (k=8 colours)</li>
+<li>Destroys text readability while preserving approximate colour</li>
+</ul></td>
+</tr>
+<tr>
+<td><strong>ASCII</strong></td>
+<td><ul>
+<li>Pixel luminance mapped to a 15-level density ramp (<code> .,:;i1tfLCG08@</code>)</li>
+<li>Each 8×16 pixel block averaged to a single luminance value</li>
+<li>Block re-rendered as uniform grey matching density level</li>
+</ul></td>
+</tr>
+<tr>
+<td><strong>Neural</strong></td>
+<td><ul>
+<li>ONNX Runtime inference</li>
+<li>Accelerator selection: CUDA / CoreML / CPU (auto-detected)</li>
+<li>Falls back to Cartoon if inference exceeds latency guard (default 100ms)</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
 
 ## Output support
 
@@ -110,7 +151,7 @@ Currently `Aki` supports the below morphs.
 
 ## Architecture
 
-All pipeline stages communicate via bounded `crossbeam` channels (capacity 3 frames). Backpressure drops oldest frame to maintain real-time performance.
+![](./asset/reference/architecture.png)
 
 ## Nerd stuff
 
