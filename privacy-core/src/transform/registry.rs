@@ -107,7 +107,6 @@ pub fn apply_transform_full(
     let transformed: Vec<_> = valid
         .par_iter()
         .map(|&&m| {
-            let m = m;
             let r = &m.bounds;
             let mut region_pixels =
                 extract_region(&pixels_snapshot, w, r.x, r.y, r.width, r.height);

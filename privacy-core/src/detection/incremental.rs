@@ -52,8 +52,8 @@ impl IncrementalOcr {
         let dirty_set: std::collections::HashSet<(u32, u32)> =
             dirty_opt.unwrap_or_default().into_iter().collect();
 
-        let cell_w = (fw + self.cols - 1) / self.cols;
-        let cell_h = (fh + self.rows - 1) / self.rows;
+        let cell_w = fw.div_ceil(self.cols);
+        let cell_h = fh.div_ceil(self.rows);
         let mut all_regions: Vec<TextRegion> = Vec::new();
 
         for row in 0..self.rows {

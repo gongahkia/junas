@@ -156,7 +156,7 @@ static SESSION: Mutex<Option<NeuralStyleTransfer>> = Mutex::new(None);
 /// Apply neural style transfer to an RGBA pixel buffer in-place.
 /// `intensity` blends between original (0.0) and fully stylized (1.0).
 /// Returns Err if model is unavailable (caller should fallback to cartoon).
-pub fn apply_neural(pixels: &mut Vec<u8>, width: u32, height: u32, intensity: f32) -> Result<()> {
+pub fn apply_neural(pixels: &mut [u8], width: u32, height: u32, intensity: f32) -> Result<()> {
     let mut guard = SESSION.lock().unwrap();
     // lazy-load: attempt to load model if not yet loaded
     if guard.is_none() {

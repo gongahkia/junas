@@ -108,14 +108,11 @@ fn cmd_headless(use_pty: bool) -> Result<()> {
     let mut last_log = Instant::now();
 
     while running.load(Ordering::SeqCst) {
-        match out_rx.recv_timeout(Duration::from_millis(200)) {
-            Ok(frame) => {
-                if let Ok(mut s) = sink.lock() {
-                    let _ = s.write_frame(&frame);
-                }
-                frame_count += 1;
+        if let Ok(frame) = out_rx.recv_timeout(Duration::from_millis(200)) {
+            if let Ok(mut s) = sink.lock() {
+                let _ = s.write_frame(&frame);
             }
-            Err(_) => {}
+            frame_count += 1;
         }
         // log stats every 5 seconds
         if last_log.elapsed() >= Duration::from_secs(5) {
@@ -301,7 +298,7 @@ fn cmd_list_windows() -> Result<()> {
         println!("no windows found");
         return Ok(());
     }
-    println!("{:>8}  {:<40}  {}x{}", "ID", "TITLE", "W", "H");
+    println!("{:>8}  {:<40}  WxH", "ID", "TITLE");
     for w in &windows {
         println!(
             "{:>8}  {:<40}  {}x{}",
@@ -580,7 +577,7 @@ fn handle_event(app: &mut app::App, ev: Event) {
                     app.log_scroll_offset = app.log_scroll_offset.saturating_sub(1);
                 }
                 KeyCode::Char('?') => app.help_open = !app.help_open,
-                KeyCode::Char('e') => export_session_log(&app),
+                KeyCode::Char('e') => export_session_log(app),
                 KeyCode::Char(c @ '1'..='9') => {
                     let idx = (c as u8 - b'0') as usize;
                     app.switch_profile(idx);

@@ -67,6 +67,7 @@ fn convolve_row(
     acc.clamp(0.0, 255.0) as u8
 }
 
+#[allow(clippy::too_many_arguments)]
 fn convolve_col(
     pixels: &[u8],
     y: usize,

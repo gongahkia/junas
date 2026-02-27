@@ -137,6 +137,7 @@ fn quantize(pixels: &[u8], w: usize, h: usize, levels: u8) -> Vec<u8> {
 
 /// Simple bilateral filter approximation: Gaussian weighted average on 5x5 neighborhood,
 /// weighted by color similarity (simulates edge-preserving smoothing).
+#[allow(clippy::needless_range_loop)]
 fn bilateral_approx(pixels: &[u8], w: usize, h: usize) -> Vec<u8> {
     // spatial Gaussian weights for 5x5 (precomputed, sigma=1.5)
     #[rustfmt::skip]

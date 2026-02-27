@@ -18,8 +18,8 @@ pub fn apply_ascii(pixels: &mut [u8], width: u32, height: u32, intensity: f32) {
     let h = height as usize;
     let intensity = intensity.clamp(0.0, 1.0);
 
-    let cols = (w + CHAR_W - 1) / CHAR_W;
-    let rows = (h + CHAR_H - 1) / CHAR_H;
+    let cols = w.div_ceil(CHAR_W);
+    let rows = h.div_ceil(CHAR_H);
 
     for row in 0..rows {
         for col in 0..cols {

@@ -15,9 +15,8 @@ pub enum Event {
 /// Returns `Event::Tick` if the timeout expires with no input.
 pub fn next_event(tick_rate: Duration) -> Result<Event> {
     if event::poll(tick_rate)? {
-        match event::read()? {
-            CrosstermEvent::Key(k) => return Ok(Event::Key(k)),
-            _ => {}
+        if let CrosstermEvent::Key(k) = event::read()? {
+            return Ok(Event::Key(k));
         }
     }
     Ok(Event::Tick)

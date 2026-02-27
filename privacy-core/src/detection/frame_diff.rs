@@ -38,8 +38,8 @@ impl FrameDiff {
 
         let w = frame.width as usize;
         let h = frame.height as usize;
-        let cell_w = (w + self.grid_cols as usize - 1) / self.grid_cols as usize;
-        let cell_h = (h + self.grid_rows as usize - 1) / self.grid_rows as usize;
+        let cell_w = w.div_ceil(self.grid_cols as usize);
+        let cell_h = h.div_ceil(self.grid_rows as usize);
 
         let mut dirty = Vec::new();
         for row in 0..self.grid_rows {
@@ -78,8 +78,8 @@ impl FrameDiff {
 
     /// Return the bounding rect of a grid cell.
     pub fn cell_rect(&self, col: u32, row: u32, frame_w: u32, frame_h: u32) -> Rect {
-        let cell_w = (frame_w + self.grid_cols - 1) / self.grid_cols;
-        let cell_h = (frame_h + self.grid_rows - 1) / self.grid_rows;
+        let cell_w = frame_w.div_ceil(self.grid_cols);
+        let cell_h = frame_h.div_ceil(self.grid_rows);
         let x = col * cell_w;
         let y = row * cell_h;
         Rect {

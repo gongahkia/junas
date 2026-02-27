@@ -74,6 +74,7 @@ impl HeatmapState {
     }
 
     /// Record a detection hit for the given rect (frame coords).
+    #[allow(dead_code)]
     pub fn record_hit(&mut self, r: &Rect, frame_w: u32, frame_h: u32) {
         if frame_w == 0 || frame_h == 0 {
             return;
@@ -114,6 +115,7 @@ impl Default for HeatmapState {
 
 /// Per-pattern detection statistics.
 #[derive(Debug, Clone, Default)]
+#[allow(dead_code)]
 pub struct PatternStats {
     pub name: String,
     pub total_hits: u64,
@@ -124,6 +126,7 @@ pub struct PatternStats {
 pub struct StatsOverlayState {
     pub open: bool,
     pub pattern_stats: HashMap<String, PatternStats>,
+    #[allow(dead_code)]
     pub total_regions_this_frame: u32,
     pub peak_regions: u32,
 }
@@ -138,6 +141,7 @@ impl StatsOverlayState {
         }
     }
 
+    #[allow(dead_code)]
     pub fn record(&mut self, pattern_name: &str, bounds: Option<Rect>) {
         let s = self
             .pattern_stats
@@ -177,6 +181,7 @@ pub struct App {
     pub transform_intensity: f32,
     pub stats: PipelineStats,
     pub log_entries: Vec<LogEntry>,
+    #[allow(dead_code)]
     pub started_at: Instant,
     /// Raw capture preview pixels (RGBA, half-res).
     pub raw_preview_pixels: Option<Vec<u8>>,
@@ -394,6 +399,7 @@ impl App {
         // sync
     }
 
+    #[allow(dead_code)]
     pub fn push_log(&mut self, entry: LogEntry) {
         if self.log_entries.len() >= 50 {
             self.log_entries.remove(0);
@@ -428,6 +434,7 @@ impl App {
         self.active_profile = Some(name);
     }
 
+    #[allow(dead_code)]
     pub fn record_latency(&mut self, ms: u64) {
         if self.latency_history.len() >= LATENCY_HISTORY_LEN {
             self.latency_history.pop_front();

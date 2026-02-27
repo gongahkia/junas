@@ -1,4 +1,3 @@
-#![cfg(target_os = "macos")]
 //! macOS CoreMediaIO virtual camera output.
 //!
 //! Feeds transformed frames as CVPixelBuffers into a DAL plugin-based virtual camera.
@@ -19,6 +18,7 @@ use privacy_common::frame::TransformedFrame;
 use crate::OutputSink;
 
 /// Known UID prefix used by OBS Virtual Camera on macOS.
+#[allow(dead_code)]
 const OBS_VIRTUAL_CAM_UID: &str = "obs-virtual-cam";
 
 pub struct CoreMediaSink {

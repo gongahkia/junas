@@ -6,7 +6,7 @@ use anyhow::Result;
 /// Spawn the macOS system tray icon in a background thread.
 /// `status_rx` receives bool: true = running (green), false = stopped (red).
 #[cfg(target_os = "macos")]
-pub fn spawn_tray(mut status_rx: std::sync::mpsc::Receiver<bool>) -> Result<()> {
+pub fn spawn_tray(status_rx: std::sync::mpsc::Receiver<bool>) -> Result<()> {
     use tray_item::{IconSource, TrayItem};
     std::thread::Builder::new()
         .name("aki-tray".into())

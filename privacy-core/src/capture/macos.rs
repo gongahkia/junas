@@ -1,5 +1,3 @@
-#![cfg(target_os = "macos")]
-
 use anyhow::{anyhow, Result};
 use chrono::Utc;
 use core_media_rs::cm_sample_buffer::CMSampleBuffer;
