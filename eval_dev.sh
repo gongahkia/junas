@@ -54,8 +54,9 @@ for cfg in "${configs[@]}"; do
 
     echo "$OUTPUT"
 
-    # save per-config output for report parsing
+    # save per-config output and config for report parsing
     echo "$OUTPUT" > "$TMP_DIR/${NAME}.txt"
+    cp "$cfg" "$TMP_DIR/${NAME}.toml"
 
     if [ "$STATUS" -eq 0 ]; then
         PASS=$((PASS + 1))
@@ -103,6 +104,9 @@ for fpath in files:
     name = os.path.basename(fpath).replace(".txt", "")
     raw = open(fpath).read()
 
+    config_path = fpath.replace(".txt", ".toml")
+    config_raw = open(config_path).read() if os.path.exists(config_path) else ""
+
     predictions = []
     for m in re.finditer(r'\[(✓|✗)\]\s+id=(\S+)\s+expected=(\S+)\s+predicted=(\S+)', raw):
         predictions.append({
@@ -135,6 +139,7 @@ for fpath in files:
 
     configs.append({
         "name": name,
+        "config_raw": config_raw,
         "predictions": predictions,
         "accuracy": accuracy,
         "samples": samples,
@@ -171,6 +176,15 @@ if fmt == "md":
         lines.append("")
         lines.append(f"## {c['name']}")
         lines.append("")
+
+        # config block
+        if c["config_raw"]:
+            lines.append("### Configuration")
+            lines.append("")
+            lines.append("```toml")
+            lines.append(c["config_raw"].rstrip())
+            lines.append("```")
+            lines.append("")
 
         # predictions table
         lines.append("### Predictions")
