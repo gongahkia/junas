@@ -13,7 +13,15 @@ For more details, see [here](#nerd-stuff).
 
 ## Screenshot
 
-...
+<div align="center">
+    <img src="./asset/reference/1.png" width="47%">
+    <img src="./asset/reference/2.png" width="47%">
+</div>
+
+<div align="center">
+    <img src="./asset/reference/3.png" width="47%">
+    <img src="./asset/reference/4.png" width="47%">
+</div>
 
 ## Stack
 
