@@ -175,7 +175,7 @@ If detection takes longer than the 33ms frame budget, the grid is shrunk (down t
 
 ### Config
 
-`~/.config/ascii-privacy/config.toml` is created with defaults on first run. Key options:
+`~/.config/ascii-privacy/config.toml` is created with defaults on first run.
 
 ```toml
 [capture]
@@ -206,5 +206,5 @@ Named profiles (e.g. `[profiles.streaming]`) can override transform mode and int
 The name `Aki` is in reference to the Japanese 空き (*aki*) which roughly means *empty*, *vacant*, or *a gap*, as seen in 空き容量 (*aki yōryō*, free disk space).
 
 <div align="center">
-    <img src="./asset/logo/thehand.webp" width="55%">
+    <img src="./asset/logo/thehand.webp" width="30%">
 </div>
