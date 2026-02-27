@@ -9,6 +9,12 @@ ROOT="$(cd "$(dirname "$0")" && pwd)"
 DATA_DIR="$ROOT/docs/json"
 TMP_DIR="$ROOT/.train_tmp"
 
+# ── Activate project venv if present ──
+if [ -z "$VIRTUAL_ENV" ] && [ -f "$ROOT/.venv/bin/activate" ]; then
+    echo "🐍 Activating .venv..."
+    source "$ROOT/.venv/bin/activate"
+fi
+
 mkdir -p "$TMP_DIR"
 
 echo "════════════════════════════════════════════════"
