@@ -203,4 +203,8 @@ Named profiles (e.g. `[profiles.streaming]`) can override transform mode and int
 
 ## Reference
 
-The name `Aki` is in reference to the Japanese 空き (*aki*) which roughly means *empty*, *vacant*, or *a gap* — as seen in 空き容量 (*aki yōryō*, free disk space). The tool creates a "gap" in the stream where sensitive data used to be.
+The name `Aki` is in reference to the Japanese 空き (*aki*) which roughly means *empty*, *vacant*, or *a gap*, as seen in 空き容量 (*aki yōryō*, free disk space).
+
+<div align="center">
+    <img src="./asset/logo/thehand.webp" width="55%">
+</div>
