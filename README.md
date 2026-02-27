@@ -25,12 +25,12 @@ For more details, see [here](#nerd-stuff).
 
 ## Stack
 
-* *Script*: [Rust](), [Ratatui](), [Crossterm](), [toml]()
-* *Screen Capture*: [screencapturekit-rs](), [ashpd]()
-* *OCR*: [Tesseract]() 
-* *Virtual Camera*: [v4l2loopback](), [CoreMediaIO DAL]() 
-* *Output*: [HTTP MJPEG]() 
-* *Channels*: [crossbeam-channel]()
+* *Script*: [Rust](https://www.rust-lang.org/), [Ratatui](https://ratatui.rs/), [Crossterm](https://github.com/crossterm-rs/crossterm), [toml](https://github.com/toml-rs/toml)
+* *Screen Capture*: [screencapturekit-rs](https://github.com/svtlabs/screencapturekit-rs), [ashpd](https://github.com/bilelmoussaoui/ashpd)
+* *OCR*: [Tesseract](https://github.com/tesseract-ocr/tesseract) via [leptess](https://github.com/houqp/leptess)
+* *Virtual Camera*: [v4l2loopback](https://github.com/umlaeute/v4l2loopback), [CoreMediaIO DAL](https://developer.apple.com/documentation/coremediaio)
+* *Output*: [HTTP MJPEG](https://en.wikipedia.org/wiki/Motion_JPEG), [OBS WebSocket](https://github.com/obsproject/obs-websocket)
+* *Channels*: [crossbeam-channel](https://github.com/crossbeam-rs/crossbeam)
 
 ## Usage
 
@@ -66,24 +66,47 @@ $ cargo run -- check-output # verify virtual camera availability
 
 Currently `Aki` blocks the below by default.
 
-* API keys
-* Tokens
-* Passwords
-* PII
-* ...
+**API Keys & Tokens**
+* AWS access keys (`AKIA...`) and secret access keys
+* Stripe secret/publishable keys (`sk_live_`, `pk_test_`, ...)
+* GitHub personal access tokens (`ghp_`, `gho_`)
+* GitLab personal access tokens (`glpat-`)
+* Slack tokens (`xoxb-`, `xoxs-`, `xoxp-`)
+* Hugging Face API tokens (`hf_`)
+* Anthropic API keys (`sk-ant-`)
+* Generic API key prefixes (`sk-`, `pk-`, and similar)
+* JWT tokens (`eyJ...`)
+* SSH private keys (RSA, EC, DSA, OpenSSH)
 
-## Transformations 
+**Secrets & Credentials**
+* Secret keyword assignments (`api_key:`, `token=`, `secret=`, `password=`, `passwd=`, `credential=`)
+* Environment variable assignments (`UPPER_CASE=<value>`)
+
+**PII**
+* Email addresses
+* IPv4 and IPv6 addresses
+* Credit card numbers (Visa, Mastercard, Amex, Discover, JCB)
+
+## Transformations
 
 Currently `Aki` supports the below morphs.
 
-* Blur
-* Pixelation
-* Cartoon
-* ASCII 
+| Transform | Description |
+|-----------|-------------|
+| Blur | Separable Gaussian blur (σ=15 default); two-pass horizontal + vertical for O(n) performance |
+| Pixelate | Block-averaging at 2px–dim/8 block size scaled by intensity; nearest-neighbour upscale |
+| Cartoon | Bilateral filter approximation + Sobel edge detection + k-means colour quantization (k=8 colours); destroys text readability while preserving colour |
+| ASCII | Pixel luminance mapped to a 15-level density ramp (` .,:;i1tfLCG08@`); each 8×16 pixel block rendered as a uniform grey cell |
 
 ## Output support
 
-...
+| Sink | Platform | Status |
+|------|----------|--------|
+| v4l2loopback virtual camera | Linux | Available |
+| CoreMediaIO DAL virtual camera | macOS | Available |
+| HTTP MJPEG stream | All | Available *(default fallback)* |
+| OBS WebSocket v5 *(Browser Source → MJPEG)* | All | Available *(falls back to MJPEG if OBS unreachable)* |
+| Twitch RTMP | All | Planned |
 
 ## Architecture
 
