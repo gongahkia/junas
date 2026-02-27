@@ -7,21 +7,30 @@ use anyhow::Result;
 /// `status_rx` receives bool: true = running (green), false = stopped (red).
 #[cfg(target_os = "macos")]
 pub fn spawn_tray(mut status_rx: std::sync::mpsc::Receiver<bool>) -> Result<()> {
-    use tray_item::{TrayItem, IconSource};
+    use tray_item::{IconSource, TrayItem};
     std::thread::Builder::new()
         .name("aki-tray".into())
         .spawn(move || {
             let mut tray = match TrayItem::new("aki", IconSource::Resource("NSStatusAvailable")) {
                 Ok(t) => t,
-                Err(e) => { log::error!("tray init failed: {e}"); return; }
+                Err(e) => {
+                    log::error!("tray init failed: {e}");
+                    return;
+                }
             };
             let _ = tray.add_label("aki privacy filter");
             let (quit_tx, quit_rx) = std::sync::mpsc::channel::<()>();
-            let _ = tray.add_menu_item("Quit", move || { let _ = quit_tx.send(()); });
+            let _ = tray.add_menu_item("Quit", move || {
+                let _ = quit_tx.send(());
+            });
             loop {
                 // update icon based on pipeline status
                 if let Ok(running) = status_rx.try_recv() {
-                    let icon = if running { "NSStatusAvailable" } else { "NSStatusUnavailable" };
+                    let icon = if running {
+                        "NSStatusAvailable"
+                    } else {
+                        "NSStatusUnavailable"
+                    };
                     let _ = tray.set_icon(IconSource::Resource(icon));
                 }
                 if quit_rx.try_recv().is_ok() {

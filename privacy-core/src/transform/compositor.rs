@@ -10,8 +10,8 @@ use privacy_common::{
 };
 
 use super::{
-    ascii::apply_ascii, blur::apply_blur, cartoon::apply_cartoon,
-    neural::apply_neural, pixelate::apply_pixelate,
+    ascii::apply_ascii, blur::apply_blur, cartoon::apply_cartoon, neural::apply_neural,
+    pixelate::apply_pixelate,
 };
 
 /// Apply the selected transform to the regions indicated by `matches`,
@@ -89,12 +89,22 @@ mod tests {
             pixels[i * 4 + 2] = b;
             pixels[i * 4 + 3] = 255;
         }
-        RawFrame { pixels, width: w, height: h, timestamp: chrono::Utc::now() }
+        RawFrame {
+            pixels,
+            width: w,
+            height: h,
+            timestamp: chrono::Utc::now(),
+        }
     }
 
     fn make_match(x: u32, y: u32, w: u32, h: u32) -> SensitiveMatch {
         SensitiveMatch {
-            bounds: Rect { x, y, width: w, height: h },
+            bounds: Rect {
+                x,
+                y,
+                width: w,
+                height: h,
+            },
             pattern_name: "test".into(),
             severity: Severity::High,
             snippet: "test***".into(),
@@ -104,7 +114,7 @@ mod tests {
     #[test]
     fn untouched_region_unchanged() {
         let frame = solid_frame(100, 100, 0, 255, 0); // all green
-        // transform only the top-left 20x20
+                                                      // transform only the top-left 20x20
         let m = vec![make_match(0, 0, 20, 20)];
         let result = apply_regions(&frame, &m, TransformMode::Pixelate, 1.0).unwrap();
         // pixel at (50, 50) should remain green

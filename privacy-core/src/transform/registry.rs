@@ -2,7 +2,7 @@
 
 use anyhow::Result;
 use privacy_common::{
-    detection::{DetectedRegions, SensitiveMatch, Severity, PatternCategory},
+    detection::{DetectedRegions, SensitiveMatch, Severity},
     frame::{RawFrame, Rect, TransformedFrame},
     transform::TransformMode,
 };
@@ -10,8 +10,8 @@ use rayon::prelude::*;
 use std::time::Instant;
 
 use super::{
-    ascii::apply_ascii, blur::apply_blur, cartoon::apply_cartoon,
-    neural::apply_neural, pixelate::apply_pixelate,
+    ascii::apply_ascii, blur::apply_blur, cartoon::apply_cartoon, neural::apply_neural,
+    pixelate::apply_pixelate,
 };
 
 /// Read neural latency guard from config, defaulting to 100ms for CPU inference.
@@ -25,8 +25,7 @@ fn neural_latency_guard_ms() -> u128 {
 /// Check if rect `r` overlaps any zone in the list.
 fn in_any_zone(r: &privacy_common::frame::Rect, zones: &[privacy_common::frame::Rect]) -> bool {
     zones.iter().any(|z| {
-        r.x < z.x + z.width && r.x + r.width > z.x &&
-        r.y < z.y + z.height && r.y + r.height > z.y
+        r.x < z.x + z.width && r.x + r.width > z.x && r.y < z.y + z.height && r.y + r.height > z.y
     })
 }
 
@@ -50,7 +49,15 @@ pub fn apply_transform_with_zones(
     safe_zones: &[Rect],
     always_redact_zones: &[Rect],
 ) -> Result<TransformedFrame> {
-    apply_transform_full(frame, regions, mode, intensity, safe_zones, always_redact_zones, 1.0)
+    apply_transform_full(
+        frame,
+        regions,
+        mode,
+        intensity,
+        safe_zones,
+        always_redact_zones,
+        1.0,
+    )
 }
 
 /// Like `apply_transform_with_zones` but also accepts `region_alpha` [0.0-1.0]:
@@ -70,7 +77,8 @@ pub fn apply_transform_full(
     let h = frame.height;
 
     // synthetic matches for always-redact zones
-    let always_matches: Vec<SensitiveMatch> = always_redact_zones.iter()
+    let always_matches: Vec<SensitiveMatch> = always_redact_zones
+        .iter()
         .map(|z| SensitiveMatch {
             bounds: z.clone(),
             pattern_name: "always_redact_zone".into(),
@@ -80,45 +88,69 @@ pub fn apply_transform_full(
         .collect();
 
     // combine pattern matches (excluding safe zones) with always-redact synthetic matches
-    let combined: Vec<&SensitiveMatch> = regions.matches.iter()
+    let combined: Vec<&SensitiveMatch> = regions
+        .matches
+        .iter()
         .filter(|m| !in_any_zone(&m.bounds, safe_zones))
         .chain(always_matches.iter())
         .collect();
 
     // process all valid regions in parallel, collect (bounds, transformed_pixels)
-    let valid: Vec<_> = combined.iter()
+    let valid: Vec<_> = combined
+        .iter()
         .filter(|m| {
             let r = &m.bounds;
             r.x + r.width <= w && r.y + r.height <= h && r.width > 0 && r.height > 0
         })
         .collect();
 
-    let transformed: Vec<_> = valid.par_iter().map(|&&m| {
-        let m = m;
-        let r = &m.bounds;
-        let mut region_pixels = extract_region(&pixels_snapshot, w, r.x, r.y, r.width, r.height);
-        match mode {
-            TransformMode::Blur => apply_blur(&mut region_pixels, r.width, r.height, (intensity * 15.0).max(0.5), 1.0),
-            TransformMode::Pixelate => apply_pixelate(&mut region_pixels, r.width, r.height, intensity),
-            TransformMode::Cartoon => apply_cartoon(&mut region_pixels, r.width, r.height, intensity),
-            TransformMode::Ascii => apply_ascii(&mut region_pixels, r.width, r.height, intensity),
-            TransformMode::Neural => {
-                let guard = neural_latency_guard_ms();
-                let t0 = Instant::now();
-                let ok = apply_neural(&mut region_pixels, r.width, r.height, intensity).is_ok();
-                let elapsed = t0.elapsed().as_millis();
-                if !ok || elapsed > guard {
-                    if elapsed > guard {
-                        log::warn!("neural inference {}ms > {}ms budget, cartoon fallback", elapsed, guard);
+    let transformed: Vec<_> = valid
+        .par_iter()
+        .map(|&&m| {
+            let m = m;
+            let r = &m.bounds;
+            let mut region_pixels =
+                extract_region(&pixels_snapshot, w, r.x, r.y, r.width, r.height);
+            match mode {
+                TransformMode::Blur => apply_blur(
+                    &mut region_pixels,
+                    r.width,
+                    r.height,
+                    (intensity * 15.0).max(0.5),
+                    1.0,
+                ),
+                TransformMode::Pixelate => {
+                    apply_pixelate(&mut region_pixels, r.width, r.height, intensity)
+                }
+                TransformMode::Cartoon => {
+                    apply_cartoon(&mut region_pixels, r.width, r.height, intensity)
+                }
+                TransformMode::Ascii => {
+                    apply_ascii(&mut region_pixels, r.width, r.height, intensity)
+                }
+                TransformMode::Neural => {
+                    let guard = neural_latency_guard_ms();
+                    let t0 = Instant::now();
+                    let ok = apply_neural(&mut region_pixels, r.width, r.height, intensity).is_ok();
+                    let elapsed = t0.elapsed().as_millis();
+                    if !ok || elapsed > guard {
+                        if elapsed > guard {
+                            log::warn!(
+                                "neural inference {}ms > {}ms budget, cartoon fallback",
+                                elapsed,
+                                guard
+                            );
+                        }
+                        let mut fallback =
+                            extract_region(&pixels_snapshot, w, r.x, r.y, r.width, r.height);
+                        apply_cartoon(&mut fallback, r.width, r.height, intensity);
+                        return (r, fallback);
                     }
-                    let mut fallback = extract_region(&pixels_snapshot, w, r.x, r.y, r.width, r.height);
-                    apply_cartoon(&mut fallback, r.width, r.height, intensity);
-                    return (r, fallback);
                 }
             }
-        }
-        (r, region_pixels)
-    }).collect();
+            (r, region_pixels)
+        })
+        .collect();
 
     // sequential merge back into full-frame buffer with optional alpha blending
     let alpha = region_alpha.clamp(0.0, 1.0);
@@ -130,11 +162,18 @@ pub fn apply_transform_full(
         } else {
             // alpha blend: transformed * alpha + original * (1-alpha)
             let orig_region = extract_region(&pixels_snapshot, w, r.x, r.y, r.width, r.height);
-            let blended: Vec<u8> = region_pixels.iter().zip(orig_region.iter())
+            let blended: Vec<u8> = region_pixels
+                .iter()
+                .zip(orig_region.iter())
                 .enumerate()
                 .map(|(i, (&tx, &orig))| {
-                    if i % 4 == 3 { tx } // preserve alpha channel
-                    else { (tx as f32 * alpha + orig as f32 * beta) as u8 }
+                    if i % 4 == 3 {
+                        tx
+                    }
+                    // preserve alpha channel
+                    else {
+                        (tx as f32 * alpha + orig as f32 * beta) as u8
+                    }
                 })
                 .collect();
             paste_region(&mut pixels, w, r.x, r.y, r.width, r.height, &blended);

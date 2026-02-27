@@ -17,7 +17,11 @@ pub struct FrameDiff {
 
 impl FrameDiff {
     pub fn new(grid_cols: u32, grid_rows: u32) -> Self {
-        Self { prev_pixels: None, grid_cols, grid_rows }
+        Self {
+            prev_pixels: None,
+            grid_cols,
+            grid_rows,
+        }
     }
 
     /// Compare current frame to previous; return list of grid cells that changed.
@@ -45,12 +49,16 @@ impl FrameDiff {
                 let x1 = ((col as usize + 1) * cell_w).min(w);
                 let y1 = ((row as usize + 1) * cell_h).min(h);
                 let total_px = (x1 - x0) * (y1 - y0);
-                if total_px == 0 { continue; }
+                if total_px == 0 {
+                    continue;
+                }
                 let mut changed = 0usize;
                 'outer: for py in y0..y1 {
                     for px in x0..x1 {
                         let idx = (py * w + px) * 4;
-                        if idx + 2 >= current.len() { break 'outer; }
+                        if idx + 2 >= current.len() {
+                            break 'outer;
+                        }
                         let dr = (current[idx] as i16 - prev[idx] as i16).unsigned_abs();
                         let dg = (current[idx + 1] as i16 - prev[idx + 1] as i16).unsigned_abs();
                         let db = (current[idx + 2] as i16 - prev[idx + 2] as i16).unsigned_abs();

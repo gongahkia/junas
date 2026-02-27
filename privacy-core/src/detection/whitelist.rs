@@ -16,8 +16,6 @@ use regex::Regex;
 use serde::Deserialize;
 use std::path::{Path, PathBuf};
 
-use super::user_patterns::load_from_path as _user_load; // reuse home path helper
-
 fn config_path() -> PathBuf {
     let base = std::env::var("XDG_CONFIG_HOME")
         .map(PathBuf::from)
@@ -41,7 +39,9 @@ pub struct Whitelist {
 
 impl Whitelist {
     /// Create an empty whitelist (blocks nothing).
-    pub fn empty() -> Self { Self { regexes: vec![] } }
+    pub fn empty() -> Self {
+        Self { regexes: vec![] }
+    }
 }
 
 impl Whitelist {

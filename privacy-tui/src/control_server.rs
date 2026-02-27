@@ -54,7 +54,10 @@ const MAX_CONNECTIONS: usize = 10;
 fn run_server(state: Arc<ControlState>, port: u16) {
     let listener = match std::net::TcpListener::bind(format!("127.0.0.1:{port}")) {
         Ok(l) => l,
-        Err(e) => { log::error!("control server: bind 127.0.0.1:{port} failed: {e}"); return; }
+        Err(e) => {
+            log::error!("control server: bind 127.0.0.1:{port} failed: {e}");
+            return;
+        }
     };
     log::info!("control server: ws://127.0.0.1:{port}");
     let conn_count = Arc::new(AtomicUsize::new(0));
@@ -63,7 +66,9 @@ fn run_server(state: Arc<ControlState>, port: u16) {
             Ok(s) => {
                 let cur = conn_count.load(Ordering::Relaxed);
                 if cur >= MAX_CONNECTIONS {
-                    log::warn!("control server: connection limit ({MAX_CONNECTIONS}) reached, dropping");
+                    log::warn!(
+                        "control server: connection limit ({MAX_CONNECTIONS}) reached, dropping"
+                    );
                     drop(s);
                     continue;
                 }
@@ -83,18 +88,25 @@ fn run_server(state: Arc<ControlState>, port: u16) {
 fn handle_client(stream: std::net::TcpStream, state: Arc<ControlState>) {
     let mut ws = match accept(stream) {
         Ok(w) => w,
-        Err(e) => { log::debug!("control server: WS handshake failed: {e}"); return; }
+        Err(e) => {
+            log::debug!("control server: WS handshake failed: {e}");
+            return;
+        }
     };
     loop {
         let msg = match ws.read() {
             Ok(m) => m,
             Err(_) => break,
         };
-        if msg.is_close() { break; }
+        if msg.is_close() {
+            break;
+        }
         if msg.is_text() || msg.is_binary() {
             let text = msg.to_text().unwrap_or("");
             let resp = dispatch(text, &state);
-            if ws.send(Message::Text(resp.into())).is_err() { break; }
+            if ws.send(Message::Text(resp.into())).is_err() {
+                break;
+            }
         }
     }
 }
@@ -136,7 +148,8 @@ fn dispatch(text: &str, state: &ControlState) -> String {
                 "mode": format!("{mode:?}").to_lowercase(),
                 "intensity": intensity,
                 "paused": paused,
-            }).to_string()
+            })
+            .to_string()
         }
         Some(other) => json!({"ok":false,"error":format!("unknown cmd: {other}")}).to_string(),
         None => json!({"ok":false,"error":"missing cmd field"}).to_string(),
@@ -145,11 +158,11 @@ fn dispatch(text: &str, state: &ControlState) -> String {
 
 fn parse_mode(s: &str) -> Option<TransformMode> {
     match s.to_lowercase().as_str() {
-        "blur"     => Some(TransformMode::Blur),
+        "blur" => Some(TransformMode::Blur),
         "pixelate" => Some(TransformMode::Pixelate),
-        "cartoon"  => Some(TransformMode::Cartoon),
-        "ascii"    => Some(TransformMode::Ascii),
-        "neural"   => Some(TransformMode::Neural),
+        "cartoon" => Some(TransformMode::Cartoon),
+        "ascii" => Some(TransformMode::Ascii),
+        "neural" => Some(TransformMode::Neural),
         _ => None,
     }
 }

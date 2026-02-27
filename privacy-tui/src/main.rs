@@ -7,7 +7,7 @@ mod ui;
 
 use anyhow::Result;
 use clap::{Parser, Subcommand};
-use event::{next_event, Event, is_quit};
+use event::{is_quit, next_event, Event};
 use std::time::{Duration, Instant};
 
 const TICK_RATE: Duration = Duration::from_millis(100); // 10 Hz
@@ -69,12 +69,17 @@ fn cmd_headless(use_pty: bool) -> Result<()> {
         pipeline_runner::spawn_pipeline,
     };
     use privacy_output::{autodetect::detect_best_sink, create_sink};
-    use std::sync::{Arc, Mutex, atomic::{AtomicBool, Ordering}};
+    use std::sync::{
+        atomic::{AtomicBool, Ordering},
+        Arc, Mutex,
+    };
 
     let running = Arc::new(AtomicBool::new(true));
     let r = running.clone();
-    ctrlc::set_handler(move || { r.store(false, Ordering::SeqCst); })
-        .unwrap_or_else(|_| log::warn!("failed to set Ctrl-C handler"));
+    ctrlc::set_handler(move || {
+        r.store(false, Ordering::SeqCst);
+    })
+    .unwrap_or_else(|_| log::warn!("failed to set Ctrl-C handler"));
 
     let sink_kind = detect_best_sink(9876);
     let sink = Arc::new(Mutex::new(create_sink(sink_kind)?));
@@ -99,13 +104,15 @@ fn cmd_headless(use_pty: bool) -> Result<()> {
     log::info!("headless mode: stats → {}", stats_path.display());
 
     let mut frame_count = 0u64;
-    let mut fps_start = Instant::now();
+    let fps_start = Instant::now();
     let mut last_log = Instant::now();
 
     while running.load(Ordering::SeqCst) {
         match out_rx.recv_timeout(Duration::from_millis(200)) {
             Ok(frame) => {
-                if let Ok(mut s) = sink.lock() { let _ = s.write_frame(&frame); }
+                if let Ok(mut s) = sink.lock() {
+                    let _ = s.write_frame(&frame);
+                }
                 frame_count += 1;
             }
             Err(_) => {}
@@ -113,14 +120,24 @@ fn cmd_headless(use_pty: bool) -> Result<()> {
         // log stats every 5 seconds
         if last_log.elapsed() >= Duration::from_secs(5) {
             let elapsed = fps_start.elapsed().as_secs_f32();
-            let fps = if elapsed > 0.0 { frame_count as f32 / elapsed } else { 0.0 };
+            let fps = if elapsed > 0.0 {
+                frame_count as f32 / elapsed
+            } else {
+                0.0
+            };
             let dropped = handle.state.dropped_frames.load(Ordering::Relaxed);
             let line = format!(
                 "[{}] fps={:.1} frames={} dropped={}\n",
                 chrono::Utc::now().to_rfc3339(),
-                fps, frame_count, dropped,
+                fps,
+                frame_count,
+                dropped,
             );
-            if let Ok(mut f) = std::fs::OpenOptions::new().create(true).append(true).open(&stats_path) {
+            if let Ok(mut f) = std::fs::OpenOptions::new()
+                .create(true)
+                .append(true)
+                .open(&stats_path)
+            {
                 use std::io::Write;
                 let _ = f.write_all(line.as_bytes());
             }
@@ -154,7 +171,10 @@ fn export_session_log(app: &app::App) {
     };
     let _ = std::fs::create_dir_all(&sessions_dir);
     let path = sessions_dir.join(format!("aki_session_{ts}.json"));
-    match std::fs::write(&path, serde_json::to_string_pretty(&entries).unwrap_or_default()) {
+    match std::fs::write(
+        &path,
+        serde_json::to_string_pretty(&entries).unwrap_or_default(),
+    ) {
         Ok(_) => log::info!("session log exported to {}", path.display()),
         Err(e) => log::error!("export failed: {e}"),
     }
@@ -169,7 +189,10 @@ fn cmd_run(use_pty: bool) -> Result<()> {
     let sink_kind = detect_best_sink(9876);
     app.active_sink_kind = Some(sink_kind.clone());
     let sink = Arc::new(Mutex::new(create_sink(sink_kind)?));
-    control_server::spawn(Arc::clone(&app.control_state), control_server::DEFAULT_CONTROL_PORT);
+    control_server::spawn(
+        Arc::clone(&app.control_state),
+        control_server::DEFAULT_CONTROL_PORT,
+    );
     let mut handle = spawn_capture_pipeline(&mut app, Arc::clone(&sink))?;
     // spawn macOS tray icon (no-op on other platforms)
     let (tray_tx, tray_rx) = std::sync::mpsc::channel::<bool>();
@@ -234,7 +257,10 @@ fn run_with_pipeline_restart(
     while app.running {
         terminal.draw(|frame| ui::render(frame, app))?;
         let ev = next_event(TICK_RATE)?;
-        if is_quit(&ev) { app.running = false; break; }
+        if is_quit(&ev) {
+            app.running = false;
+            break;
+        }
         handle_event(app, ev);
         if app.pipeline_restart_needed {
             app.pipeline_restart_needed = false;
@@ -246,7 +272,10 @@ fn run_with_pipeline_restart(
     Ok(())
 }
 
-fn create_capture_source(window_id: Option<u64>, use_pty: bool) -> Box<dyn privacy_core::capture::CaptureSource + Send> {
+fn create_capture_source(
+    window_id: Option<u64>,
+    use_pty: bool,
+) -> Box<dyn privacy_core::capture::CaptureSource + Send> {
     if use_pty {
         use privacy_core::capture::pty::PtyCaptureSource;
         return Box::new(PtyCaptureSource::new(PtyCaptureSource::default_shell()));
@@ -254,11 +283,16 @@ fn create_capture_source(window_id: Option<u64>, use_pty: bool) -> Box<dyn priva
     #[cfg(target_os = "macos")]
     {
         use privacy_core::capture::macos::{CaptureTarget, MacosCaptureSource};
-        let target = window_id.map(CaptureTarget::Window).unwrap_or(CaptureTarget::Display(0));
+        let target = window_id
+            .map(CaptureTarget::Window)
+            .unwrap_or(CaptureTarget::Display(0));
         return Box::new(MacosCaptureSource::new(target, 30));
     }
     #[allow(unreachable_code)]
-    { let _ = window_id; panic!("platform not supported"); }
+    {
+        let _ = window_id;
+        panic!("platform not supported");
+    }
 }
 
 fn cmd_list_windows() -> Result<()> {
@@ -269,17 +303,16 @@ fn cmd_list_windows() -> Result<()> {
     }
     println!("{:>8}  {:<40}  {}x{}", "ID", "TITLE", "W", "H");
     for w in &windows {
-        println!("{:>8}  {:<40}  {}x{}", w.id, &w.title, w.bounds.width, w.bounds.height);
+        println!(
+            "{:>8}  {:<40}  {}x{}",
+            w.id, &w.title, w.bounds.width, w.bounds.height
+        );
     }
     Ok(())
 }
 
 fn cmd_test_patterns(text: &str) -> Result<()> {
-    use privacy_core::detection::{
-        default_patterns::default_registry,
-        pii_patterns::pii_patterns,
-        whitelist::Whitelist,
-    };
+    use privacy_core::detection::{default_patterns::default_registry, pii_patterns::pii_patterns};
     let mut registry = default_registry();
     registry.patterns.extend(pii_patterns());
     let mut hits = 0usize;
@@ -299,15 +332,16 @@ fn cmd_test_patterns(text: &str) -> Result<()> {
 
 fn cmd_self_test() -> Result<()> {
     use privacy_core::detection::{
-        default_patterns::default_registry,
-        pii_patterns::pii_patterns,
-        scanner::scan,
+        default_patterns::default_registry, pii_patterns::pii_patterns, scanner::scan,
         whitelist::Whitelist,
     };
     println!("aki self-test: verifying detection pipeline against synthetic data");
     let test_cases = [
         ("AWS key", "AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE"),
-        ("GitHub token", "GITHUB_TOKEN=ghp_16C7e42F292c6912E7710c838347Ae178B4a"),
+        (
+            "GitHub token",
+            "GITHUB_TOKEN=ghp_16C7e42F292c6912E7710c838347Ae178B4a",
+        ),
         ("IP address", "Server at 192.168.1.1"),
         ("Email", "contact: user@example.com"),
         ("SSH private key", "-----BEGIN RSA PRIVATE KEY-----"),
@@ -317,9 +351,14 @@ fn cmd_self_test() -> Result<()> {
     let mut passed = 0;
     let total = test_cases.len();
     for (label, input) in &test_cases {
-        let mut dummy_region = vec![privacy_common::detection::TextRegion {
+        let dummy_region = vec![privacy_common::detection::TextRegion {
             text: input.to_string(),
-            bounds: privacy_common::frame::Rect { x: 0, y: 0, width: 100, height: 20 },
+            bounds: privacy_common::frame::Rect {
+                x: 0,
+                y: 0,
+                width: 100,
+                height: 20,
+            },
             confidence: 95.0,
         }];
         let matches = scan(&dummy_region, &registry, &Whitelist::empty());
@@ -330,21 +369,24 @@ fn cmd_self_test() -> Result<()> {
             passed += 1;
         }
     }
-    println!("\nself-test: {passed}/{total} passed (readiness: {:.0}%)", passed as f32 / total as f32 * 100.0);
+    println!(
+        "\nself-test: {passed}/{total} passed (readiness: {:.0}%)",
+        passed as f32 / total as f32 * 100.0
+    );
     Ok(())
 }
 
 fn cmd_test_screen() -> Result<()> {
+    use privacy_core::capture::window_picker::list_windows;
     use privacy_core::detection::{
         default_patterns::default_registry,
+        expand::expand_and_merge,
         incremental::{IncrementalOcr, GRID_COLS, GRID_ROWS},
         ocr::OcrEngine,
         pii_patterns::pii_patterns,
         scanner::scan,
-        expand::expand_and_merge,
         whitelist::Whitelist,
     };
-    use privacy_core::capture::{window_picker::list_windows, CaptureSource};
     println!("test-screen: listing windows to select capture target...");
     let windows = list_windows()?;
     if windows.is_empty() {
@@ -366,12 +408,17 @@ fn cmd_test_screen() -> Result<()> {
         let frame = {
             let mut f = None;
             for _ in 0..50 {
-                if let Ok(Some(raw)) = source.next_frame() { f = Some(raw); break; }
+                if let Ok(Some(raw)) = source.next_frame() {
+                    f = Some(raw);
+                    break;
+                }
                 std::thread::sleep(std::time::Duration::from_millis(10));
             }
             f.unwrap_or_else(|| privacy_common::frame::RawFrame {
                 pixels: vec![0u8; 640 * 480 * 4],
-                width: 640, height: 480, timestamp: chrono::Utc::now(),
+                width: 640,
+                height: 480,
+                timestamp: chrono::Utc::now(),
             })
         };
         let (fw, fh) = (frame.width, frame.height);
@@ -381,11 +428,17 @@ fn cmd_test_screen() -> Result<()> {
         total_matches += merged.len();
         println!("  frame {}: {} sensitive regions", i + 1, merged.len());
         for m in &merged {
-            println!("    [{:?}] {} @ ({},{} {}x{})", m.severity, m.pattern_name, m.bounds.x, m.bounds.y, m.bounds.width, m.bounds.height);
+            println!(
+                "    [{:?}] {} @ ({},{} {}x{})",
+                m.severity, m.pattern_name, m.bounds.x, m.bounds.y, m.bounds.width, m.bounds.height
+            );
         }
     }
     let _ = source.stop();
-    println!("\ntest-screen complete: {} total sensitive regions across 10 frames", total_matches);
+    println!(
+        "\ntest-screen complete: {} total sensitive regions across 10 frames",
+        total_matches
+    );
     Ok(())
 }
 
@@ -403,6 +456,7 @@ fn cmd_check_output() -> Result<()> {
     Ok(())
 }
 
+#[allow(dead_code)]
 fn run(terminal: &mut tui::Tui, app: &mut app::App) -> Result<()> {
     while app.running {
         terminal.draw(|frame| ui::render(frame, app))?;
@@ -447,7 +501,9 @@ fn handle_event(app: &mut app::App, ev: Event) {
                     KeyCode::Char('j') | KeyCode::Down => app.pattern_manager.move_down(len),
                     KeyCode::Char('k') | KeyCode::Up => app.pattern_manager.move_up(len),
                     KeyCode::Char(' ') => app.pattern_manager.toggle(&mut app.pattern_registry),
-                    KeyCode::Char(']') => app.pattern_manager.cycle_severity(&mut app.pattern_registry),
+                    KeyCode::Char(']') => app
+                        .pattern_manager
+                        .cycle_severity(&mut app.pattern_registry),
                     KeyCode::Esc => app.pattern_manager.close(),
                     _ => {}
                 }
@@ -455,8 +511,8 @@ fn handle_event(app: &mut app::App, ev: Event) {
             }
             match k.code {
                 KeyCode::Char('w') => {
-                    let windows = privacy_core::capture::window_picker::list_windows()
-                        .unwrap_or_default();
+                    let windows =
+                        privacy_core::capture::window_picker::list_windows().unwrap_or_default();
                     app.window_selector.open(windows);
                 }
                 KeyCode::Char('p') => app.pattern_manager.open(),
@@ -490,7 +546,9 @@ fn handle_event(app: &mut app::App, ev: Event) {
                     }
                 }
                 KeyCode::Char('f') => {
-                    if let (Some(entry), Some(ref pixels)) = (app.log_entries.last(), &app.tx_preview_pixels) {
+                    if let (Some(entry), Some(ref pixels)) =
+                        (app.log_entries.last(), &app.tx_preview_pixels)
+                    {
                         let frame = privacy_common::frame::RawFrame {
                             pixels: pixels.clone(),
                             width: app.preview_width,
@@ -498,7 +556,12 @@ fn handle_event(app: &mut app::App, ev: Event) {
                             timestamp: chrono::Utc::now(),
                         };
                         let m = privacy_common::detection::SensitiveMatch {
-                            bounds: entry.bounds.clone().unwrap_or(privacy_common::frame::Rect { x: 0, y: 0, width: 100, height: 20 }),
+                            bounds: entry.bounds.clone().unwrap_or(privacy_common::frame::Rect {
+                                x: 0,
+                                y: 0,
+                                width: 100,
+                                height: 20,
+                            }),
                             pattern_name: entry.pattern_name.clone(),
                             severity: entry.severity,
                             snippet: entry.snippet.clone(),

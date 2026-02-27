@@ -24,14 +24,22 @@ impl Recorder {
         let mut child = Command::new("ffmpeg")
             .args([
                 "-y", // overwrite output
-                "-f", "rawvideo",
-                "-pixel_format", "rgba",
-                "-video_size", &format!("{}x{}", width, height),
-                "-framerate", &fps.to_string(),
-                "-i", "pipe:0",      // read from stdin
-                "-c:v", "libx264",
-                "-pix_fmt", "yuv420p",
-                "-crf", "23",
+                "-f",
+                "rawvideo",
+                "-pixel_format",
+                "rgba",
+                "-video_size",
+                &format!("{}x{}", width, height),
+                "-framerate",
+                &fps.to_string(),
+                "-i",
+                "pipe:0", // read from stdin
+                "-c:v",
+                "libx264",
+                "-pix_fmt",
+                "yuv420p",
+                "-crf",
+                "23",
                 &path,
             ])
             .stdin(Stdio::piped())
@@ -40,12 +48,19 @@ impl Recorder {
             .spawn()
             .context("spawning ffmpeg — ensure ffmpeg is installed")?;
         let stdin = child.stdin.take().context("ffmpeg stdin unavailable")?;
-        Ok(Self { proc: child, stdin, path, started_at: Instant::now() })
+        Ok(Self {
+            proc: child,
+            stdin,
+            path,
+            started_at: Instant::now(),
+        })
     }
 
     /// Feed a frame to ffmpeg's stdin.
     pub fn write_frame(&mut self, frame: &TransformedFrame) -> Result<()> {
-        self.stdin.write_all(&frame.pixels).context("writing frame to ffmpeg")?;
+        self.stdin
+            .write_all(&frame.pixels)
+            .context("writing frame to ffmpeg")?;
         Ok(())
     }
 

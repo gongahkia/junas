@@ -29,12 +29,7 @@ pub fn apply_pixelate(pixels: &mut [u8], width: u32, height: u32, intensity: f32
                     n += 1;
                 }
             }
-            let (pr, pg, pb, pa) = (
-                (r / n) as u8,
-                (g / n) as u8,
-                (b / n) as u8,
-                (a / n) as u8,
-            );
+            let (pr, pg, pb, pa) = ((r / n) as u8, (g / n) as u8, (b / n) as u8, (a / n) as u8);
             // fill block with pixelated colour
             for by in 0..bh {
                 for bx in 0..bw {

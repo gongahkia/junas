@@ -27,12 +27,15 @@ impl OcrEngine {
 
     /// Create OCR engine with a custom minimum confidence threshold (0–100).
     pub fn new_with_confidence(data_path: Option<&str>, min_conf: f32) -> Result<Self> {
-        let mut lt = LepTess::new(data_path, "eng")
-            .map_err(|e| anyhow!("Tesseract init: {}", e))?;
+        let mut lt =
+            LepTess::new(data_path, "eng").map_err(|e| anyhow!("Tesseract init: {}", e))?;
         // PSM 6 = single block of text
         lt.set_variable(Variable::TesseditPagesegMode, "6")
             .map_err(|_| anyhow!("failed to set PSM 6"))?;
-        Ok(Self { lt, min_confidence: min_conf })
+        Ok(Self {
+            lt,
+            min_confidence: min_conf,
+        })
     }
 
     /// Run OCR on a raw RGBA frame, return all detected text regions above min confidence.
@@ -49,7 +52,10 @@ impl OcrEngine {
             .map_err(|e| anyhow!("set_image_from_mem: {}", e))?;
         self.lt.recognize();
 
-        let boxes = match self.lt.get_component_boxes(TessPageIteratorLevel_RIL_WORD, true) {
+        let boxes = match self
+            .lt
+            .get_component_boxes(TessPageIteratorLevel_RIL_WORD, true)
+        {
             Some(b) => b,
             None => return Ok(vec![]),
         };

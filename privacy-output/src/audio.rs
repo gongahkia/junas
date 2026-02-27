@@ -22,7 +22,10 @@ impl AudioPassthrough {
             .name("aki-audio".into())
             .spawn(move || audio_loop(r, device))?;
         log::info!("audio passthrough started");
-        Ok(Self { running, thread: Some(thread) })
+        Ok(Self {
+            running,
+            thread: Some(thread),
+        })
     }
 
     pub fn stop(mut self) {
@@ -41,7 +44,10 @@ impl Drop for AudioPassthrough {
 }
 
 fn audio_loop(running: Arc<AtomicBool>, device: Option<String>) {
-    log::info!("audio passthrough: using device={}", device.as_deref().unwrap_or("default"));
+    log::info!(
+        "audio passthrough: using device={}",
+        device.as_deref().unwrap_or("default")
+    );
     // Platform-specific audio capture and passthrough.
     // Full implementation uses cpal for cross-platform audio I/O:
     //   let host = cpal::default_host();
@@ -57,8 +63,14 @@ fn audio_loop(running: Arc<AtomicBool>, device: Option<String>) {
 
 /// Platform detection for available audio backends.
 pub fn detect_audio_backend() -> &'static str {
-    #[cfg(target_os = "macos")] { return "CoreAudio"; }
-    #[cfg(target_os = "linux")] { return "PulseAudio/ALSA"; }
+    #[cfg(target_os = "macos")]
+    {
+        return "CoreAudio";
+    }
+    #[cfg(target_os = "linux")]
+    {
+        return "PulseAudio/ALSA";
+    }
     #[allow(unreachable_code)]
     "unknown"
 }

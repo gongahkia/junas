@@ -17,7 +17,11 @@ pub struct WindowSelectorState {
 
 impl WindowSelectorState {
     pub fn new() -> Self {
-        Self { open: false, windows: vec![], list_state: ListState::default() }
+        Self {
+            open: false,
+            windows: vec![],
+            list_state: ListState::default(),
+        }
     }
 
     pub fn open(&mut self, windows: Vec<WindowInfo>) {
@@ -26,16 +30,26 @@ impl WindowSelectorState {
         self.open = true;
     }
 
-    pub fn close(&mut self) { self.open = false; }
+    pub fn close(&mut self) {
+        self.open = false;
+    }
 
     pub fn move_up(&mut self) {
-        if self.windows.is_empty() { return; }
+        if self.windows.is_empty() {
+            return;
+        }
         let i = self.list_state.selected().unwrap_or(0);
-        self.list_state.select(Some(if i == 0 { self.windows.len() - 1 } else { i - 1 }));
+        self.list_state.select(Some(if i == 0 {
+            self.windows.len() - 1
+        } else {
+            i - 1
+        }));
     }
 
     pub fn move_down(&mut self) {
-        if self.windows.is_empty() { return; }
+        if self.windows.is_empty() {
+            return;
+        }
         let i = self.list_state.selected().unwrap_or(0);
         self.list_state.select(Some((i + 1) % self.windows.len()));
     }
@@ -46,29 +60,37 @@ impl WindowSelectorState {
 }
 
 impl Default for WindowSelectorState {
-    fn default() -> Self { Self::new() }
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 /// Render the window selector overlay centred in the terminal.
 pub fn render(frame: &mut Frame, state: &mut WindowSelectorState) {
-    if !state.open { return; }
+    if !state.open {
+        return;
+    }
 
     let area = frame.area();
     let popup = centered_rect(60, 70, area);
 
-    let items: Vec<ListItem> = state.windows.iter().map(|w| {
-        ListItem::new(Line::from(vec![
-            Span::styled(
-                format!("{:>6}  ", w.id),
-                Style::default().fg(Color::DarkGray),
-            ),
-            Span::raw(w.title.clone()),
-            Span::styled(
-                format!("  {}×{}", w.bounds.width, w.bounds.height),
-                Style::default().fg(Color::DarkGray),
-            ),
-        ]))
-    }).collect();
+    let items: Vec<ListItem> = state
+        .windows
+        .iter()
+        .map(|w| {
+            ListItem::new(Line::from(vec![
+                Span::styled(
+                    format!("{:>6}  ", w.id),
+                    Style::default().fg(Color::DarkGray),
+                ),
+                Span::raw(w.title.clone()),
+                Span::styled(
+                    format!("  {}×{}", w.bounds.width, w.bounds.height),
+                    Style::default().fg(Color::DarkGray),
+                ),
+            ]))
+        })
+        .collect();
 
     let list = List::new(items)
         .block(
@@ -77,7 +99,11 @@ pub fn render(frame: &mut Frame, state: &mut WindowSelectorState) {
                 .borders(Borders::ALL)
                 .border_style(Style::default().fg(Color::Yellow)),
         )
-        .highlight_style(Style::default().bg(Color::Blue).add_modifier(Modifier::BOLD));
+        .highlight_style(
+            Style::default()
+                .bg(Color::Blue)
+                .add_modifier(Modifier::BOLD),
+        );
 
     frame.render_stateful_widget(list, popup, &mut state.list_state);
 }

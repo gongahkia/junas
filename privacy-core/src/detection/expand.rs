@@ -52,7 +52,12 @@ fn expand_rect(r: &Rect, fw: u32, fh: u32, pct: f32) -> Rect {
     let y = r.y.saturating_sub(pad_y);
     let x2 = (r.x + r.width + pad_x).min(fw);
     let y2 = (r.y + r.height + pad_y).min(fh);
-    Rect { x, y, width: x2 - x, height: y2 - y }
+    Rect {
+        x,
+        y,
+        width: x2 - x,
+        height: y2 - y,
+    }
 }
 
 fn rects_overlap(a: &Rect, b: &Rect) -> bool {
@@ -68,7 +73,12 @@ fn union_rect(a: &Rect, b: &Rect) -> Rect {
     let y = a.y.min(b.y);
     let x2 = (a.x + a.width).max(b.x + b.width);
     let y2 = (a.y + a.height).max(b.y + b.height);
-    Rect { x, y, width: x2 - x, height: y2 - y }
+    Rect {
+        x,
+        y,
+        width: x2 - x,
+        height: y2 - y,
+    }
 }
 
 #[cfg(test)]
@@ -78,7 +88,12 @@ mod tests {
 
     fn make_match(x: u32, y: u32, w: u32, h: u32) -> SensitiveMatch {
         SensitiveMatch {
-            bounds: Rect { x, y, width: w, height: h },
+            bounds: Rect {
+                x,
+                y,
+                width: w,
+                height: h,
+            },
             pattern_name: "test".to_owned(),
             severity: Severity::High,
             snippet: "test***".to_owned(),

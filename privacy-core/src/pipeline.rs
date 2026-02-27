@@ -36,10 +36,19 @@ impl PipelineChannels {
         let (raw_tx, raw_rx) = bounded(CHANNEL_CAPACITY);
         let (detection_tx, detection_rx) = bounded(CHANNEL_CAPACITY);
         let (transformed_tx, transformed_rx) = bounded(CHANNEL_CAPACITY);
-        Self { raw_tx, raw_rx, detection_tx, detection_rx, transformed_tx, transformed_rx }
+        Self {
+            raw_tx,
+            raw_rx,
+            detection_tx,
+            detection_rx,
+            transformed_tx,
+            transformed_rx,
+        }
     }
 }
 
 impl Default for PipelineChannels {
-    fn default() -> Self { Self::new() }
+    fn default() -> Self {
+        Self::new()
+    }
 }

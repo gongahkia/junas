@@ -2,9 +2,9 @@
 
 use anyhow::{anyhow, Result};
 use chrono::Utc;
-use crossbeam_channel::{bounded, Receiver, Sender};
 use core_media_rs::cm_sample_buffer::CMSampleBuffer;
 use core_video_rs::cv_pixel_buffer::lock::LockTrait;
+use crossbeam_channel::{bounded, Receiver, Sender};
 use privacy_common::frame::{RawFrame, Rect, WindowInfo};
 use screencapturekit::{
     shareable_content::SCShareableContent,
@@ -74,47 +74,59 @@ pub enum CaptureTarget {
 
 impl MacosCaptureSource {
     pub fn new(target: CaptureTarget, fps: u32) -> Self {
-        Self { fps, target, stream: None, rx: None }
+        Self {
+            fps,
+            target,
+            stream: None,
+            rx: None,
+        }
     }
 }
 
 impl CaptureSource for MacosCaptureSource {
     fn start(&mut self) -> Result<()> {
-        let content = SCShareableContent::get()
-            .map_err(|e| anyhow!("SCShareableContent::get: {:?}", e))?;
+        let content =
+            SCShareableContent::get().map_err(|e| anyhow!("SCShareableContent::get: {:?}", e))?;
 
         let (filter, w, h) = match &self.target {
             CaptureTarget::Window(wid) => {
-                let win = content.windows()
+                let win = content
+                    .windows()
                     .into_iter()
                     .find(|w| w.window_id() as u64 == *wid)
                     .ok_or_else(|| anyhow!("window {} not found", wid))?;
                 let f = win.get_frame();
-                let filter = SCContentFilter::new()
-                    .with_desktop_independent_window(&win);
+                let filter = SCContentFilter::new().with_desktop_independent_window(&win);
                 (filter, f.size.width as u32, f.size.height as u32)
             }
             CaptureTarget::Display(idx) => {
                 let displays = content.displays();
-                let disp = displays.get(*idx)
+                let disp = displays
+                    .get(*idx)
                     .ok_or_else(|| anyhow!("display {} not found", idx))?;
-                let filter = SCContentFilter::new()
-                    .with_display_excluding_windows(disp, &[]);
+                let filter = SCContentFilter::new().with_display_excluding_windows(disp, &[]);
                 (filter, disp.width(), disp.height())
             }
         };
 
         let config = SCStreamConfiguration::new()
-            .set_width(w).map_err(|e| anyhow!("{:?}", e))?
-            .set_height(h).map_err(|e| anyhow!("{:?}", e))?
-            .set_pixel_format(PixelFormat::BGRA).map_err(|e| anyhow!("{:?}", e))?
-            .set_shows_cursor(false).map_err(|e| anyhow!("{:?}", e))?
-            .set_queue_depth(FRAME_CHANNEL_CAP as u32).map_err(|e| anyhow!("{:?}", e))?;
+            .set_width(w)
+            .map_err(|e| anyhow!("{:?}", e))?
+            .set_height(h)
+            .map_err(|e| anyhow!("{:?}", e))?
+            .set_pixel_format(PixelFormat::BGRA)
+            .map_err(|e| anyhow!("{:?}", e))?
+            .set_shows_cursor(false)
+            .map_err(|e| anyhow!("{:?}", e))?
+            .set_queue_depth(FRAME_CHANNEL_CAP as u32)
+            .map_err(|e| anyhow!("{:?}", e))?;
 
         let (tx, rx) = bounded::<RawFrame>(FRAME_CHANNEL_CAP);
         let mut stream = SCStream::new_with_delegate(&filter, &config, NullDelegate);
         stream.add_output_handler(FrameHandler { tx }, SCStreamOutputType::Screen);
-        stream.start_capture().map_err(|e| anyhow!("start_capture: {:?}", e))?;
+        stream
+            .start_capture()
+            .map_err(|e| anyhow!("start_capture: {:?}", e))?;
 
         self.stream = Some(stream);
         self.rx = Some(rx);
@@ -141,18 +153,22 @@ impl CaptureSource for MacosCaptureSource {
             .on_screen_windows_only()
             .get()
             .map_err(|e| anyhow!("{:?}", e))?;
-        Ok(content.windows().into_iter().map(|w| {
-            let f = w.get_frame();
-            WindowInfo {
-                id: w.window_id() as u64,
-                title: w.title(),
-                bounds: Rect {
-                    x: f.origin.x as u32,
-                    y: f.origin.y as u32,
-                    width: f.size.width as u32,
-                    height: f.size.height as u32,
-                },
-            }
-        }).collect())
+        Ok(content
+            .windows()
+            .into_iter()
+            .map(|w| {
+                let f = w.get_frame();
+                WindowInfo {
+                    id: w.window_id() as u64,
+                    title: w.title(),
+                    bounds: Rect {
+                        x: f.origin.x as u32,
+                        y: f.origin.y as u32,
+                        width: f.size.width as u32,
+                        height: f.size.height as u32,
+                    },
+                }
+            })
+            .collect())
     }
 }

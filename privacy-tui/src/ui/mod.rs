@@ -25,7 +25,7 @@ pub fn render(frame: &mut Frame, app: &mut App) {
         .constraints([
             Constraint::Length(1),
             Constraint::Min(0),
-            Constraint::Length(4),  // latency sparkline
+            Constraint::Length(4), // latency sparkline
             Constraint::Length(6),
         ])
         .split(area);
@@ -37,15 +37,19 @@ pub fn render(frame: &mut Frame, app: &mut App) {
         .constraints([Constraint::Percentage(50), Constraint::Percentage(50)])
         .split(rows[1]);
 
-
     if app.heatmap.enabled {
         heatmap::render(frame, app, cols[0]);
     } else {
         // flash raw-preview border red on first detection (2s)
-        let raw_border = if app.first_detection_flash
+        let raw_border = if app
+            .first_detection_flash
             .map(|t| t.elapsed().as_secs() < 2)
             .unwrap_or(false)
-        { Color::Red } else { Color::DarkGray };
+        {
+            Color::Red
+        } else {
+            Color::DarkGray
+        };
         braille::render_preview(
             frame,
             app.raw_preview_pixels.as_deref(),

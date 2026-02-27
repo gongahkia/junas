@@ -24,9 +24,7 @@ fn dirs_or_home() -> PathBuf {
     // prefer XDG_CONFIG_HOME, fall back to ~/.config
     std::env::var("XDG_CONFIG_HOME")
         .map(PathBuf::from)
-        .unwrap_or_else(|_| {
-            dirs_sys_home().join(".config")
-        })
+        .unwrap_or_else(|_| dirs_sys_home().join(".config"))
 }
 
 fn dirs_sys_home() -> PathBuf {
@@ -79,10 +77,10 @@ pub fn load_from_path(path: &Path) -> Result<Vec<SensitivityPattern>> {
     if !path.exists() {
         return Ok(vec![]);
     }
-    let content = std::fs::read_to_string(path)
-        .with_context(|| format!("reading {}", path.display()))?;
-    let file: PatternFile = toml::from_str(&content)
-        .with_context(|| format!("parsing {}", path.display()))?;
+    let content =
+        std::fs::read_to_string(path).with_context(|| format!("reading {}", path.display()))?;
+    let file: PatternFile =
+        toml::from_str(&content).with_context(|| format!("parsing {}", path.display()))?;
 
     let patterns = file
         .patterns
@@ -109,12 +107,16 @@ mod tests {
     #[test]
     fn loads_valid_toml() {
         let mut f = NamedTempFile::new().unwrap();
-        writeln!(f, r#"
+        writeln!(
+            f,
+            r#"
 [[pattern]]
 name = "my_token"
 regex = "tok_[a-z]{{8}}"
 severity = "high"
-"#).unwrap();
+"#
+        )
+        .unwrap();
         let patterns = load_from_path(f.path()).unwrap();
         assert_eq!(patterns.len(), 1);
         assert_eq!(patterns[0].name, "my_token");

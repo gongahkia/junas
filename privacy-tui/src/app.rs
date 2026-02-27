@@ -5,9 +5,7 @@ use privacy_common::{frame::Rect, transform::TransformMode};
 use privacy_core::{
     config::AppConfig,
     detection::{
-        default_patterns::default_registry,
-        patterns::PatternRegistry,
-        pii_patterns::pii_patterns,
+        default_patterns::default_registry, patterns::PatternRegistry, pii_patterns::pii_patterns,
         user_patterns::load_user_patterns,
     },
 };
@@ -69,12 +67,17 @@ pub struct HeatmapState {
 
 impl HeatmapState {
     pub fn new() -> Self {
-        Self { enabled: false, cells: HashMap::new() }
+        Self {
+            enabled: false,
+            cells: HashMap::new(),
+        }
     }
 
     /// Record a detection hit for the given rect (frame coords).
     pub fn record_hit(&mut self, r: &Rect, frame_w: u32, frame_h: u32) {
-        if frame_w == 0 || frame_h == 0 { return; }
+        if frame_w == 0 || frame_h == 0 {
+            return;
+        }
         let cx = ((r.x + r.width / 2) as f32 / frame_w as f32 * HEATMAP_GRID_X as f32) as u8;
         let cy = ((r.y + r.height / 2) as f32 / frame_h as f32 * HEATMAP_GRID_Y as f32) as u8;
         let cx = cx.min(HEATMAP_GRID_X - 1);
@@ -87,18 +90,26 @@ impl HeatmapState {
     pub fn heat(&mut self, gx: u8, gy: u8) -> f32 {
         let now = Instant::now();
         let entry = self.cells.entry((gx, gy)).or_default();
-        while entry.front().map(|t| now.duration_since(*t) > HEATMAP_WINDOW).unwrap_or(false) {
+        while entry
+            .front()
+            .map(|t| now.duration_since(*t) > HEATMAP_WINDOW)
+            .unwrap_or(false)
+        {
             entry.pop_front();
         }
         // cap at 30 hits → 1.0
         (entry.len() as f32 / 30.0).min(1.0)
     }
 
-    pub fn grid_dims() -> (u8, u8) { (HEATMAP_GRID_X, HEATMAP_GRID_Y) }
+    pub fn grid_dims() -> (u8, u8) {
+        (HEATMAP_GRID_X, HEATMAP_GRID_Y)
+    }
 }
 
 impl Default for HeatmapState {
-    fn default() -> Self { Self::new() }
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 /// Per-pattern detection statistics.
@@ -119,18 +130,33 @@ pub struct StatsOverlayState {
 
 impl StatsOverlayState {
     pub fn new() -> Self {
-        Self { open: false, pattern_stats: HashMap::new(), total_regions_this_frame: 0, peak_regions: 0 }
+        Self {
+            open: false,
+            pattern_stats: HashMap::new(),
+            total_regions_this_frame: 0,
+            peak_regions: 0,
+        }
     }
 
     pub fn record(&mut self, pattern_name: &str, bounds: Option<Rect>) {
-        let s = self.pattern_stats.entry(pattern_name.to_string()).or_insert_with(|| PatternStats { name: pattern_name.to_string(), ..Default::default() });
+        let s = self
+            .pattern_stats
+            .entry(pattern_name.to_string())
+            .or_insert_with(|| PatternStats {
+                name: pattern_name.to_string(),
+                ..Default::default()
+            });
         s.total_hits += 1;
-        if let Some(b) = bounds { s.last_region = Some(b); }
+        if let Some(b) = bounds {
+            s.last_region = Some(b);
+        }
     }
 }
 
 impl Default for StatsOverlayState {
-    fn default() -> Self { Self::new() }
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 /// Latency history for sparkline (last 120 frames, ms per frame).
@@ -278,7 +304,8 @@ impl App {
         self.prev_tx_preview_pixels = self.tx_preview_pixels.clone(); // snapshot for crossfade
         self.transition_frames_left = 10;
         self.transform_mode = self.transform_mode.next();
-        *self.control_state.transform_mode.lock().unwrap() = self.transform_mode; // sync
+        *self.control_state.transform_mode.lock().unwrap() = self.transform_mode;
+        // sync
     }
 
     /// Advance crossfade counter by one tick; call once per Event::Tick.
@@ -290,7 +317,9 @@ impl App {
         // drain preview updates from pipeline background thread
         if let Some(ref rx) = self.preview_rx {
             while let Ok(upd) = rx.try_recv() {
-                if upd.fps > 0.0 { self.stats.actual_fps = upd.fps; }
+                if upd.fps > 0.0 {
+                    self.stats.actual_fps = upd.fps;
+                }
                 self.preview_width = upd.width;
                 self.preview_height = upd.height;
                 // feed frame to recorder if active
@@ -314,7 +343,9 @@ impl App {
             self.stats.ocr_grid_rows = ps.target_grid_rows.load(Ordering::Relaxed);
             self.stats.dropped_frames = ps.dropped_frames.load(Ordering::Relaxed);
             if let Ok(mut err) = ps.capture_error.try_lock() {
-                if err.is_some() { self.capture_error = err.take(); }
+                if err.is_some() {
+                    self.capture_error = err.take();
+                }
             }
         }
         // apply pending pause/resume from control server
@@ -346,7 +377,9 @@ impl App {
         let new_w = 1.0 - old_w;
         match (&self.prev_tx_preview_pixels, &self.tx_preview_pixels) {
             (Some(prev), Some(curr)) if prev.len() == curr.len() => {
-                let blended = prev.iter().zip(curr.iter())
+                let blended = prev
+                    .iter()
+                    .zip(curr.iter())
                     .map(|(&p, &c)| (p as f32 * old_w + c as f32 * new_w) as u8)
                     .collect();
                 Some(blended)
@@ -357,7 +390,8 @@ impl App {
 
     pub fn adjust_intensity(&mut self, delta: f32) {
         self.transform_intensity = (self.transform_intensity + delta).clamp(0.0, 1.0);
-        *self.control_state.intensity.lock().unwrap() = self.transform_intensity; // sync
+        *self.control_state.intensity.lock().unwrap() = self.transform_intensity;
+        // sync
     }
 
     pub fn push_log(&mut self, entry: LogEntry) {
@@ -367,23 +401,26 @@ impl App {
         if self.first_detection_flash.is_none() {
             self.first_detection_flash = Some(Instant::now()); // flash on first detection
         }
-        self.stats_overlay.record(&entry.pattern_name, entry.bounds.clone());
+        self.stats_overlay
+            .record(&entry.pattern_name, entry.bounds.clone());
         self.log_entries.push(entry);
     }
 
     /// Switch to profile at 1-based index (from `1-9` keybindings).
     pub fn switch_profile(&mut self, idx: usize) {
-        if idx == 0 || idx > self.profile_names.len() { return; }
+        if idx == 0 || idx > self.profile_names.len() {
+            return;
+        }
         let name = self.profile_names[idx - 1].clone();
         log::info!("switching to profile: {name}");
         if let Ok(cfg) = AppConfig::load() {
             if let Some(profile) = cfg.profiles.get(&name) {
                 self.transform_mode = match profile.transform_mode.as_str() {
                     "cartoon" => privacy_common::transform::TransformMode::Cartoon,
-                    "ascii"   => privacy_common::transform::TransformMode::Ascii,
-                    "pixelate"=> privacy_common::transform::TransformMode::Pixelate,
-                    "neural"  => privacy_common::transform::TransformMode::Neural,
-                    _         => privacy_common::transform::TransformMode::Blur,
+                    "ascii" => privacy_common::transform::TransformMode::Ascii,
+                    "pixelate" => privacy_common::transform::TransformMode::Pixelate,
+                    "neural" => privacy_common::transform::TransformMode::Neural,
+                    _ => privacy_common::transform::TransformMode::Blur,
                 };
                 self.transform_intensity = profile.intensity.clamp(0.0, 1.0);
             }
@@ -400,5 +437,7 @@ impl App {
 }
 
 impl Default for App {
-    fn default() -> Self { Self::new() }
+    fn default() -> Self {
+        Self::new()
+    }
 }

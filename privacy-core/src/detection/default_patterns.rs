@@ -80,7 +80,11 @@ mod tests {
     #[test]
     fn env_var_matches() {
         let reg = default_registry();
-        let p = reg.patterns.iter().find(|p| p.name == "env_var_assignment").unwrap();
+        let p = reg
+            .patterns
+            .iter()
+            .find(|p| p.name == "env_var_assignment")
+            .unwrap();
         assert!(p.is_match("DATABASE_URL=postgres://user:pass@host/db"));
         assert!(!p.is_match("PATH=/tmp")); // 4 chars after =, below threshold
     }
@@ -88,7 +92,11 @@ mod tests {
     #[test]
     fn secret_keyword_matches() {
         let reg = default_registry();
-        let p = reg.patterns.iter().find(|p| p.name == "secret_keyword").unwrap();
+        let p = reg
+            .patterns
+            .iter()
+            .find(|p| p.name == "secret_keyword")
+            .unwrap();
         assert!(p.is_match("api_key: abc123xyz"));
         assert!(p.is_match("password=hunter2secret"));
     }
@@ -96,7 +104,11 @@ mod tests {
     #[test]
     fn github_token_matches() {
         let reg = default_registry();
-        let p = reg.patterns.iter().find(|p| p.name == "github_token").unwrap();
+        let p = reg
+            .patterns
+            .iter()
+            .find(|p| p.name == "github_token")
+            .unwrap();
         assert!(p.is_match("ghp_abcdefghijklmnopqrstuvwxyzABCDEFGH12"));
     }
 }

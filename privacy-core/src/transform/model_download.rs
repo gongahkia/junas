@@ -10,8 +10,7 @@ use std::path::Path;
 const MODEL_URL: &str =
     "https://raw.githubusercontent.com/hpc203/AnimeGAN-onnxruntime/main/face_paint_512_v2_0.onnx";
 /// Expected SHA-256 hex string (update if model file changes).
-const MODEL_SHA256: &str =
-    "1381b17ed988e14a1f3cf8954d88073c0884ff4b70128ebe599f0d6021bca63e";
+const MODEL_SHA256: &str = "1381b17ed988e14a1f3cf8954d88073c0884ff4b70128ebe599f0d6021bca63e";
 
 /// Ensure the AnimeGAN v2 model exists at `path`, downloading it if absent.
 /// Logs a warning if the SHA-256 does not match (non-fatal — allows custom models).
@@ -40,7 +39,13 @@ pub fn ensure_model(path: &Path) -> Result<()> {
 /// Warn (not fail) if SHA-256 does not match expected.
 fn verify_sha256(data: &[u8], expected: &str) {
     let actual = hex::encode(Sha256::digest(data));
-    if actual != expected && expected != "0000000000000000000000000000000000000000000000000000000000000000" {
-        log::warn!("SHA-256 mismatch: expected {}, got {} — proceed with caution", expected, actual);
+    if actual != expected
+        && expected != "0000000000000000000000000000000000000000000000000000000000000000"
+    {
+        log::warn!(
+            "SHA-256 mismatch: expected {}, got {} — proceed with caution",
+            expected,
+            actual
+        );
     }
 }

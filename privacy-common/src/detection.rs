@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::frame::Rect;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Severity {
@@ -12,7 +12,11 @@ impl Severity {
     /// Ordinal rank: High=2, Medium=1, Low=0 — higher is more severe.
     #[inline]
     pub fn rank(self) -> u8 {
-        match self { Severity::High => 2, Severity::Medium => 1, Severity::Low => 0 }
+        match self {
+            Severity::High => 2,
+            Severity::Medium => 1,
+            Severity::Low => 0,
+        }
     }
 }
 

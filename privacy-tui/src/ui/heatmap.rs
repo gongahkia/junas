@@ -28,7 +28,9 @@ pub fn render(frame: &mut Frame, app: &mut App, area: Rect) {
         inner
     };
 
-    if inner.width == 0 || inner.height == 0 { return; }
+    if inner.width == 0 || inner.height == 0 {
+        return;
+    }
 
     let cell_w = inner.width as f32 / gx as f32;
     let cell_h = inner.height as f32 / gy as f32;

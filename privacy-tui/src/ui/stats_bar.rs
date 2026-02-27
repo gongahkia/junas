@@ -22,7 +22,8 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
     };
 
     let s = &app.stats;
-    let total_lat = s.capture_latency_ms + s.ocr_latency_ms + s.transform_latency_ms + s.output_latency_ms;
+    let total_lat =
+        s.capture_latency_ms + s.ocr_latency_ms + s.transform_latency_ms + s.output_latency_ms;
 
     let rec_span = if let Some(t) = app.recording_started_at {
         let secs = t.elapsed().as_secs();
@@ -84,7 +85,10 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
 
     if let Some(ref err) = app.capture_error {
         let err_line = Line::from(vec![
-            Span::styled(" capture failed: ", Style::default().fg(Color::Red).add_modifier(Modifier::BOLD)),
+            Span::styled(
+                " capture failed: ",
+                Style::default().fg(Color::Red).add_modifier(Modifier::BOLD),
+            ),
             Span::raw(err.clone()),
         ]);
         frame.render_widget(Paragraph::new(err_line), area);

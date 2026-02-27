@@ -7,22 +7,20 @@
 use crate::{
     capture::CaptureSource,
     detection::{
+        expand::expand_and_merge,
         incremental::{IncrementalOcr, GRID_COLS, GRID_ROWS},
+        line_expand::expand_to_end_of_line,
         ocr::OcrEngine,
         patterns::PatternRegistry,
         scanner::scan,
-        expand::expand_and_merge,
-        line_expand::expand_to_end_of_line,
         whitelist::Whitelist,
     },
-    pipeline::{PipelineChannels, CHANNEL_CAPACITY},
+    pipeline::PipelineChannels,
     transform::registry::{apply_transform, apply_transform_full},
 };
 use crossbeam_channel::{RecvTimeoutError, Sender};
 use privacy_common::{
-    detection::DetectedRegions,
-    frame::TransformedFrame,
-    transform::TransformMode,
+    detection::DetectedRegions, frame::TransformedFrame, transform::TransformMode,
 };
 use std::{
     sync::{
@@ -148,7 +146,10 @@ pub fn spawn_pipeline(
                         let frame = if let Some(ref rect) = capture_region_rect {
                             match crate::capture::region::crop_frame(&frame, rect) {
                                 Ok(cropped) => cropped,
-                                Err(e) => { log::warn!("crop_frame: {e}"); frame }
+                                Err(e) => {
+                                    log::warn!("crop_frame: {e}");
+                                    frame
+                                }
                             }
                         } else {
                             frame
@@ -177,10 +178,11 @@ pub fn spawn_pipeline(
     let det_thread = thread::Builder::new()
         .name("aki-detect".into())
         .spawn(move || {
-            let ocr_engine = match OcrEngine::new_with_confidence(ocr_data_path.as_deref(), min_conf) {
-                Ok(o) => o,
-                Err(_) => return,
-            };
+            let ocr_engine =
+                match OcrEngine::new_with_confidence(ocr_data_path.as_deref(), min_conf) {
+                    Ok(o) => o,
+                    Err(_) => return,
+                };
             let mut ocr = IncrementalOcr::new(ocr_engine, GRID_COLS, GRID_ROWS);
             while state_d.running.load(Ordering::Relaxed) {
                 // apply adaptive grid if it changed
@@ -198,9 +200,8 @@ pub fn spawn_pipeline(
                                 let wl = state_d.whitelist.lock().unwrap();
                                 let matches = scan(&text_regions, &reg, &wl);
                                 drop(wl);
-                                let merged = expand_and_merge(
-                                    matches, frame.width, frame.height, 0.10,
-                                );
+                                let merged =
+                                    expand_and_merge(matches, frame.width, frame.height, 0.10);
                                 let merged = expand_to_end_of_line(merged, frame.width);
                                 DetectedRegions { matches: merged }
                             }
@@ -212,18 +213,34 @@ pub fn spawn_pipeline(
                             let cur_cols = state_d.target_grid_cols.load(Ordering::Relaxed);
                             let cur_rows = state_d.target_grid_rows.load(Ordering::Relaxed);
                             if cur_cols > MIN_GRID || cur_rows > MIN_GRID {
-                                state_d.target_grid_cols.store(cur_cols.saturating_sub(1).max(MIN_GRID), Ordering::Relaxed);
-                                state_d.target_grid_rows.store(cur_rows.saturating_sub(1).max(MIN_GRID), Ordering::Relaxed);
+                                state_d.target_grid_cols.store(
+                                    cur_cols.saturating_sub(1).max(MIN_GRID),
+                                    Ordering::Relaxed,
+                                );
+                                state_d.target_grid_rows.store(
+                                    cur_rows.saturating_sub(1).max(MIN_GRID),
+                                    Ordering::Relaxed,
+                                );
                                 *state_d.quality_scale.lock().unwrap() = 0.8;
-                                log::warn!("adaptive quality: detection {}ms > {}ms budget, grid {}x{}", elapsed, FRAME_BUDGET_MS, cur_cols.saturating_sub(1).max(MIN_GRID), cur_rows.saturating_sub(1).max(MIN_GRID));
+                                log::warn!(
+                                    "adaptive quality: detection {}ms > {}ms budget, grid {}x{}",
+                                    elapsed,
+                                    FRAME_BUDGET_MS,
+                                    cur_cols.saturating_sub(1).max(MIN_GRID),
+                                    cur_rows.saturating_sub(1).max(MIN_GRID)
+                                );
                             }
                         } else if elapsed < FRAME_BUDGET_MS / 2 {
                             // recovery: gradually increase grid back toward defaults
                             let cur_cols = state_d.target_grid_cols.load(Ordering::Relaxed);
                             let cur_rows = state_d.target_grid_rows.load(Ordering::Relaxed);
                             if cur_cols < GRID_COLS || cur_rows < GRID_ROWS {
-                                state_d.target_grid_cols.store((cur_cols + 1).min(GRID_COLS), Ordering::Relaxed);
-                                state_d.target_grid_rows.store((cur_rows + 1).min(GRID_ROWS), Ordering::Relaxed);
+                                state_d
+                                    .target_grid_cols
+                                    .store((cur_cols + 1).min(GRID_COLS), Ordering::Relaxed);
+                                state_d
+                                    .target_grid_rows
+                                    .store((cur_rows + 1).min(GRID_ROWS), Ordering::Relaxed);
                                 *state_d.quality_scale.lock().unwrap() = 1.0;
                             }
                         }
@@ -265,19 +282,42 @@ pub fn spawn_pipeline(
                                 let old_alpha = t_frames as f32 / 10.0; // old weight (1.0→0.0)
                                 let new_alpha = 1.0 - old_alpha;
                                 let old_frame = apply_transform_full(
-                                    &frame, &regions, old_mode, intensity, &[], &[], 1.0,
+                                    &frame,
+                                    &regions,
+                                    old_mode,
+                                    intensity,
+                                    &[],
+                                    &[],
+                                    1.0,
                                 );
                                 let new_frame = apply_transform_full(
-                                    &frame, &regions, mode, intensity, &[], &[], 1.0,
+                                    &frame,
+                                    &regions,
+                                    mode,
+                                    intensity,
+                                    &[],
+                                    &[],
+                                    1.0,
                                 );
                                 state_t.transition_frames.fetch_sub(1, Ordering::Relaxed);
                                 match (old_frame, new_frame) {
                                     (Ok(o), Ok(n)) => {
                                         // pixel-blend old * old_alpha + new * new_alpha
-                                        let blended: Vec<u8> = o.pixels.iter().zip(n.pixels.iter())
-                                            .map(|(&op, &np)| (op as f32 * old_alpha + np as f32 * new_alpha) as u8)
+                                        let blended: Vec<u8> = o
+                                            .pixels
+                                            .iter()
+                                            .zip(n.pixels.iter())
+                                            .map(|(&op, &np)| {
+                                                (op as f32 * old_alpha + np as f32 * new_alpha)
+                                                    as u8
+                                            })
                                             .collect();
-                                        Ok(TransformedFrame { pixels: blended, width: o.width, height: o.height, timestamp: o.timestamp })
+                                        Ok(TransformedFrame {
+                                            pixels: blended,
+                                            width: o.width,
+                                            height: o.height,
+                                            timestamp: o.timestamp,
+                                        })
                                     }
                                     (_, Ok(n)) => Ok(n),
                                     (Ok(o), _) => Ok(o),

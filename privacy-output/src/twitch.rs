@@ -59,7 +59,8 @@ impl TwitchClient {
     }
 
     pub fn disconnect(&mut self) {
-        self.running.store(false, std::sync::atomic::Ordering::SeqCst);
+        self.running
+            .store(false, std::sync::atomic::Ordering::SeqCst);
     }
 
     /// Take a snapshot of the most recent messages (TUI sidebar).
@@ -70,7 +71,9 @@ impl TwitchClient {
 }
 
 impl Drop for TwitchClient {
-    fn drop(&mut self) { self.disconnect(); }
+    fn drop(&mut self) {
+        self.disconnect();
+    }
 }
 
 fn twitch_loop(
@@ -86,16 +89,27 @@ fn twitch_loop(
     let _ = stream.set_read_timeout(Some(Duration::from_secs(5)));
     let mut writer = match stream.try_clone() {
         Ok(s) => s,
-        Err(e) => { log::error!("Twitch IRC clone: {e}"); return; }
+        Err(e) => {
+            log::error!("Twitch IRC clone: {e}");
+            return;
+        }
     };
 
     // IRC handshake (anonymous)
-    let _ = write!(writer, "NICK {}\r\nUSER {} 0 * :aki\r\nJOIN #{}\r\n", IRC_NICK, IRC_NICK, channel);
+    let _ = write!(
+        writer,
+        "NICK {}\r\nUSER {} 0 * :aki\r\nJOIN #{}\r\n",
+        IRC_NICK, IRC_NICK, channel
+    );
 
     let reader = BufReader::new(stream);
     for line in reader.lines() {
-        if !running.load(std::sync::atomic::Ordering::Relaxed) { break; }
-        let Ok(line) = line else { continue; };
+        if !running.load(std::sync::atomic::Ordering::Relaxed) {
+            break;
+        }
+        let Ok(line) = line else {
+            continue;
+        };
         // Respond to PING keepalive
         if line.starts_with("PING") {
             let pong = line.replace("PING", "PONG");
@@ -112,7 +126,9 @@ fn twitch_loop(
             }
             let mut guard = messages.lock().unwrap();
             guard.push(msg);
-            if guard.len() > MAX_MESSAGES { guard.remove(0); }
+            if guard.len() > MAX_MESSAGES {
+                guard.remove(0);
+            }
         }
     }
 }
@@ -120,10 +136,16 @@ fn twitch_loop(
 /// Parse a Twitch IRC PRIVMSG line into a TwitchMessage.
 fn parse_privmsg(line: &str) -> Option<TwitchMessage> {
     // Format: :username!username@username.tmi.twitch.tv PRIVMSG #channel :message
-    if !line.contains("PRIVMSG") { return None; }
+    if !line.contains("PRIVMSG") {
+        return None;
+    }
     let nick_end = line.find('!')?;
     let username = line[1..nick_end].to_string();
     let msg_start = line.find(" :")?;
     let text = line[msg_start + 2..].to_string();
-    Some(TwitchMessage { username, text, timestamp: chrono::Utc::now() })
+    Some(TwitchMessage {
+        username,
+        text,
+        timestamp: chrono::Utc::now(),
+    })
 }

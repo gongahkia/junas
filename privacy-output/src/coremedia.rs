@@ -33,7 +33,11 @@ struct CVPixelBufferPool;
 
 impl CoreMediaSink {
     pub fn new() -> Self {
-        Self { width: 0, height: 0, pool: None }
+        Self {
+            width: 0,
+            height: 0,
+            pool: None,
+        }
     }
 
     /// Create or re-create the pixel buffer pool for the given dimensions.
@@ -52,17 +56,18 @@ impl CoreMediaSink {
     pub fn is_available() -> bool {
         // In a full implementation this queries CoreMediaIO device list for a virtual camera.
         // For now, check if OBS Virtual Camera kext/plugin is present on disk.
-        std::path::Path::new(
-            "/Library/CoreMediaIO/Plug-Ins/DAL/obs-mac-virtualcam.plugin"
-        ).exists()
-        || std::path::Path::new(
-            "/Library/CoreMediaIO/Plug-Ins/DAL/obs-virtualcam-plugin.plugin"
-        ).exists()
+        std::path::Path::new("/Library/CoreMediaIO/Plug-Ins/DAL/obs-mac-virtualcam.plugin").exists()
+            || std::path::Path::new(
+                "/Library/CoreMediaIO/Plug-Ins/DAL/obs-virtualcam-plugin.plugin",
+            )
+            .exists()
     }
 }
 
 impl Default for CoreMediaSink {
-    fn default() -> Self { Self::new() }
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl OutputSink for CoreMediaSink {

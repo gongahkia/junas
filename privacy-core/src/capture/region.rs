@@ -25,7 +25,12 @@ pub fn crop_frame(frame: &RawFrame, region: &Rect) -> Result<RawFrame> {
     if rx + rw > frame.width || ry + rh > frame.height {
         return Err(anyhow!(
             "crop region {}x{}+{},{} exceeds frame {}x{}",
-            rw, rh, rx, ry, frame.width, frame.height
+            rw,
+            rh,
+            rx,
+            ry,
+            frame.width,
+            frame.height
         ));
     }
 
@@ -57,9 +62,19 @@ mod tests {
         let w = 4u32;
         let h = 4u32;
         let pixels: Vec<u8> = (0..w * h * 4).map(|i| i as u8).collect();
-        let frame = RawFrame { pixels, width: w, height: h, timestamp: Utc::now() };
+        let frame = RawFrame {
+            pixels,
+            width: w,
+            height: h,
+            timestamp: Utc::now(),
+        };
 
-        let region = Rect { x: 1, y: 1, width: 2, height: 2 };
+        let region = Rect {
+            x: 1,
+            y: 1,
+            width: 2,
+            height: 2,
+        };
         let cropped = crop_frame(&frame, &region).unwrap();
         assert_eq!(cropped.width, 2);
         assert_eq!(cropped.height, 2);
@@ -73,10 +88,16 @@ mod tests {
     fn crop_out_of_bounds_errors() {
         let frame = RawFrame {
             pixels: vec![0u8; 16 * 4],
-            width: 4, height: 4,
+            width: 4,
+            height: 4,
             timestamp: Utc::now(),
         };
-        let region = Rect { x: 3, y: 3, width: 2, height: 2 };
+        let region = Rect {
+            x: 3,
+            y: 3,
+            width: 2,
+            height: 2,
+        };
         assert!(crop_frame(&frame, &region).is_err());
     }
 }

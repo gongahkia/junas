@@ -2,7 +2,7 @@
 //! expand the redaction region to cover everything after `=` or `:` to EOL.
 //! This prevents partial secret leakage (e.g., showing "SECRET_KEY=abc" without the full value).
 
-use privacy_common::{detection::SensitiveMatch, frame::Rect};
+use privacy_common::detection::SensitiveMatch;
 
 /// For each `SensitiveMatch`, if its region covers only part of the text after a separator,
 /// expand the bounding box horizontally to the right edge of the frame (simulating EOL).
@@ -47,11 +47,16 @@ pub fn expand_value_after_separator<'a>(line: &'a str, match_text: &'a str) -> &
 #[cfg(test)]
 mod tests {
     use super::*;
-    use privacy_common::detection::Severity;
+    use privacy_common::{detection::Severity, frame::Rect};
 
     fn make_match(x: u32, w: u32) -> SensitiveMatch {
         SensitiveMatch {
-            bounds: Rect { x, y: 10, width: w, height: 15 },
+            bounds: Rect {
+                x,
+                y: 10,
+                width: w,
+                height: 15,
+            },
             pattern_name: "test".to_owned(),
             severity: Severity::High,
             snippet: "test***".to_owned(),

@@ -50,7 +50,15 @@ fn make_gaussian_kernel(radius: usize, sigma: f32) -> Vec<f32> {
     k
 }
 
-fn convolve_row(pixels: &[u8], y: usize, x: usize, w: usize, c: usize, kernel: &[f32], radius: usize) -> u8 {
+fn convolve_row(
+    pixels: &[u8],
+    y: usize,
+    x: usize,
+    w: usize,
+    c: usize,
+    kernel: &[f32],
+    radius: usize,
+) -> u8 {
     let mut acc = 0f32;
     for (ki, &kv) in kernel.iter().enumerate() {
         let nx = (x as i32 + ki as i32 - radius as i32).clamp(0, w as i32 - 1) as usize;
@@ -59,7 +67,16 @@ fn convolve_row(pixels: &[u8], y: usize, x: usize, w: usize, c: usize, kernel: &
     acc.clamp(0.0, 255.0) as u8
 }
 
-fn convolve_col(pixels: &[u8], y: usize, x: usize, w: usize, h: usize, c: usize, kernel: &[f32], radius: usize) -> u8 {
+fn convolve_col(
+    pixels: &[u8],
+    y: usize,
+    x: usize,
+    w: usize,
+    h: usize,
+    c: usize,
+    kernel: &[f32],
+    radius: usize,
+) -> u8 {
     let mut acc = 0f32;
     for (ki, &kv) in kernel.iter().enumerate() {
         let ny = (y as i32 + ki as i32 - radius as i32).clamp(0, h as i32 - 1) as usize;
@@ -80,7 +97,9 @@ mod tests {
     #[test]
     fn blur_does_not_panic() {
         let mut pixels = vec![200u8; 16 * 16 * 4];
-        for i in 0..256 { pixels[i * 4 + 3] = 255; }
+        for i in 0..256 {
+            pixels[i * 4 + 3] = 255;
+        }
         apply_blur(&mut pixels, 16, 16, 3.0, 1.0);
     }
 

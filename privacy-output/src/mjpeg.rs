@@ -44,7 +44,9 @@ impl MjpegSink {
                     let header = format!(
                         "HTTP/1.1 200 OK\r\nContent-Type: multipart/x-mixed-replace; boundary={BOUNDARY}\r\n\r\n"
                     );
-                    if stream.write_all(header.as_bytes()).is_err() { return; }
+                    if stream.write_all(header.as_bytes()).is_err() {
+                        return;
+                    }
 
                     loop {
                         let frame_bytes = {
@@ -56,9 +58,15 @@ impl MjpegSink {
                                 "--{BOUNDARY}\r\nContent-Type: image/jpeg\r\nContent-Length: {}\r\n\r\n",
                                 jpeg.len()
                             );
-                            if stream.write_all(part.as_bytes()).is_err() { return; }
-                            if stream.write_all(&jpeg).is_err() { return; }
-                            if stream.write_all(b"\r\n").is_err() { return; }
+                            if stream.write_all(part.as_bytes()).is_err() {
+                                return;
+                            }
+                            if stream.write_all(&jpeg).is_err() {
+                                return;
+                            }
+                            if stream.write_all(b"\r\n").is_err() {
+                                return;
+                            }
                         }
                         thread::sleep(std::time::Duration::from_millis(33)); // ~30fps
                     }

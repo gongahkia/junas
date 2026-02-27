@@ -17,25 +17,29 @@ pub struct DisplayInfo {
 pub fn list_windows() -> Result<Vec<WindowInfo>> {
     #[cfg(target_os = "macos")]
     {
-        use screencapturekit::shareable_content::SCShareableContent;
         use privacy_common::frame::Rect;
+        use screencapturekit::shareable_content::SCShareableContent;
         let content = SCShareableContent::with_options()
             .on_screen_windows_only()
             .get()
             .map_err(|e| anyhow::anyhow!("{:?}", e))?;
-        Ok(content.windows().into_iter().map(|w| {
-            let f = w.get_frame();
-            WindowInfo {
-                id: w.window_id() as u64,
-                title: w.title(),
-                bounds: Rect {
-                    x: f.origin.x as u32,
-                    y: f.origin.y as u32,
-                    width: f.size.width as u32,
-                    height: f.size.height as u32,
-                },
-            }
-        }).collect())
+        Ok(content
+            .windows()
+            .into_iter()
+            .map(|w| {
+                let f = w.get_frame();
+                WindowInfo {
+                    id: w.window_id() as u64,
+                    title: w.title(),
+                    bounds: Rect {
+                        x: f.origin.x as u32,
+                        y: f.origin.y as u32,
+                        width: f.size.width as u32,
+                        height: f.size.height as u32,
+                    },
+                }
+            })
+            .collect())
     }
 
     #[cfg(target_os = "linux")]
@@ -61,21 +65,25 @@ pub fn list_displays() -> Result<Vec<DisplayInfo>> {
         let ids = CGDisplay::active_displays()
             .map_err(|e| anyhow::anyhow!("CGDisplay::active_displays: {:?}", e))?;
         let primary = CGDisplay::main().id;
-        let displays = ids.into_iter().enumerate().map(|(idx, id)| {
-            let d = CGDisplay::new(id);
-            let b = d.bounds();
-            DisplayInfo {
-                index: idx,
-                name: format!("Display {} (id={})", idx + 1, id),
-                bounds: Rect {
-                    x: b.origin.x as u32,
-                    y: b.origin.y as u32,
-                    width: b.size.width as u32,
-                    height: b.size.height as u32,
-                },
-                is_primary: id == primary,
-            }
-        }).collect();
+        let displays = ids
+            .into_iter()
+            .enumerate()
+            .map(|(idx, id)| {
+                let d = CGDisplay::new(id);
+                let b = d.bounds();
+                DisplayInfo {
+                    index: idx,
+                    name: format!("Display {} (id={})", idx + 1, id),
+                    bounds: Rect {
+                        x: b.origin.x as u32,
+                        y: b.origin.y as u32,
+                        width: b.size.width as u32,
+                        height: b.size.height as u32,
+                    },
+                    is_primary: id == primary,
+                }
+            })
+            .collect();
         Ok(displays)
     }
 
@@ -85,7 +93,12 @@ pub fn list_displays() -> Result<Vec<DisplayInfo>> {
         Ok(vec![DisplayInfo {
             index: 0,
             name: "Display 0 (X11)".into(),
-            bounds: Rect { x: 0, y: 0, width: 1920, height: 1080 },
+            bounds: Rect {
+                x: 0,
+                y: 0,
+                width: 1920,
+                height: 1080,
+            },
             is_primary: true,
         }])
     }

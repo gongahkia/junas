@@ -5,17 +5,20 @@
 use anyhow::{Context, Result};
 use ndarray::Array4;
 use ort::{inputs, session::Session, value::TensorRef};
-use std::{
-    path::PathBuf,
-    sync::Mutex,
-};
+use std::{path::PathBuf, sync::Mutex};
 
 /// Build an ONNX session with the preferred execution provider.
 /// Falls back to CPU if the requested EP fails to initialise.
 fn build_session_with_ep(accel: &str, path: &std::path::Path) -> Result<Session> {
     let effective = if accel == "auto" {
-        #[cfg(target_os = "macos")] { "coreml" }
-        #[cfg(not(target_os = "macos"))] { "cpu" }
+        #[cfg(target_os = "macos")]
+        {
+            "coreml"
+        }
+        #[cfg(not(target_os = "macos"))]
+        {
+            "cpu"
+        }
     } else {
         accel
     };
@@ -35,19 +38,19 @@ fn build_session_with_ep(accel: &str, path: &std::path::Path) -> Result<Session>
                 .commit_from_file(path)
                 .context("loading ONNX model (CoreML)")?
         }
-        "cuda" => {
-            builder
-                .with_execution_providers([
-                    ort::execution_providers::CUDAExecutionProvider::default().build(),
-                ])
-                .unwrap_or_else(|e| {
-                    log::warn!("CUDA EP unavailable ({e}), using CPU");
-                    Session::builder().expect("session builder")
-                })
-                .commit_from_file(path)
-                .context("loading ONNX model (CUDA)")?
-        }
-        _ => builder.commit_from_file(path).context("loading ONNX model (CPU)")?,
+        "cuda" => builder
+            .with_execution_providers([
+                ort::execution_providers::CUDAExecutionProvider::default().build()
+            ])
+            .unwrap_or_else(|e| {
+                log::warn!("CUDA EP unavailable ({e}), using CPU");
+                Session::builder().expect("session builder")
+            })
+            .commit_from_file(path)
+            .context("loading ONNX model (CUDA)")?,
+        _ => builder
+            .commit_from_file(path)
+            .context("loading ONNX model (CPU)")?,
     };
     Ok(session)
 }
@@ -59,7 +62,10 @@ pub fn model_path() -> PathBuf {
         .unwrap_or_else(|_| {
             PathBuf::from(std::env::var("HOME").unwrap_or_default()).join(".cache")
         });
-    cache.join("ascii-privacy").join("models").join("animegan_v2.onnx")
+    cache
+        .join("ascii-privacy")
+        .join("models")
+        .join("animegan_v2.onnx")
 }
 
 /// Loaded AnimeGAN v2 session.
@@ -80,15 +86,23 @@ impl NeuralStyleTransfer {
             log::warn!("model auto-download failed: {e}");
         }
         if !path.exists() {
-            anyhow::bail!("AnimeGAN v2 model not found at {}; download first", path.display());
+            anyhow::bail!(
+                "AnimeGAN v2 model not found at {}; download first",
+                path.display()
+            );
         }
         let accel_guard = ACCELERATOR.lock().unwrap();
         let accel = accel_guard.as_deref().unwrap_or("auto");
         let session = build_session_with_ep(accel, &path)?;
-        let input_name = session.inputs().first()
+        let input_name = session
+            .inputs()
+            .first()
             .map(|i| i.name().to_string())
             .unwrap_or_else(|| "input".into());
-        Ok(Self { session, input_name })
+        Ok(Self {
+            session,
+            input_name,
+        })
     }
 
     /// Run inference on an RGBA pixel region; returns stylized RGBA pixels.
@@ -105,8 +119,7 @@ impl NeuralStyleTransfer {
                 arr[[0, 2, y, x]] = pixels[base + 2] as f32 / 127.5 - 1.0; // B
             }
         }
-        let tensor = TensorRef::from_array_view(arr.view())
-            .context("creating input tensor")?;
+        let tensor = TensorRef::from_array_view(arr.view()).context("creating input tensor")?;
         let inp = inputs![self.input_name.as_str() => tensor];
         let outputs = self.session.run(inp).context("ONNX inference failed")?;
         let out_arr = outputs[0]
@@ -132,7 +145,9 @@ static ACCELERATOR: Mutex<Option<String>> = Mutex::new(None);
 
 /// Call once at startup (before any inference) to set the preferred EP.
 pub fn configure_accelerator(accel: impl Into<String>) {
-    if let Ok(mut g) = ACCELERATOR.lock() { *g = Some(accel.into()); }
+    if let Ok(mut g) = ACCELERATOR.lock() {
+        *g = Some(accel.into());
+    }
 }
 
 // process-level session cache — Mutex<Option<...>> allows retry after model download
@@ -147,7 +162,9 @@ pub fn apply_neural(pixels: &mut Vec<u8>, width: u32, height: u32, intensity: f3
     if guard.is_none() {
         *guard = NeuralStyleTransfer::load().ok();
     }
-    let sess = guard.as_mut().ok_or_else(|| anyhow::anyhow!("model not available"))?;
+    let sess = guard
+        .as_mut()
+        .ok_or_else(|| anyhow::anyhow!("model not available"))?;
     let stylized = sess.run(pixels, width, height)?;
     let alpha = intensity.clamp(0.0, 1.0);
     let beta = 1.0 - alpha;

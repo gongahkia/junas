@@ -2,10 +2,7 @@
 //! Uses FrameDiff (pixel-threshold) for dirty-cell detection — ~70% OCR reduction.
 
 use anyhow::Result;
-use privacy_common::{
-    detection::TextRegion,
-    frame::{RawFrame, Rect},
-};
+use privacy_common::{detection::TextRegion, frame::RawFrame};
 
 use super::{frame_diff::FrameDiff, ocr::OcrEngine};
 
@@ -52,10 +49,8 @@ impl IncrementalOcr {
         // get dirty cells; None means all cells are dirty (first frame or resize)
         let dirty_opt = self.diff.dirty_cells(frame);
         let all_dirty = dirty_opt.is_none();
-        let dirty_set: std::collections::HashSet<(u32, u32)> = dirty_opt
-            .unwrap_or_default()
-            .into_iter()
-            .collect();
+        let dirty_set: std::collections::HashSet<(u32, u32)> =
+            dirty_opt.unwrap_or_default().into_iter().collect();
 
         let cell_w = (fw + self.cols - 1) / self.cols;
         let cell_h = (fh + self.rows - 1) / self.rows;
@@ -67,7 +62,9 @@ impl IncrementalOcr {
                 let y = row * cell_h;
                 let w = cell_w.min(fw.saturating_sub(x));
                 let h = cell_h.min(fh.saturating_sub(y));
-                if w == 0 || h == 0 { continue; }
+                if w == 0 || h == 0 {
+                    continue;
+                }
 
                 let idx = (row * self.cols + col) as usize;
 
@@ -84,7 +81,9 @@ impl IncrementalOcr {
                     r.bounds.x += x;
                     r.bounds.y += y;
                 }
-                self.cache[idx] = CellCache { regions: cell_regions.clone() };
+                self.cache[idx] = CellCache {
+                    regions: cell_regions.clone(),
+                };
                 all_regions.extend(cell_regions);
             }
         }
@@ -94,14 +93,18 @@ impl IncrementalOcr {
 
     /// Invalidate the entire cache (e.g., after resolution change).
     pub fn invalidate(&mut self) {
-        for c in &mut self.cache { c.regions.clear(); }
+        for c in &mut self.cache {
+            c.regions.clear();
+        }
     }
 
     /// Resize the OCR grid (clamps to min 2×2); invalidates cache.
     pub fn resize_grid(&mut self, cols: u32, rows: u32) {
         let cols = cols.max(2);
         let rows = rows.max(2);
-        if self.cols == cols && self.rows == rows { return; }
+        if self.cols == cols && self.rows == rows {
+            return;
+        }
         self.cols = cols;
         self.rows = rows;
         self.cache = vec![CellCache::default(); (cols * rows) as usize];
@@ -109,8 +112,12 @@ impl IncrementalOcr {
         log::debug!("adaptive quality: OCR grid resized to {}x{}", cols, rows);
     }
 
-    pub fn cols(&self) -> u32 { self.cols }
-    pub fn rows(&self) -> u32 { self.rows }
+    pub fn cols(&self) -> u32 {
+        self.cols
+    }
+    pub fn rows(&self) -> u32 {
+        self.rows
+    }
 }
 
 /// Extract a rectangular sub-frame (row-major RGBA copy).
@@ -122,5 +129,10 @@ fn extract_sub_frame(frame: &RawFrame, x: u32, y: u32, w: u32, h: u32) -> RawFra
         let start = (y as usize + row) * stride + x as usize * 4;
         pixels.extend_from_slice(&frame.pixels[start..start + row_bytes]);
     }
-    RawFrame { pixels, width: w, height: h, timestamp: frame.timestamp }
+    RawFrame {
+        pixels,
+        width: w,
+        height: h,
+        timestamp: frame.timestamp,
+    }
 }

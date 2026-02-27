@@ -46,15 +46,26 @@ impl PtyCaptureSource {
 
 impl CaptureSource for PtyCaptureSource {
     fn start(&mut self) -> Result<()> {
-        use portable_pty::{native_pty_system, PtySize, CommandBuilder};
+        use portable_pty::{native_pty_system, CommandBuilder, PtySize};
         let pty_system = native_pty_system();
         let pair = pty_system
-            .openpty(PtySize { rows: PTY_ROWS, cols: PTY_COLS, pixel_width: 0, pixel_height: 0 })
+            .openpty(PtySize {
+                rows: PTY_ROWS,
+                cols: PTY_COLS,
+                pixel_width: 0,
+                pixel_height: 0,
+            })
             .context("opening PTY")?;
         let mut cmd = CommandBuilder::new(&self.shell);
         cmd.arg("--login");
-        let child = pair.slave.spawn_command(cmd).context("spawning shell in PTY")?;
-        let reader = pair.master.try_clone_reader().context("cloning PTY reader")?;
+        let child = pair
+            .slave
+            .spawn_command(cmd)
+            .context("spawning shell in PTY")?;
+        let reader = pair
+            .master
+            .try_clone_reader()
+            .context("cloning PTY reader")?;
         self.child = Some(child);
         self.reader = Some(reader);
         log::info!("PTY capture started (shell={})", self.shell);
@@ -91,7 +102,9 @@ impl CaptureSource for PtyCaptureSource {
         for row in 0..PTY_ROWS as usize {
             for col in 0..PTY_COLS as usize {
                 let cell = screen.cell(row as u16, col as u16);
-                let (r, g, b) = cell.map(|c| vt100_fg_to_rgb(c.fgcolor())).unwrap_or((204, 204, 204));
+                let (r, g, b) = cell
+                    .map(|c| vt100_fg_to_rgb(c.fgcolor()))
+                    .unwrap_or((204, 204, 204));
                 let px_x = col as u32 * CELL_W;
                 let px_y = row as u32 * CELL_H;
                 for dy in 0..CELL_H {
@@ -105,14 +118,24 @@ impl CaptureSource for PtyCaptureSource {
                 }
             }
         }
-        Ok(Some(RawFrame { pixels, width: w, height: h, timestamp: chrono::Utc::now() }))
+        Ok(Some(RawFrame {
+            pixels,
+            width: w,
+            height: h,
+            timestamp: chrono::Utc::now(),
+        }))
     }
 
     fn list_windows(&self) -> Result<Vec<WindowInfo>> {
         Ok(vec![WindowInfo {
             id: 0,
             title: format!("PTY: {}", self.shell),
-            bounds: privacy_common::frame::Rect { x: 0, y: 0, width: PTY_COLS as u32 * CELL_W, height: PTY_ROWS as u32 * CELL_H },
+            bounds: privacy_common::frame::Rect {
+                x: 0,
+                y: 0,
+                width: PTY_COLS as u32 * CELL_W,
+                height: PTY_ROWS as u32 * CELL_H,
+            },
         }])
     }
 }
@@ -130,11 +153,30 @@ fn vt100_fg_to_rgb(color: vt100::Color) -> (u8, u8, u8) {
 fn ansi_256_to_rgb(idx: u8) -> (u8, u8, u8) {
     // standard 16 colors
     const ANSI16: [(u8, u8, u8); 16] = [
-        (0,0,0),(170,0,0),(0,170,0),(170,85,0),(0,0,170),(170,0,170),(0,170,170),(170,170,170),
-        (85,85,85),(255,85,85),(85,255,85),(255,255,85),(85,85,255),(255,85,255),(85,255,255),(255,255,255),
+        (0, 0, 0),
+        (170, 0, 0),
+        (0, 170, 0),
+        (170, 85, 0),
+        (0, 0, 170),
+        (170, 0, 170),
+        (0, 170, 170),
+        (170, 170, 170),
+        (85, 85, 85),
+        (255, 85, 85),
+        (85, 255, 85),
+        (255, 255, 85),
+        (85, 85, 255),
+        (255, 85, 255),
+        (85, 255, 255),
+        (255, 255, 255),
     ];
-    if (idx as usize) < ANSI16.len() { return ANSI16[idx as usize]; }
-    if idx >= 232 { let g = (idx - 232) * 10 + 8; return (g, g, g); }
+    if (idx as usize) < ANSI16.len() {
+        return ANSI16[idx as usize];
+    }
+    if idx >= 232 {
+        let g = (idx - 232) * 10 + 8;
+        return (g, g, g);
+    }
     let i = idx - 16;
     let r = (i / 36) * 51;
     let g = ((i % 36) / 6) * 51;

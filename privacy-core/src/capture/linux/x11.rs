@@ -22,12 +22,16 @@ pub enum X11CaptureTarget {
 
 impl X11CaptureSource {
     pub fn new(target: X11CaptureTarget, fps: u32) -> Self {
-        Self { conn: None, target_window: None, fps, target }
+        Self {
+            conn: None,
+            target_window: None,
+            fps,
+            target,
+        }
     }
 
     fn connect() -> Result<Connection> {
-        let (conn, _) = Connection::connect(None)
-            .map_err(|e| anyhow!("xcb connect: {}", e))?;
+        let (conn, _) = Connection::connect(None).map_err(|e| anyhow!("xcb connect: {}", e))?;
         Ok(conn)
     }
 
@@ -49,7 +53,8 @@ impl X11CaptureSource {
         let cookie = conn.send_request(&x::GetGeometry {
             drawable: x::Drawable::Window(win),
         });
-        let reply = conn.wait_for_reply(cookie)
+        let reply = conn
+            .wait_for_reply(cookie)
             .map_err(|e| anyhow!("GetGeometry: {}", e))?;
         Ok((reply.x(), reply.y(), reply.width(), reply.height()))
     }
@@ -84,7 +89,8 @@ impl CaptureSource for X11CaptureSource {
             height: h,
             plane_mask: u32::MAX, // all planes
         });
-        let reply = conn.wait_for_reply(cookie)
+        let reply = conn
+            .wait_for_reply(cookie)
             .map_err(|e| anyhow!("GetImage: {}", e))?;
 
         let raw = reply.data();
@@ -112,7 +118,8 @@ impl CaptureSource for X11CaptureSource {
             only_if_exists: true,
             name: b"_NET_CLIENT_LIST",
         });
-        let atom_reply = conn.wait_for_reply(atom_cookie)
+        let atom_reply = conn
+            .wait_for_reply(atom_cookie)
             .map_err(|e| anyhow!("InternAtom: {}", e))?;
         let client_list_atom = atom_reply.atom();
 
@@ -125,7 +132,8 @@ impl CaptureSource for X11CaptureSource {
             long_offset: 0,
             long_length: 1024,
         });
-        let prop = conn.wait_for_reply(prop_cookie)
+        let prop = conn
+            .wait_for_reply(prop_cookie)
             .map_err(|e| anyhow!("GetProperty _NET_CLIENT_LIST: {}", e))?;
 
         // prop value is array of u32 window ids
@@ -165,7 +173,8 @@ impl CaptureSource for X11CaptureSource {
                 Ok(g) => g,
                 Err(_) => continue,
             };
-            let title = conn.wait_for_reply(name_cookie)
+            let title = conn
+                .wait_for_reply(name_cookie)
                 .map(|r| String::from_utf8_lossy(r.value::<u8>()).into_owned())
                 .unwrap_or_default();
             windows.push(WindowInfo {

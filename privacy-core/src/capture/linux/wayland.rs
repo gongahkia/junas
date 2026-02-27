@@ -22,7 +22,11 @@ pub struct WaylandCaptureSource {
 
 impl WaylandCaptureSource {
     pub fn new(fps: u32) -> Self {
-        Self { fps, rx: None, _thread: None }
+        Self {
+            fps,
+            rx: None,
+            _thread: None,
+        }
     }
 
     /// Blocking: run ashpd portal negotiation on a tokio runtime, return (node_id, pw_fd).
@@ -34,9 +38,12 @@ impl WaylandCaptureSource {
             .enable_all()
             .build()?;
         rt.block_on(async {
-            let proxy = ScreenCastProxy::new().await
+            let proxy = ScreenCastProxy::new()
+                .await
                 .map_err(|e| anyhow!("ScreenCastProxy: {e}"))?;
-            let session = proxy.create_session().await
+            let session = proxy
+                .create_session()
+                .await
                 .map_err(|e| anyhow!("create_session: {e}"))?;
             proxy
                 .select_sources(
@@ -55,33 +62,53 @@ impl WaylandCaptureSource {
                 .map_err(|e| anyhow!("start: {e}"))?
                 .response()
                 .map_err(|e| anyhow!("start response: {e}"))?;
-            let stream = response.streams().first()
+            let stream = response
+                .streams()
+                .first()
                 .ok_or_else(|| anyhow!("no PipeWire streams in portal response"))?;
             let node_id = stream.pipe_wire_node_id();
-            let fd = proxy.open_pipe_wire_remote(&session).await
+            let fd = proxy
+                .open_pipe_wire_remote(&session)
+                .await
                 .map_err(|e| anyhow!("open_pipe_wire_remote: {e}"))?;
             Ok((node_id, fd))
         })
     }
 
     /// Spawn a thread that connects to PipeWire and feeds frames into `tx`.
-    fn spawn_pipewire_thread(node_id: u32, pw_fd: OwnedFd, tx: Sender<RawFrame>) -> std::thread::JoinHandle<()> {
-        use pipewire::{context::Context, main_loop::MainLoop, properties::properties};
+    fn spawn_pipewire_thread(
+        node_id: u32,
+        pw_fd: OwnedFd,
+        tx: Sender<RawFrame>,
+    ) -> std::thread::JoinHandle<()> {
         use pipewire::stream::{Stream, StreamFlags, StreamState};
+        use pipewire::{context::Context, main_loop::MainLoop, properties::properties};
         use std::os::fd::IntoRawFd;
 
         std::thread::spawn(move || {
             let ml = match MainLoop::new(None) {
                 Ok(m) => m,
-                Err(e) => { eprintln!("pipewire MainLoop: {e}"); return; }
+                Err(e) => {
+                    eprintln!("pipewire MainLoop: {e}");
+                    return;
+                }
             };
             let ctx = match Context::new(&ml) {
                 Ok(c) => c,
-                Err(e) => { eprintln!("pipewire Context: {e}"); return; }
+                Err(e) => {
+                    eprintln!("pipewire Context: {e}");
+                    return;
+                }
             };
-            let core = match ctx.connect_fd(unsafe { std::fs::File::from_raw_fd(pw_fd.into_raw_fd()) }, None) {
+            let core = match ctx.connect_fd(
+                unsafe { std::fs::File::from_raw_fd(pw_fd.into_raw_fd()) },
+                None,
+            ) {
                 Ok(c) => c,
-                Err(e) => { eprintln!("pipewire connect_fd: {e}"); return; }
+                Err(e) => {
+                    eprintln!("pipewire connect_fd: {e}");
+                    return;
+                }
             };
 
             let stream = match Stream::new(
@@ -90,34 +117,46 @@ impl WaylandCaptureSource {
                 properties! { *pipewire::keys::MEDIA_TYPE => "Video" },
             ) {
                 Ok(s) => s,
-                Err(e) => { eprintln!("pipewire Stream::new: {e}"); return; }
+                Err(e) => {
+                    eprintln!("pipewire Stream::new: {e}");
+                    return;
+                }
             };
 
             let tx_clone = tx.clone();
-            let _listener = stream.add_local_listener_with_user_data(())
+            let _listener = stream
+                .add_local_listener_with_user_data(())
                 .process(move |stream, _| {
                     let mut buf = match stream.dequeue_buffer() {
                         Some(b) => b,
                         None => return,
                     };
                     let datas = buf.datas_mut();
-                    if datas.is_empty() { return; }
+                    if datas.is_empty() {
+                        return;
+                    }
                     let data = &datas[0];
                     if let Some(chunk) = data.chunk() {
                         let bytes = data.data().unwrap_or(&[]);
                         let offset = chunk.offset() as usize;
                         let size = chunk.size() as usize;
-                        if offset + size > bytes.len() { return; }
+                        if offset + size > bytes.len() {
+                            return;
+                        }
                         let raw = &bytes[offset..offset + size];
                         // assume BGRA — swap B↔R
                         let mut rgba = raw.to_vec();
-                        for px in rgba.chunks_exact_mut(4) { px.swap(0, 2); }
+                        for px in rgba.chunks_exact_mut(4) {
+                            px.swap(0, 2);
+                        }
                         // width/height from spa_video_info requires format negotiation;
                         // using chunk stride as placeholder until proper SPA format parsing
                         let stride = chunk.stride() as u32;
                         let w = if stride > 0 { stride / 4 } else { 0 };
                         let h = if w > 0 { rgba.len() as u32 / 4 / w } else { 0 };
-                        if w == 0 || h == 0 { return; }
+                        if w == 0 || h == 0 {
+                            return;
+                        }
                         let _ = tx_clone.try_send(RawFrame {
                             pixels: rgba,
                             width: w,
@@ -132,12 +171,14 @@ impl WaylandCaptureSource {
             // connect stream to the PipeWire node obtained from the portal
             use pipewire::spa::utils::Direction;
             let params: Vec<Box<dyn pipewire::spa::pod::Object>> = vec![];
-            stream.connect(
-                Direction::Input,
-                Some(node_id),
-                StreamFlags::AUTOCONNECT | StreamFlags::MAP_BUFFERS,
-                &mut [],
-            ).expect("stream connect");
+            stream
+                .connect(
+                    Direction::Input,
+                    Some(node_id),
+                    StreamFlags::AUTOCONNECT | StreamFlags::MAP_BUFFERS,
+                    &mut [],
+                )
+                .expect("stream connect");
 
             ml.run();
         })

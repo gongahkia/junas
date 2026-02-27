@@ -27,7 +27,10 @@ impl WlrScreencopyCaptureSource {
         Self {
             fps,
             output_name,
-            state: Arc::new(Mutex::new(WlrState { running: false, pending_frame: None })),
+            state: Arc::new(Mutex::new(WlrState {
+                running: false,
+                pending_frame: None,
+            })),
         }
     }
 }
@@ -72,8 +75,16 @@ impl CaptureSource for WlrScreencopyCaptureSource {
         // wlr-screencopy captures full outputs (monitors), not individual windows
         Ok(vec![WindowInfo {
             id: 0,
-            title: format!("wlr-screencopy output: {}", self.output_name.as_deref().unwrap_or("primary")),
-            bounds: Rect { x: 0, y: 0, width: 1920, height: 1080 },
+            title: format!(
+                "wlr-screencopy output: {}",
+                self.output_name.as_deref().unwrap_or("primary")
+            ),
+            bounds: Rect {
+                x: 0,
+                y: 0,
+                width: 1920,
+                height: 1080,
+            },
         }])
     }
 }
@@ -99,16 +110,19 @@ fn wlr_screencopy_loop(state: Arc<Mutex<WlrState>>, fps: u32, _output: Option<St
 
 /// Attempt to connect to the Wayland display.
 fn wayland_connect() -> Result<()> {
-    let display = std::env::var("WAYLAND_DISPLAY")
-        .map_err(|_| anyhow!("WAYLAND_DISPLAY not set"))?;
-    let runtime_dir = std::env::var("XDG_RUNTIME_DIR")
-        .map_err(|_| anyhow!("XDG_RUNTIME_DIR not set"))?;
+    let display =
+        std::env::var("WAYLAND_DISPLAY").map_err(|_| anyhow!("WAYLAND_DISPLAY not set"))?;
+    let runtime_dir =
+        std::env::var("XDG_RUNTIME_DIR").map_err(|_| anyhow!("XDG_RUNTIME_DIR not set"))?;
     let socket_path = std::path::Path::new(&runtime_dir).join(&display);
     // Verify socket exists — actual protocol handshake done via wayland-client
     if !socket_path.exists() {
         anyhow::bail!("Wayland socket not found: {}", socket_path.display());
     }
-    log::debug!("wlr-screencopy: wayland socket found at {}", socket_path.display());
+    log::debug!(
+        "wlr-screencopy: wayland socket found at {}",
+        socket_path.display()
+    );
     Ok(())
 }
 

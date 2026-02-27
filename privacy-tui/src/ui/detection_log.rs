@@ -36,24 +36,16 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
             };
             let ts = e.timestamp.format("%H:%M:%S").to_string();
             ListItem::new(Line::from(vec![
-                Span::styled(
-                    format!("{ts} "),
-                    Style::default().fg(Color::DarkGray),
-                ),
+                Span::styled(format!("{ts} "), Style::default().fg(Color::DarkGray)),
                 Span::styled(
                     sev_label,
-                    Style::default()
-                        .fg(sev_color)
-                        .add_modifier(Modifier::BOLD),
+                    Style::default().fg(sev_color).add_modifier(Modifier::BOLD),
                 ),
                 Span::styled(
                     format!("{:<16} ", e.pattern_name),
                     Style::default().fg(Color::White),
                 ),
-                Span::styled(
-                    e.snippet.clone(),
-                    Style::default().fg(Color::DarkGray),
-                ),
+                Span::styled(e.snippet.clone(), Style::default().fg(Color::DarkGray)),
             ]))
         })
         .collect();
@@ -65,7 +57,11 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
     };
     let log_widget = List::new(items).block(
         Block::default()
-            .title(format!(" Detections ({}){}  j↓ k↑ ", app.log_entries.len(), scroll_hint))
+            .title(format!(
+                " Detections ({}){}  j↓ k↑ ",
+                app.log_entries.len(),
+                scroll_hint
+            ))
             .borders(Borders::ALL),
     );
     frame.render_widget(log_widget, cols[0]);

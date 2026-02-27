@@ -14,11 +14,11 @@ pub mod coremedia;
 
 pub mod audio;
 pub mod autodetect;
-pub mod twitch;
 pub mod mjpeg;
 pub mod obs_websocket;
 pub mod recorder;
 pub mod tray;
+pub mod twitch;
 
 /// Which output sink to use.
 #[derive(Debug, Clone)]
@@ -48,8 +48,11 @@ pub fn create_sink(kind: SinkKind) -> Result<Box<dyn OutputSink>> {
 
         SinkKind::Obs(mjpeg_port) => {
             // attempt OBS Browser Source setup; fall back to MJPEG sink regardless
-            if let Err(e) = obs_websocket::ObsClient::default_local().connect_and_setup(mjpeg_port) {
-                log::warn!("OBS WebSocket setup failed ({e}), falling back to MJPEG on :{mjpeg_port}");
+            if let Err(e) = obs_websocket::ObsClient::default_local().connect_and_setup(mjpeg_port)
+            {
+                log::warn!(
+                    "OBS WebSocket setup failed ({e}), falling back to MJPEG on :{mjpeg_port}"
+                );
             }
             Ok(Box::new(mjpeg::MjpegSink::new(mjpeg_port)?))
         }

@@ -18,8 +18,14 @@ const BRAILLE_BASE: u32 = 0x2800; // ⠀
 /// bit 0=dot1(top-left), bit 1=dot2, bit 2=dot3, bit 3=dot7,
 /// bit 4=dot4(top-right), bit 5=dot5, bit 6=dot6, bit 7=dot8
 const DOT_OFFSETS: [(usize, usize, u32); 8] = [
-    (0, 0, 0x01), (0, 1, 0x02), (0, 2, 0x04), (0, 3, 0x40),
-    (1, 0, 0x08), (1, 1, 0x10), (1, 2, 0x20), (1, 3, 0x80),
+    (0, 0, 0x01),
+    (0, 1, 0x02),
+    (0, 2, 0x04),
+    (0, 3, 0x40),
+    (1, 0, 0x08),
+    (1, 1, 0x10),
+    (1, 2, 0x20),
+    (1, 3, 0x80),
 ];
 
 /// Render a frame as braille art inside `area` with the given block title.
@@ -64,8 +70,8 @@ fn frame_to_braille_lines(
     pixels: &[u8],
     fw: u32,
     fh: u32,
-    cols: u16,  // available terminal columns
-    rows: u16,  // available terminal rows
+    cols: u16, // available terminal columns
+    rows: u16, // available terminal rows
 ) -> Vec<Line<'static>> {
     // Each braille char covers 2 px wide × 4 px tall
     let target_w = cols as u32 * 2;
@@ -95,7 +101,9 @@ fn frame_to_braille_lines(
                     let lum = (0.299 * pixels[idx] as f32
                         + 0.587 * pixels[idx + 1] as f32
                         + 0.114 * pixels[idx + 2] as f32) as u32;
-                    if lum > 96 { bits |= bit; } // threshold
+                    if lum > 96 {
+                        bits |= bit;
+                    } // threshold
                     avg_r += pixels[idx] as u32;
                     avg_g += pixels[idx + 1] as u32;
                     avg_b += pixels[idx + 2] as u32;
@@ -109,10 +117,7 @@ fn frame_to_braille_lines(
             } else {
                 Color::DarkGray
             };
-            spans.push(Span::styled(
-                ch.to_string(),
-                Style::default().fg(color),
-            ));
+            spans.push(Span::styled(ch.to_string(), Style::default().fg(color)));
         }
         lines.push(Line::from(spans));
     }

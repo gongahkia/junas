@@ -10,7 +10,9 @@ use std::path::PathBuf;
 pub fn dataset_dir() -> PathBuf {
     let cache = std::env::var("XDG_CACHE_HOME")
         .map(PathBuf::from)
-        .unwrap_or_else(|_| PathBuf::from(std::env::var("HOME").unwrap_or_default()).join(".cache"));
+        .unwrap_or_else(|_| {
+            PathBuf::from(std::env::var("HOME").unwrap_or_default()).join(".cache")
+        });
     cache.join("ascii-privacy").join("training-data")
 }
 

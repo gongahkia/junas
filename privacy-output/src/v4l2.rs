@@ -4,15 +4,11 @@
 
 use anyhow::{anyhow, Result};
 use privacy_common::frame::TransformedFrame;
-use v4l::{
-    buffer::Type as BufType,
-    format::fourcc::FourCC,
-    io::traits::CaptureStream,
-    prelude::*,
-    video::Capture,
-    Format, FourCC as V4lFourCC,
-};
 use std::path::PathBuf;
+use v4l::{
+    buffer::Type as BufType, format::fourcc::FourCC, io::traits::CaptureStream, prelude::*,
+    video::Capture, Format, FourCC as V4lFourCC,
+};
 
 use crate::OutputSink;
 
@@ -62,11 +58,11 @@ impl OutputSink for V4l2Sink {
         // access raw fd for write
         use std::os::unix::io::AsRawFd;
         let fd = dev.as_raw_fd();
-        let written = unsafe {
-            libc::write(fd, yuyv.as_ptr() as *const libc::c_void, yuyv.len())
-        };
+        let written = unsafe { libc::write(fd, yuyv.as_ptr() as *const libc::c_void, yuyv.len()) };
         if written < 0 {
-            return Err(anyhow!("v4l2 write failed: errno {}", unsafe { *libc::__errno_location() }));
+            return Err(anyhow!("v4l2 write failed: errno {}", unsafe {
+                *libc::__errno_location()
+            }));
         }
         Ok(())
     }
@@ -91,11 +87,19 @@ fn rgba_to_yuyv(rgba: &[u8], width: u32, height: u32) -> Vec<u8> {
         let g1 = rgba[(i + 1) * 4 + 1] as f32;
         let b1 = rgba[(i + 1) * 4 + 2] as f32;
 
-        let y0 = (0.299 * r0 + 0.587 * g0 + 0.114 * b0).round().clamp(0.0, 255.0) as u8;
-        let y1 = (0.299 * r1 + 0.587 * g1 + 0.114 * b1).round().clamp(0.0, 255.0) as u8;
+        let y0 = (0.299 * r0 + 0.587 * g0 + 0.114 * b0)
+            .round()
+            .clamp(0.0, 255.0) as u8;
+        let y1 = (0.299 * r1 + 0.587 * g1 + 0.114 * b1)
+            .round()
+            .clamp(0.0, 255.0) as u8;
         // U and V averaged over the two pixels
-        let u = (-0.169 * r0 - 0.331 * g0 + 0.5 * b0 + 128.0).round().clamp(0.0, 255.0) as u8;
-        let v = (0.5 * r0 - 0.419 * g0 - 0.081 * b0 + 128.0).round().clamp(0.0, 255.0) as u8;
+        let u = (-0.169 * r0 - 0.331 * g0 + 0.5 * b0 + 128.0)
+            .round()
+            .clamp(0.0, 255.0) as u8;
+        let v = (0.5 * r0 - 0.419 * g0 - 0.081 * b0 + 128.0)
+            .round()
+            .clamp(0.0, 255.0) as u8;
 
         yuyv.extend_from_slice(&[y0, u, y1, v]);
         i += 2;
@@ -105,9 +109,15 @@ fn rgba_to_yuyv(rgba: &[u8], width: u32, height: u32) -> Vec<u8> {
         let r = rgba[(n - 1) * 4] as f32;
         let g = rgba[(n - 1) * 4 + 1] as f32;
         let b = rgba[(n - 1) * 4 + 2] as f32;
-        let y = (0.299 * r + 0.587 * g + 0.114 * b).round().clamp(0.0, 255.0) as u8;
-        let u = (-0.169 * r - 0.331 * g + 0.5 * b + 128.0).round().clamp(0.0, 255.0) as u8;
-        let v = (0.5 * r - 0.419 * g - 0.081 * b + 128.0).round().clamp(0.0, 255.0) as u8;
+        let y = (0.299 * r + 0.587 * g + 0.114 * b)
+            .round()
+            .clamp(0.0, 255.0) as u8;
+        let u = (-0.169 * r - 0.331 * g + 0.5 * b + 128.0)
+            .round()
+            .clamp(0.0, 255.0) as u8;
+        let v = (0.5 * r - 0.419 * g - 0.081 * b + 128.0)
+            .round()
+            .clamp(0.0, 255.0) as u8;
         yuyv.extend_from_slice(&[y, u, y, v]);
     }
     yuyv

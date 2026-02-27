@@ -8,11 +8,17 @@ use super::{patterns::PatternRegistry, whitelist::Whitelist};
 /// Run all enabled patterns in `registry` against each `TextRegion`.
 /// Regions whose text matches `whitelist` are skipped entirely.
 /// Returns a deduplicated list of `SensitiveMatch` entries.
-pub fn scan(regions: &[TextRegion], registry: &PatternRegistry, whitelist: &Whitelist) -> Vec<SensitiveMatch> {
+pub fn scan(
+    regions: &[TextRegion],
+    registry: &PatternRegistry,
+    whitelist: &Whitelist,
+) -> Vec<SensitiveMatch> {
     let mut matches: Vec<SensitiveMatch> = Vec::new();
 
     for region in regions {
-        if whitelist.is_safe(&region.text) { continue; }
+        if whitelist.is_safe(&region.text) {
+            continue;
+        }
         for pattern in registry.enabled() {
             if let Some(hit) = pattern.find(&region.text) {
                 let snippet = make_snippet(hit);
@@ -57,7 +63,12 @@ mod tests {
     fn make_region(text: &str) -> TextRegion {
         TextRegion {
             text: text.to_owned(),
-            bounds: Rect { x: 0, y: 0, width: 100, height: 20 },
+            bounds: Rect {
+                x: 0,
+                y: 0,
+                width: 100,
+                height: 20,
+            },
             confidence: 95.0,
         }
     }
@@ -66,7 +77,11 @@ mod tests {
     fn detects_env_var() {
         let reg = default_registry();
         let regions = vec![make_region("SECRET_KEY=abc123def456")];
-        let matches = scan(&regions, &reg, &crate::detection::whitelist::Whitelist::empty());
+        let matches = scan(
+            &regions,
+            &reg,
+            &crate::detection::whitelist::Whitelist::empty(),
+        );
         assert!(!matches.is_empty());
     }
 

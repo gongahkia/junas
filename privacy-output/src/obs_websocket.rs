@@ -12,12 +12,15 @@ const SOURCE_NAME: &str = "aki-privacy-filter";
 /// OBS WebSocket client (v5 protocol).
 pub struct ObsClient {
     url: String,
-    password: Option<String>,
+    _password: Option<String>,
 }
 
 impl ObsClient {
     pub fn new(url: impl Into<String>, password: Option<String>) -> Self {
-        Self { url: url.into(), password }
+        Self {
+            url: url.into(),
+            _password: password,
+        }
     }
 
     pub fn default_local() -> Self {
@@ -31,12 +34,17 @@ impl ObsClient {
         // Attempt TCP connection to verify OBS is reachable
         let addr = self.url.trim_start_matches("ws://");
         let addr = addr.trim_start_matches("wss://");
-        std::net::TcpStream::connect(addr)
-            .context("cannot reach OBS WebSocket — ensure OBS is running with WebSocket Server enabled")?;
+        std::net::TcpStream::connect(addr).context(
+            "cannot reach OBS WebSocket — ensure OBS is running with WebSocket Server enabled",
+        )?;
 
         // Build the JSON payloads per OBS WS v5 spec
         let source_url = format!("http://127.0.0.1:{}/", mjpeg_port);
-        log::info!("OBS: creating Browser Source '{}' → {}", SOURCE_NAME, source_url);
+        log::info!(
+            "OBS: creating Browser Source '{}' → {}",
+            SOURCE_NAME,
+            source_url
+        );
 
         // Full WebSocket handshake and request/response cycle is intentionally left
         // as a runtime call here; the tokio-tungstenite integration is in obs_ws_async.
@@ -67,21 +75,22 @@ pub mod async_obs {
 
     /// Build a CreateInput request for a Browser Source.
     pub fn create_browser_source_request(scene_name: &str, source_name: &str, url: &str) -> String {
-        make_request(6, serde_json::json!({
-            "requestType": "CreateInput",
-            "requestId": "aki-create-source",
-            "requestData": {
-                "sceneName": scene_name,
-                "inputName": source_name,
-                "inputKind": "browser_source",
-                "inputSettings": {
-                    "url": url,
-                    "width": 1920,
-                    "height": 1080,
+        make_request(
+            6,
+            serde_json::json!({
+                "requestType": "CreateInput",
+                "requestId": "aki-create-source",
+                "requestData": {
+                    "sceneName": scene_name,
+                    "inputName": source_name,
+                    "inputKind": "browser_source",
+                    "inputSettings": {
+                        "url": url,
+                        "width": 1920,
+                        "height": 1080,
+                    }
                 }
-            }
-        }))
+            }),
+        )
     }
 }
-
-use serde_json;

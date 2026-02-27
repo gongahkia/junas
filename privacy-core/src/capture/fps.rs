@@ -82,7 +82,11 @@ impl FrameRateController {
         let oldest = self.delivery_times.iter().copied().min().unwrap();
         let newest = self.delivery_times.iter().copied().max().unwrap();
         let span = newest.duration_since(oldest).as_secs_f32();
-        if span <= 0.0 { 0.0 } else { (n as f32 - 1.0) / span }
+        if span <= 0.0 {
+            0.0
+        } else {
+            (n as f32 - 1.0) / span
+        }
     }
 
     /// Reset FPS stats (e.g., after pause/resume).

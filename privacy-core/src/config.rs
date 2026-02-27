@@ -39,9 +39,15 @@ impl Default for CaptureConfig {
 }
 
 fn detect_default_source() -> String {
-    #[cfg(target_os = "macos")] { return "macos".into(); }
-    #[cfg(target_os = "linux")] {
-        if std::env::var("WAYLAND_DISPLAY").is_ok() { return "wayland".into(); }
+    #[cfg(target_os = "macos")]
+    {
+        return "macos".into();
+    }
+    #[cfg(target_os = "linux")]
+    {
+        if std::env::var("WAYLAND_DISPLAY").is_ok() {
+            return "wayland".into();
+        }
         return "x11".into();
     }
     #[allow(unreachable_code)]
@@ -80,11 +86,19 @@ impl Default for DetectionConfig {
 
 /// Parse a "x,y,w,h" rect string.
 pub fn parse_rect(s: &str) -> Option<privacy_common::frame::Rect> {
-    let parts: Vec<u32> = s.split(',')
+    let parts: Vec<u32> = s
+        .split(',')
         .map(|p| p.trim().parse().ok())
         .collect::<Option<Vec<_>>>()?;
-    if parts.len() != 4 { return None; }
-    Some(privacy_common::frame::Rect { x: parts[0], y: parts[1], width: parts[2], height: parts[3] })
+    if parts.len() != 4 {
+        return None;
+    }
+    Some(privacy_common::frame::Rect {
+        x: parts[0],
+        y: parts[1],
+        width: parts[2],
+        height: parts[3],
+    })
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -149,7 +163,11 @@ pub struct ProfileConfig {
 
 impl Default for ProfileConfig {
     fn default() -> Self {
-        Self { transform_mode: "blur".into(), intensity: 1.0, extra_patterns: Vec::new() }
+        Self {
+            transform_mode: "blur".into(),
+            intensity: 1.0,
+            extra_patterns: Vec::new(),
+        }
     }
 }
 
@@ -177,14 +195,15 @@ impl AppConfig {
         }
         let raw = std::fs::read_to_string(path)
             .with_context(|| format!("reading config {}", path.display()))?;
-        toml::from_str(&raw)
-            .with_context(|| format!("parsing config {}", path.display()))
+        toml::from_str(&raw).with_context(|| format!("parsing config {}", path.display()))
     }
 
     /// Write defaults to the config path if the file does not yet exist.
     pub fn write_defaults_if_missing() -> Result<()> {
         let path = config_path();
-        if path.exists() { return Ok(()); }
+        if path.exists() {
+            return Ok(());
+        }
         if let Some(dir) = path.parent() {
             std::fs::create_dir_all(dir)?;
         }
