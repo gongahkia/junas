@@ -3,7 +3,7 @@
 use anyhow::{anyhow, Result};
 use chrono::Utc;
 use privacy_common::frame::{RawFrame, Rect, WindowInfo};
-use xcb::{x, Connection, Xid};
+use xcb::{x, Connection, XidNew};
 
 use crate::capture::CaptureSource;
 

@@ -81,7 +81,7 @@ impl WaylandCaptureSource {
         pw_fd: OwnedFd,
         tx: Sender<RawFrame>,
     ) -> std::thread::JoinHandle<()> {
-        use pipewire::stream::{Stream, StreamFlags, StreamState};
+        use pipewire::stream::{Stream, StreamFlags};
         use pipewire::{context::Context, main_loop::MainLoop, properties::properties};
         use std::os::fd::IntoRawFd;
 
@@ -170,7 +170,6 @@ impl WaylandCaptureSource {
 
             // connect stream to the PipeWire node obtained from the portal
             use pipewire::spa::utils::Direction;
-            let params: Vec<Box<dyn pipewire::spa::pod::Object>> = vec![];
             stream
                 .connect(
                     Direction::Input,
