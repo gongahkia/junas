@@ -68,10 +68,10 @@ $
 2. Then run the below commands to use `Aki`'s core functionality.
 
 ```console
-$ aki run # run with TUI
-$ aki list-windows # list available windows
-$ aki test-patterns "SECRET_KEY=abc123" # test sensitivity patterns against text input
-$ aki check-output # verify virtual camera availability
+$ cargo run -- run # run with TUI
+$ cargo run -- list-windows # list available windows
+$ cargo run -- test-patterns "SECRET_KEY=abc123" # test sensitivity patterns against text input
+$ cargo run -- check-output # verify virtual camera availability
 ```
 
 ## Architecture
