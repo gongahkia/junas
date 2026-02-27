@@ -5,9 +5,9 @@
 
 Real-time [ASCII](https://en.wikipedia.org/wiki/ASCII) [privacy filter](https://www.reddit.com/r/buildapc/comments/wf46j0/privacy_filter_as_a_software/) for [screen capture](https://dictionary.cambridge.org/dictionary/english/screen-sharing) and [livestreaming](https://en.wikipedia.org/wiki/Live_streaming). 
 
+## How does `Aki` do that?
 
-
-Detects sensitive information (API keys, tokens, passwords, PII) in captured frames via OCR, transforms sensitive regions using configurable effects (blur, pixelation, cartoon, ASCII art), and outputs the sanitized feed to a virtual camera for use with OBS or other streaming software.
+Via XXX, `Aki` detects [sensitive information](#blocklist) in captured frames via OCR, transforms sensitive regions using configurable effects (blur, pixelation, cartoon, ASCII art), and outputs the sanitized feed to a virtual camera for use with OBS or other streaming software.
 
 ## Stack
 
@@ -60,6 +60,16 @@ OutputSink  (v4l2loopback / CoreMediaIO / HTTP MJPEG)
 ```
 
 All pipeline stages communicate via bounded `crossbeam` channels (capacity 3 frames). Backpressure drops oldest frame to maintain real-time performance.
+
+## Blocked List
+
+Currently `Aki` blocks the below by default.
+
+* API keys
+* Tokens
+* Passwords
+* PII
+* ...
 
 ## Reference
 

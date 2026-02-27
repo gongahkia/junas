@@ -32,8 +32,7 @@ impl OcrEngine {
         // PSM 6 = single block of text
         lt.set_variable(Variable::TesseditPagesegMode, "6")
             .map_err(|_| anyhow!("failed to set PSM 6"))?;
-        lt.set_variable(Variable::SourceResolution, "70") // suppress "Invalid resolution 1 dpi" warnings
-            .map_err(|_| anyhow!("failed to set source resolution"))?;
+        lt.set_source_resolution(70); // suppress "Invalid resolution 1 dpi" warnings
         Ok(Self {
             lt,
             min_confidence: min_conf,
