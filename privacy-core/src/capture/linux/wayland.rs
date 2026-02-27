@@ -91,7 +91,7 @@ impl WaylandCaptureSource {
                     if datas.is_empty() {
                         return;
                     }
-                    let data = &datas[0];
+                    let data = &mut datas[0];
                     let chunk = data.chunk();
                     let bytes: &[u8] = data.data().map_or(&[], |v| v);
                     let offset = chunk.offset() as usize;
