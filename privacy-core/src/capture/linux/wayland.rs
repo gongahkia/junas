@@ -92,10 +92,15 @@ impl WaylandCaptureSource {
                         return;
                     }
                     let data = &mut datas[0];
-                    let chunk = data.chunk();
+                    let (offset, size, stride) = {
+                        let chunk = data.chunk(); // immutable borrow, dropped at end of block
+                        (
+                            chunk.offset() as usize,
+                            chunk.size() as usize,
+                            chunk.stride() as u32,
+                        )
+                    };
                     let bytes: &[u8] = data.data().map_or(&[], |v| v);
-                    let offset = chunk.offset() as usize;
-                    let size = chunk.size() as usize;
                     if offset + size > bytes.len() {
                         return;
                     }
@@ -107,7 +112,6 @@ impl WaylandCaptureSource {
                     }
                     // width/height from spa_video_info requires format negotiation;
                     // using chunk stride as placeholder until proper SPA format parsing
-                    let stride = chunk.stride() as u32;
                     let w = if stride > 0 { stride / 4 } else { 0 };
                     let h = if w > 0 { rgba.len() as u32 / 4 / w } else { 0 };
                     if w == 0 || h == 0 {
