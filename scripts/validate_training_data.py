@@ -7,7 +7,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from pydantic import ValidationError
-from api.schemas import TrainingDocument
+from backend.schemas import TrainingDocument
 
 def validate_file(path: str) -> bool:
     try:

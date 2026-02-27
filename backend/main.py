@@ -10,7 +10,7 @@ except ImportError:
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")) # add project root to path
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
-from api.schemas import ClassifyRequest, ClassifyResponse, Classification, LexiconResponse, LexiconHitResponse, Model1Response, Model2Response, HealthResponse, RegressionResponse, MosaicResponse
+from backend.schemas import ClassifyRequest, ClassifyResponse, Classification, LexiconResponse, LexiconHitResponse, Model1Response, Model2Response, HealthResponse, RegressionResponse, MosaicResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 _state = {}
@@ -53,50 +53,50 @@ async def lifespan(app: FastAPI):
     for layer in layers:
         if layer == "lexicon":
             try:
-                from lexicon.filter import LexiconFilter
-                _state["models"]["lexicon"] = LexiconFilter()
+                lex_mod = SourceFileLoader("lex_filter", os.path.join(os.path.dirname(__file__), "..", "layer1-lexicon", "filter.py")).load_module()
+                _state["models"]["lexicon"] = lex_mod.LexiconFilter()
             except Exception as e:
                 print(f"Failed to load lexicon: {e}")
 
         elif layer == "embedding":
             try:
-                emb_mod = SourceFileLoader("emb_inf", os.path.join(os.path.dirname(__file__), "..", "embeddings", "inference.py")).load_module()
+                emb_mod = SourceFileLoader("emb_inf", os.path.join(os.path.dirname(__file__), "..", "layer2-embeddings", "inference.py")).load_module()
                 _state["models"]["embedding"] = emb_mod.EmbeddingsEncoder.get_instance()
             except Exception as e:
                 print(f"Failed to load embedding: {e}")
 
         elif layer == "clustering":
             try:
-                clust_mod = SourceFileLoader("clust_inf", os.path.join(os.path.dirname(__file__), "..", "clustering", "isolation_forest.py")).load_module()
+                clust_mod = SourceFileLoader("clust_inf", os.path.join(os.path.dirname(__file__), "..", "layer3-clustering", "isolation_forest.py")).load_module()
                 _state["models"]["clustering"] = clust_mod.MNPIAnomalyDetector.load()
             except Exception as e:
                 print(f"Failed to load clustering: {e}")
 
         elif layer == "model1":
             try:
-                m1_mod = SourceFileLoader("m1_inf", os.path.join(os.path.dirname(__file__), "..", "model-1", "inference.py")).load_module()
+                m1_mod = SourceFileLoader("m1_inf", os.path.join(os.path.dirname(__file__), "..", "layer4-classification", "model-1", "inference.py")).load_module()
                 _state["models"]["model1"] = m1_mod.FinBERTClassifier()
             except Exception as e:
                 print(f"Failed to load model1: {e}")
 
         elif layer == "model2":
             try:
-                m2_mod = SourceFileLoader("m2_inf", os.path.join(os.path.dirname(__file__), "..", "model-2", "inference.py")).load_module()
+                m2_mod = SourceFileLoader("m2_inf", os.path.join(os.path.dirname(__file__), "..", "layer4-classification", "model-2", "inference.py")).load_module()
                 _state["models"]["model2"] = m2_mod.BERTSeverityClassifier()
             except Exception as e:
                 print(f"Failed to load model2: {e}")
 
         elif layer == "regression":
             try:
-                reg_mod = SourceFileLoader("reg_inf", os.path.join(os.path.dirname(__file__), "..", "regression", "inference.py")).load_module()
+                reg_mod = SourceFileLoader("reg_inf", os.path.join(os.path.dirname(__file__), "..", "layer6-regression", "inference.py")).load_module()
                 _state["models"]["regression"] = reg_mod.XGBoostRegression()
             except Exception as e:
                 print(f"Failed to load regression: {e}")
 
         elif layer == "mosaic":
             try:
-                from mosaic.inference import MosaicAggregator
-                _state["models"]["mosaic"] = MosaicAggregator.load()
+                mos_mod = SourceFileLoader("mos_inf", os.path.join(os.path.dirname(__file__), "..", "layer5-mosaic", "inference.py")).load_module()
+                _state["models"]["mosaic"] = mos_mod.MosaicAggregator.load()
             except Exception as e:
                 print(f"Failed to load mosaic: {e}")
 
@@ -252,4 +252,4 @@ if __name__ == "__main__":
             filtered_args.append(sys.argv[i])
             i += 1
     sys.argv = filtered_args
-    uvicorn.run("api.main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("backend.main:app", host="0.0.0.0", port=8000, reload=True)

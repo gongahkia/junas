@@ -7,7 +7,7 @@ echo "🚀 Starting Noupe services..."
 
 # 1. Start FastAPI backend in the background
 echo "📦 Booting FastAPI backend on http://localhost:8000..."
-uvicorn api.main:app --host 0.0.0.0 --port 8000 &
+uvicorn backend.main:app --host 0.0.0.0 --port 8000 &
 BACKEND_PID=$!
 
 # 2. Give the backend a moment to initialize
