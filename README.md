@@ -74,6 +74,16 @@ $ cargo run -- test-patterns "SECRET_KEY=abc123" # test sensitivity patterns aga
 $ cargo run -- check-output # verify virtual camera availability
 ```
 
+3. Once inside the TUI, use the below keybinds.
+
+| Key | Action |
+|-----|--------|
+| `w` | open window picker, select a source to capture |
+| `Space` | pause / resume capture |
+| `t` | cycle transform (Blur → Pixelate → Cartoon → ASCII) |
+| `+` / `-` | increase / decrease effect intensity |
+| `q` / `Ctrl+C` | quit |
+
 ## Architecture
 
 All pipeline stages communicate via bounded `crossbeam` channels (capacity 3 frames). Backpressure drops oldest frame to maintain real-time performance.
