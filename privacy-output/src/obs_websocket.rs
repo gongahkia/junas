@@ -62,7 +62,6 @@ impl ObsClient {
 
 /// Async OBS WebSocket helpers using tokio (called from tokio runtime contexts).
 pub mod async_obs {
-    use super::*;
 
     /// JSON-encode an OBS WS v5 request.
     pub fn make_request(op: u8, d: serde_json::Value) -> String {

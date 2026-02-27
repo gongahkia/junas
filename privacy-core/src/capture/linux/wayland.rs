@@ -43,7 +43,6 @@ impl WaylandCaptureSource {
     ) -> std::thread::JoinHandle<()> {
         use pipewire::stream::{Stream, StreamFlags};
         use pipewire::{context::Context, main_loop::MainLoop, properties::properties};
-        use std::os::fd::{FromRawFd, IntoRawFd};
 
         std::thread::spawn(move || {
             let ml = match MainLoop::new(None) {
@@ -60,10 +59,7 @@ impl WaylandCaptureSource {
                     return;
                 }
             };
-            let core = match ctx.connect_fd(
-                unsafe { std::fs::File::from_raw_fd(pw_fd.into_raw_fd()) },
-                None,
-            ) {
+            let core = match ctx.connect_fd(pw_fd, None) {
                 Ok(c) => c,
                 Err(e) => {
                     eprintln!("pipewire connect_fd: {e}");
