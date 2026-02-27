@@ -81,22 +81,37 @@ python3 layer3-clustering/isolation_forest.py all_embeddings.npy
 echo "✅ Clustering checkpoint saved."
 echo ""
 
-# ── Step 4: Train Model 1 (FinBERT binary classifier) ──
-echo "🤖 Step 4/5: Training Model 1 (FinBERT — public vs non-public)..."
-python3 layer4-classification/model-1/classifier.py "$TMP_DIR/model1_train.csv"
-echo "✅ Model 1 checkpoint saved."
+# ── Steps 4–5: Classification models (slow, optional) ──
+echo "────────────────────────────────────────────────"
+echo "  Steps 4–5 fine-tune BERT classification models."
+echo "  This is CPU-bound and takes ~10–20 min total."
+echo "  The pipeline works without them (layers become no-ops)."
+echo "────────────────────────────────────────────────"
+read -r -p "Train classification models? [y/N] " train_cls
 echo ""
 
-# ── Step 5: Train Model 2 (BERT severity classifier) ──
-echo "🤖 Step 5/5: Training Model 2 (BERT — low vs high risk)..."
-python3 layer4-classification/model-2/classifier.py "$TMP_DIR/model2_train.csv"
-echo "✅ Model 2 checkpoint saved."
-echo ""
+if [[ "$train_cls" =~ ^[yY]$ ]]; then
+    # ── Step 4: Train Model 1 (FinBERT binary classifier) ──
+    echo "🤖 Step 4/5: Training Model 1 (FinBERT — public vs non-public)..."
+    python3 layer4-classification/model-1/classifier.py "$TMP_DIR/model1_train.csv"
+    echo "✅ Model 1 checkpoint saved."
+    echo ""
+
+    # ── Step 5: Train Model 2 (BERT severity classifier) ──
+    echo "🤖 Step 5/5: Training Model 2 (BERT — low vs high risk)..."
+    python3 layer4-classification/model-2/classifier.py "$TMP_DIR/model2_train.csv"
+    echo "✅ Model 2 checkpoint saved."
+    echo ""
+else
+    echo "⏭️  Skipping classification model training."
+    echo "   model1 and model2 layers will be no-ops at runtime."
+    echo ""
+fi
 
 # ── Cleanup ──
 rm -rf "$TMP_DIR"
 rm -f "$ROOT/public_embeddings.npy" "$ROOT/violation_embeddings.npy" # keep only all_embeddings.npy if desired
 
 echo "════════════════════════════════════════════════"
-echo "  ✅ All training complete. run_dev.sh is ready."
+echo "  ✅ Training complete. run_dev.sh is ready."
 echo "════════════════════════════════════════════════"
