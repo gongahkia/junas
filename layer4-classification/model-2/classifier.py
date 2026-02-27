@@ -59,7 +59,7 @@ class WeightedTrainer(Trainer): # custom trainer with class-weighted loss
         loss = loss_fn(logits, labels)
         return (loss, outputs) if return_outputs else loss
 
-def train(train_csv: str, val_csv: str = None, epochs: int = 5, lr: float = 2e-5, batch_size: int = 16):
+def train(train_csv: str, val_csv: str = None, epochs: int = 5, lr: float = 2e-5, batch_size: int = 8):
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=2)
     train_texts, train_labels = load_data(train_csv)
@@ -74,6 +74,7 @@ def train(train_csv: str, val_csv: str = None, epochs: int = 5, lr: float = 2e-5
         per_device_eval_batch_size=batch_size, learning_rate=lr, weight_decay=0.01,
         eval_strategy="epoch" if val_dataset else "no", save_strategy="epoch",
         load_best_model_at_end=bool(val_dataset), logging_steps=50, seed=42,
+        no_cuda=True, use_mps_device=False, # force CPU, MPS OOMs on small VRAM
     )
     trainer = WeightedTrainer(class_weights=class_weights, model=model, args=args, train_dataset=train_dataset, eval_dataset=val_dataset)
     trainer.train()

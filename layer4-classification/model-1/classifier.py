@@ -43,7 +43,7 @@ def load_data(csv_path: str) -> tuple: # schema: text,label where label ∈ {0=p
     labels = [l for l in tqdm(df["label"].tolist(), desc="Reading labels", unit="record")]
     return texts, labels
 
-def train(train_csv: str, val_csv: str = None, epochs: int = 3, lr: float = 2e-5, batch_size: int = 16):
+def train(train_csv: str, val_csv: str = None, epochs: int = 3, lr: float = 2e-5, batch_size: int = 8):
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=2, ignore_mismatched_sizes=True)
     train_texts, train_labels = load_data(train_csv)
@@ -57,6 +57,7 @@ def train(train_csv: str, val_csv: str = None, epochs: int = 3, lr: float = 2e-5
         per_device_eval_batch_size=batch_size, learning_rate=lr, weight_decay=0.01,
         eval_strategy="epoch" if val_dataset else "no", save_strategy="epoch",
         load_best_model_at_end=bool(val_dataset), logging_steps=50, seed=42,
+        no_cuda=True, use_mps_device=False, # force CPU, MPS OOMs on small VRAM
     )
     trainer = Trainer(model=model, args=args, train_dataset=train_dataset, eval_dataset=val_dataset)
     trainer.train()
