@@ -9,6 +9,12 @@ Real-time [ASCII](https://en.wikipedia.org/wiki/ASCII) [privacy filter](https://
 
 `Aki` [ingests](#architecture) a live video stream, detects [sensitive information](#block-list) in captured frames via OCR, [transforms](#transformations) sensitive regions using configurable effects, then [outputs](#architecture) the sanitized feed to a virtual camera for use with [OBS or other streaming software](#output-support).
 
+For more details, see [here](#nerd-stuff).
+
+## Screenshot
+
+...
+
 ## Stack
 
 | Layer | Technology |
@@ -24,42 +30,6 @@ Real-time [ASCII](https://en.wikipedia.org/wiki/ASCII) [privacy filter](https://
 | Fallback output | HTTP MJPEG stream |
 | Channels | `crossbeam-channel` |
 | Config | TOML (`~/.config/ascii-privacy/config.toml`) |
-
-## Screenshot
-
-...
-
-## Usage
-
-The below instructions are for locally running `Aki`.
-
-```console
-# run with TUI
-aki run
-
-# list available windows
-aki list-windows
-
-# test sensitivity patterns against text input
-aki test-patterns "SECRET_KEY=abc123"
-
-# verify virtual camera availability
-aki check-output
-```
-
-## Architecture
-
-```
-CaptureSource
-    ↓ RawFrame (RGBA + dims + timestamp)
-SensitivityDetector  (OCR → pattern matching)
-    ↓ DetectedRegions
-Transformer  (blur / pixelate / cartoon / ASCII)
-    ↓ TransformedFrame
-OutputSink  (v4l2loopback / CoreMediaIO / HTTP MJPEG)
-```
-
-All pipeline stages communicate via bounded `crossbeam` channels (capacity 3 frames). Backpressure drops oldest frame to maintain real-time performance.
 
 ## Blocked List
 
@@ -81,6 +51,34 @@ Currently `Aki` supports the below morphs.
 * ASCII 
 
 ## Output support
+
+...
+
+## Usage
+
+The below instructions are for locally running `Aki`.
+
+1. First install `Aki` locally with the following commands.
+
+```console
+$ git clone https://github.com/gongahkia/aki && cd aki
+$ 
+```
+
+2. Then run the below commands to use `Aki`'s core functionality.
+
+```console
+$ aki run # run with TUI
+$ aki list-windows # list available windows
+$ aki test-patterns "SECRET_KEY=abc123" # test sensitivity patterns against text input
+$ aki check-output # verify virtual camera availability
+```
+
+## Architecture
+
+All pipeline stages communicate via bounded `crossbeam` channels (capacity 3 frames). Backpressure drops oldest frame to maintain real-time performance.
+
+## Nerd stuff
 
 ...
 
