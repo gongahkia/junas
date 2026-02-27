@@ -114,7 +114,54 @@ All pipeline stages communicate via bounded `crossbeam` channels (capacity 3 fra
 
 ## Nerd stuff
 
-...
+### Pipeline
+
+Four threads communicate via bounded `crossbeam` channels (capacity 3). Full channels drop the oldest frame rather than block — backpressure is shed, not accumulated.
+
+```
+aki-capture  →[raw_tx]→  aki-detect  →[detection_tx]→  aki-transform  →[transformed_tx]→  aki-output
+```
+
+| Thread | Responsibility |
+|--------|---------------|
+| `aki-capture` | Pulls frames from ScreenCaptureKit / XCB / PipeWire; optionally crops to a sub-region |
+| `aki-detect` | Runs incremental OCR → regex pattern scan → region expansion + merge |
+| `aki-transform` | Applies the active transform (with 10-frame pixel-blend crossfade on mode switch) |
+| `aki-output` | Forwards transformed frames to the selected `OutputSink` |
+
+### Incremental OCR
+
+The frame is divided into an 8×6 grid of cells. Between frames, a pixel-threshold diff (`FrameDiff`) marks only changed cells as dirty. Only dirty cells are sent to Tesseract — typically ~70% of OCR work is skipped per frame.
+
+If detection takes longer than the 33ms frame budget, the grid is shrunk (down to 2×2) and transform intensity is reduced to 0.8× to recover headroom. The grid recovers back toward 8×6 when load drops below half-budget.
+
+### Config
+
+`~/.config/ascii-privacy/config.toml` is created with defaults on first run. Key options:
+
+```toml
+[capture]
+fps = 30
+region = "0,0,1920,1080"   # optional crop "x,y,w,h"
+
+[detection]
+min_confidence = 40         # tesseract confidence threshold (0–100)
+grid_cells_x = 8
+grid_cells_y = 6
+safe_zones = ["0,0,200,50"] # regions never redacted
+always_redact_zones = []    # regions always redacted
+
+[transform]
+mode = "blur"               # blur | pixelate | cartoon | ascii | neural
+intensity = 1.0
+accelerator = "auto"        # auto | cuda | coreml | cpu (for neural mode)
+
+[output]
+sink = "auto"               # auto | v4l2 | coremedia | mjpeg
+http_port = 9876
+```
+
+Named profiles (e.g. `[profiles.streaming]`) can override transform mode and intensity for different contexts.
 
 ## Reference
 
