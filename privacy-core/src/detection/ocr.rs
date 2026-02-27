@@ -51,6 +51,7 @@ impl OcrEngine {
         self.lt
             .set_image_from_mem(&buf)
             .map_err(|e| anyhow!("set_image_from_mem: {}", e))?;
+        self.lt.set_source_resolution(70); // must re-set after set_image_from_mem resets internal state
         self.lt.recognize();
 
         let boxes = match self
