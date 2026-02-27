@@ -11,7 +11,7 @@ Real-time [ASCII](https://en.wikipedia.org/wiki/ASCII) [privacy filter](https://
 
 For more details, see [here](#nerd-stuff).
 
-## Screenshot
+## Screenshots
 
 <div align="center">
     <img src="./asset/reference/1.png" width="47%">
@@ -87,7 +87,20 @@ Currently `Aki` blocks the below by default.
 * IPv4 and IPv6 addresses
 * Credit card numbers (Visa, Mastercard, Amex, Discover, JCB)
 
-## Transformations
+## Nerd stuff
+
+### Pipeline
+
+Four threads communicate via bounded `crossbeam` channels (capacity 3). Full channels drop the oldest frame rather than block — backpressure is shed, not accumulated.
+
+| Thread | Responsibility |
+|--------|---------------|
+| `aki-capture` | Pulls frames from ScreenCaptureKit / XCB / PipeWire; optionally crops to a sub-region |
+| `aki-detect` | Runs incremental OCR → regex pattern scan → region expansion + merge |
+| `aki-transform` | Applies the active transform (with 10-frame pixel-blend crossfade on mode switch) |
+| `aki-output` | Forwards transformed frames to the selected `OutputSink` |
+
+### Transformations
 
 Currently `Aki` supports the below morphs.
 
@@ -139,7 +152,9 @@ Currently `Aki` supports the below morphs.
 </tbody>
 </table>
 
-## Output support
+### Output support
+
+Currently `Aki` supports the following 4 outputs.
 
 | Sink | Platform | Status |
 |------|----------|--------|
@@ -147,28 +162,10 @@ Currently `Aki` supports the below morphs.
 | CoreMediaIO DAL virtual camera | macOS | Available |
 | HTTP MJPEG stream | All | Available *(default fallback)* |
 | OBS WebSocket v5 *(Browser Source → MJPEG)* | All | Available *(falls back to MJPEG if OBS unreachable)* |
-| Twitch RTMP | All | Planned |
 
-## Architecture
+### Architecture
 
 ![](./asset/reference/architecture.png)
-
-## Nerd stuff
-
-### Pipeline
-
-Four threads communicate via bounded `crossbeam` channels (capacity 3). Full channels drop the oldest frame rather than block — backpressure is shed, not accumulated.
-
-```
-aki-capture  →[raw_tx]→  aki-detect  →[detection_tx]→  aki-transform  →[transformed_tx]→  aki-output
-```
-
-| Thread | Responsibility |
-|--------|---------------|
-| `aki-capture` | Pulls frames from ScreenCaptureKit / XCB / PipeWire; optionally crops to a sub-region |
-| `aki-detect` | Runs incremental OCR → regex pattern scan → region expansion + merge |
-| `aki-transform` | Applies the active transform (with 10-frame pixel-blend crossfade on mode switch) |
-| `aki-output` | Forwards transformed frames to the selected `OutputSink` |
 
 ### Incremental OCR
 
