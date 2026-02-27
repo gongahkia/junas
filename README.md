@@ -1,19 +1,5 @@
 # Noupe
 
-## Workflow 
-
-* FastAPI orchestration layer for 1-6 (gab)
-    * 3 and 4+5 running in parallel 
-* *Simple frontend (KIV)*
-
-1. Lexicon (gab)
-2. Embeddings (lexuan)
-3. Clustering (astin)
-4. Classification model 1 (gab, lexuan)
-4b. Classification model 2 (gab, lexuan)
-5. Mosaic Aggregation (astin)
-6. Regression (astin)
-
 ## Architecture
 
 ```mermaid
@@ -39,13 +25,6 @@ flowchart TD
 
     Reg --> Out2["Final Output"]
 ```
-
-## Timeline
-
-* 19 January 2026: Internal check 1 for repo efficacy
-* 22 January 2026: Internal check 2 for repo efficacy
-* 23 January 2026: Shikhar deadline for first-pass of this repo
-* 2 March 2026: Midterm presentation   
 
 ## Ingestion schema (for training data)
 
