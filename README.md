@@ -7,7 +7,7 @@ Real-time [ASCII](https://en.wikipedia.org/wiki/ASCII) [privacy filter](https://
 
 ## How does `Aki` do that?
 
-Via XXX, `Aki` detects [sensitive information](#blocklist) in captured frames via OCR, transforms sensitive regions using configurable effects (blur, pixelation, cartoon, ASCII art), and outputs the sanitized feed to a virtual camera for use with OBS or other streaming software.
+`Aki` [ingests](#architecture) a live video stream, detects [sensitive information](#block-list) in captured frames via OCR, [transforms](#transformations) sensitive regions using configurable effects, then [outputs](#architecture) the sanitized feed to a virtual camera for use with [OBS or other streaming software](#output-support).
 
 ## Stack
 
@@ -70,6 +70,19 @@ Currently `Aki` blocks the below by default.
 * Passwords
 * PII
 * ...
+
+## Transformations 
+
+Currently `Aki` supports the below morphs.
+
+* Blur
+* Pixelation
+* Cartoon
+* ASCII 
+
+## Output support
+
+...
 
 ## Reference
 
