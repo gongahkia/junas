@@ -70,6 +70,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     description: '',
     resolve: undefined as ((value: boolean) => void) | undefined,
   });
+  const autosaveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const requestConfirmation = (title: string, description: string): Promise<boolean> => {
     return new Promise((resolve) => {
@@ -240,15 +241,20 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
   // Persist active conversation whenever content changes.
   useEffect(() => {
     if (!settings.autoSave || messages.length === 0) return;
-
-    saveConversation({
-      id: conversationId,
-      title: conversationTitle || 'Untitled Conversation',
-      messages,
-      artifacts,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
+    if (autosaveTimeoutRef.current) clearTimeout(autosaveTimeoutRef.current);
+    autosaveTimeoutRef.current = setTimeout(() => {
+      saveConversation({
+        id: conversationId,
+        title: conversationTitle || 'Untitled Conversation',
+        messages,
+        artifacts,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+    }, 500);
+    return () => {
+      if (autosaveTimeoutRef.current) clearTimeout(autosaveTimeoutRef.current);
+    };
   }, [settings.autoSave, messages, artifacts, conversationId, conversationTitle, saveConversation]);
 
   // Generate a title for the conversation after first exchange
