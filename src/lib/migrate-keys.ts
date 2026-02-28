@@ -5,6 +5,12 @@
 
 export async function migrateApiKeysToSession(): Promise<boolean> {
   try {
+    // Desktop app uses OS keychain via Tauri commands, so web session migration is not applicable.
+    if (typeof window !== 'undefined' && (window as any).__TAURI_INTERNALS__) {
+      localStorage.setItem('junas_keys_migrated', 'true');
+      return true;
+    }
+
     // Check if already migrated
     const migrated = localStorage.getItem('junas_keys_migrated');
     if (migrated === 'true') {
@@ -52,6 +58,10 @@ export async function migrateApiKeysToSession(): Promise<boolean> {
  * Check if migration is needed
  */
 export function needsMigration(): boolean {
+  if (typeof window !== 'undefined' && (window as any).__TAURI_INTERNALS__) {
+    return false;
+  }
+
   const migrated = localStorage.getItem('junas_keys_migrated');
   const hasOldKeys = localStorage.getItem('junas_api_keys');
   return migrated !== 'true' && !!hasOldKeys;
