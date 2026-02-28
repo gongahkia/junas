@@ -39,6 +39,76 @@ export function isCommandDisabled(commandId: string): boolean {
   return getDisabledTools().has(commandId);
 }
 
+interface LegalSearchResult {
+  title: string;
+  url: string;
+  snippet: string;
+}
+
+function readLocalLegalCache(cacheKey: string, query: string): LegalSearchResult[] {
+  if (typeof window === 'undefined') return [];
+
+  try {
+    const raw = localStorage.getItem(cacheKey);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+
+    const needle = query.toLowerCase();
+    return parsed
+      .filter(
+        (item) =>
+          item &&
+          typeof item.title === 'string' &&
+          typeof item.url === 'string' &&
+          typeof item.snippet === 'string'
+      )
+      .map((item) => ({
+        title: item.title as string,
+        url: item.url as string,
+        snippet: item.snippet as string,
+      }))
+      .filter(
+        (item) =>
+          item.title.toLowerCase().includes(needle) || item.snippet.toLowerCase().includes(needle)
+      )
+      .slice(0, 10);
+  } catch {
+    return [];
+  }
+}
+
+async function searchCaseLawLocalFirst(query: string): Promise<LegalSearchResult[]> {
+  const localResults = readLocalLegalCache('junas_case_law_cache', query);
+  if (localResults.length > 0) return localResults;
+
+  const { getApiKey, webSearch } = await import('@/lib/tauri-bridge');
+  const apiKey = await getApiKey('serper');
+  return webSearch(
+    `Singapore case law ${query} site:judiciary.gov.sg OR site:singaporelawwatch.sg`,
+    apiKey
+  );
+}
+
+function formatLegalSearchResults(
+  header: string,
+  query: string,
+  results: LegalSearchResult[],
+  emptyMessage: string
+): string {
+  let output = `**${header} for "${query}":**\n\n`;
+  if (results.length === 0) {
+    output += emptyMessage;
+    return output;
+  }
+
+  results.forEach((result, index) => {
+    output += `${index + 1}. **[${result.title}](${result.url})**\n${result.snippet}\n\n`;
+  });
+
+  return output;
+}
+
 /**
  * Parse a message to detect if it contains a slash command
  */
@@ -154,6 +224,7 @@ export function processLocalCommand(command: ProcessedCommand): LocalCommandResu
     case 'classify-text':
     case 'fetch-url':
     case 'web-search':
+    case 'search-case-law':
       return {
         success: true,
         content: '__ASYNC_MODEL_COMMAND__', // Signal to ChatInterface to use async processing
@@ -305,6 +376,25 @@ export async function processAsyncLocalCommand(
           return { success: true, content: resultText };
         } catch (e: any) {
           return { success: false, content: `Error searching web: ${e.message || String(e)}` };
+        }
+      }
+      case 'search-case-law': {
+        try {
+          const results = await searchCaseLawLocalFirst(args);
+          return {
+            success: true,
+            content: formatLegalSearchResults(
+              'Case Law Search Results',
+              args,
+              results,
+              'No case law results found.'
+            ),
+          };
+        } catch (e: any) {
+          return {
+            success: false,
+            content: `Error searching case law: ${e.message || String(e)}`,
+          };
         }
       }
 
