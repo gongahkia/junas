@@ -628,7 +628,9 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
           }
 
           if (syncResult.content === '__ASYNC_MODEL_COMMAND__') {
-            const asyncResult = await processAsyncLocalCommand(toolCommand);
+            const asyncResult = await processAsyncLocalCommand(toolCommand, (partialContent) => {
+              updateMessageContent(partialContent);
+            });
             toolResultContent = asyncResult.success
               ? asyncResult.content
               : `Tool Error: ${asyncResult.content}`;
@@ -793,7 +795,18 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
           );
 
           try {
-            const asyncResult = await processAsyncLocalCommand(parsedCommand);
+            const asyncResult = await processAsyncLocalCommand(parsedCommand, (partialContent) => {
+              if (!isGenerationActive(generationId)) return;
+              setMessages((prev) =>
+                prev.map((msg) =>
+                  msg.id === assistantMessage.id ? { ...msg, content: partialContent } : msg
+                )
+              );
+              setNodeMap((prev) => ({
+                ...prev,
+                [assistantMessage.id]: { ...prev[assistantMessage.id], content: partialContent },
+              }));
+            });
             const responseTime = Date.now() - startTime;
             if (isGenerationActive(generationId)) {
               updateAssistantMessage(assistantMessage.id, asyncResult.content, { responseTime });

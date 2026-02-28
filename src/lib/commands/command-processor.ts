@@ -250,7 +250,8 @@ export function processLocalCommand(command: ProcessedCommand): LocalCommandResu
  * Process a local command (async)
  */
 export async function processAsyncLocalCommand(
-  command: ProcessedCommand
+  command: ProcessedCommand,
+  onProgress?: (content: string) => void
 ): Promise<AsyncLocalCommandResult> {
   const { command: commandType, args } = command;
   if (isCommandDisabled(commandType)) {
@@ -263,19 +264,20 @@ export async function processAsyncLocalCommand(
   try {
     switch (commandType) {
       case 'extract-entities': {
-        const { extractEntities, formatEntityResults } = await import('@/lib/nlp/entity-extractor');
-        const result = extractEntities(args);
+        const { runNlpWorkerTask } = await import('@/lib/nlp/worker-client');
+        const content = await runNlpWorkerTask('extract-entities', args, onProgress);
         return {
           success: true,
-          content: formatEntityResults(result),
+          content,
         };
       }
 
       case 'analyze-document': {
-        const { formatTextAnalysis } = await import('@/lib/nlp/text-analyzer');
+        const { runNlpWorkerTask } = await import('@/lib/nlp/worker-client');
+        const content = await runNlpWorkerTask('analyze-document', args, onProgress);
         return {
           success: true,
-          content: formatTextAnalysis(args),
+          content,
         };
       }
 
