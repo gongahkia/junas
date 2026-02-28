@@ -30,7 +30,7 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
           mermaid.initialize({
             startOnLoad: false,
             theme: 'default',
-            securityLevel: 'loose',
+            securityLevel: 'strict',
             fontFamily: 'var(--font-geist-sans), sans-serif',
             flowchart: {
               useMaxWidth: true,
@@ -70,9 +70,10 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
           const { svg: renderedSvg } = await mermaid.render(id, chart);
 
           // Check if the rendered SVG contains error indicators
-          const hasError = renderedSvg.includes('Syntax error') ||
-                          renderedSvg.includes('Parse error') ||
-                          renderedSvg.includes('error in text');
+          const hasError =
+            renderedSvg.includes('Syntax error') ||
+            renderedSvg.includes('Parse error') ||
+            renderedSvg.includes('error in text');
 
           if (hasError) {
             throw new Error('Diagram contains syntax errors');
@@ -97,7 +98,7 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
 
           // Clean up any Mermaid error elements that might have been added to DOM
           const errorElements = document.querySelectorAll('[id^="' + id + '"]');
-          errorElements.forEach(el => {
+          errorElements.forEach((el) => {
             if (el.parentNode) {
               el.parentNode.removeChild(el);
             }
@@ -123,9 +124,7 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
   if (isLoading) {
     return (
       <div className="my-4 flex items-center justify-center rounded-lg border bg-card p-8">
-        <div className="text-sm text-muted-foreground animate-pulse">
-          Rendering diagram...
-        </div>
+        <div className="text-sm text-muted-foreground animate-pulse">Rendering diagram...</div>
       </div>
     );
   }
@@ -133,9 +132,7 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
   if (error) {
     return (
       <div className="my-4 rounded-lg border border-destructive bg-destructive/10 p-4">
-        <p className="text-sm font-medium text-destructive">
-          Failed to render diagram
-        </p>
+        <p className="text-sm font-medium text-destructive">Failed to render diagram</p>
         <p className="mt-1 text-xs text-muted-foreground">{error}</p>
         <details className="mt-2">
           <summary className="cursor-pointer text-xs text-muted-foreground hover:text-foreground">
