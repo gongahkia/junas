@@ -1,5 +1,6 @@
 use crate::error::AppError;
 use crate::types::SearchResult;
+use kuchiki::traits::*;
 // task 26: fetch url, sanitize html, return markdown-ish text
 #[tauri::command]
 pub async fn fetch_url(url: String) -> Result<String, AppError> {
@@ -9,26 +10,28 @@ pub async fn fetch_url(url: String) -> Result<String, AppError> {
         return Err(AppError::Network(format!("HTTP {}", resp.status())));
     }
     let text = resp.text().await?;
-    Ok(strip_html_tags(&text))
+    Ok(extract_text_from_html(&text))
 }
-fn strip_html_tags(html: &str) -> String {
-    let mut out = String::with_capacity(html.len());
-    let mut in_tag = false;
-    let mut in_script = false;
-    for c in html.chars() {
-        if c == '<' { in_tag = true; continue; }
-        if c == '>' {
-            in_tag = false;
-            if in_script { in_script = false; }
-            continue;
+
+fn extract_text_from_html(html: &str) -> String {
+    let document = kuchiki::parse_html().one(html);
+
+    for selector in ["script", "style", "noscript"] {
+        if let Ok(nodes) = document.select(selector) {
+            for node in nodes {
+                node.as_node().detach();
+            }
         }
-        if in_tag {
-            if html.contains("<script") { in_script = true; }
-            continue;
-        }
-        if !in_script { out.push(c); }
     }
-    out.split_whitespace().collect::<Vec<_>>().join(" ")
+
+    normalize_whitespace(&document.text_contents())
+}
+
+fn normalize_whitespace(input: &str) -> String {
+    input
+        .split_whitespace()
+        .collect::<Vec<_>>()
+        .join(" ")
 }
 // task 27: web search via serper.dev
 #[tauri::command]
