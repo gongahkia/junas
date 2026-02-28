@@ -93,4 +93,30 @@ describe('StorageManager conversation persistence', () => {
       })
     );
   });
+
+  it('sorts conversation history by latest update timestamp', async () => {
+    mockFs.listConversations.mockResolvedValue([
+      { id: 'conv-older', name: 'Older', updatedAt: '2026-02-28T01:00:00.000Z' },
+      { id: 'conv-newer', name: 'Newer', updatedAt: '2026-02-28T02:00:00.000Z' },
+    ]);
+    mockFs.loadConversation
+      .mockResolvedValueOnce({
+        id: 'conv-older',
+        title: 'Older',
+        messages: [{ id: 'm1', role: 'user', content: 'older' }],
+        createdAt: '2026-02-28T00:00:00.000Z',
+        updatedAt: '2026-02-28T01:00:00.000Z',
+      })
+      .mockResolvedValueOnce({
+        id: 'conv-newer',
+        title: 'Newer',
+        messages: [{ id: 'm1', role: 'user', content: 'newer' }],
+        createdAt: '2026-02-28T00:00:00.000Z',
+        updatedAt: '2026-02-28T02:00:00.000Z',
+      });
+
+    const metadata = await StorageManager.getConversationsAsync();
+
+    expect(metadata.map((item) => item.id)).toEqual(['conv-newer', 'conv-older']);
+  });
 });

@@ -1,4 +1,3 @@
-(B) Add fast unit tests for command parsing, TOML parsing, citation extraction, and history persistence. +dx +testing +quality
 (B) Add a smoke integration test that sends a prompt, streams a response, persists chat state, and reloads history. +dx +testing +stability
 (B) Disable Tauri `devtools` feature in release builds by removing unconditional `features = ["devtools"]` from `/src-tauri/Cargo.toml`. +security +stability +hardening
 (B) Tighten Tauri CSP in `/src-tauri/tauri.conf.json` by removing `script-src 'unsafe-inline'` after diagram rendering hardening lands. +security +hardening +stability
