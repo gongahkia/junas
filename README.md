@@ -1,46 +1,30 @@
 # Noupe
 
-## Workflow 
-
-* FastAPI orchestration layer for 1-6 (gab)
-    * 3 and 4+5 running in parallel 
-* *Simple frontend (KIV)*
-
-1. Lexicon (gab)
-2. Embeddings (lexuan)
-3. Clustering (astin)
-4. Classification model 1 (gab, lexuan)
-5. Classification model 2 (gab, lexuan)
-6. Regression (astin)
-
 ## Architecture
 
 ```mermaid
 flowchart TD
     In[Ingestion] --> L1[1. Lexicon Check]
-    
-    L1 --> L2[2. Embeddings Generation]
-    
+
+    L1 -->|"Score < Threshold"| L2[2. Embeddings Generation]
+    L1 -->|"Score >= Threshold"| Out2
+
     %% Parallel processing
     L2 --> L3[3. Clustering]
     L2 --> L4[4. Classification Model 1]
-    
+
     %% Sequential from Model 1
-    L4 --> L5[5. Classification Model 2]
-    
+    L4 --> L4b[4b. Classification Model 2]
+
+    %% Convergence to Mosaic
+    L3 --> L5[5. Mosaic Aggregation Logic]
+    L4b --> L5
+
     %% Convergence to Regression
-    L3 --> Reg[6. Regression]
-    L5 --> Reg
-    
-    Reg --> Out[Final Output]
+    L5 --> Reg[6. Regression]
+
+    Reg --> Out2["Final Output"]
 ```
-
-## Timeline
-
-* 19 January 2026: Internal check 1 for repo efficacy
-* 22 January 2026: Internal check 2 for repo efficacy
-* 23 January 2026: Shikhar deadline for first-pass of this repo
-* 2 March 2026: Midterm presentation   
 
 ## Ingestion schema (for training data)
 
@@ -122,6 +106,7 @@ flowchart TD
 
     // layer 1
     document_lexicon_check: Boolean,
+    document_lexicon_score: Double,
     document_lexicon_blacklist: Null|[String],
 
     // layer 2
@@ -138,8 +123,8 @@ flowchart TD
     document_classification_model_2_classification_score: Double,
 
     // layer 5
-    document_mosiac_aggregation_check: Boolean,
-    document_mosiac_aggregation_score: Null|Double,
+    document_mosaic_aggregation_check: Boolean,
+    document_mosaic_aggregation_score: Null|Double,
 
     // layer 6
     document_risk_probability: Double,
@@ -167,4 +152,5 @@ flowchart TD
         // ... 
     ]
 }
+
 ```

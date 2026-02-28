@@ -32,6 +32,11 @@ The `/classify` endpoint runs layers sequentially:
 1. **Lexicon filter** — regex, spaCy NER, Presidio PII, restricted list cross-ref. Short-circuits to `HIGH_RISK` if a restricted entity or financial figure above threshold ($1M default) is detected.
 2. **Model-1 (FinBERT)** — binary classifier: safe vs risk. Only runs if lexicon doesn't short-circuit. Skipped if checkpoint doesn't exist (falls back to lexicon-only).
 3. **Model-2 (BERT)** — binary classifier: low_risk vs high_risk. Only runs if Model-1 outputs risk. Skipped if checkpoint doesn't exist (defaults to `LOW_RISK`).
+<<<<<<< HEAD
+=======
+4. **Mosaic Aggregation** — Redis TTL-based fragment tracking. Escalates `LOW_RISK` outputs to `HIGH_RISK` if multiple occurrences are detected for the same entity within a configured time window.
+5. **Regression** — Combines scores from previous layers (currently a stub, not yet fully trained).
+>>>>>>> a2fec9b841c6464d8ba49b2dcea8161de5fe6c0b
 
 ## Training Models
 
@@ -63,7 +68,11 @@ Checkpoints saved to `model-2/checkpoints/best/`.
 python3 embeddings/generate_embeddings.py
 ```
 
+<<<<<<< HEAD
 Outputs `public_embeddings.npy` and `violation_embeddings.npy`. Requires `public_texts` and `violation_texts` variables to be defined (currently a placeholder script).
+=======
+Outputs `public_embeddings.npy`, `violation_embeddings.npy`, and `all_embeddings.npy` (all sentences combined, used to train the Isolation Forest). Requires `docs/json/` to contain valid training JSON files.
+>>>>>>> a2fec9b841c6464d8ba49b2dcea8161de5fe6c0b
 
 ## Configuration
 
@@ -76,6 +85,11 @@ Outputs `public_embeddings.npy` and `violation_embeddings.npy`. Requires `public
 | `IF_CONTAMINATION` | `0.05` | Expected anomaly fraction in IF training data |
 | `IF_MAX_FEATURES` | `0.3` | Fraction of embedding dims each IF tree randomly samples |
 | `IF_N_ESTIMATORS` | `100` | Number of trees in the Isolation Forest |
+<<<<<<< HEAD
+=======
+| `MOSAIC_TTL_HOURS` | `24` | Hours to retain history for an entity's occurrences |
+| `MOSAIC_THRESHOLD` | `10` | Disparate low-risk events needed for high-risk escalation |
+>>>>>>> a2fec9b841c6464d8ba49b2dcea8161de5fe6c0b
 
 ## Restricted List
 
@@ -89,21 +103,36 @@ Matches are case-insensitive on name, exact on ticker/ISIN.
 
 ## Training the Anomaly Detector (Isolation Forest)
 
+<<<<<<< HEAD
 Requires a `.npy` file of pre-computed public document embeddings (output of `embeddings/generate_embeddings.py`).
 
 ```sh
 python3 clustering/isolation_forest.py public_embeddings.npy
+=======
+Requires `all_embeddings.npy` (output of `embeddings/generate_embeddings.py`). The IF trains on all known sentences (public + violation) so it can detect truly novel/unknown MNPI patterns as anomalies.
+
+```sh
+python3 clustering/isolation_forest.py all_embeddings.npy
+>>>>>>> a2fec9b841c6464d8ba49b2dcea8161de5fe6c0b
 ```
 
 Checkpoint saved to `clustering/checkpoints/anomaly_detector.joblib`. An optional second argument overrides the output path:
 
 ```sh
+<<<<<<< HEAD
 python3 clustering/isolation_forest.py public_embeddings.npy path/to/output.joblib
+=======
+python3 clustering/isolation_forest.py all_embeddings.npy path/to/output.joblib
+>>>>>>> a2fec9b841c6464d8ba49b2dcea8161de5fe6c0b
 ```
 
 ## Not Yet Implemented
 
+<<<<<<< HEAD
 - Mosaic aggregation (Redis TTL-based fragment tracking)
 - XGBoost regression (multivariate risk scoring)
+=======
+- Complete XGBoost regression training (currently using a stub)
+>>>>>>> a2fec9b841c6464d8ba49b2dcea8161de5fe6c0b
 
 See `docs/assumption.md` for all assumed schemas and thresholds.

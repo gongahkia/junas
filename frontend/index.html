@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noupe</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js"></script>
+</head>
+
+<body>
+    <div id="main-layout">
+        <div id="analyzer-container">
+            <header>
+                <h1>Noupe</h1>
+                <div id="connection-status" title="API Status" style="display: flex; align-items: center; gap: 8px;">
+                    <div class="status-dot"></div>
+                    <span id="connection-text"
+                        style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);">Backend at :8000
+                        DOWN</span>
+                </div>
+            </header>
+
+            <main>
+                <div class="input-section">
+                    <input type="text" id="entity-input" placeholder="Entity ID (optional, for Mosaic tracking)" style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.9rem; outline: none; transition: all 0.2s;">
+                    <textarea id="analyze-input" placeholder="Enter text to classify sensitivity..."></textarea>
+                    <button id="classify-btn">Classify Text</button>
+                </div>
+
+                <div id="results-display" class="hidden">
+                    <!-- Results will be injected here -->
+                </div>
+            </main>
+        </div>
+
+        <div id="debug-sidebar">
+            <header>
+                <h2>Request log</h2>
+            </header>
+            <div id="debug-content">
+                <div class="debug-section">
+                    <h3>cURL Request</h3>
+                    <pre><code id="curl-code" class="language-bash">No requests sent yet.</code></pre>
+                </div>
+                <div class="debug-section">
+                    <h3>JSON Response</h3>
+                    <pre><code id="json-code" class="language-json">Waiting for data...</code></pre>
+                </div>
+                <div class="debug-section">
+                    <h3>Classification trace</h3>
+                    <div id="architecture-diagram"
+                        style="background: white; border: 1px solid #e5e5e5; border-radius: 8px; padding: 16px; min-height: 200px; display: flex; align-items: center; justify-content: center;">
+                        <span style="color: #999; font-size: 0.8rem; font-family: 'Space Mono', monospace;">Waiting for
+                            classification...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

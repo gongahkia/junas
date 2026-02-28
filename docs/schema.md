@@ -30,7 +30,11 @@ All training data JSON files must conform to this schema (validated by `scripts/
 | Field | Type | Description |
 |---|---|---|
 | `text` | `str` | raw sentence text |
+<<<<<<< HEAD
 | `label` | `str` | class label (e.g. `"public"`, `"non_public"`, `"low_risk"`, `"high_risk"`) |
+=======
+| `label` | `str` | class label (`"non"`, `"low"`, `"high"`) |
+>>>>>>> a2fec9b841c6464d8ba49b2dcea8161de5fe6c0b
 
 **Validation:** `scripts/validate_training_data.py <file.json>` — exits `0` on pass, `1` on failure. Runs automatically as a pre-commit hook on all staged `.json` files.
 
@@ -84,6 +88,10 @@ All training data JSON files must conform to this schema (validated by `scripts/
 |---|---|---|
 | `public_texts` | `list[str]` | corpus of public/safe text |
 | `violation_texts` | `list[str]` | corpus of violation text |
+<<<<<<< HEAD
+=======
+| `all_texts` | `list[str]` | all sentences regardless of label (used for IsolationForest) |
+>>>>>>> a2fec9b841c6464d8ba49b2dcea8161de5fe6c0b
 
 ### Output
 
@@ -91,6 +99,10 @@ All training data JSON files must conform to this schema (validated by `scripts/
 |---|---|---|
 | `public_embeddings.npy` | `(n, 768)` | float32 ndarray, one 768-dim vector per public text |
 | `violation_embeddings.npy` | `(m, 768)` | float32 ndarray, one 768-dim vector per violation text |
+<<<<<<< HEAD
+=======
+| `all_embeddings.npy` | `(n+m, 768)` | float32 ndarray, all sentences combined — used to train the Isolation Forest |
+>>>>>>> a2fec9b841c6464d8ba49b2dcea8161de5fe6c0b
 
 Model: `all-mpnet-base-v2` (768-dim embeddings).
 
@@ -104,7 +116,11 @@ Model: `all-mpnet-base-v2` (768-dim embeddings).
 
 | Param | Type | Description |
 |---|---|---|
+<<<<<<< HEAD
 | `embeddings_path` | `str` | path to `.npy` file of public document embeddings, shape `(n, 768)` |
+=======
+| `embeddings_path` | `str` | path to `.npy` file of all-sentence embeddings (public + violation), shape `(n, 768)` — use `all_embeddings.npy` |
+>>>>>>> a2fec9b841c6464d8ba49b2dcea8161de5fe6c0b
 | `save_path` | `str` | output path for the joblib checkpoint (default: `clustering/checkpoints/anomaly_detector.joblib`) |
 
 ### Training Output
@@ -231,7 +247,12 @@ HuggingFace checkpoint saved to `model-2/checkpoints/best/` (model weights, toke
     "restricted_entities": [{"name": "str", "ticker": "str", "isin": "str"}]
   },
   "model1": {"label": "str", "confidence": "float", "risk_score": "float"} | null,
+<<<<<<< HEAD
   "model2": {"label": "str", "confidence": "float", "high_risk_score": "float"} | null
+=======
+  "model2": {"label": "str", "confidence": "float", "high_risk_score": "float"} | null,
+  "mosaic": {"escalated": "bool", "count": "int"} | null
+>>>>>>> a2fec9b841c6464d8ba49b2dcea8161de5fe6c0b
 }
 ```
 
@@ -242,11 +263,38 @@ HuggingFace checkpoint saved to `model-2/checkpoints/best/` (model weights, toke
 **Response:**
 
 ```json
+<<<<<<< HEAD
 {"status": "ok", "lexicon_loaded": "bool", "model1_loaded": "bool", "model2_loaded": "bool"}
+=======
+{"status": "ok", "lexicon_loaded": "bool", "model1_loaded": "bool", "model2_loaded": "bool", "mosaic_loaded": "bool"}
+>>>>>>> a2fec9b841c6464d8ba49b2dcea8161de5fe6c0b
 ```
 
 ---
 
+<<<<<<< HEAD
+=======
+## `mosaic/` — Redis-backed State Tracking
+
+### Tracking Output
+
+| Field | Type | Description |
+|---|---|---|
+| `escalated` | `bool` | `True` if entity has 10+ Low Risk events within TTL (escalated to High Risk) |
+| `count` | `int` | Number of previous Low Risk fragments assigned to this entity within TTL |
+
+### Config
+
+| Env Var | Default | Description |
+|---|---|---|
+| `MOSAIC_TTL_HOURS` | `24` | Hours to retain history for an entity's occurrences |
+| `MOSAIC_THRESHOLD` | `10` | The number of Low Risk occurrences that triggers escalation to High Risk |
+| `REDIS_HOST` | `localhost` | Redis instance hostname |
+| `REDIS_PORT` | `6379` | Redis port config |
+
+---
+
+>>>>>>> a2fec9b841c6464d8ba49b2dcea8161de5fe6c0b
 ## `regression/` — XGBoost (not implemented)
 
 Intended input features:
@@ -257,6 +305,10 @@ Intended input features:
 | `anomaly_score` | clustering layer | `float` |
 | `bert_risk_score` | model-1 | `float` |
 | `bert_severity_score` | model-2 | `float` |
+<<<<<<< HEAD
 | `mosaic_frequency` | Redis mosaic aggregation | `int` |
+=======
+| `mosaic_count` | mosaic layer | `int` |
+>>>>>>> a2fec9b841c6464d8ba49b2dcea8161de5fe6c0b
 
 Intended output: single `float` MNPI risk probability (0.0–1.0).
