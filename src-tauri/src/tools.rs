@@ -1,6 +1,9 @@
 use crate::error::AppError;
 use crate::types::SearchResult;
+use futures_util::StreamExt;
 use kuchiki::traits::*;
+
+const MAX_FETCH_BODY_BYTES: usize = 2 * 1024 * 1024;
 // task 26: fetch url, sanitize html, return markdown-ish text
 #[tauri::command]
 pub async fn fetch_url(url: String) -> Result<String, AppError> {
@@ -10,7 +13,30 @@ pub async fn fetch_url(url: String) -> Result<String, AppError> {
     if !resp.status().is_success() {
         return Err(AppError::Network(format!("HTTP {}", resp.status())));
     }
-    let text = resp.text().await?;
+
+    if let Some(content_length) = resp.content_length() {
+        if content_length > MAX_FETCH_BODY_BYTES as u64 {
+            return Err(AppError::Network(format!(
+                "Response too large ({} bytes). Limit is {} bytes.",
+                content_length, MAX_FETCH_BODY_BYTES
+            )));
+        }
+    }
+
+    let mut body: Vec<u8> = Vec::new();
+    let mut stream = resp.bytes_stream();
+    while let Some(chunk) = stream.next().await {
+        let chunk = chunk.map_err(AppError::from)?;
+        if body.len() + chunk.len() > MAX_FETCH_BODY_BYTES {
+            return Err(AppError::Network(format!(
+                "Response exceeded maximum size limit of {} bytes.",
+                MAX_FETCH_BODY_BYTES
+            )));
+        }
+        body.extend_from_slice(&chunk);
+    }
+
+    let text = String::from_utf8_lossy(&body).to_string();
     Ok(extract_text_from_html(&text))
 }
 
