@@ -42,11 +42,49 @@ import {
 import { useJunasContext } from '@/lib/context/JunasContext';
 import { ASCII_LOGOS } from '@/lib/ascii-logos';
 import { toActionableToastDescription } from '@/lib/tauri-error';
+import { z } from 'zod';
 
 interface ConfigDialogProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+const TomlSettingsSchema = z
+  .object({
+    temperature: z.number().min(0).max(2).optional(),
+    maxTokens: z.number().int().min(1).max(128000).optional(),
+    topP: z.number().min(0).max(1).optional(),
+    topK: z.number().int().min(1).max(1000).optional(),
+    frequencyPenalty: z.number().min(-2).max(2).optional(),
+    presencePenalty: z.number().min(-2).max(2).optional(),
+    systemPrompt: z.string().optional(),
+    autoSave: z.boolean().optional(),
+    darkMode: z.boolean().optional(),
+    agentMode: z.boolean().optional(),
+    focusMode: z.boolean().optional(),
+    theme: z
+      .enum([
+        'vanilla',
+        'gruvbox',
+        'everforest',
+        'tokyo-night',
+        'catppuccin',
+        'solarized',
+        'rose-pine',
+        'kanagawa',
+        'nord',
+        'cyberpunk',
+      ])
+      .optional(),
+    asciiLogo: z.string().optional(),
+    profile: z
+      .object({
+        userRole: z.string().optional(),
+        userPurpose: z.string().optional(),
+      })
+      .optional(),
+  })
+  .passthrough();
 
 type Tab =
   | 'profile'
@@ -307,14 +345,19 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   const handleSaveToml = () => {
     try {
       const parsed = parseToml(tomlContent);
+      const validation = TomlSettingsSchema.safeParse(parsed);
+      if (!validation.success) {
+        throw new Error(validation.error.issues[0]?.message || 'Invalid TOML configuration.');
+      }
+      const validatedConfig = validation.data;
 
       // Use 'any' to allow property manipulation before saving
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const mergedConfig: any = { ...settings, ...parsed };
+      const mergedConfig: any = { ...settings, ...validatedConfig };
 
-      if (parsed.profile) {
-        mergedConfig.userRole = parsed.profile.userRole || mergedConfig.userRole;
-        mergedConfig.userPurpose = parsed.profile.userPurpose || mergedConfig.userPurpose;
+      if (validatedConfig.profile) {
+        mergedConfig.userRole = validatedConfig.profile.userRole || mergedConfig.userRole;
+        mergedConfig.userPurpose = validatedConfig.profile.userPurpose || mergedConfig.userPurpose;
         delete mergedConfig.profile;
       }
 
@@ -335,7 +378,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       addToast({
         type: 'error',
         title: 'Parse Error',
-        description: 'Invalid TOML format.',
+        description: e?.message || 'Invalid TOML format.',
         duration: 3000,
       });
     }
