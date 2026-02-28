@@ -1,5 +1,15 @@
 import { Message } from '@/types/chat';
 
+function escapeDotLabelText(text: string): string {
+  return text
+    .replace(/\\/g, '\\\\')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '\\"')
+    .replace(/\n/g, ' ');
+}
+
 export function getLinearHistory(nodeMap: Record<string, Message>, leafId: string): Message[] {
   const history: Message[] = [];
   let currentId: string | undefined = leafId;
@@ -21,7 +31,11 @@ export function getBranchSiblings(nodeMap: Record<string, Message>, nodeId: stri
   return parent.childrenIds || [nodeId];
 }
 
-export function addChild(nodeMap: Record<string, Message>, parentId: string, child: Message): Record<string, Message> {
+export function addChild(
+  nodeMap: Record<string, Message>,
+  parentId: string,
+  child: Message
+): Record<string, Message> {
   const newNodeMap = { ...nodeMap };
 
   // Add child
@@ -37,7 +51,10 @@ export function addChild(nodeMap: Record<string, Message>, parentId: string, chi
   return newNodeMap;
 }
 
-export function createTreeFromLinear(messages: Message[]): { nodeMap: Record<string, Message>, leafId: string } {
+export function createTreeFromLinear(messages: Message[]): {
+  nodeMap: Record<string, Message>;
+  leafId: string;
+} {
   const nodeMap: Record<string, Message> = {};
   let prevId: string | undefined = undefined;
   let leafId = '';
@@ -55,7 +72,11 @@ export function createTreeFromLinear(messages: Message[]): { nodeMap: Record<str
   return { nodeMap, leafId };
 }
 
-export function generateDotTree(nodeMap: Record<string, Message>, currentLeafId: string | undefined, darkMode: boolean = false): string {
+export function generateDotTree(
+  nodeMap: Record<string, Message>,
+  currentLeafId: string | undefined,
+  darkMode: boolean = false
+): string {
   let dot = 'digraph G {\n';
   dot += '  rankdir=TB;\n';
   dot += '  bgcolor="transparent";\n';
@@ -72,29 +93,46 @@ export function generateDotTree(nodeMap: Record<string, Message>, currentLeafId:
   }
 
   // Sort nodes by timestamp to ensure deterministic graph (mostly)
-  const sortedNodes = Object.values(nodeMap).sort((a, b) =>
-    new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+  const sortedNodes = Object.values(nodeMap).sort(
+    (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
   );
 
-  sortedNodes.forEach(node => {
+  sortedNodes.forEach((node) => {
     const isActive = activePath.has(node.id);
     const isLeaf = currentLeafId === node.id;
 
     const roleLabel = node.role === 'user' ? 'USER' : 'JUNAS';
-    let contentPreview = node.content.substring(0, 30).replace(/"/g, '\\"').replace(/\n/g, ' ');
+    let contentPreview = escapeDotLabelText(node.content.substring(0, 30));
     if (node.content.length > 30) contentPreview += '...';
 
     const label = `${roleLabel}\\n${contentPreview}`;
 
-    const color = isActive ? (darkMode ? '#ffffff' : '#000000') : (darkMode ? '#525252' : '#aaaaaa');
-    const fill = isActive ? (isLeaf ? (darkMode ? '#14532d' : '#e6ffe6') : (darkMode ? '#404040' : '#f5f5f5')) : (darkMode ? '#262626' : '#ffffff');
+    const color = isActive ? (darkMode ? '#ffffff' : '#000000') : darkMode ? '#525252' : '#aaaaaa';
+    const fill = isActive
+      ? isLeaf
+        ? darkMode
+          ? '#14532d'
+          : '#e6ffe6'
+        : darkMode
+          ? '#404040'
+          : '#f5f5f5'
+      : darkMode
+        ? '#262626'
+        : '#ffffff';
     const shape = node.role === 'user' ? 'box' : 'rect'; // rect with rounded style
 
     // Use 'class' attribute for styling hook (viz.js supports it)
     dot += `  "${node.id}" [label="${label}", shape=${shape}, color="${color}", fillcolor="${fill}", id="node_${node.id}", class="tree-node ${isActive ? 'active' : ''}"];\n`;
 
     if (node.parentId) {
-      const edgeColor = isActive && activePath.has(node.parentId) ? (darkMode ? '#ffffff' : '#000000') : (darkMode ? '#525252' : '#cccccc');
+      const edgeColor =
+        isActive && activePath.has(node.parentId)
+          ? darkMode
+            ? '#ffffff'
+            : '#000000'
+          : darkMode
+            ? '#525252'
+            : '#cccccc';
       const penWidth = isActive && activePath.has(node.parentId) ? 2 : 1;
       dot += `  "${node.parentId}" -> "${node.id}" [color="${edgeColor}", penwidth=${penWidth}];\n`;
     }
