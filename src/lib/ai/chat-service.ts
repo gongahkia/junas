@@ -4,9 +4,62 @@ import { getDefaultPromptConfig, generateSystemPrompt } from '@/lib/prompts/syst
 import * as bridge from '@/lib/tauri-bridge';
 import { getApiKey } from '@/lib/tauri-bridge';
 import { getProviderRegistryEntry, PROVIDER_IDS } from '@/lib/providers/registry';
+import {
+  extractSingaporeCitations,
+  normalizeExtractedCitations,
+  validateCitations,
+} from '@/lib/citations';
+
 export interface SendMessageResult {
   content: string;
 }
+
+const LEGAL_ANALYSIS_KEYWORDS = [
+  'legal',
+  'law',
+  'case',
+  'case law',
+  'statute',
+  'act',
+  'regulation',
+  'court',
+  'judgment',
+  'citation',
+  'negligence',
+  'liability',
+  'contract',
+  'tort',
+  'precedent',
+  'compliance',
+];
+
+const LEGAL_ACCURACY_CAUTION_BLOCK =
+  '\n\n**Legal Accuracy Notice:** No valid legal citations were detected in this answer. Verify with authoritative Singapore legal sources before relying on this analysis.';
+
+function isLikelyLegalAnalysisPrompt(messages: Message[]): boolean {
+  const lastUserMessage = [...messages].reverse().find((message) => message.role === 'user');
+  if (!lastUserMessage) return false;
+
+  const lowered = lastUserMessage.content.toLowerCase();
+  return LEGAL_ANALYSIS_KEYWORDS.some((keyword) => lowered.includes(keyword));
+}
+
+function hasValidCitation(content: string): boolean {
+  const extracted = extractSingaporeCitations(content);
+  if (extracted.length === 0) return false;
+
+  const normalized = normalizeExtractedCitations(extracted);
+  const validated = validateCitations(normalized);
+  return validated.some((citation) => citation.validationStatus === 'valid');
+}
+
+function applyLegalAccuracyCaution(messages: Message[], content: string): string {
+  if (!isLikelyLegalAnalysisPrompt(messages)) return content;
+  if (hasValidCitation(content)) return content;
+  if (content.includes('Legal Accuracy Notice:')) return content;
+  return `${content}${LEGAL_ACCURACY_CAUTION_BLOCK}`;
+}
+
 export class ChatService {
   private static getAvailableProvider(configuredProviders: Record<string, boolean>): string | null {
     for (const provider of PROVIDER_IDS) {
@@ -100,7 +153,7 @@ export class ChatService {
       } finally {
         if (unlisten) unlisten();
       }
-      return { content: fullResponse };
+      return { content: applyLegalAccuracyCaution(messages, fullResponse) };
     } catch (error: any) {
       if (!error.message?.includes('No API keys configured'))
         console.error('Chat service error:', error);
