@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { getModelsWithStatus, AVAILABLE_MODELS } from '@/lib/ml/model-manager';
+import { getApiKey, healthCheck } from '@/lib/tauri-bridge';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ChevronDown, Cpu, Cloud, Globe } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { ChevronDown, Cpu, Cloud } from 'lucide-react';
+import { PROVIDER_LIST } from '@/lib/providers/registry';
 
 interface InlineProviderSelectorProps {
   currentProvider: string;
@@ -18,7 +19,7 @@ interface InlineProviderSelectorProps {
 export function InlineProviderSelector({
   currentProvider,
   onProviderChange,
-  disabled
+  disabled,
 }: InlineProviderSelectorProps) {
   const [configuredProviders, setConfiguredProviders] = useState<string[]>([]);
   const [providerHealth, setProviderHealth] = useState<Record<string, string>>({});
@@ -27,31 +28,44 @@ export function InlineProviderSelector({
   const checkStatus = async () => {
     // Check local models
     const models = getModelsWithStatus();
-    const downloadedCount = models.filter(m => m.isDownloaded).length;
+    const downloadedCount = models.filter((m) => m.isDownloaded).length;
     setHasLocalModels(downloadedCount === AVAILABLE_MODELS.length);
 
-    // Check API providers configuration
-    try {
-      const res = await fetch('/api/auth/keys');
-      if (res.ok) {
-        const { configured } = await res.json();
-        const providers = Object.keys(configured).filter(k => configured[k]);
-        setConfiguredProviders(providers);
+    // Check provider configuration via keychain
+    const configured: string[] = [];
+    const health: Record<string, string> = {};
+
+    for (const provider of PROVIDER_LIST) {
+      let keyOrEndpoint = '';
+      try {
+        keyOrEndpoint = await getApiKey(provider.id);
+      } catch {
+        keyOrEndpoint = '';
       }
-    } catch (e) {
-      console.error('Failed to fetch provider status', e);
+
+      const isConfigured = provider.isLocal
+        ? Boolean((keyOrEndpoint || provider.defaultEndpoint)?.trim())
+        : Boolean(keyOrEndpoint?.trim());
+
+      if (isConfigured) {
+        configured.push(provider.id);
+      }
+
+      if (!isConfigured && !provider.isLocal) {
+        continue;
+      }
+
+      try {
+        const endpoint = provider.isLocal ? keyOrEndpoint || provider.defaultEndpoint : undefined;
+        const ok = await healthCheck(provider.id, endpoint);
+        health[provider.id] = ok ? 'online' : 'offline';
+      } catch {
+        health[provider.id] = 'offline';
+      }
     }
 
-    // Check health status
-    try {
-      const healthRes = await fetch('/api/providers/health');
-      if (healthRes.ok) {
-        const healthData = await healthRes.json();
-        setProviderHealth(healthData);
-      }
-    } catch (e) {
-      console.error('Failed to fetch health status', e);
-    }
+    setConfiguredProviders(configured);
+    setProviderHealth(health);
   };
 
   useEffect(() => {
@@ -69,13 +83,20 @@ export function InlineProviderSelector({
 
   const getProviderLabel = (id: string) => {
     switch (id) {
-      case 'local': return 'Local Models (Offline)';
-      case 'gemini': return 'Google Gemini';
-      case 'openai': return 'OpenAI GPT-4';
-      case 'claude': return 'Anthropic Claude';
-      case 'ollama': return 'Ollama (Local)';
-      case 'lmstudio': return 'LM Studio (Local)';
-      default: return id.charAt(0).toUpperCase() + id.slice(1);
+      case 'local':
+        return 'Local Models (Offline)';
+      case 'gemini':
+        return 'Google Gemini';
+      case 'openai':
+        return 'OpenAI GPT-4';
+      case 'claude':
+        return 'Anthropic Claude';
+      case 'ollama':
+        return 'Ollama (Local)';
+      case 'lmstudio':
+        return 'LM Studio (Local)';
+      default:
+        return id.charAt(0).toUpperCase() + id.slice(1);
     }
   };
 
@@ -85,18 +106,18 @@ export function InlineProviderSelector({
   };
 
   const getHealthIndicator = (id: string) => {
-    if (id === 'local') return <div className="h-1.5 w-1.5 rounded-full bg-green-500" title="Available" />;
+    if (id === 'local')
+      return <div className="h-1.5 w-1.5 rounded-full bg-green-500" title="Available" />;
 
     const status = providerHealth[id];
-    if (status === 'online') return <div className="h-1.5 w-1.5 rounded-full bg-green-500" title="Online" />;
-    if (status === 'offline') return <div className="h-1.5 w-1.5 rounded-full bg-red-500" title="Offline" />;
+    if (status === 'online')
+      return <div className="h-1.5 w-1.5 rounded-full bg-green-500" title="Online" />;
+    if (status === 'offline')
+      return <div className="h-1.5 w-1.5 rounded-full bg-red-500" title="Offline" />;
     return <div className="h-1.5 w-1.5 rounded-full bg-gray-400" title="Unconfigured" />;
   };
 
-  const availableOptions = [
-    ...(hasLocalModels ? ['local'] : []),
-    ...configuredProviders
-  ];
+  const availableOptions = [...(hasLocalModels ? ['local'] : []), ...configuredProviders];
 
   if (availableOptions.length === 0) {
     return <span className="text-xs text-muted-foreground">No providers available</span>;
@@ -104,7 +125,10 @@ export function InlineProviderSelector({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger disabled={disabled} className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50 outline-none">
+      <DropdownMenuTrigger
+        disabled={disabled}
+        className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50 outline-none"
+      >
         <div className="flex items-center gap-1.5">
           {getProviderIcon(currentProvider)}
           <span className="font-mono hidden md:inline">{getProviderLabel(currentProvider)}</span>
@@ -115,7 +139,7 @@ export function InlineProviderSelector({
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="w-56">
-        {availableOptions.map(id => (
+        {availableOptions.map((id) => (
           <DropdownMenuItem
             key={id}
             onClick={() => onProviderChange(id)}
