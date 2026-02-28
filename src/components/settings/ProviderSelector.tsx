@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Check, X } from 'lucide-react';
+import { getApiKey } from '@/lib/tauri-bridge';
 
 interface ProviderSelectorProps {
   currentProvider: string;
@@ -40,17 +40,24 @@ export function ProviderSelector({ currentProvider, onProviderChange }: Provider
   });
 
   useEffect(() => {
-    // Load configuration status from server-side session
+    // Load configuration status from keychain-backed Tauri commands.
     loadConfigStatus();
   }, []);
 
   const loadConfigStatus = async () => {
+    const nextConfigured: Record<string, boolean> = {};
+
     try {
-      const response = await fetch('/api/auth/keys');
-      if (response.ok) {
-        const { configured: configuredKeys } = await response.json();
-        setConfigured(configuredKeys);
+      for (const provider of providers) {
+        try {
+          const key = await getApiKey(provider.id);
+          nextConfigured[provider.id] = Boolean(key?.trim());
+        } catch {
+          nextConfigured[provider.id] = false;
+        }
       }
+
+      setConfigured(nextConfigured);
     } catch (error) {
       console.error('Failed to load API key status:', error);
     }
@@ -82,8 +89,8 @@ export function ProviderSelector({ currentProvider, onProviderChange }: Provider
                 isSelected
                   ? 'ring-2 ring-primary border-primary'
                   : isAvailable
-                  ? 'hover:border-primary/50'
-                  : 'opacity-50 cursor-not-allowed'
+                    ? 'hover:border-primary/50'
+                    : 'opacity-50 cursor-not-allowed'
               }`}
               onClick={() => isAvailable && onProviderChange(provider.id)}
             >
@@ -91,24 +98,16 @@ export function ProviderSelector({ currentProvider, onProviderChange }: Provider
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-base">{provider.name}</CardTitle>
                   <div className="flex items-center space-x-1">
-                    {isSelected && (
-                      <Check className="w-4 h-4 text-primary" />
-                    )}
-                    {!hasKey && (
-                      <X className="w-4 h-4 text-muted-foreground" />
-                    )}
+                    {isSelected && <Check className="w-4 h-4 text-primary" />}
+                    {!hasKey && <X className="w-4 h-4 text-muted-foreground" />}
                   </div>
                 </div>
-                <CardDescription className="text-sm">
-                  {provider.description}
-                </CardDescription>
+                <CardDescription className="text-sm">{provider.description}</CardDescription>
               </CardHeader>
-              
+
               <CardContent className="pt-0">
                 <div className="space-y-2">
-                  <div className="text-xs text-muted-foreground">
-                    Features:
-                  </div>
+                  <div className="text-xs text-muted-foreground">Features:</div>
                   <ul className="text-xs space-y-1">
                     {provider.features.map((feature, index) => (
                       <li key={index} className="flex items-center space-x-1">
@@ -117,7 +116,7 @@ export function ProviderSelector({ currentProvider, onProviderChange }: Provider
                       </li>
                     ))}
                   </ul>
-                  
+
                   <div className="pt-2">
                     {hasKey ? (
                       <div className="flex items-center space-x-1 text-green-600 text-xs">
@@ -140,7 +139,8 @@ export function ProviderSelector({ currentProvider, onProviderChange }: Provider
 
       <div className="text-xs text-muted-foreground">
         <p>
-          <strong>Note:</strong> Configure API keys in the API Keys section. Keys are securely stored in your server-side session.
+          <strong>Note:</strong> Configure API keys in the API Keys section. Keys are securely
+          stored in your OS keychain.
         </p>
       </div>
     </div>
