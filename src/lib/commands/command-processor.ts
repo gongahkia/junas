@@ -26,6 +26,19 @@ export type {
 };
 export { COMMANDS };
 
+const COMMAND_TEXT_LIMITS: Partial<Record<CommandType, number>> = {
+  'extract-entities': 120_000,
+  'analyze-document': 120_000,
+  'summarize-local': 80_000,
+  'ner-advanced': 80_000,
+  'classify-text': 40_000,
+  'fetch-url': 2_000,
+  'web-search': 500,
+  'search-case-law': 1_000,
+  'research-statute': 1_000,
+  'generate-document': 200_000,
+};
+
 function getDisabledTools(): Set<string> {
   if (typeof window === 'undefined') return new Set();
 
@@ -47,6 +60,26 @@ export function isCommandDisabled(commandId: string): boolean {
 function createConfiguredSingaporeAdapter() {
   const config = loadSingaporeLegalSourceConfigFromStorage();
   return createSingaporeLegalSourceAdapter(config);
+}
+
+function validateCommandTextLength(
+  commandType: CommandType,
+  args: string
+): { ok: true } | { ok: false; message: string } {
+  const maxLength = COMMAND_TEXT_LIMITS[commandType];
+  if (!maxLength) return { ok: true };
+
+  const inputLength = args.length;
+  if (inputLength <= maxLength) return { ok: true };
+
+  return {
+    ok: false,
+    message: [
+      `Input too long for /${commandType}.`,
+      `Length: ${inputLength.toLocaleString()} characters (max ${maxLength.toLocaleString()}).`,
+      `Please truncate your text and retry.`,
+    ].join(' '),
+  };
 }
 
 async function searchCaseLawLocalFirst(query: string): Promise<LegalSearchResult[]> {
@@ -130,6 +163,14 @@ export function processLocalCommand(command: ProcessedCommand): LocalCommandResu
     return {
       success: false,
       content: `Please provide text after the /${commandType} command.\n\nExample:\n\`/${commandType} [your text here]\``,
+    };
+  }
+
+  const lengthValidation = validateCommandTextLength(commandType, args);
+  if (!lengthValidation.ok) {
+    return {
+      success: false,
+      content: lengthValidation.message,
     };
   }
 
@@ -258,6 +299,14 @@ export async function processAsyncLocalCommand(
     return {
       success: false,
       content: `Command /${commandType} is disabled in Tools settings.`,
+    };
+  }
+
+  const lengthValidation = validateCommandTextLength(commandType, args);
+  if (!lengthValidation.ok) {
+    return {
+      success: false,
+      content: lengthValidation.message,
     };
   }
 
