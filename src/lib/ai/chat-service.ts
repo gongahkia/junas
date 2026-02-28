@@ -4,6 +4,7 @@ import { getDefaultPromptConfig, generateSystemPrompt } from '@/lib/prompts/syst
 import * as bridge from '@/lib/tauri-bridge';
 import { getApiKey } from '@/lib/tauri-bridge';
 import { getProviderRegistryEntry, PROVIDER_IDS } from '@/lib/providers/registry';
+import { estimateTokens } from '@/lib/ai/token-utils';
 import {
   extractSingaporeCitations,
   normalizeExtractedCitations,
@@ -39,6 +40,17 @@ const LEGAL_ANALYSIS_KEYWORDS = [
 
 const LEGAL_ACCURACY_CAUTION_BLOCK =
   '\n\n**Legal Accuracy Notice:** No valid legal citations were detected in this answer. Verify with authoritative Singapore legal sources before relying on this analysis.';
+
+const PROVIDER_CONTEXT_TOKEN_BUDGET: Partial<Record<AIProvider, number>> = {
+  openai: 16_000,
+  claude: 18_000,
+  gemini: 20_000,
+  ollama: 8_000,
+  lmstudio: 8_000,
+};
+const DEFAULT_CONTEXT_TOKEN_BUDGET = 12_000;
+const MESSAGE_TOKEN_OVERHEAD = 10;
+const MIN_CONTEXT_TOKEN_BUDGET = 1_500;
 
 function createAbortError(): Error {
   const error = new Error('Request cancelled by user.');
@@ -104,6 +116,44 @@ function applyLegalAccuracyCaution(messages: Message[], content: string): string
   return `${content}${LEGAL_ACCURACY_CAUTION_BLOCK}`;
 }
 
+function resolveContextBudget(provider: string, settings: ChatSettings): number {
+  const providerBudget =
+    PROVIDER_CONTEXT_TOKEN_BUDGET[provider as AIProvider] || DEFAULT_CONTEXT_TOKEN_BUDGET;
+  const requestedOutputTokens = settings.maxTokens ?? 4096;
+  const reservedOutputBudget = Math.max(512, Math.min(requestedOutputTokens, 4096));
+  return Math.max(MIN_CONTEXT_TOKEN_BUDGET, providerBudget - reservedOutputBudget);
+}
+
+function estimateMessageTokens(message: Message): number {
+  return MESSAGE_TOKEN_OVERHEAD + estimateTokens(message.content || '');
+}
+
+function pruneMessagesToTokenBudget(messages: Message[], tokenBudget: number): Message[] {
+  if (messages.length === 0) return [];
+
+  const kept: Message[] = [];
+  let usedTokens = 0;
+
+  for (let i = messages.length - 1; i >= 0; i -= 1) {
+    const message = messages[i];
+    const messageTokens = estimateMessageTokens(message);
+    const canFit = usedTokens + messageTokens <= tokenBudget;
+
+    if (!canFit && kept.length > 0) {
+      continue;
+    }
+
+    kept.unshift(message);
+    usedTokens += messageTokens;
+  }
+
+  if (kept.length === 0) {
+    return [messages[messages.length - 1]];
+  }
+
+  return kept;
+}
+
 export class ChatService {
   private static getAvailableProvider(configuredProviders: Record<string, boolean>): string | null {
     for (const provider of PROVIDER_IDS) {
@@ -128,6 +178,8 @@ export class ChatService {
         provider = this.getAvailableProvider(configuredProviders);
       }
       if (!provider) throw new Error('No API keys configured. Please add an API key in settings.');
+      const contextBudget = resolveContextBudget(provider, settings);
+      const budgetedMessages = pruneMessagesToTokenBudget(messages, contextBudget);
       const model = getProviderRegistryEntry(provider as AIProvider).defaultModel;
       const config = getDefaultPromptConfig('standard');
       config.useTools = settings.agentMode;
@@ -152,7 +204,7 @@ export class ChatService {
       }
       if (customSystemPrompt) config.baseSystemPrompt = customSystemPrompt;
       config.systemPrompt = generateSystemPrompt(config);
-      const formattedMessages: bridge.Message[] = messages.map((msg) => ({
+      const formattedMessages: bridge.Message[] = budgetedMessages.map((msg) => ({
         role: msg.role,
         content: msg.content,
       }));
