@@ -237,7 +237,19 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     return result.content;
   };
 
-  // ... (useEffect for saving stays same)
+  // Persist active conversation whenever content changes.
+  useEffect(() => {
+    if (!settings.autoSave || messages.length === 0) return;
+
+    saveConversation({
+      id: conversationId,
+      title: conversationTitle || 'Untitled Conversation',
+      messages,
+      artifacts,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+  }, [settings.autoSave, messages, artifacts, conversationId, conversationTitle, saveConversation]);
 
   // Generate a title for the conversation after first exchange
   useEffect(() => {
