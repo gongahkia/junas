@@ -38,6 +38,13 @@ export class StorageManager {
   static saveSettings(settings: ChatSettings): void {
     cachedSettings = settings;
     fs.saveSettings(settings).catch(console.error);
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(
+        new CustomEvent('junas-settings-change', {
+          detail: { settings },
+        })
+      );
+    }
   }
   static getConversations(): Conversation[] {
     return [];
