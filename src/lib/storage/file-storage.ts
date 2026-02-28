@@ -13,7 +13,9 @@ async function readJson<T>(path: string, fallback: T): Promise<T> {
     if (!(await exists(path))) return fallback;
     const text = await readTextFile(path);
     return JSON.parse(text) as T;
-  } catch { return fallback; }
+  } catch {
+    return fallback;
+  }
 }
 async function writeJson(path: string, data: unknown) {
   await writeTextFile(path, JSON.stringify(data, null, 2));
@@ -31,7 +33,9 @@ export async function loadConversation(id: string): Promise<unknown | null> {
   return readJson(`${base}/conversations/${id}.json`, null);
 }
 // task 37: list conversations
-export async function listConversations(): Promise<{ id: string; name: string; updatedAt: string }[]> {
+export async function listConversations(): Promise<
+  { id: string; name: string; updatedAt: string }[]
+> {
   const base = await getBasePath();
   const dir = `${base}/conversations`;
   await ensureDir(dir);
@@ -42,11 +46,18 @@ export async function listConversations(): Promise<{ id: string; name: string; u
       if (entry.name?.endsWith('.json')) {
         const id = entry.name.replace('.json', '');
         const data = await readJson<any>(`${dir}/${entry.name}`, null);
-        if (data) results.push({ id, name: data.title || data.name || id, updatedAt: data.updatedAt || '' });
+        if (data)
+          results.push({
+            id,
+            name: data.title || data.name || id,
+            updatedAt: data.updatedAt || '',
+          });
       }
     }
     return results;
-  } catch { return []; }
+  } catch {
+    return [];
+  }
 }
 // task 38: delete conversation
 export async function deleteConversation(id: string) {
@@ -84,4 +95,16 @@ export async function saveSnippets(snippets: unknown) {
 export async function loadSnippets<T>(defaults: T): Promise<T> {
   const base = await getBasePath();
   return readJson<T>(`${base}/snippets.json`, defaults);
+}
+
+// local observability errors
+export async function saveErrorEvents(events: unknown) {
+  const base = await getBasePath();
+  await ensureDir(base);
+  await writeJson(`${base}/observability-errors.json`, events);
+}
+
+export async function loadErrorEvents<T>(defaults: T): Promise<T> {
+  const base = await getBasePath();
+  return readJson<T>(`${base}/observability-errors.json`, defaults);
 }

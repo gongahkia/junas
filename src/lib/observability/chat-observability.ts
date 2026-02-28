@@ -1,3 +1,5 @@
+import { loadErrorEvents, saveErrorEvents } from '@/lib/storage/file-storage';
+
 export type ObservabilityChannel = 'provider' | 'tool';
 
 export interface ChatObservabilityEvent {
@@ -21,8 +23,12 @@ interface MetricAccumulator {
 
 const EVENT_NAME = 'junas-observability';
 const MAX_RECENT_EVENTS = 200;
+const MAX_PERSISTED_ERROR_EVENTS = 200;
 const recentEvents: ChatObservabilityEvent[] = [];
 const metricAccumulators = new Map<string, MetricAccumulator>();
+let persistedErrorEvents: ChatObservabilityEvent[] = [];
+let hasLoadedPersistedErrors = false;
+let pendingPersistFlush: ReturnType<typeof setTimeout> | null = null;
 
 function createEventId(): string {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
@@ -72,6 +78,41 @@ function emitObservabilityEvent(event: ChatObservabilityEvent): void {
   }
 }
 
+async function ensurePersistedErrorsLoaded(): Promise<void> {
+  if (hasLoadedPersistedErrors) return;
+  hasLoadedPersistedErrors = true;
+
+  try {
+    const loaded = await loadErrorEvents<ChatObservabilityEvent[]>([]);
+    if (Array.isArray(loaded)) {
+      persistedErrorEvents = loaded.slice(-MAX_PERSISTED_ERROR_EVENTS);
+    }
+  } catch {
+    persistedErrorEvents = [];
+  }
+}
+
+function schedulePersistedErrorFlush(): void {
+  if (pendingPersistFlush) return;
+
+  pendingPersistFlush = setTimeout(() => {
+    pendingPersistFlush = null;
+    const snapshot = [...persistedErrorEvents];
+    saveErrorEvents(snapshot).catch(() => {
+      // Best effort persistence; failures should not interrupt chat flow.
+    });
+  }, 200);
+}
+
+async function persistErrorEvent(event: ChatObservabilityEvent): Promise<void> {
+  await ensurePersistedErrorsLoaded();
+  persistedErrorEvents.push(event);
+  if (persistedErrorEvents.length > MAX_PERSISTED_ERROR_EVENTS) {
+    persistedErrorEvents.splice(0, persistedErrorEvents.length - MAX_PERSISTED_ERROR_EVENTS);
+  }
+  schedulePersistedErrorFlush();
+}
+
 function recordEvent(
   channel: ObservabilityChannel,
   name: string,
@@ -94,6 +135,9 @@ function recordEvent(
     error,
   };
   emitObservabilityEvent(event);
+  if (!success) {
+    void persistErrorEvent(event);
+  }
   return event;
 }
 
@@ -118,4 +162,9 @@ export function recordToolObservability(
 
 export function getRecentObservabilityEvents(): ChatObservabilityEvent[] {
   return [...recentEvents];
+}
+
+export async function getPersistedObservabilityErrors(): Promise<ChatObservabilityEvent[]> {
+  await ensurePersistedErrorsLoaded();
+  return [...persistedErrorEvents];
 }
