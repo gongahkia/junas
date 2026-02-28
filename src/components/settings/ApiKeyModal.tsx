@@ -1,9 +1,16 @@
 import { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Eye, EyeOff, ExternalLink, Check, X } from 'lucide-react';
+import { deleteApiKey, getApiKey, setApiKey } from '@/lib/tauri-bridge';
 
 interface ApiKeyModalProps {
   isOpen: boolean;
@@ -14,21 +21,21 @@ const providers = [
   {
     id: 'gemini',
     name: 'Google Gemini',
-    description: 'Google\'s advanced AI model with strong reasoning capabilities',
+    description: "Google's advanced AI model with strong reasoning capabilities",
     url: 'https://makersuite.google.com/app/apikey',
     placeholder: 'Enter your Gemini API key',
   },
   {
     id: 'openai',
     name: 'OpenAI GPT',
-    description: 'OpenAI\'s powerful language models including GPT-4',
+    description: "OpenAI's powerful language models including GPT-4",
     url: 'https://platform.openai.com/api-keys',
     placeholder: 'Enter your OpenAI API key',
   },
   {
     id: 'claude',
     name: 'Anthropic Claude',
-    description: 'Anthropic\'s AI assistant with excellent analysis capabilities',
+    description: "Anthropic's AI assistant with excellent analysis capabilities",
     url: 'https://console.anthropic.com/',
     placeholder: 'Enter your Claude API key',
   },
@@ -46,7 +53,7 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
 
   useEffect(() => {
     if (isOpen) {
-      // Load current configuration status from session
+      // Load current configuration status from keychain-backed Tauri commands.
       loadConfigStatus();
     } else {
       // Reset visibility state when modal closes
@@ -55,49 +62,56 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
   }, [isOpen]);
 
   const loadConfigStatus = async () => {
+    const nextConfigured: Record<string, boolean> = {
+      gemini: false,
+      openai: false,
+      claude: false,
+    };
+    const nextKeys: Record<string, string> = {};
+
     try {
-      const response = await fetch('/api/auth/keys');
-      if (response.ok) {
-        const { configured, keys } = await response.json();
-        setConfigured(configured);
-        // Populate input fields with existing keys
-        if (keys) {
-          setApiKeys({
-            ...(keys.gemini && { gemini: keys.gemini }),
-            ...(keys.openai && { openai: keys.openai }),
-            ...(keys.claude && { claude: keys.claude }),
-          });
+      for (const provider of providers) {
+        try {
+          const key = await getApiKey(provider.id);
+          if (key?.trim()) {
+            nextConfigured[provider.id] = true;
+            nextKeys[provider.id] = key;
+          }
+        } catch {
+          nextConfigured[provider.id] = false;
         }
       }
+
+      setConfigured(nextConfigured);
+      setApiKeys(nextKeys);
     } catch (error) {
       console.error('Failed to load API key status:', error);
     }
   };
 
   const handleKeyChange = (provider: string, value: string) => {
-    setApiKeys(prev => ({ ...prev, [provider]: value }));
+    setApiKeys((prev) => ({ ...prev, [provider]: value }));
   };
 
   const handleToggleVisibility = (provider: string) => {
-    setShowKeys(prev => ({ ...prev, [provider]: !prev[provider] }));
+    setShowKeys((prev) => ({ ...prev, [provider]: !prev[provider] }));
   };
 
   const handleSave = async () => {
     setIsSaving(true);
     try {
-      // Send keys to backend session storage
-      const response = await fetch('/api/auth/keys', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(apiKeys),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to save API keys');
+      for (const provider of providers) {
+        const value = apiKeys[provider.id]?.trim() || '';
+        if (value) {
+          await setApiKey(provider.id, value);
+        } else if (configured[provider.id]) {
+          await deleteApiKey(provider.id);
+        }
       }
 
       // Clear local state and close
       setApiKeys({});
+      await loadConfigStatus();
       onClose();
     } catch (error) {
       console.error('Failed to save API keys:', error);
@@ -108,10 +122,8 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
   };
 
   const handleClear = (provider: string) => {
-    setApiKeys(prev => ({ ...prev, [provider]: '' }));
+    setApiKeys((prev) => ({ ...prev, [provider]: '' }));
   };
-
-  const hasAnyKey = Object.values(apiKeys).some(key => key.trim() !== '');
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -119,7 +131,8 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
         <DialogHeader>
           <DialogTitle>API Key Configuration</DialogTitle>
           <DialogDescription>
-            Configure your API keys for different AI providers. Your keys are stored securely in encrypted server-side sessions.
+            Configure your API keys for different AI providers. Your keys are stored securely in
+            your OS keychain.
           </DialogDescription>
         </DialogHeader>
 
@@ -133,7 +146,8 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
                     <CardDescription>{provider.description}</CardDescription>
                   </div>
                   <div className="flex items-center space-x-2">
-                    {(apiKeys[provider.id] && apiKeys[provider.id].trim() !== '') || configured[provider.id] ? (
+                    {(apiKeys[provider.id] && apiKeys[provider.id].trim() !== '') ||
+                    configured[provider.id] ? (
                       <div className="flex items-center space-x-1 text-green-600">
                         <Check className="w-4 h-4" />
                         <span className="text-sm">Configured</span>
@@ -169,16 +183,12 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
                     )}
                   </Button>
                   {apiKeys[provider.id] && (
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => handleClear(provider.id)}
-                    >
+                    <Button variant="outline" size="icon" onClick={() => handleClear(provider.id)}>
                       <X className="w-4 h-4" />
                     </Button>
                   )}
                 </div>
-                
+
                 <div className="flex items-center space-x-2">
                   <Button
                     variant="link"
@@ -205,9 +215,18 @@ export function ApiKeyModal({ isOpen, onClose }: ApiKeyModalProps) {
         </div>
 
         <div className="text-xs text-muted-foreground space-y-1">
-          <p><strong>Security:</strong> Your API keys are stored in encrypted HTTP-only session cookies on our server and never exposed to the browser.</p>
-          <p><strong>Privacy:</strong> All AI requests are proxied through our backend, so your keys remain secure and protected from client-side exposure.</p>
-          <p><strong>Storage:</strong> Keys are stored in server-side sessions and cleared when your session ends. Your keys are never logged or persisted to our database.</p>
+          <p>
+            <strong>Security:</strong> API keys are stored via Tauri keychain integration and never
+            committed to source.
+          </p>
+          <p>
+            <strong>Privacy:</strong> Requests are sent directly from your desktop app to the
+            selected provider.
+          </p>
+          <p>
+            <strong>Storage:</strong> Keys are managed in your local OS keychain and can be updated
+            anytime.
+          </p>
         </div>
       </DialogContent>
     </Dialog>
