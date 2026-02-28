@@ -157,6 +157,9 @@ export class ChatService {
     } catch (error: any) {
       if (!error.message?.includes('No API keys configured'))
         console.error('Chat service error:', error);
+      if (error && typeof error === 'object' && typeof error.code === 'string') {
+        throw error;
+      }
       throw new Error(error.message || 'Failed to get AI response');
     }
   }

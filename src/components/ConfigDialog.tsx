@@ -41,6 +41,7 @@ import {
 } from 'lucide-react';
 import { useJunasContext } from '@/lib/context/JunasContext';
 import { ASCII_LOGOS } from '@/lib/ascii-logos';
+import { toActionableToastDescription } from '@/lib/tauri-error';
 
 interface ConfigDialogProps {
   isOpen: boolean;
@@ -395,7 +396,10 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       addToast({
         type: 'error',
         title: 'Download Failed',
-        description: `Failed to download ${modelInfo?.name || modelId}: ${error.message}`,
+        description: toActionableToastDescription(
+          error,
+          `Failed to download ${modelInfo?.name || modelId}`
+        ),
         duration: 5000,
       });
     }
@@ -421,7 +425,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       addToast({
         type: 'error',
         title: 'Error',
-        description: 'Failed to delete models: ' + error.message,
+        description: toActionableToastDescription(error, 'Failed to delete models'),
         duration: 3000,
       });
     }
