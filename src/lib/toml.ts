@@ -10,7 +10,7 @@ export function parseToml(toml: string): Record<string, any> {
     if (!trimmed || trimmed.startsWith('#')) continue;
 
     // Section
-    const sectionMatch = trimmed.match(/^\\\[(.*?)\\\]$/);
+    const sectionMatch = trimmed.match(/^\[(.*?)\]$/);
     if (sectionMatch) {
       const sectionName = sectionMatch[1];
       result[sectionName] = {};
@@ -46,7 +46,8 @@ export function parseToml(toml: string): Record<string, any> {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function stringifyToml(data: Record<string, any>): string {
-  let toml = '# JUNAS CONFIGURATION FILE\n# Edit this file to configure your assistant settings.\n\n';
+  let toml =
+    '# JUNAS CONFIGURATION FILE\n# Edit this file to configure your assistant settings.\n\n';
   const sections: string[] = [];
   const topLevel: string[] = [];
 
