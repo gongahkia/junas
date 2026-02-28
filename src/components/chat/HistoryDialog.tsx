@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { searchGlobalConversations, highlightQuery } from '@/lib/search';
+import { searchGlobalConversations } from '@/lib/search';
 import { Conversation } from '@/types/chat';
 import { MessageSquare, Trash2, Clock, Calendar, Search } from 'lucide-react';
 import { useJunasContext } from '@/lib/context/JunasContext';
@@ -10,6 +10,27 @@ interface HistoryDialogProps {
   isOpen: boolean;
   onClose: () => void;
   onSelectConversation: (conversation: Conversation) => void;
+}
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function renderHighlightedText(text: string, query: string) {
+  if (!query.trim()) return text;
+
+  const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+  const parts = text.split(regex);
+
+  return parts.map((part, index) =>
+    part.toLowerCase() === query.toLowerCase() ? (
+      <mark key={`${part}-${index}`} className="bg-yellow-200 dark:bg-yellow-800">
+        {part}
+      </mark>
+    ) : (
+      <span key={`${part}-${index}`}>{part}</span>
+    )
+  );
 }
 
 export function HistoryDialog({ isOpen, onClose, onSelectConversation }: HistoryDialogProps) {
@@ -101,11 +122,7 @@ export function HistoryDialog({ isOpen, onClose, onSelectConversation }: History
                         <span className="font-bold uppercase text-[9px] opacity-70 mb-0.5 block">
                           {match.message.role}
                         </span>
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: highlightQuery(match.matchedText, searchQuery),
-                          }}
-                        />
+                        <div>{renderHighlightedText(match.matchedText, searchQuery)}</div>
                       </div>
                     ))}
                     {result.results.length > 2 && (
