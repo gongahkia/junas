@@ -1,10 +1,13 @@
 use crate::error::AppError;
 use crate::streaming::stream_sse;
 use crate::types::{ChatSettings, Message, ProviderResponse};
+use reqwest::StatusCode;
 use tauri::AppHandle;
 
 const PROVIDER_CONNECT_TIMEOUT_SECS: u64 = 10;
 const PROVIDER_REQUEST_TIMEOUT_SECS: u64 = 120;
+const PROVIDER_MAX_RETRIES: u32 = 3;
+const PROVIDER_RETRY_BASE_DELAY_MS: u64 = 300;
 
 fn build_client() -> reqwest::Client {
     reqwest::Client::builder()
@@ -12,6 +15,42 @@ fn build_client() -> reqwest::Client {
         .timeout(std::time::Duration::from_secs(PROVIDER_REQUEST_TIMEOUT_SECS))
         .build()
         .expect("failed to build http client")
+}
+
+fn is_retryable_status(status: StatusCode) -> bool {
+    status == StatusCode::REQUEST_TIMEOUT
+        || status == StatusCode::TOO_MANY_REQUESTS
+        || status.is_server_error()
+}
+
+fn is_retryable_error(error: &reqwest::Error) -> bool {
+    error.is_timeout() || error.is_connect() || error.is_request()
+}
+
+fn retry_delay(attempt: u32) -> std::time::Duration {
+    let multiplier = 1u64 << attempt;
+    std::time::Duration::from_millis(PROVIDER_RETRY_BASE_DELAY_MS * multiplier)
+}
+
+async fn send_with_retry<F>(mut build_request: F) -> Result<reqwest::Response, reqwest::Error>
+where
+    F: FnMut() -> reqwest::RequestBuilder,
+{
+    let mut attempt: u32 = 0;
+    loop {
+        match build_request().send().await {
+            Ok(resp) if is_retryable_status(resp.status()) && attempt < PROVIDER_MAX_RETRIES => {
+                tokio::time::sleep(retry_delay(attempt)).await;
+                attempt += 1;
+            }
+            Ok(resp) => return Ok(resp),
+            Err(err) if is_retryable_error(&err) && attempt < PROVIDER_MAX_RETRIES => {
+                tokio::time::sleep(retry_delay(attempt)).await;
+                attempt += 1;
+            }
+            Err(err) => return Err(err),
+        }
+    }
 }
 // task 20: anthropic/claude
 #[tauri::command]
@@ -26,12 +65,15 @@ pub async fn chat_claude(app: AppHandle, messages: Vec<Message>, model: String, 
     if let Some(t) = settings.temperature { body["temperature"] = serde_json::json!(t); }
     if let Some(tp) = settings.top_p { body["top_p"] = serde_json::json!(tp); }
     if let Some(ref sp) = settings.system_prompt { body["system"] = serde_json::json!(sp); }
-    let resp = client.post("https://api.anthropic.com/v1/messages")
-        .header("x-api-key", &api_key)
-        .header("anthropic-version", "2023-06-01")
-        .header("content-type", "application/json")
-        .json(&body)
-        .send().await?;
+    let resp = send_with_retry(|| {
+        client
+            .post("https://api.anthropic.com/v1/messages")
+            .header("x-api-key", &api_key)
+            .header("anthropic-version", "2023-06-01")
+            .header("content-type", "application/json")
+            .json(&body)
+    })
+    .await?;
     if !resp.status().is_success() {
         let status = resp.status();
         let text = resp.text().await.unwrap_or_default();
@@ -53,10 +95,13 @@ pub async fn chat_openai(app: AppHandle, messages: Vec<Message>, model: String, 
     if let Some(t) = settings.temperature { body["temperature"] = serde_json::json!(t); }
     if let Some(mt) = settings.max_tokens { body["max_tokens"] = serde_json::json!(mt); }
     if let Some(tp) = settings.top_p { body["top_p"] = serde_json::json!(tp); }
-    let resp = client.post("https://api.openai.com/v1/chat/completions")
-        .header("Authorization", format!("Bearer {api_key}"))
-        .json(&body)
-        .send().await?;
+    let resp = send_with_retry(|| {
+        client
+            .post("https://api.openai.com/v1/chat/completions")
+            .header("Authorization", format!("Bearer {api_key}"))
+            .json(&body)
+    })
+    .await?;
     if !resp.status().is_success() {
         let status = resp.status();
         let text = resp.text().await.unwrap_or_default();
@@ -83,7 +128,7 @@ pub async fn chat_gemini(app: AppHandle, messages: Vec<Message>, model: String, 
     if let Some(tp) = settings.top_p { gen_config["topP"] = serde_json::json!(tp); }
     body["generationConfig"] = gen_config;
     let url = format!("https://generativelanguage.googleapis.com/v1beta/models/{model}:streamGenerateContent?alt=sse&key={api_key}");
-    let resp = client.post(&url).json(&body).send().await?;
+    let resp = send_with_retry(|| client.post(&url).json(&body)).await?;
     if !resp.status().is_success() {
         let status = resp.status();
         let text = resp.text().await.unwrap_or_default();
@@ -104,7 +149,7 @@ pub async fn chat_ollama(app: AppHandle, messages: Vec<Message>, model: String, 
     let mut body = serde_json::json!({ "model": model, "messages": msgs, "stream": true });
     if let Some(t) = settings.temperature { body["options"] = serde_json::json!({"temperature": t}); }
     let url = format!("{}/api/chat", endpoint.trim_end_matches('/'));
-    let resp = client.post(&url).json(&body).send().await?;
+    let resp = send_with_retry(|| client.post(&url).json(&body)).await?;
     if !resp.status().is_success() {
         let status = resp.status();
         let text = resp.text().await.unwrap_or_default();
@@ -126,7 +171,7 @@ pub async fn chat_lmstudio(app: AppHandle, messages: Vec<Message>, model: String
     if let Some(t) = settings.temperature { body["temperature"] = serde_json::json!(t); }
     if let Some(mt) = settings.max_tokens { body["max_tokens"] = serde_json::json!(mt); }
     let url = format!("{}/v1/chat/completions", endpoint.trim_end_matches('/'));
-    let resp = client.post(&url).json(&body).send().await?;
+    let resp = send_with_retry(|| client.post(&url).json(&body)).await?;
     if !resp.status().is_success() {
         let status = resp.status();
         let text = resp.text().await.unwrap_or_default();
