@@ -191,7 +191,9 @@ To use a tool, reply with ONLY the following format:
 COMMAND: <tool_id> <arguments>
 
 **List of Available Tools:**
-${COMMANDS.map(cmd => `- ${cmd.id}: ${cmd.description}`).join('\n')}
+${COMMANDS.filter((cmd) => cmd.implemented)
+  .map((cmd) => `- ${cmd.id}: ${cmd.description}`)
+  .join('\n')}
 
 **Usage Rules:**
 1. If a tool is needed, your ENTIRE response must be just the command line. Do not add explanation before or after.
@@ -285,14 +287,23 @@ export function generateSystemPrompt(config: PromptConfig): string {
   let prompt = config.baseSystemPrompt || BASE_IDENTITY;
 
   // Add Dynamic Context (Date, User Info)
-  const date = config.currentDate || new Date().toLocaleDateString('en-SG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const date =
+    config.currentDate ||
+    new Date().toLocaleDateString('en-SG', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
   prompt = `Current Date: ${date}\n\n` + prompt;
 
   if (config.userContext) {
     let contextStr = '\n\n**User Context:**\n';
     if (config.userContext.role) contextStr += `- Role: ${config.userContext.role}\n`;
-    if (config.userContext.jurisdiction) contextStr += `- Jurisdiction: ${config.userContext.jurisdiction}\n`;
-    if (config.userContext.preferences) contextStr += `- Preferences: ${config.userContext.preferences}\n`;
+    if (config.userContext.jurisdiction)
+      contextStr += `- Jurisdiction: ${config.userContext.jurisdiction}\n`;
+    if (config.userContext.preferences)
+      contextStr += `- Preferences: ${config.userContext.preferences}\n`;
     prompt += contextStr;
   }
 
@@ -331,7 +342,12 @@ export function getDefaultPromptConfig(depth: ReasoningDepth = 'standard'): Prom
       useSelfCritique: false,
       useStructuredOutput: true,
       useTools: true, // Enable tools by default
-      currentDate: new Date().toLocaleDateString('en-SG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
+      currentDate: new Date().toLocaleDateString('en-SG', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
     },
   };
 
