@@ -87,6 +87,7 @@ export function JunasProvider({ children }: { children: ReactNode }) {
   };
   const deleteConversation = (id: string) => {
     StorageManager.deleteConversation(id);
+    setConversations((prev) => prev.filter((conversation) => conversation.id !== id));
   };
   return (
     <JunasContext.Provider
