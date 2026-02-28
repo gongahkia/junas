@@ -93,6 +93,21 @@ function buildMessageCitations(content: string): Citation[] {
   return Array.from(deduped.values());
 }
 
+function createAbortError(): Error {
+  const error = new Error('Request cancelled by user.');
+  error.name = 'AbortError';
+  return error;
+}
+
+function isAbortError(error: unknown): boolean {
+  const hasDomAbort =
+    typeof DOMException !== 'undefined' &&
+    error instanceof DOMException &&
+    error.name === 'AbortError';
+  const hasErrorAbort = error instanceof Error && error.name === 'AbortError';
+  return hasDomAbort || hasErrorAbort;
+}
+
 export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInterfaceProps = {}) {
   // Use centralized state from context
   const {
@@ -131,6 +146,34 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     resolve: undefined as ((value: boolean) => void) | undefined,
   });
   const autosaveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const generationAbortControllerRef = useRef<AbortController | null>(null);
+  const activeGenerationIdRef = useRef<string | null>(null);
+
+  const isGenerationActive = useCallback((generationId: string) => {
+    return activeGenerationIdRef.current === generationId;
+  }, []);
+
+  const beginGeneration = useCallback(() => {
+    if (generationAbortControllerRef.current) {
+      generationAbortControllerRef.current.abort();
+    }
+    const controller = new AbortController();
+    const generationId = generateId();
+    generationAbortControllerRef.current = controller;
+    activeGenerationIdRef.current = generationId;
+    setIsLoading(true);
+    return { controller, generationId };
+  }, []);
+
+  const completeGeneration = useCallback(
+    (generationId: string) => {
+      if (!isGenerationActive(generationId)) return;
+      activeGenerationIdRef.current = null;
+      generationAbortControllerRef.current = null;
+      setIsLoading(false);
+    },
+    [isGenerationActive]
+  );
 
   const updateAssistantMessage = useCallback(
     (
@@ -181,6 +224,14 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
   useEffect(() => {
     setHasProfileConfig(!!(settings.userRole || settings.userPurpose));
   }, [messages, settings]);
+
+  useEffect(() => {
+    return () => {
+      if (generationAbortControllerRef.current) {
+        generationAbortControllerRef.current.abort();
+      }
+    };
+  }, []);
 
   const startupLogo = useMemo(() => {
     if (settings.asciiLogo === 'random') {
@@ -400,8 +451,20 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       currentMessages: Message[],
       assistantMessageId: string,
       recursionDepth = 0,
-      seenToolCalls: Set<string> = new Set()
+      seenToolCalls: Set<string> = new Set(),
+      signal?: AbortSignal,
+      generationId?: string
     ) => {
+      const shouldAbort = () =>
+        !!signal?.aborted ||
+        (generationId ? activeGenerationIdRef.current !== generationId : false);
+      const throwIfAborted = () => {
+        if (shouldAbort()) {
+          throw createAbortError();
+        }
+      };
+
+      throwIfAborted();
       const settings = StorageManager.getSettings();
       const maxDepth = settings.agentMode ? 10 : 3;
       const maxToolCallsPerTurn = settings.agentMode ? 6 : 1;
@@ -415,6 +478,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       let lastUpdate = 0;
 
       const updateMessageContent = (text: string) => {
+        if (shouldAbort()) return;
         setMessages((prev) =>
           prev.map((msg) => (msg.id === assistantMessageId ? { ...msg, content: text } : msg))
         );
@@ -426,6 +490,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
       try {
         // 1. Get response from Provider (Local or API)
+        throwIfAborted();
         if (currentProvider === 'local') {
           let prompt = '';
           if (settings.agentMode) {
@@ -443,6 +508,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
               .join('\n') + '\nAssistant:';
 
           aiResponseText = await generateText(prompt);
+          throwIfAborted();
           updateMessageContent(aiResponseText);
         } else {
           const result = await ChatService.sendMessage(
@@ -450,6 +516,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
             configuredProviders,
             settings,
             (chunk: string) => {
+              if (shouldAbort()) return;
               aiResponseText += chunk;
               const now = Date.now();
               if (!rafId && now - lastUpdate > 16) {
@@ -457,10 +524,12 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
                 rafId = requestAnimationFrame(() => updateMessageContent(aiResponseText));
               }
             },
-            currentProvider
+            currentProvider,
+            { signal }
           );
 
           if (rafId) cancelAnimationFrame(rafId);
+          throwIfAborted();
           updateMessageContent(result.content);
           aiResponseText = result.content;
         }
@@ -512,7 +581,9 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
                 updatedMessages,
                 assistantMessageId,
                 recursionDepth + 1,
-                nextSeenToolCalls
+                nextSeenToolCalls,
+                signal,
+                generationId
               );
             }
           }
@@ -563,7 +634,9 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
             updatedMessages,
             assistantMessageId,
             recursionDepth + 1,
-            nextSeenToolCalls
+            nextSeenToolCalls,
+            signal,
+            generationId
           );
         }
 
@@ -579,17 +652,31 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
   const handleSendMessage = useCallback(
     async (content: string) => {
       if (!content.trim()) return;
+      const { controller: turnController, generationId } = beginGeneration();
 
       // Resolve chained commands (e.g. /summarize (/fetch-url ...))
       // We do this before determining if it is a command or simple message
       // Note: importing resolveCommandString dynamically to ensure no circular deps if any,
       // although it is imported at top level in my plan, but let's be safe or just use the one from imports if I added it.
       // I need to add import to the top of file too.
-      const { resolveCommandString } = await import('@/lib/commands/command-processor');
-      const resolvedContent = await resolveCommandString(content);
-
-      // Check if this is a local command (legacy direct command)
-      const parsedCommand = parseCommand(resolvedContent);
+      let parsedCommand: ReturnType<typeof parseCommand> | null = null;
+      try {
+        const { resolveCommandString } = await import('@/lib/commands/command-processor');
+        const resolvedContent = await resolveCommandString(content);
+        // Check if this is a local command (legacy direct command)
+        parsedCommand = parseCommand(resolvedContent);
+      } catch (error) {
+        if (!isAbortError(error) && isGenerationActive(generationId)) {
+          addToast({
+            type: 'error',
+            title: 'Command Resolution Failed',
+            description: error instanceof Error ? error.message : String(error),
+            duration: 3000,
+          });
+        }
+        completeGeneration(generationId);
+        return;
+      }
 
       // For user message display, don't add context prefix to local commands
       let displayContent = content;
@@ -627,8 +714,6 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       setNodeMap(afterUserMap);
       setCurrentLeafId(userMessage.id);
       setMessages((prev) => [...prev, userMessage]);
-
-      setIsLoading(true);
 
       const startTime = Date.now();
 
@@ -669,15 +754,17 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
         if (!result.success && result.requiresModel) {
           const responseTime = Date.now() - startTime;
-          updateAssistantMessage(assistantMessage.id, result.content, { responseTime });
-          setIsLoading(false);
+          if (isGenerationActive(generationId)) {
+            updateAssistantMessage(assistantMessage.id, result.content, { responseTime });
+          }
+          completeGeneration(generationId);
           return;
         }
 
         if (result.content === '__ASYNC_MODEL_COMMAND__') {
           setMessages((prev) =>
             prev.map((msg) =>
-              msg.id === assistantMessage.id
+              msg.id === assistantMessage.id && isGenerationActive(generationId)
                 ? { ...msg, content: 'Loading model and processing...' }
                 : msg
             )
@@ -686,49 +773,80 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
           try {
             const asyncResult = await processAsyncLocalCommand(parsedCommand);
             const responseTime = Date.now() - startTime;
-            updateAssistantMessage(assistantMessage.id, asyncResult.content, { responseTime });
+            if (isGenerationActive(generationId)) {
+              updateAssistantMessage(assistantMessage.id, asyncResult.content, { responseTime });
+            }
           } catch (error: unknown) {
+            if (isAbortError(error)) {
+              completeGeneration(generationId);
+              return;
+            }
             const errorMessage = error instanceof Error ? error.message : String(error);
             const responseTime = Date.now() - startTime;
-            updateAssistantMessage(
-              assistantMessage.id,
-              `Error processing command: ${errorMessage}`,
-              {
-                responseTime,
-              }
-            );
+            if (isGenerationActive(generationId)) {
+              updateAssistantMessage(
+                assistantMessage.id,
+                `Error processing command: ${errorMessage}`,
+                {
+                  responseTime,
+                }
+              );
+            }
           }
-          setIsLoading(false);
+          completeGeneration(generationId);
           return;
         }
 
         const responseTime = Date.now() - startTime;
-        updateAssistantMessage(assistantMessage.id, result.content, { responseTime });
-        setIsLoading(false);
+        if (isGenerationActive(generationId)) {
+          updateAssistantMessage(assistantMessage.id, result.content, { responseTime });
+        }
+        completeGeneration(generationId);
         return;
       }
 
       try {
         const allMessages = [...messages, userMessage];
-        const finalResponse = await generateResponse(allMessages, assistantMessage.id);
+        const finalResponse = await generateResponse(
+          allMessages,
+          assistantMessage.id,
+          0,
+          new Set(),
+          turnController.signal,
+          generationId
+        );
 
         const responseTime = Date.now() - startTime;
         const tokens = estimateTokens(finalResponse);
         const cost = estimateCost(tokens, currentProvider, '', 'output');
 
-        updateAssistantMessage(assistantMessage.id, finalResponse, {
-          responseTime,
-          tokenCount: tokens,
-          cost,
-        });
+        if (isGenerationActive(generationId)) {
+          updateAssistantMessage(assistantMessage.id, finalResponse, {
+            responseTime,
+            tokenCount: tokens,
+            cost,
+          });
+        }
       } catch (error: unknown) {
+        if (isAbortError(error)) return;
         const errorMessage = error instanceof Error ? error.message : String(error);
-        updateAssistantMessage(assistantMessage.id, `Error: ${errorMessage}`);
+        if (isGenerationActive(generationId)) {
+          updateAssistantMessage(assistantMessage.id, `Error: ${errorMessage}`);
+        }
       } finally {
-        setIsLoading(false);
+        completeGeneration(generationId);
       }
     },
-    [messages, generateResponse, addToast, setActiveTab, updateAssistantMessage]
+    [
+      messages,
+      generateResponse,
+      addToast,
+      setActiveTab,
+      updateAssistantMessage,
+      beginGeneration,
+      isGenerationActive,
+      completeGeneration,
+    ]
   );
 
   const handleRegenerateMessage = useCallback(
@@ -743,10 +861,9 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       // Get context up to this message (excluding the message itself)
       const contextMessages = messages.slice(0, messageIndex);
       const parentId = msgToRegenerate.parentId;
+      const { controller: turnController, generationId } = beginGeneration();
 
       // Reset state to this point
-      setIsLoading(true);
-
       // Create new assistant message placeholder (sibling)
       const newAssistantMessage: Message = {
         id: generateId(),
@@ -767,31 +884,53 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       const startTime = Date.now();
 
       try {
-        const finalResponse = await generateResponse(contextMessages, newAssistantMessage.id);
+        const finalResponse = await generateResponse(
+          contextMessages,
+          newAssistantMessage.id,
+          0,
+          new Set(),
+          turnController.signal,
+          generationId
+        );
 
         const responseTime = Date.now() - startTime;
         const tokens = estimateTokens(finalResponse);
         const cost = estimateCost(tokens, currentProvider, '', 'output');
 
-        updateAssistantMessage(newAssistantMessage.id, finalResponse, {
-          responseTime,
-          tokenCount: tokens,
-          cost,
-        });
+        if (isGenerationActive(generationId)) {
+          updateAssistantMessage(newAssistantMessage.id, finalResponse, {
+            responseTime,
+            tokenCount: tokens,
+            cost,
+          });
+        }
       } catch (error: unknown) {
+        if (isAbortError(error)) return;
         const errorMessage = error instanceof Error ? error.message : String(error);
-        updateAssistantMessage(newAssistantMessage.id, `Error: ${errorMessage}`);
+        if (isGenerationActive(generationId)) {
+          updateAssistantMessage(newAssistantMessage.id, `Error: ${errorMessage}`);
+        }
       } finally {
-        setIsLoading(false);
+        completeGeneration(generationId);
       }
     },
-    [messages, generateResponse, nodeMap, currentProvider, updateAssistantMessage]
+    [
+      messages,
+      generateResponse,
+      nodeMap,
+      currentProvider,
+      updateAssistantMessage,
+      beginGeneration,
+      isGenerationActive,
+      completeGeneration,
+    ]
   );
 
   const handleEditMessage = useCallback(
     async (messageId: string, newContent: string) => {
       const originalMessage = nodeMap[messageId];
       if (!originalMessage) return;
+      const { controller: turnController, generationId } = beginGeneration();
 
       const parentId = originalMessage.parentId;
 
@@ -813,8 +952,6 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       // Calculate context for AI
       const history = getLinearHistory(nextNodeMap, newMessage.id);
       setMessages(history);
-
-      setIsLoading(true);
       const startTime = Date.now();
 
       // Create assistant placeholder
@@ -832,7 +969,14 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       setMessages([...history, assistantMessage]);
 
       try {
-        const finalResponse = await generateResponse(history, assistantMessage.id);
+        const finalResponse = await generateResponse(
+          history,
+          assistantMessage.id,
+          0,
+          new Set(),
+          turnController.signal,
+          generationId
+        );
         const responseTime = Date.now() - startTime;
         const tokens = estimateTokens(finalResponse);
         const cost = estimateCost(tokens, currentProvider, '', 'output');
@@ -846,16 +990,31 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
           cost,
         };
 
-        setMessages((prev) => prev.map((m) => (m.id === assistantMessage.id ? finalAssistant : m)));
-        setNodeMap((prev) => ({ ...prev, [assistantMessage.id]: finalAssistant }));
+        if (isGenerationActive(generationId)) {
+          setMessages((prev) =>
+            prev.map((m) => (m.id === assistantMessage.id ? finalAssistant : m))
+          );
+          setNodeMap((prev) => ({ ...prev, [assistantMessage.id]: finalAssistant }));
+        }
       } catch (e: unknown) {
+        if (isAbortError(e)) return;
         const errorMessage = e instanceof Error ? e.message : String(e);
-        updateAssistantMessage(assistantMessage.id, `Error: ${errorMessage}`);
+        if (isGenerationActive(generationId)) {
+          updateAssistantMessage(assistantMessage.id, `Error: ${errorMessage}`);
+        }
       } finally {
-        setIsLoading(false);
+        completeGeneration(generationId);
       }
     },
-    [nodeMap, currentProvider, generateResponse, updateAssistantMessage]
+    [
+      nodeMap,
+      currentProvider,
+      generateResponse,
+      updateAssistantMessage,
+      beginGeneration,
+      isGenerationActive,
+      completeGeneration,
+    ]
   );
 
   const handleBranchSwitch = useCallback(

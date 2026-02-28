@@ -14,6 +14,10 @@ export interface SendMessageResult {
   content: string;
 }
 
+export interface SendMessageOptions {
+  signal?: AbortSignal;
+}
+
 const LEGAL_ANALYSIS_KEYWORDS = [
   'legal',
   'law',
@@ -35,6 +39,46 @@ const LEGAL_ANALYSIS_KEYWORDS = [
 
 const LEGAL_ACCURACY_CAUTION_BLOCK =
   '\n\n**Legal Accuracy Notice:** No valid legal citations were detected in this answer. Verify with authoritative Singapore legal sources before relying on this analysis.';
+
+function createAbortError(): Error {
+  const error = new Error('Request cancelled by user.');
+  error.name = 'AbortError';
+  return error;
+}
+
+function isAbortError(error: unknown): boolean {
+  const hasDomAbort =
+    typeof DOMException !== 'undefined' &&
+    error instanceof DOMException &&
+    error.name === 'AbortError';
+  const hasErrorAbort = error instanceof Error && error.name === 'AbortError';
+  return hasDomAbort || hasErrorAbort;
+}
+
+function throwIfAborted(signal?: AbortSignal): void {
+  if (signal?.aborted) {
+    throw createAbortError();
+  }
+}
+
+async function withAbortSignal<T>(operation: Promise<T>, signal?: AbortSignal): Promise<T> {
+  if (!signal) return operation;
+  throwIfAborted(signal);
+
+  let abortHandler: (() => void) | null = null;
+  const abortPromise = new Promise<never>((_, reject) => {
+    abortHandler = () => reject(createAbortError());
+    signal.addEventListener('abort', abortHandler, { once: true });
+  });
+
+  try {
+    return await Promise.race([operation, abortPromise]);
+  } finally {
+    if (abortHandler) {
+      signal.removeEventListener('abort', abortHandler);
+    }
+  }
+}
 
 function isLikelyLegalAnalysisPrompt(messages: Message[]): boolean {
   const lastUserMessage = [...messages].reverse().find((message) => message.role === 'user');
@@ -72,9 +116,13 @@ export class ChatService {
     configuredProviders: Record<string, boolean>,
     settings: ChatSettings,
     onChunk?: (chunk: string) => void,
-    preferredProvider?: string
+    preferredProvider?: string,
+    options?: SendMessageOptions
   ): Promise<SendMessageResult> {
     try {
+      const signal = options?.signal;
+      throwIfAborted(signal);
+
       let provider: string | null = preferredProvider || null;
       if (!provider || !configuredProviders[provider]) {
         provider = this.getAvailableProvider(configuredProviders);
@@ -114,47 +162,63 @@ export class ChatService {
         system_prompt: config.systemPrompt,
       };
       let unlisten: (() => void) | null = null;
+      let removeAbortListener: (() => void) | null = null;
       let fullResponse = '';
       if (onChunk) {
         unlisten = await bridge.onChatStream((chunk) => {
+          if (signal?.aborted) return;
           if (!chunk.done && chunk.delta) {
             fullResponse += chunk.delta;
             onChunk(chunk.delta);
           }
         });
       }
+      if (signal) {
+        const handleAbort = () => {
+          if (unlisten) {
+            unlisten();
+            unlisten = null;
+          }
+        };
+        signal.addEventListener('abort', handleAbort, { once: true });
+        removeAbortListener = () => signal.removeEventListener('abort', handleAbort);
+      }
       try {
-        if (provider === 'claude') {
-          const apiKey = await getApiKey('claude');
-          const result = await bridge.chatClaude(formattedMessages, model, chatSettings, apiKey);
-          if (!onChunk) fullResponse = result.content;
-        } else if (provider === 'openai') {
-          const apiKey = await getApiKey('openai');
-          const result = await bridge.chatOpenai(formattedMessages, model, chatSettings, apiKey);
-          if (!onChunk) fullResponse = result.content;
-        } else if (provider === 'gemini') {
-          const apiKey = await getApiKey('gemini');
-          const result = await bridge.chatGemini(formattedMessages, model, chatSettings, apiKey);
-          if (!onChunk) fullResponse = result.content;
-        } else if (provider === 'ollama') {
-          const endpoint = 'http://localhost:11434';
-          const result = await bridge.chatOllama(formattedMessages, model, endpoint, chatSettings);
-          if (!onChunk) fullResponse = result.content;
-        } else if (provider === 'lmstudio') {
-          const endpoint = 'http://localhost:1234';
-          const result = await bridge.chatLmstudio(
-            formattedMessages,
-            model,
-            endpoint,
-            chatSettings
-          );
-          if (!onChunk) fullResponse = result.content;
-        }
+        const executeProviderRequest = async (): Promise<bridge.ProviderResponse> => {
+          throwIfAborted(signal);
+          if (provider === 'claude') {
+            const apiKey = await getApiKey('claude');
+            return bridge.chatClaude(formattedMessages, model, chatSettings, apiKey);
+          }
+          if (provider === 'openai') {
+            const apiKey = await getApiKey('openai');
+            return bridge.chatOpenai(formattedMessages, model, chatSettings, apiKey);
+          }
+          if (provider === 'gemini') {
+            const apiKey = await getApiKey('gemini');
+            return bridge.chatGemini(formattedMessages, model, chatSettings, apiKey);
+          }
+          if (provider === 'ollama') {
+            const endpoint = 'http://localhost:11434';
+            return bridge.chatOllama(formattedMessages, model, endpoint, chatSettings);
+          }
+          if (provider === 'lmstudio') {
+            const endpoint = 'http://localhost:1234';
+            return bridge.chatLmstudio(formattedMessages, model, endpoint, chatSettings);
+          }
+          throw new Error(`Unsupported provider: ${provider}`);
+        };
+
+        const result = await withAbortSignal(executeProviderRequest(), signal);
+        throwIfAborted(signal);
+        fullResponse = result.content;
       } finally {
+        if (removeAbortListener) removeAbortListener();
         if (unlisten) unlisten();
       }
       return { content: applyLegalAccuracyCaution(messages, fullResponse) };
     } catch (error: any) {
+      if (isAbortError(error)) throw error;
       if (!error.message?.includes('No API keys configured'))
         console.error('Chat service error:', error);
       if (error && typeof error === 'object' && typeof error.code === 'string') {

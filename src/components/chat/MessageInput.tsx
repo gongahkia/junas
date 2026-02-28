@@ -7,11 +7,7 @@ import Fuse from 'fuse.js';
 import { Book } from 'lucide-react';
 import { StorageManager } from '@/lib/storage';
 import { Snippet } from '@/types/chat';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 interface MessageInputProps {
   onSendMessage: (content: string) => void;
@@ -24,7 +20,7 @@ interface MessageInputProps {
 export function MessageInput({
   onSendMessage,
   isLoading,
-  placeholder = "Ask Junas anything about Singapore law...",
+  placeholder = 'Ask Junas anything about Singapore law...',
   currentProvider,
   onProviderChange,
 }: MessageInputProps) {
@@ -111,94 +107,109 @@ export function MessageInput({
       // Move cursor
       setTimeout(() => {
         if (textareaRef.current) {
-          textareaRef.current.selectionStart = textareaRef.current.selectionEnd = start + content.length;
+          textareaRef.current.selectionStart = textareaRef.current.selectionEnd =
+            start + content.length;
           textareaRef.current.focus();
         }
       }, 0);
     } else {
-      setMessage(prev => prev + content);
+      setMessage((prev) => prev + content);
     }
   };
 
-  const handleSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-    if (!message.trim() || isLoading) return;
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!message.trim()) return;
 
-    const trimmedMessage = message.trim();
-    onSendMessage(trimmedMessage);
+      const trimmedMessage = message.trim();
+      onSendMessage(trimmedMessage);
 
-    setHistory(prev => {
-      // Don't duplicate if identical to last message
-      if (prev.length > 0 && prev[prev.length - 1] === trimmedMessage) return prev;
-      return [...prev, trimmedMessage];
-    });
-    setHistoryIndex(-1);
-    setDraft('');
-    setMessage('');
-    setShowSuggestions(false);
-  }, [message, isLoading, onSendMessage]);
+      setHistory((prev) => {
+        // Don't duplicate if identical to last message
+        if (prev.length > 0 && prev[prev.length - 1] === trimmedMessage) return prev;
+        return [...prev, trimmedMessage];
+      });
+      setHistoryIndex(-1);
+      setDraft('');
+      setMessage('');
+      setShowSuggestions(false);
+    },
+    [message, isLoading, onSendMessage]
+  );
 
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (showSuggestions) {
-      // Calculate matches to know the count for clamping
-      const matches = commandQuery
-        ? fuse.search(commandQuery).map(r => r.item)
-        : COMMANDS;
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (showSuggestions) {
+        // Calculate matches to know the count for clamping
+        const matches = commandQuery ? fuse.search(commandQuery).map((r) => r.item) : COMMANDS;
 
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        setSuggestionIndex(prev => (prev + 1) % matches.length);
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        setSuggestionIndex(prev => (prev - 1 + matches.length) % matches.length);
-      } else if (e.key === 'Enter' || e.key === 'Tab') {
-        e.preventDefault();
-        if (matches[suggestionIndex]) {
-          handleCommandSelect(matches[suggestionIndex].id);
-        }
-      } else if (e.key === 'Escape') {
-        e.preventDefault();
-        setShowSuggestions(false);
-      }
-      return;
-    }
-
-    // History navigation
-    if (e.key === 'ArrowUp') {
-      if (history.length > 0) {
-        e.preventDefault();
-        const newIndex = historyIndex === -1 ? history.length - 1 : Math.max(0, historyIndex - 1);
-        if (historyIndex === -1) setDraft(message);
-        setHistoryIndex(newIndex);
-        setMessage(history[newIndex]);
-
-        // Move cursor to end (needs timeout to wait for render)
-        setTimeout(() => {
-          if (textareaRef.current) {
-            textareaRef.current.selectionStart = textareaRef.current.value.length;
-            textareaRef.current.selectionEnd = textareaRef.current.value.length;
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          setSuggestionIndex((prev) => (prev + 1) % matches.length);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          setSuggestionIndex((prev) => (prev - 1 + matches.length) % matches.length);
+        } else if (e.key === 'Enter' || e.key === 'Tab') {
+          e.preventDefault();
+          if (matches[suggestionIndex]) {
+            handleCommandSelect(matches[suggestionIndex].id);
           }
-        }, 0);
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          setShowSuggestions(false);
+        }
+        return;
       }
-    } else if (e.key === 'ArrowDown') {
-      if (historyIndex !== -1) {
-        e.preventDefault();
-        const newIndex = historyIndex + 1;
-        if (newIndex >= history.length) {
-          setHistoryIndex(-1);
-          setMessage(draft);
-        } else {
+
+      // History navigation
+      if (e.key === 'ArrowUp') {
+        if (history.length > 0) {
+          e.preventDefault();
+          const newIndex = historyIndex === -1 ? history.length - 1 : Math.max(0, historyIndex - 1);
+          if (historyIndex === -1) setDraft(message);
           setHistoryIndex(newIndex);
           setMessage(history[newIndex]);
+
+          // Move cursor to end (needs timeout to wait for render)
+          setTimeout(() => {
+            if (textareaRef.current) {
+              textareaRef.current.selectionStart = textareaRef.current.value.length;
+              textareaRef.current.selectionEnd = textareaRef.current.value.length;
+            }
+          }, 0);
+        }
+      } else if (e.key === 'ArrowDown') {
+        if (historyIndex !== -1) {
+          e.preventDefault();
+          const newIndex = historyIndex + 1;
+          if (newIndex >= history.length) {
+            setHistoryIndex(-1);
+            setMessage(draft);
+          } else {
+            setHistoryIndex(newIndex);
+            setMessage(history[newIndex]);
+          }
         }
       }
-    }
 
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSubmit(e);
-    }
-  }, [handleSubmit, showSuggestions, suggestionIndex, commandQuery, fuse, history, historyIndex, draft, message]);
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSubmit(e);
+      }
+    },
+    [
+      handleSubmit,
+      showSuggestions,
+      suggestionIndex,
+      commandQuery,
+      fuse,
+      history,
+      historyIndex,
+      draft,
+      message,
+    ]
+  );
 
   return (
     <div className="border-t bg-background sticky bottom-0 z-50 shadow-sm">
@@ -206,7 +217,6 @@ export function MessageInput({
         {/* Input form */}
         <form onSubmit={handleSubmit} className="space-y-3">
           <div className="flex-1 relative">
-
             {showSuggestions && (
               <CommandSuggestions
                 query={commandQuery}
@@ -223,7 +233,6 @@ export function MessageInput({
                 onChange={handleMessageChange}
                 onKeyDown={handleKeyDown}
                 placeholder={placeholder}
-                disabled={isLoading}
                 className="min-h-[60px] md:min-h-[80px] max-h-[200px] md:max-h-[300px] resize-none text-sm md:text-base px-3 md:px-4 pt-3 md:pt-4 pb-12 font-mono border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 w-full"
                 rows={1}
                 data-tour="message-input"
@@ -254,8 +263,10 @@ export function MessageInput({
                       </PopoverTrigger>
                       <PopoverContent className="w-64 p-2" align="start">
                         <div className="space-y-1">
-                          <h4 className="font-medium text-xs px-2 py-1 text-muted-foreground uppercase tracking-wider">Saved Snippets</h4>
-                          {snippets.map(snippet => (
+                          <h4 className="font-medium text-xs px-2 py-1 text-muted-foreground uppercase tracking-wider">
+                            Saved Snippets
+                          </h4>
+                          {snippets.map((snippet) => (
                             <button
                               key={snippet.id}
                               onClick={() => insertSnippet(snippet.content)}
