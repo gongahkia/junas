@@ -315,6 +315,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     ) => {
       const settings = StorageManager.getSettings();
       const maxDepth = settings.agentMode ? 10 : 3;
+      const maxToolCallsPerTurn = settings.agentMode ? 6 : 1;
 
       if (recursionDepth > maxDepth) {
         return 'Error: Maximum tool recursion depth reached.';
@@ -379,6 +380,12 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         const commandMatch = aiResponseText.match(/^COMMAND:\s*([a-z-]+)\s*([\s\S]*)/i);
 
         if (commandMatch) {
+          if (seenToolCalls.size >= maxToolCallsPerTurn) {
+            const limitMessage = `Error: TOOL_LIMIT_EXCEEDED (max_tool_calls_per_turn=${maxToolCallsPerTurn}).`;
+            updateMessageContent(limitMessage);
+            return limitMessage;
+          }
+
           const commandId = commandMatch[1].toLowerCase() as any;
           const args = commandMatch[2].trim();
           const commandSignature = `${commandId}:${args}`;
