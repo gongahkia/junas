@@ -74,24 +74,9 @@ export const AVAILABLE_MODELS: Omit<
   },
 ];
 
-const STORAGE_KEY = 'junas_downloaded_models';
 const ONNX_RUNTIME_KEY = 'junas_onnx_runtime_available';
 let onnxRuntimeAvailabilityCache: boolean | null = null;
-
-function getLocalDownloadedModels(): string[] {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (!stored) return [];
-    const parsed = JSON.parse(stored);
-    return Array.isArray(parsed) ? parsed.map((id) => String(id)) : [];
-  } catch {
-    return [];
-  }
-}
-
-function setLocalDownloadedModels(modelIds: string[]): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(modelIds));
-}
+const modelStatusCache = new Map<string, ml.ModelCacheStatus>();
 
 function setOnnxAvailabilityFlag(isAvailable: boolean): void {
   onnxRuntimeAvailabilityCache = isAvailable;
@@ -122,39 +107,97 @@ export async function isOnnxRuntimeAvailable(forceRefresh = false): Promise<bool
   }
 }
 
-export function getDownloadedModels(): string[] {
-  return getLocalDownloadedModels();
+async function getVerifiedModelStatus(modelId: string): Promise<ml.ModelCacheStatus> {
+  const status = await ml.getModelStatus(modelId);
+  modelStatusCache.set(modelId, status);
+  return status;
 }
 
-export function removeModelFromDownloaded(modelId: string): void {
-  const downloaded = getLocalDownloadedModels().filter((id) => id !== modelId);
-  setLocalDownloadedModels(downloaded);
-  void ml.removeModelCache(modelId).catch((error) => {
-    console.warn(`Failed to remove cached model ${modelId}:`, error);
+function getCachedModelStatus(modelId: string): ml.ModelCacheStatus | null {
+  return modelStatusCache.get(modelId) || null;
+}
+
+function toModelInfo(
+  model: Omit<ModelInfo, 'isDownloaded' | 'isLoading' | 'downloadProgress'>
+): ModelInfo {
+  const status = getCachedModelStatus(model.id);
+  const isDownloaded = status?.exists ?? false;
+  return {
+    ...model,
+    isDownloaded,
+    isLoading: false,
+    downloadProgress: isDownloaded ? 100 : 0,
+  };
+}
+
+export async function getDownloadedModels(): Promise<string[]> {
+  const statuses = await Promise.all(
+    AVAILABLE_MODELS.map(async (model) => {
+      try {
+        const status = await getVerifiedModelStatus(model.id);
+        return { id: model.id, exists: status.exists };
+      } catch {
+        return { id: model.id, exists: false };
+      }
+    })
+  );
+  return statuses.filter((status) => status.exists).map((status) => status.id);
+}
+
+export async function removeModelFromDownloaded(modelId: string): Promise<void> {
+  await ml.removeModelCache(modelId);
+  modelStatusCache.set(modelId, {
+    model_type: modelId,
+    exists: false,
+    file_path: '',
+    size_bytes: 0,
+    sha256: null,
   });
 }
 
 export async function clearAllModels(): Promise<void> {
-  setLocalDownloadedModels([]);
   await ml.clearModelCache();
+  AVAILABLE_MODELS.forEach((model) => {
+    modelStatusCache.set(model.id, {
+      model_type: model.id,
+      exists: false,
+      file_path: '',
+      size_bytes: 0,
+      sha256: null,
+    });
+  });
 }
 
-export function isModelDownloaded(modelId: string): boolean {
-  return getLocalDownloadedModels().includes(modelId);
+export async function isModelDownloaded(modelId: string): Promise<boolean> {
+  const status = await getVerifiedModelStatus(modelId);
+  return status.exists;
 }
 
-export function isModelLoaded(modelId: string): boolean {
+export async function isModelLoaded(modelId: string): Promise<boolean> {
   return isModelDownloaded(modelId);
 }
 
-export function getModelsWithStatus(): ModelInfo[] {
-  const downloaded = getLocalDownloadedModels();
-  return AVAILABLE_MODELS.map((model) => ({
-    ...model,
-    isDownloaded: downloaded.includes(model.id),
-    isLoading: false,
-    downloadProgress: downloaded.includes(model.id) ? 100 : 0,
-  }));
+export async function getModelsWithStatus(): Promise<ModelInfo[]> {
+  await Promise.all(
+    AVAILABLE_MODELS.map(async (model) => {
+      try {
+        await getVerifiedModelStatus(model.id);
+      } catch {
+        // If status check fails, preserve existing cached value or default to not downloaded.
+        if (!modelStatusCache.has(model.id)) {
+          modelStatusCache.set(model.id, {
+            model_type: model.id,
+            exists: false,
+            file_path: '',
+            size_bytes: 0,
+            sha256: null,
+          });
+        }
+      }
+    })
+  );
+
+  return AVAILABLE_MODELS.map(toModelInfo);
 }
 
 export async function downloadModel(
@@ -178,12 +221,7 @@ export async function downloadModel(
     await ml.loadModel(modelInfo.id);
     setOnnxAvailabilityFlag(true);
 
-    const downloaded = getLocalDownloadedModels();
-    if (!downloaded.includes(modelId)) {
-      downloaded.push(modelId);
-      setLocalDownloadedModels(downloaded);
-    }
-
+    await getVerifiedModelStatus(modelInfo.id);
     onProgress?.({ modelId, progress: 100, loaded: 0, total: 0, status: 'ready' });
     return true;
   } catch (error) {
@@ -204,8 +242,10 @@ export async function loadModel(modelId: string): Promise<boolean> {
   if (!onnxAvailable) {
     throw new Error('ONNX runtime is unavailable on this system.');
   }
+
   await ml.loadModel(modelId);
   setOnnxAvailabilityFlag(true);
+  await getVerifiedModelStatus(modelId);
   return true;
 }
 

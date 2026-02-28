@@ -13,7 +13,7 @@ export function ModelProviderStatus() {
   useEffect(() => {
     async function fetchStatus() {
       // Local models
-      const models = getModelsWithStatus();
+      const models = await getModelsWithStatus();
       const downloadedCount = models.filter((m) => m.isDownloaded).length;
       setModelCount(downloadedCount);
       setAreAllModelsDownloaded(downloadedCount === AVAILABLE_MODELS.length);

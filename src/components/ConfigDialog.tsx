@@ -135,7 +135,9 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       setSystemPrompt(settings.systemPrompt || '');
 
       // Load models status
-      setModels(getModelsWithStatus());
+      getModelsWithStatus()
+        .then(setModels)
+        .catch(() => setModels([]));
     }
   }, [isOpen, settings]);
 
@@ -360,7 +362,7 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
       });
 
       // Refresh models list
-      setModels(getModelsWithStatus());
+      setModels(await getModelsWithStatus());
 
       // Get model name for toast
       const modelInfo = AVAILABLE_MODELS.find((m) => m.id === modelId);
@@ -405,16 +407,16 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
     }
   };
 
-  const handleRemoveModel = (modelId: string) => {
-    removeModelFromDownloaded(modelId);
-    setModels(getModelsWithStatus());
+  const handleRemoveModel = async (modelId: string) => {
+    await removeModelFromDownloaded(modelId);
+    setModels(await getModelsWithStatus());
   };
 
   const handleDeleteAllModels = async () => {
     setShowDeleteModelsConfirm(false);
     try {
       await clearAllModels();
-      setModels(getModelsWithStatus());
+      setModels(await getModelsWithStatus());
       addToast({
         type: 'success',
         title: 'Models Deleted',

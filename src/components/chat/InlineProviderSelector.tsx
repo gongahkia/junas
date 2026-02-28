@@ -27,7 +27,7 @@ export function InlineProviderSelector({
 
   const checkStatus = async () => {
     // Check local models
-    const models = getModelsWithStatus();
+    const models = await getModelsWithStatus();
     const downloadedCount = models.filter((m) => m.isDownloaded).length;
     setHasLocalModels(downloadedCount === AVAILABLE_MODELS.length);
 

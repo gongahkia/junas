@@ -270,15 +270,22 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
   // Sync with context chat state on load
   useEffect(() => {
     if (!chatState) return;
+    let isMounted = true;
 
-    // Check local model status (this logic stays local until we move ML manager to context too)
-    const models = getModelsWithStatus();
-    const downloadedCount = models.filter((m) => m.isDownloaded).length;
-    if (downloadedCount === AVAILABLE_MODELS.length) {
-      setCurrentProvider('local');
-    } else if (chatState.currentProvider) {
+    if (chatState.currentProvider) {
       setCurrentProvider(chatState.currentProvider);
     }
+    getModelsWithStatus()
+      .then((models) => {
+        if (!isMounted) return;
+        const downloadedCount = models.filter((m) => m.isDownloaded).length;
+        if (downloadedCount === AVAILABLE_MODELS.length) {
+          setCurrentProvider('local');
+        }
+      })
+      .catch(() => {
+        // Keep provider fallback from chat state if model status check fails.
+      });
 
     if (chatState.messages) {
       if (chatState.nodeMap && chatState.currentLeafId) {
@@ -309,6 +316,10 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       setConversationId(matchingConv.id);
       setConversationTitle(matchingConv.title);
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [chatState]); // Only re-run if context chatState changes externally (e.g. history selection)
 
   // Handle import messages
