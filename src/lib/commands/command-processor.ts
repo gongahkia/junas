@@ -11,6 +11,11 @@ import {
   AsyncLocalCommandResult,
   CommandInfo,
 } from './definitions';
+import type { LegalSearchResult } from '@/lib/legal-sources';
+import {
+  createSingaporeLegalSourceAdapter,
+  loadSingaporeLegalSourceConfigFromStorage,
+} from '@/lib/legal-sources';
 
 export type {
   CommandType,
@@ -39,64 +44,17 @@ export function isCommandDisabled(commandId: string): boolean {
   return getDisabledTools().has(commandId);
 }
 
-interface LegalSearchResult {
-  title: string;
-  url: string;
-  snippet: string;
-}
-
-function readLocalLegalCache(cacheKey: string, query: string): LegalSearchResult[] {
-  if (typeof window === 'undefined') return [];
-
-  try {
-    const raw = localStorage.getItem(cacheKey);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
-
-    const needle = query.toLowerCase();
-    return parsed
-      .filter(
-        (item) =>
-          item &&
-          typeof item.title === 'string' &&
-          typeof item.url === 'string' &&
-          typeof item.snippet === 'string'
-      )
-      .map((item) => ({
-        title: item.title as string,
-        url: item.url as string,
-        snippet: item.snippet as string,
-      }))
-      .filter(
-        (item) =>
-          item.title.toLowerCase().includes(needle) || item.snippet.toLowerCase().includes(needle)
-      )
-      .slice(0, 10);
-  } catch {
-    return [];
-  }
+function createConfiguredSingaporeAdapter() {
+  const config = loadSingaporeLegalSourceConfigFromStorage();
+  return createSingaporeLegalSourceAdapter(config);
 }
 
 async function searchCaseLawLocalFirst(query: string): Promise<LegalSearchResult[]> {
-  const localResults = readLocalLegalCache('junas_case_law_cache', query);
-  if (localResults.length > 0) return localResults;
-
-  const { getApiKey, webSearch } = await import('@/lib/tauri-bridge');
-  const apiKey = await getApiKey('serper');
-  return webSearch(
-    `Singapore case law ${query} site:judiciary.gov.sg OR site:singaporelawwatch.sg`,
-    apiKey
-  );
+  return createConfiguredSingaporeAdapter().searchCaseLaw(query);
 }
 
 async function researchStatuteLocalFirst(query: string): Promise<LegalSearchResult[]> {
-  const localResults = readLocalLegalCache('junas_statute_cache', query);
-  if (localResults.length > 0) return localResults;
-
-  const { getApiKey, webSearch } = await import('@/lib/tauri-bridge');
-  const apiKey = await getApiKey('serper');
-  return webSearch(`Singapore statutes ${query} site:sso.agc.gov.sg OR site:agc.gov.sg`, apiKey);
+  return createConfiguredSingaporeAdapter().researchStatute(query);
 }
 
 function formatLegalSearchResults(
