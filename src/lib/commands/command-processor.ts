@@ -90,6 +90,15 @@ async function searchCaseLawLocalFirst(query: string): Promise<LegalSearchResult
   );
 }
 
+async function researchStatuteLocalFirst(query: string): Promise<LegalSearchResult[]> {
+  const localResults = readLocalLegalCache('junas_statute_cache', query);
+  if (localResults.length > 0) return localResults;
+
+  const { getApiKey, webSearch } = await import('@/lib/tauri-bridge');
+  const apiKey = await getApiKey('serper');
+  return webSearch(`Singapore statutes ${query} site:sso.agc.gov.sg OR site:agc.gov.sg`, apiKey);
+}
+
 function formatLegalSearchResults(
   header: string,
   query: string,
@@ -225,6 +234,7 @@ export function processLocalCommand(command: ProcessedCommand): LocalCommandResu
     case 'fetch-url':
     case 'web-search':
     case 'search-case-law':
+    case 'research-statute':
       return {
         success: true,
         content: '__ASYNC_MODEL_COMMAND__', // Signal to ChatInterface to use async processing
@@ -394,6 +404,25 @@ export async function processAsyncLocalCommand(
           return {
             success: false,
             content: `Error searching case law: ${e.message || String(e)}`,
+          };
+        }
+      }
+      case 'research-statute': {
+        try {
+          const results = await researchStatuteLocalFirst(args);
+          return {
+            success: true,
+            content: formatLegalSearchResults(
+              'Statute Research Results',
+              args,
+              results,
+              'No statute results found.'
+            ),
+          };
+        } catch (e: any) {
+          return {
+            success: false,
+            content: `Error researching statute: ${e.message || String(e)}`,
           };
         }
       }
