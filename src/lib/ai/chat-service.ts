@@ -51,6 +51,8 @@ const PROVIDER_CONTEXT_TOKEN_BUDGET: Partial<Record<AIProvider, number>> = {
 const DEFAULT_CONTEXT_TOKEN_BUDGET = 12_000;
 const MESSAGE_TOKEN_OVERHEAD = 10;
 const MIN_CONTEXT_TOKEN_BUDGET = 1_500;
+const CHECKPOINT_MAX_ENTRIES = 12;
+const CHECKPOINT_ENTRY_MAX_CHARS = 220;
 
 function createAbortError(): Error {
   const error = new Error('Request cancelled by user.');
@@ -128,11 +130,53 @@ function estimateMessageTokens(message: Message): number {
   return MESSAGE_TOKEN_OVERHEAD + estimateTokens(message.content || '');
 }
 
+function normalizeCheckpointText(text: string): string {
+  return text.replace(/\s+/g, ' ').trim();
+}
+
+function truncateCheckpointText(text: string, maxChars: number): string {
+  if (text.length <= maxChars) return text;
+  return `${text.slice(0, maxChars - 3)}...`;
+}
+
+function buildHistoryCheckpointMessage(
+  droppedMessages: Message[],
+  droppedTokenEstimate: number
+): Message | null {
+  const candidateEntries = droppedMessages
+    .filter((message) => message.role === 'user' || message.role === 'assistant')
+    .slice(-CHECKPOINT_MAX_ENTRIES)
+    .map((message) => {
+      const summary = truncateCheckpointText(
+        normalizeCheckpointText(message.content || ''),
+        CHECKPOINT_ENTRY_MAX_CHARS
+      );
+      return `- ${message.role.toUpperCase()}: ${summary || '[empty]'}`;
+    });
+
+  if (candidateEntries.length === 0) return null;
+
+  const checkpointBody = [
+    `Conversation checkpoint: ${droppedMessages.length} older messages (~${droppedTokenEstimate} tokens) were compacted.`,
+    'Key earlier context:',
+    ...candidateEntries,
+  ].join('\n');
+
+  return {
+    id: 'history-checkpoint',
+    role: 'system',
+    content: checkpointBody,
+    timestamp: new Date(0),
+  };
+}
+
 function pruneMessagesToTokenBudget(messages: Message[], tokenBudget: number): Message[] {
   if (messages.length === 0) return [];
 
   const kept: Message[] = [];
+  const dropped: Message[] = [];
   let usedTokens = 0;
+  let droppedTokenEstimate = 0;
 
   for (let i = messages.length - 1; i >= 0; i -= 1) {
     const message = messages[i];
@@ -140,6 +184,8 @@ function pruneMessagesToTokenBudget(messages: Message[], tokenBudget: number): M
     const canFit = usedTokens + messageTokens <= tokenBudget;
 
     if (!canFit && kept.length > 0) {
+      dropped.push(message);
+      droppedTokenEstimate += messageTokens;
       continue;
     }
 
@@ -149,6 +195,26 @@ function pruneMessagesToTokenBudget(messages: Message[], tokenBudget: number): M
 
   if (kept.length === 0) {
     return [messages[messages.length - 1]];
+  }
+
+  let checkpointMessage = buildHistoryCheckpointMessage(dropped, droppedTokenEstimate);
+  while (checkpointMessage && kept.length > 1) {
+    const checkpointTokens = estimateMessageTokens(checkpointMessage);
+    if (usedTokens + checkpointTokens <= tokenBudget) break;
+
+    const removed = kept.shift();
+    if (!removed) break;
+    usedTokens -= estimateMessageTokens(removed);
+    dropped.push(removed);
+    droppedTokenEstimate += estimateMessageTokens(removed);
+    checkpointMessage = buildHistoryCheckpointMessage(dropped, droppedTokenEstimate);
+  }
+
+  if (checkpointMessage) {
+    const checkpointTokens = estimateMessageTokens(checkpointMessage);
+    if (usedTokens + checkpointTokens <= tokenBudget) {
+      kept.unshift(checkpointMessage);
+    }
   }
 
   return kept;
