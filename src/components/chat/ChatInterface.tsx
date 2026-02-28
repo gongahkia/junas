@@ -9,6 +9,7 @@ import { ChatService } from '@/lib/ai/chat-service';
 import { useToast } from '@/components/ui/toast';
 import { generateId } from '@/lib/utils';
 import {
+  COMMANDS,
   parseCommand,
   processLocalCommand,
   processAsyncLocalCommand,
@@ -103,6 +104,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     }
     return ASCII_LOGOS[settings.asciiLogo || '5'] || ASCII_LOGOS['5'];
   }, [settings.asciiLogo]);
+  const supportedToolIds = useMemo(() => new Set(COMMANDS.map((command) => command.id)), []);
 
   // Sync with context chat state on load
   useEffect(() => {
@@ -388,6 +390,11 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
           const commandId = commandMatch[1].toLowerCase() as any;
           const args = commandMatch[2].trim();
+          if (!supportedToolIds.has(commandId)) {
+            const unsupportedMessage = `Error: Unsupported tool command "${commandId}".`;
+            updateMessageContent(unsupportedMessage);
+            return unsupportedMessage;
+          }
           const commandSignature = `${commandId}:${args}`;
 
           if (seenToolCalls.has(commandSignature)) {
@@ -479,7 +486,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         throw error;
       }
     },
-    [currentProvider, addToast]
+    [currentProvider, addToast, supportedToolIds]
   );
 
   const handleSendMessage = useCallback(
