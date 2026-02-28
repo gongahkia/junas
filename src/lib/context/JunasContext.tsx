@@ -76,6 +76,14 @@ export function JunasProvider({ children }: { children: ReactNode }) {
   };
   const saveConversation = (conversation: Conversation) => {
     StorageManager.saveConversation(conversation);
+    setConversations((prev) => {
+      const existingIndex = prev.findIndex((item) => item.id === conversation.id);
+      if (existingIndex === -1) return [conversation, ...prev];
+
+      const updated = [...prev];
+      updated[existingIndex] = conversation;
+      return updated;
+    });
   };
   const deleteConversation = (id: string) => {
     StorageManager.deleteConversation(id);
