@@ -307,7 +307,12 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
   // AI Processing Loop (ReAct Pattern)
   const generateResponse = useCallback(
-    async (currentMessages: Message[], assistantMessageId: string, recursionDepth = 0) => {
+    async (
+      currentMessages: Message[],
+      assistantMessageId: string,
+      recursionDepth = 0,
+      seenToolCalls: Set<string> = new Set()
+    ) => {
       const settings = StorageManager.getSettings();
       const maxDepth = settings.agentMode ? 10 : 3;
 
@@ -376,6 +381,15 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         if (commandMatch) {
           const commandId = commandMatch[1].toLowerCase() as any;
           const args = commandMatch[2].trim();
+          const commandSignature = `${commandId}:${args}`;
+
+          if (seenToolCalls.has(commandSignature)) {
+            const loopMessage = `Error: Tool loop detected for "${commandId}" with identical arguments.`;
+            updateMessageContent(loopMessage);
+            return loopMessage;
+          }
+          const nextSeenToolCalls = new Set(seenToolCalls);
+          nextSeenToolCalls.add(commandSignature);
 
           // Check for destructive commands requiring confirmation
           if (['generate-document', 'write-file', 'delete-file'].includes(commandId)) {
@@ -396,7 +410,8 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
               return await generateResponse(
                 updatedMessages,
                 assistantMessageId,
-                recursionDepth + 1
+                recursionDepth + 1,
+                nextSeenToolCalls
               );
             }
           }
@@ -443,7 +458,12 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
             } as Message,
           ];
 
-          return await generateResponse(updatedMessages, assistantMessageId, recursionDepth + 1);
+          return await generateResponse(
+            updatedMessages,
+            assistantMessageId,
+            recursionDepth + 1,
+            nextSeenToolCalls
+          );
         }
 
         return aiResponseText;
