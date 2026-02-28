@@ -34,7 +34,7 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
             fontFamily: 'var(--font-geist-sans), sans-serif',
             flowchart: {
               useMaxWidth: true,
-              htmlLabels: true,
+              htmlLabels: false,
               curve: 'basis',
             },
             themeVariables: {
