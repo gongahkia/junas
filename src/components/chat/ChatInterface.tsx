@@ -39,6 +39,7 @@ import {
   validateCitations,
 } from '@/lib/citations';
 import type { SingaporeCitationKind } from '@/lib/citations';
+import { recordToolObservability } from '@/lib/observability/chat-observability';
 
 interface ChatInterfaceProps {
   activeTab?: 'chat' | 'artifacts' | 'tree';
@@ -644,10 +645,12 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
           }
 
           const toolCommand = { command: commandId, args, isLocal: true };
+          const toolStartedAt = Date.now();
 
           updateMessageContent(`[Executing tool: ${commandId}...]`);
 
           let toolResultContent = '';
+          let toolSucceeded = false;
           const syncResult = processLocalCommand(toolCommand);
 
           if (syncResult.success && syncResult.artifact) {
@@ -668,14 +671,22 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
             const asyncResult = await processAsyncLocalCommand(toolCommand, (partialContent) => {
               updateMessageContent(partialContent);
             });
+            toolSucceeded = asyncResult.success;
             toolResultContent = asyncResult.success
               ? asyncResult.content
               : `Tool Error: ${asyncResult.content}`;
           } else {
+            toolSucceeded = syncResult.success;
             toolResultContent = syncResult.success
               ? syncResult.content
               : `Tool Error: ${syncResult.content}`;
           }
+          recordToolObservability(
+            commandId,
+            Date.now() - toolStartedAt,
+            toolSucceeded,
+            toolSucceeded ? undefined : toolResultContent
+          );
 
           // 3. Feed result back to AI
           const updatedMessages = [
@@ -795,6 +806,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
       // Legacy Local Command Handling
       if (parsedCommand && parsedCommand.isLocal) {
+        const localToolStartedAt = Date.now();
         const result = processLocalCommand(parsedCommand);
 
         // Handle artifact generation
@@ -814,6 +826,12 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         }
 
         if (!result.success && result.requiresModel) {
+          recordToolObservability(
+            parsedCommand.command,
+            Date.now() - localToolStartedAt,
+            false,
+            result.content
+          );
           const responseTime = Date.now() - startTime;
           if (isGenerationActive(generationId)) {
             updateAssistantMessage(assistantMessage.id, result.content, { responseTime });
@@ -848,12 +866,24 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
             if (isGenerationActive(generationId)) {
               updateAssistantMessage(assistantMessage.id, asyncResult.content, { responseTime });
             }
+            recordToolObservability(
+              parsedCommand.command,
+              Date.now() - localToolStartedAt,
+              asyncResult.success,
+              asyncResult.success ? undefined : asyncResult.content
+            );
           } catch (error: unknown) {
             if (isAbortError(error)) {
               completeGeneration(generationId);
               return;
             }
             const errorMessage = error instanceof Error ? error.message : String(error);
+            recordToolObservability(
+              parsedCommand.command,
+              Date.now() - localToolStartedAt,
+              false,
+              errorMessage
+            );
             const responseTime = Date.now() - startTime;
             if (isGenerationActive(generationId)) {
               updateAssistantMessage(
@@ -873,6 +903,12 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         if (isGenerationActive(generationId)) {
           updateAssistantMessage(assistantMessage.id, result.content, { responseTime });
         }
+        recordToolObservability(
+          parsedCommand.command,
+          Date.now() - localToolStartedAt,
+          result.success,
+          result.success ? undefined : result.content
+        );
         completeGeneration(generationId);
         return;
       }

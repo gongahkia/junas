@@ -5,6 +5,7 @@ import * as bridge from '@/lib/tauri-bridge';
 import { getApiKey } from '@/lib/tauri-bridge';
 import { getProviderRegistryEntry, PROVIDER_IDS } from '@/lib/providers/registry';
 import { estimateTokens } from '@/lib/ai/token-utils';
+import { recordProviderObservability } from '@/lib/observability/chat-observability';
 import {
   extractSingaporeCitations,
   normalizeExtractedCitations,
@@ -282,6 +283,7 @@ export class ChatService {
       let unlisten: (() => void) | null = null;
       let removeAbortListener: (() => void) | null = null;
       let fullResponse = '';
+      const providerStartTime = Date.now();
       if (onChunk) {
         unlisten = await bridge.onChatStream((chunk) => {
           if (signal?.aborted) return;
@@ -327,8 +329,27 @@ export class ChatService {
           throw new Error(`Unsupported provider: ${provider}`);
         };
 
-        const result = await withAbortSignal(executeProviderRequest(), signal);
+        let result: bridge.ProviderResponse;
+        try {
+          result = await withAbortSignal(executeProviderRequest(), signal);
+        } catch (providerError: unknown) {
+          recordProviderObservability(
+            provider,
+            'chat_completion',
+            Date.now() - providerStartTime,
+            false,
+            providerError instanceof Error ? providerError.message : String(providerError)
+          );
+          throw providerError;
+        }
+
         throwIfAborted(signal);
+        recordProviderObservability(
+          provider,
+          'chat_completion',
+          Date.now() - providerStartTime,
+          true
+        );
         fullResponse = result.content;
       } finally {
         if (removeAbortListener) removeAbortListener();
