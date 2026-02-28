@@ -37,15 +37,51 @@ export interface DocumentStructure {
   detectedSections: string[];
 }
 
+const NLP_CHUNK_SIZE = 12_000;
+
+function chunkText(text: string, chunkSize: number): string[] {
+  if (text.length <= chunkSize) return [text];
+
+  const chunks: string[] = [];
+  let start = 0;
+
+  while (start < text.length) {
+    let end = Math.min(start + chunkSize, text.length);
+    if (end < text.length) {
+      const newlineBreak = text.lastIndexOf('\n', end);
+      const sentenceBreak = text.lastIndexOf('. ', end);
+      const bestBreak = Math.max(newlineBreak, sentenceBreak);
+      if (bestBreak > start + chunkSize * 0.5) {
+        end = bestBreak + 1;
+      }
+    }
+    chunks.push(text.slice(start, end));
+    start = end;
+  }
+
+  return chunks;
+}
+
+function forEachLine(text: string, callback: (line: string) => void): void {
+  let start = 0;
+  while (start <= text.length) {
+    let end = text.indexOf('\n', start);
+    if (end === -1) end = text.length;
+    callback(text.slice(start, end));
+    if (end === text.length) break;
+    start = end + 1;
+  }
+}
+
 /**
  * Calculate basic text statistics
  */
 export function getTextStatistics(text: string): TextStatistics {
   const characters = text.length;
   const charactersNoSpaces = text.replace(/\s/g, '').length;
-  const words = text.split(/\s+/).filter(w => w.length > 0).length;
-  const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
-  const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0).length;
+  const words = text.split(/\s+/).filter((w) => w.length > 0).length;
+  const sentences = text.split(/[.!?]+/).filter((s) => s.trim().length > 0).length;
+  const paragraphs = text.split(/\n\s*\n/).filter((p) => p.trim().length > 0).length;
 
   const averageWordLength = words > 0 ? charactersNoSpaces / words : 0;
   const averageSentenceLength = sentences > 0 ? words / sentences : 0;
@@ -80,15 +116,18 @@ export function getReadabilityScores(text: string): ReadabilityScores {
   // Flesch Reading Ease: 206.835 - 1.015 * (words/sentences) - 84.6 * (syllables/words)
   const fleschReadingEase = Math.round(
     206.835 -
-    1.015 * (stats.words / Math.max(stats.sentences, 1)) -
-    84.6 * (syllableCount / Math.max(stats.words, 1))
+      1.015 * (stats.words / Math.max(stats.sentences, 1)) -
+      84.6 * (syllableCount / Math.max(stats.words, 1))
   );
 
   // Flesch-Kincaid Grade Level: 0.39 * (words/sentences) + 11.8 * (syllables/words) - 15.59
-  const fleschKincaidGrade = Math.round(
-    (0.39 * (stats.words / Math.max(stats.sentences, 1)) +
-    11.8 * (syllableCount / Math.max(stats.words, 1)) - 15.59) * 10
-  ) / 10;
+  const fleschKincaidGrade =
+    Math.round(
+      (0.39 * (stats.words / Math.max(stats.sentences, 1)) +
+        11.8 * (syllableCount / Math.max(stats.words, 1)) -
+        15.59) *
+        10
+    ) / 10;
 
   let interpretation: string;
   if (fleschReadingEase >= 90) {
@@ -143,46 +182,133 @@ function countWordSyllables(word: string): number {
  * Extract keywords using frequency analysis
  */
 export function extractKeywords(text: string, topN: number = 10): KeywordResult[] {
-  const doc = nlp(text);
-
-  // Get nouns and noun phrases as they're usually the most meaningful
-  const nouns = doc.nouns().out('array') as string[];
-  const terms = doc.terms().out('array') as string[];
-
   // Common stop words to filter out
   const stopWords = new Set([
-    'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
-    'of', 'with', 'by', 'from', 'as', 'is', 'was', 'are', 'were', 'been',
-    'be', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could',
-    'should', 'may', 'might', 'must', 'shall', 'this', 'that', 'these', 'those',
-    'it', 'its', 'they', 'them', 'their', 'we', 'us', 'our', 'you', 'your',
-    'he', 'him', 'his', 'she', 'her', 'i', 'me', 'my', 'not', 'no', 'yes',
-    'if', 'then', 'else', 'when', 'where', 'which', 'who', 'whom', 'what',
-    'how', 'why', 'all', 'each', 'every', 'both', 'few', 'more', 'most',
-    'other', 'some', 'such', 'only', 'own', 'same', 'so', 'than', 'too',
-    'very', 'just', 'also', 'now', 'here', 'there', 'any', 'many', 'much',
+    'the',
+    'a',
+    'an',
+    'and',
+    'or',
+    'but',
+    'in',
+    'on',
+    'at',
+    'to',
+    'for',
+    'of',
+    'with',
+    'by',
+    'from',
+    'as',
+    'is',
+    'was',
+    'are',
+    'were',
+    'been',
+    'be',
+    'have',
+    'has',
+    'had',
+    'do',
+    'does',
+    'did',
+    'will',
+    'would',
+    'could',
+    'should',
+    'may',
+    'might',
+    'must',
+    'shall',
+    'this',
+    'that',
+    'these',
+    'those',
+    'it',
+    'its',
+    'they',
+    'them',
+    'their',
+    'we',
+    'us',
+    'our',
+    'you',
+    'your',
+    'he',
+    'him',
+    'his',
+    'she',
+    'her',
+    'i',
+    'me',
+    'my',
+    'not',
+    'no',
+    'yes',
+    'if',
+    'then',
+    'else',
+    'when',
+    'where',
+    'which',
+    'who',
+    'whom',
+    'what',
+    'how',
+    'why',
+    'all',
+    'each',
+    'every',
+    'both',
+    'few',
+    'more',
+    'most',
+    'other',
+    'some',
+    'such',
+    'only',
+    'own',
+    'same',
+    'so',
+    'than',
+    'too',
+    'very',
+    'just',
+    'also',
+    'now',
+    'here',
+    'there',
+    'any',
+    'many',
+    'much',
   ]);
 
-  // Count word frequencies
   const wordCounts = new Map<string, number>();
-  const allWords = [...nouns, ...terms];
+  let totalWords = 0;
 
-  for (const word of allWords) {
-    const normalized = word.toLowerCase().trim();
-    if (normalized.length > 2 && !stopWords.has(normalized)) {
-      wordCounts.set(normalized, (wordCounts.get(normalized) || 0) + 1);
+  for (const chunk of chunkText(text, NLP_CHUNK_SIZE)) {
+    const doc = nlp(chunk);
+    // Get nouns and noun phrases as they're usually the most meaningful
+    const nouns = doc.nouns().out('array') as string[];
+    const terms = doc.terms().out('array') as string[];
+    const allWords = [...nouns, ...terms];
+    totalWords += allWords.length;
+
+    for (const word of allWords) {
+      const normalized = word.toLowerCase().trim();
+      if (normalized.length > 2 && !stopWords.has(normalized)) {
+        wordCounts.set(normalized, (wordCounts.get(normalized) || 0) + 1);
+      }
     }
   }
 
-  // Sort by frequency and take top N
-  const totalWords = allWords.length;
   const sorted = Array.from(wordCounts.entries())
     .sort((a, b) => b[1] - a[1])
     .slice(0, topN)
     .map(([word, count]) => ({
       word,
       count,
-      frequency: Math.round((count / totalWords) * 10000) / 100, // percentage
+      frequency: totalWords > 0 ? Math.round((count / totalWords) * 10000) / 100 : 0, // percentage
     }));
 
   return sorted;
@@ -192,30 +318,40 @@ export function extractKeywords(text: string, topN: number = 10): KeywordResult[
  * Analyze document structure (useful for legal documents)
  */
 export function analyzeDocumentStructure(text: string): DocumentStructure {
-  const lines = text.split('\n');
-
   // Check for numbered sections (1., 2., 1.1, etc.)
   const numberedPattern = /^\s*\d+\.(\d+\.?)*\s+/;
-  const hasNumberedSections = lines.some(line => numberedPattern.test(line));
-
   // Check for letter sections (a), (b), (i), (ii), etc.
   const letterPattern = /^\s*\([a-z]\)|\([ivx]+\)/i;
-  const hasLetterSections = lines.some(line => letterPattern.test(line));
-
   // Check for bullet points
   const bulletPattern = /^\s*[-•*]\s+/;
-  const hasBulletPoints = lines.some(line => bulletPattern.test(line));
-
   // Check for definitions (common in legal docs)
   const definitionPattern = /"[^"]+"\s+(means|refers to|shall mean)/i;
   const hasDefinitions = definitionPattern.test(text);
 
   // Detect section headings (ALL CAPS or Title Case followed by content)
   const sectionPattern = /^([A-Z][A-Z\s]+[A-Z]|[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s*$/;
-  const detectedSections = lines
-    .filter(line => sectionPattern.test(line.trim()) && line.trim().length > 3)
-    .map(line => line.trim())
-    .slice(0, 20); // Limit to first 20
+  const detectedSections: string[] = [];
+  let hasNumberedSections = false;
+  let hasLetterSections = false;
+  let hasBulletPoints = false;
+
+  forEachLine(text, (line) => {
+    if (!hasNumberedSections && numberedPattern.test(line)) {
+      hasNumberedSections = true;
+    }
+    if (!hasLetterSections && letterPattern.test(line)) {
+      hasLetterSections = true;
+    }
+    if (!hasBulletPoints && bulletPattern.test(line)) {
+      hasBulletPoints = true;
+    }
+    if (detectedSections.length < 20) {
+      const trimmed = line.trim();
+      if (trimmed.length > 3 && sectionPattern.test(trimmed)) {
+        detectedSections.push(trimmed);
+      }
+    }
+  });
 
   return {
     hasNumberedSections,

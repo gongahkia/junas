@@ -11,7 +11,16 @@ nlp.plugin(dates);
 
 export interface ExtractedEntity {
   text: string;
-  type: 'person' | 'organization' | 'place' | 'date' | 'money' | 'legal_citation' | 'email' | 'phone' | 'url';
+  type:
+    | 'person'
+    | 'organization'
+    | 'place'
+    | 'date'
+    | 'money'
+    | 'legal_citation'
+    | 'email'
+    | 'phone'
+    | 'url';
   start?: number;
   end?: number;
 }
@@ -53,96 +62,121 @@ const LEGAL_CITATION_PATTERNS = [
 const EMAIL_PATTERN = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
 const PHONE_PATTERN = /(?:\+65\s?)?[689]\d{3}\s?\d{4}/g;
 const URL_PATTERN = /https?:\/\/[^\s]+/g;
+const NLP_CHUNK_SIZE = 12_000;
+
+function chunkText(text: string, chunkSize: number): string[] {
+  if (text.length <= chunkSize) return [text];
+
+  const chunks: string[] = [];
+  let start = 0;
+
+  while (start < text.length) {
+    let end = Math.min(start + chunkSize, text.length);
+    if (end < text.length) {
+      const newlineBreak = text.lastIndexOf('\n', end);
+      const sentenceBreak = text.lastIndexOf('. ', end);
+      const bestBreak = Math.max(newlineBreak, sentenceBreak);
+      if (bestBreak > start + chunkSize * 0.5) {
+        end = bestBreak + 1;
+      }
+    }
+    chunks.push(text.slice(start, end));
+    start = end;
+  }
+
+  return chunks;
+}
+
+function extractRegexMatches(chunk: string, pattern: RegExp): string[] {
+  const matches: string[] = [];
+  pattern.lastIndex = 0;
+  let match = pattern.exec(chunk);
+  while (match) {
+    matches.push(match[0]);
+    match = pattern.exec(chunk);
+  }
+  pattern.lastIndex = 0;
+  return matches;
+}
 
 /**
  * Extract entities from text using browser-based NLP
  */
 export function extractEntities(text: string): EntityExtractionResult {
   const entities: ExtractedEntity[] = [];
-  const doc = nlp(text) as any;
+  const chunks = chunkText(text, NLP_CHUNK_SIZE);
 
-  // Extract people
-  doc.people().forEach((match: any) => {
-    entities.push({
-      text: match.text(),
-      type: 'person',
+  for (const chunk of chunks) {
+    const doc = nlp(chunk) as any;
+
+    // Extract people
+    doc.people().forEach((match: any) => {
+      entities.push({
+        text: match.text(),
+        type: 'person',
+      });
     });
-  });
 
-  // Extract organizations
-  doc.organizations().forEach((match: any) => {
-    entities.push({
-      text: match.text(),
-      type: 'organization',
+    // Extract organizations
+    doc.organizations().forEach((match: any) => {
+      entities.push({
+        text: match.text(),
+        type: 'organization',
+      });
     });
-  });
 
-  // Extract places
-  doc.places().forEach((match: any) => {
-    entities.push({
-      text: match.text(),
-      type: 'place',
+    // Extract places
+    doc.places().forEach((match: any) => {
+      entities.push({
+        text: match.text(),
+        type: 'place',
+      });
     });
-  });
 
-  // Extract dates
-  doc.dates().forEach((match: any) => {
-    entities.push({
-      text: match.text(),
-      type: 'date',
+    // Extract dates
+    doc.dates().forEach((match: any) => {
+      entities.push({
+        text: match.text(),
+        type: 'date',
+      });
     });
-  });
 
-  // Extract money
-  doc.money().forEach((match: any) => {
-    entities.push({
-      text: match.text(),
-      type: 'money',
+    // Extract money
+    doc.money().forEach((match: any) => {
+      entities.push({
+        text: match.text(),
+        type: 'money',
+      });
     });
-  });
 
-  // Extract legal citations using regex patterns
-  for (const pattern of LEGAL_CITATION_PATTERNS) {
-    const matches = text.match(pattern);
-    if (matches) {
-      for (const match of matches) {
-        // Avoid duplicates
-        if (!entities.some(e => e.text === match && e.type === 'legal_citation')) {
-          entities.push({
-            text: match,
-            type: 'legal_citation',
-          });
-        }
+    // Extract legal citations using regex patterns
+    for (const pattern of LEGAL_CITATION_PATTERNS) {
+      for (const match of extractRegexMatches(chunk, pattern)) {
+        entities.push({
+          text: match,
+          type: 'legal_citation',
+        });
       }
     }
-  }
 
-  // Extract emails
-  const emails = text.match(EMAIL_PATTERN);
-  if (emails) {
-    for (const email of emails) {
+    // Extract emails
+    for (const email of extractRegexMatches(chunk, EMAIL_PATTERN)) {
       entities.push({
         text: email,
         type: 'email',
       });
     }
-  }
 
-  // Extract phone numbers (Singapore format)
-  const phones = text.match(PHONE_PATTERN);
-  if (phones) {
-    for (const phone of phones) {
+    // Extract phone numbers (Singapore format)
+    for (const phone of extractRegexMatches(chunk, PHONE_PATTERN)) {
       entities.push({
         text: phone,
         type: 'phone',
       });
     }
-  }
 
-  // Extract URLs
-  const urls = text.match(URL_PATTERN);
-  if (urls) {
-    for (const url of urls) {
+    // Extract URLs
+    for (const url of extractRegexMatches(chunk, URL_PATTERN)) {
       entities.push({
         text: url,
         type: 'url',
@@ -151,21 +185,22 @@ export function extractEntities(text: string): EntityExtractionResult {
   }
 
   // Deduplicate entities
-  const uniqueEntities = entities.filter((entity, index, self) =>
-    index === self.findIndex(e => e.text === entity.text && e.type === entity.type)
+  const uniqueEntities = entities.filter(
+    (entity, index, self) =>
+      index === self.findIndex((e) => e.text === entity.text && e.type === entity.type)
   );
 
   // Calculate summary
   const summary = {
-    persons: uniqueEntities.filter(e => e.type === 'person').length,
-    organizations: uniqueEntities.filter(e => e.type === 'organization').length,
-    places: uniqueEntities.filter(e => e.type === 'place').length,
-    dates: uniqueEntities.filter(e => e.type === 'date').length,
-    money: uniqueEntities.filter(e => e.type === 'money').length,
-    legalCitations: uniqueEntities.filter(e => e.type === 'legal_citation').length,
-    emails: uniqueEntities.filter(e => e.type === 'email').length,
-    phones: uniqueEntities.filter(e => e.type === 'phone').length,
-    urls: uniqueEntities.filter(e => e.type === 'url').length,
+    persons: uniqueEntities.filter((e) => e.type === 'person').length,
+    organizations: uniqueEntities.filter((e) => e.type === 'organization').length,
+    places: uniqueEntities.filter((e) => e.type === 'place').length,
+    dates: uniqueEntities.filter((e) => e.type === 'date').length,
+    money: uniqueEntities.filter((e) => e.type === 'money').length,
+    legalCitations: uniqueEntities.filter((e) => e.type === 'legal_citation').length,
+    emails: uniqueEntities.filter((e) => e.type === 'email').length,
+    phones: uniqueEntities.filter((e) => e.type === 'phone').length,
+    urls: uniqueEntities.filter((e) => e.type === 'url').length,
     total: uniqueEntities.length,
   };
 
@@ -203,7 +238,7 @@ export function formatEntityResults(result: EntityExtractionResult): string {
   for (const section of sections) {
     if (section.count > 0) {
       output += `### ${section.label} (${section.count})\n`;
-      const sectionEntities = entities.filter(e => e.type === section.type);
+      const sectionEntities = entities.filter((e) => e.type === section.type);
       for (const entity of sectionEntities) {
         output += `- ${entity.text}\n`;
       }
