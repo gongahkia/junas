@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { StorageManager } from '@/lib/storage';
 import { ChatState, ChatSettings, Conversation } from '@/types/chat';
 import { getApiKey } from '@/lib/tauri-bridge';
-import { listConversations, loadConversation } from '@/lib/storage/file-storage';
 interface JunasState {
   settings: ChatSettings;
   chatState: ChatState | null;
@@ -22,31 +21,11 @@ export function JunasProvider({ children }: { children: ReactNode }) {
   const [configuredProviders, setConfiguredProviders] = useState<Record<string, boolean>>({});
   const hydrateConversations = async () => {
     try {
-      const summaries = await listConversations();
+      const summaries = await StorageManager.getConversationsAsync();
       const loaded = await Promise.all(
         summaries.map(async (summary) => {
-          const raw = await loadConversation(summary.id);
-          if (!raw || typeof raw !== 'object') return null;
-
-          const conversation = raw as Partial<Conversation> & Record<string, unknown>;
-          if (!Array.isArray(conversation.messages)) return null;
-
-          return {
-            ...conversation,
-            id: typeof conversation.id === 'string' ? conversation.id : summary.id,
-            title:
-              typeof conversation.title === 'string' && conversation.title.trim().length > 0
-                ? conversation.title
-                : summary.name,
-            createdAt: conversation.createdAt
-              ? new Date(conversation.createdAt as string)
-              : new Date(),
-            updatedAt: conversation.updatedAt
-              ? new Date(conversation.updatedAt as string)
-              : new Date(),
-            messages: conversation.messages,
-            artifacts: Array.isArray(conversation.artifacts) ? conversation.artifacts : [],
-          } as Conversation;
+          const conversation = await StorageManager.loadConversationById(summary.id);
+          return conversation;
         })
       );
 
