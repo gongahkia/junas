@@ -4,11 +4,18 @@ use futures_util::StreamExt;
 use kuchiki::traits::*;
 
 const MAX_FETCH_BODY_BYTES: usize = 2 * 1024 * 1024;
+const TOOL_CONNECT_TIMEOUT_SECS: u64 = 10;
+const TOOL_REQUEST_TIMEOUT_SECS: u64 = 20;
 // task 26: fetch url, sanitize html, return markdown-ish text
 #[tauri::command]
 pub async fn fetch_url(url: String) -> Result<String, AppError> {
     let normalized_url = normalize_fetch_url(&url)?;
-    let client = reqwest::Client::builder().user_agent("Junas/0.1").build().map_err(|e| AppError::Network(e.to_string()))?;
+    let client = reqwest::Client::builder()
+        .user_agent("Junas/0.1")
+        .connect_timeout(std::time::Duration::from_secs(TOOL_CONNECT_TIMEOUT_SECS))
+        .timeout(std::time::Duration::from_secs(TOOL_REQUEST_TIMEOUT_SECS))
+        .build()
+        .map_err(|e| AppError::Network(e.to_string()))?;
     let resp = client.get(&normalized_url).send().await?;
     if !resp.status().is_success() {
         return Err(AppError::Network(format!("HTTP {}", resp.status())));
@@ -91,7 +98,11 @@ fn normalize_whitespace(input: &str) -> String {
 // task 27: web search via serper.dev
 #[tauri::command]
 pub async fn web_search(query: String, api_key: String) -> Result<Vec<SearchResult>, AppError> {
-    let client = reqwest::Client::new();
+    let client = reqwest::Client::builder()
+        .connect_timeout(std::time::Duration::from_secs(TOOL_CONNECT_TIMEOUT_SECS))
+        .timeout(std::time::Duration::from_secs(TOOL_REQUEST_TIMEOUT_SECS))
+        .build()
+        .map_err(|e| AppError::Network(e.to_string()))?;
     let resp = client.post("https://google.serper.dev/search")
         .header("X-API-KEY", &api_key)
         .json(&serde_json::json!({"q": query}))
@@ -114,7 +125,11 @@ pub async fn web_search(query: String, api_key: String) -> Result<Vec<SearchResu
 // task 28: health check
 #[tauri::command]
 pub async fn health_check(provider: String, endpoint: Option<String>) -> Result<bool, AppError> {
-    let client = reqwest::Client::builder().timeout(std::time::Duration::from_secs(5)).build().map_err(|e| AppError::Network(e.to_string()))?;
+    let client = reqwest::Client::builder()
+        .connect_timeout(std::time::Duration::from_secs(5))
+        .timeout(std::time::Duration::from_secs(5))
+        .build()
+        .map_err(|e| AppError::Network(e.to_string()))?;
     let url = match provider.as_str() {
         "claude" => "https://api.anthropic.com/v1/messages".to_string(),
         "openai" => "https://api.openai.com/v1/models".to_string(),

@@ -2,8 +2,16 @@ use crate::error::AppError;
 use crate::streaming::stream_sse;
 use crate::types::{ChatSettings, Message, ProviderResponse};
 use tauri::AppHandle;
+
+const PROVIDER_CONNECT_TIMEOUT_SECS: u64 = 10;
+const PROVIDER_REQUEST_TIMEOUT_SECS: u64 = 120;
+
 fn build_client() -> reqwest::Client {
-    reqwest::Client::builder().build().expect("failed to build http client")
+    reqwest::Client::builder()
+        .connect_timeout(std::time::Duration::from_secs(PROVIDER_CONNECT_TIMEOUT_SECS))
+        .timeout(std::time::Duration::from_secs(PROVIDER_REQUEST_TIMEOUT_SECS))
+        .build()
+        .expect("failed to build http client")
 }
 // task 20: anthropic/claude
 #[tauri::command]
