@@ -77,6 +77,8 @@ export class StorageManager {
 
     const conversation = raw as Partial<Conversation> & Record<string, unknown>;
     if (!Array.isArray(conversation.messages)) return null;
+    const createdAtValue = conversation.createdAt;
+    const updatedAtValue = conversation.updatedAt;
 
     return {
       ...conversation,
@@ -85,8 +87,18 @@ export class StorageManager {
         typeof conversation.title === 'string' && conversation.title.trim().length > 0
           ? conversation.title
           : id,
-      createdAt: conversation.createdAt ? new Date(conversation.createdAt as string) : new Date(),
-      updatedAt: conversation.updatedAt ? new Date(conversation.updatedAt as string) : new Date(),
+      createdAt:
+        createdAtValue instanceof Date
+          ? createdAtValue
+          : createdAtValue
+            ? new Date(String(createdAtValue))
+            : new Date(),
+      updatedAt:
+        updatedAtValue instanceof Date
+          ? updatedAtValue
+          : updatedAtValue
+            ? new Date(String(updatedAtValue))
+            : new Date(),
       messages: conversation.messages,
       artifacts: Array.isArray(conversation.artifacts) ? conversation.artifacts : [],
     } as Conversation;
