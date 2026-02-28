@@ -1,8 +1,13 @@
-import { useEffect, useRef, memo, useState, lazy, Suspense } from 'react';
+import { useEffect, useRef, memo, useState, lazy, Suspense, useMemo } from 'react';
 import { Message } from '@/types/chat';
 import { FileText, ChevronLeft, ChevronRight, Edit2 } from 'lucide-react';
 import { StorageManager } from '@/lib/storage';
 import { getBranchSiblings } from '@/lib/chat-tree';
+import {
+  extractSingaporeCitations,
+  normalizeExtractedCitations,
+  validateCitations,
+} from '@/lib/citations';
 
 const MarkdownRenderer = lazy(() => import('./MarkdownRenderer'));
 
@@ -50,6 +55,16 @@ const MessageItemComponent = ({
     }
     setIsEditing(false);
   };
+
+  const citationWarnings = useMemo(() => {
+    if (message.role !== 'assistant') return [];
+    const extracted = extractSingaporeCitations(message.content);
+    if (extracted.length === 0) return [];
+    const normalized = normalizeExtractedCitations(extracted);
+    return validateCitations(normalized).filter(
+      (citation) => citation.validationStatus !== 'valid'
+    );
+  }, [message.role, message.content]);
 
   return (
     <div
@@ -159,6 +174,33 @@ const MessageItemComponent = ({
                     {citation.title}
                   </a>
                 ))}
+              </div>
+            )}
+
+            {citationWarnings.length > 0 && (
+              <div className="space-y-1 rounded border border-amber-500/40 bg-amber-500/10 px-2 py-1.5">
+                <div className="text-xs font-semibold text-amber-700">Citation warnings:</div>
+                {citationWarnings.map((citation) => {
+                  const issueText = citation.validationIssues
+                    .map((issue) => issue.message)
+                    .join(' ');
+                  const title =
+                    citation.validationStatus === 'malformed'
+                      ? `[Malformed] ${citation.normalizedText}`
+                      : `[Incomplete] ${citation.normalizedText}`;
+
+                  return (
+                    <div
+                      key={`${citation.kind}-${citation.start}-${citation.end}`}
+                      className="text-xs"
+                    >
+                      <span className="font-medium">{title}</span>
+                      {issueText ? (
+                        <span className="text-muted-foreground"> {issueText}</span>
+                      ) : null}
+                    </div>
+                  );
+                })}
               </div>
             )}
 
