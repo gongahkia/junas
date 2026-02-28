@@ -247,6 +247,8 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         id: conversationId,
         title: conversationTitle || 'Untitled Conversation',
         messages,
+        nodeMap,
+        currentLeafId,
         artifacts,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -255,7 +257,16 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     return () => {
       if (autosaveTimeoutRef.current) clearTimeout(autosaveTimeoutRef.current);
     };
-  }, [settings.autoSave, messages, artifacts, conversationId, conversationTitle, saveConversation]);
+  }, [
+    settings.autoSave,
+    messages,
+    nodeMap,
+    currentLeafId,
+    artifacts,
+    conversationId,
+    conversationTitle,
+    saveConversation,
+  ]);
 
   // Generate a title for the conversation after first exchange
   useEffect(() => {
