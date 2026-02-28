@@ -14,6 +14,14 @@ export interface ClassifyResult {
   score: number;
 }
 
+export interface ModelCacheStatus {
+  model_type: string;
+  exists: boolean;
+  file_path: string;
+  size_bytes: number;
+  sha256?: string | null;
+}
+
 async function invokeWithAppError<T>(command: string, args: Record<string, unknown>): Promise<T> {
   try {
     return await invoke<T>(command, args);
@@ -24,6 +32,13 @@ async function invokeWithAppError<T>(command: string, args: Record<string, unkno
 
 export const loadModel = (modelType: string) =>
   invokeWithAppError<string>('load_model', { modelType });
+export const downloadModel = (modelType: string) =>
+  invokeWithAppError<string>('download_model', { modelType });
+export const getModelStatus = (modelType: string) =>
+  invokeWithAppError<ModelCacheStatus>('get_model_status', { modelType });
+export const removeModelCache = (modelType: string) =>
+  invokeWithAppError<boolean>('remove_model_cache', { modelType });
+export const clearModelCache = () => invokeWithAppError<void>('clear_model_cache', {});
 export const runNer = (text: string) => invokeWithAppError<NerEntity[]>('run_ner', { text });
 export const runSummarize = (text: string, maxLength: number) =>
   invokeWithAppError<string>('run_summarize', { text, maxLength });
