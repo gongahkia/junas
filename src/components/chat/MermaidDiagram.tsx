@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { sanitizeSVG } from '@/lib/sanitize';
 
 interface MermaidDiagramProps {
   chart: string;
@@ -79,8 +80,10 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
             throw new Error('Diagram contains syntax errors');
           }
 
-          if (mounted && renderedSvg && renderedSvg.length > 0) {
-            setSvg(renderedSvg);
+          const sanitizedSvg = await sanitizeSVG(renderedSvg);
+
+          if (mounted && sanitizedSvg && sanitizedSvg.length > 0) {
+            setSvg(sanitizedSvg);
             setIsLoading(false);
           } else {
             throw new Error('Failed to generate diagram');

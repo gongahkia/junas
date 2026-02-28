@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { sanitizeSVG } from '@/lib/sanitize';
 
 interface GraphvizDiagramProps {
   chart: string;
@@ -25,14 +26,19 @@ export function GraphvizDiagram({ chart }: GraphvizDiagramProps) {
 
         // Wrap in digraph if not present
         let dotCode = chart.trim();
-        if (!dotCode.startsWith('digraph') && !dotCode.startsWith('graph') && !dotCode.startsWith('strict')) {
+        if (
+          !dotCode.startsWith('digraph') &&
+          !dotCode.startsWith('graph') &&
+          !dotCode.startsWith('strict')
+        ) {
           dotCode = `digraph G {\n${dotCode}\n}`;
         }
 
         const result = viz.renderString(dotCode, { format: 'svg' });
+        const sanitizedResult = await sanitizeSVG(result);
 
         if (mounted) {
-          setSvg(result);
+          setSvg(sanitizedResult);
           setIsLoading(false);
         }
       } catch (err) {
@@ -63,9 +69,7 @@ export function GraphvizDiagram({ chart }: GraphvizDiagramProps) {
   if (error) {
     return (
       <div className="my-4 rounded-lg border border-destructive bg-destructive/10 p-4">
-        <p className="text-sm font-medium text-destructive">
-          Failed to render Graphviz diagram
-        </p>
+        <p className="text-sm font-medium text-destructive">Failed to render Graphviz diagram</p>
         <p className="mt-1 text-xs text-muted-foreground">{error}</p>
         <details className="mt-2">
           <summary className="cursor-pointer text-xs text-muted-foreground hover:text-foreground">

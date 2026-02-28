@@ -15,6 +15,18 @@ export async function sanitizeHTML(dirty: string): Promise<string> {
 }
 
 /**
+ * Sanitize SVG markup for safe rendering via dangerouslySetInnerHTML
+ */
+export async function sanitizeSVG(svg: string): Promise<string> {
+  const DOMPurify = (await import('dompurify')).default;
+  return DOMPurify.sanitize(svg, {
+    USE_PROFILES: { svg: true, svgFilters: true },
+    FORBID_TAGS: ['script', 'foreignObject'],
+    FORBID_ATTR: ['onload', 'onerror', 'onclick', 'onmouseover', 'onfocus'],
+  });
+}
+
+/**
  * Sanitize plain text by removing potentially dangerous characters
  */
 export function sanitizePlainText(text: string): string {
@@ -33,7 +45,10 @@ export function sanitizePlainText(text: string): string {
 /**
  * Sanitize message content for chat
  */
-export async function sanitizeMessageContent(content: string, allowHTML: boolean = false): Promise<string> {
+export async function sanitizeMessageContent(
+  content: string,
+  allowHTML: boolean = false
+): Promise<string> {
   if (allowHTML) {
     return await sanitizeHTML(content);
   }

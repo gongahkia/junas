@@ -1,4 +1,3 @@
-(B) Sanitize rendered SVG strings before `dangerouslySetInnerHTML` in Mermaid, Graphviz, and TreeView components. +security +stability +hardening
 (B) Remove `dangerouslySetInnerHTML` usage in `/src/components/chat/HistoryDialog.tsx` by rendering highlighted spans with React nodes. +security +stability +hardening
 (B) Escape message content used in Graphviz dot labels in `/src/lib/chat-tree.ts` for `<`, `>`, `&`, and backslashes. +security +stability +hardening
 (B) Replace naive `strip_html_tags` in `/src-tauri/src/tools.rs` with a parser-based extractor that removes script and style content safely. +stability +security +performance
