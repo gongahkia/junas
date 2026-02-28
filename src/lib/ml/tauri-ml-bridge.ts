@@ -39,6 +39,8 @@ export const getModelStatus = (modelType: string) =>
 export const removeModelCache = (modelType: string) =>
   invokeWithAppError<boolean>('remove_model_cache', { modelType });
 export const clearModelCache = () => invokeWithAppError<void>('clear_model_cache', {});
+export const isOnnxRuntimeAvailable = () =>
+  invokeWithAppError<boolean>('is_onnx_runtime_available', {});
 export const runNer = (text: string) => invokeWithAppError<NerEntity[]>('run_ner', { text });
 export const runSummarize = (text: string, maxLength: number) =>
   invokeWithAppError<string>('run_summarize', { text, maxLength });

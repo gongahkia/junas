@@ -20,6 +20,7 @@ export interface CommandInfo {
   label: string;
   description: string;
   isLocal: boolean; // true = processed locally, false = requires AI
+  requiresOnnx?: boolean;
   implemented: boolean;
 }
 
@@ -65,6 +66,7 @@ export const COMMANDS: CommandInfo[] = [
     label: 'summarize-local',
     description: 'Summarize text using local ONNX model (requires download)',
     isLocal: true,
+    requiresOnnx: true,
     implemented: true,
   },
   {
@@ -72,6 +74,7 @@ export const COMMANDS: CommandInfo[] = [
     label: 'ner-advanced',
     description: 'Advanced NER using BERT model (requires download)',
     isLocal: true,
+    requiresOnnx: true,
     implemented: true,
   },
   {
@@ -79,6 +82,7 @@ export const COMMANDS: CommandInfo[] = [
     label: 'classify-text',
     description: 'Classify text sentiment using local model (requires download)',
     isLocal: true,
+    requiresOnnx: true,
     implemented: true,
   },
   {

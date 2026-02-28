@@ -75,6 +75,8 @@ export const AVAILABLE_MODELS: Omit<
 ];
 
 const STORAGE_KEY = 'junas_downloaded_models';
+const ONNX_RUNTIME_KEY = 'junas_onnx_runtime_available';
+let onnxRuntimeAvailabilityCache: boolean | null = null;
 
 function getLocalDownloadedModels(): string[] {
   try {
@@ -89,6 +91,35 @@ function getLocalDownloadedModels(): string[] {
 
 function setLocalDownloadedModels(modelIds: string[]): void {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(modelIds));
+}
+
+function setOnnxAvailabilityFlag(isAvailable: boolean): void {
+  onnxRuntimeAvailabilityCache = isAvailable;
+  localStorage.setItem(ONNX_RUNTIME_KEY, isAvailable ? 'true' : 'false');
+}
+
+export function getCachedOnnxRuntimeAvailability(): boolean | null {
+  if (onnxRuntimeAvailabilityCache !== null) return onnxRuntimeAvailabilityCache;
+  const stored = localStorage.getItem(ONNX_RUNTIME_KEY);
+  if (stored === 'true') return true;
+  if (stored === 'false') return false;
+  return null;
+}
+
+export async function isOnnxRuntimeAvailable(forceRefresh = false): Promise<boolean> {
+  if (!forceRefresh) {
+    const cached = getCachedOnnxRuntimeAvailability();
+    if (cached !== null) return cached;
+  }
+
+  try {
+    const available = await ml.isOnnxRuntimeAvailable();
+    setOnnxAvailabilityFlag(available);
+    return available;
+  } catch {
+    setOnnxAvailabilityFlag(false);
+    return false;
+  }
 }
 
 export function getDownloadedModels(): string[] {
@@ -136,10 +167,16 @@ export async function downloadModel(
   onProgress?.({ modelId, progress: 5, loaded: 0, total: 0, status: 'downloading' });
 
   try {
+    const onnxAvailable = await isOnnxRuntimeAvailable();
+    if (!onnxAvailable) {
+      throw new Error('ONNX runtime is unavailable on this system.');
+    }
+
     await ml.downloadModel(modelInfo.id);
     onProgress?.({ modelId, progress: 85, loaded: 0, total: 0, status: 'loading' });
 
     await ml.loadModel(modelInfo.id);
+    setOnnxAvailabilityFlag(true);
 
     const downloaded = getLocalDownloadedModels();
     if (!downloaded.includes(modelId)) {
@@ -163,7 +200,12 @@ export async function downloadModel(
 }
 
 export async function loadModel(modelId: string): Promise<boolean> {
+  const onnxAvailable = await isOnnxRuntimeAvailable();
+  if (!onnxAvailable) {
+    throw new Error('ONNX runtime is unavailable on this system.');
+  }
   await ml.loadModel(modelId);
+  setOnnxAvailabilityFlag(true);
   return true;
 }
 

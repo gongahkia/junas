@@ -15,7 +15,12 @@ import {
   processAsyncLocalCommand,
 } from '@/lib/commands/command-processor';
 import { ASCII_LOGOS } from '@/lib/ascii-logos';
-import { getModelsWithStatus, generateText, AVAILABLE_MODELS } from '@/lib/ml/model-manager';
+import {
+  getModelsWithStatus,
+  generateText,
+  AVAILABLE_MODELS,
+  isOnnxRuntimeAvailable,
+} from '@/lib/ml/model-manager';
 import { FileText, MessageSquare, GitGraph } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ConfirmationDialog } from './ConfirmationDialog';
@@ -133,6 +138,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
   const [isLoading, setIsLoading] = useState(false);
   const [hasMessages, setHasMessages] = useState(false);
   const [currentProvider, setCurrentProvider] = useState<string>('gemini');
+  const [onnxRuntimeAvailable, setOnnxRuntimeAvailable] = useState(true);
   const [hasProfileConfig, setHasProfileConfig] = useState(false);
   const { addToast } = useToast();
 
@@ -241,7 +247,25 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     }
     return ASCII_LOGOS[settings.asciiLogo || '5'] || ASCII_LOGOS['5'];
   }, [settings.asciiLogo]);
-  const supportedToolIds = useMemo(() => new Set(COMMANDS.map((command) => command.id)), []);
+  useEffect(() => {
+    let isMounted = true;
+    isOnnxRuntimeAvailable().then((available) => {
+      if (isMounted) setOnnxRuntimeAvailable(available);
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const supportedToolIds = useMemo(
+    () =>
+      new Set(
+        COMMANDS.filter((command) => onnxRuntimeAvailable || !command.requiresOnnx).map(
+          (command) => command.id
+        )
+      ),
+    [onnxRuntimeAvailable]
+  );
 
   // Sync with context chat state on load
   useEffect(() => {
@@ -511,8 +535,10 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         if (currentProvider === 'local') {
           let prompt = '';
           if (settings.agentMode) {
-            prompt =
-              'System: You are Junas, a Singapore legal AI. You can use tools by replying ONLY with COMMAND: tool-id args. Available tools: web-search (for online info), fetch-url (for websites), extract-entities (for legal names), summarize-local (for summaries). If you need to search the web, use COMMAND: web-search query.\n\n';
+            const localToolDescription = onnxRuntimeAvailable
+              ? 'web-search (for online info), fetch-url (for websites), extract-entities (for legal names), summarize-local (for summaries)'
+              : 'web-search (for online info), fetch-url (for websites), extract-entities (for legal names)';
+            prompt = `System: You are Junas, a Singapore legal AI. You can use tools by replying ONLY with COMMAND: tool-id args. Available tools: ${localToolDescription}. If you need to search the web, use COMMAND: web-search query.\n\n`;
           }
 
           prompt +=
@@ -670,7 +696,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         }
       }
     },
-    [currentProvider, addToast, supportedToolIds]
+    [currentProvider, addToast, supportedToolIds, onnxRuntimeAvailable]
   );
 
   const handleSendMessage = useCallback(

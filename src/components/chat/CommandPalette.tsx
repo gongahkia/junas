@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { isOnnxRuntimeAvailable } from '@/lib/ml/model-manager';
 
 export interface CommandItem {
   id: string;
@@ -62,6 +63,7 @@ export function CommandPalette({
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [showManual, setShowManual] = useState(false);
+  const [onnxAvailable, setOnnxAvailable] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Focus input when opened
@@ -73,6 +75,16 @@ export function CommandPalette({
       setShowManual(false);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    let isMounted = true;
+    isOnnxRuntimeAvailable().then((available) => {
+      if (isMounted) setOnnxAvailable(available);
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const systemCommands: CommandItem[] = [
     ...(onNewChat
@@ -408,8 +420,13 @@ export function CommandPalette({
     },
   ];
 
+  const onnxRequiredToolIds = new Set(['summarize-local', 'ner-advanced', 'classify-text']);
+  const visibleToolCommands = onnxAvailable
+    ? toolCommands
+    : toolCommands.filter((command) => !onnxRequiredToolIds.has(command.id));
+
   // If showing manual, display tool commands. Otherwise display system commands.
-  const activeCommands = showManual ? toolCommands : systemCommands;
+  const activeCommands = showManual ? visibleToolCommands : systemCommands;
 
   // Filter commands based on search query
   const filteredCommands = activeCommands.filter(

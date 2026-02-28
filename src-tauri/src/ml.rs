@@ -292,6 +292,11 @@ pub async fn clear_model_cache(app: AppHandle) -> Result<(), AppError> {
 }
 
 #[tauri::command]
+pub fn is_onnx_runtime_available() -> bool {
+    true
+}
+
+#[tauri::command]
 pub async fn load_model(app: AppHandle, model_type: String) -> Result<String, AppError> {
     let status = get_model_status(app.clone(), model_type.clone()).await?;
     if !status.exists {

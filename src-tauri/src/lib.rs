@@ -34,6 +34,7 @@ pub fn run() {
             ml::get_model_status,
             ml::remove_model_cache,
             ml::clear_model_cache,
+            ml::is_onnx_runtime_available,
             ml::load_model,
             ml::run_ner,
             ml::run_summarize,

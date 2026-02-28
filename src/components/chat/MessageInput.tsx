@@ -8,6 +8,7 @@ import { Book } from 'lucide-react';
 import { StorageManager } from '@/lib/storage';
 import { Snippet } from '@/types/chat';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { isOnnxRuntimeAvailable } from '@/lib/ml/model-manager';
 
 interface MessageInputProps {
   onSendMessage: (content: string) => void;
@@ -40,15 +41,20 @@ export function MessageInput({
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [commandQuery, setCommandQuery] = useState('');
   const [suggestionIndex, setSuggestionIndex] = useState(0);
+  const [onnxAvailable, setOnnxAvailable] = useState(true);
+  const availableCommands = useMemo(
+    () => COMMANDS.filter((command) => onnxAvailable || !command.requiresOnnx),
+    [onnxAvailable]
+  );
 
   // Fuse instance for matching logic in handleKeyDown
   const fuse = useMemo(() => {
-    return new Fuse(COMMANDS, {
+    return new Fuse(availableCommands, {
       keys: ['id', 'description', 'label'],
       threshold: 0.4,
       distance: 100,
     });
-  }, []);
+  }, [availableCommands]);
 
   useEffect(() => {
     setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
@@ -61,6 +67,16 @@ export function MessageInput({
     loadSnippets();
     window.addEventListener('junas-settings-change', loadSnippets);
     return () => window.removeEventListener('junas-settings-change', loadSnippets);
+  }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+    isOnnxRuntimeAvailable().then((available) => {
+      if (isMounted) setOnnxAvailable(available);
+    });
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // Handle input changes
@@ -142,7 +158,9 @@ export function MessageInput({
     (e: React.KeyboardEvent) => {
       if (showSuggestions) {
         // Calculate matches to know the count for clamping
-        const matches = commandQuery ? fuse.search(commandQuery).map((r) => r.item) : COMMANDS;
+        const matches = commandQuery
+          ? fuse.search(commandQuery).map((r) => r.item)
+          : availableCommands;
 
         if (e.key === 'ArrowDown') {
           e.preventDefault();
@@ -204,6 +222,7 @@ export function MessageInput({
       suggestionIndex,
       commandQuery,
       fuse,
+      availableCommands,
       history,
       historyIndex,
       draft,

@@ -38,6 +38,11 @@ const COMMAND_TEXT_LIMITS: Partial<Record<CommandType, number>> = {
   'research-statute': 1_000,
   'generate-document': 200_000,
 };
+const ONNX_REQUIRED_COMMANDS = new Set<CommandType>([
+  'summarize-local',
+  'ner-advanced',
+  'classify-text',
+]);
 
 function getDisabledTools(): Set<string> {
   if (typeof window === 'undefined') return new Set();
@@ -80,6 +85,16 @@ function validateCommandTextLength(
       `Please truncate your text and retry.`,
     ].join(' '),
   };
+}
+
+async function validateOnnxCapability(commandType: CommandType): Promise<string | null> {
+  if (!ONNX_REQUIRED_COMMANDS.has(commandType)) return null;
+
+  const { isOnnxRuntimeAvailable } = await import('@/lib/ml/model-manager');
+  const available = await isOnnxRuntimeAvailable();
+  if (available) return null;
+
+  return `Command /${commandType} is unavailable because ONNX Runtime is not supported in this environment.`;
 }
 
 async function searchCaseLawLocalFirst(query: string): Promise<LegalSearchResult[]> {
@@ -311,6 +326,14 @@ export async function processAsyncLocalCommand(
   }
 
   try {
+    const onnxCapabilityError = await validateOnnxCapability(commandType);
+    if (onnxCapabilityError) {
+      return {
+        success: false,
+        content: onnxCapabilityError,
+      };
+    }
+
     switch (commandType) {
       case 'extract-entities': {
         const { runNlpWorkerTask } = await import('@/lib/nlp/worker-client');

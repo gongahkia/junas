@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from 'react';
 import Fuse from 'fuse.js';
 import { COMMANDS, CommandInfo } from '@/lib/commands/command-processor';
 import { cn } from '@/lib/utils';
+import { isOnnxRuntimeAvailable } from '@/lib/ml/model-manager';
 
 interface CommandSuggestionsProps {
   query: string;
@@ -10,26 +11,46 @@ interface CommandSuggestionsProps {
   selectedIndex: number;
 }
 
-export function CommandSuggestions({ query, onSelect, isOpen, selectedIndex }: CommandSuggestionsProps) {
+export function CommandSuggestions({
+  query,
+  onSelect,
+  isOpen,
+  selectedIndex,
+}: CommandSuggestionsProps) {
+  const [onnxAvailable, setOnnxAvailable] = useState(true);
   const [matches, setMatches] = useState<CommandInfo[]>([]);
+  const availableCommands = useMemo(
+    () => COMMANDS.filter((command) => onnxAvailable || !command.requiresOnnx),
+    [onnxAvailable]
+  );
 
   const fuse = useMemo(() => {
-    return new Fuse(COMMANDS, {
+    return new Fuse(availableCommands, {
       keys: ['id', 'description', 'label'],
       threshold: 0.4,
       distance: 100,
     });
+  }, [availableCommands]);
+
+  useEffect(() => {
+    let isMounted = true;
+    isOnnxRuntimeAvailable().then((available) => {
+      if (isMounted) setOnnxAvailable(available);
+    });
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
     if (!query) {
-      setMatches(COMMANDS);
+      setMatches(availableCommands);
       return;
     }
 
     const results = fuse.search(query);
-    setMatches(results.map(result => result.item));
-  }, [query, fuse]);
+    setMatches(results.map((result) => result.item));
+  }, [query, fuse, availableCommands]);
 
   if (!isOpen || matches.length === 0) return null;
 
@@ -44,21 +65,21 @@ export function CommandSuggestions({ query, onSelect, isOpen, selectedIndex }: C
             key={cmd.id}
             onClick={() => onSelect(cmd.id)}
             className={cn(
-              "w-full text-left px-2 py-2 text-sm rounded flex flex-col gap-0.5 transition-colors font-mono",
-              index === selectedIndex 
-                ? "bg-accent text-accent-foreground" 
-                : "hover:bg-muted/50 text-foreground"
+              'w-full text-left px-2 py-2 text-sm rounded flex flex-col gap-0.5 transition-colors font-mono',
+              index === selectedIndex
+                ? 'bg-accent text-accent-foreground'
+                : 'hover:bg-muted/50 text-foreground'
             )}
           >
             <div className="flex items-center justify-between w-full">
               <span className="font-semibold">/{cmd.id}</span>
               {cmd.isLocal && (
-                <span className="text-[10px] bg-green-500/10 text-green-600 px-1.5 py-0.5 rounded">LOCAL</span>
+                <span className="text-[10px] bg-green-500/10 text-green-600 px-1.5 py-0.5 rounded">
+                  LOCAL
+                </span>
               )}
             </div>
-            <span className="text-xs text-muted-foreground line-clamp-1">
-              {cmd.description}
-            </span>
+            <span className="text-xs text-muted-foreground line-clamp-1">{cmd.description}</span>
           </button>
         ))}
       </div>
