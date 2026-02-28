@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { Message, Artifact } from '@/types/chat';
+import { Message, Artifact, Citation } from '@/types/chat';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
 import { ArtifactsTab } from './ArtifactsTab';
@@ -28,10 +28,48 @@ import {
   getBranchSiblings,
 } from '@/lib/chat-tree';
 import { useJunasContext } from '@/lib/context/JunasContext';
+import {
+  extractSingaporeCitations,
+  normalizeExtractedCitations,
+  validateCitations,
+} from '@/lib/citations';
+import type { SingaporeCitationKind } from '@/lib/citations';
 
 interface ChatInterfaceProps {
   activeTab?: 'chat' | 'artifacts' | 'tree';
   onTabChange?: (tab: 'chat' | 'artifacts' | 'tree') => void;
+}
+
+function mapCitationKindToType(kind: SingaporeCitationKind): Citation['type'] {
+  return kind === 'statute_cap' ? 'statute' : 'case';
+}
+
+function buildCitationUrl(citationText: string): string {
+  return `https://www.google.com/search?q=${encodeURIComponent(`${citationText} Singapore`)}`;
+}
+
+function buildMessageCitations(content: string): Citation[] {
+  const extracted = extractSingaporeCitations(content);
+  if (extracted.length === 0) return [];
+
+  const normalized = normalizeExtractedCitations(extracted);
+  const validated = validateCitations(normalized);
+  const deduped = new Map<string, Citation>();
+
+  validated.forEach((citation, index) => {
+    const key = `${citation.kind}:${citation.normalizedText}`;
+    if (deduped.has(key)) return;
+    deduped.set(key, {
+      id: `${citation.kind}-${citation.start}-${citation.end}-${index}`,
+      title: citation.normalizedText,
+      url: buildCitationUrl(citation.normalizedText),
+      type: mapCitationKindToType(citation.kind),
+      jurisdiction: 'Singapore',
+      year: citation.year,
+    });
+  });
+
+  return Array.from(deduped.values());
 }
 
 export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInterfaceProps = {}) {
@@ -72,6 +110,33 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
     resolve: undefined as ((value: boolean) => void) | undefined,
   });
   const autosaveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const updateAssistantMessage = useCallback(
+    (
+      assistantId: string,
+      content: string,
+      extra: Partial<Pick<Message, 'responseTime' | 'tokenCount' | 'cost'>> = {}
+    ) => {
+      const citations = buildMessageCitations(content);
+      setMessages((prev) =>
+        prev.map((msg) => (msg.id === assistantId ? { ...msg, content, citations, ...extra } : msg))
+      );
+      setNodeMap((prev) => {
+        const existing = prev[assistantId];
+        if (!existing) return prev;
+        return {
+          ...prev,
+          [assistantId]: {
+            ...existing,
+            content,
+            citations,
+            ...extra,
+          },
+        };
+      });
+    },
+    []
+  );
 
   const requestConfirmation = (title: string, description: string): Promise<boolean> => {
     return new Promise((resolve) => {
@@ -178,6 +243,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
               id: generateId(),
               role: 'assistant',
               content: summary,
+              citations: buildMessageCitations(summary),
               timestamp: new Date(),
             },
           ];
@@ -582,13 +648,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
 
         if (!result.success && result.requiresModel) {
           const responseTime = Date.now() - startTime;
-          setMessages((prev) =>
-            prev.map((msg) =>
-              msg.id === assistantMessage.id
-                ? { ...msg, content: result.content, responseTime }
-                : msg
-            )
-          );
+          updateAssistantMessage(assistantMessage.id, result.content, { responseTime });
           setIsLoading(false);
           return;
         }
@@ -605,22 +665,16 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
           try {
             const asyncResult = await processAsyncLocalCommand(parsedCommand);
             const responseTime = Date.now() - startTime;
-            setMessages((prev) =>
-              prev.map((msg) =>
-                msg.id === assistantMessage.id
-                  ? { ...msg, content: asyncResult.content, responseTime }
-                  : msg
-              )
-            );
+            updateAssistantMessage(assistantMessage.id, asyncResult.content, { responseTime });
           } catch (error: unknown) {
             const errorMessage = error instanceof Error ? error.message : String(error);
             const responseTime = Date.now() - startTime;
-            setMessages((prev) =>
-              prev.map((msg) =>
-                msg.id === assistantMessage.id
-                  ? { ...msg, content: `Error processing command: ${errorMessage}`, responseTime }
-                  : msg
-              )
+            updateAssistantMessage(
+              assistantMessage.id,
+              `Error processing command: ${errorMessage}`,
+              {
+                responseTime,
+              }
             );
           }
           setIsLoading(false);
@@ -628,11 +682,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         }
 
         const responseTime = Date.now() - startTime;
-        setMessages((prev) =>
-          prev.map((msg) =>
-            msg.id === assistantMessage.id ? { ...msg, content: result.content, responseTime } : msg
-          )
-        );
+        updateAssistantMessage(assistantMessage.id, result.content, { responseTime });
         setIsLoading(false);
         return;
       }
@@ -645,35 +695,19 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         const tokens = estimateTokens(finalResponse);
         const cost = estimateCost(tokens, currentProvider, '', 'output');
 
-        setMessages((prev) =>
-          prev.map((msg) =>
-            msg.id === assistantMessage.id
-              ? { ...msg, content: finalResponse, responseTime, tokenCount: tokens, cost }
-              : msg
-          )
-        );
-        setNodeMap((prev) => ({
-          ...prev,
-          [assistantMessage.id]: {
-            ...prev[assistantMessage.id],
-            content: finalResponse,
-            responseTime,
-            tokenCount: tokens,
-            cost,
-          },
-        }));
+        updateAssistantMessage(assistantMessage.id, finalResponse, {
+          responseTime,
+          tokenCount: tokens,
+          cost,
+        });
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
-        setMessages((prev) =>
-          prev.map((msg) =>
-            msg.id === assistantMessage.id ? { ...msg, content: `Error: ${errorMessage}` } : msg
-          )
-        );
+        updateAssistantMessage(assistantMessage.id, `Error: ${errorMessage}`);
       } finally {
         setIsLoading(false);
       }
     },
-    [messages, generateResponse, addToast, setActiveTab]
+    [messages, generateResponse, addToast, setActiveTab, updateAssistantMessage]
   );
 
   const handleRegenerateMessage = useCallback(
@@ -718,35 +752,19 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         const tokens = estimateTokens(finalResponse);
         const cost = estimateCost(tokens, currentProvider, '', 'output');
 
-        setMessages((prev) =>
-          prev.map((msg) =>
-            msg.id === newAssistantMessage.id
-              ? { ...msg, content: finalResponse, responseTime, tokenCount: tokens, cost }
-              : msg
-          )
-        );
-        setNodeMap((prev) => ({
-          ...prev,
-          [newAssistantMessage.id]: {
-            ...prev[newAssistantMessage.id],
-            content: finalResponse,
-            responseTime,
-            tokenCount: tokens,
-            cost,
-          },
-        }));
+        updateAssistantMessage(newAssistantMessage.id, finalResponse, {
+          responseTime,
+          tokenCount: tokens,
+          cost,
+        });
       } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : String(error);
-        setMessages((prev) =>
-          prev.map((msg) =>
-            msg.id === newAssistantMessage.id ? { ...msg, content: `Error: ${errorMessage}` } : msg
-          )
-        );
+        updateAssistantMessage(newAssistantMessage.id, `Error: ${errorMessage}`);
       } finally {
         setIsLoading(false);
       }
     },
-    [messages, generateResponse, nodeMap, currentProvider]
+    [messages, generateResponse, nodeMap, currentProvider, updateAssistantMessage]
   );
 
   const handleEditMessage = useCallback(
@@ -801,6 +819,7 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         const finalAssistant = {
           ...assistantMessage,
           content: finalResponse,
+          citations: buildMessageCitations(finalResponse),
           responseTime,
           tokenCount: tokens,
           cost,
@@ -810,16 +829,12 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
         setNodeMap((prev) => ({ ...prev, [assistantMessage.id]: finalAssistant }));
       } catch (e: unknown) {
         const errorMessage = e instanceof Error ? e.message : String(e);
-        setMessages((prev) =>
-          prev.map((m) =>
-            m.id === assistantMessage.id ? { ...m, content: `Error: ${errorMessage}` } : m
-          )
-        );
+        updateAssistantMessage(assistantMessage.id, `Error: ${errorMessage}`);
       } finally {
         setIsLoading(false);
       }
     },
-    [nodeMap, currentProvider, generateResponse]
+    [nodeMap, currentProvider, generateResponse, updateAssistantMessage]
   );
 
   const handleBranchSwitch = useCallback(
