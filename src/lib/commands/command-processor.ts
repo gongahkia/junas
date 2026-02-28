@@ -21,6 +21,24 @@ export type {
 };
 export { COMMANDS };
 
+function getDisabledTools(): Set<string> {
+  if (typeof window === 'undefined') return new Set();
+
+  try {
+    const raw = localStorage.getItem('junas_disabled_tools');
+    if (!raw) return new Set();
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return new Set();
+    return new Set(parsed.map((tool) => String(tool)));
+  } catch {
+    return new Set();
+  }
+}
+
+export function isCommandDisabled(commandId: string): boolean {
+  return getDisabledTools().has(commandId);
+}
+
 /**
  * Parse a message to detect if it contains a slash command
  */
@@ -64,6 +82,12 @@ export function requiresModel(commandType: CommandType): string | null {
  */
 export function processLocalCommand(command: ProcessedCommand): LocalCommandResult {
   const { command: commandType, args } = command;
+  if (isCommandDisabled(commandType)) {
+    return {
+      success: false,
+      content: `Command /${commandType} is disabled in Tools settings.`,
+    };
+  }
 
   if (!args || args.trim().length === 0) {
     return {
@@ -190,6 +214,12 @@ export async function processAsyncLocalCommand(
   command: ProcessedCommand
 ): Promise<AsyncLocalCommandResult> {
   const { command: commandType, args } = command;
+  if (isCommandDisabled(commandType)) {
+    return {
+      success: false,
+      content: `Command /${commandType} is disabled in Tools settings.`,
+    };
+  }
 
   try {
     switch (commandType) {
@@ -266,8 +296,12 @@ export async function processAsyncLocalCommand(
           const results = await webSearch(args, apiKey);
           let resultText = `**Web Search Results for "${args}":**\n\n`;
           if (results.length > 0) {
-            results.forEach((r: any, i: number) => { resultText += `${i + 1}. **[${r.title}](${r.url})**\n${r.snippet}\n\n`; });
-          } else { resultText += 'No results found.'; }
+            results.forEach((r: any, i: number) => {
+              resultText += `${i + 1}. **[${r.title}](${r.url})**\n${r.snippet}\n\n`;
+            });
+          } else {
+            resultText += 'No results found.';
+          }
           return { success: true, content: resultText };
         } catch (e: any) {
           return { success: false, content: `Error searching web: ${e.message || String(e)}` };
