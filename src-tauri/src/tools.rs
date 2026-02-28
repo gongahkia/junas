@@ -139,7 +139,7 @@ pub async fn health_check(provider: String, endpoint: Option<String>) -> Result<
         _ => return Err(AppError::Provider(format!("unknown provider: {provider}"))),
     };
     match client.get(&url).send().await {
-        Ok(_) => Ok(true),
+        Ok(resp) => Ok(resp.status().is_success()),
         Err(_) => Ok(false),
     }
 }
