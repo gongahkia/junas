@@ -1,5 +1,5 @@
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -7,11 +7,11 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatFileSize(bytes: number): string {
   if (bytes === 0) return '0 Bytes';
-  
+
   const k = 1024;
   const sizes = ['Bytes', 'KB', 'MB', 'GB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  
+
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
@@ -26,7 +26,11 @@ export function formatDate(date: Date): string {
 }
 
 export function generateId(): string {
-  return Math.random().toString(36).substr(2, 9);
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+
+  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
 }
 
 export function truncateText(text: string, maxLength: number): string {
@@ -81,14 +85,14 @@ export function extractCitations(text: string): string[] {
     /s\. \d+\([a-z]\)/gi, // Statute sections
     /\([A-Z]{2,}\) \d{4}\)/g, // Jurisdiction and year
   ];
-  
+
   const citations: string[] = [];
-  citationPatterns.forEach(pattern => {
+  citationPatterns.forEach((pattern) => {
     const matches = text.match(pattern);
     if (matches) {
       citations.push(...matches);
     }
   });
-  
+
   return [...new Set(citations)]; // Remove duplicates
 }
