@@ -48,6 +48,22 @@ function buildCitationUrl(citationText: string): string {
   return `https://www.google.com/search?q=${encodeURIComponent(`${citationText} Singapore`)}`;
 }
 
+function deriveCitationConfidence(
+  status: NonNullable<Citation['citation_status']>,
+  issueCount: number
+): number {
+  const base =
+    status === 'valid'
+      ? 0.95
+      : status === 'incomplete'
+        ? 0.65
+        : status === 'malformed'
+          ? 0.25
+          : 0.5;
+  const adjusted = base - issueCount * 0.05;
+  return Math.max(0, Math.min(1, adjusted));
+}
+
 function buildMessageCitations(content: string): Citation[] {
   const extracted = extractSingaporeCitations(content);
   if (extracted.length === 0) return [];
@@ -66,6 +82,11 @@ function buildMessageCitations(content: string): Citation[] {
       type: mapCitationKindToType(citation.kind),
       jurisdiction: 'Singapore',
       year: citation.year,
+      citation_status: citation.validationStatus,
+      citation_confidence: deriveCitationConfidence(
+        citation.validationStatus,
+        citation.validationIssues.length
+      ),
     });
   });
 

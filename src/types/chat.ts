@@ -35,6 +35,8 @@ export interface Citation {
   type: 'case' | 'statute' | 'regulation' | 'article';
   jurisdiction?: string;
   year?: number;
+  citation_status?: 'valid' | 'incomplete' | 'malformed' | 'unverified';
+  citation_confidence?: number;
 }
 
 export interface Artifact {
