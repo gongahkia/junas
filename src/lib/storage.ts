@@ -42,8 +42,27 @@ export class StorageManager {
   static getConversations(): Conversation[] {
     return [];
   } // async wrapper needed; sync stub
-  static async getConversationsAsync(): Promise<{ id: string; name: string; updatedAt: string }[]> {
-    return fs.listConversations();
+  static async getConversationsAsync(): Promise<
+    { id: string; title: string; createdAt: string; updatedAt: string }[]
+  > {
+    const summaries = await fs.listConversations();
+    const metadata = await Promise.all(
+      summaries.map(async (summary) => {
+        const conversation = await this.loadConversationById(summary.id);
+        return {
+          id: summary.id,
+          title: conversation?.title || summary.name || summary.id,
+          createdAt: conversation?.createdAt
+            ? conversation.createdAt.toISOString()
+            : new Date(0).toISOString(),
+          updatedAt: conversation?.updatedAt
+            ? conversation.updatedAt.toISOString()
+            : summary.updatedAt || new Date(0).toISOString(),
+        };
+      })
+    );
+
+    return metadata.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
   }
   static async loadConversationById(id: string): Promise<Conversation | null> {
     const raw = await fs.loadConversation(id);
