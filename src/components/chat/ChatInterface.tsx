@@ -474,8 +474,10 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       }
 
       let aiResponseText = '';
-      let rafId: number | null = null;
-      let lastUpdate = 0;
+      let pendingChunkBuffer = '';
+      let flushInterval: ReturnType<typeof setInterval> | null = null;
+      let lastCommittedContent = '';
+      const STREAM_FLUSH_INTERVAL_MS = 60;
 
       const updateMessageContent = (text: string) => {
         if (shouldAbort()) return;
@@ -486,6 +488,21 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
           ...prev,
           [assistantMessageId]: { ...prev[assistantMessageId], content: text },
         }));
+      };
+
+      const flushStreamBuffer = (force = false) => {
+        if (shouldAbort()) return;
+        if (!pendingChunkBuffer && !force) return;
+
+        if (pendingChunkBuffer) {
+          aiResponseText += pendingChunkBuffer;
+          pendingChunkBuffer = '';
+        }
+
+        if (!force && aiResponseText === lastCommittedContent) return;
+
+        lastCommittedContent = aiResponseText;
+        updateMessageContent(aiResponseText);
       };
 
       try {
@@ -511,24 +528,25 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
           throwIfAborted();
           updateMessageContent(aiResponseText);
         } else {
+          flushInterval = setInterval(() => flushStreamBuffer(), STREAM_FLUSH_INTERVAL_MS);
+
           const result = await ChatService.sendMessage(
             currentMessages,
             configuredProviders,
             settings,
             (chunk: string) => {
               if (shouldAbort()) return;
-              aiResponseText += chunk;
-              const now = Date.now();
-              if (!rafId && now - lastUpdate > 16) {
-                lastUpdate = now;
-                rafId = requestAnimationFrame(() => updateMessageContent(aiResponseText));
-              }
+              pendingChunkBuffer += chunk;
             },
             currentProvider,
             { signal }
           );
 
-          if (rafId) cancelAnimationFrame(rafId);
+          flushStreamBuffer(true);
+          if (flushInterval) {
+            clearInterval(flushInterval);
+            flushInterval = null;
+          }
           throwIfAborted();
           updateMessageContent(result.content);
           aiResponseText = result.content;
@@ -644,6 +662,10 @@ export function ChatInterface({ activeTab: propActiveTab, onTabChange }: ChatInt
       } catch (error: unknown) {
         console.error('AI Processing Error:', error);
         throw error;
+      } finally {
+        if (flushInterval) {
+          clearInterval(flushInterval);
+        }
       }
     },
     [currentProvider, addToast, supportedToolIds]
