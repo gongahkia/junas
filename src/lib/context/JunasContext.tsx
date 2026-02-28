@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { StorageManager } from '@/lib/storage';
 import { ChatState, ChatSettings, Conversation } from '@/types/chat';
 import { getApiKey } from '@/lib/tauri-bridge';
+import { PROVIDER_IDS } from '@/lib/providers/registry';
 interface JunasState {
   settings: ChatSettings;
   chatState: ChatState | null;
@@ -44,9 +45,8 @@ export function JunasProvider({ children }: { children: ReactNode }) {
     refreshConfiguredProviders();
   }, []);
   const refreshConfiguredProviders = async () => {
-    const providers = ['gemini', 'openai', 'claude', 'ollama', 'lmstudio'];
     const configured: Record<string, boolean> = {};
-    for (const p of providers) {
+    for (const p of PROVIDER_IDS) {
       try {
         const k = await getApiKey(p);
         configured[p] = !!k;

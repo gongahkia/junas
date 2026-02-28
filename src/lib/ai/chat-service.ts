@@ -1,14 +1,15 @@
 import { Message, ChatSettings } from '@/types/chat';
+import { AIProvider } from '@/types/provider';
 import { getDefaultPromptConfig, generateSystemPrompt } from '@/lib/prompts/system-prompts';
 import * as bridge from '@/lib/tauri-bridge';
 import { getApiKey } from '@/lib/tauri-bridge';
+import { getProviderRegistryEntry, PROVIDER_IDS } from '@/lib/providers/registry';
 export interface SendMessageResult {
   content: string;
 }
 export class ChatService {
   private static getAvailableProvider(configuredProviders: Record<string, boolean>): string | null {
-    const availableProviders = ['gemini', 'openai', 'claude', 'ollama', 'lmstudio'];
-    for (const provider of availableProviders) {
+    for (const provider of PROVIDER_IDS) {
       if (configuredProviders[provider]) return provider;
     }
     return null;
@@ -26,14 +27,16 @@ export class ChatService {
         provider = this.getAvailableProvider(configuredProviders);
       }
       if (!provider) throw new Error('No API keys configured. Please add an API key in settings.');
-      const model = provider === 'gemini' ? 'gemini-2.0-flash-exp'
-        : provider === 'openai' ? 'gpt-4o'
-        : provider === 'claude' ? 'claude-3-5-sonnet-20241022'
-        : provider === 'ollama' ? 'llama3' : 'local-model';
+      const model = getProviderRegistryEntry(provider as AIProvider).defaultModel;
       const config = getDefaultPromptConfig('standard');
       config.useTools = settings.agentMode;
       if (!config.currentDate) {
-        config.currentDate = new Date().toLocaleDateString('en-SG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        config.currentDate = new Date().toLocaleDateString('en-SG', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        });
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let activeProfile: any = null;
@@ -48,7 +51,10 @@ export class ChatService {
       }
       if (customSystemPrompt) config.baseSystemPrompt = customSystemPrompt;
       config.systemPrompt = generateSystemPrompt(config);
-      const formattedMessages: bridge.Message[] = messages.map((msg) => ({ role: msg.role, content: msg.content }));
+      const formattedMessages: bridge.Message[] = messages.map((msg) => ({
+        role: msg.role,
+        content: msg.content,
+      }));
       const chatSettings: bridge.ChatSettings = {
         temperature: 0.7,
         max_tokens: 4096,
@@ -83,7 +89,12 @@ export class ChatService {
           if (!onChunk) fullResponse = result.content;
         } else if (provider === 'lmstudio') {
           const endpoint = 'http://localhost:1234';
-          const result = await bridge.chatLmstudio(formattedMessages, model, endpoint, chatSettings);
+          const result = await bridge.chatLmstudio(
+            formattedMessages,
+            model,
+            endpoint,
+            chatSettings
+          );
           if (!onChunk) fullResponse = result.content;
         }
       } finally {
@@ -91,7 +102,8 @@ export class ChatService {
       }
       return { content: fullResponse };
     } catch (error: any) {
-      if (!error.message?.includes('No API keys configured')) console.error('Chat service error:', error);
+      if (!error.message?.includes('No API keys configured'))
+        console.error('Chat service error:', error);
       throw new Error(error.message || 'Failed to get AI response');
     }
   }
