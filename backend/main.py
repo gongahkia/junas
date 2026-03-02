@@ -11,7 +11,7 @@ except ImportError:
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")) # add project root to path
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Depends, Header, HTTPException
-from backend.schemas import ClassifyRequest, ClassifyResponse, Classification, LexiconResponse, LexiconHitResponse, Model1Response, Model2Response, HealthResponse, RegressionResponse, MosaicResponse, ReadyResponse
+from backend.schemas import ClassifyRequest, ClassifyResponse, Classification, LexiconResponse, LexiconHitResponse, Model1Response, Model2Response, HealthResponse, RegressionResponse, MosaicResponse, ReadyResponse, DiagnosticsResponse
 from fastapi.middleware.cors import CORSMiddleware
 from config import _cfg
 
@@ -88,6 +88,7 @@ async def lifespan(app: FastAPI):
     layers = load_config()
     _state["pipeline"] = layers
     _state["models"] = {}
+    _state["load_errors"] = []
 
     for layer in layers:
         if layer == "lexicon":
@@ -96,6 +97,7 @@ async def lifespan(app: FastAPI):
                 _state["models"]["lexicon"] = lex_mod.LexiconFilter()
             except Exception as e:
                 print(f"Failed to load lexicon: {e}")
+                _state["load_errors"].append({"layer": "lexicon", "error": str(e)})
 
         elif layer == "embedding":
             try:
@@ -103,6 +105,7 @@ async def lifespan(app: FastAPI):
                 _state["models"]["embedding"] = emb_mod.EmbeddingsEncoder.get_instance()
             except Exception as e:
                 print(f"Failed to load embedding: {e}")
+                _state["load_errors"].append({"layer": "embedding", "error": str(e)})
 
         elif layer == "clustering":
             try:
@@ -110,6 +113,7 @@ async def lifespan(app: FastAPI):
                 _state["models"]["clustering"] = clust_mod.MNPIAnomalyDetector.load()
             except Exception as e:
                 print(f"Failed to load clustering: {e}")
+                _state["load_errors"].append({"layer": "clustering", "error": str(e)})
 
         elif layer == "model1":
             try:
@@ -117,6 +121,7 @@ async def lifespan(app: FastAPI):
                 _state["models"]["model1"] = m1_mod.FinBERTClassifier()
             except Exception as e:
                 print(f"Failed to load model1: {e}")
+                _state["load_errors"].append({"layer": "model1", "error": str(e)})
 
         elif layer == "model2":
             try:
@@ -124,6 +129,7 @@ async def lifespan(app: FastAPI):
                 _state["models"]["model2"] = m2_mod.BERTSeverityClassifier()
             except Exception as e:
                 print(f"Failed to load model2: {e}")
+                _state["load_errors"].append({"layer": "model2", "error": str(e)})
 
         elif layer == "regression":
             try:
@@ -131,6 +137,7 @@ async def lifespan(app: FastAPI):
                 _state["models"]["regression"] = reg_mod.XGBoostRegression()
             except Exception as e:
                 print(f"Failed to load regression: {e}")
+                _state["load_errors"].append({"layer": "regression", "error": str(e)})
 
         elif layer == "mosaic":
             try:
@@ -138,6 +145,7 @@ async def lifespan(app: FastAPI):
                 _state["models"]["mosaic"] = mos_mod.MosaicAggregator.load()
             except Exception as e:
                 print(f"Failed to load mosaic: {e}")
+                _state["load_errors"].append({"layer": "mosaic", "error": str(e)})
 
     print(f"Initialized pipeline layers: {layers}")
     yield
@@ -184,6 +192,18 @@ async def ready():
         ready=is_ready,
         pipeline=pipeline,
         missing_required_layers=missing,
+    )
+
+
+@app.get("/diagnostics", response_model=DiagnosticsResponse)
+async def diagnostics():
+    pipeline = _state.get("pipeline", [])
+    models = _state.get("models", {})
+    return DiagnosticsResponse(
+        status="ok",
+        pipeline=pipeline,
+        loaded_layers=sorted(models.keys()),
+        load_errors=_state.get("load_errors", []),
     )
 
 @app.post("/classify", response_model=ClassifyResponse, dependencies=[Depends(require_api_key)])

@@ -63,7 +63,10 @@ def compute_metrics(pairs):
     tp = defaultdict(int)
     fp = defaultdict(int)
     fn = defaultdict(int)
+    confusion = {exp: {pred: 0 for pred in LABELS} for exp in LABELS}
     for pred, exp in pairs:
+        if exp in confusion and pred in confusion[exp]:
+            confusion[exp][pred] += 1
         if pred == exp:
             tp[exp] += 1
         else:
@@ -81,8 +84,14 @@ def compute_metrics(pairs):
     macro_p = sum(v["precision"] for v in per_class.values()) / len(LABELS)
     macro_r = sum(v["recall"] for v in per_class.values()) / len(LABELS)
     macro_f1 = sum(v["f1"] for v in per_class.values()) / len(LABELS)
+    micro_tp = sum(tp.values())
+    micro_fp = sum(fp.values())
+    micro_fn = sum(fn.values())
+    micro_p = micro_tp / (micro_tp + micro_fp) if (micro_tp + micro_fp) else 0.0
+    micro_r = micro_tp / (micro_tp + micro_fn) if (micro_tp + micro_fn) else 0.0
+    micro_f1 = 2 * micro_p * micro_r / (micro_p + micro_r) if (micro_p + micro_r) else 0.0
     accuracy = sum(tp.values()) / len(pairs) if pairs else 0.0
-    return per_class, macro_p, macro_r, macro_f1, accuracy
+    return per_class, macro_p, macro_r, macro_f1, micro_p, micro_r, micro_f1, accuracy, confusion
 
 def main():
     args = parse_args()
@@ -116,6 +125,12 @@ def main():
             server_proc.kill()
             sys.exit(1)
         print(f"[eval] server ready on {api_url}")
+        try:
+            with urllib.request.urlopen(f"{api_url}/health", timeout=5) as r:
+                health = json.loads(r.read().decode())
+            print(f"[eval] layer-load-state: {health}")
+        except Exception as e:
+            print(f"[eval] layer-load-state unavailable: {e}")
 
     try:
         pairs = []
@@ -146,7 +161,7 @@ def main():
             print("[eval] no valid pairs — nothing to evaluate")
             return
 
-        per_class, macro_p, macro_r, macro_f1, accuracy = compute_metrics(pairs)
+        per_class, macro_p, macro_r, macro_f1, micro_p, micro_r, micro_f1, accuracy, confusion = compute_metrics(pairs)
 
         print()
         print("=" * 56)
@@ -161,6 +176,14 @@ def main():
             print(f"  {label:<12} {m['precision']:>10.4f} {m['recall']:>10.4f} {m['f1']:>10.4f} {m['support']:>8}")
         print(f"  {'-' * 54}")
         print(f"  {'macro':<12} {macro_p:>10.4f} {macro_r:>10.4f} {macro_f1:>10.4f}")
+        print(f"  {'micro':<12} {micro_p:>10.4f} {micro_r:>10.4f} {micro_f1:>10.4f}")
+        print()
+        print("  confusion_matrix (expected -> predicted):")
+        print(f"  {'expected':<12} {'SAFE':>10} {'LOW_RISK':>10} {'HIGH_RISK':>10}")
+        print(f"  {'-' * 46}")
+        for expected in LABELS:
+            row = confusion[expected]
+            print(f"  {expected:<12} {row['SAFE']:>10} {row['LOW_RISK']:>10} {row['HIGH_RISK']:>10}")
         print("=" * 56)
 
     finally:

@@ -32,6 +32,11 @@ python3 "$ROOT/scripts/validate_training_data.py" "$DATA_DIR"/*.json
 echo "✅ All training files valid."
 echo ""
 
+echo "📊 Data quality report..."
+python3 "$ROOT/scripts/data_quality_report.py"
+echo "✅ Data quality checks complete."
+echo ""
+
 # ── Step 1: Prepare CSVs from docs/json ──
 echo "📄 Step 1/5: Generating training CSVs from docs/json..."
 python3 -c "

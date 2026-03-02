@@ -32,6 +32,10 @@ Request:
 }
 ```
 
+If `NOUPE_API_KEY` is configured, include header:
+
+`X-API-Key: <value>`
+
 Response:
 
 ```json
@@ -95,6 +99,19 @@ Notes:
   "ready": "bool",
   "pipeline": ["layer names"],
   "missing_required_layers": ["layer names"]
+}
+```
+
+## API — Diagnostics
+
+`GET /diagnostics`
+
+```json
+{
+  "status": "ok",
+  "pipeline": ["layer names"],
+  "loaded_layers": ["layer names"],
+  "load_errors": [{"layer": "string", "error": "string"}]
 }
 ```
 

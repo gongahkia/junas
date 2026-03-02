@@ -51,7 +51,9 @@
 ## FastAPI Orchestration
 - canonical app entrypoint is `backend.main:app`
 - configurable layer order from `config.toml`/`PIPELINE_LAYERS`/`--layers`
+- optional API key auth is enabled when `NOUPE_API_KEY` is set (applies to `POST /classify`)
 - response includes per-layer outputs and final classification
 - health endpoint: `GET /health`
 - readiness endpoint: `GET /ready`
+- diagnostics endpoint: `GET /diagnostics`
 - classify endpoint: `POST /classify`

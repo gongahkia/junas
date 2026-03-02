@@ -99,3 +99,10 @@ class ReadyResponse(BaseModel):
     ready: bool
     pipeline: list[str] = Field(default_factory=list)
     missing_required_layers: list[str] = Field(default_factory=list)
+
+
+class DiagnosticsResponse(BaseModel):
+    status: str
+    pipeline: list[str] = Field(default_factory=list)
+    loaded_layers: list[str] = Field(default_factory=list)
+    load_errors: list[dict] = Field(default_factory=list)

@@ -22,6 +22,7 @@ uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 Healthcheck: `curl http://localhost:8000/health`
 
 Readiness: `curl http://localhost:8000/ready`
+Diagnostics: `curl http://localhost:8000/diagnostics`
 
 Classify:
 
@@ -108,6 +109,8 @@ Notable keys:
 - `MOSAIC_THRESHOLD`
 - `REDIS_HOST`
 - `REDIS_PORT`
+- `NOUPE_ALLOWED_ORIGINS` (comma-separated CORS origins)
+- `NOUPE_API_KEY` (optional; when set, `POST /classify` requires `X-API-Key`)
 
 ## Restricted List
 
@@ -118,3 +121,14 @@ Edit `layer1-lexicon/restricted_list.json`:
 ```
 
 Matches are case-insensitive on name and exact on ticker/ISIN.
+
+## Container Runtime
+
+```sh
+docker compose up --build
+```
+
+This starts:
+
+- `noupe-api` on `http://localhost:8000`
+- `redis` on `localhost:6379`
