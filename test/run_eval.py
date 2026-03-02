@@ -20,6 +20,9 @@ import urllib.request
 from collections import defaultdict
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from helper.determinism import configure_determinism
+
 REPO_ROOT = Path(__file__).parent.parent
 DEFAULT_DATA = Path(__file__).parent / "eval.json"
 LABELS = ["SAFE", "LOW_RISK", "HIGH_RISK"]
@@ -31,6 +34,7 @@ def parse_args():
     p.add_argument("--port", type=int, default=8000, help="backend port (default: 8000)")
     p.add_argument("--no-server", action="store_true", help="skip spawning server (assume already running)")
     p.add_argument("--timeout", type=int, default=60, help="seconds to wait for server startup (default: 60)")
+    p.add_argument("--seed", type=int, default=42, help="seed for deterministic evaluation")
     return p.parse_args()
 
 def wait_for_server(url, timeout):
@@ -95,6 +99,7 @@ def compute_metrics(pairs):
 
 def main():
     args = parse_args()
+    configure_determinism(seed=args.seed, deterministic=True)
     config_path = os.path.abspath(args.config)
     data_path = os.path.abspath(args.data)
     api_url = f"http://127.0.0.1:{args.port}"
@@ -113,7 +118,12 @@ def main():
     if not args.no_server:
         venv_python = REPO_ROOT / ".venv" / "bin" / "python"
         python = str(venv_python) if venv_python.exists() else sys.executable
-        env = {**os.environ, "NOUPE_CONFIG": config_path}
+        env = {
+            **os.environ,
+            "NOUPE_CONFIG": config_path,
+            "NOUPE_DETERMINISTIC": "1",
+            "NOUPE_SEED": str(args.seed),
+        }
         cmd = [python, "-m", "uvicorn", "backend.main:app",
                "--host", "0.0.0.0", "--port", str(args.port)]
         print(f"[eval] config  : {config_path}")

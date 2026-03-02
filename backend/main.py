@@ -17,10 +17,13 @@ from fastapi import FastAPI, Depends, Header, HTTPException
 from backend.schemas import ClassifyRequest, ClassifyResponse, Classification, LexiconResponse, LexiconHitResponse, Model1Response, Model2Response, HealthResponse, RegressionResponse, MosaicResponse, ReadyResponse, DiagnosticsResponse
 from fastapi.middleware.cors import CORSMiddleware
 from config import _cfg
+from helper.determinism import configure_determinism
 
 _state = {}
 logger = logging.getLogger("noupe.backend")
 logging.basicConfig(level=logging.INFO, format="%(message)s")
+_det_info = configure_determinism()
+logger.info(json.dumps({"event": "determinism", **_det_info}))
 
 RISK_ORDER = {
     Classification.SAFE: 0,
