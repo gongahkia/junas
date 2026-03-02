@@ -180,6 +180,9 @@ class LexiconFilter:
         
         high_hits = [h for h in result.hits if h.severity == "high"]
         result.flagged = len(high_hits) > 0
-        
-        result.high_risk_short_circuit = result.total_score >= LEXICON_SCORE_THRESHOLD
+
+        # Deterministic short-circuit triggers align with documented policy.
+        has_money_breach = any(h.rule == "money_threshold" and h.severity == "high" for h in high_hits)
+        has_restricted_match = len(result.restricted_entities_found) > 0
+        result.high_risk_short_circuit = has_restricted_match or has_money_breach
         return result

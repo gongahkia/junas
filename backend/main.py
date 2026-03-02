@@ -9,11 +9,21 @@ except ImportError:
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")) # add project root to path
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from backend.schemas import ClassifyRequest, ClassifyResponse, Classification, LexiconResponse, LexiconHitResponse, Model1Response, Model2Response, HealthResponse, RegressionResponse, MosaicResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 _state = {}
+
+RISK_ORDER = {
+    Classification.SAFE: 0,
+    Classification.LOW_RISK: 1,
+    Classification.HIGH_RISK: 2,
+}
+
+
+def max_classification(a: Classification, b: Classification) -> Classification:
+    return a if RISK_ORDER[a] >= RISK_ORDER[b] else b
 
 def load_config():
     # 1. Parse from CLI flags if passed
@@ -142,6 +152,7 @@ async def classify(req: ClassifyRequest):
     reg_resp = None
 
     final_classification = Classification.SAFE
+    classification_floor = Classification.SAFE
     current_embedding = None
 
     skip_to_regression = False
@@ -162,8 +173,12 @@ async def classify(req: ClassifyRequest):
                     restricted_entities=lex_result.restricted_entities_found,
                 )
                 if lex_result.high_risk_short_circuit:
+                    classification_floor = Classification.HIGH_RISK
                     final_classification = Classification.HIGH_RISK
                     skip_to_regression = True
+                elif lex_result.flagged:
+                    classification_floor = max_classification(classification_floor, Classification.LOW_RISK)
+                    final_classification = max_classification(final_classification, classification_floor)
 
         elif layer == "embedding":
             encoder = models.get("embedding")
@@ -182,10 +197,10 @@ async def classify(req: ClassifyRequest):
                 m1_result = model1.predict(req.text)
                 m1_resp = Model1Response(label=m1_result.label, confidence=m1_result.confidence, risk_score=m1_result.risk_score)
                 if m1_result.label == "safe":
-                    final_classification = Classification.SAFE
+                    final_classification = max_classification(Classification.SAFE, classification_floor)
                     skip_model2 = True
                 else:
-                    final_classification = Classification.LOW_RISK # or wait for model2
+                    final_classification = max_classification(Classification.LOW_RISK, classification_floor)
 
         elif layer == "model2":
             if skip_model2:
@@ -194,7 +209,8 @@ async def classify(req: ClassifyRequest):
             if model2:
                 m2_result = model2.predict(req.text)
                 m2_resp = Model2Response(label=m2_result.label, confidence=m2_result.confidence, high_risk_score=m2_result.high_risk_score)
-                final_classification = Classification.HIGH_RISK if m2_result.label == "high_risk" else Classification.LOW_RISK
+                model2_class = Classification.HIGH_RISK if m2_result.label == "high_risk" else Classification.LOW_RISK
+                final_classification = max_classification(model2_class, classification_floor)
 
 
         elif layer == "mosaic":
@@ -210,6 +226,7 @@ async def classify(req: ClassifyRequest):
                     mosaic_resp = MosaicResponse(escalated=m_result["escalate_to_high_risk"], count=m_result["count"])
                     
                     if is_lr and m_result["escalate_to_high_risk"]:
+                        classification_floor = Classification.HIGH_RISK
                         final_classification = Classification.HIGH_RISK
 
         elif layer == "regression":
@@ -226,9 +243,7 @@ async def classify(req: ClassifyRequest):
                 reg_resp = RegressionResponse(risk_score=reg_result["risk_score"], reasoning=reg_result["reasoning"])
                 
                 reg_class = Classification.HIGH_RISK if reg_result["label"] == "high_risk" else (Classification.LOW_RISK if reg_result["label"] == "low_risk" else Classification.SAFE)
-                # Ensure Regression does not downgrade deterministic rule outputs (Short-Circuit or Mosaic Escalate).
-                if final_classification != Classification.HIGH_RISK:
-                    final_classification = reg_class
+                final_classification = max_classification(reg_class, classification_floor)
 
     return ClassifyResponse(
         classification=final_classification,

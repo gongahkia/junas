@@ -1,13 +1,11 @@
-# eval option 3: lexicon -> sentencebert -> [model1 + fewshot(2) + isolation forest grouped] -> mosaic -> xgboost
-# isolation forest is grouped (+) with classifiers: model1 + fewshot execute first, clustering after
-# NOTE: "fewshot" layer requires implementation in backend/main.py — currently a no-op placeholder
+# eval option 3: lexicon -> sentencebert -> model1 -> model2 -> clustering -> mosaic -> regression
 
 [pipeline]
 layers = [
     "lexicon",
     "embedding",
     "model1",
-    "fewshot",
+    "model2",
     "clustering",
     "mosaic",
     "regression"
