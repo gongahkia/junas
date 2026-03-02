@@ -10,7 +10,30 @@ from dataclasses import dataclass
 CHECKPOINT_DIR = os.path.join(os.path.dirname(__file__), "checkpoints", "best")
 CALIBRATION_PATH = os.path.join(CHECKPOINT_DIR, "calibration.json")
 MAX_SEQ_LEN = 512
-THRESHOLD = get_config_val("thresholds", "model2", "MODEL2_THRESHOLD", 0.5, float)
+
+
+def _load_threshold() -> float:
+    base = get_config_val("thresholds", "model2", "MODEL2_THRESHOLD", 0.5, float)
+    if os.getenv("MODEL2_THRESHOLD") is not None:
+        return base
+    lock_path = get_config_val(
+        "thresholds",
+        "lock_path",
+        "THRESHOLD_LOCK_PATH",
+        os.path.join(os.path.dirname(__file__), "..", "..", "..", "configs", "thresholds.lock.json"),
+        str,
+    )
+    if os.path.exists(lock_path):
+        try:
+            payload = json.loads(open(lock_path, "r", encoding="utf-8").read())
+            threshold = float(payload.get("model2_threshold", base))
+            return threshold
+        except Exception:
+            return base
+    return base
+
+
+THRESHOLD = _load_threshold()
 
 @dataclass
 class Model2Result:
