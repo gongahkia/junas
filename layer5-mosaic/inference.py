@@ -13,9 +13,19 @@ class MosaicAggregator:
             self.redis = None
             self.connected = False
             print("Warning: Redis not connected. Mosaic layer will be a no-op.")
+
+    @staticmethod
+    def _normalize_entity_id(entity_id: str) -> str:
+        # Normalize whitespace/casing to avoid fragmented counters for semantically identical IDs.
+        normalized = " ".join(entity_id.strip().split()).lower()
+        return normalized
             
     def aggregate(self, entity_id: str, is_low_risk: bool):
         if not self.connected or not entity_id:
+            return {"escalate_to_high_risk": False, "count": 0}
+
+        entity_id = self._normalize_entity_id(entity_id)
+        if not entity_id:
             return {"escalate_to_high_risk": False, "count": 0}
             
         key = f"mosaic:entity:{entity_id}"
