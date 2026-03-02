@@ -2,6 +2,9 @@ import sys
 import os
 import argparse
 import importlib.util
+import json
+import logging
+import time
 
 try:
     import tomllib
@@ -16,6 +19,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from config import _cfg
 
 _state = {}
+logger = logging.getLogger("noupe.backend")
+logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 RISK_ORDER = {
     Classification.SAFE: 0,
@@ -210,6 +215,8 @@ async def diagnostics():
 async def classify(req: ClassifyRequest):
     pipeline = _state.get("pipeline", [])
     models = _state.get("models", {})
+    timings_ms: dict[str, float] = {}
+    t_total_start = time.perf_counter()
 
     lex_resp = None
     m1_resp = None
@@ -227,7 +234,9 @@ async def classify(req: ClassifyRequest):
     skip_model2 = False
 
     for layer in pipeline:
+        t_layer_start = time.perf_counter()
         if skip_to_regression and layer != "regression":
+            timings_ms[layer] = round((time.perf_counter() - t_layer_start) * 1000.0, 3)
             continue
 
         if layer == "lexicon":
@@ -313,6 +322,15 @@ async def classify(req: ClassifyRequest):
                 
                 reg_class = Classification.HIGH_RISK if reg_result["label"] == "high_risk" else (Classification.LOW_RISK if reg_result["label"] == "low_risk" else Classification.SAFE)
                 final_classification = max_classification(reg_class, classification_floor)
+        timings_ms[layer] = round((time.perf_counter() - t_layer_start) * 1000.0, 3)
+
+    timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
+    logger.info(json.dumps({
+        "event": "classify_summary",
+        "classification": final_classification.value,
+        "timings_ms": timings_ms,
+        "active_pipeline": pipeline,
+    }))
 
     return ClassifyResponse(
         classification=final_classification,
@@ -322,7 +340,8 @@ async def classify(req: ClassifyRequest):
         embedding=emb_resp,
         clustering=clust_resp,
         mosaic=mosaic_resp,
-        regression=reg_resp
+        regression=reg_resp,
+        timings_ms=timings_ms,
     )
 
 if __name__ == "__main__":

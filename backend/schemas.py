@@ -54,6 +54,7 @@ class ClassifyResponse(BaseModel):
     clustering: Optional[dict] = None
     mosaic: Optional[MosaicResponse] = None
     regression: Optional[RegressionResponse] = None
+    timings_ms: dict[str, float] = Field(default_factory=dict)
 
 class TrainingSentence(BaseModel):
     text: str
