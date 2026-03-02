@@ -13,7 +13,7 @@ Noupe is a multi-layered Material Non-Public Information (MNPI) classification e
   - BERT base uncased (severity classification)
 - **Anomaly Detection:** Scikit-Learn (Isolation Forest for clustering unknown unknowns)
 - **State Tracking (Mosaic Layer):** Redis (TTL-based fragment frequency tracking across queries)
-- **Regression / Final Scoring:** NumPy, XGBoost (implemented for true ML feature synthesis)
+- **Regression / Final Scoring:** Optional XGBoost layer loaded only when a trained checkpoint is available
 - **Interface:** HTML/JS dashboard using Mermaid.js for dynamic visualization
 
 ## Data Flow & Pipeline Diagram
@@ -98,7 +98,7 @@ flowchart TD
 6. **Layer 5: Mosaic Aggregation**
    - Data labeled as `LOW_RISK` proceeds into the Mosaic Tracker. The pipeline connects to a **Redis** instance using the requested `entity_id` (or one inferred from the lexicon).
    - Redis increments the temporal counter for that entity. If the entity reaches the configured threshold (e.g., $\ge 10$ occurrences) within a configured time-to-live window, the fragmented pieces of context invoke the "Mosaic Theory" and escalate the label to `HIGH_RISK`. 
-7. **Layer 6: Regression & Final Scoring**
-   Scores across all upstream models (lexicon score, anomaly float, Transformer risk probabilities, and mosaic occurrence counts) are evaluated by a numerical regression process to deduce the aggregate risk probability.
+7. **Layer 6: Regression & Final Scoring (Optional)**
+   When a trained regression checkpoint exists, scores across upstream models (lexicon score, anomaly float, Transformer risk probabilities, and mosaic occurrence counts) are synthesized into an aggregate risk probability.
 8. **Response Return**
    The FastAPI structure maps the metadata dicts from all layers, and encapsulates the final, enumerated decision parameter (`SAFE | LOW_RISK | HIGH_RISK`) into a comprehensive JSON response object returning to the querying client.

@@ -24,8 +24,8 @@ class LexiconResponse(BaseModel):
     flagged: bool
     high_risk_short_circuit: bool
     total_score: float = 0.0
-    hits: list[LexiconHitResponse] = []
-    restricted_entities: list[dict] = []
+    hits: list[LexiconHitResponse] = Field(default_factory=list)
+    restricted_entities: list[dict] = Field(default_factory=list)
 
 class Model1Response(BaseModel):
     label: str
@@ -97,5 +97,5 @@ class HealthResponse(BaseModel):
 class ReadyResponse(BaseModel):
     status: str
     ready: bool
-    pipeline: list[str] = []
-    missing_required_layers: list[str] = []
+    pipeline: list[str] = Field(default_factory=list)
+    missing_required_layers: list[str] = Field(default_factory=list)

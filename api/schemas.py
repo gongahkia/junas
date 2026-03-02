@@ -20,8 +20,8 @@ class LexiconHitResponse(BaseModel):
 class LexiconResponse(BaseModel):
     flagged: bool
     high_risk_short_circuit: bool
-    hits: list[LexiconHitResponse] = []
-    restricted_entities: list[dict] = []
+    hits: list[LexiconHitResponse] = Field(default_factory=list)
+    restricted_entities: list[dict] = Field(default_factory=list)
 
 class Model1Response(BaseModel):
     label: str

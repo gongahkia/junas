@@ -1,6 +1,7 @@
 import sys
 import os
 import argparse
+import importlib.util
 
 try:
     import tomllib
@@ -9,9 +10,10 @@ except ImportError:
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")) # add project root to path
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, Header, HTTPException
 from backend.schemas import ClassifyRequest, ClassifyResponse, Classification, LexiconResponse, LexiconHitResponse, Model1Response, Model2Response, HealthResponse, RegressionResponse, MosaicResponse, ReadyResponse
 from fastapi.middleware.cors import CORSMiddleware
+from config import _cfg
 
 _state = {}
 
@@ -24,6 +26,35 @@ RISK_ORDER = {
 
 def max_classification(a: Classification, b: Classification) -> Classification:
     return a if RISK_ORDER[a] >= RISK_ORDER[b] else b
+
+
+def load_module_from_path(module_name: str, path: str):
+    spec = importlib.util.spec_from_file_location(module_name, path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Cannot load module {module_name} from {path}")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def get_allowed_origins() -> list[str]:
+    env_val = os.environ.get("NOUPE_ALLOWED_ORIGINS")
+    if env_val:
+        return [o.strip() for o in env_val.split(",") if o.strip()]
+
+    cfg_val = _cfg.get("api", {}).get("allowed_origins")
+    if isinstance(cfg_val, list):
+        return [str(o).strip() for o in cfg_val if str(o).strip()]
+    if isinstance(cfg_val, str):
+        return [o.strip() for o in cfg_val.split(",") if o.strip()]
+
+    return ["http://localhost", "http://127.0.0.1", "null"]
+
+
+def require_api_key(x_api_key: str | None = Header(default=None, alias="X-API-Key")) -> None:
+    expected = os.environ.get("NOUPE_API_KEY", "").strip()
+    if expected and x_api_key != expected:
+        raise HTTPException(status_code=401, detail="invalid or missing API key")
 
 def load_config():
     # 1. Parse from CLI flags if passed
@@ -58,54 +89,52 @@ async def lifespan(app: FastAPI):
     _state["pipeline"] = layers
     _state["models"] = {}
 
-    from importlib.machinery import SourceFileLoader
-
     for layer in layers:
         if layer == "lexicon":
             try:
-                lex_mod = SourceFileLoader("lex_filter", os.path.join(os.path.dirname(__file__), "..", "layer1-lexicon", "filter.py")).load_module()
+                lex_mod = load_module_from_path("lex_filter", os.path.join(os.path.dirname(__file__), "..", "layer1-lexicon", "filter.py"))
                 _state["models"]["lexicon"] = lex_mod.LexiconFilter()
             except Exception as e:
                 print(f"Failed to load lexicon: {e}")
 
         elif layer == "embedding":
             try:
-                emb_mod = SourceFileLoader("emb_inf", os.path.join(os.path.dirname(__file__), "..", "layer2-embeddings", "inference.py")).load_module()
+                emb_mod = load_module_from_path("emb_inf", os.path.join(os.path.dirname(__file__), "..", "layer2-embeddings", "inference.py"))
                 _state["models"]["embedding"] = emb_mod.EmbeddingsEncoder.get_instance()
             except Exception as e:
                 print(f"Failed to load embedding: {e}")
 
         elif layer == "clustering":
             try:
-                clust_mod = SourceFileLoader("clust_inf", os.path.join(os.path.dirname(__file__), "..", "layer3-clustering", "isolation_forest.py")).load_module()
+                clust_mod = load_module_from_path("clust_inf", os.path.join(os.path.dirname(__file__), "..", "layer3-clustering", "isolation_forest.py"))
                 _state["models"]["clustering"] = clust_mod.MNPIAnomalyDetector.load()
             except Exception as e:
                 print(f"Failed to load clustering: {e}")
 
         elif layer == "model1":
             try:
-                m1_mod = SourceFileLoader("m1_inf", os.path.join(os.path.dirname(__file__), "..", "layer4-classification", "model-1", "inference.py")).load_module()
+                m1_mod = load_module_from_path("m1_inf", os.path.join(os.path.dirname(__file__), "..", "layer4-classification", "model-1", "inference.py"))
                 _state["models"]["model1"] = m1_mod.FinBERTClassifier()
             except Exception as e:
                 print(f"Failed to load model1: {e}")
 
         elif layer == "model2":
             try:
-                m2_mod = SourceFileLoader("m2_inf", os.path.join(os.path.dirname(__file__), "..", "layer4-classification", "model-2", "inference.py")).load_module()
+                m2_mod = load_module_from_path("m2_inf", os.path.join(os.path.dirname(__file__), "..", "layer4-classification", "model-2", "inference.py"))
                 _state["models"]["model2"] = m2_mod.BERTSeverityClassifier()
             except Exception as e:
                 print(f"Failed to load model2: {e}")
 
         elif layer == "regression":
             try:
-                reg_mod = SourceFileLoader("reg_inf", os.path.join(os.path.dirname(__file__), "..", "layer6-regression", "inference.py")).load_module()
+                reg_mod = load_module_from_path("reg_inf", os.path.join(os.path.dirname(__file__), "..", "layer6-regression", "inference.py"))
                 _state["models"]["regression"] = reg_mod.XGBoostRegression()
             except Exception as e:
                 print(f"Failed to load regression: {e}")
 
         elif layer == "mosaic":
             try:
-                mos_mod = SourceFileLoader("mos_inf", os.path.join(os.path.dirname(__file__), "..", "layer5-mosaic", "inference.py")).load_module()
+                mos_mod = load_module_from_path("mos_inf", os.path.join(os.path.dirname(__file__), "..", "layer5-mosaic", "inference.py"))
                 _state["models"]["mosaic"] = mos_mod.MosaicAggregator.load()
             except Exception as e:
                 print(f"Failed to load mosaic: {e}")
@@ -118,7 +147,7 @@ app = FastAPI(title="Noupe MNPI Classifier", version="0.1.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=get_allowed_origins(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -157,7 +186,7 @@ async def ready():
         missing_required_layers=missing,
     )
 
-@app.post("/classify", response_model=ClassifyResponse)
+@app.post("/classify", response_model=ClassifyResponse, dependencies=[Depends(require_api_key)])
 async def classify(req: ClassifyRequest):
     pipeline = _state.get("pipeline", [])
     models = _state.get("models", {})
