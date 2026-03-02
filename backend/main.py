@@ -6,6 +6,7 @@ import json
 import logging
 import time
 import uuid
+from collections import deque
 
 try:
     import tomllib
@@ -35,6 +36,15 @@ RISK_ORDER = {
 
 def max_classification(a: Classification, b: Classification) -> Classification:
     return a if RISK_ORDER[a] >= RISK_ORDER[b] else b
+
+
+def percentile(values: list[float], pct: float) -> float:
+    if not values:
+        return 0.0
+    values_sorted = sorted(values)
+    idx = int(round((pct / 100.0) * (len(values_sorted) - 1)))
+    idx = max(0, min(idx, len(values_sorted) - 1))
+    return float(values_sorted[idx])
 
 
 def load_module_from_path(module_name: str, path: str):
@@ -98,6 +108,16 @@ async def lifespan(app: FastAPI):
     _state["pipeline"] = layers
     _state["models"] = {}
     _state["load_errors"] = []
+    _state["metrics"] = {
+        "requests_total": 0,
+        "errors_total": 0,
+        "classification_counts": {
+            Classification.SAFE.value: 0,
+            Classification.LOW_RISK.value: 0,
+            Classification.HIGH_RISK.value: 0,
+        },
+        "latency_ms": deque(maxlen=5000),
+    }
 
     for layer in layers:
         if layer == "lexicon":
@@ -180,6 +200,11 @@ async def request_context_middleware(request: Request, call_next):
         response = await call_next(request)
     except Exception:
         dt_ms = round((time.perf_counter() - t0) * 1000.0, 3)
+        metrics = _state.get("metrics")
+        if metrics is not None:
+            metrics["requests_total"] += 1
+            metrics["errors_total"] += 1
+            metrics["latency_ms"].append(dt_ms)
         logger.info(json.dumps({
             "event": "request",
             "request_id": request_id,
@@ -191,6 +216,12 @@ async def request_context_middleware(request: Request, call_next):
         raise
 
     dt_ms = round((time.perf_counter() - t0) * 1000.0, 3)
+    metrics = _state.get("metrics")
+    if metrics is not None:
+        metrics["requests_total"] += 1
+        if response.status_code >= 500:
+            metrics["errors_total"] += 1
+        metrics["latency_ms"].append(dt_ms)
     response.headers["X-Request-ID"] = request_id
     logger.info(json.dumps({
         "event": "request",
@@ -246,6 +277,25 @@ async def diagnostics():
         loaded_layers=sorted(models.keys()),
         load_errors=_state.get("load_errors", []),
     )
+
+
+@app.get("/metrics")
+async def metrics():
+    m = _state.get("metrics", {})
+    latencies = list(m.get("latency_ms", []))
+    p50 = percentile(latencies, 50.0)
+    p95 = percentile(latencies, 95.0)
+    class_counts = m.get("classification_counts", {})
+    lines = [
+        f'noupe_requests_total {int(m.get("requests_total", 0))}',
+        f'noupe_errors_total {int(m.get("errors_total", 0))}',
+        f'noupe_request_latency_p50_ms {p50:.3f}',
+        f'noupe_request_latency_p95_ms {p95:.3f}',
+        f'noupe_classification_total{{classification="SAFE"}} {int(class_counts.get("SAFE", 0))}',
+        f'noupe_classification_total{{classification="LOW_RISK"}} {int(class_counts.get("LOW_RISK", 0))}',
+        f'noupe_classification_total{{classification="HIGH_RISK"}} {int(class_counts.get("HIGH_RISK", 0))}',
+    ]
+    return Response(content="\n".join(lines) + "\n", media_type="text/plain; version=0.0.4")
 
 @app.post("/classify", response_model=ClassifyResponse, dependencies=[Depends(require_api_key)])
 async def classify(request: Request, req: ClassifyRequest):
@@ -368,6 +418,10 @@ async def classify(request: Request, req: ClassifyRequest):
         "timings_ms": timings_ms,
         "active_pipeline": pipeline,
     }))
+    metrics_state = _state.get("metrics")
+    if metrics_state is not None:
+        counts = metrics_state.get("classification_counts", {})
+        counts[final_classification.value] = counts.get(final_classification.value, 0) + 1
 
     return ClassifyResponse(
         request_id=getattr(request.state, "request_id", None),
