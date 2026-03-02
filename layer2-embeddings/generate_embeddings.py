@@ -8,6 +8,7 @@ from tqdm import tqdm
 public_texts = []
 violation_texts = []
 all_texts = []  # all sentences regardless of label, for IsolationForest (unknown unknowns detection)
+failed_files = []
 
 json_dir = "docs/json"
 if os.path.exists(json_dir):
@@ -27,10 +28,15 @@ if os.path.exists(json_dir):
                         violation_texts.append(text)
                     if text:
                         all_texts.append(text)
-            except Exception:
-                pass
+            except Exception as e:
+                failed_files.append((filename, str(e)))
+                print(f"[WARN] Skipping malformed JSON file {filename}: {e}")
 
 print(f"Loaded {len(public_texts)} public, {len(violation_texts)} violation, {len(all_texts)} total sentences.")
+if failed_files:
+    print(f"[WARN] {len(failed_files)} file(s) were skipped due to parse errors.")
+if not all_texts:
+    raise RuntimeError("No valid sentences found in docs/json; cannot generate embeddings.")
 
 model = SentenceTransformer("all-mpnet-base-v2") # mpnet > MiniLM bc more context-aware; embedding quality is important in our case with downstream models
 

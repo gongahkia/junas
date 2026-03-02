@@ -1,5 +1,4 @@
-# eval option 2: lexicon -> sentencebert -> isolation forest -> classifier (1 & 2) -> mosaic -> xgboost
-# isolation forest is strictly sequential (->): clustering scores embedding before classifiers run
+# eval option 2: lexicon -> sentencebert -> clustering -> model1 -> model2 -> mosaic -> regression
 
 [pipeline]
 layers = [

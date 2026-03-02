@@ -43,7 +43,7 @@ export TRELLO_TOKEN=your_token_here
 Run from the repo root:
 
 ```bash
-python3 trello/sync_trello.py
+python3 helper/trello/sync_trello.py
 ```
 
 ### Example output

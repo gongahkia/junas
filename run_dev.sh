@@ -3,7 +3,15 @@
 # Noupe Dev Bootstrapper
 # Starts FastAPI backend and opens the frontend Chat UI
 
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+
 echo "🚀 Starting Noupe services..."
+
+# ── Activate project venv if present ──
+if [ -z "$VIRTUAL_ENV" ] && [ -f "$ROOT/.venv/bin/activate" ]; then
+    echo "🐍 Activating .venv..."
+    source "$ROOT/.venv/bin/activate"
+fi
 
 # --- Preflight: checkpoint validation ---
 MISSING=0
@@ -32,9 +40,9 @@ check_dir_has_model() { # dir must contain a model weight file
     MISSING=$((MISSING + 1))
 }
 
-check_file "layer3-clustering/checkpoints/anomaly_detector.joblib"
-check_dir_has_model "layer4-classification/model-1/checkpoints/best" "model1"
-check_dir_has_model "layer4-classification/model-2/checkpoints/best" "model2"
+check_file "$ROOT/layer3-clustering/checkpoints/anomaly_detector.joblib"
+check_dir_has_model "$ROOT/layer4-classification/model-1/checkpoints/best" "model1"
+check_dir_has_model "$ROOT/layer4-classification/model-2/checkpoints/best" "model2"
 
 if [ "$MISSING" -gt 0 ]; then
     echo ""
@@ -52,7 +60,7 @@ fi
 
 # 1. Start FastAPI backend in the background
 echo "📦 Booting FastAPI backend on http://localhost:8000..."
-uvicorn backend.main:app --host 0.0.0.0 --port 8000 &
+python3 -m uvicorn backend.main:app --host 0.0.0.0 --port 8000 &
 BACKEND_PID=$!
 
 # 2. Give the backend a moment to initialize
@@ -60,7 +68,14 @@ sleep 2
 
 # 3. Open the frontend
 echo "🌐 Opening Chat UI..."
-open frontend/index.html
+if command -v open >/dev/null 2>&1; then
+    open "$ROOT/frontend/index.html"
+elif command -v xdg-open >/dev/null 2>&1; then
+    xdg-open "$ROOT/frontend/index.html" >/dev/null 2>&1 &
+else
+    echo "ℹ️  Could not auto-open browser. Open this file manually:"
+    echo "   $ROOT/frontend/index.html"
+fi
 
 echo "✅ Services are running. Press Ctrl+C to stop both."
 

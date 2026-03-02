@@ -53,4 +53,5 @@
 - configurable layer order from `config.toml`/`PIPELINE_LAYERS`/`--layers`
 - response includes per-layer outputs and final classification
 - health endpoint: `GET /health`
+- readiness endpoint: `GET /ready`
 - classify endpoint: `POST /classify`

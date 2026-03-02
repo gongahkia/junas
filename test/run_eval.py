@@ -110,8 +110,7 @@ def main():
         print(f"[eval] config  : {config_path}")
         print(f"[eval] data    : {data_path}")
         print(f"[eval] starting backend...")
-        server_proc = subprocess.Popen(cmd, cwd=str(REPO_ROOT), env=env,
-                                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        server_proc = subprocess.Popen(cmd, cwd=str(REPO_ROOT), env=env)
         if not wait_for_server(api_url, args.timeout):
             print("[error] server did not start in time", file=sys.stderr)
             server_proc.kill()

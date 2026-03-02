@@ -2,6 +2,7 @@ import json
 import os
 import re
 import sys
+from datetime import datetime, timezone
 
 def extract_json_objects(text, decoder=json.JSONDecoder()):
     """Find and parse all JSON objects in a given block of text."""
@@ -26,6 +27,20 @@ def parse_and_convert(input_file, output_dir="docs/json"):
     from tqdm import tqdm
     json_objects = list(extract_json_objects(content))
     print(f"Found {len(json_objects)} JSON object(s) in {input_file}.")
+
+    label_map = {
+        "non": "non",
+        "non-sensitive": "non",
+        "non sensitive": "non",
+        "low": "low",
+        "low sensitivity": "low",
+        "low-risk": "low",
+        "low risk": "low",
+        "high": "high",
+        "high sensitivity": "high",
+        "high-risk": "high",
+        "high risk": "high",
+    }
     
     for idx, doc in enumerate(tqdm(json_objects, desc="Ingesting Documents", unit="doc")):
         # 1. Handle document_name vs document_id
@@ -47,17 +62,25 @@ def parse_and_convert(input_file, output_dir="docs/json"):
         for item in original_sentences:
             # Matches existing schema: {"text": "...", "label": "..."}
             if "text" in item and "label" in item:
-                formatted_sentences.append({"text": item["text"], "label": item["label"]})
+                raw_label = str(item["label"]).strip().lower()
+                norm_label = label_map.get(raw_label, raw_label)
+                formatted_sentences.append({"text": item["text"], "label": norm_label})
             else:
                 # Matches your input format: {"sentence 1": {"text": "...", "label": "..."}}
                 for key, val in item.items():
                     if isinstance(val, dict) and "text" in val and "label" in val:
-                        formatted_sentences.append({"text": val["text"], "label": val["label"]})
+                        raw_label = str(val["label"]).strip().lower()
+                        norm_label = label_map.get(raw_label, raw_label)
+                        formatted_sentences.append({"text": val["text"], "label": norm_label})
         
+        creation = doc.get("document_creation")
+        if not creation:
+            creation = datetime.now(timezone.utc).isoformat()
+
         # Construct formatted document matching the schema
         formatted_doc = {
             "document_name": doc_name_str,
-            "document_creation": doc.get("document_creation", ""),
+            "document_creation": creation,
             "document_sentence_array": formatted_sentences
         }
         

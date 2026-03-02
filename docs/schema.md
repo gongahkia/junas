@@ -85,6 +85,19 @@ Notes:
 }
 ```
 
+## API — Readiness
+
+`GET /ready`
+
+```json
+{
+  "status": "ok|degraded",
+  "ready": "bool",
+  "pipeline": ["layer names"],
+  "missing_required_layers": ["layer names"]
+}
+```
+
 ## Lexicon Output
 
 `LexiconResult`:

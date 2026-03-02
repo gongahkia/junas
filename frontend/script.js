@@ -11,20 +11,23 @@ mermaid.initialize({ startOnLoad: false, theme: 'default' });
 
 async function checkHealth() {
     try {
-        const resp = await fetch(`${API_BASE}/health`);
+        const resp = await fetch(`${API_BASE}/ready`);
         const data = await resp.json();
-        if (data.status === 'ok') {
+        if (data.ready === true) {
             statusDot.style.backgroundColor = '#10b981';
             statusDot.style.boxShadow = '0 0 8px #10b981';
             if (connectionText) {
-                connectionText.textContent = 'Backend at port 8000: UP';
+                connectionText.textContent = 'Backend at port 8000: READY';
                 connectionText.style.color = '#10b981';
             }
         } else {
             statusDot.style.backgroundColor = '#f59e0b';
             statusDot.style.boxShadow = '0 0 8px #f59e0b';
             if (connectionText) {
-                connectionText.textContent = 'Backend at port 8000: DEGRADED';
+                const missing = Array.isArray(data.missing_required_layers) && data.missing_required_layers.length
+                    ? ` (missing: ${data.missing_required_layers.join(', ')})`
+                    : '';
+                connectionText.textContent = `Backend at port 8000: DEGRADED${missing}`;
                 connectionText.style.color = '#f59e0b';
             }
         }

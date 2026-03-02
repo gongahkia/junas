@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from enum import Enum
 from typing import Optional
 from datetime import datetime
@@ -11,6 +11,7 @@ class Classification(str, Enum):
 class ClassifyRequest(BaseModel):
     text: str = Field(..., min_length=1, description="text to classify for MNPI sensitivity")
     entity_id: Optional[str] = Field(None, description="Optional entity identifier for Mosaic tracking")
+    debug: bool = Field(False, description="Include heavy debug fields in response")
 
 class LexiconHitResponse(BaseModel):
     rule: str
@@ -58,6 +59,25 @@ class TrainingSentence(BaseModel):
     text: str
     label: str
 
+    @field_validator("label")
+    @classmethod
+    def normalize_label(cls, value: str) -> str:
+        raw = value.strip().lower().replace("_", " ").replace("-", " ")
+        mapping = {
+            "non": "non",
+            "non sensitive": "non",
+            "nonsensitive": "non",
+            "low": "low",
+            "low risk": "low",
+            "low sensitivity": "low",
+            "high": "high",
+            "high risk": "high",
+            "high sensitivity": "high",
+        }
+        if raw not in mapping:
+            raise ValueError("label must be one of: non, low, high (or supported aliases)")
+        return mapping[raw]
+
 class TrainingDocument(BaseModel):
     document_creation: datetime
     document_name: str
@@ -72,3 +92,10 @@ class HealthResponse(BaseModel):
     clustering_loaded: bool = False
     mosaic_loaded: bool = False
     regression_loaded: bool = False
+
+
+class ReadyResponse(BaseModel):
+    status: str
+    ready: bool
+    pipeline: list[str] = []
+    missing_required_layers: list[str] = []

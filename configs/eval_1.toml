@@ -1,5 +1,4 @@
-# eval option 1: lexicon -> sentencebert -> [model1 + model2 + isolation forest grouped] -> mosaic -> xgboost
-# isolation forest is grouped (+) with classifiers: models execute first, clustering scores in parallel
+# eval option 1: lexicon -> sentencebert -> model1 -> model2 -> clustering -> mosaic -> regression
 
 [pipeline]
 layers = [

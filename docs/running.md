@@ -21,12 +21,14 @@ uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 
 Healthcheck: `curl http://localhost:8000/health`
 
+Readiness: `curl http://localhost:8000/ready`
+
 Classify:
 
 ```sh
 curl -X POST http://localhost:8000/classify \
   -H "Content-Type: application/json" \
-  -d '{"text": "Acme Corp is acquiring GlobalTech for $2.5 billion"}'
+  -d '{"text": "Acme Corp is acquiring GlobalTech for $2.5 billion", "debug": false}'
 ```
 
 API docs auto-served at `http://localhost:8000/docs` (Swagger) and `http://localhost:8000/redoc`.

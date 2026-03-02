@@ -10,7 +10,7 @@ except ImportError:
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")) # add project root to path
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
-from backend.schemas import ClassifyRequest, ClassifyResponse, Classification, LexiconResponse, LexiconHitResponse, Model1Response, Model2Response, HealthResponse, RegressionResponse, MosaicResponse
+from backend.schemas import ClassifyRequest, ClassifyResponse, Classification, LexiconResponse, LexiconHitResponse, Model1Response, Model2Response, HealthResponse, RegressionResponse, MosaicResponse, ReadyResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 _state = {}
@@ -138,6 +138,25 @@ async def health():
         regression_loaded="regression" in models
     )
 
+
+@app.get("/ready", response_model=ReadyResponse)
+async def ready():
+    pipeline = _state.get("pipeline", [])
+    models = _state.get("models", {})
+
+    # Optional layers can be down without blocking core readiness.
+    optional_layers = {"mosaic", "regression"}
+    required_layers = [layer for layer in pipeline if layer not in optional_layers]
+    missing = [layer for layer in required_layers if layer not in models]
+    is_ready = len(missing) == 0
+
+    return ReadyResponse(
+        status="ok" if is_ready else "degraded",
+        ready=is_ready,
+        pipeline=pipeline,
+        missing_required_layers=missing,
+    )
+
 @app.post("/classify", response_model=ClassifyResponse)
 async def classify(req: ClassifyRequest):
     pipeline = _state.get("pipeline", [])
@@ -184,7 +203,8 @@ async def classify(req: ClassifyRequest):
             encoder = models.get("embedding")
             if encoder:
                 current_embedding = encoder.encode(req.text)
-                emb_resp = current_embedding.tolist()
+                if req.debug:
+                    emb_resp = current_embedding.tolist()
 
         elif layer == "clustering":
             detector = models.get("clustering")

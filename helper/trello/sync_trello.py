@@ -5,7 +5,7 @@ Sync todo.txt tasks and git commit history to the project Trello board.
 Usage:
     export TRELLO_API_KEY=<your_key>
     export TRELLO_TOKEN=<your_token>
-    python3 scripts/sync_trello.py
+    python3 helper/trello/sync_trello.py
 
 What it does:
   - Reads todo.txt and creates cards in "Backlog"
@@ -30,7 +30,8 @@ LIST_BACKLOG = "6976367ecf3955d7ab485529"  # Backlog
 LIST_DONE    = "6969e6fef5eddf8f9e10eea2"  # Done
 
 BASE_URL = "https://api.trello.com/1"
-TODO_PATH = os.path.join(os.path.dirname(__file__), "..", "todo.txt")
+REPO_ROOT = os.path.join(os.path.dirname(__file__), "..", "..")
+TODO_PATH = os.path.join(REPO_ROOT, "todo.txt")
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 def auth():
@@ -100,7 +101,7 @@ def parse_git_log() -> list[dict]:
     result = subprocess.run(
         ["git", "log", "--no-merges", f"--pretty=format:{fmt}"],
         capture_output=True, text=True,
-        cwd=os.path.join(os.path.dirname(__file__), ".."),
+        cwd=REPO_ROOT,
     )
     entries = []
     for block in result.stdout.strip().split("\n"):
