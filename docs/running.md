@@ -13,6 +13,18 @@ pip install -r requirements.txt
 python3 -m spacy download en_core_web_sm
 ```
 
+## Preflight
+
+```sh
+python3 scripts/preflight.py
+```
+
+Use strict mode to fail on warnings:
+
+```sh
+python3 scripts/preflight.py --strict
+```
+
 ## Running the API
 
 ```sh

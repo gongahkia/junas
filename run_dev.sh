@@ -13,6 +13,10 @@ if [ -z "$VIRTUAL_ENV" ] && [ -f "$ROOT/.venv/bin/activate" ]; then
     source "$ROOT/.venv/bin/activate"
 fi
 
+# ── Preflight checks ──
+echo "🧪 Running preflight checks..."
+python3 "$ROOT/scripts/preflight.py" || true
+
 # --- Preflight: checkpoint validation ---
 MISSING=0
 
