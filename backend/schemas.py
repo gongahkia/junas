@@ -48,6 +48,16 @@ class ClassifyRequest(BaseModel):
             raise ValueError("entity_id exceeds maximum length 128")
         return cleaned
 
+
+class BatchClassifyRequest(BaseModel):
+    items: list[ClassifyRequest] = Field(
+        ...,
+        min_length=1,
+        max_length=32,
+        description="List of classify requests processed sequentially in one HTTP call",
+    )
+
+
 class LexiconHitResponse(BaseModel):
     rule: str
     matched_text: str
@@ -91,6 +101,11 @@ class ClassifyResponse(BaseModel):
     mosaic: Optional[MosaicResponse] = None
     regression: Optional[RegressionResponse] = None
     timings_ms: dict[str, float] = Field(default_factory=dict)
+
+
+class BatchClassifyResponse(BaseModel):
+    results: list[ClassifyResponse] = Field(default_factory=list)
+
 
 class TrainingSentence(BaseModel):
     text: str
@@ -142,4 +157,6 @@ class DiagnosticsResponse(BaseModel):
     status: str
     pipeline: list[str] = Field(default_factory=list)
     loaded_layers: list[str] = Field(default_factory=list)
+    lazy_layers: list[str] = Field(default_factory=list)
     load_errors: list[dict] = Field(default_factory=list)
+    startup_timings_ms: dict[str, float] = Field(default_factory=dict)

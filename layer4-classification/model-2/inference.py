@@ -10,6 +10,7 @@ from dataclasses import dataclass
 CHECKPOINT_DIR = os.path.join(os.path.dirname(__file__), "checkpoints", "best")
 CALIBRATION_PATH = os.path.join(CHECKPOINT_DIR, "calibration.json")
 MAX_SEQ_LEN = 512
+MODEL_WEIGHT_EXTS = ("safetensors", "bin", "pt", "ckpt")
 
 
 def _load_threshold() -> float:
@@ -35,6 +36,15 @@ def _load_threshold() -> float:
 
 THRESHOLD = _load_threshold()
 
+
+def _has_model_weights(checkpoint_dir: str) -> bool:
+    if not os.path.isdir(checkpoint_dir):
+        return False
+    for ext in MODEL_WEIGHT_EXTS:
+        if any(name.endswith(f".{ext}") for name in os.listdir(checkpoint_dir)):
+            return True
+    return False
+
 @dataclass
 class Model2Result:
     label: str # "low_risk" or "high_risk"
@@ -43,9 +53,14 @@ class Model2Result:
 
 class BERTSeverityClassifier:
     def __init__(self, checkpoint_dir: str = CHECKPOINT_DIR):
+        if not _has_model_weights(checkpoint_dir):
+            raise FileNotFoundError(f"model2 checkpoint weights missing at {checkpoint_dir}")
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.tokenizer = AutoTokenizer.from_pretrained(checkpoint_dir)
-        self.model = AutoModelForSequenceClassification.from_pretrained(checkpoint_dir).to(self.device)
+        self.tokenizer = AutoTokenizer.from_pretrained(checkpoint_dir, local_files_only=True)
+        self.model = AutoModelForSequenceClassification.from_pretrained(
+            checkpoint_dir,
+            local_files_only=True,
+        ).to(self.device)
         self.model.eval()
         self.temperature = 1.0
         calibration_path = os.path.join(checkpoint_dir, "calibration.json")
@@ -59,7 +74,7 @@ class BERTSeverityClassifier:
                 pass
     def predict(self, text: str) -> Model2Result:
         inputs = self.tokenizer(text, truncation=True, padding=True, max_length=MAX_SEQ_LEN, return_tensors="pt").to(self.device)
-        with torch.no_grad():
+        with torch.inference_mode():
             logits = self.model(**inputs).logits
         if self.temperature > 0:
             logits = logits / self.temperature

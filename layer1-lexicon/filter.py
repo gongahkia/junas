@@ -2,11 +2,13 @@ import re
 import sys
 import os
 import json
+import logging
 import spacy
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from config import get_config_val, _cfg
 from dataclasses import dataclass, field
-from presidio_analyzer import AnalyzerEngine, PatternRecognizer, Pattern
+from presidio_analyzer import AnalyzerEngine, PatternRecognizer, Pattern, RecognizerRegistry
+from presidio_analyzer.predefined_recognizers import CreditCardRecognizer, EmailRecognizer, IbanRecognizer, PhoneRecognizer
 from typing import Optional
 
 RESTRICTED_LIST_PATH = os.path.join(os.path.dirname(__file__), "restricted_list.json")
@@ -74,7 +76,14 @@ class LexiconFilter:
         except (FileNotFoundError, json.JSONDecodeError):
             return []
     def _build_presidio(self) -> AnalyzerEngine:
-        engine = AnalyzerEngine()
+        # Keep startup lean: only load recognizers we actually query.
+        logging.getLogger("presidio-analyzer").setLevel(logging.WARNING)
+        registry = RecognizerRegistry()
+        registry.add_recognizer(CreditCardRecognizer(supported_language="en"))
+        registry.add_recognizer(IbanRecognizer(supported_language="en"))
+        registry.add_recognizer(PhoneRecognizer(supported_language="en"))
+        registry.add_recognizer(EmailRecognizer(supported_language="en"))
+        engine = AnalyzerEngine(registry=registry, supported_languages=["en"])
         fin_patterns = [ # custom financial data patterns
             Pattern("ISIN", r'\b[A-Z]{2}[A-Z0-9]{9}\d\b', 0.7),
             Pattern("CUSIP", r'\b[A-Z0-9]{9}\b', 0.4),

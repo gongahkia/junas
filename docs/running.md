@@ -46,6 +46,29 @@ curl -X POST http://localhost:8000/classify \
 
 API docs auto-served at `http://localhost:8000/docs` (Swagger) and `http://localhost:8000/redoc`.
 
+Batch classify:
+
+```sh
+curl -X POST http://localhost:8000/classify/batch \
+  -H "Content-Type: application/json" \
+  -d '{"items":[{"text":"Company A earnings leak"},{"text":"Public press release", "debug": false}]}'
+```
+
+## Production Profile
+
+Use the production launcher (no autoreload, multi-worker):
+
+```sh
+./run_prod.sh
+```
+
+Useful env vars:
+
+- `NOUPE_UVICORN_WORKERS` (default `2`)
+- `NOUPE_HOST` (default `0.0.0.0`)
+- `NOUPE_PORT` (default `8000`)
+- `NOUPE_LOG_LEVEL` (default `info`)
+
 ## Pipeline Behavior
 
 The `/classify` endpoint runs configured layers sequentially:
@@ -121,8 +144,16 @@ Notable keys:
 - `MOSAIC_THRESHOLD`
 - `REDIS_HOST`
 - `REDIS_PORT`
+- `MOSAIC_CONNECT_TIMEOUT_SECONDS`
+- `MOSAIC_SOCKET_TIMEOUT_SECONDS`
+- `MOSAIC_RETRY_ATTEMPTS`
+- `MOSAIC_RETRY_BACKOFF_MS`
 - `NOUPE_ALLOWED_ORIGINS` (comma-separated CORS origins)
 - `NOUPE_API_KEY` (optional; when set, `POST /classify` requires `X-API-Key`)
+- `NOUPE_LAZY_LOAD_HEAVY` (`1`/`0`, default `1`)
+- `NOUPE_RESPONSE_CACHE_SIZE` (default `256`)
+- `NOUPE_RESPONSE_CACHE_TTL_SECONDS` (default `60`)
+- `NOUPE_HF_OFFLINE` (optional offline mode hint for preflight)
 
 ## Restricted List
 
