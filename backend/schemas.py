@@ -46,6 +46,7 @@ class MosaicResponse(BaseModel):
     count: int
 
 class ClassifyResponse(BaseModel):
+    request_id: Optional[str] = None
     classification: Classification
     lexicon: Optional[LexiconResponse] = None
     model1: Optional[Model1Response] = None # none if lexicon short-circuits

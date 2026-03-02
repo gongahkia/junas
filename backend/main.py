@@ -5,6 +5,7 @@ import importlib.util
 import json
 import logging
 import time
+import uuid
 
 try:
     import tomllib
@@ -13,7 +14,7 @@ except ImportError:
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..")) # add project root to path
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, Depends, Header, HTTPException
+from fastapi import FastAPI, Depends, Header, HTTPException, Request, Response
 from backend.schemas import ClassifyRequest, ClassifyResponse, Classification, LexiconResponse, LexiconHitResponse, Model1Response, Model2Response, HealthResponse, RegressionResponse, MosaicResponse, ReadyResponse, DiagnosticsResponse
 from fastapi.middleware.cors import CORSMiddleware
 from config import _cfg
@@ -169,6 +170,38 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+@app.middleware("http")
+async def request_context_middleware(request: Request, call_next):
+    request_id = str(uuid.uuid4())
+    request.state.request_id = request_id
+    t0 = time.perf_counter()
+    try:
+        response = await call_next(request)
+    except Exception:
+        dt_ms = round((time.perf_counter() - t0) * 1000.0, 3)
+        logger.info(json.dumps({
+            "event": "request",
+            "request_id": request_id,
+            "method": request.method,
+            "path": request.url.path,
+            "status_code": 500,
+            "latency_ms": dt_ms,
+        }))
+        raise
+
+    dt_ms = round((time.perf_counter() - t0) * 1000.0, 3)
+    response.headers["X-Request-ID"] = request_id
+    logger.info(json.dumps({
+        "event": "request",
+        "request_id": request_id,
+        "method": request.method,
+        "path": request.url.path,
+        "status_code": response.status_code,
+        "latency_ms": dt_ms,
+    }))
+    return response
+
 @app.get("/health", response_model=HealthResponse)
 async def health():
     models = _state.get("models", {})
@@ -215,7 +248,7 @@ async def diagnostics():
     )
 
 @app.post("/classify", response_model=ClassifyResponse, dependencies=[Depends(require_api_key)])
-async def classify(req: ClassifyRequest):
+async def classify(request: Request, req: ClassifyRequest):
     pipeline = _state.get("pipeline", [])
     models = _state.get("models", {})
     timings_ms: dict[str, float] = {}
@@ -330,12 +363,14 @@ async def classify(req: ClassifyRequest):
     timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
     logger.info(json.dumps({
         "event": "classify_summary",
+        "request_id": getattr(request.state, "request_id", None),
         "classification": final_classification.value,
         "timings_ms": timings_ms,
         "active_pipeline": pipeline,
     }))
 
     return ClassifyResponse(
+        request_id=getattr(request.state, "request_id", None),
         classification=final_classification,
         lexicon=lex_resp,
         model1=m1_resp,
