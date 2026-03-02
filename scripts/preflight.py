@@ -15,6 +15,12 @@ except ImportError:
 VALID_LAYERS = {"lexicon", "embedding", "clustering", "model1", "model2", "mosaic", "regression"}
 
 
+def is_truthy(value: str | None) -> bool:
+    if value is None:
+        return False
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
 def load_config(config_path: Path):
     if not config_path.exists():
         return {}, [f"config file missing: {config_path}"]
@@ -53,6 +59,46 @@ def check_redis(host: str, port: int, timeout: float = 1.0) -> tuple[bool, str]:
         return False, f"redis unreachable at {host}:{port} ({e})"
     finally:
         sock.close()
+
+
+def has_sentence_transformer_cache(model_name: str) -> bool:
+    model_name = model_name.strip()
+    if not model_name:
+        return False
+
+    as_path = Path(model_name).expanduser()
+    if as_path.exists():
+        return True
+
+    normalized = model_name.strip("/")
+    st_home = Path(
+        os.environ.get(
+            "SENTENCE_TRANSFORMERS_HOME",
+            str(Path.home() / ".cache" / "torch" / "sentence_transformers"),
+        )
+    ).expanduser()
+    st_candidates = [
+        st_home / normalized,
+        st_home / normalized.replace("/", "_"),
+        st_home / f"sentence-transformers_{normalized.replace('/', '_')}",
+    ]
+    for candidate in st_candidates:
+        if candidate.exists():
+            return True
+
+    hf_home = Path(
+        os.environ.get("HF_HOME", str(Path.home() / ".cache" / "huggingface"))
+    ).expanduser()
+    hub_root = hf_home / "hub"
+    hf_ids = [normalized]
+    if "/" not in normalized:
+        hf_ids.append(f"sentence-transformers/{normalized}")
+    for model_id in hf_ids:
+        repo_dir = hub_root / f"models--{model_id.replace('/', '--')}"
+        snapshots = repo_dir / "snapshots"
+        if snapshots.exists() and any(snapshots.iterdir()):
+            return True
+    return False
 
 
 def main() -> int:
@@ -114,6 +160,26 @@ def main() -> int:
     ok_redis, msg_redis = check_redis(redis_host, redis_port)
     (checks if ok_redis else warnings).append(msg_redis)
 
+    hf_offline = any(
+        [
+            is_truthy(os.environ.get("NOUPE_HF_OFFLINE")),
+            is_truthy(os.environ.get("TRANSFORMERS_OFFLINE")),
+            is_truthy(os.environ.get("HF_HUB_OFFLINE")),
+        ]
+    )
+    embed_model = str(cfg.get("embeddings", {}).get("model_name", "all-mpnet-base-v2"))
+    if hf_offline:
+        if has_sentence_transformer_cache(embed_model):
+            checks.append(
+                f"HF offline mode enabled and embedding model cache found for '{embed_model}'"
+            )
+        else:
+            warnings.append(
+                f"HF offline mode enabled but embedding model cache missing for '{embed_model}'"
+            )
+    else:
+        checks.append("HF online mode (offline env flags not set)")
+
     print("=== Noupe Preflight ===")
     print(f"config_path: {config_path}")
     print("checks:")
@@ -137,4 +203,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
