@@ -25,6 +25,11 @@ echo ""
 # ── Pre-check: verify critical deps ──
 python3 -c "import accelerate" 2>/dev/null || { echo "❌ Missing 'accelerate'. Run: pip install 'accelerate>=0.26.0'"; exit 1; }
 
+# ── Baseline preflight snapshot (warnings expected before training) ──
+echo "🧪 Baseline preflight..."
+python3 "$ROOT/scripts/preflight.py" || true
+echo ""
+
 
 # ── Step 0: Validate training data ──
 echo "📋 Step 0/5: Validating training JSON files..."
@@ -116,6 +121,15 @@ fi
 # ── Cleanup ──
 rm -rf "$TMP_DIR"
 rm -f "$ROOT/public_embeddings.npy" "$ROOT/violation_embeddings.npy" # keep only all_embeddings.npy if desired
+
+# ── Final preflight check ──
+echo "🧪 Final preflight..."
+if [ "${NOUPE_PREFLIGHT_STRICT:-0}" = "1" ]; then
+    python3 "$ROOT/scripts/preflight.py" --strict
+else
+    python3 "$ROOT/scripts/preflight.py" || true
+fi
+echo ""
 
 echo "════════════════════════════════════════════════"
 echo "  ✅ Training complete. run_dev.sh is ready."

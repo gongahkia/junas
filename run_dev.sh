@@ -15,7 +15,11 @@ fi
 
 # ── Preflight checks ──
 echo "🧪 Running preflight checks..."
-python3 "$ROOT/scripts/preflight.py" || true
+if [ "${NOUPE_PREFLIGHT_STRICT:-0}" = "1" ]; then
+    python3 "$ROOT/scripts/preflight.py" --strict
+else
+    python3 "$ROOT/scripts/preflight.py" || true
+fi
 
 # --- Preflight: checkpoint validation ---
 MISSING=0

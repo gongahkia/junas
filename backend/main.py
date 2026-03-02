@@ -58,16 +58,31 @@ def load_module_from_path(module_name: str, path: str):
 
 def get_allowed_origins() -> list[str]:
     env_val = os.environ.get("NOUPE_ALLOWED_ORIGINS")
+    origins: list[str] = []
+
     if env_val:
-        return [o.strip() for o in env_val.split(",") if o.strip()]
+        origins.extend([o.strip() for o in env_val.split(",") if o.strip()])
+    else:
+        cfg_val = _cfg.get("api", {}).get("allowed_origins")
+        if isinstance(cfg_val, list):
+            origins.extend([str(o).strip() for o in cfg_val if str(o).strip()])
+        elif isinstance(cfg_val, str):
+            origins.extend([o.strip() for o in cfg_val.split(",") if o.strip()])
 
-    cfg_val = _cfg.get("api", {}).get("allowed_origins")
-    if isinstance(cfg_val, list):
-        return [str(o).strip() for o in cfg_val if str(o).strip()]
-    if isinstance(cfg_val, str):
-        return [o.strip() for o in cfg_val.split(",") if o.strip()]
+    if not origins:
+        origins = ["http://localhost", "http://127.0.0.1"]
 
-    return ["http://localhost", "http://127.0.0.1", "null"]
+    # run_dev.sh opens frontend/index.html directly (file://), which uses Origin: null.
+    if "null" not in origins:
+        origins.append("null")
+
+    # De-duplicate while preserving order.
+    return list(dict.fromkeys(origins))
+
+
+def get_allowed_origin_regex() -> str:
+    # Allow localhost origins on any port for local frontend servers.
+    return r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$"
 
 
 def require_api_key(x_api_key: str | None = Header(default=None, alias="X-API-Key")) -> None:
@@ -185,6 +200,7 @@ app = FastAPI(title="Noupe MNPI Classifier", version="0.1.0", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=get_allowed_origins(),
+    allow_origin_regex=get_allowed_origin_regex(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
