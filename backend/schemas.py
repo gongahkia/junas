@@ -9,9 +9,44 @@ class Classification(str, Enum):
     HIGH_RISK = "HIGH_RISK"
 
 class ClassifyRequest(BaseModel):
-    text: str = Field(..., min_length=1, description="text to classify for MNPI sensitivity")
-    entity_id: Optional[str] = Field(None, description="Optional entity identifier for Mosaic tracking")
+    text: str = Field(
+        ...,
+        min_length=1,
+        max_length=12000,
+        description="text to classify for MNPI sensitivity",
+    )
+    entity_id: Optional[str] = Field(
+        None,
+        max_length=128,
+        description="Optional entity identifier for Mosaic tracking",
+    )
     debug: bool = Field(False, description="Include heavy debug fields in response")
+
+    @field_validator("text")
+    @classmethod
+    def sanitize_text(cls, value: str) -> str:
+        # Remove null bytes/control chars while preserving standard whitespace.
+        cleaned = value.replace("\x00", "")
+        cleaned = "".join(ch for ch in cleaned if ch.isprintable() or ch in ("\n", "\r", "\t"))
+        cleaned = cleaned.strip()
+        if not cleaned:
+            raise ValueError("text must contain non-whitespace printable content")
+        if len(cleaned) > 12000:
+            raise ValueError("text exceeds max sanitized length of 12000")
+        return cleaned
+
+    @field_validator("entity_id")
+    @classmethod
+    def sanitize_entity_id(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return None
+        cleaned = value.replace("\x00", "").strip()
+        cleaned = "".join(ch for ch in cleaned if ch.isprintable())
+        if not cleaned:
+            return None
+        if len(cleaned) > 128:
+            raise ValueError("entity_id exceeds maximum length 128")
+        return cleaned
 
 class LexiconHitResponse(BaseModel):
     rule: str

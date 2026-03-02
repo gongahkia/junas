@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from enum import Enum
 from typing import Optional
 from datetime import datetime
@@ -9,7 +9,19 @@ class Classification(str, Enum):
     HIGH_RISK = "HIGH_RISK"
 
 class ClassifyRequest(BaseModel):
-    text: str = Field(..., min_length=1, description="text to classify for MNPI sensitivity")
+    text: str = Field(..., min_length=1, max_length=12000, description="text to classify for MNPI sensitivity")
+
+    @field_validator("text")
+    @classmethod
+    def sanitize_text(cls, value: str) -> str:
+        cleaned = value.replace("\x00", "")
+        cleaned = "".join(ch for ch in cleaned if ch.isprintable() or ch in ("\n", "\r", "\t"))
+        cleaned = cleaned.strip()
+        if not cleaned:
+            raise ValueError("text must contain non-whitespace printable content")
+        if len(cleaned) > 12000:
+            raise ValueError("text exceeds max sanitized length of 12000")
+        return cleaned
 
 class LexiconHitResponse(BaseModel):
     rule: str
