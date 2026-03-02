@@ -58,3 +58,19 @@ jobs:
             -d '{"text":"Acme confidential acquisition memo"}' > /tmp/classify.json
           kill $PID
           wait $PID || true
+
+      - name: Eval Metrics Snapshot
+        run: |
+          mkdir -p reports
+          python test/run_eval.py --config config.toml --data test/eval.json --timeout 60 > reports/ci_eval.txt
+          grep -q "accuracy:" reports/ci_eval.txt
+          grep -q "macro" reports/ci_eval.txt
+          grep -q "micro" reports/ci_eval.txt
+          grep -q "confusion_matrix" reports/ci_eval.txt
+          grep -q "layer-load-state" reports/ci_eval.txt
+
+      - name: Upload Eval Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-eval-report
+          path: reports/ci_eval.txt
