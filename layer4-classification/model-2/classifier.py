@@ -1,4 +1,5 @@
 import os
+import json
 import torch
 import pandas as pd
 import numpy as np
@@ -47,6 +48,39 @@ def compute_class_weights(labels: list) -> torch.Tensor: # inverse frequency wei
     weights = weights / weights.sum() * len(counts) # normalize
     return torch.tensor(weights, dtype=torch.float)
 
+
+def calibrate_temperature(model, tokenizer, texts, labels, max_len=MAX_SEQ_LEN) -> float:
+    """Fit a scalar temperature on validation logits via NLL minimization."""
+    model.eval()
+    device = next(model.parameters()).device
+    batches = []
+    y_batches = []
+    with torch.no_grad():
+        for i in range(0, len(texts), 32):
+            batch_texts = texts[i:i + 32]
+            enc = tokenizer(batch_texts, truncation=True, padding=True, max_length=max_len, return_tensors="pt").to(device)
+            logits = model(**enc).logits
+            batches.append(logits.detach())
+            y_batches.append(torch.tensor(labels[i:i + 32], dtype=torch.long, device=device))
+    if not batches:
+        return 1.0
+
+    logits = torch.cat(batches, dim=0)
+    y_true = torch.cat(y_batches, dim=0)
+    temperature = torch.nn.Parameter(torch.ones(1, device=device))
+    optimizer = torch.optim.LBFGS([temperature], lr=0.01, max_iter=100)
+    loss_fn = torch.nn.CrossEntropyLoss()
+
+    def closure():
+        optimizer.zero_grad()
+        loss = loss_fn(logits / torch.clamp(temperature, min=1e-3), y_true)
+        loss.backward()
+        return loss
+
+    optimizer.step(closure)
+    temp = float(torch.clamp(temperature.detach(), min=1e-3).item())
+    return temp
+
 class WeightedTrainer(Trainer): # custom trainer with class-weighted loss
     def __init__(self, class_weights=None, **kwargs):
         super().__init__(**kwargs)
@@ -80,6 +114,12 @@ def train(train_csv: str, val_csv: str = None, epochs: int = 5, lr: float = 2e-5
     trainer.train()
     trainer.save_model(os.path.join(OUTPUT_DIR, "best"))
     tokenizer.save_pretrained(os.path.join(OUTPUT_DIR, "best"))
+    if val_csv and val_dataset is not None:
+        temperature = calibrate_temperature(trainer.model, tokenizer, val_texts, val_labels)
+        calibration_path = os.path.join(OUTPUT_DIR, "best", "calibration.json")
+        with open(calibration_path, "w", encoding="utf-8") as f:
+            json.dump({"temperature": temperature, "method": "temperature_scaling"}, f, indent=2)
+        print(f"Saved calibration parameters to {calibration_path} (temperature={temperature:.4f})")
     return trainer
 
 if __name__ == "__main__":
