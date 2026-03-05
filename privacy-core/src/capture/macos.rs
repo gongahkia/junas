@@ -1,5 +1,11 @@
 use anyhow::{anyhow, Result};
 use chrono::Utc;
+use cocoa::{
+    appkit::{NSApp, NSApplication, NSApplicationActivationPolicy},
+    base::nil,
+    foundation::NSAutoreleasePool,
+};
+use core_graphics::display::CGDisplay;
 use core_media_rs::cm_sample_buffer::CMSampleBuffer;
 use core_video_rs::cv_pixel_buffer::lock::LockTrait;
 use crossbeam_channel::{bounded, Receiver, Sender};
@@ -20,12 +26,27 @@ use super::CaptureSource;
 
 const FRAME_CHANNEL_CAP: usize = 4;
 
+fn ensure_macos_runtime_initialized() {
+    static INIT: std::sync::Once = std::sync::Once::new();
+    INIT.call_once(|| unsafe {
+        let _pool = NSAutoreleasePool::new(nil);
+        let app = NSApp();
+        // Keep app non-activating for CLI/TUI usage.
+        let _ = app.setActivationPolicy_(
+            NSApplicationActivationPolicy::NSApplicationActivationPolicyProhibited,
+        );
+        let _ = CGDisplay::main();
+        log::info!("macOS capture runtime initialized");
+    });
+}
+
 struct FrameHandler {
     tx: Sender<RawFrame>,
 }
 
 impl SCStreamOutputTrait for FrameHandler {
     fn did_output_sample_buffer(&self, sample: CMSampleBuffer, of_type: SCStreamOutputType) {
+        let _pool = unsafe { NSAutoreleasePool::new(nil) };
         if of_type != SCStreamOutputType::Screen {
             return;
         }
@@ -83,6 +104,7 @@ impl MacosCaptureSource {
 
 impl CaptureSource for MacosCaptureSource {
     fn start(&mut self) -> Result<()> {
+        ensure_macos_runtime_initialized();
         let content =
             SCShareableContent::get().map_err(|e| anyhow!("SCShareableContent::get: {:?}", e))?;
 
