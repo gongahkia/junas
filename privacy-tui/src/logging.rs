@@ -37,8 +37,10 @@ pub fn init() -> Result<PathBuf> {
         .set_thread_level(LevelFilter::Debug)
         .build();
 
-    let mut loggers: Vec<Box<dyn SharedLogger>> =
-        vec![SimpleLogger::new(LevelFilter::Info, term_config)];
+    let mut loggers: Vec<Box<dyn SharedLogger>> = Vec::new();
+    if stderr_logging_enabled() {
+        loggers.push(SimpleLogger::new(LevelFilter::Info, term_config));
+    }
     loggers.push(WriteLogger::new(file_level, file_config, file));
     CombinedLogger::init(loggers).context("failed to initialize combined logger")?;
 
@@ -50,6 +52,17 @@ pub fn init() -> Result<PathBuf> {
     );
     log::trace!("startup args={:?}", std::env::args().collect::<Vec<_>>());
     Ok(log_path)
+}
+
+fn stderr_logging_enabled() -> bool {
+    matches!(
+        std::env::var("AKI_LOG_STDERR")
+            .ok()
+            .as_deref()
+            .map(str::to_ascii_lowercase)
+            .as_deref(),
+        Some("1") | Some("true") | Some("yes") | Some("on")
+    )
 }
 
 fn parse_level(value: Option<&str>) -> LevelFilter {
