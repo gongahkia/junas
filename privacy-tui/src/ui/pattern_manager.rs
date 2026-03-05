@@ -5,7 +5,7 @@ use ratatui::{
     layout::{Constraint, Direction, Layout, Rect},
     style::{Color, Modifier, Style},
     text::{Line, Span},
-    widgets::{Block, Borders, List, ListItem, ListState},
+    widgets::{Block, Borders, Clear, List, ListItem, ListState},
     Frame,
 };
 
@@ -77,6 +77,10 @@ pub fn render(frame: &mut Frame, state: &mut PatternManagerState, registry: &Pat
 
     let area = frame.area();
     let popup = centered_rect(70, 80, area);
+    let popup_bg = Color::Rgb(28, 32, 44);
+
+    frame.render_widget(Clear, popup);
+    frame.render_widget(Block::default().style(Style::default().bg(popup_bg)), popup);
 
     let items: Vec<ListItem> = registry
         .patterns
@@ -129,7 +133,8 @@ pub fn render(frame: &mut Frame, state: &mut PatternManagerState, registry: &Pat
             Block::default()
                 .title(" Pattern Manager (Space=toggle  ]=severity  j/k=nav  Esc=close) ")
                 .borders(Borders::ALL)
-                .border_style(Style::default().fg(Color::Magenta)),
+                .border_style(Style::default().fg(Color::Magenta))
+                .style(Style::default().bg(popup_bg)),
         )
         .highlight_style(
             Style::default()

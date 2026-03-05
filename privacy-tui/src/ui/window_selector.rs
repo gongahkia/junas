@@ -5,7 +5,7 @@ use ratatui::{
     layout::{Constraint, Direction, Layout, Rect},
     style::{Color, Modifier, Style},
     text::{Line, Span},
-    widgets::{Block, Borders, List, ListItem, ListState},
+    widgets::{Block, Borders, Clear, List, ListItem, ListState},
     Frame,
 };
 
@@ -73,6 +73,10 @@ pub fn render(frame: &mut Frame, state: &mut WindowSelectorState) {
 
     let area = frame.area();
     let popup = centered_rect(60, 70, area);
+    let popup_bg = Color::Rgb(28, 32, 44);
+
+    frame.render_widget(Clear, popup);
+    frame.render_widget(Block::default().style(Style::default().bg(popup_bg)), popup);
 
     let items: Vec<ListItem> = state
         .windows
@@ -97,7 +101,8 @@ pub fn render(frame: &mut Frame, state: &mut WindowSelectorState) {
             Block::default()
                 .title(" Select Window (Enter=select  Esc=cancel) ")
                 .borders(Borders::ALL)
-                .border_style(Style::default().fg(Color::Yellow)),
+                .border_style(Style::default().fg(Color::Yellow))
+                .style(Style::default().bg(popup_bg)),
         )
         .highlight_style(
             Style::default()
