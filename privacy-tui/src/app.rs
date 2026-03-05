@@ -303,14 +303,58 @@ impl App {
             PipelineState::Running => PipelineState::Paused,
             PipelineState::Paused => PipelineState::Running,
         };
+        let paused = matches!(self.pipeline_state, PipelineState::Paused);
+        log::info!("pipeline toggle -> paused={paused}");
+        self.control_state
+            .paused
+            .store(paused, std::sync::atomic::Ordering::SeqCst);
+        if let Some(ref ps) = self.pipeline_shared_state {
+            ps.paused.store(paused, std::sync::atomic::Ordering::SeqCst);
+        }
     }
 
     pub fn cycle_transform(&mut self) {
         self.prev_tx_preview_pixels = self.tx_preview_pixels.clone(); // snapshot for crossfade
         self.transition_frames_left = 10;
         self.transform_mode = self.transform_mode.next();
+        log::info!("transform cycle -> {:?}", self.transform_mode);
         *self.control_state.transform_mode.lock().unwrap() = self.transform_mode;
-        // sync
+        if let Some(ref ps) = self.pipeline_shared_state {
+            ps.begin_mode_transition(self.transform_mode);
+        }
+    }
+
+    /// Bind a freshly spawned pipeline state to the app and push current controls into it.
+    pub fn attach_pipeline_state(
+        &mut self,
+        state: std::sync::Arc<privacy_core::pipeline_runner::SharedState>,
+    ) {
+        let paused = matches!(self.pipeline_state, PipelineState::Paused);
+        log::info!(
+            "attach_pipeline_state paused={} mode={:?} intensity={:.2} patterns={}",
+            paused,
+            self.transform_mode,
+            self.transform_intensity,
+            self.pattern_registry.patterns.len()
+        );
+        state
+            .paused
+            .store(paused, std::sync::atomic::Ordering::SeqCst);
+        *state.transform_mode.lock().unwrap() = self.transform_mode;
+        *state.transform_intensity.lock().unwrap() = self.transform_intensity;
+        *state.registry.lock().unwrap() = self.pattern_registry.clone();
+        self.pipeline_shared_state = Some(state);
+    }
+
+    /// Push current pattern registry edits to the live detection thread.
+    pub fn sync_pattern_registry_to_pipeline(&self) {
+        if let Some(ref ps) = self.pipeline_shared_state {
+            log::info!(
+                "sync pattern registry -> {} patterns",
+                self.pattern_registry.patterns.len()
+            );
+            *ps.registry.lock().unwrap() = self.pattern_registry.clone();
+        }
     }
 
     /// Advance crossfade counter by one tick; call once per Event::Tick.
@@ -337,6 +381,8 @@ impl App {
                     };
                     let _ = rec.write_frame(&tf);
                 }
+                // Raw preview frames are not wired separately yet; mirror transformed feed.
+                self.raw_preview_pixels = Some(upd.pixels.clone());
                 self.tx_preview_pixels = Some(upd.pixels);
             }
         }
@@ -356,19 +402,31 @@ impl App {
         // apply pending pause/resume from control server
         if let Ok(mut g) = self.control_state.pending_pause.try_lock() {
             if let Some(paused) = g.take() {
+                log::info!("control pending pause consumed -> paused={paused}");
                 self.pipeline_state = if paused {
                     PipelineState::Paused
                 } else {
                     PipelineState::Running
                 };
+                self.control_state
+                    .paused
+                    .store(paused, std::sync::atomic::Ordering::SeqCst);
+                if let Some(ref ps) = self.pipeline_shared_state {
+                    ps.paused.store(paused, std::sync::atomic::Ordering::SeqCst);
+                }
             }
         }
         // apply pending mode switch from control server (with crossfade)
         if let Ok(mut g) = self.control_state.pending_mode.try_lock() {
             if let Some(mode) = g.take() {
+                log::info!("control pending mode consumed -> {:?}", mode);
                 self.prev_tx_preview_pixels = self.tx_preview_pixels.clone();
                 self.transition_frames_left = 10;
                 self.transform_mode = mode;
+                *self.control_state.transform_mode.lock().unwrap() = mode;
+                if let Some(ref ps) = self.pipeline_shared_state {
+                    ps.begin_mode_transition(mode);
+                }
             }
         }
     }
@@ -395,8 +453,14 @@ impl App {
 
     pub fn adjust_intensity(&mut self, delta: f32) {
         self.transform_intensity = (self.transform_intensity + delta).clamp(0.0, 1.0);
+        log::info!(
+            "intensity adjust delta={delta:.2} -> {:.2}",
+            self.transform_intensity
+        );
         *self.control_state.intensity.lock().unwrap() = self.transform_intensity;
-        // sync
+        if let Some(ref ps) = self.pipeline_shared_state {
+            *ps.transform_intensity.lock().unwrap() = self.transform_intensity;
+        }
     }
 
     #[allow(dead_code)]
@@ -429,6 +493,18 @@ impl App {
                     _ => privacy_common::transform::TransformMode::Blur,
                 };
                 self.transform_intensity = profile.intensity.clamp(0.0, 1.0);
+                log::info!(
+                    "profile applied name={} mode={:?} intensity={:.2}",
+                    name,
+                    self.transform_mode,
+                    self.transform_intensity
+                );
+                *self.control_state.transform_mode.lock().unwrap() = self.transform_mode;
+                *self.control_state.intensity.lock().unwrap() = self.transform_intensity;
+                if let Some(ref ps) = self.pipeline_shared_state {
+                    ps.begin_mode_transition(self.transform_mode);
+                    *ps.transform_intensity.lock().unwrap() = self.transform_intensity;
+                }
             }
         }
         self.active_profile = Some(name);

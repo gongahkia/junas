@@ -62,6 +62,19 @@ $ cargo run -- check-output # verify virtual camera availability
 | `+` / `-` | increase / decrease effect intensity |
 | `q` / `Ctrl+C` | quit |
 
+### Debug Logging
+
+`Aki` now writes persistent logs to:
+
+```console
+~/.config/ascii-privacy/logs/aki.log
+```
+
+Set `AKI_LOG_LEVEL` to control file verbosity (`trace`, `debug`, `info`, `warn`, `error`).
+
+On startup, `Aki` also auto-selects a likely app window source (instead of full-display capture)
+to reduce self-capture feedback artifacts. Press `w` anytime to override.
+
 ## Blocked List
 
 Currently `Aki` blocks the below by default.

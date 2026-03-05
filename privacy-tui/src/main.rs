@@ -1,6 +1,7 @@
 mod app;
 mod control_server;
 mod event;
+mod logging;
 mod shutdown;
 mod tui;
 mod ui;
@@ -25,7 +26,7 @@ struct Cli {
     command: Option<Command>,
 }
 
-#[derive(Subcommand)]
+#[derive(Debug, Subcommand)]
 enum Command {
     /// Launch TUI + pipeline (default when no subcommand given).
     Run,
@@ -45,8 +46,15 @@ enum Command {
 }
 
 fn main() -> Result<()> {
-    env_logger::init();
+    let log_path = logging::init()?;
+    log::info!("log file ready at {}", log_path.display());
     let cli = Cli::parse();
+    log::info!(
+        "cli parsed headless={} pty={} command={:?}",
+        cli.headless,
+        cli.pty,
+        cli.command
+    );
     if cli.headless {
         return cmd_headless(cli.pty);
     }
@@ -74,6 +82,7 @@ fn cmd_headless(use_pty: bool) -> Result<()> {
         Arc, Mutex,
     };
 
+    log::info!("starting headless mode use_pty={use_pty}");
     let running = Arc::new(AtomicBool::new(true));
     let r = running.clone();
     ctrlc::set_handler(move || {
@@ -180,9 +189,11 @@ fn export_session_log(app: &app::App) {
 fn cmd_run(use_pty: bool) -> Result<()> {
     use privacy_output::{autodetect::detect_best_sink, create_sink, tray};
     use std::sync::{Arc, Mutex};
+    log::info!("starting tui mode use_pty={use_pty}");
     let mut terminal = tui::init()?;
     let mut app = app::App::new();
     app.use_pty = use_pty;
+    auto_select_initial_window(&mut app);
     let sink_kind = detect_best_sink(9876);
     app.active_sink_kind = Some(sink_kind.clone());
     let sink = Arc::new(Mutex::new(create_sink(sink_kind)?));
@@ -202,6 +213,69 @@ fn cmd_run(use_pty: bool) -> Result<()> {
     result
 }
 
+/// Pick a reasonable initial capture window to avoid display self-capture recursion.
+fn auto_select_initial_window(app: &mut app::App) {
+    if app.use_pty || app.selected_window_id.is_some() {
+        return;
+    }
+    let windows = privacy_core::capture::window_picker::list_windows().unwrap_or_default();
+    if windows.is_empty() {
+        log::warn!("auto-select window: no windows found");
+        return;
+    }
+
+    let min_w = 300u32;
+    let min_h = 200u32;
+    let ignore_tokens = [
+        "aki",
+        "ghostty",
+        "terminal",
+        "iterm",
+        "alacritty",
+        "warp",
+        "wezterm",
+        "kitty",
+        "tmux",
+        "codex",
+        "cargo run",
+    ];
+    let viable: Vec<_> = windows
+        .into_iter()
+        .filter(|w| w.bounds.width >= min_w && w.bounds.height >= min_h)
+        .collect();
+    if viable.is_empty() {
+        log::warn!(
+            "auto-select window: no viable windows >= {}x{}",
+            min_w,
+            min_h
+        );
+        return;
+    }
+
+    let area = |w: &privacy_common::frame::WindowInfo| -> u64 {
+        w.bounds.width as u64 * w.bounds.height as u64
+    };
+    let pick = viable
+        .iter()
+        .filter(|w| {
+            let t = w.title.to_ascii_lowercase();
+            !ignore_tokens.iter().any(|tok| t.contains(tok))
+        })
+        .max_by_key(|w| area(w))
+        .or_else(|| viable.iter().max_by_key(|w| area(w)));
+
+    if let Some(w) = pick {
+        app.selected_window_id = Some(w.id);
+        log::info!(
+            "auto-select window: id={} title='{}' {}x{}",
+            w.id,
+            w.title,
+            w.bounds.width,
+            w.bounds.height
+        );
+    }
+}
+
 fn spawn_capture_pipeline(
     app: &mut app::App,
     sink: std::sync::Arc<std::sync::Mutex<Box<dyn privacy_output::OutputSink>>>,
@@ -212,8 +286,13 @@ fn spawn_capture_pipeline(
     let (out_tx, out_rx) = bounded::<TransformedFrame>(8);
     let source = create_capture_source(app.selected_window_id, app.use_pty);
     let registry = app.pattern_registry.clone();
+    log::info!(
+        "spawn_capture_pipeline selected_window_id={:?} use_pty={}",
+        app.selected_window_id,
+        app.use_pty
+    );
     let handle = spawn_pipeline(source, None, registry, out_tx)?;
-    app.pipeline_shared_state = Some(std::sync::Arc::clone(&handle.state));
+    app.attach_pipeline_state(std::sync::Arc::clone(&handle.state));
     let (preview_tx, preview_rx) = bounded::<app::PreviewUpdate>(2);
     app.preview_rx = Some(preview_rx);
     std::thread::Builder::new()
@@ -275,6 +354,7 @@ fn create_capture_source(
 ) -> Box<dyn privacy_core::capture::CaptureSource + Send> {
     if use_pty {
         use privacy_core::capture::pty::PtyCaptureSource;
+        log::debug!("capture source selected: pty");
         return Box::new(PtyCaptureSource::new(PtyCaptureSource::default_shell()));
     }
     #[cfg(target_os = "macos")]
@@ -283,6 +363,7 @@ fn create_capture_source(
         let target = window_id
             .map(CaptureTarget::Window)
             .unwrap_or(CaptureTarget::Display(0));
+        log::debug!("capture source selected: macos {:?}", window_id);
         return Box::new(MacosCaptureSource::new(target, 30));
     }
     #[allow(unreachable_code)]
@@ -471,23 +552,36 @@ fn handle_event(app: &mut app::App, ev: Event) {
     use crossterm::event::KeyCode;
     match ev {
         Event::Key(k) => {
+            log::trace!("input:key code={:?} modifiers={:?}", k.code, k.modifiers);
             if app.help_open {
+                log::debug!("action:close_help_overlay");
                 app.help_open = false; // any key closes help
                 return;
             }
             if app.window_selector.open {
                 match k.code {
-                    KeyCode::Char('j') | KeyCode::Down => app.window_selector.move_down(),
-                    KeyCode::Char('k') | KeyCode::Up => app.window_selector.move_up(),
+                    KeyCode::Char('j') | KeyCode::Down => {
+                        log::debug!("action:window_selector.move_down");
+                        app.window_selector.move_down()
+                    }
+                    KeyCode::Char('k') | KeyCode::Up => {
+                        log::debug!("action:window_selector.move_up");
+                        app.window_selector.move_up()
+                    }
                     KeyCode::Enter => {
                         let id = app.window_selector.selected_window().map(|w| w.id);
                         if let Some(id) = id {
+                            log::info!("action:window_selector.select window_id={id}");
                             app.selected_window_id = Some(id);
                             app.pipeline_restart_needed = true;
                         }
+                        log::debug!("action:window_selector.close");
                         app.window_selector.close();
                     }
-                    KeyCode::Esc => app.window_selector.close(),
+                    KeyCode::Esc => {
+                        log::debug!("action:window_selector.cancel");
+                        app.window_selector.close()
+                    }
                     _ => {}
                 }
                 return;
@@ -495,30 +589,72 @@ fn handle_event(app: &mut app::App, ev: Event) {
             if app.pattern_manager.open {
                 let len = app.pattern_registry.patterns.len();
                 match k.code {
-                    KeyCode::Char('j') | KeyCode::Down => app.pattern_manager.move_down(len),
-                    KeyCode::Char('k') | KeyCode::Up => app.pattern_manager.move_up(len),
-                    KeyCode::Char(' ') => app.pattern_manager.toggle(&mut app.pattern_registry),
-                    KeyCode::Char(']') => app
-                        .pattern_manager
-                        .cycle_severity(&mut app.pattern_registry),
-                    KeyCode::Esc => app.pattern_manager.close(),
+                    KeyCode::Char('j') | KeyCode::Down => {
+                        log::debug!("action:pattern_manager.move_down");
+                        app.pattern_manager.move_down(len)
+                    }
+                    KeyCode::Char('k') | KeyCode::Up => {
+                        log::debug!("action:pattern_manager.move_up");
+                        app.pattern_manager.move_up(len)
+                    }
+                    KeyCode::Char(' ') => {
+                        log::info!("action:pattern_manager.toggle_pattern");
+                        app.pattern_manager.toggle(&mut app.pattern_registry);
+                        app.sync_pattern_registry_to_pipeline();
+                    }
+                    KeyCode::Char(']') => {
+                        log::info!("action:pattern_manager.cycle_severity");
+                        app.pattern_manager
+                            .cycle_severity(&mut app.pattern_registry);
+                        app.sync_pattern_registry_to_pipeline();
+                    }
+                    KeyCode::Esc => {
+                        log::debug!("action:pattern_manager.close");
+                        app.pattern_manager.close()
+                    }
                     _ => {}
                 }
                 return;
             }
             match k.code {
                 KeyCode::Char('w') => {
+                    log::debug!("action:open_window_selector");
                     let windows =
                         privacy_core::capture::window_picker::list_windows().unwrap_or_default();
+                    log::info!("window_selector.loaded count={}", windows.len());
                     app.window_selector.open(windows);
                 }
-                KeyCode::Char('p') => app.pattern_manager.open(),
-                KeyCode::Char(' ') => app.toggle_pipeline(),
-                KeyCode::Char('t') => app.cycle_transform(),
-                KeyCode::Char('+') | KeyCode::Char('=') => app.adjust_intensity(0.1),
-                KeyCode::Char('-') => app.adjust_intensity(-0.1),
-                KeyCode::Char('h') => app.heatmap.enabled = !app.heatmap.enabled,
-                KeyCode::Char('s') => app.stats_overlay.open = !app.stats_overlay.open,
+                KeyCode::Char('p') => {
+                    log::debug!("action:open_pattern_manager");
+                    app.pattern_manager.open()
+                }
+                KeyCode::Char(' ') => {
+                    log::info!("action:toggle_pipeline");
+                    app.toggle_pipeline()
+                }
+                KeyCode::Char('t') => {
+                    log::info!("action:cycle_transform");
+                    app.cycle_transform()
+                }
+                KeyCode::Char('+') | KeyCode::Char('=') => {
+                    log::info!("action:adjust_intensity delta=+0.1");
+                    app.adjust_intensity(0.1)
+                }
+                KeyCode::Char('-') => {
+                    log::info!("action:adjust_intensity delta=-0.1");
+                    app.adjust_intensity(-0.1)
+                }
+                KeyCode::Char('h') => {
+                    app.heatmap.enabled = !app.heatmap.enabled;
+                    log::info!("action:toggle_heatmap enabled={}", app.heatmap.enabled);
+                }
+                KeyCode::Char('s') => {
+                    app.stats_overlay.open = !app.stats_overlay.open;
+                    log::info!(
+                        "action:toggle_stats_overlay enabled={}",
+                        app.stats_overlay.open
+                    );
+                }
                 KeyCode::Char('r') => {
                     if app.recorder.is_some() {
                         if let Some(rec) = app.recorder.take() {
@@ -546,6 +682,7 @@ fn handle_event(app: &mut app::App, ev: Event) {
                     if let (Some(entry), Some(ref pixels)) =
                         (app.log_entries.last(), &app.tx_preview_pixels)
                     {
+                        log::info!("action:mark_false_positive pattern={}", entry.pattern_name);
                         let frame = privacy_common::frame::RawFrame {
                             pixels: pixels.clone(),
                             width: app.preview_width,
@@ -572,14 +709,29 @@ fn handle_event(app: &mut app::App, ev: Event) {
                 KeyCode::Char('j') => {
                     let max = app.log_entries.len().saturating_sub(20);
                     app.log_scroll_offset = (app.log_scroll_offset + 1).min(max);
+                    log::trace!(
+                        "action:detection_log.scroll_down offset={}",
+                        app.log_scroll_offset
+                    );
                 }
                 KeyCode::Char('k') => {
                     app.log_scroll_offset = app.log_scroll_offset.saturating_sub(1);
+                    log::trace!(
+                        "action:detection_log.scroll_up offset={}",
+                        app.log_scroll_offset
+                    );
                 }
-                KeyCode::Char('?') => app.help_open = !app.help_open,
-                KeyCode::Char('e') => export_session_log(app),
+                KeyCode::Char('?') => {
+                    app.help_open = !app.help_open;
+                    log::info!("action:toggle_help enabled={}", app.help_open);
+                }
+                KeyCode::Char('e') => {
+                    log::info!("action:export_session_log");
+                    export_session_log(app)
+                }
                 KeyCode::Char(c @ '1'..='9') => {
                     let idx = (c as u8 - b'0') as usize;
+                    log::info!("action:switch_profile index={idx}");
                     app.switch_profile(idx);
                 }
                 _ => {}

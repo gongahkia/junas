@@ -113,6 +113,11 @@ pub fn spawn_pipeline(
     registry: PatternRegistry,
     output_tx: Sender<TransformedFrame>, // caller reads from here
 ) -> anyhow::Result<PipelineHandle> {
+    log::info!(
+        "spawn_pipeline ocr_data_path={} registry_patterns={}",
+        ocr_data_path.as_deref().unwrap_or("<default>"),
+        registry.patterns.len()
+    );
     // apply accelerator preference from config before any neural inference
     let accel = crate::config::AppConfig::load()
         .unwrap_or_default()
@@ -136,10 +141,13 @@ pub fn spawn_pipeline(
     let cap_thread = thread::Builder::new()
         .name("aki-capture".into())
         .spawn(move || {
+            log::info!("pipeline thread started: aki-capture");
             if let Err(e) = source.start() {
+                log::error!("capture source start failed: {e}");
                 *state_c.capture_error.lock().unwrap() = Some(format!("capture failed: {e}"));
                 return;
             }
+            log::info!("capture source started successfully");
             while state_c.running.load(Ordering::Relaxed) {
                 match source.next_frame() {
                     Ok(Some(frame)) => {
@@ -155,16 +163,21 @@ pub fn spawn_pipeline(
                             frame
                         };
                         if raw_tx.is_full() {
+                            log::trace!("capture decision: raw channel full, dropping frame");
                             state_c.dropped_frames.fetch_add(1, Ordering::Relaxed);
                         } else {
                             let _ = raw_tx.try_send(frame);
                         }
                     }
                     Ok(None) => thread::sleep(Duration::from_millis(5)),
-                    Err(_) => break,
+                    Err(e) => {
+                        log::error!("capture source next_frame failed: {e}");
+                        break;
+                    }
                 }
             }
             let _ = source.stop();
+            log::info!("pipeline thread stopped: aki-capture");
         })?;
 
     // ── detection thread ────────────────────────────────────────────────────
@@ -178,10 +191,14 @@ pub fn spawn_pipeline(
     let det_thread = thread::Builder::new()
         .name("aki-detect".into())
         .spawn(move || {
+            log::info!("pipeline thread started: aki-detect");
             let ocr_engine =
                 match OcrEngine::new_with_confidence(ocr_data_path.as_deref(), min_conf) {
                     Ok(o) => o,
-                    Err(_) => return,
+                    Err(e) => {
+                        log::error!("ocr engine init failed: {e}");
+                        return;
+                    }
                 };
             let mut ocr = IncrementalOcr::new(ocr_engine, GRID_COLS, GRID_ROWS);
             while state_d.running.load(Ordering::Relaxed) {
@@ -245,6 +262,7 @@ pub fn spawn_pipeline(
                             }
                         }
                         if detection_tx.is_full() {
+                            log::trace!("detect decision: detection channel full, dropping frame");
                             state_d.dropped_frames.fetch_add(1, Ordering::Relaxed);
                         } else {
                             let _ = detection_tx.try_send((frame, regions));
@@ -254,6 +272,7 @@ pub fn spawn_pipeline(
                     Err(RecvTimeoutError::Disconnected) => break,
                 }
             }
+            log::info!("pipeline thread stopped: aki-detect");
         })?;
 
     // ── transform thread ────────────────────────────────────────────────────
@@ -263,6 +282,7 @@ pub fn spawn_pipeline(
     let tx_thread = thread::Builder::new()
         .name("aki-transform".into())
         .spawn(move || {
+            log::info!("pipeline thread started: aki-transform");
             while state_t.running.load(Ordering::Relaxed) {
                 if state_t.paused.load(Ordering::Relaxed) {
                     thread::sleep(Duration::from_millis(50));
@@ -336,6 +356,9 @@ pub fn spawn_pipeline(
                             timestamp: frame.timestamp,
                         });
                         if transformed_tx.is_full() {
+                            log::trace!(
+                                "transform decision: transformed channel full, dropping frame"
+                            );
                             state_t.dropped_frames.fetch_add(1, Ordering::Relaxed);
                         } else {
                             let _ = transformed_tx.try_send(result);
@@ -345,6 +368,7 @@ pub fn spawn_pipeline(
                     Err(RecvTimeoutError::Disconnected) => break,
                 }
             }
+            log::info!("pipeline thread stopped: aki-transform");
         })?;
 
     // ── output thread ───────────────────────────────────────────────────────
@@ -353,17 +377,21 @@ pub fn spawn_pipeline(
     let out_thread = thread::Builder::new()
         .name("aki-output".into())
         .spawn(move || {
+            log::info!("pipeline thread started: aki-output");
             while state_o.running.load(Ordering::Relaxed) {
                 match transformed_rx.recv_timeout(Duration::from_millis(100)) {
                     Ok(frame) => {
                         if !output_tx.is_full() {
                             let _ = output_tx.try_send(frame);
+                        } else {
+                            log::trace!("output decision: output channel full, dropping frame");
                         }
                     }
                     Err(RecvTimeoutError::Timeout) => {}
                     Err(RecvTimeoutError::Disconnected) => break,
                 }
             }
+            log::info!("pipeline thread stopped: aki-output");
         })?;
 
     Ok(PipelineHandle {

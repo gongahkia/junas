@@ -112,17 +112,20 @@ fn handle_client(stream: std::net::TcpStream, state: Arc<ControlState>) {
 }
 
 fn dispatch(text: &str, state: &ControlState) -> String {
+    log::debug!("control server: request payload={text}");
     let v: serde_json::Value = match serde_json::from_str(text) {
         Ok(v) => v,
         Err(e) => return json!({"ok":false,"error":format!("parse error: {e}")}).to_string(),
     };
     match v.get("cmd").and_then(|c| c.as_str()) {
         Some("pause") => {
+            log::info!("control server: cmd=pause");
             state.paused.store(true, Ordering::SeqCst);
             *state.pending_pause.lock().unwrap() = Some(true);
             json!({"ok":true,"cmd":"pause"}).to_string()
         }
         Some("resume") => {
+            log::info!("control server: cmd=resume");
             state.paused.store(false, Ordering::SeqCst);
             *state.pending_pause.lock().unwrap() = Some(false);
             json!({"ok":true,"cmd":"resume"}).to_string()
@@ -131,6 +134,7 @@ fn dispatch(text: &str, state: &ControlState) -> String {
             let mode_str = v.get("mode").and_then(|m| m.as_str()).unwrap_or("");
             match parse_mode(mode_str) {
                 Some(mode) => {
+                    log::info!("control server: cmd=switch_mode mode={mode_str}");
                     *state.transform_mode.lock().unwrap() = mode;
                     *state.pending_mode.lock().unwrap() = Some(mode);
                     json!({"ok":true,"cmd":"switch_mode","mode":mode_str}).to_string()
@@ -139,6 +143,7 @@ fn dispatch(text: &str, state: &ControlState) -> String {
             }
         }
         Some("get_stats") => {
+            log::debug!("control server: cmd=get_stats");
             let mode = *state.transform_mode.lock().unwrap();
             let intensity = *state.intensity.lock().unwrap();
             let paused = state.paused.load(Ordering::SeqCst);
@@ -151,8 +156,14 @@ fn dispatch(text: &str, state: &ControlState) -> String {
             })
             .to_string()
         }
-        Some(other) => json!({"ok":false,"error":format!("unknown cmd: {other}")}).to_string(),
-        None => json!({"ok":false,"error":"missing cmd field"}).to_string(),
+        Some(other) => {
+            log::warn!("control server: unknown cmd={other}");
+            json!({"ok":false,"error":format!("unknown cmd: {other}")}).to_string()
+        }
+        None => {
+            log::warn!("control server: missing cmd field");
+            json!({"ok":false,"error":"missing cmd field"}).to_string()
+        }
     }
 }
 

@@ -13,12 +13,20 @@ pub mod window_selector;
 use crate::app::App;
 use ratatui::{
     layout::{Constraint, Direction, Layout},
-    style::Color,
+    style::{Color, Style},
+    widgets::{Block, Clear},
     Frame,
 };
 
 pub fn render(frame: &mut Frame, app: &mut App) {
     let area = frame.area();
+    // Paint a solid backdrop each frame so translucent terminals do not ghost
+    // underlying content into the TUI.
+    frame.render_widget(Clear, area);
+    frame.render_widget(
+        Block::default().style(Style::default().bg(Color::Rgb(34, 39, 53))),
+        area,
+    );
 
     let rows = Layout::default()
         .direction(Direction::Vertical)
