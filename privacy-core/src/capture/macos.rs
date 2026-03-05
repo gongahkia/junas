@@ -21,6 +21,7 @@ use screencapturekit::{
     },
 };
 use std::sync::mpsc::{sync_channel, Receiver, SyncSender, TryRecvError, TrySendError};
+use std::time::Duration;
 
 use super::CaptureSource;
 
@@ -88,6 +89,7 @@ pub struct MacosCaptureSource {
     pub fps: u32,
     pub target: CaptureTarget,
     stream: Option<SCStream>,
+    output_handler: Option<usize>,
     rx: Option<Receiver<RawFrame>>,
 }
 
@@ -103,6 +105,7 @@ impl MacosCaptureSource {
             fps,
             target,
             stream: None,
+            output_handler: None,
             rx: None,
         }
     }
@@ -149,19 +152,27 @@ impl CaptureSource for MacosCaptureSource {
 
         let (tx, rx) = sync_channel::<RawFrame>(FRAME_CHANNEL_CAP);
         let mut stream = SCStream::new_with_delegate(&filter, &config, NullDelegate);
-        stream.add_output_handler(FrameHandler { tx }, SCStreamOutputType::Screen);
+        let output_handler = stream
+            .add_output_handler(FrameHandler { tx }, SCStreamOutputType::Screen)
+            .ok_or_else(|| anyhow!("failed to add screen output handler"))?;
         stream
             .start_capture()
             .map_err(|e| anyhow!("start_capture: {:?}", e))?;
 
         self.stream = Some(stream);
+        self.output_handler = Some(output_handler as usize);
         self.rx = Some(rx);
         Ok(())
     }
 
     fn stop(&mut self) -> Result<()> {
-        if let Some(s) = self.stream.take() {
+        if let Some(mut s) = self.stream.take() {
+            if let Some(handler) = self.output_handler.take() {
+                let _ = s.remove_output_handler(handler as *mut _, SCStreamOutputType::Screen);
+            }
             s.stop_capture().map_err(|e| anyhow!("{:?}", e))?;
+            // Give the callback queue a short drain window before stream drop.
+            std::thread::sleep(Duration::from_millis(30));
         }
         self.rx = None;
         Ok(())
