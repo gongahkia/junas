@@ -20,9 +20,12 @@ use crate::{
 };
 use crossbeam_channel::{RecvTimeoutError, Sender};
 use privacy_common::{
-    detection::DetectedRegions, frame::TransformedFrame, transform::TransformMode,
+    detection::{DetectedRegions, SensitiveMatch, Severity},
+    frame::{RawFrame, Rect, TransformedFrame},
+    transform::TransformMode,
 };
 use std::{
+    collections::{HashMap, VecDeque},
     sync::{
         atomic::{AtomicBool, AtomicU32, AtomicU64, Ordering},
         Arc, Mutex,
@@ -35,6 +38,86 @@ use std::{
 const FRAME_BUDGET_MS: u128 = 33;
 /// Minimum OCR grid dimensions under load
 const MIN_GRID: u32 = 2;
+/// Publish raw preview at 10Hz to keep clone overhead bounded.
+const RAW_PREVIEW_INTERVAL_MS: u64 = 100;
+/// Keep only the most recent detection events.
+const DETECTION_EVENT_QUEUE_CAP: usize = 256;
+/// Suppress duplicate detections for this window.
+const DETECTION_DEDUPE_WINDOW_MS: u64 = 1000;
+/// Drop stale dedupe entries to keep cache bounded.
+const DETECTION_DEDUPE_CACHE_TTL_MS: u64 = 5000;
+
+#[derive(Debug, Clone)]
+pub struct PipelineDetectionEvent {
+    pub timestamp: chrono::DateTime<chrono::Utc>,
+    pub pattern_name: String,
+    pub severity: Severity,
+    pub snippet: String,
+    pub bounds: Rect,
+}
+
+#[derive(Debug, Clone, Hash, PartialEq, Eq)]
+struct DetectionDedupeKey {
+    pattern_name: String,
+    snippet: String,
+    x: u32,
+    y: u32,
+    width: u32,
+    height: u32,
+}
+
+impl From<&SensitiveMatch> for DetectionDedupeKey {
+    fn from(m: &SensitiveMatch) -> Self {
+        Self {
+            pattern_name: m.pattern_name.clone(),
+            snippet: m.snippet.clone(),
+            x: m.bounds.x,
+            y: m.bounds.y,
+            width: m.bounds.width,
+            height: m.bounds.height,
+        }
+    }
+}
+
+fn clamp_ms(v: u128) -> u32 {
+    v.min(u32::MAX as u128) as u32
+}
+
+fn update_peak_regions(peak: &AtomicU32, current: u32) {
+    peak.fetch_max(current, Ordering::Relaxed);
+}
+
+fn prune_dedupe_cache(cache: &mut HashMap<DetectionDedupeKey, Instant>, now: Instant) {
+    let ttl = Duration::from_millis(DETECTION_DEDUPE_CACHE_TTL_MS);
+    cache.retain(|_, last| now.saturating_duration_since(*last) <= ttl);
+}
+
+fn should_emit_detection(
+    m: &SensitiveMatch,
+    dedupe_cache: &mut HashMap<DetectionDedupeKey, Instant>,
+    now: Instant,
+) -> bool {
+    let key = DetectionDedupeKey::from(m);
+    let dedupe_window = Duration::from_millis(DETECTION_DEDUPE_WINDOW_MS);
+    let should_emit = dedupe_cache
+        .get(&key)
+        .map(|last| now.saturating_duration_since(*last) >= dedupe_window)
+        .unwrap_or(true);
+    if should_emit {
+        dedupe_cache.insert(key, now);
+    }
+    should_emit
+}
+
+fn push_detection_event(
+    queue: &mut VecDeque<PipelineDetectionEvent>,
+    event: PipelineDetectionEvent,
+) {
+    if queue.len() >= DETECTION_EVENT_QUEUE_CAP {
+        queue.pop_front();
+    }
+    queue.push_back(event);
+}
 
 /// Shared mutable state accessible across threads.
 pub struct SharedState {
@@ -58,6 +141,20 @@ pub struct SharedState {
     pub capture_error: Mutex<Option<String>>,
     /// frames dropped due to full channels in any pipeline thread
     pub dropped_frames: AtomicU64,
+    /// latest measured capture stage latency in milliseconds
+    pub capture_latency_ms: AtomicU32,
+    /// latest measured detection stage latency in milliseconds
+    pub ocr_latency_ms: AtomicU32,
+    /// latest measured transform stage latency in milliseconds
+    pub transform_latency_ms: AtomicU32,
+    /// low-rate raw preview frame for TUI rendering
+    pub latest_raw_preview: Mutex<Option<RawFrame>>,
+    /// bounded queue of detection events for TUI overlays/logging
+    pub detection_events: Mutex<VecDeque<PipelineDetectionEvent>>,
+    /// number of regions detected in the most recent frame
+    pub last_regions_count: AtomicU32,
+    /// peak regions detected in a single frame this session
+    pub peak_regions_count: AtomicU32,
 }
 
 impl SharedState {
@@ -77,6 +174,13 @@ impl SharedState {
             whitelist: Mutex::new(whitelist),
             capture_error: Mutex::new(None),
             dropped_frames: AtomicU64::new(0),
+            capture_latency_ms: AtomicU32::new(0),
+            ocr_latency_ms: AtomicU32::new(0),
+            transform_latency_ms: AtomicU32::new(0),
+            latest_raw_preview: Mutex::new(None),
+            detection_events: Mutex::new(VecDeque::with_capacity(DETECTION_EVENT_QUEUE_CAP)),
+            last_regions_count: AtomicU32::new(0),
+            peak_regions_count: AtomicU32::new(0),
         })
     }
 
@@ -148,9 +252,16 @@ pub fn spawn_pipeline(
                 return;
             }
             log::info!("capture source started successfully");
+            let mut last_raw_preview = Instant::now()
+                .checked_sub(Duration::from_millis(RAW_PREVIEW_INTERVAL_MS))
+                .unwrap_or_else(Instant::now);
             while state_c.running.load(Ordering::Relaxed) {
+                let cap_start = Instant::now();
                 match source.next_frame() {
                     Ok(Some(frame)) => {
+                        state_c
+                            .capture_latency_ms
+                            .store(clamp_ms(cap_start.elapsed().as_millis()), Ordering::Relaxed);
                         let frame = if let Some(ref rect) = capture_region_rect {
                             match crate::capture::region::crop_frame(&frame, rect) {
                                 Ok(cropped) => cropped,
@@ -162,6 +273,14 @@ pub fn spawn_pipeline(
                         } else {
                             frame
                         };
+                        if last_raw_preview.elapsed()
+                            >= Duration::from_millis(RAW_PREVIEW_INTERVAL_MS)
+                        {
+                            if let Ok(mut raw) = state_c.latest_raw_preview.lock() {
+                                *raw = Some(frame.clone());
+                            }
+                            last_raw_preview = Instant::now();
+                        }
                         if raw_tx.is_full() {
                             log::trace!("capture decision: raw channel full, dropping frame");
                             state_c.dropped_frames.fetch_add(1, Ordering::Relaxed);
@@ -169,8 +288,16 @@ pub fn spawn_pipeline(
                             let _ = raw_tx.try_send(frame);
                         }
                     }
-                    Ok(None) => thread::sleep(Duration::from_millis(5)),
+                    Ok(None) => {
+                        state_c
+                            .capture_latency_ms
+                            .store(clamp_ms(cap_start.elapsed().as_millis()), Ordering::Relaxed);
+                        thread::sleep(Duration::from_millis(5));
+                    }
                     Err(e) => {
+                        state_c
+                            .capture_latency_ms
+                            .store(clamp_ms(cap_start.elapsed().as_millis()), Ordering::Relaxed);
                         log::error!("capture source next_frame failed: {e}");
                         break;
                     }
@@ -201,6 +328,7 @@ pub fn spawn_pipeline(
                     }
                 };
             let mut ocr = IncrementalOcr::new(ocr_engine, GRID_COLS, GRID_ROWS);
+            let mut dedupe_cache: HashMap<DetectionDedupeKey, Instant> = HashMap::new();
             while state_d.running.load(Ordering::Relaxed) {
                 // apply adaptive grid if it changed
                 let tgt_cols = state_d.target_grid_cols.load(Ordering::Relaxed);
@@ -225,6 +353,38 @@ pub fn spawn_pipeline(
                             Err(_) => DetectedRegions::default(),
                         };
                         let elapsed = t0.elapsed().as_millis();
+                        state_d
+                            .ocr_latency_ms
+                            .store(clamp_ms(elapsed), Ordering::Relaxed);
+                        let region_count = regions.matches.len() as u32;
+                        state_d
+                            .last_regions_count
+                            .store(region_count, Ordering::Relaxed);
+                        update_peak_regions(&state_d.peak_regions_count, region_count);
+
+                        let now = Instant::now();
+                        prune_dedupe_cache(&mut dedupe_cache, now);
+                        let now_utc = chrono::Utc::now();
+                        let mut events = Vec::new();
+                        for m in &regions.matches {
+                            if should_emit_detection(m, &mut dedupe_cache, now) {
+                                events.push(PipelineDetectionEvent {
+                                    timestamp: now_utc,
+                                    pattern_name: m.pattern_name.clone(),
+                                    severity: m.severity,
+                                    snippet: m.snippet.clone(),
+                                    bounds: m.bounds.clone(),
+                                });
+                            }
+                        }
+                        if !events.is_empty() {
+                            if let Ok(mut queue) = state_d.detection_events.lock() {
+                                for event in events {
+                                    push_detection_event(&mut queue, event);
+                                }
+                            }
+                        }
+
                         // adaptive quality scaling: reduce grid if over budget
                         if elapsed > FRAME_BUDGET_MS {
                             let cur_cols = state_d.target_grid_cols.load(Ordering::Relaxed);
@@ -290,6 +450,7 @@ pub fn spawn_pipeline(
                 }
                 match detection_rx.recv_timeout(Duration::from_millis(100)) {
                     Ok((frame, regions)) => {
+                        let transform_start = Instant::now();
                         let mode = *state_t.transform_mode.lock().unwrap();
                         let base_intensity = *state_t.transform_intensity.lock().unwrap();
                         let qscale = *state_t.quality_scale.lock().unwrap();
@@ -355,6 +516,10 @@ pub fn spawn_pipeline(
                             height: frame.height,
                             timestamp: frame.timestamp,
                         });
+                        state_t.transform_latency_ms.store(
+                            clamp_ms(transform_start.elapsed().as_millis()),
+                            Ordering::Relaxed,
+                        );
                         if transformed_tx.is_full() {
                             log::trace!(
                                 "transform decision: transformed channel full, dropping frame"
@@ -413,5 +578,80 @@ impl Drop for PipelineHandle {
                 let _ = handle.join();
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use privacy_common::detection::Severity;
+
+    fn make_match(snippet: &str) -> SensitiveMatch {
+        SensitiveMatch {
+            bounds: Rect {
+                x: 10,
+                y: 20,
+                width: 30,
+                height: 40,
+            },
+            pattern_name: "token".to_string(),
+            severity: Severity::High,
+            snippet: snippet.to_string(),
+        }
+    }
+
+    #[test]
+    fn dedupe_suppresses_within_window() {
+        let m = make_match("abc***");
+        let mut cache = HashMap::new();
+        let now = Instant::now();
+
+        assert!(should_emit_detection(&m, &mut cache, now));
+        assert!(!should_emit_detection(
+            &m,
+            &mut cache,
+            now + Duration::from_millis(DETECTION_DEDUPE_WINDOW_MS - 1),
+        ));
+        assert!(should_emit_detection(
+            &m,
+            &mut cache,
+            now + Duration::from_millis(DETECTION_DEDUPE_WINDOW_MS),
+        ));
+    }
+
+    #[test]
+    fn detection_event_queue_is_bounded() {
+        let mut q = VecDeque::new();
+        for i in 0..(DETECTION_EVENT_QUEUE_CAP + 10) {
+            push_detection_event(
+                &mut q,
+                PipelineDetectionEvent {
+                    timestamp: chrono::Utc::now(),
+                    pattern_name: format!("p{i}"),
+                    severity: Severity::Low,
+                    snippet: format!("s{i}"),
+                    bounds: Rect {
+                        x: i as u32,
+                        y: 0,
+                        width: 1,
+                        height: 1,
+                    },
+                },
+            );
+        }
+        assert_eq!(q.len(), DETECTION_EVENT_QUEUE_CAP);
+        assert_eq!(
+            q.front().map(|e| e.pattern_name.clone()),
+            Some("p10".to_string())
+        );
+    }
+
+    #[test]
+    fn peak_region_counter_tracks_max() {
+        let peak = AtomicU32::new(0);
+        update_peak_regions(&peak, 2);
+        update_peak_regions(&peak, 1);
+        update_peak_regions(&peak, 7);
+        assert_eq!(peak.load(Ordering::Relaxed), 7);
     }
 }

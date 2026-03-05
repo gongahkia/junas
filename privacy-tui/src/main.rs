@@ -302,9 +302,11 @@ fn spawn_capture_pipeline(
             let mut fps_start = std::time::Instant::now();
             let mut current_fps = 0.0f32;
             while let Ok(frame) = out_rx.recv() {
+                let out_t0 = std::time::Instant::now();
                 if let Ok(mut s) = sink.lock() {
                     let _ = s.write_frame(&frame);
                 }
+                let output_latency_ms = out_t0.elapsed().as_secs_f32() * 1000.0;
                 frame_count += 1;
                 let elapsed = fps_start.elapsed().as_secs_f32();
                 if elapsed >= 1.0 {
@@ -317,6 +319,7 @@ fn spawn_capture_pipeline(
                     width: frame.width,
                     height: frame.height,
                     fps: current_fps,
+                    output_latency_ms,
                 });
             }
         })?;

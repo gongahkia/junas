@@ -172,6 +172,7 @@ pub struct PreviewUpdate {
     pub width: u32,
     pub height: u32,
     pub fps: f32,
+    pub output_latency_ms: f32,
 }
 
 pub struct App {
@@ -308,7 +309,7 @@ impl App {
         self.control_state
             .paused
             .store(paused, std::sync::atomic::Ordering::SeqCst);
-        if let Some(ref ps) = self.pipeline_shared_state {
+        if let Some(ps) = self.pipeline_shared_state.clone() {
             ps.paused.store(paused, std::sync::atomic::Ordering::SeqCst);
         }
     }
@@ -369,6 +370,7 @@ impl App {
                 if upd.fps > 0.0 {
                     self.stats.actual_fps = upd.fps;
                 }
+                self.stats.output_latency_ms = upd.output_latency_ms;
                 self.preview_width = upd.width;
                 self.preview_height = upd.height;
                 // feed frame to recorder if active
@@ -381,23 +383,57 @@ impl App {
                     };
                     let _ = rec.write_frame(&tf);
                 }
-                // Raw preview frames are not wired separately yet; mirror transformed feed.
-                self.raw_preview_pixels = Some(upd.pixels.clone());
                 self.tx_preview_pixels = Some(upd.pixels);
             }
         }
         // update adaptive quality stats and capture errors from pipeline SharedState
-        if let Some(ref ps) = self.pipeline_shared_state {
+        if let Some(ps) = self.pipeline_shared_state.clone() {
             use std::sync::atomic::Ordering;
+            self.stats.capture_latency_ms = ps.capture_latency_ms.load(Ordering::Relaxed) as f32;
+            self.stats.ocr_latency_ms = ps.ocr_latency_ms.load(Ordering::Relaxed) as f32;
+            self.stats.transform_latency_ms =
+                ps.transform_latency_ms.load(Ordering::Relaxed) as f32;
             self.stats.quality_scale = *ps.quality_scale.lock().unwrap();
             self.stats.ocr_grid_cols = ps.target_grid_cols.load(Ordering::Relaxed);
             self.stats.ocr_grid_rows = ps.target_grid_rows.load(Ordering::Relaxed);
             self.stats.dropped_frames = ps.dropped_frames.load(Ordering::Relaxed);
+            self.stats_overlay.total_regions_this_frame =
+                ps.last_regions_count.load(Ordering::Relaxed);
+            self.stats_overlay.peak_regions = ps.peak_regions_count.load(Ordering::Relaxed);
+            if let Ok(mut raw) = ps.latest_raw_preview.try_lock() {
+                if let Some(frame) = raw.take() {
+                    self.preview_width = frame.width;
+                    self.preview_height = frame.height;
+                    self.raw_preview_pixels = Some(frame.pixels);
+                }
+            }
+            if let Ok(mut queue) = ps.detection_events.try_lock() {
+                let events: Vec<_> = queue.drain(..).collect();
+                drop(queue);
+                for event in events {
+                    self.heatmap
+                        .record_hit(&event.bounds, self.preview_width, self.preview_height);
+                    self.push_log(LogEntry {
+                        timestamp: event.timestamp,
+                        pattern_name: event.pattern_name,
+                        severity: event.severity,
+                        snippet: event.snippet,
+                        bounds: Some(event.bounds),
+                    });
+                }
+            }
             if let Ok(mut err) = ps.capture_error.try_lock() {
                 if err.is_some() {
                     self.capture_error = err.take();
                 }
             }
+        }
+        let total_latency = self.stats.capture_latency_ms
+            + self.stats.ocr_latency_ms
+            + self.stats.transform_latency_ms
+            + self.stats.output_latency_ms;
+        if total_latency > 0.0 {
+            self.record_latency(total_latency as u64);
         }
         // apply pending pause/resume from control server
         if let Ok(mut g) = self.control_state.pending_pause.try_lock() {
@@ -522,5 +558,103 @@ impl App {
 impl Default for App {
     fn default() -> Self {
         Self::new()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crossbeam_channel::bounded;
+    use privacy_common::detection::Severity;
+    use privacy_core::{
+        detection::default_patterns::default_registry,
+        pipeline_runner::{PipelineDetectionEvent, SharedState},
+    };
+    use std::sync::atomic::Ordering;
+
+    fn preview_update(pixel: u8, output_latency_ms: f32) -> PreviewUpdate {
+        PreviewUpdate {
+            pixels: vec![pixel, pixel, pixel, 255],
+            width: 1,
+            height: 1,
+            fps: 30.0,
+            output_latency_ms,
+        }
+    }
+
+    #[test]
+    fn tick_transition_uses_true_raw_preview() {
+        let mut app = App::new();
+        let state = SharedState::new(default_registry());
+        *state.latest_raw_preview.lock().unwrap() = Some(privacy_common::frame::RawFrame {
+            pixels: vec![10, 11, 12, 255],
+            width: 1,
+            height: 1,
+            timestamp: chrono::Utc::now(),
+        });
+        app.pipeline_shared_state = Some(state.clone());
+        let (tx, rx) = bounded(1);
+        tx.send(preview_update(20, 2.0)).unwrap();
+        app.preview_rx = Some(rx);
+
+        app.tick_transition();
+
+        assert_eq!(app.tx_preview_pixels, Some(vec![20, 20, 20, 255]));
+        assert_eq!(app.raw_preview_pixels, Some(vec![10, 11, 12, 255]));
+        assert!(state.latest_raw_preview.lock().unwrap().is_none());
+    }
+
+    #[test]
+    fn tick_transition_drains_detection_events_and_updates_overlay_state() {
+        let mut app = App::new();
+        app.preview_width = 100;
+        app.preview_height = 100;
+        let state = SharedState::new(default_registry());
+        state.last_regions_count.store(2, Ordering::Relaxed);
+        state.peak_regions_count.store(5, Ordering::Relaxed);
+        {
+            let mut q = state.detection_events.lock().unwrap();
+            q.push_back(PipelineDetectionEvent {
+                timestamp: chrono::Utc::now(),
+                pattern_name: "github_token".to_string(),
+                severity: Severity::High,
+                snippet: "ghp_***".to_string(),
+                bounds: Rect {
+                    x: 10,
+                    y: 10,
+                    width: 20,
+                    height: 10,
+                },
+            });
+        }
+        app.pipeline_shared_state = Some(state);
+
+        app.tick_transition();
+
+        assert_eq!(app.log_entries.len(), 1);
+        assert_eq!(app.stats_overlay.total_regions_this_frame, 2);
+        assert_eq!(app.stats_overlay.peak_regions, 5);
+        assert!(app.heatmap.cells.values().any(|hits| !hits.is_empty()));
+    }
+
+    #[test]
+    fn tick_transition_records_total_latency_samples() {
+        let mut app = App::new();
+        let state = SharedState::new(default_registry());
+        state.capture_latency_ms.store(10, Ordering::Relaxed);
+        state.ocr_latency_ms.store(5, Ordering::Relaxed);
+        state.transform_latency_ms.store(6, Ordering::Relaxed);
+        app.pipeline_shared_state = Some(state);
+        let (tx, rx) = bounded(1);
+        tx.send(preview_update(30, 4.0)).unwrap();
+        app.preview_rx = Some(rx);
+
+        app.tick_transition();
+
+        assert_eq!(app.stats.capture_latency_ms, 10.0);
+        assert_eq!(app.stats.ocr_latency_ms, 5.0);
+        assert_eq!(app.stats.transform_latency_ms, 6.0);
+        assert_eq!(app.stats.output_latency_ms, 4.0);
+        assert_eq!(app.latency_history.back().copied(), Some(25));
     }
 }
