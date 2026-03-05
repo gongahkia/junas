@@ -1,30 +1,27 @@
-import os
-import torch
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
-from dataclasses import dataclass
+"""
+Legacy Model-2 inference shim.
 
-CHECKPOINT_DIR = os.path.join(os.path.dirname(__file__), "checkpoints", "best")
-MAX_SEQ_LEN = 512
-THRESHOLD = float(os.getenv("MODEL2_THRESHOLD", "0.5"))
+Canonical implementation lives in layer4-classification/model-2/inference.py.
+"""
 
-@dataclass
-class Model2Result:
-    label: str # "low_risk" or "high_risk"
-    confidence: float
-    high_risk_score: float # probability of high_risk class
+import importlib.util
+from pathlib import Path
 
-class BERTSeverityClassifier:
-    def __init__(self, checkpoint_dir: str = CHECKPOINT_DIR):
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.tokenizer = AutoTokenizer.from_pretrained(checkpoint_dir)
-        self.model = AutoModelForSequenceClassification.from_pretrained(checkpoint_dir).to(self.device)
-        self.model.eval()
-    def predict(self, text: str) -> Model2Result:
-        inputs = self.tokenizer(text, truncation=True, padding=True, max_length=MAX_SEQ_LEN, return_tensors="pt").to(self.device)
-        with torch.no_grad():
-            logits = self.model(**inputs).logits
-        probs = torch.softmax(logits, dim=-1).squeeze()
-        high_risk_score = probs[1].item() # index 1 = high_risk
-        label = "high_risk" if high_risk_score >= THRESHOLD else "low_risk"
-        confidence = high_risk_score if label == "high_risk" else probs[0].item()
-        return Model2Result(label=label, confidence=confidence, high_risk_score=high_risk_score)
+
+def _load_canonical():
+    path = Path(__file__).resolve().parents[1] / "layer4-classification" / "model-2" / "inference.py"
+    spec = importlib.util.spec_from_file_location("layer4_model2_inference", str(path))
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Cannot load canonical model-2 inference from {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+_mod = _load_canonical()
+
+CHECKPOINT_DIR = _mod.CHECKPOINT_DIR
+MAX_SEQ_LEN = _mod.MAX_SEQ_LEN
+THRESHOLD = _mod.THRESHOLD
+Model2Result = _mod.Model2Result
+BERTSeverityClassifier = _mod.BERTSeverityClassifier

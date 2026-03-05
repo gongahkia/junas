@@ -1,30 +1,27 @@
-import os
-import torch
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
-from dataclasses import dataclass
+"""
+Legacy Model-1 inference shim.
 
-CHECKPOINT_DIR = os.path.join(os.path.dirname(__file__), "checkpoints", "best")
-MAX_SEQ_LEN = 512
-THRESHOLD = float(os.getenv("MODEL1_THRESHOLD", "0.5"))
+Canonical implementation lives in layer4-classification/model-1/inference.py.
+"""
 
-@dataclass
-class Model1Result:
-    label: str # "safe" or "risk"
-    confidence: float # probability of predicted class
-    risk_score: float # probability of risk class specifically
+import importlib.util
+from pathlib import Path
 
-class FinBERTClassifier:
-    def __init__(self, checkpoint_dir: str = CHECKPOINT_DIR):
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.tokenizer = AutoTokenizer.from_pretrained(checkpoint_dir)
-        self.model = AutoModelForSequenceClassification.from_pretrained(checkpoint_dir).to(self.device)
-        self.model.eval()
-    def predict(self, text: str) -> Model1Result:
-        inputs = self.tokenizer(text, truncation=True, padding=True, max_length=MAX_SEQ_LEN, return_tensors="pt").to(self.device)
-        with torch.no_grad():
-            logits = self.model(**inputs).logits
-        probs = torch.softmax(logits, dim=-1).squeeze()
-        risk_score = probs[1].item() # index 1 = non-public/risk
-        label = "risk" if risk_score >= THRESHOLD else "safe"
-        confidence = risk_score if label == "risk" else probs[0].item()
-        return Model1Result(label=label, confidence=confidence, risk_score=risk_score)
+
+def _load_canonical():
+    path = Path(__file__).resolve().parents[1] / "layer4-classification" / "model-1" / "inference.py"
+    spec = importlib.util.spec_from_file_location("layer4_model1_inference", str(path))
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Cannot load canonical model-1 inference from {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+_mod = _load_canonical()
+
+CHECKPOINT_DIR = _mod.CHECKPOINT_DIR
+MAX_SEQ_LEN = _mod.MAX_SEQ_LEN
+THRESHOLD = _mod.THRESHOLD
+Model1Result = _mod.Model1Result
+FinBERTClassifier = _mod.FinBERTClassifier
