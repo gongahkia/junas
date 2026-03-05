@@ -57,12 +57,39 @@ RISK_ORDER = {
 MODEL_WEIGHT_EXTS = ("safetensors", "bin", "pt", "ckpt")
 SUPPRESSED_REQUEST_LOG_PATHS = {"/health", "/ready", "/metrics"}
 LATENCY_BUCKET_BOUNDS_MS = [1.0, 2.0, 5.0, 10.0, 20.0, 50.0, 100.0, 200.0, 500.0, 1000.0, 2000.0, 5000.0]
+DEFAULT_OPTIONAL_LAYERS = {"mosaic"}
 
 
 def _is_truthy(value: str | None, *, default: bool = False) -> bool:
     if value is None:
         return default
     return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _parse_layers_list(raw: str | list[Any] | None) -> list[str]:
+    if raw is None:
+        return []
+    if isinstance(raw, str):
+        return [v.strip() for v in raw.split(",") if v.strip()]
+    if isinstance(raw, list):
+        out: list[str] = []
+        for item in raw:
+            text = str(item).strip()
+            if text:
+                out.append(text)
+        return out
+    return []
+
+
+def get_optional_layers() -> set[str]:
+    env_val = os.environ.get("NOUPE_OPTIONAL_LAYERS")
+    if env_val is not None:
+        return set(_parse_layers_list(env_val))
+    cfg_val = _cfg.get("pipeline", {}).get("optional_layers")
+    parsed_cfg = _parse_layers_list(cfg_val)
+    if parsed_cfg:
+        return set(parsed_cfg)
+    return set(DEFAULT_OPTIONAL_LAYERS)
 
 
 def max_classification(a: Classification, b: Classification) -> Classification:
@@ -390,7 +417,8 @@ def _classify_core(req: ClassifyRequest, request_id: str | None) -> ClassifyResp
     current_embedding = None
 
     skip_to_regression = False
-    skip_model2 = False
+    # Model-2 is strictly gated by Model-1 risk output.
+    skip_model2 = True
 
     for layer in pipeline:
         t_layer_start = time.perf_counter()
@@ -406,6 +434,8 @@ def _classify_core(req: ClassifyRequest, request_id: str | None) -> ClassifyResp
                         flagged=lex_result.flagged,
                         high_risk_short_circuit=lex_result.high_risk_short_circuit,
                         total_score=lex_result.total_score,
+                        score_threshold=lex_result.score_threshold,
+                        score_threshold_exceeded=lex_result.score_threshold_exceeded,
                         hits=[
                             LexiconHitResponse(
                                 rule=h.rule,
@@ -451,6 +481,7 @@ def _classify_core(req: ClassifyRequest, request_id: str | None) -> ClassifyResp
                         final_classification = max_classification(Classification.SAFE, classification_floor)
                         skip_model2 = True
                     else:
+                        skip_model2 = False
                         final_classification = max_classification(Classification.LOW_RISK, classification_floor)
 
             elif layer == "model2":
@@ -492,13 +523,23 @@ def _classify_core(req: ClassifyRequest, request_id: str | None) -> ClassifyResp
                 reg_model = get_layer_model("regression")
                 if reg_model:
                     lex_score = lex_resp.total_score if lex_resp else 0.0
+                    lex_threshold = float(getattr(lex_resp, "score_threshold", 0.0) or 0.0)
+                    lex_score_over_threshold = max(0.0, lex_score - lex_threshold)
                     m1_score = m1_resp.risk_score if m1_resp else 0.0
                     m2_score = m2_resp.high_risk_score if m2_resp else 0.0
                     clust_score = clust_resp.get("anomaly_score", 0.0) if clust_resp else 0.0
                     m_count = mosaic_resp.count if mosaic_resp else 0
 
-                    features = [lex_score, m1_score, m2_score, clust_score, m_count]
-                    reg_result = reg_model.predict(features)
+                    feature_payload = {
+                        "lex_score": lex_score,
+                        "lex_threshold": lex_threshold,
+                        "lex_score_over_threshold": lex_score_over_threshold,
+                        "m1_score": m1_score,
+                        "m2_score": m2_score,
+                        "clust_score": clust_score,
+                        "mosaic_count": m_count,
+                    }
+                    reg_result = reg_model.predict(feature_payload)
                     reg_resp = RegressionResponse(
                         risk_score=reg_result["risk_score"],
                         reasoning=reg_result["reasoning"],
@@ -572,8 +613,11 @@ def _classify_core(req: ClassifyRequest, request_id: str | None) -> ClassifyResp
 async def lifespan(app: FastAPI):
     layers = load_config()
     lazy_heavy = _is_truthy(os.environ.get("NOUPE_LAZY_LOAD_HEAVY"), default=True)
+    optional_layers = get_optional_layers()
+    fail_on_layer_load_error = _is_truthy(os.environ.get("NOUPE_FAIL_ON_LAYER_LOAD_ERROR"), default=True)
 
     _state["pipeline"] = layers
+    _state["optional_layers"] = sorted(optional_layers)
     _state["models"] = {}
     _state["lazy_loaders"] = {}
     _state["load_errors"] = []
@@ -678,12 +722,20 @@ async def lifespan(app: FastAPI):
                     "mos_inf", str(PROJECT_ROOT / "layer5-mosaic" / "inference.py")
                 )
                 _state["models"]["mosaic"] = mos_mod.MosaicAggregator.load()
+            else:
+                raise ValueError(f"unknown pipeline layer: {layer}")
 
         except Exception as e:
             record_layer_load_error(layer, e, phase="startup")
             logger.warning(json.dumps({"event": "layer_load_failed", "layer": layer, "error": str(e)}))
         finally:
             _state["startup_timings_ms"][layer] = round((time.perf_counter() - t_layer) * 1000.0, 3)
+
+    available_layers = set(_state.get("models", {}).keys()) | set(_state.get("lazy_loaders", {}).keys())
+    missing_required_layers = sorted(
+        [layer for layer in layers if layer not in optional_layers and layer not in available_layers]
+    )
+    _state["missing_required_layers"] = missing_required_layers
 
     _state["startup_timings_ms"]["total"] = round((time.perf_counter() - t_startup_total) * 1000.0, 3)
 
@@ -694,12 +746,20 @@ async def lifespan(app: FastAPI):
                 "pipeline": layers,
                 "loaded_layers": sorted(_state.get("models", {}).keys()),
                 "lazy_layers": sorted(_state.get("lazy_loaders", {}).keys()),
+                "optional_layers": sorted(optional_layers),
+                "missing_required_layers": missing_required_layers,
                 "startup_timings_ms": _state.get("startup_timings_ms", {}),
                 "load_errors": _state.get("load_errors", []),
                 "cache_cfg": _state.get("cache_cfg", {}),
             }
         )
     )
+
+    if missing_required_layers and fail_on_layer_load_error:
+        raise RuntimeError(
+            f"required layers failed to load: {missing_required_layers}. "
+            "Set NOUPE_FAIL_ON_LAYER_LOAD_ERROR=0 to allow degraded startup."
+        )
 
     yield
     _state.clear()
@@ -788,8 +848,7 @@ async def ready():
     pipeline = _state.get("pipeline", [])
     models = _state.get("models", {})
     lazy_loaders = _state.get("lazy_loaders", {})
-
-    optional_layers = {"mosaic", "regression"}
+    optional_layers = set(_state.get("optional_layers", []))
     required_layers = [layer for layer in pipeline if layer not in optional_layers]
 
     available_layers = set(models.keys()) | set(lazy_loaders.keys())

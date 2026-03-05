@@ -69,6 +69,8 @@ class LexiconResponse(BaseModel):
     flagged: bool
     high_risk_short_circuit: bool
     total_score: float = 0.0
+    score_threshold: float = 0.0
+    score_threshold_exceeded: bool = False
     hits: list[LexiconHitResponse] = Field(default_factory=list)
     restricted_entities: list[dict] = Field(default_factory=list)
 

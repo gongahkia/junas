@@ -60,6 +60,8 @@ class LexiconResult:
     flagged: bool = False
     high_risk_short_circuit: bool = False # if true, skip downstream models
     total_score: float = 0.0
+    score_threshold: float = LEXICON_SCORE_THRESHOLD
+    score_threshold_exceeded: bool = False
     hits: list = field(default_factory=list)
     restricted_entities_found: list = field(default_factory=list)
 
@@ -186,9 +188,10 @@ class LexiconFilter:
             total_score += h.score
             
         result.total_score = total_score
-        
+
         high_hits = [h for h in result.hits if h.severity == "high"]
-        result.flagged = len(high_hits) > 0
+        result.score_threshold_exceeded = result.total_score >= result.score_threshold
+        result.flagged = len(high_hits) > 0 or result.score_threshold_exceeded
 
         # Deterministic short-circuit triggers align with documented policy.
         has_money_breach = any(h.rule == "money_threshold" and h.severity == "high" for h in high_hits)

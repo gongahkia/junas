@@ -9,9 +9,18 @@ import numpy as np
 import pandas as pd
 import xgboost as xgb
 
-FEATURE_NAMES = ["lex_score", "m1_score", "m2_score", "clust_score", "mosaic_count"]
+FEATURE_NAMES = [
+    "lex_score",
+    "lex_threshold",
+    "lex_score_over_threshold",
+    "m1_score",
+    "m2_score",
+    "clust_score",
+    "mosaic_count",
+]
 TARGET_NAME = "target"
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
+DEFAULT_LEX_THRESHOLD = 10.0
 
 
 def parse_args():
@@ -32,12 +41,24 @@ def validate_columns(df: pd.DataFrame) -> None:
         raise ValueError(f"Missing required columns: {missing}")
 
 
+def ensure_derived_features(df: pd.DataFrame) -> pd.DataFrame:
+    out = df.copy()
+    if "lex_threshold" not in out.columns:
+        out["lex_threshold"] = DEFAULT_LEX_THRESHOLD
+    if "lex_score_over_threshold" not in out.columns:
+        if "lex_score" not in out.columns:
+            raise ValueError("Cannot derive lex_score_over_threshold without lex_score column")
+        out["lex_score_over_threshold"] = (out["lex_score"] - out["lex_threshold"]).clip(lower=0.0)
+    return out
+
+
 def main() -> int:
     args = parse_args()
     if not args.csv.exists():
         raise FileNotFoundError(f"Training CSV not found: {args.csv}")
 
     df = pd.read_csv(args.csv)
+    df = ensure_derived_features(df)
     validate_columns(df)
 
     X = df[FEATURE_NAMES].astype(np.float32).to_numpy()
@@ -83,4 +104,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

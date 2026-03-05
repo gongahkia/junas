@@ -15,7 +15,7 @@ fi
 
 # ── Preflight checks ──
 echo "🧪 Running preflight checks..."
-if [ "${NOUPE_PREFLIGHT_STRICT:-0}" = "1" ]; then
+if [ "${NOUPE_PREFLIGHT_STRICT:-1}" = "1" ]; then
     python3 "$ROOT/scripts/preflight.py" --strict
 else
     python3 "$ROOT/scripts/preflight.py" || true
@@ -51,19 +51,21 @@ check_dir_has_model() { # dir must contain a model weight file
 check_file "$ROOT/layer3-clustering/checkpoints/anomaly_detector.joblib"
 check_dir_has_model "$ROOT/layer4-classification/model-1/checkpoints/best" "model1"
 check_dir_has_model "$ROOT/layer4-classification/model-2/checkpoints/best" "model2"
+check_file "$ROOT/layer6-regression/checkpoints/risk_regressor.json"
+check_file "$ROOT/layer6-regression/checkpoints/metadata.json"
 
 if [ "$MISSING" -gt 0 ]; then
     echo ""
     echo "────────────────────────────────────────────────────"
     echo "  ${MISSING} checkpoint(s) missing."
     echo "  Train models first or download pre-trained weights."
-    echo "  Affected layers will be skipped at runtime."
+    echo "  Startup is blocked to avoid degraded runtime."
     echo "────────────────────────────────────────────────────"
     echo ""
-    read -r -p "Continue anyway? [Y/n] " ans
-    case "$ans" in
-        [nN]*) echo "Aborted."; exit 1 ;;
-    esac
+    if [ "${NOUPE_ALLOW_PARTIAL_START:-0}" != "1" ]; then
+        echo "Set NOUPE_ALLOW_PARTIAL_START=1 only if you intentionally want degraded startup."
+        exit 1
+    fi
 fi
 
 # 1. Start FastAPI backend in the background
