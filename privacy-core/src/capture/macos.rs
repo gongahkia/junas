@@ -8,7 +8,6 @@ use cocoa::{
 use core_graphics::display::CGDisplay;
 use core_media_rs::cm_sample_buffer::CMSampleBuffer;
 use core_video_rs::cv_pixel_buffer::lock::LockTrait;
-use crossbeam_channel::{bounded, Receiver, Sender};
 use privacy_common::frame::{RawFrame, Rect, WindowInfo};
 use screencapturekit::{
     shareable_content::SCShareableContent,
@@ -21,6 +20,7 @@ use screencapturekit::{
         SCStream,
     },
 };
+use std::sync::mpsc::{sync_channel, Receiver, SyncSender, TryRecvError, TrySendError};
 
 use super::CaptureSource;
 
@@ -41,37 +41,43 @@ fn ensure_macos_runtime_initialized() {
 }
 
 struct FrameHandler {
-    tx: Sender<RawFrame>,
+    tx: SyncSender<RawFrame>,
 }
 
 impl SCStreamOutputTrait for FrameHandler {
     fn did_output_sample_buffer(&self, sample: CMSampleBuffer, of_type: SCStreamOutputType) {
-        let _pool = unsafe { NSAutoreleasePool::new(nil) };
-        if of_type != SCStreamOutputType::Screen {
-            return;
-        }
-        let px = match sample.get_pixel_buffer() {
-            Ok(p) => p,
-            Err(_) => return,
-        };
-        let w = px.get_width();
-        let h = px.get_height();
-        let guard = match px.lock() {
-            Ok(g) => g,
-            Err(_) => return,
-        };
-        let bgra: &[u8] = &guard;
-        // BGRA → RGBA: swap bytes 0 and 2 in every 4-byte pixel
-        let mut rgba = bgra.to_vec();
-        for chunk in rgba.chunks_exact_mut(4) {
-            chunk.swap(0, 2);
-        }
-        let _ = self.tx.try_send(RawFrame {
-            pixels: rgba,
-            width: w,
-            height: h,
-            timestamp: Utc::now(),
-        });
+        let _ = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+            let _pool = unsafe { NSAutoreleasePool::new(nil) };
+            if of_type != SCStreamOutputType::Screen {
+                return;
+            }
+            let px = match sample.get_pixel_buffer() {
+                Ok(p) => p,
+                Err(_) => return,
+            };
+            let w = px.get_width();
+            let h = px.get_height();
+            let guard = match px.lock() {
+                Ok(g) => g,
+                Err(_) => return,
+            };
+            let bgra: &[u8] = &guard;
+            // BGRA → RGBA: swap bytes 0 and 2 in every 4-byte pixel
+            let mut rgba = bgra.to_vec();
+            for chunk in rgba.chunks_exact_mut(4) {
+                chunk.swap(0, 2);
+            }
+            match self.tx.try_send(RawFrame {
+                pixels: rgba,
+                width: w,
+                height: h,
+                timestamp: Utc::now(),
+            }) {
+                Ok(()) => {}
+                Err(TrySendError::Full(_)) => {}
+                Err(TrySendError::Disconnected(_)) => {}
+            }
+        }));
     }
 }
 
@@ -141,7 +147,7 @@ impl CaptureSource for MacosCaptureSource {
             .set_queue_depth(FRAME_CHANNEL_CAP as u32)
             .map_err(|e| anyhow!("{:?}", e))?;
 
-        let (tx, rx) = bounded::<RawFrame>(FRAME_CHANNEL_CAP);
+        let (tx, rx) = sync_channel::<RawFrame>(FRAME_CHANNEL_CAP);
         let mut stream = SCStream::new_with_delegate(&filter, &config, NullDelegate);
         stream.add_output_handler(FrameHandler { tx }, SCStreamOutputType::Screen);
         stream
@@ -163,7 +169,10 @@ impl CaptureSource for MacosCaptureSource {
 
     fn next_frame(&mut self) -> Result<Option<RawFrame>> {
         match &self.rx {
-            Some(rx) => Ok(rx.try_recv().ok()),
+            Some(rx) => match rx.try_recv() {
+                Ok(frame) => Ok(Some(frame)),
+                Err(TryRecvError::Empty) | Err(TryRecvError::Disconnected) => Ok(None),
+            },
             None => Err(anyhow!("stream not started")),
         }
     }

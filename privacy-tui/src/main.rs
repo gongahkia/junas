@@ -201,7 +201,7 @@ fn cmd_run(use_pty: bool) -> Result<()> {
         Arc::clone(&app.control_state),
         control_server::DEFAULT_CONTROL_PORT,
     );
-    let mut handle = spawn_capture_pipeline(&mut app, Arc::clone(&sink))?;
+    let mut handle = Some(spawn_capture_pipeline(&mut app, Arc::clone(&sink))?);
     // spawn macOS tray icon (no-op on other platforms)
     let (tray_tx, tray_rx) = std::sync::mpsc::channel::<bool>();
     let _ = tray::spawn_tray(tray_rx);
@@ -209,7 +209,7 @@ fn cmd_run(use_pty: bool) -> Result<()> {
     let result = run_with_pipeline_restart(&mut terminal, &mut app, &sink, &mut handle);
     let _ = tray_tx.send(false); // signal stopped
     tui::restore()?;
-    shutdown::ordered_shutdown(Some(handle), Some(sink))?;
+    shutdown::ordered_shutdown(handle, Some(sink))?;
     result
 }
 
@@ -330,9 +330,8 @@ fn run_with_pipeline_restart(
     terminal: &mut tui::Tui,
     app: &mut app::App,
     sink: &std::sync::Arc<std::sync::Mutex<Box<dyn privacy_output::OutputSink>>>,
-    handle: &mut privacy_core::pipeline_runner::PipelineHandle,
+    handle: &mut Option<privacy_core::pipeline_runner::PipelineHandle>,
 ) -> Result<()> {
-    use std::mem;
     while app.running {
         terminal.draw(|frame| ui::render(frame, app))?;
         let ev = next_event(TICK_RATE)?;
@@ -343,9 +342,22 @@ fn run_with_pipeline_restart(
         handle_event(app, ev);
         if app.pipeline_restart_needed {
             app.pipeline_restart_needed = false;
-            let new_handle = spawn_capture_pipeline(app, std::sync::Arc::clone(sink))?;
-            let old = mem::replace(handle, new_handle);
-            old.shutdown();
+            if let Some(old) = handle.take() {
+                old.shutdown();
+            }
+            match spawn_capture_pipeline(app, std::sync::Arc::clone(sink)) {
+                Ok(new_handle) => {
+                    *handle = Some(new_handle);
+                }
+                Err(e) => {
+                    log::error!("pipeline restart failed: {e}");
+                    app.capture_error = Some(format!("pipeline restart failed: {e}"));
+                    app.pipeline_state = app::PipelineState::Paused;
+                    app.control_state
+                        .paused
+                        .store(true, std::sync::atomic::Ordering::SeqCst);
+                }
+            }
         }
     }
     Ok(())
