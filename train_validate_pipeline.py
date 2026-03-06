@@ -124,12 +124,189 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--base-port", type=int, default=8100, help="Base port for backend eval runs")
     parser.add_argument("--startup-timeout", type=int, default=60, help="Backend startup timeout in seconds")
+    parser.add_argument(
+        "--resume-state-file",
+        type=Path,
+        default=ROOT / "reports" / ".train_validate_state.json",
+        help="Path to persistent pipeline resume-state JSON",
+    )
+    parser.add_argument(
+        "--no-resume",
+        action="store_true",
+        help="Disable stage resume; always rerun all stages",
+    )
+    parser.add_argument(
+        "--reset-resume-state",
+        action="store_true",
+        help="Delete existing resume-state before starting",
+    )
     return parser.parse_args()
 
 
 def get_python_executable() -> str:
     venv_python = ROOT / ".venv" / "bin" / "python"
     return str(venv_python) if venv_python.exists() else sys.executable
+
+
+def file_sha256(path: Path) -> str:
+    hasher = hashlib.sha256()
+    with path.open("rb") as fp:
+        while True:
+            chunk = fp.read(1024 * 1024)
+            if not chunk:
+                break
+            hasher.update(chunk)
+    return hasher.hexdigest()
+
+
+def fingerprint_file(path: Path) -> dict[str, Any]:
+    resolved = path.resolve()
+    if not path.exists():
+        return {
+            "path": str(resolved),
+            "missing": True,
+        }
+
+    try:
+        return {
+            "path": str(resolved),
+            "sha256": file_sha256(path),
+        }
+    except Exception as exc:
+        stat = path.stat()
+        return {
+            "path": str(resolved),
+            "sha256_error": str(exc),
+            "size": stat.st_size,
+            "mtime_ns": stat.st_mtime_ns,
+        }
+
+
+def build_run_signature(args: argparse.Namespace) -> tuple[str, dict[str, Any]]:
+    eval_paths = [Path(p) for p in sorted(glob.glob(str(ROOT / args.eval_config_pattern)))]
+    data_paths = sorted(DATA_DIR.glob("*.json"))
+
+    payload = {
+        "seed": args.seed,
+        "test_size": args.test_size,
+        "base_port": args.base_port,
+        "startup_timeout": args.startup_timeout,
+        "base_config": fingerprint_file(args.base_config),
+        "eval_config_pattern": args.eval_config_pattern,
+        "eval_configs": [fingerprint_file(path) for path in eval_paths],
+        "data_files": [fingerprint_file(path) for path in data_paths],
+        "pipeline_script": fingerprint_file(Path(__file__)),
+    }
+
+    normalized = json.dumps(payload, sort_keys=True, separators=(",", ":"))
+    signature = hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+    return signature, payload
+
+
+def persist_resume_state(state_path: Path, state: dict[str, Any]) -> None:
+    state_path.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp_raw = tempfile.mkstemp(
+        prefix=f"{state_path.name}.",
+        suffix=".tmp",
+        dir=str(state_path.parent),
+    )
+    tmp_path = Path(tmp_raw)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as fp:
+            json.dump(state, fp, indent=2, sort_keys=True)
+        os.replace(tmp_path, state_path)
+    finally:
+        tmp_path.unlink(missing_ok=True)
+
+
+def load_resume_state(
+    *,
+    state_path: Path,
+    run_signature: str,
+    signature_payload: dict[str, Any],
+    resume_enabled: bool,
+    reset_state: bool,
+) -> dict[str, Any]:
+    if reset_state and state_path.exists():
+        print(f"  [resume] Removing existing state file: {state_path}")
+        state_path.unlink()
+
+    base_state = {
+        "run_signature": run_signature,
+        "created_at": datetime.utcnow().isoformat(timespec="seconds") + "Z",
+        "updated_at": datetime.utcnow().isoformat(timespec="seconds") + "Z",
+        "signature_payload": signature_payload,
+        "stages": {},
+    }
+
+    if not resume_enabled:
+        return base_state
+
+    if not state_path.exists():
+        persist_resume_state(state_path, base_state)
+        print(f"  [resume] Initialized new state file: {state_path}")
+        return base_state
+
+    try:
+        existing = json.loads(state_path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        print(f"  [resume] Failed to parse state file ({state_path}); resetting. Reason: {exc}")
+        persist_resume_state(state_path, base_state)
+        return base_state
+
+    if existing.get("run_signature") != run_signature:
+        print("  [resume] State signature mismatch; starting a fresh state for this run.")
+        persist_resume_state(state_path, base_state)
+        return base_state
+
+    existing.setdefault("stages", {})
+    existing["updated_at"] = datetime.utcnow().isoformat(timespec="seconds") + "Z"
+    print(f"  [resume] Loaded existing state: {state_path}")
+    return existing
+
+
+def run_stage(
+    *,
+    stage_key: str,
+    runner: Any,
+    resume_enabled: bool,
+    state_path: Path,
+    resume_state: dict[str, Any],
+) -> Any:
+    stages = resume_state.setdefault("stages", {})
+    if resume_enabled:
+        cached = stages.get(stage_key)
+        if cached and cached.get("status") == "done":
+            print(f"  [resume] Stage already complete, skipping: {stage_key}")
+            return cached.get("result")
+
+    started = time.time()
+    print(f"  [stage] Running {stage_key}")
+    try:
+        result = runner()
+    except Exception as exc:
+        if resume_enabled:
+            stages[stage_key] = {
+                "status": "failed",
+                "error": str(exc),
+                "updated_at": datetime.utcnow().isoformat(timespec="seconds") + "Z",
+            }
+            resume_state["updated_at"] = datetime.utcnow().isoformat(timespec="seconds") + "Z"
+            persist_resume_state(state_path, resume_state)
+        raise
+
+    elapsed = round(time.time() - started, 3)
+    if resume_enabled:
+        stages[stage_key] = {
+            "status": "done",
+            "elapsed_seconds": elapsed,
+            "completed_at": datetime.utcnow().isoformat(timespec="seconds") + "Z",
+            "result": result,
+        }
+        resume_state["updated_at"] = datetime.utcnow().isoformat(timespec="seconds") + "Z"
+        persist_resume_state(state_path, resume_state)
+    print(f"  [stage] Completed {stage_key} in {elapsed:.3f}s")
+    return result
 
 
 def load_documents(data_dir: Path) -> list[dict[str, Any]]:
@@ -928,6 +1105,9 @@ def run_pass1(
     args: argparse.Namespace,
     python_exec: str,
     embedding_model_name: str,
+    resume_enabled: bool,
+    resume_state: dict[str, Any],
+    resume_state_path: Path,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     print("\n[Pass 1] 80/20 training + validation metrics")
 
@@ -939,44 +1119,74 @@ def run_pass1(
     print(f"  model1 rows: train={len(m1_train)} val={len(m1_val)}")
     print(f"  model2 rows: train={len(m2_train)} val={len(m2_val)}")
 
-    model1_metrics = train_classification_model(
-        model_path=ROOT / "layer4-classification" / "model-1",
-        train_rows=m1_train,
-        val_rows=m1_val,
-        model_name="Model 1",
-        target_names=["safe (0)", "risk (1)"],
-        evaluate=True,
+    model1_metrics = run_stage(
+        stage_key="pass1.model1",
+        runner=lambda: train_classification_model(
+            model_path=ROOT / "layer4-classification" / "model-1",
+            train_rows=m1_train,
+            val_rows=m1_val,
+            model_name="Model 1",
+            target_names=["safe (0)", "risk (1)"],
+            evaluate=True,
+        ),
+        resume_enabled=resume_enabled,
+        state_path=resume_state_path,
+        resume_state=resume_state,
     )
-    model2_metrics = train_classification_model(
-        model_path=ROOT / "layer4-classification" / "model-2",
-        train_rows=m2_train,
-        val_rows=m2_val,
-        model_name="Model 2",
-        target_names=["low_risk (0)", "high_risk (1)"],
-        evaluate=True,
+    model2_metrics = run_stage(
+        stage_key="pass1.model2",
+        runner=lambda: train_classification_model(
+            model_path=ROOT / "layer4-classification" / "model-2",
+            train_rows=m2_train,
+            val_rows=m2_val,
+            model_name="Model 2",
+            target_names=["low_risk (0)", "high_risk (1)"],
+            evaluate=True,
+        ),
+        resume_enabled=resume_enabled,
+        state_path=resume_state_path,
+        resume_state=resume_state,
     )
 
-    train_clustering(train_docs, embedding_model_name, python_exec)
+    run_stage(
+        stage_key="pass1.clustering",
+        runner=lambda: train_clustering(train_docs, embedding_model_name, python_exec),
+        resume_enabled=resume_enabled,
+        state_path=resume_state_path,
+        resume_state=resume_state,
+    )
 
     regression_samples = extract_sentence_samples(train_docs)
-    train_regression(
-        samples=regression_samples,
-        config_path=args.base_config,
-        seed=args.seed,
-        port=args.base_port + 100,
-        timeout_s=args.startup_timeout,
-        entity_prefix="pass1-reg",
-        python_exec=python_exec,
+    run_stage(
+        stage_key="pass1.regression",
+        runner=lambda: train_regression(
+            samples=regression_samples,
+            config_path=args.base_config,
+            seed=args.seed,
+            port=args.base_port + 100,
+            timeout_s=args.startup_timeout,
+            entity_prefix="pass1-reg",
+            python_exec=python_exec,
+        ),
+        resume_enabled=resume_enabled,
+        state_path=resume_state_path,
+        resume_state=resume_state,
     )
 
     config_entries = discover_unique_configs(args.eval_config_pattern)
     val_samples = extract_sentence_samples(val_docs)
-    config_results = evaluate_configs(
-        config_entries=config_entries,
-        eval_samples=val_samples,
-        seed=args.seed,
-        base_port=args.base_port,
-        timeout_s=args.startup_timeout,
+    config_results = run_stage(
+        stage_key="pass1.config_eval",
+        runner=lambda: evaluate_configs(
+            config_entries=config_entries,
+            eval_samples=val_samples,
+            seed=args.seed,
+            base_port=args.base_port,
+            timeout_s=args.startup_timeout,
+        ),
+        resume_enabled=resume_enabled,
+        state_path=resume_state_path,
+        resume_state=resume_state,
     )
 
     pass1_classification = {
@@ -999,40 +1209,67 @@ def run_pass2(
     args: argparse.Namespace,
     python_exec: str,
     embedding_model_name: str,
+    resume_enabled: bool,
+    resume_state: dict[str, Any],
+    resume_state_path: Path,
 ) -> dict[str, Any]:
     print("\n[Pass 2] 100% retraining for final artifacts")
 
     m1_rows = extract_model1_rows(all_docs)
     m2_rows = extract_model2_rows(all_docs)
 
-    train_classification_model(
-        model_path=ROOT / "layer4-classification" / "model-1",
-        train_rows=m1_rows,
-        val_rows=None,
-        model_name="Model 1",
-        target_names=["safe (0)", "risk (1)"],
-        evaluate=False,
+    run_stage(
+        stage_key="pass2.model1",
+        runner=lambda: train_classification_model(
+            model_path=ROOT / "layer4-classification" / "model-1",
+            train_rows=m1_rows,
+            val_rows=None,
+            model_name="Model 1",
+            target_names=["safe (0)", "risk (1)"],
+            evaluate=False,
+        ),
+        resume_enabled=resume_enabled,
+        state_path=resume_state_path,
+        resume_state=resume_state,
     )
-    train_classification_model(
-        model_path=ROOT / "layer4-classification" / "model-2",
-        train_rows=m2_rows,
-        val_rows=None,
-        model_name="Model 2",
-        target_names=["low_risk (0)", "high_risk (1)"],
-        evaluate=False,
+    run_stage(
+        stage_key="pass2.model2",
+        runner=lambda: train_classification_model(
+            model_path=ROOT / "layer4-classification" / "model-2",
+            train_rows=m2_rows,
+            val_rows=None,
+            model_name="Model 2",
+            target_names=["low_risk (0)", "high_risk (1)"],
+            evaluate=False,
+        ),
+        resume_enabled=resume_enabled,
+        state_path=resume_state_path,
+        resume_state=resume_state,
     )
 
-    clustering_stats = train_clustering(all_docs, embedding_model_name, python_exec)
+    clustering_stats = run_stage(
+        stage_key="pass2.clustering",
+        runner=lambda: train_clustering(all_docs, embedding_model_name, python_exec),
+        resume_enabled=resume_enabled,
+        state_path=resume_state_path,
+        resume_state=resume_state,
+    )
 
     full_samples = extract_sentence_samples(all_docs)
-    regression_stats = train_regression(
-        samples=full_samples,
-        config_path=args.base_config,
-        seed=args.seed,
-        port=args.base_port + 200,
-        timeout_s=args.startup_timeout,
-        entity_prefix="pass2-reg",
-        python_exec=python_exec,
+    regression_stats = run_stage(
+        stage_key="pass2.regression",
+        runner=lambda: train_regression(
+            samples=full_samples,
+            config_path=args.base_config,
+            seed=args.seed,
+            port=args.base_port + 200,
+            timeout_s=args.startup_timeout,
+            entity_prefix="pass2-reg",
+            python_exec=python_exec,
+        ),
+        resume_enabled=resume_enabled,
+        state_path=resume_state_path,
+        resume_state=resume_state,
     )
 
     return {
@@ -1046,10 +1283,29 @@ def run_pass2(
 def main() -> int:
     args = parse_args()
     python_exec = get_python_executable()
+    resume_enabled = not args.no_resume
+    resume_state_path = args.resume_state_file
+    if not resume_state_path.is_absolute():
+        resume_state_path = (ROOT / resume_state_path).resolve()
+    run_signature, signature_payload = build_run_signature(args)
+    resume_state = load_resume_state(
+        state_path=resume_state_path,
+        run_signature=run_signature,
+        signature_payload=signature_payload,
+        resume_enabled=resume_enabled,
+        reset_state=args.reset_resume_state,
+    )
+    if resume_enabled:
+        persist_resume_state(resume_state_path, resume_state)
 
     print("=" * 72)
     print("Noupe Train/Validate Pipeline")
     print("=" * 72)
+    if resume_enabled:
+        print(f"Resume state: {resume_state_path}")
+        print(f"Run signature: {run_signature[:12]}")
+    else:
+        print("Resume state: disabled (--no-resume)")
 
     documents = load_documents(DATA_DIR)
     if len(documents) < 2:
@@ -1076,6 +1332,9 @@ def main() -> int:
         args=args,
         python_exec=python_exec,
         embedding_model_name=embedding_model_name,
+        resume_enabled=resume_enabled,
+        resume_state=resume_state,
+        resume_state_path=resume_state_path,
     )
 
     print_supervised_summary(pass1_classification)
@@ -1086,6 +1345,9 @@ def main() -> int:
         args=args,
         python_exec=python_exec,
         embedding_model_name=embedding_model_name,
+        resume_enabled=resume_enabled,
+        resume_state=resume_state,
+        resume_state_path=resume_state_path,
     )
 
     split_stats = {
