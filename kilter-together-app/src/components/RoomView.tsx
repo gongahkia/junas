@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft,
   ArrowUp,
@@ -25,6 +25,13 @@ import type {
 } from "@/types";
 import { DEFAULT_ANGLE, normalizeSort } from "@/lib/climbs";
 import { buildInviteLink } from "@/lib/room-links";
+import {
+  loadUserPrefs,
+  rememberLastCruxSurface,
+  rememberLastKilterSurface,
+  rememberLastProvider,
+  rememberRoomVisit,
+} from "@/lib/user-prefs";
 import RoomProblemView from "@/components/RoomProblemView";
 import InviteQRCodeCard from "@/components/InviteQRCodeCard";
 import AngleSelector from "@/components/AngleSelector";
@@ -51,6 +58,8 @@ const PAGE_SIZE = 12;
 
 export default function RoomView() {
   const { slug = "" } = useParams();
+  const navigate = useNavigate();
+  const savedPrefsRef = useRef(loadUserPrefs());
   const [searchParams, setSearchParams] = useSearchParams();
   const [snapshot, setSnapshot] = useState<RoomSnapshot | null>(null);
   const [catalog, setCatalog] = useState<RoomCatalogClimbsResponse | null>(null);
@@ -66,10 +75,18 @@ export default function RoomView() {
   const [boardSurfaces, setBoardSurfaces] = useState<ProviderSurface[]>([]);
   const [cruxGyms, setCruxGyms] = useState<ProviderSurface[]>([]);
   const [cruxWalls, setCruxWalls] = useState<ProviderSurface[]>([]);
-  const [selectedBoardId, setSelectedBoardId] = useState("");
-  const [selectedAngle, setSelectedAngle] = useState(DEFAULT_ANGLE);
-  const [selectedGymSlug, setSelectedGymSlug] = useState("");
-  const [selectedWallId, setSelectedWallId] = useState("");
+  const [selectedBoardId, setSelectedBoardId] = useState(
+    () => savedPrefsRef.current.lastKilter.boardId
+  );
+  const [selectedAngle, setSelectedAngle] = useState(
+    () => savedPrefsRef.current.lastKilter.angle || DEFAULT_ANGLE
+  );
+  const [selectedGymSlug, setSelectedGymSlug] = useState(
+    () => savedPrefsRef.current.lastCrux.gymSlug
+  );
+  const [selectedWallId, setSelectedWallId] = useState(
+    () => savedPrefsRef.current.lastCrux.wallId
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [copiedInvite, setCopiedInvite] = useState(false);
   const cursorsRef = useRef<Record<number, string>>({});
@@ -99,14 +116,18 @@ export default function RoomView() {
       try {
         const nextSnapshot = await api.getRoom(slug);
         setSnapshot(nextSnapshot);
+        rememberRoomVisit(nextSnapshot);
+        rememberLastProvider(nextSnapshot.provider_id);
 
         if (nextSnapshot.provider_id === "kilter") {
-          setSelectedBoardId(
-            nextSnapshot.surface?.meta?.board_id || nextSnapshot.surface?.id || ""
-          );
-          setSelectedAngle(
-            Number(nextSnapshot.surface?.meta?.angle ?? DEFAULT_ANGLE)
-          );
+          const boardId =
+            nextSnapshot.surface?.meta?.board_id || nextSnapshot.surface?.id || "";
+          const angle = Number(nextSnapshot.surface?.meta?.angle ?? DEFAULT_ANGLE);
+          setSelectedBoardId(boardId);
+          setSelectedAngle(angle);
+          if (boardId) {
+            rememberLastKilterSurface(boardId, angle);
+          }
         }
 
         if (nextSnapshot.provider_id === "crux") {
@@ -114,11 +135,21 @@ export default function RoomView() {
             nextSnapshot.surface?.meta?.gym_slug || nextSnapshot.surface?.parent_id || "";
           setSelectedGymSlug(gymSlug);
           setSelectedWallId(nextSnapshot.surface?.id || "");
+          if (gymSlug || nextSnapshot.surface?.id) {
+            rememberLastCruxSurface(gymSlug, nextSnapshot.surface?.id || "");
+          }
         }
 
         return nextSnapshot;
       } catch (caughtError) {
         console.error("Load room failed", caughtError);
+        const statusCode = (
+          caughtError as { response?: { status?: number } }
+        )?.response?.status;
+        if (statusCode === 401) {
+          navigate(`/join/${encodeURIComponent(slug)}`, { replace: true });
+          return null;
+        }
         setSnapshot(null);
         setCatalog(null);
         setActionError(
@@ -131,7 +162,7 @@ export default function RoomView() {
         }
       }
     },
-    [slug]
+    [navigate, slug]
   );
 
   const fetchCatalog = useCallback(
@@ -250,13 +281,31 @@ export default function RoomView() {
         if (snapshot.provider_id === "kilter") {
           const nextBoards = await api.getRoomCatalogSurfaces(slug);
           setBoardSurfaces(nextBoards);
-          setSelectedBoardId((currentValue) => currentValue || nextBoards[0]?.id || "");
+          setSelectedBoardId((currentValue) => {
+            if (currentValue) {
+              return currentValue;
+            }
+            const preferredBoardID = savedPrefsRef.current.lastKilter.boardId;
+            if (preferredBoardID && nextBoards.some((surface) => surface.id === preferredBoardID)) {
+              return preferredBoardID;
+            }
+            return nextBoards[0]?.id || "";
+          });
           return;
         }
 
         const nextGyms = await api.getRoomCatalogSurfaces(slug);
         setCruxGyms(nextGyms);
-        setSelectedGymSlug((currentValue) => currentValue || nextGyms[0]?.id || "");
+        setSelectedGymSlug((currentValue) => {
+          if (currentValue) {
+            return currentValue;
+          }
+          const preferredGymSlug = savedPrefsRef.current.lastCrux.gymSlug;
+          if (preferredGymSlug && nextGyms.some((surface) => surface.id === preferredGymSlug)) {
+            return preferredGymSlug;
+          }
+          return nextGyms[0]?.id || "";
+        });
       } catch (caughtError) {
         console.error("Load room surfaces failed", caughtError);
         setActionError("Unable to load provider surfaces for this room.");
@@ -286,7 +335,16 @@ export default function RoomView() {
       try {
         const nextWalls = await api.getRoomCatalogSurfaces(slug, selectedGymSlug);
         setCruxWalls(nextWalls);
-        setSelectedWallId((currentValue) => currentValue || nextWalls[0]?.id || "");
+        setSelectedWallId((currentValue) => {
+          if (currentValue) {
+            return currentValue;
+          }
+          const preferredWallID = savedPrefsRef.current.lastCrux.wallId;
+          if (preferredWallID && nextWalls.some((surface) => surface.id === preferredWallID)) {
+            return preferredWallID;
+          }
+          return nextWalls[0]?.id || "";
+        });
       } catch (caughtError) {
         console.error("Load room walls failed", caughtError);
         setActionError("Unable to load Crux walls for the selected gym.");

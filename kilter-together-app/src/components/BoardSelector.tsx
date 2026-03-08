@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AngleSelector from "./AngleSelector";
 import type { Board } from "../types";
 import { DEFAULT_ANGLE } from "@/lib/climbs";
+import { loadUserPrefs, rememberLastKilterSurface } from "@/lib/user-prefs";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 interface BoardSelectorProps {
@@ -17,7 +18,7 @@ export default function BoardSelector({
   boardPathPrefix = "/boards",
 }: BoardSelectorProps) {
   const navigate = useNavigate();
-  const [angle, setAngle] = useState(DEFAULT_ANGLE);
+  const [angle, setAngle] = useState(() => loadUserPrefs().lastKilter.angle || DEFAULT_ANGLE);
 
   if (loading) {
     return (
@@ -47,9 +48,10 @@ export default function BoardSelector({
               <Card
                 key={board.id}
                 className="cursor-pointer hover:shadow-lg transition-shadow"
-                onClick={() =>
-                  navigate(`${boardPathPrefix}/${board.id}?angle=${angle}&sort=popular`)
-                }
+                onClick={() => {
+                  rememberLastKilterSurface(String(board.id), angle);
+                  navigate(`${boardPathPrefix}/${board.id}?angle=${angle}&sort=popular`);
+                }}
               >
                 <CardHeader>
                   <CardContent className="text-base text-center">

@@ -13,6 +13,7 @@ import Sidebar from "./Sidebar";
 import MobileDropdown from "./MobileDropdown";
 import ProblemView from "./ProblemView";
 import { normalizeAngle, normalizeSort } from "@/lib/climbs";
+import { rememberSoloResume } from "@/lib/user-prefs";
 import { Button } from "@/components/ui/button";
 import {
   SidebarProvider,
@@ -171,6 +172,21 @@ export default function ClimbView({
     setSearchParams,
     sort,
   ]);
+
+  useEffect(() => {
+    if (!boardId) {
+      return;
+    }
+
+    rememberSoloResume({
+      boardId,
+      angle,
+      q: nameQuery || undefined,
+      setter: setterQuery || undefined,
+      sort,
+      climb: selectedClimb?.uuid,
+    });
+  }, [angle, boardId, nameQuery, selectedClimb?.uuid, setterQuery, sort]);
 
   const updateSearchState = (updates: Record<string, string | undefined>) => {
     startTransition(() => {

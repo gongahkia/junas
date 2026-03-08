@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { api } from "@/api";
+import { loadUserPrefs, rememberDisplayName, rememberRoomVisit } from "@/lib/user-prefs";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,7 +16,9 @@ import { Input } from "@/components/ui/input";
 export default function RoomJoinPage() {
   const navigate = useNavigate();
   const { slug = "" } = useParams();
-  const [displayName, setDisplayName] = useState("");
+  const [displayName, setDisplayName] = useState(
+    () => loadUserPrefs().savedDisplayName
+  );
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -25,7 +28,9 @@ export default function RoomJoinPage() {
     setError("");
 
     try {
-      await api.joinRoom(slug, displayName);
+      const room = await api.joinRoom(slug, displayName);
+      rememberDisplayName(displayName);
+      rememberRoomVisit(room);
       navigate(`/rooms/${slug}`);
     } catch (caughtError) {
       console.error("Join room failed", caughtError);

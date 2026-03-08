@@ -1,7 +1,8 @@
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, Camera, Link2, Mountain, Users } from "lucide-react";
+import { ArrowRight, Camera, History, Link2, Mountain, Users } from "lucide-react";
 import { extractRoomSlugFromValue } from "@/lib/room-links";
+import { buildSoloResumePath, loadUserPrefs } from "@/lib/user-prefs";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,6 +16,8 @@ import { Input } from "@/components/ui/input";
 export default function LandingPage() {
   const navigate = useNavigate();
   const [inviteCode, setInviteCode] = useState("");
+  const prefs = useMemo(() => loadUserPrefs(), []);
+  const soloResumePath = buildSoloResumePath(prefs.soloResume);
 
   const handleJoinRedirect = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -118,8 +121,68 @@ export default function LandingPage() {
                 </form>
               </CardContent>
             </Card>
+
+            {soloResumePath ? (
+              <Card className="bg-card/90">
+                <CardHeader>
+                  <CardTitle>Resume solo browse</CardTitle>
+                  <CardDescription>
+                    Jump back into your last Kilter board filters on this browser.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button asChild variant="outline" className="w-full justify-between">
+                    <Link to={soloResumePath}>
+                      Resume solo browse
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ) : null}
           </div>
         </main>
+
+        {prefs.recentRooms.length > 0 ? (
+          <section className="pb-8">
+            <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-2xl">
+                  <History className="h-5 w-5" />
+                  Recent rooms
+                </CardTitle>
+                <CardDescription>
+                  Reopen a room directly. If the room cookie expired, the app will fall back to the join flow.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                {prefs.recentRooms.map((room) => (
+                  <Link
+                    key={room.slug}
+                    to={`/rooms/${room.slug}`}
+                    className="rounded-2xl border bg-white/75 p-4 transition-colors hover:bg-white"
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <div>
+                        <p className="font-medium">Room {room.slug}</p>
+                        <p className="mt-1 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                          {room.providerId}
+                        </p>
+                      </div>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                    </div>
+                    <p className="mt-3 text-sm text-muted-foreground">
+                      {room.surfaceName || "Surface not chosen yet"}
+                    </p>
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      Last seen {new Date(room.lastVisitedAt).toLocaleString()}
+                    </p>
+                  </Link>
+                ))}
+              </CardContent>
+            </Card>
+          </section>
+        ) : null}
       </div>
     </div>
   );

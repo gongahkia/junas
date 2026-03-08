@@ -99,6 +99,7 @@ describe("App routes", () => {
   beforeEach(() => {
     vi.resetAllMocks();
     MockEventSource.instances = [];
+    window.localStorage.clear();
   });
 
   it("supports direct board route loads with URL-backed filters", async () => {
@@ -309,5 +310,130 @@ describe("App routes", () => {
     expect(
       await screen.findByRole("heading", { name: "Room join-room" })
     ).toBeInTheDocument();
+  });
+
+  it("shows recent rooms and resume solo browse from local prefs", async () => {
+    window.localStorage.setItem(
+      "kilter-together:user-prefs:v1",
+      JSON.stringify({
+        savedDisplayName: "Guest",
+        lastProviderId: "kilter",
+        lastKilter: {
+          boardId: "14",
+          angle: 45,
+        },
+        lastCrux: {
+          gymSlug: "",
+          wallId: "",
+        },
+        recentRooms: [
+          {
+            slug: "saved-room",
+            providerId: "crux",
+            surfaceName: "Main Wall",
+            lastVisitedAt: "2026-03-08T09:00:00.000Z",
+          },
+        ],
+        soloResume: {
+          boardId: "14",
+          angle: 45,
+          q: "Compression",
+          setter: "setter-a",
+          sort: "newest",
+          climb: "uuid-1",
+        },
+        onboarding: {
+          version: 1,
+          dismissed: false,
+          hostCompleted: false,
+          guestCompleted: false,
+        },
+      })
+    );
+    mockedApi.getBoards.mockResolvedValue([]);
+
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByText("Recent rooms")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Resume solo browse/i })).toHaveAttribute(
+      "href",
+      "/solo/boards/14?angle=45&sort=newest&q=Compression&setter=setter-a&climb=uuid-1"
+    );
+    expect(screen.getByRole("link", { name: /Room saved-room/i })).toHaveAttribute(
+      "href",
+      "/rooms/saved-room"
+    );
+  });
+
+  it("prefills room creation from saved browser prefs", async () => {
+    const user = userEvent.setup();
+    window.localStorage.setItem(
+      "kilter-together:user-prefs:v1",
+      JSON.stringify({
+        savedDisplayName: "Alex",
+        lastProviderId: "crux",
+      })
+    );
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.createRoom.mockResolvedValue({
+      ...buildRoomSnapshot("created-room"),
+      provider_id: "crux",
+      connection: {
+        provider_id: "crux",
+        connected: false,
+      },
+    });
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("created-room"),
+      provider_id: "crux",
+      connection: {
+        provider_id: "crux",
+        connected: false,
+      },
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/new"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByLabelText("Host display name")).toHaveValue("Alex");
+
+    await user.click(screen.getByRole("button", { name: "Create room" }));
+
+    await waitFor(() =>
+      expect(mockedApi.createRoom).toHaveBeenCalledWith({
+        providerId: "crux",
+        displayName: "Alex",
+      })
+    );
+  });
+
+  it("redirects expired room auth back to join with the saved display name", async () => {
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockRejectedValue({
+      response: {
+        status: 401,
+      },
+    });
+    window.localStorage.setItem(
+      "kilter-together:user-prefs:v1",
+      JSON.stringify({
+        savedDisplayName: "Guest",
+      })
+    );
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/session-1"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByLabelText("Display name")).toHaveValue("Guest");
   });
 });

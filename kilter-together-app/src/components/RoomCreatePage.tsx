@@ -3,6 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { api } from "@/api";
 import type { ProviderId } from "@/types";
+import {
+  loadUserPrefs,
+  rememberDisplayName,
+  rememberLastProvider,
+  rememberRoomVisit,
+} from "@/lib/user-prefs";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,8 +28,12 @@ import {
 
 export default function RoomCreatePage() {
   const navigate = useNavigate();
-  const [providerId, setProviderId] = useState<ProviderId>("kilter");
-  const [displayName, setDisplayName] = useState("");
+  const [providerId, setProviderId] = useState<ProviderId>(
+    () => loadUserPrefs().lastProviderId || "kilter"
+  );
+  const [displayName, setDisplayName] = useState(
+    () => loadUserPrefs().savedDisplayName
+  );
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -37,6 +47,9 @@ export default function RoomCreatePage() {
         providerId,
         displayName,
       });
+      rememberDisplayName(displayName);
+      rememberLastProvider(providerId);
+      rememberRoomVisit(room);
       navigate(`/rooms/${room.slug}`);
     } catch (caughtError) {
       console.error("Create room failed", caughtError);
