@@ -92,6 +92,7 @@ uses the same-origin API contract without CORS setup.
 The browser UI uses URL-addressable routes:
 
 - `/` landing page for collaborative rooms and solo browse
+- `/join` for scan-first or paste-first room entry
 - `/rooms/new` to create a room
 - `/join/:slug` to join a room from an invite
 - `/rooms/:slug?q=&sort=&climb=` for collaborative sessions
@@ -108,8 +109,11 @@ The browser UI uses URL-addressable routes:
    - Kilter uses `username` + `password`
    - Crux uses a bearer token
 5. Choose the shared board or wall context.
-6. Share the invite link with guests.
+6. Share the invite link or host QR code with guests.
 7. Guests join with a display name, then vote and add climbs to the queue.
+
+Guests can either paste the invite URL/slug or open the camera workflow at `/join`
+to scan the host QR code directly from their phone.
 
 Room state is stored locally in `app.db`. Provider credentials stay server-side
 and are encrypted at rest with `KILTER_TOGETHER_ENCRYPTION_KEY`.

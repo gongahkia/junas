@@ -1,7 +1,8 @@
 import { useState, type FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, Camera, ScanSearch } from "lucide-react";
 import { extractRoomSlugFromValue } from "@/lib/room-links";
+import RoomScanner from "@/components/RoomScanner";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,8 +15,10 @@ import { Input } from "@/components/ui/input";
 
 export default function RoomDiscoveryPage() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [joinValue, setJoinValue] = useState("");
   const [error, setError] = useState("");
+  const scannerMode = searchParams.get("mode") === "scan";
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -77,18 +80,39 @@ export default function RoomDiscoveryPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="rounded-2xl border bg-muted/30 p-4 text-sm text-muted-foreground">
-                The scanner opens your rear camera, reads a room invite QR code, and takes you directly into the join flow.
-              </div>
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full"
-                onClick={() => navigate("/join?mode=scan")}
-              >
-                <ScanSearch className="mr-2 h-4 w-4" />
-                Open scanner
-              </Button>
+              {!scannerMode ? (
+                <>
+                  <div className="rounded-2xl border bg-muted/30 p-4 text-sm text-muted-foreground">
+                    The scanner opens your rear camera, reads a room invite QR code, and takes you directly into the join flow.
+                  </div>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full"
+                    onClick={() => setSearchParams({ mode: "scan" })}
+                  >
+                    <ScanSearch className="mr-2 h-4 w-4" />
+                    Open scanner
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <RoomScanner
+                    autoStart={true}
+                    onDetected={(roomSlug) =>
+                      navigate(`/join/${encodeURIComponent(roomSlug)}`)
+                    }
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    className="w-full"
+                    onClick={() => setSearchParams({})}
+                  >
+                    Hide scanner
+                  </Button>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>

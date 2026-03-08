@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import QRCode from "qrcode";
 import { Link2 } from "lucide-react";
 import { buildInviteLink } from "@/lib/room-links";
 import {
@@ -23,6 +22,7 @@ export default function InviteQRCodeCard({ slug }: InviteQRCodeCardProps) {
 
     const generateQRCode = async () => {
       try {
+        const { default: QRCode } = await import("qrcode");
         const inviteLink = buildInviteLink(slug);
         const nextDataUrl = await QRCode.toDataURL(inviteLink, {
           errorCorrectionLevel: "M",
