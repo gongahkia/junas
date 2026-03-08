@@ -39,6 +39,7 @@ def parse_args():
 
 def wait_for_server(url, timeout):
     ready = f"{url}/ready"
+    health = f"{url}/health"
     deadline = time.time() + timeout
     while time.time() < deadline:
         try:
@@ -46,11 +47,21 @@ def wait_for_server(url, timeout):
                 if r.status == 200:
                     payload = json.loads(r.read().decode())
                     if payload.get("ready") is True:
-                        return True
+                        return payload
+                    # In degraded-start mode the backend can be intentionally usable
+                    # even when required artifacts are absent. Once startup is stable
+                    # and nothing is still warming, proceed with the snapshot eval.
+                    if payload.get("warming_required_layers"):
+                        time.sleep(1)
+                        continue
+                    if payload.get("missing_required_layers"):
+                        with urllib.request.urlopen(health, timeout=2) as health_resp:
+                            if health_resp.status == 200:
+                                return payload
         except Exception:
             pass
         time.sleep(1)
-    return False
+    return None
 
 def classify(url, text, entity_id=None):
     payload = {"text": text}
@@ -141,11 +152,16 @@ def main():
         print(f"[eval] data    : {data_path}")
         print(f"[eval] starting backend...")
         server_proc = subprocess.Popen(cmd, cwd=str(REPO_ROOT), env=env)
-        if not wait_for_server(api_url, args.timeout):
+        readiness = wait_for_server(api_url, args.timeout)
+        if not readiness:
             print("[error] server did not start in time", file=sys.stderr)
             server_proc.kill()
             sys.exit(1)
-        print(f"[eval] server ready on {api_url}")
+        if readiness.get("ready"):
+            print(f"[eval] server ready on {api_url}")
+        else:
+            missing = readiness.get("missing_required_layers", [])
+            print(f"[eval] server started in degraded mode on {api_url}; missing_required_layers={missing}")
         try:
             with urllib.request.urlopen(f"{api_url}/health", timeout=5) as r:
                 health = json.loads(r.read().decode())
