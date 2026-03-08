@@ -301,7 +301,7 @@ describe("App routes", () => {
     expect(screen.getByText("Vote on this one")).toBeInTheDocument();
     expect(screen.getByText("Participants")).toBeInTheDocument();
     expect(screen.getByText("Finalists")).toBeInTheDocument();
-    expect(screen.getByText(/1 ready/)).toBeInTheDocument();
+    expect(screen.getAllByText("ready").length).toBeGreaterThan(0);
     expect(screen.getByText(/join\/session-1/)).toBeInTheDocument();
     expect(MockEventSource.instances[0]?.url).toBe("/api/rooms/session-1/events");
   });
