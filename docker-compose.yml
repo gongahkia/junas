@@ -4,6 +4,9 @@ services:
       context: ./api
       dockerfile: ./Dockerfile
     container_name: kilter-together-api
+    environment:
+      KILTER_TOGETHER_APP_SECRET: development-room-secret
+      KILTER_TOGETHER_ENCRYPTION_KEY: MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=
     expose:
       - "8082"
     volumes:

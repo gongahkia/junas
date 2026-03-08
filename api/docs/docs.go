@@ -333,7 +333,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "/api",
 	Schemes:          []string{"http", "https"},
 	Title:            "Kilter Together API",
-	Description:      "Read-only API for browsing Kilter Board climbs, board configurations, and board images with filtering, sorting, and cursor pagination.",
+	Description:      "API for solo Kilter browsing plus collaborative room sessions with Kilter and Crux provider adapters.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

@@ -1,6 +1,6 @@
 // @title Kilter Together API
 // @version 1.0
-// @description Read-only API for browsing Kilter Board climbs, board configurations, and board images with filtering, sorting, and cursor pagination.
+// @description API for solo Kilter browsing plus collaborative room sessions with Kilter and Crux provider adapters.
 // @termsOfService http://swagger.io/terms/
 
 // @contact.name API Support

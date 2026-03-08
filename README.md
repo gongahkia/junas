@@ -3,9 +3,10 @@
 
 # `Kilter Together`
 
-Kilter Together is a self-hostable Kilter Board browser. It can provision its own
-local database and board images, then serve the existing read-only API and web UI
-without requiring a separately installed `boardlib` CLI.
+Kilter Together is a self-hostable collaborative board session app. It provisions
+its own local Kilter dataset and images, serves a read-only solo browser, and now
+adds invite-only rooms where one host account can connect Kilter or Crux while
+guests join from their phones to vote and queue climbs.
 
 ## Quick Start
 
@@ -30,6 +31,10 @@ On the first boot, the API container will:
 3. Download the board images referenced by the database into the persistent data volume.
 4. Persist a bootstrap manifest so future starts can detect partial runtime state.
 
+The Docker stack now also seeds development-only room secrets so the collaborative
+room flow works out of the box on `localhost`. Replace those values before any
+shared or internet-exposed deployment.
+
 ## Runtime Configuration
 
 Backend env vars:
@@ -38,9 +43,12 @@ Backend env vars:
 | --- | --- | --- |
 | `KILTER_TOGETHER_DATA_DIR` | `./data` | Base directory for runtime data when not using explicit DB/image paths |
 | `KILTER_TOGETHER_DB_PATH` | `${KILTER_TOGETHER_DATA_DIR}/kilter.db` | SQLite database location |
+| `KILTER_TOGETHER_APP_DB_PATH` | `${KILTER_TOGETHER_DATA_DIR}/app.db` | SQLite database for rooms, sessions, votes, queues, and provider cache |
 | `KILTER_TOGETHER_IMAGE_DIR` | `${KILTER_TOGETHER_DATA_DIR}/images` | Downloaded board image directory |
 | `KILTER_TOGETHER_KILTER_USERNAME` | unset | Optional Kilter username for shared-data sync |
 | `KILTER_TOGETHER_KILTER_PASSWORD` | unset | Optional Kilter password for shared-data sync |
+| `KILTER_TOGETHER_APP_SECRET` | unset | Required for signed host/guest room cookies |
+| `KILTER_TOGETHER_ENCRYPTION_KEY` | unset | Required for encrypting stored provider credentials at rest |
 | `KILTER_TOGETHER_PORT` | `8082` | API listen port |
 
 Frontend env vars:
@@ -83,8 +91,28 @@ uses the same-origin API contract without CORS setup.
 
 The browser UI uses URL-addressable routes:
 
-- `/` for board selection
-- `/boards/:boardId?angle=40&sort=popular&q=&setter=&climb=` for climb browsing
+- `/` landing page for collaborative rooms and solo browse
+- `/rooms/new` to create a room
+- `/join/:slug` to join a room from an invite
+- `/rooms/:slug?q=&sort=&climb=` for collaborative sessions
+- `/solo` for solo Kilter browsing
+- `/solo/boards/:boardId?angle=40&sort=popular&q=&setter=&climb=` for solo climb browsing
+- `/boards/:boardId?...` remains available as a compatibility route
+
+## Collaboration Flow
+
+1. Open `/rooms/new`.
+2. Pick `kilter` or `crux`.
+3. Enter the host display name and create the room.
+4. Inside the room, connect one provider account:
+   - Kilter uses `username` + `password`
+   - Crux uses a bearer token
+5. Choose the shared board or wall context.
+6. Share the invite link with guests.
+7. Guests join with a display name, then vote and add climbs to the queue.
+
+Room state is stored locally in `app.db`. Provider credentials stay server-side
+and are encrypted at rest with `KILTER_TOGETHER_ENCRYPTION_KEY`.
 
 ## Refreshing Data
 
@@ -105,6 +133,8 @@ and board images and remains fully usable.
 - Downloaded databases, images, and bootstrap manifests are runtime artifacts and are not committed.
 - `GET /api/climbs` requires a valid `angle` and also supports `name`, `setter`, and `sort=popular|newest`.
 - `GET /api/healthz` validates that the local database and image set are usable, not just that the process is running.
+- Collaborative rooms expose room/session APIs under `/api/rooms/*` and currently ship with `kilter` and `crux` providers.
+- Kilter bootstrap remains network-dependent on first run. After bootstrap, Kilter catalog reads are local. Crux catalog reads are fetched server-side and cached in `app.db`.
 
 ## License
 
