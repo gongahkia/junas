@@ -94,6 +94,71 @@ export default function BoardSelector({
         </header>
 
         <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center gap-6 py-8">
+          <div className="mx-auto grid w-full max-w-5xl gap-6 lg:grid-cols-[0.75fr_1.25fr]">
+            <Card className="bg-card/90">
+              <CardHeader>
+                <CardTitle>Choose the default angle</CardTitle>
+                <CardDescription>
+                  This angle becomes the starting view whenever you open a board from this page.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <AngleSelector angle={angle} onAngleChange={setAngle} />
+                <p className="text-sm text-muted-foreground">
+                  The browser remembers your last solo angle locally for the next visit.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/90">
+              <CardHeader>
+                <CardTitle>What solo mode is for</CardTitle>
+                <CardDescription>
+                  Solo browse stays read-only. Use rooms when you want voting, queueing, QR invites, or live session coordination.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
+              <CardHeader>
+                <CardTitle className="text-2xl">Choose a board</CardTitle>
+                <CardDescription>
+                  Open a board to browse climbs at {angle}° by default.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {boards.length === 0 ? (
+                  <div className="rounded-2xl border border-dashed bg-muted/20 p-8 text-center text-muted-foreground">
+                    No Kilter boards were returned by the API.
+                  </div>
+                ) : (
+                  <div className="grid gap-4 md:grid-cols-2">
+                    {boards.map((board) => (
+                      <button
+                        key={board.id}
+                        type="button"
+                        className="rounded-2xl border bg-white/75 p-5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:bg-white hover:shadow-lg"
+                        onClick={() => {
+                          rememberLastKilterSurface(String(board.id), angle);
+                          navigate(`${boardPathPrefix}/${board.id}?angle=${angle}&sort=popular`);
+                        }}
+                      >
+                        <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+                          Board {board.id}
+                        </p>
+                        <h2 className="mt-3 text-xl font-medium">{board.kilter_name}</h2>
+                        <p className="mt-2 text-sm text-muted-foreground">{board.name}</p>
+                        <p className="mt-4 text-sm font-medium text-teal-700">
+                          Open at {angle}°
+                        </p>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+
           <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
             <CardHeader>
               <CardTitle className="text-center text-3xl sm:text-4xl">
@@ -120,74 +185,7 @@ export default function BoardSelector({
               </div>
             </CardContent>
           </Card>
-
-          <div className="mx-auto grid w-full max-w-4xl gap-6 md:grid-cols-2">
-            <Card className="bg-card/90">
-              <CardHeader>
-                <CardTitle>Choose the default angle</CardTitle>
-                <CardDescription>
-                  This angle becomes the starting view whenever you open a board from this page.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <AngleSelector angle={angle} onAngleChange={setAngle} />
-                <p className="text-sm text-muted-foreground">
-                  The browser remembers your last solo angle locally for the next visit.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-card/90">
-              <CardHeader>
-                <CardTitle>What solo mode is for</CardTitle>
-                <CardDescription>
-                  Solo browse stays read-only. Use rooms when you want voting, queueing, QR invites, or live session coordination.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
         </main>
-
-        <section className="mx-auto w-full max-w-5xl pb-8">
-          <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-2xl">Choose a board</CardTitle>
-              <CardDescription>
-                Open a board to browse climbs at {angle}° by default.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {boards.length === 0 ? (
-                <div className="rounded-2xl border border-dashed bg-muted/20 p-8 text-center text-muted-foreground">
-                  No Kilter boards were returned by the API.
-                </div>
-              ) : (
-                <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                  {boards.map((board) => (
-                    <button
-                      key={board.id}
-                      type="button"
-                      className="rounded-2xl border bg-white/75 p-5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:bg-white hover:shadow-lg"
-                      onClick={() => {
-                        rememberLastKilterSurface(String(board.id), angle);
-                        navigate(`${boardPathPrefix}/${board.id}?angle=${angle}&sort=popular`);
-                      }}
-                    >
-                      <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
-                        Board {board.id}
-                      </p>
-                      <h2 className="mt-3 text-xl font-medium">{board.kilter_name}</h2>
-                      <p className="mt-2 text-sm text-muted-foreground">{board.name}</p>
-                      <p className="mt-4 text-sm font-medium text-teal-700">
-                        Open at {angle}°
-                      </p>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </section>
       </div>
     </div>
   );
