@@ -369,6 +369,57 @@ describe("App routes", () => {
     );
   });
 
+  it("shows first-use onboarding and lets the user replay it", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+
+    const view = render(
+      <MemoryRouter initialEntries={["/"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByText("First-time guide")).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Dismiss" }));
+    expect(screen.queryByText("First-time guide")).not.toBeInTheDocument();
+
+    view.unmount();
+
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(screen.queryByText("First-time guide")).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: /Help/i }));
+    expect(await screen.findByText("First-time guide")).toBeInTheDocument();
+  });
+
+  it("shows role-specific onboarding on host and guest entry pages", async () => {
+    mockedApi.getBoards.mockResolvedValue([]);
+
+    const { unmount } = render(
+      <MemoryRouter initialEntries={["/rooms/new"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByText("Host flow: create first, connect second")).toBeInTheDocument();
+
+    unmount();
+
+    render(
+      <MemoryRouter initialEntries={["/join/join-room"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByText("Guest flow: join fast, then vote")).toBeInTheDocument();
+  });
+
   it("prefills room creation from saved browser prefs", async () => {
     const user = userEvent.setup();
     window.localStorage.setItem(

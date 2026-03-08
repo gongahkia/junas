@@ -1,14 +1,17 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, CircleHelp } from "lucide-react";
 import { api } from "@/api";
 import type { ProviderId } from "@/types";
 import {
+  dismissOnboarding,
   loadUserPrefs,
   rememberDisplayName,
   rememberLastProvider,
   rememberRoomVisit,
+  resetOnboardingPrefs,
 } from "@/lib/user-prefs";
+import OnboardingCallout from "@/components/OnboardingCallout";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -28,6 +31,9 @@ import {
 
 export default function RoomCreatePage() {
   const navigate = useNavigate();
+  const [showOnboarding, setShowOnboarding] = useState(
+    () => !loadUserPrefs().onboarding.dismissed
+  );
   const [providerId, setProviderId] = useState<ProviderId>(
     () => loadUserPrefs().lastProviderId || "kilter"
   );
@@ -62,12 +68,43 @@ export default function RoomCreatePage() {
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(240,253,250,0.95),_rgba(255,255,255,1))] px-6 py-10">
       <div className="mx-auto max-w-2xl">
-        <Button asChild variant="ghost" className="mb-6">
-          <Link to="/">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back
-          </Link>
-        </Button>
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+          <Button asChild variant="ghost">
+            <Link to="/">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back
+            </Link>
+          </Button>
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={() => {
+              resetOnboardingPrefs();
+              setShowOnboarding(true);
+            }}
+          >
+            <CircleHelp className="mr-2 h-4 w-4" />
+            Replay onboarding
+          </Button>
+        </div>
+
+        {showOnboarding ? (
+          <div className="mb-6">
+            <OnboardingCallout
+              title="Host flow: create first, connect second"
+              description="This page only creates the room shell. You will connect the provider account and choose the board or wall inside the room itself."
+              steps={[
+                "Enter the host display name you want guests to see on this device.",
+                "Pick the provider for this room. Kilter uses username/password, while Crux uses an API token.",
+                "After room creation, connect the provider, choose the surface, then share the invite link or QR code.",
+              ]}
+              onDismiss={() => {
+                dismissOnboarding();
+                setShowOnboarding(false);
+              }}
+            />
+          </div>
+        ) : null}
 
         <Card className="shadow-lg shadow-teal-950/10">
           <CardHeader>

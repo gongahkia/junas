@@ -1,8 +1,14 @@
-import { useMemo, useState, type FormEvent, type ReactNode } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, Camera, History, Link2, Mountain, Users } from "lucide-react";
+import { ArrowRight, Camera, CircleHelp, History, Link2, Mountain, Users } from "lucide-react";
 import { extractRoomSlugFromValue } from "@/lib/room-links";
-import { buildSoloResumePath, loadUserPrefs } from "@/lib/user-prefs";
+import {
+  buildSoloResumePath,
+  dismissOnboarding,
+  loadUserPrefs,
+  resetOnboardingPrefs,
+} from "@/lib/user-prefs";
+import OnboardingCallout from "@/components/OnboardingCallout";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,8 +22,9 @@ import { Input } from "@/components/ui/input";
 export default function LandingPage() {
   const navigate = useNavigate();
   const [inviteCode, setInviteCode] = useState("");
-  const prefs = useMemo(() => loadUserPrefs(), []);
+  const [prefs, setPrefs] = useState(() => loadUserPrefs());
   const soloResumePath = buildSoloResumePath(prefs.soloResume);
+  const showOnboarding = !prefs.onboarding.dismissed;
 
   const handleJoinRedirect = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -41,10 +48,37 @@ export default function LandingPage() {
               kilter-together
             </h1>
           </div>
-          <Button asChild variant="ghost">
-            <Link to="/solo">Solo browse</Link>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => setPrefs(resetOnboardingPrefs())}
+            >
+              <CircleHelp className="mr-2 h-4 w-4" />
+              Help
+            </Button>
+            <Button asChild variant="ghost">
+              <Link to="/solo">Solo browse</Link>
+            </Button>
+          </div>
         </header>
+
+        {showOnboarding ? (
+          <div className="pb-4">
+            <OnboardingCallout
+              title="Start in whichever role you have right now"
+              description="Hosts create the room and connect one provider account. Guests scan or paste the invite, join with a display name, then vote or add climbs to the queue."
+              steps={[
+                "Create a room if you are hosting. Pick Kilter or Crux, then connect the account inside the room.",
+                "Join a room if someone else is hosting. Scanning the QR code is the fastest path on a phone.",
+                "Use solo browse when you just want to inspect Kilter climbs without the shared room layer.",
+              ]}
+              actionLabel="Create room"
+              onAction={() => navigate("/rooms/new")}
+              onDismiss={() => setPrefs(dismissOnboarding())}
+            />
+          </div>
+        ) : null}
 
         <main className="grid flex-1 gap-6 py-8 lg:grid-cols-[1.2fr_0.8fr]">
           <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">

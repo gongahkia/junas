@@ -10,6 +10,7 @@ import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
 import {
   ArrowLeft,
   ArrowUp,
+  CircleHelp,
   Copy,
   RefreshCw,
   Trash2,
@@ -26,12 +27,18 @@ import type {
 import { DEFAULT_ANGLE, normalizeSort } from "@/lib/climbs";
 import { buildInviteLink } from "@/lib/room-links";
 import {
+  dismissOnboarding,
   loadUserPrefs,
+  markGuestParticipated,
+  markHostProviderConnected,
+  markHostSurfaceSelected,
   rememberLastCruxSurface,
   rememberLastKilterSurface,
   rememberLastProvider,
   rememberRoomVisit,
+  resetOnboardingPrefs,
 } from "@/lib/user-prefs";
+import OnboardingCallout from "@/components/OnboardingCallout";
 import RoomProblemView from "@/components/RoomProblemView";
 import InviteQRCodeCard from "@/components/InviteQRCodeCard";
 import AngleSelector from "@/components/AngleSelector";
@@ -87,6 +94,9 @@ export default function RoomView() {
   const [selectedWallId, setSelectedWallId] = useState(
     () => savedPrefsRef.current.lastCrux.wallId
   );
+  const [showOnboarding, setShowOnboarding] = useState(
+    () => !savedPrefsRef.current.onboarding.dismissed
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [copiedInvite, setCopiedInvite] = useState(false);
   const cursorsRef = useRef<Record<number, string>>({});
@@ -118,6 +128,12 @@ export default function RoomView() {
         setSnapshot(nextSnapshot);
         rememberRoomVisit(nextSnapshot);
         rememberLastProvider(nextSnapshot.provider_id);
+        if (nextSnapshot.can_manage && nextSnapshot.connection.connected) {
+          markHostProviderConnected();
+        }
+        if (nextSnapshot.can_manage && nextSnapshot.surface) {
+          markHostSurfaceSelected();
+        }
 
         if (nextSnapshot.provider_id === "kilter") {
           const boardId =
@@ -425,6 +441,7 @@ export default function RoomView() {
           token: connectionFields.token,
         });
       }
+      markHostProviderConnected();
       await refreshRoomState();
     } catch (caughtError) {
       console.error("Connect provider failed", caughtError);
@@ -462,6 +479,7 @@ export default function RoomView() {
 
       cursorsRef.current = {};
       setCurrentPage(1);
+      markHostSurfaceSelected();
       await refreshRoomState();
     } catch (caughtError) {
       console.error("Set room surface failed", caughtError);
@@ -482,6 +500,9 @@ export default function RoomView() {
 
     try {
       await api.toggleRoomVote(slug, climbId);
+      if (!snapshot?.can_manage) {
+        markGuestParticipated();
+      }
       await refreshRoomState();
     } catch (caughtError) {
       console.error("Toggle vote failed", caughtError);
@@ -496,6 +517,9 @@ export default function RoomView() {
 
     try {
       await api.addRoomQueueEntry(slug, climbId);
+      if (!snapshot?.can_manage) {
+        markGuestParticipated();
+      }
       await refreshRoomState();
     } catch (caughtError) {
       console.error("Add queue entry failed", caughtError);
@@ -659,6 +683,11 @@ export default function RoomView() {
     ? snapshot.queue.some((entry) => entry.climb.id === selectedClimb.id)
     : false;
   const inviteLink = buildInviteLink(slug);
+  const shouldShowRoomOnboarding = showOnboarding
+    ? snapshot.can_manage
+      ? !snapshot.connection.connected || !snapshot.surface
+      : !loadUserPrefs().onboarding.guestCompleted
+    : false;
 
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(250,250,249,1),_rgba(240,249,255,0.8))] px-4 py-5 sm:px-6">
@@ -666,12 +695,25 @@ export default function RoomView() {
         <header className="rounded-3xl border bg-card/95 px-5 py-5 shadow-sm">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div className="space-y-2">
-              <Button asChild variant="ghost" className="-ml-3">
-                <Link to="/">
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back
-                </Link>
-              </Button>
+              <div className="flex flex-wrap items-center gap-2">
+                <Button asChild variant="ghost" className="-ml-3">
+                  <Link to="/">
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Back
+                  </Link>
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  onClick={() => {
+                    resetOnboardingPrefs();
+                    setShowOnboarding(true);
+                  }}
+                >
+                  <CircleHelp className="mr-2 h-4 w-4" />
+                  Replay onboarding
+                </Button>
+              </div>
               <div className="flex flex-wrap items-center gap-2">
                 <h1 className="text-3xl font-semibold tracking-tight">Room {snapshot.slug}</h1>
                 <Badge variant="secondary">{snapshot.provider_id}</Badge>
@@ -710,6 +752,42 @@ export default function RoomView() {
             </div>
           </div>
         </header>
+
+        {shouldShowRoomOnboarding ? (
+          <OnboardingCallout
+            title={
+              snapshot.can_manage
+                ? "Host flow: connect, choose, then share"
+                : "Guest flow: vote and queue from your phone"
+            }
+            description={
+              snapshot.can_manage
+                ? "You are the room host. Finish the provider setup once, then everyone else can join through the invite link or QR code."
+                : "You are already inside the room. The next useful action is to vote for a climb or add one to the shared queue."
+            }
+            steps={
+              snapshot.can_manage
+                ? [
+                    snapshot.connection.connected
+                      ? "Provider connected. Move on to the shared surface selection."
+                      : "Connect the provider account for this room first.",
+                    snapshot.surface
+                      ? `Surface selected: ${snapshot.surface.name}.`
+                      : "Choose the Kilter board plus angle, or the Crux gym plus wall.",
+                    "Share the invite link or QR code, then watch votes and queue picks as guests join.",
+                  ]
+                : [
+                    "Use Vote for climb to signal what you want to try next.",
+                    "Use Add to queue when you want to propose a concrete running order.",
+                    "Follow the current climb and next climb indicators to stay synced with the group.",
+                  ]
+            }
+            onDismiss={() => {
+              dismissOnboarding();
+              setShowOnboarding(false);
+            }}
+          />
+        ) : null}
 
         {actionError ? (
           <div className="rounded-2xl border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">

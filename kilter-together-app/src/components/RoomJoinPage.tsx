@@ -1,8 +1,16 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, CircleHelp } from "lucide-react";
 import { api } from "@/api";
-import { loadUserPrefs, rememberDisplayName, rememberRoomVisit } from "@/lib/user-prefs";
+import {
+  dismissOnboarding,
+  loadUserPrefs,
+  markGuestJoinedRoom,
+  rememberDisplayName,
+  rememberRoomVisit,
+  resetOnboardingPrefs,
+} from "@/lib/user-prefs";
+import OnboardingCallout from "@/components/OnboardingCallout";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,6 +24,9 @@ import { Input } from "@/components/ui/input";
 export default function RoomJoinPage() {
   const navigate = useNavigate();
   const { slug = "" } = useParams();
+  const [showOnboarding, setShowOnboarding] = useState(
+    () => !loadUserPrefs().onboarding.dismissed
+  );
   const [displayName, setDisplayName] = useState(
     () => loadUserPrefs().savedDisplayName
   );
@@ -31,6 +42,7 @@ export default function RoomJoinPage() {
       const room = await api.joinRoom(slug, displayName);
       rememberDisplayName(displayName);
       rememberRoomVisit(room);
+      markGuestJoinedRoom();
       navigate(`/rooms/${slug}`);
     } catch (caughtError) {
       console.error("Join room failed", caughtError);
@@ -43,12 +55,43 @@ export default function RoomJoinPage() {
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(247,254,231,0.75),_rgba(255,255,255,1))] px-6 py-10">
       <div className="mx-auto max-w-xl">
-        <Button asChild variant="ghost" className="mb-6">
-          <Link to="/join">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back
-          </Link>
-        </Button>
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+          <Button asChild variant="ghost">
+            <Link to="/join">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back
+            </Link>
+          </Button>
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={() => {
+              resetOnboardingPrefs();
+              setShowOnboarding(true);
+            }}
+          >
+            <CircleHelp className="mr-2 h-4 w-4" />
+            Replay onboarding
+          </Button>
+        </div>
+
+        {showOnboarding ? (
+          <div className="mb-6">
+            <OnboardingCallout
+              title="Guest flow: join fast, then vote"
+              description="Guests do not need provider credentials. Once you join the room, your vote and queue actions update the shared session immediately."
+              steps={[
+                "Keep the host-provided slug or invite URL open on this device.",
+                "Enter the display name everyone in the room should see.",
+                "After joining, vote for climbs you want to do or add a climb to the queue.",
+              ]}
+              onDismiss={() => {
+                dismissOnboarding();
+                setShowOnboarding(false);
+              }}
+            />
+          </div>
+        ) : null}
 
         <Card className="shadow-lg shadow-lime-950/10">
           <CardHeader>

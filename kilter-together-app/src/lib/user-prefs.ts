@@ -26,6 +26,10 @@ export interface OnboardingProgress {
   dismissed: boolean;
   hostCompleted: boolean;
   guestCompleted: boolean;
+  hostConnectedProvider: boolean;
+  hostSelectedSurface: boolean;
+  guestJoinedRoom: boolean;
+  guestParticipated: boolean;
 }
 
 export interface UserPrefs {
@@ -62,6 +66,10 @@ function getDefaultUserPrefs(): UserPrefs {
       dismissed: false,
       hostCompleted: false,
       guestCompleted: false,
+      hostConnectedProvider: false,
+      hostSelectedSurface: false,
+      guestJoinedRoom: false,
+      guestParticipated: false,
     },
   };
 }
@@ -221,6 +229,88 @@ export function resetOnboardingPrefs(): UserPrefs {
       dismissed: false,
       hostCompleted: false,
       guestCompleted: false,
+      hostConnectedProvider: false,
+      hostSelectedSurface: false,
+      guestJoinedRoom: false,
+      guestParticipated: false,
     },
   }));
+}
+
+export function dismissOnboarding(): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    onboarding: {
+      ...currentPrefs.onboarding,
+      dismissed: true,
+    },
+  }));
+}
+
+export function markHostProviderConnected(): UserPrefs {
+  return updateUserPrefs((currentPrefs) => {
+    const onboarding = {
+      ...currentPrefs.onboarding,
+      hostConnectedProvider: true,
+    };
+
+    return {
+      ...currentPrefs,
+      onboarding: {
+        ...onboarding,
+        hostCompleted: onboarding.hostConnectedProvider && onboarding.hostSelectedSurface,
+      },
+    };
+  });
+}
+
+export function markHostSurfaceSelected(): UserPrefs {
+  return updateUserPrefs((currentPrefs) => {
+    const onboarding = {
+      ...currentPrefs.onboarding,
+      hostSelectedSurface: true,
+    };
+
+    return {
+      ...currentPrefs,
+      onboarding: {
+        ...onboarding,
+        hostCompleted: onboarding.hostConnectedProvider && onboarding.hostSelectedSurface,
+      },
+    };
+  });
+}
+
+export function markGuestJoinedRoom(): UserPrefs {
+  return updateUserPrefs((currentPrefs) => {
+    const onboarding = {
+      ...currentPrefs.onboarding,
+      guestJoinedRoom: true,
+    };
+
+    return {
+      ...currentPrefs,
+      onboarding: {
+        ...onboarding,
+        guestCompleted: onboarding.guestJoinedRoom && onboarding.guestParticipated,
+      },
+    };
+  });
+}
+
+export function markGuestParticipated(): UserPrefs {
+  return updateUserPrefs((currentPrefs) => {
+    const onboarding = {
+      ...currentPrefs.onboarding,
+      guestParticipated: true,
+    };
+
+    return {
+      ...currentPrefs,
+      onboarding: {
+        ...onboarding,
+        guestCompleted: onboarding.guestJoinedRoom && onboarding.guestParticipated,
+      },
+    };
+  });
 }

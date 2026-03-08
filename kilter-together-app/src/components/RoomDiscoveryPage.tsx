@@ -1,7 +1,9 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { ArrowLeft, Camera, ScanSearch } from "lucide-react";
+import { ArrowLeft, Camera, CircleHelp, ScanSearch } from "lucide-react";
 import { extractRoomSlugFromValue } from "@/lib/room-links";
+import { dismissOnboarding, loadUserPrefs, resetOnboardingPrefs } from "@/lib/user-prefs";
+import OnboardingCallout from "@/components/OnboardingCallout";
 import RoomScanner from "@/components/RoomScanner";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +18,9 @@ import { Input } from "@/components/ui/input";
 export default function RoomDiscoveryPage() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [showOnboarding, setShowOnboarding] = useState(
+    () => !loadUserPrefs().onboarding.dismissed
+  );
   const [joinValue, setJoinValue] = useState("");
   const [error, setError] = useState("");
   const scannerMode = searchParams.get("mode") === "scan";
@@ -35,12 +40,43 @@ export default function RoomDiscoveryPage() {
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(239,246,255,0.92),_rgba(255,255,255,1))] px-6 py-10">
       <div className="mx-auto max-w-3xl">
-        <Button asChild variant="ghost" className="mb-6">
-          <Link to="/">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back
-          </Link>
-        </Button>
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+          <Button asChild variant="ghost">
+            <Link to="/">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back
+            </Link>
+          </Button>
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={() => {
+              resetOnboardingPrefs();
+              setShowOnboarding(true);
+            }}
+          >
+            <CircleHelp className="mr-2 h-4 w-4" />
+            Replay onboarding
+          </Button>
+        </div>
+
+        {showOnboarding ? (
+          <div className="mb-6">
+            <OnboardingCallout
+              title="Phone-first join works best from this page"
+              description="Use the camera when the host is showing a QR code. If you already have the link, paste it here and continue into the join form."
+              steps={[
+                "Scan the host QR code if you are standing near the wall.",
+                "If scanning is not convenient, paste the invite URL or just the room slug.",
+                "You will still pick a display name on the next screen before joining the room.",
+              ]}
+              onDismiss={() => {
+                dismissOnboarding();
+                setShowOnboarding(false);
+              }}
+            />
+          </div>
+        ) : null}
 
         <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
           <Card className="shadow-lg shadow-sky-950/10">
