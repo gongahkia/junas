@@ -13,6 +13,7 @@ import {
   CardDescription,
   CardHeader,
 } from "@/components/ui/card";
+import KilterBoardImage from "@/components/KilterBoardImage";
 
 interface ProblemViewProps {
   selectedClimb: Climb | null;
@@ -32,7 +33,9 @@ export default function ProblemView({
   }, [selectedClimb?.uuid]);
 
   const imageFilenames = selectedClimb?.image_filenames || [];
-  const visibleImages = imageFilenames.filter((filename) => !failedImages[filename]);
+  const visibleImages = imageFilenames.filter(
+    (filename) => !failedImages[filename],
+  );
 
   if (!selectedClimb) {
     return (
@@ -52,7 +55,9 @@ export default function ProblemView({
     <Card className="h-full border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
       <CardHeader className="gap-4">
         <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="secondary">{getGradeForAngle(selectedClimb, angle)}</Badge>
+          <Badge variant="secondary">
+            {getGradeForAngle(selectedClimb, angle)}
+          </Badge>
           <Badge variant="outline">{selectedClimb.ascends} ascends</Badge>
           <Badge variant="outline">{selectedClimb.setter_name}</Badge>
         </div>
@@ -71,7 +76,9 @@ export default function ProblemView({
       <CardContent className="grid gap-6">
         <div className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-2 xl:grid-cols-3">
           <span>Boulder grade: {getGradeForAngle(selectedClimb, angle)}</span>
-          <span>Route grade: {getRouteGradeForAngle(selectedClimb, angle)}</span>
+          <span>
+            Route grade: {getRouteGradeForAngle(selectedClimb, angle)}
+          </span>
           <span>Setter: {selectedClimb.setter_name}</span>
           <span>Ascends: {selectedClimb.ascends}</span>
           <span>Created: {formatClimbDate(selectedClimb.created_at)}</span>
@@ -80,31 +87,28 @@ export default function ProblemView({
 
         <div className="flex flex-1 items-center justify-center rounded-3xl border bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.12),_transparent_45%),linear-gradient(180deg,_rgba(255,255,255,0.88),_rgba(240,249,255,0.65))] p-4">
           {imageFilenames.length === 0 ? (
-            <p className="text-muted-foreground">No board images are available for this climb.</p>
+            <p className="text-muted-foreground">
+              No board images are available for this climb.
+            </p>
           ) : visibleImages.length === 0 ? (
-            <p className="text-muted-foreground">Board images failed to load for this climb.</p>
+            <p className="text-muted-foreground">
+              Board images failed to load for this climb.
+            </p>
           ) : (
-            <div className="relative max-w-full max-h-full">
-              {visibleImages.map((filename, index) => (
-                <img
-                  key={filename}
-                  src={api.getImageUrl(filename)}
-                  alt={`${selectedClimb.climb_name} board layer ${index + 1}`}
-                  className={`max-w-full max-h-[70vh] object-contain ${
-                    index === 0 ? "relative" : "absolute top-0 left-0"
-                  }`}
-                  style={{
-                    mixBlendMode: index > 0 ? "multiply" : "normal",
-                  }}
-                  onError={() =>
-                    setFailedImages((previousState) => ({
-                      ...previousState,
-                      [filename]: true,
-                    }))
-                  }
-                />
-              ))}
-            </div>
+            <KilterBoardImage
+              layers={visibleImages.map((filename, index) => ({
+                key: filename,
+                src: api.getImageUrl(filename),
+                alt: `${selectedClimb.climb_name} board layer ${index + 1}`,
+              }))}
+              highlightedHolds={selectedClimb.highlighted_holds}
+              onLayerError={(filename) =>
+                setFailedImages((previousState) => ({
+                  ...previousState,
+                  [filename]: true,
+                }))
+              }
+            />
           )}
         </div>
       </CardContent>

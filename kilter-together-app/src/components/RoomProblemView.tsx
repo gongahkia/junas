@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import KilterBoardImage from "@/components/KilterBoardImage";
 
 interface RoomProblemViewProps {
   climb: ProviderClimb | null;
@@ -31,14 +32,16 @@ export default function RoomProblemView({
     return (
       <Card className="h-full">
         <CardContent className="flex h-full min-h-[18rem] items-center justify-center text-muted-foreground">
-          {hasResults ? "Select a climb to inspect it." : "No climbs match the current room filters."}
+          {hasResults
+            ? "Select a climb to inspect it."
+            : "No climbs match the current room filters."}
         </CardContent>
       </Card>
     );
   }
 
   const imageMedia = (climb.media ?? []).filter(
-    (media) => media.kind === "image" && !failedImages[media.url]
+    (media) => media.kind === "image" && !failedImages[media.url],
   );
   const fallbackMetadata = climb.meta ?? {};
 
@@ -66,7 +69,10 @@ export default function RoomProblemView({
           </span>
           <span>Created: {formatClimbDate(climb.created_at)}</span>
           <span>
-            Surface: {fallbackMetadata.gym_name || fallbackMetadata.board_id || climb.surface_id}
+            Surface:{" "}
+            {fallbackMetadata.gym_name ||
+              fallbackMetadata.board_id ||
+              climb.surface_id}
           </span>
         </div>
 
@@ -76,27 +82,22 @@ export default function RoomProblemView({
               No climb images are available for this provider entry.
             </p>
           ) : (
-            <div className="relative max-w-full">
-              {imageMedia.map((media, index) => (
-                <img
-                  key={media.url}
-                  src={resolveMediaUrl(media.url)}
-                  alt={`${climb.name} layer ${index + 1}`}
-                  className={`max-h-[70vh] max-w-full object-contain ${
-                    index === 0 ? "relative" : "absolute left-0 top-0"
-                  }`}
-                  style={{
-                    mixBlendMode: index > 0 ? "multiply" : "normal",
-                  }}
-                  onError={() =>
-                    setFailedImages((previousState) => ({
-                      ...previousState,
-                      [media.url]: true,
-                    }))
-                  }
-                />
-              ))}
-            </div>
+            <KilterBoardImage
+              layers={imageMedia.map((media, index) => ({
+                key: media.url,
+                src: resolveMediaUrl(media.url),
+                alt: `${climb.name} layer ${index + 1}`,
+              }))}
+              highlightedHolds={
+                providerId === "kilter" ? climb.highlighted_holds : undefined
+              }
+              onLayerError={(url) =>
+                setFailedImages((previousState) => ({
+                  ...previousState,
+                  [url]: true,
+                }))
+              }
+            />
           )}
         </div>
       </CardContent>

@@ -44,20 +44,29 @@ type ClimbMedia struct {
 	Kind string `json:"kind"`
 }
 
+type HighlightedHold struct {
+	Position int     `json:"position"`
+	X        float64 `json:"x"`
+	Y        float64 `json:"y"`
+	Role     string  `json:"role"`
+	Color    string  `json:"color"`
+}
+
 type ProviderClimb struct {
-	ID             string            `json:"id"`
-	ExternalID     string            `json:"external_id"`
-	ProviderID     ProviderID        `json:"provider_id"`
-	SurfaceID      string            `json:"surface_id"`
-	Name           string            `json:"name"`
-	Description    string            `json:"description,omitempty"`
-	SetterName     string            `json:"setter_name,omitempty"`
-	PrimaryGrade   string            `json:"primary_grade,omitempty"`
-	SecondaryGrade string            `json:"secondary_grade,omitempty"`
-	CreatedAt      string            `json:"created_at,omitempty"`
-	Popularity     int               `json:"popularity,omitempty"`
-	Media          []ClimbMedia      `json:"media,omitempty"`
-	Meta           map[string]string `json:"meta,omitempty"`
+	ID               string            `json:"id"`
+	ExternalID       string            `json:"external_id"`
+	ProviderID       ProviderID        `json:"provider_id"`
+	SurfaceID        string            `json:"surface_id"`
+	Name             string            `json:"name"`
+	Description      string            `json:"description,omitempty"`
+	SetterName       string            `json:"setter_name,omitempty"`
+	PrimaryGrade     string            `json:"primary_grade,omitempty"`
+	SecondaryGrade   string            `json:"secondary_grade,omitempty"`
+	CreatedAt        string            `json:"created_at,omitempty"`
+	Popularity       int               `json:"popularity,omitempty"`
+	Media            []ClimbMedia      `json:"media,omitempty"`
+	HighlightedHolds []HighlightedHold `json:"highlighted_holds,omitempty"`
+	Meta             map[string]string `json:"meta,omitempty"`
 }
 
 type PaginatedClimbs struct {

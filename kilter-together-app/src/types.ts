@@ -16,6 +16,14 @@ export interface GradeInfo {
   route: string;
 }
 
+export interface HighlightedHold {
+  position: number;
+  x: number;
+  y: number;
+  role: string;
+  color: string;
+}
+
 export interface Climb {
   uuid: string;
   climb_name: string;
@@ -24,6 +32,7 @@ export interface Climb {
   grades?: Record<string, GradeInfo>;
   setter_name: string;
   image_filenames?: string[];
+  highlighted_holds?: HighlightedHold[];
   product_size_id: number;
   ascends: number;
   created_at: string;
@@ -84,6 +93,7 @@ export interface ProviderClimb {
   created_at?: string;
   popularity?: number;
   media?: ProviderClimbMedia[];
+  highlighted_holds?: HighlightedHold[];
   meta?: Record<string, string>;
 }
 

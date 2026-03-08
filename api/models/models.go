@@ -48,16 +48,17 @@ type ClimbGradesExample struct {
 
 // Climb represents a climb along with its board images.
 type Climb struct {
-	UUID           string               `json:"uuid" example:"F01419E12672459396CA62E3655ABC46"`
-	SetterName     string               `json:"setter_name" example:"jwebxl"`
-	ClimbName      string               `json:"climb_name" example:"swooped"`
-	Description    string               `json:"description,omitempty" example:"A challenging overhang problem"`
-	Frames         string               `json:"frames" example:"p1080r15p1110r15p1131r12"`
-	ImageFilenames []string             `gorm:"column:image_filenames;serializer:json" json:"image_filenames"`
-	Ascends        int                  `json:"ascends" example:"42"`
-	ProductSizeID  uint                 `json:"product_size_id" example:"14"`
-	Grades         map[string]GradeInfo `gorm:"-" json:"grades"`
-	CreatedAt      string               `json:"created_at" example:"2018-12-06 21:15:01.127371"`
+	UUID             string               `json:"uuid" example:"F01419E12672459396CA62E3655ABC46"`
+	SetterName       string               `json:"setter_name" example:"jwebxl"`
+	ClimbName        string               `json:"climb_name" example:"swooped"`
+	Description      string               `json:"description,omitempty" example:"A challenging overhang problem"`
+	Frames           string               `json:"frames" example:"p1080r15p1110r15p1131r12"`
+	ImageFilenames   []string             `gorm:"column:image_filenames;serializer:json" json:"image_filenames"`
+	HighlightedHolds []HighlightedHold    `gorm:"-" json:"highlighted_holds,omitempty"`
+	Ascends          int                  `json:"ascends" example:"42"`
+	ProductSizeID    uint                 `json:"product_size_id" example:"14"`
+	Grades           map[string]GradeInfo `gorm:"-" json:"grades"`
+	CreatedAt        string               `json:"created_at" example:"2018-12-06 21:15:01.127371"`
 }
 
 // CursorPaginatedClimbsResponse holds cursor-paginated climbs along with images.
@@ -244,6 +245,9 @@ LIMIT ?`)
 	if err := populateClimbGrades(climbs); err != nil {
 		return nil, fmt.Errorf("populate grades: %w", err)
 	}
+	if err := populateClimbHighlightedHolds(climbs); err != nil {
+		return nil, fmt.Errorf("populate highlighted holds: %w", err)
+	}
 
 	var nextCursor string
 	if hasMore && len(climbs) > 0 {
@@ -428,6 +432,9 @@ LIMIT 1`
 
 	if err := populateClimbGrades(climbs); err != nil {
 		return nil, fmt.Errorf("populate grades: %w", err)
+	}
+	if err := populateClimbHighlightedHolds(climbs); err != nil {
+		return nil, fmt.Errorf("populate highlighted holds: %w", err)
 	}
 
 	return &climbs[0], nil

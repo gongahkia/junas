@@ -194,20 +194,31 @@ func mapKilterClimbs(climbs []models.Climb, surfaceID string, angle uint) []Prov
 				Kind: "image",
 			})
 		}
+		highlightedHolds := make([]HighlightedHold, 0, len(climb.HighlightedHolds))
+		for _, hold := range climb.HighlightedHolds {
+			highlightedHolds = append(highlightedHolds, HighlightedHold{
+				Position: hold.Position,
+				X:        hold.X,
+				Y:        hold.Y,
+				Role:     hold.Role,
+				Color:    hold.Color,
+			})
+		}
 
 		mapped = append(mapped, ProviderClimb{
-			ID:             fmt.Sprintf("kilter:%d:%s", climb.ProductSizeID, climb.UUID),
-			ExternalID:     climb.UUID,
-			ProviderID:     ProviderKilter,
-			SurfaceID:      surfaceID,
-			Name:           climb.ClimbName,
-			Description:    climb.Description,
-			SetterName:     climb.SetterName,
-			PrimaryGrade:   grade.Boulder,
-			SecondaryGrade: grade.Route,
-			CreatedAt:      climb.CreatedAt,
-			Popularity:     climb.Ascends,
-			Media:          media,
+			ID:               fmt.Sprintf("kilter:%d:%s", climb.ProductSizeID, climb.UUID),
+			ExternalID:       climb.UUID,
+			ProviderID:       ProviderKilter,
+			SurfaceID:        surfaceID,
+			Name:             climb.ClimbName,
+			Description:      climb.Description,
+			SetterName:       climb.SetterName,
+			PrimaryGrade:     grade.Boulder,
+			SecondaryGrade:   grade.Route,
+			CreatedAt:        climb.CreatedAt,
+			Popularity:       climb.Ascends,
+			Media:            media,
+			HighlightedHolds: highlightedHolds,
 			Meta: map[string]string{
 				"board_id":    strconv.Itoa(int(climb.ProductSizeID)),
 				"angle":       gradeKey,
