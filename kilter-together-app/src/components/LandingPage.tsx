@@ -108,20 +108,22 @@ export default function LandingPage() {
           </div>
         ) : null}
 
-        <main className="grid flex-1 gap-6 py-8 lg:grid-cols-[1.2fr_0.8fr]">
+        <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center gap-6 py-8">
           <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
             <CardHeader>
-              <CardTitle className="text-3xl">One host. Shared decisions.</CardTitle>
-              <CardDescription className="max-w-2xl text-base leading-7">
+              <CardTitle className="text-center text-3xl sm:text-4xl">
+                One host. Shared decisions.
+              </CardTitle>
+              <CardDescription className="mx-auto max-w-3xl text-center text-base leading-7">
                 Create a room, connect one Kilter or Crux account on the server,
                 and let everyone join from their phones to vote and queue climbs.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="rounded-2xl border bg-white/70 p-5 text-sm leading-7 text-muted-foreground">
+              <div className="rounded-2xl border bg-white/70 p-5 text-center text-sm leading-7 text-muted-foreground">
                 Hosts connect the provider once, guests join from their own devices, and the room stays focused on live votes, queueing, and quick consensus at the wall.
               </div>
-              <div className="flex flex-wrap gap-2 text-sm text-muted-foreground">
+              <div className="flex flex-wrap justify-center gap-2 text-sm text-muted-foreground">
                 <span className="rounded-full bg-teal-100 px-3 py-1 font-medium text-teal-800">
                   Host-linked auth
                 </span>
@@ -135,7 +137,7 @@ export default function LandingPage() {
             </CardContent>
           </Card>
 
-          <div className="grid gap-6">
+          <div className="mx-auto grid w-full max-w-4xl gap-6 md:grid-cols-2 xl:grid-cols-3">
             <Card className="bg-card/90">
               <CardHeader>
                 <CardTitle>Create a room</CardTitle>
@@ -184,7 +186,7 @@ export default function LandingPage() {
             </Card>
 
             {soloResumePath ? (
-              <Card className="bg-card/90">
+              <Card className="bg-card/90 md:col-span-2 xl:col-span-1">
                 <CardHeader>
                   <CardTitle>Resume solo browse</CardTitle>
                   <CardDescription>
@@ -205,7 +207,7 @@ export default function LandingPage() {
         </main>
 
         {prefs.recentRooms.length > 0 ? (
-          <section className="pb-8">
+          <section className="mx-auto w-full max-w-5xl pb-8">
             <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-2xl">

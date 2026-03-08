@@ -93,19 +93,21 @@ export default function BoardSelector({
           </Button>
         </header>
 
-        <main className="grid flex-1 gap-6 py-8 lg:grid-cols-[1.2fr_0.8fr]">
+        <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center gap-6 py-8">
           <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
             <CardHeader>
-              <CardTitle className="text-3xl">Inspect Kilter climbs without a room</CardTitle>
-              <CardDescription className="max-w-2xl text-base leading-7">
+              <CardTitle className="text-center text-3xl sm:text-4xl">
+                Inspect Kilter climbs without a room
+              </CardTitle>
+              <CardDescription className="mx-auto max-w-3xl text-center text-base leading-7">
                 Use the same local dataset, pick a board angle, and browse climbs in a cleaner read-only view before you start a shared session.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="rounded-2xl border bg-white/70 p-5 text-sm leading-7 text-muted-foreground">
+              <div className="rounded-2xl border bg-white/70 p-5 text-center text-sm leading-7 text-muted-foreground">
                 Solo mode is optimized for quick scouting. Keep the filters local to this browser, inspect image overlays, then jump into a collaborative room when you want shared decisions.
               </div>
-              <div className="flex flex-wrap gap-2 text-sm text-muted-foreground">
+              <div className="flex flex-wrap justify-center gap-2 text-sm text-muted-foreground">
                 <span className="rounded-full bg-teal-100 px-3 py-1 font-medium text-teal-800">
                   Read-only catalog
                 </span>
@@ -119,7 +121,7 @@ export default function BoardSelector({
             </CardContent>
           </Card>
 
-          <div className="grid gap-6">
+          <div className="mx-auto grid w-full max-w-4xl gap-6 md:grid-cols-2">
             <Card className="bg-card/90">
               <CardHeader>
                 <CardTitle>Choose the default angle</CardTitle>
@@ -146,7 +148,7 @@ export default function BoardSelector({
           </div>
         </main>
 
-        <section className="pb-8">
+        <section className="mx-auto w-full max-w-5xl pb-8">
           <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
             <CardHeader>
               <CardTitle className="text-2xl">Choose a board</CardTitle>
