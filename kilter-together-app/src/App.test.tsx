@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import App from "./App";
 import { api } from "./api";
@@ -70,6 +71,30 @@ vi.mock("./api", () => ({
 
 const mockedApi = vi.mocked(api);
 
+const buildRoomSnapshot = (slug: string) => ({
+  slug,
+  status: "open" as const,
+  provider_id: "kilter" as const,
+  version: 1,
+  connection: {
+    provider_id: "kilter" as const,
+    connected: false,
+  },
+  participants: [
+    {
+      id: 1,
+      display_name: "Host",
+      role: "host",
+      is_online: true,
+    },
+  ],
+  queue: [],
+  vote_counts: {},
+  my_votes: [],
+  can_manage: true,
+  display_name: "Host",
+});
+
 describe("App routes", () => {
   beforeEach(() => {
     vi.resetAllMocks();
@@ -136,9 +161,7 @@ describe("App routes", () => {
   it("supports direct collaborative room route loads", async () => {
     mockedApi.getBoards.mockResolvedValue([]);
     mockedApi.getRoom.mockResolvedValue({
-      slug: "session-1",
-      status: "open",
-      provider_id: "kilter",
+      ...buildRoomSnapshot("session-1"),
       version: 3,
       surface: {
         id: "14",
@@ -235,5 +258,56 @@ describe("App routes", () => {
     expect(screen.getByText("Participants")).toBeInTheDocument();
     expect(screen.getByText(/join\/session-1/)).toBeInTheDocument();
     expect(MockEventSource.instances[0]?.url).toBe("/api/rooms/session-1/events");
+  });
+
+  it("supports creating a room from the room-first flow", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.createRoom.mockResolvedValue(buildRoomSnapshot("created-room"));
+    mockedApi.getRoom.mockResolvedValue(buildRoomSnapshot("created-room"));
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/new"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    await user.type(screen.getByLabelText("Host display name"), "Host");
+    await user.click(screen.getByRole("button", { name: "Create room" }));
+
+    await waitFor(() =>
+      expect(mockedApi.createRoom).toHaveBeenCalledWith({
+        providerId: "kilter",
+        displayName: "Host",
+      })
+    );
+
+    expect(
+      await screen.findByRole("heading", { name: "Room created-room" })
+    ).toBeInTheDocument();
+  });
+
+  it("supports joining a room from an invite route", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.joinRoom.mockResolvedValue(buildRoomSnapshot("join-room"));
+    mockedApi.getRoom.mockResolvedValue(buildRoomSnapshot("join-room"));
+
+    render(
+      <MemoryRouter initialEntries={["/join/join-room"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    await user.type(screen.getByLabelText("Display name"), "Guest");
+    await user.click(screen.getByRole("button", { name: "Join room" }));
+
+    await waitFor(() =>
+      expect(mockedApi.joinRoom).toHaveBeenCalledWith("join-room", "Guest")
+    );
+
+    expect(
+      await screen.findByRole("heading", { name: "Room join-room" })
+    ).toBeInTheDocument();
   });
 });
