@@ -1,0 +1,222 @@
+basePath: /api
+definitions:
+  models.BoardOption:
+    properties:
+      id:
+        description: Unique board identifier
+        example: 1
+        type: integer
+      name:
+        description: Human-readable board name
+        example: Original 12x12
+        type: string
+    type: object
+  models.Climb:
+    properties:
+      climb_name:
+        description: Name/title of the climb
+        example: swooped
+        type: string
+      created_at:
+        description: Creation timestamp
+        example: "2018-12-06 21:15:01.127371"
+        type: string
+      description:
+        description: Optional description
+        example: A challenging overhang problem
+        type: string
+      frames:
+        description: Hold positions and rotations
+        example: p1080r15p1110r15p1131r12
+        type: string
+      grades:
+        additionalProperties:
+          $ref: '#/definitions/models.GradeInfo'
+        description: Map of angle to grade info
+        type: object
+      image_filenames:
+        description: JSON array string of image filenames
+        example: '["layout1.png","layout2.png"]'
+        type: string
+      product_size_id:
+        description: Board/product size identifier
+        example: 1
+        type: integer
+      setter_name:
+        description: Username of the climb setter
+        example: jwebxl
+        type: string
+      uuid:
+        description: Unique identifier for the climb
+        example: F01419E12672459396CA62E3655ABC46
+        type: string
+    type: object
+  models.CursorPaginatedClimbsResponse:
+    properties:
+      climbs:
+        description: Array of climb objects
+        items:
+          $ref: '#/definitions/models.Climb'
+        type: array
+      has_more:
+        description: Whether more pages are available
+        example: true
+        type: boolean
+      next_cursor:
+        description: Cursor for next page (timestamp)
+        example: "2025-05-24 04:07:17.406545"
+        type: string
+      page_size:
+        description: Number of items per page
+        example: 10
+        type: integer
+    type: object
+  models.GradeInfo:
+    properties:
+      boulder:
+        description: Boulder grade in format "grade/V-scale"
+        example: 7a/V6
+        type: string
+      route:
+        description: Route grade in format "grade/YDS"
+        example: 7c/5.12d
+        type: string
+    type: object
+externalDocs:
+  description: Kilter Together API Documentation
+  url: https://github.com/lczm/boardbuddy/blob/main/api/API.md
+host: ""
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: API for managing climbing board routes and data. Features cursor-based
+    pagination, grade information for multiple board angles, and comprehensive filtering
+    capabilities.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: Kilter Together API
+  version: "1.0"
+paths:
+  /boards:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all available board/product size options for filtering
+        climbs. Returns a list of board configurations with their IDs and human-readable
+        names.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved board options
+          schema:
+            additionalProperties:
+              items:
+                $ref: '#/definitions/models.BoardOption'
+              type: array
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get available board options
+      tags:
+      - boards
+  /climbs:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a paginated list of climbing routes with optional filtering.
+        Uses cursor-based pagination for efficient navigation through large datasets.
+      parameters:
+      - description: Pagination cursor (timestamp for next page)
+        example: "2025-05-24 04:07:17.406545"
+        in: query
+        name: cursor
+        type: string
+      - default: 10
+        description: Number of items per page (1-100)
+        example: 10
+        in: query
+        maximum: 100
+        minimum: 1
+        name: page_size
+        type: integer
+      - description: Filter climbs by name (partial match)
+        example: swooped
+        in: query
+        name: name
+        type: string
+      - description: Filter climbs by board/product size ID
+        example: 1
+        in: query
+        name: board_id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved climbs
+          schema:
+            $ref: '#/definitions/models.CursorPaginatedClimbsResponse'
+        "400":
+          description: Bad request - invalid parameters
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get paginated climbs
+      tags:
+      - climbs
+  /images/{filename}:
+    get:
+      consumes:
+      - application/json
+      description: Serve static image files for board layouts and holds. Images are
+        used to display the physical board layout with hold positions for each climb.
+      parameters:
+      - description: Image filename
+        example: original-16x12-bolt-ons-v2.png
+        in: path
+        name: filename
+        required: true
+        type: string
+      produces:
+      - image/png
+      - image/jpeg
+      - image/gif
+      responses:
+        "200":
+          description: Successfully served image file
+          schema:
+            type: file
+        "400":
+          description: Bad request - invalid filename
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not found - image file does not exist
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Serve board layout images
+      tags:
+      - images
+schemes:
+- https
+swagger: "2.0"

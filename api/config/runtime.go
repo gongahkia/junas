@@ -1,0 +1,83 @@
+package config
+
+import (
+	"os"
+	"path/filepath"
+	"strings"
+)
+
+type RuntimeConfig struct {
+	DataDir        string
+	DBPath         string
+	ImageDir       string
+	KilterUsername string
+	KilterPassword string
+	Port           string
+}
+
+var runtimeConfig *RuntimeConfig
+
+func LoadRuntimeConfig() RuntimeConfig {
+	dataDir := cleanPath(firstNonEmpty(os.Getenv("KILTER_TOGETHER_DATA_DIR"), "data"))
+	dbPath := cleanPath(firstNonEmpty(
+		os.Getenv("KILTER_TOGETHER_DB_PATH"),
+		filepath.Join(dataDir, "kilter.db"),
+	))
+	imageDir := cleanPath(firstNonEmpty(
+		os.Getenv("KILTER_TOGETHER_IMAGE_DIR"),
+		filepath.Join(dataDir, "images"),
+	))
+
+	return RuntimeConfig{
+		DataDir:        dataDir,
+		DBPath:         dbPath,
+		ImageDir:       imageDir,
+		KilterUsername: strings.TrimSpace(os.Getenv("KILTER_TOGETHER_KILTER_USERNAME")),
+		KilterPassword: os.Getenv("KILTER_TOGETHER_KILTER_PASSWORD"),
+		Port:           normalizePort(os.Getenv("KILTER_TOGETHER_PORT")),
+	}
+}
+
+func SetRuntimeConfig(cfg RuntimeConfig) {
+	runtimeConfig = &cfg
+}
+
+func GetRuntimeConfig() RuntimeConfig {
+	if runtimeConfig == nil {
+		cfg := LoadRuntimeConfig()
+		runtimeConfig = &cfg
+	}
+
+	return *runtimeConfig
+}
+
+func (cfg RuntimeConfig) ListenAddr() string {
+	if strings.HasPrefix(cfg.Port, ":") {
+		return cfg.Port
+	}
+
+	return ":" + cfg.Port
+}
+
+func firstNonEmpty(values ...string) string {
+	for _, value := range values {
+		if strings.TrimSpace(value) != "" {
+			return value
+		}
+	}
+
+	return ""
+}
+
+func cleanPath(path string) string {
+	return filepath.Clean(path)
+}
+
+func normalizePort(value string) string {
+	trimmedValue := strings.TrimSpace(value)
+	if trimmedValue == "" {
+		return "8082"
+	}
+
+	return strings.TrimPrefix(trimmedValue, ":")
+}

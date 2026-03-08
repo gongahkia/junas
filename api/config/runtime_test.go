@@ -1,0 +1,63 @@
+package config
+
+import "testing"
+
+func TestLoadRuntimeConfigDefaults(t *testing.T) {
+	t.Setenv("KILTER_TOGETHER_DATA_DIR", "")
+	t.Setenv("KILTER_TOGETHER_DB_PATH", "")
+	t.Setenv("KILTER_TOGETHER_IMAGE_DIR", "")
+	t.Setenv("KILTER_TOGETHER_KILTER_USERNAME", "")
+	t.Setenv("KILTER_TOGETHER_KILTER_PASSWORD", "")
+	t.Setenv("KILTER_TOGETHER_PORT", "")
+
+	runtimeConfig := LoadRuntimeConfig()
+
+	if runtimeConfig.DataDir != "data" {
+		t.Fatalf("expected default data dir, got %q", runtimeConfig.DataDir)
+	}
+	if runtimeConfig.DBPath != "data/kilter.db" {
+		t.Fatalf("expected default db path, got %q", runtimeConfig.DBPath)
+	}
+	if runtimeConfig.ImageDir != "data/images" {
+		t.Fatalf("expected default image dir, got %q", runtimeConfig.ImageDir)
+	}
+	if runtimeConfig.Port != "8082" {
+		t.Fatalf("expected default port, got %q", runtimeConfig.Port)
+	}
+	if runtimeConfig.ListenAddr() != ":8082" {
+		t.Fatalf("expected default listen addr, got %q", runtimeConfig.ListenAddr())
+	}
+}
+
+func TestLoadRuntimeConfigOverrides(t *testing.T) {
+	t.Setenv("KILTER_TOGETHER_DATA_DIR", "/tmp/kilter-data")
+	t.Setenv("KILTER_TOGETHER_DB_PATH", "/tmp/custom.db")
+	t.Setenv("KILTER_TOGETHER_IMAGE_DIR", "/tmp/custom-images")
+	t.Setenv("KILTER_TOGETHER_KILTER_USERNAME", "climber")
+	t.Setenv("KILTER_TOGETHER_KILTER_PASSWORD", "secret")
+	t.Setenv("KILTER_TOGETHER_PORT", ":9090")
+
+	runtimeConfig := LoadRuntimeConfig()
+
+	if runtimeConfig.DataDir != "/tmp/kilter-data" {
+		t.Fatalf("expected overridden data dir, got %q", runtimeConfig.DataDir)
+	}
+	if runtimeConfig.DBPath != "/tmp/custom.db" {
+		t.Fatalf("expected overridden db path, got %q", runtimeConfig.DBPath)
+	}
+	if runtimeConfig.ImageDir != "/tmp/custom-images" {
+		t.Fatalf("expected overridden image dir, got %q", runtimeConfig.ImageDir)
+	}
+	if runtimeConfig.KilterUsername != "climber" {
+		t.Fatalf("expected overridden username, got %q", runtimeConfig.KilterUsername)
+	}
+	if runtimeConfig.KilterPassword != "secret" {
+		t.Fatalf("expected overridden password, got %q", runtimeConfig.KilterPassword)
+	}
+	if runtimeConfig.Port != "9090" {
+		t.Fatalf("expected normalized port, got %q", runtimeConfig.Port)
+	}
+	if runtimeConfig.ListenAddr() != ":9090" {
+		t.Fatalf("expected normalized listen addr, got %q", runtimeConfig.ListenAddr())
+	}
+}

@@ -1,0 +1,25 @@
+services:
+  kilter-together-api:
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    container_name: kilter-together-api
+    expose:
+      - "8082"
+    volumes:
+      - kilter-together-data:/data
+    restart: unless-stopped
+
+  kilter-together-web:
+    build:
+      context: ./kilter-together-app
+      dockerfile: ./Dockerfile
+    container_name: kilter-together-web
+    depends_on:
+      - kilter-together-api
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+volumes:
+  kilter-together-data:
