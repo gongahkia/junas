@@ -40,11 +40,14 @@ Response:
 
 ```json
 {
+  "request_id": "string | null",
   "classification": "SAFE | LOW_RISK | HIGH_RISK",
   "lexicon": {
     "flagged": "bool",
     "high_risk_short_circuit": "bool",
     "total_score": "float",
+    "score_threshold": "float",
+    "score_threshold_exceeded": "bool",
     "hits": [
       {
         "rule": "string",
@@ -63,7 +66,8 @@ Response:
   "clustering": {"anomaly_score": "float", "is_anomaly": "bool", "raw_score": "float"} | null,
   "mosaic": {"escalated": "bool", "count": "int"} | null,
   "regression": {"risk_score": "float", "reasoning": "string"} | null,
-  "embedding": ["float", "..."] | null
+  "embedding": ["float", "..."] | null,
+  "timings_ms": {"layer_name": "float"}
 }
 ```
 
@@ -98,7 +102,8 @@ Notes:
   "status": "ok|degraded",
   "ready": "bool",
   "pipeline": ["layer names"],
-  "missing_required_layers": ["layer names"]
+  "missing_required_layers": ["layer names"],
+  "warming_required_layers": ["layer names"]
 }
 ```
 
@@ -111,7 +116,10 @@ Notes:
   "status": "ok",
   "pipeline": ["layer names"],
   "loaded_layers": ["layer names"],
-  "load_errors": [{"layer": "string", "error": "string"}]
+  "lazy_layers": ["layer names"],
+  "warming_required_layers": ["layer names"],
+  "load_errors": [{"layer": "string", "phase": "startup|lazy_load", "error": "string"}],
+  "startup_timings_ms": {"layer_name": "float"}
 }
 ```
 

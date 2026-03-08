@@ -1,10 +1,13 @@
-from sentence_transformers import SentenceTransformer
-import numpy as np
+"""
+Legacy embeddings generation shim.
 
-model = SentenceTransformer("all-mpnet-base-v2") # mpnet > MiniLM bc more context-aware; embedding quality is important in our case with downstream models
+Canonical implementation lives in layer2-embeddings/generate_embeddings.py.
+"""
 
-public_embeddings = model.encode(public_texts, batch_size=32, show_progress_bar=True)
-violation_embeddings = model.encode(violation_texts, batch_size=32, show_progress_bar=True) # batch_size=32 means 32 texts being processed in parallel; smaller so lower risk of crashing
+from pathlib import Path
+import runpy
 
-np.save("public_embeddings.npy", public_embeddings)
-np.save("violation_embeddings.npy", violation_embeddings)
+CANONICAL_PATH = Path(__file__).resolve().parents[1] / "layer2-embeddings" / "generate_embeddings.py"
+
+if __name__ == "__main__":
+    runpy.run_path(str(CANONICAL_PATH), run_name="__main__")

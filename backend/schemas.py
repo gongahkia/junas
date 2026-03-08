@@ -153,6 +153,7 @@ class ReadyResponse(BaseModel):
     ready: bool
     pipeline: list[str] = Field(default_factory=list)
     missing_required_layers: list[str] = Field(default_factory=list)
+    warming_required_layers: list[str] = Field(default_factory=list)
 
 
 class DiagnosticsResponse(BaseModel):
@@ -160,5 +161,6 @@ class DiagnosticsResponse(BaseModel):
     pipeline: list[str] = Field(default_factory=list)
     loaded_layers: list[str] = Field(default_factory=list)
     lazy_layers: list[str] = Field(default_factory=list)
+    warming_required_layers: list[str] = Field(default_factory=list)
     load_errors: list[dict] = Field(default_factory=list)
     startup_timings_ms: dict[str, float] = Field(default_factory=dict)

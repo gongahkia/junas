@@ -31,6 +31,14 @@ python3 scripts/preflight.py --strict
 uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
+By default, the API now allows degraded startup when configured layers are missing and exposes that state through `GET /ready` and `GET /diagnostics`. When lazy loading is enabled, `GET /ready` remains degraded until required lazy layers finish warming.
+
+Use strict startup locally when you want missing required layers to fail fast:
+
+```sh
+NOUPE_FAIL_ON_LAYER_LOAD_ERROR=1 uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+```
+
 Healthcheck: `curl http://localhost:8000/health`
 
 Readiness: `curl http://localhost:8000/ready`
@@ -60,6 +68,22 @@ Use the production launcher (no autoreload, multi-worker):
 
 ```sh
 ./run_prod.sh
+```
+
+`run_prod.sh` forces strict startup by default and will fail if required configured layers cannot load.
+
+## Bootstrapping Artifacts
+
+If model and clustering checkpoints are missing, generate repo-local runtime artifacts with:
+
+```sh
+python3 train_validate_pipeline.py
+```
+
+If you only need a minimal local server without trained artifacts, you can run lexicon-only mode:
+
+```sh
+PIPELINE_LAYERS=lexicon uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 Useful env vars:
@@ -150,7 +174,9 @@ Notable keys:
 - `MOSAIC_RETRY_BACKOFF_MS`
 - `NOUPE_ALLOWED_ORIGINS` (comma-separated CORS origins)
 - `NOUPE_API_KEY` (optional; when set, `POST /classify` requires `X-API-Key`)
+- `NOUPE_FAIL_ON_LAYER_LOAD_ERROR` (`1`/`0`, default `0` for bare app startup; `run_prod.sh` overrides to `1`)
 - `NOUPE_LAZY_LOAD_HEAVY` (`1`/`0`, default `1`)
+- `NOUPE_PREWARM_REQUIRED_LAYERS` (`1`/`0`, default `1` when lazy loading is enabled)
 - `NOUPE_RESPONSE_CACHE_SIZE` (default `256`)
 - `NOUPE_RESPONSE_CACHE_TTL_SECONDS` (default `60`)
 - `NOUPE_HF_OFFLINE` (optional offline mode hint for preflight)

@@ -38,13 +38,15 @@ def parse_args():
     return p.parse_args()
 
 def wait_for_server(url, timeout):
-    health = f"{url}/health"
+    ready = f"{url}/ready"
     deadline = time.time() + timeout
     while time.time() < deadline:
         try:
-            with urllib.request.urlopen(health, timeout=2) as r:
+            with urllib.request.urlopen(ready, timeout=2) as r:
                 if r.status == 200:
-                    return True
+                    payload = json.loads(r.read().decode())
+                    if payload.get("ready") is True:
+                        return True
         except Exception:
             pass
         time.sleep(1)
@@ -113,6 +115,15 @@ def main():
 
     with open(data_path) as f:
         data = json.load(f)
+
+    expected_labels = {
+        str(item.get("expected_classification", "")).upper().strip()
+        for item in data
+        if item.get("expected_classification")
+    }
+    missing_labels = [label for label in LABELS if label not in expected_labels]
+    if missing_labels:
+        print(f"[eval] warning: eval dataset missing label coverage for {missing_labels}")
 
     server_proc = None
     if not args.no_server:

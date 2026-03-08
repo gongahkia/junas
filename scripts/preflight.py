@@ -21,6 +21,16 @@ def is_truthy(value: str | None) -> bool:
     return value.strip().lower() in {"1", "true", "yes", "on"}
 
 
+def parse_layers_list(raw: str | list | None) -> list[str]:
+    if raw is None:
+        return []
+    if isinstance(raw, str):
+        return [item.strip() for item in raw.split(",") if item.strip()]
+    if isinstance(raw, list):
+        return [str(item).strip() for item in raw if str(item).strip()]
+    return []
+
+
 def load_config(config_path: Path):
     if not config_path.exists():
         return {}, [f"config file missing: {config_path}"]
@@ -120,45 +130,67 @@ def main() -> int:
         "layers",
         ["lexicon", "embedding", "clustering", "model1", "model2", "mosaic", "regression"],
     )
+    optional_layers = set(parse_layers_list(cfg.get("pipeline", {}).get("optional_layers")))
+    configured_layers = set(pipeline)
     invalid_layers = [l for l in pipeline if l not in VALID_LAYERS]
     if invalid_layers:
         warnings.append(f"invalid pipeline layers in config: {invalid_layers}")
     else:
         checks.append(f"pipeline layers valid: {pipeline}")
 
+    def record_layer_state(layer: str, ok: bool, success_msg: str, failure_msg: str) -> None:
+        if layer not in configured_layers:
+            return
+        if ok:
+            checks.append(success_msg)
+            return
+        if layer in optional_layers:
+            checks.append(f"{failure_msg} (optional layer)")
+            return
+        warnings.append(failure_msg)
+
     ok_spacy, msg_spacy = check_spacy_model()
     (checks if ok_spacy else warnings).append(msg_spacy)
 
     clust_ckpt = root / "layer3-clustering" / "checkpoints" / "anomaly_detector.joblib"
-    if clust_ckpt.exists():
-        checks.append(f"clustering checkpoint present: {clust_ckpt}")
-    else:
-        warnings.append(f"clustering checkpoint missing: {clust_ckpt}")
+    record_layer_state(
+        "clustering",
+        clust_ckpt.exists(),
+        f"clustering checkpoint present: {clust_ckpt}",
+        f"clustering checkpoint missing: {clust_ckpt}",
+    )
 
     m1_dir = root / "layer4-classification" / "model-1" / "checkpoints" / "best"
-    if has_model_weights(m1_dir):
-        checks.append(f"model1 weights present: {m1_dir}")
-    else:
-        warnings.append(f"model1 weights missing: {m1_dir}")
+    record_layer_state(
+        "model1",
+        has_model_weights(m1_dir),
+        f"model1 weights present: {m1_dir}",
+        f"model1 weights missing: {m1_dir}",
+    )
 
     m2_dir = root / "layer4-classification" / "model-2" / "checkpoints" / "best"
-    if has_model_weights(m2_dir):
-        checks.append(f"model2 weights present: {m2_dir}")
-    else:
-        warnings.append(f"model2 weights missing: {m2_dir}")
+    record_layer_state(
+        "model2",
+        has_model_weights(m2_dir),
+        f"model2 weights present: {m2_dir}",
+        f"model2 weights missing: {m2_dir}",
+    )
 
     reg_model = root / "layer6-regression" / "checkpoints" / "risk_regressor.json"
     reg_meta = root / "layer6-regression" / "checkpoints" / "metadata.json"
-    if reg_model.exists() and reg_meta.exists():
-        checks.append(f"regression artifacts present: {reg_model}, {reg_meta}")
-    else:
-        warnings.append(f"regression artifacts missing: {reg_model} and/or {reg_meta}")
+    record_layer_state(
+        "regression",
+        reg_model.exists() and reg_meta.exists(),
+        f"regression artifacts present: {reg_model}, {reg_meta}",
+        f"regression artifacts missing: {reg_model} and/or {reg_meta}",
+    )
 
     mosaic_cfg = cfg.get("mosaic", {})
     redis_host = os.environ.get("REDIS_HOST", str(mosaic_cfg.get("redis_host", "localhost")))
     redis_port = int(os.environ.get("REDIS_PORT", str(mosaic_cfg.get("redis_port", 6379))))
-    ok_redis, msg_redis = check_redis(redis_host, redis_port)
-    (checks if ok_redis else warnings).append(msg_redis)
+    if "mosaic" in configured_layers:
+        ok_redis, msg_redis = check_redis(redis_host, redis_port)
+        record_layer_state("mosaic", ok_redis, msg_redis, msg_redis)
 
     hf_offline = any(
         [
@@ -195,6 +227,16 @@ def main() -> int:
     payload = {"checks": checks, "warnings": warnings}
     print("summary_json:")
     print(json.dumps(payload, indent=2))
+
+    artifact_warnings = [
+        item for item in warnings
+        if any(token in item for token in ("checkpoint missing", "weights missing", "artifacts missing"))
+    ]
+    if artifact_warnings:
+        print("next_steps:")
+        print("  - Full pipeline artifacts are not present in this checkout.")
+        print("  - Generate them with: python3 train_validate_pipeline.py")
+        print("  - Or run a minimal lexicon-only server with: PIPELINE_LAYERS=lexicon uvicorn backend.main:app --reload")
 
     if args.strict and warnings:
         return 1

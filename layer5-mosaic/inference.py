@@ -1,4 +1,5 @@
 import logging
+import socket
 import time
 
 import redis
@@ -36,6 +37,8 @@ class MosaicAggregator:
     def _connect(self) -> bool:
         for attempt in range(1, self.retry_attempts + 1):
             try:
+                with socket.create_connection((self.host, self.port), timeout=self.connect_timeout):
+                    pass
                 self.redis = redis.Redis(
                     host=self.host,
                     port=self.port,
@@ -47,7 +50,7 @@ class MosaicAggregator:
                 self.redis.ping()
                 self.connected = True
                 return True
-            except (redis.ConnectionError, redis.TimeoutError):
+            except (OSError, redis.ConnectionError, redis.TimeoutError):
                 self.redis = None
                 self.connected = False
                 if attempt < self.retry_attempts:

@@ -4,6 +4,7 @@
 # Starts FastAPI backend and opens the frontend Chat UI
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
+export NOUPE_FAIL_ON_LAYER_LOAD_ERROR="${NOUPE_FAIL_ON_LAYER_LOAD_ERROR:-1}"
 
 echo "🚀 Starting Noupe services..."
 
@@ -51,8 +52,9 @@ check_dir_has_model() { # dir must contain a model weight file
 check_file "$ROOT/layer3-clustering/checkpoints/anomaly_detector.joblib"
 check_dir_has_model "$ROOT/layer4-classification/model-1/checkpoints/best" "model1"
 check_dir_has_model "$ROOT/layer4-classification/model-2/checkpoints/best" "model2"
-check_file "$ROOT/layer6-regression/checkpoints/risk_regressor.json"
-check_file "$ROOT/layer6-regression/checkpoints/metadata.json"
+if [ ! -f "$ROOT/layer6-regression/checkpoints/risk_regressor.json" ] || [ ! -f "$ROOT/layer6-regression/checkpoints/metadata.json" ]; then
+    echo "ℹ️  Optional regression checkpoint missing. Startup will continue without the regression layer."
+fi
 
 if [ "$MISSING" -gt 0 ]; then
     echo ""
@@ -66,6 +68,7 @@ if [ "$MISSING" -gt 0 ]; then
         echo "Set NOUPE_ALLOW_PARTIAL_START=1 only if you intentionally want degraded startup."
         exit 1
     fi
+    export NOUPE_FAIL_ON_LAYER_LOAD_ERROR="${NOUPE_FAIL_ON_LAYER_LOAD_ERROR:-0}"
 fi
 
 # 1. Start FastAPI backend in the background

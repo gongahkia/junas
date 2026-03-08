@@ -10,7 +10,7 @@ import uuid
 from collections import OrderedDict
 from contextlib import asynccontextmanager
 from pathlib import Path
-from threading import Lock
+from threading import Lock, Thread
 from typing import Any, Callable
 
 try:
@@ -230,6 +230,58 @@ def get_response_cache_settings() -> dict[str, float | int]:
     except ValueError:
         ttl = 60.0
     return {"size": size, "ttl_seconds": ttl}
+
+
+def _set_warming_required_layers(layers: list[str]) -> None:
+    lock: Lock | None = _state.get("warming_lock")
+    normalized = sorted(dict.fromkeys(layers))
+    if lock is None:
+        _state["warming_required_layers"] = normalized
+        return
+    with lock:
+        _state["warming_required_layers"] = normalized
+
+
+def _get_warming_required_layers() -> list[str]:
+    lock: Lock | None = _state.get("warming_lock")
+    if lock is None:
+        return list(_state.get("warming_required_layers", []))
+    with lock:
+        return list(_state.get("warming_required_layers", []))
+
+
+def _mark_required_layer_warmed(layer: str) -> None:
+    lock: Lock | None = _state.get("warming_lock")
+    if lock is None:
+        current = [name for name in _state.get("warming_required_layers", []) if name != layer]
+        _state["warming_required_layers"] = current
+        return
+    with lock:
+        current = [name for name in _state.get("warming_required_layers", []) if name != layer]
+        _state["warming_required_layers"] = current
+
+
+def start_required_layer_prewarm(optional_layers: set[str]) -> None:
+    warming_layers = [
+        layer for layer in sorted(_state.get("lazy_loaders", {}).keys())
+        if layer not in optional_layers
+    ]
+    if not warming_layers:
+        _set_warming_required_layers([])
+        return
+
+    _set_warming_required_layers(warming_layers)
+
+    def _runner() -> None:
+        for layer in warming_layers:
+            try:
+                ensure_layer_loaded(layer)
+            finally:
+                _mark_required_layer_warmed(layer)
+
+    thread = Thread(target=_runner, name="noupe-prewarm", daemon=True)
+    _state["prewarm_thread"] = thread
+    thread.start()
 
 
 def build_response_cache_key(req: ClassifyRequest, pipeline: list[str]) -> str:
@@ -501,23 +553,25 @@ def _classify_core(req: ClassifyRequest, request_id: str | None) -> ClassifyResp
                     final_classification = max_classification(model2_class, classification_floor)
 
             elif layer == "mosaic":
+                entity_id = req.entity_id
+                if not entity_id and lex_resp and lex_resp.restricted_entities:
+                    entity_id = lex_resp.restricted_entities[0].get("name")
+
+                if not entity_id:
+                    continue
+
                 mosaic_agg = get_layer_model("mosaic")
                 if mosaic_agg:
-                    entity_id = req.entity_id
-                    if not entity_id and lex_resp and lex_resp.restricted_entities:
-                        entity_id = lex_resp.restricted_entities[0].get("name")
+                    is_lr = final_classification == Classification.LOW_RISK
+                    m_result = mosaic_agg.aggregate(entity_id=entity_id, is_low_risk=is_lr)
+                    mosaic_resp = MosaicResponse(
+                        escalated=m_result["escalate_to_high_risk"],
+                        count=m_result["count"],
+                    )
 
-                    if entity_id:
-                        is_lr = final_classification == Classification.LOW_RISK
-                        m_result = mosaic_agg.aggregate(entity_id=entity_id, is_low_risk=is_lr)
-                        mosaic_resp = MosaicResponse(
-                            escalated=m_result["escalate_to_high_risk"],
-                            count=m_result["count"],
-                        )
-
-                        if is_lr and m_result["escalate_to_high_risk"]:
-                            classification_floor = Classification.HIGH_RISK
-                            final_classification = Classification.HIGH_RISK
+                    if is_lr and m_result["escalate_to_high_risk"]:
+                        classification_floor = Classification.HIGH_RISK
+                        final_classification = Classification.HIGH_RISK
 
             elif layer == "regression":
                 reg_model = get_layer_model("regression")
@@ -613,8 +667,9 @@ def _classify_core(req: ClassifyRequest, request_id: str | None) -> ClassifyResp
 async def lifespan(app: FastAPI):
     layers = load_config()
     lazy_heavy = _is_truthy(os.environ.get("NOUPE_LAZY_LOAD_HEAVY"), default=True)
+    prewarm_required_layers = _is_truthy(os.environ.get("NOUPE_PREWARM_REQUIRED_LAYERS"), default=True)
     optional_layers = get_optional_layers()
-    fail_on_layer_load_error = _is_truthy(os.environ.get("NOUPE_FAIL_ON_LAYER_LOAD_ERROR"), default=True)
+    fail_on_layer_load_error = _is_truthy(os.environ.get("NOUPE_FAIL_ON_LAYER_LOAD_ERROR"), default=False)
 
     _state["pipeline"] = layers
     _state["optional_layers"] = sorted(optional_layers)
@@ -622,6 +677,8 @@ async def lifespan(app: FastAPI):
     _state["lazy_loaders"] = {}
     _state["load_errors"] = []
     _state["load_lock"] = Lock()
+    _state["warming_lock"] = Lock()
+    _state["warming_required_layers"] = []
     _state["startup_timings_ms"] = {}
     _state["metrics"] = {
         "requests_total": 0,
@@ -718,10 +775,13 @@ async def lifespan(app: FastAPI):
                 _state["models"]["regression"] = reg_mod.XGBoostRegression()
 
             elif layer == "mosaic":
-                mos_mod = load_module_from_path(
-                    "mos_inf", str(PROJECT_ROOT / "layer5-mosaic" / "inference.py")
-                )
-                _state["models"]["mosaic"] = mos_mod.MosaicAggregator.load()
+                def _load_mosaic():
+                    mos_mod = load_module_from_path(
+                        "mos_inf", str(PROJECT_ROOT / "layer5-mosaic" / "inference.py")
+                    )
+                    return mos_mod.MosaicAggregator.load()
+
+                _state["lazy_loaders"]["mosaic"] = _load_mosaic
             else:
                 raise ValueError(f"unknown pipeline layer: {layer}")
 
@@ -760,6 +820,9 @@ async def lifespan(app: FastAPI):
             f"required layers failed to load: {missing_required_layers}. "
             "Set NOUPE_FAIL_ON_LAYER_LOAD_ERROR=0 to allow degraded startup."
         )
+
+    if lazy_heavy and prewarm_required_layers and not missing_required_layers:
+        start_required_layer_prewarm(optional_layers)
 
     yield
     _state.clear()
@@ -850,16 +913,18 @@ async def ready():
     lazy_loaders = _state.get("lazy_loaders", {})
     optional_layers = set(_state.get("optional_layers", []))
     required_layers = [layer for layer in pipeline if layer not in optional_layers]
+    warming_layers = [layer for layer in _get_warming_required_layers() if layer in required_layers]
 
     available_layers = set(models.keys()) | set(lazy_loaders.keys())
     missing = [layer for layer in required_layers if layer not in available_layers]
-    is_ready = len(missing) == 0
+    is_ready = len(missing) == 0 and len(warming_layers) == 0
 
     return ReadyResponse(
         status="ok" if is_ready else "degraded",
         ready=is_ready,
         pipeline=pipeline,
         missing_required_layers=missing,
+        warming_required_layers=warming_layers,
     )
 
 
@@ -872,6 +937,7 @@ async def diagnostics():
         pipeline=pipeline,
         loaded_layers=sorted(models.keys()),
         lazy_layers=sorted(_state.get("lazy_loaders", {}).keys()),
+        warming_required_layers=sorted(_get_warming_required_layers()),
         load_errors=_state.get("load_errors", []),
         startup_timings_ms=_state.get("startup_timings_ms", {}),
     )

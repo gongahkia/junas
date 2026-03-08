@@ -23,19 +23,28 @@
         <div id="analyzer-container">
             <header>
                 <h1>Noupe</h1>
-                <div id="connection-status" title="API Status" style="display: flex; align-items: center; gap: 8px;">
+                <div id="connection-status" title="API Status">
                     <div class="status-dot"></div>
-                    <span id="connection-text"
-                        style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);">Backend at :8000
-                        DOWN</span>
+                    <span id="connection-text">Backend at :8000 DOWN</span>
                 </div>
             </header>
 
             <main>
                 <div class="input-section">
-                    <input type="text" id="entity-input" placeholder="Entity ID (optional, for Mosaic tracking)" style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.9rem; outline: none; transition: all 0.2s;">
-                    <textarea id="analyze-input" placeholder="Enter text to classify sensitivity..."></textarea>
+                    <div class="field-group">
+                        <label class="field-label" for="entity-input">Entity ID</label>
+                        <input type="text" id="entity-input" placeholder="Optional, for Mosaic tracking" aria-describedby="entity-help">
+                        <p id="entity-help" class="field-help">Used to correlate repeated low-risk fragments in the mosaic layer.</p>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="field-label" for="analyze-input">Text to classify</label>
+                        <textarea id="analyze-input" placeholder="Enter text to classify sensitivity..." aria-describedby="analyze-help"></textarea>
+                        <p id="analyze-help" class="field-help">Press Cmd/Ctrl + Enter to submit.</p>
+                    </div>
+
                     <button id="classify-btn">Classify Text</button>
+                    <p class="field-help">API target: <span id="api-base-label"></span></p>
                 </div>
 
                 <div id="results-display" class="hidden">

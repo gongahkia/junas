@@ -4,8 +4,44 @@ const classifyBtn = document.getElementById('classify-btn');
 const resultsDisplay = document.getElementById('results-display');
 const connectionText = document.getElementById('connection-text');
 const statusDot = document.querySelector('.status-dot');
+const apiBaseLabel = document.getElementById('api-base-label');
 
-const API_BASE = 'http://localhost:8000';
+function normalizeApiBase(value) {
+    return value ? value.replace(/\/+$/, '') : '';
+}
+
+function resolveApiBase() {
+    const params = new URLSearchParams(window.location.search);
+    const queryBase = normalizeApiBase(params.get('api'));
+    if (queryBase) {
+        window.localStorage.setItem('noupe.apiBase', queryBase);
+        return queryBase;
+    }
+
+    const savedBase = normalizeApiBase(window.localStorage.getItem('noupe.apiBase'));
+    if (savedBase) {
+        return savedBase;
+    }
+
+    if (window.location.port === '8000' && /^https?:$/.test(window.location.protocol)) {
+        return normalizeApiBase(window.location.origin);
+    }
+
+    return 'http://localhost:8000';
+}
+
+const API_BASE = resolveApiBase();
+const API_HOST_LABEL = (() => {
+    try {
+        return new URL(API_BASE).host;
+    } catch (err) {
+        return API_BASE;
+    }
+})();
+
+if (apiBaseLabel) {
+    apiBaseLabel.textContent = API_BASE;
+}
 
 mermaid.initialize({ startOnLoad: false, theme: 'default' });
 
@@ -17,17 +53,20 @@ async function checkHealth() {
             statusDot.style.backgroundColor = '#10b981';
             statusDot.style.boxShadow = '0 0 8px #10b981';
             if (connectionText) {
-                connectionText.textContent = 'Backend at port 8000: READY';
+                connectionText.textContent = `Backend at ${API_HOST_LABEL}: READY`;
                 connectionText.style.color = '#10b981';
             }
         } else {
             statusDot.style.backgroundColor = '#f59e0b';
             statusDot.style.boxShadow = '0 0 8px #f59e0b';
             if (connectionText) {
+                const warming = Array.isArray(data.warming_required_layers) && data.warming_required_layers.length
+                    ? ` (warming: ${data.warming_required_layers.join(', ')})`
+                    : '';
                 const missing = Array.isArray(data.missing_required_layers) && data.missing_required_layers.length
                     ? ` (missing: ${data.missing_required_layers.join(', ')})`
                     : '';
-                connectionText.textContent = `Backend at port 8000: DEGRADED${missing}`;
+                connectionText.textContent = `Backend at ${API_HOST_LABEL}: DEGRADED${warming || missing}`;
                 connectionText.style.color = '#f59e0b';
             }
         }
@@ -35,7 +74,7 @@ async function checkHealth() {
         statusDot.style.backgroundColor = '#ef4444';
         statusDot.style.boxShadow = '0 0 8px #ef4444';
         if (connectionText) {
-            connectionText.textContent = 'Backend at port 8000: DOWN';
+            connectionText.textContent = `Backend at ${API_HOST_LABEL}: DOWN`;
             connectionText.style.color = '#ef4444';
         }
     }
@@ -58,7 +97,6 @@ function updateResults(data) {
         <div class="details">
     `;
 
-    // Lexicon
     if (data.lexicon && (data.lexicon.flagged || data.lexicon.total_score > 0)) {
         if (data.lexicon.high_risk_short_circuit) {
             html += `<div class="detail-item"><span>Lexicon Filter:</span> <span style="color: var(--high-red); font-weight: 600;">SHORT-CIRCUIT (Score: ${data.lexicon.total_score})</span></div>`;
@@ -67,24 +105,21 @@ function updateResults(data) {
         } else {
             html += `<div class="detail-item"><span>Lexicon Filter:</span> <span style="color: var(--safe-green); font-weight: 600;">INFO HIT (Score: ${data.lexicon.total_score})</span></div>`;
         }
-        data.lexicon.hits.forEach(hit => {
+        data.lexicon.hits.forEach((hit) => {
             html += `<div style="font-size: 0.75rem; color: #555; margin-left: 12px; margin-top: -8px; margin-bottom: 8px;">&bull; Match: "${hit.matched_text}" (${hit.rule}) - Score: ${hit.score}</div>`;
         });
     } else {
         html += `<div class="detail-item"><span>Lexicon Filter:</span> <span style="color: var(--safe-green);">CLEAN (Score: 0)</span></div>`;
     }
 
-    // Model 1
     if (data.model1) {
         html += `<div class="detail-item"><span>NLP Model 1 (Public/Private):</span> <span>${(data.model1.confidence * 100).toFixed(1)}% ${data.model1.label}</span></div>`;
     }
 
-    // Model 2
     if (data.model2) {
         html += `<div class="detail-item"><span>NLP Model 2 (Severity):</span> <span>${(data.model2.confidence * 100).toFixed(1)}% ${data.model2.label.replace('_', ' ')}</span></div>`;
     }
 
-    // Mosaic
     if (data.mosaic) {
         if (data.mosaic.escalated) {
             html += `<div class="detail-item"><span>Mosaic Aggregation:</span> <span style="color: var(--high-red); font-weight: 600;">ESCALATED (${data.mosaic.count} recent hits)</span></div>`;
@@ -93,7 +128,6 @@ function updateResults(data) {
         }
     }
 
-    // Regression
     if (data.regression) {
         html += `<div class="detail-item"><span>Regression (Final Score):</span> <span>${data.regression.risk_score.toFixed(3)}</span></div>`;
         if (data.regression.reasoning) {
@@ -119,100 +153,100 @@ flowchart TD
 `;
 
     if (responseData.lexicon && responseData.lexicon.high_risk_short_circuit) {
-        mermaidDef += `    class L1 red;\n`;
-        mermaidDef += `    L1 -.-> Reg[6. Regression]\n`;
+        mermaidDef += '    class L1 red;\n';
+        mermaidDef += '    L1 -.-> Reg[6. Regression]\n';
         if (responseData.regression) {
-            mermaidDef += `    class Reg red;\n`;
-            mermaidDef += `    Reg -.-> Out[Final Output]\n`;
-            mermaidDef += `    class Out red;\n`;
+            mermaidDef += '    class Reg red;\n';
+            mermaidDef += '    Reg -.-> Out[Final Output]\n';
+            mermaidDef += '    class Out red;\n';
         } else {
-            mermaidDef += `    class Reg gray;\n`;
-            mermaidDef += `    Reg -.-> Out[Final Output]\n`;
-            mermaidDef += `    class Out red;\n`;
+            mermaidDef += '    class Reg gray;\n';
+            mermaidDef += '    Reg -.-> Out[Final Output]\n';
+            mermaidDef += '    class Out red;\n';
         }
     } else {
         if (responseData.lexicon && responseData.lexicon.flagged) {
-            mermaidDef += `    class L1 red;\n`;
+            mermaidDef += '    class L1 red;\n';
         } else {
-            mermaidDef += `    class L1 green;\n`;
+            mermaidDef += '    class L1 green;\n';
         }
 
-        mermaidDef += `    L1 --> L2[2. Embeddings Generation]\n`;
-        mermaidDef += `    class L2 green;\n`;
+        mermaidDef += '    L1 --> L2[2. Embeddings Generation]\n';
+        mermaidDef += '    class L2 green;\n';
 
-        mermaidDef += `    L2 --> L3[3. Clustering]\n`;
+        mermaidDef += '    L2 --> L3[3. Clustering]\n';
         if (responseData.clustering) {
-            mermaidDef += `    class L3 green;\n`;
+            mermaidDef += '    class L3 green;\n';
         } else {
-            mermaidDef += `    class L3 gray;\n`;
+            mermaidDef += '    class L3 gray;\n';
         }
 
-        mermaidDef += `    L2 --> L4[4. Classification Model 1]\n`;
+        mermaidDef += '    L2 --> L4[4. Classification Model 1]\n';
 
-        let pathFromModel1 = "L4";
+        let pathFromModel1 = 'L4';
 
         if (responseData.model1) {
-            if (responseData.model1.label === "safe") {
-                mermaidDef += `    class L4 green;\n`;
+            if (responseData.model1.label === 'safe') {
+                mermaidDef += '    class L4 green;\n';
             } else {
-                mermaidDef += `    class L4 red;\n`;
-                mermaidDef += `    L4 --> L4b[4b. Classification Model 2]\n`;
+                mermaidDef += '    class L4 red;\n';
+                mermaidDef += '    L4 --> L4b[4b. Classification Model 2]\n';
                 if (responseData.model2) {
-                    if (responseData.model2.label === "high_risk") {
-                        mermaidDef += `    class L4b red;\n`;
+                    if (responseData.model2.label === 'high_risk') {
+                        mermaidDef += '    class L4b red;\n';
                     } else {
-                        mermaidDef += `    class L4b green;\n`;
+                        mermaidDef += '    class L4b green;\n';
                     }
                 } else {
-                    mermaidDef += `    class L4b gray;\n`;
+                    mermaidDef += '    class L4b gray;\n';
                 }
-                pathFromModel1 = "L4b";
+                pathFromModel1 = 'L4b';
             }
         } else {
-            mermaidDef += `    class L4 gray;\n`;
+            mermaidDef += '    class L4 gray;\n';
         }
 
-        mermaidDef += `    L3 -.-> L5[5. Mosaic Aggregation]\n`;
+        mermaidDef += '    L3 -.-> L5[5. Mosaic Aggregation]\n';
         mermaidDef += `    ${pathFromModel1} -.-> L5\n`;
 
         if (responseData.mosaic) {
-            mermaidDef += `    class L5 ${responseData.mosaic.escalated ? "red" : "yellow"};\n`;
+            mermaidDef += `    class L5 ${responseData.mosaic.escalated ? 'red' : 'yellow'};\n`;
         } else {
-            mermaidDef += `    class L5 gray;\n`;
+            mermaidDef += '    class L5 gray;\n';
         }
 
-        mermaidDef += `    L5 -.-> Reg[6. Regression]\n`;
+        mermaidDef += '    L5 -.-> Reg[6. Regression]\n';
 
         if (responseData.regression) {
-            let regColor = responseData.regression.risk_score > 0.7 ? "red" : (responseData.regression.risk_score > 0.4 ? "yellow" : "green");
-            if (responseData.classification === "HIGH_RISK") regColor = "red";
+            let regColor = responseData.regression.risk_score > 0.7 ? 'red' : (responseData.regression.risk_score > 0.4 ? 'yellow' : 'green');
+            if (responseData.classification === 'HIGH_RISK') regColor = 'red';
 
             mermaidDef += `    class Reg ${regColor};\n`;
-            mermaidDef += `    Reg -.-> Out[Final Output];\n`;
+            mermaidDef += '    Reg -.-> Out[Final Output];\n';
 
-            let outColor = responseData.classification === "HIGH_RISK" ? "red" : (responseData.classification === "LOW_RISK" ? "yellow" : "green");
+            const outColor = responseData.classification === 'HIGH_RISK'
+                ? 'red'
+                : (responseData.classification === 'LOW_RISK' ? 'yellow' : 'green');
             mermaidDef += `    class Out ${outColor};\n`;
         } else {
-            mermaidDef += `    class Reg gray;\n`;
-            mermaidDef += `    Reg -.-> Out[Final Output];\n`;
-            mermaidDef += `    class Out default;\n`;
+            mermaidDef += '    class Reg gray;\n';
+            mermaidDef += '    Reg -.-> Out[Final Output];\n';
+            mermaidDef += '    class Out default;\n';
         }
     }
 
     const container = document.getElementById('architecture-diagram');
     try {
-        const { svg } = await mermaid.render('mermaid-chart-' + Date.now().toString(), mermaidDef);
+        const { svg } = await mermaid.render(`mermaid-chart-${Date.now().toString()}`, mermaidDef);
         container.innerHTML = svg;
     } catch (e) {
         console.error(e);
-        container.innerHTML = `<span style="color:var(--high-red)">Failed to map diagram.</span>`;
+        container.innerHTML = '<span style="color:var(--high-red)">Failed to map diagram.</span>';
     }
 }
 
 function updateDebugView(reqBody, responseData) {
-    const curl = `curl -X POST "${API_BASE}/classify" \\
-     -H "Content-Type: application/json" \\
-     -d '${JSON.stringify(reqBody).replace(/'/g, "'\\''")}'`;
+    const curl = `curl -X POST "${API_BASE}/classify" \\\n     -H "Content-Type: application/json" \\\n     -d '${JSON.stringify(reqBody).replace(/'/g, "'\\''")}'`;
 
     const jsonResponse = JSON.stringify(responseData, null, 2);
 
@@ -223,7 +257,6 @@ function updateDebugView(reqBody, responseData) {
         curlCode.textContent = curl;
         jsonCode.textContent = jsonResponse;
 
-        // Remove existing highlighting traces
         curlCode.removeAttribute('data-highlighted');
         jsonCode.removeAttribute('data-highlighted');
 
@@ -238,31 +271,42 @@ async function handleClassify() {
     const text = analyzeInput.value.trim();
     if (!text) return;
 
-    const entity_id = entityInput ? entityInput.value.trim() : "";
+    const entityId = entityInput ? entityInput.value.trim() : '';
 
     classifyBtn.disabled = true;
     classifyBtn.textContent = 'Analyzing...';
 
     const reqBody = { text };
-    if (entity_id) {
-        reqBody.entity_id = entity_id;
+    if (entityId) {
+        reqBody.entity_id = entityId;
     }
 
     try {
         const response = await fetch(`${API_BASE}/classify`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(reqBody)
+            body: JSON.stringify(reqBody),
         });
 
-        if (!response.ok) throw new Error('API request failed');
+        if (!response.ok) {
+            let message = 'API request failed';
+            try {
+                const payload = await response.json();
+                if (payload && typeof payload.detail === 'string' && payload.detail.trim()) {
+                    message = payload.detail.trim();
+                }
+            } catch (err) {
+                // Ignore JSON parse issues and keep the generic message.
+            }
+            throw new Error(`${message} (HTTP ${response.status})`);
+        }
 
         const data = await response.json();
         updateResults(data);
         updateDebugView(reqBody, data);
     } catch (err) {
         resultsDisplay.classList.remove('hidden');
-        resultsDisplay.innerHTML = `<div style="color: var(--high-red);">Error: ${err.message}. Check if backend is running.</div>`;
+        resultsDisplay.innerHTML = `<div style="color: var(--high-red);">Error: ${err.message}. Check the API target and backend readiness state.</div>`;
     } finally {
         classifyBtn.disabled = false;
         classifyBtn.textContent = 'Classify Text';
@@ -270,3 +314,10 @@ async function handleClassify() {
 }
 
 classifyBtn.addEventListener('click', handleClassify);
+
+analyzeInput.addEventListener('keydown', (event) => {
+    if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
+        event.preventDefault();
+        handleClassify();
+    }
+});
