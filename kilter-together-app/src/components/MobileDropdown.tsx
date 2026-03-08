@@ -40,9 +40,17 @@ export default function MobileDropdown({
   onSetterChange,
 }: MobileDropdownProps) {
   return (
-    <div className="md:hidden p-4 border-b bg-card">
-      <Card>
-        <CardContent className="p-4 space-y-3">
+    <div className="md:hidden px-4 pb-4">
+      <Card className="border-0 bg-white/85 shadow-lg shadow-teal-950/10 backdrop-blur">
+        <CardContent className="space-y-4 p-5">
+          <div>
+            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+              Solo controls
+            </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Adjust filters or jump directly to a climb from this device.
+            </p>
+          </div>
           <div className="flex flex-col gap-3">
             <AngleSelector angle={angle} onAngleChange={onAngleChange} />
             <SortSelector sort={sort} onSortChange={onSortChange} />

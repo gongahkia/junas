@@ -6,6 +6,13 @@ import {
   getGradeForAngle,
   getRouteGradeForAngle,
 } from "@/lib/climbs";
+import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+} from "@/components/ui/card";
 
 interface ProblemViewProps {
   selectedClimb: Climb | null;
@@ -29,28 +36,39 @@ export default function ProblemView({
 
   if (!selectedClimb) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <p className="text-muted-foreground text-lg">
-          {hasResults
-            ? "Select a problem to view details."
-            : "No climbs match the current filters."}
-        </p>
-      </div>
+      <Card className="h-full border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
+        <CardContent className="flex h-full min-h-[24rem] items-center justify-center text-center text-muted-foreground">
+          <p className="max-w-md text-lg">
+            {hasResults
+              ? "Select a problem to view details."
+              : "No climbs match the current filters."}
+          </p>
+        </CardContent>
+      </Card>
     );
   }
 
   return (
-    <div className="flex flex-col h-full gap-6">
-      <div className="space-y-3">
+    <Card className="h-full border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
+      <CardHeader className="gap-4">
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge variant="secondary">{getGradeForAngle(selectedClimb, angle)}</Badge>
+          <Badge variant="outline">{selectedClimb.ascends} ascends</Badge>
+          <Badge variant="outline">{selectedClimb.setter_name}</Badge>
+        </div>
         <div>
-          <h3 className="text-3xl">{selectedClimb.climb_name}</h3>
+          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+            {selectedClimb.climb_name}
+          </h2>
           {selectedClimb.description ? (
-            <p className="mt-2 text-muted-foreground">
+            <CardDescription className="mt-3 max-w-3xl text-base leading-7">
               {selectedClimb.description}
-            </p>
+            </CardDescription>
           ) : null}
         </div>
+      </CardHeader>
 
+      <CardContent className="grid gap-6">
         <div className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-2 xl:grid-cols-3">
           <span>Boulder grade: {getGradeForAngle(selectedClimb, angle)}</span>
           <span>Route grade: {getRouteGradeForAngle(selectedClimb, angle)}</span>
@@ -59,37 +77,37 @@ export default function ProblemView({
           <span>Created: {formatClimbDate(selectedClimb.created_at)}</span>
           <span>Board size ID: {selectedClimb.product_size_id}</span>
         </div>
-      </div>
 
-      <div className="flex-1 flex items-center justify-center rounded-2xl border bg-card/30 p-4">
-        {imageFilenames.length === 0 ? (
-          <p className="text-muted-foreground">No board images are available for this climb.</p>
-        ) : visibleImages.length === 0 ? (
-          <p className="text-muted-foreground">Board images failed to load for this climb.</p>
-        ) : (
-          <div className="relative max-w-full max-h-full">
-            {visibleImages.map((filename, index) => (
-              <img
-                key={filename}
-                src={api.getImageUrl(filename)}
-                alt={`${selectedClimb.climb_name} board layer ${index + 1}`}
-                className={`max-w-full max-h-[70vh] object-contain ${
-                  index === 0 ? "relative" : "absolute top-0 left-0"
-                }`}
-                style={{
-                  mixBlendMode: index > 0 ? "multiply" : "normal",
-                }}
-                onError={() =>
-                  setFailedImages((previousState) => ({
-                    ...previousState,
-                    [filename]: true,
-                  }))
-                }
-              />
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
+        <div className="flex flex-1 items-center justify-center rounded-3xl border bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.12),_transparent_45%),linear-gradient(180deg,_rgba(255,255,255,0.88),_rgba(240,249,255,0.65))] p-4">
+          {imageFilenames.length === 0 ? (
+            <p className="text-muted-foreground">No board images are available for this climb.</p>
+          ) : visibleImages.length === 0 ? (
+            <p className="text-muted-foreground">Board images failed to load for this climb.</p>
+          ) : (
+            <div className="relative max-w-full max-h-full">
+              {visibleImages.map((filename, index) => (
+                <img
+                  key={filename}
+                  src={api.getImageUrl(filename)}
+                  alt={`${selectedClimb.climb_name} board layer ${index + 1}`}
+                  className={`max-w-full max-h-[70vh] object-contain ${
+                    index === 0 ? "relative" : "absolute top-0 left-0"
+                  }`}
+                  style={{
+                    mixBlendMode: index > 0 ? "multiply" : "normal",
+                  }}
+                  onError={() =>
+                    setFailedImages((previousState) => ({
+                      ...previousState,
+                      [filename]: true,
+                    }))
+                  }
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </CardContent>
+    </Card>
   );
 }

@@ -5,8 +5,8 @@ import {
   useRef,
   useState,
 } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { ChevronLeft } from "lucide-react";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { ChevronLeft, Layers3 } from "lucide-react";
 import { api } from "../api";
 import type { Board, Climb } from "../types";
 import Sidebar from "./Sidebar";
@@ -14,10 +14,12 @@ import MobileDropdown from "./MobileDropdown";
 import ProblemView from "./ProblemView";
 import { normalizeAngle, normalizeSort } from "@/lib/climbs";
 import { rememberSoloResume } from "@/lib/user-prefs";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  SidebarProvider,
   SidebarInset,
+  SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 
@@ -228,15 +230,27 @@ export default function ClimbView({
 
   if (loading && currentPage === 1) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg text-muted-foreground">Loading climbs...</div>
+      <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))] px-6 py-10">
+        <div className="mx-auto flex min-h-[70vh] max-w-6xl items-center justify-center">
+          <Card className="w-full max-w-xl border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
+            <CardHeader>
+              <CardTitle className="text-3xl">Loading solo browse</CardTitle>
+              <CardDescription className="text-base">
+                Pulling climbs for {boardsLoading ? "the selected board" : boardName}.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
       </div>
     );
   }
 
   return (
-    <SidebarProvider defaultOpen={true}>
-      <div className="min-h-screen bg-background flex">
+    <SidebarProvider
+      defaultOpen={true}
+      className="bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))]"
+    >
+      <div className="min-h-screen w-full">
         <Sidebar
           boardName={boardName}
           climbs={climbs}
@@ -266,33 +280,66 @@ export default function ClimbView({
           pageLoading={pageLoading}
         />
 
-        <SidebarInset>
-          <div className="flex flex-col h-screen">
-            <div className="md:hidden bg-card shadow-sm border-b">
-              <div className="px-4 py-3">
-                <div className="flex items-center gap-2 mb-2">
-                  <SidebarTrigger className="md:hidden" />
-                  <Button
-                    variant="ghost"
-                    onClick={() => navigate(backPath)}
-                    className="flex items-center gap-2"
-                  >
-                    <ChevronLeft className="h-4 w-4" />
-                    Back
-                  </Button>
-                </div>
-                <div className="flex items-center justify-between">
-                  <h2 className="text-xl">{boardName}</h2>
-                </div>
-              </div>
-            </div>
-
-            <div className="hidden md:flex items-center gap-2 p-4 border-b bg-card">
-              <SidebarTrigger />
-              <h2 className="text-xl">{boardName}</h2>
-            </div>
-
+        <SidebarInset className="bg-transparent md:ml-[calc(var(--sidebar-width)+1.5rem)]">
+          <div className="flex min-h-screen flex-col px-4 py-5 sm:px-6">
             <div className="md:hidden">
+              <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
+                <CardHeader className="gap-3">
+                  <div className="flex items-center gap-2">
+                    <SidebarTrigger className="md:hidden" />
+                    <Button
+                      variant="ghost"
+                      onClick={() => navigate(backPath)}
+                      className="flex items-center gap-2 rounded-xl"
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                      Back
+                    </Button>
+                  </div>
+                  <div className="space-y-2">
+                    <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+                      Solo Kilter Browse
+                    </p>
+                    <h2 className="text-2xl font-semibold">{boardName}</h2>
+                  </div>
+                </CardHeader>
+              </Card>
+            </div>
+
+            <div className="hidden md:block">
+              <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
+                <CardHeader className="flex flex-row items-start justify-between gap-4 space-y-0">
+                  <div className="flex items-start gap-3">
+                    <SidebarTrigger className="mt-1" />
+                    <div>
+                      <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">
+                        Solo Kilter Browse
+                      </p>
+                      <CardTitle className="mt-3 text-4xl tracking-tight">{boardName}</CardTitle>
+                      <CardDescription className="mt-3 max-w-2xl text-base leading-7">
+                        Read-only climb scouting with the same local catalog used by rooms. Filter in the sidebar, then inspect the overlay and metadata here.
+                      </CardDescription>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Badge variant="secondary">{angle}°</Badge>
+                    <Badge variant="outline">{sort}</Badge>
+                    <Badge variant="outline">
+                      <Layers3 className="mr-1 h-3.5 w-3.5" />
+                      {climbs.length} visible
+                    </Badge>
+                    <Button asChild variant="ghost">
+                      <Link to={backPath}>
+                        <ChevronLeft className="mr-2 h-4 w-4" />
+                        Back
+                      </Link>
+                    </Button>
+                  </div>
+                </CardHeader>
+              </Card>
+            </div>
+
+            <div className="mt-4 md:hidden">
               <MobileDropdown
                 climbs={climbs}
                 selectedClimb={selectedClimb}
@@ -316,31 +363,33 @@ export default function ClimbView({
               />
 
               <div className="px-4 pb-4">
-                <div className="flex items-center justify-between gap-2">
-                  <Button
-                    variant="outline"
-                    onClick={goToPreviousPage}
-                    disabled={currentPage === 1 || pageLoading}
-                    className="flex-1"
-                  >
-                    Previous
-                  </Button>
-                  <span className="text-sm text-muted-foreground px-3">
-                    {pageLoading ? "Loading..." : `Page ${currentPage}`}
-                  </span>
-                  <Button
-                    variant="outline"
-                    onClick={goToNextPage}
-                    disabled={!hasNextPage || pageLoading}
-                    className="flex-1"
-                  >
-                    Next
-                  </Button>
-                </div>
+                <Card className="border-0 bg-white/85 shadow-lg shadow-teal-950/10 backdrop-blur">
+                  <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0">
+                    <Button
+                      variant="outline"
+                      onClick={goToPreviousPage}
+                      disabled={currentPage === 1 || pageLoading}
+                      className="flex-1 rounded-xl"
+                    >
+                      Previous
+                    </Button>
+                    <span className="px-3 text-sm text-muted-foreground">
+                      {pageLoading ? "Loading..." : `Page ${currentPage}`}
+                    </span>
+                    <Button
+                      variant="outline"
+                      onClick={goToNextPage}
+                      disabled={!hasNextPage || pageLoading}
+                      className="flex-1 rounded-xl"
+                    >
+                      Next
+                    </Button>
+                  </CardHeader>
+                </Card>
               </div>
             </div>
 
-            <div className="flex-1 p-4 md:p-6 overflow-auto">
+            <div className="mt-4 flex-1 overflow-auto">
               <ProblemView
                 selectedClimb={selectedClimb}
                 angle={angle}
