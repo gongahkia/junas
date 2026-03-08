@@ -188,18 +188,6 @@ export default function BoardSelector({
             </CardContent>
           </Card>
         </section>
-
-        <footer className="border-t pt-8 text-center text-muted-foreground">
-          <p>
-            Made with care by Ze Ming and Gabriel.{" "}
-            <a
-              href="https://github.com/lczm/kilter-together"
-              className="text-primary hover:underline"
-            >
-              Source code here
-            </a>
-          </p>
-        </footer>
       </div>
     </div>
   );

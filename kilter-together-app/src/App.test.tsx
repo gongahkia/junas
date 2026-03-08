@@ -168,6 +168,20 @@ describe("App routes", () => {
     expect(screen.getByText("A direct-link test climb")).toBeInTheDocument();
   });
 
+  it("shows the global community bottom bar", async () => {
+    mockedApi.getBoards.mockResolvedValue([]);
+
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(
+      await screen.findByText(/for the Climbing Community by Gabriel Ong/i)
+    ).toBeInTheDocument();
+  });
+
   it("supports direct collaborative room route loads", async () => {
     mockedApi.getBoards.mockResolvedValue([]);
     mockedApi.getRoom.mockResolvedValue({
