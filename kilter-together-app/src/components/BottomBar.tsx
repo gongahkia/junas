@@ -1,4 +1,4 @@
-const heartPngSrc = "";
+const heartPngSrc = "/heart.png";
 
 export default function BottomBar() {
   return (

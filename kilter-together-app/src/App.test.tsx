@@ -169,6 +169,7 @@ describe("App routes", () => {
   });
 
   it("shows the global community bottom bar", async () => {
+    const user = userEvent.setup();
     mockedApi.getBoards.mockResolvedValue([]);
 
     render(
@@ -180,6 +181,11 @@ describe("App routes", () => {
     expect(
       await screen.findByText(/for the Climbing Community by Gabriel Ong/i)
     ).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Start exploring" }));
+    expect(screen.getByRole("img", { name: /love/i })).toHaveAttribute(
+      "src",
+      "/heart.png"
+    );
   });
 
   it("supports direct collaborative room route loads", async () => {

@@ -34,7 +34,7 @@ export default function IntroDialog({
 }: IntroDialogProps) {
   return (
     <Dialog open={open} onOpenChange={(nextOpen) => !nextOpen && onDismiss()}>
-      <DialogContent className="max-w-5xl border-0 bg-white/95 p-0 shadow-2xl shadow-teal-950/20 backdrop-blur sm:rounded-[2rem]">
+      <DialogContent className="max-w-[calc(100vw-1.5rem)] border-0 bg-white/95 p-0 shadow-2xl shadow-teal-950/20 backdrop-blur sm:max-w-5xl sm:rounded-[2rem] lg:max-w-6xl">
         <div className="grid gap-8 p-6 sm:p-10">
           <DialogHeader className="gap-5 text-left">
             <div className="inline-flex w-fit items-center gap-2 rounded-full bg-teal-100 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.28em] text-teal-800">
