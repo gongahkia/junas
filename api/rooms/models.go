@@ -20,6 +20,11 @@ const (
 
 	hostRole        = "host"
 	participantRole = "participant"
+
+	participantStatusWatching = "watching"
+	participantStatusReady    = "ready"
+	participantStatusResting  = "resting"
+	participantStatusAway     = "away"
 )
 
 type Room struct {
@@ -45,6 +50,7 @@ type RoomParticipant struct {
 	RoomID      uint      `gorm:"index:idx_room_display_name,unique;not null"`
 	DisplayName string    `gorm:"index:idx_room_display_name,unique;not null"`
 	Role        string    `gorm:"index;not null"`
+	Status      string    `gorm:"index;not null;default:watching"`
 	LastSeenAt  time.Time `gorm:"index;not null"`
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
@@ -90,16 +96,34 @@ type RoomQueueEntry struct {
 	UpdatedAt            time.Time
 }
 
+type RoomFinalistEntry struct {
+	ID                   uint   `gorm:"primaryKey"`
+	RoomID               uint   `gorm:"index:idx_room_finalist_climb,unique;index;not null"`
+	ClimbID              string `gorm:"index:idx_room_finalist_climb,unique;not null"`
+	AddedByParticipantID uint   `gorm:"index;not null"`
+	Position             int    `gorm:"index;not null"`
+	CreatedAt            time.Time
+	UpdatedAt            time.Time
+}
+
 type ParticipantView struct {
 	ID          uint   `json:"id"`
 	DisplayName string `json:"display_name"`
 	Role        string `json:"role"`
+	Status      string `json:"status"`
 	IsOnline    bool   `json:"is_online"`
 }
 
 type QueueEntryView struct {
 	ID       uint                    `json:"id"`
 	Status   string                  `json:"status"`
+	Position int                     `json:"position"`
+	AddedBy  string                  `json:"added_by"`
+	Climb    providers.ProviderClimb `json:"climb"`
+}
+
+type FinalistEntryView struct {
+	ID       uint                    `json:"id"`
 	Position int                     `json:"position"`
 	AddedBy  string                  `json:"added_by"`
 	Climb    providers.ProviderClimb `json:"climb"`
@@ -130,6 +154,7 @@ type RoomSnapshot struct {
 	Connection   providers.ProviderConnectionState `json:"connection"`
 	CurrentClimb *providers.ProviderClimb          `json:"current_climb,omitempty"`
 	Participants []ParticipantView                 `json:"participants"`
+	Finalists    []FinalistEntryView               `json:"finalists"`
 	Queue        []QueueEntryView                  `json:"queue"`
 	VoteCounts   map[string]int                    `json:"vote_counts"`
 	MyVotes      []string                          `json:"my_votes"`

@@ -38,12 +38,33 @@ type reorderQueueRequest struct {
 	EntryIDs []uint `json:"entry_ids"`
 }
 
+type reorderFinalistsRequest struct {
+	EntryIDs []uint `json:"entry_ids"`
+}
+
 type updateQueueEntryRequest struct {
 	Status string `json:"status"`
 }
 
 type addQueueEntryRequest struct {
 	ClimbID string `json:"climb_id"`
+}
+
+type addFinalistRequest struct {
+	ClimbID string `json:"climb_id"`
+}
+
+type pickRandomRequest struct {
+	Source string `json:"source"`
+}
+
+type promoteQueueRequest struct {
+	ClimbID string `json:"climb_id"`
+	Status  string `json:"status"`
+}
+
+type participantStatusRequest struct {
+	Status string `json:"status"`
 }
 
 func CreateRoom(w http.ResponseWriter, r *http.Request) {
@@ -308,6 +329,27 @@ func AddRoomQueueEntry(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusCreated, map[string]string{"status": "ok"})
 }
 
+func AddRoomFinalist(w http.ResponseWriter, r *http.Request) {
+	viewer, err := authenticateViewer(r, true)
+	if err != nil {
+		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		return
+	}
+
+	var request addFinalistRequest
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		writeJSONError(w, http.StatusBadRequest, "invalid request body")
+		return
+	}
+
+	if err := rooms.DefaultService.AddFinalist(r.Context(), viewer, request.ClimbID); err != nil {
+		writeJSONError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	writeJSON(w, http.StatusCreated, map[string]string{"status": "ok"})
+}
+
 func ReorderRoomQueue(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, true)
 	if err != nil {
@@ -322,6 +364,27 @@ func ReorderRoomQueue(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := rooms.DefaultService.ReorderQueue(r.Context(), viewer, request.EntryIDs); err != nil {
+		writeJSONError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
+}
+
+func ReorderRoomFinalists(w http.ResponseWriter, r *http.Request) {
+	viewer, err := authenticateViewer(r, true)
+	if err != nil {
+		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		return
+	}
+
+	var request reorderFinalistsRequest
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		writeJSONError(w, http.StatusBadRequest, "invalid request body")
+		return
+	}
+
+	if err := rooms.DefaultService.ReorderFinalists(r.Context(), viewer, request.EntryIDs); err != nil {
 		writeJSONError(w, http.StatusBadRequest, err.Error())
 		return
 	}
@@ -356,6 +419,27 @@ func UpdateRoomQueueEntry(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 }
 
+func DeleteRoomFinalist(w http.ResponseWriter, r *http.Request) {
+	viewer, err := authenticateViewer(r, true)
+	if err != nil {
+		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		return
+	}
+
+	entryID, err := strconv.ParseUint(chi.URLParam(r, "entryId"), 10, 64)
+	if err != nil {
+		writeJSONError(w, http.StatusBadRequest, "invalid finalist entry id")
+		return
+	}
+
+	if err := rooms.DefaultService.DeleteFinalist(r.Context(), viewer, uint(entryID)); err != nil {
+		writeJSONError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
+}
+
 func DeleteRoomQueueEntry(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, true)
 	if err != nil {
@@ -377,6 +461,51 @@ func DeleteRoomQueueEntry(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 }
 
+func PickRandomRoomClimb(w http.ResponseWriter, r *http.Request) {
+	viewer, err := authenticateViewer(r, true)
+	if err != nil {
+		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		return
+	}
+
+	var request pickRandomRequest
+	if r.ContentLength > 0 {
+		if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+			writeJSONError(w, http.StatusBadRequest, "invalid request body")
+			return
+		}
+	}
+
+	climb, err := rooms.DefaultService.PickRandom(r.Context(), viewer, request.Source)
+	if err != nil {
+		writeJSONError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	writeJSON(w, http.StatusOK, map[string]any{"climb": climb})
+}
+
+func PromoteRoomQueueClimb(w http.ResponseWriter, r *http.Request) {
+	viewer, err := authenticateViewer(r, true)
+	if err != nil {
+		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		return
+	}
+
+	var request promoteQueueRequest
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		writeJSONError(w, http.StatusBadRequest, "invalid request body")
+		return
+	}
+
+	if err := rooms.DefaultService.PromoteClimb(r.Context(), viewer, request.ClimbID, request.Status); err != nil {
+		writeJSONError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
+}
+
 func ClearRoomVotes(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, true)
 	if err != nil {
@@ -385,6 +514,27 @@ func ClearRoomVotes(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := rooms.DefaultService.ClearVotes(r.Context(), viewer); err != nil {
+		writeJSONError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
+}
+
+func UpdateMyParticipantStatus(w http.ResponseWriter, r *http.Request) {
+	viewer, err := authenticateViewer(r, false)
+	if err != nil {
+		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		return
+	}
+
+	var request participantStatusRequest
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		writeJSONError(w, http.StatusBadRequest, "invalid request body")
+		return
+	}
+
+	if err := rooms.DefaultService.UpdateParticipantStatus(r.Context(), viewer, request.Status); err != nil {
 		writeJSONError(w, http.StatusBadRequest, err.Error())
 		return
 	}

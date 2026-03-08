@@ -69,6 +69,9 @@ func TestServiceRoomLifecycle(t *testing.T) {
 	if len(guestSnapshot.Participants) != 2 {
 		t.Fatalf("expected host and guest participants, got %#v", guestSnapshot.Participants)
 	}
+	if guestSnapshot.Participants[0].Status != participantStatusWatching || guestSnapshot.Participants[1].Status != participantStatusWatching {
+		t.Fatalf("expected watching to be the default participant status, got %#v", guestSnapshot.Participants)
+	}
 
 	guestViewer, err := service.Authenticate(ctx, createdSnapshot.Slug, guestSessionID, "")
 	if err != nil {
@@ -103,6 +106,15 @@ func TestServiceRoomLifecycle(t *testing.T) {
 	if err := service.AddQueueEntry(ctx, hostViewer, "fake:alpha"); err != nil {
 		t.Fatalf("queue second climb: %v", err)
 	}
+	if err := service.AddFinalist(ctx, hostViewer, "fake:beta"); err != nil {
+		t.Fatalf("add finalist: %v", err)
+	}
+	if err := service.AddFinalist(ctx, hostViewer, "fake:alpha"); err != nil {
+		t.Fatalf("add second finalist: %v", err)
+	}
+	if err := service.UpdateParticipantStatus(ctx, guestViewer, participantStatusReady); err != nil {
+		t.Fatalf("update participant status: %v", err)
+	}
 
 	snapshotAfterVotes, err := service.GetSnapshot(ctx, guestViewer)
 	if err != nil {
@@ -114,13 +126,26 @@ func TestServiceRoomLifecycle(t *testing.T) {
 	if len(snapshotAfterVotes.Queue) != 2 {
 		t.Fatalf("expected two queued climbs, got %#v", snapshotAfterVotes.Queue)
 	}
+	if len(snapshotAfterVotes.Finalists) != 2 {
+		t.Fatalf("expected two finalists, got %#v", snapshotAfterVotes.Finalists)
+	}
+	if snapshotAfterVotes.Participants[1].Status != participantStatusReady {
+		t.Fatalf("expected guest status to update, got %#v", snapshotAfterVotes.Participants)
+	}
 
 	entryIDs := []uint{snapshotAfterVotes.Queue[1].ID, snapshotAfterVotes.Queue[0].ID}
 	if err := service.ReorderQueue(ctx, hostViewer, entryIDs); err != nil {
 		t.Fatalf("reorder queue: %v", err)
 	}
+	finalistIDs := []uint{snapshotAfterVotes.Finalists[1].ID, snapshotAfterVotes.Finalists[0].ID}
+	if err := service.ReorderFinalists(ctx, hostViewer, finalistIDs); err != nil {
+		t.Fatalf("reorder finalists: %v", err)
+	}
 	if err := service.UpdateQueueEntryStatus(ctx, hostViewer, entryIDs[0], queueStatusCurrent); err != nil {
 		t.Fatalf("set current queue entry: %v", err)
+	}
+	if err := service.PromoteClimb(ctx, hostViewer, "fake:beta", queueStatusNext); err != nil {
+		t.Fatalf("promote climb to next: %v", err)
 	}
 
 	currentSnapshot, err := service.GetSnapshot(ctx, hostViewer)
@@ -129,6 +154,32 @@ func TestServiceRoomLifecycle(t *testing.T) {
 	}
 	if currentSnapshot.CurrentClimb == nil || currentSnapshot.CurrentClimb.ID != "fake:alpha" {
 		t.Fatalf("expected fake:alpha to be current climb, got %#v", currentSnapshot.CurrentClimb)
+	}
+	if currentSnapshot.Queue[0].Status != queueStatusCurrent || currentSnapshot.Queue[1].Status != queueStatusNext {
+		t.Fatalf("expected queue promotion states, got %#v", currentSnapshot.Queue)
+	}
+	if currentSnapshot.Finalists[0].Climb.ID != "fake:alpha" {
+		t.Fatalf("expected finalist reorder to put fake:alpha first, got %#v", currentSnapshot.Finalists)
+	}
+
+	randomFinalist, err := service.PickRandom(ctx, hostViewer, "finalists")
+	if err != nil {
+		t.Fatalf("pick random finalist: %v", err)
+	}
+	if randomFinalist.ID != "fake:alpha" && randomFinalist.ID != "fake:beta" {
+		t.Fatalf("unexpected random finalist climb: %#v", randomFinalist)
+	}
+
+	randomTopVoted, err := service.PickRandom(ctx, hostViewer, "top_voted")
+	if err != nil {
+		t.Fatalf("pick random top voted climb: %v", err)
+	}
+	if randomTopVoted.ID != "fake:beta" {
+		t.Fatalf("expected fake:beta top-voted climb, got %#v", randomTopVoted)
+	}
+
+	if err := service.DeleteFinalist(ctx, hostViewer, currentSnapshot.Finalists[1].ID); err != nil {
+		t.Fatalf("delete finalist: %v", err)
 	}
 
 	if err := service.ClearVotes(ctx, hostViewer); err != nil {
@@ -153,6 +204,9 @@ func TestServiceRoomLifecycle(t *testing.T) {
 	}
 	if len(finalSnapshot.VoteCounts) != 0 {
 		t.Fatalf("expected votes cleared, got %#v", finalSnapshot.VoteCounts)
+	}
+	if len(finalSnapshot.Finalists) != 1 {
+		t.Fatalf("expected finalist deletion to persist, got %#v", finalSnapshot.Finalists)
 	}
 }
 
