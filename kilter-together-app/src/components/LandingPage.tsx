@@ -1,13 +1,15 @@
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowRight, Camera, CircleHelp, History, Link2, Mountain, Users } from "lucide-react";
 import { extractRoomSlugFromValue } from "@/lib/room-links";
 import {
   buildSoloResumePath,
+  dismissLandingIntro,
   dismissOnboarding,
   loadUserPrefs,
   resetOnboardingPrefs,
 } from "@/lib/user-prefs";
+import IntroDialog from "@/components/IntroDialog";
 import OnboardingCallout from "@/components/OnboardingCallout";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,7 +26,8 @@ export default function LandingPage() {
   const [inviteCode, setInviteCode] = useState("");
   const [prefs, setPrefs] = useState(() => loadUserPrefs());
   const soloResumePath = buildSoloResumePath(prefs.soloResume);
-  const showOnboarding = !prefs.onboarding.dismissed;
+  const showIntro = !prefs.intro.landingDismissed;
+  const showOnboarding = !showIntro && !prefs.onboarding.dismissed;
 
   const handleJoinRedirect = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -38,6 +41,31 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))]">
+      <IntroDialog
+        open={showIntro}
+        title="One host. Shared decisions."
+        description="Create a room, connect one Kilter or Crux account on the server, and let everyone join from their phones to vote and queue climbs."
+        features={[
+          {
+            icon: <Users className="h-6 w-6" />,
+            title: "Invite friends",
+            description: "Share a room URL or QR code. Guests do not need board credentials.",
+          },
+          {
+            icon: <Mountain className="h-6 w-6" />,
+            title: "Choose climbs together",
+            description: "Vote on climbs, build a queue, and let the host control the running order.",
+          },
+          {
+            icon: <Link2 className="h-6 w-6" />,
+            title: "Support multiple providers",
+            description: "Start with Kilter and Crux now, while keeping the provider model extensible.",
+          },
+        ]}
+        dismissLabel="Start exploring"
+        onDismiss={() => setPrefs(dismissLandingIntro())}
+      />
+
       <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-6 py-8">
         <header className="flex items-center justify-between py-4">
           <div>
@@ -89,22 +117,21 @@ export default function LandingPage() {
                 and let everyone join from their phones to vote and queue climbs.
               </CardDescription>
             </CardHeader>
-            <CardContent className="grid gap-4 md:grid-cols-3">
-              <FeatureCard
-                icon={<Users className="h-5 w-5" />}
-                title="Invite friends"
-                description="Share a room URL or QR code. Guests do not need board credentials."
-              />
-              <FeatureCard
-                icon={<Mountain className="h-5 w-5" />}
-                title="Choose climbs together"
-                description="Vote on climbs, build a queue, and let the host control the running order."
-              />
-              <FeatureCard
-                icon={<Link2 className="h-5 w-5" />}
-                title="Support multiple providers"
-                description="Start with Kilter and Crux now, while keeping the provider model extensible."
-              />
+            <CardContent className="space-y-4">
+              <div className="rounded-2xl border bg-white/70 p-5 text-sm leading-7 text-muted-foreground">
+                Hosts connect the provider once, guests join from their own devices, and the room stays focused on live votes, queueing, and quick consensus at the wall.
+              </div>
+              <div className="flex flex-wrap gap-2 text-sm text-muted-foreground">
+                <span className="rounded-full bg-teal-100 px-3 py-1 font-medium text-teal-800">
+                  Host-linked auth
+                </span>
+                <span className="rounded-full bg-teal-100 px-3 py-1 font-medium text-teal-800">
+                  Invite URL + QR
+                </span>
+                <span className="rounded-full bg-teal-100 px-3 py-1 font-medium text-teal-800">
+                  Live voting + queue
+                </span>
+              </div>
             </CardContent>
           </Card>
 
@@ -218,24 +245,6 @@ export default function LandingPage() {
           </section>
         ) : null}
       </div>
-    </div>
-  );
-}
-
-interface FeatureCardProps {
-  icon: ReactNode;
-  title: string;
-  description: string;
-}
-
-function FeatureCard({ icon, title, description }: FeatureCardProps) {
-  return (
-    <div className="rounded-2xl border bg-white/75 p-5 shadow-sm">
-      <div className="mb-4 inline-flex rounded-full bg-teal-100 p-2 text-teal-700">
-        {icon}
-      </div>
-      <h2 className="text-lg font-medium">{title}</h2>
-      <p className="mt-2 text-sm leading-6 text-muted-foreground">{description}</p>
     </div>
   );
 }

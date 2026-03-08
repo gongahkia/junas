@@ -32,6 +32,12 @@ export interface OnboardingProgress {
   guestParticipated: boolean;
 }
 
+export interface IntroProgress {
+  version: number;
+  landingDismissed: boolean;
+  soloDismissed: boolean;
+}
+
 export interface UserPrefs {
   savedDisplayName: string;
   lastProviderId: ProviderId;
@@ -45,6 +51,7 @@ export interface UserPrefs {
   };
   recentRooms: RecentRoom[];
   soloResume?: SoloResumeState;
+  intro: IntroProgress;
   onboarding: OnboardingProgress;
 }
 
@@ -61,6 +68,11 @@ function getDefaultUserPrefs(): UserPrefs {
       wallId: "",
     },
     recentRooms: [],
+    intro: {
+      version: 1,
+      landingDismissed: false,
+      soloDismissed: false,
+    },
     onboarding: {
       version: 1,
       dismissed: false,
@@ -101,6 +113,10 @@ export function loadUserPrefs(): UserPrefs {
       recentRooms: Array.isArray(parsedValue.recentRooms)
         ? parsedValue.recentRooms.slice(0, MAX_RECENT_ROOMS)
         : defaults.recentRooms,
+      intro: {
+        ...defaults.intro,
+        ...parsedValue.intro,
+      },
       onboarding: {
         ...defaults.onboarding,
         ...parsedValue.onboarding,
@@ -219,6 +235,26 @@ export function buildSoloResumePath(state?: SoloResumeState): string | null {
   }
 
   return `/solo/boards/${encodeURIComponent(state.boardId)}?${searchParams.toString()}`;
+}
+
+export function dismissLandingIntro(): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    intro: {
+      ...currentPrefs.intro,
+      landingDismissed: true,
+    },
+  }));
+}
+
+export function dismissSoloIntro(): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    intro: {
+      ...currentPrefs.intro,
+      soloDismissed: true,
+    },
+  }));
 }
 
 export function resetOnboardingPrefs(): UserPrefs {

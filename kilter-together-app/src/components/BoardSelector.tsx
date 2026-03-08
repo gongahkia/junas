@@ -1,10 +1,15 @@
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Layers3, Mountain, Radar } from "lucide-react";
 import AngleSelector from "./AngleSelector";
 import type { Board } from "../types";
 import { DEFAULT_ANGLE } from "@/lib/climbs";
-import { loadUserPrefs, rememberLastKilterSurface } from "@/lib/user-prefs";
+import {
+  dismissSoloIntro,
+  loadUserPrefs,
+  rememberLastKilterSurface,
+} from "@/lib/user-prefs";
+import IntroDialog from "@/components/IntroDialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -20,7 +25,8 @@ export default function BoardSelector({
   boardPathPrefix = "/boards",
 }: BoardSelectorProps) {
   const navigate = useNavigate();
-  const [angle, setAngle] = useState(() => loadUserPrefs().lastKilter.angle || DEFAULT_ANGLE);
+  const [prefs, setPrefs] = useState(() => loadUserPrefs());
+  const [angle, setAngle] = useState(() => prefs.lastKilter.angle || DEFAULT_ANGLE);
 
   if (loading) {
     return (
@@ -44,6 +50,31 @@ export default function BoardSelector({
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))]">
+      <IntroDialog
+        open={!prefs.intro.soloDismissed}
+        title="Inspect Kilter climbs without a room"
+        description="Use the same local dataset, pick a board angle, and browse climbs in a cleaner read-only view before you start a shared session."
+        features={[
+          {
+            icon: <Layers3 className="h-6 w-6" />,
+            title: "Board-first entry",
+            description: "Choose the board size first, then dive straight into the catalog.",
+          },
+          {
+            icon: <Mountain className="h-6 w-6" />,
+            title: "Angle-aware grades",
+            description: "Keep the selected angle pinned so grade context stays consistent.",
+          },
+          {
+            icon: <Radar className="h-6 w-6" />,
+            title: "Fast scouting",
+            description: "Search, filter by setter, and inspect overlays before you climb.",
+          },
+        ]}
+        dismissLabel="Open solo browse"
+        onDismiss={() => setPrefs(dismissSoloIntro())}
+      />
+
       <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-6 py-8">
         <header className="flex items-center justify-between py-4">
           <div>
@@ -70,22 +101,21 @@ export default function BoardSelector({
                 Use the same local dataset, pick a board angle, and browse climbs in a cleaner read-only view before you start a shared session.
               </CardDescription>
             </CardHeader>
-            <CardContent className="grid gap-4 md:grid-cols-3">
-              <SoloFeatureCard
-                icon={<Layers3 className="h-5 w-5" />}
-                title="Board-first entry"
-                description="Choose the board size first, then dive straight into the catalog."
-              />
-              <SoloFeatureCard
-                icon={<Mountain className="h-5 w-5" />}
-                title="Angle-aware grades"
-                description="Keep the selected angle pinned so grade context stays consistent."
-              />
-              <SoloFeatureCard
-                icon={<Radar className="h-5 w-5" />}
-                title="Fast scouting"
-                description="Search, filter by setter, and inspect overlays before you climb."
-              />
+            <CardContent className="space-y-4">
+              <div className="rounded-2xl border bg-white/70 p-5 text-sm leading-7 text-muted-foreground">
+                Solo mode is optimized for quick scouting. Keep the filters local to this browser, inspect image overlays, then jump into a collaborative room when you want shared decisions.
+              </div>
+              <div className="flex flex-wrap gap-2 text-sm text-muted-foreground">
+                <span className="rounded-full bg-teal-100 px-3 py-1 font-medium text-teal-800">
+                  Read-only catalog
+                </span>
+                <span className="rounded-full bg-teal-100 px-3 py-1 font-medium text-teal-800">
+                  Angle-pinned grades
+                </span>
+                <span className="rounded-full bg-teal-100 px-3 py-1 font-medium text-teal-800">
+                  Search + overlays
+                </span>
+              </div>
             </CardContent>
           </Card>
 
@@ -169,24 +199,6 @@ export default function BoardSelector({
           </p>
         </footer>
       </div>
-    </div>
-  );
-}
-
-interface SoloFeatureCardProps {
-  icon: ReactNode;
-  title: string;
-  description: string;
-}
-
-function SoloFeatureCard({ icon, title, description }: SoloFeatureCardProps) {
-  return (
-    <div className="rounded-2xl border bg-white/75 p-5 shadow-sm">
-      <div className="mb-4 inline-flex rounded-full bg-teal-100 p-2 text-teal-700">
-        {icon}
-      </div>
-      <h2 className="text-lg font-medium">{title}</h2>
-      <p className="mt-2 text-sm leading-6 text-muted-foreground">{description}</p>
     </div>
   );
 }
