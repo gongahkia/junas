@@ -72,6 +72,10 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 		writeJSONError(w, http.StatusInternalServerError, "KILTER_TOGETHER_APP_SECRET is required to create rooms")
 		return
 	}
+	if strings.TrimSpace(config.GetRuntimeConfig().EncryptionKey) == "" {
+		writeJSONError(w, http.StatusInternalServerError, "KILTER_TOGETHER_ENCRYPTION_KEY is required to create rooms")
+		return
+	}
 
 	var request createRoomRequest
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
@@ -196,7 +200,7 @@ func ConnectRoomProvider(w http.ResponseWriter, r *http.Request) {
 
 	state, err := rooms.DefaultService.ConnectProvider(r.Context(), viewer, request.Secret)
 	if err != nil {
-		writeJSONError(w, http.StatusBadRequest, err.Error())
+		writeJSONError(w, connectProviderStatus(err), err.Error())
 		return
 	}
 
@@ -627,6 +631,19 @@ func setSignedCookie(w http.ResponseWriter, name string, rawValue string) error 
 		Expires:  time.Now().UTC().Add(30 * 24 * time.Hour),
 	})
 	return nil
+}
+
+func connectProviderStatus(err error) int {
+	switch {
+	case err == nil:
+		return http.StatusOK
+	case strings.Contains(err.Error(), "forbidden"):
+		return http.StatusForbidden
+	case strings.Contains(err.Error(), "KILTER_TOGETHER_ENCRYPTION_KEY is required"):
+		return http.StatusInternalServerError
+	default:
+		return http.StatusBadRequest
+	}
 }
 
 func writeJSON(w http.ResponseWriter, statusCode int, payload any) {

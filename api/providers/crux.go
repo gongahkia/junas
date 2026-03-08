@@ -45,7 +45,7 @@ func (provider *CruxProvider) ValidateConnection(
 	ctx context.Context,
 	secret SecretPayload,
 ) (map[string]string, error) {
-	token := strings.TrimSpace(secret["token"])
+	token := normalizeCruxToken(secret["token"])
 	if token == "" {
 		return nil, fmt.Errorf("crux token is required")
 	}
@@ -66,7 +66,7 @@ func (provider *CruxProvider) ListSurfaces(
 	secret SecretPayload,
 	filters SurfaceFilter,
 ) ([]ProviderSurface, error) {
-	token := strings.TrimSpace(secret["token"])
+	token := normalizeCruxToken(secret["token"])
 	if token == "" {
 		return nil, fmt.Errorf("crux token is required")
 	}
@@ -138,7 +138,7 @@ func (provider *CruxProvider) ListClimbs(
 	secret SecretPayload,
 	input ListClimbsInput,
 ) (*PaginatedClimbs, error) {
-	token := strings.TrimSpace(secret["token"])
+	token := normalizeCruxToken(secret["token"])
 	if token == "" {
 		return nil, fmt.Errorf("crux token is required")
 	}
@@ -226,7 +226,7 @@ func (provider *CruxProvider) GetClimb(
 	input ListClimbsInput,
 	climbID string,
 ) (*ProviderClimb, error) {
-	token := strings.TrimSpace(secret["token"])
+	token := normalizeCruxToken(secret["token"])
 	if token == "" {
 		return nil, fmt.Errorf("crux token is required")
 	}
@@ -260,7 +260,7 @@ func (provider *CruxProvider) RefreshCatalog(
 	secret SecretPayload,
 	scope map[string]string,
 ) error {
-	token := strings.TrimSpace(secret["token"])
+	token := normalizeCruxToken(secret["token"])
 	if token == "" {
 		return fmt.Errorf("crux token is required")
 	}
@@ -461,7 +461,17 @@ func stringPointerValue(value *string) string {
 	if value == nil {
 		return ""
 	}
-	return *value
+
+	return strings.TrimSpace(*value)
+}
+
+func normalizeCruxToken(rawToken string) string {
+	token := strings.TrimSpace(rawToken)
+	if strings.HasPrefix(strings.ToLower(token), "bearer ") {
+		return strings.TrimSpace(token[len("bearer "):])
+	}
+
+	return token
 }
 
 func encodeOffsetCursor(offset int) string {

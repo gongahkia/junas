@@ -173,9 +173,9 @@ func TestRoomRoutesContract(t *testing.T) {
 				ID string `json:"id"`
 			} `json:"climb"`
 		} `json:"finalists"`
-		Queue      []struct {
+		Queue []struct {
 			Status string `json:"status"`
-			Climb struct {
+			Climb  struct {
 				ID string `json:"id"`
 			} `json:"climb"`
 		} `json:"queue"`
@@ -203,6 +203,45 @@ func TestRoomRoutesContract(t *testing.T) {
 	}
 	if len(roomPayload.Finalists) != 1 || roomPayload.Finalists[0].Climb.ID != "fake:beta" {
 		t.Fatalf("unexpected finalists payload: %#v", roomPayload.Finalists)
+	}
+}
+
+func TestCreateRoomRequiresEncryptionKey(t *testing.T) {
+	tempDir := t.TempDir()
+	appDBPath := filepath.Join(tempDir, "app.db")
+	config.SetRuntimeConfig(config.RuntimeConfig{
+		DataDir:   tempDir,
+		AppDBPath: appDBPath,
+		AppSecret: "test-app-secret",
+	})
+	if err := config.ConnectAppDB(appDBPath); err != nil {
+		t.Fatalf("connect app database: %v", err)
+	}
+
+	provider := testprovider.New(providers.ProviderID("fake-misconfig"))
+	providers.Register(provider)
+	rooms.DefaultService = rooms.NewService()
+	if err := rooms.DefaultService.Migrate(context.Background()); err != nil {
+		t.Fatalf("migrate app database: %v", err)
+	}
+
+	server := httptest.NewServer(routes.SetupRoutes())
+	defer server.Close()
+
+	response := performJSONRequest(t, server, http.MethodPost, "/api/rooms", map[string]string{
+		"provider_id":  string(provider.ID()),
+		"display_name": "Host",
+	}, nil)
+	if response.StatusCode != http.StatusInternalServerError {
+		t.Fatalf("expected create room status 500, got %d", response.StatusCode)
+	}
+
+	var payload map[string]string
+	if err := json.NewDecoder(response.Body).Decode(&payload); err != nil {
+		t.Fatalf("decode error response: %v", err)
+	}
+	if payload["error"] != "KILTER_TOGETHER_ENCRYPTION_KEY is required to create rooms" {
+		t.Fatalf("unexpected error payload: %#v", payload)
 	}
 }
 
