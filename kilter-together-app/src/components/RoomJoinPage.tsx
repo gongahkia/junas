@@ -39,7 +39,7 @@ export default function RoomJoinPage() {
     <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(247,254,231,0.75),_rgba(255,255,255,1))] px-6 py-10">
       <div className="mx-auto max-w-xl">
         <Button asChild variant="ghost" className="mb-6">
-          <Link to="/">
+          <Link to="/join">
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back
           </Link>

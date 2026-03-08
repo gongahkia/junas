@@ -1,6 +1,7 @@
 import { useState, type FormEvent, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, Link2, Mountain, Users } from "lucide-react";
+import { ArrowRight, Camera, Link2, Mountain, Users } from "lucide-react";
+import { extractRoomSlugFromValue } from "@/lib/room-links";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,12 +18,12 @@ export default function LandingPage() {
 
   const handleJoinRedirect = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const normalizedInviteCode = inviteCode.trim();
-    if (!normalizedInviteCode) {
+    const roomSlug = extractRoomSlugFromValue(inviteCode);
+    if (!roomSlug) {
       return;
     }
 
-    navigate(`/join/${encodeURIComponent(normalizedInviteCode)}`);
+    navigate(`/join/${encodeURIComponent(roomSlug)}`);
   };
 
   return (
@@ -103,10 +104,16 @@ export default function LandingPage() {
                   <Input
                     value={inviteCode}
                     onChange={(event) => setInviteCode(event.target.value)}
-                    placeholder="Room slug"
+                    placeholder="Room slug or invite URL"
                   />
                   <Button type="submit" variant="outline" className="w-full">
                     Join room
+                  </Button>
+                  <Button asChild type="button" variant="ghost" className="w-full">
+                    <Link to="/join">
+                      <Camera className="mr-2 h-4 w-4" />
+                      Scan or paste in full screen
+                    </Link>
                   </Button>
                 </form>
               </CardContent>

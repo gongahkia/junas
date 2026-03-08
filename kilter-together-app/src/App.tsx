@@ -5,6 +5,7 @@ import BoardSelector from "./components/BoardSelector";
 import ClimbView from "./components/ClimbView";
 import LandingPage from "./components/LandingPage";
 import RoomCreatePage from "./components/RoomCreatePage";
+import RoomDiscoveryPage from "./components/RoomDiscoveryPage";
 import RoomJoinPage from "./components/RoomJoinPage";
 import RoomView from "./components/RoomView";
 import type { Board } from "./types";
@@ -34,6 +35,7 @@ function App() {
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/rooms/new" element={<RoomCreatePage />} />
+      <Route path="/join" element={<RoomDiscoveryPage />} />
       <Route path="/join/:slug" element={<RoomJoinPage />} />
       <Route path="/rooms/:slug" element={<RoomView />} />
       <Route

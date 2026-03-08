@@ -24,7 +24,9 @@ import type {
   RoomSnapshot,
 } from "@/types";
 import { DEFAULT_ANGLE, normalizeSort } from "@/lib/climbs";
+import { buildInviteLink } from "@/lib/room-links";
 import RoomProblemView from "@/components/RoomProblemView";
+import InviteQRCodeCard from "@/components/InviteQRCodeCard";
 import AngleSelector from "@/components/AngleSelector";
 import SortSelector from "@/components/SortSelector";
 import { Button } from "@/components/ui/button";
@@ -598,8 +600,7 @@ export default function RoomView() {
   const selectedIsQueued = selectedClimb
     ? snapshot.queue.some((entry) => entry.climb.id === selectedClimb.id)
     : false;
-  const inviteLink =
-    typeof window === "undefined" ? `/join/${slug}` : `${window.location.origin}/join/${slug}`;
+  const inviteLink = buildInviteLink(slug);
 
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(250,250,249,1),_rgba(240,249,255,0.8))] px-4 py-5 sm:px-6">
@@ -634,17 +635,20 @@ export default function RoomView() {
               ) : null}
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start">
-              <div className="rounded-2xl border bg-muted/30 px-4 py-3">
-                <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
-                  Invite link
-                </p>
-                <p className="mt-1 break-all text-sm">{inviteLink}</p>
+            <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
+              <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start">
+                <div className="rounded-2xl border bg-muted/30 px-4 py-3">
+                  <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+                    Invite link
+                  </p>
+                  <p className="mt-1 break-all text-sm">{inviteLink}</p>
+                </div>
+                <Button variant="outline" onClick={copyInviteLink}>
+                  <Copy className="mr-2 h-4 w-4" />
+                  {copiedInvite ? "Copied" : "Copy invite"}
+                </Button>
               </div>
-              <Button variant="outline" onClick={copyInviteLink}>
-                <Copy className="mr-2 h-4 w-4" />
-                {copiedInvite ? "Copied" : "Copy invite"}
-              </Button>
+              <InviteQRCodeCard slug={slug} />
             </div>
           </div>
         </header>
