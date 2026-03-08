@@ -10,6 +10,7 @@ WEB_HOST ?= 0.0.0.0
 
 DEV_APP_SECRET ?= development-room-secret
 DEV_ENCRYPTION_KEY ?= MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=
+DEV_SECURE_COOKIES ?= false
 
 .PHONY: help install web-install bootstrap dev dev-api dev-web docker-up docker-down docker-logs test lint build check health
 
@@ -36,6 +37,7 @@ dev: ## Run the API and web app together for local development
 		cd "$(API_DIR)" && \
 		KILTER_TOGETHER_APP_SECRET="$(DEV_APP_SECRET)" \
 		KILTER_TOGETHER_ENCRYPTION_KEY="$(DEV_ENCRYPTION_KEY)" \
+		KILTER_TOGETHER_SECURE_COOKIES="$(DEV_SECURE_COOKIES)" \
 		KILTER_TOGETHER_PORT="$(API_PORT)" \
 		go run . serve --bootstrap-if-missing \
 	) & \
@@ -52,6 +54,7 @@ dev-api: ## Run only the API locally with development secrets
 	cd "$(API_DIR)" && \
 	KILTER_TOGETHER_APP_SECRET="$(DEV_APP_SECRET)" \
 	KILTER_TOGETHER_ENCRYPTION_KEY="$(DEV_ENCRYPTION_KEY)" \
+	KILTER_TOGETHER_SECURE_COOKIES="$(DEV_SECURE_COOKIES)" \
 	KILTER_TOGETHER_PORT="$(API_PORT)" \
 	go run . serve --bootstrap-if-missing
 

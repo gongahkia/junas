@@ -33,9 +33,11 @@ export default function KilterBoardImage({
           key={layer.key}
           src={layer.src}
           alt={layer.alt}
-          className={`max-w-full object-contain ${
-            index === 0 ? "relative" : "absolute left-0 top-0"
-          } ${maxHeightClassName}`}
+          className={
+            index === 0
+              ? `block max-w-full ${maxHeightClassName}`
+              : "absolute inset-0 h-full w-full"
+          }
           style={{
             mixBlendMode: index > 0 ? "multiply" : "normal",
           }}

@@ -6,10 +6,12 @@ const MAX_RECENT_ROOMS = 6;
 
 export interface RecentRoom {
   slug: string;
+  roomName?: string;
   providerId: ProviderId;
   displayName?: string;
   surfaceName?: string;
   lastVisitedAt: string;
+  pinned?: boolean;
 }
 
 export interface SoloResumeState {
@@ -86,6 +88,39 @@ function getDefaultUserPrefs(): UserPrefs {
   };
 }
 
+function getRecentRoomTimestamp(lastVisitedAt: string): number {
+  const timestamp = Date.parse(lastVisitedAt);
+  return Number.isNaN(timestamp) ? 0 : timestamp;
+}
+
+function sortRecentRooms(recentRooms: RecentRoom[]): RecentRoom[] {
+  return [...recentRooms].sort((left, right) => {
+    if (Boolean(left.pinned) !== Boolean(right.pinned)) {
+      return left.pinned ? -1 : 1;
+    }
+
+    return getRecentRoomTimestamp(right.lastVisitedAt) - getRecentRoomTimestamp(left.lastVisitedAt);
+  });
+}
+
+function normalizeRecentRooms(recentRooms: RecentRoom[]): RecentRoom[] {
+  const dedupedRooms = recentRooms.reduce<RecentRoom[]>((rooms, room) => {
+    const slug = room.slug?.trim();
+    if (!slug) {
+      return rooms;
+    }
+
+    rooms.push({
+      ...room,
+      slug,
+      pinned: Boolean(room.pinned),
+    });
+    return rooms;
+  }, []);
+
+  return sortRecentRooms(dedupedRooms).slice(0, MAX_RECENT_ROOMS);
+}
+
 export function loadUserPrefs(): UserPrefs {
   if (typeof window === "undefined") {
     return getDefaultUserPrefs();
@@ -111,7 +146,7 @@ export function loadUserPrefs(): UserPrefs {
         ...parsedValue.lastCrux,
       },
       recentRooms: Array.isArray(parsedValue.recentRooms)
-        ? parsedValue.recentRooms.slice(0, MAX_RECENT_ROOMS)
+        ? normalizeRecentRooms(parsedValue.recentRooms as RecentRoom[])
         : defaults.recentRooms,
       intro: {
         ...defaults.intro,
@@ -184,24 +219,43 @@ export function rememberLastCruxSurface(gymSlug: string, wallId: string): UserPr
 
 export function rememberRoomVisit(snapshot: RoomSnapshot): UserPrefs {
   return updateUserPrefs((currentPrefs) => {
+    const existingRoom = currentPrefs.recentRooms.find((room) => room.slug === snapshot.slug);
     const recentRoom: RecentRoom = {
       slug: snapshot.slug,
+      roomName: snapshot.room_name,
       providerId: snapshot.provider_id,
       displayName: snapshot.display_name,
       surfaceName: snapshot.surface?.name,
       lastVisitedAt: new Date().toISOString(),
+      pinned: existingRoom?.pinned ?? false,
     };
-
-    const nextRecentRooms = [
-      recentRoom,
-      ...currentPrefs.recentRooms.filter((room) => room.slug !== snapshot.slug),
-    ].slice(0, MAX_RECENT_ROOMS);
 
     return {
       ...currentPrefs,
-      recentRooms: nextRecentRooms,
+      recentRooms: normalizeRecentRooms([
+        recentRoom,
+        ...currentPrefs.recentRooms.filter((room) => room.slug !== snapshot.slug),
+      ]),
     };
   });
+}
+
+export function togglePinnedRecentRoom(slug: string): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    recentRooms: normalizeRecentRooms(
+      currentPrefs.recentRooms.map((room) =>
+        room.slug === slug ? { ...room, pinned: !room.pinned } : room
+      )
+    ),
+  }));
+}
+
+export function removeRecentRoom(slug: string): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    recentRooms: currentPrefs.recentRooms.filter((room) => room.slug !== slug),
+  }));
 }
 
 export function rememberSoloResume(state: SoloResumeState): UserPrefs {

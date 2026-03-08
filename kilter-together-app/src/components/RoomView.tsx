@@ -1,4 +1,5 @@
 import {
+  type DragEvent,
   useCallback,
   startTransition,
   useDeferredValue,
@@ -9,9 +10,9 @@ import {
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft,
-  ArrowUp,
   CircleHelp,
   Copy,
+  GripVertical,
   RefreshCw,
   Trash2,
   UserMinus,
@@ -21,7 +22,6 @@ import type {
   ParticipantStatus,
   ProviderClimb,
   ProviderSurface,
-  QueueEntry,
   QueueStatus,
   RoomCatalogClimbsResponse,
   RoomSnapshot,
@@ -29,6 +29,7 @@ import type {
 import { DEFAULT_ANGLE, normalizeSort } from "@/lib/climbs";
 import { getApiErrorMessage } from "@/lib/api-errors";
 import { buildInviteLink } from "@/lib/room-links";
+import { cn } from "@/lib/utils";
 import {
   dismissOnboarding,
   loadUserPrefs,
@@ -66,6 +67,19 @@ import {
 
 const PAGE_SIZE = 12;
 
+function reorderEntryIDs(entryIDs: number[], sourceEntryID: number, targetEntryID: number) {
+  const sourceIndex = entryIDs.indexOf(sourceEntryID);
+  const targetIndex = entryIDs.indexOf(targetEntryID);
+  if (sourceIndex < 0 || targetIndex < 0 || sourceIndex === targetIndex) {
+    return null;
+  }
+
+  const reordered = [...entryIDs];
+  const [movedEntryID] = reordered.splice(sourceIndex, 1);
+  reordered.splice(targetIndex, 0, movedEntryID);
+  return reordered;
+}
+
 export default function RoomView() {
   const { slug = "" } = useParams();
   const navigate = useNavigate();
@@ -78,6 +92,8 @@ export default function RoomView() {
   const [catalogLoading, setCatalogLoading] = useState(false);
   const [surfaceLoading, setSurfaceLoading] = useState(false);
   const [actionError, setActionError] = useState("");
+  const [roomNameInput, setRoomNameInput] = useState("");
+  const [roomNameSaving, setRoomNameSaving] = useState(false);
   const [connectionFields, setConnectionFields] = useState({
     username: "",
     password: "",
@@ -103,8 +119,20 @@ export default function RoomView() {
   );
   const [currentPage, setCurrentPage] = useState(1);
   const [copiedInvite, setCopiedInvite] = useState(false);
+  const [dragState, setDragState] = useState<{
+    kind: "finalist" | "queue";
+    entryId: number;
+  } | null>(null);
+  const [dragTarget, setDragTarget] = useState<{
+    kind: "finalist" | "queue";
+    entryId: number;
+  } | null>(null);
   const cursorsRef = useRef<Record<number, string>>({});
   const lastFilterKeyRef = useRef("");
+  const refreshRoomStateRef = useRef<() => Promise<void>>(async () => {});
+  const kilterUsernameInputRef = useRef<HTMLInputElement>(null);
+  const kilterPasswordInputRef = useRef<HTMLInputElement>(null);
+  const cruxTokenInputRef = useRef<HTMLInputElement>(null);
 
   const search = searchParams.get("q") ?? "";
   const sort = normalizeSort(searchParams.get("sort"));
@@ -116,6 +144,10 @@ export default function RoomView() {
     (selectedExternalClimb?.id === selectedClimbId ? selectedExternalClimb : null) ||
     catalog?.climbs[0] ||
     null;
+  const canEditCruxSurface =
+    !!snapshot?.can_manage &&
+    snapshot.provider_id === "crux" &&
+    snapshot.connection.connected;
 
   const fetchSnapshot = useCallback(
     async (showLoader = false): Promise<RoomSnapshot | null> => {
@@ -268,6 +300,10 @@ export default function RoomView() {
   }, [fetchCatalog, fetchSnapshot]);
 
   useEffect(() => {
+    refreshRoomStateRef.current = refreshRoomState;
+  }, [refreshRoomState]);
+
+  useEffect(() => {
     void fetchSnapshot(true);
   }, [fetchSnapshot]);
 
@@ -297,7 +333,12 @@ export default function RoomView() {
   }, [currentPage, deferredSearch, fetchCatalog, searchParams, selectedClimbId, setSearchParams, slug, snapshot, sort]);
 
   useEffect(() => {
-    if (!slug || !snapshot?.can_manage || !snapshot.connection.connected || snapshot.surface) {
+    if (
+      !slug ||
+      !snapshot?.can_manage ||
+      !snapshot.connection.connected ||
+      (snapshot.provider_id === "kilter" && snapshot.surface)
+    ) {
       return;
     }
 
@@ -345,7 +386,13 @@ export default function RoomView() {
     };
 
     void loadSurfaces();
-  }, [slug, snapshot]);
+  }, [
+    slug,
+    snapshot?.can_manage,
+    snapshot?.connection.connected,
+    snapshot?.provider_id,
+    snapshot?.surface?.id,
+  ]);
 
   useEffect(() => {
     if (
@@ -353,7 +400,6 @@ export default function RoomView() {
       snapshot?.provider_id !== "crux" ||
       !snapshot.can_manage ||
       !snapshot.connection.connected ||
-      snapshot.surface ||
       !selectedGymSlug
     ) {
       return;
@@ -386,30 +432,55 @@ export default function RoomView() {
     };
 
     void loadWalls();
-  }, [selectedGymSlug, slug, snapshot]);
+  }, [
+    selectedGymSlug,
+    slug,
+    snapshot?.can_manage,
+    snapshot?.connection.connected,
+    snapshot?.provider_id,
+    snapshot?.surface?.id,
+  ]);
 
   useEffect(() => {
-    if (!slug || !snapshot || snapshot.status === "closed" || typeof EventSource === "undefined") {
+    if (
+      !slug ||
+      !snapshot ||
+      snapshot.status === "closed" ||
+      typeof EventSource === "undefined"
+    ) {
       return;
     }
 
-    const eventSource = new EventSource(api.getRoomEventsUrl(slug), {
-      withCredentials: true,
-    });
-    const handleRoomEvent = () => {
-      void refreshRoomState();
+    let retries = 0;
+    let retryTimeout: number | undefined;
+    let currentSource: EventSource | null = null;
+
+    const connect = () => {
+      const eventSource = new EventSource(api.getRoomEventsUrl(slug), {
+        withCredentials: true,
+      });
+      currentSource = eventSource;
+      eventSource.addEventListener("room", () => {
+        retries = 0;
+        void refreshRoomStateRef.current();
+      });
+      eventSource.onerror = () => {
+        eventSource.close();
+        currentSource = null;
+        if (retries < 5) {
+          retries++;
+          retryTimeout = window.setTimeout(connect, 3000);
+        }
+      };
     };
 
-    eventSource.addEventListener("room", handleRoomEvent);
-    eventSource.onerror = () => {
-      eventSource.close();
-    };
+    connect();
 
     return () => {
-      eventSource.removeEventListener("room", handleRoomEvent);
-      eventSource.close();
+      if (retryTimeout !== undefined) window.clearTimeout(retryTimeout);
+      currentSource?.close();
     };
-  }, [refreshRoomState, slug, snapshot]);
+  }, [slug, snapshot?.status]);
 
   useEffect(() => {
     if (!copiedInvite) {
@@ -419,6 +490,10 @@ export default function RoomView() {
     const timeoutID = window.setTimeout(() => setCopiedInvite(false), 1800);
     return () => window.clearTimeout(timeoutID);
   }, [copiedInvite]);
+
+  useEffect(() => {
+    setRoomNameInput(snapshot?.room_name ?? "");
+  }, [slug, snapshot?.room_name]);
 
   const updateLocalFilters = (updates: Record<string, string | undefined>) => {
     startTransition(() => {
@@ -456,13 +531,27 @@ export default function RoomView() {
 
     try {
       if (snapshot.provider_id === "kilter") {
+        const username =
+          kilterUsernameInputRef.current?.value ?? connectionFields.username;
+        const password =
+          kilterPasswordInputRef.current?.value ?? connectionFields.password;
+        setConnectionFields((previousState) => ({
+          ...previousState,
+          username,
+          password,
+        }));
         await api.connectRoomProvider(slug, {
-          username: connectionFields.username,
-          password: connectionFields.password,
+          username,
+          password,
         });
       } else {
+        const token = cruxTokenInputRef.current?.value ?? connectionFields.token;
+        setConnectionFields((previousState) => ({
+          ...previousState,
+          token,
+        }));
         await api.connectRoomProvider(slug, {
-          token: connectionFields.token,
+          token,
         });
       }
       markHostProviderConnected();
@@ -495,6 +584,7 @@ export default function RoomView() {
           context: {
             angle: String(selectedAngle),
             board_id: selectedBoardId,
+            parent_id: "",
           },
         });
       } else {
@@ -502,6 +592,7 @@ export default function RoomView() {
           surfaceId: selectedWallId,
           context: {
             gym_slug: selectedGymSlug,
+            parent_id: selectedGymSlug,
           },
         });
       }
@@ -586,23 +677,16 @@ export default function RoomView() {
     }
   };
 
-  const handleMoveFinalist = async (entryId: number, direction: -1 | 1) => {
+  const handleReorderFinalists = async (sourceEntryId: number, targetEntryId: number) => {
     if (!slug || !snapshot) {
       return;
     }
 
     const entryIDs = snapshot.finalists.map((entry) => entry.id);
-    const currentIndex = entryIDs.indexOf(entryId);
-    const nextIndex = currentIndex + direction;
-    if (currentIndex < 0 || nextIndex < 0 || nextIndex >= entryIDs.length) {
+    const reordered = reorderEntryIDs(entryIDs, sourceEntryId, targetEntryId);
+    if (!reordered) {
       return;
     }
-
-    const reordered = [...entryIDs];
-    [reordered[currentIndex], reordered[nextIndex]] = [
-      reordered[nextIndex],
-      reordered[currentIndex],
-    ];
 
     try {
       await api.reorderRoomFinalists(slug, reordered);
@@ -683,23 +767,16 @@ export default function RoomView() {
     }
   };
 
-  const handleMoveQueueEntry = async (entry: QueueEntry, direction: -1 | 1) => {
+  const handleReorderQueueEntry = async (sourceEntryId: number, targetEntryId: number) => {
     if (!slug || !snapshot) {
       return;
     }
 
     const entryIDs = snapshot.queue.map((queueEntry) => queueEntry.id);
-    const currentIndex = entryIDs.indexOf(entry.id);
-    const nextIndex = currentIndex + direction;
-    if (currentIndex < 0 || nextIndex < 0 || nextIndex >= entryIDs.length) {
+    const reordered = reorderEntryIDs(entryIDs, sourceEntryId, targetEntryId);
+    if (!reordered) {
       return;
     }
-
-    const reordered = [...entryIDs];
-    [reordered[currentIndex], reordered[nextIndex]] = [
-      reordered[nextIndex],
-      reordered[currentIndex],
-    ];
 
     try {
       await api.reorderRoomQueue(slug, reordered);
@@ -707,6 +784,61 @@ export default function RoomView() {
     } catch (caughtError) {
       console.error("Reorder queue failed", caughtError);
       setActionError("Unable to reorder the queue.");
+    }
+  };
+
+  const handleDragStart = (
+    event: DragEvent<HTMLButtonElement>,
+    kind: "finalist" | "queue",
+    entryId: number
+  ) => {
+    setDragState({ kind, entryId });
+    setDragTarget({ kind, entryId });
+    if (event.dataTransfer) {
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.setData("text/plain", `${kind}:${entryId}`);
+    }
+  };
+
+  const handleDragOver = (
+    event: DragEvent<HTMLDivElement>,
+    kind: "finalist" | "queue",
+    entryId: number
+  ) => {
+    if (!dragState || dragState.kind !== kind || dragState.entryId === entryId) {
+      return;
+    }
+    event.preventDefault();
+    if (event.dataTransfer) {
+      event.dataTransfer.dropEffect = "move";
+    }
+    setDragTarget({ kind, entryId });
+  };
+
+  const handleDragEnd = () => {
+    setDragState(null);
+    setDragTarget(null);
+  };
+
+  const handleDropReorder = async (
+    event: DragEvent<HTMLDivElement>,
+    kind: "finalist" | "queue",
+    entryId: number
+  ) => {
+    if (!dragState || dragState.kind !== kind || dragState.entryId === entryId) {
+      return;
+    }
+
+    event.preventDefault();
+    try {
+      if (kind === "finalist") {
+        await handleReorderFinalists(dragState.entryId, entryId);
+      } else {
+        await handleReorderQueueEntry(dragState.entryId, entryId);
+      }
+    } finally {
+      setDragState(null);
+      setDragTarget(null);
     }
   };
 
@@ -764,6 +896,28 @@ export default function RoomView() {
     } catch (caughtError) {
       console.error("Copy invite failed", caughtError);
       setActionError("Unable to copy the invite link from this browser.");
+    }
+  };
+
+  const handleUpdateRoomName = async () => {
+    if (!slug || !snapshot?.can_manage) {
+      return;
+    }
+
+    setRoomNameSaving(true);
+    setActionError("");
+
+    try {
+      const updatedSnapshot = await api.updateRoom(slug, {
+        roomName: roomNameInput,
+      });
+      setSnapshot(updatedSnapshot);
+      rememberRoomVisit(updatedSnapshot);
+    } catch (caughtError) {
+      console.error("Update room name failed", caughtError);
+      setActionError(getApiErrorMessage(caughtError, "Unable to save the room name."));
+    } finally {
+      setRoomNameSaving(false);
     }
   };
 
@@ -871,6 +1025,8 @@ export default function RoomView() {
   const topVoteTieCount = leaderboard.filter(
     (climb) => (snapshot.vote_counts[climb.id] ?? 0) === topVoteCount
   ).length;
+  const roomTitle = snapshot.room_name?.trim() || `Room ${snapshot.slug}`;
+  const roomNameChanged = roomNameInput.trim() !== (snapshot.room_name ?? "").trim();
 
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(250,250,249,1),_rgba(240,249,255,0.8))] px-4 py-5 sm:px-6">
@@ -898,13 +1054,48 @@ export default function RoomView() {
                 </Button>
               </div>
               <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-3xl font-semibold tracking-tight">Room {snapshot.slug}</h1>
+                <h1 className="text-3xl font-semibold tracking-tight">{roomTitle}</h1>
                 <Badge variant="secondary">{snapshot.provider_id}</Badge>
                 <Badge variant={snapshot.status === "open" ? "default" : "secondary"}>
                   {snapshot.status}
                 </Badge>
                 {snapshot.surface ? <Badge variant="outline">{snapshot.surface.name}</Badge> : null}
               </div>
+              <p className="text-sm text-muted-foreground">
+                Room slug: <span className="font-medium text-foreground">{snapshot.slug}</span>
+              </p>
+              {snapshot.can_manage ? (
+                <div className="grid max-w-xl gap-2">
+                  <label htmlFor="room-name-input" className="text-sm text-muted-foreground">
+                    Room name
+                  </label>
+                  <form
+                    className="flex flex-col gap-2 sm:flex-row"
+                    onSubmit={(event) => {
+                      event.preventDefault();
+                      void handleUpdateRoomName();
+                    }}
+                  >
+                    <Input
+                      id="room-name-input"
+                      value={roomNameInput}
+                      onChange={(event) => setRoomNameInput(event.target.value)}
+                      placeholder="Name this room"
+                    />
+                    <Button
+                      type="submit"
+                      variant="outline"
+                      disabled={roomNameSaving || !roomNameChanged}
+                    >
+                      {roomNameSaving
+                        ? "Saving..."
+                        : snapshot.room_name?.trim()
+                          ? "Save name"
+                          : "Set room name"}
+                    </Button>
+                  </form>
+                </div>
+              ) : null}
               <p className="text-sm text-muted-foreground">
                 Signed in as {snapshot.display_name || "guest"}.
               </p>
@@ -970,12 +1161,16 @@ export default function RoomView() {
           <OnboardingCallout
             title={
               snapshot.can_manage
-                ? "Host flow: connect, choose, then share"
+                ? snapshot.connection.connected
+                  ? "Host flow: choose, then share"
+                  : "Host flow: connect, choose, then share"
                 : "Guest flow: vote and queue from your phone"
             }
             description={
               snapshot.can_manage
-                ? "You are the room host. Finish the provider setup once, then everyone else can join through the invite link or QR code."
+                ? snapshot.connection.connected
+                  ? "You are the room host. The provider is already authenticated for this room, so the next step is picking the shared surface before you invite everyone else."
+                  : "You are the room host. Finish the provider setup once, then everyone else can join through the invite link or QR code."
                 : "You are already inside the room. The next useful action is to vote for a climb or add one to the shared queue."
             }
             steps={
@@ -1026,6 +1221,7 @@ export default function RoomView() {
                   {snapshot.provider_id === "kilter" ? (
                     <div className="grid gap-4 md:grid-cols-2">
                       <Input
+                        ref={kilterUsernameInputRef}
                         value={connectionFields.username}
                         onChange={(event) =>
                           setConnectionFields((previousState) => ({
@@ -1033,9 +1229,11 @@ export default function RoomView() {
                             username: event.target.value,
                           }))
                         }
+                        autoComplete="username"
                         placeholder="Kilter username"
                       />
                       <Input
+                        ref={kilterPasswordInputRef}
                         type="password"
                         value={connectionFields.password}
                         onChange={(event) =>
@@ -1044,12 +1242,14 @@ export default function RoomView() {
                             password: event.target.value,
                           }))
                         }
+                        autoComplete="current-password"
                         placeholder="Kilter password"
                       />
                     </div>
                   ) : (
                     <div className="space-y-2">
                       <Input
+                        ref={cruxTokenInputRef}
                         value={connectionFields.token}
                         onChange={(event) =>
                           setConnectionFields((previousState) => ({
@@ -1057,6 +1257,7 @@ export default function RoomView() {
                             token: event.target.value,
                           }))
                         }
+                        autoComplete="off"
                         placeholder="Crux API token"
                       />
                       <p className="text-sm text-muted-foreground">
@@ -1073,13 +1274,19 @@ export default function RoomView() {
           </Card>
         ) : null}
 
-        {snapshot.connection.connected && !snapshot.surface ? (
+        {snapshot.connection.connected && (!snapshot.surface || canEditCruxSurface) ? (
           <Card>
             <CardHeader>
-              <CardTitle>Choose the shared climbing surface</CardTitle>
+              <CardTitle>
+                {snapshot.surface && canEditCruxSurface
+                  ? "Edit the shared climbing surface"
+                  : "Choose the shared climbing surface"}
+              </CardTitle>
               <CardDescription>
                 {snapshot.can_manage
-                  ? "This becomes the shared board or wall for everyone in the room."
+                  ? snapshot.surface && canEditCruxSurface
+                    ? "Update the shared Crux gym or wall whenever the group moves."
+                    : "This becomes the shared board or wall for everyone in the room."
                   : "Waiting for the host to choose the shared board or wall."}
               </CardDescription>
             </CardHeader>
@@ -1147,7 +1354,13 @@ export default function RoomView() {
                       onClick={handleSetSurface}
                       disabled={!selectedGymSlug || !selectedWallId || surfaceLoading}
                     >
-                      {surfaceLoading ? "Saving..." : "Save wall"}
+                      {surfaceLoading
+                        ? snapshot.surface && canEditCruxSurface
+                          ? "Updating..."
+                          : "Saving..."
+                        : snapshot.surface && canEditCruxSurface
+                          ? "Update wall"
+                          : "Save wall"}
                     </Button>
                   </div>
                 )
@@ -1415,44 +1628,55 @@ export default function RoomView() {
                         No finalists yet. Add one from the selected climb to narrow the field.
                       </div>
                     ) : (
-                      snapshot.finalists.map((entry, index) => (
-                        <div key={entry.id} className="rounded-2xl border p-3">
-                          <button
-                            type="button"
-                            className="w-full text-left"
-                            onClick={() => selectClimb(entry.climb)}
-                          >
-                            <div className="flex items-start justify-between gap-3">
-                              <div>
-                                <p className="font-medium">{entry.climb.name}</p>
-                                <p className="text-xs text-muted-foreground">
-                                  Added by {entry.added_by}
-                                </p>
+                      snapshot.finalists.map((entry) => (
+                        <div
+                          key={entry.id}
+                          role="group"
+                          aria-label={`Finalist ${entry.climb.name}`}
+                          onDragOver={(event) => handleDragOver(event, "finalist", entry.id)}
+                          onDrop={(event) => void handleDropReorder(event, "finalist", entry.id)}
+                          className={cn(
+                            "rounded-2xl border p-3 transition-colors",
+                            dragTarget?.kind === "finalist" && dragTarget.entryId === entry.id
+                              ? "border-teal-500/60 bg-teal-50/50"
+                              : ""
+                          )}
+                        >
+                          <div className="flex items-start gap-3">
+                            {snapshot.can_manage ? (
+                              <Button
+                                type="button"
+                                size="icon"
+                                variant="ghost"
+                                draggable
+                                aria-label={`Drag ${entry.climb.name} in finalists`}
+                                className="mt-0.5 cursor-grab text-muted-foreground active:cursor-grabbing"
+                                onDragStart={(event) => handleDragStart(event, "finalist", entry.id)}
+                                onDragEnd={handleDragEnd}
+                              >
+                                <GripVertical className="h-4 w-4" />
+                              </Button>
+                            ) : null}
+                            <button
+                              type="button"
+                              className="w-full min-w-0 text-left"
+                              onClick={() => selectClimb(entry.climb)}
+                            >
+                              <div className="flex items-start justify-between gap-3">
+                                <div className="min-w-0">
+                                  <p className="font-medium">{entry.climb.name}</p>
+                                  <p className="text-xs text-muted-foreground">
+                                    Added by {entry.added_by}
+                                  </p>
+                                </div>
+                                <Badge variant="secondary">
+                                  {snapshot.vote_counts[entry.climb.id] ?? 0} votes
+                                </Badge>
                               </div>
-                              <Badge variant="secondary">
-                                {snapshot.vote_counts[entry.climb.id] ?? 0} votes
-                              </Badge>
-                            </div>
-                          </button>
+                            </button>
+                          </div>
                           {snapshot.can_manage ? (
                             <div className="mt-3 flex flex-wrap gap-2">
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => handleMoveFinalist(entry.id, -1)}
-                                disabled={index === 0}
-                              >
-                                <ArrowUp className="mr-1 h-3.5 w-3.5" />
-                                Up
-                              </Button>
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => handleMoveFinalist(entry.id, 1)}
-                                disabled={index === snapshot.finalists.length - 1}
-                              >
-                                Down
-                              </Button>
                               <Button
                                 size="sm"
                                 variant="outline"
@@ -1496,36 +1720,49 @@ export default function RoomView() {
                         Nothing is queued yet.
                       </div>
                     ) : (
-                      snapshot.queue.map((entry, index) => (
-                        <div key={entry.id} className="rounded-2xl border p-3">
-                          <div className="flex items-start justify-between gap-3">
-                            <div>
-                              <p className="font-medium">{entry.climb.name}</p>
-                              <p className="text-xs text-muted-foreground">
-                                Added by {entry.added_by}
-                              </p>
+                      snapshot.queue.map((entry) => (
+                        <div
+                          key={entry.id}
+                          role="group"
+                          aria-label={`Queue entry ${entry.climb.name}`}
+                          onDragOver={(event) => handleDragOver(event, "queue", entry.id)}
+                          onDrop={(event) => void handleDropReorder(event, "queue", entry.id)}
+                          className={cn(
+                            "rounded-2xl border p-3 transition-colors",
+                            dragTarget?.kind === "queue" && dragTarget.entryId === entry.id
+                              ? "border-teal-500/60 bg-teal-50/50"
+                              : ""
+                          )}
+                        >
+                          <div className="flex items-start gap-3">
+                            {snapshot.can_manage ? (
+                              <Button
+                                type="button"
+                                size="icon"
+                                variant="ghost"
+                                draggable
+                                aria-label={`Drag ${entry.climb.name} in queue`}
+                                className="mt-0.5 cursor-grab text-muted-foreground active:cursor-grabbing"
+                                onDragStart={(event) => handleDragStart(event, "queue", entry.id)}
+                                onDragEnd={handleDragEnd}
+                              >
+                                <GripVertical className="h-4 w-4" />
+                              </Button>
+                            ) : null}
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-start justify-between gap-3">
+                                <div className="min-w-0">
+                                  <p className="font-medium">{entry.climb.name}</p>
+                                  <p className="text-xs text-muted-foreground">
+                                    Added by {entry.added_by}
+                                  </p>
+                                </div>
+                                <Badge variant="outline">{entry.status}</Badge>
+                              </div>
                             </div>
-                            <Badge variant="outline">{entry.status}</Badge>
                           </div>
                           {snapshot.can_manage ? (
                             <div className="mt-3 flex flex-wrap gap-2">
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => handleMoveQueueEntry(entry, -1)}
-                                disabled={index === 0}
-                              >
-                                <ArrowUp className="mr-1 h-3.5 w-3.5" />
-                                Up
-                              </Button>
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => handleMoveQueueEntry(entry, 1)}
-                                disabled={index === snapshot.queue.length - 1}
-                              >
-                                Down
-                              </Button>
                               <Button
                                 size="sm"
                                 variant="outline"

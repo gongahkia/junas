@@ -40,9 +40,13 @@ func TestRoomRoutesContract(t *testing.T) {
 	server := httptest.NewServer(routes.SetupRoutes())
 	defer server.Close()
 
-	createResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms", map[string]string{
+	createResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms", map[string]any{
 		"provider_id":  string(provider.ID()),
+		"room_name":    "Evening Session",
 		"display_name": "Host",
+		"secret": map[string]string{
+			"token": "room-token",
+		},
 	}, nil)
 	if createResponse.StatusCode != http.StatusCreated {
 		t.Fatalf("expected create room status 201, got %d", createResponse.StatusCode)
@@ -50,7 +54,11 @@ func TestRoomRoutesContract(t *testing.T) {
 
 	var createdRoom struct {
 		Slug       string `json:"slug"`
+		RoomName   string `json:"room_name"`
 		ProviderID string `json:"provider_id"`
+		Connection struct {
+			Connected bool `json:"connected"`
+		} `json:"connection"`
 	}
 	if err := json.NewDecoder(createResponse.Body).Decode(&createdRoom); err != nil {
 		t.Fatalf("decode create room response: %v", err)
@@ -58,10 +66,32 @@ func TestRoomRoutesContract(t *testing.T) {
 	if createdRoom.ProviderID != string(provider.ID()) || createdRoom.Slug == "" {
 		t.Fatalf("unexpected create room payload: %#v", createdRoom)
 	}
+	if createdRoom.RoomName != "Evening Session" {
+		t.Fatalf("unexpected room name in create payload: %#v", createdRoom)
+	}
+	if !createdRoom.Connection.Connected {
+		t.Fatalf("expected room creation to return a connected provider state: %#v", createdRoom)
+	}
 	hostCookies := createResponse.Cookies()
 
+	updateResponse := performJSONRequest(t, server, http.MethodPatch, "/api/rooms/"+createdRoom.Slug, map[string]string{
+		"room_name": "Project Night",
+	}, hostCookies)
+	if updateResponse.StatusCode != http.StatusOK {
+		t.Fatalf("expected update room status 200, got %d", updateResponse.StatusCode)
+	}
+	var updatedRoom struct {
+		RoomName string `json:"room_name"`
+	}
+	if err := json.NewDecoder(updateResponse.Body).Decode(&updatedRoom); err != nil {
+		t.Fatalf("decode update room response: %v", err)
+	}
+	if updatedRoom.RoomName != "Project Night" {
+		t.Fatalf("unexpected update room payload: %#v", updatedRoom)
+	}
+
 	connectResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+createdRoom.Slug+"/provider/connect", map[string]any{
-		"secret": map[string]string{"token": "room-token"},
+		"secret": map[string]string{"token": "room-token-2"},
 	}, hostCookies)
 	if connectResponse.StatusCode != http.StatusOK {
 		t.Fatalf("expected connect provider status 200, got %d", connectResponse.StatusCode)
@@ -89,7 +119,7 @@ func TestRoomRoutesContract(t *testing.T) {
 	if err := json.NewDecoder(climbsResponse.Body).Decode(&climbsPayload); err != nil {
 		t.Fatalf("decode room catalog climbs response: %v", err)
 	}
-	if len(climbsPayload.Climbs) != 1 || climbsPayload.Climbs[0].ID != "fake:beta" {
+	if len(climbsPayload.Climbs) != 1 || climbsPayload.Climbs[0].ID != "fake-route:beta" {
 		t.Fatalf("unexpected room catalog climbs payload: %#v", climbsPayload.Climbs)
 	}
 
@@ -101,20 +131,20 @@ func TestRoomRoutesContract(t *testing.T) {
 	}
 	guestCookies := joinResponse.Cookies()
 
-	voteResponse := performJSONRequest(t, server, http.MethodPut, "/api/rooms/"+createdRoom.Slug+"/votes/fake:beta", nil, guestCookies)
+	voteResponse := performJSONRequest(t, server, http.MethodPut, "/api/rooms/"+createdRoom.Slug+"/votes/fake-route:beta", nil, guestCookies)
 	if voteResponse.StatusCode != http.StatusOK {
 		t.Fatalf("expected vote status 200, got %d", voteResponse.StatusCode)
 	}
 
 	queueResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+createdRoom.Slug+"/queue", map[string]string{
-		"climb_id": "fake:beta",
+		"climb_id": "fake-route:beta",
 	}, guestCookies)
 	if queueResponse.StatusCode != http.StatusCreated {
 		t.Fatalf("expected queue add status 201, got %d", queueResponse.StatusCode)
 	}
 
 	finalistResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+createdRoom.Slug+"/finalists", map[string]string{
-		"climb_id": "fake:beta",
+		"climb_id": "fake-route:beta",
 	}, hostCookies)
 	if finalistResponse.StatusCode != http.StatusCreated {
 		t.Fatalf("expected finalist add status 201, got %d", finalistResponse.StatusCode)
@@ -128,7 +158,7 @@ func TestRoomRoutesContract(t *testing.T) {
 	}
 
 	promoteResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+createdRoom.Slug+"/queue/promote", map[string]string{
-		"climb_id": "fake:beta",
+		"climb_id": "fake-route:beta",
 		"status":   "current",
 	}, hostCookies)
 	if promoteResponse.StatusCode != http.StatusOK {
@@ -150,8 +180,8 @@ func TestRoomRoutesContract(t *testing.T) {
 	if err := json.NewDecoder(pickRandomResponse.Body).Decode(&pickRandomPayload); err != nil {
 		t.Fatalf("decode pick random response: %v", err)
 	}
-	if pickRandomPayload.Climb.ID != "fake:beta" {
-		t.Fatalf("expected random finalist fake:beta, got %#v", pickRandomPayload)
+	if pickRandomPayload.Climb.ID != "fake-route:beta" {
+		t.Fatalf("expected random finalist fake-route:beta, got %#v", pickRandomPayload)
 	}
 
 	roomResponse := performJSONRequest(t, server, http.MethodGet, "/api/rooms/"+createdRoom.Slug, nil, guestCookies)
@@ -160,6 +190,7 @@ func TestRoomRoutesContract(t *testing.T) {
 	}
 
 	var roomPayload struct {
+		RoomName     string `json:"room_name"`
 		Participants []struct {
 			DisplayName string `json:"display_name"`
 			Status      string `json:"status"`
@@ -183,25 +214,28 @@ func TestRoomRoutesContract(t *testing.T) {
 	if err := json.NewDecoder(roomResponse.Body).Decode(&roomPayload); err != nil {
 		t.Fatalf("decode room snapshot response: %v", err)
 	}
+	if roomPayload.RoomName != "Project Night" {
+		t.Fatalf("expected room name to persist in snapshot, got %#v", roomPayload.RoomName)
+	}
 	if len(roomPayload.Participants) != 2 {
 		t.Fatalf("expected two room participants, got %#v", roomPayload.Participants)
 	}
 	if roomPayload.Participants[1].Status != "ready" {
 		t.Fatalf("expected guest status to be ready, got %#v", roomPayload.Participants)
 	}
-	if roomPayload.VoteCounts["fake:beta"] != 1 {
-		t.Fatalf("expected fake:beta vote count, got %#v", roomPayload.VoteCounts)
+	if roomPayload.VoteCounts["fake-route:beta"] != 1 {
+		t.Fatalf("expected fake-route:beta vote count, got %#v", roomPayload.VoteCounts)
 	}
-	if len(roomPayload.Queue) != 1 || roomPayload.Queue[0].Climb.ID != "fake:beta" {
+	if len(roomPayload.Queue) != 1 || roomPayload.Queue[0].Climb.ID != "fake-route:beta" {
 		t.Fatalf("unexpected room queue payload: %#v", roomPayload.Queue)
 	}
 	if roomPayload.Queue[0].Status != "current" {
 		t.Fatalf("expected promoted queue entry to be current, got %#v", roomPayload.Queue)
 	}
-	if roomPayload.CurrentClimb == nil || roomPayload.CurrentClimb.ID != "fake:beta" {
-		t.Fatalf("expected current climb fake:beta, got %#v", roomPayload.CurrentClimb)
+	if roomPayload.CurrentClimb == nil || roomPayload.CurrentClimb.ID != "fake-route:beta" {
+		t.Fatalf("expected current climb fake-route:beta, got %#v", roomPayload.CurrentClimb)
 	}
-	if len(roomPayload.Finalists) != 1 || roomPayload.Finalists[0].Climb.ID != "fake:beta" {
+	if len(roomPayload.Finalists) != 1 || roomPayload.Finalists[0].Climb.ID != "fake-route:beta" {
 		t.Fatalf("unexpected finalists payload: %#v", roomPayload.Finalists)
 	}
 }
@@ -228,9 +262,12 @@ func TestCreateRoomRequiresEncryptionKey(t *testing.T) {
 	server := httptest.NewServer(routes.SetupRoutes())
 	defer server.Close()
 
-	response := performJSONRequest(t, server, http.MethodPost, "/api/rooms", map[string]string{
+	response := performJSONRequest(t, server, http.MethodPost, "/api/rooms", map[string]any{
 		"provider_id":  string(provider.ID()),
 		"display_name": "Host",
+		"secret": map[string]string{
+			"token": "room-token",
+		},
 	}, nil)
 	if response.StatusCode != http.StatusInternalServerError {
 		t.Fatalf("expected create room status 500, got %d", response.StatusCode)
@@ -243,6 +280,118 @@ func TestCreateRoomRequiresEncryptionKey(t *testing.T) {
 	if payload["error"] != "KILTER_TOGETHER_ENCRYPTION_KEY is required to create rooms" {
 		t.Fatalf("unexpected error payload: %#v", payload)
 	}
+}
+
+func TestRoomPermissionBoundaries(t *testing.T) {
+	tempDir := t.TempDir()
+	appDBPath := filepath.Join(tempDir, "app.db")
+	config.SetRuntimeConfig(config.RuntimeConfig{
+		DataDir:       tempDir,
+		AppDBPath:     appDBPath,
+		AppSecret:     "test-app-secret",
+		EncryptionKey: base64.StdEncoding.EncodeToString(bytes.Repeat([]byte{5}, 32)),
+	})
+	if err := config.ConnectAppDB(appDBPath); err != nil {
+		t.Fatalf("connect app database: %v", err)
+	}
+
+	provider := testprovider.New(providers.ProviderID("fake-perm"))
+	providers.Register(provider)
+	rooms.DefaultService = rooms.NewService()
+	if err := rooms.DefaultService.Migrate(context.Background()); err != nil {
+		t.Fatalf("migrate app database: %v", err)
+	}
+
+	server := httptest.NewServer(routes.SetupRoutes())
+	defer server.Close()
+
+	// create room as host
+	createResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms", map[string]any{
+		"provider_id":  string(provider.ID()),
+		"display_name": "Host",
+		"secret": map[string]string{
+			"token": "room-token",
+		},
+	}, nil)
+	if createResponse.StatusCode != http.StatusCreated {
+		t.Fatalf("expected create room status 201, got %d", createResponse.StatusCode)
+	}
+	var createdRoom struct {
+		Slug string `json:"slug"`
+	}
+	if err := json.NewDecoder(createResponse.Body).Decode(&createdRoom); err != nil {
+		t.Fatalf("decode create room response: %v", err)
+	}
+	hostCookies := createResponse.Cookies()
+	slug := createdRoom.Slug
+
+	// join room as guest
+	joinResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+slug+"/join", map[string]string{
+		"display_name": "Guest",
+	}, nil)
+	if joinResponse.StatusCode != http.StatusCreated {
+		t.Fatalf("expected join room status 201, got %d", joinResponse.StatusCode)
+	}
+	guestCookies := joinResponse.Cookies()
+
+	// connect provider and set surface as host
+	connectResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+slug+"/provider/connect", map[string]any{
+		"secret": map[string]string{"token": "room-token"},
+	}, hostCookies)
+	if connectResponse.StatusCode != http.StatusOK {
+		t.Fatalf("expected connect provider status 200, got %d", connectResponse.StatusCode)
+	}
+	surfaceResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+slug+"/surface", map[string]any{
+		"surface_id": "wall-alpha",
+		"context":    map[string]string{},
+	}, hostCookies)
+	if surfaceResponse.StatusCode != http.StatusOK {
+		t.Fatalf("expected set surface status 200, got %d", surfaceResponse.StatusCode)
+	}
+
+	// guest must NOT be able to perform host-only operations
+	hostOnlyCases := []struct {
+		name   string
+		method string
+		path   string
+		body   any
+	}{
+		{"rename room", http.MethodPatch, "/api/rooms/" + slug, map[string]string{"room_name": "Guest Rename"}},
+		{"add finalist", http.MethodPost, "/api/rooms/" + slug + "/finalists", map[string]string{"climb_id": "fake-perm:beta"}},
+		{"reorder finalists", http.MethodPatch, "/api/rooms/" + slug + "/finalists/reorder", nil},
+		{"promote queue", http.MethodPost, "/api/rooms/" + slug + "/queue/promote", nil},
+		{"reorder queue", http.MethodPatch, "/api/rooms/" + slug + "/queue/reorder", nil},
+		{"close room", http.MethodPost, "/api/rooms/" + slug + "/close", nil},
+		{"kick participant", http.MethodDelete, "/api/rooms/" + slug + "/participants/1", nil},
+	}
+	for _, tc := range hostOnlyCases {
+		t.Run("guest_denied_"+tc.name, func(t *testing.T) {
+			resp := performJSONRequest(t, server, tc.method, tc.path, tc.body, guestCookies)
+			if resp.StatusCode != http.StatusUnauthorized {
+				t.Fatalf("expected 401 for %s, got %d", tc.name, resp.StatusCode)
+			}
+		})
+	}
+
+	// guest CAN perform participant-level operations
+	t.Run("guest_allowed_vote", func(t *testing.T) {
+		resp := performJSONRequest(t, server, http.MethodPut, "/api/rooms/"+slug+"/votes/fake-perm:beta", nil, guestCookies)
+		if resp.StatusCode != http.StatusOK {
+			t.Fatalf("expected vote status 200, got %d", resp.StatusCode)
+		}
+	})
+	t.Run("guest_allowed_queue_add", func(t *testing.T) {
+		resp := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+slug+"/queue", map[string]string{"climb_id": "fake-perm:beta"}, guestCookies)
+		if resp.StatusCode != http.StatusCreated {
+			t.Fatalf("expected queue add status 201, got %d", resp.StatusCode)
+		}
+	})
+	t.Run("guest_allowed_status_update", func(t *testing.T) {
+		resp := performJSONRequest(t, server, http.MethodPut, "/api/rooms/"+slug+"/participants/me/status", map[string]string{"status": "ready"}, guestCookies)
+		if resp.StatusCode != http.StatusOK {
+			t.Fatalf("expected participant status update 200, got %d", resp.StatusCode)
+		}
+	})
 }
 
 func performJSONRequest(

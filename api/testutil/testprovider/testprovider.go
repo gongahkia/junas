@@ -18,6 +18,7 @@ type Provider struct {
 }
 
 func New(id providers.ProviderID) *Provider {
+	prefix := string(id)
 	return &Provider{
 		IDValue: id,
 		Surfaces: []providers.ProviderSurface{
@@ -26,7 +27,7 @@ func New(id providers.ProviderID) *Provider {
 		},
 		Climbs: []providers.ProviderClimb{
 			{
-				ID:             "fake:alpha",
+				ID:             prefix + ":alpha",
 				ExternalID:     "alpha",
 				ProviderID:     id,
 				SurfaceID:      "wall-alpha",
@@ -42,7 +43,7 @@ func New(id providers.ProviderID) *Provider {
 				},
 			},
 			{
-				ID:             "fake:beta",
+				ID:             prefix + ":beta",
 				ExternalID:     "beta",
 				ProviderID:     id,
 				SurfaceID:      "wall-alpha",
@@ -58,7 +59,7 @@ func New(id providers.ProviderID) *Provider {
 				},
 			},
 			{
-				ID:             "fake:gamma",
+				ID:             prefix + ":gamma",
 				ExternalID:     "gamma",
 				ProviderID:     id,
 				SurfaceID:      "wall-beta",

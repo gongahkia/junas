@@ -70,11 +70,15 @@ export const api = {
 
   createRoom: async (payload: {
     providerId: ProviderId;
+    roomName: string;
     displayName: string;
+    secret: Record<string, string>;
   }): Promise<RoomSnapshot> => {
     const response = await apiClient.post<RoomSnapshot>("/rooms", {
       provider_id: payload.providerId,
+      room_name: payload.roomName,
       display_name: payload.displayName,
+      secret: payload.secret,
     });
     return response.data;
   },
@@ -88,6 +92,16 @@ export const api = {
 
   getRoom: async (slug: string): Promise<RoomSnapshot> => {
     const response = await apiClient.get<RoomSnapshot>(`/rooms/${slug}`);
+    return response.data;
+  },
+
+  updateRoom: async (
+    slug: string,
+    payload: { roomName: string }
+  ): Promise<RoomSnapshot> => {
+    const response = await apiClient.patch<RoomSnapshot>(`/rooms/${slug}`, {
+      room_name: payload.roomName,
+    });
     return response.data;
   },
 

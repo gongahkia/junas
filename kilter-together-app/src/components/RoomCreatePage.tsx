@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, CircleHelp } from "lucide-react";
 import { api } from "@/api";
 import type { ProviderId } from "@/types";
+import { getApiErrorMessage } from "@/lib/api-errors";
 import {
   dismissOnboarding,
   loadUserPrefs,
@@ -37,9 +38,15 @@ export default function RoomCreatePage() {
   const [providerId, setProviderId] = useState<ProviderId>(
     () => loadUserPrefs().lastProviderId || "kilter"
   );
+  const [roomName, setRoomName] = useState("");
   const [displayName, setDisplayName] = useState(
     () => loadUserPrefs().savedDisplayName
   );
+  const [connectionFields, setConnectionFields] = useState({
+    username: "",
+    password: "",
+    token: "",
+  });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -49,9 +56,19 @@ export default function RoomCreatePage() {
     setError("");
 
     try {
+      const secret: Record<string, string> = {};
+      if (providerId === "kilter") {
+        secret.username = connectionFields.username;
+        secret.password = connectionFields.password;
+      } else {
+        secret.token = connectionFields.token;
+      }
+
       const room = await api.createRoom({
         providerId,
+        roomName,
         displayName,
+        secret,
       });
       rememberDisplayName(displayName);
       rememberLastProvider(providerId);
@@ -59,7 +76,12 @@ export default function RoomCreatePage() {
       navigate(`/rooms/${room.slug}`);
     } catch (caughtError) {
       console.error("Create room failed", caughtError);
-      setError("Unable to create the room. Check the host session configuration and try again.");
+      setError(
+        getApiErrorMessage(
+          caughtError,
+          "Unable to create the room. Make sure the API server is running and check the backend logs."
+        )
+      );
     } finally {
       setSubmitting(false);
     }
@@ -91,12 +113,13 @@ export default function RoomCreatePage() {
         {showOnboarding ? (
           <div className="mb-6">
             <OnboardingCallout
-              title="Host flow: create first, connect second"
-              description="This page only creates the room shell. You will connect the provider account and choose the board or wall inside the room itself."
+              title="Host flow: sign in first, then share"
+              description="Authenticate the host account here before the room exists. Once the room opens, you only need to choose the shared board or wall before inviting everyone else."
               steps={[
+                "Give the room a name so guests can recognize the session when they join.",
                 "Enter the host display name you want guests to see on this device.",
-                "Pick the provider for this room. Kilter uses username/password, while Crux uses an API token.",
-                "After room creation, connect the provider, choose the surface, then share the invite link or QR code.",
+                "Pick the provider for this room, then enter valid host credentials. Kilter uses username/password, while Crux uses an API token.",
+                "After the room is created, choose the surface, then share the invite link or QR code.",
               ]}
               onDismiss={() => {
                 dismissOnboarding();
@@ -110,11 +133,23 @@ export default function RoomCreatePage() {
           <CardHeader>
             <CardTitle className="text-3xl">Create a collaborative room</CardTitle>
             <CardDescription className="text-base">
-              The host account connects once. Guests join with a display name and collaborate from their own devices.
+              Authenticate the host account once before the room opens. Guests join later with a display name and collaborate from their own devices.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="space-y-2">
+                <label htmlFor="room-name" className="text-sm font-medium">
+                  Room name
+                </label>
+                <Input
+                  id="room-name"
+                  value={roomName}
+                  onChange={(event) => setRoomName(event.target.value)}
+                  placeholder="Monday Session, Kilter Crew, Warmup Circuit"
+                />
+              </div>
+
               <div className="space-y-2">
                 <label htmlFor="display-name" className="text-sm font-medium">
                   Host display name
@@ -145,10 +180,71 @@ export default function RoomCreatePage() {
                 </Select>
               </div>
 
+              {providerId === "kilter" ? (
+                <div className="grid gap-5 md:grid-cols-2">
+                  <div className="space-y-2">
+                    <label htmlFor="kilter-username" className="text-sm font-medium">
+                      Kilter username
+                    </label>
+                    <Input
+                      id="kilter-username"
+                      value={connectionFields.username}
+                      onChange={(event) =>
+                        setConnectionFields((previousState) => ({
+                          ...previousState,
+                          username: event.target.value,
+                        }))
+                      }
+                      autoComplete="username"
+                      placeholder="Kilter username"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="kilter-password" className="text-sm font-medium">
+                      Kilter password
+                    </label>
+                    <Input
+                      id="kilter-password"
+                      type="password"
+                      value={connectionFields.password}
+                      onChange={(event) =>
+                        setConnectionFields((previousState) => ({
+                          ...previousState,
+                          password: event.target.value,
+                        }))
+                      }
+                      autoComplete="current-password"
+                      placeholder="Kilter password"
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <label htmlFor="crux-token" className="text-sm font-medium">
+                    Crux API token
+                  </label>
+                  <Input
+                    id="crux-token"
+                    value={connectionFields.token}
+                    onChange={(event) =>
+                      setConnectionFields((previousState) => ({
+                        ...previousState,
+                        token: event.target.value,
+                      }))
+                    }
+                    autoComplete="off"
+                    placeholder="Crux API token"
+                  />
+                  <p className="text-sm text-muted-foreground">
+                    Paste either the raw Crux token or the full <code>Bearer ...</code> value.
+                  </p>
+                </div>
+              )}
+
               <div className="rounded-2xl border bg-muted/40 p-4 text-sm text-muted-foreground">
                 {providerId === "kilter"
-                  ? "After the room is created, connect one authenticated Kilter account and choose the board plus angle for the session."
-                  : "After the room is created, connect a Crux API token, then pick a gym and wall for the session."}
+                  ? "This room will only be created after the Kilter credentials are validated. The next step inside the room is choosing the board plus angle."
+                  : "This room will only be created after the Crux token is validated. The next step inside the room is choosing the gym and wall."}
               </div>
 
               {error ? (
@@ -158,7 +254,7 @@ export default function RoomCreatePage() {
               ) : null}
 
               <Button type="submit" className="w-full" disabled={submitting}>
-                {submitting ? "Creating room..." : "Create room"}
+                {submitting ? "Authenticating host..." : "Authenticate and create room"}
               </Button>
             </form>
           </CardContent>

@@ -10,10 +10,27 @@ export function getApiErrorMessage(
   fallbackMessage: string
 ): string {
   if (axios.isAxiosError<ApiErrorPayload>(error)) {
-    const responseMessage = error.response?.data?.error?.trim();
+    const responseData = error.response?.data as
+      | ApiErrorPayload
+      | string
+      | undefined;
+    const responseMessage =
+      typeof responseData === "string"
+        ? responseData.trim()
+        : responseData?.error?.trim();
     if (responseMessage) {
       return responseMessage;
     }
+
+    const normalizedMessage = error.message.trim();
+    if (
+      normalizedMessage &&
+      !/^Request failed with status code \d+$/.test(normalizedMessage)
+    ) {
+      return normalizedMessage;
+    }
+
+    return fallbackMessage;
   }
 
   const maybeResponseMessage = (

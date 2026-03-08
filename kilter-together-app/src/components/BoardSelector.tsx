@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Layers3, Mountain, Radar } from "lucide-react";
+import { ArrowLeft, ArrowRight, Layers3, Mountain, Radar } from "lucide-react";
 import AngleSelector from "./AngleSelector";
 import type { Board } from "../types";
 import { DEFAULT_ANGLE } from "@/lib/climbs";
 import {
+  buildSoloResumePath,
   dismissSoloIntro,
   loadUserPrefs,
   rememberLastKilterSurface,
@@ -27,6 +28,7 @@ export default function BoardSelector({
   const navigate = useNavigate();
   const [prefs, setPrefs] = useState(() => loadUserPrefs());
   const [angle, setAngle] = useState(() => prefs.lastKilter.angle || DEFAULT_ANGLE);
+  const soloResumePath = buildSoloResumePath(prefs.soloResume);
 
   if (loading) {
     return (
@@ -57,18 +59,19 @@ export default function BoardSelector({
         features={[
           {
             icon: <Layers3 className="h-6 w-6" />,
+            title: "What solo mode is for",
+            description:
+              "Solo browse stays read-only. Use rooms when you want voting, queueing, QR invites, or live session coordination.",
+          },
+          {
+            icon: <Mountain className="h-6 w-6" />,
             title: "Board-first entry",
             description: "Choose the board size first, then dive straight into the catalog.",
           },
           {
-            icon: <Mountain className="h-6 w-6" />,
+            icon: <Radar className="h-6 w-6" />,
             title: "Angle-aware grades",
             description: "Keep the selected angle pinned so grade context stays consistent.",
-          },
-          {
-            icon: <Radar className="h-6 w-6" />,
-            title: "Fast scouting",
-            description: "Search, filter by setter, and inspect overlays before you climb.",
           },
         ]}
         dismissLabel="Open solo browse"
@@ -94,30 +97,42 @@ export default function BoardSelector({
         </header>
 
         <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center gap-6 py-8">
-          <div className="mx-auto grid w-full max-w-5xl gap-6 lg:grid-cols-[0.75fr_1.25fr]">
-            <Card className="bg-card/90">
-              <CardHeader>
-                <CardTitle>Choose the default angle</CardTitle>
-                <CardDescription>
-                  This angle becomes the starting view whenever you open a board from this page.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <AngleSelector angle={angle} onAngleChange={setAngle} />
-                <p className="text-sm text-muted-foreground">
-                  The browser remembers your last solo angle locally for the next visit.
-                </p>
-              </CardContent>
-            </Card>
+          <div className="mx-auto grid w-full max-w-5xl gap-6">
+            <div className="grid gap-6 md:grid-cols-4">
+              <Card className={soloResumePath ? "bg-card/90 md:col-span-3" : "bg-card/90 md:col-span-4"}>
+                <CardHeader>
+                  <CardTitle>Choose the default angle</CardTitle>
+                  <CardDescription>
+                    This angle becomes the starting view whenever you open a board from this page.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <AngleSelector angle={angle} onAngleChange={setAngle} />
+                  <p className="text-sm text-muted-foreground">
+                    The browser remembers your last solo angle locally for the next visit.
+                  </p>
+                </CardContent>
+              </Card>
 
-            <Card className="bg-card/90">
-              <CardHeader>
-                <CardTitle>What solo mode is for</CardTitle>
-                <CardDescription>
-                  Solo browse stays read-only. Use rooms when you want voting, queueing, QR invites, or live session coordination.
-                </CardDescription>
-              </CardHeader>
-            </Card>
+              {soloResumePath ? (
+                <Card className="bg-card/90 md:col-span-1">
+                  <CardHeader>
+                    <CardTitle>Resume solo browse</CardTitle>
+                    <CardDescription>
+                      Jump back into your last Kilter board filters on this browser.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex h-full items-end">
+                    <Button asChild variant="outline" className="w-full justify-between">
+                      <Link to={soloResumePath}>
+                        Resume solo browse
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ) : null}
+            </div>
 
             <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
               <CardHeader>
@@ -159,32 +174,6 @@ export default function BoardSelector({
             </Card>
           </div>
 
-          <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-center text-3xl sm:text-4xl">
-                Inspect Kilter climbs without a room
-              </CardTitle>
-              <CardDescription className="mx-auto max-w-3xl text-center text-base leading-7">
-                Use the same local dataset, pick a board angle, and browse climbs in a cleaner read-only view before you start a shared session.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="rounded-2xl border bg-white/70 p-5 text-center text-sm leading-7 text-muted-foreground">
-                Solo mode is optimized for quick scouting. Keep the filters local to this browser, inspect image overlays, then jump into a collaborative room when you want shared decisions.
-              </div>
-              <div className="flex flex-wrap justify-center gap-2 text-sm text-muted-foreground">
-                <span className="rounded-full bg-teal-100 px-3 py-1 font-medium text-teal-800">
-                  Read-only catalog
-                </span>
-                <span className="rounded-full bg-teal-100 px-3 py-1 font-medium text-teal-800">
-                  Angle-pinned grades
-                </span>
-                <span className="rounded-full bg-teal-100 px-3 py-1 font-medium text-teal-800">
-                  Search + overlays
-                </span>
-              </div>
-            </CardContent>
-          </Card>
         </main>
       </div>
     </div>

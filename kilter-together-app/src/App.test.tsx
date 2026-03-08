@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import App from "./App";
@@ -41,9 +41,28 @@ class MockEventSource {
   }
 
   close() {}
+
+  emit(type: string, event: Event = new Event(type)) {
+    this.listeners.get(type)?.forEach((listener) => {
+      listener(event);
+    });
+  }
 }
 
 vi.stubGlobal("EventSource", MockEventSource as unknown as typeof EventSource);
+
+if (!HTMLElement.prototype.hasPointerCapture) {
+  HTMLElement.prototype.hasPointerCapture = () => false;
+}
+if (!HTMLElement.prototype.setPointerCapture) {
+  HTMLElement.prototype.setPointerCapture = () => {};
+}
+if (!HTMLElement.prototype.releasePointerCapture) {
+  HTMLElement.prototype.releasePointerCapture = () => {};
+}
+if (!HTMLElement.prototype.scrollIntoView) {
+  HTMLElement.prototype.scrollIntoView = () => {};
+}
 
 vi.mock("./api", () => ({
   api: {
@@ -53,6 +72,7 @@ vi.mock("./api", () => ({
     createRoom: vi.fn(),
     joinRoom: vi.fn(),
     getRoom: vi.fn(),
+    updateRoom: vi.fn(),
     getRoomEventsUrl: vi.fn((slug: string) => `/api/rooms/${slug}/events`),
     connectRoomProvider: vi.fn(),
     getRoomCatalogSurfaces: vi.fn(),
@@ -169,7 +189,6 @@ describe("App routes", () => {
   });
 
   it("shows the global community bottom bar", async () => {
-    const user = userEvent.setup();
     mockedApi.getBoards.mockResolvedValue([]);
 
     render(
@@ -181,7 +200,6 @@ describe("App routes", () => {
     expect(
       await screen.findByText(/for the Climbing Community by Gabriel Ong/i)
     ).toBeInTheDocument();
-    await user.click(screen.getByRole("button", { name: "Start exploring" }));
     expect(screen.getByRole("img", { name: /love/i })).toHaveAttribute(
       "src",
       "/heart.png"
@@ -327,6 +345,77 @@ describe("App routes", () => {
     expect(mockedApi.getBoards).not.toHaveBeenCalled();
   });
 
+  it("keeps a single room event stream and avoids refetching surfaces on every room event", async () => {
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("session-setup"),
+      connection: {
+        provider_id: "kilter",
+        connected: true,
+      },
+    });
+    mockedApi.getRoomCatalogSurfaces.mockResolvedValue([
+      {
+        id: "14",
+        kind: "board",
+        name: "Kilter Board Original",
+      },
+    ]);
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/session-setup"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(
+      await screen.findByRole("heading", { name: "Room session-setup" })
+    ).toBeInTheDocument();
+
+    await waitFor(() =>
+      expect(mockedApi.getRoomCatalogSurfaces).toHaveBeenCalledTimes(1)
+    );
+
+    MockEventSource.instances[0]?.emit("room");
+
+    await waitFor(() => expect(mockedApi.getRoom).toHaveBeenCalledTimes(2));
+    expect(MockEventSource.instances).toHaveLength(1);
+    expect(mockedApi.getRoomCatalogSurfaces).toHaveBeenCalledTimes(1);
+  });
+
+  it("lets the host set the room name from the room header", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue(buildRoomSnapshot("rename-room"));
+    mockedApi.updateRoom.mockResolvedValue({
+      ...buildRoomSnapshot("rename-room"),
+      room_name: "After Work Session",
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/rename-room"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(
+      await screen.findByRole("heading", { name: "Room rename-room" })
+    ).toBeInTheDocument();
+
+    await user.type(screen.getByLabelText("Room name"), "After Work Session");
+    await user.click(screen.getByRole("button", { name: "Set room name" }));
+
+    await waitFor(() =>
+      expect(mockedApi.updateRoom).toHaveBeenCalledWith("rename-room", {
+        roomName: "After Work Session",
+      })
+    );
+
+    expect(
+      await screen.findByRole("heading", { name: "After Work Session" })
+    ).toBeInTheDocument();
+  });
+
   it("supports host decision actions inside a room", async () => {
     const user = userEvent.setup();
     mockedApi.getBoards.mockResolvedValue([]);
@@ -399,6 +488,99 @@ describe("App routes", () => {
     );
   });
 
+  it("reorders queue entries through the drag handle instead of up and down buttons", async () => {
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("drag-room"),
+      surface: {
+        id: "14",
+        kind: "board",
+        name: "Kilter Board Original",
+        meta: {
+          angle: "40",
+          board_id: "14",
+        },
+      },
+      connection: {
+        provider_id: "kilter",
+        connected: true,
+      },
+      queue: [
+        {
+          id: 4,
+          status: "queued" as const,
+          position: 1,
+          added_by: "Host",
+          climb: {
+            id: "kilter:14:uuid-1",
+            external_id: "uuid-1",
+            provider_id: "kilter",
+            surface_id: "14",
+            name: "First Project",
+            setter_name: "Setter A",
+            primary_grade: "V6",
+          },
+        },
+        {
+          id: 5,
+          status: "next" as const,
+          position: 2,
+          added_by: "Host",
+          climb: {
+            id: "kilter:14:uuid-2",
+            external_id: "uuid-2",
+            provider_id: "kilter",
+            surface_id: "14",
+            name: "Second Project",
+            setter_name: "Setter B",
+            primary_grade: "V5",
+          },
+        },
+      ],
+    });
+    mockedApi.getRoomCatalogClimbs.mockResolvedValue({
+      climbs: [],
+      has_more: false,
+      page_size: 12,
+      vote_counts: {},
+      my_votes: [],
+    });
+    mockedApi.reorderRoomQueue.mockResolvedValue(undefined);
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/drag-room"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByText("Queue")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Up" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Down" })).not.toBeInTheDocument();
+
+    const dragHandle = screen.getByRole("button", {
+      name: "Drag First Project in queue",
+    });
+    const dropTarget = screen.getByRole("group", {
+      name: "Queue entry Second Project",
+    });
+    const dataTransfer = {
+      effectAllowed: "",
+      dropEffect: "",
+      setData: vi.fn(),
+      getData: vi.fn(),
+    } as unknown as DataTransfer;
+
+    fireEvent.dragStart(dragHandle, { dataTransfer });
+    fireEvent.dragOver(dropTarget, { dataTransfer });
+    fireEvent.drop(dropTarget, { dataTransfer });
+    fireEvent.dragEnd(dragHandle, { dataTransfer });
+
+    await waitFor(() =>
+      expect(mockedApi.reorderRoomQueue).toHaveBeenCalledWith("drag-room", [5, 4])
+    );
+    await waitFor(() => expect(mockedApi.getRoom).toHaveBeenCalledTimes(2));
+  });
+
   it("shows the backend provider-connect error in the room UI", async () => {
     const user = userEvent.setup();
     mockedApi.getBoards.mockResolvedValue([]);
@@ -435,11 +617,147 @@ describe("App routes", () => {
     ).toBeInTheDocument();
   });
 
+  it("lets Crux hosts edit the shared gym and wall after the first selection", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("crux-room"),
+      provider_id: "crux",
+      connection: {
+        provider_id: "crux",
+        connected: true,
+      },
+      surface: {
+        id: "wall-alpha",
+        kind: "wall",
+        name: "Alpha Wall",
+        parent_id: "gym-a",
+        meta: {
+          gym_slug: "gym-a",
+        },
+      },
+    });
+    mockedApi.getRoomCatalogClimbs.mockResolvedValue({
+      climbs: [],
+      has_more: false,
+      page_size: 12,
+      vote_counts: {},
+      my_votes: [],
+    });
+    mockedApi.getRoomCatalogSurfaces.mockImplementation(
+      async (_slug: string, parentId?: string) => {
+        if (!parentId) {
+          return [
+            { id: "gym-a", kind: "gym", name: "Alpha Gym" },
+            { id: "gym-b", kind: "gym", name: "Beta Gym" },
+          ];
+        }
+
+        if (parentId === "gym-a") {
+          return [{ id: "wall-alpha", kind: "wall", name: "Alpha Wall" }];
+        }
+
+        return [
+          { id: "wall-beta", kind: "wall", name: "Beta Cave" },
+          { id: "wall-gamma", kind: "wall", name: "Moon Board" },
+        ];
+      }
+    );
+    mockedApi.setRoomSurface.mockResolvedValue({
+      id: "wall-gamma",
+      kind: "wall",
+      name: "Moon Board",
+      parent_id: "gym-b",
+      meta: {
+        gym_slug: "gym-b",
+      },
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/crux-room"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    const editTitle = await screen.findByText("Edit the shared climbing surface");
+    const editCard = editTitle.closest("[data-slot='card']");
+    expect(editCard).not.toBeNull();
+
+    const [gymSelect, wallSelect] = within(editCard as HTMLElement).getAllByRole("combobox");
+
+    await user.click(gymSelect);
+    await user.click(await screen.findByRole("option", { name: "Beta Gym" }));
+
+    await waitFor(() =>
+      expect(mockedApi.getRoomCatalogSurfaces).toHaveBeenCalledWith("crux-room", "gym-b")
+    );
+
+    await user.click(wallSelect);
+    await user.click(await screen.findByRole("option", { name: "Moon Board" }));
+    await user.click(within(editCard as HTMLElement).getByRole("button", { name: "Update wall" }));
+
+    await waitFor(() =>
+      expect(mockedApi.setRoomSurface).toHaveBeenCalledWith("crux-room", {
+        surfaceId: "wall-gamma",
+        context: {
+          gym_slug: "gym-b",
+          parent_id: "gym-b",
+        },
+      })
+    );
+  });
+
   it("supports creating a room from the room-first flow", async () => {
     const user = userEvent.setup();
     mockedApi.getBoards.mockResolvedValue([]);
-    mockedApi.createRoom.mockResolvedValue(buildRoomSnapshot("created-room"));
-    mockedApi.getRoom.mockResolvedValue(buildRoomSnapshot("created-room"));
+    mockedApi.createRoom.mockResolvedValue({
+      ...buildRoomSnapshot("created-room"),
+      room_name: "Monday Session",
+    });
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("created-room"),
+      room_name: "Monday Session",
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/new"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    await user.type(screen.getByLabelText("Room name"), "Monday Session");
+    await user.type(screen.getByLabelText("Host display name"), "Host");
+    await user.type(screen.getByLabelText("Kilter username"), "host@example.com");
+    await user.type(screen.getByLabelText("Kilter password"), "secret-pass");
+    await user.click(screen.getByRole("button", { name: "Authenticate and create room" }));
+
+    await waitFor(() =>
+      expect(mockedApi.createRoom).toHaveBeenCalledWith({
+        providerId: "kilter",
+        roomName: "Monday Session",
+        displayName: "Host",
+        secret: {
+          username: "host@example.com",
+          password: "secret-pass",
+        },
+      })
+    );
+
+    expect(
+      await screen.findByRole("heading", { name: "Monday Session" })
+    ).toBeInTheDocument();
+  });
+
+  it("shows a useful fallback when room creation hits a blank proxy 500", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.createRoom.mockRejectedValue({
+      message: "Request failed with status code 500",
+      response: {
+        status: 500,
+        data: "",
+      },
+    });
 
     render(
       <MemoryRouter initialEntries={["/rooms/new"]}>
@@ -448,17 +766,14 @@ describe("App routes", () => {
     );
 
     await user.type(screen.getByLabelText("Host display name"), "Host");
-    await user.click(screen.getByRole("button", { name: "Create room" }));
-
-    await waitFor(() =>
-      expect(mockedApi.createRoom).toHaveBeenCalledWith({
-        providerId: "kilter",
-        displayName: "Host",
-      })
-    );
+    await user.type(screen.getByLabelText("Kilter username"), "host@example.com");
+    await user.type(screen.getByLabelText("Kilter password"), "secret-pass");
+    await user.click(screen.getByRole("button", { name: "Authenticate and create room" }));
 
     expect(
-      await screen.findByRole("heading", { name: "Room created-room" })
+      await screen.findByText(
+        "Unable to create the room. Make sure the API server is running and check the backend logs."
+      )
     ).toBeInTheDocument();
   });
 
@@ -486,7 +801,7 @@ describe("App routes", () => {
     ).toBeInTheDocument();
   });
 
-  it("shows recent rooms and resume solo browse from local prefs", async () => {
+  it("shows recent rooms on landing and resume solo browse on the solo page", async () => {
     window.localStorage.setItem(
       "kilter-together:user-prefs:v1",
       JSON.stringify({
@@ -531,6 +846,79 @@ describe("App routes", () => {
     );
     mockedApi.getBoards.mockResolvedValue([]);
 
+    const landingView = render(
+      <MemoryRouter initialEntries={["/"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByText("Recent rooms")).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /Resume solo browse/i })).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Open Room saved-room" })).toHaveAttribute(
+      "href",
+      "/rooms/saved-room"
+    );
+
+    landingView.unmount();
+
+    render(
+      <MemoryRouter initialEntries={["/solo"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(
+      await screen.findByRole("link", { name: /Resume solo browse/i })
+    ).toHaveAttribute(
+      "href",
+      "/solo/boards/14?angle=45&sort=newest&q=Compression&setter=setter-a&climb=uuid-1"
+    );
+  });
+
+  it("lets the user pin and remove recent rooms", async () => {
+    const user = userEvent.setup();
+    window.localStorage.setItem(
+      "kilter-together:user-prefs:v1",
+      JSON.stringify({
+        savedDisplayName: "Guest",
+        lastProviderId: "kilter",
+        lastKilter: {
+          boardId: "14",
+          angle: 45,
+        },
+        lastCrux: {
+          gymSlug: "",
+          wallId: "",
+        },
+        recentRooms: [
+          {
+            slug: "older-room",
+            providerId: "kilter",
+            roomName: "Older Session",
+            lastVisitedAt: "2026-03-08T09:00:00.000Z",
+          },
+          {
+            slug: "newer-room",
+            providerId: "crux",
+            roomName: "Newer Session",
+            lastVisitedAt: "2026-03-08T10:00:00.000Z",
+          },
+        ],
+        intro: {
+          version: 1,
+          landingDismissed: true,
+          soloDismissed: true,
+        },
+        onboarding: {
+          version: 1,
+          dismissed: true,
+          hostCompleted: false,
+          guestCompleted: false,
+        },
+      })
+    );
+    mockedApi.getBoards.mockResolvedValue([]);
+
     render(
       <MemoryRouter initialEntries={["/"]}>
         <App />
@@ -538,17 +926,42 @@ describe("App routes", () => {
     );
 
     expect(await screen.findByText("Recent rooms")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Resume solo browse/i })).toHaveAttribute(
-      "href",
-      "/solo/boards/14?angle=45&sort=newest&q=Compression&setter=setter-a&climb=uuid-1"
+
+    await user.click(screen.getByRole("button", { name: "Pin Older Session" }));
+
+    const storedAfterPin = JSON.parse(
+      window.localStorage.getItem("kilter-together:user-prefs:v1") || "{}"
     );
-    expect(screen.getByRole("link", { name: /Room saved-room/i })).toHaveAttribute(
-      "href",
-      "/rooms/saved-room"
+    expect(storedAfterPin.recentRooms[0]).toMatchObject({
+      slug: "older-room",
+      pinned: true,
+    });
+
+    const recentRoomsCard = screen.getByText("Recent rooms").closest("[data-slot='card']");
+    expect(recentRoomsCard).not.toBeNull();
+    const openLinks = within(recentRoomsCard as HTMLElement).getAllByRole("link", {
+      name: /Open /i,
+    });
+    expect(openLinks[0]).toHaveAttribute("href", "/rooms/older-room");
+
+    await user.click(
+      screen.getByRole("button", {
+        name: "Remove Newer Session from recent rooms",
+      })
     );
+
+    const storedAfterRemove = JSON.parse(
+      window.localStorage.getItem("kilter-together:user-prefs:v1") || "{}"
+    );
+    expect(storedAfterRemove.recentRooms).toHaveLength(1);
+    expect(storedAfterRemove.recentRooms[0]).toMatchObject({
+      slug: "older-room",
+      pinned: true,
+    });
+    expect(screen.queryByText("Newer Session")).not.toBeInTheDocument();
   });
 
-  it("shows a first-visit intro before onboarding and lets the user replay onboarding", async () => {
+  it("shows onboarding first, then the landing intro once, and lets the user replay onboarding", async () => {
     const user = userEvent.setup();
     mockedApi.getBoards.mockResolvedValue([]);
 
@@ -558,13 +971,13 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
-    expect(await screen.findByRole("button", { name: "Start exploring" })).toBeInTheDocument();
-    expect(screen.queryByText("First-time guide")).not.toBeInTheDocument();
-
-    await user.click(screen.getByRole("button", { name: "Start exploring" }));
     expect(await screen.findByText("First-time guide")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Start exploring" })).not.toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: "Dismiss" }));
+    expect(await screen.findByRole("button", { name: "Start exploring" })).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Start exploring" }));
     expect(screen.queryByText("First-time guide")).not.toBeInTheDocument();
 
     view.unmount();
@@ -619,7 +1032,7 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
-    expect(await screen.findByText("Host flow: create first, connect second")).toBeInTheDocument();
+    expect(await screen.findByText("Host flow: sign in first, then share")).toBeInTheDocument();
 
     unmount();
 
@@ -666,13 +1079,18 @@ describe("App routes", () => {
     );
 
     expect(screen.getByLabelText("Host display name")).toHaveValue("Alex");
+    await user.type(screen.getByLabelText("Crux API token"), "crux-token");
 
-    await user.click(screen.getByRole("button", { name: "Create room" }));
+    await user.click(screen.getByRole("button", { name: "Authenticate and create room" }));
 
     await waitFor(() =>
       expect(mockedApi.createRoom).toHaveBeenCalledWith({
         providerId: "crux",
+        roomName: "",
         displayName: "Alex",
+        secret: {
+          token: "crux-token",
+        },
       })
     );
   });

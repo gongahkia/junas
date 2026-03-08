@@ -2,7 +2,7 @@ package config
 
 import (
 	"fmt"
-	"log"
+	"log/slog"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -30,11 +30,11 @@ func ConnectKilterDB(dbPath string) error {
 	if err != nil {
 		return fmt.Errorf("connect kilter database: %w", err)
 	}
-	log.Println("Kilter Database connection established")
+	slog.Info("kilter database connection established")
 
 	// Apply performance indexes
 	if err := applyPerformanceIndexes(); err != nil {
-		log.Printf("Warning: Failed to apply some performance indexes: %v", err)
+		slog.Warn("failed to apply some performance indexes", "error", err)
 	}
 
 	return nil
@@ -76,7 +76,7 @@ func applyPerformanceIndexes() error {
 	}
 	for _, indexSQL := range indexes {
 		if err := KilterDB.Exec(indexSQL).Error; err != nil {
-			log.Printf("Failed to create index: %v", err)
+			slog.Warn("failed to create index", "error", err)
 			return err
 		}
 	}

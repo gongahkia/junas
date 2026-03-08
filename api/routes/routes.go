@@ -1,8 +1,15 @@
 package routes
 
 import (
+	"log/slog"
+	"net/http"
+	"time"
+
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/go-chi/cors"
+	"github.com/go-chi/httprate"
+	"github.com/lczm/kilter-together/api/config"
 	"github.com/lczm/kilter-together/api/handlers"
 	httpSwagger "github.com/swaggo/http-swagger"
 )
@@ -12,10 +19,18 @@ func SetupRoutes() *chi.Mux {
 	r := chi.NewRouter()
 
 	// middleware stack
-	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 	r.Use(middleware.RequestID)
 	r.Use(middleware.RealIP)
+	r.Use(cors.Handler(cors.Options{
+		AllowedOrigins:   config.GetRuntimeConfig().AllowedOrigins,
+		AllowedMethods:   []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Accept", "Content-Type", "Authorization"},
+		AllowCredentials: true,
+		MaxAge:           300,
+	}))
+	r.Use(structuredLogger)
+	r.Use(httprate.LimitByIP(100, time.Minute))
 
 	// Define routes
 	r.Route("/api", func(r chi.Router) {
@@ -23,12 +38,13 @@ func SetupRoutes() *chi.Mux {
 		r.Get("/climbs", handlers.GetClimbs)
 		r.Get("/boards", handlers.GetBoardOptions)
 		r.Get("/images/{filename}", handlers.ServeImage)
-		r.Post("/rooms", handlers.CreateRoom)
+		r.With(httprate.LimitByIP(10, time.Minute)).Post("/rooms", handlers.CreateRoom)
 		r.Route("/rooms/{slug}", func(r chi.Router) {
 			r.Post("/join", handlers.JoinRoom)
 			r.Get("/", handlers.GetRoom)
+			r.Patch("/", handlers.UpdateRoom)
 			r.Get("/events", handlers.StreamRoomEvents)
-			r.Post("/provider/connect", handlers.ConnectRoomProvider)
+			r.With(httprate.LimitByIP(5, time.Minute)).Post("/provider/connect", handlers.ConnectRoomProvider)
 			r.Post("/surface", handlers.SetRoomSurface)
 			r.Get("/catalog/surfaces", handlers.ListRoomCatalogSurfaces)
 			r.Get("/catalog/climbs", handlers.ListRoomCatalogClimbs)
@@ -55,4 +71,20 @@ func SetupRoutes() *chi.Mux {
 	))
 
 	return r
+}
+
+func structuredLogger(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		ww := middleware.NewWrapResponseWriter(w, r.ProtoMajor)
+		next.ServeHTTP(ww, r)
+		slog.Info("http request",
+			"method", r.Method,
+			"path", r.URL.Path,
+			"status", ww.Status(),
+			"duration_ms", time.Since(start).Milliseconds(),
+			"request_id", middleware.GetReqID(r.Context()),
+			"remote_addr", r.RemoteAddr,
+		)
+	})
 }

@@ -1,0 +1,97 @@
+package providers
+
+// Provider scaffold — rename to <name>.go and implement each method.
+// Register in register.go: MustRegister(NewExampleProvider())
+
+import (
+	"context"
+	"fmt"
+	"net/http"
+	"time"
+)
+
+type ExampleProvider struct {
+	httpClient *http.Client
+}
+
+func NewExampleProvider() *ExampleProvider {
+	return &ExampleProvider{
+		httpClient: &http.Client{Timeout: 15 * time.Second},
+	}
+}
+
+// ID returns the unique provider identifier. Must match a ProviderID const in types.go.
+func (p *ExampleProvider) ID() ProviderID {
+	return "example"
+}
+
+// ValidateConnection authenticates the user's credentials against the provider API.
+// secret is a map of string key/value pairs (e.g., {"username":"...", "password":"..."}
+// or {"token":"..."}). Return metadata about the connected user (shown in room UI).
+// Return an error if credentials are invalid.
+func (p *ExampleProvider) ValidateConnection(
+	ctx context.Context,
+	secret SecretPayload,
+) (map[string]string, error) {
+	// 1. extract credentials from secret
+	// 2. call provider auth API
+	// 3. return user metadata on success
+	return nil, fmt.Errorf("not implemented")
+}
+
+// ListSurfaces returns available boards/walls/gyms for the authenticated user.
+// For flat hierarchies (one level of boards), ignore filters.ParentID.
+// For nested hierarchies (gyms -> walls), return gyms when ParentID is empty,
+// and walls when ParentID is set. Always include "parent_id" in Meta for
+// generic surface context handling (see rooms/service.go SetSurface).
+func (p *ExampleProvider) ListSurfaces(
+	ctx context.Context,
+	secret SecretPayload,
+	filters SurfaceFilter,
+) ([]ProviderSurface, error) {
+	// example flat surface:
+	// return []ProviderSurface{{
+	//     ID: "board-v1", Kind: "board", Name: "Example Board v1",
+	//     Meta: map[string]string{"parent_id": ""},
+	// }}, nil
+	return nil, fmt.Errorf("not implemented")
+}
+
+// ListClimbs returns a paginated list of climbs for a given surface.
+// input.SurfaceID is the selected surface from ListSurfaces.
+// input.Context carries provider-specific keys (e.g., angle, board_id).
+// input.Cursor is an opaque pagination token (empty for first page).
+// input.PageSize is the requested page size.
+// input.Search is an optional name filter. input.Sort is "popular" or "newest".
+// Climb IDs must be prefixed with the provider name: "example:{externalId}".
+// Use ProviderCacheEntry (see crux.go getCachedJSON) for HTTP response caching.
+func (p *ExampleProvider) ListClimbs(
+	ctx context.Context,
+	secret SecretPayload,
+	input ListClimbsInput,
+) (*PaginatedClimbs, error) {
+	return nil, fmt.Errorf("not implemented")
+}
+
+// GetClimb fetches a single climb by its provider-prefixed ID.
+// Parse the ID to extract the external identifier (e.g., "example:123" -> 123).
+// Return a fully populated ProviderClimb with media URLs and metadata.
+func (p *ExampleProvider) GetClimb(
+	ctx context.Context,
+	secret SecretPayload,
+	input ListClimbsInput,
+	climbID string,
+) (*ProviderClimb, error) {
+	return nil, fmt.Errorf("not implemented")
+}
+
+// RefreshCatalog invalidates cached data for this provider.
+// scope carries provider-specific keys to narrow the invalidation.
+// Delete matching ProviderCacheEntry rows from config.AppDB.
+func (p *ExampleProvider) RefreshCatalog(
+	ctx context.Context,
+	secret SecretPayload,
+	scope map[string]string,
+) error {
+	return nil
+}

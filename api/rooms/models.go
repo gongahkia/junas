@@ -30,6 +30,7 @@ const (
 type Room struct {
 	ID                 uint   `gorm:"primaryKey"`
 	Slug               string `gorm:"uniqueIndex;not null"`
+	Name               string `gorm:"index"`
 	ProviderID         string `gorm:"index;not null"`
 	Status             string `gorm:"index;not null"`
 	SurfaceID          string
@@ -147,6 +148,7 @@ type CatalogClimbResponse struct {
 
 type RoomSnapshot struct {
 	Slug         string                            `json:"slug"`
+	RoomName     string                            `json:"room_name,omitempty"`
 	Status       string                            `json:"status"`
 	ProviderID   providers.ProviderID              `json:"provider_id"`
 	Version      int64                             `json:"version"`

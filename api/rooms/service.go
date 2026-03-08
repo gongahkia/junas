@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log/slog"
 	"math/rand"
 	"sort"
 	"strings"
@@ -14,6 +15,15 @@ import (
 	"github.com/lczm/kilter-together/api/providers"
 	"github.com/lczm/kilter-together/api/security"
 	"gorm.io/gorm"
+)
+
+var (
+	ErrForbidden            = errors.New("forbidden")
+	ErrRoomNotFound         = errors.New("room not found")
+	ErrRoomClosed           = errors.New("room is closed")
+	ErrSessionExpired       = errors.New("room session expired")
+	ErrSessionInvalid       = errors.New("invalid room session")
+	ErrProviderNotConnected = errors.New("provider is not connected")
 )
 
 const (
@@ -69,7 +79,9 @@ func (service *Service) Migrate(ctx context.Context) error {
 func (service *Service) CreateRoom(
 	ctx context.Context,
 	providerID providers.ProviderID,
+	roomName string,
 	displayName string,
+	secret providers.SecretPayload,
 ) (*RoomSnapshot, string, error) {
 	if config.AppDB == nil {
 		return nil, "", fmt.Errorf("app database is not configured")
@@ -82,6 +94,12 @@ func (service *Service) CreateRoom(
 		return nil, "", err
 	}
 
+	connectionState, connectionRecord, err := service.prepareProviderConnection(ctx, providerID, secret)
+	if err != nil {
+		return nil, "", err
+	}
+
+	roomName = normalizeRoomName(roomName)
 	displayName = normalizeDisplayName(displayName, "Host")
 	roomSlug, err := security.NewOpaqueToken()
 	if err != nil {
@@ -95,6 +113,7 @@ func (service *Service) CreateRoom(
 	now := time.Now().UTC()
 	room := Room{
 		Slug:         roomSlug,
+		Name:         roomName,
 		ProviderID:   string(providerID),
 		Status:       roomStatusOpen,
 		Version:      1,
@@ -122,7 +141,11 @@ func (service *Service) CreateRoom(
 		}
 		session.RoomID = room.ID
 		session.ParticipantID = participant.ID
-		return tx.Create(&session).Error
+		if err := tx.Create(&session).Error; err != nil {
+			return err
+		}
+		connectionRecord.RoomID = room.ID
+		return tx.Create(connectionRecord).Error
 	})
 	if err != nil {
 		return nil, "", err
@@ -136,6 +159,7 @@ func (service *Service) CreateRoom(
 	if err != nil {
 		return nil, "", err
 	}
+	snapshot.Connection = connectionState
 
 	return snapshot, hostSessionID, nil
 }
@@ -157,7 +181,7 @@ func (service *Service) JoinRoom(
 		return nil, "", err
 	}
 	if room.Status != roomStatusOpen {
-		return nil, "", fmt.Errorf("room is closed")
+		return nil, "", ErrRoomClosed
 	}
 
 	displayName = normalizeDisplayName(displayName, "")
@@ -240,13 +264,13 @@ func (service *Service) Authenticate(
 	var session RoomSession
 	if err := config.AppDB.WithContext(ctx).Where("id = ? AND room_id = ?", sessionID, room.ID).
 		First(&session).Error; err != nil {
-		return nil, fmt.Errorf("invalid room session")
+		return nil, ErrSessionInvalid
 	}
 	if session.ExpiresAt.Before(time.Now().UTC()) {
-		return nil, fmt.Errorf("room session expired")
+		return nil, ErrSessionExpired
 	}
 	if requiredRole != "" && session.Role != requiredRole {
-		return nil, fmt.Errorf("forbidden")
+		return nil, ErrForbidden
 	}
 
 	var participant RoomParticipant
@@ -256,11 +280,15 @@ func (service *Service) Authenticate(
 	}
 
 	now := time.Now().UTC()
-	_ = config.AppDB.WithContext(ctx).Model(&participant).Updates(map[string]any{
+	if err := config.AppDB.WithContext(ctx).Model(&participant).Updates(map[string]any{
 		"last_seen_at": now,
 		"updated_at":   now,
-	}).Error
-	_ = config.AppDB.WithContext(ctx).Model(&room).Update("last_active_at", now).Error
+	}).Error; err != nil {
+		slog.Warn("failed to update participant last_seen_at", "error", err, "participant_id", participant.ID)
+	}
+	if err := config.AppDB.WithContext(ctx).Model(&room).Update("last_active_at", now).Error; err != nil {
+		slog.Warn("failed to update room last_active_at", "error", err, "room_slug", room.Slug)
+	}
 	participant.LastSeenAt = now
 	room.LastActiveAt = now
 
@@ -275,52 +303,57 @@ func (service *Service) GetSnapshot(ctx context.Context, viewer *Viewer) (*RoomS
 	return service.buildSnapshot(ctx, viewer.Room.Slug, viewer)
 }
 
+func (service *Service) UpdateRoomName(
+	ctx context.Context,
+	viewer *Viewer,
+	roomName string,
+) (*RoomSnapshot, error) {
+	if !viewer.IsHost() {
+		return nil, ErrForbidden
+	}
+
+	roomName = normalizeRoomName(roomName)
+	err := config.AppDB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+		if err := tx.Model(&Room{}).
+			Where("id = ?", viewer.Room.ID).
+			Update("name", roomName).Error; err != nil {
+			return err
+		}
+		viewer.Room.Name = roomName
+		return service.bumpRoomVersion(tx, &viewer.Room)
+	})
+	if err != nil {
+		return nil, err
+	}
+	service.hub.Broadcast(EventPayload{
+		Type:     "room.updated",
+		RoomSlug: viewer.Room.Slug,
+		Version:  viewer.Room.Version,
+	})
+
+	return service.buildSnapshot(ctx, viewer.Room.Slug, viewer)
+}
+
 func (service *Service) ConnectProvider(
 	ctx context.Context,
 	viewer *Viewer,
 	secret providers.SecretPayload,
 ) (providers.ProviderConnectionState, error) {
 	if !viewer.IsHost() {
-		return providers.ProviderConnectionState{}, fmt.Errorf("forbidden")
+		return providers.ProviderConnectionState{}, ErrForbidden
 	}
 
-	provider, err := providers.Get(providers.ProviderID(viewer.Room.ProviderID))
+	connectionState, connection, err := service.prepareProviderConnection(
+		ctx,
+		providers.ProviderID(viewer.Room.ProviderID),
+		secret,
+	)
 	if err != nil {
 		return providers.ProviderConnectionState{}, err
 	}
-
-	metadata, err := provider.ValidateConnection(ctx, secret)
-	if err != nil {
-		return providers.ProviderConnectionState{}, err
-	}
-
-	if strings.TrimSpace(config.GetRuntimeConfig().EncryptionKey) == "" {
-		return providers.ProviderConnectionState{}, fmt.Errorf("KILTER_TOGETHER_ENCRYPTION_KEY is required")
-	}
-
-	secretBytes, err := json.Marshal(secret)
-	if err != nil {
-		return providers.ProviderConnectionState{}, err
-	}
-	metadataBytes, err := json.Marshal(metadata)
-	if err != nil {
-		return providers.ProviderConnectionState{}, err
-	}
-	encryptedSecret, err := security.EncryptString(config.GetRuntimeConfig().EncryptionKey, string(secretBytes))
-	if err != nil {
-		return providers.ProviderConnectionState{}, err
-	}
-
-	now := time.Now().UTC()
-	connection := RoomProviderConnection{
-		RoomID:           viewer.Room.ID,
-		ProviderID:       viewer.Room.ProviderID,
-		SecretCiphertext: encryptedSecret,
-		MetadataJSON:     string(metadataBytes),
-		LastValidatedAt:  now,
-	}
+	connection.RoomID = viewer.Room.ID
 	if err := config.AppDB.WithContext(ctx).Where(RoomProviderConnection{RoomID: viewer.Room.ID}).
-		Assign(connection).FirstOrCreate(&connection).Error; err != nil {
+		Assign(*connection).FirstOrCreate(connection).Error; err != nil {
 		return providers.ProviderConnectionState{}, err
 	}
 
@@ -328,11 +361,52 @@ func (service *Service) ConnectProvider(
 		return providers.ProviderConnectionState{}, err
 	}
 
+	return connectionState, nil
+}
+
+func (service *Service) prepareProviderConnection(
+	ctx context.Context,
+	providerID providers.ProviderID,
+	secret providers.SecretPayload,
+) (providers.ProviderConnectionState, *RoomProviderConnection, error) {
+	provider, err := providers.Get(providerID)
+	if err != nil {
+		return providers.ProviderConnectionState{}, nil, err
+	}
+
+	metadata, err := provider.ValidateConnection(ctx, secret)
+	if err != nil {
+		return providers.ProviderConnectionState{}, nil, err
+	}
+
+	if strings.TrimSpace(config.GetRuntimeConfig().EncryptionKey) == "" {
+		return providers.ProviderConnectionState{}, nil, fmt.Errorf("KILTER_TOGETHER_ENCRYPTION_KEY is required")
+	}
+
+	secretBytes, err := json.Marshal(secret)
+	if err != nil {
+		return providers.ProviderConnectionState{}, nil, err
+	}
+	metadataBytes, err := json.Marshal(metadata)
+	if err != nil {
+		return providers.ProviderConnectionState{}, nil, err
+	}
+	encryptedSecret, err := security.EncryptString(config.GetRuntimeConfig().EncryptionKey, string(secretBytes))
+	if err != nil {
+		return providers.ProviderConnectionState{}, nil, err
+	}
+
+	now := time.Now().UTC()
 	return providers.ProviderConnectionState{
-		ProviderID: providers.ProviderID(viewer.Room.ProviderID),
-		Metadata:   metadata,
-		Connected:  true,
-	}, nil
+			ProviderID: providerID,
+			Metadata:   metadata,
+			Connected:  true,
+		}, &RoomProviderConnection{
+			ProviderID:       string(providerID),
+			SecretCiphertext: encryptedSecret,
+			MetadataJSON:     string(metadataBytes),
+			LastValidatedAt:  now,
+		}, nil
 }
 
 func (service *Service) ListSurfaces(
@@ -355,7 +429,7 @@ func (service *Service) SetSurface(
 	contextMap map[string]string,
 ) (*providers.ProviderSurface, error) {
 	if !viewer.IsHost() {
-		return nil, fmt.Errorf("forbidden")
+		return nil, ErrForbidden
 	}
 
 	provider, secret, err := service.providerForRoom(ctx, &viewer.Room)
@@ -364,7 +438,7 @@ func (service *Service) SetSurface(
 	}
 
 	filters := providers.SurfaceFilter{
-		ParentID: contextMap["gym_slug"],
+		ParentID: contextMap["parent_id"],
 	}
 	surfaces, err := provider.ListSurfaces(ctx, secret, filters)
 	if err != nil {
@@ -536,7 +610,7 @@ func (service *Service) AddQueueEntry(ctx context.Context, viewer *Viewer, climb
 
 func (service *Service) AddFinalist(ctx context.Context, viewer *Viewer, climbID string) error {
 	if !viewer.IsHost() {
-		return fmt.Errorf("forbidden")
+		return ErrForbidden
 	}
 	if _, err := service.getRoomClimb(ctx, &viewer.Room, climbID); err != nil {
 		return err
@@ -553,10 +627,12 @@ func (service *Service) AddFinalist(ctx context.Context, viewer *Viewer, climbID
 	}
 
 	var maxPosition int
-	_ = config.AppDB.WithContext(ctx).Model(&RoomFinalistEntry{}).
+	if err := config.AppDB.WithContext(ctx).Model(&RoomFinalistEntry{}).
 		Where("room_id = ?", viewer.Room.ID).
 		Select("COALESCE(MAX(position), 0)").
-		Scan(&maxPosition).Error
+		Scan(&maxPosition).Error; err != nil {
+		slog.Warn("failed to get max finalist position", "error", err, "room_id", viewer.Room.ID)
+	}
 
 	if err := config.AppDB.WithContext(ctx).Create(&RoomFinalistEntry{
 		RoomID:               viewer.Room.ID,
@@ -572,7 +648,7 @@ func (service *Service) AddFinalist(ctx context.Context, viewer *Viewer, climbID
 
 func (service *Service) ReorderFinalists(ctx context.Context, viewer *Viewer, entryIDs []uint) error {
 	if !viewer.IsHost() {
-		return fmt.Errorf("forbidden")
+		return ErrForbidden
 	}
 
 	var entries []RoomFinalistEntry
@@ -604,7 +680,7 @@ func (service *Service) ReorderFinalists(ctx context.Context, viewer *Viewer, en
 
 func (service *Service) DeleteFinalist(ctx context.Context, viewer *Viewer, entryID uint) error {
 	if !viewer.IsHost() {
-		return fmt.Errorf("forbidden")
+		return ErrForbidden
 	}
 
 	if err := config.AppDB.WithContext(ctx).Where("id = ? AND room_id = ?", entryID, viewer.Room.ID).
@@ -621,7 +697,7 @@ func (service *Service) PickRandom(
 	source string,
 ) (*providers.ProviderClimb, error) {
 	if !viewer.IsHost() {
-		return nil, fmt.Errorf("forbidden")
+		return nil, ErrForbidden
 	}
 
 	switch source {
@@ -650,7 +726,7 @@ func (service *Service) PromoteClimb(
 	status string,
 ) error {
 	if !viewer.IsHost() {
-		return fmt.Errorf("forbidden")
+		return ErrForbidden
 	}
 	if status != queueStatusCurrent && status != queueStatusNext {
 		return fmt.Errorf("invalid promotion status %q", status)
@@ -702,7 +778,7 @@ func (service *Service) PromoteClimb(
 
 func (service *Service) ReorderQueue(ctx context.Context, viewer *Viewer, entryIDs []uint) error {
 	if !viewer.IsHost() {
-		return fmt.Errorf("forbidden")
+		return ErrForbidden
 	}
 
 	var entries []RoomQueueEntry
@@ -739,7 +815,7 @@ func (service *Service) UpdateQueueEntryStatus(
 	status string,
 ) error {
 	if !viewer.IsHost() {
-		return fmt.Errorf("forbidden")
+		return ErrForbidden
 	}
 	if status != queueStatusQueued && status != queueStatusNext && status != queueStatusCurrent && status != queueStatusDone {
 		return fmt.Errorf("invalid queue status %q", status)
@@ -793,7 +869,7 @@ func (service *Service) UpdateQueueEntryStatus(
 
 func (service *Service) DeleteQueueEntry(ctx context.Context, viewer *Viewer, entryID uint) error {
 	if !viewer.IsHost() {
-		return fmt.Errorf("forbidden")
+		return ErrForbidden
 	}
 	var entry RoomQueueEntry
 	if err := config.AppDB.WithContext(ctx).Where("id = ? AND room_id = ?", entryID, viewer.Room.ID).
@@ -823,7 +899,7 @@ func (service *Service) DeleteQueueEntry(ctx context.Context, viewer *Viewer, en
 
 func (service *Service) ClearVotes(ctx context.Context, viewer *Viewer) error {
 	if !viewer.IsHost() {
-		return fmt.Errorf("forbidden")
+		return ErrForbidden
 	}
 	if err := config.AppDB.WithContext(ctx).Where("room_id = ?", viewer.Room.ID).Delete(&RoomVote{}).Error; err != nil {
 		return err
@@ -849,7 +925,7 @@ func (service *Service) UpdateParticipantStatus(ctx context.Context, viewer *Vie
 
 func (service *Service) CloseRoom(ctx context.Context, viewer *Viewer) error {
 	if !viewer.IsHost() {
-		return fmt.Errorf("forbidden")
+		return ErrForbidden
 	}
 	now := time.Now().UTC()
 	err := config.AppDB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
@@ -873,7 +949,7 @@ func (service *Service) CloseRoom(ctx context.Context, viewer *Viewer) error {
 
 func (service *Service) RemoveParticipant(ctx context.Context, viewer *Viewer, participantID uint) error {
 	if !viewer.IsHost() {
-		return fmt.Errorf("forbidden")
+		return ErrForbidden
 	}
 	if participantID == viewer.Participant.ID {
 		return fmt.Errorf("host cannot remove themselves")
@@ -944,6 +1020,7 @@ func (service *Service) buildSnapshot(
 
 	snapshot := &RoomSnapshot{
 		Slug:         room.Slug,
+		RoomName:     room.Name,
 		Status:       room.Status,
 		ProviderID:   providers.ProviderID(room.ProviderID),
 		Version:      room.Version,
@@ -1069,10 +1146,19 @@ func (service *Service) providerForRoom(ctx context.Context, room *Room) (provid
 	}
 	connection, err := service.getRoomConnection(ctx, room.ID)
 	if err != nil {
-		return nil, nil, fmt.Errorf("provider is not connected")
+		return nil, nil, ErrProviderNotConnected
 	}
 
-	decrypted, err := security.DecryptString(config.GetRuntimeConfig().EncryptionKey, connection.SecretCiphertext)
+	cfg := config.GetRuntimeConfig()
+	decrypted, err := security.DecryptString(cfg.EncryptionKey, connection.SecretCiphertext)
+	if err != nil && cfg.PreviousEncryptionKey != "" {
+		decrypted, err = security.DecryptString(cfg.PreviousEncryptionKey, connection.SecretCiphertext)
+		if err == nil {
+			if reEncrypted, reErr := security.EncryptString(cfg.EncryptionKey, decrypted); reErr == nil {
+				config.AppDB.WithContext(ctx).Model(&connection).Update("secret_ciphertext", reEncrypted)
+			}
+		}
+	}
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1096,7 +1182,7 @@ func (service *Service) getRoomConnection(ctx context.Context, roomID uint) (*Ro
 func (service *Service) findRoom(ctx context.Context, roomSlug string) (*Room, error) {
 	var room Room
 	if err := config.AppDB.WithContext(ctx).Where("slug = ?", roomSlug).First(&room).Error; err != nil {
-		return nil, fmt.Errorf("room not found")
+		return nil, ErrRoomNotFound
 	}
 	return &room, nil
 }
@@ -1147,6 +1233,11 @@ func (service *Service) getRoomClimb(
 	room *Room,
 	climbID string,
 ) (*providers.ProviderClimb, error) {
+	expectedPrefix := room.ProviderID + ":"
+	if !strings.HasPrefix(climbID, expectedPrefix) {
+		return nil, fmt.Errorf("climb %q does not belong to provider %s", climbID, room.ProviderID)
+	}
+
 	provider, secret, err := service.providerForRoom(ctx, room)
 	if err != nil {
 		return nil, err
@@ -1281,6 +1372,10 @@ func normalizeDisplayName(value string, fallback string) string {
 		return fallback
 	}
 	return trimmed
+}
+
+func normalizeRoomName(value string) string {
+	return strings.TrimSpace(value)
 }
 
 func decodeContextMap(raw string) map[string]string {

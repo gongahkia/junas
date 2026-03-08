@@ -15,11 +15,12 @@ import (
 )
 
 const (
-	kilterWebBaseURL     = "https://kilterboardapp.com"
 	kilterAppUserAgent   = "Kilter%20Board/202 CFNetwork/1568.100.1 Darwin/24.0.0"
 	DefaultMaxSyncPages  = 100
 	invalidCredentialsSC = http.StatusUnprocessableEntity
 )
+
+var kilterWebBaseURL = "https://kilterboardapp.com"
 
 type kilterLoginEnvelope struct {
 	Session struct {
@@ -72,7 +73,7 @@ func Login(ctx context.Context, username, password string) (string, error) {
 	if response.StatusCode == invalidCredentialsSC {
 		return "", errors.New("invalid Kilter credentials")
 	}
-	if response.StatusCode != http.StatusOK {
+	if response.StatusCode < http.StatusOK || response.StatusCode >= http.StatusMultipleChoices {
 		return "", fmt.Errorf("login to kilter: unexpected status %s", response.Status)
 	}
 

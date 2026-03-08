@@ -3,6 +3,7 @@ package handlers
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -17,8 +18,14 @@ import (
 )
 
 type createRoomRequest struct {
-	ProviderID  string `json:"provider_id"`
-	DisplayName string `json:"display_name"`
+	ProviderID  string            `json:"provider_id"`
+	RoomName    string            `json:"room_name"`
+	DisplayName string            `json:"display_name"`
+	Secret      map[string]string `json:"secret"`
+}
+
+type updateRoomRequest struct {
+	RoomName string `json:"room_name"`
 }
 
 type joinRoomRequest struct {
@@ -82,11 +89,19 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 		writeJSONError(w, http.StatusBadRequest, "invalid request body")
 		return
 	}
+	if len(request.RoomName) > 80 {
+		request.RoomName = request.RoomName[:80]
+	}
+	if len(request.DisplayName) > 50 {
+		request.DisplayName = request.DisplayName[:50]
+	}
 
 	snapshot, hostSessionID, err := rooms.DefaultService.CreateRoom(
 		r.Context(),
 		providers.ProviderID(strings.ToLower(strings.TrimSpace(request.ProviderID))),
+		request.RoomName,
 		request.DisplayName,
+		request.Secret,
 	)
 	if err != nil {
 		writeJSONError(w, http.StatusBadRequest, err.Error())
@@ -94,7 +109,7 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := setSignedCookie(w, rooms.HostCookieName, hostSessionID); err != nil {
-		writeJSONError(w, http.StatusInternalServerError, err.Error())
+		writeJSONError(w, http.StatusInternalServerError, "failed to set session cookie")
 		return
 	}
 
@@ -113,6 +128,9 @@ func JoinRoom(w http.ResponseWriter, r *http.Request) {
 		writeJSONError(w, http.StatusBadRequest, "invalid request body")
 		return
 	}
+	if len(request.DisplayName) > 50 {
+		request.DisplayName = request.DisplayName[:50]
+	}
 
 	snapshot, participantSessionID, err := rooms.DefaultService.JoinRoom(r.Context(), roomSlug, request.DisplayName)
 	if err != nil {
@@ -121,7 +139,7 @@ func JoinRoom(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := setSignedCookie(w, rooms.ParticipantCookieName, participantSessionID); err != nil {
-		writeJSONError(w, http.StatusInternalServerError, err.Error())
+		writeJSONError(w, http.StatusInternalServerError, "failed to set session cookie")
 		return
 	}
 
@@ -136,6 +154,31 @@ func GetRoom(w http.ResponseWriter, r *http.Request) {
 	}
 
 	snapshot, err := rooms.DefaultService.GetSnapshot(r.Context(), viewer)
+	if err != nil {
+		writeJSONError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	writeJSON(w, http.StatusOK, snapshot)
+}
+
+func UpdateRoom(w http.ResponseWriter, r *http.Request) {
+	viewer, err := authenticateViewer(r, true)
+	if err != nil {
+		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		return
+	}
+
+	var request updateRoomRequest
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		writeJSONError(w, http.StatusBadRequest, "invalid request body")
+		return
+	}
+	if len(request.RoomName) > 80 {
+		request.RoomName = request.RoomName[:80]
+	}
+
+	snapshot, err := rooms.DefaultService.UpdateRoomName(r.Context(), viewer, request.RoomName)
 	if err != nil {
 		writeJSONError(w, http.StatusBadRequest, err.Error())
 		return
@@ -170,8 +213,13 @@ func StreamRoomEvents(w http.ResponseWriter, r *http.Request) {
 		RoomSlug: roomSlug,
 		Version:  viewer.Room.Version,
 	}
-	writeSSEEvent(w, initialEvent)
+	if !writeSSEEvent(w, initialEvent) {
+		return
+	}
 	flusher.Flush()
+
+	ticker := time.NewTicker(15 * time.Second)
+	defer ticker.Stop()
 
 	ctx := r.Context()
 	for {
@@ -179,7 +227,14 @@ func StreamRoomEvents(w http.ResponseWriter, r *http.Request) {
 		case <-ctx.Done():
 			return
 		case event := <-eventChannel:
-			writeSSEEvent(w, event)
+			if !writeSSEEvent(w, event) {
+				return
+			}
+			flusher.Flush()
+		case <-ticker.C:
+			if _, err := fmt.Fprintf(w, ": heartbeat\n\n"); err != nil {
+				return
+			}
 			flusher.Flush()
 		}
 	}
@@ -261,10 +316,15 @@ func ListRoomCatalogClimbs(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	search := r.URL.Query().Get("q")
+	if len(search) > 200 {
+		search = search[:200]
+	}
+
 	response, err := rooms.DefaultService.ListCatalogClimbs(
 		r.Context(),
 		viewer,
-		r.URL.Query().Get("q"),
+		search,
 		r.URL.Query().Get("sort"),
 		r.URL.Query().Get("cursor"),
 		pageSize,
@@ -626,6 +686,7 @@ func setSignedCookie(w http.ResponseWriter, name string, rawValue string) error 
 		Name:     name,
 		Value:    signedValue,
 		HttpOnly: true,
+		Secure:   config.GetRuntimeConfig().SecureCookies,
 		Path:     "/",
 		SameSite: http.SameSiteLaxMode,
 		Expires:  time.Now().UTC().Add(30 * 24 * time.Hour),
@@ -637,7 +698,7 @@ func connectProviderStatus(err error) int {
 	switch {
 	case err == nil:
 		return http.StatusOK
-	case strings.Contains(err.Error(), "forbidden"):
+	case errors.Is(err, rooms.ErrForbidden):
 		return http.StatusForbidden
 	case strings.Contains(err.Error(), "KILTER_TOGETHER_ENCRYPTION_KEY is required"):
 		return http.StatusInternalServerError
@@ -652,10 +713,15 @@ func writeJSON(w http.ResponseWriter, statusCode int, payload any) {
 	_ = json.NewEncoder(w).Encode(payload)
 }
 
-func writeSSEEvent(w http.ResponseWriter, payload rooms.EventPayload) {
-	eventBytes, _ := json.Marshal(payload)
-	_, _ = fmt.Fprintf(w, "event: room\n")
-	_, _ = fmt.Fprintf(w, "data: %s\n\n", string(eventBytes))
+func writeSSEEvent(w http.ResponseWriter, payload rooms.EventPayload) bool {
+	eventBytes, err := json.Marshal(payload)
+	if err != nil {
+		return false
+	}
+	if _, err := fmt.Fprintf(w, "event: room\ndata: %s\n\n", string(eventBytes)); err != nil {
+		return false
+	}
+	return true
 }
 
 func requestContext(r *http.Request) context.Context {

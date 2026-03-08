@@ -38,6 +38,7 @@ export default function ClimbView({
 }: ClimbViewProps) {
   const [climbs, setClimbs] = useState<Climb[]>([]);
   const [loading, setLoading] = useState(true);
+  const [initialLoad, setInitialLoad] = useState(true);
   const [pageLoading, setPageLoading] = useState(false);
   const [selectedClimb, setSelectedClimb] = useState<Climb | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -158,6 +159,7 @@ export default function ClimbView({
         setHasNextPage(false);
       } finally {
         setLoading(false);
+        setInitialLoad(false);
         setPageLoading(false);
       }
     };
@@ -228,7 +230,7 @@ export default function ClimbView({
     }
   };
 
-  if (loading && currentPage === 1) {
+  if (initialLoad && loading) {
     return (
       <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))] px-6 py-10">
         <div className="mx-auto flex min-h-[70vh] max-w-6xl items-center justify-center">
@@ -339,7 +341,7 @@ export default function ClimbView({
               </Card>
             </div>
 
-            <div className="mt-4 md:hidden">
+            <div className="order-2 mt-4 md:hidden md:order-none">
               <MobileDropdown
                 climbs={climbs}
                 selectedClimb={selectedClimb}
@@ -389,7 +391,7 @@ export default function ClimbView({
               </div>
             </div>
 
-            <div className="mt-4 flex-1 overflow-auto">
+            <div className="order-1 mt-4 flex-1 overflow-auto md:order-none">
               <ProblemView
                 selectedClimb={selectedClimb}
                 angle={angle}

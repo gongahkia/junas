@@ -3,6 +3,7 @@ package models
 import (
 	"encoding/base64"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"strings"
 	"time"
@@ -10,6 +11,8 @@ import (
 	"github.com/lczm/kilter-together/api/config"
 	"github.com/patrickmn/go-cache"
 )
+
+var ErrInvalidCursor = errors.New("invalid cursor")
 
 const (
 	SortPopular = "popular"
@@ -178,10 +181,10 @@ func GetPaginatedClimbs(
 
 	cursorData, err := decodeCursor(cursor)
 	if err != nil {
-		return nil, fmt.Errorf("invalid cursor: %w", err)
+		return nil, fmt.Errorf("%w: %w", ErrInvalidCursor, err)
 	}
 	if cursorData != nil && cursorData.Sort != normalizedSort {
-		return nil, fmt.Errorf("cursor sort %q does not match requested sort %q", cursorData.Sort, normalizedSort)
+		return nil, fmt.Errorf("%w: sort %q does not match requested sort %q", ErrInvalidCursor, cursorData.Sort, normalizedSort)
 	}
 
 	query := strings.Builder{}

@@ -17,6 +17,9 @@ type RuntimeConfig struct {
 	AppSecret      string
 	EncryptionKey  string
 	Port           string
+	SecureCookies  bool
+	AllowedOrigins        []string
+	PreviousEncryptionKey string
 }
 
 var runtimeConfig *RuntimeConfig
@@ -37,6 +40,11 @@ func LoadRuntimeConfig() RuntimeConfig {
 	))
 	statePath := cleanPath(filepath.Join(dataDir, "bootstrap-state.json"))
 
+	secureCookies := true
+	if v := strings.TrimSpace(os.Getenv("KILTER_TOGETHER_SECURE_COOKIES")); v == "false" || v == "0" {
+		secureCookies = false
+	}
+
 	return RuntimeConfig{
 		DataDir:        dataDir,
 		DBPath:         dbPath,
@@ -48,6 +56,9 @@ func LoadRuntimeConfig() RuntimeConfig {
 		AppSecret:      strings.TrimSpace(os.Getenv("KILTER_TOGETHER_APP_SECRET")),
 		EncryptionKey:  strings.TrimSpace(os.Getenv("KILTER_TOGETHER_ENCRYPTION_KEY")),
 		Port:           normalizePort(os.Getenv("KILTER_TOGETHER_PORT")),
+		SecureCookies:  secureCookies,
+		AllowedOrigins:        parseAllowedOrigins(os.Getenv("KILTER_TOGETHER_ALLOWED_ORIGINS")),
+		PreviousEncryptionKey: strings.TrimSpace(os.Getenv("KILTER_TOGETHER_PREVIOUS_ENCRYPTION_KEY")),
 	}
 }
 
@@ -93,4 +104,22 @@ func normalizePort(value string) string {
 	}
 
 	return strings.TrimPrefix(trimmedValue, ":")
+}
+
+func parseAllowedOrigins(value string) []string {
+	trimmed := strings.TrimSpace(value)
+	if trimmed == "" {
+		return []string{"*"}
+	}
+	parts := strings.Split(trimmed, ",")
+	origins := make([]string, 0, len(parts))
+	for _, p := range parts {
+		if o := strings.TrimSpace(p); o != "" {
+			origins = append(origins, o)
+		}
+	}
+	if len(origins) == 0 {
+		return []string{"*"}
+	}
+	return origins
 }

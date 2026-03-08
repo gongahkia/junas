@@ -1,14 +1,26 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, Camera, CircleHelp, History, Link2, Mountain, Users } from "lucide-react";
+import {
+  ArrowRight,
+  Camera,
+  CircleHelp,
+  History,
+  Link2,
+  Mountain,
+  Pin,
+  Trash2,
+  Users,
+} from "lucide-react";
 import { extractRoomSlugFromValue } from "@/lib/room-links";
 import {
-  buildSoloResumePath,
   dismissLandingIntro,
   dismissOnboarding,
   loadUserPrefs,
+  removeRecentRoom,
   resetOnboardingPrefs,
+  togglePinnedRecentRoom,
 } from "@/lib/user-prefs";
+import { cn } from "@/lib/utils";
 import IntroDialog from "@/components/IntroDialog";
 import OnboardingCallout from "@/components/OnboardingCallout";
 import { Button } from "@/components/ui/button";
@@ -25,9 +37,8 @@ export default function LandingPage() {
   const navigate = useNavigate();
   const [inviteCode, setInviteCode] = useState("");
   const [prefs, setPrefs] = useState(() => loadUserPrefs());
-  const soloResumePath = buildSoloResumePath(prefs.soloResume);
-  const showIntro = !prefs.intro.landingDismissed;
-  const showOnboarding = !showIntro && !prefs.onboarding.dismissed;
+  const showOnboarding = !prefs.onboarding.dismissed;
+  const showIntro = !showOnboarding && !prefs.intro.landingDismissed;
 
   const handleJoinRedirect = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,6 +48,14 @@ export default function LandingPage() {
     }
 
     navigate(`/join/${encodeURIComponent(roomSlug)}`);
+  };
+
+  const handleTogglePinnedRoom = (slug: string) => {
+    setPrefs(togglePinnedRecentRoom(slug));
+  };
+
+  const handleRemoveRecentRoom = (slug: string) => {
+    setPrefs(removeRecentRoom(slug));
   };
 
   return (
@@ -109,12 +128,14 @@ export default function LandingPage() {
         ) : null}
 
         <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center gap-6 py-8">
-          <div className="mx-auto grid w-full max-w-4xl gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div
+            className="mx-auto grid w-full max-w-5xl gap-6 md:grid-cols-2"
+          >
             <Card className="bg-card/90">
               <CardHeader>
                 <CardTitle>Create a room</CardTitle>
                 <CardDescription>
-                  Start a new collaborative session and connect the host account inside the room.
+                  Start a new collaborative session and authenticate the host account before the room opens.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -157,91 +178,97 @@ export default function LandingPage() {
               </CardContent>
             </Card>
 
-            {soloResumePath ? (
-              <Card className="bg-card/90 md:col-span-2 xl:col-span-1">
-                <CardHeader>
-                  <CardTitle>Resume solo browse</CardTitle>
-                  <CardDescription>
-                    Jump back into your last Kilter board filters on this browser.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button asChild variant="outline" className="w-full justify-between">
-                    <Link to={soloResumePath}>
-                      Resume solo browse
-                      <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            ) : null}
           </div>
 
-          <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-center text-3xl sm:text-4xl">
-                One host. Shared decisions.
-              </CardTitle>
-              <CardDescription className="mx-auto max-w-3xl text-center text-base leading-7">
-                Create a room, connect one Kilter or Crux account on the server,
-                and let everyone join from their phones to vote and queue climbs.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="rounded-2xl border bg-white/70 p-5 text-center text-sm leading-7 text-muted-foreground">
-                Hosts connect the provider once, guests join from their own devices, and the room stays focused on live votes, queueing, and quick consensus at the wall.
-              </div>
-              <div className="flex flex-wrap justify-center gap-2 text-sm text-muted-foreground">
-                <span className="rounded-full bg-teal-100 px-3 py-1 font-medium text-teal-800">
-                  Host-linked auth
-                </span>
-                <span className="rounded-full bg-teal-100 px-3 py-1 font-medium text-teal-800">
-                  Invite URL + QR
-                </span>
-                <span className="rounded-full bg-teal-100 px-3 py-1 font-medium text-teal-800">
-                  Live voting + queue
-                </span>
-              </div>
-            </CardContent>
-          </Card>
         </main>
 
         {prefs.recentRooms.length > 0 ? (
           <section className="mx-auto w-full max-w-5xl pb-8">
             <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
-              <CardHeader>
+              <CardHeader className="min-w-0">
                 <CardTitle className="flex items-center gap-2 text-2xl">
                   <History className="h-5 w-5" />
                   Recent rooms
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="max-w-full break-words">
                   Reopen a room directly. If the room cookie expired, the app will fall back to the join flow.
                 </CardDescription>
               </CardHeader>
               <CardContent className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-                {prefs.recentRooms.map((room) => (
-                  <Link
-                    key={room.slug}
-                    to={`/rooms/${room.slug}`}
-                    className="rounded-2xl border bg-white/75 p-4 transition-colors hover:bg-white"
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <div>
-                        <p className="font-medium">Room {room.slug}</p>
-                        <p className="mt-1 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                          {room.providerId}
-                        </p>
+                {prefs.recentRooms.map((room) => {
+                  const roomLabel = room.roomName || `Room ${room.slug}`;
+
+                  return (
+                    <div
+                      key={room.slug}
+                      className="min-w-0 overflow-hidden rounded-2xl border bg-white/75 p-4 transition-colors hover:bg-white"
+                    >
+                      <div className="flex min-w-0 items-start justify-between gap-3">
+                        <div className="min-w-0 flex-1">
+                          <div className="flex min-w-0 flex-wrap items-center gap-2">
+                            <p
+                              className={cn(
+                                "min-w-0 font-medium",
+                                room.roomName ? "break-words" : "break-all"
+                              )}
+                            >
+                              {roomLabel}
+                            </p>
+                            {room.pinned ? (
+                              <span className="inline-flex items-center gap-1 rounded-full bg-teal-50 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.18em] text-teal-700">
+                                <Pin className="h-3 w-3" />
+                                Pinned
+                              </span>
+                            ) : null}
+                          </div>
+                          <p className="mt-1 break-all text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                            {room.providerId} · {room.slug}
+                          </p>
+                        </div>
+                        <div className="flex shrink-0 items-center gap-1">
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="icon"
+                            className={cn(
+                              "h-8 w-8 rounded-full text-muted-foreground",
+                              room.pinned ? "bg-teal-50 text-teal-700 hover:bg-teal-100 hover:text-teal-800" : null
+                            )}
+                            aria-label={`${room.pinned ? "Unpin" : "Pin"} ${roomLabel}`}
+                            onClick={() => handleTogglePinnedRoom(room.slug)}
+                          >
+                            <Pin className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 rounded-full text-muted-foreground hover:text-destructive"
+                            aria-label={`Remove ${roomLabel} from recent rooms`}
+                            onClick={() => handleRemoveRecentRoom(room.slug)}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
                       </div>
-                      <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                      <p className="mt-3 break-words text-sm text-muted-foreground">
+                        {room.surfaceName || "Surface not chosen yet"}
+                      </p>
+                      <p className="mt-2 text-xs text-muted-foreground">
+                        Last seen {new Date(room.lastVisitedAt).toLocaleString()}
+                      </p>
+                      <Button asChild variant="outline" className="mt-4 w-full justify-between">
+                        <Link
+                          to={`/rooms/${room.slug}`}
+                          aria-label={`Open ${roomLabel}`}
+                        >
+                          Open room
+                          <ArrowRight className="h-4 w-4" />
+                        </Link>
+                      </Button>
                     </div>
-                    <p className="mt-3 text-sm text-muted-foreground">
-                      {room.surfaceName || "Surface not chosen yet"}
-                    </p>
-                    <p className="mt-2 text-xs text-muted-foreground">
-                      Last seen {new Date(room.lastVisitedAt).toLocaleString()}
-                    </p>
-                  </Link>
-                ))}
+                  );
+                })}
               </CardContent>
             </Card>
           </section>

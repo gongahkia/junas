@@ -21,7 +21,7 @@ package main
 
 import (
 	"errors"
-	"log"
+	"log/slog"
 	"net/http"
 	"os"
 
@@ -35,6 +35,8 @@ import (
 )
 
 func main() {
+	slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo})))
+
 	rootCmd := &cobra.Command{
 		Use: "kilter-together",
 	}
@@ -107,7 +109,7 @@ func main() {
 	rootCmd.AddCommand(bootstrapCmd, serveCmd)
 
 	if err := rootCmd.Execute(); err != nil {
-		log.Fatalf("Error executing command: %v", err)
+		slog.Error("command failed", "error", err)
 		os.Exit(1)
 	}
 }

@@ -5,8 +5,11 @@ import "context"
 type ProviderID string
 
 const (
-	ProviderKilter ProviderID = "kilter"
-	ProviderCrux   ProviderID = "crux"
+	ProviderKilter      ProviderID = "kilter"
+	ProviderCrux        ProviderID = "crux"
+	ProviderMoonboard   ProviderID = "moonboard"
+	ProviderTension     ProviderID = "tension"
+	ProviderGrasshopper ProviderID = "grasshopper"
 )
 
 type SecretPayload map[string]string

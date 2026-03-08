@@ -17,12 +17,24 @@ func TestServiceRoomLifecycle(t *testing.T) {
 	ctx := context.Background()
 	service, provider := setupRoomServiceTest(t)
 
-	createdSnapshot, hostSessionID, err := service.CreateRoom(ctx, provider.ID(), "Host")
+	createdSnapshot, hostSessionID, err := service.CreateRoom(
+		ctx,
+		provider.ID(),
+		"Session Alpha",
+		"Host",
+		providers.SecretPayload{"token": "provider-token"},
+	)
 	if err != nil {
 		t.Fatalf("create room: %v", err)
 	}
 	if createdSnapshot.ProviderID != provider.ID() {
 		t.Fatalf("expected provider %q, got %q", provider.ID(), createdSnapshot.ProviderID)
+	}
+	if createdSnapshot.RoomName != "Session Alpha" {
+		t.Fatalf("expected room name %q, got %#v", "Session Alpha", createdSnapshot.RoomName)
+	}
+	if !createdSnapshot.Connection.Connected {
+		t.Fatalf("expected provider to be connected during room creation")
 	}
 
 	hostViewer, err := service.Authenticate(ctx, createdSnapshot.Slug, hostSessionID, hostRole)
@@ -30,7 +42,15 @@ func TestServiceRoomLifecycle(t *testing.T) {
 		t.Fatalf("authenticate host: %v", err)
 	}
 
-	connectionState, err := service.ConnectProvider(ctx, hostViewer, providers.SecretPayload{"token": "provider-token"})
+	renamedSnapshot, err := service.UpdateRoomName(ctx, hostViewer, "Session Beta")
+	if err != nil {
+		t.Fatalf("update room name: %v", err)
+	}
+	if renamedSnapshot.RoomName != "Session Beta" {
+		t.Fatalf("expected updated room name %q, got %#v", "Session Beta", renamedSnapshot.RoomName)
+	}
+
+	connectionState, err := service.ConnectProvider(ctx, hostViewer, providers.SecretPayload{"token": "provider-token-2"})
 	if err != nil {
 		t.Fatalf("connect provider: %v", err)
 	}
@@ -82,11 +102,11 @@ func TestServiceRoomLifecycle(t *testing.T) {
 	if err != nil {
 		t.Fatalf("list catalog climbs: %v", err)
 	}
-	if len(climbsResponse.Climbs) != 1 || climbsResponse.Climbs[0].ID != "fake:beta" {
+	if len(climbsResponse.Climbs) != 1 || climbsResponse.Climbs[0].ID != "fake-room:beta" {
 		t.Fatalf("unexpected filtered climbs response: %#v", climbsResponse.Climbs)
 	}
 
-	climbResponse, err := service.GetCatalogClimb(ctx, guestViewer, "fake:beta")
+	climbResponse, err := service.GetCatalogClimb(ctx, guestViewer, "fake-room:beta")
 	if err != nil {
 		t.Fatalf("get catalog climb: %v", err)
 	}
@@ -94,22 +114,22 @@ func TestServiceRoomLifecycle(t *testing.T) {
 		t.Fatalf("expected Beta Crimp climb, got %#v", climbResponse.Climb)
 	}
 
-	if err := service.ToggleVote(ctx, guestViewer, "fake:beta"); err != nil {
+	if err := service.ToggleVote(ctx, guestViewer, "fake-room:beta"); err != nil {
 		t.Fatalf("add guest vote: %v", err)
 	}
-	if err := service.ToggleVote(ctx, hostViewer, "fake:beta"); err != nil {
+	if err := service.ToggleVote(ctx, hostViewer, "fake-room:beta"); err != nil {
 		t.Fatalf("add host vote: %v", err)
 	}
-	if err := service.AddQueueEntry(ctx, guestViewer, "fake:beta"); err != nil {
+	if err := service.AddQueueEntry(ctx, guestViewer, "fake-room:beta"); err != nil {
 		t.Fatalf("queue climb: %v", err)
 	}
-	if err := service.AddQueueEntry(ctx, hostViewer, "fake:alpha"); err != nil {
+	if err := service.AddQueueEntry(ctx, hostViewer, "fake-room:alpha"); err != nil {
 		t.Fatalf("queue second climb: %v", err)
 	}
-	if err := service.AddFinalist(ctx, hostViewer, "fake:beta"); err != nil {
+	if err := service.AddFinalist(ctx, hostViewer, "fake-room:beta"); err != nil {
 		t.Fatalf("add finalist: %v", err)
 	}
-	if err := service.AddFinalist(ctx, hostViewer, "fake:alpha"); err != nil {
+	if err := service.AddFinalist(ctx, hostViewer, "fake-room:alpha"); err != nil {
 		t.Fatalf("add second finalist: %v", err)
 	}
 	if err := service.UpdateParticipantStatus(ctx, guestViewer, participantStatusReady); err != nil {
@@ -120,8 +140,8 @@ func TestServiceRoomLifecycle(t *testing.T) {
 	if err != nil {
 		t.Fatalf("get snapshot after votes: %v", err)
 	}
-	if snapshotAfterVotes.VoteCounts["fake:beta"] != 2 {
-		t.Fatalf("expected two votes for fake:beta, got %#v", snapshotAfterVotes.VoteCounts)
+	if snapshotAfterVotes.VoteCounts["fake-room:beta"] != 2 {
+		t.Fatalf("expected two votes for fake-room:beta, got %#v", snapshotAfterVotes.VoteCounts)
 	}
 	if len(snapshotAfterVotes.Queue) != 2 {
 		t.Fatalf("expected two queued climbs, got %#v", snapshotAfterVotes.Queue)
@@ -144,7 +164,7 @@ func TestServiceRoomLifecycle(t *testing.T) {
 	if err := service.UpdateQueueEntryStatus(ctx, hostViewer, entryIDs[0], queueStatusCurrent); err != nil {
 		t.Fatalf("set current queue entry: %v", err)
 	}
-	if err := service.PromoteClimb(ctx, hostViewer, "fake:beta", queueStatusNext); err != nil {
+	if err := service.PromoteClimb(ctx, hostViewer, "fake-room:beta", queueStatusNext); err != nil {
 		t.Fatalf("promote climb to next: %v", err)
 	}
 
@@ -152,21 +172,21 @@ func TestServiceRoomLifecycle(t *testing.T) {
 	if err != nil {
 		t.Fatalf("get current snapshot: %v", err)
 	}
-	if currentSnapshot.CurrentClimb == nil || currentSnapshot.CurrentClimb.ID != "fake:alpha" {
-		t.Fatalf("expected fake:alpha to be current climb, got %#v", currentSnapshot.CurrentClimb)
+	if currentSnapshot.CurrentClimb == nil || currentSnapshot.CurrentClimb.ID != "fake-room:alpha" {
+		t.Fatalf("expected fake-room:alpha to be current climb, got %#v", currentSnapshot.CurrentClimb)
 	}
 	if currentSnapshot.Queue[0].Status != queueStatusCurrent || currentSnapshot.Queue[1].Status != queueStatusNext {
 		t.Fatalf("expected queue promotion states, got %#v", currentSnapshot.Queue)
 	}
-	if currentSnapshot.Finalists[0].Climb.ID != "fake:alpha" {
-		t.Fatalf("expected finalist reorder to put fake:alpha first, got %#v", currentSnapshot.Finalists)
+	if currentSnapshot.Finalists[0].Climb.ID != "fake-room:alpha" {
+		t.Fatalf("expected finalist reorder to put fake-room:alpha first, got %#v", currentSnapshot.Finalists)
 	}
 
 	randomFinalist, err := service.PickRandom(ctx, hostViewer, "finalists")
 	if err != nil {
 		t.Fatalf("pick random finalist: %v", err)
 	}
-	if randomFinalist.ID != "fake:alpha" && randomFinalist.ID != "fake:beta" {
+	if randomFinalist.ID != "fake-room:alpha" && randomFinalist.ID != "fake-room:beta" {
 		t.Fatalf("unexpected random finalist climb: %#v", randomFinalist)
 	}
 
@@ -174,8 +194,8 @@ func TestServiceRoomLifecycle(t *testing.T) {
 	if err != nil {
 		t.Fatalf("pick random top voted climb: %v", err)
 	}
-	if randomTopVoted.ID != "fake:beta" {
-		t.Fatalf("expected fake:beta top-voted climb, got %#v", randomTopVoted)
+	if randomTopVoted.ID != "fake-room:beta" {
+		t.Fatalf("expected fake-room:beta top-voted climb, got %#v", randomTopVoted)
 	}
 
 	if err := service.DeleteFinalist(ctx, hostViewer, currentSnapshot.Finalists[1].ID); err != nil {

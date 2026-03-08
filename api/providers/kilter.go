@@ -59,6 +59,7 @@ func (provider *KilterProvider) ListSurfaces(
 			Meta: map[string]string{
 				"board_id":    strconv.Itoa(int(board.ID)),
 				"kilter_name": board.KilterName,
+				"parent_id":   "",
 			},
 		})
 	}

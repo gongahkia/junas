@@ -1,5 +1,5 @@
 export type ClimbSort = "popular" | "newest";
-export type ProviderId = "kilter" | "crux";
+export type ProviderId = "kilter" | "crux" | "moonboard" | "tension" | "grasshopper";
 export type RoomStatus = "open" | "closed";
 export type QueueStatus = "queued" | "next" | "current" | "done";
 export type ParticipantStatus = "watching" | "ready" | "resting" | "away";
@@ -122,6 +122,7 @@ export interface FinalistEntry {
 
 export interface RoomSnapshot {
   slug: string;
+  room_name?: string;
   status: RoomStatus;
   provider_id: ProviderId;
   version: number;

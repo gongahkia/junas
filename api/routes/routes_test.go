@@ -214,6 +214,236 @@ func TestSetupRoutesContract(t *testing.T) {
 	}
 }
 
+func TestClimbsPaginationEdgeCases(t *testing.T) {
+	tempDir := t.TempDir()
+	dbPath := filepath.Join(tempDir, "kilter.db")
+	imageDir := filepath.Join(tempDir, "images")
+	statePath := filepath.Join(tempDir, "bootstrap-state.json")
+	if err := os.MkdirAll(imageDir, 0755); err != nil {
+		t.Fatalf("create image directory: %v", err)
+	}
+
+	seedContractDatabase(t, dbPath)
+	config.SetRuntimeConfig(config.RuntimeConfig{
+		DataDir:   tempDir,
+		DBPath:    dbPath,
+		ImageDir:  imageDir,
+		StatePath: statePath,
+		Port:      "8083",
+	})
+	if err := config.ConnectKilterDB(dbPath); err != nil {
+		t.Fatalf("connect kilter database: %v", err)
+	}
+
+	server := httptest.NewServer(routes.SetupRoutes())
+	defer server.Close()
+
+	t.Run("page_size=0 defaults to 10", func(t *testing.T) {
+		resp, err := http.Get(server.URL + "/api/climbs?angle=40&page_size=0")
+		if err != nil {
+			t.Fatalf("GET page_size=0: %v", err)
+		}
+		defer resp.Body.Close()
+		if resp.StatusCode != http.StatusOK {
+			t.Fatalf("expected 200, got %d", resp.StatusCode)
+		}
+		var body struct {
+			PageSize int `json:"page_size"`
+		}
+		if err := json.NewDecoder(resp.Body).Decode(&body); err != nil {
+			t.Fatalf("decode: %v", err)
+		}
+		if body.PageSize != 10 {
+			t.Fatalf("expected page_size 10, got %d", body.PageSize)
+		}
+	})
+
+	t.Run("page_size=999 clamped to 10", func(t *testing.T) {
+		resp, err := http.Get(server.URL + "/api/climbs?angle=40&page_size=999")
+		if err != nil {
+			t.Fatalf("GET page_size=999: %v", err)
+		}
+		defer resp.Body.Close()
+		if resp.StatusCode != http.StatusOK {
+			t.Fatalf("expected 200, got %d", resp.StatusCode)
+		}
+		var body struct {
+			PageSize int `json:"page_size"`
+		}
+		if err := json.NewDecoder(resp.Body).Decode(&body); err != nil {
+			t.Fatalf("decode: %v", err)
+		}
+		if body.PageSize != 10 {
+			t.Fatalf("expected page_size 10, got %d", body.PageSize)
+		}
+	})
+
+	t.Run("invalid cursor returns 400", func(t *testing.T) {
+		resp, err := http.Get(server.URL + "/api/climbs?angle=40&cursor=" + url.QueryEscape("!!!INVALID!!!"))
+		if err != nil {
+			t.Fatalf("GET invalid cursor: %v", err)
+		}
+		defer resp.Body.Close()
+		if resp.StatusCode != http.StatusBadRequest {
+			t.Fatalf("expected 400, got %d", resp.StatusCode)
+		}
+	})
+
+	t.Run("nonexistent name returns empty climbs", func(t *testing.T) {
+		resp, err := http.Get(server.URL + "/api/climbs?angle=40&name=ZZZZNONEXISTENT")
+		if err != nil {
+			t.Fatalf("GET nonexistent name: %v", err)
+		}
+		defer resp.Body.Close()
+		if resp.StatusCode != http.StatusOK {
+			t.Fatalf("expected 200, got %d", resp.StatusCode)
+		}
+		var body struct {
+			Climbs  []json.RawMessage `json:"climbs"`
+			HasMore bool              `json:"has_more"`
+		}
+		if err := json.NewDecoder(resp.Body).Decode(&body); err != nil {
+			t.Fatalf("decode: %v", err)
+		}
+		if len(body.Climbs) != 0 {
+			t.Fatalf("expected 0 climbs, got %d", len(body.Climbs))
+		}
+		if body.HasMore {
+			t.Fatalf("expected has_more false")
+		}
+	})
+
+	t.Run("page_size=1 full pagination", func(t *testing.T) {
+		var allNames []string
+		cursor := ""
+		for i := 0; i < 20; i++ { // safety cap
+			u := server.URL + "/api/climbs?angle=40&page_size=1"
+			if cursor != "" {
+				u += "&cursor=" + url.QueryEscape(cursor)
+			}
+			resp, err := http.Get(u)
+			if err != nil {
+				t.Fatalf("GET page %d: %v", i, err)
+			}
+			defer resp.Body.Close()
+			if resp.StatusCode != http.StatusOK {
+				t.Fatalf("page %d: expected 200, got %d", i, resp.StatusCode)
+			}
+			var body struct {
+				Climbs []struct {
+					ClimbName string `json:"climb_name"`
+				} `json:"climbs"`
+				HasMore    bool   `json:"has_more"`
+				NextCursor string `json:"next_cursor"`
+			}
+			if err := json.NewDecoder(resp.Body).Decode(&body); err != nil {
+				t.Fatalf("decode page %d: %v", i, err)
+			}
+			for _, c := range body.Climbs {
+				allNames = append(allNames, c.ClimbName)
+			}
+			if !body.HasMore {
+				break
+			}
+			if body.NextCursor == "" {
+				t.Fatalf("has_more=true but next_cursor is empty on page %d", i)
+			}
+			cursor = body.NextCursor
+		}
+		if len(allNames) != 3 { // 3 climbs seeded at angle 40
+			t.Fatalf("expected 3 climbs across pages, got %d: %v", len(allNames), allNames)
+		}
+	})
+}
+
+func TestServeImagePathTraversal(t *testing.T) {
+	tempDir := t.TempDir()
+	dbPath := filepath.Join(tempDir, "kilter.db")
+	imageDir := filepath.Join(tempDir, "images")
+	statePath := filepath.Join(tempDir, "bootstrap-state.json")
+	if err := os.MkdirAll(imageDir, 0755); err != nil {
+		t.Fatalf("create image directory: %v", err)
+	}
+	if err := os.WriteFile(filepath.Join(imageDir, "valid.png"), []byte("valid-image"), 0644); err != nil {
+		t.Fatalf("write test image: %v", err)
+	}
+	// write a secret file outside imageDir
+	if err := os.WriteFile(filepath.Join(tempDir, "secret.txt"), []byte("secret-data"), 0644); err != nil {
+		t.Fatalf("write secret file: %v", err)
+	}
+
+	seedContractDatabase(t, dbPath)
+	config.SetRuntimeConfig(config.RuntimeConfig{
+		DataDir:   tempDir,
+		DBPath:    dbPath,
+		ImageDir:  imageDir,
+		StatePath: statePath,
+		Port:      "8084",
+	})
+	if err := config.ConnectKilterDB(dbPath); err != nil {
+		t.Fatalf("connect kilter database: %v", err)
+	}
+
+	server := httptest.NewServer(routes.SetupRoutes())
+	defer server.Close()
+
+	t.Run("valid filename", func(t *testing.T) {
+		resp, err := http.Get(server.URL + "/api/images/valid.png")
+		if err != nil {
+			t.Fatalf("request: %v", err)
+		}
+		defer resp.Body.Close()
+		if resp.StatusCode != http.StatusOK {
+			t.Fatalf("expected 200, got %d", resp.StatusCode)
+		}
+	})
+
+	t.Run("path traversal ../secret.txt", func(t *testing.T) {
+		resp, err := http.Get(server.URL + "/api/images/../secret.txt")
+		if err != nil {
+			t.Fatalf("request: %v", err)
+		}
+		defer resp.Body.Close()
+		// filepath.Base sanitizes to "secret.txt" which doesn't exist in imageDir
+		if resp.StatusCode == http.StatusOK {
+			t.Fatalf("expected non-200 for path traversal, got 200")
+		}
+	})
+
+	t.Run("encoded path traversal", func(t *testing.T) {
+		resp, err := http.Get(server.URL + "/api/images/" + url.PathEscape("../secret.txt"))
+		if err != nil {
+			t.Fatalf("request: %v", err)
+		}
+		defer resp.Body.Close()
+		if resp.StatusCode == http.StatusOK {
+			t.Fatalf("expected non-200 for encoded traversal, got 200")
+		}
+	})
+
+	t.Run("nonexistent file", func(t *testing.T) {
+		resp, err := http.Get(server.URL + "/api/images/nonexistent.png")
+		if err != nil {
+			t.Fatalf("request: %v", err)
+		}
+		defer resp.Body.Close()
+		if resp.StatusCode != http.StatusNotFound {
+			t.Fatalf("expected 404, got %d", resp.StatusCode)
+		}
+	})
+
+	t.Run("null byte in filename", func(t *testing.T) {
+		resp, err := http.Get(server.URL + "/api/images/test%00.png")
+		if err != nil {
+			t.Fatalf("request: %v", err)
+		}
+		defer resp.Body.Close()
+		if resp.StatusCode == http.StatusOK {
+			t.Fatalf("expected non-200 for null byte filename, got 200")
+		}
+	})
+}
+
 func seedContractDatabase(t *testing.T, dbPath string) {
 	t.Helper()
 

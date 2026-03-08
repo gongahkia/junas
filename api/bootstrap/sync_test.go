@@ -1,12 +1,48 @@
 package bootstrap
 
 import (
+	"context"
 	"database/sql"
+	"net/http"
+	"net/http/httptest"
 	"path/filepath"
 	"testing"
 
 	_ "github.com/mattn/go-sqlite3"
 )
+
+func TestLoginAcceptsCreatedStatus(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			t.Fatalf("expected POST login request, got %s", r.Method)
+		}
+		if r.URL.Path != "/sessions" {
+			t.Fatalf("expected /sessions path, got %s", r.URL.Path)
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusCreated)
+		_, _ = w.Write([]byte(`{"session":{"token":"session-token"}}`))
+	}))
+	defer server.Close()
+
+	previousBaseURL := kilterWebBaseURL
+	previousClient := defaultHTTPClient
+	kilterWebBaseURL = server.URL
+	defaultHTTPClient = server.Client()
+	t.Cleanup(func() {
+		kilterWebBaseURL = previousBaseURL
+		defaultHTTPClient = previousClient
+	})
+
+	token, err := Login(context.Background(), "host", "password")
+	if err != nil {
+		t.Fatalf("login returned error: %v", err)
+	}
+	if token != "session-token" {
+		t.Fatalf("expected session token, got %q", token)
+	}
+}
 
 func TestApplySyncResultUpdatesGenericAndClimbStatsTables(t *testing.T) {
 	dbPath := filepath.Join(t.TempDir(), "sync.db")

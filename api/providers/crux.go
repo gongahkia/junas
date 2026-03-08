@@ -90,7 +90,8 @@ func (provider *CruxProvider) ListSurfaces(
 				Name:        gym.Name,
 				Description: gym.Location,
 				Meta: map[string]string{
-					"gym_slug": gym.URLSlug,
+					"gym_slug":  gym.URLSlug,
+					"parent_id": gym.URLSlug,
 				},
 			})
 		}
@@ -124,6 +125,7 @@ func (provider *CruxProvider) ListSurfaces(
 			ParentID:    filters.ParentID,
 			Meta: map[string]string{
 				"gym_slug":         filters.ParentID,
+				"parent_id":        filters.ParentID,
 				"wall_id":          strconv.Itoa(wall.ID),
 				"angle_adjustable": strconv.FormatBool(wall.AngleAdjustable),
 			},

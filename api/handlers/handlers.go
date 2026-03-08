@@ -2,6 +2,8 @@ package handlers
 
 import (
 	"encoding/json"
+	"errors"
+	"log/slog"
 	"net/http"
 	"path/filepath"
 	"strconv"
@@ -47,8 +49,16 @@ func GetClimbs(w http.ResponseWriter, r *http.Request) {
 	var params GetClimbsParams
 	err := decoder.Decode(&params, r.URL.Query())
 	if err != nil {
-		writeJSONError(w, http.StatusBadRequest, "failed to decode query params: "+err.Error())
+		slog.Warn("failed to decode query params", "error", err)
+		writeJSONError(w, http.StatusBadRequest, "invalid query parameters")
 		return
+	}
+
+	if len(params.Name) > 200 {
+		params.Name = params.Name[:200]
+	}
+	if len(params.Setter) > 200 {
+		params.Setter = params.Setter[:200]
 	}
 
 	pageSize := params.PageSize
@@ -77,11 +87,12 @@ func GetClimbs(w http.ResponseWriter, r *http.Request) {
 		sort,
 	)
 	if err != nil {
-		if strings.Contains(err.Error(), "invalid cursor") || strings.Contains(err.Error(), "cursor sort") {
-			writeJSONError(w, http.StatusBadRequest, err.Error())
+		if errors.Is(err, models.ErrInvalidCursor) {
+			writeJSONError(w, http.StatusBadRequest, "invalid pagination cursor")
 			return
 		}
-		writeJSONError(w, http.StatusInternalServerError, "failed to retrieve climbs: "+err.Error())
+		slog.Error("failed to retrieve climbs", "error", err)
+		writeJSONError(w, http.StatusInternalServerError, "failed to retrieve climbs")
 		return
 	}
 
@@ -102,7 +113,8 @@ func GetClimbs(w http.ResponseWriter, r *http.Request) {
 func GetBoardOptions(w http.ResponseWriter, r *http.Request) {
 	boards, err := models.GetBoardOptions()
 	if err != nil {
-		writeJSONError(w, http.StatusInternalServerError, "failed to retrieve board options: "+err.Error())
+		slog.Error("failed to retrieve board options", "error", err)
+		writeJSONError(w, http.StatusInternalServerError, "failed to retrieve board options")
 		return
 	}
 
