@@ -25,9 +25,14 @@ const PAGE_SIZE = 10;
 interface ClimbViewProps {
   boards: Board[];
   boardsLoading: boolean;
+  backPath?: string;
 }
 
-export default function ClimbView({ boards, boardsLoading }: ClimbViewProps) {
+export default function ClimbView({
+  boards,
+  boardsLoading,
+  backPath = "/",
+}: ClimbViewProps) {
   const [climbs, setClimbs] = useState<Climb[]>([]);
   const [loading, setLoading] = useState(true);
   const [pageLoading, setPageLoading] = useState(false);
@@ -221,7 +226,7 @@ export default function ClimbView({ boards, boardsLoading }: ClimbViewProps) {
           climbs={climbs}
           selectedClimb={selectedClimb}
           onClimbSelect={handleClimbSelect}
-          onBackClick={() => navigate("/")}
+          onBackClick={() => navigate(backPath)}
           angle={angle}
           onAngleChange={(nextAngle) =>
             updateSearchState({ angle: String(nextAngle), sort })
@@ -253,7 +258,7 @@ export default function ClimbView({ boards, boardsLoading }: ClimbViewProps) {
                   <SidebarTrigger className="md:hidden" />
                   <Button
                     variant="ghost"
-                    onClick={() => navigate("/")}
+                    onClick={() => navigate(backPath)}
                     className="flex items-center gap-2"
                   >
                     <ChevronLeft className="h-4 w-4" />

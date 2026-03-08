@@ -8,9 +8,14 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 interface BoardSelectorProps {
   boards: Board[];
   loading: boolean;
+  boardPathPrefix?: string;
 }
 
-export default function BoardSelector({ boards, loading }: BoardSelectorProps) {
+export default function BoardSelector({
+  boards,
+  loading,
+  boardPathPrefix = "/boards",
+}: BoardSelectorProps) {
   const navigate = useNavigate();
   const [angle, setAngle] = useState(DEFAULT_ANGLE);
 
@@ -43,7 +48,7 @@ export default function BoardSelector({ boards, loading }: BoardSelectorProps) {
                 key={board.id}
                 className="cursor-pointer hover:shadow-lg transition-shadow"
                 onClick={() =>
-                  navigate(`/boards/${board.id}?angle=${angle}&sort=popular`)
+                  navigate(`${boardPathPrefix}/${board.id}?angle=${angle}&sort=popular`)
                 }
               >
                 <CardHeader>
