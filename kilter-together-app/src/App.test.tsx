@@ -459,6 +459,11 @@ describe("App routes", () => {
           sort: "newest",
           climb: "uuid-1",
         },
+        intro: {
+          version: 1,
+          landingDismissed: true,
+          soloDismissed: true,
+        },
         onboarding: {
           version: 1,
           dismissed: false,
@@ -486,7 +491,7 @@ describe("App routes", () => {
     );
   });
 
-  it("shows first-use onboarding and lets the user replay it", async () => {
+  it("shows a first-visit intro before onboarding and lets the user replay onboarding", async () => {
     const user = userEvent.setup();
     mockedApi.getBoards.mockResolvedValue([]);
 
@@ -496,6 +501,10 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
+    expect(await screen.findByRole("button", { name: "Start exploring" })).toBeInTheDocument();
+    expect(screen.queryByText("First-time guide")).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Start exploring" }));
     expect(await screen.findByText("First-time guide")).toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: "Dismiss" }));
@@ -509,10 +518,39 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
+    expect(screen.queryByRole("button", { name: "Start exploring" })).not.toBeInTheDocument();
     expect(screen.queryByText("First-time guide")).not.toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: /Help/i }));
     expect(await screen.findByText("First-time guide")).toBeInTheDocument();
+  });
+
+  it("shows the solo intro dialog only on the first solo visit", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+
+    const view = render(
+      <MemoryRouter initialEntries={["/solo"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByText("Choose a board")).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: "Open solo browse" })).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Open solo browse" }));
+    expect(screen.queryByRole("button", { name: "Open solo browse" })).not.toBeInTheDocument();
+
+    view.unmount();
+
+    render(
+      <MemoryRouter initialEntries={["/solo"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByText("Choose a board")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Open solo browse" })).not.toBeInTheDocument();
   });
 
   it("shows role-specific onboarding on host and guest entry pages", async () => {
