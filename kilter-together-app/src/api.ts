@@ -2,8 +2,8 @@ import axios from "axios";
 import { config } from "./config";
 import type {
   Board,
-  Climb,
   ApiResponse,
+  PaginatedClimbsParams,
   PaginatedClimbsResponse,
 } from "./types";
 
@@ -27,35 +27,21 @@ export const api = {
     }
   },
 
-  getClimbs: async (boardId: string, angle?: number): Promise<Climb[]> => {
-    try {
-      let url = `/climbs?board_id=${boardId}`;
-      if (angle !== undefined) {
-        url += `&angle=${angle}`;
-      }
-      const response = await apiClient.get<ApiResponse>(url);
-      return response.data.climbs || [];
-    } catch (error) {
-      console.error("Error fetching climbs:", error);
-      throw error;
-    }
-  },
-
   getPaginatedClimbs: async (
-    boardId: string,
-    angle?: number,
-    cursor?: string,
-    pageSize: number = 10
+    params: PaginatedClimbsParams
   ): Promise<PaginatedClimbsResponse> => {
     try {
-      let url = `/climbs?board_id=${boardId}&page_size=${pageSize}`;
-      if (angle !== undefined) {
-        url += `&angle=${angle}`;
-      }
-      if (cursor) {
-        url += `&cursor=${encodeURIComponent(cursor)}`;
-      }
-      const response = await apiClient.get<PaginatedClimbsResponse>(url);
+      const response = await apiClient.get<PaginatedClimbsResponse>("/climbs", {
+        params: {
+          board_id: params.boardId,
+          angle: params.angle,
+          page_size: params.pageSize ?? 10,
+          cursor: params.cursor,
+          name: params.name,
+          setter: params.setter,
+          sort: params.sort,
+        },
+      });
       return response.data;
     } catch (error) {
       console.error("Error fetching paginated climbs:", error);
@@ -68,14 +54,6 @@ export const api = {
       ? filename.split("/").pop()!
       : filename;
     return `${IMAGES_BASE_URL}/${baseName}`;
-  },
-
-  getImageUrls: (imageFilenames: string): string[] => {
-    if (!imageFilenames) return [];
-    const filenames = imageFilenames.includes("/")
-      ? imageFilenames.split("/").slice(1)
-      : [imageFilenames];
-    return filenames.map((filename) => api.getImageUrl(filename));
   },
 };
 

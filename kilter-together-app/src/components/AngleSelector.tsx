@@ -5,14 +5,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ANGLE_OPTIONS } from "@/lib/climbs";
 
 interface AngleSelectorProps {
   angle: number;
   onAngleChange: (angle: number) => void;
   className?: string;
 }
-
-const ANGLE_OPTIONS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70];
 
 export default function AngleSelector({
   angle,

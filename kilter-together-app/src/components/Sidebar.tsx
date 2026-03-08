@@ -1,9 +1,11 @@
 import AngleSelector from "./AngleSelector";
-import type { Climb } from "../types";
+import SortSelector from "./SortSelector";
+import type { Climb, ClimbSort } from "../types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { getGradeForAngle } from "../types";
+import { Input } from "@/components/ui/input";
+import { getGradeForAngle } from "@/lib/climbs";
 import { ChevronLeft } from "lucide-react";
 import {
   Sidebar as SidebarPrimitive,
@@ -22,6 +24,12 @@ interface SidebarProps {
   onBackClick: () => void;
   angle: number;
   onAngleChange: (angle: number) => void;
+  sort: ClimbSort;
+  onSortChange: (sort: ClimbSort) => void;
+  nameQuery: string;
+  setterQuery: string;
+  onNameChange: (value: string) => void;
+  onSetterChange: (value: string) => void;
   currentPage: number;
   hasNextPage: boolean;
   onNextPage: () => void;
@@ -37,6 +45,12 @@ export default function Sidebar({
   onBackClick,
   angle,
   onAngleChange,
+  sort,
+  onSortChange,
+  nameQuery,
+  setterQuery,
+  onNameChange,
+  onSetterChange,
   currentPage,
   hasNextPage,
   onNextPage,
@@ -61,27 +75,17 @@ export default function Sidebar({
           <SidebarGroupContent>
             <div className="space-y-3 p-2">
               <AngleSelector angle={angle} onAngleChange={onAngleChange} />
-              {/* Problem select title, not very useful tbh */}
-              {/* <Select
-                value={selectedClimb?.uuid || ""}
-                onValueChange={(value) => {
-                  const selected = climbs.find((c) => c.uuid === value);
-                  if (selected) {
-                    onClimbSelect(selected);
-                  }
-                }}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a problem" />
-                </SelectTrigger>
-                <SelectContent>
-                  {climbs.map((climb) => (
-                    <SelectItem key={climb.uuid} value={climb.uuid}>
-                      {climb.climb_name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select> */}
+              <SortSelector sort={sort} onSortChange={onSortChange} />
+              <Input
+                value={nameQuery}
+                onChange={(event) => onNameChange(event.target.value)}
+                placeholder="Search climbs"
+              />
+              <Input
+                value={setterQuery}
+                onChange={(event) => onSetterChange(event.target.value)}
+                placeholder="Filter by setter"
+              />
             </div>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -90,36 +94,41 @@ export default function Sidebar({
           <SidebarGroupLabel>Problems</SidebarGroupLabel>
           <SidebarGroupContent>
             <div className="space-y-1 p-1">
-              {climbs.map((climb) => (
-                <Card
-                  key={climb.uuid}
-                  className={`p-2 cursor-pointer transition-colors ${
-                    selectedClimb?.uuid === climb.uuid
-                      ? "border-primary bg-primary/5"
-                      : "hover:bg-muted/50"
-                  }`}
-                  onClick={() => onClimbSelect(climb)}
-                >
-                  <CardContent className="p-3 space-y-1">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-sm font-medium truncate">
-                        {climb.climb_name}
-                      </span>
-                      <Badge
-                        variant="secondary"
-                        className="text-xs flex-shrink-0"
-                      >
-                        {getGradeForAngle(climb, angle)}
-                      </Badge>
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      {climb.setter_name} • {climb.ascends} ascends
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
+              {climbs.length === 0 ? (
+                <div className="rounded-lg border border-dashed p-3 text-sm text-muted-foreground">
+                  No climbs match the current filters.
+                </div>
+              ) : (
+                climbs.map((climb) => (
+                  <Card
+                    key={climb.uuid}
+                    className={`p-2 cursor-pointer transition-colors ${
+                      selectedClimb?.uuid === climb.uuid
+                        ? "border-primary bg-primary/5"
+                        : "hover:bg-muted/50"
+                    }`}
+                    onClick={() => onClimbSelect(climb)}
+                  >
+                    <CardContent className="p-3 space-y-1">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-sm font-medium truncate">
+                          {climb.climb_name}
+                        </span>
+                        <Badge
+                          variant="secondary"
+                          className="text-xs flex-shrink-0"
+                        >
+                          {getGradeForAngle(climb, angle)}
+                        </Badge>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        {climb.setter_name} • {climb.ascends} ascends
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))
+              )}
 
-              {/* Pagination Controls */}
               <div className="flex items-center justify-between gap-2 pt-3 border-t">
                 <Button
                   variant="outline"

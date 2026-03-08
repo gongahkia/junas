@@ -1,11 +1,18 @@
-import { useEffect, useState, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import {
+  startTransition,
+  useDeferredValue,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import { api } from "../api";
-import type { Climb, LocationState } from "../types";
+import type { Board, Climb } from "../types";
 import Sidebar from "./Sidebar";
 import MobileDropdown from "./MobileDropdown";
 import ProblemView from "./ProblemView";
+import { normalizeAngle, normalizeSort } from "@/lib/climbs";
 import { Button } from "@/components/ui/button";
 import {
   SidebarProvider,
@@ -13,115 +20,192 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 
+const PAGE_SIZE = 10;
+
 interface ClimbViewProps {
-  angle: number;
-  onAngleChange: (angle: number) => void;
+  boards: Board[];
+  boardsLoading: boolean;
 }
 
-export default function ClimbView({ angle, onAngleChange }: ClimbViewProps) {
+export default function ClimbView({ boards, boardsLoading }: ClimbViewProps) {
   const [climbs, setClimbs] = useState<Climb[]>([]);
   const [loading, setLoading] = useState(true);
   const [pageLoading, setPageLoading] = useState(false);
   const [selectedClimb, setSelectedClimb] = useState<Climb | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasNextPage, setHasNextPage] = useState(false);
-  const [isInitialized, setIsInitialized] = useState(false);
   const cursorsRef = useRef<Record<number, string>>({});
-  const location = useLocation();
+  const lastFilterKeyRef = useRef("");
+  const { boardId = "" } = useParams();
   const navigate = useNavigate();
-  const state = location.state as LocationState;
-  const boardId = state?.boardId;
-  const boardName = state?.boardName;
-  const PAGE_SIZE = 10;
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const rawAngle = searchParams.get("angle");
+  const rawSort = searchParams.get("sort");
+  const angle = normalizeAngle(rawAngle);
+  const sort = normalizeSort(rawSort);
+  const nameQuery = searchParams.get("q") ?? "";
+  const setterQuery = searchParams.get("setter") ?? "";
+  const selectedUuid = searchParams.get("climb") ?? "";
+  const deferredNameQuery = useDeferredValue(nameQuery);
+  const deferredSetterQuery = useDeferredValue(setterQuery);
+
+  const board = boards.find((candidate) => String(candidate.id) === boardId);
+  const boardName = board?.name || (boardsLoading ? "Loading board..." : `Board ${boardId}`);
 
   useEffect(() => {
     if (!boardId) {
-      navigate("/");
+      navigate("/", { replace: true });
       return;
     }
 
-    const fetchPage = async (page: number) => {
+    const nextSearchParams = new URLSearchParams(searchParams);
+    let changed = false;
+
+    if (rawAngle !== String(angle)) {
+      nextSearchParams.set("angle", String(angle));
+      changed = true;
+    }
+
+    if (rawSort !== sort) {
+      nextSearchParams.set("sort", sort);
+      changed = true;
+    }
+
+    if (changed) {
+      setSearchParams(nextSearchParams, { replace: true });
+    }
+  }, [angle, boardId, navigate, rawAngle, rawSort, searchParams, setSearchParams, sort]);
+
+  useEffect(() => {
+    if (!boardId) {
+      return;
+    }
+
+    const filterKey = JSON.stringify({
+      boardId,
+      angle,
+      name: deferredNameQuery,
+      setter: deferredSetterQuery,
+      sort,
+    });
+    const filtersChanged = lastFilterKeyRef.current !== filterKey;
+    if (filtersChanged) {
+      lastFilterKeyRef.current = filterKey;
+      cursorsRef.current = {};
+      setHasNextPage(false);
+      if (currentPage !== 1) {
+        setCurrentPage(1);
+        return;
+      }
+    }
+
+    const fetchPage = async () => {
       try {
-        // Only show full loading screen for the very first load
-        const isFirstLoad = !isInitialized;
-        if (isFirstLoad) {
+        if (currentPage === 1) {
           setLoading(true);
         } else {
           setPageLoading(true);
         }
 
-        const cursor = page > 1 ? cursorsRef.current[page] : undefined;
-        const paginatedData = await api.getPaginatedClimbs(
+        const paginatedData = await api.getPaginatedClimbs({
           boardId,
           angle,
-          cursor,
-          PAGE_SIZE
-        );
+          cursor: currentPage > 1 ? cursorsRef.current[currentPage] : undefined,
+          pageSize: PAGE_SIZE,
+          name: deferredNameQuery || undefined,
+          setter: deferredSetterQuery || undefined,
+          sort,
+        });
+
         setClimbs(paginatedData.climbs);
         setHasNextPage(paginatedData.has_more);
 
-        // Store cursor for next page if it exists
         if (paginatedData.next_cursor) {
           cursorsRef.current = {
             ...cursorsRef.current,
-            [page + 1]: paginatedData.next_cursor,
+            [currentPage + 1]: paginatedData.next_cursor,
           };
         }
 
-        // Always set first problem as selected when loading a page
-        if (paginatedData.climbs.length > 0) {
-          setSelectedClimb(paginatedData.climbs[0]);
-        }
+        const nextSelectedClimb =
+          paginatedData.climbs.find((climb) => climb.uuid === selectedUuid) ||
+          paginatedData.climbs[0] ||
+          null;
+        setSelectedClimb(nextSelectedClimb);
 
-        if (isFirstLoad) {
-          setLoading(false);
-          setIsInitialized(true);
-        } else {
-          setPageLoading(false);
+        if (nextSelectedClimb?.uuid !== selectedUuid) {
+          const nextSearchParams = new URLSearchParams(searchParams);
+          if (nextSelectedClimb) {
+            nextSearchParams.set("climb", nextSelectedClimb.uuid);
+          } else {
+            nextSearchParams.delete("climb");
+          }
+          setSearchParams(nextSearchParams, { replace: true });
         }
       } catch (error) {
         console.error("API Error:", error);
         setClimbs([]);
+        setSelectedClimb(null);
+        setHasNextPage(false);
+      } finally {
         setLoading(false);
         setPageLoading(false);
       }
     };
 
-    fetchPage(currentPage);
-  }, [boardId, angle, currentPage, navigate, isInitialized]);
+    void fetchPage();
+  }, [
+    angle,
+    boardId,
+    currentPage,
+    deferredNameQuery,
+    deferredSetterQuery,
+    searchParams,
+    selectedUuid,
+    setSearchParams,
+    sort,
+  ]);
+
+  const updateSearchState = (updates: Record<string, string | undefined>) => {
+    startTransition(() => {
+      const nextSearchParams = new URLSearchParams(searchParams);
+      for (const [key, value] of Object.entries(updates)) {
+        if (value && value.trim() !== "") {
+          nextSearchParams.set(key, value);
+        } else {
+          nextSearchParams.delete(key);
+        }
+      }
+
+      nextSearchParams.delete("climb");
+      cursorsRef.current = {};
+      setCurrentPage(1);
+      setHasNextPage(false);
+      setSearchParams(nextSearchParams);
+    });
+  };
+
+  const handleClimbSelect = (climb: Climb) => {
+    setSelectedClimb(climb);
+    const nextSearchParams = new URLSearchParams(searchParams);
+    nextSearchParams.set("climb", climb.uuid);
+    setSearchParams(nextSearchParams, { replace: true });
+  };
 
   const goToNextPage = () => {
     if (hasNextPage) {
-      setCurrentPage((prev) => prev + 1);
+      setCurrentPage((previousPage) => previousPage + 1);
     }
   };
 
   const goToPreviousPage = () => {
     if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
+      setCurrentPage((previousPage) => previousPage - 1);
     }
   };
 
-  const handleClimbSelect = (climb: Climb) => {
-    setSelectedClimb(climb);
-  };
-
-  const handleAngleChange = (newAngle: number) => {
-    setLoading(true);
-    setSelectedClimb(null); // Clear selected climb when angle changes
-    setClimbs([]); // Clear existing climbs
-    setCurrentPage(1); // Reset to first page
-    setHasNextPage(false); // Reset pagination
-    setIsInitialized(false); // Reset initialization state
-    cursorsRef.current = {}; // Reset cursors
-    onAngleChange(newAngle);
-  };
-
-  const handleBackClick = () => {
-    navigate("/");
-  };
-
-  if (loading) {
+  if (loading && currentPage === 1) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-lg text-muted-foreground">Loading climbs...</div>
@@ -132,15 +216,28 @@ export default function ClimbView({ angle, onAngleChange }: ClimbViewProps) {
   return (
     <SidebarProvider defaultOpen={true}>
       <div className="min-h-screen bg-background flex">
-        {/* Sidebar */}
         <Sidebar
           boardName={boardName}
           climbs={climbs}
           selectedClimb={selectedClimb}
           onClimbSelect={handleClimbSelect}
-          onBackClick={handleBackClick}
+          onBackClick={() => navigate("/")}
           angle={angle}
-          onAngleChange={handleAngleChange}
+          onAngleChange={(nextAngle) =>
+            updateSearchState({ angle: String(nextAngle), sort })
+          }
+          sort={sort}
+          onSortChange={(nextSort) =>
+            updateSearchState({ angle: String(angle), sort: nextSort })
+          }
+          nameQuery={nameQuery}
+          setterQuery={setterQuery}
+          onNameChange={(value) =>
+            updateSearchState({ angle: String(angle), sort, q: value, setter: setterQuery })
+          }
+          onSetterChange={(value) =>
+            updateSearchState({ angle: String(angle), sort, q: nameQuery, setter: value })
+          }
           currentPage={currentPage}
           hasNextPage={hasNextPage}
           onNextPage={goToNextPage}
@@ -148,10 +245,8 @@ export default function ClimbView({ angle, onAngleChange }: ClimbViewProps) {
           pageLoading={pageLoading}
         />
 
-        {/* Main Content */}
         <SidebarInset>
           <div className="flex flex-col h-screen">
-            {/* Mobile Header */}
             <div className="md:hidden bg-card shadow-sm border-b">
               <div className="px-4 py-3">
                 <div className="flex items-center gap-2 mb-2">
@@ -171,22 +266,34 @@ export default function ClimbView({ angle, onAngleChange }: ClimbViewProps) {
               </div>
             </div>
 
-            {/* Desktop Header */}
             <div className="hidden md:flex items-center gap-2 p-4 border-b bg-card">
               <SidebarTrigger />
               <h2 className="text-xl">{boardName}</h2>
             </div>
 
-            {/* Mobile Dropdown - only show when sidebar is hidden */}
             <div className="md:hidden">
               <MobileDropdown
                 climbs={climbs}
                 selectedClimb={selectedClimb}
                 onClimbSelect={handleClimbSelect}
                 angle={angle}
-                onAngleChange={handleAngleChange}
+                onAngleChange={(nextAngle) =>
+                  updateSearchState({ angle: String(nextAngle), sort })
+                }
+                sort={sort}
+                onSortChange={(nextSort) =>
+                  updateSearchState({ angle: String(angle), sort: nextSort })
+                }
+                nameQuery={nameQuery}
+                setterQuery={setterQuery}
+                onNameChange={(value) =>
+                  updateSearchState({ angle: String(angle), sort, q: value, setter: setterQuery })
+                }
+                onSetterChange={(value) =>
+                  updateSearchState({ angle: String(angle), sort, q: nameQuery, setter: value })
+                }
               />
-              {/* Mobile Pagination */}
+
               <div className="px-4 pb-4">
                 <div className="flex items-center justify-between gap-2">
                   <Button
@@ -212,9 +319,12 @@ export default function ClimbView({ angle, onAngleChange }: ClimbViewProps) {
               </div>
             </div>
 
-            {/* Problem View */}
             <div className="flex-1 p-4 md:p-6 overflow-auto">
-              <ProblemView selectedClimb={selectedClimb} angle={angle} />
+              <ProblemView
+                selectedClimb={selectedClimb}
+                angle={angle}
+                hasResults={climbs.length > 0}
+              />
             </div>
           </div>
         </SidebarInset>

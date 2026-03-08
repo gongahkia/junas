@@ -1,22 +1,18 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AngleSelector from "./AngleSelector";
 import type { Board } from "../types";
+import { DEFAULT_ANGLE } from "@/lib/climbs";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 interface BoardSelectorProps {
   boards: Board[];
   loading: boolean;
-  angle: number;
-  onAngleChange: (angle: number) => void;
 }
 
-export default function BoardSelector({
-  boards,
-  loading,
-  angle,
-  onAngleChange,
-}: BoardSelectorProps) {
+export default function BoardSelector({ boards, loading }: BoardSelectorProps) {
   const navigate = useNavigate();
+  const [angle, setAngle] = useState(DEFAULT_ANGLE);
 
   if (loading) {
     return (
@@ -32,19 +28,22 @@ export default function BoardSelector({
       <div className="w-full max-w-4xl">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl">Kilter Together</h1>
-          <AngleSelector angle={angle} onAngleChange={onAngleChange} />
+          <AngleSelector angle={angle} onAngleChange={setAngle} />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-          {Array.isArray(boards) &&
+        {boards.length === 0 ? (
+          <div className="rounded-xl border border-dashed p-8 text-center text-muted-foreground">
+            No Kilter boards were returned by the API.
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            {Array.isArray(boards) &&
             boards.map((board) => (
               <Card
                 key={board.id}
                 className="cursor-pointer hover:shadow-lg transition-shadow"
                 onClick={() =>
-                  navigate("/dashboard", {
-                    state: { boardId: board.id, boardName: board.name },
-                  })
+                  navigate(`/boards/${board.id}?angle=${angle}&sort=popular`)
                 }
               >
                 <CardHeader>
@@ -57,13 +56,14 @@ export default function BoardSelector({
                 </CardHeader>
               </Card>
             ))}
-        </div>
+          </div>
+        )}
 
         <footer className="mt-8 pt-8 border-t text-center text-muted-foreground">
           <p>
             Made with ❤️ by Ze Ming and Gabriel.{" "}
             <a
-              href="https://github.com/lczm/boardbuddy"
+              href="https://github.com/lczm/kilter-together"
               className="text-primary hover:underline"
             >
               Source code here

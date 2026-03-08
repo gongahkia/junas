@@ -9,18 +9,16 @@ import "./App.css";
 function App() {
   const [boards, setBoards] = useState<Board[]>([]);
   const [loading, setLoading] = useState(true);
-  const [angle, setAngle] = useState<number>(40); // Default angle
 
   useEffect(() => {
     const fetchBoards = async () => {
       try {
         const boardsData = await api.getBoards();
-        console.log("API Response:", boardsData);
         setBoards(boardsData);
-        setLoading(false);
       } catch (error) {
         console.error("API Error:", error);
         setBoards([]);
+      } finally {
         setLoading(false);
       }
     };
@@ -33,17 +31,12 @@ function App() {
       <Route
         path="/"
         element={
-          <BoardSelector
-            boards={boards}
-            loading={loading}
-            angle={angle}
-            onAngleChange={setAngle}
-          />
+          <BoardSelector boards={boards} loading={loading} />
         }
       />
       <Route
-        path="/dashboard"
-        element={<ClimbView angle={angle} onAngleChange={setAngle} />}
+        path="/boards/:boardId"
+        element={<ClimbView boards={boards} boardsLoading={loading} />}
       />
     </Routes>
   );
