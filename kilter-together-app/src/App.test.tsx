@@ -304,6 +304,7 @@ describe("App routes", () => {
     expect(screen.getAllByText("ready").length).toBeGreaterThan(0);
     expect(screen.getByText(/join\/session-1/)).toBeInTheDocument();
     expect(MockEventSource.instances[0]?.url).toBe("/api/rooms/session-1/events");
+    expect(mockedApi.getBoards).not.toHaveBeenCalled();
   });
 
   it("supports host decision actions inside a room", async () => {
@@ -376,6 +377,42 @@ describe("App routes", () => {
         "current"
       )
     );
+  });
+
+  it("shows the backend provider-connect error in the room UI", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("connect-room"),
+      provider_id: "crux",
+      connection: {
+        provider_id: "crux",
+        connected: false,
+      },
+    });
+    mockedApi.connectRoomProvider.mockRejectedValue({
+      response: {
+        status: 500,
+        data: {
+          error: "KILTER_TOGETHER_ENCRYPTION_KEY is required",
+        },
+      },
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/connect-room"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByRole("heading", { name: "Room connect-room" })).toBeInTheDocument();
+
+    await user.type(screen.getByPlaceholderText("Crux API token"), "demo-token");
+    await user.click(screen.getByRole("button", { name: "Connect provider" }));
+
+    expect(
+      await screen.findByText("KILTER_TOGETHER_ENCRYPTION_KEY is required")
+    ).toBeInTheDocument();
   });
 
   it("supports creating a room from the room-first flow", async () => {

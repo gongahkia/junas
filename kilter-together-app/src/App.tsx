@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { api } from "./api";
 import BoardSelector from "./components/BoardSelector";
 import ClimbView from "./components/ClimbView";
@@ -12,11 +12,23 @@ import type { Board } from "./types";
 import "./App.css";
 
 function App() {
+  const location = useLocation();
   const [boards, setBoards] = useState<Board[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const shouldLoadBoards =
+    location.pathname === "/solo" ||
+    location.pathname.startsWith("/solo/boards/") ||
+    location.pathname.startsWith("/boards/");
+
   useEffect(() => {
+    if (!shouldLoadBoards) {
+      setLoading(false);
+      return;
+    }
+
     const fetchBoards = async () => {
+      setLoading(true);
       try {
         const boardsData = await api.getBoards();
         setBoards(boardsData);
@@ -29,7 +41,7 @@ function App() {
     };
 
     fetchBoards();
-  }, []);
+  }, [shouldLoadBoards]);
 
   return (
     <Routes>

@@ -27,6 +27,7 @@ import type {
   RoomSnapshot,
 } from "@/types";
 import { DEFAULT_ANGLE, normalizeSort } from "@/lib/climbs";
+import { getApiErrorMessage } from "@/lib/api-errors";
 import { buildInviteLink } from "@/lib/room-links";
 import {
   dismissOnboarding,
@@ -173,7 +174,10 @@ export default function RoomView() {
         setSnapshot(null);
         setCatalog(null);
         setActionError(
-          "Unable to load this room. Join the invite first, or check whether the host has closed it."
+          getApiErrorMessage(
+            caughtError,
+            "Unable to load this room. Join the invite first, or check whether the host has closed it."
+          )
         );
         return null;
       } finally {
@@ -234,7 +238,9 @@ export default function RoomView() {
       } catch (caughtError) {
         console.error("Load room catalog failed", caughtError);
         setCatalog(null);
-        setActionError("Unable to load the climb catalog for this room.");
+        setActionError(
+          getApiErrorMessage(caughtError, "Unable to load the climb catalog for this room.")
+        );
         return null;
       } finally {
         if (showLoader) {
@@ -330,7 +336,9 @@ export default function RoomView() {
         });
       } catch (caughtError) {
         console.error("Load room surfaces failed", caughtError);
-        setActionError("Unable to load provider surfaces for this room.");
+        setActionError(
+          getApiErrorMessage(caughtError, "Unable to load provider surfaces for this room.")
+        );
       } finally {
         setSurfaceLoading(false);
       }
@@ -369,7 +377,9 @@ export default function RoomView() {
         });
       } catch (caughtError) {
         console.error("Load room walls failed", caughtError);
-        setActionError("Unable to load Crux walls for the selected gym.");
+        setActionError(
+          getApiErrorMessage(caughtError, "Unable to load Crux walls for the selected gym.")
+        );
       } finally {
         setSurfaceLoading(false);
       }
@@ -459,7 +469,12 @@ export default function RoomView() {
       await refreshRoomState();
     } catch (caughtError) {
       console.error("Connect provider failed", caughtError);
-      setActionError("Unable to validate the provider credentials for this room.");
+      setActionError(
+        getApiErrorMessage(
+          caughtError,
+          "Unable to validate the provider credentials for this room."
+        )
+      );
     } finally {
       setSurfaceLoading(false);
     }
@@ -497,7 +512,9 @@ export default function RoomView() {
       await refreshRoomState();
     } catch (caughtError) {
       console.error("Set room surface failed", caughtError);
-      setActionError("Unable to save the provider surface for this room.");
+      setActionError(
+        getApiErrorMessage(caughtError, "Unable to save the provider surface for this room.")
+      );
     } finally {
       setSurfaceLoading(false);
     }
@@ -1031,16 +1048,21 @@ export default function RoomView() {
                       />
                     </div>
                   ) : (
-                    <Input
-                      value={connectionFields.token}
-                      onChange={(event) =>
-                        setConnectionFields((previousState) => ({
-                          ...previousState,
-                          token: event.target.value,
-                        }))
-                      }
-                      placeholder="Crux bearer token"
-                    />
+                    <div className="space-y-2">
+                      <Input
+                        value={connectionFields.token}
+                        onChange={(event) =>
+                          setConnectionFields((previousState) => ({
+                            ...previousState,
+                            token: event.target.value,
+                          }))
+                        }
+                        placeholder="Crux API token"
+                      />
+                      <p className="text-sm text-muted-foreground">
+                        Paste either the raw Crux token or the full <code>Bearer ...</code> value.
+                      </p>
+                    </div>
                   )}
                   <Button onClick={handleConnectProvider} disabled={surfaceLoading}>
                     {surfaceLoading ? "Connecting..." : "Connect provider"}
