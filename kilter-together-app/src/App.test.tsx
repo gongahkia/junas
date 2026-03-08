@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import App from "./App";
 import { api } from "./api";
+import type { RoomSnapshot } from "./types";
 
 class MockEventSource {
   static instances: MockEventSource[] = [];
@@ -60,18 +61,24 @@ vi.mock("./api", () => ({
     getRoomCatalogClimb: vi.fn(),
     toggleRoomVote: vi.fn(),
     addRoomQueueEntry: vi.fn(),
+    addRoomFinalist: vi.fn(),
+    reorderRoomFinalists: vi.fn(),
+    deleteRoomFinalist: vi.fn(),
+    pickRandomRoomClimb: vi.fn(),
+    promoteRoomQueueClimb: vi.fn(),
     reorderRoomQueue: vi.fn(),
     updateRoomQueueEntry: vi.fn(),
     deleteRoomQueueEntry: vi.fn(),
     clearRoomVotes: vi.fn(),
     closeRoom: vi.fn(),
     removeRoomParticipant: vi.fn(),
+    updateMyParticipantStatus: vi.fn(),
   },
 }));
 
 const mockedApi = vi.mocked(api);
 
-const buildRoomSnapshot = (slug: string) => ({
+const buildRoomSnapshot = (slug: string): RoomSnapshot => ({
   slug,
   status: "open" as const,
   provider_id: "kilter" as const,
@@ -85,9 +92,11 @@ const buildRoomSnapshot = (slug: string) => ({
       id: 1,
       display_name: "Host",
       role: "host",
+      status: "watching" as const,
       is_online: true,
     },
   ],
+  finalists: [],
   queue: [],
   vote_counts: {},
   my_votes: [],
@@ -182,16 +191,50 @@ describe("App routes", () => {
           id: 1,
           display_name: "Host",
           role: "host",
+          status: "watching" as const,
           is_online: true,
         },
         {
           id: 2,
           display_name: "Guest",
           role: "participant",
+          status: "ready" as const,
           is_online: true,
         },
       ],
-      queue: [],
+      finalists: [
+        {
+          id: 9,
+          position: 1,
+          added_by: "Host",
+          climb: {
+            id: "kilter:14:uuid-1",
+            external_id: "uuid-1",
+            provider_id: "kilter",
+            surface_id: "14",
+            name: "Shared Project",
+            setter_name: "Setter A",
+            primary_grade: "V6",
+          },
+        },
+      ],
+      queue: [
+        {
+          id: 4,
+          status: "current" as const,
+          position: 1,
+          added_by: "Host",
+          climb: {
+            id: "kilter:14:uuid-1",
+            external_id: "uuid-1",
+            provider_id: "kilter",
+            surface_id: "14",
+            name: "Shared Project",
+            setter_name: "Setter A",
+            primary_grade: "V6",
+          },
+        },
+      ],
       vote_counts: {
         "kilter:14:uuid-1": 2,
       },
@@ -257,8 +300,82 @@ describe("App routes", () => {
     expect((await screen.findAllByText("Shared Project")).length).toBeGreaterThan(0);
     expect(screen.getByText("Vote on this one")).toBeInTheDocument();
     expect(screen.getByText("Participants")).toBeInTheDocument();
+    expect(screen.getByText("Finalists")).toBeInTheDocument();
+    expect(screen.getByText(/1 ready/)).toBeInTheDocument();
     expect(screen.getByText(/join\/session-1/)).toBeInTheDocument();
     expect(MockEventSource.instances[0]?.url).toBe("/api/rooms/session-1/events");
+  });
+
+  it("supports host decision actions inside a room", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("host-room"),
+      version: 2,
+      surface: {
+        id: "14",
+        kind: "board",
+        name: "Kilter Board Original",
+        meta: {
+          angle: "40",
+          board_id: "14",
+        },
+      },
+      connection: {
+        provider_id: "kilter",
+        connected: true,
+      },
+    });
+    mockedApi.getRoomCatalogClimbs.mockResolvedValue({
+      climbs: [
+        {
+          id: "kilter:14:uuid-1",
+          external_id: "uuid-1",
+          provider_id: "kilter",
+          surface_id: "14",
+          name: "Shared Project",
+          description: "Vote on this one",
+          setter_name: "Setter A",
+          primary_grade: "V6",
+          secondary_grade: "5.12d",
+          created_at: "2026-02-01T00:00:00Z",
+          popularity: 14,
+        },
+      ],
+      has_more: false,
+      page_size: 12,
+      vote_counts: {
+        "kilter:14:uuid-1": 2,
+      },
+      my_votes: ["kilter:14:uuid-1"],
+    });
+    mockedApi.addRoomFinalist.mockResolvedValue(undefined);
+    mockedApi.promoteRoomQueueClimb.mockResolvedValue(undefined);
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/host-room?climb=kilter:14:uuid-1"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect((await screen.findAllByText("Shared Project")).length).toBeGreaterThan(0);
+
+    await user.click(screen.getByRole("button", { name: "Add finalist" }));
+    await waitFor(() =>
+      expect(mockedApi.addRoomFinalist).toHaveBeenCalledWith(
+        "host-room",
+        "kilter:14:uuid-1"
+      )
+    );
+
+    await user.click(screen.getByRole("button", { name: "Promote to current" }));
+    await waitFor(() =>
+      expect(mockedApi.promoteRoomQueueClimb).toHaveBeenCalledWith(
+        "host-room",
+        "kilter:14:uuid-1",
+        "current"
+      )
+    );
   });
 
   it("supports creating a room from the room-first flow", async () => {

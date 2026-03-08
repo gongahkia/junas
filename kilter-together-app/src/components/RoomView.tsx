@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import { api } from "@/api";
 import type {
+  ParticipantStatus,
+  ProviderClimb,
   ProviderSurface,
   QueueEntry,
   QueueStatus,
@@ -70,6 +72,7 @@ export default function RoomView() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [snapshot, setSnapshot] = useState<RoomSnapshot | null>(null);
   const [catalog, setCatalog] = useState<RoomCatalogClimbsResponse | null>(null);
+  const [selectedExternalClimb, setSelectedExternalClimb] = useState<ProviderClimb | null>(null);
   const [loading, setLoading] = useState(true);
   const [catalogLoading, setCatalogLoading] = useState(false);
   const [surfaceLoading, setSurfaceLoading] = useState(false);
@@ -109,6 +112,7 @@ export default function RoomView() {
 
   const selectedClimb =
     catalog?.climbs.find((climb) => climb.id === selectedClimbId) ||
+    (selectedExternalClimb?.id === selectedClimbId ? selectedExternalClimb : null) ||
     catalog?.climbs[0] ||
     null;
 
@@ -213,6 +217,7 @@ export default function RoomView() {
 
         const nextSelectedClimb =
           nextCatalog.climbs.find((climb) => climb.id === selectedClimbId) ||
+          (selectedExternalClimb?.id === selectedClimbId ? selectedExternalClimb : null) ||
           nextCatalog.climbs[0] ||
           null;
         if (nextSelectedClimb?.id !== selectedClimbId) {
@@ -241,6 +246,7 @@ export default function RoomView() {
       currentPage,
       deferredSearch,
       searchParams,
+      selectedExternalClimb,
       selectedClimbId,
       setSearchParams,
       slug,
@@ -418,8 +424,16 @@ export default function RoomView() {
       nextSearchParams.delete("climb");
       cursorsRef.current = {};
       setCurrentPage(1);
+      setSelectedExternalClimb(null);
       setSearchParams(nextSearchParams);
     });
+  };
+
+  const selectClimb = (climb: ProviderClimb) => {
+    const nextSearchParams = new URLSearchParams(searchParams);
+    nextSearchParams.set("climb", climb.id);
+    setSelectedExternalClimb(climb);
+    setSearchParams(nextSearchParams, { replace: true });
   };
 
   const handleConnectProvider = async () => {
@@ -524,6 +538,103 @@ export default function RoomView() {
     } catch (caughtError) {
       console.error("Add queue entry failed", caughtError);
       setActionError("Unable to add this climb to the room queue.");
+    }
+  };
+
+  const handleAddFinalist = async (climbId: string) => {
+    if (!slug) {
+      return;
+    }
+
+    try {
+      await api.addRoomFinalist(slug, climbId);
+      await refreshRoomState();
+    } catch (caughtError) {
+      console.error("Add finalist failed", caughtError);
+      setActionError("Unable to add this climb to the finalists list.");
+    }
+  };
+
+  const handleDeleteFinalist = async (entryId: number) => {
+    if (!slug) {
+      return;
+    }
+
+    try {
+      await api.deleteRoomFinalist(slug, entryId);
+      await refreshRoomState();
+    } catch (caughtError) {
+      console.error("Delete finalist failed", caughtError);
+      setActionError("Unable to remove this finalist.");
+    }
+  };
+
+  const handleMoveFinalist = async (entryId: number, direction: -1 | 1) => {
+    if (!slug || !snapshot) {
+      return;
+    }
+
+    const entryIDs = snapshot.finalists.map((entry) => entry.id);
+    const currentIndex = entryIDs.indexOf(entryId);
+    const nextIndex = currentIndex + direction;
+    if (currentIndex < 0 || nextIndex < 0 || nextIndex >= entryIDs.length) {
+      return;
+    }
+
+    const reordered = [...entryIDs];
+    [reordered[currentIndex], reordered[nextIndex]] = [
+      reordered[nextIndex],
+      reordered[currentIndex],
+    ];
+
+    try {
+      await api.reorderRoomFinalists(slug, reordered);
+      await refreshRoomState();
+    } catch (caughtError) {
+      console.error("Reorder finalists failed", caughtError);
+      setActionError("Unable to reorder finalists.");
+    }
+  };
+
+  const handlePickRandom = async (source: "finalists" | "top_voted") => {
+    if (!slug) {
+      return;
+    }
+
+    try {
+      const climb = await api.pickRandomRoomClimb(slug, source);
+      selectClimb(climb);
+    } catch (caughtError) {
+      console.error("Random pick failed", caughtError);
+      setActionError("Unable to pick a random climb for this room.");
+    }
+  };
+
+  const handlePromoteClimb = async (climbId: string, status: "current" | "next") => {
+    if (!slug) {
+      return;
+    }
+
+    try {
+      await api.promoteRoomQueueClimb(slug, climbId, status);
+      await refreshRoomState();
+    } catch (caughtError) {
+      console.error("Promote climb failed", caughtError);
+      setActionError("Unable to promote this climb in the queue.");
+    }
+  };
+
+  const handleParticipantStatusUpdate = async (status: ParticipantStatus) => {
+    if (!slug) {
+      return;
+    }
+
+    try {
+      await api.updateMyParticipantStatus(slug, status);
+      await refreshRoomState();
+    } catch (caughtError) {
+      console.error("Participant status update failed", caughtError);
+      setActionError("Unable to update your participation status.");
     }
   };
 
@@ -682,12 +793,67 @@ export default function RoomView() {
   const selectedIsQueued = selectedClimb
     ? snapshot.queue.some((entry) => entry.climb.id === selectedClimb.id)
     : false;
+  const selectedQueueEntry = selectedClimb
+    ? snapshot.queue.find((entry) => entry.climb.id === selectedClimb.id)
+    : undefined;
+  const selectedIsFinalist = selectedClimb
+    ? snapshot.finalists.some((entry) => entry.climb.id === selectedClimb.id)
+    : false;
   const inviteLink = buildInviteLink(slug);
   const shouldShowRoomOnboarding = showOnboarding
     ? snapshot.can_manage
       ? !snapshot.connection.connected || !snapshot.surface
       : !loadUserPrefs().onboarding.guestCompleted
     : false;
+  const myParticipant =
+    snapshot.participants.find(
+      (participant) => participant.display_name === snapshot.display_name
+    ) ?? snapshot.participants[0];
+  const readinessCounts = snapshot.participants.reduce(
+    (totals, participant) => {
+      totals[participant.status] += 1;
+      return totals;
+    },
+    {
+      watching: 0,
+      ready: 0,
+      resting: 0,
+      away: 0,
+    } as Record<ParticipantStatus, number>
+  );
+
+  const climbByID = new Map<string, ProviderClimb>();
+  for (const climb of catalog?.climbs ?? []) {
+    climbByID.set(climb.id, climb);
+  }
+  for (const entry of snapshot.queue) {
+    climbByID.set(entry.climb.id, entry.climb);
+  }
+  for (const entry of snapshot.finalists) {
+    climbByID.set(entry.climb.id, entry.climb);
+  }
+  if (snapshot.current_climb) {
+    climbByID.set(snapshot.current_climb.id, snapshot.current_climb);
+  }
+  if (selectedExternalClimb) {
+    climbByID.set(selectedExternalClimb.id, selectedExternalClimb);
+  }
+
+  const leaderboard = Array.from(climbByID.values())
+    .filter((climb) => (snapshot.vote_counts[climb.id] ?? 0) > 0)
+    .sort((left, right) => {
+      const voteDelta =
+        (snapshot.vote_counts[right.id] ?? 0) - (snapshot.vote_counts[left.id] ?? 0);
+      if (voteDelta !== 0) {
+        return voteDelta;
+      }
+      return left.name.localeCompare(right.name);
+    })
+    .slice(0, 5);
+  const topVoteCount = leaderboard[0] ? snapshot.vote_counts[leaderboard[0].id] ?? 0 : 0;
+  const topVoteTieCount = leaderboard.filter(
+    (climb) => (snapshot.vote_counts[climb.id] ?? 0) === topVoteCount
+  ).length;
 
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(250,250,249,1),_rgba(240,249,255,0.8))] px-4 py-5 sm:px-6">
@@ -725,13 +891,43 @@ export default function RoomView() {
               <p className="text-sm text-muted-foreground">
                 Signed in as {snapshot.display_name || "guest"}.
               </p>
+              {myParticipant ? (
+                <div className="flex max-w-xs items-center gap-3">
+                  <span className="text-sm text-muted-foreground">My status</span>
+                  <Select
+                    value={myParticipant.status}
+                    onValueChange={(value) =>
+                      void handleParticipantStatusUpdate(value as ParticipantStatus)
+                    }
+                  >
+                    <SelectTrigger className="h-9">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="watching">Watching</SelectItem>
+                      <SelectItem value="ready">Ready</SelectItem>
+                      <SelectItem value="resting">Resting</SelectItem>
+                      <SelectItem value="away">Away</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              ) : null}
               {snapshot.current_climb ? (
-                <p className="text-sm text-muted-foreground">
-                  Current climb:{" "}
-                  <span className="font-medium text-foreground">
-                    {snapshot.current_climb.name}
-                  </span>
-                </p>
+                <div className="space-y-1 text-sm text-muted-foreground">
+                  <p>
+                    Current climb:{" "}
+                    <span className="font-medium text-foreground">
+                      {snapshot.current_climb.name}
+                    </span>
+                  </p>
+                  <p>
+                    Readiness:{" "}
+                    <span className="font-medium text-foreground">
+                      {readinessCounts.ready} ready
+                    </span>
+                    , {readinessCounts.resting} resting, {readinessCounts.away} away
+                  </p>
+                </div>
               ) : null}
             </div>
 
@@ -976,16 +1172,18 @@ export default function RoomView() {
                         const isQueued = snapshot.queue.some(
                           (entry) => entry.climb.id === climb.id
                         );
+                        const finalistEntry = snapshot.finalists.find(
+                          (entry) => entry.climb.id === climb.id
+                        );
+                        const queueEntry = snapshot.queue.find(
+                          (entry) => entry.climb.id === climb.id
+                        );
 
                         return (
                           <button
                             key={climb.id}
                             type="button"
-                            onClick={() => {
-                              const nextSearchParams = new URLSearchParams(searchParams);
-                              nextSearchParams.set("climb", climb.id);
-                              setSearchParams(nextSearchParams, { replace: true });
-                            }}
+                            onClick={() => selectClimb(climb)}
                             className={`w-full rounded-2xl border p-3 text-left transition-colors ${
                               selectedClimb?.id === climb.id
                                 ? "border-primary bg-primary/5"
@@ -1005,6 +1203,13 @@ export default function RoomView() {
                                 </Badge>
                                 <Badge variant="outline">{voteCount} votes</Badge>
                                 {isQueued ? <Badge variant="outline">Queued</Badge> : null}
+                                {queueEntry?.status === "current" ? (
+                                  <Badge>Current</Badge>
+                                ) : null}
+                                {queueEntry?.status === "next" ? (
+                                  <Badge variant="outline">Next</Badge>
+                                ) : null}
+                                {finalistEntry ? <Badge variant="outline">Finalist</Badge> : null}
                               </div>
                             </div>
                           </button>
@@ -1050,6 +1255,11 @@ export default function RoomView() {
                       <div className="flex flex-wrap items-center gap-2">
                         <Badge variant="secondary">{selectedVoteCount} votes</Badge>
                         {selectedIsQueued ? <Badge variant="outline">Queued</Badge> : null}
+                        {selectedQueueEntry?.status === "current" ? <Badge>Current</Badge> : null}
+                        {selectedQueueEntry?.status === "next" ? (
+                          <Badge variant="outline">Next</Badge>
+                        ) : null}
+                        {selectedIsFinalist ? <Badge variant="outline">Finalist</Badge> : null}
                       </div>
                     ) : null}
                   </CardHeader>
@@ -1069,6 +1279,31 @@ export default function RoomView() {
                         >
                           {selectedIsQueued ? "Already queued" : "Add to queue"}
                         </Button>
+                        {snapshot.can_manage ? (
+                          <>
+                            <Button
+                              variant="outline"
+                              onClick={() => handleAddFinalist(selectedClimb.id)}
+                              disabled={selectedIsFinalist || snapshot.status === "closed"}
+                            >
+                              {selectedIsFinalist ? "Already finalist" : "Add finalist"}
+                            </Button>
+                            <Button
+                              variant="outline"
+                              onClick={() => handlePromoteClimb(selectedClimb.id, "next")}
+                              disabled={snapshot.status === "closed"}
+                            >
+                              Promote to next
+                            </Button>
+                            <Button
+                              variant="outline"
+                              onClick={() => handlePromoteClimb(selectedClimb.id, "current")}
+                              disabled={snapshot.status === "closed"}
+                            >
+                              Promote to current
+                            </Button>
+                          </>
+                        ) : null}
                       </div>
                     ) : null}
                     <RoomProblemView
@@ -1078,9 +1313,154 @@ export default function RoomView() {
                     />
                   </CardContent>
                 </Card>
+
+                <Card className="gap-4">
+                  <CardHeader>
+                    <CardTitle>Leaderboard</CardTitle>
+                    <CardDescription>
+                      Highest-voted climbs visible in this room snapshot.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    {leaderboard.length === 0 ? (
+                      <div className="rounded-xl border border-dashed p-4 text-sm text-muted-foreground">
+                        Votes will surface the leaderboard once the group starts choosing climbs.
+                      </div>
+                    ) : (
+                      <>
+                        {topVoteCount > 0 && topVoteTieCount > 1 ? (
+                          <div className="rounded-2xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950">
+                            There is currently a tie for first place across {topVoteTieCount} climbs.
+                          </div>
+                        ) : null}
+                        {leaderboard.map((climb, index) => (
+                          <button
+                            key={climb.id}
+                            type="button"
+                            onClick={() => selectClimb(climb)}
+                            className="flex w-full items-center justify-between rounded-2xl border p-3 text-left transition-colors hover:bg-muted/30"
+                          >
+                            <div>
+                              <p className="font-medium">
+                                #{index + 1} {climb.name}
+                              </p>
+                              <p className="mt-1 text-xs text-muted-foreground">
+                                {climb.setter_name || "Unknown setter"}
+                              </p>
+                            </div>
+                            <Badge variant="secondary">
+                              {snapshot.vote_counts[climb.id] ?? 0} votes
+                            </Badge>
+                          </button>
+                        ))}
+                        {snapshot.can_manage ? (
+                          <div className="flex flex-wrap gap-2 pt-2">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handlePickRandom("finalists")}
+                              disabled={snapshot.finalists.length === 0}
+                            >
+                              Pick random finalist
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handlePickRandom("top_voted")}
+                              disabled={leaderboard.length === 0}
+                            >
+                              Pick random top vote
+                            </Button>
+                          </div>
+                        ) : null}
+                      </>
+                    )}
+                  </CardContent>
+                </Card>
               </div>
 
               <div className="grid gap-4">
+                <Card className="gap-4">
+                  <CardHeader>
+                    <CardTitle>Finalists</CardTitle>
+                    <CardDescription>
+                      Host-managed shortlist for narrowing down the vote.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    {snapshot.finalists.length === 0 ? (
+                      <div className="rounded-xl border border-dashed p-4 text-sm text-muted-foreground">
+                        No finalists yet. Add one from the selected climb to narrow the field.
+                      </div>
+                    ) : (
+                      snapshot.finalists.map((entry, index) => (
+                        <div key={entry.id} className="rounded-2xl border p-3">
+                          <button
+                            type="button"
+                            className="w-full text-left"
+                            onClick={() => selectClimb(entry.climb)}
+                          >
+                            <div className="flex items-start justify-between gap-3">
+                              <div>
+                                <p className="font-medium">{entry.climb.name}</p>
+                                <p className="text-xs text-muted-foreground">
+                                  Added by {entry.added_by}
+                                </p>
+                              </div>
+                              <Badge variant="secondary">
+                                {snapshot.vote_counts[entry.climb.id] ?? 0} votes
+                              </Badge>
+                            </div>
+                          </button>
+                          {snapshot.can_manage ? (
+                            <div className="mt-3 flex flex-wrap gap-2">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleMoveFinalist(entry.id, -1)}
+                                disabled={index === 0}
+                              >
+                                <ArrowUp className="mr-1 h-3.5 w-3.5" />
+                                Up
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleMoveFinalist(entry.id, 1)}
+                                disabled={index === snapshot.finalists.length - 1}
+                              >
+                                Down
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handlePromoteClimb(entry.climb.id, "next")}
+                              >
+                                Next
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handlePromoteClimb(entry.climb.id, "current")}
+                              >
+                                Current
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => handleDeleteFinalist(entry.id)}
+                              >
+                                <Trash2 className="mr-1 h-3.5 w-3.5" />
+                                Remove
+                              </Button>
+                            </div>
+                          ) : null}
+                        </div>
+                      ))
+                    )}
+                  </CardContent>
+                </Card>
+
                 <Card className="gap-4">
                   <CardHeader>
                     <CardTitle>Queue</CardTitle>
@@ -1172,18 +1552,21 @@ export default function RoomView() {
                   </CardHeader>
                   <CardContent className="space-y-3">
                     {snapshot.participants.map((participant) => (
-                      <div
-                        key={participant.id}
-                        className="flex items-center justify-between gap-3 rounded-2xl border p-3"
-                      >
-                        <div>
-                          <p className="font-medium">{participant.display_name}</p>
-                          <p className="text-xs text-muted-foreground">
-                            {participant.role} · {participant.is_online ? "online" : "idle"}
-                          </p>
-                        </div>
-                        {snapshot.can_manage && participant.role !== "host" ? (
-                          <Button
+                        <div
+                          key={participant.id}
+                          className="flex items-center justify-between gap-3 rounded-2xl border p-3"
+                        >
+                          <div>
+                            <p className="font-medium">{participant.display_name}</p>
+                            <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                              <span>
+                                {participant.role} · {participant.is_online ? "online" : "idle"}
+                              </span>
+                              <Badge variant="outline">{participant.status}</Badge>
+                            </div>
+                          </div>
+                          {snapshot.can_manage && participant.role !== "host" ? (
+                            <Button
                             size="sm"
                             variant="ghost"
                             onClick={() => handleRemoveParticipant(participant.id)}

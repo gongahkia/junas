@@ -5,9 +5,12 @@ import type {
   Board,
   PaginatedClimbsParams,
   PaginatedClimbsResponse,
+  ParticipantStatus,
   ProviderConnectionState,
+  ProviderClimb,
   ProviderId,
   ProviderSurface,
+  RandomPickSource,
   RoomCatalogClimbsResponse,
   RoomCatalogClimbResponse,
   RoomSnapshot,
@@ -168,8 +171,42 @@ export const api = {
     await apiClient.post(`/rooms/${slug}/queue`, { climb_id: climbId });
   },
 
+  addRoomFinalist: async (slug: string, climbId: string): Promise<void> => {
+    await apiClient.post(`/rooms/${slug}/finalists`, { climb_id: climbId });
+  },
+
+  reorderRoomFinalists: async (slug: string, entryIds: number[]): Promise<void> => {
+    await apiClient.patch(`/rooms/${slug}/finalists/reorder`, { entry_ids: entryIds });
+  },
+
+  deleteRoomFinalist: async (slug: string, entryId: number): Promise<void> => {
+    await apiClient.delete(`/rooms/${slug}/finalists/${entryId}`);
+  },
+
+  pickRandomRoomClimb: async (
+    slug: string,
+    source: RandomPickSource
+  ): Promise<ProviderClimb> => {
+    const response = await apiClient.post<{ climb: ProviderClimb }>(
+      `/rooms/${slug}/pick-random`,
+      { source }
+    );
+    return response.data.climb;
+  },
+
   reorderRoomQueue: async (slug: string, entryIds: number[]): Promise<void> => {
     await apiClient.patch(`/rooms/${slug}/queue/reorder`, { entry_ids: entryIds });
+  },
+
+  promoteRoomQueueClimb: async (
+    slug: string,
+    climbId: string,
+    status: "current" | "next"
+  ): Promise<void> => {
+    await apiClient.post(`/rooms/${slug}/queue/promote`, {
+      climb_id: climbId,
+      status,
+    });
   },
 
   updateRoomQueueEntry: async (
@@ -197,6 +234,13 @@ export const api = {
     participantId: number
   ): Promise<void> => {
     await apiClient.delete(`/rooms/${slug}/participants/${participantId}`);
+  },
+
+  updateMyParticipantStatus: async (
+    slug: string,
+    status: ParticipantStatus
+  ): Promise<void> => {
+    await apiClient.put(`/rooms/${slug}/participants/me/status`, { status });
   },
 };
 

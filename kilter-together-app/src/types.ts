@@ -2,6 +2,8 @@ export type ClimbSort = "popular" | "newest";
 export type ProviderId = "kilter" | "crux";
 export type RoomStatus = "open" | "closed";
 export type QueueStatus = "queued" | "next" | "current" | "done";
+export type ParticipantStatus = "watching" | "ready" | "resting" | "away";
+export type RandomPickSource = "auto" | "finalists" | "top_voted";
 
 export interface Board {
   id: number;
@@ -89,12 +91,20 @@ export interface Participant {
   id: number;
   display_name: string;
   role: string;
+  status: ParticipantStatus;
   is_online: boolean;
 }
 
 export interface QueueEntry {
   id: number;
   status: QueueStatus;
+  position: number;
+  added_by: string;
+  climb: ProviderClimb;
+}
+
+export interface FinalistEntry {
+  id: number;
   position: number;
   added_by: string;
   climb: ProviderClimb;
@@ -109,6 +119,7 @@ export interface RoomSnapshot {
   connection: ProviderConnectionState;
   current_climb?: ProviderClimb;
   participants: Participant[];
+  finalists: FinalistEntry[];
   queue: QueueEntry[];
   vote_counts: Record<string, number>;
   my_votes: string[];
