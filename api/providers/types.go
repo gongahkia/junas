@@ -12,9 +12,9 @@ const (
 type SecretPayload map[string]string
 
 type ProviderConnectionState struct {
-	ProviderID ProviderID         `json:"provider_id"`
-	Metadata   map[string]string  `json:"metadata,omitempty"`
-	Connected  bool               `json:"connected"`
+	ProviderID ProviderID        `json:"provider_id"`
+	Metadata   map[string]string `json:"metadata,omitempty"`
+	Connected  bool              `json:"connected"`
 }
 
 type SurfaceFilter struct {

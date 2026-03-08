@@ -28,6 +28,8 @@ import (
 	"github.com/lczm/kilter-together/api/bootstrap"
 	"github.com/lczm/kilter-together/api/config"
 	docs "github.com/lczm/kilter-together/api/docs"
+	_ "github.com/lczm/kilter-together/api/providers"
+	"github.com/lczm/kilter-together/api/rooms"
 	"github.com/lczm/kilter-together/api/routes"
 	"github.com/spf13/cobra"
 )
@@ -75,6 +77,12 @@ func main() {
 			}
 
 			if err := config.ConnectKilterDB(runtimeConfig.DBPath); err != nil {
+				return err
+			}
+			if err := config.ConnectAppDB(runtimeConfig.AppDBPath); err != nil {
+				return err
+			}
+			if err := rooms.DefaultService.Migrate(cmd.Context()); err != nil {
 				return err
 			}
 
