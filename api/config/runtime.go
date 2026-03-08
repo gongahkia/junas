@@ -10,6 +10,7 @@ type RuntimeConfig struct {
 	DataDir        string
 	DBPath         string
 	ImageDir       string
+	StatePath      string
 	KilterUsername string
 	KilterPassword string
 	Port           string
@@ -27,11 +28,13 @@ func LoadRuntimeConfig() RuntimeConfig {
 		os.Getenv("KILTER_TOGETHER_IMAGE_DIR"),
 		filepath.Join(dataDir, "images"),
 	))
+	statePath := cleanPath(filepath.Join(dataDir, "bootstrap-state.json"))
 
 	return RuntimeConfig{
 		DataDir:        dataDir,
 		DBPath:         dbPath,
 		ImageDir:       imageDir,
+		StatePath:      statePath,
 		KilterUsername: strings.TrimSpace(os.Getenv("KILTER_TOGETHER_KILTER_USERNAME")),
 		KilterPassword: os.Getenv("KILTER_TOGETHER_KILTER_PASSWORD"),
 		Port:           normalizePort(os.Getenv("KILTER_TOGETHER_PORT")),

@@ -21,6 +21,9 @@ func TestLoadRuntimeConfigDefaults(t *testing.T) {
 	if runtimeConfig.ImageDir != "data/images" {
 		t.Fatalf("expected default image dir, got %q", runtimeConfig.ImageDir)
 	}
+	if runtimeConfig.StatePath != "data/bootstrap-state.json" {
+		t.Fatalf("expected default state path, got %q", runtimeConfig.StatePath)
+	}
 	if runtimeConfig.Port != "8082" {
 		t.Fatalf("expected default port, got %q", runtimeConfig.Port)
 	}
@@ -47,6 +50,9 @@ func TestLoadRuntimeConfigOverrides(t *testing.T) {
 	}
 	if runtimeConfig.ImageDir != "/tmp/custom-images" {
 		t.Fatalf("expected overridden image dir, got %q", runtimeConfig.ImageDir)
+	}
+	if runtimeConfig.StatePath != "/tmp/kilter-data/bootstrap-state.json" {
+		t.Fatalf("expected derived state path, got %q", runtimeConfig.StatePath)
 	}
 	if runtimeConfig.KilterUsername != "climber" {
 		t.Fatalf("expected overridden username, got %q", runtimeConfig.KilterUsername)

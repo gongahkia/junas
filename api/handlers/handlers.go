@@ -4,12 +4,14 @@ import (
 	"encoding/json"
 	"net/http"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-playground/form/v4"
-	"github.com/lczm/boardbuddy/api/config"
-	"github.com/lczm/boardbuddy/api/models"
+	"github.com/lczm/kilter-together/api/bootstrap"
+	"github.com/lczm/kilter-together/api/config"
+	"github.com/lczm/kilter-together/api/models"
 )
 
 var decoder = form.NewDecoder()
@@ -18,21 +20,25 @@ type GetClimbsParams struct {
 	Cursor   string `form:"cursor"`
 	PageSize int    `form:"page_size,default=10"`
 	Name     string `form:"name"`
+	Setter   string `form:"setter"`
 	BoardID  uint   `form:"board_id"`
 	Angle    uint   `form:"angle"`
+	Sort     string `form:"sort,default=popular"`
 }
 
-// GetClimbs handles GET /api/climbs?cursor=&page_size=&name=&board_id=&angle=
+// GetClimbs handles GET /api/climbs?cursor=&page_size=&name=&setter=&board_id=&angle=&sort=
 // @Summary Get paginated climbs
-// @Description Retrieve a paginated list of climbing routes with optional filtering. Uses cursor-based pagination for efficient navigation through large datasets.
+// @Description Retrieve a paginated list of listed Kilter Board climbs with filtering, sorting, and cursor-based pagination.
 // @Tags climbs
 // @Accept json
 // @Produce json
-// @Param cursor query string false "Pagination cursor (timestamp for next page)" Example(2025-05-24 04:07:17.406545)
+// @Param cursor query string false "Pagination cursor returned by the previous page" Example(eyJzb3J0IjoicG9wdWxhciIsImFzY2VuZHMiOjQyLCJjcmVhdGVkX2F0IjoiMjAyNi0wMS0wMSAwMDowMDowMC4wMDAwMDAiLCJ1dWlkIjoidXVpZC0xIiwicHJvZHVjdF9zaXplX2lkIjoxNH0=)
 // @Param page_size query int false "Number of items per page (1-100)" default(10) minimum(1) maximum(100) Example(10)
-// @Param name query string false "Filter climbs by name (partial match)" Example(swooped)
-// @Param board_id query int false "Filter climbs by board/product size ID" Example(1)
-// @Param angle query int false "Filter climbs by angle (5-70 degrees)" Example(45)
+// @Param name query string false "Filter climbs by climb name (partial match)" Example(swooped)
+// @Param setter query string false "Filter climbs by setter username (partial match)" Example(jwebxl)
+// @Param board_id query int false "Filter climbs by board/product size ID" Example(14)
+// @Param angle query int true "Filter climbs by board angle (supported angles: 5-70)" Example(40)
+// @Param sort query string false "Sort order for the result set" Enums(popular,newest) default(popular)
 // @Success 200 {object} models.CursorPaginatedClimbsResponse "Successfully retrieved climbs"
 // @Failure 400 {object} map[string]string "Bad request - invalid parameters"
 // @Failure 500 {object} map[string]string "Internal server error"
@@ -41,7 +47,7 @@ func GetClimbs(w http.ResponseWriter, r *http.Request) {
 	var params GetClimbsParams
 	err := decoder.Decode(&params, r.URL.Query())
 	if err != nil {
-		http.Error(w, "Failed to decode query params: "+err.Error(), http.StatusBadRequest)
+		writeJSONError(w, http.StatusBadRequest, "failed to decode query params: "+err.Error())
 		return
 	}
 
@@ -50,14 +56,32 @@ func GetClimbs(w http.ResponseWriter, r *http.Request) {
 		pageSize = 10
 	}
 
-	var angle uint
-	if params.Angle >= 5 && params.Angle <= 70 {
-		angle = params.Angle
+	if !models.IsSupportedAngle(params.Angle) {
+		writeJSONError(w, http.StatusBadRequest, "angle is required and must be one of 5,10,15,20,25,30,35,40,45,50,55,60,65,70")
+		return
 	}
 
-	resp, err := models.GetPaginatedClimbs(params.Cursor, pageSize, params.Name, params.BoardID, angle)
+	sort := models.NormalizeSort(params.Sort)
+	if sort == "" {
+		writeJSONError(w, http.StatusBadRequest, "sort must be one of: popular, newest")
+		return
+	}
+
+	resp, err := models.GetPaginatedClimbs(
+		params.Cursor,
+		pageSize,
+		params.Name,
+		params.Setter,
+		params.BoardID,
+		params.Angle,
+		sort,
+	)
 	if err != nil {
-		http.Error(w, "Failed to retrieve climbs: "+err.Error(), http.StatusInternalServerError)
+		if strings.Contains(err.Error(), "invalid cursor") || strings.Contains(err.Error(), "cursor sort") {
+			writeJSONError(w, http.StatusBadRequest, err.Error())
+			return
+		}
+		writeJSONError(w, http.StatusInternalServerError, "failed to retrieve climbs: "+err.Error())
 		return
 	}
 
@@ -78,7 +102,7 @@ func GetClimbs(w http.ResponseWriter, r *http.Request) {
 func GetBoardOptions(w http.ResponseWriter, r *http.Request) {
 	boards, err := models.GetBoardOptions()
 	if err != nil {
-		http.Error(w, "Failed to retrieve board options: "+err.Error(), http.StatusInternalServerError)
+		writeJSONError(w, http.StatusInternalServerError, "failed to retrieve board options: "+err.Error())
 		return
 	}
 
@@ -89,6 +113,12 @@ func GetBoardOptions(w http.ResponseWriter, r *http.Request) {
 }
 
 func Healthz(w http.ResponseWriter, r *http.Request) {
+	runtimeConfig := config.GetRuntimeConfig()
+	if err := bootstrap.RuntimeReady(runtimeConfig.DBPath, runtimeConfig.ImageDir, runtimeConfig.StatePath); err != nil {
+		writeJSONError(w, http.StatusServiceUnavailable, err.Error())
+		return
+	}
+
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{
 		"status": "ok",
@@ -111,14 +141,14 @@ func Healthz(w http.ResponseWriter, r *http.Request) {
 func ServeImage(w http.ResponseWriter, r *http.Request) {
 	filename := chi.URLParam(r, "filename")
 	if filename == "" {
-		http.Error(w, "Filename is required", http.StatusBadRequest)
+		writeJSONError(w, http.StatusBadRequest, "filename is required")
 		return
 	}
 
 	// Sanitize filename to prevent directory traversal
 	filename = filepath.Base(filename)
 	if strings.Contains(filename, "..") || strings.Contains(filename, "/") {
-		http.Error(w, "Invalid filename", http.StatusBadRequest)
+		writeJSONError(w, http.StatusBadRequest, "invalid filename")
 		return
 	}
 
@@ -127,4 +157,13 @@ func ServeImage(w http.ResponseWriter, r *http.Request) {
 
 	// Serve the file
 	http.ServeFile(w, r, imagePath)
+}
+
+func writeJSONError(w http.ResponseWriter, statusCode int, message string) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(statusCode)
+	json.NewEncoder(w).Encode(map[string]string{
+		"error":  message,
+		"status": strconv.Itoa(statusCode),
+	})
 }

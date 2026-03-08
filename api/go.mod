@@ -1,4 +1,4 @@
-module github.com/lczm/boardbuddy/api
+module github.com/lczm/kilter-together/api
 
 go 1.23.0
 

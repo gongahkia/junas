@@ -4,14 +4,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"os"
 
-	"github.com/lczm/boardbuddy/api/config"
+	"github.com/lczm/kilter-together/api/config"
 )
 
 type Options struct {
 	DBPath         string
 	ImageDir       string
+	StatePath      string
 	KilterUsername string
 	KilterPassword string
 	MaxSyncPages   int
@@ -23,6 +23,9 @@ func (options Options) Validate() error {
 	}
 	if options.ImageDir == "" {
 		return errors.New("image directory is required")
+	}
+	if options.StatePath == "" {
+		return errors.New("state path is required")
 	}
 
 	hasUsername := options.KilterUsername != ""
@@ -46,7 +49,7 @@ func Run(ctx context.Context, options Options) error {
 		return err
 	}
 
-	if !fileExists(options.DBPath) {
+	if err := validateDatabase(options.DBPath); err != nil {
 		if err := DownloadBaseDatabase(ctx, options.DBPath); err != nil {
 			return err
 		}
@@ -76,14 +79,9 @@ func Run(ctx context.Context, options Options) error {
 		return err
 	}
 
+	if err := writeManifest(options.StatePath, assets); err != nil {
+		return err
+	}
+
 	return nil
-}
-
-func NeedsBootstrap(dbPath, imageDir string) bool {
-	return !fileExists(dbPath) || !directoryHasFiles(imageDir)
-}
-
-func directoryHasFiles(path string) bool {
-	entries, err := os.ReadDir(path)
-	return err == nil && len(entries) > 0
 }

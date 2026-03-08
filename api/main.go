@@ -1,21 +1,21 @@
 // @title Kilter Together API
 // @version 1.0
-// @description API for managing climbing board routes and data. Features cursor-based pagination, grade information for multiple board angles, and comprehensive filtering capabilities.
+// @description Read-only API for browsing Kilter Board climbs, board configurations, and board images with filtering, sorting, and cursor pagination.
 // @termsOfService http://swagger.io/terms/
 
 // @contact.name API Support
-// @contact.url http://www.swagger.io/support
-// @contact.email support@swagger.io
+// @contact.url https://github.com/lczm/kilter-together
+// @contact.email opensource@lczm.me
 
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT
 
-// @host lczm.me
+// @host localhost:8082
 // @BasePath /api
-// @schemes https
+// @schemes http https
 
 // @externalDocs.description Kilter Together API Documentation
-// @externalDocs.url https://github.com/lczm/boardbuddy/blob/main/api/API.md
+// @externalDocs.url https://github.com/lczm/kilter-together/blob/main/api/README.md
 
 package main
 
@@ -25,10 +25,10 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/lczm/boardbuddy/api/bootstrap"
-	"github.com/lczm/boardbuddy/api/config"
-	docs "github.com/lczm/boardbuddy/api/docs"
-	"github.com/lczm/boardbuddy/api/routes"
+	"github.com/lczm/kilter-together/api/bootstrap"
+	"github.com/lczm/kilter-together/api/config"
+	docs "github.com/lczm/kilter-together/api/docs"
+	"github.com/lczm/kilter-together/api/routes"
 	"github.com/spf13/cobra"
 )
 
@@ -60,7 +60,11 @@ func main() {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			runtimeConfig := loadRuntimeConfig()
 
-			if bootstrapIfMissing && bootstrap.NeedsBootstrap(runtimeConfig.DBPath, runtimeConfig.ImageDir) {
+			if bootstrapIfMissing && bootstrap.NeedsBootstrap(
+				runtimeConfig.DBPath,
+				runtimeConfig.ImageDir,
+				runtimeConfig.StatePath,
+			) {
 				if err := bootstrap.Run(cmd.Context(), bootstrapOptions(runtimeConfig, maxSyncPages)); err != nil {
 					return err
 				}
@@ -110,6 +114,7 @@ func bootstrapOptions(runtimeConfig config.RuntimeConfig, maxSyncPages int) boot
 	return bootstrap.Options{
 		DBPath:         runtimeConfig.DBPath,
 		ImageDir:       runtimeConfig.ImageDir,
+		StatePath:      runtimeConfig.StatePath,
 		KilterUsername: runtimeConfig.KilterUsername,
 		KilterPassword: runtimeConfig.KilterPassword,
 		MaxSyncPages:   maxSyncPages,
@@ -117,7 +122,7 @@ func bootstrapOptions(runtimeConfig config.RuntimeConfig, maxSyncPages int) boot
 }
 
 func ensureRuntimeData(runtimeConfig config.RuntimeConfig) error {
-	if !bootstrap.NeedsBootstrap(runtimeConfig.DBPath, runtimeConfig.ImageDir) {
+	if !bootstrap.NeedsBootstrap(runtimeConfig.DBPath, runtimeConfig.ImageDir, runtimeConfig.StatePath) {
 		return nil
 	}
 

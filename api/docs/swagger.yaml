@@ -3,97 +3,86 @@ definitions:
   models.BoardOption:
     properties:
       id:
-        description: Unique board identifier
-        example: 1
+        example: 14
         type: integer
+      kilter_name:
+        example: Kilter Board Original
+        type: string
       name:
-        description: Human-readable board name
-        example: Original 12x12
+        example: 7 x 10
         type: string
     type: object
   models.Climb:
     properties:
+      ascends:
+        example: 42
+        type: integer
       climb_name:
-        description: Name/title of the climb
         example: swooped
         type: string
       created_at:
-        description: Creation timestamp
         example: "2018-12-06 21:15:01.127371"
         type: string
       description:
-        description: Optional description
         example: A challenging overhang problem
         type: string
       frames:
-        description: Hold positions and rotations
         example: p1080r15p1110r15p1131r12
         type: string
       grades:
         additionalProperties:
           $ref: '#/definitions/models.GradeInfo'
-        description: Map of angle to grade info
         type: object
       image_filenames:
-        description: JSON array string of image filenames
-        example: '["layout1.png","layout2.png"]'
-        type: string
+        items:
+          type: string
+        type: array
       product_size_id:
-        description: Board/product size identifier
-        example: 1
+        example: 14
         type: integer
       setter_name:
-        description: Username of the climb setter
         example: jwebxl
         type: string
       uuid:
-        description: Unique identifier for the climb
         example: F01419E12672459396CA62E3655ABC46
         type: string
     type: object
   models.CursorPaginatedClimbsResponse:
     properties:
       climbs:
-        description: Array of climb objects
         items:
           $ref: '#/definitions/models.Climb'
         type: array
       has_more:
-        description: Whether more pages are available
         example: true
         type: boolean
       next_cursor:
-        description: Cursor for next page (timestamp)
-        example: "2025-05-24 04:07:17.406545"
+        example: eyJzb3J0IjoicG9wdWxhciIsImFzY2VuZHMiOjQyLCJjcmVhdGVkX2F0IjoiMjAyNi0wMS0wMSAwMDowMDowMC4wMDAwMDAiLCJ1dWlkIjoidXVpZC0xIiwicHJvZHVjdF9zaXplX2lkIjoxNH0=
         type: string
       page_size:
-        description: Number of items per page
         example: 10
         type: integer
     type: object
   models.GradeInfo:
     properties:
       boulder:
-        description: Boulder grade in format "grade/V-scale"
         example: 7a/V6
         type: string
       route:
-        description: Route grade in format "grade/YDS"
         example: 7c/5.12d
         type: string
     type: object
 externalDocs:
   description: Kilter Together API Documentation
-  url: https://github.com/lczm/boardbuddy/blob/main/api/API.md
-host: ""
+  url: https://github.com/lczm/kilter-together/blob/main/api/README.md
+host: localhost:8082
 info:
   contact:
-    email: support@swagger.io
+    email: opensource@lczm.me
     name: API Support
-    url: http://www.swagger.io/support
-  description: API for managing climbing board routes and data. Features cursor-based
-    pagination, grade information for multiple board angles, and comprehensive filtering
-    capabilities.
+    url: https://github.com/lczm/kilter-together
+  description: Read-only API for browsing Kilter Board climbs, board configurations,
+    and board images with filtering, sorting, and cursor pagination.
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
@@ -132,11 +121,11 @@ paths:
     get:
       consumes:
       - application/json
-      description: Retrieve a paginated list of climbing routes with optional filtering.
-        Uses cursor-based pagination for efficient navigation through large datasets.
+      description: Retrieve a paginated list of listed Kilter Board climbs with filtering,
+        sorting, and cursor-based pagination.
       parameters:
-      - description: Pagination cursor (timestamp for next page)
-        example: "2025-05-24 04:07:17.406545"
+      - description: Pagination cursor returned by the previous page
+        example: eyJzb3J0IjoicG9wdWxhciIsImFzY2VuZHMiOjQyLCJjcmVhdGVkX2F0IjoiMjAyNi0wMS0wMSAwMDowMDowMC4wMDAwMDAiLCJ1dWlkIjoidXVpZC0xIiwicHJvZHVjdF9zaXplX2lkIjoxNH0=
         in: query
         name: cursor
         type: string
@@ -148,16 +137,35 @@ paths:
         minimum: 1
         name: page_size
         type: integer
-      - description: Filter climbs by name (partial match)
+      - description: Filter climbs by climb name (partial match)
         example: swooped
         in: query
         name: name
         type: string
+      - description: Filter climbs by setter username (partial match)
+        example: jwebxl
+        in: query
+        name: setter
+        type: string
       - description: Filter climbs by board/product size ID
-        example: 1
+        example: 14
         in: query
         name: board_id
         type: integer
+      - description: 'Filter climbs by board angle (supported angles: 5-70)'
+        example: 40
+        in: query
+        name: angle
+        required: true
+        type: integer
+      - default: popular
+        description: Sort order for the result set
+        enum:
+        - popular
+        - newest
+        in: query
+        name: sort
+        type: string
       produces:
       - application/json
       responses:
@@ -218,5 +226,6 @@ paths:
       tags:
       - images
 schemes:
+- http
 - https
 swagger: "2.0"

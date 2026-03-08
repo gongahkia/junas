@@ -24,9 +24,12 @@ go run . serve --bootstrap-if-missing
 
 - `GET /api/healthz`
 - `GET /api/boards`
-- `GET /api/climbs`
+- `GET /api/climbs?angle=40&board_id=14&name=swooped&setter=jwebxl&sort=popular`
 - `GET /api/images/{filename}`
 - `GET /swagger/index.html`
+
+`GET /api/climbs` requires `angle` and supports the optional query params
+`cursor`, `page_size`, `name`, `setter`, `board_id`, and `sort=popular|newest`.
 
 ## Configuration
 
@@ -43,6 +46,9 @@ KILTER_TOGETHER_DATA_DIR=./data
 
 When credentials are provided, bootstrap will log in to `kilterboardapp.com`
 and run the Aurora-style shared sync before serving.
+
+Bootstrap also writes a local runtime manifest so the server can detect stale or
+partial image state on future starts and via `/api/healthz`.
 
 ## Verification
 

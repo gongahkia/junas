@@ -3,7 +3,7 @@ package routes
 import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/lczm/boardbuddy/api/handlers"
+	"github.com/lczm/kilter-together/api/handlers"
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 

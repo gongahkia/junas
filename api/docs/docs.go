@@ -12,8 +12,8 @@ const docTemplate = `{
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "name": "API Support",
-            "url": "http://www.swagger.io/support",
-            "email": "support@swagger.io"
+            "url": "https://github.com/lczm/kilter-together",
+            "email": "opensource@lczm.me"
         },
         "license": {
             "name": "MIT",
@@ -64,7 +64,7 @@ const docTemplate = `{
         },
         "/climbs": {
             "get": {
-                "description": "Retrieve a paginated list of climbing routes with optional filtering. Uses cursor-based pagination for efficient navigation through large datasets.",
+                "description": "Retrieve a paginated list of listed Kilter Board climbs with filtering, sorting, and cursor-based pagination.",
                 "consumes": [
                     "application/json"
                 ],
@@ -78,8 +78,8 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "example": "2025-05-24 04:07:17.406545",
-                        "description": "Pagination cursor (timestamp for next page)",
+                        "example": "eyJzb3J0IjoicG9wdWxhciIsImFzY2VuZHMiOjQyLCJjcmVhdGVkX2F0IjoiMjAyNi0wMS0wMSAwMDowMDowMC4wMDAwMDAiLCJ1dWlkIjoidXVpZC0xIiwicHJvZHVjdF9zaXplX2lkIjoxNH0=",
+                        "description": "Pagination cursor returned by the previous page",
                         "name": "cursor",
                         "in": "query"
                     },
@@ -96,15 +96,41 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "example": "swooped",
-                        "description": "Filter climbs by name (partial match)",
+                        "description": "Filter climbs by climb name (partial match)",
                         "name": "name",
                         "in": "query"
                     },
                     {
+                        "type": "string",
+                        "example": "jwebxl",
+                        "description": "Filter climbs by setter username (partial match)",
+                        "name": "setter",
+                        "in": "query"
+                    },
+                    {
                         "type": "integer",
-                        "example": 1,
+                        "example": 14,
                         "description": "Filter climbs by board/product size ID",
                         "name": "board_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "example": 40,
+                        "description": "Filter climbs by board angle (supported angles: 5-70)",
+                        "name": "angle",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "enum": [
+                            "popular",
+                            "newest"
+                        ],
+                        "type": "string",
+                        "default": "popular",
+                        "description": "Sort order for the result set",
+                        "name": "sort",
                         "in": "query"
                     }
                 ],
@@ -195,64 +221,63 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "id": {
-                    "description": "Unique board identifier",
                     "type": "integer",
-                    "example": 1
+                    "example": 14
+                },
+                "kilter_name": {
+                    "type": "string",
+                    "example": "Kilter Board Original"
                 },
                 "name": {
-                    "description": "Human-readable board name",
                     "type": "string",
-                    "example": "Original 12x12"
+                    "example": "7 x 10"
                 }
             }
         },
         "models.Climb": {
             "type": "object",
             "properties": {
+                "ascends": {
+                    "type": "integer",
+                    "example": 42
+                },
                 "climb_name": {
-                    "description": "Name/title of the climb",
                     "type": "string",
                     "example": "swooped"
                 },
                 "created_at": {
-                    "description": "Creation timestamp",
                     "type": "string",
                     "example": "2018-12-06 21:15:01.127371"
                 },
                 "description": {
-                    "description": "Optional description",
                     "type": "string",
                     "example": "A challenging overhang problem"
                 },
                 "frames": {
-                    "description": "Hold positions and rotations",
                     "type": "string",
                     "example": "p1080r15p1110r15p1131r12"
                 },
                 "grades": {
-                    "description": "Map of angle to grade info",
                     "type": "object",
                     "additionalProperties": {
                         "$ref": "#/definitions/models.GradeInfo"
                     }
                 },
                 "image_filenames": {
-                    "description": "JSON array string of image filenames",
-                    "type": "string",
-                    "example": "[\"layout1.png\",\"layout2.png\"]"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "product_size_id": {
-                    "description": "Board/product size identifier",
                     "type": "integer",
-                    "example": 1
+                    "example": 14
                 },
                 "setter_name": {
-                    "description": "Username of the climb setter",
                     "type": "string",
                     "example": "jwebxl"
                 },
                 "uuid": {
-                    "description": "Unique identifier for the climb",
                     "type": "string",
                     "example": "F01419E12672459396CA62E3655ABC46"
                 }
@@ -262,24 +287,20 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "climbs": {
-                    "description": "Array of climb objects",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/models.Climb"
                     }
                 },
                 "has_more": {
-                    "description": "Whether more pages are available",
                     "type": "boolean",
                     "example": true
                 },
                 "next_cursor": {
-                    "description": "Cursor for next page (timestamp)",
                     "type": "string",
-                    "example": "2025-05-24 04:07:17.406545"
+                    "example": "eyJzb3J0IjoicG9wdWxhciIsImFzY2VuZHMiOjQyLCJjcmVhdGVkX2F0IjoiMjAyNi0wMS0wMSAwMDowMDowMC4wMDAwMDAiLCJ1dWlkIjoidXVpZC0xIiwicHJvZHVjdF9zaXplX2lkIjoxNH0="
                 },
                 "page_size": {
-                    "description": "Number of items per page",
                     "type": "integer",
                     "example": 10
                 }
@@ -289,12 +310,10 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "boulder": {
-                    "description": "Boulder grade in format \"grade/V-scale\"",
                     "type": "string",
                     "example": "7a/V6"
                 },
                 "route": {
-                    "description": "Route grade in format \"grade/YDS\"",
                     "type": "string",
                     "example": "7c/5.12d"
                 }
@@ -303,18 +322,18 @@ const docTemplate = `{
     },
     "externalDocs": {
         "description": "Kilter Together API Documentation",
-        "url": "https://github.com/lczm/boardbuddy/blob/main/api/API.md"
+        "url": "https://github.com/lczm/kilter-together/blob/main/api/README.md"
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "",
+	Host:             "localhost:8082",
 	BasePath:         "/api",
-	Schemes:          []string{"https"},
+	Schemes:          []string{"http", "https"},
 	Title:            "Kilter Together API",
-	Description:      "API for managing climbing board routes and data. Features cursor-based pagination, grade information for multiple board angles, and comprehensive filtering capabilities.",
+	Description:      "Read-only API for browsing Kilter Board climbs, board configurations, and board images with filtering, sorting, and cursor pagination.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
@@ -57,6 +58,15 @@ func CollectImageAssets(db *gorm.DB) ([]ImageAsset, error) {
 	}
 
 	return assets, nil
+}
+
+func collectImageAssetsFromPath(dbPath string) ([]ImageAsset, error) {
+	db, err := gorm.Open(sqlite.Open(dbPath), &gorm.Config{})
+	if err != nil {
+		return nil, fmt.Errorf("open sqlite database for image asset collection: %w", err)
+	}
+
+	return CollectImageAssets(db)
 }
 
 func DownloadImages(ctx context.Context, imageDir string, assets []ImageAsset) error {

@@ -9,8 +9,8 @@ without requiring a separately installed `boardlib` CLI.
 The primary local hosting flow is Docker:
 
 ```console
-git clone https://github.com/lczm/boardbuddy
-cd boardbuddy
+git clone https://github.com/lczm/kilter-together
+cd kilter-together
 docker compose up --build
 ```
 
@@ -25,6 +25,7 @@ On the first boot, the API container will:
 1. Download the base Kilter SQLite database from the APKPure-hosted Android bundle.
 2. Optionally run a fresher shared-data sync if Kilter credentials are configured.
 3. Download the board images referenced by the database into the persistent data volume.
+4. Persist a bootstrap manifest so future starts can detect partial runtime state.
 
 ## Runtime Configuration
 
@@ -77,6 +78,11 @@ npm run dev
 The Vite dev server proxies `/api` to `http://localhost:8082`, so local development
 uses the same-origin API contract without CORS setup.
 
+The browser UI uses URL-addressable routes:
+
+- `/` for board selection
+- `/boards/:boardId?angle=40&sort=popular&q=&setter=&climb=` for climb browsing
+
 ## Refreshing Data
 
 To refresh a local dataset:
@@ -93,10 +99,9 @@ and board images and remains fully usable.
 
 ## Notes
 
-- Downloaded databases and images are runtime artifacts and are not committed.
-- Legacy external repo and hosted URLs still use the existing `boardbuddy` path.
-- The GitHub Pages workflow still builds with `/boardbuddy/` and the current hosted API URL,
-  while self-hosted builds default to `/` and `/api`.
+- Downloaded databases, images, and bootstrap manifests are runtime artifacts and are not committed.
+- `GET /api/climbs` requires a valid `angle` and also supports `name`, `setter`, and `sort=popular|newest`.
+- `GET /api/healthz` validates that the local database and image set are usable, not just that the process is running.
 
 ## License
 
