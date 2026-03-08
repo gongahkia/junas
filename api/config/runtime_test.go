@@ -5,9 +5,12 @@ import "testing"
 func TestLoadRuntimeConfigDefaults(t *testing.T) {
 	t.Setenv("KILTER_TOGETHER_DATA_DIR", "")
 	t.Setenv("KILTER_TOGETHER_DB_PATH", "")
+	t.Setenv("KILTER_TOGETHER_APP_DB_PATH", "")
 	t.Setenv("KILTER_TOGETHER_IMAGE_DIR", "")
 	t.Setenv("KILTER_TOGETHER_KILTER_USERNAME", "")
 	t.Setenv("KILTER_TOGETHER_KILTER_PASSWORD", "")
+	t.Setenv("KILTER_TOGETHER_APP_SECRET", "")
+	t.Setenv("KILTER_TOGETHER_ENCRYPTION_KEY", "")
 	t.Setenv("KILTER_TOGETHER_PORT", "")
 
 	runtimeConfig := LoadRuntimeConfig()
@@ -17,6 +20,9 @@ func TestLoadRuntimeConfigDefaults(t *testing.T) {
 	}
 	if runtimeConfig.DBPath != "data/kilter.db" {
 		t.Fatalf("expected default db path, got %q", runtimeConfig.DBPath)
+	}
+	if runtimeConfig.AppDBPath != "data/app.db" {
+		t.Fatalf("expected default app db path, got %q", runtimeConfig.AppDBPath)
 	}
 	if runtimeConfig.ImageDir != "data/images" {
 		t.Fatalf("expected default image dir, got %q", runtimeConfig.ImageDir)
@@ -35,9 +41,12 @@ func TestLoadRuntimeConfigDefaults(t *testing.T) {
 func TestLoadRuntimeConfigOverrides(t *testing.T) {
 	t.Setenv("KILTER_TOGETHER_DATA_DIR", "/tmp/kilter-data")
 	t.Setenv("KILTER_TOGETHER_DB_PATH", "/tmp/custom.db")
+	t.Setenv("KILTER_TOGETHER_APP_DB_PATH", "/tmp/app.db")
 	t.Setenv("KILTER_TOGETHER_IMAGE_DIR", "/tmp/custom-images")
 	t.Setenv("KILTER_TOGETHER_KILTER_USERNAME", "climber")
 	t.Setenv("KILTER_TOGETHER_KILTER_PASSWORD", "secret")
+	t.Setenv("KILTER_TOGETHER_APP_SECRET", "app-secret")
+	t.Setenv("KILTER_TOGETHER_ENCRYPTION_KEY", "base64-key")
 	t.Setenv("KILTER_TOGETHER_PORT", ":9090")
 
 	runtimeConfig := LoadRuntimeConfig()
@@ -47,6 +56,9 @@ func TestLoadRuntimeConfigOverrides(t *testing.T) {
 	}
 	if runtimeConfig.DBPath != "/tmp/custom.db" {
 		t.Fatalf("expected overridden db path, got %q", runtimeConfig.DBPath)
+	}
+	if runtimeConfig.AppDBPath != "/tmp/app.db" {
+		t.Fatalf("expected overridden app db path, got %q", runtimeConfig.AppDBPath)
 	}
 	if runtimeConfig.ImageDir != "/tmp/custom-images" {
 		t.Fatalf("expected overridden image dir, got %q", runtimeConfig.ImageDir)
@@ -59,6 +71,12 @@ func TestLoadRuntimeConfigOverrides(t *testing.T) {
 	}
 	if runtimeConfig.KilterPassword != "secret" {
 		t.Fatalf("expected overridden password, got %q", runtimeConfig.KilterPassword)
+	}
+	if runtimeConfig.AppSecret != "app-secret" {
+		t.Fatalf("expected app secret, got %q", runtimeConfig.AppSecret)
+	}
+	if runtimeConfig.EncryptionKey != "base64-key" {
+		t.Fatalf("expected encryption key, got %q", runtimeConfig.EncryptionKey)
 	}
 	if runtimeConfig.Port != "9090" {
 		t.Fatalf("expected normalized port, got %q", runtimeConfig.Port)

@@ -9,10 +9,13 @@ import (
 type RuntimeConfig struct {
 	DataDir        string
 	DBPath         string
+	AppDBPath      string
 	ImageDir       string
 	StatePath      string
 	KilterUsername string
 	KilterPassword string
+	AppSecret      string
+	EncryptionKey  string
 	Port           string
 }
 
@@ -24,6 +27,10 @@ func LoadRuntimeConfig() RuntimeConfig {
 		os.Getenv("KILTER_TOGETHER_DB_PATH"),
 		filepath.Join(dataDir, "kilter.db"),
 	))
+	appDBPath := cleanPath(firstNonEmpty(
+		os.Getenv("KILTER_TOGETHER_APP_DB_PATH"),
+		filepath.Join(dataDir, "app.db"),
+	))
 	imageDir := cleanPath(firstNonEmpty(
 		os.Getenv("KILTER_TOGETHER_IMAGE_DIR"),
 		filepath.Join(dataDir, "images"),
@@ -33,10 +40,13 @@ func LoadRuntimeConfig() RuntimeConfig {
 	return RuntimeConfig{
 		DataDir:        dataDir,
 		DBPath:         dbPath,
+		AppDBPath:      appDBPath,
 		ImageDir:       imageDir,
 		StatePath:      statePath,
 		KilterUsername: strings.TrimSpace(os.Getenv("KILTER_TOGETHER_KILTER_USERNAME")),
 		KilterPassword: os.Getenv("KILTER_TOGETHER_KILTER_PASSWORD"),
+		AppSecret:      strings.TrimSpace(os.Getenv("KILTER_TOGETHER_APP_SECRET")),
+		EncryptionKey:  strings.TrimSpace(os.Getenv("KILTER_TOGETHER_ENCRYPTION_KEY")),
 		Port:           normalizePort(os.Getenv("KILTER_TOGETHER_PORT")),
 	}
 }
