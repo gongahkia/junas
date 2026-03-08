@@ -1,4 +1,7 @@
-# Kilter Together
+[![](https://img.shields.io/badge/kilter_together_1.0.0-passing-green)](https://github.com/gongahkia/kilter-together/releases/tag/1.0.0)
+![](https://github.com/gongahkia/kilter-together/actions/workflows/ci.yml/badge.svg)
+
+# `Kilter Together`
 
 Kilter Together is a self-hostable Kilter Board browser. It can provision its own
 local database and board images, then serve the existing read-only API and web UI

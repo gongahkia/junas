@@ -388,3 +388,47 @@ ORDER BY cs.climb_uuid, cs.angle`, placeholders)
 
 	return nil
 }
+
+func GetClimbByUUID(uuid string, boardID uint, angle uint) (*Climb, error) {
+	var climbs []Climb
+	query := `
+SELECT
+  c.uuid,
+  c.setter_username AS setter_name,
+  c.name AS climb_name,
+  c.description,
+  c.frames,
+  c.created_at,
+  ps.id AS product_size_id,
+  JSON_GROUP_ARRAY(DISTINCT psl.image_filename) AS image_filenames,
+  COALESCE(cs.ascensionist_count, 0) AS ascends
+FROM climbs c
+JOIN layouts l ON c.layout_id = l.id
+JOIN product_sizes ps ON (
+  ps.product_id = l.product_id AND
+  ps.edge_left <= c.edge_left AND
+  ps.edge_right >= c.edge_right AND
+  ps.edge_bottom <= c.edge_bottom AND
+  ps.edge_top >= c.edge_top
+)
+JOIN product_sizes_layouts_sets psl ON psl.product_size_id = ps.id AND psl.layout_id = l.id
+JOIN climb_stats cs ON c.uuid = cs.climb_uuid AND cs.angle = ?
+WHERE c.is_listed = 1
+  AND c.uuid = ?
+  AND ps.id = ?
+GROUP BY c.uuid, ps.id, cs.ascensionist_count
+LIMIT 1`
+
+	if err := config.KilterDB.Raw(query, angle, uuid, boardID).Scan(&climbs).Error; err != nil {
+		return nil, fmt.Errorf("fetch climb by uuid: %w", err)
+	}
+	if len(climbs) == 0 {
+		return nil, fmt.Errorf("climb not found")
+	}
+
+	if err := populateClimbGrades(climbs); err != nil {
+		return nil, fmt.Errorf("populate grades: %w", err)
+	}
+
+	return &climbs[0], nil
+}
