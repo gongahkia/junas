@@ -83,7 +83,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="h-full overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))]">
+    <div className="min-h-full overflow-x-hidden bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))]">
       <IntroDialog
         open={showIntro}
         title="One host. Shared decisions."
@@ -137,20 +137,21 @@ export default function LandingPage() {
         </DialogContent>
       </Dialog>
 
-      <div className="mx-auto flex h-full max-w-6xl flex-col px-6 pb-24 pt-6">
-        <header className="flex shrink-0 items-start justify-between gap-6 py-4">
-          <div>
+      <div className="mx-auto flex min-h-full max-w-6xl flex-col px-4 pb-24 pt-4 sm:px-6 sm:pt-6">
+        <header className="flex shrink-0 flex-col gap-4 py-4 lg:flex-row lg:items-start lg:justify-between">
+          <div className="min-w-0">
             <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">
               Collaborative Board Sessions
             </p>
             <h1 className="mt-3 leading-none">
-              <BrandWordmark />
+              <BrandWordmark imageClassName="h-[38px] sm:h-[50px]" />
             </h1>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex w-full flex-wrap items-center gap-2 lg:w-auto lg:justify-end">
             <Button
               type="button"
               variant="ghost"
+              className="justify-start sm:justify-center"
               onClick={() => {
                 setPrefs(resetOnboardingPrefs());
                 setShowIntro(false);
@@ -159,13 +160,13 @@ export default function LandingPage() {
             >
               Help
             </Button>
-            <Button asChild variant="ghost">
+            <Button asChild variant="ghost" className="justify-start sm:justify-center">
               <Link to="/about">About</Link>
             </Button>
-            <Button asChild variant="ghost">
+            <Button asChild variant="ghost" className="justify-start sm:justify-center">
               <Link to="/settings">Settings</Link>
             </Button>
-            <Button asChild variant="ghost">
+            <Button asChild variant="ghost" className="justify-start sm:justify-center">
               <Link to="/solo">Solo browse</Link>
             </Button>
           </div>
@@ -193,8 +194,8 @@ export default function LandingPage() {
           />
         ) : null}
 
-        <main className="mx-auto flex min-h-0 w-full max-w-4xl flex-1 items-center justify-center pb-6 pt-2">
-          <div className="mx-auto grid w-full max-w-4xl gap-5 md:grid-cols-2">
+        <main className="mx-auto flex w-full max-w-4xl flex-1 items-stretch justify-start pb-6 pt-2 lg:justify-center">
+          <div className="mx-auto grid w-full max-w-4xl gap-5 lg:grid-cols-2">
             <Card className="bg-card/90">
               <CardHeader>
                 <CardTitle>Create a room</CardTitle>
@@ -273,7 +274,7 @@ export default function LandingPage() {
                 ) : null}
               </CardHeader>
               <CardContent>
-                <div className="grid gap-3 md:grid-cols-3">
+                <div className="grid gap-3 lg:grid-cols-3">
                   {previewRecentRooms.map((room) => (
                     <RecentRoomPreviewCard
                       key={room.slug}
