@@ -28,6 +28,7 @@ type RuntimeConfig struct {
 	SecureCookies         bool
 	AllowedOrigins        []string
 	PreviousEncryptionKey string
+	EnableTestProvider    bool
 }
 
 var runtimeConfig *RuntimeConfig
@@ -67,6 +68,7 @@ func LoadRuntimeConfig() RuntimeConfig {
 		SecureCookies:         secureCookies,
 		AllowedOrigins:        parseAllowedOrigins(os.Getenv("KILTER_TOGETHER_ALLOWED_ORIGINS")),
 		PreviousEncryptionKey: strings.TrimSpace(os.Getenv("KILTER_TOGETHER_PREVIOUS_ENCRYPTION_KEY")),
+		EnableTestProvider:    parseBoolEnv(os.Getenv("KILTER_TOGETHER_ENABLE_TEST_PROVIDER")),
 	}
 }
 
@@ -148,4 +150,13 @@ func parseAllowedOrigins(value string) []string {
 		return append([]string{}, defaultAllowedOrigins...)
 	}
 	return origins
+}
+
+func parseBoolEnv(value string) bool {
+	switch strings.ToLower(strings.TrimSpace(value)) {
+	case "1", "true", "yes", "on":
+		return true
+	default:
+		return false
+	}
 }

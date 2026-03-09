@@ -46,6 +46,11 @@ type GetClimbsParams struct {
 // @Failure 500 {object} map[string]string "Internal server error"
 // @Router /climbs [get]
 func GetClimbs(w http.ResponseWriter, r *http.Request) {
+	if config.KilterDB == nil {
+		writeJSONError(w, http.StatusServiceUnavailable, "kilter runtime data is not available")
+		return
+	}
+
 	var params GetClimbsParams
 	err := decoder.Decode(&params, r.URL.Query())
 	if err != nil {
@@ -111,6 +116,11 @@ func GetClimbs(w http.ResponseWriter, r *http.Request) {
 // @Example 200 application/json {"boards":[{"id":1,"name":"Original 12x12"},{"id":2,"name":"Original 16x12"},{"id":3,"name":"Home 7x10"}]}
 // @Router /boards [get]
 func GetBoardOptions(w http.ResponseWriter, r *http.Request) {
+	if config.KilterDB == nil {
+		writeJSONError(w, http.StatusServiceUnavailable, "kilter runtime data is not available")
+		return
+	}
+
 	boards, err := models.GetBoardOptions()
 	if err != nil {
 		slog.Error("failed to retrieve board options", "error", err)
@@ -125,16 +135,42 @@ func GetBoardOptions(w http.ResponseWriter, r *http.Request) {
 }
 
 func Healthz(w http.ResponseWriter, r *http.Request) {
+	Readyz(w, r)
+}
+
+func Livez(w http.ResponseWriter, _ *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	_ = json.NewEncoder(w).Encode(map[string]string{
+		"status": "ok",
+	})
+}
+
+func Readyz(w http.ResponseWriter, r *http.Request) {
 	runtimeConfig := config.GetRuntimeConfig()
-	if err := bootstrap.RuntimeReady(runtimeConfig.DBPath, runtimeConfig.ImageDir, runtimeConfig.StatePath); err != nil {
-		writeJSONError(w, http.StatusServiceUnavailable, err.Error())
+	if config.AppDB == nil {
+		writeJSONError(w, http.StatusServiceUnavailable, "app database is not configured")
 		return
 	}
 
+	if !runtimeConfig.EnableTestProvider {
+		if err := bootstrap.RuntimeReady(runtimeConfig.DBPath, runtimeConfig.ImageDir, runtimeConfig.StatePath); err != nil {
+			writeJSONError(w, http.StatusServiceUnavailable, err.Error())
+			return
+		}
+	}
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{
+	_ = json.NewEncoder(w).Encode(map[string]string{
 		"status": "ok",
 	})
+}
+
+func Metrics(w http.ResponseWriter, r *http.Request) {
+	if metricsHandler == nil {
+		writeJSONError(w, http.StatusServiceUnavailable, err.Error())
+		return
+	}
+	metricsHandler.ServeHTTP(w, r)
 }
 
 // ServeImage handles GET /api/images/{filename}

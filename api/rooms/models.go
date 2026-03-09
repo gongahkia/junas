@@ -162,7 +162,8 @@ type RoomSnapshot struct {
 }
 
 type EventPayload struct {
-	Type     string `json:"type"`
-	RoomSlug string `json:"room_slug"`
-	Version  int64  `json:"version"`
+	Type      string          `json:"type"`
+	RoomSlug  string          `json:"room_slug"`
+	Version   int64           `json:"version"`
+	Resources []EventResource `json:"resources,omitempty"`
 }

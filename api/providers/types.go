@@ -7,6 +7,7 @@ type ProviderID string
 const (
 	ProviderKilter      ProviderID = "kilter"
 	ProviderCrux        ProviderID = "crux"
+	ProviderTest        ProviderID = "test"
 	ProviderMoonboard   ProviderID = "moonboard"
 	ProviderTension     ProviderID = "tension"
 	ProviderGrasshopper ProviderID = "grasshopper"

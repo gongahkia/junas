@@ -9,6 +9,7 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 	"github.com/go-chi/httprate"
+	"github.com/lczm/kilter-together/api/observability"
 	"github.com/lczm/kilter-together/api/config"
 	"github.com/lczm/kilter-together/api/handlers"
 	httpSwagger "github.com/swaggo/http-swagger"
@@ -35,6 +36,9 @@ func SetupRoutes() *chi.Mux {
 	// Define routes
 	r.Route("/api", func(r chi.Router) {
 		r.Get("/healthz", handlers.Healthz)
+		r.Get("/livez", handlers.Livez)
+		r.Get("/readyz", handlers.Readyz)
+		r.Get("/metrics", handlers.Metrics)
 		r.Get("/climbs", handlers.GetClimbs)
 		r.Get("/boards", handlers.GetBoardOptions)
 		r.Get("/images/{filename}", handlers.ServeImage)
@@ -79,9 +83,15 @@ func structuredLogger(next http.Handler) http.Handler {
 		start := time.Now()
 		ww := middleware.NewWrapResponseWriter(w, r.ProtoMajor)
 		next.ServeHTTP(ww, r)
+		routePattern := chi.RouteContext(r.Context()).RoutePattern()
+		if routePattern == "" {
+			routePattern = r.URL.Path
+		}
+		observability.ObserveHTTPRequest(r.Method, routePattern, ww.Status(), time.Since(start))
 		slog.Info("http request",
 			"method", r.Method,
 			"path", r.URL.Path,
+			"route", routePattern,
 			"status", ww.Status(),
 			"duration_ms", time.Since(start).Milliseconds(),
 			"request_id", middleware.GetReqID(r.Context()),

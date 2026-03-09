@@ -15,6 +15,7 @@ func TestLoadRuntimeConfigDefaults(t *testing.T) {
 	t.Setenv("KILTER_TOGETHER_APP_SECRET", "")
 	t.Setenv("KILTER_TOGETHER_ENCRYPTION_KEY", "")
 	t.Setenv("KILTER_TOGETHER_PORT", "")
+	t.Setenv("KILTER_TOGETHER_ENABLE_TEST_PROVIDER", "")
 
 	runtimeConfig := LoadRuntimeConfig()
 
@@ -45,6 +46,9 @@ func TestLoadRuntimeConfigDefaults(t *testing.T) {
 	if err := runtimeConfig.Validate(); err != nil {
 		t.Fatalf("expected default runtime config to validate, got %v", err)
 	}
+	if runtimeConfig.EnableTestProvider {
+		t.Fatalf("expected test provider to default off")
+	}
 }
 
 func TestLoadRuntimeConfigOverrides(t *testing.T) {
@@ -58,6 +62,7 @@ func TestLoadRuntimeConfigOverrides(t *testing.T) {
 	t.Setenv("KILTER_TOGETHER_ENCRYPTION_KEY", "base64-key")
 	t.Setenv("KILTER_TOGETHER_PORT", ":9090")
 	t.Setenv("KILTER_TOGETHER_ALLOWED_ORIGINS", "https://app.example.com,https://admin.example.com")
+	t.Setenv("KILTER_TOGETHER_ENABLE_TEST_PROVIDER", "true")
 
 	runtimeConfig := LoadRuntimeConfig()
 
@@ -100,6 +105,9 @@ func TestLoadRuntimeConfigOverrides(t *testing.T) {
 	}
 	if err := runtimeConfig.Validate(); err != nil {
 		t.Fatalf("expected overridden runtime config to validate, got %v", err)
+	}
+	if !runtimeConfig.EnableTestProvider {
+		t.Fatalf("expected test provider override to be enabled")
 	}
 }
 
