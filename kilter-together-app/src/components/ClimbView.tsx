@@ -12,6 +12,7 @@ import type { Board, Climb } from "../types";
 import Sidebar from "./Sidebar";
 import MobileDropdown from "./MobileDropdown";
 import ProblemView from "./ProblemView";
+import LoadingSlideshow from "./LoadingSlideshow";
 import { normalizeAngle, normalizeSort } from "@/lib/climbs";
 import { rememberSoloResume } from "@/lib/user-prefs";
 import { Badge } from "@/components/ui/badge";
@@ -232,18 +233,12 @@ export default function ClimbView({
 
   if (initialLoad && loading) {
     return (
-      <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))] px-6 py-10">
-        <div className="mx-auto flex min-h-[70vh] max-w-6xl items-center justify-center">
-          <Card className="w-full max-w-xl border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-3xl">Loading solo browse</CardTitle>
-              <CardDescription className="text-base">
-                Pulling climbs for {boardsLoading ? "the selected board" : boardName}.
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        </div>
-      </div>
+      <LoadingSlideshow
+        eyebrow="Loading solo mode"
+        title="Loading solo browse"
+        description={`Pulling climbs for ${boardsLoading ? "the selected board" : boardName}.`}
+        detail="Preparing the board image, hold overlay, and filter state for the current solo session."
+      />
     );
   }
 

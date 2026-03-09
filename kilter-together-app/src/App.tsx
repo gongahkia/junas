@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { api } from "./api";
+import AboutPage from "./components/AboutPage";
 import BoardSelector from "./components/BoardSelector";
 import BottomBar from "./components/BottomBar";
 import ClimbView from "./components/ClimbView";
@@ -49,6 +50,7 @@ function App() {
     <div className={isLandingRoute ? "h-[100dvh] overflow-hidden" : "min-h-screen pb-20"}>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="/rooms/new" element={<RoomCreatePage />} />
         <Route path="/join" element={<RoomDiscoveryPage />} />
         <Route path="/join/:slug" element={<RoomJoinPage />} />

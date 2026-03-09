@@ -10,7 +10,6 @@ import {
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft,
-  CircleHelp,
   Copy,
   GripVertical,
   RefreshCw,
@@ -42,12 +41,12 @@ import {
   rememberLastKilterSurface,
   rememberLastProvider,
   rememberRoomVisit,
-  resetOnboardingPrefs,
 } from "@/lib/user-prefs";
 import OnboardingCallout from "@/components/OnboardingCallout";
 import RoomProblemView from "@/components/RoomProblemView";
 import InviteQRCodeCard from "@/components/InviteQRCodeCard";
 import AngleSelector from "@/components/AngleSelector";
+import LoadingSlideshow from "@/components/LoadingSlideshow";
 import SortSelector from "@/components/SortSelector";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -129,6 +128,7 @@ export default function RoomView() {
   const [showOnboarding, setShowOnboarding] = useState(
     () => !savedPrefsRef.current.onboarding.dismissed
   );
+  const [manualOnboardingReplay, setManualOnboardingReplay] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [copiedInvite, setCopiedInvite] = useState(false);
   const [dragState, setDragState] = useState<{
@@ -941,9 +941,12 @@ export default function RoomView() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-lg text-muted-foreground">Loading room...</div>
-      </div>
+      <LoadingSlideshow
+        eyebrow="Loading room"
+        title="Loading room"
+        description="Syncing the live session, invite state, and shared climb data."
+        detail="This includes the room snapshot, participant list, and any shared board or wall context already selected by the host."
+      />
     );
   }
 
@@ -990,9 +993,10 @@ export default function RoomView() {
     : false;
   const inviteLink = buildInviteLink(slug);
   const shouldShowRoomOnboarding = showOnboarding
-    ? snapshot.can_manage
-      ? !snapshot.connection.connected || !snapshot.surface
-      : !loadUserPrefs().onboarding.guestCompleted
+    ? manualOnboardingReplay ||
+      (snapshot.can_manage
+        ? !snapshot.connection.connected || !snapshot.surface
+        : !loadUserPrefs().onboarding.guestCompleted)
     : false;
   const myParticipant =
     snapshot.participants.find(
@@ -1052,24 +1056,28 @@ export default function RoomView() {
         <header className="rounded-3xl border bg-card/95 px-5 py-5 shadow-sm">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div className="space-y-2">
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="flex flex-wrap items-center justify-between gap-2">
                 <Button asChild variant="ghost" className="-ml-3">
                   <Link to="/">
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     Back
                   </Link>
                 </Button>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  onClick={() => {
-                    resetOnboardingPrefs();
-                    setShowOnboarding(true);
-                  }}
-                >
-                  <CircleHelp className="mr-2 h-4 w-4" />
-                  Replay onboarding
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => {
+                      setManualOnboardingReplay(true);
+                      setShowOnboarding(true);
+                    }}
+                  >
+                    Help
+                  </Button>
+                  <Button asChild variant="ghost">
+                    <Link to="/about">About</Link>
+                  </Button>
+                </div>
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 <h1 className="text-3xl font-semibold tracking-tight">{roomTitle}</h1>
@@ -1210,6 +1218,7 @@ export default function RoomView() {
             }
             onDismiss={() => {
               dismissOnboarding();
+              setManualOnboardingReplay(false);
               setShowOnboarding(false);
             }}
           />

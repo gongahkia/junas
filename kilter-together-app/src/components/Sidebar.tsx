@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { getGradeForAngle } from "@/lib/climbs";
-import { ChevronLeft, Compass, Layers3 } from "lucide-react";
+import { ChevronLeft, Compass } from "lucide-react";
 import {
   Sidebar as SidebarPrimitive,
   SidebarContent,
@@ -127,23 +127,18 @@ export default function Sidebar({
                     }`}
                     onClick={() => onClimbSelect(climb)}
                   >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <p className="truncate text-sm font-medium">{climb.climb_name}</p>
-                        <p className="mt-1 text-xs text-muted-foreground">
-                          {climb.setter_name} • {climb.ascends} ascends
-                        </p>
-                        <div className="mt-3 flex flex-wrap gap-2">
-                          <Badge variant="secondary" className="text-xs">
-                            {getGradeForAngle(climb, angle)}
-                          </Badge>
-                          <Badge variant="outline" className="text-xs">
-                            ID {climb.uuid.slice(0, 6)}
-                          </Badge>
-                        </div>
-                      </div>
-                      <div className="rounded-full bg-teal-100 p-2 text-teal-700">
-                        <Layers3 className="h-4 w-4" />
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-medium">{climb.climb_name}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        {climb.setter_name} • {climb.ascends} ascends
+                      </p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        <Badge variant="secondary" className="text-xs">
+                          {getGradeForAngle(climb, angle)}
+                        </Badge>
+                        <Badge variant="outline" className="text-xs">
+                          ID {climb.uuid.slice(0, 6)}
+                        </Badge>
                       </div>
                     </div>
                   </button>

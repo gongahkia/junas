@@ -11,7 +11,17 @@ export default function BottomBar() {
           ) : (
             <span className="font-semibold text-rose-600">Love</span>
           )}
-          <span>for the Climbing Community by Gabriel Ong</span>
+          <span>
+            for the Climbing Community by{" "}
+            <a
+              href="https://gabrielongzm.com"
+              target="_blank"
+              rel="noreferrer"
+              className="highlight-link transition-colors hover:text-slate-950"
+            >
+              Gabriel Ong
+            </a>
+          </span>
         </span>
       </div>
     </footer>

@@ -131,3 +131,105 @@ html, body {
     @apply bg-background text-foreground;
   }
 }
+
+.brand-wordmark__piece {
+  display: inline-flex;
+  transform-origin: center bottom;
+  transition: transform 220ms ease;
+  will-change: transform;
+}
+
+.brand-wordmark__piece--kilter {
+  transform: translate3d(0, 1px, 0) rotate(-1deg);
+}
+
+.brand-wordmark__piece--together {
+  transform: translate3d(-3px, -1px, 0) rotate(0.85deg);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .brand-wordmark:hover .brand-wordmark__piece--kilter {
+    animation: brand-wordmark-kilter-wiggle 900ms ease-in-out infinite;
+  }
+
+  .brand-wordmark:hover .brand-wordmark__piece--together {
+    animation: brand-wordmark-together-wiggle 1020ms ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-wordmark__piece {
+    transition: none;
+  }
+
+  .brand-wordmark:hover .brand-wordmark__piece--kilter,
+  .brand-wordmark:hover .brand-wordmark__piece--together {
+    animation: none;
+  }
+}
+
+@keyframes brand-wordmark-kilter-wiggle {
+  0% {
+    transform: translate3d(0, 1px, 0) rotate(-1deg);
+  }
+  30% {
+    transform: translate3d(-1px, -1px, 0) rotate(-1.9deg);
+  }
+  62% {
+    transform: translate3d(1px, 0, 0) rotate(0.2deg);
+  }
+  100% {
+    transform: translate3d(0, 1px, 0) rotate(-1deg);
+  }
+}
+
+@keyframes brand-wordmark-together-wiggle {
+  0% {
+    transform: translate3d(-3px, -1px, 0) rotate(0.85deg);
+  }
+  26% {
+    transform: translate3d(-1px, 1px, 0) rotate(1.7deg);
+  }
+  58% {
+    transform: translate3d(-4px, -2px, 0) rotate(-0.15deg);
+  }
+  100% {
+    transform: translate3d(-3px, -1px, 0) rotate(0.85deg);
+  }
+}
+
+.highlight-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  isolation: isolate;
+  text-decoration: none;
+}
+
+.highlight-link::after {
+  content: "";
+  position: absolute;
+  left: -0.08em;
+  right: -0.08em;
+  bottom: 0.08em;
+  height: 0.34em;
+  border-radius: 999px;
+  background: color-mix(in oklab, rgb(20 184 166 / 18%), white 8%);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 220ms ease;
+  z-index: -1;
+}
+
+.highlight-link:hover::after,
+.highlight-link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .highlight-link::after {
+    transition: none;
+  }
+}

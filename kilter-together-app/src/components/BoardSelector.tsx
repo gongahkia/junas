@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Layers3, Mountain, Radar } from "lucide-react";
+import { ArrowRight, Layers3, Mountain, Radar } from "lucide-react";
 import { api } from "@/api";
 import AngleSelector from "./AngleSelector";
 import BrandWordmark from "./BrandWordmark";
+import LoadingSlideshow from "./LoadingSlideshow";
 import type { Board } from "../types";
 import { DEFAULT_ANGLE } from "@/lib/climbs";
 import {
   buildSoloResumePath,
   dismissSoloIntro,
   loadUserPrefs,
+  reopenSoloIntro,
   rememberLastKilterSurface,
 } from "@/lib/user-prefs";
 import IntroDialog from "@/components/IntroDialog";
@@ -34,21 +36,12 @@ export default function BoardSelector({
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))] px-6 py-10">
-        <div className="mx-auto flex min-h-[70vh] max-w-6xl items-center justify-center">
-          <Card className="w-full max-w-xl border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-3xl">Loading solo browse</CardTitle>
-              <CardDescription className="text-base">
-                Fetching the available Kilter boards for this local session.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="text-sm text-muted-foreground">
-              This page stays read-only and uses the same local catalog as the collaborative rooms.
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+      <LoadingSlideshow
+        eyebrow="Loading solo mode"
+        title="Loading solo browse"
+        description="Fetching the available Kilter boards for this local session."
+        detail="This page stays read-only and uses the same local catalog as the collaborative rooms."
+      />
     );
   }
 
@@ -87,15 +80,26 @@ export default function BoardSelector({
               Solo Kilter Browse
             </p>
             <h1 className="mt-3 leading-none">
-              <BrandWordmark />
+              <Link to="/" aria-label="Back to home page" className="inline-flex">
+                <BrandWordmark />
+              </Link>
             </h1>
           </div>
-          <Button asChild variant="ghost">
-            <Link to="/">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to rooms
-            </Link>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => setPrefs(reopenSoloIntro())}
+            >
+              Help
+            </Button>
+            <Button asChild variant="ghost">
+              <Link to="/about">About</Link>
+            </Button>
+            <Button asChild variant="ghost">
+              <Link to="/">Community mode</Link>
+            </Button>
+          </div>
         </header>
 
         <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center gap-6 py-8">

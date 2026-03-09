@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowRight,
   Camera,
-  CircleHelp,
   History,
   Link2,
   Mountain,
@@ -142,8 +141,10 @@ export default function LandingPage() {
               variant="ghost"
               onClick={() => setPrefs(resetOnboardingPrefs())}
             >
-              <CircleHelp className="mr-2 h-4 w-4" />
               Help
+            </Button>
+            <Button asChild variant="ghost">
+              <Link to="/about">About</Link>
             </Button>
             <Button asChild variant="ghost">
               <Link to="/solo">Solo browse</Link>

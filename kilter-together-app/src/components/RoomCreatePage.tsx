@@ -1,6 +1,6 @@
 import { useRef, useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, CircleHelp } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { api } from "@/api";
 import type { ProviderId } from "@/types";
 import { getApiErrorMessage } from "@/lib/api-errors";
@@ -119,17 +119,21 @@ export default function RoomCreatePage() {
               Back
             </Link>
           </Button>
-          <Button
-            type="button"
-            variant="ghost"
-            onClick={() => {
-              resetOnboardingPrefs();
-              setShowOnboarding(true);
-            }}
-          >
-            <CircleHelp className="mr-2 h-4 w-4" />
-            Replay onboarding
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => {
+                resetOnboardingPrefs();
+                setShowOnboarding(true);
+              }}
+            >
+              Help
+            </Button>
+            <Button asChild variant="ghost">
+              <Link to="/about">About</Link>
+            </Button>
+          </div>
         </div>
 
         {showOnboarding ? (

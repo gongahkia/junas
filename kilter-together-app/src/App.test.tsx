@@ -68,7 +68,10 @@ vi.mock("./api", () => ({
   api: {
     getBoards: vi.fn(),
     getPaginatedClimbs: vi.fn(),
-    getImageUrl: vi.fn((filename: string) => `/api/images/${filename}`),
+    getImageUrl: vi.fn((filename: string) => {
+      const baseName = filename.includes("/") ? filename.split("/").pop() : filename;
+      return `/api/images/${baseName}`;
+    }),
     createRoom: vi.fn(),
     joinRoom: vi.fn(),
     getRoom: vi.fn(),
@@ -218,12 +221,40 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
-    expect(
-      await screen.findByText(/for the Climbing Community by Gabriel Ong/i)
-    ).toBeInTheDocument();
+    expect(await screen.findByText(/for the Climbing Community by/i)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Gabriel Ong" })).toHaveAttribute(
+      "href",
+      "https://gabrielongzm.com"
+    );
     expect(screen.getByRole("img", { name: /love/i })).toHaveAttribute(
       "src",
       "/heart.png"
+    );
+  });
+
+  it("opens the About page from the landing header", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    await user.click(await screen.findByRole("link", { name: "About" }));
+
+    expect(await screen.findByText(/Hi, I'm/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/too shy to ask if they can alternate sets/i)
+    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Gabriel" })).toHaveAttribute(
+      "href",
+      "https://gabrielongzm.com"
+    );
+    expect(screen.getByRole("link", { name: /here/i })).toHaveAttribute(
+      "href",
+      "https://github.com/gongahkia/kilter-together"
     );
   });
 
@@ -435,6 +466,64 @@ describe("App routes", () => {
     expect(
       await screen.findByRole("heading", { name: "After Work Session" })
     ).toBeInTheDocument();
+  });
+
+  it("replays the room onboarding even after the host has finished setup", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("ready-room"),
+      surface: {
+        id: "14",
+        kind: "board",
+        name: "Kilter Board Original",
+        meta: {
+          angle: "40",
+          board_id: "14",
+        },
+      },
+      connection: {
+        provider_id: "kilter",
+        connected: true,
+      },
+    });
+    mockedApi.getRoomCatalogClimbs.mockResolvedValue({
+      climbs: [
+        {
+          id: "kilter:14:uuid-1",
+          external_id: "uuid-1",
+          provider_id: "kilter",
+          surface_id: "14",
+          name: "Shared Project",
+          description: "Vote on this one",
+          setter_name: "Setter A",
+          primary_grade: "V6",
+          secondary_grade: "5.12d",
+          created_at: "2026-02-01T00:00:00Z",
+          popularity: 14,
+        },
+      ],
+      has_more: false,
+      page_size: 12,
+      vote_counts: {},
+      my_votes: [],
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/ready-room"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(
+      await screen.findByRole("heading", { name: "Room ready-room" })
+    ).toBeInTheDocument();
+    expect(screen.queryByText("First-time guide")).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Help" }));
+
+    expect(await screen.findByText("First-time guide")).toBeInTheDocument();
+    expect(screen.getByText(/Provider connected\. Move on to the shared surface selection\./i)).toBeInTheDocument();
   });
 
   it("supports host decision actions inside a room", async () => {

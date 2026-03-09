@@ -387,6 +387,16 @@ export function dismissSoloIntro(): UserPrefs {
   }));
 }
 
+export function reopenSoloIntro(): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    intro: {
+      ...currentPrefs.intro,
+      soloDismissed: false,
+    },
+  }));
+}
+
 export function resetOnboardingPrefs(): UserPrefs {
   return updateUserPrefs((currentPrefs) => ({
     ...currentPrefs,

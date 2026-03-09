@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { ArrowLeft, Camera, CircleHelp, ScanSearch } from "lucide-react";
+import { ArrowLeft, Camera, ScanSearch } from "lucide-react";
 import { extractRoomSlugFromValue } from "@/lib/room-links";
 import { dismissOnboarding, loadUserPrefs, resetOnboardingPrefs } from "@/lib/user-prefs";
 import OnboardingCallout from "@/components/OnboardingCallout";
@@ -47,17 +47,21 @@ export default function RoomDiscoveryPage() {
               Back
             </Link>
           </Button>
-          <Button
-            type="button"
-            variant="ghost"
-            onClick={() => {
-              resetOnboardingPrefs();
-              setShowOnboarding(true);
-            }}
-          >
-            <CircleHelp className="mr-2 h-4 w-4" />
-            Replay onboarding
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => {
+                resetOnboardingPrefs();
+                setShowOnboarding(true);
+              }}
+            >
+              Help
+            </Button>
+            <Button asChild variant="ghost">
+              <Link to="/about">About</Link>
+            </Button>
+          </div>
         </div>
 
         {showOnboarding ? (
