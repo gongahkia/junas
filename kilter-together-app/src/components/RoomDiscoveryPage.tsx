@@ -19,7 +19,10 @@ export default function RoomDiscoveryPage() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [showOnboarding, setShowOnboarding] = useState(
-    () => !loadUserPrefs().onboarding.dismissed
+    () => {
+      const prefs = loadUserPrefs();
+      return prefs.settings.autoGuidesEnabled && !prefs.onboarding.dismissed;
+    }
   );
   const [joinValue, setJoinValue] = useState("");
   const [error, setError] = useState("");
@@ -60,6 +63,9 @@ export default function RoomDiscoveryPage() {
             </Button>
             <Button asChild variant="ghost">
               <Link to="/about">About</Link>
+            </Button>
+            <Button asChild variant="ghost">
+              <Link to="/settings">Settings</Link>
             </Button>
           </div>
         </div>

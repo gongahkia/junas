@@ -26,10 +26,13 @@ import {
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
-const SIDEBAR_WIDTH = "16rem";
 const SIDEBAR_WIDTH_MOBILE = "18rem";
 const SIDEBAR_WIDTH_ICON = "3rem";
 const SIDEBAR_KEYBOARD_SHORTCUT = "b";
+const SIDEBAR_WIDTH_STORAGE_KEY = "kilter-together:sidebar-width";
+const SIDEBAR_WIDTH_DEFAULT_PX = 256;
+const SIDEBAR_WIDTH_MIN_PX = 224;
+const SIDEBAR_WIDTH_MAX_PX = 420;
 
 type SidebarContextProps = {
   state: "expanded" | "collapsed";
@@ -39,6 +42,8 @@ type SidebarContextProps = {
   setOpenMobile: (open: boolean) => void;
   isMobile: boolean;
   toggleSidebar: () => void;
+  desktopWidth: number;
+  setDesktopWidth: (width: number) => void;
 };
 
 const SidebarContext = React.createContext<SidebarContextProps | null>(null);
@@ -67,6 +72,21 @@ function SidebarProvider({
 }) {
   const isMobile = useIsMobile();
   const [openMobile, setOpenMobile] = React.useState(false);
+  const [desktopWidth, setDesktopWidthState] = React.useState(() => {
+    if (typeof window === "undefined") {
+      return SIDEBAR_WIDTH_DEFAULT_PX;
+    }
+
+    const storedWidth = Number(window.localStorage.getItem(SIDEBAR_WIDTH_STORAGE_KEY));
+    if (Number.isFinite(storedWidth)) {
+      return Math.min(
+        SIDEBAR_WIDTH_MAX_PX,
+        Math.max(SIDEBAR_WIDTH_MIN_PX, storedWidth)
+      );
+    }
+
+    return SIDEBAR_WIDTH_DEFAULT_PX;
+  });
 
   // This is the internal state of the sidebar.
   // We use openProp and setOpenProp for control from outside the component.
@@ -91,6 +111,17 @@ function SidebarProvider({
   const toggleSidebar = React.useCallback(() => {
     return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open);
   }, [isMobile, setOpen, setOpenMobile]);
+
+  const setDesktopWidth = React.useCallback((width: number) => {
+    const nextWidth = Math.min(
+      SIDEBAR_WIDTH_MAX_PX,
+      Math.max(SIDEBAR_WIDTH_MIN_PX, Math.round(width))
+    );
+    setDesktopWidthState(nextWidth);
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(SIDEBAR_WIDTH_STORAGE_KEY, String(nextWidth));
+    }
+  }, []);
 
   // Adds a keyboard shortcut to toggle the sidebar.
   React.useEffect(() => {
@@ -121,8 +152,20 @@ function SidebarProvider({
       openMobile,
       setOpenMobile,
       toggleSidebar,
+      desktopWidth,
+      setDesktopWidth,
     }),
-    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
+    [
+      state,
+      open,
+      setOpen,
+      isMobile,
+      openMobile,
+      setOpenMobile,
+      toggleSidebar,
+      desktopWidth,
+      setDesktopWidth,
+    ]
   );
 
   return (
@@ -132,7 +175,7 @@ function SidebarProvider({
           data-slot="sidebar-wrapper"
           style={
             {
-              "--sidebar-width": SIDEBAR_WIDTH,
+              "--sidebar-width": `${desktopWidth}px`,
               "--sidebar-width-icon": SIDEBAR_WIDTH_ICON,
               ...style,
             } as React.CSSProperties
@@ -279,7 +322,13 @@ function SidebarTrigger({
 }
 
 function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
-  const { toggleSidebar } = useSidebar();
+  const { isMobile, setDesktopWidth, state, setOpen, toggleSidebar } = useSidebar();
+  const dragStateRef = React.useRef<{
+    startX: number;
+    startWidth: number;
+    moved: boolean;
+  } | null>(null);
+  const suppressClickRef = React.useRef(false);
 
   return (
     <button
@@ -287,7 +336,67 @@ function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
       data-slot="sidebar-rail"
       aria-label="Toggle Sidebar"
       tabIndex={-1}
-      onClick={toggleSidebar}
+      onPointerDown={(event) => {
+        if (isMobile || event.button !== 0) {
+          return;
+        }
+
+        const sidebarElement = event.currentTarget.closest("[data-slot='sidebar']");
+        const side =
+          sidebarElement?.getAttribute("data-side") === "right" ? "right" : "left";
+        const currentWidth =
+          sidebarElement?.querySelector("[data-slot='sidebar-gap']")?.getBoundingClientRect()
+            .width || SIDEBAR_WIDTH_DEFAULT_PX;
+
+        dragStateRef.current = {
+          startX: event.clientX,
+          startWidth: currentWidth,
+          moved: false,
+        };
+
+        const handlePointerMove = (moveEvent: PointerEvent) => {
+          if (!dragStateRef.current) {
+            return;
+          }
+
+          const delta =
+            side === "right"
+              ? dragStateRef.current.startX - moveEvent.clientX
+              : moveEvent.clientX - dragStateRef.current.startX;
+
+          if (Math.abs(delta) > 4) {
+            dragStateRef.current.moved = true;
+            suppressClickRef.current = true;
+            if (state === "collapsed") {
+              setOpen(true);
+            }
+            setDesktopWidth(dragStateRef.current.startWidth + delta);
+          }
+        };
+
+        const handlePointerUp = () => {
+          window.removeEventListener("pointermove", handlePointerMove);
+          window.removeEventListener("pointerup", handlePointerUp);
+          window.removeEventListener("pointercancel", handlePointerUp);
+
+          window.setTimeout(() => {
+            suppressClickRef.current = false;
+          }, 0);
+
+          dragStateRef.current = null;
+        };
+
+        window.addEventListener("pointermove", handlePointerMove);
+        window.addEventListener("pointerup", handlePointerUp);
+        window.addEventListener("pointercancel", handlePointerUp);
+      }}
+      onClick={(event) => {
+        if (suppressClickRef.current) {
+          event.preventDefault();
+          return;
+        }
+        toggleSidebar();
+      }}
       title="Toggle Sidebar"
       className={cn(
         "hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] sm:flex",

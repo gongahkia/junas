@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import BrandWordmark from "@/components/BrandWordmark";
+import { loadUserPrefs, USER_PREFS_CHANGE_EVENT } from "@/lib/user-prefs";
 import {
   Card,
   CardContent,
@@ -18,15 +19,18 @@ interface LoadingSlideshowProps {
 const loadingFrames = ["/loading/1.png", "/loading/2.png", "/loading/3.png", "/loading/4.png"];
 const endingFrames = ["/loading/5-1.png", "/loading/5-2.png"];
 const FRAMES_PER_LOOP = loadingFrames.length + 1;
-const FRAME_INTERVAL_MS = 900;
+const FRAME_INTERVAL_MS = 450;
 
 export default function LoadingSlideshow({
   title,
   description,
   detail,
-  eyebrow = "Preparing Kilter Together",
+  eyebrow,
 }: LoadingSlideshowProps) {
   const [tick, setTick] = useState(0);
+  const [motionEnabled, setMotionEnabled] = useState(
+    () => loadUserPrefs().settings.playfulMotionEnabled
+  );
   const frameIndex = tick % FRAMES_PER_LOOP;
   const endingVariant = Math.floor(tick / FRAMES_PER_LOOP) % endingFrames.length;
   const currentFrame =
@@ -35,12 +39,26 @@ export default function LoadingSlideshow({
       : loadingFrames[frameIndex];
 
   useEffect(() => {
+    const syncMotionEnabled = () => {
+      setMotionEnabled(loadUserPrefs().settings.playfulMotionEnabled);
+    };
+
+    window.addEventListener(USER_PREFS_CHANGE_EVENT, syncMotionEnabled);
+    return () => window.removeEventListener(USER_PREFS_CHANGE_EVENT, syncMotionEnabled);
+  }, []);
+
+  useEffect(() => {
+    if (!motionEnabled) {
+      setTick(0);
+      return;
+    }
+
     const intervalID = window.setInterval(() => {
       setTick((currentTick) => currentTick + 1);
     }, FRAME_INTERVAL_MS);
 
     return () => window.clearInterval(intervalID);
-  }, []);
+  }, [motionEnabled]);
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))] px-6 py-10">
@@ -62,9 +80,11 @@ export default function LoadingSlideshow({
 
           <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
             <CardHeader className="gap-4">
-              <p className="text-xs font-medium uppercase tracking-[0.32em] text-teal-700">
-                {eyebrow}
-              </p>
+              {eyebrow ? (
+                <p className="text-xs font-medium uppercase tracking-[0.32em] text-teal-700">
+                  {eyebrow}
+                </p>
+              ) : null}
               <div className="leading-none">
                 <BrandWordmark />
               </div>

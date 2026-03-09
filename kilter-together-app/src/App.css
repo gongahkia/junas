@@ -168,6 +168,15 @@ html, body {
   }
 }
 
+.playful-motion-disabled .brand-wordmark__piece {
+  transition: none;
+}
+
+.playful-motion-disabled .brand-wordmark:hover .brand-wordmark__piece--kilter,
+.playful-motion-disabled .brand-wordmark:hover .brand-wordmark__piece--together {
+  animation: none;
+}
+
 @keyframes brand-wordmark-kilter-wiggle {
   0% {
     transform: translate3d(0, 1px, 0) rotate(-1deg);
@@ -228,8 +237,50 @@ html, body {
   transform-origin: left center;
 }
 
+.playful-motion-disabled .highlight-link::after {
+  transition: none;
+  transform: scaleX(0) !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .highlight-link::after {
     transition: none;
+  }
+}
+
+.click-cheer {
+  position: absolute;
+  translate: -50% -50%;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: rgb(15 118 110 / 92%);
+  text-shadow: 0 1px 0 rgb(255 255 255 / 0.7);
+  animation: click-cheer-float 1400ms ease-out forwards;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .click-cheer {
+    animation-duration: 900ms;
+  }
+}
+
+@keyframes click-cheer-float {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0) rotate(var(--click-cheer-tilt, 0deg)) scale(0.92);
+  }
+  15% {
+    opacity: 1;
+    transform: translate3d(calc(var(--click-cheer-drift, 0px) * 0.18), -4px, 0)
+      rotate(calc(var(--click-cheer-tilt, 0deg) * 0.8)) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--click-cheer-drift, 0px), -46px, 0)
+      rotate(var(--click-cheer-tilt, 0deg)) scale(1.02);
   }
 }

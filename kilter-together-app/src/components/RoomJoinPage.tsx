@@ -25,7 +25,10 @@ export default function RoomJoinPage() {
   const navigate = useNavigate();
   const { slug = "" } = useParams();
   const [showOnboarding, setShowOnboarding] = useState(
-    () => !loadUserPrefs().onboarding.dismissed
+    () => {
+      const prefs = loadUserPrefs();
+      return prefs.settings.autoGuidesEnabled && !prefs.onboarding.dismissed;
+    }
   );
   const [displayName, setDisplayName] = useState(
     () => loadUserPrefs().savedDisplayName
@@ -75,6 +78,9 @@ export default function RoomJoinPage() {
             </Button>
             <Button asChild variant="ghost">
               <Link to="/about">About</Link>
+            </Button>
+            <Button asChild variant="ghost">
+              <Link to="/settings">Settings</Link>
             </Button>
           </div>
         </div>

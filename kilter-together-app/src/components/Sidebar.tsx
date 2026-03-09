@@ -13,6 +13,7 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarRail,
 } from "@/components/ui/sidebar";
 
 interface SidebarProps {
@@ -59,7 +60,7 @@ export default function Sidebar({
   return (
     <SidebarPrimitive
       variant="floating"
-      collapsible="icon"
+      collapsible="offcanvas"
       className="md:top-4 md:bottom-4 md:left-4"
     >
       <SidebarHeader className="gap-3 border-b border-white/70 bg-white/90 p-4 backdrop-blur">
@@ -172,6 +173,7 @@ export default function Sidebar({
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarRail />
     </SidebarPrimitive>
   );
 }

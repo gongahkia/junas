@@ -35,8 +35,11 @@ import {
 export default function RoomCreatePage() {
   const navigate = useNavigate();
   const savedPrefsRef = useRef(loadUserPrefs());
+  const credentialStorageEnabled = savedPrefsRef.current.settings.credentialStorageEnabled;
   const [showOnboarding, setShowOnboarding] = useState(
-    () => !savedPrefsRef.current.onboarding.dismissed
+    () =>
+      savedPrefsRef.current.settings.autoGuidesEnabled &&
+      !savedPrefsRef.current.onboarding.dismissed
   );
   const [providerId, setProviderId] = useState<ProviderId>(
     () => savedPrefsRef.current.lastProviderId || "kilter"
@@ -46,19 +49,19 @@ export default function RoomCreatePage() {
     () => savedPrefsRef.current.savedDisplayName
   );
   const [connectionFields, setConnectionFields] = useState(() => ({
-    username: savedPrefsRef.current.savedCredentials.kilter.remember
+    username: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.kilter.remember
       ? savedPrefsRef.current.savedCredentials.kilter.username
       : "",
-    password: savedPrefsRef.current.savedCredentials.kilter.remember
+    password: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.kilter.remember
       ? savedPrefsRef.current.savedCredentials.kilter.password
       : "",
-    token: savedPrefsRef.current.savedCredentials.crux.remember
+    token: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.crux.remember
       ? savedPrefsRef.current.savedCredentials.crux.token
       : "",
   }));
   const [rememberCredentials, setRememberCredentials] = useState(() => ({
-    kilter: savedPrefsRef.current.savedCredentials.kilter.remember,
-    crux: savedPrefsRef.current.savedCredentials.crux.remember,
+    kilter: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.kilter.remember,
+    crux: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.crux.remember,
   }));
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -132,6 +135,9 @@ export default function RoomCreatePage() {
             </Button>
             <Button asChild variant="ghost">
               <Link to="/about">About</Link>
+            </Button>
+            <Button asChild variant="ghost">
+              <Link to="/settings">Settings</Link>
             </Button>
           </div>
         </div>
@@ -242,23 +248,31 @@ export default function RoomCreatePage() {
                     />
                   </div>
                   <div className="space-y-2 md:col-span-2">
-                    <label className="flex items-center gap-3 text-sm font-medium">
-                      <input
-                        type="checkbox"
-                        checked={rememberCredentials.kilter}
-                        onChange={(event) =>
-                          setRememberCredentials((previousState) => ({
-                            ...previousState,
-                            kilter: event.target.checked,
-                          }))
-                        }
-                        className="h-4 w-4 rounded border-slate-300"
-                      />
-                      Remember Kilter credentials on this browser
-                    </label>
-                    <p className="text-xs text-muted-foreground">
-                      Stores the username and password locally in this browser after a successful login.
-                    </p>
+                    {credentialStorageEnabled ? (
+                      <>
+                        <label className="flex items-center gap-3 text-sm font-medium">
+                          <input
+                            type="checkbox"
+                            checked={rememberCredentials.kilter}
+                            onChange={(event) =>
+                              setRememberCredentials((previousState) => ({
+                                ...previousState,
+                                kilter: event.target.checked,
+                              }))
+                            }
+                            className="h-4 w-4 rounded border-slate-300"
+                          />
+                          Remember Kilter credentials on this browser
+                        </label>
+                        <p className="text-xs text-muted-foreground">
+                          Stores the username and password locally in this browser after a successful login.
+                        </p>
+                      </>
+                    ) : (
+                      <p className="text-xs text-muted-foreground">
+                        Saved provider credentials are currently disabled in Settings for this browser.
+                      </p>
+                    )}
                   </div>
                 </div>
               ) : (
@@ -281,23 +295,31 @@ export default function RoomCreatePage() {
                   <p className="text-sm text-muted-foreground">
                     Paste either the raw Crux token or the full <code>Bearer ...</code> value.
                   </p>
-                  <label className="flex items-center gap-3 pt-1 text-sm font-medium">
-                    <input
-                      type="checkbox"
-                      checked={rememberCredentials.crux}
-                      onChange={(event) =>
-                        setRememberCredentials((previousState) => ({
-                          ...previousState,
-                          crux: event.target.checked,
-                        }))
-                      }
-                      className="h-4 w-4 rounded border-slate-300"
-                    />
-                    Remember Crux token on this browser
-                  </label>
-                  <p className="text-xs text-muted-foreground">
-                    Stores the Crux API token locally in this browser after a successful login.
-                  </p>
+                  {credentialStorageEnabled ? (
+                    <>
+                      <label className="flex items-center gap-3 pt-1 text-sm font-medium">
+                        <input
+                          type="checkbox"
+                          checked={rememberCredentials.crux}
+                          onChange={(event) =>
+                            setRememberCredentials((previousState) => ({
+                              ...previousState,
+                              crux: event.target.checked,
+                            }))
+                          }
+                          className="h-4 w-4 rounded border-slate-300"
+                        />
+                        Remember Crux token on this browser
+                      </label>
+                      <p className="text-xs text-muted-foreground">
+                        Stores the Crux API token locally in this browser after a successful login.
+                      </p>
+                    </>
+                  ) : (
+                    <p className="text-xs text-muted-foreground">
+                      Saved provider credentials are currently disabled in Settings for this browser.
+                    </p>
+                  )}
                 </div>
               )}
 

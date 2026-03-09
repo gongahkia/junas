@@ -85,6 +85,7 @@ export default function RoomView() {
   const { slug = "" } = useParams();
   const navigate = useNavigate();
   const savedPrefsRef = useRef(loadUserPrefs());
+  const credentialStorageEnabled = savedPrefsRef.current.settings.credentialStorageEnabled;
   const [searchParams, setSearchParams] = useSearchParams();
   const [snapshot, setSnapshot] = useState<RoomSnapshot | null>(null);
   const [catalog, setCatalog] = useState<RoomCatalogClimbsResponse | null>(null);
@@ -96,19 +97,19 @@ export default function RoomView() {
   const [roomNameInput, setRoomNameInput] = useState("");
   const [roomNameSaving, setRoomNameSaving] = useState(false);
   const [connectionFields, setConnectionFields] = useState(() => ({
-    username: savedPrefsRef.current.savedCredentials.kilter.remember
+    username: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.kilter.remember
       ? savedPrefsRef.current.savedCredentials.kilter.username
       : "",
-    password: savedPrefsRef.current.savedCredentials.kilter.remember
+    password: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.kilter.remember
       ? savedPrefsRef.current.savedCredentials.kilter.password
       : "",
-    token: savedPrefsRef.current.savedCredentials.crux.remember
+    token: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.crux.remember
       ? savedPrefsRef.current.savedCredentials.crux.token
       : "",
   }));
   const [rememberCredentials, setRememberCredentials] = useState(() => ({
-    kilter: savedPrefsRef.current.savedCredentials.kilter.remember,
-    crux: savedPrefsRef.current.savedCredentials.crux.remember,
+    kilter: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.kilter.remember,
+    crux: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.crux.remember,
   }));
   const [boardSurfaces, setBoardSurfaces] = useState<ProviderSurface[]>([]);
   const [cruxGyms, setCruxGyms] = useState<ProviderSurface[]>([]);
@@ -126,7 +127,9 @@ export default function RoomView() {
     () => savedPrefsRef.current.lastCrux.wallId
   );
   const [showOnboarding, setShowOnboarding] = useState(
-    () => !savedPrefsRef.current.onboarding.dismissed
+    () =>
+      savedPrefsRef.current.settings.autoGuidesEnabled &&
+      !savedPrefsRef.current.onboarding.dismissed
   );
   const [manualOnboardingReplay, setManualOnboardingReplay] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -942,7 +945,6 @@ export default function RoomView() {
   if (loading) {
     return (
       <LoadingSlideshow
-        eyebrow="Loading room"
         title="Loading room"
         description="Syncing the live session, invite state, and shared climb data."
         detail="This includes the room snapshot, participant list, and any shared board or wall context already selected by the host."
@@ -992,12 +994,12 @@ export default function RoomView() {
     ? snapshot.finalists.some((entry) => entry.climb.id === selectedClimb.id)
     : false;
   const inviteLink = buildInviteLink(slug);
-  const shouldShowRoomOnboarding = showOnboarding
-    ? manualOnboardingReplay ||
+  const shouldShowRoomOnboarding =
+    manualOnboardingReplay ||
+    (showOnboarding &&
       (snapshot.can_manage
         ? !snapshot.connection.connected || !snapshot.surface
-        : !loadUserPrefs().onboarding.guestCompleted)
-    : false;
+        : !loadUserPrefs().onboarding.guestCompleted));
   const myParticipant =
     snapshot.participants.find(
       (participant) => participant.display_name === snapshot.display_name
@@ -1056,28 +1058,13 @@ export default function RoomView() {
         <header className="rounded-3xl border bg-card/95 px-5 py-5 shadow-sm">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div className="space-y-2">
-              <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <Button asChild variant="ghost" className="-ml-3">
                   <Link to="/">
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     Back
                   </Link>
                 </Button>
-                <div className="flex items-center gap-2">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    onClick={() => {
-                      setManualOnboardingReplay(true);
-                      setShowOnboarding(true);
-                    }}
-                  >
-                    Help
-                  </Button>
-                  <Button asChild variant="ghost">
-                    <Link to="/about">About</Link>
-                  </Button>
-                </div>
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 <h1 className="text-3xl font-semibold tracking-tight">{roomTitle}</h1>
@@ -1166,6 +1153,24 @@ export default function RoomView() {
             </div>
 
             <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
+              <div className="lg:col-span-2 flex justify-start lg:justify-end gap-2">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  onClick={() => {
+                    setManualOnboardingReplay(true);
+                    setShowOnboarding(true);
+                  }}
+                >
+                  Help
+                </Button>
+                <Button asChild variant="ghost">
+                  <Link to="/about">About</Link>
+                </Button>
+                <Button asChild variant="ghost">
+                  <Link to="/settings">Settings</Link>
+                </Button>
+              </div>
               <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start">
                 <div className="rounded-2xl border bg-muted/30 px-4 py-3">
                   <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
@@ -1273,23 +1278,31 @@ export default function RoomView() {
                         placeholder="Kilter password"
                       />
                       <div className="space-y-2 md:col-span-2">
-                        <label className="flex items-center gap-3 text-sm font-medium">
-                          <input
-                            type="checkbox"
-                            checked={rememberCredentials.kilter}
-                            onChange={(event) =>
-                              setRememberCredentials((previousState) => ({
-                                ...previousState,
-                                kilter: event.target.checked,
-                              }))
-                            }
-                            className="h-4 w-4 rounded border-slate-300"
-                          />
-                          Remember Kilter credentials on this browser
-                        </label>
-                        <p className="text-xs text-muted-foreground">
-                          Stores the username and password locally in this browser after a successful login.
-                        </p>
+                        {credentialStorageEnabled ? (
+                          <>
+                            <label className="flex items-center gap-3 text-sm font-medium">
+                              <input
+                                type="checkbox"
+                                checked={rememberCredentials.kilter}
+                                onChange={(event) =>
+                                  setRememberCredentials((previousState) => ({
+                                    ...previousState,
+                                    kilter: event.target.checked,
+                                  }))
+                                }
+                                className="h-4 w-4 rounded border-slate-300"
+                              />
+                              Remember Kilter credentials on this browser
+                            </label>
+                            <p className="text-xs text-muted-foreground">
+                              Stores the username and password locally in this browser after a successful login.
+                            </p>
+                          </>
+                        ) : (
+                          <p className="text-xs text-muted-foreground">
+                            Saved provider credentials are currently disabled in Settings for this browser.
+                          </p>
+                        )}
                       </div>
                     </div>
                   ) : (
@@ -1309,23 +1322,31 @@ export default function RoomView() {
                       <p className="text-sm text-muted-foreground">
                         Paste either the raw Crux token or the full <code>Bearer ...</code> value.
                       </p>
-                      <label className="flex items-center gap-3 pt-1 text-sm font-medium">
-                        <input
-                          type="checkbox"
-                          checked={rememberCredentials.crux}
-                          onChange={(event) =>
-                            setRememberCredentials((previousState) => ({
-                              ...previousState,
-                              crux: event.target.checked,
-                            }))
-                          }
-                          className="h-4 w-4 rounded border-slate-300"
-                        />
-                        Remember Crux token on this browser
-                      </label>
-                      <p className="text-xs text-muted-foreground">
-                        Stores the Crux API token locally in this browser after a successful login.
-                      </p>
+                      {credentialStorageEnabled ? (
+                        <>
+                          <label className="flex items-center gap-3 pt-1 text-sm font-medium">
+                            <input
+                              type="checkbox"
+                              checked={rememberCredentials.crux}
+                              onChange={(event) =>
+                                setRememberCredentials((previousState) => ({
+                                  ...previousState,
+                                  crux: event.target.checked,
+                                }))
+                              }
+                              className="h-4 w-4 rounded border-slate-300"
+                            />
+                            Remember Crux token on this browser
+                          </label>
+                          <p className="text-xs text-muted-foreground">
+                            Stores the Crux API token locally in this browser after a successful login.
+                          </p>
+                        </>
+                      ) : (
+                        <p className="text-xs text-muted-foreground">
+                          Saved provider credentials are currently disabled in Settings for this browser.
+                        </p>
+                      )}
                     </div>
                   )}
                   <Button onClick={handleConnectProvider} disabled={surfaceLoading}>

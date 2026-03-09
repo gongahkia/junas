@@ -234,7 +234,6 @@ export default function ClimbView({
   if (initialLoad && loading) {
     return (
       <LoadingSlideshow
-        eyebrow="Loading solo mode"
         title="Loading solo browse"
         description={`Pulling climbs for ${boardsLoading ? "the selected board" : boardName}.`}
         detail="Preparing the board image, hold overlay, and filter state for the current solo session."
@@ -277,7 +276,7 @@ export default function ClimbView({
           pageLoading={pageLoading}
         />
 
-        <SidebarInset className="bg-transparent md:ml-[calc(var(--sidebar-width)+1.5rem)]">
+        <SidebarInset className="bg-transparent">
           <div className="flex min-h-screen flex-col px-4 py-5 sm:px-6">
             <div className="md:hidden">
               <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">

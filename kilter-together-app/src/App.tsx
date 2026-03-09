@@ -4,12 +4,15 @@ import { api } from "./api";
 import AboutPage from "./components/AboutPage";
 import BoardSelector from "./components/BoardSelector";
 import BottomBar from "./components/BottomBar";
+import ClickCheerOverlay from "./components/ClickCheerOverlay";
 import ClimbView from "./components/ClimbView";
 import LandingPage from "./components/LandingPage";
 import RoomCreatePage from "./components/RoomCreatePage";
 import RoomDiscoveryPage from "./components/RoomDiscoveryPage";
 import RoomJoinPage from "./components/RoomJoinPage";
 import RoomView from "./components/RoomView";
+import SettingsPage from "./components/SettingsPage";
+import { loadUserPrefs, USER_PREFS_CHANGE_EVENT } from "./lib/user-prefs";
 import type { Board } from "./types";
 import "./App.css";
 
@@ -46,11 +49,29 @@ function App() {
     fetchBoards();
   }, [shouldLoadBoards]);
 
+  useEffect(() => {
+    const syncMotionClass = () => {
+      document.body.classList.toggle(
+        "playful-motion-disabled",
+        !loadUserPrefs().settings.playfulMotionEnabled
+      );
+    };
+
+    syncMotionClass();
+    window.addEventListener(USER_PREFS_CHANGE_EVENT, syncMotionClass);
+
+    return () => {
+      window.removeEventListener(USER_PREFS_CHANGE_EVENT, syncMotionClass);
+      document.body.classList.remove("playful-motion-disabled");
+    };
+  }, []);
+
   return (
     <div className={isLandingRoute ? "h-[100dvh] overflow-hidden" : "min-h-screen pb-20"}>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
         <Route path="/rooms/new" element={<RoomCreatePage />} />
         <Route path="/join" element={<RoomDiscoveryPage />} />
         <Route path="/join/:slug" element={<RoomJoinPage />} />
@@ -69,6 +90,7 @@ function App() {
         />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <ClickCheerOverlay />
       <BottomBar />
     </div>
   );

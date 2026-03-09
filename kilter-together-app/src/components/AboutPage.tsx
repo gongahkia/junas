@@ -15,6 +15,9 @@ export default function AboutPage() {
           </h1>
           <div className="flex flex-wrap items-center gap-2">
             <Button asChild variant="ghost">
+              <Link to="/settings">Settings</Link>
+            </Button>
+            <Button asChild variant="ghost">
               <Link to="/">Community mode</Link>
             </Button>
             <Button asChild variant="ghost">

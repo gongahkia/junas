@@ -31,13 +31,15 @@ export default function BoardSelector({
 }: BoardSelectorProps) {
   const navigate = useNavigate();
   const [prefs, setPrefs] = useState(() => loadUserPrefs());
+  const [showSoloIntro, setShowSoloIntro] = useState(
+    () => prefs.settings.autoGuidesEnabled && !prefs.intro.soloDismissed
+  );
   const [angle, setAngle] = useState(() => prefs.lastKilter.angle || DEFAULT_ANGLE);
   const soloResumePath = buildSoloResumePath(prefs.soloResume);
 
   if (loading) {
     return (
       <LoadingSlideshow
-        eyebrow="Loading solo mode"
         title="Loading solo browse"
         description="Fetching the available Kilter boards for this local session."
         detail="This page stays read-only and uses the same local catalog as the collaborative rooms."
@@ -48,7 +50,7 @@ export default function BoardSelector({
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))]">
       <IntroDialog
-        open={!prefs.intro.soloDismissed}
+        open={showSoloIntro}
         title="Inspect Kilter climbs without a room"
         description="Use the same local dataset, pick a board angle, and browse climbs in a cleaner read-only view before you start a shared session."
         features={[
@@ -70,7 +72,10 @@ export default function BoardSelector({
           },
         ]}
         dismissLabel="Open solo browse"
-        onDismiss={() => setPrefs(dismissSoloIntro())}
+        onDismiss={() => {
+          setPrefs(dismissSoloIntro());
+          setShowSoloIntro(false);
+        }}
       />
 
       <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-6 py-8">
@@ -89,12 +94,18 @@ export default function BoardSelector({
             <Button
               type="button"
               variant="ghost"
-              onClick={() => setPrefs(reopenSoloIntro())}
+              onClick={() => {
+                setPrefs(reopenSoloIntro());
+                setShowSoloIntro(true);
+              }}
             >
               Help
             </Button>
             <Button asChild variant="ghost">
               <Link to="/about">About</Link>
+            </Button>
+            <Button asChild variant="ghost">
+              <Link to="/settings">Settings</Link>
             </Button>
             <Button asChild variant="ghost">
               <Link to="/">Community mode</Link>
@@ -161,7 +172,9 @@ export default function BoardSelector({
                         className="rounded-2xl border bg-white/75 p-5 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:bg-white hover:shadow-lg"
                         onClick={() => {
                           rememberLastKilterSurface(String(board.id), angle);
-                          navigate(`${boardPathPrefix}/${board.id}?angle=${angle}&sort=popular`);
+                          navigate(
+                            `${boardPathPrefix}/${board.id}?angle=${angle}&sort=${prefs.settings.soloDefaultSort}`
+                          );
                         }}
                       >
                         <div className="rounded-[1.25rem] border border-slate-200/80 bg-[linear-gradient(180deg,_rgba(240,253,250,0.9),_rgba(255,255,255,0.96))] p-3 shadow-inner shadow-slate-900/5">

@@ -258,6 +258,48 @@ describe("App routes", () => {
     );
   });
 
+  it("persists browser-local settings from the settings page", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+    window.localStorage.setItem(
+      "kilter-together:user-prefs:v1",
+      JSON.stringify({
+        savedDisplayName: "Alex",
+        recentRooms: [
+          {
+            slug: "session-1",
+            providerId: "kilter",
+            lastVisitedAt: "2026-03-09T10:00:00.000Z",
+          },
+        ],
+        ...DEFAULT_DISMISSED_GUIDES_PREFS,
+      })
+    );
+
+    render(
+      <MemoryRouter initialEntries={["/settings"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByText("Customize this browser")).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole("checkbox", { name: /Show cursor encouragement words/i })
+    );
+    await user.click(screen.getByRole("checkbox", { name: /Save recent rooms/i }));
+    await user.clear(screen.getByLabelText("Preferred display name"));
+    await user.type(screen.getByLabelText("Preferred display name"), "Gabriel");
+
+    const storedPrefs = JSON.parse(
+      window.localStorage.getItem("kilter-together:user-prefs:v1") || "{}"
+    );
+    expect(storedPrefs.settings.clickCheersEnabled).toBe(false);
+    expect(storedPrefs.settings.recentRoomsEnabled).toBe(false);
+    expect(storedPrefs.recentRooms).toEqual([]);
+    expect(storedPrefs.savedDisplayName).toBe("Gabriel");
+  });
+
   it("supports direct collaborative room route loads", async () => {
     mockedApi.getBoards.mockResolvedValue([]);
     mockedApi.getRoom.mockResolvedValue({

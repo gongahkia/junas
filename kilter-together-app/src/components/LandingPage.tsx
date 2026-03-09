@@ -48,10 +48,19 @@ export default function LandingPage() {
   const navigate = useNavigate();
   const [inviteCode, setInviteCode] = useState("");
   const [prefs, setPrefs] = useState(() => loadUserPrefs());
+  const [showOnboarding, setShowOnboarding] = useState(
+    () => prefs.settings.autoGuidesEnabled && !prefs.onboarding.dismissed
+  );
+  const [showIntro, setShowIntro] = useState(
+    () =>
+      prefs.settings.autoGuidesEnabled &&
+      prefs.onboarding.dismissed &&
+      !prefs.intro.landingDismissed
+  );
   const [isRecentRoomsDialogOpen, setIsRecentRoomsDialogOpen] = useState(false);
-  const showOnboarding = !prefs.onboarding.dismissed;
-  const showIntro = !showOnboarding && !prefs.intro.landingDismissed;
-  const recentRooms = prefs.recentRooms.slice(0, RECENT_ROOM_MODAL_LIMIT);
+  const recentRooms = prefs.settings.recentRoomsEnabled
+    ? prefs.recentRooms.slice(0, RECENT_ROOM_MODAL_LIMIT)
+    : [];
   const previewRecentRooms = recentRooms.slice(0, INLINE_RECENT_ROOM_LIMIT);
   const hasMoreRecentRooms = recentRooms.length > INLINE_RECENT_ROOM_LIMIT;
 
@@ -97,7 +106,10 @@ export default function LandingPage() {
           },
         ]}
         dismissLabel="Start exploring"
-        onDismiss={() => setPrefs(dismissLandingIntro())}
+        onDismiss={() => {
+          setPrefs(dismissLandingIntro());
+          setShowIntro(false);
+        }}
       />
       <Dialog open={isRecentRoomsDialogOpen} onOpenChange={setIsRecentRoomsDialogOpen}>
         <DialogContent className="h-[min(84vh,56rem)] max-w-[min(92vw,68rem)] overflow-hidden border-0 bg-white/95 p-0 shadow-2xl">
@@ -139,12 +151,19 @@ export default function LandingPage() {
             <Button
               type="button"
               variant="ghost"
-              onClick={() => setPrefs(resetOnboardingPrefs())}
+              onClick={() => {
+                setPrefs(resetOnboardingPrefs());
+                setShowIntro(false);
+                setShowOnboarding(true);
+              }}
             >
               Help
             </Button>
             <Button asChild variant="ghost">
               <Link to="/about">About</Link>
+            </Button>
+            <Button asChild variant="ghost">
+              <Link to="/settings">Settings</Link>
             </Button>
             <Button asChild variant="ghost">
               <Link to="/solo">Solo browse</Link>
@@ -163,7 +182,14 @@ export default function LandingPage() {
             ]}
             actionLabel="Create room"
             onAction={() => navigate("/rooms/new")}
-            onDismiss={() => setPrefs(dismissOnboarding())}
+            onDismiss={() => {
+              const nextPrefs = dismissOnboarding();
+              setPrefs(nextPrefs);
+              setShowOnboarding(false);
+              if (nextPrefs.settings.autoGuidesEnabled && !nextPrefs.intro.landingDismissed) {
+                setShowIntro(true);
+              }
+            }}
           />
         ) : null}
 

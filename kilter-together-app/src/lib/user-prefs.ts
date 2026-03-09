@@ -2,6 +2,7 @@ import type { ClimbSort, ProviderId, RoomSnapshot } from "@/types";
 import { DEFAULT_ANGLE, DEFAULT_SORT } from "@/lib/climbs";
 
 const USER_PREFS_STORAGE_KEY = "kilter-together:user-prefs:v1";
+export const USER_PREFS_CHANGE_EVENT = "kilter-together:prefs-changed";
 const MAX_RECENT_ROOMS = 9;
 
 export interface RecentRoom {
@@ -52,6 +53,15 @@ export interface SavedCredentials {
   };
 }
 
+export interface AppSettings {
+  clickCheersEnabled: boolean;
+  playfulMotionEnabled: boolean;
+  autoGuidesEnabled: boolean;
+  recentRoomsEnabled: boolean;
+  credentialStorageEnabled: boolean;
+  soloDefaultSort: ClimbSort;
+}
+
 export interface UserPrefs {
   savedDisplayName: string;
   lastProviderId: ProviderId;
@@ -68,6 +78,7 @@ export interface UserPrefs {
   soloResume?: SoloResumeState;
   intro: IntroProgress;
   onboarding: OnboardingProgress;
+  settings: AppSettings;
 }
 
 function getDefaultUserPrefs(): UserPrefs {
@@ -108,6 +119,14 @@ function getDefaultUserPrefs(): UserPrefs {
       hostSelectedSurface: false,
       guestJoinedRoom: false,
       guestParticipated: false,
+    },
+    settings: {
+      clickCheersEnabled: true,
+      playfulMotionEnabled: true,
+      autoGuidesEnabled: true,
+      recentRoomsEnabled: true,
+      credentialStorageEnabled: true,
+      soloDefaultSort: DEFAULT_SORT,
     },
   };
 }
@@ -190,6 +209,10 @@ export function loadUserPrefs(): UserPrefs {
         ...defaults.onboarding,
         ...parsedValue.onboarding,
       },
+      settings: {
+        ...defaults.settings,
+        ...parsedValue.settings,
+      },
     };
   } catch {
     return getDefaultUserPrefs();
@@ -202,6 +225,7 @@ export function saveUserPrefs(prefs: UserPrefs): void {
   }
 
   window.localStorage.setItem(USER_PREFS_STORAGE_KEY, JSON.stringify(prefs));
+  window.dispatchEvent(new Event(USER_PREFS_CHANGE_EVENT));
 }
 
 export function updateUserPrefs(
@@ -260,7 +284,7 @@ export function rememberKilterCredentials(
     ...currentPrefs,
     savedCredentials: {
       ...currentPrefs.savedCredentials,
-      kilter: remember
+      kilter: remember && currentPrefs.settings.credentialStorageEnabled
         ? {
             username,
             password,
@@ -280,7 +304,7 @@ export function rememberCruxToken(token: string, remember: boolean): UserPrefs {
     ...currentPrefs,
     savedCredentials: {
       ...currentPrefs.savedCredentials,
-      crux: remember
+      crux: remember && currentPrefs.settings.credentialStorageEnabled
         ? {
             token,
             remember: true,
@@ -295,6 +319,10 @@ export function rememberCruxToken(token: string, remember: boolean): UserPrefs {
 
 export function rememberRoomVisit(snapshot: RoomSnapshot): UserPrefs {
   return updateUserPrefs((currentPrefs) => {
+    if (!currentPrefs.settings.recentRoomsEnabled) {
+      return currentPrefs;
+    }
+
     const existingRoom = currentPrefs.recentRooms.find((room) => room.slug === snapshot.slug);
     const recentRoom: RecentRoom = {
       slug: snapshot.slug,
@@ -489,4 +517,84 @@ export function markGuestParticipated(): UserPrefs {
       },
     };
   });
+}
+
+export function updateAppSettings(partialSettings: Partial<AppSettings>): UserPrefs {
+  return updateUserPrefs((currentPrefs) => {
+    const nextSettings = {
+      ...currentPrefs.settings,
+      ...partialSettings,
+    };
+
+    return {
+      ...currentPrefs,
+      settings: nextSettings,
+      recentRooms: nextSettings.recentRoomsEnabled ? currentPrefs.recentRooms : [],
+      savedCredentials: nextSettings.credentialStorageEnabled
+        ? currentPrefs.savedCredentials
+        : {
+            kilter: {
+              username: "",
+              password: "",
+              remember: false,
+            },
+            crux: {
+              token: "",
+              remember: false,
+            },
+          },
+    };
+  });
+}
+
+export function clearRecentRooms(): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    recentRooms: [],
+  }));
+}
+
+export function clearSavedCredentials(): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    savedCredentials: {
+      kilter: {
+        username: "",
+        password: "",
+        remember: false,
+      },
+      crux: {
+        token: "",
+        remember: false,
+      },
+    },
+  }));
+}
+
+export function clearSoloResume(): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    soloResume: undefined,
+  }));
+}
+
+export function resetGuides(): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    intro: {
+      ...currentPrefs.intro,
+      landingDismissed: false,
+      soloDismissed: false,
+    },
+    onboarding: {
+      ...currentPrefs.onboarding,
+      dismissed: false,
+      hostCompleted: false,
+      guestCompleted: false,
+      hostConnectedProvider: false,
+      hostSelectedSurface: false,
+      guestJoinedRoom: false,
+      guestParticipated: false,
+    },
+  }));
 }
