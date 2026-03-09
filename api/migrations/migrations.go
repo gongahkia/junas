@@ -79,16 +79,7 @@ func Apply(ctx context.Context, db *gorm.DB) error {
 		if err != nil {
 			return fmt.Errorf("read migration %s: %w", version, err)
 		}
-		if err := db.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
-			if err := tx.Exec(string(sqlBytes)).Error; err != nil {
-				return fmt.Errorf("apply migration %s: %w", version, err)
-			}
-			return tx.Exec(
-				`INSERT INTO schema_migrations(version, applied_at) VALUES(?, ?)`,
-				version,
-				time.Now().UTC(),
-			).Error
-		}); err != nil {
+		if err := applyMigration(ctx, db, version, string(sqlBytes)); err != nil {
 			return err
 		}
 	}
@@ -155,6 +146,19 @@ func recordApplied(ctx context.Context, db *gorm.DB, version string) error {
 		version,
 		time.Now().UTC(),
 	).Error
+}
+
+func applyMigration(ctx context.Context, db *gorm.DB, version string, sqlText string) error {
+	return db.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+		if err := tx.Exec(sqlText).Error; err != nil {
+			return fmt.Errorf("apply migration %s: %w", version, err)
+		}
+		return tx.Exec(
+			`INSERT INTO schema_migrations(version, applied_at) VALUES(?, ?)`,
+			version,
+			time.Now().UTC(),
+		).Error
+	})
 }
 
 func hasLegacySchema(ctx context.Context, db *gorm.DB) (bool, error) {
