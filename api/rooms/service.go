@@ -24,6 +24,7 @@ var (
 	ErrSessionExpired       = errors.New("room session expired")
 	ErrSessionInvalid       = errors.New("invalid room session")
 	ErrProviderNotConnected = errors.New("provider is not connected")
+	ErrEmojiReactionsOff    = errors.New("emoji reactions are disabled for this room")
 )
 
 const (
@@ -42,12 +43,14 @@ func (viewer Viewer) IsHost() bool {
 }
 
 type Service struct {
-	hub *Hub
+	hub       *Hub
+	reactions *ReactionStore
 }
 
 func NewService() *Service {
 	return &Service{
-		hub: NewHub(),
+		hub:       NewHub(),
+		reactions: NewReactionStore(),
 	}
 }
 
@@ -112,12 +115,13 @@ func (service *Service) CreateRoom(
 
 	now := time.Now().UTC()
 	room := Room{
-		Slug:         roomSlug,
-		Name:         roomName,
-		ProviderID:   string(providerID),
-		Status:       roomStatusOpen,
-		Version:      1,
-		LastActiveAt: now,
+		Slug:                  roomSlug,
+		Name:                  roomName,
+		ProviderID:            string(providerID),
+		Status:                roomStatusOpen,
+		EmojiReactionsEnabled: true,
+		Version:               1,
+		LastActiveAt:          now,
 	}
 	participant := RoomParticipant{
 		DisplayName: displayName,
@@ -324,6 +328,39 @@ func (service *Service) UpdateRoomName(
 	})
 	if err != nil {
 		return nil, err
+	}
+	service.hub.Broadcast(EventPayload{
+		Type:     "room.updated",
+		RoomSlug: viewer.Room.Slug,
+		Version:  viewer.Room.Version,
+	})
+
+	return service.buildSnapshot(ctx, viewer.Room.Slug, viewer)
+}
+
+func (service *Service) SetEmojiReactionsEnabled(
+	ctx context.Context,
+	viewer *Viewer,
+	enabled bool,
+) (*RoomSnapshot, error) {
+	if !viewer.IsHost() {
+		return nil, ErrForbidden
+	}
+
+	err := config.AppDB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+		if err := tx.Model(&Room{}).
+			Where("id = ?", viewer.Room.ID).
+			Update("emoji_reactions_enabled", enabled).Error; err != nil {
+			return err
+		}
+		viewer.Room.EmojiReactionsEnabled = enabled
+		return service.bumpRoomVersion(tx, &viewer.Room)
+	})
+	if err != nil {
+		return nil, err
+	}
+	if !enabled {
+		service.reactions.Clear(viewer.Room.ID)
 	}
 	service.hub.Broadcast(EventPayload{
 		Type:     "room.updated",
@@ -953,6 +990,33 @@ func (service *Service) UpdateParticipantStatus(ctx context.Context, viewer *Vie
 	return service.incrementRoom(viewer.Room.Slug, "participants.updated")
 }
 
+func (service *Service) AddReaction(ctx context.Context, viewer *Viewer, emojiCode string) error {
+	normalizedCode := normalizeReactionCode(emojiCode)
+	if !isValidReactionCode(normalizedCode) {
+		return fmt.Errorf("invalid emoji reaction %q", emojiCode)
+	}
+
+	room, err := service.findRoom(ctx, viewer.Room.Slug)
+	if err != nil {
+		return err
+	}
+	if room.Status != roomStatusOpen {
+		return ErrRoomClosed
+	}
+	if !room.EmojiReactionsEnabled {
+		return ErrEmojiReactionsOff
+	}
+
+	now := time.Now().UTC()
+	service.reactions.Add(room.ID, viewer.Participant, normalizedCode, now)
+	service.hub.Broadcast(EventPayload{
+		Type:     "reactions.updated",
+		RoomSlug: room.Slug,
+		Version:  room.Version,
+	})
+	return nil
+}
+
 func (service *Service) CloseRoom(ctx context.Context, viewer *Viewer) error {
 	if !viewer.IsHost() {
 		return ErrForbidden
@@ -973,6 +1037,7 @@ func (service *Service) CloseRoom(ctx context.Context, viewer *Viewer) error {
 	if err != nil {
 		return err
 	}
+	service.reactions.Clear(viewer.Room.ID)
 	service.hub.Broadcast(EventPayload{Type: "room.closed", RoomSlug: viewer.Room.Slug, Version: viewer.Room.Version})
 	return nil
 }
@@ -1049,17 +1114,19 @@ func (service *Service) buildSnapshot(
 	}
 
 	snapshot := &RoomSnapshot{
-		Slug:         room.Slug,
-		RoomName:     room.Name,
-		Status:       room.Status,
-		ProviderID:   providers.ProviderID(room.ProviderID),
-		Version:      room.Version,
-		Connection:   connectionState,
-		Participants: make([]ParticipantView, 0, len(participants)),
-		Finalists:    make([]FinalistEntryView, 0, len(finalistEntries)),
-		Queue:        make([]QueueEntryView, 0, len(queueEntries)),
-		VoteCounts:   map[string]int{},
-		CanManage:    viewer != nil && viewer.IsHost(),
+		Slug:                  room.Slug,
+		RoomName:              room.Name,
+		Status:                room.Status,
+		ProviderID:            providers.ProviderID(room.ProviderID),
+		Version:               room.Version,
+		Connection:            connectionState,
+		Participants:          make([]ParticipantView, 0, len(participants)),
+		Finalists:             make([]FinalistEntryView, 0, len(finalistEntries)),
+		Queue:                 make([]QueueEntryView, 0, len(queueEntries)),
+		VoteCounts:            map[string]int{},
+		CanManage:             viewer != nil && viewer.IsHost(),
+		EmojiReactionsEnabled: room.EmojiReactionsEnabled,
+		RecentReactions:       make([]RoomReactionView, 0),
 	}
 
 	if viewer != nil {
@@ -1094,6 +1161,9 @@ func (service *Service) buildSnapshot(
 		}
 		snapshot.VoteCounts = voteCounts
 		snapshot.MyVotes = myVotes
+	}
+	if room.EmojiReactionsEnabled {
+		snapshot.RecentReactions = service.reactions.List(room.ID, time.Now().UTC())
 	}
 
 	participantNameByID := map[uint]string{}

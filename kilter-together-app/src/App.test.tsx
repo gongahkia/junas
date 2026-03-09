@@ -76,6 +76,7 @@ vi.mock("./api", () => ({
     joinRoom: vi.fn(),
     getRoom: vi.fn(),
     updateRoom: vi.fn(),
+    setRoomEmojiReactionsEnabled: vi.fn(),
     getRoomEventsUrl: vi.fn((slug: string) => `/api/rooms/${slug}/events`),
     connectRoomProvider: vi.fn(),
     getRoomCatalogSurfaces: vi.fn(),
@@ -96,6 +97,7 @@ vi.mock("./api", () => ({
     closeRoom: vi.fn(),
     removeRoomParticipant: vi.fn(),
     updateMyParticipantStatus: vi.fn(),
+    sendRoomReaction: vi.fn(),
   },
 }));
 
@@ -142,6 +144,8 @@ const buildRoomSnapshot = (slug: string): RoomSnapshot => ({
   my_votes: [],
   can_manage: true,
   display_name: "Host",
+  emoji_reactions_enabled: true,
+  recent_reactions: [],
 });
 
 describe("App routes", () => {
@@ -432,7 +436,9 @@ describe("App routes", () => {
     expect((await screen.findAllByText("Shared Project")).length).toBeGreaterThan(0);
     expect(screen.getByText("Vote on this one")).toBeInTheDocument();
     expect(screen.getByText("Live participants")).toBeInTheDocument();
+    expect(screen.getByText("Live reactions")).toBeInTheDocument();
     expect(screen.getByText("2 currently online")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Pause reactions" })).toBeInTheDocument();
     expect(screen.getByText("Participants")).toBeInTheDocument();
     expect(screen.getByText("Finalists")).toBeInTheDocument();
     expect(screen.getAllByText("Guest").length).toBeGreaterThan(1);
@@ -519,6 +525,74 @@ describe("App routes", () => {
     }
 
     expect(MockEventSource.instances).toHaveLength(7);
+  });
+
+  it("lets room members send emoji reactions from the header tray", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue(buildRoomSnapshot("session-react"));
+    mockedApi.sendRoomReaction.mockResolvedValue(undefined);
+    mockedApi.getRoomCatalogClimbs.mockResolvedValue({
+      climbs: [],
+      has_more: false,
+      page_size: 12,
+      vote_counts: {},
+      my_votes: [],
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/session-react"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(
+      await screen.findByRole("heading", { name: "Room session-react" })
+    ).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Thumbs up reaction" }));
+
+    await waitFor(() =>
+      expect(mockedApi.sendRoomReaction).toHaveBeenCalledWith("session-react", "thumbs_up")
+    );
+  });
+
+  it("lets the host pause room emoji reactions from the header card", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue(buildRoomSnapshot("room-reaction-toggle"));
+    mockedApi.getRoomCatalogClimbs.mockResolvedValue({
+      climbs: [],
+      has_more: false,
+      page_size: 12,
+      vote_counts: {},
+      my_votes: [],
+    });
+    mockedApi.setRoomEmojiReactionsEnabled.mockResolvedValue({
+      ...buildRoomSnapshot("room-reaction-toggle"),
+      emoji_reactions_enabled: false,
+      recent_reactions: [],
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/room-reaction-toggle"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(
+      await screen.findByRole("heading", { name: "Room room-reaction-toggle" })
+    ).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Pause reactions" }));
+
+    await waitFor(() =>
+      expect(mockedApi.setRoomEmojiReactionsEnabled).toHaveBeenCalledWith(
+        "room-reaction-toggle",
+        false
+      )
+    );
+    expect(await screen.findByRole("button", { name: "Allow reactions" })).toBeInTheDocument();
   });
 
   it("lets the host set the room name from the room header", async () => {

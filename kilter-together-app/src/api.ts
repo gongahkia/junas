@@ -16,6 +16,7 @@ import type {
   RoomSnapshot,
   ClimbSort,
   QueueStatus,
+  RoomReactionCode,
 } from "./types";
 
 const BASE_URL = config.api.baseUrl;
@@ -101,6 +102,16 @@ export const api = {
   ): Promise<RoomSnapshot> => {
     const response = await apiClient.patch<RoomSnapshot>(`/rooms/${slug}`, {
       room_name: payload.roomName,
+    });
+    return response.data;
+  },
+
+  setRoomEmojiReactionsEnabled: async (
+    slug: string,
+    enabled: boolean
+  ): Promise<RoomSnapshot> => {
+    const response = await apiClient.put<RoomSnapshot>(`/rooms/${slug}/reactions/settings`, {
+      enabled,
     });
     return response.data;
   },
@@ -255,6 +266,10 @@ export const api = {
     status: ParticipantStatus
   ): Promise<void> => {
     await apiClient.put(`/rooms/${slug}/participants/me/status`, { status });
+  },
+
+  sendRoomReaction: async (slug: string, emojiCode: RoomReactionCode): Promise<void> => {
+    await apiClient.post(`/rooms/${slug}/reactions`, { emoji_code: emojiCode });
   },
 };
 

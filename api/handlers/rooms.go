@@ -28,6 +28,10 @@ type updateRoomRequest struct {
 	RoomName string `json:"room_name"`
 }
 
+type updateRoomEmojiReactionsRequest struct {
+	Enabled bool `json:"enabled"`
+}
+
 type joinRoomRequest struct {
 	DisplayName string `json:"display_name"`
 }
@@ -72,6 +76,10 @@ type promoteQueueRequest struct {
 
 type participantStatusRequest struct {
 	Status string `json:"status"`
+}
+
+type emojiReactionRequest struct {
+	EmojiCode string `json:"emoji_code"`
 }
 
 func CreateRoom(w http.ResponseWriter, r *http.Request) {
@@ -179,6 +187,28 @@ func UpdateRoom(w http.ResponseWriter, r *http.Request) {
 	}
 
 	snapshot, err := rooms.DefaultService.UpdateRoomName(r.Context(), viewer, request.RoomName)
+	if err != nil {
+		writeJSONError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	writeJSON(w, http.StatusOK, snapshot)
+}
+
+func UpdateRoomEmojiReactions(w http.ResponseWriter, r *http.Request) {
+	viewer, err := authenticateViewer(r, true)
+	if err != nil {
+		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		return
+	}
+
+	var request updateRoomEmojiReactionsRequest
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		writeJSONError(w, http.StatusBadRequest, "invalid request body")
+		return
+	}
+
+	snapshot, err := rooms.DefaultService.SetEmojiReactionsEnabled(r.Context(), viewer, request.Enabled)
 	if err != nil {
 		writeJSONError(w, http.StatusBadRequest, err.Error())
 		return
@@ -608,6 +638,31 @@ func UpdateMyParticipantStatus(w http.ResponseWriter, r *http.Request) {
 	}
 
 	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
+}
+
+func AddRoomEmojiReaction(w http.ResponseWriter, r *http.Request) {
+	viewer, err := authenticateViewer(r, false)
+	if err != nil {
+		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		return
+	}
+
+	var request emojiReactionRequest
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		writeJSONError(w, http.StatusBadRequest, "invalid request body")
+		return
+	}
+
+	if err := rooms.DefaultService.AddReaction(r.Context(), viewer, request.EmojiCode); err != nil {
+		if errors.Is(err, rooms.ErrEmojiReactionsOff) || errors.Is(err, rooms.ErrForbidden) {
+			writeJSONError(w, http.StatusForbidden, err.Error())
+			return
+		}
+		writeJSONError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	writeJSON(w, http.StatusCreated, map[string]string{"status": "ok"})
 }
 
 func CloseRoom(w http.ResponseWriter, r *http.Request) {

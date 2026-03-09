@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/base64"
+	"errors"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -32,6 +33,9 @@ func TestServiceRoomLifecycle(t *testing.T) {
 	}
 	if createdSnapshot.RoomName != "Session Alpha" {
 		t.Fatalf("expected room name %q, got %#v", "Session Alpha", createdSnapshot.RoomName)
+	}
+	if !createdSnapshot.EmojiReactionsEnabled {
+		t.Fatalf("expected emoji reactions to default on")
 	}
 	if !createdSnapshot.Connection.Connected {
 		t.Fatalf("expected provider to be connected during room creation")
@@ -135,6 +139,9 @@ func TestServiceRoomLifecycle(t *testing.T) {
 	if err := service.UpdateParticipantStatus(ctx, guestViewer, participantStatusReady); err != nil {
 		t.Fatalf("update participant status: %v", err)
 	}
+	if err := service.AddReaction(ctx, guestViewer, reactionCodeClap); err != nil {
+		t.Fatalf("add room reaction: %v", err)
+	}
 
 	snapshotAfterVotes, err := service.GetSnapshot(ctx, guestViewer)
 	if err != nil {
@@ -151,6 +158,29 @@ func TestServiceRoomLifecycle(t *testing.T) {
 	}
 	if snapshotAfterVotes.Participants[1].Status != participantStatusReady {
 		t.Fatalf("expected guest status to update, got %#v", snapshotAfterVotes.Participants)
+	}
+	if len(snapshotAfterVotes.RecentReactions) != 1 {
+		t.Fatalf("expected one recent reaction, got %#v", snapshotAfterVotes.RecentReactions)
+	}
+	if snapshotAfterVotes.RecentReactions[0].EmojiCode != reactionCodeClap {
+		t.Fatalf("expected clap reaction, got %#v", snapshotAfterVotes.RecentReactions)
+	}
+
+	reactionsDisabledSnapshot, err := service.SetEmojiReactionsEnabled(ctx, hostViewer, false)
+	if err != nil {
+		t.Fatalf("disable emoji reactions: %v", err)
+	}
+	if reactionsDisabledSnapshot.EmojiReactionsEnabled {
+		t.Fatalf("expected emoji reactions to be disabled")
+	}
+	if len(reactionsDisabledSnapshot.RecentReactions) != 0 {
+		t.Fatalf("expected reactions to clear when disabled, got %#v", reactionsDisabledSnapshot.RecentReactions)
+	}
+	if err := service.AddReaction(ctx, guestViewer, reactionCodeHeart); !errors.Is(err, ErrEmojiReactionsOff) {
+		t.Fatalf("expected disabled reactions error, got %v", err)
+	}
+	if _, err := service.SetEmojiReactionsEnabled(ctx, hostViewer, true); err != nil {
+		t.Fatalf("re-enable emoji reactions: %v", err)
 	}
 
 	entryIDs := []uint{snapshotAfterVotes.Queue[1].ID, snapshotAfterVotes.Queue[0].ID}
