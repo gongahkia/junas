@@ -1,6 +1,7 @@
 package routes_test
 
 import (
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"path/filepath"
@@ -50,12 +51,11 @@ func TestHealthAndMetricsRoutes(t *testing.T) {
 		t.Fatalf("expected metrics 200, got %d", metricsResponse.StatusCode)
 	}
 
-	bodyBytes := make([]byte, 1024)
-	n, err := metricsResponse.Body.Read(bodyBytes)
-	if err != nil && !strings.Contains(err.Error(), "EOF") {
+	bodyBytes, err := io.ReadAll(metricsResponse.Body)
+	if err != nil {
 		t.Fatalf("read metrics body: %v", err)
 	}
-	body := string(bodyBytes[:n])
+	body := string(bodyBytes)
 	if !strings.Contains(body, "kilter_together_http_requests_total") {
 		t.Fatalf("expected metrics output to include request counter, got %q", body)
 	}

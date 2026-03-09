@@ -8,7 +8,10 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "generate:api": "mkdir -p node_modules/.tmp src/generated && swagger2openapi ../api/docs/swagger.json --outfile node_modules/.tmp/openapi.json >/dev/null && openapi-typescript node_modules/.tmp/openapi.json -o src/generated/api.ts"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",

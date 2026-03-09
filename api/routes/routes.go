@@ -9,15 +9,16 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 	"github.com/go-chi/httprate"
-	"github.com/lczm/kilter-together/api/observability"
 	"github.com/lczm/kilter-together/api/config"
 	"github.com/lczm/kilter-together/api/handlers"
+	"github.com/lczm/kilter-together/api/observability"
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 // SetupRoutes configures all the routes for the application
 func SetupRoutes() *chi.Mux {
 	r := chi.NewRouter()
+	runtimeConfig := config.GetRuntimeConfig()
 
 	// middleware stack
 	r.Use(middleware.Recoverer)
@@ -31,7 +32,9 @@ func SetupRoutes() *chi.Mux {
 		MaxAge:           300,
 	}))
 	r.Use(structuredLogger)
-	r.Use(httprate.LimitByIP(100, time.Minute))
+	if !runtimeConfig.EnableTestProvider {
+		r.Use(httprate.LimitByIP(100, time.Minute))
+	}
 
 	// Define routes
 	r.Route("/api", func(r chi.Router) {
@@ -42,13 +45,21 @@ func SetupRoutes() *chi.Mux {
 		r.Get("/climbs", handlers.GetClimbs)
 		r.Get("/boards", handlers.GetBoardOptions)
 		r.Get("/images/{filename}", handlers.ServeImage)
-		r.With(httprate.LimitByIP(10, time.Minute)).Post("/rooms", handlers.CreateRoom)
+		if runtimeConfig.EnableTestProvider {
+			r.Post("/rooms", handlers.CreateRoom)
+		} else {
+			r.With(httprate.LimitByIP(10, time.Minute)).Post("/rooms", handlers.CreateRoom)
+		}
 		r.Route("/rooms/{slug}", func(r chi.Router) {
 			r.Post("/join", handlers.JoinRoom)
 			r.Get("/", handlers.GetRoom)
 			r.Patch("/", handlers.UpdateRoom)
 			r.Get("/events", handlers.StreamRoomEvents)
-			r.With(httprate.LimitByIP(5, time.Minute)).Post("/provider/connect", handlers.ConnectRoomProvider)
+			if runtimeConfig.EnableTestProvider {
+				r.Post("/provider/connect", handlers.ConnectRoomProvider)
+			} else {
+				r.With(httprate.LimitByIP(5, time.Minute)).Post("/provider/connect", handlers.ConnectRoomProvider)
+			}
 			r.Post("/surface", handlers.SetRoomSurface)
 			r.Get("/catalog/surfaces", handlers.ListRoomCatalogSurfaces)
 			r.Get("/catalog/climbs", handlers.ListRoomCatalogClimbs)

@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -76,18 +75,6 @@ type promoteQueueRequest struct {
 }
 
 type participantStatusRequest struct {
-	Status string `json:"status"`
-}
-
-type listSurfacesResponse struct {
-	Surfaces []providers.ProviderSurface `json:"surfaces"`
-}
-
-type randomPickResponse struct {
-	Climb *providers.ProviderClimb `json:"climb"`
-}
-
-type statusResponse struct {
 	Status string `json:"status"`
 }
 
@@ -911,8 +898,4 @@ func writeSSEEvent(w http.ResponseWriter, payload rooms.EventPayload) bool {
 		return false
 	}
 	return true
-}
-
-func requestContext(r *http.Request) context.Context {
-	return r.Context()
 }

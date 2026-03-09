@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/lczm/kilter-together/api/config"
-	"github.com/lczm/kilter-together/api/rooms"
+	"github.com/lczm/kilter-together/api/migrations"
 )
 
 func TestPruneExpiredCacheDeletesOnlyExpiredEntries(t *testing.T) {
@@ -21,8 +21,7 @@ func TestPruneExpiredCacheDeletesOnlyExpiredEntries(t *testing.T) {
 		t.Fatalf("connect app db: %v", err)
 	}
 
-	service := rooms.NewService()
-	if err := service.Migrate(context.Background()); err != nil {
+	if err := migrations.Apply(context.Background(), config.AppDB); err != nil {
 		t.Fatalf("migrate app db: %v", err)
 	}
 

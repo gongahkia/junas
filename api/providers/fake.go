@@ -17,8 +17,27 @@ type FakeProvider struct {
 func NewFakeProvider() *FakeProvider {
 	return &FakeProvider{
 		Surfaces: []ProviderSurface{
-			{ID: "wall-alpha", Kind: "wall", Name: "Alpha Wall"},
-			{ID: "wall-beta", Kind: "wall", Name: "Beta Wall"},
+			{ID: "gym-test", Kind: "gym", Name: "Test Gym"},
+			{
+				ID:       "wall-alpha",
+				Kind:     "wall",
+				Name:     "Alpha Wall",
+				ParentID: "gym-test",
+				Meta: map[string]string{
+					"gym_slug":  "gym-test",
+					"parent_id": "gym-test",
+				},
+			},
+			{
+				ID:       "wall-beta",
+				Kind:     "wall",
+				Name:     "Beta Wall",
+				ParentID: "gym-test",
+				Meta: map[string]string{
+					"gym_slug":  "gym-test",
+					"parent_id": "gym-test",
+				},
+			},
 		},
 		Climbs: []ProviderClimb{
 			{
@@ -86,7 +105,13 @@ func (provider *FakeProvider) ListSurfaces(
 	filters SurfaceFilter,
 ) ([]ProviderSurface, error) {
 	if filters.ParentID == "" {
-		return append([]ProviderSurface{}, provider.Surfaces...), nil
+		filtered := make([]ProviderSurface, 0)
+		for _, surface := range provider.Surfaces {
+			if surface.ParentID == "" {
+				filtered = append(filtered, surface)
+			}
+		}
+		return filtered, nil
 	}
 
 	filtered := make([]ProviderSurface, 0)

@@ -25,6 +25,12 @@ jobs:
             echo "Legacy repository references remain."
             exit 1
           fi
+      - name: Run go vet
+        run: go vet ./...
+      - name: Install staticcheck
+        run: go install honnef.co/go/tools/cmd/staticcheck@latest
+      - name: Run staticcheck
+        run: "$(go env GOPATH)/bin/staticcheck" ./...
       - name: Run Go tests
         run: go test ./...
       - name: Build Go API
@@ -48,9 +54,35 @@ jobs:
           cache-dependency-path: kilter-together-app/package-lock.json
       - name: Install dependencies
         run: npm ci
+      - name: Verify generated OpenAPI types are up to date
+        run: |
+          npm run generate:api
+          git diff --exit-code src/generated/api.ts
       - name: Lint frontend
         run: npm run lint
       - name: Test frontend
         run: npm run test
       - name: Build frontend
         run: npm run build
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: api/go.mod
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: kilter-together-app/package-lock.json
+      - name: Install frontend dependencies
+        working-directory: kilter-together-app
+        run: npm ci
+      - name: Install Playwright browsers
+        working-directory: kilter-together-app
+        run: npx playwright install --with-deps chromium
+      - name: Run Playwright smoke test
+        working-directory: kilter-together-app
+        run: npm run test:e2e -- --project=chromium tests/room-smoke.spec.ts

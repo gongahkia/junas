@@ -34,10 +34,6 @@ func (options Options) Validate() error {
 		return errors.New("both KILTER_TOGETHER_KILTER_USERNAME and KILTER_TOGETHER_KILTER_PASSWORD must be set together")
 	}
 
-	if options.MaxSyncPages <= 0 {
-		options.MaxSyncPages = DefaultMaxSyncPages
-	}
-
 	return nil
 }
 

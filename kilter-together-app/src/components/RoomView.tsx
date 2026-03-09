@@ -76,9 +76,13 @@ function formatProviderName(providerId: RoomSnapshot["provider_id"]) {
     return "Crux";
   }
   if (providerId === "test") {
-    return "Test";
+    return "Test provider";
   }
   return "Kilter";
+}
+
+function usesNestedSurfaceHierarchy(providerId: RoomSnapshot["provider_id"]) {
+  return providerId !== "kilter";
 }
 
 function reorderEntryIDs(entryIDs: number[], sourceEntryID: number, targetEntryID: number) {
@@ -186,7 +190,7 @@ export default function RoomView() {
         }
       }
 
-      if (nextSnapshot.provider_id === "crux") {
+      if (usesNestedSurfaceHierarchy(nextSnapshot.provider_id)) {
         const gymSlug =
           nextSnapshot.surface?.meta?.gym_slug || nextSnapshot.surface?.parent_id || "";
         setSelectedGymSlug(gymSlug);
@@ -332,7 +336,7 @@ export default function RoomView() {
         );
       }
     })();
-  }, [currentPage, deferredSearch, fetchCatalog, slug, snapshot, sort]);
+  }, [currentPage, deferredSearch, fetchCatalog, setActionError, setCatalog, slug, snapshot, sort]);
 
   useEffect(() => {
     if (
@@ -390,6 +394,7 @@ export default function RoomView() {
     void loadSurfaces();
   }, [
     hasSurface,
+    setActionError,
     showSurfaceEditor,
     slug,
     snapshot?.can_manage,
@@ -401,7 +406,8 @@ export default function RoomView() {
   useEffect(() => {
     if (
       !slug ||
-      snapshot?.provider_id !== "crux" ||
+      !snapshot?.provider_id ||
+      !usesNestedSurfaceHierarchy(snapshot.provider_id) ||
       !snapshot.can_manage ||
       !snapshot.connection.connected ||
       (hasSurface && !showSurfaceEditor) ||
@@ -429,7 +435,7 @@ export default function RoomView() {
       } catch (caughtError) {
         console.error("Load room walls failed", caughtError);
         setActionError(
-          getApiErrorMessage(caughtError, "Unable to load Crux walls for the selected gym.")
+          getApiErrorMessage(caughtError, "Unable to load walls for the selected gym.")
         );
       } finally {
         setSurfaceLoading(false);
@@ -440,6 +446,7 @@ export default function RoomView() {
   }, [
     hasSurface,
     selectedGymSlug,
+    setActionError,
     showSurfaceEditor,
     slug,
     snapshot?.can_manage,
@@ -1056,11 +1063,12 @@ export default function RoomView() {
   const roomTitle = snapshot.room_name?.trim() || `Room ${snapshot.slug}`;
   const roomNameChanged = roomNameInput.trim() !== (snapshot.room_name ?? "").trim();
   const providerLabel = formatProviderName(snapshot.provider_id);
+  const nestedSurfaceProvider = usesNestedSurfaceHierarchy(snapshot.provider_id);
   const showSurfaceCard = snapshot.connection.connected && (snapshot.can_manage || !snapshot.surface);
   const surfaceEditorOpen =
     snapshot.can_manage && snapshot.connection.connected && (!snapshot.surface || showSurfaceEditor);
   const currentGymLabel =
-    snapshot.provider_id === "crux"
+    nestedSurfaceProvider
       ? cruxGyms.find(
           (surface) =>
             surface.id === (snapshot.surface?.meta?.gym_slug || snapshot.surface?.parent_id || "")
@@ -1338,7 +1346,9 @@ export default function RoomView() {
                       : "Connect the provider account for this room first.",
                     snapshot.surface
                       ? `Surface selected: ${snapshot.surface.name}.`
-                      : "Choose the Kilter board plus angle, or the Crux gym plus wall.",
+                      : nestedSurfaceProvider
+                        ? `Choose the shared ${providerLabel.toLowerCase()} gym plus wall.`
+                        : "Choose the Kilter board plus angle.",
                     "Share the invite link or QR code, then watch fist bumps and queue picks as guests join.",
                   ]
                 : [
@@ -1363,7 +1373,7 @@ export default function RoomView() {
                 {snapshot.can_manage
                   ? snapshot.provider_id === "kilter"
                     ? "Authenticate one Kilter account so the room can browse a shared board."
-                    : "Enter one Crux API token so the room can browse a shared gym and wall."
+                    : `Enter one ${providerLabel} token so the room can browse a shared gym and wall.`
                   : "Waiting for the host to connect the provider account before guests can browse climbs."}
               </CardDescription>
             </CardHeader>
@@ -1429,10 +1439,20 @@ export default function RoomView() {
                           }))
                         }
                         autoComplete="off"
-                        placeholder="Crux API token"
+                        placeholder={
+                          snapshot.provider_id === "test"
+                            ? "Test provider token"
+                            : "Crux API token"
+                        }
                       />
                       <p className="text-sm text-muted-foreground">
-                        Paste either the raw Crux token or the full <code>Bearer ...</code> value.
+                        {snapshot.provider_id === "test" ? (
+                          "Use any non-empty token while the test provider flag is enabled."
+                        ) : (
+                          <>
+                            Paste either the raw Crux token or the full <code>Bearer ...</code> value.
+                          </>
+                        )}
                       </p>
                       <label className="flex items-center gap-3 pt-1 text-sm font-medium">
                         <input
@@ -1446,10 +1466,14 @@ export default function RoomView() {
                           }
                           className="h-4 w-4 rounded border-slate-300"
                         />
-                        Remember this Crux auth preference on this browser
+                        {snapshot.provider_id === "test"
+                          ? "Remember this test provider auth preference on this browser"
+                          : "Remember this Crux auth preference on this browser"}
                       </label>
                       <p className="text-xs text-muted-foreground">
-                        Stores this preference locally. You still enter the Crux token each time.
+                        {snapshot.provider_id === "test"
+                          ? "Stores this preference locally for test-only room setup."
+                          : "Stores this preference locally. You still enter the Crux token each time."}
                       </p>
                     </div>
                   )}
@@ -1529,7 +1553,13 @@ export default function RoomView() {
                         }}
                       >
                         <SelectTrigger>
-                          <SelectValue placeholder="Select a Crux gym" />
+                          <SelectValue
+                            placeholder={
+                              snapshot.provider_id === "test"
+                                ? "Select a test gym"
+                                : "Select a Crux gym"
+                            }
+                          />
                         </SelectTrigger>
                         <SelectContent>
                           {cruxGyms.map((surface) => (
@@ -1541,7 +1571,13 @@ export default function RoomView() {
                       </Select>
                       <Select value={selectedWallId} onValueChange={setSelectedWallId}>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select a wall" />
+                          <SelectValue
+                            placeholder={
+                              snapshot.provider_id === "test"
+                                ? "Select a test wall"
+                                : "Select a wall"
+                            }
+                          />
                         </SelectTrigger>
                         <SelectContent>
                           {cruxWalls.map((surface) => (
