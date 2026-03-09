@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import App from "./App";
@@ -475,6 +475,47 @@ describe("App routes", () => {
     await waitFor(() => expect(mockedApi.getRoom).toHaveBeenCalledTimes(2));
     expect(MockEventSource.instances).toHaveLength(1);
     expect(mockedApi.getRoomCatalogSurfaces).toHaveBeenCalledTimes(1);
+  });
+
+  it("keeps reconnecting room events with backoff after repeated SSE errors", async () => {
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue(buildRoomSnapshot("session-retry"));
+    mockedApi.getRoomCatalogClimbs.mockResolvedValue({
+      climbs: [],
+      has_more: false,
+      page_size: 12,
+      vote_counts: {},
+      my_votes: [],
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/session-retry"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(
+      await screen.findByRole("heading", { name: "Room session-retry" })
+    ).toBeInTheDocument();
+    expect(MockEventSource.instances).toHaveLength(1);
+
+    vi.useFakeTimers();
+    try {
+      const retryDelays = [1000, 2000, 4000, 8000, 16000, 30000];
+
+      for (const retryDelay of retryDelays) {
+        const currentSource =
+          MockEventSource.instances[MockEventSource.instances.length - 1];
+        await act(async () => {
+          currentSource?.onerror?.call(currentSource as unknown as EventSource, new Event("error"));
+          await vi.advanceTimersByTimeAsync(retryDelay);
+        });
+      }
+    } finally {
+      vi.useRealTimers();
+    }
+
+    expect(MockEventSource.instances).toHaveLength(7);
   });
 
   it("lets the host set the room name from the room header", async () => {

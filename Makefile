@@ -12,7 +12,7 @@ DEV_APP_SECRET ?= development-room-secret
 DEV_ENCRYPTION_KEY ?= MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=
 DEV_SECURE_COOKIES ?= false
 
-.PHONY: help install web-install bootstrap dev dev-api dev-web docker-up docker-down docker-logs test lint build check health
+.PHONY: help install web-install bootstrap dev dev-api dev-web docker-bootstrap docker-up docker-down docker-logs test lint build check health
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*##"; print "Available targets:"} /^[a-zA-Z0-9_.-]+:.*##/ {printf "  %-14s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -61,8 +61,11 @@ dev-api: ## Run only the API locally with development secrets
 dev-web: ## Run only the web app locally
 	cd "$(WEB_DIR)" && npm run dev -- --host "$(WEB_HOST)" --port "$(WEB_PORT)"
 
-docker-up: ## Build and run the Docker stack
+docker-up: ## Build and run the Docker stack after docker-bootstrap has seeded /data
 	cd "$(ROOT_DIR)" && docker compose up --build
+
+docker-bootstrap: ## Bootstrap the shared Docker data volume before docker-up
+	cd "$(ROOT_DIR)" && docker compose --profile bootstrap run --rm kilter-together-bootstrap
 
 docker-down: ## Stop the Docker stack
 	cd "$(ROOT_DIR)" && docker compose down

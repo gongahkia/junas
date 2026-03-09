@@ -10,12 +10,16 @@ guests join from their phones to vote and queue climbs.
 
 ## Quick Start
 
-The primary local hosting flow is Docker:
+The hardened Docker flow now treats bootstrap as an explicit init step instead of
+letting the API container download runtime data during `serve`.
 
 ```console
 git clone https://github.com/lczm/kilter-together
 cd kilter-together
-docker compose up --build
+cp compose.env.example .env
+# set KILTER_TOGETHER_APP_SECRET and KILTER_TOGETHER_ENCRYPTION_KEY in .env
+docker compose --profile bootstrap run --rm kilter-together-bootstrap
+docker compose up --build -d
 ```
 
 Open the app at `http://localhost:8080` and verify the API with:
@@ -24,16 +28,18 @@ Open the app at `http://localhost:8080` and verify the API with:
 curl http://localhost:8080/api/healthz
 ```
 
-On the first boot, the API container will:
+For local HTTP smoke testing on `localhost`, set `KILTER_TOGETHER_SECURE_COOKIES=false`
+in `.env`. Keep it `true` for real deployments.
+
+The one-time bootstrap job will:
 
 1. Download the base Kilter SQLite database from the APKPure-hosted Android bundle.
 2. Optionally run a fresher shared-data sync if Kilter credentials are configured.
 3. Download the board images referenced by the database into the persistent data volume.
 4. Persist a bootstrap manifest so future starts can detect partial runtime state.
 
-The Docker stack now also seeds development-only room secrets so the collaborative
-room flow works out of the box on `localhost`. Replace those values before any
-shared or internet-exposed deployment.
+The runtime containers now fail fast when `/data` is missing or incomplete. Production
+notes, backup/restore steps, and key rotation instructions live in [PRODUCTION.md](./PRODUCTION.md).
 
 ## Runtime Configuration
 
@@ -49,7 +55,9 @@ Backend env vars:
 | `KILTER_TOGETHER_KILTER_PASSWORD` | unset | Optional Kilter password for shared-data sync |
 | `KILTER_TOGETHER_APP_SECRET` | unset | Required for signed host/guest room cookies |
 | `KILTER_TOGETHER_ENCRYPTION_KEY` | unset | Required for encrypting stored provider credentials at rest |
+| `KILTER_TOGETHER_PREVIOUS_ENCRYPTION_KEY` | unset | Optional old encryption key used during rotation |
 | `KILTER_TOGETHER_PORT` | `8082` | API listen port |
+| `KILTER_TOGETHER_SECURE_COOKIES` | `true` | Set to `false` only for local HTTP smoke testing |
 | `KILTER_TOGETHER_ALLOWED_ORIGINS` | `http://localhost:5173,http://127.0.0.1:5173,http://localhost:8080,http://127.0.0.1:8080` | Comma-separated CORS allowlist for cookie-backed room APIs |
 
 Frontend env vars:
@@ -60,7 +68,8 @@ Frontend env vars:
 | `VITE_API_BASE_URL` | `/api` | Same-origin API base URL |
 
 Example files live at [api/.env.example](./api/.env.example) and
-[kilter-together-app/.env.example](./kilter-together-app/.env.example).
+[kilter-together-app/.env.example](./kilter-together-app/.env.example). For Docker
+deployments, start with [compose.env.example](./compose.env.example).
 
 ## Local Development
 
@@ -78,6 +87,9 @@ Or let the server bootstrap on demand:
 cd api
 go run . serve --bootstrap-if-missing
 ```
+
+`serve --bootstrap-if-missing` remains a local-development convenience. The production
+Docker path now expects the dataset and images to be bootstrapped before `serve`.
 
 Frontend:
 
@@ -138,7 +150,8 @@ and board images and remains fully usable.
 - `GET /api/climbs` requires a valid `angle` and also supports `name`, `setter`, and `sort=popular|newest`.
 - `GET /api/healthz` validates that the local database and image set are usable, not just that the process is running.
 - Collaborative rooms expose room/session APIs under `/api/rooms/*` and currently ship with `kilter` and `crux` providers.
-- Kilter bootstrap remains network-dependent on first run. After bootstrap, Kilter catalog reads are local. Crux catalog reads are fetched server-side and cached in `app.db`.
+- Kilter bootstrap remains network-dependent during the explicit bootstrap step. After bootstrap, Kilter catalog reads are local. Crux catalog reads are fetched server-side and cached in `app.db`.
+- This release is intentionally single-node only. Room live updates rely on in-process SSE fan-out plus SQLite-backed local state, so horizontal scaling needs a different event and storage design.
 
 ## License
 

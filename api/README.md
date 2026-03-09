@@ -25,6 +25,9 @@ Bootstrap automatically when local data is missing:
 go run . serve --bootstrap-if-missing
 ```
 
+`serve --bootstrap-if-missing` is intended for local development. The production Docker
+path now expects bootstrap to happen as an explicit init step before `serve`.
+
 ## Endpoints
 
 - `GET /api/healthz`
@@ -71,7 +74,9 @@ KILTER_TOGETHER_DATA_DIR=./data
 # KILTER_TOGETHER_KILTER_PASSWORD=
 # KILTER_TOGETHER_APP_SECRET=
 # KILTER_TOGETHER_ENCRYPTION_KEY=
+# KILTER_TOGETHER_PREVIOUS_ENCRYPTION_KEY=
 # KILTER_TOGETHER_PORT=8082
+# KILTER_TOGETHER_SECURE_COOKIES=true
 # KILTER_TOGETHER_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173,http://localhost:8080,http://127.0.0.1:8080
 ```
 
@@ -83,6 +88,9 @@ partial image state on future starts and via `/api/healthz`.
 
 Room state, provider caches, and encrypted provider credentials are stored in the
 app DB, separate from the Kilter dataset DB.
+
+For the hardened single-node deployment contract, backup/restore commands, and key
+rotation notes, see [../PRODUCTION.md](../PRODUCTION.md).
 
 ## Verification
 
