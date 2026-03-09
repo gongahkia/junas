@@ -1066,10 +1066,9 @@ export default function RoomView() {
     (selectedClimb ? snapshot.vote_counts[selectedClimb.id] : 0) ??
     0;
   const myFistBumps = catalog?.my_votes ?? snapshot.my_votes;
+  const queuedClimbIds = new Set(snapshot.queue.map((entry) => entry.climb.id));
   const selectedHasMyFistBump = selectedClimb ? myFistBumps.includes(selectedClimb.id) : false;
-  const selectedIsQueued = selectedClimb
-    ? snapshot.queue.some((entry) => entry.climb.id === selectedClimb.id)
-    : false;
+  const selectedIsQueued = selectedClimb ? queuedClimbIds.has(selectedClimb.id) : false;
   const selectedQueueEntry = selectedClimb
     ? snapshot.queue.find((entry) => entry.climb.id === selectedClimb.id)
     : undefined;
@@ -1685,11 +1684,7 @@ export default function RoomView() {
                       </div>
                     ) : catalog?.climbs.length ? (
                       catalog.climbs.map((climb) => {
-                        const voteCount = catalog.vote_counts[climb.id] ?? 0;
-                        const hasMyFistBump = myFistBumps.includes(climb.id);
-                        const isQueued = snapshot.queue.some(
-                          (entry) => entry.climb.id === climb.id
-                        );
+                        const isQueued = queuedClimbIds.has(climb.id);
                         const finalistEntry = snapshot.finalists.find(
                           (entry) => entry.climb.id === climb.id
                         );
@@ -1733,20 +1728,6 @@ export default function RoomView() {
                                 </div>
                               </div>
                             </button>
-                            {snapshot.fist_bumps_enabled ? (
-                              <div className="mt-3">
-                                <RoomFistBumpButton
-                                  active={hasMyFistBump}
-                                  climbName={climb.name}
-                                  count={voteCount}
-                                  disabled={
-                                    fistBumpsBlocked ||
-                                    pendingFistBumpClimbId === climb.id
-                                  }
-                                  onClick={() => void handleFistBumpToggle(climb.id)}
-                                />
-                              </div>
-                            ) : null}
                           </div>
                         );
                       })
@@ -1800,7 +1781,7 @@ export default function RoomView() {
                   <CardContent className="grid gap-4">
                     {selectedClimb ? (
                       <div className="flex flex-wrap gap-3">
-                        {snapshot.fist_bumps_enabled ? (
+                        {snapshot.fist_bumps_enabled && selectedIsQueued ? (
                           <RoomFistBumpButton
                             active={selectedHasMyFistBump}
                             climbName={selectedClimb.name}
@@ -1894,7 +1875,7 @@ export default function RoomView() {
                                 {climb.setter_name || "Unknown setter"}
                               </p>
                             </button>
-                            {snapshot.fist_bumps_enabled ? (
+                            {snapshot.fist_bumps_enabled && queuedClimbIds.has(climb.id) ? (
                               <div className="mt-3">
                                 <RoomFistBumpButton
                                   active={myFistBumps.includes(climb.id)}
@@ -1995,7 +1976,7 @@ export default function RoomView() {
                             </button>
                           </div>
                           <div className="mt-3 flex flex-wrap gap-2">
-                            {snapshot.fist_bumps_enabled ? (
+                            {snapshot.fist_bumps_enabled && queuedClimbIds.has(entry.climb.id) ? (
                               <RoomFistBumpButton
                                 active={myFistBumps.includes(entry.climb.id)}
                                 climbName={entry.climb.name}

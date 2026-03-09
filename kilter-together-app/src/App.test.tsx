@@ -551,7 +551,7 @@ describe("App routes", () => {
     ).toBeInTheDocument();
   });
 
-  it("lets room members fist bump climbs from the room cards", async () => {
+  it("lets room members fist bump queued climbs from the room cards", async () => {
     const user = userEvent.setup();
     mockedApi.getBoards.mockResolvedValue([]);
     mockedApi.getRoom.mockResolvedValue({
@@ -569,6 +569,23 @@ describe("App routes", () => {
         provider_id: "kilter",
         connected: true,
       },
+      queue: [
+        {
+          id: 1,
+          status: "queued" as const,
+          position: 1,
+          added_by: "Host",
+          climb: {
+            id: "kilter:14:uuid-fist-bump",
+            external_id: "uuid-fist-bump",
+            provider_id: "kilter",
+            surface_id: "14",
+            name: "Fist Bump Test",
+            setter_name: "Setter A",
+            primary_grade: "V5",
+          },
+        },
+      ],
     });
     mockedApi.toggleRoomVote.mockResolvedValue(undefined);
     mockedApi.getRoomCatalogClimbs.mockResolvedValue({
@@ -612,7 +629,14 @@ describe("App routes", () => {
       await screen.findByRole("heading", { name: "Room session-fist-bump" })
     ).toBeInTheDocument();
 
-    const fistBumpButtons = await screen.findAllByRole("button", {
+    await waitFor(() =>
+      expect(
+        screen.getAllByRole("button", {
+          name: /fist bump for Fist Bump Test/i,
+        })
+      ).toHaveLength(2)
+    );
+    const fistBumpButtons = screen.getAllByRole("button", {
       name: /fist bump for Fist Bump Test/i,
     });
     for (const fistBumpButton of fistBumpButtons) {
