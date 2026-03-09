@@ -127,6 +127,18 @@ func TestRoomRoutesContract(t *testing.T) {
 		t.Fatalf("unexpected room catalog climbs payload: %#v", climbsPayload.Climbs)
 	}
 
+	climbDetailResponse := performJSONRequest(
+		t,
+		server,
+		http.MethodGet,
+		"/api/rooms/"+createdRoom.Slug+"/catalog/climbs/fake-route%3Abeta",
+		nil,
+		hostCookies,
+	)
+	if climbDetailResponse.StatusCode != http.StatusOK {
+		t.Fatalf("expected encoded room catalog climb status 200, got %d", climbDetailResponse.StatusCode)
+	}
+
 	joinResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+createdRoom.Slug+"/join", map[string]string{
 		"display_name": "Guest",
 	}, nil)
@@ -135,7 +147,7 @@ func TestRoomRoutesContract(t *testing.T) {
 	}
 	guestCookies := joinResponse.Cookies()
 
-	voteResponse := performJSONRequest(t, server, http.MethodPut, "/api/rooms/"+createdRoom.Slug+"/votes/fake-route:beta", nil, guestCookies)
+	voteResponse := performJSONRequest(t, server, http.MethodPut, "/api/rooms/"+createdRoom.Slug+"/votes/fake-route%3Abeta", nil, guestCookies)
 	if voteResponse.StatusCode != http.StatusOK {
 		t.Fatalf("expected vote status 200, got %d", voteResponse.StatusCode)
 	}

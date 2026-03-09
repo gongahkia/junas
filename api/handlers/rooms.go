@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"strconv"
 	"strings"
 	"time"
@@ -374,10 +375,16 @@ func GetRoomCatalogClimb(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	climbID, err := url.PathUnescape(chi.URLParam(r, "climbId"))
+	if err != nil {
+		writeJSONError(w, http.StatusBadRequest, "invalid climb id")
+		return
+	}
+
 	response, err := rooms.DefaultService.GetCatalogClimb(
 		r.Context(),
 		viewer,
-		chi.URLParam(r, "climbId"),
+		climbID,
 	)
 	if err != nil {
 		writeJSONError(w, http.StatusBadRequest, err.Error())
@@ -394,7 +401,13 @@ func ToggleRoomVote(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := rooms.DefaultService.ToggleVote(r.Context(), viewer, chi.URLParam(r, "climbId")); err != nil {
+	climbID, err := url.PathUnescape(chi.URLParam(r, "climbId"))
+	if err != nil {
+		writeJSONError(w, http.StatusBadRequest, "invalid climb id")
+		return
+	}
+
+	if err := rooms.DefaultService.ToggleVote(r.Context(), viewer, climbID); err != nil {
 		if errors.Is(err, rooms.ErrFistBumpsOff) || errors.Is(err, rooms.ErrForbidden) {
 			writeJSONError(w, http.StatusForbidden, err.Error())
 			return
