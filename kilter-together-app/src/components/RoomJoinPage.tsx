@@ -20,10 +20,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { useErrorToast } from "@/hooks/use-toast";
 
 export default function RoomJoinPage() {
   const navigate = useNavigate();
   const { slug = "" } = useParams();
+  const showErrorToast = useErrorToast();
   const [showOnboarding, setShowOnboarding] = useState(
     () => {
       const prefs = loadUserPrefs();
@@ -34,12 +36,10 @@ export default function RoomJoinPage() {
     () => loadUserPrefs().savedDisplayName
   );
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState("");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitting(true);
-    setError("");
 
     try {
       const room = await api.joinRoom(slug, displayName);
@@ -49,7 +49,9 @@ export default function RoomJoinPage() {
       navigate(`/rooms/${slug}`);
     } catch (caughtError) {
       console.error("Join room failed", caughtError);
-      setError("Unable to join this room. It may be closed, expired, or require a different invite slug.");
+      showErrorToast(
+        "Unable to join this room. It may be closed, expired, or require a different invite slug."
+      );
     } finally {
       setSubmitting(false);
     }
@@ -122,12 +124,6 @@ export default function RoomJoinPage() {
                   placeholder="Kai, Mei, Spotter"
                 />
               </div>
-
-              {error ? (
-                <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">
-                  {error}
-                </div>
-              ) : null}
 
               <Button type="submit" className="w-full" disabled={submitting}>
                 {submitting ? "Joining room..." : "Join room"}

@@ -12,12 +12,15 @@ import RoomDiscoveryPage from "./components/RoomDiscoveryPage";
 import RoomJoinPage from "./components/RoomJoinPage";
 import RoomView from "./components/RoomView";
 import SettingsPage from "./components/SettingsPage";
+import { ToastProvider } from "./components/ui/toast";
+import { useErrorToast } from "./hooks/use-toast";
 import { loadUserPrefs, USER_PREFS_CHANGE_EVENT } from "./lib/user-prefs";
 import type { Board } from "./types";
 import "./App.css";
 
-function App() {
+function AppContent() {
   const location = useLocation();
+  const showErrorToast = useErrorToast();
   const [boards, setBoards] = useState<Board[]>([]);
   const [loading, setLoading] = useState(true);
   const isLandingRoute = location.pathname === "/";
@@ -41,13 +44,14 @@ function App() {
       } catch (error) {
         console.error("API Error:", error);
         setBoards([]);
+        showErrorToast("Unable to load the board list right now. Try refreshing the page.");
       } finally {
         setLoading(false);
       }
     };
 
     fetchBoards();
-  }, [shouldLoadBoards]);
+  }, [shouldLoadBoards, showErrorToast]);
 
   useEffect(() => {
     const syncMotionClass = () => {
@@ -93,6 +97,14 @@ function App() {
       <ClickCheerOverlay />
       <BottomBar />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <ToastProvider>
+      <AppContent />
+    </ToastProvider>
   );
 }
 

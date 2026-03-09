@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { History, Key, Sparkles, User } from "lucide-react";
+import { History, Sparkles, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { ClimbSort, ProviderId } from "@/types";
 import BrandWordmark from "@/components/BrandWordmark";
@@ -168,15 +168,6 @@ export default function SettingsPage() {
                   checked={prefs.settings.recentRoomsEnabled}
                   onChange={(checked) => setPrefs(updateAppSettings({ recentRoomsEnabled: checked }))}
                 />
-                <SettingsToggle
-                  id="credential-storage-enabled"
-                  label="Allow saved provider credentials"
-                  description="Let Kilter usernames/passwords or Crux tokens be remembered locally after a successful host login."
-                  checked={prefs.settings.credentialStorageEnabled}
-                  onChange={(checked) =>
-                    setPrefs(updateAppSettings({ credentialStorageEnabled: checked }))
-                  }
-                />
               </CardContent>
             </Card>
 
@@ -304,25 +295,6 @@ export default function SettingsPage() {
                     disabled={!prefs.soloResume}
                     onAction={() => setPrefs(clearSoloResume())}
                   />
-                </CardContent>
-              </Card>
-
-              <Card className="border-0 bg-slate-950 text-slate-50 shadow-xl shadow-slate-950/15">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-xl">
-                    <Key className="h-5 w-5" />
-                    Local-only by design
-                  </CardTitle>
-                  <CardDescription className="text-slate-300">
-                    Kilter Together keeps these preferences in your browser storage, not on the
-                    server. That means each device can behave differently without affecting the
-                    rest of the room.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="text-sm leading-7 text-slate-200">
-                  Turning off saved credentials clears them immediately. Turning off recent rooms
-                  clears that list too. If you want the guides back later, reset them here and
-                  use the existing Help buttons from each flow.
                 </CardContent>
               </Card>
             </div>

@@ -24,6 +24,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { useErrorToast } from "@/hooks/use-toast";
 import {
   Select,
   SelectContent,
@@ -35,7 +36,7 @@ import {
 export default function RoomCreatePage() {
   const navigate = useNavigate();
   const savedPrefsRef = useRef(loadUserPrefs());
-  const credentialStorageEnabled = savedPrefsRef.current.settings.credentialStorageEnabled;
+  const showErrorToast = useErrorToast();
   const [showOnboarding, setShowOnboarding] = useState(
     () =>
       savedPrefsRef.current.settings.autoGuidesEnabled &&
@@ -49,27 +50,25 @@ export default function RoomCreatePage() {
     () => savedPrefsRef.current.savedDisplayName
   );
   const [connectionFields, setConnectionFields] = useState(() => ({
-    username: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.kilter.remember
+    username: savedPrefsRef.current.savedCredentials.kilter.remember
       ? savedPrefsRef.current.savedCredentials.kilter.username
       : "",
-    password: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.kilter.remember
+    password: savedPrefsRef.current.savedCredentials.kilter.remember
       ? savedPrefsRef.current.savedCredentials.kilter.password
       : "",
-    token: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.crux.remember
+    token: savedPrefsRef.current.savedCredentials.crux.remember
       ? savedPrefsRef.current.savedCredentials.crux.token
       : "",
   }));
   const [rememberCredentials, setRememberCredentials] = useState(() => ({
-    kilter: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.kilter.remember,
-    crux: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.crux.remember,
+    kilter: savedPrefsRef.current.savedCredentials.kilter.remember,
+    crux: savedPrefsRef.current.savedCredentials.crux.remember,
   }));
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState("");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitting(true);
-    setError("");
 
     try {
       const secret: Record<string, string> = {};
@@ -101,7 +100,7 @@ export default function RoomCreatePage() {
       navigate(`/rooms/${room.slug}`);
     } catch (caughtError) {
       console.error("Create room failed", caughtError);
-      setError(
+      showErrorToast(
         getApiErrorMessage(
           caughtError,
           "Unable to create the room. Make sure the API server is running and check the backend logs."
@@ -248,31 +247,23 @@ export default function RoomCreatePage() {
                     />
                   </div>
                   <div className="space-y-2 md:col-span-2">
-                    {credentialStorageEnabled ? (
-                      <>
-                        <label className="flex items-center gap-3 text-sm font-medium">
-                          <input
-                            type="checkbox"
-                            checked={rememberCredentials.kilter}
-                            onChange={(event) =>
-                              setRememberCredentials((previousState) => ({
-                                ...previousState,
-                                kilter: event.target.checked,
-                              }))
-                            }
-                            className="h-4 w-4 rounded border-slate-300"
-                          />
-                          Remember Kilter credentials on this browser
-                        </label>
-                        <p className="text-xs text-muted-foreground">
-                          Stores the username and password locally in this browser after a successful login.
-                        </p>
-                      </>
-                    ) : (
-                      <p className="text-xs text-muted-foreground">
-                        Saved provider credentials are currently disabled in Settings for this browser.
-                      </p>
-                    )}
+                    <label className="flex items-center gap-3 text-sm font-medium">
+                      <input
+                        type="checkbox"
+                        checked={rememberCredentials.kilter}
+                        onChange={(event) =>
+                          setRememberCredentials((previousState) => ({
+                            ...previousState,
+                            kilter: event.target.checked,
+                          }))
+                        }
+                        className="h-4 w-4 rounded border-slate-300"
+                      />
+                      Remember Kilter credentials on this browser
+                    </label>
+                    <p className="text-xs text-muted-foreground">
+                      Stores the username and password locally in this browser after a successful login.
+                    </p>
                   </div>
                 </div>
               ) : (
@@ -295,31 +286,23 @@ export default function RoomCreatePage() {
                   <p className="text-sm text-muted-foreground">
                     Paste either the raw Crux token or the full <code>Bearer ...</code> value.
                   </p>
-                  {credentialStorageEnabled ? (
-                    <>
-                      <label className="flex items-center gap-3 pt-1 text-sm font-medium">
-                        <input
-                          type="checkbox"
-                          checked={rememberCredentials.crux}
-                          onChange={(event) =>
-                            setRememberCredentials((previousState) => ({
-                              ...previousState,
-                              crux: event.target.checked,
-                            }))
-                          }
-                          className="h-4 w-4 rounded border-slate-300"
-                        />
-                        Remember Crux token on this browser
-                      </label>
-                      <p className="text-xs text-muted-foreground">
-                        Stores the Crux API token locally in this browser after a successful login.
-                      </p>
-                    </>
-                  ) : (
-                    <p className="text-xs text-muted-foreground">
-                      Saved provider credentials are currently disabled in Settings for this browser.
-                    </p>
-                  )}
+                  <label className="flex items-center gap-3 pt-1 text-sm font-medium">
+                    <input
+                      type="checkbox"
+                      checked={rememberCredentials.crux}
+                      onChange={(event) =>
+                        setRememberCredentials((previousState) => ({
+                          ...previousState,
+                          crux: event.target.checked,
+                        }))
+                      }
+                      className="h-4 w-4 rounded border-slate-300"
+                    />
+                    Remember Crux token on this browser
+                  </label>
+                  <p className="text-xs text-muted-foreground">
+                    Stores the Crux API token locally in this browser after a successful login.
+                  </p>
                 </div>
               )}
 
@@ -328,12 +311,6 @@ export default function RoomCreatePage() {
                   ? "This room will only be created after the Kilter credentials are validated. The next step inside the room is choosing the board plus angle."
                   : "This room will only be created after the Crux token is validated. The next step inside the room is choosing the gym and wall."}
               </div>
-
-              {error ? (
-                <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">
-                  {error}
-                </div>
-              ) : null}
 
               <Button type="submit" className="w-full" disabled={submitting}>
                 {submitting ? "Authenticating host..." : "Authenticate and create room"}

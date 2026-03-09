@@ -58,7 +58,6 @@ export interface AppSettings {
   playfulMotionEnabled: boolean;
   autoGuidesEnabled: boolean;
   recentRoomsEnabled: boolean;
-  credentialStorageEnabled: boolean;
   soloDefaultSort: ClimbSort;
 }
 
@@ -125,7 +124,6 @@ function getDefaultUserPrefs(): UserPrefs {
       playfulMotionEnabled: true,
       autoGuidesEnabled: true,
       recentRoomsEnabled: true,
-      credentialStorageEnabled: true,
       soloDefaultSort: DEFAULT_SORT,
     },
   };
@@ -284,7 +282,7 @@ export function rememberKilterCredentials(
     ...currentPrefs,
     savedCredentials: {
       ...currentPrefs.savedCredentials,
-      kilter: remember && currentPrefs.settings.credentialStorageEnabled
+      kilter: remember
         ? {
             username,
             password,
@@ -304,7 +302,7 @@ export function rememberCruxToken(token: string, remember: boolean): UserPrefs {
     ...currentPrefs,
     savedCredentials: {
       ...currentPrefs.savedCredentials,
-      crux: remember && currentPrefs.settings.credentialStorageEnabled
+      crux: remember
         ? {
             token,
             remember: true,
@@ -530,19 +528,7 @@ export function updateAppSettings(partialSettings: Partial<AppSettings>): UserPr
       ...currentPrefs,
       settings: nextSettings,
       recentRooms: nextSettings.recentRoomsEnabled ? currentPrefs.recentRooms : [],
-      savedCredentials: nextSettings.credentialStorageEnabled
-        ? currentPrefs.savedCredentials
-        : {
-            kilter: {
-              username: "",
-              password: "",
-              remember: false,
-            },
-            crux: {
-              token: "",
-              remember: false,
-            },
-          },
+      savedCredentials: currentPrefs.savedCredentials,
     };
   });
 }

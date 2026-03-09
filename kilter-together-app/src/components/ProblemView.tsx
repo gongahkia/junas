@@ -13,6 +13,7 @@ import {
   CardDescription,
   CardHeader,
 } from "@/components/ui/card";
+import { useErrorToast } from "@/hooks/use-toast";
 import KilterBoardImage from "@/components/KilterBoardImage";
 
 interface ProblemViewProps {
@@ -26,16 +27,37 @@ export default function ProblemView({
   angle,
   hasResults,
 }: ProblemViewProps) {
+  const showErrorToast = useErrorToast();
   const [failedImages, setFailedImages] = useState<Record<string, true>>({});
+  const [notifiedClimbId, setNotifiedClimbId] = useState("");
 
   useEffect(() => {
     setFailedImages({});
+    setNotifiedClimbId("");
   }, [selectedClimb?.uuid]);
 
   const imageFilenames = selectedClimb?.image_filenames || [];
   const visibleImages = imageFilenames.filter(
     (filename) => !failedImages[filename],
   );
+
+  useEffect(() => {
+    if (!selectedClimb || imageFilenames.length === 0 || visibleImages.length > 0) {
+      return;
+    }
+    if (notifiedClimbId === selectedClimb.uuid) {
+      return;
+    }
+
+    showErrorToast("Board images failed to load for this climb.");
+    setNotifiedClimbId(selectedClimb.uuid);
+  }, [
+    imageFilenames.length,
+    notifiedClimbId,
+    selectedClimb,
+    showErrorToast,
+    visibleImages.length,
+  ]);
 
   if (!selectedClimb) {
     return (
@@ -92,7 +114,7 @@ export default function ProblemView({
             </p>
           ) : visibleImages.length === 0 ? (
             <p className="text-muted-foreground">
-              Board images failed to load for this climb.
+              Preview unavailable for this climb.
             </p>
           ) : (
             <KilterBoardImage

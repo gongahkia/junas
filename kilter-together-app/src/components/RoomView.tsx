@@ -43,6 +43,7 @@ import {
   rememberRoomVisit,
 } from "@/lib/user-prefs";
 import OnboardingCallout from "@/components/OnboardingCallout";
+import DetailGrid, { type DetailGridItem } from "@/components/DetailGrid";
 import RoomProblemView from "@/components/RoomProblemView";
 import InviteQRCodeCard from "@/components/InviteQRCodeCard";
 import AngleSelector from "@/components/AngleSelector";
@@ -58,6 +59,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { useErrorToast } from "@/hooks/use-toast";
 import {
   Select,
   SelectContent,
@@ -67,6 +69,10 @@ import {
 } from "@/components/ui/select";
 
 const PAGE_SIZE = 12;
+
+function formatProviderName(providerId: RoomSnapshot["provider_id"]) {
+  return providerId === "crux" ? "Crux" : "Kilter";
+}
 
 function reorderEntryIDs(entryIDs: number[], sourceEntryID: number, targetEntryID: number) {
   const sourceIndex = entryIDs.indexOf(sourceEntryID);
@@ -84,8 +90,8 @@ function reorderEntryIDs(entryIDs: number[], sourceEntryID: number, targetEntryI
 export default function RoomView() {
   const { slug = "" } = useParams();
   const navigate = useNavigate();
+  const showErrorToast = useErrorToast();
   const savedPrefsRef = useRef(loadUserPrefs());
-  const credentialStorageEnabled = savedPrefsRef.current.settings.credentialStorageEnabled;
   const [searchParams, setSearchParams] = useSearchParams();
   const [snapshot, setSnapshot] = useState<RoomSnapshot | null>(null);
   const [catalog, setCatalog] = useState<RoomCatalogClimbsResponse | null>(null);
@@ -96,20 +102,22 @@ export default function RoomView() {
   const [actionError, setActionError] = useState("");
   const [roomNameInput, setRoomNameInput] = useState("");
   const [roomNameSaving, setRoomNameSaving] = useState(false);
+  const [showRoomSettings, setShowRoomSettings] = useState(false);
+  const [showSurfaceEditor, setShowSurfaceEditor] = useState(false);
   const [connectionFields, setConnectionFields] = useState(() => ({
-    username: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.kilter.remember
+    username: savedPrefsRef.current.savedCredentials.kilter.remember
       ? savedPrefsRef.current.savedCredentials.kilter.username
       : "",
-    password: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.kilter.remember
+    password: savedPrefsRef.current.savedCredentials.kilter.remember
       ? savedPrefsRef.current.savedCredentials.kilter.password
       : "",
-    token: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.crux.remember
+    token: savedPrefsRef.current.savedCredentials.crux.remember
       ? savedPrefsRef.current.savedCredentials.crux.token
       : "",
   }));
   const [rememberCredentials, setRememberCredentials] = useState(() => ({
-    kilter: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.kilter.remember,
-    crux: credentialStorageEnabled && savedPrefsRef.current.savedCredentials.crux.remember,
+    kilter: savedPrefsRef.current.savedCredentials.kilter.remember,
+    crux: savedPrefsRef.current.savedCredentials.crux.remember,
   }));
   const [boardSurfaces, setBoardSurfaces] = useState<ProviderSurface[]>([]);
   const [cruxGyms, setCruxGyms] = useState<ProviderSurface[]>([]);
@@ -159,10 +167,8 @@ export default function RoomView() {
     (selectedExternalClimb?.id === selectedClimbId ? selectedExternalClimb : null) ||
     catalog?.climbs[0] ||
     null;
-  const canEditCruxSurface =
-    !!snapshot?.can_manage &&
-    snapshot.provider_id === "crux" &&
-    snapshot.connection.connected;
+  const hasSurface = !!snapshot?.surface;
+  const roomStatus = snapshot?.status;
 
   const fetchSnapshot = useCallback(
     async (showLoader = false): Promise<RoomSnapshot | null> => {
@@ -352,7 +358,7 @@ export default function RoomView() {
       !slug ||
       !snapshot?.can_manage ||
       !snapshot.connection.connected ||
-      (snapshot.provider_id === "kilter" && snapshot.surface)
+      (hasSurface && !showSurfaceEditor)
     ) {
       return;
     }
@@ -402,6 +408,8 @@ export default function RoomView() {
 
     void loadSurfaces();
   }, [
+    hasSurface,
+    showSurfaceEditor,
     slug,
     snapshot?.can_manage,
     snapshot?.connection.connected,
@@ -415,6 +423,7 @@ export default function RoomView() {
       snapshot?.provider_id !== "crux" ||
       !snapshot.can_manage ||
       !snapshot.connection.connected ||
+      (hasSurface && !showSurfaceEditor) ||
       !selectedGymSlug
     ) {
       return;
@@ -448,7 +457,9 @@ export default function RoomView() {
 
     void loadWalls();
   }, [
+    hasSurface,
     selectedGymSlug,
+    showSurfaceEditor,
     slug,
     snapshot?.can_manage,
     snapshot?.connection.connected,
@@ -459,8 +470,8 @@ export default function RoomView() {
   useEffect(() => {
     if (
       !slug ||
-      !snapshot ||
-      snapshot.status === "closed" ||
+      !roomStatus ||
+      roomStatus === "closed" ||
       typeof EventSource === "undefined"
     ) {
       return;
@@ -495,7 +506,7 @@ export default function RoomView() {
       if (retryTimeout !== undefined) window.clearTimeout(retryTimeout);
       currentSource?.close();
     };
-  }, [slug, snapshot?.status]);
+  }, [roomStatus, slug]);
 
   useEffect(() => {
     if (!copiedInvite) {
@@ -509,6 +520,14 @@ export default function RoomView() {
   useEffect(() => {
     setRoomNameInput(snapshot?.room_name ?? "");
   }, [slug, snapshot?.room_name]);
+
+  useEffect(() => {
+    if (!actionError) {
+      return;
+    }
+
+    showErrorToast(actionError);
+  }, [actionError, showErrorToast]);
 
   const updateLocalFilters = (updates: Record<string, string | undefined>) => {
     startTransition(() => {
@@ -622,6 +641,7 @@ export default function RoomView() {
       setCurrentPage(1);
       markHostSurfaceSelected();
       await refreshRoomState();
+      setShowSurfaceEditor(false);
     } catch (caughtError) {
       console.error("Set room surface failed", caughtError);
       setActionError(
@@ -934,6 +954,7 @@ export default function RoomView() {
       });
       setSnapshot(updatedSnapshot);
       rememberRoomVisit(updatedSnapshot);
+      setShowRoomSettings(false);
     } catch (caughtError) {
       console.error("Update room name failed", caughtError);
       setActionError(getApiErrorMessage(caughtError, "Unable to save the room name."));
@@ -965,7 +986,10 @@ export default function RoomView() {
           <Card>
             <CardHeader>
               <CardTitle>Room unavailable</CardTitle>
-              <CardDescription>{actionError || "This room could not be loaded."}</CardDescription>
+              <CardDescription>
+                This room could not be loaded. Try the invite again or ask the host for a fresh
+                link.
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <Button asChild>
@@ -1051,13 +1075,75 @@ export default function RoomView() {
   ).length;
   const roomTitle = snapshot.room_name?.trim() || `Room ${snapshot.slug}`;
   const roomNameChanged = roomNameInput.trim() !== (snapshot.room_name ?? "").trim();
+  const providerLabel = formatProviderName(snapshot.provider_id);
+  const showSurfaceCard = snapshot.connection.connected && (snapshot.can_manage || !snapshot.surface);
+  const surfaceEditorOpen =
+    snapshot.can_manage && snapshot.connection.connected && (!snapshot.surface || showSurfaceEditor);
+  const currentGymLabel =
+    snapshot.provider_id === "crux"
+      ? cruxGyms.find(
+          (surface) =>
+            surface.id === (snapshot.surface?.meta?.gym_slug || snapshot.surface?.parent_id || "")
+        )?.name ||
+        snapshot.surface?.meta?.gym_slug ||
+        snapshot.surface?.parent_id ||
+        "Choose a gym"
+      : null;
+  const roomSummaryItems: DetailGridItem[] = [
+    {
+      label: "Room slug",
+      value: snapshot.slug,
+      valueClassName: "break-all",
+    },
+    {
+      label: "Signed in as",
+      value: snapshot.display_name || "guest",
+    },
+    {
+      label: "Shared surface",
+      value: snapshot.surface?.name ?? (snapshot.can_manage ? "Not selected yet" : "Waiting for host"),
+    },
+    {
+      label: "Current climb",
+      value: snapshot.current_climb?.name ?? "Nothing live yet",
+    },
+    {
+      label: "Readiness",
+      value: `${readinessCounts.ready} ready · ${readinessCounts.resting} resting · ${readinessCounts.away} away`,
+    },
+  ];
+  const surfaceSummaryItems: DetailGridItem[] = [
+    {
+      label: "Provider",
+      value: providerLabel,
+    },
+    {
+      label: snapshot.provider_id === "kilter" ? "Board" : "Wall",
+      value: snapshot.surface?.name ?? "Not selected yet",
+    },
+    ...(snapshot.provider_id === "kilter"
+      ? [
+          {
+            label: "Angle",
+            value: snapshot.surface?.meta?.angle
+              ? `${snapshot.surface.meta.angle}\u00b0`
+              : "Choose an angle",
+          },
+        ]
+      : [
+          {
+            label: "Gym",
+            value: currentGymLabel ?? "Choose a gym",
+          },
+        ]),
+  ];
 
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(250,250,249,1),_rgba(240,249,255,0.8))] px-4 py-5 sm:px-6">
       <div className="mx-auto flex max-w-7xl flex-col gap-5">
         <header className="rounded-3xl border bg-card/95 px-5 py-5 shadow-sm">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-            <div className="space-y-2">
+            <div className="space-y-4">
               <div className="flex flex-wrap items-center gap-2">
                 <Button asChild variant="ghost" className="-ml-3">
                   <Link to="/">
@@ -1074,80 +1160,79 @@ export default function RoomView() {
                 </Badge>
                 {snapshot.surface ? <Badge variant="outline">{snapshot.surface.name}</Badge> : null}
               </div>
-              <p className="text-sm text-muted-foreground">
-                Room slug: <span className="font-medium text-foreground">{snapshot.slug}</span>
-              </p>
-              {snapshot.can_manage ? (
-                <div className="grid max-w-xl gap-2">
-                  <label htmlFor="room-name-input" className="text-sm text-muted-foreground">
-                    Room name
-                  </label>
-                  <form
-                    className="flex flex-col gap-2 sm:flex-row"
-                    onSubmit={(event) => {
-                      event.preventDefault();
-                      void handleUpdateRoomName();
-                    }}
-                  >
-                    <Input
-                      id="room-name-input"
-                      value={roomNameInput}
-                      onChange={(event) => setRoomNameInput(event.target.value)}
-                      placeholder="Name this room"
-                    />
-                    <Button
-                      type="submit"
-                      variant="outline"
-                      disabled={roomNameSaving || !roomNameChanged}
+              <DetailGrid items={roomSummaryItems} className="lg:grid-cols-3 xl:grid-cols-5" />
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                {myParticipant ? (
+                  <div className="flex max-w-xs items-center gap-3">
+                    <span className="text-sm text-muted-foreground">My status</span>
+                    <Select
+                      value={myParticipant.status}
+                      onValueChange={(value) =>
+                        void handleParticipantStatusUpdate(value as ParticipantStatus)
+                      }
                     >
-                      {roomNameSaving
-                        ? "Saving..."
-                        : snapshot.room_name?.trim()
-                          ? "Save name"
-                          : "Set room name"}
-                    </Button>
-                  </form>
-                </div>
-              ) : null}
-              <p className="text-sm text-muted-foreground">
-                Signed in as {snapshot.display_name || "guest"}.
-              </p>
-              {myParticipant ? (
-                <div className="flex max-w-xs items-center gap-3">
-                  <span className="text-sm text-muted-foreground">My status</span>
-                  <Select
-                    value={myParticipant.status}
-                    onValueChange={(value) =>
-                      void handleParticipantStatusUpdate(value as ParticipantStatus)
-                    }
+                      <SelectTrigger className="h-9">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="watching">Watching</SelectItem>
+                        <SelectItem value="ready">Ready</SelectItem>
+                        <SelectItem value="resting">Resting</SelectItem>
+                        <SelectItem value="away">Away</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                ) : (
+                  <div />
+                )}
+                {snapshot.can_manage ? (
+                  <Button
+                    type="button"
+                    variant={showRoomSettings ? "secondary" : "outline"}
+                    onClick={() => setShowRoomSettings((currentValue) => !currentValue)}
                   >
-                    <SelectTrigger className="h-9">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="watching">Watching</SelectItem>
-                      <SelectItem value="ready">Ready</SelectItem>
-                      <SelectItem value="resting">Resting</SelectItem>
-                      <SelectItem value="away">Away</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              ) : null}
-              {snapshot.current_climb ? (
-                <div className="space-y-1 text-sm text-muted-foreground">
-                  <p>
-                    Current climb:{" "}
-                    <span className="font-medium text-foreground">
-                      {snapshot.current_climb.name}
-                    </span>
-                  </p>
-                  <p>
-                    Readiness:{" "}
-                    <span className="font-medium text-foreground">
-                      {readinessCounts.ready} ready
-                    </span>
-                    , {readinessCounts.resting} resting, {readinessCounts.away} away
-                  </p>
+                    {showRoomSettings ? "Hide room details" : "Edit room details"}
+                  </Button>
+                ) : null}
+              </div>
+              {snapshot.can_manage && showRoomSettings ? (
+                <div className="rounded-2xl border bg-muted/20 p-4">
+                  <div className="mb-3 space-y-1">
+                    <p className="text-sm font-medium text-foreground">Room details</p>
+                    <p className="text-sm text-muted-foreground">
+                      Keep optional host settings tucked away until you need them.
+                    </p>
+                  </div>
+                  <div className="grid max-w-xl gap-2">
+                    <label htmlFor="room-name-input" className="text-sm text-muted-foreground">
+                      Room name
+                    </label>
+                    <form
+                      className="flex flex-col gap-2 sm:flex-row"
+                      onSubmit={(event) => {
+                        event.preventDefault();
+                        void handleUpdateRoomName();
+                      }}
+                    >
+                      <Input
+                        id="room-name-input"
+                        value={roomNameInput}
+                        onChange={(event) => setRoomNameInput(event.target.value)}
+                        placeholder="Name this room"
+                      />
+                      <Button
+                        type="submit"
+                        variant="outline"
+                        disabled={roomNameSaving || !roomNameChanged}
+                      >
+                        {roomNameSaving
+                          ? "Saving..."
+                          : snapshot.room_name?.trim()
+                            ? "Save name"
+                            : "Set room name"}
+                      </Button>
+                    </form>
+                  </div>
                 </div>
               ) : null}
             </div>
@@ -1229,12 +1314,6 @@ export default function RoomView() {
           />
         ) : null}
 
-        {actionError ? (
-          <div className="rounded-2xl border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
-            {actionError}
-          </div>
-        ) : null}
-
         {!snapshot.connection.connected ? (
           <Card>
             <CardHeader>
@@ -1278,31 +1357,23 @@ export default function RoomView() {
                         placeholder="Kilter password"
                       />
                       <div className="space-y-2 md:col-span-2">
-                        {credentialStorageEnabled ? (
-                          <>
-                            <label className="flex items-center gap-3 text-sm font-medium">
-                              <input
-                                type="checkbox"
-                                checked={rememberCredentials.kilter}
-                                onChange={(event) =>
-                                  setRememberCredentials((previousState) => ({
-                                    ...previousState,
-                                    kilter: event.target.checked,
-                                  }))
-                                }
-                                className="h-4 w-4 rounded border-slate-300"
-                              />
-                              Remember Kilter credentials on this browser
-                            </label>
-                            <p className="text-xs text-muted-foreground">
-                              Stores the username and password locally in this browser after a successful login.
-                            </p>
-                          </>
-                        ) : (
-                          <p className="text-xs text-muted-foreground">
-                            Saved provider credentials are currently disabled in Settings for this browser.
-                          </p>
-                        )}
+                        <label className="flex items-center gap-3 text-sm font-medium">
+                          <input
+                            type="checkbox"
+                            checked={rememberCredentials.kilter}
+                            onChange={(event) =>
+                              setRememberCredentials((previousState) => ({
+                                ...previousState,
+                                kilter: event.target.checked,
+                              }))
+                            }
+                            className="h-4 w-4 rounded border-slate-300"
+                          />
+                          Remember Kilter credentials on this browser
+                        </label>
+                        <p className="text-xs text-muted-foreground">
+                          Stores the username and password locally in this browser after a successful login.
+                        </p>
                       </div>
                     </div>
                   ) : (
@@ -1322,31 +1393,23 @@ export default function RoomView() {
                       <p className="text-sm text-muted-foreground">
                         Paste either the raw Crux token or the full <code>Bearer ...</code> value.
                       </p>
-                      {credentialStorageEnabled ? (
-                        <>
-                          <label className="flex items-center gap-3 pt-1 text-sm font-medium">
-                            <input
-                              type="checkbox"
-                              checked={rememberCredentials.crux}
-                              onChange={(event) =>
-                                setRememberCredentials((previousState) => ({
-                                  ...previousState,
-                                  crux: event.target.checked,
-                                }))
-                              }
-                              className="h-4 w-4 rounded border-slate-300"
-                            />
-                            Remember Crux token on this browser
-                          </label>
-                          <p className="text-xs text-muted-foreground">
-                            Stores the Crux API token locally in this browser after a successful login.
-                          </p>
-                        </>
-                      ) : (
-                        <p className="text-xs text-muted-foreground">
-                          Saved provider credentials are currently disabled in Settings for this browser.
-                        </p>
-                      )}
+                      <label className="flex items-center gap-3 pt-1 text-sm font-medium">
+                        <input
+                          type="checkbox"
+                          checked={rememberCredentials.crux}
+                          onChange={(event) =>
+                            setRememberCredentials((previousState) => ({
+                              ...previousState,
+                              crux: event.target.checked,
+                            }))
+                          }
+                          className="h-4 w-4 rounded border-slate-300"
+                        />
+                        Remember Crux token on this browser
+                      </label>
+                      <p className="text-xs text-muted-foreground">
+                        Stores the Crux API token locally in this browser after a successful login.
+                      </p>
                     </div>
                   )}
                   <Button onClick={handleConnectProvider} disabled={surfaceLoading}>
@@ -1358,24 +1421,32 @@ export default function RoomView() {
           </Card>
         ) : null}
 
-        {snapshot.connection.connected && (!snapshot.surface || canEditCruxSurface) ? (
+        {showSurfaceCard ? (
           <Card>
             <CardHeader>
               <CardTitle>
-                {snapshot.surface && canEditCruxSurface
-                  ? "Edit the shared climbing surface"
-                  : "Choose the shared climbing surface"}
+                {snapshot.surface ? "Shared climbing surface" : "Choose the shared climbing surface"}
               </CardTitle>
               <CardDescription>
                 {snapshot.can_manage
-                  ? snapshot.surface && canEditCruxSurface
-                    ? "Update the shared Crux gym or wall whenever the group moves."
+                  ? snapshot.surface
+                    ? "Everyone in the room is browsing this board or wall. Open edit when you need to switch it."
                     : "This becomes the shared board or wall for everyone in the room."
                   : "Waiting for the host to choose the shared board or wall."}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {snapshot.can_manage ? (
+              <DetailGrid items={surfaceSummaryItems} className="lg:grid-cols-3" />
+              {snapshot.can_manage && snapshot.surface ? (
+                <Button
+                  type="button"
+                  variant={surfaceEditorOpen ? "secondary" : "outline"}
+                  onClick={() => setShowSurfaceEditor((currentValue) => !currentValue)}
+                >
+                  {surfaceEditorOpen ? "Hide surface editor" : "Edit surface"}
+                </Button>
+              ) : null}
+              {snapshot.can_manage && surfaceEditorOpen ? (
                 snapshot.provider_id === "kilter" ? (
                   <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto]">
                     <div className="grid gap-4 md:grid-cols-2">
@@ -1397,7 +1468,13 @@ export default function RoomView() {
                       onClick={handleSetSurface}
                       disabled={!selectedBoardId || surfaceLoading}
                     >
-                      {surfaceLoading ? "Saving..." : "Save board"}
+                      {surfaceLoading
+                        ? snapshot.surface
+                          ? "Updating..."
+                          : "Saving..."
+                        : snapshot.surface
+                          ? "Update board"
+                          : "Save board"}
                     </Button>
                   </div>
                 ) : (
@@ -1439,10 +1516,10 @@ export default function RoomView() {
                       disabled={!selectedGymSlug || !selectedWallId || surfaceLoading}
                     >
                       {surfaceLoading
-                        ? snapshot.surface && canEditCruxSurface
+                        ? snapshot.surface
                           ? "Updating..."
                           : "Saving..."
-                        : snapshot.surface && canEditCruxSurface
+                        : snapshot.surface
                           ? "Update wall"
                           : "Save wall"}
                     </Button>

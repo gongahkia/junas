@@ -496,6 +496,7 @@ describe("App routes", () => {
       await screen.findByRole("heading", { name: "Room rename-room" })
     ).toBeInTheDocument();
 
+    await user.click(screen.getByRole("button", { name: "Edit room details" }));
     await user.type(screen.getByLabelText("Room name"), "After Work Session");
     await user.click(screen.getByRole("button", { name: "Set room name" }));
 
@@ -831,9 +832,10 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
-    const editTitle = await screen.findByText("Edit the shared climbing surface");
+    const editTitle = await screen.findByText("Shared climbing surface");
     const editCard = editTitle.closest("[data-slot='card']");
     expect(editCard).not.toBeNull();
+    await user.click(within(editCard as HTMLElement).getByRole("button", { name: "Edit surface" }));
 
     const [gymSelect, wallSelect] = within(editCard as HTMLElement).getAllByRole("combobox");
 

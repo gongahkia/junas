@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useErrorToast } from "@/hooks/use-toast";
 import KilterBoardImage from "@/components/KilterBoardImage";
 
 interface RoomProblemViewProps {
@@ -22,11 +23,29 @@ export default function RoomProblemView({
   providerId,
   hasResults,
 }: RoomProblemViewProps) {
+  const showErrorToast = useErrorToast();
   const [failedImages, setFailedImages] = useState<Record<string, true>>({});
+  const [notifiedClimbId, setNotifiedClimbId] = useState("");
 
   useEffect(() => {
     setFailedImages({});
+    setNotifiedClimbId("");
   }, [climb?.id]);
+
+  const allImageMedia = (climb?.media ?? []).filter((media) => media.kind === "image");
+  const imageMedia = allImageMedia.filter((media) => !failedImages[media.url]);
+
+  useEffect(() => {
+    if (!climb || allImageMedia.length === 0 || imageMedia.length > 0) {
+      return;
+    }
+    if (notifiedClimbId === climb.id) {
+      return;
+    }
+
+    showErrorToast("Climb images failed to load for this room entry.");
+    setNotifiedClimbId(climb.id);
+  }, [allImageMedia.length, climb, imageMedia.length, notifiedClimbId, showErrorToast]);
 
   if (!climb) {
     return (
@@ -40,9 +59,6 @@ export default function RoomProblemView({
     );
   }
 
-  const imageMedia = (climb.media ?? []).filter(
-    (media) => media.kind === "image" && !failedImages[media.url],
-  );
   const fallbackMetadata = climb.meta ?? {};
 
   return (
@@ -79,7 +95,9 @@ export default function RoomProblemView({
         <div className="flex min-h-[20rem] items-center justify-center rounded-2xl border bg-muted/20 p-4">
           {imageMedia.length === 0 ? (
             <p className="text-center text-sm text-muted-foreground">
-              No climb images are available for this provider entry.
+              {allImageMedia.length > 0
+                ? "Preview unavailable for this provider entry."
+                : "No climb images are available for this provider entry."}
             </p>
           ) : (
             <KilterBoardImage

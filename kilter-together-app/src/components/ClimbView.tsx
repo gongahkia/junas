@@ -23,6 +23,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { useErrorToast } from "@/hooks/use-toast";
 
 const PAGE_SIZE = 10;
 
@@ -37,6 +38,7 @@ export default function ClimbView({
   boardsLoading,
   backPath = "/",
 }: ClimbViewProps) {
+  const showErrorToast = useErrorToast();
   const [climbs, setClimbs] = useState<Climb[]>([]);
   const [loading, setLoading] = useState(true);
   const [initialLoad, setInitialLoad] = useState(true);
@@ -158,6 +160,7 @@ export default function ClimbView({
         setClimbs([]);
         setSelectedClimb(null);
         setHasNextPage(false);
+        showErrorToast("Unable to load climbs for this board. Try refreshing the page.");
       } finally {
         setLoading(false);
         setInitialLoad(false);
@@ -175,6 +178,7 @@ export default function ClimbView({
     searchParams,
     selectedUuid,
     setSearchParams,
+    showErrorToast,
     sort,
   ]);
 

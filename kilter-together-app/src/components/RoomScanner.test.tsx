@@ -2,6 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import jsQR from "jsqr";
 import RoomScanner from "./RoomScanner";
+import { ToastProvider } from "@/components/ui/toast";
 
 vi.mock("jsqr", () => ({
   default: vi.fn(),
@@ -94,7 +95,11 @@ describe("RoomScanner", () => {
       },
     } as NonNullable<ReturnType<typeof jsQR>>);
 
-    render(<RoomScanner onDetected={onDetected} />);
+    render(
+      <ToastProvider>
+        <RoomScanner onDetected={onDetected} />
+      </ToastProvider>
+    );
 
     await user.click(screen.getByRole("button", { name: "Start scanner" }));
 
@@ -111,7 +116,11 @@ describe("RoomScanner", () => {
       value: undefined,
     });
 
-    render(<RoomScanner onDetected={onDetected} />);
+    render(
+      <ToastProvider>
+        <RoomScanner onDetected={onDetected} />
+      </ToastProvider>
+    );
 
     await user.click(screen.getByRole("button", { name: "Start scanner" }));
 

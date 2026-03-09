@@ -14,9 +14,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { useErrorToast } from "@/hooks/use-toast";
 
 export default function RoomDiscoveryPage() {
   const navigate = useNavigate();
+  const showErrorToast = useErrorToast();
   const [searchParams, setSearchParams] = useSearchParams();
   const [showOnboarding, setShowOnboarding] = useState(
     () => {
@@ -25,18 +27,16 @@ export default function RoomDiscoveryPage() {
     }
   );
   const [joinValue, setJoinValue] = useState("");
-  const [error, setError] = useState("");
   const scannerMode = searchParams.get("mode") === "scan";
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const roomSlug = extractRoomSlugFromValue(joinValue);
     if (!roomSlug) {
-      setError("Paste a room slug or invite URL to continue.");
+      showErrorToast("Paste a room slug or invite URL to continue.");
       return;
     }
 
-    setError("");
     navigate(`/join/${encodeURIComponent(roomSlug)}`);
   };
 
@@ -101,11 +101,6 @@ export default function RoomDiscoveryPage() {
                   onChange={(event) => setJoinValue(event.target.value)}
                   placeholder="https://.../join/room-slug or room-slug"
                 />
-                {error ? (
-                  <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">
-                    {error}
-                  </div>
-                ) : null}
                 <Button type="submit" className="w-full">
                   Continue to join
                 </Button>

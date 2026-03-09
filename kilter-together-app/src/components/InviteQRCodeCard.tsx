@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link2 } from "lucide-react";
 import { buildInviteLink } from "@/lib/room-links";
+import { useErrorToast } from "@/hooks/use-toast";
 import {
   Card,
   CardContent,
@@ -14,8 +15,9 @@ interface InviteQRCodeCardProps {
 }
 
 export default function InviteQRCodeCard({ slug }: InviteQRCodeCardProps) {
+  const showErrorToast = useErrorToast();
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState("");
-  const [error, setError] = useState("");
+  const [qrUnavailable, setQrUnavailable] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -35,12 +37,14 @@ export default function InviteQRCodeCard({ slug }: InviteQRCodeCardProps) {
         });
         if (!cancelled) {
           setQrCodeDataUrl(nextDataUrl);
-          setError("");
+          setQrUnavailable(false);
         }
       } catch (caughtError) {
         console.error("Generate QR code failed", caughtError);
         if (!cancelled) {
-          setError("Unable to render the invite QR code on this device.");
+          setQrCodeDataUrl("");
+          setQrUnavailable(true);
+          showErrorToast("Unable to render the invite QR code on this device.");
         }
       }
     };
@@ -50,7 +54,7 @@ export default function InviteQRCodeCard({ slug }: InviteQRCodeCardProps) {
     return () => {
       cancelled = true;
     };
-  }, [slug]);
+  }, [showErrorToast, slug]);
 
   return (
     <Card className="h-full">
@@ -64,16 +68,16 @@ export default function InviteQRCodeCard({ slug }: InviteQRCodeCardProps) {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center gap-3">
-        {error ? (
-          <div className="w-full rounded-2xl border border-destructive/30 bg-destructive/5 p-4 text-center text-sm text-destructive">
-            {error}
-          </div>
-        ) : qrCodeDataUrl ? (
+        {qrCodeDataUrl ? (
           <img
             src={qrCodeDataUrl}
             alt={`QR code invite for room ${slug}`}
             className="aspect-square w-full max-w-56 rounded-2xl border bg-white p-3 shadow-sm"
           />
+        ) : qrUnavailable ? (
+          <div className="flex aspect-square w-full max-w-56 items-center justify-center rounded-2xl border bg-muted/30 px-6 text-center text-sm text-muted-foreground">
+            QR unavailable on this device.
+          </div>
         ) : (
           <div className="flex aspect-square w-full max-w-56 items-center justify-center rounded-2xl border bg-muted/30 text-sm text-muted-foreground">
             Generating QR...

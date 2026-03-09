@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Camera, CameraOff, ScanQrCode } from "lucide-react";
 import { extractRoomSlugFromValue } from "@/lib/room-links";
 import { Button } from "@/components/ui/button";
+import { useErrorToast } from "@/hooks/use-toast";
 
 type QRDecoder = typeof import("jsqr").default;
 
@@ -14,6 +15,7 @@ export default function RoomScanner({
   autoStart = false,
   onDetected,
 }: RoomScannerProps) {
+  const showErrorToast = useErrorToast();
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -22,7 +24,6 @@ export default function RoomScanner({
   const activeRef = useRef(false);
   const autoStartedRef = useRef(false);
   const [status, setStatus] = useState<"idle" | "starting" | "scanning">("idle");
-  const [error, setError] = useState("");
 
   const stopScanner = useCallback(() => {
     activeRef.current = false;
@@ -58,7 +59,7 @@ export default function RoomScanner({
 
     const context = canvas.getContext("2d", { willReadFrequently: true });
     if (!context) {
-      setError("This browser cannot read camera frames for QR scanning.");
+      showErrorToast("This browser cannot read camera frames for QR scanning.");
       stopScanner();
       return;
     }
@@ -89,7 +90,7 @@ export default function RoomScanner({
     }
 
     frameRequestRef.current = window.requestAnimationFrame(scanFrame);
-  }, [onDetected, stopScanner]);
+  }, [onDetected, showErrorToast, stopScanner]);
 
   const startScanner = useCallback(async () => {
     if (activeRef.current) {
@@ -97,11 +98,12 @@ export default function RoomScanner({
     }
 
     if (!navigator.mediaDevices?.getUserMedia) {
-      setError("Camera scanning is not available in this browser. Paste the invite link instead.");
+      showErrorToast(
+        "Camera scanning is not available in this browser. Paste the invite link instead."
+      );
       return;
     }
 
-    setError("");
     setStatus("starting");
 
     try {
@@ -134,12 +136,12 @@ export default function RoomScanner({
       frameRequestRef.current = window.requestAnimationFrame(scanFrame);
     } catch (caughtError) {
       console.error("Start scanner failed", caughtError);
-      setError(
+      showErrorToast(
         "Unable to access the camera. Check permissions, then try again or paste the invite link manually."
       );
       stopScanner();
     }
-  }, [scanFrame, stopScanner]);
+  }, [scanFrame, showErrorToast, stopScanner]);
 
   useEffect(() => {
     if (autoStart && !autoStartedRef.current) {
@@ -172,17 +174,13 @@ export default function RoomScanner({
         </div>
       </div>
 
-      {error ? (
-        <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">
-          {error}
-        </div>
-      ) : (
-        <p className="text-sm text-muted-foreground">
-          {status === "scanning"
-            ? "Scanning for a room invite..."
+      <p className="text-sm text-muted-foreground">
+        {status === "scanning"
+          ? "Scanning for a room invite..."
+          : status === "starting"
+            ? "Opening the camera..."
             : "Use the rear camera when prompted for the best scan reliability."}
-        </p>
-      )}
+      </p>
 
       <div className="flex gap-3">
         <Button
