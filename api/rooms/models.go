@@ -28,24 +28,24 @@ const (
 )
 
 type Room struct {
-	ID                    uint   `gorm:"primaryKey"`
-	Slug                  string `gorm:"uniqueIndex;not null"`
-	Name                  string `gorm:"index"`
-	ProviderID            string `gorm:"index;not null"`
-	Status                string `gorm:"index;not null"`
-	SurfaceID             string
-	SurfaceKind           string
-	SurfaceName           string
-	SurfaceDescription    string
-	SurfaceContextJSON    string
-	CurrentClimbID        string
-	CurrentClimbJSON      string
-	EmojiReactionsEnabled bool      `gorm:"not null;default:true"`
-	Version               int64     `gorm:"not null;default:1"`
-	LastActiveAt          time.Time `gorm:"index;not null"`
-	ClosedAt              *time.Time
-	CreatedAt             time.Time
-	UpdatedAt             time.Time
+	ID                 uint   `gorm:"primaryKey"`
+	Slug               string `gorm:"uniqueIndex;not null"`
+	Name               string `gorm:"index"`
+	ProviderID         string `gorm:"index;not null"`
+	Status             string `gorm:"index;not null"`
+	SurfaceID          string
+	SurfaceKind        string
+	SurfaceName        string
+	SurfaceDescription string
+	SurfaceContextJSON string
+	CurrentClimbID     string
+	CurrentClimbJSON   string
+	FistBumpsEnabled   bool      `gorm:"column:emoji_reactions_enabled;not null;default:true"`
+	Version            int64     `gorm:"not null;default:1"`
+	LastActiveAt       time.Time `gorm:"index;not null"`
+	ClosedAt           *time.Time
+	CreatedAt          time.Time
+	UpdatedAt          time.Time
 }
 
 type RoomParticipant struct {
@@ -78,14 +78,6 @@ type RoomProviderConnection struct {
 	LastValidatedAt  time.Time `gorm:"index;not null"`
 	CreatedAt        time.Time
 	UpdatedAt        time.Time
-}
-
-type RoomVote struct {
-	ID            uint   `gorm:"primaryKey"`
-	RoomID        uint   `gorm:"index:idx_room_vote_unique,unique;not null"`
-	ParticipantID uint   `gorm:"index:idx_room_vote_unique,unique;not null"`
-	ClimbID       string `gorm:"index:idx_room_vote_unique,unique;not null"`
-	CreatedAt     time.Time
 }
 
 type RoomQueueEntry struct {
@@ -134,14 +126,6 @@ type FinalistEntryView struct {
 	Climb    providers.ProviderClimb `json:"climb"`
 }
 
-type RoomReactionView struct {
-	ID          string    `json:"id"`
-	EmojiCode   string    `json:"emoji_code"`
-	DisplayName string    `json:"display_name"`
-	Role        string    `json:"role"`
-	CreatedAt   time.Time `json:"created_at"`
-}
-
 type CatalogClimbsResponse struct {
 	Climbs     []providers.ProviderClimb `json:"climbs"`
 	HasMore    bool                      `json:"has_more"`
@@ -159,23 +143,22 @@ type CatalogClimbResponse struct {
 }
 
 type RoomSnapshot struct {
-	Slug                  string                            `json:"slug"`
-	RoomName              string                            `json:"room_name,omitempty"`
-	Status                string                            `json:"status"`
-	ProviderID            providers.ProviderID              `json:"provider_id"`
-	Version               int64                             `json:"version"`
-	Surface               *providers.ProviderSurface        `json:"surface,omitempty"`
-	Connection            providers.ProviderConnectionState `json:"connection"`
-	CurrentClimb          *providers.ProviderClimb          `json:"current_climb,omitempty"`
-	Participants          []ParticipantView                 `json:"participants"`
-	Finalists             []FinalistEntryView               `json:"finalists"`
-	Queue                 []QueueEntryView                  `json:"queue"`
-	VoteCounts            map[string]int                    `json:"vote_counts"`
-	MyVotes               []string                          `json:"my_votes"`
-	CanManage             bool                              `json:"can_manage"`
-	DisplayName           string                            `json:"display_name,omitempty"`
-	EmojiReactionsEnabled bool                              `json:"emoji_reactions_enabled"`
-	RecentReactions       []RoomReactionView                `json:"recent_reactions"`
+	Slug             string                            `json:"slug"`
+	RoomName         string                            `json:"room_name,omitempty"`
+	Status           string                            `json:"status"`
+	ProviderID       providers.ProviderID              `json:"provider_id"`
+	Version          int64                             `json:"version"`
+	Surface          *providers.ProviderSurface        `json:"surface,omitempty"`
+	Connection       providers.ProviderConnectionState `json:"connection"`
+	CurrentClimb     *providers.ProviderClimb          `json:"current_climb,omitempty"`
+	Participants     []ParticipantView                 `json:"participants"`
+	Finalists        []FinalistEntryView               `json:"finalists"`
+	Queue            []QueueEntryView                  `json:"queue"`
+	VoteCounts       map[string]int                    `json:"vote_counts"`
+	MyVotes          []string                          `json:"my_votes"`
+	FistBumpsEnabled bool                              `json:"fist_bumps_enabled"`
+	CanManage        bool                              `json:"can_manage"`
+	DisplayName      string                            `json:"display_name,omitempty"`
 }
 
 type EventPayload struct {

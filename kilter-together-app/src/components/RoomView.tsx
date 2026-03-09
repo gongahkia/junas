@@ -22,7 +22,6 @@ import type {
   ProviderClimb,
   ProviderSurface,
   QueueStatus,
-  RoomReactionCode,
   RoomCatalogClimbsResponse,
   RoomSnapshot,
 } from "@/types";
@@ -46,6 +45,7 @@ import {
 import OnboardingCallout from "@/components/OnboardingCallout";
 import DetailGrid, { type DetailGridItem } from "@/components/DetailGrid";
 import RoomProblemView from "@/components/RoomProblemView";
+import RoomFistBumpButton from "@/components/RoomFistBumpButton";
 import InviteQRCodeCard from "@/components/InviteQRCodeCard";
 import AngleSelector from "@/components/AngleSelector";
 import LoadingSlideshow from "@/components/LoadingSlideshow";
@@ -105,8 +105,8 @@ export default function RoomView() {
   const [actionError, setActionError] = useState("");
   const [roomNameInput, setRoomNameInput] = useState("");
   const [roomNameSaving, setRoomNameSaving] = useState(false);
-  const [emojiReactionsSaving, setEmojiReactionsSaving] = useState(false);
-  const [reactionSendingCode, setReactionSendingCode] = useState<RoomReactionCode | null>(null);
+  const [fistBumpsSaving, setFistBumpsSaving] = useState(false);
+  const [pendingFistBumpClimbId, setPendingFistBumpClimbId] = useState("");
   const [showRoomSettings, setShowRoomSettings] = useState(false);
   const [showSurfaceEditor, setShowSurfaceEditor] = useState(false);
   const [connectionFields, setConnectionFields] = useState(() => ({
@@ -173,6 +173,8 @@ export default function RoomView() {
     null;
   const hasSurface = !!snapshot?.surface;
   const roomStatus = snapshot?.status;
+  const fistBumpsBlocked =
+    snapshot?.status === "closed" || snapshot?.fist_bumps_enabled === false;
 
   useEffect(() => {
     selectedClimbIdRef.current = selectedClimbId;
@@ -681,58 +683,38 @@ export default function RoomView() {
     await refreshRoomState();
   };
 
-  const handleEmojiReactionsToggle = async (enabled: boolean) => {
+  const handleFistBumpsToggle = async (enabled: boolean) => {
     if (!slug || !snapshot?.can_manage) {
       return;
     }
 
-    setEmojiReactionsSaving(true);
+    setFistBumpsSaving(true);
     setActionError("");
 
     try {
-      const updatedSnapshot = await api.setRoomEmojiReactionsEnabled(slug, enabled);
+      const updatedSnapshot = await api.setRoomFistBumpsEnabled(slug, enabled);
       setSnapshot(updatedSnapshot);
       rememberRoomVisit(updatedSnapshot);
     } catch (caughtError) {
-      console.error("Update emoji reactions failed", caughtError);
+      console.error("Update fist bumps failed", caughtError);
       setActionError(
-        getApiErrorMessage(caughtError, "Unable to update emoji reactions for this room.")
+        getApiErrorMessage(caughtError, "Unable to update fist bumps for this room.")
       );
     } finally {
-      setEmojiReactionsSaving(false);
+      setFistBumpsSaving(false);
     }
   };
 
-  const handleSendRoomReaction = async (emojiCode: RoomReactionCode) => {
-    if (!slug) {
-      return;
-    }
-    if (!snapshot?.emoji_reactions_enabled) {
-      setActionError("The host has paused emoji reactions for this room.");
-      return;
-    }
-
-    setReactionSendingCode(emojiCode);
-    setActionError("");
-
-    try {
-      await api.sendRoomReaction(slug, emojiCode);
-      if (!snapshot?.can_manage) {
-        markGuestParticipated();
+  const handleFistBumpToggle = async (climbId: string) => {
+    if (!slug || !snapshot?.fist_bumps_enabled) {
+      if (!snapshot?.fist_bumps_enabled) {
+        setActionError("The host has disabled fist bumps for this room.");
       }
-      await refreshRoomState();
-    } catch (caughtError) {
-      console.error("Send room reaction failed", caughtError);
-      setActionError(getApiErrorMessage(caughtError, "Unable to send this room reaction."));
-    } finally {
-      setReactionSendingCode(null);
-    }
-  };
-
-  const handleVoteToggle = async (climbId: string) => {
-    if (!slug) {
       return;
     }
+
+    setPendingFistBumpClimbId(climbId);
+    setActionError("");
 
     try {
       await api.toggleRoomVote(slug, climbId);
@@ -741,8 +723,12 @@ export default function RoomView() {
       }
       await refreshRoomState();
     } catch (caughtError) {
-      console.error("Toggle vote failed", caughtError);
-      setActionError("Unable to update the vote for this climb.");
+      console.error("Toggle fist bump failed", caughtError);
+      setActionError(
+        getApiErrorMessage(caughtError, "Unable to update the fist bump for this climb.")
+      );
+    } finally {
+      setPendingFistBumpClimbId("");
     }
   };
 
@@ -966,7 +952,7 @@ export default function RoomView() {
       await refreshRoomState();
     } catch (caughtError) {
       console.error("Clear votes failed", caughtError);
-      setActionError("Unable to clear votes for this room.");
+      setActionError("Unable to clear fist bumps for this room.");
     }
   };
 
@@ -1075,12 +1061,12 @@ export default function RoomView() {
     );
   }
 
-  const selectedVoteCount =
+  const selectedFistBumpCount =
     (selectedClimb ? catalog?.vote_counts[selectedClimb.id] : undefined) ??
     (selectedClimb ? snapshot.vote_counts[selectedClimb.id] : 0) ??
     0;
-  const myVotes = catalog?.my_votes ?? snapshot.my_votes;
-  const selectedHasMyVote = selectedClimb ? myVotes.includes(selectedClimb.id) : false;
+  const myFistBumps = catalog?.my_votes ?? snapshot.my_votes;
+  const selectedHasMyFistBump = selectedClimb ? myFistBumps.includes(selectedClimb.id) : false;
   const selectedIsQueued = selectedClimb
     ? snapshot.queue.some((entry) => entry.climb.id === selectedClimb.id)
     : false;
@@ -1150,8 +1136,6 @@ export default function RoomView() {
   const roomTitle = snapshot.room_name?.trim() || `Room ${snapshot.slug}`;
   const roomNameChanged = roomNameInput.trim() !== (snapshot.room_name ?? "").trim();
   const providerLabel = formatProviderName(snapshot.provider_id);
-  const motionEnabled = loadUserPrefs().settings.playfulMotionEnabled;
-  const recentReactions = Array.isArray(snapshot.recent_reactions) ? snapshot.recent_reactions : [];
   const showSurfaceCard = snapshot.connection.connected && (snapshot.can_manage || !snapshot.surface);
   const surfaceEditorOpen =
     snapshot.can_manage && snapshot.connection.connected && (!snapshot.surface || showSurfaceEditor);
@@ -1343,6 +1327,32 @@ export default function RoomView() {
                             : "Set room name"}
                       </Button>
                     </form>
+                    <div className="mt-3 rounded-2xl border bg-white/80 p-3">
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <div className="space-y-1">
+                          <p className="text-sm font-medium text-foreground">Fist bumps</p>
+                          <p className="text-sm text-muted-foreground">
+                            {snapshot.fist_bumps_enabled
+                              ? "Guests can fist bump climbs from the room cards."
+                              : "Fist bumps are hidden and no one can add them right now."}
+                          </p>
+                        </div>
+                        <Button
+                          type="button"
+                          variant={snapshot.fist_bumps_enabled ? "outline" : "secondary"}
+                          disabled={fistBumpsSaving || snapshot.status === "closed"}
+                          onClick={() =>
+                            void handleFistBumpsToggle(!snapshot.fist_bumps_enabled)
+                          }
+                        >
+                          {fistBumpsSaving
+                            ? "Saving..."
+                            : snapshot.fist_bumps_enabled
+                              ? "Disable fist bumps"
+                              : "Enable fist bumps"}
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ) : null}
@@ -1391,14 +1401,14 @@ export default function RoomView() {
                 ? snapshot.connection.connected
                   ? "Host flow: choose, then share"
                   : "Host flow: connect, choose, then share"
-                : "Guest flow: vote and queue from your phone"
+                : "Guest flow: fist bump and queue from your phone"
             }
             description={
               snapshot.can_manage
                 ? snapshot.connection.connected
                   ? "You are the room host. The provider is already authenticated for this room, so the next step is picking the shared surface before you invite everyone else."
                   : "You are the room host. Finish the provider setup once, then everyone else can join through the invite link or QR code."
-                : "You are already inside the room. The next useful action is to vote for a climb or add one to the shared queue."
+                : "You are already inside the room. The next useful action is to fist bump a climb or add one to the shared queue."
             }
             steps={
               snapshot.can_manage
@@ -1409,10 +1419,10 @@ export default function RoomView() {
                     snapshot.surface
                       ? `Surface selected: ${snapshot.surface.name}.`
                       : "Choose the Kilter board plus angle, or the Crux gym plus wall.",
-                    "Share the invite link or QR code, then watch votes and queue picks as guests join.",
+                    "Share the invite link or QR code, then watch fist bumps and queue picks as guests join.",
                   ]
                 : [
-                    "Use Vote for climb to signal what you want to try next.",
+                    "Use the fist bump pill to signal what you want to try next.",
                     "Use Add to queue when you want to propose a concrete running order.",
                     "Follow the current climb and next climb indicators to stay synced with the group.",
                   ]
@@ -1676,6 +1686,7 @@ export default function RoomView() {
                     ) : catalog?.climbs.length ? (
                       catalog.climbs.map((climb) => {
                         const voteCount = catalog.vote_counts[climb.id] ?? 0;
+                        const hasMyFistBump = myFistBumps.includes(climb.id);
                         const isQueued = snapshot.queue.some(
                           (entry) => entry.climb.id === climb.id
                         );
@@ -1687,39 +1698,56 @@ export default function RoomView() {
                         );
 
                         return (
-                          <button
+                          <div
                             key={climb.id}
-                            type="button"
-                            onClick={() => selectClimb(climb)}
                             className={`w-full rounded-2xl border p-3 text-left transition-colors ${
                               selectedClimb?.id === climb.id
                                 ? "border-primary bg-primary/5"
                                 : "bg-card hover:bg-muted/40"
                             }`}
                           >
-                            <div className="flex items-start justify-between gap-3">
-                              <div>
-                                <p className="font-medium">{climb.name}</p>
-                                <p className="mt-1 text-xs text-muted-foreground">
-                                  {climb.setter_name || "Unknown setter"}
-                                </p>
+                            <button
+                              type="button"
+                              onClick={() => selectClimb(climb)}
+                              className="w-full text-left"
+                            >
+                              <div className="flex items-start justify-between gap-3">
+                                <div>
+                                  <p className="font-medium">{climb.name}</p>
+                                  <p className="mt-1 text-xs text-muted-foreground">
+                                    {climb.setter_name || "Unknown setter"}
+                                  </p>
+                                </div>
+                                <div className="flex flex-col items-end gap-1">
+                                  <Badge variant="secondary">
+                                    {climb.primary_grade || "Unknown"}
+                                  </Badge>
+                                  {isQueued ? <Badge variant="outline">Queued</Badge> : null}
+                                  {queueEntry?.status === "current" ? (
+                                    <Badge>Current</Badge>
+                                  ) : null}
+                                  {queueEntry?.status === "next" ? (
+                                    <Badge variant="outline">Next</Badge>
+                                  ) : null}
+                                  {finalistEntry ? <Badge variant="outline">Finalist</Badge> : null}
+                                </div>
                               </div>
-                              <div className="flex flex-col items-end gap-1">
-                                <Badge variant="secondary">
-                                  {climb.primary_grade || "Unknown"}
-                                </Badge>
-                                <Badge variant="outline">{voteCount} votes</Badge>
-                                {isQueued ? <Badge variant="outline">Queued</Badge> : null}
-                                {queueEntry?.status === "current" ? (
-                                  <Badge>Current</Badge>
-                                ) : null}
-                                {queueEntry?.status === "next" ? (
-                                  <Badge variant="outline">Next</Badge>
-                                ) : null}
-                                {finalistEntry ? <Badge variant="outline">Finalist</Badge> : null}
+                            </button>
+                            {snapshot.fist_bumps_enabled ? (
+                              <div className="mt-3">
+                                <RoomFistBumpButton
+                                  active={hasMyFistBump}
+                                  climbName={climb.name}
+                                  count={voteCount}
+                                  disabled={
+                                    fistBumpsBlocked ||
+                                    pendingFistBumpClimbId === climb.id
+                                  }
+                                  onClick={() => void handleFistBumpToggle(climb.id)}
+                                />
                               </div>
-                            </div>
-                          </button>
+                            ) : null}
+                          </div>
                         );
                       })
                     ) : (
@@ -1755,12 +1783,11 @@ export default function RoomView() {
                     <div>
                       <CardTitle>Climb detail</CardTitle>
                       <CardDescription>
-                        Votes and queue actions affect the shared room state.
+                        Fist bumps and queue actions affect the shared room state.
                       </CardDescription>
                     </div>
                     {selectedClimb ? (
                       <div className="flex flex-wrap items-center gap-2">
-                        <Badge variant="secondary">{selectedVoteCount} votes</Badge>
                         {selectedIsQueued ? <Badge variant="outline">Queued</Badge> : null}
                         {selectedQueueEntry?.status === "current" ? <Badge>Current</Badge> : null}
                         {selectedQueueEntry?.status === "next" ? (
@@ -1773,12 +1800,18 @@ export default function RoomView() {
                   <CardContent className="grid gap-4">
                     {selectedClimb ? (
                       <div className="flex flex-wrap gap-3">
-                        <Button
-                          onClick={() => handleVoteToggle(selectedClimb.id)}
-                          disabled={snapshot.status === "closed"}
-                        >
-                          {selectedHasMyVote ? "Remove vote" : "Vote for climb"}
-                        </Button>
+                        {snapshot.fist_bumps_enabled ? (
+                          <RoomFistBumpButton
+                            active={selectedHasMyFistBump}
+                            climbName={selectedClimb.name}
+                            count={selectedFistBumpCount}
+                            disabled={
+                              fistBumpsBlocked ||
+                              pendingFistBumpClimbId === selectedClimb.id
+                            }
+                            onClick={() => void handleFistBumpToggle(selectedClimb.id)}
+                          />
+                        ) : null}
                         <Button
                           variant="outline"
                           onClick={() => handleQueueAdd(selectedClimb.id)}
@@ -1817,15 +1850,6 @@ export default function RoomView() {
                       climb={selectedClimb}
                       providerId={snapshot.provider_id}
                       hasResults={(catalog?.climbs.length ?? 0) > 0}
-                      reactionsEnabled={snapshot.emoji_reactions_enabled}
-                      canManage={snapshot.can_manage}
-                      roomStatus={snapshot.status}
-                      recentReactions={recentReactions}
-                      motionEnabled={motionEnabled}
-                      emojiReactionsSaving={emojiReactionsSaving}
-                      reactionSendingCode={reactionSendingCode}
-                      onSendReaction={(emojiCode) => void handleSendRoomReaction(emojiCode)}
-                      onToggleReactions={(enabled) => void handleEmojiReactionsToggle(enabled)}
                     />
                   </CardContent>
                 </Card>
@@ -1834,13 +1858,17 @@ export default function RoomView() {
                   <CardHeader>
                     <CardTitle>Leaderboard</CardTitle>
                     <CardDescription>
-                      Highest-voted climbs visible in this room snapshot.
+                      Most fist-bumped climbs visible in this room snapshot.
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    {leaderboard.length === 0 ? (
+                    {!snapshot.fist_bumps_enabled ? (
                       <div className="rounded-xl border border-dashed p-4 text-sm text-muted-foreground">
-                        Votes will surface the leaderboard once the group starts choosing climbs.
+                        Fist bumps are disabled for this room.
+                      </div>
+                    ) : leaderboard.length === 0 ? (
+                      <div className="rounded-xl border border-dashed p-4 text-sm text-muted-foreground">
+                        Fist bumps will surface the leaderboard once the group starts choosing climbs.
                       </div>
                     ) : (
                       <>
@@ -1850,24 +1878,37 @@ export default function RoomView() {
                           </div>
                         ) : null}
                         {leaderboard.map((climb, index) => (
-                          <button
+                          <div
                             key={climb.id}
-                            type="button"
-                            onClick={() => selectClimb(climb)}
-                            className="flex w-full items-center justify-between rounded-2xl border p-3 text-left transition-colors hover:bg-muted/30"
+                            className="rounded-2xl border p-3 transition-colors hover:bg-muted/30"
                           >
-                            <div>
+                            <button
+                              type="button"
+                              onClick={() => selectClimb(climb)}
+                              className="w-full text-left"
+                            >
                               <p className="font-medium">
                                 #{index + 1} {climb.name}
                               </p>
                               <p className="mt-1 text-xs text-muted-foreground">
                                 {climb.setter_name || "Unknown setter"}
                               </p>
-                            </div>
-                            <Badge variant="secondary">
-                              {snapshot.vote_counts[climb.id] ?? 0} votes
-                            </Badge>
-                          </button>
+                            </button>
+                            {snapshot.fist_bumps_enabled ? (
+                              <div className="mt-3">
+                                <RoomFistBumpButton
+                                  active={myFistBumps.includes(climb.id)}
+                                  climbName={climb.name}
+                                  count={snapshot.vote_counts[climb.id] ?? 0}
+                                  disabled={
+                                    fistBumpsBlocked ||
+                                    pendingFistBumpClimbId === climb.id
+                                  }
+                                  onClick={() => void handleFistBumpToggle(climb.id)}
+                                />
+                              </div>
+                            ) : null}
+                          </div>
                         ))}
                         {snapshot.can_manage ? (
                           <div className="flex flex-wrap gap-2 pt-2">
@@ -1885,7 +1926,7 @@ export default function RoomView() {
                               onClick={() => handlePickRandom("top_voted")}
                               disabled={leaderboard.length === 0}
                             >
-                              Pick random top vote
+                              Pick random top fist bump
                             </Button>
                           </div>
                         ) : null}
@@ -1900,7 +1941,7 @@ export default function RoomView() {
                   <CardHeader>
                     <CardTitle>Finalists</CardTitle>
                     <CardDescription>
-                      Host-managed shortlist for narrowing down the vote.
+                      Host-managed shortlist for narrowing down the field.
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3">
@@ -1950,14 +1991,24 @@ export default function RoomView() {
                                     Added by {entry.added_by}
                                   </p>
                                 </div>
-                                <Badge variant="secondary">
-                                  {snapshot.vote_counts[entry.climb.id] ?? 0} votes
-                                </Badge>
                               </div>
                             </button>
                           </div>
-                          {snapshot.can_manage ? (
-                            <div className="mt-3 flex flex-wrap gap-2">
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {snapshot.fist_bumps_enabled ? (
+                              <RoomFistBumpButton
+                                active={myFistBumps.includes(entry.climb.id)}
+                                climbName={entry.climb.name}
+                                count={snapshot.vote_counts[entry.climb.id] ?? 0}
+                                disabled={
+                                  fistBumpsBlocked ||
+                                  pendingFistBumpClimbId === entry.climb.id
+                                }
+                                onClick={() => void handleFistBumpToggle(entry.climb.id)}
+                              />
+                            ) : null}
+                            {snapshot.can_manage ? (
+                              <>
                               <Button
                                 size="sm"
                                 variant="outline"
@@ -1980,8 +2031,9 @@ export default function RoomView() {
                                 <Trash2 className="mr-1 h-3.5 w-3.5" />
                                 Remove
                               </Button>
-                            </div>
-                          ) : null}
+                              </>
+                            ) : null}
+                          </div>
                         </div>
                       ))
                     )}
@@ -2042,8 +2094,21 @@ export default function RoomView() {
                               </div>
                             </div>
                           </div>
-                          {snapshot.can_manage ? (
-                            <div className="mt-3 flex flex-wrap gap-2">
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            {snapshot.fist_bumps_enabled ? (
+                              <RoomFistBumpButton
+                                active={myFistBumps.includes(entry.climb.id)}
+                                climbName={entry.climb.name}
+                                count={snapshot.vote_counts[entry.climb.id] ?? 0}
+                                disabled={
+                                  fistBumpsBlocked ||
+                                  pendingFistBumpClimbId === entry.climb.id
+                                }
+                                onClick={() => void handleFistBumpToggle(entry.climb.id)}
+                              />
+                            ) : null}
+                            {snapshot.can_manage ? (
+                              <>
                               <Button
                                 size="sm"
                                 variant="outline"
@@ -2075,8 +2140,9 @@ export default function RoomView() {
                                 <Trash2 className="mr-1 h-3.5 w-3.5" />
                                 Remove
                               </Button>
-                            </div>
-                          ) : null}
+                              </>
+                            ) : null}
+                          </div>
                         </div>
                       ))
                     )}
@@ -2121,7 +2187,7 @@ export default function RoomView() {
                     {snapshot.can_manage ? (
                       <div className="flex flex-wrap gap-2 pt-2">
                         <Button variant="outline" onClick={handleClearVotes}>
-                          Clear votes
+                          Clear fist bumps
                         </Button>
                         <Button variant="destructive" onClick={handleCloseRoom}>
                           Close room

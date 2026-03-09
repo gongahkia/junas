@@ -43,6 +43,7 @@ path now expects bootstrap to happen as an explicit init step before `serve`.
 - `GET /api/rooms/{slug}/catalog/surfaces`
 - `GET /api/rooms/{slug}/catalog/climbs`
 - `GET /api/rooms/{slug}/catalog/climbs/{climbId}`
+- `PUT /api/rooms/{slug}/fist-bumps/settings`
 - `PUT /api/rooms/{slug}/votes/{climbId}`
 - `POST /api/rooms/{slug}/queue`
 - `PATCH /api/rooms/{slug}/queue/reorder`

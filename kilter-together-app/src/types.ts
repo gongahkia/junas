@@ -4,13 +4,6 @@ export type RoomStatus = "open" | "closed";
 export type QueueStatus = "queued" | "next" | "current" | "done";
 export type ParticipantStatus = "watching" | "ready" | "resting" | "away";
 export type RandomPickSource = "auto" | "finalists" | "top_voted";
-export type RoomReactionCode =
-  | "thumbs_up"
-  | "heart"
-  | "clap"
-  | "fire"
-  | "mind_blown"
-  | "party";
 
 export interface Board {
   id: number;
@@ -129,14 +122,6 @@ export interface FinalistEntry {
   climb: ProviderClimb;
 }
 
-export interface RoomReaction {
-  id: string;
-  emoji_code: RoomReactionCode;
-  display_name: string;
-  role: string;
-  created_at: string;
-}
-
 export interface RoomSnapshot {
   slug: string;
   room_name?: string;
@@ -151,10 +136,9 @@ export interface RoomSnapshot {
   queue: QueueEntry[];
   vote_counts: Record<string, number>;
   my_votes: string[];
+  fist_bumps_enabled: boolean;
   can_manage: boolean;
   display_name?: string;
-  emoji_reactions_enabled: boolean;
-  recent_reactions: RoomReaction[];
 }
 
 export interface RoomCatalogClimbsResponse {

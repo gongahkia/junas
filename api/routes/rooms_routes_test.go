@@ -53,11 +53,11 @@ func TestRoomRoutesContract(t *testing.T) {
 	}
 
 	var createdRoom struct {
-		Slug                  string `json:"slug"`
-		RoomName              string `json:"room_name"`
-		ProviderID            string `json:"provider_id"`
-		EmojiReactionsEnabled bool   `json:"emoji_reactions_enabled"`
-		Connection            struct {
+		Slug             string `json:"slug"`
+		RoomName         string `json:"room_name"`
+		ProviderID       string `json:"provider_id"`
+		FistBumpsEnabled bool   `json:"fist_bumps_enabled"`
+		Connection       struct {
 			Connected bool `json:"connected"`
 		} `json:"connection"`
 	}
@@ -70,8 +70,8 @@ func TestRoomRoutesContract(t *testing.T) {
 	if createdRoom.RoomName != "Evening Session" {
 		t.Fatalf("unexpected room name in create payload: %#v", createdRoom)
 	}
-	if !createdRoom.EmojiReactionsEnabled {
-		t.Fatalf("expected emoji reactions to default on: %#v", createdRoom)
+	if !createdRoom.FistBumpsEnabled {
+		t.Fatalf("expected fist bumps to default on: %#v", createdRoom)
 	}
 	if !createdRoom.Connection.Connected {
 		t.Fatalf("expected room creation to return a connected provider state: %#v", createdRoom)
@@ -161,13 +161,6 @@ func TestRoomRoutesContract(t *testing.T) {
 		t.Fatalf("expected participant status update 200, got %d", statusResponse.StatusCode)
 	}
 
-	reactionResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+createdRoom.Slug+"/reactions", map[string]string{
-		"emoji_code": "clap",
-	}, guestCookies)
-	if reactionResponse.StatusCode != http.StatusCreated {
-		t.Fatalf("expected reaction add status 201, got %d", reactionResponse.StatusCode)
-	}
-
 	promoteResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+createdRoom.Slug+"/queue/promote", map[string]string{
 		"climb_id": "fake-route:beta",
 		"status":   "current",
@@ -221,11 +214,7 @@ func TestRoomRoutesContract(t *testing.T) {
 				ID string `json:"id"`
 			} `json:"climb"`
 		} `json:"queue"`
-		EmojiReactionsEnabled bool `json:"emoji_reactions_enabled"`
-		RecentReactions       []struct {
-			EmojiCode   string `json:"emoji_code"`
-			DisplayName string `json:"display_name"`
-		} `json:"recent_reactions"`
+		FistBumpsEnabled bool `json:"fist_bumps_enabled"`
 	}
 	if err := json.NewDecoder(roomResponse.Body).Decode(&roomPayload); err != nil {
 		t.Fatalf("decode room snapshot response: %v", err)
@@ -254,25 +243,20 @@ func TestRoomRoutesContract(t *testing.T) {
 	if len(roomPayload.Finalists) != 1 || roomPayload.Finalists[0].Climb.ID != "fake-route:beta" {
 		t.Fatalf("unexpected finalists payload: %#v", roomPayload.Finalists)
 	}
-	if !roomPayload.EmojiReactionsEnabled {
-		t.Fatalf("expected reactions to remain enabled, got %#v", roomPayload)
-	}
-	if len(roomPayload.RecentReactions) != 1 || roomPayload.RecentReactions[0].EmojiCode != "clap" || roomPayload.RecentReactions[0].DisplayName != "Guest" {
-		t.Fatalf("unexpected recent reactions payload: %#v", roomPayload.RecentReactions)
+	if !roomPayload.FistBumpsEnabled {
+		t.Fatalf("expected fist bumps to remain enabled, got %#v", roomPayload)
 	}
 
-	reactionsOffResponse := performJSONRequest(t, server, http.MethodPut, "/api/rooms/"+createdRoom.Slug+"/reactions/settings", map[string]bool{
+	fistBumpsOffResponse := performJSONRequest(t, server, http.MethodPut, "/api/rooms/"+createdRoom.Slug+"/fist-bumps/settings", map[string]bool{
 		"enabled": false,
 	}, hostCookies)
-	if reactionsOffResponse.StatusCode != http.StatusOK {
-		t.Fatalf("expected reactions settings update 200, got %d", reactionsOffResponse.StatusCode)
+	if fistBumpsOffResponse.StatusCode != http.StatusOK {
+		t.Fatalf("expected fist bumps settings update 200, got %d", fistBumpsOffResponse.StatusCode)
 	}
 
-	disabledReactionResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+createdRoom.Slug+"/reactions", map[string]string{
-		"emoji_code": "heart",
-	}, guestCookies)
-	if disabledReactionResponse.StatusCode != http.StatusForbidden {
-		t.Fatalf("expected disabled reactions to return 403, got %d", disabledReactionResponse.StatusCode)
+	disabledVoteResponse := performJSONRequest(t, server, http.MethodPut, "/api/rooms/"+createdRoom.Slug+"/votes/fake-route:beta", nil, guestCookies)
+	if disabledVoteResponse.StatusCode != http.StatusForbidden {
+		t.Fatalf("expected disabled fist bumps to return 403, got %d", disabledVoteResponse.StatusCode)
 	}
 }
 
@@ -397,7 +381,7 @@ func TestRoomPermissionBoundaries(t *testing.T) {
 		{"reorder finalists", http.MethodPatch, "/api/rooms/" + slug + "/finalists/reorder", nil},
 		{"promote queue", http.MethodPost, "/api/rooms/" + slug + "/queue/promote", nil},
 		{"reorder queue", http.MethodPatch, "/api/rooms/" + slug + "/queue/reorder", nil},
-		{"update reactions setting", http.MethodPut, "/api/rooms/" + slug + "/reactions/settings", map[string]bool{"enabled": false}},
+		{"update fist bumps setting", http.MethodPut, "/api/rooms/" + slug + "/fist-bumps/settings", map[string]bool{"enabled": false}},
 		{"close room", http.MethodPost, "/api/rooms/" + slug + "/close", nil},
 		{"kick participant", http.MethodDelete, "/api/rooms/" + slug + "/participants/1", nil},
 	}
@@ -427,12 +411,6 @@ func TestRoomPermissionBoundaries(t *testing.T) {
 		resp := performJSONRequest(t, server, http.MethodPut, "/api/rooms/"+slug+"/participants/me/status", map[string]string{"status": "ready"}, guestCookies)
 		if resp.StatusCode != http.StatusOK {
 			t.Fatalf("expected participant status update 200, got %d", resp.StatusCode)
-		}
-	})
-	t.Run("guest_allowed_room_reaction", func(t *testing.T) {
-		resp := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+slug+"/reactions", map[string]string{"emoji_code": "thumbs_up"}, guestCookies)
-		if resp.StatusCode != http.StatusCreated {
-			t.Fatalf("expected reaction add status 201, got %d", resp.StatusCode)
 		}
 	})
 }

@@ -76,7 +76,7 @@ vi.mock("./api", () => ({
     joinRoom: vi.fn(),
     getRoom: vi.fn(),
     updateRoom: vi.fn(),
-    setRoomEmojiReactionsEnabled: vi.fn(),
+    setRoomFistBumpsEnabled: vi.fn(),
     getRoomEventsUrl: vi.fn((slug: string) => `/api/rooms/${slug}/events`),
     connectRoomProvider: vi.fn(),
     getRoomCatalogSurfaces: vi.fn(),
@@ -97,7 +97,6 @@ vi.mock("./api", () => ({
     closeRoom: vi.fn(),
     removeRoomParticipant: vi.fn(),
     updateMyParticipantStatus: vi.fn(),
-    sendRoomReaction: vi.fn(),
   },
 }));
 
@@ -142,10 +141,9 @@ const buildRoomSnapshot = (slug: string): RoomSnapshot => ({
   queue: [],
   vote_counts: {},
   my_votes: [],
+  fist_bumps_enabled: true,
   can_manage: true,
   display_name: "Host",
-  emoji_reactions_enabled: true,
-  recent_reactions: [],
 });
 
 describe("App routes", () => {
@@ -437,7 +435,9 @@ describe("App routes", () => {
     expect(screen.getByText("Vote on this one")).toBeInTheDocument();
     expect(screen.getByText("Live participants")).toBeInTheDocument();
     expect(screen.getByText("2 currently online")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Pause reactions" })).toBeInTheDocument();
+    expect(
+      screen.getAllByRole("button", { name: /fist bump for Shared Project/i }).length
+    ).toBeGreaterThan(0);
     expect(screen.getByText("Participants")).toBeInTheDocument();
     expect(screen.getByText("Finalists")).toBeInTheDocument();
     expect(screen.getAllByText("Guest").length).toBeGreaterThan(1);
@@ -526,11 +526,11 @@ describe("App routes", () => {
     expect(MockEventSource.instances).toHaveLength(7);
   });
 
-  it("still renders the room when legacy snapshots send null recent reactions", async () => {
+  it("still renders the room when legacy snapshots omit the fist bump flag", async () => {
     mockedApi.getBoards.mockResolvedValue([]);
     mockedApi.getRoom.mockResolvedValue({
-      ...buildRoomSnapshot("legacy-null-reactions"),
-      recent_reactions: null as unknown as RoomSnapshot["recent_reactions"],
+      ...buildRoomSnapshot("legacy-fist-bumps"),
+      fist_bumps_enabled: undefined as unknown as RoomSnapshot["fist_bumps_enabled"],
     });
     mockedApi.getRoomCatalogClimbs.mockResolvedValue({
       climbs: [],
@@ -541,21 +541,21 @@ describe("App routes", () => {
     });
 
     render(
-      <MemoryRouter initialEntries={["/rooms/legacy-null-reactions"]}>
+      <MemoryRouter initialEntries={["/rooms/legacy-fist-bumps"]}>
         <App />
       </MemoryRouter>
     );
 
     expect(
-      await screen.findByRole("heading", { name: "Room legacy-null-reactions" })
+      await screen.findByRole("heading", { name: "Room legacy-fist-bumps" })
     ).toBeInTheDocument();
   });
 
-  it("lets room members send emoji reactions from the climb tray", async () => {
+  it("lets room members fist bump climbs from the room cards", async () => {
     const user = userEvent.setup();
     mockedApi.getBoards.mockResolvedValue([]);
     mockedApi.getRoom.mockResolvedValue({
-      ...buildRoomSnapshot("session-react"),
+      ...buildRoomSnapshot("session-fist-bump"),
       surface: {
         id: "14",
         kind: "board",
@@ -570,16 +570,16 @@ describe("App routes", () => {
         connected: true,
       },
     });
-    mockedApi.sendRoomReaction.mockResolvedValue(undefined);
+    mockedApi.toggleRoomVote.mockResolvedValue(undefined);
     mockedApi.getRoomCatalogClimbs.mockResolvedValue({
       climbs: [
         {
-          id: "kilter:14:uuid-react",
-          external_id: "uuid-react",
+          id: "kilter:14:uuid-fist-bump",
+          external_id: "uuid-fist-bump",
           provider_id: "kilter",
           surface_id: "14",
-          name: "Reaction Test",
-          description: "Live emoji tray test",
+          name: "Fist Bump Test",
+          description: "Live fist bump pill test",
           setter_name: "Setter A",
           primary_grade: "V5",
           secondary_grade: "5.12b",
@@ -603,27 +603,38 @@ describe("App routes", () => {
     });
 
     render(
-      <MemoryRouter initialEntries={["/rooms/session-react"]}>
+      <MemoryRouter initialEntries={["/rooms/session-fist-bump"]}>
         <App />
       </MemoryRouter>
     );
 
     expect(
-      await screen.findByRole("heading", { name: "Room session-react" })
+      await screen.findByRole("heading", { name: "Room session-fist-bump" })
     ).toBeInTheDocument();
 
-    await user.click(await screen.findByRole("button", { name: "Thumbs up reaction" }));
+    const fistBumpButtons = await screen.findAllByRole("button", {
+      name: /fist bump for Fist Bump Test/i,
+    });
+    for (const fistBumpButton of fistBumpButtons) {
+      await user.click(fistBumpButton);
+      if (mockedApi.toggleRoomVote.mock.calls.length > 0) {
+        break;
+      }
+    }
 
     await waitFor(() =>
-      expect(mockedApi.sendRoomReaction).toHaveBeenCalledWith("session-react", "thumbs_up")
+      expect(mockedApi.toggleRoomVote).toHaveBeenCalledWith(
+        "session-fist-bump",
+        "kilter:14:uuid-fist-bump"
+      )
     );
   });
 
-  it("lets the host pause room emoji reactions from the climb tray", async () => {
+  it("lets the host disable fist bumps from room details", async () => {
     const user = userEvent.setup();
     mockedApi.getBoards.mockResolvedValue([]);
     mockedApi.getRoom.mockResolvedValue({
-      ...buildRoomSnapshot("room-reaction-toggle"),
+      ...buildRoomSnapshot("room-fist-bump-toggle"),
       surface: {
         id: "14",
         kind: "board",
@@ -646,7 +657,7 @@ describe("App routes", () => {
           provider_id: "kilter",
           surface_id: "14",
           name: "Toggle Test",
-          description: "Host reaction gate",
+          description: "Host fist bump gate",
           setter_name: "Setter A",
           primary_grade: "V4",
           secondary_grade: "5.11d",
@@ -668,8 +679,8 @@ describe("App routes", () => {
       vote_counts: {},
       my_votes: [],
     });
-    mockedApi.setRoomEmojiReactionsEnabled.mockResolvedValue({
-      ...buildRoomSnapshot("room-reaction-toggle"),
+    mockedApi.setRoomFistBumpsEnabled.mockResolvedValue({
+      ...buildRoomSnapshot("room-fist-bump-toggle"),
       surface: {
         id: "14",
         kind: "board",
@@ -683,29 +694,29 @@ describe("App routes", () => {
         provider_id: "kilter",
         connected: true,
       },
-      emoji_reactions_enabled: false,
-      recent_reactions: [],
+      fist_bumps_enabled: false,
     });
 
     render(
-      <MemoryRouter initialEntries={["/rooms/room-reaction-toggle"]}>
+      <MemoryRouter initialEntries={["/rooms/room-fist-bump-toggle"]}>
         <App />
       </MemoryRouter>
     );
 
     expect(
-      await screen.findByRole("heading", { name: "Room room-reaction-toggle" })
+      await screen.findByRole("heading", { name: "Room room-fist-bump-toggle" })
     ).toBeInTheDocument();
 
-    await user.click(await screen.findByRole("button", { name: "Pause reactions" }));
+    await user.click(screen.getByRole("button", { name: "Edit room details" }));
+    await user.click(await screen.findByRole("button", { name: "Disable fist bumps" }));
 
     await waitFor(() =>
-      expect(mockedApi.setRoomEmojiReactionsEnabled).toHaveBeenCalledWith(
-        "room-reaction-toggle",
+      expect(mockedApi.setRoomFistBumpsEnabled).toHaveBeenCalledWith(
+        "room-fist-bump-toggle",
         false
       )
     );
-    expect(await screen.findByRole("button", { name: "Allow reactions" })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: "Enable fist bumps" })).toBeInTheDocument();
   });
 
   it("lets the host set the room name from the room header", async () => {

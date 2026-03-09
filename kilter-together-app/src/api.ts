@@ -16,7 +16,6 @@ import type {
   RoomSnapshot,
   ClimbSort,
   QueueStatus,
-  RoomReactionCode,
 } from "./types";
 
 const BASE_URL = config.api.baseUrl;
@@ -31,8 +30,7 @@ const apiClient = axios.create({
 function normalizeRoomSnapshot(snapshot: RoomSnapshot): RoomSnapshot {
   return {
     ...snapshot,
-    emoji_reactions_enabled: snapshot.emoji_reactions_enabled ?? true,
-    recent_reactions: Array.isArray(snapshot.recent_reactions) ? snapshot.recent_reactions : [],
+    fist_bumps_enabled: snapshot.fist_bumps_enabled ?? true,
   };
 }
 
@@ -114,11 +112,11 @@ export const api = {
     return normalizeRoomSnapshot(response.data);
   },
 
-  setRoomEmojiReactionsEnabled: async (
+  setRoomFistBumpsEnabled: async (
     slug: string,
     enabled: boolean
   ): Promise<RoomSnapshot> => {
-    const response = await apiClient.put<RoomSnapshot>(`/rooms/${slug}/reactions/settings`, {
+    const response = await apiClient.put<RoomSnapshot>(`/rooms/${slug}/fist-bumps/settings`, {
       enabled,
     });
     return normalizeRoomSnapshot(response.data);
@@ -274,10 +272,6 @@ export const api = {
     status: ParticipantStatus
   ): Promise<void> => {
     await apiClient.put(`/rooms/${slug}/participants/me/status`, { status });
-  },
-
-  sendRoomReaction: async (slug: string, emojiCode: RoomReactionCode): Promise<void> => {
-    await apiClient.post(`/rooms/${slug}/reactions`, { emoji_code: emojiCode });
   },
 };
 

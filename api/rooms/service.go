@@ -24,7 +24,7 @@ var (
 	ErrSessionExpired       = errors.New("room session expired")
 	ErrSessionInvalid       = errors.New("invalid room session")
 	ErrProviderNotConnected = errors.New("provider is not connected")
-	ErrEmojiReactionsOff    = errors.New("emoji reactions are disabled for this room")
+	ErrFistBumpsOff         = errors.New("fist bumps are disabled for this room")
 )
 
 const (
@@ -44,13 +44,13 @@ func (viewer Viewer) IsHost() bool {
 
 type Service struct {
 	hub       *Hub
-	reactions *ReactionStore
+	fistBumps *FistBumpStore
 }
 
 func NewService() *Service {
 	return &Service{
 		hub:       NewHub(),
-		reactions: NewReactionStore(),
+		fistBumps: NewFistBumpStore(),
 	}
 }
 
@@ -68,7 +68,6 @@ func (service *Service) Migrate(ctx context.Context) error {
 		&RoomParticipant{},
 		&RoomSession{},
 		&RoomProviderConnection{},
-		&RoomVote{},
 		&RoomQueueEntry{},
 		&RoomFinalistEntry{},
 		&providers.ProviderCacheEntry{},
@@ -115,13 +114,13 @@ func (service *Service) CreateRoom(
 
 	now := time.Now().UTC()
 	room := Room{
-		Slug:                  roomSlug,
-		Name:                  roomName,
-		ProviderID:            string(providerID),
-		Status:                roomStatusOpen,
-		EmojiReactionsEnabled: true,
-		Version:               1,
-		LastActiveAt:          now,
+		Slug:             roomSlug,
+		Name:             roomName,
+		ProviderID:       string(providerID),
+		Status:           roomStatusOpen,
+		FistBumpsEnabled: true,
+		Version:          1,
+		LastActiveAt:     now,
 	}
 	participant := RoomParticipant{
 		DisplayName: displayName,
@@ -338,7 +337,7 @@ func (service *Service) UpdateRoomName(
 	return service.buildSnapshot(ctx, viewer.Room.Slug, viewer)
 }
 
-func (service *Service) SetEmojiReactionsEnabled(
+func (service *Service) SetFistBumpsEnabled(
 	ctx context.Context,
 	viewer *Viewer,
 	enabled bool,
@@ -353,14 +352,11 @@ func (service *Service) SetEmojiReactionsEnabled(
 			Update("emoji_reactions_enabled", enabled).Error; err != nil {
 			return err
 		}
-		viewer.Room.EmojiReactionsEnabled = enabled
+		viewer.Room.FistBumpsEnabled = enabled
 		return service.bumpRoomVersion(tx, &viewer.Room)
 	})
 	if err != nil {
 		return nil, err
-	}
-	if !enabled {
-		service.reactions.Clear(viewer.Room.ID)
 	}
 	service.hub.Broadcast(EventPayload{
 		Type:     "room.updated",
@@ -603,32 +599,22 @@ func (service *Service) GetCatalogClimb(
 }
 
 func (service *Service) ToggleVote(ctx context.Context, viewer *Viewer, climbID string) error {
+	room, err := service.findRoom(ctx, viewer.Room.Slug)
+	if err != nil {
+		return err
+	}
+	if room.Status != roomStatusOpen {
+		return ErrRoomClosed
+	}
+	if !room.FistBumpsEnabled {
+		return ErrFistBumpsOff
+	}
+
 	if _, err := service.getRoomClimb(ctx, &viewer.Room, climbID); err != nil {
 		return err
 	}
 
-	var existing RoomVote
-	err := config.AppDB.WithContext(ctx).Where(
-		"room_id = ? AND participant_id = ? AND climb_id = ?",
-		viewer.Room.ID,
-		viewer.Participant.ID,
-		climbID,
-	).First(&existing).Error
-	if err == nil {
-		if err := config.AppDB.WithContext(ctx).Delete(&existing).Error; err != nil {
-			return err
-		}
-	} else if errors.Is(err, gorm.ErrRecordNotFound) {
-		if err := config.AppDB.WithContext(ctx).Create(&RoomVote{
-			RoomID:        viewer.Room.ID,
-			ParticipantID: viewer.Participant.ID,
-			ClimbID:       climbID,
-		}).Error; err != nil {
-			return err
-		}
-	} else {
-		return err
-	}
+	service.fistBumps.Toggle(viewer.Room.ID, viewer.Participant.ID, climbID)
 
 	return service.incrementRoom(viewer.Room.Slug, "votes.updated")
 }
@@ -968,9 +954,7 @@ func (service *Service) ClearVotes(ctx context.Context, viewer *Viewer) error {
 	if !viewer.IsHost() {
 		return ErrForbidden
 	}
-	if err := config.AppDB.WithContext(ctx).Where("room_id = ?", viewer.Room.ID).Delete(&RoomVote{}).Error; err != nil {
-		return err
-	}
+	service.fistBumps.Clear(viewer.Room.ID)
 	return service.incrementRoom(viewer.Room.Slug, "votes.updated")
 }
 
@@ -988,33 +972,6 @@ func (service *Service) UpdateParticipantStatus(ctx context.Context, viewer *Vie
 
 	viewer.Participant.Status = normalizedStatus
 	return service.incrementRoom(viewer.Room.Slug, "participants.updated")
-}
-
-func (service *Service) AddReaction(ctx context.Context, viewer *Viewer, emojiCode string) error {
-	normalizedCode := normalizeReactionCode(emojiCode)
-	if !isValidReactionCode(normalizedCode) {
-		return fmt.Errorf("invalid emoji reaction %q", emojiCode)
-	}
-
-	room, err := service.findRoom(ctx, viewer.Room.Slug)
-	if err != nil {
-		return err
-	}
-	if room.Status != roomStatusOpen {
-		return ErrRoomClosed
-	}
-	if !room.EmojiReactionsEnabled {
-		return ErrEmojiReactionsOff
-	}
-
-	now := time.Now().UTC()
-	service.reactions.Add(room.ID, viewer.Participant, normalizedCode, now)
-	service.hub.Broadcast(EventPayload{
-		Type:     "reactions.updated",
-		RoomSlug: room.Slug,
-		Version:  room.Version,
-	})
-	return nil
 }
 
 func (service *Service) CloseRoom(ctx context.Context, viewer *Viewer) error {
@@ -1037,7 +994,7 @@ func (service *Service) CloseRoom(ctx context.Context, viewer *Viewer) error {
 	if err != nil {
 		return err
 	}
-	service.reactions.Clear(viewer.Room.ID)
+	service.fistBumps.Clear(viewer.Room.ID)
 	service.hub.Broadcast(EventPayload{Type: "room.closed", RoomSlug: viewer.Room.Slug, Version: viewer.Room.Version})
 	return nil
 }
@@ -1054,9 +1011,6 @@ func (service *Service) RemoveParticipant(ctx context.Context, viewer *Viewer, p
 		if err := tx.Where("room_id = ? AND participant_id = ?", viewer.Room.ID, participantID).Delete(&RoomSession{}).Error; err != nil {
 			return err
 		}
-		if err := tx.Where("room_id = ? AND participant_id = ?", viewer.Room.ID, participantID).Delete(&RoomVote{}).Error; err != nil {
-			return err
-		}
 		if err := tx.Where("room_id = ? AND added_by_participant_id = ? AND status != ?", viewer.Room.ID, participantID, queueStatusCurrent).Delete(&RoomQueueEntry{}).Error; err != nil {
 			return err
 		}
@@ -1071,6 +1025,7 @@ func (service *Service) RemoveParticipant(ctx context.Context, viewer *Viewer, p
 	if err != nil {
 		return err
 	}
+	service.fistBumps.ClearParticipant(viewer.Room.ID, participantID)
 
 	service.hub.Broadcast(EventPayload{Type: "participants.updated", RoomSlug: viewer.Room.Slug, Version: viewer.Room.Version})
 	return nil
@@ -1114,19 +1069,18 @@ func (service *Service) buildSnapshot(
 	}
 
 	snapshot := &RoomSnapshot{
-		Slug:                  room.Slug,
-		RoomName:              room.Name,
-		Status:                room.Status,
-		ProviderID:            providers.ProviderID(room.ProviderID),
-		Version:               room.Version,
-		Connection:            connectionState,
-		Participants:          make([]ParticipantView, 0, len(participants)),
-		Finalists:             make([]FinalistEntryView, 0, len(finalistEntries)),
-		Queue:                 make([]QueueEntryView, 0, len(queueEntries)),
-		VoteCounts:            map[string]int{},
-		CanManage:             viewer != nil && viewer.IsHost(),
-		EmojiReactionsEnabled: room.EmojiReactionsEnabled,
-		RecentReactions:       make([]RoomReactionView, 0),
+		Slug:             room.Slug,
+		RoomName:         room.Name,
+		Status:           room.Status,
+		ProviderID:       providers.ProviderID(room.ProviderID),
+		Version:          room.Version,
+		Connection:       connectionState,
+		Participants:     make([]ParticipantView, 0, len(participants)),
+		Finalists:        make([]FinalistEntryView, 0, len(finalistEntries)),
+		Queue:            make([]QueueEntryView, 0, len(queueEntries)),
+		VoteCounts:       map[string]int{},
+		FistBumpsEnabled: room.FistBumpsEnabled,
+		CanManage:        viewer != nil && viewer.IsHost(),
 	}
 
 	if viewer != nil {
@@ -1161,9 +1115,6 @@ func (service *Service) buildSnapshot(
 		}
 		snapshot.VoteCounts = voteCounts
 		snapshot.MyVotes = myVotes
-	}
-	if room.EmojiReactionsEnabled {
-		snapshot.RecentReactions = service.reactions.List(room.ID, time.Now().UTC())
 	}
 
 	participantNameByID := map[uint]string{}
@@ -1243,20 +1194,7 @@ func (service *Service) buildSnapshot(
 }
 
 func (service *Service) voteData(ctx context.Context, roomID uint, participantID uint) (map[string]int, []string, error) {
-	var votes []RoomVote
-	if err := config.AppDB.WithContext(ctx).Where("room_id = ?", roomID).Find(&votes).Error; err != nil {
-		return nil, nil, err
-	}
-
-	voteCounts := make(map[string]int)
-	myVotes := make([]string, 0)
-	for _, vote := range votes {
-		voteCounts[vote.ClimbID]++
-		if vote.ParticipantID == participantID {
-			myVotes = append(myVotes, vote.ClimbID)
-		}
-	}
-	sort.Strings(myVotes)
+	voteCounts, myVotes := service.fistBumps.VoteData(roomID, participantID)
 	return voteCounts, myVotes, nil
 }
 
@@ -1340,13 +1278,30 @@ func (service *Service) closeExpiredRooms(ctx context.Context) error {
 
 	cutoff := time.Now().UTC().Add(-roomExpiryWindow)
 	now := time.Now().UTC()
-	return config.AppDB.WithContext(ctx).Model(&Room{}).
+	var expiredRoomIDs []uint
+	if err := config.AppDB.WithContext(ctx).Model(&Room{}).
 		Where("status = ? AND last_active_at < ?", roomStatusOpen, cutoff).
+		Pluck("id", &expiredRoomIDs).Error; err != nil {
+		return err
+	}
+	if len(expiredRoomIDs) == 0 {
+		return nil
+	}
+
+	if err := config.AppDB.WithContext(ctx).Model(&Room{}).
+		Where("id IN ?", expiredRoomIDs).
 		Updates(map[string]any{
 			"status":     roomStatusClosed,
 			"closed_at":  now,
 			"updated_at": now,
-		}).Error
+		}).Error; err != nil {
+		return err
+	}
+
+	for _, roomID := range expiredRoomIDs {
+		service.fistBumps.Clear(roomID)
+	}
+	return nil
 }
 
 func (service *Service) getRoomClimb(
@@ -1463,20 +1418,15 @@ func (service *Service) pickRandomTopVoted(
 	ctx context.Context,
 	viewer *Viewer,
 ) (*providers.ProviderClimb, error) {
-	var votes []RoomVote
-	if err := config.AppDB.WithContext(ctx).Where("room_id = ?", viewer.Room.ID).Find(&votes).Error; err != nil {
-		return nil, err
-	}
-	if len(votes) == 0 {
+	voteCounts, _ := service.fistBumps.VoteData(viewer.Room.ID, 0)
+	if len(voteCounts) == 0 {
 		return nil, fmt.Errorf("there are no voted climbs to pick from")
 	}
 
-	voteCounts := make(map[string]int)
 	topCount := 0
-	for _, vote := range votes {
-		voteCounts[vote.ClimbID]++
-		if voteCounts[vote.ClimbID] > topCount {
-			topCount = voteCounts[vote.ClimbID]
+	for _, count := range voteCounts {
+		if count > topCount {
+			topCount = count
 		}
 	}
 	if topCount == 0 {

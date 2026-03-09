@@ -284,38 +284,3 @@ html, body {
       rotate(var(--click-cheer-tilt, 0deg)) scale(1.02);
   }
 }
-
-.room-reaction-burst {
-  transform: translate3d(0, 18px, 0) scale(0.72);
-  opacity: 0;
-  animation-name: room-reaction-float;
-  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  animation-fill-mode: both;
-  will-change: transform, opacity;
-}
-
-@keyframes room-reaction-float {
-  0% {
-    transform: translate3d(0, 18px, 0) scale(0.72);
-    opacity: 0;
-  }
-  16% {
-    opacity: 1;
-  }
-  100% {
-    transform: translate3d(var(--room-reaction-drift, 0px), -92px, 0) scale(1.05);
-    opacity: 0;
-  }
-}
-
-.playful-motion-disabled .room-reaction-burst {
-  animation: none;
-  opacity: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .room-reaction-burst {
-    animation: none;
-    opacity: 0;
-  }
-}
