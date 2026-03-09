@@ -1,25 +1,50 @@
 services:
+  kilter-together-bootstrap:
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    command: ["bootstrap"]
+    environment:
+      KILTER_TOGETHER_KILTER_USERNAME: ${KILTER_TOGETHER_KILTER_USERNAME:-}
+      KILTER_TOGETHER_KILTER_PASSWORD: ${KILTER_TOGETHER_KILTER_PASSWORD:-}
+    volumes:
+      - kilter-together-data:/data
+    profiles:
+      - bootstrap
+
   kilter-together-api:
     build:
       context: ./api
       dockerfile: ./Dockerfile
     container_name: kilter-together-api
     environment:
-      KILTER_TOGETHER_APP_SECRET: development-room-secret
-      KILTER_TOGETHER_ENCRYPTION_KEY: MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=
+      KILTER_TOGETHER_APP_SECRET: ${KILTER_TOGETHER_APP_SECRET:?KILTER_TOGETHER_APP_SECRET must be set}
+      KILTER_TOGETHER_ENCRYPTION_KEY: ${KILTER_TOGETHER_ENCRYPTION_KEY:?KILTER_TOGETHER_ENCRYPTION_KEY must be set}
+      KILTER_TOGETHER_ALLOWED_ORIGINS: ${KILTER_TOGETHER_ALLOWED_ORIGINS:-}
+      KILTER_TOGETHER_SECURE_COOKIES: ${KILTER_TOGETHER_SECURE_COOKIES:-true}
     expose:
       - "8082"
     volumes:
       - kilter-together-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8082/api/healthz >/dev/null"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
     restart: unless-stopped
 
   kilter-together-web:
     build:
       context: ./kilter-together-app
       dockerfile: ./Dockerfile
+      args:
+        VITE_APP_BASE_PATH: ${VITE_APP_BASE_PATH:-/}
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/api}
     container_name: kilter-together-web
     depends_on:
-      - kilter-together-api
+      kilter-together-api:
+        condition: service_healthy
     ports:
       - "8080:80"
     restart: unless-stopped

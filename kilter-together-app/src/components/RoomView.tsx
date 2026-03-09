@@ -69,6 +69,8 @@ import {
 } from "@/components/ui/select";
 
 const PAGE_SIZE = 12;
+const ROOM_EVENTS_INITIAL_RETRY_MS = 1000;
+const ROOM_EVENTS_MAX_RETRY_MS = 30000;
 
 function formatProviderName(providerId: RoomSnapshot["provider_id"]) {
   return providerId === "crux" ? "Crux" : "Kilter";
@@ -483,32 +485,46 @@ export default function RoomView() {
       return;
     }
 
-    let retries = 0;
+    let disposed = false;
     let retryTimeout: number | undefined;
     let currentSource: EventSource | null = null;
+    let retryDelay = ROOM_EVENTS_INITIAL_RETRY_MS;
 
     const connect = () => {
+      if (disposed) {
+        return;
+      }
+
       const eventSource = new EventSource(api.getRoomEventsUrl(slug), {
         withCredentials: true,
       });
       currentSource = eventSource;
       eventSource.addEventListener("room", () => {
-        retries = 0;
+        retryDelay = ROOM_EVENTS_INITIAL_RETRY_MS;
         void refreshRoomStateRef.current();
       });
       eventSource.onerror = () => {
         eventSource.close();
-        currentSource = null;
-        if (retries < 5) {
-          retries++;
-          retryTimeout = window.setTimeout(connect, 3000);
+        if (currentSource === eventSource) {
+          currentSource = null;
         }
+        if (disposed) {
+          return;
+        }
+
+        const nextDelay = retryDelay;
+        retryDelay = Math.min(retryDelay * 2, ROOM_EVENTS_MAX_RETRY_MS);
+        if (retryTimeout !== undefined) {
+          window.clearTimeout(retryTimeout);
+        }
+        retryTimeout = window.setTimeout(connect, nextDelay);
       };
     };
 
     connect();
 
     return () => {
+      disposed = true;
       if (retryTimeout !== undefined) window.clearTimeout(retryTimeout);
       currentSource?.close();
     };

@@ -195,8 +195,9 @@ func StreamRoomEvents(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "text/event-stream")
-	w.Header().Set("Cache-Control", "no-cache")
+	w.Header().Set("Cache-Control", "no-cache, no-transform")
 	w.Header().Set("Connection", "keep-alive")
+	w.Header().Set("X-Accel-Buffering", "no")
 
 	flusher, ok := w.(http.Flusher)
 	if !ok {
@@ -226,7 +227,10 @@ func StreamRoomEvents(w http.ResponseWriter, r *http.Request) {
 		select {
 		case <-ctx.Done():
 			return
-		case event := <-eventChannel:
+		case event, ok := <-eventChannel:
+			if !ok {
+				return
+			}
 			if !writeSSEEvent(w, event) {
 				return
 			}

@@ -20,10 +20,15 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"log/slog"
+	"net"
 	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	"github.com/lczm/kilter-together/api/bootstrap"
 	"github.com/lczm/kilter-together/api/config"
@@ -32,6 +37,14 @@ import (
 	"github.com/lczm/kilter-together/api/rooms"
 	"github.com/lczm/kilter-together/api/routes"
 	"github.com/spf13/cobra"
+)
+
+const (
+	serverReadHeaderTimeout = 10 * time.Second
+	serverReadTimeout       = 30 * time.Second
+	serverWriteTimeout      = 24 * time.Hour
+	serverIdleTimeout       = 2 * time.Minute
+	serverShutdownTimeout   = 20 * time.Second
 )
 
 func main() {
@@ -96,7 +109,29 @@ func main() {
 
 			configureSwagger()
 			r := routes.SetupRoutes()
-			return http.ListenAndServe(runtimeConfig.ListenAddr(), r)
+
+			serverCtx, stop := signal.NotifyContext(cmd.Context(), os.Interrupt, syscall.SIGTERM)
+			defer stop()
+
+			listener, err := net.Listen("tcp", runtimeConfig.ListenAddr())
+			if err != nil {
+				return err
+			}
+
+			server := newHTTPServer(runtimeConfig.ListenAddr(), r)
+			server.RegisterOnShutdown(func() {
+				rooms.DefaultService.Hub().CloseAll()
+			})
+
+			slog.Info("http server listening",
+				"addr", listener.Addr().String(),
+				"read_header_timeout", server.ReadHeaderTimeout.String(),
+				"read_timeout", server.ReadTimeout.String(),
+				"write_timeout", server.WriteTimeout.String(),
+				"idle_timeout", server.IdleTimeout.String(),
+			)
+
+			return serveHTTPServer(serverCtx, server, listener)
 		},
 	}
 	serveCmd.Flags().BoolVar(
@@ -154,4 +189,46 @@ func configureSwagger() {
 	docs.SwaggerInfo.Host = ""
 	docs.SwaggerInfo.BasePath = "/api"
 	docs.SwaggerInfo.Schemes = []string{}
+}
+
+func newHTTPServer(addr string, handler http.Handler) *http.Server {
+	return &http.Server{
+		Addr:              addr,
+		Handler:           handler,
+		ReadHeaderTimeout: serverReadHeaderTimeout,
+		ReadTimeout:       serverReadTimeout,
+		// SSE responses stay open for long periods, so the write timeout is intentionally high.
+		WriteTimeout: serverWriteTimeout,
+		IdleTimeout:  serverIdleTimeout,
+	}
+}
+
+func serveHTTPServer(ctx context.Context, server *http.Server, listener net.Listener) error {
+	errCh := make(chan error, 1)
+
+	go func() {
+		if err := server.Serve(listener); err != nil && !errors.Is(err, http.ErrServerClosed) {
+			errCh <- err
+			return
+		}
+
+		errCh <- nil
+	}()
+
+	select {
+	case err := <-errCh:
+		return err
+	case <-ctx.Done():
+		slog.Info("shutdown signal received", "signal", context.Cause(ctx))
+	}
+
+	shutdownCtx, cancel := context.WithTimeout(context.Background(), serverShutdownTimeout)
+	defer cancel()
+
+	if err := server.Shutdown(shutdownCtx); err != nil {
+		_ = server.Close()
+		return err
+	}
+
+	return <-errCh
 }

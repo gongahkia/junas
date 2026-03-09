@@ -30,12 +30,14 @@ func (hub *Hub) Unsubscribe(roomSlug string, ch chan EventPayload) {
 	defer hub.mu.Unlock()
 
 	if subscribers, exists := hub.subscribers[roomSlug]; exists {
-		delete(subscribers, ch)
-		if len(subscribers) == 0 {
-			delete(hub.subscribers, roomSlug)
+		if _, subscribed := subscribers[ch]; subscribed {
+			delete(subscribers, ch)
+			close(ch)
+			if len(subscribers) == 0 {
+				delete(hub.subscribers, roomSlug)
+			}
 		}
 	}
-	close(ch)
 }
 
 func (hub *Hub) Broadcast(event EventPayload) {
@@ -47,5 +49,17 @@ func (hub *Hub) Broadcast(event EventPayload) {
 		case ch <- event:
 		default:
 		}
+	}
+}
+
+func (hub *Hub) CloseAll() {
+	hub.mu.Lock()
+	defer hub.mu.Unlock()
+
+	for roomSlug, subscribers := range hub.subscribers {
+		for ch := range subscribers {
+			close(ch)
+		}
+		delete(hub.subscribers, roomSlug)
 	}
 }

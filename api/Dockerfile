@@ -29,4 +29,5 @@ ENV KILTER_TOGETHER_DATA_DIR=/data
 EXPOSE 8082
 VOLUME ["/data"]
 
-ENTRYPOINT ["./api", "serve", "--bootstrap-if-missing"]
+ENTRYPOINT ["./api"]
+CMD ["serve"]
