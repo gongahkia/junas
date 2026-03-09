@@ -265,6 +265,62 @@ func TestServiceRoomLifecycle(t *testing.T) {
 	}
 }
 
+func TestServiceFistBumpsAreEphemeral(t *testing.T) {
+	ctx := context.Background()
+	service, provider := setupRoomServiceTest(t)
+
+	createdSnapshot, _, err := service.CreateRoom(
+		ctx,
+		provider.ID(),
+		"Ephemeral Session",
+		"Host",
+		providers.SecretPayload{"token": "provider-token"},
+	)
+	if err != nil {
+		t.Fatalf("create room: %v", err)
+	}
+
+	guestSnapshot, guestSessionID, err := service.JoinRoom(ctx, createdSnapshot.Slug, "Guest")
+	if err != nil {
+		t.Fatalf("join room: %v", err)
+	}
+	guestViewer, err := service.Authenticate(ctx, guestSnapshot.Slug, guestSessionID, "")
+	if err != nil {
+		t.Fatalf("authenticate guest: %v", err)
+	}
+	if err := service.ToggleVote(ctx, guestViewer, "fake-room:beta"); err != nil {
+		t.Fatalf("toggle fist bump: %v", err)
+	}
+
+	snapshotBeforeRestart, err := service.GetSnapshot(ctx, guestViewer)
+	if err != nil {
+		t.Fatalf("get snapshot before restart: %v", err)
+	}
+	if snapshotBeforeRestart.VoteCounts["fake-room:beta"] != 1 {
+		t.Fatalf("expected one fist bump before restart, got %#v", snapshotBeforeRestart.VoteCounts)
+	}
+
+	restartedService := NewService()
+	if err := restartedService.Migrate(ctx); err != nil {
+		t.Fatalf("migrate restarted service: %v", err)
+	}
+	restartedGuestViewer, err := restartedService.Authenticate(ctx, guestSnapshot.Slug, guestSessionID, "")
+	if err != nil {
+		t.Fatalf("authenticate guest after restart: %v", err)
+	}
+
+	snapshotAfterRestart, err := restartedService.GetSnapshot(ctx, restartedGuestViewer)
+	if err != nil {
+		t.Fatalf("get snapshot after restart: %v", err)
+	}
+	if len(snapshotAfterRestart.VoteCounts) != 0 {
+		t.Fatalf("expected fist bumps to be ephemeral across restarts, got %#v", snapshotAfterRestart.VoteCounts)
+	}
+	if len(snapshotAfterRestart.MyVotes) != 0 {
+		t.Fatalf("expected participant fist bump state to reset across restarts, got %#v", snapshotAfterRestart.MyVotes)
+	}
+}
+
 func setupRoomServiceTest(t *testing.T) (*Service, *testprovider.Provider) {
 	t.Helper()
 
