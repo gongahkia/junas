@@ -9,6 +9,8 @@ export interface Board {
   id: number;
   name: string;
   kilter_name: string;
+  preview_image_filename?: string;
+  climb_count?: number;
 }
 
 export interface GradeInfo {

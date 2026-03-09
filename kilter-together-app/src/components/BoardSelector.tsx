@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Layers3, Mountain, Radar } from "lucide-react";
+import { api } from "@/api";
 import AngleSelector from "./AngleSelector";
 import BrandWordmark from "./BrandWordmark";
 import type { Board } from "../types";
@@ -159,11 +160,33 @@ export default function BoardSelector({
                           navigate(`${boardPathPrefix}/${board.id}?angle=${angle}&sort=popular`);
                         }}
                       >
+                        <div className="rounded-[1.25rem] border border-slate-200/80 bg-[linear-gradient(180deg,_rgba(240,253,250,0.9),_rgba(255,255,255,0.96))] p-3 shadow-inner shadow-slate-900/5">
+                          <div className="flex aspect-[16/9] items-center justify-center overflow-hidden rounded-[1rem] bg-[radial-gradient(circle_at_top,_rgba(20,184,166,0.16),_transparent_45%),linear-gradient(180deg,_rgba(248,250,252,0.98),_rgba(226,232,240,0.72))]">
+                            {board.preview_image_filename ? (
+                              <img
+                                src={api.getImageUrl(board.preview_image_filename)}
+                                alt={`${board.kilter_name} ${board.name} board preview`}
+                                className="h-full w-full object-contain"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <Mountain className="h-12 w-12 text-slate-300" />
+                            )}
+                          </div>
+                        </div>
                         <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
                           Board {board.id}
                         </p>
                         <h2 className="mt-3 text-xl font-medium">{board.kilter_name}</h2>
                         <p className="mt-2 text-sm text-muted-foreground">{board.name}</p>
+                        <div className="mt-4 flex flex-wrap gap-2 text-xs font-medium text-slate-600">
+                          <span className="rounded-full bg-slate-100 px-3 py-1">
+                            {board.name}
+                          </span>
+                          <span className="rounded-full bg-teal-50 px-3 py-1 text-teal-700">
+                            {(board.climb_count ?? 0).toLocaleString()} climbs
+                          </span>
+                        </div>
                         <p className="mt-4 text-sm font-medium text-teal-700">
                           Open at {angle}°
                         </p>

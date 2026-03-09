@@ -74,9 +74,11 @@ type CursorPaginatedClimbsResponse struct {
 
 // BoardOption represents a board (product_size) option for filtering climbs.
 type BoardOption struct {
-	ID         uint   `json:"id" example:"14"`
-	Name       string `json:"name" example:"7 x 10"`
-	KilterName string `json:"kilter_name" example:"Kilter Board Original"`
+	ID                   uint   `json:"id" example:"14"`
+	Name                 string `json:"name" example:"7 x 10"`
+	KilterName           string `json:"kilter_name" example:"Kilter Board Original"`
+	PreviewImageFilename string `json:"preview_image_filename" example:"product_sizes_layouts_sets/original-16x12-bolt-ons-v2.png"`
+	ClimbCount           int    `json:"climb_count" example:"12453"`
 }
 
 var c = cache.New(7*24*time.Hour, 10*time.Minute)
@@ -278,13 +280,27 @@ func GetBoardOptions() ([]BoardOption, error) {
 SELECT
   ps.id AS id,
   ps.name AS name,
-  p.name AS kilter_name
+  p.name AS kilter_name,
+  COALESCE(MIN(NULLIF(psl.image_filename, '')), '') AS preview_image_filename,
+  COUNT(DISTINCT c.uuid) AS climb_count
 FROM product_sizes AS ps
 JOIN products AS p
   ON ps.product_id = p.id
+LEFT JOIN product_sizes_layouts_sets AS psl
+  ON psl.product_size_id = ps.id
+LEFT JOIN layouts AS l
+  ON l.id = psl.layout_id AND l.product_id = ps.product_id
+LEFT JOIN climbs AS c
+  ON c.layout_id = l.id
+  AND c.is_listed = 1
+  AND ps.edge_left <= c.edge_left
+  AND ps.edge_right >= c.edge_right
+  AND ps.edge_bottom <= c.edge_bottom
+  AND ps.edge_top >= c.edge_top
 WHERE ps.is_listed = 1
   AND p.is_listed = 1
   AND p.name LIKE 'Kilter Board%'
+GROUP BY ps.id, ps.name, p.name
 ORDER BY p.name, ps.position, ps.id`
 	if err := config.KilterDB.Raw(query).Scan(&boards).Error; err != nil {
 		return nil, fmt.Errorf("fetch boards: %w", err)
