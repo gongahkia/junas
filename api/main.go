@@ -33,7 +33,8 @@ import (
 	"github.com/lczm/kilter-together/api/bootstrap"
 	"github.com/lczm/kilter-together/api/config"
 	docs "github.com/lczm/kilter-together/api/docs"
-	_ "github.com/lczm/kilter-together/api/providers"
+	"github.com/lczm/kilter-together/api/maintenance"
+	"github.com/lczm/kilter-together/api/providers"
 	"github.com/lczm/kilter-together/api/rooms"
 	"github.com/lczm/kilter-together/api/routes"
 	"github.com/spf13/cobra"
@@ -63,6 +64,7 @@ func main() {
 			if err != nil {
 				return err
 			}
+			configureProviders(runtimeConfig)
 			return bootstrap.Run(cmd.Context(), bootstrapOptions(runtimeConfig, maxSyncPages))
 		},
 	}
@@ -74,6 +76,21 @@ func main() {
 	)
 
 	var bootstrapIfMissing bool
+	migrateCmd := &cobra.Command{
+		Use:   "migrate",
+		Short: "Apply pending app database migrations",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			runtimeConfig, err := loadRuntimeConfig()
+			if err != nil {
+				return err
+			}
+			configureProviders(runtimeConfig)
+			if err := config.ConnectAppDB(runtimeConfig.AppDBPath); err != nil {
+				return err
+			}
+			return rooms.DefaultService.Migrate(cmd.Context())
+		},
+	}
 	serveCmd := &cobra.Command{
 		Use:   "serve",
 		Short: "Start the API server",
@@ -82,6 +99,7 @@ func main() {
 			if err != nil {
 				return err
 			}
+			configureProviders(runtimeConfig)
 
 			if bootstrapIfMissing && bootstrap.NeedsBootstrap(
 				runtimeConfig.DBPath,
@@ -97,7 +115,7 @@ func main() {
 				return err
 			}
 
-			if err := config.ConnectKilterDB(runtimeConfig.DBPath); err != nil {
+			if err := connectRuntimeDatabases(runtimeConfig); err != nil {
 				return err
 			}
 			if err := config.ConnectAppDB(runtimeConfig.AppDBPath); err != nil {
@@ -112,6 +130,7 @@ func main() {
 
 			serverCtx, stop := signal.NotifyContext(cmd.Context(), os.Interrupt, syscall.SIGTERM)
 			defer stop()
+			maintenance.Start(serverCtx, rooms.DefaultService)
 
 			listener, err := net.Listen("tcp", runtimeConfig.ListenAddr())
 			if err != nil {
@@ -147,7 +166,7 @@ func main() {
 		"Maximum number of Kilter shared-sync pages to fetch when credentials are provided",
 	)
 
-	rootCmd.AddCommand(bootstrapCmd, serveCmd)
+	rootCmd.AddCommand(bootstrapCmd, migrateCmd, serveCmd)
 
 	if err := rootCmd.Execute(); err != nil {
 		slog.Error("command failed", "error", err)
@@ -176,6 +195,10 @@ func bootstrapOptions(runtimeConfig config.RuntimeConfig, maxSyncPages int) boot
 }
 
 func ensureRuntimeData(runtimeConfig config.RuntimeConfig) error {
+	if runtimeConfig.EnableTestProvider {
+		return nil
+	}
+
 	if !bootstrap.NeedsBootstrap(runtimeConfig.DBPath, runtimeConfig.ImageDir, runtimeConfig.StatePath) {
 		return nil
 	}
@@ -189,6 +212,21 @@ func configureSwagger() {
 	docs.SwaggerInfo.Host = ""
 	docs.SwaggerInfo.BasePath = "/api"
 	docs.SwaggerInfo.Schemes = []string{}
+}
+
+func configureProviders(runtimeConfig config.RuntimeConfig) {
+	providers.RegisterTestProviderIfEnabled(runtimeConfig.EnableTestProvider)
+}
+
+func connectRuntimeDatabases(runtimeConfig config.RuntimeConfig) error {
+	if runtimeConfig.EnableTestProvider {
+		if err := bootstrap.RuntimeReady(runtimeConfig.DBPath, runtimeConfig.ImageDir, runtimeConfig.StatePath); err != nil {
+			slog.Warn("starting without kilter runtime data because test provider mode is enabled", "error", err)
+			return nil
+		}
+	}
+
+	return config.ConnectKilterDB(runtimeConfig.DBPath)
 }
 
 func newHTTPServer(addr string, handler http.Handler) *http.Server {

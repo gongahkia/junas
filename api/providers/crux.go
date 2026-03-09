@@ -297,9 +297,11 @@ func (provider *CruxProvider) getCachedJSON(
 			time.Now().UTC(),
 		).First(&entry).Error
 		if err == nil {
+			RecordCacheHit(ProviderCrux)
 			return json.Unmarshal([]byte(entry.Payload), target)
 		}
 	}
+	RecordCacheMiss(ProviderCrux)
 
 	var raw json.RawMessage
 	if err := provider.getJSON(ctx, token, path, &raw); err != nil {
@@ -319,6 +321,7 @@ func (provider *CruxProvider) getCachedJSON(
 		_ = config.AppDB.WithContext(ctx).Where(
 			ProviderCacheEntry{ProviderID: entry.ProviderID, CacheKey: entry.CacheKey},
 		).Assign(entry).FirstOrCreate(&entry).Error
+		RecordCacheWrite(ProviderCrux)
 	}
 
 	return nil

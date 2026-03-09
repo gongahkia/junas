@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/lczm/kilter-together/api/config"
+	"github.com/lczm/kilter-together/api/migrations"
 	"github.com/lczm/kilter-together/api/providers"
 	"github.com/lczm/kilter-together/api/security"
 	"gorm.io/gorm"
@@ -44,39 +45,38 @@ func (viewer Viewer) IsHost() bool {
 }
 
 type Service struct {
-	hub       *Hub
+	store     RoomStore
+	hub       EventBus
 	fistBumps *FistBumpStore
 }
 
 func NewService() *Service {
+	return NewServiceWithDeps(defaultRoomStore(), NewHub(), NewFistBumpStore())
+}
+
+func NewServiceWithDeps(store RoomStore, hub EventBus, fistBumps *FistBumpStore) *Service {
 	return &Service{
-		hub:       NewHub(),
-		fistBumps: NewFistBumpStore(),
+		store:     store,
+		hub:       hub,
+		fistBumps: fistBumps,
 	}
 }
 
-func (service *Service) Hub() *Hub {
+func (service *Service) Hub() EventBus {
 	return service.hub
 }
 
 func (service *Service) Migrate(ctx context.Context) error {
-	if config.AppDB == nil {
+	db, err := mustStoreDB(service.store, ctx)
+	if err != nil {
 		return fmt.Errorf("app database is not configured")
 	}
 
-	if err := config.AppDB.WithContext(ctx).AutoMigrate(
-		&Room{},
-		&RoomParticipant{},
-		&RoomSession{},
-		&RoomProviderConnection{},
-		&RoomQueueEntry{},
-		&RoomFinalistEntry{},
-		&providers.ProviderCacheEntry{},
-	); err != nil {
+	if err := migrations.Apply(ctx, db); err != nil {
 		return fmt.Errorf("migrate app database: %w", err)
 	}
 
-	return service.closeExpiredRooms(ctx)
+	return nil
 }
 
 func (service *Service) CreateRoom(
@@ -86,14 +86,10 @@ func (service *Service) CreateRoom(
 	displayName string,
 	secret providers.SecretPayload,
 ) (*RoomSnapshot, string, error) {
-	if config.AppDB == nil {
+	if _, err := mustStoreDB(service.store, ctx); err != nil {
 		return nil, "", fmt.Errorf("app database is not configured")
 	}
 	if _, err := providers.Get(providerID); err != nil {
-		return nil, "", err
-	}
-
-	if err := service.closeExpiredRooms(ctx); err != nil {
 		return nil, "", err
 	}
 
@@ -135,7 +131,7 @@ func (service *Service) CreateRoom(
 		ExpiresAt: now.Add(sessionExpiryWindow),
 	}
 
-	err = config.AppDB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+	err = service.store.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(&room).Error; err != nil {
 			return err
 		}
@@ -173,11 +169,8 @@ func (service *Service) JoinRoom(
 	roomSlug string,
 	displayName string,
 ) (*RoomSnapshot, string, error) {
-	if config.AppDB == nil {
+	if _, err := mustStoreDB(service.store, ctx); err != nil {
 		return nil, "", fmt.Errorf("app database is not configured")
-	}
-	if err := service.closeExpiredRooms(ctx); err != nil {
-		return nil, "", err
 	}
 
 	room, err := service.findRoom(ctx, roomSlug)
@@ -194,7 +187,7 @@ func (service *Service) JoinRoom(
 	}
 
 	var existingCount int64
-	if err := config.AppDB.WithContext(ctx).Model(&RoomParticipant{}).
+	if err := service.store.WithContext(ctx).Model(&RoomParticipant{}).
 		Where("room_id = ? AND lower(display_name) = ?", room.ID, strings.ToLower(displayName)).
 		Count(&existingCount).Error; err != nil {
 		return nil, "", err
@@ -223,7 +216,7 @@ func (service *Service) JoinRoom(
 		ExpiresAt: now.Add(sessionExpiryWindow),
 	}
 
-	err = config.AppDB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+	err = service.store.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(&participant).Error; err != nil {
 			return err
 		}
@@ -236,7 +229,7 @@ func (service *Service) JoinRoom(
 	if err != nil {
 		return nil, "", err
 	}
-	service.hub.Broadcast(EventPayload{Type: "room.updated", RoomSlug: room.Slug, Version: room.Version})
+	service.broadcastRoomEvent(room, participant.ID, "room.updated", ResourceRoom, ResourceParticipants)
 
 	snapshot, err := service.buildSnapshot(ctx, roomSlug, &Viewer{
 		Room:        *room,
@@ -256,17 +249,16 @@ func (service *Service) Authenticate(
 	sessionID string,
 	requiredRole string,
 ) (*Viewer, error) {
-	if err := service.closeExpiredRooms(ctx); err != nil {
-		return nil, err
-	}
-
 	room, err := service.findRoom(ctx, roomSlug)
 	if err != nil {
 		return nil, err
 	}
+	if room.Status != roomStatusOpen || service.isRoomExpired(room, time.Now().UTC()) {
+		return nil, ErrRoomClosed
+	}
 
 	var session RoomSession
-	if err := config.AppDB.WithContext(ctx).Where("id = ? AND room_id = ?", sessionID, room.ID).
+	if err := service.store.WithContext(ctx).Where("id = ? AND room_id = ?", sessionID, room.ID).
 		First(&session).Error; err != nil {
 		return nil, ErrSessionInvalid
 	}
@@ -278,19 +270,19 @@ func (service *Service) Authenticate(
 	}
 
 	var participant RoomParticipant
-	if err := config.AppDB.WithContext(ctx).Where("id = ? AND room_id = ?", session.ParticipantID, room.ID).
+	if err := service.store.WithContext(ctx).Where("id = ? AND room_id = ?", session.ParticipantID, room.ID).
 		First(&participant).Error; err != nil {
 		return nil, fmt.Errorf("participant not found")
 	}
 
 	now := time.Now().UTC()
-	if err := config.AppDB.WithContext(ctx).Model(&participant).Updates(map[string]any{
+	if err := service.store.WithContext(ctx).Model(&participant).Updates(map[string]any{
 		"last_seen_at": now,
 		"updated_at":   now,
 	}).Error; err != nil {
 		slog.Warn("failed to update participant last_seen_at", "error", err, "participant_id", participant.ID)
 	}
-	if err := config.AppDB.WithContext(ctx).Model(&room).Update("last_active_at", now).Error; err != nil {
+	if err := service.store.WithContext(ctx).Model(&room).Update("last_active_at", now).Error; err != nil {
 		slog.Warn("failed to update room last_active_at", "error", err, "room_slug", room.Slug)
 	}
 	participant.LastSeenAt = now
@@ -317,7 +309,7 @@ func (service *Service) UpdateRoomName(
 	}
 
 	roomName = normalizeRoomName(roomName)
-	err := config.AppDB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+	err := service.store.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		if err := tx.Model(&Room{}).
 			Where("id = ?", viewer.Room.ID).
 			Update("name", roomName).Error; err != nil {
@@ -329,11 +321,7 @@ func (service *Service) UpdateRoomName(
 	if err != nil {
 		return nil, err
 	}
-	service.hub.Broadcast(EventPayload{
-		Type:     "room.updated",
-		RoomSlug: viewer.Room.Slug,
-		Version:  viewer.Room.Version,
-	})
+	service.broadcastRoomEvent(&viewer.Room, viewer.Participant.ID, "room.updated", ResourceRoom)
 
 	return service.buildSnapshot(ctx, viewer.Room.Slug, viewer)
 }
@@ -347,7 +335,7 @@ func (service *Service) SetFistBumpsEnabled(
 		return nil, ErrForbidden
 	}
 
-	err := config.AppDB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+	err := service.store.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		if err := tx.Model(&Room{}).
 			Where("id = ?", viewer.Room.ID).
 			Update("emoji_reactions_enabled", enabled).Error; err != nil {
@@ -359,11 +347,7 @@ func (service *Service) SetFistBumpsEnabled(
 	if err != nil {
 		return nil, err
 	}
-	service.hub.Broadcast(EventPayload{
-		Type:     "room.updated",
-		RoomSlug: viewer.Room.Slug,
-		Version:  viewer.Room.Version,
-	})
+	service.broadcastRoomEvent(&viewer.Room, viewer.Participant.ID, "room.updated", ResourceRoom)
 
 	return service.buildSnapshot(ctx, viewer.Room.Slug, viewer)
 }
@@ -386,12 +370,12 @@ func (service *Service) ConnectProvider(
 		return providers.ProviderConnectionState{}, err
 	}
 	connection.RoomID = viewer.Room.ID
-	if err := config.AppDB.WithContext(ctx).Where(RoomProviderConnection{RoomID: viewer.Room.ID}).
+	if err := service.store.WithContext(ctx).Where(RoomProviderConnection{RoomID: viewer.Room.ID}).
 		Assign(*connection).FirstOrCreate(connection).Error; err != nil {
 		return providers.ProviderConnectionState{}, err
 	}
 
-	if err := service.incrementRoom(viewer.Room.Slug, "provider.connected"); err != nil {
+	if err := service.incrementRoom(ctx, viewer.Room.Slug, viewer.Participant.ID, "provider.connected", ResourceRoom, ResourceConnection, ResourceCatalog); err != nil {
 		return providers.ProviderConnectionState{}, err
 	}
 
@@ -496,7 +480,7 @@ func (service *Service) SetSurface(
 		return nil, err
 	}
 
-	err = config.AppDB.WithContext(ctx).Model(&Room{}).
+	err = service.store.WithContext(ctx).Model(&Room{}).
 		Where("id = ?", viewer.Room.ID).
 		Updates(map[string]any{
 			"surface_id":           surfaceID,
@@ -510,7 +494,7 @@ func (service *Service) SetSurface(
 		return nil, err
 	}
 
-	if err := service.incrementRoom(viewer.Room.Slug, "surface.updated"); err != nil {
+	if err := service.incrementRoom(ctx, viewer.Room.Slug, viewer.Participant.ID, "surface.updated", ResourceRoom, ResourceSurface, ResourceCatalog); err != nil {
 		return nil, err
 	}
 
@@ -622,12 +606,12 @@ func (service *Service) ToggleVote(ctx context.Context, viewer *Viewer, climbID 
 
 	service.fistBumps.Toggle(viewer.Room.ID, viewer.Participant.ID, climbID)
 
-	return service.incrementRoom(viewer.Room.Slug, "votes.updated")
+	return service.incrementRoom(ctx, viewer.Room.Slug, viewer.Participant.ID, "votes.updated", ResourceVotes)
 }
 
 func (service *Service) isClimbQueued(ctx context.Context, roomID uint, climbID string) (bool, error) {
 	var queueEntryCount int64
-	if err := config.AppDB.WithContext(ctx).Model(&RoomQueueEntry{}).
+	if err := service.store.WithContext(ctx).Model(&RoomQueueEntry{}).
 		Where("room_id = ? AND climb_id = ?", roomID, climbID).
 		Count(&queueEntryCount).Error; err != nil {
 		return false, err
@@ -646,7 +630,7 @@ func (service *Service) AddQueueEntry(ctx context.Context, viewer *Viewer, climb
 		return err
 	}
 
-	return service.incrementRoom(viewer.Room.Slug, "queue.updated")
+	return service.incrementRoom(ctx, viewer.Room.Slug, viewer.Participant.ID, "queue.updated", ResourceQueue, ResourceVotes)
 }
 
 func (service *Service) AddFinalist(ctx context.Context, viewer *Viewer, climbID string) error {
@@ -659,7 +643,7 @@ func (service *Service) AddFinalist(ctx context.Context, viewer *Viewer, climbID
 	}
 
 	var existingCount int64
-	if err := config.AppDB.WithContext(ctx).Model(&RoomFinalistEntry{}).
+	if err := service.store.WithContext(ctx).Model(&RoomFinalistEntry{}).
 		Where("room_id = ? AND climb_id = ?", viewer.Room.ID, climbID).
 		Count(&existingCount).Error; err != nil {
 		return err
@@ -669,14 +653,14 @@ func (service *Service) AddFinalist(ctx context.Context, viewer *Viewer, climbID
 	}
 
 	var maxPosition int
-	if err := config.AppDB.WithContext(ctx).Model(&RoomFinalistEntry{}).
+	if err := service.store.WithContext(ctx).Model(&RoomFinalistEntry{}).
 		Where("room_id = ?", viewer.Room.ID).
 		Select("COALESCE(MAX(position), 0)").
 		Scan(&maxPosition).Error; err != nil {
 		slog.Warn("failed to get max finalist position", "error", err, "room_id", viewer.Room.ID)
 	}
 
-	if err := config.AppDB.WithContext(ctx).Create(&RoomFinalistEntry{
+	if err := service.store.WithContext(ctx).Create(&RoomFinalistEntry{
 		RoomID:               viewer.Room.ID,
 		ClimbID:              climbID,
 		AddedByParticipantID: viewer.Participant.ID,
@@ -686,7 +670,7 @@ func (service *Service) AddFinalist(ctx context.Context, viewer *Viewer, climbID
 		return err
 	}
 
-	return service.incrementRoom(viewer.Room.Slug, "finalists.updated")
+	return service.incrementRoom(ctx, viewer.Room.Slug, viewer.Participant.ID, "finalists.updated", ResourceFinalists)
 }
 
 func (service *Service) ReorderFinalists(ctx context.Context, viewer *Viewer, entryIDs []uint) error {
@@ -695,7 +679,7 @@ func (service *Service) ReorderFinalists(ctx context.Context, viewer *Viewer, en
 	}
 
 	var entries []RoomFinalistEntry
-	if err := config.AppDB.WithContext(ctx).Where("room_id = ?", viewer.Room.ID).
+	if err := service.store.WithContext(ctx).Where("room_id = ?", viewer.Room.ID).
 		Order("position ASC").Find(&entries).Error; err != nil {
 		return err
 	}
@@ -713,12 +697,12 @@ func (service *Service) ReorderFinalists(ctx context.Context, viewer *Viewer, en
 		if !exists {
 			return fmt.Errorf("finalist entry %d does not belong to room", entryID)
 		}
-		if err := config.AppDB.WithContext(ctx).Model(&entry).Update("position", index+1).Error; err != nil {
+		if err := service.store.WithContext(ctx).Model(&entry).Update("position", index+1).Error; err != nil {
 			return err
 		}
 	}
 
-	return service.incrementRoom(viewer.Room.Slug, "finalists.updated")
+	return service.incrementRoom(ctx, viewer.Room.Slug, viewer.Participant.ID, "finalists.updated", ResourceFinalists)
 }
 
 func (service *Service) DeleteFinalist(ctx context.Context, viewer *Viewer, entryID uint) error {
@@ -726,12 +710,12 @@ func (service *Service) DeleteFinalist(ctx context.Context, viewer *Viewer, entr
 		return ErrForbidden
 	}
 
-	if err := config.AppDB.WithContext(ctx).Where("id = ? AND room_id = ?", entryID, viewer.Room.ID).
+	if err := service.store.WithContext(ctx).Where("id = ? AND room_id = ?", entryID, viewer.Room.ID).
 		Delete(&RoomFinalistEntry{}).Error; err != nil {
 		return err
 	}
 
-	return service.incrementRoom(viewer.Room.Slug, "finalists.updated")
+	return service.incrementRoom(ctx, viewer.Room.Slug, viewer.Participant.ID, "finalists.updated", ResourceFinalists)
 }
 
 func (service *Service) PickRandom(
@@ -779,7 +763,7 @@ func (service *Service) PromoteClimb(
 		return err
 	}
 
-	err = config.AppDB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+	err = service.store.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		entry, err := service.ensureQueueEntryRecord(tx, viewer.Room.ID, viewer.Participant.ID, climb)
 		if err != nil {
 			return err
@@ -819,7 +803,7 @@ func (service *Service) PromoteClimb(
 		return err
 	}
 
-	service.hub.Broadcast(EventPayload{Type: "queue.updated", RoomSlug: viewer.Room.Slug, Version: viewer.Room.Version})
+	service.broadcastRoomEvent(&viewer.Room, viewer.Participant.ID, "queue.updated", ResourceQueue, ResourceCurrentClimb, ResourceVotes)
 	return nil
 }
 
@@ -829,7 +813,7 @@ func (service *Service) ReorderQueue(ctx context.Context, viewer *Viewer, entryI
 	}
 
 	var entries []RoomQueueEntry
-	if err := config.AppDB.WithContext(ctx).Where("room_id = ?", viewer.Room.ID).
+	if err := service.store.WithContext(ctx).Where("room_id = ?", viewer.Room.ID).
 		Order("position ASC").Find(&entries).Error; err != nil {
 		return err
 	}
@@ -847,12 +831,12 @@ func (service *Service) ReorderQueue(ctx context.Context, viewer *Viewer, entryI
 		if !exists {
 			return fmt.Errorf("queue entry %d does not belong to room", entryID)
 		}
-		if err := config.AppDB.WithContext(ctx).Model(&entry).Update("position", index+1).Error; err != nil {
+		if err := service.store.WithContext(ctx).Model(&entry).Update("position", index+1).Error; err != nil {
 			return err
 		}
 	}
 
-	return service.incrementRoom(viewer.Room.Slug, "queue.updated")
+	return service.incrementRoom(ctx, viewer.Room.Slug, viewer.Participant.ID, "queue.updated", ResourceQueue, ResourceVotes)
 }
 
 func (service *Service) UpdateQueueEntryStatus(
@@ -869,7 +853,7 @@ func (service *Service) UpdateQueueEntryStatus(
 	}
 
 	var entry RoomQueueEntry
-	if err := config.AppDB.WithContext(ctx).Where("id = ? AND room_id = ?", entryID, viewer.Room.ID).
+	if err := service.store.WithContext(ctx).Where("id = ? AND room_id = ?", entryID, viewer.Room.ID).
 		First(&entry).Error; err != nil {
 		return fmt.Errorf("queue entry not found")
 	}
@@ -882,7 +866,7 @@ func (service *Service) UpdateQueueEntryStatus(
 		entryClimbJSON = mustEncodeProviderClimb(climb)
 	}
 
-	err := config.AppDB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+	err := service.store.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		if status == queueStatusCurrent {
 			if err := tx.Model(&RoomQueueEntry{}).
 				Where("room_id = ? AND status = ?", viewer.Room.ID, queueStatusCurrent).
@@ -930,7 +914,7 @@ func (service *Service) UpdateQueueEntryStatus(
 		return err
 	}
 
-	service.hub.Broadcast(EventPayload{Type: "queue.updated", RoomSlug: viewer.Room.Slug, Version: viewer.Room.Version})
+	service.broadcastRoomEvent(&viewer.Room, viewer.Participant.ID, "queue.updated", ResourceQueue, ResourceCurrentClimb, ResourceVotes)
 	return nil
 }
 
@@ -939,12 +923,12 @@ func (service *Service) DeleteQueueEntry(ctx context.Context, viewer *Viewer, en
 		return ErrForbidden
 	}
 	var entry RoomQueueEntry
-	if err := config.AppDB.WithContext(ctx).Where("id = ? AND room_id = ?", entryID, viewer.Room.ID).
+	if err := service.store.WithContext(ctx).Where("id = ? AND room_id = ?", entryID, viewer.Room.ID).
 		First(&entry).Error; err != nil {
 		return fmt.Errorf("queue entry not found")
 	}
 
-	err := config.AppDB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+	err := service.store.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		if err := tx.Delete(&entry).Error; err != nil {
 			return err
 		}
@@ -963,7 +947,7 @@ func (service *Service) DeleteQueueEntry(ctx context.Context, viewer *Viewer, en
 		return err
 	}
 
-	service.hub.Broadcast(EventPayload{Type: "queue.updated", RoomSlug: viewer.Room.Slug, Version: viewer.Room.Version})
+	service.broadcastRoomEvent(&viewer.Room, viewer.Participant.ID, "queue.updated", ResourceQueue, ResourceCurrentClimb, ResourceVotes)
 	return nil
 }
 
@@ -972,7 +956,7 @@ func (service *Service) ClearVotes(ctx context.Context, viewer *Viewer) error {
 		return ErrForbidden
 	}
 	service.fistBumps.Clear(viewer.Room.ID)
-	return service.incrementRoom(viewer.Room.Slug, "votes.updated")
+	return service.incrementRoom(ctx, viewer.Room.Slug, viewer.Participant.ID, "votes.updated", ResourceVotes)
 }
 
 func (service *Service) UpdateParticipantStatus(ctx context.Context, viewer *Viewer, status string) error {
@@ -981,14 +965,14 @@ func (service *Service) UpdateParticipantStatus(ctx context.Context, viewer *Vie
 		return fmt.Errorf("invalid participant status %q", status)
 	}
 
-	if err := config.AppDB.WithContext(ctx).Model(&RoomParticipant{}).
+	if err := service.store.WithContext(ctx).Model(&RoomParticipant{}).
 		Where("id = ? AND room_id = ?", viewer.Participant.ID, viewer.Room.ID).
 		Update("status", normalizedStatus).Error; err != nil {
 		return err
 	}
 
 	viewer.Participant.Status = normalizedStatus
-	return service.incrementRoom(viewer.Room.Slug, "participants.updated")
+	return service.incrementRoom(ctx, viewer.Room.Slug, viewer.Participant.ID, "participants.updated", ResourceParticipants)
 }
 
 func (service *Service) CloseRoom(ctx context.Context, viewer *Viewer) error {
@@ -996,7 +980,7 @@ func (service *Service) CloseRoom(ctx context.Context, viewer *Viewer) error {
 		return ErrForbidden
 	}
 	now := time.Now().UTC()
-	err := config.AppDB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+	err := service.store.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		if err := tx.Model(&Room{}).
 			Where("id = ?", viewer.Room.ID).
 			Updates(map[string]any{
@@ -1012,7 +996,7 @@ func (service *Service) CloseRoom(ctx context.Context, viewer *Viewer) error {
 		return err
 	}
 	service.fistBumps.Clear(viewer.Room.ID)
-	service.hub.Broadcast(EventPayload{Type: "room.closed", RoomSlug: viewer.Room.Slug, Version: viewer.Room.Version})
+	service.broadcastRoomEvent(&viewer.Room, viewer.Participant.ID, "room.closed", ResourceRoom, ResourceParticipants, ResourceQueue, ResourceFinalists, ResourceVotes, ResourceCurrentClimb)
 	return nil
 }
 
@@ -1024,7 +1008,7 @@ func (service *Service) RemoveParticipant(ctx context.Context, viewer *Viewer, p
 		return fmt.Errorf("host cannot remove themselves")
 	}
 
-	err := config.AppDB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+	err := service.store.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		if err := tx.Where("room_id = ? AND participant_id = ?", viewer.Room.ID, participantID).Delete(&RoomSession{}).Error; err != nil {
 			return err
 		}
@@ -1044,7 +1028,7 @@ func (service *Service) RemoveParticipant(ctx context.Context, viewer *Viewer, p
 	}
 	service.fistBumps.ClearParticipant(viewer.Room.ID, participantID)
 
-	service.hub.Broadcast(EventPayload{Type: "participants.updated", RoomSlug: viewer.Room.Slug, Version: viewer.Room.Version})
+	service.broadcastRoomEvent(&viewer.Room, viewer.Participant.ID, "participants.updated", ResourceParticipants, ResourceQueue, ResourceFinalists, ResourceVotes)
 	return nil
 }
 
@@ -1059,19 +1043,19 @@ func (service *Service) buildSnapshot(
 	}
 
 	var participants []RoomParticipant
-	if err := config.AppDB.WithContext(ctx).Where("room_id = ?", room.ID).
+	if err := service.store.WithContext(ctx).Where("room_id = ?", room.ID).
 		Order("created_at ASC").Find(&participants).Error; err != nil {
 		return nil, err
 	}
 
 	var queueEntries []RoomQueueEntry
-	if err := config.AppDB.WithContext(ctx).Where("room_id = ?", room.ID).
+	if err := service.store.WithContext(ctx).Where("room_id = ?", room.ID).
 		Order("position ASC, created_at ASC").Find(&queueEntries).Error; err != nil {
 		return nil, err
 	}
 
 	var finalistEntries []RoomFinalistEntry
-	if err := config.AppDB.WithContext(ctx).Where("room_id = ?", room.ID).
+	if err := service.store.WithContext(ctx).Where("room_id = ?", room.ID).
 		Order("position ASC, created_at ASC").Find(&finalistEntries).Error; err != nil {
 		return nil, err
 	}
@@ -1231,7 +1215,7 @@ func (service *Service) providerForRoom(ctx context.Context, room *Room) (provid
 		decrypted, err = security.DecryptString(cfg.PreviousEncryptionKey, connection.SecretCiphertext)
 		if err == nil {
 			if reEncrypted, reErr := security.EncryptString(cfg.EncryptionKey, decrypted); reErr == nil {
-				config.AppDB.WithContext(ctx).Model(&connection).Update("secret_ciphertext", reEncrypted)
+				service.store.WithContext(ctx).Model(&connection).Update("secret_ciphertext", reEncrypted)
 			}
 		}
 	}
@@ -1249,7 +1233,7 @@ func (service *Service) providerForRoom(ctx context.Context, room *Room) (provid
 
 func (service *Service) getRoomConnection(ctx context.Context, roomID uint) (*RoomProviderConnection, error) {
 	var connection RoomProviderConnection
-	if err := config.AppDB.WithContext(ctx).Where("room_id = ?", roomID).First(&connection).Error; err != nil {
+	if err := service.store.WithContext(ctx).Where("room_id = ?", roomID).First(&connection).Error; err != nil {
 		return nil, err
 	}
 	return &connection, nil
@@ -1257,24 +1241,33 @@ func (service *Service) getRoomConnection(ctx context.Context, roomID uint) (*Ro
 
 func (service *Service) findRoom(ctx context.Context, roomSlug string) (*Room, error) {
 	var room Room
-	if err := config.AppDB.WithContext(ctx).Where("slug = ?", roomSlug).First(&room).Error; err != nil {
+	if err := service.store.WithContext(ctx).Where("slug = ?", roomSlug).First(&room).Error; err != nil {
 		return nil, ErrRoomNotFound
+	}
+	if service.isRoomExpired(&room, time.Now().UTC()) {
+		room.Status = roomStatusClosed
 	}
 	return &room, nil
 }
 
-func (service *Service) incrementRoom(roomSlug string, eventType string) error {
-	room, err := service.findRoom(context.Background(), roomSlug)
+func (service *Service) incrementRoom(
+	ctx context.Context,
+	roomSlug string,
+	participantID uint,
+	eventType string,
+	resources ...EventResource,
+) error {
+	room, err := service.findRoom(ctx, roomSlug)
 	if err != nil {
 		return err
 	}
-	err = config.AppDB.WithContext(context.Background()).Transaction(func(tx *gorm.DB) error {
+	err = service.store.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		return service.bumpRoomVersion(tx, room)
 	})
 	if err != nil {
 		return err
 	}
-	service.hub.Broadcast(EventPayload{Type: eventType, RoomSlug: room.Slug, Version: room.Version})
+	service.broadcastRoomEvent(room, participantID, eventType, resources...)
 	return nil
 }
 
@@ -1288,15 +1281,15 @@ func (service *Service) bumpRoomVersion(tx *gorm.DB, room *Room) error {
 	}).Error
 }
 
-func (service *Service) closeExpiredRooms(ctx context.Context) error {
-	if config.AppDB == nil {
+func (service *Service) CloseExpiredRooms(ctx context.Context) error {
+	if service.store == nil {
 		return nil
 	}
 
 	cutoff := time.Now().UTC().Add(-roomExpiryWindow)
 	now := time.Now().UTC()
 	var expiredRoomIDs []uint
-	if err := config.AppDB.WithContext(ctx).Model(&Room{}).
+	if err := service.store.WithContext(ctx).Model(&Room{}).
 		Where("status = ? AND last_active_at < ?", roomStatusOpen, cutoff).
 		Pluck("id", &expiredRoomIDs).Error; err != nil {
 		return err
@@ -1305,7 +1298,7 @@ func (service *Service) closeExpiredRooms(ctx context.Context) error {
 		return nil
 	}
 
-	if err := config.AppDB.WithContext(ctx).Model(&Room{}).
+	if err := service.store.WithContext(ctx).Model(&Room{}).
 		Where("id IN ?", expiredRoomIDs).
 		Updates(map[string]any{
 			"status":     roomStatusClosed,
@@ -1319,6 +1312,45 @@ func (service *Service) closeExpiredRooms(ctx context.Context) error {
 		service.fistBumps.Clear(roomID)
 	}
 	return nil
+}
+
+func (service *Service) PruneExpiredSessions(ctx context.Context) error {
+	if service.store == nil {
+		return nil
+	}
+
+	return service.store.WithContext(ctx).
+		Where("expires_at <= ?", time.Now().UTC()).
+		Delete(&RoomSession{}).Error
+}
+
+func (service *Service) isRoomExpired(room *Room, now time.Time) bool {
+	if room == nil {
+		return false
+	}
+
+	return room.Status == roomStatusOpen && room.LastActiveAt.Before(now.Add(-roomExpiryWindow))
+}
+
+func (service *Service) broadcastRoomEvent(
+	room *Room,
+	participantID uint,
+	eventType string,
+	resources ...EventResource,
+) {
+	if room == nil {
+		return
+	}
+
+	payload := NewEventPayload(eventType, room.Slug, room.Version, resources...)
+	service.hub.Broadcast(payload)
+	slog.Info("room mutation",
+		"room_slug", room.Slug,
+		"participant_id", participantID,
+		"provider_id", room.ProviderID,
+		"event_type", eventType,
+		"version", room.Version,
+	)
 }
 
 func (service *Service) getRoomClimb(
@@ -1349,7 +1381,7 @@ func (service *Service) addQueueEntryRecord(
 	climb *providers.ProviderClimb,
 ) (*RoomQueueEntry, error) {
 	var existingCount int64
-	if err := config.AppDB.WithContext(ctx).Model(&RoomQueueEntry{}).
+	if err := service.store.WithContext(ctx).Model(&RoomQueueEntry{}).
 		Where("room_id = ? AND climb_id = ?", roomID, climb.ID).
 		Count(&existingCount).Error; err != nil {
 		return nil, err
@@ -1359,7 +1391,7 @@ func (service *Service) addQueueEntryRecord(
 	}
 
 	var createdEntry *RoomQueueEntry
-	err := config.AppDB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+	err := service.store.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		entry, err := service.ensureQueueEntryRecord(tx, roomID, participantID, climb)
 		if err != nil {
 			return err
@@ -1419,7 +1451,7 @@ func (service *Service) pickRandomFinalist(
 	viewer *Viewer,
 ) (*providers.ProviderClimb, error) {
 	var finalists []RoomFinalistEntry
-	if err := config.AppDB.WithContext(ctx).Where("room_id = ?", viewer.Room.ID).
+	if err := service.store.WithContext(ctx).Where("room_id = ?", viewer.Room.ID).
 		Order("position ASC, created_at ASC").Find(&finalists).Error; err != nil {
 		return nil, err
 	}

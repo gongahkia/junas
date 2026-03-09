@@ -163,6 +163,7 @@ func hasLegacySchema(ctx context.Context, db *gorm.DB) (bool, error) {
 		return false, fmt.Errorf("open sql db handle: %w", err)
 	}
 
+	found := 0
 	for _, tableName := range legacyTables {
 		var exists int
 		if err := sqlDB.QueryRowContext(
@@ -173,11 +174,11 @@ func hasLegacySchema(ctx context.Context, db *gorm.DB) (bool, error) {
 			return false, fmt.Errorf("inspect %s table: %w", tableName, err)
 		}
 		if exists > 0 {
-			return true, nil
+			found++
 		}
 	}
 
-	return false, nil
+	return found == len(legacyTables), nil
 }
 
 func CurrentBaselinePath() string {

@@ -9,8 +9,6 @@ import (
 	"strings"
 )
 
-const ProviderTest ProviderID = "test"
-
 type FakeProvider struct {
 	Surfaces []ProviderSurface
 	Climbs   []ProviderClimb

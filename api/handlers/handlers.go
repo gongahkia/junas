@@ -167,7 +167,7 @@ func Readyz(w http.ResponseWriter, r *http.Request) {
 
 func Metrics(w http.ResponseWriter, r *http.Request) {
 	if metricsHandler == nil {
-		writeJSONError(w, http.StatusServiceUnavailable, err.Error())
+		writeJSONError(w, http.StatusServiceUnavailable, "metrics are unavailable")
 		return
 	}
 	metricsHandler.ServeHTTP(w, r)
