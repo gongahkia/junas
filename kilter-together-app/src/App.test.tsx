@@ -436,7 +436,6 @@ describe("App routes", () => {
     expect((await screen.findAllByText("Shared Project")).length).toBeGreaterThan(0);
     expect(screen.getByText("Vote on this one")).toBeInTheDocument();
     expect(screen.getByText("Live participants")).toBeInTheDocument();
-    expect(screen.getByText("Live reactions")).toBeInTheDocument();
     expect(screen.getByText("2 currently online")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Pause reactions" })).toBeInTheDocument();
     expect(screen.getByText("Participants")).toBeInTheDocument();
@@ -527,13 +526,76 @@ describe("App routes", () => {
     expect(MockEventSource.instances).toHaveLength(7);
   });
 
-  it("lets room members send emoji reactions from the header tray", async () => {
-    const user = userEvent.setup();
+  it("still renders the room when legacy snapshots send null recent reactions", async () => {
     mockedApi.getBoards.mockResolvedValue([]);
-    mockedApi.getRoom.mockResolvedValue(buildRoomSnapshot("session-react"));
-    mockedApi.sendRoomReaction.mockResolvedValue(undefined);
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("legacy-null-reactions"),
+      recent_reactions: null as unknown as RoomSnapshot["recent_reactions"],
+    });
     mockedApi.getRoomCatalogClimbs.mockResolvedValue({
       climbs: [],
+      has_more: false,
+      page_size: 12,
+      vote_counts: {},
+      my_votes: [],
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/legacy-null-reactions"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(
+      await screen.findByRole("heading", { name: "Room legacy-null-reactions" })
+    ).toBeInTheDocument();
+  });
+
+  it("lets room members send emoji reactions from the climb tray", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("session-react"),
+      surface: {
+        id: "14",
+        kind: "board",
+        name: "Kilter Board Original",
+        meta: {
+          angle: "40",
+          board_id: "14",
+        },
+      },
+      connection: {
+        provider_id: "kilter",
+        connected: true,
+      },
+    });
+    mockedApi.sendRoomReaction.mockResolvedValue(undefined);
+    mockedApi.getRoomCatalogClimbs.mockResolvedValue({
+      climbs: [
+        {
+          id: "kilter:14:uuid-react",
+          external_id: "uuid-react",
+          provider_id: "kilter",
+          surface_id: "14",
+          name: "Reaction Test",
+          description: "Live emoji tray test",
+          setter_name: "Setter A",
+          primary_grade: "V5",
+          secondary_grade: "5.12b",
+          created_at: "2026-02-01T00:00:00Z",
+          popularity: 8,
+          media: [
+            {
+              url: "/api/images/test-a.png",
+              kind: "image",
+            },
+          ],
+          meta: {
+            board_id: "14",
+          },
+        },
+      ],
       has_more: false,
       page_size: 12,
       vote_counts: {},
@@ -550,19 +612,57 @@ describe("App routes", () => {
       await screen.findByRole("heading", { name: "Room session-react" })
     ).toBeInTheDocument();
 
-    await user.click(screen.getByRole("button", { name: "Thumbs up reaction" }));
+    await user.click(await screen.findByRole("button", { name: "Thumbs up reaction" }));
 
     await waitFor(() =>
       expect(mockedApi.sendRoomReaction).toHaveBeenCalledWith("session-react", "thumbs_up")
     );
   });
 
-  it("lets the host pause room emoji reactions from the header card", async () => {
+  it("lets the host pause room emoji reactions from the climb tray", async () => {
     const user = userEvent.setup();
     mockedApi.getBoards.mockResolvedValue([]);
-    mockedApi.getRoom.mockResolvedValue(buildRoomSnapshot("room-reaction-toggle"));
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("room-reaction-toggle"),
+      surface: {
+        id: "14",
+        kind: "board",
+        name: "Kilter Board Original",
+        meta: {
+          angle: "40",
+          board_id: "14",
+        },
+      },
+      connection: {
+        provider_id: "kilter",
+        connected: true,
+      },
+    });
     mockedApi.getRoomCatalogClimbs.mockResolvedValue({
-      climbs: [],
+      climbs: [
+        {
+          id: "kilter:14:uuid-toggle",
+          external_id: "uuid-toggle",
+          provider_id: "kilter",
+          surface_id: "14",
+          name: "Toggle Test",
+          description: "Host reaction gate",
+          setter_name: "Setter A",
+          primary_grade: "V4",
+          secondary_grade: "5.11d",
+          created_at: "2026-02-01T00:00:00Z",
+          popularity: 6,
+          media: [
+            {
+              url: "/api/images/test-a.png",
+              kind: "image",
+            },
+          ],
+          meta: {
+            board_id: "14",
+          },
+        },
+      ],
       has_more: false,
       page_size: 12,
       vote_counts: {},
@@ -570,6 +670,19 @@ describe("App routes", () => {
     });
     mockedApi.setRoomEmojiReactionsEnabled.mockResolvedValue({
       ...buildRoomSnapshot("room-reaction-toggle"),
+      surface: {
+        id: "14",
+        kind: "board",
+        name: "Kilter Board Original",
+        meta: {
+          angle: "40",
+          board_id: "14",
+        },
+      },
+      connection: {
+        provider_id: "kilter",
+        connected: true,
+      },
       emoji_reactions_enabled: false,
       recent_reactions: [],
     });
@@ -584,7 +697,7 @@ describe("App routes", () => {
       await screen.findByRole("heading", { name: "Room room-reaction-toggle" })
     ).toBeInTheDocument();
 
-    await user.click(screen.getByRole("button", { name: "Pause reactions" }));
+    await user.click(await screen.findByRole("button", { name: "Pause reactions" }));
 
     await waitFor(() =>
       expect(mockedApi.setRoomEmojiReactionsEnabled).toHaveBeenCalledWith(

@@ -77,7 +77,7 @@ func (store *ReactionStore) List(roomID uint, now time.Time) []RoomReactionView 
 	store.trimLocked(roomID, now)
 	reactions := store.reactionsByRoom[roomID]
 	if len(reactions) == 0 {
-		return nil
+		return []RoomReactionView{}
 	}
 
 	copied := make([]RoomReactionView, len(reactions))

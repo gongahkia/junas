@@ -250,7 +250,7 @@ export default function ClimbView({
       defaultOpen={true}
       className="bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))]"
     >
-      <div className="min-h-screen w-full">
+      <div className="flex min-h-screen w-full">
         <Sidebar
           boardName={boardName}
           climbs={climbs}
@@ -389,7 +389,7 @@ export default function ClimbView({
               </div>
             </div>
 
-            <div className="order-1 mt-4 flex-1 overflow-auto md:order-none">
+            <div className="order-1 mt-4 min-w-0 flex-1 overflow-auto md:order-none">
               <ProblemView
                 selectedClimb={selectedClimb}
                 angle={angle}

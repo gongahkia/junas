@@ -67,7 +67,7 @@ export default function RoomReactionOverlay({
           <div
             key={reaction.id}
             className={cn(
-              "room-reaction-burst absolute flex items-center gap-2 rounded-full border px-3 py-2 shadow-sm backdrop-blur-sm",
+              "room-reaction-burst absolute flex items-center justify-center rounded-full border p-2 shadow-sm backdrop-blur-sm",
               meta.accentClassName
             )}
             style={{
@@ -78,8 +78,7 @@ export default function RoomReactionOverlay({
               ["--room-reaction-drift" as string]: `${drift}px`,
             }}
           >
-            <span className="text-lg leading-none">{meta.emoji}</span>
-            <span className="text-xs font-medium">{reaction.display_name}</span>
+            <span className="text-xl leading-none">{meta.emoji}</span>
           </div>
         );
       })}

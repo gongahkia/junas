@@ -46,7 +46,6 @@ import {
 import OnboardingCallout from "@/components/OnboardingCallout";
 import DetailGrid, { type DetailGridItem } from "@/components/DetailGrid";
 import RoomProblemView from "@/components/RoomProblemView";
-import RoomReactionOverlay from "@/components/RoomReactionOverlay";
 import InviteQRCodeCard from "@/components/InviteQRCodeCard";
 import AngleSelector from "@/components/AngleSelector";
 import LoadingSlideshow from "@/components/LoadingSlideshow";
@@ -69,11 +68,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  ROOM_REACTION_META,
-  ROOM_REACTION_OPTIONS,
-  ROOM_REACTION_TTL_MS,
-} from "@/lib/room-reactions";
 
 const PAGE_SIZE = 12;
 const ROOM_EVENTS_INITIAL_RETRY_MS = 1000;
@@ -113,7 +107,6 @@ export default function RoomView() {
   const [roomNameSaving, setRoomNameSaving] = useState(false);
   const [emojiReactionsSaving, setEmojiReactionsSaving] = useState(false);
   const [reactionSendingCode, setReactionSendingCode] = useState<RoomReactionCode | null>(null);
-  const [reactionNowMs, setReactionNowMs] = useState(() => Date.now());
   const [showRoomSettings, setShowRoomSettings] = useState(false);
   const [showSurfaceEditor, setShowSurfaceEditor] = useState(false);
   const [connectionFields, setConnectionFields] = useState(() => ({
@@ -548,19 +541,6 @@ export default function RoomView() {
     const timeoutID = window.setTimeout(() => setCopiedInvite(false), 1800);
     return () => window.clearTimeout(timeoutID);
   }, [copiedInvite]);
-
-  useEffect(() => {
-    setReactionNowMs(Date.now());
-  }, [snapshot?.recent_reactions]);
-
-  useEffect(() => {
-    if (snapshot?.recent_reactions.length === 0 || typeof window === "undefined") {
-      return;
-    }
-
-    const intervalID = window.setInterval(() => setReactionNowMs(Date.now()), 500);
-    return () => window.clearInterval(intervalID);
-  }, [snapshot?.recent_reactions.length]);
 
   useEffect(() => {
     setRoomNameInput(snapshot?.room_name ?? "");
@@ -1171,6 +1151,7 @@ export default function RoomView() {
   const roomNameChanged = roomNameInput.trim() !== (snapshot.room_name ?? "").trim();
   const providerLabel = formatProviderName(snapshot.provider_id);
   const motionEnabled = loadUserPrefs().settings.playfulMotionEnabled;
+  const recentReactions = Array.isArray(snapshot.recent_reactions) ? snapshot.recent_reactions : [];
   const showSurfaceCard = snapshot.connection.connected && (snapshot.can_manage || !snapshot.surface);
   const surfaceEditorOpen =
     snapshot.can_manage && snapshot.connection.connected && (!snapshot.surface || showSurfaceEditor);
@@ -1207,11 +1188,6 @@ export default function RoomView() {
       value: `${readinessCounts.ready} ready · ${readinessCounts.resting} resting · ${readinessCounts.away} away`,
     },
   ];
-  const activeRecentReactions = snapshot.recent_reactions.filter((reaction) => {
-    const createdAtMs = Date.parse(reaction.created_at);
-    return Number.isFinite(createdAtMs) && reactionNowMs - createdAtMs < ROOM_REACTION_TTL_MS;
-  });
-  const latestReactions = [...activeRecentReactions].slice(-4).reverse();
   const surfaceSummaryItems: DetailGridItem[] = [
     {
       label: "Provider",
@@ -1262,137 +1238,37 @@ export default function RoomView() {
               </div>
               <DetailGrid items={roomSummaryItems} className="lg:grid-cols-3 2xl:grid-cols-5" />
               <div className="rounded-2xl border bg-muted/20 px-4 py-3">
-                <div className="grid gap-4 xl:grid-cols-[minmax(0,1.3fr)_minmax(20rem,0.9fr)]">
-                  <div className="space-y-3">
-                    <div className="space-y-1">
-                      <p className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
-                        Live participants
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {liveParticipants.length > 0
-                          ? `${liveParticipants.length} currently online`
-                          : "No participants are currently online."}
-                      </p>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {liveParticipants.length > 0 ? (
-                        liveParticipants.map((participant) => (
-                          <Badge
-                            key={participant.id}
-                            variant="outline"
-                            className="gap-2 rounded-full px-3 py-1 text-sm"
-                          >
-                            <span className="h-2 w-2 rounded-full bg-emerald-500" aria-hidden />
-                            <span>{participant.display_name}</span>
-                            <span className="text-xs text-muted-foreground">
-                              {participant.status}
-                            </span>
-                          </Badge>
-                        ))
-                      ) : (
-                        <Badge variant="outline" className="rounded-full px-3 py-1 text-sm">
-                          Waiting for guests
-                        </Badge>
-                      )}
-                    </div>
+                <div className="space-y-3">
+                  <div className="space-y-1">
+                    <p className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+                      Live participants
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {liveParticipants.length > 0
+                        ? `${liveParticipants.length} currently online`
+                        : "No participants are currently online."}
+                    </p>
                   </div>
-                  <div className="rounded-2xl border bg-white/80 p-3">
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <div className="space-y-1">
-                        <p className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
-                          Live reactions
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          {snapshot.emoji_reactions_enabled
-                            ? "Quick cheers float here for everyone in the room."
-                            : snapshot.can_manage
-                              ? "Guests cannot send reactions until you turn them back on."
-                              : "The host paused emoji reactions for now."}
-                        </p>
-                      </div>
-                      {snapshot.can_manage ? (
-                        <Button
-                          type="button"
-                          size="sm"
-                          variant={snapshot.emoji_reactions_enabled ? "secondary" : "outline"}
-                          disabled={emojiReactionsSaving || snapshot.status === "closed"}
-                          onClick={() =>
-                            void handleEmojiReactionsToggle(!snapshot.emoji_reactions_enabled)
-                          }
+                  <div className="flex flex-wrap gap-2">
+                    {liveParticipants.length > 0 ? (
+                      liveParticipants.map((participant) => (
+                        <Badge
+                          key={participant.id}
+                          variant="outline"
+                          className="gap-2 rounded-full px-3 py-1 text-sm"
                         >
-                          {snapshot.emoji_reactions_enabled ? "Pause reactions" : "Allow reactions"}
-                        </Button>
-                      ) : null}
-                    </div>
-                    <div className="mt-3 rounded-2xl border bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.96),_rgba(241,245,249,0.92))] p-3">
-                      <div className="relative h-24 overflow-hidden rounded-xl border border-dashed border-slate-200/80 bg-white/70">
-                        <RoomReactionOverlay
-                          reactions={snapshot.recent_reactions}
-                          motionEnabled={motionEnabled}
-                        />
-                        {!motionEnabled ||
-                        latestReactions.length === 0 ||
-                        !snapshot.emoji_reactions_enabled ? (
-                          <div className="flex h-full items-center justify-center px-4 text-center text-xs text-muted-foreground">
-                            {!snapshot.emoji_reactions_enabled
-                              ? "Reaction effects are paused for this room."
-                              : motionEnabled
-                                ? "No cheers yet. Kick things off with a quick reaction."
-                                : "Motion is reduced on this browser. Recent cheers still show below."}
-                          </div>
-                        ) : null}
-                      </div>
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {ROOM_REACTION_OPTIONS.map((reaction) => (
-                          <Button
-                            key={reaction.code}
-                            type="button"
-                            size="sm"
-                            variant="outline"
-                            className={cn(
-                              "h-10 rounded-full px-3 text-sm",
-                              reaction.accentClassName
-                            )}
-                            aria-label={`${reaction.label} reaction`}
-                            disabled={
-                              snapshot.status === "closed" ||
-                              !snapshot.emoji_reactions_enabled ||
-                              reactionSendingCode !== null
-                            }
-                            onClick={() => void handleSendRoomReaction(reaction.code)}
-                          >
-                            <span className="text-base leading-none">{reaction.emoji}</span>
-                            <span>{reaction.label}</span>
-                          </Button>
-                        ))}
-                      </div>
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {latestReactions.length > 0 ? (
-                          latestReactions.map((reaction) => {
-                            const reactionMeta = ROOM_REACTION_META[reaction.emoji_code];
-                            return (
-                              <Badge
-                                key={reaction.id}
-                                variant="outline"
-                                className={cn(
-                                  "gap-2 rounded-full px-3 py-1 text-xs",
-                                  reactionMeta.accentClassName
-                                )}
-                              >
-                                <span aria-hidden>{reactionMeta.emoji}</span>
-                                <span>{reaction.display_name}</span>
-                              </Badge>
-                            );
-                          })
-                        ) : (
-                          <Badge variant="outline" className="rounded-full px-3 py-1 text-xs">
-                            {snapshot.emoji_reactions_enabled
-                              ? "Latest cheers will appear here"
-                              : "Reaction feed paused"}
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
+                          <span className="h-2 w-2 rounded-full bg-emerald-500" aria-hidden />
+                          <span>{participant.display_name}</span>
+                          <span className="text-xs text-muted-foreground">
+                            {participant.status}
+                          </span>
+                        </Badge>
+                      ))
+                    ) : (
+                      <Badge variant="outline" className="rounded-full px-3 py-1 text-sm">
+                        Waiting for guests
+                      </Badge>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1941,6 +1817,15 @@ export default function RoomView() {
                       climb={selectedClimb}
                       providerId={snapshot.provider_id}
                       hasResults={(catalog?.climbs.length ?? 0) > 0}
+                      reactionsEnabled={snapshot.emoji_reactions_enabled}
+                      canManage={snapshot.can_manage}
+                      roomStatus={snapshot.status}
+                      recentReactions={recentReactions}
+                      motionEnabled={motionEnabled}
+                      emojiReactionsSaving={emojiReactionsSaving}
+                      reactionSendingCode={reactionSendingCode}
+                      onSendReaction={(emojiCode) => void handleSendRoomReaction(emojiCode)}
+                      onToggleReactions={(enabled) => void handleEmojiReactionsToggle(enabled)}
                     />
                   </CardContent>
                 </Card>

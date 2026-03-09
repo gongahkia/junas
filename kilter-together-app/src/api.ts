@@ -28,6 +28,14 @@ const apiClient = axios.create({
   withCredentials: true,
 });
 
+function normalizeRoomSnapshot(snapshot: RoomSnapshot): RoomSnapshot {
+  return {
+    ...snapshot,
+    emoji_reactions_enabled: snapshot.emoji_reactions_enabled ?? true,
+    recent_reactions: Array.isArray(snapshot.recent_reactions) ? snapshot.recent_reactions : [],
+  };
+}
+
 // wrap in api namespace
 export const api = {
   getBoards: async (): Promise<Board[]> => {
@@ -81,19 +89,19 @@ export const api = {
       display_name: payload.displayName,
       secret: payload.secret,
     });
-    return response.data;
+    return normalizeRoomSnapshot(response.data);
   },
 
   joinRoom: async (slug: string, displayName: string): Promise<RoomSnapshot> => {
     const response = await apiClient.post<RoomSnapshot>(`/rooms/${slug}/join`, {
       display_name: displayName,
     });
-    return response.data;
+    return normalizeRoomSnapshot(response.data);
   },
 
   getRoom: async (slug: string): Promise<RoomSnapshot> => {
     const response = await apiClient.get<RoomSnapshot>(`/rooms/${slug}`);
-    return response.data;
+    return normalizeRoomSnapshot(response.data);
   },
 
   updateRoom: async (
@@ -103,7 +111,7 @@ export const api = {
     const response = await apiClient.patch<RoomSnapshot>(`/rooms/${slug}`, {
       room_name: payload.roomName,
     });
-    return response.data;
+    return normalizeRoomSnapshot(response.data);
   },
 
   setRoomEmojiReactionsEnabled: async (
@@ -113,7 +121,7 @@ export const api = {
     const response = await apiClient.put<RoomSnapshot>(`/rooms/${slug}/reactions/settings`, {
       enabled,
     });
-    return response.data;
+    return normalizeRoomSnapshot(response.data);
   },
 
   getRoomEventsUrl: (slug: string): string => `${BASE_URL}/rooms/${slug}/events`,
