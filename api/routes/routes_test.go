@@ -67,8 +67,10 @@ func TestSetupRoutesContract(t *testing.T) {
 
 	var boardsResponse struct {
 		Boards []struct {
-			ID   int    `json:"id"`
-			Name string `json:"name"`
+			ID                   int    `json:"id"`
+			Name                 string `json:"name"`
+			PreviewImageFilename string `json:"preview_image_filename"`
+			ClimbCount           int    `json:"climb_count"`
 		} `json:"boards"`
 	}
 	if err := json.NewDecoder(response.Body).Decode(&boardsResponse); err != nil {
@@ -79,6 +81,12 @@ func TestSetupRoutesContract(t *testing.T) {
 	}
 	if boardsResponse.Boards[0].ID != 99 || boardsResponse.Boards[1].ID != 14 {
 		t.Fatalf("expected dynamically discovered board id 99, got %#v", boardsResponse.Boards)
+	}
+	if boardsResponse.Boards[0].ClimbCount != 0 {
+		t.Fatalf("expected board 99 climb count 0, got %#v", boardsResponse.Boards[0])
+	}
+	if boardsResponse.Boards[1].PreviewImageFilename == "" || boardsResponse.Boards[1].ClimbCount != 3 {
+		t.Fatalf("expected board 14 to expose preview image and climb count, got %#v", boardsResponse.Boards[1])
 	}
 
 	response, err = http.Get(server.URL + "/api/climbs?board_id=14&page_size=2")

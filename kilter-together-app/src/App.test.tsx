@@ -1099,6 +1099,30 @@ describe("App routes", () => {
     expect(screen.queryByRole("button", { name: "Open solo browse" })).not.toBeInTheDocument();
   });
 
+  it("shows board preview images and climb metrics in solo browse", async () => {
+    mockedApi.getBoards.mockResolvedValue([
+      {
+        id: 17,
+        name: "7x10",
+        kilter_name: "Kilter Board Homewall",
+        preview_image_filename: "product_sizes_layouts_sets/board-17.png",
+        climb_count: 1234,
+      },
+    ]);
+
+    render(
+      <MemoryRouter initialEntries={["/solo"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByText("Choose a board")).toBeInTheDocument();
+    expect(
+      screen.getByAltText("Kilter Board Homewall 7x10 board preview")
+    ).toHaveAttribute("src", "/api/images/board-17.png");
+    expect(screen.getByText("1,234 climbs")).toBeInTheDocument();
+  });
+
   it("shows role-specific onboarding on host and guest entry pages", async () => {
     mockedApi.getBoards.mockResolvedValue([]);
     window.localStorage.clear();
