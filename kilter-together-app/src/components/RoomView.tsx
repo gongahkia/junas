@@ -1050,6 +1050,7 @@ export default function RoomView() {
     snapshot.participants.find(
       (participant) => participant.display_name === snapshot.display_name
     ) ?? snapshot.participants[0];
+  const liveParticipants = snapshot.participants.filter((participant) => participant.is_online);
   const readinessCounts = snapshot.participants.reduce(
     (totals, participant) => {
       totals[participant.status] += 1;
@@ -1183,6 +1184,41 @@ export default function RoomView() {
                 {snapshot.surface ? <Badge variant="outline">{snapshot.surface.name}</Badge> : null}
               </div>
               <DetailGrid items={roomSummaryItems} className="lg:grid-cols-3 2xl:grid-cols-5" />
+              <div className="rounded-2xl border bg-muted/20 px-4 py-3">
+                <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                  <div className="space-y-1">
+                    <p className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+                      Live participants
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {liveParticipants.length > 0
+                        ? `${liveParticipants.length} currently online`
+                        : "No participants are currently online."}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {liveParticipants.length > 0 ? (
+                      liveParticipants.map((participant) => (
+                        <Badge
+                          key={participant.id}
+                          variant="outline"
+                          className="gap-2 rounded-full px-3 py-1 text-sm"
+                        >
+                          <span className="h-2 w-2 rounded-full bg-emerald-500" aria-hidden />
+                          <span>{participant.display_name}</span>
+                          <span className="text-xs text-muted-foreground">
+                            {participant.status}
+                          </span>
+                        </Badge>
+                      ))
+                    ) : (
+                      <Badge variant="outline" className="rounded-full px-3 py-1 text-sm">
+                        Waiting for guests
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+              </div>
               <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 {myParticipant ? (
                   <div className="flex max-w-xs items-center gap-3">

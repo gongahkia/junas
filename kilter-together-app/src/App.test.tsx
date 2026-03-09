@@ -431,8 +431,11 @@ describe("App routes", () => {
 
     expect((await screen.findAllByText("Shared Project")).length).toBeGreaterThan(0);
     expect(screen.getByText("Vote on this one")).toBeInTheDocument();
+    expect(screen.getByText("Live participants")).toBeInTheDocument();
+    expect(screen.getByText("2 currently online")).toBeInTheDocument();
     expect(screen.getByText("Participants")).toBeInTheDocument();
     expect(screen.getByText("Finalists")).toBeInTheDocument();
+    expect(screen.getAllByText("Guest").length).toBeGreaterThan(1);
     expect(screen.getAllByText("ready").length).toBeGreaterThan(0);
     expect(screen.getByText(/join\/session-1/)).toBeInTheDocument();
     expect(MockEventSource.instances[0]?.url).toBe("/api/rooms/session-1/events");
