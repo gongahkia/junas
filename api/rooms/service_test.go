@@ -182,6 +182,23 @@ func TestServiceRoomLifecycle(t *testing.T) {
 		t.Fatalf("expected finalist reorder to put fake-room:alpha first, got %#v", currentSnapshot.Finalists)
 	}
 
+	originalClimbs := append([]providers.ProviderClimb{}, provider.Climbs...)
+	provider.Climbs = nil
+	cachedSnapshot, err := service.GetSnapshot(ctx, hostViewer)
+	if err != nil {
+		t.Fatalf("get cached snapshot: %v", err)
+	}
+	if cachedSnapshot.CurrentClimb == nil || cachedSnapshot.CurrentClimb.ID != "fake-room:alpha" {
+		t.Fatalf("expected cached current climb, got %#v", cachedSnapshot.CurrentClimb)
+	}
+	if len(cachedSnapshot.Queue) != 2 || cachedSnapshot.Queue[0].Climb.ID != "fake-room:alpha" || cachedSnapshot.Queue[1].Climb.ID != "fake-room:beta" {
+		t.Fatalf("expected cached queue climbs, got %#v", cachedSnapshot.Queue)
+	}
+	if len(cachedSnapshot.Finalists) != 2 || cachedSnapshot.Finalists[0].Climb.ID != "fake-room:alpha" || cachedSnapshot.Finalists[1].Climb.ID != "fake-room:beta" {
+		t.Fatalf("expected cached finalist climbs, got %#v", cachedSnapshot.Finalists)
+	}
+	provider.Climbs = originalClimbs
+
 	randomFinalist, err := service.PickRandom(ctx, hostViewer, "finalists")
 	if err != nil {
 		t.Fatalf("pick random finalist: %v", err)

@@ -1,6 +1,9 @@
 package config
 
-import "testing"
+import (
+	"slices"
+	"testing"
+)
 
 func TestLoadRuntimeConfigDefaults(t *testing.T) {
 	t.Setenv("KILTER_TOGETHER_DATA_DIR", "")
@@ -36,6 +39,12 @@ func TestLoadRuntimeConfigDefaults(t *testing.T) {
 	if runtimeConfig.ListenAddr() != ":8082" {
 		t.Fatalf("expected default listen addr, got %q", runtimeConfig.ListenAddr())
 	}
+	if !slices.Equal(runtimeConfig.CORSAllowedOrigins(), defaultAllowedOrigins) {
+		t.Fatalf("expected default allowed origins %v, got %v", defaultAllowedOrigins, runtimeConfig.CORSAllowedOrigins())
+	}
+	if err := runtimeConfig.Validate(); err != nil {
+		t.Fatalf("expected default runtime config to validate, got %v", err)
+	}
 }
 
 func TestLoadRuntimeConfigOverrides(t *testing.T) {
@@ -48,6 +57,7 @@ func TestLoadRuntimeConfigOverrides(t *testing.T) {
 	t.Setenv("KILTER_TOGETHER_APP_SECRET", "app-secret")
 	t.Setenv("KILTER_TOGETHER_ENCRYPTION_KEY", "base64-key")
 	t.Setenv("KILTER_TOGETHER_PORT", ":9090")
+	t.Setenv("KILTER_TOGETHER_ALLOWED_ORIGINS", "https://app.example.com,https://admin.example.com")
 
 	runtimeConfig := LoadRuntimeConfig()
 
@@ -83,5 +93,22 @@ func TestLoadRuntimeConfigOverrides(t *testing.T) {
 	}
 	if runtimeConfig.ListenAddr() != ":9090" {
 		t.Fatalf("expected normalized listen addr, got %q", runtimeConfig.ListenAddr())
+	}
+	expectedOrigins := []string{"https://app.example.com", "https://admin.example.com"}
+	if !slices.Equal(runtimeConfig.CORSAllowedOrigins(), expectedOrigins) {
+		t.Fatalf("expected overridden allowed origins %v, got %v", expectedOrigins, runtimeConfig.CORSAllowedOrigins())
+	}
+	if err := runtimeConfig.Validate(); err != nil {
+		t.Fatalf("expected overridden runtime config to validate, got %v", err)
+	}
+}
+
+func TestRuntimeConfigValidateRejectsWildcardOrigins(t *testing.T) {
+	cfg := RuntimeConfig{
+		AllowedOrigins: []string{"*"},
+	}
+
+	if err := cfg.Validate(); err == nil {
+		t.Fatalf("expected wildcard origins to be rejected")
 	}
 }

@@ -597,11 +597,12 @@ func (service *Service) ToggleVote(ctx context.Context, viewer *Viewer, climbID 
 }
 
 func (service *Service) AddQueueEntry(ctx context.Context, viewer *Viewer, climbID string) error {
-	if _, err := service.getRoomClimb(ctx, &viewer.Room, climbID); err != nil {
+	climb, err := service.getRoomClimb(ctx, &viewer.Room, climbID)
+	if err != nil {
 		return err
 	}
 
-	if _, err := service.addQueueEntryRecord(ctx, viewer.Room.ID, viewer.Participant.ID, climbID); err != nil {
+	if _, err := service.addQueueEntryRecord(ctx, viewer.Room.ID, viewer.Participant.ID, climb); err != nil {
 		return err
 	}
 
@@ -612,7 +613,8 @@ func (service *Service) AddFinalist(ctx context.Context, viewer *Viewer, climbID
 	if !viewer.IsHost() {
 		return ErrForbidden
 	}
-	if _, err := service.getRoomClimb(ctx, &viewer.Room, climbID); err != nil {
+	climb, err := service.getRoomClimb(ctx, &viewer.Room, climbID)
+	if err != nil {
 		return err
 	}
 
@@ -639,6 +641,7 @@ func (service *Service) AddFinalist(ctx context.Context, viewer *Viewer, climbID
 		ClimbID:              climbID,
 		AddedByParticipantID: viewer.Participant.ID,
 		Position:             maxPosition + 1,
+		ClimbJSON:            mustEncodeProviderClimb(climb),
 	}).Error; err != nil {
 		return err
 	}
@@ -731,12 +734,13 @@ func (service *Service) PromoteClimb(
 	if status != queueStatusCurrent && status != queueStatusNext {
 		return fmt.Errorf("invalid promotion status %q", status)
 	}
-	if _, err := service.getRoomClimb(ctx, &viewer.Room, climbID); err != nil {
+	climb, err := service.getRoomClimb(ctx, &viewer.Room, climbID)
+	if err != nil {
 		return err
 	}
 
-	err := config.AppDB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
-		entry, err := service.ensureQueueEntryRecord(tx, viewer.Room.ID, viewer.Participant.ID, climbID)
+	err = config.AppDB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+		entry, err := service.ensureQueueEntryRecord(tx, viewer.Room.ID, viewer.Participant.ID, climb)
 		if err != nil {
 			return err
 		}
@@ -749,7 +753,10 @@ func (service *Service) PromoteClimb(
 			}
 			if err := tx.Model(&Room{}).
 				Where("id = ?", viewer.Room.ID).
-				Update("current_climb_id", climbID).Error; err != nil {
+				Updates(map[string]any{
+					"current_climb_id":   climbID,
+					"current_climb_json": entry.ClimbJSON,
+				}).Error; err != nil {
 				return err
 			}
 		}
@@ -826,6 +833,14 @@ func (service *Service) UpdateQueueEntryStatus(
 		First(&entry).Error; err != nil {
 		return fmt.Errorf("queue entry not found")
 	}
+	entryClimbJSON := entry.ClimbJSON
+	if status == queueStatusCurrent && strings.TrimSpace(entryClimbJSON) == "" {
+		climb, err := service.getRoomClimb(ctx, &viewer.Room, entry.ClimbID)
+		if err != nil {
+			return err
+		}
+		entryClimbJSON = mustEncodeProviderClimb(climb)
+	}
 
 	err := config.AppDB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		if status == queueStatusCurrent {
@@ -836,8 +851,17 @@ func (service *Service) UpdateQueueEntryStatus(
 			}
 			if err := tx.Model(&Room{}).
 				Where("id = ?", viewer.Room.ID).
-				Update("current_climb_id", entry.ClimbID).Error; err != nil {
+				Updates(map[string]any{
+					"current_climb_id":   entry.ClimbID,
+					"current_climb_json": entryClimbJSON,
+				}).Error; err != nil {
 				return err
+			}
+			if entry.ClimbJSON != entryClimbJSON {
+				if err := tx.Model(&entry).Update("climb_json", entryClimbJSON).Error; err != nil {
+					return err
+				}
+				entry.ClimbJSON = entryClimbJSON
 			}
 		}
 		if status == queueStatusNext {
@@ -850,7 +874,10 @@ func (service *Service) UpdateQueueEntryStatus(
 		if status == queueStatusDone && viewer.Room.CurrentClimbID == entry.ClimbID {
 			if err := tx.Model(&Room{}).
 				Where("id = ?", viewer.Room.ID).
-				Update("current_climb_id", "").Error; err != nil {
+				Updates(map[string]any{
+					"current_climb_id":   "",
+					"current_climb_json": "",
+				}).Error; err != nil {
 				return err
 			}
 		}
@@ -883,7 +910,10 @@ func (service *Service) DeleteQueueEntry(ctx context.Context, viewer *Viewer, en
 		}
 		if viewer.Room.CurrentClimbID == entry.ClimbID {
 			if err := tx.Model(&Room{}).Where("id = ?", viewer.Room.ID).
-				Update("current_climb_id", "").Error; err != nil {
+				Updates(map[string]any{
+					"current_climb_id":   "",
+					"current_climb_json": "",
+				}).Error; err != nil {
 				return err
 			}
 		}
@@ -1066,56 +1096,77 @@ func (service *Service) buildSnapshot(
 		snapshot.MyVotes = myVotes
 	}
 
-	if connectionState.Connected && room.SurfaceID != "" {
-		provider, secret, err := service.providerForRoom(ctx, room)
-		if err == nil {
-			if room.CurrentClimbID != "" {
-				if climb, err := provider.GetClimb(ctx, secret, providers.ListClimbsInput{
-					SurfaceID: room.SurfaceID,
-					Context:   decodeContextMap(room.SurfaceContextJSON),
-				}, room.CurrentClimbID); err == nil {
-					snapshot.CurrentClimb = climb
-				}
-			}
+	participantNameByID := map[uint]string{}
+	for _, participant := range participants {
+		participantNameByID[participant.ID] = participant.DisplayName
+	}
 
-			participantNameByID := map[uint]string{}
-			for _, participant := range participants {
-				participantNameByID[participant.ID] = participant.DisplayName
-			}
-
-			for _, entry := range queueEntries {
-				climb, err := provider.GetClimb(ctx, secret, providers.ListClimbsInput{
-					SurfaceID: room.SurfaceID,
-					Context:   decodeContextMap(room.SurfaceContextJSON),
-				}, entry.ClimbID)
-				if err != nil {
-					continue
-				}
-				snapshot.Queue = append(snapshot.Queue, QueueEntryView{
-					ID:       entry.ID,
-					Status:   entry.Status,
-					Position: entry.Position,
-					AddedBy:  participantNameByID[entry.AddedByParticipantID],
-					Climb:    *climb,
-				})
-			}
-
-			for _, entry := range finalistEntries {
-				climb, err := provider.GetClimb(ctx, secret, providers.ListClimbsInput{
-					SurfaceID: room.SurfaceID,
-					Context:   decodeContextMap(room.SurfaceContextJSON),
-				}, entry.ClimbID)
-				if err != nil {
-					continue
-				}
-				snapshot.Finalists = append(snapshot.Finalists, FinalistEntryView{
-					ID:       entry.ID,
-					Position: entry.Position,
-					AddedBy:  participantNameByID[entry.AddedByParticipantID],
-					Climb:    *climb,
-				})
-			}
+	var (
+		provider     providers.Provider
+		secret       providers.SecretPayload
+		providerErr  error
+		providerInit bool
+	)
+	loadProvider := func() bool {
+		if providerInit {
+			return providerErr == nil
 		}
+
+		providerInit = true
+		if !connectionState.Connected || room.SurfaceID == "" {
+			providerErr = ErrProviderNotConnected
+			return false
+		}
+
+		provider, secret, providerErr = service.providerForRoom(ctx, room)
+		return providerErr == nil
+	}
+	resolveClimb := func(climbID string, cachedJSON string) *providers.ProviderClimb {
+		if climb := decodeProviderClimb(cachedJSON); climb != nil {
+			return climb
+		}
+		if !loadProvider() {
+			return nil
+		}
+		climb, err := provider.GetClimb(ctx, secret, providers.ListClimbsInput{
+			SurfaceID: room.SurfaceID,
+			Context:   decodeContextMap(room.SurfaceContextJSON),
+		}, climbID)
+		if err != nil {
+			return nil
+		}
+		return climb
+	}
+
+	if room.CurrentClimbID != "" {
+		snapshot.CurrentClimb = resolveClimb(room.CurrentClimbID, room.CurrentClimbJSON)
+	}
+
+	for _, entry := range queueEntries {
+		climb := resolveClimb(entry.ClimbID, entry.ClimbJSON)
+		if climb == nil {
+			continue
+		}
+		snapshot.Queue = append(snapshot.Queue, QueueEntryView{
+			ID:       entry.ID,
+			Status:   entry.Status,
+			Position: entry.Position,
+			AddedBy:  participantNameByID[entry.AddedByParticipantID],
+			Climb:    *climb,
+		})
+	}
+
+	for _, entry := range finalistEntries {
+		climb := resolveClimb(entry.ClimbID, entry.ClimbJSON)
+		if climb == nil {
+			continue
+		}
+		snapshot.Finalists = append(snapshot.Finalists, FinalistEntryView{
+			ID:       entry.ID,
+			Position: entry.Position,
+			AddedBy:  participantNameByID[entry.AddedByParticipantID],
+			Climb:    *climb,
+		})
 	}
 
 	return snapshot, nil
@@ -1253,11 +1304,11 @@ func (service *Service) addQueueEntryRecord(
 	ctx context.Context,
 	roomID uint,
 	participantID uint,
-	climbID string,
+	climb *providers.ProviderClimb,
 ) (*RoomQueueEntry, error) {
 	var existingCount int64
 	if err := config.AppDB.WithContext(ctx).Model(&RoomQueueEntry{}).
-		Where("room_id = ? AND climb_id = ?", roomID, climbID).
+		Where("room_id = ? AND climb_id = ?", roomID, climb.ID).
 		Count(&existingCount).Error; err != nil {
 		return nil, err
 	}
@@ -1267,7 +1318,7 @@ func (service *Service) addQueueEntryRecord(
 
 	var createdEntry *RoomQueueEntry
 	err := config.AppDB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
-		entry, err := service.ensureQueueEntryRecord(tx, roomID, participantID, climbID)
+		entry, err := service.ensureQueueEntryRecord(tx, roomID, participantID, climb)
 		if err != nil {
 			return err
 		}
@@ -1281,11 +1332,18 @@ func (service *Service) ensureQueueEntryRecord(
 	tx *gorm.DB,
 	roomID uint,
 	participantID uint,
-	climbID string,
+	climb *providers.ProviderClimb,
 ) (*RoomQueueEntry, error) {
+	climbJSON := mustEncodeProviderClimb(climb)
 	var entry RoomQueueEntry
-	err := tx.Where("room_id = ? AND climb_id = ?", roomID, climbID).First(&entry).Error
+	err := tx.Where("room_id = ? AND climb_id = ?", roomID, climb.ID).First(&entry).Error
 	if err == nil {
+		if entry.ClimbJSON != climbJSON {
+			if err := tx.Model(&entry).Update("climb_json", climbJSON).Error; err != nil {
+				return nil, err
+			}
+			entry.ClimbJSON = climbJSON
+		}
 		return &entry, nil
 	}
 	if !errors.Is(err, gorm.ErrRecordNotFound) {
@@ -1302,10 +1360,11 @@ func (service *Service) ensureQueueEntryRecord(
 
 	entry = RoomQueueEntry{
 		RoomID:               roomID,
-		ClimbID:              climbID,
+		ClimbID:              climb.ID,
 		AddedByParticipantID: participantID,
 		Status:               queueStatusQueued,
 		Position:             maxPosition + 1,
+		ClimbJSON:            climbJSON,
 	}
 	if err := tx.Create(&entry).Error; err != nil {
 		return nil, err
@@ -1364,6 +1423,32 @@ func (service *Service) pickRandomTopVoted(
 
 	selectedClimbID := topClimbIDs[rand.Intn(len(topClimbIDs))]
 	return service.getRoomClimb(ctx, &viewer.Room, selectedClimbID)
+}
+
+func decodeProviderClimb(raw string) *providers.ProviderClimb {
+	if strings.TrimSpace(raw) == "" {
+		return nil
+	}
+
+	var climb providers.ProviderClimb
+	if err := json.Unmarshal([]byte(raw), &climb); err != nil {
+		return nil
+	}
+
+	return &climb
+}
+
+func mustEncodeProviderClimb(climb *providers.ProviderClimb) string {
+	if climb == nil {
+		return ""
+	}
+
+	raw, err := json.Marshal(climb)
+	if err != nil {
+		return ""
+	}
+
+	return string(raw)
 }
 
 func normalizeDisplayName(value string, fallback string) string {

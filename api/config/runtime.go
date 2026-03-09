@@ -1,23 +1,31 @@
 package config
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 )
 
+var defaultAllowedOrigins = []string{
+	"http://localhost:5173",
+	"http://127.0.0.1:5173",
+	"http://localhost:8080",
+	"http://127.0.0.1:8080",
+}
+
 type RuntimeConfig struct {
-	DataDir        string
-	DBPath         string
-	AppDBPath      string
-	ImageDir       string
-	StatePath      string
-	KilterUsername string
-	KilterPassword string
-	AppSecret      string
-	EncryptionKey  string
-	Port           string
-	SecureCookies  bool
+	DataDir               string
+	DBPath                string
+	AppDBPath             string
+	ImageDir              string
+	StatePath             string
+	KilterUsername        string
+	KilterPassword        string
+	AppSecret             string
+	EncryptionKey         string
+	Port                  string
+	SecureCookies         bool
 	AllowedOrigins        []string
 	PreviousEncryptionKey string
 }
@@ -46,17 +54,17 @@ func LoadRuntimeConfig() RuntimeConfig {
 	}
 
 	return RuntimeConfig{
-		DataDir:        dataDir,
-		DBPath:         dbPath,
-		AppDBPath:      appDBPath,
-		ImageDir:       imageDir,
-		StatePath:      statePath,
-		KilterUsername: strings.TrimSpace(os.Getenv("KILTER_TOGETHER_KILTER_USERNAME")),
-		KilterPassword: os.Getenv("KILTER_TOGETHER_KILTER_PASSWORD"),
-		AppSecret:      strings.TrimSpace(os.Getenv("KILTER_TOGETHER_APP_SECRET")),
-		EncryptionKey:  strings.TrimSpace(os.Getenv("KILTER_TOGETHER_ENCRYPTION_KEY")),
-		Port:           normalizePort(os.Getenv("KILTER_TOGETHER_PORT")),
-		SecureCookies:  secureCookies,
+		DataDir:               dataDir,
+		DBPath:                dbPath,
+		AppDBPath:             appDBPath,
+		ImageDir:              imageDir,
+		StatePath:             statePath,
+		KilterUsername:        strings.TrimSpace(os.Getenv("KILTER_TOGETHER_KILTER_USERNAME")),
+		KilterPassword:        os.Getenv("KILTER_TOGETHER_KILTER_PASSWORD"),
+		AppSecret:             strings.TrimSpace(os.Getenv("KILTER_TOGETHER_APP_SECRET")),
+		EncryptionKey:         strings.TrimSpace(os.Getenv("KILTER_TOGETHER_ENCRYPTION_KEY")),
+		Port:                  normalizePort(os.Getenv("KILTER_TOGETHER_PORT")),
+		SecureCookies:         secureCookies,
 		AllowedOrigins:        parseAllowedOrigins(os.Getenv("KILTER_TOGETHER_ALLOWED_ORIGINS")),
 		PreviousEncryptionKey: strings.TrimSpace(os.Getenv("KILTER_TOGETHER_PREVIOUS_ENCRYPTION_KEY")),
 	}
@@ -81,6 +89,24 @@ func (cfg RuntimeConfig) ListenAddr() string {
 	}
 
 	return ":" + cfg.Port
+}
+
+func (cfg RuntimeConfig) CORSAllowedOrigins() []string {
+	if len(cfg.AllowedOrigins) == 0 {
+		return append([]string{}, defaultAllowedOrigins...)
+	}
+
+	return append([]string{}, cfg.AllowedOrigins...)
+}
+
+func (cfg RuntimeConfig) Validate() error {
+	for _, origin := range cfg.CORSAllowedOrigins() {
+		if origin == "*" {
+			return fmt.Errorf("KILTER_TOGETHER_ALLOWED_ORIGINS cannot include * when cookie auth is enabled")
+		}
+	}
+
+	return nil
 }
 
 func firstNonEmpty(values ...string) string {
@@ -109,7 +135,7 @@ func normalizePort(value string) string {
 func parseAllowedOrigins(value string) []string {
 	trimmed := strings.TrimSpace(value)
 	if trimmed == "" {
-		return []string{"*"}
+		return append([]string{}, defaultAllowedOrigins...)
 	}
 	parts := strings.Split(trimmed, ",")
 	origins := make([]string, 0, len(parts))
@@ -119,7 +145,7 @@ func parseAllowedOrigins(value string) []string {
 		}
 	}
 	if len(origins) == 0 {
-		return []string{"*"}
+		return append([]string{}, defaultAllowedOrigins...)
 	}
 	return origins
 }

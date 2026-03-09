@@ -46,7 +46,10 @@ func main() {
 		Use:   "bootstrap",
 		Short: "Download or refresh the local Kilter database and board images",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			runtimeConfig := loadRuntimeConfig()
+			runtimeConfig, err := loadRuntimeConfig()
+			if err != nil {
+				return err
+			}
 			return bootstrap.Run(cmd.Context(), bootstrapOptions(runtimeConfig, maxSyncPages))
 		},
 	}
@@ -62,7 +65,10 @@ func main() {
 		Use:   "serve",
 		Short: "Start the API server",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			runtimeConfig := loadRuntimeConfig()
+			runtimeConfig, err := loadRuntimeConfig()
+			if err != nil {
+				return err
+			}
 
 			if bootstrapIfMissing && bootstrap.NeedsBootstrap(
 				runtimeConfig.DBPath,
@@ -114,10 +120,13 @@ func main() {
 	}
 }
 
-func loadRuntimeConfig() config.RuntimeConfig {
+func loadRuntimeConfig() (config.RuntimeConfig, error) {
 	runtimeConfig := config.LoadRuntimeConfig()
+	if err := runtimeConfig.Validate(); err != nil {
+		return config.RuntimeConfig{}, err
+	}
 	config.SetRuntimeConfig(runtimeConfig)
-	return runtimeConfig
+	return runtimeConfig, nil
 }
 
 func bootstrapOptions(runtimeConfig config.RuntimeConfig, maxSyncPages int) bootstrap.Options {

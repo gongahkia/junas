@@ -39,6 +39,7 @@ type Room struct {
 	SurfaceDescription string
 	SurfaceContextJSON string
 	CurrentClimbID     string
+	CurrentClimbJSON   string
 	Version            int64     `gorm:"not null;default:1"`
 	LastActiveAt       time.Time `gorm:"index;not null"`
 	ClosedAt           *time.Time
@@ -93,6 +94,7 @@ type RoomQueueEntry struct {
 	AddedByParticipantID uint   `gorm:"index;not null"`
 	Status               string `gorm:"index;not null"`
 	Position             int    `gorm:"index;not null"`
+	ClimbJSON            string
 	CreatedAt            time.Time
 	UpdatedAt            time.Time
 }
@@ -103,6 +105,7 @@ type RoomFinalistEntry struct {
 	ClimbID              string `gorm:"index:idx_room_finalist_climb,unique;not null"`
 	AddedByParticipantID uint   `gorm:"index;not null"`
 	Position             int    `gorm:"index;not null"`
+	ClimbJSON            string
 	CreatedAt            time.Time
 	UpdatedAt            time.Time
 }
