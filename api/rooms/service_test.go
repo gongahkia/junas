@@ -118,17 +118,20 @@ func TestServiceRoomLifecycle(t *testing.T) {
 		t.Fatalf("expected Beta Crimp climb, got %#v", climbResponse.Climb)
 	}
 
-	if err := service.ToggleVote(ctx, guestViewer, "fake-room:beta"); err != nil {
-		t.Fatalf("add guest vote: %v", err)
-	}
-	if err := service.ToggleVote(ctx, hostViewer, "fake-room:beta"); err != nil {
-		t.Fatalf("add host vote: %v", err)
+	if err := service.ToggleVote(ctx, guestViewer, "fake-room:beta"); !errors.Is(err, ErrClimbNotQueued) {
+		t.Fatalf("expected unqueued climb fist bump to fail, got %v", err)
 	}
 	if err := service.AddQueueEntry(ctx, guestViewer, "fake-room:beta"); err != nil {
 		t.Fatalf("queue climb: %v", err)
 	}
 	if err := service.AddQueueEntry(ctx, hostViewer, "fake-room:alpha"); err != nil {
 		t.Fatalf("queue second climb: %v", err)
+	}
+	if err := service.ToggleVote(ctx, guestViewer, "fake-room:beta"); err != nil {
+		t.Fatalf("add guest vote: %v", err)
+	}
+	if err := service.ToggleVote(ctx, hostViewer, "fake-room:beta"); err != nil {
+		t.Fatalf("add host vote: %v", err)
 	}
 	if err := service.AddFinalist(ctx, hostViewer, "fake-room:beta"); err != nil {
 		t.Fatalf("add finalist: %v", err)
@@ -287,6 +290,9 @@ func TestServiceFistBumpsAreEphemeral(t *testing.T) {
 	guestViewer, err := service.Authenticate(ctx, guestSnapshot.Slug, guestSessionID, "")
 	if err != nil {
 		t.Fatalf("authenticate guest: %v", err)
+	}
+	if err := service.AddQueueEntry(ctx, guestViewer, "fake-room:beta"); err != nil {
+		t.Fatalf("queue climb: %v", err)
 	}
 	if err := service.ToggleVote(ctx, guestViewer, "fake-room:beta"); err != nil {
 		t.Fatalf("toggle fist bump: %v", err)

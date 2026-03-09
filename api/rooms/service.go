@@ -25,6 +25,7 @@ var (
 	ErrSessionInvalid       = errors.New("invalid room session")
 	ErrProviderNotConnected = errors.New("provider is not connected")
 	ErrFistBumpsOff         = errors.New("fist bumps are disabled for this room")
+	ErrClimbNotQueued       = errors.New("climb is not queued in this room")
 )
 
 const (
@@ -583,10 +584,8 @@ func (service *Service) GetCatalogClimb(
 		return nil, err
 	}
 
-	var queueEntryCount int64
-	if err := config.AppDB.WithContext(ctx).Model(&RoomQueueEntry{}).
-		Where("room_id = ? AND climb_id = ?", viewer.Room.ID, climbID).
-		Count(&queueEntryCount).Error; err != nil {
+	isQueued, err := service.isClimbQueued(ctx, viewer.Room.ID, climbID)
+	if err != nil {
 		return nil, err
 	}
 
@@ -594,7 +593,7 @@ func (service *Service) GetCatalogClimb(
 		Climb:     *climb,
 		VoteCount: voteCounts[climbID],
 		MyVote:    slicesContains(myVotes, climbID),
-		IsQueued:  queueEntryCount > 0,
+		IsQueued:  isQueued,
 	}, nil
 }
 
@@ -613,10 +612,28 @@ func (service *Service) ToggleVote(ctx context.Context, viewer *Viewer, climbID 
 	if _, err := service.getRoomClimb(ctx, &viewer.Room, climbID); err != nil {
 		return err
 	}
+	isQueued, err := service.isClimbQueued(ctx, viewer.Room.ID, climbID)
+	if err != nil {
+		return err
+	}
+	if !isQueued {
+		return ErrClimbNotQueued
+	}
 
 	service.fistBumps.Toggle(viewer.Room.ID, viewer.Participant.ID, climbID)
 
 	return service.incrementRoom(viewer.Room.Slug, "votes.updated")
+}
+
+func (service *Service) isClimbQueued(ctx context.Context, roomID uint, climbID string) (bool, error) {
+	var queueEntryCount int64
+	if err := config.AppDB.WithContext(ctx).Model(&RoomQueueEntry{}).
+		Where("room_id = ? AND climb_id = ?", roomID, climbID).
+		Count(&queueEntryCount).Error; err != nil {
+		return false, err
+	}
+
+	return queueEntryCount > 0, nil
 }
 
 func (service *Service) AddQueueEntry(ctx context.Context, viewer *Viewer, climbID string) error {

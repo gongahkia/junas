@@ -72,7 +72,11 @@ function AppContent() {
   }, []);
 
   return (
-    <div className={isLandingRoute ? "h-[100dvh] overflow-hidden" : "min-h-screen pb-20"}>
+    <div
+      className={
+        isLandingRoute ? "min-h-[100dvh] overflow-x-hidden" : "min-h-screen pb-20"
+      }
+    >
       <Suspense fallback={<div className="min-h-[40vh]" aria-hidden="true" />}>
         <Routes>
           <Route path="/" element={<LandingPage />} />

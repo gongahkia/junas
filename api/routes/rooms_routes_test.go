@@ -147,9 +147,9 @@ func TestRoomRoutesContract(t *testing.T) {
 	}
 	guestCookies := joinResponse.Cookies()
 
-	voteResponse := performJSONRequest(t, server, http.MethodPut, "/api/rooms/"+createdRoom.Slug+"/votes/fake-route%3Abeta", nil, guestCookies)
-	if voteResponse.StatusCode != http.StatusOK {
-		t.Fatalf("expected vote status 200, got %d", voteResponse.StatusCode)
+	unqueuedVoteResponse := performJSONRequest(t, server, http.MethodPut, "/api/rooms/"+createdRoom.Slug+"/votes/fake-route%3Abeta", nil, guestCookies)
+	if unqueuedVoteResponse.StatusCode != http.StatusBadRequest {
+		t.Fatalf("expected unqueued vote status 400, got %d", unqueuedVoteResponse.StatusCode)
 	}
 
 	queueResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+createdRoom.Slug+"/queue", map[string]string{
@@ -157,6 +157,11 @@ func TestRoomRoutesContract(t *testing.T) {
 	}, guestCookies)
 	if queueResponse.StatusCode != http.StatusCreated {
 		t.Fatalf("expected queue add status 201, got %d", queueResponse.StatusCode)
+	}
+
+	voteResponse := performJSONRequest(t, server, http.MethodPut, "/api/rooms/"+createdRoom.Slug+"/votes/fake-route%3Abeta", nil, guestCookies)
+	if voteResponse.StatusCode != http.StatusOK {
+		t.Fatalf("expected queued vote status 200, got %d", voteResponse.StatusCode)
 	}
 
 	finalistResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+createdRoom.Slug+"/finalists", map[string]string{
@@ -407,16 +412,16 @@ func TestRoomPermissionBoundaries(t *testing.T) {
 	}
 
 	// guest CAN perform participant-level operations
-	t.Run("guest_allowed_vote", func(t *testing.T) {
-		resp := performJSONRequest(t, server, http.MethodPut, "/api/rooms/"+slug+"/votes/fake-perm:beta", nil, guestCookies)
-		if resp.StatusCode != http.StatusOK {
-			t.Fatalf("expected vote status 200, got %d", resp.StatusCode)
-		}
-	})
 	t.Run("guest_allowed_queue_add", func(t *testing.T) {
 		resp := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+slug+"/queue", map[string]string{"climb_id": "fake-perm:beta"}, guestCookies)
 		if resp.StatusCode != http.StatusCreated {
 			t.Fatalf("expected queue add status 201, got %d", resp.StatusCode)
+		}
+	})
+	t.Run("guest_allowed_vote", func(t *testing.T) {
+		resp := performJSONRequest(t, server, http.MethodPut, "/api/rooms/"+slug+"/votes/fake-perm:beta", nil, guestCookies)
+		if resp.StatusCode != http.StatusOK {
+			t.Fatalf("expected vote status 200, got %d", resp.StatusCode)
 		}
 	})
 	t.Run("guest_allowed_status_update", func(t *testing.T) {
