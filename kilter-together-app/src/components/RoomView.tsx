@@ -69,7 +69,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ROOM_REACTION_META, ROOM_REACTION_OPTIONS } from "@/lib/room-reactions";
+import {
+  ROOM_REACTION_META,
+  ROOM_REACTION_OPTIONS,
+  ROOM_REACTION_TTL_MS,
+} from "@/lib/room-reactions";
 
 const PAGE_SIZE = 12;
 const ROOM_EVENTS_INITIAL_RETRY_MS = 1000;
@@ -109,6 +113,7 @@ export default function RoomView() {
   const [roomNameSaving, setRoomNameSaving] = useState(false);
   const [emojiReactionsSaving, setEmojiReactionsSaving] = useState(false);
   const [reactionSendingCode, setReactionSendingCode] = useState<RoomReactionCode | null>(null);
+  const [reactionNowMs, setReactionNowMs] = useState(() => Date.now());
   const [showRoomSettings, setShowRoomSettings] = useState(false);
   const [showSurfaceEditor, setShowSurfaceEditor] = useState(false);
   const [connectionFields, setConnectionFields] = useState(() => ({
@@ -543,6 +548,19 @@ export default function RoomView() {
     const timeoutID = window.setTimeout(() => setCopiedInvite(false), 1800);
     return () => window.clearTimeout(timeoutID);
   }, [copiedInvite]);
+
+  useEffect(() => {
+    setReactionNowMs(Date.now());
+  }, [snapshot?.recent_reactions]);
+
+  useEffect(() => {
+    if (snapshot?.recent_reactions.length === 0 || typeof window === "undefined") {
+      return;
+    }
+
+    const intervalID = window.setInterval(() => setReactionNowMs(Date.now()), 500);
+    return () => window.clearInterval(intervalID);
+  }, [snapshot?.recent_reactions.length]);
 
   useEffect(() => {
     setRoomNameInput(snapshot?.room_name ?? "");
@@ -1189,7 +1207,11 @@ export default function RoomView() {
       value: `${readinessCounts.ready} ready · ${readinessCounts.resting} resting · ${readinessCounts.away} away`,
     },
   ];
-  const latestReactions = [...snapshot.recent_reactions].slice(-4).reverse();
+  const activeRecentReactions = snapshot.recent_reactions.filter((reaction) => {
+    const createdAtMs = Date.parse(reaction.created_at);
+    return Number.isFinite(createdAtMs) && reactionNowMs - createdAtMs < ROOM_REACTION_TTL_MS;
+  });
+  const latestReactions = [...activeRecentReactions].slice(-4).reverse();
   const surfaceSummaryItems: DetailGridItem[] = [
     {
       label: "Provider",
@@ -1308,13 +1330,17 @@ export default function RoomView() {
                           reactions={snapshot.recent_reactions}
                           motionEnabled={motionEnabled}
                         />
-                        <div className="flex h-full items-center justify-center px-4 text-center text-xs text-muted-foreground">
-                          {snapshot.emoji_reactions_enabled
-                            ? latestReactions.length > 0
-                              ? "Fresh reactions rise here live as people cheer."
-                              : "No cheers yet. Kick things off with a quick reaction."
-                            : "Reaction effects are paused for this room."}
-                        </div>
+                        {!motionEnabled ||
+                        latestReactions.length === 0 ||
+                        !snapshot.emoji_reactions_enabled ? (
+                          <div className="flex h-full items-center justify-center px-4 text-center text-xs text-muted-foreground">
+                            {!snapshot.emoji_reactions_enabled
+                              ? "Reaction effects are paused for this room."
+                              : motionEnabled
+                                ? "No cheers yet. Kick things off with a quick reaction."
+                                : "Motion is reduced on this browser. Recent cheers still show below."}
+                          </div>
+                        ) : null}
                       </div>
                       <div className="mt-3 flex flex-wrap gap-2">
                         {ROOM_REACTION_OPTIONS.map((reaction) => (
