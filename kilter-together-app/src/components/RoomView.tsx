@@ -108,12 +108,8 @@ export default function RoomView() {
     username: savedPrefsRef.current.savedCredentials.kilter.remember
       ? savedPrefsRef.current.savedCredentials.kilter.username
       : "",
-    password: savedPrefsRef.current.savedCredentials.kilter.remember
-      ? savedPrefsRef.current.savedCredentials.kilter.password
-      : "",
-    token: savedPrefsRef.current.savedCredentials.crux.remember
-      ? savedPrefsRef.current.savedCredentials.crux.token
-      : "",
+    password: "",
+    token: "",
   }));
   const [rememberCredentials, setRememberCredentials] = useState(() => ({
     kilter: savedPrefsRef.current.savedCredentials.kilter.remember,
@@ -161,6 +157,9 @@ export default function RoomView() {
   const sort = normalizeSort(searchParams.get("sort"));
   const selectedClimbId = searchParams.get("climb") ?? "";
   const deferredSearch = useDeferredValue(search);
+  const selectedClimbIdRef = useRef(selectedClimbId);
+  const selectedExternalClimbRef = useRef<ProviderClimb | null>(selectedExternalClimb);
+  const searchParamsRef = useRef(searchParams);
 
   const selectedClimb =
     catalog?.climbs.find((climb) => climb.id === selectedClimbId) ||
@@ -169,6 +168,12 @@ export default function RoomView() {
     null;
   const hasSurface = !!snapshot?.surface;
   const roomStatus = snapshot?.status;
+
+  useEffect(() => {
+    selectedClimbIdRef.current = selectedClimbId;
+    selectedExternalClimbRef.current = selectedExternalClimb;
+    searchParamsRef.current = searchParams;
+  }, [searchParams, selectedClimbId, selectedExternalClimb]);
 
   const fetchSnapshot = useCallback(
     async (showLoader = false): Promise<RoomSnapshot | null> => {
@@ -272,13 +277,17 @@ export default function RoomView() {
           };
         }
 
+        const currentSelectedClimbId = selectedClimbIdRef.current;
+        const currentSelectedExternalClimb = selectedExternalClimbRef.current;
         const nextSelectedClimb =
-          nextCatalog.climbs.find((climb) => climb.id === selectedClimbId) ||
-          (selectedExternalClimb?.id === selectedClimbId ? selectedExternalClimb : null) ||
+          nextCatalog.climbs.find((climb) => climb.id === currentSelectedClimbId) ||
+          (currentSelectedExternalClimb?.id === currentSelectedClimbId
+            ? currentSelectedExternalClimb
+            : null) ||
           nextCatalog.climbs[0] ||
           null;
-        if (nextSelectedClimb?.id !== selectedClimbId) {
-          const nextSearchParams = new URLSearchParams(searchParams);
+        if (nextSelectedClimb?.id !== currentSelectedClimbId) {
+          const nextSearchParams = new URLSearchParams(searchParamsRef.current);
           if (nextSelectedClimb) {
             nextSearchParams.set("climb", nextSelectedClimb.id);
           } else {
@@ -304,9 +313,6 @@ export default function RoomView() {
     [
       currentPage,
       deferredSearch,
-      searchParams,
-      selectedExternalClimb,
-      selectedClimbId,
       setSearchParams,
       slug,
       sort,
@@ -351,7 +357,7 @@ export default function RoomView() {
     }
 
     void fetchCatalog(snapshot, true);
-  }, [currentPage, deferredSearch, fetchCatalog, searchParams, selectedClimbId, setSearchParams, slug, snapshot, sort]);
+  }, [currentPage, deferredSearch, fetchCatalog, slug, snapshot, sort]);
 
   useEffect(() => {
     if (
@@ -1369,10 +1375,10 @@ export default function RoomView() {
                             }
                             className="h-4 w-4 rounded border-slate-300"
                           />
-                          Remember Kilter credentials on this browser
+                          Remember Kilter username on this browser
                         </label>
                         <p className="text-xs text-muted-foreground">
-                          Stores the username and password locally in this browser after a successful login.
+                          Stores the username and this preference locally. You still enter the password each time.
                         </p>
                       </div>
                     </div>
@@ -1405,10 +1411,10 @@ export default function RoomView() {
                           }
                           className="h-4 w-4 rounded border-slate-300"
                         />
-                        Remember Crux token on this browser
+                        Remember this Crux auth preference on this browser
                       </label>
                       <p className="text-xs text-muted-foreground">
-                        Stores the Crux API token locally in this browser after a successful login.
+                        Stores this preference locally. You still enter the Crux token each time.
                       </p>
                     </div>
                   )}

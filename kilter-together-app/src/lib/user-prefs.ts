@@ -44,11 +44,9 @@ export interface IntroProgress {
 export interface SavedCredentials {
   kilter: {
     username: string;
-    password: string;
     remember: boolean;
   };
   crux: {
-    token: string;
     remember: boolean;
   };
 }
@@ -95,11 +93,9 @@ function getDefaultUserPrefs(): UserPrefs {
     savedCredentials: {
       kilter: {
         username: "",
-        password: "",
         remember: false,
       },
       crux: {
-        token: "",
         remember: false,
       },
     },
@@ -188,12 +184,20 @@ export function loadUserPrefs(): UserPrefs {
       },
       savedCredentials: {
         kilter: {
-          ...defaults.savedCredentials.kilter,
-          ...parsedValue.savedCredentials?.kilter,
+          username:
+            typeof parsedValue.savedCredentials?.kilter?.username === "string"
+              ? parsedValue.savedCredentials.kilter.username
+              : defaults.savedCredentials.kilter.username,
+          remember:
+            typeof parsedValue.savedCredentials?.kilter?.remember === "boolean"
+              ? parsedValue.savedCredentials.kilter.remember
+              : defaults.savedCredentials.kilter.remember,
         },
         crux: {
-          ...defaults.savedCredentials.crux,
-          ...parsedValue.savedCredentials?.crux,
+          remember:
+            typeof parsedValue.savedCredentials?.crux?.remember === "boolean"
+              ? parsedValue.savedCredentials.crux.remember
+              : defaults.savedCredentials.crux.remember,
         },
       },
       recentRooms: Array.isArray(parsedValue.recentRooms)
@@ -275,7 +279,7 @@ export function rememberLastCruxSurface(gymSlug: string, wallId: string): UserPr
 
 export function rememberKilterCredentials(
   username: string,
-  password: string,
+  _password: string,
   remember: boolean
 ): UserPrefs {
   return updateUserPrefs((currentPrefs) => ({
@@ -285,30 +289,26 @@ export function rememberKilterCredentials(
       kilter: remember
         ? {
             username,
-            password,
             remember: true,
           }
         : {
             username: "",
-            password: "",
             remember: false,
           },
     },
   }));
 }
 
-export function rememberCruxToken(token: string, remember: boolean): UserPrefs {
+export function rememberCruxToken(_token: string, remember: boolean): UserPrefs {
   return updateUserPrefs((currentPrefs) => ({
     ...currentPrefs,
     savedCredentials: {
       ...currentPrefs.savedCredentials,
       crux: remember
         ? {
-            token,
             remember: true,
           }
         : {
-            token: "",
             remember: false,
           },
     },
@@ -546,11 +546,9 @@ export function clearSavedCredentials(): UserPrefs {
     savedCredentials: {
       kilter: {
         username: "",
-        password: "",
         remember: false,
       },
       crux: {
-        token: "",
         remember: false,
       },
     },

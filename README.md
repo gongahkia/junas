@@ -50,6 +50,7 @@ Backend env vars:
 | `KILTER_TOGETHER_APP_SECRET` | unset | Required for signed host/guest room cookies |
 | `KILTER_TOGETHER_ENCRYPTION_KEY` | unset | Required for encrypting stored provider credentials at rest |
 | `KILTER_TOGETHER_PORT` | `8082` | API listen port |
+| `KILTER_TOGETHER_ALLOWED_ORIGINS` | `http://localhost:5173,http://127.0.0.1:5173,http://localhost:8080,http://127.0.0.1:8080` | Comma-separated CORS allowlist for cookie-backed room APIs |
 
 Frontend env vars:
 
@@ -104,13 +105,12 @@ The browser UI uses URL-addressable routes:
 
 1. Open `/rooms/new`.
 2. Pick `kilter` or `crux`.
-3. Enter the host display name and create the room.
-4. Inside the room, connect one provider account:
+3. Enter the host display name and authenticate the provider account while creating the room:
    - Kilter uses `username` + `password`
    - Crux uses a bearer token
-5. Choose the shared board or wall context.
-6. Share the invite link or host QR code with guests.
-7. Guests join with a display name, then vote and add climbs to the queue.
+4. Inside the room, choose the shared board or wall context.
+5. Share the invite link or host QR code with guests.
+6. Guests join with a display name, then vote and add climbs to the queue.
 
 Guests can either paste the invite URL/slug or open the camera workflow at `/join`
 to scan the host QR code directly from their phone.
@@ -134,7 +134,7 @@ and board images and remains fully usable.
 
 ## Notes
 
-- Downloaded databases, images, and bootstrap manifests are runtime artifacts and are not committed.
+- Downloaded databases, images, SQLite sidecars, and bootstrap manifests live under `api/data` during local runs and are ignored by git.
 - `GET /api/climbs` requires a valid `angle` and also supports `name`, `setter`, and `sort=popular|newest`.
 - `GET /api/healthz` validates that the local database and image set are usable, not just that the process is running.
 - Collaborative rooms expose room/session APIs under `/api/rooms/*` and currently ship with `kilter` and `crux` providers.

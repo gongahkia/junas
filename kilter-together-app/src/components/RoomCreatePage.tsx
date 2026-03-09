@@ -53,12 +53,8 @@ export default function RoomCreatePage() {
     username: savedPrefsRef.current.savedCredentials.kilter.remember
       ? savedPrefsRef.current.savedCredentials.kilter.username
       : "",
-    password: savedPrefsRef.current.savedCredentials.kilter.remember
-      ? savedPrefsRef.current.savedCredentials.kilter.password
-      : "",
-    token: savedPrefsRef.current.savedCredentials.crux.remember
-      ? savedPrefsRef.current.savedCredentials.crux.token
-      : "",
+    password: "",
+    token: "",
   }));
   const [rememberCredentials, setRememberCredentials] = useState(() => ({
     kilter: savedPrefsRef.current.savedCredentials.kilter.remember,
@@ -259,10 +255,10 @@ export default function RoomCreatePage() {
                         }
                         className="h-4 w-4 rounded border-slate-300"
                       />
-                      Remember Kilter credentials on this browser
+                      Remember Kilter username on this browser
                     </label>
                     <p className="text-xs text-muted-foreground">
-                      Stores the username and password locally in this browser after a successful login.
+                      Stores the username and this preference locally. You still enter the password each time.
                     </p>
                   </div>
                 </div>
@@ -298,10 +294,10 @@ export default function RoomCreatePage() {
                       }
                       className="h-4 w-4 rounded border-slate-300"
                     />
-                    Remember Crux token on this browser
+                    Remember this Crux auth preference on this browser
                   </label>
                   <p className="text-xs text-muted-foreground">
-                    Stores the Crux API token locally in this browser after a successful login.
+                    Stores this preference locally. You still enter the Crux token each time.
                   </p>
                 </div>
               )}

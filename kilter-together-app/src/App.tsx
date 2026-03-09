@@ -1,22 +1,23 @@
-import { useState, useEffect } from "react";
+import { Suspense, lazy, useState, useEffect } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { api } from "./api";
-import AboutPage from "./components/AboutPage";
-import BoardSelector from "./components/BoardSelector";
 import BottomBar from "./components/BottomBar";
 import ClickCheerOverlay from "./components/ClickCheerOverlay";
-import ClimbView from "./components/ClimbView";
-import LandingPage from "./components/LandingPage";
-import RoomCreatePage from "./components/RoomCreatePage";
-import RoomDiscoveryPage from "./components/RoomDiscoveryPage";
-import RoomJoinPage from "./components/RoomJoinPage";
-import RoomView from "./components/RoomView";
-import SettingsPage from "./components/SettingsPage";
 import { ToastProvider } from "./components/ui/toast";
 import { useErrorToast } from "./hooks/use-toast";
 import { loadUserPrefs, USER_PREFS_CHANGE_EVENT } from "./lib/user-prefs";
 import type { Board } from "./types";
 import "./App.css";
+
+const AboutPage = lazy(() => import("./components/AboutPage"));
+const BoardSelector = lazy(() => import("./components/BoardSelector"));
+const ClimbView = lazy(() => import("./components/ClimbView"));
+const LandingPage = lazy(() => import("./components/LandingPage"));
+const RoomCreatePage = lazy(() => import("./components/RoomCreatePage"));
+const RoomDiscoveryPage = lazy(() => import("./components/RoomDiscoveryPage"));
+const RoomJoinPage = lazy(() => import("./components/RoomJoinPage"));
+const RoomView = lazy(() => import("./components/RoomView"));
+const SettingsPage = lazy(() => import("./components/SettingsPage"));
 
 function AppContent() {
   const location = useLocation();
@@ -72,28 +73,30 @@ function AppContent() {
 
   return (
     <div className={isLandingRoute ? "h-[100dvh] overflow-hidden" : "min-h-screen pb-20"}>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/rooms/new" element={<RoomCreatePage />} />
-        <Route path="/join" element={<RoomDiscoveryPage />} />
-        <Route path="/join/:slug" element={<RoomJoinPage />} />
-        <Route path="/rooms/:slug" element={<RoomView />} />
-        <Route
-          path="/solo"
-          element={<BoardSelector boards={boards} loading={loading} boardPathPrefix="/solo/boards" />}
-        />
-        <Route
-          path="/boards/:boardId"
-          element={<ClimbView boards={boards} boardsLoading={loading} />}
-        />
-        <Route
-          path="/solo/boards/:boardId"
-          element={<ClimbView boards={boards} boardsLoading={loading} backPath="/solo" />}
-        />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <Suspense fallback={<div className="min-h-[40vh]" aria-hidden="true" />}>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/rooms/new" element={<RoomCreatePage />} />
+          <Route path="/join" element={<RoomDiscoveryPage />} />
+          <Route path="/join/:slug" element={<RoomJoinPage />} />
+          <Route path="/rooms/:slug" element={<RoomView />} />
+          <Route
+            path="/solo"
+            element={<BoardSelector boards={boards} loading={loading} boardPathPrefix="/solo/boards" />}
+          />
+          <Route
+            path="/boards/:boardId"
+            element={<ClimbView boards={boards} boardsLoading={loading} />}
+          />
+          <Route
+            path="/solo/boards/:boardId"
+            element={<ClimbView boards={boards} boardsLoading={loading} backPath="/solo" />}
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
       <ClickCheerOverlay />
       <BottomBar />
     </div>

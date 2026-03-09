@@ -283,7 +283,7 @@ export default function SettingsPage() {
                   />
                   <SettingsActionRow
                     title="Clear saved credentials"
-                    description="Remove any locally remembered Kilter login or Crux token from this browser."
+                    description="Remove any locally remembered Kilter username and provider-auth preferences from this browser."
                     actionLabel="Clear saved credentials"
                     disabled={!hasSavedCredentials}
                     onAction={() => setPrefs(clearSavedCredentials())}

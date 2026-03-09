@@ -879,7 +879,7 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
-    await user.type(screen.getByLabelText("Room name"), "Monday Session");
+    await user.type(await screen.findByLabelText("Room name"), "Monday Session");
     await user.type(screen.getByLabelText("Host display name"), "Host");
     await user.type(screen.getByLabelText("Kilter username"), "host@example.com");
     await user.type(screen.getByLabelText("Kilter password"), "secret-pass");
@@ -919,7 +919,7 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
-    await user.type(screen.getByLabelText("Host display name"), "Host");
+    await user.type(await screen.findByLabelText("Host display name"), "Host");
     await user.type(screen.getByLabelText("Kilter username"), "host@example.com");
     await user.type(screen.getByLabelText("Kilter password"), "secret-pass");
     await user.click(screen.getByRole("button", { name: "Authenticate and create room" }));
@@ -943,7 +943,7 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
-    await user.type(screen.getByLabelText("Display name"), "Guest");
+    await user.type(await screen.findByLabelText("Display name"), "Guest");
     await user.click(screen.getByRole("button", { name: "Join room" }));
 
     await waitFor(() =>
@@ -1279,7 +1279,7 @@ describe("App routes", () => {
     expect(await screen.findByText("Guest flow: join fast, then vote")).toBeInTheDocument();
   });
 
-  it("prefills room creation from saved browser prefs", async () => {
+  it("prefills room creation from saved browser prefs without restoring stored secrets", async () => {
     const user = userEvent.setup();
     window.localStorage.setItem(
       "kilter-together:user-prefs:v1",
@@ -1325,8 +1325,9 @@ describe("App routes", () => {
     );
 
     expect(screen.getByLabelText("Host display name")).toHaveValue("Alex");
-    expect(screen.getByLabelText("Crux API token")).toHaveValue("saved-crux-token");
-    expect(screen.getByLabelText("Remember Crux token on this browser")).toBeChecked();
+    expect(screen.getByLabelText("Crux API token")).toHaveValue("");
+    expect(screen.getByLabelText("Remember this Crux auth preference on this browser")).toBeChecked();
+    await user.type(screen.getByLabelText("Crux API token"), "fresh-crux-token");
     await user.click(screen.getByRole("button", { name: "Authenticate and create room" }));
 
     await waitFor(() =>
@@ -1335,7 +1336,7 @@ describe("App routes", () => {
         roomName: "",
         displayName: "Alex",
         secret: {
-          token: "saved-crux-token",
+          token: "fresh-crux-token",
         },
       })
     );
@@ -1363,7 +1364,7 @@ describe("App routes", () => {
     await user.type(screen.getByLabelText("Host display name"), "Host");
     await user.type(screen.getByLabelText("Kilter username"), "host@example.com");
     await user.type(screen.getByLabelText("Kilter password"), "secret-pass");
-    await user.click(screen.getByLabelText("Remember Kilter credentials on this browser"));
+    await user.click(screen.getByLabelText("Remember Kilter username on this browser"));
     await user.click(screen.getByRole("button", { name: "Authenticate and create room" }));
 
     await waitFor(() =>
@@ -1383,12 +1384,12 @@ describe("App routes", () => {
     );
     expect(storedPrefs.savedCredentials.kilter).toMatchObject({
       username: "host@example.com",
-      password: "secret-pass",
       remember: true,
     });
+    expect(storedPrefs.savedCredentials.kilter.password).toBeUndefined();
   });
 
-  it("prefills and remembers Crux credentials in the room connect flow", async () => {
+  it("keeps the Crux remember preference without restoring the token in the room connect flow", async () => {
     const user = userEvent.setup();
     window.localStorage.setItem(
       "kilter-together:user-prefs:v1",
@@ -1428,14 +1429,15 @@ describe("App routes", () => {
     );
 
     expect(await screen.findByRole("heading", { name: "Room connect-room" })).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("Crux API token")).toHaveValue("saved-crux-token");
-    expect(screen.getByLabelText("Remember Crux token on this browser")).toBeChecked();
+    expect(screen.getByPlaceholderText("Crux API token")).toHaveValue("");
+    expect(screen.getByLabelText("Remember this Crux auth preference on this browser")).toBeChecked();
+    await user.type(screen.getByPlaceholderText("Crux API token"), "fresh-crux-token");
 
     await user.click(screen.getByRole("button", { name: "Connect provider" }));
 
     await waitFor(() =>
       expect(mockedApi.connectRoomProvider).toHaveBeenCalledWith("connect-room", {
-        token: "saved-crux-token",
+        token: "fresh-crux-token",
       })
     );
 
@@ -1443,9 +1445,9 @@ describe("App routes", () => {
       window.localStorage.getItem("kilter-together:user-prefs:v1") || "{}"
     );
     expect(storedPrefs.savedCredentials.crux).toMatchObject({
-      token: "saved-crux-token",
       remember: true,
     });
+    expect(storedPrefs.savedCredentials.crux.token).toBeUndefined();
   });
 
   it("redirects expired room auth back to join with the saved display name", async () => {

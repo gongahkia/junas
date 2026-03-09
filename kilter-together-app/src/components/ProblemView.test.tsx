@@ -1,9 +1,15 @@
+import type { ReactNode } from "react";
 import { render, screen } from "@testing-library/react";
 import ProblemView from "./ProblemView";
+import { ToastProvider } from "@/components/ui/toast";
+
+function renderProblemView(node: ReactNode) {
+  return render(<ToastProvider>{node}</ToastProvider>);
+}
 
 describe("ProblemView", () => {
   it("renders climb metadata and image empty state", () => {
-    render(
+    renderProblemView(
       <ProblemView
         angle={40}
         hasResults={true}
@@ -39,7 +45,7 @@ describe("ProblemView", () => {
   });
 
   it("renders the filtered empty state when there are no climbs", () => {
-    render(<ProblemView angle={40} hasResults={false} selectedClimb={null} />);
+    renderProblemView(<ProblemView angle={40} hasResults={false} selectedClimb={null} />);
 
     expect(
       screen.getByText("No climbs match the current filters."),
@@ -47,7 +53,7 @@ describe("ProblemView", () => {
   });
 
   it("renders highlighted hold overlays when board images are present", () => {
-    const { container } = render(
+    const { container } = renderProblemView(
       <ProblemView
         angle={40}
         hasResults={true}
