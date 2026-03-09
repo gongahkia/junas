@@ -1142,8 +1142,8 @@ export default function RoomView() {
     <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(250,250,249,1),_rgba(240,249,255,0.8))] px-4 py-5 sm:px-6">
       <div className="mx-auto flex max-w-7xl flex-col gap-5">
         <header className="rounded-3xl border bg-card/95 px-5 py-5 shadow-sm">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-            <div className="space-y-4">
+          <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
+            <div className="min-w-0 flex-1 space-y-4">
               <div className="flex flex-wrap items-center gap-2">
                 <Button asChild variant="ghost" className="-ml-3">
                   <Link to="/">
@@ -1160,7 +1160,7 @@ export default function RoomView() {
                 </Badge>
                 {snapshot.surface ? <Badge variant="outline">{snapshot.surface.name}</Badge> : null}
               </div>
-              <DetailGrid items={roomSummaryItems} className="lg:grid-cols-3 xl:grid-cols-5" />
+              <DetailGrid items={roomSummaryItems} className="lg:grid-cols-3 2xl:grid-cols-5" />
               <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 {myParticipant ? (
                   <div className="flex max-w-xs items-center gap-3">
@@ -1237,8 +1237,8 @@ export default function RoomView() {
               ) : null}
             </div>
 
-            <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
-              <div className="lg:col-span-2 flex justify-start lg:justify-end gap-2">
+            <div className="grid w-full min-w-0 gap-3 xl:w-[26rem] xl:shrink-0">
+              <div className="flex flex-wrap justify-start gap-2 xl:justify-end">
                 <Button
                   type="button"
                   variant="ghost"
@@ -1256,12 +1256,12 @@ export default function RoomView() {
                   <Link to="/settings">Settings</Link>
                 </Button>
               </div>
-              <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start">
+              <div className="grid min-w-0 gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start">
                 <div className="rounded-2xl border bg-muted/30 px-4 py-3">
                   <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
                     Invite link
                   </p>
-                  <p className="mt-1 break-all text-sm">{inviteLink}</p>
+                  <p className="mt-1 break-words text-sm leading-6">{inviteLink}</p>
                 </div>
                 <Button variant="outline" onClick={copyInviteLink}>
                   <Copy className="mr-2 h-4 w-4" />
