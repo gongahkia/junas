@@ -167,14 +167,6 @@ func ensureHighlightedHoldMetadata(boardIDs map[uint]struct{}) error {
 
 	placementsByBoard := make(map[uint]map[int]boardLED, len(missingBoardIDs))
 	boundsByBoard := make(map[uint]boardBounds, len(missingBoardIDs))
-	for _, boardID := range missingBoardIDs {
-		boundsByBoard[boardID] = boardBounds{
-			MinX: math.MaxInt,
-			MaxX: math.MinInt,
-			MinY: math.MaxInt,
-			MaxY: math.MinInt,
-		}
-	}
 
 	for _, row := range placementRows {
 		if _, exists := placementsByBoard[row.ProductSizeID]; !exists {
@@ -186,17 +178,13 @@ func ensureHighlightedHoldMetadata(boardIDs map[uint]struct{}) error {
 		}
 
 		bounds := boundsByBoard[row.ProductSizeID]
-		if row.X < bounds.MinX {
-			bounds.MinX = row.X
-		}
-		if row.X > bounds.MaxX {
-			bounds.MaxX = row.X
-		}
-		if row.Y < bounds.MinY {
-			bounds.MinY = row.Y
-		}
-		if row.Y > bounds.MaxY {
-			bounds.MaxY = row.Y
+		if bounds == (boardBounds{}) {
+			bounds = boardBounds{
+				MinX: row.EdgeLeft,
+				MaxX: row.EdgeRight,
+				MinY: row.EdgeBottom,
+				MaxY: row.EdgeTop,
+			}
 		}
 		boundsByBoard[row.ProductSizeID] = bounds
 	}
@@ -232,6 +220,10 @@ type ledRow struct {
 	PlacementID   int
 	X             int
 	Y             int
+	EdgeLeft      int
+	EdgeRight     int
+	EdgeBottom    int
+	EdgeTop       int
 }
 
 func fetchBoardPlacements(boardIDs []uint) ([]ledRow, error) {
@@ -241,7 +233,11 @@ SELECT
   ps.id AS product_size_id,
   p.id AS placement_id,
   h.x,
-  h.y
+  h.y,
+  ps.edge_left,
+  ps.edge_right,
+  ps.edge_bottom,
+  ps.edge_top
 FROM product_sizes ps
 JOIN layouts l ON l.product_id = ps.product_id
 JOIN placements p ON p.layout_id = l.id
