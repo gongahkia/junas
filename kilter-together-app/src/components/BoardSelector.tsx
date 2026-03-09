@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Layers3, Mountain, Radar } from "lucide-react";
 import AngleSelector from "./AngleSelector";
+import BrandWordmark from "./BrandWordmark";
 import type { Board } from "../types";
 import { DEFAULT_ANGLE } from "@/lib/climbs";
 import {
@@ -84,8 +85,8 @@ export default function BoardSelector({
             <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">
               Solo Kilter Browse
             </p>
-            <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-6xl">
-              kilter-together
+            <h1 className="mt-3 leading-none">
+              <BrandWordmark />
             </h1>
           </div>
           <Button asChild variant="ghost">

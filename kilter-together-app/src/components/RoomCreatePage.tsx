@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, CircleHelp } from "lucide-react";
 import { api } from "@/api";
@@ -7,7 +7,9 @@ import { getApiErrorMessage } from "@/lib/api-errors";
 import {
   dismissOnboarding,
   loadUserPrefs,
+  rememberCruxToken,
   rememberDisplayName,
+  rememberKilterCredentials,
   rememberLastProvider,
   rememberRoomVisit,
   resetOnboardingPrefs,
@@ -32,21 +34,32 @@ import {
 
 export default function RoomCreatePage() {
   const navigate = useNavigate();
+  const savedPrefsRef = useRef(loadUserPrefs());
   const [showOnboarding, setShowOnboarding] = useState(
-    () => !loadUserPrefs().onboarding.dismissed
+    () => !savedPrefsRef.current.onboarding.dismissed
   );
   const [providerId, setProviderId] = useState<ProviderId>(
-    () => loadUserPrefs().lastProviderId || "kilter"
+    () => savedPrefsRef.current.lastProviderId || "kilter"
   );
   const [roomName, setRoomName] = useState("");
   const [displayName, setDisplayName] = useState(
-    () => loadUserPrefs().savedDisplayName
+    () => savedPrefsRef.current.savedDisplayName
   );
-  const [connectionFields, setConnectionFields] = useState({
-    username: "",
-    password: "",
-    token: "",
-  });
+  const [connectionFields, setConnectionFields] = useState(() => ({
+    username: savedPrefsRef.current.savedCredentials.kilter.remember
+      ? savedPrefsRef.current.savedCredentials.kilter.username
+      : "",
+    password: savedPrefsRef.current.savedCredentials.kilter.remember
+      ? savedPrefsRef.current.savedCredentials.kilter.password
+      : "",
+    token: savedPrefsRef.current.savedCredentials.crux.remember
+      ? savedPrefsRef.current.savedCredentials.crux.token
+      : "",
+  }));
+  const [rememberCredentials, setRememberCredentials] = useState(() => ({
+    kilter: savedPrefsRef.current.savedCredentials.kilter.remember,
+    crux: savedPrefsRef.current.savedCredentials.crux.remember,
+  }));
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -72,6 +85,15 @@ export default function RoomCreatePage() {
       });
       rememberDisplayName(displayName);
       rememberLastProvider(providerId);
+      if (providerId === "kilter") {
+        rememberKilterCredentials(
+          connectionFields.username,
+          connectionFields.password,
+          rememberCredentials.kilter
+        );
+      } else {
+        rememberCruxToken(connectionFields.token, rememberCredentials.crux);
+      }
       rememberRoomVisit(room);
       navigate(`/rooms/${room.slug}`);
     } catch (caughtError) {
@@ -111,22 +133,20 @@ export default function RoomCreatePage() {
         </div>
 
         {showOnboarding ? (
-          <div className="mb-6">
-            <OnboardingCallout
-              title="Host flow: sign in first, then share"
-              description="Authenticate the host account here before the room exists. Once the room opens, you only need to choose the shared board or wall before inviting everyone else."
-              steps={[
-                "Give the room a name so guests can recognize the session when they join.",
-                "Enter the host display name you want guests to see on this device.",
-                "Pick the provider for this room, then enter valid host credentials. Kilter uses username/password, while Crux uses an API token.",
-                "After the room is created, choose the surface, then share the invite link or QR code.",
-              ]}
-              onDismiss={() => {
-                dismissOnboarding();
-                setShowOnboarding(false);
-              }}
-            />
-          </div>
+          <OnboardingCallout
+            title="Host flow: sign in first, then share"
+            description="Authenticate the host account here before the room exists. Once the room opens, you only need to choose the shared board or wall before inviting everyone else."
+            steps={[
+              "Give the room a name so guests can recognize the session when they join.",
+              "Enter the host display name you want guests to see on this device.",
+              "Pick the provider for this room, then enter valid host credentials. Kilter uses username/password, while Crux uses an API token.",
+              "After the room is created, choose the surface, then share the invite link or QR code.",
+            ]}
+            onDismiss={() => {
+              dismissOnboarding();
+              setShowOnboarding(false);
+            }}
+          />
         ) : null}
 
         <Card className="shadow-lg shadow-teal-950/10">
@@ -217,6 +237,25 @@ export default function RoomCreatePage() {
                       placeholder="Kilter password"
                     />
                   </div>
+                  <div className="space-y-2 md:col-span-2">
+                    <label className="flex items-center gap-3 text-sm font-medium">
+                      <input
+                        type="checkbox"
+                        checked={rememberCredentials.kilter}
+                        onChange={(event) =>
+                          setRememberCredentials((previousState) => ({
+                            ...previousState,
+                            kilter: event.target.checked,
+                          }))
+                        }
+                        className="h-4 w-4 rounded border-slate-300"
+                      />
+                      Remember Kilter credentials on this browser
+                    </label>
+                    <p className="text-xs text-muted-foreground">
+                      Stores the username and password locally in this browser after a successful login.
+                    </p>
+                  </div>
                 </div>
               ) : (
                 <div className="space-y-2">
@@ -237,6 +276,23 @@ export default function RoomCreatePage() {
                   />
                   <p className="text-sm text-muted-foreground">
                     Paste either the raw Crux token or the full <code>Bearer ...</code> value.
+                  </p>
+                  <label className="flex items-center gap-3 pt-1 text-sm font-medium">
+                    <input
+                      type="checkbox"
+                      checked={rememberCredentials.crux}
+                      onChange={(event) =>
+                        setRememberCredentials((previousState) => ({
+                          ...previousState,
+                          crux: event.target.checked,
+                        }))
+                      }
+                      className="h-4 w-4 rounded border-slate-300"
+                    />
+                    Remember Crux token on this browser
+                  </label>
+                  <p className="text-xs text-muted-foreground">
+                    Stores the Crux API token locally in this browser after a successful login.
                   </p>
                 </div>
               )}

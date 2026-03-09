@@ -97,6 +97,23 @@ vi.mock("./api", () => ({
 }));
 
 const mockedApi = vi.mocked(api);
+const DEFAULT_DISMISSED_GUIDES_PREFS = {
+  intro: {
+    version: 1,
+    landingDismissed: true,
+    soloDismissed: true,
+  },
+  onboarding: {
+    version: 1,
+    dismissed: true,
+    hostCompleted: false,
+    guestCompleted: false,
+    hostConnectedProvider: false,
+    hostSelectedSurface: false,
+    guestJoinedRoom: false,
+    guestParticipated: false,
+  },
+};
 
 const buildRoomSnapshot = (slug: string): RoomSnapshot => ({
   slug,
@@ -129,6 +146,10 @@ describe("App routes", () => {
     vi.resetAllMocks();
     MockEventSource.instances = [];
     window.localStorage.clear();
+    window.localStorage.setItem(
+      "kilter-together:user-prefs:v1",
+      JSON.stringify(DEFAULT_DISMISSED_GUIDES_PREFS)
+    );
   });
 
   it("supports direct board route loads with URL-backed filters", async () => {
@@ -838,7 +859,7 @@ describe("App routes", () => {
         },
         onboarding: {
           version: 1,
-          dismissed: false,
+          dismissed: true,
           hostCompleted: false,
           guestCompleted: false,
         },
@@ -961,9 +982,63 @@ describe("App routes", () => {
     expect(screen.queryByText("Newer Session")).not.toBeInTheDocument();
   });
 
+  it("shows three recent rooms inline and caps the expanded list at nine", async () => {
+    const user = userEvent.setup();
+    window.localStorage.setItem(
+      "kilter-together:user-prefs:v1",
+      JSON.stringify({
+        savedDisplayName: "Guest",
+        lastProviderId: "kilter",
+        lastKilter: {
+          boardId: "14",
+          angle: 45,
+        },
+        lastCrux: {
+          gymSlug: "",
+          wallId: "",
+        },
+        recentRooms: Array.from({ length: 10 }, (_, index) => ({
+          slug: `room-${index + 1}`,
+          providerId: index % 2 === 0 ? "kilter" : "crux",
+          roomName: `Room ${index + 1}`,
+          lastVisitedAt: new Date(Date.UTC(2026, 2, 8, index, 0, 0)).toISOString(),
+        })),
+        intro: {
+          version: 1,
+          landingDismissed: true,
+          soloDismissed: true,
+        },
+        onboarding: {
+          version: 1,
+          dismissed: true,
+          hostCompleted: false,
+          guestCompleted: false,
+        },
+      })
+    );
+    mockedApi.getBoards.mockResolvedValue([]);
+
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByText("Recent rooms")).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: /Open /i })).toHaveLength(3);
+
+    await user.click(screen.getByRole("button", { name: "See more" }));
+
+    const dialog = await screen.findByRole("dialog");
+    expect(within(dialog).getAllByRole("link", { name: /Open /i })).toHaveLength(9);
+    expect(within(dialog).getByText("Room 10")).toBeInTheDocument();
+    expect(within(dialog).queryByText("Room 1")).not.toBeInTheDocument();
+  });
+
   it("shows onboarding first, then the landing intro once, and lets the user replay onboarding", async () => {
     const user = userEvent.setup();
     mockedApi.getBoards.mockResolvedValue([]);
+    window.localStorage.clear();
 
     const view = render(
       <MemoryRouter initialEntries={["/"]}>
@@ -998,6 +1073,7 @@ describe("App routes", () => {
   it("shows the solo intro dialog only on the first solo visit", async () => {
     const user = userEvent.setup();
     mockedApi.getBoards.mockResolvedValue([]);
+    window.localStorage.clear();
 
     const view = render(
       <MemoryRouter initialEntries={["/solo"]}>
@@ -1025,6 +1101,7 @@ describe("App routes", () => {
 
   it("shows role-specific onboarding on host and guest entry pages", async () => {
     mockedApi.getBoards.mockResolvedValue([]);
+    window.localStorage.clear();
 
     const { unmount } = render(
       <MemoryRouter initialEntries={["/rooms/new"]}>
@@ -1052,6 +1129,18 @@ describe("App routes", () => {
       JSON.stringify({
         savedDisplayName: "Alex",
         lastProviderId: "crux",
+        savedCredentials: {
+          kilter: {
+            username: "",
+            password: "",
+            remember: false,
+          },
+          crux: {
+            token: "saved-crux-token",
+            remember: true,
+          },
+        },
+        ...DEFAULT_DISMISSED_GUIDES_PREFS,
       })
     );
     mockedApi.getBoards.mockResolvedValue([]);
@@ -1079,8 +1168,8 @@ describe("App routes", () => {
     );
 
     expect(screen.getByLabelText("Host display name")).toHaveValue("Alex");
-    await user.type(screen.getByLabelText("Crux API token"), "crux-token");
-
+    expect(screen.getByLabelText("Crux API token")).toHaveValue("saved-crux-token");
+    expect(screen.getByLabelText("Remember Crux token on this browser")).toBeChecked();
     await user.click(screen.getByRole("button", { name: "Authenticate and create room" }));
 
     await waitFor(() =>
@@ -1089,10 +1178,117 @@ describe("App routes", () => {
         roomName: "",
         displayName: "Alex",
         secret: {
-          token: "crux-token",
+          token: "saved-crux-token",
         },
       })
     );
+  });
+
+  it("remembers Kilter credentials after successful room creation when requested", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.createRoom.mockResolvedValue({
+      ...buildRoomSnapshot("saved-kilter-room"),
+      room_name: "Saved Session",
+    });
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("saved-kilter-room"),
+      room_name: "Saved Session",
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/new"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    await user.type(screen.getByLabelText("Room name"), "Saved Session");
+    await user.type(screen.getByLabelText("Host display name"), "Host");
+    await user.type(screen.getByLabelText("Kilter username"), "host@example.com");
+    await user.type(screen.getByLabelText("Kilter password"), "secret-pass");
+    await user.click(screen.getByLabelText("Remember Kilter credentials on this browser"));
+    await user.click(screen.getByRole("button", { name: "Authenticate and create room" }));
+
+    await waitFor(() =>
+      expect(mockedApi.createRoom).toHaveBeenCalledWith({
+        providerId: "kilter",
+        roomName: "Saved Session",
+        displayName: "Host",
+        secret: {
+          username: "host@example.com",
+          password: "secret-pass",
+        },
+      })
+    );
+
+    const storedPrefs = JSON.parse(
+      window.localStorage.getItem("kilter-together:user-prefs:v1") || "{}"
+    );
+    expect(storedPrefs.savedCredentials.kilter).toMatchObject({
+      username: "host@example.com",
+      password: "secret-pass",
+      remember: true,
+    });
+  });
+
+  it("prefills and remembers Crux credentials in the room connect flow", async () => {
+    const user = userEvent.setup();
+    window.localStorage.setItem(
+      "kilter-together:user-prefs:v1",
+      JSON.stringify({
+        savedCredentials: {
+          kilter: {
+            username: "",
+            password: "",
+            remember: false,
+          },
+          crux: {
+            token: "saved-crux-token",
+            remember: true,
+          },
+        },
+        ...DEFAULT_DISMISSED_GUIDES_PREFS,
+      })
+    );
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("connect-room"),
+      provider_id: "crux",
+      connection: {
+        provider_id: "crux",
+        connected: false,
+      },
+    });
+    mockedApi.connectRoomProvider.mockResolvedValue({
+      provider_id: "crux",
+      connected: true,
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/connect-room"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByRole("heading", { name: "Room connect-room" })).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Crux API token")).toHaveValue("saved-crux-token");
+    expect(screen.getByLabelText("Remember Crux token on this browser")).toBeChecked();
+
+    await user.click(screen.getByRole("button", { name: "Connect provider" }));
+
+    await waitFor(() =>
+      expect(mockedApi.connectRoomProvider).toHaveBeenCalledWith("connect-room", {
+        token: "saved-crux-token",
+      })
+    );
+
+    const storedPrefs = JSON.parse(
+      window.localStorage.getItem("kilter-together:user-prefs:v1") || "{}"
+    );
+    expect(storedPrefs.savedCredentials.crux).toMatchObject({
+      token: "saved-crux-token",
+      remember: true,
+    });
   });
 
   it("redirects expired room auth back to join with the saved display name", async () => {
@@ -1106,6 +1302,7 @@ describe("App routes", () => {
       "kilter-together:user-prefs:v1",
       JSON.stringify({
         savedDisplayName: "Guest",
+        ...DEFAULT_DISMISSED_GUIDES_PREFS,
       })
     );
 

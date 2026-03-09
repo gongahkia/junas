@@ -2,7 +2,7 @@ import type { ClimbSort, ProviderId, RoomSnapshot } from "@/types";
 import { DEFAULT_ANGLE, DEFAULT_SORT } from "@/lib/climbs";
 
 const USER_PREFS_STORAGE_KEY = "kilter-together:user-prefs:v1";
-const MAX_RECENT_ROOMS = 6;
+const MAX_RECENT_ROOMS = 9;
 
 export interface RecentRoom {
   slug: string;
@@ -40,6 +40,18 @@ export interface IntroProgress {
   soloDismissed: boolean;
 }
 
+export interface SavedCredentials {
+  kilter: {
+    username: string;
+    password: string;
+    remember: boolean;
+  };
+  crux: {
+    token: string;
+    remember: boolean;
+  };
+}
+
 export interface UserPrefs {
   savedDisplayName: string;
   lastProviderId: ProviderId;
@@ -51,6 +63,7 @@ export interface UserPrefs {
     gymSlug: string;
     wallId: string;
   };
+  savedCredentials: SavedCredentials;
   recentRooms: RecentRoom[];
   soloResume?: SoloResumeState;
   intro: IntroProgress;
@@ -68,6 +81,17 @@ function getDefaultUserPrefs(): UserPrefs {
     lastCrux: {
       gymSlug: "",
       wallId: "",
+    },
+    savedCredentials: {
+      kilter: {
+        username: "",
+        password: "",
+        remember: false,
+      },
+      crux: {
+        token: "",
+        remember: false,
+      },
     },
     recentRooms: [],
     intro: {
@@ -145,6 +169,16 @@ export function loadUserPrefs(): UserPrefs {
         ...defaults.lastCrux,
         ...parsedValue.lastCrux,
       },
+      savedCredentials: {
+        kilter: {
+          ...defaults.savedCredentials.kilter,
+          ...parsedValue.savedCredentials?.kilter,
+        },
+        crux: {
+          ...defaults.savedCredentials.crux,
+          ...parsedValue.savedCredentials?.crux,
+        },
+      },
       recentRooms: Array.isArray(parsedValue.recentRooms)
         ? normalizeRecentRooms(parsedValue.recentRooms as RecentRoom[])
         : defaults.recentRooms,
@@ -213,6 +247,48 @@ export function rememberLastCruxSurface(gymSlug: string, wallId: string): UserPr
     lastCrux: {
       gymSlug,
       wallId,
+    },
+  }));
+}
+
+export function rememberKilterCredentials(
+  username: string,
+  password: string,
+  remember: boolean
+): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    savedCredentials: {
+      ...currentPrefs.savedCredentials,
+      kilter: remember
+        ? {
+            username,
+            password,
+            remember: true,
+          }
+        : {
+            username: "",
+            password: "",
+            remember: false,
+          },
+    },
+  }));
+}
+
+export function rememberCruxToken(token: string, remember: boolean): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    savedCredentials: {
+      ...currentPrefs.savedCredentials,
+      crux: remember
+        ? {
+            token,
+            remember: true,
+          }
+        : {
+            token: "",
+            remember: false,
+          },
     },
   }));
 }

@@ -76,21 +76,19 @@ export default function RoomJoinPage() {
         </div>
 
         {showOnboarding ? (
-          <div className="mb-6">
-            <OnboardingCallout
-              title="Guest flow: join fast, then vote"
-              description="Guests do not need provider credentials. Once you join the room, your vote and queue actions update the shared session immediately."
-              steps={[
-                "Keep the host-provided slug or invite URL open on this device.",
-                "Enter the display name everyone in the room should see.",
-                "After joining, vote for climbs you want to do or add a climb to the queue.",
-              ]}
-              onDismiss={() => {
-                dismissOnboarding();
-                setShowOnboarding(false);
-              }}
-            />
-          </div>
+          <OnboardingCallout
+            title="Guest flow: join fast, then vote"
+            description="Guests do not need provider credentials. Once you join the room, your vote and queue actions update the shared session immediately."
+            steps={[
+              "Keep the host-provided slug or invite URL open on this device.",
+              "Enter the display name everyone in the room should see.",
+              "After joining, vote for climbs you want to do or add a climb to the queue.",
+            ]}
+            onDismiss={() => {
+              dismissOnboarding();
+              setShowOnboarding(false);
+            }}
+          />
         ) : null}
 
         <Card className="shadow-lg shadow-lime-950/10">

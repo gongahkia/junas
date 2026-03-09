@@ -61,21 +61,19 @@ export default function RoomDiscoveryPage() {
         </div>
 
         {showOnboarding ? (
-          <div className="mb-6">
-            <OnboardingCallout
-              title="Phone-first join works best from this page"
-              description="Use the camera when the host is showing a QR code. If you already have the link, paste it here and continue into the join form."
-              steps={[
-                "Scan the host QR code if you are standing near the wall.",
-                "If scanning is not convenient, paste the invite URL or just the room slug.",
-                "You will still pick a display name on the next screen before joining the room.",
-              ]}
-              onDismiss={() => {
-                dismissOnboarding();
-                setShowOnboarding(false);
-              }}
-            />
-          </div>
+          <OnboardingCallout
+            title="Phone-first join works best from this page"
+            description="Use the camera when the host is showing a QR code. If you already have the link, paste it here and continue into the join form."
+            steps={[
+              "Scan the host QR code if you are standing near the wall.",
+              "If scanning is not convenient, paste the invite URL or just the room slug.",
+              "You will still pick a display name on the next screen before joining the room.",
+            ]}
+            onDismiss={() => {
+              dismissOnboarding();
+              setShowOnboarding(false);
+            }}
+          />
         ) : null}
 
         <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">

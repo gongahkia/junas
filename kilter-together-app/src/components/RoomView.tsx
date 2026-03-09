@@ -35,6 +35,8 @@ import {
   loadUserPrefs,
   markGuestParticipated,
   markHostProviderConnected,
+  rememberCruxToken,
+  rememberKilterCredentials,
   markHostSurfaceSelected,
   rememberLastCruxSurface,
   rememberLastKilterSurface,
@@ -94,11 +96,21 @@ export default function RoomView() {
   const [actionError, setActionError] = useState("");
   const [roomNameInput, setRoomNameInput] = useState("");
   const [roomNameSaving, setRoomNameSaving] = useState(false);
-  const [connectionFields, setConnectionFields] = useState({
-    username: "",
-    password: "",
-    token: "",
-  });
+  const [connectionFields, setConnectionFields] = useState(() => ({
+    username: savedPrefsRef.current.savedCredentials.kilter.remember
+      ? savedPrefsRef.current.savedCredentials.kilter.username
+      : "",
+    password: savedPrefsRef.current.savedCredentials.kilter.remember
+      ? savedPrefsRef.current.savedCredentials.kilter.password
+      : "",
+    token: savedPrefsRef.current.savedCredentials.crux.remember
+      ? savedPrefsRef.current.savedCredentials.crux.token
+      : "",
+  }));
+  const [rememberCredentials, setRememberCredentials] = useState(() => ({
+    kilter: savedPrefsRef.current.savedCredentials.kilter.remember,
+    crux: savedPrefsRef.current.savedCredentials.crux.remember,
+  }));
   const [boardSurfaces, setBoardSurfaces] = useState<ProviderSurface[]>([]);
   const [cruxGyms, setCruxGyms] = useState<ProviderSurface[]>([]);
   const [cruxWalls, setCruxWalls] = useState<ProviderSurface[]>([]);
@@ -544,6 +556,11 @@ export default function RoomView() {
           username,
           password,
         });
+        savedPrefsRef.current = rememberKilterCredentials(
+          username,
+          password,
+          rememberCredentials.kilter
+        );
       } else {
         const token = cruxTokenInputRef.current?.value ?? connectionFields.token;
         setConnectionFields((previousState) => ({
@@ -553,6 +570,7 @@ export default function RoomView() {
         await api.connectRoomProvider(slug, {
           token,
         });
+        savedPrefsRef.current = rememberCruxToken(token, rememberCredentials.crux);
       }
       markHostProviderConnected();
       await refreshRoomState();
@@ -1245,6 +1263,25 @@ export default function RoomView() {
                         autoComplete="current-password"
                         placeholder="Kilter password"
                       />
+                      <div className="space-y-2 md:col-span-2">
+                        <label className="flex items-center gap-3 text-sm font-medium">
+                          <input
+                            type="checkbox"
+                            checked={rememberCredentials.kilter}
+                            onChange={(event) =>
+                              setRememberCredentials((previousState) => ({
+                                ...previousState,
+                                kilter: event.target.checked,
+                              }))
+                            }
+                            className="h-4 w-4 rounded border-slate-300"
+                          />
+                          Remember Kilter credentials on this browser
+                        </label>
+                        <p className="text-xs text-muted-foreground">
+                          Stores the username and password locally in this browser after a successful login.
+                        </p>
+                      </div>
                     </div>
                   ) : (
                     <div className="space-y-2">
@@ -1262,6 +1299,23 @@ export default function RoomView() {
                       />
                       <p className="text-sm text-muted-foreground">
                         Paste either the raw Crux token or the full <code>Bearer ...</code> value.
+                      </p>
+                      <label className="flex items-center gap-3 pt-1 text-sm font-medium">
+                        <input
+                          type="checkbox"
+                          checked={rememberCredentials.crux}
+                          onChange={(event) =>
+                            setRememberCredentials((previousState) => ({
+                              ...previousState,
+                              crux: event.target.checked,
+                            }))
+                          }
+                          className="h-4 w-4 rounded border-slate-300"
+                        />
+                        Remember Crux token on this browser
+                      </label>
+                      <p className="text-xs text-muted-foreground">
+                        Stores the Crux API token locally in this browser after a successful login.
                       </p>
                     </div>
                   )}

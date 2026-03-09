@@ -16,6 +16,7 @@ function App() {
   const location = useLocation();
   const [boards, setBoards] = useState<Board[]>([]);
   const [loading, setLoading] = useState(true);
+  const isLandingRoute = location.pathname === "/";
 
   const shouldLoadBoards =
     location.pathname === "/solo" ||
@@ -45,7 +46,7 @@ function App() {
   }, [shouldLoadBoards]);
 
   return (
-    <div className="min-h-screen pb-20">
+    <div className={isLandingRoute ? "h-[100dvh] overflow-hidden" : "min-h-screen pb-20"}>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/rooms/new" element={<RoomCreatePage />} />
