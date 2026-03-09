@@ -212,12 +212,749 @@
                     }
                 }
             }
+        },
+        "/rooms": {
+            "post": {
+                "description": "Create a room, validate the provider secret, persist the host session, and return the initial room snapshot.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "rooms"
+                ],
+                "summary": "Create a collaborative room",
+                "parameters": [
+                    {
+                        "description": "Create room payload",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.createRoomRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/rooms.RoomSnapshot"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rooms/{slug}": {
+            "get": {
+                "description": "Return the current collaborative room snapshot for the authenticated viewer.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "rooms"
+                ],
+                "summary": "Get a room snapshot",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Room slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/rooms.RoomSnapshot"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Update the room name for the host-managed collaborative room.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "rooms"
+                ],
+                "summary": "Update room metadata",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Room slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Room update payload",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.updateRoomRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/rooms.RoomSnapshot"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rooms/{slug}/catalog/climbs": {
+            "get": {
+                "description": "Return provider climbs for the room surface along with room vote metadata.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "rooms"
+                ],
+                "summary": "List room catalog climbs",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Room slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Search query",
+                        "name": "q",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort order",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pagination cursor",
+                        "name": "cursor",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page size",
+                        "name": "page_size",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/rooms.CatalogClimbsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rooms/{slug}/catalog/climbs/{climbId}": {
+            "get": {
+                "description": "Return a single provider climb for the room surface along with room vote metadata.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "rooms"
+                ],
+                "summary": "Get a room catalog climb",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Room slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Provider climb id",
+                        "name": "climbId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/rooms.CatalogClimbResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rooms/{slug}/catalog/surfaces": {
+            "get": {
+                "description": "Return provider-specific selectable surfaces for the room, optionally filtered by parent id.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "rooms"
+                ],
+                "summary": "List provider surfaces for the room",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Room slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Parent surface id",
+                        "name": "parent_id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.listSurfacesResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rooms/{slug}/fist-bumps/settings": {
+            "put": {
+                "description": "Enable or disable room fist bumps for the host-managed collaborative room.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "rooms"
+                ],
+                "summary": "Update room fist bump settings",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Room slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Fist bump settings payload",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.updateFistBumpsRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/rooms.RoomSnapshot"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rooms/{slug}/join": {
+            "post": {
+                "description": "Create a participant session for the room and return the room snapshot for the joining guest.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "rooms"
+                ],
+                "summary": "Join an existing room",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Room slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Join room payload",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.joinRoomRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/rooms.RoomSnapshot"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rooms/{slug}/pick-random": {
+            "post": {
+                "description": "Pick a random climb from finalists or top-voted climbs for the room.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "rooms"
+                ],
+                "summary": "Pick a random room climb",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Room slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Random pick payload",
+                        "name": "request",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.pickRandomRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.randomPickResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rooms/{slug}/provider/connect": {
+            "post": {
+                "description": "Validate and persist provider credentials for the host-managed collaborative room.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "rooms"
+                ],
+                "summary": "Connect or refresh a room provider",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Room slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Provider connect payload",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.connectProviderRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/providers.ProviderConnectionState"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rooms/{slug}/surface": {
+            "post": {
+                "description": "Persist the provider-specific board, gym, or wall selection for the room.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "rooms"
+                ],
+                "summary": "Select the shared room surface",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Room slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Surface selection payload",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.setSurfaceRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/providers.ProviderSurface"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "handlers.connectProviderRequest": {
+            "type": "object",
+            "properties": {
+                "secret": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "handlers.createRoomRequest": {
+            "type": "object",
+            "properties": {
+                "display_name": {
+                    "type": "string"
+                },
+                "provider_id": {
+                    "type": "string"
+                },
+                "room_name": {
+                    "type": "string"
+                },
+                "secret": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "handlers.joinRoomRequest": {
+            "type": "object",
+            "properties": {
+                "display_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.listSurfacesResponse": {
+            "type": "object",
+            "properties": {
+                "surfaces": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/providers.ProviderSurface"
+                    }
+                }
+            }
+        },
+        "handlers.pickRandomRequest": {
+            "type": "object",
+            "properties": {
+                "source": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.randomPickResponse": {
+            "type": "object",
+            "properties": {
+                "climb": {
+                    "$ref": "#/definitions/providers.ProviderClimb"
+                }
+            }
+        },
+        "handlers.setSurfaceRequest": {
+            "type": "object",
+            "properties": {
+                "context": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "surface_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.updateFistBumpsRequest": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "handlers.updateRoomRequest": {
+            "type": "object",
+            "properties": {
+                "room_name": {
+                    "type": "string"
+                }
+            }
+        },
         "models.BoardOption": {
             "type": "object",
             "properties": {
+                "climb_count": {
+                    "type": "integer",
+                    "example": 12453
+                },
                 "id": {
                     "type": "integer",
                     "example": 14
@@ -229,6 +966,10 @@
                 "name": {
                     "type": "string",
                     "example": "7 x 10"
+                },
+                "preview_image_filename": {
+                    "type": "string",
+                    "example": "product_sizes_layouts_sets/original-16x12-bolt-ons-v2.png"
                 }
             }
         },
@@ -259,6 +1000,12 @@
                     "type": "object",
                     "additionalProperties": {
                         "$ref": "#/definitions/models.GradeInfo"
+                    }
+                },
+                "highlighted_holds": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.HighlightedHold"
                     }
                 },
                 "image_filenames": {
@@ -314,6 +1061,354 @@
                 "route": {
                     "type": "string",
                     "example": "7c/5.12d"
+                }
+            }
+        },
+        "models.HighlightedHold": {
+            "type": "object",
+            "properties": {
+                "color": {
+                    "type": "string",
+                    "example": "#00DD00"
+                },
+                "position": {
+                    "type": "integer",
+                    "example": 1096
+                },
+                "role": {
+                    "type": "string",
+                    "example": "start"
+                },
+                "x": {
+                    "type": "number",
+                    "example": 77.3
+                },
+                "y": {
+                    "type": "number",
+                    "example": 42.1
+                }
+            }
+        },
+        "providers.ClimbMedia": {
+            "type": "object",
+            "properties": {
+                "kind": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "providers.HighlightedHold": {
+            "type": "object",
+            "properties": {
+                "color": {
+                    "type": "string"
+                },
+                "position": {
+                    "type": "integer"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "x": {
+                    "type": "number"
+                },
+                "y": {
+                    "type": "number"
+                }
+            }
+        },
+        "providers.ProviderClimb": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "external_id": {
+                    "type": "string"
+                },
+                "highlighted_holds": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/providers.HighlightedHold"
+                    }
+                },
+                "id": {
+                    "type": "string"
+                },
+                "media": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/providers.ClimbMedia"
+                    }
+                },
+                "meta": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "popularity": {
+                    "type": "integer"
+                },
+                "primary_grade": {
+                    "type": "string"
+                },
+                "provider_id": {
+                    "$ref": "#/definitions/providers.ProviderID"
+                },
+                "secondary_grade": {
+                    "type": "string"
+                },
+                "setter_name": {
+                    "type": "string"
+                },
+                "surface_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "providers.ProviderConnectionState": {
+            "type": "object",
+            "properties": {
+                "connected": {
+                    "type": "boolean"
+                },
+                "metadata": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "provider_id": {
+                    "$ref": "#/definitions/providers.ProviderID"
+                }
+            }
+        },
+        "providers.ProviderID": {
+            "type": "string",
+            "enum": [
+                "kilter",
+                "crux",
+                "test",
+                "moonboard",
+                "tension",
+                "grasshopper"
+            ],
+            "x-enum-varnames": [
+                "ProviderKilter",
+                "ProviderCrux",
+                "ProviderTest",
+                "ProviderMoonboard",
+                "ProviderTension",
+                "ProviderGrasshopper"
+            ]
+        },
+        "providers.ProviderSurface": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "kind": {
+                    "type": "string"
+                },
+                "meta": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "parent_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "rooms.CatalogClimbResponse": {
+            "type": "object",
+            "properties": {
+                "climb": {
+                    "$ref": "#/definitions/providers.ProviderClimb"
+                },
+                "is_queued": {
+                    "type": "boolean"
+                },
+                "my_vote": {
+                    "type": "boolean"
+                },
+                "vote_count": {
+                    "type": "integer"
+                }
+            }
+        },
+        "rooms.CatalogClimbsResponse": {
+            "type": "object",
+            "properties": {
+                "climbs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/providers.ProviderClimb"
+                    }
+                },
+                "has_more": {
+                    "type": "boolean"
+                },
+                "my_votes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "next_cursor": {
+                    "type": "string"
+                },
+                "page_size": {
+                    "type": "integer"
+                },
+                "vote_counts": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "rooms.FinalistEntryView": {
+            "type": "object",
+            "properties": {
+                "added_by": {
+                    "type": "string"
+                },
+                "climb": {
+                    "$ref": "#/definitions/providers.ProviderClimb"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "position": {
+                    "type": "integer"
+                }
+            }
+        },
+        "rooms.ParticipantView": {
+            "type": "object",
+            "properties": {
+                "display_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "is_online": {
+                    "type": "boolean"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "rooms.QueueEntryView": {
+            "type": "object",
+            "properties": {
+                "added_by": {
+                    "type": "string"
+                },
+                "climb": {
+                    "$ref": "#/definitions/providers.ProviderClimb"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "position": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "rooms.RoomSnapshot": {
+            "type": "object",
+            "properties": {
+                "can_manage": {
+                    "type": "boolean"
+                },
+                "connection": {
+                    "$ref": "#/definitions/providers.ProviderConnectionState"
+                },
+                "current_climb": {
+                    "$ref": "#/definitions/providers.ProviderClimb"
+                },
+                "display_name": {
+                    "type": "string"
+                },
+                "finalists": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/rooms.FinalistEntryView"
+                    }
+                },
+                "fist_bumps_enabled": {
+                    "type": "boolean"
+                },
+                "my_votes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "participants": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/rooms.ParticipantView"
+                    }
+                },
+                "provider_id": {
+                    "$ref": "#/definitions/providers.ProviderID"
+                },
+                "queue": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/rooms.QueueEntryView"
+                    }
+                },
+                "room_name": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "surface": {
+                    "$ref": "#/definitions/providers.ProviderSurface"
+                },
+                "version": {
+                    "type": "integer"
+                },
+                "vote_counts": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
                 }
             }
         }

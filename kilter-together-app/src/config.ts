@@ -31,6 +31,7 @@ const apiBaseUrl = normalizeApiBaseUrl(import.meta.env.VITE_API_BASE_URL);
 export const config = {
   app: {
     basePath: appBasePath,
+    enableTestProvider: import.meta.env.VITE_ENABLE_TEST_PROVIDER === "true",
   },
   api: {
     baseUrl: apiBaseUrl,

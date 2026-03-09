@@ -1,7 +1,71 @@
 basePath: /api
 definitions:
+  handlers.connectProviderRequest:
+    properties:
+      secret:
+        additionalProperties:
+          type: string
+        type: object
+    type: object
+  handlers.createRoomRequest:
+    properties:
+      display_name:
+        type: string
+      provider_id:
+        type: string
+      room_name:
+        type: string
+      secret:
+        additionalProperties:
+          type: string
+        type: object
+    type: object
+  handlers.joinRoomRequest:
+    properties:
+      display_name:
+        type: string
+    type: object
+  handlers.listSurfacesResponse:
+    properties:
+      surfaces:
+        items:
+          $ref: '#/definitions/providers.ProviderSurface'
+        type: array
+    type: object
+  handlers.pickRandomRequest:
+    properties:
+      source:
+        type: string
+    type: object
+  handlers.randomPickResponse:
+    properties:
+      climb:
+        $ref: '#/definitions/providers.ProviderClimb'
+    type: object
+  handlers.setSurfaceRequest:
+    properties:
+      context:
+        additionalProperties:
+          type: string
+        type: object
+      surface_id:
+        type: string
+    type: object
+  handlers.updateFistBumpsRequest:
+    properties:
+      enabled:
+        type: boolean
+    type: object
+  handlers.updateRoomRequest:
+    properties:
+      room_name:
+        type: string
+    type: object
   models.BoardOption:
     properties:
+      climb_count:
+        example: 12453
+        type: integer
       id:
         example: 14
         type: integer
@@ -10,6 +74,9 @@ definitions:
         type: string
       name:
         example: 7 x 10
+        type: string
+      preview_image_filename:
+        example: product_sizes_layouts_sets/original-16x12-bolt-ons-v2.png
         type: string
     type: object
   models.Climb:
@@ -33,6 +100,10 @@ definitions:
         additionalProperties:
           $ref: '#/definitions/models.GradeInfo'
         type: object
+      highlighted_holds:
+        items:
+          $ref: '#/definitions/models.HighlightedHold'
+        type: array
       image_filenames:
         items:
           type: string
@@ -71,6 +142,239 @@ definitions:
       route:
         example: 7c/5.12d
         type: string
+    type: object
+  models.HighlightedHold:
+    properties:
+      color:
+        example: '#00DD00'
+        type: string
+      position:
+        example: 1096
+        type: integer
+      role:
+        example: start
+        type: string
+      x:
+        example: 77.3
+        type: number
+      "y":
+        example: 42.1
+        type: number
+    type: object
+  providers.ClimbMedia:
+    properties:
+      kind:
+        type: string
+      url:
+        type: string
+    type: object
+  providers.HighlightedHold:
+    properties:
+      color:
+        type: string
+      position:
+        type: integer
+      role:
+        type: string
+      x:
+        type: number
+      "y":
+        type: number
+    type: object
+  providers.ProviderClimb:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      external_id:
+        type: string
+      highlighted_holds:
+        items:
+          $ref: '#/definitions/providers.HighlightedHold'
+        type: array
+      id:
+        type: string
+      media:
+        items:
+          $ref: '#/definitions/providers.ClimbMedia'
+        type: array
+      meta:
+        additionalProperties:
+          type: string
+        type: object
+      name:
+        type: string
+      popularity:
+        type: integer
+      primary_grade:
+        type: string
+      provider_id:
+        $ref: '#/definitions/providers.ProviderID'
+      secondary_grade:
+        type: string
+      setter_name:
+        type: string
+      surface_id:
+        type: string
+    type: object
+  providers.ProviderConnectionState:
+    properties:
+      connected:
+        type: boolean
+      metadata:
+        additionalProperties:
+          type: string
+        type: object
+      provider_id:
+        $ref: '#/definitions/providers.ProviderID'
+    type: object
+  providers.ProviderID:
+    enum:
+    - kilter
+    - crux
+    - test
+    - moonboard
+    - tension
+    - grasshopper
+    type: string
+    x-enum-varnames:
+    - ProviderKilter
+    - ProviderCrux
+    - ProviderTest
+    - ProviderMoonboard
+    - ProviderTension
+    - ProviderGrasshopper
+  providers.ProviderSurface:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+      kind:
+        type: string
+      meta:
+        additionalProperties:
+          type: string
+        type: object
+      name:
+        type: string
+      parent_id:
+        type: string
+    type: object
+  rooms.CatalogClimbResponse:
+    properties:
+      climb:
+        $ref: '#/definitions/providers.ProviderClimb'
+      is_queued:
+        type: boolean
+      my_vote:
+        type: boolean
+      vote_count:
+        type: integer
+    type: object
+  rooms.CatalogClimbsResponse:
+    properties:
+      climbs:
+        items:
+          $ref: '#/definitions/providers.ProviderClimb'
+        type: array
+      has_more:
+        type: boolean
+      my_votes:
+        items:
+          type: string
+        type: array
+      next_cursor:
+        type: string
+      page_size:
+        type: integer
+      vote_counts:
+        additionalProperties:
+          type: integer
+        type: object
+    type: object
+  rooms.FinalistEntryView:
+    properties:
+      added_by:
+        type: string
+      climb:
+        $ref: '#/definitions/providers.ProviderClimb'
+      id:
+        type: integer
+      position:
+        type: integer
+    type: object
+  rooms.ParticipantView:
+    properties:
+      display_name:
+        type: string
+      id:
+        type: integer
+      is_online:
+        type: boolean
+      role:
+        type: string
+      status:
+        type: string
+    type: object
+  rooms.QueueEntryView:
+    properties:
+      added_by:
+        type: string
+      climb:
+        $ref: '#/definitions/providers.ProviderClimb'
+      id:
+        type: integer
+      position:
+        type: integer
+      status:
+        type: string
+    type: object
+  rooms.RoomSnapshot:
+    properties:
+      can_manage:
+        type: boolean
+      connection:
+        $ref: '#/definitions/providers.ProviderConnectionState'
+      current_climb:
+        $ref: '#/definitions/providers.ProviderClimb'
+      display_name:
+        type: string
+      finalists:
+        items:
+          $ref: '#/definitions/rooms.FinalistEntryView'
+        type: array
+      fist_bumps_enabled:
+        type: boolean
+      my_votes:
+        items:
+          type: string
+        type: array
+      participants:
+        items:
+          $ref: '#/definitions/rooms.ParticipantView'
+        type: array
+      provider_id:
+        $ref: '#/definitions/providers.ProviderID'
+      queue:
+        items:
+          $ref: '#/definitions/rooms.QueueEntryView'
+        type: array
+      room_name:
+        type: string
+      slug:
+        type: string
+      status:
+        type: string
+      surface:
+        $ref: '#/definitions/providers.ProviderSurface'
+      version:
+        type: integer
+      vote_counts:
+        additionalProperties:
+          type: integer
+        type: object
     type: object
 externalDocs:
   description: Kilter Together API Documentation
@@ -225,6 +529,437 @@ paths:
       summary: Serve board layout images
       tags:
       - images
+  /rooms:
+    post:
+      consumes:
+      - application/json
+      description: Create a room, validate the provider secret, persist the host session,
+        and return the initial room snapshot.
+      parameters:
+      - description: Create room payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.createRoomRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/rooms.RoomSnapshot'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a collaborative room
+      tags:
+      - rooms
+  /rooms/{slug}:
+    get:
+      description: Return the current collaborative room snapshot for the authenticated
+        viewer.
+      parameters:
+      - description: Room slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rooms.RoomSnapshot'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get a room snapshot
+      tags:
+      - rooms
+    patch:
+      consumes:
+      - application/json
+      description: Update the room name for the host-managed collaborative room.
+      parameters:
+      - description: Room slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      - description: Room update payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.updateRoomRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rooms.RoomSnapshot'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update room metadata
+      tags:
+      - rooms
+  /rooms/{slug}/catalog/climbs:
+    get:
+      description: Return provider climbs for the room surface along with room vote
+        metadata.
+      parameters:
+      - description: Room slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      - description: Search query
+        in: query
+        name: q
+        type: string
+      - description: Sort order
+        in: query
+        name: sort
+        type: string
+      - description: Pagination cursor
+        in: query
+        name: cursor
+        type: string
+      - description: Page size
+        in: query
+        name: page_size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rooms.CatalogClimbsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: List room catalog climbs
+      tags:
+      - rooms
+  /rooms/{slug}/catalog/climbs/{climbId}:
+    get:
+      description: Return a single provider climb for the room surface along with
+        room vote metadata.
+      parameters:
+      - description: Room slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      - description: Provider climb id
+        in: path
+        name: climbId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rooms.CatalogClimbResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get a room catalog climb
+      tags:
+      - rooms
+  /rooms/{slug}/catalog/surfaces:
+    get:
+      description: Return provider-specific selectable surfaces for the room, optionally
+        filtered by parent id.
+      parameters:
+      - description: Room slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      - description: Parent surface id
+        in: query
+        name: parent_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.listSurfacesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: List provider surfaces for the room
+      tags:
+      - rooms
+  /rooms/{slug}/fist-bumps/settings:
+    put:
+      consumes:
+      - application/json
+      description: Enable or disable room fist bumps for the host-managed collaborative
+        room.
+      parameters:
+      - description: Room slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      - description: Fist bump settings payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.updateFistBumpsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rooms.RoomSnapshot'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update room fist bump settings
+      tags:
+      - rooms
+  /rooms/{slug}/join:
+    post:
+      consumes:
+      - application/json
+      description: Create a participant session for the room and return the room snapshot
+        for the joining guest.
+      parameters:
+      - description: Room slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      - description: Join room payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.joinRoomRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/rooms.RoomSnapshot'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Join an existing room
+      tags:
+      - rooms
+  /rooms/{slug}/pick-random:
+    post:
+      consumes:
+      - application/json
+      description: Pick a random climb from finalists or top-voted climbs for the
+        room.
+      parameters:
+      - description: Room slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      - description: Random pick payload
+        in: body
+        name: request
+        schema:
+          $ref: '#/definitions/handlers.pickRandomRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.randomPickResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Pick a random room climb
+      tags:
+      - rooms
+  /rooms/{slug}/provider/connect:
+    post:
+      consumes:
+      - application/json
+      description: Validate and persist provider credentials for the host-managed
+        collaborative room.
+      parameters:
+      - description: Room slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      - description: Provider connect payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.connectProviderRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/providers.ProviderConnectionState'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Connect or refresh a room provider
+      tags:
+      - rooms
+  /rooms/{slug}/surface:
+    post:
+      consumes:
+      - application/json
+      description: Persist the provider-specific board, gym, or wall selection for
+        the room.
+      parameters:
+      - description: Room slug
+        in: path
+        name: slug
+        required: true
+        type: string
+      - description: Surface selection payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.setSurfaceRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/providers.ProviderSurface'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Select the shared room surface
+      tags:
+      - rooms
 schemes:
 - http
 - https

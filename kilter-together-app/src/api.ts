@@ -1,5 +1,6 @@
 import axios from "axios";
 import { config } from "./config";
+import type { paths } from "@/generated/api";
 import type {
   ApiResponse,
   Board,
@@ -26,6 +27,42 @@ const apiClient = axios.create({
   timeout: 10000,
   withCredentials: true,
 });
+
+type JsonContent<T> = T extends { content: { "application/json": infer U } } ? U : never;
+type CreateRoomPayload =
+  paths["/rooms"]["post"]["requestBody"]["content"]["application/json"];
+type CreateRoomResponse = JsonContent<paths["/rooms"]["post"]["responses"][201]>;
+type JoinRoomPayload =
+  paths["/rooms/{slug}/join"]["post"]["requestBody"]["content"]["application/json"];
+type JoinRoomResponse = JsonContent<paths["/rooms/{slug}/join"]["post"]["responses"][201]>;
+type GetRoomResponse = JsonContent<paths["/rooms/{slug}"]["get"]["responses"][200]>;
+type UpdateRoomPayload =
+  paths["/rooms/{slug}"]["patch"]["requestBody"]["content"]["application/json"];
+type UpdateRoomResponse = JsonContent<paths["/rooms/{slug}"]["patch"]["responses"][200]>;
+type SetFistBumpsPayload =
+  paths["/rooms/{slug}/fist-bumps/settings"]["put"]["requestBody"]["content"]["application/json"];
+type SetFistBumpsResponse =
+  JsonContent<paths["/rooms/{slug}/fist-bumps/settings"]["put"]["responses"][200]>;
+type ConnectProviderPayload =
+  paths["/rooms/{slug}/provider/connect"]["post"]["requestBody"]["content"]["application/json"];
+type ConnectProviderResponse =
+  JsonContent<paths["/rooms/{slug}/provider/connect"]["post"]["responses"][200]>;
+type RoomSurfacesResponse =
+  JsonContent<paths["/rooms/{slug}/catalog/surfaces"]["get"]["responses"][200]>;
+type SetSurfacePayload =
+  paths["/rooms/{slug}/surface"]["post"]["requestBody"]["content"]["application/json"];
+type SetSurfaceResponse =
+  JsonContent<paths["/rooms/{slug}/surface"]["post"]["responses"][200]>;
+type RoomCatalogClimbsResponseDTO =
+  JsonContent<paths["/rooms/{slug}/catalog/climbs"]["get"]["responses"][200]>;
+type RoomCatalogClimbResponseDTO =
+  JsonContent<paths["/rooms/{slug}/catalog/climbs/{climbId}"]["get"]["responses"][200]>;
+type RandomPickPayload =
+  NonNullable<
+    paths["/rooms/{slug}/pick-random"]["post"]["requestBody"]
+  >["content"]["application/json"];
+type RandomPickResponse =
+  JsonContent<paths["/rooms/{slug}/pick-random"]["post"]["responses"][200]>;
 
 function normalizeRoomSnapshot(snapshot: RoomSnapshot): RoomSnapshot {
   return {
@@ -81,45 +118,52 @@ export const api = {
     displayName: string;
     secret: Record<string, string>;
   }): Promise<RoomSnapshot> => {
-    const response = await apiClient.post<RoomSnapshot>("/rooms", {
+    const requestBody: CreateRoomPayload = {
       provider_id: payload.providerId,
       room_name: payload.roomName,
       display_name: payload.displayName,
       secret: payload.secret,
-    });
-    return normalizeRoomSnapshot(response.data);
+    };
+    const response = await apiClient.post<CreateRoomResponse>("/rooms", requestBody);
+    return normalizeRoomSnapshot(response.data as RoomSnapshot);
   },
 
   joinRoom: async (slug: string, displayName: string): Promise<RoomSnapshot> => {
-    const response = await apiClient.post<RoomSnapshot>(`/rooms/${slug}/join`, {
+    const requestBody: JoinRoomPayload = {
       display_name: displayName,
-    });
-    return normalizeRoomSnapshot(response.data);
+    };
+    const response = await apiClient.post<JoinRoomResponse>(`/rooms/${slug}/join`, requestBody);
+    return normalizeRoomSnapshot(response.data as RoomSnapshot);
   },
 
   getRoom: async (slug: string): Promise<RoomSnapshot> => {
-    const response = await apiClient.get<RoomSnapshot>(`/rooms/${slug}`);
-    return normalizeRoomSnapshot(response.data);
+    const response = await apiClient.get<GetRoomResponse>(`/rooms/${slug}`);
+    return normalizeRoomSnapshot(response.data as RoomSnapshot);
   },
 
   updateRoom: async (
     slug: string,
     payload: { roomName: string }
   ): Promise<RoomSnapshot> => {
-    const response = await apiClient.patch<RoomSnapshot>(`/rooms/${slug}`, {
+    const requestBody: UpdateRoomPayload = {
       room_name: payload.roomName,
-    });
-    return normalizeRoomSnapshot(response.data);
+    };
+    const response = await apiClient.patch<UpdateRoomResponse>(`/rooms/${slug}`, requestBody);
+    return normalizeRoomSnapshot(response.data as RoomSnapshot);
   },
 
   setRoomFistBumpsEnabled: async (
     slug: string,
     enabled: boolean
   ): Promise<RoomSnapshot> => {
-    const response = await apiClient.put<RoomSnapshot>(`/rooms/${slug}/fist-bumps/settings`, {
+    const requestBody: SetFistBumpsPayload = {
       enabled,
-    });
-    return normalizeRoomSnapshot(response.data);
+    };
+    const response = await apiClient.put<SetFistBumpsResponse>(
+      `/rooms/${slug}/fist-bumps/settings`,
+      requestBody
+    );
+    return normalizeRoomSnapshot(response.data as RoomSnapshot);
   },
 
   getRoomEventsUrl: (slug: string): string => `${BASE_URL}/rooms/${slug}/events`,
@@ -128,18 +172,19 @@ export const api = {
     slug: string,
     secret: Record<string, string>
   ): Promise<ProviderConnectionState> => {
-    const response = await apiClient.post<ProviderConnectionState>(
+    const requestBody: ConnectProviderPayload = { secret };
+    const response = await apiClient.post<ConnectProviderResponse>(
       `/rooms/${slug}/provider/connect`,
-      { secret }
+      requestBody
     );
-    return response.data;
+    return response.data as ProviderConnectionState;
   },
 
   getRoomCatalogSurfaces: async (
     slug: string,
     parentId?: string
   ): Promise<ProviderSurface[]> => {
-    const response = await apiClient.get<{ surfaces: ProviderSurface[] }>(
+    const response = await apiClient.get<RoomSurfacesResponse>(
       `/rooms/${slug}/catalog/surfaces`,
       {
         params: {
@@ -147,18 +192,19 @@ export const api = {
         },
       }
     );
-    return response.data.surfaces ?? [];
+    return (response.data.surfaces ?? []) as ProviderSurface[];
   },
 
   setRoomSurface: async (
     slug: string,
     payload: { surfaceId: string; context?: Record<string, string> }
   ): Promise<ProviderSurface> => {
-    const response = await apiClient.post<ProviderSurface>(`/rooms/${slug}/surface`, {
+    const requestBody: SetSurfacePayload = {
       surface_id: payload.surfaceId,
       context: payload.context ?? {},
-    });
-    return response.data;
+    };
+    const response = await apiClient.post<SetSurfaceResponse>(`/rooms/${slug}/surface`, requestBody);
+    return response.data as ProviderSurface;
   },
 
   getRoomCatalogClimbs: async (
@@ -170,7 +216,7 @@ export const api = {
       pageSize?: number;
     }
   ): Promise<RoomCatalogClimbsResponse> => {
-    const response = await apiClient.get<RoomCatalogClimbsResponse>(
+    const response = await apiClient.get<RoomCatalogClimbsResponseDTO>(
       `/rooms/${slug}/catalog/climbs`,
       {
         params: {
@@ -181,17 +227,17 @@ export const api = {
         },
       }
     );
-    return response.data;
+    return response.data as RoomCatalogClimbsResponse;
   },
 
   getRoomCatalogClimb: async (
     slug: string,
     climbId: string
   ): Promise<RoomCatalogClimbResponse> => {
-    const response = await apiClient.get<RoomCatalogClimbResponse>(
+    const response = await apiClient.get<RoomCatalogClimbResponseDTO>(
       `/rooms/${slug}/catalog/climbs/${encodeURIComponent(climbId)}`
     );
-    return response.data;
+    return response.data as RoomCatalogClimbResponse;
   },
 
   toggleRoomVote: async (slug: string, climbId: string): Promise<void> => {
@@ -218,11 +264,12 @@ export const api = {
     slug: string,
     source: RandomPickSource
   ): Promise<ProviderClimb> => {
-    const response = await apiClient.post<{ climb: ProviderClimb }>(
+    const requestBody: RandomPickPayload = { source };
+    const response = await apiClient.post<RandomPickResponse>(
       `/rooms/${slug}/pick-random`,
-      { source }
+      requestBody
     );
-    return response.data.climb;
+    return response.data.climb as ProviderClimb;
   },
 
   reorderRoomQueue: async (slug: string, entryIds: number[]): Promise<void> => {

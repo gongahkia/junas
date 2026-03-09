@@ -27,7 +27,7 @@ export function shouldRefreshCatalogOnly(payload: RoomEventPayload | null): bool
 
 export function shouldRefreshRoomAndCatalog(payload: RoomEventPayload | null): boolean {
   if (!payload?.resources?.length) {
-    return true
+    return true;
   }
 
   return payload.resources.some(

@@ -79,6 +79,29 @@ type participantStatusRequest struct {
 	Status string `json:"status"`
 }
 
+type listSurfacesResponse struct {
+	Surfaces []providers.ProviderSurface `json:"surfaces"`
+}
+
+type randomPickResponse struct {
+	Climb *providers.ProviderClimb `json:"climb"`
+}
+
+type statusResponse struct {
+	Status string `json:"status"`
+}
+
+// CreateRoom handles POST /api/rooms.
+// @Summary Create a collaborative room
+// @Description Create a room, validate the provider secret, persist the host session, and return the initial room snapshot.
+// @Tags rooms
+// @Accept json
+// @Produce json
+// @Param request body createRoomRequest true "Create room payload"
+// @Success 201 {object} rooms.RoomSnapshot
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /rooms [post]
 func CreateRoom(w http.ResponseWriter, r *http.Request) {
 	if strings.TrimSpace(config.GetRuntimeConfig().AppSecret) == "" {
 		writeJSONError(w, http.StatusInternalServerError, "KILTER_TOGETHER_APP_SECRET is required to create rooms")
@@ -121,6 +144,18 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusCreated, snapshot)
 }
 
+// JoinRoom handles POST /api/rooms/{slug}/join.
+// @Summary Join an existing room
+// @Description Create a participant session for the room and return the room snapshot for the joining guest.
+// @Tags rooms
+// @Accept json
+// @Produce json
+// @Param slug path string true "Room slug"
+// @Param request body joinRoomRequest true "Join room payload"
+// @Success 201 {object} rooms.RoomSnapshot
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /rooms/{slug}/join [post]
 func JoinRoom(w http.ResponseWriter, r *http.Request) {
 	if strings.TrimSpace(config.GetRuntimeConfig().AppSecret) == "" {
 		writeJSONError(w, http.StatusInternalServerError, "KILTER_TOGETHER_APP_SECRET is required to join rooms")
@@ -151,6 +186,16 @@ func JoinRoom(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusCreated, snapshot)
 }
 
+// GetRoom handles GET /api/rooms/{slug}.
+// @Summary Get a room snapshot
+// @Description Return the current collaborative room snapshot for the authenticated viewer.
+// @Tags rooms
+// @Produce json
+// @Param slug path string true "Room slug"
+// @Success 200 {object} rooms.RoomSnapshot
+// @Failure 401 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Router /rooms/{slug} [get]
 func GetRoom(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, false)
 	if err != nil {
@@ -167,6 +212,18 @@ func GetRoom(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, snapshot)
 }
 
+// UpdateRoom handles PATCH /api/rooms/{slug}.
+// @Summary Update room metadata
+// @Description Update the room name for the host-managed collaborative room.
+// @Tags rooms
+// @Accept json
+// @Produce json
+// @Param slug path string true "Room slug"
+// @Param request body updateRoomRequest true "Room update payload"
+// @Success 200 {object} rooms.RoomSnapshot
+// @Failure 401 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Router /rooms/{slug} [patch]
 func UpdateRoom(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, true)
 	if err != nil {
@@ -192,6 +249,18 @@ func UpdateRoom(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, snapshot)
 }
 
+// UpdateRoomFistBumps handles PUT /api/rooms/{slug}/fist-bumps/settings.
+// @Summary Update room fist bump settings
+// @Description Enable or disable room fist bumps for the host-managed collaborative room.
+// @Tags rooms
+// @Accept json
+// @Produce json
+// @Param slug path string true "Room slug"
+// @Param request body updateFistBumpsRequest true "Fist bump settings payload"
+// @Success 200 {object} rooms.RoomSnapshot
+// @Failure 401 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Router /rooms/{slug}/fist-bumps/settings [put]
 func UpdateRoomFistBumps(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, true)
 	if err != nil {
@@ -271,6 +340,19 @@ func StreamRoomEvents(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// ConnectRoomProvider handles POST /api/rooms/{slug}/provider/connect.
+// @Summary Connect or refresh a room provider
+// @Description Validate and persist provider credentials for the host-managed collaborative room.
+// @Tags rooms
+// @Accept json
+// @Produce json
+// @Param slug path string true "Room slug"
+// @Param request body connectProviderRequest true "Provider connect payload"
+// @Success 200 {object} providers.ProviderConnectionState
+// @Failure 401 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Failure 500 {object} map[string]string
+// @Router /rooms/{slug}/provider/connect [post]
 func ConnectRoomProvider(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, true)
 	if err != nil {
@@ -293,6 +375,18 @@ func ConnectRoomProvider(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, state)
 }
 
+// SetRoomSurface handles POST /api/rooms/{slug}/surface.
+// @Summary Select the shared room surface
+// @Description Persist the provider-specific board, gym, or wall selection for the room.
+// @Tags rooms
+// @Accept json
+// @Produce json
+// @Param slug path string true "Room slug"
+// @Param request body setSurfaceRequest true "Surface selection payload"
+// @Success 200 {object} providers.ProviderSurface
+// @Failure 401 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Router /rooms/{slug}/surface [post]
 func SetRoomSurface(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, true)
 	if err != nil {
@@ -315,6 +409,17 @@ func SetRoomSurface(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, surface)
 }
 
+// ListRoomCatalogSurfaces handles GET /api/rooms/{slug}/catalog/surfaces.
+// @Summary List provider surfaces for the room
+// @Description Return provider-specific selectable surfaces for the room, optionally filtered by parent id.
+// @Tags rooms
+// @Produce json
+// @Param slug path string true "Room slug"
+// @Param parent_id query string false "Parent surface id"
+// @Success 200 {object} listSurfacesResponse
+// @Failure 401 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Router /rooms/{slug}/catalog/surfaces [get]
 func ListRoomCatalogSurfaces(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, false)
 	if err != nil {
@@ -333,6 +438,20 @@ func ListRoomCatalogSurfaces(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]any{"surfaces": surfaces})
 }
 
+// ListRoomCatalogClimbs handles GET /api/rooms/{slug}/catalog/climbs.
+// @Summary List room catalog climbs
+// @Description Return provider climbs for the room surface along with room vote metadata.
+// @Tags rooms
+// @Produce json
+// @Param slug path string true "Room slug"
+// @Param q query string false "Search query"
+// @Param sort query string false "Sort order"
+// @Param cursor query string false "Pagination cursor"
+// @Param page_size query int false "Page size"
+// @Success 200 {object} rooms.CatalogClimbsResponse
+// @Failure 401 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Router /rooms/{slug}/catalog/climbs [get]
 func ListRoomCatalogClimbs(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, false)
 	if err != nil {
@@ -368,6 +487,17 @@ func ListRoomCatalogClimbs(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, response)
 }
 
+// GetRoomCatalogClimb handles GET /api/rooms/{slug}/catalog/climbs/{climbId}.
+// @Summary Get a room catalog climb
+// @Description Return a single provider climb for the room surface along with room vote metadata.
+// @Tags rooms
+// @Produce json
+// @Param slug path string true "Room slug"
+// @Param climbId path string true "Provider climb id"
+// @Success 200 {object} rooms.CatalogClimbResponse
+// @Failure 401 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Router /rooms/{slug}/catalog/climbs/{climbId} [get]
 func GetRoomCatalogClimb(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, false)
 	if err != nil {
@@ -572,6 +702,18 @@ func DeleteRoomQueueEntry(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 }
 
+// PickRandomRoomClimb handles POST /api/rooms/{slug}/pick-random.
+// @Summary Pick a random room climb
+// @Description Pick a random climb from finalists or top-voted climbs for the room.
+// @Tags rooms
+// @Accept json
+// @Produce json
+// @Param slug path string true "Room slug"
+// @Param request body pickRandomRequest false "Random pick payload"
+// @Success 200 {object} randomPickResponse
+// @Failure 401 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Router /rooms/{slug}/pick-random [post]
 func PickRandomRoomClimb(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, true)
 	if err != nil {

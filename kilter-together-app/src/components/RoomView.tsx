@@ -22,13 +22,15 @@ import type {
   ProviderClimb,
   ProviderSurface,
   QueueStatus,
-  RoomCatalogClimbsResponse,
   RoomSnapshot,
 } from "@/types";
 import { DEFAULT_ANGLE, normalizeSort } from "@/lib/climbs";
 import { getApiErrorMessage } from "@/lib/api-errors";
 import { buildInviteLink } from "@/lib/room-links";
 import { cn } from "@/lib/utils";
+import { useRoomCatalog } from "@/features/room/hooks/useRoomCatalog";
+import { useRoomEvents } from "@/features/room/hooks/useRoomEvents";
+import { useRoomSession } from "@/features/room/hooks/useRoomSession";
 import {
   dismissOnboarding,
   loadUserPrefs,
@@ -69,12 +71,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const PAGE_SIZE = 12;
-const ROOM_EVENTS_INITIAL_RETRY_MS = 1000;
-const ROOM_EVENTS_MAX_RETRY_MS = 30000;
-
 function formatProviderName(providerId: RoomSnapshot["provider_id"]) {
-  return providerId === "crux" ? "Crux" : "Kilter";
+  if (providerId === "crux") {
+    return "Crux";
+  }
+  if (providerId === "test") {
+    return "Test";
+  }
+  return "Kilter";
 }
 
 function reorderEntryIDs(entryIDs: number[], sourceEntryID: number, targetEntryID: number) {
@@ -96,13 +100,8 @@ export default function RoomView() {
   const showErrorToast = useErrorToast();
   const savedPrefsRef = useRef(loadUserPrefs());
   const [searchParams, setSearchParams] = useSearchParams();
-  const [snapshot, setSnapshot] = useState<RoomSnapshot | null>(null);
-  const [catalog, setCatalog] = useState<RoomCatalogClimbsResponse | null>(null);
   const [selectedExternalClimb, setSelectedExternalClimb] = useState<ProviderClimb | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [catalogLoading, setCatalogLoading] = useState(false);
   const [surfaceLoading, setSurfaceLoading] = useState(false);
-  const [actionError, setActionError] = useState("");
   const [roomNameInput, setRoomNameInput] = useState("");
   const [roomNameSaving, setRoomNameSaving] = useState(false);
   const [fistBumpsSaving, setFistBumpsSaving] = useState(false);
@@ -166,6 +165,76 @@ export default function RoomView() {
   const selectedExternalClimbRef = useRef<ProviderClimb | null>(selectedExternalClimb);
   const searchParamsRef = useRef(searchParams);
 
+  const handleSnapshotLoaded = useCallback(
+    (nextSnapshot: RoomSnapshot) => {
+      rememberRoomVisit(nextSnapshot);
+      rememberLastProvider(nextSnapshot.provider_id);
+      if (nextSnapshot.can_manage && nextSnapshot.connection.connected) {
+        markHostProviderConnected();
+      }
+      if (nextSnapshot.can_manage && nextSnapshot.surface) {
+        markHostSurfaceSelected();
+      }
+
+      if (nextSnapshot.provider_id === "kilter") {
+        const boardId = nextSnapshot.surface?.meta?.board_id || nextSnapshot.surface?.id || "";
+        const angle = Number(nextSnapshot.surface?.meta?.angle ?? DEFAULT_ANGLE);
+        setSelectedBoardId(boardId);
+        setSelectedAngle(angle);
+        if (boardId) {
+          rememberLastKilterSurface(boardId, angle);
+        }
+      }
+
+      if (nextSnapshot.provider_id === "crux") {
+        const gymSlug =
+          nextSnapshot.surface?.meta?.gym_slug || nextSnapshot.surface?.parent_id || "";
+        setSelectedGymSlug(gymSlug);
+        setSelectedWallId(nextSnapshot.surface?.id || "");
+        if (gymSlug || nextSnapshot.surface?.id) {
+          rememberLastCruxSurface(gymSlug, nextSnapshot.surface?.id || "");
+        }
+      }
+    },
+    []
+  );
+
+  const navigateToJoin = useCallback(
+    (nextSlug: string) => {
+      navigate(`/join/${encodeURIComponent(nextSlug)}`, { replace: true });
+    },
+    [navigate]
+  );
+
+  const {
+    actionError,
+    fetchSnapshot,
+    loading,
+    setActionError,
+    setSnapshot,
+    snapshot,
+  } = useRoomSession({
+    slug,
+    navigateToJoin,
+    onLoaded: handleSnapshotLoaded,
+  });
+
+  const {
+    catalog,
+    catalogLoading,
+    fetchCatalog,
+    setCatalog,
+  } = useRoomCatalog({
+    slug,
+    currentPage,
+    deferredSearch,
+    searchParamsRef,
+    selectedClimbIdRef,
+    selectedExternalClimbRef,
+    setSearchParams,
+    sort,
+  });
+
   const selectedClimb =
     catalog?.climbs.find((climb) => climb.id === selectedClimbId) ||
     (selectedExternalClimb?.id === selectedClimbId ? selectedExternalClimb : null) ||
@@ -182,160 +251,49 @@ export default function RoomView() {
     searchParamsRef.current = searchParams;
   }, [searchParams, selectedClimbId, selectedExternalClimb]);
 
-  const fetchSnapshot = useCallback(
-    async (showLoader = false): Promise<RoomSnapshot | null> => {
-      if (!slug) {
-        return null;
-      }
-
-      if (showLoader) {
-        setLoading(true);
-      }
-      setActionError("");
-
-      try {
-        const nextSnapshot = await api.getRoom(slug);
-        setSnapshot(nextSnapshot);
-        rememberRoomVisit(nextSnapshot);
-        rememberLastProvider(nextSnapshot.provider_id);
-        if (nextSnapshot.can_manage && nextSnapshot.connection.connected) {
-          markHostProviderConnected();
-        }
-        if (nextSnapshot.can_manage && nextSnapshot.surface) {
-          markHostSurfaceSelected();
-        }
-
-        if (nextSnapshot.provider_id === "kilter") {
-          const boardId =
-            nextSnapshot.surface?.meta?.board_id || nextSnapshot.surface?.id || "";
-          const angle = Number(nextSnapshot.surface?.meta?.angle ?? DEFAULT_ANGLE);
-          setSelectedBoardId(boardId);
-          setSelectedAngle(angle);
-          if (boardId) {
-            rememberLastKilterSurface(boardId, angle);
-          }
-        }
-
-        if (nextSnapshot.provider_id === "crux") {
-          const gymSlug =
-            nextSnapshot.surface?.meta?.gym_slug || nextSnapshot.surface?.parent_id || "";
-          setSelectedGymSlug(gymSlug);
-          setSelectedWallId(nextSnapshot.surface?.id || "");
-          if (gymSlug || nextSnapshot.surface?.id) {
-            rememberLastCruxSurface(gymSlug, nextSnapshot.surface?.id || "");
-          }
-        }
-
-        return nextSnapshot;
-      } catch (caughtError) {
-        console.error("Load room failed", caughtError);
-        const statusCode = (
-          caughtError as { response?: { status?: number } }
-        )?.response?.status;
-        if (statusCode === 401) {
-          navigate(`/join/${encodeURIComponent(slug)}`, { replace: true });
-          return null;
-        }
-        setSnapshot(null);
-        setCatalog(null);
-        setActionError(
-          getApiErrorMessage(
-            caughtError,
-            "Unable to load this room. Join the invite first, or check whether the host has closed it."
-          )
-        );
-        return null;
-      } finally {
-        if (showLoader) {
-          setLoading(false);
-        }
-      }
-    },
-    [navigate, slug]
-  );
-
-  const fetchCatalog = useCallback(
-    async (
-      roomSnapshot: RoomSnapshot | null,
-      showLoader = false
-    ): Promise<RoomCatalogClimbsResponse | null> => {
-      if (!slug || !roomSnapshot?.surface) {
-        setCatalog(null);
-        return null;
-      }
-
-      if (showLoader) {
-        setCatalogLoading(true);
-      }
-
-      try {
-        const nextCatalog = await api.getRoomCatalogClimbs(slug, {
-          q: deferredSearch || undefined,
-          sort,
-          cursor: currentPage > 1 ? cursorsRef.current[currentPage] : undefined,
-          pageSize: PAGE_SIZE,
-        });
-        setCatalog(nextCatalog);
-
-        if (nextCatalog.next_cursor) {
-          cursorsRef.current = {
-            ...cursorsRef.current,
-            [currentPage + 1]: nextCatalog.next_cursor,
-          };
-        }
-
-        const currentSelectedClimbId = selectedClimbIdRef.current;
-        const currentSelectedExternalClimb = selectedExternalClimbRef.current;
-        const nextSelectedClimb =
-          nextCatalog.climbs.find((climb) => climb.id === currentSelectedClimbId) ||
-          (currentSelectedExternalClimb?.id === currentSelectedClimbId
-            ? currentSelectedExternalClimb
-            : null) ||
-          nextCatalog.climbs[0] ||
-          null;
-        if (nextSelectedClimb?.id !== currentSelectedClimbId) {
-          const nextSearchParams = new URLSearchParams(searchParamsRef.current);
-          if (nextSelectedClimb) {
-            nextSearchParams.set("climb", nextSelectedClimb.id);
-          } else {
-            nextSearchParams.delete("climb");
-          }
-          setSearchParams(nextSearchParams, { replace: true });
-        }
-
-        return nextCatalog;
-      } catch (caughtError) {
-        console.error("Load room catalog failed", caughtError);
-        setCatalog(null);
-        setActionError(
-          getApiErrorMessage(caughtError, "Unable to load the climb catalog for this room.")
-        );
-        return null;
-      } finally {
-        if (showLoader) {
-          setCatalogLoading(false);
-        }
-      }
-    },
-    [
-      currentPage,
-      deferredSearch,
-      setSearchParams,
-      slug,
-      sort,
-    ]
-  );
-
   const refreshRoomState = useCallback(async () => {
     const nextSnapshot = await fetchSnapshot(false);
     if (nextSnapshot?.surface) {
-      await fetchCatalog(nextSnapshot, false);
+      try {
+        await fetchCatalog(nextSnapshot, cursorsRef, false);
+      } catch (caughtError) {
+        setActionError(
+          caughtError instanceof Error
+            ? caughtError.message
+            : "Unable to load the climb catalog for this room."
+        );
+      }
     }
-  }, [fetchCatalog, fetchSnapshot]);
+  }, [fetchCatalog, fetchSnapshot, setActionError]);
+
+  const refreshCatalogOnly = useCallback(async () => {
+    if (!snapshot?.surface) {
+      setCatalog(null);
+      return;
+    }
+
+    try {
+      await fetchCatalog(snapshot, cursorsRef, false);
+    } catch (caughtError) {
+      setActionError(
+        caughtError instanceof Error
+          ? caughtError.message
+          : "Unable to load the climb catalog for this room."
+      );
+    }
+  }, [fetchCatalog, setActionError, setCatalog, snapshot]);
 
   useEffect(() => {
     refreshRoomStateRef.current = refreshRoomState;
   }, [refreshRoomState]);
+
+  const refreshRoomOnly = useCallback(async () => {
+    await fetchSnapshot(false);
+  }, [fetchSnapshot]);
+
+  const refreshRoomAndCatalog = useCallback(async () => {
+    await refreshRoomStateRef.current();
+  }, []);
 
   useEffect(() => {
     void fetchSnapshot(true);
@@ -363,7 +321,17 @@ export default function RoomView() {
       }
     }
 
-    void fetchCatalog(snapshot, true);
+    void (async () => {
+      try {
+        await fetchCatalog(snapshot, cursorsRef, true);
+      } catch (caughtError) {
+        setActionError(
+          caughtError instanceof Error
+            ? caughtError.message
+            : "Unable to load the climb catalog for this room."
+        );
+      }
+    })();
   }, [currentPage, deferredSearch, fetchCatalog, slug, snapshot, sort]);
 
   useEffect(() => {
@@ -480,60 +448,13 @@ export default function RoomView() {
     snapshot?.surface?.id,
   ]);
 
-  useEffect(() => {
-    if (
-      !slug ||
-      !roomStatus ||
-      roomStatus === "closed" ||
-      typeof EventSource === "undefined"
-    ) {
-      return;
-    }
-
-    let disposed = false;
-    let retryTimeout: number | undefined;
-    let currentSource: EventSource | null = null;
-    let retryDelay = ROOM_EVENTS_INITIAL_RETRY_MS;
-
-    const connect = () => {
-      if (disposed) {
-        return;
-      }
-
-      const eventSource = new EventSource(api.getRoomEventsUrl(slug), {
-        withCredentials: true,
-      });
-      currentSource = eventSource;
-      eventSource.addEventListener("room", () => {
-        retryDelay = ROOM_EVENTS_INITIAL_RETRY_MS;
-        void refreshRoomStateRef.current();
-      });
-      eventSource.onerror = () => {
-        eventSource.close();
-        if (currentSource === eventSource) {
-          currentSource = null;
-        }
-        if (disposed) {
-          return;
-        }
-
-        const nextDelay = retryDelay;
-        retryDelay = Math.min(retryDelay * 2, ROOM_EVENTS_MAX_RETRY_MS);
-        if (retryTimeout !== undefined) {
-          window.clearTimeout(retryTimeout);
-        }
-        retryTimeout = window.setTimeout(connect, nextDelay);
-      };
-    };
-
-    connect();
-
-    return () => {
-      disposed = true;
-      if (retryTimeout !== undefined) window.clearTimeout(retryTimeout);
-      currentSource?.close();
-    };
-  }, [roomStatus, slug]);
+  useRoomEvents({
+    slug,
+    roomStatus,
+    refreshRoom: refreshRoomOnly,
+    refreshCatalog: refreshCatalogOnly,
+    refreshRoomAndCatalog,
+  });
 
   useEffect(() => {
     if (!copiedInvite) {

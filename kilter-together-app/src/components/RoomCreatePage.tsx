@@ -2,6 +2,7 @@ import { useRef, useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { api } from "@/api";
+import { config } from "@/config";
 import type { ProviderId } from "@/types";
 import { getApiErrorMessage } from "@/lib/api-errors";
 import {
@@ -201,6 +202,9 @@ export default function RoomCreatePage() {
                   <SelectContent>
                     <SelectItem value="kilter">Kilter</SelectItem>
                     <SelectItem value="crux">Crux</SelectItem>
+                    {config.app.enableTestProvider ? (
+                      <SelectItem value="test">Test Provider</SelectItem>
+                    ) : null}
                   </SelectContent>
                 </Select>
               </div>
@@ -262,7 +266,7 @@ export default function RoomCreatePage() {
                     </p>
                   </div>
                 </div>
-              ) : (
+              ) : providerId === "crux" ? (
                 <div className="space-y-2">
                   <label htmlFor="crux-token" className="text-sm font-medium">
                     Crux API token
@@ -300,12 +304,35 @@ export default function RoomCreatePage() {
                     Stores this preference locally. You still enter the Crux token each time.
                   </p>
                 </div>
+              ) : (
+                <div className="space-y-2">
+                  <label htmlFor="test-token" className="text-sm font-medium">
+                    Test provider token
+                  </label>
+                  <Input
+                    id="test-token"
+                    value={connectionFields.token}
+                    onChange={(event) =>
+                      setConnectionFields((previousState) => ({
+                        ...previousState,
+                        token: event.target.value,
+                      }))
+                    }
+                    autoComplete="off"
+                    placeholder="test-token"
+                  />
+                  <p className="text-sm text-muted-foreground">
+                    This provider is available only when the test mode env vars are enabled.
+                  </p>
+                </div>
               )}
 
               <div className="rounded-2xl border bg-muted/40 p-4 text-sm text-muted-foreground">
                 {providerId === "kilter"
                   ? "This room will only be created after the Kilter credentials are validated. The next step inside the room is choosing the board plus angle."
-                  : "This room will only be created after the Crux token is validated. The next step inside the room is choosing the gym and wall."}
+                  : providerId === "crux"
+                    ? "This room will only be created after the Crux token is validated. The next step inside the room is choosing the gym and wall."
+                    : "This room will only be created after the test token is validated. The next step inside the room is choosing the demo wall."}
               </div>
 
               <Button type="submit" className="w-full" disabled={submitting}>

@@ -1,9 +1,19 @@
 export type ClimbSort = "popular" | "newest";
-export type ProviderId = "kilter" | "crux" | "moonboard" | "tension" | "grasshopper";
+export type ProviderId = "kilter" | "crux" | "test" | "moonboard" | "tension" | "grasshopper";
 export type RoomStatus = "open" | "closed";
 export type QueueStatus = "queued" | "next" | "current" | "done";
 export type ParticipantStatus = "watching" | "ready" | "resting" | "away";
 export type RandomPickSource = "auto" | "finalists" | "top_voted";
+export type RoomEventResource =
+  | "room"
+  | "participants"
+  | "queue"
+  | "finalists"
+  | "votes"
+  | "catalog"
+  | "connection"
+  | "surface"
+  | "current_climb";
 
 export interface Board {
   id: number;
@@ -161,4 +171,5 @@ export interface RoomEventPayload {
   type: string;
   room_slug: string;
   version: number;
+  resources?: RoomEventResource[];
 }
