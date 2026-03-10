@@ -327,6 +327,82 @@ func TestServiceFistBumpsAreEphemeral(t *testing.T) {
 	}
 }
 
+func TestServiceCoHostPermissions(t *testing.T) {
+	ctx := context.Background()
+	service, provider := setupRoomServiceTest(t)
+
+	createdSnapshot, hostSessionID, err := service.CreateRoom(
+		ctx,
+		provider.ID(),
+		"Co-Host Session",
+		"Host",
+		providers.SecretPayload{"token": "provider-token"},
+	)
+	if err != nil {
+		t.Fatalf("create room: %v", err)
+	}
+
+	hostViewer, err := service.Authenticate(ctx, createdSnapshot.Slug, hostSessionID, "")
+	if err != nil {
+		t.Fatalf("authenticate host: %v", err)
+	}
+
+	guestSnapshot, guestSessionID, err := service.JoinRoom(ctx, createdSnapshot.Slug, "CoHost")
+	if err != nil {
+		t.Fatalf("join room: %v", err)
+	}
+	var coHostParticipantID uint
+	for _, participant := range guestSnapshot.Participants {
+		if participant.DisplayName == "CoHost" {
+			coHostParticipantID = participant.ID
+			break
+		}
+	}
+	if coHostParticipantID == 0 {
+		t.Fatalf("expected to find co-host participant id")
+	}
+
+	if err := service.UpdateParticipantRole(ctx, hostViewer, coHostParticipantID, coHostRole); err != nil {
+		t.Fatalf("promote to co-host: %v", err)
+	}
+
+	coHostViewer, err := service.Authenticate(ctx, createdSnapshot.Slug, guestSessionID, "")
+	if err != nil {
+		t.Fatalf("authenticate co-host: %v", err)
+	}
+	if !coHostViewer.IsCoHost() {
+		t.Fatalf("expected co-host role, got %q", coHostViewer.Session.Role)
+	}
+
+	if _, err := service.SetSurface(ctx, coHostViewer, "wall-alpha", map[string]string{}); err != nil {
+		t.Fatalf("co-host set surface: %v", err)
+	}
+	if err := service.AddQueueEntry(ctx, coHostViewer, "fake-room:beta"); err != nil {
+		t.Fatalf("co-host queue climb: %v", err)
+	}
+	if err := service.AddFinalist(ctx, coHostViewer, "fake-room:beta"); err != nil {
+		t.Fatalf("co-host add finalist: %v", err)
+	}
+
+	snapshot, err := service.GetSnapshot(ctx, coHostViewer)
+	if err != nil {
+		t.Fatalf("get co-host snapshot: %v", err)
+	}
+	if !snapshot.CanManage || !snapshot.Permissions.ManageQueue || !snapshot.Permissions.ManageSurface {
+		t.Fatalf("expected co-host management permissions, got %#v", snapshot.Permissions)
+	}
+	if snapshot.Permissions.EditRoomSettings || snapshot.Permissions.AssignCoHosts || snapshot.Permissions.CloseRoom {
+		t.Fatalf("expected host-only permissions to remain false, got %#v", snapshot.Permissions)
+	}
+
+	if _, err := service.UpdateRoomName(ctx, coHostViewer, "Blocked"); !errors.Is(err, ErrForbidden) {
+		t.Fatalf("expected room rename to stay host-only, got %v", err)
+	}
+	if err := service.RemoveParticipant(ctx, coHostViewer, hostViewer.Participant.ID); !errors.Is(err, ErrForbidden) {
+		t.Fatalf("expected participant removal to stay host-only, got %v", err)
+	}
+}
+
 func setupRoomServiceTest(t *testing.T) (*Service, *testprovider.Provider) {
 	t.Helper()
 

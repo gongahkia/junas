@@ -44,6 +44,42 @@ func (viewer Viewer) IsHost() bool {
 	return viewer.Session.Role == hostRole
 }
 
+func (viewer Viewer) IsCoHost() bool {
+	return viewer.Session.Role == coHostRole
+}
+
+func (viewer Viewer) CanManageSession() bool {
+	return viewer.IsHost() || viewer.IsCoHost()
+}
+
+func (viewer Viewer) CanManageSurface() bool {
+	return viewer.CanManageSession()
+}
+
+func (viewer Viewer) CanManageQueue() bool {
+	return viewer.CanManageSession()
+}
+
+func (viewer Viewer) CanManageFinalists() bool {
+	return viewer.CanManageSession()
+}
+
+func (viewer Viewer) CanEditRoomSettings() bool {
+	return viewer.IsHost()
+}
+
+func (viewer Viewer) CanManageParticipants() bool {
+	return viewer.IsHost()
+}
+
+func (viewer Viewer) CanAssignCoHosts() bool {
+	return viewer.IsHost()
+}
+
+func (viewer Viewer) CanCloseRoom() bool {
+	return viewer.IsHost()
+}
+
 type Service struct {
 	store     RoomStore
 	hub       EventBus
@@ -304,7 +340,7 @@ func (service *Service) UpdateRoomName(
 	viewer *Viewer,
 	roomName string,
 ) (*RoomSnapshot, error) {
-	if !viewer.IsHost() {
+	if !viewer.CanEditRoomSettings() {
 		return nil, ErrForbidden
 	}
 
@@ -331,7 +367,7 @@ func (service *Service) SetFistBumpsEnabled(
 	viewer *Viewer,
 	enabled bool,
 ) (*RoomSnapshot, error) {
-	if !viewer.IsHost() {
+	if !viewer.CanEditRoomSettings() {
 		return nil, ErrForbidden
 	}
 
@@ -357,7 +393,7 @@ func (service *Service) ConnectProvider(
 	viewer *Viewer,
 	secret providers.SecretPayload,
 ) (providers.ProviderConnectionState, error) {
-	if !viewer.IsHost() {
+	if !viewer.CanEditRoomSettings() {
 		return providers.ProviderConnectionState{}, ErrForbidden
 	}
 
@@ -446,7 +482,7 @@ func (service *Service) SetSurface(
 	surfaceID string,
 	contextMap map[string]string,
 ) (*providers.ProviderSurface, error) {
-	if !viewer.IsHost() {
+	if !viewer.CanManageSurface() {
 		return nil, ErrForbidden
 	}
 
@@ -634,7 +670,7 @@ func (service *Service) AddQueueEntry(ctx context.Context, viewer *Viewer, climb
 }
 
 func (service *Service) AddFinalist(ctx context.Context, viewer *Viewer, climbID string) error {
-	if !viewer.IsHost() {
+	if !viewer.CanManageFinalists() {
 		return ErrForbidden
 	}
 	climb, err := service.getRoomClimb(ctx, &viewer.Room, climbID)
@@ -674,7 +710,7 @@ func (service *Service) AddFinalist(ctx context.Context, viewer *Viewer, climbID
 }
 
 func (service *Service) ReorderFinalists(ctx context.Context, viewer *Viewer, entryIDs []uint) error {
-	if !viewer.IsHost() {
+	if !viewer.CanManageFinalists() {
 		return ErrForbidden
 	}
 
@@ -706,7 +742,7 @@ func (service *Service) ReorderFinalists(ctx context.Context, viewer *Viewer, en
 }
 
 func (service *Service) DeleteFinalist(ctx context.Context, viewer *Viewer, entryID uint) error {
-	if !viewer.IsHost() {
+	if !viewer.CanManageFinalists() {
 		return ErrForbidden
 	}
 
@@ -723,7 +759,7 @@ func (service *Service) PickRandom(
 	viewer *Viewer,
 	source string,
 ) (*providers.ProviderClimb, error) {
-	if !viewer.IsHost() {
+	if !viewer.CanManageFinalists() {
 		return nil, ErrForbidden
 	}
 
@@ -752,7 +788,7 @@ func (service *Service) PromoteClimb(
 	climbID string,
 	status string,
 ) error {
-	if !viewer.IsHost() {
+	if !viewer.CanManageQueue() {
 		return ErrForbidden
 	}
 	if status != queueStatusCurrent && status != queueStatusNext {
@@ -808,7 +844,7 @@ func (service *Service) PromoteClimb(
 }
 
 func (service *Service) ReorderQueue(ctx context.Context, viewer *Viewer, entryIDs []uint) error {
-	if !viewer.IsHost() {
+	if !viewer.CanManageQueue() {
 		return ErrForbidden
 	}
 
@@ -845,7 +881,7 @@ func (service *Service) UpdateQueueEntryStatus(
 	entryID uint,
 	status string,
 ) error {
-	if !viewer.IsHost() {
+	if !viewer.CanManageQueue() {
 		return ErrForbidden
 	}
 	if status != queueStatusQueued && status != queueStatusNext && status != queueStatusCurrent && status != queueStatusDone {
@@ -919,7 +955,7 @@ func (service *Service) UpdateQueueEntryStatus(
 }
 
 func (service *Service) DeleteQueueEntry(ctx context.Context, viewer *Viewer, entryID uint) error {
-	if !viewer.IsHost() {
+	if !viewer.CanManageQueue() {
 		return ErrForbidden
 	}
 	var entry RoomQueueEntry
@@ -952,7 +988,7 @@ func (service *Service) DeleteQueueEntry(ctx context.Context, viewer *Viewer, en
 }
 
 func (service *Service) ClearVotes(ctx context.Context, viewer *Viewer) error {
-	if !viewer.IsHost() {
+	if !viewer.CanManageQueue() {
 		return ErrForbidden
 	}
 	service.fistBumps.Clear(viewer.Room.ID)
@@ -975,8 +1011,54 @@ func (service *Service) UpdateParticipantStatus(ctx context.Context, viewer *Vie
 	return service.incrementRoom(ctx, viewer.Room.Slug, viewer.Participant.ID, "participants.updated", ResourceParticipants)
 }
 
+func (service *Service) UpdateParticipantRole(
+	ctx context.Context,
+	viewer *Viewer,
+	participantID uint,
+	role string,
+) error {
+	if !viewer.CanAssignCoHosts() {
+		return ErrForbidden
+	}
+
+	normalizedRole := normalizeParticipantRole(role)
+	if normalizedRole != participantRole && normalizedRole != coHostRole {
+		return fmt.Errorf("invalid participant role %q", role)
+	}
+
+	var participant RoomParticipant
+	if err := service.store.WithContext(ctx).
+		Where("id = ? AND room_id = ?", participantID, viewer.Room.ID).
+		First(&participant).Error; err != nil {
+		return fmt.Errorf("participant not found")
+	}
+	if participant.Role == hostRole {
+		return fmt.Errorf("host role cannot be reassigned")
+	}
+	if participant.Role == normalizedRole {
+		return nil
+	}
+
+	if err := service.store.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+		if err := tx.Model(&participant).Update("role", normalizedRole).Error; err != nil {
+			return err
+		}
+		if err := tx.Model(&RoomSession{}).
+			Where("room_id = ? AND participant_id = ?", viewer.Room.ID, participantID).
+			Update("role", normalizedRole).Error; err != nil {
+			return err
+		}
+		return service.bumpRoomVersion(tx, &viewer.Room)
+	}); err != nil {
+		return err
+	}
+
+	service.broadcastRoomEvent(&viewer.Room, viewer.Participant.ID, "participants.updated", ResourceParticipants)
+	return nil
+}
+
 func (service *Service) CloseRoom(ctx context.Context, viewer *Viewer) error {
-	if !viewer.IsHost() {
+	if !viewer.CanCloseRoom() {
 		return ErrForbidden
 	}
 	now := time.Now().UTC()
@@ -1001,7 +1083,7 @@ func (service *Service) CloseRoom(ctx context.Context, viewer *Viewer) error {
 }
 
 func (service *Service) RemoveParticipant(ctx context.Context, viewer *Viewer, participantID uint) error {
-	if !viewer.IsHost() {
+	if !viewer.CanManageParticipants() {
 		return ErrForbidden
 	}
 	if participantID == viewer.Participant.ID {
@@ -1081,11 +1163,21 @@ func (service *Service) buildSnapshot(
 		Queue:            make([]QueueEntryView, 0, len(queueEntries)),
 		VoteCounts:       map[string]int{},
 		FistBumpsEnabled: room.FistBumpsEnabled,
-		CanManage:        viewer != nil && viewer.IsHost(),
+		CanManage:        viewer != nil && viewer.CanManageSession(),
 	}
 
 	if viewer != nil {
 		snapshot.DisplayName = viewer.Participant.DisplayName
+		snapshot.Permissions = PermissionView{
+			ManageSession:      viewer.CanManageSession(),
+			ManageSurface:      viewer.CanManageSurface(),
+			ManageQueue:        viewer.CanManageQueue(),
+			ManageFinalists:    viewer.CanManageFinalists(),
+			EditRoomSettings:   viewer.CanEditRoomSettings(),
+			ManageParticipants: viewer.CanManageParticipants(),
+			AssignCoHosts:      viewer.CanAssignCoHosts(),
+			CloseRoom:          viewer.CanCloseRoom(),
+		}
 	}
 
 	if room.SurfaceID != "" {
@@ -1103,7 +1195,7 @@ func (service *Service) buildSnapshot(
 		snapshot.Participants = append(snapshot.Participants, ParticipantView{
 			ID:          participant.ID,
 			DisplayName: participant.DisplayName,
-			Role:        participant.Role,
+			Role:        normalizeParticipantRole(participant.Role),
 			Status:      normalizeParticipantStatus(participant.Status),
 			IsOnline:    participant.LastSeenAt.After(time.Now().UTC().Add(-2 * time.Minute)),
 		})
@@ -1575,6 +1667,17 @@ func normalizeParticipantStatus(value string) string {
 		return participantStatusAway
 	default:
 		return participantStatusWatching
+	}
+}
+
+func normalizeParticipantRole(value string) string {
+	switch strings.ToLower(strings.TrimSpace(value)) {
+	case hostRole:
+		return hostRole
+	case coHostRole:
+		return coHostRole
+	default:
+		return participantRole
 	}
 }
 

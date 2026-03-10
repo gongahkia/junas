@@ -80,6 +80,7 @@ func SetupRoutes() *chi.Mux {
 			r.Post("/pick-random", handlers.PickRandomRoomClimb)
 			r.Post("/clear-votes", handlers.ClearRoomVotes)
 			r.Post("/close", handlers.CloseRoom)
+			r.Patch("/participants/{participantId}/role", handlers.UpdateRoomParticipantRole)
 			r.Delete("/participants/{participantId}", handlers.RemoveRoomParticipant)
 		})
 	})

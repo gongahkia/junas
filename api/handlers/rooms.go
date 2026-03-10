@@ -79,6 +79,18 @@ type participantStatusRequest struct {
 	Status string `json:"status"`
 }
 
+type updateParticipantRoleRequest struct {
+	Role string `json:"role"`
+}
+
+type viewerAccessMode string
+
+const (
+	viewerAccessAny     viewerAccessMode = "any"
+	viewerAccessManager viewerAccessMode = "manager"
+	viewerAccessHost    viewerAccessMode = "host"
+)
+
 // CreateRoom handles POST /api/rooms.
 // @Summary Create a collaborative room
 // @Description Create a room, validate the provider secret, persist the host session, and return the initial room snapshot.
@@ -224,7 +236,7 @@ func JoinRoom(w http.ResponseWriter, r *http.Request) {
 // @Failure 400 {object} map[string]string
 // @Router /rooms/{slug} [get]
 func GetRoom(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, false)
+	viewer, err := authenticateViewer(r, viewerAccessAny)
 	if err != nil {
 		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
@@ -252,7 +264,7 @@ func GetRoom(w http.ResponseWriter, r *http.Request) {
 // @Failure 400 {object} map[string]string
 // @Router /rooms/{slug} [patch]
 func UpdateRoom(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, true)
+	viewer, err := authenticateViewer(r, viewerAccessHost)
 	if err != nil {
 		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
@@ -289,7 +301,7 @@ func UpdateRoom(w http.ResponseWriter, r *http.Request) {
 // @Failure 400 {object} map[string]string
 // @Router /rooms/{slug}/fist-bumps/settings [put]
 func UpdateRoomFistBumps(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, true)
+	viewer, err := authenticateViewer(r, viewerAccessHost)
 	if err != nil {
 		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
@@ -311,7 +323,7 @@ func UpdateRoomFistBumps(w http.ResponseWriter, r *http.Request) {
 }
 
 func StreamRoomEvents(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, false)
+	viewer, err := authenticateViewer(r, viewerAccessAny)
 	if err != nil {
 		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
@@ -381,7 +393,7 @@ func StreamRoomEvents(w http.ResponseWriter, r *http.Request) {
 // @Failure 500 {object} map[string]string
 // @Router /rooms/{slug}/provider/connect [post]
 func ConnectRoomProvider(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, true)
+	viewer, err := authenticateViewer(r, viewerAccessHost)
 	if err != nil {
 		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
@@ -417,7 +429,7 @@ func ConnectRoomProvider(w http.ResponseWriter, r *http.Request) {
 // @Failure 400 {object} map[string]string
 // @Router /rooms/{slug}/surface [post]
 func SetRoomSurface(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, true)
+	viewer, err := authenticateViewer(r, viewerAccessManager)
 	if err != nil {
 		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
@@ -452,7 +464,7 @@ func SetRoomSurface(w http.ResponseWriter, r *http.Request) {
 // @Failure 400 {object} map[string]string
 // @Router /rooms/{slug}/catalog/surfaces [get]
 func ListRoomCatalogSurfaces(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, false)
+	viewer, err := authenticateViewer(r, viewerAccessAny)
 	if err != nil {
 		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
@@ -484,7 +496,7 @@ func ListRoomCatalogSurfaces(w http.ResponseWriter, r *http.Request) {
 // @Failure 400 {object} map[string]string
 // @Router /rooms/{slug}/catalog/climbs [get]
 func ListRoomCatalogClimbs(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, false)
+	viewer, err := authenticateViewer(r, viewerAccessAny)
 	if err != nil {
 		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
@@ -530,7 +542,7 @@ func ListRoomCatalogClimbs(w http.ResponseWriter, r *http.Request) {
 // @Failure 400 {object} map[string]string
 // @Router /rooms/{slug}/catalog/climbs/{climbId} [get]
 func GetRoomCatalogClimb(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, false)
+	viewer, err := authenticateViewer(r, viewerAccessAny)
 	if err != nil {
 		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
@@ -556,7 +568,7 @@ func GetRoomCatalogClimb(w http.ResponseWriter, r *http.Request) {
 }
 
 func ToggleRoomVote(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, false)
+	viewer, err := authenticateViewer(r, viewerAccessAny)
 	if err != nil {
 		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
@@ -582,7 +594,7 @@ func ToggleRoomVote(w http.ResponseWriter, r *http.Request) {
 }
 
 func AddRoomQueueEntry(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, false)
+	viewer, err := authenticateViewer(r, viewerAccessAny)
 	if err != nil {
 		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
@@ -605,9 +617,9 @@ func AddRoomQueueEntry(w http.ResponseWriter, r *http.Request) {
 }
 
 func AddRoomFinalist(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, true)
+	viewer, err := authenticateViewer(r, viewerAccessManager)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -626,9 +638,9 @@ func AddRoomFinalist(w http.ResponseWriter, r *http.Request) {
 }
 
 func ReorderRoomQueue(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, true)
+	viewer, err := authenticateViewer(r, viewerAccessManager)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -647,9 +659,9 @@ func ReorderRoomQueue(w http.ResponseWriter, r *http.Request) {
 }
 
 func ReorderRoomFinalists(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, true)
+	viewer, err := authenticateViewer(r, viewerAccessManager)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -668,9 +680,9 @@ func ReorderRoomFinalists(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateRoomQueueEntry(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, true)
+	viewer, err := authenticateViewer(r, viewerAccessManager)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -695,9 +707,9 @@ func UpdateRoomQueueEntry(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteRoomFinalist(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, true)
+	viewer, err := authenticateViewer(r, viewerAccessManager)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -716,9 +728,9 @@ func DeleteRoomFinalist(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteRoomQueueEntry(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, true)
+	viewer, err := authenticateViewer(r, viewerAccessManager)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -749,9 +761,9 @@ func DeleteRoomQueueEntry(w http.ResponseWriter, r *http.Request) {
 // @Failure 400 {object} map[string]string
 // @Router /rooms/{slug}/pick-random [post]
 func PickRandomRoomClimb(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, true)
+	viewer, err := authenticateViewer(r, viewerAccessManager)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -773,9 +785,9 @@ func PickRandomRoomClimb(w http.ResponseWriter, r *http.Request) {
 }
 
 func PromoteRoomQueueClimb(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, true)
+	viewer, err := authenticateViewer(r, viewerAccessManager)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -794,9 +806,9 @@ func PromoteRoomQueueClimb(w http.ResponseWriter, r *http.Request) {
 }
 
 func ClearRoomVotes(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, true)
+	viewer, err := authenticateViewer(r, viewerAccessManager)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -809,9 +821,9 @@ func ClearRoomVotes(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateMyParticipantStatus(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, false)
+	viewer, err := authenticateViewer(r, viewerAccessAny)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -829,8 +841,35 @@ func UpdateMyParticipantStatus(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 }
 
+func UpdateRoomParticipantRole(w http.ResponseWriter, r *http.Request) {
+	viewer, err := authenticateViewer(r, viewerAccessHost)
+	if err != nil {
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
+		return
+	}
+
+	var request updateParticipantRoleRequest
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		writeJSONError(w, http.StatusBadRequest, "invalid request body")
+		return
+	}
+
+	participantID, err := strconv.ParseUint(chi.URLParam(r, "participantId"), 10, 64)
+	if err != nil {
+		writeJSONError(w, http.StatusBadRequest, "invalid participant id")
+		return
+	}
+
+	if err := rooms.DefaultService.UpdateParticipantRole(r.Context(), viewer, uint(participantID), request.Role); err != nil {
+		writeRoomError(w, r, err, http.StatusBadRequest, "")
+		return
+	}
+
+	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
+}
+
 func CloseRoom(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, true)
+	viewer, err := authenticateViewer(r, viewerAccessHost)
 	if err != nil {
 		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
@@ -847,9 +886,9 @@ func CloseRoom(w http.ResponseWriter, r *http.Request) {
 }
 
 func RemoveRoomParticipant(w http.ResponseWriter, r *http.Request) {
-	viewer, err := authenticateViewer(r, true)
+	viewer, err := authenticateViewer(r, viewerAccessHost)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -867,7 +906,7 @@ func RemoveRoomParticipant(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 }
 
-func authenticateViewer(r *http.Request, requireHost bool) (*rooms.Viewer, error) {
+func authenticateViewer(r *http.Request, accessMode viewerAccessMode) (*rooms.Viewer, error) {
 	roomSlug := chi.URLParam(r, "slug")
 	secret := config.GetRuntimeConfig().AppSecret
 	if strings.TrimSpace(secret) == "" {
@@ -875,10 +914,6 @@ func authenticateViewer(r *http.Request, requireHost bool) (*rooms.Viewer, error
 	}
 
 	cookieNames := []string{rooms.HostCookieName, rooms.ParticipantCookieName}
-	if requireHost {
-		cookieNames = []string{rooms.HostCookieName}
-	}
-
 	for _, cookieName := range cookieNames {
 		cookie, err := r.Cookie(cookieName)
 		if err != nil {
@@ -888,13 +923,28 @@ func authenticateViewer(r *http.Request, requireHost bool) (*rooms.Viewer, error
 		if err != nil {
 			continue
 		}
-		requiredRole := ""
-		if requireHost {
-			requiredRole = "host"
-		}
-		viewer, err := rooms.DefaultService.Authenticate(r.Context(), roomSlug, sessionID, requiredRole)
+
+		viewer, err := rooms.DefaultService.Authenticate(r.Context(), roomSlug, sessionID, "")
 		if err == nil {
-			return viewer, nil
+			switch accessMode {
+			case viewerAccessAny:
+				return viewer, nil
+			case viewerAccessManager:
+				if viewer.CanManageSession() {
+					return viewer, nil
+				}
+				return nil, rooms.ErrForbidden
+			case viewerAccessHost:
+				if viewer.IsHost() {
+					return viewer, nil
+				}
+				return nil, rooms.ErrForbidden
+			default:
+				return viewer, nil
+			}
+		}
+		if errors.Is(err, rooms.ErrForbidden) {
+			return nil, err
 		}
 		if errors.Is(err, rooms.ErrSessionExpired) ||
 			errors.Is(err, rooms.ErrSessionInvalid) ||

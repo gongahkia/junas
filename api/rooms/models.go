@@ -19,6 +19,7 @@ const (
 	queueStatusDone    = "done"
 
 	hostRole        = "host"
+	coHostRole      = "co_host"
 	participantRole = "participant"
 
 	participantStatusWatching = "watching"
@@ -111,6 +112,17 @@ type ParticipantView struct {
 	IsOnline    bool   `json:"is_online"`
 }
 
+type PermissionView struct {
+	ManageSession      bool `json:"manage_session"`
+	ManageSurface      bool `json:"manage_surface"`
+	ManageQueue        bool `json:"manage_queue"`
+	ManageFinalists    bool `json:"manage_finalists"`
+	EditRoomSettings   bool `json:"edit_room_settings"`
+	ManageParticipants bool `json:"manage_participants"`
+	AssignCoHosts      bool `json:"assign_co_hosts"`
+	CloseRoom          bool `json:"close_room"`
+}
+
 type QueueEntryView struct {
 	ID       uint                    `json:"id"`
 	Status   string                  `json:"status"`
@@ -158,6 +170,7 @@ type RoomSnapshot struct {
 	MyVotes          []string                          `json:"my_votes"`
 	FistBumpsEnabled bool                              `json:"fist_bumps_enabled"`
 	CanManage        bool                              `json:"can_manage"`
+	Permissions      PermissionView                    `json:"permissions"`
 	DisplayName      string                            `json:"display_name,omitempty"`
 }
 
