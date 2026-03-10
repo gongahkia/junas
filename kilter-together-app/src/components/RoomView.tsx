@@ -90,6 +90,10 @@ function reorderEntryIDs(entryIDs: number[], sourceEntryID: number, targetEntryI
   return reordered;
 }
 
+function formatParticipantRole(role: string) {
+  return role === "co_host" ? "co-host" : role;
+}
+
 export default function RoomView() {
   const { slug = "" } = useParams();
   const navigate = useNavigate();
@@ -171,10 +175,10 @@ export default function RoomView() {
     (nextSnapshot: RoomSnapshot) => {
       rememberRoomVisit(nextSnapshot);
       rememberLastProvider(nextSnapshot.provider_id);
-      if (nextSnapshot.can_manage && nextSnapshot.connection.connected) {
+      if (nextSnapshot.permissions.manage_session && nextSnapshot.connection.connected) {
         markHostProviderConnected();
       }
-      if (nextSnapshot.can_manage && nextSnapshot.surface) {
+      if (nextSnapshot.permissions.manage_session && nextSnapshot.surface) {
         markHostSurfaceSelected();
       }
 
@@ -347,7 +351,7 @@ export default function RoomView() {
   useEffect(() => {
     if (
       !slug ||
-      !snapshot?.can_manage ||
+      !snapshot?.permissions.manage_surface ||
       !snapshot.connection.connected ||
       (hasSurface && !showSurfaceEditor)
     ) {
@@ -403,7 +407,7 @@ export default function RoomView() {
     setActionError,
     showSurfaceEditor,
     slug,
-    snapshot?.can_manage,
+    snapshot?.permissions.manage_surface,
     snapshot?.connection.connected,
     snapshot?.provider_id,
     snapshot?.surface?.id,
@@ -414,7 +418,7 @@ export default function RoomView() {
       !slug ||
       !snapshot?.provider_id ||
       !usesNestedSurfaceHierarchy(snapshot.provider_id, capabilities) ||
-      !snapshot.can_manage ||
+      !snapshot.permissions.manage_surface ||
       !snapshot.connection.connected ||
       (hasSurface && !showSurfaceEditor) ||
       !selectedGymSlug
@@ -455,7 +459,7 @@ export default function RoomView() {
     setActionError,
     showSurfaceEditor,
     slug,
-    snapshot?.can_manage,
+    snapshot?.permissions.manage_surface,
     snapshot?.connection.connected,
     snapshot?.provider_id,
     snapshot?.surface?.id,
@@ -620,7 +624,7 @@ export default function RoomView() {
   };
 
   const handleFistBumpsToggle = async (enabled: boolean) => {
-    if (!slug || !snapshot?.can_manage) {
+    if (!slug || !snapshot?.permissions.edit_room_settings) {
       return;
     }
 
@@ -654,7 +658,7 @@ export default function RoomView() {
 
     try {
       await api.toggleRoomVote(slug, climbId);
-      if (!snapshot?.can_manage) {
+      if (!snapshot?.permissions.manage_session) {
         markGuestParticipated();
       }
       await refreshRoomState();
@@ -675,7 +679,7 @@ export default function RoomView() {
 
     try {
       await api.addRoomQueueEntry(slug, climbId);
-      if (!snapshot?.can_manage) {
+      if (!snapshot?.permissions.manage_session) {
         markGuestParticipated();
       }
       await refreshRoomState();
@@ -920,6 +924,23 @@ export default function RoomView() {
     }
   };
 
+  const handleParticipantRoleUpdate = async (
+    participantId: number,
+    role: "participant" | "co_host"
+  ) => {
+    if (!slug) {
+      return;
+    }
+
+    try {
+      await api.updateRoomParticipantRole(slug, participantId, role);
+      await refreshRoomState();
+    } catch (caughtError) {
+      console.error("Update participant role failed", caughtError);
+      setActionError("Unable to update this participant role.");
+    }
+  };
+
   const copyInviteLink = async () => {
     if (typeof window === "undefined") {
       return;
@@ -936,7 +957,7 @@ export default function RoomView() {
   };
 
   const handleUpdateRoomName = async () => {
-    if (!slug || !snapshot?.can_manage) {
+    if (!slug || !snapshot?.permissions.edit_room_settings) {
       return;
     }
 
@@ -997,6 +1018,16 @@ export default function RoomView() {
     );
   }
 
+  const permissions = snapshot.permissions;
+  const canManageSession = permissions.manage_session;
+  const canManageSurface = permissions.manage_surface;
+  const canManageQueue = permissions.manage_queue;
+  const canManageFinalists = permissions.manage_finalists;
+  const canEditRoomSettings = permissions.edit_room_settings;
+  const canManageParticipants = permissions.manage_participants;
+  const canAssignCoHosts = permissions.assign_co_hosts;
+  const canCloseRoom = permissions.close_room;
+
   const selectedFistBumpCount =
     (selectedClimb ? catalog?.vote_counts[selectedClimb.id] : undefined) ??
     (selectedClimb ? snapshot.vote_counts[selectedClimb.id] : 0) ??
@@ -1015,7 +1046,7 @@ export default function RoomView() {
   const shouldShowRoomOnboarding =
     manualOnboardingReplay ||
     (showOnboarding &&
-      (snapshot.can_manage
+      (canManageSession
         ? !snapshot.connection.connected || !snapshot.surface
         : !loadUserPrefs().onboarding.guestCompleted));
   const myParticipant =
@@ -1075,9 +1106,9 @@ export default function RoomView() {
     snapshot.provider_id,
     capabilities
   );
-  const showSurfaceCard = snapshot.connection.connected && (snapshot.can_manage || !snapshot.surface);
+  const showSurfaceCard = snapshot.connection.connected && (canManageSurface || !snapshot.surface);
   const surfaceEditorOpen =
-    snapshot.can_manage && snapshot.connection.connected && (!snapshot.surface || showSurfaceEditor);
+    canManageSurface && snapshot.connection.connected && (!snapshot.surface || showSurfaceEditor);
   const currentGymLabel =
     nestedSurfaceProvider
       ? cruxGyms.find(
@@ -1100,7 +1131,7 @@ export default function RoomView() {
     },
     {
       label: "Shared surface",
-      value: snapshot.surface?.name ?? (snapshot.can_manage ? "Not selected yet" : "Waiting for host"),
+      value: snapshot.surface?.name ?? (canManageSurface ? "Not selected yet" : "Waiting for host"),
     },
     {
       label: "Current climb",
@@ -1138,7 +1169,7 @@ export default function RoomView() {
   ];
 
   const roomReadyToShare =
-    snapshot.can_manage && snapshot.connection.connected && Boolean(snapshot.surface);
+    canManageSession && snapshot.connection.connected && Boolean(snapshot.surface);
 
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(250,250,249,1),_rgba(240,249,255,0.8))] px-4 py-5 sm:px-6">
@@ -1227,7 +1258,7 @@ export default function RoomView() {
                 ) : (
                   <div />
                 )}
-                {snapshot.can_manage ? (
+                {canEditRoomSettings ? (
                   <Button
                     type="button"
                     variant={showRoomSettings ? "secondary" : "outline"}
@@ -1237,12 +1268,12 @@ export default function RoomView() {
                   </Button>
                 ) : null}
               </div>
-              {snapshot.can_manage && showRoomSettings ? (
+              {canEditRoomSettings && showRoomSettings ? (
                 <div className="rounded-2xl border bg-muted/20 p-4">
                   <div className="mb-3 space-y-1">
                     <p className="text-sm font-medium text-foreground">Room details</p>
                     <p className="text-sm text-muted-foreground">
-                      Keep optional host settings tucked away until you need them.
+                      Keep optional room settings tucked away until you need them.
                     </p>
                   </div>
                   <div className="grid max-w-xl gap-2">
@@ -1339,21 +1370,21 @@ export default function RoomView() {
         {shouldShowRoomOnboarding ? (
           <OnboardingCallout
             title={
-              snapshot.can_manage
+              canManageSession
                 ? snapshot.connection.connected
                   ? "Host flow: choose, then share"
                   : "Host flow: connect, choose, then share"
                 : "Guest flow: fist bump and queue from your phone"
             }
             description={
-              snapshot.can_manage
+              canManageSession
                 ? snapshot.connection.connected
-                  ? "You are the room host. The provider is already authenticated for this room, so the next step is picking the shared surface before you invite everyone else."
-                  : "You are the room host. Finish the provider setup once, then everyone else can join through the invite link or QR code."
+                  ? "You are managing this room. The provider is already authenticated, so the next step is picking the shared surface before you invite everyone else."
+                  : "You are managing this room. Finish the provider setup once, then everyone else can join through the invite link or QR code."
                 : "You are already inside the room. The next useful action is to fist bump a climb or add one to the shared queue."
             }
             steps={
-              snapshot.can_manage
+              canManageSession
                 ? [
                     snapshot.connection.connected
                       ? "Provider connected. Move on to the shared surface selection."
@@ -1384,7 +1415,7 @@ export default function RoomView() {
             <CardHeader>
               <CardTitle>Connect the host account</CardTitle>
               <CardDescription>
-                {snapshot.can_manage
+                {canEditRoomSettings
                   ? snapshot.provider_id === "kilter"
                     ? "Authenticate one Kilter account so the room can browse a shared board."
                     : `Enter one ${providerLabel} token so the room can browse a shared gym and wall.`
@@ -1392,7 +1423,7 @@ export default function RoomView() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {snapshot.can_manage ? (
+              {canEditRoomSettings ? (
                 <>
                   {snapshot.provider_id === "kilter" ? (
                     <div className="grid gap-4 md:grid-cols-2">
@@ -1507,7 +1538,7 @@ export default function RoomView() {
                 {snapshot.surface ? "Shared climbing surface" : "Choose the shared climbing surface"}
               </CardTitle>
               <CardDescription>
-                {snapshot.can_manage
+                {canManageSurface
                   ? snapshot.surface
                     ? "Everyone in the room is browsing this board or wall. Open edit when you need to switch it."
                     : "This becomes the shared board or wall for everyone in the room."
@@ -1516,7 +1547,7 @@ export default function RoomView() {
             </CardHeader>
             <CardContent className="space-y-4">
               <DetailGrid items={surfaceSummaryItems} className="lg:grid-cols-3" />
-              {snapshot.can_manage && snapshot.surface ? (
+              {canManageSurface && snapshot.surface ? (
                 <Button
                   type="button"
                   variant={surfaceEditorOpen ? "secondary" : "outline"}
@@ -1525,7 +1556,7 @@ export default function RoomView() {
                   {surfaceEditorOpen ? "Hide surface editor" : "Edit surface"}
                 </Button>
               ) : null}
-              {snapshot.can_manage && surfaceEditorOpen ? (
+              {canManageSurface && surfaceEditorOpen ? (
                 snapshot.provider_id === "kilter" ? (
                   <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto]">
                     <div className="grid gap-4 md:grid-cols-2">
@@ -1771,7 +1802,7 @@ export default function RoomView() {
                         >
                           {selectedIsQueued ? "Already queued" : "Add to queue"}
                         </Button>
-                        {snapshot.can_manage ? (
+                        {canManageQueue ? (
                           <>
                             <Button
                               variant="outline"
@@ -1862,7 +1893,7 @@ export default function RoomView() {
                             ) : null}
                           </div>
                         ))}
-                        {snapshot.can_manage ? (
+                        {canManageQueue ? (
                           <div className="flex flex-wrap gap-2 pt-2">
                             <Button
                               size="sm"
@@ -1893,7 +1924,7 @@ export default function RoomView() {
                   <CardHeader>
                     <CardTitle>Finalists</CardTitle>
                     <CardDescription>
-                      Host-managed shortlist for narrowing down the field.
+                      Manager-controlled shortlist for narrowing down the field.
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3">
@@ -1917,7 +1948,7 @@ export default function RoomView() {
                           )}
                         >
                           <div className="flex items-start gap-3">
-                            {snapshot.can_manage ? (
+                            {canManageFinalists ? (
                               <Button
                                 type="button"
                                 size="icon"
@@ -1959,7 +1990,7 @@ export default function RoomView() {
                                 onClick={() => void handleFistBumpToggle(entry.climb.id)}
                               />
                             ) : null}
-                            {snapshot.can_manage ? (
+                            {canManageFinalists ? (
                               <>
                               <Button
                                 size="sm"
@@ -2020,7 +2051,7 @@ export default function RoomView() {
                           )}
                         >
                           <div className="flex items-start gap-3">
-                            {snapshot.can_manage ? (
+                            {canManageQueue ? (
                               <Button
                                 type="button"
                                 size="icon"
@@ -2059,7 +2090,7 @@ export default function RoomView() {
                                 onClick={() => void handleFistBumpToggle(entry.climb.id)}
                               />
                             ) : null}
-                            {snapshot.can_manage ? (
+                            {canManageQueue ? (
                               <>
                               <Button
                                 size="sm"
@@ -2118,32 +2149,55 @@ export default function RoomView() {
                             <p className="font-medium">{participant.display_name}</p>
                             <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                               <span>
-                                {participant.role} · {participant.is_online ? "online" : "idle"}
+                                {formatParticipantRole(participant.role)} ·{" "}
+                                {participant.is_online ? "online" : "idle"}
                               </span>
                               <Badge variant="outline">{participant.status}</Badge>
                             </div>
                           </div>
-                          {snapshot.can_manage && participant.role !== "host" ? (
-                            <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => handleRemoveParticipant(participant.id)}
-                          >
-                            <UserMinus className="mr-1 h-3.5 w-3.5" />
-                            Remove
-                          </Button>
-                        ) : null}
+                          <div className="flex flex-wrap items-center justify-end gap-2">
+                            {canAssignCoHosts && participant.role !== "host" ? (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() =>
+                                  handleParticipantRoleUpdate(
+                                    participant.id,
+                                    participant.role === "co_host" ? "participant" : "co_host"
+                                  )
+                                }
+                              >
+                                {participant.role === "co_host"
+                                  ? "Remove co-host"
+                                  : "Make co-host"}
+                              </Button>
+                            ) : null}
+                            {canManageParticipants && participant.role !== "host" ? (
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => handleRemoveParticipant(participant.id)}
+                              >
+                                <UserMinus className="mr-1 h-3.5 w-3.5" />
+                                Remove
+                              </Button>
+                            ) : null}
+                          </div>
                       </div>
                     ))}
 
-                    {snapshot.can_manage ? (
+                    {canManageQueue || canCloseRoom ? (
                       <div className="flex flex-wrap gap-2 pt-2">
-                        <Button variant="outline" onClick={handleClearVotes}>
-                          Clear fist bumps
-                        </Button>
-                        <Button variant="destructive" onClick={handleCloseRoom}>
-                          Close room
-                        </Button>
+                        {canManageQueue ? (
+                          <Button variant="outline" onClick={handleClearVotes}>
+                            Clear fist bumps
+                          </Button>
+                        ) : null}
+                        {canCloseRoom ? (
+                          <Button variant="destructive" onClick={handleCloseRoom}>
+                            Close room
+                          </Button>
+                        ) : null}
                       </div>
                     ) : null}
                   </CardContent>

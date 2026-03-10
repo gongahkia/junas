@@ -18,6 +18,7 @@ import type {
   RoomSnapshot,
   ClimbSort,
   QueueStatus,
+  RoomPermissions,
 } from "./types";
 import { reportApiFailure } from "@/lib/observability";
 
@@ -76,10 +77,26 @@ type RandomPickPayload =
 type RandomPickResponse =
   JsonContent<paths["/rooms/{slug}/pick-random"]["post"]["responses"][200]>;
 
+function defaultRoomPermissions(canManage: boolean): RoomPermissions {
+  return {
+    manage_session: canManage,
+    manage_surface: canManage,
+    manage_queue: canManage,
+    manage_finalists: canManage,
+    edit_room_settings: canManage,
+    manage_participants: canManage,
+    assign_co_hosts: canManage,
+    close_room: canManage,
+  };
+}
+
 function normalizeRoomSnapshot(snapshot: RoomSnapshot): RoomSnapshot {
+  const canManage = snapshot.can_manage ?? false;
   return {
     ...snapshot,
     fist_bumps_enabled: snapshot.fist_bumps_enabled ?? true,
+    can_manage: canManage,
+    permissions: snapshot.permissions ?? defaultRoomPermissions(canManage),
   };
 }
 
@@ -331,6 +348,14 @@ export const api = {
     participantId: number
   ): Promise<void> => {
     await apiClient.delete(`/rooms/${slug}/participants/${participantId}`);
+  },
+
+  updateRoomParticipantRole: async (
+    slug: string,
+    participantId: number,
+    role: "participant" | "co_host"
+  ): Promise<void> => {
+    await apiClient.patch(`/rooms/${slug}/participants/${participantId}/role`, { role });
   },
 
   updateMyParticipantStatus: async (

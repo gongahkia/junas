@@ -163,6 +163,17 @@ export interface Participant {
   is_online: boolean;
 }
 
+export interface RoomPermissions {
+  manage_session: boolean;
+  manage_surface: boolean;
+  manage_queue: boolean;
+  manage_finalists: boolean;
+  edit_room_settings: boolean;
+  manage_participants: boolean;
+  assign_co_hosts: boolean;
+  close_room: boolean;
+}
+
 export interface QueueEntry {
   id: number;
   status: QueueStatus;
@@ -194,6 +205,7 @@ export interface RoomSnapshot {
   my_votes: string[];
   fist_bumps_enabled: boolean;
   can_manage: boolean;
+  permissions: RoomPermissions;
   display_name?: string;
 }
 

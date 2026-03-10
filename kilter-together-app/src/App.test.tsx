@@ -97,6 +97,7 @@ vi.mock("./api", () => ({
     clearRoomVotes: vi.fn(),
     closeRoom: vi.fn(),
     removeRoomParticipant: vi.fn(),
+    updateRoomParticipantRole: vi.fn(),
     updateMyParticipantStatus: vi.fn(),
   },
 }));
@@ -144,6 +145,16 @@ const buildRoomSnapshot = (slug: string): RoomSnapshot => ({
   my_votes: [],
   fist_bumps_enabled: true,
   can_manage: true,
+  permissions: {
+    manage_session: true,
+    manage_surface: true,
+    manage_queue: true,
+    manage_finalists: true,
+    edit_room_settings: true,
+    manage_participants: true,
+    assign_co_hosts: true,
+    close_room: true,
+  },
   display_name: "Host",
 });
 
@@ -590,6 +601,95 @@ describe("App routes", () => {
     expect(
       await screen.findByRole("heading", { name: "Room legacy-fist-bumps" })
     ).toBeInTheDocument();
+  });
+
+  it("shows co-host controls without exposing host-only room settings", async () => {
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("session-cohost"),
+      can_manage: true,
+      permissions: {
+        manage_session: true,
+        manage_surface: true,
+        manage_queue: true,
+        manage_finalists: true,
+        edit_room_settings: false,
+        manage_participants: false,
+        assign_co_hosts: false,
+        close_room: false,
+      },
+      connection: {
+        provider_id: "kilter",
+        connected: true,
+      },
+      surface: {
+        id: "14",
+        kind: "board",
+        name: "Kilter Board Original",
+        meta: {
+          angle: "40",
+          board_id: "14",
+        },
+      },
+      participants: [
+        {
+          id: 1,
+          display_name: "Host",
+          role: "host",
+          status: "watching" as const,
+          is_online: true,
+        },
+        {
+          id: 2,
+          display_name: "CoHost",
+          role: "co_host",
+          status: "ready" as const,
+          is_online: true,
+        },
+      ],
+      display_name: "CoHost",
+    });
+    mockedApi.getRoomCatalogClimbs.mockResolvedValue({
+      climbs: [
+        {
+          id: "kilter:14:uuid-2",
+          external_id: "uuid-2",
+          provider_id: "kilter",
+          surface_id: "14",
+          name: "Co-Host Project",
+          setter_name: "Setter B",
+          primary_grade: "V7",
+          media: [
+            {
+              url: "/api/images/test-b.png",
+              kind: "image",
+            },
+          ],
+          meta: {
+            board_id: "14",
+          },
+        },
+      ],
+      has_more: false,
+      page_size: 12,
+      vote_counts: {},
+      my_votes: [],
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/session-cohost"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(
+      await screen.findByRole("heading", { name: "Room session-cohost" })
+    ).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Edit room details/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Close room/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Remove/i })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Edit surface/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Clear fist bumps/i })).toBeInTheDocument();
   });
 
   it("lets room members fist bump queued climbs from the room cards", async () => {
