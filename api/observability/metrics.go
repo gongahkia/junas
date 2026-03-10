@@ -3,6 +3,7 @@ package observability
 import (
 	"net/http"
 	"strconv"
+	"sync"
 	"sync/atomic"
 	"time"
 
@@ -33,6 +34,10 @@ var (
 		Name: "kilter_together_provider_cache_requests_total",
 		Help: "Provider cache activity by provider and outcome.",
 	}, []string{"provider", "outcome"})
+	roomActions = promauto.NewCounterVec(prometheus.CounterOpts{
+		Name: "kilter_together_room_actions_total",
+		Help: "Room create/join/provider/catalog actions by provider and outcome.",
+	}, []string{"action", "provider", "outcome"})
 	sseSubscribers = promauto.NewGauge(prometheus.GaugeOpts{
 		Name: "kilter_together_room_sse_subscribers",
 		Help: "Current number of active room SSE subscribers.",
@@ -40,6 +45,18 @@ var (
 )
 
 var activeSubscribers atomic.Int64
+
+type MaintenanceStatus struct {
+	Job       string    `json:"job"`
+	Status    string    `json:"status"`
+	LastRunAt time.Time `json:"last_run_at"`
+	LastError string    `json:"last_error,omitempty"`
+}
+
+var (
+	maintenanceMu      sync.RWMutex
+	maintenanceStatus  = map[string]MaintenanceStatus{}
+)
 
 func Handler() http.Handler {
 	return promhttp.Handler()
@@ -56,14 +73,33 @@ func RecordRoomEvent(eventType string) {
 
 func RecordMaintenanceRun(job string, err error) {
 	status := "success"
+	lastError := ""
 	if err != nil {
 		status = "error"
+		lastError = err.Error()
 	}
 	maintenanceRuns.WithLabelValues(job, status).Inc()
+
+	maintenanceMu.Lock()
+	maintenanceStatus[job] = MaintenanceStatus{
+		Job:       job,
+		Status:    status,
+		LastRunAt: time.Now().UTC(),
+		LastError: lastError,
+	}
+	maintenanceMu.Unlock()
 }
 
 func RecordProviderCache(provider, outcome string) {
 	providerCacheRequests.WithLabelValues(provider, outcome).Inc()
+}
+
+func RecordRoomAction(action, provider string, err error) {
+	outcome := "success"
+	if err != nil {
+		outcome = "error"
+	}
+	roomActions.WithLabelValues(action, provider, outcome).Inc()
 }
 
 func SSESubscribed() {
@@ -77,4 +113,20 @@ func SSEUnsubscribed() {
 		next = 0
 	}
 	sseSubscribers.Set(float64(next))
+}
+
+func ActiveSSESubscribers() int64 {
+	return activeSubscribers.Load()
+}
+
+func MaintenanceSnapshot() []MaintenanceStatus {
+	maintenanceMu.RLock()
+	defer maintenanceMu.RUnlock()
+
+	snapshot := make([]MaintenanceStatus, 0, len(maintenanceStatus))
+	for _, status := range maintenanceStatus {
+		snapshot = append(snapshot, status)
+	}
+
+	return snapshot
 }

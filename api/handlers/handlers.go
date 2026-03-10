@@ -6,7 +6,6 @@ import (
 	"log/slog"
 	"net/http"
 	"path/filepath"
-	"strconv"
 	"strings"
 
 	"github.com/go-chi/chi/v5"
@@ -205,13 +204,4 @@ func ServeImage(w http.ResponseWriter, r *http.Request) {
 
 	// Serve the file
 	http.ServeFile(w, r, imagePath)
-}
-
-func writeJSONError(w http.ResponseWriter, statusCode int, message string) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(statusCode)
-	json.NewEncoder(w).Encode(map[string]string{
-		"error":  message,
-		"status": strconv.Itoa(statusCode),
-	})
 }

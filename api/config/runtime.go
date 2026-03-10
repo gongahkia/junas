@@ -29,6 +29,13 @@ type RuntimeConfig struct {
 	AllowedOrigins        []string
 	PreviousEncryptionKey string
 	EnableTestProvider    bool
+	OperatorToken         string
+	OTLPTracesEndpoint    string
+	OTLPTracesInsecure    bool
+	OTELServiceName       string
+	SentryDSN             string
+	SentryEnvironment     string
+	SentryRelease         string
 }
 
 var runtimeConfig *RuntimeConfig
@@ -69,6 +76,16 @@ func LoadRuntimeConfig() RuntimeConfig {
 		AllowedOrigins:        parseAllowedOrigins(os.Getenv("KILTER_TOGETHER_ALLOWED_ORIGINS")),
 		PreviousEncryptionKey: strings.TrimSpace(os.Getenv("KILTER_TOGETHER_PREVIOUS_ENCRYPTION_KEY")),
 		EnableTestProvider:    parseBoolEnv(os.Getenv("KILTER_TOGETHER_ENABLE_TEST_PROVIDER")),
+		OperatorToken:         strings.TrimSpace(os.Getenv("KILTER_TOGETHER_OPERATOR_TOKEN")),
+		OTLPTracesEndpoint:    strings.TrimSpace(os.Getenv("KILTER_TOGETHER_OTEL_EXPORTER_OTLP_ENDPOINT")),
+		OTLPTracesInsecure:    parseBoolEnv(os.Getenv("KILTER_TOGETHER_OTEL_EXPORTER_OTLP_INSECURE")),
+		OTELServiceName: firstNonEmpty(
+			strings.TrimSpace(os.Getenv("KILTER_TOGETHER_OTEL_SERVICE_NAME")),
+			"kilter-together-api",
+		),
+		SentryDSN:         strings.TrimSpace(os.Getenv("KILTER_TOGETHER_SENTRY_DSN")),
+		SentryEnvironment: strings.TrimSpace(os.Getenv("KILTER_TOGETHER_SENTRY_ENVIRONMENT")),
+		SentryRelease:     strings.TrimSpace(os.Getenv("KILTER_TOGETHER_SENTRY_RELEASE")),
 	}
 }
 

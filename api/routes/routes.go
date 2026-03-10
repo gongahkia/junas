@@ -33,7 +33,7 @@ func SetupRoutes() *chi.Mux {
 	}))
 	r.Use(structuredLogger)
 	if !runtimeConfig.EnableTestProvider {
-		r.Use(httprate.LimitByIP(100, time.Minute))
+		r.Use(limitByIP(100, time.Minute))
 	}
 
 	// Define routes
@@ -42,13 +42,15 @@ func SetupRoutes() *chi.Mux {
 		r.Get("/livez", handlers.Livez)
 		r.Get("/readyz", handlers.Readyz)
 		r.Get("/metrics", handlers.Metrics)
+		r.Get("/providers/capabilities", handlers.ProviderCapabilities)
+		r.Get("/operator/status", handlers.OperatorStatus)
 		r.Get("/climbs", handlers.GetClimbs)
 		r.Get("/boards", handlers.GetBoardOptions)
 		r.Get("/images/{filename}", handlers.ServeImage)
 		if runtimeConfig.EnableTestProvider {
 			r.Post("/rooms", handlers.CreateRoom)
 		} else {
-			r.With(httprate.LimitByIP(10, time.Minute)).Post("/rooms", handlers.CreateRoom)
+			r.With(limitByIP(10, time.Minute)).Post("/rooms", handlers.CreateRoom)
 		}
 		r.Route("/rooms/{slug}", func(r chi.Router) {
 			r.Post("/join", handlers.JoinRoom)
@@ -58,7 +60,7 @@ func SetupRoutes() *chi.Mux {
 			if runtimeConfig.EnableTestProvider {
 				r.Post("/provider/connect", handlers.ConnectRoomProvider)
 			} else {
-				r.With(httprate.LimitByIP(5, time.Minute)).Post("/provider/connect", handlers.ConnectRoomProvider)
+				r.With(limitByIP(5, time.Minute)).Post("/provider/connect", handlers.ConnectRoomProvider)
 			}
 			r.Post("/surface", handlers.SetRoomSurface)
 			r.Get("/catalog/surfaces", handlers.ListRoomCatalogSurfaces)
@@ -92,6 +94,9 @@ func SetupRoutes() *chi.Mux {
 func structuredLogger(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
+		if traceID := observability.TraceIDFromContext(r.Context()); traceID != "" {
+			w.Header().Set(observability.TraceIDHeader, traceID)
+		}
 		ww := middleware.NewWrapResponseWriter(w, r.ProtoMajor)
 		next.ServeHTTP(ww, r)
 		routePattern := chi.RouteContext(r.Context()).RoutePattern()
@@ -106,7 +111,19 @@ func structuredLogger(next http.Handler) http.Handler {
 			"status", ww.Status(),
 			"duration_ms", time.Since(start).Milliseconds(),
 			"request_id", middleware.GetReqID(r.Context()),
+			"trace_id", observability.TraceIDFromContext(r.Context()),
 			"remote_addr", r.RemoteAddr,
 		)
 	})
+}
+
+func limitByIP(requestLimit int, windowLength time.Duration) func(next http.Handler) http.Handler {
+	return httprate.Limit(
+		requestLimit,
+		windowLength,
+		httprate.WithKeyFuncs(httprate.KeyByIP),
+		httprate.WithLimitHandler(func(w http.ResponseWriter, r *http.Request) {
+			handlers.WriteRateLimitError(w, r)
+		}),
+	)
 }

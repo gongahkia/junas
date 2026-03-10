@@ -12,6 +12,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/lczm/kilter-together/api/config"
+	"github.com/lczm/kilter-together/api/observability"
 	"github.com/lczm/kilter-together/api/providers"
 	"github.com/lczm/kilter-together/api/rooms"
 	"github.com/lczm/kilter-together/api/security"
@@ -91,11 +92,25 @@ type participantStatusRequest struct {
 // @Router /rooms [post]
 func CreateRoom(w http.ResponseWriter, r *http.Request) {
 	if strings.TrimSpace(config.GetRuntimeConfig().AppSecret) == "" {
-		writeJSONError(w, http.StatusInternalServerError, "KILTER_TOGETHER_APP_SECRET is required to create rooms")
+		writeRequestError(
+			w,
+			r,
+			http.StatusInternalServerError,
+			"runtime_unavailable",
+			"KILTER_TOGETHER_APP_SECRET is required to create rooms",
+			nil,
+		)
 		return
 	}
 	if strings.TrimSpace(config.GetRuntimeConfig().EncryptionKey) == "" {
-		writeJSONError(w, http.StatusInternalServerError, "KILTER_TOGETHER_ENCRYPTION_KEY is required to create rooms")
+		writeRequestError(
+			w,
+			r,
+			http.StatusInternalServerError,
+			"runtime_unavailable",
+			"KILTER_TOGETHER_ENCRYPTION_KEY is required to create rooms",
+			nil,
+		)
 		return
 	}
 
@@ -119,12 +134,21 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 		request.Secret,
 	)
 	if err != nil {
-		writeJSONError(w, http.StatusBadRequest, err.Error())
+		observability.RecordRoomAction("create_room", request.ProviderID, err)
+		writeRoomError(w, r, err, http.StatusBadRequest, "provider_auth_failed")
 		return
 	}
+	observability.RecordRoomAction("create_room", request.ProviderID, nil)
 
 	if err := setSignedCookie(w, rooms.HostCookieName, hostSessionID); err != nil {
-		writeJSONError(w, http.StatusInternalServerError, "failed to set session cookie")
+		writeRequestError(
+			w,
+			r,
+			http.StatusInternalServerError,
+			"session_cookie_failed",
+			"failed to set session cookie",
+			err,
+		)
 		return
 	}
 
@@ -145,7 +169,14 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 // @Router /rooms/{slug}/join [post]
 func JoinRoom(w http.ResponseWriter, r *http.Request) {
 	if strings.TrimSpace(config.GetRuntimeConfig().AppSecret) == "" {
-		writeJSONError(w, http.StatusInternalServerError, "KILTER_TOGETHER_APP_SECRET is required to join rooms")
+		writeRequestError(
+			w,
+			r,
+			http.StatusInternalServerError,
+			"runtime_unavailable",
+			"KILTER_TOGETHER_APP_SECRET is required to join rooms",
+			nil,
+		)
 		return
 	}
 
@@ -161,12 +192,21 @@ func JoinRoom(w http.ResponseWriter, r *http.Request) {
 
 	snapshot, participantSessionID, err := rooms.DefaultService.JoinRoom(r.Context(), roomSlug, request.DisplayName)
 	if err != nil {
-		writeJSONError(w, http.StatusBadRequest, err.Error())
+		observability.RecordRoomAction("join_room", "", err)
+		writeRoomError(w, r, err, http.StatusBadRequest, "")
 		return
 	}
+	observability.RecordRoomAction("join_room", string(snapshot.ProviderID), nil)
 
 	if err := setSignedCookie(w, rooms.ParticipantCookieName, participantSessionID); err != nil {
-		writeJSONError(w, http.StatusInternalServerError, "failed to set session cookie")
+		writeRequestError(
+			w,
+			r,
+			http.StatusInternalServerError,
+			"session_cookie_failed",
+			"failed to set session cookie",
+			err,
+		)
 		return
 	}
 
@@ -186,13 +226,13 @@ func JoinRoom(w http.ResponseWriter, r *http.Request) {
 func GetRoom(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, false)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
 	snapshot, err := rooms.DefaultService.GetSnapshot(r.Context(), viewer)
 	if err != nil {
-		writeJSONError(w, http.StatusBadRequest, err.Error())
+		writeRoomError(w, r, err, http.StatusBadRequest, "")
 		return
 	}
 
@@ -214,7 +254,7 @@ func GetRoom(w http.ResponseWriter, r *http.Request) {
 func UpdateRoom(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, true)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -229,7 +269,7 @@ func UpdateRoom(w http.ResponseWriter, r *http.Request) {
 
 	snapshot, err := rooms.DefaultService.UpdateRoomName(r.Context(), viewer, request.RoomName)
 	if err != nil {
-		writeJSONError(w, http.StatusBadRequest, err.Error())
+		writeRoomError(w, r, err, http.StatusBadRequest, "")
 		return
 	}
 
@@ -251,7 +291,7 @@ func UpdateRoom(w http.ResponseWriter, r *http.Request) {
 func UpdateRoomFistBumps(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, true)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -263,7 +303,7 @@ func UpdateRoomFistBumps(w http.ResponseWriter, r *http.Request) {
 
 	snapshot, err := rooms.DefaultService.SetFistBumpsEnabled(r.Context(), viewer, request.Enabled)
 	if err != nil {
-		writeJSONError(w, http.StatusBadRequest, err.Error())
+		writeRoomError(w, r, err, http.StatusBadRequest, "")
 		return
 	}
 
@@ -273,7 +313,7 @@ func UpdateRoomFistBumps(w http.ResponseWriter, r *http.Request) {
 func StreamRoomEvents(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, false)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -343,7 +383,7 @@ func StreamRoomEvents(w http.ResponseWriter, r *http.Request) {
 func ConnectRoomProvider(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, true)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -355,9 +395,11 @@ func ConnectRoomProvider(w http.ResponseWriter, r *http.Request) {
 
 	state, err := rooms.DefaultService.ConnectProvider(r.Context(), viewer, request.Secret)
 	if err != nil {
-		writeJSONError(w, connectProviderStatus(err), err.Error())
+		observability.RecordRoomAction("connect_provider", viewer.Room.ProviderID, err)
+		writeRoomError(w, r, err, connectProviderStatus(err), "provider_auth_failed")
 		return
 	}
+	observability.RecordRoomAction("connect_provider", viewer.Room.ProviderID, nil)
 
 	writeJSON(w, http.StatusOK, state)
 }
@@ -377,7 +419,7 @@ func ConnectRoomProvider(w http.ResponseWriter, r *http.Request) {
 func SetRoomSurface(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, true)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -389,9 +431,11 @@ func SetRoomSurface(w http.ResponseWriter, r *http.Request) {
 
 	surface, err := rooms.DefaultService.SetSurface(r.Context(), viewer, request.SurfaceID, request.Context)
 	if err != nil {
-		writeJSONError(w, http.StatusBadRequest, err.Error())
+		observability.RecordRoomAction("set_surface", viewer.Room.ProviderID, err)
+		writeRoomError(w, r, err, http.StatusBadRequest, "")
 		return
 	}
+	observability.RecordRoomAction("set_surface", viewer.Room.ProviderID, nil)
 
 	writeJSON(w, http.StatusOK, surface)
 }
@@ -410,7 +454,7 @@ func SetRoomSurface(w http.ResponseWriter, r *http.Request) {
 func ListRoomCatalogSurfaces(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, false)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -418,7 +462,7 @@ func ListRoomCatalogSurfaces(w http.ResponseWriter, r *http.Request) {
 		ParentID: strings.TrimSpace(r.URL.Query().Get("parent_id")),
 	})
 	if err != nil {
-		writeJSONError(w, http.StatusBadRequest, err.Error())
+		writeRoomError(w, r, err, http.StatusBadRequest, "")
 		return
 	}
 
@@ -442,7 +486,7 @@ func ListRoomCatalogSurfaces(w http.ResponseWriter, r *http.Request) {
 func ListRoomCatalogClimbs(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, false)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -467,7 +511,7 @@ func ListRoomCatalogClimbs(w http.ResponseWriter, r *http.Request) {
 		pageSize,
 	)
 	if err != nil {
-		writeJSONError(w, http.StatusBadRequest, err.Error())
+		writeRoomError(w, r, err, http.StatusBadRequest, "")
 		return
 	}
 
@@ -488,7 +532,7 @@ func ListRoomCatalogClimbs(w http.ResponseWriter, r *http.Request) {
 func GetRoomCatalogClimb(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, false)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -504,7 +548,7 @@ func GetRoomCatalogClimb(w http.ResponseWriter, r *http.Request) {
 		climbID,
 	)
 	if err != nil {
-		writeJSONError(w, http.StatusBadRequest, err.Error())
+		writeRoomError(w, r, err, http.StatusBadRequest, "")
 		return
 	}
 
@@ -514,7 +558,7 @@ func GetRoomCatalogClimb(w http.ResponseWriter, r *http.Request) {
 func ToggleRoomVote(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, false)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -526,12 +570,13 @@ func ToggleRoomVote(w http.ResponseWriter, r *http.Request) {
 
 	if err := rooms.DefaultService.ToggleVote(r.Context(), viewer, climbID); err != nil {
 		if errors.Is(err, rooms.ErrFistBumpsOff) || errors.Is(err, rooms.ErrForbidden) {
-			writeJSONError(w, http.StatusForbidden, err.Error())
+			writeRoomError(w, r, err, http.StatusForbidden, "")
 			return
 		}
-		writeJSONError(w, http.StatusBadRequest, err.Error())
+		writeRoomError(w, r, err, http.StatusBadRequest, "")
 		return
 	}
+	observability.RecordRoomAction("toggle_vote", viewer.Room.ProviderID, nil)
 
 	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 }
@@ -539,7 +584,7 @@ func ToggleRoomVote(w http.ResponseWriter, r *http.Request) {
 func AddRoomQueueEntry(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, false)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
@@ -550,9 +595,11 @@ func AddRoomQueueEntry(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := rooms.DefaultService.AddQueueEntry(r.Context(), viewer, request.ClimbID); err != nil {
-		writeJSONError(w, http.StatusBadRequest, err.Error())
+		observability.RecordRoomAction("queue_add", viewer.Room.ProviderID, err)
+		writeRoomError(w, r, err, http.StatusBadRequest, "")
 		return
 	}
+	observability.RecordRoomAction("queue_add", viewer.Room.ProviderID, nil)
 
 	writeJSON(w, http.StatusCreated, map[string]string{"status": "ok"})
 }
@@ -785,14 +832,16 @@ func UpdateMyParticipantStatus(w http.ResponseWriter, r *http.Request) {
 func CloseRoom(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, true)
 	if err != nil {
-		writeJSONError(w, http.StatusUnauthorized, err.Error())
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
 	}
 
 	if err := rooms.DefaultService.CloseRoom(r.Context(), viewer); err != nil {
-		writeJSONError(w, http.StatusBadRequest, err.Error())
+		observability.RecordRoomAction("close_room", viewer.Room.ProviderID, err)
+		writeRoomError(w, r, err, http.StatusBadRequest, "")
 		return
 	}
+	observability.RecordRoomAction("close_room", viewer.Room.ProviderID, nil)
 
 	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 }
@@ -847,6 +896,13 @@ func authenticateViewer(r *http.Request, requireHost bool) (*rooms.Viewer, error
 		if err == nil {
 			return viewer, nil
 		}
+		if errors.Is(err, rooms.ErrSessionExpired) ||
+			errors.Is(err, rooms.ErrSessionInvalid) ||
+			errors.Is(err, rooms.ErrRoomClosed) ||
+			errors.Is(err, rooms.ErrRoomNotFound) ||
+			errors.Is(err, rooms.ErrForbidden) {
+			return nil, err
+		}
 	}
 
 	return nil, fmt.Errorf("room session is required")
@@ -878,6 +934,8 @@ func connectProviderStatus(err error) int {
 		return http.StatusForbidden
 	case strings.Contains(err.Error(), "KILTER_TOGETHER_ENCRYPTION_KEY is required"):
 		return http.StatusInternalServerError
+	case strings.Contains(strings.ToLower(err.Error()), "too many requests"):
+		return http.StatusTooManyRequests
 	default:
 		return http.StatusBadRequest
 	}

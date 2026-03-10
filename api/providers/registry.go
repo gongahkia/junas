@@ -2,6 +2,7 @@ package providers
 
 import (
 	"fmt"
+	"slices"
 	"sync"
 )
 
@@ -40,6 +41,8 @@ func Supported() []ProviderID {
 	for providerID := range registry {
 		providers = append(providers, providerID)
 	}
+
+	slices.Sort(providers)
 
 	return providers
 }
