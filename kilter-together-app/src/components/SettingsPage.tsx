@@ -23,6 +23,8 @@ import {
   updateAppSettings,
   updateUserPrefs,
 } from "@/lib/user-prefs";
+import { useProviderCapabilities } from "@/hooks/useProviderCapabilities";
+import { getRoomProviderCapabilities } from "@/lib/provider-capabilities";
 
 function SettingsToggle({
   id,
@@ -85,7 +87,13 @@ function SettingsActionRow({
 
 export default function SettingsPage() {
   const [prefs, setPrefs] = useState(() => loadUserPrefs());
-  const preferredProvider = prefs.lastProviderId === "crux" ? "crux" : "kilter";
+  const { capabilities } = useProviderCapabilities();
+  const roomCapabilities = getRoomProviderCapabilities(capabilities);
+  const preferredProvider = roomCapabilities.some(
+    (capability) => capability.id === prefs.lastProviderId
+  )
+    ? prefs.lastProviderId
+    : roomCapabilities[0]?.id || "kilter";
   const hasSavedCredentials =
     prefs.savedCredentials.kilter.remember || prefs.savedCredentials.crux.remember;
 
@@ -219,8 +227,11 @@ export default function SettingsPage() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="kilter">Kilter</SelectItem>
-                        <SelectItem value="crux">Crux</SelectItem>
+                        {roomCapabilities.map((capability) => (
+                          <SelectItem key={capability.id} value={capability.id}>
+                            {capability.label}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>

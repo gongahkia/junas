@@ -317,6 +317,153 @@ func TestCreateRoomRequiresEncryptionKey(t *testing.T) {
 	if payload["error"] != "KILTER_TOGETHER_ENCRYPTION_KEY is required to create rooms" {
 		t.Fatalf("unexpected error payload: %#v", payload)
 	}
+	if payload["code"] != "runtime_unavailable" {
+		t.Fatalf("expected runtime_unavailable code, got %#v", payload)
+	}
+}
+
+func TestRoomErrorCodesAndCapabilities(t *testing.T) {
+	tempDir := t.TempDir()
+	appDBPath := filepath.Join(tempDir, "app.db")
+	config.SetRuntimeConfig(config.RuntimeConfig{
+		DataDir:       tempDir,
+		AppDBPath:     appDBPath,
+		AppSecret:     "test-app-secret",
+		EncryptionKey: base64.StdEncoding.EncodeToString(bytes.Repeat([]byte{5}, 32)),
+	})
+	if err := config.ConnectAppDB(appDBPath); err != nil {
+		t.Fatalf("connect app database: %v", err)
+	}
+
+	provider := testprovider.New(providers.ProviderID("fake-errors"))
+	providers.Register(provider)
+	rooms.DefaultService = rooms.NewService()
+	if err := rooms.DefaultService.Migrate(context.Background()); err != nil {
+		t.Fatalf("migrate app database: %v", err)
+	}
+
+	server := httptest.NewServer(routes.SetupRoutes())
+	defer server.Close()
+
+	capabilitiesResponse := performJSONRequest(t, server, http.MethodGet, "/api/providers/capabilities", nil, nil)
+	if capabilitiesResponse.StatusCode != http.StatusOK {
+		t.Fatalf("expected capabilities status 200, got %d", capabilitiesResponse.StatusCode)
+	}
+	var capabilitiesPayload struct {
+		Providers []struct {
+			ID            string `json:"id"`
+			RoomSupported bool   `json:"room_supported"`
+			SoloSupported bool   `json:"solo_supported"`
+		} `json:"providers"`
+	}
+	if err := json.NewDecoder(capabilitiesResponse.Body).Decode(&capabilitiesPayload); err != nil {
+		t.Fatalf("decode capabilities response: %v", err)
+	}
+	if len(capabilitiesPayload.Providers) < 2 {
+		t.Fatalf("expected built-in providers in capabilities payload, got %#v", capabilitiesPayload)
+	}
+
+	createResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms", map[string]any{
+		"provider_id":  string(provider.ID()),
+		"display_name": "Host",
+		"secret": map[string]string{
+			"token": "room-token",
+		},
+	}, nil)
+	if createResponse.StatusCode != http.StatusCreated {
+		t.Fatalf("expected create room status 201, got %d", createResponse.StatusCode)
+	}
+
+	var createdRoom struct {
+		Slug string `json:"slug"`
+	}
+	if err := json.NewDecoder(createResponse.Body).Decode(&createdRoom); err != nil {
+		t.Fatalf("decode create room response: %v", err)
+	}
+
+	duplicateJoinResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+createdRoom.Slug+"/join", map[string]string{
+		"display_name": "Host",
+	}, nil)
+	if duplicateJoinResponse.StatusCode != http.StatusBadRequest {
+		t.Fatalf("expected duplicate join status 400, got %d", duplicateJoinResponse.StatusCode)
+	}
+	var duplicateJoinPayload map[string]string
+	if err := json.NewDecoder(duplicateJoinResponse.Body).Decode(&duplicateJoinPayload); err != nil {
+		t.Fatalf("decode duplicate join response: %v", err)
+	}
+	if duplicateJoinPayload["code"] != "display_name_taken" {
+		t.Fatalf("expected display_name_taken code, got %#v", duplicateJoinPayload)
+	}
+
+	unauthorizedRoomResponse := performJSONRequest(t, server, http.MethodGet, "/api/rooms/"+createdRoom.Slug, nil, nil)
+	if unauthorizedRoomResponse.StatusCode != http.StatusUnauthorized {
+		t.Fatalf("expected unauthorized room load status 401, got %d", unauthorizedRoomResponse.StatusCode)
+	}
+	var unauthorizedRoomPayload map[string]string
+	if err := json.NewDecoder(unauthorizedRoomResponse.Body).Decode(&unauthorizedRoomPayload); err != nil {
+		t.Fatalf("decode unauthorized room response: %v", err)
+	}
+	if unauthorizedRoomPayload["code"] != "session_required" {
+		t.Fatalf("expected session_required code, got %#v", unauthorizedRoomPayload)
+	}
+	if unauthorizedRoomPayload["request_id"] == "" {
+		t.Fatalf("expected request_id in error payload, got %#v", unauthorizedRoomPayload)
+	}
+}
+
+func TestOperatorStatusRequiresToken(t *testing.T) {
+	tempDir := t.TempDir()
+	config.SetRuntimeConfig(config.RuntimeConfig{
+		DataDir:       tempDir,
+		AppDBPath:     filepath.Join(tempDir, "app.db"),
+		AppSecret:     "test-app-secret",
+		EncryptionKey: base64.StdEncoding.EncodeToString(bytes.Repeat([]byte{5}, 32)),
+		OperatorToken: "operator-secret",
+	})
+
+	server := httptest.NewServer(routes.SetupRoutes())
+	defer server.Close()
+
+	unauthorizedRequest, err := http.NewRequest(http.MethodGet, server.URL+"/api/operator/status", nil)
+	if err != nil {
+		t.Fatalf("new operator status request: %v", err)
+	}
+	unauthorizedResponse, err := http.DefaultClient.Do(unauthorizedRequest)
+	if err != nil {
+		t.Fatalf("operator status request: %v", err)
+	}
+	defer unauthorizedResponse.Body.Close()
+	if unauthorizedResponse.StatusCode != http.StatusUnauthorized {
+		t.Fatalf("expected operator status 401 without token, got %d", unauthorizedResponse.StatusCode)
+	}
+
+	authorizedRequest, err := http.NewRequest(http.MethodGet, server.URL+"/api/operator/status", nil)
+	if err != nil {
+		t.Fatalf("new authorized operator status request: %v", err)
+	}
+	authorizedRequest.Header.Set("X-Operator-Token", "operator-secret")
+	authorizedResponse, err := http.DefaultClient.Do(authorizedRequest)
+	if err != nil {
+		t.Fatalf("authorized operator status request: %v", err)
+	}
+	defer authorizedResponse.Body.Close()
+	if authorizedResponse.StatusCode != http.StatusOK {
+		t.Fatalf("expected operator status 200 with token, got %d", authorizedResponse.StatusCode)
+	}
+
+	var payload struct {
+		Status        string `json:"status"`
+		GeneratedAt   string `json:"generated_at"`
+		Observability struct {
+			ActiveSSESubscribers int64 `json:"active_sse_subscribers"`
+		} `json:"observability"`
+	}
+	if err := json.NewDecoder(authorizedResponse.Body).Decode(&payload); err != nil {
+		t.Fatalf("decode operator status response: %v", err)
+	}
+	if payload.GeneratedAt == "" {
+		t.Fatalf("expected generated_at in operator status payload, got %#v", payload)
+	}
 }
 
 func TestRoomPermissionBoundaries(t *testing.T) {

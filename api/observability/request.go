@@ -21,4 +21,3 @@ func TraceIDFromContext(ctx context.Context) string {
 
 	return spanContext.TraceID().String()
 }
-

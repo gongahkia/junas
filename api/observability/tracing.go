@@ -44,4 +44,3 @@ func InitTracing(ctx context.Context, cfg config.RuntimeConfig) (func(context.Co
 
 	return traceProvider.Shutdown, nil
 }
-

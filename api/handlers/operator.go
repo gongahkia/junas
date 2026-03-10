@@ -24,16 +24,16 @@ type databaseStatus struct {
 }
 
 type operatorStatusResponse struct {
-	Status      string                         `json:"status"`
-	GeneratedAt time.Time                      `json:"generated_at"`
-	RuntimeData databaseStatus                 `json:"runtime_data"`
-	AppDB       databaseStatus                 `json:"app_db"`
-	KilterDB    databaseStatus                 `json:"kilter_db"`
-	ProviderCache providerCacheStatus          `json:"provider_cache"`
+	Status        string              `json:"status"`
+	GeneratedAt   time.Time           `json:"generated_at"`
+	RuntimeData   databaseStatus      `json:"runtime_data"`
+	AppDB         databaseStatus      `json:"app_db"`
+	KilterDB      databaseStatus      `json:"kilter_db"`
+	ProviderCache providerCacheStatus `json:"provider_cache"`
 	Observability struct {
-		ActiveSSESubscribers int64                            `json:"active_sse_subscribers"`
-		TraceExportEnabled   bool                             `json:"trace_export_enabled"`
-		ErrorReporting       bool                             `json:"error_reporting_enabled"`
+		ActiveSSESubscribers int64                             `json:"active_sse_subscribers"`
+		TraceExportEnabled   bool                              `json:"trace_export_enabled"`
+		ErrorReporting       bool                              `json:"error_reporting_enabled"`
 		Maintenance          []observability.MaintenanceStatus `json:"maintenance"`
 	} `json:"observability"`
 	SupportedProviders []providers.Capability `json:"supported_providers"`

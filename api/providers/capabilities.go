@@ -9,12 +9,12 @@ type AuthField struct {
 }
 
 type Capability struct {
-	ID               ProviderID   `json:"id"`
-	Label            string       `json:"label"`
-	RoomSupported    bool         `json:"room_supported"`
-	SoloSupported    bool         `json:"solo_supported"`
-	SurfaceHierarchy string       `json:"surface_hierarchy"`
-	AuthFields       []AuthField  `json:"auth_fields"`
+	ID               ProviderID  `json:"id"`
+	Label            string      `json:"label"`
+	RoomSupported    bool        `json:"room_supported"`
+	SoloSupported    bool        `json:"solo_supported"`
+	SurfaceHierarchy string      `json:"surface_hierarchy"`
+	AuthFields       []AuthField `json:"auth_fields"`
 }
 
 func SupportedCapabilities() []Capability {

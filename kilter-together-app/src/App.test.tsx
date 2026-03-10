@@ -66,6 +66,7 @@ if (!HTMLElement.prototype.scrollIntoView) {
 
 vi.mock("./api", () => ({
   api: {
+    getProviderCapabilities: vi.fn(),
     getBoards: vi.fn(),
     getPaginatedClimbs: vi.fn(),
     getImageUrl: vi.fn((filename: string) => {
@@ -155,6 +156,46 @@ describe("App routes", () => {
       "kilter-together:user-prefs:v1",
       JSON.stringify(DEFAULT_DISMISSED_GUIDES_PREFS)
     );
+    mockedApi.getProviderCapabilities.mockResolvedValue([
+      {
+        id: "kilter",
+        label: "Kilter",
+        room_supported: true,
+        solo_supported: true,
+        surface_hierarchy: "board",
+        auth_fields: [
+          {
+            key: "username",
+            label: "Kilter username",
+            type: "text",
+            placeholder: "Kilter username",
+            autocomplete: "username",
+          },
+          {
+            key: "password",
+            label: "Kilter password",
+            type: "password",
+            placeholder: "Kilter password",
+            autocomplete: "current-password",
+          },
+        ],
+      },
+      {
+        id: "crux",
+        label: "Crux",
+        room_supported: true,
+        solo_supported: false,
+        surface_hierarchy: "nested",
+        auth_fields: [
+          {
+            key: "token",
+            label: "Crux API token",
+            type: "password",
+            placeholder: "Crux API token or Bearer value",
+          },
+        ],
+      },
+    ]);
   });
 
   it("supports direct board route loads with URL-backed filters", async () => {

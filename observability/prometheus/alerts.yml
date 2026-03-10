@@ -1,0 +1,38 @@
+groups:
+  - name: kilter-together
+    rules:
+      - alert: KilterTogetherApiUnavailable
+        expr: up{job="kilter-together-api"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: Kilter Together API is unavailable
+          description: Prometheus cannot scrape the API metrics endpoint for more than 2 minutes.
+
+      - alert: KilterTogetherHigh5xxRate
+        expr: sum(rate(kilter_together_http_requests_total{status=~"5.."}[5m])) > 0.2
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Elevated API 5xx rate
+          description: The API is returning more than 0.2 server errors per second over the last 10 minutes.
+
+      - alert: KilterTogetherRoomRateLimited
+        expr: sum(rate(kilter_together_http_requests_total{status="429",route=~".*/rooms.*"}[5m])) > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Room endpoints are rate limiting clients
+          description: Room APIs are returning 429 responses. Check reconnect loops or abusive traffic.
+
+      - alert: KilterTogetherMaintenanceFailures
+        expr: increase(kilter_together_maintenance_runs_total{status="error"}[15m]) > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Background maintenance is failing
+          description: One or more maintenance jobs failed in the last 15 minutes.

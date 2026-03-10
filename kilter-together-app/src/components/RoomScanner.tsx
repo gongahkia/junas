@@ -3,6 +3,7 @@ import { Camera, CameraOff, ScanQrCode } from "lucide-react";
 import { extractRoomSlugFromValue } from "@/lib/room-links";
 import { Button } from "@/components/ui/button";
 import { useErrorToast } from "@/hooks/use-toast";
+import { reportError, reportEvent } from "@/lib/observability";
 
 type QRDecoder = typeof import("jsqr").default;
 
@@ -59,6 +60,9 @@ export default function RoomScanner({
 
     const context = canvas.getContext("2d", { willReadFrequently: true });
     if (!context) {
+      reportError(new Error("QR scanner canvas context unavailable"), {
+        tags: { flow: "room_scanner" },
+      });
       showErrorToast("This browser cannot read camera frames for QR scanning.");
       stopScanner();
       return;
@@ -83,6 +87,7 @@ export default function RoomScanner({
       const roomSlug = result?.data ? extractRoomSlugFromValue(result.data) : null;
 
       if (roomSlug) {
+        reportEvent("room.scanner", "room invite QR detected", { roomSlug });
         onDetected(roomSlug);
         stopScanner();
         return;
@@ -98,6 +103,9 @@ export default function RoomScanner({
     }
 
     if (!navigator.mediaDevices?.getUserMedia) {
+      reportError(new Error("QR scanner getUserMedia unavailable"), {
+        tags: { flow: "room_scanner" },
+      });
       showErrorToast(
         "Camera scanning is not available in this browser. Paste the invite link instead."
       );
@@ -123,6 +131,7 @@ export default function RoomScanner({
 
       streamRef.current = stream;
       activeRef.current = true;
+      reportEvent("room.scanner", "camera scanner started");
 
       if (!videoRef.current) {
         throw new Error("Scanner video element is unavailable.");
@@ -136,6 +145,9 @@ export default function RoomScanner({
       frameRequestRef.current = window.requestAnimationFrame(scanFrame);
     } catch (caughtError) {
       console.error("Start scanner failed", caughtError);
+      reportError(caughtError, {
+        tags: { flow: "room_scanner" },
+      });
       showErrorToast(
         "Unable to access the camera. Check permissions, then try again or paste the invite link manually."
       );

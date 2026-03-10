@@ -54,8 +54,8 @@ type MaintenanceStatus struct {
 }
 
 var (
-	maintenanceMu      sync.RWMutex
-	maintenanceStatus  = map[string]MaintenanceStatus{}
+	maintenanceMu     sync.RWMutex
+	maintenanceStatus = map[string]MaintenanceStatus{}
 )
 
 func Handler() http.Handler {

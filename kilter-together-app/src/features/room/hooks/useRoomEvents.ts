@@ -1,6 +1,7 @@
 import { useEffect, useEffectEvent } from "react";
 import { api } from "@/api";
 import { parseRoomEventPayload, shouldRefreshCatalogOnly, shouldRefreshRoomAndCatalog, shouldRefreshRoomOnly } from "@/features/room/room-events";
+import { reportError, reportEvent } from "@/lib/observability";
 import type { RoomStatus } from "@/types";
 
 const ROOM_EVENTS_INITIAL_RETRY_MS = 1000;
@@ -40,6 +41,7 @@ export function useRoomEvents({
     let retryTimeout: number | undefined;
     let currentSource: EventSource | null = null;
     let retryDelay = ROOM_EVENTS_INITIAL_RETRY_MS;
+    let retryCount = 0;
 
     const connect = () => {
       if (disposed) {
@@ -53,6 +55,7 @@ export function useRoomEvents({
 
       eventSource.addEventListener("room", (event) => {
         retryDelay = ROOM_EVENTS_INITIAL_RETRY_MS;
+        retryCount = 0;
 
         const payload = parseRoomEventPayload((event as MessageEvent<string>).data);
         if (shouldRefreshCatalogOnly(payload)) {
@@ -83,6 +86,24 @@ export function useRoomEvents({
         }
 
         const nextDelay = retryDelay;
+        retryCount += 1;
+        reportEvent("room.sse", "room event stream reconnect scheduled", {
+          nextDelay,
+          retryCount,
+          slug,
+        });
+        if (retryCount >= 3) {
+          reportError(new Error("Room SSE reconnect storm"), {
+            extra: {
+              nextDelay,
+              retryCount,
+              slug,
+            },
+            tags: {
+              flow: "room_sse",
+            },
+          });
+        }
         retryDelay = Math.min(retryDelay * 2, ROOM_EVENTS_MAX_RETRY_MS);
         if (retryTimeout !== undefined) {
           window.clearTimeout(retryTimeout);

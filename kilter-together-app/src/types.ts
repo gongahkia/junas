@@ -4,6 +4,27 @@ export type RoomStatus = "open" | "closed";
 export type QueueStatus = "queued" | "next" | "current" | "done";
 export type ParticipantStatus = "watching" | "ready" | "resting" | "away";
 export type RandomPickSource = "auto" | "finalists" | "top_voted";
+export type ApiErrorCode =
+  | "bad_request"
+  | "display_name_required"
+  | "display_name_taken"
+  | "fist_bumps_disabled"
+  | "forbidden"
+  | "internal_error"
+  | "invalid_request"
+  | "operator_auth_required"
+  | "provider_auth_failed"
+  | "provider_not_connected"
+  | "rate_limited"
+  | "room_closed"
+  | "room_not_found"
+  | "runtime_unavailable"
+  | "session_cookie_failed"
+  | "session_expired"
+  | "session_invalid"
+  | "session_required"
+  | "unauthorized"
+  | "unsupported_provider";
 export type RoomEventResource =
   | "room"
   | "participants"
@@ -60,6 +81,31 @@ export interface PaginatedClimbsResponse {
 export interface ApiResponse {
   boards?: Board[];
   climbs?: Climb[];
+}
+
+export interface ApiErrorPayload {
+  error?: string;
+  status?: string;
+  code?: ApiErrorCode | string;
+  request_id?: string;
+  trace_id?: string;
+}
+
+export interface ProviderAuthField {
+  key: string;
+  label: string;
+  type: string;
+  placeholder?: string;
+  autocomplete?: string;
+}
+
+export interface ProviderCapability {
+  id: ProviderId;
+  label: string;
+  room_supported: boolean;
+  solo_supported: boolean;
+  surface_hierarchy: "board" | "nested" | string;
+  auth_fields: ProviderAuthField[];
 }
 
 export interface PaginatedClimbsParams {

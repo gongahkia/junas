@@ -1,10 +1,9 @@
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { api } from "@/api";
-import { config } from "@/config";
 import type { ProviderId } from "@/types";
-import { getApiErrorMessage } from "@/lib/api-errors";
+import { getApiErrorDetails } from "@/lib/api-errors";
 import {
   dismissOnboarding,
   loadUserPrefs,
@@ -34,10 +33,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useProviderCapabilities } from "@/hooks/useProviderCapabilities";
+import {
+  getProviderCapability,
+  getRoomProviderCapabilities,
+} from "@/lib/provider-capabilities";
+import { reportError, reportEvent } from "@/lib/observability";
 
 export default function RoomCreatePage() {
   const navigate = useNavigate();
   const savedPrefsRef = useRef(loadUserPrefs());
+  const { capabilities, loading: capabilitiesLoading } = useProviderCapabilities();
   const showErrorToast = useErrorToast();
   const [showOnboarding, setShowOnboarding] = useState(
     () =>
@@ -51,7 +57,7 @@ export default function RoomCreatePage() {
   const [displayName, setDisplayName] = useState(
     () => savedPrefsRef.current.savedDisplayName
   );
-  const [connectionFields, setConnectionFields] = useState(() => ({
+  const [connectionFields, setConnectionFields] = useState<Record<string, string>>(() => ({
     username: savedPrefsRef.current.savedCredentials.kilter.remember
       ? savedPrefsRef.current.savedCredentials.kilter.username
       : "",
@@ -63,18 +69,30 @@ export default function RoomCreatePage() {
     crux: savedPrefsRef.current.savedCredentials.crux.remember,
   }));
   const [submitting, setSubmitting] = useState(false);
+  const roomCapabilities = getRoomProviderCapabilities(capabilities);
+  const selectedCapability =
+    getProviderCapability(providerId, roomCapabilities) ?? roomCapabilities[0];
+
+  useEffect(() => {
+    if (!selectedCapability && roomCapabilities.length > 0) {
+      setProviderId(roomCapabilities[0].id);
+    }
+  }, [roomCapabilities, selectedCapability]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!selectedCapability) {
+      return;
+    }
     setSubmitting(true);
+    reportEvent("room.create", "host create room submitted", {
+      providerId,
+    });
 
     try {
       const secret: Record<string, string> = {};
-      if (providerId === "kilter") {
-        secret.username = connectionFields.username;
-        secret.password = connectionFields.password;
-      } else {
-        secret.token = connectionFields.token;
+      for (const field of selectedCapability.auth_fields) {
+        secret[field.key] = connectionFields[field.key] ?? "";
       }
 
       const room = await api.createRoom({
@@ -82,6 +100,10 @@ export default function RoomCreatePage() {
         roomName,
         displayName,
         secret,
+      });
+      reportEvent("room.create", "host create room succeeded", {
+        providerId,
+        slug: room.slug,
       });
       rememberDisplayName(displayName);
       rememberLastProvider(providerId);
@@ -91,19 +113,25 @@ export default function RoomCreatePage() {
           connectionFields.password,
           rememberCredentials.kilter
         );
-      } else {
+      } else if (providerId === "crux") {
         rememberCruxToken(connectionFields.token, rememberCredentials.crux);
       }
       rememberRoomVisit(room);
       navigate(`/rooms/${room.slug}`);
     } catch (caughtError) {
       console.error("Create room failed", caughtError);
-      showErrorToast(
-        getApiErrorMessage(
-          caughtError,
-          "Unable to create the room. Make sure the API server is running and check the backend logs."
-        )
+      const details = getApiErrorDetails(
+        caughtError,
+        "Unable to create the room. Make sure the API server is running and check the backend logs."
       );
+      reportError(caughtError, {
+        extra: { providerId },
+        tags: {
+          code: typeof details.code === "string" ? details.code : "unknown",
+          flow: "room_create",
+        },
+      });
+      showErrorToast(details.message);
     } finally {
       setSubmitting(false);
     }
@@ -196,52 +224,37 @@ export default function RoomCreatePage() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="kilter">Kilter</SelectItem>
-                    <SelectItem value="crux">Crux</SelectItem>
-                    {config.app.enableTestProvider ? (
-                      <SelectItem value="test">Test Provider</SelectItem>
-                    ) : null}
+                    {roomCapabilities.map((capability) => (
+                      <SelectItem key={capability.id} value={capability.id}>
+                        {capability.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
 
-              {providerId === "kilter" ? (
+              {selectedCapability?.id === "kilter" ? (
                 <div className="grid gap-5 md:grid-cols-2">
-                  <div className="space-y-2">
-                    <label htmlFor="kilter-username" className="text-sm font-medium">
-                      Kilter username
-                    </label>
-                    <Input
-                      id="kilter-username"
-                      value={connectionFields.username}
-                      onChange={(event) =>
-                        setConnectionFields((previousState) => ({
-                          ...previousState,
-                          username: event.target.value,
-                        }))
-                      }
-                      autoComplete="username"
-                      placeholder="Kilter username"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="kilter-password" className="text-sm font-medium">
-                      Kilter password
-                    </label>
-                    <Input
-                      id="kilter-password"
-                      type="password"
-                      value={connectionFields.password}
-                      onChange={(event) =>
-                        setConnectionFields((previousState) => ({
-                          ...previousState,
-                          password: event.target.value,
-                        }))
-                      }
-                      autoComplete="current-password"
-                      placeholder="Kilter password"
-                    />
-                  </div>
+                  {selectedCapability.auth_fields.map((field) => (
+                    <div key={field.key} className="space-y-2">
+                      <label htmlFor={`provider-${field.key}`} className="text-sm font-medium">
+                        {field.label}
+                      </label>
+                      <Input
+                        id={`provider-${field.key}`}
+                        type={field.type === "password" ? "password" : "text"}
+                        value={connectionFields[field.key] ?? ""}
+                        onChange={(event) =>
+                          setConnectionFields((previousState) => ({
+                            ...previousState,
+                            [field.key]: event.target.value,
+                          }))
+                        }
+                        autoComplete={field.autocomplete ?? "off"}
+                        placeholder={field.placeholder}
+                      />
+                    </div>
+                  ))}
                   <div className="space-y-2 md:col-span-2">
                     <label className="flex items-center gap-3 text-sm font-medium">
                       <input
@@ -262,76 +275,78 @@ export default function RoomCreatePage() {
                     </p>
                   </div>
                 </div>
-              ) : providerId === "crux" ? (
+              ) : selectedCapability ? (
                 <div className="space-y-2">
-                  <label htmlFor="crux-token" className="text-sm font-medium">
-                    Crux API token
-                  </label>
-                  <Input
-                    id="crux-token"
-                    value={connectionFields.token}
-                    onChange={(event) =>
-                      setConnectionFields((previousState) => ({
-                        ...previousState,
-                        token: event.target.value,
-                      }))
-                    }
-                    autoComplete="off"
-                    placeholder="Crux API token"
-                  />
-                  <p className="text-sm text-muted-foreground">
-                    Paste either the raw Crux token or the full <code>Bearer ...</code> value.
-                  </p>
-                  <label className="flex items-center gap-3 pt-1 text-sm font-medium">
-                    <input
-                      type="checkbox"
-                      checked={rememberCredentials.crux}
-                      onChange={(event) =>
-                        setRememberCredentials((previousState) => ({
-                          ...previousState,
-                          crux: event.target.checked,
-                        }))
-                      }
-                      className="h-4 w-4 rounded border-slate-300"
-                    />
-                    Remember this Crux auth preference on this browser
-                  </label>
-                  <p className="text-xs text-muted-foreground">
-                    Stores this preference locally. You still enter the Crux token each time.
-                  </p>
+                  {selectedCapability.auth_fields.map((field) => (
+                    <div key={field.key} className="space-y-2">
+                      <label htmlFor={`provider-${field.key}`} className="text-sm font-medium">
+                        {field.label}
+                      </label>
+                      <Input
+                        id={`provider-${field.key}`}
+                        type={field.type === "password" ? "password" : "text"}
+                        value={connectionFields[field.key] ?? ""}
+                        onChange={(event) =>
+                          setConnectionFields((previousState) => ({
+                            ...previousState,
+                            [field.key]: event.target.value,
+                          }))
+                        }
+                        autoComplete={field.autocomplete ?? "off"}
+                        placeholder={field.placeholder}
+                      />
+                    </div>
+                  ))}
+                  {selectedCapability.id === "crux" ? (
+                    <p className="text-sm text-muted-foreground">
+                      Paste either the raw Crux token or the full <code>Bearer ...</code> value.
+                    </p>
+                  ) : (
+                    <p className="text-sm text-muted-foreground">
+                      This provider is available only when the test mode env vars are enabled.
+                    </p>
+                  )}
+                  {selectedCapability.id === "crux" ? (
+                    <label className="flex items-center gap-3 pt-1 text-sm font-medium">
+                      <input
+                        type="checkbox"
+                        checked={rememberCredentials.crux}
+                        onChange={(event) =>
+                          setRememberCredentials((previousState) => ({
+                            ...previousState,
+                            crux: event.target.checked,
+                          }))
+                        }
+                        className="h-4 w-4 rounded border-slate-300"
+                      />
+                      Remember this Crux auth preference on this browser
+                    </label>
+                  ) : null}
+                  {selectedCapability.id === "crux" ? (
+                    <p className="text-xs text-muted-foreground">
+                      Stores this preference locally. You still enter the Crux token each time.
+                    </p>
+                  ) : null}
                 </div>
               ) : (
-                <div className="space-y-2">
-                  <label htmlFor="test-token" className="text-sm font-medium">
-                    Test provider token
-                  </label>
-                  <Input
-                    id="test-token"
-                    value={connectionFields.token}
-                    onChange={(event) =>
-                      setConnectionFields((previousState) => ({
-                        ...previousState,
-                        token: event.target.value,
-                      }))
-                    }
-                    autoComplete="off"
-                    placeholder="test-token"
-                  />
-                  <p className="text-sm text-muted-foreground">
-                    This provider is available only when the test mode env vars are enabled.
-                  </p>
+                <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+                  Loading supported providers...
                 </div>
               )}
 
               <div className="rounded-2xl border bg-muted/40 p-4 text-sm text-muted-foreground">
-                {providerId === "kilter"
+                {selectedCapability?.id === "kilter"
                   ? "This room will only be created after the Kilter credentials are validated. The next step inside the room is choosing the board plus angle."
-                  : providerId === "crux"
+                  : selectedCapability?.id === "crux"
                     ? "This room will only be created after the Crux token is validated. The next step inside the room is choosing the gym and wall."
-                    : "This room will only be created after the test token is validated. The next step inside the room is choosing the demo wall."}
+                    : "This room will only be created after the host credentials are validated. The next step inside the room is choosing the shared surface."}
               </div>
 
-              <Button type="submit" className="w-full" disabled={submitting}>
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={submitting || capabilitiesLoading || !selectedCapability}
+              >
                 {submitting ? "Authenticating host..." : "Authenticate and create room"}
               </Button>
             </form>

@@ -34,10 +34,12 @@ import (
 	"github.com/lczm/kilter-together/api/config"
 	docs "github.com/lczm/kilter-together/api/docs"
 	"github.com/lczm/kilter-together/api/maintenance"
+	"github.com/lczm/kilter-together/api/observability"
 	"github.com/lczm/kilter-together/api/providers"
 	"github.com/lczm/kilter-together/api/rooms"
 	"github.com/lczm/kilter-together/api/routes"
 	"github.com/spf13/cobra"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 )
 
 const (
@@ -124,9 +126,26 @@ func main() {
 			if err := rooms.DefaultService.Migrate(cmd.Context()); err != nil {
 				return err
 			}
+			if err := observability.InitErrorReporting(runtimeConfig); err != nil {
+				return err
+			}
+			defer observability.FlushErrors(2 * time.Second)
+
+			shutdownTracing, err := observability.InitTracing(cmd.Context(), runtimeConfig)
+			if err != nil {
+				return err
+			}
+			defer func() {
+				shutdownCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+				defer cancel()
+				if err := shutdownTracing(shutdownCtx); err != nil {
+					slog.Warn("trace provider shutdown failed", "error", err)
+				}
+			}()
 
 			configureSwagger()
-			r := routes.SetupRoutes()
+			router := routes.SetupRoutes()
+			tracedHandler := otelhttp.NewHandler(router, "http.server")
 
 			serverCtx, stop := signal.NotifyContext(cmd.Context(), os.Interrupt, syscall.SIGTERM)
 			defer stop()
@@ -137,7 +156,7 @@ func main() {
 				return err
 			}
 
-			server := newHTTPServer(runtimeConfig.ListenAddr(), r)
+			server := newHTTPServer(runtimeConfig.ListenAddr(), tracedHandler)
 			server.RegisterOnShutdown(func() {
 				rooms.DefaultService.Hub().CloseAll()
 			})

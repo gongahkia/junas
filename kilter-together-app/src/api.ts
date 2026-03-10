@@ -7,6 +7,7 @@ import type {
   PaginatedClimbsParams,
   PaginatedClimbsResponse,
   ParticipantStatus,
+  ProviderCapability,
   ProviderConnectionState,
   ProviderClimb,
   ProviderId,
@@ -18,6 +19,7 @@ import type {
   ClimbSort,
   QueueStatus,
 } from "./types";
+import { reportApiFailure } from "@/lib/observability";
 
 const BASE_URL = config.api.baseUrl;
 const IMAGES_BASE_URL = `${BASE_URL}/images`;
@@ -27,6 +29,16 @@ const apiClient = axios.create({
   timeout: 10000,
   withCredentials: true,
 });
+
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const requestUrl =
+      typeof error?.config?.url === "string" ? error.config.url : "unknown";
+    reportApiFailure(error, requestUrl);
+    return Promise.reject(error);
+  }
+);
 
 type JsonContent<T> = T extends { content: { "application/json": infer U } } ? U : never;
 type CreateRoomPayload =
@@ -73,6 +85,13 @@ function normalizeRoomSnapshot(snapshot: RoomSnapshot): RoomSnapshot {
 
 // wrap in api namespace
 export const api = {
+  getProviderCapabilities: async (): Promise<ProviderCapability[]> => {
+    const response = await apiClient.get<{ providers?: ProviderCapability[] }>(
+      "/providers/capabilities"
+    );
+    return response.data.providers ?? [];
+  },
+
   getBoards: async (): Promise<Board[]> => {
     try {
       const response = await apiClient.get<ApiResponse>("/boards");

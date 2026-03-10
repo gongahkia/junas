@@ -40,6 +40,8 @@ The one-time bootstrap job will:
 
 The runtime containers now fail fast when `/data` is missing or incomplete. Production
 notes, backup/restore steps, and key rotation instructions live in [PRODUCTION.md](./PRODUCTION.md).
+The persona roadmap lives in [PRODUCT_PLAN.md](./PRODUCT_PLAN.md), and the self-hosted
+observability stack is documented in [OBSERVABILITY.md](./OBSERVABILITY.md).
 
 ## Runtime Configuration
 
@@ -59,6 +61,13 @@ Backend env vars:
 | `KILTER_TOGETHER_PORT` | `8082` | API listen port |
 | `KILTER_TOGETHER_SECURE_COOKIES` | `true` | Set to `false` only for local HTTP smoke testing |
 | `KILTER_TOGETHER_ALLOWED_ORIGINS` | `http://localhost:5173,http://127.0.0.1:5173,http://localhost:8080,http://127.0.0.1:8080` | Comma-separated CORS allowlist for cookie-backed room APIs |
+| `KILTER_TOGETHER_OPERATOR_TOKEN` | unset | Optional bearer token required for `/api/operator/status` |
+| `KILTER_TOGETHER_OTEL_EXPORTER_OTLP_ENDPOINT` | unset | Optional OTLP gRPC endpoint for trace export |
+| `KILTER_TOGETHER_OTEL_EXPORTER_OTLP_INSECURE` | `false` | Set to `true` for local OTLP collectors without TLS |
+| `KILTER_TOGETHER_OTEL_SERVICE_NAME` | `kilter-together-api` | Service name attached to exported traces |
+| `KILTER_TOGETHER_SENTRY_DSN` | unset | Optional Sentry-compatible DSN for backend exception capture |
+| `KILTER_TOGETHER_SENTRY_ENVIRONMENT` | unset | Environment label sent with backend exception events |
+| `KILTER_TOGETHER_SENTRY_RELEASE` | unset | Release label sent with backend exception events |
 
 Frontend env vars:
 
@@ -66,6 +75,9 @@ Frontend env vars:
 | --- | --- | --- |
 | `VITE_APP_BASE_PATH` | `/` | Browser/router base path for self-hosted builds |
 | `VITE_API_BASE_URL` | `/api` | Same-origin API base URL |
+| `VITE_SENTRY_DSN` | unset | Optional Sentry-compatible DSN for frontend exception capture |
+| `VITE_SENTRY_ENVIRONMENT` | unset | Environment label sent with frontend exception events |
+| `VITE_APP_RELEASE` | unset | Release label sent with frontend exception events |
 
 Example files live at [api/.env.example](./api/.env.example) and
 [kilter-together-app/.env.example](./kilter-together-app/.env.example). For Docker
@@ -130,6 +142,10 @@ to scan the host QR code directly from their phone.
 Room state is stored locally in `app.db`. Provider credentials stay server-side
 and are encrypted at rest with `KILTER_TOGETHER_ENCRYPTION_KEY`.
 
+Provider capabilities are now exposed at `GET /api/providers/capabilities`, and operators can
+inspect a protected runtime summary at `GET /api/operator/status` when
+`KILTER_TOGETHER_OPERATOR_TOKEN` is configured.
+
 ## Refreshing Data
 
 To refresh a local dataset:
@@ -149,9 +165,22 @@ and board images and remains fully usable.
 - Downloaded databases, images, SQLite sidecars, and bootstrap manifests live under `api/data` during local runs and are ignored by git.
 - `GET /api/climbs` requires a valid `angle` and also supports `name`, `setter`, and `sort=popular|newest`.
 - `GET /api/healthz` validates that the local database and image set are usable, not just that the process is running.
+- JSON error responses now include machine-readable `code` values plus `request_id` and `trace_id` when available.
 - Collaborative rooms expose room/session APIs under `/api/rooms/*` and currently ship with `kilter` and `crux` providers.
 - Kilter bootstrap remains network-dependent during the explicit bootstrap step. After bootstrap, Kilter catalog reads are local. Crux catalog reads are fetched server-side and cached in `app.db`.
 - This release is intentionally single-node only. Room live updates rely on in-process SSE fan-out plus SQLite-backed local state, so horizontal scaling needs a different event and storage design.
+
+## Observability Stack
+
+To run the local metrics/logs/traces stack alongside the main app:
+
+```console
+docker compose -f docker-compose.yml -f docker-compose.observability.yml up -d
+```
+
+That provisions Prometheus, Grafana, Alertmanager, Loki, Tempo, and Grafana Alloy. Use a
+GlitchTip DSN in the Sentry-compatible env vars when you also want frontend/backend exception
+aggregation.
 
 ## License
 

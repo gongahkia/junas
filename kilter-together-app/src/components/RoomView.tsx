@@ -71,20 +71,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-function formatProviderName(providerId: RoomSnapshot["provider_id"]) {
-  if (providerId === "crux") {
-    return "Crux";
-  }
-  if (providerId === "test") {
-    return "Test provider";
-  }
-  return "Kilter";
-}
-
-function usesNestedSurfaceHierarchy(providerId: RoomSnapshot["provider_id"]) {
-  return providerId !== "kilter";
-}
+import { useProviderCapabilities } from "@/hooks/useProviderCapabilities";
+import {
+  getProviderLabel,
+  usesNestedSurfaceHierarchy,
+} from "@/lib/provider-capabilities";
 
 function reorderEntryIDs(entryIDs: number[], sourceEntryID: number, targetEntryID: number) {
   const sourceIndex = entryIDs.indexOf(sourceEntryID);
@@ -102,6 +93,7 @@ function reorderEntryIDs(entryIDs: number[], sourceEntryID: number, targetEntryI
 export default function RoomView() {
   const { slug = "" } = useParams();
   const navigate = useNavigate();
+  const { capabilities } = useProviderCapabilities();
   const showErrorToast = useErrorToast();
   const savedPrefsRef = useRef(loadUserPrefs());
   const [searchParams, setSearchParams] = useSearchParams();
@@ -169,6 +161,11 @@ export default function RoomView() {
   const selectedClimbIdRef = useRef(selectedClimbId);
   const selectedExternalClimbRef = useRef<ProviderClimb | null>(selectedExternalClimb);
   const searchParamsRef = useRef(searchParams);
+  const capabilitiesRef = useRef(capabilities);
+
+  useEffect(() => {
+    capabilitiesRef.current = capabilities;
+  }, [capabilities]);
 
   const handleSnapshotLoaded = useCallback(
     (nextSnapshot: RoomSnapshot) => {
@@ -191,7 +188,12 @@ export default function RoomView() {
         }
       }
 
-      if (usesNestedSurfaceHierarchy(nextSnapshot.provider_id)) {
+      if (
+        usesNestedSurfaceHierarchy(
+          nextSnapshot.provider_id,
+          capabilitiesRef.current
+        )
+      ) {
         const gymSlug =
           nextSnapshot.surface?.meta?.gym_slug || nextSnapshot.surface?.parent_id || "";
         setSelectedGymSlug(gymSlug);
@@ -205,8 +207,11 @@ export default function RoomView() {
   );
 
   const navigateToJoin = useCallback(
-    (nextSlug: string) => {
-      navigate(`/join/${encodeURIComponent(nextSlug)}`, { replace: true });
+    (nextSlug: string, reason?: string) => {
+      const nextPath = reason
+        ? `/join/${encodeURIComponent(nextSlug)}?reason=${encodeURIComponent(reason)}`
+        : `/join/${encodeURIComponent(nextSlug)}`;
+      navigate(nextPath, { replace: true });
     },
     [navigate]
   );
@@ -408,7 +413,7 @@ export default function RoomView() {
     if (
       !slug ||
       !snapshot?.provider_id ||
-      !usesNestedSurfaceHierarchy(snapshot.provider_id) ||
+      !usesNestedSurfaceHierarchy(snapshot.provider_id, capabilities) ||
       !snapshot.can_manage ||
       !snapshot.connection.connected ||
       (hasSurface && !showSurfaceEditor) ||
@@ -548,7 +553,9 @@ export default function RoomView() {
         await api.connectRoomProvider(slug, {
           token,
         });
-        savedPrefsRef.current = rememberCruxToken(token, rememberCredentials.crux);
+        if (snapshot.provider_id === "crux") {
+          savedPrefsRef.current = rememberCruxToken(token, rememberCredentials.crux);
+        }
       }
       markHostProviderConnected();
       await refreshRoomState();
@@ -1063,8 +1070,11 @@ export default function RoomView() {
   ).length;
   const roomTitle = snapshot.room_name?.trim() || `Room ${snapshot.slug}`;
   const roomNameChanged = roomNameInput.trim() !== (snapshot.room_name ?? "").trim();
-  const providerLabel = formatProviderName(snapshot.provider_id);
-  const nestedSurfaceProvider = usesNestedSurfaceHierarchy(snapshot.provider_id);
+  const providerLabel = getProviderLabel(snapshot.provider_id, capabilities);
+  const nestedSurfaceProvider = usesNestedSurfaceHierarchy(
+    snapshot.provider_id,
+    capabilities
+  );
   const showSurfaceCard = snapshot.connection.connected && (snapshot.can_manage || !snapshot.surface);
   const surfaceEditorOpen =
     snapshot.can_manage && snapshot.connection.connected && (!snapshot.surface || showSurfaceEditor);
@@ -1107,25 +1117,28 @@ export default function RoomView() {
       value: providerLabel,
     },
     {
-      label: snapshot.provider_id === "kilter" ? "Board" : "Wall",
+      label: nestedSurfaceProvider ? "Wall" : "Board",
       value: snapshot.surface?.name ?? "Not selected yet",
     },
-    ...(snapshot.provider_id === "kilter"
+    ...(nestedSurfaceProvider
       ? [
+          {
+            label: "Gym",
+            value: currentGymLabel ?? "Choose a gym",
+          },
+        ]
+      : [
           {
             label: "Angle",
             value: snapshot.surface?.meta?.angle
               ? `${snapshot.surface.meta.angle}\u00b0`
               : "Choose an angle",
           },
-        ]
-      : [
-          {
-            label: "Gym",
-            value: currentGymLabel ?? "Choose a gym",
-          },
         ]),
   ];
+
+  const roomReadyToShare =
+    snapshot.can_manage && snapshot.connection.connected && Boolean(snapshot.surface);
 
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(250,250,249,1),_rgba(240,249,255,0.8))] px-4 py-5 sm:px-6">
@@ -1149,6 +1162,11 @@ export default function RoomView() {
                 </Badge>
                 {snapshot.surface ? <Badge variant="outline">{snapshot.surface.name}</Badge> : null}
               </div>
+              {roomReadyToShare ? (
+                <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
+                  Room ready to share. The provider is connected, the surface is selected, and guests can join from the invite link or QR code.
+                </div>
+              ) : null}
               <DetailGrid items={roomSummaryItems} className="lg:grid-cols-3 2xl:grid-cols-5" />
               <div className="rounded-2xl border bg-muted/20 px-4 py-3">
                 <div className="space-y-3">
