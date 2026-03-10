@@ -169,4 +169,29 @@ describe("useRoomEvents", () => {
 
     expect(MockEventSource.instances).toHaveLength(2);
   });
+
+  it("does not reopen the SSE stream when refresh callbacks change on rerender", () => {
+    const initialRefreshCatalog = vi.fn().mockResolvedValue(undefined);
+    const nextRefreshCatalog = vi.fn().mockResolvedValue(undefined);
+
+    const { rerender } = render(
+      <UseRoomEventsHarness
+        slug="session-4"
+        roomStatus="open"
+        refreshCatalog={initialRefreshCatalog}
+      />
+    );
+
+    expect(MockEventSource.instances).toHaveLength(1);
+
+    rerender(
+      <UseRoomEventsHarness
+        slug="session-4"
+        roomStatus="open"
+        refreshCatalog={nextRefreshCatalog}
+      />
+    );
+
+    expect(MockEventSource.instances).toHaveLength(1);
+  });
 });

@@ -237,6 +237,12 @@ html, body {
   transform-origin: left center;
 }
 
+.highlight-link-parent:hover .highlight-link::after,
+.highlight-link-parent:focus-visible .highlight-link::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
 .playful-motion-disabled .highlight-link::after {
   transition: none;
   transform: scaleX(0) !important;

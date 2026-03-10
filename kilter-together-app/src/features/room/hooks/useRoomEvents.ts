@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useEffectEvent } from "react";
 import { api } from "@/api";
 import { parseRoomEventPayload, shouldRefreshCatalogOnly, shouldRefreshRoomAndCatalog, shouldRefreshRoomOnly } from "@/features/room/room-events";
 import type { RoomStatus } from "@/types";
@@ -21,6 +21,16 @@ export function useRoomEvents({
   refreshCatalog,
   refreshRoomAndCatalog,
 }: UseRoomEventsOptions) {
+  const handleRefreshRoom = useEffectEvent(async () => {
+    await refreshRoom();
+  });
+  const handleRefreshCatalog = useEffectEvent(async () => {
+    await refreshCatalog();
+  });
+  const handleRefreshRoomAndCatalog = useEffectEvent(async () => {
+    await refreshRoomAndCatalog();
+  });
+
   useEffect(() => {
     if (!slug || !roomStatus || roomStatus === "closed" || typeof EventSource === "undefined") {
       return;
@@ -46,21 +56,21 @@ export function useRoomEvents({
 
         const payload = parseRoomEventPayload((event as MessageEvent<string>).data);
         if (shouldRefreshCatalogOnly(payload)) {
-          void refreshCatalog();
+          void handleRefreshCatalog();
           return;
         }
 
         if (shouldRefreshRoomAndCatalog(payload)) {
-          void refreshRoomAndCatalog();
+          void handleRefreshRoomAndCatalog();
           return;
         }
 
         if (shouldRefreshRoomOnly(payload)) {
-          void refreshRoom();
+          void handleRefreshRoom();
           return;
         }
 
-        void refreshRoomAndCatalog();
+        void handleRefreshRoomAndCatalog();
       });
 
       eventSource.onerror = () => {
@@ -90,5 +100,5 @@ export function useRoomEvents({
       }
       currentSource?.close();
     };
-  }, [refreshCatalog, refreshRoom, refreshRoomAndCatalog, roomStatus, slug]);
+  }, [roomStatus, slug]);
 }

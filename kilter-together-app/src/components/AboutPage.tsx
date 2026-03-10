@@ -1,7 +1,7 @@
 import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import BrandWordmark from "@/components/BrandWordmark";
-import { Button } from "@/components/ui/button";
+import { HeaderNavLink } from "@/components/HeaderNavAction";
 
 export default function AboutPage() {
   return (
@@ -14,15 +14,9 @@ export default function AboutPage() {
             </Link>
           </h1>
           <div className="flex flex-wrap items-center gap-2">
-            <Button asChild variant="ghost">
-              <Link to="/settings">Settings</Link>
-            </Button>
-            <Button asChild variant="ghost">
-              <Link to="/">Community mode</Link>
-            </Button>
-            <Button asChild variant="ghost">
-              <Link to="/solo">Solo browse</Link>
-            </Button>
+            <HeaderNavLink to="/settings">Settings</HeaderNavLink>
+            <HeaderNavLink to="/">Community mode</HeaderNavLink>
+            <HeaderNavLink to="/solo">Solo browse</HeaderNavLink>
           </div>
         </header>
 

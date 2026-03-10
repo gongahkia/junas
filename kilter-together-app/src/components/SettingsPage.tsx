@@ -3,6 +3,7 @@ import { History, Sparkles, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { ClimbSort, ProviderId } from "@/types";
 import BrandWordmark from "@/components/BrandWordmark";
+import { HeaderNavLink } from "@/components/HeaderNavAction";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -98,15 +99,9 @@ export default function SettingsPage() {
             </Link>
           </h1>
           <div className="flex flex-wrap items-center gap-2">
-            <Button asChild variant="ghost">
-              <Link to="/about">About</Link>
-            </Button>
-            <Button asChild variant="ghost">
-              <Link to="/">Community mode</Link>
-            </Button>
-            <Button asChild variant="ghost">
-              <Link to="/solo">Solo browse</Link>
-            </Button>
+            <HeaderNavLink to="/about">About</HeaderNavLink>
+            <HeaderNavLink to="/">Community mode</HeaderNavLink>
+            <HeaderNavLink to="/solo">Solo browse</HeaderNavLink>
           </div>
         </header>
 

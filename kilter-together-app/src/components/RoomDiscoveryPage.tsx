@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, Camera, ScanSearch } from "lucide-react";
 import { extractRoomSlugFromValue } from "@/lib/room-links";
 import { dismissOnboarding, loadUserPrefs, resetOnboardingPrefs } from "@/lib/user-prefs";
+import { HeaderNavButton, HeaderNavLink } from "@/components/HeaderNavAction";
 import OnboardingCallout from "@/components/OnboardingCallout";
 import RoomScanner from "@/components/RoomScanner";
 import { Button } from "@/components/ui/button";
@@ -51,22 +52,17 @@ export default function RoomDiscoveryPage() {
             </Link>
           </Button>
           <div className="flex items-center gap-2">
-            <Button
+            <HeaderNavButton
               type="button"
-              variant="ghost"
               onClick={() => {
                 resetOnboardingPrefs();
                 setShowOnboarding(true);
               }}
             >
               Help
-            </Button>
-            <Button asChild variant="ghost">
-              <Link to="/about">About</Link>
-            </Button>
-            <Button asChild variant="ghost">
-              <Link to="/settings">Settings</Link>
-            </Button>
+            </HeaderNavButton>
+            <HeaderNavLink to="/about">About</HeaderNavLink>
+            <HeaderNavLink to="/settings">Settings</HeaderNavLink>
           </div>
         </div>
 

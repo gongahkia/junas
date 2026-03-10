@@ -15,6 +15,7 @@ import {
   rememberLastKilterSurface,
 } from "@/lib/user-prefs";
 import IntroDialog from "@/components/IntroDialog";
+import { HeaderNavButton, HeaderNavLink } from "@/components/HeaderNavAction";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -91,25 +92,18 @@ export default function BoardSelector({
             </h1>
           </div>
           <div className="flex items-center gap-2">
-            <Button
+            <HeaderNavButton
               type="button"
-              variant="ghost"
               onClick={() => {
                 setPrefs(reopenSoloIntro());
                 setShowSoloIntro(true);
               }}
             >
               Help
-            </Button>
-            <Button asChild variant="ghost">
-              <Link to="/about">About</Link>
-            </Button>
-            <Button asChild variant="ghost">
-              <Link to="/settings">Settings</Link>
-            </Button>
-            <Button asChild variant="ghost">
-              <Link to="/">Community mode</Link>
-            </Button>
+            </HeaderNavButton>
+            <HeaderNavLink to="/about">About</HeaderNavLink>
+            <HeaderNavLink to="/settings">Settings</HeaderNavLink>
+            <HeaderNavLink to="/">Community mode</HeaderNavLink>
           </div>
         </header>
 

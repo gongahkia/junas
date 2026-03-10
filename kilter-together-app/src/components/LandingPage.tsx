@@ -24,6 +24,7 @@ import { cn } from "@/lib/utils";
 import IntroDialog from "@/components/IntroDialog";
 import OnboardingCallout from "@/components/OnboardingCallout";
 import BrandWordmark from "@/components/BrandWordmark";
+import { HeaderNavButton, HeaderNavLink } from "@/components/HeaderNavAction";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -148,9 +149,8 @@ export default function LandingPage() {
             </h1>
           </div>
           <div className="flex w-full flex-wrap items-center gap-2 lg:w-auto lg:justify-end">
-            <Button
+            <HeaderNavButton
               type="button"
-              variant="ghost"
               className="justify-start sm:justify-center"
               onClick={() => {
                 setPrefs(resetOnboardingPrefs());
@@ -159,16 +159,16 @@ export default function LandingPage() {
               }}
             >
               Help
-            </Button>
-            <Button asChild variant="ghost" className="justify-start sm:justify-center">
-              <Link to="/about">About</Link>
-            </Button>
-            <Button asChild variant="ghost" className="justify-start sm:justify-center">
-              <Link to="/settings">Settings</Link>
-            </Button>
-            <Button asChild variant="ghost" className="justify-start sm:justify-center">
-              <Link to="/solo">Solo browse</Link>
-            </Button>
+            </HeaderNavButton>
+            <HeaderNavLink to="/about" className="justify-start sm:justify-center">
+              About
+            </HeaderNavLink>
+            <HeaderNavLink to="/settings" className="justify-start sm:justify-center">
+              Settings
+            </HeaderNavLink>
+            <HeaderNavLink to="/solo" className="justify-start sm:justify-center">
+              Solo browse
+            </HeaderNavLink>
           </div>
         </header>
 

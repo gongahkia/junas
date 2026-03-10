@@ -49,6 +49,7 @@ import DetailGrid, { type DetailGridItem } from "@/components/DetailGrid";
 import RoomProblemView from "@/components/RoomProblemView";
 import RoomFistBumpButton from "@/components/RoomFistBumpButton";
 import InviteQRCodeCard from "@/components/InviteQRCodeCard";
+import { HeaderNavButton, HeaderNavLink } from "@/components/HeaderNavAction";
 import AngleSelector from "@/components/AngleSelector";
 import LoadingSlideshow from "@/components/LoadingSlideshow";
 import SortSelector from "@/components/SortSelector";
@@ -1288,22 +1289,17 @@ export default function RoomView() {
 
             <div className="grid w-full min-w-0 gap-3 xl:w-[26rem] xl:shrink-0">
               <div className="flex flex-wrap justify-start gap-2 xl:justify-end">
-                <Button
+                <HeaderNavButton
                   type="button"
-                  variant="ghost"
                   onClick={() => {
                     setManualOnboardingReplay(true);
                     setShowOnboarding(true);
                   }}
                 >
                   Help
-                </Button>
-                <Button asChild variant="ghost">
-                  <Link to="/about">About</Link>
-                </Button>
-                <Button asChild variant="ghost">
-                  <Link to="/settings">Settings</Link>
-                </Button>
+                </HeaderNavButton>
+                <HeaderNavLink to="/about">About</HeaderNavLink>
+                <HeaderNavLink to="/settings">Settings</HeaderNavLink>
               </div>
               <div className="grid min-w-0 gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start">
                 <div className="rounded-2xl border bg-muted/30 px-4 py-3">

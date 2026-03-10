@@ -11,6 +11,7 @@ import {
   resetOnboardingPrefs,
 } from "@/lib/user-prefs";
 import OnboardingCallout from "@/components/OnboardingCallout";
+import { HeaderNavButton, HeaderNavLink } from "@/components/HeaderNavAction";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -68,22 +69,17 @@ export default function RoomJoinPage() {
             </Link>
           </Button>
           <div className="flex items-center gap-2">
-            <Button
+            <HeaderNavButton
               type="button"
-              variant="ghost"
               onClick={() => {
                 resetOnboardingPrefs();
                 setShowOnboarding(true);
               }}
             >
               Help
-            </Button>
-            <Button asChild variant="ghost">
-              <Link to="/about">About</Link>
-            </Button>
-            <Button asChild variant="ghost">
-              <Link to="/settings">Settings</Link>
-            </Button>
+            </HeaderNavButton>
+            <HeaderNavLink to="/about">About</HeaderNavLink>
+            <HeaderNavLink to="/settings">Settings</HeaderNavLink>
           </div>
         </div>
 
