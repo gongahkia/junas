@@ -43,6 +43,7 @@ Healthcheck: `curl http://localhost:8000/health`
 
 Readiness: `curl http://localhost:8000/ready`
 Diagnostics: `curl http://localhost:8000/diagnostics`
+Metrics: `curl http://localhost:8000/metrics`
 
 Classify:
 
@@ -71,6 +72,7 @@ Use the production launcher (no autoreload, multi-worker):
 ```
 
 `run_prod.sh` forces strict startup by default and will fail if required configured layers cannot load.
+It also provisions `PROMETHEUS_MULTIPROC_DIR` automatically so `/metrics` aggregates across workers.
 
 ## Bootstrapping Artifacts
 
@@ -92,6 +94,7 @@ Useful env vars:
 - `NOUPE_HOST` (default `0.0.0.0`)
 - `NOUPE_PORT` (default `8000`)
 - `NOUPE_LOG_LEVEL` (default `info`)
+- `PROMETHEUS_MULTIPROC_DIR` (optional in dev; automatically set by `run_prod.sh` for multi-worker metrics aggregation)
 
 ## Pipeline Behavior
 
@@ -104,6 +107,13 @@ The `/classify` endpoint runs configured layers sequentially:
 5. **Model-2 (BERT)** — binary classifier: low_risk vs high_risk (if checkpoint exists and Model-1 predicts risk).
 6. **Mosaic aggregation** — Redis TTL-based fragment tracking; can escalate repeated `LOW_RISK` entity activity.
 7. **Regression** — optional final risk synthesis only when a trained regression checkpoint exists.
+
+Each classification response now includes an additive `observability` object with:
+
+- `degraded` to signal best-effort output when a configured layer that should have run was unavailable or failed.
+- `cache_status` to distinguish `hit`, `miss`, and `disabled`.
+- `active_pipeline`, `executed_layers`, and `skipped_layers` for request drilldown.
+- `layer_errors` for startup, lazy-load, or runtime failures associated with the response.
 
 ## Training Models
 

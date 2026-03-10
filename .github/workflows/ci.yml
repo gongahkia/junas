@@ -59,6 +59,10 @@ jobs:
           kill $PID
           wait $PID || true
 
+      - name: Observability Unit Tests
+        run: |
+          python -m unittest test.test_observability
+
       - name: Eval Metrics Snapshot
         run: |
           mkdir -p reports

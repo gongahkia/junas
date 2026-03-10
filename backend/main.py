@@ -11,7 +11,7 @@ from collections import OrderedDict
 from contextlib import asynccontextmanager
 from pathlib import Path
 from threading import Lock, Thread
-from typing import Any, Callable
+from typing import Any
 
 try:
     import tomllib
@@ -24,6 +24,7 @@ from fastapi.middleware.cors import CORSMiddleware
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
+from backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode  # noqa: E402
 from backend.schemas import (  # noqa: E402
     BatchClassifyRequest,
     BatchClassifyResponse,
@@ -56,7 +57,6 @@ RISK_ORDER = {
 
 MODEL_WEIGHT_EXTS = ("safetensors", "bin", "pt", "ckpt")
 SUPPRESSED_REQUEST_LOG_PATHS = {"/health", "/ready", "/metrics"}
-LATENCY_BUCKET_BOUNDS_MS = [1.0, 2.0, 5.0, 10.0, 20.0, 50.0, 100.0, 200.0, 500.0, 1000.0, 2000.0, 5000.0]
 DEFAULT_OPTIONAL_LAYERS = {"mosaic"}
 
 
@@ -175,49 +175,6 @@ def load_config() -> list[str]:
     return ["lexicon", "embedding", "clustering", "model1", "model2", "mosaic", "regression"]
 
 
-def build_latency_histogram() -> dict[str, Any]:
-    return {
-        "bounds": LATENCY_BUCKET_BOUNDS_MS[:],
-        "counts": [0 for _ in range(len(LATENCY_BUCKET_BOUNDS_MS) + 1)],
-        "count": 0,
-        "sum_ms": 0.0,
-    }
-
-
-def observe_latency(histogram: dict[str, Any], latency_ms: float) -> None:
-    bounds = histogram.get("bounds", [])
-    counts = histogram.get("counts", [])
-    idx = len(bounds)
-    for i, bound in enumerate(bounds):
-        if latency_ms <= bound:
-            idx = i
-            break
-    if idx >= len(counts):
-        counts.extend([0] * (idx - len(counts) + 1))
-    counts[idx] += 1
-    histogram["count"] = int(histogram.get("count", 0)) + 1
-    histogram["sum_ms"] = float(histogram.get("sum_ms", 0.0)) + float(latency_ms)
-
-
-def histogram_percentile_ms(histogram: dict[str, Any], percentile: float) -> float:
-    count = int(histogram.get("count", 0))
-    if count <= 0:
-        return 0.0
-
-    target_rank = max(1, int(round((percentile / 100.0) * count)))
-    bounds = histogram.get("bounds", [])
-    counts = histogram.get("counts", [])
-
-    running = 0
-    for idx, bucket_count in enumerate(counts):
-        running += int(bucket_count)
-        if running >= target_rank:
-            if idx < len(bounds):
-                return float(bounds[idx])
-            return float(bounds[-1]) if bounds else 0.0
-    return float(bounds[-1]) if bounds else 0.0
-
-
 def get_response_cache_settings() -> dict[str, float | int]:
     raw_size = os.environ.get("NOUPE_RESPONSE_CACHE_SIZE", "256")
     raw_ttl = os.environ.get("NOUPE_RESPONSE_CACHE_TTL_SECONDS", "60")
@@ -232,14 +189,154 @@ def get_response_cache_settings() -> dict[str, float | int]:
     return {"size": size, "ttl_seconds": ttl}
 
 
+def get_observability() -> ObservabilityManager | None:
+    observability = _state.get("observability")
+    if isinstance(observability, ObservabilityManager):
+        return observability
+    return None
+
+
+def _get_latest_load_error(layer: str) -> dict[str, Any] | None:
+    for item in reversed(_state.get("load_errors", [])):
+        if item.get("layer") == layer:
+            return item
+    return None
+
+
+def record_layer_load_error(layer: str, error: Exception | str, phase: str) -> None:
+    message = str(error)
+    _state.setdefault("load_errors", []).append(
+        {
+            "layer": layer,
+            "phase": phase,
+            "error": message,
+        }
+    )
+
+
+def record_runtime_layer_error(layer: str, message: str) -> None:
+    runtime_errors = _state.setdefault("runtime_layer_errors", {})
+    entry = runtime_errors.setdefault(
+        layer,
+        {
+            "count": 0,
+            "last_seen": None,
+            "last_message": "",
+        },
+    )
+    entry["count"] = int(entry.get("count", 0)) + 1
+    entry["last_seen"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    entry["last_message"] = message
+
+
+def build_ready_snapshot() -> dict[str, Any]:
+    pipeline = _state.get("pipeline", [])
+    models = _state.get("models", {})
+    lazy_loaders = _state.get("lazy_loaders", {})
+    optional_layers = set(_state.get("optional_layers", []))
+    required_layers = [layer for layer in pipeline if layer not in optional_layers]
+    warming_layers = [layer for layer in _get_warming_required_layers() if layer in required_layers]
+
+    available_layers = set(models.keys()) | set(lazy_loaders.keys())
+    missing_layers = sorted([layer for layer in required_layers if layer not in available_layers])
+    reasons: list[str] = []
+    if missing_layers:
+        reasons.append(f"missing required layers: {', '.join(missing_layers)}")
+    if warming_layers:
+        reasons.append(f"warming required layers: {', '.join(warming_layers)}")
+
+    return {
+        "pipeline": pipeline,
+        "required_layers": required_layers,
+        "warming_layers": warming_layers,
+        "missing_layers": missing_layers,
+        "ready": len(missing_layers) == 0 and len(warming_layers) == 0,
+        "reasons": reasons,
+    }
+
+
+def get_dependency_status() -> dict[str, DependencyStatus]:
+    pipeline = _state.get("pipeline", [])
+    models = _state.get("models", {})
+    lazy_loaders = _state.get("lazy_loaders", {})
+    statuses: dict[str, DependencyStatus] = {}
+
+    mosaic_configured = "mosaic" in pipeline
+    if not mosaic_configured:
+        statuses["redis"] = DependencyStatus(
+            status="disabled",
+            configured=False,
+            healthy=None,
+            detail="mosaic layer is not configured in the active pipeline",
+        )
+        return statuses
+
+    mosaic_model = models.get("mosaic")
+    if mosaic_model is None and "mosaic" in lazy_loaders:
+        statuses["redis"] = DependencyStatus(
+            status="unknown",
+            configured=True,
+            healthy=None,
+            detail="mosaic layer is configured but has not been loaded yet",
+        )
+        return statuses
+
+    if mosaic_model is None:
+        latest_error = _get_latest_load_error("mosaic")
+        detail = latest_error.get("error", "mosaic layer is unavailable") if latest_error else "mosaic layer is unavailable"
+        statuses["redis"] = DependencyStatus(
+            status="down",
+            configured=True,
+            healthy=False,
+            detail=detail,
+        )
+        return statuses
+
+    healthy = bool(getattr(mosaic_model, "connected", False))
+    statuses["redis"] = DependencyStatus(
+        status="up" if healthy else "down",
+        configured=True,
+        healthy=healthy,
+        detail=f"redis target {getattr(mosaic_model, 'host', 'unknown')}:{getattr(mosaic_model, 'port', 'unknown')}",
+    )
+    return statuses
+
+
+def refresh_observability_state() -> None:
+    observability = get_observability()
+    if observability is None:
+        return
+
+    ready_state = build_ready_snapshot()
+    required_layers = ready_state["required_layers"]
+    warming_layers = set(ready_state["warming_layers"])
+    available_layers = set(_state.get("models", {}).keys()) | set(_state.get("lazy_loaders", {}).keys())
+    for layer in required_layers:
+        observability.set_required_layer_state(
+            layer=layer,
+            configured=True,
+            available=layer in available_layers,
+            warming=layer in warming_layers,
+        )
+
+    for dependency, status in get_dependency_status().items():
+        observability.set_dependency_state(
+            dependency=dependency,
+            configured=status.configured,
+            healthy=status.healthy,
+        )
+
+
 def _set_warming_required_layers(layers: list[str]) -> None:
     lock: Lock | None = _state.get("warming_lock")
     normalized = sorted(dict.fromkeys(layers))
     if lock is None:
         _state["warming_required_layers"] = normalized
+        refresh_observability_state()
         return
     with lock:
         _state["warming_required_layers"] = normalized
+    refresh_observability_state()
 
 
 def _get_warming_required_layers() -> list[str]:
@@ -255,10 +352,12 @@ def _mark_required_layer_warmed(layer: str) -> None:
     if lock is None:
         current = [name for name in _state.get("warming_required_layers", []) if name != layer]
         _state["warming_required_layers"] = current
+        refresh_observability_state()
         return
     with lock:
         current = [name for name in _state.get("warming_required_layers", []) if name != layer]
         _state["warming_required_layers"] = current
+    refresh_observability_state()
 
 
 def start_required_layer_prewarm(optional_layers: set[str]) -> None:
@@ -351,16 +450,6 @@ def should_cache_response(req: ClassifyRequest, pipeline: list[str]) -> bool:
     return True
 
 
-def record_layer_load_error(layer: str, error: Exception, phase: str) -> None:
-    _state.setdefault("load_errors", []).append(
-        {
-            "layer": layer,
-            "phase": phase,
-            "error": str(error),
-        }
-    )
-
-
 def ensure_layer_loaded(layer: str):
     models = _state.get("models", {})
     existing = models.get(layer)
@@ -379,18 +468,34 @@ def ensure_layer_loaded(layer: str):
             return existing
 
         t0 = time.perf_counter()
+        observability = get_observability()
         try:
             model = loader()
             models[layer] = model
             lazy_loaders.pop(layer, None)
             elapsed_ms = round((time.perf_counter() - t0) * 1000.0, 3)
             _state.setdefault("startup_timings_ms", {})[f"{layer}_lazy_load_ms"] = elapsed_ms
+            if observability is not None:
+                observability.observe_layer_load(
+                    layer=layer,
+                    phase="lazy_load",
+                    outcome="success",
+                    duration_seconds=elapsed_ms / 1000.0,
+                )
             logger.info(json.dumps({"event": "lazy_layer_loaded", "layer": layer, "latency_ms": elapsed_ms}))
+            refresh_observability_state()
             return model
         except Exception as e:
             elapsed_ms = round((time.perf_counter() - t0) * 1000.0, 3)
             lazy_loaders.pop(layer, None)
             record_layer_load_error(layer, e, phase="lazy_load")
+            if observability is not None:
+                observability.observe_layer_load(
+                    layer=layer,
+                    phase="lazy_load",
+                    outcome="error",
+                    duration_seconds=elapsed_ms / 1000.0,
+                )
             logger.warning(
                 json.dumps(
                     {
@@ -401,6 +506,7 @@ def ensure_layer_loaded(layer: str):
                     }
                 )
             )
+            refresh_observability_state()
             return None
 
 
@@ -410,34 +516,50 @@ def get_layer_model(layer: str):
         return model
     return ensure_layer_loaded(layer)
 
+def build_layer_error(layer: str, *, default_phase: str = "runtime", default_message: str = "layer unavailable") -> dict[str, str]:
+    latest_error = _get_latest_load_error(layer)
+    if latest_error:
+        return {
+            "layer": layer,
+            "phase": str(latest_error.get("phase", default_phase)),
+            "message": str(latest_error.get("error", default_message)),
+        }
+    return {
+        "layer": layer,
+        "phase": default_phase,
+        "message": default_message,
+    }
 
-def _increment_classification_metric(classification: Classification) -> None:
-    metrics_state = _state.get("metrics")
-    if metrics_state is None:
-        return
-    counts = metrics_state.get("classification_counts", {})
-    counts[classification.value] = counts.get(classification.value, 0) + 1
 
-
-def _classify_core(req: ClassifyRequest, request_id: str | None) -> ClassifyResponse:
+def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) -> ClassifyResponse:
     pipeline = _state.get("pipeline", [])
     timings_ms: dict[str, float] = {}
     t_total_start = time.perf_counter()
+    observability = get_observability()
 
     cache_key = None
+    cache_status = "disabled"
     if should_cache_response(req, pipeline):
         cache_key = build_response_cache_key(req, pipeline)
         cached = response_cache_get(cache_key)
-        metrics_state = _state.get("metrics")
         if cached is not None:
-            if metrics_state is not None:
-                metrics_state["cache_hits_total"] = int(metrics_state.get("cache_hits_total", 0)) + 1
-
+            cache_status = "hit"
             total_ms = round((time.perf_counter() - t_total_start) * 1000.0, 3)
             cached["request_id"] = request_id
             cached["timings_ms"] = {"cache_hit": 1.0, "total": total_ms}
+            cached_observability = dict(cached.get("observability", {}))
+            cached_observability["cache_status"] = cache_status
+            cached["observability"] = cached_observability
             cached_class = Classification(cached.get("classification", Classification.SAFE.value))
-            _increment_classification_metric(cached_class)
+            degraded = bool(cached_observability.get("degraded", False))
+            if observability is not None:
+                observability.observe_classification(
+                    endpoint=endpoint,
+                    classification=cached_class.value,
+                    cache_status=cache_status,
+                    degraded=degraded,
+                    duration_seconds=total_ms / 1000.0,
+                )
 
             logger.info(
                 json.dumps(
@@ -447,14 +569,16 @@ def _classify_core(req: ClassifyRequest, request_id: str | None) -> ClassifyResp
                         "classification": cached_class.value,
                         "timings_ms": cached["timings_ms"],
                         "active_pipeline": pipeline,
-                        "cache": "hit",
+                        "cache_status": cache_status,
+                        "degraded": degraded,
+                        "executed_layers": cached_observability.get("executed_layers", []),
+                        "skipped_layers": cached_observability.get("skipped_layers", []),
+                        "layer_error_count": len(cached_observability.get("layer_errors", [])),
                     }
                 )
             )
             return ClassifyResponse(**cached)
-
-        if metrics_state is not None:
-            metrics_state["cache_misses_total"] = int(metrics_state.get("cache_misses_total", 0)) + 1
+        cache_status = "miss"
 
     lex_resp = None
     m1_resp = None
@@ -471,86 +595,117 @@ def _classify_core(req: ClassifyRequest, request_id: str | None) -> ClassifyResp
     skip_to_regression = False
     # Model-2 is strictly gated by Model-1 risk output.
     skip_model2 = True
+    degraded = False
+    layer_errors: list[dict[str, str]] = []
+    executed_layers: list[str] = []
+    skipped_layers: list[str] = []
 
     for layer in pipeline:
         t_layer_start = time.perf_counter()
+        outcome = "executed"
         try:
             if skip_to_regression and layer != "regression":
+                outcome = "skipped"
+                skipped_layers.append(layer)
                 continue
 
             if layer == "lexicon":
                 lexicon_filter = get_layer_model("lexicon")
-                if lexicon_filter:
-                    lex_result = lexicon_filter.run(req.text)
-                    lex_resp = LexiconResponse(
-                        flagged=lex_result.flagged,
-                        high_risk_short_circuit=lex_result.high_risk_short_circuit,
-                        total_score=lex_result.total_score,
-                        score_threshold=lex_result.score_threshold,
-                        score_threshold_exceeded=lex_result.score_threshold_exceeded,
-                        hits=[
-                            LexiconHitResponse(
-                                rule=h.rule,
-                                matched_text=h.matched_text,
-                                severity=h.severity,
-                                detail=h.detail,
-                                score=h.score,
-                            )
-                            for h in lex_result.hits
-                        ],
-                        restricted_entities=lex_result.restricted_entities_found,
-                    )
-                    if lex_result.high_risk_short_circuit:
-                        classification_floor = Classification.HIGH_RISK
-                        final_classification = Classification.HIGH_RISK
-                        skip_to_regression = True
-                    elif lex_result.flagged:
-                        classification_floor = max_classification(classification_floor, Classification.LOW_RISK)
-                        final_classification = max_classification(final_classification, classification_floor)
+                if lexicon_filter is None:
+                    degraded = True
+                    outcome = "unavailable"
+                    layer_errors.append(build_layer_error(layer))
+                    continue
+                lex_result = lexicon_filter.run(req.text)
+                lex_resp = LexiconResponse(
+                    flagged=lex_result.flagged,
+                    high_risk_short_circuit=lex_result.high_risk_short_circuit,
+                    total_score=lex_result.total_score,
+                    score_threshold=lex_result.score_threshold,
+                    score_threshold_exceeded=lex_result.score_threshold_exceeded,
+                    hits=[
+                        LexiconHitResponse(
+                            rule=h.rule,
+                            matched_text=h.matched_text,
+                            severity=h.severity,
+                            detail=h.detail,
+                            score=h.score,
+                        )
+                        for h in lex_result.hits
+                    ],
+                    restricted_entities=lex_result.restricted_entities_found,
+                )
+                if lex_result.high_risk_short_circuit:
+                    classification_floor = Classification.HIGH_RISK
+                    final_classification = Classification.HIGH_RISK
+                    skip_to_regression = True
+                elif lex_result.flagged:
+                    classification_floor = max_classification(classification_floor, Classification.LOW_RISK)
+                    final_classification = max_classification(final_classification, classification_floor)
 
             elif layer == "embedding":
                 encoder = get_layer_model("embedding")
-                if encoder:
-                    current_embedding = encoder.encode(req.text)
-                    if req.debug:
-                        emb_resp = current_embedding.tolist()
+                if encoder is None:
+                    degraded = True
+                    outcome = "unavailable"
+                    layer_errors.append(build_layer_error(layer))
+                    continue
+                current_embedding = encoder.encode(req.text)
+                if req.debug:
+                    emb_resp = current_embedding.tolist()
 
             elif layer == "clustering":
+                if current_embedding is None:
+                    outcome = "skipped"
+                    skipped_layers.append(layer)
+                    continue
                 detector = get_layer_model("clustering")
-                if detector and current_embedding is not None:
-                    clust_resp = detector.score(current_embedding)
+                if detector is None:
+                    degraded = True
+                    outcome = "unavailable"
+                    layer_errors.append(build_layer_error(layer))
+                    continue
+                clust_resp = detector.score(current_embedding)
 
             elif layer == "model1":
                 model1 = get_layer_model("model1")
-                if model1:
-                    m1_result = model1.predict(req.text)
-                    m1_resp = Model1Response(
-                        label=m1_result.label,
-                        confidence=m1_result.confidence,
-                        risk_score=m1_result.risk_score,
-                    )
-                    if m1_result.label == "safe":
-                        final_classification = max_classification(Classification.SAFE, classification_floor)
-                        skip_model2 = True
-                    else:
-                        skip_model2 = False
-                        final_classification = max_classification(Classification.LOW_RISK, classification_floor)
+                if model1 is None:
+                    degraded = True
+                    outcome = "unavailable"
+                    layer_errors.append(build_layer_error(layer))
+                    continue
+                m1_result = model1.predict(req.text)
+                m1_resp = Model1Response(
+                    label=m1_result.label,
+                    confidence=m1_result.confidence,
+                    risk_score=m1_result.risk_score,
+                )
+                if m1_result.label == "safe":
+                    final_classification = max_classification(Classification.SAFE, classification_floor)
+                    skip_model2 = True
+                else:
+                    skip_model2 = False
+                    final_classification = max_classification(Classification.LOW_RISK, classification_floor)
 
             elif layer == "model2":
                 if skip_model2:
+                    outcome = "skipped"
+                    skipped_layers.append(layer)
                     continue
                 model2 = get_layer_model("model2")
-                if model2:
-                    m2_result = model2.predict(req.text)
-                    m2_resp = Model2Response(
-                        label=m2_result.label,
-                        confidence=m2_result.confidence,
-                        high_risk_score=m2_result.high_risk_score,
-                    )
-                    model2_class = (
-                        Classification.HIGH_RISK if m2_result.label == "high_risk" else Classification.LOW_RISK
-                    )
-                    final_classification = max_classification(model2_class, classification_floor)
+                if model2 is None:
+                    degraded = True
+                    outcome = "unavailable"
+                    layer_errors.append(build_layer_error(layer))
+                    continue
+                m2_result = model2.predict(req.text)
+                m2_resp = Model2Response(
+                    label=m2_result.label,
+                    confidence=m2_result.confidence,
+                    high_risk_score=m2_result.high_risk_score,
+                )
+                model2_class = Classification.HIGH_RISK if m2_result.label == "high_risk" else Classification.LOW_RISK
+                final_classification = max_classification(model2_class, classification_floor)
 
             elif layer == "mosaic":
                 entity_id = req.entity_id
@@ -558,71 +713,99 @@ def _classify_core(req: ClassifyRequest, request_id: str | None) -> ClassifyResp
                     entity_id = lex_resp.restricted_entities[0].get("name")
 
                 if not entity_id:
+                    outcome = "skipped"
+                    skipped_layers.append(layer)
                     continue
 
                 mosaic_agg = get_layer_model("mosaic")
-                if mosaic_agg:
-                    is_lr = final_classification == Classification.LOW_RISK
-                    m_result = mosaic_agg.aggregate(entity_id=entity_id, is_low_risk=is_lr)
-                    mosaic_resp = MosaicResponse(
-                        escalated=m_result["escalate_to_high_risk"],
-                        count=m_result["count"],
-                    )
+                if mosaic_agg is None:
+                    degraded = True
+                    outcome = "unavailable"
+                    layer_errors.append(build_layer_error(layer))
+                    continue
+                is_lr = final_classification == Classification.LOW_RISK
+                m_result = mosaic_agg.aggregate(entity_id=entity_id, is_low_risk=is_lr)
+                mosaic_resp = MosaicResponse(
+                    escalated=m_result["escalate_to_high_risk"],
+                    count=m_result["count"],
+                )
 
-                    if is_lr and m_result["escalate_to_high_risk"]:
-                        classification_floor = Classification.HIGH_RISK
-                        final_classification = Classification.HIGH_RISK
+                if is_lr and m_result["escalate_to_high_risk"]:
+                    classification_floor = Classification.HIGH_RISK
+                    final_classification = Classification.HIGH_RISK
 
             elif layer == "regression":
                 reg_model = get_layer_model("regression")
-                if reg_model:
-                    lex_score = lex_resp.total_score if lex_resp else 0.0
-                    lex_threshold = float(getattr(lex_resp, "score_threshold", 0.0) or 0.0)
-                    lex_score_over_threshold = max(0.0, lex_score - lex_threshold)
-                    m1_score = m1_resp.risk_score if m1_resp else 0.0
-                    m2_score = m2_resp.high_risk_score if m2_resp else 0.0
-                    clust_score = clust_resp.get("anomaly_score", 0.0) if clust_resp else 0.0
-                    m_count = mosaic_resp.count if mosaic_resp else 0
+                if reg_model is None:
+                    degraded = True
+                    outcome = "unavailable"
+                    layer_errors.append(build_layer_error(layer))
+                    continue
+                lex_score = lex_resp.total_score if lex_resp else 0.0
+                lex_threshold = float(getattr(lex_resp, "score_threshold", 0.0) or 0.0)
+                lex_score_over_threshold = max(0.0, lex_score - lex_threshold)
+                m1_score = m1_resp.risk_score if m1_resp else 0.0
+                m2_score = m2_resp.high_risk_score if m2_resp else 0.0
+                clust_score = clust_resp.get("anomaly_score", 0.0) if clust_resp else 0.0
+                m_count = mosaic_resp.count if mosaic_resp else 0
 
-                    feature_payload = {
-                        "lex_score": lex_score,
-                        "lex_threshold": lex_threshold,
-                        "lex_score_over_threshold": lex_score_over_threshold,
-                        "m1_score": m1_score,
-                        "m2_score": m2_score,
-                        "clust_score": clust_score,
-                        "mosaic_count": m_count,
-                    }
-                    reg_result = reg_model.predict(feature_payload)
-                    reg_resp = RegressionResponse(
-                        risk_score=reg_result["risk_score"],
-                        reasoning=reg_result["reasoning"],
-                    )
+                feature_payload = {
+                    "lex_score": lex_score,
+                    "lex_threshold": lex_threshold,
+                    "lex_score_over_threshold": lex_score_over_threshold,
+                    "m1_score": m1_score,
+                    "m2_score": m2_score,
+                    "clust_score": clust_score,
+                    "mosaic_count": m_count,
+                }
+                reg_result = reg_model.predict(feature_payload)
+                reg_resp = RegressionResponse(
+                    risk_score=reg_result["risk_score"],
+                    reasoning=reg_result["reasoning"],
+                )
 
-                    reg_class = (
-                        Classification.HIGH_RISK
-                        if reg_result["label"] == "high_risk"
-                        else (
-                            Classification.LOW_RISK
-                            if reg_result["label"] == "low_risk"
-                            else Classification.SAFE
-                        )
+                reg_class = (
+                    Classification.HIGH_RISK
+                    if reg_result["label"] == "high_risk"
+                    else (
+                        Classification.LOW_RISK if reg_result["label"] == "low_risk" else Classification.SAFE
                     )
-                    final_classification = max_classification(reg_class, classification_floor)
+                )
+                final_classification = max_classification(reg_class, classification_floor)
 
         except Exception as e:
+            outcome = "error"
+            degraded = True
+            message = str(e)
+            layer_errors.append({"layer": layer, "phase": "runtime", "message": message})
+            record_runtime_layer_error(layer, message)
+            if observability is not None:
+                observability.observe_layer_load(
+                    layer=layer,
+                    phase="runtime",
+                    outcome="error",
+                    duration_seconds=max(0.0, time.perf_counter() - t_layer_start),
+                )
             logger.warning(
                 json.dumps(
                     {
                         "event": "layer_runtime_error",
                         "request_id": request_id,
                         "layer": layer,
-                        "error": str(e),
+                        "error": message,
                     }
                 )
             )
         finally:
             timings_ms[layer] = round((time.perf_counter() - t_layer_start) * 1000.0, 3)
+            if outcome == "executed":
+                executed_layers.append(layer)
+            if observability is not None:
+                observability.observe_layer_execution(
+                    layer=layer,
+                    outcome=outcome,
+                    duration_seconds=timings_ms[layer] / 1000.0,
+                )
 
     timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
 
@@ -636,16 +819,31 @@ def _classify_core(req: ClassifyRequest, request_id: str | None) -> ClassifyResp
         clustering=clust_resp,
         mosaic=mosaic_resp,
         regression=reg_resp,
+        observability={
+            "degraded": degraded,
+            "cache_status": cache_status,
+            "active_pipeline": list(pipeline),
+            "executed_layers": executed_layers,
+            "skipped_layers": skipped_layers,
+            "layer_errors": layer_errors,
+        },
         timings_ms=timings_ms,
     )
-
-    _increment_classification_metric(final_classification)
 
     if cache_key is not None:
         cache_payload = response.model_dump(mode="json")
         cache_payload["request_id"] = None
         cache_payload["timings_ms"] = {}
         response_cache_set(cache_key, cache_payload)
+
+    if observability is not None:
+        observability.observe_classification(
+            endpoint=endpoint,
+            classification=final_classification.value,
+            cache_status=cache_status,
+            degraded=degraded,
+            duration_seconds=timings_ms["total"] / 1000.0,
+        )
 
     logger.info(
         json.dumps(
@@ -655,7 +853,11 @@ def _classify_core(req: ClassifyRequest, request_id: str | None) -> ClassifyResp
                 "classification": final_classification.value,
                 "timings_ms": timings_ms,
                 "active_pipeline": pipeline,
-                "cache": "miss" if cache_key else "disabled",
+                "cache_status": cache_status,
+                "degraded": degraded,
+                "executed_layers": executed_layers,
+                "skipped_layers": skipped_layers,
+                "layer_error_count": len(layer_errors),
             }
         )
     )
@@ -680,18 +882,8 @@ async def lifespan(app: FastAPI):
     _state["warming_lock"] = Lock()
     _state["warming_required_layers"] = []
     _state["startup_timings_ms"] = {}
-    _state["metrics"] = {
-        "requests_total": 0,
-        "errors_total": 0,
-        "cache_hits_total": 0,
-        "cache_misses_total": 0,
-        "classification_counts": {
-            Classification.SAFE.value: 0,
-            Classification.LOW_RISK.value: 0,
-            Classification.HIGH_RISK.value: 0,
-        },
-        "latency_histogram_ms": build_latency_histogram(),
-    }
+    _state["runtime_layer_errors"] = {}
+    _state["observability"] = ObservabilityManager()
     _state["cache_cfg"] = get_response_cache_settings()
     _state["response_cache"] = OrderedDict()
     _state["response_cache_lock"] = Lock()
@@ -787,9 +979,27 @@ async def lifespan(app: FastAPI):
 
         except Exception as e:
             record_layer_load_error(layer, e, phase="startup")
+            observability = get_observability()
+            if observability is not None:
+                observability.observe_layer_load(
+                    layer=layer,
+                    phase="startup",
+                    outcome="error",
+                    duration_seconds=max(0.0, time.perf_counter() - t_layer),
+                )
             logger.warning(json.dumps({"event": "layer_load_failed", "layer": layer, "error": str(e)}))
         finally:
-            _state["startup_timings_ms"][layer] = round((time.perf_counter() - t_layer) * 1000.0, 3)
+            elapsed_ms = round((time.perf_counter() - t_layer) * 1000.0, 3)
+            _state["startup_timings_ms"][layer] = elapsed_ms
+            if _get_latest_load_error(layer) is None or _get_latest_load_error(layer).get("phase") != "startup":
+                observability = get_observability()
+                if observability is not None:
+                    observability.observe_layer_load(
+                        layer=layer,
+                        phase="startup",
+                        outcome="success",
+                        duration_seconds=elapsed_ms / 1000.0,
+                    )
 
     available_layers = set(_state.get("models", {}).keys()) | set(_state.get("lazy_loaders", {}).keys())
     missing_required_layers = sorted(
@@ -811,6 +1021,7 @@ async def lifespan(app: FastAPI):
                 "startup_timings_ms": _state.get("startup_timings_ms", {}),
                 "load_errors": _state.get("load_errors", []),
                 "cache_cfg": _state.get("cache_cfg", {}),
+                "metrics_mode": get_metrics_mode(),
             }
         )
     )
@@ -824,6 +1035,7 @@ async def lifespan(app: FastAPI):
     if lazy_heavy and prewarm_required_layers and not missing_required_layers:
         start_required_layer_prewarm(optional_layers)
 
+    refresh_observability_state()
     yield
     _state.clear()
 
@@ -859,13 +1071,14 @@ async def request_context_middleware(request: Request, call_next):
         response = None
 
     dt_ms = round((time.perf_counter() - t0) * 1000.0, 3)
-
-    metrics = _state.get("metrics")
-    if metrics is not None:
-        metrics["requests_total"] = int(metrics.get("requests_total", 0)) + 1
-        if status_code >= 500:
-            metrics["errors_total"] = int(metrics.get("errors_total", 0)) + 1
-        observe_latency(metrics.get("latency_histogram_ms", {}), dt_ms)
+    observability = get_observability()
+    if observability is not None:
+        observability.observe_http_request(
+            endpoint=request.url.path,
+            method=request.method,
+            status_code=status_code,
+            duration_seconds=dt_ms / 1000.0,
+        )
 
     should_log = request.url.path not in SUPPRESSED_REQUEST_LOG_PATHS or status_code >= 400
     if should_log:
@@ -908,23 +1121,16 @@ async def health():
 
 @app.get("/ready", response_model=ReadyResponse)
 async def ready():
-    pipeline = _state.get("pipeline", [])
-    models = _state.get("models", {})
-    lazy_loaders = _state.get("lazy_loaders", {})
-    optional_layers = set(_state.get("optional_layers", []))
-    required_layers = [layer for layer in pipeline if layer not in optional_layers]
-    warming_layers = [layer for layer in _get_warming_required_layers() if layer in required_layers]
-
-    available_layers = set(models.keys()) | set(lazy_loaders.keys())
-    missing = [layer for layer in required_layers if layer not in available_layers]
-    is_ready = len(missing) == 0 and len(warming_layers) == 0
+    ready_state = build_ready_snapshot()
+    refresh_observability_state()
 
     return ReadyResponse(
-        status="ok" if is_ready else "degraded",
-        ready=is_ready,
-        pipeline=pipeline,
-        missing_required_layers=missing,
-        warming_required_layers=warming_layers,
+        status="ok" if ready_state["ready"] else "degraded",
+        ready=ready_state["ready"],
+        pipeline=ready_state["pipeline"],
+        missing_required_layers=ready_state["missing_layers"],
+        warming_required_layers=ready_state["warming_layers"],
+        reasons=ready_state["reasons"],
     )
 
 
@@ -932,6 +1138,7 @@ async def ready():
 async def diagnostics():
     pipeline = _state.get("pipeline", [])
     models = _state.get("models", {})
+    refresh_observability_state()
     return DiagnosticsResponse(
         status="ok",
         pipeline=pipeline,
@@ -940,48 +1147,32 @@ async def diagnostics():
         warming_required_layers=sorted(_get_warming_required_layers()),
         load_errors=_state.get("load_errors", []),
         startup_timings_ms=_state.get("startup_timings_ms", {}),
+        metrics_mode=get_metrics_mode(),
+        dependency_status={
+            name: {
+                "status": status.status,
+                "configured": status.configured,
+                "healthy": status.healthy,
+                "detail": status.detail,
+            }
+            for name, status in get_dependency_status().items()
+        },
+        runtime_layer_errors=dict(_state.get("runtime_layer_errors", {})),
     )
 
 
 @app.get("/metrics")
 async def metrics():
-    m = _state.get("metrics", {})
-    hist = m.get("latency_histogram_ms", {})
-    p50 = histogram_percentile_ms(hist, 50.0)
-    p95 = histogram_percentile_ms(hist, 95.0)
-
-    class_counts = m.get("classification_counts", {})
-    lines = [
-        f'noupe_requests_total {int(m.get("requests_total", 0))}',
-        f'noupe_errors_total {int(m.get("errors_total", 0))}',
-        f'noupe_cache_hits_total {int(m.get("cache_hits_total", 0))}',
-        f'noupe_cache_misses_total {int(m.get("cache_misses_total", 0))}',
-        f'noupe_request_latency_p50_ms {p50:.3f}',
-        f'noupe_request_latency_p95_ms {p95:.3f}',
-        f'noupe_request_latency_sum_ms {float(hist.get("sum_ms", 0.0)):.3f}',
-        f'noupe_request_latency_count {int(hist.get("count", 0))}',
-    ]
-
-    bounds = hist.get("bounds", [])
-    counts = hist.get("counts", [])
-    for idx, bucket_count in enumerate(counts):
-        le = str(bounds[idx]) if idx < len(bounds) else "+Inf"
-        lines.append(f'noupe_request_latency_bucket_ms{{le="{le}"}} {int(bucket_count)}')
-
-    lines.extend(
-        [
-            f'noupe_classification_total{{classification="SAFE"}} {int(class_counts.get("SAFE", 0))}',
-            f'noupe_classification_total{{classification="LOW_RISK"}} {int(class_counts.get("LOW_RISK", 0))}',
-            f'noupe_classification_total{{classification="HIGH_RISK"}} {int(class_counts.get("HIGH_RISK", 0))}',
-        ]
-    )
-
-    return Response(content="\n".join(lines) + "\n", media_type="text/plain; version=0.0.4")
+    refresh_observability_state()
+    observability = get_observability()
+    if observability is None:
+        raise HTTPException(status_code=503, detail="observability not initialized")
+    return Response(content=observability.render_metrics(), media_type=observability.content_type)
 
 
 @app.post("/classify", response_model=ClassifyResponse, dependencies=[Depends(require_api_key)])
 async def classify(request: Request, req: ClassifyRequest):
-    return _classify_core(req, getattr(request.state, "request_id", None))
+    return _classify_core(req, getattr(request.state, "request_id", None), "/classify")
 
 
 @app.post("/classify/batch", response_model=BatchClassifyResponse, dependencies=[Depends(require_api_key)])
@@ -990,7 +1181,7 @@ async def classify_batch(request: Request, req: BatchClassifyRequest):
     results = []
     for idx, item in enumerate(req.items):
         item_request_id = f"{base_request_id}:{idx}" if base_request_id else None
-        results.append(_classify_core(item, item_request_id))
+        results.append(_classify_core(item, item_request_id, "/classify/batch"))
     return BatchClassifyResponse(results=results)
 
 

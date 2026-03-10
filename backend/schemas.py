@@ -92,6 +92,21 @@ class MosaicResponse(BaseModel):
     escalated: bool
     count: int
 
+
+class LayerErrorResponse(BaseModel):
+    layer: str
+    phase: str
+    message: str
+
+
+class ObservabilityResponse(BaseModel):
+    degraded: bool = False
+    cache_status: str = "disabled"
+    active_pipeline: list[str] = Field(default_factory=list)
+    executed_layers: list[str] = Field(default_factory=list)
+    skipped_layers: list[str] = Field(default_factory=list)
+    layer_errors: list[LayerErrorResponse] = Field(default_factory=list)
+
 class ClassifyResponse(BaseModel):
     request_id: Optional[str] = None
     classification: Classification
@@ -102,6 +117,7 @@ class ClassifyResponse(BaseModel):
     clustering: Optional[dict] = None
     mosaic: Optional[MosaicResponse] = None
     regression: Optional[RegressionResponse] = None
+    observability: ObservabilityResponse = Field(default_factory=ObservabilityResponse)
     timings_ms: dict[str, float] = Field(default_factory=dict)
 
 
@@ -154,6 +170,20 @@ class ReadyResponse(BaseModel):
     pipeline: list[str] = Field(default_factory=list)
     missing_required_layers: list[str] = Field(default_factory=list)
     warming_required_layers: list[str] = Field(default_factory=list)
+    reasons: list[str] = Field(default_factory=list)
+
+
+class DependencyStatusResponse(BaseModel):
+    status: str
+    configured: bool
+    healthy: Optional[bool] = None
+    detail: str = ""
+
+
+class RuntimeLayerErrorSummaryResponse(BaseModel):
+    count: int = 0
+    last_seen: Optional[str] = None
+    last_message: str = ""
 
 
 class DiagnosticsResponse(BaseModel):
@@ -164,3 +194,6 @@ class DiagnosticsResponse(BaseModel):
     warming_required_layers: list[str] = Field(default_factory=list)
     load_errors: list[dict] = Field(default_factory=list)
     startup_timings_ms: dict[str, float] = Field(default_factory=dict)
+    metrics_mode: str = "singleprocess"
+    dependency_status: dict[str, DependencyStatusResponse] = Field(default_factory=dict)
+    runtime_layer_errors: dict[str, RuntimeLayerErrorSummaryResponse] = Field(default_factory=dict)

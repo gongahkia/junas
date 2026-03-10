@@ -16,6 +16,10 @@ WORKERS="${NOUPE_UVICORN_WORKERS:-2}"
 LOG_LEVEL="${NOUPE_LOG_LEVEL:-info}"
 export NOUPE_FAIL_ON_LAYER_LOAD_ERROR="${NOUPE_FAIL_ON_LAYER_LOAD_ERROR:-1}"
 export NOUPE_LAZY_LOAD_HEAVY="${NOUPE_LAZY_LOAD_HEAVY:-0}"
+PROM_DIR="${PROMETHEUS_MULTIPROC_DIR:-$ROOT/.prometheus-multiproc}"
+export PROMETHEUS_MULTIPROC_DIR="$PROM_DIR"
+rm -rf "$PROM_DIR"
+mkdir -p "$PROM_DIR"
 
 if [ "${NOUPE_PREFLIGHT_STRICT:-1}" = "1" ]; then
     python3 "$ROOT/scripts/preflight.py" --strict

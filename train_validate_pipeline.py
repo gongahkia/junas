@@ -550,6 +550,27 @@ def wait_for_server(base_url: str, timeout_s: int) -> bool:
     return False
 
 
+def wait_for_ready_state(base_url: str, timeout_s: int) -> dict[str, Any]:
+    deadline = time.time() + timeout_s
+    last_payload: dict[str, Any] = {}
+    ready_url = f"{base_url}/ready"
+    while time.time() < deadline:
+        try:
+            payload = http_get_json(ready_url, timeout_s=5)
+            last_payload = payload
+            if bool(payload.get("ready", False)):
+                return payload
+            if payload.get("missing_required_layers"):
+                return payload
+            if payload.get("warming_required_layers"):
+                time.sleep(1)
+                continue
+        except Exception:
+            pass
+        time.sleep(1)
+    return last_payload
+
+
 def http_get_json(url: str, timeout_s: int = 5) -> dict[str, Any]:
     with urllib.request.urlopen(url, timeout=timeout_s) as response:
         return json.loads(response.read().decode("utf-8"))
@@ -667,6 +688,8 @@ def build_regression_rows(
         "PIPELINE_LAYERS": UPSTREAM_LAYERS,
         "NOUPE_OPTIONAL_LAYERS": "mosaic,regression",
         "NOUPE_FAIL_ON_LAYER_LOAD_ERROR": "0",
+        "NOUPE_LAZY_LOAD_HEAVY": "0",
+        "NOUPE_PREWARM_REQUIRED_LAYERS": "0",
     }
 
     handle, base_url = start_backend_and_wait(
@@ -678,7 +701,7 @@ def build_regression_rows(
     )
     try:
         health = http_get_json(f"{base_url}/health", timeout_s=5)
-        ready = http_get_json(f"{base_url}/ready", timeout_s=5)
+        ready = wait_for_ready_state(base_url, timeout_s=timeout_s)
         diagnostics = http_get_json(f"{base_url}/diagnostics", timeout_s=5)
 
         required_layers = {"model1", "model2", "clustering"}
@@ -699,9 +722,13 @@ def build_regression_rows(
 
         if not bool(ready.get("ready", False)):
             missing_required = ready.get("missing_required_layers", [])
+            warming_required = ready.get("warming_required_layers", [])
+            reasons = ready.get("reasons", [])
             raise PipelineError(
                 "Regression feature extraction backend not ready; "
-                f"missing required layers: {missing_required}"
+                f"missing required layers: {missing_required}; "
+                f"warming required layers: {warming_required}; "
+                f"reasons: {reasons}"
             )
 
         rows: list[dict[str, float]] = []
