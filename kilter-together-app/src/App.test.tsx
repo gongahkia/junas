@@ -1501,6 +1501,55 @@ describe("App routes", () => {
     );
   });
 
+  it("shows saved solo favorites and shortlist on the solo landing page", async () => {
+    window.localStorage.setItem(
+      "kilter-together:user-prefs:v1",
+      JSON.stringify({
+        soloFavorites: [
+          {
+            uuid: "uuid-favorite",
+            product_size_id: 14,
+            climb_name: "Favorite Compression",
+            setter_name: "setter-a",
+            board_id: "14",
+            board_name: "Original 7 x 10",
+            angle: 40,
+            grade: "7a/V6",
+            ascends: 12,
+            saved_at: "2026-03-11T02:00:00.000Z",
+          },
+        ],
+        soloShortlist: [
+          {
+            uuid: "uuid-shortlist",
+            product_size_id: 14,
+            climb_name: "Shortlist Sloper",
+            setter_name: "setter-b",
+            board_id: "14",
+            board_name: "Original 7 x 10",
+            angle: 45,
+            grade: "7b/V8",
+            ascends: 8,
+            saved_at: "2026-03-11T03:00:00.000Z",
+          },
+        ],
+        ...DEFAULT_DISMISSED_GUIDES_PREFS,
+      })
+    );
+    mockedApi.getBoards.mockResolvedValue([]);
+
+    render(
+      <MemoryRouter initialEntries={["/solo"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByText("Favorites")).toBeInTheDocument();
+    expect(screen.getByText("Favorite Compression")).toBeInTheDocument();
+    expect(screen.getByText("Shortlist")).toBeInTheDocument();
+    expect(screen.getByText("Shortlist Sloper")).toBeInTheDocument();
+  });
+
   it("lets the user pin and remove recent rooms", async () => {
     const user = userEvent.setup();
     window.localStorage.setItem(

@@ -1,9 +1,10 @@
-import type { ClimbSort, ProviderId, RoomSnapshot } from "@/types";
+import type { ClimbSort, ProviderId, RoomSnapshot, SoloSavedClimb } from "@/types";
 import { DEFAULT_ANGLE, DEFAULT_SORT } from "@/lib/climbs";
 
 const USER_PREFS_STORAGE_KEY = "kilter-together:user-prefs:v1";
 export const USER_PREFS_CHANGE_EVENT = "kilter-together:prefs-changed";
 const MAX_RECENT_ROOMS = 9;
+const MAX_SOLO_SAVED_CLIMBS = 24;
 
 export interface RecentRoom {
   slug: string;
@@ -78,6 +79,8 @@ export interface UserPrefs {
   hostDefaults: HostDefaults;
   savedCredentials: SavedCredentials;
   recentRooms: RecentRoom[];
+  soloFavorites: SoloSavedClimb[];
+  soloShortlist: SoloSavedClimb[];
   soloResume?: SoloResumeState;
   intro: IntroProgress;
   onboarding: OnboardingProgress;
@@ -110,6 +113,8 @@ function getDefaultUserPrefs(): UserPrefs {
       },
     },
     recentRooms: [],
+    soloFavorites: [],
+    soloShortlist: [],
     intro: {
       version: 1,
       landingDismissed: false,
@@ -168,6 +173,41 @@ function normalizeRecentRooms(recentRooms: RecentRoom[]): RecentRoom[] {
   return sortRecentRooms(dedupedRooms).slice(0, MAX_RECENT_ROOMS);
 }
 
+export function soloSavedClimbKey(climb: Pick<SoloSavedClimb, "product_size_id" | "uuid">): string {
+  return `${climb.product_size_id}:${climb.uuid}`;
+}
+
+function normalizeSoloSavedClimbs(climbs: SoloSavedClimb[]): SoloSavedClimb[] {
+  const deduped = new Map<string, SoloSavedClimb>();
+
+  for (const climb of climbs) {
+    if (!climb?.uuid || !climb?.product_size_id || !climb?.board_id) {
+      continue;
+    }
+
+    deduped.set(soloSavedClimbKey(climb), {
+      ...climb,
+      climb_name: climb.climb_name?.trim() || climb.uuid,
+      setter_name: climb.setter_name?.trim() || "Unknown setter",
+      board_name: climb.board_name?.trim() || `Board ${climb.board_id}`,
+      saved_at: climb.saved_at || new Date().toISOString(),
+    });
+  }
+
+  return [...deduped.values()]
+    .sort((left, right) => Date.parse(right.saved_at) - Date.parse(left.saved_at))
+    .slice(0, MAX_SOLO_SAVED_CLIMBS);
+}
+
+export function buildSoloSavedClimb(
+  input: Omit<SoloSavedClimb, "saved_at">
+): SoloSavedClimb {
+  return {
+    ...input,
+    saved_at: new Date().toISOString(),
+  };
+}
+
 export function loadUserPrefs(): UserPrefs {
   if (typeof window === "undefined") {
     return getDefaultUserPrefs();
@@ -217,6 +257,12 @@ export function loadUserPrefs(): UserPrefs {
       recentRooms: Array.isArray(parsedValue.recentRooms)
         ? normalizeRecentRooms(parsedValue.recentRooms as RecentRoom[])
         : defaults.recentRooms,
+      soloFavorites: Array.isArray(parsedValue.soloFavorites)
+        ? normalizeSoloSavedClimbs(parsedValue.soloFavorites as SoloSavedClimb[])
+        : defaults.soloFavorites,
+      soloShortlist: Array.isArray(parsedValue.soloShortlist)
+        ? normalizeSoloSavedClimbs(parsedValue.soloShortlist as SoloSavedClimb[])
+        : defaults.soloShortlist,
       intro: {
         ...defaults.intro,
         ...parsedValue.intro,
@@ -404,6 +450,62 @@ export function removeRecentRoom(slug: string): UserPrefs {
     ...currentPrefs,
     recentRooms: currentPrefs.recentRooms.filter((room) => room.slug !== slug),
   }));
+}
+
+function toggleSoloSavedClimbCollection(
+  collectionKey: "soloFavorites" | "soloShortlist",
+  climb: SoloSavedClimb
+): UserPrefs {
+  return updateUserPrefs((currentPrefs) => {
+    const existing = currentPrefs[collectionKey];
+    const climbKey = soloSavedClimbKey(climb);
+    const alreadySaved = existing.some(
+      (candidate) => soloSavedClimbKey(candidate) === climbKey
+    );
+
+    return {
+      ...currentPrefs,
+      [collectionKey]: alreadySaved
+        ? existing.filter((candidate) => soloSavedClimbKey(candidate) !== climbKey)
+        : normalizeSoloSavedClimbs([climb, ...existing]),
+    };
+  });
+}
+
+export function toggleSoloFavorite(climb: SoloSavedClimb): UserPrefs {
+  return toggleSoloSavedClimbCollection("soloFavorites", climb);
+}
+
+export function toggleSoloShortlist(climb: SoloSavedClimb): UserPrefs {
+  return toggleSoloSavedClimbCollection("soloShortlist", climb);
+}
+
+export function removeSoloFavorite(climbKey: string): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    soloFavorites: currentPrefs.soloFavorites.filter(
+      (climb) => soloSavedClimbKey(climb) !== climbKey
+    ),
+  }));
+}
+
+export function removeSoloShortlist(climbKey: string): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    soloShortlist: currentPrefs.soloShortlist.filter(
+      (climb) => soloSavedClimbKey(climb) !== climbKey
+    ),
+  }));
+}
+
+export function buildSoloSavedClimbPath(climb: SoloSavedClimb): string {
+  const searchParams = new URLSearchParams({
+    angle: String(climb.angle || DEFAULT_ANGLE),
+    sort: DEFAULT_SORT,
+    climb: climb.uuid,
+  });
+
+  return `/solo/boards/${encodeURIComponent(climb.board_id)}?${searchParams.toString()}`;
 }
 
 export function rememberSoloResume(state: SoloResumeState): UserPrefs {

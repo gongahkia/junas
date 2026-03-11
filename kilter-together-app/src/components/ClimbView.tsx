@@ -5,16 +5,24 @@ import {
   useRef,
   useState,
 } from "react";
+import { Heart, Layers3, ListChecks } from "lucide-react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { ChevronLeft, Layers3 } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { api } from "../api";
 import type { Board, Climb } from "../types";
 import Sidebar from "./Sidebar";
 import MobileDropdown from "./MobileDropdown";
 import ProblemView from "./ProblemView";
 import LoadingSlideshow from "./LoadingSlideshow";
-import { normalizeAngle, normalizeSort } from "@/lib/climbs";
-import { rememberSoloResume } from "@/lib/user-prefs";
+import { getGradeForAngle, normalizeAngle, normalizeSort } from "@/lib/climbs";
+import {
+  buildSoloSavedClimb,
+  loadUserPrefs,
+  rememberSoloResume,
+  soloSavedClimbKey,
+  toggleSoloFavorite,
+  toggleSoloShortlist,
+} from "@/lib/user-prefs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -46,6 +54,7 @@ export default function ClimbView({
   const [selectedClimb, setSelectedClimb] = useState<Climb | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasNextPage, setHasNextPage] = useState(false);
+  const [prefs, setPrefs] = useState(() => loadUserPrefs());
   const cursorsRef = useRef<Record<number, string>>({});
   const lastFilterKeyRef = useRef("");
   const { boardId = "" } = useParams();
@@ -64,6 +73,18 @@ export default function ClimbView({
 
   const board = boards.find((candidate) => String(candidate.id) === boardId);
   const boardName = board?.name || (boardsLoading ? "Loading board..." : `Board ${boardId}`);
+  const selectedClimbKey = selectedClimb
+    ? soloSavedClimbKey({
+        uuid: selectedClimb.uuid,
+        product_size_id: selectedClimb.product_size_id,
+      })
+    : "";
+  const isFavorite = prefs.soloFavorites.some(
+    (climb) => soloSavedClimbKey(climb) === selectedClimbKey
+  );
+  const isShortlisted = prefs.soloShortlist.some(
+    (climb) => soloSavedClimbKey(climb) === selectedClimbKey
+  );
 
   useEffect(() => {
     if (!boardId) {
@@ -235,6 +256,41 @@ export default function ClimbView({
     }
   };
 
+  const buildSavedClimb = () => {
+    if (!selectedClimb || !boardId) {
+      return null;
+    }
+
+    return buildSoloSavedClimb({
+      uuid: selectedClimb.uuid,
+      product_size_id: selectedClimb.product_size_id,
+      climb_name: selectedClimb.climb_name,
+      setter_name: selectedClimb.setter_name,
+      board_id: boardId,
+      board_name: boardName,
+      angle,
+      grade: getGradeForAngle(selectedClimb, angle),
+      image_filename: selectedClimb.image_filenames?.[0],
+      ascends: selectedClimb.ascends,
+    });
+  };
+
+  const handleToggleFavorite = () => {
+    const savedClimb = buildSavedClimb();
+    if (!savedClimb) {
+      return;
+    }
+    setPrefs(toggleSoloFavorite(savedClimb));
+  };
+
+  const handleToggleShortlist = () => {
+    const savedClimb = buildSavedClimb();
+    if (!savedClimb) {
+      return;
+    }
+    setPrefs(toggleSoloShortlist(savedClimb));
+  };
+
   if (initialLoad && loading) {
     return (
       <LoadingSlideshow
@@ -328,6 +384,18 @@ export default function ClimbView({
                       <Layers3 className="mr-1 h-3.5 w-3.5" />
                       {climbs.length} visible
                     </Badge>
+                    {prefs.soloFavorites.length > 0 ? (
+                      <Badge variant="outline">
+                        <Heart className="mr-1 h-3.5 w-3.5" />
+                        {prefs.soloFavorites.length} favorites
+                      </Badge>
+                    ) : null}
+                    {prefs.soloShortlist.length > 0 ? (
+                      <Badge variant="outline">
+                        <ListChecks className="mr-1 h-3.5 w-3.5" />
+                        {prefs.soloShortlist.length} shortlisted
+                      </Badge>
+                    ) : null}
                     <Button asChild variant="ghost">
                       <Link to={backPath}>
                         <ChevronLeft className="mr-2 h-4 w-4" />
@@ -394,6 +462,10 @@ export default function ClimbView({
                 selectedClimb={selectedClimb}
                 angle={angle}
                 hasResults={climbs.length > 0}
+                isFavorite={isFavorite}
+                isShortlisted={isShortlisted}
+                onToggleFavorite={handleToggleFavorite}
+                onToggleShortlist={handleToggleShortlist}
               />
             </div>
           </div>

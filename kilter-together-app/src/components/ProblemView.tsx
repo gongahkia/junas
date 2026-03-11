@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Heart, ListChecks } from "lucide-react";
 import { api } from "../api";
 import type { Climb } from "../types";
 import {
@@ -20,12 +21,20 @@ interface ProblemViewProps {
   selectedClimb: Climb | null;
   angle: number;
   hasResults: boolean;
+  isFavorite?: boolean;
+  isShortlisted?: boolean;
+  onToggleFavorite?: () => void;
+  onToggleShortlist?: () => void;
 }
 
 export default function ProblemView({
   selectedClimb,
   angle,
   hasResults,
+  isFavorite = false,
+  isShortlisted = false,
+  onToggleFavorite,
+  onToggleShortlist,
 }: ProblemViewProps) {
   const showErrorToast = useErrorToast();
   const [failedImages, setFailedImages] = useState<Record<string, true>>({});
@@ -92,6 +101,32 @@ export default function ProblemView({
               {selectedClimb.description}
             </CardDescription>
           ) : null}
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={onToggleFavorite}
+            className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition-colors ${
+              isFavorite
+                ? "border-rose-200 bg-rose-50 text-rose-700"
+                : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
+            }`}
+          >
+            <Heart className={`h-4 w-4 ${isFavorite ? "fill-current" : ""}`} />
+            {isFavorite ? "Saved to favorites" : "Add to favorites"}
+          </button>
+          <button
+            type="button"
+            onClick={onToggleShortlist}
+            className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition-colors ${
+              isShortlisted
+                ? "border-teal-200 bg-teal-50 text-teal-700"
+                : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
+            }`}
+          >
+            <ListChecks className="h-4 w-4" />
+            {isShortlisted ? "In shortlist" : "Add to shortlist"}
+          </button>
         </div>
       </CardHeader>
 

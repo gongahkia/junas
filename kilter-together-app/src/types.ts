@@ -71,6 +71,20 @@ export interface Climb {
   created_at: string;
 }
 
+export interface SoloSavedClimb {
+  uuid: string;
+  product_size_id: number;
+  climb_name: string;
+  setter_name: string;
+  board_id: string;
+  board_name: string;
+  angle: number;
+  grade?: string;
+  image_filename?: string;
+  ascends: number;
+  saved_at: string;
+}
+
 export interface PaginatedClimbsResponse {
   climbs: Climb[];
   has_more: boolean;

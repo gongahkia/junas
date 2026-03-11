@@ -1,18 +1,22 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, Layers3, Mountain, Radar } from "lucide-react";
+import { ArrowRight, Heart, Layers3, ListChecks, Mountain, Radar, Trash2 } from "lucide-react";
 import { api } from "@/api";
 import AngleSelector from "./AngleSelector";
 import BrandWordmark from "./BrandWordmark";
 import LoadingSlideshow from "./LoadingSlideshow";
-import type { Board } from "../types";
+import type { Board, SoloSavedClimb } from "../types";
 import { DEFAULT_ANGLE } from "@/lib/climbs";
 import {
   buildSoloResumePath,
+  buildSoloSavedClimbPath,
   dismissSoloIntro,
   loadUserPrefs,
+  removeSoloFavorite,
+  removeSoloShortlist,
   reopenSoloIntro,
   rememberLastKilterSurface,
+  soloSavedClimbKey,
 } from "@/lib/user-prefs";
 import IntroDialog from "@/components/IntroDialog";
 import { HeaderNavButton, HeaderNavLink } from "@/components/HeaderNavAction";
@@ -145,6 +149,29 @@ export default function BoardSelector({
               ) : null}
             </div>
 
+            {prefs.soloFavorites.length > 0 || prefs.soloShortlist.length > 0 ? (
+              <div className="grid gap-6 md:grid-cols-2">
+                {prefs.soloFavorites.length > 0 ? (
+                  <SavedSoloCollectionCard
+                    icon={<Heart className="h-5 w-5" />}
+                    title="Favorites"
+                    description="Pinned climbs you want to come back to from this browser."
+                    climbs={prefs.soloFavorites}
+                    onRemove={(climbKey) => setPrefs(removeSoloFavorite(climbKey))}
+                  />
+                ) : null}
+                {prefs.soloShortlist.length > 0 ? (
+                  <SavedSoloCollectionCard
+                    icon={<ListChecks className="h-5 w-5" />}
+                    title="Shortlist"
+                    description="Candidate climbs worth turning into a room queue later."
+                    climbs={prefs.soloShortlist}
+                    onRemove={(climbKey) => setPrefs(removeSoloShortlist(climbKey))}
+                  />
+                ) : null}
+              </div>
+            ) : null}
+
             <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
               <CardHeader>
                 <CardTitle className="text-2xl">Choose a board</CardTitle>
@@ -212,5 +239,67 @@ export default function BoardSelector({
         </main>
       </div>
     </div>
+  );
+}
+
+function SavedSoloCollectionCard({
+  climbs,
+  description,
+  icon,
+  onRemove,
+  title,
+}: {
+  climbs: SoloSavedClimb[];
+  description: string;
+  icon: ReactNode;
+  onRemove: (climbKey: string) => void;
+  title: string;
+}) {
+  return (
+    <Card className="border-0 bg-white/88 shadow-xl shadow-teal-950/10 backdrop-blur">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 text-2xl">
+          {icon}
+          {title}
+        </CardTitle>
+        <CardDescription>{description}</CardDescription>
+      </CardHeader>
+      <CardContent className="grid gap-3">
+        {climbs.slice(0, 4).map((climb) => {
+          const climbKey = soloSavedClimbKey(climb);
+          return (
+            <div
+              key={climbKey}
+              className="flex items-start justify-between gap-3 rounded-2xl border bg-white/70 px-4 py-4"
+            >
+              <div className="min-w-0">
+                <Link
+                  to={buildSoloSavedClimbPath(climb)}
+                  className="line-clamp-1 text-sm font-medium text-foreground hover:text-teal-700"
+                >
+                  {climb.climb_name}
+                </Link>
+                <p className="mt-1 text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                  {climb.board_name} · {climb.angle}\u00b0
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {climb.grade || "Grade unavailable"} · {climb.setter_name}
+                </p>
+              </div>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="shrink-0"
+                onClick={() => onRemove(climbKey)}
+                aria-label={`Remove ${climb.climb_name}`}
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </div>
+          );
+        })}
+      </CardContent>
+    </Card>
   );
 }

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import ProblemView from "./ProblemView";
 import { ToastProvider } from "@/components/ui/toast";
 
@@ -93,5 +94,47 @@ describe("ProblemView", () => {
     );
 
     expect(container.querySelectorAll("svg circle").length).toBeGreaterThan(0);
+  });
+
+  it("renders solo action buttons and calls their handlers", async () => {
+    const user = userEvent.setup();
+    const onToggleFavorite = vi.fn();
+    const onToggleShortlist = vi.fn();
+
+    renderProblemView(
+      <ProblemView
+        angle={40}
+        hasResults={true}
+        isFavorite={false}
+        isShortlisted={true}
+        onToggleFavorite={onToggleFavorite}
+        onToggleShortlist={onToggleShortlist}
+        selectedClimb={{
+          uuid: "uuid-1",
+          climb_name: "Sample Problem",
+          frames: "frames",
+          grades: {
+            "40": {
+              boulder: "7a/V6",
+              route: "5.12d",
+            },
+          },
+          setter_name: "setter-a",
+          image_filenames: [],
+          product_size_id: 14,
+          ascends: 9,
+          created_at: "2026-01-01 00:00:00.000000",
+        }}
+      />
+    );
+
+    expect(screen.getByRole("button", { name: "Add to favorites" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "In shortlist" })).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Add to favorites" }));
+    await user.click(screen.getByRole("button", { name: "In shortlist" }));
+
+    expect(onToggleFavorite).toHaveBeenCalledTimes(1);
+    expect(onToggleShortlist).toHaveBeenCalledTimes(1);
   });
 });
