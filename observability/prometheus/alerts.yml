@@ -36,3 +36,62 @@ groups:
         annotations:
           summary: Background maintenance is failing
           description: One or more maintenance jobs failed in the last 15 minutes.
+
+      - alert: KilterTogetherRuntimeUnavailable
+        expr: kilter_together_runtime_ready == 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: Runtime data is unavailable
+          description: The API is up but runtime storage, bootstrap data, or app database readiness has failed.
+
+      - alert: KilterTogetherProviderAuthFailures
+        expr: sum(increase(kilter_together_room_actions_total{action="connect_provider",outcome="error"}[15m])) >= 3
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Provider authentication failures are spiking
+          description: Rooms are repeatedly failing provider authentication. Check upstream auth, secrets, or encryption key state.
+
+      - alert: KilterTogetherSSEChurn
+        expr: changes(kilter_together_room_sse_subscribers[10m]) >= 25
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: SSE subscriber churn is elevated
+          description: Room subscribers are connecting and disconnecting unusually often. Check reconnect loops, browser errors, or network instability.
+
+      - alert: KilterTogetherCreateRoomConversionDrop
+        expr: |
+          (
+            sum(increase(kilter_together_room_actions_total{action="create_room",outcome="error"}[30m]))
+            /
+            clamp_min(sum(increase(kilter_together_room_actions_total{action="create_room"}[30m])), 1)
+          ) > 0.3
+          and
+          sum(increase(kilter_together_room_actions_total{action="create_room"}[30m])) >= 5
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Room creation conversion has dropped
+          description: More than 30 percent of room creation attempts are failing over the last 30 minutes.
+
+      - alert: KilterTogetherJoinRoomConversionDrop
+        expr: |
+          (
+            sum(increase(kilter_together_room_actions_total{action="join_room",outcome="error"}[30m]))
+            /
+            clamp_min(sum(increase(kilter_together_room_actions_total{action="join_room"}[30m])), 1)
+          ) > 0.3
+          and
+          sum(increase(kilter_together_room_actions_total{action="join_room"}[30m])) >= 5
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Room join conversion has dropped
+          description: More than 30 percent of room join attempts are failing over the last 30 minutes.

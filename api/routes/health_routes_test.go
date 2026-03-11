@@ -59,4 +59,7 @@ func TestHealthAndMetricsRoutes(t *testing.T) {
 	if !strings.Contains(body, "kilter_together_http_requests_total") {
 		t.Fatalf("expected metrics output to include request counter, got %q", body)
 	}
+	if !strings.Contains(body, "kilter_together_runtime_ready") {
+		t.Fatalf("expected metrics output to include runtime readiness gauge, got %q", body)
+	}
 }

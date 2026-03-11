@@ -7,6 +7,8 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/lczm/kilter-together/api/bootstrap"
+	"github.com/lczm/kilter-together/api/config"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -41,6 +43,26 @@ var (
 	sseSubscribers = promauto.NewGauge(prometheus.GaugeOpts{
 		Name: "kilter_together_room_sse_subscribers",
 		Help: "Current number of active room SSE subscribers.",
+	})
+	runtimeReady = promauto.NewGaugeFunc(prometheus.GaugeOpts{
+		Name: "kilter_together_runtime_ready",
+		Help: "Whether runtime storage, databases, and provider prerequisites are currently ready.",
+	}, func() float64 {
+		runtimeConfig := config.GetRuntimeConfig()
+		if config.AppDB == nil {
+			return 0
+		}
+		if runtimeConfig.EnableTestProvider {
+			return 1
+		}
+		if err := bootstrap.RuntimeReady(
+			runtimeConfig.DBPath,
+			runtimeConfig.ImageDir,
+			runtimeConfig.StatePath,
+		); err != nil {
+			return 0
+		}
+		return 1
 	})
 )
 
