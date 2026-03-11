@@ -95,6 +95,24 @@ function formatParticipantRole(role: string) {
   return role === "co_host" ? "co-host" : role;
 }
 
+function formatProviderCatalogMeta(climb: ProviderClimb) {
+  const parts = [
+    climb.meta?.source_label,
+    climb.meta?.color,
+    climb.meta?.foot_rules,
+  ].filter((value): value is string => Boolean(value?.trim()));
+
+  if (parts.length > 0) {
+    return parts.join(" · ");
+  }
+
+  if (climb.provider_id === "crux" && climb.meta?.gym_name) {
+    return climb.meta.gym_name;
+  }
+
+  return null;
+}
+
 function buildKilterSeedClimbID(productSizeID: number, uuid: string) {
   return `kilter:${productSizeID}:${uuid}`;
 }
@@ -1808,6 +1826,7 @@ export default function RoomView() {
                         const queueEntry = snapshot.queue.find(
                           (entry) => entry.climb.id === climb.id
                         );
+                        const providerMetaLine = formatProviderCatalogMeta(climb);
 
                         return (
                           <div
@@ -1829,6 +1848,11 @@ export default function RoomView() {
                                   <p className="mt-1 text-xs text-muted-foreground">
                                     {climb.setter_name || "Unknown setter"}
                                   </p>
+                                  {providerMetaLine ? (
+                                    <p className="mt-1 text-[11px] uppercase tracking-[0.2em] text-muted-foreground/80">
+                                      {providerMetaLine}
+                                    </p>
+                                  ) : null}
                                 </div>
                                 <div className="flex flex-col items-end gap-1">
                                   <Badge variant="secondary">

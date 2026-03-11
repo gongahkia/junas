@@ -91,3 +91,39 @@ func TestSortCruxClimbs_Popular(t *testing.T) {
 			climbs[0].ID, climbs[1].ID, climbs[2].ID)
 	}
 }
+
+func TestMapCruxClimbs_ProviderMetadata(t *testing.T) {
+	color := "Blue"
+	footRules := "Any feet"
+	description := "Powerful compression"
+	setter := "Crux Setter"
+	grade := "V6"
+	angle := "35"
+	mapped := mapCruxClimbs([]cruxClimb{
+		{
+			ID:            42,
+			Name:          "Test Compression",
+			Description:   &description,
+			Grade:         &grade,
+			Angle:         &angle,
+			Color:         &color,
+			FootRules:     &footRules,
+			SetterName:    &setter,
+			GymSlug:       "my-gym",
+			GymName:       "My Gym",
+			NumberOfSends: 12,
+			Source:        "official",
+		},
+	}, "")
+
+	if len(mapped) != 1 {
+		t.Fatalf("expected one mapped climb, got %#v", mapped)
+	}
+
+	if mapped[0].Meta["source"] != "official" || mapped[0].Meta["source_label"] != "Official" {
+		t.Fatalf("expected source metadata, got %#v", mapped[0].Meta)
+	}
+	if mapped[0].Meta["color"] != "Blue" || mapped[0].Meta["foot_rules"] != "Any feet" {
+		t.Fatalf("expected crux discovery metadata, got %#v", mapped[0].Meta)
+	}
+}

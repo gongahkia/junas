@@ -178,6 +178,13 @@ func (provider *CruxProvider) ListClimbs(
 		return nil, err
 	}
 
+	for index := range customClimbs {
+		customClimbs[index].Source = "custom"
+	}
+	for index := range officialClimbs {
+		officialClimbs[index].Source = "official"
+	}
+
 	allClimbs := append(customClimbs, officialClimbs...)
 	filtered := make([]cruxClimb, 0, len(allClimbs))
 	searchLower := strings.ToLower(strings.TrimSpace(input.Search))
@@ -250,7 +257,15 @@ func (provider *CruxProvider) GetClimb(
 		return nil, err
 	}
 
-	mapped := mapCruxClimbs([]cruxClimb{climb}, input.Context["gym_slug"])
+	gymSlug := strings.TrimSpace(input.Context["gym_slug"])
+	if gymSlug == "" {
+		gymSlug = strings.TrimSpace(climb.GymSlug)
+	}
+	if gymSlug != "" {
+		provider.annotateCruxClimbSource(ctx, token, gymSlug, &climb)
+	}
+
+	mapped := mapCruxClimbs([]cruxClimb{climb}, gymSlug)
 	if len(mapped) == 0 {
 		return nil, fmt.Errorf("crux climb %s not found", climbID)
 	}
@@ -388,6 +403,8 @@ type cruxClimb struct {
 	Description   *string `json:"description"`
 	Grade         *string `json:"grade"`
 	Angle         *string `json:"angle"`
+	Color         *string `json:"color"`
+	FootRules     *string `json:"foot_rules"`
 	SetterName    *string `json:"setter_name"`
 	CreatedAt     string  `json:"created_at"`
 	ImageURL      *string `json:"image_url"`
@@ -395,6 +412,7 @@ type cruxClimb struct {
 	NumberOfSends int     `json:"number_of_sends"`
 	GymSlug       string  `json:"gym_slug"`
 	GymName       string  `json:"gym_name"`
+	Source        string  `json:"-"`
 }
 
 func sortCruxClimbs(climbs []cruxClimb, sortKey string) {
@@ -446,8 +464,12 @@ func mapCruxClimbs(climbs []cruxClimb, fallbackGymSlug string) []ProviderClimb {
 			Popularity:     climb.NumberOfSends,
 			Media:          media,
 			Meta: map[string]string{
-				"gym_slug": gymSlug,
-				"gym_name": climb.GymName,
+				"gym_slug":     gymSlug,
+				"gym_name":     climb.GymName,
+				"source":       climb.Source,
+				"source_label": cruxSourceLabel(climb.Source),
+				"color":        stringPointerValue(climb.Color),
+				"foot_rules":   stringPointerValue(climb.FootRules),
 			},
 		})
 	}
@@ -468,6 +490,64 @@ func stringPointerValue(value *string) string {
 	}
 
 	return strings.TrimSpace(*value)
+}
+
+func cruxSourceLabel(source string) string {
+	switch strings.TrimSpace(strings.ToLower(source)) {
+	case "official":
+		return "Official"
+	case "custom":
+		return "Custom"
+	default:
+		return ""
+	}
+}
+
+func (provider *CruxProvider) annotateCruxClimbSource(
+	ctx context.Context,
+	token string,
+	gymSlug string,
+	climb *cruxClimb,
+) {
+	if climb == nil || gymSlug == "" {
+		return
+	}
+
+	customKey := "crux:gym:" + gymSlug + ":climbs:custom"
+	var customClimbs []cruxClimb
+	if err := provider.getCachedJSON(
+		ctx,
+		token,
+		customKey,
+		5*time.Minute,
+		fmt.Sprintf("/api/v1/gyms/%s/climbs/custom", gymSlug),
+		&customClimbs,
+	); err == nil {
+		for _, candidate := range customClimbs {
+			if candidate.ID == climb.ID {
+				climb.Source = "custom"
+				return
+			}
+		}
+	}
+
+	officialKey := "crux:gym:" + gymSlug + ":climbs:official"
+	var officialClimbs []cruxClimb
+	if err := provider.getCachedJSON(
+		ctx,
+		token,
+		officialKey,
+		5*time.Minute,
+		fmt.Sprintf("/api/v1/gyms/%s/climbs/official", gymSlug),
+		&officialClimbs,
+	); err == nil {
+		for _, candidate := range officialClimbs {
+			if candidate.ID == climb.ID {
+				climb.Source = "official"
+				return
+			}
+		}
+	}
 }
 
 func normalizeCruxToken(rawToken string) string {

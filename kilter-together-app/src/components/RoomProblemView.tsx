@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import type { ProviderClimb, ProviderId } from "@/types";
 import { config } from "@/config";
 import { formatClimbDate } from "@/lib/climbs";
+import DetailGrid, { type DetailGridItem } from "@/components/DetailGrid";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -60,6 +62,60 @@ export default function RoomProblemView({
   }
 
   const fallbackMetadata = climb.meta ?? {};
+  const metadataBadges = [
+    fallbackMetadata.source_label,
+    fallbackMetadata.color,
+    fallbackMetadata.foot_rules,
+  ].filter((value): value is string => Boolean(value?.trim()));
+  const detailItems: DetailGridItem[] = [
+    {
+      label: "Primary grade",
+      value: climb.primary_grade || "Unknown",
+    },
+    {
+      label:
+        providerId === "kilter"
+          ? "Route grade"
+          : providerId === "crux"
+            ? "Angle"
+            : "Secondary info",
+      value: climb.secondary_grade || "Unknown",
+    },
+    {
+      label: "Setter",
+      value: climb.setter_name || "Unknown",
+    },
+    {
+      label: providerId === "kilter" ? "Ascends" : "Sends",
+      value: (climb.popularity ?? 0).toLocaleString(),
+    },
+    {
+      label: "Created",
+      value: formatClimbDate(climb.created_at),
+    },
+    {
+      label: providerId === "crux" ? "Gym" : "Surface",
+      value: fallbackMetadata.gym_name || fallbackMetadata.board_id || climb.surface_id,
+    },
+  ];
+  if (providerId === "crux" && fallbackMetadata.source_label) {
+    detailItems.push({
+      label: "Catalog source",
+      value: fallbackMetadata.source_label,
+    });
+  }
+  if (providerId === "crux" && fallbackMetadata.color) {
+    detailItems.push({
+      label: "Color",
+      value: fallbackMetadata.color,
+    });
+  }
+  if (providerId === "crux" && fallbackMetadata.foot_rules) {
+    detailItems.push({
+      label: "Foot rules",
+      value: fallbackMetadata.foot_rules,
+    });
+  }
 
   return (
     <Card className="h-full gap-4">
@@ -70,27 +126,18 @@ export default function RoomProblemView({
             {climb.description}
           </CardDescription>
         ) : null}
+        {metadataBadges.length > 0 ? (
+          <div className="flex flex-wrap gap-2 pt-2">
+            {metadataBadges.map((badge) => (
+              <Badge key={badge} variant="secondary">
+                {badge}
+              </Badge>
+            ))}
+          </div>
+        ) : null}
       </CardHeader>
       <CardContent className="grid gap-6">
-        <div className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
-          <span>Primary grade: {climb.primary_grade || "Unknown"}</span>
-          <span>
-            {providerId === "kilter" ? "Route grade" : "Secondary info"}:{" "}
-            {climb.secondary_grade || "Unknown"}
-          </span>
-          <span>Setter: {climb.setter_name || "Unknown"}</span>
-          <span>
-            {providerId === "kilter" ? "Ascends" : "Sends"}:{" "}
-            {climb.popularity ?? 0}
-          </span>
-          <span>Created: {formatClimbDate(climb.created_at)}</span>
-          <span>
-            Surface:{" "}
-            {fallbackMetadata.gym_name ||
-              fallbackMetadata.board_id ||
-              climb.surface_id}
-          </span>
-        </div>
+        <DetailGrid items={detailItems} />
 
         <div className="grid gap-4 rounded-2xl border bg-muted/20 p-4">
           <div className="flex min-h-[16rem] items-center justify-center">
