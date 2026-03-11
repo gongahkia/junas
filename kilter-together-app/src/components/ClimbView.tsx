@@ -16,9 +16,11 @@ import ProblemView from "./ProblemView";
 import LoadingSlideshow from "./LoadingSlideshow";
 import { getGradeForAngle, normalizeAngle, normalizeSort } from "@/lib/climbs";
 import {
+  buildSoloFilterPreset,
   buildSoloSavedClimb,
   loadUserPrefs,
   rememberSoloResume,
+  saveSoloFilterPreset,
   soloSavedClimbKey,
   toggleSoloFavorite,
   toggleSoloShortlist,
@@ -54,6 +56,7 @@ export default function ClimbView({
   const [selectedClimb, setSelectedClimb] = useState<Climb | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasNextPage, setHasNextPage] = useState(false);
+  const [savedFilterID, setSavedFilterID] = useState("");
   const [prefs, setPrefs] = useState(() => loadUserPrefs());
   const cursorsRef = useRef<Record<number, string>>({});
   const lastFilterKeyRef = useRef("");
@@ -218,6 +221,10 @@ export default function ClimbView({
     });
   }, [angle, boardId, nameQuery, selectedClimb?.uuid, setterQuery, sort]);
 
+  useEffect(() => {
+    setSavedFilterID("");
+  }, [angle, boardId, nameQuery, setterQuery, sort]);
+
   const updateSearchState = (updates: Record<string, string | undefined>) => {
     startTransition(() => {
       const nextSearchParams = new URLSearchParams(searchParams);
@@ -291,6 +298,23 @@ export default function ClimbView({
     setPrefs(toggleSoloShortlist(savedClimb));
   };
 
+  const handleSaveFilterPreset = () => {
+    if (!boardId) {
+      return;
+    }
+
+    const preset = buildSoloFilterPreset({
+      board_id: boardId,
+      board_name: boardName,
+      angle,
+      sort,
+      q: nameQuery || undefined,
+      setter: setterQuery || undefined,
+    });
+    setSavedFilterID(preset.id);
+    setPrefs(saveSoloFilterPreset(preset));
+  };
+
   if (initialLoad && loading) {
     return (
       <LoadingSlideshow
@@ -357,6 +381,15 @@ export default function ClimbView({
                       Solo Kilter Browse
                     </p>
                     <h2 className="text-2xl font-semibold">{boardName}</h2>
+                    <div className="flex flex-wrap gap-2">
+                      <Button
+                        type="button"
+                        variant={savedFilterID ? "secondary" : "outline"}
+                        onClick={handleSaveFilterPreset}
+                      >
+                        {savedFilterID ? "Filter saved" : "Save filter preset"}
+                      </Button>
+                    </div>
                   </div>
                 </CardHeader>
               </Card>
@@ -396,6 +429,13 @@ export default function ClimbView({
                         {prefs.soloShortlist.length} shortlisted
                       </Badge>
                     ) : null}
+                    <Button
+                      type="button"
+                      variant={savedFilterID ? "secondary" : "outline"}
+                      onClick={handleSaveFilterPreset}
+                    >
+                      {savedFilterID ? "Filter saved" : "Save filter preset"}
+                    </Button>
                     <Button asChild variant="ghost">
                       <Link to={backPath}>
                         <ChevronLeft className="mr-2 h-4 w-4" />

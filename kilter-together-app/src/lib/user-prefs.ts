@@ -1,10 +1,17 @@
-import type { ClimbSort, ProviderId, RoomSnapshot, SoloSavedClimb } from "@/types";
+import type {
+  ClimbSort,
+  ProviderId,
+  RoomSnapshot,
+  SoloFilterPreset,
+  SoloSavedClimb,
+} from "@/types";
 import { DEFAULT_ANGLE, DEFAULT_SORT } from "@/lib/climbs";
 
 const USER_PREFS_STORAGE_KEY = "kilter-together:user-prefs:v1";
 export const USER_PREFS_CHANGE_EVENT = "kilter-together:prefs-changed";
 const MAX_RECENT_ROOMS = 9;
 const MAX_SOLO_SAVED_CLIMBS = 24;
+const MAX_SOLO_FILTER_PRESETS = 12;
 
 export interface RecentRoom {
   slug: string;
@@ -79,6 +86,7 @@ export interface UserPrefs {
   hostDefaults: HostDefaults;
   savedCredentials: SavedCredentials;
   recentRooms: RecentRoom[];
+  savedSoloFilters: SoloFilterPreset[];
   soloFavorites: SoloSavedClimb[];
   soloShortlist: SoloSavedClimb[];
   soloResume?: SoloResumeState;
@@ -113,6 +121,7 @@ function getDefaultUserPrefs(): UserPrefs {
       },
     },
     recentRooms: [],
+    savedSoloFilters: [],
     soloFavorites: [],
     soloShortlist: [],
     intro: {
@@ -199,11 +208,77 @@ function normalizeSoloSavedClimbs(climbs: SoloSavedClimb[]): SoloSavedClimb[] {
     .slice(0, MAX_SOLO_SAVED_CLIMBS);
 }
 
+function soloFilterPresetKey(
+  preset: Pick<SoloFilterPreset, "board_id" | "angle" | "sort" | "q" | "setter">
+): string {
+  return [
+    preset.board_id,
+    String(preset.angle),
+    preset.sort,
+    preset.q?.trim() || "",
+    preset.setter?.trim() || "",
+  ].join("|");
+}
+
+function buildSoloFilterPresetLabel(
+  preset: Pick<SoloFilterPreset, "board_name" | "angle" | "q" | "setter">
+): string {
+  const parts = [`${preset.board_name} · ${preset.angle}\u00b0`];
+  if (preset.q?.trim()) {
+    parts.push(`"${preset.q.trim()}"`);
+  }
+  if (preset.setter?.trim()) {
+    parts.push(`setter:${preset.setter.trim()}`);
+  }
+  return parts.join(" · ");
+}
+
+function normalizeSoloFilterPresets(presets: SoloFilterPreset[]): SoloFilterPreset[] {
+  const deduped = new Map<string, SoloFilterPreset>();
+
+  for (const preset of presets) {
+    if (!preset?.board_id) {
+      continue;
+    }
+
+    const normalizedPreset: SoloFilterPreset = {
+      ...preset,
+      id: preset.id || soloFilterPresetKey(preset),
+      label:
+        preset.label?.trim() ||
+        buildSoloFilterPresetLabel({
+          board_name: preset.board_name?.trim() || `Board ${preset.board_id}`,
+          angle: preset.angle || DEFAULT_ANGLE,
+          q: preset.q,
+          setter: preset.setter,
+        }),
+      board_name: preset.board_name?.trim() || `Board ${preset.board_id}`,
+      saved_at: preset.saved_at || new Date().toISOString(),
+    };
+    deduped.set(normalizedPreset.id, normalizedPreset);
+  }
+
+  return [...deduped.values()]
+    .sort((left, right) => Date.parse(right.saved_at) - Date.parse(left.saved_at))
+    .slice(0, MAX_SOLO_FILTER_PRESETS);
+}
+
 export function buildSoloSavedClimb(
   input: Omit<SoloSavedClimb, "saved_at">
 ): SoloSavedClimb {
   return {
     ...input,
+    saved_at: new Date().toISOString(),
+  };
+}
+
+export function buildSoloFilterPreset(
+  input: Omit<SoloFilterPreset, "id" | "label" | "saved_at">
+): SoloFilterPreset {
+  return {
+    ...input,
+    id: soloFilterPresetKey(input),
+    label: buildSoloFilterPresetLabel(input),
     saved_at: new Date().toISOString(),
   };
 }
@@ -257,6 +332,9 @@ export function loadUserPrefs(): UserPrefs {
       recentRooms: Array.isArray(parsedValue.recentRooms)
         ? normalizeRecentRooms(parsedValue.recentRooms as RecentRoom[])
         : defaults.recentRooms,
+      savedSoloFilters: Array.isArray(parsedValue.savedSoloFilters)
+        ? normalizeSoloFilterPresets(parsedValue.savedSoloFilters as SoloFilterPreset[])
+        : defaults.savedSoloFilters,
       soloFavorites: Array.isArray(parsedValue.soloFavorites)
         ? normalizeSoloSavedClimbs(parsedValue.soloFavorites as SoloSavedClimb[])
         : defaults.soloFavorites,
@@ -506,6 +584,40 @@ export function buildSoloSavedClimbPath(climb: SoloSavedClimb): string {
   });
 
   return `/solo/boards/${encodeURIComponent(climb.board_id)}?${searchParams.toString()}`;
+}
+
+export function buildSoloFilterPresetPath(preset: SoloFilterPreset): string {
+  const searchParams = new URLSearchParams({
+    angle: String(preset.angle || DEFAULT_ANGLE),
+    sort: preset.sort || DEFAULT_SORT,
+  });
+  if (preset.q?.trim()) {
+    searchParams.set("q", preset.q.trim());
+  }
+  if (preset.setter?.trim()) {
+    searchParams.set("setter", preset.setter.trim());
+  }
+
+  return `/solo/boards/${encodeURIComponent(preset.board_id)}?${searchParams.toString()}`;
+}
+
+export function saveSoloFilterPreset(preset: SoloFilterPreset): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    savedSoloFilters: normalizeSoloFilterPresets([
+      preset,
+      ...currentPrefs.savedSoloFilters.filter((item) => item.id !== preset.id),
+    ]),
+  }));
+}
+
+export function removeSoloFilterPreset(presetID: string): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    savedSoloFilters: currentPrefs.savedSoloFilters.filter(
+      (preset) => preset.id !== presetID
+    ),
+  }));
 }
 
 export function rememberSoloResume(state: SoloResumeState): UserPrefs {

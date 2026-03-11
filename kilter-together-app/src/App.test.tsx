@@ -1550,6 +1550,64 @@ describe("App routes", () => {
     expect(screen.getByText("Shortlist Sloper")).toBeInTheDocument();
   });
 
+  it("saves the current solo filters as a reusable preset", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([
+      { id: 14, name: "Original 7 x 10", kilter_name: "Kilter Board Original" },
+    ]);
+    mockedApi.getPaginatedClimbs.mockResolvedValue({
+      climbs: [
+        {
+          uuid: "uuid-1",
+          climb_name: "Compression Test",
+          description: "Compression project",
+          frames: "frames",
+          grades: {
+            "45": {
+              boulder: "7a/V6",
+              route: "5.12d",
+            },
+          },
+          setter_name: "setter-a",
+          image_filenames: [],
+          product_size_id: 14,
+          ascends: 5,
+          created_at: "2026-01-01 00:00:00.000000",
+        },
+      ],
+      has_more: false,
+      page_size: 10,
+    });
+
+    const boardView = render(
+      <MemoryRouter initialEntries={["/solo/boards/14?angle=45&sort=newest&q=Compression&setter=setter-a"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    const savePresetButtons = await screen.findAllByRole("button", {
+      name: "Save filter preset",
+    });
+    await user.click(savePresetButtons[0]);
+    boardView.unmount();
+
+    render(
+      <MemoryRouter initialEntries={["/solo"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByText("Saved filters")).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
+        name: 'Original 7 x 10 · 45° · "Compression" · setter:setter-a',
+      })
+    ).toHaveAttribute(
+      "href",
+      "/solo/boards/14?angle=45&sort=newest&q=Compression&setter=setter-a"
+    );
+  });
+
   it("lets the user pin and remove recent rooms", async () => {
     const user = userEvent.setup();
     window.localStorage.setItem(

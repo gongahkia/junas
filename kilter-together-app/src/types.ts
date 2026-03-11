@@ -85,6 +85,18 @@ export interface SoloSavedClimb {
   saved_at: string;
 }
 
+export interface SoloFilterPreset {
+  id: string;
+  label: string;
+  board_id: string;
+  board_name: string;
+  angle: number;
+  sort: ClimbSort;
+  q?: string;
+  setter?: string;
+  saved_at: string;
+}
+
 export interface PaginatedClimbsResponse {
   climbs: Climb[];
   has_more: boolean;

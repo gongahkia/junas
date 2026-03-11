@@ -5,13 +5,15 @@ import { api } from "@/api";
 import AngleSelector from "./AngleSelector";
 import BrandWordmark from "./BrandWordmark";
 import LoadingSlideshow from "./LoadingSlideshow";
-import type { Board, SoloSavedClimb } from "../types";
+import type { Board, SoloFilterPreset, SoloSavedClimb } from "../types";
 import { DEFAULT_ANGLE } from "@/lib/climbs";
 import {
+  buildSoloFilterPresetPath,
   buildSoloResumePath,
   buildSoloSavedClimbPath,
   dismissSoloIntro,
   loadUserPrefs,
+  removeSoloFilterPreset,
   removeSoloFavorite,
   removeSoloShortlist,
   reopenSoloIntro,
@@ -149,8 +151,16 @@ export default function BoardSelector({
               ) : null}
             </div>
 
-            {prefs.soloFavorites.length > 0 || prefs.soloShortlist.length > 0 ? (
+            {prefs.savedSoloFilters.length > 0 ||
+            prefs.soloFavorites.length > 0 ||
+            prefs.soloShortlist.length > 0 ? (
               <div className="grid gap-6 md:grid-cols-2">
+                {prefs.savedSoloFilters.length > 0 ? (
+                  <SavedSoloFilterCard
+                    presets={prefs.savedSoloFilters}
+                    onRemove={(presetID) => setPrefs(removeSoloFilterPreset(presetID))}
+                  />
+                ) : null}
                 {prefs.soloFavorites.length > 0 ? (
                   <SavedSoloCollectionCard
                     icon={<Heart className="h-5 w-5" />}
@@ -239,6 +249,60 @@ export default function BoardSelector({
         </main>
       </div>
     </div>
+  );
+}
+
+function SavedSoloFilterCard({
+  onRemove,
+  presets,
+}: {
+  onRemove: (presetID: string) => void;
+  presets: SoloFilterPreset[];
+}) {
+  return (
+    <Card className="border-0 bg-white/88 shadow-xl shadow-teal-950/10 backdrop-blur">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 text-2xl">
+          <Layers3 className="h-5 w-5" />
+          Saved filters
+        </CardTitle>
+        <CardDescription>
+          Reopen the board and filter combinations you keep using in solo browse.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="grid gap-3">
+        {presets.slice(0, 4).map((preset) => (
+          <div
+            key={preset.id}
+            className="flex items-start justify-between gap-3 rounded-2xl border bg-white/70 px-4 py-4"
+          >
+            <div className="min-w-0">
+              <Link
+                to={buildSoloFilterPresetPath(preset)}
+                className="line-clamp-1 text-sm font-medium text-foreground hover:text-teal-700"
+              >
+                {preset.label}
+              </Link>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Sort: {preset.sort}
+                {preset.q ? ` · Query: ${preset.q}` : ""}
+                {preset.setter ? ` · Setter: ${preset.setter}` : ""}
+              </p>
+            </div>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="shrink-0"
+              onClick={() => onRemove(preset.id)}
+              aria-label={`Remove ${preset.label}`}
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          </div>
+        ))}
+      </CardContent>
+    </Card>
   );
 }
 
