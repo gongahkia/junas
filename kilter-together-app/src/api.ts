@@ -164,14 +164,19 @@ export const api = {
     roomName: string;
     displayName: string;
     secret: Record<string, string>;
+    fistBumpsEnabled: boolean;
   }): Promise<RoomSnapshot> => {
-    const requestBody: CreateRoomPayload = {
+    const requestBody: CreateRoomPayload & { fist_bumps_enabled: boolean } = {
       provider_id: payload.providerId,
       room_name: payload.roomName,
       display_name: payload.displayName,
       secret: payload.secret,
+      fist_bumps_enabled: payload.fistBumpsEnabled,
     };
-    const response = await apiClient.post<CreateRoomResponse>("/rooms", requestBody);
+    const response = await apiClient.post<CreateRoomResponse>(
+      "/rooms",
+      requestBody as CreateRoomPayload
+    );
     return normalizeRoomSnapshot(response.data as RoomSnapshot);
   },
 

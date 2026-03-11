@@ -12,6 +12,7 @@ import {
   rememberKilterCredentials,
   rememberLastProvider,
   rememberRoomVisit,
+  resolveHostRoomNameTemplate,
   resetOnboardingPrefs,
 } from "@/lib/user-prefs";
 import OnboardingCallout from "@/components/OnboardingCallout";
@@ -53,9 +54,14 @@ export default function RoomCreatePage() {
   const [providerId, setProviderId] = useState<ProviderId>(
     () => savedPrefsRef.current.lastProviderId || "kilter"
   );
-  const [roomName, setRoomName] = useState("");
+  const [roomName, setRoomName] = useState(() =>
+    resolveHostRoomNameTemplate(savedPrefsRef.current.hostDefaults.roomNameTemplate)
+  );
   const [displayName, setDisplayName] = useState(
     () => savedPrefsRef.current.savedDisplayName
+  );
+  const [fistBumpsEnabled, setFistBumpsEnabled] = useState(
+    () => savedPrefsRef.current.hostDefaults.defaultFistBumpsEnabled
   );
   const [connectionFields, setConnectionFields] = useState<Record<string, string>>(() => ({
     username: savedPrefsRef.current.savedCredentials.kilter.remember
@@ -100,6 +106,7 @@ export default function RoomCreatePage() {
         roomName,
         displayName,
         secret,
+        fistBumpsEnabled,
       });
       reportEvent("room.create", "host create room succeeded", {
         providerId,
@@ -210,6 +217,24 @@ export default function RoomCreatePage() {
                   onChange={(event) => setDisplayName(event.target.value)}
                   placeholder="Coach, Alex, Session Host"
                 />
+              </div>
+
+              <div className="rounded-2xl border bg-slate-50/80 px-4 py-4">
+                <label className="flex items-start gap-3 text-sm font-medium text-foreground">
+                  <input
+                    type="checkbox"
+                    checked={fistBumpsEnabled}
+                    onChange={(event) => setFistBumpsEnabled(event.target.checked)}
+                    className="mt-0.5 h-4 w-4 rounded border-slate-300"
+                  />
+                  <span className="space-y-1">
+                    <span className="block">Start with fist bumps enabled</span>
+                    <span className="block text-sm font-normal text-muted-foreground">
+                      This room default comes from your saved host preset, and you can override it
+                      per session here.
+                    </span>
+                  </span>
+                </label>
               </div>
 
               <div className="space-y-2">

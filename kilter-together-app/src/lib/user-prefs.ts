@@ -51,6 +51,11 @@ export interface SavedCredentials {
   };
 }
 
+export interface HostDefaults {
+  roomNameTemplate: string;
+  defaultFistBumpsEnabled: boolean;
+}
+
 export interface AppSettings {
   clickCheersEnabled: boolean;
   playfulMotionEnabled: boolean;
@@ -70,6 +75,7 @@ export interface UserPrefs {
     gymSlug: string;
     wallId: string;
   };
+  hostDefaults: HostDefaults;
   savedCredentials: SavedCredentials;
   recentRooms: RecentRoom[];
   soloResume?: SoloResumeState;
@@ -89,6 +95,10 @@ function getDefaultUserPrefs(): UserPrefs {
     lastCrux: {
       gymSlug: "",
       wallId: "",
+    },
+    hostDefaults: {
+      roomNameTemplate: "",
+      defaultFistBumpsEnabled: true,
     },
     savedCredentials: {
       kilter: {
@@ -182,6 +192,10 @@ export function loadUserPrefs(): UserPrefs {
         ...defaults.lastCrux,
         ...parsedValue.lastCrux,
       },
+      hostDefaults: {
+        ...defaults.hostDefaults,
+        ...parsedValue.hostDefaults,
+      },
       savedCredentials: {
         kilter: {
           username:
@@ -255,6 +269,38 @@ export function rememberLastProvider(providerId: ProviderId): UserPrefs {
     ...currentPrefs,
     lastProviderId: providerId,
   }));
+}
+
+export function updateHostDefaults(partialDefaults: Partial<HostDefaults>): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    hostDefaults: {
+      ...currentPrefs.hostDefaults,
+      ...partialDefaults,
+    },
+  }));
+}
+
+export function resolveHostRoomNameTemplate(
+  template: string,
+  now = new Date()
+): string {
+  const normalizedTemplate = template.trim();
+  if (!normalizedTemplate) {
+    return "";
+  }
+
+  return normalizedTemplate
+    .replace(
+      /\{weekday\}/g,
+      now.toLocaleDateString(undefined, { weekday: "long" })
+    )
+    .replace(
+      /\{date\}/g,
+      now.toLocaleDateString(undefined, { month: "short", day: "numeric" })
+    )
+    .replace(/\{iso_date\}/g, now.toISOString().slice(0, 10))
+    .trim();
 }
 
 export function rememberLastKilterSurface(boardId: string, angle: number): UserPrefs {

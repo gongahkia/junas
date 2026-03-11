@@ -346,6 +346,11 @@ describe("App routes", () => {
     await user.click(screen.getByRole("checkbox", { name: /Save recent rooms/i }));
     await user.clear(screen.getByLabelText("Preferred display name"));
     await user.type(screen.getByLabelText("Preferred display name"), "Gabriel");
+    await user.clear(screen.getByLabelText("Room name template"));
+    await user.type(screen.getByLabelText("Room name template"), "Project Night");
+    await user.click(
+      screen.getByRole("checkbox", { name: /Start new rooms with fist bumps enabled/i })
+    );
 
     const storedPrefs = JSON.parse(
       window.localStorage.getItem("kilter-together:user-prefs:v1") || "{}"
@@ -354,6 +359,8 @@ describe("App routes", () => {
     expect(storedPrefs.settings.recentRoomsEnabled).toBe(false);
     expect(storedPrefs.recentRooms).toEqual([]);
     expect(storedPrefs.savedDisplayName).toBe("Gabriel");
+    expect(storedPrefs.hostDefaults.roomNameTemplate).toBe("Project Night");
+    expect(storedPrefs.hostDefaults.defaultFistBumpsEnabled).toBe(false);
   });
 
   it("supports direct collaborative room route loads", async () => {
@@ -1299,6 +1306,7 @@ describe("App routes", () => {
         providerId: "kilter",
         roomName: "Monday Session",
         displayName: "Host",
+        fistBumpsEnabled: true,
         secret: {
           username: "host@example.com",
           password: "secret-pass",
@@ -1309,6 +1317,61 @@ describe("App routes", () => {
     expect(
       await screen.findByRole("heading", { name: "Monday Session" })
     ).toBeInTheDocument();
+  });
+
+  it("uses saved host defaults when opening the create-room flow", async () => {
+    const user = userEvent.setup();
+    window.localStorage.setItem(
+      "kilter-together:user-prefs:v1",
+      JSON.stringify({
+        savedDisplayName: "Alex",
+        hostDefaults: {
+          roomNameTemplate: "Project Night",
+          defaultFistBumpsEnabled: false,
+        },
+        ...DEFAULT_DISMISSED_GUIDES_PREFS,
+      })
+    );
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.createRoom.mockResolvedValue({
+      ...buildRoomSnapshot("preset-room"),
+      room_name: "Project Night",
+      fist_bumps_enabled: false,
+    });
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("preset-room"),
+      room_name: "Project Night",
+      fist_bumps_enabled: false,
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/new"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByLabelText("Room name")).toHaveValue("Project Night");
+    expect(
+      screen.getByRole("checkbox", { name: /Start with fist bumps enabled/i })
+    ).not.toBeChecked();
+    expect(screen.getByLabelText("Host display name")).toHaveValue("Alex");
+
+    await user.type(screen.getByLabelText("Kilter username"), "host@example.com");
+    await user.type(screen.getByLabelText("Kilter password"), "secret-pass");
+    await user.click(screen.getByRole("button", { name: "Authenticate and create room" }));
+
+    await waitFor(() =>
+      expect(mockedApi.createRoom).toHaveBeenCalledWith({
+        providerId: "kilter",
+        roomName: "Project Night",
+        displayName: "Alex",
+        fistBumpsEnabled: false,
+        secret: {
+          username: "host@example.com",
+          password: "secret-pass",
+        },
+      })
+    );
   });
 
   it("shows a useful fallback when room creation hits a blank proxy 500", async () => {
@@ -1784,6 +1847,7 @@ describe("App routes", () => {
         providerId: "crux",
         roomName: "",
         displayName: "Alex",
+        fistBumpsEnabled: true,
         secret: {
           token: "fresh-crux-token",
         },
@@ -1821,6 +1885,7 @@ describe("App routes", () => {
         providerId: "kilter",
         roomName: "Saved Session",
         displayName: "Host",
+        fistBumpsEnabled: true,
         secret: {
           username: "host@example.com",
           password: "secret-pass",

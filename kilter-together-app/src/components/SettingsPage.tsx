@@ -21,6 +21,7 @@ import {
   loadUserPrefs,
   resetGuides,
   updateAppSettings,
+  updateHostDefaults,
   updateUserPrefs,
 } from "@/lib/user-prefs";
 import { useProviderCapabilities } from "@/hooks/useProviderCapabilities";
@@ -234,6 +235,73 @@ export default function SettingsPage() {
                         ))}
                       </SelectContent>
                     </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="settings-room-template" className="text-sm font-medium">
+                      Room name template
+                    </label>
+                    <Input
+                      id="settings-room-template"
+                      value={prefs.hostDefaults.roomNameTemplate}
+                      onChange={(event) =>
+                        setPrefs(
+                          updateHostDefaults({
+                            roomNameTemplate: event.target.value,
+                          })
+                        )
+                      }
+                      placeholder="Project Night, {weekday} Crew, {date} Warmup"
+                    />
+                    <p className="text-xs leading-6 text-muted-foreground">
+                      Supports <code>{"{weekday}"}</code>, <code>{"{date}"}</code>, and{" "}
+                      <code>{"{iso_date}"}</code>. The room form resolves these when you start a
+                      new session.
+                    </p>
+                  </div>
+
+                  <SettingsToggle
+                    id="default-fist-bumps-enabled"
+                    label="Start new rooms with fist bumps enabled"
+                    description="Use this as the default for host-created rooms. You can still override it on the create-room form."
+                    checked={prefs.hostDefaults.defaultFistBumpsEnabled}
+                    onChange={(checked) =>
+                      setPrefs(
+                        updateHostDefaults({
+                          defaultFistBumpsEnabled: checked,
+                        })
+                      )
+                    }
+                  />
+
+                  <div className="rounded-2xl border bg-white/70 px-4 py-4">
+                    <p className="text-sm font-medium text-foreground">Saved host surfaces</p>
+                    <div className="mt-3 grid gap-3 md:grid-cols-2">
+                      <div className="rounded-2xl border bg-slate-50/80 px-3 py-3">
+                        <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                          Kilter preset
+                        </p>
+                        <p className="mt-2 text-sm text-foreground">
+                          {prefs.lastKilter.boardId
+                            ? `Board ${prefs.lastKilter.boardId} at ${prefs.lastKilter.angle}\u00b0`
+                            : "No Kilter board saved yet"}
+                        </p>
+                      </div>
+                      <div className="rounded-2xl border bg-slate-50/80 px-3 py-3">
+                        <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                          Crux preset
+                        </p>
+                        <p className="mt-2 text-sm text-foreground">
+                          {prefs.lastCrux.gymSlug || prefs.lastCrux.wallId
+                            ? `${prefs.lastCrux.gymSlug || "gym unset"} / ${prefs.lastCrux.wallId || "wall unset"}`
+                            : "No Crux gym or wall saved yet"}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="mt-3 text-xs leading-6 text-muted-foreground">
+                      These surface presets are updated from your latest solo browse or room surface
+                      selection and reused as the default choice when you host again.
+                    </p>
                   </div>
 
                   <div className="space-y-2">
