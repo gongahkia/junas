@@ -87,6 +87,26 @@ That dashboard now includes:
 
 The committed Alertmanager config uses a default receiver so the stack starts cleanly. For real deployments, replace the receiver with email, Slack, PagerDuty, or another webhook target.
 
+The repo now includes:
+
+- a reusable notification template at [`observability/alertmanager/templates/default.tmpl`](/Users/gongahkia/Desktop/coding/projects/kilter-together/observability/alertmanager/templates/default.tmpl)
+- a production routing example at [`observability/alertmanager/alertmanager.production.example.yml`](/Users/gongahkia/Desktop/coding/projects/kilter-together/observability/alertmanager/alertmanager.production.example.yml)
+
+That production example fans alerts out by severity and intent:
+
+- `critical` alerts page PagerDuty and also continue to Slack
+- `warning` and `critical` alerts land in the ops Slack channel
+- create/join conversion regressions can fan out to a product or incident webhook
+
+To activate it in a deployment:
+
+1. Copy `observability/alertmanager/alertmanager.production.example.yml` to a deployment-local config.
+2. Replace the placeholder Slack, PagerDuty, and webhook values.
+3. Point the `alertmanager` container at that config instead of the default `alertmanager.yml`.
+4. Recreate the `alertmanager` service.
+
+The default compose file already mounts the shared template directory, so both the starter config and the production example can render the same alert body.
+
 The default Prometheus rule set now covers:
 
 - API scrape failures
@@ -122,6 +142,20 @@ Then pivot by signal:
 - `KilterTogetherProviderAuthFailures`: inspect recent `connect_provider` traces/logs and verify provider credentials plus encryption-key state.
 - `KilterTogetherSSEChurn` or room `429` alerts: inspect frontend error reporting, SSE traces, and reverse-proxy behavior for reconnect loops.
 - create/join conversion alerts: compare `room_actions_total` outcomes and recent frontend error reports to isolate whether the drop is on room creation, auth, join, or session recovery.
+
+## Hosted Operator Workflow
+
+For hosted or multi-operator environments, treat Alertmanager as the notification fanout layer and keep Grafana plus the operator endpoint as the investigation sources of truth.
+
+Recommended drilldown order:
+
+1. Alert fires in Slack, PagerDuty, or the product webhook.
+2. Open Grafana and confirm the alert window against HTTP, room funnel, provider auth, and SSE churn panels.
+3. Query `/api/operator/status` to confirm readiness, maintenance state, trace export, and cache health.
+4. Use `request_id` and `trace_id` from logs, traces, and GlitchTip to isolate the failing flow.
+5. Only then rotate secrets, restart workers, or restore runtime data.
+
+For teams that want a hosted operator surface outside Grafana, the committed production example is meant to fan alerts into an external webhook so an incident bot, ticketing system, or NOC dashboard can mirror the same signal set without changing the Kilter Together app itself.
 
 For backup, restore, and encryption-key rotation procedures, use [PRODUCTION.md](/Users/gongahkia/Desktop/coding/projects/kilter-together/PRODUCTION.md).
 

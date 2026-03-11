@@ -31,18 +31,20 @@ This repo now carries a persona-driven implementation plan so product work stays
 ### 4. Crux Gym Regular
 - Uses Crux-backed room flows and expects gym/wall terminology, wall-aware selection, and provider-specific metadata.
 - Needs the UI to reflect provider differences without becoming fragmented.
-- Current implementation focus:
+- Delivered in the current implementation:
   - provider capabilities declare `surface_hierarchy`
   - frontend adapts board vs nested surface flows from capability data
-  - Crux is explicitly marked room-only today
+  - Crux solo browse is available through the provider-specific solo route
+  - Crux climb cards and detail views now surface source, color, and foot-rule metadata
 
 ### 5. Community Self-Host Operator
 - Runs bootstrap, configures secrets, observes runtime health, and diagnoses production issues.
 - Needs more than terminal logs and browser devtools to support the app confidently.
 - Delivered in the current implementation:
-  - protected operator status endpoint
-  - Prometheus/Grafana/Loki/Tempo/Alertmanager/Alloy stack
-  - Sentry-compatible GlitchTip integration path for frontend/backend exceptions
+- protected operator status endpoint
+- Prometheus/Grafana/Loki/Tempo/Alertmanager/Alloy stack
+- Sentry-compatible GlitchTip integration path for frontend/backend exceptions
+- production Alertmanager templates, routing examples, and an operator drilldown workflow
 
 ## Delivered In This Tranche
 
@@ -58,6 +60,4 @@ This repo now carries a persona-driven implementation plan so product work stays
 
 ## Remaining Optional Follow-Ups
 
-- Full Crux solo browse if the project wants parity instead of the current explicit room-only posture.
-- Deeper provider-specific discovery metadata beyond the current board/wall, gym, angle, and label improvements.
-- Production-specific alert routing and hosted operator workflows beyond the committed self-hosted defaults.
+- Hosted incident tooling outside the repo, such as a dedicated NOC dashboard, ticketing bot, or centralized organization-wide GlitchTip deployment.
