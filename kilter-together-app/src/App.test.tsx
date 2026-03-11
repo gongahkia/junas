@@ -67,6 +67,7 @@ if (!HTMLElement.prototype.scrollIntoView) {
 vi.mock("./api", () => ({
   api: {
     getProviderCapabilities: vi.fn(),
+    getRecentSessions: vi.fn(),
     getBoards: vi.fn(),
     getPaginatedClimbs: vi.fn(),
     getImageUrl: vi.fn((filename: string) => {
@@ -207,6 +208,7 @@ describe("App routes", () => {
         ],
       },
     ]);
+    mockedApi.getRecentSessions.mockResolvedValue([]);
   });
 
   it("supports direct board route loads with URL-backed filters", async () => {
@@ -1520,6 +1522,46 @@ describe("App routes", () => {
       pinned: true,
     });
     expect(screen.queryByText("Newer Session")).not.toBeInTheDocument();
+  });
+
+  it("shows recent closed sessions on the landing page", async () => {
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRecentSessions.mockResolvedValue([
+      {
+        room_slug: "closed-room-1",
+        room_name: "Wednesday Projects",
+        provider_id: "kilter",
+        surface_name: "Original 12 x 12",
+        surface_kind: "board",
+        participant_count: 4,
+        closed_at: "2026-03-11T03:00:00.000Z",
+        top_voted: [
+          {
+            vote_count: 3,
+            climb: {
+              id: "kilter:123",
+              external_id: "123",
+              provider_id: "kilter",
+              surface_id: "board-12",
+              name: "Compression Test",
+            },
+          },
+        ],
+        final_queue: [],
+        finalists: [],
+      },
+    ]);
+
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByText("Recent sessions")).toBeInTheDocument();
+    expect(screen.getByText("Wednesday Projects")).toBeInTheDocument();
+    expect(screen.getByText("Compression Test")).toBeInTheDocument();
+    expect(screen.getByText("4 climbers")).toBeInTheDocument();
   });
 
   it("shows three recent rooms inline and caps the expanded list at nine", async () => {

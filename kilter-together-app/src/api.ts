@@ -19,6 +19,7 @@ import type {
   ClimbSort,
   QueueStatus,
   RoomPermissions,
+  SessionSummary,
 } from "./types";
 import { reportApiFailure } from "@/lib/observability";
 
@@ -107,6 +108,16 @@ export const api = {
       "/providers/capabilities"
     );
     return response.data.providers ?? [];
+  },
+
+  getRecentSessions: async (limit = 6): Promise<SessionSummary[]> => {
+    const response = await apiClient.get<{ sessions?: SessionSummary[] }>(
+      "/sessions/recent",
+      {
+        params: { limit },
+      }
+    );
+    return response.data.sessions ?? [];
   },
 
   getBoards: async (): Promise<Board[]> => {

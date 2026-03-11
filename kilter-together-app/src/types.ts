@@ -189,6 +189,27 @@ export interface FinalistEntry {
   climb: ProviderClimb;
 }
 
+export interface SessionSummaryClimb {
+  position?: number;
+  status?: string;
+  added_by?: string;
+  vote_count?: number;
+  climb: ProviderClimb;
+}
+
+export interface SessionSummary {
+  room_slug: string;
+  room_name?: string;
+  provider_id: ProviderId;
+  surface_name?: string;
+  surface_kind?: string;
+  participant_count: number;
+  closed_at: string;
+  top_voted: SessionSummaryClimb[];
+  final_queue: SessionSummaryClimb[];
+  finalists: SessionSummaryClimb[];
+}
+
 export interface RoomSnapshot {
   slug: string;
   room_name?: string;

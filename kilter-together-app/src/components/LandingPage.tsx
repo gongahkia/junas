@@ -1,15 +1,18 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowRight,
   Camera,
+  Clock3,
   History,
   Link2,
   Mountain,
   Pin,
+  Trophy,
   Trash2,
   Users,
 } from "lucide-react";
+import { api } from "@/api";
 import { extractRoomSlugFromValue } from "@/lib/room-links";
 import {
   dismissLandingIntro,
@@ -20,6 +23,8 @@ import {
   resetOnboardingPrefs,
   togglePinnedRecentRoom,
 } from "@/lib/user-prefs";
+import { getApiErrorDetails } from "@/lib/api-errors";
+import { reportError } from "@/lib/observability";
 import { cn } from "@/lib/utils";
 import IntroDialog from "@/components/IntroDialog";
 import OnboardingCallout from "@/components/OnboardingCallout";
@@ -41,6 +46,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import type { SessionSummary } from "@/types";
 
 const INLINE_RECENT_ROOM_LIMIT = 3;
 const RECENT_ROOM_MODAL_LIMIT = 9;
@@ -49,6 +55,7 @@ export default function LandingPage() {
   const navigate = useNavigate();
   const [inviteCode, setInviteCode] = useState("");
   const [prefs, setPrefs] = useState(() => loadUserPrefs());
+  const [recentSessions, setRecentSessions] = useState<SessionSummary[]>([]);
   const [showOnboarding, setShowOnboarding] = useState(
     () => prefs.settings.autoGuidesEnabled && !prefs.onboarding.dismissed
   );
@@ -64,6 +71,35 @@ export default function LandingPage() {
     : [];
   const previewRecentRooms = recentRooms.slice(0, INLINE_RECENT_ROOM_LIMIT);
   const hasMoreRecentRooms = recentRooms.length > INLINE_RECENT_ROOM_LIMIT;
+
+  useEffect(() => {
+    let active = true;
+
+    const fetchRecentSessions = async () => {
+      try {
+        const sessions = await api.getRecentSessions(4);
+        if (active) {
+          setRecentSessions(sessions);
+        }
+      } catch (error) {
+        reportError(error, {
+          tags: { flow: "landing_recent_sessions" },
+          extra: {
+            ...getApiErrorDetails(error, "Unable to load recent sessions"),
+          },
+        });
+        if (active) {
+          setRecentSessions([]);
+        }
+      }
+    };
+
+    void fetchRecentSessions();
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const handleJoinRedirect = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -288,6 +324,35 @@ export default function LandingPage() {
             </Card>
           </section>
         ) : null}
+
+        {recentSessions.length > 0 ? (
+          <section className="mx-auto mt-5 w-full max-w-4xl shrink-0">
+            <Card className="border-0 bg-slate-950 text-slate-50 shadow-xl shadow-slate-950/20">
+              <CardHeader className="min-w-0 gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div className="min-w-0">
+                  <CardTitle className="flex items-center gap-2 text-xl text-white">
+                    <Clock3 className="h-5 w-5" />
+                    Recent sessions
+                  </CardTitle>
+                  <CardDescription className="max-w-full break-words text-slate-300">
+                    Closed sessions from the shared server. Use them as a read on what surfaces
+                    and climbs people are clustering around lately.
+                  </CardDescription>
+                </div>
+                <Button asChild variant="secondary" className="w-full sm:w-auto">
+                  <Link to="/rooms/new">Start a room</Link>
+                </Button>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-3 lg:grid-cols-2">
+                  {recentSessions.map((session) => (
+                    <RecentSessionCard key={`${session.room_slug}:${session.closed_at}`} session={session} />
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </section>
+        ) : null}
       </div>
     </div>
   );
@@ -420,6 +485,54 @@ interface RecentRoomActionsProps {
   roomLabel: string;
   onTogglePinned: (slug: string) => void;
   onRemove: (slug: string) => void;
+}
+
+function RecentSessionCard({ session }: { session: SessionSummary }) {
+  const topClimb = session.top_voted[0]?.climb;
+  const topVotes = session.top_voted[0]?.vote_count ?? 0;
+
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/6 p-4">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="truncate text-lg font-medium text-white" title={session.room_name || session.room_slug}>
+            {session.room_name || `Room ${session.room_slug}`}
+          </p>
+          <p className="mt-1 truncate text-[11px] uppercase tracking-[0.2em] text-slate-400">
+            {session.provider_id} · {session.surface_name || "surface pending"}
+          </p>
+        </div>
+        <span className="rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-slate-200">
+          {session.participant_count} climber{session.participant_count === 1 ? "" : "s"}
+        </span>
+      </div>
+
+      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        <div className="rounded-xl bg-white/6 p-3">
+          <p className="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-slate-400">
+            <Trophy className="h-3.5 w-3.5" />
+            Top voted
+          </p>
+          <p className="mt-2 truncate text-sm font-medium text-white" title={topClimb?.name || "No votes recorded"}>
+            {topClimb?.name || "No votes recorded"}
+          </p>
+          <p className="mt-1 text-xs text-slate-300">
+            {topVotes > 0 ? `${topVotes} vote${topVotes === 1 ? "" : "s"}` : "No fist bumps captured"}
+          </p>
+        </div>
+
+        <div className="rounded-xl bg-white/6 p-3">
+          <p className="text-xs uppercase tracking-[0.18em] text-slate-400">Wrap-up</p>
+          <p className="mt-2 text-sm text-white">
+            {session.final_queue.length} queued · {session.finalists.length} finalists
+          </p>
+          <p className="mt-1 text-xs text-slate-300">
+            Closed {new Date(session.closed_at).toLocaleString()}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function RecentRoomActions({
