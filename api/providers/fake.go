@@ -101,9 +101,13 @@ func (provider *FakeProvider) ValidateConnection(_ context.Context, secret Secre
 
 func (provider *FakeProvider) ListSurfaces(
 	_ context.Context,
-	_ SecretPayload,
+	secret SecretPayload,
 	filters SurfaceFilter,
 ) ([]ProviderSurface, error) {
+	if err := requireFakeToken(secret); err != nil {
+		return nil, err
+	}
+
 	if filters.ParentID == "" {
 		filtered := make([]ProviderSurface, 0)
 		for _, surface := range provider.Surfaces {
@@ -125,9 +129,13 @@ func (provider *FakeProvider) ListSurfaces(
 
 func (provider *FakeProvider) ListClimbs(
 	_ context.Context,
-	_ SecretPayload,
+	secret SecretPayload,
 	input ListClimbsInput,
 ) (*PaginatedClimbs, error) {
+	if err := requireFakeToken(secret); err != nil {
+		return nil, err
+	}
+
 	filtered := make([]ProviderClimb, 0)
 	query := strings.ToLower(strings.TrimSpace(input.Search))
 	for _, climb := range provider.Climbs {
@@ -182,10 +190,14 @@ func (provider *FakeProvider) ListClimbs(
 
 func (provider *FakeProvider) GetClimb(
 	_ context.Context,
-	_ SecretPayload,
+	secret SecretPayload,
 	input ListClimbsInput,
 	climbID string,
 ) (*ProviderClimb, error) {
+	if err := requireFakeToken(secret); err != nil {
+		return nil, err
+	}
+
 	for _, climb := range provider.Climbs {
 		if climb.ID != climbID {
 			continue
@@ -200,6 +212,13 @@ func (provider *FakeProvider) GetClimb(
 }
 
 func (provider *FakeProvider) RefreshCatalog(_ context.Context, _ SecretPayload, _ map[string]string) error {
+	return nil
+}
+
+func requireFakeToken(secret SecretPayload) error {
+	if strings.TrimSpace(secret["token"]) == "" {
+		return fmt.Errorf("token is required")
+	}
 	return nil
 }
 

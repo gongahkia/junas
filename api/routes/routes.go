@@ -48,6 +48,11 @@ func SetupRoutes() *chi.Mux {
 		r.Get("/climbs", handlers.GetClimbs)
 		r.Get("/boards", handlers.GetBoardOptions)
 		r.Get("/images/{filename}", handlers.ServeImage)
+		r.Route("/solo/providers/{providerId}", func(r chi.Router) {
+			r.Post("/surfaces", handlers.ListSoloProviderSurfaces)
+			r.Post("/climbs", handlers.ListSoloProviderClimbs)
+			r.Post("/climbs/{climbId}", handlers.GetSoloProviderClimb)
+		})
 		if runtimeConfig.EnableTestProvider {
 			r.Post("/rooms", handlers.CreateRoom)
 		} else {

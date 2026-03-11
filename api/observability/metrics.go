@@ -40,6 +40,10 @@ var (
 		Name: "kilter_together_room_actions_total",
 		Help: "Room create/join/provider/catalog actions by provider and outcome.",
 	}, []string{"action", "provider", "outcome"})
+	soloActions = promauto.NewCounterVec(prometheus.CounterOpts{
+		Name: "kilter_together_solo_actions_total",
+		Help: "Solo browse provider actions by provider and outcome.",
+	}, []string{"action", "provider", "outcome"})
 	sseSubscribers = promauto.NewGauge(prometheus.GaugeOpts{
 		Name: "kilter_together_room_sse_subscribers",
 		Help: "Current number of active room SSE subscribers.",
@@ -122,6 +126,14 @@ func RecordRoomAction(action, provider string, err error) {
 		outcome = "error"
 	}
 	roomActions.WithLabelValues(action, provider, outcome).Inc()
+}
+
+func RecordSoloAction(action, provider string, err error) {
+	outcome := "success"
+	if err != nil {
+		outcome = "error"
+	}
+	soloActions.WithLabelValues(action, provider, outcome).Inc()
 }
 
 func SSESubscribed() {

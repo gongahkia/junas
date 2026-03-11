@@ -21,7 +21,7 @@ func SupportedCapabilities() []Capability {
 	providerIDs := Supported()
 	capabilities := make([]Capability, 0, len(providerIDs))
 	for _, providerID := range providerIDs {
-		if capability, ok := capabilityForProvider(providerID); ok {
+		if capability, ok := CapabilityForProvider(providerID); ok {
 			capabilities = append(capabilities, capability)
 		}
 	}
@@ -29,7 +29,7 @@ func SupportedCapabilities() []Capability {
 	return capabilities
 }
 
-func capabilityForProvider(providerID ProviderID) (Capability, bool) {
+func CapabilityForProvider(providerID ProviderID) (Capability, bool) {
 	switch providerID {
 	case ProviderKilter:
 		return Capability{
@@ -60,7 +60,7 @@ func capabilityForProvider(providerID ProviderID) (Capability, bool) {
 			ID:               ProviderCrux,
 			Label:            "Crux",
 			RoomSupported:    true,
-			SoloSupported:    false,
+			SoloSupported:    true,
 			SurfaceHierarchy: "nested",
 			AuthFields: []AuthField{
 				{
@@ -76,7 +76,7 @@ func capabilityForProvider(providerID ProviderID) (Capability, bool) {
 			ID:               ProviderTest,
 			Label:            "Test provider",
 			RoomSupported:    true,
-			SoloSupported:    false,
+			SoloSupported:    true,
 			SurfaceHierarchy: "nested",
 			AuthFields: []AuthField{
 				{
