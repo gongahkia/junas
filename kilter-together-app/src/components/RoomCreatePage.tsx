@@ -195,13 +195,25 @@ export default function RoomCreatePage() {
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div className="space-y-1">
                 <p className="text-sm font-medium text-teal-900">
-                  Solo shortlist seed is ready
+                  {pendingSoloSeed.climbs.length > 0
+                    ? "Solo shortlist seed is ready"
+                    : "Solo board context is ready"}
                 </p>
                 <p className="text-sm text-teal-900/80">
-                  This room can import {pendingSoloSeed.climbs.length} shortlisted climb
-                  {pendingSoloSeed.climbs.length === 1 ? "" : "s"} after you choose{" "}
-                  {pendingSoloSeed.board_name} at {pendingSoloSeed.angle}
-                  &deg; inside the room.
+                  {pendingSoloSeed.climbs.length > 0 ? (
+                    <>
+                      This room can import {pendingSoloSeed.climbs.length} shortlisted climb
+                      {pendingSoloSeed.climbs.length === 1 ? "" : "s"} after you choose{" "}
+                      {pendingSoloSeed.board_name} at {pendingSoloSeed.angle}
+                      &deg; inside the room.
+                    </>
+                  ) : (
+                    <>
+                      This room will start from {pendingSoloSeed.board_name} at{" "}
+                      {pendingSoloSeed.angle}
+                      &deg; once you choose that shared board inside the room.
+                    </>
+                  )}
                 </p>
               </div>
               <Button

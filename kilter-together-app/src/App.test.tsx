@@ -1676,6 +1676,58 @@ describe("App routes", () => {
     ).toBeInTheDocument();
   });
 
+  it("hands a solo board context off into room creation without a shortlist", async () => {
+    const user = userEvent.setup();
+    window.localStorage.setItem(
+      "kilter-together:user-prefs:v1",
+      JSON.stringify({
+        ...DEFAULT_DISMISSED_GUIDES_PREFS,
+      })
+    );
+    mockedApi.getBoards.mockResolvedValue([
+      { id: 14, name: "Original 7 x 10", kilter_name: "Kilter Board Original" },
+    ]);
+    mockedApi.getPaginatedClimbs.mockResolvedValue({
+      climbs: [
+        {
+          uuid: "uuid-board",
+          climb_name: "Board Context Test",
+          description: "Board-only room handoff",
+          frames: "frames",
+          grades: {
+            "45": {
+              boulder: "7a/V6",
+              route: "5.12d",
+            },
+          },
+          setter_name: "setter-a",
+          image_filenames: [],
+          product_size_id: 14,
+          ascends: 5,
+          created_at: "2026-01-01 00:00:00.000000",
+        },
+      ],
+      has_more: false,
+      page_size: 10,
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/solo/boards/14?angle=45&sort=newest"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    const seedButtons = await screen.findAllByRole("button", {
+      name: "Start room on this board",
+    });
+    await user.click(seedButtons[0]);
+
+    expect(await screen.findByText("Solo board context is ready")).toBeInTheDocument();
+    expect(
+      screen.getByText(/This room will start from Original 7 x 10 at 45/i)
+    ).toBeInTheDocument();
+  });
+
   it("imports a solo shortlist seed into a matching kilter room queue", async () => {
     const user = userEvent.setup();
     window.localStorage.setItem(
@@ -1771,6 +1823,60 @@ describe("App routes", () => {
           .pendingSoloRoomSeed
       ).toBeUndefined()
     );
+  });
+
+  it("shows a board-context room seed without queue import actions", async () => {
+    window.localStorage.setItem(
+      "kilter-together:user-prefs:v1",
+      JSON.stringify({
+        pendingSoloRoomSeed: {
+          board_id: "14",
+          board_name: "Original 7 x 10",
+          angle: 45,
+          climbs: [],
+          created_at: "2026-03-11T03:30:00.000Z",
+        },
+        ...DEFAULT_DISMISSED_GUIDES_PREFS,
+      })
+    );
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("seed-board-room"),
+      connection: {
+        provider_id: "kilter",
+        connected: true,
+      },
+      surface: {
+        id: "14",
+        kind: "board",
+        name: "Original 7 x 10",
+        meta: {
+          board_id: "14",
+          angle: "45",
+        },
+      },
+    });
+    mockedApi.getRoomCatalogClimbs.mockResolvedValue({
+      climbs: [],
+      has_more: false,
+      page_size: 12,
+      vote_counts: {},
+      my_votes: [],
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/seed-board-room"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByText("Solo board context is ready")).toBeInTheDocument();
+    expect(
+      screen.getByText("This room is already set to the saved solo board context.")
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Import shortlist to queue" })
+    ).not.toBeInTheDocument();
   });
 
   it("lets the user pin and remove recent rooms", async () => {

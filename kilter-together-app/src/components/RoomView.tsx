@@ -1083,6 +1083,7 @@ export default function RoomView() {
     0;
   const myFistBumps = catalog?.my_votes ?? snapshot.my_votes;
   const queuedClimbIds = new Set(snapshot.queue.map((entry) => entry.climb.id));
+  const pendingSoloSeedHasClimbs = (pendingSoloSeed?.climbs.length ?? 0) > 0;
   const pendingSoloSeedMatchesSurface =
     snapshot.provider_id === "kilter" &&
     Boolean(pendingSoloSeed) &&
@@ -1611,22 +1612,30 @@ export default function RoomView() {
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div className="space-y-1">
                       <p className="text-sm font-medium text-teal-900">
-                        Solo shortlist seed is ready
+                        {pendingSoloSeedHasClimbs
+                          ? "Solo shortlist seed is ready"
+                          : "Solo board context is ready"}
                       </p>
                       <p className="text-sm text-teal-900/80">
-                        {pendingSoloSeedMatchesSurface
-                          ? pendingSoloSeedQueuedClimbs.length > 0
-                            ? `Import ${pendingSoloSeedQueuedClimbs.length} shortlisted climb${
-                                pendingSoloSeedQueuedClimbs.length === 1 ? "" : "s"
-                              } into this room queue.`
-                            : "Every shortlisted climb is already in the room queue."
-                          : `Choose ${pendingSoloSeed.board_name} at ${pendingSoloSeed.angle}\u00b0 to import ${pendingSoloSeed.climbs.length} shortlisted climb${
-                              pendingSoloSeed.climbs.length === 1 ? "" : "s"
-                            }.`}
+                        {pendingSoloSeedHasClimbs
+                          ? pendingSoloSeedMatchesSurface
+                            ? pendingSoloSeedQueuedClimbs.length > 0
+                              ? `Import ${pendingSoloSeedQueuedClimbs.length} shortlisted climb${
+                                  pendingSoloSeedQueuedClimbs.length === 1 ? "" : "s"
+                                } into this room queue.`
+                              : "Every shortlisted climb is already in the room queue."
+                            : `Choose ${pendingSoloSeed.board_name} at ${pendingSoloSeed.angle}\u00b0 to import ${pendingSoloSeed.climbs.length} shortlisted climb${
+                                pendingSoloSeed.climbs.length === 1 ? "" : "s"
+                              }.`
+                          : pendingSoloSeedMatchesSurface
+                            ? "This room is already set to the saved solo board context."
+                            : `Choose ${pendingSoloSeed.board_name} at ${pendingSoloSeed.angle}\u00b0 to use the saved solo board context in this room.`}
                       </p>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      {canManageQueue && pendingSoloSeedMatchesSurface ? (
+                      {canManageQueue &&
+                      pendingSoloSeedMatchesSurface &&
+                      pendingSoloSeedHasClimbs ? (
                         <Button
                           type="button"
                           variant="secondary"

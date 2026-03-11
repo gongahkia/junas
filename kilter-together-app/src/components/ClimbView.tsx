@@ -342,6 +342,22 @@ export default function ClimbView({
     navigate("/rooms/new");
   };
 
+  const handleSeedRoomFromBoard = () => {
+    if (!boardId) {
+      return;
+    }
+
+    setPrefs(
+      beginSoloRoomSeed({
+        boardId,
+        boardName,
+        angle,
+        climbs: [],
+      })
+    );
+    navigate("/rooms/new");
+  };
+
   if (initialLoad && loading) {
     return (
       <LoadingSlideshow
@@ -413,6 +429,13 @@ export default function ClimbView({
                     </p>
                     <h2 className="text-2xl font-semibold">{boardName}</h2>
                     <div className="flex flex-wrap gap-2">
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        onClick={handleSeedRoomFromBoard}
+                      >
+                        Start room on this board
+                      </Button>
                       {shortlistForCurrentView.length > 0 ? (
                         <Button
                           type="button"
@@ -469,6 +492,13 @@ export default function ClimbView({
                         {prefs.soloShortlist.length} shortlisted
                       </Badge>
                     ) : null}
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      onClick={handleSeedRoomFromBoard}
+                    >
+                      Start room on this board
+                    </Button>
                     {shortlistForCurrentView.length > 0 ? (
                       <Button
                         type="button"
