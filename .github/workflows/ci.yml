@@ -30,7 +30,8 @@ jobs:
       - name: Install staticcheck
         run: go install honnef.co/go/tools/cmd/staticcheck@latest
       - name: Run staticcheck
-        run: "$(go env GOPATH)/bin/staticcheck" ./...
+        run: |
+          "$(go env GOPATH)/bin/staticcheck" ./...
       - name: Run Go tests
         run: go test ./...
       - name: Build Go API
@@ -86,3 +87,18 @@ jobs:
       - name: Run Playwright smoke test
         working-directory: kilter-together-app
         run: npm run test:e2e -- --project=chromium tests/room-smoke.spec.ts
+
+  deployment-config:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Render Caddyfile from production env example
+        run: ./scripts/render-caddyfile.sh compose.production.env.example /tmp/Caddyfile
+      - name: Render Alertmanager config from env example
+        run: ./scripts/render-alertmanager-config.sh observability/alertmanager/alertmanager.env.example /tmp/alertmanager.production.yml
+      - name: Validate base compose config
+        run: docker compose --env-file compose.env.example -f docker-compose.yml config >/tmp/base-compose.yml
+      - name: Validate production compose config
+        run: docker compose --env-file compose.production.env.example -f docker-compose.production.yml config >/tmp/production-compose.yml
+      - name: Validate observability compose config
+        run: docker compose -f docker-compose.observability.yml -f docker-compose.observability.production.yml config >/tmp/observability-compose.yml

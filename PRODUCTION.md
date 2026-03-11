@@ -101,3 +101,16 @@ Provider credentials are encrypted at rest in `app.db`. To rotate the key:
 The app still uses GORM `AutoMigrate` for the current schema, but future schema changes
 should be introduced with explicit, reviewed migrations instead of relying on implicit
 runtime mutation alone.
+
+## Release Automation
+
+GitHub Actions now publishes Docker images on `v*` tags through
+[`release-images.yml`](/Users/gongahkia/Desktop/coding/projects/kilter-together/.github/workflows/release-images.yml).
+That workflow pushes:
+
+- `ghcr.io/<owner>/kilter-together-api`
+- `ghcr.io/<owner>/kilter-together-web`
+
+The production compose file currently builds from the local checkout for simplicity, but
+you can switch it to pinned GHCR tags in your deployment once you want release-based
+rollouts instead of in-place builds.
