@@ -13,6 +13,10 @@ import {
   Users,
 } from "lucide-react";
 import { api } from "@/api";
+import {
+  fallbackProviderCapabilities,
+  getProviderLabel,
+} from "@/lib/provider-capabilities";
 import { extractRoomSlugFromValue } from "@/lib/room-links";
 import {
   dismissLandingIntro,
@@ -46,10 +50,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import type { SessionSummary } from "@/types";
+import type { ProviderId, SessionSummary } from "@/types";
 
 const INLINE_RECENT_ROOM_LIMIT = 3;
 const RECENT_ROOM_MODAL_LIMIT = 9;
+const PROVIDER_CAPABILITIES = fallbackProviderCapabilities();
+
+function resolveProviderLabel(providerId: ProviderId): string {
+  return getProviderLabel(providerId, PROVIDER_CAPABILITIES);
+}
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -370,6 +379,7 @@ function RecentRoomPreviewCard({
   onRemove,
 }: RecentRoomItemProps) {
   const roomLabel = room.roomName || `Room ${room.slug}`;
+  const providerLabel = resolveProviderLabel(room.providerId);
 
   return (
     <div className="min-w-0 rounded-2xl border bg-white/75 p-4">
@@ -392,7 +402,7 @@ function RecentRoomPreviewCard({
             ) : null}
           </div>
           <p className="mt-1 break-all text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-            {room.providerId} · {room.slug}
+            {providerLabel} · {room.slug}
           </p>
         </div>
         <RecentRoomActions
@@ -426,6 +436,7 @@ function RecentRoomModalCard({
   onRemove,
 }: RecentRoomItemProps) {
   const roomLabel = room.roomName || `Room ${room.slug}`;
+  const providerLabel = resolveProviderLabel(room.providerId);
 
   return (
     <div className="overflow-hidden rounded-2xl border bg-white/75 p-5 transition-colors hover:bg-white">
@@ -450,9 +461,9 @@ function RecentRoomModalCard({
           </div>
           <p
             className="mt-1 truncate text-xs uppercase tracking-[0.2em] text-muted-foreground"
-            title={`${room.providerId} · ${room.slug}`}
+            title={`${providerLabel} · ${room.slug}`}
           >
-            {room.providerId} · {room.slug}
+            {providerLabel} · {room.slug}
           </p>
           <p className="mt-3 truncate text-sm text-muted-foreground" title={room.surfaceName || "Surface not chosen yet"}>
             {room.surfaceName || "Surface not chosen yet"}
@@ -490,6 +501,7 @@ interface RecentRoomActionsProps {
 function RecentSessionCard({ session }: { session: SessionSummary }) {
   const topClimb = session.top_voted[0]?.climb;
   const topVotes = session.top_voted[0]?.vote_count ?? 0;
+  const providerLabel = resolveProviderLabel(session.provider_id);
 
   return (
     <div className="rounded-2xl border border-white/10 bg-white/6 p-4">
@@ -499,7 +511,7 @@ function RecentSessionCard({ session }: { session: SessionSummary }) {
             {session.room_name || `Room ${session.room_slug}`}
           </p>
           <p className="mt-1 truncate text-[11px] uppercase tracking-[0.2em] text-slate-400">
-            {session.provider_id} · {session.surface_name || "surface pending"}
+            {providerLabel} · {session.surface_name || "surface pending"}
           </p>
         </div>
         <span className="rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-slate-200">

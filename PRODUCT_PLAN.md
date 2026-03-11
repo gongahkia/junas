@@ -23,10 +23,10 @@ This repo now carries a persona-driven implementation plan so product work stays
 ### 3. Solo Project Researcher
 - Uses solo browse to scout Kilter climbs, compare options, and return later.
 - Needs stronger discovery and persistence than the current basic browse flow.
-- Planned next tranche:
-  - richer filters
-  - shortlist/favorites
-  - bridge from solo browse into collaborative room setup
+- Delivered in the current implementation:
+  - grade-aware, setter, name, and sort filters
+  - favorites, shortlist, and saved filter presets
+  - resume links plus room seeding from shortlist or board context
 
 ### 4. Crux Gym Regular
 - Uses Crux-backed room flows and expects gym/wall terminology, wall-aware selection, and provider-specific metadata.
@@ -39,7 +39,7 @@ This repo now carries a persona-driven implementation plan so product work stays
 ### 5. Community Self-Host Operator
 - Runs bootstrap, configures secrets, observes runtime health, and diagnoses production issues.
 - Needs more than terminal logs and browser devtools to support the app confidently.
-- Current implementation focus:
+- Delivered in the current implementation:
   - protected operator status endpoint
   - Prometheus/Grafana/Loki/Tempo/Alertmanager/Alloy stack
   - Sentry-compatible GlitchTip integration path for frontend/backend exceptions
@@ -52,20 +52,12 @@ This repo now carries a persona-driven implementation plan so product work stays
 - Protected operator status endpoint at `/api/operator/status`.
 - Backend tracing, structured request IDs, and Sentry-compatible error hooks.
 - Frontend capability-aware provider selection and typed join/load error handling.
+- `co_host` permissions, session summaries, recent sessions, and host defaults.
+- Solo favorites, shortlist, saved filters, grade filtering, and room seeding from solo context.
 - Self-hosted observability stack config under [`observability/`](/Users/gongahkia/Desktop/coding/projects/kilter-together/observability) and [`docker-compose.observability.yml`](/Users/gongahkia/Desktop/coding/projects/kilter-together/docker-compose.observability.yml).
 
-## Next Phases
+## Remaining Optional Follow-Ups
 
-### Collaboration depth
-- `co_host` role and permission model
-- room close summaries and recent session history
-- recurring host presets
-
-### Solo expansion
-- saved filters, shortlist/favorites, room seeding from solo context
-- explicit Crux solo support or continued room-only posture
-
-### Operator maturity
-- backup/restore workflow hardening
-- migration and key-rotation runbooks
-- production alert routing beyond the default Alertmanager receiver
+- Full Crux solo browse if the project wants parity instead of the current explicit room-only posture.
+- Deeper provider-specific discovery metadata beyond the current board/wall, gym, angle, and label improvements.
+- Production-specific alert routing and hosted operator workflows beyond the committed self-hosted defaults.

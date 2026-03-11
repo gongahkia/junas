@@ -1248,7 +1248,7 @@ export default function RoomView() {
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 <h1 className="text-3xl font-semibold tracking-tight">{roomTitle}</h1>
-                <Badge variant="secondary">{snapshot.provider_id}</Badge>
+                <Badge variant="secondary">{providerLabel}</Badge>
                 <Badge variant={snapshot.status === "open" ? "default" : "secondary"}>
                   {snapshot.status}
                 </Badge>
