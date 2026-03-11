@@ -93,6 +93,9 @@ The repo now includes:
 
 - a reusable notification template at [`observability/alertmanager/templates/default.tmpl`](/Users/gongahkia/Desktop/coding/projects/kilter-together/observability/alertmanager/templates/default.tmpl)
 - a production routing example at [`observability/alertmanager/alertmanager.production.example.yml`](/Users/gongahkia/Desktop/coding/projects/kilter-together/observability/alertmanager/alertmanager.production.example.yml)
+- a renderable production template at [`observability/alertmanager/alertmanager.production.tmpl.yml`](/Users/gongahkia/Desktop/coding/projects/kilter-together/observability/alertmanager/alertmanager.production.tmpl.yml)
+- an env template at [`observability/alertmanager/alertmanager.env.example`](/Users/gongahkia/Desktop/coding/projects/kilter-together/observability/alertmanager/alertmanager.env.example)
+- a render script at [`scripts/render-alertmanager-config.sh`](/Users/gongahkia/Desktop/coding/projects/kilter-together/scripts/render-alertmanager-config.sh)
 
 That production example fans alerts out by severity and intent:
 
@@ -108,6 +111,24 @@ To activate it in a deployment:
 4. Recreate the `alertmanager` service.
 
 The default compose file already mounts the shared template directory, so both the starter config and the production example can render the same alert body.
+
+If you want a repeatable env-driven workflow instead of editing YAML by hand:
+
+1. Copy `observability/alertmanager/alertmanager.env.example` to `observability/alertmanager/alertmanager.env`.
+2. Replace the placeholder Slack, PagerDuty, and webhook values.
+3. Run:
+
+```console
+./scripts/render-alertmanager-config.sh
+```
+
+4. Start the observability stack with the production override:
+
+```console
+docker compose -f docker-compose.observability.yml -f docker-compose.observability.production.yml up -d
+```
+
+That override switches Alertmanager to the rendered config under `observability/alertmanager/generated/alertmanager.production.yml`.
 
 The default Prometheus rule set now covers:
 

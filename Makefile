@@ -12,7 +12,7 @@ DEV_APP_SECRET ?= development-room-secret
 DEV_ENCRYPTION_KEY ?= MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=
 DEV_SECURE_COOKIES ?= false
 
-.PHONY: help install web-install bootstrap dev dev-api dev-web docker-bootstrap docker-up docker-down docker-logs docker-production-render docker-production-bootstrap docker-production-up test lint build check health
+.PHONY: help install web-install bootstrap dev dev-api dev-web docker-bootstrap docker-up docker-down docker-logs docker-production-render docker-production-bootstrap docker-production-up observability-production-render test lint build check health
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*##"; print "Available targets:"} /^[a-zA-Z0-9_.-]+:.*##/ {printf "  %-14s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -81,6 +81,9 @@ docker-production-bootstrap: docker-production-render ## Bootstrap the productio
 
 docker-production-up: docker-production-render ## Build and run the production compose stack
 	cd "$(ROOT_DIR)" && docker compose --env-file compose.production.env -f docker-compose.production.yml up -d --build
+
+observability-production-render: ## Render the production Alertmanager config from observability/alertmanager/alertmanager.env
+	cd "$(ROOT_DIR)" && ./scripts/render-alertmanager-config.sh
 
 test: ## Run backend and frontend tests
 	cd "$(API_DIR)" && go test ./...
