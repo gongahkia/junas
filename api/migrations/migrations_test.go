@@ -9,6 +9,23 @@ import (
 	"gorm.io/gorm"
 )
 
+func expectedSQLMigrationCount(t *testing.T) int {
+	t.Helper()
+
+	entries, err := files.ReadDir(".")
+	if err != nil {
+		t.Fatalf("read embedded migrations: %v", err)
+	}
+
+	count := 0
+	for _, entry := range entries {
+		if !entry.IsDir() && filepath.Ext(entry.Name()) == ".sql" {
+			count++
+		}
+	}
+	return count
+}
+
 func openTestDB(t *testing.T) *gorm.DB {
 	t.Helper()
 
@@ -32,7 +49,7 @@ func TestApplyFreshDatabase(t *testing.T) {
 	if err != nil {
 		t.Fatalf("list applied migrations: %v", err)
 	}
-	if len(applied) != 1 || applied[0].Version != baselineVersion {
+	if len(applied) != expectedSQLMigrationCount(t) || applied[0].Version != baselineVersion {
 		t.Fatalf("unexpected applied migrations: %#v", applied)
 	}
 }
@@ -75,8 +92,8 @@ func TestApplyIsIdempotent(t *testing.T) {
 	if err != nil {
 		t.Fatalf("list applied migrations: %v", err)
 	}
-	if len(applied) != 1 {
-		t.Fatalf("expected one applied migration after repeated apply, got %#v", applied)
+	if len(applied) != expectedSQLMigrationCount(t) {
+		t.Fatalf("expected %d applied migrations after repeated apply, got %#v", expectedSQLMigrationCount(t), applied)
 	}
 }
 

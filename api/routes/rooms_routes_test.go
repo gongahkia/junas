@@ -276,6 +276,49 @@ func TestRoomRoutesContract(t *testing.T) {
 	if disabledVoteResponse.StatusCode != http.StatusForbidden {
 		t.Fatalf("expected disabled fist bumps to return 403, got %d", disabledVoteResponse.StatusCode)
 	}
+
+	closeResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms/"+createdRoom.Slug+"/close", nil, hostCookies)
+	if closeResponse.StatusCode != http.StatusOK {
+		t.Fatalf("expected close room status 200, got %d", closeResponse.StatusCode)
+	}
+
+	recentSessionsResponse := performJSONRequest(t, server, http.MethodGet, "/api/sessions/recent?limit=3", nil, nil)
+	if recentSessionsResponse.StatusCode != http.StatusOK {
+		t.Fatalf("expected recent sessions status 200, got %d", recentSessionsResponse.StatusCode)
+	}
+	var recentSessionsPayload struct {
+		Sessions []struct {
+			RoomSlug         string `json:"room_slug"`
+			RoomName         string `json:"room_name"`
+			ProviderID       string `json:"provider_id"`
+			ParticipantCount int    `json:"participant_count"`
+			TopVoted         []struct {
+				VoteCount int `json:"vote_count"`
+				Climb     struct {
+					ID string `json:"id"`
+				} `json:"climb"`
+			} `json:"top_voted"`
+		} `json:"sessions"`
+	}
+	if err := json.NewDecoder(recentSessionsResponse.Body).Decode(&recentSessionsPayload); err != nil {
+		t.Fatalf("decode recent sessions response: %v", err)
+	}
+	if len(recentSessionsPayload.Sessions) != 1 {
+		t.Fatalf("expected one recent session, got %#v", recentSessionsPayload.Sessions)
+	}
+	if recentSessionsPayload.Sessions[0].RoomSlug != createdRoom.Slug ||
+		recentSessionsPayload.Sessions[0].RoomName != "Project Night" ||
+		recentSessionsPayload.Sessions[0].ProviderID != string(provider.ID()) {
+		t.Fatalf("unexpected recent session identity: %#v", recentSessionsPayload.Sessions[0])
+	}
+	if recentSessionsPayload.Sessions[0].ParticipantCount != 2 {
+		t.Fatalf("expected participant count 2 in recent session, got %#v", recentSessionsPayload.Sessions[0])
+	}
+	if len(recentSessionsPayload.Sessions[0].TopVoted) != 1 ||
+		recentSessionsPayload.Sessions[0].TopVoted[0].Climb.ID != "fake-route:beta" ||
+		recentSessionsPayload.Sessions[0].TopVoted[0].VoteCount != 1 {
+		t.Fatalf("unexpected recent session top-voted payload: %#v", recentSessionsPayload.Sessions[0].TopVoted)
+	}
 }
 
 func TestCreateRoomRequiresEncryptionKey(t *testing.T) {

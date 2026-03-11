@@ -403,6 +403,89 @@ func TestServiceCoHostPermissions(t *testing.T) {
 	}
 }
 
+func TestServicePersistsRoomSessionSummaryOnClose(t *testing.T) {
+	ctx := context.Background()
+	service, provider := setupRoomServiceTest(t)
+
+	createdSnapshot, hostSessionID, err := service.CreateRoom(
+		ctx,
+		provider.ID(),
+		"Summary Session",
+		"Host",
+		providers.SecretPayload{"token": "provider-token"},
+	)
+	if err != nil {
+		t.Fatalf("create room: %v", err)
+	}
+
+	hostViewer, err := service.Authenticate(ctx, createdSnapshot.Slug, hostSessionID, "")
+	if err != nil {
+		t.Fatalf("authenticate host: %v", err)
+	}
+	if _, err := service.SetSurface(ctx, hostViewer, "wall-alpha", map[string]string{}); err != nil {
+		t.Fatalf("set surface: %v", err)
+	}
+
+	_, guestSessionID, err := service.JoinRoom(ctx, createdSnapshot.Slug, "Guest")
+	if err != nil {
+		t.Fatalf("join room: %v", err)
+	}
+	guestViewer, err := service.Authenticate(ctx, createdSnapshot.Slug, guestSessionID, "")
+	if err != nil {
+		t.Fatalf("authenticate guest: %v", err)
+	}
+
+	if err := service.AddQueueEntry(ctx, guestViewer, "fake-room:beta"); err != nil {
+		t.Fatalf("queue beta: %v", err)
+	}
+	if err := service.AddQueueEntry(ctx, hostViewer, "fake-room:alpha"); err != nil {
+		t.Fatalf("queue alpha: %v", err)
+	}
+	if err := service.ToggleVote(ctx, guestViewer, "fake-room:beta"); err != nil {
+		t.Fatalf("guest vote beta: %v", err)
+	}
+	if err := service.ToggleVote(ctx, hostViewer, "fake-room:beta"); err != nil {
+		t.Fatalf("host vote beta: %v", err)
+	}
+	if err := service.AddFinalist(ctx, hostViewer, "fake-room:beta"); err != nil {
+		t.Fatalf("add finalist: %v", err)
+	}
+	if err := service.CloseRoom(ctx, hostViewer); err != nil {
+		t.Fatalf("close room: %v", err)
+	}
+
+	summaries, err := service.ListRecentSessionSummaries(ctx, 5)
+	if err != nil {
+		t.Fatalf("list recent sessions: %v", err)
+	}
+	if len(summaries) != 1 {
+		t.Fatalf("expected one summary, got %#v", summaries)
+	}
+
+	summary := summaries[0]
+	if summary.RoomSlug != createdSnapshot.Slug || summary.RoomName != "Summary Session" {
+		t.Fatalf("unexpected summary identity: %#v", summary)
+	}
+	if summary.ProviderID != provider.ID() {
+		t.Fatalf("unexpected summary provider: %#v", summary.ProviderID)
+	}
+	if summary.SurfaceName != "Alpha Wall" {
+		t.Fatalf("expected surface name to persist, got %#v", summary.SurfaceName)
+	}
+	if summary.ParticipantCount != 2 {
+		t.Fatalf("expected two participants in summary, got %#v", summary.ParticipantCount)
+	}
+	if len(summary.FinalQueue) != 2 {
+		t.Fatalf("expected two queue entries in summary, got %#v", summary.FinalQueue)
+	}
+	if len(summary.Finalists) != 1 || summary.Finalists[0].Climb.ID != "fake-room:beta" {
+		t.Fatalf("unexpected finalists summary: %#v", summary.Finalists)
+	}
+	if len(summary.TopVoted) != 1 || summary.TopVoted[0].Climb.ID != "fake-room:beta" || summary.TopVoted[0].VoteCount != 2 {
+		t.Fatalf("unexpected top-voted summary: %#v", summary.TopVoted)
+	}
+}
+
 func setupRoomServiceTest(t *testing.T) (*Service, *testprovider.Provider) {
 	t.Helper()
 

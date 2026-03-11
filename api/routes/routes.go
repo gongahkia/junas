@@ -44,6 +44,7 @@ func SetupRoutes() *chi.Mux {
 		r.Get("/metrics", handlers.Metrics)
 		r.Get("/providers/capabilities", handlers.ProviderCapabilities)
 		r.Get("/operator/status", handlers.OperatorStatus)
+		r.Get("/sessions/recent", handlers.ListRecentSessions)
 		r.Get("/climbs", handlers.GetClimbs)
 		r.Get("/boards", handlers.GetBoardOptions)
 		r.Get("/images/{filename}", handlers.ServeImage)

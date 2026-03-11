@@ -104,6 +104,23 @@ type RoomFinalistEntry struct {
 	UpdatedAt            time.Time
 }
 
+type RoomSessionSummary struct {
+	ID               uint   `gorm:"primaryKey"`
+	RoomID           uint   `gorm:"uniqueIndex;not null"`
+	RoomSlug         string `gorm:"index;not null"`
+	RoomName         string
+	ProviderID       string `gorm:"index;not null"`
+	SurfaceName      string
+	SurfaceKind      string
+	ParticipantCount int
+	TopVotedJSON     string
+	FinalQueueJSON   string
+	FinalistsJSON    string
+	ClosedAt         time.Time `gorm:"index;not null"`
+	CreatedAt        time.Time
+	UpdatedAt        time.Time
+}
+
 type ParticipantView struct {
 	ID          uint   `json:"id"`
 	DisplayName string `json:"display_name"`
@@ -136,6 +153,27 @@ type FinalistEntryView struct {
 	Position int                     `json:"position"`
 	AddedBy  string                  `json:"added_by"`
 	Climb    providers.ProviderClimb `json:"climb"`
+}
+
+type SessionSummaryClimbView struct {
+	Position  int                     `json:"position,omitempty"`
+	Status    string                  `json:"status,omitempty"`
+	AddedBy   string                  `json:"added_by,omitempty"`
+	VoteCount int                     `json:"vote_count,omitempty"`
+	Climb     providers.ProviderClimb `json:"climb"`
+}
+
+type SessionSummaryView struct {
+	RoomSlug         string                    `json:"room_slug"`
+	RoomName         string                    `json:"room_name,omitempty"`
+	ProviderID       providers.ProviderID      `json:"provider_id"`
+	SurfaceName      string                    `json:"surface_name,omitempty"`
+	SurfaceKind      string                    `json:"surface_kind,omitempty"`
+	ParticipantCount int                       `json:"participant_count"`
+	ClosedAt         time.Time                 `json:"closed_at"`
+	TopVoted         []SessionSummaryClimbView `json:"top_voted"`
+	FinalQueue       []SessionSummaryClimbView `json:"final_queue"`
+	Finalists        []SessionSummaryClimbView `json:"finalists"`
 }
 
 type CatalogClimbsResponse struct {

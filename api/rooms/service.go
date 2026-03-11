@@ -533,6 +533,11 @@ func (service *Service) SetSurface(
 	if err := service.incrementRoom(ctx, viewer.Room.Slug, viewer.Participant.ID, "surface.updated", ResourceRoom, ResourceSurface, ResourceCatalog); err != nil {
 		return nil, err
 	}
+	viewer.Room.SurfaceID = selected.ID
+	viewer.Room.SurfaceKind = selected.Kind
+	viewer.Room.SurfaceName = selected.Name
+	viewer.Room.SurfaceDescription = selected.Description
+	viewer.Room.SurfaceContextJSON = string(contextBytes)
 
 	return selected, nil
 }
@@ -1061,8 +1066,14 @@ func (service *Service) CloseRoom(ctx context.Context, viewer *Viewer) error {
 	if !viewer.CanCloseRoom() {
 		return ErrForbidden
 	}
+	room, err := service.findRoom(ctx, viewer.Room.Slug)
+	if err != nil {
+		return err
+	}
+	viewer.Room = *room
 	now := time.Now().UTC()
-	err := service.store.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+	voteCounts, _ := service.fistBumps.VoteData(viewer.Room.ID, 0)
+	err = service.store.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		if err := tx.Model(&Room{}).
 			Where("id = ?", viewer.Room.ID).
 			Updates(map[string]any{
@@ -1072,14 +1083,46 @@ func (service *Service) CloseRoom(ctx context.Context, viewer *Viewer) error {
 			}).Error; err != nil {
 			return err
 		}
+		if err := service.persistRoomSessionSummary(tx, &viewer.Room, now, voteCounts); err != nil {
+			return err
+		}
 		return service.bumpRoomVersion(tx, &viewer.Room)
 	})
 	if err != nil {
 		return err
 	}
+	viewer.Room.Status = roomStatusClosed
+	viewer.Room.ClosedAt = &now
 	service.fistBumps.Clear(viewer.Room.ID)
 	service.broadcastRoomEvent(&viewer.Room, viewer.Participant.ID, "room.closed", ResourceRoom, ResourceParticipants, ResourceQueue, ResourceFinalists, ResourceVotes, ResourceCurrentClimb)
 	return nil
+}
+
+func (service *Service) ListRecentSessionSummaries(
+	ctx context.Context,
+	limit int,
+) ([]SessionSummaryView, error) {
+	if limit <= 0 {
+		limit = 6
+	}
+	if limit > 24 {
+		limit = 24
+	}
+
+	var summaries []RoomSessionSummary
+	if err := service.store.WithContext(ctx).
+		Order("closed_at DESC").
+		Limit(limit).
+		Find(&summaries).Error; err != nil {
+		return nil, err
+	}
+
+	result := make([]SessionSummaryView, 0, len(summaries))
+	for _, summary := range summaries {
+		result = append(result, sessionSummaryView(summary))
+	}
+
+	return result, nil
 }
 
 func (service *Service) RemoveParticipant(ctx context.Context, viewer *Viewer, participantID uint) error {
@@ -1380,30 +1423,171 @@ func (service *Service) CloseExpiredRooms(ctx context.Context) error {
 
 	cutoff := time.Now().UTC().Add(-roomExpiryWindow)
 	now := time.Now().UTC()
-	var expiredRoomIDs []uint
-	if err := service.store.WithContext(ctx).Model(&Room{}).
+	var expiredRooms []Room
+	if err := service.store.WithContext(ctx).
 		Where("status = ? AND last_active_at < ?", roomStatusOpen, cutoff).
-		Pluck("id", &expiredRoomIDs).Error; err != nil {
+		Find(&expiredRooms).Error; err != nil {
 		return err
 	}
-	if len(expiredRoomIDs) == 0 {
+	if len(expiredRooms) == 0 {
 		return nil
 	}
 
-	if err := service.store.WithContext(ctx).Model(&Room{}).
-		Where("id IN ?", expiredRoomIDs).
-		Updates(map[string]any{
-			"status":     roomStatusClosed,
-			"closed_at":  now,
-			"updated_at": now,
-		}).Error; err != nil {
+	for index := range expiredRooms {
+		room := expiredRooms[index]
+		voteCounts, _ := service.fistBumps.VoteData(room.ID, 0)
+		if err := service.store.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
+			if err := tx.Model(&Room{}).
+				Where("id = ?", room.ID).
+				Updates(map[string]any{
+					"status":         roomStatusClosed,
+					"closed_at":      now,
+					"last_active_at": now,
+					"updated_at":     now,
+				}).Error; err != nil {
+				return err
+			}
+			return service.persistRoomSessionSummary(tx, &room, now, voteCounts)
+		}); err != nil {
+			return err
+		}
+		service.fistBumps.Clear(room.ID)
+	}
+	return nil
+}
+
+func (service *Service) persistRoomSessionSummary(
+	tx *gorm.DB,
+	room *Room,
+	closedAt time.Time,
+	voteCounts map[string]int,
+) error {
+	if tx == nil || room == nil {
+		return nil
+	}
+
+	var participants []RoomParticipant
+	if err := tx.Where("room_id = ?", room.ID).
+		Order("created_at ASC").
+		Find(&participants).Error; err != nil {
 		return err
 	}
 
-	for _, roomID := range expiredRoomIDs {
-		service.fistBumps.Clear(roomID)
+	var queueEntries []RoomQueueEntry
+	if err := tx.Where("room_id = ?", room.ID).
+		Order("position ASC, created_at ASC").
+		Find(&queueEntries).Error; err != nil {
+		return err
 	}
-	return nil
+
+	var finalistEntries []RoomFinalistEntry
+	if err := tx.Where("room_id = ?", room.ID).
+		Order("position ASC, created_at ASC").
+		Find(&finalistEntries).Error; err != nil {
+		return err
+	}
+
+	participantNameByID := make(map[uint]string, len(participants))
+	for _, participant := range participants {
+		participantNameByID[participant.ID] = participant.DisplayName
+	}
+
+	finalQueue := make([]SessionSummaryClimbView, 0, len(queueEntries))
+	queueViewByClimbID := make(map[string]SessionSummaryClimbView, len(queueEntries))
+	for _, entry := range queueEntries {
+		view := SessionSummaryClimbView{
+			Position: entry.Position,
+			Status:   entry.Status,
+			AddedBy:  participantNameByID[entry.AddedByParticipantID],
+			Climb:    summaryProviderClimb(room, entry.ClimbID, entry.ClimbJSON),
+		}
+		finalQueue = append(finalQueue, view)
+		queueViewByClimbID[entry.ClimbID] = view
+	}
+
+	finalists := make([]SessionSummaryClimbView, 0, len(finalistEntries))
+	for _, entry := range finalistEntries {
+		finalists = append(finalists, SessionSummaryClimbView{
+			Position: entry.Position,
+			AddedBy:  participantNameByID[entry.AddedByParticipantID],
+			Climb:    summaryProviderClimb(room, entry.ClimbID, entry.ClimbJSON),
+		})
+	}
+
+	topVoted := make([]SessionSummaryClimbView, 0, len(voteCounts))
+	for climbID, voteCount := range voteCounts {
+		if voteCount <= 0 {
+			continue
+		}
+		view, exists := queueViewByClimbID[climbID]
+		if !exists {
+			view = SessionSummaryClimbView{
+				Climb: summaryProviderClimb(room, climbID, ""),
+			}
+		}
+		view.VoteCount = voteCount
+		topVoted = append(topVoted, view)
+	}
+	sort.Slice(topVoted, func(i, j int) bool {
+		if topVoted[i].VoteCount != topVoted[j].VoteCount {
+			return topVoted[i].VoteCount > topVoted[j].VoteCount
+		}
+		if topVoted[i].Position != topVoted[j].Position {
+			return topVoted[i].Position < topVoted[j].Position
+		}
+		return topVoted[i].Climb.ID < topVoted[j].Climb.ID
+	})
+
+	summary := RoomSessionSummary{
+		RoomID:           room.ID,
+		RoomSlug:         room.Slug,
+		RoomName:         room.Name,
+		ProviderID:       room.ProviderID,
+		SurfaceName:      room.SurfaceName,
+		SurfaceKind:      room.SurfaceKind,
+		ParticipantCount: len(participants),
+		TopVotedJSON:     mustEncodeSessionSummaryClimbs(topVoted),
+		FinalQueueJSON:   mustEncodeSessionSummaryClimbs(finalQueue),
+		FinalistsJSON:    mustEncodeSessionSummaryClimbs(finalists),
+		ClosedAt:         closedAt,
+	}
+
+	var existing RoomSessionSummary
+	if err := tx.Where("room_id = ?", room.ID).First(&existing).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return tx.Create(&summary).Error
+		}
+		return err
+	}
+
+	return tx.Model(&existing).Updates(map[string]any{
+		"room_slug":         summary.RoomSlug,
+		"room_name":         summary.RoomName,
+		"provider_id":       summary.ProviderID,
+		"surface_name":      summary.SurfaceName,
+		"surface_kind":      summary.SurfaceKind,
+		"participant_count": summary.ParticipantCount,
+		"top_voted_json":    summary.TopVotedJSON,
+		"final_queue_json":  summary.FinalQueueJSON,
+		"finalists_json":    summary.FinalistsJSON,
+		"closed_at":         summary.ClosedAt,
+		"updated_at":        time.Now().UTC(),
+	}).Error
+}
+
+func sessionSummaryView(summary RoomSessionSummary) SessionSummaryView {
+	return SessionSummaryView{
+		RoomSlug:         summary.RoomSlug,
+		RoomName:         summary.RoomName,
+		ProviderID:       providers.ProviderID(summary.ProviderID),
+		SurfaceName:      summary.SurfaceName,
+		SurfaceKind:      summary.SurfaceKind,
+		ParticipantCount: summary.ParticipantCount,
+		ClosedAt:         summary.ClosedAt,
+		TopVoted:         decodeSessionSummaryClimbs(summary.TopVotedJSON),
+		FinalQueue:       decodeSessionSummaryClimbs(summary.FinalQueueJSON),
+		Finalists:        decodeSessionSummaryClimbs(summary.FinalistsJSON),
+	}
 }
 
 func (service *Service) PruneExpiredSessions(ctx context.Context) error {
@@ -1597,6 +1781,54 @@ func decodeProviderClimb(raw string) *providers.ProviderClimb {
 	}
 
 	return &climb
+}
+
+func summaryProviderClimb(room *Room, climbID string, cachedJSON string) providers.ProviderClimb {
+	if climb := decodeProviderClimb(cachedJSON); climb != nil {
+		return *climb
+	}
+
+	providerID := ""
+	if room != nil {
+		providerID = room.ProviderID
+	}
+
+	externalID := climbID
+	if providerID != "" && strings.HasPrefix(climbID, providerID+":") {
+		externalID = strings.TrimPrefix(climbID, providerID+":")
+	}
+
+	return providers.ProviderClimb{
+		ID:         climbID,
+		ExternalID: externalID,
+		ProviderID: providers.ProviderID(providerID),
+		Name:       climbID,
+	}
+}
+
+func mustEncodeSessionSummaryClimbs(climbs []SessionSummaryClimbView) string {
+	if len(climbs) == 0 {
+		return "[]"
+	}
+
+	raw, err := json.Marshal(climbs)
+	if err != nil {
+		return "[]"
+	}
+	return string(raw)
+}
+
+func decodeSessionSummaryClimbs(raw string) []SessionSummaryClimbView {
+	if strings.TrimSpace(raw) == "" {
+		return []SessionSummaryClimbView{}
+	}
+
+	var climbs []SessionSummaryClimbView
+	if err := json.Unmarshal([]byte(raw), &climbs); err != nil {
+		return []SessionSummaryClimbView{}
+	}
+
+	return climbs
 }
 
 func mustEncodeProviderClimb(climb *providers.ProviderClimb) string {
