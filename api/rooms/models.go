@@ -41,7 +41,7 @@ type Room struct {
 	SurfaceContextJSON string
 	CurrentClimbID     string
 	CurrentClimbJSON   string
-	FistBumpsEnabled   bool      `gorm:"column:emoji_reactions_enabled;not null;default:true"`
+	FistBumpsEnabled   bool      `gorm:"column:emoji_reactions_enabled;not null"`
 	Version            int64     `gorm:"not null;default:1"`
 	LastActiveAt       time.Time `gorm:"index;not null"`
 	ClosedAt           *time.Time

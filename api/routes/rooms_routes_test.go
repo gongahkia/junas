@@ -366,6 +366,50 @@ func TestCreateRoomRequiresEncryptionKey(t *testing.T) {
 	}
 }
 
+func TestCreateRoomCanStartWithFistBumpsDisabled(t *testing.T) {
+	tempDir := t.TempDir()
+	appDBPath := filepath.Join(tempDir, "app.db")
+	config.SetRuntimeConfig(config.RuntimeConfig{
+		DataDir:       tempDir,
+		AppDBPath:     appDBPath,
+		AppSecret:     "test-app-secret",
+		EncryptionKey: base64.StdEncoding.EncodeToString(bytes.Repeat([]byte{5}, 32)),
+	})
+	if err := config.ConnectAppDB(appDBPath); err != nil {
+		t.Fatalf("connect app database: %v", err)
+	}
+
+	provider := testprovider.New(providers.ProviderID("fake-fist-bumps"))
+	providers.Register(provider)
+	rooms.DefaultService = rooms.NewService()
+	if err := rooms.DefaultService.Migrate(context.Background()); err != nil {
+		t.Fatalf("migrate app database: %v", err)
+	}
+
+	server := httptest.NewServer(routes.SetupRoutes())
+	defer server.Close()
+
+	response := performJSONRequest(t, server, http.MethodPost, "/api/rooms", map[string]any{
+		"provider_id":        string(provider.ID()),
+		"display_name":       "Host",
+		"fist_bumps_enabled": false,
+		"secret":             map[string]string{"token": "room-token"},
+	}, nil)
+	if response.StatusCode != http.StatusCreated {
+		t.Fatalf("expected create room status 201, got %d", response.StatusCode)
+	}
+
+	var payload struct {
+		FistBumpsEnabled bool `json:"fist_bumps_enabled"`
+	}
+	if err := json.NewDecoder(response.Body).Decode(&payload); err != nil {
+		t.Fatalf("decode create room response: %v", err)
+	}
+	if payload.FistBumpsEnabled {
+		t.Fatalf("expected fist bumps to start disabled, got %#v", payload)
+	}
+}
+
 func TestRoomErrorCodesAndCapabilities(t *testing.T) {
 	tempDir := t.TempDir()
 	appDBPath := filepath.Join(tempDir, "app.db")

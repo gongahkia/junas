@@ -19,10 +19,11 @@ import (
 )
 
 type createRoomRequest struct {
-	ProviderID  string            `json:"provider_id"`
-	RoomName    string            `json:"room_name"`
-	DisplayName string            `json:"display_name"`
-	Secret      map[string]string `json:"secret"`
+	ProviderID       string            `json:"provider_id"`
+	RoomName         string            `json:"room_name"`
+	DisplayName      string            `json:"display_name"`
+	Secret           map[string]string `json:"secret"`
+	FistBumpsEnabled *bool             `json:"fist_bumps_enabled"`
 }
 
 type updateRoomRequest struct {
@@ -137,6 +138,10 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 	if len(request.DisplayName) > 50 {
 		request.DisplayName = request.DisplayName[:50]
 	}
+	fistBumpsEnabled := true
+	if request.FistBumpsEnabled != nil {
+		fistBumpsEnabled = *request.FistBumpsEnabled
+	}
 
 	snapshot, hostSessionID, err := rooms.DefaultService.CreateRoom(
 		r.Context(),
@@ -144,6 +149,7 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 		request.RoomName,
 		request.DisplayName,
 		request.Secret,
+		fistBumpsEnabled,
 	)
 	if err != nil {
 		observability.RecordRoomAction("create_room", request.ProviderID, err)

@@ -121,6 +121,7 @@ func (service *Service) CreateRoom(
 	roomName string,
 	displayName string,
 	secret providers.SecretPayload,
+	fistBumpsEnabled bool,
 ) (*RoomSnapshot, string, error) {
 	if _, err := mustStoreDB(service.store, ctx); err != nil {
 		return nil, "", fmt.Errorf("app database is not configured")
@@ -151,7 +152,7 @@ func (service *Service) CreateRoom(
 		Name:             roomName,
 		ProviderID:       string(providerID),
 		Status:           roomStatusOpen,
-		FistBumpsEnabled: true,
+		FistBumpsEnabled: fistBumpsEnabled,
 		Version:          1,
 		LastActiveAt:     now,
 	}

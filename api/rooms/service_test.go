@@ -24,6 +24,7 @@ func TestServiceRoomLifecycle(t *testing.T) {
 		"Session Alpha",
 		"Host",
 		providers.SecretPayload{"token": "provider-token"},
+		true,
 	)
 	if err != nil {
 		t.Fatalf("create room: %v", err)
@@ -278,6 +279,7 @@ func TestServiceFistBumpsAreEphemeral(t *testing.T) {
 		"Ephemeral Session",
 		"Host",
 		providers.SecretPayload{"token": "provider-token"},
+		true,
 	)
 	if err != nil {
 		t.Fatalf("create room: %v", err)
@@ -337,6 +339,7 @@ func TestServiceCoHostPermissions(t *testing.T) {
 		"Co-Host Session",
 		"Host",
 		providers.SecretPayload{"token": "provider-token"},
+		true,
 	)
 	if err != nil {
 		t.Fatalf("create room: %v", err)
@@ -413,6 +416,7 @@ func TestServicePersistsRoomSessionSummaryOnClose(t *testing.T) {
 		"Summary Session",
 		"Host",
 		providers.SecretPayload{"token": "provider-token"},
+		true,
 	)
 	if err != nil {
 		t.Fatalf("create room: %v", err)
