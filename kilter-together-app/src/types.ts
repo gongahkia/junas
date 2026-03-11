@@ -97,6 +97,14 @@ export interface SoloFilterPreset {
   saved_at: string;
 }
 
+export interface PendingSoloRoomSeed {
+  board_id: string;
+  board_name: string;
+  angle: number;
+  climbs: SoloSavedClimb[];
+  created_at: string;
+}
+
 export interface PaginatedClimbsResponse {
   climbs: Climb[];
   has_more: boolean;

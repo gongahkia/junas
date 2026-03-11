@@ -5,6 +5,7 @@ import { api } from "@/api";
 import type { ProviderId } from "@/types";
 import { getApiErrorDetails } from "@/lib/api-errors";
 import {
+  clearPendingSoloRoomSeed,
   dismissOnboarding,
   loadUserPrefs,
   rememberCruxToken,
@@ -44,6 +45,9 @@ import { reportError, reportEvent } from "@/lib/observability";
 export default function RoomCreatePage() {
   const navigate = useNavigate();
   const savedPrefsRef = useRef(loadUserPrefs());
+  const [pendingSoloSeed, setPendingSoloSeed] = useState(
+    () => savedPrefsRef.current.pendingSoloRoomSeed
+  );
   const { capabilities, loading: capabilitiesLoading } = useProviderCapabilities();
   const showErrorToast = useErrorToast();
   const [showOnboarding, setShowOnboarding] = useState(
@@ -52,7 +56,7 @@ export default function RoomCreatePage() {
       !savedPrefsRef.current.onboarding.dismissed
   );
   const [providerId, setProviderId] = useState<ProviderId>(
-    () => savedPrefsRef.current.lastProviderId || "kilter"
+    () => (pendingSoloSeed ? "kilter" : savedPrefsRef.current.lastProviderId || "kilter")
   );
   const [roomName, setRoomName] = useState(() =>
     resolveHostRoomNameTemplate(savedPrefsRef.current.hostDefaults.roomNameTemplate)
@@ -184,6 +188,35 @@ export default function RoomCreatePage() {
               setShowOnboarding(false);
             }}
           />
+        ) : null}
+
+        {pendingSoloSeed ? (
+          <div className="mb-5 rounded-2xl border border-teal-200 bg-teal-50/80 px-4 py-4">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div className="space-y-1">
+                <p className="text-sm font-medium text-teal-900">
+                  Solo shortlist seed is ready
+                </p>
+                <p className="text-sm text-teal-900/80">
+                  This room can import {pendingSoloSeed.climbs.length} shortlisted climb
+                  {pendingSoloSeed.climbs.length === 1 ? "" : "s"} after you choose{" "}
+                  {pendingSoloSeed.board_name} at {pendingSoloSeed.angle}
+                  &deg; inside the room.
+                </p>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                className="border-teal-200 bg-white/80"
+                onClick={() => {
+                  savedPrefsRef.current = clearPendingSoloRoomSeed();
+                  setPendingSoloSeed(undefined);
+                }}
+              >
+                Discard seed
+              </Button>
+            </div>
+          </div>
         ) : null}
 
         <Card className="shadow-lg shadow-teal-950/10">

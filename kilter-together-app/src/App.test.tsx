@@ -1608,6 +1608,169 @@ describe("App routes", () => {
     );
   });
 
+  it("hands a solo shortlist off into room creation", async () => {
+    const user = userEvent.setup();
+    window.localStorage.setItem(
+      "kilter-together:user-prefs:v1",
+      JSON.stringify({
+        soloShortlist: [
+          {
+            uuid: "uuid-shortlist",
+            product_size_id: 14,
+            climb_name: "Shortlist Sloper",
+            setter_name: "setter-b",
+            board_id: "14",
+            board_name: "Original 7 x 10",
+            angle: 45,
+            grade: "7b/V8",
+            ascends: 8,
+            saved_at: "2026-03-11T03:00:00.000Z",
+          },
+        ],
+        ...DEFAULT_DISMISSED_GUIDES_PREFS,
+      })
+    );
+    mockedApi.getBoards.mockResolvedValue([
+      { id: 14, name: "Original 7 x 10", kilter_name: "Kilter Board Original" },
+    ]);
+    mockedApi.getPaginatedClimbs.mockResolvedValue({
+      climbs: [
+        {
+          uuid: "uuid-shortlist",
+          climb_name: "Shortlist Sloper",
+          description: "Shortlist room handoff",
+          frames: "frames",
+          grades: {
+            "45": {
+              boulder: "7b/V8",
+              route: "5.13b",
+            },
+          },
+          setter_name: "setter-b",
+          image_filenames: [],
+          product_size_id: 14,
+          ascends: 8,
+          created_at: "2026-01-01 00:00:00.000000",
+        },
+      ],
+      has_more: false,
+      page_size: 10,
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/solo/boards/14?angle=45&sort=newest"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    const seedButtons = await screen.findAllByRole("button", {
+      name: "Start room from shortlist",
+    });
+    await user.click(seedButtons[0]);
+
+    expect(await screen.findByText("Solo shortlist seed is ready")).toBeInTheDocument();
+    expect(
+      screen.getByText(/This room can import 1 shortlisted climb/i)
+    ).toBeInTheDocument();
+  });
+
+  it("imports a solo shortlist seed into a matching kilter room queue", async () => {
+    const user = userEvent.setup();
+    window.localStorage.setItem(
+      "kilter-together:user-prefs:v1",
+      JSON.stringify({
+        pendingSoloRoomSeed: {
+          board_id: "14",
+          board_name: "Original 7 x 10",
+          angle: 45,
+          climbs: [
+            {
+              uuid: "uuid-1",
+              product_size_id: 14,
+              climb_name: "Seed One",
+              setter_name: "setter-a",
+              board_id: "14",
+              board_name: "Original 7 x 10",
+              angle: 45,
+              ascends: 10,
+              saved_at: "2026-03-11T02:00:00.000Z",
+            },
+            {
+              uuid: "uuid-2",
+              product_size_id: 14,
+              climb_name: "Seed Two",
+              setter_name: "setter-b",
+              board_id: "14",
+              board_name: "Original 7 x 10",
+              angle: 45,
+              ascends: 7,
+              saved_at: "2026-03-11T03:00:00.000Z",
+            },
+          ],
+          created_at: "2026-03-11T03:30:00.000Z",
+        },
+        ...DEFAULT_DISMISSED_GUIDES_PREFS,
+      })
+    );
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("seed-room"),
+      connection: {
+        provider_id: "kilter",
+        connected: true,
+      },
+      surface: {
+        id: "14",
+        kind: "board",
+        name: "Original 7 x 10",
+        meta: {
+          board_id: "14",
+          angle: "45",
+        },
+      },
+    });
+    mockedApi.getRoomCatalogClimbs.mockResolvedValue({
+      climbs: [],
+      has_more: false,
+      page_size: 12,
+      vote_counts: {},
+      my_votes: [],
+    });
+    mockedApi.addRoomQueueEntry.mockResolvedValue(undefined);
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/seed-room"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByText("Solo shortlist seed is ready")).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole("button", { name: "Import shortlist to queue" })
+    );
+
+    await waitFor(() =>
+      expect(mockedApi.addRoomQueueEntry).toHaveBeenNthCalledWith(
+        1,
+        "seed-room",
+        "kilter:14:uuid-2"
+      )
+    );
+    expect(mockedApi.addRoomQueueEntry).toHaveBeenNthCalledWith(
+      2,
+      "seed-room",
+      "kilter:14:uuid-1"
+    );
+
+    await waitFor(() =>
+      expect(
+        JSON.parse(window.localStorage.getItem("kilter-together:user-prefs:v1") || "{}")
+          .pendingSoloRoomSeed
+      ).toBeUndefined()
+    );
+  });
+
   it("lets the user pin and remove recent rooms", async () => {
     const user = userEvent.setup();
     window.localStorage.setItem(

@@ -1,5 +1,6 @@
 import type {
   ClimbSort,
+  PendingSoloRoomSeed,
   ProviderId,
   RoomSnapshot,
   SoloFilterPreset,
@@ -89,6 +90,7 @@ export interface UserPrefs {
   savedSoloFilters: SoloFilterPreset[];
   soloFavorites: SoloSavedClimb[];
   soloShortlist: SoloSavedClimb[];
+  pendingSoloRoomSeed?: PendingSoloRoomSeed;
   soloResume?: SoloResumeState;
   intro: IntroProgress;
   onboarding: OnboardingProgress;
@@ -124,6 +126,7 @@ function getDefaultUserPrefs(): UserPrefs {
     savedSoloFilters: [],
     soloFavorites: [],
     soloShortlist: [],
+    pendingSoloRoomSeed: undefined,
     intro: {
       version: 1,
       landingDismissed: false,
@@ -341,6 +344,20 @@ export function loadUserPrefs(): UserPrefs {
       soloShortlist: Array.isArray(parsedValue.soloShortlist)
         ? normalizeSoloSavedClimbs(parsedValue.soloShortlist as SoloSavedClimb[])
         : defaults.soloShortlist,
+      pendingSoloRoomSeed:
+        parsedValue.pendingSoloRoomSeed &&
+        Array.isArray(parsedValue.pendingSoloRoomSeed.climbs)
+          ? {
+              ...parsedValue.pendingSoloRoomSeed,
+              board_name:
+                parsedValue.pendingSoloRoomSeed.board_name?.trim() ||
+                `Board ${parsedValue.pendingSoloRoomSeed.board_id}`,
+              angle: parsedValue.pendingSoloRoomSeed.angle || DEFAULT_ANGLE,
+              climbs: normalizeSoloSavedClimbs(
+                parsedValue.pendingSoloRoomSeed.climbs as SoloSavedClimb[]
+              ),
+            }
+          : defaults.pendingSoloRoomSeed,
       intro: {
         ...defaults.intro,
         ...parsedValue.intro,
@@ -617,6 +634,32 @@ export function removeSoloFilterPreset(presetID: string): UserPrefs {
     savedSoloFilters: currentPrefs.savedSoloFilters.filter(
       (preset) => preset.id !== presetID
     ),
+  }));
+}
+
+export function beginSoloRoomSeed(input: {
+  angle: number;
+  boardId: string;
+  boardName: string;
+  climbs: SoloSavedClimb[];
+}): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    pendingSoloRoomSeed: {
+      board_id: input.boardId,
+      board_name: input.boardName,
+      angle: input.angle,
+      climbs: normalizeSoloSavedClimbs(input.climbs),
+      created_at: new Date().toISOString(),
+    },
+    lastProviderId: "kilter",
+  }));
+}
+
+export function clearPendingSoloRoomSeed(): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    pendingSoloRoomSeed: undefined,
   }));
 }
 

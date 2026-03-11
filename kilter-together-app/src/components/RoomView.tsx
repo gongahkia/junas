@@ -32,6 +32,7 @@ import { useRoomCatalog } from "@/features/room/hooks/useRoomCatalog";
 import { useRoomEvents } from "@/features/room/hooks/useRoomEvents";
 import { useRoomSession } from "@/features/room/hooks/useRoomSession";
 import {
+  clearPendingSoloRoomSeed,
   dismissOnboarding,
   loadUserPrefs,
   markGuestParticipated,
@@ -94,6 +95,10 @@ function formatParticipantRole(role: string) {
   return role === "co_host" ? "co-host" : role;
 }
 
+function buildKilterSeedClimbID(productSizeID: number, uuid: string) {
+  return `kilter:${productSizeID}:${uuid}`;
+}
+
 export default function RoomView() {
   const { slug = "" } = useParams();
   const navigate = useNavigate();
@@ -101,6 +106,9 @@ export default function RoomView() {
   const showErrorToast = useErrorToast();
   const savedPrefsRef = useRef(loadUserPrefs());
   const [searchParams, setSearchParams] = useSearchParams();
+  const [pendingSoloSeed, setPendingSoloSeed] = useState(
+    () => savedPrefsRef.current.pendingSoloRoomSeed
+  );
   const [selectedExternalClimb, setSelectedExternalClimb] = useState<ProviderClimb | null>(null);
   const [surfaceLoading, setSurfaceLoading] = useState(false);
   const [roomNameInput, setRoomNameInput] = useState("");
@@ -141,6 +149,7 @@ export default function RoomView() {
       !savedPrefsRef.current.onboarding.dismissed
   );
   const [manualOnboardingReplay, setManualOnboardingReplay] = useState(false);
+  const [importingSoloSeed, setImportingSoloSeed] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [copiedInvite, setCopiedInvite] = useState(false);
   const [dragState, setDragState] = useState<{
@@ -623,6 +632,46 @@ export default function RoomView() {
     await refreshRoomState();
   };
 
+  const handleDiscardSoloSeed = () => {
+    savedPrefsRef.current = clearPendingSoloRoomSeed();
+    setPendingSoloSeed(undefined);
+  };
+
+  const handleImportSoloSeed = async () => {
+    if (!slug || !pendingSoloSeed) {
+      return;
+    }
+
+    const pendingClimbs = pendingSoloSeed.climbs.filter(
+      (climb) =>
+        !queuedClimbIds.has(buildKilterSeedClimbID(climb.product_size_id, climb.uuid))
+    );
+
+    if (pendingClimbs.length === 0) {
+      handleDiscardSoloSeed();
+      return;
+    }
+
+    setImportingSoloSeed(true);
+    setActionError("");
+
+    try {
+      for (const climb of pendingClimbs) {
+        await api.addRoomQueueEntry(
+          slug,
+          buildKilterSeedClimbID(climb.product_size_id, climb.uuid)
+        );
+      }
+      handleDiscardSoloSeed();
+      await refreshRoomState();
+    } catch (caughtError) {
+      console.error("Import solo seed failed", caughtError);
+      setActionError("Unable to import the solo shortlist into this room queue.");
+    } finally {
+      setImportingSoloSeed(false);
+    }
+  };
+
   const handleFistBumpsToggle = async (enabled: boolean) => {
     if (!slug || !snapshot?.permissions.edit_room_settings) {
       return;
@@ -1034,6 +1083,17 @@ export default function RoomView() {
     0;
   const myFistBumps = catalog?.my_votes ?? snapshot.my_votes;
   const queuedClimbIds = new Set(snapshot.queue.map((entry) => entry.climb.id));
+  const pendingSoloSeedMatchesSurface =
+    snapshot.provider_id === "kilter" &&
+    Boolean(pendingSoloSeed) &&
+    Boolean(snapshot.surface) &&
+    (snapshot.surface?.meta?.board_id || snapshot.surface?.id || "") === pendingSoloSeed?.board_id &&
+    Number(snapshot.surface?.meta?.angle ?? DEFAULT_ANGLE) === pendingSoloSeed?.angle;
+  const pendingSoloSeedQueuedClimbs =
+    pendingSoloSeed?.climbs.filter(
+      (climb) =>
+        !queuedClimbIds.has(buildKilterSeedClimbID(climb.product_size_id, climb.uuid))
+    ) ?? [];
   const selectedHasMyFistBump = selectedClimb ? myFistBumps.includes(selectedClimb.id) : false;
   const selectedIsQueued = selectedClimb ? queuedClimbIds.has(selectedClimb.id) : false;
   const selectedQueueEntry = selectedClimb
@@ -1546,6 +1606,52 @@ export default function RoomView() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
+              {pendingSoloSeed && snapshot.provider_id === "kilter" ? (
+                <div className="rounded-2xl border border-teal-200 bg-teal-50/80 px-4 py-4">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div className="space-y-1">
+                      <p className="text-sm font-medium text-teal-900">
+                        Solo shortlist seed is ready
+                      </p>
+                      <p className="text-sm text-teal-900/80">
+                        {pendingSoloSeedMatchesSurface
+                          ? pendingSoloSeedQueuedClimbs.length > 0
+                            ? `Import ${pendingSoloSeedQueuedClimbs.length} shortlisted climb${
+                                pendingSoloSeedQueuedClimbs.length === 1 ? "" : "s"
+                              } into this room queue.`
+                            : "Every shortlisted climb is already in the room queue."
+                          : `Choose ${pendingSoloSeed.board_name} at ${pendingSoloSeed.angle}\u00b0 to import ${pendingSoloSeed.climbs.length} shortlisted climb${
+                              pendingSoloSeed.climbs.length === 1 ? "" : "s"
+                            }.`}
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {canManageQueue && pendingSoloSeedMatchesSurface ? (
+                        <Button
+                          type="button"
+                          variant="secondary"
+                          onClick={() => void handleImportSoloSeed()}
+                          disabled={importingSoloSeed}
+                        >
+                          {importingSoloSeed
+                            ? "Importing..."
+                            : pendingSoloSeedQueuedClimbs.length > 0
+                              ? "Import shortlist to queue"
+                              : "Clear imported seed"}
+                        </Button>
+                      ) : null}
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="border-teal-200 bg-white/80"
+                        onClick={handleDiscardSoloSeed}
+                      >
+                        Discard seed
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
               <DetailGrid items={surfaceSummaryItems} className="lg:grid-cols-3" />
               {canManageSurface && snapshot.surface ? (
                 <Button

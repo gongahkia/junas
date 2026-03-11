@@ -16,6 +16,7 @@ import ProblemView from "./ProblemView";
 import LoadingSlideshow from "./LoadingSlideshow";
 import { getGradeForAngle, normalizeAngle, normalizeSort } from "@/lib/climbs";
 import {
+  beginSoloRoomSeed,
   buildSoloFilterPreset,
   buildSoloSavedClimb,
   loadUserPrefs,
@@ -87,6 +88,9 @@ export default function ClimbView({
   );
   const isShortlisted = prefs.soloShortlist.some(
     (climb) => soloSavedClimbKey(climb) === selectedClimbKey
+  );
+  const shortlistForCurrentView = prefs.soloShortlist.filter(
+    (climb) => climb.board_id === boardId && climb.angle === angle
   );
 
   useEffect(() => {
@@ -315,6 +319,22 @@ export default function ClimbView({
     setPrefs(saveSoloFilterPreset(preset));
   };
 
+  const handleSeedRoomFromShortlist = () => {
+    if (!boardId || shortlistForCurrentView.length === 0) {
+      return;
+    }
+
+    setPrefs(
+      beginSoloRoomSeed({
+        boardId,
+        boardName,
+        angle,
+        climbs: shortlistForCurrentView,
+      })
+    );
+    navigate("/rooms/new");
+  };
+
   if (initialLoad && loading) {
     return (
       <LoadingSlideshow
@@ -382,6 +402,15 @@ export default function ClimbView({
                     </p>
                     <h2 className="text-2xl font-semibold">{boardName}</h2>
                     <div className="flex flex-wrap gap-2">
+                      {shortlistForCurrentView.length > 0 ? (
+                        <Button
+                          type="button"
+                          variant="secondary"
+                          onClick={handleSeedRoomFromShortlist}
+                        >
+                          Start room from shortlist
+                        </Button>
+                      ) : null}
                       <Button
                         type="button"
                         variant={savedFilterID ? "secondary" : "outline"}
@@ -428,6 +457,15 @@ export default function ClimbView({
                         <ListChecks className="mr-1 h-3.5 w-3.5" />
                         {prefs.soloShortlist.length} shortlisted
                       </Badge>
+                    ) : null}
+                    {shortlistForCurrentView.length > 0 ? (
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        onClick={handleSeedRoomFromShortlist}
+                      >
+                        Start room from shortlist
+                      </Button>
                     ) : null}
                     <Button
                       type="button"
