@@ -142,6 +142,7 @@ export const api = {
           cursor: params.cursor,
           name: params.name,
           setter: params.setter,
+          grade: params.grade,
           sort: params.sort,
         },
       });

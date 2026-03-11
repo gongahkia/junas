@@ -155,16 +155,18 @@ func GetPaginatedClimbs(
 	pageSize int,
 	nameFilter string,
 	setterFilter string,
+	gradeFilter string,
 	boardID uint,
 	angle uint,
 	sort string,
 ) (*CursorPaginatedClimbsResponse, error) {
 	cacheKey := fmt.Sprintf(
-		"climbs-cursor-%s-%d-%s-%s-%d-%d-%s",
+		"climbs-cursor-%s-%d-%s-%s-%s-%d-%d-%s",
 		cursor,
 		pageSize,
 		nameFilter,
 		setterFilter,
+		gradeFilter,
 		boardID,
 		angle,
 		sort,
@@ -180,6 +182,7 @@ func GetPaginatedClimbs(
 
 	namePattern := "%" + strings.TrimSpace(nameFilter) + "%"
 	setterPattern := "%" + strings.TrimSpace(setterFilter) + "%"
+	gradePattern := "%" + strings.TrimSpace(gradeFilter) + "%"
 
 	cursorData, err := decodeCursor(cursor)
 	if err != nil {
@@ -212,11 +215,13 @@ JOIN product_sizes ps ON (
 )
 JOIN product_sizes_layouts_sets psl ON psl.product_size_id = ps.id AND psl.layout_id = l.id
 JOIN climb_stats cs ON c.uuid = cs.climb_uuid AND cs.angle = ?
+JOIN difficulty_grades dg ON CAST(cs.display_difficulty AS INTEGER) = dg.difficulty
 WHERE c.is_listed = 1
   AND c.name LIKE ?
-  AND c.setter_username LIKE ?`)
+  AND c.setter_username LIKE ?
+  AND (dg.boulder_name LIKE ? OR dg.route_name LIKE ?)`)
 
-	args := []interface{}{angle, namePattern, setterPattern}
+	args := []interface{}{angle, namePattern, setterPattern, gradePattern, gradePattern}
 	if boardID != 0 {
 		query.WriteString("\n  AND ps.id = ?")
 		args = append(args, boardID)

@@ -287,6 +287,7 @@ function SavedSoloFilterCard({
                 Sort: {preset.sort}
                 {preset.q ? ` · Query: ${preset.q}` : ""}
                 {preset.setter ? ` · Setter: ${preset.setter}` : ""}
+                {preset.grade ? ` · Grade: ${preset.grade}` : ""}
               </p>
             </div>
             <Button

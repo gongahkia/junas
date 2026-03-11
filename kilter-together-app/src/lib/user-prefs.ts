@@ -29,6 +29,7 @@ export interface SoloResumeState {
   angle: number;
   q?: string;
   setter?: string;
+  grade?: string;
   sort: ClimbSort;
   climb?: string;
 }
@@ -212,7 +213,7 @@ function normalizeSoloSavedClimbs(climbs: SoloSavedClimb[]): SoloSavedClimb[] {
 }
 
 function soloFilterPresetKey(
-  preset: Pick<SoloFilterPreset, "board_id" | "angle" | "sort" | "q" | "setter">
+  preset: Pick<SoloFilterPreset, "board_id" | "angle" | "sort" | "q" | "setter" | "grade">
 ): string {
   return [
     preset.board_id,
@@ -220,11 +221,12 @@ function soloFilterPresetKey(
     preset.sort,
     preset.q?.trim() || "",
     preset.setter?.trim() || "",
+    preset.grade?.trim() || "",
   ].join("|");
 }
 
 function buildSoloFilterPresetLabel(
-  preset: Pick<SoloFilterPreset, "board_name" | "angle" | "q" | "setter">
+  preset: Pick<SoloFilterPreset, "board_name" | "angle" | "q" | "setter" | "grade">
 ): string {
   const parts = [`${preset.board_name} · ${preset.angle}\u00b0`];
   if (preset.q?.trim()) {
@@ -232,6 +234,9 @@ function buildSoloFilterPresetLabel(
   }
   if (preset.setter?.trim()) {
     parts.push(`setter:${preset.setter.trim()}`);
+  }
+  if (preset.grade?.trim()) {
+    parts.push(`grade:${preset.grade.trim()}`);
   }
   return parts.join(" · ");
 }
@@ -254,6 +259,7 @@ function normalizeSoloFilterPresets(presets: SoloFilterPreset[]): SoloFilterPres
           angle: preset.angle || DEFAULT_ANGLE,
           q: preset.q,
           setter: preset.setter,
+          grade: preset.grade,
         }),
       board_name: preset.board_name?.trim() || `Board ${preset.board_id}`,
       saved_at: preset.saved_at || new Date().toISOString(),
@@ -614,6 +620,9 @@ export function buildSoloFilterPresetPath(preset: SoloFilterPreset): string {
   if (preset.setter?.trim()) {
     searchParams.set("setter", preset.setter.trim());
   }
+  if (preset.grade?.trim()) {
+    searchParams.set("grade", preset.grade.trim());
+  }
 
   return `/solo/boards/${encodeURIComponent(preset.board_id)}?${searchParams.toString()}`;
 }
@@ -688,6 +697,9 @@ export function buildSoloResumePath(state?: SoloResumeState): string | null {
   }
   if (state.setter) {
     searchParams.set("setter", state.setter);
+  }
+  if (state.grade) {
+    searchParams.set("grade", state.grade);
   }
   if (state.climb) {
     searchParams.set("climb", state.climb);

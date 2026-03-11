@@ -212,6 +212,27 @@ func TestSetupRoutesContract(t *testing.T) {
 		t.Fatalf("unexpected filtered response: %#v", filteredResponse.Climbs)
 	}
 
+	response, err = http.Get(server.URL + "/api/climbs?board_id=14&angle=40&grade=7a")
+	if err != nil {
+		t.Fatalf("GET /api/climbs grade filtered: %v", err)
+	}
+	defer response.Body.Close()
+	if response.StatusCode != http.StatusOK {
+		t.Fatalf("expected /api/climbs grade filtered status 200, got %d", response.StatusCode)
+	}
+
+	var gradeFilteredResponse struct {
+		Climbs []struct {
+			ClimbName string `json:"climb_name"`
+		} `json:"climbs"`
+	}
+	if err := json.NewDecoder(response.Body).Decode(&gradeFilteredResponse); err != nil {
+		t.Fatalf("decode /api/climbs grade filtered response: %v", err)
+	}
+	if len(gradeFilteredResponse.Climbs) != 1 || gradeFilteredResponse.Climbs[0].ClimbName != "Sample Problem" {
+		t.Fatalf("unexpected grade filtered response: %#v", gradeFilteredResponse.Climbs)
+	}
+
 	response, err = http.Get(server.URL + "/api/images/test-a.png")
 	if err != nil {
 		t.Fatalf("GET /api/images/test-a.png: %v", err)

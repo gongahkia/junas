@@ -22,8 +22,10 @@ interface MobileDropdownProps {
   onSortChange: (sort: ClimbSort) => void;
   nameQuery: string;
   setterQuery: string;
+  gradeQuery: string;
   onNameChange: (value: string) => void;
   onSetterChange: (value: string) => void;
+  onGradeChange: (value: string) => void;
 }
 
 export default function MobileDropdown({
@@ -36,8 +38,10 @@ export default function MobileDropdown({
   onSortChange,
   nameQuery,
   setterQuery,
+  gradeQuery,
   onNameChange,
   onSetterChange,
+  onGradeChange,
 }: MobileDropdownProps) {
   return (
     <div className="md:hidden px-4 pb-4">
@@ -63,6 +67,11 @@ export default function MobileDropdown({
               value={setterQuery}
               onChange={(event) => onSetterChange(event.target.value)}
               placeholder="Filter by setter"
+            />
+            <Input
+              value={gradeQuery}
+              onChange={(event) => onGradeChange(event.target.value)}
+              placeholder="Filter by grade"
             />
             <Select
               value={selectedClimb?.uuid || ""}

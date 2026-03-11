@@ -242,7 +242,7 @@ describe("App routes", () => {
     render(
       <MemoryRouter
         initialEntries={[
-          "/boards/14?angle=45&q=Sample&setter=setter-a&sort=newest&climb=uuid-1",
+          "/boards/14?angle=45&q=Sample&setter=setter-a&grade=7b&sort=newest&climb=uuid-1",
         ]}
       >
         <App />
@@ -256,6 +256,7 @@ describe("App routes", () => {
           angle: 45,
           name: "Sample",
           setter: "setter-a",
+          grade: "7b",
           sort: "newest",
         })
       )
@@ -1454,6 +1455,7 @@ describe("App routes", () => {
           angle: 45,
           q: "Compression",
           setter: "setter-a",
+          grade: "7a",
           sort: "newest",
           climb: "uuid-1",
         },
@@ -1497,7 +1499,7 @@ describe("App routes", () => {
       await screen.findByRole("link", { name: /Resume solo browse/i })
     ).toHaveAttribute(
       "href",
-      "/solo/boards/14?angle=45&sort=newest&q=Compression&setter=setter-a&climb=uuid-1"
+      "/solo/boards/14?angle=45&sort=newest&q=Compression&setter=setter-a&grade=7a&climb=uuid-1"
     );
   });
 
@@ -1580,7 +1582,7 @@ describe("App routes", () => {
     });
 
     const boardView = render(
-      <MemoryRouter initialEntries={["/solo/boards/14?angle=45&sort=newest&q=Compression&setter=setter-a"]}>
+      <MemoryRouter initialEntries={["/solo/boards/14?angle=45&sort=newest&q=Compression&setter=setter-a&grade=7a"]}>
         <App />
       </MemoryRouter>
     );
@@ -1600,11 +1602,11 @@ describe("App routes", () => {
     expect(await screen.findByText("Saved filters")).toBeInTheDocument();
     expect(
       screen.getByRole("link", {
-        name: 'Original 7 x 10 · 45° · "Compression" · setter:setter-a',
+        name: 'Original 7 x 10 · 45° · "Compression" · setter:setter-a · grade:7a',
       })
     ).toHaveAttribute(
       "href",
-      "/solo/boards/14?angle=45&sort=newest&q=Compression&setter=setter-a"
+      "/solo/boards/14?angle=45&sort=newest&q=Compression&setter=setter-a&grade=7a"
     );
   });
 

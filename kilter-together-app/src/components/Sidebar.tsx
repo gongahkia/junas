@@ -28,8 +28,10 @@ interface SidebarProps {
   onSortChange: (sort: ClimbSort) => void;
   nameQuery: string;
   setterQuery: string;
+  gradeQuery: string;
   onNameChange: (value: string) => void;
   onSetterChange: (value: string) => void;
+  onGradeChange: (value: string) => void;
   currentPage: number;
   hasNextPage: boolean;
   onNextPage: () => void;
@@ -49,8 +51,10 @@ export default function Sidebar({
   onSortChange,
   nameQuery,
   setterQuery,
+  gradeQuery,
   onNameChange,
   onSetterChange,
+  onGradeChange,
   currentPage,
   hasNextPage,
   onNextPage,
@@ -97,6 +101,11 @@ export default function Sidebar({
                 value={setterQuery}
                 onChange={(event) => onSetterChange(event.target.value)}
                 placeholder="Filter by setter"
+              />
+              <Input
+                value={gradeQuery}
+                onChange={(event) => onGradeChange(event.target.value)}
+                placeholder="Filter by grade"
               />
               <div className="rounded-2xl border bg-muted/20 p-3 text-xs leading-6 text-muted-foreground">
                 Local filters update only this device. The solo browser stays independent from room votes and queue state.

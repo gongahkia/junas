@@ -22,12 +22,13 @@ type GetClimbsParams struct {
 	PageSize int    `form:"page_size,default=10"`
 	Name     string `form:"name"`
 	Setter   string `form:"setter"`
+	Grade    string `form:"grade"`
 	BoardID  uint   `form:"board_id"`
 	Angle    uint   `form:"angle"`
 	Sort     string `form:"sort,default=popular"`
 }
 
-// GetClimbs handles GET /api/climbs?cursor=&page_size=&name=&setter=&board_id=&angle=&sort=
+// GetClimbs handles GET /api/climbs?cursor=&page_size=&name=&setter=&grade=&board_id=&angle=&sort=
 // @Summary Get paginated climbs
 // @Description Retrieve a paginated list of listed Kilter Board climbs with filtering, sorting, and cursor-based pagination.
 // @Tags climbs
@@ -37,6 +38,7 @@ type GetClimbsParams struct {
 // @Param page_size query int false "Number of items per page (1-100)" default(10) minimum(1) maximum(100) Example(10)
 // @Param name query string false "Filter climbs by climb name (partial match)" Example(swooped)
 // @Param setter query string false "Filter climbs by setter username (partial match)" Example(jwebxl)
+// @Param grade query string false "Filter climbs by the current-angle grade (matches boulder or route grade)" Example(7a/V6)
 // @Param board_id query int false "Filter climbs by board/product size ID" Example(14)
 // @Param angle query int true "Filter climbs by board angle (supported angles: 5-70)" Example(40)
 // @Param sort query string false "Sort order for the result set" Enums(popular,newest) default(popular)
@@ -64,6 +66,9 @@ func GetClimbs(w http.ResponseWriter, r *http.Request) {
 	if len(params.Setter) > 200 {
 		params.Setter = params.Setter[:200]
 	}
+	if len(params.Grade) > 200 {
+		params.Grade = params.Grade[:200]
+	}
 
 	pageSize := params.PageSize
 	if pageSize <= 0 || pageSize > 100 {
@@ -86,6 +91,7 @@ func GetClimbs(w http.ResponseWriter, r *http.Request) {
 		pageSize,
 		params.Name,
 		params.Setter,
+		params.Grade,
 		params.BoardID,
 		params.Angle,
 		sort,

@@ -94,6 +94,7 @@ export interface SoloFilterPreset {
   sort: ClimbSort;
   q?: string;
   setter?: string;
+  grade?: string;
   saved_at: string;
 }
 
@@ -149,6 +150,7 @@ export interface PaginatedClimbsParams {
   pageSize?: number;
   name?: string;
   setter?: string;
+  grade?: string;
   sort?: ClimbSort;
 }
 

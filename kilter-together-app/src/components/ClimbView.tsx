@@ -71,9 +71,11 @@ export default function ClimbView({
   const sort = normalizeSort(rawSort);
   const nameQuery = searchParams.get("q") ?? "";
   const setterQuery = searchParams.get("setter") ?? "";
+  const gradeQuery = searchParams.get("grade") ?? "";
   const selectedUuid = searchParams.get("climb") ?? "";
   const deferredNameQuery = useDeferredValue(nameQuery);
   const deferredSetterQuery = useDeferredValue(setterQuery);
+  const deferredGradeQuery = useDeferredValue(gradeQuery);
 
   const board = boards.find((candidate) => String(candidate.id) === boardId);
   const boardName = board?.name || (boardsLoading ? "Loading board..." : `Board ${boardId}`);
@@ -127,6 +129,7 @@ export default function ClimbView({
       angle,
       name: deferredNameQuery,
       setter: deferredSetterQuery,
+      grade: deferredGradeQuery,
       sort,
     });
     const filtersChanged = lastFilterKeyRef.current !== filterKey;
@@ -155,6 +158,7 @@ export default function ClimbView({
           pageSize: PAGE_SIZE,
           name: deferredNameQuery || undefined,
           setter: deferredSetterQuery || undefined,
+          grade: deferredGradeQuery || undefined,
           sort,
         });
 
@@ -203,6 +207,7 @@ export default function ClimbView({
     currentPage,
     deferredNameQuery,
     deferredSetterQuery,
+    deferredGradeQuery,
     searchParams,
     selectedUuid,
     setSearchParams,
@@ -220,14 +225,15 @@ export default function ClimbView({
       angle,
       q: nameQuery || undefined,
       setter: setterQuery || undefined,
+      grade: gradeQuery || undefined,
       sort,
       climb: selectedClimb?.uuid,
     });
-  }, [angle, boardId, nameQuery, selectedClimb?.uuid, setterQuery, sort]);
+  }, [angle, boardId, gradeQuery, nameQuery, selectedClimb?.uuid, setterQuery, sort]);
 
   useEffect(() => {
     setSavedFilterID("");
-  }, [angle, boardId, nameQuery, setterQuery, sort]);
+  }, [angle, boardId, gradeQuery, nameQuery, setterQuery, sort]);
 
   const updateSearchState = (updates: Record<string, string | undefined>) => {
     startTransition(() => {
@@ -314,6 +320,7 @@ export default function ClimbView({
       sort,
       q: nameQuery || undefined,
       setter: setterQuery || undefined,
+      grade: gradeQuery || undefined,
     });
     setSavedFilterID(preset.id);
     setPrefs(saveSoloFilterPreset(preset));
@@ -359,19 +366,23 @@ export default function ClimbView({
           onBackClick={() => navigate(backPath)}
           angle={angle}
           onAngleChange={(nextAngle) =>
-            updateSearchState({ angle: String(nextAngle), sort })
+            updateSearchState({ angle: String(nextAngle), sort, q: nameQuery, setter: setterQuery, grade: gradeQuery })
           }
           sort={sort}
           onSortChange={(nextSort) =>
-            updateSearchState({ angle: String(angle), sort: nextSort })
+            updateSearchState({ angle: String(angle), sort: nextSort, q: nameQuery, setter: setterQuery, grade: gradeQuery })
           }
           nameQuery={nameQuery}
           setterQuery={setterQuery}
+          gradeQuery={gradeQuery}
           onNameChange={(value) =>
-            updateSearchState({ angle: String(angle), sort, q: value, setter: setterQuery })
+            updateSearchState({ angle: String(angle), sort, q: value, setter: setterQuery, grade: gradeQuery })
           }
           onSetterChange={(value) =>
-            updateSearchState({ angle: String(angle), sort, q: nameQuery, setter: value })
+            updateSearchState({ angle: String(angle), sort, q: nameQuery, setter: value, grade: gradeQuery })
+          }
+          onGradeChange={(value) =>
+            updateSearchState({ angle: String(angle), sort, q: nameQuery, setter: setterQuery, grade: value })
           }
           currentPage={currentPage}
           hasNextPage={hasNextPage}
@@ -492,19 +503,23 @@ export default function ClimbView({
                 onClimbSelect={handleClimbSelect}
                 angle={angle}
                 onAngleChange={(nextAngle) =>
-                  updateSearchState({ angle: String(nextAngle), sort })
+                  updateSearchState({ angle: String(nextAngle), sort, q: nameQuery, setter: setterQuery, grade: gradeQuery })
                 }
                 sort={sort}
                 onSortChange={(nextSort) =>
-                  updateSearchState({ angle: String(angle), sort: nextSort })
+                  updateSearchState({ angle: String(angle), sort: nextSort, q: nameQuery, setter: setterQuery, grade: gradeQuery })
                 }
                 nameQuery={nameQuery}
                 setterQuery={setterQuery}
+                gradeQuery={gradeQuery}
                 onNameChange={(value) =>
-                  updateSearchState({ angle: String(angle), sort, q: value, setter: setterQuery })
+                  updateSearchState({ angle: String(angle), sort, q: value, setter: setterQuery, grade: gradeQuery })
                 }
                 onSetterChange={(value) =>
-                  updateSearchState({ angle: String(angle), sort, q: nameQuery, setter: value })
+                  updateSearchState({ angle: String(angle), sort, q: nameQuery, setter: value, grade: gradeQuery })
+                }
+                onGradeChange={(value) =>
+                  updateSearchState({ angle: String(angle), sort, q: nameQuery, setter: setterQuery, grade: value })
                 }
               />
 
