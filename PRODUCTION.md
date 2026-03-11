@@ -8,28 +8,41 @@ data volume. It is not safe to scale horizontally behind a load balancer because
 
 ## Compose Workflow
 
-1. Copy the example env file and replace the placeholder secrets:
+1. Copy the production env file and replace the placeholder secrets:
 
    ```console
-   cp compose.env.example .env
+   cp compose.production.env.example compose.production.env
    openssl rand -hex 32
    openssl rand -base64 32
    ```
 
-2. Bootstrap the shared `/data` volume once before starting the API:
+2. Render the TLS edge proxy config from that env file:
 
    ```console
-   docker compose --profile bootstrap run --rm kilter-together-bootstrap
+   ./scripts/render-caddyfile.sh compose.production.env
    ```
 
-3. Start the runtime containers:
+3. Bootstrap the shared `/data` volume once before starting the API:
 
    ```console
-   docker compose up -d --build
+   docker compose --env-file compose.production.env -f docker-compose.production.yml \
+     --profile bootstrap run --rm kilter-together-bootstrap
+   ```
+
+4. Start the runtime containers:
+
+   ```console
+   docker compose --env-file compose.production.env -f docker-compose.production.yml \
+     up -d --build
    ```
 
 The API container now fails fast when `/data` is missing or incomplete. It no longer
 downloads the Kilter dataset implicitly during `serve`.
+
+The production compose stack adds a Caddy edge proxy with automatic TLS for
+`KILTER_TOGETHER_PUBLIC_HOST`. The rendered Caddyfile is generated from
+[`deploy/caddy/Caddyfile.template`](/Users/gongahkia/Desktop/coding/projects/kilter-together/deploy/caddy/Caddyfile.template)
+and should not be committed.
 
 ## Data Durability
 
@@ -49,20 +62,20 @@ volume, including any SQLite sidecars.
 
 ```console
 mkdir -p backups
-docker compose stop kilter-together-api
-docker compose --profile bootstrap run --rm --entrypoint sh kilter-together-bootstrap -lc \
+docker compose --env-file compose.production.env -f docker-compose.production.yml stop kilter-together-api
+docker compose --env-file compose.production.env -f docker-compose.production.yml --profile bootstrap run --rm --entrypoint sh kilter-together-bootstrap -lc \
   'tar -C /data -czf - .' > "backups/kilter-together-$(date +%Y%m%d-%H%M%S).tgz"
-docker compose start kilter-together-api
+docker compose --env-file compose.production.env -f docker-compose.production.yml start kilter-together-api
 ```
 
 ### Restore
 
 ```console
-docker compose down
+docker compose --env-file compose.production.env -f docker-compose.production.yml down
 cat backups/kilter-together-YYYYMMDD-HHMMSS.tgz | \
-  docker compose --profile bootstrap run --rm --entrypoint sh kilter-together-bootstrap -lc \
+  docker compose --env-file compose.production.env -f docker-compose.production.yml --profile bootstrap run --rm --entrypoint sh kilter-together-bootstrap -lc \
   'rm -rf /data/* && tar -C /data -xzf -'
-docker compose up -d
+docker compose --env-file compose.production.env -f docker-compose.production.yml up -d
 ```
 
 Run `curl http://localhost:8080/api/healthz` after restore and confirm you can open a

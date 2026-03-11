@@ -1,0 +1,78 @@
+services:
+  kilter-together-bootstrap:
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    command: ["bootstrap"]
+    environment:
+      KILTER_TOGETHER_KILTER_USERNAME: ${KILTER_TOGETHER_KILTER_USERNAME:-}
+      KILTER_TOGETHER_KILTER_PASSWORD: ${KILTER_TOGETHER_KILTER_PASSWORD:-}
+    volumes:
+      - kilter-together-data:/data
+    profiles:
+      - bootstrap
+
+  kilter-together-api:
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    environment:
+      KILTER_TOGETHER_APP_SECRET: ${KILTER_TOGETHER_APP_SECRET:?KILTER_TOGETHER_APP_SECRET must be set}
+      KILTER_TOGETHER_ENCRYPTION_KEY: ${KILTER_TOGETHER_ENCRYPTION_KEY:?KILTER_TOGETHER_ENCRYPTION_KEY must be set}
+      KILTER_TOGETHER_PREVIOUS_ENCRYPTION_KEY: ${KILTER_TOGETHER_PREVIOUS_ENCRYPTION_KEY:-}
+      KILTER_TOGETHER_ALLOWED_ORIGINS: ${KILTER_TOGETHER_ALLOWED_ORIGINS:?KILTER_TOGETHER_ALLOWED_ORIGINS must be set}
+      KILTER_TOGETHER_SECURE_COOKIES: ${KILTER_TOGETHER_SECURE_COOKIES:-true}
+      KILTER_TOGETHER_OPERATOR_TOKEN: ${KILTER_TOGETHER_OPERATOR_TOKEN:-}
+      KILTER_TOGETHER_OTEL_EXPORTER_OTLP_ENDPOINT: ${KILTER_TOGETHER_OTEL_EXPORTER_OTLP_ENDPOINT:-}
+      KILTER_TOGETHER_OTEL_EXPORTER_OTLP_INSECURE: ${KILTER_TOGETHER_OTEL_EXPORTER_OTLP_INSECURE:-false}
+      KILTER_TOGETHER_OTEL_SERVICE_NAME: ${KILTER_TOGETHER_OTEL_SERVICE_NAME:-kilter-together-api}
+      KILTER_TOGETHER_SENTRY_DSN: ${KILTER_TOGETHER_SENTRY_DSN:-}
+      KILTER_TOGETHER_SENTRY_ENVIRONMENT: ${KILTER_TOGETHER_SENTRY_ENVIRONMENT:-production}
+      KILTER_TOGETHER_SENTRY_RELEASE: ${KILTER_TOGETHER_SENTRY_RELEASE:-}
+    expose:
+      - "8082"
+    volumes:
+      - kilter-together-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8082/api/healthz >/dev/null"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+  kilter-together-web:
+    build:
+      context: ./kilter-together-app
+      dockerfile: ./Dockerfile
+      args:
+        VITE_APP_BASE_PATH: ${VITE_APP_BASE_PATH:-/}
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/api}
+    environment:
+      VITE_SENTRY_DSN: ${VITE_SENTRY_DSN:-}
+      VITE_SENTRY_ENVIRONMENT: ${VITE_SENTRY_ENVIRONMENT:-production}
+      VITE_APP_RELEASE: ${VITE_APP_RELEASE:-}
+    depends_on:
+      kilter-together-api:
+        condition: service_healthy
+    expose:
+      - "80"
+    restart: unless-stopped
+
+  kilter-together-edge:
+    image: caddy:2.10.2
+    depends_on:
+      - kilter-together-web
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    restart: unless-stopped
+
+volumes:
+  caddy-config:
+  caddy-data:
+  kilter-together-data:

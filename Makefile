@@ -12,7 +12,7 @@ DEV_APP_SECRET ?= development-room-secret
 DEV_ENCRYPTION_KEY ?= MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=
 DEV_SECURE_COOKIES ?= false
 
-.PHONY: help install web-install bootstrap dev dev-api dev-web docker-bootstrap docker-up docker-down docker-logs test lint build check health
+.PHONY: help install web-install bootstrap dev dev-api dev-web docker-bootstrap docker-up docker-down docker-logs docker-production-render docker-production-bootstrap docker-production-up test lint build check health
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*##"; print "Available targets:"} /^[a-zA-Z0-9_.-]+:.*##/ {printf "  %-14s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -72,6 +72,15 @@ docker-down: ## Stop the Docker stack
 
 docker-logs: ## Tail Docker compose logs
 	cd "$(ROOT_DIR)" && docker compose logs -f
+
+docker-production-render: ## Render the production Caddyfile from compose.production.env
+	cd "$(ROOT_DIR)" && ./scripts/render-caddyfile.sh
+
+docker-production-bootstrap: docker-production-render ## Bootstrap the production data volume
+	cd "$(ROOT_DIR)" && docker compose --env-file compose.production.env -f docker-compose.production.yml --profile bootstrap run --rm kilter-together-bootstrap
+
+docker-production-up: docker-production-render ## Build and run the production compose stack
+	cd "$(ROOT_DIR)" && docker compose --env-file compose.production.env -f docker-compose.production.yml up -d --build
 
 test: ## Run backend and frontend tests
 	cd "$(API_DIR)" && go test ./...
