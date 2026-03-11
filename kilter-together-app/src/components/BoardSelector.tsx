@@ -7,6 +7,7 @@ import BrandWordmark from "./BrandWordmark";
 import LoadingSlideshow from "./LoadingSlideshow";
 import type { Board, SoloFilterPreset, SoloSavedClimb } from "../types";
 import { DEFAULT_ANGLE } from "@/lib/climbs";
+import { useProviderCapabilities } from "@/hooks/useProviderCapabilities";
 import {
   buildSoloFilterPresetPath,
   buildSoloResumePath,
@@ -38,11 +39,15 @@ export default function BoardSelector({
 }: BoardSelectorProps) {
   const navigate = useNavigate();
   const [prefs, setPrefs] = useState(() => loadUserPrefs());
+  const { capabilities } = useProviderCapabilities();
   const [showSoloIntro, setShowSoloIntro] = useState(
     () => prefs.settings.autoGuidesEnabled && !prefs.intro.soloDismissed
   );
   const [angle, setAngle] = useState(() => prefs.lastKilter.angle || DEFAULT_ANGLE);
   const soloResumePath = buildSoloResumePath(prefs.soloResume);
+  const alternateSoloProviders = capabilities.filter(
+    (capability) => capability.solo_supported && capability.id !== "kilter"
+  );
 
   if (loading) {
     return (
@@ -180,6 +185,41 @@ export default function BoardSelector({
                   />
                 ) : null}
               </div>
+            ) : null}
+
+            {alternateSoloProviders.length > 0 ? (
+              <Card className="border-0 bg-white/88 shadow-xl shadow-slate-900/10 backdrop-blur">
+                <CardHeader>
+                  <CardTitle className="text-2xl">Other solo providers</CardTitle>
+                  <CardDescription>
+                    Use provider-specific solo browse when you want gym-backed catalog context
+                    instead of the local Kilter dataset.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="grid gap-4 md:grid-cols-2">
+                  {alternateSoloProviders.map((capability) => (
+                    <div
+                      key={capability.id}
+                      className="rounded-2xl border bg-white/70 p-5 shadow-sm"
+                    >
+                      <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+                        Provider solo browse
+                      </p>
+                      <h2 className="mt-3 text-xl font-medium">{capability.label}</h2>
+                      <p className="mt-2 text-sm text-muted-foreground">
+                        Authenticate on demand, pick a gym context, then inspect climbs without
+                        opening a collaborative room first.
+                      </p>
+                      <Button asChild variant="outline" className="mt-4 justify-between">
+                        <Link to={`/solo/providers/${encodeURIComponent(capability.id)}`}>
+                          Open {capability.label}
+                          <ArrowRight className="h-4 w-4" />
+                        </Link>
+                      </Button>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
             ) : null}
 
             <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">

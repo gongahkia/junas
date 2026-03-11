@@ -15,6 +15,8 @@ import type {
   RandomPickSource,
   RoomCatalogClimbsResponse,
   RoomCatalogClimbResponse,
+  ProviderCatalogClimbResponse,
+  ProviderCatalogClimbsResponse,
   RoomSnapshot,
   ClimbSort,
   QueueStatus,
@@ -246,6 +248,70 @@ export const api = {
       }
     );
     return (response.data.surfaces ?? []) as ProviderSurface[];
+  },
+
+  getSoloProviderSurfaces: async (
+    providerId: ProviderId,
+    payload: {
+      secret: Record<string, string>;
+      parentId?: string;
+    }
+  ): Promise<ProviderSurface[]> => {
+    const response = await apiClient.post<{ surfaces?: ProviderSurface[] }>(
+      `/solo/providers/${providerId}/surfaces`,
+      {
+        secret: payload.secret,
+        parent_id: payload.parentId,
+      }
+    );
+    return response.data.surfaces ?? [];
+  },
+
+  getSoloProviderClimbs: async (
+    providerId: ProviderId,
+    payload: {
+      secret: Record<string, string>;
+      surfaceId?: string;
+      context?: Record<string, string>;
+      q?: string;
+      sort?: ClimbSort;
+      cursor?: string;
+      pageSize?: number;
+    }
+  ): Promise<ProviderCatalogClimbsResponse> => {
+    const response = await apiClient.post<ProviderCatalogClimbsResponse>(
+      `/solo/providers/${providerId}/climbs`,
+      {
+        secret: payload.secret,
+        surface_id: payload.surfaceId,
+        context: payload.context ?? {},
+        q: payload.q,
+        sort: payload.sort,
+        cursor: payload.cursor,
+        page_size: payload.pageSize ?? 10,
+      }
+    );
+    return response.data;
+  },
+
+  getSoloProviderClimb: async (
+    providerId: ProviderId,
+    climbId: string,
+    payload: {
+      secret: Record<string, string>;
+      surfaceId?: string;
+      context?: Record<string, string>;
+    }
+  ): Promise<ProviderCatalogClimbResponse> => {
+    const response = await apiClient.post<ProviderCatalogClimbResponse>(
+      `/solo/providers/${providerId}/climbs/${encodeURIComponent(climbId)}`,
+      {
+        secret: payload.secret,
+        surface_id: payload.surfaceId,
+        context: payload.context ?? {},
+      }
+    );
+    return response.data;
   },
 
   setRoomSurface: async (

@@ -82,7 +82,10 @@ vi.mock("./api", () => ({
     getRoomEventsUrl: vi.fn((slug: string) => `/api/rooms/${slug}/events`),
     connectRoomProvider: vi.fn(),
     getRoomCatalogSurfaces: vi.fn(),
+    getSoloProviderSurfaces: vi.fn(),
     setRoomSurface: vi.fn(),
+    getSoloProviderClimbs: vi.fn(),
+    getSoloProviderClimb: vi.fn(),
     getRoomCatalogClimbs: vi.fn(),
     getRoomCatalogClimb: vi.fn(),
     toggleRoomVote: vi.fn(),
@@ -196,7 +199,7 @@ describe("App routes", () => {
         id: "crux",
         label: "Crux",
         room_supported: true,
-        solo_supported: false,
+        solo_supported: true,
         surface_hierarchy: "nested",
         auth_fields: [
           {
@@ -267,6 +270,119 @@ describe("App routes", () => {
     ).toBeInTheDocument();
     expect(screen.getAllByText("Original 7 x 10").length).toBeGreaterThan(0);
     expect(screen.getByText("A direct-link test climb")).toBeInTheDocument();
+  });
+
+  it("supports provider-specific solo browse for Crux", async () => {
+    const user = userEvent.setup();
+    mockedApi.getSoloProviderSurfaces
+      .mockResolvedValueOnce([
+        {
+          id: "gym-b",
+          kind: "gym",
+          name: "Boulder Bloc",
+        },
+      ])
+      .mockResolvedValueOnce([
+        {
+          id: "wall-1",
+          kind: "wall",
+          name: "Main Cave",
+          parent_id: "gym-b",
+        },
+      ]);
+    mockedApi.getSoloProviderSurfaces.mockResolvedValue([
+      {
+        id: "wall-1",
+        kind: "wall",
+        name: "Main Cave",
+        parent_id: "gym-b",
+      },
+    ]);
+    mockedApi.getSoloProviderClimbs.mockResolvedValue({
+      climbs: [
+        {
+          id: "crux:42",
+          external_id: "42",
+          provider_id: "crux",
+          surface_id: "gym-b",
+          name: "Cave Compression",
+          description: "Big moves on steep terrain",
+          setter_name: "Crux Setter",
+          primary_grade: "V6",
+          secondary_grade: "35",
+          created_at: "2026-02-10T00:00:00Z",
+          popularity: 19,
+          meta: {
+            gym_name: "Boulder Bloc",
+            source_label: "Official",
+            color: "Blue",
+          },
+        },
+      ],
+      has_more: false,
+      page_size: 10,
+    });
+    mockedApi.getSoloProviderClimb.mockResolvedValue({
+      climb: {
+        id: "crux:42",
+        external_id: "42",
+        provider_id: "crux",
+        surface_id: "gym-b",
+        name: "Cave Compression",
+        description: "Big moves on steep terrain",
+        setter_name: "Crux Setter",
+        primary_grade: "V6",
+        secondary_grade: "35",
+        created_at: "2026-02-10T00:00:00Z",
+        popularity: 19,
+        meta: {
+          gym_name: "Boulder Bloc",
+          source_label: "Official",
+          color: "Blue",
+          foot_rules: "Any feet",
+        },
+      },
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/solo/providers/crux"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(
+      await screen.findByRole("button", { name: "Load Crux catalog" })
+    ).toBeInTheDocument();
+    await user.type(screen.getByLabelText("Crux API token"), "crux-token");
+    await user.click(screen.getByRole("button", { name: "Load Crux catalog" }));
+
+    await waitFor(() =>
+      expect(mockedApi.getSoloProviderSurfaces).toHaveBeenCalledWith("crux", {
+        secret: { token: "crux-token" },
+      })
+    );
+
+    expect(await screen.findByText("Catalog unlocked for this tab")).toBeInTheDocument();
+    await waitFor(() =>
+      expect(mockedApi.getSoloProviderClimbs).toHaveBeenCalledWith(
+        "crux",
+        expect.objectContaining({
+          context: { gym_slug: "gym-b" },
+          secret: { token: "crux-token" },
+        })
+      )
+    );
+    await waitFor(() =>
+      expect(mockedApi.getSoloProviderClimb).toHaveBeenCalledWith(
+        "crux",
+        "crux:42",
+        expect.objectContaining({
+          context: { gym_slug: "gym-b" },
+          secret: { token: "crux-token" },
+        })
+      )
+    );
+    expect(screen.getByRole("button", { name: "Start Crux room" })).toBeInTheDocument();
   });
 
   it("shows the global community bottom bar", async () => {

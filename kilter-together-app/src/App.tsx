@@ -13,6 +13,7 @@ const AboutPage = lazy(() => import("./components/AboutPage"));
 const BoardSelector = lazy(() => import("./components/BoardSelector"));
 const ClimbView = lazy(() => import("./components/ClimbView"));
 const LandingPage = lazy(() => import("./components/LandingPage"));
+const ProviderSoloPage = lazy(() => import("./components/ProviderSoloPage"));
 const RoomCreatePage = lazy(() => import("./components/RoomCreatePage"));
 const RoomDiscoveryPage = lazy(() => import("./components/RoomDiscoveryPage"));
 const RoomJoinPage = lazy(() => import("./components/RoomJoinPage"));
@@ -90,6 +91,7 @@ function AppContent() {
             path="/solo"
             element={<BoardSelector boards={boards} loading={loading} boardPathPrefix="/solo/boards" />}
           />
+          <Route path="/solo/providers/:providerId" element={<ProviderSoloPage />} />
           <Route
             path="/boards/:boardId"
             element={<ClimbView boards={boards} boardsLoading={loading} />}

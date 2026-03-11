@@ -29,7 +29,7 @@ const BASE_CAPABILITIES: ProviderCapability[] = [
     id: "crux",
     label: "Crux",
     room_supported: true,
-    solo_supported: false,
+    solo_supported: true,
     surface_hierarchy: "nested",
     auth_fields: [
       {
@@ -53,7 +53,7 @@ export function fallbackProviderCapabilities(): ProviderCapability[] {
       id: "test",
       label: "Test provider",
       room_supported: true,
-      solo_supported: false,
+      solo_supported: true,
       surface_hierarchy: "nested",
       auth_fields: [
         {

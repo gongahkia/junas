@@ -282,6 +282,17 @@ export interface RoomCatalogClimbResponse {
   is_queued: boolean;
 }
 
+export interface ProviderCatalogClimbsResponse {
+  climbs: ProviderClimb[];
+  has_more: boolean;
+  next_cursor?: string;
+  page_size: number;
+}
+
+export interface ProviderCatalogClimbResponse {
+  climb: ProviderClimb;
+}
+
 export interface RoomEventPayload {
   type: string;
   room_slug: string;
