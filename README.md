@@ -180,7 +180,7 @@ docker compose -f docker-compose.yml -f docker-compose.observability.yml up -d
 
 That provisions Prometheus, Grafana, Alertmanager, Loki, Tempo, and Grafana Alloy. Use a
 GlitchTip DSN in the Sentry-compatible env vars when you also want frontend/backend exception
-aggregation.
+aggregation. The starter Grafana dashboard and operator workflow live in [OBSERVABILITY.md](./OBSERVABILITY.md), and the protected runtime status endpoint is available at `/api/operator/status` when `KILTER_TOGETHER_OPERATOR_TOKEN` is configured.
 
 ## License
 

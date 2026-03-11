@@ -104,6 +104,154 @@
       ],
       "title": "Realtime and Rate Limits",
       "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 16
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "expr": "kilter_together_runtime_ready",
+          "legendFormat": "runtime"
+        }
+      ],
+      "title": "Runtime Readiness",
+      "type": "stat"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 16
+      },
+      "id": 6,
+      "targets": [
+        {
+          "expr": "sum by (provider) (increase(kilter_together_room_actions_total{action=\"connect_provider\",outcome=\"error\"}[15m]))",
+          "legendFormat": "{{provider}} auth errors"
+        }
+      ],
+      "title": "Provider Auth Failures",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      },
+      "id": 7,
+      "targets": [
+        {
+          "expr": "sum by (action, outcome) (increase(kilter_together_room_actions_total{action=~\"create_room|join_room\"}[30m]))",
+          "legendFormat": "{{action}} {{outcome}}"
+        }
+      ],
+      "title": "Create and Join Outcomes",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      "id": 8,
+      "targets": [
+        {
+          "expr": "sum by (job, status) (increase(kilter_together_maintenance_runs_total[1h]))",
+          "legendFormat": "{{job}} {{status}}"
+        }
+      ],
+      "title": "Maintenance Outcomes",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      },
+      "id": 9,
+      "targets": [
+        {
+          "expr": "changes(kilter_together_room_sse_subscribers[10m])",
+          "legendFormat": "subscriber changes"
+        }
+      ],
+      "title": "SSE Churn",
+      "type": "timeseries"
     }
   ],
   "schemaVersion": 39,
@@ -120,5 +268,5 @@
   },
   "title": "Kilter Together Overview",
   "uid": "kilter-together-overview",
-  "version": 1
+  "version": 2
 }

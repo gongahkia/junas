@@ -72,9 +72,58 @@ Grafana ships with provisioned datasources and one starter dashboard:
 
 - [`observability/grafana/dashboards/kilter-together-overview.json`](/Users/gongahkia/Desktop/coding/projects/kilter-together/observability/grafana/dashboards/kilter-together-overview.json)
 
+That dashboard now includes:
+
+- runtime readiness
+- HTTP request rate and p95 latency
+- room funnel activity
+- provider-auth failures
+- create/join outcomes
+- SSE subscriber count and churn
+- room `429` rate
+- maintenance outcomes
+
 ## Recommended Alert Routing
 
 The committed Alertmanager config uses a default receiver so the stack starts cleanly. For real deployments, replace the receiver with email, Slack, PagerDuty, or another webhook target.
+
+The default Prometheus rule set now covers:
+
+- API scrape failures
+- elevated `5xx` rate
+- room `429` spikes
+- runtime readiness failures
+- provider-auth failure bursts
+- SSE subscriber churn
+- room create conversion drops
+- room join conversion drops
+- background maintenance failures
+
+## Operator Workflow
+
+When an alert fires, start with Grafana and then use the protected operator endpoint to confirm runtime state:
+
+```console
+curl -H "Authorization: Bearer $KILTER_TOGETHER_OPERATOR_TOKEN" \
+  http://localhost:8080/api/operator/status
+```
+
+Use the response to confirm:
+
+- runtime data and both SQLite databases are configured
+- provider cache size and expiration look sane
+- active SSE subscriber count matches expected traffic
+- trace export and error reporting are actually enabled
+- recent maintenance jobs are succeeding
+
+Then pivot by signal:
+
+- `KilterTogetherRuntimeUnavailable`: inspect the operator status response plus `PRODUCTION.md` for restore/bootstrap recovery.
+- `KilterTogetherProviderAuthFailures`: inspect recent `connect_provider` traces/logs and verify provider credentials plus encryption-key state.
+- `KilterTogetherSSEChurn` or room `429` alerts: inspect frontend error reporting, SSE traces, and reverse-proxy behavior for reconnect loops.
+- create/join conversion alerts: compare `room_actions_total` outcomes and recent frontend error reports to isolate whether the drop is on room creation, auth, join, or session recovery.
+
+For backup, restore, and encryption-key rotation procedures, use [PRODUCTION.md](/Users/gongahkia/Desktop/coding/projects/kilter-together/PRODUCTION.md).
 
 ## GlitchTip
 
