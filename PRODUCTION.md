@@ -44,6 +44,10 @@ The production compose stack adds a Caddy edge proxy with automatic TLS for
 [`deploy/caddy/Caddyfile.template`](/Users/gongahkia/Desktop/coding/projects/kilter-together/deploy/caddy/Caddyfile.template)
 and should not be committed.
 
+Client-side GlitchTip or Sentry values such as `VITE_SENTRY_DSN`,
+`VITE_SENTRY_ENVIRONMENT`, and `VITE_APP_RELEASE` are build-time inputs. After changing
+them, rebuild the `kilter-together-web` image so the static bundle picks them up.
+
 ## Data Durability
 
 The named Docker volume stores:

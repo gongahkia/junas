@@ -45,6 +45,8 @@ Frontend:
 - `VITE_SENTRY_ENVIRONMENT`
 - `VITE_APP_RELEASE`
 
+For Docker deployments, those frontend values are build-time inputs. Rebuild the web image after changing them so Vite can bake them into the static bundle.
+
 ## Running The Stack
 
 Start the app stack first:

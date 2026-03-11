@@ -48,10 +48,9 @@ services:
       args:
         VITE_APP_BASE_PATH: ${VITE_APP_BASE_PATH:-/}
         VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/api}
-    environment:
-      VITE_SENTRY_DSN: ${VITE_SENTRY_DSN:-}
-      VITE_SENTRY_ENVIRONMENT: ${VITE_SENTRY_ENVIRONMENT:-production}
-      VITE_APP_RELEASE: ${VITE_APP_RELEASE:-}
+        VITE_SENTRY_DSN: ${VITE_SENTRY_DSN:-}
+        VITE_SENTRY_ENVIRONMENT: ${VITE_SENTRY_ENVIRONMENT:-production}
+        VITE_APP_RELEASE: ${VITE_APP_RELEASE:-}
     depends_on:
       kilter-together-api:
         condition: service_healthy
