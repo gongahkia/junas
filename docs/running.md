@@ -274,14 +274,3 @@ Edit `layer1-lexicon/restricted_list.json`:
 ```
 
 Matches are case-insensitive on name and exact on ticker/ISIN.
-
-## Container Runtime
-
-```sh
-docker compose up --build
-```
-
-This starts:
-
-- `noupe-api` on `http://localhost:8000`
-- `redis` on `localhost:6379`
