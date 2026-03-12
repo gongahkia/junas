@@ -12,9 +12,13 @@ import json
 import csv
 import os
 import shutil
+import sys
 import tempfile
 import importlib.util
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
 
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -22,7 +26,6 @@ from sklearn.metrics import f1_score, classification_report
 
 from helper.training_corpus import load_documents_from_batches
 
-ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "docs" / "json"
 SEED = 42
 TEST_SIZE = 0.2

@@ -34,6 +34,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+
 try:
     import tomllib
 except ImportError:  # pragma: no cover
@@ -45,7 +48,6 @@ from sklearn.model_selection import train_test_split
 
 from helper.training_corpus import list_batch_files, load_documents_from_batches
 
-ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "docs" / "json"
 LABELS = ["SAFE", "LOW_RISK", "HIGH_RISK"]
 FEATURE_COLUMNS = [
@@ -333,7 +335,7 @@ def load_documents(data_dir: Path) -> list[dict[str, Any]]:
                 {
                     "path": doc["path"],
                     "document_name": doc["document_name"],
-                    "entity_id": f"{doc['batch_name']}_doc_{doc_index}",
+                    "entity_id": doc["entity_id"],
                     "sentences": sentences,
                 }
             )

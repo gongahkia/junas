@@ -87,8 +87,11 @@ def parse_and_convert(input_file, output_target="docs/json"):
         content = f.read()
 
     from tqdm import tqdm
-    json_objects = list(extract_json_objects(content))
-    print(f"Found {len(json_objects)} JSON object(s) in {input_file}.")
+    json_objects = [
+        obj for obj in extract_json_objects(content)
+        if isinstance(obj, dict) and "document_sentence_array" in obj
+    ]
+    print(f"Found {len(json_objects)} document JSON object(s) in {input_file}.")
 
     label_map = {
         "non": "non",

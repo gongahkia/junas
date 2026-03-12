@@ -1,7 +1,11 @@
 from sentence_transformers import SentenceTransformer
 import numpy as np
+import sys
 from pathlib import Path
 from tqdm import tqdm
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
 
 from helper.training_corpus import load_documents_from_batches
 
