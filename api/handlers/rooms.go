@@ -15,7 +15,6 @@ import (
 	"github.com/lczm/kilter-together/api/observability"
 	"github.com/lczm/kilter-together/api/providers"
 	"github.com/lczm/kilter-together/api/rooms"
-	"github.com/lczm/kilter-together/api/security"
 )
 
 type createRoomRequest struct {
@@ -40,6 +39,17 @@ type updateAssistantSettingsRequest struct {
 
 type joinRoomRequest struct {
 	DisplayName string `json:"display_name"`
+}
+
+type roomSessionView struct {
+	Token     string    `json:"token"`
+	Role      string    `json:"role"`
+	ExpiresAt time.Time `json:"expires_at"`
+}
+
+type roomSessionEnvelope struct {
+	Room    *rooms.RoomSnapshot `json:"room"`
+	Session roomSessionView     `json:"session"`
 }
 
 type connectProviderRequest struct {
@@ -108,17 +118,6 @@ const (
 // @Failure 500 {object} map[string]string
 // @Router /rooms [post]
 func CreateRoom(w http.ResponseWriter, r *http.Request) {
-	if strings.TrimSpace(config.GetRuntimeConfig().AppSecret) == "" {
-		writeRequestError(
-			w,
-			r,
-			http.StatusInternalServerError,
-			"runtime_unavailable",
-			"KILTER_TOGETHER_APP_SECRET is required to create rooms",
-			nil,
-		)
-		return
-	}
 	if strings.TrimSpace(config.GetRuntimeConfig().EncryptionKey) == "" {
 		writeRequestError(
 			w,
@@ -146,6 +145,7 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 	if request.FistBumpsEnabled != nil {
 		fistBumpsEnabled = *request.FistBumpsEnabled
 	}
+	expiresAt := time.Now().UTC().Add(rooms.SessionExpiryWindow())
 
 	snapshot, hostSessionID, err := rooms.DefaultService.CreateRoom(
 		r.Context(),
@@ -161,18 +161,6 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	observability.RecordRoomAction("create_room", request.ProviderID, nil)
-
-	if err := setSignedCookie(w, rooms.HostCookieName, hostSessionID); err != nil {
-		writeRequestError(
-			w,
-			r,
-			http.StatusInternalServerError,
-			"session_cookie_failed",
-			"failed to set session cookie",
-			err,
-		)
-		return
-	}
 	recordProductEvent(r, rooms.AnalyticsEventInput{
 		RoomSlug:   snapshot.Slug,
 		EventName:  "room.create",
@@ -183,7 +171,14 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 		},
 	})
 
-	writeJSON(w, http.StatusCreated, snapshot)
+	writeJSON(w, http.StatusCreated, roomSessionEnvelope{
+		Room: snapshot,
+		Session: roomSessionView{
+			Token:     hostSessionID,
+			Role:      "host",
+			ExpiresAt: expiresAt,
+		},
+	})
 }
 
 // JoinRoom handles POST /api/rooms/{slug}/join.
@@ -199,18 +194,6 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 // @Failure 500 {object} map[string]string
 // @Router /rooms/{slug}/join [post]
 func JoinRoom(w http.ResponseWriter, r *http.Request) {
-	if strings.TrimSpace(config.GetRuntimeConfig().AppSecret) == "" {
-		writeRequestError(
-			w,
-			r,
-			http.StatusInternalServerError,
-			"runtime_unavailable",
-			"KILTER_TOGETHER_APP_SECRET is required to join rooms",
-			nil,
-		)
-		return
-	}
-
 	roomSlug := chi.URLParam(r, "slug")
 	var request joinRoomRequest
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
@@ -220,6 +203,7 @@ func JoinRoom(w http.ResponseWriter, r *http.Request) {
 	if len(request.DisplayName) > 50 {
 		request.DisplayName = request.DisplayName[:50]
 	}
+	expiresAt := time.Now().UTC().Add(rooms.SessionExpiryWindow())
 
 	snapshot, participantSessionID, err := rooms.DefaultService.JoinRoom(r.Context(), roomSlug, request.DisplayName)
 	if err != nil {
@@ -228,18 +212,6 @@ func JoinRoom(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	observability.RecordRoomAction("join_room", string(snapshot.ProviderID), nil)
-
-	if err := setSignedCookie(w, rooms.ParticipantCookieName, participantSessionID); err != nil {
-		writeRequestError(
-			w,
-			r,
-			http.StatusInternalServerError,
-			"session_cookie_failed",
-			"failed to set session cookie",
-			err,
-		)
-		return
-	}
 	recordProductEvent(r, rooms.AnalyticsEventInput{
 		RoomSlug:   snapshot.Slug,
 		EventName:  "room.join",
@@ -250,7 +222,14 @@ func JoinRoom(w http.ResponseWriter, r *http.Request) {
 		},
 	})
 
-	writeJSON(w, http.StatusCreated, snapshot)
+	writeJSON(w, http.StatusCreated, roomSessionEnvelope{
+		Room: snapshot,
+		Session: roomSessionView{
+			Token:     participantSessionID,
+			Role:      "participant",
+			ExpiresAt: expiresAt,
+		},
+	})
 }
 
 // GetRoom handles GET /api/rooms/{slug}.
@@ -1000,41 +979,13 @@ func RemoveRoomParticipant(w http.ResponseWriter, r *http.Request) {
 
 func authenticateViewer(r *http.Request, accessMode viewerAccessMode) (*rooms.Viewer, error) {
 	roomSlug := chi.URLParam(r, "slug")
-	secret := config.GetRuntimeConfig().AppSecret
-	if strings.TrimSpace(secret) == "" {
-		return nil, fmt.Errorf("KILTER_TOGETHER_APP_SECRET is required")
+	sessionID := bearerTokenFromRequest(r)
+	if sessionID == "" {
+		return nil, fmt.Errorf("room session is required")
 	}
 
-	cookieNames := []string{rooms.HostCookieName, rooms.ParticipantCookieName}
-	for _, cookieName := range cookieNames {
-		cookie, err := r.Cookie(cookieName)
-		if err != nil {
-			continue
-		}
-		sessionID, err := security.VerifySignedCookie(secret, cookie.Value)
-		if err != nil {
-			continue
-		}
-
-		viewer, err := rooms.DefaultService.Authenticate(r.Context(), roomSlug, sessionID, "")
-		if err == nil {
-			switch accessMode {
-			case viewerAccessAny:
-				return viewer, nil
-			case viewerAccessManager:
-				if viewer.CanManageSession() {
-					return viewer, nil
-				}
-				return nil, rooms.ErrForbidden
-			case viewerAccessHost:
-				if viewer.IsHost() {
-					return viewer, nil
-				}
-				return nil, rooms.ErrForbidden
-			default:
-				return viewer, nil
-			}
-		}
+	viewer, err := rooms.DefaultService.Authenticate(r.Context(), roomSlug, sessionID, "")
+	if err != nil {
 		if errors.Is(err, rooms.ErrForbidden) {
 			return nil, err
 		}
@@ -1045,9 +996,25 @@ func authenticateViewer(r *http.Request, accessMode viewerAccessMode) (*rooms.Vi
 			errors.Is(err, rooms.ErrForbidden) {
 			return nil, err
 		}
+		return nil, err
 	}
 
-	return nil, fmt.Errorf("room session is required")
+	switch accessMode {
+	case viewerAccessAny:
+		return viewer, nil
+	case viewerAccessManager:
+		if viewer.CanManageSession() {
+			return viewer, nil
+		}
+		return nil, rooms.ErrForbidden
+	case viewerAccessHost:
+		if viewer.IsHost() {
+			return viewer, nil
+		}
+		return nil, rooms.ErrForbidden
+	default:
+		return viewer, nil
+	}
 }
 
 func recordProductEvent(r *http.Request, input rooms.AnalyticsEventInput) {
@@ -1057,22 +1024,13 @@ func recordProductEvent(r *http.Request, input rooms.AnalyticsEventInput) {
 	_ = rooms.DefaultService.RecordAnalyticsEvent(r.Context(), input)
 }
 
-func setSignedCookie(w http.ResponseWriter, name string, rawValue string) error {
-	signedValue, err := security.SignCookie(config.GetRuntimeConfig().AppSecret, rawValue)
-	if err != nil {
-		return err
+func bearerTokenFromRequest(r *http.Request) string {
+	parts := strings.Fields(strings.TrimSpace(r.Header.Get("Authorization")))
+	if len(parts) != 2 || !strings.EqualFold(parts[0], "Bearer") {
+		return ""
 	}
 
-	http.SetCookie(w, &http.Cookie{
-		Name:     name,
-		Value:    signedValue,
-		HttpOnly: true,
-		Secure:   config.GetRuntimeConfig().SecureCookies,
-		Path:     "/",
-		SameSite: http.SameSiteLaxMode,
-		Expires:  time.Now().UTC().Add(30 * 24 * time.Hour),
-	})
-	return nil
+	return strings.TrimSpace(parts[1])
 }
 
 func connectProviderStatus(err error) int {

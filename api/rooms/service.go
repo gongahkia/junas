@@ -34,6 +34,10 @@ const (
 	sessionExpiryWindow = 30 * 24 * time.Hour
 )
 
+func SessionExpiryWindow() time.Duration {
+	return sessionExpiryWindow
+}
+
 type Viewer struct {
 	Room        Room
 	Participant RoomParticipant
