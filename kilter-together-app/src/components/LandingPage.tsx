@@ -13,27 +13,28 @@ import {
   Users,
 } from "lucide-react";
 import { api } from "@/api";
+import CoachMarkOverlay, { type CoachMarkStep } from "@/components/CoachMarkOverlay";
 import {
   fallbackProviderCapabilities,
   getProviderLabel,
 } from "@/lib/provider-capabilities";
 import { extractRoomSlugFromValue } from "@/lib/room-links";
 import {
-  dismissLandingIntro,
-  dismissOnboarding,
+  completeLandingGuide,
   loadUserPrefs,
+  queueGuideBranch,
   type RecentRoom,
   removeRecentRoom,
-  resetOnboardingPrefs,
+  resetGuides,
   togglePinnedRecentRoom,
 } from "@/lib/user-prefs";
 import { getApiErrorDetails } from "@/lib/api-errors";
 import { reportError } from "@/lib/observability";
+import { trackProductEvent } from "@/lib/product-analytics";
 import { cn } from "@/lib/utils";
-import IntroDialog from "@/components/IntroDialog";
-import OnboardingCallout from "@/components/OnboardingCallout";
 import BrandWordmark from "@/components/BrandWordmark";
 import { HeaderNavButton, HeaderNavLink } from "@/components/HeaderNavAction";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -55,6 +56,35 @@ import type { ProviderId, SessionSummary } from "@/types";
 const INLINE_RECENT_ROOM_LIMIT = 3;
 const RECENT_ROOM_MODAL_LIMIT = 9;
 const PROVIDER_CAPABILITIES = fallbackProviderCapabilities();
+const LANDING_GUIDE_STEPS: CoachMarkStep[] = [
+  {
+    target: '[data-guide="landing-brand"]',
+    title: "Start here",
+    description: "This home screen splits the product into hosting, joining, and solo planning.",
+  },
+  {
+    target: '[data-guide="landing-create-room"]',
+    title: "Host a session",
+    description: "Create the room, connect the provider account once, then share the invite.",
+  },
+  {
+    target: '[data-guide="landing-join-room"]',
+    title: "Join from a phone",
+    description: "Guests paste or scan the invite, choose a display name, then vote and queue.",
+  },
+  {
+    target: '[data-guide="landing-solo-browse"]',
+    title: "Scout first",
+    description: "Solo browse is where you research climbs, shortlist them, and later spin up a room.",
+    placement: "top",
+  },
+  {
+    target: '[data-guide="landing-help"]',
+    title: "Replay the guide",
+    description: "Help reopens this walkthrough any time you need a quick refresher.",
+    placement: "top",
+  },
+];
 
 function resolveProviderLabel(providerId: ProviderId): string {
   return getProviderLabel(providerId, PROVIDER_CAPABILITIES);
@@ -62,18 +92,11 @@ function resolveProviderLabel(providerId: ProviderId): string {
 
 export default function LandingPage() {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const [inviteCode, setInviteCode] = useState("");
   const [prefs, setPrefs] = useState(() => loadUserPrefs());
   const [recentSessions, setRecentSessions] = useState<SessionSummary[]>([]);
-  const [showOnboarding, setShowOnboarding] = useState(
-    () => prefs.settings.autoGuidesEnabled && !prefs.onboarding.dismissed
-  );
-  const [showIntro, setShowIntro] = useState(
-    () =>
-      prefs.settings.autoGuidesEnabled &&
-      prefs.onboarding.dismissed &&
-      !prefs.intro.landingDismissed
-  );
+  const [showGuide, setShowGuide] = useState(false);
   const [isRecentRoomsDialogOpen, setIsRecentRoomsDialogOpen] = useState(false);
   const recentRooms = prefs.settings.recentRoomsEnabled
     ? prefs.recentRooms.slice(0, RECENT_ROOM_MODAL_LIMIT)
@@ -110,6 +133,19 @@ export default function LandingPage() {
     };
   }, []);
 
+  useEffect(() => {
+    if (
+      isMobile &&
+      prefs.settings.autoGuidesEnabled &&
+      !prefs.guidedTour.landingCompleted
+    ) {
+      setShowGuide(true);
+      trackProductEvent("onboarding.started", {
+        properties: { branch: "landing" },
+      });
+    }
+  }, [isMobile, prefs.guidedTour.landingCompleted, prefs.settings.autoGuidesEnabled]);
+
   const handleJoinRedirect = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const roomSlug = extractRoomSlugFromValue(inviteCode);
@@ -117,6 +153,10 @@ export default function LandingPage() {
       return;
     }
 
+    setPrefs(queueGuideBranch("guest"));
+    trackProductEvent("landing.join_clicked", {
+      properties: { branch: "guest", slug: roomSlug },
+    });
     navigate(`/join/${encodeURIComponent(roomSlug)}`);
   };
 
@@ -130,31 +170,21 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-full overflow-x-hidden bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))]">
-      <IntroDialog
-        open={showIntro}
-        title="One host. Shared decisions."
-        description="Create a room, connect one Kilter or Crux account on the server, and let everyone join from their phones to vote and queue climbs."
-        features={[
-          {
-            icon: <Users className="h-6 w-6" />,
-            title: "Invite friends",
-            description: "Share a room URL or QR code. Guests do not need board credentials.",
-          },
-          {
-            icon: <Mountain className="h-6 w-6" />,
-            title: "Choose climbs together",
-            description: "Vote on climbs, build a queue, and let the host control the running order.",
-          },
-          {
-            icon: <Link2 className="h-6 w-6" />,
-            title: "Support multiple providers",
-            description: "Start with Kilter and Crux now, while keeping the provider model extensible.",
-          },
-        ]}
-        dismissLabel="Start exploring"
-        onDismiss={() => {
-          setPrefs(dismissLandingIntro());
-          setShowIntro(false);
+      <CoachMarkOverlay
+        open={showGuide}
+        steps={LANDING_GUIDE_STEPS}
+        onClose={() => {
+          setPrefs(completeLandingGuide());
+          setShowGuide(false);
+          trackProductEvent("onboarding.skipped", {
+            properties: { branch: "landing" },
+          });
+        }}
+        onComplete={() => {
+          setPrefs(completeLandingGuide());
+          trackProductEvent("onboarding.completed", {
+            properties: { branch: "landing" },
+          });
         }}
       />
       <Dialog open={isRecentRoomsDialogOpen} onOpenChange={setIsRecentRoomsDialogOpen}>
@@ -185,7 +215,7 @@ export default function LandingPage() {
 
       <div className="mx-auto flex min-h-full max-w-6xl flex-col px-4 pb-24 pt-4 sm:px-6 sm:pt-6">
         <header className="flex shrink-0 flex-col gap-4 py-4 lg:flex-row lg:items-start lg:justify-between">
-          <div className="min-w-0">
+          <div className="min-w-0" data-guide="landing-brand">
             <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">
               Collaborative Board Sessions
             </p>
@@ -196,11 +226,11 @@ export default function LandingPage() {
           <div className="flex w-full flex-wrap items-center gap-2 lg:w-auto lg:justify-end">
             <HeaderNavButton
               type="button"
+              data-guide="landing-help"
               className="justify-start sm:justify-center"
               onClick={() => {
-                setPrefs(resetOnboardingPrefs());
-                setShowIntro(false);
-                setShowOnboarding(true);
+                setPrefs(resetGuides());
+                setShowGuide(true);
               }}
             >
               Help
@@ -217,28 +247,6 @@ export default function LandingPage() {
           </div>
         </header>
 
-        {showOnboarding ? (
-          <OnboardingCallout
-            title="Start in whichever role you have right now"
-            description="Hosts create the room and connect one provider account. Guests scan or paste the invite, join with a display name, then vote or add climbs to the queue."
-            steps={[
-              "Create a room if you are hosting. Pick Kilter or Crux, then connect the account inside the room.",
-              "Join a room if someone else is hosting. Scanning the QR code is the fastest path on a phone.",
-              "Use solo browse when you just want to inspect Kilter climbs without the shared room layer.",
-            ]}
-            actionLabel="Create room"
-            onAction={() => navigate("/rooms/new")}
-            onDismiss={() => {
-              const nextPrefs = dismissOnboarding();
-              setPrefs(nextPrefs);
-              setShowOnboarding(false);
-              if (nextPrefs.settings.autoGuidesEnabled && !nextPrefs.intro.landingDismissed) {
-                setShowIntro(true);
-              }
-            }}
-          />
-        ) : null}
-
         <main className="mx-auto flex w-full max-w-4xl flex-1 items-stretch justify-start pb-6 pt-2 lg:justify-center">
           <div className="mx-auto grid w-full max-w-4xl gap-5 lg:grid-cols-2">
             <Card className="bg-card/90">
@@ -249,8 +257,16 @@ export default function LandingPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <Button asChild className="w-full justify-between">
-                  <Link to="/rooms/new">
+                <Button asChild className="w-full justify-between" data-guide="landing-create-room">
+                  <Link
+                    to="/rooms/new"
+                    onClick={() => {
+                      setPrefs(queueGuideBranch("host"));
+                      trackProductEvent("landing.create_clicked", {
+                        properties: { branch: "host" },
+                      });
+                    }}
+                  >
                     Create room
                     <ArrowRight className="h-4 w-4" />
                   </Link>
@@ -275,16 +291,56 @@ export default function LandingPage() {
                     onChange={(event) => setInviteCode(event.target.value)}
                     placeholder="Room slug or invite URL"
                   />
-                  <Button type="submit" variant="outline" className="w-full">
+                  <Button
+                    type="submit"
+                    variant="outline"
+                    className="w-full"
+                    data-guide="landing-join-room"
+                  >
                     Join room
                   </Button>
                   <Button asChild type="button" variant="ghost" className="w-full">
-                    <Link to="/join">
+                    <Link
+                      to="/join"
+                      onClick={() => {
+                        setPrefs(queueGuideBranch("guest"));
+                        trackProductEvent("landing.join_clicked", {
+                          properties: { branch: "guest" },
+                        });
+                      }}
+                    >
                       <Camera className="mr-2 h-4 w-4" />
                       Scan or paste in full screen
                     </Link>
                   </Button>
                 </form>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/90 lg:col-span-2">
+              <CardHeader>
+                <CardTitle>Plan solo, then share</CardTitle>
+                <CardDescription>
+                  Use solo browse to shortlist climbs, create shareable plans, and seed the next room with context already attached.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full justify-between sm:w-auto"
+                  data-guide="landing-solo-browse"
+                >
+                  <Link
+                    to="/solo"
+                    onClick={() => {
+                      trackProductEvent("landing.solo_clicked");
+                    }}
+                  >
+                    Open solo browse
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
               </CardContent>
             </Card>
 

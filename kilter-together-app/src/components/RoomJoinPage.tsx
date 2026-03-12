@@ -1,17 +1,14 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { api } from "@/api";
+import CoachMarkOverlay, { type CoachMarkStep } from "@/components/CoachMarkOverlay";
 import { getApiErrorDetails } from "@/lib/api-errors";
 import {
-  dismissOnboarding,
   loadUserPrefs,
-  markGuestJoinedRoom,
   rememberDisplayName,
   rememberRoomVisit,
-  resetOnboardingPrefs,
 } from "@/lib/user-prefs";
-import OnboardingCallout from "@/components/OnboardingCallout";
 import { HeaderNavButton, HeaderNavLink } from "@/components/HeaderNavAction";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,18 +21,29 @@ import {
 import { Input } from "@/components/ui/input";
 import { useErrorToast } from "@/hooks/use-toast";
 import { reportError, reportEvent } from "@/lib/observability";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+const GUEST_JOIN_STEPS: CoachMarkStep[] = [
+  {
+    target: '[data-guide="guest-display-name"]',
+    title: "Pick the name the room sees",
+    description: "This display name is how the host and the other guests will recognize you in the session.",
+  },
+  {
+    target: '[data-guide="guest-join-submit"]',
+    title: "Join this device into the room",
+    description: "After this step, your phone becomes a live participant in the room state.",
+  },
+];
 
 export default function RoomJoinPage() {
   const navigate = useNavigate();
   const { slug = "" } = useParams();
+  const isMobile = useIsMobile();
   const [searchParams] = useSearchParams();
   const showErrorToast = useErrorToast();
-  const [showOnboarding, setShowOnboarding] = useState(
-    () => {
-      const prefs = loadUserPrefs();
-      return prefs.settings.autoGuidesEnabled && !prefs.onboarding.dismissed;
-    }
-  );
+  const [prefs] = useState(() => loadUserPrefs());
+  const [showGuide, setShowGuide] = useState(false);
   const [displayName, setDisplayName] = useState(
     () => loadUserPrefs().savedDisplayName
   );
@@ -51,6 +59,17 @@ export default function RoomJoinPage() {
           ? "Join the room on this browser before opening the invite."
           : "";
 
+  useEffect(() => {
+    if (
+      isMobile &&
+      prefs.settings.autoGuidesEnabled &&
+      prefs.guidedTour.activeBranch === "guest" &&
+      !prefs.guidedTour.guestCompleted
+    ) {
+      setShowGuide(true);
+    }
+  }, [isMobile, prefs.guidedTour.activeBranch, prefs.guidedTour.guestCompleted, prefs.settings.autoGuidesEnabled]);
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitting(true);
@@ -61,7 +80,6 @@ export default function RoomJoinPage() {
       const room = await api.joinRoom(slug, displayName);
       rememberDisplayName(displayName);
       rememberRoomVisit(room);
-      markGuestJoinedRoom();
       reportEvent("room.join", "guest join succeeded", {
         providerId: room.provider_id,
         slug: room.slug,
@@ -93,6 +111,7 @@ export default function RoomJoinPage() {
 
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(247,254,231,0.75),_rgba(255,255,255,1))] px-6 py-10">
+      <CoachMarkOverlay open={showGuide} steps={GUEST_JOIN_STEPS} onClose={() => setShowGuide(false)} />
       <div className="mx-auto max-w-xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
           <Button asChild variant="ghost">
@@ -104,10 +123,7 @@ export default function RoomJoinPage() {
           <div className="flex items-center gap-2">
             <HeaderNavButton
               type="button"
-              onClick={() => {
-                resetOnboardingPrefs();
-                setShowOnboarding(true);
-              }}
+              onClick={() => setShowGuide(true)}
             >
               Help
             </HeaderNavButton>
@@ -115,22 +131,6 @@ export default function RoomJoinPage() {
             <HeaderNavLink to="/settings">Settings</HeaderNavLink>
           </div>
         </div>
-
-        {showOnboarding ? (
-          <OnboardingCallout
-            title="Guest flow: join fast, then vote"
-            description="Guests do not need provider credentials. Once you join the room, your vote and queue actions update the shared session immediately."
-            steps={[
-              "Keep the host-provided slug or invite URL open on this device.",
-              "Enter the display name everyone in the room should see.",
-              "After joining, vote for climbs you want to do or add a climb to the queue.",
-            ]}
-            onDismiss={() => {
-              dismissOnboarding();
-              setShowOnboarding(false);
-            }}
-          />
-        ) : null}
 
         <Card className="shadow-lg shadow-lime-950/10">
           <CardHeader>
@@ -153,7 +153,11 @@ export default function RoomJoinPage() {
                 </div>
               ) : null}
               <div className="space-y-2">
-                <label htmlFor="join-display-name" className="text-sm font-medium">
+                <label
+                  htmlFor="join-display-name"
+                  className="text-sm font-medium"
+                  data-guide="guest-display-name"
+                >
                   Display name
                 </label>
                 <Input
@@ -164,7 +168,12 @@ export default function RoomJoinPage() {
                 />
               </div>
 
-              <Button type="submit" className="w-full" disabled={submitting}>
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={submitting}
+                data-guide="guest-join-submit"
+              >
                 {submitting ? "Joining room..." : "Join room"}
               </Button>
             </form>

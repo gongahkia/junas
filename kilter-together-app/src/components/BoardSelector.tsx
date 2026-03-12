@@ -4,6 +4,7 @@ import { ArrowRight, Heart, Layers3, ListChecks, Mountain, Radar, Trash2 } from 
 import { api } from "@/api";
 import AngleSelector from "./AngleSelector";
 import BrandWordmark from "./BrandWordmark";
+import CoachMarkOverlay, { type CoachMarkStep } from "./CoachMarkOverlay";
 import LoadingSlideshow from "./LoadingSlideshow";
 import type { Board, SoloFilterPreset, SoloSavedClimb } from "../types";
 import { DEFAULT_ANGLE } from "@/lib/climbs";
@@ -12,16 +13,15 @@ import {
   buildSoloFilterPresetPath,
   buildSoloResumePath,
   buildSoloSavedClimbPath,
-  dismissSoloIntro,
+  completeGuideBranch,
   loadUserPrefs,
   removeSoloFilterPreset,
   removeSoloFavorite,
   removeSoloShortlist,
-  reopenSoloIntro,
   rememberLastKilterSurface,
   soloSavedClimbKey,
 } from "@/lib/user-prefs";
-import IntroDialog from "@/components/IntroDialog";
+import { trackProductEvent } from "@/lib/product-analytics";
 import { HeaderNavButton, HeaderNavLink } from "@/components/HeaderNavAction";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -32,6 +32,25 @@ interface BoardSelectorProps {
   boardPathPrefix?: string;
 }
 
+const SOLO_GUIDE_STEPS: CoachMarkStep[] = [
+  {
+    target: '[data-guide="solo-angle"]',
+    title: "Pick the default angle",
+    description: "This becomes the starting view whenever you open a board from here.",
+  },
+  {
+    target: '[data-guide="solo-collections"]',
+    title: "Saved solo state",
+    description: "Favorites, shortlist, and filter presets stay local to this browser.",
+  },
+  {
+    target: '[data-guide="solo-providers"]',
+    title: "Provider solo browse",
+    description: "Use provider-backed solo pages when you want live gym context instead of the local Kilter dataset.",
+    placement: "top",
+  },
+];
+
 export default function BoardSelector({
   boards,
   loading,
@@ -40,9 +59,7 @@ export default function BoardSelector({
   const navigate = useNavigate();
   const [prefs, setPrefs] = useState(() => loadUserPrefs());
   const { capabilities } = useProviderCapabilities();
-  const [showSoloIntro, setShowSoloIntro] = useState(
-    () => prefs.settings.autoGuidesEnabled && !prefs.intro.soloDismissed
-  );
+  const [showGuide, setShowGuide] = useState(false);
   const [angle, setAngle] = useState(() => prefs.lastKilter.angle || DEFAULT_ANGLE);
   const soloResumePath = buildSoloResumePath(prefs.soloResume);
   const alternateSoloProviders = capabilities.filter(
@@ -61,32 +78,15 @@ export default function BoardSelector({
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))]">
-      <IntroDialog
-        open={showSoloIntro}
-        title="Inspect Kilter climbs without a room"
-        description="Use the same local dataset, pick a board angle, and browse climbs in a cleaner read-only view before you start a shared session."
-        features={[
-          {
-            icon: <Layers3 className="h-6 w-6" />,
-            title: "What solo mode is for",
-            description:
-              "Solo browse stays read-only. Use rooms when you want voting, queueing, QR invites, or live session coordination.",
-          },
-          {
-            icon: <Mountain className="h-6 w-6" />,
-            title: "Board-first entry",
-            description: "Choose the board size first, then dive straight into the catalog.",
-          },
-          {
-            icon: <Radar className="h-6 w-6" />,
-            title: "Angle-aware grades",
-            description: "Keep the selected angle pinned so grade context stays consistent.",
-          },
-        ]}
-        dismissLabel="Open solo browse"
-        onDismiss={() => {
-          setPrefs(dismissSoloIntro());
-          setShowSoloIntro(false);
+      <CoachMarkOverlay
+        open={showGuide}
+        steps={SOLO_GUIDE_STEPS}
+        onClose={() => setShowGuide(false)}
+        onComplete={() => {
+          setPrefs(completeGuideBranch("solo"));
+          trackProductEvent("onboarding.completed", {
+            properties: { branch: "solo" },
+          });
         }}
       />
 
@@ -106,8 +106,7 @@ export default function BoardSelector({
             <HeaderNavButton
               type="button"
               onClick={() => {
-                setPrefs(reopenSoloIntro());
-                setShowSoloIntro(true);
+                setShowGuide(true);
               }}
             >
               Help
@@ -121,7 +120,10 @@ export default function BoardSelector({
         <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center gap-6 py-8">
           <div className="mx-auto grid w-full max-w-5xl gap-6">
             <div className="grid gap-6 md:grid-cols-4">
-              <Card className={soloResumePath ? "bg-card/90 md:col-span-3" : "bg-card/90 md:col-span-4"}>
+              <Card
+                className={soloResumePath ? "bg-card/90 md:col-span-3" : "bg-card/90 md:col-span-4"}
+                data-guide="solo-angle"
+              >
                 <CardHeader>
                   <CardTitle>Choose the default angle</CardTitle>
                   <CardDescription>
@@ -159,7 +161,7 @@ export default function BoardSelector({
             {prefs.savedSoloFilters.length > 0 ||
             prefs.soloFavorites.length > 0 ||
             prefs.soloShortlist.length > 0 ? (
-              <div className="grid gap-6 md:grid-cols-2">
+              <div className="grid gap-6 md:grid-cols-2" data-guide="solo-collections">
                 {prefs.savedSoloFilters.length > 0 ? (
                   <SavedSoloFilterCard
                     presets={prefs.savedSoloFilters}
@@ -188,7 +190,10 @@ export default function BoardSelector({
             ) : null}
 
             {alternateSoloProviders.length > 0 ? (
-              <Card className="border-0 bg-white/88 shadow-xl shadow-slate-900/10 backdrop-blur">
+              <Card
+                className="border-0 bg-white/88 shadow-xl shadow-slate-900/10 backdrop-blur"
+                data-guide="solo-providers"
+              >
                 <CardHeader>
                   <CardTitle className="text-2xl">Other solo providers</CardTitle>
                   <CardDescription>
