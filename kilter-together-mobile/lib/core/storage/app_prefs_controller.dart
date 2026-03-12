@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/app_prefs_models.dart';
 import '../models/board_models.dart';
 import '../models/room_models.dart';
-import '../models/session_models.dart';
 import 'app_preferences.dart';
 
 final StateNotifierProvider<AppPrefsController, AsyncValue<AppPrefs>> appPrefsControllerProvider =
@@ -721,7 +720,8 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
       'Saturday',
       'Sunday',
     ];
-    return values[(weekday - 1).clamp(0, values.length - 1)];
+    final int index = ((weekday - 1).clamp(0, values.length - 1) as num).toInt();
+    return values[index];
   }
 
   String _monthName(int month) {
@@ -739,6 +739,7 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
       'Nov',
       'Dec',
     ];
-    return values[(month - 1).clamp(0, values.length - 1)];
+    final int index = ((month - 1).clamp(0, values.length - 1) as num).toInt();
+    return values[index];
   }
 }

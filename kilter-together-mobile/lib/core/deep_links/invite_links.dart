@@ -24,13 +24,23 @@ class InviteLink {
     if (trimmed.isEmpty) {
       return null;
     }
-
     final Uri uri = Uri.parse(trimmed);
     if (uri.scheme != 'kiltertogether') {
       return null;
     }
 
-    final Uri server = normalizeServerUri(uri.queryParameters['server'] ?? '');
+    final String? rawServer = uri.queryParameters['server'];
+    if (rawServer == null || rawServer.trim().isEmpty) {
+      return null;
+    }
+
+    final Uri server;
+    try {
+      server = normalizeServerUri(rawServer);
+    } on FormatException {
+      return null;
+    }
+
     switch (uri.host) {
       case 'join':
         return InviteLink(
@@ -42,17 +52,40 @@ class InviteLink {
         return InviteLink(
           kind: InviteKind.recap,
           server: server,
-          shareId: uri.queryParameters['share_id'],
+          shareId: uri.queryParameters['share_id'] ?? uri.queryParameters['shareId'],
         );
       case 'plan':
         return InviteLink(
           kind: InviteKind.plan,
           server: server,
-          shareId: uri.queryParameters['share_id'],
+          shareId: uri.queryParameters['share_id'] ?? uri.queryParameters['shareId'],
         );
       default:
         return null;
     }
   }
-}
 
+  Uri toUri() {
+    return Uri(
+      scheme: 'kiltertogether',
+      host: switch (kind) {
+        InviteKind.join => 'join',
+        InviteKind.recap => 'recap',
+        InviteKind.plan => 'plan',
+      },
+      queryParameters: <String, String>{
+        'server': server.toString(),
+        if (slug != null && slug!.isNotEmpty) 'slug': slug!,
+        if (shareId != null && shareId!.isNotEmpty) 'share_id': shareId!,
+      },
+    );
+  }
+
+  Map<String, String> toRouteQueryParameters() {
+    return <String, String>{
+      'server': server.toString(),
+      if (slug != null && slug!.isNotEmpty) 'slug': slug!,
+      if (shareId != null && shareId!.isNotEmpty) 'share_id': shareId!,
+    };
+  }
+}

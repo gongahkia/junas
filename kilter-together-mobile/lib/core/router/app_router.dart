@@ -4,7 +4,13 @@ import 'package:go_router/go_router.dart';
 import '../../features/create_room/presentation/create_room_screen.dart';
 import '../../features/join/presentation/join_screen.dart';
 import '../../features/landing/presentation/landing_screen.dart';
+import '../../features/plan/presentation/plan_screen.dart';
+import '../../features/recap/presentation/recap_screen.dart';
 import '../../features/room/presentation/room_screen.dart';
+import '../../features/settings/presentation/settings_screen.dart';
+import '../../features/solo_entry/presentation/solo_entry_screen.dart';
+import '../../features/solo_kilter/presentation/solo_board_screen.dart';
+import '../../features/solo_provider/presentation/provider_solo_screen.dart';
 
 GoRouter buildAppRouter() {
   return GoRouter(
@@ -31,6 +37,7 @@ GoRouter buildAppRouter() {
           return JoinRoomScreen(
             initialServer: state.uri.queryParameters['server'],
             initialSlug: state.uri.queryParameters['slug'],
+            initialReason: state.uri.queryParameters['reason'],
           );
         },
       ),
@@ -46,7 +53,58 @@ GoRouter buildAppRouter() {
           );
         },
       ),
+      GoRoute(
+        path: '/solo',
+        name: 'solo-entry',
+        builder: (BuildContext context, GoRouterState state) {
+          return const SoloEntryScreen();
+        },
+      ),
+      GoRoute(
+        path: '/solo/boards/:boardId',
+        name: 'solo-board',
+        builder: (BuildContext context, GoRouterState state) {
+          return SoloBoardScreen(
+            boardId: state.pathParameters['boardId'] ?? '',
+          );
+        },
+      ),
+      GoRoute(
+        path: '/solo/providers/:providerId',
+        name: 'solo-provider',
+        builder: (BuildContext context, GoRouterState state) {
+          return ProviderSoloScreen(
+            providerId: state.pathParameters['providerId'] ?? '',
+          );
+        },
+      ),
+      GoRoute(
+        path: '/recap',
+        name: 'recap',
+        builder: (BuildContext context, GoRouterState state) {
+          return RecapScreen(
+            server: state.uri.queryParameters['server'] ?? '',
+            shareId: state.uri.queryParameters['share_id'] ?? state.uri.queryParameters['shareId'] ?? '',
+          );
+        },
+      ),
+      GoRoute(
+        path: '/plan',
+        name: 'plan',
+        builder: (BuildContext context, GoRouterState state) {
+          return PlanScreen(
+            server: state.uri.queryParameters['server'] ?? '',
+            shareId: state.uri.queryParameters['share_id'] ?? state.uri.queryParameters['shareId'] ?? '',
+          );
+        },
+      ),
+      GoRoute(
+        path: '/settings',
+        name: 'settings',
+        builder: (BuildContext context, GoRouterState state) {
+          return const SettingsScreen();
+        },
+      ),
     ],
   );
 }
-
