@@ -3,6 +3,8 @@ from enum import Enum
 from typing import Optional
 from datetime import datetime
 
+MAX_CLASSIFY_TEXT_LENGTH = 20000
+
 class Classification(str, Enum):
     SAFE = "SAFE"
     LOW_RISK = "LOW_RISK"
@@ -12,7 +14,7 @@ class ClassifyRequest(BaseModel):
     text: str = Field(
         ...,
         min_length=1,
-        max_length=12000,
+        max_length=MAX_CLASSIFY_TEXT_LENGTH,
         description="text to classify for MNPI sensitivity",
     )
     entity_id: Optional[str] = Field(
@@ -31,8 +33,8 @@ class ClassifyRequest(BaseModel):
         cleaned = cleaned.strip()
         if not cleaned:
             raise ValueError("text must contain non-whitespace printable content")
-        if len(cleaned) > 12000:
-            raise ValueError("text exceeds max sanitized length of 12000")
+        if len(cleaned) > MAX_CLASSIFY_TEXT_LENGTH:
+            raise ValueError(f"text exceeds max sanitized length of {MAX_CLASSIFY_TEXT_LENGTH}")
         return cleaned
 
     @field_validator("entity_id")

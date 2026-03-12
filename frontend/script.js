@@ -12,12 +12,12 @@ const architectureDiagram = document.getElementById("architecture-diagram");
 const CANONICAL_LAYER_ORDER = ["lexicon", "embedding", "clustering", "model1", "model2", "mosaic", "regression"];
 const LAYER_META = {
     lexicon: { id: "L1", title: "1. Lexicon Check", short: "Lexicon" },
-    embedding: { id: "L2", title: "2. Embeddings Generation", short: "Embedding" },
-    clustering: { id: "L3", title: "3. Clustering", short: "Clustering" },
-    model1: { id: "L4", title: "4. Classification Model 1", short: "Model 1" },
-    model2: { id: "L4b", title: "4b. Classification Model 2", short: "Model 2" },
+    embedding: { id: "L2", title: "2. Embeddings Generation", short: "Embed" },
+    clustering: { id: "L3", title: "3. Clustering", short: "Cluster" },
+    model1: { id: "L4", title: "4. Classification Model 1", short: "M1" },
+    model2: { id: "L4b", title: "4b. Classification Model 2", short: "M2" },
     mosaic: { id: "L5", title: "5. Mosaic Aggregation", short: "Mosaic" },
-    regression: { id: "Reg", title: "6. Regression", short: "Regression" },
+    regression: { id: "Reg", title: "6. Regression", short: "Reg" },
 };
 const NODE_LAYER_BY_ID = {
     L1: "lexicon",
@@ -58,6 +58,8 @@ const EDGE_STYLE_BY_KIND = {
     unavailable: "stroke:#fb7185,stroke-width:2.5px;",
     neutral: "stroke:#4b5563,stroke-width:1.5px;",
 };
+const MAX_SCREENING_TEXT_LENGTH = 20000;
+const SCREENING_CONTROL_CHAR_PATTERN = /[\u0000-\u001f\u007f-\u009f]/;
 
 let latestReadyState = null;
 let latestDiagnosticsState = null;
@@ -136,6 +138,65 @@ function formatPercent(value) {
 
 function formatNumber(value) {
     return Number(value || 0).toFixed(3);
+}
+
+function sanitizeScreeningText(value) {
+    return Array.from(String(value || ""))
+        .filter((ch) => ch === "\n" || ch === "\r" || ch === "\t" || !SCREENING_CONTROL_CHAR_PATTERN.test(ch))
+        .join("")
+        .trim();
+}
+
+function validateScreeningText(text, sourceLabel) {
+    const cleaned = sanitizeScreeningText(text);
+    if (!cleaned) {
+        throw new Error(`${sourceLabel} must contain non-whitespace printable content.`);
+    }
+    if (cleaned.length > MAX_SCREENING_TEXT_LENGTH) {
+        throw new Error(`${sourceLabel} exceeds the screening limit of ${MAX_SCREENING_TEXT_LENGTH} characters after cleanup.`);
+    }
+    return cleaned;
+}
+
+function extractApiErrorDetail(payload) {
+    if (!payload) {
+        return "";
+    }
+    if (typeof payload.detail === "string" && payload.detail.trim()) {
+        return payload.detail.trim();
+    }
+    if (Array.isArray(payload.detail)) {
+        const messages = payload.detail.map((item) => {
+            if (typeof item === "string") {
+                return item.trim();
+            }
+            if (!item || typeof item !== "object") {
+                return "";
+            }
+            const location = Array.isArray(item.loc)
+                ? item.loc.filter((part) => part !== "body").join(".")
+                : "";
+            const message = typeof item.msg === "string" ? item.msg.trim() : "";
+            if (!message) {
+                return "";
+            }
+            return location ? `${location}: ${message}` : message;
+        }).filter(Boolean);
+        if (messages.length) {
+            return messages.join(" | ");
+        }
+    }
+    if (payload.detail && typeof payload.detail === "object") {
+        try {
+            return JSON.stringify(payload.detail);
+        } catch (error) {
+            return "";
+        }
+    }
+    if (typeof payload.message === "string" && payload.message.trim()) {
+        return payload.message.trim();
+    }
+    return "";
 }
 
 function buildBackendContext(readyState, diagnosticsState) {
@@ -229,8 +290,9 @@ function renderLayerStatusPanel() {
     const backendContext = buildBackendContext(latestReadyState, latestDiagnosticsState);
     const html = backendContext.pipeline.map((layer) => {
         const state = getBackendLayerState(layer, backendContext);
-        const title = `${LAYER_META[layer].title}: ${state.detail}`;
-        return `<span class="layer-chip layer-chip-${state.kind}" title="${escapeHtml(title)}">${escapeHtml(LAYER_META[layer].short)}: ${escapeHtml(state.label)}</span>`;
+        const detail = state.detail ? ` ${state.detail}` : "";
+        const title = `${LAYER_META[layer].title}: ${state.label}.${detail}`;
+        return `<span class="layer-chip layer-chip-${state.kind}" title="${escapeHtml(title)}"><span class="layer-chip-dot" aria-hidden="true"></span><span>${escapeHtml(LAYER_META[layer].short)}</span></span>`;
     }).join("");
 
     layerStatusChips.innerHTML = html || '<span class="layer-chip layer-chip-unknown">No diagnostics available</span>';
@@ -1187,6 +1249,9 @@ function updateDebugView(reqBody, responseData) {
 async function handleClassify() {
     const text = analyzeInput.value.trim();
     if (!text) {
+        resultsDisplay.classList.remove("hidden");
+        resultsDisplay.innerHTML = '<div style="color: var(--high-red);">Error: Classification input must contain non-whitespace printable content.</div>';
+        renderArchitectureDiagram(null);
         return;
     }
 
@@ -1195,12 +1260,14 @@ async function handleClassify() {
     classifyBtn.disabled = true;
     classifyBtn.textContent = "Analyzing...";
 
-    const reqBody = { text };
-    if (entityId) {
-        reqBody.entity_id = entityId;
-    }
-
     try {
+        const reqBody = {
+            text: validateScreeningText(text, "Classification input"),
+        };
+        if (entityId) {
+            reqBody.entity_id = entityId;
+        }
+
         const response = await fetch(`${API_BASE}/classify`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -1211,8 +1278,9 @@ async function handleClassify() {
             let message = "API request failed";
             try {
                 const payload = await response.json();
-                if (payload && typeof payload.detail === "string" && payload.detail.trim()) {
-                    message = payload.detail.trim();
+                const parsedDetail = extractApiErrorDetail(payload);
+                if (parsedDetail) {
+                    message = parsedDetail;
                 }
             } catch (error) {
                 // Keep generic message.

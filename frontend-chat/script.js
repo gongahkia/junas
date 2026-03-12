@@ -37,6 +37,8 @@ let busy = false;
 let guardPopupVisible = false;
 let draftBlocked = false;
 let blockedDraftText = "";
+const MAX_SCREENING_TEXT_LENGTH = 20000;
+const SCREENING_CONTROL_CHAR_PATTERN = /[\u0000-\u001f\u007f-\u009f]/;
 
 function refreshActionState(sendLabel = "Send") {
     sendButtonEl.classList.remove("is-blocked", "is-guarded");
@@ -103,6 +105,65 @@ function escapeHtml(value) {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#39;");
+}
+
+function sanitizeScreeningText(value) {
+    return Array.from(String(value || ""))
+        .filter((ch) => ch === "\n" || ch === "\r" || ch === "\t" || !SCREENING_CONTROL_CHAR_PATTERN.test(ch))
+        .join("")
+        .trim();
+}
+
+function validateScreeningText(text, sourceLabel) {
+    const cleaned = sanitizeScreeningText(text);
+    if (!cleaned) {
+        throw new Error(`${sourceLabel} must contain non-whitespace printable content.`);
+    }
+    if (cleaned.length > MAX_SCREENING_TEXT_LENGTH) {
+        throw new Error(`${sourceLabel} exceeds the screening limit of ${MAX_SCREENING_TEXT_LENGTH} characters after cleanup.`);
+    }
+    return cleaned;
+}
+
+function extractApiErrorDetail(payload) {
+    if (!payload) {
+        return "";
+    }
+    if (typeof payload.detail === "string" && payload.detail.trim()) {
+        return payload.detail.trim();
+    }
+    if (Array.isArray(payload.detail)) {
+        const messages = payload.detail.map((item) => {
+            if (typeof item === "string") {
+                return item.trim();
+            }
+            if (!item || typeof item !== "object") {
+                return "";
+            }
+            const location = Array.isArray(item.loc)
+                ? item.loc.filter((part) => part !== "body").join(".")
+                : "";
+            const message = typeof item.msg === "string" ? item.msg.trim() : "";
+            if (!message) {
+                return "";
+            }
+            return location ? `${location}: ${message}` : message;
+        }).filter(Boolean);
+        if (messages.length) {
+            return messages.join(" | ");
+        }
+    }
+    if (payload.detail && typeof payload.detail === "object") {
+        try {
+            return JSON.stringify(payload.detail);
+        } catch (error) {
+            return "";
+        }
+    }
+    if (typeof payload.message === "string" && payload.message.trim()) {
+        return payload.message.trim();
+    }
+    return "";
 }
 
 function createMessageElement({ role, body, tagLabel, tagClass, kind = "text", filename = "", excerpt = "" }) {
@@ -267,21 +328,23 @@ function openGuardPopup(context) {
     });
 }
 
-async function classifyContent(text) {
+async function classifyContent(text, sourceLabel = "Content") {
+    const screeningText = validateScreeningText(text, sourceLabel);
     const response = await fetch("/classify", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ text })
+        body: JSON.stringify({ text: screeningText })
     });
 
     if (!response.ok) {
         let detail = `HTTP ${response.status}`;
         try {
             const payload = await response.json();
-            if (payload && typeof payload.detail === "string" && payload.detail.trim()) {
-                detail = payload.detail.trim();
+            const parsedDetail = extractApiErrorDetail(payload);
+            if (parsedDetail) {
+                detail = `${parsedDetail} (HTTP ${response.status})`;
             }
         } catch (error) {
             // Keep generic detail.
@@ -299,7 +362,7 @@ async function guardAndHandle({ text, sourceLabel, kind, filename = "", busyAlre
     }
 
     try {
-        const result = await classifyContent(text);
+        const result = await classifyContent(text, sourceLabel === "message" ? "Message" : "Document upload");
         const context = buildModalContext(result, sourceLabel);
         const classification = context.classification;
 
