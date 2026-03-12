@@ -10,7 +10,8 @@ NOUPE_HOST="${NOUPE_HOST:-0.0.0.0}"
 NOUPE_PORT="${NOUPE_PORT:-8000}"
 NOUPE_OLD_FRONTEND_PORT="${NOUPE_OLD_FRONTEND_PORT:-8081}"
 NOUPE_READY_TIMEOUT_SECONDS="${NOUPE_READY_TIMEOUT_SECONDS:-180}"
-PIPELINE_LAYERS_NORMALIZED="$(printf '%s' "${PIPELINE_LAYERS:-}" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')"
+CANONICAL_LAYERS=("lexicon" "embedding" "clustering" "model1" "model2" "mosaic" "regression")
+PIPELINE_LAYERS_NORMALIZED=""
 
 BACKEND_PID=""
 LEGACY_FRONTEND_PID=""
@@ -192,6 +193,162 @@ prompt_frontends() {
     esac
 }
 
+apply_pipeline_selection() {
+    local requested
+    local normalized
+    local raw_layer
+    local allowed_layer
+    local unknown=()
+    local ordered=()
+    local seen=","
+
+    requested="$1"
+    normalized="$(printf '%s' "${requested}" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')"
+
+    if [ -z "${normalized}" ]; then
+        return 1
+    fi
+
+    IFS=',' read -r -a raw_layers <<< "${normalized}"
+
+    for raw_layer in "${raw_layers[@]}"; do
+        if [ -z "${raw_layer}" ]; then
+            continue
+        fi
+
+        local found=0
+        for allowed_layer in "${CANONICAL_LAYERS[@]}"; do
+            if [ "${raw_layer}" = "${allowed_layer}" ]; then
+                found=1
+                break
+            fi
+        done
+
+        if [ "${found}" -ne 1 ]; then
+            unknown+=("${raw_layer}")
+        fi
+    done
+
+    if [ "${#unknown[@]}" -gt 0 ]; then
+        echo "⚠️  Unknown layer(s): ${unknown[*]}"
+        echo "    Valid layers: ${CANONICAL_LAYERS[*]}"
+        return 1
+    fi
+
+    for allowed_layer in "${CANONICAL_LAYERS[@]}"; do
+        case ",${normalized}," in
+            *,"${allowed_layer}",*)
+                case "${seen}" in
+                    *,"${allowed_layer}",*) ;;
+                    *)
+                        ordered+=("${allowed_layer}")
+                        seen="${seen}${allowed_layer},"
+                        ;;
+                esac
+                ;;
+        esac
+    done
+
+    if [ "${#ordered[@]}" -eq 0 ]; then
+        return 1
+    fi
+
+    PIPELINE_LAYERS_NORMALIZED="$(IFS=','; echo "${ordered[*]}")"
+    export PIPELINE_LAYERS="${PIPELINE_LAYERS_NORMALIZED}"
+    return 0
+}
+
+print_pipeline_notes() {
+    case ",${PIPELINE_LAYERS_NORMALIZED}," in
+        *,clustering,*)
+            case ",${PIPELINE_LAYERS_NORMALIZED}," in
+                *,embedding,*) ;;
+                *)
+                    echo "⚠️  Clustering without embedding will be configured but skipped at runtime."
+                    ;;
+            esac
+            ;;
+    esac
+
+    case ",${PIPELINE_LAYERS_NORMALIZED}," in
+        *,model2,*)
+            case ",${PIPELINE_LAYERS_NORMALIZED}," in
+                *,model1,*) ;;
+                *)
+                    echo "⚠️  Model 2 without Model 1 will usually remain skipped because Model 1 gates it."
+                    ;;
+            esac
+            ;;
+    esac
+
+    case ",${PIPELINE_LAYERS_NORMALIZED}," in
+        *,mosaic,*)
+            case ",${PIPELINE_LAYERS_NORMALIZED}," in
+                *,model1,*|*,model2,*) ;;
+                *)
+                    echo "⚠️  Mosaic is most useful when upstream classifiers are also selected."
+                    ;;
+            esac
+            ;;
+    esac
+}
+
+prompt_pipeline_layers() {
+    if [ -n "${PIPELINE_LAYERS:-}" ]; then
+        if ! apply_pipeline_selection "${PIPELINE_LAYERS}"; then
+            echo "❌ Invalid PIPELINE_LAYERS value: ${PIPELINE_LAYERS}"
+            exit 1
+        fi
+        return
+    fi
+
+    if [ ! -t 0 ]; then
+        apply_pipeline_selection "lexicon,embedding,clustering,model1,model2,mosaic,regression"
+        return
+    fi
+
+    while true; do
+        echo ""
+        echo "Which layers should the backend run with?"
+        echo "  1) Full pipeline"
+        echo "     lexicon, embedding, clustering, model1, model2, mosaic, regression"
+        echo "  2) Core classifier pipeline"
+        echo "     lexicon, embedding, clustering, model1, model2"
+        echo "  3) Lexicon only"
+        echo "     lexicon"
+        echo "  4) Custom layer set"
+        printf "Selection [1]: "
+        read -r selection
+
+        case "${selection:-1}" in
+            1)
+                apply_pipeline_selection "lexicon,embedding,clustering,model1,model2,mosaic,regression"
+                break
+                ;;
+            2)
+                apply_pipeline_selection "lexicon,embedding,clustering,model1,model2"
+                break
+                ;;
+            3)
+                apply_pipeline_selection "lexicon"
+                break
+                ;;
+            4)
+                echo "Available layers: ${CANONICAL_LAYERS[*]}"
+                printf "Enter comma-separated layers: "
+                read -r custom_layers
+                if apply_pipeline_selection "${custom_layers}"; then
+                    break
+                fi
+                echo "Please enter a valid comma-separated subset of the available layers."
+                ;;
+            *)
+                echo "⚠️  Unrecognized selection. Please choose 1, 2, 3, or 4."
+                ;;
+        esac
+    done
+}
+
 start_legacy_frontend_server() {
     echo "🌐 Starting legacy analyzer frontend on ${LEGACY_FRONTEND_URL}..."
     python3 -m http.server "${NOUPE_OLD_FRONTEND_PORT}" -d "${ROOT}/frontend" >/dev/null 2>&1 &
@@ -200,9 +357,12 @@ start_legacy_frontend_server() {
 }
 
 prompt_frontends
+prompt_pipeline_layers
 
 echo ""
 echo "Frontend selection: ${FRONTEND_SELECTION}"
+echo "Pipeline selection: ${PIPELINE_LAYERS_NORMALIZED}"
+print_pipeline_notes
 
 # ── Activate project venv if present ──
 if [ -z "${VIRTUAL_ENV:-}" ] && [ -f "${ROOT}/.venv/bin/activate" ]; then

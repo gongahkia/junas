@@ -42,6 +42,7 @@ Run the combined dev launcher with:
 `run_dev.sh` now:
 
 - asks which frontend(s) to open
+- asks which pipeline layers to run with
 - starts the backend first
 - waits for `GET /ready` to report `ready: true`
 - starts the legacy analyzer frontend on `http://localhost:8081/` when selected
@@ -57,19 +58,20 @@ Frontend choices:
 Useful launcher env vars:
 
 - `NOUPE_FRONTENDS=legacy|chat|both|none`
+- `PIPELINE_LAYERS=lexicon,embedding,...` to skip the layer prompt and force a specific pipeline
 - `NOUPE_PORT` (default `8000`)
 - `NOUPE_OLD_FRONTEND_PORT` (default `8081`)
 - `NOUPE_READY_TIMEOUT_SECONDS` (default `180`)
 - `NOUPE_ALLOW_PARTIAL_START=1` if you intentionally want degraded startup
 - `NOUPE_PREFLIGHT_STRICT=0` to relax preflight warnings
 
-For the current checkout, a practical minimal launcher path is:
+Example minimal launcher path:
 
 ```sh
 PIPELINE_LAYERS=lexicon ./run_dev.sh
 ```
 
-When `PIPELINE_LAYERS` is set, `run_dev.sh` now only validates checkpoints for the layers in that active pipeline.
+When `PIPELINE_LAYERS` is set, `run_dev.sh` skips the layer-selection prompt and only validates checkpoints for the layers in that active pipeline.
 
 By default, the API now allows degraded startup when configured layers are missing and exposes that state through `GET /ready` and `GET /diagnostics`. When lazy loading is enabled, `GET /ready` remains degraded until required lazy layers finish warming.
 
