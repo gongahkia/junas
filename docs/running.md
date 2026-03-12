@@ -52,12 +52,14 @@ Frontend choices:
 
 - legacy analyzer only: `http://localhost:8081/`
 - chat demo only: `http://localhost:8000/chat/`
-- both
+- email demo only: `http://localhost:8000/email/`
+- slack demo only: `http://localhost:8000/slack/`
+- all frontends
 - backend only
 
 Useful launcher env vars:
 
-- `NOUPE_FRONTENDS=legacy|chat|both|none`
+- `NOUPE_FRONTENDS=legacy|chat|email|slack|all|none`
 - `PIPELINE_LAYERS=lexicon,embedding,...` to skip the layer prompt and force a specific pipeline
 - `NOUPE_PORT` (default `8000`)
 - `NOUPE_OLD_FRONTEND_PORT` (default `8081`)
@@ -103,6 +105,20 @@ Chat demo UI:
 - Screens typed messages and DOCX uploads through the same `POST /classify` backend before they are allowed into the chat transcript
 - `LOW_RISK` triggers a warning with override, `HIGH_RISK` is blocked
 
+Email demo UI:
+
+- `http://localhost:8000/email/`
+- Outlook-inspired mock compose surface that screens `subject + body` on send
+- DOCX uploads are screened when attached and rejected if `HIGH_RISK`
+- `LOW_RISK` triggers a warning with override, `HIGH_RISK` is blocked
+
+Slack demo UI:
+
+- `http://localhost:8000/slack/`
+- Slack-inspired mock channel surface that screens the composed message on send
+- DOCX uploads are screened before they are posted to the channel
+- `LOW_RISK` triggers a warning with override, `HIGH_RISK` is blocked
+
 Batch classify:
 
 ```sh
@@ -123,14 +139,14 @@ Use the production launcher (no autoreload, multi-worker):
 
 - always runs strict preflight checks
 - does not prompt for pipeline layers
-- still asks which surface(s) to open: legacy analyzer, chat demo, both, or backend only
+- still asks which surface(s) to open: legacy analyzer, chat demo, email demo, slack demo, all, or backend only
 - starts the backend in multi-worker mode
 - waits for `GET /ready` before opening any selected frontend
 - provisions `PROMETHEUS_MULTIPROC_DIR` automatically so `/metrics` aggregates across workers
 
 Useful production launcher env vars:
 
-- `NOUPE_FRONTENDS=legacy|chat|both|none`
+- `NOUPE_FRONTENDS=legacy|chat|email|slack|all|none`
 - `NOUPE_HOST` (default `0.0.0.0`)
 - `NOUPE_PORT` (default `8000`)
 - `NOUPE_UVICORN_WORKERS` (default `2`)
@@ -160,7 +176,7 @@ If you only need a minimal local server without trained artifacts, you can run l
 PIPELINE_LAYERS=lexicon uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-The existing analyzer frontend under `frontend/index.html` remains unchanged. The new chat demo is served by FastAPI at `/chat/`.
+The existing analyzer frontend under `frontend/index.html` remains unchanged. The mounted demo surfaces are served by FastAPI at `/chat/`, `/email/`, and `/slack/`.
 
 Useful env vars:
 

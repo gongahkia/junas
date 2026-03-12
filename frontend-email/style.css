@@ -1,18 +1,18 @@
 :root {
-    --mail-night: #06182d;
-    --mail-panel: rgba(10, 26, 48, 0.86);
-    --mail-panel-soft: rgba(23, 41, 68, 0.82);
-    --mail-card: rgba(11, 15, 23, 0.92);
-    --mail-card-soft: rgba(255, 255, 255, 0.06);
-    --mail-text: #f4f7fb;
-    --mail-muted: rgba(222, 231, 244, 0.72);
-    --mail-line: rgba(195, 215, 241, 0.12);
-    --mail-accent: #1ea7ff;
-    --mail-accent-soft: rgba(30, 167, 255, 0.18);
+    --mail-night: #002c5f;
+    --mail-panel: #f6f9fc;
+    --mail-panel-soft: #eaf2fb;
+    --mail-card: #ffffff;
+    --mail-card-soft: rgba(0, 44, 95, 0.04);
+    --mail-text: #12243a;
+    --mail-muted: #5f7188;
+    --mail-line: rgba(18, 36, 58, 0.12);
+    --mail-accent: #0f6cbd;
+    --mail-accent-soft: rgba(15, 108, 189, 0.12);
     --mail-safe: #29c288;
     --mail-low: #f4aa2d;
     --mail-high: #ff5a77;
-    --mail-shadow: 0 22px 70px rgba(2, 8, 17, 0.45);
+    --mail-shadow: 0 18px 46px rgba(15, 35, 58, 0.08);
 }
 
 * {
@@ -26,10 +26,7 @@ body {
 }
 
 body {
-    background:
-        radial-gradient(circle at top left, rgba(30, 167, 255, 0.2), transparent 28%),
-        radial-gradient(circle at top right, rgba(96, 165, 250, 0.14), transparent 24%),
-        linear-gradient(180deg, #08203f 0%, #05111f 100%);
+    background: #ffffff;
     color: var(--mail-text);
     font-family: "IBM Plex Sans", sans-serif;
 }
@@ -61,7 +58,7 @@ textarea {
     display: grid;
     grid-template-columns: 72px minmax(240px, 0.6fr) minmax(320px, 0.72fr) minmax(520px, 1.2fr);
     gap: 1px;
-    background: rgba(136, 177, 224, 0.08);
+    background: #dfe8f3;
 }
 
 .app-rail,
@@ -77,9 +74,7 @@ textarea {
     align-items: center;
     gap: 18px;
     padding: 18px 14px;
-    background:
-        linear-gradient(180deg, rgba(4, 15, 30, 0.92), rgba(6, 20, 37, 0.88)),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 40%);
+    background: linear-gradient(180deg, #f8fbff, #eef4fb);
 }
 
 .window-dots {
@@ -109,22 +104,21 @@ textarea {
 .rail-button {
     width: 42px;
     height: 42px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(18, 36, 58, 0.08);
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.06);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    background: #ffffff;
+    box-shadow: 0 6px 16px rgba(15, 35, 58, 0.06);
     cursor: pointer;
 }
 
 .rail-button-active {
-    background: linear-gradient(180deg, rgba(30, 167, 255, 0.9), rgba(17, 121, 218, 0.88));
+    background: linear-gradient(180deg, rgba(15, 108, 189, 0.92), rgba(7, 85, 153, 0.9));
 }
 
 .folder-pane,
 .message-pane,
 .compose-pane {
     background: var(--mail-panel);
-    backdrop-filter: blur(14px);
 }
 
 .folder-pane {
@@ -147,7 +141,7 @@ textarea {
     text-transform: uppercase;
     letter-spacing: 0.12em;
     font-size: 0.72rem;
-    color: rgba(244, 247, 251, 0.72);
+    color: var(--mail-muted);
 }
 
 .folder-copy {
@@ -163,8 +157,8 @@ textarea {
     margin-top: 18px;
     padding: 11px 14px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #ffffff;
+    border: 1px solid rgba(18, 36, 58, 0.08);
     width: fit-content;
     color: var(--mail-muted);
 }
@@ -193,11 +187,12 @@ textarea {
 .compose-button {
     padding: 14px 18px;
     border-radius: 16px;
-    background: linear-gradient(180deg, rgba(30, 167, 255, 0.92), rgba(17, 121, 218, 0.9));
-    color: #07111f;
+    background: linear-gradient(180deg, rgba(15, 108, 189, 0.94), rgba(7, 85, 153, 0.92));
+    color: #ffffff;
     font-family: "Manrope", sans-serif;
     font-weight: 800;
     letter-spacing: -0.03em;
+    box-shadow: 0 10px 26px rgba(15, 108, 189, 0.18);
 }
 
 .folder-groups {
@@ -215,7 +210,7 @@ textarea {
     font-size: 0.78rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: rgba(244, 247, 251, 0.5);
+    color: var(--mail-muted);
 }
 
 .folder-link {
@@ -235,8 +230,8 @@ textarea {
 
 .folder-link-active,
 .folder-link:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.08);
+    background: #ffffff;
+    border-color: rgba(15, 108, 189, 0.12);
 }
 
 .message-pane {
@@ -259,7 +254,7 @@ textarea {
     gap: 6px;
     padding: 6px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
+    background: #e9f1fb;
 }
 
 .tab {
@@ -269,8 +264,8 @@ textarea {
 }
 
 .tab-active {
-    background: rgba(30, 167, 255, 0.16);
-    color: var(--mail-text);
+    background: #ffffff;
+    color: var(--mail-accent);
 }
 
 .mail-list {
@@ -285,9 +280,9 @@ textarea {
 .mail-item {
     padding: 16px;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    background: #ffffff;
+    border: 1px solid rgba(18, 36, 58, 0.07);
+    box-shadow: 0 10px 24px rgba(15, 35, 58, 0.05);
     animation: rise-in 220ms ease-out;
 }
 
@@ -350,13 +345,13 @@ textarea {
 }
 
 .tone-safe {
-    background: rgba(41, 194, 136, 0.16);
-    color: #9af0ca;
+    background: rgba(41, 194, 136, 0.12);
+    color: #0d7b54;
 }
 
 .tone-low {
-    background: rgba(244, 170, 45, 0.16);
-    color: #ffd48a;
+    background: rgba(244, 170, 45, 0.12);
+    color: #a56b0a;
 }
 
 .compose-pane {
@@ -374,6 +369,11 @@ textarea {
     align-items: center;
     gap: 16px;
     flex-wrap: wrap;
+    padding: 18px 22px;
+    border-radius: 22px;
+    background: #ffffff;
+    border: 1px solid rgba(18, 36, 58, 0.08);
+    box-shadow: 0 12px 28px rgba(15, 35, 58, 0.05);
 }
 
 .toolbar-group {
@@ -385,20 +385,21 @@ textarea {
 .toolbar-button {
     padding: 11px 14px;
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.06);
+    background: #edf3fa;
     color: var(--mail-text);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(18, 36, 58, 0.08);
 }
 
 .toolbar-button-primary {
-    background: rgba(30, 167, 255, 0.14);
-    border-color: rgba(30, 167, 255, 0.26);
+    background: linear-gradient(180deg, rgba(15, 108, 189, 0.94), rgba(7, 85, 153, 0.92));
+    border-color: rgba(15, 108, 189, 0.24);
+    color: #ffffff;
 }
 
 .toolbar-button.is-blocked {
-    background: rgba(255, 90, 119, 0.16);
-    border-color: rgba(255, 90, 119, 0.28);
-    color: #ffd2dc;
+    background: rgba(255, 90, 119, 0.1);
+    border-color: rgba(255, 90, 119, 0.22);
+    color: #a12846;
 }
 
 .toolbar-button:disabled {
@@ -422,15 +423,15 @@ textarea {
 }
 
 .error-banner {
-    background: rgba(255, 90, 119, 0.12);
-    border: 1px solid rgba(255, 90, 119, 0.24);
-    color: #ffd2dc;
+    background: rgba(255, 90, 119, 0.08);
+    border: 1px solid rgba(255, 90, 119, 0.18);
+    color: #982641;
 }
 
 .notice-banner {
-    background: rgba(30, 167, 255, 0.1);
-    border: 1px solid rgba(30, 167, 255, 0.2);
-    color: #cae8ff;
+    background: rgba(15, 108, 189, 0.08);
+    border: 1px solid rgba(15, 108, 189, 0.16);
+    color: #125892;
 }
 
 .compose-card {
@@ -439,9 +440,9 @@ textarea {
     padding: 24px;
     border-radius: 28px;
     background:
-        linear-gradient(180deg, rgba(16, 19, 29, 0.96), rgba(10, 12, 19, 0.98)),
-        linear-gradient(135deg, rgba(30, 167, 255, 0.06), transparent 52%);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+        linear-gradient(180deg, #ffffff, #fbfdff),
+        linear-gradient(135deg, rgba(15, 108, 189, 0.04), transparent 52%);
+    border: 1px solid rgba(18, 36, 58, 0.08);
     box-shadow: var(--mail-shadow);
     display: flex;
     flex-direction: column;
@@ -458,7 +459,7 @@ textarea {
 }
 
 .mail-field label {
-    color: rgba(244, 247, 251, 0.7);
+    color: var(--mail-muted);
 }
 
 .mail-field input,
@@ -473,7 +474,7 @@ textarea {
 
 .mail-field input::placeholder,
 #body-input::placeholder {
-    color: rgba(244, 247, 251, 0.38);
+    color: rgba(95, 113, 136, 0.6);
 }
 
 .attachment-strip {
@@ -484,7 +485,7 @@ textarea {
 }
 
 .attachment-empty {
-    color: rgba(244, 247, 251, 0.42);
+    color: rgba(95, 113, 136, 0.7);
     font-size: 0.92rem;
 }
 
@@ -493,8 +494,8 @@ textarea {
     max-width: 100%;
     padding: 12px 14px;
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: #f4f8fc;
+    border: 1px solid rgba(18, 36, 58, 0.08);
 }
 
 .attachment-item-head {
@@ -514,7 +515,7 @@ textarea {
 
 .attachment-excerpt {
     margin: 0;
-    color: rgba(244, 247, 251, 0.62);
+    color: var(--mail-muted);
     font-size: 0.88rem;
     line-height: 1.45;
 }
@@ -559,8 +560,8 @@ textarea {
     width: min(520px, 100%);
     padding: 24px;
     border-radius: 24px;
-    background: rgba(11, 15, 23, 0.98);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #ffffff;
+    border: 1px solid rgba(18, 36, 58, 0.08);
     box-shadow: var(--mail-shadow);
 }
 
@@ -570,7 +571,7 @@ textarea {
     height: 36px;
     border: 0;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
+    background: #edf3fa;
     color: var(--mail-text);
     cursor: pointer;
 }
@@ -587,18 +588,18 @@ textarea {
 }
 
 .screening-safe {
-    background: rgba(41, 194, 136, 0.16);
-    color: #9af0ca;
+    background: rgba(41, 194, 136, 0.12);
+    color: #0d7b54;
 }
 
 .screening-low {
-    background: rgba(244, 170, 45, 0.16);
-    color: #ffd48a;
+    background: rgba(244, 170, 45, 0.12);
+    color: #a56b0a;
 }
 
 .screening-high {
-    background: rgba(255, 90, 119, 0.16);
-    color: #ffd2dc;
+    background: rgba(255, 90, 119, 0.12);
+    color: #a12846;
 }
 
 .guard-details {
@@ -610,8 +611,8 @@ textarea {
 .guard-detail {
     padding: 10px 12px;
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.04);
-    color: rgba(244, 247, 251, 0.76);
+    background: #f4f8fc;
+    color: var(--mail-muted);
     line-height: 1.45;
 }
 
@@ -625,8 +626,8 @@ textarea {
     padding: 11px 16px;
     border: 0;
     border-radius: 14px;
-    background: linear-gradient(180deg, rgba(30, 167, 255, 0.92), rgba(17, 121, 218, 0.9));
-    color: #07111f;
+    background: linear-gradient(180deg, rgba(15, 108, 189, 0.94), rgba(7, 85, 153, 0.92));
+    color: #ffffff;
     font-weight: 800;
     cursor: pointer;
 }
