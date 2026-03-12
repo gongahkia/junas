@@ -127,6 +127,29 @@ const DEFAULT_DISMISSED_GUIDES_PREFS = {
   },
 };
 
+function setViewport(width: number) {
+  Object.defineProperty(window, "innerWidth", {
+    configurable: true,
+    writable: true,
+    value: width,
+  });
+  Object.defineProperty(window, "innerHeight", {
+    configurable: true,
+    writable: true,
+    value: 844,
+  });
+  window.matchMedia = vi.fn().mockImplementation((query: string) => ({
+    matches: query.includes("max-width") ? width < 768 : false,
+    media: query,
+    onchange: null,
+    addListener: () => {},
+    removeListener: () => {},
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    dispatchEvent: () => false,
+  }));
+}
+
 const buildRoomSnapshot = (slug: string): RoomSnapshot => ({
   slug,
   status: "open" as const,
@@ -171,6 +194,7 @@ describe("App routes", () => {
   beforeEach(() => {
     vi.resetAllMocks();
     MockEventSource.instances = [];
+    setViewport(1024);
     window.localStorage.clear();
     window.localStorage.setItem(
       "kilter-together:user-prefs:v1",
@@ -450,6 +474,28 @@ describe("App routes", () => {
     );
   });
 
+  it("opens the landing mobile menu on phones", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+    setViewport(390);
+
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    await user.click(
+      await screen.findByRole("button", {
+        name: "Open Collaborative Board Sessions menu",
+      })
+    );
+
+    expect(screen.getByRole("button", { name: "Help" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "About" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Solo browse" })).toBeInTheDocument();
+  });
+
   it("persists browser-local settings from the settings page", async () => {
     const user = userEvent.setup();
     mockedApi.getBoards.mockResolvedValue([]);
@@ -630,8 +676,8 @@ describe("App routes", () => {
 
     expect((await screen.findAllByText("Shared Project")).length).toBeGreaterThan(0);
     expect(screen.getByText("Vote on this one")).toBeInTheDocument();
-    expect(screen.getByText("Live participants")).toBeInTheDocument();
-    expect(screen.getByText("2 currently online")).toBeInTheDocument();
+    expect(screen.getByText("Room pulse")).toBeInTheDocument();
+    expect(screen.getByText("2 online now")).toBeInTheDocument();
     expect(
       screen.getAllByRole("button", { name: /fist bump for Shared Project/i }).length
     ).toBeGreaterThan(0);
@@ -639,9 +685,164 @@ describe("App routes", () => {
     expect(screen.getByText("Finalists")).toBeInTheDocument();
     expect(screen.getAllByText("Guest").length).toBeGreaterThan(1);
     expect(screen.getAllByText("ready").length).toBeGreaterThan(0);
-    expect(screen.getByText(/join\/session-1/)).toBeInTheDocument();
+    expect(screen.getAllByText(/join\/session-1/).length).toBeGreaterThan(0);
     expect(MockEventSource.instances[0]?.url).toBe("/api/rooms/session-1/events");
     expect(mockedApi.getBoards).not.toHaveBeenCalled();
+  });
+
+  it("shows mobile menu entry points for create, discovery, and join flows", async () => {
+    setViewport(390);
+    mockedApi.getBoards.mockResolvedValue([]);
+
+    const user = userEvent.setup();
+    const initialRender = render(
+      <MemoryRouter initialEntries={["/rooms/new"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(
+      await screen.findByRole("button", { name: "Open Create a room menu" })
+    ).toBeInTheDocument();
+
+    initialRender.unmount();
+
+    const discoveryRender = render(
+      <MemoryRouter initialEntries={["/join"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(
+      await screen.findByRole("button", { name: "Open Join a room menu" })
+    ).toBeInTheDocument();
+
+    discoveryRender.unmount();
+
+    render(
+      <MemoryRouter initialEntries={["/join/shared-session"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    await user.click(await screen.findByRole("button", { name: "Open Join room menu" }));
+    expect(screen.getByRole("link", { name: "Settings" })).toBeInTheDocument();
+  });
+
+  it("opens the solo board sidebar sheet on phones", async () => {
+    const user = userEvent.setup();
+    setViewport(390);
+    mockedApi.getBoards.mockResolvedValue([
+      { id: 14, name: "Original 7 x 10", kilter_name: "Kilter Board Original" },
+    ]);
+    mockedApi.getPaginatedClimbs.mockResolvedValue({
+      climbs: [
+        {
+          uuid: "uuid-1",
+          climb_name: "Sample Problem",
+          description: "A direct-link test climb",
+          frames: "frames",
+          grades: {
+            "45": {
+              boulder: "7a/V6",
+              route: "5.12d",
+            },
+          },
+          setter_name: "setter-a",
+          image_filenames: ["test-a.png"],
+          product_size_id: 14,
+          ascends: 12,
+          created_at: "2026-01-01 00:00:00.000000",
+        },
+      ],
+      has_more: false,
+      page_size: 10,
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/boards/14?angle=45&climb=uuid-1"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    await user.click(await screen.findByRole("button", { name: /Filters & climbs/i }));
+
+    expect(await screen.findByText("Controls")).toBeInTheDocument();
+    expect(screen.getByText("Problems")).toBeInTheDocument();
+  });
+
+  it("uses mobile queue and finalist reorder buttons on phones", async () => {
+    setViewport(390);
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("session-mobile"),
+      connection: {
+        provider_id: "kilter",
+        connected: true,
+      },
+      surface: {
+        id: "14",
+        kind: "board",
+        name: "Kilter Board Original",
+        meta: {
+          angle: "40",
+          board_id: "14",
+        },
+      },
+      finalists: [
+        {
+          id: 9,
+          position: 1,
+          added_by: "Host",
+          climb: {
+            id: "kilter:14:uuid-1",
+            external_id: "uuid-1",
+            provider_id: "kilter",
+            surface_id: "14",
+            name: "Shared Project",
+            setter_name: "Setter A",
+            primary_grade: "V6",
+          },
+        },
+      ],
+      queue: [
+        {
+          id: 4,
+          status: "current" as const,
+          position: 1,
+          added_by: "Host",
+          climb: {
+            id: "kilter:14:uuid-1",
+            external_id: "uuid-1",
+            provider_id: "kilter",
+            surface_id: "14",
+            name: "Shared Project",
+            setter_name: "Setter A",
+            primary_grade: "V6",
+          },
+        },
+      ],
+    });
+    mockedApi.getRoomCatalogClimbs.mockResolvedValue({
+      climbs: [],
+      has_more: false,
+      page_size: 12,
+      vote_counts: {},
+      my_votes: [],
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/session-mobile"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(
+      await screen.findByRole("button", { name: /Move Shared Project up in finalists/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Move Shared Project down in queue/i })
+    ).toBeInTheDocument();
   });
 
   it("keeps a single room event stream and avoids refetching surfaces on every room event", async () => {

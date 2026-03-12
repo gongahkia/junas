@@ -5,6 +5,7 @@ import { extractRoomSlugFromValue } from "@/lib/room-links";
 import CoachMarkOverlay, { type CoachMarkStep } from "@/components/CoachMarkOverlay";
 import { loadUserPrefs, resetGuides } from "@/lib/user-prefs";
 import { HeaderNavButton, HeaderNavLink } from "@/components/HeaderNavAction";
+import MobilePageHeader from "@/components/MobilePageHeader";
 import RoomScanner from "@/components/RoomScanner";
 import { Button } from "@/components/ui/button";
 import {
@@ -64,14 +65,23 @@ export default function RoomDiscoveryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(239,246,255,0.92),_rgba(255,255,255,1))] px-6 py-10">
+    <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(239,246,255,0.92),_rgba(255,255,255,1))] px-4 py-4 sm:px-6 sm:py-8">
       <CoachMarkOverlay
         open={showGuide}
         steps={GUEST_DISCOVERY_STEPS}
         onClose={() => setShowGuide(false)}
       />
       <div className="mx-auto max-w-3xl">
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+        <MobilePageHeader
+          title="Join a room"
+          backTo="/"
+          backLabel="Community mode"
+          onHelp={() => {
+            resetGuides();
+            setShowGuide(true);
+          }}
+        />
+        <div className="mb-6 hidden flex-wrap items-center justify-between gap-2 md:flex">
           <Button asChild variant="ghost">
             <Link to="/">
               <ArrowLeft className="mr-2 h-4 w-4" />
@@ -93,10 +103,10 @@ export default function RoomDiscoveryPage() {
           </div>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="grid gap-5 sm:gap-6 lg:grid-cols-[1.1fr_0.9fr]">
           <Card className="shadow-lg shadow-sky-950/10" data-guide="guest-paste">
             <CardHeader>
-              <CardTitle className="text-3xl">Join a room</CardTitle>
+              <CardTitle className="text-2xl sm:text-3xl">Join a room</CardTitle>
               <CardDescription className="text-base">
                 Paste an invite link or room slug, or use the camera-first workflow to scan the host QR code.
               </CardDescription>

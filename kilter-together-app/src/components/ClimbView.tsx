@@ -11,7 +11,6 @@ import { ChevronLeft } from "lucide-react";
 import { api } from "../api";
 import type { Board, Climb, ProviderClimb } from "../types";
 import Sidebar from "./Sidebar";
-import MobileDropdown from "./MobileDropdown";
 import ProblemView from "./ProblemView";
 import LoadingSlideshow from "./LoadingSlideshow";
 import { getGradeForAngle, normalizeAngle, normalizeSort } from "@/lib/climbs";
@@ -498,8 +497,10 @@ export default function ClimbView({
             <div className="md:hidden">
               <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
                 <CardHeader className="gap-3">
-                  <div className="flex items-center gap-2">
-                    <SidebarTrigger className="md:hidden" />
+                  <div className="flex flex-wrap items-center gap-2">
+                    <SidebarTrigger className="md:hidden">
+                      <span>Filters & climbs</span>
+                    </SidebarTrigger>
                     <Button
                       variant="ghost"
                       onClick={() => navigate(backPath)}
@@ -514,6 +515,9 @@ export default function ClimbView({
                       Solo Kilter Browse
                     </p>
                     <h2 className="text-2xl font-semibold">{boardName}</h2>
+                    <p className="text-sm text-muted-foreground">
+                      Open the catalog sheet to filter the board and jump between climbs on this device.
+                    </p>
                     <div className="flex flex-wrap gap-2">
                       <Button
                         type="button"
@@ -649,32 +653,6 @@ export default function ClimbView({
                   </Button>
                 </CardHeader>
               </Card>
-              <MobileDropdown
-                climbs={climbs}
-                selectedClimb={selectedClimb}
-                onClimbSelect={handleClimbSelect}
-                angle={angle}
-                onAngleChange={(nextAngle) =>
-                  updateSearchState({ angle: String(nextAngle), sort, q: nameQuery, setter: setterQuery, grade: gradeQuery })
-                }
-                sort={sort}
-                onSortChange={(nextSort) =>
-                  updateSearchState({ angle: String(angle), sort: nextSort, q: nameQuery, setter: setterQuery, grade: gradeQuery })
-                }
-                nameQuery={nameQuery}
-                setterQuery={setterQuery}
-                gradeQuery={gradeQuery}
-                onNameChange={(value) =>
-                  updateSearchState({ angle: String(angle), sort, q: value, setter: setterQuery, grade: gradeQuery })
-                }
-                onSetterChange={(value) =>
-                  updateSearchState({ angle: String(angle), sort, q: nameQuery, setter: value, grade: gradeQuery })
-                }
-                onGradeChange={(value) =>
-                  updateSearchState({ angle: String(angle), sort, q: nameQuery, setter: setterQuery, grade: value })
-                }
-              />
-
               <div className="px-4 pb-4">
                 <Card className="border-0 bg-white/85 shadow-lg shadow-teal-950/10 backdrop-blur">
                   <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0">

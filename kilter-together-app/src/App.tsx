@@ -31,11 +31,7 @@ function AppContent() {
   const [boards, setBoards] = useState<Board[]>([]);
   const [loading, setLoading] = useState(true);
   const isLandingRoute = location.pathname === "/";
-  const hideBottomBar =
-    isMobile &&
-    (location.pathname === "/rooms/new" ||
-      location.pathname.startsWith("/join") ||
-      location.pathname.startsWith("/rooms/"));
+  const hideBottomBar = isMobile;
 
   const shouldLoadBoards =
     location.pathname === "/solo/kilter" ||
@@ -85,7 +81,11 @@ function AppContent() {
   return (
     <div
       className={
-        isLandingRoute ? "min-h-[100dvh] overflow-x-hidden" : "min-h-screen pb-20"
+        isLandingRoute
+          ? "min-h-[100dvh] overflow-x-hidden"
+          : isMobile
+            ? "min-h-screen"
+            : "min-h-screen pb-20"
       }
     >
       <Suspense fallback={<div className="min-h-[40vh]" aria-hidden="true" />}>

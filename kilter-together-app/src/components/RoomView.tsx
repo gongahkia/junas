@@ -61,6 +61,7 @@ import RoomProblemView from "@/components/RoomProblemView";
 import RoomFistBumpButton from "@/components/RoomFistBumpButton";
 import InviteQRCodeCard from "@/components/InviteQRCodeCard";
 import HeaderNavRail from "@/components/HeaderNavRail";
+import MobilePageHeader from "@/components/MobilePageHeader";
 import AngleSelector from "@/components/AngleSelector";
 import LoadingSlideshow from "@/components/LoadingSlideshow";
 import SortSelector from "@/components/SortSelector";
@@ -226,6 +227,7 @@ export default function RoomView() {
   const [pendingFistBumpClimbId, setPendingFistBumpClimbId] = useState("");
   const [showRoomSettings, setShowRoomSettings] = useState(false);
   const [showSurfaceEditor, setShowSurfaceEditor] = useState(false);
+  const [showConnectionEditor, setShowConnectionEditor] = useState(true);
   const [connectionFields, setConnectionFields] = useState(() => ({
     username: savedPrefsRef.current.savedCredentials.kilter.remember
       ? savedPrefsRef.current.savedCredentials.kilter.username
@@ -1523,10 +1525,38 @@ export default function RoomView() {
         }}
       />
       <div className="mx-auto flex max-w-7xl flex-col gap-5">
+        <MobilePageHeader
+          title={roomTitle}
+          backTo="/"
+          backLabel="Community mode"
+          menuGuideId="room-help"
+          onHelp={() => {
+            const nextPrefs = resetGuides();
+            savedPrefsRef.current = nextPrefs;
+            setPrefs(nextPrefs);
+            setShowGuide(true);
+          }}
+          primaryAction={
+            roomReadyToShare
+              ? {
+                  label: copiedInvite ? "Copied" : isMobile && canShareInvite ? "Share" : "Copy",
+                  icon:
+                    isMobile && canShareInvite ? (
+                      <Share2 className="h-4 w-4" />
+                    ) : (
+                      <Copy className="h-4 w-4" />
+                    ),
+                  onSelect: () => {
+                    void copyInviteLink();
+                  },
+                }
+              : undefined
+          }
+        />
         <header className="rounded-3xl border bg-card/95 px-5 py-5 shadow-sm">
           <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
             <div className="min-w-0 flex-1 space-y-4">
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="hidden flex-wrap items-center gap-2 md:flex">
                 <Button asChild variant="ghost" className="-ml-3">
                   <Link to="/">
                     <ArrowLeft className="mr-2 h-4 w-4" />
@@ -1741,7 +1771,7 @@ export default function RoomView() {
             </div>
 
             <div className="grid w-full min-w-0 gap-3 xl:w-[26rem] xl:shrink-0">
-              <HeaderNavRail items={roomNavItems} className="self-start xl:self-end" />
+              <HeaderNavRail items={roomNavItems} className="hidden self-start md:flex xl:self-end" />
               <div
                 className="min-w-0"
                 data-guide="room-share"
@@ -1789,7 +1819,12 @@ export default function RoomView() {
                         </div>
                       </div>
                     </div>
-                    <InviteQRCodeCard slug={slug} compact embedded className="sm:items-end" />
+                    <InviteQRCodeCard
+                      slug={slug}
+                      size={isMobile ? "mobile" : "compact"}
+                      embedded
+                      className="sm:items-end"
+                    />
                   </CardContent>
                 </Card>
               </div>
@@ -1880,13 +1915,13 @@ export default function RoomView() {
           </div>
         </header>
 
-        <div className="sticky top-3 z-20 -mt-2 flex gap-2 overflow-x-auto rounded-full border bg-white/90 px-2 py-2 shadow-sm backdrop-blur">
+        <div className="sticky top-2 z-20 -mt-2 flex gap-2 overflow-x-auto rounded-2xl border bg-white/90 px-2 py-2 shadow-sm backdrop-blur sm:top-3 sm:rounded-full">
           {roomActionRail.map((item) => (
             <Button
               key={item.target}
               type="button"
               variant="ghost"
-              className="rounded-full px-4"
+              className="h-9 rounded-full px-3 text-sm"
               onClick={() => {
                 document
                   .querySelector(`[data-section="${item.target}"]`)
@@ -1901,17 +1936,31 @@ export default function RoomView() {
         {!snapshot.connection.connected ? (
           <Card>
             <CardHeader>
-              <CardTitle>Connect the host account</CardTitle>
-              <CardDescription>
-                {canEditRoomSettings
-                  ? snapshot.provider_id === "kilter"
-                    ? "Authenticate one Kilter account so the room can browse a shared board."
-                    : `Enter one ${providerLabel} token so the room can browse a shared gym and wall.`
-                  : "Waiting for the host to connect the provider account before guests can browse climbs."}
-              </CardDescription>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <CardTitle>Connect the host account</CardTitle>
+                  <CardDescription>
+                    {canEditRoomSettings
+                      ? snapshot.provider_id === "kilter"
+                        ? "Authenticate one Kilter account so the room can browse a shared board."
+                        : `Enter one ${providerLabel} token so the room can browse a shared gym and wall.`
+                      : "Waiting for the host to connect the provider account before guests can browse climbs."}
+                  </CardDescription>
+                </div>
+                {canEditRoomSettings && isMobile ? (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowConnectionEditor((currentValue) => !currentValue)}
+                  >
+                    {showConnectionEditor ? "Hide form" : "Show form"}
+                  </Button>
+                ) : null}
+              </div>
             </CardHeader>
             <CardContent className="space-y-4">
-              {canEditRoomSettings ? (
+              {canEditRoomSettings && (!isMobile || showConnectionEditor) ? (
                 <>
                   {snapshot.provider_id === "kilter" ? (
                     <div className="grid gap-4 md:grid-cols-2">
@@ -2207,7 +2256,7 @@ export default function RoomView() {
         {snapshot.surface ? (
           <>
             <section className="grid gap-4 lg:grid-cols-[18rem_minmax(0,1fr)_18rem]">
-              <Card className="gap-4">
+              <Card className="order-2 gap-4 lg:order-none">
                 <CardHeader className="pb-0">
                   <CardTitle>Catalog</CardTitle>
                   <CardDescription>Local filters for this device.</CardDescription>
@@ -2318,7 +2367,7 @@ export default function RoomView() {
                 </CardContent>
               </Card>
 
-              <div className="grid gap-4">
+              <div className="order-1 grid gap-4 lg:order-none">
                 <Card className="gap-4" data-section="room-vote" data-guide="room-vote">
                   <CardHeader className="flex flex-row items-center justify-between gap-4 space-y-0">
                     <div>
@@ -2477,7 +2526,7 @@ export default function RoomView() {
                 </Card>
               </div>
 
-              <div className="grid gap-4">
+              <div className="order-3 grid gap-4 lg:order-none">
                 <Card className="gap-4">
                   <CardHeader>
                     <CardTitle>Finalists</CardTitle>

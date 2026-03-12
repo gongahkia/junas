@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { api } from "@/api";
 import CoachMarkOverlay, { type CoachMarkStep } from "@/components/CoachMarkOverlay";
 import FeedbackPrompt from "@/components/FeedbackPrompt";
+import MobilePageHeader from "@/components/MobilePageHeader";
 import { getApiErrorDetails } from "@/lib/api-errors";
 import {
   loadUserPrefs,
@@ -117,7 +118,7 @@ export default function RoomJoinPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(247,254,231,0.75),_rgba(255,255,255,1))] px-6 py-10">
+    <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(247,254,231,0.75),_rgba(255,255,255,1))] px-4 py-4 sm:px-6 sm:py-8">
       <CoachMarkOverlay open={showGuide} steps={GUEST_JOIN_STEPS} onClose={() => setShowGuide(false)} />
       <FeedbackPrompt
         open={showFailureFeedback}
@@ -139,7 +140,13 @@ export default function RoomJoinPage() {
         }}
       />
       <div className="mx-auto max-w-xl">
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+        <MobilePageHeader
+          title="Join room"
+          backTo="/join"
+          backLabel="Back to invite"
+          onHelp={() => setShowGuide(true)}
+        />
+        <div className="mb-6 hidden flex-wrap items-center justify-between gap-2 md:flex">
           <Button asChild variant="ghost">
             <Link to="/join">
               <ArrowLeft className="mr-2 h-4 w-4" />
@@ -160,7 +167,7 @@ export default function RoomJoinPage() {
 
         <Card className="shadow-lg shadow-lime-950/10">
           <CardHeader>
-            <CardTitle className="text-3xl">Join room</CardTitle>
+            <CardTitle className="text-2xl sm:text-3xl">Join room</CardTitle>
             <CardDescription className="text-base">
               Enter a display name for this device. You will join room{" "}
               <span className="font-medium text-foreground">{slug}</span>.

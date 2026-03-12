@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import type { ClimbSort, ProviderId } from "@/types";
 import BrandWordmark from "@/components/BrandWordmark";
 import { HeaderNavLink } from "@/components/HeaderNavAction";
+import MobilePageHeader from "@/components/MobilePageHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -100,8 +101,9 @@ export default function SettingsPage() {
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.16),_transparent_34%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))]">
-      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-6 pb-24 pt-8">
-        <header className="flex flex-wrap items-start justify-between gap-4 py-2">
+      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 pb-10 pt-4 sm:px-6 sm:pb-24 sm:pt-6">
+        <MobilePageHeader title="Settings" backTo="/" backLabel="Community mode" />
+        <header className="hidden flex-wrap items-start justify-between gap-4 py-2 md:flex">
           <h1 className="leading-none">
             <Link to="/" aria-label="Back to home page" className="inline-flex">
               <BrandWordmark />
@@ -114,7 +116,7 @@ export default function SettingsPage() {
           </div>
         </header>
 
-        <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 py-8">
+        <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-5 py-4 sm:gap-6 sm:py-8">
           <Card className="border-0 bg-white/88 shadow-xl shadow-teal-950/10 backdrop-blur">
             <CardHeader className="gap-4">
               <div className="inline-flex w-fit items-center gap-2 rounded-full bg-teal-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-teal-700">

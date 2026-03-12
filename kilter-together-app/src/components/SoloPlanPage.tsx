@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, Share2 } from "lucide-react";
 import { api } from "@/api";
 import BrandWordmark from "@/components/BrandWordmark";
 import LoadingSlideshow from "@/components/LoadingSlideshow";
+import MobilePageHeader from "@/components/MobilePageHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useErrorToast } from "@/hooks/use-toast";
@@ -82,40 +83,54 @@ export default function SoloPlanPage() {
     );
   }
 
+  const sharePlan = async () => {
+    trackProductEvent("solo_plan.share", {
+      properties: { share_id: plan.share_id },
+    });
+    const url = typeof window !== "undefined" ? window.location.href : "";
+    try {
+      if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+        try {
+          await navigator.share({
+            title: plan.title,
+            url,
+          });
+          return;
+        } catch (caughtError) {
+          if (isShareAbortError(caughtError)) {
+            return;
+          }
+        }
+      }
+      await copyTextToClipboard(url);
+    } catch {
+      showErrorToast("Unable to share or copy this solo plan link.");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.16),_transparent_34%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))] px-4 py-6 sm:px-6">
       <div className="mx-auto flex min-h-screen max-w-5xl flex-col gap-5">
-        <header className="flex flex-wrap items-center justify-between gap-3">
+        <MobilePageHeader
+          title={plan.title}
+          backTo="/"
+          backLabel="Community mode"
+          primaryAction={{
+            label: "Share",
+            icon: <Share2 className="h-4 w-4" />,
+            onSelect: () => {
+              void sharePlan();
+            },
+          }}
+        />
+        <header className="hidden flex-wrap items-center justify-between gap-3 md:flex">
           <Link to="/" aria-label="Back to home page" className="inline-flex">
             <BrandWordmark />
           </Link>
           <Button
             type="button"
             variant="outline"
-            onClick={async () => {
-              trackProductEvent("solo_plan.share", {
-                properties: { share_id: plan.share_id },
-              });
-              const url = typeof window !== "undefined" ? window.location.href : "";
-              try {
-                if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
-                  try {
-                    await navigator.share({
-                      title: plan.title,
-                      url,
-                    });
-                    return;
-                  } catch (caughtError) {
-                    if (isShareAbortError(caughtError)) {
-                      return;
-                    }
-                  }
-                }
-                await copyTextToClipboard(url);
-              } catch {
-                showErrorToast("Unable to share or copy this solo plan link.");
-              }
-            }}
+            onClick={() => void sharePlan()}
           >
             <Share2 className="mr-2 h-4 w-4" />
             Share

@@ -13,14 +13,14 @@ import { cn } from "@/lib/utils";
 
 interface InviteQRCodeCardProps {
   slug: string;
-  compact?: boolean;
+  size?: "default" | "compact" | "mobile";
   embedded?: boolean;
   className?: string;
 }
 
 export default function InviteQRCodeCard({
   slug,
-  compact = false,
+  size = "default",
   embedded = false,
   className,
 }: InviteQRCodeCardProps) {
@@ -38,7 +38,7 @@ export default function InviteQRCodeCard({
         const nextDataUrl = await QRCode.toDataURL(inviteLink, {
           errorCorrectionLevel: "M",
           margin: 1,
-          width: compact ? 176 : 256,
+          width: size === "compact" ? 176 : size === "mobile" ? 216 : 256,
           color: {
             dark: "#0f172a",
             light: "#ffffff",
@@ -63,12 +63,20 @@ export default function InviteQRCodeCard({
     return () => {
       cancelled = true;
     };
-  }, [compact, showErrorToast, slug]);
+  }, [showErrorToast, size, slug]);
 
-  const qrFrameClassName = compact ? "w-40 rounded-xl p-2.5" : "w-full max-w-56 rounded-2xl p-3";
-  const qrPlaceholderClassName = compact
-    ? "w-40 rounded-xl px-5 text-xs"
-    : "w-full max-w-56 rounded-2xl px-6 text-sm";
+  const qrFrameClassName =
+    size === "compact"
+      ? "w-40 rounded-xl p-2.5"
+      : size === "mobile"
+        ? "w-full max-w-48 rounded-2xl p-3"
+        : "w-full max-w-56 rounded-2xl p-3";
+  const qrPlaceholderClassName =
+    size === "compact"
+      ? "w-40 rounded-xl px-5 text-xs"
+      : size === "mobile"
+        ? "w-full max-w-48 rounded-2xl px-5 text-sm"
+        : "w-full max-w-56 rounded-2xl px-6 text-sm";
   const qrGraphic = qrCodeDataUrl ? (
     <img
       src={qrCodeDataUrl}
@@ -97,7 +105,13 @@ export default function InviteQRCodeCard({
 
   if (embedded) {
     return (
-      <div className={cn("flex w-full flex-col items-center gap-2 sm:w-auto", className)}>
+      <div
+        className={cn(
+          "flex w-full flex-col items-center gap-2",
+          size === "mobile" ? "sm:items-start" : "sm:w-auto",
+          className
+        )}
+      >
         {qrGraphic}
         <p className="text-center text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
           Scan to join

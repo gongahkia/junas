@@ -35,6 +35,7 @@ import { trackProductEvent } from "@/lib/product-analytics";
 import { cn } from "@/lib/utils";
 import BrandWordmark from "@/components/BrandWordmark";
 import HeaderNavRail from "@/components/HeaderNavRail";
+import MobilePageHeader from "@/components/MobilePageHeader";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
 import {
@@ -197,9 +198,9 @@ export default function LandingPage() {
         }}
       />
       <Dialog open={isRecentRoomsDialogOpen} onOpenChange={setIsRecentRoomsDialogOpen}>
-        <DialogContent className="h-[min(84vh,56rem)] max-w-[min(92vw,68rem)] overflow-hidden border-0 bg-white/95 p-0 shadow-2xl">
-          <DialogHeader className="border-b border-slate-200/70 px-6 py-5">
-            <DialogTitle className="flex items-center gap-2 text-2xl">
+        <DialogContent className="h-[min(88vh,56rem)] max-w-[min(96vw,68rem)] overflow-hidden border-0 bg-white/95 p-0 shadow-2xl">
+          <DialogHeader className="border-b border-slate-200/70 px-5 py-4 sm:px-6 sm:py-5">
+            <DialogTitle className="flex items-center gap-2 text-xl sm:text-2xl">
               <History className="h-5 w-5" />
               Recent rooms
             </DialogTitle>
@@ -207,7 +208,7 @@ export default function LandingPage() {
               Showing up to the latest 9 saved rooms from this browser.
             </DialogDescription>
           </DialogHeader>
-          <div className="overflow-y-auto px-6 pb-6 pt-4">
+          <div className="overflow-y-auto px-5 pb-5 pt-4 sm:px-6 sm:pb-6">
             <div className="grid gap-3">
               {recentRooms.map((room) => (
                 <RecentRoomModalCard
@@ -222,8 +223,19 @@ export default function LandingPage() {
         </DialogContent>
       </Dialog>
 
-      <div className="mx-auto flex min-h-full max-w-6xl flex-col px-4 pb-24 pt-4 sm:px-6 sm:pt-6">
-        <header className="flex shrink-0 items-start justify-between gap-4 py-4">
+      <div className="mx-auto flex min-h-full max-w-6xl flex-col px-4 pb-10 pt-4 sm:px-6 sm:pb-24 sm:pt-6">
+        <div data-guide="landing-brand">
+          <MobilePageHeader
+            title="Collaborative Board Sessions"
+            showBrand
+            menuGuideId="landing-help"
+            onHelp={() => {
+              setPrefs(resetGuides());
+              setShowGuide(true);
+            }}
+          />
+        </div>
+        <header className="hidden shrink-0 items-start justify-between gap-4 py-4 md:flex">
           <div className="min-w-0" data-guide="landing-brand">
             <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">
               Collaborative Board Sessions
@@ -235,8 +247,8 @@ export default function LandingPage() {
           <HeaderNavRail items={landingNavItems} className="self-start" />
         </header>
 
-        <main className="mx-auto flex w-full max-w-4xl flex-1 items-stretch justify-start pb-6 pt-2 lg:justify-center">
-          <div className="mx-auto grid w-full max-w-4xl gap-5 lg:grid-cols-2">
+        <main className="mx-auto flex w-full max-w-4xl flex-1 items-stretch justify-start pb-6 pt-3 sm:pt-2 lg:justify-center">
+          <div className="mx-auto grid w-full max-w-4xl gap-4 sm:gap-5 lg:grid-cols-2">
             <Card className="bg-card/90">
               <CardHeader>
                 <CardTitle>Create a room</CardTitle>

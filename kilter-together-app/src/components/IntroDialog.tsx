@@ -34,18 +34,18 @@ export default function IntroDialog({
 }: IntroDialogProps) {
   return (
     <Dialog open={open} onOpenChange={(nextOpen) => !nextOpen && onDismiss()}>
-      <DialogContent className="max-w-[calc(100vw-1.5rem)] border-0 bg-white/95 p-0 shadow-2xl shadow-teal-950/20 backdrop-blur sm:max-w-5xl sm:rounded-[2rem] lg:max-w-6xl">
-        <div className="grid gap-8 p-6 sm:p-10">
+      <DialogContent className="max-h-[min(92vh,56rem)] max-w-[calc(100vw-1rem)] overflow-hidden border-0 bg-white/95 p-0 shadow-2xl shadow-teal-950/20 backdrop-blur sm:max-w-5xl sm:rounded-[2rem] lg:max-w-6xl">
+        <div className="grid max-h-[min(92vh,56rem)] gap-6 overflow-y-auto p-5 sm:gap-8 sm:p-10">
           <DialogHeader className="gap-5 text-left">
             <div className="inline-flex w-fit items-center gap-2 rounded-full bg-teal-100 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.28em] text-teal-800">
               <Sparkles className="h-3.5 w-3.5" />
               Welcome
             </div>
             <div className="space-y-3">
-              <DialogTitle className="text-4xl font-semibold tracking-tight sm:text-6xl">
+              <DialogTitle className="text-3xl font-semibold tracking-tight sm:text-6xl">
                 {title}
               </DialogTitle>
-              <DialogDescription className="max-w-3xl text-base leading-8 text-slate-600 sm:text-xl">
+              <DialogDescription className="max-w-3xl text-sm leading-7 text-slate-600 sm:text-xl sm:leading-8">
                 {description}
               </DialogDescription>
             </div>
@@ -60,10 +60,10 @@ export default function IntroDialog({
                 <div className="mb-5 inline-flex rounded-full bg-teal-100 p-4 text-teal-700">
                   {feature.icon}
                 </div>
-                <h2 className="text-2xl font-semibold tracking-tight text-slate-950">
+                <h2 className="text-xl font-semibold tracking-tight text-slate-950 sm:text-2xl">
                   {feature.title}
                 </h2>
-                <p className="mt-4 text-base leading-8 text-slate-600">
+                <p className="mt-4 text-sm leading-7 text-slate-600 sm:text-base sm:leading-8">
                   {feature.description}
                 </p>
               </div>
@@ -71,7 +71,7 @@ export default function IntroDialog({
           </div>
 
           <div className="flex justify-end">
-            <Button type="button" size="lg" className="min-w-40" onClick={onDismiss}>
+            <Button type="button" size="lg" className="w-full sm:min-w-40 sm:w-auto" onClick={onDismiss}>
               {dismissLabel}
             </Button>
           </div>

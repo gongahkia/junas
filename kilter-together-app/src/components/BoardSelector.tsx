@@ -6,6 +6,7 @@ import AngleSelector from "./AngleSelector";
 import BrandWordmark from "./BrandWordmark";
 import CoachMarkOverlay, { type CoachMarkStep } from "./CoachMarkOverlay";
 import LoadingSlideshow from "./LoadingSlideshow";
+import MobilePageHeader from "./MobilePageHeader";
 import type { Board, SoloFilterPreset, SoloSavedClimb } from "../types";
 import { DEFAULT_ANGLE } from "@/lib/climbs";
 import { useProviderCapabilities } from "@/hooks/useProviderCapabilities";
@@ -95,8 +96,16 @@ export default function BoardSelector({
         }}
       />
 
-      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-6 py-8">
-        <header className="flex items-center justify-between py-4">
+      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 py-4 sm:px-6 sm:py-6">
+        <MobilePageHeader
+          title="Solo Kilter Browse"
+          backTo="/solo"
+          backLabel="Choose provider"
+          onHelp={() => {
+            setShowGuide(true);
+          }}
+        />
+        <header className="hidden items-center justify-between py-4 md:flex">
           <div>
             <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">
               Solo Kilter Browse
@@ -123,7 +132,7 @@ export default function BoardSelector({
           </div>
         </header>
 
-        <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center gap-6 py-8">
+        <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center gap-5 py-4 sm:gap-6 sm:py-8">
           <div className="mx-auto grid w-full max-w-5xl gap-6">
             <div className="grid gap-6 md:grid-cols-4">
               <Card

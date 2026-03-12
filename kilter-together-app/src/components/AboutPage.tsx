@@ -2,12 +2,14 @@ import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import BrandWordmark from "@/components/BrandWordmark";
 import { HeaderNavLink } from "@/components/HeaderNavAction";
+import MobilePageHeader from "@/components/MobilePageHeader";
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#faf7f1]">
-      <div className="mx-auto flex min-h-screen max-w-6xl flex-col bg-[#faf7f1] px-6 pb-24 pt-8">
-        <header className="flex flex-wrap items-start justify-between gap-4 py-2">
+      <div className="mx-auto flex min-h-screen max-w-6xl flex-col bg-[#faf7f1] px-4 pb-10 pt-4 sm:px-6 sm:pb-24 sm:pt-6">
+        <MobilePageHeader title="About Kilter Together" backTo="/" backLabel="Community mode" />
+        <header className="hidden flex-wrap items-start justify-between gap-4 py-2 md:flex">
           <h1 className="leading-none">
             <Link to="/" aria-label="Back to home page" className="inline-flex">
               <BrandWordmark />
@@ -20,8 +22,8 @@ export default function AboutPage() {
           </div>
         </header>
 
-        <main className="mx-auto flex w-full max-w-5xl flex-1 items-center bg-[#faf7f1] py-8">
-          <section className="grid w-full gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <main className="mx-auto flex w-full max-w-5xl flex-1 items-center bg-[#faf7f1] py-4 sm:py-8">
+          <section className="grid w-full gap-6 sm:gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div className="space-y-6 font-serif text-pretty text-[1.28rem] leading-9 text-neutral-900 sm:text-[1.48rem] sm:leading-10">
               <h2 className="text-4xl font-semibold leading-tight text-neutral-950 sm:text-5xl">
                 Hi, I&apos;m{" "}
@@ -70,7 +72,7 @@ export default function AboutPage() {
 
             <div
               aria-label="Placeholder for a future photo of Gabriel climbing with friends"
-              className="relative min-h-[22rem] overflow-hidden rounded-[2rem] border border-white/70 bg-[#faf7f1] shadow-xl shadow-stone-950/5"
+              className="relative min-h-[18rem] overflow-hidden rounded-[2rem] border border-white/70 bg-[#faf7f1] shadow-xl shadow-stone-950/5 sm:min-h-[22rem]"
             >
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_18%,_rgba(20,184,166,0.16),_transparent_30%),radial-gradient(circle_at_80%_28%,_rgba(14,165,233,0.12),_transparent_34%),linear-gradient(180deg,_rgba(250,247,241,1),_rgba(250,247,241,1))]" />
               <div className="absolute inset-x-[8%] top-[10%] h-[22%] rounded-[1.75rem] border border-white/70 bg-white/65" />

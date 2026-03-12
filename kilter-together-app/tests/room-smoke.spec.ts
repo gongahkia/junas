@@ -55,7 +55,10 @@ async function seedDismissedGuides(context: BrowserContext) {
 test("runs a room session end to end with the fake provider", async ({
   browser,
   request,
+  isMobile,
 }) => {
+  test.skip(isMobile, "Desktop smoke is covered separately from the phone-specific flow.");
+
   const hostContext = await browser.newContext();
   await seedDismissedGuides(hostContext);
 

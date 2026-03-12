@@ -18,6 +18,7 @@ import {
 import { api } from "@/api";
 import BrandWordmark from "@/components/BrandWordmark";
 import LoadingSlideshow from "@/components/LoadingSlideshow";
+import MobilePageHeader from "@/components/MobilePageHeader";
 import RoomProblemView from "@/components/RoomProblemView";
 import SortSelector from "@/components/SortSelector";
 import { HeaderNavLink } from "@/components/HeaderNavAction";
@@ -634,8 +635,13 @@ export default function ProviderSoloPage() {
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(148,163,184,0.24),_transparent_36%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(241,245,249,0.94))]">
-      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-6 py-8">
-        <header className="flex items-center justify-between py-4">
+      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 py-4 sm:px-6 sm:py-6">
+        <MobilePageHeader
+          title={`Solo ${providerLabel} Browse`}
+          backTo="/solo"
+          backLabel="Choose provider"
+        />
+        <header className="hidden items-center justify-between py-4 md:flex">
           <div>
             <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">
               Solo {providerLabel} Browse
@@ -654,7 +660,7 @@ export default function ProviderSoloPage() {
           </div>
         </header>
 
-        <main className="grid flex-1 gap-6 py-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
+        <main className="grid flex-1 gap-5 py-4 sm:gap-6 sm:py-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
           <div className="grid gap-6">
             <Card className="border-0 bg-white/88 shadow-xl shadow-slate-900/10 backdrop-blur">
               <CardHeader>

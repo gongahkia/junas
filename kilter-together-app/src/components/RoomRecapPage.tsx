@@ -5,6 +5,7 @@ import { api } from "@/api";
 import BrandWordmark from "@/components/BrandWordmark";
 import FeedbackPrompt from "@/components/FeedbackPrompt";
 import LoadingSlideshow from "@/components/LoadingSlideshow";
+import MobilePageHeader from "@/components/MobilePageHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useErrorToast } from "@/hooks/use-toast";
@@ -101,11 +102,47 @@ export default function RoomRecapPage() {
 
   const currentSlide = recap.slides[slideIndex];
   const isLastSlide = slideIndex === recap.slides.length - 1;
+  const shareRecap = async () => {
+    trackProductEvent("recap.share", {
+      properties: { share_id: recap.share_id },
+    });
+    const url = typeof window !== "undefined" ? window.location.href : "";
+    try {
+      if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+        try {
+          await navigator.share({
+            title: recap.room_name || `Room ${recap.room_slug}`,
+            url,
+          });
+          return;
+        } catch (caughtError) {
+          if (isShareAbortError(caughtError)) {
+            return;
+          }
+        }
+      }
+      await copyTextToClipboard(url);
+    } catch {
+      showErrorToast("Unable to share or copy this recap link.");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))] px-4 py-6 sm:px-6">
       <div className="mx-auto flex min-h-screen max-w-5xl flex-col gap-5">
-        <header className="flex flex-wrap items-center justify-between gap-3">
+        <MobilePageHeader
+          title={recap.room_name || "Session recap"}
+          backTo="/"
+          backLabel="Community mode"
+          primaryAction={{
+            label: "Share",
+            icon: <Share2 className="h-4 w-4" />,
+            onSelect: () => {
+              void shareRecap();
+            },
+          }}
+        />
+        <header className="hidden flex-wrap items-center justify-between gap-3 md:flex">
           <Link to="/" aria-label="Back to home page" className="inline-flex">
             <BrandWordmark />
           </Link>
@@ -113,30 +150,7 @@ export default function RoomRecapPage() {
             <Button
               type="button"
               variant="outline"
-              onClick={async () => {
-                trackProductEvent("recap.share", {
-                  properties: { share_id: recap.share_id },
-                });
-                const url = typeof window !== "undefined" ? window.location.href : "";
-                try {
-                  if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
-                    try {
-                      await navigator.share({
-                        title: recap.room_name || `Room ${recap.room_slug}`,
-                        url,
-                      });
-                      return;
-                    } catch (caughtError) {
-                      if (isShareAbortError(caughtError)) {
-                        return;
-                      }
-                    }
-                  }
-                  await copyTextToClipboard(url);
-                } catch {
-                  showErrorToast("Unable to share or copy this recap link.");
-                }
-              }}
+              onClick={() => void shareRecap()}
             >
               <Share2 className="mr-2 h-4 w-4" />
               Share

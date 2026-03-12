@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { api } from "@/api";
 import CoachMarkOverlay, { type CoachMarkStep } from "@/components/CoachMarkOverlay";
 import FeedbackPrompt from "@/components/FeedbackPrompt";
+import MobilePageHeader from "@/components/MobilePageHeader";
 import { getApiErrorDetails } from "@/lib/api-errors";
 import {
   clearPendingSoloRoomSeed,
@@ -231,7 +232,7 @@ export default function RoomCreatePage() {
     : "";
 
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(240,253,250,0.95),_rgba(255,255,255,1))] px-6 py-10">
+    <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(240,253,250,0.95),_rgba(255,255,255,1))] px-4 py-4 sm:px-6 sm:py-8">
       <CoachMarkOverlay
         open={showGuide}
         steps={HOST_GUIDE_STEPS}
@@ -278,7 +279,18 @@ export default function RoomCreatePage() {
         }}
       />
       <div className="mx-auto max-w-2xl">
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+        <MobilePageHeader
+          title="Create a room"
+          backTo="/"
+          backLabel="Community mode"
+          onHelp={() => {
+            const nextPrefs = resetGuides();
+            savedPrefsRef.current = nextPrefs;
+            setPrefs(nextPrefs);
+            setShowGuide(true);
+          }}
+        />
+        <div className="mb-6 hidden flex-wrap items-center justify-between gap-2 md:flex">
           <Button asChild variant="ghost">
             <Link to="/">
               <ArrowLeft className="mr-2 h-4 w-4" />
@@ -334,8 +346,8 @@ export default function RoomCreatePage() {
 
         <Card className="shadow-lg shadow-teal-950/10">
           <CardHeader>
-            <CardTitle className="text-3xl">Create a collaborative room</CardTitle>
-            <CardDescription className="text-base">
+            <CardTitle className="text-2xl sm:text-3xl">Create a collaborative room</CardTitle>
+            <CardDescription className="text-sm sm:text-base">
               Authenticate the host account once before the room opens. Hosts and guests can both
               manage the live session from a phone-first room view after setup.
             </CardDescription>

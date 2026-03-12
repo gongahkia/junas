@@ -1,6 +1,7 @@
 import { ArrowRight, Compass, MapPinned, Mountain } from "lucide-react";
 import { Link } from "react-router-dom";
 import BrandWordmark from "./BrandWordmark";
+import MobilePageHeader from "./MobilePageHeader";
 import LoadingSlideshow from "./LoadingSlideshow";
 import { HeaderNavLink } from "@/components/HeaderNavAction";
 import { Badge } from "@/components/ui/badge";
@@ -32,8 +33,9 @@ export default function SoloEntryPage() {
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))]">
-      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-6 py-8">
-        <header className="flex flex-col gap-4 py-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto flex min-h-screen max-w-6xl flex-col px-4 py-4 sm:px-6 sm:py-6">
+        <MobilePageHeader title="Solo Browse" backTo="/" backLabel="Community mode" />
+        <header className="hidden flex-col gap-4 py-4 sm:flex-row sm:items-center sm:justify-between md:flex">
           <div>
             <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">
               Solo Browse
@@ -51,7 +53,7 @@ export default function SoloEntryPage() {
           </div>
         </header>
 
-        <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center gap-6 py-8">
+        <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center gap-5 py-4 sm:gap-6 sm:py-8">
           <Card className="border-0 bg-white/90 shadow-xl shadow-teal-950/10 backdrop-blur">
             <CardHeader className="max-w-3xl">
               <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
