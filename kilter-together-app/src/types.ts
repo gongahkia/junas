@@ -4,6 +4,7 @@ export type RoomStatus = "open" | "closed";
 export type QueueStatus = "queued" | "next" | "current" | "done";
 export type ParticipantStatus = "watching" | "ready" | "resting" | "away";
 export type RandomPickSource = "auto" | "finalists" | "top_voted";
+export type AssistantMode = "manual" | "assist";
 export type ApiErrorCode =
   | "bad_request"
   | "display_name_required"
@@ -103,6 +104,15 @@ export interface PendingSoloRoomSeed {
   board_name: string;
   angle: number;
   climbs: SoloSavedClimb[];
+  created_at: string;
+}
+
+export interface PendingRoomSeed {
+  provider_id: ProviderId;
+  title?: string;
+  surface: ProviderSurface;
+  climbs: ProviderClimb[];
+  open_path?: string;
   created_at: string;
 }
 
@@ -240,10 +250,23 @@ export interface SessionSummary {
   surface_name?: string;
   surface_kind?: string;
   participant_count: number;
+  recap_share_id?: string;
   closed_at: string;
   top_voted: SessionSummaryClimb[];
   final_queue: SessionSummaryClimb[];
   finalists: SessionSummaryClimb[];
+}
+
+export interface AssistantSuggestion {
+  source: "finalists" | "top_voted" | "queue" | string;
+  ready_count: number;
+  climb: ProviderClimb;
+}
+
+export interface AssistantState {
+  mode: AssistantMode;
+  message?: string;
+  suggestion?: AssistantSuggestion;
 }
 
 export interface RoomSnapshot {
@@ -264,6 +287,7 @@ export interface RoomSnapshot {
   can_manage: boolean;
   permissions: RoomPermissions;
   display_name?: string;
+  assistant: AssistantState;
 }
 
 export interface RoomCatalogClimbsResponse {
@@ -298,4 +322,61 @@ export interface RoomEventPayload {
   room_slug: string;
   version: number;
   resources?: RoomEventResource[];
+}
+
+export interface RecapStat {
+  label: string;
+  value: string;
+}
+
+export interface RecapSlide {
+  id: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  stats?: RecapStat[];
+  featured_climb?: ProviderClimb;
+  climbs?: SessionSummaryClimb[];
+  participants?: string[];
+}
+
+export interface RoomRecap {
+  share_id: string;
+  room_slug: string;
+  room_name?: string;
+  provider_id: ProviderId;
+  surface_name?: string;
+  closed_at: string;
+  slides: RecapSlide[];
+  rematch_seed?: {
+    provider_id: ProviderId;
+    surface: ProviderSurface;
+    climbs: ProviderClimb[];
+  };
+}
+
+export interface SoloPlanSnapshot {
+  share_id: string;
+  provider_id: ProviderId;
+  title: string;
+  notes?: string;
+  surface: ProviderSurface;
+  filters?: Record<string, string>;
+  climbs: ProviderClimb[];
+  open_path?: string;
+  created_by?: string;
+  created_at: string;
+}
+
+export interface ProductMetrics {
+  status: string;
+  generated_at: string;
+  retention_days: number;
+  total_events: number;
+  total_recaps: number;
+  total_plans: number;
+  total_feedback: number;
+  events_last_7_days: Array<{ key: string; count: number }>;
+  feedback_sentiment: Array<{ key: string; count: number }>;
+  feedback_by_prompt: Array<{ key: string; count: number }>;
 }

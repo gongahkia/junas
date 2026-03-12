@@ -1,6 +1,8 @@
 import type {
   ClimbSort,
+  PendingRoomSeed,
   PendingSoloRoomSeed,
+  ProviderClimb,
   ProviderId,
   RoomSnapshot,
   SoloFilterPreset,
@@ -43,6 +45,17 @@ export interface OnboardingProgress {
   hostSelectedSurface: boolean;
   guestJoinedRoom: boolean;
   guestParticipated: boolean;
+}
+
+export type GuideBranch = "host" | "guest" | "solo";
+
+export interface GuidedTourProgress {
+  version: number;
+  landingCompleted: boolean;
+  hostCompleted: boolean;
+  guestCompleted: boolean;
+  soloCompleted: boolean;
+  activeBranch?: GuideBranch;
 }
 
 export interface IntroProgress {
@@ -91,10 +104,12 @@ export interface UserPrefs {
   savedSoloFilters: SoloFilterPreset[];
   soloFavorites: SoloSavedClimb[];
   soloShortlist: SoloSavedClimb[];
-  pendingSoloRoomSeed?: PendingSoloRoomSeed;
+  pendingRoomSeed?: PendingRoomSeed;
   soloResume?: SoloResumeState;
   intro: IntroProgress;
   onboarding: OnboardingProgress;
+  guidedTour: GuidedTourProgress;
+  feedbackPrompts: Record<string, string>;
   settings: AppSettings;
 }
 
@@ -127,7 +142,7 @@ function getDefaultUserPrefs(): UserPrefs {
     savedSoloFilters: [],
     soloFavorites: [],
     soloShortlist: [],
-    pendingSoloRoomSeed: undefined,
+    pendingRoomSeed: undefined,
     intro: {
       version: 1,
       landingDismissed: false,
@@ -143,6 +158,15 @@ function getDefaultUserPrefs(): UserPrefs {
       guestJoinedRoom: false,
       guestParticipated: false,
     },
+    guidedTour: {
+      version: 2,
+      landingCompleted: false,
+      hostCompleted: false,
+      guestCompleted: false,
+      soloCompleted: false,
+      activeBranch: undefined,
+    },
+    feedbackPrompts: {},
     settings: {
       clickCheersEnabled: true,
       playfulMotionEnabled: true,
@@ -272,6 +296,72 @@ function normalizeSoloFilterPresets(presets: SoloFilterPreset[]): SoloFilterPres
     .slice(0, MAX_SOLO_FILTER_PRESETS);
 }
 
+function normalizeProviderClimbs(climbs: ProviderClimb[]): ProviderClimb[] {
+  return climbs.reduce<ProviderClimb[]>((items, climb) => {
+    if (!climb?.id || !climb?.provider_id) {
+      return items;
+    }
+    items.push({
+      ...climb,
+      name: climb.name?.trim() || climb.id,
+    });
+    return items;
+  }, []);
+}
+
+function buildLegacyPendingRoomSeed(legacySeed?: PendingSoloRoomSeed): PendingRoomSeed | undefined {
+  if (!legacySeed?.board_id) {
+    return undefined;
+  }
+
+  return {
+    provider_id: "kilter",
+    title: legacySeed.board_name,
+    surface: {
+      id: legacySeed.board_id,
+      kind: "board",
+      name: legacySeed.board_name?.trim() || `Board ${legacySeed.board_id}`,
+      meta: {
+        board_id: legacySeed.board_id,
+        angle: String(legacySeed.angle || DEFAULT_ANGLE),
+      },
+    },
+    climbs: legacySeed.climbs.map((climb) => ({
+      id: `kilter:${climb.product_size_id}:${climb.uuid}`,
+      external_id: climb.uuid,
+      provider_id: "kilter",
+      surface_id: legacySeed.board_id,
+      name: climb.climb_name,
+      setter_name: climb.setter_name,
+      primary_grade: climb.grade,
+      meta: {
+        board_id: climb.board_id,
+        board_name: climb.board_name,
+        angle: String(climb.angle),
+      },
+    })),
+    created_at: legacySeed.created_at || new Date().toISOString(),
+  };
+}
+
+function normalizePendingRoomSeed(seed?: PendingRoomSeed): PendingRoomSeed | undefined {
+  if (!seed?.provider_id || !seed.surface?.id) {
+    return undefined;
+  }
+
+  return {
+    ...seed,
+    title: seed.title?.trim() || seed.surface.name?.trim() || undefined,
+    surface: {
+      ...seed.surface,
+      name: seed.surface.name?.trim() || seed.surface.id,
+      meta: seed.surface.meta ?? {},
+    },
+    climbs: normalizeProviderClimbs(seed.climbs ?? []),
+    created_at: seed.created_at || new Date().toISOString(),
+  };
+}
+
 export function buildSoloSavedClimb(
   input: Omit<SoloSavedClimb, "saved_at">
 ): SoloSavedClimb {
@@ -305,6 +395,9 @@ export function loadUserPrefs(): UserPrefs {
   try {
     const parsedValue = JSON.parse(rawValue) as Partial<UserPrefs>;
     const defaults = getDefaultUserPrefs();
+    const legacyPendingRoomSeed = buildLegacyPendingRoomSeed(
+      (parsedValue as Partial<{ pendingSoloRoomSeed: PendingSoloRoomSeed }>).pendingSoloRoomSeed
+    );
     return {
       ...defaults,
       ...parsedValue,
@@ -350,20 +443,7 @@ export function loadUserPrefs(): UserPrefs {
       soloShortlist: Array.isArray(parsedValue.soloShortlist)
         ? normalizeSoloSavedClimbs(parsedValue.soloShortlist as SoloSavedClimb[])
         : defaults.soloShortlist,
-      pendingSoloRoomSeed:
-        parsedValue.pendingSoloRoomSeed &&
-        Array.isArray(parsedValue.pendingSoloRoomSeed.climbs)
-          ? {
-              ...parsedValue.pendingSoloRoomSeed,
-              board_name:
-                parsedValue.pendingSoloRoomSeed.board_name?.trim() ||
-                `Board ${parsedValue.pendingSoloRoomSeed.board_id}`,
-              angle: parsedValue.pendingSoloRoomSeed.angle || DEFAULT_ANGLE,
-              climbs: normalizeSoloSavedClimbs(
-                parsedValue.pendingSoloRoomSeed.climbs as SoloSavedClimb[]
-              ),
-            }
-          : defaults.pendingSoloRoomSeed,
+      pendingRoomSeed: normalizePendingRoomSeed(parsedValue.pendingRoomSeed) || legacyPendingRoomSeed,
       intro: {
         ...defaults.intro,
         ...parsedValue.intro,
@@ -372,6 +452,14 @@ export function loadUserPrefs(): UserPrefs {
         ...defaults.onboarding,
         ...parsedValue.onboarding,
       },
+      guidedTour: {
+        ...defaults.guidedTour,
+        ...parsedValue.guidedTour,
+      },
+      feedbackPrompts:
+        parsedValue.feedbackPrompts && typeof parsedValue.feedbackPrompts === "object"
+          ? parsedValue.feedbackPrompts
+          : defaults.feedbackPrompts,
       settings: {
         ...defaults.settings,
         ...parsedValue.settings,
@@ -652,23 +740,60 @@ export function beginSoloRoomSeed(input: {
   boardName: string;
   climbs: SoloSavedClimb[];
 }): UserPrefs {
-  return updateUserPrefs((currentPrefs) => ({
-    ...currentPrefs,
-    pendingSoloRoomSeed: {
-      board_id: input.boardId,
-      board_name: input.boardName,
-      angle: input.angle,
-      climbs: normalizeSoloSavedClimbs(input.climbs),
-      created_at: new Date().toISOString(),
+  return beginRoomSeed({
+    providerId: "kilter",
+    title: input.boardName,
+    surface: {
+      id: input.boardId,
+      kind: "board",
+      name: input.boardName,
+      meta: {
+        board_id: input.boardId,
+        angle: String(input.angle),
+      },
     },
-    lastProviderId: "kilter",
-  }));
+    climbs: normalizeSoloSavedClimbs(input.climbs).map((climb) => ({
+      id: `kilter:${climb.product_size_id}:${climb.uuid}`,
+      external_id: climb.uuid,
+      provider_id: "kilter",
+      surface_id: input.boardId,
+      name: climb.climb_name,
+      setter_name: climb.setter_name,
+      primary_grade: climb.grade,
+      meta: {
+        board_id: climb.board_id,
+        board_name: climb.board_name,
+        angle: String(climb.angle),
+      },
+    })),
+  });
 }
 
 export function clearPendingSoloRoomSeed(): UserPrefs {
   return updateUserPrefs((currentPrefs) => ({
     ...currentPrefs,
-    pendingSoloRoomSeed: undefined,
+    pendingRoomSeed: undefined,
+  }));
+}
+
+export function beginRoomSeed(input: {
+  providerId: ProviderId;
+  title?: string;
+  surface: PendingRoomSeed["surface"];
+  climbs: ProviderClimb[];
+  openPath?: string;
+}): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    pendingRoomSeed: normalizePendingRoomSeed({
+      provider_id: input.providerId,
+      title: input.title,
+      surface: input.surface,
+      climbs: input.climbs,
+      open_path: input.openPath,
+      created_at: new Date().toISOString(),
+    }),
+    lastProviderId: input.providerId,
   }));
 }
 
@@ -750,6 +875,14 @@ export function resetOnboardingPrefs(): UserPrefs {
       hostSelectedSurface: false,
       guestJoinedRoom: false,
       guestParticipated: false,
+    },
+    guidedTour: {
+      ...currentPrefs.guidedTour,
+      landingCompleted: false,
+      hostCompleted: false,
+      guestCompleted: false,
+      soloCompleted: false,
+      activeBranch: undefined,
     },
   }));
 }
@@ -894,6 +1027,84 @@ export function resetGuides(): UserPrefs {
       hostSelectedSurface: false,
       guestJoinedRoom: false,
       guestParticipated: false,
+    },
+    guidedTour: {
+      ...currentPrefs.guidedTour,
+      landingCompleted: false,
+      hostCompleted: false,
+      guestCompleted: false,
+      soloCompleted: false,
+      activeBranch: undefined,
+    },
+  }));
+}
+
+export function queueGuideBranch(branch: GuideBranch): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    guidedTour: {
+      ...currentPrefs.guidedTour,
+      activeBranch: branch,
+    },
+  }));
+}
+
+export function clearGuideBranch(): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    guidedTour: {
+      ...currentPrefs.guidedTour,
+      activeBranch: undefined,
+    },
+  }));
+}
+
+export function completeLandingGuide(): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    guidedTour: {
+      ...currentPrefs.guidedTour,
+      landingCompleted: true,
+    },
+  }));
+}
+
+export function completeGuideBranch(branch: GuideBranch): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    guidedTour: {
+      ...currentPrefs.guidedTour,
+      activeBranch: undefined,
+      hostCompleted: branch === "host" ? true : currentPrefs.guidedTour.hostCompleted,
+      guestCompleted: branch === "guest" ? true : currentPrefs.guidedTour.guestCompleted,
+      soloCompleted: branch === "solo" ? true : currentPrefs.guidedTour.soloCompleted,
+    },
+  }));
+}
+
+export function shouldShowFeedbackPrompt(
+  promptFamily: string,
+  now = new Date()
+): boolean {
+  const lastShown = loadUserPrefs().feedbackPrompts[promptFamily];
+  if (!lastShown) {
+    return true;
+  }
+
+  const lastTimestamp = Date.parse(lastShown);
+  if (Number.isNaN(lastTimestamp)) {
+    return true;
+  }
+
+  return now.getTime() - lastTimestamp >= 7 * 24 * 60 * 60 * 1000;
+}
+
+export function markFeedbackPromptSeen(promptFamily: string): UserPrefs {
+  return updateUserPrefs((currentPrefs) => ({
+    ...currentPrefs,
+    feedbackPrompts: {
+      ...currentPrefs.feedbackPrompts,
+      [promptFamily]: new Date().toISOString(),
     },
   }));
 }

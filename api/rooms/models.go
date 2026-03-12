@@ -34,6 +34,7 @@ type Room struct {
 	Name               string `gorm:"index"`
 	ProviderID         string `gorm:"index;not null"`
 	Status             string `gorm:"index;not null"`
+	AssistantMode      string `gorm:"not null;default:manual"`
 	SurfaceID          string
 	SurfaceKind        string
 	SurfaceName        string
@@ -113,12 +114,67 @@ type RoomSessionSummary struct {
 	SurfaceName      string
 	SurfaceKind      string
 	ParticipantCount int
+	RecapShareID     string `gorm:"uniqueIndex"`
 	TopVotedJSON     string
 	FinalQueueJSON   string
 	FinalistsJSON    string
 	ClosedAt         time.Time `gorm:"index;not null"`
 	CreatedAt        time.Time
 	UpdatedAt        time.Time
+}
+
+type AnalyticsEvent struct {
+	ID             uint   `gorm:"primaryKey"`
+	RoomID         *uint  `gorm:"index"`
+	RoomSlug       string `gorm:"index"`
+	EventName      string `gorm:"index;not null"`
+	Source         string `gorm:"index;not null"`
+	ViewerRole     string `gorm:"index"`
+	Route          string
+	PropertiesJSON string
+	CreatedAt      time.Time `gorm:"index;not null"`
+}
+
+type RoomSessionRecap struct {
+	ID          uint      `gorm:"primaryKey"`
+	RoomID      uint      `gorm:"uniqueIndex;not null"`
+	ShareID     string    `gorm:"uniqueIndex;not null"`
+	RoomSlug    string    `gorm:"index;not null"`
+	PayloadJSON string    `gorm:"not null"`
+	ClosedAt    time.Time `gorm:"index;not null"`
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+}
+
+type SoloPlanSnapshot struct {
+	ID          uint   `gorm:"primaryKey"`
+	ShareID     string `gorm:"uniqueIndex;not null"`
+	ProviderID  string `gorm:"index;not null"`
+	Title       string `gorm:"not null"`
+	Notes       string
+	SurfaceID   string
+	SurfaceName string
+	SurfaceKind string
+	ContextJSON string
+	FiltersJSON string
+	ClimbsJSON  string `gorm:"not null"`
+	OpenPath    string
+	CreatedBy   string
+	CreatedAt   time.Time `gorm:"index;not null"`
+	UpdatedAt   time.Time
+}
+
+type FeedbackEntry struct {
+	ID           uint   `gorm:"primaryKey"`
+	RoomID       *uint  `gorm:"index"`
+	RoomSlug     string `gorm:"index"`
+	ShareID      string `gorm:"index"`
+	PromptFamily string `gorm:"index;not null"`
+	Sentiment    string `gorm:"not null"`
+	Message      string
+	Route        string
+	MetadataJSON string
+	CreatedAt    time.Time `gorm:"index;not null"`
 }
 
 type ParticipantView struct {
@@ -170,10 +226,23 @@ type SessionSummaryView struct {
 	SurfaceName      string                    `json:"surface_name,omitempty"`
 	SurfaceKind      string                    `json:"surface_kind,omitempty"`
 	ParticipantCount int                       `json:"participant_count"`
+	RecapShareID     string                    `json:"recap_share_id,omitempty"`
 	ClosedAt         time.Time                 `json:"closed_at"`
 	TopVoted         []SessionSummaryClimbView `json:"top_voted"`
 	FinalQueue       []SessionSummaryClimbView `json:"final_queue"`
 	Finalists        []SessionSummaryClimbView `json:"finalists"`
+}
+
+type AssistantSuggestionView struct {
+	Source     string                  `json:"source"`
+	ReadyCount int                     `json:"ready_count"`
+	Climb      providers.ProviderClimb `json:"climb"`
+}
+
+type AssistantStateView struct {
+	Mode       string                   `json:"mode"`
+	Message    string                   `json:"message,omitempty"`
+	Suggestion *AssistantSuggestionView `json:"suggestion,omitempty"`
 }
 
 type CatalogClimbsResponse struct {
@@ -210,6 +279,7 @@ type RoomSnapshot struct {
 	CanManage        bool                              `json:"can_manage"`
 	Permissions      PermissionView                    `json:"permissions"`
 	DisplayName      string                            `json:"display_name,omitempty"`
+	Assistant        AssistantStateView                `json:"assistant"`
 }
 
 type EventPayload struct {

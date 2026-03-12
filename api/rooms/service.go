@@ -152,6 +152,7 @@ func (service *Service) CreateRoom(
 		Name:             roomName,
 		ProviderID:       string(providerID),
 		Status:           roomStatusOpen,
+		AssistantMode:    assistantModeManual,
 		FistBumpsEnabled: fistBumpsEnabled,
 		Version:          1,
 		LastActiveAt:     now,
@@ -1084,6 +1085,14 @@ func (service *Service) CloseRoom(ctx context.Context, viewer *Viewer) error {
 			}).Error; err != nil {
 			return err
 		}
+		if err := service.recordAnalyticsEventTx(tx, AnalyticsEventInput{
+			RoomSlug:   viewer.Room.Slug,
+			EventName:  "room.close",
+			Source:     "server",
+			ViewerRole: viewer.Session.Role,
+		}); err != nil {
+			return err
+		}
 		if err := service.persistRoomSessionSummary(tx, &viewer.Room, now, voteCounts); err != nil {
 			return err
 		}
@@ -1245,12 +1254,16 @@ func (service *Service) buildSnapshot(
 		})
 	}
 
+	voteParticipantID := uint(0)
 	if viewer != nil {
-		voteCounts, myVotes, err := service.voteData(ctx, room.ID, viewer.Participant.ID)
-		if err != nil {
-			return nil, err
-		}
-		snapshot.VoteCounts = voteCounts
+		voteParticipantID = viewer.Participant.ID
+	}
+	voteCounts, myVotes, err := service.voteData(ctx, room.ID, voteParticipantID)
+	if err != nil {
+		return nil, err
+	}
+	snapshot.VoteCounts = voteCounts
+	if viewer != nil {
 		snapshot.MyVotes = myVotes
 	}
 
@@ -1326,6 +1339,8 @@ func (service *Service) buildSnapshot(
 			Climb:    *climb,
 		})
 	}
+
+	snapshot.Assistant = buildAssistantState(room, snapshot)
 
 	return snapshot, nil
 }
@@ -1448,6 +1463,15 @@ func (service *Service) CloseExpiredRooms(ctx context.Context) error {
 				}).Error; err != nil {
 				return err
 			}
+			if err := service.recordAnalyticsEventTx(tx, AnalyticsEventInput{
+				RoomSlug:   room.Slug,
+				EventName:  "room.close",
+				Source:     "server",
+				ViewerRole: "system",
+				Properties: map[string]any{"expired": true},
+			}); err != nil {
+				return err
+			}
 			return service.persistRoomSessionSummary(tx, &room, now, voteCounts)
 		}); err != nil {
 			return err
@@ -1556,24 +1580,55 @@ func (service *Service) persistRoomSessionSummary(
 	var existing RoomSessionSummary
 	if err := tx.Where("room_id = ?", room.ID).First(&existing).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return tx.Create(&summary).Error
+			recapShareID, tokenErr := security.NewOpaqueToken()
+			if tokenErr != nil {
+				return tokenErr
+			}
+			summary.RecapShareID = recapShareID
+			if err := tx.Create(&summary).Error; err != nil {
+				return err
+			}
+			var events []AnalyticsEvent
+			if err := tx.Where("room_id = ?", room.ID).Order("created_at ASC").Find(&events).Error; err != nil {
+				return err
+			}
+			return service.persistRoomRecap(tx, room, summary, participants, events)
 		}
 		return err
 	}
 
-	return tx.Model(&existing).Updates(map[string]any{
+	recapShareID := existing.RecapShareID
+	if strings.TrimSpace(recapShareID) == "" {
+		generatedShareID, tokenErr := security.NewOpaqueToken()
+		if tokenErr != nil {
+			return tokenErr
+		}
+		recapShareID = generatedShareID
+	}
+	summary.RecapShareID = recapShareID
+
+	if err := tx.Model(&existing).Updates(map[string]any{
 		"room_slug":         summary.RoomSlug,
 		"room_name":         summary.RoomName,
 		"provider_id":       summary.ProviderID,
 		"surface_name":      summary.SurfaceName,
 		"surface_kind":      summary.SurfaceKind,
 		"participant_count": summary.ParticipantCount,
+		"recap_share_id":    summary.RecapShareID,
 		"top_voted_json":    summary.TopVotedJSON,
 		"final_queue_json":  summary.FinalQueueJSON,
 		"finalists_json":    summary.FinalistsJSON,
 		"closed_at":         summary.ClosedAt,
 		"updated_at":        time.Now().UTC(),
-	}).Error
+	}).Error; err != nil {
+		return err
+	}
+
+	var events []AnalyticsEvent
+	if err := tx.Where("room_id = ?", room.ID).Order("created_at ASC").Find(&events).Error; err != nil {
+		return err
+	}
+	return service.persistRoomRecap(tx, room, summary, participants, events)
 }
 
 func sessionSummaryView(summary RoomSessionSummary) SessionSummaryView {
@@ -1584,6 +1639,7 @@ func sessionSummaryView(summary RoomSessionSummary) SessionSummaryView {
 		SurfaceName:      summary.SurfaceName,
 		SurfaceKind:      summary.SurfaceKind,
 		ParticipantCount: summary.ParticipantCount,
+		RecapShareID:     summary.RecapShareID,
 		ClosedAt:         summary.ClosedAt,
 		TopVoted:         decodeSessionSummaryClimbs(summary.TopVotedJSON),
 		FinalQueue:       decodeSessionSummaryClimbs(summary.FinalQueueJSON),

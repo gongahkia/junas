@@ -10,6 +10,7 @@ import (
 	"github.com/lczm/kilter-together/api/config"
 	"github.com/lczm/kilter-together/api/observability"
 	"github.com/lczm/kilter-together/api/providers"
+	"github.com/lczm/kilter-together/api/rooms"
 )
 
 type providerCacheStatus struct {
@@ -106,6 +107,40 @@ func OperatorStatus(w http.ResponseWriter, r *http.Request) {
 	response.Observability.Maintenance = observability.MaintenanceSnapshot()
 
 	writeJSON(w, http.StatusOK, response)
+}
+
+func OperatorProduct(w http.ResponseWriter, r *http.Request) {
+	runtimeConfig := config.GetRuntimeConfig()
+	if strings.TrimSpace(runtimeConfig.OperatorToken) == "" {
+		http.NotFound(w, r)
+		return
+	}
+	if !operatorAuthorized(r, runtimeConfig.OperatorToken) {
+		writeRequestError(
+			w,
+			r,
+			http.StatusUnauthorized,
+			"operator_auth_required",
+			"Operator token is required",
+			nil,
+		)
+		return
+	}
+
+	metrics, err := rooms.DefaultService.ProductMetrics(r.Context())
+	if err != nil {
+		writeRequestError(
+			w,
+			r,
+			http.StatusInternalServerError,
+			"internal_error",
+			"failed to load product metrics",
+			err,
+		)
+		return
+	}
+
+	writeJSON(w, http.StatusOK, metrics)
 }
 
 func operatorAuthorized(r *http.Request, expectedToken string) bool {

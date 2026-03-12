@@ -2,6 +2,7 @@ import axios from "axios";
 import { config } from "./config";
 import type { paths } from "@/generated/api";
 import type {
+  AssistantMode,
   ApiResponse,
   Board,
   PaginatedClimbsParams,
@@ -20,8 +21,11 @@ import type {
   RoomSnapshot,
   ClimbSort,
   QueueStatus,
+  RoomRecap,
   RoomPermissions,
   SessionSummary,
+  SoloPlanSnapshot,
+  ProductMetrics,
 } from "./types";
 import { reportApiFailure } from "@/lib/observability";
 
@@ -97,6 +101,7 @@ function normalizeRoomSnapshot(snapshot: RoomSnapshot): RoomSnapshot {
   const canManage = snapshot.can_manage ?? false;
   return {
     ...snapshot,
+    assistant: snapshot.assistant ?? { mode: "manual" as AssistantMode },
     fist_bumps_enabled: snapshot.fist_bumps_enabled ?? true,
     can_manage: canManage,
     permissions: snapshot.permissions ?? defaultRoomPermissions(canManage),
@@ -120,6 +125,81 @@ export const api = {
       }
     );
     return response.data.sessions ?? [];
+  },
+
+  recordAnalyticsEvent: async (payload: {
+    roomSlug?: string;
+    eventName: string;
+    source?: string;
+    viewerRole?: string;
+    route?: string;
+    properties?: Record<string, unknown>;
+  }): Promise<void> => {
+    await apiClient.post("/analytics/events", {
+      room_slug: payload.roomSlug,
+      event_name: payload.eventName,
+      source: payload.source ?? "client",
+      viewer_role: payload.viewerRole,
+      route: payload.route,
+      properties: payload.properties ?? {},
+    });
+  },
+
+  submitFeedback: async (payload: {
+    roomSlug?: string;
+    shareId?: string;
+    promptFamily: string;
+    sentiment: "up" | "down";
+    message?: string;
+    route?: string;
+    metadata?: Record<string, unknown>;
+  }): Promise<void> => {
+    await apiClient.post("/feedback", {
+      room_slug: payload.roomSlug,
+      share_id: payload.shareId,
+      prompt_family: payload.promptFamily,
+      sentiment: payload.sentiment,
+      message: payload.message,
+      route: payload.route,
+      metadata: payload.metadata ?? {},
+    });
+  },
+
+  getRoomRecap: async (shareId: string): Promise<RoomRecap> => {
+    const response = await apiClient.get<RoomRecap>(`/recaps/${encodeURIComponent(shareId)}`);
+    return response.data;
+  },
+
+  createSoloPlan: async (payload: {
+    providerId: ProviderId;
+    title: string;
+    notes?: string;
+    surface: ProviderSurface;
+    context?: Record<string, string>;
+    filters?: Record<string, string>;
+    climbs: ProviderClimb[];
+    openPath?: string;
+    createdBy?: string;
+  }): Promise<SoloPlanSnapshot> => {
+    const response = await apiClient.post<SoloPlanSnapshot>("/solo/plans", {
+      provider_id: payload.providerId,
+      title: payload.title,
+      notes: payload.notes,
+      surface: payload.surface,
+      context: payload.context ?? {},
+      filters: payload.filters ?? {},
+      climbs: payload.climbs,
+      open_path: payload.openPath,
+      created_by: payload.createdBy,
+    });
+    return response.data;
+  },
+
+  getSoloPlan: async (shareId: string): Promise<SoloPlanSnapshot> => {
+    const response = await apiClient.get<SoloPlanSnapshot>(
+      `/solo/plans/${encodeURIComponent(shareId)}`
+    );
+    return response.data;
   },
 
   getBoards: async (): Promise<Board[]> => {
@@ -219,6 +299,17 @@ export const api = {
       requestBody
     );
     return normalizeRoomSnapshot(response.data as RoomSnapshot);
+  },
+
+  updateRoomAssistantMode: async (
+    slug: string,
+    mode: AssistantMode
+  ): Promise<RoomSnapshot> => {
+    const response = await apiClient.put<RoomSnapshot>(
+      `/rooms/${slug}/assistant/settings`,
+      { mode }
+    );
+    return normalizeRoomSnapshot(response.data);
   },
 
   getRoomEventsUrl: (slug: string): string => `${BASE_URL}/rooms/${slug}/events`,
@@ -446,6 +537,15 @@ export const api = {
     status: ParticipantStatus
   ): Promise<void> => {
     await apiClient.put(`/rooms/${slug}/participants/me/status`, { status });
+  },
+
+  getOperatorProductMetrics: async (token: string): Promise<ProductMetrics> => {
+    const response = await apiClient.get<ProductMetrics>("/operator/product", {
+      headers: {
+        "X-Operator-Token": token,
+      },
+    });
+    return response.data;
   },
 };
 

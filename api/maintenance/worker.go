@@ -11,14 +11,16 @@ import (
 )
 
 const (
-	roomSweepInterval    = 5 * time.Minute
-	sessionSweepInterval = 5 * time.Minute
-	cacheSweepInterval   = time.Hour
+	roomSweepInterval      = 5 * time.Minute
+	sessionSweepInterval   = 5 * time.Minute
+	cacheSweepInterval     = time.Hour
+	analyticsSweepInterval = 24 * time.Hour
 )
 
 type RoomMaintainer interface {
 	CloseExpiredRooms(ctx context.Context) error
 	PruneExpiredSessions(ctx context.Context) error
+	PruneAnalyticsEvents(ctx context.Context) error
 }
 
 func Start(ctx context.Context, service RoomMaintainer) {
@@ -28,6 +30,7 @@ func Start(ctx context.Context, service RoomMaintainer) {
 		_, err := providers.PruneExpiredCache(inner)
 		return err
 	})
+	runJob(ctx, "analytics", analyticsSweepInterval, service.PruneAnalyticsEvents)
 }
 
 func runJob(ctx context.Context, job string, interval time.Duration, run func(context.Context) error) {

@@ -34,6 +34,10 @@ type updateFistBumpsRequest struct {
 	Enabled bool `json:"enabled"`
 }
 
+type updateAssistantSettingsRequest struct {
+	Mode string `json:"mode"`
+}
+
 type joinRoomRequest struct {
 	DisplayName string `json:"display_name"`
 }
@@ -169,6 +173,15 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 		)
 		return
 	}
+	recordProductEvent(r, rooms.AnalyticsEventInput{
+		RoomSlug:   snapshot.Slug,
+		EventName:  "room.create",
+		Source:     "server",
+		ViewerRole: "host",
+		Properties: map[string]any{
+			"provider_id": string(snapshot.ProviderID),
+		},
+	})
 
 	writeJSON(w, http.StatusCreated, snapshot)
 }
@@ -227,6 +240,15 @@ func JoinRoom(w http.ResponseWriter, r *http.Request) {
 		)
 		return
 	}
+	recordProductEvent(r, rooms.AnalyticsEventInput{
+		RoomSlug:   snapshot.Slug,
+		EventName:  "room.join",
+		Source:     "server",
+		ViewerRole: "participant",
+		Properties: map[string]any{
+			"provider_id": string(snapshot.ProviderID),
+		},
+	})
 
 	writeJSON(w, http.StatusCreated, snapshot)
 }
@@ -328,6 +350,28 @@ func UpdateRoomFistBumps(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, snapshot)
 }
 
+func UpdateRoomAssistantSettings(w http.ResponseWriter, r *http.Request) {
+	viewer, err := authenticateViewer(r, viewerAccessManager)
+	if err != nil {
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
+		return
+	}
+
+	var request updateAssistantSettingsRequest
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		writeJSONError(w, http.StatusBadRequest, "invalid request body")
+		return
+	}
+
+	snapshot, err := rooms.DefaultService.UpdateAssistantMode(r.Context(), viewer, request.Mode)
+	if err != nil {
+		writeRoomError(w, r, err, http.StatusBadRequest, "")
+		return
+	}
+
+	writeJSON(w, http.StatusOK, snapshot)
+}
+
 func StreamRoomEvents(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, viewerAccessAny)
 	if err != nil {
@@ -418,6 +462,12 @@ func ConnectRoomProvider(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	observability.RecordRoomAction("connect_provider", viewer.Room.ProviderID, nil)
+	recordProductEvent(r, rooms.AnalyticsEventInput{
+		RoomSlug:   viewer.Room.Slug,
+		EventName:  "room.connect_provider",
+		Source:     "server",
+		ViewerRole: viewer.Session.Role,
+	})
 
 	writeJSON(w, http.StatusOK, state)
 }
@@ -454,6 +504,15 @@ func SetRoomSurface(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	observability.RecordRoomAction("set_surface", viewer.Room.ProviderID, nil)
+	recordProductEvent(r, rooms.AnalyticsEventInput{
+		RoomSlug:   viewer.Room.Slug,
+		EventName:  "room.set_surface",
+		Source:     "server",
+		ViewerRole: viewer.Session.Role,
+		Properties: map[string]any{
+			"surface_id": request.SurfaceID,
+		},
+	})
 
 	writeJSON(w, http.StatusOK, surface)
 }
@@ -595,6 +654,15 @@ func ToggleRoomVote(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	observability.RecordRoomAction("toggle_vote", viewer.Room.ProviderID, nil)
+	recordProductEvent(r, rooms.AnalyticsEventInput{
+		RoomSlug:   viewer.Room.Slug,
+		EventName:  "room.vote.toggle",
+		Source:     "server",
+		ViewerRole: viewer.Session.Role,
+		Properties: map[string]any{
+			"climb_id": climbID,
+		},
+	})
 
 	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 }
@@ -618,6 +686,15 @@ func AddRoomQueueEntry(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	observability.RecordRoomAction("queue_add", viewer.Room.ProviderID, nil)
+	recordProductEvent(r, rooms.AnalyticsEventInput{
+		RoomSlug:   viewer.Room.Slug,
+		EventName:  "room.queue.add",
+		Source:     "server",
+		ViewerRole: viewer.Session.Role,
+		Properties: map[string]any{
+			"climb_id": request.ClimbID,
+		},
+	})
 
 	writeJSON(w, http.StatusCreated, map[string]string{"status": "ok"})
 }
@@ -639,6 +716,15 @@ func AddRoomFinalist(w http.ResponseWriter, r *http.Request) {
 		writeJSONError(w, http.StatusBadRequest, err.Error())
 		return
 	}
+	recordProductEvent(r, rooms.AnalyticsEventInput{
+		RoomSlug:   viewer.Room.Slug,
+		EventName:  "room.finalist.add",
+		Source:     "server",
+		ViewerRole: viewer.Session.Role,
+		Properties: map[string]any{
+			"climb_id": request.ClimbID,
+		},
+	})
 
 	writeJSON(w, http.StatusCreated, map[string]string{"status": "ok"})
 }
@@ -962,6 +1048,13 @@ func authenticateViewer(r *http.Request, accessMode viewerAccessMode) (*rooms.Vi
 	}
 
 	return nil, fmt.Errorf("room session is required")
+}
+
+func recordProductEvent(r *http.Request, input rooms.AnalyticsEventInput) {
+	if strings.TrimSpace(input.Route) == "" && r != nil {
+		input.Route = r.URL.Path
+	}
+	_ = rooms.DefaultService.RecordAnalyticsEvent(r.Context(), input)
 }
 
 func setSignedCookie(w http.ResponseWriter, name string, rawValue string) error {

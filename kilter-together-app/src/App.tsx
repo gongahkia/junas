@@ -5,6 +5,7 @@ import BottomBar from "./components/BottomBar";
 import ClickCheerOverlay from "./components/ClickCheerOverlay";
 import { ToastProvider } from "./components/ui/toast";
 import { useErrorToast } from "./hooks/use-toast";
+import { useIsMobile } from "./hooks/use-mobile";
 import { loadUserPrefs, USER_PREFS_CHANGE_EVENT } from "./lib/user-prefs";
 import type { Board } from "./types";
 import "./App.css";
@@ -17,15 +18,23 @@ const ProviderSoloPage = lazy(() => import("./components/ProviderSoloPage"));
 const RoomCreatePage = lazy(() => import("./components/RoomCreatePage"));
 const RoomDiscoveryPage = lazy(() => import("./components/RoomDiscoveryPage"));
 const RoomJoinPage = lazy(() => import("./components/RoomJoinPage"));
+const RoomRecapPage = lazy(() => import("./components/RoomRecapPage"));
 const RoomView = lazy(() => import("./components/RoomView"));
 const SettingsPage = lazy(() => import("./components/SettingsPage"));
+const SoloPlanPage = lazy(() => import("./components/SoloPlanPage"));
 
 function AppContent() {
   const location = useLocation();
+  const isMobile = useIsMobile();
   const showErrorToast = useErrorToast();
   const [boards, setBoards] = useState<Board[]>([]);
   const [loading, setLoading] = useState(true);
   const isLandingRoute = location.pathname === "/";
+  const hideBottomBar =
+    isMobile &&
+    (location.pathname === "/rooms/new" ||
+      location.pathname.startsWith("/join") ||
+      location.pathname.startsWith("/rooms/"));
 
   const shouldLoadBoards =
     location.pathname === "/solo" ||
@@ -87,6 +96,8 @@ function AppContent() {
           <Route path="/join" element={<RoomDiscoveryPage />} />
           <Route path="/join/:slug" element={<RoomJoinPage />} />
           <Route path="/rooms/:slug" element={<RoomView />} />
+          <Route path="/recaps/:shareId" element={<RoomRecapPage />} />
+          <Route path="/plans/:shareId" element={<SoloPlanPage />} />
           <Route
             path="/solo"
             element={<BoardSelector boards={boards} loading={loading} boardPathPrefix="/solo/boards" />}
@@ -104,7 +115,7 @@ function AppContent() {
         </Routes>
       </Suspense>
       <ClickCheerOverlay />
-      <BottomBar />
+      {!hideBottomBar ? <BottomBar /> : null}
     </div>
   );
 }
