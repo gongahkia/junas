@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-"""Generate a quick data-quality report for docs/json training corpus."""
+"""Generate a quick data-quality report for docs/json batch training corpus."""
 
-import json
 import sys
 import argparse
 from collections import Counter
@@ -9,7 +8,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from backend.schemas import TrainingDocument
+from helper.training_corpus import list_batch_files, load_batch
 
 
 def percentile(values: list[int], pct: float) -> float:
@@ -33,9 +32,9 @@ def parse_args():
 def main() -> int:
     args = parse_args()
     data_dir = Path(__file__).parent.parent / "docs" / "json"
-    files = sorted(data_dir.glob("*.json"))
+    files = list_batch_files(data_dir)
     if not files:
-        print("[FAIL] No JSON files found in docs/json")
+        print("[FAIL] No batch*.json files found in docs/json")
         return 1
 
     label_counts: Counter[str] = Counter()
@@ -43,22 +42,23 @@ def main() -> int:
     sentence_lengths: list[int] = []
     docs_ok = 0
     docs_fail = 0
+    batch_fail = 0
 
     for fp in files:
         try:
-            raw = json.loads(fp.read_text())
-            doc = TrainingDocument.model_validate(raw)
-            docs_ok += 1
+            batch = load_batch(fp)
         except Exception as e:
-            docs_fail += 1
+            batch_fail += 1
             print(f"[FAIL] {fp.name}: {e}")
             continue
 
-        for sent in doc.document_sentence_array:
-            label_counts[sent.label] += 1
-            normalized = " ".join(sent.text.lower().split())
-            sentence_counts[normalized] += 1
-            sentence_lengths.append(len(sent.text))
+        for doc in batch.documents:
+            docs_ok += 1
+            for sent in doc.document_sentence_array:
+                label_counts[sent.label] += 1
+                normalized = " ".join(sent.text.lower().split())
+                sentence_counts[normalized] += 1
+                sentence_lengths.append(len(sent.text))
 
     dup_sentences = sum(1 for _, count in sentence_counts.items() if count > 1)
     total_sentences = sum(label_counts.values())
@@ -68,7 +68,8 @@ def main() -> int:
     warnings = []
 
     print("=== Data Quality Report ===")
-    print(f"documents_total   : {len(files)}")
+    print(f"batches_total     : {len(files)}")
+    print(f"batches_invalid   : {batch_fail}")
     print(f"documents_valid   : {docs_ok}")
     print(f"documents_invalid : {docs_fail}")
     print(f"sentences_total   : {total_sentences}")
@@ -102,7 +103,7 @@ def main() -> int:
     else:
         print("warnings: none")
 
-    if docs_fail > 0:
+    if docs_fail > 0 or batch_fail > 0:
         return 1
     if args.strict_warnings and warnings:
         return 1
