@@ -20,6 +20,8 @@ FRONTEND_SELECTION=""
 BACKEND_URL="http://localhost:${NOUPE_PORT}"
 LEGACY_FRONTEND_URL="http://localhost:${NOUPE_OLD_FRONTEND_PORT}/"
 CHAT_FRONTEND_URL="${BACKEND_URL}/chat/"
+EMAIL_FRONTEND_URL="${BACKEND_URL}/email/"
+SLACK_FRONTEND_URL="${BACKEND_URL}/slack/"
 
 echo "🚀 Starting Noupe development services..."
 
@@ -167,7 +169,7 @@ prompt_frontends() {
     fi
 
     if [ ! -t 0 ]; then
-        FRONTEND_SELECTION="both"
+        FRONTEND_SELECTION="all"
         return
     fi
 
@@ -175,20 +177,46 @@ prompt_frontends() {
     echo "Which frontend(s) should open after the backend is ready?"
     echo "  1) Legacy analyzer only (${LEGACY_FRONTEND_URL})"
     echo "  2) Chat demo only (${CHAT_FRONTEND_URL})"
-    echo "  3) Both frontends"
-    echo "  4) Backend only (do not open a frontend)"
-    printf "Selection [3]: "
+    echo "  3) Email demo only (${EMAIL_FRONTEND_URL})"
+    echo "  4) Slack demo only (${SLACK_FRONTEND_URL})"
+    echo "  5) All frontends"
+    echo "  6) Backend only (do not open a frontend)"
+    printf "Selection [5]: "
     read -r selection
 
-    case "${selection:-3}" in
+    case "${selection:-5}" in
         1) FRONTEND_SELECTION="legacy" ;;
         2) FRONTEND_SELECTION="chat" ;;
-        3) FRONTEND_SELECTION="both" ;;
-        4) FRONTEND_SELECTION="none" ;;
-        legacy|chat|both|none) FRONTEND_SELECTION="${selection}" ;;
+        3) FRONTEND_SELECTION="email" ;;
+        4) FRONTEND_SELECTION="slack" ;;
+        5) FRONTEND_SELECTION="all" ;;
+        6) FRONTEND_SELECTION="none" ;;
+        legacy|chat|email|slack|all|none|both) FRONTEND_SELECTION="${selection}" ;;
         *)
-            echo "⚠️  Unrecognized selection. Defaulting to both frontends."
-            FRONTEND_SELECTION="both"
+            echo "⚠️  Unrecognized selection. Defaulting to all frontends."
+            FRONTEND_SELECTION="all"
+            ;;
+    esac
+}
+
+selection_includes() {
+    local surface="$1"
+
+    case "${FRONTEND_SELECTION}" in
+        all)
+            return 0
+            ;;
+        both)
+            case "${surface}" in
+                legacy|chat) return 0 ;;
+            esac
+            return 1
+            ;;
+        "${surface}")
+            return 0
+            ;;
+        *)
+            return 1
             ;;
     esac
 }
@@ -458,20 +486,26 @@ BACKEND_PID=$!
 wait_for_backend_ready
 
 case "${FRONTEND_SELECTION}" in
-    legacy)
-        start_legacy_frontend_server
-        echo "🌐 Opening legacy analyzer..."
-        open_url "${LEGACY_FRONTEND_URL}"
-        ;;
-    chat)
-        echo "🌐 Opening chat demo..."
-        open_url "${CHAT_FRONTEND_URL}"
-        ;;
-    both)
-        start_legacy_frontend_server
-        echo "🌐 Opening legacy analyzer and chat demo..."
-        open_url "${LEGACY_FRONTEND_URL}"
-        open_url "${CHAT_FRONTEND_URL}"
+    legacy|chat|email|slack|all|both)
+        if selection_includes "legacy"; then
+            start_legacy_frontend_server
+        fi
+        if selection_includes "legacy"; then
+            echo "🌐 Opening legacy analyzer..."
+            open_url "${LEGACY_FRONTEND_URL}"
+        fi
+        if selection_includes "chat"; then
+            echo "🌐 Opening chat demo..."
+            open_url "${CHAT_FRONTEND_URL}"
+        fi
+        if selection_includes "email"; then
+            echo "🌐 Opening email demo..."
+            open_url "${EMAIL_FRONTEND_URL}"
+        fi
+        if selection_includes "slack"; then
+            echo "🌐 Opening slack demo..."
+            open_url "${SLACK_FRONTEND_URL}"
+        fi
         ;;
     none)
         echo "ℹ️  Backend is ready. No frontend opened."
@@ -486,8 +520,14 @@ echo "   Backend: ${BACKEND_URL}"
 if [ -n "${LEGACY_FRONTEND_PID}" ]; then
     echo "   Legacy analyzer: ${LEGACY_FRONTEND_URL}"
 fi
-if [ "${FRONTEND_SELECTION}" = "chat" ] || [ "${FRONTEND_SELECTION}" = "both" ]; then
+if selection_includes "chat"; then
     echo "   Chat demo: ${CHAT_FRONTEND_URL}"
+fi
+if selection_includes "email"; then
+    echo "   Email demo: ${EMAIL_FRONTEND_URL}"
+fi
+if selection_includes "slack"; then
+    echo "   Slack demo: ${SLACK_FRONTEND_URL}"
 fi
 echo "Press Ctrl+C to stop everything."
 
