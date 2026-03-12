@@ -11,7 +11,8 @@ const guardTitleEl = document.getElementById("guard-title");
 const guardSummaryEl = document.getElementById("guard-summary");
 const guardClassificationEl = document.getElementById("guard-classification");
 const guardDetailsEl = document.getElementById("guard-details");
-const guardCancelEl = document.getElementById("guard-cancel");
+const guardDismissEl = document.getElementById("guard-dismiss");
+const guardActionsEl = document.getElementById("guard-actions");
 const guardConfirmEl = document.getElementById("guard-confirm");
 
 const assistantReplies = {
@@ -34,15 +35,33 @@ const modalState = {
 let replyCursor = 0;
 let busy = false;
 let guardPopupVisible = false;
+let draftBlocked = false;
+let blockedDraftText = "";
 
-function refreshActionState(sendLabel = "Screen & send") {
-    sendButtonEl.disabled = busy || guardPopupVisible;
+function refreshActionState(sendLabel = "Send") {
+    sendButtonEl.classList.remove("is-blocked", "is-guarded");
+
+    if (busy) {
+        sendButtonEl.disabled = true;
+        sendButtonEl.textContent = "Screening...";
+    } else if (draftBlocked) {
+        sendButtonEl.disabled = true;
+        sendButtonEl.textContent = "Cannot send";
+        sendButtonEl.classList.add("is-blocked");
+    } else if (guardPopupVisible) {
+        sendButtonEl.disabled = true;
+        sendButtonEl.textContent = "Send";
+        sendButtonEl.classList.add("is-guarded");
+    } else {
+        sendButtonEl.disabled = false;
+        sendButtonEl.textContent = sendLabel;
+    }
+
     uploadButtonEl.disabled = busy || guardPopupVisible;
     chatInputEl.disabled = busy;
-    sendButtonEl.textContent = busy ? "Screening..." : sendLabel;
 }
 
-function setBusy(nextBusy, sendLabel = "Screen & send") {
+function setBusy(nextBusy, sendLabel = "Send") {
     busy = nextBusy;
     refreshActionState(sendLabel);
 }
@@ -50,6 +69,12 @@ function setBusy(nextBusy, sendLabel = "Screen & send") {
 function setGuardPopupVisible(nextVisible) {
     guardPopupVisible = nextVisible;
     guardPopupEl.classList.toggle("hidden", !nextVisible);
+    refreshActionState();
+}
+
+function setDraftBlocked(nextBlocked, text = "") {
+    draftBlocked = nextBlocked;
+    blockedDraftText = nextBlocked ? text.trim() : "";
     refreshActionState();
 }
 
@@ -233,8 +258,8 @@ function openGuardPopup(context) {
         .map((detail) => `<div class="modal-detail">${escapeHtml(detail)}</div>`)
         .join("");
     guardConfirmEl.textContent = context.confirmLabel;
+    guardActionsEl.classList.toggle("hidden", !context.canProceed);
     guardConfirmEl.classList.toggle("hidden", !context.canProceed);
-    guardCancelEl.textContent = context.canProceed ? "Cancel" : "Close";
     setGuardPopupVisible(true);
 
     return new Promise((resolve) => {
@@ -279,6 +304,10 @@ async function guardAndHandle({ text, sourceLabel, kind, filename = "", busyAlre
         const classification = context.classification;
 
         if (classification === "HIGH_RISK") {
+            if (kind === "message") {
+                setDraftBlocked(true, text);
+            }
+            setBusy(false);
             await openGuardPopup(context);
             return false;
         }
@@ -287,7 +316,12 @@ async function guardAndHandle({ text, sourceLabel, kind, filename = "", busyAlre
         let tagLabel = "SAFE screened";
         let tagClass = "screening-safe";
 
+        if (kind === "message") {
+            setDraftBlocked(false);
+        }
+
         if (classification === "LOW_RISK") {
+            setBusy(false);
             allowed = await openGuardPopup(context);
             tagLabel = "LOW_RISK override";
             tagClass = "screening-low";
@@ -377,7 +411,7 @@ async function handleUpload(event) {
     }
 
     clearError();
-    setBusy(true, "Screen & send");
+    setBusy(true, "Send");
 
     try {
         const text = await extractDocxText(file);
@@ -424,6 +458,9 @@ chatInputEl.addEventListener("input", () => {
     if (guardPopupVisible) {
         closeGuardPopup(false);
     }
+    if (draftBlocked && chatInputEl.value.trim() !== blockedDraftText) {
+        setDraftBlocked(false);
+    }
 });
 chatInputEl.addEventListener("keydown", (event) => {
     if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
@@ -432,7 +469,7 @@ chatInputEl.addEventListener("keydown", (event) => {
     }
 });
 
-guardCancelEl.addEventListener("click", () => closeGuardPopup(false));
+guardDismissEl.addEventListener("click", () => closeGuardPopup(false));
 guardConfirmEl.addEventListener("click", () => closeGuardPopup(true));
 window.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && guardPopupVisible) {
@@ -442,3 +479,4 @@ window.addEventListener("keydown", (event) => {
 
 checkBackend();
 window.setInterval(checkBackend, 10000);
+refreshActionState();

@@ -17,7 +17,7 @@
     <div class="app-shell">
         <aside class="hero-panel">
             <p class="eyebrow">Noupe Demo</p>
-            <h1>AI chat, with MNPI screening before anything leaves the composer.</h1>
+            <h1>AI chat with native MNPI screening before anything leaves the client.</h1>
             <p class="hero-copy">
                 This demo routes every typed message and DOCX upload through the same Noupe backend classifier before
                 it enters the conversation. Low-risk content can be reviewed and overridden. High-risk content is
@@ -38,14 +38,6 @@
         </aside>
 
         <main class="chat-panel">
-            <header class="chat-header">
-                <div>
-                    <p class="eyebrow">/chat</p>
-                    <h2>Noupe Assistant</h2>
-                </div>
-                <div class="header-pill">Same backend classifier</div>
-            </header>
-
             <section class="error-banner hidden" id="error-banner" role="alert"></section>
 
             <section class="chat-transcript" id="chat-transcript" aria-live="polite">
@@ -62,16 +54,15 @@
             </section>
 
             <section class="composer-shell">
-                <div class="composer-actions">
-                    <button class="upload-button" id="upload-button" type="button">Upload DOCX</button>
-                    <input id="upload-input" type="file"
-                        accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                        hidden>
-                    <span class="composer-hint">DOCX only in v1. Upload is screened before it appears in the chat.</span>
-                </div>
+                <input id="upload-input" type="file"
+                    accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    hidden>
                 <section class="guard-popup hidden" id="guard-popup" role="alertdialog" aria-labelledby="guard-title"
                     aria-live="assertive">
                     <div class="guard-popup-card">
+                        <button class="guard-dismiss" id="guard-dismiss" type="button" aria-label="Dismiss guardrail notice">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         <div class="modal-head">
                             <p class="eyebrow">MNPI guardrail</p>
                             <h3 id="guard-title">Review required</h3>
@@ -79,8 +70,7 @@
                         <p class="modal-summary" id="guard-summary"></p>
                         <div class="modal-classification" id="guard-classification"></div>
                         <div class="modal-details" id="guard-details"></div>
-                        <div class="guard-actions">
-                            <button class="secondary-button" id="guard-cancel" type="button">Close</button>
+                        <div class="guard-actions hidden" id="guard-actions">
                             <button class="primary-button" id="guard-confirm" type="button">Proceed anyway</button>
                         </div>
                     </div>
@@ -88,7 +78,13 @@
                 <div class="composer">
                     <label class="sr-only" for="chat-input">Message</label>
                     <textarea id="chat-input" placeholder="Type a message to screen before sending..."></textarea>
-                    <button id="send-button" type="button">Screen &amp; send</button>
+                    <div class="composer-rail">
+                        <button class="upload-button" id="upload-button" type="button" aria-label="Upload DOCX"
+                            title="Upload DOCX">
+                            <span aria-hidden="true">📎</span>
+                        </button>
+                        <button id="send-button" type="button">Send</button>
+                    </div>
                 </div>
             </section>
         </main>

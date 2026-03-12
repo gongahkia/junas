@@ -23,9 +23,17 @@
         <div id="analyzer-container">
             <header>
                 <h1>Noupe</h1>
-                <div id="connection-status" title="API Status">
-                    <div class="status-dot"></div>
-                    <span id="connection-text">Backend at :8000 DOWN</span>
+                <div id="status-stack">
+                    <div id="connection-status" title="API Status">
+                        <div class="status-dot"></div>
+                        <span id="connection-text">Backend at :8000 DOWN</span>
+                    </div>
+                    <div id="layer-status-panel">
+                        <span class="status-caption">Layer Load State</span>
+                        <div id="layer-status-chips">
+                            <span class="layer-chip layer-chip-unknown">Waiting for diagnostics...</span>
+                        </div>
+                    </div>
                 </div>
             </header>
 
@@ -68,10 +76,12 @@
                 </div>
                 <div class="debug-section">
                     <h3>Classification trace</h3>
-                    <div id="architecture-diagram"
-                        style="background: white; border: 1px solid #e5e5e5; border-radius: 8px; padding: 16px; min-height: 200px; display: flex; align-items: center; justify-content: center;">
-                        <span style="color: #999; font-size: 0.8rem; font-family: 'Space Mono', monospace;">Waiting for
-                            classification...</span>
+                    <div id="trace-summary" class="trace-summary">
+                        <span class="trace-chip trace-chip-neutral">No classification yet</span>
+                        <span class="trace-copy">Waiting for backend diagnostics and the first classification request.</span>
+                    </div>
+                    <div id="architecture-diagram" class="diagram-surface">
+                        <span class="diagram-placeholder">Waiting for classification...</span>
                     </div>
                 </div>
             </div>

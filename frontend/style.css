@@ -42,6 +42,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 24px;
 }
 
 header h1 {
@@ -51,10 +52,84 @@ header h1 {
     text-transform: uppercase;
 }
 
+#status-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
 #connection-status {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+#layer-status-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    max-width: 640px;
+}
+
+.status-caption {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+#layer-status-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.layer-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    border: 1px solid transparent;
+    background: #f5f5f5;
+    color: var(--text-secondary);
+}
+
+.layer-chip-loaded {
+    background: #e7f7ef;
+    color: #0f8d5d;
+}
+
+.layer-chip-warming {
+    background: #fff3d8;
+    color: #b76b00;
+}
+
+.layer-chip-lazy {
+    background: #eef5ff;
+    color: #2f6fdd;
+}
+
+.layer-chip-unavailable {
+    background: #fff0f1;
+    color: #d6455d;
+}
+
+.layer-chip-configured {
+    background: #f4f4f4;
+    color: #666666;
+}
+
+.layer-chip-unknown {
+    background: #f2f2f2;
+    color: #7a7a7a;
 }
 
 #connection-text {
@@ -258,6 +333,69 @@ main {
     margin-top: 16px;
 }
 
+.trace-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+    align-items: center;
+}
+
+.trace-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.trace-chip-safe {
+    background: #e7f7ef;
+    color: #0f8d5d;
+}
+
+.trace-chip-low {
+    background: #fff3d8;
+    color: #b76b00;
+}
+
+.trace-chip-high {
+    background: #fff0f1;
+    color: #d6455d;
+}
+
+.trace-chip-neutral {
+    background: #f2f2f2;
+    color: #666666;
+}
+
+.trace-copy {
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.diagram-surface {
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 16px;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: auto;
+}
+
+.diagram-placeholder {
+    color: #999;
+    font-size: 0.8rem;
+    font-family: 'Space Mono', monospace;
+}
+
 .debug-section pre {
     background: #ffffff;
     border: 1px solid #e5e5e5;
@@ -307,6 +445,14 @@ main {
         align-items: flex-start;
         gap: 12px;
         flex-direction: column;
+    }
+
+    #status-stack,
+    #layer-status-panel,
+    #layer-status-chips {
+        width: 100%;
+        align-items: flex-start;
+        justify-content: flex-start;
     }
 
     #analyze-input {
