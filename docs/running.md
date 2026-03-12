@@ -55,6 +55,12 @@ curl -X POST http://localhost:8000/classify \
 
 API docs auto-served at `http://localhost:8000/docs` (Swagger) and `http://localhost:8000/redoc`.
 
+Chat demo UI:
+
+- `http://localhost:8000/chat/`
+- Screens typed messages and DOCX uploads through the same `POST /classify` backend before they are allowed into the chat transcript
+- `LOW_RISK` triggers a warning with override, `HIGH_RISK` is blocked
+
 Batch classify:
 
 ```sh
@@ -87,6 +93,8 @@ If you only need a minimal local server without trained artifacts, you can run l
 ```sh
 PIPELINE_LAYERS=lexicon uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 ```
+
+The existing analyzer frontend under `frontend/index.html` remains unchanged. The new chat demo is served by FastAPI at `/chat/`.
 
 Useful env vars:
 

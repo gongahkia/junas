@@ -20,8 +20,10 @@ except ImportError:
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+CHAT_FRONTEND_ROOT = PROJECT_ROOT / "frontend-chat"
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode  # noqa: E402
@@ -1041,6 +1043,9 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Noupe MNPI Classifier", version="0.1.0", lifespan=lifespan)
+
+if CHAT_FRONTEND_ROOT.exists():
+    app.mount("/chat", StaticFiles(directory=str(CHAT_FRONTEND_ROOT), html=True), name="chat-frontend")
 
 _det_info = configure_determinism()
 logger.info(json.dumps({"event": "determinism", **_det_info}))

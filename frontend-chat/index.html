@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noupe Chat Guard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="hero-panel">
+            <p class="eyebrow">Noupe Demo</p>
+            <h1>AI chat, with MNPI screening before anything leaves the composer.</h1>
+            <p class="hero-copy">
+                This demo routes every typed message and DOCX upload through the same Noupe backend classifier before
+                it enters the conversation. Low-risk content can be reviewed and overridden. High-risk content is
+                blocked.
+            </p>
+            <div class="status-strip" id="backend-status">
+                <span class="status-dot"></span>
+                <span id="backend-status-text">Checking backend readiness...</span>
+            </div>
+            <div class="hero-card">
+                <p class="hero-card-label">Guardrail policy</p>
+                <ul>
+                    <li><strong>SAFE</strong>: allow immediately</li>
+                    <li><strong>LOW_RISK</strong>: warn and require override</li>
+                    <li><strong>HIGH_RISK</strong>: block send or upload</li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="chat-panel">
+            <header class="chat-header">
+                <div>
+                    <p class="eyebrow">/chat</p>
+                    <h2>Noupe Assistant</h2>
+                </div>
+                <div class="header-pill">Same backend classifier</div>
+            </header>
+
+            <section class="error-banner hidden" id="error-banner" role="alert"></section>
+
+            <section class="chat-transcript" id="chat-transcript" aria-live="polite">
+                <article class="message assistant-message">
+                    <div class="message-meta">
+                        <span class="message-role">Noupe Assistant</span>
+                        <span class="message-tag safe-tag">Guardrail active</span>
+                    </div>
+                    <div class="message-bubble">
+                        Share a draft message or upload a DOCX. I will screen it through Noupe before it is allowed
+                        into the chat flow.
+                    </div>
+                </article>
+            </section>
+
+            <section class="composer-shell">
+                <div class="composer-actions">
+                    <button class="upload-button" id="upload-button" type="button">Upload DOCX</button>
+                    <input id="upload-input" type="file"
+                        accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                        hidden>
+                    <span class="composer-hint">DOCX only in v1. Upload is screened before it appears in the chat.</span>
+                </div>
+                <div class="composer">
+                    <label class="sr-only" for="chat-input">Message</label>
+                    <textarea id="chat-input" placeholder="Type a message to screen before sending..."></textarea>
+                    <button id="send-button" type="button">Screen &amp; send</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="modal-overlay hidden" id="risk-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-card">
+            <div class="modal-head">
+                <p class="eyebrow">MNPI guardrail</p>
+                <h3 id="modal-title">Review required</h3>
+            </div>
+            <p class="modal-summary" id="modal-summary"></p>
+            <div class="modal-classification" id="modal-classification"></div>
+            <div class="modal-details" id="modal-details"></div>
+            <div class="modal-actions">
+                <button class="secondary-button" id="modal-cancel" type="button">Cancel</button>
+                <button class="primary-button" id="modal-confirm" type="button">Proceed anyway</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mammoth@1.7.2/mammoth.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
