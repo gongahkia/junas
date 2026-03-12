@@ -4,9 +4,10 @@
 # `Kilter Together`
 
 Kilter Together is a self-hostable collaborative board session app. It provisions
-its own local Kilter dataset and images, serves a read-only solo browser, and now
+its own local Kilter dataset and images, serves read-only solo catalog access, and
 adds invite-only rooms where one host account can connect Kilter or Crux while
-guests join from their phones to vote and queue climbs.
+guests join from their phones to vote and queue climbs. The repo now also carries
+an in-progress Flutter mobile client in `kilter-together-mobile/`.
 
 ## Quick Start
 
@@ -17,7 +18,7 @@ letting the API container download runtime data during `serve`.
 git clone https://github.com/lczm/kilter-together
 cd kilter-together
 cp compose.env.example .env
-# set KILTER_TOGETHER_APP_SECRET and KILTER_TOGETHER_ENCRYPTION_KEY in .env
+# set KILTER_TOGETHER_ENCRYPTION_KEY in .env
 docker compose --profile bootstrap run --rm kilter-together-bootstrap
 docker compose up --build -d
 ```
@@ -28,8 +29,7 @@ Open the app at `http://localhost:8080` and verify the API with:
 curl http://localhost:8080/api/healthz
 ```
 
-For local HTTP smoke testing on `localhost`, set `KILTER_TOGETHER_SECURE_COOKIES=false`
-in `.env`. Keep it `true` for real deployments.
+For mobile clients, prefer HTTPS-backed deployments even during self-hosting.
 
 The one-time bootstrap job will:
 
@@ -40,8 +40,7 @@ The one-time bootstrap job will:
 
 The runtime containers now fail fast when `/data` is missing or incomplete. Production
 notes, backup/restore steps, and key rotation instructions live in [PRODUCTION.md](./PRODUCTION.md).
-The persona roadmap lives in [PRODUCT_PLAN.md](./PRODUCT_PLAN.md), and the self-hosted
-observability stack is documented in [OBSERVABILITY.md](./OBSERVABILITY.md).
+The persona roadmap lives in [PRODUCT_PLAN.md](./PRODUCT_PLAN.md).
 
 ## Runtime Configuration
 
@@ -55,21 +54,13 @@ Backend env vars:
 | `KILTER_TOGETHER_IMAGE_DIR` | `${KILTER_TOGETHER_DATA_DIR}/images` | Downloaded board image directory |
 | `KILTER_TOGETHER_KILTER_USERNAME` | unset | Optional Kilter username for shared-data sync |
 | `KILTER_TOGETHER_KILTER_PASSWORD` | unset | Optional Kilter password for shared-data sync |
-| `KILTER_TOGETHER_APP_SECRET` | unset | Required for signed host/guest room cookies |
+| `KILTER_TOGETHER_APP_SECRET` | unset | Legacy cookie-signing secret retained only for backward compatibility while the mobile rewrite is in flight |
 | `KILTER_TOGETHER_ENCRYPTION_KEY` | unset | Required for encrypting stored provider credentials at rest |
 | `KILTER_TOGETHER_PREVIOUS_ENCRYPTION_KEY` | unset | Optional old encryption key used during rotation |
 | `KILTER_TOGETHER_PORT` | `8082` | API listen port |
-| `KILTER_TOGETHER_SECURE_COOKIES` | `true` | Set to `false` only for local HTTP smoke testing |
-| `KILTER_TOGETHER_ALLOWED_ORIGINS` | `http://localhost:5173,http://127.0.0.1:5173,http://localhost:8080,http://127.0.0.1:8080` | Comma-separated CORS allowlist for cookie-backed room APIs |
-| `KILTER_TOGETHER_OPERATOR_TOKEN` | unset | Optional bearer token required for `/api/operator/status` |
-| `KILTER_TOGETHER_OTEL_EXPORTER_OTLP_ENDPOINT` | unset | Optional OTLP gRPC endpoint for trace export |
-| `KILTER_TOGETHER_OTEL_EXPORTER_OTLP_INSECURE` | `false` | Set to `true` for local OTLP collectors without TLS |
-| `KILTER_TOGETHER_OTEL_SERVICE_NAME` | `kilter-together-api` | Service name attached to exported traces |
-| `KILTER_TOGETHER_SENTRY_DSN` | unset | Optional Sentry-compatible DSN for backend exception capture |
-| `KILTER_TOGETHER_SENTRY_ENVIRONMENT` | unset | Environment label sent with backend exception events |
-| `KILTER_TOGETHER_SENTRY_RELEASE` | unset | Release label sent with backend exception events |
+| `KILTER_TOGETHER_ALLOWED_ORIGINS` | `http://localhost:5173,http://127.0.0.1:5173,http://localhost:8080,http://127.0.0.1:8080` | Comma-separated CORS allowlist for browser tooling and local legacy web runs |
 
-Frontend env vars:
+Legacy web client env vars:
 
 | Variable | Default | Purpose |
 | --- | --- | --- |
@@ -103,7 +94,17 @@ go run . serve --bootstrap-if-missing
 `serve --bootstrap-if-missing` remains a local-development convenience. The production
 Docker path now expects the dataset and images to be bootstrapped before `serve`.
 
-Frontend:
+Mobile client:
+
+```console
+cd kilter-together-mobile
+# install Flutter locally first, then:
+flutter create . --platforms=android,ios
+flutter pub get
+flutter run
+```
+
+Legacy web client:
 
 ```console
 cd kilter-together-app
@@ -111,8 +112,8 @@ npm ci
 npm run dev
 ```
 
-The Vite dev server proxies `/api` to `http://localhost:8082`, so local development
-uses the same-origin API contract without CORS setup.
+The Vite dev server proxies `/api` to `http://localhost:8082`, so the legacy web client
+still works during the migration.
 
 The browser UI uses URL-addressable routes:
 
@@ -127,24 +128,21 @@ The browser UI uses URL-addressable routes:
 
 ## Collaboration Flow
 
-1. Open `/rooms/new`.
+1. Open the Flutter mobile app and configure or scan the self-hosted server URL.
 2. Pick `kilter` or `crux`.
 3. Enter the host display name and authenticate the provider account while creating the room:
    - Kilter uses `username` + `password`
    - Crux uses a bearer token
 4. Inside the room, choose the shared board or wall context.
-5. Share the invite link or host QR code with guests.
+5. Share the mobile invite or host QR code with guests. The invite payload carries both the server URL and room slug.
 6. Guests join with a display name, then vote and add climbs to the queue.
 
-Guests can either paste the invite URL/slug or open the camera workflow at `/join`
-to scan the host QR code directly from their phone.
+Guests can paste an app invite like `kiltertogether://join?...` or scan the same payload from the host QR code.
 
 Room state is stored locally in `app.db`. Provider credentials stay server-side
 and are encrypted at rest with `KILTER_TOGETHER_ENCRYPTION_KEY`.
 
-Provider capabilities are now exposed at `GET /api/providers/capabilities`, and operators can
-inspect a protected runtime summary at `GET /api/operator/status` when
-`KILTER_TOGETHER_OPERATOR_TOKEN` is configured.
+Provider capabilities are exposed at `GET /api/providers/capabilities`, and room creation/join now return a `{ room, session }` envelope whose `session.token` must be sent back as `Authorization: Bearer <token>` on authenticated room APIs.
 
 ## Refreshing Data
 
@@ -165,22 +163,10 @@ and board images and remains fully usable.
 - Downloaded databases, images, SQLite sidecars, and bootstrap manifests live under `api/data` during local runs and are ignored by git.
 - `GET /api/climbs` requires a valid `angle` and also supports `name`, `setter`, and `sort=popular|newest`.
 - `GET /api/healthz` validates that the local database and image set are usable, not just that the process is running.
-- JSON error responses now include machine-readable `code` values plus `request_id` and `trace_id` when available.
+- JSON error responses now include machine-readable `code` values plus `request_id` when available.
 - Collaborative rooms expose room/session APIs under `/api/rooms/*` and currently ship with `kilter` and `crux` providers.
 - Kilter bootstrap remains network-dependent during the explicit bootstrap step. After bootstrap, Kilter catalog reads are local. Crux catalog reads are fetched server-side and cached in `app.db`.
 - This release is intentionally single-node only. Room live updates rely on in-process SSE fan-out plus SQLite-backed local state, so horizontal scaling needs a different event and storage design.
-
-## Observability Stack
-
-To run the local metrics/logs/traces stack alongside the main app:
-
-```console
-docker compose -f docker-compose.yml -f docker-compose.observability.yml up -d
-```
-
-That provisions Prometheus, Grafana, Alertmanager, Loki, Tempo, and Grafana Alloy. Use a
-GlitchTip DSN in the Sentry-compatible env vars when you also want frontend/backend exception
-aggregation. The starter Grafana dashboard and operator workflow live in [OBSERVABILITY.md](./OBSERVABILITY.md), and the protected runtime status endpoint is available at `/api/operator/status` when `KILTER_TOGETHER_OPERATOR_TOKEN` is configured.
 
 ## License
 

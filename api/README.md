@@ -67,10 +67,11 @@ path now expects bootstrap to happen as an explicit init step before `serve`.
 `GET /api/climbs` requires `angle` and supports the optional query params
 `cursor`, `page_size`, `name`, `setter`, `board_id`, and `sort=popular|newest`.
 
-Room cookies require:
+Room auth now uses explicit opaque bearer sessions:
 
-- `KILTER_TOGETHER_APP_SECRET` for signed opaque host/guest sessions
-- `KILTER_TOGETHER_ENCRYPTION_KEY` for provider credential encryption
+- `POST /api/rooms` and `POST /api/rooms/{slug}/join` return `{ room, session }`
+- `session.token` must be sent as `Authorization: Bearer <token>` on room snapshot, room mutation, and room SSE requests
+- `KILTER_TOGETHER_ENCRYPTION_KEY` remains required for provider credential encryption at rest
 
 ## Configuration
 
@@ -83,11 +84,9 @@ KILTER_TOGETHER_DATA_DIR=./data
 # KILTER_TOGETHER_IMAGE_DIR=./data/images
 # KILTER_TOGETHER_KILTER_USERNAME=
 # KILTER_TOGETHER_KILTER_PASSWORD=
-# KILTER_TOGETHER_APP_SECRET=
 # KILTER_TOGETHER_ENCRYPTION_KEY=
 # KILTER_TOGETHER_PREVIOUS_ENCRYPTION_KEY=
 # KILTER_TOGETHER_PORT=8082
-# KILTER_TOGETHER_SECURE_COOKIES=true
 # KILTER_TOGETHER_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173,http://localhost:8080,http://127.0.0.1:8080
 ```
 
