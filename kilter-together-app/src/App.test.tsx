@@ -149,6 +149,9 @@ const buildRoomSnapshot = (slug: string): RoomSnapshot => ({
   my_votes: [],
   fist_bumps_enabled: true,
   can_manage: true,
+  assistant: {
+    mode: "manual",
+  },
   permissions: {
     manage_session: true,
     manage_surface: true,
@@ -1099,7 +1102,7 @@ describe("App routes", () => {
     await user.click(screen.getByRole("button", { name: "Help" }));
 
     expect(await screen.findByText("First-time guide")).toBeInTheDocument();
-    expect(screen.getByText(/Provider connected\. Move on to the shared surface selection\./i)).toBeInTheDocument();
+    expect(screen.getByText(/Share from the room header/i)).toBeInTheDocument();
   });
 
   it("supports host decision actions inside a room", async () => {
@@ -1239,7 +1242,9 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
-    expect(await screen.findByText("Queue")).toBeInTheDocument();
+    expect(
+      await screen.findByRole("group", { name: "Queue entry First Project" })
+    ).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Up" })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Down" })).not.toBeInTheDocument();
 
@@ -1786,9 +1791,9 @@ describe("App routes", () => {
     });
     await user.click(seedButtons[0]);
 
-    expect(await screen.findByText("Solo shortlist seed is ready")).toBeInTheDocument();
+    expect(await screen.findByText("Saved plan seed is ready")).toBeInTheDocument();
     expect(
-      screen.getByText(/This room can import 1 shortlisted climb/i)
+      screen.getByText(/This room can start from the saved board context and import 1 queued climb/i)
     ).toBeInTheDocument();
   });
 
@@ -1838,9 +1843,9 @@ describe("App routes", () => {
     });
     await user.click(seedButtons[0]);
 
-    expect(await screen.findByText("Solo board context is ready")).toBeInTheDocument();
+    expect(await screen.findByText("Saved plan seed is ready")).toBeInTheDocument();
     expect(
-      screen.getByText(/This room will start from Original 7 x 10 at 45/i)
+      screen.getByText(/This room can start from the saved board context and import 0 queued climbs/i)
     ).toBeInTheDocument();
   });
 
@@ -1914,29 +1919,29 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
-    expect(await screen.findByText("Solo shortlist seed is ready")).toBeInTheDocument();
+    expect(await screen.findByText("Saved plan seed is ready")).toBeInTheDocument();
 
     await user.click(
-      screen.getByRole("button", { name: "Import shortlist to queue" })
+      screen.getByRole("button", { name: "Import plan to queue" })
     );
 
     await waitFor(() =>
       expect(mockedApi.addRoomQueueEntry).toHaveBeenNthCalledWith(
         1,
         "seed-room",
-        "kilter:14:uuid-2"
+        "kilter:14:uuid-1"
       )
     );
     expect(mockedApi.addRoomQueueEntry).toHaveBeenNthCalledWith(
       2,
       "seed-room",
-      "kilter:14:uuid-1"
+      "kilter:14:uuid-2"
     );
 
     await waitFor(() =>
       expect(
         JSON.parse(window.localStorage.getItem("kilter-together:user-prefs:v1") || "{}")
-          .pendingSoloRoomSeed
+          .pendingRoomSeed
       ).toBeUndefined()
     );
   });
@@ -1986,12 +1991,12 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
-    expect(await screen.findByText("Solo board context is ready")).toBeInTheDocument();
+    expect(await screen.findByText("Saved surface context is ready")).toBeInTheDocument();
     expect(
-      screen.getByText("This room is already set to the saved solo board context.")
+      screen.getByText("This room is already set to the saved plan context.")
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: "Import shortlist to queue" })
+      screen.queryByRole("button", { name: "Import plan to queue" })
     ).not.toBeInTheDocument();
   });
 
@@ -2164,7 +2169,11 @@ describe("App routes", () => {
     );
 
     expect(await screen.findByText("Recent rooms")).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: /Open /i })).toHaveLength(3);
+    const recentRoomsCard = screen.getByText("Recent rooms").closest('[data-slot="card"]');
+    expect(recentRoomsCard).not.toBeNull();
+    expect(
+      within(recentRoomsCard as HTMLElement).getAllByRole("link", { name: /Open /i })
+    ).toHaveLength(3);
 
     await user.click(screen.getByRole("button", { name: "See more" }));
 
@@ -2185,14 +2194,15 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
+    expect(screen.queryByText("First-time guide")).not.toBeInTheDocument();
+
+    await user.click(await screen.findByRole("button", { name: /Help/i }));
     expect(await screen.findByText("First-time guide")).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "Start exploring" })).not.toBeInTheDocument();
+    expect(screen.getByText(/Start here/i)).toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: "Dismiss" }));
-    expect(await screen.findByRole("button", { name: "Start exploring" })).toBeInTheDocument();
-
-    await user.click(screen.getByRole("button", { name: "Start exploring" }));
     expect(screen.queryByText("First-time guide")).not.toBeInTheDocument();
+    expect(await screen.findByRole("link", { name: "Create room" })).toBeInTheDocument();
 
     view.unmount();
 
@@ -2202,7 +2212,7 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
-    expect(screen.queryByRole("button", { name: "Start exploring" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "Create room" })).toBeInTheDocument();
     expect(screen.queryByText("First-time guide")).not.toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: /Help/i }));
@@ -2210,7 +2220,6 @@ describe("App routes", () => {
   });
 
   it("shows the solo intro dialog only on the first solo visit", async () => {
-    const user = userEvent.setup();
     mockedApi.getBoards.mockResolvedValue([]);
     window.localStorage.clear();
 
@@ -2221,10 +2230,8 @@ describe("App routes", () => {
     );
 
     expect(await screen.findByText("Choose a board")).toBeInTheDocument();
-    expect(await screen.findByRole("button", { name: "Open solo browse" })).toBeInTheDocument();
-
-    await user.click(screen.getByRole("button", { name: "Open solo browse" }));
-    expect(screen.queryByRole("button", { name: "Open solo browse" })).not.toBeInTheDocument();
+    expect(screen.getByText("Choose the default angle")).toBeInTheDocument();
+    expect(screen.queryByText("First-time guide")).not.toBeInTheDocument();
 
     view.unmount();
 
@@ -2235,7 +2242,7 @@ describe("App routes", () => {
     );
 
     expect(await screen.findByText("Choose a board")).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "Open solo browse" })).not.toBeInTheDocument();
+    expect(screen.queryByText("First-time guide")).not.toBeInTheDocument();
   });
 
   it("shows board preview images and climb metrics in solo browse", async () => {
@@ -2263,6 +2270,7 @@ describe("App routes", () => {
   });
 
   it("shows role-specific onboarding on host and guest entry pages", async () => {
+    const user = userEvent.setup();
     mockedApi.getBoards.mockResolvedValue([]);
     window.localStorage.clear();
 
@@ -2272,7 +2280,9 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
-    expect(await screen.findByText("Host flow: sign in first, then share")).toBeInTheDocument();
+    await user.click(await screen.findByRole("button", { name: "Help" }));
+    expect(await screen.findByText("First-time guide")).toBeInTheDocument();
+    expect(screen.getByText("Name the session first")).toBeInTheDocument();
 
     unmount();
 
@@ -2282,7 +2292,9 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
-    expect(await screen.findByText("Guest flow: join fast, then vote")).toBeInTheDocument();
+    await user.click(await screen.findByRole("button", { name: "Help" }));
+    expect(await screen.findByText("First-time guide")).toBeInTheDocument();
+    expect(screen.getByText("Pick the name the room sees")).toBeInTheDocument();
   });
 
   it("prefills room creation from saved browser prefs without restoring stored secrets", async () => {

@@ -63,7 +63,6 @@ describe("RoomJoinPage", () => {
     renderJoinPage("/join/shared-session");
     const user = userEvent.setup();
 
-    await user.click(screen.getByRole("button", { name: "Dismiss" }));
     fireEvent.change(screen.getByLabelText("Display name"), {
       target: { value: "Host" },
     });

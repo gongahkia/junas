@@ -3,11 +3,14 @@ import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
 import { ArrowLeft } from "lucide-react";
 import { api } from "@/api";
 import CoachMarkOverlay, { type CoachMarkStep } from "@/components/CoachMarkOverlay";
+import FeedbackPrompt from "@/components/FeedbackPrompt";
 import { getApiErrorDetails } from "@/lib/api-errors";
 import {
   loadUserPrefs,
+  markFeedbackPromptSeen,
   rememberDisplayName,
   rememberRoomVisit,
+  shouldShowFeedbackPrompt,
 } from "@/lib/user-prefs";
 import { HeaderNavButton, HeaderNavLink } from "@/components/HeaderNavAction";
 import { Button } from "@/components/ui/button";
@@ -42,8 +45,9 @@ export default function RoomJoinPage() {
   const isMobile = useIsMobile();
   const [searchParams] = useSearchParams();
   const showErrorToast = useErrorToast();
-  const [prefs] = useState(() => loadUserPrefs());
+  const [prefs, setPrefs] = useState(() => loadUserPrefs());
   const [showGuide, setShowGuide] = useState(false);
+  const [showFailureFeedback, setShowFailureFeedback] = useState(false);
   const [displayName, setDisplayName] = useState(
     () => loadUserPrefs().savedDisplayName
   );
@@ -103,6 +107,9 @@ export default function RoomJoinPage() {
           flow: "room_join",
         },
       });
+      if (shouldShowFeedbackPrompt("room-join-failure")) {
+        setShowFailureFeedback(true);
+      }
       showErrorToast(details.message);
     } finally {
       setSubmitting(false);
@@ -112,6 +119,25 @@ export default function RoomJoinPage() {
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(247,254,231,0.75),_rgba(255,255,255,1))] px-6 py-10">
       <CoachMarkOverlay open={showGuide} steps={GUEST_JOIN_STEPS} onClose={() => setShowGuide(false)} />
+      <FeedbackPrompt
+        open={showFailureFeedback}
+        title="Was the join failure message useful?"
+        description="A quick signal helps tighten invite validation and rename prompts."
+        onClose={() => {
+          setPrefs(markFeedbackPromptSeen("room-join-failure"));
+          setShowFailureFeedback(false);
+        }}
+        onSubmit={async ({ sentiment, message }) => {
+          await api.submitFeedback({
+            roomSlug: slug,
+            promptFamily: "room-join-failure",
+            sentiment,
+            message,
+          });
+          setPrefs(markFeedbackPromptSeen("room-join-failure"));
+          setShowFailureFeedback(false);
+        }}
+      />
       <div className="mx-auto max-w-xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
           <Button asChild variant="ghost">

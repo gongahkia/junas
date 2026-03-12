@@ -475,7 +475,12 @@ export function saveUserPrefs(prefs: UserPrefs): void {
     return;
   }
 
-  window.localStorage.setItem(USER_PREFS_STORAGE_KEY, JSON.stringify(prefs));
+  const sanitizedPrefs = {
+    ...prefs,
+  } as UserPrefs & { pendingSoloRoomSeed?: unknown };
+  delete sanitizedPrefs.pendingSoloRoomSeed;
+
+  window.localStorage.setItem(USER_PREFS_STORAGE_KEY, JSON.stringify(sanitizedPrefs));
   window.dispatchEvent(new Event(USER_PREFS_CHANGE_EVENT));
 }
 

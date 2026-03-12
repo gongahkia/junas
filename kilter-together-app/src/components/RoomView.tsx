@@ -10,15 +10,20 @@ import {
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft,
+  ChevronDown,
+  ChevronUp,
   Copy,
   GripVertical,
   RefreshCw,
+  Share2,
+  Sparkles,
   Trash2,
   UserMinus,
 } from "lucide-react";
 import { api } from "@/api";
 import type {
   ParticipantStatus,
+  PendingRoomSeed,
   ProviderClimb,
   ProviderSurface,
   QueueStatus,
@@ -33,20 +38,21 @@ import { useRoomEvents } from "@/features/room/hooks/useRoomEvents";
 import { useRoomSession } from "@/features/room/hooks/useRoomSession";
 import {
   clearPendingSoloRoomSeed,
-  dismissOnboarding,
+  completeGuideBranch,
   loadUserPrefs,
-  markGuestParticipated,
-  markHostProviderConnected,
+  markFeedbackPromptSeen,
   rememberCruxToken,
   rememberKilterCredentials,
-  markHostSurfaceSelected,
   rememberLastCruxSurface,
   rememberLastKilterSurface,
   rememberLastProvider,
   rememberRoomVisit,
+  resetGuides,
+  shouldShowFeedbackPrompt,
 } from "@/lib/user-prefs";
-import OnboardingCallout from "@/components/OnboardingCallout";
+import CoachMarkOverlay, { type CoachMarkStep } from "@/components/CoachMarkOverlay";
 import DetailGrid, { type DetailGridItem } from "@/components/DetailGrid";
+import FeedbackPrompt from "@/components/FeedbackPrompt";
 import RoomProblemView from "@/components/RoomProblemView";
 import RoomFistBumpButton from "@/components/RoomFistBumpButton";
 import InviteQRCodeCard from "@/components/InviteQRCodeCard";
@@ -65,6 +71,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useErrorToast } from "@/hooks/use-toast";
+import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Select,
   SelectContent,
@@ -77,6 +84,7 @@ import {
   getProviderLabel,
   usesNestedSurfaceHierarchy,
 } from "@/lib/provider-capabilities";
+import { trackProductEvent } from "@/lib/product-analytics";
 
 function reorderEntryIDs(entryIDs: number[], sourceEntryID: number, targetEntryID: number) {
   const sourceIndex = entryIDs.indexOf(sourceEntryID);
@@ -113,19 +121,97 @@ function formatProviderCatalogMeta(climb: ProviderClimb) {
   return null;
 }
 
-function buildKilterSeedClimbID(productSizeID: number, uuid: string) {
-  return `kilter:${productSizeID}:${uuid}`;
+const HOST_ROOM_GUIDE_STEPS: CoachMarkStep[] = [
+  {
+    target: '[data-guide="room-share"]',
+    title: "Share from the room header",
+    description: "Hosts can copy or share the invite from the same mobile screen they use to run the session.",
+  },
+  {
+    target: '[data-guide="room-current"]',
+    title: "Keep the current climb visible",
+    description: "This section is the host control point for what is live now and what should go next.",
+  },
+  {
+    target: '[data-guide="room-queue"]',
+    title: "Use the queue as the running order",
+    description: "Votes and finalists suggest what matters, but the queue is the committed order for the round.",
+  },
+  {
+    target: '[data-guide="room-people"]',
+    title: "Watch readiness before you switch climbs",
+    description: "The people section shows who is ready, resting, or away so the host can pace the session.",
+    placement: "top",
+  },
+];
+
+const GUEST_ROOM_GUIDE_STEPS: CoachMarkStep[] = [
+  {
+    target: '[data-guide="room-current"]',
+    title: "Stay synced from current and next",
+    description: "This section tells you what is on the wall now and what is likely to follow.",
+  },
+  {
+    target: '[data-guide="room-vote"]',
+    title: "Vote and queue from the climb detail",
+    description: "Guests use fist bumps and queue actions here instead of relying on the host device.",
+  },
+  {
+    target: '[data-guide="room-queue"]',
+    title: "The queue is the room contract",
+    description: "Check this list to understand what is actually coming up after the current climb.",
+  },
+  {
+    target: '[data-guide="room-people"]',
+    title: "Update your status as the round changes",
+    description: "Mark yourself ready, resting, or away so the room can make better next-pick decisions.",
+    placement: "top",
+  },
+];
+
+function pendingSeedMatchesSurface(
+  snapshot: RoomSnapshot,
+  pendingRoomSeed?: PendingRoomSeed
+) {
+  if (!pendingRoomSeed || !snapshot.surface || snapshot.provider_id !== pendingRoomSeed.provider_id) {
+    return false;
+  }
+
+  if ((snapshot.surface.id || "") !== (pendingRoomSeed.surface.id || "")) {
+    return false;
+  }
+
+  const roomAngle = snapshot.surface.meta?.angle || "";
+  const seedAngle = pendingRoomSeed.surface.meta?.angle || "";
+  if ((roomAngle || seedAngle) && roomAngle !== seedAngle) {
+    return false;
+  }
+
+  const roomParent =
+    snapshot.surface.meta?.gym_slug ||
+    snapshot.surface.meta?.parent_id ||
+    snapshot.surface.parent_id ||
+    "";
+  const seedParent =
+    pendingRoomSeed.surface.meta?.gym_slug ||
+    pendingRoomSeed.surface.meta?.parent_id ||
+    pendingRoomSeed.surface.parent_id ||
+    "";
+
+  return !(roomParent || seedParent) || roomParent === seedParent;
 }
 
 export default function RoomView() {
   const { slug = "" } = useParams();
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const { capabilities } = useProviderCapabilities();
   const showErrorToast = useErrorToast();
   const savedPrefsRef = useRef(loadUserPrefs());
+  const [prefs, setPrefs] = useState(() => savedPrefsRef.current);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [pendingSoloSeed, setPendingSoloSeed] = useState(
-    () => savedPrefsRef.current.pendingSoloRoomSeed
+  const [pendingRoomSeed, setPendingRoomSeed] = useState(
+    () => savedPrefsRef.current.pendingRoomSeed
   );
   const [selectedExternalClimb, setSelectedExternalClimb] = useState<ProviderClimb | null>(null);
   const [surfaceLoading, setSurfaceLoading] = useState(false);
@@ -161,12 +247,8 @@ export default function RoomView() {
   const [selectedWallId, setSelectedWallId] = useState(
     () => savedPrefsRef.current.lastCrux.wallId
   );
-  const [showOnboarding, setShowOnboarding] = useState(
-    () =>
-      savedPrefsRef.current.settings.autoGuidesEnabled &&
-      !savedPrefsRef.current.onboarding.dismissed
-  );
-  const [manualOnboardingReplay, setManualOnboardingReplay] = useState(false);
+  const [showGuide, setShowGuide] = useState(false);
+  const [showCloseFeedback, setShowCloseFeedback] = useState(false);
   const [importingSoloSeed, setImportingSoloSeed] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [copiedInvite, setCopiedInvite] = useState(false);
@@ -184,6 +266,7 @@ export default function RoomView() {
   const kilterUsernameInputRef = useRef<HTMLInputElement>(null);
   const kilterPasswordInputRef = useRef<HTMLInputElement>(null);
   const cruxTokenInputRef = useRef<HTMLInputElement>(null);
+  const wakeLockRef = useRef<{ release?: () => Promise<void> } | null>(null);
 
   const search = searchParams.get("q") ?? "";
   const sort = normalizeSort(searchParams.get("sort"));
@@ -202,12 +285,6 @@ export default function RoomView() {
     (nextSnapshot: RoomSnapshot) => {
       rememberRoomVisit(nextSnapshot);
       rememberLastProvider(nextSnapshot.provider_id);
-      if (nextSnapshot.permissions.manage_session && nextSnapshot.connection.connected) {
-        markHostProviderConnected();
-      }
-      if (nextSnapshot.permissions.manage_session && nextSnapshot.surface) {
-        markHostSurfaceSelected();
-      }
 
       if (nextSnapshot.provider_id === "kilter") {
         const boardId = nextSnapshot.surface?.meta?.board_id || nextSnapshot.surface?.id || "";
@@ -588,7 +665,6 @@ export default function RoomView() {
           savedPrefsRef.current = rememberCruxToken(token, rememberCredentials.crux);
         }
       }
-      markHostProviderConnected();
       await refreshRoomState();
     } catch (caughtError) {
       console.error("Connect provider failed", caughtError);
@@ -633,7 +709,6 @@ export default function RoomView() {
 
       cursorsRef.current = {};
       setCurrentPage(1);
-      markHostSurfaceSelected();
       await refreshRoomState();
       setShowSurfaceEditor(false);
     } catch (caughtError) {
@@ -651,18 +726,19 @@ export default function RoomView() {
   };
 
   const handleDiscardSoloSeed = () => {
-    savedPrefsRef.current = clearPendingSoloRoomSeed();
-    setPendingSoloSeed(undefined);
+    const nextPrefs = clearPendingSoloRoomSeed();
+    savedPrefsRef.current = nextPrefs;
+    setPrefs(nextPrefs);
+    setPendingRoomSeed(undefined);
   };
 
   const handleImportSoloSeed = async () => {
-    if (!slug || !pendingSoloSeed) {
+    if (!slug || !pendingRoomSeed) {
       return;
     }
 
-    const pendingClimbs = pendingSoloSeed.climbs.filter(
-      (climb) =>
-        !queuedClimbIds.has(buildKilterSeedClimbID(climb.product_size_id, climb.uuid))
+    const pendingClimbs = pendingRoomSeed.climbs.filter(
+      (climb) => !queuedClimbIds.has(climb.id)
     );
 
     if (pendingClimbs.length === 0) {
@@ -675,16 +751,13 @@ export default function RoomView() {
 
     try {
       for (const climb of pendingClimbs) {
-        await api.addRoomQueueEntry(
-          slug,
-          buildKilterSeedClimbID(climb.product_size_id, climb.uuid)
-        );
+        await api.addRoomQueueEntry(slug, climb.id);
       }
       handleDiscardSoloSeed();
       await refreshRoomState();
     } catch (caughtError) {
-      console.error("Import solo seed failed", caughtError);
-      setActionError("Unable to import the solo shortlist into this room queue.");
+      console.error("Import room seed failed", caughtError);
+      setActionError("Unable to import the saved plan into this room queue.");
     } finally {
       setImportingSoloSeed(false);
     }
@@ -725,9 +798,6 @@ export default function RoomView() {
 
     try {
       await api.toggleRoomVote(slug, climbId);
-      if (!snapshot?.permissions.manage_session) {
-        markGuestParticipated();
-      }
       await refreshRoomState();
     } catch (caughtError) {
       console.error("Toggle fist bump failed", caughtError);
@@ -746,9 +816,6 @@ export default function RoomView() {
 
     try {
       await api.addRoomQueueEntry(slug, climbId);
-      if (!snapshot?.permissions.manage_session) {
-        markGuestParticipated();
-      }
       await refreshRoomState();
     } catch (caughtError) {
       console.error("Add queue entry failed", caughtError);
@@ -802,6 +869,21 @@ export default function RoomView() {
       console.error("Reorder finalists failed", caughtError);
       setActionError("Unable to reorder finalists.");
     }
+  };
+
+  const handleMoveFinalist = async (entryId: number, direction: "up" | "down") => {
+    const currentIndex = snapshot?.finalists.findIndex((entry) => entry.id === entryId) ?? -1;
+    if (!snapshot || currentIndex < 0) {
+      return;
+    }
+
+    const targetIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1;
+    const targetEntry = snapshot.finalists[targetIndex];
+    if (!targetEntry) {
+      return;
+    }
+
+    await handleReorderFinalists(entryId, targetEntry.id);
   };
 
   const handlePickRandom = async (source: "finalists" | "top_voted") => {
@@ -892,6 +974,21 @@ export default function RoomView() {
       console.error("Reorder queue failed", caughtError);
       setActionError("Unable to reorder the queue.");
     }
+  };
+
+  const handleMoveQueueEntry = async (entryId: number, direction: "up" | "down") => {
+    const currentIndex = snapshot?.queue.findIndex((entry) => entry.id === entryId) ?? -1;
+    if (!snapshot || currentIndex < 0) {
+      return;
+    }
+
+    const targetIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1;
+    const targetEntry = snapshot.queue[targetIndex];
+    if (!targetEntry) {
+      return;
+    }
+
+    await handleReorderQueueEntry(entryId, targetEntry.id);
   };
 
   const handleDragStart = (
@@ -1015,8 +1112,29 @@ export default function RoomView() {
 
     const inviteLink = `${window.location.origin}/join/${slug}`;
     try {
+      if (isMobile && navigator.share) {
+        await navigator.share({
+          title: snapshot?.room_name || "Join climbing room",
+          url: inviteLink,
+        });
+        trackProductEvent("room.share", {
+          roomSlug: slug,
+          viewerRole: canManageSession ? "host" : "guest",
+          properties: {
+            method: "navigator_share",
+          },
+        });
+        return;
+      }
       await navigator.clipboard.writeText(inviteLink);
       setCopiedInvite(true);
+      trackProductEvent("room.share", {
+        roomSlug: slug,
+        viewerRole: canManageSession ? "host" : "guest",
+        properties: {
+          method: "clipboard",
+        },
+      });
     } catch (caughtError) {
       console.error("Copy invite failed", caughtError);
       setActionError("Unable to copy the invite link from this browser.");
@@ -1045,6 +1163,100 @@ export default function RoomView() {
       setRoomNameSaving(false);
     }
   };
+
+  useEffect(() => {
+    if (!snapshot) {
+      return;
+    }
+
+    const branch = snapshot.permissions.manage_session ? "host" : "guest";
+    const branchCompleted =
+      branch === "host" ? prefs.guidedTour.hostCompleted : prefs.guidedTour.guestCompleted;
+
+    if (
+      isMobile &&
+      prefs.settings.autoGuidesEnabled &&
+      prefs.guidedTour.activeBranch === branch &&
+      !branchCompleted
+    ) {
+      setShowGuide(true);
+    }
+  }, [
+    isMobile,
+    prefs.guidedTour.activeBranch,
+    prefs.guidedTour.guestCompleted,
+    prefs.guidedTour.hostCompleted,
+    prefs.settings.autoGuidesEnabled,
+    snapshot,
+  ]);
+
+  useEffect(() => {
+    if (
+      !snapshot ||
+      snapshot.status !== "closed" ||
+      !snapshot.permissions.close_room ||
+      !shouldShowFeedbackPrompt("room-close")
+    ) {
+      return;
+    }
+
+    setShowCloseFeedback(true);
+  }, [snapshot]);
+
+  useEffect(() => {
+    if (
+      !isMobile ||
+      snapshot?.status !== "open" ||
+      typeof window === "undefined" ||
+      typeof document === "undefined"
+    ) {
+      return;
+    }
+
+    const navigatorWithWakeLock = navigator as Navigator & {
+      wakeLock?: {
+        request: (
+          type: "screen"
+        ) => Promise<{ release?: () => Promise<void>; addEventListener?: (name: string, listener: () => void) => void }>;
+      };
+    };
+
+    if (!navigatorWithWakeLock.wakeLock?.request) {
+      return;
+    }
+
+    let active = true;
+
+    const requestWakeLock = async () => {
+      try {
+        const lock = await navigatorWithWakeLock.wakeLock?.request("screen");
+        if (!active) {
+          await lock?.release?.();
+          return;
+        }
+        wakeLockRef.current = lock ?? null;
+      } catch {
+        wakeLockRef.current = null;
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible" && !wakeLockRef.current) {
+        void requestWakeLock();
+      }
+    };
+
+    void requestWakeLock();
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      active = false;
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      const lock = wakeLockRef.current;
+      wakeLockRef.current = null;
+      void lock?.release?.();
+    };
+  }, [isMobile, snapshot?.status]);
 
   if (loading) {
     return (
@@ -1101,18 +1313,10 @@ export default function RoomView() {
     0;
   const myFistBumps = catalog?.my_votes ?? snapshot.my_votes;
   const queuedClimbIds = new Set(snapshot.queue.map((entry) => entry.climb.id));
-  const pendingSoloSeedHasClimbs = (pendingSoloSeed?.climbs.length ?? 0) > 0;
-  const pendingSoloSeedMatchesSurface =
-    snapshot.provider_id === "kilter" &&
-    Boolean(pendingSoloSeed) &&
-    Boolean(snapshot.surface) &&
-    (snapshot.surface?.meta?.board_id || snapshot.surface?.id || "") === pendingSoloSeed?.board_id &&
-    Number(snapshot.surface?.meta?.angle ?? DEFAULT_ANGLE) === pendingSoloSeed?.angle;
-  const pendingSoloSeedQueuedClimbs =
-    pendingSoloSeed?.climbs.filter(
-      (climb) =>
-        !queuedClimbIds.has(buildKilterSeedClimbID(climb.product_size_id, climb.uuid))
-    ) ?? [];
+  const pendingRoomSeedHasClimbs = (pendingRoomSeed?.climbs.length ?? 0) > 0;
+  const pendingRoomSeedMatchesSurface = pendingSeedMatchesSurface(snapshot, pendingRoomSeed);
+  const pendingRoomSeedQueuedClimbs =
+    pendingRoomSeed?.climbs.filter((climb) => !queuedClimbIds.has(climb.id)) ?? [];
   const selectedHasMyFistBump = selectedClimb ? myFistBumps.includes(selectedClimb.id) : false;
   const selectedIsQueued = selectedClimb ? queuedClimbIds.has(selectedClimb.id) : false;
   const selectedQueueEntry = selectedClimb
@@ -1122,12 +1326,6 @@ export default function RoomView() {
     ? snapshot.finalists.some((entry) => entry.climb.id === selectedClimb.id)
     : false;
   const inviteLink = buildInviteLink(slug);
-  const shouldShowRoomOnboarding =
-    manualOnboardingReplay ||
-    (showOnboarding &&
-      (canManageSession
-        ? !snapshot.connection.connected || !snapshot.surface
-        : !loadUserPrefs().onboarding.guestCompleted));
   const myParticipant =
     snapshot.participants.find(
       (participant) => participant.display_name === snapshot.display_name
@@ -1249,9 +1447,77 @@ export default function RoomView() {
 
   const roomReadyToShare =
     canManageSession && snapshot.connection.connected && Boolean(snapshot.surface);
+  const canShareInvite =
+    typeof navigator !== "undefined" && typeof navigator.share === "function";
+  const guideSteps = canManageSession ? HOST_ROOM_GUIDE_STEPS : GUEST_ROOM_GUIDE_STEPS;
+  const roomActionRail = canManageSession
+    ? [
+        { label: "Share", target: "room-share" },
+        { label: "Current", target: "room-current" },
+        { label: "Queue", target: "room-queue" },
+        { label: "People", target: "room-people" },
+      ]
+    : [
+        { label: "Current", target: "room-current" },
+        { label: "Vote", target: "room-vote" },
+        { label: "Queue", target: "room-queue" },
+        { label: "People", target: "room-people" },
+      ];
 
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(250,250,249,1),_rgba(240,249,255,0.8))] px-4 py-5 sm:px-6">
+      <CoachMarkOverlay
+        open={showGuide}
+        steps={guideSteps}
+        onClose={() => {
+          setShowGuide(false);
+          trackProductEvent("onboarding.skipped", {
+            roomSlug: slug,
+            viewerRole: canManageSession ? "host" : "guest",
+            properties: {
+              branch: canManageSession ? "host" : "guest",
+            },
+          });
+        }}
+        onComplete={() => {
+          const branch = canManageSession ? "host" : "guest";
+          const nextPrefs = completeGuideBranch(branch);
+          savedPrefsRef.current = nextPrefs;
+          setPrefs(nextPrefs);
+          trackProductEvent("onboarding.completed", {
+            roomSlug: slug,
+            viewerRole: branch,
+            properties: { branch },
+          });
+        }}
+      />
+      <FeedbackPrompt
+        open={showCloseFeedback}
+        title="How did this session wrap feel?"
+        description="A quick signal here helps tune the host close flow and the recap that comes after it."
+        onClose={() => {
+          const nextPrefs = markFeedbackPromptSeen("room-close");
+          savedPrefsRef.current = nextPrefs;
+          setPrefs(nextPrefs);
+          setShowCloseFeedback(false);
+        }}
+        onSubmit={async ({ sentiment, message }) => {
+          await api.submitFeedback({
+            roomSlug: slug,
+            promptFamily: "room-close",
+            sentiment,
+            message,
+            metadata: {
+              provider_id: snapshot.provider_id,
+              role: canManageSession ? "host" : "guest",
+            },
+          });
+          const nextPrefs = markFeedbackPromptSeen("room-close");
+          savedPrefsRef.current = nextPrefs;
+          setPrefs(nextPrefs);
+          setShowCloseFeedback(false);
+        }}
+      />
       <div className="mx-auto flex max-w-7xl flex-col gap-5">
         <header className="rounded-3xl border bg-card/95 px-5 py-5 shadow-sm">
           <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
@@ -1271,6 +1537,9 @@ export default function RoomView() {
                   {snapshot.status}
                 </Badge>
                 {snapshot.surface ? <Badge variant="outline">{snapshot.surface.name}</Badge> : null}
+                <Badge variant={snapshot.assistant.mode === "assist" ? "default" : "outline"}>
+                  Assistant {snapshot.assistant.mode}
+                </Badge>
               </div>
               {roomReadyToShare ? (
                 <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
@@ -1419,9 +1688,12 @@ export default function RoomView() {
               <div className="flex flex-wrap justify-start gap-2 xl:justify-end">
                 <HeaderNavButton
                   type="button"
+                  data-guide="room-help"
                   onClick={() => {
-                    setManualOnboardingReplay(true);
-                    setShowOnboarding(true);
+                    const nextPrefs = resetGuides();
+                    savedPrefsRef.current = nextPrefs;
+                    setPrefs(nextPrefs);
+                    setShowGuide(true);
                   }}
                 >
                   Help
@@ -1429,7 +1701,10 @@ export default function RoomView() {
                 <HeaderNavLink to="/about">About</HeaderNavLink>
                 <HeaderNavLink to="/settings">Settings</HeaderNavLink>
               </div>
-              <div className="grid min-w-0 gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start">
+              <div
+                className="grid min-w-0 gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start"
+                data-guide="room-share"
+              >
                 <div className="rounded-2xl border bg-muted/30 px-4 py-3">
                   <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
                     Invite link
@@ -1437,57 +1712,119 @@ export default function RoomView() {
                   <p className="mt-1 break-words text-sm leading-6">{inviteLink}</p>
                 </div>
                 <Button variant="outline" onClick={copyInviteLink}>
-                  <Copy className="mr-2 h-4 w-4" />
-                  {copiedInvite ? "Copied" : "Copy invite"}
+                  {isMobile && canShareInvite ? (
+                    <Share2 className="mr-2 h-4 w-4" />
+                  ) : (
+                    <Copy className="mr-2 h-4 w-4" />
+                  )}
+                  {copiedInvite ? "Copied" : isMobile && canShareInvite ? "Share invite" : "Copy invite"}
                 </Button>
               </div>
               <InviteQRCodeCard slug={slug} />
+              {canManageSession ? (
+                <Card className="border-dashed bg-white/80 shadow-none">
+                  <CardContent className="grid gap-3 p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-medium">Session assistant</p>
+                        <p className="text-sm text-muted-foreground">
+                          {snapshot.assistant.message ||
+                            "Assist mode suggests the next climb, but the host still confirms it."}
+                        </p>
+                      </div>
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant={snapshot.assistant.mode === "assist" ? "default" : "outline"}
+                        onClick={async () => {
+                          const nextMode =
+                            snapshot.assistant.mode === "assist" ? "manual" : "assist";
+                          try {
+                            const updatedSnapshot = await api.updateRoomAssistantMode(slug, nextMode);
+                            setSnapshot(updatedSnapshot);
+                            rememberRoomVisit(updatedSnapshot);
+                            trackProductEvent("room.assistant_mode_changed", {
+                              roomSlug: slug,
+                              viewerRole: "host",
+                              properties: { mode: nextMode },
+                            });
+                          } catch (caughtError) {
+                            console.error("Update assistant mode failed", caughtError);
+                            setActionError("Unable to update the room assistant mode.");
+                          }
+                        }}
+                        disabled={snapshot.status === "closed"}
+                      >
+                        <Sparkles className="mr-2 h-4 w-4" />
+                        {snapshot.assistant.mode === "assist" ? "Assist on" : "Manual"}
+                      </Button>
+                    </div>
+                    {snapshot.assistant.suggestion ? (
+                      <div className="rounded-2xl border bg-muted/30 p-3">
+                        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                          Suggested next
+                        </p>
+                        <p className="mt-2 font-medium">
+                          {snapshot.assistant.suggestion.climb.name}
+                        </p>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          Source: {snapshot.assistant.suggestion.source.replace("_", " ")} ·{" "}
+                          {snapshot.assistant.suggestion.ready_count} ready
+                        </p>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() =>
+                              handlePromoteClimb(
+                                snapshot.assistant.suggestion!.climb.id,
+                                "next"
+                              )
+                            }
+                            disabled={snapshot.status === "closed"}
+                          >
+                            Make next
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() =>
+                              handlePromoteClimb(
+                                snapshot.assistant.suggestion!.climb.id,
+                                "current"
+                              )
+                            }
+                            disabled={snapshot.status === "closed"}
+                          >
+                            Make current
+                          </Button>
+                        </div>
+                      </div>
+                    ) : null}
+                  </CardContent>
+                </Card>
+              ) : null}
             </div>
           </div>
         </header>
 
-        {shouldShowRoomOnboarding ? (
-          <OnboardingCallout
-            title={
-              canManageSession
-                ? snapshot.connection.connected
-                  ? "Host flow: choose, then share"
-                  : "Host flow: connect, choose, then share"
-                : "Guest flow: fist bump and queue from your phone"
-            }
-            description={
-              canManageSession
-                ? snapshot.connection.connected
-                  ? "You are managing this room. The provider is already authenticated, so the next step is picking the shared surface before you invite everyone else."
-                  : "You are managing this room. Finish the provider setup once, then everyone else can join through the invite link or QR code."
-                : "You are already inside the room. The next useful action is to fist bump a climb or add one to the shared queue."
-            }
-            steps={
-              canManageSession
-                ? [
-                    snapshot.connection.connected
-                      ? "Provider connected. Move on to the shared surface selection."
-                      : "Connect the provider account for this room first.",
-                    snapshot.surface
-                      ? `Surface selected: ${snapshot.surface.name}.`
-                      : nestedSurfaceProvider
-                        ? `Choose the shared ${providerLabel.toLowerCase()} gym plus wall.`
-                        : "Choose the Kilter board plus angle.",
-                    "Share the invite link or QR code, then watch fist bumps and queue picks as guests join.",
-                  ]
-                : [
-                    "Use the fist bump pill to signal what you want to try next.",
-                    "Use Add to queue when you want to propose a concrete running order.",
-                    "Follow the current climb and next climb indicators to stay synced with the group.",
-                  ]
-            }
-            onDismiss={() => {
-              dismissOnboarding();
-              setManualOnboardingReplay(false);
-              setShowOnboarding(false);
-            }}
-          />
-        ) : null}
+        <div className="sticky top-3 z-20 -mt-2 flex gap-2 overflow-x-auto rounded-full border bg-white/90 px-2 py-2 shadow-sm backdrop-blur">
+          {roomActionRail.map((item) => (
+            <Button
+              key={item.target}
+              type="button"
+              variant="ghost"
+              className="rounded-full px-4"
+              onClick={() => {
+                document
+                  .querySelector(`[data-section="${item.target}"]`)
+                  ?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+            >
+              {item.label}
+            </Button>
+          ))}
+        </div>
 
         {!snapshot.connection.connected ? (
           <Card>
@@ -1611,7 +1948,7 @@ export default function RoomView() {
         ) : null}
 
         {showSurfaceCard ? (
-          <Card>
+          <Card data-section="room-current" data-guide="room-current">
             <CardHeader>
               <CardTitle>
                 {snapshot.surface ? "Shared climbing surface" : "Choose the shared climbing surface"}
@@ -1625,35 +1962,35 @@ export default function RoomView() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {pendingSoloSeed && snapshot.provider_id === "kilter" ? (
+              {pendingRoomSeed ? (
                 <div className="rounded-2xl border border-teal-200 bg-teal-50/80 px-4 py-4">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div className="space-y-1">
                       <p className="text-sm font-medium text-teal-900">
-                        {pendingSoloSeedHasClimbs
-                          ? "Solo shortlist seed is ready"
-                          : "Solo board context is ready"}
+                        {pendingRoomSeedHasClimbs
+                          ? "Saved plan seed is ready"
+                          : "Saved surface context is ready"}
                       </p>
                       <p className="text-sm text-teal-900/80">
-                        {pendingSoloSeedHasClimbs
-                          ? pendingSoloSeedMatchesSurface
-                            ? pendingSoloSeedQueuedClimbs.length > 0
-                              ? `Import ${pendingSoloSeedQueuedClimbs.length} shortlisted climb${
-                                  pendingSoloSeedQueuedClimbs.length === 1 ? "" : "s"
+                        {pendingRoomSeedHasClimbs
+                          ? pendingRoomSeedMatchesSurface
+                            ? pendingRoomSeedQueuedClimbs.length > 0
+                              ? `Import ${pendingRoomSeedQueuedClimbs.length} saved climb${
+                                  pendingRoomSeedQueuedClimbs.length === 1 ? "" : "s"
                                 } into this room queue.`
-                              : "Every shortlisted climb is already in the room queue."
-                            : `Choose ${pendingSoloSeed.board_name} at ${pendingSoloSeed.angle}\u00b0 to import ${pendingSoloSeed.climbs.length} shortlisted climb${
-                                pendingSoloSeed.climbs.length === 1 ? "" : "s"
+                              : "Every saved climb is already in the room queue."
+                            : `Choose ${pendingRoomSeed.surface.name} to import ${pendingRoomSeed.climbs.length} saved climb${
+                                pendingRoomSeed.climbs.length === 1 ? "" : "s"
                               }.`
-                          : pendingSoloSeedMatchesSurface
-                            ? "This room is already set to the saved solo board context."
-                            : `Choose ${pendingSoloSeed.board_name} at ${pendingSoloSeed.angle}\u00b0 to use the saved solo board context in this room.`}
+                          : pendingRoomSeedMatchesSurface
+                            ? "This room is already set to the saved plan context."
+                            : `Choose ${pendingRoomSeed.surface.name} to use the saved plan context in this room.`}
                       </p>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {canManageQueue &&
-                      pendingSoloSeedMatchesSurface &&
-                      pendingSoloSeedHasClimbs ? (
+                      pendingRoomSeedMatchesSurface &&
+                      pendingRoomSeedHasClimbs ? (
                         <Button
                           type="button"
                           variant="secondary"
@@ -1662,8 +1999,8 @@ export default function RoomView() {
                         >
                           {importingSoloSeed
                             ? "Importing..."
-                            : pendingSoloSeedQueuedClimbs.length > 0
-                              ? "Import shortlist to queue"
+                            : pendingRoomSeedQueuedClimbs.length > 0
+                              ? "Import plan to queue"
                               : "Clear imported seed"}
                         </Button>
                       ) : null}
@@ -1900,7 +2237,7 @@ export default function RoomView() {
               </Card>
 
               <div className="grid gap-4">
-                <Card className="gap-4">
+                <Card className="gap-4" data-section="room-vote" data-guide="room-vote">
                   <CardHeader className="flex flex-row items-center justify-between gap-4 space-y-0">
                     <div>
                       <CardTitle>Climb detail</CardTitle>
@@ -2088,18 +2425,41 @@ export default function RoomView() {
                         >
                           <div className="flex items-start gap-3">
                             {canManageFinalists ? (
-                              <Button
-                                type="button"
-                                size="icon"
-                                variant="ghost"
-                                draggable
-                                aria-label={`Drag ${entry.climb.name} in finalists`}
-                                className="mt-0.5 cursor-grab text-muted-foreground active:cursor-grabbing"
-                                onDragStart={(event) => handleDragStart(event, "finalist", entry.id)}
-                                onDragEnd={handleDragEnd}
-                              >
-                                <GripVertical className="h-4 w-4" />
-                              </Button>
+                              isMobile ? (
+                                <div className="flex flex-col gap-1">
+                                  <Button
+                                    type="button"
+                                    size="icon"
+                                    variant="ghost"
+                                    aria-label={`Move ${entry.climb.name} up in finalists`}
+                                    onClick={() => void handleMoveFinalist(entry.id, "up")}
+                                  >
+                                    <ChevronUp className="h-4 w-4" />
+                                  </Button>
+                                  <Button
+                                    type="button"
+                                    size="icon"
+                                    variant="ghost"
+                                    aria-label={`Move ${entry.climb.name} down in finalists`}
+                                    onClick={() => void handleMoveFinalist(entry.id, "down")}
+                                  >
+                                    <ChevronDown className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                              ) : (
+                                <Button
+                                  type="button"
+                                  size="icon"
+                                  variant="ghost"
+                                  draggable
+                                  aria-label={`Drag ${entry.climb.name} in finalists`}
+                                  className="mt-0.5 cursor-grab text-muted-foreground active:cursor-grabbing"
+                                  onDragStart={(event) => handleDragStart(event, "finalist", entry.id)}
+                                  onDragEnd={handleDragEnd}
+                                >
+                                  <GripVertical className="h-4 w-4" />
+                                </Button>
+                              )
                             ) : null}
                             <button
                               type="button"
@@ -2162,7 +2522,7 @@ export default function RoomView() {
                   </CardContent>
                 </Card>
 
-                <Card className="gap-4">
+                <Card className="gap-4" data-section="room-queue" data-guide="room-queue">
                   <CardHeader>
                     <CardTitle>Queue</CardTitle>
                     <CardDescription>
@@ -2191,18 +2551,41 @@ export default function RoomView() {
                         >
                           <div className="flex items-start gap-3">
                             {canManageQueue ? (
-                              <Button
-                                type="button"
-                                size="icon"
-                                variant="ghost"
-                                draggable
-                                aria-label={`Drag ${entry.climb.name} in queue`}
-                                className="mt-0.5 cursor-grab text-muted-foreground active:cursor-grabbing"
-                                onDragStart={(event) => handleDragStart(event, "queue", entry.id)}
-                                onDragEnd={handleDragEnd}
-                              >
-                                <GripVertical className="h-4 w-4" />
-                              </Button>
+                              isMobile ? (
+                                <div className="flex flex-col gap-1">
+                                  <Button
+                                    type="button"
+                                    size="icon"
+                                    variant="ghost"
+                                    aria-label={`Move ${entry.climb.name} up in queue`}
+                                    onClick={() => void handleMoveQueueEntry(entry.id, "up")}
+                                  >
+                                    <ChevronUp className="h-4 w-4" />
+                                  </Button>
+                                  <Button
+                                    type="button"
+                                    size="icon"
+                                    variant="ghost"
+                                    aria-label={`Move ${entry.climb.name} down in queue`}
+                                    onClick={() => void handleMoveQueueEntry(entry.id, "down")}
+                                  >
+                                    <ChevronDown className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                              ) : (
+                                <Button
+                                  type="button"
+                                  size="icon"
+                                  variant="ghost"
+                                  draggable
+                                  aria-label={`Drag ${entry.climb.name} in queue`}
+                                  className="mt-0.5 cursor-grab text-muted-foreground active:cursor-grabbing"
+                                  onDragStart={(event) => handleDragStart(event, "queue", entry.id)}
+                                  onDragEnd={handleDragEnd}
+                                >
+                                  <GripVertical className="h-4 w-4" />
+                                </Button>
+                              )
                             ) : null}
                             <div className="flex-1 min-w-0">
                               <div className="flex items-start justify-between gap-3">
@@ -2271,7 +2654,7 @@ export default function RoomView() {
                   </CardContent>
                 </Card>
 
-                <Card className="gap-4">
+                <Card className="gap-4" data-section="room-people" data-guide="room-people">
                   <CardHeader>
                     <CardTitle>Participants</CardTitle>
                     <CardDescription>

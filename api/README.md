@@ -13,6 +13,16 @@ Bootstrap the local database and images:
 go run . bootstrap
 ```
 
+Apply app-database migrations:
+
+```console
+go run . migrate
+```
+
+On a brand-new app database, `migrate` now bootstraps from the single baseline schema in
+`api/migrations/001_initial.sql`. Later SQL files are kept only so existing installs can
+continue upgrading incrementally.
+
 Serve the API:
 
 ```console

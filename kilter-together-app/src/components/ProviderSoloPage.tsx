@@ -6,7 +6,15 @@ import {
   useState,
 } from "react";
 import { Link, Navigate, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { ArrowRight, Compass, KeyRound, MapPinned, Mountain, RefreshCw } from "lucide-react";
+import {
+  ArrowRight,
+  Compass,
+  KeyRound,
+  MapPinned,
+  Mountain,
+  RefreshCw,
+  Share2,
+} from "lucide-react";
 import { api } from "@/api";
 import BrandWordmark from "@/components/BrandWordmark";
 import LoadingSlideshow from "@/components/LoadingSlideshow";
@@ -29,10 +37,12 @@ import { getApiErrorMessage } from "@/lib/api-errors";
 import { getProviderCapability } from "@/lib/provider-capabilities";
 import { normalizeSort } from "@/lib/climbs";
 import {
+  beginRoomSeed,
   loadUserPrefs,
   rememberLastCruxSurface,
   rememberLastProvider,
 } from "@/lib/user-prefs";
+import { trackProductEvent } from "@/lib/product-analytics";
 import type {
   ClimbSort,
   ProviderCapability,
@@ -94,6 +104,10 @@ export default function ProviderSoloPage() {
   const [childSurfaces, setChildSurfaces] = useState<ProviderSurface[]>([]);
   const [climbs, setClimbs] = useState<ProviderClimb[]>([]);
   const [selectedClimb, setSelectedClimb] = useState<ProviderClimb | null>(null);
+  const [plannedClimbs, setPlannedClimbs] = useState<ProviderClimb[]>([]);
+  const [planTitle, setPlanTitle] = useState("");
+  const [planNotes, setPlanNotes] = useState("");
+  const [sharingPlan, setSharingPlan] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
 
@@ -388,6 +402,41 @@ export default function ProviderSoloPage() {
     showErrorToast,
   ]);
 
+  useEffect(() => {
+    if (planTitle.trim()) {
+      return;
+    }
+
+    const nextTitle =
+      childSurfaces.find((surface) => surface.id === selectedWallId)?.name ||
+      parentSurfaces.find((surface) => surface.id === selectedGymSlug)?.name;
+
+    if (nextTitle) {
+      setPlanTitle(`${nextTitle} plan`);
+    }
+  }, [childSurfaces, parentSurfaces, planTitle, selectedGymSlug, selectedWallId]);
+
+  useEffect(() => {
+    if (!selectedClimb) {
+      return;
+    }
+
+    setPlannedClimbs((currentClimbs) =>
+      currentClimbs.map((climb) =>
+        climb.id === selectedClimb.id
+          ? {
+              ...climb,
+              ...selectedClimb,
+              meta: {
+                ...(climb.meta ?? {}),
+                ...(selectedClimb.meta ?? {}),
+              },
+            }
+          : climb
+      )
+    );
+  }, [selectedClimb]);
+
   if (capabilitiesLoading) {
     return (
       <LoadingSlideshow
@@ -490,11 +539,97 @@ export default function ProviderSoloPage() {
   };
 
   const handleCreateRoomFromContext = () => {
-    savedPrefsRef.current = rememberLastProvider(resolvedProviderId);
+    const roomSurface = selectedWall ?? selectedGym;
+    if (!roomSurface) {
+      showErrorToast(`Choose a ${providerLabel} surface before creating a room.`);
+      return;
+    }
+
+    savedPrefsRef.current = beginRoomSeed({
+      providerId: resolvedProviderId,
+      title: planTitle.trim() || `${roomSurface.name} session`,
+      surface: roomSurface,
+      climbs: plannedClimbs,
+      openPath:
+        typeof window !== "undefined"
+          ? `${window.location.pathname}${window.location.search}`
+          : undefined,
+    });
     if (resolvedProviderId === "crux") {
       savedPrefsRef.current = rememberLastCruxSurface(selectedGymSlug, selectedWallId);
     }
     navigate("/rooms/new");
+  };
+
+  const togglePlannedClimb = (climb: ProviderClimb) => {
+    setPlannedClimbs((currentClimbs) => {
+      const alreadyPlanned = currentClimbs.some((item) => item.id === climb.id);
+      if (alreadyPlanned) {
+        return currentClimbs.filter((item) => item.id !== climb.id);
+      }
+
+      return [
+        {
+          ...climb,
+          meta: {
+            ...(climb.meta ?? {}),
+            gym_slug: selectedGymSlug,
+            wall_id: selectedWallId,
+          },
+        },
+        ...currentClimbs,
+      ];
+    });
+  };
+
+  const handleSharePlan = async () => {
+    const roomSurface = selectedWall ?? selectedGym;
+    if (!roomSurface) {
+      showErrorToast(`Choose a ${providerLabel} surface before creating a plan.`);
+      return;
+    }
+    if (plannedClimbs.length === 0) {
+      showErrorToast("Add at least one climb to the plan before sharing it.");
+      return;
+    }
+
+    setSharingPlan(true);
+    try {
+      const plan = await api.createSoloPlan({
+        providerId: resolvedProviderId,
+        title: planTitle.trim() || `${roomSurface.name} plan`,
+        notes: planNotes.trim() || undefined,
+        surface: roomSurface,
+        context: {
+          gym_slug: selectedGymSlug,
+          wall_id: selectedWallId,
+        },
+        filters: {
+          q: rawQuery || "",
+          sort,
+          gym: selectedGymSlug,
+          wall: selectedWallId,
+        },
+        climbs: plannedClimbs,
+        openPath:
+          typeof window !== "undefined"
+            ? `${window.location.pathname}${window.location.search}`
+            : undefined,
+        createdBy: savedPrefsRef.current.savedDisplayName || undefined,
+      });
+      trackProductEvent("solo_plan.create", {
+        properties: {
+          provider_id: resolvedProviderId,
+          climb_count: plannedClimbs.length,
+        },
+      });
+      navigate(`/plans/${plan.share_id}`);
+    } catch (error) {
+      console.error("Create provider solo plan failed", error);
+      showErrorToast("Unable to create a shareable plan from this provider view.");
+    } finally {
+      setSharingPlan(false);
+    }
   };
 
   return (
@@ -691,6 +826,7 @@ export default function ProviderSoloPage() {
                   <div className="grid gap-3">
                     {climbs.map((climb) => {
                       const providerMetaLine = formatProviderMetaLine(climb);
+                      const isPlanned = plannedClimbs.some((item) => item.id === climb.id);
                       return (
                         <button
                           key={climb.id}
@@ -721,6 +857,7 @@ export default function ProviderSoloPage() {
                               {climb.secondary_grade ? (
                                 <Badge variant="outline">{climb.secondary_grade}</Badge>
                               ) : null}
+                              {isPlanned ? <Badge variant="outline">In plan</Badge> : null}
                             </div>
                           </div>
                         </button>
@@ -762,24 +899,62 @@ export default function ProviderSoloPage() {
                   host a shared session.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="flex flex-wrap gap-2">
-                {selectedGym ? <Badge variant="secondary">{selectedGym.name}</Badge> : null}
-                {selectedWall ? <Badge variant="outline">{selectedWall.name}</Badge> : null}
-                {resolvedProviderId === "crux" ? (
-                  <Badge variant="outline">Gym catalog</Badge>
-                ) : null}
-                {accessLoaded ? (
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => void handleLoadCatalog()}
-                    className="ml-auto"
-                  >
-                    <RefreshCw className="mr-2 h-4 w-4" />
-                    Refresh provider data
-                  </Button>
-                ) : null}
+              <CardContent className="grid gap-4">
+                <div className="flex flex-wrap gap-2">
+                  {selectedGym ? <Badge variant="secondary">{selectedGym.name}</Badge> : null}
+                  {selectedWall ? <Badge variant="outline">{selectedWall.name}</Badge> : null}
+                  {resolvedProviderId === "crux" ? (
+                    <Badge variant="outline">Gym catalog</Badge>
+                  ) : null}
+                  <Badge variant="outline">{plannedClimbs.length} climbs in plan</Badge>
+                  {accessLoaded ? (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => void handleLoadCatalog()}
+                      className="ml-auto"
+                    >
+                      <RefreshCw className="mr-2 h-4 w-4" />
+                      Refresh provider data
+                    </Button>
+                  ) : null}
+                </div>
+                <div className="grid gap-3">
+                  <Input
+                    value={planTitle}
+                    onChange={(event) => setPlanTitle(event.target.value)}
+                    placeholder="Plan title"
+                    disabled={!selectedGym}
+                  />
+                  <textarea
+                    value={planNotes}
+                    onChange={(event) => setPlanNotes(event.target.value)}
+                    placeholder="Optional planning notes"
+                    className="min-h-24 rounded-xl border border-input bg-background px-3 py-2 text-sm shadow-sm outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
+                    disabled={!selectedGym}
+                  />
+                  <div className="flex flex-wrap gap-3">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={handleCreateRoomFromContext}
+                      disabled={!selectedGym}
+                    >
+                      Start room from plan
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => void handleSharePlan()}
+                      disabled={!selectedGym || plannedClimbs.length === 0 || sharingPlan}
+                    >
+                      <Share2 className="mr-2 h-4 w-4" />
+                      {sharingPlan ? "Creating plan..." : "Create shareable plan"}
+                    </Button>
+                  </div>
+                </div>
               </CardContent>
             </Card>
 
@@ -791,7 +966,27 @@ export default function ProviderSoloPage() {
                   the climb is worth carrying into a shared session.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="grid gap-4">
+                {selectedClimb ? (
+                  <div className="flex flex-wrap gap-2">
+                    <Button
+                      type="button"
+                      variant={
+                        plannedClimbs.some((climb) => climb.id === selectedClimb.id)
+                          ? "secondary"
+                          : "outline"
+                      }
+                      onClick={() => togglePlannedClimb(selectedClimb)}
+                    >
+                      {plannedClimbs.some((climb) => climb.id === selectedClimb.id)
+                        ? "Remove from plan"
+                        : "Add to plan"}
+                    </Button>
+                    {selectedClimb.primary_grade ? (
+                      <Badge variant="secondary">{selectedClimb.primary_grade}</Badge>
+                    ) : null}
+                  </div>
+                ) : null}
                 {detailLoading ? (
                   <div className="rounded-2xl border border-dashed bg-muted/15 p-6 text-sm text-muted-foreground">
                     Loading climb detail...

@@ -5,12 +5,9 @@ import {
   Camera,
   Clock3,
   History,
-  Link2,
-  Mountain,
   Pin,
   Trophy,
   Trash2,
-  Users,
 } from "lucide-react";
 import { api } from "@/api";
 import CoachMarkOverlay, { type CoachMarkStep } from "@/components/CoachMarkOverlay";

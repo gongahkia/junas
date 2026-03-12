@@ -55,21 +55,14 @@ func Apply(ctx context.Context, db *gorm.DB) error {
 		if existing {
 			return recordApplied(ctx, db, baselineVersion)
 		}
+
+		return bootstrapFreshDatabase(ctx, db)
 	}
 
-	entries, err := files.ReadDir(".")
+	versions, err := sqlVersions()
 	if err != nil {
-		return fmt.Errorf("read embedded migrations: %w", err)
+		return err
 	}
-
-	versions := make([]string, 0, len(entries))
-	for _, entry := range entries {
-		if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".sql") {
-			continue
-		}
-		versions = append(versions, entry.Name())
-	}
-	sort.Strings(versions)
 
 	for _, version := range versions {
 		if _, ok := applied[version]; ok {
@@ -81,6 +74,35 @@ func Apply(ctx context.Context, db *gorm.DB) error {
 		}
 		if err := applyMigration(ctx, db, version, string(sqlBytes)); err != nil {
 			return err
+		}
+	}
+
+	return nil
+}
+
+func bootstrapFreshDatabase(ctx context.Context, db *gorm.DB) error {
+	versions, err := sqlVersions()
+	if err != nil {
+		return err
+	}
+	if len(versions) == 0 {
+		return nil
+	}
+
+	sqlBytes, err := files.ReadFile(baselineVersion)
+	if err != nil {
+		return fmt.Errorf("read baseline migration %s: %w", baselineVersion, err)
+	}
+	if err := applyMigration(ctx, db, baselineVersion, string(sqlBytes)); err != nil {
+		return err
+	}
+
+	for _, version := range versions {
+		if version == baselineVersion {
+			continue
+		}
+		if err := recordApplied(ctx, db, version); err != nil {
+			return fmt.Errorf("record covered migration %s: %w", version, err)
 		}
 	}
 
@@ -125,6 +147,23 @@ func ensureSchemaMigrations(ctx context.Context, db *gorm.DB) error {
 			applied_at DATETIME NOT NULL
 		)
 	`).Error
+}
+
+func sqlVersions() ([]string, error) {
+	entries, err := files.ReadDir(".")
+	if err != nil {
+		return nil, fmt.Errorf("read embedded migrations: %w", err)
+	}
+
+	versions := make([]string, 0, len(entries))
+	for _, entry := range entries {
+		if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".sql") {
+			continue
+		}
+		versions = append(versions, entry.Name())
+	}
+	sort.Strings(versions)
+	return versions, nil
 }
 
 func appliedVersions(ctx context.Context, db *gorm.DB) (map[string]struct{}, error) {

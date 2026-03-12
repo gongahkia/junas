@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, Heart, Layers3, ListChecks, Mountain, Radar, Trash2 } from "lucide-react";
+import { ArrowRight, Heart, Layers3, ListChecks, Mountain, Trash2 } from "lucide-react";
 import { api } from "@/api";
 import AngleSelector from "./AngleSelector";
 import BrandWordmark from "./BrandWordmark";

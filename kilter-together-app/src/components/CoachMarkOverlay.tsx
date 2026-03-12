@@ -126,6 +126,9 @@ export default function CoachMarkOverlay({
           )}
         />
         <div className="space-y-3">
+          <p className="text-xs font-medium uppercase tracking-[0.28em] text-teal-700">
+            First-time guide
+          </p>
           <p className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
             Step {stepIndex + 1} of {steps.length}
           </p>
@@ -137,7 +140,7 @@ export default function CoachMarkOverlay({
           </div>
           <div className="flex items-center justify-between gap-2 pt-2">
             <Button type="button" variant="ghost" onClick={onClose}>
-              Skip
+              Dismiss
             </Button>
             <div className="flex items-center gap-2">
               <Button

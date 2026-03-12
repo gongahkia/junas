@@ -5,11 +5,11 @@ import {
   useRef,
   useState,
 } from "react";
-import { Heart, Layers3, ListChecks } from "lucide-react";
+import { Heart, Layers3, ListChecks, Share2 } from "lucide-react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import { api } from "../api";
-import type { Board, Climb } from "../types";
+import type { Board, Climb, ProviderClimb } from "../types";
 import Sidebar from "./Sidebar";
 import MobileDropdown from "./MobileDropdown";
 import ProblemView from "./ProblemView";
@@ -29,12 +29,14 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { useErrorToast } from "@/hooks/use-toast";
+import { trackProductEvent } from "@/lib/product-analytics";
 
 const PAGE_SIZE = 10;
 
@@ -59,6 +61,9 @@ export default function ClimbView({
   const [hasNextPage, setHasNextPage] = useState(false);
   const [savedFilterID, setSavedFilterID] = useState("");
   const [prefs, setPrefs] = useState(() => loadUserPrefs());
+  const [planTitle, setPlanTitle] = useState("");
+  const [planNotes, setPlanNotes] = useState("");
+  const [sharingPlan, setSharingPlan] = useState(false);
   const cursorsRef = useRef<Record<number, string>>({});
   const lastFilterKeyRef = useRef("");
   const { boardId = "" } = useParams();
@@ -94,6 +99,12 @@ export default function ClimbView({
   const shortlistForCurrentView = prefs.soloShortlist.filter(
     (climb) => climb.board_id === boardId && climb.angle === angle
   );
+
+  useEffect(() => {
+    if (!planTitle.trim() && boardName && !boardsLoading) {
+      setPlanTitle(`${boardName} plan`);
+    }
+  }, [boardName, boardsLoading, planTitle]);
 
   useEffect(() => {
     if (!boardId) {
@@ -358,6 +369,81 @@ export default function ClimbView({
     navigate("/rooms/new");
   };
 
+  const buildPlanClimbs = (): ProviderClimb[] =>
+    shortlistForCurrentView.map((climb) => ({
+      id: `kilter:${climb.product_size_id}:${climb.uuid}`,
+      external_id: climb.uuid,
+      provider_id: "kilter",
+      surface_id: boardId,
+      name: climb.climb_name,
+      setter_name: climb.setter_name,
+      primary_grade: climb.grade,
+      popularity: climb.ascends,
+      meta: {
+        board_id: climb.board_id,
+        board_name: climb.board_name,
+        angle: String(climb.angle),
+      },
+      media: climb.image_filename
+        ? [
+            {
+              kind: "image",
+              url: api.getImageUrl(climb.image_filename),
+            },
+          ]
+        : undefined,
+    }));
+
+  const handleSharePlan = async () => {
+    if (!boardId || shortlistForCurrentView.length === 0) {
+      showErrorToast("Add at least one shortlisted climb before creating a shareable plan.");
+      return;
+    }
+
+    setSharingPlan(true);
+    try {
+      const plan = await api.createSoloPlan({
+        providerId: "kilter",
+        title: planTitle.trim() || `${boardName} plan`,
+        notes: planNotes.trim() || undefined,
+        surface: {
+          id: boardId,
+          kind: "board",
+          name: boardName,
+          meta: {
+            board_id: boardId,
+            angle: String(angle),
+          },
+        },
+        filters: {
+          angle: String(angle),
+          sort,
+          q: nameQuery || "",
+          setter: setterQuery || "",
+          grade: gradeQuery || "",
+        },
+        climbs: buildPlanClimbs(),
+        openPath:
+          typeof window !== "undefined"
+            ? `${window.location.pathname}${window.location.search}`
+            : undefined,
+        createdBy: prefs.savedDisplayName || undefined,
+      });
+      trackProductEvent("solo_plan.create", {
+        properties: {
+          provider_id: "kilter",
+          climb_count: shortlistForCurrentView.length,
+        },
+      });
+      navigate(`/plans/${plan.share_id}`);
+    } catch (error) {
+      console.error("Create solo plan failed", error);
+      showErrorToast("Unable to create a shareable solo plan from this shortlist.");
+    } finally {
+      setSharingPlan(false);
+    }
+  };
+
   if (initialLoad && loading) {
     return (
       <LoadingSlideshow
@@ -527,6 +613,39 @@ export default function ClimbView({
             </div>
 
             <div className="order-2 mt-4 md:hidden md:order-none">
+              <Card className="mx-4 mb-4 border-0 bg-white/88 shadow-lg shadow-teal-950/10 backdrop-blur">
+                <CardHeader className="space-y-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <CardTitle className="text-xl">Shareable solo plan</CardTitle>
+                      <CardDescription>
+                        Turn this shortlist into an immutable plan link.
+                      </CardDescription>
+                    </div>
+                    <Badge variant="outline">{shortlistForCurrentView.length} climbs</Badge>
+                  </div>
+                  <Input
+                    value={planTitle}
+                    onChange={(event) => setPlanTitle(event.target.value)}
+                    placeholder="Plan title"
+                  />
+                  <textarea
+                    value={planNotes}
+                    onChange={(event) => setPlanNotes(event.target.value)}
+                    placeholder="Optional planning notes"
+                    className="min-h-24 rounded-xl border border-input bg-background px-3 py-2 text-sm shadow-sm outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    disabled={sharingPlan || shortlistForCurrentView.length === 0}
+                    onClick={() => void handleSharePlan()}
+                  >
+                    <Share2 className="mr-2 h-4 w-4" />
+                    {sharingPlan ? "Creating plan..." : "Create shareable plan"}
+                  </Button>
+                </CardHeader>
+              </Card>
               <MobileDropdown
                 climbs={climbs}
                 selectedClimb={selectedClimb}
@@ -581,6 +700,43 @@ export default function ClimbView({
             </div>
 
             <div className="order-1 mt-4 min-w-0 flex-1 overflow-auto md:order-none">
+              <Card className="mb-4 hidden border-0 bg-white/88 shadow-lg shadow-teal-950/10 backdrop-blur md:block">
+                <CardHeader className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_auto] lg:items-start">
+                  <div>
+                    <CardTitle>Shareable solo plan</CardTitle>
+                    <CardDescription className="mt-2">
+                      Package the current shortlist, board context, and filters into an immutable public plan.
+                    </CardDescription>
+                  </div>
+                  <div className="grid gap-3">
+                    <Input
+                      value={planTitle}
+                      onChange={(event) => setPlanTitle(event.target.value)}
+                      placeholder="Plan title"
+                    />
+                    <textarea
+                      value={planNotes}
+                      onChange={(event) => setPlanNotes(event.target.value)}
+                      placeholder="Optional planning notes"
+                      className="min-h-24 rounded-xl border border-input bg-background px-3 py-2 text-sm shadow-sm outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
+                    />
+                  </div>
+                  <div className="flex flex-col items-stretch gap-3 lg:w-52">
+                    <Badge variant="outline" className="justify-center">
+                      {shortlistForCurrentView.length} climbs in plan
+                    </Badge>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      disabled={sharingPlan || shortlistForCurrentView.length === 0}
+                      onClick={() => void handleSharePlan()}
+                    >
+                      <Share2 className="mr-2 h-4 w-4" />
+                      {sharingPlan ? "Creating..." : "Create shareable plan"}
+                    </Button>
+                  </div>
+                </CardHeader>
+              </Card>
               <ProblemView
                 selectedClimb={selectedClimb}
                 angle={angle}

@@ -2,21 +2,25 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { api } from "@/api";
-import type { ProviderId } from "@/types";
+import CoachMarkOverlay, { type CoachMarkStep } from "@/components/CoachMarkOverlay";
+import FeedbackPrompt from "@/components/FeedbackPrompt";
 import { getApiErrorDetails } from "@/lib/api-errors";
 import {
   clearPendingSoloRoomSeed,
-  dismissOnboarding,
+  completeGuideBranch,
   loadUserPrefs,
+  markFeedbackPromptSeen,
   rememberCruxToken,
   rememberDisplayName,
   rememberKilterCredentials,
   rememberLastProvider,
   rememberRoomVisit,
   resolveHostRoomNameTemplate,
-  resetOnboardingPrefs,
+  resetGuides,
+  shouldShowFeedbackPrompt,
 } from "@/lib/user-prefs";
-import OnboardingCallout from "@/components/OnboardingCallout";
+import { trackProductEvent } from "@/lib/product-analytics";
+import type { ProviderId } from "@/types";
 import { HeaderNavButton, HeaderNavLink } from "@/components/HeaderNavAction";
 import { Button } from "@/components/ui/button";
 import {
@@ -28,6 +32,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useErrorToast } from "@/hooks/use-toast";
+import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Select,
   SelectContent,
@@ -38,25 +43,49 @@ import {
 import { useProviderCapabilities } from "@/hooks/useProviderCapabilities";
 import {
   getProviderCapability,
+  getProviderLabel,
   getRoomProviderCapabilities,
 } from "@/lib/provider-capabilities";
 import { reportError, reportEvent } from "@/lib/observability";
 
+const HOST_GUIDE_STEPS: CoachMarkStep[] = [
+  {
+    target: '[data-guide="host-room-name"]',
+    title: "Name the session first",
+    description: "Give the room a recognizable name before you send the invite around.",
+  },
+  {
+    target: '[data-guide="host-provider"]',
+    title: "Choose the provider for this room",
+    description: "The host connects one provider account here so everyone else can browse from their phones.",
+  },
+  {
+    target: '[data-guide="host-auth"]',
+    title: "Authenticate on this device",
+    description: "This phone or browser becomes the control surface for provider auth and later room management.",
+  },
+  {
+    target: '[data-guide="host-submit"]',
+    title: "Open the room, then pick the surface",
+    description: "After creation, the host chooses the shared board or wall, then shares the invite link or QR code.",
+    placement: "top",
+  },
+];
+
 export default function RoomCreatePage() {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const savedPrefsRef = useRef(loadUserPrefs());
-  const [pendingSoloSeed, setPendingSoloSeed] = useState(
-    () => savedPrefsRef.current.pendingSoloRoomSeed
+  const [prefs, setPrefs] = useState(() => savedPrefsRef.current);
+  const [pendingRoomSeed, setPendingRoomSeed] = useState(
+    () => savedPrefsRef.current.pendingRoomSeed
   );
   const { capabilities, loading: capabilitiesLoading } = useProviderCapabilities();
   const showErrorToast = useErrorToast();
-  const [showOnboarding, setShowOnboarding] = useState(
-    () =>
-      savedPrefsRef.current.settings.autoGuidesEnabled &&
-      !savedPrefsRef.current.onboarding.dismissed
-  );
+  const [showGuide, setShowGuide] = useState(false);
+  const [showFailureFeedback, setShowFailureFeedback] = useState(false);
   const [providerId, setProviderId] = useState<ProviderId>(
-    () => (pendingSoloSeed ? "kilter" : savedPrefsRef.current.lastProviderId || "kilter")
+    () => pendingRoomSeed?.provider_id || savedPrefsRef.current.lastProviderId || "kilter"
   );
   const [roomName, setRoomName] = useState(() =>
     resolveHostRoomNameTemplate(savedPrefsRef.current.hostDefaults.roomNameTemplate)
@@ -89,6 +118,30 @@ export default function RoomCreatePage() {
     }
   }, [roomCapabilities, selectedCapability]);
 
+  useEffect(() => {
+    if (
+      isMobile &&
+      prefs.settings.autoGuidesEnabled &&
+      prefs.guidedTour.activeBranch === "host" &&
+      !prefs.guidedTour.hostCompleted
+    ) {
+      setShowGuide(true);
+    }
+  }, [
+    isMobile,
+    prefs.guidedTour.activeBranch,
+    prefs.guidedTour.hostCompleted,
+    prefs.settings.autoGuidesEnabled,
+  ]);
+
+  useEffect(() => {
+    if (!pendingRoomSeed?.provider_id) {
+      return;
+    }
+
+    setProviderId(pendingRoomSeed.provider_id);
+  }, [pendingRoomSeed?.provider_id]);
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!selectedCapability) {
@@ -97,6 +150,13 @@ export default function RoomCreatePage() {
     setSubmitting(true);
     reportEvent("room.create", "host create room submitted", {
       providerId,
+    });
+    trackProductEvent("room.create.started", {
+      viewerRole: "host",
+      properties: {
+        provider_id: providerId,
+        has_pending_seed: Boolean(pendingRoomSeed),
+      },
     });
 
     try {
@@ -115,6 +175,13 @@ export default function RoomCreatePage() {
       reportEvent("room.create", "host create room succeeded", {
         providerId,
         slug: room.slug,
+      });
+      trackProductEvent("room.create.succeeded", {
+        roomSlug: room.slug,
+        viewerRole: "host",
+        properties: {
+          provider_id: providerId,
+        },
       });
       rememberDisplayName(displayName);
       rememberLastProvider(providerId);
@@ -135,6 +202,13 @@ export default function RoomCreatePage() {
         caughtError,
         "Unable to create the room. Make sure the API server is running and check the backend logs."
       );
+      trackProductEvent("room.create.failed", {
+        viewerRole: "host",
+        properties: {
+          provider_id: providerId,
+          code: typeof details.code === "string" ? details.code : "unknown",
+        },
+      });
       reportError(caughtError, {
         extra: { providerId },
         tags: {
@@ -142,14 +216,66 @@ export default function RoomCreatePage() {
           flow: "room_create",
         },
       });
+      if (shouldShowFeedbackPrompt("room-create-failure")) {
+        setShowFailureFeedback(true);
+      }
       showErrorToast(details.message);
     } finally {
       setSubmitting(false);
     }
   };
 
+  const pendingSeedDescription = pendingRoomSeed
+    ? `${getProviderLabel(pendingRoomSeed.provider_id, capabilities)} plan for ${pendingRoomSeed.surface.name}`
+    : "";
+
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,_rgba(240,253,250,0.95),_rgba(255,255,255,1))] px-6 py-10">
+      <CoachMarkOverlay
+        open={showGuide}
+        steps={HOST_GUIDE_STEPS}
+        onClose={() => {
+          setShowGuide(false);
+          trackProductEvent("onboarding.skipped", {
+            viewerRole: "host",
+            properties: { branch: "host" },
+          });
+        }}
+        onComplete={() => {
+          const nextPrefs = completeGuideBranch("host");
+          savedPrefsRef.current = nextPrefs;
+          setPrefs(nextPrefs);
+          trackProductEvent("onboarding.completed", {
+            viewerRole: "host",
+            properties: { branch: "host" },
+          });
+        }}
+      />
+      <FeedbackPrompt
+        open={showFailureFeedback}
+        title="Was room creation blocked in a useful way?"
+        description="A quick thumbs-up or thumbs-down helps tune provider auth and room setup failures."
+        onClose={() => {
+          const nextPrefs = markFeedbackPromptSeen("room-create-failure");
+          savedPrefsRef.current = nextPrefs;
+          setPrefs(nextPrefs);
+          setShowFailureFeedback(false);
+        }}
+        onSubmit={async ({ sentiment, message }) => {
+          await api.submitFeedback({
+            promptFamily: "room-create-failure",
+            sentiment,
+            message,
+            metadata: {
+              provider_id: providerId,
+            },
+          });
+          const nextPrefs = markFeedbackPromptSeen("room-create-failure");
+          savedPrefsRef.current = nextPrefs;
+          setPrefs(nextPrefs);
+          setShowFailureFeedback(false);
+        }}
+      />
       <div className="mx-auto max-w-2xl">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
           <Button asChild variant="ghost">
@@ -162,8 +288,10 @@ export default function RoomCreatePage() {
             <HeaderNavButton
               type="button"
               onClick={() => {
-                resetOnboardingPrefs();
-                setShowOnboarding(true);
+                const nextPrefs = resetGuides();
+                savedPrefsRef.current = nextPrefs;
+                setPrefs(nextPrefs);
+                setShowGuide(true);
               }}
             >
               Help
@@ -173,47 +301,17 @@ export default function RoomCreatePage() {
           </div>
         </div>
 
-        {showOnboarding ? (
-          <OnboardingCallout
-            title="Host flow: sign in first, then share"
-            description="Authenticate the host account here before the room exists. Once the room opens, you only need to choose the shared board or wall before inviting everyone else."
-            steps={[
-              "Give the room a name so guests can recognize the session when they join.",
-              "Enter the host display name you want guests to see on this device.",
-              "Pick the provider for this room, then enter valid host credentials. Kilter uses username/password, while Crux uses an API token.",
-              "After the room is created, choose the surface, then share the invite link or QR code.",
-            ]}
-            onDismiss={() => {
-              dismissOnboarding();
-              setShowOnboarding(false);
-            }}
-          />
-        ) : null}
-
-        {pendingSoloSeed ? (
+        {pendingRoomSeed ? (
           <div className="mb-5 rounded-2xl border border-teal-200 bg-teal-50/80 px-4 py-4">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div className="space-y-1">
-                <p className="text-sm font-medium text-teal-900">
-                  {pendingSoloSeed.climbs.length > 0
-                    ? "Solo shortlist seed is ready"
-                    : "Solo board context is ready"}
-                </p>
+                <p className="text-sm font-medium text-teal-900">Saved plan seed is ready</p>
                 <p className="text-sm text-teal-900/80">
-                  {pendingSoloSeed.climbs.length > 0 ? (
-                    <>
-                      This room can import {pendingSoloSeed.climbs.length} shortlisted climb
-                      {pendingSoloSeed.climbs.length === 1 ? "" : "s"} after you choose{" "}
-                      {pendingSoloSeed.board_name} at {pendingSoloSeed.angle}
-                      &deg; inside the room.
-                    </>
-                  ) : (
-                    <>
-                      This room will start from {pendingSoloSeed.board_name} at{" "}
-                      {pendingSoloSeed.angle}
-                      &deg; once you choose that shared board inside the room.
-                    </>
-                  )}
+                  <span className="block">{pendingSeedDescription}</span>
+                  This room can start from the saved {pendingRoomSeed.surface.kind} context and
+                  import {pendingRoomSeed.climbs.length} queued climb
+                  {pendingRoomSeed.climbs.length === 1 ? "" : "s"} after you confirm the shared
+                  surface inside the room.
                 </p>
               </div>
               <Button
@@ -221,8 +319,10 @@ export default function RoomCreatePage() {
                 variant="outline"
                 className="border-teal-200 bg-white/80"
                 onClick={() => {
-                  savedPrefsRef.current = clearPendingSoloRoomSeed();
-                  setPendingSoloSeed(undefined);
+                  const nextPrefs = clearPendingSoloRoomSeed();
+                  savedPrefsRef.current = nextPrefs;
+                  setPrefs(nextPrefs);
+                  setPendingRoomSeed(undefined);
                 }}
               >
                 Discard seed
@@ -235,13 +335,18 @@ export default function RoomCreatePage() {
           <CardHeader>
             <CardTitle className="text-3xl">Create a collaborative room</CardTitle>
             <CardDescription className="text-base">
-              Authenticate the host account once before the room opens. Guests join later with a display name and collaborate from their own devices.
+              Authenticate the host account once before the room opens. Hosts and guests can both
+              manage the live session from a phone-first room view after setup.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-2">
-                <label htmlFor="room-name" className="text-sm font-medium">
+                <label
+                  htmlFor="room-name"
+                  className="text-sm font-medium"
+                  data-guide="host-room-name"
+                >
                   Room name
                 </label>
                 <Input
@@ -282,7 +387,7 @@ export default function RoomCreatePage() {
                 </label>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2" data-guide="host-provider">
                 <label htmlFor="provider-select" className="text-sm font-medium">
                   Provider
                 </label>
@@ -304,7 +409,7 @@ export default function RoomCreatePage() {
               </div>
 
               {selectedCapability?.id === "kilter" ? (
-                <div className="grid gap-5 md:grid-cols-2">
+                <div className="grid gap-5 md:grid-cols-2" data-guide="host-auth">
                   {selectedCapability.auth_fields.map((field) => (
                     <div key={field.key} className="space-y-2">
                       <label htmlFor={`provider-${field.key}`} className="text-sm font-medium">
@@ -341,12 +446,13 @@ export default function RoomCreatePage() {
                       Remember Kilter username on this browser
                     </label>
                     <p className="text-xs text-muted-foreground">
-                      Stores the username and this preference locally. You still enter the password each time.
+                      Stores the username and this preference locally. You still enter the password
+                      each time.
                     </p>
                   </div>
                 </div>
               ) : selectedCapability ? (
-                <div className="space-y-2">
+                <div className="space-y-2" data-guide="host-auth">
                   {selectedCapability.auth_fields.map((field) => (
                     <div key={field.key} className="space-y-2">
                       <label htmlFor={`provider-${field.key}`} className="text-sm font-medium">
@@ -415,6 +521,7 @@ export default function RoomCreatePage() {
               <Button
                 type="submit"
                 className="w-full"
+                data-guide="host-submit"
                 disabled={submitting || capabilitiesLoading || !selectedCapability}
               >
                 {submitting ? "Authenticating host..." : "Authenticate and create room"}

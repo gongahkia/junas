@@ -11,6 +11,9 @@ export function trackProductEvent(
   }
 ) {
   reportEvent("product", eventName, payload?.properties);
+  if (typeof api.recordAnalyticsEvent !== "function") {
+    return;
+  }
   void api
     .recordAnalyticsEvent({
       roomSlug: payload?.roomSlug,
