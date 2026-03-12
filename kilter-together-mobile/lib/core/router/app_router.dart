@@ -66,6 +66,13 @@ GoRouter buildAppRouter() {
         builder: (BuildContext context, GoRouterState state) {
           return SoloBoardScreen(
             boardId: state.pathParameters['boardId'] ?? '',
+            initialServer: state.uri.queryParameters['server'],
+            initialAngle: int.tryParse(state.uri.queryParameters['angle'] ?? ''),
+            initialSort: state.uri.queryParameters['sort'],
+            initialQuery: state.uri.queryParameters['q'],
+            initialSetter: state.uri.queryParameters['setter'],
+            initialGrade: state.uri.queryParameters['grade'],
+            initialClimbUuid: state.uri.queryParameters['climb'],
           );
         },
       ),
@@ -75,6 +82,7 @@ GoRouter buildAppRouter() {
         builder: (BuildContext context, GoRouterState state) {
           return ProviderSoloScreen(
             providerId: state.pathParameters['providerId'] ?? '',
+            initialServer: state.uri.queryParameters['server'],
           );
         },
       ),
