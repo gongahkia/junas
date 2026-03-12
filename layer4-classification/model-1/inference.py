@@ -2,7 +2,7 @@ import sys
 import os
 import json
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
-from config import get_config_val
+from configs.runtime import get_config_val
 import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from dataclasses import dataclass

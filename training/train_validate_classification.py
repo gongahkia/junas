@@ -21,7 +21,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score, classification_report
 
-ROOT = Path(__file__).parent
+ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "docs" / "json"
 SEED = 42
 TEST_SIZE = 0.2

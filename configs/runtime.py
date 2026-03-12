@@ -1,10 +1,12 @@
 import os
+from pathlib import Path
 try:
     import tomllib
 except ImportError:
     import tomli as tomllib
 
-CONFIG_PATH = os.environ.get("NOUPE_CONFIG", os.path.join(os.path.dirname(__file__), "config.toml"))
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+CONFIG_PATH = os.environ.get("NOUPE_CONFIG", str(PROJECT_ROOT / "config.toml"))
 
 def load_config():
     if os.path.exists(CONFIG_PATH):

@@ -117,7 +117,7 @@ class MosaicAggregator:
 
     @classmethod
     def load(cls):
-        from config import get_config_val
+        from configs.runtime import get_config_val
 
         ttl_hours = get_config_val("mosaic", "ttl_hours", "MOSAIC_TTL_HOURS", "24", float)
         threshold = get_config_val("mosaic", "threshold", "MOSAIC_THRESHOLD", "10", int)

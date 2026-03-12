@@ -43,7 +43,7 @@ from backend.schemas import (  # noqa: E402
     ReadyResponse,
     RegressionResponse,
 )
-from config import _cfg  # noqa: E402
+from configs.runtime import _cfg  # noqa: E402
 from helper.determinism import configure_determinism  # noqa: E402
 
 logger = logging.getLogger("noupe.backend")

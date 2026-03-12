@@ -5,7 +5,7 @@ import json
 import logging
 import spacy
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-from config import get_config_val, _cfg
+from configs.runtime import get_config_val, _cfg
 from dataclasses import dataclass, field
 from presidio_analyzer import AnalyzerEngine, PatternRecognizer, Pattern, RecognizerRegistry
 from presidio_analyzer.predefined_recognizers import CreditCardRecognizer, EmailRecognizer, IbanRecognizer, PhoneRecognizer

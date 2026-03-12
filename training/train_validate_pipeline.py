@@ -43,7 +43,7 @@ import numpy as np
 from sklearn.metrics import classification_report, f1_score
 from sklearn.model_selection import train_test_split
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "docs" / "json"
 LABELS = ["SAFE", "LOW_RISK", "HIGH_RISK"]
 FEATURE_COLUMNS = [
@@ -347,7 +347,7 @@ def load_documents(data_dir: Path) -> list[dict[str, Any]]:
 
 
 def split_documents(documents: list[dict[str, Any]], test_size: float, seed: int) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    """Mirror train_validate_classification.py split behavior exactly."""
+    """Mirror training/train_validate_classification.py split behavior exactly."""
     if len(documents) < 2:
         raise PipelineError(f"Need at least 2 documents to split, found {len(documents)}")
 

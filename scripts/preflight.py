@@ -235,7 +235,7 @@ def main() -> int:
     if artifact_warnings:
         print("next_steps:")
         print("  - Full pipeline artifacts are not present in this checkout.")
-        print("  - Generate them with: python3 train_validate_pipeline.py")
+        print("  - Generate them with: python3 training/train_validate_pipeline.py")
         print("  - Or run a minimal lexicon-only server with: PIPELINE_LAYERS=lexicon uvicorn backend.main:app --reload")
 
     if args.strict and warnings:

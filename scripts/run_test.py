@@ -2,10 +2,13 @@ import json
 import urllib.request
 import urllib.error
 import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
 
 def run_tests():
     try:
-        with open("test.json", "r") as f:
+        with open(ROOT / "test.json", "r", encoding="utf-8") as f:
             tests = json.load(f)
     except Exception as e:
         print(f"Failed to load test.json: {e}")

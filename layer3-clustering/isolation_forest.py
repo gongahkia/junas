@@ -23,7 +23,7 @@ import os
 import numpy as np
 import joblib
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-from config import get_config_val
+from configs.runtime import get_config_val
 from sklearn.ensemble import IsolationForest
 
 CHECKPOINT_DIR = os.path.join(os.path.dirname(__file__), "checkpoints")

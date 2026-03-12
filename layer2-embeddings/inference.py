@@ -4,7 +4,7 @@ import hashlib
 from collections import OrderedDict
 from threading import Lock
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-from config import get_config_val
+from configs.runtime import get_config_val
 from sentence_transformers import SentenceTransformer
 import numpy as np
 

@@ -145,7 +145,13 @@ Useful production launcher env vars:
 If model and clustering checkpoints are missing, generate repo-local runtime artifacts with:
 
 ```sh
-python3 train_validate_pipeline.py
+python3 training/train_validate_pipeline.py
+```
+
+Interactive training launcher:
+
+```sh
+python3 training/train_dev.py
 ```
 
 If you only need a minimal local server without trained artifacts, you can run lexicon-only mode:
