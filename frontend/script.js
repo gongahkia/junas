@@ -49,14 +49,14 @@ const DIAGRAM_EDGES = [
     { key: "regression_output", from: "Reg", to: "Out", label: "Final score" },
 ];
 const EDGE_STYLE_BY_KIND = {
-    success: "stroke:#16a34a,stroke-width:3px,color:#166534;",
-    warning: "stroke:#d97706,stroke-width:3px,color:#92400e;",
-    danger: "stroke:#dc2626,stroke-width:3px,color:#991b1b;",
-    waiting: "stroke:#60a5fa,stroke-width:2.5px,color:#1d4ed8;",
-    skipped: "stroke:#9ca3af,stroke-width:1.5px,stroke-dasharray: 6 4,color:#6b7280;",
-    inactive: "stroke:#d1d5db,stroke-width:1.5px,stroke-dasharray: 4 4,color:#9ca3af;",
-    unavailable: "stroke:#fb7185,stroke-width:2.5px,stroke-dasharray: 6 4,color:#be123c;",
-    neutral: "stroke:#4b5563,stroke-width:1.5px,color:#374151;",
+    success: "stroke:#16a34a,stroke-width:3px;",
+    warning: "stroke:#d97706,stroke-width:3px;",
+    danger: "stroke:#dc2626,stroke-width:3px;",
+    waiting: "stroke:#60a5fa,stroke-width:2.5px;",
+    skipped: "stroke:#9ca3af,stroke-width:1.5px;",
+    inactive: "stroke:#d1d5db,stroke-width:1.5px;",
+    unavailable: "stroke:#fb7185,stroke-width:2.5px;",
+    neutral: "stroke:#4b5563,stroke-width:1.5px;",
 };
 
 let latestReadyState = null;
@@ -692,6 +692,10 @@ function buildNodeLabel(layer, state) {
     return `${LAYER_META[layer].title}<br/>${escapeHtml(state.summary)}${state.detail ? `<br/>${escapeHtml(state.detail)}` : ""}`;
 }
 
+function escapeMermaidLabel(value) {
+    return String(value || "").replace(/"/g, '\\"');
+}
+
 function nodeIdToLayer(nodeId) {
     return NODE_LAYER_BY_ID[nodeId] || null;
 }
@@ -1048,8 +1052,11 @@ async function renderArchitectureDiagram(responseData) {
     const finalState = getFinalOutputState(traceContext);
     const edgeStates = buildEdgeStateMap(traceContext, nodeStates, finalState);
     const edgeLines = DIAGRAM_EDGES.map((edge) => {
-        const connector = edge.dashed ? "-.->" : "-->";
-        return `    ${edge.from} ${connector}|"${edge.label}"| ${edge.to}`;
+        const label = escapeMermaidLabel(edge.label);
+        if (edge.dashed) {
+            return `    ${edge.from} -. "${label}" .-> ${edge.to}`;
+        }
+        return `    ${edge.from} -- "${label}" --> ${edge.to}`;
     }).join("\n");
     const linkStyles = DIAGRAM_EDGES.map((edge, index) => {
         const style = EDGE_STYLE_BY_KIND[edgeStates[edge.key].kind] || EDGE_STYLE_BY_KIND.neutral;
