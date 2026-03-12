@@ -110,7 +110,7 @@ class _ActionCard extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: <Color>[
-              accent.withOpacity(0.14),
+              accent.withValues(alpha: 0.14),
               Colors.white,
             ],
           ),

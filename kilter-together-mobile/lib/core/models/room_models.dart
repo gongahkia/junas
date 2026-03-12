@@ -1,4 +1,3 @@
-import 'product_models.dart';
 import 'provider_models.dart';
 import 'session_models.dart';
 

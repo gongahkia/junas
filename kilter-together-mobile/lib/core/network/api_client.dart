@@ -5,7 +5,6 @@ import '../models/board_models.dart';
 import '../models/product_models.dart';
 import '../models/provider_models.dart';
 import '../models/room_models.dart';
-import '../models/session_models.dart';
 
 final Provider<ApiClient> apiClientProvider = Provider<ApiClient>((Ref ref) {
   return ApiClient();

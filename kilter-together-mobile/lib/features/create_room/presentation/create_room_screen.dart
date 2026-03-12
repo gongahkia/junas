@@ -200,7 +200,7 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
-                value: _selectedProviderId,
+                initialValue: _selectedProviderId,
                 decoration: const InputDecoration(labelText: 'Provider'),
                 items: _capabilities
                     .map(
@@ -256,4 +256,3 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
     );
   }
 }
-

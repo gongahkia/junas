@@ -11,6 +11,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import '../../../core/deep_links/invite_links.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/room_models.dart';
+import '../../../core/models/session_models.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/provider_secret_repository.dart';
@@ -98,11 +99,9 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       _shareBusy = true;
     });
     try {
-      await SharePlus.instance.share(
-        ShareParams(
-          title: roomName,
-          text: inviteUri.toString(),
-        ),
+      await Share.share(
+        inviteUri.toString(),
+        subject: roomName,
       );
     } finally {
       if (mounted) {
@@ -448,11 +447,12 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
             onClearVotes: room.permissions.manageSession ? () => unawaited(controller.clearVotes()) : null,
             onCloseRoom: room.permissions.closeRoom
                 ? () async {
+                    final GoRouter router = GoRouter.of(context);
                     await controller.closeRoom();
                     if (!mounted) {
                       return;
                     }
-                    context.goNamed('landing');
+                    router.goNamed('landing');
                   }
                 : null,
           ),
@@ -479,7 +479,7 @@ class _MessageCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(28),
-          border: Border.all(color: accent.withOpacity(0.18)),
+          border: Border.all(color: accent.withValues(alpha: 0.18)),
         ),
         padding: const EdgeInsets.all(18),
         child: Column(
@@ -659,7 +659,7 @@ class _SelfStatusCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             DropdownButtonFormField<String>(
-              value: room.participants
+              initialValue: room.participants
                   .where((Participant item) => item.displayName == room.displayName)
                   .map((Participant item) => item.status)
                   .firstOrNull,
@@ -744,7 +744,7 @@ class _SurfaceCard extends StatelessWidget {
             const SizedBox(height: 16),
             if (kilter) ...<Widget>[
               DropdownButtonFormField<String>(
-                value: roomState.selectedParentSurfaceId.isEmpty ? null : roomState.selectedParentSurfaceId,
+                initialValue: roomState.selectedParentSurfaceId.isEmpty ? null : roomState.selectedParentSurfaceId,
                 decoration: const InputDecoration(labelText: 'Board'),
                 items: roomState.parentSurfaces
                     .map(
@@ -758,7 +758,7 @@ class _SurfaceCard extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField<int>(
-                value: roomState.selectedAngle,
+                initialValue: roomState.selectedAngle,
                 decoration: const InputDecoration(labelText: 'Board angle'),
                 items: _kilterAngleOptions
                     .map(
@@ -772,7 +772,7 @@ class _SurfaceCard extends StatelessWidget {
               ),
             ] else ...<Widget>[
               DropdownButtonFormField<String>(
-                value: roomState.selectedParentSurfaceId.isEmpty ? null : roomState.selectedParentSurfaceId,
+                initialValue: roomState.selectedParentSurfaceId.isEmpty ? null : roomState.selectedParentSurfaceId,
                 decoration: const InputDecoration(labelText: 'Gym'),
                 items: roomState.parentSurfaces
                     .map(
@@ -786,7 +786,7 @@ class _SurfaceCard extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
-                value: roomState.selectedChildSurfaceId.isEmpty ? null : roomState.selectedChildSurfaceId,
+                initialValue: roomState.selectedChildSurfaceId.isEmpty ? null : roomState.selectedChildSurfaceId,
                 decoration: const InputDecoration(labelText: 'Wall'),
                 items: roomState.childSurfaces
                     .map(
@@ -902,7 +902,7 @@ class _CatalogCard extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             DropdownButtonFormField<String>(
-              value: roomState.catalogSort,
+              initialValue: roomState.catalogSort,
               decoration: const InputDecoration(labelText: 'Sort'),
               items: sortOptions
                   .map(
@@ -1072,7 +1072,7 @@ class _QueueCard extends StatelessWidget {
                               SizedBox(
                                 width: 180,
                                 child: DropdownButtonFormField<String>(
-                                  value: entry.status,
+                                  initialValue: entry.status,
                                   decoration: const InputDecoration(labelText: 'Status'),
                                   items: queueStatuses
                                       .map(
@@ -1304,7 +1304,7 @@ class _ParticipantsCard extends StatelessWidget {
                       if (room.permissions.assignCoHosts && participant.role != 'host') ...<Widget>[
                         const SizedBox(height: 12),
                         DropdownButtonFormField<String>(
-                          value: participant.role == 'co_host' ? 'co_host' : 'participant',
+                          initialValue: participant.role == 'co_host' ? 'co_host' : 'participant',
                           decoration: const InputDecoration(labelText: 'Role'),
                           items: const <DropdownMenuItem<String>>[
                             DropdownMenuItem<String>(
@@ -1388,7 +1388,7 @@ class _ManageRoomCard extends StatelessWidget {
               ),
             const SizedBox(height: 12),
             DropdownButtonFormField<String>(
-              value: room.assistant.mode,
+              initialValue: room.assistant.mode,
               decoration: const InputDecoration(labelText: 'Assistant mode'),
               items: assistantModes
                   .map(

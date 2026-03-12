@@ -134,8 +134,7 @@ class RoomViewState {
   }
 }
 
-final StateNotifierProvider.autoDispose
-    .family<RoomController, RoomViewState, RoomRouteArgs> roomControllerProvider =
+final roomControllerProvider =
     StateNotifierProvider.autoDispose.family<RoomController, RoomViewState, RoomRouteArgs>(
   (Ref ref, RoomRouteArgs args) {
     return RoomController(
