@@ -8,6 +8,7 @@ import LoadingSlideshow from "@/components/LoadingSlideshow";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useErrorToast } from "@/hooks/use-toast";
+import { copyTextToClipboard, isShareAbortError } from "@/lib/clipboard";
 import { trackProductEvent } from "@/lib/product-analytics";
 import {
   beginRoomSeed,
@@ -117,14 +118,21 @@ export default function RoomRecapPage() {
                   properties: { share_id: recap.share_id },
                 });
                 const url = typeof window !== "undefined" ? window.location.href : "";
-                if (navigator.share) {
-                  await navigator.share({
-                    title: recap.room_name || `Room ${recap.room_slug}`,
-                    url,
-                  });
-                  return;
+                try {
+                  if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+                    await navigator.share({
+                      title: recap.room_name || `Room ${recap.room_slug}`,
+                      url,
+                    });
+                    return;
+                  }
+                  await copyTextToClipboard(url);
+                } catch (caughtError) {
+                  if (isShareAbortError(caughtError)) {
+                    return;
+                  }
+                  showErrorToast("Unable to share or copy this recap link.");
                 }
-                await navigator.clipboard.writeText(url);
               }}
             >
               <Share2 className="mr-2 h-4 w-4" />

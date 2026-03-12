@@ -7,6 +7,7 @@ import LoadingSlideshow from "@/components/LoadingSlideshow";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useErrorToast } from "@/hooks/use-toast";
+import { copyTextToClipboard, isShareAbortError } from "@/lib/clipboard";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { beginRoomSeed } from "@/lib/user-prefs";
 import type { SoloPlanSnapshot } from "@/types";
@@ -96,14 +97,24 @@ export default function SoloPlanPage() {
                 properties: { share_id: plan.share_id },
               });
               const url = typeof window !== "undefined" ? window.location.href : "";
-              if (navigator.share) {
-                await navigator.share({
-                  title: plan.title,
-                  url,
-                });
-                return;
+              try {
+                if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+                  try {
+                    await navigator.share({
+                      title: plan.title,
+                      url,
+                    });
+                    return;
+                  } catch (caughtError) {
+                    if (isShareAbortError(caughtError)) {
+                      return;
+                    }
+                  }
+                }
+                await copyTextToClipboard(url);
+              } catch (caughtError) {
+                showErrorToast("Unable to share or copy this solo plan link.");
               }
-              await navigator.clipboard.writeText(url);
             }}
           >
             <Share2 className="mr-2 h-4 w-4" />

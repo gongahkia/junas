@@ -29,6 +29,7 @@ import type {
   QueueStatus,
   RoomSnapshot,
 } from "@/types";
+import { copyTextToClipboard, isShareAbortError } from "@/lib/clipboard";
 import { DEFAULT_ANGLE, normalizeSort } from "@/lib/climbs";
 import { getApiErrorMessage } from "@/lib/api-errors";
 import { buildInviteLink } from "@/lib/room-links";
@@ -70,6 +71,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { SecretInput } from "@/components/ui/secret-input";
 import { useErrorToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
@@ -1106,33 +1108,35 @@ export default function RoomView() {
   };
 
   const copyInviteLink = async () => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const inviteLink = `${window.location.origin}/join/${slug}`;
     try {
-      if (isMobile && navigator.share) {
-        await navigator.share({
-          title: snapshot?.room_name || "Join climbing room",
-          url: inviteLink,
-        });
-        trackProductEvent("room.share", {
-          roomSlug: slug,
-          viewerRole: canManageSession ? "host" : "guest",
-          properties: {
-            method: "navigator_share",
-          },
-        });
-        return;
+      if (isMobile && typeof navigator !== "undefined" && typeof navigator.share === "function") {
+        try {
+          await navigator.share({
+            title: snapshot?.room_name || "Join climbing room",
+            url: inviteLink,
+          });
+          trackProductEvent("room.share", {
+            roomSlug: slug,
+            viewerRole: canManageSession ? "host" : "guest",
+            properties: {
+              method: "navigator_share",
+            },
+          });
+          return;
+        } catch (caughtError) {
+          if (isShareAbortError(caughtError)) {
+            return;
+          }
+        }
       }
-      await navigator.clipboard.writeText(inviteLink);
+
+      const method = await copyTextToClipboard(inviteLink);
       setCopiedInvite(true);
       trackProductEvent("room.share", {
         roomSlug: slug,
         viewerRole: canManageSession ? "host" : "guest",
         properties: {
-          method: "clipboard",
+          method,
         },
       });
     } catch (caughtError) {
@@ -1396,29 +1400,6 @@ export default function RoomView() {
         snapshot.surface?.parent_id ||
         "Choose a gym"
       : null;
-  const roomSummaryItems: DetailGridItem[] = [
-    {
-      label: "Room slug",
-      value: snapshot.slug,
-      valueClassName: "break-all",
-    },
-    {
-      label: "Signed in as",
-      value: snapshot.display_name || "guest",
-    },
-    {
-      label: "Shared surface",
-      value: snapshot.surface?.name ?? (canManageSurface ? "Not selected yet" : "Waiting for host"),
-    },
-    {
-      label: "Current climb",
-      value: snapshot.current_climb?.name ?? "Nothing live yet",
-    },
-    {
-      label: "Readiness",
-      value: `${readinessCounts.ready} ready · ${readinessCounts.resting} resting · ${readinessCounts.away} away`,
-    },
-  ];
   const surfaceSummaryItems: DetailGridItem[] = [
     {
       label: "Provider",
@@ -1449,6 +1430,11 @@ export default function RoomView() {
     canManageSession && snapshot.connection.connected && Boolean(snapshot.surface);
   const canShareInvite =
     typeof navigator !== "undefined" && typeof navigator.share === "function";
+  const invitePath = `/join/${slug}`;
+  const signedInAs = snapshot.display_name || "guest";
+  const sharedSurfaceLabel =
+    snapshot.surface?.name ?? (canManageSurface ? "Not selected yet" : "Waiting for host");
+  const currentClimbLabel = snapshot.current_climb?.name ?? "Nothing live yet";
   const guideSteps = canManageSession ? HOST_ROOM_GUIDE_STEPS : GUEST_ROOM_GUIDE_STEPS;
   const roomActionRail = canManageSession
     ? [
@@ -1541,44 +1527,96 @@ export default function RoomView() {
                   Assistant {snapshot.assistant.mode}
                 </Badge>
               </div>
-              {roomReadyToShare ? (
-                <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
-                  Room ready to share. The provider is connected, the surface is selected, and guests can join from the invite link or QR code.
-                </div>
-              ) : null}
-              <DetailGrid items={roomSummaryItems} className="lg:grid-cols-3 2xl:grid-cols-5" />
-              <div className="rounded-2xl border bg-muted/20 px-4 py-3">
-                <div className="space-y-3">
-                  <div className="space-y-1">
-                    <p className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
-                      Live participants
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {liveParticipants.length > 0
-                        ? `${liveParticipants.length} currently online`
-                        : "No participants are currently online."}
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {liveParticipants.length > 0 ? (
-                      liveParticipants.map((participant) => (
-                        <Badge
-                          key={participant.id}
-                          variant="outline"
-                          className="gap-2 rounded-full px-3 py-1 text-sm"
-                        >
-                          <span className="h-2 w-2 rounded-full bg-emerald-500" aria-hidden />
-                          <span>{participant.display_name}</span>
-                          <span className="text-xs text-muted-foreground">
-                            {participant.status}
-                          </span>
-                        </Badge>
-                      ))
-                    ) : (
-                      <Badge variant="outline" className="rounded-full px-3 py-1 text-sm">
-                        Waiting for guests
+              <div className="rounded-2xl border bg-white/75 px-4 py-4">
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div className="space-y-1">
+                      <p className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+                        Room overview
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {roomReadyToShare
+                          ? "Ready to share with guests."
+                          : canManageSurface
+                            ? "Connect the provider and choose a surface to finish setup."
+                            : "Waiting for the host to finish room setup."}
+                      </p>
+                    </div>
+                    {roomReadyToShare ? (
+                      <Badge
+                        variant="outline"
+                        className="rounded-full border-emerald-200 bg-emerald-50 px-3 py-1 text-emerald-800"
+                      >
+                        Ready to share
                       </Badge>
-                    )}
+                    ) : null}
+                  </div>
+
+                  <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2 xl:grid-cols-4">
+                    <div className="space-y-1">
+                      <p className="text-xs text-muted-foreground">Signed in as</p>
+                      <p className="text-sm font-medium">{signedInAs}</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-xs text-muted-foreground">Shared surface</p>
+                      <p className="text-sm font-medium">{sharedSurfaceLabel}</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-xs text-muted-foreground">Current climb</p>
+                      <p className="text-sm font-medium">{currentClimbLabel}</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-xs text-muted-foreground">Room slug</p>
+                      <p className="break-all font-mono text-sm font-medium">{snapshot.slug}</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 border-t pt-4">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <p className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
+                        Room pulse
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {liveParticipants.length > 0
+                          ? `${liveParticipants.length} online now`
+                          : "No one online yet"}
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge variant="outline" className="rounded-full px-3 py-1">
+                        {readinessCounts.ready} ready
+                      </Badge>
+                      <Badge variant="outline" className="rounded-full px-3 py-1">
+                        {readinessCounts.resting} resting
+                      </Badge>
+                      <Badge variant="outline" className="rounded-full px-3 py-1">
+                        {readinessCounts.away} away
+                      </Badge>
+                      <Badge variant="outline" className="rounded-full px-3 py-1">
+                        {readinessCounts.watching} watching
+                      </Badge>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {liveParticipants.length > 0 ? (
+                        liveParticipants.map((participant) => (
+                          <Badge
+                            key={participant.id}
+                            variant="outline"
+                            className="gap-2 rounded-full px-3 py-1 text-sm"
+                          >
+                            <span className="h-2 w-2 rounded-full bg-emerald-500" aria-hidden />
+                            <span>{participant.display_name}</span>
+                            <span className="text-xs text-muted-foreground">
+                              {participant.status}
+                            </span>
+                          </Badge>
+                        ))
+                      ) : (
+                        <Badge variant="outline" className="rounded-full px-3 py-1 text-sm">
+                          Waiting for guests
+                        </Badge>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1702,25 +1740,56 @@ export default function RoomView() {
                 <HeaderNavLink to="/settings">Settings</HeaderNavLink>
               </div>
               <div
-                className="grid min-w-0 gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start"
+                className="min-w-0"
                 data-guide="room-share"
               >
-                <div className="rounded-2xl border bg-muted/30 px-4 py-3">
-                  <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
-                    Invite link
-                  </p>
-                  <p className="mt-1 break-words text-sm leading-6">{inviteLink}</p>
-                </div>
-                <Button variant="outline" onClick={copyInviteLink}>
-                  {isMobile && canShareInvite ? (
-                    <Share2 className="mr-2 h-4 w-4" />
-                  ) : (
-                    <Copy className="mr-2 h-4 w-4" />
-                  )}
-                  {copiedInvite ? "Copied" : isMobile && canShareInvite ? "Share invite" : "Copy invite"}
-                </Button>
+                <Card className="gap-0 py-0 shadow-none">
+                  <CardContent className="grid gap-4 p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+                    <div className="space-y-3">
+                      <div className="flex flex-wrap items-start justify-between gap-3">
+                        <div className="space-y-1">
+                          <p className="text-sm font-medium">Invite guests</p>
+                          <p className="text-sm text-muted-foreground">
+                            Share the link or let them scan the QR code.
+                          </p>
+                        </div>
+                        <Button size="sm" variant="outline" onClick={copyInviteLink}>
+                          {isMobile && canShareInvite ? (
+                            <Share2 className="mr-2 h-4 w-4" />
+                          ) : (
+                            <Copy className="mr-2 h-4 w-4" />
+                          )}
+                          {copiedInvite
+                            ? "Copied"
+                            : isMobile && canShareInvite
+                              ? "Share invite"
+                              : "Copy invite"}
+                        </Button>
+                      </div>
+                      <div className="grid gap-2 sm:grid-cols-2">
+                        <div className="rounded-xl border bg-muted/20 px-3 py-2.5">
+                          <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+                            Join path
+                          </p>
+                          <p className="mt-1 truncate font-mono text-sm font-medium">
+                            {invitePath}
+                          </p>
+                          <p className="mt-1 truncate text-xs text-muted-foreground">
+                            {inviteLink}
+                          </p>
+                        </div>
+                        <div className="rounded-xl border bg-muted/20 px-3 py-2.5">
+                          <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+                            Room slug
+                          </p>
+                          <p className="mt-1 break-all text-sm font-medium">{snapshot.slug}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <InviteQRCodeCard slug={slug} compact embedded className="sm:items-end" />
+                  </CardContent>
+                </Card>
               </div>
-              <InviteQRCodeCard slug={slug} />
               {canManageSession ? (
                 <Card className="border-dashed bg-white/80 shadow-none">
                   <CardContent className="grid gap-3 p-4">
@@ -1855,9 +1924,8 @@ export default function RoomView() {
                         autoComplete="username"
                         placeholder="Kilter username"
                       />
-                      <Input
+                      <SecretInput
                         ref={kilterPasswordInputRef}
-                        type="password"
                         value={connectionFields.password}
                         onChange={(event) =>
                           setConnectionFields((previousState) => ({
@@ -1890,22 +1958,33 @@ export default function RoomView() {
                     </div>
                   ) : (
                     <div className="space-y-2">
-                      <Input
-                        ref={cruxTokenInputRef}
-                        value={connectionFields.token}
-                        onChange={(event) =>
-                          setConnectionFields((previousState) => ({
-                            ...previousState,
-                            token: event.target.value,
-                          }))
-                        }
-                        autoComplete="off"
-                        placeholder={
-                          snapshot.provider_id === "test"
-                            ? "Test provider token"
-                            : "Crux API token"
-                        }
-                      />
+                      {snapshot.provider_id === "test" ? (
+                        <Input
+                          ref={cruxTokenInputRef}
+                          value={connectionFields.token}
+                          onChange={(event) =>
+                            setConnectionFields((previousState) => ({
+                              ...previousState,
+                              token: event.target.value,
+                            }))
+                          }
+                          autoComplete="off"
+                          placeholder="Test provider token"
+                        />
+                      ) : (
+                        <SecretInput
+                          ref={cruxTokenInputRef}
+                          value={connectionFields.token}
+                          onChange={(event) =>
+                            setConnectionFields((previousState) => ({
+                              ...previousState,
+                              token: event.target.value,
+                            }))
+                          }
+                          autoComplete="off"
+                          placeholder="Crux API token"
+                        />
+                      )}
                       <p className="text-sm text-muted-foreground">
                         {snapshot.provider_id === "test" ? (
                           "Use any non-empty token while the test provider flag is enabled."

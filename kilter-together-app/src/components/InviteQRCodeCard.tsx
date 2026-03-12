@@ -9,12 +9,21 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 interface InviteQRCodeCardProps {
   slug: string;
+  compact?: boolean;
+  embedded?: boolean;
+  className?: string;
 }
 
-export default function InviteQRCodeCard({ slug }: InviteQRCodeCardProps) {
+export default function InviteQRCodeCard({
+  slug,
+  compact = false,
+  embedded = false,
+  className,
+}: InviteQRCodeCardProps) {
   const showErrorToast = useErrorToast();
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState("");
   const [qrUnavailable, setQrUnavailable] = useState(false);
@@ -29,7 +38,7 @@ export default function InviteQRCodeCard({ slug }: InviteQRCodeCardProps) {
         const nextDataUrl = await QRCode.toDataURL(inviteLink, {
           errorCorrectionLevel: "M",
           margin: 1,
-          width: 256,
+          width: compact ? 176 : 256,
           color: {
             dark: "#0f172a",
             light: "#ffffff",
@@ -54,10 +63,51 @@ export default function InviteQRCodeCard({ slug }: InviteQRCodeCardProps) {
     return () => {
       cancelled = true;
     };
-  }, [showErrorToast, slug]);
+  }, [compact, showErrorToast, slug]);
+
+  const qrFrameClassName = compact ? "w-40 rounded-xl p-2.5" : "w-full max-w-56 rounded-2xl p-3";
+  const qrPlaceholderClassName = compact
+    ? "w-40 rounded-xl px-5 text-xs"
+    : "w-full max-w-56 rounded-2xl px-6 text-sm";
+  const qrGraphic = qrCodeDataUrl ? (
+    <img
+      src={qrCodeDataUrl}
+      alt={`QR code invite for room ${slug}`}
+      className={cn("aspect-square w-full border bg-white shadow-sm", qrFrameClassName)}
+    />
+  ) : qrUnavailable ? (
+    <div
+      className={cn(
+        "flex aspect-square w-full items-center justify-center border bg-muted/30 text-center text-muted-foreground",
+        qrPlaceholderClassName
+      )}
+    >
+      QR unavailable on this device.
+    </div>
+  ) : (
+    <div
+      className={cn(
+        "flex aspect-square w-full items-center justify-center border bg-muted/30 text-muted-foreground",
+        qrPlaceholderClassName
+      )}
+    >
+      Generating QR...
+    </div>
+  );
+
+  if (embedded) {
+    return (
+      <div className={cn("flex w-full flex-col items-center gap-2 sm:w-auto", className)}>
+        {qrGraphic}
+        <p className="text-center text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+          Scan to join
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <Card className="h-full">
+    <Card className={cn("h-full", className)}>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-lg">
           <Link2 className="h-4 w-4" />
@@ -68,21 +118,7 @@ export default function InviteQRCodeCard({ slug }: InviteQRCodeCardProps) {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center gap-3">
-        {qrCodeDataUrl ? (
-          <img
-            src={qrCodeDataUrl}
-            alt={`QR code invite for room ${slug}`}
-            className="aspect-square w-full max-w-56 rounded-2xl border bg-white p-3 shadow-sm"
-          />
-        ) : qrUnavailable ? (
-          <div className="flex aspect-square w-full max-w-56 items-center justify-center rounded-2xl border bg-muted/30 px-6 text-center text-sm text-muted-foreground">
-            QR unavailable on this device.
-          </div>
-        ) : (
-          <div className="flex aspect-square w-full max-w-56 items-center justify-center rounded-2xl border bg-muted/30 text-sm text-muted-foreground">
-            Generating QR...
-          </div>
-        )}
+        {qrGraphic}
         <p className="text-center text-xs text-muted-foreground">
           Room slug: <span className="font-medium text-foreground">{slug}</span>
         </p>

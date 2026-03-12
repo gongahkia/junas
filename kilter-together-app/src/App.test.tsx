@@ -1441,6 +1441,26 @@ describe("App routes", () => {
     ).toBeInTheDocument();
   });
 
+  it("lets hosts toggle secret visibility in the create-room auth form", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/new"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    const passwordInput = await screen.findByLabelText("Kilter password");
+    expect(passwordInput).toHaveAttribute("type", "password");
+
+    await user.click(screen.getByRole("button", { name: "Show secret value" }));
+    expect(passwordInput).toHaveAttribute("type", "text");
+
+    await user.click(screen.getByRole("button", { name: "Hide secret value" }));
+    expect(passwordInput).toHaveAttribute("type", "password");
+  });
+
   it("uses saved host defaults when opening the create-room flow", async () => {
     const user = userEvent.setup();
     window.localStorage.setItem(
@@ -2468,6 +2488,34 @@ describe("App routes", () => {
       remember: true,
     });
     expect(storedPrefs.savedCredentials.crux.token).toBeUndefined();
+  });
+
+  it("lets hosts toggle Crux token visibility in the room connect flow", async () => {
+    const user = userEvent.setup();
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue({
+      ...buildRoomSnapshot("connect-room"),
+      provider_id: "crux",
+      connection: {
+        provider_id: "crux",
+        connected: false,
+      },
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/connect-room"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    const tokenInput = await screen.findByPlaceholderText("Crux API token");
+    expect(tokenInput).toHaveAttribute("type", "password");
+
+    await user.click(screen.getByRole("button", { name: "Show secret value" }));
+    expect(tokenInput).toHaveAttribute("type", "text");
+
+    await user.click(screen.getByRole("button", { name: "Hide secret value" }));
+    expect(tokenInput).toHaveAttribute("type", "password");
   });
 
   it("redirects expired room auth back to join with the saved display name", async () => {

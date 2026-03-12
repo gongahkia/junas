@@ -31,6 +31,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { SecretInput } from "@/components/ui/secret-input";
 import { useErrorToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
@@ -415,19 +416,34 @@ export default function RoomCreatePage() {
                       <label htmlFor={`provider-${field.key}`} className="text-sm font-medium">
                         {field.label}
                       </label>
-                      <Input
-                        id={`provider-${field.key}`}
-                        type={field.type === "password" ? "password" : "text"}
-                        value={connectionFields[field.key] ?? ""}
-                        onChange={(event) =>
-                          setConnectionFields((previousState) => ({
-                            ...previousState,
-                            [field.key]: event.target.value,
-                          }))
-                        }
-                        autoComplete={field.autocomplete ?? "off"}
-                        placeholder={field.placeholder}
-                      />
+                      {field.type === "password" ? (
+                        <SecretInput
+                          id={`provider-${field.key}`}
+                          value={connectionFields[field.key] ?? ""}
+                          onChange={(event) =>
+                            setConnectionFields((previousState) => ({
+                              ...previousState,
+                              [field.key]: event.target.value,
+                            }))
+                          }
+                          autoComplete={field.autocomplete ?? "off"}
+                          placeholder={field.placeholder}
+                        />
+                      ) : (
+                        <Input
+                          id={`provider-${field.key}`}
+                          type="text"
+                          value={connectionFields[field.key] ?? ""}
+                          onChange={(event) =>
+                            setConnectionFields((previousState) => ({
+                              ...previousState,
+                              [field.key]: event.target.value,
+                            }))
+                          }
+                          autoComplete={field.autocomplete ?? "off"}
+                          placeholder={field.placeholder}
+                        />
+                      )}
                     </div>
                   ))}
                   <div className="space-y-2 md:col-span-2">
@@ -458,19 +474,34 @@ export default function RoomCreatePage() {
                       <label htmlFor={`provider-${field.key}`} className="text-sm font-medium">
                         {field.label}
                       </label>
-                      <Input
-                        id={`provider-${field.key}`}
-                        type={field.type === "password" ? "password" : "text"}
-                        value={connectionFields[field.key] ?? ""}
-                        onChange={(event) =>
-                          setConnectionFields((previousState) => ({
-                            ...previousState,
-                            [field.key]: event.target.value,
-                          }))
-                        }
-                        autoComplete={field.autocomplete ?? "off"}
-                        placeholder={field.placeholder}
-                      />
+                      {field.type === "password" ? (
+                        <SecretInput
+                          id={`provider-${field.key}`}
+                          value={connectionFields[field.key] ?? ""}
+                          onChange={(event) =>
+                            setConnectionFields((previousState) => ({
+                              ...previousState,
+                              [field.key]: event.target.value,
+                            }))
+                          }
+                          autoComplete={field.autocomplete ?? "off"}
+                          placeholder={field.placeholder}
+                        />
+                      ) : (
+                        <Input
+                          id={`provider-${field.key}`}
+                          type="text"
+                          value={connectionFields[field.key] ?? ""}
+                          onChange={(event) =>
+                            setConnectionFields((previousState) => ({
+                              ...previousState,
+                              [field.key]: event.target.value,
+                            }))
+                          }
+                          autoComplete={field.autocomplete ?? "off"}
+                          placeholder={field.placeholder}
+                        />
+                      )}
                     </div>
                   ))}
                   {selectedCapability.id === "crux" ? (
