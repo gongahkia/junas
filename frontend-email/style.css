@@ -22,10 +22,13 @@
 html,
 body {
     margin: 0;
+    height: 100%;
     min-height: 100%;
 }
 
 body {
+    height: 100dvh;
+    overflow: hidden;
     background: var(--mail-surface);
     color: var(--mail-text);
     font-family: "Segoe UI", "IBM Plex Sans", system-ui, sans-serif;
@@ -490,6 +493,7 @@ textarea {
 .compose-card {
     flex: 1;
     min-height: 0;
+    overflow: hidden;
     margin: 0 18px 0;
     padding: 0 24px 20px;
     display: flex;
@@ -584,8 +588,8 @@ textarea {
 }
 
 .editor-shell {
-    flex: 1;
-    min-height: 0;
+    flex: 0 0 420px;
+    min-height: 420px;
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid var(--mail-line);
@@ -615,10 +619,12 @@ textarea {
 #body-input {
     width: 100%;
     flex: 1;
-    min-height: 360px;
+    min-height: 0;
     resize: none;
     border: 0;
     outline: none;
+    overflow-y: auto;
+    overflow-x: hidden;
     background: #ffffff;
     color: var(--mail-text);
     font-size: 1rem;
@@ -630,6 +636,7 @@ textarea {
     display: flex;
     justify-content: space-between;
     gap: 12px;
+    flex-shrink: 0;
     padding-top: 12px;
     font-size: 0.84rem;
 }
@@ -640,6 +647,7 @@ textarea {
     align-items: center;
     gap: 16px;
     flex-wrap: wrap;
+    flex-shrink: 0;
     margin: 16px 18px 18px;
     padding: 12px 16px;
     border-top: 1px solid var(--mail-line);
