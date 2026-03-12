@@ -19,6 +19,105 @@ def extract_json_objects(text, decoder=json.JSONDecoder()):
         except ValueError:
             pos = match + 1
 
+
+def extract_document_blocks(text):
+    """Extract top-level document blocks from text files with 'Document N:' headers."""
+    header_matches = list(re.finditer(r"(?m)^Document\s+\d+.*$", text))
+    if not header_matches:
+        return []
+
+    blocks = []
+    for idx, match in enumerate(header_matches):
+        block_end = header_matches[idx + 1].start() if idx + 1 < len(header_matches) else len(text)
+        chunk = text[match.end():block_end]
+        brace_index = chunk.find("{")
+        if brace_index == -1:
+            continue
+        blocks.append(chunk[brace_index:].strip())
+    return blocks
+
+
+def repair_text_field_quotes(raw_block):
+    """Escape interior quotes inside text-field values in otherwise JSON-like blocks."""
+    output = []
+    i = 0
+    inside_text_value = False
+    escaped = False
+
+    while i < len(raw_block):
+        if not inside_text_value:
+            if raw_block.startswith('"text"', i):
+                output.append('"text"')
+                i += len('"text"')
+                continue
+
+            if raw_block.startswith(': "', i) and ''.join(output).endswith('"text"'):
+                output.append(': "')
+                i += 3
+                inside_text_value = True
+                escaped = False
+                continue
+
+            output.append(raw_block[i])
+            i += 1
+            continue
+
+        char = raw_block[i]
+        if escaped:
+            output.append(char)
+            escaped = False
+            i += 1
+            continue
+
+        if char == "\\":
+            output.append(char)
+            escaped = True
+            i += 1
+            continue
+
+        if char == '"':
+            j = i + 1
+            while j < len(raw_block) and raw_block[j].isspace():
+                j += 1
+            if j < len(raw_block) and raw_block[j] == ",":
+                output.append(char)
+                inside_text_value = False
+            else:
+                output.append('\\"')
+            i += 1
+            continue
+
+        output.append(char)
+        i += 1
+
+    return ''.join(output)
+
+
+def parse_document_objects(content):
+    """Parse canonical document objects from raw text."""
+    document_blocks = extract_document_blocks(content)
+    parsed_documents = []
+
+    if document_blocks:
+        for idx, block in enumerate(document_blocks):
+            try:
+                parsed_documents.append(json.loads(block))
+                continue
+            except json.JSONDecodeError:
+                repaired = repair_text_field_quotes(block)
+                try:
+                    parsed_documents.append(json.loads(repaired))
+                    print(f"[WARN] Repaired malformed quotes in document block {idx + 1}.")
+                    continue
+                except json.JSONDecodeError as exc:
+                    print(f"[WARN] Skipping malformed document block {idx + 1}: {exc}")
+        return parsed_documents
+
+    return [
+        obj for obj in extract_json_objects(content)
+        if isinstance(obj, dict) and "document_sentence_array" in obj
+    ]
+
 def normalise_document(doc, idx, label_map):
     """Convert mixed raw document formats into the canonical document schema."""
     doc_name = doc.get("document_name", doc.get("document_id", f"document_{idx}"))
@@ -87,10 +186,7 @@ def parse_and_convert(input_file, output_target="docs/json"):
         content = f.read()
 
     from tqdm import tqdm
-    json_objects = [
-        obj for obj in extract_json_objects(content)
-        if isinstance(obj, dict) and "document_sentence_array" in obj
-    ]
+    json_objects = parse_document_objects(content)
     print(f"Found {len(json_objects)} document JSON object(s) in {input_file}.")
 
     label_map = {

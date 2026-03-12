@@ -75,11 +75,7 @@ def load_documents():
 # ---------------------------------------------------------------------------
 
 def split_documents(documents, test_size=TEST_SIZE, seed=SEED):
-    """80/20 train/val split at the document level.
-
-    All sentences from a given JSON file stay together in the same split
-    to avoid data leakage from correlated sentences.
-    """
+    """80/20 train/val split at the logical-document level."""
     if len(documents) < 2:
         raise ValueError(
             f"Need at least 2 documents to split, found {len(documents)}"

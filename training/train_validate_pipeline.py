@@ -315,7 +315,7 @@ def run_stage(
 
 def load_documents(data_dir: Path) -> list[dict[str, Any]]:
     documents: list[dict[str, Any]] = []
-    for doc_index, doc in enumerate(load_documents_from_batches(data_dir)):
+    for doc in load_documents_from_batches(data_dir):
         sentences: list[dict[str, Any]] = []
         for sent in doc["sentences"]:
             text = str(sent.get("text", "")).strip()
