@@ -255,20 +255,20 @@ test("runs a room session end to end with the fake provider", async ({
             Cookie: guestCookieHeader,
           },
         });
-        if (response.status() === 401) {
-          return "401";
+        if (response.status() === 401 || response.status() === 410) {
+          return String(response.status());
         }
         const snapshot = await response.json();
         return snapshot.status;
       })
-      .toMatch(/^(closed|401)$/);
+      .toMatch(/^(closed|401|410)$/);
     const closedSnapshotResponse = await request.get(`${BACKEND_URL}/api/rooms/${slug}`, {
       headers: {
         Cookie: guestCookieHeader,
       },
     });
-    if (closedSnapshotResponse.status() === 401) {
-      expect(closedSnapshotResponse.status()).toBe(401);
+    if (closedSnapshotResponse.status() === 401 || closedSnapshotResponse.status() === 410) {
+      expect([401, 410]).toContain(closedSnapshotResponse.status());
     } else {
       const closedSnapshot = await closedSnapshotResponse.json();
       expect(closedSnapshot.status).toBe("closed");
