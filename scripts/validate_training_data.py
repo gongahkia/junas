@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""validate training data JSON files against TrainingDocument schema."""
+"""Validate training data batch JSON files against the TrainingBatch schema."""
 import sys
 import json
 from pathlib import Path
@@ -7,7 +7,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from pydantic import ValidationError
-from backend.schemas import TrainingDocument
+from backend.schemas import TrainingBatch
 
 def validate_file(path: str) -> bool:
     try:
@@ -16,8 +16,8 @@ def validate_file(path: str) -> bool:
         print(f"[FAIL] {path}: invalid JSON — {e}")
         return False
     try:
-        TrainingDocument.model_validate(raw)
-        print(f"[OK] {path}")
+        batch = TrainingBatch.model_validate(raw)
+        print(f"[OK] {path} ({len(batch.documents)} documents)")
         return True
     except ValidationError as e:
         print(f"[FAIL] {path}:")

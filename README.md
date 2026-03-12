@@ -26,18 +26,24 @@ flowchart TD
     Reg --> Out2["Final Output"]
 ```
 
-## Ingestion schema (for training data)
+## Ingestion schema (for training data batches)
 
 ```json
 {
-    document_creation: DateTime,
-    document_name: String,
-    document_sentence_array: [
+    batch_name: String,
+    batch_creation: DateTime,
+    documents: [
         {
-            "text": String,
-            "label": String,
+            "document_creation": DateTime,
+            "document_name": String,
+            "document_sentence_array": [
+                {
+                    "text": String,
+                    "label": String
+                }
+                // ...
+            ]
         }
-        // ...
     ]
 }
 ```

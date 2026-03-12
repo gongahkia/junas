@@ -2,14 +2,20 @@
 
 Per-layer input/output contracts for the Noupe MNPI pipeline.
 
-## Training Data — `TrainingDocument`
+## Training Data — `TrainingBatch`
 
 ```json
 {
-  "document_creation": "ISO 8601 datetime",
-  "document_name": "string",
-  "document_sentence_array": [
-    {"text": "string", "label": "non|low|high"}
+  "batch_name": "string",
+  "batch_creation": "ISO 8601 datetime",
+  "documents": [
+    {
+      "document_creation": "ISO 8601 datetime",
+      "document_name": "string",
+      "document_sentence_array": [
+        {"text": "string", "label": "non|low|high"}
+      ]
+    }
   ]
 }
 ```
@@ -17,7 +23,7 @@ Per-layer input/output contracts for the Noupe MNPI pipeline.
 Validation entrypoint:
 
 ```sh
-python3 scripts/validate_training_data.py docs/json/*.json
+python3 scripts/validate_training_data.py docs/json/batch*.json
 ```
 
 ## API — `POST /classify`

@@ -1,42 +1,40 @@
 from sentence_transformers import SentenceTransformer
 import numpy as np
-import os
-import json
+from pathlib import Path
 from tqdm import tqdm
 
-# Need to load actual texts from docs/json
+from helper.training_corpus import load_documents_from_batches
+
+# Need to load actual texts from docs/json/batch*.json
 public_texts = []
 violation_texts = []
 all_texts = []  # all sentences regardless of label, for IsolationForest (unknown unknowns detection)
-failed_files = []
+failed_batches = []
 
-json_dir = "docs/json"
-if os.path.exists(json_dir):
-    files = [f for f in os.listdir(json_dir) if f.endswith(".json")]
-    for filename in tqdm(files, desc="Loading JSON documents for embeddings", unit="file"):
-        filepath = os.path.join(json_dir, filename)
-        with open(filepath, 'r', encoding='utf-8') as f:
-            try:
-                data = json.load(f)
-                for sentence in data.get("document_sentence_array", []):
-                    # "non" = public, "low"/"high" = violation
-                    label = sentence.get("label", "").lower()
-                    text = sentence.get("text", "")
-                    if label == "non":
-                        public_texts.append(text)
-                    elif label in ["low", "high"]:
-                        violation_texts.append(text)
-                    if text:
-                        all_texts.append(text)
-            except Exception as e:
-                failed_files.append((filename, str(e)))
-                print(f"[WARN] Skipping malformed JSON file {filename}: {e}")
+data_dir = Path("docs/json")
+try:
+    documents = load_documents_from_batches(data_dir)
+except Exception as e:
+    failed_batches.append((str(data_dir), str(e)))
+    documents = []
+    print(f"[WARN] Failed to load batch corpus from {data_dir}: {e}")
+
+for doc in tqdm(documents, desc="Loading batch documents for embeddings", unit="doc"):
+    for sentence in doc["sentences"]:
+        label = sentence["label"].lower()
+        text = sentence["text"]
+        if label == "non":
+            public_texts.append(text)
+        elif label in ["low", "high"]:
+            violation_texts.append(text)
+        if text:
+            all_texts.append(text)
 
 print(f"Loaded {len(public_texts)} public, {len(violation_texts)} violation, {len(all_texts)} total sentences.")
-if failed_files:
-    print(f"[WARN] {len(failed_files)} file(s) were skipped due to parse errors.")
+if failed_batches:
+    print(f"[WARN] {len(failed_batches)} batch load(s) failed.")
 if not all_texts:
-    raise RuntimeError("No valid sentences found in docs/json; cannot generate embeddings.")
+    raise RuntimeError("No valid sentences found in docs/json/batch*.json; cannot generate embeddings.")
 
 model = SentenceTransformer("all-mpnet-base-v2") # mpnet > MiniLM bc more context-aware; embedding quality is important in our case with downstream models
 
