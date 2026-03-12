@@ -10,7 +10,6 @@ Train/Val Split & F1 Evaluation
 
 import json
 import csv
-import glob
 import os
 import shutil
 import tempfile
@@ -20,6 +19,8 @@ from pathlib import Path
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score, classification_report
+
+from helper.training_corpus import load_documents_from_batches
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "docs" / "json"
@@ -45,30 +46,23 @@ _LABEL_MAP = {
 # ---------------------------------------------------------------------------
 
 def load_documents():
-    """Load JSON documents from docs/json.
+    """Load batch documents from docs/json/batch*.json.
 
     Returns a list of dicts with keys 'path' and 'sentences'.
     Each sentence dict has 'text' (str) and 'label' (str, canonical).
     """
     documents = []
-    for fp in sorted(glob.glob(str(DATA_DIR / "*.json"))):
-        try:
-            with open(fp) as f:
-                doc = json.load(f)
-        except Exception as e:
-            print(f"  [warn] Skipping {fp}: {e}")
-            continue
-
+    for doc in load_documents_from_batches(DATA_DIR):
         sentences = []
-        for s in doc.get("document_sentence_array", []):
-            text = s.get("text", "").strip()
-            raw = s.get("label", "").strip().lower()
+        for s in doc["sentences"]:
+            text = s["text"].strip()
+            raw = s["label"].strip().lower()
             label = _LABEL_MAP.get(raw)
             if text and label:
                 sentences.append({"text": text, "label": label})
 
         if sentences:
-            documents.append({"path": fp, "sentences": sentences})
+            documents.append({"path": doc["path"], "sentences": sentences})
 
     return documents
 
@@ -248,7 +242,7 @@ def main():
     print()
 
     # 1. Load documents
-    print("Loading documents from docs/json ...")
+    print("Loading documents from docs/json/batch*.json ...")
     documents = load_documents()
     total_sentences = sum(len(d["sentences"]) for d in documents)
     print(f"  Loaded {len(documents)} documents ({total_sentences} sentences)")

@@ -43,6 +43,8 @@ import numpy as np
 from sklearn.metrics import classification_report, f1_score
 from sklearn.model_selection import train_test_split
 
+from helper.training_corpus import list_batch_files, load_documents_from_batches
+
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "docs" / "json"
 LABELS = ["SAFE", "LOW_RISK", "HIGH_RISK"]
@@ -184,7 +186,7 @@ def fingerprint_file(path: Path) -> dict[str, Any]:
 
 def build_run_signature(args: argparse.Namespace) -> tuple[str, dict[str, Any]]:
     eval_paths = [Path(p) for p in sorted(glob.glob(str(ROOT / args.eval_config_pattern)))]
-    data_paths = sorted(DATA_DIR.glob("*.json"))
+    data_paths = list_batch_files(DATA_DIR)
 
     payload = {
         "seed": args.seed,
@@ -311,16 +313,9 @@ def run_stage(
 
 def load_documents(data_dir: Path) -> list[dict[str, Any]]:
     documents: list[dict[str, Any]] = []
-    for doc_index, fp in enumerate(sorted(data_dir.glob("*.json"))):
-        try:
-            raw = json.loads(fp.read_text(encoding="utf-8"))
-        except Exception as exc:
-            print(f"  [warn] Skipping {fp}: {exc}")
-            continue
-
-        document_name = str(raw.get("document_name") or fp.stem)
+    for doc_index, doc in enumerate(load_documents_from_batches(data_dir)):
         sentences: list[dict[str, Any]] = []
-        for sent_index, sent in enumerate(raw.get("document_sentence_array", [])):
+        for sent in doc["sentences"]:
             text = str(sent.get("text", "")).strip()
             raw_label = str(sent.get("label", "")).strip().lower()
             label = _LABEL_MAP.get(raw_label)
@@ -329,16 +324,16 @@ def load_documents(data_dir: Path) -> list[dict[str, Any]]:
                     {
                         "text": text,
                         "label": label,
-                        "sentence_index": sent_index,
+                        "sentence_index": sent["sentence_index"],
                     }
                 )
 
         if sentences:
             documents.append(
                 {
-                    "path": str(fp),
-                    "document_name": document_name,
-                    "entity_id": f"doc_{doc_index}",
+                    "path": doc["path"],
+                    "document_name": doc["document_name"],
+                    "entity_id": f"{doc['batch_name']}_doc_{doc_index}",
                     "sentences": sentences,
                 }
             )

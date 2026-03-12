@@ -153,6 +153,12 @@ class TrainingDocument(BaseModel):
     document_name: str
     document_sentence_array: list[TrainingSentence] = Field(..., min_length=1)
 
+
+class TrainingBatch(BaseModel):
+    batch_name: str
+    batch_creation: datetime
+    documents: list[TrainingDocument] = Field(..., min_length=1)
+
 class HealthResponse(BaseModel):
     status: str
     lexicon_loaded: bool
