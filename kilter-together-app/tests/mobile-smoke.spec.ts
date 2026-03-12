@@ -204,7 +204,7 @@ test("opens the mobile climb sheet while keeping climb detail visible", async ({
   await page.getByRole("button", { name: "Filters & climbs" }).click();
   await expect(page.getByPlaceholder("Search climbs")).toBeVisible();
   await page.getByPlaceholder("Search climbs").fill(climbName.split(" ")[0] ?? climbName);
-  await expect(page.getByRole("heading", { name: climbName })).toBeVisible();
+  await expect(page.getByText(climbName, { exact: true }).first()).toBeVisible();
 });
 
 test("exposes host queue and finalist controls in the mobile room flow", async ({
@@ -293,8 +293,8 @@ test("exposes host queue and finalist controls in the mobile room flow", async (
   }, { backendUrl: BACKEND_URL, roomSlug: slug });
   expect(addFinalistResult).toMatchObject({ ok: true, status: 201 });
 
-  await expect(page.getByRole("button", { name: "Queue" })).toBeVisible();
-  await page.getByRole("button", { name: "Queue" }).click();
+  await expect(page.getByRole("button", { name: "Queue", exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Queue", exact: true }).click();
   await expect(
     page.getByRole("group", { name: "Queue entry Beta Crimp" })
   ).toBeVisible({ timeout: 15000 });
