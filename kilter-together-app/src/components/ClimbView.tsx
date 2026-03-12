@@ -457,9 +457,9 @@ export default function ClimbView({
   return (
     <SidebarProvider
       defaultOpen={true}
-      className="bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))]"
+      className="bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.18),_transparent_35%),linear-gradient(135deg,_rgba(255,255,255,0.98),_rgba(240,253,250,0.92))] md:h-[calc(100dvh-5rem)] md:min-h-0"
     >
-      <div className="flex min-h-screen w-full">
+      <div className="flex min-h-screen w-full md:h-full md:min-h-0">
         <Sidebar
           boardName={boardName}
           climbs={climbs}
@@ -493,8 +493,8 @@ export default function ClimbView({
           pageLoading={pageLoading}
         />
 
-        <SidebarInset className="bg-transparent">
-          <div className="flex min-h-screen flex-col px-4 py-5 sm:px-6">
+        <SidebarInset className="bg-transparent md:h-full md:min-h-0 md:overflow-hidden">
+          <div className="flex min-h-screen flex-col px-4 py-5 sm:px-6 md:h-full md:min-h-0 md:overflow-hidden">
             <div className="md:hidden">
               <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
                 <CardHeader className="gap-3">
@@ -546,20 +546,20 @@ export default function ClimbView({
 
             <div className="hidden md:block">
               <Card className="border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
-                <CardHeader className="flex flex-row items-start justify-between gap-4 space-y-0">
+                <CardHeader className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
                   <div className="flex items-start gap-3">
                     <SidebarTrigger className="mt-1" />
                     <div>
                       <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">
                         Solo Kilter Browse
                       </p>
-                      <CardTitle className="mt-3 text-4xl tracking-tight">{boardName}</CardTitle>
-                      <CardDescription className="mt-3 max-w-2xl text-base leading-7">
+                      <CardTitle className="mt-2 text-3xl tracking-tight">{boardName}</CardTitle>
+                      <CardDescription className="mt-2 max-w-2xl text-sm leading-6">
                         Read-only climb scouting with the same local catalog used by rooms. Filter in the sidebar, then inspect the overlay and metadata here.
                       </CardDescription>
                     </div>
                   </div>
-                  <div className="flex flex-wrap items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2 lg:justify-end">
                     <Badge variant="secondary">{angle}°</Badge>
                     <Badge variant="outline">{sort}</Badge>
                     <Badge variant="outline">
@@ -581,6 +581,7 @@ export default function ClimbView({
                     <Button
                       type="button"
                       variant="secondary"
+                      size="sm"
                       onClick={handleSeedRoomFromBoard}
                     >
                       Start room on this board
@@ -589,6 +590,7 @@ export default function ClimbView({
                       <Button
                         type="button"
                         variant="secondary"
+                        size="sm"
                         onClick={handleSeedRoomFromShortlist}
                       >
                         Start room from shortlist
@@ -597,11 +599,12 @@ export default function ClimbView({
                     <Button
                       type="button"
                       variant={savedFilterID ? "secondary" : "outline"}
+                      size="sm"
                       onClick={handleSaveFilterPreset}
                     >
                       {savedFilterID ? "Filter saved" : "Save filter preset"}
                     </Button>
-                    <Button asChild variant="ghost">
+                    <Button asChild variant="ghost" size="sm">
                       <Link to={backPath}>
                         <ChevronLeft className="mr-2 h-4 w-4" />
                         Back
@@ -699,12 +702,12 @@ export default function ClimbView({
               </div>
             </div>
 
-            <div className="order-1 mt-4 min-w-0 flex-1 overflow-auto md:order-none">
-              <Card className="mb-4 hidden border-0 bg-white/88 shadow-lg shadow-teal-950/10 backdrop-blur md:block">
-                <CardHeader className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_auto] lg:items-start">
+            <div className="order-1 mt-4 min-w-0 flex-1 overflow-auto md:order-none md:min-h-0">
+              <Card className="mb-3 hidden border-0 bg-white/88 shadow-lg shadow-teal-950/10 backdrop-blur md:block">
+                <CardHeader className="grid gap-3 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)_auto] lg:items-start">
                   <div>
-                    <CardTitle>Shareable solo plan</CardTitle>
-                    <CardDescription className="mt-2">
+                    <CardTitle className="text-xl">Shareable solo plan</CardTitle>
+                    <CardDescription className="mt-1 text-sm leading-6">
                       Package the current shortlist, board context, and filters into an immutable public plan.
                     </CardDescription>
                   </div>
@@ -718,15 +721,16 @@ export default function ClimbView({
                       value={planNotes}
                       onChange={(event) => setPlanNotes(event.target.value)}
                       placeholder="Optional planning notes"
-                      className="min-h-24 rounded-xl border border-input bg-background px-3 py-2 text-sm shadow-sm outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
+                      className="min-h-16 rounded-xl border border-input bg-background px-3 py-2 text-sm shadow-sm outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
                     />
                   </div>
-                  <div className="flex flex-col items-stretch gap-3 lg:w-52">
+                  <div className="flex flex-col items-stretch gap-2.5 lg:w-52">
                     <Badge variant="outline" className="justify-center">
                       {shortlistForCurrentView.length} climbs in plan
                     </Badge>
                     <Button
                       type="button"
+                      size="sm"
                       variant="outline"
                       disabled={sharingPlan || shortlistForCurrentView.length === 0}
                       onClick={() => void handleSharePlan()}

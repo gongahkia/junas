@@ -71,7 +71,7 @@ export default function ProblemView({
   if (!selectedClimb) {
     return (
       <Card className="h-full border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
-        <CardContent className="flex h-full min-h-[24rem] items-center justify-center text-center text-muted-foreground">
+        <CardContent className="flex h-full min-h-[18rem] items-center justify-center text-center text-muted-foreground lg:min-h-[14rem]">
           <p className="max-w-md text-lg">
             {hasResults
               ? "Select a problem to view details."
@@ -84,7 +84,7 @@ export default function ProblemView({
 
   return (
     <Card className="h-full border-0 bg-white/85 shadow-xl shadow-teal-950/10 backdrop-blur">
-      <CardHeader className="gap-4">
+      <CardHeader className="gap-3 lg:gap-2.5">
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant="secondary">
             {getGradeForAngle(selectedClimb, angle)}
@@ -93,11 +93,11 @@ export default function ProblemView({
           <Badge variant="outline">{selectedClimb.setter_name}</Badge>
         </div>
         <div>
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+          <h2 className="text-3xl font-semibold tracking-tight lg:text-[2.25rem]">
             {selectedClimb.climb_name}
           </h2>
           {selectedClimb.description ? (
-            <CardDescription className="mt-3 max-w-3xl text-base leading-7">
+            <CardDescription className="mt-2 max-w-3xl text-sm leading-6 lg:text-[15px]">
               {selectedClimb.description}
             </CardDescription>
           ) : null}
@@ -106,7 +106,7 @@ export default function ProblemView({
           <button
             type="button"
             onClick={onToggleFavorite}
-            className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition-colors ${
+            className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors ${
               isFavorite
                 ? "border-rose-200 bg-rose-50 text-rose-700"
                 : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
@@ -118,7 +118,7 @@ export default function ProblemView({
           <button
             type="button"
             onClick={onToggleShortlist}
-            className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm transition-colors ${
+            className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors ${
               isShortlisted
                 ? "border-teal-200 bg-teal-50 text-teal-700"
                 : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
@@ -130,8 +130,8 @@ export default function ProblemView({
         </div>
       </CardHeader>
 
-      <CardContent className="grid gap-6">
-        <div className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-2 xl:grid-cols-3">
+      <CardContent className="grid gap-4 lg:gap-5">
+        <div className="grid gap-x-6 gap-y-2.5 text-sm text-muted-foreground sm:grid-cols-2 xl:grid-cols-3">
           <span>Boulder grade: {getGradeForAngle(selectedClimb, angle)}</span>
           <span>
             Route grade: {getRouteGradeForAngle(selectedClimb, angle)}
@@ -142,7 +142,7 @@ export default function ProblemView({
           <span>Board size ID: {selectedClimb.product_size_id}</span>
         </div>
 
-        <div className="flex flex-1 items-center justify-center rounded-3xl border bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.12),_transparent_45%),linear-gradient(180deg,_rgba(255,255,255,0.88),_rgba(240,249,255,0.65))] p-4">
+        <div className="flex items-center justify-center rounded-3xl border bg-[radial-gradient(circle_at_top_left,_rgba(15,118,110,0.12),_transparent_45%),linear-gradient(180deg,_rgba(255,255,255,0.88),_rgba(240,249,255,0.65))] p-3.5 lg:p-3">
           {imageFilenames.length === 0 ? (
             <p className="text-muted-foreground">
               No board images are available for this climb.
@@ -159,6 +159,7 @@ export default function ProblemView({
                 alt: `${selectedClimb.climb_name} board layer ${index + 1}`,
               }))}
               highlightedHolds={selectedClimb.highlighted_holds}
+              maxHeightClassName="max-h-[18rem] sm:max-h-[21rem] lg:max-h-[16rem] xl:max-h-[18rem] 2xl:max-h-[20rem]"
               onLayerError={(filename) =>
                 setFailedImages((previousState) => ({
                   ...previousState,

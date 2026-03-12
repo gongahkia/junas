@@ -38,7 +38,7 @@ export default function RoomRecapPage() {
         if (active) {
           setRecap(nextRecap);
         }
-      } catch (error) {
+      } catch {
         if (active) {
           showErrorToast("Unable to load that session recap right now.");
         }
@@ -120,17 +120,20 @@ export default function RoomRecapPage() {
                 const url = typeof window !== "undefined" ? window.location.href : "";
                 try {
                   if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
-                    await navigator.share({
-                      title: recap.room_name || `Room ${recap.room_slug}`,
-                      url,
-                    });
-                    return;
+                    try {
+                      await navigator.share({
+                        title: recap.room_name || `Room ${recap.room_slug}`,
+                        url,
+                      });
+                      return;
+                    } catch (caughtError) {
+                      if (isShareAbortError(caughtError)) {
+                        return;
+                      }
+                    }
                   }
                   await copyTextToClipboard(url);
-                } catch (caughtError) {
-                  if (isShareAbortError(caughtError)) {
-                    return;
-                  }
+                } catch {
                   showErrorToast("Unable to share or copy this recap link.");
                 }
               }}

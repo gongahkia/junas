@@ -21,6 +21,7 @@ const RoomJoinPage = lazy(() => import("./components/RoomJoinPage"));
 const RoomRecapPage = lazy(() => import("./components/RoomRecapPage"));
 const RoomView = lazy(() => import("./components/RoomView"));
 const SettingsPage = lazy(() => import("./components/SettingsPage"));
+const SoloEntryPage = lazy(() => import("./components/SoloEntryPage"));
 const SoloPlanPage = lazy(() => import("./components/SoloPlanPage"));
 
 function AppContent() {
@@ -37,7 +38,7 @@ function AppContent() {
       location.pathname.startsWith("/rooms/"));
 
   const shouldLoadBoards =
-    location.pathname === "/solo" ||
+    location.pathname === "/solo/kilter" ||
     location.pathname.startsWith("/solo/boards/") ||
     location.pathname.startsWith("/boards/");
 
@@ -98,8 +99,9 @@ function AppContent() {
           <Route path="/rooms/:slug" element={<RoomView />} />
           <Route path="/recaps/:shareId" element={<RoomRecapPage />} />
           <Route path="/plans/:shareId" element={<SoloPlanPage />} />
+          <Route path="/solo" element={<SoloEntryPage />} />
           <Route
-            path="/solo"
+            path="/solo/kilter"
             element={<BoardSelector boards={boards} loading={loading} boardPathPrefix="/solo/boards" />}
           />
           <Route path="/solo/providers/:providerId" element={<ProviderSoloPage />} />
@@ -109,7 +111,7 @@ function AppContent() {
           />
           <Route
             path="/solo/boards/:boardId"
-            element={<ClimbView boards={boards} boardsLoading={loading} backPath="/solo" />}
+            element={<ClimbView boards={boards} boardsLoading={loading} backPath="/solo/kilter" />}
           />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

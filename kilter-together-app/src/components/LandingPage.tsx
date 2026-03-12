@@ -70,12 +70,6 @@ const LANDING_GUIDE_STEPS: CoachMarkStep[] = [
     description: "Guests paste or scan the invite, choose a display name, then vote and queue.",
   },
   {
-    target: '[data-guide="landing-solo-browse"]',
-    title: "Scout first",
-    description: "Solo browse is where you research climbs, shortlist them, and later spin up a room.",
-    placement: "top",
-  },
-  {
     target: '[data-guide="landing-help"]',
     title: "Replay the guide",
     description: "Help reopens this walkthrough any time you need a quick refresher.",
@@ -311,33 +305,6 @@ export default function LandingPage() {
                     </Link>
                   </Button>
                 </form>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-card/90 lg:col-span-2">
-              <CardHeader>
-                <CardTitle>Plan solo, then share</CardTitle>
-                <CardDescription>
-                  Use solo browse to shortlist climbs, create shareable plans, and seed the next room with context already attached.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="w-full justify-between sm:w-auto"
-                  data-guide="landing-solo-browse"
-                >
-                  <Link
-                    to="/solo"
-                    onClick={() => {
-                      trackProductEvent("landing.solo_clicked");
-                    }}
-                  >
-                    Open solo browse
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
               </CardContent>
             </Card>
 

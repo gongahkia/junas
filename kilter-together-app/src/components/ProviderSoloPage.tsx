@@ -647,7 +647,7 @@ export default function ProviderSoloPage() {
             </h1>
           </div>
           <div className="flex items-center gap-2">
-            <HeaderNavLink to="/solo">Kilter solo</HeaderNavLink>
+            <HeaderNavLink to="/solo">Choose provider</HeaderNavLink>
             <HeaderNavLink to="/about">About</HeaderNavLink>
             <HeaderNavLink to="/settings">Settings</HeaderNavLink>
             <HeaderNavLink to="/">Community mode</HeaderNavLink>

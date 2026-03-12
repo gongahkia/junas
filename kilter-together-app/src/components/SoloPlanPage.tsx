@@ -31,7 +31,7 @@ export default function SoloPlanPage() {
         if (active) {
           setPlan(nextPlan);
         }
-      } catch (error) {
+      } catch {
         if (active) {
           showErrorToast("Unable to load that shared solo plan.");
         }
@@ -112,7 +112,7 @@ export default function SoloPlanPage() {
                   }
                 }
                 await copyTextToClipboard(url);
-              } catch (caughtError) {
+              } catch {
                 showErrorToast("Unable to share or copy this solo plan link.");
               }
             }}

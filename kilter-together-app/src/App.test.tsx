@@ -107,6 +107,8 @@ vi.mock("./api", () => ({
 }));
 
 const mockedApi = vi.mocked(api);
+const originalClipboardDescriptor = Object.getOwnPropertyDescriptor(navigator, "clipboard");
+const originalExecCommandDescriptor = Object.getOwnPropertyDescriptor(document, "execCommand");
 const DEFAULT_DISMISSED_GUIDES_PREFS = {
   intro: {
     version: 1,
@@ -215,6 +217,20 @@ describe("App routes", () => {
       },
     ]);
     mockedApi.getRecentSessions.mockResolvedValue([]);
+  });
+
+  afterEach(() => {
+    if (originalClipboardDescriptor) {
+      Object.defineProperty(navigator, "clipboard", originalClipboardDescriptor);
+    } else {
+      Reflect.deleteProperty(navigator, "clipboard");
+    }
+
+    if (originalExecCommandDescriptor) {
+      Object.defineProperty(document, "execCommand", originalExecCommandDescriptor);
+    } else {
+      Reflect.deleteProperty(document, "execCommand");
+    }
   });
 
   it("supports direct board route loads with URL-backed filters", async () => {
@@ -819,6 +835,39 @@ describe("App routes", () => {
     expect(screen.queryByRole("button", { name: /Remove/i })).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Edit surface/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Clear fist bumps/i })).toBeInTheDocument();
+  });
+
+  it("falls back to legacy copy when the invite button cannot use navigator.clipboard", async () => {
+    const user = userEvent.setup();
+    const writeText = vi.fn().mockRejectedValue(new Error("blocked"));
+    const execCommand = vi.fn().mockReturnValue(true);
+
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      value: { writeText },
+    });
+    Object.defineProperty(document, "execCommand", {
+      configurable: true,
+      value: execCommand,
+    });
+
+    mockedApi.getBoards.mockResolvedValue([]);
+    mockedApi.getRoom.mockResolvedValue(buildRoomSnapshot("copy-room"));
+
+    render(
+      <MemoryRouter initialEntries={["/rooms/copy-room"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(
+      await screen.findByRole("heading", { name: "Room copy-room" })
+    ).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Copy invite" }));
+
+    await waitFor(() => expect(execCommand).toHaveBeenCalledWith("copy"));
+    expect(screen.getByRole("button", { name: "Copied" })).toBeInTheDocument();
   });
 
   it("lets room members fist bump queued climbs from the room cards", async () => {
@@ -1644,7 +1693,7 @@ describe("App routes", () => {
     );
   });
 
-  it("shows saved solo favorites and shortlist on the solo landing page", async () => {
+  it("shows saved solo favorites and shortlist on the Kilter solo page", async () => {
     window.localStorage.setItem(
       "kilter-together:user-prefs:v1",
       JSON.stringify({
@@ -1682,7 +1731,7 @@ describe("App routes", () => {
     mockedApi.getBoards.mockResolvedValue([]);
 
     render(
-      <MemoryRouter initialEntries={["/solo"]}>
+      <MemoryRouter initialEntries={["/solo/kilter"]}>
         <App />
       </MemoryRouter>
     );
@@ -1735,7 +1784,7 @@ describe("App routes", () => {
     boardView.unmount();
 
     render(
-      <MemoryRouter initialEntries={["/solo"]}>
+      <MemoryRouter initialEntries={["/solo/kilter"]}>
         <App />
       </MemoryRouter>
     );
@@ -2239,7 +2288,7 @@ describe("App routes", () => {
     expect(await screen.findByText("First-time guide")).toBeInTheDocument();
   });
 
-  it("shows the solo intro dialog only on the first solo visit", async () => {
+  it("shows the solo provider chooser on the first and later visits", async () => {
     mockedApi.getBoards.mockResolvedValue([]);
     window.localStorage.clear();
 
@@ -2249,8 +2298,15 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
-    expect(await screen.findByText("Choose a board")).toBeInTheDocument();
-    expect(screen.getByText("Choose the default angle")).toBeInTheDocument();
+    expect(await screen.findByText("Choose your provider first")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Open Kilter/i })).toHaveAttribute(
+      "href",
+      "/solo/kilter"
+    );
+    expect(screen.getByRole("link", { name: /Open Crux/i })).toHaveAttribute(
+      "href",
+      "/solo/providers/crux"
+    );
     expect(screen.queryByText("First-time guide")).not.toBeInTheDocument();
 
     view.unmount();
@@ -2261,7 +2317,7 @@ describe("App routes", () => {
       </MemoryRouter>
     );
 
-    expect(await screen.findByText("Choose a board")).toBeInTheDocument();
+    expect(await screen.findByText("Choose your provider first")).toBeInTheDocument();
     expect(screen.queryByText("First-time guide")).not.toBeInTheDocument();
   });
 
@@ -2277,7 +2333,7 @@ describe("App routes", () => {
     ]);
 
     render(
-      <MemoryRouter initialEntries={["/solo"]}>
+      <MemoryRouter initialEntries={["/solo/kilter"]}>
         <App />
       </MemoryRouter>
     );

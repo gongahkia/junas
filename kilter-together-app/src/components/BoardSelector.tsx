@@ -111,6 +111,7 @@ export default function BoardSelector({
             >
               Help
             </HeaderNavButton>
+            <HeaderNavLink to="/solo">Choose provider</HeaderNavLink>
             <HeaderNavLink to="/about">About</HeaderNavLink>
             <HeaderNavLink to="/settings">Settings</HeaderNavLink>
             <HeaderNavLink to="/">Community mode</HeaderNavLink>
