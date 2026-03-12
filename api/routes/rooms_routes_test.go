@@ -522,58 +522,41 @@ func TestRoomErrorCodesAndCapabilities(t *testing.T) {
 	}
 }
 
-func TestOperatorStatusRequiresToken(t *testing.T) {
+func TestObservabilityRoutesAreDisabled(t *testing.T) {
 	tempDir := t.TempDir()
 	config.SetRuntimeConfig(config.RuntimeConfig{
 		DataDir:       tempDir,
 		AppDBPath:     filepath.Join(tempDir, "app.db"),
 		AppSecret:     "test-app-secret",
 		EncryptionKey: base64.StdEncoding.EncodeToString(bytes.Repeat([]byte{5}, 32)),
-		OperatorToken: "operator-secret",
 	})
 
 	server := httptest.NewServer(routes.SetupRoutes())
 	defer server.Close()
 
-	unauthorizedRequest, err := http.NewRequest(http.MethodGet, server.URL+"/api/operator/status", nil)
-	if err != nil {
-		t.Fatalf("new operator status request: %v", err)
-	}
-	unauthorizedResponse, err := http.DefaultClient.Do(unauthorizedRequest)
-	if err != nil {
-		t.Fatalf("operator status request: %v", err)
-	}
-	defer unauthorizedResponse.Body.Close()
-	if unauthorizedResponse.StatusCode != http.StatusUnauthorized {
-		t.Fatalf("expected operator status 401 without token, got %d", unauthorizedResponse.StatusCode)
+	testCases := []struct {
+		method string
+		path   string
+	}{
+		{method: http.MethodGet, path: "/api/operator/status"},
+		{method: http.MethodGet, path: "/api/operator/product"},
+		{method: http.MethodGet, path: "/api/metrics"},
+		{method: http.MethodPost, path: "/api/analytics/events"},
 	}
 
-	authorizedRequest, err := http.NewRequest(http.MethodGet, server.URL+"/api/operator/status", nil)
-	if err != nil {
-		t.Fatalf("new authorized operator status request: %v", err)
-	}
-	authorizedRequest.Header.Set("X-Operator-Token", "operator-secret")
-	authorizedResponse, err := http.DefaultClient.Do(authorizedRequest)
-	if err != nil {
-		t.Fatalf("authorized operator status request: %v", err)
-	}
-	defer authorizedResponse.Body.Close()
-	if authorizedResponse.StatusCode != http.StatusOK {
-		t.Fatalf("expected operator status 200 with token, got %d", authorizedResponse.StatusCode)
-	}
-
-	var payload struct {
-		Status        string `json:"status"`
-		GeneratedAt   string `json:"generated_at"`
-		Observability struct {
-			ActiveSSESubscribers int64 `json:"active_sse_subscribers"`
-		} `json:"observability"`
-	}
-	if err := json.NewDecoder(authorizedResponse.Body).Decode(&payload); err != nil {
-		t.Fatalf("decode operator status response: %v", err)
-	}
-	if payload.GeneratedAt == "" {
-		t.Fatalf("expected generated_at in operator status payload, got %#v", payload)
+	for _, tc := range testCases {
+		request, err := http.NewRequest(tc.method, server.URL+tc.path, nil)
+		if err != nil {
+			t.Fatalf("new %s %s request: %v", tc.method, tc.path, err)
+		}
+		response, err := http.DefaultClient.Do(request)
+		if err != nil {
+			t.Fatalf("%s %s request: %v", tc.method, tc.path, err)
+		}
+		response.Body.Close()
+		if response.StatusCode != http.StatusNotFound {
+			t.Fatalf("expected %s %s to return 404, got %d", tc.method, tc.path, response.StatusCode)
+		}
 	}
 }
 

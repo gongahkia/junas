@@ -1,18 +1,16 @@
 package routes_test
 
 import (
-	"io"
 	"net/http"
 	"net/http/httptest"
 	"path/filepath"
-	"strings"
 	"testing"
 
 	"github.com/lczm/kilter-together/api/config"
 	"github.com/lczm/kilter-together/api/routes"
 )
 
-func TestHealthAndMetricsRoutes(t *testing.T) {
+func TestHealthRoutesAndDisabledMetrics(t *testing.T) {
 	tempDir := t.TempDir()
 	appDBPath := filepath.Join(tempDir, "app.db")
 	config.SetRuntimeConfig(config.RuntimeConfig{
@@ -47,19 +45,7 @@ func TestHealthAndMetricsRoutes(t *testing.T) {
 	if err != nil {
 		t.Fatalf("get metrics: %v", err)
 	}
-	if metricsResponse.StatusCode != http.StatusOK {
-		t.Fatalf("expected metrics 200, got %d", metricsResponse.StatusCode)
-	}
-
-	bodyBytes, err := io.ReadAll(metricsResponse.Body)
-	if err != nil {
-		t.Fatalf("read metrics body: %v", err)
-	}
-	body := string(bodyBytes)
-	if !strings.Contains(body, "kilter_together_http_requests_total") {
-		t.Fatalf("expected metrics output to include request counter, got %q", body)
-	}
-	if !strings.Contains(body, "kilter_together_runtime_ready") {
-		t.Fatalf("expected metrics output to include runtime readiness gauge, got %q", body)
+	if metricsResponse.StatusCode != http.StatusNotFound {
+		t.Fatalf("expected metrics 404 after observability removal, got %d", metricsResponse.StatusCode)
 	}
 }

@@ -1018,10 +1018,8 @@ func authenticateViewer(r *http.Request, accessMode viewerAccessMode) (*rooms.Vi
 }
 
 func recordProductEvent(r *http.Request, input rooms.AnalyticsEventInput) {
-	if strings.TrimSpace(input.Route) == "" && r != nil {
-		input.Route = r.URL.Path
-	}
-	_ = rooms.DefaultService.RecordAnalyticsEvent(r.Context(), input)
+	_ = r
+	_ = input
 }
 
 func bearerTokenFromRequest(r *http.Request) string {
