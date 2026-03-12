@@ -21,17 +21,19 @@
                 <span></span>
                 <span></span>
             </div>
-            <button class="workspace-pill workspace-pill-brand" type="button" aria-label="Workspace home">N</button>
-            <button class="workspace-pill workspace-pill-active" type="button" aria-label="Current workspace">P</button>
-            <button class="workspace-pill" type="button" aria-label="Secondary workspace">Q</button>
+            <button class="workspace-pill workspace-pill-brand" type="button" aria-label="Workspace home">📸</button>
+            <button class="workspace-pill workspace-pill-active" type="button" aria-label="Current workspace">M</button>
+            <button class="workspace-pill" type="button" aria-label="Secondary workspace">S</button>
             <button class="workspace-pill" type="button" aria-label="Add workspace">+</button>
+            <div class="workspace-spacer"></div>
+            <button class="workspace-pill workspace-pill-mini" type="button" aria-label="Notifications">1</button>
         </aside>
 
         <aside class="channel-sidebar">
             <div class="sidebar-header">
-                <div>
-                    <p class="eyebrow">Noupe Demo</p>
-                    <h1>Acme Inc.</h1>
+                <div class="sidebar-title-row">
+                    <h1>Acme Inc</h1>
+                    <button class="sidebar-icon-button" type="button" aria-label="Sidebar filters">≡</button>
                 </div>
                 <div class="status-pill" id="backend-status">
                     <span class="status-dot"></span>
@@ -40,48 +42,48 @@
             </div>
 
             <div class="sidebar-section">
-                <p class="section-title">Threads</p>
-                <button class="sidebar-link" type="button">All DMs</button>
-                <button class="sidebar-link" type="button">Mentions and reactions</button>
-                <button class="sidebar-link" type="button">File browser</button>
-            </div>
-
-            <div class="sidebar-section">
-                <p class="section-title">Starred</p>
-                <button class="sidebar-link" type="button">triage-pr</button>
-                <button class="sidebar-link" type="button">sales-approvals</button>
+                <button class="sidebar-link" type="button">Unread</button>
+                <button class="sidebar-link" type="button">Threads</button>
+                <button class="sidebar-link" type="button">Drafts and sent</button>
             </div>
 
             <div class="sidebar-section">
                 <p class="section-title">Channels</p>
-                <button class="channel-link" type="button">announcements <span>1</span></button>
-                <button class="channel-link channel-link-active" type="button">proj-new-website</button>
-                <button class="channel-link" type="button">quarterly-planning</button>
+                <button class="channel-link" type="button">announcements</button>
+                <button class="channel-link" type="button">design-crit</button>
+                <button class="channel-link" type="button">media-and-pr <span>1</span></button>
+                <button class="channel-link channel-link-active" type="button">social-media</button>
+                <button class="channel-link" type="button">team-marketing</button>
+            </div>
+
+            <div class="sidebar-section">
+                <p class="section-title">Direct messages</p>
+                <button class="sidebar-link" type="button">Lee Hao <span class="sidebar-badge">2</span></button>
+                <button class="sidebar-link" type="button">Zoe Maxwell</button>
+                <button class="sidebar-link" type="button">Lisa Dawson</button>
             </div>
         </aside>
 
-        <main class="channel-stage">
-            <header class="channel-header">
-                <div>
-                    <p class="channel-title">#proj-new-website</p>
-                    <p class="channel-copy">Mock team channel where every message and DOCX upload is screened before it is posted.</p>
+        <section class="slack-main">
+            <header class="slack-topbar">
+                <div class="topbar-nav">
+                    <span class="topbar-icon">←</span>
+                    <span class="topbar-icon">→</span>
                 </div>
-                <div class="channel-meta">25 members</div>
+                <div class="topbar-search">Search Acme Inc</div>
+                <div class="topbar-nav topbar-nav-right">
+                    <span class="topbar-icon">?</span>
+                    <span class="topbar-icon">−</span>
+                    <span class="topbar-icon">□</span>
+                    <span class="topbar-icon">×</span>
+                </div>
             </header>
 
-            <section class="error-banner hidden" id="error-banner" role="alert"></section>
-            <section class="notice-banner hidden" id="notice-banner"></section>
-
-            <section class="message-stream" id="message-stream" aria-live="polite"></section>
-
-            <section class="composer-shell">
-                <input id="upload-input" type="file"
-                    accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
-
+            <main class="channel-stage">
                 <section class="guard-popup hidden" id="guard-popup" role="alertdialog" aria-labelledby="guard-title"
                     aria-live="assertive">
                     <div class="guard-popup-card">
-                        <button class="guard-dismiss" id="guard-dismiss" type="button" aria-label="Dismiss guardrail notice">x</button>
+                        <button class="guard-dismiss" id="guard-dismiss" type="button" aria-label="Dismiss guardrail notice">×</button>
                         <p class="eyebrow">MNPI guardrail</p>
                         <h3 id="guard-title">Review required</h3>
                         <p class="guard-summary" id="guard-summary"></p>
@@ -93,17 +95,47 @@
                     </div>
                 </section>
 
-                <label class="sr-only" for="message-input">Message</label>
-                <textarea id="message-input" placeholder="Message #proj-new-website"></textarea>
-                <div class="composer-toolbar">
-                    <span id="composer-status">Cmd/Ctrl + Enter sends after screening.</span>
-                    <div class="composer-actions">
-                        <button class="toolbar-button" id="upload-button" type="button">Attach DOCX</button>
-                        <button class="toolbar-button toolbar-button-primary" id="send-button" type="button">Send</button>
+                <header class="channel-header">
+                    <div class="channel-header-main">
+                        <p class="channel-title"># social-media</p>
+                        <p class="channel-copy">Track and coordinate social media</p>
                     </div>
-                </div>
-            </section>
-        </main>
+                    <div class="channel-header-actions">
+                        <span class="channel-avatar-stack">👩🏽 👨🏻 👩🏼</span>
+                        <span class="channel-meta">58</span>
+                    </div>
+                </header>
+
+                <section class="error-banner hidden" id="error-banner" role="alert"></section>
+                <section class="notice-banner hidden" id="notice-banner"></section>
+
+                <section class="message-stream" id="message-stream" aria-live="polite"></section>
+
+                <section class="composer-shell">
+                    <input id="upload-input" type="file"
+                        accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+
+                    <label class="sr-only" for="message-input">Message</label>
+                    <div class="composer-card">
+                        <textarea id="message-input" placeholder="Message #social-media"></textarea>
+                        <div class="composer-toolbar">
+                            <div class="composer-ornaments">
+                                <span class="composer-icon">＋</span>
+                                <span class="composer-icon">☺</span>
+                                <span class="composer-icon">@</span>
+                                <span class="composer-icon">Aa</span>
+                                <span class="composer-icon">🎥</span>
+                            </div>
+                            <span id="composer-status">Cmd/Ctrl + Enter sends after screening.</span>
+                            <div class="composer-actions">
+                                <button class="toolbar-button" id="upload-button" type="button">Attach DOCX</button>
+                                <button class="toolbar-button toolbar-button-primary" id="send-button" type="button">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </section>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/mammoth@1.7.2/mammoth.browser.min.js"></script>

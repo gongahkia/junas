@@ -24,29 +24,29 @@ const newMessageButtonEl = document.getElementById("new-message-button");
 
 const inboxSeed = [
     {
-        sender: "SMU Student Care",
-        subject: "Clear your mind with a short break",
-        preview: "A calm inbox item to contrast with guarded drafts. This list is static except for local sent messages.",
-        time: "5:01 PM",
-        footer: "From the mock inbox",
+        sender: "Amazon WorkMail",
+        subject: "Apply now and get a decision in minutes",
+        preview: "If there are problems with how this message is displayed, click here to view it in a web browser.",
+        time: "6:25 AM",
+        footer: "Current view",
         tagLabel: "Inbox",
         tagClass: ""
     },
     {
-        sender: "SocSc Seminar",
-        subject: "Invite to register for multipolarity lecture",
-        preview: "Use this pane as a visual reference only. Noupe screening happens in the compose surface on the right.",
-        time: "4:42 PM",
-        footer: "Focused view",
+        sender: "Amazing News",
+        subject: "Fastest fat burner",
+        preview: "Exercise not working? Hi kelly, this body copy intentionally mimics a noisy inbox preview.",
+        time: "Sun 9:07 PM",
+        footer: "Yesterday",
         tagLabel: "Inbox",
         tagClass: ""
     },
     {
-        sender: "Career Champions",
-        subject: "Company visit to the analytics lab",
-        preview: "The demo keeps this mailbox intentionally lightweight and local.",
-        time: "2:42 PM",
-        footer: "Preview only",
+        sender: "AMG Selection",
+        subject: "SendBluBox",
+        preview: "Win the AMG GLC63 S value prize. Keep draft review on the right, while the left inbox stays visual only.",
+        time: "Sun 7:23 AM",
+        footer: "Last Week",
         tagLabel: "Inbox",
         tagClass: ""
     }

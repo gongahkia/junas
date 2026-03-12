@@ -14,123 +14,179 @@
 </head>
 
 <body>
-    <div class="mail-shell">
-        <aside class="app-rail">
+    <div class="outlook-app">
+        <header class="outlook-topbar">
             <div class="window-dots" aria-hidden="true">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <button class="rail-button rail-button-active" type="button" aria-label="Mail"></button>
-            <button class="rail-button" type="button" aria-label="Calendar"></button>
-            <button class="rail-button" type="button" aria-label="People"></button>
-            <button class="rail-button" type="button" aria-label="Settings"></button>
-        </aside>
-
-        <aside class="folder-pane">
-            <div class="folder-top">
-                <p class="eyebrow">Noupe Demo</p>
-                <h1>Mail Guard</h1>
-                <p class="folder-copy">A guarded compose surface inspired by desktop email, routed through the same Noupe classifier.</p>
-                <div class="status-pill" id="backend-status">
-                    <span class="status-dot"></span>
-                    <span id="backend-status-text">Checking backend readiness...</span>
-                </div>
-            </div>
-
-            <button class="compose-button" id="new-message-button" type="button">New Email</button>
-
-            <nav class="folder-groups" aria-label="Folders">
-                <div class="folder-section">
-                    <p class="section-title">Favorites</p>
-                    <button class="folder-link folder-link-active" type="button">Inbox <span>578</span></button>
-                    <button class="folder-link" type="button">Drafts <span>12</span></button>
-                    <button class="folder-link" type="button">Sent <span>28</span></button>
-                </div>
-                <div class="folder-section">
-                    <p class="section-title">Saved Searches</p>
-                    <button class="folder-link" type="button">Deal review</button>
-                    <button class="folder-link" type="button">Approval notes</button>
-                </div>
+            <nav class="topbar-tabs" aria-label="Outlook ribbon tabs">
+                <span class="topbar-tab topbar-tab-file">File</span>
+                <span class="topbar-tab">Home</span>
+                <span class="topbar-tab">Send / Receive</span>
+                <span class="topbar-tab">Folder</span>
+                <span class="topbar-tab topbar-tab-active">View</span>
+                <span class="topbar-tab">Help</span>
             </nav>
-        </aside>
+            <div class="topbar-search">Tell me what you want to do</div>
+        </header>
 
-        <section class="message-pane">
-            <div class="message-pane-header">
-                <div>
-                    <p class="eyebrow">Focused Inbox</p>
-                    <h2>Recent mail</h2>
-                </div>
-                <div class="inbox-tabs" aria-hidden="true">
-                    <span class="tab tab-active">Focused</span>
-                    <span class="tab">Other</span>
-                </div>
+        <section class="outlook-ribbon">
+            <div class="ribbon-group">
+                <span class="ribbon-icon">↪</span>
+                <span>Change View</span>
             </div>
-            <div class="mail-list" id="mail-list" aria-live="polite"></div>
+            <div class="ribbon-group">
+                <span class="ribbon-icon">⚙</span>
+                <span>View Settings</span>
+            </div>
+            <div class="ribbon-group">
+                <span class="ribbon-icon">↺</span>
+                <span>Reset View</span>
+            </div>
+            <div class="ribbon-divider"></div>
+            <div class="ribbon-group">
+                <span class="ribbon-icon">☰</span>
+                <span>Folder Pane</span>
+            </div>
+            <div class="ribbon-group">
+                <span class="ribbon-icon">▤</span>
+                <span>Reading Pane</span>
+            </div>
         </section>
 
-        <main class="compose-pane">
-            <input id="upload-input" type="file"
-                accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+        <div class="mail-shell">
+            <aside class="app-rail">
+                <button class="rail-button rail-button-active" type="button" aria-label="Mail">✉</button>
+                <button class="rail-button" type="button" aria-label="Calendar">🗓</button>
+                <button class="rail-button" type="button" aria-label="People">👥</button>
+                <button class="rail-button" type="button" aria-label="More">⋯</button>
+            </aside>
 
-            <section class="guard-popup hidden" id="guard-popup" role="alertdialog" aria-labelledby="guard-title"
-                aria-live="assertive">
-                <div class="guard-popup-card">
-                    <button class="guard-dismiss" id="guard-dismiss" type="button" aria-label="Dismiss guardrail notice">x</button>
-                    <p class="eyebrow">MNPI guardrail</p>
-                    <h3 id="guard-title">Review required</h3>
-                    <p class="guard-summary" id="guard-summary"></p>
-                    <div class="guard-classification" id="guard-classification"></div>
-                    <div class="guard-details" id="guard-details"></div>
-                    <div class="guard-actions hidden" id="guard-actions">
-                        <button class="primary-action" id="guard-confirm" type="button">Proceed anyway</button>
+            <aside class="folder-pane">
+                <div class="folder-top">
+                    <p class="eyebrow">Noupe Demo</p>
+                    <h1>Mail Guard</h1>
+                    <p class="folder-copy">Outlook-style compose, protected by the Noupe classifier before anything is sent.</p>
+                    <div class="status-pill" id="backend-status">
+                        <span class="status-dot"></span>
+                        <span id="backend-status-text">Checking backend readiness...</span>
                     </div>
                 </div>
+
+                <button class="compose-button" id="new-message-button" type="button">New Email</button>
+
+                <nav class="folder-groups" aria-label="Folders">
+                    <div class="folder-section">
+                        <p class="section-title">Favorites</p>
+                        <button class="folder-link" type="button">Unread Mail <span>7</span></button>
+                        <button class="folder-link folder-link-active" type="button">Inbox <span>5</span></button>
+                    </div>
+                    <div class="folder-section">
+                        <p class="section-title">kelly</p>
+                        <button class="folder-link folder-link-active" type="button">Inbox <span>5</span></button>
+                        <button class="folder-link" type="button">Deleted Items <span>3</span></button>
+                        <button class="folder-link" type="button">Drafts <span>3</span></button>
+                        <button class="folder-link" type="button">Sent Items</button>
+                        <button class="folder-link" type="button">Outbox</button>
+                    </div>
+                </nav>
+            </aside>
+
+            <section class="message-pane">
+                <div class="message-pane-toolbar">
+                    <div class="mail-search">Search Current Mailbox</div>
+                    <div class="mail-filter">Current Mailbox</div>
+                </div>
+                <div class="message-pane-header">
+                    <div class="inbox-tabs" aria-hidden="true">
+                        <span class="tab tab-active">All</span>
+                        <span class="tab">Unread</span>
+                    </div>
+                    <div class="mail-sort">By Date ▾</div>
+                </div>
+                <div class="mail-list" id="mail-list" aria-live="polite"></div>
             </section>
 
-            <section class="error-banner hidden" id="error-banner" role="alert"></section>
-            <section class="notice-banner hidden" id="notice-banner"></section>
+            <main class="compose-pane">
+                <input id="upload-input" type="file"
+                    accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
 
-            <section class="compose-card">
-                <div class="mail-field">
-                    <label for="from-input">From</label>
-                    <div class="readonly-field" id="from-input">Noupe Review Desk &lt;review@noupe.demo&gt;</div>
-                </div>
+                <section class="guard-popup hidden" id="guard-popup" role="alertdialog" aria-labelledby="guard-title"
+                    aria-live="assertive">
+                    <div class="guard-popup-card">
+                        <button class="guard-dismiss" id="guard-dismiss" type="button" aria-label="Dismiss guardrail notice">×</button>
+                        <p class="eyebrow">MNPI guardrail</p>
+                        <h3 id="guard-title">Review required</h3>
+                        <p class="guard-summary" id="guard-summary"></p>
+                        <div class="guard-classification" id="guard-classification"></div>
+                        <div class="guard-details" id="guard-details"></div>
+                        <div class="guard-actions hidden" id="guard-actions">
+                            <button class="primary-action" id="guard-confirm" type="button">Proceed anyway</button>
+                        </div>
+                    </div>
+                </section>
 
-                <div class="mail-field">
-                    <label for="to-input">To</label>
-                    <input type="text" id="to-input" placeholder="Add recipients for realism">
-                </div>
+                <section class="error-banner hidden" id="error-banner" role="alert"></section>
+                <section class="notice-banner hidden" id="notice-banner"></section>
 
-                <div class="mail-field">
-                    <label for="subject-input">Subject</label>
-                    <input type="text" id="subject-input" placeholder="Write a subject line">
-                </div>
+                <section class="compose-card">
+                    <div class="compose-header">
+                        <div class="compose-command">Send ▾</div>
+                        <div class="compose-command">Discard</div>
+                        <div class="compose-command">Attach File</div>
+                    </div>
 
-                <div class="attachment-strip" id="attachment-strip">
-                    <div class="attachment-empty">No approved attachments on this draft yet.</div>
-                </div>
+                    <div class="mail-field">
+                        <label for="from-input">From:</label>
+                        <div class="readonly-field" id="from-input">Noupe Review Desk &lt;review@noupe.demo&gt;</div>
+                    </div>
 
-                <div class="editor-shell">
-                    <label class="sr-only" for="body-input">Message body</label>
-                    <textarea id="body-input" placeholder="Draft the email body. Noupe will screen this content before send."></textarea>
-                </div>
+                    <div class="mail-field">
+                        <label for="to-input">To:</label>
+                        <input type="text" id="to-input" placeholder="Add recipients for realism">
+                    </div>
 
-                <div class="compose-footer">
-                    <span id="draft-status">Cmd/Ctrl + Enter sends after screening.</span>
-                    <span id="attachment-status">DOCX only</span>
-                </div>
-            </section>
+                    <div class="mail-field">
+                        <label for="subject-input">Subject:</label>
+                        <input type="text" id="subject-input" placeholder="Write a subject line">
+                    </div>
 
-            <div class="compose-toolbar">
-                <div class="toolbar-group">
-                    <button class="toolbar-button toolbar-button-primary" id="send-button" type="button">Send</button>
-                    <button class="toolbar-button" id="discard-button" type="button">Discard</button>
-                    <button class="toolbar-button" id="attach-button" type="button">Attach DOCX</button>
+                    <div class="attachment-strip" id="attachment-strip">
+                        <div class="attachment-empty">No approved attachments on this draft yet.</div>
+                    </div>
+
+                    <div class="editor-shell">
+                        <div class="editor-ribbon">
+                            <span class="editor-pill">Aptos</span>
+                            <span class="editor-pill">12</span>
+                            <span class="editor-icon">B</span>
+                            <span class="editor-icon">I</span>
+                            <span class="editor-icon">U</span>
+                            <span class="editor-icon">•</span>
+                            <span class="editor-icon">1.</span>
+                        </div>
+                        <label class="sr-only" for="body-input">Message body</label>
+                        <textarea id="body-input" placeholder="Draft the email body. Noupe will screen this content before send."></textarea>
+                    </div>
+
+                    <div class="compose-footer">
+                        <span id="draft-status">Cmd/Ctrl + Enter sends after screening.</span>
+                        <span id="attachment-status">DOCX only</span>
+                    </div>
+                </section>
+
+                <div class="compose-toolbar">
+                    <div class="toolbar-group">
+                        <button class="toolbar-button toolbar-button-primary" id="send-button" type="button">Send</button>
+                        <button class="toolbar-button" id="discard-button" type="button">Discard</button>
+                        <button class="toolbar-button" id="attach-button" type="button">Attach DOCX</button>
+                    </div>
+                    <p class="toolbar-note">Draft screening uses subject plus body. Attachments are screened at upload time.</p>
                 </div>
-                <p class="toolbar-note">Draft screening uses subject plus body. Attachments are screened at upload time.</p>
-            </div>
-        </main>
+            </main>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/mammoth@1.7.2/mammoth.browser.min.js"></script>

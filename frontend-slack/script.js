@@ -19,24 +19,35 @@ const composerStatusEl = document.getElementById("composer-status");
 
 const seededMessages = [
     {
+        author: "Acme Team",
+        time: "12:45 PM",
+        avatar: "31",
+        body: "Event starting in 15 minutes:",
+        chipLabel: "",
+        chipClass: "",
+        kind: "event",
+        title: "Team Status Meeting",
+        excerpt: "Today from 1:00 PM to 1:30 PM."
+    },
+    {
         author: "Zoe Maxwell",
-        time: "10:55 AM",
+        time: "12:55 PM",
         avatar: "ZM",
-        body: "Hi team. Reminder that we are reviewing final concepts for the new website today. Keep draft comments flowing in here.",
+        body: "Today @Lisa will join our team huddle to provide updates on the launch. If you have questions, bring them. See you all soon.",
         chipLabel: "",
         chipClass: "",
         kind: "text"
     },
     {
-        author: "Google Calendar",
-        time: "11:00 AM",
-        avatar: "GC",
-        body: "5 minutes until next event",
-        chipLabel: "APP",
+        author: "Lee Hao",
+        time: "1:45 PM",
+        avatar: "LH",
+        body: "Please add any other notes from our sync today.",
+        chipLabel: "",
         chipClass: "",
-        kind: "event",
-        title: "Website design review",
-        excerpt: "When: Monday 10:30 AM to 12:00 PM. Where: UX Room, 4th Floor."
+        kind: "file",
+        title: "1/9 Meeting notes",
+        excerpt: "Canvas"
     }
 ];
 
