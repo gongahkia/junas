@@ -31,6 +31,46 @@ python3 scripts/preflight.py --strict
 uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
+## Dev Launcher
+
+Run the combined dev launcher with:
+
+```sh
+./run_dev.sh
+```
+
+`run_dev.sh` now:
+
+- asks which frontend(s) to open
+- starts the backend first
+- waits for `GET /ready` to report `ready: true`
+- starts the legacy analyzer frontend on `http://localhost:8081/` when selected
+- opens the selected frontend URLs only after backend readiness
+
+Frontend choices:
+
+- legacy analyzer only: `http://localhost:8081/`
+- chat demo only: `http://localhost:8000/chat/`
+- both
+- backend only
+
+Useful launcher env vars:
+
+- `NOUPE_FRONTENDS=legacy|chat|both|none`
+- `NOUPE_PORT` (default `8000`)
+- `NOUPE_OLD_FRONTEND_PORT` (default `8081`)
+- `NOUPE_READY_TIMEOUT_SECONDS` (default `180`)
+- `NOUPE_ALLOW_PARTIAL_START=1` if you intentionally want degraded startup
+- `NOUPE_PREFLIGHT_STRICT=0` to relax preflight warnings
+
+For the current checkout, a practical minimal launcher path is:
+
+```sh
+PIPELINE_LAYERS=lexicon ./run_dev.sh
+```
+
+When `PIPELINE_LAYERS` is set, `run_dev.sh` now only validates checkpoints for the layers in that active pipeline.
+
 By default, the API now allows degraded startup when configured layers are missing and exposes that state through `GET /ready` and `GET /diagnostics`. When lazy loading is enabled, `GET /ready` remains degraded until required lazy layers finish warming.
 
 Use strict startup locally when you want missing required layers to fail fast:
