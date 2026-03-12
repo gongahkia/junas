@@ -5,10 +5,11 @@ Scripts for syncing project tasks and git history to the Trello board.
 ## `sync_trello.py`
 
 Pushes two things to the board:
-- **`todo.txt` tasks** → *Backlog* list
+- **`todo.txt` tasks** → *Backlog* list when `todo.txt` exists
 - **Git commit history** → *Done* list (backdated to each commit's date)
 
 Duplicate protection is built in — re-running the script will skip cards that already exist on the board.
+If `todo.txt` is absent, the backlog sync step is skipped and only git history is pushed.
 
 ---
 
@@ -70,5 +71,5 @@ Done!
 
 | List | What gets added |
 |------|----------------|
-| Backlog | Tasks from `todo.txt` |
+| Backlog | Tasks from `todo.txt` when present |
 | Done | Completed work from git commit history |

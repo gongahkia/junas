@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Sync todo.txt tasks and git commit history to the project Trello board.
+Sync optional todo.txt tasks and git commit history to the project Trello board.
 
 Usage:
     export TRELLO_API_KEY=<your_key>
@@ -8,7 +8,7 @@ Usage:
     python3 helper/trello/sync_trello.py
 
 What it does:
-  - Reads todo.txt and creates cards in "Backlog"
+  - Reads todo.txt when present and creates cards in "Backlog"
   - Reads git log and creates backdated cards in "Done"
 
 Duplicate protection: skips cards whose name already exists in the target list.
@@ -56,6 +56,10 @@ def create_card(list_id: str, name: str, desc: str = "", due: str | None = None)
 # ── 1. todo.txt → Backlog ─────────────────────────────────────────────────────
 def sync_todo(existing: set[str]):
     print("\n── todo.txt → Backlog ──")
+    if not os.path.exists(TODO_PATH):
+        print("  [skip] todo.txt not found.")
+        return
+
     with open(TODO_PATH) as f:
         lines = f.read().splitlines()
 

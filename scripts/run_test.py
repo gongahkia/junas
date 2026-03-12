@@ -5,13 +5,14 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+TEST_CASES_PATH = ROOT / "test" / "test.json"
 
 def run_tests():
     try:
-        with open(ROOT / "test.json", "r", encoding="utf-8") as f:
+        with open(TEST_CASES_PATH, "r", encoding="utf-8") as f:
             tests = json.load(f)
     except Exception as e:
-        print(f"Failed to load test.json: {e}")
+        print(f"Failed to load {TEST_CASES_PATH}: {e}")
         return
 
     url = "http://127.0.0.1:8000/classify"

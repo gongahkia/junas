@@ -2,13 +2,16 @@ import json
 import urllib.request
 import urllib.error
 import sys
+from pathlib import Path
+
+TEST_CASES_PATH = Path(__file__).resolve().parent / "test.json"
 
 def run_tests():
     try:
-        with open("test.json", "r") as f:
+        with open(TEST_CASES_PATH, "r", encoding="utf-8") as f:
             tests = json.load(f)
     except Exception as e:
-        print(f"Failed to load test.json: {e}")
+        print(f"Failed to load {TEST_CASES_PATH}: {e}")
         return
 
     url = "http://127.0.0.1:8000/classify"
