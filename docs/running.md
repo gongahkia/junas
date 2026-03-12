@@ -119,8 +119,26 @@ Use the production launcher (no autoreload, multi-worker):
 ./run_prod.sh
 ```
 
-`run_prod.sh` forces strict startup by default and will fail if required configured layers cannot load.
-It also provisions `PROMETHEUS_MULTIPROC_DIR` automatically so `/metrics` aggregates across workers.
+`run_prod.sh` now:
+
+- always runs strict preflight checks
+- does not prompt for pipeline layers
+- still asks which surface(s) to open: legacy analyzer, chat demo, both, or backend only
+- starts the backend in multi-worker mode
+- waits for `GET /ready` before opening any selected frontend
+- provisions `PROMETHEUS_MULTIPROC_DIR` automatically so `/metrics` aggregates across workers
+
+Useful production launcher env vars:
+
+- `NOUPE_FRONTENDS=legacy|chat|both|none`
+- `NOUPE_HOST` (default `0.0.0.0`)
+- `NOUPE_PORT` (default `8000`)
+- `NOUPE_UVICORN_WORKERS` (default `2`)
+- `NOUPE_LOG_LEVEL` (default `info`)
+- `NOUPE_OLD_FRONTEND_PORT` (default `8081`)
+- `NOUPE_READY_TIMEOUT_SECONDS` (default `180`)
+
+`run_prod.sh` still forces strict startup and will fail if required configured layers cannot load.
 
 ## Bootstrapping Artifacts
 
