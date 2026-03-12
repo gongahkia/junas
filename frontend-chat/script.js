@@ -6,13 +6,13 @@ const uploadInputEl = document.getElementById("upload-input");
 const errorBannerEl = document.getElementById("error-banner");
 const backendStatusTextEl = document.getElementById("backend-status-text");
 const backendStatusEl = document.getElementById("backend-status");
-const modalEl = document.getElementById("risk-modal");
-const modalTitleEl = document.getElementById("modal-title");
-const modalSummaryEl = document.getElementById("modal-summary");
-const modalClassificationEl = document.getElementById("modal-classification");
-const modalDetailsEl = document.getElementById("modal-details");
-const modalCancelEl = document.getElementById("modal-cancel");
-const modalConfirmEl = document.getElementById("modal-confirm");
+const guardPopupEl = document.getElementById("guard-popup");
+const guardTitleEl = document.getElementById("guard-title");
+const guardSummaryEl = document.getElementById("guard-summary");
+const guardClassificationEl = document.getElementById("guard-classification");
+const guardDetailsEl = document.getElementById("guard-details");
+const guardCancelEl = document.getElementById("guard-cancel");
+const guardConfirmEl = document.getElementById("guard-confirm");
 
 const assistantReplies = {
     message: [
@@ -33,13 +33,24 @@ const modalState = {
 
 let replyCursor = 0;
 let busy = false;
+let guardPopupVisible = false;
+
+function refreshActionState(sendLabel = "Screen & send") {
+    sendButtonEl.disabled = busy || guardPopupVisible;
+    uploadButtonEl.disabled = busy || guardPopupVisible;
+    chatInputEl.disabled = busy;
+    sendButtonEl.textContent = busy ? "Screening..." : sendLabel;
+}
 
 function setBusy(nextBusy, sendLabel = "Screen & send") {
     busy = nextBusy;
-    sendButtonEl.disabled = nextBusy;
-    uploadButtonEl.disabled = nextBusy;
-    chatInputEl.disabled = nextBusy;
-    sendButtonEl.textContent = nextBusy ? "Screening..." : sendLabel;
+    refreshActionState(sendLabel);
+}
+
+function setGuardPopupVisible(nextVisible) {
+    guardPopupVisible = nextVisible;
+    guardPopupEl.classList.toggle("hidden", !nextVisible);
+    refreshActionState();
 }
 
 function showError(message) {
@@ -204,8 +215,8 @@ function buildModalContext(result, sourceLabel) {
     };
 }
 
-function closeModal(decision) {
-    modalEl.classList.add("hidden");
+function closeGuardPopup(decision) {
+    setGuardPopupVisible(false);
     if (typeof modalState.resolve === "function") {
         const resolve = modalState.resolve;
         modalState.resolve = null;
@@ -213,18 +224,18 @@ function closeModal(decision) {
     }
 }
 
-function openRiskModal(context) {
-    modalTitleEl.textContent = context.title;
-    modalSummaryEl.textContent = context.summary;
-    modalClassificationEl.className = `modal-classification ${context.classificationClass}`.trim();
-    modalClassificationEl.textContent = context.classification;
-    modalDetailsEl.innerHTML = context.details
+function openGuardPopup(context) {
+    guardTitleEl.textContent = context.title;
+    guardSummaryEl.textContent = context.summary;
+    guardClassificationEl.className = `modal-classification ${context.classificationClass}`.trim();
+    guardClassificationEl.textContent = context.classification;
+    guardDetailsEl.innerHTML = context.details
         .map((detail) => `<div class="modal-detail">${escapeHtml(detail)}</div>`)
         .join("");
-    modalConfirmEl.textContent = context.confirmLabel;
-    modalConfirmEl.classList.toggle("hidden", !context.canProceed);
-    modalCancelEl.textContent = context.canProceed ? "Cancel" : "Close";
-    modalEl.classList.remove("hidden");
+    guardConfirmEl.textContent = context.confirmLabel;
+    guardConfirmEl.classList.toggle("hidden", !context.canProceed);
+    guardCancelEl.textContent = context.canProceed ? "Cancel" : "Close";
+    setGuardPopupVisible(true);
 
     return new Promise((resolve) => {
         modalState.resolve = resolve;
@@ -268,7 +279,7 @@ async function guardAndHandle({ text, sourceLabel, kind, filename = "", busyAlre
         const classification = context.classification;
 
         if (classification === "HIGH_RISK") {
-            await openRiskModal(context);
+            await openGuardPopup(context);
             return false;
         }
 
@@ -277,7 +288,7 @@ async function guardAndHandle({ text, sourceLabel, kind, filename = "", busyAlre
         let tagClass = "screening-safe";
 
         if (classification === "LOW_RISK") {
-            allowed = await openRiskModal(context);
+            allowed = await openGuardPopup(context);
             tagLabel = "LOW_RISK override";
             tagClass = "screening-low";
         }
@@ -317,7 +328,7 @@ async function guardAndHandle({ text, sourceLabel, kind, filename = "", busyAlre
 
 async function handleSend() {
     const text = chatInputEl.value.trim();
-    if (!text || busy) {
+    if (!text || busy || guardPopupVisible) {
         return;
     }
 
@@ -361,7 +372,7 @@ async function handleUpload(event) {
     const file = event.target.files && event.target.files[0];
     uploadInputEl.value = "";
 
-    if (!file || busy) {
+    if (!file || busy || guardPopupVisible) {
         return;
     }
 
@@ -409,6 +420,11 @@ async function checkBackend() {
 sendButtonEl.addEventListener("click", handleSend);
 uploadButtonEl.addEventListener("click", () => uploadInputEl.click());
 uploadInputEl.addEventListener("change", handleUpload);
+chatInputEl.addEventListener("input", () => {
+    if (guardPopupVisible) {
+        closeGuardPopup(false);
+    }
+});
 chatInputEl.addEventListener("keydown", (event) => {
     if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
         event.preventDefault();
@@ -416,16 +432,11 @@ chatInputEl.addEventListener("keydown", (event) => {
     }
 });
 
-modalCancelEl.addEventListener("click", () => closeModal(false));
-modalConfirmEl.addEventListener("click", () => closeModal(true));
-modalEl.addEventListener("click", (event) => {
-    if (event.target === modalEl) {
-        closeModal(false);
-    }
-});
+guardCancelEl.addEventListener("click", () => closeGuardPopup(false));
+guardConfirmEl.addEventListener("click", () => closeGuardPopup(true));
 window.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !modalEl.classList.contains("hidden")) {
-        closeModal(false);
+    if (event.key === "Escape" && guardPopupVisible) {
+        closeGuardPopup(false);
     }
 });
 

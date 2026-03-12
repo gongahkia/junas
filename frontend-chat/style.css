@@ -318,6 +318,7 @@ input {
 }
 
 .composer-shell {
+    position: relative;
     display: grid;
     gap: 14px;
     padding: 18px;
@@ -368,6 +369,27 @@ input {
     align-items: end;
 }
 
+.guard-popup {
+    animation: rise-in 180ms ease-out;
+}
+
+.guard-popup-card {
+    padding: 22px;
+    border: 1px solid rgba(214, 31, 58, 0.14);
+    border-radius: 24px;
+    background: linear-gradient(180deg, #fffaf7, #fdf4ef);
+    box-shadow: 0 20px 48px rgba(38, 20, 20, 0.10);
+    display: grid;
+    gap: 14px;
+}
+
+.guard-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
 #chat-input {
     min-height: 124px;
     max-height: 240px;
@@ -416,29 +438,9 @@ input {
     transform: none;
 }
 
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    padding: 24px;
-    background: rgba(19, 12, 13, 0.58);
-    backdrop-filter: blur(8px);
-}
-
-.modal-card {
-    width: min(100%, 34rem);
-    padding: 28px;
-    border-radius: 28px;
-    background: linear-gradient(180deg, #fffaf7, #fff4f2);
-    box-shadow: 0 32px 90px rgba(10, 7, 7, 0.28);
-    display: grid;
-    gap: 16px;
-}
-
 .modal-head h3 {
     margin: 6px 0 0;
-    font-size: 2rem;
+    font-size: 1.65rem;
     letter-spacing: -0.05em;
 }
 
@@ -468,13 +470,6 @@ input {
     border-radius: 16px;
     background: rgba(23, 19, 17, 0.05);
     line-height: 1.5;
-}
-
-.modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    flex-wrap: wrap;
 }
 
 @keyframes rise-in {

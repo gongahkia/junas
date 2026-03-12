@@ -69,6 +69,22 @@
                         hidden>
                     <span class="composer-hint">DOCX only in v1. Upload is screened before it appears in the chat.</span>
                 </div>
+                <section class="guard-popup hidden" id="guard-popup" role="alertdialog" aria-labelledby="guard-title"
+                    aria-live="assertive">
+                    <div class="guard-popup-card">
+                        <div class="modal-head">
+                            <p class="eyebrow">MNPI guardrail</p>
+                            <h3 id="guard-title">Review required</h3>
+                        </div>
+                        <p class="modal-summary" id="guard-summary"></p>
+                        <div class="modal-classification" id="guard-classification"></div>
+                        <div class="modal-details" id="guard-details"></div>
+                        <div class="guard-actions">
+                            <button class="secondary-button" id="guard-cancel" type="button">Close</button>
+                            <button class="primary-button" id="guard-confirm" type="button">Proceed anyway</button>
+                        </div>
+                    </div>
+                </section>
                 <div class="composer">
                     <label class="sr-only" for="chat-input">Message</label>
                     <textarea id="chat-input" placeholder="Type a message to screen before sending..."></textarea>
@@ -76,22 +92,6 @@
                 </div>
             </section>
         </main>
-    </div>
-
-    <div class="modal-overlay hidden" id="risk-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-        <div class="modal-card">
-            <div class="modal-head">
-                <p class="eyebrow">MNPI guardrail</p>
-                <h3 id="modal-title">Review required</h3>
-            </div>
-            <p class="modal-summary" id="modal-summary"></p>
-            <div class="modal-classification" id="modal-classification"></div>
-            <div class="modal-details" id="modal-details"></div>
-            <div class="modal-actions">
-                <button class="secondary-button" id="modal-cancel" type="button">Cancel</button>
-                <button class="primary-button" id="modal-confirm" type="button">Proceed anyway</button>
-            </div>
-        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/mammoth@1.7.2/mammoth.browser.min.js"></script>
