@@ -151,7 +151,7 @@ python3 training/train_validate_pipeline.py
 Interactive training launcher:
 
 ```sh
-python3 training/train_dev.py
+./training/train_dev.sh
 ```
 
 If you only need a minimal local server without trained artifacts, you can run lexicon-only mode:
