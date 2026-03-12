@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../models/app_prefs_models.dart';
 import '../models/session_models.dart';
 import 'app_preferences.dart';
 import 'secure_store.dart';
@@ -66,5 +67,12 @@ class SessionRepository {
   Future<void> rememberServer(Uri server) {
     return _appPreferences.rememberServer(server);
   }
-}
 
+  Future<AppPrefs> loadAppPrefs() {
+    return _appPreferences.loadAppPrefs();
+  }
+
+  Future<void> saveAppPrefs(AppPrefs prefs) {
+    return _appPreferences.saveAppPrefs(prefs);
+  }
+}
