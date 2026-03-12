@@ -24,6 +24,8 @@ from fastapi.staticfiles import StaticFiles
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 CHAT_FRONTEND_ROOT = PROJECT_ROOT / "frontend-chat"
+EMAIL_FRONTEND_ROOT = PROJECT_ROOT / "frontend-email"
+SLACK_FRONTEND_ROOT = PROJECT_ROOT / "frontend-slack"
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode  # noqa: E402
@@ -1046,6 +1048,10 @@ app = FastAPI(title="Noupe MNPI Classifier", version="0.1.0", lifespan=lifespan)
 
 if CHAT_FRONTEND_ROOT.exists():
     app.mount("/chat", StaticFiles(directory=str(CHAT_FRONTEND_ROOT), html=True), name="chat-frontend")
+if EMAIL_FRONTEND_ROOT.exists():
+    app.mount("/email", StaticFiles(directory=str(EMAIL_FRONTEND_ROOT), html=True), name="email-frontend")
+if SLACK_FRONTEND_ROOT.exists():
+    app.mount("/slack", StaticFiles(directory=str(SLACK_FRONTEND_ROOT), html=True), name="slack-frontend")
 
 _det_info = configure_determinism()
 logger.info(json.dumps({"event": "determinism", **_det_info}))
