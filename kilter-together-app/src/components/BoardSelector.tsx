@@ -65,6 +65,11 @@ export default function BoardSelector({
   const alternateSoloProviders = capabilities.filter(
     (capability) => capability.solo_supported && capability.id !== "kilter"
   );
+  const hasSavedFilters = prefs.savedSoloFilters.length > 0;
+  const hasSoloFavorites = prefs.soloFavorites.length > 0;
+  const hasSoloShortlist = prefs.soloShortlist.length > 0;
+  const savedSoloStateGuideTarget =
+    hasSavedFilters ? "filters" : hasSoloFavorites ? "favorites" : hasSoloShortlist ? "shortlist" : null;
 
   if (loading) {
     return (
@@ -159,18 +164,18 @@ export default function BoardSelector({
               ) : null}
             </div>
 
-            {prefs.savedSoloFilters.length > 0 ||
-            prefs.soloFavorites.length > 0 ||
-            prefs.soloShortlist.length > 0 ? (
-              <div className="grid gap-6 md:grid-cols-2" data-guide="solo-collections">
-                {prefs.savedSoloFilters.length > 0 ? (
+            {hasSavedFilters || hasSoloFavorites || hasSoloShortlist ? (
+              <div className="grid gap-6 md:grid-cols-2">
+                {hasSavedFilters ? (
                   <SavedSoloFilterCard
+                    guideId={savedSoloStateGuideTarget === "filters" ? "solo-collections" : undefined}
                     presets={prefs.savedSoloFilters}
                     onRemove={(presetID) => setPrefs(removeSoloFilterPreset(presetID))}
                   />
                 ) : null}
-                {prefs.soloFavorites.length > 0 ? (
+                {hasSoloFavorites ? (
                   <SavedSoloCollectionCard
+                    guideId={savedSoloStateGuideTarget === "favorites" ? "solo-collections" : undefined}
                     icon={<Heart className="h-5 w-5" />}
                     title="Favorites"
                     description="Pinned climbs you want to come back to from this browser."
@@ -178,8 +183,9 @@ export default function BoardSelector({
                     onRemove={(climbKey) => setPrefs(removeSoloFavorite(climbKey))}
                   />
                 ) : null}
-                {prefs.soloShortlist.length > 0 ? (
+                {hasSoloShortlist ? (
                   <SavedSoloCollectionCard
+                    guideId={savedSoloStateGuideTarget === "shortlist" ? "solo-collections" : undefined}
                     icon={<ListChecks className="h-5 w-5" />}
                     title="Shortlist"
                     description="Candidate climbs worth turning into a room queue later."
@@ -191,10 +197,7 @@ export default function BoardSelector({
             ) : null}
 
             {alternateSoloProviders.length > 0 ? (
-              <Card
-                className="border-0 bg-white/88 shadow-xl shadow-slate-900/10 backdrop-blur"
-                data-guide="solo-providers"
-              >
+              <Card className="border-0 bg-white/88 shadow-xl shadow-slate-900/10 backdrop-blur">
                 <CardHeader>
                   <CardTitle className="text-2xl">Other solo providers</CardTitle>
                   <CardDescription>
@@ -203,10 +206,11 @@ export default function BoardSelector({
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="grid gap-4 md:grid-cols-2">
-                  {alternateSoloProviders.map((capability) => (
+                  {alternateSoloProviders.map((capability, index) => (
                     <div
                       key={capability.id}
                       className="rounded-2xl border bg-white/70 p-5 shadow-sm"
+                      data-guide={index === 0 ? "solo-providers" : undefined}
                     >
                       <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
                         Provider solo browse
@@ -299,14 +303,19 @@ export default function BoardSelector({
 }
 
 function SavedSoloFilterCard({
+  guideId,
   onRemove,
   presets,
 }: {
+  guideId?: string;
   onRemove: (presetID: string) => void;
   presets: SoloFilterPreset[];
 }) {
   return (
-    <Card className="border-0 bg-white/88 shadow-xl shadow-teal-950/10 backdrop-blur">
+    <Card
+      className="border-0 bg-white/88 shadow-xl shadow-teal-950/10 backdrop-blur"
+      data-guide={guideId}
+    >
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-2xl">
           <Layers3 className="h-5 w-5" />
@@ -356,18 +365,23 @@ function SavedSoloFilterCard({
 function SavedSoloCollectionCard({
   climbs,
   description,
+  guideId,
   icon,
   onRemove,
   title,
 }: {
   climbs: SoloSavedClimb[];
   description: string;
+  guideId?: string;
   icon: ReactNode;
   onRemove: (climbKey: string) => void;
   title: string;
 }) {
   return (
-    <Card className="border-0 bg-white/88 shadow-xl shadow-teal-950/10 backdrop-blur">
+    <Card
+      className="border-0 bg-white/88 shadow-xl shadow-teal-950/10 backdrop-blur"
+      data-guide={guideId}
+    >
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-2xl">
           {icon}

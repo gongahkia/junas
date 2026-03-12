@@ -10,11 +10,14 @@ import {
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft,
+  CircleHelp,
   ChevronDown,
   ChevronUp,
   Copy,
   GripVertical,
+  Info,
   RefreshCw,
+  Settings2,
   Share2,
   Sparkles,
   Trash2,
@@ -57,7 +60,7 @@ import FeedbackPrompt from "@/components/FeedbackPrompt";
 import RoomProblemView from "@/components/RoomProblemView";
 import RoomFistBumpButton from "@/components/RoomFistBumpButton";
 import InviteQRCodeCard from "@/components/InviteQRCodeCard";
-import { HeaderNavButton, HeaderNavLink } from "@/components/HeaderNavAction";
+import HeaderNavRail from "@/components/HeaderNavRail";
 import AngleSelector from "@/components/AngleSelector";
 import LoadingSlideshow from "@/components/LoadingSlideshow";
 import SortSelector from "@/components/SortSelector";
@@ -1436,6 +1439,21 @@ export default function RoomView() {
     snapshot.surface?.name ?? (canManageSurface ? "Not selected yet" : "Waiting for host");
   const currentClimbLabel = snapshot.current_climb?.name ?? "Nothing live yet";
   const guideSteps = canManageSession ? HOST_ROOM_GUIDE_STEPS : GUEST_ROOM_GUIDE_STEPS;
+  const roomNavItems = [
+    {
+      label: "Help",
+      icon: CircleHelp,
+      onClick: () => {
+        const nextPrefs = resetGuides();
+        savedPrefsRef.current = nextPrefs;
+        setPrefs(nextPrefs);
+        setShowGuide(true);
+      },
+      dataGuide: "room-help",
+    },
+    { label: "About", icon: Info, to: "/about" },
+    { label: "Settings", icon: Settings2, to: "/settings" },
+  ] satisfies Parameters<typeof HeaderNavRail>[0]["items"];
   const roomActionRail = canManageSession
     ? [
         { label: "Share", target: "room-share" },
@@ -1723,29 +1741,14 @@ export default function RoomView() {
             </div>
 
             <div className="grid w-full min-w-0 gap-3 xl:w-[26rem] xl:shrink-0">
-              <div className="flex flex-wrap justify-start gap-2 xl:justify-end">
-                <HeaderNavButton
-                  type="button"
-                  data-guide="room-help"
-                  onClick={() => {
-                    const nextPrefs = resetGuides();
-                    savedPrefsRef.current = nextPrefs;
-                    setPrefs(nextPrefs);
-                    setShowGuide(true);
-                  }}
-                >
-                  Help
-                </HeaderNavButton>
-                <HeaderNavLink to="/about">About</HeaderNavLink>
-                <HeaderNavLink to="/settings">Settings</HeaderNavLink>
-              </div>
+              <HeaderNavRail items={roomNavItems} className="self-start xl:self-end" />
               <div
                 className="min-w-0"
                 data-guide="room-share"
               >
                 <Card className="gap-0 py-0 shadow-none">
                   <CardContent className="grid gap-4 p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
-                    <div className="space-y-3">
+                    <div className="min-w-0 space-y-3">
                       <div className="flex flex-wrap items-start justify-between gap-3">
                         <div className="space-y-1">
                           <p className="text-sm font-medium">Invite guests</p>
@@ -1767,18 +1770,18 @@ export default function RoomView() {
                         </Button>
                       </div>
                       <div className="grid gap-2 sm:grid-cols-2">
-                        <div className="rounded-xl border bg-muted/20 px-3 py-2.5">
+                        <div className="min-w-0 rounded-xl border bg-muted/20 px-3 py-2.5">
                           <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
                             Join path
                           </p>
-                          <p className="mt-1 truncate font-mono text-sm font-medium">
+                          <p className="mt-1 break-all font-mono text-sm font-medium sm:truncate">
                             {invitePath}
                           </p>
-                          <p className="mt-1 truncate text-xs text-muted-foreground">
+                          <p className="mt-1 break-all text-xs text-muted-foreground sm:truncate">
                             {inviteLink}
                           </p>
                         </div>
-                        <div className="rounded-xl border bg-muted/20 px-3 py-2.5">
+                        <div className="min-w-0 rounded-xl border bg-muted/20 px-3 py-2.5">
                           <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
                             Room slug
                           </p>

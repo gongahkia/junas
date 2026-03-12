@@ -60,12 +60,14 @@ describe("CoachMarkOverlay", () => {
   });
 
   it("flips top-placed steps below the target when there is not enough space above", async () => {
-    vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function () {
-      if (this instanceof HTMLElement && this.dataset.guide === "help") {
+    vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (
+      this: HTMLElement
+    ) {
+      if (this.dataset.guide === "help") {
         return new DOMRect(560, 12, 92, 40);
       }
 
-      if (this instanceof HTMLElement && this.dataset.slot === "coachmark-card") {
+      if (this.dataset.slot === "coachmark-card") {
         return new DOMRect(0, 0, 288, 248);
       }
 

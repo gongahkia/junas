@@ -3,9 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowRight,
   Camera,
+  CircleHelp,
   Clock3,
   History,
+  Info,
+  Mountain,
   Pin,
+  Settings2,
   Trophy,
   Trash2,
 } from "lucide-react";
@@ -30,7 +34,7 @@ import { reportError } from "@/lib/observability";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { cn } from "@/lib/utils";
 import BrandWordmark from "@/components/BrandWordmark";
-import { HeaderNavButton, HeaderNavLink } from "@/components/HeaderNavAction";
+import HeaderNavRail from "@/components/HeaderNavRail";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
 import {
@@ -94,6 +98,20 @@ export default function LandingPage() {
     : [];
   const previewRecentRooms = recentRooms.slice(0, INLINE_RECENT_ROOM_LIMIT);
   const hasMoreRecentRooms = recentRooms.length > INLINE_RECENT_ROOM_LIMIT;
+  const landingNavItems = [
+    {
+      label: "Help",
+      icon: CircleHelp,
+      onClick: () => {
+        setPrefs(resetGuides());
+        setShowGuide(true);
+      },
+      dataGuide: "landing-help",
+    },
+    { label: "About", icon: Info, to: "/about" },
+    { label: "Settings", icon: Settings2, to: "/settings" },
+    { label: "Solo browse", icon: Mountain, to: "/solo" },
+  ] satisfies Parameters<typeof HeaderNavRail>[0]["items"];
 
   useEffect(() => {
     let active = true;
@@ -205,7 +223,7 @@ export default function LandingPage() {
       </Dialog>
 
       <div className="mx-auto flex min-h-full max-w-6xl flex-col px-4 pb-24 pt-4 sm:px-6 sm:pt-6">
-        <header className="flex shrink-0 flex-col gap-4 py-4 lg:flex-row lg:items-start lg:justify-between">
+        <header className="flex shrink-0 items-start justify-between gap-4 py-4">
           <div className="min-w-0" data-guide="landing-brand">
             <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">
               Collaborative Board Sessions
@@ -214,28 +232,7 @@ export default function LandingPage() {
               <BrandWordmark imageClassName="h-[38px] sm:h-[50px]" />
             </h1>
           </div>
-          <div className="flex w-full flex-wrap items-center gap-2 lg:w-auto lg:justify-end">
-            <HeaderNavButton
-              type="button"
-              data-guide="landing-help"
-              className="justify-start sm:justify-center"
-              onClick={() => {
-                setPrefs(resetGuides());
-                setShowGuide(true);
-              }}
-            >
-              Help
-            </HeaderNavButton>
-            <HeaderNavLink to="/about" className="justify-start sm:justify-center">
-              About
-            </HeaderNavLink>
-            <HeaderNavLink to="/settings" className="justify-start sm:justify-center">
-              Settings
-            </HeaderNavLink>
-            <HeaderNavLink to="/solo" className="justify-start sm:justify-center">
-              Solo browse
-            </HeaderNavLink>
-          </div>
+          <HeaderNavRail items={landingNavItems} className="self-start" />
         </header>
 
         <main className="mx-auto flex w-full max-w-4xl flex-1 items-stretch justify-start pb-6 pt-2 lg:justify-center">
