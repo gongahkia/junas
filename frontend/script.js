@@ -19,6 +19,45 @@ const LAYER_META = {
     mosaic: { id: "L5", title: "5. Mosaic Aggregation", short: "Mosaic" },
     regression: { id: "Reg", title: "6. Regression", short: "Regression" },
 };
+const NODE_LAYER_BY_ID = {
+    L1: "lexicon",
+    L2: "embedding",
+    L3: "clustering",
+    L4: "model1",
+    L4b: "model2",
+    L5: "mosaic",
+    Reg: "regression",
+};
+const DIAGRAM_EDGES = [
+    { key: "ingress_lexicon", from: "In", to: "L1", label: "Request ingress" },
+    { key: "lexicon_embedding", from: "L1", to: "L2", label: "Continue" },
+    { key: "lexicon_regression", from: "L1", to: "Reg", label: "Lexicon exit", dashed: true },
+    { key: "lexicon_output", from: "L1", to: "Out", label: "Direct output", dashed: true },
+    { key: "embedding_clustering", from: "L2", to: "L3", label: "Embedding branch" },
+    { key: "embedding_model1", from: "L2", to: "L4", label: "Classifier branch" },
+    { key: "clustering_mosaic", from: "L3", to: "L5", label: "Anomaly signal" },
+    { key: "clustering_regression", from: "L3", to: "Reg", label: "Feature handoff", dashed: true },
+    { key: "model1_model2", from: "L4", to: "L4b", label: "Severity gate" },
+    { key: "model1_mosaic", from: "L4", to: "L5", label: "Safe / entity path" },
+    { key: "model1_regression", from: "L4", to: "Reg", label: "Risk handoff", dashed: true },
+    { key: "model1_output", from: "L4", to: "Out", label: "Direct output", dashed: true },
+    { key: "model2_mosaic", from: "L4b", to: "L5", label: "Severity / entity path" },
+    { key: "model2_regression", from: "L4b", to: "Reg", label: "Severity handoff", dashed: true },
+    { key: "model2_output", from: "L4b", to: "Out", label: "Direct output", dashed: true },
+    { key: "mosaic_regression", from: "L5", to: "Reg", label: "Aggregate" },
+    { key: "mosaic_output", from: "L5", to: "Out", label: "Direct output", dashed: true },
+    { key: "regression_output", from: "Reg", to: "Out", label: "Final score" },
+];
+const EDGE_STYLE_BY_KIND = {
+    success: "stroke:#16a34a,stroke-width:3px,color:#166534;",
+    warning: "stroke:#d97706,stroke-width:3px,color:#92400e;",
+    danger: "stroke:#dc2626,stroke-width:3px,color:#991b1b;",
+    waiting: "stroke:#60a5fa,stroke-width:2.5px,color:#1d4ed8;",
+    skipped: "stroke:#9ca3af,stroke-width:1.5px,stroke-dasharray: 6 4,color:#6b7280;",
+    inactive: "stroke:#d1d5db,stroke-width:1.5px,stroke-dasharray: 4 4,color:#9ca3af;",
+    unavailable: "stroke:#fb7185,stroke-width:2.5px,stroke-dasharray: 6 4,color:#be123c;",
+    neutral: "stroke:#4b5563,stroke-width:1.5px,color:#374151;",
+};
 
 let latestReadyState = null;
 let latestDiagnosticsState = null;
@@ -653,6 +692,299 @@ function buildNodeLabel(layer, state) {
     return `${LAYER_META[layer].title}<br/>${escapeHtml(state.summary)}${state.detail ? `<br/>${escapeHtml(state.detail)}` : ""}`;
 }
 
+function nodeIdToLayer(nodeId) {
+    return NODE_LAYER_BY_ID[nodeId] || null;
+}
+
+function nodeConfigured(nodeId, traceContext) {
+    const layer = nodeIdToLayer(nodeId);
+    return !layer || traceContext.activePipeline.includes(layer);
+}
+
+function nodeExecuted(nodeId, traceContext) {
+    const layer = nodeIdToLayer(nodeId);
+    return !layer || traceContext.executed.has(layer);
+}
+
+function stateKindToEdgeKind(kind) {
+    if (kind === "danger" || kind === "warning" || kind === "success" || kind === "waiting" || kind === "skipped" || kind === "inactive" || kind === "unavailable") {
+        return kind;
+    }
+    return "neutral";
+}
+
+function finalStateToEdgeKind(finalState) {
+    return stateKindToEdgeKind(finalState.kind);
+}
+
+function getConfiguredRegressionSourceNode(traceContext) {
+    if (!traceContext.activePipeline.includes("regression")) {
+        return null;
+    }
+    if (traceContext.activePipeline.includes("mosaic")) {
+        return "L5";
+    }
+    if (traceContext.activePipeline.includes("model2")) {
+        return "L4b";
+    }
+    if (traceContext.activePipeline.includes("model1")) {
+        return "L4";
+    }
+    if (traceContext.activePipeline.includes("clustering")) {
+        return "L3";
+    }
+    return "L1";
+}
+
+function getExecutedRegressionSourceNode(traceContext) {
+    if (!traceContext.executed.has("regression")) {
+        return null;
+    }
+    if (traceContext.executed.has("mosaic")) {
+        return "L5";
+    }
+    if (traceContext.executed.has("model2")) {
+        return "L4b";
+    }
+    if (traceContext.executed.has("model1")) {
+        return "L4";
+    }
+    if (traceContext.executed.has("clustering")) {
+        return "L3";
+    }
+    return "L1";
+}
+
+function getConfiguredOutputSourceNode(traceContext) {
+    if (traceContext.activePipeline.includes("regression")) {
+        return "Reg";
+    }
+    if (traceContext.activePipeline.includes("mosaic")) {
+        return "L5";
+    }
+    if (traceContext.activePipeline.includes("model2")) {
+        return "L4b";
+    }
+    if (traceContext.activePipeline.includes("model1")) {
+        return "L4";
+    }
+    return "L1";
+}
+
+function getExecutedOutputSourceNode(traceContext) {
+    if (!traceContext.responseData) {
+        return getConfiguredOutputSourceNode(traceContext);
+    }
+    if (traceContext.executed.has("regression")) {
+        return "Reg";
+    }
+    if (traceContext.responseData.lexicon && traceContext.responseData.lexicon.high_risk_short_circuit) {
+        return "L1";
+    }
+    if (traceContext.executed.has("mosaic")) {
+        return "L5";
+    }
+    if (traceContext.executed.has("model2")) {
+        return "L4b";
+    }
+    if (traceContext.executed.has("model1")) {
+        return "L4";
+    }
+    return "L1";
+}
+
+function regressionSourceNodeToEdgeKey(nodeId) {
+    return {
+        L1: "lexicon_regression",
+        L3: "clustering_regression",
+        L4: "model1_regression",
+        L4b: "model2_regression",
+        L5: "mosaic_regression",
+    }[nodeId] || null;
+}
+
+function outputSourceNodeToEdgeKey(nodeId) {
+    return {
+        L1: "lexicon_output",
+        L4: "model1_output",
+        L4b: "model2_output",
+        L5: "mosaic_output",
+        Reg: "regression_output",
+    }[nodeId] || null;
+}
+
+function getPathPreviewText(traceContext) {
+    if (!traceContext.responseData) {
+        const preview = traceContext.activePipeline.length ? traceContext.activePipeline.join(" -> ") : "no active layers";
+        return `Configured path preview: ${preview}. Blue edges indicate the current configured route; dashed gray edges are inactive.`;
+    }
+
+    const executedText = traceContext.executed.size ? [...traceContext.executed].join(" -> ") : "none";
+    return `Path update: highlighted edges show the executed route for this request (${executedText} -> output). Dashed gray edges were inactive or skipped.`;
+}
+
+function buildEdgeStateMap(traceContext, nodeStates, finalState) {
+    const edgeStates = {};
+
+    DIAGRAM_EDGES.forEach((edge) => {
+        edgeStates[edge.key] = {
+            kind: "inactive",
+            label: edge.label,
+        };
+    });
+
+    if (!traceContext.responseData) {
+        const plannedRegressionSource = getConfiguredRegressionSourceNode(traceContext);
+        const plannedOutputSource = getConfiguredOutputSourceNode(traceContext);
+
+        DIAGRAM_EDGES.forEach((edge) => {
+            const sourceReady = nodeConfigured(edge.from, traceContext);
+            const targetReady = nodeConfigured(edge.to, traceContext);
+
+            if (edge.key === "ingress_lexicon") {
+                edgeStates[edge.key] = { kind: "waiting", label: edge.label };
+                return;
+            }
+
+            if (edge.key === "regression_output") {
+                edgeStates[edge.key] = {
+                    kind: plannedOutputSource === "Reg" ? "waiting" : "inactive",
+                    label: edge.label,
+                };
+                return;
+            }
+
+            if (edge.to === "Out") {
+                edgeStates[edge.key] = {
+                    kind: outputSourceNodeToEdgeKey(plannedOutputSource) === edge.key ? "waiting" : "inactive",
+                    label: edge.label,
+                };
+                return;
+            }
+
+            if (edge.to === "Reg") {
+                edgeStates[edge.key] = {
+                    kind: regressionSourceNodeToEdgeKey(plannedRegressionSource) === edge.key ? "waiting" : "inactive",
+                    label: edge.label,
+                };
+                return;
+            }
+
+            edgeStates[edge.key] = {
+                kind: sourceReady && targetReady ? "waiting" : "inactive",
+                label: edge.label,
+            };
+        });
+
+        return edgeStates;
+    }
+
+    const activeEdges = new Set(["ingress_lexicon"]);
+
+    if (traceContext.executed.has("embedding")) {
+        activeEdges.add("lexicon_embedding");
+    } else if (traceContext.skipped.has("embedding")) {
+        edgeStates.lexicon_embedding = { kind: "skipped", label: DIAGRAM_EDGES.find((edge) => edge.key === "lexicon_embedding").label };
+    }
+
+    if (traceContext.executed.has("clustering")) {
+        activeEdges.add("embedding_clustering");
+    } else if (traceContext.skipped.has("clustering")) {
+        edgeStates.embedding_clustering = { kind: "skipped", label: DIAGRAM_EDGES.find((edge) => edge.key === "embedding_clustering").label };
+    }
+
+    if (traceContext.executed.has("model1")) {
+        activeEdges.add("embedding_model1");
+    } else if (traceContext.skipped.has("model1")) {
+        edgeStates.embedding_model1 = { kind: "skipped", label: DIAGRAM_EDGES.find((edge) => edge.key === "embedding_model1").label };
+    }
+
+    if (traceContext.executed.has("model2")) {
+        activeEdges.add("model1_model2");
+    } else if (traceContext.skipped.has("model2")) {
+        edgeStates.model1_model2 = { kind: "skipped", label: DIAGRAM_EDGES.find((edge) => edge.key === "model1_model2").label };
+    }
+
+    if (traceContext.executed.has("mosaic")) {
+        if (traceContext.executed.has("clustering")) {
+            activeEdges.add("clustering_mosaic");
+        }
+        if (traceContext.executed.has("model2")) {
+            activeEdges.add("model2_mosaic");
+        } else if (traceContext.executed.has("model1")) {
+            activeEdges.add("model1_mosaic");
+        }
+    } else if (traceContext.skipped.has("mosaic")) {
+        if (traceContext.executed.has("clustering")) {
+            edgeStates.clustering_mosaic = { kind: "skipped", label: DIAGRAM_EDGES.find((edge) => edge.key === "clustering_mosaic").label };
+        }
+        if (traceContext.executed.has("model2")) {
+            edgeStates.model2_mosaic = { kind: "skipped", label: DIAGRAM_EDGES.find((edge) => edge.key === "model2_mosaic").label };
+        } else if (traceContext.executed.has("model1")) {
+            edgeStates.model1_mosaic = { kind: "skipped", label: DIAGRAM_EDGES.find((edge) => edge.key === "model1_mosaic").label };
+        }
+    }
+
+    const regressionSource = getExecutedRegressionSourceNode(traceContext);
+    if (regressionSource) {
+        const regressionEdgeKey = regressionSourceNodeToEdgeKey(regressionSource);
+        if (regressionEdgeKey) {
+            activeEdges.add(regressionEdgeKey);
+        }
+        activeEdges.add("regression_output");
+    }
+
+    const outputSource = getExecutedOutputSourceNode(traceContext);
+    if (!traceContext.executed.has("regression")) {
+        const outputEdgeKey = outputSourceNodeToEdgeKey(outputSource);
+        if (outputEdgeKey) {
+            activeEdges.add(outputEdgeKey);
+        }
+    }
+
+    if (traceContext.responseData.lexicon && traceContext.responseData.lexicon.high_risk_short_circuit) {
+        if (traceContext.executed.has("regression")) {
+            activeEdges.add("lexicon_regression");
+        } else {
+            activeEdges.add("lexicon_output");
+        }
+    }
+
+    DIAGRAM_EDGES.forEach((edge) => {
+        const targetLayer = nodeIdToLayer(edge.to);
+        const targetState = targetLayer ? nodeStates[targetLayer] : null;
+
+        if (activeEdges.has(edge.key)) {
+            edgeStates[edge.key] = {
+                kind: edge.to === "Out"
+                    ? finalStateToEdgeKind(finalState)
+                    : stateKindToEdgeKind(targetState ? targetState.kind : "neutral"),
+                label: edge.label,
+            };
+            return;
+        }
+
+        if (targetLayer && traceContext.responseErrors.has(targetLayer)) {
+            edgeStates[edge.key] = { kind: "unavailable", label: edge.label };
+            return;
+        }
+
+        if (edge.to === "Reg" && traceContext.responseErrors.has("regression")) {
+            edgeStates[edge.key] = { kind: "unavailable", label: edge.label };
+            return;
+        }
+
+        const sourceReady = nodeConfigured(edge.from, traceContext);
+        const targetReady = nodeConfigured(edge.to, traceContext);
+        edgeStates[edge.key] = {
+            kind: sourceReady && targetReady ? "inactive" : "inactive",
+            label: edge.label,
+        };
+    });
+
+    return edgeStates;
+}
+
 function renderTraceSummary(responseData, traceContext) {
     if (!traceSummary) {
         return;
@@ -666,6 +998,7 @@ function renderTraceSummary(responseData, traceContext) {
         traceSummary.innerHTML = `
             <span class="trace-chip trace-chip-neutral">No classification yet</span>
             <span class="trace-copy">${escapeHtml(waitingText)}</span>
+            <span class="trace-copy">${escapeHtml(getPathPreviewText(traceContext))}</span>
         `;
         return;
     }
@@ -700,6 +1033,7 @@ function renderTraceSummary(responseData, traceContext) {
         <span class="trace-copy">Executed path: ${escapeHtml(executedText)}.</span>
         <span class="trace-copy">Skipped: ${escapeHtml(skippedText)}.</span>
         <span class="trace-copy">Layer errors: ${escapeHtml(errorText)}.</span>
+        <span class="trace-copy">${escapeHtml(getPathPreviewText(traceContext))}</span>
     `;
 }
 
@@ -712,6 +1046,15 @@ async function renderArchitectureDiagram(responseData) {
         nodeStates[layer] = getLayerTraceState(layer, traceContext);
     });
     const finalState = getFinalOutputState(traceContext);
+    const edgeStates = buildEdgeStateMap(traceContext, nodeStates, finalState);
+    const edgeLines = DIAGRAM_EDGES.map((edge) => {
+        const connector = edge.dashed ? "-.->" : "-->";
+        return `    ${edge.from} ${connector}|"${edge.label}"| ${edge.to}`;
+    }).join("\n");
+    const linkStyles = DIAGRAM_EDGES.map((edge, index) => {
+        const style = EDGE_STYLE_BY_KIND[edgeStates[edge.key].kind] || EDGE_STYLE_BY_KIND.neutral;
+        return `    linkStyle ${index} ${style}`;
+    }).join("\n");
 
     const mermaidDef = `
 flowchart TD
@@ -734,17 +1077,7 @@ flowchart TD
     Reg["${buildNodeLabel("regression", nodeStates.regression)}"]
     Out["${finalState.label}"]
 
-    In --> L1
-    L1 -->|"Continue"| L2
-    L1 -.->|"Short-circuit path"| Reg
-    L2 -->|"Embedding branch"| L3
-    L2 -->|"Classifier branch"| L4
-    L4 -->|"Severity gate"| L4b
-    L3 -->|"Anomaly signal"| L5
-    L4 -->|"Safe / fallback path"| L5
-    L4b -->|"Severity result"| L5
-    L5 -->|"Aggregate"| Reg
-    Reg --> Out
+${edgeLines}
 
     class In neutral;
     class L1 ${nodeStates.lexicon.kind};
@@ -755,6 +1088,7 @@ flowchart TD
     class L5 ${nodeStates.mosaic.kind};
     class Reg ${nodeStates.regression.kind};
     class Out ${finalState.kind};
+${linkStyles}
 `;
 
     try {
