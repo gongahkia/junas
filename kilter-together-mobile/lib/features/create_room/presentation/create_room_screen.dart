@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
+import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/session_repository.dart';
 
 class CreateRoomScreen extends ConsumerStatefulWidget {
@@ -18,15 +20,20 @@ class CreateRoomScreen extends ConsumerStatefulWidget {
 class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
   final ApiClient _api = ApiClient();
   final TextEditingController _serverController = TextEditingController();
-  final TextEditingController _roomNameController = TextEditingController(text: 'Evening Session');
-  final TextEditingController _displayNameController = TextEditingController(text: 'Host');
+  final TextEditingController _roomNameController =
+      TextEditingController(text: 'Evening Session');
+  final TextEditingController _displayNameController =
+      TextEditingController(text: 'Host');
 
   bool _loadingCapabilities = false;
   bool _submitting = false;
   bool _fistBumpsEnabled = true;
   List<ProviderCapability> _capabilities = const <ProviderCapability>[];
   String? _selectedProviderId;
-  final Map<String, TextEditingController> _secretControllers = <String, TextEditingController>{};
+  String? _preferredProviderId;
+  PendingRoomSeed? _pendingRoomSeed;
+  final Map<String, TextEditingController> _secretControllers =
+      <String, TextEditingController>{};
 
   @override
   void initState() {
@@ -37,6 +44,31 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
       }
       setState(() {
         _serverController.text = server.toString();
+      });
+    });
+    ref.read(sessionRepositoryProvider).loadAppPrefs().then((AppPrefs prefs) {
+      if (!mounted) {
+        return;
+      }
+      final String resolvedRoomName = prefs.pendingRoomSeed?.title
+                  ?.trim()
+                  .isNotEmpty ==
+              true
+          ? prefs.pendingRoomSeed!.title!.trim()
+          : ref
+              .read(appPrefsControllerProvider.notifier)
+              .resolveHostRoomNameTemplate(prefs.hostDefaults.roomNameTemplate);
+      setState(() {
+        if (prefs.savedDisplayName.trim().isNotEmpty) {
+          _displayNameController.text = prefs.savedDisplayName.trim();
+        }
+        if (resolvedRoomName.isNotEmpty) {
+          _roomNameController.text = resolvedRoomName;
+        }
+        _fistBumpsEnabled = prefs.hostDefaults.defaultFistBumpsEnabled;
+        _preferredProviderId =
+            prefs.pendingRoomSeed?.providerId ?? prefs.lastProviderId;
+        _pendingRoomSeed = prefs.pendingRoomSeed;
       });
     });
   }
@@ -68,22 +100,32 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
 
     try {
       final Uri server = normalizeServerUri(_serverController.text);
-      final List<ProviderCapability> capabilities = await _api.getProviderCapabilities(server);
-      final List<ProviderCapability> roomCapabilities =
-          capabilities.where((ProviderCapability capability) => capability.roomSupported).toList(growable: false);
-      for (final TextEditingController controller in _secretControllers.values) {
+      final List<ProviderCapability> capabilities =
+          await _api.getProviderCapabilities(server);
+      final List<ProviderCapability> roomCapabilities = capabilities
+          .where((ProviderCapability capability) => capability.roomSupported)
+          .toList(growable: false);
+      for (final TextEditingController controller
+          in _secretControllers.values) {
         controller.dispose();
       }
       _secretControllers.clear();
       for (final ProviderCapability capability in roomCapabilities) {
         for (final ProviderAuthField field in capability.authFields) {
-          _secretControllers.putIfAbsent(field.key, () => TextEditingController());
+          _secretControllers.putIfAbsent(
+              field.key, () => TextEditingController());
         }
       }
 
       setState(() {
         _capabilities = roomCapabilities;
-        _selectedProviderId = roomCapabilities.isEmpty ? null : roomCapabilities.first.id;
+        final String? preferredProviderId = _preferredProviderId;
+        _selectedProviderId = roomCapabilities.any(
+                (ProviderCapability item) => item.id == preferredProviderId)
+            ? preferredProviderId
+            : roomCapabilities.isEmpty
+                ? null
+                : roomCapabilities.first.id;
       });
     } catch (error) {
       _showSnack('Unable to load provider capabilities: $error');
@@ -127,6 +169,12 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
             slug: result.room.slug,
             session: result.session,
           );
+      await ref.read(appPrefsControllerProvider.notifier).rememberDisplayName(
+            _displayNameController.text.trim(),
+          );
+      await ref
+          .read(appPrefsControllerProvider.notifier)
+          .rememberLastProvider(capability.id);
 
       if (!mounted) {
         return;
@@ -150,7 +198,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
   }
 
   void _showSnack(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -159,7 +208,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
 
     return GradientScaffold(
       title: 'Create a room',
-      subtitle: 'Authenticate the provider on this phone, then open the shared session with a bearer-backed room token.',
+      subtitle:
+          'Authenticate the provider on this phone, then open the shared session with a bearer-backed room token.',
       actions: <Widget>[
         IconButton(
           onPressed: () => context.goNamed('landing'),
@@ -172,6 +222,56 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              if (_pendingRoomSeed != null) ...<Widget>[
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFECFDF5),
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(color: const Color(0xFFA7F3D0)),
+                  ),
+                  padding: const EdgeInsets.all(18),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'Saved plan seed is ready',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        '${_pendingRoomSeed!.surface.name} · ${_pendingRoomSeed!.climbs.length} queued climb${_pendingRoomSeed!.climbs.length == 1 ? '' : 's'}',
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Text(
+                              'Open a matching ${_pendingRoomSeed!.providerId} room, then import the seed from inside the room once the surface is set.',
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          TextButton(
+                            onPressed: () async {
+                              await ref
+                                  .read(appPrefsControllerProvider.notifier)
+                                  .clearPendingRoomSeed();
+                              if (!mounted) {
+                                return;
+                              }
+                              setState(() {
+                                _pendingRoomSeed = null;
+                              });
+                            },
+                            child: const Text('Clear'),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 18),
+              ],
               TextField(
                 controller: _serverController,
                 decoration: const InputDecoration(
@@ -185,7 +285,9 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                 alignment: Alignment.centerLeft,
                 child: FilledButton.tonal(
                   onPressed: _loadingCapabilities ? null : _loadCapabilities,
-                  child: Text(_loadingCapabilities ? 'Loading providers...' : 'Load providers'),
+                  child: Text(_loadingCapabilities
+                      ? 'Loading providers...'
+                      : 'Load providers'),
                 ),
               ),
               const SizedBox(height: 18),
@@ -196,7 +298,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
               const SizedBox(height: 12),
               TextField(
                 controller: _displayNameController,
-                decoration: const InputDecoration(labelText: 'Host display name'),
+                decoration:
+                    const InputDecoration(labelText: 'Host display name'),
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(

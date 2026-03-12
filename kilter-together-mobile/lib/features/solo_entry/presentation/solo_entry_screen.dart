@@ -11,8 +11,10 @@ import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/session_repository.dart';
 
-final _soloEntryDataProvider = FutureProvider.autoDispose<_SoloEntryData>((Ref ref) async {
-  final SessionRepository sessionRepository = ref.read(sessionRepositoryProvider);
+final _soloEntryDataProvider =
+    FutureProvider.autoDispose<_SoloEntryData>((Ref ref) async {
+  final SessionRepository sessionRepository =
+      ref.read(sessionRepositoryProvider);
   final ApiClient apiClient = ref.read(apiClientProvider);
   final Uri? server = await sessionRepository.loadActiveServer();
   if (server == null) {
@@ -23,11 +25,14 @@ final _soloEntryDataProvider = FutureProvider.autoDispose<_SoloEntryData>((Ref r
   }
 
   final List<BoardOption> boards = await apiClient.getBoards(server);
-  final List<ProviderCapability> providers = await apiClient.getProviderCapabilities(server);
+  final List<ProviderCapability> providers =
+      await apiClient.getProviderCapabilities(server);
   return _SoloEntryData(
     server: server,
     boards: boards,
-    providers: providers.where((ProviderCapability item) => item.soloSupported).toList(growable: false),
+    providers: providers
+        .where((ProviderCapability item) => item.soloSupported)
+        .toList(growable: false),
   );
 });
 
@@ -36,12 +41,15 @@ class SoloEntryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AsyncValue<_SoloEntryData> entryData = ref.watch(_soloEntryDataProvider);
-    final AppPrefs prefs = ref.watch(appPrefsControllerProvider).valueOrNull ?? AppPrefs.defaults();
+    final AsyncValue<_SoloEntryData> entryData =
+        ref.watch(_soloEntryDataProvider);
+    final AppPrefs prefs = ref.watch(appPrefsControllerProvider).valueOrNull ??
+        AppPrefs.defaults();
 
     return GradientScaffold(
       title: 'Solo Browse',
-      subtitle: 'Pick the Kilter dataset or a provider-backed solo catalog, then keep favorites, shortlist state, and reusable filters on-device.',
+      subtitle:
+          'Pick the Kilter dataset or a provider-backed solo catalog, then keep favorites, shortlist state, and reusable filters on-device.',
       actions: <Widget>[
         IconButton(
           onPressed: () => context.goNamed('settings'),
@@ -67,7 +75,8 @@ class SoloEntryScreen extends ConsumerWidget {
               }
 
               final Uri server = data.server!;
-              final List<BoardOption> boards = data.boards.take(4).toList(growable: false);
+              final List<BoardOption> boards =
+                  data.boards.take(4).toList(growable: false);
               final List<ProviderCapability> alternateProviders = data.providers
                   .where((ProviderCapability item) => item.id != 'kilter')
                   .toList(growable: false);
@@ -77,7 +86,8 @@ class SoloEntryScreen extends ConsumerWidget {
                 children: <Widget>[
                   _ServerCard(server: server),
                   const SizedBox(height: 14),
-                  if (prefs.soloResume != null && prefs.soloResume!.boardId.isNotEmpty) ...<Widget>[
+                  if (prefs.soloResume != null &&
+                      prefs.soloResume!.boardId.isNotEmpty) ...<Widget>[
                     _ResumeCard(
                       resume: prefs.soloResume!,
                       server: server,
@@ -178,37 +188,45 @@ class _SavedStateCard extends StatelessWidget {
               spacing: 10,
               runSpacing: 10,
               children: <Widget>[
-                _CountChip(label: 'Favorites', value: prefs.soloFavorites.length),
-                _CountChip(label: 'Shortlist', value: prefs.soloShortlist.length),
-                _CountChip(label: 'Saved filters', value: prefs.savedSoloFilters.length),
+                _CountChip(
+                    label: 'Favorites', value: prefs.soloFavorites.length),
+                _CountChip(
+                    label: 'Shortlist', value: prefs.soloShortlist.length),
+                _CountChip(
+                    label: 'Saved filters',
+                    value: prefs.savedSoloFilters.length),
               ],
             ),
-            if (prefs.savedSoloFilters.isNotEmpty || prefs.soloFavorites.isNotEmpty || prefs.soloShortlist.isNotEmpty)
-              ...<Widget>[
-                const SizedBox(height: 18),
-                Column(
-                  children: <Widget>[
-                    if (prefs.savedSoloFilters.isNotEmpty)
-                      _SavedLinkTile(
-                        title: prefs.savedSoloFilters.first.label,
-                        subtitle: 'Open latest saved filter',
-                        onTap: () => _openPreset(context, prefs.savedSoloFilters.first),
-                      ),
-                    if (prefs.soloFavorites.isNotEmpty)
-                      _SavedLinkTile(
-                        title: prefs.soloFavorites.first.climbName,
-                        subtitle: 'Open latest favorite',
-                        onTap: () => _openSavedClimb(context, prefs.soloFavorites.first),
-                      ),
-                    if (prefs.soloShortlist.isNotEmpty)
-                      _SavedLinkTile(
-                        title: prefs.soloShortlist.first.climbName,
-                        subtitle: 'Open latest shortlist entry',
-                        onTap: () => _openSavedClimb(context, prefs.soloShortlist.first),
-                      ),
-                  ],
-                ),
-              ],
+            if (prefs.savedSoloFilters.isNotEmpty ||
+                prefs.soloFavorites.isNotEmpty ||
+                prefs.soloShortlist.isNotEmpty) ...<Widget>[
+              const SizedBox(height: 18),
+              Column(
+                children: <Widget>[
+                  if (prefs.savedSoloFilters.isNotEmpty)
+                    _SavedLinkTile(
+                      title: prefs.savedSoloFilters.first.label,
+                      subtitle: 'Open latest saved filter',
+                      onTap: () =>
+                          _openPreset(context, prefs.savedSoloFilters.first),
+                    ),
+                  if (prefs.soloFavorites.isNotEmpty)
+                    _SavedLinkTile(
+                      title: prefs.soloFavorites.first.climbName,
+                      subtitle: 'Open latest favorite',
+                      onTap: () =>
+                          _openSavedClimb(context, prefs.soloFavorites.first),
+                    ),
+                  if (prefs.soloShortlist.isNotEmpty)
+                    _SavedLinkTile(
+                      title: prefs.soloShortlist.first.climbName,
+                      subtitle: 'Open latest shortlist entry',
+                      onTap: () =>
+                          _openSavedClimb(context, prefs.soloShortlist.first),
+                    ),
+                ],
+              ),
+            ],
           ],
         ),
       ),
@@ -421,7 +439,8 @@ class _ResumeCard extends StatelessWidget {
                   'angle': '${resume.angle}',
                   'sort': resume.sort,
                   if ((resume.q ?? '').isNotEmpty) 'q': resume.q!,
-                  if ((resume.setter ?? '').isNotEmpty) 'setter': resume.setter!,
+                  if ((resume.setter ?? '').isNotEmpty)
+                    'setter': resume.setter!,
                   if ((resume.grade ?? '').isNotEmpty) 'grade': resume.grade!,
                   if ((resume.climb ?? '').isNotEmpty) 'climb': resume.climb!,
                 },
@@ -479,7 +498,9 @@ class _KilterBoardsCard extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(24),
                           onTap: () => context.goNamed(
                             'solo-board',
-                            pathParameters: <String, String>{'boardId': '${board.id}'},
+                            pathParameters: <String, String>{
+                              'boardId': '${board.id}'
+                            },
                             queryParameters: <String, String>{
                               'server': server.toString(),
                               'angle': '$defaultAngle',
@@ -490,7 +511,8 @@ class _KilterBoardsCard extends ConsumerWidget {
                             decoration: BoxDecoration(
                               color: const Color(0xFFF8FFFD),
                               borderRadius: BorderRadius.circular(24),
-                              border: Border.all(color: const Color(0xFFD1FAE5)),
+                              border:
+                                  Border.all(color: const Color(0xFFD1FAE5)),
                             ),
                             padding: const EdgeInsets.all(16),
                             child: Row(
@@ -503,12 +525,14 @@ class _KilterBoardsCard extends ConsumerWidget {
                                     child: board.previewImageFilename == null
                                         ? Container(
                                             color: const Color(0xFFE2E8F0),
-                                            child: const Icon(Icons.landscape_outlined),
+                                            child: const Icon(
+                                                Icons.landscape_outlined),
                                           )
                                         : Image.network(
                                             apiClient.getImageUrl(
                                               server: server,
-                                              filename: board.previewImageFilename!,
+                                              filename:
+                                                  board.previewImageFilename!,
                                             ),
                                             fit: BoxFit.cover,
                                           ),
@@ -517,18 +541,23 @@ class _KilterBoardsCard extends ConsumerWidget {
                                 const SizedBox(width: 14),
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Text(
                                         board.kilterName,
-                                        style: Theme.of(context).textTheme.titleLarge,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge,
                                       ),
                                       const SizedBox(height: 4),
                                       Text(board.name),
                                       const SizedBox(height: 4),
                                       Text(
                                         '${board.climbCount ?? 0} climbs',
-                                        style: Theme.of(context).textTheme.bodySmall,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
                                       ),
                                     ],
                                   ),
@@ -584,7 +613,9 @@ class _ProviderCardGrid extends StatelessWidget {
                         borderRadius: BorderRadius.circular(24),
                         onTap: () => context.goNamed(
                           'solo-provider',
-                          pathParameters: <String, String>{'providerId': provider.id},
+                          pathParameters: <String, String>{
+                            'providerId': provider.id
+                          },
                           queryParameters: <String, String>{
                             'server': server.toString(),
                           },
@@ -605,7 +636,8 @@ class _ProviderCardGrid extends StatelessWidget {
                                   color: const Color(0xFFE0F2FE),
                                   borderRadius: BorderRadius.circular(14),
                                 ),
-                                child: const Icon(Icons.travel_explore, color: Color(0xFF0369A1)),
+                                child: const Icon(Icons.travel_explore,
+                                    color: Color(0xFF0369A1)),
                               ),
                               const SizedBox(width: 14),
                               Expanded(
@@ -614,10 +646,13 @@ class _ProviderCardGrid extends StatelessWidget {
                                   children: <Widget>[
                                     Text(
                                       provider.label,
-                                      style: Theme.of(context).textTheme.titleLarge,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
                                     ),
                                     const SizedBox(height: 4),
-                                    Text('Hierarchy: ${provider.surfaceHierarchy}'),
+                                    Text(
+                                        'Hierarchy: ${provider.surfaceHierarchy}'),
                                   ],
                                 ),
                               ),

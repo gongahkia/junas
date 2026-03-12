@@ -23,7 +23,9 @@ class RoomRouteArgs {
 
   @override
   bool operator ==(Object other) {
-    return other is RoomRouteArgs && other.server == server && other.slug == slug;
+    return other is RoomRouteArgs &&
+        other.server == server &&
+        other.slug == slug;
   }
 
   @override
@@ -116,8 +118,10 @@ class RoomViewState {
       selectedCatalogClimb: selectedCatalogClimb ?? this.selectedCatalogClimb,
       parentSurfaces: parentSurfaces ?? this.parentSurfaces,
       childSurfaces: childSurfaces ?? this.childSurfaces,
-      selectedParentSurfaceId: selectedParentSurfaceId ?? this.selectedParentSurfaceId,
-      selectedChildSurfaceId: selectedChildSurfaceId ?? this.selectedChildSurfaceId,
+      selectedParentSurfaceId:
+          selectedParentSurfaceId ?? this.selectedParentSurfaceId,
+      selectedChildSurfaceId:
+          selectedChildSurfaceId ?? this.selectedChildSurfaceId,
       selectedAngle: selectedAngle ?? this.selectedAngle,
       catalogQuery: catalogQuery ?? this.catalogQuery,
       catalogSort: catalogSort ?? this.catalogSort,
@@ -127,15 +131,16 @@ class RoomViewState {
       catalogLoading: catalogLoading ?? this.catalogLoading,
       surfacesLoading: surfacesLoading ?? this.surfacesLoading,
       actionInFlight: actionInFlight ?? this.actionInFlight,
-      errorMessage: clearErrorMessage ? null : (errorMessage ?? this.errorMessage),
+      errorMessage:
+          clearErrorMessage ? null : (errorMessage ?? this.errorMessage),
       joinReason: clearJoinReason ? null : (joinReason ?? this.joinReason),
       notice: clearNotice ? null : (notice ?? this.notice),
     );
   }
 }
 
-final roomControllerProvider =
-    StateNotifierProvider.autoDispose.family<RoomController, RoomViewState, RoomRouteArgs>(
+final roomControllerProvider = StateNotifierProvider.autoDispose
+    .family<RoomController, RoomViewState, RoomRouteArgs>(
   (Ref ref, RoomRouteArgs args) {
     return RoomController(
       args: args,
@@ -195,7 +200,8 @@ class RoomController extends StateNotifier<RoomViewState> {
         session: null,
         loading: false,
         joinReason: 'session_required',
-        errorMessage: 'This device does not have a saved room session. Join the room again.',
+        errorMessage:
+            'This device does not have a saved room session. Join the room again.',
       );
       return;
     }
@@ -280,7 +286,8 @@ class RoomController extends StateNotifier<RoomViewState> {
     );
 
     try {
-      final RoomCatalogClimbsResponse catalog = await _apiClient.getRoomCatalogClimbs(
+      final RoomCatalogClimbsResponse catalog =
+          await _apiClient.getRoomCatalogClimbs(
         server: _args.serverUri,
         slug: _args.slug,
         sessionToken: session.token,
@@ -288,11 +295,14 @@ class RoomController extends StateNotifier<RoomViewState> {
         sort: sort ?? state.catalogSort,
         cursor: cursor,
       );
-      RoomCatalogClimbResponse? selectedCatalogClimb = state.selectedCatalogClimb;
+      RoomCatalogClimbResponse? selectedCatalogClimb =
+          state.selectedCatalogClimb;
       final String? selectedClimbId = selectedCatalogClimb?.climb.id;
-      final ProviderClimb? firstClimb = catalog.climbs.isEmpty ? null : catalog.climbs.first;
+      final ProviderClimb? firstClimb =
+          catalog.climbs.isEmpty ? null : catalog.climbs.first;
       if (selectedClimbId != null &&
-          catalog.climbs.any((ProviderClimb item) => item.id == selectedClimbId)) {
+          catalog.climbs
+              .any((ProviderClimb item) => item.id == selectedClimbId)) {
         selectedCatalogClimb = await _apiClient.getRoomCatalogClimb(
           server: _args.serverUri,
           slug: _args.slug,
@@ -330,7 +340,8 @@ class RoomController extends StateNotifier<RoomViewState> {
       return;
     }
     try {
-      final RoomCatalogClimbResponse climb = await _apiClient.getRoomCatalogClimb(
+      final RoomCatalogClimbResponse climb =
+          await _apiClient.getRoomCatalogClimb(
         server: _args.serverUri,
         slug: _args.slug,
         sessionToken: session.token,
@@ -357,7 +368,8 @@ class RoomController extends StateNotifier<RoomViewState> {
 
     state = state.copyWith(surfacesLoading: true, clearErrorMessage: true);
     try {
-      final List<ProviderSurface> surfaces = await _apiClient.getRoomCatalogSurfaces(
+      final List<ProviderSurface> surfaces =
+          await _apiClient.getRoomCatalogSurfaces(
         server: _args.serverUri,
         slug: _args.slug,
         sessionToken: session.token,
@@ -372,7 +384,8 @@ class RoomController extends StateNotifier<RoomViewState> {
           );
           return;
         }
-        if (nextParentId.isEmpty || !surfaces.any((ProviderSurface item) => item.id == nextParentId)) {
+        if (nextParentId.isEmpty ||
+            !surfaces.any((ProviderSurface item) => item.id == nextParentId)) {
           nextParentId = surfaces.isEmpty ? '' : surfaces.first.id;
         }
         state = state.copyWith(
@@ -387,7 +400,8 @@ class RoomController extends StateNotifier<RoomViewState> {
       }
 
       String nextChildId = state.selectedChildSurfaceId;
-      if (nextChildId.isEmpty || !surfaces.any((ProviderSurface item) => item.id == nextChildId)) {
+      if (nextChildId.isEmpty ||
+          !surfaces.any((ProviderSurface item) => item.id == nextChildId)) {
         nextChildId = surfaces.isEmpty ? '' : surfaces.first.id;
       }
       state = state.copyWith(
@@ -425,9 +439,12 @@ class RoomController extends StateNotifier<RoomViewState> {
       return;
     }
 
-    final String surfaceId = room.providerId == 'kilter' ? state.selectedParentSurfaceId : state.selectedChildSurfaceId;
+    final String surfaceId = room.providerId == 'kilter'
+        ? state.selectedParentSurfaceId
+        : state.selectedChildSurfaceId;
     if (surfaceId.isEmpty) {
-      state = state.copyWith(errorMessage: 'Pick a surface before saving the room context.');
+      state = state.copyWith(
+          errorMessage: 'Pick a surface before saving the room context.');
       return;
     }
 
@@ -588,8 +605,10 @@ class RoomController extends StateNotifier<RoomViewState> {
     if (session == null || room == null) {
       return;
     }
-    final List<FinalistEntry> finalists = List<FinalistEntry>.from(room.finalists);
-    final int currentIndex = finalists.indexWhere((FinalistEntry item) => item.id == entryId);
+    final List<FinalistEntry> finalists =
+        List<FinalistEntry>.from(room.finalists);
+    final int currentIndex =
+        finalists.indexWhere((FinalistEntry item) => item.id == entryId);
     if (currentIndex < 0) {
       return;
     }
@@ -605,7 +624,9 @@ class RoomController extends StateNotifier<RoomViewState> {
         server: _args.serverUri,
         slug: _args.slug,
         sessionToken: session.token,
-        entryIds: finalists.map((FinalistEntry item) => item.id).toList(growable: false),
+        entryIds: finalists
+            .map((FinalistEntry item) => item.id)
+            .toList(growable: false),
       ),
     );
   }
@@ -650,7 +671,8 @@ class RoomController extends StateNotifier<RoomViewState> {
       return;
     }
     final List<QueueEntry> queue = List<QueueEntry>.from(room.queue);
-    final int currentIndex = queue.indexWhere((QueueEntry item) => item.id == entryId);
+    final int currentIndex =
+        queue.indexWhere((QueueEntry item) => item.id == entryId);
     if (currentIndex < 0) {
       return;
     }
@@ -666,7 +688,8 @@ class RoomController extends StateNotifier<RoomViewState> {
         server: _args.serverUri,
         slug: _args.slug,
         sessionToken: session.token,
-        entryIds: queue.map((QueueEntry item) => item.id).toList(growable: false),
+        entryIds:
+            queue.map((QueueEntry item) => item.id).toList(growable: false),
       ),
     );
   }
@@ -677,7 +700,9 @@ class RoomController extends StateNotifier<RoomViewState> {
       return;
     }
     await _mutate(
-      notice: status == 'current' ? 'Current climb updated.' : 'Next climb updated.',
+      notice: status == 'current'
+          ? 'Current climb updated.'
+          : 'Next climb updated.',
       action: () => _apiClient.promoteRoomQueueClimb(
         server: _args.serverUri,
         slug: _args.slug,
@@ -709,7 +734,8 @@ class RoomController extends StateNotifier<RoomViewState> {
       return;
     }
     try {
-      state = state.copyWith(actionInFlight: true, clearErrorMessage: true, clearNotice: true);
+      state = state.copyWith(
+          actionInFlight: true, clearErrorMessage: true, clearNotice: true);
       final ProviderClimb climb = await _apiClient.pickRandomRoomClimb(
         server: _args.serverUri,
         slug: _args.slug,
@@ -722,7 +748,8 @@ class RoomController extends StateNotifier<RoomViewState> {
         notice: 'Suggested climb: ${climb.name}',
       );
     } on ApiFailure catch (error) {
-      state = state.copyWith(actionInFlight: false, errorMessage: error.message);
+      state =
+          state.copyWith(actionInFlight: false, errorMessage: error.message);
       if (error.isAuthFailure) {
         await _handleApiFailure(error);
       }
@@ -792,6 +819,42 @@ class RoomController extends StateNotifier<RoomViewState> {
     );
   }
 
+  Future<void> importPendingSeed(List<String> climbIds) async {
+    final RoomSession? session = state.session;
+    if (session == null || climbIds.isEmpty) {
+      return;
+    }
+
+    try {
+      state = state.copyWith(
+        actionInFlight: true,
+        clearErrorMessage: true,
+        clearNotice: true,
+      );
+      for (final String climbId in climbIds) {
+        await _apiClient.addRoomQueueEntry(
+          server: _args.serverUri,
+          slug: _args.slug,
+          sessionToken: session.token,
+          climbId: climbId,
+        );
+      }
+      await refresh(silent: true);
+      state = state.copyWith(
+        actionInFlight: false,
+        notice: 'Imported the saved plan seed into the queue.',
+      );
+    } on ApiFailure catch (error) {
+      state = state.copyWith(
+        actionInFlight: false,
+        errorMessage: error.message,
+      );
+      if (error.isAuthFailure) {
+        await _handleApiFailure(error);
+      }
+    }
+  }
+
   Future<void> _mutate({
     required Future<dynamic> Function() action,
     String? notice,
@@ -826,7 +889,8 @@ class RoomController extends StateNotifier<RoomViewState> {
           : error.code == 'session_invalid'
               ? 'session_invalid'
               : 'session_required';
-      await _sessionRepository.clearSession(server: _args.serverUri, slug: _args.slug);
+      await _sessionRepository.clearSession(
+          server: _args.serverUri, slug: _args.slug);
       state = state.copyWith(
         joinReason: reason,
         errorMessage: error.message,
@@ -849,9 +913,10 @@ class RoomController extends StateNotifier<RoomViewState> {
     }
     _subscription = _sseClient
         .connect(
-          uri: _apiClient.getRoomEventsUri(server: _args.serverUri, slug: _args.slug),
-          sessionToken: sessionToken,
-        )
+      uri: _apiClient.getRoomEventsUri(
+          server: _args.serverUri, slug: _args.slug),
+      sessionToken: sessionToken,
+    )
         .listen((SseMessage _) {
       unawaited(refresh(silent: true));
     }, onError: (_) {

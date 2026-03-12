@@ -9,6 +9,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../../core/deep_links/invite_links.dart';
+import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/room_models.dart';
 import '../../../core/models/session_models.dart';
@@ -17,11 +18,36 @@ import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/provider_secret_repository.dart';
 import '../application/room_controller.dart';
 
-const List<int> _kilterAngleOptions = <int>[5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70];
-const List<String> _participantStatuses = <String>['watching', 'ready', 'resting', 'away'];
+const List<int> _kilterAngleOptions = <int>[
+  5,
+  10,
+  15,
+  20,
+  25,
+  30,
+  35,
+  40,
+  45,
+  50,
+  55,
+  60,
+  65,
+  70
+];
+const List<String> _participantStatuses = <String>[
+  'watching',
+  'ready',
+  'resting',
+  'away'
+];
 const List<String> _assistantModes = <String>['manual', 'assist'];
 const List<String> _catalogSorts = <String>['popular', 'newest'];
-const List<String> _queueStatuses = <String>['queued', 'next', 'current', 'done'];
+const List<String> _queueStatuses = <String>[
+  'queued',
+  'next',
+  'current',
+  'done'
+];
 
 class RoomScreen extends ConsumerStatefulWidget {
   const RoomScreen({
@@ -40,8 +66,10 @@ class RoomScreen extends ConsumerStatefulWidget {
 class _RoomScreenState extends ConsumerState<RoomScreen> {
   final TextEditingController _roomNameController = TextEditingController();
   final TextEditingController _catalogQueryController = TextEditingController();
-  final TextEditingController _kilterUsernameController = TextEditingController();
-  final TextEditingController _kilterPasswordController = TextEditingController();
+  final TextEditingController _kilterUsernameController =
+      TextEditingController();
+  final TextEditingController _kilterPasswordController =
+      TextEditingController();
   final TextEditingController _cruxTokenController = TextEditingController();
 
   bool _rememberProviderSecret = false;
@@ -49,7 +77,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   bool _shareBusy = false;
   String _boundRoomName = '';
 
-  RoomRouteArgs get _args => RoomRouteArgs(server: widget.server, slug: widget.slug);
+  RoomRouteArgs get _args =>
+      RoomRouteArgs(server: widget.server, slug: widget.slug);
 
   @override
   void initState() {
@@ -76,10 +105,11 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       if (room == null) {
         return;
       }
-      final Map<String, String> secret = await ref.read(providerSecretRepositoryProvider).readSecret(
-            server: _args.serverUri,
-            providerId: room.providerId,
-          );
+      final Map<String, String> secret =
+          await ref.read(providerSecretRepositoryProvider).readSecret(
+                server: _args.serverUri,
+                providerId: room.providerId,
+              );
       if (!mounted || secret.isEmpty) {
         return;
       }
@@ -132,7 +162,9 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
             'token': _cruxTokenController.text.trim(),
           };
 
-    await ref.read(roomControllerProvider(_args).notifier).reconnectProvider(secret);
+    await ref
+        .read(roomControllerProvider(_args).notifier)
+        .reconnectProvider(secret);
 
     if (_rememberProviderSecret) {
       await ref.read(providerSecretRepositoryProvider).saveSecret(
@@ -140,7 +172,9 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
             providerId: room.providerId,
             secret: secret,
           );
-      await ref.read(appPrefsControllerProvider.notifier).rememberProviderSecretPreference(
+      await ref
+          .read(appPrefsControllerProvider.notifier)
+          .rememberProviderSecretPreference(
             providerId: room.providerId,
             remember: true,
           );
@@ -149,19 +183,64 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
             server: _args.serverUri,
             providerId: room.providerId,
           );
-      await ref.read(appPrefsControllerProvider.notifier).rememberProviderSecretPreference(
+      await ref
+          .read(appPrefsControllerProvider.notifier)
+          .rememberProviderSecretPreference(
             providerId: room.providerId,
             remember: false,
           );
     }
   }
 
+  Future<void> _importPendingRoomSeed(
+    PendingRoomSeed seed,
+    RoomSnapshot room,
+  ) async {
+    final ScaffoldMessengerState messenger = ScaffoldMessenger.of(context);
+    if (seed.providerId != room.providerId) {
+      messenger.showSnackBar(
+        const SnackBar(
+            content: Text('The saved plan seed is for a different provider.')),
+      );
+      return;
+    }
+    if (room.surface == null || room.surface!.id != seed.surface.id) {
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text(
+            'Choose ${seed.surface.name} as the room surface before importing the saved plan.',
+          ),
+        ),
+      );
+      return;
+    }
+
+    await ref.read(roomControllerProvider(_args).notifier).importPendingSeed(
+          seed.climbs
+              .map((ProviderClimb item) => item.id)
+              .toList(growable: false),
+        );
+    if (!mounted) {
+      return;
+    }
+    final RoomViewState nextState = ref.read(roomControllerProvider(_args));
+    if (nextState.errorMessage == null) {
+      await ref
+          .read(appPrefsControllerProvider.notifier)
+          .clearPendingRoomSeed();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final RoomViewState roomState = ref.watch(roomControllerProvider(_args));
-    final RoomController controller = ref.read(roomControllerProvider(_args).notifier);
+    final RoomController controller =
+        ref.read(roomControllerProvider(_args).notifier);
+    final AppPrefs prefs = ref.watch(appPrefsControllerProvider).valueOrNull ??
+        AppPrefs.defaults();
 
-    ref.listen<RoomViewState>(roomControllerProvider(_args), (RoomViewState? previous, RoomViewState next) {
+    ref.listen<RoomViewState>(roomControllerProvider(_args),
+        (RoomViewState? previous, RoomViewState next) {
       final RoomSnapshot? room = next.room;
       if (room != null && room.roomName != _boundRoomName) {
         _boundRoomName = room.roomName ?? '';
@@ -172,7 +251,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
         _catalogQueryController.text = currentQuery;
       }
       if (room != null &&
-          (previous?.room?.version != room.version || previous?.room?.slug != room.slug)) {
+          (previous?.room?.version != room.version ||
+              previous?.room?.slug != room.slug)) {
         unawaited(
           ref.read(appPrefsControllerProvider.notifier).rememberRoomVisit(
                 server: next.server,
@@ -226,7 +306,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                   style: textTheme.headlineMedium,
                 ),
                 const SizedBox(height: 10),
-                Text(roomState.errorMessage ?? 'This device no longer has a valid room session.'),
+                Text(roomState.errorMessage ??
+                    'This device no longer has a valid room session.'),
                 const SizedBox(height: 18),
                 FilledButton.tonal(
                   onPressed: () => context.goNamed(
@@ -234,7 +315,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                     queryParameters: <String, String>{
                       'server': widget.server,
                       'slug': widget.slug,
-                      if (roomState.joinReason != null) 'reason': roomState.joinReason!,
+                      if (roomState.joinReason != null)
+                        'reason': roomState.joinReason!,
                     },
                   ),
                   child: const Text('Rejoin room'),
@@ -258,11 +340,16 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       subtitle: describeServer(roomState.server),
       actions: <Widget>[
         IconButton(
-          onPressed: roomState.refreshing ? null : () => unawaited(controller.refresh()),
+          onPressed: roomState.refreshing
+              ? null
+              : () => unawaited(controller.refresh()),
           icon: Icon(roomState.refreshing ? Icons.sync : Icons.refresh),
         ),
         IconButton(
-          onPressed: _shareBusy ? null : () => unawaited(_shareInvite(inviteUri, room.roomName ?? room.slug)),
+          onPressed: _shareBusy
+              ? null
+              : () => unawaited(
+                  _shareInvite(inviteUri, room.roomName ?? room.slug)),
           icon: const Icon(Icons.ios_share),
         ),
       ],
@@ -285,6 +372,17 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
             ),
             const SizedBox(height: 14),
           ],
+          if (prefs.pendingRoomSeed != null &&
+              prefs.pendingRoomSeed!.providerId == room.providerId) ...<Widget>[
+            _PendingRoomSeedCard(
+              seed: prefs.pendingRoomSeed!,
+              room: room,
+              actionInFlight: roomState.actionInFlight,
+              onImport: () => unawaited(
+                  _importPendingRoomSeed(prefs.pendingRoomSeed!, room)),
+            ),
+            const SizedBox(height: 14),
+          ],
           _OverviewCard(room: room),
           const SizedBox(height: 14),
           _InviteCard(
@@ -292,7 +390,10 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
             showQr: _showQr,
             onToggleQr: () => setState(() => _showQr = !_showQr),
             onCopy: () => unawaited(_copyInvite(inviteUri)),
-            onShare: _shareBusy ? null : () => unawaited(_shareInvite(inviteUri, room.roomName ?? room.slug)),
+            onShare: _shareBusy
+                ? null
+                : () => unawaited(
+                    _shareInvite(inviteUri, room.roomName ?? room.slug)),
           ),
           const SizedBox(height: 14),
           _SelfStatusCard(
@@ -306,7 +407,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
             },
           ),
           const SizedBox(height: 14),
-          if (room.permissions.manageSurface || room.connection.connected) ...<Widget>[
+          if (room.permissions.manageSurface ||
+              room.connection.connected) ...<Widget>[
             _SurfaceCard(
               roomState: roomState,
               onLoadTopLevel: () => unawaited(controller.loadSurfaces()),
@@ -331,12 +433,15 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                 }
                 controller.updateSurfaceDraft(angle: value);
               },
-              onSaveSurface: room.permissions.manageSurface ? () => unawaited(controller.setSurface()) : null,
-              onReconnect: room.permissions.manageSurface && room.connection.connected
-                  ? () => unawaited(_submitReconnect(room))
-                  : room.permissions.manageSurface
+              onSaveSurface: room.permissions.manageSurface
+                  ? () => unawaited(controller.setSurface())
+                  : null,
+              onReconnect:
+                  room.permissions.manageSurface && room.connection.connected
                       ? () => unawaited(_submitReconnect(room))
-                      : null,
+                      : room.permissions.manageSurface
+                          ? () => unawaited(_submitReconnect(room))
+                          : null,
               rememberProviderSecret: _rememberProviderSecret,
               onRememberProviderSecretChanged: (bool value) {
                 setState(() {
@@ -370,7 +475,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                 ),
               );
             },
-            onSelectClimb: (String climbId) => unawaited(controller.selectCatalogClimb(climbId)),
+            onSelectClimb: (String climbId) =>
+                unawaited(controller.selectCatalogClimb(climbId)),
             onLoadMore: roomState.catalogNextCursor == null
                 ? null
                 : () => unawaited(
@@ -380,21 +486,31 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                         cursor: roomState.catalogNextCursor,
                       ),
                     ),
-            onToggleVote: (String climbId) => unawaited(controller.toggleVote(climbId)),
-            onAddQueue: (String climbId) => unawaited(controller.addQueueEntry(climbId)),
-            onAddFinalist: (String climbId) => unawaited(controller.addFinalist(climbId)),
-            onPromoteCurrent: (String climbId) => unawaited(controller.promoteClimb(climbId, 'current')),
-            onPromoteNext: (String climbId) => unawaited(controller.promoteClimb(climbId, 'next')),
+            onToggleVote: (String climbId) =>
+                unawaited(controller.toggleVote(climbId)),
+            onAddQueue: (String climbId) =>
+                unawaited(controller.addQueueEntry(climbId)),
+            onAddFinalist: (String climbId) =>
+                unawaited(controller.addFinalist(climbId)),
+            onPromoteCurrent: (String climbId) =>
+                unawaited(controller.promoteClimb(climbId, 'current')),
+            onPromoteNext: (String climbId) =>
+                unawaited(controller.promoteClimb(climbId, 'next')),
           ),
           const SizedBox(height: 14),
           _QueueCard(
             room: room,
             queueStatuses: _queueStatuses,
-            onMoveUp: (int entryId) => unawaited(controller.moveQueueEntry(entryId, -1)),
-            onMoveDown: (int entryId) => unawaited(controller.moveQueueEntry(entryId, 1)),
-            onDelete: (int entryId) => unawaited(controller.deleteQueueEntry(entryId)),
-            onPromoteCurrent: (String climbId) => unawaited(controller.promoteClimb(climbId, 'current')),
-            onPromoteNext: (String climbId) => unawaited(controller.promoteClimb(climbId, 'next')),
+            onMoveUp: (int entryId) =>
+                unawaited(controller.moveQueueEntry(entryId, -1)),
+            onMoveDown: (int entryId) =>
+                unawaited(controller.moveQueueEntry(entryId, 1)),
+            onDelete: (int entryId) =>
+                unawaited(controller.deleteQueueEntry(entryId)),
+            onPromoteCurrent: (String climbId) =>
+                unawaited(controller.promoteClimb(climbId, 'current')),
+            onPromoteNext: (String climbId) =>
+                unawaited(controller.promoteClimb(climbId, 'next')),
             onStatusChanged: (int entryId, String? value) {
               if (value == null) {
                 return;
@@ -405,13 +521,20 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
           const SizedBox(height: 14),
           _FinalistsCard(
             room: room,
-            onMoveUp: (int entryId) => unawaited(controller.moveFinalist(entryId, -1)),
-            onMoveDown: (int entryId) => unawaited(controller.moveFinalist(entryId, 1)),
-            onDelete: (int entryId) => unawaited(controller.deleteFinalist(entryId)),
-            onPickRandomFinalists: () => unawaited(controller.pickRandom('finalists')),
-            onPickRandomTopVoted: () => unawaited(controller.pickRandom('top_voted')),
-            onPromoteCurrent: (String climbId) => unawaited(controller.promoteClimb(climbId, 'current')),
-            onPromoteNext: (String climbId) => unawaited(controller.promoteClimb(climbId, 'next')),
+            onMoveUp: (int entryId) =>
+                unawaited(controller.moveFinalist(entryId, -1)),
+            onMoveDown: (int entryId) =>
+                unawaited(controller.moveFinalist(entryId, 1)),
+            onDelete: (int entryId) =>
+                unawaited(controller.deleteFinalist(entryId)),
+            onPickRandomFinalists: () =>
+                unawaited(controller.pickRandom('finalists')),
+            onPickRandomTopVoted: () =>
+                unawaited(controller.pickRandom('top_voted')),
+            onPromoteCurrent: (String climbId) =>
+                unawaited(controller.promoteClimb(climbId, 'current')),
+            onPromoteNext: (String climbId) =>
+                unawaited(controller.promoteClimb(climbId, 'next')),
           ),
           const SizedBox(height: 14),
           _ParticipantsCard(
@@ -422,7 +545,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               }
               unawaited(controller.updateParticipantRole(participantId, role));
             },
-            onRemove: (int participantId) => unawaited(controller.removeParticipant(participantId)),
+            onRemove: (int participantId) =>
+                unawaited(controller.removeParticipant(participantId)),
           ),
           const SizedBox(height: 14),
           _ManageRoomCard(
@@ -431,7 +555,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
             assistantModes: _assistantModes,
             busy: roomState.actionInFlight,
             onSaveName: room.permissions.editRoomSettings
-                ? () => unawaited(controller.updateRoomName(_roomNameController.text.trim()))
+                ? () => unawaited(
+                    controller.updateRoomName(_roomNameController.text.trim()))
                 : null,
             onAssistantModeChanged: room.permissions.manageSession
                 ? (String? value) {
@@ -442,9 +567,12 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                   }
                 : null,
             onFistBumpsChanged: room.permissions.editRoomSettings
-                ? (bool value) => unawaited(controller.setFistBumpsEnabled(value))
+                ? (bool value) =>
+                    unawaited(controller.setFistBumpsEnabled(value))
                 : null,
-            onClearVotes: room.permissions.manageSession ? () => unawaited(controller.clearVotes()) : null,
+            onClearVotes: room.permissions.manageSession
+                ? () => unawaited(controller.clearVotes())
+                : null,
             onCloseRoom: room.permissions.closeRoom
                 ? () async {
                     final GoRouter router = GoRouter.of(context);
@@ -487,10 +615,71 @@ class _MessageCard extends StatelessWidget {
           children: <Widget>[
             Text(
               title,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(color: accent),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(color: accent),
             ),
             const SizedBox(height: 8),
             Text(message),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _PendingRoomSeedCard extends StatelessWidget {
+  const _PendingRoomSeedCard({
+    required this.seed,
+    required this.room,
+    required this.actionInFlight,
+    required this.onImport,
+  });
+
+  final PendingRoomSeed seed;
+  final RoomSnapshot room;
+  final bool actionInFlight;
+  final VoidCallback onImport;
+
+  @override
+  Widget build(BuildContext context) {
+    final bool surfaceMatches = room.surface?.id == seed.surface.id;
+
+    return Card(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(28),
+          gradient: const LinearGradient(
+            colors: <Color>[
+              Color(0xFFECFDF5),
+              Colors.white,
+            ],
+          ),
+        ),
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Saved plan seed is ready',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              '${seed.surface.name} · ${seed.climbs.length} climb${seed.climbs.length == 1 ? '' : 's'}',
+            ),
+            const SizedBox(height: 10),
+            Text(
+              surfaceMatches
+                  ? 'This room already matches the saved plan context. Import the queued climbs directly.'
+                  : 'Choose ${seed.surface.name} as the room surface first, then import the saved queue.',
+            ),
+            const SizedBox(height: 14),
+            FilledButton.tonal(
+              onPressed: surfaceMatches && !actionInFlight ? onImport : null,
+              child: const Text('Import plan to queue'),
+            ),
           ],
         ),
       ),
@@ -521,7 +710,10 @@ class _OverviewCard extends StatelessWidget {
               children: <Widget>[
                 _Chip(label: room.providerId.toUpperCase()),
                 _Chip(label: room.status.toUpperCase()),
-                _Chip(label: room.connection.connected ? 'CONNECTED' : 'AUTH REQUIRED'),
+                _Chip(
+                    label: room.connection.connected
+                        ? 'CONNECTED'
+                        : 'AUTH REQUIRED'),
                 if (room.surface != null) _Chip(label: room.surface!.name),
               ],
             ),
@@ -534,7 +726,8 @@ class _OverviewCard extends StatelessWidget {
               const SizedBox(height: 6),
               Text(room.currentClimb!.primaryGrade!),
             ],
-            if (room.assistant.message != null || room.assistant.suggestion != null) ...<Widget>[
+            if (room.assistant.message != null ||
+                room.assistant.suggestion != null) ...<Widget>[
               const SizedBox(height: 16),
               Container(
                 decoration: BoxDecoration(
@@ -555,7 +748,8 @@ class _OverviewCard extends StatelessWidget {
                     ],
                     if (room.assistant.suggestion != null) ...<Widget>[
                       const SizedBox(height: 10),
-                      Text('Suggested climb: ${room.assistant.suggestion!.climb.name}'),
+                      Text(
+                          'Suggested climb: ${room.assistant.suggestion!.climb.name}'),
                     ],
                   ],
                 ),
@@ -660,7 +854,8 @@ class _SelfStatusCard extends StatelessWidget {
             const SizedBox(height: 10),
             DropdownButtonFormField<String>(
               initialValue: room.participants
-                  .where((Participant item) => item.displayName == room.displayName)
+                  .where((Participant item) =>
+                      item.displayName == room.displayName)
                   .map((Participant item) => item.status)
                   .firstOrNull,
               items: statuses
@@ -744,7 +939,9 @@ class _SurfaceCard extends StatelessWidget {
             const SizedBox(height: 16),
             if (kilter) ...<Widget>[
               DropdownButtonFormField<String>(
-                initialValue: roomState.selectedParentSurfaceId.isEmpty ? null : roomState.selectedParentSurfaceId,
+                initialValue: roomState.selectedParentSurfaceId.isEmpty
+                    ? null
+                    : roomState.selectedParentSurfaceId,
                 decoration: const InputDecoration(labelText: 'Board'),
                 items: roomState.parentSurfaces
                     .map(
@@ -772,7 +969,9 @@ class _SurfaceCard extends StatelessWidget {
               ),
             ] else ...<Widget>[
               DropdownButtonFormField<String>(
-                initialValue: roomState.selectedParentSurfaceId.isEmpty ? null : roomState.selectedParentSurfaceId,
+                initialValue: roomState.selectedParentSurfaceId.isEmpty
+                    ? null
+                    : roomState.selectedParentSurfaceId,
                 decoration: const InputDecoration(labelText: 'Gym'),
                 items: roomState.parentSurfaces
                     .map(
@@ -786,7 +985,9 @@ class _SurfaceCard extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
-                initialValue: roomState.selectedChildSurfaceId.isEmpty ? null : roomState.selectedChildSurfaceId,
+                initialValue: roomState.selectedChildSurfaceId.isEmpty
+                    ? null
+                    : roomState.selectedChildSurfaceId,
                 decoration: const InputDecoration(labelText: 'Wall'),
                 items: roomState.childSurfaces
                     .map(
@@ -876,7 +1077,8 @@ class _CatalogCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final RoomSnapshot room = roomState.room!;
     final RoomCatalogClimbsResponse? catalog = roomState.catalog;
-    final RoomCatalogClimbResponse? selectedClimb = roomState.selectedCatalogClimb;
+    final RoomCatalogClimbResponse? selectedClimb =
+        roomState.selectedCatalogClimb;
 
     return Card(
       child: Padding(
@@ -942,7 +1144,8 @@ class _CatalogCard extends StatelessWidget {
                       children: <Widget>[
                         FilledButton.tonal(
                           onPressed: () => onToggleVote(selectedClimb.climb.id),
-                          child: Text(selectedClimb.myVote ? 'Remove vote' : 'Vote'),
+                          child: Text(
+                              selectedClimb.myVote ? 'Remove vote' : 'Vote'),
                         ),
                         if (room.permissions.manageQueue)
                           FilledButton.tonal(
@@ -951,17 +1154,20 @@ class _CatalogCard extends StatelessWidget {
                           ),
                         if (room.permissions.manageFinalists)
                           FilledButton.tonal(
-                            onPressed: () => onAddFinalist(selectedClimb.climb.id),
+                            onPressed: () =>
+                                onAddFinalist(selectedClimb.climb.id),
                             child: const Text('Finalist'),
                           ),
                         if (room.permissions.manageSession)
                           FilledButton.tonal(
-                            onPressed: () => onPromoteCurrent(selectedClimb.climb.id),
+                            onPressed: () =>
+                                onPromoteCurrent(selectedClimb.climb.id),
                             child: const Text('Current'),
                           ),
                         if (room.permissions.manageSession)
                           FilledButton.tonal(
-                            onPressed: () => onPromoteNext(selectedClimb.climb.id),
+                            onPressed: () =>
+                                onPromoteNext(selectedClimb.climb.id),
                             child: const Text('Next'),
                           ),
                       ],
@@ -985,8 +1191,10 @@ class _CatalogCard extends StatelessWidget {
                   title: Text(climb.name),
                   subtitle: Text(
                     [
-                      if ((climb.setterName ?? '').isNotEmpty) climb.setterName!,
-                      if ((climb.primaryGrade ?? '').isNotEmpty) climb.primaryGrade!,
+                      if ((climb.setterName ?? '').isNotEmpty)
+                        climb.setterName!,
+                      if ((climb.primaryGrade ?? '').isNotEmpty)
+                        climb.primaryGrade!,
                     ].join(' · '),
                   ),
                   trailing: Text('${catalog.voteCounts[climb.id] ?? 0}'),
@@ -1060,7 +1268,8 @@ class _QueueCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(entry.climb.name, style: Theme.of(context).textTheme.titleLarge),
+                        Text(entry.climb.name,
+                            style: Theme.of(context).textTheme.titleLarge),
                         const SizedBox(height: 6),
                         Text('${entry.status} · added by ${entry.addedBy}'),
                         const SizedBox(height: 12),
@@ -1073,16 +1282,19 @@ class _QueueCard extends StatelessWidget {
                                 width: 180,
                                 child: DropdownButtonFormField<String>(
                                   initialValue: entry.status,
-                                  decoration: const InputDecoration(labelText: 'Status'),
+                                  decoration: const InputDecoration(
+                                      labelText: 'Status'),
                                   items: queueStatuses
                                       .map(
-                                        (String value) => DropdownMenuItem<String>(
+                                        (String value) =>
+                                            DropdownMenuItem<String>(
                                           value: value,
                                           child: Text(value),
                                         ),
                                       )
                                       .toList(growable: false),
-                                  onChanged: (String? value) => onStatusChanged(entry.id, value),
+                                  onChanged: (String? value) =>
+                                      onStatusChanged(entry.id, value),
                                 ),
                               ),
                             if (room.permissions.manageQueue)
@@ -1097,7 +1309,8 @@ class _QueueCard extends StatelessWidget {
                               ),
                             if (room.permissions.manageSession)
                               FilledButton.tonal(
-                                onPressed: () => onPromoteCurrent(entry.climb.id),
+                                onPressed: () =>
+                                    onPromoteCurrent(entry.climb.id),
                                 child: const Text('Current'),
                               ),
                             if (room.permissions.manageSession)
@@ -1170,7 +1383,8 @@ class _FinalistsCard extends StatelessWidget {
                         onPickRandomTopVoted();
                       }
                     },
-                    itemBuilder: (BuildContext context) => const <PopupMenuEntry<String>>[
+                    itemBuilder: (BuildContext context) =>
+                        const <PopupMenuEntry<String>>[
                       PopupMenuItem<String>(
                         value: 'finalists',
                         child: Text('Pick random finalist'),
@@ -1200,7 +1414,8 @@ class _FinalistsCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(entry.climb.name, style: Theme.of(context).textTheme.titleLarge),
+                        Text(entry.climb.name,
+                            style: Theme.of(context).textTheme.titleLarge),
                         const SizedBox(height: 6),
                         Text('Added by ${entry.addedBy}'),
                         const SizedBox(height: 12),
@@ -1220,7 +1435,8 @@ class _FinalistsCard extends StatelessWidget {
                               ),
                             if (room.permissions.manageSession)
                               FilledButton.tonal(
-                                onPressed: () => onPromoteCurrent(entry.climb.id),
+                                onPressed: () =>
+                                    onPromoteCurrent(entry.climb.id),
                                 child: const Text('Current'),
                               ),
                             if (room.permissions.manageSession)
@@ -1293,18 +1509,25 @@ class _ParticipantsCard extends StatelessWidget {
                             ),
                           ),
                           Icon(
-                            participant.isOnline ? Icons.circle : Icons.circle_outlined,
+                            participant.isOnline
+                                ? Icons.circle
+                                : Icons.circle_outlined,
                             size: 14,
-                            color: participant.isOnline ? const Color(0xFF0F766E) : const Color(0xFF94A3B8),
+                            color: participant.isOnline
+                                ? const Color(0xFF0F766E)
+                                : const Color(0xFF94A3B8),
                           ),
                         ],
                       ),
                       const SizedBox(height: 6),
                       Text('${participant.role} · ${participant.status}'),
-                      if (room.permissions.assignCoHosts && participant.role != 'host') ...<Widget>[
+                      if (room.permissions.assignCoHosts &&
+                          participant.role != 'host') ...<Widget>[
                         const SizedBox(height: 12),
                         DropdownButtonFormField<String>(
-                          initialValue: participant.role == 'co_host' ? 'co_host' : 'participant',
+                          initialValue: participant.role == 'co_host'
+                              ? 'co_host'
+                              : 'participant',
                           decoration: const InputDecoration(labelText: 'Role'),
                           items: const <DropdownMenuItem<String>>[
                             DropdownMenuItem<String>(
@@ -1316,7 +1539,8 @@ class _ParticipantsCard extends StatelessWidget {
                               child: Text('co_host'),
                             ),
                           ],
-                          onChanged: (String? value) => onRoleChanged(participant.id, value),
+                          onChanged: (String? value) =>
+                              onRoleChanged(participant.id, value),
                         ),
                       ],
                       if (room.permissions.manageParticipants &&

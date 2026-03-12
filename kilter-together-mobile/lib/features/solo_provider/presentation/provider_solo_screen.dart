@@ -7,15 +7,18 @@ class ProviderSoloScreen extends StatelessWidget {
   const ProviderSoloScreen({
     super.key,
     required this.providerId,
+    this.initialServer,
   });
 
   final String providerId;
+  final String? initialServer;
 
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
       title: '${providerId.toUpperCase()} Solo',
-      subtitle: 'This route will host provider auth, surface selection, paginated climb catalog, and shared plan creation.',
+      subtitle:
+          'This route will host provider auth, surface selection, paginated climb catalog, and shared plan creation.',
       actions: <Widget>[
         IconButton(
           onPressed: () => context.goNamed('solo-entry'),

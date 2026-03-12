@@ -105,8 +105,10 @@ class SoloBoardViewState {
     Uri? server,
     List<BoardOption>? boards,
     BoardOption? board,
+    bool clearBoard = false,
     List<BoardClimb>? climbs,
     BoardClimb? selectedClimb,
+    bool clearSelectedClimb = false,
     int? angle,
     String? sort,
     String? query,
@@ -126,9 +128,10 @@ class SoloBoardViewState {
       server: server ?? this.server,
       boardId: boardId,
       boards: boards ?? this.boards,
-      board: board ?? this.board,
+      board: clearBoard ? null : (board ?? this.board),
       climbs: climbs ?? this.climbs,
-      selectedClimb: selectedClimb ?? this.selectedClimb,
+      selectedClimb:
+          clearSelectedClimb ? null : (selectedClimb ?? this.selectedClimb),
       angle: angle ?? this.angle,
       sort: sort ?? this.sort,
       query: query ?? this.query,
@@ -139,7 +142,8 @@ class SoloBoardViewState {
       loading: loading ?? this.loading,
       pageLoading: pageLoading ?? this.pageLoading,
       actionInFlight: actionInFlight ?? this.actionInFlight,
-      errorMessage: clearErrorMessage ? null : (errorMessage ?? this.errorMessage),
+      errorMessage:
+          clearErrorMessage ? null : (errorMessage ?? this.errorMessage),
       notice: clearNotice ? null : (notice ?? this.notice),
     );
   }
@@ -198,18 +202,21 @@ class SoloBoardController extends StateNotifier<SoloBoardViewState> {
     if (server == null) {
       state = state.copyWith(
         loading: false,
-        errorMessage: 'Choose or join a self-hosted server before opening solo browse.',
+        errorMessage:
+            'Choose or join a self-hosted server before opening solo browse.',
       );
       return;
     }
 
     try {
       final List<BoardOption> boards = await _apiClient.getBoards(server);
-      final BoardOption? board = boards.firstWhere(
+      final BoardOption board = boards.firstWhere(
         (BoardOption item) => '${item.id}' == state.boardId,
-        orElse: () => boards.isEmpty ? const BoardOption(id: 0, name: '', kilterName: '') : boards.first,
+        orElse: () => boards.isEmpty
+            ? const BoardOption(id: 0, name: '', kilterName: '')
+            : boards.first,
       );
-      if (board == null || board.id == 0) {
+      if (board.id == 0) {
         state = state.copyWith(
           server: server,
           boards: boards,
@@ -314,7 +321,8 @@ class SoloBoardController extends StateNotifier<SoloBoardViewState> {
     final BoardOption? board = state.board;
     if (server == null || board == null || climbs.isEmpty) {
       state = state.copyWith(
-        errorMessage: 'Add at least one climb before creating a shared solo plan.',
+        errorMessage:
+            'Add at least one climb before creating a shared solo plan.',
       );
       return null;
     }
@@ -433,7 +441,8 @@ class SoloBoardController extends StateNotifier<SoloBoardViewState> {
         clearErrorMessage: true,
         clearNotice: true,
       );
-      final PaginatedBoardClimbsResponse response = await _apiClient.getPaginatedClimbs(
+      final PaginatedBoardClimbsResponse response =
+          await _apiClient.getPaginatedClimbs(
         server: server,
         boardId: state.boardId,
         angle: state.angle,
@@ -447,7 +456,8 @@ class SoloBoardController extends StateNotifier<SoloBoardViewState> {
       _cursors[page + 1] = response.nextCursor;
 
       BoardClimb? selectedClimb;
-      final String preferredUuid = state.selectedClimb?.uuid ?? _args.initialClimbUuid ?? '';
+      final String preferredUuid =
+          state.selectedClimb?.uuid ?? _args.initialClimbUuid ?? '';
       if (preferredUuid.isNotEmpty) {
         selectedClimb = response.climbs.cast<BoardClimb?>().firstWhere(
               (BoardClimb? item) => item?.uuid == preferredUuid,
@@ -459,6 +469,7 @@ class SoloBoardController extends StateNotifier<SoloBoardViewState> {
       state = state.copyWith(
         climbs: response.climbs,
         selectedClimb: selectedClimb,
+        clearSelectedClimb: selectedClimb == null,
         currentPage: page,
         hasNextPage: response.hasMore,
         loading: false,

@@ -67,7 +67,8 @@ GoRouter buildAppRouter() {
           return SoloBoardScreen(
             boardId: state.pathParameters['boardId'] ?? '',
             initialServer: state.uri.queryParameters['server'],
-            initialAngle: int.tryParse(state.uri.queryParameters['angle'] ?? ''),
+            initialAngle:
+                int.tryParse(state.uri.queryParameters['angle'] ?? ''),
             initialSort: state.uri.queryParameters['sort'],
             initialQuery: state.uri.queryParameters['q'],
             initialSetter: state.uri.queryParameters['setter'],
@@ -92,7 +93,9 @@ GoRouter buildAppRouter() {
         builder: (BuildContext context, GoRouterState state) {
           return RecapScreen(
             server: state.uri.queryParameters['server'] ?? '',
-            shareId: state.uri.queryParameters['share_id'] ?? state.uri.queryParameters['shareId'] ?? '',
+            shareId: state.uri.queryParameters['share_id'] ??
+                state.uri.queryParameters['shareId'] ??
+                '',
           );
         },
       ),
@@ -102,7 +105,9 @@ GoRouter buildAppRouter() {
         builder: (BuildContext context, GoRouterState state) {
           return PlanScreen(
             server: state.uri.queryParameters['server'] ?? '',
-            shareId: state.uri.queryParameters['share_id'] ?? state.uri.queryParameters['shareId'] ?? '',
+            shareId: state.uri.queryParameters['share_id'] ??
+                state.uri.queryParameters['shareId'] ??
+                '',
           );
         },
       ),
