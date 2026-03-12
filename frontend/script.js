@@ -692,6 +692,51 @@ function buildNodeLabel(layer, state) {
     return `${LAYER_META[layer].title}<br/>${escapeHtml(state.summary)}${state.detail ? `<br/>${escapeHtml(state.detail)}` : ""}`;
 }
 
+function getBlockingLayer(traceContext) {
+    const responseData = traceContext.responseData;
+    if (!responseData || responseData.classification !== "HIGH_RISK") {
+        return null;
+    }
+
+    if (responseData.lexicon && responseData.lexicon.high_risk_short_circuit) {
+        return "lexicon";
+    }
+    if (responseData.mosaic && responseData.mosaic.escalated) {
+        return "mosaic";
+    }
+    if (responseData.model2 && responseData.model2.label === "high_risk") {
+        return "model2";
+    }
+    if (responseData.regression && traceContext.executed.has("regression")) {
+        return "regression";
+    }
+
+    return null;
+}
+
+function getVisualNodeKind(layer, state, traceContext, blockingLayer) {
+    if (blockingLayer === layer) {
+        return "danger";
+    }
+
+    if (traceContext.responseErrors.has(layer)) {
+        return state.kind;
+    }
+
+    if (traceContext.responseData) {
+        if (traceContext.executed.has(layer)) {
+            return "success";
+        }
+        return state.kind;
+    }
+
+    if (traceContext.activePipeline.includes(layer) && state.kind !== "inactive" && state.kind !== "unavailable") {
+        return "success";
+    }
+
+    return state.kind;
+}
+
 function escapeMermaidLabel(value) {
     return String(value || "").replace(/"/g, '\\"');
 }
@@ -820,15 +865,17 @@ function outputSourceNodeToEdgeKey(nodeId) {
 function getPathPreviewText(traceContext) {
     if (!traceContext.responseData) {
         const preview = traceContext.activePipeline.length ? traceContext.activePipeline.join(" -> ") : "no active layers";
-        return `Configured path preview: ${preview}. Blue edges indicate the current configured route; dashed gray edges are inactive.`;
+        return `Configured path preview: ${preview}. Green edges indicate the current configured route; dashed gray edges are inactive.`;
     }
 
     const executedText = traceContext.executed.size ? [...traceContext.executed].join(" -> ") : "none";
-    return `Path update: highlighted edges show the executed route for this request (${executedText} -> output). Dashed gray edges were inactive or skipped.`;
+    return `Path update: green edges show the executed route for this request (${executedText} -> output). If the request is blocked, the blocking layer turns red. Dashed gray edges were inactive or skipped.`;
 }
 
 function buildEdgeStateMap(traceContext, nodeStates, finalState) {
     const edgeStates = {};
+    const blockingLayer = getBlockingLayer(traceContext);
+    const blockingNodeId = blockingLayer ? LAYER_META[blockingLayer].id : null;
 
     DIAGRAM_EDGES.forEach((edge) => {
         edgeStates[edge.key] = {
@@ -846,13 +893,13 @@ function buildEdgeStateMap(traceContext, nodeStates, finalState) {
             const targetReady = nodeConfigured(edge.to, traceContext);
 
             if (edge.key === "ingress_lexicon") {
-                edgeStates[edge.key] = { kind: "waiting", label: edge.label };
+                edgeStates[edge.key] = { kind: "success", label: edge.label };
                 return;
             }
 
             if (edge.key === "regression_output") {
                 edgeStates[edge.key] = {
-                    kind: plannedOutputSource === "Reg" ? "waiting" : "inactive",
+                    kind: plannedOutputSource === "Reg" ? "success" : "inactive",
                     label: edge.label,
                 };
                 return;
@@ -860,7 +907,7 @@ function buildEdgeStateMap(traceContext, nodeStates, finalState) {
 
             if (edge.to === "Out") {
                 edgeStates[edge.key] = {
-                    kind: outputSourceNodeToEdgeKey(plannedOutputSource) === edge.key ? "waiting" : "inactive",
+                    kind: outputSourceNodeToEdgeKey(plannedOutputSource) === edge.key ? "success" : "inactive",
                     label: edge.label,
                 };
                 return;
@@ -868,14 +915,14 @@ function buildEdgeStateMap(traceContext, nodeStates, finalState) {
 
             if (edge.to === "Reg") {
                 edgeStates[edge.key] = {
-                    kind: regressionSourceNodeToEdgeKey(plannedRegressionSource) === edge.key ? "waiting" : "inactive",
+                    kind: regressionSourceNodeToEdgeKey(plannedRegressionSource) === edge.key ? "success" : "inactive",
                     label: edge.label,
                 };
                 return;
             }
 
             edgeStates[edge.key] = {
-                kind: sourceReady && targetReady ? "waiting" : "inactive",
+                kind: sourceReady && targetReady ? "success" : "inactive",
                 label: edge.label,
             };
         });
@@ -959,10 +1006,14 @@ function buildEdgeStateMap(traceContext, nodeStates, finalState) {
         const targetState = targetLayer ? nodeStates[targetLayer] : null;
 
         if (activeEdges.has(edge.key)) {
+            let kind = "success";
+            if (blockingNodeId && edge.from === blockingNodeId) {
+                kind = "danger";
+            } else if (edge.to === "Out" && finalState.kind === "danger" && (!blockingNodeId || edge.from === blockingNodeId)) {
+                kind = "danger";
+            }
             edgeStates[edge.key] = {
-                kind: edge.to === "Out"
-                    ? finalStateToEdgeKind(finalState)
-                    : stateKindToEdgeKind(targetState ? targetState.kind : "neutral"),
+                kind,
                 label: edge.label,
             };
             return;
@@ -1050,6 +1101,11 @@ async function renderArchitectureDiagram(responseData) {
         nodeStates[layer] = getLayerTraceState(layer, traceContext);
     });
     const finalState = getFinalOutputState(traceContext);
+    const blockingLayer = getBlockingLayer(traceContext);
+    const visualNodeKinds = {};
+    CANONICAL_LAYER_ORDER.forEach((layer) => {
+        visualNodeKinds[layer] = getVisualNodeKind(layer, nodeStates[layer], traceContext, blockingLayer);
+    });
     const edgeStates = buildEdgeStateMap(traceContext, nodeStates, finalState);
     const edgeLines = DIAGRAM_EDGES.map((edge) => {
         const label = escapeMermaidLabel(edge.label);
@@ -1087,13 +1143,13 @@ flowchart TD
 ${edgeLines}
 
     class In neutral;
-    class L1 ${nodeStates.lexicon.kind};
-    class L2 ${nodeStates.embedding.kind};
-    class L3 ${nodeStates.clustering.kind};
-    class L4 ${nodeStates.model1.kind};
-    class L4b ${nodeStates.model2.kind};
-    class L5 ${nodeStates.mosaic.kind};
-    class Reg ${nodeStates.regression.kind};
+    class L1 ${visualNodeKinds.lexicon};
+    class L2 ${visualNodeKinds.embedding};
+    class L3 ${visualNodeKinds.clustering};
+    class L4 ${visualNodeKinds.model1};
+    class L4b ${visualNodeKinds.model2};
+    class L5 ${visualNodeKinds.mosaic};
+    class Reg ${visualNodeKinds.regression};
     class Out ${finalState.kind};
 ${linkStyles}
 `;
