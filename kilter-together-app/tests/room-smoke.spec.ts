@@ -1,6 +1,6 @@
 import { expect, test, type BrowserContext } from "@playwright/test";
 
-const BACKEND_URL = "http://127.0.0.1:8082";
+const BACKEND_URL = "http://127.0.0.1:38082";
 const USER_PREFS_STORAGE_KEY = "kilter-together:user-prefs:v1";
 const DISMISSED_GUIDES_PREFS = {
   intro: {
@@ -84,8 +84,8 @@ test("runs a room session end to end with the fake provider", async ({
     const slug = hostPage.url().split("/rooms/")[1];
     expect(slug).toBeTruthy();
 
-    const setSurfaceResult = await hostPage.evaluate(async ({ roomSlug }) => {
-      const response = await fetch(`/api/rooms/${roomSlug}/surface`, {
+    const setSurfaceResult = await hostPage.evaluate(async ({ backendUrl, roomSlug }) => {
+      const response = await fetch(`${backendUrl}/api/rooms/${roomSlug}/surface`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -105,7 +105,7 @@ test("runs a room session end to end with the fake provider", async ({
         status: response.status,
         body: await response.text(),
       };
-    }, { roomSlug: slug });
+    }, { backendUrl: BACKEND_URL, roomSlug: slug });
     expect(setSurfaceResult).toMatchObject({ ok: true, status: 200 });
 
     await expect(hostPage.getByText("Alpha Wall").first()).toBeVisible();
@@ -152,8 +152,8 @@ test("runs a room session end to end with the fake provider", async ({
       hostPage.getByRole("button", { name: /Beta Crimp.*1 fist bump/i }).first()
     ).toBeVisible({ timeout: 15000 });
 
-    const addFinalistResult = await hostPage.evaluate(async ({ roomSlug }) => {
-      const response = await fetch(`/api/rooms/${roomSlug}/finalists`, {
+    const addFinalistResult = await hostPage.evaluate(async ({ backendUrl, roomSlug }) => {
+      const response = await fetch(`${backendUrl}/api/rooms/${roomSlug}/finalists`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -168,7 +168,7 @@ test("runs a room session end to end with the fake provider", async ({
         ok: response.ok,
         status: response.status,
       };
-    }, { roomSlug: slug });
+    }, { backendUrl: BACKEND_URL, roomSlug: slug });
     expect(addFinalistResult).toMatchObject({ ok: true, status: 201 });
     await expect
       .poll(async () => {
@@ -192,8 +192,8 @@ test("runs a room session end to end with the fake provider", async ({
     const queuedEntryId = guestSnapshot.queue[0]?.id;
     expect(typeof queuedEntryId).toBe("number");
 
-    const promoteCurrentResult = await hostPage.evaluate(async ({ roomSlug, entryId }) => {
-      const response = await fetch(`/api/rooms/${roomSlug}/queue/${entryId}`, {
+    const promoteCurrentResult = await hostPage.evaluate(async ({ backendUrl, roomSlug, entryId }) => {
+      const response = await fetch(`${backendUrl}/api/rooms/${roomSlug}/queue/${entryId}`, {
         method: "PATCH",
         credentials: "include",
         headers: {
@@ -208,7 +208,7 @@ test("runs a room session end to end with the fake provider", async ({
         ok: response.ok,
         status: response.status,
       };
-    }, { roomSlug: slug, entryId: queuedEntryId });
+    }, { backendUrl: BACKEND_URL, roomSlug: slug, entryId: queuedEntryId });
     expect(promoteCurrentResult).toMatchObject({ ok: true, status: 200 });
     await expect
       .poll(async () => {
@@ -236,8 +236,8 @@ test("runs a room session end to end with the fake provider", async ({
     expect(metricsBody).toContain("kilter_together_room_events_total");
     expect(metricsBody).toContain("kilter_together_room_sse_subscribers");
 
-    const closeRoomResult = await hostPage.evaluate(async ({ roomSlug }) => {
-      const response = await fetch(`/api/rooms/${roomSlug}/close`, {
+    const closeRoomResult = await hostPage.evaluate(async ({ backendUrl, roomSlug }) => {
+      const response = await fetch(`${backendUrl}/api/rooms/${roomSlug}/close`, {
         method: "POST",
         credentials: "include",
       });
@@ -246,7 +246,7 @@ test("runs a room session end to end with the fake provider", async ({
         ok: response.ok,
         status: response.status,
       };
-    }, { roomSlug: slug });
+    }, { backendUrl: BACKEND_URL, roomSlug: slug });
     expect(closeRoomResult).toMatchObject({ ok: true, status: 200 });
     await expect
       .poll(async () => {

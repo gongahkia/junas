@@ -1,6 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const backendUrl = "http://127.0.0.1:8082";
+const backendUrl = "http://127.0.0.1:38082";
 const frontendUrl = "http://127.0.0.1:4173";
 
 export default defineConfig({
@@ -41,7 +41,7 @@ export default defineConfig({
         KILTER_TOGETHER_APP_SECRET: "playwright-secret",
         KILTER_TOGETHER_ENABLE_TEST_PROVIDER: "true",
         KILTER_TOGETHER_ENCRYPTION_KEY: "BQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU=",
-        KILTER_TOGETHER_PORT: "8082",
+        KILTER_TOGETHER_PORT: "38082",
         KILTER_TOGETHER_SECURE_COOKIES: "false",
       },
     },
@@ -53,7 +53,7 @@ export default defineConfig({
       reuseExistingServer: false,
       env: {
         ...process.env,
-        VITE_API_BASE_URL: "/api",
+        VITE_API_BASE_URL: `${backendUrl}/api`,
         VITE_ENABLE_TEST_PROVIDER: "true",
       },
     },
