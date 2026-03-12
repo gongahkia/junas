@@ -19,7 +19,7 @@ interface LoadingSlideshowProps {
 const loadingFrames = ["/loading/1.png", "/loading/2.png", "/loading/3.png", "/loading/4.png"];
 const endingFrames = ["/loading/5-1.png", "/loading/5-2.png"];
 const FRAMES_PER_LOOP = loadingFrames.length + 1;
-const FRAME_INTERVAL_MS = 300;
+const FRAME_INTERVAL_MS = 500;
 
 export default function LoadingSlideshow({
   title,
