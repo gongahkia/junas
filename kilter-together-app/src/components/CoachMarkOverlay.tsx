@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -18,7 +18,21 @@ interface CoachMarkOverlayProps {
 }
 
 const CARD_WIDTH = 288;
+const DEFAULT_CARD_HEIGHT = 248;
+const EDGE_PADDING = 16;
 const GAP = 18;
+
+function areStepIndexListsEqual(left: number[], right: number[]) {
+  if (left.length !== right.length) {
+    return false;
+  }
+
+  return left.every((value, index) => value === right[index]);
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max);
+}
 
 export default function CoachMarkOverlay({
   open,
@@ -28,12 +42,20 @@ export default function CoachMarkOverlay({
 }: CoachMarkOverlayProps) {
   const [stepIndex, setStepIndex] = useState(0);
   const [targetRect, setTargetRect] = useState<DOMRect | null>(null);
+  const [availableStepIndices, setAvailableStepIndices] = useState<number[]>([]);
+  const [cardHeight, setCardHeight] = useState(DEFAULT_CARD_HEIGHT);
+  const cardRef = useRef<HTMLDivElement | null>(null);
 
   const step = steps[stepIndex];
+  const activeStepPosition = availableStepIndices.indexOf(stepIndex);
+  const visibleStepCount = availableStepIndices.length;
 
   useEffect(() => {
     if (!open) {
       setStepIndex(0);
+      setTargetRect(null);
+      setAvailableStepIndices([]);
+      setCardHeight(DEFAULT_CARD_HEIGHT);
     }
   }, [open]);
 
@@ -43,29 +65,96 @@ export default function CoachMarkOverlay({
       return;
     }
 
-    const syncTarget = () => {
-      const nextTarget = document.querySelector(step.target);
+    const syncTarget = (scrollBehavior?: ScrollBehavior) => {
+      const nextAvailableStepIndices = steps.reduce<number[]>((indices, candidate, index) => {
+        const candidateTarget = document.querySelector(candidate.target);
+        if (candidateTarget instanceof HTMLElement) {
+          indices.push(index);
+        }
+        return indices;
+      }, []);
+
+      setAvailableStepIndices((current) =>
+        areStepIndexListsEqual(current, nextAvailableStepIndices)
+          ? current
+          : nextAvailableStepIndices
+      );
+
+      const resolvedStepIndex =
+        nextAvailableStepIndices.includes(stepIndex)
+          ? stepIndex
+          : nextAvailableStepIndices.find((index) => index > stepIndex) ??
+            nextAvailableStepIndices[0];
+
+      if (resolvedStepIndex === undefined) {
+        setTargetRect(null);
+        return;
+      }
+
+      if (resolvedStepIndex !== stepIndex) {
+        setStepIndex(resolvedStepIndex);
+        return;
+      }
+
+      const nextTarget = document.querySelector(steps[resolvedStepIndex].target);
       if (!(nextTarget instanceof HTMLElement)) {
         setTargetRect(null);
         return;
       }
 
-      nextTarget.scrollIntoView({
-        block: "center",
-        inline: "center",
-        behavior: "smooth",
-      });
+      if (scrollBehavior) {
+        nextTarget.scrollIntoView({
+          block: "center",
+          inline: "center",
+          behavior: scrollBehavior,
+        });
+      }
       setTargetRect(nextTarget.getBoundingClientRect());
     };
 
-    syncTarget();
-    window.addEventListener("resize", syncTarget);
-    window.addEventListener("scroll", syncTarget, true);
+    syncTarget("smooth");
+
+    const handleViewportChange = () => syncTarget();
+
+    window.addEventListener("resize", handleViewportChange);
+    window.addEventListener("scroll", handleViewportChange, true);
     return () => {
-      window.removeEventListener("resize", syncTarget);
-      window.removeEventListener("scroll", syncTarget, true);
+      window.removeEventListener("resize", handleViewportChange);
+      window.removeEventListener("scroll", handleViewportChange, true);
     };
-  }, [open, step]);
+  }, [open, step, stepIndex, steps]);
+
+  useLayoutEffect(() => {
+    if (!open || !cardRef.current) {
+      return;
+    }
+
+    const nextCardHeight = Math.ceil(cardRef.current.getBoundingClientRect().height);
+    if (nextCardHeight > 0 && nextCardHeight !== cardHeight) {
+      setCardHeight(nextCardHeight);
+    }
+  }, [cardHeight, open, step?.description, step?.title, visibleStepCount]);
+
+  const resolvedPlacement = useMemo(() => {
+    if (!targetRect) {
+      return step?.placement ?? "bottom";
+    }
+
+    const preferredPlacement = step?.placement ?? "bottom";
+    const canFitAbove = targetRect.top >= cardHeight + GAP + EDGE_PADDING;
+    const canFitBelow =
+      window.innerHeight - targetRect.bottom >= cardHeight + GAP + EDGE_PADDING;
+
+    if (preferredPlacement === "top" && !canFitAbove && canFitBelow) {
+      return "bottom";
+    }
+
+    if (preferredPlacement === "bottom" && !canFitBelow && canFitAbove) {
+      return "top";
+    }
+
+    return preferredPlacement;
+  }, [cardHeight, step?.placement, targetRect]);
 
   const cardStyle = useMemo(() => {
     if (!targetRect) {
@@ -76,35 +165,44 @@ export default function CoachMarkOverlay({
       };
     }
 
-    const placement = step?.placement ?? "bottom";
     const targetCenterX = targetRect.left + targetRect.width / 2;
-    const left = Math.min(
-      Math.max(16, targetCenterX - CARD_WIDTH / 2),
-      window.innerWidth - CARD_WIDTH - 16
+    const maxLeft = Math.max(EDGE_PADDING, window.innerWidth - CARD_WIDTH - EDGE_PADDING);
+    const maxTop = Math.max(EDGE_PADDING, window.innerHeight - cardHeight - EDGE_PADDING);
+    const left = clamp(
+      targetCenterX - CARD_WIDTH / 2,
+      EDGE_PADDING,
+      maxLeft
     );
     const top =
-      placement === "top"
-        ? Math.max(16, targetRect.top - GAP - 180)
-        : Math.min(window.innerHeight - 220, targetRect.bottom + GAP);
+      resolvedPlacement === "top"
+        ? clamp(targetRect.top - GAP - cardHeight, EDGE_PADDING, maxTop)
+        : clamp(targetRect.bottom + GAP, EDGE_PADDING, maxTop);
 
     return {
       left,
       top,
     };
-  }, [step?.placement, targetRect]);
+  }, [cardHeight, resolvedPlacement, targetRect]);
 
-  if (!open || !step || typeof document === "undefined") {
+  if (
+    !open ||
+    !step ||
+    typeof document === "undefined" ||
+    (availableStepIndices.length > 0 && activeStepPosition === -1) ||
+    visibleStepCount === 0
+  ) {
     return null;
   }
 
-  const canGoBack = stepIndex > 0;
-  const isLastStep = stepIndex === steps.length - 1;
+  const canGoBack = activeStepPosition > 0;
+  const isLastStep = activeStepPosition === visibleStepCount - 1;
 
   return createPortal(
     <div className="fixed inset-0 z-[120]">
       <div className="absolute inset-0 bg-slate-950/55 backdrop-blur-[1px]" />
       {targetRect ? (
         <div
+          data-slot="coachmark-highlight"
           className="absolute rounded-3xl border-2 border-white shadow-[0_0_0_9999px_rgba(15,23,42,0.42)] transition-all"
           style={{
             left: Math.max(targetRect.left - 10, 8),
@@ -116,13 +214,16 @@ export default function CoachMarkOverlay({
       ) : null}
 
       <div
+        ref={cardRef}
+        data-slot="coachmark-card"
         className="absolute w-[18rem] rounded-[1.75rem] border border-white/70 bg-white/96 p-4 shadow-2xl shadow-slate-950/25"
         style={cardStyle}
       >
         <div
+          data-slot="coachmark-pointer"
           className={cn(
             "absolute left-1/2 h-4 w-4 -translate-x-1/2 rotate-45 border border-white/70 bg-white/96",
-            (step.placement ?? "bottom") === "top" ? "-bottom-2" : "-top-2"
+            resolvedPlacement === "top" ? "-bottom-2" : "-top-2"
           )}
         />
         <div className="space-y-3">
@@ -130,7 +231,7 @@ export default function CoachMarkOverlay({
             First-time guide
           </p>
           <p className="text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
-            Step {stepIndex + 1} of {steps.length}
+            Step {activeStepPosition + 1} of {visibleStepCount}
           </p>
           <div>
             <h2 className="text-lg font-semibold tracking-tight">{step.title}</h2>
@@ -147,7 +248,12 @@ export default function CoachMarkOverlay({
                 type="button"
                 variant="outline"
                 disabled={!canGoBack}
-                onClick={() => setStepIndex((current) => Math.max(0, current - 1))}
+                onClick={() => {
+                  const previousStepIndex = availableStepIndices[activeStepPosition - 1];
+                  if (previousStepIndex !== undefined) {
+                    setStepIndex(previousStepIndex);
+                  }
+                }}
               >
                 Back
               </Button>
@@ -159,7 +265,11 @@ export default function CoachMarkOverlay({
                     onClose();
                     return;
                   }
-                  setStepIndex((current) => current + 1);
+
+                  const nextStepIndex = availableStepIndices[activeStepPosition + 1];
+                  if (nextStepIndex !== undefined) {
+                    setStepIndex(nextStepIndex);
+                  }
                 }}
               >
                 {isLastStep ? "Finish" : "Next"}
