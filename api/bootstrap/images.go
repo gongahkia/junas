@@ -4,16 +4,24 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"log/slog"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
+	"sync/atomic"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
-const kilterImageBaseURL = "https://api.kilterboardapp.com/img"
+const (
+	imageDownloadWorkers          = 8
+	imageDownloadProgressInterval = 25
+)
+
+var kilterImageBaseURL = "https://api.kilterboardapp.com/img"
 
 type ImageAsset struct {
 	RemotePath string
@@ -70,20 +78,98 @@ func collectImageAssetsFromPath(dbPath string) ([]ImageAsset, error) {
 }
 
 func DownloadImages(ctx context.Context, imageDir string, assets []ImageAsset) error {
+	missingAssets := make([]ImageAsset, 0, len(assets))
 	for _, asset := range assets {
 		outputPath := filepath.Join(imageDir, asset.LocalName)
 		if fileExists(outputPath) {
 			continue
 		}
 
-		imageBytes, err := downloadImageAsset(ctx, defaultHTTPClient, asset.RemotePath)
-		if err != nil {
-			return err
-		}
+		missingAssets = append(missingAssets, asset)
+	}
 
-		if err := writeFileAtomically(outputPath, imageBytes); err != nil {
-			return fmt.Errorf("write image %s: %w", asset.LocalName, err)
+	if len(missingAssets) == 0 {
+		return nil
+	}
+
+	workerCount := imageDownloadWorkers
+	if len(missingAssets) < workerCount {
+		workerCount = len(missingAssets)
+	}
+
+	slog.Info(
+		"downloading image assets",
+		"missing", len(missingAssets),
+		"cached", len(assets)-len(missingAssets),
+		"workers", workerCount,
+	)
+
+	downloadCtx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	jobs := make(chan ImageAsset)
+
+	var (
+		wg        sync.WaitGroup
+		processed atomic.Int64
+		errOnce   sync.Once
+		firstErr  error
+	)
+
+	recordError := func(err error) {
+		errOnce.Do(func() {
+			firstErr = err
+			cancel()
+		})
+	}
+
+	worker := func() {
+		defer wg.Done()
+
+		for asset := range jobs {
+			if downloadCtx.Err() != nil {
+				return
+			}
+
+			imageBytes, err := downloadImageAsset(downloadCtx, defaultHTTPClient, asset.RemotePath)
+			if err != nil {
+				recordError(err)
+				return
+			}
+
+			if err := writeFileAtomically(filepath.Join(imageDir, asset.LocalName), imageBytes); err != nil {
+				recordError(fmt.Errorf("write image %s: %w", asset.LocalName, err))
+				return
+			}
+
+			completed := processed.Add(1)
+			if completed == int64(len(missingAssets)) || completed%imageDownloadProgressInterval == 0 {
+				slog.Info("downloaded image assets", "completed", completed, "total", len(missingAssets))
+			}
 		}
+	}
+
+	for range workerCount {
+		wg.Add(1)
+		go worker()
+	}
+
+sendLoop:
+	for _, asset := range missingAssets {
+		select {
+		case <-downloadCtx.Done():
+			break sendLoop
+		case jobs <- asset:
+		}
+	}
+	close(jobs)
+
+	wg.Wait()
+	if firstErr != nil {
+		return firstErr
+	}
+	if err := ctx.Err(); err != nil {
+		return err
 	}
 
 	return nil

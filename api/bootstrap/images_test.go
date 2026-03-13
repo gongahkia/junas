@@ -1,7 +1,12 @@
 package bootstrap
 
 import (
+	"context"
+	"net/http"
+	"net/http/httptest"
+	"os"
 	"path/filepath"
+	"sync"
 	"testing"
 
 	"gorm.io/driver/sqlite"
@@ -73,5 +78,76 @@ func TestCollectImageAssetsRejectsBasenameCollisions(t *testing.T) {
 
 	if _, err := CollectImageAssets(db); err == nil {
 		t.Fatal("expected basename collision error, got nil")
+	}
+}
+
+func TestDownloadImagesSkipsCachedAssets(t *testing.T) {
+	tempDir := t.TempDir()
+	if err := os.WriteFile(filepath.Join(tempDir, "a.png"), []byte("cached"), 0644); err != nil {
+		t.Fatalf("write cached image: %v", err)
+	}
+
+	var (
+		mu   sync.Mutex
+		hits = map[string]int{}
+	)
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		mu.Lock()
+		hits[r.URL.Path]++
+		mu.Unlock()
+
+		switch r.URL.Path {
+		case "/img/product_sizes_layouts_sets/a.png":
+			_, _ = w.Write([]byte("remote-a"))
+		case "/img/product_sizes_layouts_sets/b.png":
+			_, _ = w.Write([]byte("remote-b"))
+		default:
+			http.NotFound(w, r)
+		}
+	}))
+	defer server.Close()
+
+	originalBaseURL := kilterImageBaseURL
+	originalClient := defaultHTTPClient
+	kilterImageBaseURL = server.URL + "/img"
+	defaultHTTPClient = server.Client()
+	defer func() {
+		kilterImageBaseURL = originalBaseURL
+		defaultHTTPClient = originalClient
+	}()
+
+	assets := []ImageAsset{
+		{RemotePath: "product_sizes_layouts_sets/a.png", LocalName: "a.png"},
+		{RemotePath: "product_sizes_layouts_sets/b.png", LocalName: "b.png"},
+	}
+
+	if err := DownloadImages(context.Background(), tempDir, assets); err != nil {
+		t.Fatalf("DownloadImages returned error: %v", err)
+	}
+
+	cachedBytes, err := os.ReadFile(filepath.Join(tempDir, "a.png"))
+	if err != nil {
+		t.Fatalf("read cached image: %v", err)
+	}
+	if string(cachedBytes) != "cached" {
+		t.Fatalf("expected cached asset to be preserved, got %q", string(cachedBytes))
+	}
+
+	downloadedBytes, err := os.ReadFile(filepath.Join(tempDir, "b.png"))
+	if err != nil {
+		t.Fatalf("read downloaded image: %v", err)
+	}
+	if string(downloadedBytes) != "remote-b" {
+		t.Fatalf("expected downloaded asset contents, got %q", string(downloadedBytes))
+	}
+
+	mu.Lock()
+	defer mu.Unlock()
+	if hits["/img/product_sizes_layouts_sets/a.png"] != 0 {
+		t.Fatalf("expected cached asset to be skipped, got %d requests", hits["/img/product_sizes_layouts_sets/a.png"])
+	}
+	if hits["/img/product_sizes_layouts_sets/b.png"] != 1 {
+		t.Fatalf("expected one request for missing asset, got %d", hits["/img/product_sizes_layouts_sets/b.png"])
 	}
 }
