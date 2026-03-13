@@ -29,7 +29,6 @@ RUN chmod +x /app/entrypoint.sh
 ENV KILTER_TOGETHER_DATA_DIR=/data
 
 EXPOSE 8082
-VOLUME ["/data"]
 
 ENTRYPOINT ["./entrypoint.sh"]
 CMD ["serve"]
