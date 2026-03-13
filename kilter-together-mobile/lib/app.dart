@@ -2,20 +2,23 @@ import 'dart:async';
 
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'core/deep_links/invite_links.dart';
+import 'core/presentation/tap_cheer_overlay.dart';
 import 'core/router/app_router.dart';
+import 'core/storage/app_prefs_controller.dart';
 import 'core/theme/app_theme.dart';
 
-class KilterTogetherApp extends StatefulWidget {
+class KilterTogetherApp extends ConsumerStatefulWidget {
   const KilterTogetherApp({super.key});
 
   @override
-  State<KilterTogetherApp> createState() => _KilterTogetherAppState();
+  ConsumerState<KilterTogetherApp> createState() => _KilterTogetherAppState();
 }
 
-class _KilterTogetherAppState extends State<KilterTogetherApp> {
+class _KilterTogetherAppState extends ConsumerState<KilterTogetherApp> {
   late final GoRouter _router = buildAppRouter();
   final AppLinks _appLinks = AppLinks();
   StreamSubscription<Uri>? _linkSubscription;
@@ -83,10 +86,23 @@ class _KilterTogetherAppState extends State<KilterTogetherApp> {
 
   @override
   Widget build(BuildContext context) {
+    final bool clickCheersEnabled = ref
+            .watch(appPrefsControllerProvider)
+            .valueOrNull
+            ?.settings
+            .clickCheersEnabled ??
+        true;
+
     return MaterialApp.router(
       title: 'Kilter Together',
       theme: buildAppTheme(),
       routerConfig: _router,
+      builder: (BuildContext context, Widget? child) {
+        return TapCheerOverlay(
+          enabled: clickCheersEnabled,
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
       debugShowCheckedModeBanner: false,
     );
   }

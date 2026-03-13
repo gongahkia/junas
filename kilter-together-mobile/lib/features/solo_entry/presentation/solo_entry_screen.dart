@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +9,7 @@ import '../../../core/models/board_models.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
+import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/session_repository.dart';
@@ -36,21 +39,94 @@ final _soloEntryDataProvider =
   );
 });
 
-class SoloEntryScreen extends ConsumerWidget {
+const FlowGuideContent _soloEntryGuide = FlowGuideContent(
+  eyebrow: 'Solo guide',
+  title: 'Plan climbs without opening a room',
+  summary:
+      'Solo mode is the device-local planning lane. Use it to browse boards, save filters, and build favorites or shortlists before you decide to host a live session.',
+  sections: <FlowGuideSection>[
+    FlowGuideSection(
+      title: 'Start from the active server',
+      body:
+          'Solo browse reads boards and provider-backed catalogs from the currently remembered self-hosted server, so point the app at the right node first.',
+    ),
+    FlowGuideSection(
+      title: 'Keep planning state on-device',
+      body:
+          'Favorites, shortlist entries, and saved filters stay local on this phone so you can return later without accounts or cloud sync.',
+    ),
+    FlowGuideSection(
+      title: 'Turn solo work into a room later',
+      body:
+          'When you are ready to climb with others, reuse the shortlist or saved plan seed to create a room with the same provider and surface context.',
+    ),
+  ],
+  completionLabel: 'Mark solo guide complete',
+);
+
+class SoloEntryScreen extends ConsumerStatefulWidget {
   const SoloEntryScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SoloEntryScreen> createState() => _SoloEntryScreenState();
+}
+
+class _SoloEntryScreenState extends ConsumerState<SoloEntryScreen> {
+  bool _autoGuideAttempted = false;
+
+  void _maybeAutoOpenGuide(AppPrefs prefs) {
+    if (_autoGuideAttempted ||
+        !prefs.settings.autoGuidesEnabled ||
+        prefs.guidedTour.activeBranch != 'solo' ||
+        prefs.guidedTour.soloCompleted) {
+      return;
+    }
+    _autoGuideAttempted = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+      unawaited(_openGuide());
+    });
+  }
+
+  Future<void> _openGuide() async {
+    final AppPrefs prefs =
+        ref.read(appPrefsControllerProvider).valueOrNull ?? AppPrefs.defaults();
+    final FlowGuideResult? result = await showFlowGuideSheet(
+      context: context,
+      content: _soloEntryGuide,
+      completed: prefs.guidedTour.soloCompleted,
+    );
+    if (result != FlowGuideResult.completed || !mounted) {
+      return;
+    }
+    await ref.read(appPrefsControllerProvider.notifier).completeGuideBranch(
+          'solo',
+        );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final AsyncValue<_SoloEntryData> entryData =
         ref.watch(_soloEntryDataProvider);
-    final AppPrefs prefs = ref.watch(appPrefsControllerProvider).valueOrNull ??
-        AppPrefs.defaults();
+    final AsyncValue<AppPrefs> prefsValue =
+        ref.watch(appPrefsControllerProvider);
+    final AppPrefs prefs = prefsValue.valueOrNull ?? AppPrefs.defaults();
+
+    if (prefsValue.hasValue) {
+      _maybeAutoOpenGuide(prefs);
+    }
 
     return GradientScaffold(
       title: 'Solo Browse',
       subtitle:
           'Pick the Kilter dataset or a provider-backed solo catalog, then keep favorites, shortlist state, and reusable filters on-device.',
       actions: <Widget>[
+        IconButton(
+          onPressed: () => unawaited(_openGuide()),
+          icon: const Icon(Icons.help_outline),
+        ),
         IconButton(
           onPressed: () => context.goNamed('settings'),
           icon: const Icon(Icons.tune),

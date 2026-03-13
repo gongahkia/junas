@@ -13,6 +13,7 @@ import '../../../core/models/product_models.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
+import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../application/solo_board_controller.dart';
@@ -34,6 +35,30 @@ const List<int> _angleOptions = <int>[
   70
 ];
 const List<String> _sortOptions = <String>['popular', 'newest'];
+const FlowGuideContent _soloBoardGuide = FlowGuideContent(
+  eyebrow: 'Solo board guide',
+  title: 'Use this board as a planning workspace',
+  summary:
+      'This screen is the detailed solo workspace: filter the climb list, keep favorites or shortlist state, and turn a board plan into a room seed when you are ready.',
+  sections: <FlowGuideSection>[
+    FlowGuideSection(
+      title: 'Tune the board context',
+      body:
+          'Adjust board, angle, sort, query, setter, and grade until the catalog matches the session you want to plan.',
+    ),
+    FlowGuideSection(
+      title: 'Save what matters',
+      body:
+          'Use favorites for durable keepers, shortlist for the current session idea, and saved presets when you want to reopen the same filter stack later.',
+    ),
+    FlowGuideSection(
+      title: 'Promote into a shared session',
+      body:
+          'Once the shortlist feels right, seed a new room or share the plan so the host flow starts with the same surface and climb context.',
+    ),
+  ],
+  completionLabel: 'Mark solo guide complete',
+);
 
 class SoloBoardScreen extends ConsumerStatefulWidget {
   const SoloBoardScreen({
@@ -70,6 +95,7 @@ class _SoloBoardScreenState extends ConsumerState<SoloBoardScreen> {
       TextEditingController(text: widget.initialGrade ?? '');
   final TextEditingController _planTitleController = TextEditingController();
   final TextEditingController _planNotesController = TextEditingController();
+  bool _autoGuideAttempted = false;
 
   SoloBoardRouteArgs get _args => SoloBoardRouteArgs(
         boardId: widget.boardId,
@@ -92,14 +118,47 @@ class _SoloBoardScreenState extends ConsumerState<SoloBoardScreen> {
     super.dispose();
   }
 
+  void _maybeAutoOpenGuide(AppPrefs prefs) {
+    if (_autoGuideAttempted ||
+        !prefs.settings.autoGuidesEnabled ||
+        prefs.guidedTour.activeBranch != 'solo' ||
+        prefs.guidedTour.soloCompleted) {
+      return;
+    }
+    _autoGuideAttempted = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+      unawaited(_openGuide());
+    });
+  }
+
+  Future<void> _openGuide() async {
+    final AppPrefs prefs =
+        ref.read(appPrefsControllerProvider).valueOrNull ?? AppPrefs.defaults();
+    final FlowGuideResult? result = await showFlowGuideSheet(
+      context: context,
+      content: _soloBoardGuide,
+      completed: prefs.guidedTour.soloCompleted,
+    );
+    if (result != FlowGuideResult.completed || !mounted) {
+      return;
+    }
+    await ref.read(appPrefsControllerProvider.notifier).completeGuideBranch(
+          'solo',
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
     final SoloBoardViewState state =
         ref.watch(soloBoardControllerProvider(_args));
     final SoloBoardController controller =
         ref.read(soloBoardControllerProvider(_args).notifier);
-    final AppPrefs prefs = ref.watch(appPrefsControllerProvider).valueOrNull ??
-        AppPrefs.defaults();
+    final AsyncValue<AppPrefs> prefsValue =
+        ref.watch(appPrefsControllerProvider);
+    final AppPrefs prefs = prefsValue.valueOrNull ?? AppPrefs.defaults();
     final ApiClient apiClient = ref.read(apiClientProvider);
     final BoardOption? board = state.board;
     final BoardClimb? selectedClimb = state.selectedClimb;
@@ -121,6 +180,10 @@ class _SoloBoardScreenState extends ConsumerState<SoloBoardScreen> {
         )
         .toList(growable: false);
 
+    if (prefsValue.hasValue) {
+      _maybeAutoOpenGuide(prefs);
+    }
+
     if (_planTitleController.text.isEmpty && board != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted || _planTitleController.text.isNotEmpty) {
@@ -138,6 +201,10 @@ class _SoloBoardScreenState extends ConsumerState<SoloBoardScreen> {
           ? 'Choose a self-hosted server before using solo browse.'
           : '${describeServer(state.server!)} · Board ${state.boardId}',
       actions: <Widget>[
+        IconButton(
+          onPressed: () => unawaited(_openGuide()),
+          icon: const Icon(Icons.help_outline),
+        ),
         IconButton(
           onPressed:
               state.pageLoading ? null : () => unawaited(controller.refresh()),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -6,9 +8,36 @@ import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
+import '../../../core/presentation/feedback_prompt_card.dart';
+import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/session_repository.dart';
+
+const FlowGuideContent _hostGuide = FlowGuideContent(
+  eyebrow: 'Host guide',
+  title: 'Open the room from this phone',
+  summary:
+      'Hosting means this device owns the provider connection, chooses the shared surface, and sends the invite to everyone else.',
+  sections: <FlowGuideSection>[
+    FlowGuideSection(
+      title: 'Point at the right server',
+      body:
+          'Start with the self-hosted backend URL, then load providers from that server before picking which provider this room will use.',
+    ),
+    FlowGuideSection(
+      title: 'Authenticate once',
+      body:
+          'Enter the provider credentials on the host phone only. Guests do not need those credentials in order to join, vote, or add climbs.',
+    ),
+    FlowGuideSection(
+      title: 'Finish setup in the room',
+      body:
+          'After the room opens, set the shared surface, share the invite or QR code, and manage queue, finalists, and session controls from the room screen.',
+    ),
+  ],
+  completionLabel: 'Mark host guide complete',
+);
 
 class CreateRoomScreen extends ConsumerStatefulWidget {
   const CreateRoomScreen({super.key});
@@ -18,7 +47,6 @@ class CreateRoomScreen extends ConsumerStatefulWidget {
 }
 
 class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
-  final ApiClient _api = ApiClient();
   final TextEditingController _serverController = TextEditingController();
   final TextEditingController _roomNameController =
       TextEditingController(text: 'Evening Session');
@@ -28,10 +56,13 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
   bool _loadingCapabilities = false;
   bool _submitting = false;
   bool _fistBumpsEnabled = true;
+  bool _showFailureFeedback = false;
+  bool _autoGuideAttempted = false;
   List<ProviderCapability> _capabilities = const <ProviderCapability>[];
   String? _selectedProviderId;
   String? _preferredProviderId;
   PendingRoomSeed? _pendingRoomSeed;
+  String? _inlineError;
   final Map<String, TextEditingController> _secretControllers =
       <String, TextEditingController>{};
 
@@ -93,15 +124,60 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
     return _capabilities.isEmpty ? null : _capabilities.first;
   }
 
+  void _maybeAutoOpenGuide(AppPrefs prefs) {
+    if (_autoGuideAttempted ||
+        !prefs.settings.autoGuidesEnabled ||
+        prefs.guidedTour.activeBranch != 'host' ||
+        prefs.guidedTour.hostCompleted) {
+      return;
+    }
+    _autoGuideAttempted = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+      unawaited(_openGuide());
+    });
+  }
+
+  Future<void> _openGuide() async {
+    final AppPrefs prefs =
+        ref.read(appPrefsControllerProvider).valueOrNull ?? AppPrefs.defaults();
+    final FlowGuideResult? result = await showFlowGuideSheet(
+      context: context,
+      content: _hostGuide,
+      completed: prefs.guidedTour.hostCompleted,
+    );
+    if (result != FlowGuideResult.completed || !mounted) {
+      return;
+    }
+    await ref.read(appPrefsControllerProvider.notifier).completeGuideBranch(
+          'host',
+        );
+  }
+
+  Future<void> _dismissFailureFeedback() async {
+    await ref
+        .read(appPrefsControllerProvider.notifier)
+        .markFeedbackPromptSeen('room-create-failure');
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _showFailureFeedback = false;
+    });
+  }
+
   Future<void> _loadCapabilities() async {
     setState(() {
       _loadingCapabilities = true;
+      _inlineError = null;
     });
 
     try {
       final Uri server = normalizeServerUri(_serverController.text);
       final List<ProviderCapability> capabilities =
-          await _api.getProviderCapabilities(server);
+          await ref.read(apiClientProvider).getProviderCapabilities(server);
       final List<ProviderCapability> roomCapabilities = capabilities
           .where((ProviderCapability capability) => capability.roomSupported)
           .toList(growable: false);
@@ -113,7 +189,9 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
       for (final ProviderCapability capability in roomCapabilities) {
         for (final ProviderAuthField field in capability.authFields) {
           _secretControllers.putIfAbsent(
-              field.key, () => TextEditingController());
+            field.key,
+            () => TextEditingController(),
+          );
         }
       }
 
@@ -129,6 +207,9 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
       });
     } catch (error) {
       _showSnack('Unable to load provider capabilities: $error');
+      setState(() {
+        _inlineError = '$error';
+      });
     } finally {
       if (mounted) {
         setState(() {
@@ -147,6 +228,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
 
     setState(() {
       _submitting = true;
+      _inlineError = null;
+      _showFailureFeedback = false;
     });
 
     try {
@@ -155,14 +238,14 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
         for (final ProviderAuthField field in capability.authFields)
           field.key: _secretControllers[field.key]?.text.trim() ?? '',
       };
-      final result = await _api.createRoom(
-        server: server,
-        providerId: capability.id,
-        roomName: _roomNameController.text.trim(),
-        displayName: _displayNameController.text.trim(),
-        secret: secret,
-        fistBumpsEnabled: _fistBumpsEnabled,
-      );
+      final result = await ref.read(apiClientProvider).createRoom(
+            server: server,
+            providerId: capability.id,
+            roomName: _roomNameController.text.trim(),
+            displayName: _displayNameController.text.trim(),
+            secret: secret,
+            fistBumpsEnabled: _fistBumpsEnabled,
+          );
 
       await ref.read(sessionRepositoryProvider).saveSession(
             server: server,
@@ -186,8 +269,26 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
           'slug': result.room.slug,
         },
       );
+    } on ApiFailure catch (error) {
+      final bool shouldShowFeedback = await ref
+          .read(appPrefsControllerProvider.notifier)
+          .shouldShowFeedbackPrompt('room-create-failure');
+      _showSnack('Unable to create room: ${error.message}');
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _inlineError = error.message;
+        _showFailureFeedback = shouldShowFeedback;
+      });
     } catch (error) {
       _showSnack('Unable to create room: $error');
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _inlineError = '$error';
+      });
     } finally {
       if (mounted) {
         setState(() {
@@ -205,12 +306,23 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
   @override
   Widget build(BuildContext context) {
     final ProviderCapability? capability = _selectedCapability;
+    final AsyncValue<AppPrefs> prefsValue =
+        ref.watch(appPrefsControllerProvider);
+    final AppPrefs prefs = prefsValue.valueOrNull ?? AppPrefs.defaults();
+
+    if (prefsValue.hasValue) {
+      _maybeAutoOpenGuide(prefs);
+    }
 
     return GradientScaffold(
       title: 'Create a room',
       subtitle:
           'Authenticate the provider on this phone, then open the shared session with a bearer-backed room token.',
       actions: <Widget>[
+        IconButton(
+          onPressed: () => unawaited(_openGuide()),
+          icon: const Icon(Icons.help_outline),
+        ),
         IconButton(
           onPressed: () => context.goNamed('landing'),
           icon: const Icon(Icons.close),
@@ -269,6 +381,19 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(height: 18),
+              ],
+              if (_inlineError != null) ...<Widget>[
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFEE2E2),
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(color: const Color(0xFFFCA5A5)),
+                  ),
+                  padding: const EdgeInsets.all(16),
+                  child: Text(_inlineError!),
                 ),
                 const SizedBox(height: 18),
               ],
@@ -352,6 +477,28 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                   child: Text(_submitting ? 'Creating room...' : 'Open room'),
                 ),
               ),
+              if (_showFailureFeedback) ...<Widget>[
+                const SizedBox(height: 18),
+                FeedbackPromptCard(
+                  title: 'Was the room creation failure useful?',
+                  description:
+                      'A quick signal helps tighten provider auth and room setup messaging on mobile.',
+                  onDismiss: () => unawaited(_dismissFailureFeedback()),
+                  onSubmit: (String sentiment, String? message) async {
+                    await ref.read(apiClientProvider).submitFeedback(
+                      server: normalizeServerUri(_serverController.text.trim()),
+                      promptFamily: 'room-create-failure',
+                      sentiment: sentiment,
+                      message: message,
+                      route: '/create',
+                      metadata: <String, dynamic>{
+                        'provider_id': capability?.id ?? '',
+                      },
+                    );
+                    await _dismissFailureFeedback();
+                  },
+                ),
+              ],
             ],
           ),
         ),

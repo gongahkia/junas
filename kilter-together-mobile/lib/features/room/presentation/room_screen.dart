@@ -13,6 +13,9 @@ import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/room_models.dart';
 import '../../../core/models/session_models.dart';
+import '../../../core/network/api_client.dart';
+import '../../../core/presentation/feedback_prompt_card.dart';
+import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/provider_secret_repository.dart';
@@ -48,6 +51,54 @@ const List<String> _queueStatuses = <String>[
   'current',
   'done'
 ];
+const FlowGuideContent _hostRoomGuide = FlowGuideContent(
+  eyebrow: 'Host room guide',
+  title: 'Run the shared session from this phone',
+  summary:
+      'The host view owns the shared room context: surface, invite distribution, queue and finalists, assistant mode, and the final room close action.',
+  sections: <FlowGuideSection>[
+    FlowGuideSection(
+      title: 'Set the shared room context',
+      body:
+          'Validate the provider connection, choose the surface, and keep the room name or assistant mode aligned with the session the group is actually climbing.',
+    ),
+    FlowGuideSection(
+      title: 'Coordinate the group live',
+      body:
+          'Use queue, finalists, participant roles, and invite sharing from this screen so everyone stays in the same room state.',
+    ),
+    FlowGuideSection(
+      title: 'Wrap the session cleanly',
+      body:
+          'When the session is done, close the room from here so the room snapshot, recap flow, and recent-session history all settle on the server.',
+    ),
+  ],
+  completionLabel: 'Mark host guide complete',
+);
+const FlowGuideContent _guestRoomGuide = FlowGuideContent(
+  eyebrow: 'Guest room guide',
+  title: 'Participate in the shared session',
+  summary:
+      'Guest phones follow the host-managed room context while still letting each person set status, vote, and help shape the queue.',
+  sections: <FlowGuideSection>[
+    FlowGuideSection(
+      title: 'Follow the shared surface',
+      body:
+          'The host chooses the provider connection and active surface, so your job here is to react to the current room state instead of configuring it.',
+    ),
+    FlowGuideSection(
+      title: 'Signal and contribute',
+      body:
+          'Update your own participant status, vote on climbs, and add items to queue or finalists when the room permissions allow it.',
+    ),
+    FlowGuideSection(
+      title: 'Rejoin when needed',
+      body:
+          'If this device loses the saved room session, use the original invite flow again so the app can restore the room token locally.',
+    ),
+  ],
+  completionLabel: 'Mark guest guide complete',
+);
 
 class RoomScreen extends ConsumerStatefulWidget {
   const RoomScreen({
@@ -75,6 +126,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   bool _rememberProviderSecret = false;
   bool _showQr = false;
   bool _shareBusy = false;
+  bool _showCloseFeedback = false;
+  bool _autoGuideAttempted = false;
   String _boundRoomName = '';
 
   RoomRouteArgs get _args =>
@@ -231,13 +284,99 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     }
   }
 
+  String _guideBranchForRoom(RoomSnapshot room) {
+    if (room.permissions.closeRoom ||
+        room.permissions.manageSession ||
+        room.permissions.manageSurface ||
+        room.permissions.editRoomSettings) {
+      return 'host';
+    }
+    return 'guest';
+  }
+
+  bool _guideCompleted(AppPrefs prefs, String branch) {
+    return switch (branch) {
+      'host' => prefs.guidedTour.hostCompleted,
+      'guest' => prefs.guidedTour.guestCompleted,
+      _ => true,
+    };
+  }
+
+  FlowGuideContent _guideContentForRoom(RoomSnapshot room) {
+    return _guideBranchForRoom(room) == 'host'
+        ? _hostRoomGuide
+        : _guestRoomGuide;
+  }
+
+  void _maybeAutoOpenGuide(RoomSnapshot room, AppPrefs prefs) {
+    final String branch = _guideBranchForRoom(room);
+    if (_autoGuideAttempted ||
+        !prefs.settings.autoGuidesEnabled ||
+        prefs.guidedTour.activeBranch != branch ||
+        _guideCompleted(prefs, branch)) {
+      return;
+    }
+    _autoGuideAttempted = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+      unawaited(_openGuide(room));
+    });
+  }
+
+  Future<void> _openGuide(RoomSnapshot room) async {
+    final AppPrefs prefs =
+        ref.read(appPrefsControllerProvider).valueOrNull ?? AppPrefs.defaults();
+    final String branch = _guideBranchForRoom(room);
+    final FlowGuideResult? result = await showFlowGuideSheet(
+      context: context,
+      content: _guideContentForRoom(room),
+      completed: _guideCompleted(prefs, branch),
+    );
+    if (result != FlowGuideResult.completed || !mounted) {
+      return;
+    }
+    await ref.read(appPrefsControllerProvider.notifier).completeGuideBranch(
+          branch,
+        );
+  }
+
+  Future<void> _maybeShowCloseFeedback(RoomSnapshot room) async {
+    if (!room.permissions.closeRoom) {
+      return;
+    }
+    final bool shouldShow = await ref
+        .read(appPrefsControllerProvider.notifier)
+        .shouldShowFeedbackPrompt('room-close');
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _showCloseFeedback = shouldShow;
+    });
+  }
+
+  Future<void> _dismissCloseFeedback() async {
+    await ref
+        .read(appPrefsControllerProvider.notifier)
+        .markFeedbackPromptSeen('room-close');
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _showCloseFeedback = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final RoomViewState roomState = ref.watch(roomControllerProvider(_args));
     final RoomController controller =
         ref.read(roomControllerProvider(_args).notifier);
-    final AppPrefs prefs = ref.watch(appPrefsControllerProvider).valueOrNull ??
-        AppPrefs.defaults();
+    final AsyncValue<AppPrefs> prefsValue =
+        ref.watch(appPrefsControllerProvider);
+    final AppPrefs prefs = prefsValue.valueOrNull ?? AppPrefs.defaults();
 
     ref.listen<RoomViewState>(roomControllerProvider(_args),
         (RoomViewState? previous, RoomViewState next) {
@@ -259,6 +398,12 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                 room: room,
               ),
         );
+      }
+      if (room != null &&
+          previous?.room?.status != 'closed' &&
+          room.status == 'closed' &&
+          room.permissions.closeRoom) {
+        unawaited(_maybeShowCloseFeedback(room));
       }
     });
 
@@ -335,10 +480,18 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     );
     final Uri inviteUri = invite.toUri();
 
+    if (prefsValue.hasValue) {
+      _maybeAutoOpenGuide(room, prefs);
+    }
+
     return GradientScaffold(
       title: room.roomName ?? 'Room ${room.slug}',
       subtitle: describeServer(roomState.server),
       actions: <Widget>[
+        IconButton(
+          onPressed: () => unawaited(_openGuide(room)),
+          icon: const Icon(Icons.help_outline),
+        ),
         IconButton(
           onPressed: roomState.refreshing
               ? null
@@ -369,6 +522,30 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               title: 'Updated',
               message: roomState.notice!,
               accent: const Color(0xFF0F766E),
+            ),
+            const SizedBox(height: 14),
+          ],
+          if (_showCloseFeedback) ...<Widget>[
+            FeedbackPromptCard(
+              title: 'How did closing the room feel?',
+              description:
+                  'A quick signal helps tune the room wrap-up flow before more post-session UI gets added.',
+              onDismiss: () => unawaited(_dismissCloseFeedback()),
+              onSubmit: (String sentiment, String? message) async {
+                await ref.read(apiClientProvider).submitFeedback(
+                  server: roomState.server,
+                  roomSlug: room.slug,
+                  promptFamily: 'room-close',
+                  sentiment: sentiment,
+                  message: message,
+                  route: '/room',
+                  metadata: <String, dynamic>{
+                    'provider_id': room.providerId,
+                    'participant_count': room.participants.length,
+                  },
+                );
+                await _dismissCloseFeedback();
+              },
             ),
             const SizedBox(height: 14),
           ],
@@ -573,14 +750,9 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
             onClearVotes: room.permissions.manageSession
                 ? () => unawaited(controller.clearVotes())
                 : null,
-            onCloseRoom: room.permissions.closeRoom
+            onCloseRoom: room.permissions.closeRoom && room.status != 'closed'
                 ? () async {
-                    final GoRouter router = GoRouter.of(context);
                     await controller.closeRoom();
-                    if (!mounted) {
-                      return;
-                    }
-                    router.goNamed('landing');
                   }
                 : null,
           ),

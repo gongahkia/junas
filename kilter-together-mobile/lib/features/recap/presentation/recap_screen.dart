@@ -9,6 +9,7 @@ import '../../../core/deep_links/invite_links.dart';
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/product_models.dart';
 import '../../../core/network/api_client.dart';
+import '../../../core/presentation/feedback_prompt_card.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../application/recap_controller.dart';
@@ -30,7 +31,6 @@ class RecapScreen extends ConsumerStatefulWidget {
 class _RecapScreenState extends ConsumerState<RecapScreen> {
   int _slideIndex = 0;
   bool _feedbackVisible = false;
-  bool _feedbackBusy = false;
   bool _feedbackChecked = false;
 
   RecapRouteArgs get _args =>
@@ -73,7 +73,7 @@ class _RecapScreenState extends ConsumerState<RecapScreen> {
         state: state,
         slideIndex: _slideIndex,
         feedbackVisible: _feedbackVisible,
-        feedbackBusy: _feedbackBusy,
+        onDismissFeedback: () => unawaited(_dismissFeedback()),
         onPrevious: recap == null || _slideIndex == 0
             ? null
             : () => setState(() {
@@ -108,11 +108,10 @@ class _RecapScreenState extends ConsumerState<RecapScreen> {
                     recap: recap!,
                   ),
                 ),
-        onFeedback: (String sentiment) => unawaited(
-          _submitFeedback(
-            sentiment: sentiment,
-            recap: recap,
-          ),
+        onFeedback: (String sentiment, String? message) => _submitFeedback(
+          sentiment: sentiment,
+          message: message,
+          recap: recap,
         ),
       ),
     );
@@ -130,43 +129,46 @@ class _RecapScreenState extends ConsumerState<RecapScreen> {
     });
   }
 
+  Future<void> _dismissFeedback() async {
+    await ref
+        .read(appPrefsControllerProvider.notifier)
+        .markFeedbackPromptSeen('recap_final_slide');
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _feedbackVisible = false;
+    });
+  }
+
   Future<void> _submitFeedback({
     required String sentiment,
+    required String? message,
     required RoomRecap? recap,
   }) async {
     if (recap == null) {
       return;
     }
-    setState(() {
-      _feedbackBusy = true;
-    });
-    try {
-      await ref.read(apiClientProvider).submitFeedback(
-        server: _args.serverUri,
-        shareId: recap.shareId,
-        promptFamily: 'recap_final_slide',
-        sentiment: sentiment,
-        route: '/recaps/${recap.shareId}',
-        metadata: <String, dynamic>{
-          'slide_index': _slideIndex,
-        },
-      );
-      await ref
-          .read(appPrefsControllerProvider.notifier)
-          .markFeedbackPromptSeen('recap_final_slide');
-      if (!mounted) {
-        return;
-      }
-      setState(() {
-        _feedbackVisible = false;
-      });
-    } finally {
-      if (mounted) {
-        setState(() {
-          _feedbackBusy = false;
-        });
-      }
+    await ref.read(apiClientProvider).submitFeedback(
+      server: _args.serverUri,
+      shareId: recap.shareId,
+      promptFamily: 'recap_final_slide',
+      sentiment: sentiment,
+      message: message,
+      route: '/recaps/${recap.shareId}',
+      metadata: <String, dynamic>{
+        'slide_index': _slideIndex,
+      },
+    );
+    await ref
+        .read(appPrefsControllerProvider.notifier)
+        .markFeedbackPromptSeen('recap_final_slide');
+    if (!mounted) {
+      return;
     }
+    setState(() {
+      _feedbackVisible = false;
+    });
   }
 
   Future<void> _startRematch({
@@ -199,7 +201,7 @@ class _RecapBody extends StatelessWidget {
     required this.state,
     required this.slideIndex,
     required this.feedbackVisible,
-    required this.feedbackBusy,
+    required this.onDismissFeedback,
     required this.onPrevious,
     required this.onNext,
     required this.onShare,
@@ -210,12 +212,12 @@ class _RecapBody extends StatelessWidget {
   final RecapViewState state;
   final int slideIndex;
   final bool feedbackVisible;
-  final bool feedbackBusy;
+  final VoidCallback onDismissFeedback;
   final VoidCallback? onPrevious;
   final VoidCallback? onNext;
   final VoidCallback? onShare;
   final VoidCallback? onStartRematch;
-  final ValueChanged<String> onFeedback;
+  final Future<void> Function(String sentiment, String? message) onFeedback;
 
   @override
   Widget build(BuildContext context) {
@@ -406,45 +408,12 @@ class _RecapBody extends StatelessWidget {
         ),
         if (feedbackVisible) ...<Widget>[
           const SizedBox(height: 14),
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(22),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'How did this recap feel?',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'A quick signal helps tune the next recap deck without keeping analytics infrastructure around.',
-                  ),
-                  const SizedBox(height: 18),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: FilledButton.tonal(
-                          onPressed: feedbackBusy
-                              ? null
-                              : () => onFeedback('positive'),
-                          child: const Text('Helpful'),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: FilledButton.tonal(
-                          onPressed: feedbackBusy
-                              ? null
-                              : () => onFeedback('negative'),
-                          child: const Text('Needs work'),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+          FeedbackPromptCard(
+            title: 'How did this recap feel?',
+            description:
+                'A quick signal helps tune the next recap deck without keeping analytics infrastructure around.',
+            onDismiss: onDismissFeedback,
+            onSubmit: onFeedback,
           ),
         ],
       ],

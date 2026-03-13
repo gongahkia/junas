@@ -1,4 +1,4 @@
-import { useEffect, useEffectEvent } from "react";
+import { useEffect, useRef } from "react";
 import { api } from "@/api";
 import { parseRoomEventPayload, shouldRefreshCatalogOnly, shouldRefreshRoomAndCatalog, shouldRefreshRoomOnly } from "@/features/room/room-events";
 import { reportError, reportEvent } from "@/lib/observability";
@@ -22,15 +22,15 @@ export function useRoomEvents({
   refreshCatalog,
   refreshRoomAndCatalog,
 }: UseRoomEventsOptions) {
-  const handleRefreshRoom = useEffectEvent(async () => {
-    await refreshRoom();
-  });
-  const handleRefreshCatalog = useEffectEvent(async () => {
-    await refreshCatalog();
-  });
-  const handleRefreshRoomAndCatalog = useEffectEvent(async () => {
-    await refreshRoomAndCatalog();
-  });
+  const refreshRoomRef = useRef(refreshRoom);
+  const refreshCatalogRef = useRef(refreshCatalog);
+  const refreshRoomAndCatalogRef = useRef(refreshRoomAndCatalog);
+
+  useEffect(() => {
+    refreshRoomRef.current = refreshRoom;
+    refreshCatalogRef.current = refreshCatalog;
+    refreshRoomAndCatalogRef.current = refreshRoomAndCatalog;
+  }, [refreshCatalog, refreshRoom, refreshRoomAndCatalog]);
 
   useEffect(() => {
     if (!slug || !roomStatus || roomStatus === "closed" || typeof EventSource === "undefined") {
@@ -59,21 +59,21 @@ export function useRoomEvents({
 
         const payload = parseRoomEventPayload((event as MessageEvent<string>).data);
         if (shouldRefreshCatalogOnly(payload)) {
-          void handleRefreshCatalog();
+          void refreshCatalogRef.current();
           return;
         }
 
         if (shouldRefreshRoomAndCatalog(payload)) {
-          void handleRefreshRoomAndCatalog();
+          void refreshRoomAndCatalogRef.current();
           return;
         }
 
         if (shouldRefreshRoomOnly(payload)) {
-          void handleRefreshRoom();
+          void refreshRoomRef.current();
           return;
         }
 
-        void handleRefreshRoomAndCatalog();
+        void refreshRoomAndCatalogRef.current();
       });
 
       eventSource.onerror = () => {

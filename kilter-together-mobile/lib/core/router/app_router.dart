@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/about/presentation/about_screen.dart';
 import '../../features/create_room/presentation/create_room_screen.dart';
 import '../../features/join/presentation/join_screen.dart';
 import '../../features/landing/presentation/landing_screen.dart';
@@ -21,6 +22,13 @@ GoRouter buildAppRouter() {
         name: 'landing',
         builder: (BuildContext context, GoRouterState state) {
           return const LandingScreen();
+        },
+      ),
+      GoRoute(
+        path: '/about',
+        name: 'about',
+        builder: (BuildContext context, GoRouterState state) {
+          return const AboutScreen();
         },
       ),
       GoRoute(

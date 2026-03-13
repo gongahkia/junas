@@ -8,6 +8,7 @@ import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/product_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
+import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/session_repository.dart';
@@ -27,21 +28,127 @@ final _recentSessionsProvider =
       .getRecentSessions(server: server, limit: 4);
 });
 
-class LandingScreen extends ConsumerWidget {
+const FlowGuideContent _landingGuide = FlowGuideContent(
+  eyebrow: 'Landing guide',
+  title: 'How the app is split up',
+  summary:
+      'Start on landing when you need to decide whether this phone is hosting, joining, or just planning climbs solo.',
+  sections: <FlowGuideSection>[
+    FlowGuideSection(
+      title: 'Create a room',
+      body:
+          'Use this when the phone belongs to the host. Load providers, authenticate the account, open the room, and share the invite from the same device.',
+    ),
+    FlowGuideSection(
+      title: 'Join a room',
+      body:
+          'Use this when the phone is a guest device. Paste an invite or scan the host QR code, pick a display name, and rejoin if the saved room session expires.',
+    ),
+    FlowGuideSection(
+      title: 'Solo browse',
+      body:
+          'Use solo mode to shortlist climbs, save filters, and seed future rooms without needing to open a live session first.',
+    ),
+  ],
+  completionLabel: 'Mark landing guide complete',
+);
+
+class LandingScreen extends ConsumerStatefulWidget {
   const LandingScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final AppPrefs prefs = ref.watch(appPrefsControllerProvider).valueOrNull ??
-        AppPrefs.defaults();
+  ConsumerState<LandingScreen> createState() => _LandingScreenState();
+}
+
+class _LandingScreenState extends ConsumerState<LandingScreen> {
+  bool _autoGuideAttempted = false;
+
+  void _maybeAutoOpenGuide(AppPrefs prefs) {
+    if (_autoGuideAttempted ||
+        !prefs.settings.autoGuidesEnabled ||
+        prefs.guidedTour.landingCompleted) {
+      return;
+    }
+    _autoGuideAttempted = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+      unawaited(_openGuide());
+    });
+  }
+
+  Future<void> _openGuide() async {
+    final AppPrefs prefs =
+        ref.read(appPrefsControllerProvider).valueOrNull ?? AppPrefs.defaults();
+    final FlowGuideResult? result = await showFlowGuideSheet(
+      context: context,
+      content: _landingGuide,
+      completed: prefs.guidedTour.landingCompleted,
+    );
+    if (result != FlowGuideResult.completed || !mounted) {
+      return;
+    }
+    await ref.read(appPrefsControllerProvider.notifier).completeLandingGuide();
+  }
+
+  Future<void> _startBranch({
+    required String branch,
+    required String routeName,
+  }) async {
+    await ref
+        .read(appPrefsControllerProvider.notifier)
+        .queueGuideBranch(branch);
+    if (!mounted) {
+      return;
+    }
+    context.goNamed(routeName);
+  }
+
+  Future<void> _showRecentRoomsSheet() {
+    return showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (BuildContext context) {
+        return const _RecentRoomsSheet();
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final AsyncValue<AppPrefs> prefsValue =
+        ref.watch(appPrefsControllerProvider);
+    final AppPrefs prefs = prefsValue.valueOrNull ?? AppPrefs.defaults();
     final AsyncValue<Uri?> activeServer = ref.watch(_landingServerProvider);
     final AsyncValue<List<SessionSummary>> recentSessions =
         ref.watch(_recentSessionsProvider);
+    final List<RecentRoom> previewRecentRooms =
+        prefs.recentRooms.take(3).toList(growable: false);
+
+    if (prefsValue.hasValue) {
+      _maybeAutoOpenGuide(prefs);
+    }
 
     return GradientScaffold(
       title: 'Kilter Together',
       subtitle:
           'Host, join, and run collaborative board sessions from a native mobile client.',
+      actions: <Widget>[
+        IconButton(
+          onPressed: () => unawaited(_openGuide()),
+          icon: const Icon(Icons.help_outline),
+        ),
+        IconButton(
+          onPressed: () => context.goNamed('about'),
+          icon: const Icon(Icons.info_outline),
+        ),
+        IconButton(
+          onPressed: () => context.goNamed('settings'),
+          icon: const Icon(Icons.tune),
+        ),
+      ],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -51,7 +158,9 @@ class LandingScreen extends ConsumerWidget {
                 'Authenticate the provider account, open a room, and share the invite from this phone.',
             accent: const Color(0xFF0F766E),
             buttonLabel: 'Host session',
-            onPressed: () => context.goNamed('create-room'),
+            onPressed: () => unawaited(
+              _startBranch(branch: 'host', routeName: 'create-room'),
+            ),
           ),
           const SizedBox(height: 14),
           _ActionCard(
@@ -60,7 +169,9 @@ class LandingScreen extends ConsumerWidget {
                 'Paste or scan a mobile invite that already includes the self-hosted server address.',
             accent: const Color(0xFF4D7C0F),
             buttonLabel: 'Join invite',
-            onPressed: () => context.goNamed('join-room'),
+            onPressed: () => unawaited(
+              _startBranch(branch: 'guest', routeName: 'join-room'),
+            ),
           ),
           const SizedBox(height: 14),
           _ActionCard(
@@ -69,7 +180,9 @@ class LandingScreen extends ConsumerWidget {
                 'Open Kilter or provider-backed solo planning, keep a shortlist, and seed new rooms.',
             accent: const Color(0xFF0369A1),
             buttonLabel: 'Open solo mode',
-            onPressed: () => context.goNamed('solo-entry'),
+            onPressed: () => unawaited(
+              _startBranch(branch: 'solo', routeName: 'solo-entry'),
+            ),
           ),
           const SizedBox(height: 14),
           _ActionCard(
@@ -81,9 +194,20 @@ class LandingScreen extends ConsumerWidget {
             onPressed: () => context.goNamed('settings'),
           ),
           const SizedBox(height: 20),
-          Text(
-            'Recent rooms',
-            style: Theme.of(context).textTheme.titleLarge,
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  'Recent rooms',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ),
+              if (prefs.recentRooms.length > 3)
+                TextButton(
+                  onPressed: () => unawaited(_showRecentRoomsSheet()),
+                  child: Text('View all (${prefs.recentRooms.length})'),
+                ),
+            ],
           ),
           const SizedBox(height: 12),
           if (!prefs.settings.recentRoomsEnabled)
@@ -104,46 +228,11 @@ class LandingScreen extends ConsumerWidget {
             )
           else
             Column(
-              children: prefs.recentRooms
-                  .take(6)
+              children: previewRecentRooms
                   .map(
                     (RecentRoom room) => Padding(
                       padding: const EdgeInsets.only(bottom: 10),
-                      child: Card(
-                        child: ListTile(
-                          title: Text(room.roomName ?? room.slug),
-                          subtitle: Text(
-                            [
-                              room.providerId,
-                              if ((room.surfaceName ?? '').isNotEmpty)
-                                room.surfaceName!,
-                              describeServer(normalizeServerUri(room.server)),
-                            ].join(' · '),
-                          ),
-                          trailing: IconButton(
-                            onPressed: () => unawaited(
-                              ref
-                                  .read(appPrefsControllerProvider.notifier)
-                                  .togglePinnedRecentRoom(
-                                    server: normalizeServerUri(room.server),
-                                    slug: room.slug,
-                                  ),
-                            ),
-                            icon: Icon(
-                              room.pinned
-                                  ? Icons.push_pin
-                                  : Icons.push_pin_outlined,
-                            ),
-                          ),
-                          onTap: () => context.goNamed(
-                            'room',
-                            queryParameters: <String, String>{
-                              'server': room.server,
-                              'slug': room.slug,
-                            },
-                          ),
-                        ),
-                      ),
+                      child: _RecentRoomTile(room: room),
                     ),
                   )
                   .toList(growable: false),
@@ -310,6 +399,133 @@ class _ActionCard extends StatelessWidget {
             FilledButton.tonal(
               onPressed: onPressed,
               child: Text(buttonLabel),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _RecentRoomTile extends ConsumerWidget {
+  const _RecentRoomTile({
+    required this.room,
+    this.showRemove = false,
+    this.onTap,
+  });
+
+  final RecentRoom room;
+  final bool showRemove;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Card(
+      child: ListTile(
+        title: Text(room.roomName ?? room.slug),
+        subtitle: Text(
+          [
+            room.providerId,
+            if ((room.surfaceName ?? '').isNotEmpty) room.surfaceName!,
+            describeServer(normalizeServerUri(room.server)),
+          ].join(' · '),
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            IconButton(
+              onPressed: () => unawaited(
+                ref
+                    .read(appPrefsControllerProvider.notifier)
+                    .togglePinnedRecentRoom(
+                      server: normalizeServerUri(room.server),
+                      slug: room.slug,
+                    ),
+              ),
+              icon: Icon(
+                room.pinned ? Icons.push_pin : Icons.push_pin_outlined,
+              ),
+            ),
+            if (showRemove)
+              IconButton(
+                onPressed: () => unawaited(
+                  ref
+                      .read(appPrefsControllerProvider.notifier)
+                      .removeRecentRoom(
+                        server: normalizeServerUri(room.server),
+                        slug: room.slug,
+                      ),
+                ),
+                icon: const Icon(Icons.delete_outline),
+              ),
+          ],
+        ),
+        onTap: onTap ??
+            () => context.goNamed(
+                  'room',
+                  queryParameters: <String, String>{
+                    'server': room.server,
+                    'slug': room.slug,
+                  },
+                ),
+      ),
+    );
+  }
+}
+
+class _RecentRoomsSheet extends ConsumerWidget {
+  const _RecentRoomsSheet();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final AppPrefs prefs = ref.watch(appPrefsControllerProvider).valueOrNull ??
+        AppPrefs.defaults();
+
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Recent rooms',
+              style: Theme.of(context).textTheme.displayLarge,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Showing up to the latest ${prefs.recentRooms.length} saved room visits on this device.',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: const Color(0xFF3E5A57),
+                  ),
+            ),
+            const SizedBox(height: 16),
+            Flexible(
+              child: ListView(
+                shrinkWrap: true,
+                children: prefs.recentRooms
+                    .map(
+                      (RecentRoom room) => Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: _RecentRoomTile(
+                          room: room,
+                          showRemove: true,
+                          onTap: () {
+                            Navigator.of(context).pop();
+                            context.goNamed(
+                              'room',
+                              queryParameters: <String, String>{
+                                'server': room.server,
+                                'slug': room.slug,
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    )
+                    .toList(growable: false),
+              ),
             ),
           ],
         ),

@@ -1,14 +1,44 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../../../core/deep_links/invite_links.dart';
+import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
+import '../../../core/presentation/feedback_prompt_card.dart';
+import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/session_repository.dart';
+
+const FlowGuideContent _guestGuide = FlowGuideContent(
+  eyebrow: 'Guest guide',
+  title: 'Join the shared room from this phone',
+  summary:
+      'Guest phones only need the invite and display name. The host phone owns provider authentication and shared room setup.',
+  sections: <FlowGuideSection>[
+    FlowGuideSection(
+      title: 'Use the invite first',
+      body:
+          'Paste the full invite or scan the host QR code so the phone gets both the room slug and the correct self-hosted server address.',
+    ),
+    FlowGuideSection(
+      title: 'Keep your display name stable',
+      body:
+          'The app remembers the last display name on this device so rejoining the same room later feels consistent for the rest of the group.',
+    ),
+    FlowGuideSection(
+      title: 'Participate inside the room',
+      body:
+          'Once inside, set your own status, vote, add climbs to queue or finalists, and follow the host-managed surface and session controls.',
+    ),
+  ],
+  completionLabel: 'Mark guest guide complete',
+);
 
 class JoinRoomScreen extends ConsumerStatefulWidget {
   const JoinRoomScreen({
@@ -27,13 +57,16 @@ class JoinRoomScreen extends ConsumerStatefulWidget {
 }
 
 class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
-  final ApiClient _api = ApiClient();
   final TextEditingController _serverController = TextEditingController();
   final TextEditingController _inviteController = TextEditingController();
-  final TextEditingController _displayNameController = TextEditingController(text: 'Guest');
+  final TextEditingController _displayNameController =
+      TextEditingController(text: 'Guest');
+
   bool _submitting = false;
-  String? _inlineError;
   bool _scannerOpen = false;
+  bool _showFailureFeedback = false;
+  bool _autoGuideAttempted = false;
+  String? _inlineError;
 
   @override
   void initState() {
@@ -48,15 +81,13 @@ class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
         _serverController.text = server.toString();
       });
     });
-    ref.read(appPrefsControllerProvider.notifier).refresh().then((_) {
-      final AsyncValue<dynamic> prefsValue = ref.read(appPrefsControllerProvider);
-      final dynamic prefs = prefsValue.valueOrNull;
-      if (!mounted || prefs == null) {
+    ref.read(sessionRepositoryProvider).loadAppPrefs().then((AppPrefs prefs) {
+      if (!mounted) {
         return;
       }
-      if ((prefs.savedDisplayName as String?)?.trim().isNotEmpty == true) {
+      if (prefs.savedDisplayName.trim().isNotEmpty) {
         setState(() {
-          _displayNameController.text = prefs.savedDisplayName as String;
+          _displayNameController.text = prefs.savedDisplayName.trim();
         });
       }
     });
@@ -70,25 +101,71 @@ class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
     super.dispose();
   }
 
+  void _maybeAutoOpenGuide(AppPrefs prefs) {
+    if (_autoGuideAttempted ||
+        !prefs.settings.autoGuidesEnabled ||
+        prefs.guidedTour.activeBranch != 'guest' ||
+        prefs.guidedTour.guestCompleted) {
+      return;
+    }
+    _autoGuideAttempted = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+      unawaited(_openGuide());
+    });
+  }
+
+  Future<void> _openGuide() async {
+    final AppPrefs prefs =
+        ref.read(appPrefsControllerProvider).valueOrNull ?? AppPrefs.defaults();
+    final FlowGuideResult? result = await showFlowGuideSheet(
+      context: context,
+      content: _guestGuide,
+      completed: prefs.guidedTour.guestCompleted,
+    );
+    if (result != FlowGuideResult.completed || !mounted) {
+      return;
+    }
+    await ref.read(appPrefsControllerProvider.notifier).completeGuideBranch(
+          'guest',
+        );
+  }
+
+  Future<void> _dismissFailureFeedback() async {
+    await ref
+        .read(appPrefsControllerProvider.notifier)
+        .markFeedbackPromptSeen('room-join-failure');
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _showFailureFeedback = false;
+    });
+  }
+
   Future<void> _submit() async {
     setState(() {
       _submitting = true;
       _inlineError = null;
+      _showFailureFeedback = false;
     });
 
     try {
       final InviteLink? invite = InviteLink.parse(_inviteController.text);
-      final Uri server = invite?.server ?? normalizeServerUri(_serverController.text);
+      final Uri server =
+          invite?.server ?? normalizeServerUri(_serverController.text);
       final String slug = invite?.slug ?? _inviteController.text.trim();
       if (slug.isEmpty) {
         throw const FormatException('Room slug is required.');
       }
 
-      final result = await _api.joinRoom(
-        server: server,
-        slug: slug,
-        displayName: _displayNameController.text.trim(),
-      );
+      final result = await ref.read(apiClientProvider).joinRoom(
+            server: server,
+            slug: slug,
+            displayName: _displayNameController.text.trim(),
+          );
       await ref.read(sessionRepositoryProvider).saveSession(
             server: server,
             slug: result.room.slug,
@@ -112,14 +189,26 @@ class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
           'slug': result.room.slug,
         },
       );
-    } catch (error) {
-      final String message = '$error';
+    } on ApiFailure catch (error) {
+      final bool shouldShowFeedback = await ref
+          .read(appPrefsControllerProvider.notifier)
+          .shouldShowFeedbackPrompt('room-join-failure');
+      if (!mounted) {
+        return;
+      }
       setState(() {
-        _inlineError = message;
+        _inlineError = error.message;
+        _showFailureFeedback = shouldShowFeedback;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Unable to join room: $message')),
-      );
+      _showSnack('Unable to join room: ${error.message}');
+    } catch (error) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _inlineError = '$error';
+      });
+      _showSnack('Unable to join room: $error');
     } finally {
       if (mounted) {
         setState(() {
@@ -129,20 +218,40 @@ class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
     }
   }
 
+  void _showSnack(String message) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+  }
+
   @override
   Widget build(BuildContext context) {
+    final AsyncValue<AppPrefs> prefsValue =
+        ref.watch(appPrefsControllerProvider);
+    final AppPrefs prefs = prefsValue.valueOrNull ?? AppPrefs.defaults();
     final String? joinReason = widget.initialReason;
     final String? joinReasonMessage = switch (joinReason) {
-      'session_expired' => 'Your last room session on this device expired. Rejoin the room to continue.',
-      'session_invalid' => 'This device does not have a valid room session for the room. Rejoin to continue.',
-      'session_required' => 'Join the room on this device before opening the invite.',
+      'session_expired' =>
+        'Your last room session on this device expired. Rejoin the room to continue.',
+      'session_invalid' =>
+        'This device does not have a valid room session for the room. Rejoin to continue.',
+      'session_required' =>
+        'Join the room on this device before opening the invite.',
       _ => null,
     };
 
+    if (prefsValue.hasValue) {
+      _maybeAutoOpenGuide(prefs);
+    }
+
     return GradientScaffold(
       title: 'Join a room',
-      subtitle: 'Paste a custom mobile invite or enter the room slug directly with the self-hosted server URL.',
+      subtitle:
+          'Paste a custom mobile invite or enter the room slug directly with the self-hosted server URL.',
       actions: <Widget>[
+        IconButton(
+          onPressed: () => unawaited(_openGuide()),
+          icon: const Icon(Icons.help_outline),
+        ),
         IconButton(
           onPressed: () => context.goNamed('landing'),
           icon: const Icon(Icons.close),
@@ -211,8 +320,10 @@ class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
                 width: double.infinity,
                 child: OutlinedButton.icon(
                   onPressed: () => setState(() => _scannerOpen = !_scannerOpen),
-                  icon: Icon(_scannerOpen ? Icons.qr_code_2 : Icons.qr_code_scanner),
-                  label: Text(_scannerOpen ? 'Hide QR scanner' : 'Scan host QR'),
+                  icon: Icon(
+                      _scannerOpen ? Icons.qr_code_2 : Icons.qr_code_scanner),
+                  label:
+                      Text(_scannerOpen ? 'Hide QR scanner' : 'Scan host QR'),
                 ),
               ),
               if (_scannerOpen) ...<Widget>[
@@ -233,6 +344,28 @@ class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
                     setState(() {
                       _inlineError = message;
                     });
+                  },
+                ),
+              ],
+              if (_showFailureFeedback) ...<Widget>[
+                const SizedBox(height: 18),
+                FeedbackPromptCard(
+                  title: 'Was the join failure useful?',
+                  description:
+                      'A quick signal helps tighten invite parsing, rejoin recovery, and server messaging on mobile.',
+                  onDismiss: () => unawaited(_dismissFailureFeedback()),
+                  onSubmit: (String sentiment, String? message) async {
+                    await ref.read(apiClientProvider).submitFeedback(
+                      server: normalizeServerUri(_serverController.text.trim()),
+                      promptFamily: 'room-join-failure',
+                      sentiment: sentiment,
+                      message: message,
+                      route: '/join',
+                      metadata: <String, dynamic>{
+                        'reason': joinReason ?? '',
+                      },
+                    );
+                    await _dismissFailureFeedback();
                   },
                 ),
               ],
@@ -280,7 +413,9 @@ class _InviteScannerState extends State<_InviteScanner> {
               return;
             }
             final InviteLink? invite = InviteLink.parse(rawValue);
-            if (invite == null || invite.kind != InviteKind.join || (invite.slug ?? '').isEmpty) {
+            if (invite == null ||
+                invite.kind != InviteKind.join ||
+                (invite.slug ?? '').isEmpty) {
               widget.onError('That QR code is not a supported room invite.');
               return;
             }

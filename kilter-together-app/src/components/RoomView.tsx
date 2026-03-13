@@ -565,6 +565,7 @@ export default function RoomView() {
 
     void loadWalls();
   }, [
+    capabilities,
     hasSurface,
     selectedGymSlug,
     setActionError,

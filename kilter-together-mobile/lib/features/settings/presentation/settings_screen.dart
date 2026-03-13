@@ -55,8 +55,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     return GradientScaffold(
       title: 'Settings',
       subtitle:
-          'Local-only preferences for display defaults, guides, recent rooms, saved credentials, and solo behavior.',
+          'Local-only preferences for display defaults, guidance, recent rooms, saved credentials, and solo behavior.',
       actions: <Widget>[
+        IconButton(
+          onPressed: () => context.goNamed('about'),
+          icon: const Icon(Icons.info_outline),
+        ),
         IconButton(
           onPressed: () => context.goNamed('landing'),
           icon: const Icon(Icons.close),
@@ -110,15 +114,28 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       ),
                       const SizedBox(height: 12),
                       _ToggleTile(
-                        label: 'Show cursor encouragement words',
+                        label: 'Show tap encouragement words',
                         description:
-                            'Keep the playful click-cheer words enabled on this device.',
+                            'Float short cheers like "allez!" when you tap around the app.',
                         value: prefs.settings.clickCheersEnabled,
                         onChanged: (bool value) => unawaited(
                           ref
                               .read(appPrefsControllerProvider.notifier)
                               .updateSettings(
                                 clickCheersEnabled: value,
+                              ),
+                        ),
+                      ),
+                      _ToggleTile(
+                        label: 'Show onboarding guides automatically',
+                        description:
+                            'Auto-open the landing, host, guest, and solo help sheets until each branch is marked complete.',
+                        value: prefs.settings.autoGuidesEnabled,
+                        onChanged: (bool value) => unawaited(
+                          ref
+                              .read(appPrefsControllerProvider.notifier)
+                              .updateSettings(
+                                autoGuidesEnabled: value,
                               ),
                         ),
                       ),
@@ -132,19 +149,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               .read(appPrefsControllerProvider.notifier)
                               .updateSettings(
                                 playfulMotionEnabled: value,
-                              ),
-                        ),
-                      ),
-                      _ToggleTile(
-                        label: 'Show onboarding guides automatically',
-                        description:
-                            'Replay the landing, room, and solo guides automatically until each branch is completed.',
-                        value: prefs.settings.autoGuidesEnabled,
-                        onChanged: (bool value) => unawaited(
-                          ref
-                              .read(appPrefsControllerProvider.notifier)
-                              .updateSettings(
-                                autoGuidesEnabled: value,
                               ),
                         ),
                       ),
@@ -300,7 +304,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       _ActionTile(
                         label: 'Reset guides',
                         description:
-                            'Replay the onboarding and intro flows the next time automatic guides are allowed.',
+                            'Mark the landing, host, guest, and solo guidance as unfinished so auto-guides can appear again.',
                         actionLabel: 'Reset',
                         onPressed: () => unawaited(
                           ref
@@ -343,6 +347,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               .read(appPrefsControllerProvider.notifier)
                               .clearSoloResume(),
                         ),
+                      ),
+                      _ActionTile(
+                        label: 'About Kilter Together',
+                        description:
+                            'Read the short project note about why the app exists and where the repo lives.',
+                        actionLabel: 'Open',
+                        onPressed: () => context.goNamed('about'),
                       ),
                     ],
                   ),

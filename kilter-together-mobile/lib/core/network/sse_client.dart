@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
 class SseMessage {
@@ -12,6 +13,10 @@ class SseMessage {
   final String event;
   final String data;
 }
+
+final Provider<SseClient> sseClientProvider = Provider<SseClient>((Ref ref) {
+  return SseClient();
+});
 
 class SseClient {
   SseClient({http.Client? client}) : _client = client ?? http.Client();
@@ -39,7 +44,8 @@ class SseClient {
       }
 
       if (response.statusCode != 200) {
-        throw StateError('SSE connection failed with status ${response.statusCode}.');
+        throw StateError(
+            'SSE connection failed with status ${response.statusCode}.');
       }
 
       retryDelay = const Duration(seconds: 1);
@@ -47,7 +53,9 @@ class SseClient {
       StringBuffer currentData = StringBuffer();
 
       try {
-        await for (final String chunk in response.stream.transform(utf8.decoder).transform(const LineSplitter())) {
+        await for (final String chunk in response.stream
+            .transform(utf8.decoder)
+            .transform(const LineSplitter())) {
           if (chunk.isEmpty) {
             if (currentData.isNotEmpty) {
               yield SseMessage(

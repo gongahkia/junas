@@ -146,7 +146,7 @@ final roomControllerProvider = StateNotifierProvider.autoDispose
       args: args,
       apiClient: ref.read(apiClientProvider),
       sessionRepository: ref.read(sessionRepositoryProvider),
-      sseClient: SseClient(),
+      sseClient: ref.read(sseClientProvider),
     );
   },
 );

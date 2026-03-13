@@ -40,7 +40,13 @@ The one-time bootstrap job will:
 
 The runtime containers now fail fast when `/data` is missing or incomplete. Production
 notes, backup/restore steps, and key rotation instructions live in [PRODUCTION.md](./PRODUCTION.md).
+If you want a step-by-step guide for self-hosting just the Go backend, local-network
+phone testing, or choosing between Docker and direct `go run`, start with
+[SELF_HOSTING.md](./SELF_HOSTING.md).
 The persona roadmap lives in [PRODUCT_PLAN.md](./PRODUCT_PLAN.md).
+The detailed mobile-first collaborative functional requirements for the
+Session Captain and Phone-First Guest flow live in
+[P1_P2_COLLABORATIVE_FLOW_REQUIREMENTS.md](./P1_P2_COLLABORATIVE_FLOW_REQUIREMENTS.md).
 
 ## Runtime Configuration
 

@@ -2,6 +2,9 @@
 
 This repo now carries a persona-driven implementation plan so product work stays tied to actual user journeys instead of isolated feature requests.
 
+The current mobile-first functional requirements spec for the highest-urgency
+collaborative flow lives in [P1_P2_COLLABORATIVE_FLOW_REQUIREMENTS.md](./P1_P2_COLLABORATIVE_FLOW_REQUIREMENTS.md).
+
 ## Personas
 
 ### 1. Session Captain
