@@ -710,8 +710,14 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                           : _submit,
                   child: Text(
                     _submitting
-                        ? 'Authenticating host...'
-                        : 'Authenticate and create room',
+                        ? (capability != null &&
+                                capability.authFields.isNotEmpty
+                            ? 'Validating provider...'
+                            : 'Creating room...')
+                        : (capability != null &&
+                                capability.authFields.isNotEmpty
+                            ? 'Validate and create room'
+                            : 'Create room'),
                   ),
                 ),
               ),
