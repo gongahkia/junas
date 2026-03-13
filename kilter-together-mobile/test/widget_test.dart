@@ -1,30 +1,43 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:kilter_together_mobile/main.dart';
+import 'package:kilter_together_mobile/core/deep_links/invite_links.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  test('parses join invites and normalizes the server URL', () {
+    final InviteLink? invite = InviteLink.parse(
+      'kiltertogether://join?server=demo.kilter.app/&slug=moonboard-night',
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(invite, isNotNull);
+    expect(invite!.kind, InviteKind.join);
+    expect(invite.server.toString(), 'https://demo.kilter.app');
+    expect(invite.slug, 'moonboard-night');
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  test('parses recap invites with share ids', () {
+    final InviteLink? invite = InviteLink.parse(
+      'kiltertogether://recap?server=https%3A%2F%2Flocalhost%3A8080&share_id=recap-123',
+    );
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(invite, isNotNull);
+    expect(invite!.kind, InviteKind.recap);
+    expect(invite.server.toString(), 'https://localhost:8080');
+    expect(invite.shareId, 'recap-123');
+  });
+
+  test('parses plan invites with camel-case share ids', () {
+    final InviteLink? invite = InviteLink.parse(
+      'kiltertogether://plan?server=https%3A%2F%2Fkilter.example&shareId=plan-42',
+    );
+
+    expect(invite, isNotNull);
+    expect(invite!.kind, InviteKind.plan);
+    expect(invite.shareId, 'plan-42');
+  });
+
+  test('rejects invalid invite schemes', () {
+    expect(
+      InviteLink.parse('https://kiltertogether.example/join?slug=nope'),
+      isNull,
+    );
   });
 }
