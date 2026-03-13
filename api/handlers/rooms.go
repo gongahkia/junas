@@ -126,7 +126,14 @@ const (
 // @Failure 500 {object} map[string]string
 // @Router /rooms [post]
 func CreateRoom(w http.ResponseWriter, r *http.Request) {
-	if strings.TrimSpace(config.GetRuntimeConfig().EncryptionKey) == "" {
+	var request createRoomRequest
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		writeJSONError(w, http.StatusBadRequest, "invalid request body")
+		return
+	}
+	providerID := providers.ProviderID(strings.ToLower(strings.TrimSpace(request.ProviderID)))
+	if providers.RequiresProviderSecret(providerID) &&
+		strings.TrimSpace(config.GetRuntimeConfig().EncryptionKey) == "" {
 		writeRequestError(
 			w,
 			r,
@@ -135,12 +142,6 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 			"KILTER_TOGETHER_ENCRYPTION_KEY is required to create rooms",
 			nil,
 		)
-		return
-	}
-
-	var request createRoomRequest
-	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
-		writeJSONError(w, http.StatusBadRequest, "invalid request body")
 		return
 	}
 	if len(request.RoomName) > 80 {
@@ -157,7 +158,7 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 
 	snapshot, hostSessionID, err := rooms.DefaultService.CreateRoom(
 		r.Context(),
-		providers.ProviderID(strings.ToLower(strings.TrimSpace(request.ProviderID))),
+		providerID,
 		request.RoomName,
 		request.DisplayName,
 		request.Secret,

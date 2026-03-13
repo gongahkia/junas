@@ -385,6 +385,55 @@ func TestCreateRoomRequiresEncryptionKey(t *testing.T) {
 	}
 }
 
+func TestCreateKilterRoomDoesNotRequireEncryptionKey(t *testing.T) {
+	tempDir := t.TempDir()
+	appDBPath := filepath.Join(tempDir, "app.db")
+	config.SetRuntimeConfig(config.RuntimeConfig{
+		DataDir:   tempDir,
+		AppDBPath: appDBPath,
+		AppSecret: "test-app-secret",
+	})
+	if err := config.ConnectAppDB(appDBPath); err != nil {
+		t.Fatalf("connect app database: %v", err)
+	}
+
+	rooms.DefaultService = rooms.NewService()
+	if err := rooms.DefaultService.Migrate(context.Background()); err != nil {
+		t.Fatalf("migrate app database: %v", err)
+	}
+
+	server := httptest.NewServer(routes.SetupRoutes())
+	defer server.Close()
+
+	response := performJSONRequest(t, server, http.MethodPost, "/api/rooms", map[string]any{
+		"provider_id":  string(providers.ProviderKilter),
+		"display_name": "Host",
+		"room_name":    "Local Session",
+		"secret":       map[string]string{},
+	}, nil)
+	if response.StatusCode != http.StatusCreated {
+		t.Fatalf("expected Kilter room create status 201, got %d", response.StatusCode)
+	}
+
+	var payload struct {
+		Room struct {
+			ProviderID string `json:"provider_id"`
+			Connection struct {
+				Connected bool `json:"connected"`
+			} `json:"connection"`
+		} `json:"room"`
+	}
+	if err := json.NewDecoder(response.Body).Decode(&payload); err != nil {
+		t.Fatalf("decode create room response: %v", err)
+	}
+	if payload.Room.ProviderID != string(providers.ProviderKilter) {
+		t.Fatalf("expected Kilter provider id, got %#v", payload.Room.ProviderID)
+	}
+	if !payload.Room.Connection.Connected {
+		t.Fatalf("expected Kilter room connection to be ready without secrets")
+	}
+}
+
 func TestCreateRoomCanStartWithFistBumpsDisabled(t *testing.T) {
 	tempDir := t.TempDir()
 	appDBPath := filepath.Join(tempDir, "app.db")
@@ -463,6 +512,7 @@ func TestRoomErrorCodesAndCapabilities(t *testing.T) {
 			ID            string `json:"id"`
 			RoomSupported bool   `json:"room_supported"`
 			SoloSupported bool   `json:"solo_supported"`
+			AuthFields    []struct{} `json:"auth_fields"`
 		} `json:"providers"`
 	}
 	if err := json.NewDecoder(capabilitiesResponse.Body).Decode(&capabilitiesPayload); err != nil {
@@ -470,6 +520,16 @@ func TestRoomErrorCodesAndCapabilities(t *testing.T) {
 	}
 	if len(capabilitiesPayload.Providers) < 2 {
 		t.Fatalf("expected built-in providers in capabilities payload, got %#v", capabilitiesPayload)
+	}
+	authFieldCounts := map[string]int{}
+	for _, capability := range capabilitiesPayload.Providers {
+		authFieldCounts[capability.ID] = len(capability.AuthFields)
+	}
+	if authFieldCounts[string(providers.ProviderKilter)] != 0 {
+		t.Fatalf("expected Kilter capabilities to omit auth fields, got %#v", authFieldCounts)
+	}
+	if authFieldCounts[string(providers.ProviderCrux)] == 0 {
+		t.Fatalf("expected Crux capabilities to retain auth fields, got %#v", authFieldCounts)
 	}
 
 	createResponse := performJSONRequest(t, server, http.MethodPost, "/api/rooms", map[string]any{

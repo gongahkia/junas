@@ -1,6 +1,19 @@
 package providers
 
-import "testing"
+import (
+	"context"
+	"testing"
+)
+
+func TestKilterValidateConnection_AllowsLocalDatasetModeWithoutCredentials(t *testing.T) {
+	metadata, err := NewKilterProvider().ValidateConnection(context.Background(), SecretPayload{})
+	if err != nil {
+		t.Fatalf("ValidateConnection returned error: %v", err)
+	}
+	if metadata["mode"] != "local_dataset" {
+		t.Fatalf("expected local_dataset metadata, got %#v", metadata)
+	}
+}
 
 func TestParseKilterClimbID_Valid(t *testing.T) {
 	boardID, uuid, err := parseKilterClimbID("kilter:14:abc-123")

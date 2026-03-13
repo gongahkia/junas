@@ -490,6 +490,52 @@ func TestServicePersistsRoomSessionSummaryOnClose(t *testing.T) {
 	}
 }
 
+func TestServiceCreateKilterRoomWithoutSecretOrEncryptionKey(t *testing.T) {
+	tempDir := t.TempDir()
+	appDBPath := filepath.Join(tempDir, "app.db")
+	config.SetRuntimeConfig(config.RuntimeConfig{
+		DataDir:   tempDir,
+		AppDBPath: appDBPath,
+		AppSecret: "test-app-secret",
+	})
+	if err := config.ConnectAppDB(appDBPath); err != nil {
+		t.Fatalf("connect app database: %v", err)
+	}
+
+	service := NewService()
+	if err := service.Migrate(context.Background()); err != nil {
+		t.Fatalf("migrate app database: %v", err)
+	}
+
+	createdSnapshot, hostSessionID, err := service.CreateRoom(
+		context.Background(),
+		providers.ProviderKilter,
+		"Local Kilter",
+		"Host",
+		providers.SecretPayload{},
+		true,
+	)
+	if err != nil {
+		t.Fatalf("create kilter room: %v", err)
+	}
+	if !createdSnapshot.Connection.Connected {
+		t.Fatalf("expected Kilter room connection to be ready without secrets")
+	}
+
+	hostViewer, err := service.Authenticate(context.Background(), createdSnapshot.Slug, hostSessionID, hostRole)
+	if err != nil {
+		t.Fatalf("authenticate host: %v", err)
+	}
+
+	snapshot, err := service.GetSnapshot(context.Background(), hostViewer)
+	if err != nil {
+		t.Fatalf("get snapshot: %v", err)
+	}
+	if !snapshot.Connection.Connected {
+		t.Fatalf("expected Kilter room snapshot to remain connected without stored secrets")
+	}
+}
+
 func setupRoomServiceTest(t *testing.T) (*Service, *testprovider.Provider) {
 	t.Helper()
 

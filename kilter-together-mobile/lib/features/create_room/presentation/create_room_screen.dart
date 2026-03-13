@@ -28,9 +28,9 @@ const FlowGuideContent _hostGuide = FlowGuideContent(
           'Start with the self-hosted backend URL, then load providers from that server before picking which provider this room will use.',
     ),
     FlowGuideSection(
-      title: 'Authenticate once',
+      title: 'Authenticate only when needed',
       body:
-          'Enter the provider credentials on the host phone only. Guests do not need those credentials in order to join, vote, or add climbs.',
+          'Kilter rooms use the self-hosted dataset on this server, so the host can open them immediately. Providers like Crux still require host credentials, and guests never need those credentials in order to join, vote, or add climbs.',
     ),
     FlowGuideSection(
       title: 'Finish setup in the room',
@@ -65,7 +65,6 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
   String? _selectedProviderId;
   String? _preferredProviderId;
   PendingRoomSeed? _pendingRoomSeed;
-  String _savedKilterUsername = '';
   Map<String, bool> _rememberProviderSecrets = <String, bool>{};
   String? _inlineError;
   RuntimeStatus? _runtimeStatus;
@@ -88,9 +87,6 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
       if (!mounted) {
         return;
       }
-      final SavedCredentialPreference savedKilterPreference =
-          prefs.savedCredentials.providers['kilter'] ??
-              const SavedCredentialPreference(remember: false);
       final Map<String, bool> rememberProviderSecrets =
           prefs.savedCredentials.providers.map(
         (String key, SavedCredentialPreference value) =>
@@ -116,7 +112,6 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
             prefs.pendingRoomSeed?.providerId ?? prefs.lastProviderId;
         _pendingRoomSeed = prefs.pendingRoomSeed;
         _rememberProviderSecrets = rememberProviderSecrets;
-        _savedKilterUsername = savedKilterPreference.username?.trim() ?? '';
       });
       unawaited(_maybeAutoLoadCapabilities());
     });
@@ -183,7 +178,7 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
     }
     return switch (capability.id) {
       'kilter' =>
-        'This room only opens after the Kilter credentials validate. The next step inside the room is choosing the board plus angle.',
+        'This room uses the self-hosted Kilter dataset. The next step inside the room is choosing the board plus angle.',
       'crux' =>
         'This room only opens after the Crux token validates. The next step inside the room is choosing the gym and wall.',
       _ =>
@@ -290,13 +285,6 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
             () => TextEditingController(),
           );
         }
-      }
-      final TextEditingController? usernameController =
-          _secretControllers['username'];
-      if ((_savedKilterUsername).isNotEmpty &&
-          usernameController != null &&
-          usernameController.text.trim().isEmpty) {
-        usernameController.text = _savedKilterUsername;
       }
 
       setState(() {
@@ -446,14 +434,7 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
             server: server,
             room: result.room,
           );
-      if (selectedCapability.id == 'kilter') {
-        await ref
-            .read(appPrefsControllerProvider.notifier)
-            .rememberKilterCredentials(
-              username: _secretControllers['username']?.text.trim() ?? '',
-              remember: _rememberSecretForProvider('kilter'),
-            );
-      } else {
+      if (selectedCapability.authFields.isNotEmpty) {
         await ref
             .read(appPrefsControllerProvider.notifier)
             .rememberProviderSecretPreference(
@@ -521,7 +502,7 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
     return GradientScaffold(
       title: 'Create a room',
       subtitle:
-          'Authenticate the provider on this phone, then open the shared session with a bearer-backed room token.',
+          'Open the shared session from this phone. Providers backed by live third-party APIs may still ask the host for credentials.',
       actions: <Widget>[
         IconButton(
           onPressed: () => unawaited(_openGuide()),
@@ -682,18 +663,7 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                   ),
                 ),
               ],
-              if (capability?.id == 'kilter') ...<Widget>[
-                SwitchListTile.adaptive(
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Remember Kilter username on this device'),
-                  subtitle: const Text(
-                    'Stores the username locally. The password still needs to be entered each time.',
-                  ),
-                  value: _rememberSecretForProvider('kilter'),
-                  onChanged: (bool value) =>
-                      _setRememberSecretForProvider('kilter', value),
-                ),
-              ] else if (capability != null) ...<Widget>[
+              if (capability != null && capability.authFields.isNotEmpty) ...<Widget>[
                 SwitchListTile.adaptive(
                   contentPadding: EdgeInsets.zero,
                   title: Text(

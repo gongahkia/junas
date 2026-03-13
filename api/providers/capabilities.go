@@ -38,22 +38,7 @@ func CapabilityForProvider(providerID ProviderID) (Capability, bool) {
 			RoomSupported:    true,
 			SoloSupported:    true,
 			SurfaceHierarchy: "board",
-			AuthFields: []AuthField{
-				{
-					Key:          "username",
-					Label:        "Kilter username",
-					Type:         "text",
-					Placeholder:  "Kilter username",
-					AutoComplete: "username",
-				},
-				{
-					Key:          "password",
-					Label:        "Kilter password",
-					Type:         "password",
-					Placeholder:  "Kilter password",
-					AutoComplete: "current-password",
-				},
-			},
+			AuthFields:       []AuthField{},
 		}, true
 	case ProviderCrux:
 		return Capability{
@@ -90,4 +75,22 @@ func CapabilityForProvider(providerID ProviderID) (Capability, bool) {
 	default:
 		return Capability{}, false
 	}
+}
+
+func RequiresProviderSecret(providerID ProviderID) bool {
+	capability, ok := CapabilityForProvider(providerID)
+	if !ok {
+		return true
+	}
+
+	return len(capability.AuthFields) > 0
+}
+
+func DefaultConnectionState(providerID ProviderID) ProviderConnectionState {
+	state := ProviderConnectionState{ProviderID: providerID}
+	if !RequiresProviderSecret(providerID) {
+		state.Connected = true
+	}
+
+	return state
 }

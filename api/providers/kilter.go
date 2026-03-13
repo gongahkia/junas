@@ -26,6 +26,11 @@ func (provider *KilterProvider) ValidateConnection(
 ) (map[string]string, error) {
 	username := secret["username"]
 	password := secret["password"]
+	if username == "" && password == "" {
+		return map[string]string{
+			"mode": "local_dataset",
+		}, nil
+	}
 	if username == "" || password == "" {
 		return nil, fmt.Errorf("kilter username and password are required")
 	}
@@ -35,6 +40,7 @@ func (provider *KilterProvider) ValidateConnection(
 	}
 
 	return map[string]string{
+		"mode":     "local_dataset",
 		"username": username,
 	}, nil
 }

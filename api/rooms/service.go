@@ -186,8 +186,13 @@ func (service *Service) CreateRoom(
 		if err := tx.Create(&session).Error; err != nil {
 			return err
 		}
-		connectionRecord.RoomID = room.ID
-		return tx.Create(connectionRecord).Error
+		if connectionRecord != nil {
+			connectionRecord.RoomID = room.ID
+			if err := tx.Create(connectionRecord).Error; err != nil {
+				return err
+			}
+		}
+		return nil
 	})
 	if err != nil {
 		return nil, "", err
@@ -411,10 +416,19 @@ func (service *Service) ConnectProvider(
 	if err != nil {
 		return providers.ProviderConnectionState{}, err
 	}
-	connection.RoomID = viewer.Room.ID
-	if err := service.store.WithContext(ctx).Where(RoomProviderConnection{RoomID: viewer.Room.ID}).
-		Assign(*connection).FirstOrCreate(connection).Error; err != nil {
-		return providers.ProviderConnectionState{}, err
+
+	if connection == nil {
+		if err := service.store.WithContext(ctx).
+			Where("room_id = ?", viewer.Room.ID).
+			Delete(&RoomProviderConnection{}).Error; err != nil {
+			return providers.ProviderConnectionState{}, err
+		}
+	} else {
+		connection.RoomID = viewer.Room.ID
+		if err := service.store.WithContext(ctx).Where(RoomProviderConnection{RoomID: viewer.Room.ID}).
+			Assign(*connection).FirstOrCreate(connection).Error; err != nil {
+			return providers.ProviderConnectionState{}, err
+		}
 	}
 
 	if err := service.incrementRoom(ctx, viewer.Room.Slug, viewer.Participant.ID, "provider.connected", ResourceRoom, ResourceConnection, ResourceCatalog); err != nil {
@@ -439,6 +453,16 @@ func (service *Service) prepareProviderConnection(
 		return providers.ProviderConnectionState{}, nil, err
 	}
 
+	connectionState := providers.ProviderConnectionState{
+		ProviderID: providerID,
+		Metadata:   metadata,
+		Connected:  true,
+	}
+
+	if !providers.RequiresProviderSecret(providerID) {
+		return connectionState, nil, nil
+	}
+
 	if strings.TrimSpace(config.GetRuntimeConfig().EncryptionKey) == "" {
 		return providers.ProviderConnectionState{}, nil, fmt.Errorf("KILTER_TOGETHER_ENCRYPTION_KEY is required")
 	}
@@ -457,14 +481,10 @@ func (service *Service) prepareProviderConnection(
 	}
 
 	now := time.Now().UTC()
-	return providers.ProviderConnectionState{
-			ProviderID: providerID,
-			Metadata:   metadata,
-			Connected:  true,
-		}, &RoomProviderConnection{
-			ProviderID:       string(providerID),
-			SecretCiphertext: encryptedSecret,
-			MetadataJSON:     string(metadataBytes),
+	return connectionState, &RoomProviderConnection{
+				ProviderID:       string(providerID),
+				SecretCiphertext: encryptedSecret,
+				MetadataJSON:     string(metadataBytes),
 			LastValidatedAt:  now,
 		}, nil
 }
@@ -1199,9 +1219,7 @@ func (service *Service) buildSnapshot(
 		return nil, err
 	}
 
-	connectionState := providers.ProviderConnectionState{
-		ProviderID: providers.ProviderID(room.ProviderID),
-	}
+	connectionState := providers.DefaultConnectionState(providers.ProviderID(room.ProviderID))
 	connection, err := service.getRoomConnection(ctx, room.ID)
 	if err == nil {
 		connectionState.Connected = true
@@ -1358,6 +1376,9 @@ func (service *Service) providerForRoom(ctx context.Context, room *Room) (provid
 	provider, err := providers.Get(providers.ProviderID(room.ProviderID))
 	if err != nil {
 		return nil, nil, err
+	}
+	if !providers.RequiresProviderSecret(providers.ProviderID(room.ProviderID)) {
+		return provider, providers.SecretPayload{}, nil
 	}
 	connection, err := service.getRoomConnection(ctx, room.ID)
 	if err != nil {
