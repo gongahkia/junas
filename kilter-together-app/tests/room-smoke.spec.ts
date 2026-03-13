@@ -26,23 +26,6 @@ const DISMISSED_GUIDES_PREFS = {
 test.describe.configure({ mode: "serial" });
 test.setTimeout(60000);
 
-function parseSetCookie(headerValue: string | undefined) {
-  if (!headerValue) {
-    return null;
-  }
-
-  const [cookiePair] = headerValue.split(";", 1);
-  const separatorIndex = cookiePair.indexOf("=");
-  if (separatorIndex <= 0) {
-    return null;
-  }
-
-  return {
-    name: cookiePair.slice(0, separatorIndex),
-    value: cookiePair.slice(separatorIndex + 1),
-  };
-}
-
 async function seedDismissedGuides(context: BrowserContext) {
   await context.addInitScript(
     ({ key, prefs }) => {
@@ -83,12 +66,23 @@ test("runs a room session end to end with the fake provider", async ({
 
     const slug = hostPage.url().split("/rooms/")[1];
     expect(slug).toBeTruthy();
+    const hostSession = await hostPage.evaluate((roomSlug) => {
+      const rawValue = window.localStorage.getItem(
+        `kilter-together:room-session:${roomSlug}`
+      );
+      return rawValue ? JSON.parse(rawValue) : null;
+    }, slug);
+    expect(hostSession?.token).toBeTruthy();
 
     const setSurfaceResult = await hostPage.evaluate(async ({ backendUrl, roomSlug }) => {
+      const rawSession = window.localStorage.getItem(
+        `kilter-together:room-session:${roomSlug}`
+      );
+      const session = rawSession ? JSON.parse(rawSession) : null;
       const response = await fetch(`${backendUrl}/api/rooms/${roomSlug}/surface`, {
         method: "POST",
-        credentials: "include",
         headers: {
+          Authorization: `Bearer ${session?.token ?? ""}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -119,14 +113,13 @@ test("runs a room session end to end with the fake provider", async ({
       },
     });
     expect(joinResponse.ok()).toBeTruthy();
-
-    const guestSessionCookie = parseSetCookie(joinResponse.headers()["set-cookie"]);
-    expect(guestSessionCookie).not.toBeNull();
-    const guestCookieHeader = `${guestSessionCookie!.name}=${guestSessionCookie!.value}`;
+    const joinPayload = await joinResponse.json();
+    const guestToken = joinPayload?.session?.token as string | undefined;
+    expect(guestToken).toBeTruthy();
 
     const addQueueResponse = await request.post(`${BACKEND_URL}/api/rooms/${slug}/queue`, {
       headers: {
-        Cookie: guestCookieHeader,
+        Authorization: `Bearer ${guestToken}`,
       },
       data: {
         climb_id: "test:beta",
@@ -143,7 +136,7 @@ test("runs a room session end to end with the fake provider", async ({
       `${BACKEND_URL}/api/rooms/${slug}/votes/${encodeURIComponent("test:beta")}`,
       {
         headers: {
-          Cookie: guestCookieHeader,
+          Authorization: `Bearer ${guestToken}`,
         },
       }
     );
@@ -153,10 +146,14 @@ test("runs a room session end to end with the fake provider", async ({
     ).toBeVisible({ timeout: 15000 });
 
     const addFinalistResult = await hostPage.evaluate(async ({ backendUrl, roomSlug }) => {
+      const rawSession = window.localStorage.getItem(
+        `kilter-together:room-session:${roomSlug}`
+      );
+      const session = rawSession ? JSON.parse(rawSession) : null;
       const response = await fetch(`${backendUrl}/api/rooms/${roomSlug}/finalists`, {
         method: "POST",
-        credentials: "include",
         headers: {
+          Authorization: `Bearer ${session?.token ?? ""}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -174,7 +171,7 @@ test("runs a room session end to end with the fake provider", async ({
       .poll(async () => {
         const response = await request.get(`${BACKEND_URL}/api/rooms/${slug}`, {
           headers: {
-            Cookie: guestCookieHeader,
+            Authorization: `Bearer ${guestToken}`,
           },
         });
         const snapshot = await response.json();
@@ -183,7 +180,7 @@ test("runs a room session end to end with the fake provider", async ({
       .toBe(1);
     const guestSnapshotResponse = await request.get(`${BACKEND_URL}/api/rooms/${slug}`, {
       headers: {
-        Cookie: guestCookieHeader,
+        Authorization: `Bearer ${guestToken}`,
       },
     });
     const guestSnapshot = await guestSnapshotResponse.json();
@@ -193,10 +190,14 @@ test("runs a room session end to end with the fake provider", async ({
     expect(typeof queuedEntryId).toBe("number");
 
     const promoteCurrentResult = await hostPage.evaluate(async ({ backendUrl, roomSlug, entryId }) => {
+      const rawSession = window.localStorage.getItem(
+        `kilter-together:room-session:${roomSlug}`
+      );
+      const session = rawSession ? JSON.parse(rawSession) : null;
       const response = await fetch(`${backendUrl}/api/rooms/${roomSlug}/queue/${entryId}`, {
         method: "PATCH",
-        credentials: "include",
         headers: {
+          Authorization: `Bearer ${session?.token ?? ""}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -214,7 +215,7 @@ test("runs a room session end to end with the fake provider", async ({
       .poll(async () => {
         const response = await request.get(`${BACKEND_URL}/api/rooms/${slug}`, {
           headers: {
-            Cookie: guestCookieHeader,
+            Authorization: `Bearer ${guestToken}`,
           },
         });
         const snapshot = await response.json();
@@ -223,23 +224,27 @@ test("runs a room session end to end with the fake provider", async ({
       .toBe("current");
     const currentSnapshotResponse = await request.get(`${BACKEND_URL}/api/rooms/${slug}`, {
       headers: {
-        Cookie: guestCookieHeader,
+        Authorization: `Bearer ${guestToken}`,
       },
     });
     const currentSnapshot = await currentSnapshotResponse.json();
     expect(currentSnapshot.queue[0]?.status).toBe("current");
 
-    const metrics = await request.get(`${BACKEND_URL}/api/metrics`);
-    expect(metrics.ok()).toBeTruthy();
-    const metricsBody = await metrics.text();
-    expect(metricsBody).toContain("kilter_together_http_requests_total");
-    expect(metricsBody).toContain("kilter_together_room_events_total");
-    expect(metricsBody).toContain("kilter_together_room_sse_subscribers");
+    const runtimeStatus = await request.get(`${BACKEND_URL}/api/runtime/status`);
+    expect(runtimeStatus.ok()).toBeTruthy();
+    const runtimeStatusBody = await runtimeStatus.json();
+    expect(runtimeStatusBody.storage).toBeTruthy();
 
     const closeRoomResult = await hostPage.evaluate(async ({ backendUrl, roomSlug }) => {
+      const rawSession = window.localStorage.getItem(
+        `kilter-together:room-session:${roomSlug}`
+      );
+      const session = rawSession ? JSON.parse(rawSession) : null;
       const response = await fetch(`${backendUrl}/api/rooms/${roomSlug}/close`, {
         method: "POST",
-        credentials: "include",
+        headers: {
+          Authorization: `Bearer ${session?.token ?? ""}`,
+        },
       });
 
       return {
@@ -252,7 +257,7 @@ test("runs a room session end to end with the fake provider", async ({
       .poll(async () => {
         const response = await request.get(`${BACKEND_URL}/api/rooms/${slug}`, {
           headers: {
-            Cookie: guestCookieHeader,
+            Authorization: `Bearer ${guestToken}`,
           },
         });
         if (response.status() === 401 || response.status() === 410) {
@@ -264,7 +269,7 @@ test("runs a room session end to end with the fake provider", async ({
       .toMatch(/^(closed|401|410)$/);
     const closedSnapshotResponse = await request.get(`${BACKEND_URL}/api/rooms/${slug}`, {
       headers: {
-        Cookie: guestCookieHeader,
+        Authorization: `Bearer ${guestToken}`,
       },
     });
     if (closedSnapshotResponse.status() === 401 || closedSnapshotResponse.status() === 410) {

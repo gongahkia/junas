@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { api } from "@/api";
 import { getApiErrorDetails } from "@/lib/api-errors";
 import { reportError, reportEvent } from "@/lib/observability";
+import { clearRoomSession } from "@/lib/room-session";
 import type { RoomSnapshot } from "@/types";
 
 interface UseRoomSessionOptions {
@@ -55,6 +56,7 @@ export function useRoomSession({
           details.status === 401 ||
           statusCode === 401
         ) {
+          clearRoomSession(slug);
           navigateToJoin(slug, details.code ?? "session_required");
           return null;
         }

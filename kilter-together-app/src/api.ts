@@ -18,6 +18,8 @@ import type {
   RoomCatalogClimbResponse,
   ProviderCatalogClimbResponse,
   ProviderCatalogClimbsResponse,
+  RoomSession,
+  RoomSessionEnvelope,
   RoomSnapshot,
   ClimbSort,
   QueueStatus,
@@ -29,6 +31,7 @@ import type {
   RuntimeStatus,
 } from "./types";
 import { reportApiFailure } from "@/lib/observability";
+import { readRoomSession, saveRoomSession } from "@/lib/room-session";
 
 const BASE_URL = config.api.baseUrl;
 const IMAGES_BASE_URL = `${BASE_URL}/images`;
@@ -107,6 +110,35 @@ function normalizeRoomSnapshot(snapshot: RoomSnapshot): RoomSnapshot {
     can_manage: canManage,
     permissions: snapshot.permissions ?? defaultRoomPermissions(canManage),
   };
+}
+
+function authHeadersForRoom(slug: string): Record<string, string> | undefined {
+  const session = readRoomSession(slug);
+  if (!session?.token) {
+    return undefined;
+  }
+
+  return {
+    Authorization: `Bearer ${session.token}`,
+  };
+}
+
+function authOptionsForRoom(slug: string): { headers: Record<string, string> } | undefined {
+  const headers = authHeadersForRoom(slug);
+  return headers ? { headers } : undefined;
+}
+
+function normalizeRoomSessionEnvelope(
+  payload: RoomSnapshot | RoomSessionEnvelope | Record<string, unknown>
+): RoomSnapshot {
+  const maybeEnvelope = payload as Partial<RoomSessionEnvelope> | undefined;
+  if (maybeEnvelope?.room && maybeEnvelope?.session?.token) {
+    const normalizedRoom = normalizeRoomSnapshot(maybeEnvelope.room);
+    saveRoomSession(normalizedRoom.slug, maybeEnvelope.session as RoomSession);
+    return normalizedRoom;
+  }
+
+  return normalizeRoomSnapshot(payload as RoomSnapshot);
 }
 
 // wrap in api namespace
@@ -266,7 +298,7 @@ export const api = {
       "/rooms",
       requestBody as CreateRoomPayload
     );
-    return normalizeRoomSnapshot(response.data as RoomSnapshot);
+    return normalizeRoomSessionEnvelope(response.data as RoomSessionEnvelope);
   },
 
   joinRoom: async (slug: string, displayName: string): Promise<RoomSnapshot> => {
@@ -274,11 +306,14 @@ export const api = {
       display_name: displayName,
     };
     const response = await apiClient.post<JoinRoomResponse>(`/rooms/${slug}/join`, requestBody);
-    return normalizeRoomSnapshot(response.data as RoomSnapshot);
+    return normalizeRoomSessionEnvelope(response.data as RoomSessionEnvelope);
   },
 
   getRoom: async (slug: string): Promise<RoomSnapshot> => {
-    const response = await apiClient.get<GetRoomResponse>(`/rooms/${slug}`);
+    const response = await apiClient.get<GetRoomResponse>(
+      `/rooms/${slug}`,
+      authOptionsForRoom(slug)
+    );
     return normalizeRoomSnapshot(response.data as RoomSnapshot);
   },
 
@@ -289,7 +324,11 @@ export const api = {
     const requestBody: UpdateRoomPayload = {
       room_name: payload.roomName,
     };
-    const response = await apiClient.patch<UpdateRoomResponse>(`/rooms/${slug}`, requestBody);
+    const response = await apiClient.patch<UpdateRoomResponse>(
+      `/rooms/${slug}`,
+      requestBody,
+      authOptionsForRoom(slug)
+    );
     return normalizeRoomSnapshot(response.data as RoomSnapshot);
   },
 
@@ -302,7 +341,8 @@ export const api = {
     };
     const response = await apiClient.put<SetFistBumpsResponse>(
       `/rooms/${slug}/fist-bumps/settings`,
-      requestBody
+      requestBody,
+      authOptionsForRoom(slug)
     );
     return normalizeRoomSnapshot(response.data as RoomSnapshot);
   },
@@ -313,12 +353,20 @@ export const api = {
   ): Promise<RoomSnapshot> => {
     const response = await apiClient.put<RoomSnapshot>(
       `/rooms/${slug}/assistant/settings`,
-      { mode }
+      { mode },
+      authOptionsForRoom(slug)
     );
     return normalizeRoomSnapshot(response.data);
   },
 
-  getRoomEventsUrl: (slug: string): string => `${BASE_URL}/rooms/${slug}/events`,
+  getRoomEventsUrl: (slug: string): string => {
+    const session = readRoomSession(slug);
+    if (!session?.token) {
+      return `${BASE_URL}/rooms/${slug}/events`;
+    }
+
+    return `${BASE_URL}/rooms/${slug}/events?session=${encodeURIComponent(session.token)}`;
+  },
 
   connectRoomProvider: async (
     slug: string,
@@ -327,7 +375,8 @@ export const api = {
     const requestBody: ConnectProviderPayload = { secret };
     const response = await apiClient.post<ConnectProviderResponse>(
       `/rooms/${slug}/provider/connect`,
-      requestBody
+      requestBody,
+      authOptionsForRoom(slug)
     );
     return response.data as ProviderConnectionState;
   },
@@ -339,6 +388,7 @@ export const api = {
     const response = await apiClient.get<RoomSurfacesResponse>(
       `/rooms/${slug}/catalog/surfaces`,
       {
+        ...authOptionsForRoom(slug),
         params: {
           parent_id: parentId,
         },
@@ -419,7 +469,11 @@ export const api = {
       surface_id: payload.surfaceId,
       context: payload.context ?? {},
     };
-    const response = await apiClient.post<SetSurfaceResponse>(`/rooms/${slug}/surface`, requestBody);
+    const response = await apiClient.post<SetSurfaceResponse>(
+      `/rooms/${slug}/surface`,
+      requestBody,
+      authOptionsForRoom(slug)
+    );
     return response.data as ProviderSurface;
   },
 
@@ -435,6 +489,7 @@ export const api = {
     const response = await apiClient.get<RoomCatalogClimbsResponseDTO>(
       `/rooms/${slug}/catalog/climbs`,
       {
+        ...authOptionsForRoom(slug),
         params: {
           q: params.q,
           sort: params.sort,
@@ -451,29 +506,46 @@ export const api = {
     climbId: string
   ): Promise<RoomCatalogClimbResponse> => {
     const response = await apiClient.get<RoomCatalogClimbResponseDTO>(
-      `/rooms/${slug}/catalog/climbs/${encodeURIComponent(climbId)}`
+      `/rooms/${slug}/catalog/climbs/${encodeURIComponent(climbId)}`,
+      authOptionsForRoom(slug)
     );
     return response.data as RoomCatalogClimbResponse;
   },
 
   toggleRoomVote: async (slug: string, climbId: string): Promise<void> => {
-    await apiClient.put(`/rooms/${slug}/votes/${encodeURIComponent(climbId)}`);
+    await apiClient.put(
+      `/rooms/${slug}/votes/${encodeURIComponent(climbId)}`,
+      undefined,
+      authOptionsForRoom(slug)
+    );
   },
 
   addRoomQueueEntry: async (slug: string, climbId: string): Promise<void> => {
-    await apiClient.post(`/rooms/${slug}/queue`, { climb_id: climbId });
+    await apiClient.post(
+      `/rooms/${slug}/queue`,
+      { climb_id: climbId },
+      authOptionsForRoom(slug)
+    );
   },
 
   addRoomFinalist: async (slug: string, climbId: string): Promise<void> => {
-    await apiClient.post(`/rooms/${slug}/finalists`, { climb_id: climbId });
+    await apiClient.post(
+      `/rooms/${slug}/finalists`,
+      { climb_id: climbId },
+      authOptionsForRoom(slug)
+    );
   },
 
   reorderRoomFinalists: async (slug: string, entryIds: number[]): Promise<void> => {
-    await apiClient.patch(`/rooms/${slug}/finalists/reorder`, { entry_ids: entryIds });
+    await apiClient.patch(
+      `/rooms/${slug}/finalists/reorder`,
+      { entry_ids: entryIds },
+      authOptionsForRoom(slug)
+    );
   },
 
   deleteRoomFinalist: async (slug: string, entryId: number): Promise<void> => {
-    await apiClient.delete(`/rooms/${slug}/finalists/${entryId}`);
+    await apiClient.delete(`/rooms/${slug}/finalists/${entryId}`, authOptionsForRoom(slug));
   },
 
   pickRandomRoomClimb: async (
@@ -483,13 +555,18 @@ export const api = {
     const requestBody: RandomPickPayload = { source };
     const response = await apiClient.post<RandomPickResponse>(
       `/rooms/${slug}/pick-random`,
-      requestBody
+      requestBody,
+      authOptionsForRoom(slug)
     );
     return response.data.climb as ProviderClimb;
   },
 
   reorderRoomQueue: async (slug: string, entryIds: number[]): Promise<void> => {
-    await apiClient.patch(`/rooms/${slug}/queue/reorder`, { entry_ids: entryIds });
+    await apiClient.patch(
+      `/rooms/${slug}/queue/reorder`,
+      { entry_ids: entryIds },
+      authOptionsForRoom(slug)
+    );
   },
 
   promoteRoomQueueClimb: async (
@@ -500,7 +577,7 @@ export const api = {
     await apiClient.post(`/rooms/${slug}/queue/promote`, {
       climb_id: climbId,
       status,
-    });
+    }, authOptionsForRoom(slug));
   },
 
   updateRoomQueueEntry: async (
@@ -508,26 +585,33 @@ export const api = {
     entryId: number,
     status: QueueStatus
   ): Promise<void> => {
-    await apiClient.patch(`/rooms/${slug}/queue/${entryId}`, { status });
+    await apiClient.patch(
+      `/rooms/${slug}/queue/${entryId}`,
+      { status },
+      authOptionsForRoom(slug)
+    );
   },
 
   deleteRoomQueueEntry: async (slug: string, entryId: number): Promise<void> => {
-    await apiClient.delete(`/rooms/${slug}/queue/${entryId}`);
+    await apiClient.delete(`/rooms/${slug}/queue/${entryId}`, authOptionsForRoom(slug));
   },
 
   clearRoomVotes: async (slug: string): Promise<void> => {
-    await apiClient.post(`/rooms/${slug}/clear-votes`);
+    await apiClient.post(`/rooms/${slug}/clear-votes`, undefined, authOptionsForRoom(slug));
   },
 
   closeRoom: async (slug: string): Promise<void> => {
-    await apiClient.post(`/rooms/${slug}/close`);
+    await apiClient.post(`/rooms/${slug}/close`, undefined, authOptionsForRoom(slug));
   },
 
   removeRoomParticipant: async (
     slug: string,
     participantId: number
   ): Promise<void> => {
-    await apiClient.delete(`/rooms/${slug}/participants/${participantId}`);
+    await apiClient.delete(
+      `/rooms/${slug}/participants/${participantId}`,
+      authOptionsForRoom(slug)
+    );
   },
 
   updateRoomParticipantRole: async (
@@ -535,14 +619,22 @@ export const api = {
     participantId: number,
     role: "participant" | "co_host"
   ): Promise<void> => {
-    await apiClient.patch(`/rooms/${slug}/participants/${participantId}/role`, { role });
+    await apiClient.patch(
+      `/rooms/${slug}/participants/${participantId}/role`,
+      { role },
+      authOptionsForRoom(slug)
+    );
   },
 
   updateMyParticipantStatus: async (
     slug: string,
     status: ParticipantStatus
   ): Promise<void> => {
-    await apiClient.put(`/rooms/${slug}/participants/me/status`, { status });
+    await apiClient.put(
+      `/rooms/${slug}/participants/me/status`,
+      { status },
+      authOptionsForRoom(slug)
+    );
   },
 
   getOperatorProductMetrics: async (token: string): Promise<ProductMetrics> => {

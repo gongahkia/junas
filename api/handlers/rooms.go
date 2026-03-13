@@ -1032,11 +1032,11 @@ func recordProductEvent(r *http.Request, input rooms.AnalyticsEventInput) {
 
 func bearerTokenFromRequest(r *http.Request) string {
 	parts := strings.Fields(strings.TrimSpace(r.Header.Get("Authorization")))
-	if len(parts) != 2 || !strings.EqualFold(parts[0], "Bearer") {
-		return ""
+	if len(parts) == 2 && strings.EqualFold(parts[0], "Bearer") {
+		return strings.TrimSpace(parts[1])
 	}
 
-	return strings.TrimSpace(parts[1])
+	return strings.TrimSpace(r.URL.Query().Get("session"))
 }
 
 func connectProviderStatus(err error) int {

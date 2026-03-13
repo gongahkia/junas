@@ -91,6 +91,11 @@ export interface paths {
                      */
                     setter?: string;
                     /**
+                     * @description Filter climbs by the current-angle grade (matches boulder or route grade)
+                     * @example 7a/V6
+                     */
+                    grade?: string;
+                    /**
                      * @description Filter climbs by board/product size ID
                      * @example 14
                      */
@@ -242,7 +247,7 @@ export interface paths {
         put?: never;
         /**
          * Create a collaborative room
-         * @description Create a room, validate the provider secret, persist the host session, and return the initial room snapshot.
+         * @description Create a room, validate the provider secret, persist the host session, and return the initial room snapshot with the host bearer session.
          */
         post: {
             parameters: {
@@ -264,7 +269,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["rooms.RoomSnapshot"];
+                        "application/json": components["schemas"]["handlers.roomSessionEnvelope"];
                     };
                 };
                 /** @description Bad Request */
@@ -700,7 +705,7 @@ export interface paths {
         put?: never;
         /**
          * Join an existing room
-         * @description Create a participant session for the room and return the room snapshot for the joining guest.
+         * @description Create a participant session for the room and return the room snapshot with the joining guest bearer session.
          */
         post: {
             parameters: {
@@ -725,7 +730,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["rooms.RoomSnapshot"];
+                        "application/json": components["schemas"]["handlers.roomSessionEnvelope"];
                     };
                 };
                 /** @description Bad Request */
@@ -976,6 +981,70 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/sessions/recent": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List recent closed room sessions
+         * @description Return recent closed-room summaries for the landing page and operator review.
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description Number of sessions to return */
+                    limit?: number;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["handlers.recentSessionsResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            [key: string]: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -987,6 +1056,7 @@ export interface components {
         };
         "handlers.createRoomRequest": {
             display_name?: string;
+            fist_bumps_enabled?: boolean;
             provider_id?: string;
             room_name?: string;
             secret?: {
@@ -1004,6 +1074,18 @@ export interface components {
         };
         "handlers.randomPickResponse": {
             climb?: components["schemas"]["providers.ProviderClimb"];
+        };
+        "handlers.recentSessionsResponse": {
+            sessions?: components["schemas"]["rooms.SessionSummaryView"][];
+        };
+        "handlers.roomSessionEnvelope": {
+            room?: components["schemas"]["rooms.RoomSnapshot"];
+            session?: components["schemas"]["handlers.roomSessionView"];
+        };
+        "handlers.roomSessionView": {
+            expires_at?: string;
+            role?: string;
+            token?: string;
         };
         "handlers.setSurfaceRequest": {
             context?: {
@@ -1127,6 +1209,16 @@ export interface components {
             name?: string;
             parent_id?: string;
         };
+        "rooms.AssistantStateView": {
+            message?: string;
+            mode?: string;
+            suggestion?: components["schemas"]["rooms.AssistantSuggestionView"];
+        };
+        "rooms.AssistantSuggestionView": {
+            climb?: components["schemas"]["providers.ProviderClimb"];
+            ready_count?: number;
+            source?: string;
+        };
         "rooms.CatalogClimbResponse": {
             climb?: components["schemas"]["providers.ProviderClimb"];
             is_queued?: boolean;
@@ -1156,6 +1248,16 @@ export interface components {
             role?: string;
             status?: string;
         };
+        "rooms.PermissionView": {
+            assign_co_hosts?: boolean;
+            close_room?: boolean;
+            edit_room_settings?: boolean;
+            manage_finalists?: boolean;
+            manage_participants?: boolean;
+            manage_queue?: boolean;
+            manage_session?: boolean;
+            manage_surface?: boolean;
+        };
         "rooms.QueueEntryView": {
             added_by?: string;
             climb?: components["schemas"]["providers.ProviderClimb"];
@@ -1164,6 +1266,7 @@ export interface components {
             status?: string;
         };
         "rooms.RoomSnapshot": {
+            assistant?: components["schemas"]["rooms.AssistantStateView"];
             can_manage?: boolean;
             connection?: components["schemas"]["providers.ProviderConnectionState"];
             current_climb?: components["schemas"]["providers.ProviderClimb"];
@@ -1172,6 +1275,7 @@ export interface components {
             fist_bumps_enabled?: boolean;
             my_votes?: string[];
             participants?: components["schemas"]["rooms.ParticipantView"][];
+            permissions?: components["schemas"]["rooms.PermissionView"];
             provider_id?: components["schemas"]["providers.ProviderID"];
             queue?: components["schemas"]["rooms.QueueEntryView"][];
             room_name?: string;
@@ -1182,6 +1286,26 @@ export interface components {
             vote_counts?: {
                 [key: string]: number;
             };
+        };
+        "rooms.SessionSummaryClimbView": {
+            added_by?: string;
+            climb?: components["schemas"]["providers.ProviderClimb"];
+            position?: number;
+            status?: string;
+            vote_count?: number;
+        };
+        "rooms.SessionSummaryView": {
+            closed_at?: string;
+            final_queue?: components["schemas"]["rooms.SessionSummaryClimbView"][];
+            finalists?: components["schemas"]["rooms.SessionSummaryClimbView"][];
+            participant_count?: number;
+            provider_id?: components["schemas"]["providers.ProviderID"];
+            recap_share_id?: string;
+            room_name?: string;
+            room_slug?: string;
+            surface_kind?: string;
+            surface_name?: string;
+            top_voted?: components["schemas"]["rooms.SessionSummaryClimbView"][];
         };
     };
     responses: never;

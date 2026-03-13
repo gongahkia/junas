@@ -128,6 +128,17 @@ export interface ApiResponse {
   climbs?: Climb[];
 }
 
+export interface RoomSession {
+  token: string;
+  role?: string;
+  expires_at?: string;
+}
+
+export interface RoomSessionEnvelope {
+  room: RoomSnapshot;
+  session: RoomSession;
+}
+
 export interface RuntimeStorageStatus {
   severity: "ok" | "warning" | "critical" | "unknown" | string;
   message: string;
