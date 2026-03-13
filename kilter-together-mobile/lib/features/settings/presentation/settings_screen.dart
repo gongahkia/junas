@@ -6,8 +6,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/provider_models.dart';
+import '../../../core/models/runtime_models.dart';
 import '../../../core/network/api_client.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
+import '../../../core/presentation/runtime_status_banner.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/session_repository.dart';
 
@@ -23,6 +25,20 @@ final _settingsCapabilitiesProvider =
   return capabilities
       .where((ProviderCapability item) => item.roomSupported)
       .toList(growable: false);
+});
+
+final _settingsRuntimeStatusProvider =
+    FutureProvider.autoDispose<RuntimeStatus?>((Ref ref) async {
+  final Uri? server =
+      await ref.read(sessionRepositoryProvider).loadActiveServer();
+  if (server == null) {
+    return null;
+  }
+  try {
+    return await ref.read(apiClientProvider).getRuntimeStatus(server: server);
+  } on ApiFailure {
+    return null;
+  }
 });
 
 class SettingsScreen extends ConsumerStatefulWidget {
@@ -51,6 +67,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final List<ProviderCapability> capabilities =
         ref.watch(_settingsCapabilitiesProvider).valueOrNull ??
             const <ProviderCapability>[];
+    final RuntimeStatus? runtimeStatus =
+        ref.watch(_settingsRuntimeStatusProvider).valueOrNull;
 
     return GradientScaffold(
       title: 'Settings',
@@ -98,6 +116,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              if (runtimeStatus != null) ...<Widget>[
+                RuntimeStatusBanner(status: runtimeStatus),
+                const SizedBox(height: 14),
+              ],
               Card(
                 child: Padding(
                   padding: const EdgeInsets.all(22),

@@ -43,6 +43,8 @@ notes, backup/restore steps, and key rotation instructions live in [PRODUCTION.m
 If you want a step-by-step guide for self-hosting just the Go backend, local-network
 phone testing, or choosing between Docker and direct `go run`, start with
 [SELF_HOSTING.md](./SELF_HOSTING.md).
+If you want a GitHub-connected hosted deployment on Railway with a public URL and
+volume-backed runtime data, use [RAILWAY.md](./RAILWAY.md).
 The persona roadmap lives in [PRODUCT_PLAN.md](./PRODUCT_PLAN.md).
 The detailed mobile-first collaborative functional requirements for the
 Session Captain and Phone-First Guest flow live in
@@ -64,7 +66,10 @@ Backend env vars:
 | `KILTER_TOGETHER_ENCRYPTION_KEY` | unset | Required for encrypting stored provider credentials at rest |
 | `KILTER_TOGETHER_PREVIOUS_ENCRYPTION_KEY` | unset | Optional old encryption key used during rotation |
 | `KILTER_TOGETHER_PORT` | `8082` | API listen port |
+| `PORT` | unset | Platform-injected listen port fallback used when `KILTER_TOGETHER_PORT` is unset |
 | `KILTER_TOGETHER_ALLOWED_ORIGINS` | `http://localhost:5173,http://127.0.0.1:5173,http://localhost:8080,http://127.0.0.1:8080` | Comma-separated CORS allowlist for browser tooling and local legacy web runs |
+| `KILTER_TOGETHER_STORAGE_WARN_PERCENT` | `80` | Public runtime-status warning threshold for storage usage |
+| `KILTER_TOGETHER_STORAGE_CRITICAL_PERCENT` | `90` | Public runtime-status critical threshold for storage usage |
 
 Legacy web client env vars:
 
@@ -172,6 +177,7 @@ and board images and remains fully usable.
 - JSON error responses now include machine-readable `code` values plus `request_id` when available.
 - Collaborative rooms expose room/session APIs under `/api/rooms/*` and currently ship with `kilter` and `crux` providers.
 - Kilter bootstrap remains network-dependent during the explicit bootstrap step. After bootstrap, Kilter catalog reads are local. Crux catalog reads are fetched server-side and cached in `app.db`.
+- `GET /api/runtime/status` exposes a user-safe runtime/storage summary that the clients can surface when hosted storage is nearing full.
 - This release is intentionally single-node only. Room live updates rely on in-process SSE fan-out plus SQLite-backed local state, so horizontal scaling needs a different event and storage design.
 
 ## License

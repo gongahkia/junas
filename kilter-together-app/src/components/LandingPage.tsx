@@ -34,9 +34,11 @@ import { reportError } from "@/lib/observability";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { cn } from "@/lib/utils";
 import BrandWordmark from "@/components/BrandWordmark";
+import DeploymentStorageBanner from "@/components/DeploymentStorageBanner";
 import HeaderNavRail from "@/components/HeaderNavRail";
 import MobilePageHeader from "@/components/MobilePageHeader";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useRuntimeStatus } from "@/hooks/useRuntimeStatus";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -94,6 +96,7 @@ export default function LandingPage() {
   const [recentSessions, setRecentSessions] = useState<SessionSummary[]>([]);
   const [showGuide, setShowGuide] = useState(false);
   const [isRecentRoomsDialogOpen, setIsRecentRoomsDialogOpen] = useState(false);
+  const { status: runtimeStatus } = useRuntimeStatus();
   const recentRooms = prefs.settings.recentRoomsEnabled
     ? prefs.recentRooms.slice(0, RECENT_ROOM_MODAL_LIMIT)
     : [];
@@ -249,6 +252,13 @@ export default function LandingPage() {
 
         <main className="mx-auto flex w-full max-w-4xl flex-1 items-stretch justify-start pb-6 pt-3 sm:pt-2 lg:justify-center">
           <div className="mx-auto grid w-full max-w-4xl gap-4 sm:gap-5 lg:grid-cols-2">
+            {runtimeStatus &&
+            (runtimeStatus.storage.severity === "warning" ||
+              runtimeStatus.storage.severity === "critical") ? (
+              <div className="lg:col-span-2">
+                <DeploymentStorageBanner status={runtimeStatus} />
+              </div>
+            ) : null}
             <Card className="bg-card/90">
               <CardHeader>
                 <CardTitle>Create a room</CardTitle>

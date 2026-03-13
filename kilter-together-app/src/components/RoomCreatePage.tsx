@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { api } from "@/api";
 import CoachMarkOverlay, { type CoachMarkStep } from "@/components/CoachMarkOverlay";
+import DeploymentStorageBanner from "@/components/DeploymentStorageBanner";
 import FeedbackPrompt from "@/components/FeedbackPrompt";
 import MobilePageHeader from "@/components/MobilePageHeader";
 import { getApiErrorDetails } from "@/lib/api-errors";
@@ -35,6 +36,7 @@ import { Input } from "@/components/ui/input";
 import { SecretInput } from "@/components/ui/secret-input";
 import { useErrorToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useRuntimeStatus } from "@/hooks/useRuntimeStatus";
 import {
   Select,
   SelectContent,
@@ -83,6 +85,7 @@ export default function RoomCreatePage() {
     () => savedPrefsRef.current.pendingRoomSeed
   );
   const { capabilities, loading: capabilitiesLoading } = useProviderCapabilities();
+  const { status: runtimeStatus } = useRuntimeStatus();
   const showErrorToast = useErrorToast();
   const [showGuide, setShowGuide] = useState(false);
   const [showFailureFeedback, setShowFailureFeedback] = useState(false);
@@ -353,6 +356,12 @@ export default function RoomCreatePage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
+            <DeploymentStorageBanner status={runtimeStatus} />
+            {runtimeStatus &&
+            (runtimeStatus.storage.severity === "warning" ||
+              runtimeStatus.storage.severity === "critical") ? (
+              <div className="h-5" />
+            ) : null}
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-2">
                 <label

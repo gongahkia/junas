@@ -6,11 +6,13 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/provider_models.dart';
+import '../../../core/models/runtime_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
 import '../../../core/presentation/feedback_prompt_card.dart';
 import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
+import '../../../core/presentation/runtime_status_banner.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/session_repository.dart';
 
@@ -66,6 +68,7 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
   String _savedKilterUsername = '';
   Map<String, bool> _rememberProviderSecrets = <String, bool>{};
   String? _inlineError;
+  RuntimeStatus? _runtimeStatus;
   final Map<String, TextEditingController> _secretControllers =
       <String, TextEditingController>{};
 
@@ -265,6 +268,13 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
     try {
       final List<ProviderCapability> capabilities =
           await ref.read(apiClientProvider).getProviderCapabilities(server);
+      RuntimeStatus? runtimeStatus;
+      try {
+        runtimeStatus =
+            await ref.read(apiClientProvider).getRuntimeStatus(server: server);
+      } on ApiFailure {
+        runtimeStatus = null;
+      }
       final List<ProviderCapability> roomCapabilities = capabilities
           .where((ProviderCapability capability) => capability.roomSupported)
           .toList(growable: false);
@@ -292,6 +302,7 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
       setState(() {
         _capabilities = roomCapabilities;
         _capabilitiesServer = server.toString();
+        _runtimeStatus = runtimeStatus;
         final String? preferredProviderId = _preferredProviderId;
         _selectedProviderId = roomCapabilities.any(
                 (ProviderCapability item) => item.id == preferredProviderId)
@@ -307,6 +318,7 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
       _showSnack('Unable to load provider capabilities: $error');
       setState(() {
         _inlineError = '$error';
+        _runtimeStatus = null;
       });
     } finally {
       if (mounted) {
@@ -371,6 +383,7 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
     _capabilities = const <ProviderCapability>[];
     _capabilitiesServer = null;
     _selectedProviderId = null;
+    _runtimeStatus = null;
   }
 
   Future<void> _maybeAutoLoadCapabilities() async {
@@ -583,6 +596,11 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                   child: Text(_inlineError!),
                 ),
                 const SizedBox(height: 18),
+              ],
+              if (_runtimeStatus != null) ...<Widget>[
+                RuntimeStatusBanner(status: _runtimeStatus!),
+                if (_runtimeStatus!.storage.isWarning)
+                  const SizedBox(height: 18),
               ],
               TextField(
                 controller: _serverController,

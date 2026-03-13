@@ -3,6 +3,7 @@ import { History, Sparkles, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { ClimbSort, ProviderId } from "@/types";
 import BrandWordmark from "@/components/BrandWordmark";
+import DeploymentStorageBanner from "@/components/DeploymentStorageBanner";
 import { HeaderNavLink } from "@/components/HeaderNavAction";
 import MobilePageHeader from "@/components/MobilePageHeader";
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,7 @@ import {
   updateUserPrefs,
 } from "@/lib/user-prefs";
 import { useProviderCapabilities } from "@/hooks/useProviderCapabilities";
+import { useRuntimeStatus } from "@/hooks/useRuntimeStatus";
 import { getRoomProviderCapabilities } from "@/lib/provider-capabilities";
 
 function SettingsToggle({
@@ -90,6 +92,7 @@ function SettingsActionRow({
 export default function SettingsPage() {
   const [prefs, setPrefs] = useState(() => loadUserPrefs());
   const { capabilities } = useProviderCapabilities();
+  const { status: runtimeStatus } = useRuntimeStatus();
   const roomCapabilities = getRoomProviderCapabilities(capabilities);
   const preferredProvider = roomCapabilities.some(
     (capability) => capability.id === prefs.lastProviderId
@@ -117,6 +120,7 @@ export default function SettingsPage() {
         </header>
 
         <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-5 py-4 sm:gap-6 sm:py-8">
+          <DeploymentStorageBanner status={runtimeStatus} />
           <Card className="border-0 bg-white/88 shadow-xl shadow-teal-950/10 backdrop-blur">
             <CardHeader className="gap-4">
               <div className="inline-flex w-fit items-center gap-2 rounded-full bg-teal-50 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-teal-700">

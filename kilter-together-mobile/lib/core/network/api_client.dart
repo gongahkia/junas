@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/board_models.dart';
 import '../models/product_models.dart';
 import '../models/provider_models.dart';
+import '../models/runtime_models.dart';
 import '../models/room_models.dart';
 
 final Provider<ApiClient> apiClientProvider = Provider<ApiClient>((Ref ref) {
@@ -36,7 +37,9 @@ class ApiFailure implements Exception {
       final String? message = payload['error'] as String?;
       final String? code = payload['code'] as String?;
       return ApiFailure(
-        message: message?.trim().isNotEmpty == true ? message!.trim() : error.message ?? 'Request failed.',
+        message: message?.trim().isNotEmpty == true
+            ? message!.trim()
+            : error.message ?? 'Request failed.',
         statusCode: response?.statusCode,
         code: code,
       );
@@ -88,9 +91,11 @@ class ApiClient {
 
   Future<List<ProviderCapability>> getProviderCapabilities(Uri server) async {
     try {
-      final Response<dynamic> response = await _clientFor(server).get<dynamic>('providers/capabilities');
+      final Response<dynamic> response =
+          await _clientFor(server).get<dynamic>('providers/capabilities');
       final Map<String, dynamic> payload = _mapPayload(response.data);
-      final List<dynamic> rawProviders = (payload['providers'] as List<dynamic>?) ?? <dynamic>[];
+      final List<dynamic> rawProviders =
+          (payload['providers'] as List<dynamic>?) ?? <dynamic>[];
       return rawProviders
           .whereType<Map<String, dynamic>>()
           .map(ProviderCapability.fromJson)
@@ -110,11 +115,24 @@ class ApiClient {
         queryParameters: <String, dynamic>{'limit': limit},
       );
       final Map<String, dynamic> payload = _mapPayload(response.data);
-      final List<dynamic> rawSessions = (payload['sessions'] as List<dynamic>?) ?? <dynamic>[];
+      final List<dynamic> rawSessions =
+          (payload['sessions'] as List<dynamic>?) ?? <dynamic>[];
       return rawSessions
           .whereType<Map<String, dynamic>>()
           .map(SessionSummary.fromJson)
           .toList(growable: false);
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
+  }
+
+  Future<RuntimeStatus> getRuntimeStatus({
+    required Uri server,
+  }) async {
+    try {
+      final Response<dynamic> response =
+          await _clientFor(server).get<dynamic>('runtime/status');
+      return RuntimeStatus.fromJson(_mapPayload(response.data));
     } on DioException catch (error) {
       _throwFailure(error);
     }
@@ -153,8 +171,8 @@ class ApiClient {
     required String shareId,
   }) async {
     try {
-      final Response<dynamic> response =
-          await _clientFor(server).get<dynamic>('recaps/${Uri.encodeComponent(shareId)}');
+      final Response<dynamic> response = await _clientFor(server)
+          .get<dynamic>('recaps/${Uri.encodeComponent(shareId)}');
       return RoomRecap.fromJson(_mapPayload(response.data));
     } on DioException catch (error) {
       _throwFailure(error);
@@ -183,7 +201,9 @@ class ApiClient {
           'surface': surface.toJson(),
           'context': context,
           'filters': filters,
-          'climbs': climbs.map((ProviderClimb item) => item.toJson()).toList(growable: false),
+          'climbs': climbs
+              .map((ProviderClimb item) => item.toJson())
+              .toList(growable: false),
           'open_path': openPath,
           'created_by': createdBy,
         },
@@ -199,8 +219,8 @@ class ApiClient {
     required String shareId,
   }) async {
     try {
-      final Response<dynamic> response =
-          await _clientFor(server).get<dynamic>('solo/plans/${Uri.encodeComponent(shareId)}');
+      final Response<dynamic> response = await _clientFor(server)
+          .get<dynamic>('solo/plans/${Uri.encodeComponent(shareId)}');
       return SoloPlanSnapshot.fromJson(_mapPayload(response.data));
     } on DioException catch (error) {
       _throwFailure(error);
@@ -209,9 +229,11 @@ class ApiClient {
 
   Future<List<BoardOption>> getBoards(Uri server) async {
     try {
-      final Response<dynamic> response = await _clientFor(server).get<dynamic>('boards');
+      final Response<dynamic> response =
+          await _clientFor(server).get<dynamic>('boards');
       final Map<String, dynamic> payload = _mapPayload(response.data);
-      final List<dynamic> rawBoards = (payload['boards'] as List<dynamic>?) ?? <dynamic>[];
+      final List<dynamic> rawBoards =
+          (payload['boards'] as List<dynamic>?) ?? <dynamic>[];
       return rawBoards
           .whereType<Map<String, dynamic>>()
           .map(BoardOption.fromJson)
@@ -256,7 +278,8 @@ class ApiClient {
     required Uri server,
     required String filename,
   }) {
-    final String baseName = filename.contains('/') ? filename.split('/').last : filename;
+    final String baseName =
+        filename.contains('/') ? filename.split('/').last : filename;
     return apiBase(server).resolve('images/$baseName').toString();
   }
 
@@ -326,7 +349,8 @@ class ApiClient {
     required String roomName,
   }) async {
     try {
-      final Response<dynamic> response = await _clientFor(server).patch<dynamic>(
+      final Response<dynamic> response =
+          await _clientFor(server).patch<dynamic>(
         'rooms/$slug',
         data: <String, dynamic>{'room_name': roomName},
         options: _authOptions(sessionToken),
@@ -404,7 +428,8 @@ class ApiClient {
         options: _authOptions(sessionToken),
       );
       final Map<String, dynamic> payload = _mapPayload(response.data);
-      final List<dynamic> rawSurfaces = (payload['surfaces'] as List<dynamic>?) ?? <dynamic>[];
+      final List<dynamic> rawSurfaces =
+          (payload['surfaces'] as List<dynamic>?) ?? <dynamic>[];
       return rawSurfaces
           .whereType<Map<String, dynamic>>()
           .map(ProviderSurface.fromJson)
@@ -575,7 +600,8 @@ class ApiClient {
         options: _authOptions(sessionToken),
       );
       final Map<String, dynamic> payload = _mapPayload(response.data);
-      return ProviderClimb.fromJson((payload['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{});
+      return ProviderClimb.fromJson(
+          (payload['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{});
     } on DioException catch (error) {
       _throwFailure(error);
     }
@@ -749,7 +775,8 @@ class ApiClient {
         },
       );
       final Map<String, dynamic> payload = _mapPayload(response.data);
-      final List<dynamic> rawSurfaces = (payload['surfaces'] as List<dynamic>?) ?? <dynamic>[];
+      final List<dynamic> rawSurfaces =
+          (payload['surfaces'] as List<dynamic>?) ?? <dynamic>[];
       return rawSurfaces
           .whereType<Map<String, dynamic>>()
           .map(ProviderSurface.fromJson)

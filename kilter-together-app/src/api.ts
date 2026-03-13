@@ -26,6 +26,7 @@ import type {
   SessionSummary,
   SoloPlanSnapshot,
   ProductMetrics,
+  RuntimeStatus,
 } from "./types";
 import { reportApiFailure } from "@/lib/observability";
 
@@ -125,6 +126,11 @@ export const api = {
       }
     );
     return response.data.sessions ?? [];
+  },
+
+  getRuntimeStatus: async (): Promise<RuntimeStatus> => {
+    const response = await apiClient.get<RuntimeStatus>("/runtime/status");
+    return response.data;
   },
 
   recordAnalyticsEvent: async (payload: {

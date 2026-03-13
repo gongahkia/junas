@@ -1,6 +1,7 @@
 package routes_test
 
 import (
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"path/filepath"
@@ -39,6 +40,35 @@ func TestHealthRoutesAndDisabledMetrics(t *testing.T) {
 	}
 	if readyzResponse.StatusCode != http.StatusOK {
 		t.Fatalf("expected readyz 200, got %d", readyzResponse.StatusCode)
+	}
+
+	runtimeStatusResponse, err := http.Get(server.URL + "/api/runtime/status")
+	if err != nil {
+		t.Fatalf("get runtime status: %v", err)
+	}
+	if runtimeStatusResponse.StatusCode != http.StatusOK {
+		t.Fatalf("expected runtime status 200, got %d", runtimeStatusResponse.StatusCode)
+	}
+	var runtimeStatusPayload struct {
+		Status       string `json:"status"`
+		RuntimeReady bool   `json:"runtime_ready"`
+		Storage      struct {
+			Severity     string  `json:"severity"`
+			MountPath    string  `json:"mount_path"`
+			UsagePercent float64 `json:"usage_percent"`
+		} `json:"storage"`
+	}
+	if err := json.NewDecoder(runtimeStatusResponse.Body).Decode(&runtimeStatusPayload); err != nil {
+		t.Fatalf("decode runtime status response: %v", err)
+	}
+	if !runtimeStatusPayload.RuntimeReady {
+		t.Fatalf("expected runtime status to report ready, got %#v", runtimeStatusPayload)
+	}
+	if runtimeStatusPayload.Storage.Severity == "" {
+		t.Fatalf("expected storage severity to be set, got %#v", runtimeStatusPayload)
+	}
+	if runtimeStatusPayload.Storage.MountPath == "" {
+		t.Fatalf("expected storage mount path to be set, got %#v", runtimeStatusPayload)
 	}
 
 	metricsResponse, err := http.Get(server.URL + "/api/metrics")

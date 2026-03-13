@@ -41,6 +41,7 @@ func SetupRoutes() *chi.Mux {
 		r.Get("/healthz", handlers.Healthz)
 		r.Get("/livez", handlers.Livez)
 		r.Get("/readyz", handlers.Readyz)
+		r.Get("/runtime/status", handlers.GetRuntimeStatus)
 		r.Get("/providers/capabilities", handlers.ProviderCapabilities)
 		r.Get("/sessions/recent", handlers.ListRecentSessions)
 		r.Post("/feedback", handlers.SubmitFeedback)

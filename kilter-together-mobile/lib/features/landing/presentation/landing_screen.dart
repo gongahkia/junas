@@ -7,10 +7,12 @@ import 'package:go_router/go_router.dart';
 import '../../../core/deep_links/invite_links.dart';
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/product_models.dart';
+import '../../../core/models/runtime_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
 import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
+import '../../../core/presentation/runtime_status_banner.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/session_repository.dart';
 
@@ -27,6 +29,19 @@ final _recentSessionsProvider =
   return ref
       .read(apiClientProvider)
       .getRecentSessions(server: server, limit: 4);
+});
+
+final _runtimeStatusProvider =
+    FutureProvider.autoDispose<RuntimeStatus?>((Ref ref) async {
+  final Uri? server = await ref.watch(_landingServerProvider.future);
+  if (server == null) {
+    return null;
+  }
+  try {
+    return await ref.read(apiClientProvider).getRuntimeStatus(server: server);
+  } on ApiFailure {
+    return null;
+  }
 });
 
 const FlowGuideContent _landingGuide = FlowGuideContent(
@@ -206,6 +221,8 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
     final AsyncValue<Uri?> activeServer = ref.watch(_landingServerProvider);
     final AsyncValue<List<SessionSummary>> recentSessions =
         ref.watch(_recentSessionsProvider);
+    final RuntimeStatus? runtimeStatus =
+        ref.watch(_runtimeStatusProvider).valueOrNull;
     final List<RecentRoom> previewRecentRooms =
         prefs.recentRooms.take(3).toList(growable: false);
 
@@ -230,6 +247,10 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          if (runtimeStatus != null) ...<Widget>[
+            RuntimeStatusBanner(status: runtimeStatus),
+            const SizedBox(height: 14),
+          ],
           _ActionCard(
             title: 'Create a room',
             description:

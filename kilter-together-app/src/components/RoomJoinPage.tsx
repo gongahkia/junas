@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
 import { ArrowLeft } from "lucide-react";
 import { api } from "@/api";
 import CoachMarkOverlay, { type CoachMarkStep } from "@/components/CoachMarkOverlay";
+import DeploymentStorageBanner from "@/components/DeploymentStorageBanner";
 import FeedbackPrompt from "@/components/FeedbackPrompt";
 import MobilePageHeader from "@/components/MobilePageHeader";
 import { getApiErrorDetails } from "@/lib/api-errors";
@@ -26,6 +27,7 @@ import { Input } from "@/components/ui/input";
 import { useErrorToast } from "@/hooks/use-toast";
 import { reportError, reportEvent } from "@/lib/observability";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useRuntimeStatus } from "@/hooks/useRuntimeStatus";
 
 const GUEST_JOIN_STEPS: CoachMarkStep[] = [
   {
@@ -47,6 +49,7 @@ export default function RoomJoinPage() {
   const [searchParams] = useSearchParams();
   const showErrorToast = useErrorToast();
   const [prefs, setPrefs] = useState(() => loadUserPrefs());
+  const { status: runtimeStatus } = useRuntimeStatus();
   const [showGuide, setShowGuide] = useState(false);
   const [showFailureFeedback, setShowFailureFeedback] = useState(false);
   const [displayName, setDisplayName] = useState(
@@ -174,6 +177,12 @@ export default function RoomJoinPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
+            <DeploymentStorageBanner status={runtimeStatus} />
+            {runtimeStatus &&
+            (runtimeStatus.storage.severity === "warning" ||
+              runtimeStatus.storage.severity === "critical") ? (
+              <div className="h-5" />
+            ) : null}
             <form onSubmit={handleSubmit} className="space-y-5">
               {joinReasonMessage ? (
                 <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">

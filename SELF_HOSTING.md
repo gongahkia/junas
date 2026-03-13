@@ -10,6 +10,9 @@ Use it when you want to:
 - test from phones on the same local network
 - understand which URL clients should actually enter
 
+If you want a hosted GitHub-to-public-URL deployment on Railway instead of
+self-hosting your own machine, use [RAILWAY.md](./RAILWAY.md).
+
 The backend is single-node only right now. Do not put multiple API instances behind
 a load balancer. Live room fan-out is process-local and room state is stored in
 SQLite on local disk.

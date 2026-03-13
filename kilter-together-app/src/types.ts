@@ -128,6 +128,26 @@ export interface ApiResponse {
   climbs?: Climb[];
 }
 
+export interface RuntimeStorageStatus {
+  severity: "ok" | "warning" | "critical" | "unknown" | string;
+  message: string;
+  mount_path: string;
+  used_bytes: number;
+  available_bytes: number;
+  total_bytes: number;
+  usage_percent: number;
+  warning_percent: number;
+  critical_percent: number;
+}
+
+export interface RuntimeStatus {
+  status: "ok" | "warning" | "critical" | "unknown" | string;
+  runtime_ready: boolean;
+  runtime_message?: string;
+  generated_at: string;
+  storage: RuntimeStorageStatus;
+}
+
 export interface ApiErrorPayload {
   error?: string;
   status?: string;

@@ -7,6 +7,7 @@ import (
 
 func TestLoadRuntimeConfigDefaults(t *testing.T) {
 	t.Setenv("KILTER_TOGETHER_DATA_DIR", "")
+	t.Setenv("RAILWAY_VOLUME_MOUNT_PATH", "")
 	t.Setenv("KILTER_TOGETHER_DB_PATH", "")
 	t.Setenv("KILTER_TOGETHER_APP_DB_PATH", "")
 	t.Setenv("KILTER_TOGETHER_IMAGE_DIR", "")
@@ -15,6 +16,9 @@ func TestLoadRuntimeConfigDefaults(t *testing.T) {
 	t.Setenv("KILTER_TOGETHER_APP_SECRET", "")
 	t.Setenv("KILTER_TOGETHER_ENCRYPTION_KEY", "")
 	t.Setenv("KILTER_TOGETHER_PORT", "")
+	t.Setenv("PORT", "")
+	t.Setenv("KILTER_TOGETHER_STORAGE_WARN_PERCENT", "")
+	t.Setenv("KILTER_TOGETHER_STORAGE_CRITICAL_PERCENT", "")
 	t.Setenv("KILTER_TOGETHER_ENABLE_TEST_PROVIDER", "")
 
 	runtimeConfig := LoadRuntimeConfig()
@@ -37,6 +41,12 @@ func TestLoadRuntimeConfigDefaults(t *testing.T) {
 	if runtimeConfig.Port != "8082" {
 		t.Fatalf("expected default port, got %q", runtimeConfig.Port)
 	}
+	if runtimeConfig.StorageWarnPercent != 80 {
+		t.Fatalf("expected default storage warning threshold, got %d", runtimeConfig.StorageWarnPercent)
+	}
+	if runtimeConfig.StorageCriticalPercent != 90 {
+		t.Fatalf("expected default storage critical threshold, got %d", runtimeConfig.StorageCriticalPercent)
+	}
 	if runtimeConfig.ListenAddr() != ":8082" {
 		t.Fatalf("expected default listen addr, got %q", runtimeConfig.ListenAddr())
 	}
@@ -53,6 +63,7 @@ func TestLoadRuntimeConfigDefaults(t *testing.T) {
 
 func TestLoadRuntimeConfigOverrides(t *testing.T) {
 	t.Setenv("KILTER_TOGETHER_DATA_DIR", "/tmp/kilter-data")
+	t.Setenv("RAILWAY_VOLUME_MOUNT_PATH", "/mnt/railway-volume")
 	t.Setenv("KILTER_TOGETHER_DB_PATH", "/tmp/custom.db")
 	t.Setenv("KILTER_TOGETHER_APP_DB_PATH", "/tmp/app.db")
 	t.Setenv("KILTER_TOGETHER_IMAGE_DIR", "/tmp/custom-images")
@@ -60,14 +71,17 @@ func TestLoadRuntimeConfigOverrides(t *testing.T) {
 	t.Setenv("KILTER_TOGETHER_KILTER_PASSWORD", "secret")
 	t.Setenv("KILTER_TOGETHER_APP_SECRET", "app-secret")
 	t.Setenv("KILTER_TOGETHER_ENCRYPTION_KEY", "base64-key")
-	t.Setenv("KILTER_TOGETHER_PORT", ":9090")
+	t.Setenv("KILTER_TOGETHER_PORT", "")
+	t.Setenv("PORT", "9090")
 	t.Setenv("KILTER_TOGETHER_ALLOWED_ORIGINS", "https://app.example.com,https://admin.example.com")
 	t.Setenv("KILTER_TOGETHER_ENABLE_TEST_PROVIDER", "true")
+	t.Setenv("KILTER_TOGETHER_STORAGE_WARN_PERCENT", "75")
+	t.Setenv("KILTER_TOGETHER_STORAGE_CRITICAL_PERCENT", "92")
 
 	runtimeConfig := LoadRuntimeConfig()
 
-	if runtimeConfig.DataDir != "/tmp/kilter-data" {
-		t.Fatalf("expected overridden data dir, got %q", runtimeConfig.DataDir)
+	if runtimeConfig.DataDir != "/mnt/railway-volume" {
+		t.Fatalf("expected Railway volume mount to take precedence, got %q", runtimeConfig.DataDir)
 	}
 	if runtimeConfig.DBPath != "/tmp/custom.db" {
 		t.Fatalf("expected overridden db path, got %q", runtimeConfig.DBPath)
@@ -78,7 +92,7 @@ func TestLoadRuntimeConfigOverrides(t *testing.T) {
 	if runtimeConfig.ImageDir != "/tmp/custom-images" {
 		t.Fatalf("expected overridden image dir, got %q", runtimeConfig.ImageDir)
 	}
-	if runtimeConfig.StatePath != "/tmp/kilter-data/bootstrap-state.json" {
+	if runtimeConfig.StatePath != "/mnt/railway-volume/bootstrap-state.json" {
 		t.Fatalf("expected derived state path, got %q", runtimeConfig.StatePath)
 	}
 	if runtimeConfig.KilterUsername != "climber" {
@@ -95,6 +109,12 @@ func TestLoadRuntimeConfigOverrides(t *testing.T) {
 	}
 	if runtimeConfig.Port != "9090" {
 		t.Fatalf("expected normalized port, got %q", runtimeConfig.Port)
+	}
+	if runtimeConfig.StorageWarnPercent != 75 {
+		t.Fatalf("expected overridden warning threshold, got %d", runtimeConfig.StorageWarnPercent)
+	}
+	if runtimeConfig.StorageCriticalPercent != 92 {
+		t.Fatalf("expected overridden critical threshold, got %d", runtimeConfig.StorageCriticalPercent)
 	}
 	if runtimeConfig.ListenAddr() != ":9090" {
 		t.Fatalf("expected normalized listen addr, got %q", runtimeConfig.ListenAddr())
@@ -113,10 +133,24 @@ func TestLoadRuntimeConfigOverrides(t *testing.T) {
 
 func TestRuntimeConfigValidateRejectsWildcardOrigins(t *testing.T) {
 	cfg := RuntimeConfig{
-		AllowedOrigins: []string{"*"},
+		AllowedOrigins:         []string{"*"},
+		StorageWarnPercent:     80,
+		StorageCriticalPercent: 90,
 	}
 
 	if err := cfg.Validate(); err == nil {
 		t.Fatalf("expected wildcard origins to be rejected")
+	}
+}
+
+func TestRuntimeConfigValidateRejectsInvalidStorageThresholds(t *testing.T) {
+	cfg := RuntimeConfig{
+		AllowedOrigins:         []string{"https://app.example.com"},
+		StorageWarnPercent:     95,
+		StorageCriticalPercent: 90,
+	}
+
+	if err := cfg.Validate(); err == nil {
+		t.Fatalf("expected invalid thresholds to be rejected")
 	}
 }
