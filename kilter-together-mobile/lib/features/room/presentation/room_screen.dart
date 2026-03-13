@@ -14,6 +14,7 @@ import '../../../core/models/provider_models.dart';
 import '../../../core/models/room_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
+import '../../../core/presentation/climb_media_preview.dart';
 import '../../../core/presentation/feedback_prompt_card.dart';
 import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
@@ -79,7 +80,7 @@ const FlowGuideContent _guestRoomGuide = FlowGuideContent(
   eyebrow: 'Guest room guide',
   title: 'Participate in the shared session',
   summary:
-      'Guest phones follow the host-managed room context while still letting each person set status, vote, and help shape the queue.',
+      'Guest phones follow the host-managed room context while still letting each person set status, fist bump climbs, and help shape the queue.',
   sections: <FlowGuideSection>[
     FlowGuideSection(
       title: 'Follow the shared surface',
@@ -89,7 +90,7 @@ const FlowGuideContent _guestRoomGuide = FlowGuideContent(
     FlowGuideSection(
       title: 'Signal and contribute',
       body:
-          'Update your own participant status, vote on climbs, and add items to queue or finalists when the room permissions allow it.',
+          'Update your own participant status, fist bump climbs, and add items to queue or finalists when the room permissions allow it.',
     ),
     FlowGuideSection(
       title: 'Rejoin when needed',
@@ -641,6 +642,55 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     final _ShareReadiness shareReadiness = _shareReadinessForRoom(room);
     final String shareReadinessSummary =
         _shareReadinessSummary(room, shareReadiness);
+    final bool showSurfaceCard =
+        room.permissions.manageSurface || room.connection.connected;
+    final bool prioritizeSurfaceSetup = room.permissions.manageSurface &&
+        (!room.connection.connected || room.surface == null);
+    final Widget? surfaceCard = showSurfaceCard
+        ? _SurfaceCard(
+            roomState: roomState,
+            onLoadTopLevel: () => unawaited(controller.loadSurfaces()),
+            onParentSurfaceChanged: (String? value) {
+              if (value == null) {
+                return;
+              }
+              controller.updateSurfaceDraft(parentSurfaceId: value);
+              if (roomState.hasNestedSurfaceHierarchy) {
+                unawaited(controller.loadSurfaces(parentId: value));
+              }
+            },
+            onChildSurfaceChanged: (String? value) {
+              if (value == null) {
+                return;
+              }
+              controller.updateSurfaceDraft(childSurfaceId: value);
+            },
+            onAngleChanged: (int? value) {
+              if (value == null) {
+                return;
+              }
+              controller.updateSurfaceDraft(angle: value);
+            },
+            onSaveSurface: room.permissions.manageSurface
+                ? () => unawaited(controller.setSurface())
+                : null,
+            onReconnect:
+                room.permissions.manageSurface && room.connection.connected
+                    ? () => unawaited(_submitReconnect(room))
+                    : room.permissions.manageSurface
+                        ? () => unawaited(_submitReconnect(room))
+                        : null,
+            rememberProviderSecret: _rememberProviderSecret,
+            onRememberProviderSecretChanged: (bool value) {
+              setState(() {
+                _rememberProviderSecret = value;
+              });
+            },
+            kilterUsernameController: _kilterUsernameController,
+            kilterPasswordController: _kilterPasswordController,
+            cruxTokenController: _cruxTokenController,
+          )
+        : null;
 
     if (prefsValue.hasValue) {
       _maybeAutoOpenGuide(room, prefs);
@@ -736,6 +786,10 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
             summary: shareReadinessSummary,
           ),
           const SizedBox(height: 14),
+          if (prioritizeSurfaceSetup && surfaceCard != null) ...<Widget>[
+            surfaceCard,
+            const SizedBox(height: 14),
+          ],
           _InviteCard(
             inviteUri: inviteUri,
             roomSlug: room.slug,
@@ -768,54 +822,12 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
             },
           ),
           const SizedBox(height: 14),
-          if (room.permissions.manageSurface ||
-              room.connection.connected) ...<Widget>[
-            _SurfaceCard(
-              roomState: roomState,
-              onLoadTopLevel: () => unawaited(controller.loadSurfaces()),
-              onParentSurfaceChanged: (String? value) {
-                if (value == null) {
-                  return;
-                }
-                controller.updateSurfaceDraft(parentSurfaceId: value);
-                if (roomState.hasNestedSurfaceHierarchy) {
-                  unawaited(controller.loadSurfaces(parentId: value));
-                }
-              },
-              onChildSurfaceChanged: (String? value) {
-                if (value == null) {
-                  return;
-                }
-                controller.updateSurfaceDraft(childSurfaceId: value);
-              },
-              onAngleChanged: (int? value) {
-                if (value == null) {
-                  return;
-                }
-                controller.updateSurfaceDraft(angle: value);
-              },
-              onSaveSurface: room.permissions.manageSurface
-                  ? () => unawaited(controller.setSurface())
-                  : null,
-              onReconnect:
-                  room.permissions.manageSurface && room.connection.connected
-                      ? () => unawaited(_submitReconnect(room))
-                      : room.permissions.manageSurface
-                          ? () => unawaited(_submitReconnect(room))
-                          : null,
-              rememberProviderSecret: _rememberProviderSecret,
-              onRememberProviderSecretChanged: (bool value) {
-                setState(() {
-                  _rememberProviderSecret = value;
-                });
-              },
-              kilterUsernameController: _kilterUsernameController,
-              kilterPasswordController: _kilterPasswordController,
-              cruxTokenController: _cruxTokenController,
-            ),
+          if (!prioritizeSurfaceSetup && surfaceCard != null) ...<Widget>[
+            surfaceCard,
             const SizedBox(height: 14),
           ],
           _CatalogCard(
+            apiClient: ref.read(apiClientProvider),
             roomState: roomState,
             queryController: _catalogQueryController,
             sortOptions: _catalogSorts,
@@ -857,6 +869,15 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                 unawaited(controller.promoteClimb(climbId, 'current')),
             onPromoteNext: (String climbId) =>
                 unawaited(controller.promoteClimb(climbId, 'next')),
+          ),
+          const SizedBox(height: 14),
+          _LeaderboardCard(
+            room: room,
+            roomState: roomState,
+            onSelectClimb: (String climbId) =>
+                unawaited(controller.selectCatalogClimb(climbId)),
+            onToggleVote: (String climbId) =>
+                unawaited(controller.toggleVote(climbId)),
           ),
           const SizedBox(height: 14),
           _QueueCard(
@@ -1279,46 +1300,10 @@ class _LiveSignalCard extends StatelessWidget {
     final QueueEntry? nextEntry = room.queue
         .where((QueueEntry entry) => entry.status == 'next')
         .firstOrNull;
-    final Map<String, ProviderClimb> climbsById = <String, ProviderClimb>{};
-    for (final ProviderClimb climb
-        in roomState.catalog?.climbs ?? <ProviderClimb>[]) {
-      climbsById[climb.id] = climb;
-    }
-    for (final QueueEntry entry in room.queue) {
-      climbsById[entry.climb.id] = entry.climb;
-    }
-    for (final FinalistEntry entry in room.finalists) {
-      climbsById[entry.climb.id] = entry.climb;
-    }
-    if (room.currentClimb != null) {
-      climbsById[room.currentClimb!.id] = room.currentClimb!;
-    }
-    if (roomState.selectedCatalogClimb != null) {
-      climbsById[roomState.selectedCatalogClimb!.climb.id] =
-          roomState.selectedCatalogClimb!.climb;
-    }
-
-    final List<ProviderClimb> leaderboard = climbsById.values
-        .where((ProviderClimb climb) => (room.voteCounts[climb.id] ?? 0) > 0)
-        .toList(growable: false)
-      ..sort((ProviderClimb left, ProviderClimb right) {
-        final int voteDelta =
-            (room.voteCounts[right.id] ?? 0) - (room.voteCounts[left.id] ?? 0);
-        if (voteDelta != 0) {
-          return voteDelta;
-        }
-        return left.name.compareTo(right.name);
-      });
-
-    final List<ProviderClimb> topClimbs = leaderboard.take(3).toList();
-    final int topVoteCount =
-        topClimbs.isEmpty ? 0 : (room.voteCounts[topClimbs.first.id] ?? 0);
-    final int topVoteTieCount = topVoteCount == 0
-        ? 0
-        : leaderboard
-            .where((ProviderClimb climb) =>
-                (room.voteCounts[climb.id] ?? 0) == topVoteCount)
-            .length;
+    final _LeaderboardSummary leaderboard =
+        _buildLeaderboardSummary(room, roomState);
+    final List<ProviderClimb> topClimbs =
+        leaderboard.climbs.take(3).toList(growable: false);
 
     return Card(
       child: Padding(
@@ -1332,7 +1317,7 @@ class _LiveSignalCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Use the current climb, next pick, and vote pressure to keep the room moving without losing the shared context.',
+              'Use the current climb, next pick, and fist-bump pressure to keep the room moving without losing the shared context.',
             ),
             const SizedBox(height: 16),
             Wrap(
@@ -1353,26 +1338,26 @@ class _LiveSignalCard extends StatelessWidget {
                   supportingText: nextEntry?.climb.primaryGrade,
                 ),
                 _OverviewStat(
-                  label: 'Top-voted pressure',
+                  label: 'Top fist-bump pressure',
                   value: topClimbs.isEmpty
-                      ? 'No votes yet'
-                      : topVoteTieCount > 1
-                          ? '$topVoteTieCount climbs tied at $topVoteCount votes'
-                          : '${topClimbs.first.name} · $topVoteCount votes',
+                      ? 'No fist bumps yet'
+                      : leaderboard.topVoteTieCount > 1
+                          ? '${leaderboard.topVoteTieCount} climbs tied at ${leaderboard.topVoteCount} fist bumps'
+                          : '${topClimbs.first.name} · ${leaderboard.topVoteCount} fist bumps',
                 ),
               ],
             ),
             const SizedBox(height: 18),
             if (topClimbs.isEmpty)
               const Text(
-                'Votes, finalists, and queue changes will start surfacing here once the room activity picks up.',
+                'Fist bumps, finalists, and queue changes will start surfacing here once the room activity picks up.',
               )
             else
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Top voted right now',
+                    'Top fist-bumped right now',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 10),
@@ -1390,7 +1375,7 @@ class _LiveSignalCard extends StatelessWidget {
                           const SizedBox(width: 12),
                           _Chip(
                             label:
-                                '${room.voteCounts[climb.id] ?? 0} vote${(room.voteCounts[climb.id] ?? 0) == 1 ? '' : 's'}',
+                                '${room.voteCounts[climb.id] ?? 0} fist bump${(room.voteCounts[climb.id] ?? 0) == 1 ? '' : 's'}',
                           ),
                         ],
                       ),
@@ -1398,6 +1383,253 @@ class _LiveSignalCard extends StatelessWidget {
                   ),
                 ],
               ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LeaderboardSummary {
+  const _LeaderboardSummary({
+    required this.climbs,
+    required this.topVoteCount,
+    required this.topVoteTieCount,
+  });
+
+  final List<ProviderClimb> climbs;
+  final int topVoteCount;
+  final int topVoteTieCount;
+}
+
+_LeaderboardSummary _buildLeaderboardSummary(
+  RoomSnapshot room,
+  RoomViewState roomState,
+) {
+  final Map<String, ProviderClimb> climbsById = <String, ProviderClimb>{};
+  for (final ProviderClimb climb
+      in roomState.catalog?.climbs ?? <ProviderClimb>[]) {
+    climbsById[climb.id] = climb;
+  }
+  for (final QueueEntry entry in room.queue) {
+    climbsById[entry.climb.id] = entry.climb;
+  }
+  for (final FinalistEntry entry in room.finalists) {
+    climbsById[entry.climb.id] = entry.climb;
+  }
+  if (room.currentClimb != null) {
+    climbsById[room.currentClimb!.id] = room.currentClimb!;
+  }
+  if (roomState.selectedCatalogClimb != null) {
+    climbsById[roomState.selectedCatalogClimb!.climb.id] =
+        roomState.selectedCatalogClimb!.climb;
+  }
+
+  final List<ProviderClimb> climbs = climbsById.values
+      .where((ProviderClimb climb) => (room.voteCounts[climb.id] ?? 0) > 0)
+      .toList(growable: false)
+    ..sort((ProviderClimb left, ProviderClimb right) {
+      final int voteDelta =
+          (room.voteCounts[right.id] ?? 0) - (room.voteCounts[left.id] ?? 0);
+      if (voteDelta != 0) {
+        return voteDelta;
+      }
+      return left.name.compareTo(right.name);
+    });
+
+  final int topVoteCount =
+      climbs.isEmpty ? 0 : (room.voteCounts[climbs.first.id] ?? 0);
+  final int topVoteTieCount = topVoteCount == 0
+      ? 0
+      : climbs
+          .where((ProviderClimb climb) =>
+              (room.voteCounts[climb.id] ?? 0) == topVoteCount)
+          .length;
+
+  return _LeaderboardSummary(
+    climbs: climbs,
+    topVoteCount: topVoteCount,
+    topVoteTieCount: topVoteTieCount,
+  );
+}
+
+class _LeaderboardCard extends StatelessWidget {
+  const _LeaderboardCard({
+    required this.room,
+    required this.roomState,
+    required this.onSelectClimb,
+    required this.onToggleVote,
+  });
+
+  final RoomSnapshot room;
+  final RoomViewState roomState;
+  final ValueChanged<String> onSelectClimb;
+  final ValueChanged<String> onToggleVote;
+
+  @override
+  Widget build(BuildContext context) {
+    final _LeaderboardSummary leaderboard =
+        _buildLeaderboardSummary(room, roomState);
+    final String? selectedClimbId = roomState.selectedCatalogClimb?.climb.id;
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(22),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Leaderboard',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Most fist-bumped climbs visible in this room snapshot.',
+            ),
+            const SizedBox(height: 16),
+            if (!room.fistBumpsEnabled)
+              const Text(
+                'Fist bumps are disabled for this room.',
+              )
+            else if (leaderboard.climbs.isEmpty)
+              const Text(
+                'Fist bumps will surface the leaderboard once the group starts choosing climbs.',
+              )
+            else ...<Widget>[
+              if (leaderboard.topVoteCount > 0 &&
+                  leaderboard.topVoteTieCount > 1) ...<Widget>[
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFFBEB),
+                    borderRadius: BorderRadius.circular(18),
+                    border: Border.all(color: const Color(0xFFFCD34D)),
+                  ),
+                  padding: const EdgeInsets.all(14),
+                  child: Text(
+                    'There is currently a tie for first place across ${leaderboard.topVoteTieCount} climbs.',
+                  ),
+                ),
+                const SizedBox(height: 12),
+              ],
+              ...leaderboard.climbs.asMap().entries.map(
+                (MapEntry<int, ProviderClimb> entry) {
+                  final ProviderClimb climb = entry.value;
+                  final QueueEntry? queueEntry = room.queue
+                      .where((QueueEntry item) => item.climb.id == climb.id)
+                      .firstOrNull;
+                  final bool isFinalist = room.finalists.any(
+                    (FinalistEntry item) => item.climb.id == climb.id,
+                  );
+                  final bool isSelected = selectedClimbId == climb.id;
+                  final bool myVote = room.myVotes.contains(climb.id);
+                  final bool toggleBlocked =
+                      room.status == 'closed' || !room.fistBumpsEnabled;
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(20),
+                      onTap: () => onSelectClimb(climb.id),
+                      child: Ink(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: isSelected
+                                ? const Color(0xFF0F766E)
+                                : const Color(0xFFE2E8F0),
+                          ),
+                          color: isSelected
+                              ? const Color(0xFFF0FDFA)
+                              : Colors.white,
+                        ),
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        '#${entry.key + 1} ${climb.name}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium,
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        [
+                                          if ((climb.setterName ?? '')
+                                              .isNotEmpty)
+                                            climb.setterName!,
+                                          if ((climb.primaryGrade ?? '')
+                                              .isNotEmpty)
+                                            climb.primaryGrade!,
+                                        ].join(' · '),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                _Chip(
+                                  label:
+                                      '${room.voteCounts[climb.id] ?? 0} fist bump${(room.voteCounts[climb.id] ?? 0) == 1 ? '' : 's'}',
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Wrap(
+                              spacing: 10,
+                              runSpacing: 10,
+                              children: <Widget>[
+                                if (queueEntry != null)
+                                  _Chip(
+                                    label: switch (queueEntry.status) {
+                                      'queued' => 'Queued',
+                                      'current' => 'Current',
+                                      'next' => 'Next',
+                                      'done' => 'Done',
+                                      _ => queueEntry.status,
+                                    },
+                                  ),
+                                if (isFinalist) const _Chip(label: 'Finalist'),
+                                if (myVote) const _Chip(label: 'Fist bumped'),
+                                if (isSelected) const _Chip(label: 'Viewing'),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+                            Wrap(
+                              spacing: 10,
+                              runSpacing: 10,
+                              children: <Widget>[
+                                FilledButton.tonal(
+                                  onPressed: () => onSelectClimb(climb.id),
+                                  child: Text(isSelected
+                                      ? 'Viewing detail'
+                                      : 'View detail'),
+                                ),
+                                FilledButton.tonal(
+                                  onPressed: toggleBlocked
+                                      ? null
+                                      : () => onToggleVote(climb.id),
+                                  child: Text(myVote
+                                      ? 'Remove fist bump'
+                                      : 'Fist bump'),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
           ],
         ),
       ),
@@ -1939,6 +2171,7 @@ class _SurfaceCard extends StatelessWidget {
 
 class _CatalogCard extends StatelessWidget {
   const _CatalogCard({
+    required this.apiClient,
     required this.roomState,
     required this.queryController,
     required this.sortOptions,
@@ -1953,6 +2186,7 @@ class _CatalogCard extends StatelessWidget {
     required this.onPromoteNext,
   });
 
+  final ApiClient apiClient;
   final RoomViewState roomState;
   final TextEditingController queryController;
   final List<String> sortOptions;
@@ -1972,6 +2206,17 @@ class _CatalogCard extends StatelessWidget {
     final RoomCatalogClimbsResponse? catalog = roomState.catalog;
     final RoomCatalogClimbResponse? selectedClimb =
         roomState.selectedCatalogClimb;
+    final List<String> selectedClimbImageUrls = selectedClimb == null
+        ? const <String>[]
+        : selectedClimb.climb.media
+            .where((ProviderClimbMedia item) => item.kind == 'image')
+            .map(
+              (ProviderClimbMedia item) => apiClient.resolveMediaUrl(
+                server: roomState.server,
+                url: item.url,
+              ),
+            )
+            .toList(growable: false);
     final QueueEntry? selectedQueueEntry = selectedClimb == null
         ? null
         : room.queue
@@ -2067,6 +2312,18 @@ class _CatalogCard extends StatelessWidget {
                       const SizedBox(height: 6),
                       Text(selectedClimb.climb.primaryGrade!),
                     ],
+                    if ((selectedClimb.climb.description ?? '')
+                        .isNotEmpty) ...<Widget>[
+                      const SizedBox(height: 10),
+                      Text(selectedClimb.climb.description!),
+                    ],
+                    const SizedBox(height: 12),
+                    ClimbMediaPreview(
+                      imageUrls: selectedClimbImageUrls,
+                      highlightedHolds: selectedClimb.climb.highlightedHolds,
+                      emptyMessage: 'No climb images are available yet',
+                      errorMessage: 'Unable to load climb image layers',
+                    ),
                     const SizedBox(height: 12),
                     Wrap(
                       spacing: 10,
@@ -2074,8 +2331,9 @@ class _CatalogCard extends StatelessWidget {
                       children: <Widget>[
                         FilledButton.tonal(
                           onPressed: () => onToggleVote(selectedClimb.climb.id),
-                          child: Text(
-                              selectedClimb.myVote ? 'Remove vote' : 'Vote'),
+                          child: Text(selectedClimb.myVote
+                              ? 'Remove fist bump'
+                              : 'Fist bump'),
                         ),
                         if (room.permissions.manageQueue)
                           FilledButton.tonal(
@@ -2143,7 +2401,8 @@ class _CatalogCard extends StatelessWidget {
                         climb.primaryGrade!,
                     ].join(' · '),
                   ),
-                  trailing: Text('${catalog.voteCounts[climb.id] ?? 0}'),
+                  trailing: Text(
+                      '${catalog.voteCounts[climb.id] ?? 0} bump${(catalog.voteCounts[climb.id] ?? 0) == 1 ? '' : 's'}'),
                   onTap: () => onSelectClimb(climb.id),
                 ),
               ),
@@ -2337,7 +2596,7 @@ class _FinalistsCard extends StatelessWidget {
                       ),
                       PopupMenuItem<String>(
                         value: 'top_voted',
-                        child: Text('Pick from top voted'),
+                        child: Text('Pick from top fist bumps'),
                       ),
                     ],
                   ),
@@ -2585,7 +2844,7 @@ class _ManageRoomCard extends StatelessWidget {
                 if (onClearVotes != null)
                   OutlinedButton(
                     onPressed: busy ? null : onClearVotes,
-                    child: const Text('Clear votes'),
+                    child: const Text('Clear fist bumps'),
                   ),
                 if (onCloseRoom != null)
                   FilledButton(

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,6 +10,8 @@ import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/product_models.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/session_models.dart';
+import '../../../core/network/api_client.dart';
+import '../../../core/presentation/climb_media_preview.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/provider_secret_repository.dart';
@@ -276,8 +277,10 @@ class _ProviderSoloScreenState extends ConsumerState<ProviderSoloScreen> {
                 ),
                 const SizedBox(height: 14),
                 _ClimbDetailCard(
+                  apiClient: ref.read(apiClientProvider),
                   climb: state.selectedClimb,
                   loading: state.detailLoading,
+                  server: state.server,
                   isPlanned: state.selectedClimb != null &&
                       state.plannedClimbs.any(
                         (ProviderClimb item) =>
@@ -858,14 +861,18 @@ class _CatalogCard extends StatelessWidget {
 
 class _ClimbDetailCard extends StatelessWidget {
   const _ClimbDetailCard({
+    required this.apiClient,
     required this.climb,
     required this.loading,
+    required this.server,
     required this.isPlanned,
     required this.onTogglePlannedClimb,
   });
 
+  final ApiClient apiClient;
   final ProviderClimb? climb;
   final bool loading;
+  final Uri? server;
   final bool isPlanned;
   final VoidCallback? onTogglePlannedClimb;
 
@@ -889,11 +896,15 @@ class _ClimbDetailCard extends StatelessWidget {
       );
     }
 
-    final ProviderClimbMedia? image =
-        climb!.media.cast<ProviderClimbMedia?>().firstWhere(
-              (ProviderClimbMedia? item) => item?.kind == 'image',
-              orElse: () => null,
-            );
+    final List<String> imageUrls = server == null
+        ? const <String>[]
+        : climb!.media
+            .where((ProviderClimbMedia item) => item.kind == 'image')
+            .map(
+              (ProviderClimbMedia item) =>
+                  apiClient.resolveMediaUrl(server: server!, url: item.url),
+            )
+            .toList(growable: false);
 
     return Card(
       child: Padding(
@@ -925,41 +936,14 @@ class _ClimbDetailCard extends StatelessWidget {
               Text(climb!.description!),
             ],
             const SizedBox(height: 18),
-            if (image == null)
-              Container(
-                height: 220,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE2E8F0),
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: const Center(
-                  child: Text('No provider image available'),
-                ),
-              )
-            else
-              ClipRRect(
-                borderRadius: BorderRadius.circular(24),
-                child: AspectRatio(
-                  aspectRatio: 16 / 10,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: <Widget>[
-                      Image.network(
-                        image.url,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => Container(
-                          color: const Color(0xFFE2E8F0),
-                          alignment: Alignment.center,
-                          child: const Text('Unable to load provider image'),
-                        ),
-                      ),
-                      CustomPaint(
-                        painter: _HoldOverlayPainter(climb!.highlightedHolds),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+            ClimbMediaPreview(
+              imageUrls: imageUrls,
+              highlightedHolds: climb!.highlightedHolds,
+              emptyMessage: server == null
+                  ? 'No provider image available'
+                  : 'No provider images available for this climb',
+              errorMessage: 'Unable to load provider image',
+            ),
             const SizedBox(height: 16),
             FilledButton.tonalIcon(
               onPressed: onTogglePlannedClimb,
@@ -974,59 +958,6 @@ class _ClimbDetailCard extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class _HoldOverlayPainter extends CustomPainter {
-  const _HoldOverlayPainter(this.holds);
-
-  final List<HighlightedHold> holds;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    for (final HighlightedHold hold in holds) {
-      final double x = hold.x > 1 ? hold.x / 100 : hold.x;
-      final double y = hold.y > 1 ? hold.y / 100 : hold.y;
-      final Offset center = Offset(
-        size.width * x.clamp(0.04, 0.96),
-        size.height * y.clamp(0.04, 0.96),
-      );
-      final double radius = math.max(8, size.shortestSide * 0.03);
-      final Color color = _parseHoldColor(hold.color) ??
-          switch (hold.role) {
-            'finish' => const Color(0xFFF97316),
-            'start' => const Color(0xFF22C55E),
-            _ => const Color(0xFF38BDF8),
-          };
-
-      final Paint fill = Paint()
-        ..color = color.withValues(alpha: 0.24)
-        ..style = PaintingStyle.fill;
-      final Paint stroke = Paint()
-        ..color = color
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2.1;
-      canvas.drawCircle(center, radius, fill);
-      canvas.drawCircle(center, radius, stroke);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant _HoldOverlayPainter oldDelegate) {
-    return oldDelegate.holds != holds;
-  }
-
-  Color? _parseHoldColor(String raw) {
-    final String normalized = raw.trim().replaceFirst('#', '');
-    if (normalized.isEmpty) {
-      return null;
-    }
-    final String value = normalized.length == 6 ? 'FF$normalized' : normalized;
-    final int? parsed = int.tryParse(value, radix: 16);
-    if (parsed == null) {
-      return null;
-    }
-    return Color(parsed);
   }
 }
 

@@ -144,7 +144,7 @@ class _SoloEntryScreenState extends ConsumerState<SoloEntryScreen> {
 
               final Uri server = data.server!;
               final List<BoardOption> boards =
-                  data.boards.take(4).toList(growable: false);
+                  data.boards.toList(growable: false);
               final List<ProviderCapability> alternateProviders = data.providers
                   .where((ProviderCapability item) => item.id != 'kilter')
                   .toList(growable: false);
@@ -551,8 +551,15 @@ class _KilterBoardsCard extends ConsumerWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Open the local dataset at $defaultAngle° by default. The board detail screen handles filters, shortlisted climbs, plan sharing, and room seeding.',
+              'Browse every Kilter board from this server at $defaultAngle° by default. The board detail screen handles filters, shortlisted climbs, plan sharing, and room seeding.',
             ),
+            if (boards.isNotEmpty) ...<Widget>[
+              const SizedBox(height: 6),
+              Text(
+                '${boards.length} boards available on this server.',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
             const SizedBox(height: 18),
             if (boards.isEmpty)
               const Text('No Kilter boards were returned by the server.')

@@ -791,10 +791,10 @@ class _RecentSessionTile extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: _SessionStatCard(
-                      title: 'Top voted',
-                      value: topClimb?.climb.name ?? 'No votes recorded',
+                      title: 'Top fist-bumped',
+                      value: topClimb?.climb.name ?? 'No fist bumps recorded',
                       supportingText: topVotes > 0
-                          ? '$topVotes vote${topVotes == 1 ? '' : 's'}'
+                          ? '$topVotes fist bump${topVotes == 1 ? '' : 's'}'
                           : 'No fist bumps captured',
                     ),
                   ),

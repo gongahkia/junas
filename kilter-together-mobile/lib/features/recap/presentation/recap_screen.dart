@@ -377,7 +377,7 @@ class _RecapBody extends StatelessWidget {
                           if ((item.climb.primaryGrade ?? '').isNotEmpty)
                             item.climb.primaryGrade!,
                           if ((item.voteCount ?? 0) > 0)
-                            '${item.voteCount} votes',
+                            '${item.voteCount} fist bump${item.voteCount == 1 ? '' : 's'}',
                           if ((item.status ?? '').isNotEmpty) item.status!,
                         ].join(' · '),
                       ),

@@ -179,10 +179,9 @@ function resolveMediaUrl(url: string): string {
     return url;
   }
 
-  if (url.startsWith("/")) {
-    return url;
-  }
-
   const baseUrl = config.api.baseUrl.replace(/\/+$/, "");
-  return `${baseUrl}/${url.replace(/^\/+/, "")}`;
+  const absoluteBaseUrl = /^(https?:)?\/\//i.test(baseUrl)
+    ? baseUrl
+    : `${window.location.origin}${baseUrl.startsWith("/") ? "" : "/"}${baseUrl}`;
+  return new URL(url, `${absoluteBaseUrl}/`).toString();
 }

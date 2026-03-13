@@ -782,7 +782,7 @@ class RoomController extends StateNotifier<RoomViewState> {
       return;
     }
     await _mutate(
-      notice: 'Room votes cleared.',
+      notice: 'Room fist bumps cleared.',
       action: () => _apiClient.clearRoomVotes(
         server: _args.serverUri,
         slug: _args.slug,
