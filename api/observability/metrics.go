@@ -48,7 +48,7 @@ var (
 		Name: "kilter_together_room_sse_subscribers",
 		Help: "Current number of active room SSE subscribers.",
 	})
-	runtimeReady = promauto.NewGaugeFunc(prometheus.GaugeOpts{
+	_ = promauto.NewGaugeFunc(prometheus.GaugeOpts{
 		Name: "kilter_together_runtime_ready",
 		Help: "Whether runtime storage, databases, and provider prerequisites are currently ready.",
 	}, func() float64 {

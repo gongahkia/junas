@@ -61,6 +61,10 @@ type setSurfaceRequest struct {
 	Context   map[string]string `json:"context"`
 }
 
+type listSurfacesResponse struct {
+	Surfaces []providers.ProviderSurface `json:"surfaces"`
+}
+
 type reorderQueueRequest struct {
 	EntryIDs []uint `json:"entry_ids"`
 }
@@ -83,6 +87,10 @@ type addFinalistRequest struct {
 
 type pickRandomRequest struct {
 	Source string `json:"source"`
+}
+
+type randomPickResponse struct {
+	Climb *providers.ProviderClimb `json:"climb"`
 }
 
 type promoteQueueRequest struct {
@@ -108,12 +116,12 @@ const (
 
 // CreateRoom handles POST /api/rooms.
 // @Summary Create a collaborative room
-// @Description Create a room, validate the provider secret, persist the host session, and return the initial room snapshot.
+// @Description Create a room, validate the provider secret, persist the host session, and return the initial room snapshot with the host bearer session.
 // @Tags rooms
 // @Accept json
 // @Produce json
 // @Param request body createRoomRequest true "Create room payload"
-// @Success 201 {object} rooms.RoomSnapshot
+// @Success 201 {object} roomSessionEnvelope
 // @Failure 400 {object} map[string]string
 // @Failure 500 {object} map[string]string
 // @Router /rooms [post]
@@ -183,13 +191,13 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 
 // JoinRoom handles POST /api/rooms/{slug}/join.
 // @Summary Join an existing room
-// @Description Create a participant session for the room and return the room snapshot for the joining guest.
+// @Description Create a participant session for the room and return the room snapshot with the joining guest bearer session.
 // @Tags rooms
 // @Accept json
 // @Produce json
 // @Param slug path string true "Room slug"
 // @Param request body joinRoomRequest true "Join room payload"
-// @Success 201 {object} rooms.RoomSnapshot
+// @Success 201 {object} roomSessionEnvelope
 // @Failure 400 {object} map[string]string
 // @Failure 500 {object} map[string]string
 // @Router /rooms/{slug}/join [post]
@@ -522,7 +530,7 @@ func ListRoomCatalogSurfaces(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	writeJSON(w, http.StatusOK, map[string]any{"surfaces": surfaces})
+	writeJSON(w, http.StatusOK, listSurfacesResponse{Surfaces: surfaces})
 }
 
 // ListRoomCatalogClimbs handles GET /api/rooms/{slug}/catalog/climbs.
@@ -852,7 +860,7 @@ func PickRandomRoomClimb(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	writeJSON(w, http.StatusOK, map[string]any{"climb": climb})
+	writeJSON(w, http.StatusOK, randomPickResponse{Climb: climb})
 }
 
 func PromoteRoomQueueClimb(w http.ResponseWriter, r *http.Request) {

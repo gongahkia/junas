@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/board_models.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/room_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
 import '../../../core/network/sse_client.dart';
+import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/session_repository.dart';
 
 class RoomRouteArgs {
@@ -147,6 +149,7 @@ final roomControllerProvider = StateNotifierProvider.autoDispose
       apiClient: ref.read(apiClientProvider),
       sessionRepository: ref.read(sessionRepositoryProvider),
       sseClient: ref.read(sseClientProvider),
+      appPrefsController: ref.read(appPrefsControllerProvider.notifier),
     );
   },
 );
@@ -157,10 +160,12 @@ class RoomController extends StateNotifier<RoomViewState> {
     required ApiClient apiClient,
     required SessionRepository sessionRepository,
     required SseClient sseClient,
+    required AppPrefsController appPrefsController,
   })  : _args = args,
         _apiClient = apiClient,
         _sessionRepository = sessionRepository,
         _sseClient = sseClient,
+        _appPrefsController = appPrefsController,
         super(RoomViewState(
           server: args.serverUri,
           slug: args.slug,
@@ -172,6 +177,7 @@ class RoomController extends StateNotifier<RoomViewState> {
   final ApiClient _apiClient;
   final SessionRepository _sessionRepository;
   final SseClient _sseClient;
+  final AppPrefsController _appPrefsController;
 
   StreamSubscription<SseMessage>? _subscription;
   bool _disposed = false;
@@ -212,18 +218,34 @@ class RoomController extends StateNotifier<RoomViewState> {
         slug: _args.slug,
         sessionToken: session.token,
       );
+      final AppPrefs prefs = await _loadAppPrefs();
+      final ({
+        String selectedParentSurfaceId,
+        String selectedChildSurfaceId,
+        int selectedAngle
+      }) surfaceDraft = _resolveSurfaceDraft(room, prefs);
       state = state.copyWith(
         session: session,
         room: room,
+        catalog: room.surface != null && room.connection.connected
+            ? state.catalog
+            : null,
+        selectedCatalogClimb: room.surface != null && room.connection.connected
+            ? state.selectedCatalogClimb
+            : null,
+        selectedParentSurfaceId: surfaceDraft.selectedParentSurfaceId,
+        selectedChildSurfaceId: surfaceDraft.selectedChildSurfaceId,
+        selectedAngle: surfaceDraft.selectedAngle,
         loading: false,
         clearErrorMessage: true,
         clearJoinReason: true,
       );
+      unawaited(_rememberSnapshotContext(room));
       await _attachEvents(session.token);
       if (room.connection.connected && room.permissions.manageSurface) {
         unawaited(loadSurfaces());
       }
-      if (room.surface != null) {
+      if (room.surface != null && room.connection.connected) {
         unawaited(loadCatalog());
       }
     } on ApiFailure catch (error) {
@@ -247,14 +269,30 @@ class RoomController extends StateNotifier<RoomViewState> {
         slug: _args.slug,
         sessionToken: session.token,
       );
+      final AppPrefs prefs = await _loadAppPrefs();
+      final ({
+        String selectedParentSurfaceId,
+        String selectedChildSurfaceId,
+        int selectedAngle
+      }) surfaceDraft = _resolveSurfaceDraft(room, prefs);
       state = state.copyWith(
         room: room,
+        catalog: room.surface != null && room.connection.connected
+            ? state.catalog
+            : null,
+        selectedCatalogClimb: room.surface != null && room.connection.connected
+            ? state.selectedCatalogClimb
+            : null,
+        selectedParentSurfaceId: surfaceDraft.selectedParentSurfaceId,
+        selectedChildSurfaceId: surfaceDraft.selectedChildSurfaceId,
+        selectedAngle: surfaceDraft.selectedAngle,
         refreshing: false,
         loading: false,
         clearErrorMessage: true,
         clearJoinReason: true,
       );
-      if (room.surface != null) {
+      unawaited(_rememberSnapshotContext(room));
+      if (room.surface != null && room.connection.connected) {
         unawaited(loadCatalog(
           q: state.catalogQuery,
           sort: state.catalogSort,
@@ -476,16 +514,41 @@ class RoomController extends StateNotifier<RoomViewState> {
     if (session == null) {
       return;
     }
-    await _mutate(
-      notice: 'Provider credentials validated.',
-      action: () => _apiClient.connectRoomProvider(
+
+    try {
+      state = state.copyWith(
+        actionInFlight: true,
+        clearErrorMessage: true,
+        clearNotice: true,
+      );
+      await _apiClient.connectRoomProvider(
         server: _args.serverUri,
         slug: _args.slug,
         sessionToken: session.token,
         secret: secret,
-      ),
+      );
+      await refresh(silent: true);
+      await loadSurfaces();
+      state = state.copyWith(
+        actionInFlight: false,
+        notice: 'Provider credentials validated.',
+      );
+    } on ApiFailure catch (error) {
+      state = state.copyWith(
+        actionInFlight: false,
+        errorMessage: _formatReconnectFailure(error),
+      );
+      if (error.isAuthFailure) {
+        await _handleApiFailure(error);
+      }
+    }
+  }
+
+  void setClientError(String message) {
+    state = state.copyWith(
+      errorMessage: message,
+      clearNotice: true,
     );
-    await loadSurfaces();
   }
 
   Future<void> updateRoomName(String roomName) async {
@@ -821,7 +884,14 @@ class RoomController extends StateNotifier<RoomViewState> {
 
   Future<void> importPendingSeed(List<String> climbIds) async {
     final RoomSession? session = state.session;
-    if (session == null || climbIds.isEmpty) {
+    if (session == null) {
+      return;
+    }
+    if (climbIds.isEmpty) {
+      state = state.copyWith(
+        notice: 'Every saved climb is already queued for this room.',
+        clearErrorMessage: true,
+      );
       return;
     }
 
@@ -904,6 +974,100 @@ class RoomController extends StateNotifier<RoomViewState> {
       loading: false,
       refreshing: false,
     );
+  }
+
+  Future<AppPrefs> _loadAppPrefs() async {
+    return _appPrefsController.state.valueOrNull ??
+        await _sessionRepository.loadAppPrefs();
+  }
+
+  String _formatReconnectFailure(ApiFailure error) {
+    return switch (error.code) {
+      'provider_auth_failed' =>
+        'Those provider credentials did not validate on this phone. Check them and try again.',
+      'runtime_unavailable' =>
+        'This server is reachable, but provider auth cannot be refreshed right now.',
+      'rate_limited' =>
+        'Too many reconnect attempts were sent. Wait a moment and try again.',
+      _ => error.message,
+    };
+  }
+
+  ({
+    String selectedParentSurfaceId,
+    String selectedChildSurfaceId,
+    int selectedAngle
+  }) _resolveSurfaceDraft(RoomSnapshot room, AppPrefs prefs) {
+    if (room.providerId == 'kilter') {
+      final String boardId =
+          (room.surface?.meta['board_id'] ?? '').trim().isNotEmpty
+              ? room.surface!.meta['board_id']!.trim()
+              : (room.surface?.id ?? '').trim().isNotEmpty
+                  ? room.surface!.id
+                  : prefs.lastKilterBoardId;
+      final int angle = int.tryParse(room.surface?.meta['angle'] ?? '') ??
+          prefs.lastKilterAngle;
+      return (
+        selectedParentSurfaceId: boardId,
+        selectedChildSurfaceId: '',
+        selectedAngle: angle,
+      );
+    }
+
+    final String parentId =
+        (room.surface?.meta['gym_slug'] ?? '').trim().isNotEmpty
+            ? room.surface!.meta['gym_slug']!.trim()
+            : (room.surface?.parentId ?? '').trim().isNotEmpty
+                ? room.surface!.parentId!.trim()
+                : prefs.lastCruxGymSlug;
+    final String childId = (room.surface?.id ?? '').trim().isNotEmpty
+        ? room.surface!.id
+        : prefs.lastCruxWallId;
+    return (
+      selectedParentSurfaceId: parentId,
+      selectedChildSurfaceId: childId,
+      selectedAngle: state.selectedAngle,
+    );
+  }
+
+  Future<void> _rememberSnapshotContext(RoomSnapshot room) async {
+    await _appPrefsController.rememberRoomVisit(
+      server: _args.serverUri,
+      room: room,
+    );
+    await _appPrefsController.rememberLastProvider(room.providerId);
+
+    if (room.providerId == 'kilter') {
+      final String boardId =
+          (room.surface?.meta['board_id'] ?? '').trim().isNotEmpty
+              ? room.surface!.meta['board_id']!.trim()
+              : (room.surface?.id ?? '').trim().isNotEmpty
+                  ? room.surface!.id
+                  : '';
+      final int angle =
+          int.tryParse(room.surface?.meta['angle'] ?? '') ?? defaultBoardAngle;
+      if (boardId.isNotEmpty) {
+        await _appPrefsController.rememberLastKilterSurface(
+          boardId: boardId,
+          angle: angle,
+        );
+      }
+      return;
+    }
+
+    final String gymSlug =
+        (room.surface?.meta['gym_slug'] ?? '').trim().isNotEmpty
+            ? room.surface!.meta['gym_slug']!.trim()
+            : (room.surface?.parentId ?? '').trim().isNotEmpty
+                ? room.surface!.parentId!.trim()
+                : '';
+    final String wallId = (room.surface?.id ?? '').trim();
+    if (gymSlug.isNotEmpty || wallId.isNotEmpty) {
+      await _appPrefsController.rememberLastCruxSurface(
+        gymSlug: gymSlug,
+        wallId: wallId,
+      );
+    }
   }
 
   Future<void> _attachEvents(String sessionToken) async {

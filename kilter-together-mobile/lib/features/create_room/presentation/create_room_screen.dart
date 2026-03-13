@@ -59,9 +59,12 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
   bool _showFailureFeedback = false;
   bool _autoGuideAttempted = false;
   List<ProviderCapability> _capabilities = const <ProviderCapability>[];
+  String? _capabilitiesServer;
   String? _selectedProviderId;
   String? _preferredProviderId;
   PendingRoomSeed? _pendingRoomSeed;
+  String _savedKilterUsername = '';
+  Map<String, bool> _rememberProviderSecrets = <String, bool>{};
   String? _inlineError;
   final Map<String, TextEditingController> _secretControllers =
       <String, TextEditingController>{};
@@ -76,11 +79,20 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
       setState(() {
         _serverController.text = server.toString();
       });
+      unawaited(_maybeAutoLoadCapabilities());
     });
     ref.read(sessionRepositoryProvider).loadAppPrefs().then((AppPrefs prefs) {
       if (!mounted) {
         return;
       }
+      final SavedCredentialPreference savedKilterPreference =
+          prefs.savedCredentials.providers['kilter'] ??
+              const SavedCredentialPreference(remember: false);
+      final Map<String, bool> rememberProviderSecrets =
+          prefs.savedCredentials.providers.map(
+        (String key, SavedCredentialPreference value) =>
+            MapEntry(key, value.remember),
+      );
       final String resolvedRoomName = prefs.pendingRoomSeed?.title
                   ?.trim()
                   .isNotEmpty ==
@@ -100,7 +112,10 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
         _preferredProviderId =
             prefs.pendingRoomSeed?.providerId ?? prefs.lastProviderId;
         _pendingRoomSeed = prefs.pendingRoomSeed;
+        _rememberProviderSecrets = rememberProviderSecrets;
+        _savedKilterUsername = savedKilterPreference.username?.trim() ?? '';
       });
+      unawaited(_maybeAutoLoadCapabilities());
     });
   }
 
@@ -122,6 +137,55 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
       }
     }
     return _capabilities.isEmpty ? null : _capabilities.first;
+  }
+
+  bool _rememberSecretForProvider(String providerId) {
+    return _rememberProviderSecrets[providerId] ?? false;
+  }
+
+  void _setRememberSecretForProvider(String providerId, bool remember) {
+    setState(() {
+      _rememberProviderSecrets = <String, bool>{
+        ..._rememberProviderSecrets,
+        providerId: remember,
+      };
+    });
+  }
+
+  String _providerLabelFor(String providerId) {
+    for (final ProviderCapability capability in _capabilities) {
+      if (capability.id == providerId && capability.label.trim().isNotEmpty) {
+        return capability.label;
+      }
+    }
+    return switch (providerId) {
+      'kilter' => 'Kilter',
+      'crux' => 'Crux',
+      _ => providerId,
+    };
+  }
+
+  String? _providerAuthHint(ProviderCapability capability) {
+    return switch (capability.id) {
+      'crux' => 'Paste either the raw Crux token or the full Bearer ... value.',
+      'kilter' => null,
+      _ =>
+        'This provider still validates the host credentials on this phone before the room opens.',
+    };
+  }
+
+  String _providerNextStepCopy(ProviderCapability? capability) {
+    if (capability == null) {
+      return 'Load providers for this server to see what shared surface step follows room creation.';
+    }
+    return switch (capability.id) {
+      'kilter' =>
+        'This room only opens after the Kilter credentials validate. The next step inside the room is choosing the board plus angle.',
+      'crux' =>
+        'This room only opens after the Crux token validates. The next step inside the room is choosing the gym and wall.',
+      _ =>
+        'This room only opens after the host credentials validate. The next step inside the room is choosing the shared surface.',
+    };
   }
 
   void _maybeAutoOpenGuide(AppPrefs prefs) {
@@ -169,13 +233,36 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
   }
 
   Future<void> _loadCapabilities() async {
+    final String rawServer = _serverController.text.trim();
+    if (rawServer.isEmpty) {
+      const String message =
+          'Enter the self-hosted server URL before loading providers.';
+      setState(() {
+        _inlineError = message;
+      });
+      _showSnack(message);
+      return;
+    }
+
+    final Uri server;
+    try {
+      server = normalizeServerUri(rawServer);
+    } on FormatException {
+      const String message =
+          'Enter a valid self-hosted server URL before loading providers.';
+      setState(() {
+        _inlineError = message;
+      });
+      _showSnack(message);
+      return;
+    }
+
     setState(() {
       _loadingCapabilities = true;
       _inlineError = null;
     });
 
     try {
-      final Uri server = normalizeServerUri(_serverController.text);
       final List<ProviderCapability> capabilities =
           await ref.read(apiClientProvider).getProviderCapabilities(server);
       final List<ProviderCapability> roomCapabilities = capabilities
@@ -194,9 +281,17 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
           );
         }
       }
+      final TextEditingController? usernameController =
+          _secretControllers['username'];
+      if ((_savedKilterUsername).isNotEmpty &&
+          usernameController != null &&
+          usernameController.text.trim().isEmpty) {
+        usernameController.text = _savedKilterUsername;
+      }
 
       setState(() {
         _capabilities = roomCapabilities;
+        _capabilitiesServer = server.toString();
         final String? preferredProviderId = _preferredProviderId;
         _selectedProviderId = roomCapabilities.any(
                 (ProviderCapability item) => item.id == preferredProviderId)
@@ -204,6 +299,9 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
             : roomCapabilities.isEmpty
                 ? null
                 : roomCapabilities.first.id;
+        _inlineError = roomCapabilities.isEmpty
+            ? 'This server did not advertise any providers that can host collaborative rooms.'
+            : null;
       });
     } catch (error) {
       _showSnack('Unable to load provider capabilities: $error');
@@ -219,12 +317,85 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
     }
   }
 
-  Future<void> _submit() async {
-    final ProviderCapability? capability = _selectedCapability;
+  String? _validateCreateSubmission(ProviderCapability? capability) {
+    final String trimmedServer = _serverController.text.trim();
+    if (trimmedServer.isEmpty) {
+      return 'Enter the self-hosted server URL before creating the room.';
+    }
+    final Uri server;
+    try {
+      server = normalizeServerUri(trimmedServer);
+    } on FormatException {
+      return 'Enter a valid self-hosted server URL before creating the room.';
+    }
+    if (_capabilities.isEmpty || _capabilitiesServer != server.toString()) {
+      return 'Load providers for this server before creating a room.';
+    }
     if (capability == null) {
-      _showSnack('Load providers before creating a room.');
+      return 'Pick the provider this room will use.';
+    }
+    if (_roomNameController.text.trim().isEmpty) {
+      return 'Enter a room name so guests know they joined the right session.';
+    }
+    if (_displayNameController.text.trim().isEmpty) {
+      return 'Enter the host display name for this phone.';
+    }
+    for (final ProviderAuthField field in capability.authFields) {
+      final String value = _secretControllers[field.key]?.text.trim() ?? '';
+      if (value.isEmpty) {
+        return 'Enter ${field.label.toLowerCase()} before opening the room.';
+      }
+    }
+    return null;
+  }
+
+  String _formatCreateFailure(ApiFailure error) {
+    return switch (error.code) {
+      'provider_auth_failed' =>
+        'Those provider credentials did not validate. Check them on this phone and try again.',
+      'runtime_unavailable' =>
+        'This server is reachable, but it is not ready to create rooms right now.',
+      'unsupported_provider' =>
+        'That provider cannot host collaborative rooms on this server.',
+      'rate_limited' =>
+        'Too many room creation attempts were sent. Wait a moment and try again.',
+      _ => error.message,
+    };
+  }
+
+  void _clearLoadedCapabilities() {
+    for (final TextEditingController controller in _secretControllers.values) {
+      controller.dispose();
+    }
+    _secretControllers.clear();
+    _capabilities = const <ProviderCapability>[];
+    _capabilitiesServer = null;
+    _selectedProviderId = null;
+  }
+
+  Future<void> _maybeAutoLoadCapabilities() async {
+    if (!mounted ||
+        _loadingCapabilities ||
+        _capabilitiesServer != null ||
+        _capabilities.isNotEmpty ||
+        _serverController.text.trim().isEmpty) {
       return;
     }
+    await _loadCapabilities();
+  }
+
+  Future<void> _submit() async {
+    final ProviderCapability? capability = _selectedCapability;
+    final String? validationError = _validateCreateSubmission(capability);
+    if (validationError != null) {
+      setState(() {
+        _inlineError = validationError;
+        _showFailureFeedback = false;
+      });
+      _showSnack(validationError);
+      return;
+    }
+    final ProviderCapability selectedCapability = capability!;
 
     setState(() {
       _submitting = true;
@@ -235,12 +406,12 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
     try {
       final Uri server = normalizeServerUri(_serverController.text);
       final Map<String, String> secret = <String, String>{
-        for (final ProviderAuthField field in capability.authFields)
+        for (final ProviderAuthField field in selectedCapability.authFields)
           field.key: _secretControllers[field.key]?.text.trim() ?? '',
       };
       final result = await ref.read(apiClientProvider).createRoom(
             server: server,
-            providerId: capability.id,
+            providerId: selectedCapability.id,
             roomName: _roomNameController.text.trim(),
             displayName: _displayNameController.text.trim(),
             secret: secret,
@@ -257,7 +428,26 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
           );
       await ref
           .read(appPrefsControllerProvider.notifier)
-          .rememberLastProvider(capability.id);
+          .rememberLastProvider(selectedCapability.id);
+      await ref.read(appPrefsControllerProvider.notifier).rememberRoomVisit(
+            server: server,
+            room: result.room,
+          );
+      if (selectedCapability.id == 'kilter') {
+        await ref
+            .read(appPrefsControllerProvider.notifier)
+            .rememberKilterCredentials(
+              username: _secretControllers['username']?.text.trim() ?? '',
+              remember: _rememberSecretForProvider('kilter'),
+            );
+      } else {
+        await ref
+            .read(appPrefsControllerProvider.notifier)
+            .rememberProviderSecretPreference(
+              providerId: selectedCapability.id,
+              remember: _rememberSecretForProvider(selectedCapability.id),
+            );
+      }
 
       if (!mounted) {
         return;
@@ -273,12 +463,13 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
       final bool shouldShowFeedback = await ref
           .read(appPrefsControllerProvider.notifier)
           .shouldShowFeedbackPrompt('room-create-failure');
-      _showSnack('Unable to create room: ${error.message}');
+      final String message = _formatCreateFailure(error);
+      _showSnack('Unable to create room: $message');
       if (!mounted) {
         return;
       }
       setState(() {
-        _inlineError = error.message;
+        _inlineError = message;
         _showFailureFeedback = shouldShowFeedback;
       });
     } catch (error) {
@@ -323,10 +514,6 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
           onPressed: () => unawaited(_openGuide()),
           icon: const Icon(Icons.help_outline),
         ),
-        IconButton(
-          onPressed: () => context.goNamed('landing'),
-          icon: const Icon(Icons.close),
-        ),
       ],
       child: Card(
         child: Padding(
@@ -352,14 +539,14 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        '${_pendingRoomSeed!.surface.name} · ${_pendingRoomSeed!.climbs.length} queued climb${_pendingRoomSeed!.climbs.length == 1 ? '' : 's'}',
+                        '${_providerLabelFor(_pendingRoomSeed!.providerId)} · ${_pendingRoomSeed!.surface.name}',
                       ),
                       const SizedBox(height: 12),
                       Row(
                         children: <Widget>[
                           Expanded(
                             child: Text(
-                              'Open a matching ${_pendingRoomSeed!.providerId} room, then import the seed from inside the room once the surface is set.',
+                              'Open a matching ${_providerLabelFor(_pendingRoomSeed!.providerId)} room, then import the saved ${_pendingRoomSeed!.surface.kind} queue from inside the room once the shared surface is set.',
                             ),
                           ),
                           const SizedBox(width: 12),
@@ -404,6 +591,14 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                   hintText: 'https://boards.example.com',
                 ),
                 keyboardType: TextInputType.url,
+                onChanged: (String value) {
+                  if (_capabilitiesServer != null &&
+                      value.trim() != _capabilitiesServer) {
+                    setState(() {
+                      _clearLoadedCapabilities();
+                    });
+                  }
+                },
               ),
               const SizedBox(height: 12),
               Align(
@@ -459,6 +654,43 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                     ),
                   ),
                 ),
+              if (capability != null &&
+                  _providerAuthHint(capability) != null) ...<Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Text(
+                    _providerAuthHint(capability)!,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+              ],
+              if (capability?.id == 'kilter') ...<Widget>[
+                SwitchListTile.adaptive(
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text('Remember Kilter username on this device'),
+                  subtitle: const Text(
+                    'Stores the username locally. The password still needs to be entered each time.',
+                  ),
+                  value: _rememberSecretForProvider('kilter'),
+                  onChanged: (bool value) =>
+                      _setRememberSecretForProvider('kilter', value),
+                ),
+              ] else if (capability != null) ...<Widget>[
+                SwitchListTile.adaptive(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    'Remember this ${capability.label} auth preference on this device',
+                  ),
+                  subtitle: Text(
+                    capability.id == 'crux'
+                        ? 'Stores this preference locally. You still enter the Crux token each time.'
+                        : 'Stores this provider preference locally. You still enter the secret each time.',
+                  ),
+                  value: _rememberSecretForProvider(capability.id),
+                  onChanged: (bool value) =>
+                      _setRememberSecretForProvider(capability.id, value),
+                ),
+              ],
               SwitchListTile.adaptive(
                 contentPadding: EdgeInsets.zero,
                 title: const Text('Enable fist bumps'),
@@ -469,12 +701,30 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                   });
                 },
               ),
+              const SizedBox(height: 6),
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF8FAFC),
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(color: const Color(0xFFE2E8F0)),
+                ),
+                padding: const EdgeInsets.all(16),
+                child: Text(_providerNextStepCopy(capability)),
+              ),
               const SizedBox(height: 18),
               SizedBox(
                 width: double.infinity,
                 child: FilledButton(
-                  onPressed: _submitting ? null : _submit,
-                  child: Text(_submitting ? 'Creating room...' : 'Open room'),
+                  onPressed:
+                      _submitting || _loadingCapabilities || capability == null
+                          ? null
+                          : _submit,
+                  child: Text(
+                    _submitting
+                        ? 'Authenticating host...'
+                        : 'Authenticate and create room',
+                  ),
                 ),
               ),
               if (_showFailureFeedback) ...<Widget>[

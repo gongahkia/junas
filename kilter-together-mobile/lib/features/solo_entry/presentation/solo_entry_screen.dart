@@ -127,14 +127,6 @@ class _SoloEntryScreenState extends ConsumerState<SoloEntryScreen> {
           onPressed: () => unawaited(_openGuide()),
           icon: const Icon(Icons.help_outline),
         ),
-        IconButton(
-          onPressed: () => context.goNamed('settings'),
-          icon: const Icon(Icons.tune),
-        ),
-        IconButton(
-          onPressed: () => context.goNamed('landing'),
-          icon: const Icon(Icons.close),
-        ),
       ],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

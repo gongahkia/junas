@@ -12,6 +12,7 @@ import 'package:kilter_together_mobile/core/models/room_models.dart';
 import 'package:kilter_together_mobile/core/models/session_models.dart';
 import 'package:kilter_together_mobile/core/network/api_client.dart';
 import 'package:kilter_together_mobile/core/network/sse_client.dart';
+import 'package:kilter_together_mobile/core/presentation/app_bottom_bar.dart';
 import 'package:kilter_together_mobile/core/router/app_router.dart';
 import 'package:kilter_together_mobile/core/storage/app_preferences.dart';
 import 'package:kilter_together_mobile/core/storage/secure_store.dart';
@@ -76,6 +77,31 @@ void main() {
     );
   });
 
+  test('extracts room slugs from original web join links', () {
+    expect(
+      extractRoomSlugFromValue(
+        'https://boards.example.com/join/moonboard-night',
+      ),
+      'moonboard-night',
+    );
+    expect(
+      extractRoomSlugFromValue(
+        'https://boards.example.com/rooms/session-room',
+      ),
+      'session-room',
+    );
+  });
+
+  test('resolves room join targets from web invite links', () {
+    final RoomJoinTarget? target = parseRoomJoinTarget(
+      'https://boards.example.com/join/moonboard-night',
+    );
+
+    expect(target, isNotNull);
+    expect(target!.slug, 'moonboard-night');
+    expect(target.server, _server);
+  });
+
   testWidgets('landing auto-opens guide when unfinished',
       (WidgetTester tester) async {
     await _pumpScreen(
@@ -90,6 +116,57 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('How the app is split up'), findsOneWidget);
+  });
+
+  testWidgets('landing quick join routes web invites into the join flow',
+      (WidgetTester tester) async {
+    final GoRouter router = buildAppRouter();
+
+    await _pumpRouterApp(
+      tester,
+      router: router,
+      appPreferences: FakeAppPreferences(
+        prefs: _buildPrefs(
+          settings: _buildSettings(autoGuidesEnabled: false),
+        ),
+      ),
+      apiClient: FakeApiClient(),
+    );
+
+    await tester.pumpAndSettle();
+
+    await tester.enterText(
+      find.widgetWithText(TextField, 'Invite or room slug'),
+      'https://boards.example.com/join/moonboard-night',
+    );
+    final Finder quickJoinButton = find.widgetWithText(
+      FilledButton,
+      'Quick join',
+    );
+    await tester.dragUntilVisible(
+      quickJoinButton,
+      find.byType(ListView).first,
+      const Offset(0, -160),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(quickJoinButton);
+    await tester.pumpAndSettle();
+
+    final Finder serverField = find.byWidgetPredicate(
+      (Widget widget) =>
+          widget is TextField &&
+          widget.decoration?.labelText == 'Self-hosted server URL' &&
+          widget.controller?.text == 'https://boards.example.com',
+    );
+    final Finder inviteField = find.byWidgetPredicate(
+      (Widget widget) =>
+          widget is TextField &&
+          widget.decoration?.labelText == 'Invite or room slug' &&
+          widget.controller?.text == 'moonboard-night',
+    );
+
+    expect(serverField, findsOneWidget);
+    expect(inviteField, findsOneWidget);
   });
 
   testWidgets(
@@ -207,12 +284,214 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Load providers'));
     await tester.pumpAndSettle();
-    await tester.ensureVisible(find.text('Open room'));
+    await tester.ensureVisible(find.text('Authenticate and create room'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Open room'));
+    await tester.tap(find.text('Authenticate and create room'));
     await tester.pumpAndSettle();
 
     expect(find.text('Was the room creation failure useful?'), findsOneWidget);
+  });
+
+  testWidgets('create room restores the saved Kilter username preference',
+      (WidgetTester tester) async {
+    final FakeApiClient apiClient = FakeApiClient()
+      ..capabilities = <ProviderCapability>[
+        const ProviderCapability(
+          id: 'kilter',
+          label: 'Kilter',
+          roomSupported: true,
+          soloSupported: true,
+          surfaceHierarchy: 'board',
+          authFields: <ProviderAuthField>[
+            ProviderAuthField(
+              key: 'username',
+              label: 'Username',
+              type: 'text',
+            ),
+            ProviderAuthField(
+              key: 'password',
+              label: 'Password',
+              type: 'password',
+            ),
+          ],
+        ),
+      ];
+
+    await _pumpScreen(
+      tester,
+      child: const CreateRoomScreen(),
+      appPreferences: FakeAppPreferences(
+        activeServer: _server,
+        prefs: _buildPrefs(
+          savedCredentials: const SavedCredentials(
+            providers: <String, SavedCredentialPreference>{
+              'kilter': SavedCredentialPreference(
+                remember: true,
+                username: 'captain',
+              ),
+              'crux': SavedCredentialPreference(remember: false),
+            },
+          ),
+        ),
+      ),
+      apiClient: apiClient,
+    );
+
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Load providers'));
+    await tester.pumpAndSettle();
+
+    final Finder usernameField = find.byWidgetPredicate(
+      (Widget widget) =>
+          widget is TextField &&
+          widget.decoration?.labelText == 'Username' &&
+          widget.controller?.text == 'captain',
+    );
+    expect(usernameField, findsOneWidget);
+
+    final Finder rememberToggle = find.widgetWithText(
+      SwitchListTile,
+      'Remember Kilter username on this device',
+    );
+    expect(rememberToggle, findsOneWidget);
+    expect(
+      tester.widget<SwitchListTile>(rememberToggle).value,
+      isTrue,
+    );
+    expect(
+      find.text(
+        'This room only opens after the Kilter credentials validate. The next step inside the room is choosing the board plus angle.',
+      ),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets(
+      'create room shows Crux auth guidance and saves the remember preference',
+      (WidgetTester tester) async {
+    final FakeAppPreferences appPreferences = FakeAppPreferences(
+      activeServer: _server,
+      prefs: _buildPrefs(
+        savedCredentials: const SavedCredentials(
+          providers: <String, SavedCredentialPreference>{
+            'kilter': SavedCredentialPreference(remember: false),
+            'crux': SavedCredentialPreference(remember: false),
+          },
+        ),
+      ),
+    );
+    final FakeApiClient apiClient = FakeApiClient()
+      ..capabilities = <ProviderCapability>[
+        const ProviderCapability(
+          id: 'crux',
+          label: 'Crux',
+          roomSupported: true,
+          soloSupported: true,
+          surfaceHierarchy: 'nested',
+          authFields: <ProviderAuthField>[
+            ProviderAuthField(
+              key: 'token',
+              label: 'Token',
+              type: 'password',
+            ),
+          ],
+        ),
+      ];
+
+    await _pumpScreen(
+      tester,
+      child: const CreateRoomScreen(),
+      appPreferences: appPreferences,
+      apiClient: apiClient,
+    );
+
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text(
+          'Paste either the raw Crux token or the full Bearer ... value.'),
+      findsOneWidget,
+    );
+    expect(
+      find.text(
+        'This room only opens after the Crux token validates. The next step inside the room is choosing the gym and wall.',
+      ),
+      findsOneWidget,
+    );
+
+    final Finder rememberToggle = find.widgetWithText(
+      SwitchListTile,
+      'Remember this Crux auth preference on this device',
+    );
+    expect(rememberToggle, findsOneWidget);
+    expect(
+      tester.widget<SwitchListTile>(rememberToggle).value,
+      isFalse,
+    );
+
+    await tester.enterText(
+      find.widgetWithText(TextField, 'Token'),
+      'Bearer test-token',
+    );
+    await tester.dragUntilVisible(
+      rememberToggle,
+      find.byType(ListView).first,
+      const Offset(0, -160),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(rememberToggle);
+    await tester.pumpAndSettle();
+    final Finder submitButton = find.widgetWithText(
+      FilledButton,
+      'Authenticate and create room',
+    );
+    await tester.ensureVisible(submitButton);
+    await tester.tap(submitButton);
+    await tester.pumpAndSettle();
+
+    expect(
+      appPreferences._prefs.savedCredentials.providers['crux']?.remember,
+      isTrue,
+    );
+  });
+
+  testWidgets('create room auto-loads providers for the remembered server',
+      (WidgetTester tester) async {
+    final FakeApiClient apiClient = FakeApiClient()
+      ..capabilities = <ProviderCapability>[
+        const ProviderCapability(
+          id: 'kilter',
+          label: 'Kilter',
+          roomSupported: true,
+          soloSupported: true,
+          surfaceHierarchy: 'board',
+          authFields: <ProviderAuthField>[
+            ProviderAuthField(
+              key: 'username',
+              label: 'Username',
+              type: 'text',
+            ),
+          ],
+        ),
+      ];
+
+    await _pumpScreen(
+      tester,
+      child: const CreateRoomScreen(),
+      appPreferences: FakeAppPreferences(
+        activeServer: _server,
+        prefs: _buildPrefs(),
+      ),
+      apiClient: apiClient,
+    );
+
+    await tester.pumpAndSettle();
+
+    final Finder usernameField = find.byWidgetPredicate(
+      (Widget widget) =>
+          widget is TextField && widget.decoration?.labelText == 'Username',
+    );
+    expect(usernameField, findsOneWidget);
   });
 
   testWidgets('join failure shows the mobile feedback prompt',
@@ -239,53 +518,136 @@ void main() {
     expect(find.text('Was the join failure useful?'), findsOneWidget);
   });
 
-  testWidgets('recent rooms preview is capped and view-all can remove entries',
+  testWidgets('join screen rejects non-room invites before hitting the API',
       (WidgetTester tester) async {
     await _pumpScreen(
       tester,
-      child: const LandingScreen(),
-      appPreferences: FakeAppPreferences(
-        prefs: _buildPrefs(
-          settings: _buildSettings(autoGuidesEnabled: false),
-          recentRooms: <RecentRoom>[
-            _recentRoom(1),
-            _recentRoom(2),
-            _recentRoom(3),
-            _recentRoom(4),
-          ],
-        ),
+      child: const JoinRoomScreen(
+        initialServer: 'https://boards.example.com',
+        initialSlug:
+            'kiltertogether://recap?server=https%3A%2F%2Fboards.example.com&share_id=recap-1',
       ),
+      appPreferences: FakeAppPreferences(
+        prefs: _buildPrefs(),
+      ),
+      apiClient: FakeApiClient(),
+    );
+
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Join room'));
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text(
+        'That link opens a recap, not a room invite. Ask the host for the room invite instead.',
+      ),
+      findsWidgets,
+    );
+  });
+
+  testWidgets('join screen maps display-name conflicts to actionable copy',
+      (WidgetTester tester) async {
+    final FakeApiClient apiClient = FakeApiClient()
+      ..joinFailure = const ApiFailure(
+        message: 'display name is already taken',
+        code: 'display_name_taken',
+      );
+
+    await _pumpScreen(
+      tester,
+      child: const JoinRoomScreen(
+        initialServer: 'https://boards.example.com',
+        initialSlug: 'moonboard-night',
+      ),
+      appPreferences: FakeAppPreferences(
+        prefs: _buildPrefs(),
+      ),
+      apiClient: apiClient,
+    );
+
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Join room'));
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text(
+        'That display name is already taken in this room. Choose another name and try again.',
+      ),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('join screen accepts web invite links from the original app',
+      (WidgetTester tester) async {
+    final FakeApiClient apiClient = FakeApiClient()
+      ..joinFailure = const ApiFailure(
+        message: 'display name is already taken',
+        code: 'display_name_taken',
+      );
+
+    await _pumpScreen(
+      tester,
+      child: const JoinRoomScreen(
+        initialSlug: 'https://boards.example.com/join/moonboard-night',
+      ),
+      appPreferences: FakeAppPreferences(
+        prefs: _buildPrefs(),
+      ),
+      apiClient: apiClient,
+    );
+
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Join room'));
+    await tester.pumpAndSettle();
+
+    expect(apiClient.lastJoinServer, _server);
+    expect(apiClient.lastJoinSlug, 'moonboard-night');
+    expect(
+      find.text(
+        'That display name is already taken in this room. Choose another name and try again.',
+      ),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('recent rooms preview is capped and view-all can remove entries',
+      (WidgetTester tester) async {
+    final FakeAppPreferences appPreferences = FakeAppPreferences(
+      prefs: _buildPrefs(
+        settings: _buildSettings(autoGuidesEnabled: false),
+        recentRooms: <RecentRoom>[
+          _recentRoom(1),
+          _recentRoom(2),
+          _recentRoom(3),
+          _recentRoom(4),
+        ],
+      ),
+    );
+
+    await _pumpScreen(
+      tester,
+      child: const LandingScreen(),
+      appPreferences: appPreferences,
       apiClient: FakeApiClient(),
     );
 
     await tester.pumpAndSettle();
     expect(find.byIcon(Icons.push_pin_outlined), findsNWidgets(3));
     expect(find.text('View all (4)'), findsOneWidget);
+    expect(find.text('Open room'), findsNWidgets(3));
+    expect(find.textContaining('Last seen '), findsNWidgets(3));
 
     await tester.ensureVisible(find.text('View all (4)'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('View all (4)'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Room 1'), findsOneWidget);
-    expect(find.text('Room 4'), findsWidgets);
-    expect(find.byIcon(Icons.delete_outline), findsNWidgets(4));
+    expect(find.byIcon(Icons.delete_outline), findsWidgets);
 
-    final Finder room1Delete = find.descendant(
-      of: find.ancestor(
-        of: find.text('Room 1'),
-        matching: find.byType(ListTile),
-      ),
-      matching: find.byIcon(Icons.delete_outline),
-    );
-
-    expect(room1Delete, findsOneWidget);
-    await tester.ensureVisible(room1Delete);
-    await tester.pumpAndSettle();
-    await tester.tap(room1Delete);
+    await tester.tap(find.byIcon(Icons.delete_outline).first);
     await tester.pumpAndSettle();
 
-    expect(find.byIcon(Icons.delete_outline), findsNWidgets(3));
+    expect(appPreferences._prefs.recentRooms.length, 3);
     expect(find.text('View all (4)'), findsNothing);
   });
 
@@ -309,11 +671,71 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byIcon(Icons.push_pin_outlined), findsOneWidget);
+    expect(find.text('Open room'), findsOneWidget);
 
     await tester.tap(find.byIcon(Icons.push_pin_outlined));
     await tester.pumpAndSettle();
 
-    expect(find.byIcon(Icons.push_pin), findsOneWidget);
+    expect(find.byIcon(Icons.push_pin_outlined), findsNothing);
+    expect(find.text('Pinned'), findsOneWidget);
+  });
+
+  testWidgets('landing recent sessions show top-voted and wrap-up summaries',
+      (WidgetTester tester) async {
+    await _pumpScreen(
+      tester,
+      child: const LandingScreen(),
+      appPreferences: FakeAppPreferences(
+        activeServer: _server,
+        prefs: _buildPrefs(
+          settings: _buildSettings(autoGuidesEnabled: false),
+        ),
+      ),
+      apiClient: FakeApiClient()
+        ..recentSessions = <SessionSummary>[
+          SessionSummary(
+            roomSlug: 'room-1',
+            roomName: 'Moonboard Session',
+            providerId: 'kilter',
+            surfaceName: 'Main Board',
+            participantCount: 4,
+            recapShareId: 'recap-1',
+            closedAt: DateTime.utc(2025, 1, 1),
+            topVoted: <SessionSummaryClimb>[
+              SessionSummaryClimb(
+                climb: _providerClimb(id: 'climb-1', name: 'Final Burn'),
+                voteCount: 5,
+              ),
+            ],
+            finalQueue: <SessionSummaryClimb>[
+              SessionSummaryClimb(
+                climb: _providerClimb(id: 'climb-1'),
+              ),
+              SessionSummaryClimb(
+                climb: _providerClimb(id: 'climb-2'),
+              ),
+              SessionSummaryClimb(
+                climb: _providerClimb(id: 'climb-3'),
+              ),
+            ],
+            finalists: <SessionSummaryClimb>[
+              SessionSummaryClimb(
+                climb: _providerClimb(id: 'climb-1'),
+              ),
+              SessionSummaryClimb(
+                climb: _providerClimb(id: 'climb-2'),
+              ),
+            ],
+          ),
+        ],
+    );
+
+    await tester.pumpAndSettle();
+
+    expect(find.text('Top voted'), findsOneWidget);
+    expect(find.text('Final Burn'), findsOneWidget);
+    expect(find.text('5 votes'), findsOneWidget);
+    expect(find.text('3 queued · 2 finalists'), findsOneWidget);
   });
 
   testWidgets('about route is reachable through the router',
@@ -335,6 +757,32 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('About Kilter Together'), findsOneWidget);
+  });
+
+  testWidgets('router shell shows the central bottom bar and navigates tabs',
+      (WidgetTester tester) async {
+    final GoRouter router = buildAppRouter();
+
+    await _pumpRouterApp(
+      tester,
+      router: router,
+      appPreferences: FakeAppPreferences(
+        prefs: _buildPrefs(
+          settings: _buildSettings(autoGuidesEnabled: false),
+        ),
+      ),
+      apiClient: FakeApiClient(),
+    );
+
+    await tester.pumpAndSettle();
+
+    expect(find.byType(AppBottomBar), findsOneWidget);
+    expect(find.byIcon(Icons.home_rounded), findsOneWidget);
+
+    await tester.tap(find.text('Solo'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Solo Browse'), findsOneWidget);
   });
 
   testWidgets('recap feedback prompt still appears on the final slide',
@@ -429,6 +877,472 @@ void main() {
     expect(apiClient.closeRoomCalled, isTrue);
     expect(find.text('How did closing the room feel?'), findsOneWidget);
   });
+
+  testWidgets(
+      'room screen shows share readiness blockers before invite handoff',
+      (WidgetTester tester) async {
+    final FakeAppPreferences appPreferences = FakeAppPreferences(
+      activeServer: _server,
+      prefs: _buildPrefs(
+        settings: _buildSettings(autoGuidesEnabled: false),
+      ),
+    );
+    final FakeSecureStore secureStore = FakeSecureStore();
+    final SessionRepository sessionRepository = SessionRepository(
+      appPreferences: appPreferences,
+      secureStore: secureStore,
+    );
+    final FakeApiClient apiClient = FakeApiClient()
+      ..room = _room(
+        status: 'open',
+        permissions: const RoomPermissions(
+          manageSession: true,
+          manageSurface: true,
+          manageQueue: true,
+          manageFinalists: true,
+          editRoomSettings: true,
+          manageParticipants: true,
+          assignCoHosts: true,
+          closeRoom: true,
+        ),
+        connected: false,
+        surface: null,
+      );
+
+    await sessionRepository.saveSession(
+      server: _server,
+      slug: 'room-1',
+      session: _session,
+    );
+
+    await _pumpScreen(
+      tester,
+      child: const RoomScreen(
+        server: 'https://boards.example.com',
+        slug: 'room-1',
+      ),
+      appPreferences: appPreferences,
+      secureStore: secureStore,
+      apiClient: apiClient,
+      sseClient: FakeSseClient(),
+    );
+
+    await tester.pumpAndSettle();
+
+    expect(find.text('Room not ready to share yet'), findsOneWidget);
+    expect(
+      find.textContaining('Reconnect the provider'),
+      findsWidgets,
+    );
+
+    final FilledButton shareButton = tester.widget<FilledButton>(
+      find.widgetWithText(FilledButton, 'Share invite'),
+    );
+    expect(shareButton.onPressed, isNull);
+  });
+
+  testWidgets('room screen unlocks invite actions once the room is share-ready',
+      (WidgetTester tester) async {
+    final FakeAppPreferences appPreferences = FakeAppPreferences(
+      activeServer: _server,
+      prefs: _buildPrefs(
+        settings: _buildSettings(autoGuidesEnabled: false),
+      ),
+    );
+    final FakeSecureStore secureStore = FakeSecureStore();
+    final SessionRepository sessionRepository = SessionRepository(
+      appPreferences: appPreferences,
+      secureStore: secureStore,
+    );
+    final FakeApiClient apiClient = FakeApiClient()
+      ..room = _room(
+        status: 'open',
+        permissions: const RoomPermissions(
+          manageSession: true,
+          manageSurface: true,
+          manageQueue: true,
+          manageFinalists: true,
+          editRoomSettings: true,
+          manageParticipants: true,
+          assignCoHosts: true,
+          closeRoom: true,
+        ),
+        connected: true,
+      );
+
+    await sessionRepository.saveSession(
+      server: _server,
+      slug: 'room-1',
+      session: _session,
+    );
+
+    await _pumpScreen(
+      tester,
+      child: const RoomScreen(
+        server: 'https://boards.example.com',
+        slug: 'room-1',
+      ),
+      appPreferences: appPreferences,
+      secureStore: secureStore,
+      apiClient: apiClient,
+      sseClient: FakeSseClient(),
+    );
+
+    await tester.pumpAndSettle();
+
+    expect(find.text('Room is ready to share'), findsOneWidget);
+    expect(find.text('Join path'), findsOneWidget);
+    expect(find.text('/join/room-1'), findsOneWidget);
+
+    final FilledButton shareButton = tester.widget<FilledButton>(
+      find.widgetWithText(FilledButton, 'Share invite'),
+    );
+    expect(shareButton.onPressed, isNotNull);
+  });
+
+  testWidgets('room screen marks the invite as copied after copy action',
+      (WidgetTester tester) async {
+    final FakeAppPreferences appPreferences = FakeAppPreferences(
+      activeServer: _server,
+      prefs: _buildPrefs(
+        settings: _buildSettings(autoGuidesEnabled: false),
+      ),
+    );
+    final FakeSecureStore secureStore = FakeSecureStore();
+    final SessionRepository sessionRepository = SessionRepository(
+      appPreferences: appPreferences,
+      secureStore: secureStore,
+    );
+    final FakeApiClient apiClient = FakeApiClient()
+      ..room = _room(
+        status: 'open',
+        permissions: const RoomPermissions(
+          manageSession: true,
+          manageSurface: true,
+          manageQueue: true,
+          manageFinalists: true,
+          editRoomSettings: true,
+          manageParticipants: true,
+          assignCoHosts: true,
+          closeRoom: true,
+        ),
+        connected: true,
+      );
+
+    await sessionRepository.saveSession(
+      server: _server,
+      slug: 'room-1',
+      session: _session,
+    );
+
+    await _pumpScreen(
+      tester,
+      child: const RoomScreen(
+        server: 'https://boards.example.com',
+        slug: 'room-1',
+      ),
+      appPreferences: appPreferences,
+      secureStore: secureStore,
+      apiClient: apiClient,
+      sseClient: FakeSseClient(),
+    );
+
+    await tester.pumpAndSettle();
+    final Finder copyButton = find.widgetWithText(FilledButton, 'Copy invite');
+    await tester.dragUntilVisible(
+      copyButton,
+      find.byType(ListView).first,
+      const Offset(0, -200),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(copyButton);
+    await tester.pump(const Duration(milliseconds: 100));
+
+    expect(find.text('Copied'), findsOneWidget);
+  });
+
+  testWidgets('room seed card clears imported seeds when every climb is queued',
+      (WidgetTester tester) async {
+    final FakeAppPreferences appPreferences = FakeAppPreferences(
+      activeServer: _server,
+      prefs: _buildPrefs(
+        settings: _buildSettings(autoGuidesEnabled: false),
+        pendingRoomSeed: PendingRoomSeed(
+          providerId: 'kilter',
+          surface: const ProviderSurface(
+            id: 'board-1',
+            kind: 'board',
+            name: 'Main Board',
+          ),
+          climbs: <ProviderClimb>[_providerClimb(id: 'climb-1')],
+          createdAt: DateTime.utc(2025, 1, 1).toIso8601String(),
+        ),
+      ),
+    );
+    final FakeSecureStore secureStore = FakeSecureStore();
+    final SessionRepository sessionRepository = SessionRepository(
+      appPreferences: appPreferences,
+      secureStore: secureStore,
+    );
+    final FakeApiClient apiClient = FakeApiClient()
+      ..room = _room(
+        status: 'open',
+        permissions: const RoomPermissions(
+          manageSession: true,
+          manageSurface: true,
+          manageQueue: true,
+          manageFinalists: true,
+          editRoomSettings: true,
+          manageParticipants: true,
+          assignCoHosts: true,
+          closeRoom: true,
+        ),
+        connected: true,
+        queue: <QueueEntry>[
+          QueueEntry(
+            id: 1,
+            status: 'queued',
+            position: 1,
+            addedBy: 'Host',
+            climb: _providerClimb(id: 'climb-1'),
+          ),
+        ],
+      );
+
+    await sessionRepository.saveSession(
+      server: _server,
+      slug: 'room-1',
+      session: _session,
+    );
+
+    await _pumpScreen(
+      tester,
+      child: const RoomScreen(
+        server: 'https://boards.example.com',
+        slug: 'room-1',
+      ),
+      appPreferences: appPreferences,
+      secureStore: secureStore,
+      apiClient: apiClient,
+      sseClient: FakeSseClient(),
+    );
+
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text('Every saved climb is already in the room queue.'),
+      findsOneWidget,
+    );
+    expect(find.text('Clear imported seed'), findsOneWidget);
+  });
+
+  testWidgets(
+      'room seed card keeps angle-sensitive Kilter seeds blocked until the surface context matches',
+      (WidgetTester tester) async {
+    final FakeAppPreferences appPreferences = FakeAppPreferences(
+      activeServer: _server,
+      prefs: _buildPrefs(
+        settings: _buildSettings(autoGuidesEnabled: false),
+        pendingRoomSeed: PendingRoomSeed(
+          providerId: 'kilter',
+          surface: const ProviderSurface(
+            id: 'board-1',
+            kind: 'board',
+            name: 'Main Board',
+            meta: <String, String>{'angle': '40'},
+          ),
+          climbs: <ProviderClimb>[_providerClimb(id: 'climb-1')],
+          createdAt: DateTime.utc(2025, 1, 1).toIso8601String(),
+        ),
+      ),
+    );
+    final FakeSecureStore secureStore = FakeSecureStore();
+    final SessionRepository sessionRepository = SessionRepository(
+      appPreferences: appPreferences,
+      secureStore: secureStore,
+    );
+    final FakeApiClient apiClient = FakeApiClient()
+      ..room = _room(
+        status: 'open',
+        permissions: const RoomPermissions(
+          manageSession: true,
+          manageSurface: true,
+          manageQueue: true,
+          manageFinalists: true,
+          editRoomSettings: true,
+          manageParticipants: true,
+          assignCoHosts: true,
+          closeRoom: true,
+        ),
+        connected: true,
+        surface: const ProviderSurface(
+          id: 'board-1',
+          kind: 'board',
+          name: 'Main Board',
+          meta: <String, String>{'angle': '20'},
+        ),
+      );
+
+    await sessionRepository.saveSession(
+      server: _server,
+      slug: 'room-1',
+      session: _session,
+    );
+
+    await _pumpScreen(
+      tester,
+      child: const RoomScreen(
+        server: 'https://boards.example.com',
+        slug: 'room-1',
+      ),
+      appPreferences: appPreferences,
+      secureStore: secureStore,
+      apiClient: apiClient,
+      sseClient: FakeSseClient(),
+    );
+
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text(
+        'Choose Main Board as the room surface first, then import the saved queue.',
+      ),
+      findsOneWidget,
+    );
+    expect(find.text('Import plan to queue'), findsNothing);
+  });
+
+  testWidgets('room screen validates reconnect input before calling the API',
+      (WidgetTester tester) async {
+    final FakeAppPreferences appPreferences = FakeAppPreferences(
+      activeServer: _server,
+      prefs: _buildPrefs(
+        settings: _buildSettings(autoGuidesEnabled: false),
+      ),
+    );
+    final FakeSecureStore secureStore = FakeSecureStore();
+    final SessionRepository sessionRepository = SessionRepository(
+      appPreferences: appPreferences,
+      secureStore: secureStore,
+    );
+    final FakeApiClient apiClient = FakeApiClient()
+      ..room = _room(
+        status: 'open',
+        permissions: const RoomPermissions(
+          manageSession: true,
+          manageSurface: true,
+          manageQueue: true,
+          manageFinalists: true,
+          editRoomSettings: true,
+          manageParticipants: true,
+          assignCoHosts: true,
+          closeRoom: true,
+        ),
+        connected: false,
+      );
+
+    await sessionRepository.saveSession(
+      server: _server,
+      slug: 'room-1',
+      session: _session,
+    );
+
+    await _pumpScreen(
+      tester,
+      child: const RoomScreen(
+        server: 'https://boards.example.com',
+        slug: 'room-1',
+      ),
+      appPreferences: appPreferences,
+      secureStore: secureStore,
+      apiClient: apiClient,
+      sseClient: FakeSseClient(),
+    );
+
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Reconnect provider'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Reconnect provider'));
+    await tester.pumpAndSettle();
+
+    expect(apiClient.connectRoomProviderCalled, isFalse);
+    expect(
+      find.text(
+        'Enter the Kilter username before reconnecting the provider on this phone.',
+      ),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('room screen surfaces live signal context from the room snapshot',
+      (WidgetTester tester) async {
+    final FakeAppPreferences appPreferences = FakeAppPreferences(
+      activeServer: _server,
+      prefs: _buildPrefs(
+        settings: _buildSettings(autoGuidesEnabled: false),
+      ),
+    );
+    final FakeSecureStore secureStore = FakeSecureStore();
+    final SessionRepository sessionRepository = SessionRepository(
+      appPreferences: appPreferences,
+      secureStore: secureStore,
+    );
+    final FakeApiClient apiClient = FakeApiClient()
+      ..room = _room(
+        status: 'open',
+        permissions: const RoomPermissions(
+          manageSession: true,
+          manageSurface: true,
+          manageQueue: true,
+          manageFinalists: true,
+          editRoomSettings: true,
+          manageParticipants: true,
+          assignCoHosts: true,
+          closeRoom: true,
+        ),
+        connected: true,
+        queue: <QueueEntry>[
+          QueueEntry(
+            id: 1,
+            status: 'next',
+            position: 1,
+            addedBy: 'Host',
+            climb: _providerClimb(
+              id: 'climb-2',
+              name: 'Final Burn',
+            ),
+          ),
+        ],
+        voteCounts: const <String, int>{
+          'climb-2': 4,
+        },
+      );
+
+    await sessionRepository.saveSession(
+      server: _server,
+      slug: 'room-1',
+      session: _session,
+    );
+
+    await _pumpScreen(
+      tester,
+      child: const RoomScreen(
+        server: 'https://boards.example.com',
+        slug: 'room-1',
+      ),
+      appPreferences: appPreferences,
+      secureStore: secureStore,
+      apiClient: apiClient,
+      sseClient: FakeSseClient(),
+    );
+
+    await tester.pumpAndSettle();
+
+    expect(find.text('Live signal'), findsOneWidget);
+    expect(find.text('Final Burn'), findsWidgets);
+    expect(find.text('Top voted right now'), findsOneWidget);
+    expect(find.text('4 votes'), findsWidgets);
+  });
 }
 
 Future<void> _pumpScreen(
@@ -489,6 +1403,8 @@ AppPrefs _buildPrefs({
   GuidedTourProgress? guidedTour,
   List<RecentRoom>? recentRooms,
   Map<String, String>? feedbackPrompts,
+  SavedCredentials? savedCredentials,
+  PendingRoomSeed? pendingRoomSeed,
 }) {
   final AppPrefs defaults = AppPrefs.defaults();
   return AppPrefs(
@@ -499,12 +1415,12 @@ AppPrefs _buildPrefs({
     lastCruxGymSlug: defaults.lastCruxGymSlug,
     lastCruxWallId: defaults.lastCruxWallId,
     hostDefaults: defaults.hostDefaults,
-    savedCredentials: defaults.savedCredentials,
+    savedCredentials: savedCredentials ?? defaults.savedCredentials,
     recentRooms: recentRooms ?? defaults.recentRooms,
     savedSoloFilters: defaults.savedSoloFilters,
     soloFavorites: defaults.soloFavorites,
     soloShortlist: defaults.soloShortlist,
-    pendingRoomSeed: defaults.pendingRoomSeed,
+    pendingRoomSeed: pendingRoomSeed ?? defaults.pendingRoomSeed,
     soloResume: defaults.soloResume,
     intro: defaults.intro,
     onboarding: defaults.onboarding,
@@ -560,6 +1476,10 @@ RecentRoom _recentRoom(int index, {bool pinned = false}) {
 RoomSnapshot _room({
   required String status,
   required RoomPermissions permissions,
+  bool connected = false,
+  ProviderSurface? surface,
+  List<QueueEntry>? queue,
+  Map<String, int>? voteCounts,
 }) {
   return RoomSnapshot(
     slug: 'room-1',
@@ -567,13 +1487,14 @@ RoomSnapshot _room({
     status: status,
     providerId: 'kilter',
     version: status == 'closed' ? 2 : 1,
-    surface: const ProviderSurface(
-      id: 'board-1',
-      kind: 'board',
-      name: 'Main Board',
-    ),
-    connection: const ProviderConnectionState(
-      connected: false,
+    surface: surface ??
+        const ProviderSurface(
+          id: 'board-1',
+          kind: 'board',
+          name: 'Main Board',
+        ),
+    connection: ProviderConnectionState(
+      connected: connected,
       providerId: 'kilter',
     ),
     participants: const <Participant>[
@@ -586,14 +1507,28 @@ RoomSnapshot _room({
       ),
     ],
     finalists: const <FinalistEntry>[],
-    queue: const <QueueEntry>[],
-    voteCounts: const <String, int>{},
+    queue: queue ?? const <QueueEntry>[],
+    voteCounts: voteCounts ?? const <String, int>{},
     myVotes: const <String>[],
     fistBumpsEnabled: true,
     canManage: true,
     permissions: permissions,
     displayName: 'Host',
     assistant: const AssistantState(mode: 'manual'),
+  );
+}
+
+ProviderClimb _providerClimb({
+  required String id,
+  String name = 'Warmup Circuit',
+  String surfaceId = 'board-1',
+}) {
+  return ProviderClimb(
+    id: id,
+    externalId: id,
+    providerId: 'kilter',
+    surfaceId: surfaceId,
+    name: name,
   );
 }
 
@@ -681,9 +1616,13 @@ class FakeApiClient extends ApiClient {
   List<SessionSummary> recentSessions = const <SessionSummary>[];
   ApiFailure? createFailure;
   ApiFailure? joinFailure;
+  ApiFailure? reconnectFailure;
   RoomRecap? recap;
   RoomSnapshot? room;
   bool closeRoomCalled = false;
+  bool connectRoomProviderCalled = false;
+  Uri? lastJoinServer;
+  String? lastJoinSlug;
 
   @override
   Future<List<ProviderCapability>> getProviderCapabilities(Uri server) async {
@@ -735,6 +1674,8 @@ class FakeApiClient extends ApiClient {
     required String slug,
     required String displayName,
   }) async {
+    lastJoinServer = server;
+    lastJoinSlug = slug;
     if (joinFailure != null) {
       throw joinFailure!;
     }
@@ -754,6 +1695,67 @@ class FakeApiClient extends ApiClient {
             ),
           ),
       session: _session,
+    );
+  }
+
+  @override
+  Future<List<ProviderSurface>> getRoomCatalogSurfaces({
+    required Uri server,
+    required String slug,
+    required String sessionToken,
+    String? parentId,
+  }) async {
+    return room?.surface == null
+        ? const <ProviderSurface>[]
+        : <ProviderSurface>[room!.surface!];
+  }
+
+  @override
+  Future<RoomCatalogClimbsResponse> getRoomCatalogClimbs({
+    required Uri server,
+    required String slug,
+    required String sessionToken,
+    String? q,
+    String? sort,
+    String? cursor,
+    int pageSize = 10,
+  }) async {
+    final List<ProviderClimb> climbs = <ProviderClimb>[
+      for (final QueueEntry entry in room?.queue ?? const <QueueEntry>[])
+        entry.climb,
+      if (room?.currentClimb != null) room!.currentClimb!,
+    ];
+    return RoomCatalogClimbsResponse(
+      climbs: climbs,
+      hasMore: false,
+      pageSize: climbs.isEmpty ? pageSize : climbs.length,
+      voteCounts: room?.voteCounts ?? const <String, int>{},
+      myVotes: room?.myVotes ?? const <String>[],
+    );
+  }
+
+  @override
+  Future<RoomCatalogClimbResponse> getRoomCatalogClimb({
+    required Uri server,
+    required String slug,
+    required String sessionToken,
+    required String climbId,
+  }) async {
+    ProviderClimb? queuedClimb;
+    for (final QueueEntry entry in room?.queue ?? const <QueueEntry>[]) {
+      if (entry.climb.id == climbId) {
+        queuedClimb = entry.climb;
+        break;
+      }
+    }
+    final ProviderClimb climb =
+        queuedClimb ?? room?.currentClimb ?? _providerClimb(id: climbId);
+    return RoomCatalogClimbResponse(
+      climb: climb,
+      voteCount: room?.voteCounts[climbId] ?? 0,
+      myVote: room?.myVotes.contains(climbId) ?? false,
+      isQueued: (room?.queue ?? const <QueueEntry>[])
+          .any((QueueEntry entry) => entry.climb.id == climbId),
     );
   }
 
@@ -784,6 +1786,48 @@ class FakeApiClient extends ApiClient {
     required String sessionToken,
   }) async {
     return room!;
+  }
+
+  @override
+  Future<ProviderConnectionState> connectRoomProvider({
+    required Uri server,
+    required String slug,
+    required String sessionToken,
+    required Map<String, String> secret,
+  }) async {
+    connectRoomProviderCalled = true;
+    if (reconnectFailure != null) {
+      throw reconnectFailure!;
+    }
+    if (room != null) {
+      room = RoomSnapshot(
+        slug: room!.slug,
+        roomName: room!.roomName,
+        status: room!.status,
+        providerId: room!.providerId,
+        version: room!.version + 1,
+        surface: room!.surface,
+        connection: ProviderConnectionState(
+          connected: true,
+          providerId: room!.providerId,
+        ),
+        currentClimb: room!.currentClimb,
+        participants: room!.participants,
+        finalists: room!.finalists,
+        queue: room!.queue,
+        voteCounts: room!.voteCounts,
+        myVotes: room!.myVotes,
+        fistBumpsEnabled: room!.fistBumpsEnabled,
+        canManage: room!.canManage,
+        permissions: room!.permissions,
+        displayName: room!.displayName,
+        assistant: room!.assistant,
+      );
+    }
+    return ProviderConnectionState(
+      connected: true,
+      providerId: room?.providerId ?? 'kilter',
+    );
   }
 
   @override

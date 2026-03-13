@@ -11,6 +11,8 @@ definitions:
     properties:
       display_name:
         type: string
+      fist_bumps_enabled:
+        type: boolean
       provider_id:
         type: string
       room_name:
@@ -41,6 +43,29 @@ definitions:
     properties:
       climb:
         $ref: '#/definitions/providers.ProviderClimb'
+    type: object
+  handlers.recentSessionsResponse:
+    properties:
+      sessions:
+        items:
+          $ref: '#/definitions/rooms.SessionSummaryView'
+        type: array
+    type: object
+  handlers.roomSessionEnvelope:
+    properties:
+      room:
+        $ref: '#/definitions/rooms.RoomSnapshot'
+      session:
+        $ref: '#/definitions/handlers.roomSessionView'
+    type: object
+  handlers.roomSessionView:
+    properties:
+      expires_at:
+        type: string
+      role:
+        type: string
+      token:
+        type: string
     type: object
   handlers.setSurfaceRequest:
     properties:
@@ -262,6 +287,24 @@ definitions:
       parent_id:
         type: string
     type: object
+  rooms.AssistantStateView:
+    properties:
+      message:
+        type: string
+      mode:
+        type: string
+      suggestion:
+        $ref: '#/definitions/rooms.AssistantSuggestionView'
+    type: object
+  rooms.AssistantSuggestionView:
+    properties:
+      climb:
+        $ref: '#/definitions/providers.ProviderClimb'
+      ready_count:
+        type: integer
+      source:
+        type: string
+    type: object
   rooms.CatalogClimbResponse:
     properties:
       climb:
@@ -318,6 +361,25 @@ definitions:
       status:
         type: string
     type: object
+  rooms.PermissionView:
+    properties:
+      assign_co_hosts:
+        type: boolean
+      close_room:
+        type: boolean
+      edit_room_settings:
+        type: boolean
+      manage_finalists:
+        type: boolean
+      manage_participants:
+        type: boolean
+      manage_queue:
+        type: boolean
+      manage_session:
+        type: boolean
+      manage_surface:
+        type: boolean
+    type: object
   rooms.QueueEntryView:
     properties:
       added_by:
@@ -333,6 +395,8 @@ definitions:
     type: object
   rooms.RoomSnapshot:
     properties:
+      assistant:
+        $ref: '#/definitions/rooms.AssistantStateView'
       can_manage:
         type: boolean
       connection:
@@ -355,6 +419,8 @@ definitions:
         items:
           $ref: '#/definitions/rooms.ParticipantView'
         type: array
+      permissions:
+        $ref: '#/definitions/rooms.PermissionView'
       provider_id:
         $ref: '#/definitions/providers.ProviderID'
       queue:
@@ -375,6 +441,50 @@ definitions:
         additionalProperties:
           type: integer
         type: object
+    type: object
+  rooms.SessionSummaryClimbView:
+    properties:
+      added_by:
+        type: string
+      climb:
+        $ref: '#/definitions/providers.ProviderClimb'
+      position:
+        type: integer
+      status:
+        type: string
+      vote_count:
+        type: integer
+    type: object
+  rooms.SessionSummaryView:
+    properties:
+      closed_at:
+        type: string
+      final_queue:
+        items:
+          $ref: '#/definitions/rooms.SessionSummaryClimbView'
+        type: array
+      finalists:
+        items:
+          $ref: '#/definitions/rooms.SessionSummaryClimbView'
+        type: array
+      participant_count:
+        type: integer
+      provider_id:
+        $ref: '#/definitions/providers.ProviderID'
+      recap_share_id:
+        type: string
+      room_name:
+        type: string
+      room_slug:
+        type: string
+      surface_kind:
+        type: string
+      surface_name:
+        type: string
+      top_voted:
+        items:
+          $ref: '#/definitions/rooms.SessionSummaryClimbView'
+        type: array
     type: object
 externalDocs:
   description: Kilter Together API Documentation
@@ -450,6 +560,12 @@ paths:
         example: jwebxl
         in: query
         name: setter
+        type: string
+      - description: Filter climbs by the current-angle grade (matches boulder or
+          route grade)
+        example: 7a/V6
+        in: query
+        name: grade
         type: string
       - description: Filter climbs by board/product size ID
         example: 14
@@ -534,7 +650,7 @@ paths:
       consumes:
       - application/json
       description: Create a room, validate the provider secret, persist the host session,
-        and return the initial room snapshot.
+        and return the initial room snapshot with the host bearer session.
       parameters:
       - description: Create room payload
         in: body
@@ -548,7 +664,7 @@ paths:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/rooms.RoomSnapshot'
+            $ref: '#/definitions/handlers.roomSessionEnvelope'
         "400":
           description: Bad Request
           schema:
@@ -800,7 +916,7 @@ paths:
       consumes:
       - application/json
       description: Create a participant session for the room and return the room snapshot
-        for the joining guest.
+        with the joining guest bearer session.
       parameters:
       - description: Room slug
         in: path
@@ -819,7 +935,7 @@ paths:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/rooms.RoomSnapshot'
+            $ref: '#/definitions/handlers.roomSessionEnvelope'
         "400":
           description: Bad Request
           schema:
@@ -960,6 +1076,37 @@ paths:
       summary: Select the shared room surface
       tags:
       - rooms
+  /sessions/recent:
+    get:
+      description: Return recent closed-room summaries for the landing page and operator
+        review.
+      parameters:
+      - description: Number of sessions to return
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.recentSessionsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: List recent closed room sessions
+      tags:
+      - sessions
 schemes:
 - http
 - https

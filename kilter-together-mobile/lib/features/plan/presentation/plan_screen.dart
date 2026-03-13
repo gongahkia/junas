@@ -39,6 +39,21 @@ class PlanScreen extends ConsumerWidget {
           icon: const Icon(Icons.refresh),
         ),
         IconButton(
+          onPressed: state.plan == null
+              ? null
+              : () => unawaited(
+                    Share.share(
+                      InviteLink(
+                        kind: InviteKind.plan,
+                        server: args.serverUri,
+                        shareId: state.plan!.shareId,
+                      ).toUri().toString(),
+                      subject: state.plan!.title,
+                    ),
+                  ),
+          icon: const Icon(Icons.ios_share),
+        ),
+        IconButton(
           onPressed: () => context.goNamed('landing'),
           icon: const Icon(Icons.close),
         ),

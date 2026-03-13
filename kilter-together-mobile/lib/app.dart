@@ -52,7 +52,16 @@ class _KilterTogetherAppState extends ConsumerState<KilterTogetherApp> {
 
   void _openInvite(String raw) {
     final InviteLink? invite = InviteLink.parse(raw);
-    if (invite == null || !mounted) {
+    final RoomJoinTarget? joinTarget = invite == null
+        ? parseRoomJoinTarget(raw)
+        : invite.kind == InviteKind.join &&
+                (invite.slug ?? '').trim().isNotEmpty
+            ? RoomJoinTarget(
+                slug: invite.slug!.trim(),
+                server: invite.server,
+              )
+            : null;
+    if (!mounted) {
       return;
     }
 
@@ -61,12 +70,23 @@ class _KilterTogetherAppState extends ConsumerState<KilterTogetherApp> {
         return;
       }
 
+      if (joinTarget != null && joinTarget.server != null) {
+        _router.goNamed(
+          'join-room',
+          queryParameters: <String, String>{
+            'server': joinTarget.server.toString(),
+            'slug': joinTarget.slug,
+          },
+        );
+        return;
+      }
+
+      if (invite == null) {
+        return;
+      }
+
       switch (invite.kind) {
         case InviteKind.join:
-          _router.goNamed(
-            'join-room',
-            queryParameters: invite.toRouteQueryParameters(),
-          );
           return;
         case InviteKind.recap:
           _router.goNamed(

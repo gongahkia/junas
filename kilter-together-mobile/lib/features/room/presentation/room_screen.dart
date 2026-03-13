@@ -100,6 +100,120 @@ const FlowGuideContent _guestRoomGuide = FlowGuideContent(
   completionLabel: 'Mark guest guide complete',
 );
 
+bool _viewerOwnsRoomSetup(RoomSnapshot room) {
+  return room.permissions.manageSurface ||
+      room.permissions.editRoomSettings ||
+      room.permissions.manageSession ||
+      room.permissions.closeRoom;
+}
+
+class _ShareReadiness {
+  const _ShareReadiness({
+    required this.roomOpen,
+    required this.providerConnected,
+    required this.surfaceSelected,
+  });
+
+  final bool roomOpen;
+  final bool providerConnected;
+  final bool surfaceSelected;
+
+  bool get inviteUnlocked => roomOpen && providerConnected && surfaceSelected;
+  bool get isReady => inviteUnlocked;
+}
+
+_ShareReadiness _shareReadinessForRoom(RoomSnapshot room) {
+  return _ShareReadiness(
+    roomOpen: room.status != 'closed',
+    providerConnected: room.connection.connected,
+    surfaceSelected: room.surface != null,
+  );
+}
+
+String _shareReadinessSummary(RoomSnapshot room, _ShareReadiness readiness) {
+  final bool owner = _viewerOwnsRoomSetup(room);
+  if (!readiness.roomOpen) {
+    return 'This room is closed. Start a new room before sending another invite.';
+  }
+  if (readiness.isReady) {
+    return owner
+        ? 'Provider connection is active and the shared surface is set. This room is ready to share.'
+        : 'The host has finished room setup. This room is ready to share.';
+  }
+  if (!readiness.providerConnected && !readiness.surfaceSelected) {
+    return owner
+        ? 'Reconnect the provider and choose the shared surface before sharing the invite.'
+        : 'Waiting for the host to reconnect the provider and choose the shared surface.';
+  }
+  if (!readiness.providerConnected) {
+    return owner
+        ? 'Reconnect the provider on this phone before sharing the invite.'
+        : 'Waiting for the host to reconnect the provider before climbs can load.';
+  }
+  return owner
+      ? 'Choose the shared surface before sharing the invite.'
+      : 'Waiting for the host to choose the shared surface.';
+}
+
+bool _pendingSeedMatchesRoomSurface(
+  RoomSnapshot room,
+  PendingRoomSeed seed,
+) {
+  final ProviderSurface? roomSurface = room.surface;
+  if (roomSurface == null || room.providerId != seed.providerId) {
+    return false;
+  }
+  if ((roomSurface.id).trim() != seed.surface.id.trim()) {
+    return false;
+  }
+
+  final String roomAngle = (roomSurface.meta['angle'] ?? '').trim();
+  final String seedAngle = (seed.surface.meta['angle'] ?? '').trim();
+  if ((roomAngle.isNotEmpty || seedAngle.isNotEmpty) &&
+      roomAngle != seedAngle) {
+    return false;
+  }
+
+  final String roomParent = (roomSurface.meta['gym_slug'] ??
+          roomSurface.meta['parent_id'] ??
+          roomSurface.parentId ??
+          '')
+      .trim();
+  final String seedParent = (seed.surface.meta['gym_slug'] ??
+          seed.surface.meta['parent_id'] ??
+          seed.surface.parentId ??
+          '')
+      .trim();
+  if ((roomParent.isNotEmpty || seedParent.isNotEmpty) &&
+      roomParent != seedParent) {
+    return false;
+  }
+
+  return true;
+}
+
+String? _validateReconnectSecret(
+  RoomSnapshot room, {
+  required String username,
+  required String password,
+  required String token,
+}) {
+  if (room.providerId == 'kilter') {
+    if (username.trim().isEmpty) {
+      return 'Enter the Kilter username before reconnecting the provider on this phone.';
+    }
+    if (password.isEmpty) {
+      return 'Enter the Kilter password before reconnecting the provider on this phone.';
+    }
+    return null;
+  }
+
+  if (token.trim().isEmpty) {
+    return 'Enter the ${room.providerId.toUpperCase()} token before reconnecting the provider on this phone.';
+  }
+  return null;
+}
+
 class RoomScreen extends ConsumerStatefulWidget {
   const RoomScreen({
     super.key,
@@ -126,9 +240,11 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   bool _rememberProviderSecret = false;
   bool _showQr = false;
   bool _shareBusy = false;
+  bool _inviteCopied = false;
   bool _showCloseFeedback = false;
   bool _autoGuideAttempted = false;
   String _boundRoomName = '';
+  Timer? _copiedInviteResetTimer;
 
   RoomRouteArgs get _args =>
       RoomRouteArgs(server: widget.server, slug: widget.slug);
@@ -142,6 +258,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
 
   @override
   void dispose() {
+    _copiedInviteResetTimer?.cancel();
     _roomNameController.dispose();
     _catalogQueryController.dispose();
     _kilterUsernameController.dispose();
@@ -180,6 +297,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   Future<void> _shareInvite(Uri inviteUri, String roomName) async {
     setState(() {
       _shareBusy = true;
+      _inviteCopied = false;
     });
     try {
       await Share.share(
@@ -195,7 +313,25 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     }
   }
 
+  void _markInviteCopied() {
+    _copiedInviteResetTimer?.cancel();
+    if (mounted) {
+      setState(() {
+        _inviteCopied = true;
+      });
+    }
+    _copiedInviteResetTimer = Timer(const Duration(seconds: 3), () {
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _inviteCopied = false;
+      });
+    });
+  }
+
   Future<void> _copyInvite(Uri inviteUri) async {
+    _markInviteCopied();
     await Clipboard.setData(ClipboardData(text: inviteUri.toString()));
     if (!mounted) {
       return;
@@ -206,13 +342,29 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   }
 
   Future<void> _submitReconnect(RoomSnapshot room) async {
+    final String username = _kilterUsernameController.text.trim();
+    final String password = _kilterPasswordController.text;
+    final String token = _cruxTokenController.text.trim();
+    final String? validationError = _validateReconnectSecret(
+      room,
+      username: username,
+      password: password,
+      token: token,
+    );
+    if (validationError != null) {
+      ref
+          .read(roomControllerProvider(_args).notifier)
+          .setClientError(validationError);
+      return;
+    }
+
     final Map<String, String> secret = room.providerId == 'kilter'
         ? <String, String>{
-            'username': _kilterUsernameController.text.trim(),
-            'password': _kilterPasswordController.text,
+            'username': username,
+            'password': password,
           }
         : <String, String>{
-            'token': _cruxTokenController.text.trim(),
+            'token': token,
           };
 
     await ref
@@ -257,7 +409,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       );
       return;
     }
-    if (room.surface == null || room.surface!.id != seed.surface.id) {
+    if (!_pendingSeedMatchesRoomSurface(room, seed)) {
       messenger.showSnackBar(
         SnackBar(
           content: Text(
@@ -268,8 +420,11 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       return;
     }
 
+    final Set<String> queuedClimbIds =
+        room.queue.map((QueueEntry entry) => entry.climb.id).toSet();
     await ref.read(roomControllerProvider(_args).notifier).importPendingSeed(
           seed.climbs
+              .where((ProviderClimb item) => !queuedClimbIds.contains(item.id))
               .map((ProviderClimb item) => item.id)
               .toList(growable: false),
         );
@@ -282,6 +437,10 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
           .read(appPrefsControllerProvider.notifier)
           .clearPendingRoomSeed();
     }
+  }
+
+  Future<void> _clearPendingRoomSeed() async {
+    await ref.read(appPrefsControllerProvider.notifier).clearPendingRoomSeed();
   }
 
   String _guideBranchForRoom(RoomSnapshot room) {
@@ -479,6 +638,9 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       slug: room.slug,
     );
     final Uri inviteUri = invite.toUri();
+    final _ShareReadiness shareReadiness = _shareReadinessForRoom(room);
+    final String shareReadinessSummary =
+        _shareReadinessSummary(room, shareReadiness);
 
     if (prefsValue.hasValue) {
       _maybeAutoOpenGuide(room, prefs);
@@ -499,7 +661,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
           icon: Icon(roomState.refreshing ? Icons.sync : Icons.refresh),
         ),
         IconButton(
-          onPressed: _shareBusy
+          onPressed: _shareBusy || !shareReadiness.isReady
               ? null
               : () => unawaited(
                   _shareInvite(inviteUri, room.roomName ?? room.slug)),
@@ -557,17 +719,39 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               actionInFlight: roomState.actionInFlight,
               onImport: () => unawaited(
                   _importPendingRoomSeed(prefs.pendingRoomSeed!, room)),
+              onClear: () => unawaited(_clearPendingRoomSeed()),
             ),
             const SizedBox(height: 14),
           ],
           _OverviewCard(room: room),
           const SizedBox(height: 14),
+          _LiveSignalCard(
+            room: room,
+            roomState: roomState,
+          ),
+          const SizedBox(height: 14),
+          _ShareReadinessCard(
+            room: room,
+            readiness: shareReadiness,
+            summary: shareReadinessSummary,
+          ),
+          const SizedBox(height: 14),
           _InviteCard(
             inviteUri: inviteUri,
-            showQr: _showQr,
-            onToggleQr: () => setState(() => _showQr = !_showQr),
-            onCopy: () => unawaited(_copyInvite(inviteUri)),
-            onShare: _shareBusy
+            roomSlug: room.slug,
+            joinPath: '/join/${Uri.encodeComponent(room.slug)}',
+            shareReady: shareReadiness.isReady,
+            lockedMessage: shareReadinessSummary,
+            showQr: _showQr && shareReadiness.isReady,
+            copyLabel: _inviteCopied ? 'Copied' : 'Copy invite',
+            shareLabel: _shareBusy ? 'Sharing...' : 'Share invite',
+            onToggleQr: shareReadiness.isReady
+                ? () => setState(() => _showQr = !_showQr)
+                : null,
+            onCopy: shareReadiness.isReady
+                ? () => unawaited(_copyInvite(inviteUri))
+                : null,
+            onShare: _shareBusy || !shareReadiness.isReady
                 ? null
                 : () => unawaited(
                     _shareInvite(inviteUri, room.roomName ?? room.slug)),
@@ -807,16 +991,49 @@ class _PendingRoomSeedCard extends StatelessWidget {
     required this.room,
     required this.actionInFlight,
     required this.onImport,
+    required this.onClear,
   });
 
   final PendingRoomSeed seed;
   final RoomSnapshot room;
   final bool actionInFlight;
   final VoidCallback onImport;
+  final VoidCallback onClear;
 
   @override
   Widget build(BuildContext context) {
-    final bool surfaceMatches = room.surface?.id == seed.surface.id;
+    final bool surfaceMatches = _pendingSeedMatchesRoomSurface(room, seed);
+    final Set<String> queuedClimbIds =
+        room.queue.map((QueueEntry entry) => entry.climb.id).toSet();
+    final int pendingClimbCount = seed.climbs
+        .where((ProviderClimb item) => !queuedClimbIds.contains(item.id))
+        .length;
+    final bool hasClimbs = seed.climbs.isNotEmpty;
+    final String title = hasClimbs
+        ? 'Saved plan seed is ready'
+        : 'Saved surface context is ready';
+    final String summary;
+    if (hasClimbs) {
+      summary = '${seed.surface.name} · ${seed.climbs.length} climb'
+          '${seed.climbs.length == 1 ? '' : 's'}';
+    } else {
+      summary = seed.surface.name;
+    }
+    final String body;
+    if (hasClimbs) {
+      if (surfaceMatches) {
+        body = pendingClimbCount > 0
+            ? 'Import $pendingClimbCount saved climb${pendingClimbCount == 1 ? '' : 's'} into this room queue.'
+            : 'Every saved climb is already in the room queue.';
+      } else {
+        body =
+            'Choose ${seed.surface.name} as the room surface first, then import the saved queue.';
+      }
+    } else {
+      body = surfaceMatches
+          ? 'This room is already set to the saved plan context.'
+          : 'Choose ${seed.surface.name} as the room surface first to use the saved plan context in this room.';
+    }
 
     return Card(
       child: Container(
@@ -834,23 +1051,38 @@ class _PendingRoomSeedCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Saved plan seed is ready',
+              title,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8),
             Text(
-              '${seed.surface.name} · ${seed.climbs.length} climb${seed.climbs.length == 1 ? '' : 's'}',
+              summary,
             ),
             const SizedBox(height: 10),
-            Text(
-              surfaceMatches
-                  ? 'This room already matches the saved plan context. Import the queued climbs directly.'
-                  : 'Choose ${seed.surface.name} as the room surface first, then import the saved queue.',
-            ),
+            Text(body),
             const SizedBox(height: 14),
-            FilledButton.tonal(
-              onPressed: surfaceMatches && !actionInFlight ? onImport : null,
-              child: const Text('Import plan to queue'),
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: <Widget>[
+                if (surfaceMatches && hasClimbs)
+                  FilledButton.tonal(
+                    onPressed: actionInFlight
+                        ? null
+                        : pendingClimbCount > 0
+                            ? onImport
+                            : onClear,
+                    child: Text(
+                      pendingClimbCount > 0
+                          ? 'Import plan to queue'
+                          : 'Clear imported seed',
+                    ),
+                  ),
+                TextButton(
+                  onPressed: actionInFlight ? null : onClear,
+                  child: const Text('Discard seed'),
+                ),
+              ],
             ),
           ],
         ),
@@ -869,6 +1101,26 @@ class _OverviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
+    final List<Participant> liveParticipants = room.participants
+        .where((Participant participant) => participant.isOnline)
+        .toList(growable: false);
+    final Map<String, int> readinessCounts = <String, int>{
+      'ready': 0,
+      'resting': 0,
+      'away': 0,
+      'watching': 0,
+    };
+    for (final Participant participant in room.participants) {
+      readinessCounts[participant.status] =
+          (readinessCounts[participant.status] ?? 0) + 1;
+    }
+    final String sharedSurfaceLabel = room.surface?.name ??
+        (_viewerOwnsRoomSetup(room) ? 'Not selected yet' : 'Waiting for host');
+    final String currentClimbLabel =
+        room.currentClimb?.name ?? 'No current climb selected';
+    final String signedInAs = (room.displayName ?? '').trim().isNotEmpty
+        ? room.displayName!
+        : 'Unknown participant';
 
     return Card(
       child: Padding(
@@ -890,14 +1142,93 @@ class _OverviewCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 14),
-            Text(
-              room.currentClimb?.name ?? 'No current climb selected',
-              style: textTheme.headlineMedium,
+            Text('Room overview', style: textTheme.headlineMedium),
+            const SizedBox(height: 12),
+            Wrap(
+              spacing: 24,
+              runSpacing: 16,
+              children: <Widget>[
+                _OverviewStat(
+                  label: 'Signed in as',
+                  value: signedInAs,
+                ),
+                _OverviewStat(
+                  label: 'Shared surface',
+                  value: sharedSurfaceLabel,
+                ),
+                _OverviewStat(
+                  label: 'Current climb',
+                  value: currentClimbLabel,
+                  supportingText: room.currentClimb?.primaryGrade,
+                ),
+                _OverviewStat(
+                  label: 'Room slug',
+                  value: room.slug,
+                  monospace: true,
+                ),
+              ],
             ),
-            if (room.currentClimb?.primaryGrade != null) ...<Widget>[
-              const SizedBox(height: 6),
-              Text(room.currentClimb!.primaryGrade!),
-            ],
+            const SizedBox(height: 18),
+            Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFFF8FAFC),
+                borderRadius: BorderRadius.circular(22),
+                border: Border.all(color: const Color(0xFFE2E8F0)),
+              ),
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          'Room pulse',
+                          style: textTheme.titleLarge,
+                        ),
+                      ),
+                      Text(
+                        liveParticipants.isEmpty
+                            ? 'No one online yet'
+                            : '${liveParticipants.length} online now',
+                        style: textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Wrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    children: <Widget>[
+                      _Chip(label: '${readinessCounts['ready'] ?? 0} ready'),
+                      _Chip(
+                          label: '${readinessCounts['resting'] ?? 0} resting'),
+                      _Chip(label: '${readinessCounts['away'] ?? 0} away'),
+                      _Chip(
+                          label:
+                              '${readinessCounts['watching'] ?? 0} watching'),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Wrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    children: liveParticipants.isEmpty
+                        ? const <Widget>[
+                            _Chip(label: 'Waiting for guests'),
+                          ]
+                        : liveParticipants
+                            .map(
+                              (Participant participant) => _Chip(
+                                label:
+                                    '${participant.displayName} · ${participant.status}',
+                              ),
+                            )
+                            .toList(growable: false),
+                  ),
+                ],
+              ),
+            ),
             if (room.assistant.message != null ||
                 room.assistant.suggestion != null) ...<Widget>[
               const SizedBox(height: 16),
@@ -934,19 +1265,325 @@ class _OverviewCard extends StatelessWidget {
   }
 }
 
+class _LiveSignalCard extends StatelessWidget {
+  const _LiveSignalCard({
+    required this.room,
+    required this.roomState,
+  });
+
+  final RoomSnapshot room;
+  final RoomViewState roomState;
+
+  @override
+  Widget build(BuildContext context) {
+    final QueueEntry? nextEntry = room.queue
+        .where((QueueEntry entry) => entry.status == 'next')
+        .firstOrNull;
+    final Map<String, ProviderClimb> climbsById = <String, ProviderClimb>{};
+    for (final ProviderClimb climb
+        in roomState.catalog?.climbs ?? <ProviderClimb>[]) {
+      climbsById[climb.id] = climb;
+    }
+    for (final QueueEntry entry in room.queue) {
+      climbsById[entry.climb.id] = entry.climb;
+    }
+    for (final FinalistEntry entry in room.finalists) {
+      climbsById[entry.climb.id] = entry.climb;
+    }
+    if (room.currentClimb != null) {
+      climbsById[room.currentClimb!.id] = room.currentClimb!;
+    }
+    if (roomState.selectedCatalogClimb != null) {
+      climbsById[roomState.selectedCatalogClimb!.climb.id] =
+          roomState.selectedCatalogClimb!.climb;
+    }
+
+    final List<ProviderClimb> leaderboard = climbsById.values
+        .where((ProviderClimb climb) => (room.voteCounts[climb.id] ?? 0) > 0)
+        .toList(growable: false)
+      ..sort((ProviderClimb left, ProviderClimb right) {
+        final int voteDelta =
+            (room.voteCounts[right.id] ?? 0) - (room.voteCounts[left.id] ?? 0);
+        if (voteDelta != 0) {
+          return voteDelta;
+        }
+        return left.name.compareTo(right.name);
+      });
+
+    final List<ProviderClimb> topClimbs = leaderboard.take(3).toList();
+    final int topVoteCount =
+        topClimbs.isEmpty ? 0 : (room.voteCounts[topClimbs.first.id] ?? 0);
+    final int topVoteTieCount = topVoteCount == 0
+        ? 0
+        : leaderboard
+            .where((ProviderClimb climb) =>
+                (room.voteCounts[climb.id] ?? 0) == topVoteCount)
+            .length;
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(22),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Live signal',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Use the current climb, next pick, and vote pressure to keep the room moving without losing the shared context.',
+            ),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 24,
+              runSpacing: 16,
+              children: <Widget>[
+                _OverviewStat(
+                  label: 'Current climb',
+                  value: room.currentClimb?.name ?? 'Nothing live yet',
+                  supportingText: room.currentClimb?.primaryGrade,
+                ),
+                _OverviewStat(
+                  label: 'Next climb',
+                  value: nextEntry?.climb.name ??
+                      (room.queue.isEmpty
+                          ? 'Queue is still empty'
+                          : 'No next climb picked'),
+                  supportingText: nextEntry?.climb.primaryGrade,
+                ),
+                _OverviewStat(
+                  label: 'Top-voted pressure',
+                  value: topClimbs.isEmpty
+                      ? 'No votes yet'
+                      : topVoteTieCount > 1
+                          ? '$topVoteTieCount climbs tied at $topVoteCount votes'
+                          : '${topClimbs.first.name} · $topVoteCount votes',
+                ),
+              ],
+            ),
+            const SizedBox(height: 18),
+            if (topClimbs.isEmpty)
+              const Text(
+                'Votes, finalists, and queue changes will start surfacing here once the room activity picks up.',
+              )
+            else
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Top voted right now',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 10),
+                  ...topClimbs.map(
+                    (ProviderClimb climb) => Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Text(
+                              climb.name,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          _Chip(
+                            label:
+                                '${room.voteCounts[climb.id] ?? 0} vote${(room.voteCounts[climb.id] ?? 0) == 1 ? '' : 's'}',
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _OverviewStat extends StatelessWidget {
+  const _OverviewStat({
+    required this.label,
+    required this.value,
+    this.supportingText,
+    this.monospace = false,
+  });
+
+  final String label;
+  final String value;
+  final String? supportingText;
+  final bool monospace;
+
+  @override
+  Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    return SizedBox(
+      width: 180,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(label, style: textTheme.bodySmall),
+          const SizedBox(height: 4),
+          Text(
+            value,
+            style: monospace
+                ? textTheme.titleMedium?.copyWith(
+                    fontFamily: 'monospace',
+                  )
+                : textTheme.titleMedium,
+          ),
+          if ((supportingText ?? '').trim().isNotEmpty) ...<Widget>[
+            const SizedBox(height: 4),
+            Text(
+              supportingText!,
+              style: textTheme.bodySmall,
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _ShareReadinessCard extends StatelessWidget {
+  const _ShareReadinessCard({
+    required this.room,
+    required this.readiness,
+    required this.summary,
+  });
+
+  final RoomSnapshot room;
+  final _ShareReadiness readiness;
+  final String summary;
+
+  @override
+  Widget build(BuildContext context) {
+    final bool owner = _viewerOwnsRoomSetup(room);
+    final bool closed = !readiness.roomOpen;
+    final bool ready = readiness.isReady;
+    final Color accent = closed
+        ? const Color(0xFF991B1B)
+        : ready
+            ? const Color(0xFF047857)
+            : owner
+                ? const Color(0xFF92400E)
+                : const Color(0xFF1D4ED8);
+    final String title = closed
+        ? 'Room is closed'
+        : ready
+            ? 'Room is ready to share'
+            : owner
+                ? 'Room not ready to share yet'
+                : 'Waiting for host setup';
+
+    return Card(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(28),
+          border: Border.all(color: accent.withValues(alpha: 0.16)),
+        ),
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              title,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineMedium
+                  ?.copyWith(color: accent),
+            ),
+            const SizedBox(height: 8),
+            Text(summary),
+            const SizedBox(height: 16),
+            _ReadinessItem(
+              label: 'Room is open',
+              complete: readiness.roomOpen,
+            ),
+            const SizedBox(height: 10),
+            _ReadinessItem(
+              label: 'Provider connected on host phone',
+              complete: readiness.providerConnected,
+            ),
+            const SizedBox(height: 10),
+            _ReadinessItem(
+              label: 'Shared surface selected',
+              complete: readiness.surfaceSelected,
+            ),
+            const SizedBox(height: 10),
+            _ReadinessItem(
+              label: 'Invite unlocked',
+              complete: readiness.inviteUnlocked,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ReadinessItem extends StatelessWidget {
+  const _ReadinessItem({
+    required this.label,
+    required this.complete,
+  });
+
+  final String label;
+  final bool complete;
+
+  @override
+  Widget build(BuildContext context) {
+    final Color color =
+        complete ? const Color(0xFF047857) : const Color(0xFF6B7280);
+    return Row(
+      children: <Widget>[
+        Icon(
+          complete ? Icons.check_circle : Icons.radio_button_unchecked,
+          color: color,
+          size: 18,
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Text(
+            label,
+            style:
+                Theme.of(context).textTheme.bodyMedium?.copyWith(color: color),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class _InviteCard extends StatelessWidget {
   const _InviteCard({
     required this.inviteUri,
+    required this.roomSlug,
+    required this.joinPath,
+    required this.shareReady,
+    required this.lockedMessage,
     required this.showQr,
+    required this.copyLabel,
+    required this.shareLabel,
     required this.onToggleQr,
     required this.onCopy,
     required this.onShare,
   });
 
   final Uri inviteUri;
+  final String roomSlug;
+  final String joinPath;
+  final bool shareReady;
+  final String lockedMessage;
   final bool showQr;
-  final VoidCallback onToggleQr;
-  final VoidCallback onCopy;
+  final String copyLabel;
+  final String shareLabel;
+  final VoidCallback? onToggleQr;
+  final VoidCallback? onCopy;
   final VoidCallback? onShare;
 
   @override
@@ -962,7 +1599,45 @@ class _InviteCard extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 8),
-            SelectableText(inviteUri.toString()),
+            if (shareReady)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Share the link or let guests scan the QR code.',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 14),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: _InviteSummaryTile(
+                          label: 'Join path',
+                          primaryText: joinPath,
+                          secondaryText: inviteUri.toString(),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: _InviteSummaryTile(
+                          label: 'Room slug',
+                          primaryText: roomSlug,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              )
+            else
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFFBEB),
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                padding: const EdgeInsets.all(14),
+                child: Text(lockedMessage),
+              ),
             const SizedBox(height: 14),
             Wrap(
               spacing: 10,
@@ -970,11 +1645,11 @@ class _InviteCard extends StatelessWidget {
               children: <Widget>[
                 FilledButton.tonal(
                   onPressed: onCopy,
-                  child: const Text('Copy invite'),
+                  child: Text(copyLabel),
                 ),
                 FilledButton.tonal(
                   onPressed: onShare,
-                  child: const Text('Share invite'),
+                  child: Text(shareLabel),
                 ),
                 OutlinedButton(
                   onPressed: onToggleQr,
@@ -982,7 +1657,7 @@ class _InviteCard extends StatelessWidget {
                 ),
               ],
             ),
-            if (showQr) ...<Widget>[
+            if (showQr && shareReady) ...<Widget>[
               const SizedBox(height: 18),
               Center(
                 child: QrImageView(
@@ -995,6 +1670,52 @@ class _InviteCard extends StatelessWidget {
             ],
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _InviteSummaryTile extends StatelessWidget {
+  const _InviteSummaryTile({
+    required this.label,
+    required this.primaryText,
+    this.secondaryText,
+  });
+
+  final String label;
+  final String primaryText;
+  final String? secondaryText;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: const Color(0xFFF8FAFC),
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: const Color(0xFFE2E8F0)),
+      ),
+      padding: const EdgeInsets.all(14),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            label,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          const SizedBox(height: 6),
+          Text(
+            primaryText,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          if ((secondaryText ?? '').isNotEmpty) ...<Widget>[
+            const SizedBox(height: 4),
+            SelectableText(
+              secondaryText!,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ],
+        ],
       ),
     );
   }
@@ -1175,7 +1896,7 @@ class _SurfaceCard extends StatelessWidget {
             if (onSaveSurface != null) ...<Widget>[
               const SizedBox(height: 14),
               FilledButton.tonal(
-                onPressed: onSaveSurface,
+                onPressed: roomState.actionInFlight ? null : onSaveSurface,
                 child: const Text('Save room surface'),
               ),
             ],
@@ -1206,7 +1927,7 @@ class _SurfaceCard extends StatelessWidget {
             ),
             if (onReconnect != null)
               FilledButton.tonal(
-                onPressed: onReconnect,
+                onPressed: roomState.actionInFlight ? null : onReconnect,
                 child: const Text('Reconnect provider'),
               ),
           ],
@@ -1251,6 +1972,30 @@ class _CatalogCard extends StatelessWidget {
     final RoomCatalogClimbsResponse? catalog = roomState.catalog;
     final RoomCatalogClimbResponse? selectedClimb =
         roomState.selectedCatalogClimb;
+    final QueueEntry? selectedQueueEntry = selectedClimb == null
+        ? null
+        : room.queue
+            .where(
+                (QueueEntry entry) => entry.climb.id == selectedClimb.climb.id)
+            .firstOrNull;
+    final bool selectedIsQueued = selectedQueueEntry != null;
+    final bool selectedIsFinalist = selectedClimb != null &&
+        room.finalists.any(
+          (FinalistEntry entry) => entry.climb.id == selectedClimb.climb.id,
+        );
+    final String emptyCatalogMessage;
+    if (room.status == 'closed') {
+      emptyCatalogMessage =
+          'This room is closed. Start a new room if you want to browse climbs again.';
+    } else if (!room.connection.connected) {
+      emptyCatalogMessage =
+          'Waiting for the host to reconnect the provider before climbs can load.';
+    } else if (room.surface == null) {
+      emptyCatalogMessage =
+          'Waiting for the host to choose the shared surface for this room.';
+    } else {
+      emptyCatalogMessage = 'No climbs are loaded for this room surface yet.';
+    }
 
     return Card(
       child: Padding(
@@ -1303,6 +2048,19 @@ class _CatalogCard extends StatelessWidget {
                       selectedClimb.climb.name,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: <Widget>[
+                        if (selectedIsQueued) const _Chip(label: 'Queued'),
+                        if (selectedQueueEntry?.status == 'current')
+                          const _Chip(label: 'Current'),
+                        if (selectedQueueEntry?.status == 'next')
+                          const _Chip(label: 'Next'),
+                        if (selectedIsFinalist) const _Chip(label: 'Finalist'),
+                      ],
+                    ),
                     const SizedBox(height: 6),
                     Text(selectedClimb.climb.setterName ?? 'Unknown setter'),
                     if (selectedClimb.climb.primaryGrade != null) ...<Widget>[
@@ -1321,26 +2079,42 @@ class _CatalogCard extends StatelessWidget {
                         ),
                         if (room.permissions.manageQueue)
                           FilledButton.tonal(
-                            onPressed: () => onAddQueue(selectedClimb.climb.id),
-                            child: const Text('Queue'),
+                            onPressed:
+                                selectedIsQueued || room.status == 'closed'
+                                    ? null
+                                    : () => onAddQueue(selectedClimb.climb.id),
+                            child: Text(
+                              selectedIsQueued
+                                  ? 'Already queued'
+                                  : 'Add to queue',
+                            ),
                           ),
                         if (room.permissions.manageFinalists)
                           FilledButton.tonal(
-                            onPressed: () =>
-                                onAddFinalist(selectedClimb.climb.id),
-                            child: const Text('Finalist'),
+                            onPressed: selectedIsFinalist ||
+                                    room.status == 'closed'
+                                ? null
+                                : () => onAddFinalist(selectedClimb.climb.id),
+                            child: Text(
+                              selectedIsFinalist
+                                  ? 'Already finalist'
+                                  : 'Add finalist',
+                            ),
                           ),
                         if (room.permissions.manageSession)
                           FilledButton.tonal(
-                            onPressed: () =>
-                                onPromoteCurrent(selectedClimb.climb.id),
-                            child: const Text('Current'),
+                            onPressed: room.status == 'closed'
+                                ? null
+                                : () =>
+                                    onPromoteCurrent(selectedClimb.climb.id),
+                            child: const Text('Promote to current'),
                           ),
                         if (room.permissions.manageSession)
                           FilledButton.tonal(
-                            onPressed: () =>
-                                onPromoteNext(selectedClimb.climb.id),
-                            child: const Text('Next'),
+                            onPressed: room.status == 'closed'
+                                ? null
+                                : () => onPromoteNext(selectedClimb.climb.id),
+                            child: const Text('Promote to next'),
                           ),
                       ],
                     ),
@@ -1355,7 +2129,7 @@ class _CatalogCard extends StatelessWidget {
                 child: Center(child: CircularProgressIndicator()),
               )
             else if (catalog == null || catalog.climbs.isEmpty)
-              const Text('No climbs are loaded for this room surface yet.')
+              Text(emptyCatalogMessage)
             else
               ...catalog.climbs.map(
                 (ProviderClimb climb) => ListTile(

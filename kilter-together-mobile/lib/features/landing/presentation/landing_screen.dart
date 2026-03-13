@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/deep_links/invite_links.dart';
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/product_models.dart';
 import '../../../core/models/session_models.dart';
@@ -53,6 +54,29 @@ const FlowGuideContent _landingGuide = FlowGuideContent(
   completionLabel: 'Mark landing guide complete',
 );
 
+String _providerLabel(String providerId) {
+  return switch (providerId) {
+    'kilter' => 'Kilter',
+    'crux' => 'Crux',
+    _ => providerId,
+  };
+}
+
+String _formatRecentRoomLastSeen(BuildContext context, String raw) {
+  final DateTime? parsed = DateTime.tryParse(raw);
+  if (parsed == null) {
+    return raw;
+  }
+  final DateTime local = parsed.toLocal();
+  final MaterialLocalizations localizations = MaterialLocalizations.of(context);
+  final bool use24HourFormat =
+      MediaQuery.maybeOf(context)?.alwaysUse24HourFormat ?? false;
+  return '${localizations.formatMediumDate(local)} · ${localizations.formatTimeOfDay(
+    TimeOfDay.fromDateTime(local),
+    alwaysUse24HourFormat: use24HourFormat,
+  )}';
+}
+
 class LandingScreen extends ConsumerStatefulWidget {
   const LandingScreen({super.key});
 
@@ -62,6 +86,13 @@ class LandingScreen extends ConsumerStatefulWidget {
 
 class _LandingScreenState extends ConsumerState<LandingScreen> {
   bool _autoGuideAttempted = false;
+  final TextEditingController _quickJoinController = TextEditingController();
+
+  @override
+  void dispose() {
+    _quickJoinController.dispose();
+    super.dispose();
+  }
 
   void _maybeAutoOpenGuide(AppPrefs prefs) {
     if (_autoGuideAttempted ||
@@ -116,6 +147,57 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
     );
   }
 
+  Future<void> _startQuickJoin(Uri? activeServer) async {
+    final String rawValue = _quickJoinController.text.trim();
+    if (rawValue.isEmpty) {
+      _showSnack('Paste a room invite, web join link, or room slug first.');
+      return;
+    }
+
+    final InviteLink? invite = InviteLink.parse(rawValue);
+    if (invite != null && invite.kind != InviteKind.join) {
+      final String destination = switch (invite.kind) {
+        InviteKind.join => 'room invite',
+        InviteKind.recap => 'recap',
+        InviteKind.plan => 'plan',
+      };
+      _showSnack(
+        'That link opens a $destination, not a room invite. Open it from the matching flow instead.',
+      );
+      return;
+    }
+
+    final RoomJoinTarget? joinTarget = parseRoomJoinTarget(
+      rawValue,
+      fallbackServer: activeServer,
+    );
+    if (joinTarget == null) {
+      _showSnack(
+        'Paste a room invite, web join link, or room slug to continue.',
+      );
+      return;
+    }
+
+    await ref
+        .read(appPrefsControllerProvider.notifier)
+        .queueGuideBranch('guest');
+    if (!mounted) {
+      return;
+    }
+    context.goNamed(
+      'join-room',
+      queryParameters: <String, String>{
+        'slug': joinTarget.slug,
+        if (joinTarget.server != null) 'server': joinTarget.server.toString(),
+      },
+    );
+  }
+
+  void _showSnack(String message) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+  }
+
   @override
   Widget build(BuildContext context) {
     final AsyncValue<AppPrefs> prefsValue =
@@ -144,10 +226,6 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
           onPressed: () => context.goNamed('about'),
           icon: const Icon(Icons.info_outline),
         ),
-        IconButton(
-          onPressed: () => context.goNamed('settings'),
-          icon: const Icon(Icons.tune),
-        ),
       ],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,13 +241,13 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
             ),
           ),
           const SizedBox(height: 14),
-          _ActionCard(
-            title: 'Join a room',
-            description:
-                'Paste or scan a mobile invite that already includes the self-hosted server address.',
+          _JoinActionCard(
+            controller: _quickJoinController,
             accent: const Color(0xFF4D7C0F),
-            buttonLabel: 'Join invite',
-            onPressed: () => unawaited(
+            activeServer: activeServer.valueOrNull,
+            onQuickJoin: () =>
+                unawaited(_startQuickJoin(activeServer.valueOrNull)),
+            onOpenJoinFlow: () => unawaited(
               _startBranch(branch: 'guest', routeName: 'join-room'),
             ),
           ),
@@ -183,15 +261,6 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
             onPressed: () => unawaited(
               _startBranch(branch: 'solo', routeName: 'solo-entry'),
             ),
-          ),
-          const SizedBox(height: 14),
-          _ActionCard(
-            title: 'Settings',
-            description:
-                'Adjust local-only defaults for guides, recent rooms, provider memory, and solo behavior.',
-            accent: const Color(0xFF7C3AED),
-            buttonLabel: 'Open settings',
-            onPressed: () => context.goNamed('settings'),
           ),
           const SizedBox(height: 20),
           Row(
@@ -305,31 +374,9 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
                     .map(
                       (SessionSummary session) => Padding(
                         padding: const EdgeInsets.only(bottom: 10),
-                        child: Card(
-                          child: ListTile(
-                            title: Text(session.roomName ?? session.roomSlug),
-                            subtitle: Text(
-                              [
-                                session.providerId,
-                                if ((session.surfaceName ?? '').isNotEmpty)
-                                  session.surfaceName!,
-                                '${session.participantCount} people',
-                              ].join(' · '),
-                            ),
-                            trailing: session.recapShareId == null
-                                ? null
-                                : const Icon(Icons.chevron_right),
-                            onTap: session.recapShareId == null
-                                ? null
-                                : () => context.goNamed(
-                                      'recap',
-                                      queryParameters: <String, String>{
-                                        'server':
-                                            activeServer.value!.toString(),
-                                        'share_id': session.recapShareId!,
-                                      },
-                                    ),
-                          ),
+                        child: _RecentSessionTile(
+                          session: session,
+                          server: activeServer.valueOrNull,
                         ),
                       ),
                     )
@@ -407,6 +454,94 @@ class _ActionCard extends StatelessWidget {
   }
 }
 
+class _JoinActionCard extends StatelessWidget {
+  const _JoinActionCard({
+    required this.controller,
+    required this.accent,
+    required this.activeServer,
+    required this.onQuickJoin,
+    required this.onOpenJoinFlow,
+  });
+
+  final TextEditingController controller;
+  final Color accent;
+  final Uri? activeServer;
+  final VoidCallback onQuickJoin;
+  final VoidCallback onOpenJoinFlow;
+
+  @override
+  Widget build(BuildContext context) {
+    final Uri? resolvedServer = activeServer;
+
+    return Card(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(28),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: <Color>[
+              accent.withValues(alpha: 0.14),
+              Colors.white,
+            ],
+          ),
+        ),
+        padding: const EdgeInsets.all(22),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Join a room',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 10),
+            Text(
+              activeServer == null
+                  ? 'Paste a room invite or web join link. If you only have the slug, the join screen will still ask for the self-hosted server.'
+                  : 'Paste a room invite, web join link, or room slug to jump into the guest join flow without leaving landing first.',
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: controller,
+              decoration: const InputDecoration(
+                labelText: 'Invite or room slug',
+                hintText:
+                    'kiltertogether://join?... / https://.../join/... / room-slug',
+              ),
+              textInputAction: TextInputAction.go,
+              onSubmitted: (_) => onQuickJoin(),
+            ),
+            const SizedBox(height: 10),
+            if (activeServer != null)
+              Text(
+                'Active server: ${describeServer(resolvedServer!)}',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            const SizedBox(height: 18),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: FilledButton.tonal(
+                    onPressed: onQuickJoin,
+                    child: const Text('Quick join'),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: onOpenJoinFlow,
+                    child: const Text('Open join flow'),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _RecentRoomTile extends ConsumerWidget {
   const _RecentRoomTile({
     required this.room,
@@ -420,46 +555,19 @@ class _RecentRoomTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final String roomLabel = room.roomName ?? 'Room ${room.slug}';
+    final String providerLabel = _providerLabel(room.providerId);
+    final String surfaceLabel = (room.surfaceName ?? '').trim().isEmpty
+        ? 'Surface not chosen yet'
+        : room.surfaceName!;
+    final String lastSeen = _formatRecentRoomLastSeen(
+      context,
+      room.lastVisitedAt,
+    );
+
     return Card(
-      child: ListTile(
-        title: Text(room.roomName ?? room.slug),
-        subtitle: Text(
-          [
-            room.providerId,
-            if ((room.surfaceName ?? '').isNotEmpty) room.surfaceName!,
-            describeServer(normalizeServerUri(room.server)),
-          ].join(' · '),
-        ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            IconButton(
-              onPressed: () => unawaited(
-                ref
-                    .read(appPrefsControllerProvider.notifier)
-                    .togglePinnedRecentRoom(
-                      server: normalizeServerUri(room.server),
-                      slug: room.slug,
-                    ),
-              ),
-              icon: Icon(
-                room.pinned ? Icons.push_pin : Icons.push_pin_outlined,
-              ),
-            ),
-            if (showRemove)
-              IconButton(
-                onPressed: () => unawaited(
-                  ref
-                      .read(appPrefsControllerProvider.notifier)
-                      .removeRecentRoom(
-                        server: normalizeServerUri(room.server),
-                        slug: room.slug,
-                      ),
-                ),
-                icon: const Icon(Icons.delete_outline),
-              ),
-          ],
-        ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(28),
         onTap: onTap ??
             () => context.goNamed(
                   'room',
@@ -468,6 +576,262 @@ class _RecentRoomTile extends ConsumerWidget {
                     'slug': room.slug,
                   },
                 ),
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              roomLabel,
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            if (room.pinned)
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFCCFBF1),
+                                  borderRadius: BorderRadius.circular(999),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: const <Widget>[
+                                    Icon(
+                                      Icons.push_pin,
+                                      size: 12,
+                                      color: Color(0xFF115E59),
+                                    ),
+                                    SizedBox(width: 4),
+                                    Text(
+                                      'Pinned',
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color(0xFF115E59),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                          ],
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          '$providerLabel · ${room.slug}',
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    letterSpacing: 0.4,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      IconButton(
+                        onPressed: () => unawaited(
+                          ref
+                              .read(appPrefsControllerProvider.notifier)
+                              .togglePinnedRecentRoom(
+                                server: normalizeServerUri(room.server),
+                                slug: room.slug,
+                              ),
+                        ),
+                        icon: Icon(
+                          room.pinned
+                              ? Icons.push_pin
+                              : Icons.push_pin_outlined,
+                        ),
+                      ),
+                      if (showRemove)
+                        IconButton(
+                          onPressed: () => unawaited(
+                            ref
+                                .read(appPrefsControllerProvider.notifier)
+                                .removeRecentRoom(
+                                  server: normalizeServerUri(room.server),
+                                  slug: room.slug,
+                                ),
+                          ),
+                          icon: const Icon(Icons.delete_outline),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Text(surfaceLabel),
+              const SizedBox(height: 4),
+              Text(
+                describeServer(normalizeServerUri(room.server)),
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+              const SizedBox(height: 14),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      'Last seen $lastSeen',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  OutlinedButton(
+                    onPressed: onTap ??
+                        () => context.goNamed(
+                              'room',
+                              queryParameters: <String, String>{
+                                'server': room.server,
+                                'slug': room.slug,
+                              },
+                            ),
+                    child: const Text('Open room'),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _RecentSessionTile extends StatelessWidget {
+  const _RecentSessionTile({
+    required this.session,
+    required this.server,
+  });
+
+  final SessionSummary session;
+  final Uri? server;
+
+  @override
+  Widget build(BuildContext context) {
+    final SessionSummaryClimb? topClimb =
+        session.topVoted.isEmpty ? null : session.topVoted.first;
+    final int topVotes = topClimb?.voteCount ?? 0;
+
+    return Card(
+      child: InkWell(
+        borderRadius: BorderRadius.circular(28),
+        onTap: server == null || session.recapShareId == null
+            ? null
+            : () => context.goNamed(
+                  'recap',
+                  queryParameters: <String, String>{
+                    'server': server.toString(),
+                    'share_id': session.recapShareId!,
+                  },
+                ),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      session.roomName ?? session.roomSlug,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ),
+                  if (session.recapShareId != null)
+                    const Icon(Icons.chevron_right),
+                ],
+              ),
+              const SizedBox(height: 6),
+              Text(
+                [
+                  session.providerId,
+                  if ((session.surfaceName ?? '').isNotEmpty)
+                    session.surfaceName!,
+                  '${session.participantCount} people',
+                ].join(' · '),
+              ),
+              const SizedBox(height: 14),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: _SessionStatCard(
+                      title: 'Top voted',
+                      value: topClimb?.climb.name ?? 'No votes recorded',
+                      supportingText: topVotes > 0
+                          ? '$topVotes vote${topVotes == 1 ? '' : 's'}'
+                          : 'No fist bumps captured',
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: _SessionStatCard(
+                      title: 'Wrap-up',
+                      value:
+                          '${session.finalQueue.length} queued · ${session.finalists.length} finalists',
+                      supportingText:
+                          'Closed ${MaterialLocalizations.of(context).formatShortDate(session.closedAt.toLocal())}',
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SessionStatCard extends StatelessWidget {
+  const _SessionStatCard({
+    required this.title,
+    required this.value,
+    required this.supportingText,
+  });
+
+  final String title;
+  final String value;
+  final String supportingText;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFFF8FAFC),
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(color: const Color(0xFFE2E8F0)),
+      ),
+      padding: const EdgeInsets.all(14),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            title,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          const SizedBox(height: 6),
+          Text(
+            value,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          const SizedBox(height: 4),
+          Text(supportingText),
+        ],
       ),
     );
   }

@@ -108,6 +108,13 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
+                        "type": "string",
+                        "example": "7a/V6",
+                        "description": "Filter climbs by the current-angle grade (matches boulder or route grade)",
+                        "name": "grade",
+                        "in": "query"
+                    },
+                    {
                         "type": "integer",
                         "example": 14,
                         "description": "Filter climbs by board/product size ID",
@@ -217,7 +224,7 @@ const docTemplate = `{
         },
         "/rooms": {
             "post": {
-                "description": "Create a room, validate the provider secret, persist the host session, and return the initial room snapshot.",
+                "description": "Create a room, validate the provider secret, persist the host session, and return the initial room snapshot with the host bearer session.",
                 "consumes": [
                     "application/json"
                 ],
@@ -243,7 +250,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/rooms.RoomSnapshot"
+                            "$ref": "#/definitions/handlers.roomSessionEnvelope"
                         }
                     },
                     "400": {
@@ -610,7 +617,7 @@ const docTemplate = `{
         },
         "/rooms/{slug}/join": {
             "post": {
-                "description": "Create a participant session for the room and return the room snapshot for the joining guest.",
+                "description": "Create a participant session for the room and return the room snapshot with the joining guest bearer session.",
                 "consumes": [
                     "application/json"
                 ],
@@ -643,7 +650,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/rooms.RoomSnapshot"
+                            "$ref": "#/definitions/handlers.roomSessionEnvelope"
                         }
                     },
                     "400": {
@@ -851,6 +858,52 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/sessions/recent": {
+            "get": {
+                "description": "Return recent closed-room summaries for the landing page and operator review.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "sessions"
+                ],
+                "summary": "List recent closed room sessions",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Number of sessions to return",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.recentSessionsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -870,6 +923,9 @@ const docTemplate = `{
             "properties": {
                 "display_name": {
                     "type": "string"
+                },
+                "fist_bumps_enabled": {
+                    "type": "boolean"
                 },
                 "provider_id": {
                     "type": "string"
@@ -917,6 +973,42 @@ const docTemplate = `{
             "properties": {
                 "climb": {
                     "$ref": "#/definitions/providers.ProviderClimb"
+                }
+            }
+        },
+        "handlers.recentSessionsResponse": {
+            "type": "object",
+            "properties": {
+                "sessions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/rooms.SessionSummaryView"
+                    }
+                }
+            }
+        },
+        "handlers.roomSessionEnvelope": {
+            "type": "object",
+            "properties": {
+                "room": {
+                    "$ref": "#/definitions/rooms.RoomSnapshot"
+                },
+                "session": {
+                    "$ref": "#/definitions/handlers.roomSessionView"
+                }
+            }
+        },
+        "handlers.roomSessionView": {
+            "type": "object",
+            "properties": {
+                "expires_at": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
                 }
             }
         },
@@ -1240,6 +1332,34 @@ const docTemplate = `{
                 }
             }
         },
+        "rooms.AssistantStateView": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "mode": {
+                    "type": "string"
+                },
+                "suggestion": {
+                    "$ref": "#/definitions/rooms.AssistantSuggestionView"
+                }
+            }
+        },
+        "rooms.AssistantSuggestionView": {
+            "type": "object",
+            "properties": {
+                "climb": {
+                    "$ref": "#/definitions/providers.ProviderClimb"
+                },
+                "ready_count": {
+                    "type": "integer"
+                },
+                "source": {
+                    "type": "string"
+                }
+            }
+        },
         "rooms.CatalogClimbResponse": {
             "type": "object",
             "properties": {
@@ -1326,6 +1446,35 @@ const docTemplate = `{
                 }
             }
         },
+        "rooms.PermissionView": {
+            "type": "object",
+            "properties": {
+                "assign_co_hosts": {
+                    "type": "boolean"
+                },
+                "close_room": {
+                    "type": "boolean"
+                },
+                "edit_room_settings": {
+                    "type": "boolean"
+                },
+                "manage_finalists": {
+                    "type": "boolean"
+                },
+                "manage_participants": {
+                    "type": "boolean"
+                },
+                "manage_queue": {
+                    "type": "boolean"
+                },
+                "manage_session": {
+                    "type": "boolean"
+                },
+                "manage_surface": {
+                    "type": "boolean"
+                }
+            }
+        },
         "rooms.QueueEntryView": {
             "type": "object",
             "properties": {
@@ -1349,6 +1498,9 @@ const docTemplate = `{
         "rooms.RoomSnapshot": {
             "type": "object",
             "properties": {
+                "assistant": {
+                    "$ref": "#/definitions/rooms.AssistantStateView"
+                },
                 "can_manage": {
                     "type": "boolean"
                 },
@@ -1382,6 +1534,9 @@ const docTemplate = `{
                         "$ref": "#/definitions/rooms.ParticipantView"
                     }
                 },
+                "permissions": {
+                    "$ref": "#/definitions/rooms.PermissionView"
+                },
                 "provider_id": {
                     "$ref": "#/definitions/providers.ProviderID"
                 },
@@ -1410,6 +1565,73 @@ const docTemplate = `{
                     "type": "object",
                     "additionalProperties": {
                         "type": "integer"
+                    }
+                }
+            }
+        },
+        "rooms.SessionSummaryClimbView": {
+            "type": "object",
+            "properties": {
+                "added_by": {
+                    "type": "string"
+                },
+                "climb": {
+                    "$ref": "#/definitions/providers.ProviderClimb"
+                },
+                "position": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "vote_count": {
+                    "type": "integer"
+                }
+            }
+        },
+        "rooms.SessionSummaryView": {
+            "type": "object",
+            "properties": {
+                "closed_at": {
+                    "type": "string"
+                },
+                "final_queue": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/rooms.SessionSummaryClimbView"
+                    }
+                },
+                "finalists": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/rooms.SessionSummaryClimbView"
+                    }
+                },
+                "participant_count": {
+                    "type": "integer"
+                },
+                "provider_id": {
+                    "$ref": "#/definitions/providers.ProviderID"
+                },
+                "recap_share_id": {
+                    "type": "string"
+                },
+                "room_name": {
+                    "type": "string"
+                },
+                "room_slug": {
+                    "type": "string"
+                },
+                "surface_kind": {
+                    "type": "string"
+                },
+                "surface_name": {
+                    "type": "string"
+                },
+                "top_voted": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/rooms.SessionSummaryClimbView"
                     }
                 }
             }

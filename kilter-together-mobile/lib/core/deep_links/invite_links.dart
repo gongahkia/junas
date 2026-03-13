@@ -52,13 +52,15 @@ class InviteLink {
         return InviteLink(
           kind: InviteKind.recap,
           server: server,
-          shareId: uri.queryParameters['share_id'] ?? uri.queryParameters['shareId'],
+          shareId:
+              uri.queryParameters['share_id'] ?? uri.queryParameters['shareId'],
         );
       case 'plan':
         return InviteLink(
           kind: InviteKind.plan,
           server: server,
-          shareId: uri.queryParameters['share_id'] ?? uri.queryParameters['shareId'],
+          shareId:
+              uri.queryParameters['share_id'] ?? uri.queryParameters['shareId'],
         );
       default:
         return null;
@@ -88,4 +90,98 @@ class InviteLink {
       if (shareId != null && shareId!.isNotEmpty) 'share_id': shareId!,
     };
   }
+}
+
+class RoomJoinTarget {
+  const RoomJoinTarget({
+    required this.slug,
+    this.server,
+  });
+
+  final String slug;
+  final Uri? server;
+}
+
+String? extractRoomSlugFromValue(String value) {
+  final String trimmedValue = value.trim();
+  if (trimmedValue.isEmpty) {
+    return null;
+  }
+
+  final InviteLink? invite = InviteLink.parse(trimmedValue);
+  if (invite != null &&
+      invite.kind == InviteKind.join &&
+      (invite.slug ?? '').trim().isNotEmpty) {
+    return invite.slug!.trim();
+  }
+
+  final Uri? parsedUrl = Uri.tryParse(trimmedValue);
+  if (parsedUrl != null &&
+      (parsedUrl.scheme == 'http' || parsedUrl.scheme == 'https') &&
+      parsedUrl.host.isNotEmpty) {
+    return _extractRoomSlugFromPath(parsedUrl.path);
+  }
+
+  return _extractRoomSlugFromPath(trimmedValue);
+}
+
+RoomJoinTarget? parseRoomJoinTarget(
+  String raw, {
+  Uri? fallbackServer,
+}) {
+  final String trimmed = raw.trim();
+  if (trimmed.isEmpty) {
+    return null;
+  }
+
+  final InviteLink? invite = InviteLink.parse(trimmed);
+  if (invite != null) {
+    if (invite.kind != InviteKind.join || (invite.slug ?? '').trim().isEmpty) {
+      return null;
+    }
+    return RoomJoinTarget(
+      slug: invite.slug!.trim(),
+      server: invite.server,
+    );
+  }
+
+  final Uri? parsedUrl = Uri.tryParse(trimmed);
+  if (parsedUrl != null &&
+      (parsedUrl.scheme == 'http' || parsedUrl.scheme == 'https') &&
+      parsedUrl.host.isNotEmpty) {
+    final String? slug = _extractRoomSlugFromPath(parsedUrl.path);
+    if (slug == null) {
+      return null;
+    }
+    final Uri server = normalizeServerUri(
+      parsedUrl.hasPort
+          ? '${parsedUrl.scheme}://${parsedUrl.host}:${parsedUrl.port}'
+          : '${parsedUrl.scheme}://${parsedUrl.host}',
+    );
+    return RoomJoinTarget(
+      slug: slug,
+      server: server,
+    );
+  }
+
+  final String? slug = _extractRoomSlugFromPath(trimmed);
+  if (slug == null) {
+    return null;
+  }
+  return RoomJoinTarget(
+    slug: slug,
+    server: fallbackServer,
+  );
+}
+
+String? _extractRoomSlugFromPath(String rawPath) {
+  final String normalized = rawPath.trim().replaceFirst(RegExp(r'^/+'), '');
+  final RegExpMatch? matched = RegExp(
+    r'^(?:join/|rooms/)?([^/?#]+)$',
+    caseSensitive: false,
+  ).firstMatch(normalized);
+  if (matched == null) {
+    return null;
+  }
+  return Uri.decodeComponent(matched.group(1)!);
 }

@@ -40,6 +40,44 @@ const FlowGuideContent _guestGuide = FlowGuideContent(
   completionLabel: 'Mark guest guide complete',
 );
 
+InviteLink? _tryParseInvite(String raw) {
+  try {
+    return InviteLink.parse(raw);
+  } on FormatException {
+    return null;
+  }
+}
+
+RoomJoinTarget? _tryParseJoinTarget(
+  String raw, {
+  Uri? fallbackServer,
+}) {
+  try {
+    return parseRoomJoinTarget(raw, fallbackServer: fallbackServer);
+  } on FormatException {
+    return null;
+  }
+}
+
+String _describeInviteKind(InviteKind kind) {
+  return switch (kind) {
+    InviteKind.join => 'room invite',
+    InviteKind.recap => 'recap',
+    InviteKind.plan => 'plan',
+  };
+}
+
+String _scannerErrorMessage(MobileScannerException error) {
+  return switch (error.errorCode) {
+    MobileScannerErrorCode.permissionDenied =>
+      'Camera access was denied. Paste the invite instead, or enable camera access and try again.',
+    MobileScannerErrorCode.unsupported =>
+      'This device cannot open the camera for QR scanning. Paste the invite or enter the server and room slug manually.',
+    _ =>
+      'The camera could not start for QR scanning. Paste the invite or enter the room slug manually.',
+  };
+}
+
 class JoinRoomScreen extends ConsumerStatefulWidget {
   const JoinRoomScreen({
     super.key,
@@ -145,7 +183,119 @@ class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
     });
   }
 
+  String? _validateJoinSubmission() {
+    final String displayName = _displayNameController.text.trim();
+    if (displayName.isEmpty) {
+      return 'Enter a display name before joining the room.';
+    }
+
+    final String rawInvite = _inviteController.text.trim();
+    if (rawInvite.isEmpty) {
+      return 'Paste the room invite or enter the room slug.';
+    }
+
+    final InviteLink? invite = _tryParseInvite(rawInvite);
+    if (invite != null) {
+      if (invite.kind != InviteKind.join) {
+        return 'That link opens a ${_describeInviteKind(invite.kind)}, not a room invite. Ask the host for the room invite instead.';
+      }
+      if ((invite.slug ?? '').trim().isEmpty) {
+        return 'That room invite is missing the room slug. Ask the host to resend it, or enter the slug and server manually.';
+      }
+      return null;
+    }
+
+    final RoomJoinTarget? absoluteJoinTarget = _tryParseJoinTarget(rawInvite);
+    if (absoluteJoinTarget != null) {
+      if (absoluteJoinTarget.server != null) {
+        return null;
+      }
+    }
+
+    final String rawServer = _serverController.text.trim();
+    if (rawServer.isEmpty) {
+      return 'Enter the self-hosted server URL or paste a full room invite.';
+    }
+
+    final Uri fallbackServer;
+    try {
+      fallbackServer = normalizeServerUri(rawServer);
+    } on FormatException {
+      return 'Enter a valid self-hosted server URL or paste a full room invite.';
+    }
+
+    final RoomJoinTarget? joinTarget = _tryParseJoinTarget(
+      rawInvite,
+      fallbackServer: fallbackServer,
+    );
+    if (joinTarget != null && joinTarget.server != null) {
+      return null;
+    }
+
+    if (rawInvite.contains('://') || rawInvite.startsWith('kiltertogether:')) {
+      return 'That invite is malformed or unsupported. Paste a room invite, a web join link, or enter the room slug and server manually.';
+    }
+
+    return 'Paste a room invite, a web join link, or enter the room slug and server manually.';
+  }
+
+  ({Uri server, String slug}) _resolveJoinTarget() {
+    final String rawInvite = _inviteController.text.trim();
+    final RoomJoinTarget? inviteTarget = _tryParseJoinTarget(rawInvite);
+    if (inviteTarget != null && inviteTarget.server != null) {
+      return (
+        server: inviteTarget.server!,
+        slug: inviteTarget.slug,
+      );
+    }
+    final Uri fallbackServer = normalizeServerUri(_serverController.text);
+    final RoomJoinTarget? joinTarget = _tryParseJoinTarget(
+      rawInvite,
+      fallbackServer: fallbackServer,
+    );
+    if (joinTarget != null && joinTarget.server != null) {
+      return (
+        server: joinTarget.server!,
+        slug: joinTarget.slug,
+      );
+    }
+    return (
+      server: fallbackServer,
+      slug: rawInvite,
+    );
+  }
+
+  String _formatJoinFailure(ApiFailure error) {
+    return switch (error.code) {
+      'display_name_taken' =>
+        'That display name is already taken in this room. Choose another name and try again.',
+      'room_closed' =>
+        'This room is already closed. Ask the host for a new invite if the session is still happening.',
+      'room_not_found' =>
+        'That room could not be found on this server. Check the invite or room slug and try again.',
+      'session_expired' =>
+        'The saved room session on this device expired. Rejoin from the invite to continue.',
+      'session_invalid' =>
+        'This device does not have a valid room session for that room. Rejoin from the invite to continue.',
+      'session_required' =>
+        'Join the room on this device before opening it here.',
+      'rate_limited' =>
+        'Too many join attempts were sent. Wait a moment and try again.',
+      _ => error.message,
+    };
+  }
+
   Future<void> _submit() async {
+    final String? validationError = _validateJoinSubmission();
+    if (validationError != null) {
+      setState(() {
+        _inlineError = validationError;
+        _showFailureFeedback = false;
+      });
+      _showSnack(validationError);
+      return;
+    }
+
     setState(() {
       _submitting = true;
       _inlineError = null;
@@ -153,13 +303,11 @@ class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
     });
 
     try {
-      final InviteLink? invite = InviteLink.parse(_inviteController.text);
-      final Uri server =
-          invite?.server ?? normalizeServerUri(_serverController.text);
-      final String slug = invite?.slug ?? _inviteController.text.trim();
-      if (slug.isEmpty) {
-        throw const FormatException('Room slug is required.');
-      }
+      final ({Uri server, String slug}) joinTarget = _resolveJoinTarget();
+      final Uri server = joinTarget.server;
+      final String slug = joinTarget.slug;
+      _serverController.text = server.toString();
+      _inviteController.text = slug;
 
       final result = await ref.read(apiClientProvider).joinRoom(
             server: server,
@@ -193,14 +341,15 @@ class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
       final bool shouldShowFeedback = await ref
           .read(appPrefsControllerProvider.notifier)
           .shouldShowFeedbackPrompt('room-join-failure');
+      final String message = _formatJoinFailure(error);
       if (!mounted) {
         return;
       }
       setState(() {
-        _inlineError = error.message;
+        _inlineError = message;
         _showFailureFeedback = shouldShowFeedback;
       });
-      _showSnack('Unable to join room: ${error.message}');
+      _showSnack('Unable to join room: $message');
     } catch (error) {
       if (!mounted) {
         return;
@@ -246,15 +395,11 @@ class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
     return GradientScaffold(
       title: 'Join a room',
       subtitle:
-          'Paste a custom mobile invite or enter the room slug directly with the self-hosted server URL.',
+          'Paste a mobile invite, a web join link, or the room slug directly with the self-hosted server URL.',
       actions: <Widget>[
         IconButton(
           onPressed: () => unawaited(_openGuide()),
           icon: const Icon(Icons.help_outline),
-        ),
-        IconButton(
-          onPressed: () => context.goNamed('landing'),
-          icon: const Icon(Icons.close),
         ),
       ],
       child: Card(
@@ -274,7 +419,8 @@ class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
                 controller: _inviteController,
                 decoration: const InputDecoration(
                   labelText: 'Invite or room slug',
-                  hintText: 'kiltertogether://join?... or room-slug',
+                  hintText:
+                      'kiltertogether://join?... / https://.../join/... / room-slug',
                 ),
                 minLines: 1,
                 maxLines: 2,
@@ -329,14 +475,12 @@ class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
               if (_scannerOpen) ...<Widget>[
                 const SizedBox(height: 12),
                 _InviteScanner(
-                  onDetected: (InviteLink invite) {
+                  onDetected: (RoomJoinTarget joinTarget) {
                     setState(() {
-                      _serverController.text = invite.server.toString();
-                      if ((invite.slug ?? '').isNotEmpty) {
-                        _inviteController.text = invite.slug!;
-                      } else {
-                        _inviteController.text = invite.toUri().toString();
+                      if (joinTarget.server != null) {
+                        _serverController.text = joinTarget.server.toString();
                       }
+                      _inviteController.text = joinTarget.slug;
                       _scannerOpen = false;
                     });
                   },
@@ -383,7 +527,7 @@ class _InviteScanner extends StatefulWidget {
     required this.onError,
   });
 
-  final ValueChanged<InviteLink> onDetected;
+  final ValueChanged<RoomJoinTarget> onDetected;
   final ValueChanged<String> onError;
 
   @override
@@ -400,6 +544,20 @@ class _InviteScannerState extends State<_InviteScanner> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(24),
         child: MobileScanner(
+          errorBuilder: (BuildContext context, MobileScannerException error,
+              Widget? child) {
+            return Container(
+              color: const Color(0xFF111827),
+              padding: const EdgeInsets.all(20),
+              child: Center(
+                child: Text(
+                  _scannerErrorMessage(error),
+                  style: const TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+          },
           onDetect: (BarcodeCapture capture) {
             if (_handled) {
               return;
@@ -412,15 +570,29 @@ class _InviteScannerState extends State<_InviteScanner> {
             if (rawValue == null || rawValue.trim().isEmpty) {
               return;
             }
-            final InviteLink? invite = InviteLink.parse(rawValue);
-            if (invite == null ||
-                invite.kind != InviteKind.join ||
-                (invite.slug ?? '').isEmpty) {
-              widget.onError('That QR code is not a supported room invite.');
+            final InviteLink? invite = _tryParseInvite(rawValue);
+            if (invite != null && invite.kind != InviteKind.join) {
+              widget.onError(
+                'That QR code opens a ${_describeInviteKind(invite.kind)}, not a room invite.',
+              );
+              return;
+            }
+
+            final RoomJoinTarget? joinTarget = _tryParseJoinTarget(rawValue);
+            if (joinTarget == null) {
+              widget.onError(
+                'That QR code is not a supported room invite.',
+              );
+              return;
+            }
+            if (joinTarget.server == null) {
+              widget.onError(
+                'That QR code does not include the server address. Paste a full invite or enter the server manually.',
+              );
               return;
             }
             _handled = true;
-            widget.onDetected(invite);
+            widget.onDetected(joinTarget);
           },
         ),
       ),

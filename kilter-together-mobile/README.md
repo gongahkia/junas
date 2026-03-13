@@ -10,9 +10,8 @@ journey lives in
 
 This workspace is a hand-authored, feature-first Flutter client. It includes the
 mobile app shell, token-aware API client, invite parsing, secure session storage,
-and the create, join, room, solo, recap, plan, and settings flows against the
-rewritten Go API contract.
-The current MVP does not ship the older onboarding or guided-tour overlay UX.
+branch-specific onboarding and flow guides, and the create, join, room, solo,
+recap, plan, and settings flows against the rewritten Go API contract.
 
 ## Local Setup
 

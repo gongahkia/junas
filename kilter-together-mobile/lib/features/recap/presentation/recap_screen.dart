@@ -65,6 +65,21 @@ class _RecapScreenState extends ConsumerState<RecapScreen> {
           icon: const Icon(Icons.refresh),
         ),
         IconButton(
+          onPressed: recap == null
+              ? null
+              : () => unawaited(
+                    Share.share(
+                      InviteLink(
+                        kind: InviteKind.recap,
+                        server: state.server,
+                        shareId: recap.shareId,
+                      ).toUri().toString(),
+                      subject: recap.roomName ?? 'Session recap',
+                    ),
+                  ),
+          icon: const Icon(Icons.ios_share),
+        ),
+        IconButton(
           onPressed: () => context.goNamed('landing'),
           icon: const Icon(Icons.close),
         ),

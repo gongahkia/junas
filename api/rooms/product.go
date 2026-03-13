@@ -417,10 +417,7 @@ func (service *Service) PruneAnalyticsEvents(ctx context.Context) error {
 func toProductBreakdownView(rows []groupedCountRow) []ProductBreakdownView {
 	result := make([]ProductBreakdownView, 0, len(rows))
 	for _, row := range rows {
-		result = append(result, ProductBreakdownView{
-			Key:   row.Key,
-			Count: row.Count,
-		})
+		result = append(result, ProductBreakdownView(row))
 	}
 	return result
 }

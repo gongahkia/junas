@@ -61,10 +61,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           onPressed: () => context.goNamed('about'),
           icon: const Icon(Icons.info_outline),
         ),
-        IconButton(
-          onPressed: () => context.goNamed('landing'),
-          icon: const Icon(Icons.close),
-        ),
       ],
       child: prefsValue.when(
         data: (AppPrefs prefs) {

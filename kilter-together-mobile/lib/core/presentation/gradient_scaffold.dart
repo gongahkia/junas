@@ -7,12 +7,14 @@ class GradientScaffold extends StatelessWidget {
     required this.child,
     this.subtitle,
     this.actions = const <Widget>[],
+    this.showBottomBar = true,
   });
 
   final String title;
   final String? subtitle;
   final Widget child;
   final List<Widget> actions;
+  final bool showBottomBar;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class GradientScaffold extends StatelessWidget {
         ),
         child: SafeArea(
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
+            padding: EdgeInsets.fromLTRB(20, 16, 20, showBottomBar ? 40 : 32),
             children: <Widget>[
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,4 +72,3 @@ class GradientScaffold extends StatelessWidget {
     );
   }
 }
-
