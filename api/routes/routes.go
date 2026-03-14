@@ -51,6 +51,11 @@ func SetupRoutes() *chi.Mux {
 		r.Get("/climbs", handlers.GetClimbs)
 		r.Get("/boards", handlers.GetBoardOptions)
 		r.Get("/images/{filename}", handlers.ServeImage)
+		r.Route("/catalog/kilter", func(r chi.Router) {
+			r.Get("/manifest", handlers.GetKilterCatalogManifest)
+			r.Get("/bootstrap", handlers.GetKilterCatalogBootstrap)
+			r.Get("/delta", handlers.GetKilterCatalogDelta)
+		})
 		r.Route("/solo/providers/{providerId}", func(r chi.Router) {
 			r.Post("/surfaces", handlers.ListSoloProviderSurfaces)
 			r.Post("/climbs", handlers.ListSoloProviderClimbs)
