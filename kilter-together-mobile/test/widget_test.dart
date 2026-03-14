@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,6 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kilter_together_mobile/core/deep_links/invite_links.dart';
 import 'package:kilter_together_mobile/core/models/app_prefs_models.dart';
+import 'package:kilter_together_mobile/core/models/board_models.dart';
+import 'package:kilter_together_mobile/core/models/catalog_models.dart';
 import 'package:kilter_together_mobile/core/models/product_models.dart';
 import 'package:kilter_together_mobile/core/models/provider_models.dart';
 import 'package:kilter_together_mobile/core/models/room_models.dart';
@@ -15,6 +18,8 @@ import 'package:kilter_together_mobile/core/network/sse_client.dart';
 import 'package:kilter_together_mobile/core/presentation/app_bottom_bar.dart';
 import 'package:kilter_together_mobile/core/router/app_router.dart';
 import 'package:kilter_together_mobile/core/storage/app_preferences.dart';
+import 'package:kilter_together_mobile/core/storage/catalog_storage_platform.dart';
+import 'package:kilter_together_mobile/core/storage/offline_kilter_catalog_repository.dart';
 import 'package:kilter_together_mobile/core/storage/secure_store.dart';
 import 'package:kilter_together_mobile/core/storage/session_repository.dart';
 import 'package:kilter_together_mobile/features/create_room/presentation/create_room_screen.dart';
@@ -22,6 +27,8 @@ import 'package:kilter_together_mobile/features/join/presentation/join_screen.da
 import 'package:kilter_together_mobile/features/landing/presentation/landing_screen.dart';
 import 'package:kilter_together_mobile/features/recap/presentation/recap_screen.dart';
 import 'package:kilter_together_mobile/features/room/presentation/room_screen.dart';
+import 'package:kilter_together_mobile/features/settings/presentation/settings_screen.dart';
+import 'package:kilter_together_mobile/features/solo_entry/presentation/solo_entry_screen.dart';
 import 'package:wakelock_plus_platform_interface/wakelock_plus_platform_interface.dart';
 
 void main() {
@@ -284,9 +291,9 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Load providers'));
     await tester.pumpAndSettle();
-    await tester.ensureVisible(find.text('Authenticate and create room'));
+    await tester.ensureVisible(find.text('Create room'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Authenticate and create room'));
+    await tester.tap(find.text('Create room'));
     await tester.pumpAndSettle();
 
     expect(find.text('Was the room creation failure useful?'), findsOneWidget);
@@ -443,7 +450,7 @@ void main() {
     await tester.pumpAndSettle();
     final Finder submitButton = find.widgetWithText(
       FilledButton,
-      'Authenticate and create room',
+      'Validate and create room',
     );
     await tester.ensureVisible(submitButton);
     await tester.tap(submitButton);
@@ -732,9 +739,9 @@ void main() {
 
     await tester.pumpAndSettle();
 
-    expect(find.text('Top voted'), findsOneWidget);
+    expect(find.text('Top fist-bumped'), findsOneWidget);
     expect(find.text('Final Burn'), findsOneWidget);
-    expect(find.text('5 votes'), findsOneWidget);
+    expect(find.text('5 fist bumps'), findsOneWidget);
     expect(find.text('3 queued · 2 finalists'), findsOneWidget);
   });
 
@@ -1340,8 +1347,135 @@ void main() {
 
     expect(find.text('Live signal'), findsOneWidget);
     expect(find.text('Final Burn'), findsWidgets);
-    expect(find.text('Top voted right now'), findsOneWidget);
-    expect(find.text('4 votes'), findsWidgets);
+    expect(find.text('Top fist-bumped right now'), findsOneWidget);
+    expect(find.text('4 fist bumps'), findsWidgets);
+  });
+
+  testWidgets('solo entry gates Kilter behind the offline catalog download',
+      (WidgetTester tester) async {
+    final FakeApiClient apiClient = FakeApiClient()
+      ..capabilities = const <ProviderCapability>[
+        ProviderCapability(
+          id: 'kilter',
+          label: 'Kilter',
+          roomSupported: true,
+          soloSupported: true,
+          surfaceHierarchy: 'board',
+          authFields: <ProviderAuthField>[],
+        ),
+        ProviderCapability(
+          id: 'crux',
+          label: 'Crux',
+          roomSupported: true,
+          soloSupported: true,
+          surfaceHierarchy: 'hierarchy',
+          authFields: <ProviderAuthField>[],
+        ),
+      ];
+
+    await _pumpScreen(
+      tester,
+      child: const SoloEntryScreen(),
+      appPreferences: FakeAppPreferences(
+        activeServer: _server,
+        prefs: _buildPrefs(
+          settings: _buildSettings(autoGuidesEnabled: false),
+        ),
+      ),
+      apiClient: apiClient,
+      offlineCatalogRepository: FakeOfflineKilterCatalogRepository(),
+    );
+
+    await tester.pumpAndSettle();
+
+    expect(find.text('Offline Kilter catalog'), findsOneWidget);
+    expect(find.text('Download catalog'), findsOneWidget);
+    expect(find.text('Other solo providers'), findsOneWidget);
+  });
+
+  testWidgets('settings delete only clears the offline catalog',
+      (WidgetTester tester) async {
+    final FakeOfflineKilterCatalogRepository offlineCatalogRepository =
+        FakeOfflineKilterCatalogRepository(
+      status: const CatalogStatus(
+        installed: true,
+        sourceServer: 'https://boards.example.com',
+        revision: 'rev-1',
+        climbCount: 1234,
+        imageCount: 32,
+        estimatedBytes: 2048,
+        storedBytes: 2048,
+        lastFullSyncAt: '2026-03-14T00:00:00Z',
+      ),
+    );
+
+    await _pumpScreen(
+      tester,
+      child: const SettingsScreen(),
+      appPreferences: FakeAppPreferences(
+        activeServer: _server,
+        prefs: _buildPrefs(
+          settings: _buildSettings(autoGuidesEnabled: false),
+        ),
+      ),
+      apiClient: FakeApiClient(),
+      offlineCatalogRepository: offlineCatalogRepository,
+    );
+
+    await tester.pumpAndSettle();
+
+    expect(find.text('Offline Kilter catalog'), findsOneWidget);
+    expect(find.text('1,234 climbs'), findsNothing);
+    expect(find.text('1234 climbs'), findsOneWidget);
+
+    final Finder deleteAction =
+        find.widgetWithText(OutlinedButton, 'Delete').first;
+    await tester.ensureVisible(deleteAction);
+    await tester.pumpAndSettle();
+    await tester.tap(deleteAction);
+    await tester.pumpAndSettle();
+    await tester.tap(find.widgetWithText(FilledButton, 'Delete'));
+    await tester.pumpAndSettle();
+
+    expect(offlineCatalogRepository.deleteCalled, isTrue);
+    expect(find.text('Deleted offline Kilter catalog.'), findsOneWidget);
+  });
+
+  testWidgets('settings download confirms the estimated catalog size',
+      (WidgetTester tester) async {
+    final FakeOfflineKilterCatalogRepository offlineCatalogRepository =
+        FakeOfflineKilterCatalogRepository();
+
+    await _pumpScreen(
+      tester,
+      child: const SettingsScreen(),
+      appPreferences: FakeAppPreferences(
+        activeServer: _server,
+        prefs: _buildPrefs(
+          settings: _buildSettings(autoGuidesEnabled: false),
+        ),
+      ),
+      apiClient: FakeApiClient(),
+      offlineCatalogRepository: offlineCatalogRepository,
+    );
+
+    await tester.pumpAndSettle();
+
+    final Finder downloadButton =
+        find.widgetWithText(FilledButton, 'Download').first;
+    await tester.ensureVisible(downloadButton);
+    await tester.pumpAndSettle();
+    await tester.tap(downloadButton);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Download offline Kilter catalog?'), findsOneWidget);
+    expect(find.textContaining('stores about 2.0 KB'), findsOneWidget);
+
+    await tester.tap(find.widgetWithText(FilledButton, 'Download').last);
+    await tester.pumpAndSettle();
+
+    expect(offlineCatalogRepository.downloadCalled, isTrue);
+    expect(find.text('Downloaded offline Kilter catalog.'), findsOneWidget);
   });
 }
 
@@ -1351,6 +1485,7 @@ Future<void> _pumpScreen(
   FakeAppPreferences? appPreferences,
   FakeSecureStore? secureStore,
   FakeApiClient? apiClient,
+  FakeOfflineKilterCatalogRepository? offlineCatalogRepository,
   SseClient? sseClient,
 }) async {
   await tester.pumpWidget(
@@ -1363,6 +1498,9 @@ Future<void> _pumpScreen(
           secureStore ?? FakeSecureStore(),
         ),
         apiClientProvider.overrideWithValue(apiClient ?? FakeApiClient()),
+        offlineKilterCatalogRepositoryProvider.overrideWithValue(
+          offlineCatalogRepository ?? FakeOfflineKilterCatalogRepository(),
+        ),
         sseClientProvider.overrideWithValue(sseClient ?? FakeSseClient()),
       ],
       child: MaterialApp(
@@ -1379,6 +1517,7 @@ Future<void> _pumpRouterApp(
   FakeAppPreferences? appPreferences,
   FakeSecureStore? secureStore,
   FakeApiClient? apiClient,
+  FakeOfflineKilterCatalogRepository? offlineCatalogRepository,
 }) async {
   await tester.pumpWidget(
     ProviderScope(
@@ -1390,6 +1529,9 @@ Future<void> _pumpRouterApp(
           secureStore ?? FakeSecureStore(),
         ),
         apiClientProvider.overrideWithValue(apiClient ?? FakeApiClient()),
+        offlineKilterCatalogRepositoryProvider.overrideWithValue(
+          offlineCatalogRepository ?? FakeOfflineKilterCatalogRepository(),
+        ),
         sseClientProvider.overrideWithValue(FakeSseClient()),
       ],
       child: MaterialApp.router(routerConfig: router),
@@ -1606,6 +1748,113 @@ class FakeSecureStore extends SecureStore {
   @override
   Future<void> delete(String key) async {
     _values.remove(key);
+  }
+}
+
+class FakeCatalogStoragePlatform extends CatalogStoragePlatform {
+  FakeCatalogStoragePlatform({
+    Directory? directory,
+  }) : _directory = directory ??
+            Directory.systemTemp.createTempSync('kt_catalog_test_');
+
+  final Directory _directory;
+
+  @override
+  Future<Directory> appSupportDirectory() async => _directory;
+
+  @override
+  Future<void> excludeFromBackup(String path) async {}
+}
+
+class FakeOfflineKilterCatalogRepository
+    extends OfflineKilterCatalogRepository {
+  FakeOfflineKilterCatalogRepository({
+    CatalogStatus? status,
+    CatalogManifest? manifest,
+    List<BoardOption>? boards,
+    Map<String, String>? imagePaths,
+  })  : _status = status ?? CatalogStatus.empty(),
+        _manifest = manifest ??
+            const CatalogManifest(
+              revision: 'rev-1',
+              generatedAt: '2026-03-14T00:00:00Z',
+              climbCount: 1234,
+              imageCount: 32,
+              estimatedBytes: 2048,
+              requiresFullResync: false,
+            ),
+        _boards = boards ?? const <BoardOption>[],
+        _imagePaths = imagePaths ?? <String, String>{},
+        super(
+          apiClient: FakeApiClient(),
+          storagePlatform: FakeCatalogStoragePlatform(),
+        );
+
+  CatalogStatus _status;
+  final CatalogManifest _manifest;
+  final List<BoardOption> _boards;
+  final Map<String, String> _imagePaths;
+  bool deleteCalled = false;
+  bool downloadCalled = false;
+  bool syncCalled = false;
+
+  @override
+  Future<CatalogStatus> getStatus() async => _status;
+
+  @override
+  Future<CatalogManifest> getManifest(Uri server) async => _manifest;
+
+  @override
+  Future<List<BoardOption>> getBoards() async =>
+      List<BoardOption>.from(_boards);
+
+  @override
+  Future<void> downloadCatalog(Uri server) async {
+    downloadCalled = true;
+    _status = _status.copyWith(
+      installed: true,
+      sourceServer: server.toString(),
+      revision: 'rev-1',
+      climbCount: _boards.fold<int>(
+        0,
+        (int total, BoardOption item) => total + (item.climbCount ?? 0),
+      ),
+      imageCount: _imagePaths.length,
+      estimatedBytes: 1024,
+      storedBytes: 1024,
+      lastFullSyncAt: '2026-03-14T00:00:00Z',
+      lastPollAt: '2026-03-14T00:00:00Z',
+      updateAvailable: false,
+      requiresFullResync: false,
+    );
+  }
+
+  @override
+  Future<CatalogSyncResult> syncCatalog(
+    Uri server, {
+    bool allowFullResync = true,
+  }) async {
+    syncCalled = true;
+    _status = _status.copyWith(
+      installed: true,
+      sourceServer: server.toString(),
+      lastFullSyncAt: '2026-03-14T01:00:00Z',
+      lastPollAt: '2026-03-14T01:00:00Z',
+      updateAvailable: false,
+      requiresFullResync: false,
+    );
+    return CatalogSyncResult(status: _status, performedSync: true);
+  }
+
+  @override
+  Future<void> deleteCatalog() async {
+    deleteCalled = true;
+    _status = CatalogStatus.empty();
+  }
+
+  @override
+  Future<String?> resolveImagePath(String filename) async {
+    return _imagePaths[filename];
   }
 }
 

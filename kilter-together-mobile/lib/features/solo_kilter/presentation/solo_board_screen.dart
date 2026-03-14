@@ -16,6 +16,7 @@ import '../../../core/presentation/climb_media_preview.dart';
 import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
+import '../../../core/storage/offline_kilter_catalog_repository.dart';
 import '../application/solo_board_controller.dart';
 
 const List<int> _angleOptions = <int>[
@@ -160,6 +161,8 @@ class _SoloBoardScreenState extends ConsumerState<SoloBoardScreen> {
         ref.watch(appPrefsControllerProvider);
     final AppPrefs prefs = prefsValue.valueOrNull ?? AppPrefs.defaults();
     final ApiClient apiClient = ref.read(apiClientProvider);
+    final OfflineKilterCatalogRepository catalogRepository =
+        ref.read(offlineKilterCatalogRepositoryProvider);
     final BoardOption? board = state.board;
     final BoardClimb? selectedClimb = state.selectedClimb;
     final SoloSavedClimb? selectedSavedClimb =
@@ -378,8 +381,7 @@ class _SoloBoardScreenState extends ConsumerState<SoloBoardScreen> {
                   climb: selectedClimb,
                   board: board,
                   angle: state.angle,
-                  server: state.server,
-                  apiClient: apiClient,
+                  catalogRepository: catalogRepository,
                 ),
                 const SizedBox(height: 14),
                 _ClimbCatalogCard(
@@ -802,15 +804,13 @@ class _SelectedClimbCard extends StatelessWidget {
     required this.climb,
     required this.board,
     required this.angle,
-    required this.server,
-    required this.apiClient,
+    required this.catalogRepository,
   });
 
   final BoardClimb? climb;
   final BoardOption board;
   final int angle;
-  final Uri? server;
-  final ApiClient apiClient;
+  final OfflineKilterCatalogRepository catalogRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -824,14 +824,6 @@ class _SelectedClimbCard extends StatelessWidget {
     }
 
     final String? grade = climb!.gradeForAngle(angle);
-    final List<String> imageUrls = server == null
-        ? const <String>[]
-        : climb!.imageFilenames
-            .map(
-              (String filename) =>
-                  apiClient.getImageUrl(server: server!, filename: filename),
-            )
-            .toList(growable: false);
 
     return Card(
       child: Padding(
@@ -862,18 +854,36 @@ class _SelectedClimbCard extends StatelessWidget {
               Text(climb!.description!),
             ],
             const SizedBox(height: 18),
-            ClimbMediaPreview(
-              imageUrls: imageUrls,
-              highlightedHolds: climb!.highlightedHolds,
-              emptyMessage: server == null
-                  ? 'Board preview unavailable'
-                  : 'No board images available for this climb',
-              errorMessage: 'Unable to load board image layers',
+            FutureBuilder<List<String>>(
+              future: _resolveImagePaths(climb!),
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+                final List<String> imageUrls =
+                    snapshot.data ?? const <String>[];
+                return ClimbMediaPreview(
+                  imageUrls: imageUrls,
+                  highlightedHolds: climb!.highlightedHolds,
+                  emptyMessage: 'No board images available for this climb',
+                  errorMessage: 'Unable to load board image layers',
+                );
+              },
             ),
           ],
         ),
       ),
     );
+  }
+
+  Future<List<String>> _resolveImagePaths(BoardClimb climb) async {
+    final List<String> imageUrls = <String>[];
+    for (final String filename in climb.imageFilenames) {
+      final String? imagePath =
+          await catalogRepository.resolveImagePath(filename);
+      if (imagePath != null) {
+        imageUrls.add(imagePath);
+      }
+    }
+    return imageUrls;
   }
 }
 

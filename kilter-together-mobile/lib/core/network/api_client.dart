@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/board_models.dart';
+import '../models/catalog_models.dart';
 import '../models/product_models.dart';
 import '../models/provider_models.dart';
 import '../models/runtime_models.dart';
@@ -269,6 +270,104 @@ class ApiClient {
         },
       );
       return PaginatedBoardClimbsResponse.fromJson(_mapPayload(response.data));
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
+  }
+
+  Future<CatalogManifest> getKilterCatalogManifest({
+    required Uri server,
+  }) async {
+    try {
+      final Response<dynamic> response =
+          await _clientFor(server).get<dynamic>('catalog/kilter/manifest');
+      return CatalogManifest.fromJson(_mapPayload(response.data));
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
+  }
+
+  Future<CatalogBootstrapResponse> getKilterCatalogBootstrap({
+    required Uri server,
+    String? cursor,
+    int pageSize = 200,
+  }) async {
+    try {
+      final Response<dynamic> response = await _clientFor(server).get<dynamic>(
+        'catalog/kilter/bootstrap',
+        queryParameters: <String, dynamic>{
+          'cursor': cursor,
+          'page_size': pageSize,
+        },
+      );
+      final Map<String, dynamic> payload = _mapPayload(response.data);
+      final List<dynamic> rawBoards =
+          (payload['boards'] as List<dynamic>?) ?? <dynamic>[];
+      final List<dynamic> rawClimbs =
+          (payload['climbs'] as List<dynamic>?) ?? <dynamic>[];
+      return CatalogBootstrapResponse(
+        manifest: CatalogManifest.fromJson(
+          (payload['manifest'] as Map<String, dynamic>?) ?? <String, dynamic>{},
+        ),
+        boards: rawBoards
+            .whereType<Map<String, dynamic>>()
+            .map(BoardOption.fromJson)
+            .toList(growable: false),
+        climbs: rawClimbs
+            .whereType<Map<String, dynamic>>()
+            .map(CatalogClimb.fromJson)
+            .toList(growable: false),
+        hasMore: payload['has_more'] as bool? ?? false,
+        pageSize: (payload['page_size'] as num?)?.toInt() ?? pageSize,
+        syncToken: payload['sync_token'] as String?,
+        nextCursor: payload['next_cursor'] as String?,
+      );
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
+  }
+
+  Future<CatalogDeltaResponse> getKilterCatalogDelta({
+    required Uri server,
+    String? afterToken,
+  }) async {
+    try {
+      final Response<dynamic> response = await _clientFor(server).get<dynamic>(
+        'catalog/kilter/delta',
+        queryParameters: <String, dynamic>{
+          'after_token': afterToken,
+        },
+      );
+      final Map<String, dynamic> payload = _mapPayload(response.data);
+      final List<dynamic> rawClimbs =
+          (payload['climbs'] as List<dynamic>?) ?? <dynamic>[];
+      return CatalogDeltaResponse(
+        manifest: CatalogManifest.fromJson(
+          (payload['manifest'] as Map<String, dynamic>?) ?? <String, dynamic>{},
+        ),
+        climbs: rawClimbs
+            .whereType<Map<String, dynamic>>()
+            .map(CatalogClimb.fromJson)
+            .toList(growable: false),
+        requiresFullResync: payload['requires_full_resync'] as bool? ?? false,
+        nextToken: payload['next_token'] as String?,
+      );
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
+  }
+
+  Future<List<int>> downloadImageBytes({
+    required Uri server,
+    required String filename,
+  }) async {
+    try {
+      final Response<List<int>> response =
+          await _clientFor(server).get<List<int>>(
+        'images/${Uri.encodeComponent(filename.contains('/') ? filename.split('/').last : filename)}',
+        options: Options(responseType: ResponseType.bytes),
+      );
+      return response.data ?? const <int>[];
     } on DioException catch (error) {
       _throwFailure(error);
     }

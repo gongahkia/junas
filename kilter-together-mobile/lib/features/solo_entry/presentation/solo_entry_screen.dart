@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -6,12 +7,15 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/board_models.dart';
+import '../../../core/models/catalog_models.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
 import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
+import '../../../core/storage/offline_kilter_catalog_controller.dart';
+import '../../../core/storage/offline_kilter_catalog_repository.dart';
 import '../../../core/storage/session_repository.dart';
 
 final _soloEntryDataProvider =
@@ -19,20 +23,38 @@ final _soloEntryDataProvider =
   final SessionRepository sessionRepository =
       ref.read(sessionRepositoryProvider);
   final ApiClient apiClient = ref.read(apiClientProvider);
+  final OfflineKilterCatalogState catalogState =
+      ref.watch(offlineKilterCatalogControllerProvider);
+  final OfflineKilterCatalogRepository catalogRepository =
+      ref.read(offlineKilterCatalogRepositoryProvider);
   final Uri? server = await sessionRepository.loadActiveServer();
   if (server == null) {
     return const _SoloEntryData(
       boards: <BoardOption>[],
       providers: <ProviderCapability>[],
+      boardPreviewPaths: <String, String>{},
     );
   }
 
-  final List<BoardOption> boards = await apiClient.getBoards(server);
   final List<ProviderCapability> providers =
       await apiClient.getProviderCapabilities(server);
+  final CatalogStatus catalogStatus = catalogState.status;
+  final List<BoardOption> boards = catalogStatus.matchesServer(server)
+      ? await catalogRepository.getBoards()
+      : const <BoardOption>[];
+  final Map<String, String> boardPreviewPaths = <String, String>{};
+  for (final BoardOption board in boards) {
+    final String? previewPath = await catalogRepository
+        .resolveImagePath(board.previewImageFilename ?? '');
+    if (previewPath != null) {
+      boardPreviewPaths['${board.id}'] = previewPath;
+    }
+  }
   return _SoloEntryData(
     server: server,
     boards: boards,
+    boardPreviewPaths: boardPreviewPaths,
+    catalogStatus: catalogStatus,
     providers: providers
         .where((ProviderCapability item) => item.soloSupported)
         .toList(growable: false),
@@ -106,12 +128,56 @@ class _SoloEntryScreenState extends ConsumerState<SoloEntryScreen> {
         );
   }
 
+  Future<void> _confirmDownloadCatalog(Uri server) async {
+    final OfflineKilterCatalogController controller =
+        ref.read(offlineKilterCatalogControllerProvider.notifier);
+    try {
+      final CatalogManifest manifest = await controller.fetchManifest(server);
+      if (!mounted) {
+        return;
+      }
+      final bool? confirmed = await showDialog<bool>(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return AlertDialog(
+            title: const Text('Download offline Kilter catalog?'),
+            content: Text(
+              'This stores about ${_formatStoredBytes(manifest.estimatedBytes)} on this device for ${manifest.climbCount} climbs. The catalog stays in app-managed storage and can be deleted later from Settings.',
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(dialogContext).pop(false),
+                child: const Text('Cancel'),
+              ),
+              FilledButton(
+                onPressed: () => Navigator.of(dialogContext).pop(true),
+                child: const Text('Download'),
+              ),
+            ],
+          );
+        },
+      );
+      if (confirmed == true && mounted) {
+        await controller.download(server);
+      }
+    } catch (error) {
+      if (!mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('$error')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final AsyncValue<_SoloEntryData> entryData =
         ref.watch(_soloEntryDataProvider);
     final AsyncValue<AppPrefs> prefsValue =
         ref.watch(appPrefsControllerProvider);
+    final OfflineKilterCatalogState catalogState =
+        ref.watch(offlineKilterCatalogControllerProvider);
     final AppPrefs prefs = prefsValue.valueOrNull ?? AppPrefs.defaults();
 
     if (prefsValue.hasValue) {
@@ -131,6 +197,22 @@ class _SoloEntryScreenState extends ConsumerState<SoloEntryScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          if (catalogState.errorMessage != null) ...<Widget>[
+            _InlineMessageCard(
+              title: 'Offline Kilter catalog',
+              message: catalogState.errorMessage!,
+              accent: const Color(0xFFB91C1C),
+            ),
+            const SizedBox(height: 14),
+          ],
+          if (catalogState.notice != null) ...<Widget>[
+            _InlineMessageCard(
+              title: 'Offline Kilter catalog',
+              message: catalogState.notice!,
+              accent: const Color(0xFF0F766E),
+            ),
+            const SizedBox(height: 14),
+          ],
           _SavedStateCard(prefs: prefs),
           const SizedBox(height: 14),
           entryData.when(
@@ -155,6 +237,7 @@ class _SoloEntryScreenState extends ConsumerState<SoloEntryScreen> {
                   _ServerCard(server: server),
                   const SizedBox(height: 14),
                   if (prefs.soloResume != null &&
+                      data.catalogStatus.matchesServer(server) &&
                       prefs.soloResume!.boardId.isNotEmpty) ...<Widget>[
                     _ResumeCard(
                       resume: prefs.soloResume!,
@@ -162,12 +245,23 @@ class _SoloEntryScreenState extends ConsumerState<SoloEntryScreen> {
                     ),
                     const SizedBox(height: 14),
                   ],
-                  _KilterBoardsCard(
-                    boards: boards,
-                    server: server,
-                    defaultAngle: prefs.lastKilterAngle,
-                    defaultSort: prefs.settings.soloDefaultSort,
-                  ),
+                  if (data.catalogStatus.matchesServer(server))
+                    _KilterBoardsCard(
+                      boards: boards,
+                      boardPreviewPaths: data.boardPreviewPaths,
+                      server: server,
+                      defaultAngle: prefs.lastKilterAngle,
+                      defaultSort: prefs.settings.soloDefaultSort,
+                    )
+                  else
+                    _OfflineCatalogGateCard(
+                      server: server,
+                      status: data.catalogStatus,
+                      busy: catalogState.busy,
+                      onDownload: () =>
+                          unawaited(_confirmDownloadCatalog(server)),
+                      onOpenSettings: () => context.goNamed('settings'),
+                    ),
                   if (alternateProviders.isNotEmpty) ...<Widget>[
                     const SizedBox(height: 14),
                     _ProviderCardGrid(
@@ -221,11 +315,15 @@ class _SoloEntryData {
     this.server,
     required this.boards,
     required this.providers,
+    required this.boardPreviewPaths,
+    this.catalogStatus = const CatalogStatus(installed: false),
   });
 
   final Uri? server;
   final List<BoardOption> boards;
   final List<ProviderCapability> providers;
+  final Map<String, String> boardPreviewPaths;
+  final CatalogStatus catalogStatus;
 }
 
 class _SavedStateCard extends StatelessWidget {
@@ -525,20 +623,20 @@ class _ResumeCard extends StatelessWidget {
 class _KilterBoardsCard extends ConsumerWidget {
   const _KilterBoardsCard({
     required this.boards,
+    required this.boardPreviewPaths,
     required this.server,
     required this.defaultAngle,
     required this.defaultSort,
   });
 
   final List<BoardOption> boards;
+  final Map<String, String> boardPreviewPaths;
   final Uri server;
   final int defaultAngle;
   final String defaultSort;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ApiClient apiClient = ref.read(apiClientProvider);
-
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(22),
@@ -597,20 +695,18 @@ class _KilterBoardsCard extends ConsumerWidget {
                                   child: SizedBox(
                                     width: 92,
                                     height: 64,
-                                    child: board.previewImageFilename == null
-                                        ? Container(
-                                            color: const Color(0xFFE2E8F0),
-                                            child: const Icon(
-                                                Icons.landscape_outlined),
-                                          )
-                                        : Image.network(
-                                            apiClient.getImageUrl(
-                                              server: server,
-                                              filename:
-                                                  board.previewImageFilename!,
-                                            ),
-                                            fit: BoxFit.cover,
-                                          ),
+                                    child:
+                                        boardPreviewPaths['${board.id}'] == null
+                                            ? Container(
+                                                color: const Color(0xFFE2E8F0),
+                                                child: const Icon(
+                                                    Icons.landscape_outlined),
+                                              )
+                                            : Image.file(
+                                                File(boardPreviewPaths[
+                                                    '${board.id}']!),
+                                                fit: BoxFit.cover,
+                                              ),
                                   ),
                                 ),
                                 const SizedBox(width: 14),
@@ -651,6 +747,132 @@ class _KilterBoardsCard extends ConsumerWidget {
       ),
     );
   }
+}
+
+class _OfflineCatalogGateCard extends StatelessWidget {
+  const _OfflineCatalogGateCard({
+    required this.server,
+    required this.status,
+    required this.busy,
+    required this.onDownload,
+    required this.onOpenSettings,
+  });
+
+  final Uri server;
+  final CatalogStatus status;
+  final bool busy;
+  final VoidCallback onDownload;
+  final VoidCallback onOpenSettings;
+
+  @override
+  Widget build(BuildContext context) {
+    final bool wrongServer =
+        status.installed && status.sourceServer != server.toString();
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(22),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Offline Kilter catalog',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              wrongServer
+                  ? 'An offline Kilter catalog already exists for ${status.sourceServer}. Re-download it for ${describeServer(server)} before using Kilter solo browse here.'
+                  : 'Download the Kilter catalog once to keep every climb on-device. After that, Kilter Together will only poll for new climbs while the app is in the foreground.',
+            ),
+            const SizedBox(height: 12),
+            Text(
+              status.estimatedBytes > 0
+                  ? 'Estimated download: ${_formatBytes(status.estimatedBytes)}'
+                  : 'The download size will appear once the catalog metadata is available.',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: FilledButton(
+                    onPressed: busy ? null : onDownload,
+                    child: Text(busy ? 'Downloading...' : 'Download catalog'),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: onOpenSettings,
+                    child: const Text('Open settings'),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _InlineMessageCard extends StatelessWidget {
+  const _InlineMessageCard({
+    required this.title,
+    required this.message,
+    required this.accent,
+  });
+
+  final String title;
+  final String message;
+  final Color accent;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Icon(Icons.circle, size: 12, color: accent),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(message),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+String _formatBytes(int bytes) {
+  if (bytes <= 0) {
+    return '0 B';
+  }
+
+  const List<String> units = <String>['B', 'KB', 'MB', 'GB'];
+  double value = bytes.toDouble();
+  int unitIndex = 0;
+  while (value >= 1024 && unitIndex < units.length - 1) {
+    value /= 1024;
+    unitIndex += 1;
+  }
+  final String formatted = value >= 10 || unitIndex == 0
+      ? value.toStringAsFixed(0)
+      : value.toStringAsFixed(1);
+  return '$formatted ${units[unitIndex]}';
 }
 
 class _ProviderCardGrid extends StatelessWidget {
@@ -745,4 +967,22 @@ class _ProviderCardGrid extends StatelessWidget {
       ),
     );
   }
+}
+
+String _formatStoredBytes(int bytes) {
+  if (bytes <= 0) {
+    return '0 B';
+  }
+
+  const List<String> units = <String>['B', 'KB', 'MB', 'GB'];
+  double value = bytes.toDouble();
+  int unitIndex = 0;
+  while (value >= 1024 && unitIndex < units.length - 1) {
+    value /= 1024;
+    unitIndex += 1;
+  }
+  final String formatted = value >= 10 || unitIndex == 0
+      ? value.toStringAsFixed(0)
+      : value.toStringAsFixed(1);
+  return '$formatted ${units[unitIndex]}';
 }

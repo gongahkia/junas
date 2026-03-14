@@ -90,19 +90,20 @@ func TestKilterCatalogRoutesContract(t *testing.T) {
 			ID int `json:"id"`
 		} `json:"boards"`
 		Climbs []struct {
-			UUID       string         `json:"uuid"`
-			ClimbName  string         `json:"climb_name"`
-			CreatedAt  string         `json:"created_at"`
-			Ascends    map[string]int `json:"ascends"`
-			Grades     map[string]struct {
+			UUID      string         `json:"uuid"`
+			ClimbName string         `json:"climb_name"`
+			CreatedAt string         `json:"created_at"`
+			Ascends   map[string]int `json:"ascends"`
+			Grades    map[string]struct {
 				Boulder string `json:"boulder"`
 			} `json:"grades"`
 			ImageFiles []string `json:"image_filenames"`
 		} `json:"climbs"`
+		SyncToken  string `json:"sync_token"`
 		HasMore    bool   `json:"has_more"`
 		NextCursor string `json:"next_cursor"`
 		PageSize   int    `json:"page_size"`
-	} 
+	}
 	if err := json.NewDecoder(bootstrapResponse.Body).Decode(&bootstrapPayload); err != nil {
 		t.Fatalf("decode bootstrap: %v", err)
 	}
@@ -118,7 +119,7 @@ func TestKilterCatalogRoutesContract(t *testing.T) {
 	if bootstrapPayload.Climbs[1].Ascends["40"] != 10 {
 		t.Fatalf("expected angle ascends in bootstrap payload, got %#v", bootstrapPayload.Climbs[1].Ascends)
 	}
-	if len(bootstrapPayload.Climbs[0].ImageFiles) != 2 || !bootstrapPayload.HasMore || bootstrapPayload.NextCursor == "" || bootstrapPayload.PageSize != 2 {
+	if len(bootstrapPayload.Climbs[0].ImageFiles) != 2 || bootstrapPayload.SyncToken == "" || !bootstrapPayload.HasMore || bootstrapPayload.NextCursor == "" || bootstrapPayload.PageSize != 2 {
 		t.Fatalf("unexpected bootstrap page metadata: %#v", bootstrapPayload)
 	}
 
@@ -167,7 +168,7 @@ func TestKilterCatalogRoutesContract(t *testing.T) {
 			ClimbName string `json:"climb_name"`
 		} `json:"climbs"`
 		NextToken string `json:"next_token"`
-	} 
+	}
 	if err := json.NewDecoder(deltaResponse.Body).Decode(&deltaPayload); err != nil {
 		t.Fatalf("decode initial delta: %v", err)
 	}

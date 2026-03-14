@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
@@ -58,14 +59,9 @@ class _ClimbMediaPreviewState extends State<ClimbMediaPreview> {
           children: <Widget>[
             Container(color: const Color(0xFFE2E8F0)),
             for (final String imageUrl in visibleImageUrls)
-              Image.network(
-                imageUrl,
-                key: ValueKey<String>(imageUrl),
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) {
-                  _markFailed(imageUrl);
-                  return const SizedBox.shrink();
-                },
+              _PreviewImage(
+                imageUrl: imageUrl,
+                onFailed: () => _markFailed(imageUrl),
               ),
             if (widget.highlightedHolds.isNotEmpty)
               CustomPaint(
@@ -89,6 +85,47 @@ class _ClimbMediaPreviewState extends State<ClimbMediaPreview> {
         _failedImageUrls = <String>{..._failedImageUrls, imageUrl};
       });
     });
+  }
+}
+
+class _PreviewImage extends StatelessWidget {
+  const _PreviewImage({
+    required this.imageUrl,
+    required this.onFailed,
+  });
+
+  final String imageUrl;
+  final VoidCallback onFailed;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!kIsWeb &&
+        (imageUrl.startsWith('/') || imageUrl.startsWith('file://'))) {
+      final File file = File(
+        imageUrl.startsWith('file://')
+            ? Uri.parse(imageUrl).toFilePath()
+            : imageUrl,
+      );
+      return Image.file(
+        file,
+        key: ValueKey<String>(imageUrl),
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) {
+          onFailed();
+          return const SizedBox.shrink();
+        },
+      );
+    }
+
+    return Image.network(
+      imageUrl,
+      key: ValueKey<String>(imageUrl),
+      fit: BoxFit.cover,
+      errorBuilder: (_, __, ___) {
+        onFailed();
+        return const SizedBox.shrink();
+      },
+    );
   }
 }
 

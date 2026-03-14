@@ -4,11 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/board_models.dart';
+import '../../../core/models/catalog_models.dart';
 import '../../../core/models/product_models.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
 import '../../../core/storage/app_prefs_controller.dart';
+import '../../../core/storage/offline_kilter_catalog_repository.dart';
 import '../../../core/storage/session_repository.dart';
 
 class SoloBoardRouteArgs {
@@ -156,6 +158,7 @@ final soloBoardControllerProvider = StateNotifierProvider.autoDispose
       args: args,
       apiClient: ref.read(apiClientProvider),
       appPrefsController: ref.read(appPrefsControllerProvider.notifier),
+      catalogRepository: ref.read(offlineKilterCatalogRepositoryProvider),
       sessionRepository: ref.read(sessionRepositoryProvider),
     );
   },
@@ -166,10 +169,12 @@ class SoloBoardController extends StateNotifier<SoloBoardViewState> {
     required SoloBoardRouteArgs args,
     required ApiClient apiClient,
     required AppPrefsController appPrefsController,
+    required OfflineKilterCatalogRepository catalogRepository,
     required SessionRepository sessionRepository,
   })  : _args = args,
         _apiClient = apiClient,
         _appPrefsController = appPrefsController,
+        _catalogRepository = catalogRepository,
         _sessionRepository = sessionRepository,
         super(
           SoloBoardViewState(
@@ -181,15 +186,14 @@ class SoloBoardController extends StateNotifier<SoloBoardViewState> {
             grade: args.initialGrade ?? '',
           ),
         ) {
-    _cursors[1] = null;
     unawaited(load());
   }
 
   final SoloBoardRouteArgs _args;
   final ApiClient _apiClient;
   final AppPrefsController _appPrefsController;
+  final OfflineKilterCatalogRepository _catalogRepository;
   final SessionRepository _sessionRepository;
-  final Map<int, String?> _cursors = <int, String?>{};
 
   Future<void> load() async {
     state = state.copyWith(
@@ -209,7 +213,20 @@ class SoloBoardController extends StateNotifier<SoloBoardViewState> {
     }
 
     try {
-      final List<BoardOption> boards = await _apiClient.getBoards(server);
+      final CatalogStatus status = await _catalogRepository.getStatus();
+      if (!status.matchesServer(server)) {
+        final String message = status.installed
+            ? 'Offline Kilter catalog belongs to a different server. Re-download it in Settings for ${describeServer(server)}.'
+            : 'Download the offline Kilter catalog for ${describeServer(server)} before opening solo browse.';
+        state = state.copyWith(
+          server: server,
+          loading: false,
+          errorMessage: message,
+        );
+        return;
+      }
+
+      final List<BoardOption> boards = await _catalogRepository.getBoards();
       final BoardOption board = boards.firstWhere(
         (BoardOption item) => '${item.id}' == state.boardId,
         orElse: () => boards.isEmpty
@@ -285,9 +302,6 @@ class SoloBoardController extends StateNotifier<SoloBoardViewState> {
       clearErrorMessage: true,
       clearNotice: true,
     );
-    _cursors
-      ..clear()
-      ..[1] = null;
     if (state.board != null) {
       await _appPrefsController.rememberLastKilterSurface(
         boardId: '${state.board!.id}',
@@ -298,7 +312,7 @@ class SoloBoardController extends StateNotifier<SoloBoardViewState> {
   }
 
   Future<void> nextPage() async {
-    if (!state.hasNextPage || !_cursors.containsKey(state.currentPage + 1)) {
+    if (!state.hasNextPage) {
       return;
     }
     await _loadPage(page: state.currentPage + 1);
@@ -442,18 +456,18 @@ class SoloBoardController extends StateNotifier<SoloBoardViewState> {
         clearNotice: true,
       );
       final PaginatedBoardClimbsResponse response =
-          await _apiClient.getPaginatedClimbs(
-        server: server,
-        boardId: state.boardId,
-        angle: state.angle,
-        cursor: _cursors[page],
-        pageSize: 10,
-        name: state.query.trim().isEmpty ? null : state.query.trim(),
-        setter: state.setter.trim().isEmpty ? null : state.setter.trim(),
-        grade: state.grade.trim().isEmpty ? null : state.grade.trim(),
-        sort: state.sort,
+          await _catalogRepository.queryClimbs(
+        OfflineCatalogQuery(
+          boardId: state.boardId,
+          angle: state.angle,
+          page: page,
+          pageSize: 10,
+          name: state.query.trim().isEmpty ? null : state.query.trim(),
+          setter: state.setter.trim().isEmpty ? null : state.setter.trim(),
+          grade: state.grade.trim().isEmpty ? null : state.grade.trim(),
+          sort: state.sort,
+        ),
       );
-      _cursors[page + 1] = response.nextCursor;
 
       BoardClimb? selectedClimb;
       final String preferredUuid =

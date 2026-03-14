@@ -5,12 +5,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/models/app_prefs_models.dart';
+import '../../../core/models/catalog_models.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/runtime_models.dart';
+import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/presentation/runtime_status_banner.dart';
 import '../../../core/storage/app_prefs_controller.dart';
+import '../../../core/storage/offline_kilter_catalog_controller.dart';
 import '../../../core/storage/session_repository.dart';
 
 final _settingsCapabilitiesProvider =
@@ -41,6 +44,11 @@ final _settingsRuntimeStatusProvider =
   }
 });
 
+final _settingsActiveServerProvider =
+    FutureProvider.autoDispose<Uri?>((Ref ref) {
+  return ref.read(sessionRepositoryProvider).loadActiveServer();
+});
+
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
 
@@ -64,11 +72,31 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Widget build(BuildContext context) {
     final AsyncValue<AppPrefs> prefsValue =
         ref.watch(appPrefsControllerProvider);
+    final OfflineKilterCatalogState catalogState =
+        ref.watch(offlineKilterCatalogControllerProvider);
+    final OfflineKilterCatalogController catalogController =
+        ref.read(offlineKilterCatalogControllerProvider.notifier);
     final List<ProviderCapability> capabilities =
         ref.watch(_settingsCapabilitiesProvider).valueOrNull ??
             const <ProviderCapability>[];
     final RuntimeStatus? runtimeStatus =
         ref.watch(_settingsRuntimeStatusProvider).valueOrNull;
+    final Uri? activeServer =
+        ref.watch(_settingsActiveServerProvider).valueOrNull;
+    final VoidCallback? downloadCatalogAction;
+    final VoidCallback? syncCatalogAction;
+    if (activeServer == null) {
+      downloadCatalogAction = null;
+      syncCatalogAction = null;
+    } else {
+      final Uri catalogServer = activeServer;
+      downloadCatalogAction = () => unawaited(
+            _confirmDownloadCatalog(catalogServer),
+          );
+      syncCatalogAction = () => unawaited(
+            catalogController.syncNow(catalogServer),
+          );
+    }
 
     return GradientScaffold(
       title: 'Settings',
@@ -116,6 +144,20 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              if (catalogState.errorMessage != null) ...<Widget>[
+                _SettingsMessageCard(
+                  message: catalogState.errorMessage!,
+                  accent: const Color(0xFFB91C1C),
+                ),
+                const SizedBox(height: 14),
+              ],
+              if (catalogState.notice != null) ...<Widget>[
+                _SettingsMessageCard(
+                  message: catalogState.notice!,
+                  accent: const Color(0xFF0F766E),
+                ),
+                const SizedBox(height: 14),
+              ],
               if (runtimeStatus != null) ...<Widget>[
                 RuntimeStatusBanner(status: runtimeStatus),
                 const SizedBox(height: 14),
@@ -319,6 +361,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       const SizedBox(height: 12),
+                      _OfflineCatalogSettingsCard(
+                        activeServer: activeServer,
+                        state: catalogState,
+                        onDownload: downloadCatalogAction,
+                        onSync: syncCatalogAction,
+                        onDelete: () => unawaited(_confirmDeleteCatalog()),
+                      ),
                       _ActionTile(
                         label: 'Reset guides',
                         description:
@@ -394,6 +443,83 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _confirmDeleteCatalog() async {
+    final CatalogStatus status =
+        ref.read(offlineKilterCatalogControllerProvider).status;
+    final String details = status.installed
+        ? '${status.climbCount} climbs · ${_formatStoredBytes(status.storedBytes)}'
+        : 'the downloaded catalog files';
+    final bool? confirmed = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text('Delete offline Kilter catalog?'),
+          content: Text(
+            'This removes $details from this device. Favorites, shortlist entries, saved filters, room history, and remembered credentials stay intact.',
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(false),
+              child: const Text('Cancel'),
+            ),
+            FilledButton.tonal(
+              onPressed: () => Navigator.of(dialogContext).pop(true),
+              child: const Text('Delete'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirmed == true && mounted) {
+      await ref
+          .read(offlineKilterCatalogControllerProvider.notifier)
+          .deleteCatalog();
+    }
+  }
+
+  Future<void> _confirmDownloadCatalog(Uri server) async {
+    final OfflineKilterCatalogController controller =
+        ref.read(offlineKilterCatalogControllerProvider.notifier);
+    try {
+      final CatalogManifest manifest = await controller.fetchManifest(server);
+      if (!mounted) {
+        return;
+      }
+      final bool? confirmed = await showDialog<bool>(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return AlertDialog(
+            title: const Text('Download offline Kilter catalog?'),
+            content: Text(
+              'This stores about ${_formatStoredBytes(manifest.estimatedBytes)} on this device for ${manifest.climbCount} climbs. The catalog stays in app-managed storage and can be deleted later from Settings.',
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(dialogContext).pop(false),
+                child: const Text('Cancel'),
+              ),
+              FilledButton(
+                onPressed: () => Navigator.of(dialogContext).pop(true),
+                child: const Text('Download'),
+              ),
+            ],
+          );
+        },
+      );
+      if (confirmed == true && mounted) {
+        await controller.download(server);
+      }
+    } catch (error) {
+      if (!mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('$error')),
+      );
+    }
   }
 }
 
@@ -514,4 +640,209 @@ class _SurfaceStatusCard extends StatelessWidget {
       ),
     );
   }
+}
+
+class _OfflineCatalogSettingsCard extends StatelessWidget {
+  const _OfflineCatalogSettingsCard({
+    required this.activeServer,
+    required this.state,
+    required this.onDownload,
+    required this.onSync,
+    required this.onDelete,
+  });
+
+  final Uri? activeServer;
+  final OfflineKilterCatalogState state;
+  final VoidCallback? onDownload;
+  final VoidCallback? onSync;
+  final VoidCallback onDelete;
+
+  @override
+  Widget build(BuildContext context) {
+    final bool installed = state.status.installed;
+    final bool matchesServer = state.status.matchesServer(activeServer);
+    final bool canDownload = activeServer != null && !state.busy;
+    final bool canSync =
+        activeServer != null && installed && matchesServer && !state.busy;
+    final bool canDelete = installed && !state.busy;
+
+    final String description;
+    if (activeServer == null) {
+      description =
+          'Choose or join a self-hosted server first. The offline Kilter download is tied to the active server.';
+    } else if (!installed) {
+      description =
+          'No offline Kilter catalog is installed for ${describeServer(activeServer!)}.';
+    } else if (!matchesServer) {
+      description =
+          'A catalog is installed for ${state.status.sourceServer}, not ${describeServer(activeServer!)}.';
+    } else if (state.status.updateAvailable &&
+        state.status.requiresFullResync) {
+      description =
+          'A catalog update is available and needs a full refresh from ${describeServer(activeServer!)}.';
+    } else {
+      description =
+          'Installed for ${describeServer(activeServer!)}. Kilter solo browse now reads this device-local copy.';
+    }
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF8FFFD),
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(color: const Color(0xFFB7E4DF)),
+      ),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            'Offline Kilter catalog',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          const SizedBox(height: 4),
+          Text(description),
+          const SizedBox(height: 10),
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: <Widget>[
+              if ((state.status.sourceServer ?? '').isNotEmpty)
+                _CatalogChip(
+                  label:
+                      'Server: ${_describeCatalogServer(state.status.sourceServer!)}',
+                ),
+              _CatalogChip(
+                label: installed
+                    ? '${state.status.climbCount} climbs'
+                    : 'Not installed',
+              ),
+              _CatalogChip(
+                label: installed
+                    ? _formatStoredBytes(state.status.storedBytes)
+                    : state.status.estimatedBytes > 0
+                        ? 'About ${_formatStoredBytes(state.status.estimatedBytes)}'
+                        : 'Size unknown',
+              ),
+              if (installed)
+                _CatalogChip(label: '${state.status.imageCount} images'),
+            ],
+          ),
+          const SizedBox(height: 12),
+          if ((state.status.lastFullSyncAt ?? '').isNotEmpty)
+            Text(
+              'Last sync: ${state.status.lastFullSyncAt}',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          const SizedBox(height: 12),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: FilledButton(
+                  onPressed: canDownload ? onDownload : null,
+                  child: Text(
+                    installed
+                        ? 'Re-download'
+                        : state.busy
+                            ? 'Working...'
+                            : 'Download',
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: canSync ? onSync : null,
+                  child: const Text('Sync now'),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: canDelete ? onDelete : null,
+                  child: const Text('Delete'),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CatalogChip extends StatelessWidget {
+  const _CatalogChip({
+    required this.label,
+  });
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFFD1FAE5)),
+      ),
+      child: Text(label),
+    );
+  }
+}
+
+class _SettingsMessageCard extends StatelessWidget {
+  const _SettingsMessageCard({
+    required this.message,
+    required this.accent,
+  });
+
+  final String message;
+  final Color accent;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Row(
+          children: <Widget>[
+            Icon(Icons.circle, size: 12, color: accent),
+            const SizedBox(width: 12),
+            Expanded(child: Text(message)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+String _formatStoredBytes(int bytes) {
+  if (bytes <= 0) {
+    return '0 B';
+  }
+
+  const List<String> units = <String>['B', 'KB', 'MB', 'GB'];
+  double value = bytes.toDouble();
+  int unitIndex = 0;
+  while (value >= 1024 && unitIndex < units.length - 1) {
+    value /= 1024;
+    unitIndex += 1;
+  }
+  final String formatted = value >= 10 || unitIndex == 0
+      ? value.toStringAsFixed(0)
+      : value.toStringAsFixed(1);
+  return '$formatted ${units[unitIndex]}';
+}
+
+String _describeCatalogServer(String rawServer) {
+  final Uri? parsed = Uri.tryParse(rawServer);
+  if (parsed == null || (parsed.host.isEmpty && parsed.path.isEmpty)) {
+    return rawServer;
+  }
+  if (parsed.host.isEmpty) {
+    return parsed.toString();
+  }
+  return describeServer(parsed);
 }

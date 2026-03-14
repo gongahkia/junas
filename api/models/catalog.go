@@ -35,17 +35,18 @@ type CatalogClimb struct {
 	Description      string               `json:"description,omitempty"`
 	Frames           string               `json:"frames"`
 	ImageFilenames   []string             `gorm:"column:image_filenames;serializer:json" json:"image_filenames"`
-	HighlightedHolds []HighlightedHold    `json:"highlighted_holds,omitempty"`
+	HighlightedHolds []HighlightedHold    `gorm:"-" json:"highlighted_holds,omitempty"`
 	ProductSizeID    uint                 `json:"product_size_id"`
 	CreatedAt        string               `json:"created_at"`
-	Grades           map[string]GradeInfo `json:"grades"`
-	Ascends          map[string]int       `json:"ascends"`
+	Grades           map[string]GradeInfo `gorm:"-" json:"grades"`
+	Ascends          map[string]int       `gorm:"-" json:"ascends"`
 }
 
 type CatalogBootstrapResponse struct {
 	Manifest   CatalogManifest `json:"manifest"`
 	Boards     []BoardOption   `json:"boards"`
 	Climbs     []CatalogClimb  `json:"climbs"`
+	SyncToken  string          `json:"sync_token,omitempty"`
 	HasMore    bool            `json:"has_more"`
 	NextCursor string          `json:"next_cursor,omitempty"`
 	PageSize   int             `json:"page_size"`
@@ -153,6 +154,7 @@ func ListCatalogBootstrap(cursor string, pageSize int) (*CatalogBootstrapRespons
 	if err != nil {
 		return nil, err
 	}
+	boardSignature := signatureForBoards(boards)
 
 	climbs, err := listCatalogBootstrapClimbs(offset, pageSize+1)
 	if err != nil {
@@ -169,10 +171,25 @@ func ListCatalogBootstrap(cursor string, pageSize int) (*CatalogBootstrapRespons
 		nextCursor = encodeCatalogBootstrapCursor(offset + pageSize)
 	}
 
+	syncToken := ""
+	latest, err := latestCatalogWatermark()
+	if err != nil {
+		return nil, err
+	}
+	if latest.UUID != "" {
+		syncToken = encodeCatalogDeltaToken(catalogDeltaToken{
+			BoardSignature: boardSignature,
+			CreatedAt:      latest.CreatedAt,
+			UUID:           latest.UUID,
+			ProductSizeID:  latest.ProductSizeID,
+		})
+	}
+
 	return &CatalogBootstrapResponse{
 		Manifest:   *manifest,
 		Boards:     boards,
 		Climbs:     climbs,
+		SyncToken:  syncToken,
 		HasMore:    hasMore,
 		NextCursor: nextCursor,
 		PageSize:   pageSize,

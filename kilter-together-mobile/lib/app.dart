@@ -9,6 +9,7 @@ import 'core/deep_links/invite_links.dart';
 import 'core/presentation/tap_cheer_overlay.dart';
 import 'core/router/app_router.dart';
 import 'core/storage/app_prefs_controller.dart';
+import 'core/storage/offline_kilter_catalog_controller.dart';
 import 'core/theme/app_theme.dart';
 
 class KilterTogetherApp extends ConsumerStatefulWidget {
@@ -26,11 +27,23 @@ class _KilterTogetherAppState extends ConsumerState<KilterTogetherApp> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(_lifecycleObserver);
     unawaited(_bindDeepLinks());
+    unawaited(ref
+        .read(offlineKilterCatalogControllerProvider.notifier)
+        .autoSyncIfNeeded());
   }
+
+  late final WidgetsBindingObserver _lifecycleObserver =
+      _CatalogLifecycleObserver(
+    onResumed: () => ref
+        .read(offlineKilterCatalogControllerProvider.notifier)
+        .autoSyncIfNeeded(),
+  );
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(_lifecycleObserver);
     final StreamSubscription<Uri>? subscription = _linkSubscription;
     _linkSubscription = null;
     if (subscription != null) {
@@ -125,5 +138,20 @@ class _KilterTogetherAppState extends ConsumerState<KilterTogetherApp> {
       },
       debugShowCheckedModeBanner: false,
     );
+  }
+}
+
+class _CatalogLifecycleObserver extends WidgetsBindingObserver {
+  _CatalogLifecycleObserver({
+    required this.onResumed,
+  });
+
+  final Future<void> Function() onResumed;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      unawaited(onResumed());
+    }
   }
 }

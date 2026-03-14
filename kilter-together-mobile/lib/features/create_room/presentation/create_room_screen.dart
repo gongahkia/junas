@@ -66,6 +66,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
   String? _preferredProviderId;
   PendingRoomSeed? _pendingRoomSeed;
   Map<String, bool> _rememberProviderSecrets = <String, bool>{};
+  Map<String, SavedCredentialPreference> _savedCredentialPreferences =
+      <String, SavedCredentialPreference>{};
   String? _inlineError;
   RuntimeStatus? _runtimeStatus;
   final Map<String, TextEditingController> _secretControllers =
@@ -112,6 +114,10 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
             prefs.pendingRoomSeed?.providerId ?? prefs.lastProviderId;
         _pendingRoomSeed = prefs.pendingRoomSeed;
         _rememberProviderSecrets = rememberProviderSecrets;
+        _savedCredentialPreferences =
+            Map<String, SavedCredentialPreference>.from(
+          prefs.savedCredentials.providers,
+        );
       });
       unawaited(_maybeAutoLoadCapabilities());
     });
@@ -177,6 +183,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
       return 'Load providers for this server to see what shared surface step follows room creation.';
     }
     return switch (capability.id) {
+      'kilter' when capability.authFields.isNotEmpty =>
+        'This room only opens after the Kilter credentials validate. The next step inside the room is choosing the board plus angle.',
       'kilter' =>
         'This room uses the self-hosted Kilter dataset. The next step inside the room is choosing the board plus angle.',
       'crux' =>
@@ -184,6 +192,42 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
       _ =>
         'This room only opens after the host credentials validate. The next step inside the room is choosing the shared surface.',
     };
+  }
+
+  String _rememberPreferenceTitle(ProviderCapability capability) {
+    return switch (capability.id) {
+      'kilter' => 'Remember Kilter username on this device',
+      _ => 'Remember this ${capability.label} auth preference on this device',
+    };
+  }
+
+  String _rememberPreferenceSubtitle(ProviderCapability capability) {
+    return switch (capability.id) {
+      'kilter' =>
+        'Stores the Kilter username locally. You still enter the password each time.',
+      'crux' =>
+        'Stores this preference locally. You still enter the Crux token each time.',
+      _ =>
+        'Stores this provider preference locally. You still enter the secret each time.',
+    };
+  }
+
+  void _prefillSavedProviderFields(String providerId) {
+    if (providerId != 'kilter') {
+      return;
+    }
+    final SavedCredentialPreference saved =
+        _savedCredentialPreferences[providerId] ??
+            const SavedCredentialPreference(remember: false);
+    final TextEditingController? usernameController =
+        _secretControllers['username'];
+    if (!saved.remember ||
+        (saved.username ?? '').trim().isEmpty ||
+        usernameController == null ||
+        usernameController.text.trim().isNotEmpty) {
+      return;
+    }
+    usernameController.text = saved.username!.trim();
   }
 
   void _maybeAutoOpenGuide(AppPrefs prefs) {
@@ -302,6 +346,9 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
             ? 'This server did not advertise any providers that can host collaborative rooms.'
             : null;
       });
+      if (_selectedProviderId != null) {
+        _prefillSavedProviderFields(_selectedProviderId!);
+      }
     } catch (error) {
       _showSnack('Unable to load provider capabilities: $error');
       setState(() {
@@ -435,12 +482,21 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
             room: result.room,
           );
       if (selectedCapability.authFields.isNotEmpty) {
-        await ref
-            .read(appPrefsControllerProvider.notifier)
-            .rememberProviderSecretPreference(
-              providerId: selectedCapability.id,
-              remember: _rememberSecretForProvider(selectedCapability.id),
-            );
+        if (selectedCapability.id == 'kilter') {
+          await ref
+              .read(appPrefsControllerProvider.notifier)
+              .rememberKilterCredentials(
+                username: _secretControllers['username']?.text.trim() ?? '',
+                remember: _rememberSecretForProvider(selectedCapability.id),
+              );
+        } else {
+          await ref
+              .read(appPrefsControllerProvider.notifier)
+              .rememberProviderSecretPreference(
+                providerId: selectedCapability.id,
+                remember: _rememberSecretForProvider(selectedCapability.id),
+              );
+        }
       }
 
       if (!mounted) {
@@ -636,6 +692,9 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                   setState(() {
                     _selectedProviderId = value;
                   });
+                  if (value != null) {
+                    _prefillSavedProviderFields(value);
+                  }
                 },
               ),
               const SizedBox(height: 12),
@@ -663,17 +722,12 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                   ),
                 ),
               ],
-              if (capability != null && capability.authFields.isNotEmpty) ...<Widget>[
+              if (capability != null &&
+                  capability.authFields.isNotEmpty) ...<Widget>[
                 SwitchListTile.adaptive(
                   contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    'Remember this ${capability.label} auth preference on this device',
-                  ),
-                  subtitle: Text(
-                    capability.id == 'crux'
-                        ? 'Stores this preference locally. You still enter the Crux token each time.'
-                        : 'Stores this provider preference locally. You still enter the secret each time.',
-                  ),
+                  title: Text(_rememberPreferenceTitle(capability)),
+                  subtitle: Text(_rememberPreferenceSubtitle(capability)),
                   value: _rememberSecretForProvider(capability.id),
                   onChanged: (bool value) =>
                       _setRememberSecretForProvider(capability.id, value),
