@@ -19,6 +19,7 @@ import 'package:kilter_together_mobile/core/presentation/app_bottom_bar.dart';
 import 'package:kilter_together_mobile/core/router/app_router.dart';
 import 'package:kilter_together_mobile/core/storage/app_preferences.dart';
 import 'package:kilter_together_mobile/core/storage/catalog_storage_platform.dart';
+import 'package:kilter_together_mobile/core/storage/offline_kilter_catalog_controller.dart';
 import 'package:kilter_together_mobile/core/storage/offline_kilter_catalog_repository.dart';
 import 'package:kilter_together_mobile/core/storage/secure_store.dart';
 import 'package:kilter_together_mobile/core/storage/session_repository.dart';
@@ -29,6 +30,7 @@ import 'package:kilter_together_mobile/features/recap/presentation/recap_screen.
 import 'package:kilter_together_mobile/features/room/presentation/room_screen.dart';
 import 'package:kilter_together_mobile/features/settings/presentation/settings_screen.dart';
 import 'package:kilter_together_mobile/features/solo_entry/presentation/solo_entry_screen.dart';
+import 'package:kilter_together_mobile/features/solo_kilter/presentation/solo_board_screen.dart';
 import 'package:wakelock_plus_platform_interface/wakelock_plus_platform_interface.dart';
 
 void main() {
@@ -1477,6 +1479,55 @@ void main() {
     expect(offlineCatalogRepository.downloadCalled, isTrue);
     expect(find.text('Downloaded offline Kilter catalog.'), findsOneWidget);
   });
+
+  testWidgets('solo board handles a corrupt offline catalog gracefully',
+      (WidgetTester tester) async {
+    await _pumpScreen(
+      tester,
+      child: const SoloBoardScreen(boardId: '1'),
+      appPreferences: FakeAppPreferences(
+        activeServer: _server,
+        prefs: _buildPrefs(
+          settings: _buildSettings(autoGuidesEnabled: false),
+        ),
+      ),
+      apiClient: FakeApiClient(),
+      offlineCatalogRepository: FakeOfflineKilterCatalogRepository(
+        statusError: const CatalogCorruptionException(),
+      ),
+    );
+
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text(CatalogCorruptionException.message),
+      findsOneWidget,
+    );
+  });
+
+  test('offline catalog controller clears corrupt state during auto-sync',
+      () async {
+    final OfflineKilterCatalogController controller =
+        OfflineKilterCatalogController(
+      repository: FakeOfflineKilterCatalogRepository(
+        statusError: const CatalogCorruptionException(),
+      ),
+      sessionRepository: SessionRepository(
+        appPreferences: FakeAppPreferences(
+          activeServer: _server,
+          prefs: _buildPrefs(),
+        ),
+        secureStore: FakeSecureStore(),
+      ),
+    );
+
+    await controller.autoSyncIfNeeded();
+
+    expect(controller.state.status.installed, isFalse);
+    expect(controller.state.errorMessage, CatalogCorruptionException.message);
+
+    controller.dispose();
+  });
 }
 
 Future<void> _pumpScreen(
@@ -1773,6 +1824,9 @@ class FakeOfflineKilterCatalogRepository
     CatalogManifest? manifest,
     List<BoardOption>? boards,
     Map<String, String>? imagePaths,
+    this.statusError,
+    this.boardsError,
+    this.queryError,
   })  : _status = status ?? CatalogStatus.empty(),
         _manifest = manifest ??
             const CatalogManifest(
@@ -1794,19 +1848,45 @@ class FakeOfflineKilterCatalogRepository
   final CatalogManifest _manifest;
   final List<BoardOption> _boards;
   final Map<String, String> _imagePaths;
+  final Object? statusError;
+  final Object? boardsError;
+  final Object? queryError;
   bool deleteCalled = false;
   bool downloadCalled = false;
   bool syncCalled = false;
 
   @override
-  Future<CatalogStatus> getStatus() async => _status;
+  Future<CatalogStatus> getStatus() async {
+    if (statusError != null) {
+      throw statusError!;
+    }
+    return _status;
+  }
 
   @override
   Future<CatalogManifest> getManifest(Uri server) async => _manifest;
 
   @override
-  Future<List<BoardOption>> getBoards() async =>
-      List<BoardOption>.from(_boards);
+  Future<List<BoardOption>> getBoards() async {
+    if (boardsError != null) {
+      throw boardsError!;
+    }
+    return List<BoardOption>.from(_boards);
+  }
+
+  @override
+  Future<PaginatedBoardClimbsResponse> queryClimbs(
+    OfflineCatalogQuery query,
+  ) async {
+    if (queryError != null) {
+      throw queryError!;
+    }
+    return const PaginatedBoardClimbsResponse(
+      climbs: <BoardClimb>[],
+      hasMore: false,
+      pageSize: 10,
+    );
+  }
 
   @override
   Future<void> downloadCatalog(Uri server) async {

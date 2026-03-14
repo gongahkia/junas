@@ -66,15 +66,19 @@ class OfflineKilterCatalogRepository {
       return CatalogStatus.empty();
     }
 
-    final Database db = await _openDatabase(liveDb.path, readOnly: true);
     try {
-      final Map<String, String> meta = await _loadMeta(db);
-      return _statusFromMeta(
-        meta,
-        storedBytes: await _calculateStoredBytes(),
-      );
-    } finally {
-      await db.close();
+      final Database db = await _openDatabase(liveDb.path, readOnly: true);
+      try {
+        final Map<String, String> meta = await _loadMeta(db);
+        return _statusFromMeta(
+          meta,
+          storedBytes: await _calculateStoredBytes(),
+        );
+      } finally {
+        await db.close();
+      }
+    } catch (error, stackTrace) {
+      await _rethrowCatalogAccessError(error, stackTrace);
     }
   }
 
@@ -84,25 +88,29 @@ class OfflineKilterCatalogRepository {
       return const <BoardOption>[];
     }
 
-    final Database db = await _openDatabase(liveDb.path, readOnly: true);
     try {
-      final List<Map<String, Object?>> rows = await db.query(
-        'boards',
-        orderBy: 'kilter_name ASC, name ASC, id ASC',
-      );
-      return rows
-          .map(
-            (Map<String, Object?> row) => BoardOption(
-              id: (row['id'] as num?)?.toInt() ?? 0,
-              name: row['name'] as String? ?? '',
-              kilterName: row['kilter_name'] as String? ?? '',
-              previewImageFilename: row['preview_image_filename'] as String?,
-              climbCount: (row['climb_count'] as num?)?.toInt(),
-            ),
-          )
-          .toList(growable: false);
-    } finally {
-      await db.close();
+      final Database db = await _openDatabase(liveDb.path, readOnly: true);
+      try {
+        final List<Map<String, Object?>> rows = await db.query(
+          'boards',
+          orderBy: 'kilter_name ASC, name ASC, id ASC',
+        );
+        return rows
+            .map(
+              (Map<String, Object?> row) => BoardOption(
+                id: (row['id'] as num?)?.toInt() ?? 0,
+                name: row['name'] as String? ?? '',
+                kilterName: row['kilter_name'] as String? ?? '',
+                previewImageFilename: row['preview_image_filename'] as String?,
+                climbCount: (row['climb_count'] as num?)?.toInt(),
+              ),
+            )
+            .toList(growable: false);
+      } finally {
+        await db.close();
+      }
+    } catch (error, stackTrace) {
+      await _rethrowCatalogAccessError(error, stackTrace);
     }
   }
 
@@ -153,30 +161,34 @@ class OfflineKilterCatalogRepository {
         ? 'created_at DESC, uuid DESC'
         : 'COALESCE($ascendsColumn, 0) DESC, created_at DESC, uuid DESC';
 
-    final Database db = await _openDatabase(liveDb.path, readOnly: true);
     try {
-      final List<Map<String, Object?>> rows = await db.query(
-        'climbs',
-        where: whereParts.join(' AND '),
-        whereArgs: whereArgs,
-        orderBy: orderBy,
-        limit: limit + 1,
-        offset: offset,
-      );
+      final Database db = await _openDatabase(liveDb.path, readOnly: true);
+      try {
+        final List<Map<String, Object?>> rows = await db.query(
+          'climbs',
+          where: whereParts.join(' AND '),
+          whereArgs: whereArgs,
+          orderBy: orderBy,
+          limit: limit + 1,
+          offset: offset,
+        );
 
-      final bool hasMore = rows.length > limit;
-      final List<Map<String, Object?>> visibleRows =
-          hasMore ? rows.sublist(0, limit) : rows;
-      return PaginatedBoardClimbsResponse(
-        climbs: visibleRows
-            .map((Map<String, Object?> row) =>
-                _boardClimbFromRow(row, query.angle))
-            .toList(growable: false),
-        hasMore: hasMore,
-        pageSize: limit,
-      );
-    } finally {
-      await db.close();
+        final bool hasMore = rows.length > limit;
+        final List<Map<String, Object?>> visibleRows =
+            hasMore ? rows.sublist(0, limit) : rows;
+        return PaginatedBoardClimbsResponse(
+          climbs: visibleRows
+              .map((Map<String, Object?> row) =>
+                  _boardClimbFromRow(row, query.angle))
+              .toList(growable: false),
+          hasMore: hasMore,
+          pageSize: limit,
+        );
+      } finally {
+        await db.close();
+      }
+    } catch (error, stackTrace) {
+      await _rethrowCatalogAccessError(error, stackTrace);
     }
   }
 
@@ -285,100 +297,116 @@ class OfflineKilterCatalogRepository {
     Uri server, {
     bool allowFullResync = true,
   }) async {
-    CatalogStatus status = await getStatus();
-    if (!status.installed || !status.matchesServer(server)) {
-      if (allowFullResync) {
+    try {
+      CatalogStatus status = await getStatus();
+      if (!status.installed || !status.matchesServer(server)) {
+        if (allowFullResync) {
+          await downloadCatalog(server);
+          return CatalogSyncResult(
+              status: await getStatus(), performedSync: true);
+        }
+        return CatalogSyncResult(status: status);
+      }
+
+      final CatalogManifest manifest =
+          await _apiClient.getKilterCatalogManifest(server: server);
+      final String now = DateTime.now().toUtc().toIso8601String();
+      if (manifest.revision == status.revision) {
+        await _updateLiveMeta(<String, String>{
+          'last_poll_at': now,
+          'update_available': '0',
+          'requires_full_resync': '0',
+        });
+        return CatalogSyncResult(
+          status: (await getStatus()).copyWith(
+            updateAvailable: false,
+            requiresFullResync: false,
+          ),
+        );
+      }
+
+      if (manifest.requiresFullResync && !allowFullResync) {
+        await _updatePendingResync(manifest, now);
+        return CatalogSyncResult(status: await getStatus());
+      }
+      if (manifest.requiresFullResync && allowFullResync) {
         await downloadCatalog(server);
         return CatalogSyncResult(
             status: await getStatus(), performedSync: true);
       }
-      return CatalogSyncResult(status: status);
-    }
 
-    final CatalogManifest manifest =
-        await _apiClient.getKilterCatalogManifest(server: server);
-    final String now = DateTime.now().toUtc().toIso8601String();
-    if (manifest.revision == status.revision) {
-      await _updateLiveMeta(<String, String>{
-        'last_poll_at': now,
-        'update_available': '0',
-        'requires_full_resync': '0',
-      });
-      return CatalogSyncResult(
-        status: (await getStatus()).copyWith(
-          updateAvailable: false,
-          requiresFullResync: false,
-        ),
+      final CatalogDeltaResponse delta = await _apiClient.getKilterCatalogDelta(
+        server: server,
+        afterToken: status.syncToken,
       );
-    }
+      if (delta.requiresFullResync && !allowFullResync) {
+        await _updatePendingResync(delta.manifest, now);
+        return CatalogSyncResult(status: await getStatus());
+      }
+      if (delta.requiresFullResync && allowFullResync) {
+        await downloadCatalog(server);
+        return CatalogSyncResult(
+            status: await getStatus(), performedSync: true);
+      }
 
-    if (manifest.requiresFullResync && !allowFullResync) {
-      await _updatePendingResync(manifest, now);
-      return CatalogSyncResult(status: await getStatus());
-    }
-    if (manifest.requiresFullResync && allowFullResync) {
-      await downloadCatalog(server);
-      return CatalogSyncResult(status: await getStatus(), performedSync: true);
-    }
+      final Database db = await _openDatabase((await _liveDbFile()).path);
+      try {
+        await db.transaction((Transaction txn) async {
+          await _upsertClimbs(txn, delta.climbs);
+          await _writeMeta(
+            txn,
+            <String, String>{
+              'source_server': server.toString(),
+              'revision': delta.manifest.revision,
+              'generated_at': delta.manifest.generatedAt,
+              'climb_count': '${delta.manifest.climbCount}',
+              'image_count': '${delta.manifest.imageCount}',
+              'estimated_bytes': '${delta.manifest.estimatedBytes}',
+              'sync_token': delta.nextToken ?? (status.syncToken ?? ''),
+              'last_full_sync_at': now,
+              'last_poll_at': now,
+              'update_available': '0',
+              'requires_full_resync': '0',
+            },
+          );
+        });
+      } finally {
+        await db.close();
+      }
 
-    final CatalogDeltaResponse delta = await _apiClient.getKilterCatalogDelta(
-      server: server,
-      afterToken: status.syncToken,
-    );
-    if (delta.requiresFullResync && !allowFullResync) {
-      await _updatePendingResync(delta.manifest, now);
-      return CatalogSyncResult(status: await getStatus());
-    }
-    if (delta.requiresFullResync && allowFullResync) {
-      await downloadCatalog(server);
-      return CatalogSyncResult(status: await getStatus(), performedSync: true);
-    }
-
-    final Database db = await _openDatabase((await _liveDbFile()).path);
-    try {
-      await db.transaction((Transaction txn) async {
-        await _upsertClimbs(txn, delta.climbs);
-        await _writeMeta(
-          txn,
-          <String, String>{
-            'source_server': server.toString(),
-            'revision': delta.manifest.revision,
-            'generated_at': delta.manifest.generatedAt,
-            'climb_count': '${delta.manifest.climbCount}',
-            'image_count': '${delta.manifest.imageCount}',
-            'estimated_bytes': '${delta.manifest.estimatedBytes}',
-            'sync_token': delta.nextToken ?? (status.syncToken ?? ''),
-            'last_full_sync_at': now,
-            'last_poll_at': now,
-            'update_available': '0',
-            'requires_full_resync': '0',
-          },
+      if (delta.climbs.isNotEmpty) {
+        await _ensureImages(
+          server,
+          delta.climbs.expand((CatalogClimb climb) => climb.imageFilenames),
+          await _liveImagesDirectory(),
         );
-      });
-    } finally {
-      await db.close();
-    }
+      }
 
-    if (delta.climbs.isNotEmpty) {
-      await _ensureImages(
-        server,
-        delta.climbs.expand((CatalogClimb climb) => climb.imageFilenames),
-        await _liveImagesDirectory(),
+      return CatalogSyncResult(
+        status: await getStatus(),
+        performedSync: delta.climbs.isNotEmpty,
       );
+    } catch (error, stackTrace) {
+      if (_isCatalogAccessError(error)) {
+        await _purgeCatalogFiles();
+        if (allowFullResync) {
+          await downloadCatalog(server);
+          return CatalogSyncResult(
+            status: await getStatus(),
+            performedSync: true,
+          );
+        }
+        Error.throwWithStackTrace(
+          const CatalogCorruptionException(),
+          stackTrace,
+        );
+      }
+      rethrow;
     }
-
-    return CatalogSyncResult(
-      status: await getStatus(),
-      performedSync: delta.climbs.isNotEmpty,
-    );
   }
 
   Future<void> deleteCatalog() async {
-    await _deleteIfExists(await _liveDbFile());
-    await _deleteDirectoryIfExists(await _liveImagesDirectory());
-    await _deleteIfExists(await _tempDbFile());
-    await _deleteDirectoryIfExists(await _tempImagesDirectory());
-    await _deleteIfExists(await _bootstrapStateFile());
+    await _purgeCatalogFiles(ignoreErrors: false);
   }
 
   Future<String?> resolveImagePath(String filename) async {
@@ -576,12 +604,17 @@ class OfflineKilterCatalogRepository {
   }
 
   BoardClimb _boardClimbFromRow(Map<String, Object?> row, int angle) {
-    final List<dynamic> rawImages = jsonDecode(
-      row['image_filenames_json'] as String? ?? '[]',
-    ) as List<dynamic>;
-    final List<dynamic> rawHolds = jsonDecode(
-      row['highlighted_holds_json'] as String? ?? '[]',
-    ) as List<dynamic>;
+    final String climbUuid = row['uuid'] as String? ?? '';
+    final List<dynamic> rawImages = _decodeJsonList(
+      row['image_filenames_json'] as String?,
+      fieldName: 'image_filenames_json',
+      climbUuid: climbUuid,
+    );
+    final List<dynamic> rawHolds = _decodeJsonList(
+      row['highlighted_holds_json'] as String?,
+      fieldName: 'highlighted_holds_json',
+      climbUuid: climbUuid,
+    );
     final Map<String, GradeInfo> grades = <String, GradeInfo>{};
     for (final int candidate in _angles) {
       final String? boulder = row[_gradeBoulderColumnFor(candidate)] as String?;
@@ -661,6 +694,20 @@ class OfflineKilterCatalogRepository {
         await _createSchema(db);
       },
     );
+  }
+
+  List<dynamic> _decodeJsonList(
+    String? raw, {
+    required String fieldName,
+    required String climbUuid,
+  }) {
+    final dynamic decoded = jsonDecode(raw ?? '[]');
+    if (decoded is! List<dynamic>) {
+      throw FormatException(
+        'Expected $fieldName to contain a JSON list for climb $climbUuid.',
+      );
+    }
+    return decoded;
   }
 
   Future<void> _createSchema(Database db) async {
@@ -747,6 +794,46 @@ class OfflineKilterCatalogRepository {
     }
   }
 
+  Future<Never> _rethrowCatalogAccessError(
+    Object error,
+    StackTrace stackTrace,
+  ) async {
+    if (error is CatalogCorruptionException) {
+      Error.throwWithStackTrace(error, stackTrace);
+    }
+    if (_isCatalogAccessError(error)) {
+      await _purgeCatalogFiles();
+      Error.throwWithStackTrace(
+        const CatalogCorruptionException(),
+        stackTrace,
+      );
+    }
+    Error.throwWithStackTrace(error, stackTrace);
+  }
+
+  bool _isCatalogAccessError(Object error) {
+    return error is DatabaseException ||
+        error is FormatException ||
+        error is TypeError ||
+        error is FileSystemException;
+  }
+
+  Future<void> _purgeCatalogFiles({
+    bool ignoreErrors = true,
+  }) async {
+    try {
+      await _deleteIfExists(await _liveDbFile());
+      await _deleteDirectoryIfExists(await _liveImagesDirectory());
+      await _deleteIfExists(await _tempDbFile());
+      await _deleteDirectoryIfExists(await _tempImagesDirectory());
+      await _deleteIfExists(await _bootstrapStateFile());
+    } catch (_) {
+      if (!ignoreErrors) {
+        rethrow;
+      }
+    }
+  }
+
   Future<Directory> _rootDirectory() async {
     final Directory appSupport = await _storagePlatform.appSupportDirectory();
     return Directory(
@@ -826,6 +913,16 @@ class InsufficientCatalogStorageException implements Exception {
         'Need about ${_formatCatalogBytes(requiredBytes)} and only '
         '${_formatCatalogBytes(availableBytes)} is available.';
   }
+}
+
+class CatalogCorruptionException implements Exception {
+  const CatalogCorruptionException();
+
+  static const String message =
+      'Offline Kilter catalog on this device was corrupted and has been cleared. Download it again from Settings.';
+
+  @override
+  String toString() => message;
 }
 
 String _formatCatalogBytes(int bytes) {

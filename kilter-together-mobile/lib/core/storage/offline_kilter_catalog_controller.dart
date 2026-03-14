@@ -64,12 +64,25 @@ class OfflineKilterCatalogController
   final SessionRepository _sessionRepository;
 
   Future<void> refresh() async {
-    final CatalogStatus status = await _repository.getStatus();
-    state = state.copyWith(
-      status: status,
-      busy: false,
-      clearErrorMessage: true,
-    );
+    try {
+      final CatalogStatus status = await _repository.getStatus();
+      state = state.copyWith(
+        status: status,
+        busy: false,
+        clearErrorMessage: true,
+      );
+    } on CatalogCorruptionException catch (error) {
+      state = state.copyWith(
+        status: CatalogStatus.empty(),
+        busy: false,
+        errorMessage: error.toString(),
+      );
+    } catch (error) {
+      state = state.copyWith(
+        busy: false,
+        errorMessage: '$error',
+      );
+    }
   }
 
   Future<CatalogManifest> fetchManifest(Uri server) {
@@ -91,6 +104,9 @@ class OfflineKilterCatalogController
       );
     } catch (error) {
       state = state.copyWith(
+        status: error is CatalogCorruptionException
+            ? CatalogStatus.empty()
+            : state.status,
         busy: false,
         errorMessage: '$error',
       );
@@ -115,6 +131,9 @@ class OfflineKilterCatalogController
       );
     } catch (error) {
       state = state.copyWith(
+        status: error is CatalogCorruptionException
+            ? CatalogStatus.empty()
+            : state.status,
         busy: false,
         errorMessage: '$error',
       );
@@ -143,35 +162,42 @@ class OfflineKilterCatalogController
   }
 
   Future<void> autoSyncIfNeeded() async {
-    final Uri? activeServer = await _sessionRepository.loadActiveServer();
-    if (activeServer == null) {
-      return;
-    }
-
-    final CatalogStatus status = await _repository.getStatus();
-    state = state.copyWith(status: status);
-    if (!status.matchesServer(activeServer)) {
-      return;
-    }
-
-    final DateTime? lastPollAt = status.lastPollAt == null
-        ? null
-        : DateTime.tryParse(status.lastPollAt!);
-    if (lastPollAt != null &&
-        DateTime.now().toUtc().difference(lastPollAt.toUtc()) <
-            const Duration(hours: 1)) {
-      return;
-    }
-
     try {
+      final Uri? activeServer = await _sessionRepository.loadActiveServer();
+      if (activeServer == null) {
+        return;
+      }
+
+      final CatalogStatus status = await _repository.getStatus();
+      state = state.copyWith(status: status);
+      if (!status.matchesServer(activeServer)) {
+        return;
+      }
+
+      final DateTime? lastPollAt = status.lastPollAt == null
+          ? null
+          : DateTime.tryParse(status.lastPollAt!);
+      if (lastPollAt != null &&
+          DateTime.now().toUtc().difference(lastPollAt.toUtc()) <
+              const Duration(hours: 1)) {
+        return;
+      }
+
       final CatalogSyncResult result =
           await _repository.syncCatalog(activeServer, allowFullResync: false);
       state = state.copyWith(
         status: result.status,
         clearErrorMessage: true,
       );
+    } on CatalogCorruptionException catch (error) {
+      state = state.copyWith(
+        status: CatalogStatus.empty(),
+        errorMessage: error.toString(),
+      );
     } catch (error) {
-      state = state.copyWith(errorMessage: '$error');
+      state = state.copyWith(
+        errorMessage: '$error',
+      );
     }
   }
 

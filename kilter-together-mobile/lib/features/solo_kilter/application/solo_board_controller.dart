@@ -253,11 +253,28 @@ class SoloBoardController extends StateNotifier<SoloBoardViewState> {
         angle: state.angle,
       );
       await _loadPage(page: 1);
+    } on CatalogCorruptionException catch (error) {
+      state = state.copyWith(
+        server: server,
+        boards: const <BoardOption>[],
+        climbs: const <BoardClimb>[],
+        clearBoard: true,
+        clearSelectedClimb: true,
+        loading: false,
+        pageLoading: false,
+        errorMessage: error.toString(),
+      );
     } on ApiFailure catch (error) {
       state = state.copyWith(
         server: server,
         loading: false,
         errorMessage: error.message,
+      );
+    } catch (error) {
+      state = state.copyWith(
+        server: server,
+        loading: false,
+        errorMessage: '$error',
       );
     }
   }
@@ -490,11 +507,28 @@ class SoloBoardController extends StateNotifier<SoloBoardViewState> {
         pageLoading: false,
       );
       await _rememberResume(climb: selectedClimb);
+    } on CatalogCorruptionException catch (error) {
+      state = state.copyWith(
+        boards: const <BoardOption>[],
+        climbs: const <BoardClimb>[],
+        clearBoard: true,
+        clearSelectedClimb: true,
+        loading: false,
+        pageLoading: false,
+        hasNextPage: false,
+        errorMessage: error.toString(),
+      );
     } on ApiFailure catch (error) {
       state = state.copyWith(
         loading: false,
         pageLoading: false,
         errorMessage: error.message,
+      );
+    } catch (error) {
+      state = state.copyWith(
+        loading: false,
+        pageLoading: false,
+        errorMessage: '$error',
       );
     }
   }

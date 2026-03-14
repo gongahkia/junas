@@ -486,11 +486,7 @@ LIMIT 1`
 	if err := config.KilterDB.Raw(query).Scan(&row).Error; err != nil {
 		return catalogWatermark{}, fmt.Errorf("fetch catalog watermark: %w", err)
 	}
-	return catalogWatermark{
-		CreatedAt:     row.CreatedAt,
-		UUID:          row.UUID,
-		ProductSizeID: row.ProductSizeID,
-	}, nil
+	return catalogWatermark(row), nil
 }
 
 func listCatalogImageFilenames() ([]string, error) {
