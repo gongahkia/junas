@@ -90,7 +90,7 @@ func (provider *KilterProvider) ListClimbs(
 		input.Cursor,
 		input.PageSize,
 		input.Search,
-		"",
+		input.Setter,
 		"",
 		boardID,
 		angle,

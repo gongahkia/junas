@@ -917,6 +917,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               controller.loadCatalog(
                 q: _catalogQueryController.text.trim(),
                 sort: roomState.catalogSort,
+                gradeMin: _gradeMinController.text.trim(),
+                gradeMax: _gradeMaxController.text.trim(),
               ),
             ),
             onSortChanged: (String? value) {
@@ -927,6 +929,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                 controller.loadCatalog(
                   q: _catalogQueryController.text.trim(),
                   sort: value,
+                  gradeMin: _gradeMinController.text.trim(),
+                  gradeMax: _gradeMaxController.text.trim(),
                 ),
               );
             },

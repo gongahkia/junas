@@ -79,6 +79,20 @@ class ClimbLogRepository {
     }
   }
 
+  Future<Set<String>> loggedClimbIds() async {
+    final Database db = await _openDatabase();
+    try {
+      final List<Map<String, Object?>> rows = await db.query(
+        'climb_log_entries',
+        columns: <String>['climb_id'],
+        distinct: true,
+      );
+      return rows.map((Map<String, Object?> row) => row['climb_id'] as String? ?? '').where((String id) => id.isNotEmpty).toSet();
+    } finally {
+      await db.close();
+    }
+  }
+
   Future<List<ClimbLogEntry>> getForClimb(String climbId) async {
     final Database db = await _openDatabase();
     try {

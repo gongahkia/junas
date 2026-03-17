@@ -45,6 +45,8 @@ class ProviderSoloScreen extends ConsumerStatefulWidget {
 class _ProviderSoloScreenState extends ConsumerState<ProviderSoloScreen> {
   late final TextEditingController _queryController =
       TextEditingController(text: widget.initialQuery ?? '');
+  final TextEditingController _gradeMinController = TextEditingController();
+  final TextEditingController _gradeMaxController = TextEditingController();
   final TextEditingController _planTitleController = TextEditingController();
   final TextEditingController _planNotesController = TextEditingController();
   final Map<String, TextEditingController> _secretControllers =
@@ -81,6 +83,8 @@ class _ProviderSoloScreenState extends ConsumerState<ProviderSoloScreen> {
   @override
   void dispose() {
     _queryController.dispose();
+    _gradeMinController.dispose();
+    _gradeMaxController.dispose();
     _planTitleController.dispose();
     _planNotesController.dispose();
     for (final TextEditingController controller in _secretControllers.values) {
@@ -252,8 +256,14 @@ class _ProviderSoloScreenState extends ConsumerState<ProviderSoloScreen> {
                   state: state,
                   selectedClimbIds: state.selectedClimbIds,
                   queryController: _queryController,
+                  gradeMinController: _gradeMinController,
+                  gradeMaxController: _gradeMaxController,
                   onApplyQuery: () => unawaited(
-                    controller.updateSearch(query: _queryController.text),
+                    controller.updateSearch(
+                      query: _queryController.text,
+                      gradeMin: _gradeMinController.text,
+                      gradeMax: _gradeMaxController.text,
+                    ),
                   ),
                   onSortChanged: (String? value) {
                     if (value == null) {
@@ -697,6 +707,8 @@ class _CatalogCard extends StatelessWidget {
     required this.state,
     required this.selectedClimbIds,
     required this.queryController,
+    required this.gradeMinController,
+    required this.gradeMaxController,
     required this.onApplyQuery,
     required this.onSortChanged,
     required this.onSelectClimb,
@@ -711,6 +723,8 @@ class _CatalogCard extends StatelessWidget {
   final ProviderSoloViewState state;
   final Set<String> selectedClimbIds;
   final TextEditingController queryController;
+  final TextEditingController gradeMinController;
+  final TextEditingController gradeMaxController;
   final VoidCallback onApplyQuery;
   final ValueChanged<String?> onSortChanged;
   final ValueChanged<ProviderClimb> onSelectClimb;
@@ -758,6 +772,27 @@ class _CatalogCard extends StatelessWidget {
                     value: 'newest', child: Text('newest')),
               ],
               onChanged: onSortChanged,
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextField(
+                    controller: gradeMinController,
+                    decoration: const InputDecoration(labelText: 'Grade min', hintText: 'V3'),
+                    textInputAction: TextInputAction.next,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: TextField(
+                    controller: gradeMaxController,
+                    decoration: const InputDecoration(labelText: 'Grade max', hintText: 'V8'),
+                    textInputAction: TextInputAction.search,
+                    onSubmitted: (_) => onApplyQuery(),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 12),
             FilledButton.tonal(

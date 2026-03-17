@@ -333,6 +333,8 @@ class RoomController extends StateNotifier<RoomViewState> {
     String? q,
     String? sort,
     String? cursor,
+    String? gradeMin,
+    String? gradeMax,
   }) async {
     final RoomSnapshot? room = state.room;
     final RoomSession? session = state.session;
@@ -356,6 +358,8 @@ class RoomController extends StateNotifier<RoomViewState> {
         q: q ?? state.catalogQuery,
         sort: sort ?? state.catalogSort,
         cursor: cursor,
+        gradeMin: gradeMin,
+        gradeMax: gradeMax,
       );
       RoomCatalogClimbResponse? selectedCatalogClimb =
           state.selectedCatalogClimb;

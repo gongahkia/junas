@@ -103,7 +103,7 @@ func TestServiceRoomLifecycle(t *testing.T) {
 		t.Fatalf("authenticate guest: %v", err)
 	}
 
-	climbsResponse, err := service.ListCatalogClimbs(ctx, guestViewer, "beta", "popular", "", 10, "", "")
+	climbsResponse, err := service.ListCatalogClimbs(ctx, guestViewer, "beta", "popular", "", 10, "", "", "")
 	if err != nil {
 		t.Fatalf("list catalog climbs: %v", err)
 	}

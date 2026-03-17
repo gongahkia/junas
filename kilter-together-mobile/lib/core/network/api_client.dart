@@ -918,6 +918,8 @@ class ApiClient {
     String? q,
     String? sort,
     String? cursor,
+    String? gradeMin,
+    String? gradeMax,
     int pageSize = 10,
   }) async {
     try {
@@ -930,6 +932,8 @@ class ApiClient {
           'q': q,
           'sort': sort,
           'cursor': cursor,
+          'grade_min': gradeMin,
+          'grade_max': gradeMax,
           'page_size': pageSize,
         },
       );

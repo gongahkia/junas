@@ -16,8 +16,13 @@ import '../../../core/presentation/climb_media_preview.dart';
 import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
+import '../../../core/storage/climb_log_repository.dart';
 import '../../../core/storage/offline_kilter_catalog_repository.dart';
 import '../application/solo_board_controller.dart';
+
+final _loggedClimbIdsProvider = FutureProvider.autoDispose<Set<String>>((Ref ref) {
+  return ref.read(climbLogRepositoryProvider).loggedClimbIds();
+});
 
 const List<int> _angleOptions = <int>[
   5,
@@ -167,6 +172,8 @@ class _SoloBoardScreenState extends ConsumerState<SoloBoardScreen> {
     final ApiClient apiClient = ref.read(apiClientProvider);
     final OfflineKilterCatalogRepository catalogRepository =
         ref.read(offlineKilterCatalogRepositoryProvider);
+    final Set<String> loggedClimbIds =
+        ref.watch(_loggedClimbIdsProvider).valueOrNull ?? const <String>{};
     final BoardOption? board = state.board;
     final BoardClimb? selectedClimb = state.selectedClimb;
     final SoloSavedClimb? selectedSavedClimb =
@@ -395,6 +402,7 @@ class _SoloBoardScreenState extends ConsumerState<SoloBoardScreen> {
                 _ClimbCatalogCard(
                   state: state,
                   selectedClimbIds: state.selectedClimbIds,
+                  loggedClimbIds: loggedClimbIds,
                   onSelectClimb: (BoardClimb climb) =>
                       unawaited(controller.selectClimb(climb.uuid)),
                   onLongPressClimb: (BoardClimb climb) =>
@@ -930,6 +938,7 @@ class _ClimbCatalogCard extends StatelessWidget {
   const _ClimbCatalogCard({
     required this.state,
     required this.selectedClimbIds,
+    required this.loggedClimbIds,
     required this.onSelectClimb,
     required this.onLongPressClimb,
     required this.onAddSelectedToShortlist,
@@ -940,6 +949,7 @@ class _ClimbCatalogCard extends StatelessWidget {
 
   final SoloBoardViewState state;
   final Set<String> selectedClimbIds;
+  final Set<String> loggedClimbIds;
   final ValueChanged<BoardClimb> onSelectClimb;
   final ValueChanged<BoardClimb> onLongPressClimb;
   final VoidCallback onAddSelectedToShortlist;
@@ -984,6 +994,7 @@ class _ClimbCatalogCard extends StatelessWidget {
                       (BoardClimb climb) {
                         final bool isMultiSelected =
                             selectedClimbIds.contains(climb.uuid);
+                        final bool isLogged = loggedClimbIds.contains(climb.uuid);
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: InkWell(
@@ -1048,6 +1059,17 @@ class _ClimbCatalogCard extends StatelessWidget {
                                                   .textTheme
                                                   .bodySmall,
                                             ),
+                                            if (isLogged) ...<Widget>[
+                                              const SizedBox(height: 6),
+                                              Container(
+                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                                decoration: BoxDecoration(
+                                                  color: const Color(0xFFE8F5E9),
+                                                  borderRadius: BorderRadius.circular(999),
+                                                ),
+                                                child: const Text('Logged', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Color(0xFF2E7D32))),
+                                              ),
+                                            ],
                                           ],
                                         ),
                                       ),

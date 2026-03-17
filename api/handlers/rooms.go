@@ -614,6 +614,11 @@ func ListRoomCatalogClimbs(w http.ResponseWriter, r *http.Request) {
 		search = search[:200]
 	}
 
+	setter := r.URL.Query().Get("setter")
+	if len(setter) > 200 {
+		setter = setter[:200]
+	}
+
 	response, err := rooms.DefaultService.ListCatalogClimbs(
 		r.Context(),
 		viewer,
@@ -623,6 +628,7 @@ func ListRoomCatalogClimbs(w http.ResponseWriter, r *http.Request) {
 		pageSize,
 		r.URL.Query().Get("grade_min"),
 		r.URL.Query().Get("grade_max"),
+		setter,
 	)
 	if err != nil {
 		writeRoomError(w, r, err, http.StatusBadRequest, "")

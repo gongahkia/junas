@@ -585,6 +585,7 @@ func (service *Service) ListCatalogClimbs(
 	pageSize int,
 	gradeMin string,
 	gradeMax string,
+	setter string,
 ) (*CatalogClimbsResponse, error) {
 	provider, secret, err := service.providerForRoom(ctx, &viewer.Room)
 	if err != nil {
@@ -599,6 +600,7 @@ func (service *Service) ListCatalogClimbs(
 		SurfaceID: viewer.Room.SurfaceID,
 		Context:   contextMap,
 		Search:    search,
+		Setter:    setter,
 		Sort:      sortKey,
 		Cursor:    cursor,
 		PageSize:  pageSize,
@@ -1436,6 +1438,30 @@ func (service *Service) findRoom(ctx context.Context, roomSlug string) (*Room, e
 		room.Status = roomStatusClosed
 	}
 	return &room, nil
+}
+
+// RoomPeek is a lightweight summary for the join fallback page.
+type RoomPeek struct {
+	Name             string
+	ProviderID       string
+	SurfaceName      string
+	ParticipantCount int
+}
+
+// PeekRoom returns minimal room metadata without authentication.
+func (service *Service) PeekRoom(ctx context.Context, slug string) (*RoomPeek, error) {
+	room, err := service.findRoom(ctx, slug)
+	if err != nil {
+		return nil, err
+	}
+	var count int64
+	service.store.WithContext(ctx).Model(&RoomParticipant{}).Where("room_id = ?", room.ID).Count(&count)
+	return &RoomPeek{
+		Name:             room.Name,
+		ProviderID:       room.ProviderID,
+		SurfaceName:      room.SurfaceName,
+		ParticipantCount: int(count),
+	}, nil
 }
 
 func (service *Service) incrementRoom(

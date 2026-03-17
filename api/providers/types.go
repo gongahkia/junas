@@ -38,6 +38,7 @@ type ListClimbsInput struct {
 	SurfaceID string
 	Context   map[string]string
 	Search    string
+	Setter    string
 	Sort      string
 	Cursor    string
 	PageSize  int

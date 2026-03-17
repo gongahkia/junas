@@ -188,11 +188,15 @@ func (provider *CruxProvider) ListClimbs(
 	allClimbs := append(customClimbs, officialClimbs...)
 	filtered := make([]cruxClimb, 0, len(allClimbs))
 	searchLower := strings.ToLower(strings.TrimSpace(input.Search))
+	setterLower := strings.ToLower(strings.TrimSpace(input.Setter))
 	gradeMinLower := strings.ToLower(strings.TrimSpace(input.GradeMin))
 	gradeMaxLower := strings.ToLower(strings.TrimSpace(input.GradeMax))
 	for _, climb := range allClimbs {
 		if searchLower != "" && !strings.Contains(strings.ToLower(climb.Name), searchLower) &&
 			!strings.Contains(strings.ToLower(stringPointerValue(climb.Description)), searchLower) {
+			continue
+		}
+		if setterLower != "" && !strings.Contains(strings.ToLower(stringPointerValue(climb.SetterName)), setterLower) {
 			continue
 		}
 		if gradeMinLower != "" || gradeMaxLower != "" {

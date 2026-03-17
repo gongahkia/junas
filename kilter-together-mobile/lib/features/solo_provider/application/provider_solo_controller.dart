@@ -68,6 +68,8 @@ class ProviderSoloViewState {
     this.selectedParentSurfaceId = '',
     this.selectedChildSurfaceId = '',
     this.query = '',
+    this.gradeMin = '',
+    this.gradeMax = '',
     this.currentPage = 1,
     this.hasNextPage = false,
     this.accessLoaded = false,
@@ -92,6 +94,8 @@ class ProviderSoloViewState {
   final String selectedParentSurfaceId;
   final String selectedChildSurfaceId;
   final String query;
+  final String gradeMin;
+  final String gradeMax;
   final String sort;
   final int currentPage;
   final bool hasNextPage;
@@ -142,6 +146,8 @@ class ProviderSoloViewState {
     String? selectedParentSurfaceId,
     String? selectedChildSurfaceId,
     String? query,
+    String? gradeMin,
+    String? gradeMax,
     String? sort,
     int? currentPage,
     bool? hasNextPage,
@@ -172,6 +178,8 @@ class ProviderSoloViewState {
       selectedChildSurfaceId:
           selectedChildSurfaceId ?? this.selectedChildSurfaceId,
       query: query ?? this.query,
+      gradeMin: gradeMin ?? this.gradeMin,
+      gradeMax: gradeMax ?? this.gradeMax,
       sort: sort ?? this.sort,
       currentPage: currentPage ?? this.currentPage,
       hasNextPage: hasNextPage ?? this.hasNextPage,
@@ -411,10 +419,14 @@ class ProviderSoloController extends StateNotifier<ProviderSoloViewState> {
   Future<void> updateSearch({
     String? query,
     String? sort,
+    String? gradeMin,
+    String? gradeMax,
   }) async {
     state = state.copyWith(
       query: query ?? state.query,
       sort: sort ?? state.sort,
+      gradeMin: gradeMin ?? state.gradeMin,
+      gradeMax: gradeMax ?? state.gradeMax,
       currentPage: 1,
       clearErrorMessage: true,
       clearNotice: true,
@@ -469,6 +481,8 @@ class ProviderSoloController extends StateNotifier<ProviderSoloViewState> {
         q: state.query.trim().isEmpty ? null : state.query.trim(),
         sort: state.sort,
         cursor: _cursors[page],
+        gradeMin: state.gradeMin.trim().isEmpty ? null : state.gradeMin.trim(),
+        gradeMax: state.gradeMax.trim().isEmpty ? null : state.gradeMax.trim(),
         pageSize: 10,
       );
       _cursors[page + 1] = response.nextCursor;
