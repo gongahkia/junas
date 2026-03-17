@@ -254,6 +254,8 @@ class ApiClient {
     String? name,
     String? setter,
     String? grade,
+    String? gradeMin,
+    String? gradeMax,
     String? sort,
   }) async {
     try {
@@ -267,6 +269,8 @@ class ApiClient {
           'name': name,
           'setter': setter,
           'grade': grade,
+          'grade_min': gradeMin,
+          'grade_max': gradeMax,
           'sort': sort,
         },
       );
@@ -583,6 +587,8 @@ class ApiClient {
     String? q,
     String? sort,
     String? cursor,
+    String? gradeMin,
+    String? gradeMax,
     int pageSize = 10,
   }) async {
     try {
@@ -592,6 +598,8 @@ class ApiClient {
           'q': q,
           'sort': sort,
           'cursor': cursor,
+          'grade_min': gradeMin,
+          'grade_max': gradeMax,
           'page_size': pageSize,
         },
         options: _authOptions(sessionToken),

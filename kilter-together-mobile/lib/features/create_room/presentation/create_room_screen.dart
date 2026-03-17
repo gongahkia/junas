@@ -14,6 +14,7 @@ import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/presentation/runtime_status_banner.dart';
 import '../../../core/storage/app_prefs_controller.dart';
+import '../../../core/storage/provider_secret_repository.dart';
 import '../../../core/storage/session_repository.dart';
 
 const FlowGuideContent _hostGuide = FlowGuideContent(
@@ -68,6 +69,9 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
   Map<String, bool> _rememberProviderSecrets = <String, bool>{};
   Map<String, SavedCredentialPreference> _savedCredentialPreferences =
       <String, SavedCredentialPreference>{};
+  bool _credentialsCollapsed = false;
+  Map<String, String> _savedSecret = const <String, String>{};
+  String? _selectedTemplateId;
   String? _inlineError;
   RuntimeStatus? _runtimeStatus;
   final Map<String, TextEditingController> _secretControllers =
@@ -230,6 +234,28 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
     usernameController.text = saved.username!.trim();
   }
 
+  Future<void> _tryCollapseSavedCredentials(String providerId) async {
+    final String rawServer = _serverController.text.trim();
+    if (rawServer.isEmpty) return;
+    final Uri server;
+    try {
+      server = normalizeServerUri(rawServer);
+    } on FormatException {
+      return;
+    }
+    try {
+      final Map<String, String> secret = await ref.read(providerSecretRepositoryProvider).readSecret(
+        server: server,
+        providerId: providerId,
+      );
+      if (!mounted || secret.isEmpty) return;
+      setState(() {
+        _credentialsCollapsed = true;
+        _savedSecret = secret;
+      });
+    } catch (_) {}
+  }
+
   void _maybeAutoOpenGuide(AppPrefs prefs) {
     if (_autoGuideAttempted ||
         !prefs.settings.autoGuidesEnabled ||
@@ -348,6 +374,7 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
       });
       if (_selectedProviderId != null) {
         _prefillSavedProviderFields(_selectedProviderId!);
+        unawaited(_tryCollapseSavedCredentials(_selectedProviderId!));
       }
     } catch (error) {
       _showSnack('Unable to load provider capabilities: $error');
@@ -387,10 +414,12 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
     if (_displayNameController.text.trim().isEmpty) {
       return 'Enter the host display name for this phone.';
     }
-    for (final ProviderAuthField field in capability.authFields) {
-      final String value = _secretControllers[field.key]?.text.trim() ?? '';
-      if (value.isEmpty) {
-        return 'Enter ${field.label.toLowerCase()} before opening the room.';
+    if (!_credentialsCollapsed) {
+      for (final ProviderAuthField field in capability.authFields) {
+        final String value = _secretControllers[field.key]?.text.trim() ?? '';
+        if (value.isEmpty) {
+          return 'Enter ${field.label.toLowerCase()} before opening the room.';
+        }
       }
     }
     return null;
@@ -453,10 +482,12 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
 
     try {
       final Uri server = normalizeServerUri(_serverController.text);
-      final Map<String, String> secret = <String, String>{
-        for (final ProviderAuthField field in selectedCapability.authFields)
-          field.key: _secretControllers[field.key]?.text.trim() ?? '',
-      };
+      final Map<String, String> secret = _credentialsCollapsed
+          ? Map<String, String>.from(_savedSecret)
+          : <String, String>{
+              for (final ProviderAuthField field in selectedCapability.authFields)
+                field.key: _secretControllers[field.key]?.text.trim() ?? '',
+            };
       final result = await ref.read(apiClientProvider).createRoom(
             server: server,
             providerId: selectedCapability.id,
@@ -502,13 +533,67 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
       if (!mounted) {
         return;
       }
+      final String savedServer = server.toString();
+      final String savedProviderId = selectedCapability.id;
+      final String savedRoomName = _roomNameController.text.trim();
+      final bool savedFistBumps = _fistBumpsEnabled;
       context.goNamed(
         'room',
         queryParameters: <String, String>{
-          'server': server.toString(),
+          'server': savedServer,
           'slug': result.room.slug,
         },
       );
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) {
+          return;
+        }
+        final TextEditingController templateNameController = TextEditingController();
+        showDialog<void>(
+          context: context,
+          builder: (BuildContext dialogContext) {
+            return AlertDialog(
+              title: const Text('Save as template?'),
+              content: TextField(
+                controller: templateNameController,
+                decoration: const InputDecoration(
+                  labelText: 'Template name',
+                  hintText: 'Tuesday crew, Comp warmup',
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.of(dialogContext).pop(),
+                  child: const Text('Skip'),
+                ),
+                FilledButton(
+                  onPressed: () {
+                    final String name = templateNameController.text.trim();
+                    if (name.isEmpty) {
+                      return;
+                    }
+                    final RoomTemplate template = RoomTemplate(
+                      id: DateTime.now().toUtc().millisecondsSinceEpoch.toString(),
+                      name: name,
+                      server: savedServer,
+                      providerId: savedProviderId,
+                      roomNameTemplate: savedRoomName,
+                      fistBumpsEnabled: savedFistBumps,
+                      createdAt: DateTime.now().toUtc().toIso8601String(),
+                    );
+                    unawaited(
+                      ref.read(appPrefsControllerProvider.notifier).saveRoomTemplate(template),
+                    );
+                    Navigator.of(dialogContext).pop();
+                  },
+                  child: const Text('Save'),
+                ),
+              ],
+            );
+          },
+        );
+      });
+      return;
     } on ApiFailure catch (error) {
       final bool shouldShowFeedback = await ref
           .read(appPrefsControllerProvider.notifier)
@@ -639,6 +724,54 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                 if (_runtimeStatus!.storage.isWarning)
                   const SizedBox(height: 18),
               ],
+              if (prefs.roomTemplates.isNotEmpty) ...<Widget>[
+                DropdownButtonFormField<String>(
+                  initialValue: _selectedTemplateId,
+                  decoration: const InputDecoration(labelText: 'From template'),
+                  items: <DropdownMenuItem<String>>[
+                    const DropdownMenuItem<String>(
+                      value: null,
+                      child: Text('None'),
+                    ),
+                    ...prefs.roomTemplates.map(
+                      (RoomTemplate template) => DropdownMenuItem<String>(
+                        value: template.id,
+                        child: Text(template.name),
+                      ),
+                    ),
+                  ],
+                  onChanged: (String? value) {
+                    setState(() {
+                      _selectedTemplateId = value;
+                    });
+                    if (value == null) {
+                      return;
+                    }
+                    final RoomTemplate? template = prefs.roomTemplates
+                        .cast<RoomTemplate?>()
+                        .firstWhere(
+                          (RoomTemplate? item) => item!.id == value,
+                          orElse: () => null,
+                        );
+                    if (template == null) {
+                      return;
+                    }
+                    _serverController.text = template.server;
+                    _preferredProviderId = template.providerId;
+                    if (template.roomNameTemplate.isNotEmpty) {
+                      _roomNameController.text = ref
+                          .read(appPrefsControllerProvider.notifier)
+                          .resolveHostRoomNameTemplate(template.roomNameTemplate);
+                    }
+                    _fistBumpsEnabled = template.fistBumpsEnabled;
+                    setState(() {
+                      _clearLoadedCapabilities();
+                    });
+                    unawaited(_maybeAutoLoadCapabilities());
+                  },
+                ),
+                const SizedBox(height: 12),
+              ],
               TextField(
                 controller: _serverController,
                 decoration: const InputDecoration(
@@ -691,14 +824,31 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                 onChanged: (String? value) {
                   setState(() {
                     _selectedProviderId = value;
+                    _credentialsCollapsed = false;
+                    _savedSecret = const <String, String>{};
                   });
                   if (value != null) {
                     _prefillSavedProviderFields(value);
+                    unawaited(_tryCollapseSavedCredentials(value));
                   }
                 },
               ),
               const SizedBox(height: 12),
-              if (capability != null)
+              if (capability != null && _credentialsCollapsed && capability.authFields.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Row(
+                    children: <Widget>[
+                      const Chip(label: Text('Saved credentials')),
+                      const SizedBox(width: 8),
+                      TextButton(
+                        onPressed: () => setState(() => _credentialsCollapsed = false),
+                        child: const Text('Change'),
+                      ),
+                    ],
+                  ),
+                ),
+              if (capability != null && !_credentialsCollapsed)
                 ...capability.authFields.map(
                   (ProviderAuthField field) => Padding(
                     padding: const EdgeInsets.only(bottom: 12),

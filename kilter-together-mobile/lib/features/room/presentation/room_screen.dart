@@ -237,6 +237,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   final TextEditingController _kilterPasswordController =
       TextEditingController();
   final TextEditingController _cruxTokenController = TextEditingController();
+  final TextEditingController _gradeMinController = TextEditingController();
+  final TextEditingController _gradeMaxController = TextEditingController();
 
   bool _rememberProviderSecret = false;
   bool _showQr = false;
@@ -244,6 +246,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   bool _inviteCopied = false;
   bool _showCloseFeedback = false;
   bool _autoGuideAttempted = false;
+  bool _firstActionHintDismissed = false;
   String _boundRoomName = '';
   Timer? _copiedInviteResetTimer;
 
@@ -265,6 +268,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     _kilterUsernameController.dispose();
     _kilterPasswordController.dispose();
     _cruxTokenController.dispose();
+    _gradeMinController.dispose();
+    _gradeMaxController.dispose();
     WakelockPlus.disable();
     super.dispose();
   }
@@ -529,6 +534,28 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     });
   }
 
+  Future<void> _showLeaveDialog() async {
+    final bool? leave = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext ctx) => AlertDialog(
+        title: const Text('Leave this room?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: const Text('Stay'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            child: const Text('Leave'),
+          ),
+        ],
+      ),
+    );
+    if (leave == true && mounted) {
+      context.goNamed('landing');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final RoomViewState roomState = ref.watch(roomControllerProvider(_args));
@@ -564,6 +591,14 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
           room.status == 'closed' &&
           room.permissions.closeRoom) {
         unawaited(_maybeShowCloseFeedback(room));
+      }
+      if (!_firstActionHintDismissed && room != null) { // fr-r5 auto-dismiss
+        if (next.room?.myVotes.isNotEmpty == true ||
+            (next.room?.queue.length ?? 0) > (previous?.room?.queue.length ?? 0)) {
+          setState(() {
+            _firstActionHintDismissed = true;
+          });
+        }
       }
     });
 
@@ -639,6 +674,10 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       slug: room.slug,
     );
     final Uri inviteUri = invite.toUri();
+    final Uri webJoinUri = roomState.server.replace(
+      path: '/join/${Uri.encodeComponent(room.slug)}',
+      queryParameters: <String, String>{'server': roomState.server.toString()},
+    );
     final _ShareReadiness shareReadiness = _shareReadinessForRoom(room);
     final String shareReadinessSummary =
         _shareReadinessSummary(room, shareReadiness);
@@ -672,7 +711,31 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               controller.updateSurfaceDraft(angle: value);
             },
             onSaveSurface: room.permissions.manageSurface
-                ? () => unawaited(controller.setSurface())
+                ? () async {
+                    if (room.surface != null) {
+                      final bool? confirmed = await showDialog<bool>(
+                        context: context,
+                        builder: (BuildContext dialogContext) {
+                          return AlertDialog(
+                            title: const Text('Change surface?'),
+                            content: const Text('This resets the catalog view for all participants.'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => Navigator.of(dialogContext).pop(false),
+                                child: const Text('Cancel'),
+                              ),
+                              FilledButton.tonal(
+                                onPressed: () => Navigator.of(dialogContext).pop(true),
+                                child: const Text('Change'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                      if (confirmed != true) return;
+                    }
+                    unawaited(controller.setSurface());
+                  }
                 : null,
             onReconnect:
                 room.permissions.manageSurface && room.connection.connected
@@ -696,7 +759,12 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       _maybeAutoOpenGuide(room, prefs);
     }
 
-    return GradientScaffold(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, dynamic result) {
+        if (!didPop) _showLeaveDialog();
+      },
+      child: GradientScaffold(
       title: room.roomName ?? 'Room ${room.slug}',
       subtitle: describeServer(roomState.server),
       actions: <Widget>[
@@ -775,6 +843,17 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
           ],
           _OverviewCard(room: room),
           const SizedBox(height: 14),
+          if (!_firstActionHintDismissed && !prefs.guidedTour.guestCompleted && !_viewerOwnsRoomSetup(room))
+            AnimatedSize(
+              duration: const Duration(milliseconds: 200),
+              child: ClipRect(
+                child: _FirstActionHintCard(
+                  onDismiss: () => setState(() => _firstActionHintDismissed = true),
+                ),
+              ),
+            ),
+          if (!_firstActionHintDismissed && !prefs.guidedTour.guestCompleted && !_viewerOwnsRoomSetup(room))
+            const SizedBox(height: 14),
           _LiveSignalCard(
             room: room,
             roomState: roomState,
@@ -792,6 +871,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
           ],
           _InviteCard(
             inviteUri: inviteUri,
+            qrUri: webJoinUri,
             roomSlug: room.slug,
             joinPath: '/join/${Uri.encodeComponent(room.slug)}',
             shareReady: shareReadiness.isReady,
@@ -830,6 +910,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
             apiClient: ref.read(apiClientProvider),
             roomState: roomState,
             queryController: _catalogQueryController,
+            gradeMinController: _gradeMinController,
+            gradeMaxController: _gradeMaxController,
             sortOptions: _catalogSorts,
             onSearch: () => unawaited(
               controller.loadCatalog(
@@ -899,6 +981,11 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               }
               unawaited(controller.addQueueStatusUpdate(entryId, value));
             },
+            onAutoRefill: room.permissions.manageQueue &&
+                    room.queue.where((QueueEntry e) => e.status == 'queued').isEmpty &&
+                    room.voteCounts.values.any((int c) => c > 0)
+                ? () => unawaited(controller.autoRefillQueue())
+                : null,
           ),
           const SizedBox(height: 14),
           _FinalistsCard(
@@ -960,6 +1047,37 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                     await controller.closeRoom();
                   }
                 : null,
+          ),
+        ],
+      ),
+    ),
+    ); // PopScope
+  }
+}
+
+class _FirstActionHintCard extends StatelessWidget {
+  const _FirstActionHintCard({required this.onDismiss});
+  final VoidCallback onDismiss;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFFECFDF5),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFFA7F3D0)),
+      ),
+      padding: const EdgeInsets.fromLTRB(16, 14, 8, 14),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Text(
+              'Browse the catalog, fist bump climbs, or add to the queue to start contributing.',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ),
+          IconButton(
+            onPressed: onDismiss,
+            icon: const Icon(Icons.close, size: 18),
           ),
         ],
       ),
@@ -1160,6 +1278,30 @@ class _OverviewCard extends StatelessWidget {
                         ? 'CONNECTED'
                         : 'AUTH REQUIRED'),
                 if (room.surface != null) _Chip(label: room.surface!.name),
+                Container( // fr-r7 online count
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE0F7FA),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    '${liveParticipants.length} online',
+                    style: textTheme.labelSmall?.copyWith(color: const Color(0xFF00897B)),
+                  ),
+                ),
+                if (liveParticipants.length <= 1 && _viewerOwnsRoomSetup(room))
+                  Container( // fr-r7 waiting chip
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFFBEB),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: const Color(0xFFFCD34D)),
+                    ),
+                    child: Text(
+                      'Waiting for guests...',
+                      style: textTheme.labelSmall,
+                    ),
+                  ),
               ],
             ),
             const SizedBox(height: 14),
@@ -1794,6 +1936,7 @@ class _ReadinessItem extends StatelessWidget {
 class _InviteCard extends StatelessWidget {
   const _InviteCard({
     required this.inviteUri,
+    required this.qrUri,
     required this.roomSlug,
     required this.joinPath,
     required this.shareReady,
@@ -1807,6 +1950,7 @@ class _InviteCard extends StatelessWidget {
   });
 
   final Uri inviteUri;
+  final Uri qrUri;
   final String roomSlug;
   final String joinPath;
   final bool shareReady;
@@ -1893,7 +2037,7 @@ class _InviteCard extends StatelessWidget {
               const SizedBox(height: 18),
               Center(
                 child: QrImageView(
-                  data: inviteUri.toString(),
+                  data: qrUri.toString(),
                   version: QrVersions.auto,
                   size: 220,
                   backgroundColor: Colors.white,
@@ -2174,6 +2318,8 @@ class _CatalogCard extends StatelessWidget {
     required this.apiClient,
     required this.roomState,
     required this.queryController,
+    required this.gradeMinController,
+    required this.gradeMaxController,
     required this.sortOptions,
     required this.onSearch,
     required this.onSortChanged,
@@ -2189,6 +2335,8 @@ class _CatalogCard extends StatelessWidget {
   final ApiClient apiClient;
   final RoomViewState roomState;
   final TextEditingController queryController;
+  final TextEditingController gradeMinController;
+  final TextEditingController gradeMaxController;
   final List<String> sortOptions;
   final VoidCallback onSearch;
   final ValueChanged<String?> onSortChanged;
@@ -2277,6 +2425,27 @@ class _CatalogCard extends StatelessWidget {
                   )
                   .toList(growable: false),
               onChanged: onSortChanged,
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextField(
+                    controller: gradeMinController,
+                    decoration: const InputDecoration(labelText: 'Grade min', hintText: 'e.g. V3'),
+                    textInputAction: TextInputAction.next,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: TextField(
+                    controller: gradeMaxController,
+                    decoration: const InputDecoration(labelText: 'Grade max', hintText: 'e.g. V8'),
+                    textInputAction: TextInputAction.search,
+                    onSubmitted: (_) => onSearch(),
+                  ),
+                ),
+              ],
             ),
             if (selectedClimb != null) ...<Widget>[
               const SizedBox(height: 16),
@@ -2390,20 +2559,48 @@ class _CatalogCard extends StatelessWidget {
               Text(emptyCatalogMessage)
             else
               ...catalog.climbs.map(
-                (ProviderClimb climb) => ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(climb.name),
-                  subtitle: Text(
-                    [
-                      if ((climb.setterName ?? '').isNotEmpty)
-                        climb.setterName!,
-                      if ((climb.primaryGrade ?? '').isNotEmpty)
-                        climb.primaryGrade!,
-                    ].join(' · '),
+                (ProviderClimb climb) => Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(20),
+                    onTap: () => onSelectClimb(climb.id),
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: const Color(0xFFE2E8F0)),
+                        color: Colors.white,
+                      ),
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(climb.name, style: Theme.of(context).textTheme.titleMedium),
+                          const SizedBox(height: 4),
+                          Text(
+                            [if ((climb.setterName ?? '').isNotEmpty) climb.setterName!, if ((climb.primaryGrade ?? '').isNotEmpty) climb.primaryGrade!].join(' · '),
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          if (_hasClimbMeta(climb)) ...<Widget>[
+                            const SizedBox(height: 8),
+                            Wrap(
+                              spacing: 8,
+                              runSpacing: 6,
+                              children: <Widget>[
+                                if ((climb.meta['color'] ?? '').isNotEmpty) _ColorDot(color: _parseClimbColor(climb.meta['color']!)),
+                                if ((climb.meta['hold_type'] ?? '').isNotEmpty) _Chip(label: climb.meta['hold_type']!),
+                                if ((climb.meta['foot_rule'] ?? '').isNotEmpty) _Chip(label: climb.meta['foot_rule']!),
+                              ],
+                            ),
+                          ],
+                          const SizedBox(height: 4),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Text('${catalog.voteCounts[climb.id] ?? 0} bump${(catalog.voteCounts[climb.id] ?? 0) == 1 ? '' : 's'}'),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  trailing: Text(
-                      '${catalog.voteCounts[climb.id] ?? 0} bump${(catalog.voteCounts[climb.id] ?? 0) == 1 ? '' : 's'}'),
-                  onTap: () => onSelectClimb(climb.id),
                 ),
               ),
             if (onLoadMore != null) ...<Widget>[
@@ -2433,6 +2630,7 @@ class _QueueCard extends StatelessWidget {
     required this.onPromoteCurrent,
     required this.onPromoteNext,
     required this.onStatusChanged,
+    this.onAutoRefill,
   });
 
   final RoomSnapshot room;
@@ -2443,6 +2641,7 @@ class _QueueCard extends StatelessWidget {
   final ValueChanged<String> onPromoteCurrent;
   final ValueChanged<String> onPromoteNext;
   final void Function(int entryId, String? value) onStatusChanged;
+  final VoidCallback? onAutoRefill;
 
   @override
   Widget build(BuildContext context) {
@@ -2457,6 +2656,29 @@ class _QueueCard extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 12),
+            if (onAutoRefill != null) ...<Widget>[
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFECFDF5),
+                  borderRadius: BorderRadius.circular(22),
+                  border: Border.all(color: const Color(0xFFA7F3D0)),
+                ),
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const Text('Queue empty \u2014 add top-voted climbs?'),
+                    const SizedBox(height: 10),
+                    FilledButton.tonal(
+                      onPressed: onAutoRefill,
+                      child: const Text('Add top-voted to queue'),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+            ],
             if (room.queue.isEmpty)
               const Text('No climbs are queued yet.')
             else
@@ -2856,6 +3078,40 @@ class _ManageRoomCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+bool _hasClimbMeta(ProviderClimb climb) {
+  return (climb.meta['color'] ?? '').isNotEmpty ||
+      (climb.meta['hold_type'] ?? '').isNotEmpty ||
+      (climb.meta['foot_rule'] ?? '').isNotEmpty;
+}
+
+Color _parseClimbColor(String raw) {
+  return switch (raw.toLowerCase().trim()) {
+    'green' => const Color(0xFF16A34A),
+    'blue' => const Color(0xFF2563EB),
+    'red' => const Color(0xFFDC2626),
+    'yellow' => const Color(0xFFEAB308),
+    'orange' => const Color(0xFFEA580C),
+    'purple' => const Color(0xFF9333EA),
+    'pink' => const Color(0xFFEC4899),
+    'white' => const Color(0xFFE2E8F0),
+    'black' => const Color(0xFF1E293B),
+    _ => const Color(0xFF6B7280),
+  };
+}
+
+class _ColorDot extends StatelessWidget {
+  const _ColorDot({required this.color});
+  final Color color;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 10,
+      height: 10,
+      decoration: BoxDecoration(shape: BoxShape.circle, color: color),
     );
   }
 }

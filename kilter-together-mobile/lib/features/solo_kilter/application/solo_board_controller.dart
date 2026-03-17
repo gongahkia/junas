@@ -80,6 +80,7 @@ class SoloBoardViewState {
     this.actionInFlight = false,
     this.errorMessage,
     this.notice,
+    this.selectedClimbIds = const <String>{},
   });
 
   final Uri? server;
@@ -100,6 +101,7 @@ class SoloBoardViewState {
   final bool actionInFlight;
   final String? errorMessage;
   final String? notice;
+  final Set<String> selectedClimbIds;
 
   bool get missingServer => server == null;
 
@@ -125,6 +127,7 @@ class SoloBoardViewState {
     bool clearErrorMessage = false,
     String? notice,
     bool clearNotice = false,
+    Set<String>? selectedClimbIds,
   }) {
     return SoloBoardViewState(
       server: server ?? this.server,
@@ -147,6 +150,7 @@ class SoloBoardViewState {
       errorMessage:
           clearErrorMessage ? null : (errorMessage ?? this.errorMessage),
       notice: clearNotice ? null : (notice ?? this.notice),
+      selectedClimbIds: selectedClimbIds ?? this.selectedClimbIds,
     );
   }
 }
@@ -429,6 +433,57 @@ class SoloBoardController extends StateNotifier<SoloBoardViewState> {
       notice: climbs.isEmpty
           ? 'Saved the current board context for room creation.'
           : 'Saved a shortlist seed for room creation.',
+      clearErrorMessage: true,
+    );
+  }
+
+  void toggleMultiSelect(String id) {
+    final Set<String> next = Set<String>.from(state.selectedClimbIds);
+    if (next.contains(id)) {
+      next.remove(id);
+    } else {
+      next.add(id);
+    }
+    state = state.copyWith(selectedClimbIds: next);
+  }
+
+  void clearMultiSelect() {
+    state = state.copyWith(selectedClimbIds: const <String>{});
+  }
+
+  Future<void> addSelectedToShortlist() async {
+    final BoardOption? board = state.board;
+    if (board == null) {
+      return;
+    }
+    final int count = state.selectedClimbIds.length;
+    for (final String uuid in state.selectedClimbIds) {
+      final BoardClimb? climb = state.climbs.cast<BoardClimb?>().firstWhere(
+            (BoardClimb? item) => item?.uuid == uuid,
+            orElse: () => null,
+          );
+      if (climb == null) {
+        continue;
+      }
+      final SoloSavedClimb saved = SoloSavedClimb(
+        uuid: climb.uuid,
+        productSizeId: climb.productSizeId,
+        climbName: climb.climbName,
+        setterName: climb.setterName,
+        boardId: state.boardId,
+        boardName: board.kilterName,
+        angle: state.angle,
+        ascends: climb.ascends,
+        savedAt: DateTime.now().toUtc().toIso8601String(),
+        grade: climb.gradeForAngle(state.angle),
+        imageFilename:
+            climb.imageFilenames.isEmpty ? null : climb.imageFilenames.first,
+      );
+      await _appPrefsController.toggleSoloShortlist(saved);
+    }
+    state = state.copyWith(
+      selectedClimbIds: const <String>{},
+      notice: '$count climbs added to shortlist.',
       clearErrorMessage: true,
     );
   }

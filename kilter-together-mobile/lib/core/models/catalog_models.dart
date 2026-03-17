@@ -225,6 +225,8 @@ class OfflineCatalogQuery {
     this.name,
     this.setter,
     this.grade,
+    this.gradeMin,
+    this.gradeMax,
     this.sort,
   });
 
@@ -235,6 +237,8 @@ class OfflineCatalogQuery {
   final String? name;
   final String? setter;
   final String? grade;
+  final String? gradeMin;
+  final String? gradeMax;
   final String? sort;
 }
 

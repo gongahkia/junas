@@ -68,6 +68,7 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
         savedSoloFilters: current.savedSoloFilters,
         soloFavorites: current.soloFavorites,
         soloShortlist: current.soloShortlist,
+        roomTemplates: current.roomTemplates,
         pendingRoomSeed: current.pendingRoomSeed,
         soloResume: current.soloResume,
         intro: current.intro,
@@ -186,6 +187,7 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
     bool? autoGuidesEnabled,
     bool? recentRoomsEnabled,
     String? soloDefaultSort,
+    bool? notifyOnClimbChange,
   }) {
     return _mutate((AppPrefs current) {
       final AppSettings settings = AppSettings(
@@ -194,6 +196,7 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
         autoGuidesEnabled: autoGuidesEnabled ?? current.settings.autoGuidesEnabled,
         recentRoomsEnabled: recentRoomsEnabled ?? current.settings.recentRoomsEnabled,
         soloDefaultSort: soloDefaultSort ?? current.settings.soloDefaultSort,
+        notifyOnClimbChange: notifyOnClimbChange ?? current.settings.notifyOnClimbChange,
       );
       return _copy(
         current,
@@ -222,6 +225,14 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
         pinned: current.recentRooms.any(
           (RecentRoom candidate) => candidate.server == server.toString() && candidate.slug == room.slug && candidate.pinned,
         ),
+        angle: int.tryParse(room.surface?.meta['angle'] ?? ''),
+        climbCount: room.queue.length,
+        rematchConfig: <String, dynamic>{
+          'provider_id': room.providerId,
+          'surface': room.surface?.toJson(),
+          'room_name': room.roomName,
+          'fist_bumps_enabled': room.fistBumpsEnabled,
+        },
       );
       final List<RecentRoom> remaining = current.recentRooms.where((RecentRoom candidate) {
         return !(candidate.server == nextRoom.server && candidate.slug == nextRoom.slug);
@@ -249,6 +260,9 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
                   displayName: item.displayName,
                   surfaceName: item.surfaceName,
                   pinned: !item.pinned,
+                  angle: item.angle,
+                  climbCount: item.climbCount,
+                  rematchConfig: item.rematchConfig,
                 )
               : item)
           .toList(growable: false);
@@ -572,6 +586,51 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
     });
   }
 
+  Future<void> saveRoomTemplate(RoomTemplate template) {
+    return _mutate((AppPrefs current) {
+      final List<RoomTemplate> remaining = current.roomTemplates
+          .where((RoomTemplate item) => item.id != template.id)
+          .toList(growable: true);
+      return _copy(
+        current,
+        roomTemplates: <RoomTemplate>[template, ...remaining],
+      );
+    });
+  }
+
+  Future<void> deleteRoomTemplate(String id) {
+    return _mutate((AppPrefs current) {
+      return _copy(
+        current,
+        roomTemplates: current.roomTemplates
+            .where((RoomTemplate item) => item.id != id)
+            .toList(growable: false),
+      );
+    });
+  }
+
+  Future<void> renameRoomTemplate(String id, String name) {
+    return _mutate((AppPrefs current) {
+      final List<RoomTemplate> next = current.roomTemplates.map((RoomTemplate item) {
+        if (item.id != id) {
+          return item;
+        }
+        return RoomTemplate(
+          id: item.id,
+          name: name.trim(),
+          server: item.server,
+          providerId: item.providerId,
+          surfaceId: item.surfaceId,
+          surfaceContext: item.surfaceContext,
+          roomNameTemplate: item.roomNameTemplate,
+          fistBumpsEnabled: item.fistBumpsEnabled,
+          createdAt: item.createdAt,
+        );
+      }).toList(growable: false);
+      return _copy(current, roomTemplates: next);
+    });
+  }
+
   String resolveHostRoomNameTemplate(String template, {DateTime? now}) {
     final DateTime value = (now ?? DateTime.now()).toLocal();
     final String normalizedTemplate = template.trim();
@@ -599,6 +658,7 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
     List<SoloFilterPreset>? savedSoloFilters,
     List<SoloSavedClimb>? soloFavorites,
     List<SoloSavedClimb>? soloShortlist,
+    List<RoomTemplate>? roomTemplates,
     PendingRoomSeed? pendingRoomSeed,
     bool clearPendingRoomSeed = false,
     SoloResumeState? soloResume,
@@ -622,6 +682,7 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
       savedSoloFilters: savedSoloFilters ?? current.savedSoloFilters,
       soloFavorites: soloFavorites ?? current.soloFavorites,
       soloShortlist: soloShortlist ?? current.soloShortlist,
+      roomTemplates: roomTemplates ?? current.roomTemplates,
       pendingRoomSeed: clearPendingRoomSeed ? null : (pendingRoomSeed ?? current.pendingRoomSeed),
       soloResume: clearSoloResume ? null : (soloResume ?? current.soloResume),
       intro: intro ?? current.intro,
@@ -646,6 +707,7 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
       savedSoloFilters: _normalizeSoloFilterPresets(current.savedSoloFilters),
       soloFavorites: _normalizeSoloSavedClimbs(current.soloFavorites),
       soloShortlist: _normalizeSoloSavedClimbs(current.soloShortlist),
+      roomTemplates: _normalizeRoomTemplates(current.roomTemplates),
       pendingRoomSeed: current.pendingRoomSeed,
       soloResume: current.soloResume,
       intro: current.intro,
@@ -705,6 +767,23 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
       ..sort((SoloFilterPreset left, SoloFilterPreset right) {
         final int rightTime = DateTime.tryParse(right.savedAt)?.millisecondsSinceEpoch ?? 0;
         final int leftTime = DateTime.tryParse(left.savedAt)?.millisecondsSinceEpoch ?? 0;
+        return rightTime.compareTo(leftTime);
+      });
+    return sorted.take(12).toList(growable: false);
+  }
+
+  List<RoomTemplate> _normalizeRoomTemplates(List<RoomTemplate> value) {
+    final Map<String, RoomTemplate> deduped = <String, RoomTemplate>{};
+    for (final RoomTemplate template in value) {
+      if (template.id.trim().isEmpty) {
+        continue;
+      }
+      deduped[template.id] = template;
+    }
+    final List<RoomTemplate> sorted = deduped.values.toList(growable: false)
+      ..sort((RoomTemplate left, RoomTemplate right) {
+        final int rightTime = DateTime.tryParse(right.createdAt)?.millisecondsSinceEpoch ?? 0;
+        final int leftTime = DateTime.tryParse(left.createdAt)?.millisecondsSinceEpoch ?? 0;
         return rightTime.compareTo(leftTime);
       });
     return sorted.take(12).toList(growable: false);

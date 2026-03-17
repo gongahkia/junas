@@ -78,6 +78,7 @@ class ProviderSoloViewState {
     this.actionInFlight = false,
     this.errorMessage,
     this.notice,
+    this.selectedClimbIds = const <String>{},
   });
 
   final String providerId;
@@ -102,6 +103,7 @@ class ProviderSoloViewState {
   final bool actionInFlight;
   final String? errorMessage;
   final String? notice;
+  final Set<String> selectedClimbIds;
 
   ProviderSurface? get selectedParentSurface {
     for (final ProviderSurface item in parentSurfaces) {
@@ -153,6 +155,7 @@ class ProviderSoloViewState {
     bool clearErrorMessage = false,
     String? notice,
     bool clearNotice = false,
+    Set<String>? selectedClimbIds,
   }) {
     return ProviderSoloViewState(
       providerId: providerId,
@@ -181,6 +184,7 @@ class ProviderSoloViewState {
       errorMessage:
           clearErrorMessage ? null : (errorMessage ?? this.errorMessage),
       notice: clearNotice ? null : (notice ?? this.notice),
+      selectedClimbIds: selectedClimbIds ?? this.selectedClimbIds,
     );
   }
 }
@@ -662,6 +666,45 @@ class ProviderSoloController extends StateNotifier<ProviderSoloViewState> {
       notice: state.plannedClimbs.isEmpty
           ? 'Saved the provider surface for room creation.'
           : 'Saved the provider shortlist for room creation.',
+      clearErrorMessage: true,
+    );
+  }
+
+  void toggleMultiSelect(String id) {
+    final Set<String> next = Set<String>.from(state.selectedClimbIds);
+    if (next.contains(id)) {
+      next.remove(id);
+    } else {
+      next.add(id);
+    }
+    state = state.copyWith(selectedClimbIds: next);
+  }
+
+  void clearMultiSelect() {
+    state = state.copyWith(selectedClimbIds: const <String>{});
+  }
+
+  void addSelectedToPlannedClimbs() {
+    final int count = state.selectedClimbIds.length;
+    final List<ProviderClimb> planned = List<ProviderClimb>.from(state.plannedClimbs);
+    for (final String climbId in state.selectedClimbIds) {
+      if (planned.any((ProviderClimb item) => item.id == climbId)) {
+        continue; // already planned
+      }
+      final ProviderClimb? climb =
+          state.climbs.cast<ProviderClimb?>().firstWhere(
+                (ProviderClimb? item) => item?.id == climbId,
+                orElse: () => null,
+              );
+      if (climb == null) {
+        continue;
+      }
+      planned.insert(0, climb);
+    }
+    state = state.copyWith(
+      plannedClimbs: planned,
+      selectedClimbIds: const <String>{},
+      notice: '$count climbs added to shortlist.',
       clearErrorMessage: true,
     );
   }

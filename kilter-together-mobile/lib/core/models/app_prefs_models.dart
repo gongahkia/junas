@@ -11,6 +11,9 @@ class RecentRoom {
     this.displayName,
     this.surfaceName,
     this.pinned = false,
+    this.angle,
+    this.climbCount,
+    this.rematchConfig,
   });
 
   final String server;
@@ -21,6 +24,9 @@ class RecentRoom {
   final String? displayName;
   final String? surfaceName;
   final bool pinned;
+  final int? angle;
+  final int? climbCount;
+  final Map<String, dynamic>? rematchConfig;
 
   factory RecentRoom.fromJson(Map<String, dynamic> json) {
     return RecentRoom(
@@ -32,6 +38,9 @@ class RecentRoom {
       displayName: json['display_name'] as String?,
       surfaceName: json['surface_name'] as String?,
       pinned: json['pinned'] as bool? ?? false,
+      angle: (json['angle'] as num?)?.toInt(),
+      climbCount: (json['climb_count'] as num?)?.toInt(),
+      rematchConfig: json['rematch_config'] as Map<String, dynamic>?,
     );
   }
 
@@ -45,6 +54,9 @@ class RecentRoom {
       'display_name': displayName,
       'surface_name': surfaceName,
       'pinned': pinned,
+      'angle': angle,
+      'climb_count': climbCount,
+      'rematch_config': rematchConfig,
     };
   }
 }
@@ -292,6 +304,7 @@ class AppSettings {
     required this.autoGuidesEnabled,
     required this.recentRoomsEnabled,
     required this.soloDefaultSort,
+    this.notifyOnClimbChange = false,
   });
 
   final bool clickCheersEnabled;
@@ -299,6 +312,7 @@ class AppSettings {
   final bool autoGuidesEnabled;
   final bool recentRoomsEnabled;
   final String soloDefaultSort;
+  final bool notifyOnClimbChange;
 
   factory AppSettings.fromJson(Map<String, dynamic> json) {
     return AppSettings(
@@ -307,6 +321,7 @@ class AppSettings {
       autoGuidesEnabled: json['auto_guides_enabled'] as bool? ?? true,
       recentRoomsEnabled: json['recent_rooms_enabled'] as bool? ?? true,
       soloDefaultSort: json['solo_default_sort'] as String? ?? defaultClimbSort,
+      notifyOnClimbChange: json['notify_on_climb_change'] as bool? ?? false,
     );
   }
 
@@ -317,6 +332,7 @@ class AppSettings {
       'auto_guides_enabled': autoGuidesEnabled,
       'recent_rooms_enabled': recentRoomsEnabled,
       'solo_default_sort': soloDefaultSort,
+      'notify_on_climb_change': notifyOnClimbChange,
     };
   }
 }
@@ -365,6 +381,59 @@ class PendingRoomSeed {
   }
 }
 
+class RoomTemplate {
+  const RoomTemplate({
+    required this.id,
+    required this.name,
+    required this.server,
+    required this.providerId,
+    this.surfaceId,
+    this.surfaceContext = const <String, String>{},
+    this.roomNameTemplate = '',
+    this.fistBumpsEnabled = true,
+    required this.createdAt,
+  });
+
+  final String id;
+  final String name;
+  final String server;
+  final String providerId;
+  final String? surfaceId;
+  final Map<String, String> surfaceContext;
+  final String roomNameTemplate;
+  final bool fistBumpsEnabled;
+  final String createdAt;
+
+  factory RoomTemplate.fromJson(Map<String, dynamic> json) {
+    final Map<String, dynamic> rawCtx = (json['surface_context'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+    return RoomTemplate(
+      id: json['id'] as String? ?? '',
+      name: json['name'] as String? ?? '',
+      server: json['server'] as String? ?? '',
+      providerId: json['provider_id'] as String? ?? '',
+      surfaceId: json['surface_id'] as String?,
+      surfaceContext: rawCtx.map((String key, dynamic value) => MapEntry(key, '$value')),
+      roomNameTemplate: json['room_name_template'] as String? ?? '',
+      fistBumpsEnabled: json['fist_bumps_enabled'] as bool? ?? true,
+      createdAt: json['created_at'] as String? ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'id': id,
+      'name': name,
+      'server': server,
+      'provider_id': providerId,
+      'surface_id': surfaceId,
+      'surface_context': surfaceContext,
+      'room_name_template': roomNameTemplate,
+      'fist_bumps_enabled': fistBumpsEnabled,
+      'created_at': createdAt,
+    };
+  }
+}
+
 class AppPrefs {
   const AppPrefs({
     required this.savedDisplayName,
@@ -384,6 +453,7 @@ class AppPrefs {
     required this.guidedTour,
     required this.feedbackPrompts,
     required this.settings,
+    required this.roomTemplates,
     this.pendingRoomSeed,
     this.soloResume,
   });
@@ -400,6 +470,7 @@ class AppPrefs {
   final List<SoloFilterPreset> savedSoloFilters;
   final List<SoloSavedClimb> soloFavorites;
   final List<SoloSavedClimb> soloShortlist;
+  final List<RoomTemplate> roomTemplates;
   final PendingRoomSeed? pendingRoomSeed;
   final SoloResumeState? soloResume;
   final IntroProgress intro;
@@ -460,6 +531,7 @@ class AppPrefs {
         recentRoomsEnabled: true,
         soloDefaultSort: defaultClimbSort,
       ),
+      roomTemplates: const <RoomTemplate>[],
     );
   }
 
@@ -469,6 +541,7 @@ class AppPrefs {
     final List<dynamic> rawSavedFilters = (json['saved_solo_filters'] as List<dynamic>?) ?? <dynamic>[];
     final List<dynamic> rawFavorites = (json['solo_favorites'] as List<dynamic>?) ?? <dynamic>[];
     final List<dynamic> rawShortlist = (json['solo_shortlist'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawRoomTemplates = (json['room_templates'] as List<dynamic>?) ?? <dynamic>[];
     final Map<String, dynamic> rawFeedbackPrompts =
         (json['feedback_prompts'] as Map<String, dynamic>?) ?? <String, dynamic>{};
     return AppPrefs(
@@ -499,6 +572,10 @@ class AppPrefs {
       soloShortlist: rawShortlist
           .whereType<Map<String, dynamic>>()
           .map(SoloSavedClimb.fromJson)
+          .toList(growable: false),
+      roomTemplates: rawRoomTemplates
+          .whereType<Map<String, dynamic>>()
+          .map(RoomTemplate.fromJson)
           .toList(growable: false),
       pendingRoomSeed: json['pending_room_seed'] is Map<String, dynamic>
           ? PendingRoomSeed.fromJson(json['pending_room_seed'] as Map<String, dynamic>)
@@ -539,6 +616,8 @@ class AppPrefs {
           soloFavorites.map((SoloSavedClimb item) => item.toJson()).toList(growable: false),
       'solo_shortlist':
           soloShortlist.map((SoloSavedClimb item) => item.toJson()).toList(growable: false),
+      'room_templates':
+          roomTemplates.map((RoomTemplate item) => item.toJson()).toList(growable: false),
       'pending_room_seed': pendingRoomSeed?.toJson(),
       'solo_resume': soloResume?.toJson(),
       'intro': intro.toJson(),

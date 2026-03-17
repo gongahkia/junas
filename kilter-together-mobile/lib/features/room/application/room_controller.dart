@@ -1,7 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../main.dart';
 
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/board_models.dart';
@@ -11,6 +15,7 @@ import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
 import '../../../core/network/sse_client.dart';
 import '../../../core/storage/app_prefs_controller.dart';
+import '../../../core/storage/provider_secret_repository.dart';
 import '../../../core/storage/session_repository.dart';
 
 class RoomRouteArgs {
@@ -151,6 +156,8 @@ final roomControllerProvider = StateNotifierProvider.autoDispose
       sessionRepository: ref.read(sessionRepositoryProvider),
       sseClient: ref.read(sseClientProvider),
       appPrefsController: ref.read(appPrefsControllerProvider.notifier),
+      providerSecretRepository: ref.read(providerSecretRepositoryProvider),
+      notifications: ref.read(localNotificationsProvider),
     );
   },
 );
@@ -162,11 +169,15 @@ class RoomController extends StateNotifier<RoomViewState> {
     required SessionRepository sessionRepository,
     required SseClient sseClient,
     required AppPrefsController appPrefsController,
+    required ProviderSecretRepository providerSecretRepository,
+    required FlutterLocalNotificationsPlugin notifications,
   })  : _args = args,
         _apiClient = apiClient,
         _sessionRepository = sessionRepository,
         _sseClient = sseClient,
         _appPrefsController = appPrefsController,
+        _providerSecretRepository = providerSecretRepository,
+        _notifications = notifications,
         super(RoomViewState(
           server: args.serverUri,
           slug: args.slug,
@@ -182,8 +193,11 @@ class RoomController extends StateNotifier<RoomViewState> {
   final SessionRepository _sessionRepository;
   final SseClient _sseClient;
   final AppPrefsController _appPrefsController;
+  final ProviderSecretRepository _providerSecretRepository;
+  final FlutterLocalNotificationsPlugin _notifications;
 
   StreamSubscription<SseMessage>? _subscription;
+  String? _lastCurrentClimbId;
   Timer? _sessionRefreshTimer;
   Timer? _debounceTimer;
   bool _refreshInFlight = false;
@@ -301,6 +315,7 @@ class RoomController extends StateNotifier<RoomViewState> {
         clearJoinReason: true,
       );
       unawaited(_rememberSnapshotContext(room));
+      unawaited(_checkClimbChangeNotification(room));
       if (room.surface != null && room.connection.connected) {
         unawaited(loadCatalog(
           q: state.catalogQuery,
@@ -1125,6 +1140,43 @@ class RoomController extends StateNotifier<RoomViewState> {
     });
   }
 
+  Future<void> autoRefillQueue() async {
+    final RoomSnapshot? room = state.room;
+    final RoomSession? session = state.session;
+    if (room == null || session == null) return;
+    final Set<String> existingIds = <String>{
+      ...room.queue.map((QueueEntry e) => e.climb.id),
+      ...room.finalists.map((FinalistEntry e) => e.climb.id),
+    };
+    final List<MapEntry<String, int>> sorted = room.voteCounts.entries
+        .where((MapEntry<String, int> e) => e.value > 0 && !existingIds.contains(e.key))
+        .toList(growable: false)
+      ..sort((MapEntry<String, int> a, MapEntry<String, int> b) => b.value.compareTo(a.value));
+    final List<String> topIds = sorted.take(5).map((MapEntry<String, int> e) => e.key).toList(growable: false);
+    if (topIds.isEmpty) {
+      state = state.copyWith(notice: 'No voted climbs available to refill the queue.');
+      return;
+    }
+    try {
+      state = state.copyWith(actionInFlight: true, clearErrorMessage: true, clearNotice: true);
+      for (final String climbId in topIds) {
+        await _apiClient.addRoomQueueEntry(
+          server: _args.serverUri,
+          slug: _args.slug,
+          sessionToken: session.token,
+          climbId: climbId,
+        );
+      }
+      await refresh(silent: true);
+      state = state.copyWith(actionInFlight: false, notice: 'Added ${topIds.length} top-voted climbs to the queue.');
+    } on ApiFailure catch (error) {
+      state = state.copyWith(actionInFlight: false, errorMessage: error.message);
+      if (error.isAuthFailure) {
+        await _handleApiFailure(error);
+      }
+    }
+  }
+
   Future<void> _checkSessionRefresh() async {
     final RoomSession? session = state.session;
     if (session == null || _disposed) return;
@@ -1142,10 +1194,58 @@ class RoomController extends StateNotifier<RoomViewState> {
         session: refreshed,
       );
       state = state.copyWith(session: refreshed);
+      await _proactiveTokenRefresh();
     } on ApiFailure catch (error) {
       if (error.isAuthFailure) {
         await _handleApiFailure(error);
       }
+    }
+  }
+
+  Future<void> _checkClimbChangeNotification(RoomSnapshot room) async {
+    final String? currentClimbId = room.currentClimb?.id;
+    if (currentClimbId == null || currentClimbId == _lastCurrentClimbId) {
+      _lastCurrentClimbId = currentClimbId;
+      return;
+    }
+    final String? previousId = _lastCurrentClimbId;
+    _lastCurrentClimbId = currentClimbId;
+    if (previousId == null) return; // first load, skip
+    final AppPrefs prefs = await _loadAppPrefs();
+    if (!prefs.settings.notifyOnClimbChange) return;
+    if (WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed) return;
+    const AndroidNotificationDetails android = AndroidNotificationDetails(
+      'climb_change', 'Climb change',
+      channelDescription: 'Notifies when the room moves to a new climb',
+      importance: Importance.defaultImportance,
+      priority: Priority.defaultPriority,
+    );
+    const DarwinNotificationDetails ios = DarwinNotificationDetails();
+    const NotificationDetails details = NotificationDetails(android: android, iOS: ios);
+    await _notifications.show(0, 'New climb', room.currentClimb?.name ?? 'Current climb changed', details);
+  }
+
+  Future<void> _proactiveTokenRefresh() async {
+    final RoomSnapshot? room = state.room;
+    if (room == null || _disposed) return;
+    final String? expiresAtRaw = room.connection.metadata['token_expires_at'];
+    if (expiresAtRaw == null || expiresAtRaw.isEmpty) return;
+    final DateTime? expiresAt = DateTime.tryParse(expiresAtRaw);
+    if (expiresAt == null) return;
+    final Duration remaining = expiresAt.difference(DateTime.now().toUtc());
+    if (remaining > const Duration(minutes: 30)) return;
+    try {
+      final Map<String, String> secret = await _providerSecretRepository.readSecret(
+        server: _args.serverUri,
+        providerId: room.providerId,
+      );
+      if (secret.isEmpty) {
+        state = state.copyWith(notice: 'Provider token expiring soon. Re-enter credentials to keep the session alive.');
+        return;
+      }
+      await reconnectProvider(secret);
+    } catch (_) {
+      state = state.copyWith(notice: 'Provider token expiring soon. Re-enter credentials to keep the session alive.');
     }
   }
 }

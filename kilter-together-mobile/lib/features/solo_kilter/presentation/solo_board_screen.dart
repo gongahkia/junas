@@ -94,6 +94,8 @@ class _SoloBoardScreenState extends ConsumerState<SoloBoardScreen> {
       TextEditingController(text: widget.initialSetter ?? '');
   late final TextEditingController _gradeController =
       TextEditingController(text: widget.initialGrade ?? '');
+  final TextEditingController _gradeMinController = TextEditingController();
+  final TextEditingController _gradeMaxController = TextEditingController();
   final TextEditingController _planTitleController = TextEditingController();
   final TextEditingController _planNotesController = TextEditingController();
   bool _autoGuideAttempted = false;
@@ -114,6 +116,8 @@ class _SoloBoardScreenState extends ConsumerState<SoloBoardScreen> {
     _queryController.dispose();
     _setterController.dispose();
     _gradeController.dispose();
+    _gradeMinController.dispose();
+    _gradeMaxController.dispose();
     _planTitleController.dispose();
     _planNotesController.dispose();
     super.dispose();
@@ -289,6 +293,8 @@ class _SoloBoardScreenState extends ConsumerState<SoloBoardScreen> {
                   queryController: _queryController,
                   setterController: _setterController,
                   gradeController: _gradeController,
+                  gradeMinController: _gradeMinController,
+                  gradeMaxController: _gradeMaxController,
                   presetSaved: presetSaved,
                   onAngleChanged: (int value) =>
                       unawaited(controller.updateBoardContext(angle: value)),
@@ -309,6 +315,8 @@ class _SoloBoardScreenState extends ConsumerState<SoloBoardScreen> {
                     _queryController.clear();
                     _setterController.clear();
                     _gradeController.clear();
+                    _gradeMinController.clear();
+                    _gradeMaxController.clear();
                     unawaited(
                       controller.updateBoardContext(
                         query: '',
@@ -386,8 +394,14 @@ class _SoloBoardScreenState extends ConsumerState<SoloBoardScreen> {
                 const SizedBox(height: 14),
                 _ClimbCatalogCard(
                   state: state,
+                  selectedClimbIds: state.selectedClimbIds,
                   onSelectClimb: (BoardClimb climb) =>
                       unawaited(controller.selectClimb(climb.uuid)),
+                  onLongPressClimb: (BoardClimb climb) =>
+                      controller.toggleMultiSelect(climb.uuid),
+                  onAddSelectedToShortlist: () =>
+                      unawaited(controller.addSelectedToShortlist()),
+                  onClearMultiSelect: () => controller.clearMultiSelect(),
                   onPreviousPage: state.currentPage <= 1
                       ? null
                       : () => unawaited(controller.previousPage()),
@@ -557,6 +571,8 @@ class _FiltersCard extends StatelessWidget {
     required this.queryController,
     required this.setterController,
     required this.gradeController,
+    required this.gradeMinController,
+    required this.gradeMaxController,
     required this.presetSaved,
     required this.onAngleChanged,
     required this.onSortChanged,
@@ -569,6 +585,8 @@ class _FiltersCard extends StatelessWidget {
   final TextEditingController queryController;
   final TextEditingController setterController;
   final TextEditingController gradeController;
+  final TextEditingController gradeMinController;
+  final TextEditingController gradeMaxController;
   final bool presetSaved;
   final ValueChanged<int> onAngleChanged;
   final ValueChanged<String?> onSortChanged;
@@ -644,11 +662,32 @@ class _FiltersCard extends StatelessWidget {
             TextField(
               controller: gradeController,
               decoration: const InputDecoration(
-                labelText: 'Grade',
+                labelText: 'Grade (exact)',
                 hintText: '7a',
               ),
-              textInputAction: TextInputAction.search,
+              textInputAction: TextInputAction.next,
               onSubmitted: (_) => onApply(),
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextField(
+                    controller: gradeMinController,
+                    decoration: const InputDecoration(labelText: 'Grade min', hintText: 'V3'),
+                    textInputAction: TextInputAction.next,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: TextField(
+                    controller: gradeMaxController,
+                    decoration: const InputDecoration(labelText: 'Grade max', hintText: 'V8'),
+                    textInputAction: TextInputAction.search,
+                    onSubmitted: (_) => onApply(),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             Row(
@@ -890,13 +929,21 @@ class _SelectedClimbCard extends StatelessWidget {
 class _ClimbCatalogCard extends StatelessWidget {
   const _ClimbCatalogCard({
     required this.state,
+    required this.selectedClimbIds,
     required this.onSelectClimb,
+    required this.onLongPressClimb,
+    required this.onAddSelectedToShortlist,
+    required this.onClearMultiSelect,
     required this.onPreviousPage,
     required this.onNextPage,
   });
 
   final SoloBoardViewState state;
+  final Set<String> selectedClimbIds;
   final ValueChanged<BoardClimb> onSelectClimb;
+  final ValueChanged<BoardClimb> onLongPressClimb;
+  final VoidCallback onAddSelectedToShortlist;
+  final VoidCallback onClearMultiSelect;
   final VoidCallback? onPreviousPage;
   final VoidCallback? onNextPage;
 
@@ -934,68 +981,126 @@ class _ClimbCatalogCard extends StatelessWidget {
               Column(
                 children: state.climbs
                     .map(
-                      (BoardClimb climb) => Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(20),
-                          onTap: () => onSelectClimb(climb),
-                          child: Ink(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: state.selectedClimb?.uuid == climb.uuid
-                                    ? const Color(0xFF0F766E)
-                                    : const Color(0xFFE2E8F0),
-                                width: state.selectedClimb?.uuid == climb.uuid
-                                    ? 1.4
-                                    : 1,
-                              ),
-                              color: state.selectedClimb?.uuid == climb.uuid
-                                  ? const Color(0xFFF0FDFA)
-                                  : Colors.white,
-                            ),
-                            padding: const EdgeInsets.all(16),
-                            child: Row(
+                      (BoardClimb climb) {
+                        final bool isMultiSelected =
+                            selectedClimbIds.contains(climb.uuid);
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(20),
+                            onTap: selectedClimbIds.isNotEmpty
+                                ? () => onLongPressClimb(climb)
+                                : () => onSelectClimb(climb),
+                            onLongPress: () => onLongPressClimb(climb),
+                            child: Stack(
                               children: <Widget>[
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                Ink(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                      color: isMultiSelected
+                                          ? const Color(0xFF0F766E)
+                                          : state.selectedClimb?.uuid ==
+                                                  climb.uuid
+                                              ? const Color(0xFF0F766E)
+                                              : const Color(0xFFE2E8F0),
+                                      width: isMultiSelected ||
+                                              state.selectedClimb?.uuid ==
+                                                  climb.uuid
+                                          ? 1.4
+                                          : 1,
+                                    ),
+                                    color: isMultiSelected
+                                        ? const Color(0xFFE0F7F4)
+                                        : state.selectedClimb?.uuid ==
+                                                climb.uuid
+                                            ? const Color(0xFFF0FDFA)
+                                            : Colors.white,
+                                  ),
+                                  padding: const EdgeInsets.all(16),
+                                  child: Row(
                                     children: <Widget>[
-                                      Text(
-                                        climb.climbName,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge,
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                              climb.climbName,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge,
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(climb.setterName),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              [
+                                                if ((climb.gradeForAngle(
+                                                            state.angle) ??
+                                                        '')
+                                                    .isNotEmpty)
+                                                  climb.gradeForAngle(
+                                                      state.angle)!,
+                                                '${climb.ascends} ascends',
+                                              ].join(' · '),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      const SizedBox(height: 4),
-                                      Text(climb.setterName),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        [
-                                          if ((climb.gradeForAngle(
-                                                      state.angle) ??
-                                                  '')
-                                              .isNotEmpty)
-                                            climb.gradeForAngle(state.angle)!,
-                                          '${climb.ascends} ascends',
-                                        ].join(' · '),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall,
-                                      ),
+                                      const Icon(Icons.chevron_right),
                                     ],
                                   ),
                                 ),
-                                const Icon(Icons.chevron_right),
+                                if (selectedClimbIds.isNotEmpty)
+                                  Positioned(
+                                    top: 8,
+                                    right: 8,
+                                    child: Icon(
+                                      isMultiSelected
+                                          ? Icons.check_box
+                                          : Icons.check_box_outline_blank,
+                                      size: 22,
+                                      color: const Color(0xFF0F766E),
+                                    ),
+                                  ),
                               ],
                             ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     )
                     .toList(growable: false),
               ),
+            if (selectedClimbIds.isNotEmpty) ...<Widget>[
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF0FDFA),
+                  borderRadius: BorderRadius.circular(22),
+                  border: Border.all(color: const Color(0xFFB7E4DF)),
+                ),
+                child: Row(
+                  children: <Widget>[
+                    Text('${selectedClimbIds.length} selected'),
+                    const Spacer(),
+                    FilledButton.tonal(
+                      onPressed: onAddSelectedToShortlist,
+                      child: const Text('Add to shortlist'),
+                    ),
+                    const SizedBox(width: 8),
+                    OutlinedButton(
+                      onPressed: onClearMultiSelect,
+                      child: const Text('Done'),
+                    ),
+                  ],
+                ),
+              ),
+            ],
             const SizedBox(height: 8),
             Row(
               children: <Widget>[

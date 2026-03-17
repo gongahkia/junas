@@ -250,6 +250,7 @@ class _ProviderSoloScreenState extends ConsumerState<ProviderSoloScreen> {
                 const SizedBox(height: 14),
                 _CatalogCard(
                   state: state,
+                  selectedClimbIds: state.selectedClimbIds,
                   queryController: _queryController,
                   onApplyQuery: () => unawaited(
                     controller.updateSearch(query: _queryController.text),
@@ -262,12 +263,17 @@ class _ProviderSoloScreenState extends ConsumerState<ProviderSoloScreen> {
                   },
                   onSelectClimb: (ProviderClimb climb) =>
                       unawaited(controller.selectClimb(climb.id)),
+                  onLongPressClimb: (ProviderClimb climb) =>
+                      controller.toggleMultiSelect(climb.id),
                   onTogglePlannedClimb: (ProviderClimb climb) =>
                       controller.togglePlannedClimb(
                     state.selectedClimb?.id == climb.id
                         ? state.selectedClimb!
                         : climb,
                   ),
+                  onAddSelectedToShortlist: () =>
+                      controller.addSelectedToPlannedClimbs(),
+                  onClearMultiSelect: () => controller.clearMultiSelect(),
                   onPreviousPage: state.currentPage <= 1
                       ? null
                       : () => unawaited(controller.previousPage()),
@@ -689,21 +695,29 @@ class _PlanCard extends StatelessWidget {
 class _CatalogCard extends StatelessWidget {
   const _CatalogCard({
     required this.state,
+    required this.selectedClimbIds,
     required this.queryController,
     required this.onApplyQuery,
     required this.onSortChanged,
     required this.onSelectClimb,
+    required this.onLongPressClimb,
     required this.onTogglePlannedClimb,
+    required this.onAddSelectedToShortlist,
+    required this.onClearMultiSelect,
     required this.onPreviousPage,
     required this.onNextPage,
   });
 
   final ProviderSoloViewState state;
+  final Set<String> selectedClimbIds;
   final TextEditingController queryController;
   final VoidCallback onApplyQuery;
   final ValueChanged<String?> onSortChanged;
   final ValueChanged<ProviderClimb> onSelectClimb;
+  final ValueChanged<ProviderClimb> onLongPressClimb;
   final ValueChanged<ProviderClimb> onTogglePlannedClimb;
+  final VoidCallback onAddSelectedToShortlist;
+  final VoidCallback onClearMultiSelect;
   final VoidCallback? onPreviousPage;
   final VoidCallback? onNextPage;
 
@@ -764,76 +778,144 @@ class _CatalogCard extends StatelessWidget {
               Column(
                 children: state.climbs
                     .map(
-                      (ProviderClimb climb) => Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(20),
-                          onTap: () => onSelectClimb(climb),
-                          child: Ink(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: state.selectedClimb?.id == climb.id
-                                    ? const Color(0xFF0F766E)
-                                    : const Color(0xFFE2E8F0),
-                              ),
-                              color: state.selectedClimb?.id == climb.id
-                                  ? const Color(0xFFF0FDFA)
-                                  : Colors.white,
-                            ),
-                            padding: const EdgeInsets.all(16),
-                            child: Row(
+                      (ProviderClimb climb) {
+                        final bool isMultiSelected =
+                            selectedClimbIds.contains(climb.id);
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(20),
+                            onTap: selectedClimbIds.isNotEmpty
+                                ? () => onLongPressClimb(climb)
+                                : () => onSelectClimb(climb),
+                            onLongPress: () => onLongPressClimb(climb),
+                            child: Stack(
                               children: <Widget>[
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                Ink(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                      color: isMultiSelected
+                                          ? const Color(0xFF0F766E)
+                                          : state.selectedClimb?.id == climb.id
+                                              ? const Color(0xFF0F766E)
+                                              : const Color(0xFFE2E8F0),
+                                      width: isMultiSelected ||
+                                              state.selectedClimb?.id ==
+                                                  climb.id
+                                          ? 1.4
+                                          : 1,
+                                    ),
+                                    color: isMultiSelected
+                                        ? const Color(0xFFE0F7F4)
+                                        : state.selectedClimb?.id == climb.id
+                                            ? const Color(0xFFF0FDFA)
+                                            : Colors.white,
+                                  ),
+                                  padding: const EdgeInsets.all(16),
+                                  child: Row(
                                     children: <Widget>[
-                                      Text(
-                                        climb.name,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge,
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                              climb.name,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge,
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              [
+                                                if ((climb.primaryGrade ?? '')
+                                                    .isNotEmpty)
+                                                  climb.primaryGrade!,
+                                                if ((climb.setterName ?? '')
+                                                    .isNotEmpty)
+                                                  climb.setterName!,
+                                              ].join(' · '),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall,
+                                            ),
+                                            if (_hasClimbMeta(climb)) ...<Widget>[
+                                              const SizedBox(height: 6),
+                                              Wrap(
+                                                spacing: 8,
+                                                runSpacing: 6,
+                                                children: <Widget>[
+                                                  if ((climb.meta['color'] ?? '').isNotEmpty) _ColorDot(color: _parseClimbColor(climb.meta['color']!)),
+                                                  if ((climb.meta['hold_type'] ?? '').isNotEmpty) _InfoChip(label: climb.meta['hold_type']!),
+                                                  if ((climb.meta['foot_rule'] ?? '').isNotEmpty) _InfoChip(label: climb.meta['foot_rule']!),
+                                                ],
+                                              ),
+                                            ],
+                                          ],
+                                        ),
                                       ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        [
-                                          if ((climb.primaryGrade ?? '')
-                                              .isNotEmpty)
-                                            climb.primaryGrade!,
-                                          if ((climb.setterName ?? '')
-                                              .isNotEmpty)
-                                            climb.setterName!,
-                                          if ((climb.meta['color'] ?? '')
-                                              .isNotEmpty)
-                                            climb.meta['color']!,
-                                        ].join(' · '),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall,
+                                      IconButton(
+                                        onPressed: () =>
+                                            onTogglePlannedClimb(climb),
+                                        icon: Icon(
+                                          state.plannedClimbs.any(
+                                            (ProviderClimb item) =>
+                                                item.id == climb.id,
+                                          )
+                                              ? Icons.playlist_add_check_circle
+                                              : Icons.playlist_add,
+                                        ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                IconButton(
-                                  onPressed: () => onTogglePlannedClimb(climb),
-                                  icon: Icon(
-                                    state.plannedClimbs.any(
-                                      (ProviderClimb item) =>
-                                          item.id == climb.id,
-                                    )
-                                        ? Icons.playlist_add_check_circle
-                                        : Icons.playlist_add,
+                                if (selectedClimbIds.isNotEmpty)
+                                  Positioned(
+                                    top: 8,
+                                    right: 8,
+                                    child: Icon(
+                                      isMultiSelected
+                                          ? Icons.check_box
+                                          : Icons.check_box_outline_blank,
+                                      size: 22,
+                                      color: const Color(0xFF0F766E),
+                                    ),
                                   ),
-                                ),
                               ],
                             ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     )
                     .toList(growable: false),
               ),
+            if (selectedClimbIds.isNotEmpty) ...<Widget>[
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF0FDFA),
+                  borderRadius: BorderRadius.circular(22),
+                  border: Border.all(color: const Color(0xFFB7E4DF)),
+                ),
+                child: Row(
+                  children: <Widget>[
+                    Text('${selectedClimbIds.length} selected'),
+                    const Spacer(),
+                    FilledButton.tonal(
+                      onPressed: onAddSelectedToShortlist,
+                      child: const Text('Add to shortlist'),
+                    ),
+                    const SizedBox(width: 8),
+                    OutlinedButton(
+                      onPressed: onClearMultiSelect,
+                      child: const Text('Done'),
+                    ),
+                  ],
+                ),
+              ),
+            ],
             const SizedBox(height: 8),
             Row(
               children: <Widget>[
@@ -1030,6 +1112,40 @@ class _MissingServerCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+bool _hasClimbMeta(ProviderClimb climb) {
+  return (climb.meta['color'] ?? '').isNotEmpty ||
+      (climb.meta['hold_type'] ?? '').isNotEmpty ||
+      (climb.meta['foot_rule'] ?? '').isNotEmpty;
+}
+
+Color _parseClimbColor(String raw) {
+  return switch (raw.toLowerCase().trim()) {
+    'green' => const Color(0xFF16A34A),
+    'blue' => const Color(0xFF2563EB),
+    'red' => const Color(0xFFDC2626),
+    'yellow' => const Color(0xFFEAB308),
+    'orange' => const Color(0xFFEA580C),
+    'purple' => const Color(0xFF9333EA),
+    'pink' => const Color(0xFFEC4899),
+    'white' => const Color(0xFFE2E8F0),
+    'black' => const Color(0xFF1E293B),
+    _ => const Color(0xFF6B7280),
+  };
+}
+
+class _ColorDot extends StatelessWidget {
+  const _ColorDot({required this.color});
+  final Color color;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 10,
+      height: 10,
+      decoration: BoxDecoration(shape: BoxShape.circle, color: color),
     );
   }
 }

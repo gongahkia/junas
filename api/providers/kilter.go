@@ -95,6 +95,8 @@ func (provider *KilterProvider) ListClimbs(
 		boardID,
 		angle,
 		input.Sort,
+		input.GradeMin,
+		input.GradeMax,
 	)
 	if err != nil {
 		return nil, err

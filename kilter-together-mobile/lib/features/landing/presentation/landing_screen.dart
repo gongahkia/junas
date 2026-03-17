@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/deep_links/invite_links.dart';
 import '../../../core/models/app_prefs_models.dart';
+import '../../../core/models/provider_models.dart';
 import '../../../core/models/product_models.dart';
 import '../../../core/models/runtime_models.dart';
 import '../../../core/models/session_models.dart';
@@ -77,19 +78,15 @@ String _providerLabel(String providerId) {
   };
 }
 
-String _formatRecentRoomLastSeen(BuildContext context, String raw) {
+String _formatRelativeTime(String raw) {
   final DateTime? parsed = DateTime.tryParse(raw);
-  if (parsed == null) {
-    return raw;
-  }
-  final DateTime local = parsed.toLocal();
-  final MaterialLocalizations localizations = MaterialLocalizations.of(context);
-  final bool use24HourFormat =
-      MediaQuery.maybeOf(context)?.alwaysUse24HourFormat ?? false;
-  return '${localizations.formatMediumDate(local)} · ${localizations.formatTimeOfDay(
-    TimeOfDay.fromDateTime(local),
-    alwaysUse24HourFormat: use24HourFormat,
-  )}';
+  if (parsed == null) return raw;
+  final Duration diff = DateTime.now().toUtc().difference(parsed.toUtc());
+  if (diff.inMinutes < 1) return 'just now';
+  if (diff.inMinutes < 60) return '${diff.inMinutes}m ago';
+  if (diff.inHours < 24) return '${diff.inHours}h ago';
+  if (diff.inDays < 7) return '${diff.inDays}d ago';
+  return '${(diff.inDays / 7).floor()}w ago';
 }
 
 class LandingScreen extends ConsumerStatefulWidget {
@@ -581,10 +578,7 @@ class _RecentRoomTile extends ConsumerWidget {
     final String surfaceLabel = (room.surfaceName ?? '').trim().isEmpty
         ? 'Surface not chosen yet'
         : room.surfaceName!;
-    final String lastSeen = _formatRecentRoomLastSeen(
-      context,
-      room.lastVisitedAt,
-    );
+    final String lastSeen = _formatRelativeTime(room.lastVisitedAt);
 
     return Card(
       child: InkWell(
@@ -696,7 +690,32 @@ class _RecentRoomTile extends ConsumerWidget {
                 ],
               ),
               const SizedBox(height: 12),
-              Text(surfaceLabel),
+              Wrap(
+                spacing: 8,
+                runSpacing: 6,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: <Widget>[
+                  Text(surfaceLabel),
+                  if (room.angle != null)
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE0F2FE),
+                        borderRadius: BorderRadius.circular(999),
+                      ),
+                      child: Text('@ ${room.angle}°', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF0369A1))),
+                    ),
+                  if (room.climbCount != null && room.climbCount! > 0)
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF0FDF4),
+                        borderRadius: BorderRadius.circular(999),
+                      ),
+                      child: Text('${room.climbCount} climbs', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF166534))),
+                    ),
+                ],
+              ),
               const SizedBox(height: 4),
               Text(
                 describeServer(normalizeServerUri(room.server)),
@@ -711,7 +730,28 @@ class _RecentRoomTile extends ConsumerWidget {
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  if (room.rematchConfig != null) ...<Widget>[
+                    const SizedBox(width: 8),
+                    OutlinedButton(
+                      onPressed: () {
+                        final Map<String, dynamic> cfg = room.rematchConfig!;
+                        final ProviderSurface surface = ProviderSurface.fromJson(
+                          (cfg['surface'] as Map<String, dynamic>?) ?? <String, dynamic>{},
+                        );
+                        final PendingRoomSeed seed = PendingRoomSeed(
+                          providerId: cfg['provider_id'] as String? ?? room.providerId,
+                          surface: surface,
+                          climbs: const <ProviderClimb>[],
+                          createdAt: DateTime.now().toUtc().toIso8601String(),
+                          title: cfg['room_name'] as String?,
+                        );
+                        unawaited(ref.read(appPrefsControllerProvider.notifier).setPendingRoomSeed(seed));
+                        context.goNamed('create-room');
+                      },
+                      child: const Text('Rematch'),
+                    ),
+                  ],
+                  const SizedBox(width: 8),
                   OutlinedButton(
                     onPressed: onTap ??
                         () => context.goNamed(

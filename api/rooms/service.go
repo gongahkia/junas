@@ -583,6 +583,8 @@ func (service *Service) ListCatalogClimbs(
 	sortKey string,
 	cursor string,
 	pageSize int,
+	gradeMin string,
+	gradeMax string,
 ) (*CatalogClimbsResponse, error) {
 	provider, secret, err := service.providerForRoom(ctx, &viewer.Room)
 	if err != nil {
@@ -600,6 +602,8 @@ func (service *Service) ListCatalogClimbs(
 		Sort:      sortKey,
 		Cursor:    cursor,
 		PageSize:  pageSize,
+		GradeMin:  gradeMin,
+		GradeMax:  gradeMax,
 	})
 	if err != nil {
 		return nil, err

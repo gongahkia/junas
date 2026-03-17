@@ -621,6 +621,8 @@ func ListRoomCatalogClimbs(w http.ResponseWriter, r *http.Request) {
 		r.URL.Query().Get("sort"),
 		r.URL.Query().Get("cursor"),
 		pageSize,
+		r.URL.Query().Get("grade_min"),
+		r.URL.Query().Get("grade_max"),
 	)
 	if err != nil {
 		writeRoomError(w, r, err, http.StatusBadRequest, "")

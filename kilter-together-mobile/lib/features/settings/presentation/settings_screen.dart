@@ -225,6 +225,19 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               ),
                         ),
                       ),
+                      _ToggleTile(
+                        label: 'Notify on current climb change',
+                        description:
+                            'Show a local notification when the room moves to a new climb while the app is in the background.',
+                        value: prefs.settings.notifyOnClimbChange,
+                        onChanged: (bool value) => unawaited(
+                          ref
+                              .read(appPrefsControllerProvider.notifier)
+                              .updateSettings(
+                                notifyOnClimbChange: value,
+                              ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -357,6 +370,69 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
+                        'Room templates',
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                      const SizedBox(height: 12),
+                      if (prefs.roomTemplates.isEmpty)
+                        const Text('No room templates saved yet.')
+                      else
+                        ...prefs.roomTemplates.map(
+                          (RoomTemplate template) => Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(22),
+                                border: Border.all(color: const Color(0xFFE2E8F0)),
+                              ),
+                              padding: const EdgeInsets.all(16),
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          template.name,
+                                          style: Theme.of(context).textTheme.titleMedium,
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          providerChoices
+                                                  .where((ProviderCapability item) => item.id == template.providerId)
+                                                  .map((ProviderCapability item) => item.label)
+                                                  .firstOrNull ??
+                                              template.providerId,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () => unawaited(
+                                      ref
+                                          .read(appPrefsControllerProvider.notifier)
+                                          .deleteRoomTemplate(template.id),
+                                    ),
+                                    icon: const Icon(Icons.delete_outline),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 14),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(22),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
                         'Stored data',
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
@@ -367,6 +443,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         onDownload: downloadCatalogAction,
                         onSync: syncCatalogAction,
                         onDelete: () => unawaited(_confirmDeleteCatalog()),
+                      ),
+                      _ActionTile(
+                        label: 'Climb log',
+                        description:
+                            'View and export your personal climb history from all sessions.',
+                        actionLabel: 'Open',
+                        onPressed: () => context.goNamed('climb-log'),
                       ),
                       _ActionTile(
                         label: 'Reset guides',

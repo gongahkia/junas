@@ -8,6 +8,7 @@ import '../../features/landing/presentation/landing_screen.dart';
 import '../../features/plan/presentation/plan_screen.dart';
 import '../../features/recap/presentation/recap_screen.dart';
 import '../../features/room/presentation/room_screen.dart';
+import '../../features/climb_log/presentation/climb_log_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../features/solo_entry/presentation/solo_entry_screen.dart';
 import '../../features/solo_kilter/presentation/solo_board_screen.dart';
@@ -157,6 +158,13 @@ GoRouter buildAppRouter() {
                 name: 'about',
                 builder: (BuildContext context, GoRouterState state) {
                   return const AboutScreen();
+                },
+              ),
+              GoRoute(
+                path: '/climb-log',
+                name: 'climb-log',
+                builder: (BuildContext context, GoRouterState state) {
+                  return const ClimbLogScreen();
                 },
               ),
             ],

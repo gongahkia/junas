@@ -102,6 +102,8 @@ func SetupRoutes() *chi.Mux {
 		})
 	})
 
+	r.Get("/join/{slug}", handlers.JoinPage)
+
 	r.Get("/swagger/*", httpSwagger.Handler(
 		httpSwagger.URL("/swagger/doc.json"),
 	))

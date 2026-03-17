@@ -1620,6 +1620,7 @@ AppPrefs _buildPrefs({
     guidedTour: guidedTour ?? defaults.guidedTour,
     feedbackPrompts: feedbackPrompts ?? defaults.feedbackPrompts,
     settings: settings ?? defaults.settings,
+    roomTemplates: defaults.roomTemplates,
   );
 }
 
@@ -2047,6 +2048,8 @@ class FakeApiClient extends ApiClient {
     String? q,
     String? sort,
     String? cursor,
+    String? gradeMin,
+    String? gradeMax,
     int pageSize = 10,
   }) async {
     final List<ProviderClimb> climbs = <ProviderClimb>[

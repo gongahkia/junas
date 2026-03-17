@@ -25,6 +25,8 @@ type soloListClimbsRequest struct {
 	Sort      string            `json:"sort"`
 	Cursor    string            `json:"cursor"`
 	PageSize  int               `json:"page_size"`
+	GradeMin  string            `json:"grade_min"`
+	GradeMax  string            `json:"grade_max"`
 }
 
 type soloGetClimbRequest struct {
@@ -96,6 +98,8 @@ func ListSoloProviderClimbs(w http.ResponseWriter, r *http.Request) {
 		Sort:      strings.TrimSpace(request.Sort),
 		Cursor:    strings.TrimSpace(request.Cursor),
 		PageSize:  pageSize,
+		GradeMin:  strings.TrimSpace(request.GradeMin),
+		GradeMax:  strings.TrimSpace(request.GradeMax),
 	})
 	if err != nil {
 		observability.RecordSoloAction("list_climbs", string(providerID), err)

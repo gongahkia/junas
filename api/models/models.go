@@ -159,9 +159,11 @@ func GetPaginatedClimbs(
 	boardID uint,
 	angle uint,
 	sort string,
+	gradeMin string,
+	gradeMax string,
 ) (*CursorPaginatedClimbsResponse, error) {
 	cacheKey := fmt.Sprintf(
-		"climbs-cursor-%s-%d-%s-%s-%s-%d-%d-%s",
+		"climbs-cursor-%s-%d-%s-%s-%s-%d-%d-%s-%s-%s",
 		cursor,
 		pageSize,
 		nameFilter,
@@ -170,6 +172,8 @@ func GetPaginatedClimbs(
 		boardID,
 		angle,
 		sort,
+		gradeMin,
+		gradeMax,
 	)
 	if x, found := c.Get(cacheKey); found {
 		return x.(*CursorPaginatedClimbsResponse), nil
@@ -225,6 +229,14 @@ WHERE c.is_listed = 1
 	if boardID != 0 {
 		query.WriteString("\n  AND ps.id = ?")
 		args = append(args, boardID)
+	}
+	if trimmed := strings.TrimSpace(gradeMin); trimmed != "" {
+		query.WriteString("\n  AND dg.difficulty >= (SELECT MIN(difficulty) FROM difficulty_grades WHERE boulder_name = ?)")
+		args = append(args, trimmed)
+	}
+	if trimmed := strings.TrimSpace(gradeMax); trimmed != "" {
+		query.WriteString("\n  AND dg.difficulty <= (SELECT MAX(difficulty) FROM difficulty_grades WHERE boulder_name = ?)")
+		args = append(args, trimmed)
 	}
 
 	cursorCondition, cursorArgs := buildCursorCondition(normalizedSort, cursorData)

@@ -138,6 +138,8 @@ func (provider *FakeProvider) ListClimbs(
 
 	filtered := make([]ProviderClimb, 0)
 	query := strings.ToLower(strings.TrimSpace(input.Search))
+	gradeMinLower := strings.ToLower(strings.TrimSpace(input.GradeMin))
+	gradeMaxLower := strings.ToLower(strings.TrimSpace(input.GradeMax))
 	for _, climb := range provider.Climbs {
 		if input.SurfaceID != "" && climb.SurfaceID != input.SurfaceID {
 			continue
@@ -147,6 +149,18 @@ func (provider *FakeProvider) ListClimbs(
 			!strings.Contains(strings.ToLower(climb.Description), query) &&
 			!strings.Contains(strings.ToLower(climb.SetterName), query) {
 			continue
+		}
+		if gradeMinLower != "" || gradeMaxLower != "" {
+			g := strings.ToLower(climb.PrimaryGrade)
+			if g == "" {
+				continue
+			}
+			if gradeMinLower != "" && g < gradeMinLower {
+				continue
+			}
+			if gradeMaxLower != "" && g > gradeMaxLower {
+				continue
+			}
 		}
 		filtered = append(filtered, climb)
 	}

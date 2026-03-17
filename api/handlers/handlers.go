@@ -23,6 +23,8 @@ type GetClimbsParams struct {
 	Name     string `form:"name"`
 	Setter   string `form:"setter"`
 	Grade    string `form:"grade"`
+	GradeMin string `form:"grade_min"`
+	GradeMax string `form:"grade_max"`
 	BoardID  uint   `form:"board_id"`
 	Angle    uint   `form:"angle"`
 	Sort     string `form:"sort,default=popular"`
@@ -95,6 +97,8 @@ func GetClimbs(w http.ResponseWriter, r *http.Request) {
 		params.BoardID,
 		params.Angle,
 		sort,
+		params.GradeMin,
+		params.GradeMax,
 	)
 	if err != nil {
 		if errors.Is(err, models.ErrInvalidCursor) {

@@ -157,6 +157,24 @@ class OfflineKilterCatalogRepository {
         ..add('%$grade%');
     }
 
+    final String gradeMin = (query.gradeMin ?? '').trim().toLowerCase();
+    if (gradeMin.isNotEmpty) {
+      whereParts.add(
+          '(LOWER(COALESCE($boulderColumn, \'\')) >= ? OR LOWER(COALESCE($routeColumn, \'\')) >= ?)');
+      whereArgs
+        ..add(gradeMin)
+        ..add(gradeMin);
+    }
+
+    final String gradeMax = (query.gradeMax ?? '').trim().toLowerCase();
+    if (gradeMax.isNotEmpty) {
+      whereParts.add(
+          '(LOWER(COALESCE($boulderColumn, \'\')) <= ? OR LOWER(COALESCE($routeColumn, \'\')) <= ?)');
+      whereArgs
+        ..add(gradeMax)
+        ..add(gradeMax);
+    }
+
     final String orderBy = (query.sort ?? defaultClimbSort) == 'newest'
         ? 'created_at DESC, uuid DESC'
         : 'COALESCE($ascendsColumn, 0) DESC, created_at DESC, uuid DESC';

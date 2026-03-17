@@ -41,6 +41,8 @@ type ListClimbsInput struct {
 	Sort      string
 	Cursor    string
 	PageSize  int
+	GradeMin  string
+	GradeMax  string
 }
 
 type ClimbMedia struct {
