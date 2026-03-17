@@ -21,7 +21,7 @@ SQLite on local disk.
 
 | Path | Best for | Client URL |
 | --- | --- | --- |
-| `docker compose` | easiest local or home-LAN setup, includes the legacy web app | `http://<host>:8080` |
+| `docker compose` | easiest local or home-LAN setup | `http://<host>:8080` |
 | `go run . serve` | backend-only setup for the mobile app or local development | `http://<host>:8082` |
 | `docker-compose.production.yml` | internet-facing deployment with TLS and a domain | `https://<your-domain>` |
 
@@ -62,8 +62,7 @@ Important network rules:
 
 ## Option A: Easiest Local Setup With Docker
 
-This runs the API and the legacy web app together. The API stays internal to Docker
-and the web container exposes everything on port `8080`.
+This runs the API in Docker, exposed on port `8080`.
 
 ### 1. Clone the repo and create the env file
 
@@ -134,7 +133,7 @@ If health fails, inspect logs:
 
 ```console
 docker compose logs kilter-together-api
-docker compose logs kilter-together-web
+docker compose logs kilter-together-api
 ```
 
 ### 6. Connect clients
@@ -178,11 +177,11 @@ export KILTER_TOGETHER_KILTER_USERNAME="<your-kilter-username>"
 export KILTER_TOGETHER_KILTER_PASSWORD="<your-kilter-password>"
 ```
 
-If you want the legacy web app to run from a different origin than the API, also set
+If you want browser clients from a different origin than the API, also set
 `KILTER_TOGETHER_ALLOWED_ORIGINS` explicitly, for example:
 
 ```console
-export KILTER_TOGETHER_ALLOWED_ORIGINS="http://localhost:5173,http://127.0.0.1:5173,http://192.168.1.50:5173"
+export KILTER_TOGETHER_ALLOWED_ORIGINS="http://localhost:8080,http://127.0.0.1:8080,http://192.168.1.50:8080"
 ```
 
 Native mobile clients do not need CORS, so this variable mainly matters for browser

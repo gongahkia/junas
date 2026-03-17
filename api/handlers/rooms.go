@@ -360,8 +360,55 @@ func UpdateRoomAssistantSettings(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, snapshot)
 }
 
-func StreamRoomEvents(w http.ResponseWriter, r *http.Request) {
+// CreateSSETicket handles POST /api/rooms/{slug}/events/ticket.
+// Exchanges a Bearer session token for a short-lived, single-use SSE ticket
+// so the real token never appears in EventSource query strings.
+func CreateSSETicket(w http.ResponseWriter, r *http.Request) {
 	viewer, err := authenticateViewer(r, viewerAccessAny)
+	if err != nil {
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
+		return
+	}
+	ticket, expiresAt := rooms.DefaultService.SSETickets.Issue(
+		viewer.Room.Slug,
+		viewer.Session.ID,
+	)
+	writeJSON(w, http.StatusOK, map[string]any{
+		"ticket":     ticket,
+		"expires_at": expiresAt,
+	})
+}
+
+// RefreshRoomSession handles POST /api/rooms/{slug}/session/refresh.
+// Returns the updated session expiry after activity-based TTL extension.
+func RefreshRoomSession(w http.ResponseWriter, r *http.Request) {
+	viewer, err := authenticateViewer(r, viewerAccessAny)
+	if err != nil {
+		writeRoomError(w, r, err, http.StatusUnauthorized, "")
+		return
+	}
+	writeJSON(w, http.StatusOK, roomSessionView{
+		Token:     viewer.Session.ID,
+		Role:      viewer.Session.Role,
+		ExpiresAt: viewer.Session.ExpiresAt,
+	})
+}
+
+func StreamRoomEvents(w http.ResponseWriter, r *http.Request) {
+	roomSlug := chi.URLParam(r, "slug")
+	ticket := strings.TrimSpace(r.URL.Query().Get("ticket"))
+	var viewer *rooms.Viewer
+	var err error
+	if ticket != "" { // ticket-based auth for SSE
+		sessionID := rooms.DefaultService.SSETickets.Consume(ticket, roomSlug)
+		if sessionID == "" {
+			writeJSONError(w, http.StatusUnauthorized, "invalid or expired SSE ticket")
+			return
+		}
+		viewer, err = rooms.DefaultService.Authenticate(r.Context(), roomSlug, sessionID, "")
+	} else { // fallback: Bearer header (legacy / non-browser clients)
+		viewer, err = authenticateViewer(r, viewerAccessAny)
+	}
 	if err != nil {
 		writeRoomError(w, r, err, http.StatusUnauthorized, "")
 		return
@@ -378,7 +425,7 @@ func StreamRoomEvents(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	roomSlug := viewer.Room.Slug
+	roomSlug = viewer.Room.Slug
 	eventChannel := rooms.DefaultService.Hub().Subscribe(roomSlug)
 	defer rooms.DefaultService.Hub().Unsubscribe(roomSlug, eventChannel)
 
@@ -1036,8 +1083,7 @@ func bearerTokenFromRequest(r *http.Request) string {
 	if len(parts) == 2 && strings.EqualFold(parts[0], "Bearer") {
 		return strings.TrimSpace(parts[1])
 	}
-
-	return strings.TrimSpace(r.URL.Query().Get("session"))
+	return ""
 }
 
 func connectProviderStatus(err error) int {

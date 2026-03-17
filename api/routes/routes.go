@@ -70,7 +70,9 @@ func SetupRoutes() *chi.Mux {
 			r.Post("/join", handlers.JoinRoom)
 			r.Get("/", handlers.GetRoom)
 			r.Patch("/", handlers.UpdateRoom)
+			r.Post("/events/ticket", handlers.CreateSSETicket)
 			r.Get("/events", handlers.StreamRoomEvents)
+			r.Post("/session/refresh", handlers.RefreshRoomSession)
 			if runtimeConfig.EnableTestProvider {
 				r.Post("/provider/connect", handlers.ConnectRoomProvider)
 			} else {

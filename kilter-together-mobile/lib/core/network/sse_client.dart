@@ -25,14 +25,22 @@ class SseClient {
 
   Stream<SseMessage> connect({
     required Uri uri,
-    required String sessionToken,
+    String? ticket,
+    String? sessionToken,
   }) async* {
     Duration retryDelay = const Duration(seconds: 1);
 
     while (true) {
-      final http.Request request = http.Request('GET', uri);
+      final Uri requestUri = (ticket != null && ticket.isNotEmpty)
+          ? uri.replace(queryParameters: <String, String>{...uri.queryParameters, 'ticket': ticket})
+          : uri;
+      final http.Request request = http.Request('GET', requestUri);
       request.headers['Accept'] = 'text/event-stream';
-      request.headers['Authorization'] = 'Bearer $sessionToken';
+      if (ticket == null || ticket.isEmpty) {
+        if (sessionToken != null) {
+          request.headers['Authorization'] = 'Bearer $sessionToken';
+        }
+      }
 
       http.StreamedResponse response;
       try {

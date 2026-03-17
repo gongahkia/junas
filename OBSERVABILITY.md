@@ -22,14 +22,7 @@ Kilter Together now supports a self-hosted observability stack built around:
   - `trace_id`
 - `/api/operator/status` exposes a protected runtime summary for operators.
 
-### Frontend
-- failed API actions are forwarded through the client observability wrapper
-- SSE reconnect storms and QR-scanner failures are reported outside the browser console
-- uncaught frontend exceptions can be sent to a Sentry-compatible DSN such as GlitchTip
-
 ## Environment Variables
-
-Backend:
 
 - `KILTER_TOGETHER_OPERATOR_TOKEN`
 - `KILTER_TOGETHER_OTEL_EXPORTER_OTLP_ENDPOINT`
@@ -38,14 +31,6 @@ Backend:
 - `KILTER_TOGETHER_SENTRY_DSN`
 - `KILTER_TOGETHER_SENTRY_ENVIRONMENT`
 - `KILTER_TOGETHER_SENTRY_RELEASE`
-
-Frontend:
-
-- `VITE_SENTRY_DSN`
-- `VITE_SENTRY_ENVIRONMENT`
-- `VITE_APP_RELEASE`
-
-For Docker deployments, those frontend values are build-time inputs. Rebuild the web image after changing them so Vite can bake them into the static bundle.
 
 ## Running The Stack
 
@@ -189,6 +174,5 @@ GlitchTip is not bundled into `docker-compose.observability.yml` because it is m
 Use the DSN from your GlitchTip project in:
 
 - `KILTER_TOGETHER_SENTRY_DSN` for backend exception capture
-- `VITE_SENTRY_DSN` for frontend exception capture
 
 The app uses the standard Sentry protocol, so GlitchTip works without custom adapters.

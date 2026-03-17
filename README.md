@@ -23,7 +23,7 @@ docker compose --profile bootstrap run --rm kilter-together-bootstrap
 docker compose up --build -d
 ```
 
-Open the app at `http://localhost:8080` and verify the API with:
+The API is available at `http://localhost:8080` (API-only, no web frontend). Verify with:
 
 ```console
 curl http://localhost:8080/api/healthz
@@ -67,23 +67,12 @@ Backend env vars:
 | `KILTER_TOGETHER_PREVIOUS_ENCRYPTION_KEY` | unset | Optional old encryption key used during rotation |
 | `KILTER_TOGETHER_PORT` | `8082` | API listen port |
 | `PORT` | unset | Platform-injected listen port fallback used when `KILTER_TOGETHER_PORT` is unset |
-| `KILTER_TOGETHER_ALLOWED_ORIGINS` | `http://localhost:5173,http://127.0.0.1:5173,http://localhost:8080,http://127.0.0.1:8080` | Comma-separated CORS allowlist for browser tooling and local legacy web runs |
+| `KILTER_TOGETHER_ALLOWED_ORIGINS` | `http://localhost:8080,http://127.0.0.1:8080` | Comma-separated CORS allowlist |
 | `KILTER_TOGETHER_STORAGE_WARN_PERCENT` | `80` | Public runtime-status warning threshold for storage usage |
 | `KILTER_TOGETHER_STORAGE_CRITICAL_PERCENT` | `90` | Public runtime-status critical threshold for storage usage |
 
-Legacy web client env vars:
-
-| Variable | Default | Purpose |
-| --- | --- | --- |
-| `VITE_APP_BASE_PATH` | `/` | Browser/router base path for self-hosted builds |
-| `VITE_API_BASE_URL` | `/api` | Same-origin API base URL |
-| `VITE_SENTRY_DSN` | unset | Optional Sentry-compatible DSN for frontend exception capture |
-| `VITE_SENTRY_ENVIRONMENT` | unset | Environment label sent with frontend exception events |
-| `VITE_APP_RELEASE` | unset | Release label sent with frontend exception events |
-
 Example files live at [api/.env.example](./api/.env.example) and
-[kilter-together-app/.env.example](./kilter-together-app/.env.example). For Docker
-deployments, start with [compose.env.example](./compose.env.example).
+[compose.env.example](./compose.env.example).
 
 ## Local Development
 
@@ -114,28 +103,6 @@ flutter create . --platforms=android,ios
 flutter pub get
 flutter run
 ```
-
-Legacy web client:
-
-```console
-cd kilter-together-app
-npm ci
-npm run dev
-```
-
-The Vite dev server proxies `/api` to `http://localhost:8082`, so the legacy web client
-still works during the migration.
-
-The browser UI uses URL-addressable routes:
-
-- `/` landing page for collaborative rooms and solo browse
-- `/join` for scan-first or paste-first room entry
-- `/rooms/new` to create a room
-- `/join/:slug` to join a room from an invite
-- `/rooms/:slug?q=&sort=&climb=` for collaborative sessions
-- `/solo` for solo Kilter browsing
-- `/solo/boards/:boardId?angle=40&sort=popular&q=&setter=&climb=` for solo climb browsing
-- `/boards/:boardId?...` remains available as a compatibility route
 
 ## Collaboration Flow
 

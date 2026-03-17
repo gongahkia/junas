@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -171,6 +172,9 @@ class RoomController extends StateNotifier<RoomViewState> {
           slug: args.slug,
         )) {
     unawaited(load());
+    _sessionRefreshTimer = Timer.periodic(const Duration(minutes: 5), (_) {
+      unawaited(_checkSessionRefresh());
+    });
   }
 
   final RoomRouteArgs _args;
@@ -180,11 +184,16 @@ class RoomController extends StateNotifier<RoomViewState> {
   final AppPrefsController _appPrefsController;
 
   StreamSubscription<SseMessage>? _subscription;
+  Timer? _sessionRefreshTimer;
+  Timer? _debounceTimer;
+  bool _refreshInFlight = false;
   bool _disposed = false;
 
   @override
   void dispose() {
     _disposed = true;
+    _sessionRefreshTimer?.cancel();
+    _debounceTimer?.cancel();
     unawaited(_subscription?.cancel());
     super.dispose();
   }
@@ -1072,19 +1081,71 @@ class RoomController extends StateNotifier<RoomViewState> {
 
   Future<void> _attachEvents(String sessionToken) async {
     await _subscription?.cancel();
-    if (_disposed) {
-      return;
-    }
+    if (_disposed) return;
+    String? ticket;
+    try {
+      final result = await _apiClient.getSSETicket(
+        server: _args.serverUri,
+        slug: _args.slug,
+        sessionToken: sessionToken,
+      );
+      ticket = result.ticket;
+    } catch (_) {} // fallback to bearer
     _subscription = _sseClient
         .connect(
-      uri: _apiClient.getRoomEventsUri(
-          server: _args.serverUri, slug: _args.slug),
-      sessionToken: sessionToken,
+      uri: _apiClient.getRoomEventsUri(server: _args.serverUri, slug: _args.slug),
+      ticket: ticket,
+      sessionToken: ticket == null || ticket.isEmpty ? sessionToken : null,
     )
-        .listen((SseMessage _) {
-      unawaited(refresh(silent: true));
+        .listen((SseMessage msg) {
+      _onSSEEvent(msg);
     }, onError: (_) {
-      unawaited(refresh(silent: true));
+      _scheduleRefresh();
     });
+  }
+
+  void _onSSEEvent(SseMessage msg) {
+    try {
+      final Map<String, dynamic> payload = jsonDecode(msg.data) as Map<String, dynamic>;
+      final int eventVersion = (payload['version'] as num?)?.toInt() ?? 0;
+      final int localVersion = state.room?.version ?? 0;
+      if (eventVersion > 0 && localVersion >= eventVersion) return;
+    } catch (_) {} // non-json or missing version — still refresh
+    _scheduleRefresh();
+  }
+
+  void _scheduleRefresh() {
+    _debounceTimer?.cancel();
+    _debounceTimer = Timer(const Duration(milliseconds: 200), () {
+      if (_refreshInFlight || _disposed) return;
+      _refreshInFlight = true;
+      refresh(silent: true).whenComplete(() {
+        _refreshInFlight = false;
+      });
+    });
+  }
+
+  Future<void> _checkSessionRefresh() async {
+    final RoomSession? session = state.session;
+    if (session == null || _disposed) return;
+    final Duration remaining = session.expiresAt.difference(DateTime.now().toUtc());
+    if (remaining > const Duration(hours: 24)) return;
+    try {
+      final RoomSession refreshed = await _apiClient.refreshSession(
+        server: _args.serverUri,
+        slug: _args.slug,
+        sessionToken: session.token,
+      );
+      await _sessionRepository.saveSession(
+        server: _args.serverUri,
+        slug: _args.slug,
+        session: refreshed,
+      );
+      state = state.copyWith(session: refreshed);
+    } on ApiFailure catch (error) {
+      if (error.isAuthFailure) {
+        await _handleApiFailure(error);
+      }
+    }
   }
 }

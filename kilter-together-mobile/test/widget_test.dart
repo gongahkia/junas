@@ -2179,7 +2179,8 @@ class FakeSseClient extends SseClient {
   @override
   Stream<SseMessage> connect({
     required Uri uri,
-    required String sessionToken,
+    String? ticket,
+    String? sessionToken,
   }) {
     return const Stream<SseMessage>.empty();
   }

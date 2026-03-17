@@ -41,27 +41,10 @@ services:
       start_period: 10s
     restart: unless-stopped
 
-  kilter-together-web:
-    build:
-      context: ./kilter-together-app
-      dockerfile: ./Dockerfile
-      args:
-        VITE_APP_BASE_PATH: ${VITE_APP_BASE_PATH:-/}
-        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/api}
-        VITE_SENTRY_DSN: ${VITE_SENTRY_DSN:-}
-        VITE_SENTRY_ENVIRONMENT: ${VITE_SENTRY_ENVIRONMENT:-production}
-        VITE_APP_RELEASE: ${VITE_APP_RELEASE:-}
-    depends_on:
-      kilter-together-api:
-        condition: service_healthy
-    expose:
-      - "80"
-    restart: unless-stopped
-
   kilter-together-edge:
     image: caddy:2.10.2
     depends_on:
-      - kilter-together-web
+      - kilter-together-api
     ports:
       - "80:80"
       - "443:443"

@@ -7,6 +7,7 @@ import '../models/product_models.dart';
 import '../models/provider_models.dart';
 import '../models/runtime_models.dart';
 import '../models/room_models.dart';
+import '../models/session_models.dart';
 
 final Provider<ApiClient> apiClientProvider = Provider<ApiClient>((Ref ref) {
   return ApiClient();
@@ -958,5 +959,41 @@ class ApiClient {
     required String slug,
   }) {
     return apiBase(server).resolve('rooms/$slug/events');
+  }
+
+  Future<({String ticket, DateTime expiresAt})> getSSETicket({
+    required Uri server,
+    required String slug,
+    required String sessionToken,
+  }) async {
+    try {
+      final Response<dynamic> response = await _clientFor(server).post<dynamic>(
+        'rooms/$slug/events/ticket',
+        options: _authOptions(sessionToken),
+      );
+      final Map<String, dynamic> payload = _mapPayload(response.data);
+      return (
+        ticket: payload['ticket'] as String? ?? '',
+        expiresAt: DateTime.tryParse(payload['expires_at'] as String? ?? '') ?? DateTime.now().toUtc(),
+      );
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
+  }
+
+  Future<RoomSession> refreshSession({
+    required Uri server,
+    required String slug,
+    required String sessionToken,
+  }) async {
+    try {
+      final Response<dynamic> response = await _clientFor(server).post<dynamic>(
+        'rooms/$slug/session/refresh',
+        options: _authOptions(sessionToken),
+      );
+      return RoomSession.fromJson(_mapPayload(response.data));
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
   }
 }

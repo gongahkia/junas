@@ -1,7 +1,7 @@
 # Railway Deployment
 
 This repo can run on Railway as a single-node API service with a persistent
-volume and an optional separate web service.
+volume.
 
 The mobile app remains the primary collaborative client. Users should enter the
 backend root URL such as `https://kilter-together-api.up.railway.app`, not
@@ -12,7 +12,6 @@ backend root URL such as `https://kilter-together-api.up.railway.app`, not
 - one API service from the `api/` directory
 - one persistent volume mounted for runtime data
 - a public domain or Railway-generated domain for the API
-- optional separate web service from `kilter-together-app/`
 
 This app is intentionally single-node only. Keep the Railway API service at one
 replica.
@@ -39,7 +38,7 @@ Optional:
 ```env
 KILTER_TOGETHER_KILTER_USERNAME=<your-kilter-username>
 KILTER_TOGETHER_KILTER_PASSWORD=<your-kilter-password>
-KILTER_TOGETHER_ALLOWED_ORIGINS=https://<your-web-domain>
+KILTER_TOGETHER_ALLOWED_ORIGINS=https://<your-domain>
 KILTER_TOGETHER_STORAGE_WARN_PERCENT=80
 KILTER_TOGETHER_STORAGE_CRITICAL_PERCENT=90
 ```
@@ -55,28 +54,12 @@ Notes:
 
 After deploy, Railway should wait on `GET /api/readyz`.
 
-## Optional Web Service
-
-If you still want the legacy web UI:
-
-1. Create a second Railway service from the same repo.
-2. Set the service root directory to `kilter-together-app`.
-3. Set the config source to `/kilter-together-app/railway.toml`.
-4. Set:
-
-```env
-VITE_API_BASE_URL=https://<your-api-domain>/api
-```
-
-If the web and API services use different domains, keep
-`KILTER_TOGETHER_ALLOWED_ORIGINS` on the API in sync with the web domain.
-
 ## Storage Warnings
 
 The backend now exposes `GET /api/runtime/status`, which reports whether runtime
 storage is healthy, nearing full, or critically low. The mobile landing/settings
-surfaces and the legacy web landing/settings pages render a warning banner when
-the hosted backend is above the configured storage threshold.
+surfaces render a warning banner when the hosted backend is above the configured
+storage threshold.
 
 This warning is meant for users and hosts, while Railway's own volume metrics and
 alerts should still be used for operator monitoring.

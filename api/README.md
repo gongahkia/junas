@@ -87,7 +87,7 @@ KILTER_TOGETHER_DATA_DIR=./data
 # KILTER_TOGETHER_ENCRYPTION_KEY=
 # KILTER_TOGETHER_PREVIOUS_ENCRYPTION_KEY=
 # KILTER_TOGETHER_PORT=8082
-# KILTER_TOGETHER_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173,http://localhost:8080,http://127.0.0.1:8080
+# KILTER_TOGETHER_ALLOWED_ORIGINS=http://localhost:8080,http://127.0.0.1:8080
 ```
 
 When credentials are provided, bootstrap will log in to `kilterboardapp.com`

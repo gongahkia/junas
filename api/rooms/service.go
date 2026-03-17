@@ -85,9 +85,10 @@ func (viewer Viewer) CanCloseRoom() bool {
 }
 
 type Service struct {
-	store     RoomStore
-	hub       EventBus
-	fistBumps *FistBumpStore
+	store      RoomStore
+	hub        EventBus
+	fistBumps  *FistBumpStore
+	SSETickets *SSETicketStore
 }
 
 func NewService() *Service {
@@ -96,9 +97,10 @@ func NewService() *Service {
 
 func NewServiceWithDeps(store RoomStore, hub EventBus, fistBumps *FistBumpStore) *Service {
 	return &Service{
-		store:     store,
-		hub:       hub,
-		fistBumps: fistBumps,
+		store:      store,
+		hub:        hub,
+		fistBumps:  fistBumps,
+		SSETickets: NewSSETicketStore(),
 	}
 }
 
@@ -323,6 +325,7 @@ func (service *Service) Authenticate(
 	}
 
 	now := time.Now().UTC()
+	newExpiresAt := now.Add(sessionExpiryWindow)
 	if err := service.store.WithContext(ctx).Model(&participant).Updates(map[string]any{
 		"last_seen_at": now,
 		"updated_at":   now,
@@ -331,6 +334,11 @@ func (service *Service) Authenticate(
 	}
 	if err := service.store.WithContext(ctx).Model(&room).Update("last_active_at", now).Error; err != nil {
 		slog.Warn("failed to update room last_active_at", "error", err, "room_slug", room.Slug)
+	}
+	if err := service.store.WithContext(ctx).Model(&session).Update("expires_at", newExpiresAt).Error; err != nil {
+		slog.Warn("failed to extend session expiry", "error", err, "session_id", session.ID)
+	} else {
+		session.ExpiresAt = newExpiresAt
 	}
 	participant.LastSeenAt = now
 	room.LastActiveAt = now
