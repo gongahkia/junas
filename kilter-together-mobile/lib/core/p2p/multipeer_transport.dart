@@ -8,7 +8,10 @@ const EventChannel _events = EventChannel('kilter_together/multipeer_events');
 
 class MultipeerTransport implements P2pTransport {
   MultipeerTransport() {
-    _eventSub = _events.receiveBroadcastStream().listen(_handleEvent);
+    _eventSub = _events.receiveBroadcastStream().listen(
+      _handleEvent,
+      onError: (Object e) { /* platform channel not yet ready — safe to ignore */ },
+    );
   }
 
   final StreamController<P2pMessage> _messageController = StreamController<P2pMessage>.broadcast();
