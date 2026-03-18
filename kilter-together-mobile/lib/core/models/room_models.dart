@@ -1,5 +1,4 @@
 import 'provider_models.dart';
-import 'session_models.dart';
 
 class Participant {
   const Participant({
@@ -301,19 +300,3 @@ class RoomSnapshot {
   }
 }
 
-class RoomSessionEnvelope {
-  const RoomSessionEnvelope({
-    required this.room,
-    required this.session,
-  });
-
-  final RoomSnapshot room;
-  final RoomSession session;
-
-  factory RoomSessionEnvelope.fromJson(Map<String, dynamic> json) {
-    return RoomSessionEnvelope(
-      room: RoomSnapshot.fromJson((json['room'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
-      session: RoomSession.fromJson((json['session'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
-    );
-  }
-}

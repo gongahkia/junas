@@ -7,43 +7,12 @@ import 'package:go_router/go_router.dart';
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/catalog_models.dart';
 import '../../../core/models/provider_models.dart';
-import '../../../core/models/runtime_models.dart';
 import '../../../core/models/session_models.dart';
-import '../../../core/network/api_client.dart';
 import '../../../core/presentation/climbing_loader.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
-import '../../../core/presentation/runtime_status_banner.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/offline_kilter_catalog_controller.dart';
 import '../../../core/storage/session_repository.dart';
-
-final _settingsCapabilitiesProvider =
-    FutureProvider.autoDispose<List<ProviderCapability>>((Ref ref) async {
-  final Uri? server =
-      await ref.read(sessionRepositoryProvider).loadActiveServer();
-  if (server == null) {
-    return const <ProviderCapability>[];
-  }
-  final List<ProviderCapability> capabilities =
-      await ref.read(apiClientProvider).getProviderCapabilities(server);
-  return capabilities
-      .where((ProviderCapability item) => item.roomSupported)
-      .toList(growable: false);
-});
-
-final _settingsRuntimeStatusProvider =
-    FutureProvider.autoDispose<RuntimeStatus?>((Ref ref) async {
-  final Uri? server =
-      await ref.read(sessionRepositoryProvider).loadActiveServer();
-  if (server == null) {
-    return null;
-  }
-  try {
-    return await ref.read(apiClientProvider).getRuntimeStatus(server: server);
-  } on ApiFailure {
-    return null;
-  }
-});
 
 final _settingsActiveServerProvider =
     FutureProvider.autoDispose<Uri?>((Ref ref) {
@@ -77,11 +46,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         ref.watch(offlineKilterCatalogControllerProvider);
     final OfflineKilterCatalogController catalogController =
         ref.read(offlineKilterCatalogControllerProvider.notifier);
-    final List<ProviderCapability> capabilities =
-        ref.watch(_settingsCapabilitiesProvider).valueOrNull ??
-            const <ProviderCapability>[];
-    final RuntimeStatus? runtimeStatus =
-        ref.watch(_settingsRuntimeStatusProvider).valueOrNull;
     final Uri? activeServer =
         ref.watch(_settingsActiveServerProvider).valueOrNull;
     final VoidCallback? downloadCatalogAction;
@@ -98,6 +62,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             catalogController.syncNow(catalogServer),
           );
     }
+    final List<ProviderCapability> capabilities = const <ProviderCapability>[
+      ProviderCapability(id: 'kilter', label: 'Kilter', roomSupported: true, soloSupported: true, surfaceHierarchy: 'board', authFields: <ProviderAuthField>[]),
+      ProviderCapability(id: 'crux', label: 'Crux', roomSupported: true, soloSupported: true, surfaceHierarchy: 'hierarchy', authFields: <ProviderAuthField>[]),
+    ];
 
     return GradientScaffold(
       title: 'Settings',
@@ -117,26 +85,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             _roomTemplateController.text = prefs.hostDefaults.roomNameTemplate;
           }
 
-          final List<ProviderCapability> providerChoices = capabilities.isEmpty
-              ? const <ProviderCapability>[
-                  ProviderCapability(
-                    id: 'kilter',
-                    label: 'Kilter',
-                    roomSupported: true,
-                    soloSupported: true,
-                    surfaceHierarchy: 'board',
-                    authFields: <ProviderAuthField>[],
-                  ),
-                  ProviderCapability(
-                    id: 'crux',
-                    label: 'Crux',
-                    roomSupported: true,
-                    soloSupported: true,
-                    surfaceHierarchy: 'hierarchy',
-                    authFields: <ProviderAuthField>[],
-                  ),
-                ]
-              : capabilities;
+          final List<ProviderCapability> providerChoices = capabilities;
           final bool hasSavedCredentials =
               prefs.savedCredentials.providers.values.any(
             (SavedCredentialPreference item) => item.remember,
@@ -157,10 +106,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   message: catalogState.notice!,
                   accent: const Color(0xFF1A1A1A),
                 ),
-                const SizedBox(height: 14),
-              ],
-              if (runtimeStatus != null) ...<Widget>[
-                RuntimeStatusBanner(status: runtimeStatus),
                 const SizedBox(height: 14),
               ],
               Card(
