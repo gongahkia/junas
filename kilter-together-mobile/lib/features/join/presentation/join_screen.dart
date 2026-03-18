@@ -29,6 +29,7 @@ class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
   bool _scannerOpen = false;
   List<P2pPeer> _discoveredPeers = <P2pPeer>[];
   StreamSubscription<P2pPeer>? _discoverySub;
+  P2pTransport? _transport;
   String? _inlineError;
 
   @override
@@ -47,13 +48,14 @@ class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
   void dispose() {
     _displayNameController.dispose();
     _discoverySub?.cancel();
-    unawaited(ref.read(p2pTransportProvider).stopDiscovery());
+    unawaited(_transport?.stopDiscovery() ?? Future<void>.value());
     super.dispose();
   }
 
   Future<void> _startDiscovery() async {
     setState(() { _discovering = true; _discoveredPeers = <P2pPeer>[]; });
     final P2pTransport transport = ref.read(p2pTransportProvider);
+    _transport = transport;
     _discoverySub?.cancel();
     _discoverySub = transport.discoveredPeers.listen((P2pPeer peer) {
       if (!mounted) return;

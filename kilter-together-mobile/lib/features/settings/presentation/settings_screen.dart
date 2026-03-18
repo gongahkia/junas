@@ -120,19 +120,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       ),
                       const SizedBox(height: 12),
                       _ToggleTile(
-                        label: 'Show tap encouragement words',
-                        description:
-                            'Float short cheers like "allez!" when you tap around the app.',
-                        value: prefs.settings.clickCheersEnabled,
-                        onChanged: (bool value) => unawaited(
-                          ref
-                              .read(appPrefsControllerProvider.notifier)
-                              .updateSettings(
-                                clickCheersEnabled: value,
-                              ),
-                        ),
-                      ),
-                      _ToggleTile(
                         label: 'Show onboarding guides automatically',
                         description:
                             'Auto-open the landing, host, guest, and solo help sheets until each branch is marked complete.',
