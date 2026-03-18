@@ -12,34 +12,28 @@ class AppBottomBar extends StatelessWidget {
 
   static const List<_BottomBarSpec> _items = <_BottomBarSpec>[
     _BottomBarSpec(
+      branchIndex: 0,
+      label: 'Session',
+      icon: Icons.people_outline_rounded,
+      accent: Color(0xFF1A1A1A),
+    ),
+    _BottomBarSpec(
       branchIndex: 1,
-      label: 'Host',
-      icon: Icons.add_circle_outline_rounded,
-      accent: Color(0xFF4D7C0F),
+      label: 'Solo',
+      icon: Icons.grid_view_rounded,
+      accent: Color(0xFF1A1A1A),
     ),
     _BottomBarSpec(
       branchIndex: 2,
-      label: 'Join',
-      icon: Icons.qr_code_scanner_rounded,
-      accent: Color(0xFF0369A1),
-    ),
-    _BottomBarSpec(
-      branchIndex: 0,
-      label: 'Home',
-      icon: Icons.home_rounded,
-      accent: Color(0xFF0F766E),
+      label: 'Log',
+      icon: Icons.history_rounded,
+      accent: Color(0xFF1A1A1A),
     ),
     _BottomBarSpec(
       branchIndex: 3,
-      label: 'Solo',
-      icon: Icons.grid_view_rounded,
-      accent: Color(0xFFCA8A04),
-    ),
-    _BottomBarSpec(
-      branchIndex: 4,
       label: 'Settings',
       icon: Icons.tune_rounded,
-      accent: Color(0xFF475569),
+      accent: Color(0xFF1A1A1A),
     ),
   ];
 
@@ -56,12 +50,12 @@ class AppBottomBar extends StatelessWidget {
       minimum: const EdgeInsets.fromLTRB(16, 0, 16, 14),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: const Color(0xFFFDFEFD),
-          borderRadius: BorderRadius.circular(34),
-          border: Border.all(color: const Color(0xFFD5E9E3)),
+          color: const Color(0xFFFFFFFF),
+          borderRadius: BorderRadius.zero,
+          border: Border.all(color: const Color(0xFFD4D4D4)),
           boxShadow: const <BoxShadow>[
             BoxShadow(
-              color: Color(0x19092F2B),
+              color: Color(0x191A1A1A),
               blurRadius: 28,
               offset: Offset(0, 14),
             ),
@@ -90,7 +84,7 @@ class AppBottomBar extends StatelessWidget {
                           duration: const Duration(milliseconds: 220),
                           curve: Curves.easeOutCubic,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(26),
+                            borderRadius: BorderRadius.zero,
                             gradient: LinearGradient(
                               colors: <Color>[
                                 activeAccent.withValues(alpha: 0.22),
@@ -141,10 +135,10 @@ class _BottomBarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color accent = spec.accent;
-    final Color foreground = active ? accent : const Color(0xFF6B7E7A);
+    final Color foreground = active ? accent : const Color(0xFF737373);
 
     return InkWell(
-      borderRadius: BorderRadius.circular(26),
+      borderRadius: BorderRadius.zero,
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
@@ -160,7 +154,7 @@ class _BottomBarItem extends StatelessWidget {
                 color: active
                     ? accent.withValues(alpha: 0.96)
                     : Colors.transparent,
-                borderRadius: BorderRadius.circular(18),
+                borderRadius: BorderRadius.zero,
                 border: Border.all(
                   color: active
                       ? accent.withValues(alpha: 0.28)

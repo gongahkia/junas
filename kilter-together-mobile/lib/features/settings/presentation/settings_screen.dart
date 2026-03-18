@@ -10,6 +10,7 @@ import '../../../core/models/provider_models.dart';
 import '../../../core/models/runtime_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
+import '../../../core/presentation/climbing_loader.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/presentation/runtime_status_banner.dart';
 import '../../../core/storage/app_prefs_controller.dart';
@@ -147,14 +148,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               if (catalogState.errorMessage != null) ...<Widget>[
                 _SettingsMessageCard(
                   message: catalogState.errorMessage!,
-                  accent: const Color(0xFFB91C1C),
+                  accent: const Color(0xFF404040),
                 ),
                 const SizedBox(height: 14),
               ],
               if (catalogState.notice != null) ...<Widget>[
                 _SettingsMessageCard(
                   message: catalogState.notice!,
-                  accent: const Color(0xFF0F766E),
+                  accent: const Color(0xFF1A1A1A),
                 ),
                 const SizedBox(height: 14),
               ],
@@ -383,7 +384,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(22),
+                                borderRadius: BorderRadius.zero,
                                 border: Border.all(color: const Color(0xFFE2E8F0)),
                               ),
                               padding: const EdgeInsets.all(16),
@@ -443,13 +444,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         onDownload: downloadCatalogAction,
                         onSync: syncCatalogAction,
                         onDelete: () => unawaited(_confirmDeleteCatalog()),
-                      ),
-                      _ActionTile(
-                        label: 'Climb log',
-                        description:
-                            'View and export your personal climb history from all sessions.',
-                        actionLabel: 'Open',
-                        onPressed: () => context.goNamed('climb-log'),
                       ),
                       _ActionTile(
                         label: 'Reset guides',
@@ -512,10 +506,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ],
           );
         },
-        loading: () => const Card(
+        loading: () => Card(
           child: Padding(
-            padding: EdgeInsets.all(32),
-            child: Center(child: CircularProgressIndicator()),
+            padding: const EdgeInsets.all(32),
+            child: Center(child: ClimbingLoader()),
           ),
         ),
         error: (Object error, StackTrace stackTrace) => Card(
@@ -653,7 +647,7 @@ class _ActionTile extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(22),
+          borderRadius: BorderRadius.zero,
           border: Border.all(color: const Color(0xFFE2E8F0)),
         ),
         padding: const EdgeInsets.all(16),
@@ -695,9 +689,9 @@ class _SurfaceStatusCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFF8FFFD),
-        borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: const Color(0xFFB7E4DF)),
+        color: const Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.zero,
+        border: Border.all(color: const Color(0xFFD4D4D4)),
       ),
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -771,9 +765,9 @@ class _OfflineCatalogSettingsCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: const Color(0xFFF8FFFD),
-        borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: const Color(0xFFB7E4DF)),
+        color: const Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.zero,
+        border: Border.all(color: const Color(0xFFD4D4D4)),
       ),
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -867,8 +861,8 @@ class _CatalogChip extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFD1FAE5)),
+        borderRadius: BorderRadius.zero,
+        border: Border.all(color: const Color(0xFFD4D4D4)),
       ),
       child: Text(label),
     );

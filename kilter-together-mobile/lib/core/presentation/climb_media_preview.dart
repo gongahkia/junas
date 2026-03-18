@@ -51,7 +51,7 @@ class _ClimbMediaPreviewState extends State<ClimbMediaPreview> {
     }
 
     return ClipRRect(
-      borderRadius: BorderRadius.circular(24),
+      borderRadius: BorderRadius.zero,
       child: AspectRatio(
         aspectRatio: widget.aspectRatio,
         child: Stack(
@@ -142,7 +142,7 @@ class _PreviewFallback extends StatelessWidget {
       height: 220,
       decoration: BoxDecoration(
         color: const Color(0xFFE2E8F0),
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.zero,
       ),
       alignment: Alignment.center,
       child: Text(message),

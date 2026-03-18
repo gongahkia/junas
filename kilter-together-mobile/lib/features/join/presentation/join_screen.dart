@@ -435,8 +435,8 @@ class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFEF3C7),
-                    borderRadius: BorderRadius.circular(20),
+                    color: const Color(0xFFF0F0F0),
+                    borderRadius: BorderRadius.zero,
                   ),
                   padding: const EdgeInsets.all(14),
                   child: Text(joinReasonMessage),
@@ -446,8 +446,8 @@ class _JoinRoomScreenState extends ConsumerState<JoinRoomScreen> {
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFEE2E2),
-                    borderRadius: BorderRadius.circular(20),
+                    color: const Color(0xFFF0F0F0),
+                    borderRadius: BorderRadius.zero,
                   ),
                   padding: const EdgeInsets.all(14),
                   child: Text(_inlineError!),
@@ -542,7 +542,7 @@ class _InviteScannerState extends State<_InviteScanner> {
     return SizedBox(
       height: 260,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.zero,
         child: MobileScanner(
           errorBuilder: (BuildContext context, MobileScannerException error,
               Widget? child) {

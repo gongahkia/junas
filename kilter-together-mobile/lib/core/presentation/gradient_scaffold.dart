@@ -27,8 +27,8 @@ class GradientScaffold extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: <Color>[
-              Color(0xFFF5FFFB),
-              Color(0xFFE7F8F4),
+              Color(0xFFF5F5F5),
+              Color(0xFFEAEAEA),
               Color(0xFFFFFFFF),
             ],
           ),
@@ -53,7 +53,7 @@ class GradientScaffold extends StatelessWidget {
                           Text(
                             subtitle!,
                             style: textTheme.bodyLarge?.copyWith(
-                              color: const Color(0xFF3E5A57),
+                              color: const Color(0xFF525252),
                             ),
                           ),
                         ],

@@ -13,6 +13,7 @@ import '../../../core/models/provider_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
 import '../../../core/presentation/climb_media_preview.dart';
+import '../../../core/presentation/climbing_loader.dart';
 import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
@@ -236,7 +237,7 @@ class _SoloBoardScreenState extends ConsumerState<SoloBoardScreen> {
             _MessageCard(
               title: 'Unable to load solo browse',
               message: state.errorMessage!,
-              accent: const Color(0xFFB91C1C),
+              accent: const Color(0xFF404040),
             ),
             const SizedBox(height: 14),
           ],
@@ -244,17 +245,17 @@ class _SoloBoardScreenState extends ConsumerState<SoloBoardScreen> {
             _MessageCard(
               title: 'Updated',
               message: state.notice!,
-              accent: const Color(0xFF0F766E),
+              accent: const Color(0xFF1A1A1A),
             ),
             const SizedBox(height: 14),
           ],
           if (state.missingServer)
             _MissingServerCard(onJoin: () => context.goNamed('join-room'))
           else if (state.loading && board == null)
-            const Card(
+            Card(
               child: Padding(
-                padding: EdgeInsets.all(32),
-                child: Center(child: CircularProgressIndicator()),
+                padding: const EdgeInsets.all(32),
+                child: Center(child: ClimbingLoader()),
               ),
             )
           else if (board == null)
@@ -974,10 +975,7 @@ class _ClimbCatalogCard extends StatelessWidget {
                   ),
                 ),
                 if (state.pageLoading)
-                  const SizedBox(
-                      width: 18,
-                      height: 18,
-                      child: CircularProgressIndicator()),
+                  ClimbingLoader(size: 18),
               ],
             ),
             const SizedBox(height: 8),
@@ -998,7 +996,7 @@ class _ClimbCatalogCard extends StatelessWidget {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: InkWell(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.zero,
                             onTap: selectedClimbIds.isNotEmpty
                                 ? () => onLongPressClimb(climb)
                                 : () => onSelectClimb(climb),
@@ -1007,13 +1005,13 @@ class _ClimbCatalogCard extends StatelessWidget {
                               children: <Widget>[
                                 Ink(
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.zero,
                                     border: Border.all(
                                       color: isMultiSelected
-                                          ? const Color(0xFF0F766E)
+                                          ? const Color(0xFF1A1A1A)
                                           : state.selectedClimb?.uuid ==
                                                   climb.uuid
-                                              ? const Color(0xFF0F766E)
+                                              ? const Color(0xFF1A1A1A)
                                               : const Color(0xFFE2E8F0),
                                       width: isMultiSelected ||
                                               state.selectedClimb?.uuid ==
@@ -1022,10 +1020,10 @@ class _ClimbCatalogCard extends StatelessWidget {
                                           : 1,
                                     ),
                                     color: isMultiSelected
-                                        ? const Color(0xFFE0F7F4)
+                                        ? const Color(0xFFF0F0F0)
                                         : state.selectedClimb?.uuid ==
                                                 climb.uuid
-                                            ? const Color(0xFFF0FDFA)
+                                            ? const Color(0xFFF5F5F5)
                                             : Colors.white,
                                   ),
                                   padding: const EdgeInsets.all(16),
@@ -1065,7 +1063,7 @@ class _ClimbCatalogCard extends StatelessWidget {
                                                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                                 decoration: BoxDecoration(
                                                   color: const Color(0xFFE8F5E9),
-                                                  borderRadius: BorderRadius.circular(999),
+                                                  borderRadius: BorderRadius.zero,
                                                 ),
                                                 child: const Text('Logged', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Color(0xFF2E7D32))),
                                               ),
@@ -1086,7 +1084,7 @@ class _ClimbCatalogCard extends StatelessWidget {
                                           ? Icons.check_box
                                           : Icons.check_box_outline_blank,
                                       size: 22,
-                                      color: const Color(0xFF0F766E),
+                                      color: const Color(0xFF1A1A1A),
                                     ),
                                   ),
                               ],
@@ -1102,9 +1100,9 @@ class _ClimbCatalogCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF0FDFA),
-                  borderRadius: BorderRadius.circular(22),
-                  border: Border.all(color: const Color(0xFFB7E4DF)),
+                  color: const Color(0xFFF5F5F5),
+                  borderRadius: BorderRadius.zero,
+                  border: Border.all(color: const Color(0xFFD4D4D4)),
                 ),
                 child: Row(
                   children: <Widget>[
@@ -1164,7 +1162,7 @@ class _MessageCard extends StatelessWidget {
     return Card(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: BorderRadius.zero,
           gradient: LinearGradient(
             colors: <Color>[
               accent.withValues(alpha: 0.14),
@@ -1233,9 +1231,9 @@ class _InfoChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: const Color(0xFFF0FDFA),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFB7E4DF)),
+        color: const Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.zero,
+        border: Border.all(color: const Color(0xFFD4D4D4)),
       ),
       child: Text(label),
     );

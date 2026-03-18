@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../core/deep_links/invite_links.dart';
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/provider_models.dart';
@@ -11,19 +9,18 @@ import '../../../core/models/product_models.dart';
 import '../../../core/models/runtime_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
-import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/presentation/runtime_status_banner.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/session_repository.dart';
 
-final _landingServerProvider = FutureProvider.autoDispose<Uri?>((Ref ref) {
+final _sessionServerProvider = FutureProvider.autoDispose<Uri?>((Ref ref) {
   return ref.read(sessionRepositoryProvider).loadActiveServer();
 });
 
 final _recentSessionsProvider =
     FutureProvider.autoDispose<List<SessionSummary>>((Ref ref) async {
-  final Uri? server = await ref.watch(_landingServerProvider.future);
+  final Uri? server = await ref.watch(_sessionServerProvider.future);
   if (server == null) {
     return const <SessionSummary>[];
   }
@@ -34,7 +31,7 @@ final _recentSessionsProvider =
 
 final _runtimeStatusProvider =
     FutureProvider.autoDispose<RuntimeStatus?>((Ref ref) async {
-  final Uri? server = await ref.watch(_landingServerProvider.future);
+  final Uri? server = await ref.watch(_sessionServerProvider.future);
   if (server == null) {
     return null;
   }
@@ -44,31 +41,6 @@ final _runtimeStatusProvider =
     return null;
   }
 });
-
-const FlowGuideContent _landingGuide = FlowGuideContent(
-  eyebrow: 'Landing guide',
-  title: 'How the app is split up',
-  summary:
-      'Start on landing when you need to decide whether this phone is hosting, joining, or just planning climbs solo.',
-  sections: <FlowGuideSection>[
-    FlowGuideSection(
-      title: 'Create a room',
-      body:
-          'Use this when the phone belongs to the host. Load providers, authenticate the account, open the room, and share the invite from the same device.',
-    ),
-    FlowGuideSection(
-      title: 'Join a room',
-      body:
-          'Use this when the phone is a guest device. Paste an invite or scan the host QR code, pick a display name, and rejoin if the saved room session expires.',
-    ),
-    FlowGuideSection(
-      title: 'Solo browse',
-      body:
-          'Use solo mode to shortlist climbs, save filters, and seed future rooms without needing to open a live session first.',
-    ),
-  ],
-  completionLabel: 'Mark landing guide complete',
-);
 
 String _providerLabel(String providerId) {
   return switch (providerId) {
@@ -89,15 +61,13 @@ String _formatRelativeTime(String raw) {
   return '${(diff.inDays / 7).floor()}w ago';
 }
 
-class LandingScreen extends ConsumerStatefulWidget {
-  const LandingScreen({super.key});
-
+class SessionHomeScreen extends ConsumerStatefulWidget {
+  const SessionHomeScreen({super.key});
   @override
-  ConsumerState<LandingScreen> createState() => _LandingScreenState();
+  ConsumerState<SessionHomeScreen> createState() => _SessionHomeScreenState();
 }
 
-class _LandingScreenState extends ConsumerState<LandingScreen> {
-  bool _autoGuideAttempted = false;
+class _SessionHomeScreenState extends ConsumerState<SessionHomeScreen> {
   final TextEditingController _quickJoinController = TextEditingController();
 
   @override
@@ -106,66 +76,12 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
     super.dispose();
   }
 
-  void _maybeAutoOpenGuide(AppPrefs prefs) {
-    if (_autoGuideAttempted ||
-        !prefs.settings.autoGuidesEnabled ||
-        prefs.guidedTour.landingCompleted) {
-      return;
-    }
-    _autoGuideAttempted = true;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) {
-        return;
-      }
-      unawaited(_openGuide());
-    });
-  }
-
-  Future<void> _openGuide() async {
-    final AppPrefs prefs =
-        ref.read(appPrefsControllerProvider).valueOrNull ?? AppPrefs.defaults();
-    final FlowGuideResult? result = await showFlowGuideSheet(
-      context: context,
-      content: _landingGuide,
-      completed: prefs.guidedTour.landingCompleted,
-    );
-    if (result != FlowGuideResult.completed || !mounted) {
-      return;
-    }
-    await ref.read(appPrefsControllerProvider.notifier).completeLandingGuide();
-  }
-
-  Future<void> _startBranch({
-    required String branch,
-    required String routeName,
-  }) async {
-    await ref
-        .read(appPrefsControllerProvider.notifier)
-        .queueGuideBranch(branch);
-    if (!mounted) {
-      return;
-    }
-    context.goNamed(routeName);
-  }
-
-  Future<void> _showRecentRoomsSheet() {
-    return showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      showDragHandle: true,
-      builder: (BuildContext context) {
-        return const _RecentRoomsSheet();
-      },
-    );
-  }
-
   Future<void> _startQuickJoin(Uri? activeServer) async {
     final String rawValue = _quickJoinController.text.trim();
     if (rawValue.isEmpty) {
       _showSnack('Paste a room invite, web join link, or room slug first.');
       return;
     }
-
     final InviteLink? invite = InviteLink.parse(rawValue);
     if (invite != null && invite.kind != InviteKind.join) {
       final String destination = switch (invite.kind) {
@@ -178,7 +94,6 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
       );
       return;
     }
-
     final RoomJoinTarget? joinTarget = parseRoomJoinTarget(
       rawValue,
       fallbackServer: activeServer,
@@ -189,18 +104,26 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
       );
       return;
     }
-
     await ref
         .read(appPrefsControllerProvider.notifier)
         .queueGuideBranch('guest');
-    if (!mounted) {
-      return;
-    }
+    if (!mounted) return;
     context.goNamed(
       'join-room',
       queryParameters: <String, String>{
         'slug': joinTarget.slug,
         if (joinTarget.server != null) 'server': joinTarget.server.toString(),
+      },
+    );
+  }
+
+  Future<void> _showRecentRoomsSheet() {
+    return showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (BuildContext context) {
+        return const _RecentRoomsSheet();
       },
     );
   }
@@ -215,7 +138,7 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
     final AsyncValue<AppPrefs> prefsValue =
         ref.watch(appPrefsControllerProvider);
     final AppPrefs prefs = prefsValue.valueOrNull ?? AppPrefs.defaults();
-    final AsyncValue<Uri?> activeServer = ref.watch(_landingServerProvider);
+    final AsyncValue<Uri?> activeServer = ref.watch(_sessionServerProvider);
     final AsyncValue<List<SessionSummary>> recentSessions =
         ref.watch(_recentSessionsProvider);
     final RuntimeStatus? runtimeStatus =
@@ -223,24 +146,9 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
     final List<RecentRoom> previewRecentRooms =
         prefs.recentRooms.take(3).toList(growable: false);
 
-    if (prefsValue.hasValue) {
-      _maybeAutoOpenGuide(prefs);
-    }
-
     return GradientScaffold(
-      title: 'Kilter Together',
-      subtitle:
-          'Host, join, and run collaborative board sessions from a native mobile client.',
-      actions: <Widget>[
-        IconButton(
-          onPressed: () => unawaited(_openGuide()),
-          icon: const Icon(Icons.help_outline),
-        ),
-        IconButton(
-          onPressed: () => context.goNamed('about'),
-          icon: const Icon(Icons.info_outline),
-        ),
-      ],
+      title: 'Session',
+      subtitle: 'Host or join a collaborative climbing session.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -248,39 +156,129 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
             RuntimeStatusBanner(status: runtimeStatus),
             const SizedBox(height: 14),
           ],
-          _ActionCard(
-            title: 'Create a room',
-            description:
-                'Authenticate the provider account, open a room, and share the invite from this phone.',
-            accent: const Color(0xFF1A1A1A),
-            buttonLabel: 'Host session',
-            onPressed: () => unawaited(
-              _startBranch(branch: 'host', routeName: 'create-room'),
+          // host / join action buttons
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: FilledButton.icon(
+                  onPressed: () async {
+                    await ref
+                        .read(appPrefsControllerProvider.notifier)
+                        .queueGuideBranch('host');
+                    if (!mounted) return;
+                    context.goNamed('create-room');
+                  },
+                  icon: const Icon(Icons.add),
+                  label: const Text('Host'),
+                  style: FilledButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
+                    backgroundColor: const Color(0xFF1A1A1A),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: OutlinedButton.icon(
+                  onPressed: () async {
+                    await ref
+                        .read(appPrefsControllerProvider.notifier)
+                        .queueGuideBranch('guest');
+                    if (!mounted) return;
+                    context.goNamed('join-room');
+                  },
+                  icon: const Icon(Icons.qr_code_scanner_rounded),
+                  label: const Text('Join'),
+                  style: OutlinedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
+                    side: const BorderSide(color: Color(0xFFD4D4D4)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          // quick join text field
+          Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFFF5F5F5),
+              border: Border.all(color: const Color(0xFFD4D4D4)),
+              borderRadius: BorderRadius.zero,
+            ),
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                TextField(
+                  controller: _quickJoinController,
+                  decoration: const InputDecoration(
+                    labelText: 'Invite or room slug',
+                    hintText:
+                        'kiltertogether://join?... / https://.../join/... / room-slug',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.zero,
+                      borderSide: BorderSide(color: Color(0xFFD4D4D4)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.zero,
+                      borderSide: BorderSide(color: Color(0xFF525252)),
+                    ),
+                  ),
+                  textInputAction: TextInputAction.go,
+                  onSubmitted: (_) =>
+                      unawaited(_startQuickJoin(activeServer.valueOrNull)),
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: FilledButton(
+                        onPressed: () => unawaited(
+                          _startQuickJoin(activeServer.valueOrNull),
+                        ),
+                        style: FilledButton.styleFrom(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                          ),
+                          backgroundColor: const Color(0xFF525252),
+                        ),
+                        child: const Text('Quick join'),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        onPressed: () async {
+                          await ref
+                              .read(appPrefsControllerProvider.notifier)
+                              .queueGuideBranch('guest');
+                          if (!mounted) return;
+                          context.goNamed('join-room');
+                        },
+                        icon: const Icon(Icons.qr_code_scanner_rounded,
+                            size: 16),
+                        label: const Text('Scan QR'),
+                        style: OutlinedButton.styleFrom(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                          ),
+                          side: const BorderSide(color: Color(0xFFD4D4D4)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 14),
-          _JoinActionCard(
-            controller: _quickJoinController,
-            accent: const Color(0xFF4D7C0F),
-            activeServer: activeServer.valueOrNull,
-            onQuickJoin: () =>
-                unawaited(_startQuickJoin(activeServer.valueOrNull)),
-            onOpenJoinFlow: () => unawaited(
-              _startBranch(branch: 'guest', routeName: 'join-room'),
-            ),
-          ),
-          const SizedBox(height: 14),
-          _ActionCard(
-            title: 'Solo browse',
-            description:
-                'Open Kilter or provider-backed solo planning, keep a shortlist, and seed new rooms.',
-            accent: const Color(0xFF404040),
-            buttonLabel: 'Open solo mode',
-            onPressed: () => unawaited(
-              _startBranch(branch: 'solo', routeName: 'solo-entry'),
-            ),
-          ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
+          // recent rooms section
           Row(
             children: <Widget>[
               Expanded(
@@ -298,19 +296,27 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
           ),
           const SizedBox(height: 12),
           if (!prefs.settings.recentRoomsEnabled)
-            const Card(
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Text('Recent rooms are disabled in settings.'),
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: const Color(0xFFF5F5F5),
+                border: Border.all(color: const Color(0xFFD4D4D4)),
+                borderRadius: BorderRadius.zero,
               ),
+              padding: const EdgeInsets.all(20),
+              child: const Text('Recent rooms are disabled in settings.'),
             )
           else if (prefs.recentRooms.isEmpty)
-            const Card(
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  'No recent rooms saved on this device yet. Your next room visit will appear here.',
-                ),
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: const Color(0xFFF5F5F5),
+                border: Border.all(color: const Color(0xFFD4D4D4)),
+                borderRadius: BorderRadius.zero,
+              ),
+              padding: const EdgeInsets.all(20),
+              child: const Text(
+                'No recent rooms saved on this device yet. Your next room visit will appear here.',
               ),
             )
           else
@@ -324,66 +330,26 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
                   )
                   .toList(growable: false),
             ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
+          // recent sessions section
           Text(
-            'Server context',
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          const SizedBox(height: 12),
-          activeServer.when(
-            data: (Uri? server) {
-              if (server == null) {
-                return const Card(
-                  child: Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Text(
-                      'No active server remembered yet. Create or join a room to bind the app to a self-hosted node.',
-                    ),
-                  ),
-                );
-              }
-              return Card(
-                child: ListTile(
-                  title: Text(describeServer(server)),
-                  subtitle: Text(server.toString()),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () => context.goNamed(
-                    'join-room',
-                    queryParameters: <String, String>{
-                      'server': server.toString()
-                    },
-                  ),
-                ),
-              );
-            },
-            error: (Object error, StackTrace stackTrace) => Card(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text('$error'),
-              ),
-            ),
-            loading: () => const Card(
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: LinearProgressIndicator(),
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Text(
-            'Recent sessions from the active server',
+            'Recent sessions',
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(height: 12),
           recentSessions.when(
             data: (List<SessionSummary> sessions) {
               if (sessions.isEmpty) {
-                return const Card(
-                  child: Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Text(
-                      'No recent sessions were returned for the active server yet.',
-                    ),
+                return Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF5F5F5),
+                    border: Border.all(color: const Color(0xFFD4D4D4)),
+                    borderRadius: BorderRadius.zero,
+                  ),
+                  padding: const EdgeInsets.all(20),
+                  child: const Text(
+                    'No recent sessions were returned for the active server yet.',
                   ),
                 );
               }
@@ -401,160 +367,28 @@ class _LandingScreenState extends ConsumerState<LandingScreen> {
                     .toList(growable: false),
               );
             },
-            error: (Object error, StackTrace stackTrace) => Card(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text('$error'),
+            error: (Object error, StackTrace stackTrace) => Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: const Color(0xFFF5F5F5),
+                border: Border.all(color: const Color(0xFFD4D4D4)),
+                borderRadius: BorderRadius.zero,
               ),
+              padding: const EdgeInsets.all(20),
+              child: Text('$error'),
             ),
-            loading: () => const Card(
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: LinearProgressIndicator(),
+            loading: () => Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: const Color(0xFFF5F5F5),
+                border: Border.all(color: const Color(0xFFD4D4D4)),
+                borderRadius: BorderRadius.zero,
               ),
+              padding: const EdgeInsets.all(20),
+              child: const LinearProgressIndicator(),
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _ActionCard extends StatelessWidget {
-  const _ActionCard({
-    required this.title,
-    required this.description,
-    required this.accent,
-    required this.buttonLabel,
-    required this.onPressed,
-  });
-
-  final String title;
-  final String description;
-  final Color accent;
-  final String buttonLabel;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.zero,
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: <Color>[
-              accent.withValues(alpha: 0.14),
-              Colors.white,
-            ],
-          ),
-        ),
-        padding: const EdgeInsets.all(22),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              title,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 10),
-            Text(description),
-            const SizedBox(height: 18),
-            FilledButton.tonal(
-              onPressed: onPressed,
-              child: Text(buttonLabel),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _JoinActionCard extends StatelessWidget {
-  const _JoinActionCard({
-    required this.controller,
-    required this.accent,
-    required this.activeServer,
-    required this.onQuickJoin,
-    required this.onOpenJoinFlow,
-  });
-
-  final TextEditingController controller;
-  final Color accent;
-  final Uri? activeServer;
-  final VoidCallback onQuickJoin;
-  final VoidCallback onOpenJoinFlow;
-
-  @override
-  Widget build(BuildContext context) {
-    final Uri? resolvedServer = activeServer;
-
-    return Card(
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.zero,
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: <Color>[
-              accent.withValues(alpha: 0.14),
-              Colors.white,
-            ],
-          ),
-        ),
-        padding: const EdgeInsets.all(22),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Join a room',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              activeServer == null
-                  ? 'Paste a room invite or web join link. If you only have the slug, the join screen will still ask for the self-hosted server.'
-                  : 'Paste a room invite, web join link, or room slug to jump into the guest join flow without leaving landing first.',
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: controller,
-              decoration: const InputDecoration(
-                labelText: 'Invite or room slug',
-                hintText:
-                    'kiltertogether://join?... / https://.../join/... / room-slug',
-              ),
-              textInputAction: TextInputAction.go,
-              onSubmitted: (_) => onQuickJoin(),
-            ),
-            const SizedBox(height: 10),
-            if (activeServer != null)
-              Text(
-                'Active server: ${describeServer(resolvedServer!)}',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            const SizedBox(height: 18),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: FilledButton.tonal(
-                    onPressed: onQuickJoin,
-                    child: const Text('Quick join'),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: onOpenJoinFlow,
-                    child: const Text('Open join flow'),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -580,7 +414,12 @@ class _RecentRoomTile extends ConsumerWidget {
         : room.surfaceName!;
     final String lastSeen = _formatRelativeTime(room.lastVisitedAt);
 
-    return Card(
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: const Color(0xFFD4D4D4)),
+        borderRadius: BorderRadius.zero,
+      ),
       child: InkWell(
         borderRadius: BorderRadius.zero,
         onTap: onTap ??
@@ -618,8 +457,8 @@ class _RecentRoomTile extends ConsumerWidget {
                                   horizontal: 10,
                                   vertical: 4,
                                 ),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFE5E5E5),
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFFE5E5E5),
                                   borderRadius: BorderRadius.zero,
                                 ),
                                 child: Row(
@@ -628,7 +467,7 @@ class _RecentRoomTile extends ConsumerWidget {
                                     Icon(
                                       Icons.push_pin,
                                       size: 12,
-                                      color: Color(0xFF1A1A1A),
+                                      color: Color(0xFF525252),
                                     ),
                                     SizedBox(width: 4),
                                     Text(
@@ -636,7 +475,7 @@ class _RecentRoomTile extends ConsumerWidget {
                                       style: TextStyle(
                                         fontSize: 11,
                                         fontWeight: FontWeight.w600,
-                                        color: Color(0xFF1A1A1A),
+                                        color: Color(0xFF525252),
                                       ),
                                     ),
                                   ],
@@ -646,7 +485,7 @@ class _RecentRoomTile extends ConsumerWidget {
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          '$providerLabel · ${room.slug}',
+                          '$providerLabel \u00b7 ${room.slug}',
                           style:
                               Theme.of(context).textTheme.bodySmall?.copyWith(
                                     letterSpacing: 0.4,
@@ -698,21 +537,31 @@ class _RecentRoomTile extends ConsumerWidget {
                   Text(surfaceLabel),
                   if (room.angle != null)
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFE5E5E5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 2),
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFE5E5E5),
                         borderRadius: BorderRadius.zero,
                       ),
-                      child: Text('@ ${room.angle}°', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF404040))),
+                      child: Text('@ ${room.angle}\u00b0',
+                          style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF525252))),
                     ),
                   if (room.climbCount != null && room.climbCount! > 0)
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFE5E5E5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 2),
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFE5E5E5),
                         borderRadius: BorderRadius.zero,
                       ),
-                      child: Text('${room.climbCount} climbs', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF404040))),
+                      child: Text('${room.climbCount} climbs',
+                          style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF525252))),
                     ),
                 ],
               ),
@@ -735,19 +584,31 @@ class _RecentRoomTile extends ConsumerWidget {
                     OutlinedButton(
                       onPressed: () {
                         final Map<String, dynamic> cfg = room.rematchConfig!;
-                        final ProviderSurface surface = ProviderSurface.fromJson(
-                          (cfg['surface'] as Map<String, dynamic>?) ?? <String, dynamic>{},
+                        final ProviderSurface surface =
+                            ProviderSurface.fromJson(
+                          (cfg['surface'] as Map<String, dynamic>?) ??
+                              <String, dynamic>{},
                         );
                         final PendingRoomSeed seed = PendingRoomSeed(
-                          providerId: cfg['provider_id'] as String? ?? room.providerId,
+                          providerId: cfg['provider_id'] as String? ??
+                              room.providerId,
                           surface: surface,
                           climbs: const <ProviderClimb>[],
-                          createdAt: DateTime.now().toUtc().toIso8601String(),
+                          createdAt:
+                              DateTime.now().toUtc().toIso8601String(),
                           title: cfg['room_name'] as String?,
                         );
-                        unawaited(ref.read(appPrefsControllerProvider.notifier).setPendingRoomSeed(seed));
+                        unawaited(ref
+                            .read(appPrefsControllerProvider.notifier)
+                            .setPendingRoomSeed(seed));
                         context.goNamed('create-room');
                       },
+                      style: OutlinedButton.styleFrom(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero,
+                        ),
+                        side: const BorderSide(color: Color(0xFFD4D4D4)),
+                      ),
                       child: const Text('Rematch'),
                     ),
                   ],
@@ -761,6 +622,12 @@ class _RecentRoomTile extends ConsumerWidget {
                                 'slug': room.slug,
                               },
                             ),
+                    style: OutlinedButton.styleFrom(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                      ),
+                      side: const BorderSide(color: Color(0xFFD4D4D4)),
+                    ),
                     child: const Text('Open room'),
                   ),
                 ],
@@ -788,7 +655,12 @@ class _RecentSessionTile extends StatelessWidget {
         session.topVoted.isEmpty ? null : session.topVoted.first;
     final int topVotes = topClimb?.voteCount ?? 0;
 
-    return Card(
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: const Color(0xFFD4D4D4)),
+        borderRadius: BorderRadius.zero,
+      ),
       child: InkWell(
         borderRadius: BorderRadius.zero,
         onTap: server == null || session.recapShareId == null
@@ -824,7 +696,7 @@ class _RecentSessionTile extends StatelessWidget {
                   if ((session.surfaceName ?? '').isNotEmpty)
                     session.surfaceName!,
                   '${session.participantCount} people',
-                ].join(' · '),
+                ].join(' \u00b7 '),
               ),
               const SizedBox(height: 14),
               Row(
@@ -832,7 +704,8 @@ class _RecentSessionTile extends StatelessWidget {
                   Expanded(
                     child: _SessionStatCard(
                       title: 'Top fist-bumped',
-                      value: topClimb?.climb.name ?? 'No fist bumps recorded',
+                      value:
+                          topClimb?.climb.name ?? 'No fist bumps recorded',
                       supportingText: topVotes > 0
                           ? '$topVotes fist bump${topVotes == 1 ? '' : 's'}'
                           : 'No fist bumps captured',
@@ -843,7 +716,7 @@ class _RecentSessionTile extends StatelessWidget {
                     child: _SessionStatCard(
                       title: 'Wrap-up',
                       value:
-                          '${session.finalQueue.length} queued · ${session.finalists.length} finalists',
+                          '${session.finalQueue.length} queued \u00b7 ${session.finalists.length} finalists',
                       supportingText:
                           'Closed ${MaterialLocalizations.of(context).formatShortDate(session.closedAt.toLocal())}',
                     ),
@@ -875,7 +748,7 @@ class _SessionStatCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFFF5F5F5),
         borderRadius: BorderRadius.zero,
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: const Color(0xFFD4D4D4)),
       ),
       padding: const EdgeInsets.all(14),
       child: Column(
@@ -922,7 +795,7 @@ class _RecentRoomsSheet extends ConsumerWidget {
             Text(
               'Showing up to the latest ${prefs.recentRooms.length} saved room visits on this device.',
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: const Color(0xFF525252),
+                    color: const Color(0xFF737373),
                   ),
             ),
             const SizedBox(height: 16),

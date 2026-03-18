@@ -11,6 +11,7 @@ import '../../../core/models/catalog_models.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
+import '../../../core/presentation/climbing_loader.dart';
 import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
@@ -201,7 +202,7 @@ class _SoloEntryScreenState extends ConsumerState<SoloEntryScreen> {
             _InlineMessageCard(
               title: 'Offline Kilter catalog',
               message: catalogState.errorMessage!,
-              accent: const Color(0xFFB91C1C),
+              accent: const Color(0xFF404040),
             ),
             const SizedBox(height: 14),
           ],
@@ -209,7 +210,7 @@ class _SoloEntryScreenState extends ConsumerState<SoloEntryScreen> {
             _InlineMessageCard(
               title: 'Offline Kilter catalog',
               message: catalogState.notice!,
-              accent: const Color(0xFF0F766E),
+              accent: const Color(0xFF1A1A1A),
             ),
             const SizedBox(height: 14),
           ],
@@ -296,10 +297,10 @@ class _SoloEntryScreenState extends ConsumerState<SoloEntryScreen> {
               );
             },
             loading: () {
-              return const Card(
+              return Card(
                 child: Padding(
-                  padding: EdgeInsets.all(28),
-                  child: Center(child: CircularProgressIndicator()),
+                  padding: const EdgeInsets.all(28),
+                  child: Center(child: ClimbingLoader()),
                 ),
               );
             },
@@ -440,9 +441,9 @@ class _CountChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
-        color: const Color(0xFFF0FDFA),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFFB7E4DF)),
+        color: const Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.zero,
+        border: Border.all(color: const Color(0xFFD4D4D4)),
       ),
       child: Text('$value $label'),
     );
@@ -540,10 +541,10 @@ class _ServerCard extends StatelessWidget {
               width: 46,
               height: 46,
               decoration: BoxDecoration(
-                color: const Color(0xFF0F766E).withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(16),
+                color: const Color(0xFF1A1A1A).withValues(alpha: 0.12),
+                borderRadius: BorderRadius.zero,
               ),
-              child: const Icon(Icons.dns, color: Color(0xFF0F766E)),
+              child: const Icon(Icons.dns, color: Color(0xFF1A1A1A)),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -668,7 +669,7 @@ class _KilterBoardsCard extends ConsumerWidget {
                       (BoardOption board) => Padding(
                         padding: const EdgeInsets.only(bottom: 12),
                         child: InkWell(
-                          borderRadius: BorderRadius.circular(24),
+                          borderRadius: BorderRadius.zero,
                           onTap: () => context.goNamed(
                             'solo-board',
                             pathParameters: <String, String>{
@@ -682,16 +683,16 @@ class _KilterBoardsCard extends ConsumerWidget {
                           ),
                           child: Ink(
                             decoration: BoxDecoration(
-                              color: const Color(0xFFF8FFFD),
-                              borderRadius: BorderRadius.circular(24),
+                              color: const Color(0xFFF5F5F5),
+                              borderRadius: BorderRadius.zero,
                               border:
-                                  Border.all(color: const Color(0xFFD1FAE5)),
+                                  Border.all(color: const Color(0xFFD4D4D4)),
                             ),
                             padding: const EdgeInsets.all(16),
                             child: Row(
                               children: <Widget>[
                                 ClipRRect(
-                                  borderRadius: BorderRadius.circular(18),
+                                  borderRadius: BorderRadius.zero,
                                   child: SizedBox(
                                     width: 92,
                                     height: 64,
@@ -907,7 +908,7 @@ class _ProviderCardGrid extends StatelessWidget {
                     (ProviderCapability provider) => Padding(
                       padding: const EdgeInsets.only(bottom: 12),
                       child: InkWell(
-                        borderRadius: BorderRadius.circular(24),
+                        borderRadius: BorderRadius.zero,
                         onTap: () => context.goNamed(
                           'solo-provider',
                           pathParameters: <String, String>{
@@ -920,7 +921,7 @@ class _ProviderCardGrid extends StatelessWidget {
                         child: Ink(
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(24),
+                            borderRadius: BorderRadius.zero,
                             border: Border.all(color: const Color(0xFFE2E8F0)),
                           ),
                           padding: const EdgeInsets.all(18),
@@ -930,11 +931,11 @@ class _ProviderCardGrid extends StatelessWidget {
                                 width: 42,
                                 height: 42,
                                 decoration: BoxDecoration(
-                                  color: const Color(0xFFE0F2FE),
-                                  borderRadius: BorderRadius.circular(14),
+                                  color: const Color(0xFFE5E5E5),
+                                  borderRadius: BorderRadius.zero,
                                 ),
                                 child: const Icon(Icons.travel_explore,
-                                    color: Color(0xFF0369A1)),
+                                    color: Color(0xFF404040)),
                               ),
                               const SizedBox(width: 14),
                               Expanded(

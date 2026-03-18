@@ -9,6 +9,7 @@ import '../../../core/deep_links/invite_links.dart';
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/product_models.dart';
 import '../../../core/models/provider_models.dart';
+import '../../../core/presentation/climbing_loader.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../application/plan_controller.dart';
@@ -54,7 +55,7 @@ class PlanScreen extends ConsumerWidget {
           icon: const Icon(Icons.ios_share),
         ),
         IconButton(
-          onPressed: () => context.goNamed('landing'),
+          onPressed: () => context.goNamed('session-home'),
           icon: const Icon(Icons.close),
         ),
       ],
@@ -75,10 +76,10 @@ class _PlanBody extends ConsumerWidget {
     final SoloPlanSnapshot? plan = state.plan;
 
     if (state.loading && plan == null) {
-      return const Card(
+      return Card(
         child: Padding(
-          padding: EdgeInsets.all(32),
-          child: Center(child: CircularProgressIndicator()),
+          padding: const EdgeInsets.all(32),
+          child: Center(child: ClimbingLoader()),
         ),
       );
     }
@@ -287,9 +288,9 @@ class _InfoChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: const Color(0xFFF0FDFA),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFB7E4DF)),
+        color: const Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.zero,
+        border: Border.all(color: const Color(0xFFD4D4D4)),
       ),
       child: Text(label),
     );

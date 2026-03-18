@@ -32,7 +32,7 @@ class AboutScreen extends StatelessWidget {
           'Why this project exists, and what it is trying to make easier for group board sessions.',
       actions: <Widget>[
         IconButton(
-          onPressed: () => context.goNamed('landing'),
+          onPressed: () => context.goNamed('session-home'),
           icon: const Icon(Icons.close),
         ),
       ],
@@ -140,14 +140,14 @@ class _ExternalLinkText extends StatelessWidget {
       target: LinkTarget.blank,
       builder: (BuildContext context, FollowLink? followLink) {
         return InkWell(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.zero,
           onTap: followLink,
           child: Text(
             label,
             style: style.copyWith(
-              color: const Color(0xFF0F766E),
+              color: const Color(0xFF1A1A1A),
               decoration: TextDecoration.underline,
-              decorationColor: const Color(0xFF0F766E),
+              decorationColor: const Color(0xFF1A1A1A),
             ),
           ),
         );

@@ -39,7 +39,7 @@ const FlowGuideContent _hostGuide = FlowGuideContent(
           'After the room opens, set the shared surface, share the invite or QR code, and manage queue, finalists, and session controls from the room screen.',
     ),
   ],
-  completionLabel: 'Mark host guide complete',
+  completionLabel: 'Mark host',
 );
 
 class CreateRoomScreen extends ConsumerStatefulWidget {
@@ -660,9 +660,9 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFECFDF5),
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(color: const Color(0xFFA7F3D0)),
+                    color: const Color(0xFFF0F0F0),
+                    borderRadius: BorderRadius.zero,
+                    border: Border.all(color: const Color(0xFFD4D4D4)),
                   ),
                   padding: const EdgeInsets.all(18),
                   child: Column(
@@ -710,9 +710,9 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFEE2E2),
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(color: const Color(0xFFFCA5A5)),
+                    color: const Color(0xFFF0F0F0),
+                    borderRadius: BorderRadius.zero,
+                    border: Border.all(color: const Color(0xFFD4D4D4)),
                   ),
                   padding: const EdgeInsets.all(16),
                   child: Text(_inlineError!),
@@ -897,8 +897,8 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF8FAFC),
-                  borderRadius: BorderRadius.circular(24),
+                  color: const Color(0xFFF5F5F5),
+                  borderRadius: BorderRadius.zero,
                   border: Border.all(color: const Color(0xFFE2E8F0)),
                 ),
                 padding: const EdgeInsets.all(16),

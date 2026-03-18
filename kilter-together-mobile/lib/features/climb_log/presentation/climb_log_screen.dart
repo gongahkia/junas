@@ -3,11 +3,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../core/models/climb_log_models.dart';
+import '../../../core/presentation/climbing_loader.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/climb_log_repository.dart';
 
@@ -37,10 +37,7 @@ class _ClimbLogScreenState extends ConsumerState<ClimbLogScreen> {
           onPressed: () => _showExportSheet(),
           icon: const Icon(Icons.ios_share),
         ),
-        IconButton(
-          onPressed: () => context.goNamed('settings'),
-          icon: const Icon(Icons.close),
-        ),
+        const SizedBox.shrink(),
       ],
       child: entriesValue.when(
         data: (List<ClimbLogEntry> entries) {
@@ -60,10 +57,10 @@ class _ClimbLogScreenState extends ConsumerState<ClimbLogScreen> {
                 .toList(growable: false),
           );
         },
-        loading: () => const Card(
+        loading: () => Card(
           child: Padding(
-            padding: EdgeInsets.all(32),
-            child: Center(child: CircularProgressIndicator()),
+            padding: const EdgeInsets.all(32),
+            child: Center(child: ClimbingLoader()),
           ),
         ),
         error: (Object error, StackTrace stackTrace) => Card(
@@ -143,7 +140,7 @@ class _ClimbLogTile extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(22),
+          borderRadius: BorderRadius.zero,
           border: Border.all(color: const Color(0xFFE2E8F0)),
         ),
         padding: const EdgeInsets.all(16),
@@ -207,13 +204,13 @@ class _StatusChip extends StatelessWidget {
     final Color chipColor;
     switch (status) {
       case 'completed':
-        chipColor = const Color(0xFF059669);
+        chipColor = const Color(0xFF2D2D2D);
         break;
       case 'sent':
-        chipColor = const Color(0xFF0891B2);
+        chipColor = const Color(0xFF525252);
         break;
       case 'attempted':
-        chipColor = const Color(0xFFD97706);
+        chipColor = const Color(0xFF737373);
         break;
       default:
         chipColor = const Color(0xFF6B7280);
@@ -222,7 +219,7 @@ class _StatusChip extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
         color: chipColor.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.zero,
         border: Border.all(color: chipColor.withValues(alpha: 0.3)),
       ),
       child: Text(

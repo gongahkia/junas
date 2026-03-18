@@ -15,6 +15,7 @@ import '../../../core/models/room_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/network/api_client.dart';
 import '../../../core/presentation/climb_media_preview.dart';
+import '../../../core/presentation/climbing_loader.dart';
 import '../../../core/presentation/feedback_prompt_card.dart';
 import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
@@ -74,7 +75,7 @@ const FlowGuideContent _hostRoomGuide = FlowGuideContent(
           'When the session is done, close the room from here so the room snapshot, recap flow, and recent-session history all settle on the server.',
     ),
   ],
-  completionLabel: 'Mark host guide complete',
+  completionLabel: 'Mark host',
 );
 const FlowGuideContent _guestRoomGuide = FlowGuideContent(
   eyebrow: 'Guest room guide',
@@ -552,7 +553,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       ),
     );
     if (leave == true && mounted) {
-      context.goNamed('landing');
+      context.goNamed('session-home');
     }
   }
 
@@ -612,14 +613,14 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
         subtitle: widget.server,
         actions: <Widget>[
           IconButton(
-            onPressed: () => context.goNamed('landing'),
+            onPressed: () => context.goNamed('session-home'),
             icon: const Icon(Icons.close),
           ),
         ],
-        child: const Center(
+        child: Center(
           child: Padding(
-            padding: EdgeInsets.all(36),
-            child: CircularProgressIndicator(),
+            padding: const EdgeInsets.all(36),
+            child: ClimbingLoader(),
           ),
         ),
       );
@@ -631,7 +632,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
         subtitle: widget.server,
         actions: <Widget>[
           IconButton(
-            onPressed: () => context.goNamed('landing'),
+            onPressed: () => context.goNamed('session-home'),
             icon: const Icon(Icons.close),
           ),
         ],
@@ -793,7 +794,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
             _MessageCard(
               title: 'Action blocked',
               message: roomState.errorMessage!,
-              accent: const Color(0xFFB91C1C),
+              accent: const Color(0xFF404040),
             ),
             const SizedBox(height: 14),
           ],
@@ -801,7 +802,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
             _MessageCard(
               title: 'Updated',
               message: roomState.notice!,
-              accent: const Color(0xFF0F766E),
+              accent: const Color(0xFF1A1A1A),
             ),
             const SizedBox(height: 14),
           ],
@@ -1066,9 +1067,9 @@ class _FirstActionHintCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFECFDF5),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFA7F3D0)),
+        color: const Color(0xFFF0F0F0),
+        borderRadius: BorderRadius.zero,
+        border: Border.all(color: const Color(0xFFD4D4D4)),
       ),
       padding: const EdgeInsets.fromLTRB(16, 14, 8, 14),
       child: Row(
@@ -1105,7 +1106,7 @@ class _MessageCard extends StatelessWidget {
     return Card(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: BorderRadius.zero,
           border: Border.all(color: accent.withValues(alpha: 0.18)),
         ),
         padding: const EdgeInsets.all(18),
@@ -1181,10 +1182,10 @@ class _PendingRoomSeedCard extends StatelessWidget {
     return Card(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: BorderRadius.zero,
           gradient: const LinearGradient(
             colors: <Color>[
-              Color(0xFFECFDF5),
+              Color(0xFFF0F0F0),
               Colors.white,
             ],
           ),
@@ -1286,7 +1287,7 @@ class _OverviewCard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: const Color(0xFFE0F7FA),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.zero,
                   ),
                   child: Text(
                     '${liveParticipants.length} online',
@@ -1298,7 +1299,7 @@ class _OverviewCard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
                       color: const Color(0xFFFFFBEB),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.zero,
                       border: Border.all(color: const Color(0xFFFCD34D)),
                     ),
                     child: Text(
@@ -1338,8 +1339,8 @@ class _OverviewCard extends StatelessWidget {
             const SizedBox(height: 18),
             Container(
               decoration: BoxDecoration(
-                color: const Color(0xFFF8FAFC),
-                borderRadius: BorderRadius.circular(22),
+                color: const Color(0xFFF5F5F5),
+                borderRadius: BorderRadius.zero,
                 border: Border.all(color: const Color(0xFFE2E8F0)),
               ),
               padding: const EdgeInsets.all(16),
@@ -1402,7 +1403,7 @@ class _OverviewCard extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   color: const Color(0xFFE8F7F2),
-                  borderRadius: BorderRadius.circular(22),
+                  borderRadius: BorderRadius.zero,
                 ),
                 padding: const EdgeInsets.all(16),
                 child: Column(
@@ -1648,7 +1649,7 @@ class _LeaderboardCard extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: const Color(0xFFFFFBEB),
-                    borderRadius: BorderRadius.circular(18),
+                    borderRadius: BorderRadius.zero,
                     border: Border.all(color: const Color(0xFFFCD34D)),
                   ),
                   padding: const EdgeInsets.all(14),
@@ -1674,18 +1675,18 @@ class _LeaderboardCard extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: InkWell(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.zero,
                       onTap: () => onSelectClimb(climb.id),
                       child: Ink(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.zero,
                           border: Border.all(
                             color: isSelected
-                                ? const Color(0xFF0F766E)
+                                ? const Color(0xFF1A1A1A)
                                 : const Color(0xFFE2E8F0),
                           ),
                           color: isSelected
-                              ? const Color(0xFFF0FDFA)
+                              ? const Color(0xFFF5F5F5)
                               : Colors.white,
                         ),
                         padding: const EdgeInsets.all(16),
@@ -1844,11 +1845,11 @@ class _ShareReadinessCard extends StatelessWidget {
     final bool closed = !readiness.roomOpen;
     final bool ready = readiness.isReady;
     final Color accent = closed
-        ? const Color(0xFF991B1B)
+        ? const Color(0xFF404040)
         : ready
-            ? const Color(0xFF047857)
+            ? const Color(0xFF404040)
             : owner
-                ? const Color(0xFF92400E)
+                ? const Color(0xFF525252)
                 : const Color(0xFF1D4ED8);
     final String title = closed
         ? 'Room is closed'
@@ -1861,7 +1862,7 @@ class _ShareReadinessCard extends StatelessWidget {
     return Card(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: BorderRadius.zero,
           border: Border.all(color: accent.withValues(alpha: 0.16)),
         ),
         padding: const EdgeInsets.all(20),
@@ -1916,7 +1917,7 @@ class _ReadinessItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color color =
-        complete ? const Color(0xFF047857) : const Color(0xFF6B7280);
+        complete ? const Color(0xFF404040) : const Color(0xFF6B7280);
     return Row(
       children: <Widget>[
         Icon(
@@ -2013,7 +2014,7 @@ class _InviteCard extends StatelessWidget {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFFBEB),
-                  borderRadius: BorderRadius.circular(22),
+                  borderRadius: BorderRadius.zero,
                 ),
                 padding: const EdgeInsets.all(14),
                 child: Text(lockedMessage),
@@ -2071,8 +2072,8 @@ class _InviteSummaryTile extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: const Color(0xFFF8FAFC),
-        borderRadius: BorderRadius.circular(18),
+        color: const Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.zero,
         border: Border.all(color: const Color(0xFFE2E8F0)),
       ),
       padding: const EdgeInsets.all(14),
@@ -2456,7 +2457,7 @@ class _CatalogCard extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   color: const Color(0xFFE9F4FF),
-                  borderRadius: BorderRadius.circular(22),
+                  borderRadius: BorderRadius.zero,
                 ),
                 padding: const EdgeInsets.all(16),
                 child: Column(
@@ -2555,9 +2556,9 @@ class _CatalogCard extends StatelessWidget {
             ],
             const SizedBox(height: 16),
             if (roomState.catalogLoading)
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 18),
-                child: Center(child: CircularProgressIndicator()),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 18),
+                child: Center(child: ClimbingLoader()),
               )
             else if (catalog == null || catalog.climbs.isEmpty)
               Text(emptyCatalogMessage)
@@ -2566,11 +2567,11 @@ class _CatalogCard extends StatelessWidget {
                 (ProviderClimb climb) => Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: InkWell(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.zero,
                     onTap: () => onSelectClimb(climb.id),
                     child: Ink(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.zero,
                         border: Border.all(color: const Color(0xFFE2E8F0)),
                         color: Colors.white,
                       ),
@@ -2664,9 +2665,9 @@ class _QueueCard extends StatelessWidget {
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFECFDF5),
-                  borderRadius: BorderRadius.circular(22),
-                  border: Border.all(color: const Color(0xFFA7F3D0)),
+                  color: const Color(0xFFF0F0F0),
+                  borderRadius: BorderRadius.zero,
+                  border: Border.all(color: const Color(0xFFD4D4D4)),
                 ),
                 padding: const EdgeInsets.all(16),
                 child: Column(
@@ -2692,7 +2693,7 @@ class _QueueCard extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(22),
+                      borderRadius: BorderRadius.zero,
                       border: Border.all(color: const Color(0xFFE2E8F0)),
                     ),
                     padding: const EdgeInsets.all(16),
@@ -2838,7 +2839,7 @@ class _FinalistsCard extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(22),
+                      borderRadius: BorderRadius.zero,
                       border: Border.all(color: const Color(0xFFE2E8F0)),
                     ),
                     padding: const EdgeInsets.all(16),
@@ -2924,7 +2925,7 @@ class _ParticipantsCard extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(22),
+                    borderRadius: BorderRadius.zero,
                     border: Border.all(color: const Color(0xFFE2E8F0)),
                   ),
                   padding: const EdgeInsets.all(16),
@@ -2945,7 +2946,7 @@ class _ParticipantsCard extends StatelessWidget {
                                 : Icons.circle_outlined,
                             size: 14,
                             color: participant.isOnline
-                                ? const Color(0xFF0F766E)
+                                ? const Color(0xFF1A1A1A)
                                 : const Color(0xFF94A3B8),
                           ),
                         ],
@@ -3133,7 +3134,7 @@ class _Chip extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
         color: const Color(0xFFE7F8F4),
-        borderRadius: BorderRadius.circular(999),
+        borderRadius: BorderRadius.zero,
       ),
       child: Text(
         label,

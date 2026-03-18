@@ -8,7 +8,6 @@ import 'package:go_router/go_router.dart';
 import 'core/deep_links/invite_links.dart';
 import 'core/presentation/tap_cheer_overlay.dart';
 import 'core/router/app_router.dart';
-import 'core/storage/app_prefs_controller.dart';
 import 'core/storage/offline_kilter_catalog_controller.dart';
 import 'core/theme/app_theme.dart';
 
@@ -119,12 +118,7 @@ class _KilterTogetherAppState extends ConsumerState<KilterTogetherApp> {
 
   @override
   Widget build(BuildContext context) {
-    final bool clickCheersEnabled = ref
-            .watch(appPrefsControllerProvider)
-            .valueOrNull
-            ?.settings
-            .clickCheersEnabled ??
-        true;
+    final bool clickCheersEnabled = false;
 
     return MaterialApp.router(
       title: 'Kilter Together',

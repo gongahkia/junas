@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/about/presentation/about_screen.dart';
 import '../../features/create_room/presentation/create_room_screen.dart';
 import '../../features/join/presentation/join_screen.dart';
-import '../../features/landing/presentation/landing_screen.dart';
+import '../../features/session/presentation/session_home_screen.dart';
 import '../../features/plan/presentation/plan_screen.dart';
 import '../../features/recap/presentation/recap_screen.dart';
 import '../../features/room/presentation/room_screen.dart';
@@ -28,13 +28,32 @@ GoRouter buildAppRouter() {
           return AppShell(navigationShell: navigationShell);
         },
         branches: <StatefulShellBranch>[
+          // branch 0: session
           StatefulShellBranch(
             routes: <RouteBase>[
               GoRoute(
                 path: '/',
-                name: 'landing',
+                name: 'session-home',
                 builder: (BuildContext context, GoRouterState state) {
-                  return const LandingScreen();
+                  return const SessionHomeScreen();
+                },
+              ),
+              GoRoute(
+                path: '/create',
+                name: 'create-room',
+                builder: (BuildContext context, GoRouterState state) {
+                  return const CreateRoomScreen();
+                },
+              ),
+              GoRoute(
+                path: '/join',
+                name: 'join-room',
+                builder: (BuildContext context, GoRouterState state) {
+                  return JoinRoomScreen(
+                    initialServer: state.uri.queryParameters['server'],
+                    initialSlug: state.uri.queryParameters['slug'],
+                    initialReason: state.uri.queryParameters['reason'],
+                  );
                 },
               ),
               GoRoute(
@@ -63,32 +82,7 @@ GoRouter buildAppRouter() {
               ),
             ],
           ),
-          StatefulShellBranch(
-            routes: <RouteBase>[
-              GoRoute(
-                path: '/create',
-                name: 'create-room',
-                builder: (BuildContext context, GoRouterState state) {
-                  return const CreateRoomScreen();
-                },
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: <RouteBase>[
-              GoRoute(
-                path: '/join',
-                name: 'join-room',
-                builder: (BuildContext context, GoRouterState state) {
-                  return JoinRoomScreen(
-                    initialServer: state.uri.queryParameters['server'],
-                    initialSlug: state.uri.queryParameters['slug'],
-                    initialReason: state.uri.queryParameters['reason'],
-                  );
-                },
-              ),
-            ],
-          ),
+          // branch 1: solo
           StatefulShellBranch(
             routes: <RouteBase>[
               GoRoute(
@@ -144,6 +138,19 @@ GoRouter buildAppRouter() {
               ),
             ],
           ),
+          // branch 2: log
+          StatefulShellBranch(
+            routes: <RouteBase>[
+              GoRoute(
+                path: '/log',
+                name: 'climb-log',
+                builder: (BuildContext context, GoRouterState state) {
+                  return const ClimbLogScreen();
+                },
+              ),
+            ],
+          ),
+          // branch 3: settings
           StatefulShellBranch(
             routes: <RouteBase>[
               GoRoute(
@@ -158,13 +165,6 @@ GoRouter buildAppRouter() {
                 name: 'about',
                 builder: (BuildContext context, GoRouterState state) {
                   return const AboutScreen();
-                },
-              ),
-              GoRoute(
-                path: '/climb-log',
-                name: 'climb-log',
-                builder: (BuildContext context, GoRouterState state) {
-                  return const ClimbLogScreen();
                 },
               ),
             ],

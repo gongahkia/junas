@@ -142,7 +142,7 @@ class _TapCheerOverlayState extends State<TapCheerOverlay> {
 
     final TextStyle textStyle =
         Theme.of(context).textTheme.titleMedium!.copyWith(
-      color: const Color(0xFF115E59),
+      color: const Color(0xFF1A1A1A),
       fontWeight: FontWeight.w800,
       letterSpacing: 0.4,
       shadows: const <Shadow>[
@@ -218,7 +218,7 @@ class _TapCheerWord extends StatelessWidget {
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     color: const Color(0xF2F0FDFA),
-                    borderRadius: BorderRadius.circular(999),
+                    borderRadius: BorderRadius.zero,
                     border: Border.all(color: const Color(0xFFD3F3EB)),
                   ),
                   child: Padding(

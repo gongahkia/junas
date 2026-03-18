@@ -65,8 +65,8 @@ class _FlowGuideSheet extends StatelessWidget {
       top: false,
       child: Container(
         decoration: const BoxDecoration(
-          color: Color(0xFFF8FFFD),
-          borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+          color: Color(0xFFF5F5F5),
+          borderRadius: BorderRadius.zero,
         ),
         child: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(
@@ -83,12 +83,12 @@ class _FlowGuideSheet extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
                   color: const Color(0xFFDDF7F0),
-                  borderRadius: BorderRadius.circular(999),
+                  borderRadius: BorderRadius.zero,
                 ),
                 child: Text(
                   content.eyebrow,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: const Color(0xFF115E59),
+                        color: const Color(0xFF1A1A1A),
                         letterSpacing: 0.4,
                       ),
                 ),
@@ -102,7 +102,7 @@ class _FlowGuideSheet extends StatelessWidget {
               Text(
                 content.summary,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: const Color(0xFF3E5A57),
+                      color: const Color(0xFF525252),
                     ),
               ),
               const SizedBox(height: 20),
@@ -113,7 +113,7 @@ class _FlowGuideSheet extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius: BorderRadius.zero,
                       border: Border.all(color: const Color(0xFFD7ECE6)),
                     ),
                     padding: const EdgeInsets.all(18),
