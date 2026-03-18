@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/models/product_models.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/room_models.dart';
 import '../../../core/p2p/host_room_controller.dart';
 import '../../../core/p2p/guest_room_controller.dart';
 import '../../../core/p2p/p2p_transport.dart';
+import '../../../core/storage/local_recap_repository.dart';
 
 const int defaultBoardAngle = 40;
 const String defaultClimbSort = 'popular';
@@ -142,6 +144,7 @@ final roomControllerProvider = StateNotifierProvider.autoDispose
       args: args,
       hostController: hostCtrl,
       guestController: guestCtrl,
+      recapRepository: ref.read(localRecapRepositoryProvider),
     );
     // subscribe to P2P state changes and push into RoomViewState
     if (args.role == 'host') {
@@ -179,10 +182,12 @@ class RoomController extends StateNotifier<RoomViewState> {
     required RoomRouteArgs args,
     this.hostController,
     this.guestController,
+    required this.recapRepository,
   }) : super(RoomViewState(server: Uri.parse(args.server), slug: args.slug));
 
   final HostRoomController? hostController;
   final GuestRoomController? guestController;
+  final LocalRecapRepository recapRepository;
 
   void _applyHostState(HostRoomViewState hs) {
     state = state.copyWith(
@@ -301,6 +306,50 @@ class RoomController extends StateNotifier<RoomViewState> {
   Future<void> closeRoom() async {
     hostController?.hostCloseRoom();
     guestController?.service?.closeRoom();
+    await _saveRecap();
+  }
+
+  Future<void> _saveRecap() async {
+    final RoomSnapshot? room = state.room;
+    if (room == null) return;
+    final String shareId = '${room.slug}-${DateTime.now().millisecondsSinceEpoch}';
+    final RoomRecap recap = RoomRecap(
+      shareId: shareId,
+      roomSlug: room.slug,
+      roomName: room.roomName,
+      providerId: room.providerId,
+      surfaceName: room.surface?.name,
+      closedAt: DateTime.now().toUtc(),
+      slides: <RecapSlide>[
+        RecapSlide(
+          id: 'summary',
+          eyebrow: 'Session complete',
+          title: room.roomName ?? 'Session recap',
+          description: '${room.participants.length} participants, ${room.queue.length} queued, ${room.finalists.length} finalists.',
+          stats: <RecapStat>[
+            RecapStat(label: 'Participants', value: '${room.participants.length}'),
+            RecapStat(label: 'Queue', value: '${room.queue.length}'),
+            RecapStat(label: 'Finalists', value: '${room.finalists.length}'),
+            RecapStat(label: 'Votes', value: '${room.voteCounts.length}'),
+          ],
+          climbs: <SessionSummaryClimb>[
+            ...room.queue.map((QueueEntry e) => SessionSummaryClimb(
+              climb: e.climb, position: e.position, status: e.status, addedBy: e.addedBy,
+            )),
+          ],
+          participants: room.participants.map((Participant p) => p.displayName).toList(growable: false),
+        ),
+      ],
+    );
+    try {
+      await recapRepository.saveRecap(
+        shareId: shareId,
+        slug: room.slug,
+        roomName: room.roomName,
+        providerId: room.providerId,
+        recap: recap,
+      );
+    } catch (_) {} // best-effort
   }
 
   Future<void> setSurface() async {
