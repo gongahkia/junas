@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../models/board_models.dart';
 import '../models/room_models.dart';
 import '../../features/room/application/room_controller.dart';
 import 'guest_room_service.dart';
@@ -25,6 +26,8 @@ class GuestRoomViewState {
     this.kicked = false,
     this.roomClosed = false,
     this.errorMessage,
+    this.catalogClimbs = const <BoardClimb>[],
+    this.catalogHasMore = false,
   });
   final RoomSnapshot? room;
   final int? participantId;
@@ -33,6 +36,8 @@ class GuestRoomViewState {
   final bool kicked;
   final bool roomClosed;
   final String? errorMessage;
+  final List<BoardClimb> catalogClimbs;
+  final bool catalogHasMore;
 }
 
 final guestRoomControllerProvider = StateNotifierProvider.autoDispose
@@ -129,7 +134,19 @@ class GuestRoomController extends StateNotifier<GuestRoomViewState> {
           roomClosed: true,
         );
       case P2pMessageType.catalogResponse:
-        break; // handled by catalog relay listener
+        final List<dynamic> rawClimbs = (message.payload['climbs'] as List<dynamic>?) ?? <dynamic>[];
+        final List<BoardClimb> climbs = rawClimbs
+            .whereType<Map<String, dynamic>>()
+            .map(BoardClimb.fromJson)
+            .toList(growable: false);
+        state = GuestRoomViewState(
+          room: state.room,
+          participantId: state.participantId,
+          connected: state.connected,
+          loading: false,
+          catalogClimbs: climbs,
+          catalogHasMore: message.payload['has_more'] as bool? ?? false,
+        );
       default:
         break;
     }
