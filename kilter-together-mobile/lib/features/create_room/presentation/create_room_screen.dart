@@ -6,7 +6,6 @@ import 'package:qr_flutter/qr_flutter.dart';
 import '../../../core/deep_links/invite_links.dart';
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/p2p/host_room_controller.dart';
-import '../../../core/p2p/p2p_provider.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/session_repository.dart';

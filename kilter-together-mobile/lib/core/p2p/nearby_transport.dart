@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 import 'package:nearby_connections/nearby_connections.dart';
 import 'p2p_message_types.dart';
 import 'p2p_transport.dart';
@@ -131,12 +132,12 @@ class NearbyTransport implements P2pTransport {
 
   @override
   Future<void> send(String peerId, P2pMessage message) async {
-    await _nearby.sendBytesPayload(peerId, message.encode());
+    await _nearby.sendBytesPayload(peerId, Uint8List.fromList(message.encode()));
   }
 
   @override
   Future<void> broadcast(P2pMessage message) async {
-    final List<int> bytes = message.encode();
+    final Uint8List bytes = Uint8List.fromList(message.encode());
     for (final String peerId in _peers.keys) {
       await _nearby.sendBytesPayload(peerId, bytes);
     }

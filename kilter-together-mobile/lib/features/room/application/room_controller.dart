@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/room_models.dart';
 import '../../../core/p2p/host_room_controller.dart';
 import '../../../core/p2p/guest_room_controller.dart';
-import '../../../core/p2p/p2p_transport.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 
 const int defaultBoardAngle = 40;
@@ -141,14 +139,12 @@ class RoomController extends StateNotifier<RoomViewState> {
   RoomController({
     required RoomRouteArgs args,
     required AppPrefsController appPrefsController,
-  })  : _appPrefsController = appPrefsController,
-        super(RoomViewState(
+  })  : super(RoomViewState(
           server: Uri.parse(args.server),
           slug: args.slug,
           loading: false,
         ));
 
-  final AppPrefsController _appPrefsController;
   HostRoomController? _hostController;
   GuestRoomController? _guestController;
 

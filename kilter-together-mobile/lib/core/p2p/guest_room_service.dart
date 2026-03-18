@@ -1,5 +1,4 @@
 import '../models/provider_models.dart';
-import '../models/room_models.dart';
 import 'p2p_message_types.dart';
 import 'p2p_transport.dart';
 

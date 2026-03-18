@@ -110,6 +110,20 @@ class BoardClimb {
   String? gradeForAngle(int angle) {
     return grades['$angle']?.boulder;
   }
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'uuid': uuid,
+    'climb_name': climbName,
+    'frames': frames,
+    'setter_name': setterName,
+    'product_size_id': productSizeId,
+    'ascends': ascends,
+    'created_at': createdAt,
+    if (description != null) 'description': description,
+    'image_filenames': imageFilenames,
+    'highlighted_holds': highlightedHolds.map((HighlightedHold h) => h.toJson()).toList(growable: false),
+    'grades': grades.map((String k, GradeInfo v) => MapEntry(k, v.toJson())),
+  };
 }
 
 class PaginatedBoardClimbsResponse {

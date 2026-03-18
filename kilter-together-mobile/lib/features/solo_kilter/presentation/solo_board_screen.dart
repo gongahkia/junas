@@ -507,7 +507,6 @@ class _SoloBoardScreenState extends ConsumerState<SoloBoardScreen> {
 
     final Uri shareUri = InviteLink(
       kind: InviteKind.plan,
-      server: state.server!,
       shareId: plan.shareId,
     ).toUri();
     await Share.share(
