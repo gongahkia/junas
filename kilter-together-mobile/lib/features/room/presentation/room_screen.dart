@@ -254,8 +254,14 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   String _boundRoomName = '';
   Timer? _copiedInviteResetTimer;
 
-  RoomRouteArgs get _args =>
-      RoomRouteArgs(server: 'p2p://local', slug: widget.slug);
+  RoomRouteArgs get _args => RoomRouteArgs(
+    server: 'p2p://local',
+    slug: widget.slug,
+    role: widget.role,
+    displayName: widget.displayName,
+    hostPeerId: widget.hostPeerId,
+    hostPeerName: widget.hostPeerName,
+  );
 
   @override
   void initState() {

@@ -4,7 +4,7 @@ import '../../../core/models/provider_models.dart';
 import '../../../core/models/room_models.dart';
 import '../../../core/p2p/host_room_controller.dart';
 import '../../../core/p2p/guest_room_controller.dart';
-import '../../../core/storage/app_prefs_controller.dart';
+import '../../../core/p2p/p2p_transport.dart';
 
 const int defaultBoardAngle = 40;
 const String defaultClimbSort = 'popular';
@@ -13,14 +13,22 @@ class RoomRouteArgs {
   const RoomRouteArgs({
     required this.server,
     required this.slug,
+    this.role = 'host',
+    this.displayName,
+    this.hostPeerId,
+    this.hostPeerName,
   });
   final String server;
   final String slug;
+  final String role;
+  final String? displayName;
+  final String? hostPeerId;
+  final String? hostPeerName;
   @override
   bool operator ==(Object other) =>
-      other is RoomRouteArgs && other.server == server && other.slug == slug;
+      other is RoomRouteArgs && other.server == server && other.slug == slug && other.role == role;
   @override
-  int get hashCode => Object.hash(server, slug);
+  int get hashCode => Object.hash(server, slug, role);
 }
 
 class RoomViewState {
@@ -70,34 +78,20 @@ class RoomViewState {
   final String? notice;
   bool get requiresRejoin => joinReason != null;
   bool get hasNestedSurfaceHierarchy => room?.providerId == 'crux';
-
   RoomViewState copyWith({
-    RoomSnapshot? room,
-    RoomCatalogClimbsResponse? catalog,
+    RoomSnapshot? room, RoomCatalogClimbsResponse? catalog,
     RoomCatalogClimbResponse? selectedCatalogClimb,
-    List<ProviderSurface>? parentSurfaces,
-    List<ProviderSurface>? childSurfaces,
-    String? selectedParentSurfaceId,
-    String? selectedChildSurfaceId,
-    int? selectedAngle,
-    String? catalogQuery,
-    String? catalogSort,
-    String? catalogNextCursor,
-    bool? loading,
-    bool? refreshing,
-    bool? catalogLoading,
-    bool? surfacesLoading,
-    bool? actionInFlight,
-    String? errorMessage,
-    bool clearErrorMessage = false,
-    String? joinReason,
-    bool clearJoinReason = false,
-    String? notice,
-    bool clearNotice = false,
+    List<ProviderSurface>? parentSurfaces, List<ProviderSurface>? childSurfaces,
+    String? selectedParentSurfaceId, String? selectedChildSurfaceId,
+    int? selectedAngle, String? catalogQuery, String? catalogSort,
+    String? catalogNextCursor, bool? loading, bool? refreshing,
+    bool? catalogLoading, bool? surfacesLoading, bool? actionInFlight,
+    String? errorMessage, bool clearErrorMessage = false,
+    String? joinReason, bool clearJoinReason = false,
+    String? notice, bool clearNotice = false,
   }) {
     return RoomViewState(
-      server: server,
-      slug: slug,
+      server: server, slug: slug,
       room: room ?? this.room,
       catalog: catalog ?? this.catalog,
       selectedCatalogClimb: selectedCatalogClimb ?? this.selectedCatalogClimb,
@@ -124,197 +118,206 @@ class RoomViewState {
 final roomControllerProvider = StateNotifierProvider.autoDispose
     .family<RoomController, RoomViewState, RoomRouteArgs>(
   (Ref ref, RoomRouteArgs args) {
-    return RoomController(
+    HostRoomController? hostCtrl;
+    GuestRoomController? guestCtrl;
+    if (args.role == 'host') {
+      final HostRoomArgs ha = HostRoomArgs(
+        providerId: 'kilter',
+        roomName: args.slug,
+        displayName: args.displayName ?? 'Host',
+        fistBumpsEnabled: true,
+      );
+      hostCtrl = ref.read(hostRoomControllerProvider(ha).notifier);
+    } else {
+      final GuestRoomArgs ga = GuestRoomArgs(
+        hostPeer: P2pPeer(
+          id: args.hostPeerId ?? args.slug,
+          displayName: args.hostPeerName ?? args.slug,
+        ),
+        displayName: args.displayName ?? 'Guest',
+      );
+      guestCtrl = ref.read(guestRoomControllerProvider(ga).notifier);
+    }
+    final RoomController ctrl = RoomController(
       args: args,
-      appPrefsController: ref.read(appPrefsControllerProvider.notifier),
+      hostController: hostCtrl,
+      guestController: guestCtrl,
     );
+    // subscribe to P2P state changes and push into RoomViewState
+    if (args.role == 'host') {
+      final HostRoomArgs ha = HostRoomArgs(
+        providerId: 'kilter',
+        roomName: args.slug,
+        displayName: args.displayName ?? 'Host',
+        fistBumpsEnabled: true,
+      );
+      ref.listen<HostRoomViewState>(hostRoomControllerProvider(ha),
+          (HostRoomViewState? _, HostRoomViewState next) {
+        ctrl._applyHostState(next);
+      });
+      ctrl._applyHostState(ref.read(hostRoomControllerProvider(ha)));
+    } else {
+      final GuestRoomArgs ga = GuestRoomArgs(
+        hostPeer: P2pPeer(
+          id: args.hostPeerId ?? args.slug,
+          displayName: args.hostPeerName ?? args.slug,
+        ),
+        displayName: args.displayName ?? 'Guest',
+      );
+      ref.listen<GuestRoomViewState>(guestRoomControllerProvider(ga),
+          (GuestRoomViewState? _, GuestRoomViewState next) {
+        ctrl._applyGuestState(next);
+      });
+      ctrl._applyGuestState(ref.read(guestRoomControllerProvider(ga)));
+    }
+    return ctrl;
   },
 );
 
-/// P2P adapter — wraps host or guest controller into RoomViewState.
-/// The room_screen reads this provider unchanged; actual P2P state comes
-/// from hostRoomControllerProvider / guestRoomControllerProvider which are
-/// activated by create_room / join flows before navigating here.
 class RoomController extends StateNotifier<RoomViewState> {
   RoomController({
     required RoomRouteArgs args,
-    required AppPrefsController appPrefsController,
-  })  : super(RoomViewState(
-          server: Uri.parse(args.server),
-          slug: args.slug,
-          loading: false,
-        ));
+    this.hostController,
+    this.guestController,
+  }) : super(RoomViewState(server: Uri.parse(args.server), slug: args.slug));
 
-  HostRoomController? _hostController;
-  GuestRoomController? _guestController;
+  final HostRoomController? hostController;
+  final GuestRoomController? guestController;
 
-  void bindHost(HostRoomController controller) {
-    _hostController = controller;
-    _syncFromHost();
-  }
-
-  void bindGuest(GuestRoomController controller) {
-    _guestController = controller;
-    _syncFromGuest();
-  }
-
-  void _syncFromHost() {
-    final HostRoomViewState? hs = _hostController?.state;
-    if (hs == null) return;
+  void _applyHostState(HostRoomViewState hs) {
     state = state.copyWith(
-      room: hs.room,
-      loading: false,
-      errorMessage: hs.errorMessage,
-      clearErrorMessage: hs.errorMessage == null,
+      room: hs.room, loading: !hs.hosting,
+      errorMessage: hs.errorMessage, clearErrorMessage: hs.errorMessage == null,
     );
   }
 
-  void _syncFromGuest() {
-    final GuestRoomViewState? gs = _guestController?.state;
-    if (gs == null) return;
+  void _applyGuestState(GuestRoomViewState gs) {
     state = state.copyWith(
-      room: gs.room,
-      loading: gs.loading,
-      errorMessage: gs.errorMessage,
-      clearErrorMessage: gs.errorMessage == null,
+      room: gs.room, loading: gs.loading,
+      errorMessage: gs.errorMessage, clearErrorMessage: gs.errorMessage == null,
     );
   }
 
-  void updateFromSnapshot(RoomSnapshot snapshot) {
-    state = state.copyWith(room: snapshot, loading: false);
-  }
-
-  // action forwarding — host path
-  Future<void> load() async { _syncFromHost(); _syncFromGuest(); }
-  Future<void> refresh({bool silent = false}) async { _syncFromHost(); _syncFromGuest(); }
+  Future<void> load() async {}
+  Future<void> refresh({bool silent = false}) async {}
 
   Future<void> toggleVote(String climbId) async {
-    _hostController?.hostToggleVote(climbId);
-    _guestController?.service?.toggleVote(climbId);
+    hostController?.hostToggleVote(climbId);
+    guestController?.service?.toggleVote(climbId);
   }
 
   Future<void> addQueueEntry(String climbId) async {
-    // need ProviderClimb — find from catalog or queue
     final ProviderClimb? climb = _findClimb(climbId);
     if (climb == null) return;
-    _hostController?.hostAddQueueEntry(climb);
-    _guestController?.service?.addQueueEntry(climb);
+    hostController?.hostAddQueueEntry(climb);
+    guestController?.service?.addQueueEntry(climb);
   }
 
   Future<void> addFinalist(String climbId) async {
     final ProviderClimb? climb = _findClimb(climbId);
     if (climb == null) return;
-    _hostController?.hostAddFinalist(climb);
-    _guestController?.service?.addFinalist(climb);
+    hostController?.hostAddFinalist(climb);
+    guestController?.service?.addFinalist(climb);
   }
 
   Future<void> deleteQueueEntry(int entryId) async {
-    _hostController?.hostDeleteQueueEntry(entryId);
-    _guestController?.service?.deleteQueueEntry(entryId);
+    hostController?.hostDeleteQueueEntry(entryId);
+    guestController?.service?.deleteQueueEntry(entryId);
   }
 
   Future<void> deleteFinalist(int entryId) async {
-    _hostController?.hostDeleteFinalist(entryId);
-    _guestController?.service?.deleteFinalist(entryId);
+    hostController?.hostDeleteFinalist(entryId);
+    guestController?.service?.deleteFinalist(entryId);
   }
 
   Future<void> moveQueueEntry(int entryId, int delta) async {
     final RoomSnapshot? room = state.room;
     if (room == null) return;
-    final List<QueueEntry> queue = List<QueueEntry>.from(room.queue);
-    final int idx = queue.indexWhere((QueueEntry e) => e.id == entryId);
-    if (idx < 0) return;
-    final int next = idx + delta;
-    if (next < 0 || next >= queue.length) return;
-    final QueueEntry moved = queue.removeAt(idx);
-    queue.insert(next, moved);
-    final List<int> ids = queue.map((QueueEntry e) => e.id).toList(growable: false);
-    _hostController?.hostReorderQueue(ids);
-    _guestController?.service?.reorderQueue(ids);
+    final List<QueueEntry> q = List<QueueEntry>.from(room.queue);
+    final int i = q.indexWhere((QueueEntry e) => e.id == entryId);
+    if (i < 0 || i + delta < 0 || i + delta >= q.length) return;
+    q.insert(i + delta, q.removeAt(i));
+    final List<int> ids = q.map((QueueEntry e) => e.id).toList(growable: false);
+    hostController?.hostReorderQueue(ids);
+    guestController?.service?.reorderQueue(ids);
   }
 
   Future<void> moveFinalist(int entryId, int delta) async {
     final RoomSnapshot? room = state.room;
     if (room == null) return;
-    final List<FinalistEntry> finalists = List<FinalistEntry>.from(room.finalists);
-    final int idx = finalists.indexWhere((FinalistEntry e) => e.id == entryId);
-    if (idx < 0) return;
-    final int next = idx + delta;
-    if (next < 0 || next >= finalists.length) return;
-    final FinalistEntry moved = finalists.removeAt(idx);
-    finalists.insert(next, moved);
-    final List<int> ids = finalists.map((FinalistEntry e) => e.id).toList(growable: false);
-    _hostController?.hostReorderFinalists(ids);
-    _guestController?.service?.reorderFinalists(ids);
+    final List<FinalistEntry> f = List<FinalistEntry>.from(room.finalists);
+    final int i = f.indexWhere((FinalistEntry e) => e.id == entryId);
+    if (i < 0 || i + delta < 0 || i + delta >= f.length) return;
+    f.insert(i + delta, f.removeAt(i));
+    final List<int> ids = f.map((FinalistEntry e) => e.id).toList(growable: false);
+    hostController?.hostReorderFinalists(ids);
+    guestController?.service?.reorderFinalists(ids);
   }
 
   Future<void> promoteClimb(String climbId, String status) async {
-    _hostController?.hostPromoteClimb(climbId, status);
-    _guestController?.service?.promoteClimb(climbId, status);
+    hostController?.hostPromoteClimb(climbId, status);
+    guestController?.service?.promoteClimb(climbId, status);
   }
 
   Future<void> addQueueStatusUpdate(int entryId, String status) async {
-    _hostController?.hostUpdateQueueEntryStatus(entryId, status);
+    hostController?.hostUpdateQueueEntryStatus(entryId, status);
   }
 
   Future<void> clearVotes() async {
-    _hostController?.hostClearVotes();
-    _guestController?.service?.clearVotes();
+    hostController?.hostClearVotes();
+    guestController?.service?.clearVotes();
   }
 
   Future<void> pickRandom(String source) async {
-    _hostController?.hostPickRandom(source);
-    _guestController?.service?.pickRandom(source);
+    hostController?.hostPickRandom(source);
+    guestController?.service?.pickRandom(source);
   }
 
   Future<void> updateRoomName(String roomName) async {
-    _hostController?.hostUpdateRoomName(roomName);
-    _guestController?.service?.updateRoomName(roomName);
+    hostController?.hostUpdateRoomName(roomName);
+    guestController?.service?.updateRoomName(roomName);
   }
 
   Future<void> setFistBumpsEnabled(bool enabled) async {
-    _hostController?.hostSetFistBumpsEnabled(enabled);
-    _guestController?.service?.setFistBumpsEnabled(enabled);
+    hostController?.hostSetFistBumpsEnabled(enabled);
+    guestController?.service?.setFistBumpsEnabled(enabled);
   }
 
   Future<void> updateMyStatus(String status) async {
-    _hostController?.hostUpdateMyStatus(status);
-    _guestController?.service?.updateMyStatus(status);
+    hostController?.hostUpdateMyStatus(status);
+    guestController?.service?.updateMyStatus(status);
   }
 
   Future<void> updateParticipantRole(int participantId, String role) async {
-    _hostController?.hostUpdateParticipantRole(participantId, role);
-    _guestController?.service?.updateParticipantRole(participantId, role);
+    hostController?.hostUpdateParticipantRole(participantId, role);
+    guestController?.service?.updateParticipantRole(participantId, role);
   }
 
   Future<void> removeParticipant(int participantId) async {
-    _hostController?.hostRemoveParticipant(participantId);
-    _guestController?.service?.removeParticipant(participantId);
+    hostController?.hostRemoveParticipant(participantId);
+    guestController?.service?.removeParticipant(participantId);
   }
 
   Future<void> closeRoom() async {
-    _hostController?.hostCloseRoom();
-    _guestController?.service?.closeRoom();
+    hostController?.hostCloseRoom();
+    guestController?.service?.closeRoom();
   }
 
   Future<void> setSurface() async {
-    // host sets surface locally
-    if (_hostController != null) {
-      final String surfaceId = state.room?.providerId == 'kilter'
-          ? state.selectedParentSurfaceId
-          : state.selectedChildSurfaceId;
-      if (surfaceId.isEmpty) return;
-      _hostController!.hostSetSurface(ProviderSurface(
-        id: surfaceId,
-        kind: state.room?.providerId == 'kilter' ? 'board' : 'wall',
-        name: surfaceId,
-        description: '',
-        meta: <String, String>{
-          if (state.room?.providerId == 'kilter') 'angle': '${state.selectedAngle}',
-          if (state.room?.providerId == 'kilter') 'board_id': surfaceId,
-        },
-      ));
-    }
+    final String sid = state.room?.providerId == 'kilter'
+        ? state.selectedParentSurfaceId : state.selectedChildSurfaceId;
+    if (sid.isEmpty) return;
+    final ProviderSurface surface = ProviderSurface(
+      id: sid, kind: state.room?.providerId == 'kilter' ? 'board' : 'wall',
+      name: sid, description: '',
+      meta: <String, String>{
+        if (state.room?.providerId == 'kilter') 'angle': '${state.selectedAngle}',
+        if (state.room?.providerId == 'kilter') 'board_id': sid,
+      },
+    );
+    hostController?.hostSetSurface(surface);
+    guestController?.service?.setSurface(surface);
+    state = state.copyWith(notice: 'Surface updated.');
   }
 
   void updateSurfaceDraft({String? parentSurfaceId, String? childSurfaceId, int? angle}) {
@@ -325,13 +328,52 @@ class RoomController extends StateNotifier<RoomViewState> {
     );
   }
 
-  Future<void> loadSurfaces({String? parentId}) async {}
-  Future<void> loadCatalog({String? q, String? sort, String? cursor, String? gradeMin, String? gradeMax}) async {}
+  Future<void> loadSurfaces({String? parentId}) async {
+    state = state.copyWith(notice: 'Surface list not available in P2P mode. Set board ID directly.');
+  }
+
+  Future<void> loadCatalog({String? q, String? sort, String? cursor, String? gradeMin, String? gradeMax}) async {
+    state = state.copyWith(notice: 'Catalog browsing not yet wired for P2P relay.');
+  }
+
   Future<void> selectCatalogClimb(String climbId) async {}
-  Future<void> reconnectProvider(Map<String, String> secret) async {}
-  Future<void> updateAssistantMode(String mode) async {}
-  Future<void> autoRefillQueue() async {}
-  Future<void> importPendingSeed(List<String> climbIds) async {}
+
+  Future<void> reconnectProvider(Map<String, String> secret) async {
+    state = state.copyWith(notice: 'Provider credentials are managed by the host device.');
+  }
+
+  Future<void> updateAssistantMode(String mode) async {} // server-only — no-op
+
+  Future<void> autoRefillQueue() async {
+    final RoomSnapshot? room = state.room;
+    if (room == null) return;
+    final Set<String> existing = <String>{
+      ...room.queue.map((QueueEntry e) => e.climb.id),
+      ...room.finalists.map((FinalistEntry e) => e.climb.id),
+    };
+    final List<MapEntry<String, int>> sorted = room.voteCounts.entries
+        .where((MapEntry<String, int> e) => e.value > 0 && !existing.contains(e.key))
+        .toList(growable: false)
+      ..sort((MapEntry<String, int> a, MapEntry<String, int> b) => b.value.compareTo(a.value));
+    if (sorted.isEmpty) {
+      state = state.copyWith(notice: 'No voted climbs available to refill the queue.');
+      return;
+    }
+    for (final String id in sorted.take(5).map((MapEntry<String, int> e) => e.key)) {
+      await addQueueEntry(id);
+    }
+    state = state.copyWith(notice: 'Added top-voted climbs to the queue.');
+  }
+
+  Future<void> importPendingSeed(List<String> climbIds) async {
+    if (climbIds.isEmpty) {
+      state = state.copyWith(notice: 'Every saved climb is already queued.');
+      return;
+    }
+    for (final String id in climbIds) { await addQueueEntry(id); }
+    state = state.copyWith(notice: 'Imported ${climbIds.length} climbs into the queue.');
+  }
+
   void setClientError(String message) {
     state = state.copyWith(errorMessage: message, clearNotice: true);
   }
@@ -339,12 +381,8 @@ class RoomController extends StateNotifier<RoomViewState> {
   ProviderClimb? _findClimb(String climbId) {
     final RoomSnapshot? room = state.room;
     if (room == null) return null;
-    for (final QueueEntry e in room.queue) {
-      if (e.climb.id == climbId) return e.climb;
-    }
-    for (final FinalistEntry e in room.finalists) {
-      if (e.climb.id == climbId) return e.climb;
-    }
+    for (final QueueEntry e in room.queue) { if (e.climb.id == climbId) return e.climb; }
+    for (final FinalistEntry e in room.finalists) { if (e.climb.id == climbId) return e.climb; }
     if (room.currentClimb?.id == climbId) return room.currentClimb;
     return null;
   }
