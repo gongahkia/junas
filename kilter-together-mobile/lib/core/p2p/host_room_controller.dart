@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/provider_models.dart';
 import '../models/room_models.dart';
+import '../storage/offline_kilter_catalog_repository.dart';
+import 'catalog_relay_service.dart';
 import 'host_room_service.dart';
 import 'p2p_message_types.dart';
 import 'p2p_provider.dart';
@@ -44,6 +46,7 @@ final hostRoomControllerProvider = StateNotifierProvider.autoDispose
     return HostRoomController(
       args: args,
       transport: ref.read(p2pTransportProvider),
+      catalogRepository: ref.read(offlineKilterCatalogRepositoryProvider),
     );
   },
 );
@@ -52,15 +55,19 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
   HostRoomController({
     required HostRoomArgs args,
     required P2pTransport transport,
+    required OfflineKilterCatalogRepository catalogRepository,
   })  : _args = args,
         _transport = transport,
+        _catalogRepository = catalogRepository,
         super(const HostRoomViewState()) {
     _init();
   }
 
   final HostRoomArgs _args;
   final P2pTransport _transport;
+  final OfflineKilterCatalogRepository _catalogRepository;
   late final HostRoomService _service;
+  CatalogRelayService? _catalogRelay;
   final Map<String, int> _peerParticipantIds = <String, int>{}; // peerId -> participantId
   StreamSubscription<P2pMessage>? _messageSub;
   StreamSubscription<P2pConnectionChange>? _connectionSub;
@@ -79,6 +86,10 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
       displayName: _args.displayName,
       role: 'host',
     );
+    _catalogRelay = CatalogRelayService(
+      transport: _transport,
+      catalogRepository: _catalogRepository,
+    )..start();
     _messageSub = _transport.messages.listen(_handleMessage);
     _connectionSub = _transport.connectionChanges.listen(_handleConnectionChange);
     try {
@@ -508,6 +519,7 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
 
   @override
   void dispose() {
+    _catalogRelay?.dispose();
     _messageSub?.cancel();
     _connectionSub?.cancel();
     unawaited(_transport.stopAdvertising());
