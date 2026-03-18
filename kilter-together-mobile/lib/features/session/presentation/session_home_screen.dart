@@ -64,7 +64,7 @@ class _SessionHomeScreenState extends ConsumerState<SessionHomeScreen> {
       await transport.startDiscovery(serviceId: p2pServiceId);
     } catch (e) {
       if (mounted) setState(() => _scanning = false);
-      debugPrint('P2P discovery failed: $e');
+      // silently handle discovery failure
     }
     // auto-stop after 8 seconds
     Future<void>.delayed(const Duration(seconds: 8), () {

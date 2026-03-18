@@ -13,9 +13,6 @@ class MultipeerTransport implements P2pTransport {
   final Map<String, P2pPeer> _peers = <String, P2pPeer>{};
   StreamSubscription<dynamic>? _eventSub;
   bool _disposed = false;
-
-  StreamSubscription<dynamic>? _eventSub;
-  bool _disposed = false;
   bool _listening = false;
 
   void _ensureListening() {
