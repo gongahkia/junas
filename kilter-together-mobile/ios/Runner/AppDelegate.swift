@@ -18,6 +18,9 @@ import UIKit
         self?.handleStorageMethodCall(call, result: result)
       }
     }
+    if let controller = window?.rootViewController as? FlutterViewController {
+      MultipeerPlugin.register(with: controller.registrar(forPlugin: "MultipeerPlugin")!)
+    }
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 
