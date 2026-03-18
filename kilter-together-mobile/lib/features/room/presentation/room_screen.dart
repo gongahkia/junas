@@ -285,7 +285,9 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   }
 
   Future<void> _loadRememberedProviderSecret() async {
-    // no-op in P2P mode — provider credentials stay on host device only
+    // in P2P mode the host already owns the provider connection.
+    // for hosts: provider is implicitly connected (offline catalog).
+    // for guests: credentials are never needed — host relays catalog data.
   }
 
   Future<void> _shareInvite(Uri inviteUri, String roomName) async {

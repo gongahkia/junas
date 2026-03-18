@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 import '../models/board_models.dart';
 import '../models/catalog_models.dart';
 import '../storage/offline_kilter_catalog_repository.dart';
@@ -55,13 +56,15 @@ class CatalogRelayService {
           'page_size': result.pageSize,
         },
       )));
-    } catch (_) {
+    } catch (e) {
+      developer.log('Catalog relay query failed: $e', name: 'CatalogRelay');
       unawaited(transport.send(senderId, P2pMessage(
         type: P2pMessageType.catalogResponse,
         payload: <String, dynamic>{
           'climbs': <dynamic>[],
           'has_more': false,
           'page_size': pageSize,
+          'error': '$e',
         },
       )));
     }

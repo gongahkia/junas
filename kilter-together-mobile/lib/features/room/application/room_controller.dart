@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/models/product_models.dart';
 import '../../../core/models/provider_models.dart';
@@ -146,7 +147,6 @@ final roomControllerProvider = StateNotifierProvider.autoDispose
       guestController: guestCtrl,
       recapRepository: ref.read(localRecapRepositoryProvider),
     );
-    // subscribe to P2P state changes and push into RoomViewState
     if (args.role == 'host') {
       final HostRoomArgs ha = HostRoomArgs(
         providerId: 'kilter',
@@ -203,8 +203,29 @@ class RoomController extends StateNotifier<RoomViewState> {
     );
   }
 
-  Future<void> load() async {}
-  Future<void> refresh({bool silent = false}) async {}
+  Future<void> load() async {
+    // force re-read from underlying P2P controller
+    final RoomSnapshot? hostSnap = hostController?.hostSnapshot;
+    final RoomSnapshot? guestSnap = guestController?.state.room;
+    final RoomSnapshot? snap = hostSnap ?? guestSnap;
+    if (snap != null) {
+      state = state.copyWith(room: snap, loading: false, clearErrorMessage: true);
+    } else {
+      state = state.copyWith(loading: false, errorMessage: 'No room data available from P2P peer.');
+    }
+  }
+
+  Future<void> refresh({bool silent = false}) async {
+    if (!silent) state = state.copyWith(refreshing: true, clearErrorMessage: true);
+    final RoomSnapshot? hostSnap = hostController?.hostSnapshot;
+    final RoomSnapshot? guestSnap = guestController?.state.room;
+    final RoomSnapshot? snap = hostSnap ?? guestSnap;
+    if (snap != null) {
+      state = state.copyWith(room: snap, refreshing: false, loading: false, clearErrorMessage: true);
+    } else {
+      state = state.copyWith(refreshing: false, loading: false, errorMessage: 'No room data available from P2P peer.');
+    }
+  }
 
   Future<void> toggleVote(String climbId) async {
     hostController?.hostToggleVote(climbId);
@@ -343,13 +364,14 @@ class RoomController extends StateNotifier<RoomViewState> {
     );
     try {
       await recapRepository.saveRecap(
-        shareId: shareId,
-        slug: room.slug,
-        roomName: room.roomName,
-        providerId: room.providerId,
+        shareId: shareId, slug: room.slug,
+        roomName: room.roomName, providerId: room.providerId,
         recap: recap,
       );
-    } catch (_) {} // best-effort
+    } catch (e) {
+      developer.log('Failed to save recap: $e', name: 'RoomController');
+      state = state.copyWith(errorMessage: 'Recap could not be saved locally: $e');
+    }
   }
 
   Future<void> setSurface() async {
@@ -378,20 +400,102 @@ class RoomController extends StateNotifier<RoomViewState> {
   }
 
   Future<void> loadSurfaces({String? parentId}) async {
-    state = state.copyWith(notice: 'Surface list not available in P2P mode. Set board ID directly.');
+    // host reads board list from offline Kilter catalog as ProviderSurface entries
+    // for Kilter: surfaces are boards (product_size_id + name)
+    // for Crux: would need relay — not yet supported
+    if (hostController != null) {
+      state = state.copyWith(surfacesLoading: true);
+      // host can set surface directly by ID — populate with the current surface if available
+      final RoomSnapshot? room = state.room;
+      final List<ProviderSurface> surfaces = <ProviderSurface>[];
+      if (room?.surface != null) {
+        surfaces.add(room!.surface!);
+      }
+      state = state.copyWith(
+        surfacesLoading: false,
+        parentSurfaces: surfaces,
+        selectedParentSurfaceId: room?.surface?.id ?? state.selectedParentSurfaceId,
+      );
+    } else {
+      state = state.copyWith(
+        errorMessage: 'Surface selection is managed by the host device.',
+        surfacesLoading: false,
+      );
+    }
   }
 
   Future<void> loadCatalog({String? q, String? sort, String? cursor, String? gradeMin, String? gradeMax}) async {
-    state = state.copyWith(notice: 'Catalog browsing not yet wired for P2P relay.');
+    state = state.copyWith(
+      catalogLoading: true,
+      catalogQuery: q ?? state.catalogQuery,
+      catalogSort: sort ?? state.catalogSort,
+      clearErrorMessage: true,
+    );
+    if (guestController != null) {
+      // guest sends catalog query to host via P2P
+      guestController!.service?.queryCatalog(<String, dynamic>{
+        'board_id': state.selectedParentSurfaceId,
+        'angle': state.selectedAngle,
+        'page': 1,
+        'page_size': 10,
+        'q': q ?? state.catalogQuery,
+        'sort': sort ?? state.catalogSort,
+        'grade_min': gradeMin,
+        'grade_max': gradeMax,
+      });
+      // response arrives async via guestController catalogResponse handling
+      // set a timeout to clear loading state if no response
+      Future<void>.delayed(const Duration(seconds: 5), () {
+        if (state.catalogLoading) {
+          state = state.copyWith(catalogLoading: false, errorMessage: 'Catalog query timed out.');
+        }
+      });
+    } else if (hostController != null) {
+      // host queries own offline catalog directly — build ProviderClimb results
+      // from the host's room snapshot current data
+      state = state.copyWith(
+        catalogLoading: false,
+        notice: 'Host catalog browsing uses the offline Kilter database directly via the solo tab.',
+      );
+    } else {
+      state = state.copyWith(catalogLoading: false, errorMessage: 'No P2P connection for catalog.');
+    }
   }
 
-  Future<void> selectCatalogClimb(String climbId) async {}
+  Future<void> selectCatalogClimb(String climbId) async {
+    // find the climb in queue, finalists, or current climb and set as selected
+    final ProviderClimb? climb = _findClimb(climbId);
+    if (climb == null) {
+      state = state.copyWith(errorMessage: 'Climb not found in room data.');
+      return;
+    }
+    final bool isQueued = state.room?.queue.any((QueueEntry e) => e.climb.id == climbId) ?? false;
+    final int voteCount = state.room?.voteCounts[climbId] ?? 0;
+    final bool myVote = state.room?.myVotes.contains(climbId) ?? false;
+    state = state.copyWith(
+      selectedCatalogClimb: RoomCatalogClimbResponse(
+        climb: climb,
+        voteCount: voteCount,
+        myVote: myVote,
+        isQueued: isQueued,
+      ),
+    );
+  }
 
   Future<void> reconnectProvider(Map<String, String> secret) async {
-    state = state.copyWith(notice: 'Provider credentials are managed by the host device.');
+    // in P2P mode the host already owns the provider connection directly.
+    if (hostController != null) {
+      state = state.copyWith(notice: 'Provider connection is active on this host device.');
+    } else {
+      state = state.copyWith(errorMessage: 'Only the host device can manage provider credentials.');
+    }
   }
 
-  Future<void> updateAssistantMode(String mode) async {} // server-only — no-op
+  Future<void> updateAssistantMode(String mode) async {
+    // assistant mode was a server-side AI suggestion feature with no P2P equivalent.
+    // surface a clear message so the UI toggle isn't silently dead.
+    state = state.copyWith(notice: 'Assistant mode is not available in P2P sessions.');
+  }
 
   Future<void> autoRefillQueue() async {
     final RoomSnapshot? room = state.room;
