@@ -8,7 +8,6 @@ import 'package:share_plus/share_plus.dart';
 import '../../../core/deep_links/invite_links.dart';
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/product_models.dart';
-import '../../../core/network/api_client.dart';
 import '../../../core/presentation/climbing_loader.dart';
 import '../../../core/presentation/feedback_prompt_card.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
@@ -57,7 +56,6 @@ class _RecapScreenState extends ConsumerState<RecapScreen> {
 
     return GradientScaffold(
       title: 'Session Recap',
-      subtitle: widget.server,
       actions: <Widget>[
         IconButton(
           onPressed: state.loading ? null : () => unawaited(controller.load()),
@@ -70,7 +68,6 @@ class _RecapScreenState extends ConsumerState<RecapScreen> {
                     Share.share(
                       InviteLink(
                         kind: InviteKind.recap,
-                        server: state.server,
                         shareId: recap.shareId,
                       ).toUri().toString(),
                       subject: recap.roomName ?? 'Session recap',
@@ -108,7 +105,6 @@ class _RecapScreenState extends ConsumerState<RecapScreen> {
                   Share.share(
                     InviteLink(
                       kind: InviteKind.recap,
-                      server: state.server,
                       shareId: recap.shareId,
                     ).toUri().toString(),
                     subject: recap.roomName ?? 'Session recap',
@@ -160,29 +156,12 @@ class _RecapScreenState extends ConsumerState<RecapScreen> {
     required String? message,
     required RoomRecap? recap,
   }) async {
-    if (recap == null) {
-      return;
-    }
-    await ref.read(apiClientProvider).submitFeedback(
-      server: _args.serverUri,
-      shareId: recap.shareId,
-      promptFamily: 'recap_final_slide',
-      sentiment: sentiment,
-      message: message,
-      route: '/recaps/${recap.shareId}',
-      metadata: <String, dynamic>{
-        'slide_index': _slideIndex,
-      },
-    );
+    if (recap == null) return;
     await ref
         .read(appPrefsControllerProvider.notifier)
         .markFeedbackPromptSeen('recap_final_slide');
-    if (!mounted) {
-      return;
-    }
-    setState(() {
-      _feedbackVisible = false;
-    });
+    if (!mounted) return;
+    setState(() { _feedbackVisible = false; });
   }
 
   Future<void> _startRematch({

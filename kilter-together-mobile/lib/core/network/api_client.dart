@@ -158,6 +158,16 @@ class ApiClient {
     return server.resolve('/api/').resolve('images/$baseName').toString();
   }
 
+  String resolveMediaUrl({required Uri server, required String url}) {
+    final String trimmed = url.trim();
+    if (trimmed.isEmpty) return trimmed;
+    if (trimmed.startsWith('data:') ||
+        RegExp(r'^(https?:)?//', caseSensitive: false).hasMatch(trimmed)) {
+      return trimmed;
+    }
+    return server.resolve(trimmed).toString();
+  }
+
   Future<List<ProviderSurface>> getSoloProviderSurfaces({
     required Uri server,
     required String providerId,

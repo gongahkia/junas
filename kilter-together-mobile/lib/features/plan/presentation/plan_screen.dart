@@ -31,7 +31,7 @@ class PlanScreen extends ConsumerWidget {
 
     return GradientScaffold(
       title: 'Shared Solo Plan',
-      subtitle: server,
+      subtitle: 'Shared plan',
       actions: <Widget>[
         IconButton(
           onPressed: state.loading ? null : () => unawaited(controller.load()),
@@ -44,7 +44,6 @@ class PlanScreen extends ConsumerWidget {
                     Share.share(
                       InviteLink(
                         kind: InviteKind.plan,
-                        server: args.serverUri,
                         shareId: state.plan!.shareId,
                       ).toUri().toString(),
                       subject: state.plan!.title,
@@ -164,8 +163,7 @@ class _PlanBody extends ConsumerWidget {
                       child: FilledButton.tonal(
                         onPressed: plan.openPath == null
                             ? null
-                            : () => _openInSolo(
-                                context, state.server, plan.openPath!),
+                            : () => _openInSolo(context, plan.openPath!),
                         child: const Text('Open in solo'),
                       ),
                     ),
@@ -228,24 +226,14 @@ class _PlanBody extends ConsumerWidget {
   Future<void> _sharePlan(SoloPlanSnapshot plan) async {
     final Uri shareUri = InviteLink(
       kind: InviteKind.plan,
-      server: state.server,
       shareId: plan.shareId,
     ).toUri();
-    await Share.share(
-      shareUri.toString(),
-      subject: plan.title,
-    );
+    await Share.share(shareUri.toString(), subject: plan.title);
   }
 
-  void _openInSolo(BuildContext context, Uri server, String openPath) {
+  void _openInSolo(BuildContext context, String openPath) {
     final GoRouter router = GoRouter.of(context);
-    final Uri path = Uri.parse(openPath);
-    final Map<String, String> queryParameters =
-        Map<String, String>.from(path.queryParameters);
-    queryParameters.putIfAbsent('server', () => server.toString());
-    router.go(
-      path.replace(queryParameters: queryParameters).toString(),
-    );
+    router.go(openPath);
   }
 
   Future<void> _startRoomFromPlan({

@@ -64,54 +64,20 @@ class _KilterTogetherAppState extends ConsumerState<KilterTogetherApp> {
 
   void _openInvite(String raw) {
     final InviteLink? invite = InviteLink.parse(raw);
-    final RoomJoinTarget? joinTarget = invite == null
-        ? parseRoomJoinTarget(raw)
-        : invite.kind == InviteKind.join &&
-                (invite.slug ?? '').trim().isNotEmpty
-            ? RoomJoinTarget(
-                slug: invite.slug!.trim(),
-                server: invite.server,
-              )
-            : null;
-    if (!mounted) {
-      return;
-    }
-
+    if (!mounted || invite == null) return;
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) {
-        return;
-      }
-
-      if (joinTarget != null && joinTarget.server != null) {
-        _router.goNamed(
-          'join-room',
-          queryParameters: <String, String>{
-            'server': joinTarget.server.toString(),
-            'slug': joinTarget.slug,
-          },
-        );
-        return;
-      }
-
-      if (invite == null) {
-        return;
-      }
-
+      if (!mounted) return;
       switch (invite.kind) {
         case InviteKind.join:
-          return;
+          if ((invite.slug ?? '').trim().isNotEmpty) {
+            _router.goNamed('join-room', queryParameters: <String, String>{
+              'slug': invite.slug!.trim(),
+            });
+          }
         case InviteKind.recap:
-          _router.goNamed(
-            'recap',
-            queryParameters: invite.toRouteQueryParameters(),
-          );
-          return;
+          _router.goNamed('recap', queryParameters: invite.toRouteQueryParameters());
         case InviteKind.plan:
-          _router.goNamed(
-            'plan',
-            queryParameters: invite.toRouteQueryParameters(),
-          );
-          return;
+          _router.goNamed('plan', queryParameters: invite.toRouteQueryParameters());
       }
     });
   }

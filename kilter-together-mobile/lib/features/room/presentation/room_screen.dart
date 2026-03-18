@@ -12,15 +12,12 @@ import '../../../core/deep_links/invite_links.dart';
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/room_models.dart';
-import '../../../core/models/session_models.dart';
-import '../../../core/network/api_client.dart';
 import '../../../core/presentation/climb_media_preview.dart';
 import '../../../core/presentation/climbing_loader.dart';
 import '../../../core/presentation/feedback_prompt_card.dart';
 import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
-import '../../../core/storage/provider_secret_repository.dart';
 import '../application/room_controller.dart';
 
 const List<int> _kilterAngleOptions = <int>[
@@ -282,29 +279,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   }
 
   Future<void> _loadRememberedProviderSecret() async {
-    try {
-      final RoomViewState roomState = ref.read(roomControllerProvider(_args));
-      final RoomSnapshot? room = roomState.room;
-      if (room == null) {
-        return;
-      }
-      final Map<String, String> secret =
-          await ref.read(providerSecretRepositoryProvider).readSecret(
-                server: _args.serverUri,
-                providerId: room.providerId,
-              );
-      if (!mounted || secret.isEmpty) {
-        return;
-      }
-      setState(() {
-        _rememberProviderSecret = true;
-        _kilterUsernameController.text = secret['username'] ?? '';
-        _kilterPasswordController.text = secret['password'] ?? '';
-        _cruxTokenController.text = secret['token'] ?? '';
-      });
-    } catch (_) {
-      // Ignore secure-store read failures and keep the reconnect inputs manual.
-    }
+    // no-op in P2P mode — provider credentials stay on host device only
   }
 
   Future<void> _shareInvite(Uri inviteUri, String roomName) async {
@@ -383,31 +358,6 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     await ref
         .read(roomControllerProvider(_args).notifier)
         .reconnectProvider(secret);
-
-    if (_rememberProviderSecret) {
-      await ref.read(providerSecretRepositoryProvider).saveSecret(
-            server: _args.serverUri,
-            providerId: room.providerId,
-            secret: secret,
-          );
-      await ref
-          .read(appPrefsControllerProvider.notifier)
-          .rememberProviderSecretPreference(
-            providerId: room.providerId,
-            remember: true,
-          );
-    } else {
-      await ref.read(providerSecretRepositoryProvider).clearSecret(
-            server: _args.serverUri,
-            providerId: room.providerId,
-          );
-      await ref
-          .read(appPrefsControllerProvider.notifier)
-          .rememberProviderSecretPreference(
-            providerId: room.providerId,
-            remember: false,
-          );
-    }
   }
 
   Future<void> _importPendingRoomSeed(
@@ -616,7 +566,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     if (roomState.loading && room == null) {
       return GradientScaffold(
         title: 'Room ${widget.slug}',
-        subtitle: widget.server,
+        subtitle: 'P2P session',
         actions: <Widget>[
           IconButton(
             onPressed: () => context.goNamed('session-home'),
@@ -635,7 +585,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     if (roomState.requiresRejoin || room == null) {
       return GradientScaffold(
         title: 'Room unavailable',
-        subtitle: widget.server,
+        subtitle: 'P2P session',
         actions: <Widget>[
           IconButton(
             onPressed: () => context.goNamed('session-home'),
@@ -660,7 +610,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                   onPressed: () => context.goNamed(
                     'join-room',
                     queryParameters: <String, String>{
-                      'server': widget.server,
+                      'server': 'P2P session',
                       'slug': widget.slug,
                       if (roomState.joinReason != null)
                         'reason': roomState.joinReason!,
@@ -677,14 +627,10 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
 
     final InviteLink invite = InviteLink(
       kind: InviteKind.join,
-      server: roomState.server,
       slug: room.slug,
     );
     final Uri inviteUri = invite.toUri();
-    final Uri webJoinUri = roomState.server.replace(
-      path: '/join/${Uri.encodeComponent(room.slug)}',
-      queryParameters: <String, String>{'server': roomState.server.toString()},
-    );
+    final Uri webJoinUri = inviteUri;
     final _ShareReadiness shareReadiness = _shareReadinessForRoom(room);
     final String shareReadinessSummary =
         _shareReadinessSummary(room, shareReadiness);
@@ -773,7 +719,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       },
       child: GradientScaffold(
       title: room.roomName ?? 'Room ${room.slug}',
-      subtitle: describeServer(roomState.server),
+      subtitle: 'P2P session',
       actions: <Widget>[
         IconButton(
           onPressed: () => unawaited(_openGuide(room)),
@@ -819,18 +765,6 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                   'A quick signal helps tune the room wrap-up flow before more post-session UI gets added.',
               onDismiss: () => unawaited(_dismissCloseFeedback()),
               onSubmit: (String sentiment, String? message) async {
-                await ref.read(apiClientProvider).submitFeedback(
-                  server: roomState.server,
-                  roomSlug: room.slug,
-                  promptFamily: 'room-close',
-                  sentiment: sentiment,
-                  message: message,
-                  route: '/room',
-                  metadata: <String, dynamic>{
-                    'provider_id': room.providerId,
-                    'participant_count': room.participants.length,
-                  },
-                );
                 await _dismissCloseFeedback();
               },
             ),
@@ -914,7 +848,6 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
             const SizedBox(height: 14),
           ],
           _CatalogCard(
-            apiClient: ref.read(apiClientProvider),
             roomState: roomState,
             queryController: _catalogQueryController,
             gradeMinController: _gradeMinController,
@@ -2326,7 +2259,6 @@ class _SurfaceCard extends StatelessWidget {
 
 class _CatalogCard extends StatelessWidget {
   const _CatalogCard({
-    required this.apiClient,
     required this.roomState,
     required this.queryController,
     required this.gradeMinController,
@@ -2343,7 +2275,6 @@ class _CatalogCard extends StatelessWidget {
     required this.onPromoteNext,
   });
 
-  final ApiClient apiClient;
   final RoomViewState roomState;
   final TextEditingController queryController;
   final TextEditingController gradeMinController;
@@ -2369,12 +2300,7 @@ class _CatalogCard extends StatelessWidget {
         ? const <String>[]
         : selectedClimb.climb.media
             .where((ProviderClimbMedia item) => item.kind == 'image')
-            .map(
-              (ProviderClimbMedia item) => apiClient.resolveMediaUrl(
-                server: roomState.server,
-                url: item.url,
-              ),
-            )
+            .map((ProviderClimbMedia item) => item.url)
             .toList(growable: false);
     final QueueEntry? selectedQueueEntry = selectedClimb == null
         ? null
