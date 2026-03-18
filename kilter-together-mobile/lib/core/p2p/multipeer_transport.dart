@@ -7,19 +7,25 @@ const MethodChannel _method = MethodChannel('kilter_together/multipeer');
 const EventChannel _events = EventChannel('kilter_together/multipeer_events');
 
 class MultipeerTransport implements P2pTransport {
-  MultipeerTransport() {
-    _eventSub = _events.receiveBroadcastStream().listen(
-      _handleEvent,
-      onError: (Object e) { /* platform channel not yet ready — safe to ignore */ },
-    );
-  }
-
   final StreamController<P2pMessage> _messageController = StreamController<P2pMessage>.broadcast();
   final StreamController<P2pPeer> _discoveredController = StreamController<P2pPeer>.broadcast();
   final StreamController<P2pConnectionChange> _connectionController = StreamController<P2pConnectionChange>.broadcast();
   final Map<String, P2pPeer> _peers = <String, P2pPeer>{};
   StreamSubscription<dynamic>? _eventSub;
   bool _disposed = false;
+
+  StreamSubscription<dynamic>? _eventSub;
+  bool _disposed = false;
+  bool _listening = false;
+
+  void _ensureListening() {
+    if (_listening) return;
+    _listening = true;
+    _eventSub = _events.receiveBroadcastStream().listen(
+      _handleEvent,
+      onError: (Object e) { /* channel error — safe to ignore */ },
+    );
+  }
 
   @override
   Stream<P2pMessage> get messages => _messageController.stream;
@@ -65,6 +71,7 @@ class MultipeerTransport implements P2pTransport {
 
   @override
   Future<void> startAdvertising({required String displayName, required String serviceId}) async {
+    _ensureListening();
     await _method.invokeMethod<void>('startAdvertising', <String, dynamic>{
       'displayName': displayName,
       'serviceId': serviceId,
@@ -78,6 +85,7 @@ class MultipeerTransport implements P2pTransport {
 
   @override
   Future<void> startDiscovery({required String serviceId}) async {
+    _ensureListening();
     await _method.invokeMethod<void>('startDiscovery', <String, dynamic>{
       'serviceId': serviceId,
     });
