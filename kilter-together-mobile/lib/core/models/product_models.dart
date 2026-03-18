@@ -24,6 +24,14 @@ class SessionSummaryClimb {
       voteCount: (json['vote_count'] as num?)?.toInt(),
     );
   }
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'climb': climb.toJson(),
+    if (position != null) 'position': position,
+    if (status != null) 'status': status,
+    if (addedBy != null) 'added_by': addedBy,
+    if (voteCount != null) 'vote_count': voteCount,
+  };
 }
 
 class SessionSummary {
@@ -138,6 +146,8 @@ class RecapStat {
       value: json['value'] as String? ?? '',
     );
   }
+
+  Map<String, dynamic> toJson() => <String, dynamic>{'label': label, 'value': value};
 }
 
 class RecapSlide {
@@ -184,6 +194,17 @@ class RecapSlide {
       participants: rawParticipants.map((dynamic value) => '$value').toList(growable: false),
     );
   }
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'id': id,
+    'eyebrow': eyebrow,
+    'title': title,
+    'description': description,
+    'stats': stats.map((RecapStat s) => s.toJson()).toList(growable: false),
+    if (featuredClimb != null) 'featured_climb': featuredClimb!.toJson(),
+    'climbs': climbs.map((SessionSummaryClimb c) => c.toJson()).toList(growable: false),
+    'participants': participants,
+  };
 }
 
 class RoomSeed {
@@ -208,6 +229,12 @@ class RoomSeed {
           .toList(growable: false),
     );
   }
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'provider_id': providerId,
+    'surface': surface.toJson(),
+    'climbs': climbs.map((ProviderClimb c) => c.toJson()).toList(growable: false),
+  };
 }
 
 class RoomRecap {
@@ -249,6 +276,17 @@ class RoomRecap {
           : null,
     );
   }
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'share_id': shareId,
+    'room_slug': roomSlug,
+    if (roomName != null) 'room_name': roomName,
+    'provider_id': providerId,
+    if (surfaceName != null) 'surface_name': surfaceName,
+    'closed_at': closedAt.toUtc().toIso8601String(),
+    'slides': slides.map((RecapSlide s) => s.toJson()).toList(growable: false),
+    if (rematchSeed != null) 'rematch_seed': rematchSeed!.toJson(),
+  };
 }
 
 class SoloPlanSnapshot {

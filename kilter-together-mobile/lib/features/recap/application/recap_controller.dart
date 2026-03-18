@@ -1,43 +1,29 @@
 import 'dart:async';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../core/models/product_models.dart';
-import '../../../core/models/session_models.dart';
-import '../../../core/network/api_client.dart';
+import '../../../core/storage/local_recap_repository.dart';
 
 class RecapRouteArgs {
   const RecapRouteArgs({
     required this.server,
     required this.shareId,
   });
-
   final String server;
   final String shareId;
-
-  Uri get serverUri => normalizeServerUri(server);
-
   @override
-  bool operator ==(Object other) {
-    return other is RecapRouteArgs &&
-        other.server == server &&
-        other.shareId == shareId;
-  }
-
+  bool operator ==(Object other) =>
+      other is RecapRouteArgs && other.server == server && other.shareId == shareId;
   @override
   int get hashCode => Object.hash(server, shareId);
 }
 
 class RecapViewState {
   const RecapViewState({
-    required this.server,
     required this.shareId,
     this.recap,
     this.loading = true,
     this.errorMessage,
   });
-
-  final Uri server;
   final String shareId;
   final RoomRecap? recap;
   final bool loading;
@@ -51,12 +37,10 @@ class RecapViewState {
     bool clearErrorMessage = false,
   }) {
     return RecapViewState(
-      server: server,
       shareId: shareId,
       recap: clearRecap ? null : (recap ?? this.recap),
       loading: loading ?? this.loading,
-      errorMessage:
-          clearErrorMessage ? null : (errorMessage ?? this.errorMessage),
+      errorMessage: clearErrorMessage ? null : (errorMessage ?? this.errorMessage),
     );
   }
 }
@@ -66,7 +50,7 @@ final recapControllerProvider = StateNotifierProvider.autoDispose
   (Ref ref, RecapRouteArgs args) {
     return RecapController(
       args: args,
-      apiClient: ref.read(apiClientProvider),
+      recapRepository: ref.read(localRecapRepositoryProvider),
     );
   },
 );
@@ -74,38 +58,34 @@ final recapControllerProvider = StateNotifierProvider.autoDispose
 class RecapController extends StateNotifier<RecapViewState> {
   RecapController({
     required RecapRouteArgs args,
-    required ApiClient apiClient,
+    required LocalRecapRepository recapRepository,
   })  : _args = args,
-        _apiClient = apiClient,
-        super(
-          RecapViewState(
-            server: args.serverUri,
-            shareId: args.shareId,
-          ),
-        ) {
+        _recapRepository = recapRepository,
+        super(RecapViewState(shareId: args.shareId)) {
     unawaited(load());
   }
 
   final RecapRouteArgs _args;
-  final ApiClient _apiClient;
+  final LocalRecapRepository _recapRepository;
 
   Future<void> load() async {
     state = state.copyWith(loading: true, clearErrorMessage: true);
     try {
-      final RoomRecap recap = await _apiClient.getRoomRecap(
-        server: _args.serverUri,
-        shareId: _args.shareId,
-      );
-      state = state.copyWith(
-        recap: recap,
-        loading: false,
-        clearErrorMessage: true,
-      );
-    } on ApiFailure catch (error) {
+      final RoomRecap? recap = await _recapRepository.loadRecap(_args.shareId);
+      if (recap != null) {
+        state = state.copyWith(recap: recap, loading: false, clearErrorMessage: true);
+      } else {
+        state = state.copyWith(
+          clearRecap: true,
+          loading: false,
+          errorMessage: 'No recap found for this session.',
+        );
+      }
+    } catch (e) {
       state = state.copyWith(
         clearRecap: true,
         loading: false,
-        errorMessage: error.message,
+        errorMessage: 'Failed to load recap: $e',
       );
     }
   }
