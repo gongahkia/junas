@@ -38,16 +38,19 @@ class _SessionHomeScreenState extends ConsumerState<SessionHomeScreen> {
   StreamSubscription<P2pPeer>? _discoverySub;
   bool _scanning = false;
 
+  P2pTransport? _transport;
+
   @override
   void dispose() {
     _discoverySub?.cancel();
-    if (_scanning) unawaited(ref.read(p2pTransportProvider).stopDiscovery());
+    if (_scanning) unawaited(_transport?.stopDiscovery() ?? Future<void>.value());
     super.dispose();
   }
 
   Future<void> _scanNearby() async {
     setState(() { _scanning = true; _nearbyPeers = <P2pPeer>[]; });
     final P2pTransport transport = ref.read(p2pTransportProvider);
+    _transport = transport;
     _discoverySub?.cancel();
     _discoverySub = transport.discoveredPeers.listen((P2pPeer peer) {
       if (!mounted) return;
