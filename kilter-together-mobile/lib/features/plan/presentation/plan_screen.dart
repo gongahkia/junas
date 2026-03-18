@@ -17,16 +17,14 @@ import '../application/plan_controller.dart';
 class PlanScreen extends ConsumerWidget {
   const PlanScreen({
     super.key,
-    required this.server,
     required this.shareId,
   });
 
-  final String server;
   final String shareId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final PlanRouteArgs args = PlanRouteArgs(server: server, shareId: shareId);
+    final PlanRouteArgs args = PlanRouteArgs(server: 'p2p://local', shareId: shareId);
     final PlanViewState state = ref.watch(planControllerProvider(args));
     final PlanController controller =
         ref.read(planControllerProvider(args).notifier);

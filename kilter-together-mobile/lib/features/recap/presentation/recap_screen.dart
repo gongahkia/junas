@@ -18,11 +18,9 @@ import '../application/recap_controller.dart';
 class RecapScreen extends ConsumerStatefulWidget {
   const RecapScreen({
     super.key,
-    required this.server,
     required this.shareId,
   });
 
-  final String server;
   final String shareId;
 
   @override
@@ -35,7 +33,7 @@ class _RecapScreenState extends ConsumerState<RecapScreen> {
   bool _feedbackChecked = false;
 
   RecapRouteArgs get _args =>
-      RecapRouteArgs(server: widget.server, shareId: widget.shareId);
+      RecapRouteArgs(server: 'p2p://local', shareId: widget.shareId);
 
   @override
   Widget build(BuildContext context) {

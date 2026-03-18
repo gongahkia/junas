@@ -219,12 +219,18 @@ String? _validateReconnectSecret(
 class RoomScreen extends ConsumerStatefulWidget {
   const RoomScreen({
     super.key,
-    required this.server,
     required this.slug,
+    this.role = 'host',
+    this.displayName,
+    this.hostPeerId,
+    this.hostPeerName,
   });
 
-  final String server;
   final String slug;
+  final String role;
+  final String? displayName;
+  final String? hostPeerId;
+  final String? hostPeerName;
 
   @override
   ConsumerState<RoomScreen> createState() => _RoomScreenState();
@@ -252,7 +258,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   Timer? _copiedInviteResetTimer;
 
   RoomRouteArgs get _args =>
-      RoomRouteArgs(server: widget.server, slug: widget.slug);
+      RoomRouteArgs(server: 'p2p://local', slug: widget.slug);
 
   @override
   void initState() {
