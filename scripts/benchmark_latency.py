@@ -158,12 +158,41 @@ def summarize_runs(runs: list[dict]) -> dict:
     }
 
 
-def write_reports(summaries: list[dict], raw_runs: list[dict]) -> tuple[Path, Path]:
+def render_summary_table(summaries: list[dict]) -> str:
+    lines = []
+    lines.append(
+        f"{'file':<28} {'words':>8} {'chars':>8} {'min':>10} {'mean':>10} {'p50':>10} {'p95':>10} {'max':>10}"
+    )
+    lines.append("-" * 100)
+    for item in summaries:
+        lines.append(
+            f"{item['file_name']:<28} "
+            f"{item['word_count']:>8} "
+            f"{item['char_count']:>8} "
+            f"{item['min_ms']:>10.3f} "
+            f"{item['mean_ms']:>10.3f} "
+            f"{item['p50_ms']:>10.3f} "
+            f"{item['p95_ms']:>10.3f} "
+            f"{item['max_ms']:>10.3f}"
+        )
+    return "\n".join(lines)
+
+
+def write_reports(
+    summaries: list[dict],
+    raw_runs: list[dict],
+    *,
+    base_url: str,
+    input_paths: list[Path],
+    repetitions: int,
+    warmups: int,
+) -> tuple[Path, Path, Path]:
     reports_dir = ROOT / "reports"
     reports_dir.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     json_path = reports_dir / f"latency_{timestamp}.json"
     csv_path = reports_dir / f"latency_{timestamp}.csv"
+    txt_path = reports_dir / f"latency_{timestamp}.txt"
 
     json_path.write_text(
         json.dumps({"summaries": summaries, "runs": raw_runs}, indent=2),
@@ -190,24 +219,35 @@ def write_reports(summaries: list[dict], raw_runs: list[dict]) -> tuple[Path, Pa
         writer.writeheader()
         writer.writerows(summaries)
 
-    return json_path, csv_path
+    lines = [
+        "Noupe Latency Benchmark Report",
+        "",
+        f"Generated: {timestamp}",
+        f"Target URL: {base_url}",
+        f"Warmups per file: {warmups}",
+        f"Measured repetitions per file: {repetitions}",
+        "",
+        "Inputs:",
+    ]
+    for path in input_paths:
+        lines.append(f"- {path}")
+    lines.extend(
+        [
+            "",
+            render_summary_table(summaries),
+            "",
+            f"JSON report: {json_path}",
+            f"CSV report : {csv_path}",
+        ]
+    )
+    txt_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    return json_path, csv_path, txt_path
 
 
 def print_summary_table(summaries: list[dict]) -> None:
     print()
-    print(f"{'file':<28} {'words':>8} {'chars':>8} {'min':>10} {'mean':>10} {'p50':>10} {'p95':>10} {'max':>10}")
-    print("-" * 100)
-    for item in summaries:
-        print(
-            f"{item['file_name']:<28} "
-            f"{item['word_count']:>8} "
-            f"{item['char_count']:>8} "
-            f"{item['min_ms']:>10.3f} "
-            f"{item['mean_ms']:>10.3f} "
-            f"{item['p50_ms']:>10.3f} "
-            f"{item['p95_ms']:>10.3f} "
-            f"{item['max_ms']:>10.3f}"
-        )
+    print(render_summary_table(summaries))
 
 
 def main() -> int:
@@ -257,10 +297,18 @@ def main() -> int:
             summaries.append(summarize_runs(file_runs))
 
         print_summary_table(summaries)
-        json_path, csv_path = write_reports(summaries, raw_runs)
+        json_path, csv_path, txt_path = write_reports(
+            summaries,
+            raw_runs,
+            base_url=base_url,
+            input_paths=input_paths,
+            repetitions=args.repetitions,
+            warmups=args.warmups,
+        )
         print()
         print(f"JSON report: {json_path}")
         print(f"CSV report : {csv_path}")
+        print(f"TXT report : {txt_path}")
         return 0
     except urllib.error.HTTPError as exc:
         sys.stderr.write(f"request failed with HTTP {exc.code}: {exc.reason}\n")

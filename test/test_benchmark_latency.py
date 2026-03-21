@@ -98,6 +98,7 @@ class BenchmarkLatencyTests(unittest.TestCase):
         reports_dir = ROOT / "reports"
         existing_json = set(reports_dir.glob("latency_*.json")) if reports_dir.exists() else set()
         existing_csv = set(reports_dir.glob("latency_*.csv")) if reports_dir.exists() else set()
+        existing_txt = set(reports_dir.glob("latency_*.txt")) if reports_dir.exists() else set()
 
         try:
             self.mod.wait_for_ready(base_url, timeout=30)
@@ -124,11 +125,16 @@ class BenchmarkLatencyTests(unittest.TestCase):
 
             new_json = sorted(set(reports_dir.glob("latency_*.json")) - existing_json)
             new_csv = sorted(set(reports_dir.glob("latency_*.csv")) - existing_csv)
+            new_txt = sorted(set(reports_dir.glob("latency_*.txt")) - existing_txt)
             self.assertEqual(len(new_json), 1)
             self.assertEqual(len(new_csv), 1)
+            self.assertEqual(len(new_txt), 1)
             report_payload = new_json[0].read_text(encoding="utf-8")
+            txt_payload = new_txt[0].read_text(encoding="utf-8")
             self.assertIn("sample.txt", report_payload)
             self.assertIn("\"runs\":", report_payload)
+            self.assertIn("Noupe Latency Benchmark Report", txt_payload)
+            self.assertIn("sample.txt", txt_payload)
         finally:
             backend_proc.terminate()
             try:
@@ -141,6 +147,8 @@ class BenchmarkLatencyTests(unittest.TestCase):
             for path in sorted(set(reports_dir.glob("latency_*.json")) - existing_json):
                 path.unlink()
             for path in sorted(set(reports_dir.glob("latency_*.csv")) - existing_csv):
+                path.unlink()
+            for path in sorted(set(reports_dir.glob("latency_*.txt")) - existing_txt):
                 path.unlink()
 
 
