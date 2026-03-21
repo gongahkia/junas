@@ -24,7 +24,7 @@ main.app.router.lifespan_context = _noop_lifespan
 
 
 def load_lexicon_module():
-    path = ROOT / "layer1-lexicon" / "filter.py"
+    path = ROOT / "backend/workflow/layer1-lexicon" / "filter.py"
     spec = importlib.util.spec_from_file_location("test_lexicon_filter", path)
     if spec is None or spec.loader is None:
         raise ImportError(f"cannot load lexicon module from {path}")

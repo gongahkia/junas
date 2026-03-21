@@ -1,7 +1,10 @@
 import sys
 import os
 import json
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[4]
+sys.path.insert(0, str(PROJECT_ROOT))
 from configs.runtime import get_config_val
 import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
@@ -23,7 +26,7 @@ def _load_threshold() -> float:
         "thresholds",
         "lock_path",
         "THRESHOLD_LOCK_PATH",
-        os.path.join(os.path.dirname(__file__), "..", "..", "..", "configs", "thresholds.lock.json"),
+        str(PROJECT_ROOT / "configs" / "thresholds.lock.json"),
         str,
     )
     if os.path.exists(lock_path):

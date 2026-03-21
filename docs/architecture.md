@@ -19,6 +19,7 @@ Noupe is a multi-layered Material Non-Public Information (MNPI) classification e
 ### Runtime Layout
 
 - The active runtime is backend-only and is exposed through `backend.main:app`.
+- The active stage code now lives under `backend/workflow/` rather than at repository root.
 - FastAPI no longer mounts chat/email/slack UI routes directly.
 - The legacy analyzer plus chat/email/slack demos are static archived demo surfaces that call the backend API over HTTP.
 - Swagger and ReDoc are served directly from the FastAPI backend at `/docs` and `/redoc`.

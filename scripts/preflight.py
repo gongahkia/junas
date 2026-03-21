@@ -117,6 +117,7 @@ def main() -> int:
     args = parser.parse_args()
 
     root = Path(__file__).resolve().parent.parent
+    workflow_root = root / "backend" / "workflow"
     config_path = Path(os.environ.get("NOUPE_CONFIG", str(root / "config.toml")))
     cfg, cfg_errors = load_config(config_path)
 
@@ -152,7 +153,7 @@ def main() -> int:
     ok_spacy, msg_spacy = check_spacy_model()
     (checks if ok_spacy else warnings).append(msg_spacy)
 
-    clust_ckpt = root / "layer3-clustering" / "checkpoints" / "anomaly_detector.joblib"
+    clust_ckpt = workflow_root / "layer3-clustering" / "checkpoints" / "anomaly_detector.joblib"
     record_layer_state(
         "clustering",
         clust_ckpt.exists(),
@@ -160,7 +161,7 @@ def main() -> int:
         f"clustering checkpoint missing: {clust_ckpt}",
     )
 
-    m1_dir = root / "layer4-classification" / "model-1" / "checkpoints" / "best"
+    m1_dir = workflow_root / "layer4-classification" / "model-1" / "checkpoints" / "best"
     record_layer_state(
         "model1",
         has_model_weights(m1_dir),
@@ -168,7 +169,7 @@ def main() -> int:
         f"model1 weights missing: {m1_dir}",
     )
 
-    m2_dir = root / "layer4-classification" / "model-2" / "checkpoints" / "best"
+    m2_dir = workflow_root / "layer4-classification" / "model-2" / "checkpoints" / "best"
     record_layer_state(
         "model2",
         has_model_weights(m2_dir),
@@ -176,8 +177,8 @@ def main() -> int:
         f"model2 weights missing: {m2_dir}",
     )
 
-    reg_model = root / "layer6-regression" / "checkpoints" / "risk_regressor.json"
-    reg_meta = root / "layer6-regression" / "checkpoints" / "metadata.json"
+    reg_model = workflow_root / "layer6-regression" / "checkpoints" / "risk_regressor.json"
+    reg_meta = workflow_root / "layer6-regression" / "checkpoints" / "metadata.json"
     record_layer_state(
         "regression",
         reg_model.exists() and reg_meta.exists(),

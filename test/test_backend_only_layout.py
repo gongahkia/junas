@@ -47,6 +47,50 @@ class BackendOnlyLayoutTests(unittest.TestCase):
         for path in expected_paths:
             self.assertTrue(path.exists(), f"missing launcher: {path}")
 
+    def test_workflow_layout_is_nested_under_backend(self):
+        expected_paths = [
+            ROOT / "backend" / "workflow" / "layer0-parser" / "parse_docs.py",
+            ROOT / "backend" / "workflow" / "layer1-lexicon" / "filter.py",
+            ROOT / "backend" / "workflow" / "layer2-embeddings" / "inference.py",
+            ROOT / "backend" / "workflow" / "layer3-clustering" / "isolation_forest.py",
+            ROOT / "backend" / "workflow" / "layer4-classification" / "model-1" / "inference.py",
+            ROOT / "backend" / "workflow" / "layer4-classification" / "model-2" / "inference.py",
+            ROOT / "backend" / "workflow" / "layer5-mosaic" / "inference.py",
+            ROOT / "backend" / "workflow" / "layer6-regression" / "inference.py",
+        ]
+        for path in expected_paths:
+            self.assertTrue(path.exists(), f"missing workflow file: {path}")
+
+    def test_duplicate_root_shims_are_removed(self):
+        removed_paths = [
+            ROOT / "clustering",
+            ROOT / "embeddings",
+            ROOT / "lexicon",
+            ROOT / "model-1",
+            ROOT / "model-2",
+        ]
+        for path in removed_paths:
+            self.assertFalse(path.exists(), f"duplicate shim should be removed: {path}")
+
+    def test_folder_readmes_exist(self):
+        expected_paths = [
+            ROOT / "README.md",
+            ROOT / "api" / "README.md",
+            ROOT / "archive" / "README.md",
+            ROOT / "backend" / "README.md",
+            ROOT / "backend" / "workflow" / "README.md",
+            ROOT / "configs" / "README.md",
+            ROOT / "docs" / "README.md",
+            ROOT / "helper" / "README.md",
+            ROOT / "reports" / "README.md",
+            ROOT / "scripts" / "README.md",
+            ROOT / "scripts" / "launch" / "README.md",
+            ROOT / "test" / "README.md",
+            ROOT / "training" / "README.md",
+        ]
+        for path in expected_paths:
+            self.assertTrue(path.exists(), f"missing folder README: {path}")
+
 
 if __name__ == "__main__":
     unittest.main()

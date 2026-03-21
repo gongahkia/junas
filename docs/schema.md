@@ -261,7 +261,7 @@ Each batch item returns the same full response shape as `POST /classify`.
 
 ## Embeddings
 
-Outputs from `layer2-embeddings/generate_embeddings.py`:
+Outputs from `backend/workflow/layer2-embeddings/generate_embeddings.py`:
 
 - `public_embeddings.npy`
 - `violation_embeddings.npy`
@@ -271,7 +271,7 @@ Outputs from `layer2-embeddings/generate_embeddings.py`:
 
 Isolation Forest checkpoint:
 
-- `layer3-clustering/checkpoints/anomaly_detector.joblib`
+- `backend/workflow/layer3-clustering/checkpoints/anomaly_detector.joblib`
 
 Inference output:
 
@@ -287,11 +287,11 @@ Inference output:
 
 Model-1 checkpoint:
 
-- `layer4-classification/model-1/checkpoints/best/`
+- `backend/workflow/layer4-classification/model-1/checkpoints/best/`
 
 Model-2 checkpoint:
 
-- `layer4-classification/model-2/checkpoints/best/`
+- `backend/workflow/layer4-classification/model-2/checkpoints/best/`
 
 ## Mosaic
 

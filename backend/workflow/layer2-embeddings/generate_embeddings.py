@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 from tqdm import tqdm
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
 from helper.training_corpus import load_documents_from_batches

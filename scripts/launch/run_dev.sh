@@ -213,6 +213,7 @@ echo "Pipeline selection: ${PIPELINE_LAYERS_NORMALIZED}"
 print_pipeline_notes
 
 activate_venv
+WORKFLOW_ROOT="${ROOT}/backend/workflow"
 
 echo "🧪 Running preflight checks..."
 if [ "${NOUPE_PREFLIGHT_STRICT:-1}" = "1" ]; then
@@ -224,19 +225,19 @@ fi
 MISSING=0
 
 if pipeline_has_layer "clustering"; then
-    check_file "${ROOT}/layer3-clustering/checkpoints/anomaly_detector.joblib"
+    check_file "${WORKFLOW_ROOT}/layer3-clustering/checkpoints/anomaly_detector.joblib"
 fi
 
 if pipeline_has_layer "model1"; then
-    check_dir_has_model "${ROOT}/layer4-classification/model-1/checkpoints/best" "model1"
+    check_dir_has_model "${WORKFLOW_ROOT}/layer4-classification/model-1/checkpoints/best" "model1"
 fi
 
 if pipeline_has_layer "model2"; then
-    check_dir_has_model "${ROOT}/layer4-classification/model-2/checkpoints/best" "model2"
+    check_dir_has_model "${WORKFLOW_ROOT}/layer4-classification/model-2/checkpoints/best" "model2"
 fi
 
 if pipeline_has_layer "regression"; then
-    if [ ! -f "${ROOT}/layer6-regression/checkpoints/risk_regressor.json" ] || [ ! -f "${ROOT}/layer6-regression/checkpoints/metadata.json" ]; then
+    if [ ! -f "${WORKFLOW_ROOT}/layer6-regression/checkpoints/risk_regressor.json" ] || [ ! -f "${WORKFLOW_ROOT}/layer6-regression/checkpoints/metadata.json" ]; then
         echo "ℹ️  Optional regression checkpoint missing. Startup will continue without the regression layer."
     fi
 fi

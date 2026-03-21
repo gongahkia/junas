@@ -18,6 +18,7 @@ import importlib.util
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+WORKFLOW_ROOT = ROOT / "backend" / "workflow"
 sys.path.insert(0, str(ROOT))
 
 import numpy as np
@@ -267,7 +268,7 @@ def main():
     # 4. Train & evaluate Model 1 (FinBERT: safe / risk)
     try:
         m1_result = train_and_evaluate(
-            model_path=ROOT / "layer4-classification" / "model-1",
+            model_path=WORKFLOW_ROOT / "layer4-classification" / "model-1",
             train_rows=m1_train,
             val_rows=m1_val,
             model_name="Model 1  (FinBERT -- non vs risk)",
@@ -281,7 +282,7 @@ def main():
     # 5. Train & evaluate Model 2 (BERT severity: low / high)
     try:
         m2_result = train_and_evaluate(
-            model_path=ROOT / "layer4-classification" / "model-2",
+            model_path=WORKFLOW_ROOT / "layer4-classification" / "model-2",
             train_rows=m2_train,
             val_rows=m2_val,
             model_name="Model 2  (BERT -- low vs high)",

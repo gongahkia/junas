@@ -40,7 +40,7 @@
 
 ## Clustering (Isolation Forest)
 - trained on `all_embeddings.npy`
-- checkpoint path: `layer3-clustering/checkpoints/anomaly_detector.joblib`
+- checkpoint path: `backend/workflow/layer3-clustering/checkpoints/anomaly_detector.joblib`
 - `IF_CONTAMINATION`, `IF_MAX_FEATURES`, `IF_N_ESTIMATORS` are configurable
 
 ## Mosaic Aggregation

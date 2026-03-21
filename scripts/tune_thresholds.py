@@ -13,8 +13,9 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 SCHEMA_VERSION = 1
 ROOT = Path(__file__).resolve().parent.parent
-MODEL1_DIR = ROOT / "layer4-classification" / "model-1" / "checkpoints" / "best"
-MODEL2_DIR = ROOT / "layer4-classification" / "model-2" / "checkpoints" / "best"
+WORKFLOW_ROOT = ROOT / "backend" / "workflow"
+MODEL1_DIR = WORKFLOW_ROOT / "layer4-classification" / "model-1" / "checkpoints" / "best"
+MODEL2_DIR = WORKFLOW_ROOT / "layer4-classification" / "model-2" / "checkpoints" / "best"
 DEFAULT_LOCK = ROOT / "configs" / "thresholds.lock.json"
 
 
@@ -112,4 +113,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

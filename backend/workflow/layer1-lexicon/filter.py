@@ -4,7 +4,10 @@ import os
 import json
 import logging
 import spacy
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(PROJECT_ROOT))
 from configs.runtime import get_config_val, _cfg
 from dataclasses import dataclass, field
 from presidio_analyzer import AnalyzerEngine, PatternRecognizer, Pattern, RecognizerRegistry

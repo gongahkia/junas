@@ -23,6 +23,7 @@ from fastapi import Depends, FastAPI, Header, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+WORKFLOW_ROOT = PROJECT_ROOT / "backend" / "workflow"
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode  # noqa: E402
@@ -1106,7 +1107,7 @@ async def lifespan(app: FastAPI):
         try:
             if layer == "lexicon":
                 lex_mod = load_module_from_path(
-                    "lex_filter", str(PROJECT_ROOT / "layer1-lexicon" / "filter.py")
+                    "lex_filter", str(WORKFLOW_ROOT / "layer1-lexicon" / "filter.py")
                 )
                 _state["models"]["lexicon"] = lex_mod.LexiconFilter()
 
@@ -1114,7 +1115,7 @@ async def lifespan(app: FastAPI):
 
                 def _load_embedding():
                     emb_mod = load_module_from_path(
-                        "emb_inf", str(PROJECT_ROOT / "layer2-embeddings" / "inference.py")
+                        "emb_inf", str(WORKFLOW_ROOT / "layer2-embeddings" / "inference.py")
                     )
                     return emb_mod.EmbeddingsEncoder.get_instance()
 
@@ -1124,22 +1125,22 @@ async def lifespan(app: FastAPI):
                     _state["models"]["embedding"] = _load_embedding()
 
             elif layer == "clustering":
-                clust_ckpt = PROJECT_ROOT / "layer3-clustering" / "checkpoints" / "anomaly_detector.joblib"
+                clust_ckpt = WORKFLOW_ROOT / "layer3-clustering" / "checkpoints" / "anomaly_detector.joblib"
                 if not clust_ckpt.exists():
                     raise FileNotFoundError(f"clustering checkpoint missing: {clust_ckpt}")
                 clust_mod = load_module_from_path(
-                    "clust_inf", str(PROJECT_ROOT / "layer3-clustering" / "isolation_forest.py")
+                    "clust_inf", str(WORKFLOW_ROOT / "layer3-clustering" / "isolation_forest.py")
                 )
                 _state["models"]["clustering"] = clust_mod.MNPIAnomalyDetector.load()
 
             elif layer == "model1":
-                model1_ckpt = PROJECT_ROOT / "layer4-classification" / "model-1" / "checkpoints" / "best"
+                model1_ckpt = WORKFLOW_ROOT / "layer4-classification" / "model-1" / "checkpoints" / "best"
                 if not has_model_weights(model1_ckpt):
                     raise FileNotFoundError(f"model1 weights missing: {model1_ckpt}")
 
                 def _load_model1():
                     m1_mod = load_module_from_path(
-                        "m1_inf", str(PROJECT_ROOT / "layer4-classification" / "model-1" / "inference.py")
+                        "m1_inf", str(WORKFLOW_ROOT / "layer4-classification" / "model-1" / "inference.py")
                     )
                     return m1_mod.FinBERTClassifier(checkpoint_dir=str(model1_ckpt))
 
@@ -1149,13 +1150,13 @@ async def lifespan(app: FastAPI):
                     _state["models"]["model1"] = _load_model1()
 
             elif layer == "model2":
-                model2_ckpt = PROJECT_ROOT / "layer4-classification" / "model-2" / "checkpoints" / "best"
+                model2_ckpt = WORKFLOW_ROOT / "layer4-classification" / "model-2" / "checkpoints" / "best"
                 if not has_model_weights(model2_ckpt):
                     raise FileNotFoundError(f"model2 weights missing: {model2_ckpt}")
 
                 def _load_model2():
                     m2_mod = load_module_from_path(
-                        "m2_inf", str(PROJECT_ROOT / "layer4-classification" / "model-2" / "inference.py")
+                        "m2_inf", str(WORKFLOW_ROOT / "layer4-classification" / "model-2" / "inference.py")
                     )
                     return m2_mod.BERTSeverityClassifier(checkpoint_dir=str(model2_ckpt))
 
@@ -1165,22 +1166,22 @@ async def lifespan(app: FastAPI):
                     _state["models"]["model2"] = _load_model2()
 
             elif layer == "regression":
-                reg_model = PROJECT_ROOT / "layer6-regression" / "checkpoints" / "risk_regressor.json"
-                reg_meta = PROJECT_ROOT / "layer6-regression" / "checkpoints" / "metadata.json"
+                reg_model = WORKFLOW_ROOT / "layer6-regression" / "checkpoints" / "risk_regressor.json"
+                reg_meta = WORKFLOW_ROOT / "layer6-regression" / "checkpoints" / "metadata.json"
                 if not reg_model.exists() or not reg_meta.exists():
                     raise FileNotFoundError(
                         f"regression artifacts missing: {reg_model} and/or {reg_meta}"
                     )
 
                 reg_mod = load_module_from_path(
-                    "reg_inf", str(PROJECT_ROOT / "layer6-regression" / "inference.py")
+                    "reg_inf", str(WORKFLOW_ROOT / "layer6-regression" / "inference.py")
                 )
                 _state["models"]["regression"] = reg_mod.XGBoostRegression()
 
             elif layer == "mosaic":
                 def _load_mosaic():
                     mos_mod = load_module_from_path(
-                        "mos_inf", str(PROJECT_ROOT / "layer5-mosaic" / "inference.py")
+                        "mos_inf", str(WORKFLOW_ROOT / "layer5-mosaic" / "inference.py")
                     )
                     return mos_mod.MosaicAggregator.load()
 

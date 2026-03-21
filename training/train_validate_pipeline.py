@@ -35,6 +35,7 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
+WORKFLOW_ROOT = ROOT / "backend" / "workflow"
 sys.path.insert(0, str(ROOT))
 
 try:
@@ -516,7 +517,7 @@ def train_clustering(documents: list[dict[str, Any]], embedding_model_name: str,
     npy_path = Path(npy_path_raw)
     try:
         np.save(str(npy_path), embeddings)
-        cmd = [python_exec, str(ROOT / "layer3-clustering" / "isolation_forest.py"), str(npy_path)]
+        cmd = [python_exec, str(WORKFLOW_ROOT / "layer3-clustering" / "isolation_forest.py"), str(npy_path)]
         run_checked(cmd, "clustering training")
     finally:
         npy_path.unlink(missing_ok=True)
@@ -817,7 +818,7 @@ def train_regression(
 
     regression_csv = write_regression_csv(rows)
     try:
-        cmd = [python_exec, str(ROOT / "layer6-regression" / "train.py"), str(regression_csv)]
+        cmd = [python_exec, str(WORKFLOW_ROOT / "layer6-regression" / "train.py"), str(regression_csv)]
         run_checked(cmd, "regression training")
     finally:
         regression_csv.unlink(missing_ok=True)
@@ -1146,7 +1147,7 @@ def run_pass1(
     model1_metrics = run_stage(
         stage_key="pass1.model1",
         runner=lambda: train_classification_model(
-            model_path=ROOT / "layer4-classification" / "model-1",
+            model_path=WORKFLOW_ROOT / "layer4-classification" / "model-1",
             train_rows=m1_train,
             val_rows=m1_val,
             model_name="Model 1",
@@ -1160,7 +1161,7 @@ def run_pass1(
     model2_metrics = run_stage(
         stage_key="pass1.model2",
         runner=lambda: train_classification_model(
-            model_path=ROOT / "layer4-classification" / "model-2",
+            model_path=WORKFLOW_ROOT / "layer4-classification" / "model-2",
             train_rows=m2_train,
             val_rows=m2_val,
             model_name="Model 2",
@@ -1245,7 +1246,7 @@ def run_pass2(
     run_stage(
         stage_key="pass2.model1",
         runner=lambda: train_classification_model(
-            model_path=ROOT / "layer4-classification" / "model-1",
+            model_path=WORKFLOW_ROOT / "layer4-classification" / "model-1",
             train_rows=m1_rows,
             val_rows=None,
             model_name="Model 1",
@@ -1259,7 +1260,7 @@ def run_pass2(
     run_stage(
         stage_key="pass2.model2",
         runner=lambda: train_classification_model(
-            model_path=ROOT / "layer4-classification" / "model-2",
+            model_path=WORKFLOW_ROOT / "layer4-classification" / "model-2",
             train_rows=m2_rows,
             val_rows=None,
             model_name="Model 2",

@@ -91,21 +91,21 @@ class WindowInferencePayloadTests(unittest.TestCase):
     def test_model1_strips_overflow_mapping_before_forward(self):
         self._run_prediction_and_assert(
             "test_model1_inference",
-            "layer4-classification/model-1/inference.py",
+            "backend/workflow/layer4-classification/model-1/inference.py",
             "FinBERTClassifier",
         )
 
     def test_model2_strips_overflow_mapping_before_forward(self):
         self._run_prediction_and_assert(
             "test_model2_inference",
-            "layer4-classification/model-2/inference.py",
+            "backend/workflow/layer4-classification/model-2/inference.py",
             "BERTSeverityClassifier",
         )
 
 
 class SlidingWindowAggregationTests(unittest.TestCase):
     def test_model1_predict_uses_highest_risk_window(self):
-        module = load_module("test_model1_windows", "layer4-classification/model-1/inference.py")
+        module = load_module("test_model1_windows", "backend/workflow/layer4-classification/model-1/inference.py")
         classifier = module.FinBERTClassifier.__new__(module.FinBERTClassifier)
         classifier._predict_windows = lambda text: (
             [0.12, 0.91, 0.63],
@@ -154,7 +154,7 @@ class SlidingWindowAggregationTests(unittest.TestCase):
         self.assertEqual(result.top_window["end_char"], 52)
 
     def test_model2_predict_uses_highest_high_risk_window(self):
-        module = load_module("test_model2_windows", "layer4-classification/model-2/inference.py")
+        module = load_module("test_model2_windows", "backend/workflow/layer4-classification/model-2/inference.py")
         classifier = module.BERTSeverityClassifier.__new__(module.BERTSeverityClassifier)
         classifier._predict_windows = lambda text: (
             [0.32, 0.48, 0.84],
@@ -203,8 +203,8 @@ class SlidingWindowAggregationTests(unittest.TestCase):
         self.assertEqual(result.top_window["end_char"], 67)
 
     def test_window_bounds_ignore_padding_and_keep_last_real_offset(self):
-        model1_module = load_module("test_model1_bounds", "layer4-classification/model-1/inference.py")
-        model2_module = load_module("test_model2_bounds", "layer4-classification/model-2/inference.py")
+        model1_module = load_module("test_model1_bounds", "backend/workflow/layer4-classification/model-1/inference.py")
+        model2_module = load_module("test_model2_bounds", "backend/workflow/layer4-classification/model-2/inference.py")
         offsets = [[0, 0], [11, 19], [20, 27], [0, 0], [28, 33], [0, 0]]
 
         self.assertEqual(model1_module._window_bounds(offsets), (11, 33))

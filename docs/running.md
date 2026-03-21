@@ -280,25 +280,25 @@ Both classification training scripts expect CSVs with columns `text,label`.
 Labels: `0` = public/safe, `1` = non-public/risk.
 
 ```sh
-python3 layer4-classification/model-1/classifier.py data/train.csv data/val.csv
+python3 backend/workflow/layer4-classification/model-1/classifier.py data/train.csv data/val.csv
 ```
 
-Checkpoint directory: `layer4-classification/model-1/checkpoints/best/`.
+Checkpoint directory: `backend/workflow/layer4-classification/model-1/checkpoints/best/`.
 
 ### Model-2 (BERT — high risk vs low risk)
 
 Labels: `0` = low_risk, `1` = high_risk. Train on violation corpus only (no safe/public rows).
 
 ```sh
-python3 layer4-classification/model-2/classifier.py data/train_violations.csv data/val_violations.csv
+python3 backend/workflow/layer4-classification/model-2/classifier.py data/train_violations.csv data/val_violations.csv
 ```
 
-Checkpoint directory: `layer4-classification/model-2/checkpoints/best/`.
+Checkpoint directory: `backend/workflow/layer4-classification/model-2/checkpoints/best/`.
 
 ## Generating Embeddings
 
 ```sh
-python3 layer2-embeddings/generate_embeddings.py
+python3 backend/workflow/layer2-embeddings/generate_embeddings.py
 ```
 
 Outputs `public_embeddings.npy`, `violation_embeddings.npy`, and `all_embeddings.npy`.
@@ -306,15 +306,15 @@ Outputs `public_embeddings.npy`, `violation_embeddings.npy`, and `all_embeddings
 ## Training the Anomaly Detector (Isolation Forest)
 
 ```sh
-python3 layer3-clustering/isolation_forest.py all_embeddings.npy
+python3 backend/workflow/layer3-clustering/isolation_forest.py all_embeddings.npy
 ```
 
-Checkpoint saved to `layer3-clustering/checkpoints/anomaly_detector.joblib`.
+Checkpoint saved to `backend/workflow/layer3-clustering/checkpoints/anomaly_detector.joblib`.
 
 Optional custom output path:
 
 ```sh
-python3 layer3-clustering/isolation_forest.py all_embeddings.npy path/to/output.joblib
+python3 backend/workflow/layer3-clustering/isolation_forest.py all_embeddings.npy path/to/output.joblib
 ```
 
 ## Configuration
@@ -350,7 +350,7 @@ Notable keys:
 
 ## Restricted List
 
-Edit `layer1-lexicon/restricted_list.json`:
+Edit `backend/workflow/layer1-lexicon/restricted_list.json`:
 
 ```json
 {"entities": [{"name": "...", "ticker": "...", "isin": "..."}]}
