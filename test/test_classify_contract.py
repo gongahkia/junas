@@ -113,7 +113,7 @@ class OffendingSpanApiTests(unittest.TestCase):
                     risk_score=0.88,
                     top_window={
                         "start_char": 13,
-                        "end_char": 41,
+                        "end_char": 42,
                         "text": "confidential operating review",
                         "risk_score": 0.88,
                     },
@@ -136,7 +136,7 @@ class OffendingSpanApiTests(unittest.TestCase):
             self.assertEqual(span["rule"], "sliding_window")
             self.assertEqual(span["matched_text"], "confidential operating review")
             self.assertEqual(span["start_char"], 13)
-            self.assertEqual(span["end_char"], 41)
+            self.assertEqual(span["end_char"], 42)
             self.assertIn("windows=3", span["detail"])
 
     def test_offending_spans_include_model2_window_for_high_risk(self):
