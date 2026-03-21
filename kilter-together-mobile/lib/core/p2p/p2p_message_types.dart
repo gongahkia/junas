@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer' as developer;
 
 enum P2pMessageType {
   // guest -> host
@@ -64,7 +65,8 @@ class P2pMessage {
         payload: (json['payload'] as Map<String, dynamic>?) ?? <String, dynamic>{},
         senderId: json['sender_id'] as String?,
       );
-    } catch (_) {
+    } catch (e) {
+      developer.log('P2pMessage.decode failed: $e', name: 'P2P');
       return null;
     }
   }
