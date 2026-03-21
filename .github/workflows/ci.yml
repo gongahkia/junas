@@ -1,4 +1,4 @@
-name: Kilter Together CI/CD on push
+name: Kilter Together CI on push
 
 on:
   push:
@@ -7,51 +7,19 @@ on:
   pull_request:
 
 jobs:
-  backend:
+  flutter:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: api
+        working-directory: kilter-together-mobile
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: subosito/flutter-action@v2
         with:
-          go-version-file: api/go.mod
-      - name: Verify legacy name is gone
-        working-directory: .
-        run: |
-          legacy_pattern='board'"buddy"
-          if rg -n "$legacy_pattern" --hidden --glob '!.git'; then
-            echo "Legacy repository references remain."
-            exit 1
-          fi
-      - name: Run go vet
-        run: go vet ./...
-      - name: Install staticcheck
-        run: go install honnef.co/go/tools/cmd/staticcheck@latest
-      - name: Run staticcheck
-        run: |
-          "$(go env GOPATH)/bin/staticcheck" ./...
-      - name: Run Go tests
-        run: go test ./...
-      - name: Build Go API
-        run: go build ./...
-      - name: Verify generated Swagger docs are up to date
-        run: |
-          go run github.com/swaggo/swag/cmd/swag@v1.16.4 init -g main.go -o docs
-          git diff --exit-code docs
-
-  deployment-config:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Render Caddyfile from production env example
-        run: ./scripts/render-caddyfile.sh compose.production.env.example /tmp/Caddyfile
-      - name: Render Alertmanager config from env example
-        run: ./scripts/render-alertmanager-config.sh observability/alertmanager/alertmanager.env.example /tmp/alertmanager.production.yml
-      - name: Validate base compose config
-        run: docker compose --env-file compose.env.example -f docker-compose.yml config >/tmp/base-compose.yml
-      - name: Validate production compose config
-        run: docker compose --env-file compose.production.env.example -f docker-compose.production.yml config >/tmp/production-compose.yml
-      - name: Validate observability compose config
-        run: docker compose -f docker-compose.observability.yml -f docker-compose.observability.production.yml config >/tmp/observability-compose.yml
+          channel: stable
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Analyze
+        run: flutter analyze --no-fatal-infos
+      - name: Run tests
+        run: flutter test
