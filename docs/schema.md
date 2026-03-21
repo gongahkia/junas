@@ -34,7 +34,8 @@ Request:
 {
   "text": "string",
   "entity_id": "string | null",
-  "debug": "boolean | null"
+  "debug": "boolean | null",
+  "include_offending_spans": "boolean | null"
 }
 ```
 
@@ -82,6 +83,22 @@ Response:
       {"layer": "string", "phase": "startup|lazy_load|runtime", "message": "string"}
     ]
   },
+  "offending_spans": [
+    {
+      "id": "string",
+      "layer": "lexicon | model1 | model2",
+      "rule": "string",
+      "severity": "string",
+      "matched_text": "string",
+      "detail": "string",
+      "start_char": "int",
+      "end_char": "int",
+      "start_line": "int",
+      "start_column": "int",
+      "end_line": "int",
+      "end_column": "int"
+    }
+  ] | null,
   "embedding": ["float", "..."] | null,
   "timings_ms": {"layer_name": "float"}
 }
@@ -90,6 +107,9 @@ Response:
 Notes:
 
 - `embedding` is included only when `debug=true`.
+- `include_offending_spans=true` returns exact lexicon-derived locations and approximate classifier window locations when the final result is `LOW_RISK` or `HIGH_RISK`.
+- `layer=lexicon` spans are exact rule hits; `layer=model1` and `layer=model2` spans are approximate top-risk windows from sliding-window classifier inference.
+- `start_char`/`end_char` are zero-based offsets into the normalized request text; `end_char` is exclusive.
 - `model1`/`model2`/`clustering`/`regression` may be `null` when layers are disabled or missing checkpoints.
 - `observability.degraded=true` means the pipeline returned a best-effort result because a configured layer that should have executed was unavailable or failed at runtime.
 
