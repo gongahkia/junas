@@ -60,6 +60,7 @@ RISK_ORDER = {
 MODEL_WEIGHT_EXTS = ("safetensors", "bin", "pt", "ckpt")
 SUPPRESSED_REQUEST_LOG_PATHS = {"/health", "/ready", "/metrics"}
 DEFAULT_OPTIONAL_LAYERS = {"mosaic"}
+SPAN_CONTEXT_CHARS = 48
 
 
 def _is_truthy(value: str | None, *, default: bool = False) -> bool:
@@ -548,6 +549,30 @@ def _offset_to_line_column(line_starts: list[int], offset: int) -> tuple[int, in
     return (line_index + 1, (offset - line_start) + 1)
 
 
+def _build_context_window(text: str, start: int, end: int, radius: int = SPAN_CONTEXT_CHARS) -> tuple[str, str]:
+    before = text[max(0, start - radius):start]
+    after = text[end:min(len(text), end + radius)]
+    return (before, after)
+
+
+def _optional_float(value: Any) -> float | None:
+    if value is None:
+        return None
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _optional_int(value: Any) -> int | None:
+    if value is None:
+        return None
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
 def build_offending_spans(text: str, lex_hits: list[Any]) -> list[OffendingSpanResponse]:
     line_starts = _build_line_starts(text)
     spans: list[OffendingSpanResponse] = []
@@ -566,6 +591,8 @@ def build_offending_spans(text: str, lex_hits: list[Any]) -> list[OffendingSpanR
         start_line, start_column = _offset_to_line_column(line_starts, start)
         end_line, end_column = _offset_to_line_column(line_starts, end)
         matched_text = text[start:end]
+        context_before, context_after = _build_context_window(text, start, end)
+        score = _optional_float(getattr(hit, "score", None))
         spans.append(
             OffendingSpanResponse(
                 id=f"lexicon:{getattr(hit, 'rule', 'unknown')}:{start}:{end}:{index}",
@@ -580,6 +607,13 @@ def build_offending_spans(text: str, lex_hits: list[Any]) -> list[OffendingSpanR
                 start_column=start_column,
                 end_line=end_line,
                 end_column=end_column,
+                is_exact=True,
+                char_length=end - start,
+                line_span=max(1, end_line - start_line + 1),
+                context_before=context_before,
+                context_after=context_after,
+                score=score,
+                score_type="rule_score" if score is not None else None,
             )
         )
 
@@ -627,6 +661,13 @@ def build_classifier_offending_spans(
         end_line, end_column = _offset_to_line_column(line_starts, end)
         score_value = float(top_window.get(score_field, getattr(result, score_field, 0.0)))
         severity = "high" if final_classification == Classification.HIGH_RISK else "info"
+        context_before, context_after = _build_context_window(text, start, end)
+        window_index = _optional_int(top_window.get("window_index"))
+        window_count = _optional_int(getattr(result, "window_count", 1))
+        window_token_count = _optional_int(top_window.get("token_count"))
+        window_stride = _optional_int(top_window.get("window_stride"))
+        window_max_seq_len = _optional_int(top_window.get("max_seq_len"))
+        matched_text = str(top_window.get("text") or text[start:end])
 
         spans.append(
             OffendingSpanResponse(
@@ -634,11 +675,12 @@ def build_classifier_offending_spans(
                 layer=layer,
                 rule="sliding_window",
                 severity=severity,
-                matched_text=text[start:end],
+                matched_text=matched_text,
                 detail=(
                     f"approximate classifier window from {layer}; "
                     f"{score_field}={score_value:.3f}; "
-                    f"windows={int(getattr(result, 'window_count', 1))}"
+                    f"window_index={window_index if window_index is not None else 0}; "
+                    f"windows={window_count if window_count is not None else 1}"
                 ),
                 start_char=start,
                 end_char=end,
@@ -646,6 +688,18 @@ def build_classifier_offending_spans(
                 start_column=start_column,
                 end_line=end_line,
                 end_column=end_column,
+                is_exact=False,
+                char_length=end - start,
+                line_span=max(1, end_line - start_line + 1),
+                context_before=context_before,
+                context_after=context_after,
+                score=score_value,
+                score_type=score_field,
+                window_index=window_index,
+                window_count=window_count,
+                window_token_count=window_token_count,
+                window_stride=window_stride,
+                window_max_seq_len=window_max_seq_len,
             )
         )
 
