@@ -37,10 +37,12 @@ class BackendOnlyLayoutTests(unittest.TestCase):
 
     def test_launch_scripts_exist(self):
         expected_paths = [
+            ROOT / "scripts" / "clean_dev.sh",
             ROOT / "scripts" / "launch" / "common.sh",
             ROOT / "scripts" / "launch" / "run_dev.sh",
             ROOT / "scripts" / "launch" / "run_prod.sh",
             ROOT / "scripts" / "launch" / "run_backend_only.sh",
+            ROOT / "scripts" / "train_dev.sh",
         ]
         for path in expected_paths:
             self.assertTrue(path.exists(), f"missing launcher: {path}")
