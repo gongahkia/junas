@@ -116,6 +116,15 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
     }
   }
 
+  bool _senderIsHost(String peerId) {
+    final int? participantId = _peerParticipantIds[peerId];
+    if (participantId == null) return false;
+    final Participant? p = _service.state.participants
+        .where((Participant p) => p.id == participantId)
+        .firstOrNull;
+    return p != null && (p.role == 'host' || p.role == 'co_host');
+  }
+
   void _handleMessage(P2pMessage message) {
     final String? senderId = message.senderId;
     if (senderId == null) return;
@@ -141,27 +150,36 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
       case P2pMessageType.leaveRoom:
         _handleLeaveRoom(senderId);
       case P2pMessageType.promoteClimb:
+        if (!_senderIsHost(senderId)) return;
         _handlePromoteClimb(senderId, message.payload);
       case P2pMessageType.clearVotes:
+        if (!_senderIsHost(senderId)) return;
         _service.clearVotes();
         _broadcastState();
       case P2pMessageType.updateRoomName:
+        if (!_senderIsHost(senderId)) return;
         _service.updateRoomName(message.payload['room_name'] as String? ?? '');
         _broadcastState();
       case P2pMessageType.setFistBumps:
+        if (!_senderIsHost(senderId)) return;
         _service.setFistBumpsEnabled(message.payload['enabled'] as bool? ?? true);
         _broadcastState();
       case P2pMessageType.setSurface:
+        if (!_senderIsHost(senderId)) return;
         final Map<String, dynamic> raw = (message.payload['surface'] as Map<String, dynamic>?) ?? <String, dynamic>{};
         _service.setSurface(ProviderSurface.fromJson(raw));
         _broadcastState();
       case P2pMessageType.pickRandom:
+        if (!_senderIsHost(senderId)) return;
         _handlePickRandom(senderId, message.payload);
       case P2pMessageType.updateRole:
+        if (!_senderIsHost(senderId)) return;
         _handleUpdateRole(senderId, message.payload);
       case P2pMessageType.removeParticipant:
+        if (!_senderIsHost(senderId)) return;
         _handleRemoveParticipant(senderId, message.payload);
       case P2pMessageType.closeRoom:
+        if (!_senderIsHost(senderId)) return;
         _handleCloseRoom(senderId);
       case P2pMessageType.catalogQuery:
         break; // handled by catalog relay
