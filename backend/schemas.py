@@ -119,6 +119,18 @@ class OffendingSpanResponse(BaseModel):
     start_column: int
     end_line: int
     end_column: int
+    is_exact: bool
+    char_length: int
+    line_span: int
+    context_before: str = ""
+    context_after: str = ""
+    score: Optional[float] = None
+    score_type: Optional[str] = None
+    window_index: Optional[int] = None
+    window_count: Optional[int] = None
+    window_token_count: Optional[int] = None
+    window_stride: Optional[int] = None
+    window_max_seq_len: Optional[int] = None
 
 
 class ObservabilityResponse(BaseModel):
