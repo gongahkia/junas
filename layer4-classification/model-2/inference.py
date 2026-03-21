@@ -111,6 +111,7 @@ class BERTSeverityClassifier:
             return_tensors="pt",
         )
         offset_mapping = tokenized.pop("offset_mapping")
+        tokenized.pop("overflow_to_sample_mapping", None)
         inputs = {key: value.to(self.device) for key, value in tokenized.items()}
 
         with torch.inference_mode():
