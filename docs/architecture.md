@@ -97,7 +97,7 @@ flowchart TD
    The incoming text is processed against regex rules, spaCy Named Entity Recognition, and Microsoft Presidio's PII recognizers. 
    - **Short-Circuit:** If critical elements like restricted entities (from a configuration list) are identified, or high absolute money values are crossed, the flow is instantly flagged `HIGH_RISK`, bypassing the Transformer models.
 3. **Layer 2: Embedding Generation**
-   Sentences not short-circuited are batched and embedded into dense 768-dimensional float arrays utilizing the `all-mpnet-base-v2` encoder.
+   The runtime embeds the normalized request text into a dense 768-dimensional vector using the `all-mpnet-base-v2` encoder. Sentence-level embedding generation still exists in the offline training workflow, but inference-time embedding is document-level.
 4. **Layer 3: Clustering (Anomaly Detection)**
    An Isolation Forest clustering model ingests the document embedding to compute an anomaly score. This identifies significant divergences against the typical data distribution the models were trained on.
 5. **Layer 4 & 4b: Text Classification Models**
