@@ -47,7 +47,7 @@ class CatalogRelayService {
           gradeMin: gradeMin,
           gradeMax: gradeMax,
         ),
-      );
+      ).timeout(const Duration(seconds: 10));
       unawaited(transport.send(senderId, P2pMessage(
         type: P2pMessageType.catalogResponse,
         payload: <String, dynamic>{
