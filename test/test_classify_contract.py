@@ -218,6 +218,210 @@ class OffendingSpanApiTests(unittest.TestCase):
             self.assertEqual(spans_by_layer["model2"]["score_type"], "high_risk_score")
             self.assertEqual(spans_by_layer["model2"]["window_count"], 3)
 
+    def test_offending_spans_support_multiline_exact_hits(self):
+        text = "alpha\nAcme Corp\nProject Atlas\nomega"
+        hit = SimpleNamespace(
+            rule="restricted_list",
+            matched_text="Acme Corp\nProject Atlas",
+            severity="high",
+            detail="entity=Acme Corp project=Atlas",
+            score=7.0,
+            start_char=6,
+            end_char=29,
+        )
+        test_app.seed_test_state(
+            pipeline=["lexicon"],
+            models={
+                "lexicon": test_app.DummyLexiconFilter(flagged=True, total_score=12.0, hits=[hit]),
+            },
+        )
+
+        with TestClient(test_app.app) as client:
+            response = client.post(
+                "/classify",
+                json={"text": text, "include_offending_spans": True},
+            )
+            self.assertEqual(response.status_code, 200)
+            payload = response.json()
+            span = payload["offending_spans"][0]
+            self.assertEqual(span["matched_text"], "Acme Corp\nProject Atlas")
+            self.assertEqual(span["start_line"], 2)
+            self.assertEqual(span["start_column"], 1)
+            self.assertEqual(span["end_line"], 3)
+            self.assertEqual(span["end_column"], 14)
+            self.assertEqual(span["line_span"], 2)
+            self.assertEqual(span["context_before"], "alpha\n")
+            self.assertEqual(span["context_after"], "\nomega")
+
+    def test_cached_response_preserves_offending_spans(self):
+        class CountingRiskModel:
+            def __init__(self):
+                self.calls = 0
+
+            def predict(self, text: str):
+                self.calls += 1
+                return SimpleNamespace(
+                    label="risk",
+                    confidence=0.87,
+                    risk_score=0.87,
+                    top_window={
+                        "start_char": 13,
+                        "end_char": 42,
+                        "text": text[13:42],
+                        "risk_score": 0.87,
+                        "window_index": 1,
+                        "token_count": 6,
+                        "window_stride": 128,
+                        "max_seq_len": 512,
+                    },
+                    window_count=3,
+                )
+
+        model = CountingRiskModel()
+        test_app.seed_test_state(
+            pipeline=["lexicon", "model1"],
+            models={
+                "lexicon": test_app.DummyLexiconFilter(flagged=False),
+                "model1": model,
+            },
+        )
+
+        text = "public intro\nconfidential operating review\npublic outro"
+        with TestClient(test_app.app) as client:
+            first = client.post("/classify", json={"text": text, "include_offending_spans": True})
+            second = client.post("/classify", json={"text": text, "include_offending_spans": True})
+
+        self.assertEqual(first.status_code, 200)
+        self.assertEqual(second.status_code, 200)
+        self.assertEqual(model.calls, 1)
+        self.assertEqual(first.json()["observability"]["cache_status"], "miss")
+        self.assertEqual(second.json()["observability"]["cache_status"], "hit")
+        self.assertEqual(first.json()["offending_spans"], second.json()["offending_spans"])
+
+    def test_cache_key_distinguishes_include_offending_spans(self):
+        class CountingRiskModel:
+            def __init__(self):
+                self.calls = 0
+
+            def predict(self, text: str):
+                self.calls += 1
+                return SimpleNamespace(
+                    label="risk",
+                    confidence=0.91,
+                    risk_score=0.91,
+                    top_window={
+                        "start_char": 8,
+                        "end_char": 30,
+                        "text": text[8:30],
+                        "risk_score": 0.91,
+                        "window_index": 0,
+                        "token_count": 5,
+                        "window_stride": 128,
+                        "max_seq_len": 512,
+                    },
+                    window_count=2,
+                )
+
+        model = CountingRiskModel()
+        test_app.seed_test_state(
+            pipeline=["lexicon", "model1"],
+            models={
+                "lexicon": test_app.DummyLexiconFilter(flagged=False),
+                "model1": model,
+            },
+        )
+
+        text = "public\nsensitive roadmap\npublic"
+        with TestClient(test_app.app) as client:
+            no_spans = client.post("/classify", json={"text": text})
+            with_spans = client.post("/classify", json={"text": text, "include_offending_spans": True})
+            with_spans_cached = client.post("/classify", json={"text": text, "include_offending_spans": True})
+
+        self.assertEqual(no_spans.status_code, 200)
+        self.assertEqual(with_spans.status_code, 200)
+        self.assertEqual(with_spans_cached.status_code, 200)
+        self.assertEqual(model.calls, 2)
+        self.assertIsNone(no_spans.json()["offending_spans"])
+        self.assertEqual(with_spans.json()["observability"]["cache_status"], "miss")
+        self.assertEqual(with_spans_cached.json()["observability"]["cache_status"], "hit")
+        self.assertEqual(len(with_spans.json()["offending_spans"]), 1)
+
+
+class BatchClassifyApiTests(unittest.TestCase):
+    def test_batch_classify_preserves_per_item_contracts(self):
+        class RoutingLexicon:
+            def run(self, text: str):
+                if "Acme Corp" in text:
+                    return SimpleNamespace(
+                        flagged=True,
+                        high_risk_short_circuit=False,
+                        total_score=12.0,
+                        score_threshold=10.0,
+                        score_threshold_exceeded=True,
+                        hits=[
+                            SimpleNamespace(
+                                rule="restricted_list",
+                                matched_text="Acme Corp",
+                                severity="high",
+                                detail="entity=Acme Corp ticker=ACME",
+                                score=5.0,
+                                start_char=text.index("Acme Corp"),
+                                end_char=text.index("Acme Corp") + len("Acme Corp"),
+                            )
+                        ],
+                        restricted_entities_found=[{"name": "Acme Corp", "ticker": "ACME"}],
+                    )
+                return SimpleNamespace(
+                    flagged=False,
+                    high_risk_short_circuit=False,
+                    total_score=0.0,
+                    score_threshold=10.0,
+                    score_threshold_exceeded=False,
+                    hits=[],
+                    restricted_entities_found=[],
+                )
+
+        test_app.seed_test_state(
+            pipeline=["lexicon"],
+            models={"lexicon": RoutingLexicon()},
+        )
+
+        with TestClient(test_app.app) as client:
+            response = client.post(
+                "/classify/batch",
+                json={
+                    "items": [
+                        {"text": "Memo: Acme Corp is buying GlobalTech.", "include_offending_spans": True},
+                        {"text": "Public earnings call next week."},
+                    ]
+                },
+            )
+
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        self.assertEqual(len(payload["results"]), 2)
+        first, second = payload["results"]
+        self.assertEqual(first["classification"], "LOW_RISK")
+        self.assertEqual(second["classification"], "SAFE")
+        self.assertTrue(first["request_id"].endswith(":0"))
+        self.assertTrue(second["request_id"].endswith(":1"))
+        self.assertEqual(first["offending_spans"][0]["matched_text"], "Acme Corp")
+        self.assertIsNone(second["offending_spans"])
+
+    def test_batch_classify_rejects_more_than_32_items(self):
+        test_app.seed_test_state(
+            pipeline=["lexicon"],
+            models={"lexicon": test_app.DummyLexiconFilter(flagged=False)},
+        )
+
+        with TestClient(test_app.app) as client:
+            response = client.post(
+                "/classify/batch",
+                json={"items": [{"text": f"sample {index}"} for index in range(33)]},
+            )
+
+        self.assertEqual(response.status_code, 422)
+
 
 class LexiconSpanExtractionTests(unittest.TestCase):
     @classmethod
