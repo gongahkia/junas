@@ -53,6 +53,8 @@ Outputs are written to `reports/` as:
 - `latency_<timestamp>.csv`
 - `latency_<timestamp>.txt`
 
+The `.txt` report now includes both the summary table and the per-file detailed run breakdown, including `timings_ms` values for each workflow step returned by the backend.
+
 ## Running the API
 
 ```sh
