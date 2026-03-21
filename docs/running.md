@@ -90,7 +90,13 @@ Useful env vars:
 - `NOUPE_LOG_LEVEL` (default `info`)
 - `NOUPE_RELOAD=1` to enable autoreload
 
-By default, the API now allows degraded startup when configured layers are missing and exposes that state through `GET /ready` and `GET /diagnostics`. When lazy loading is enabled, `GET /ready` remains degraded until required lazy layers finish warming.
+Bare `uvicorn backend.main:app` startup allows degraded mode by default when configured required layers are missing, and exposes that state through `GET /ready` and `GET /diagnostics`. When lazy loading is enabled, `GET /ready` remains degraded until required lazy layers finish warming.
+
+The launcher scripts are stricter by default:
+
+- `scripts/launch/run_dev.sh` defaults `NOUPE_FAIL_ON_LAYER_LOAD_ERROR=1`
+- `scripts/launch/run_backend_only.sh` defaults `NOUPE_FAIL_ON_LAYER_LOAD_ERROR=1`
+- `scripts/launch/run_prod.sh` forces strict startup and strict preflight checks
 
 Use strict startup locally when you want missing required layers to fail fast:
 
@@ -122,10 +128,18 @@ curl -X POST http://localhost:8000/classify \
 
 API docs auto-served at `http://localhost:8000/docs` (Swagger) and `http://localhost:8000/redoc`.
 
+Swagger/OpenAPI now documents:
+
+- the backend-only runtime and archived-demo split
+- route summaries for health, readiness, diagnostics, metrics, classify, and batch classify
+- the richer `offending_spans` payload, including exact lexicon spans and approximate classifier-window spans
+- request and response examples for the main classification path
+
 Chat demo UI:
 
 - `http://localhost:8081/chat/?api=http://localhost:8000`
 - Screens typed messages and DOCX uploads through the same `POST /classify` backend before they are allowed into the chat transcript
+- Requests `include_offending_spans=true` and surfaces localization, timing, cache, and request-id details inside the guard modal
 - `LOW_RISK` triggers a warning with override, `HIGH_RISK` is blocked
 
 Email demo UI:
@@ -133,6 +147,7 @@ Email demo UI:
 - `http://localhost:8081/email/?api=http://localhost:8000`
 - Outlook-inspired mock compose surface that screens `subject + body` on send
 - DOCX uploads are screened when attached and rejected if `HIGH_RISK`
+- Requests `include_offending_spans=true` and surfaces localization, timing, cache, and request-id details inside the guard modal
 - `LOW_RISK` triggers a warning with override, `HIGH_RISK` is blocked
 
 Slack demo UI:
@@ -140,7 +155,14 @@ Slack demo UI:
 - `http://localhost:8081/slack/?api=http://localhost:8000`
 - Slack-inspired mock channel surface that screens the composed message on send
 - DOCX uploads are screened before they are posted to the channel
+- Requests `include_offending_spans=true` and surfaces localization, timing, cache, and request-id details inside the guard modal
 - `LOW_RISK` triggers a warning with override, `HIGH_RISK` is blocked
+
+Legacy analyzer UI:
+
+- `http://localhost:8081/legacy/?api=http://localhost:8000`
+- Sends `include_offending_spans=true` by default
+- Renders request telemetry, per-layer timings, localized findings, the archived architecture trace view, and the raw JSON response side by side
 
 Batch classify:
 
@@ -231,8 +253,8 @@ The `/classify` endpoint runs configured layers sequentially:
 1. **Lexicon filter** — regex, spaCy NER, Presidio PII, restricted list cross-ref. Deterministic short-circuit to `HIGH_RISK` when a restricted entity or a money threshold breach is detected.
 2. **Embedding generation** — sentence embedding with `all-mpnet-base-v2`.
 3. **Clustering** — Isolation Forest anomaly score (if checkpoint exists).
-4. **Model-1 (FinBERT)** — binary classifier: safe vs risk (if checkpoint exists).
-5. **Model-2 (BERT)** — binary classifier: low_risk vs high_risk (if checkpoint exists and Model-1 predicts risk).
+4. **Model-1 (FinBERT)** — binary classifier: safe vs risk, executed over overlapping sliding windows so the response can expose approximate top-risk classifier windows (if checkpoint exists).
+5. **Model-2 (BERT)** — binary classifier: low_risk vs high_risk, also executed over overlapping sliding windows when Model-1 predicts risk (if checkpoint exists).
 6. **Mosaic aggregation** — Redis TTL-based fragment tracking; can escalate repeated `LOW_RISK` entity activity.
 7. **Regression** — optional final risk synthesis only when a trained regression checkpoint exists.
 
@@ -317,7 +339,7 @@ Notable keys:
 - `MOSAIC_RETRY_ATTEMPTS`
 - `MOSAIC_RETRY_BACKOFF_MS`
 - `NOUPE_ALLOWED_ORIGINS` (comma-separated CORS origins)
-- `NOUPE_API_KEY` (optional; when set, `POST /classify` requires `X-API-Key`)
+- `NOUPE_API_KEY` (optional; when set, both `POST /classify` and `POST /classify/batch` require `X-API-Key`)
 - `NOUPE_FAIL_ON_LAYER_LOAD_ERROR` (`1`/`0`, default `0` for bare app startup; `scripts/launch/run_prod.sh` overrides to `1`)
 - `NOUPE_FRONTEND_DEMO_PORT` (default `8081` for the archived demo server)
 - `NOUPE_LAZY_LOAD_HEAVY` (`1`/`0`, default `1`)
