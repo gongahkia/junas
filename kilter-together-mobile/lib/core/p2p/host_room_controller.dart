@@ -189,11 +189,18 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
   }
 
   void _handleJoinRequest(String peerId, Map<String, dynamic> payload) {
-    final String displayName = payload['display_name'] as String? ?? '';
+    final String displayName = (payload['display_name'] as String? ?? '').trim();
     if (displayName.isEmpty) {
       _sendTo(peerId, P2pMessage(
         type: P2pMessageType.joinRejected,
         payload: <String, dynamic>{'reason': 'Display name is required.'},
+      ));
+      return;
+    }
+    if (displayName.length > 40) {
+      _sendTo(peerId, P2pMessage(
+        type: P2pMessageType.joinRejected,
+        payload: <String, dynamic>{'reason': 'Display name must be 40 characters or fewer.'},
       ));
       return;
     }
