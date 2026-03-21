@@ -12,9 +12,10 @@ import '../../../core/deep_links/invite_links.dart';
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/room_models.dart';
-import '../../../core/presentation/climb_media_preview.dart';
 import '../../../core/presentation/climbing_loader.dart';
 import '../../../core/presentation/feedback_prompt_card.dart';
+import 'room_catalog_card.dart';
+import 'room_queue_cards.dart';
 import '../../../core/presentation/flow_guide_sheet.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
@@ -855,7 +856,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
             surfaceCard,
             const SizedBox(height: 14),
           ],
-          _CatalogCard(
+          CatalogCard(
             roomState: roomState,
             queryController: _catalogQueryController,
             gradeMinController: _gradeMinController,
@@ -914,7 +915,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                 unawaited(controller.toggleVote(climbId)),
           ),
           const SizedBox(height: 14),
-          _QueueCard(
+          QueueCard(
             room: room,
             queueStatuses: _queueStatuses,
             onMoveUp: (int entryId) =>
@@ -940,7 +941,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                 : null,
           ),
           const SizedBox(height: 14),
-          _FinalistsCard(
+          FinalistsCard(
             room: room,
             onMoveUp: (int entryId) =>
                 unawaited(controller.moveFinalist(entryId, -1)),
@@ -958,7 +959,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                 unawaited(controller.promoteClimb(climbId, 'next')),
           ),
           const SizedBox(height: 14),
-          _ParticipantsCard(
+          ParticipantsCard(
             room: room,
             onRoleChanged: (int participantId, String? role) {
               if (role == null) {
@@ -970,7 +971,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                 unawaited(controller.removeParticipant(participantId)),
           ),
           const SizedBox(height: 14),
-          _ManageRoomCard(
+          ManageRoomCard(
             room: room,
             roomNameController: _roomNameController,
             assistantModes: _assistantModes,
@@ -1223,13 +1224,13 @@ class _OverviewCard extends StatelessWidget {
               spacing: 10,
               runSpacing: 10,
               children: <Widget>[
-                _Chip(label: room.providerId.toUpperCase()),
-                _Chip(label: room.status.toUpperCase()),
-                _Chip(
+                RoomChip(label: room.providerId.toUpperCase()),
+                RoomChip(label: room.status.toUpperCase()),
+                RoomChip(
                     label: room.connection.connected
                         ? 'CONNECTED'
                         : 'AUTH REQUIRED'),
-                if (room.surface != null) _Chip(label: room.surface!.name),
+                if (room.surface != null) RoomChip(label: room.surface!.name),
                 Container( // fr-r7 online count
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
@@ -1315,11 +1316,11 @@ class _OverviewCard extends StatelessWidget {
                     spacing: 10,
                     runSpacing: 10,
                     children: <Widget>[
-                      _Chip(label: '${readinessCounts['ready'] ?? 0} ready'),
-                      _Chip(
+                      RoomChip(label: '${readinessCounts['ready'] ?? 0} ready'),
+                      RoomChip(
                           label: '${readinessCounts['resting'] ?? 0} resting'),
-                      _Chip(label: '${readinessCounts['away'] ?? 0} away'),
-                      _Chip(
+                      RoomChip(label: '${readinessCounts['away'] ?? 0} away'),
+                      RoomChip(
                           label:
                               '${readinessCounts['watching'] ?? 0} watching'),
                     ],
@@ -1330,11 +1331,11 @@ class _OverviewCard extends StatelessWidget {
                     runSpacing: 10,
                     children: liveParticipants.isEmpty
                         ? const <Widget>[
-                            _Chip(label: 'Waiting for guests'),
+                            RoomChip(label: 'Waiting for guests'),
                           ]
                         : liveParticipants
                             .map(
-                              (Participant participant) => _Chip(
+                              (Participant participant) => RoomChip(
                                 label:
                                     '${participant.displayName} · ${participant.status}',
                               ),
@@ -1467,7 +1468,7 @@ class _LiveSignalCard extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 12),
-                          _Chip(
+                          RoomChip(
                             label:
                                 '${room.voteCounts[climb.id] ?? 0} fist bump${(room.voteCounts[climb.id] ?? 0) == 1 ? '' : 's'}',
                           ),
@@ -1669,7 +1670,7 @@ class _LeaderboardCard extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(width: 12),
-                                _Chip(
+                                RoomChip(
                                   label:
                                       '${room.voteCounts[climb.id] ?? 0} fist bump${(room.voteCounts[climb.id] ?? 0) == 1 ? '' : 's'}',
                                 ),
@@ -1681,7 +1682,7 @@ class _LeaderboardCard extends StatelessWidget {
                               runSpacing: 10,
                               children: <Widget>[
                                 if (queueEntry != null)
-                                  _Chip(
+                                  RoomChip(
                                     label: switch (queueEntry.status) {
                                       'queued' => 'Queued',
                                       'current' => 'Current',
@@ -1690,9 +1691,9 @@ class _LeaderboardCard extends StatelessWidget {
                                       _ => queueEntry.status,
                                     },
                                   ),
-                                if (isFinalist) const _Chip(label: 'Finalist'),
-                                if (myVote) const _Chip(label: 'Fist bumped'),
-                                if (isSelected) const _Chip(label: 'Viewing'),
+                                if (isFinalist) const RoomChip(label: 'Finalist'),
+                                if (myVote) const RoomChip(label: 'Fist bumped'),
+                                if (isSelected) const RoomChip(label: 'Viewing'),
                               ],
                             ),
                             const SizedBox(height: 12),
@@ -2265,833 +2266,6 @@ class _SurfaceCard extends StatelessWidget {
   }
 }
 
-class _CatalogCard extends StatelessWidget {
-  const _CatalogCard({
-    required this.roomState,
-    required this.queryController,
-    required this.gradeMinController,
-    required this.gradeMaxController,
-    required this.sortOptions,
-    required this.onSearch,
-    required this.onSortChanged,
-    required this.onSelectClimb,
-    required this.onLoadMore,
-    required this.onToggleVote,
-    required this.onAddQueue,
-    required this.onAddFinalist,
-    required this.onPromoteCurrent,
-    required this.onPromoteNext,
-  });
-
-  final RoomViewState roomState;
-  final TextEditingController queryController;
-  final TextEditingController gradeMinController;
-  final TextEditingController gradeMaxController;
-  final List<String> sortOptions;
-  final VoidCallback onSearch;
-  final ValueChanged<String?> onSortChanged;
-  final ValueChanged<String> onSelectClimb;
-  final VoidCallback? onLoadMore;
-  final ValueChanged<String> onToggleVote;
-  final ValueChanged<String> onAddQueue;
-  final ValueChanged<String> onAddFinalist;
-  final ValueChanged<String> onPromoteCurrent;
-  final ValueChanged<String> onPromoteNext;
-
-  @override
-  Widget build(BuildContext context) {
-    final RoomSnapshot room = roomState.room!;
-    final RoomCatalogClimbsResponse? catalog = roomState.catalog;
-    final RoomCatalogClimbResponse? selectedClimb =
-        roomState.selectedCatalogClimb;
-    final List<String> selectedClimbImageUrls = selectedClimb == null
-        ? const <String>[]
-        : selectedClimb.climb.media
-            .where((ProviderClimbMedia item) => item.kind == 'image')
-            .map((ProviderClimbMedia item) => item.url)
-            .toList(growable: false);
-    final QueueEntry? selectedQueueEntry = selectedClimb == null
-        ? null
-        : room.queue
-            .where(
-                (QueueEntry entry) => entry.climb.id == selectedClimb.climb.id)
-            .firstOrNull;
-    final bool selectedIsQueued = selectedQueueEntry != null;
-    final bool selectedIsFinalist = selectedClimb != null &&
-        room.finalists.any(
-          (FinalistEntry entry) => entry.climb.id == selectedClimb.climb.id,
-        );
-    final String emptyCatalogMessage;
-    if (room.status == 'closed') {
-      emptyCatalogMessage =
-          'This room is closed. Start a new room if you want to browse climbs again.';
-    } else if (!room.connection.connected) {
-      emptyCatalogMessage =
-          'Waiting for the host to reconnect the provider before climbs can load.';
-    } else if (room.surface == null) {
-      emptyCatalogMessage =
-          'Waiting for the host to choose the shared surface for this room.';
-    } else {
-      emptyCatalogMessage = 'No climbs are loaded for this room surface yet.';
-    }
-
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(22),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Catalog',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 12),
-            TextField(
-              controller: queryController,
-              decoration: InputDecoration(
-                labelText: 'Search climbs',
-                suffixIcon: IconButton(
-                  onPressed: onSearch,
-                  icon: const Icon(Icons.search),
-                ),
-              ),
-              onSubmitted: (_) => onSearch(),
-            ),
-            const SizedBox(height: 12),
-            DropdownButtonFormField<String>(
-              initialValue: roomState.catalogSort,
-              decoration: const InputDecoration(labelText: 'Sort'),
-              items: sortOptions
-                  .map(
-                    (String value) => DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    ),
-                  )
-                  .toList(growable: false),
-              onChanged: onSortChanged,
-            ),
-            const SizedBox(height: 12),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: TextField(
-                    controller: gradeMinController,
-                    decoration: const InputDecoration(labelText: 'Grade min', hintText: 'e.g. V3'),
-                    textInputAction: TextInputAction.next,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: TextField(
-                    controller: gradeMaxController,
-                    decoration: const InputDecoration(labelText: 'Grade max', hintText: 'e.g. V8'),
-                    textInputAction: TextInputAction.search,
-                    onSubmitted: (_) => onSearch(),
-                  ),
-                ),
-              ],
-            ),
-            if (selectedClimb != null) ...<Widget>[
-              const SizedBox(height: 16),
-              Container(
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE9F4FF),
-                  borderRadius: BorderRadius.zero,
-                ),
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      selectedClimb.climb.name,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 10,
-                      runSpacing: 10,
-                      children: <Widget>[
-                        if (selectedIsQueued) const _Chip(label: 'Queued'),
-                        if (selectedQueueEntry?.status == 'current')
-                          const _Chip(label: 'Current'),
-                        if (selectedQueueEntry?.status == 'next')
-                          const _Chip(label: 'Next'),
-                        if (selectedIsFinalist) const _Chip(label: 'Finalist'),
-                      ],
-                    ),
-                    const SizedBox(height: 6),
-                    Text(selectedClimb.climb.setterName ?? 'Unknown setter'),
-                    if (selectedClimb.climb.primaryGrade != null) ...<Widget>[
-                      const SizedBox(height: 6),
-                      Text(selectedClimb.climb.primaryGrade!),
-                    ],
-                    if ((selectedClimb.climb.description ?? '')
-                        .isNotEmpty) ...<Widget>[
-                      const SizedBox(height: 10),
-                      Text(selectedClimb.climb.description!),
-                    ],
-                    const SizedBox(height: 12),
-                    ClimbMediaPreview(
-                      imageUrls: selectedClimbImageUrls,
-                      highlightedHolds: selectedClimb.climb.highlightedHolds,
-                      emptyMessage: 'No climb images are available yet',
-                      errorMessage: 'Unable to load climb image layers',
-                    ),
-                    const SizedBox(height: 12),
-                    Wrap(
-                      spacing: 10,
-                      runSpacing: 10,
-                      children: <Widget>[
-                        FilledButton.tonal(
-                          onPressed: () => onToggleVote(selectedClimb.climb.id),
-                          child: Text(selectedClimb.myVote
-                              ? 'Remove fist bump'
-                              : 'Fist bump'),
-                        ),
-                        if (room.permissions.manageQueue)
-                          FilledButton.tonal(
-                            onPressed:
-                                selectedIsQueued || room.status == 'closed'
-                                    ? null
-                                    : () => onAddQueue(selectedClimb.climb.id),
-                            child: Text(
-                              selectedIsQueued
-                                  ? 'Already queued'
-                                  : 'Add to queue',
-                            ),
-                          ),
-                        if (room.permissions.manageFinalists)
-                          FilledButton.tonal(
-                            onPressed: selectedIsFinalist ||
-                                    room.status == 'closed'
-                                ? null
-                                : () => onAddFinalist(selectedClimb.climb.id),
-                            child: Text(
-                              selectedIsFinalist
-                                  ? 'Already finalist'
-                                  : 'Add finalist',
-                            ),
-                          ),
-                        if (room.permissions.manageSession)
-                          FilledButton.tonal(
-                            onPressed: room.status == 'closed'
-                                ? null
-                                : () =>
-                                    onPromoteCurrent(selectedClimb.climb.id),
-                            child: const Text('Promote to current'),
-                          ),
-                        if (room.permissions.manageSession)
-                          FilledButton.tonal(
-                            onPressed: room.status == 'closed'
-                                ? null
-                                : () => onPromoteNext(selectedClimb.climb.id),
-                            child: const Text('Promote to next'),
-                          ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-            const SizedBox(height: 16),
-            if (roomState.catalogLoading)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 18),
-                child: Center(child: ClimbingLoader()),
-              )
-            else if (catalog == null || catalog.climbs.isEmpty)
-              Text(emptyCatalogMessage)
-            else
-              ...catalog.climbs.map(
-                (ProviderClimb climb) => Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: InkWell(
-                    borderRadius: BorderRadius.zero,
-                    onTap: () => onSelectClimb(climb.id),
-                    child: Ink(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.zero,
-                        border: Border.all(color: const Color(0xFFE2E8F0)),
-                        color: Colors.white,
-                      ),
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(climb.name, style: Theme.of(context).textTheme.titleMedium),
-                          const SizedBox(height: 4),
-                          Text(
-                            [if ((climb.setterName ?? '').isNotEmpty) climb.setterName!, if ((climb.primaryGrade ?? '').isNotEmpty) climb.primaryGrade!].join(' · '),
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                          if (_hasClimbMeta(climb)) ...<Widget>[
-                            const SizedBox(height: 8),
-                            Wrap(
-                              spacing: 8,
-                              runSpacing: 6,
-                              children: <Widget>[
-                                if ((climb.meta['color'] ?? '').isNotEmpty) _ColorDot(color: _parseClimbColor(climb.meta['color']!)),
-                                if ((climb.meta['hold_type'] ?? '').isNotEmpty) _Chip(label: climb.meta['hold_type']!),
-                                if ((climb.meta['foot_rule'] ?? '').isNotEmpty) _Chip(label: climb.meta['foot_rule']!),
-                              ],
-                            ),
-                          ],
-                          const SizedBox(height: 4),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Text('${catalog.voteCounts[climb.id] ?? 0} bump${(catalog.voteCounts[climb.id] ?? 0) == 1 ? '' : 's'}'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            if (onLoadMore != null) ...<Widget>[
-              const SizedBox(height: 12),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: FilledButton.tonal(
-                  onPressed: onLoadMore,
-                  child: const Text('Load more climbs'),
-                ),
-              ),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _QueueCard extends StatelessWidget {
-  const _QueueCard({
-    required this.room,
-    required this.queueStatuses,
-    required this.onMoveUp,
-    required this.onMoveDown,
-    required this.onDelete,
-    required this.onPromoteCurrent,
-    required this.onPromoteNext,
-    required this.onStatusChanged,
-    this.onAutoRefill,
-  });
-
-  final RoomSnapshot room;
-  final List<String> queueStatuses;
-  final ValueChanged<int> onMoveUp;
-  final ValueChanged<int> onMoveDown;
-  final ValueChanged<int> onDelete;
-  final ValueChanged<String> onPromoteCurrent;
-  final ValueChanged<String> onPromoteNext;
-  final void Function(int entryId, String? value) onStatusChanged;
-  final VoidCallback? onAutoRefill;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(22),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Queue',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 12),
-            if (onAutoRefill != null) ...<Widget>[
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF0F0F0),
-                  borderRadius: BorderRadius.zero,
-                  border: Border.all(color: const Color(0xFFD4D4D4)),
-                ),
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Text('Queue empty \u2014 add top-voted climbs?'),
-                    const SizedBox(height: 10),
-                    FilledButton.tonal(
-                      onPressed: onAutoRefill,
-                      child: const Text('Add top-voted to queue'),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 12),
-            ],
-            if (room.queue.isEmpty)
-              const Text('No climbs are queued yet.')
-            else
-              ...room.queue.map(
-                (QueueEntry entry) => Padding(
-                  padding: const EdgeInsets.only(bottom: 14),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.zero,
-                      border: Border.all(color: const Color(0xFFE2E8F0)),
-                    ),
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(entry.climb.name,
-                            style: Theme.of(context).textTheme.titleLarge),
-                        const SizedBox(height: 6),
-                        Text('${entry.status} · added by ${entry.addedBy}'),
-                        const SizedBox(height: 12),
-                        Wrap(
-                          spacing: 10,
-                          runSpacing: 10,
-                          children: <Widget>[
-                            if (room.permissions.manageQueue)
-                              SizedBox(
-                                width: 180,
-                                child: DropdownButtonFormField<String>(
-                                  initialValue: entry.status,
-                                  decoration: const InputDecoration(
-                                      labelText: 'Status'),
-                                  items: queueStatuses
-                                      .map(
-                                        (String value) =>
-                                            DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        ),
-                                      )
-                                      .toList(growable: false),
-                                  onChanged: (String? value) =>
-                                      onStatusChanged(entry.id, value),
-                                ),
-                              ),
-                            if (room.permissions.manageQueue)
-                              OutlinedButton(
-                                onPressed: () => onMoveUp(entry.id),
-                                child: const Text('Up'),
-                              ),
-                            if (room.permissions.manageQueue)
-                              OutlinedButton(
-                                onPressed: () => onMoveDown(entry.id),
-                                child: const Text('Down'),
-                              ),
-                            if (room.permissions.manageSession)
-                              FilledButton.tonal(
-                                onPressed: () =>
-                                    onPromoteCurrent(entry.climb.id),
-                                child: const Text('Current'),
-                              ),
-                            if (room.permissions.manageSession)
-                              FilledButton.tonal(
-                                onPressed: () => onPromoteNext(entry.climb.id),
-                                child: const Text('Next'),
-                              ),
-                            if (room.permissions.manageQueue)
-                              OutlinedButton(
-                                onPressed: () => onDelete(entry.id),
-                                child: const Text('Delete'),
-                              ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _FinalistsCard extends StatelessWidget {
-  const _FinalistsCard({
-    required this.room,
-    required this.onMoveUp,
-    required this.onMoveDown,
-    required this.onDelete,
-    required this.onPickRandomFinalists,
-    required this.onPickRandomTopVoted,
-    required this.onPromoteCurrent,
-    required this.onPromoteNext,
-  });
-
-  final RoomSnapshot room;
-  final ValueChanged<int> onMoveUp;
-  final ValueChanged<int> onMoveDown;
-  final ValueChanged<int> onDelete;
-  final VoidCallback onPickRandomFinalists;
-  final VoidCallback onPickRandomTopVoted;
-  final ValueChanged<String> onPromoteCurrent;
-  final ValueChanged<String> onPromoteNext;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(22),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Text(
-                    'Finalists',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                ),
-                if (room.permissions.manageFinalists)
-                  PopupMenuButton<String>(
-                    onSelected: (String value) {
-                      if (value == 'finalists') {
-                        onPickRandomFinalists();
-                      } else {
-                        onPickRandomTopVoted();
-                      }
-                    },
-                    itemBuilder: (BuildContext context) =>
-                        const <PopupMenuEntry<String>>[
-                      PopupMenuItem<String>(
-                        value: 'finalists',
-                        child: Text('Pick random finalist'),
-                      ),
-                      PopupMenuItem<String>(
-                        value: 'top_voted',
-                        child: Text('Pick from top fist bumps'),
-                      ),
-                    ],
-                  ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            if (room.finalists.isEmpty)
-              const Text('No finalists selected yet.')
-            else
-              ...room.finalists.map(
-                (FinalistEntry entry) => Padding(
-                  padding: const EdgeInsets.only(bottom: 14),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.zero,
-                      border: Border.all(color: const Color(0xFFE2E8F0)),
-                    ),
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(entry.climb.name,
-                            style: Theme.of(context).textTheme.titleLarge),
-                        const SizedBox(height: 6),
-                        Text('Added by ${entry.addedBy}'),
-                        const SizedBox(height: 12),
-                        Wrap(
-                          spacing: 10,
-                          runSpacing: 10,
-                          children: <Widget>[
-                            if (room.permissions.manageFinalists)
-                              OutlinedButton(
-                                onPressed: () => onMoveUp(entry.id),
-                                child: const Text('Up'),
-                              ),
-                            if (room.permissions.manageFinalists)
-                              OutlinedButton(
-                                onPressed: () => onMoveDown(entry.id),
-                                child: const Text('Down'),
-                              ),
-                            if (room.permissions.manageSession)
-                              FilledButton.tonal(
-                                onPressed: () =>
-                                    onPromoteCurrent(entry.climb.id),
-                                child: const Text('Current'),
-                              ),
-                            if (room.permissions.manageSession)
-                              FilledButton.tonal(
-                                onPressed: () => onPromoteNext(entry.climb.id),
-                                child: const Text('Next'),
-                              ),
-                            if (room.permissions.manageFinalists)
-                              OutlinedButton(
-                                onPressed: () => onDelete(entry.id),
-                                child: const Text('Delete'),
-                              ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _ParticipantsCard extends StatelessWidget {
-  const _ParticipantsCard({
-    required this.room,
-    required this.onRoleChanged,
-    required this.onRemove,
-  });
-
-  final RoomSnapshot room;
-  final void Function(int participantId, String? role) onRoleChanged;
-  final ValueChanged<int> onRemove;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(22),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Participants',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 12),
-            ...room.participants.map(
-              (Participant participant) => Padding(
-                padding: const EdgeInsets.only(bottom: 14),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.zero,
-                    border: Border.all(color: const Color(0xFFE2E8F0)),
-                  ),
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Text(
-                              participant.displayName,
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          ),
-                          Icon(
-                            participant.isOnline
-                                ? Icons.circle
-                                : Icons.circle_outlined,
-                            size: 14,
-                            color: participant.isOnline
-                                ? const Color(0xFF1A1A1A)
-                                : const Color(0xFF94A3B8),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 6),
-                      Text('${participant.role} · ${participant.status}'),
-                      if (room.permissions.assignCoHosts &&
-                          participant.role != 'host') ...<Widget>[
-                        const SizedBox(height: 12),
-                        DropdownButtonFormField<String>(
-                          initialValue: participant.role == 'co_host'
-                              ? 'co_host'
-                              : 'participant',
-                          decoration: const InputDecoration(labelText: 'Role'),
-                          items: const <DropdownMenuItem<String>>[
-                            DropdownMenuItem<String>(
-                              value: 'participant',
-                              child: Text('participant'),
-                            ),
-                            DropdownMenuItem<String>(
-                              value: 'co_host',
-                              child: Text('co_host'),
-                            ),
-                          ],
-                          onChanged: (String? value) =>
-                              onRoleChanged(participant.id, value),
-                        ),
-                      ],
-                      if (room.permissions.manageParticipants &&
-                          participant.displayName != room.displayName &&
-                          participant.role != 'host') ...<Widget>[
-                        const SizedBox(height: 12),
-                        OutlinedButton(
-                          onPressed: () => onRemove(participant.id),
-                          child: const Text('Remove participant'),
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _ManageRoomCard extends StatelessWidget {
-  const _ManageRoomCard({
-    required this.room,
-    required this.roomNameController,
-    required this.assistantModes,
-    required this.busy,
-    required this.onSaveName,
-    required this.onAssistantModeChanged,
-    required this.onFistBumpsChanged,
-    required this.onClearVotes,
-    required this.onCloseRoom,
-  });
-
-  final RoomSnapshot room;
-  final TextEditingController roomNameController;
-  final List<String> assistantModes;
-  final bool busy;
-  final VoidCallback? onSaveName;
-  final ValueChanged<String?>? onAssistantModeChanged;
-  final ValueChanged<bool>? onFistBumpsChanged;
-  final VoidCallback? onClearVotes;
-  final VoidCallback? onCloseRoom;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(22),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Room controls',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 12),
-            TextField(
-              controller: roomNameController,
-              decoration: const InputDecoration(labelText: 'Room name'),
-            ),
-            const SizedBox(height: 10),
-            if (onSaveName != null)
-              FilledButton.tonal(
-                onPressed: busy ? null : onSaveName,
-                child: const Text('Save room name'),
-              ),
-            const SizedBox(height: 12),
-            DropdownButtonFormField<String>(
-              initialValue: room.assistant.mode,
-              decoration: const InputDecoration(labelText: 'Assistant mode'),
-              items: assistantModes
-                  .map(
-                    (String value) => DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    ),
-                  )
-                  .toList(growable: false),
-              onChanged: onAssistantModeChanged,
-            ),
-            const SizedBox(height: 10),
-            SwitchListTile.adaptive(
-              contentPadding: EdgeInsets.zero,
-              value: room.fistBumpsEnabled,
-              onChanged: onFistBumpsChanged,
-              title: const Text('Enable fist bumps'),
-            ),
-            const SizedBox(height: 12),
-            Wrap(
-              spacing: 10,
-              runSpacing: 10,
-              children: <Widget>[
-                if (onClearVotes != null)
-                  OutlinedButton(
-                    onPressed: busy ? null : onClearVotes,
-                    child: const Text('Clear fist bumps'),
-                  ),
-                if (onCloseRoom != null)
-                  FilledButton(
-                    onPressed: busy ? null : onCloseRoom,
-                    child: const Text('Close room'),
-                  ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-bool _hasClimbMeta(ProviderClimb climb) {
-  return (climb.meta['color'] ?? '').isNotEmpty ||
-      (climb.meta['hold_type'] ?? '').isNotEmpty ||
-      (climb.meta['foot_rule'] ?? '').isNotEmpty;
-}
-
-Color _parseClimbColor(String raw) {
-  return switch (raw.toLowerCase().trim()) {
-    'green' => const Color(0xFF16A34A),
-    'blue' => const Color(0xFF2563EB),
-    'red' => const Color(0xFFDC2626),
-    'yellow' => const Color(0xFFEAB308),
-    'orange' => const Color(0xFFEA580C),
-    'purple' => const Color(0xFF9333EA),
-    'pink' => const Color(0xFFEC4899),
-    'white' => const Color(0xFFE2E8F0),
-    'black' => const Color(0xFF1E293B),
-    _ => const Color(0xFF6B7280),
-  };
-}
-
-class _ColorDot extends StatelessWidget {
-  const _ColorDot({required this.color});
-  final Color color;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 10,
-      height: 10,
-      decoration: BoxDecoration(shape: BoxShape.circle, color: color),
-    );
-  }
-}
-
-class _Chip extends StatelessWidget {
-  const _Chip({
-    required this.label,
-  });
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: const Color(0xFFE7F8F4),
-        borderRadius: BorderRadius.zero,
-      ),
-      child: Text(
-        label,
-        style: const TextStyle(
-          fontWeight: FontWeight.w700,
-          letterSpacing: 0.2,
-        ),
-      ),
-    );
-  }
-}
-
-extension<T> on Iterable<T> {
-  T? get firstOrNull {
-    if (isEmpty) {
-      return null;
-    }
-    return first;
-  }
-}
+// CatalogCard, QueueCard, FinalistsCard, ParticipantsCard, ManageRoomCard
+// extracted to room_catalog_card.dart and room_queue_cards.dart
+// RoomChip, RoomColorDot, hasClimbMeta, parseClimbColor also in room_catalog_card.dart
