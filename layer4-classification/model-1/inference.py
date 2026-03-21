@@ -70,6 +70,10 @@ def _window_bounds(offsets: list[list[int]]) -> Optional[tuple[int, int]]:
         return None
     return (start_char, end_char)
 
+
+def _count_window_tokens(offsets: list[list[int]]) -> int:
+    return sum(1 for start, end in offsets if end > start)
+
 class FinBERTClassifier:
     def __init__(self, checkpoint_dir: str = CHECKPOINT_DIR):
         if not _has_model_weights(checkpoint_dir):
@@ -119,7 +123,8 @@ class FinBERTClassifier:
         windows: list[dict] = []
 
         for index, risk_score in enumerate(risk_scores):
-            bounds = _window_bounds(offset_mapping[index].tolist())
+            offsets = offset_mapping[index].tolist()
+            bounds = _window_bounds(offsets)
             if bounds is None:
                 continue
 
@@ -131,6 +136,9 @@ class FinBERTClassifier:
                     "text": text[start_char:end_char],
                     "risk_score": float(risk_score),
                     "window_index": index,
+                    "token_count": _count_window_tokens(offsets),
+                    "window_stride": WINDOW_STRIDE,
+                    "max_seq_len": MAX_SEQ_LEN,
                 }
             )
 
