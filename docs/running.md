@@ -36,24 +36,24 @@ uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 Run the combined dev launcher with:
 
 ```sh
-./run_dev.sh
+./scripts/launch/run_dev.sh
 ```
 
-`run_dev.sh` now:
+`scripts/launch/run_dev.sh` now:
 
 - asks which frontend(s) to open
 - asks which pipeline layers to run with
 - starts the backend first
 - waits for `GET /ready` to report `ready: true`
-- starts the legacy analyzer frontend on `http://localhost:8081/` when selected
+- starts a static server rooted at `archive/frontend-demos/` when any demo is selected
 - opens the selected frontend URLs only after backend readiness
 
 Frontend choices:
 
-- legacy analyzer only: `http://localhost:8081/`
-- chat demo only: `http://localhost:8000/chat/`
-- email demo only: `http://localhost:8000/email/`
-- slack demo only: `http://localhost:8000/slack/`
+- legacy analyzer only: `http://localhost:8081/legacy/?api=http://localhost:8000`
+- chat demo only: `http://localhost:8081/chat/?api=http://localhost:8000`
+- email demo only: `http://localhost:8081/email/?api=http://localhost:8000`
+- slack demo only: `http://localhost:8081/slack/?api=http://localhost:8000`
 - all frontends
 - backend only
 
@@ -62,7 +62,7 @@ Useful launcher env vars:
 - `NOUPE_FRONTENDS=legacy|chat|email|slack|all|none`
 - `PIPELINE_LAYERS=lexicon,embedding,...` to skip the layer prompt and force a specific pipeline
 - `NOUPE_PORT` (default `8000`)
-- `NOUPE_OLD_FRONTEND_PORT` (default `8081`)
+- `NOUPE_FRONTEND_DEMO_PORT` (default `8081`)
 - `NOUPE_READY_TIMEOUT_SECONDS` (default `180`)
 - `NOUPE_ALLOW_PARTIAL_START=1` if you intentionally want degraded startup
 - `NOUPE_PREFLIGHT_STRICT=0` to relax preflight warnings
@@ -70,10 +70,25 @@ Useful launcher env vars:
 Example minimal launcher path:
 
 ```sh
-PIPELINE_LAYERS=lexicon ./run_dev.sh
+PIPELINE_LAYERS=lexicon ./scripts/launch/run_dev.sh
 ```
 
-When `PIPELINE_LAYERS` is set, `run_dev.sh` skips the layer-selection prompt and only validates checkpoints for the layers in that active pipeline.
+When `PIPELINE_LAYERS` is set, `scripts/launch/run_dev.sh` skips the layer-selection prompt and only validates checkpoints for the layers in that active pipeline.
+
+## Backend-Only Launcher
+
+Run the backend without any demo UI:
+
+```sh
+./scripts/launch/run_backend_only.sh
+```
+
+Useful env vars:
+
+- `NOUPE_PORT` (default `8000`)
+- `NOUPE_HOST` (default `0.0.0.0`)
+- `NOUPE_LOG_LEVEL` (default `info`)
+- `NOUPE_RELOAD=1` to enable autoreload
 
 By default, the API now allows degraded startup when configured layers are missing and exposes that state through `GET /ready` and `GET /diagnostics`. When lazy loading is enabled, `GET /ready` remains degraded until required lazy layers finish warming.
 
@@ -97,24 +112,32 @@ curl -X POST http://localhost:8000/classify \
   -d '{"text": "Acme Corp is acquiring GlobalTech for $2.5 billion", "debug": false}'
 ```
 
+Include exact lexicon spans and approximate classifier windows with:
+
+```sh
+curl -X POST http://localhost:8000/classify \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Acme Corp is acquiring GlobalTech for $2.5 billion", "include_offending_spans": true}'
+```
+
 API docs auto-served at `http://localhost:8000/docs` (Swagger) and `http://localhost:8000/redoc`.
 
 Chat demo UI:
 
-- `http://localhost:8000/chat/`
+- `http://localhost:8081/chat/?api=http://localhost:8000`
 - Screens typed messages and DOCX uploads through the same `POST /classify` backend before they are allowed into the chat transcript
 - `LOW_RISK` triggers a warning with override, `HIGH_RISK` is blocked
 
 Email demo UI:
 
-- `http://localhost:8000/email/`
+- `http://localhost:8081/email/?api=http://localhost:8000`
 - Outlook-inspired mock compose surface that screens `subject + body` on send
 - DOCX uploads are screened when attached and rejected if `HIGH_RISK`
 - `LOW_RISK` triggers a warning with override, `HIGH_RISK` is blocked
 
 Slack demo UI:
 
-- `http://localhost:8000/slack/`
+- `http://localhost:8081/slack/?api=http://localhost:8000`
 - Slack-inspired mock channel surface that screens the composed message on send
 - DOCX uploads are screened before they are posted to the channel
 - `LOW_RISK` triggers a warning with override, `HIGH_RISK` is blocked
@@ -132,10 +155,10 @@ curl -X POST http://localhost:8000/classify/batch \
 Use the production launcher (no autoreload, multi-worker):
 
 ```sh
-./run_prod.sh
+./scripts/launch/run_prod.sh
 ```
 
-`run_prod.sh` now:
+`scripts/launch/run_prod.sh` now:
 
 - always runs strict preflight checks
 - does not prompt for pipeline layers
@@ -151,10 +174,10 @@ Useful production launcher env vars:
 - `NOUPE_PORT` (default `8000`)
 - `NOUPE_UVICORN_WORKERS` (default `2`)
 - `NOUPE_LOG_LEVEL` (default `info`)
-- `NOUPE_OLD_FRONTEND_PORT` (default `8081`)
+- `NOUPE_FRONTEND_DEMO_PORT` (default `8081`)
 - `NOUPE_READY_TIMEOUT_SECONDS` (default `180`)
 
-`run_prod.sh` still forces strict startup and will fail if required configured layers cannot load.
+`scripts/launch/run_prod.sh` still forces strict startup and will fail if required configured layers cannot load.
 
 ## Bootstrapping Artifacts
 
@@ -176,7 +199,7 @@ If you only need a minimal local server without trained artifacts, you can run l
 PIPELINE_LAYERS=lexicon uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-The existing analyzer frontend under `frontend/index.html` remains unchanged. The mounted demo surfaces are served by FastAPI at `/chat/`, `/email/`, and `/slack/`.
+The legacy analyzer and the chat/email/slack demos now live under `archive/frontend-demos/` and are served by the launch scripts from a separate static file server.
 
 Useful env vars:
 
@@ -184,7 +207,22 @@ Useful env vars:
 - `NOUPE_HOST` (default `0.0.0.0`)
 - `NOUPE_PORT` (default `8000`)
 - `NOUPE_LOG_LEVEL` (default `info`)
-- `PROMETHEUS_MULTIPROC_DIR` (optional in dev; automatically set by `run_prod.sh` for multi-worker metrics aggregation)
+- `PROMETHEUS_MULTIPROC_DIR` (optional in dev; automatically set by `scripts/launch/run_prod.sh` for multi-worker metrics aggregation)
+
+## Latency Benchmarking
+
+Benchmark one or more text files against real `POST /classify` requests with:
+
+```sh
+python3 scripts/benchmark_latency.py path/to/1000.txt path/to/2000.txt path/to/5000.txt path/to/10000.txt
+```
+
+The script can also:
+
+- read `.txt` files from directories
+- accept a repo-relative glob with `--glob`
+- spawn the backend automatically or target an existing backend with `--no-server --url`
+- write JSON and CSV reports to `reports/`
 
 ## Pipeline Behavior
 
@@ -204,6 +242,11 @@ Each classification response now includes an additive `observability` object wit
 - `cache_status` to distinguish `hit`, `miss`, and `disabled`.
 - `active_pipeline`, `executed_layers`, and `skipped_layers` for request drilldown.
 - `layer_errors` for startup, lazy-load, or runtime failures associated with the response.
+
+When `include_offending_spans=true`, responses can also include:
+
+- exact lexicon-derived spans
+- approximate `model1` and `model2` spans derived from sliding-window classifier inference
 
 ## Training Models
 
@@ -274,7 +317,8 @@ Notable keys:
 - `MOSAIC_RETRY_BACKOFF_MS`
 - `NOUPE_ALLOWED_ORIGINS` (comma-separated CORS origins)
 - `NOUPE_API_KEY` (optional; when set, `POST /classify` requires `X-API-Key`)
-- `NOUPE_FAIL_ON_LAYER_LOAD_ERROR` (`1`/`0`, default `0` for bare app startup; `run_prod.sh` overrides to `1`)
+- `NOUPE_FAIL_ON_LAYER_LOAD_ERROR` (`1`/`0`, default `0` for bare app startup; `scripts/launch/run_prod.sh` overrides to `1`)
+- `NOUPE_FRONTEND_DEMO_PORT` (default `8081` for the archived demo server)
 - `NOUPE_LAZY_LOAD_HEAVY` (`1`/`0`, default `1`)
 - `NOUPE_PREWARM_REQUIRED_LAYERS` (`1`/`0`, default `1` when lazy loading is enabled)
 - `NOUPE_RESPONSE_CACHE_SIZE` (default `256`)
