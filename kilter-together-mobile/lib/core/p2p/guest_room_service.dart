@@ -1,3 +1,4 @@
+import 'dart:developer' as developer;
 import '../models/provider_models.dart';
 import 'p2p_message_types.dart';
 import 'p2p_transport.dart';
@@ -139,6 +140,10 @@ class GuestRoomService {
   }
 
   void _send(P2pMessage message) {
-    transport.send(hostPeerId, message);
+    transport.send(hostPeerId, message).catchError((Object e) {
+      developer.log('send failed (${message.type.name}): $e', name: 'GuestRoom');
+      onSendError?.call(e);
+    });
   }
+  void Function(Object error)? onSendError;
 }
