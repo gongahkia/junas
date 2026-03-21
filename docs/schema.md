@@ -96,7 +96,19 @@ Response:
       "start_line": "int",
       "start_column": "int",
       "end_line": "int",
-      "end_column": "int"
+      "end_column": "int",
+      "is_exact": "bool",
+      "char_length": "int",
+      "line_span": "int",
+      "context_before": "string",
+      "context_after": "string",
+      "score": "float | null",
+      "score_type": "string | null",
+      "window_index": "int | null",
+      "window_count": "int | null",
+      "window_token_count": "int | null",
+      "window_stride": "int | null",
+      "window_max_seq_len": "int | null"
     }
   ] | null,
   "embedding": ["float", "..."] | null,
@@ -110,6 +122,10 @@ Notes:
 - `include_offending_spans=true` returns exact lexicon-derived locations and approximate classifier window locations when the final result is `LOW_RISK` or `HIGH_RISK`.
 - `layer=lexicon` spans are exact rule hits; `layer=model1` and `layer=model2` spans are approximate top-risk windows from sliding-window classifier inference.
 - `start_char`/`end_char` are zero-based offsets into the normalized request text; `end_char` is exclusive.
+- `is_exact=true` means the span is an exact lexicon hit; `is_exact=false` means the span is an approximate classifier window.
+- `context_before` and `context_after` include up to 48 characters of local surrounding text.
+- `score_type` is usually `rule_score`, `risk_score`, or `high_risk_score`.
+- `window_index` is zero-based and only populated for classifier-derived spans.
 - `model1`/`model2`/`clustering`/`regression` may be `null` when layers are disabled or missing checkpoints.
 - `observability.degraded=true` means the pipeline returned a best-effort result because a configured layer that should have executed was unavailable or failed at runtime.
 
