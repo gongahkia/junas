@@ -10,6 +10,8 @@ class MultipeerPlugin: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDel
     private var connectedPeers: [String: MCPeerID] = [:]
     private var peerDisplayNames: [String: String] = [:]
     private var discoveredMCPeers: [String: MCPeerID] = [:]
+    private var expectedServiceId: String? // room slug for invitation auth
+    private let lock = NSLock() // thread safety for shared dictionaries
 
     func register(with messenger: FlutterBinaryMessenger) {
         let method = FlutterMethodChannel(name: "kilter_together/multipeer", binaryMessenger: messenger)
@@ -38,16 +40,21 @@ class MultipeerPlugin: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDel
                         displayName: args["displayName"] as? String ?? "", result: result)
         case "disconnectFromPeer":
             let pid = args["peerId"] as? String ?? ""
-            connectedPeers.removeValue(forKey: pid); peerDisplayNames.removeValue(forKey: pid); result(nil)
+            lock.lock(); connectedPeers.removeValue(forKey: pid); peerDisplayNames.removeValue(forKey: pid); lock.unlock()
+            result(nil)
         case "disconnectAll":
-            session?.disconnect(); connectedPeers.removeAll(); peerDisplayNames.removeAll(); result(nil)
+            session?.disconnect()
+            lock.lock(); connectedPeers.removeAll(); peerDisplayNames.removeAll(); lock.unlock()
+            result(nil)
         case "send":
             sendData(peerId: args["peerId"] as? String ?? "",
                     data: (args["data"] as? FlutterStandardTypedData)?.data ?? Data(), result: result)
         case "broadcast":
             broadcastData(data: (args["data"] as? FlutterStandardTypedData)?.data ?? Data(), result: result)
         case "getConnectedPeers":
+            lock.lock()
             let peers = connectedPeers.map { ["id": $0.key, "displayName": peerDisplayNames[$0.key] ?? $0.value.displayName] }
+            lock.unlock()
             result(peers)
         default:
             result(FlutterMethodNotImplemented)
@@ -57,9 +64,9 @@ class MultipeerPlugin: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDel
     private func ensureSession(displayName: String) {
         if localPeerId == nil || localPeerId!.displayName != displayName {
             localPeerId = MCPeerID(displayName: displayName)
-            session = MCSession(peer: localPeerId!, securityIdentity: nil, encryptionPreference: .none)
+            session = MCSession(peer: localPeerId!, securityIdentity: nil, encryptionPreference: .required)
             session?.delegate = self
-            connectedPeers.removeAll(); peerDisplayNames.removeAll()
+            lock.lock(); connectedPeers.removeAll(); peerDisplayNames.removeAll(); lock.unlock()
         }
     }
 
@@ -73,6 +80,7 @@ class MultipeerPlugin: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDel
     private func startAdvertising(displayName: String, serviceId: String, result: @escaping FlutterResult) {
         ensureSession(displayName: displayName)
         let st = sanitizeServiceType(serviceId)
+        expectedServiceId = st
         advertiser = MCNearbyServiceAdvertiser(peer: localPeerId!, discoveryInfo: ["name": displayName], serviceType: st)
         advertiser?.delegate = self
         advertiser?.startAdvertisingPeer()
@@ -82,6 +90,7 @@ class MultipeerPlugin: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDel
     private func startDiscovery(serviceId: String, result: @escaping FlutterResult) {
         if localPeerId == nil { ensureSession(displayName: "Guest-\(UUID().uuidString.prefix(4))") }
         let st = sanitizeServiceType(serviceId)
+        expectedServiceId = st
         browser = MCNearbyServiceBrowser(peer: localPeerId!, serviceType: st)
         browser?.delegate = self
         browser?.startBrowsingForPeers()
@@ -89,18 +98,25 @@ class MultipeerPlugin: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDel
     }
 
     private func connectToPeer(peerId: String, displayName: String, result: @escaping FlutterResult) {
-        guard let mcPeer = discoveredMCPeers[peerId] else {
+        lock.lock()
+        let mcPeer = discoveredMCPeers[peerId]
+        lock.unlock()
+        guard let mcPeer = mcPeer else {
             result(FlutterError(code: "peer_not_found", message: "Peer not found: \(peerId)", details: nil)); return
         }
         guard let session = session else {
             result(FlutterError(code: "no_session", message: "No active session", details: nil)); return
         }
-        browser?.invitePeer(mcPeer, to: session, withContext: nil, timeout: 30)
+        let context = expectedServiceId?.data(using: .utf8) // pass service id as invitation context
+        browser?.invitePeer(mcPeer, to: session, withContext: context, timeout: 30)
         result(nil)
     }
 
     private func sendData(peerId: String, data: Data, result: @escaping FlutterResult) {
-        guard let mcPeer = connectedPeers[peerId] else {
+        lock.lock()
+        let mcPeer = connectedPeers[peerId]
+        lock.unlock()
+        guard let mcPeer = mcPeer else {
             result(FlutterError(code: "peer_not_found", message: "Peer not connected: \(peerId)", details: nil)); return
         }
         do { try session?.send(data, toPeers: [mcPeer], with: .reliable); result(nil) }
@@ -113,7 +129,7 @@ class MultipeerPlugin: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDel
         catch { result(FlutterError(code: "broadcast_failed", message: error.localizedDescription, details: nil)) }
     }
 
-    private func peerKey(_ peer: MCPeerID) -> String { peer.displayName }
+    private func peerKey(_ peer: MCPeerID) -> String { "\(peer.displayName)-\(peer.hash)" }
 
     private func emitEvent(_ event: [String: Any]) {
         DispatchQueue.main.async { [weak self] in self?.eventSink?(event) }
@@ -124,10 +140,14 @@ class MultipeerPlugin: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDel
         let key = peerKey(peerID)
         switch state {
         case .connected:
+            lock.lock()
             connectedPeers[key] = peerID; peerDisplayNames[key] = peerID.displayName
+            lock.unlock()
             emitEvent(["type": "connected", "peerId": key, "displayName": peerID.displayName])
         case .notConnected:
+            lock.lock()
             connectedPeers.removeValue(forKey: key); peerDisplayNames.removeValue(forKey: key)
+            lock.unlock()
             emitEvent(["type": "disconnected", "peerId": key, "displayName": peerID.displayName])
         case .connecting: break
         @unknown default: break
@@ -142,7 +162,11 @@ class MultipeerPlugin: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDel
 
     // MARK: - MCNearbyServiceAdvertiserDelegate
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
-        invitationHandler(true, session)
+        var accept = false
+        if let context = context, let received = String(data: context, encoding: .utf8) {
+            accept = (received == expectedServiceId) // verify invitation matches our service
+        }
+        invitationHandler(accept, accept ? session : nil)
     }
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: Error) {
         emitEvent(["type": "error", "message": "Advertising failed: \(error.localizedDescription)"])
@@ -151,13 +175,16 @@ class MultipeerPlugin: NSObject, MCSessionDelegate, MCNearbyServiceAdvertiserDel
     // MARK: - MCNearbyServiceBrowserDelegate
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
         let key = peerKey(peerID)
+        lock.lock()
         discoveredMCPeers[key] = peerID
+        peerDisplayNames[key] = info?["name"] ?? peerID.displayName
+        lock.unlock()
         let displayName = info?["name"] ?? peerID.displayName
-        peerDisplayNames[key] = displayName
         emitEvent(["type": "peerFound", "peerId": key, "displayName": displayName])
     }
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        let key = peerKey(peerID); discoveredMCPeers.removeValue(forKey: key)
+        let key = peerKey(peerID)
+        lock.lock(); discoveredMCPeers.removeValue(forKey: key); lock.unlock()
         emitEvent(["type": "peerLost", "peerId": key])
     }
     func browser(_ browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: Error) {
