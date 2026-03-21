@@ -31,11 +31,13 @@ class DummyLexiconFilter:
         short_circuit: bool = False,
         total_score: float = 0.0,
         restricted_entities: list[dict] | None = None,
+        hits: list | None = None,
     ):
         self.flagged = flagged
         self.short_circuit = short_circuit
         self.total_score = total_score
         self.restricted_entities = restricted_entities or []
+        self.hits = list(hits or [])
 
     def run(self, text: str):
         return SimpleNamespace(
@@ -44,7 +46,7 @@ class DummyLexiconFilter:
             total_score=self.total_score,
             score_threshold=10.0,
             score_threshold_exceeded=self.total_score >= 10.0,
-            hits=[],
+            hits=list(self.hits),
             restricted_entities_found=list(self.restricted_entities),
         )
 
@@ -70,26 +72,52 @@ class DummyClustering:
 
 
 class DummyModel1:
-    def __init__(self, label: str = "safe", confidence: float = 0.9, risk_score: float = 0.1):
+    def __init__(
+        self,
+        label: str = "safe",
+        confidence: float = 0.9,
+        risk_score: float = 0.1,
+        top_window: dict | None = None,
+        window_count: int = 1,
+    ):
         self.label = label
         self.confidence = confidence
         self.risk_score = risk_score
+        self.top_window = top_window
+        self.window_count = window_count
 
     def predict(self, text: str):
-        return SimpleNamespace(label=self.label, confidence=self.confidence, risk_score=self.risk_score)
+        return SimpleNamespace(
+            label=self.label,
+            confidence=self.confidence,
+            risk_score=self.risk_score,
+            top_window=self.top_window,
+            window_count=self.window_count,
+        )
 
 
 class DummyModel2:
-    def __init__(self, label: str = "low_risk", confidence: float = 0.7, high_risk_score: float = 0.2):
+    def __init__(
+        self,
+        label: str = "low_risk",
+        confidence: float = 0.7,
+        high_risk_score: float = 0.2,
+        top_window: dict | None = None,
+        window_count: int = 1,
+    ):
         self.label = label
         self.confidence = confidence
         self.high_risk_score = high_risk_score
+        self.top_window = top_window
+        self.window_count = window_count
 
     def predict(self, text: str):
         return SimpleNamespace(
             label=self.label,
             confidence=self.confidence,
             high_risk_score=self.high_risk_score,
+            top_window=self.top_window,
+            window_count=self.window_count,
         )
 
 
