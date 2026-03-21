@@ -19,6 +19,7 @@ from statistics import mean
 
 
 ROOT = Path(__file__).resolve().parent.parent
+TIMING_KEY_ORDER = ["lexicon", "embedding", "clustering", "model1", "model2", "mosaic", "regression", "cache_hit", "total"]
 
 
 def parse_args() -> argparse.Namespace:
@@ -158,6 +159,77 @@ def summarize_runs(runs: list[dict]) -> dict:
     }
 
 
+def ordered_timing_keys(runs: list[dict]) -> list[str]:
+    seen = {
+        key
+        for run in runs
+        for key in (run.get("timings_ms") or {})
+    }
+    ordered = [key for key in TIMING_KEY_ORDER if key in seen]
+    extras = sorted(seen - set(ordered))
+    return ordered + extras
+
+
+def render_file_detail_block(summary: dict, runs: list[dict]) -> str:
+    lines = [
+        f"File: {summary['file_name']}",
+        f"Path: {summary['file_path']}",
+        f"Words: {summary['word_count']}",
+        f"Chars: {summary['char_count']}",
+        f"Measured runs: {summary['runs']}",
+        (
+            "Summary: "
+            f"min={summary['min_ms']:.3f} ms, "
+            f"mean={summary['mean_ms']:.3f} ms, "
+            f"p50={summary['p50_ms']:.3f} ms, "
+            f"p95={summary['p95_ms']:.3f} ms, "
+            f"max={summary['max_ms']:.3f} ms"
+        ),
+    ]
+
+    if summary["mean_server_ms"] is not None:
+        lines.append(f"Mean backend total: {summary['mean_server_ms']:.3f} ms")
+
+    timing_keys = ordered_timing_keys(runs)
+    if timing_keys:
+        lines.append("Average backend timings per step (ms):")
+        for key in timing_keys:
+            values = [
+                float(run["timings_ms"][key])
+                for run in runs
+                if key in (run.get("timings_ms") or {})
+            ]
+            if not values:
+                continue
+            lines.append(
+                f"- {key}: mean={mean(values):.3f} min={min(values):.3f} max={max(values):.3f}"
+            )
+
+    lines.append("Per-run details:")
+    for run in runs:
+        lines.append(
+            f"- Run {run['run_index']}: "
+            f"classification={run.get('classification')} "
+            f"cache_status={run.get('cache_status')} "
+            f"degraded={run.get('degraded')}"
+        )
+        lines.append(f"  client_latency_ms={float(run['client_latency_ms']):.3f}")
+        server_total = run.get("server_total_ms")
+        lines.append(
+            "  server_total_ms="
+            + ("null" if server_total is None else f"{float(server_total):.3f}")
+        )
+        timings = run.get("timings_ms") or {}
+        if timings:
+            lines.append("  timings_ms:")
+            for key in timing_keys:
+                if key not in timings:
+                    continue
+                lines.append(f"    {key}: {float(timings[key]):.3f}")
+
+    return "\n".join(lines)
+
+
 def render_summary_table(summaries: list[dict]) -> str:
     lines = []
     lines.append(
@@ -236,6 +308,19 @@ def write_reports(
             "",
             render_summary_table(summaries),
             "",
+            "Detailed results:",
+            "",
+        ]
+    )
+    runs_by_path = {summary["file_path"]: [] for summary in summaries}
+    for run in raw_runs:
+        runs_by_path.setdefault(run["file_path"], []).append(run)
+    for summary in summaries:
+        file_runs = runs_by_path.get(summary["file_path"], [])
+        lines.append(render_file_detail_block(summary, file_runs))
+        lines.append("")
+    lines.extend(
+        [
             f"JSON report: {json_path}",
             f"CSV report : {csv_path}",
         ]
