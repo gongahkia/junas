@@ -1,38 +1,30 @@
 #!/bin/bash
 set -euo pipefail
 
-# Noupe Production Profile
-# Multi-worker uvicorn launch with strict preflight and optional frontend launch.
-
-ROOT="$(cd "$(dirname "$0")" && pwd)"
-
-HOST="${NOUPE_HOST:-0.0.0.0}"
-PORT="${NOUPE_PORT:-8000}"
-WORKERS="${NOUPE_UVICORN_WORKERS:-2}"
-LOG_LEVEL="${NOUPE_LOG_LEVEL:-info}"
-OLD_FRONTEND_PORT="${NOUPE_OLD_FRONTEND_PORT:-8081}"
-READY_TIMEOUT_SECONDS="${NOUPE_READY_TIMEOUT_SECONDS:-180}"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+NOUPE_HOST="${NOUPE_HOST:-0.0.0.0}"
+NOUPE_PORT="${NOUPE_PORT:-8000}"
+NOUPE_READY_TIMEOUT_SECONDS="${NOUPE_READY_TIMEOUT_SECONDS:-180}"
+NOUPE_FRONTEND_DEMO_PORT="${NOUPE_FRONTEND_DEMO_PORT:-${NOUPE_OLD_FRONTEND_PORT:-8081}}"
 
 BACKEND_PID=""
-LEGACY_FRONTEND_PID=""
-FRONTEND_SELECTION=""
-BACKEND_URL="http://localhost:${PORT}"
-CHAT_FRONTEND_URL="${BACKEND_URL}/chat/"
-EMAIL_FRONTEND_URL="${BACKEND_URL}/email/"
-SLACK_FRONTEND_URL="${BACKEND_URL}/slack/"
-LEGACY_FRONTEND_URL="http://localhost:${OLD_FRONTEND_PORT}/"
+DEMO_SERVER_PID=""
+FRONTEND_SELECTION="${FRONTEND_SELECTION:-}"
 
-export NOUPE_FAIL_ON_LAYER_LOAD_ERROR=1
-export NOUPE_LAZY_LOAD_HEAVY="${NOUPE_LAZY_LOAD_HEAVY:-0}"
-PROM_DIR="${PROMETHEUS_MULTIPROC_DIR:-$ROOT/.prometheus-multiproc}"
-export PROMETHEUS_MULTIPROC_DIR="$PROM_DIR"
+BACKEND_URL="http://localhost:${NOUPE_PORT}"
+DEMO_ROOT="${ROOT}/archive/frontend-demos"
+DEMO_BASE_URL="http://localhost:${NOUPE_FRONTEND_DEMO_PORT}"
+LEGACY_FRONTEND_URL="${DEMO_BASE_URL}/legacy/?api=${BACKEND_URL}"
+CHAT_FRONTEND_URL="${DEMO_BASE_URL}/chat/?api=${BACKEND_URL}"
+EMAIL_FRONTEND_URL="${DEMO_BASE_URL}/email/?api=${BACKEND_URL}"
+SLACK_FRONTEND_URL="${DEMO_BASE_URL}/slack/?api=${BACKEND_URL}"
 
-cleanup() {
+cleanup_services() {
     local exit_code=$?
     trap - EXIT INT TERM
 
-    if [ -n "${LEGACY_FRONTEND_PID}" ]; then
-        kill "${LEGACY_FRONTEND_PID}" >/dev/null 2>&1 || true
+    if [ -n "${DEMO_SERVER_PID}" ]; then
+        kill "${DEMO_SERVER_PID}" >/dev/null 2>&1 || true
     fi
 
     if [ -n "${BACKEND_PID}" ]; then
@@ -40,11 +32,9 @@ cleanup() {
     fi
 
     echo ""
-    echo "🛑 Production services stopped."
-    exit "$exit_code"
+    echo "🛑 Services stopped."
+    exit "${exit_code}"
 }
-
-trap cleanup EXIT INT TERM
 
 open_url() {
     local url="$1"
@@ -93,11 +83,11 @@ PY
 }
 
 wait_for_backend_ready() {
-    local ready_url="http://127.0.0.1:${PORT}/ready"
+    local ready_url="http://127.0.0.1:${NOUPE_PORT}/ready"
 
     echo "⏳ Waiting for backend readiness at ${ready_url}..."
 
-    python3 - "${BACKEND_PID}" "${PORT}" "${READY_TIMEOUT_SECONDS}" <<'PY'
+    python3 - "${BACKEND_PID}" "${NOUPE_PORT}" "${NOUPE_READY_TIMEOUT_SECONDS}" <<'PY'
 import json
 import os
 import sys
@@ -158,29 +148,44 @@ sys.exit(1)
 PY
 }
 
+activate_venv() {
+    if [ -z "${VIRTUAL_ENV:-}" ] && [ -f "${ROOT}/.venv/bin/activate" ]; then
+        echo "🐍 Activating .venv..."
+        # shellcheck source=/dev/null
+        source "${ROOT}/.venv/bin/activate"
+    fi
+}
+
 prompt_frontends() {
+    local default_selection="$1"
+    local default_numeric="5"
+
+    if [ "${default_selection}" = "none" ]; then
+        default_numeric="6"
+    fi
+
     if [ -n "${NOUPE_FRONTENDS:-}" ]; then
         FRONTEND_SELECTION="${NOUPE_FRONTENDS}"
         return
     fi
 
     if [ ! -t 0 ]; then
-        FRONTEND_SELECTION="none"
+        FRONTEND_SELECTION="${default_selection}"
         return
     fi
 
     echo ""
-    echo "Which surface(s) should open after the production backend is ready?"
+    echo "Which frontend(s) should open after the backend is ready?"
     echo "  1) Legacy analyzer only (${LEGACY_FRONTEND_URL})"
     echo "  2) Chat demo only (${CHAT_FRONTEND_URL})"
     echo "  3) Email demo only (${EMAIL_FRONTEND_URL})"
     echo "  4) Slack demo only (${SLACK_FRONTEND_URL})"
     echo "  5) All frontends"
     echo "  6) Backend only (do not open a frontend)"
-    printf "Selection [6]: "
+    printf "Selection [%s]: " "${default_numeric}"
     read -r selection
 
-    case "${selection:-6}" in
+    case "${selection:-${default_numeric}}" in
         1) FRONTEND_SELECTION="legacy" ;;
         2) FRONTEND_SELECTION="chat" ;;
         3) FRONTEND_SELECTION="email" ;;
@@ -189,8 +194,8 @@ prompt_frontends() {
         6) FRONTEND_SELECTION="none" ;;
         legacy|chat|email|slack|all|none|both) FRONTEND_SELECTION="${selection}" ;;
         *)
-            echo "⚠️  Unrecognized selection. Defaulting to backend only."
-            FRONTEND_SELECTION="none"
+            echo "⚠️  Unrecognized selection. Defaulting to ${default_selection}."
+            FRONTEND_SELECTION="${default_selection}"
             ;;
     esac
 }
@@ -217,85 +222,59 @@ selection_includes() {
     esac
 }
 
-start_legacy_frontend_server() {
-    echo "🌐 Starting legacy analyzer frontend on ${LEGACY_FRONTEND_URL}..."
-    python3 -m http.server "${OLD_FRONTEND_PORT}" -d "${ROOT}/frontend" >/dev/null 2>&1 &
-    LEGACY_FRONTEND_PID=$!
-    wait_for_url "http://127.0.0.1:${OLD_FRONTEND_PORT}/" "${LEGACY_FRONTEND_PID}" 30
+selection_requires_demo_server() {
+    case "${FRONTEND_SELECTION}" in
+        legacy|chat|email|slack|all|both) return 0 ;;
+        *) return 1 ;;
+    esac
 }
 
-echo "🚀 Starting Noupe production services..."
+start_demo_server() {
+    if [ -n "${DEMO_SERVER_PID}" ]; then
+        return
+    fi
 
-prompt_frontends
+    if [ ! -d "${DEMO_ROOT}" ]; then
+        echo "❌ Demo root missing: ${DEMO_ROOT}"
+        exit 1
+    fi
 
-echo ""
-echo "Frontend selection: ${FRONTEND_SELECTION}"
+    echo "🌐 Starting archived frontend demo server on ${DEMO_BASE_URL}/ ..."
+    python3 -m http.server "${NOUPE_FRONTEND_DEMO_PORT}" -d "${DEMO_ROOT}" >/dev/null 2>&1 &
+    DEMO_SERVER_PID=$!
+    wait_for_url "http://127.0.0.1:${NOUPE_FRONTEND_DEMO_PORT}/legacy/" "${DEMO_SERVER_PID}" 30
+}
 
-if [ -z "${VIRTUAL_ENV:-}" ] && [ -f "$ROOT/.venv/bin/activate" ]; then
-    # shellcheck source=/dev/null
-    source "$ROOT/.venv/bin/activate"
-fi
+open_selected_frontends() {
+    if selection_includes "legacy"; then
+        echo "🌐 Opening legacy analyzer..."
+        open_url "${LEGACY_FRONTEND_URL}"
+    fi
+    if selection_includes "chat"; then
+        echo "🌐 Opening chat demo..."
+        open_url "${CHAT_FRONTEND_URL}"
+    fi
+    if selection_includes "email"; then
+        echo "🌐 Opening email demo..."
+        open_url "${EMAIL_FRONTEND_URL}"
+    fi
+    if selection_includes "slack"; then
+        echo "🌐 Opening slack demo..."
+        open_url "${SLACK_FRONTEND_URL}"
+    fi
+}
 
-echo "🧪 Running strict preflight checks..."
-python3 "$ROOT/scripts/preflight.py" --strict
-
-rm -rf "$PROM_DIR"
-mkdir -p "$PROM_DIR"
-
-echo "📦 Booting production backend on ${BACKEND_URL}..."
-python3 -m uvicorn backend.main:app \
-    --host "$HOST" \
-    --port "$PORT" \
-    --workers "$WORKERS" \
-    --log-level "$LOG_LEVEL" &
-BACKEND_PID=$!
-
-wait_for_backend_ready
-
-case "${FRONTEND_SELECTION}" in
-    legacy|chat|email|slack|all|both)
-        if selection_includes "legacy"; then
-            start_legacy_frontend_server
-        fi
-        if selection_includes "legacy"; then
-            echo "🌐 Opening legacy analyzer..."
-            open_url "${LEGACY_FRONTEND_URL}"
-        fi
-        if selection_includes "chat"; then
-            echo "🌐 Opening chat demo..."
-            open_url "${CHAT_FRONTEND_URL}"
-        fi
-        if selection_includes "email"; then
-            echo "🌐 Opening email demo..."
-            open_url "${EMAIL_FRONTEND_URL}"
-        fi
-        if selection_includes "slack"; then
-            echo "🌐 Opening slack demo..."
-            open_url "${SLACK_FRONTEND_URL}"
-        fi
-        ;;
-    none)
-        echo "ℹ️  Production backend is ready. No frontend opened."
-        ;;
-    *)
-        echo "⚠️  Unknown frontend selection '${FRONTEND_SELECTION}'. No frontend opened."
-        ;;
-esac
-
-echo "✅ Production services are running."
-echo "   Backend: ${BACKEND_URL}"
-if [ -n "${LEGACY_FRONTEND_PID}" ]; then
-    echo "   Legacy analyzer: ${LEGACY_FRONTEND_URL}"
-fi
-if selection_includes "chat"; then
-    echo "   Chat demo: ${CHAT_FRONTEND_URL}"
-fi
-if selection_includes "email"; then
-    echo "   Email demo: ${EMAIL_FRONTEND_URL}"
-fi
-if selection_includes "slack"; then
-    echo "   Slack demo: ${SLACK_FRONTEND_URL}"
-fi
-echo "Press Ctrl+C to stop everything."
-
-wait "${BACKEND_PID}"
+print_selected_frontends() {
+    if selection_includes "legacy"; then
+        echo "   Legacy analyzer: ${LEGACY_FRONTEND_URL}"
+    fi
+    if selection_includes "chat"; then
+        echo "   Chat demo: ${CHAT_FRONTEND_URL}"
+    fi
+    if selection_includes "email"; then
+        echo "   Email demo: ${EMAIL_FRONTEND_URL}"
+    fi
+    if selection_includes "slack"; then
+        echo "   Slack demo: ${SLACK_FRONTEND_URL}"
+    fi
+}

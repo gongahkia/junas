@@ -34,6 +34,16 @@ PCT_PATTERN = re.compile(r'(\d+\.?\d*)\s*%') # matches N% values
 
 MULTIPLIERS = {"k": 1e3, "m": 1e6, "b": 1e9, "t": 1e12, "thousand": 1e3, "million": 1e6, "billion": 1e9, "trillion": 1e12}
 
+
+def _iter_literal_matches(text: str, needle: str, *, ignore_case: bool = False, word_boundary: bool = False):
+    if not needle:
+        return []
+
+    escaped = re.escape(needle)
+    pattern = rf"\b{escaped}\b" if word_boundary else escaped
+    flags = re.IGNORECASE if ignore_case else 0
+    return list(re.finditer(pattern, text, flags))
+
 def _parse_amount(raw: str) -> Optional[float]:
     cleaned = re.sub(r'[\$€£¥,\s]', '', raw).lower() # strip currency symbols and commas
     for suffix, mult in MULTIPLIERS.items():
@@ -54,6 +64,8 @@ class LexiconHit:
     severity: str # "high" or "info"
     detail: str = ""
     score: float = 0.0
+    start_char: Optional[int] = None
+    end_char: Optional[int] = None
 
 @dataclass
 class LexiconResult:
@@ -98,25 +110,78 @@ class LexiconFilter:
             raw = match.group()
             amount = _parse_amount(raw)
             if amount and amount >= ABS_THRESHOLD:
-                hits.append(LexiconHit(rule="money_threshold", matched_text=raw, severity="high", detail=f"parsed={amount:.0f} >= threshold={ABS_THRESHOLD:.0f}"))
+                hits.append(
+                    LexiconHit(
+                        rule="money_threshold",
+                        matched_text=raw,
+                        severity="high",
+                        detail=f"parsed={amount:.0f} >= threshold={ABS_THRESHOLD:.0f}",
+                        start_char=match.start(),
+                        end_char=match.end(),
+                    )
+                )
         return hits
     def _check_pct_threshold(self, text: str) -> list:
         hits = []
         for match in PCT_PATTERN.finditer(text):
             val = float(match.group(1))
             if val >= PCT_THRESHOLD:
-                hits.append(LexiconHit(rule="pct_threshold", matched_text=match.group(), severity="high", detail=f"{val}% >= {PCT_THRESHOLD}%"))
+                hits.append(
+                    LexiconHit(
+                        rule="pct_threshold",
+                        matched_text=match.group(),
+                        severity="high",
+                        detail=f"{val}% >= {PCT_THRESHOLD}%",
+                        start_char=match.start(),
+                        end_char=match.end(),
+                    )
+                )
         return hits
     def _check_restricted_list(self, text: str) -> tuple:
         hits, found = [], []
-        text_lower = text.lower()
         for ent in self.restricted:
-            name_match = ent["name"].lower() in text_lower
-            ticker_match = re.search(r'\b' + re.escape(ent["ticker"]) + r'\b', text) # exact match for ticker
-            isin_match = ent["isin"] in text
-            if name_match or ticker_match or isin_match:
-                matched = ent["name"] if name_match else (ent["ticker"] if ticker_match else ent["isin"])
-                hits.append(LexiconHit(rule="restricted_list", matched_text=matched, severity="high", detail=f"entity={ent['name']} ticker={ent['ticker']}"))
+            entity_found = False
+
+            for match in _iter_literal_matches(text, ent.get("name", ""), ignore_case=True):
+                hits.append(
+                    LexiconHit(
+                        rule="restricted_list",
+                        matched_text=match.group(),
+                        severity="high",
+                        detail=f"entity={ent['name']} ticker={ent['ticker']}",
+                        start_char=match.start(),
+                        end_char=match.end(),
+                    )
+                )
+                entity_found = True
+
+            for match in _iter_literal_matches(text, ent.get("ticker", ""), word_boundary=True):
+                hits.append(
+                    LexiconHit(
+                        rule="restricted_list",
+                        matched_text=match.group(),
+                        severity="high",
+                        detail=f"entity={ent['name']} ticker={ent['ticker']}",
+                        start_char=match.start(),
+                        end_char=match.end(),
+                    )
+                )
+                entity_found = True
+
+            for match in _iter_literal_matches(text, ent.get("isin", ""), word_boundary=True):
+                hits.append(
+                    LexiconHit(
+                        rule="restricted_list",
+                        matched_text=match.group(),
+                        severity="high",
+                        detail=f"entity={ent['name']} ticker={ent['ticker']}",
+                        start_char=match.start(),
+                        end_char=match.end(),
+                    )
+                )
+                entity_found = True
+
+            if entity_found:
                 found.append(ent)
         return hits, found
     def _check_ner(self, text: str) -> list:
@@ -143,34 +208,58 @@ class LexiconFilter:
             # High risk: Critical event + Organization or Key Person
             if found_events and (orgs or people):
                 entities_str = ", ".join([e.text for e in orgs + people])
+                sent_text = text[sent.start_char:sent.end_char]
                 hits.append(LexiconHit(
                     rule="ner_event_entity_correlation",
-                    matched_text=sent.text.strip(),
+                    matched_text=sent_text,
                     severity="high",
-                    detail=f"events={found_events} entities=[{entities_str}]"
+                    detail=f"events={found_events} entities=[{entities_str}]",
+                    start_char=sent.start_char,
+                    end_char=sent.end_char,
                 ))
                 
             # Info: Organization + Money mentioned together
             if orgs and money:
                 org_str = ", ".join([e.text for e in orgs])
                 money_str = ", ".join([e.text for e in money])
+                sent_text = text[sent.start_char:sent.end_char]
                 hits.append(LexiconHit(
                     rule="ner_org_money_correlation",
-                    matched_text=sent.text.strip(),
+                    matched_text=sent_text,
                     severity="info",
-                    detail=f"orgs=[{org_str}] money=[{money_str}]"
+                    detail=f"orgs=[{org_str}] money=[{money_str}]",
+                    start_char=sent.start_char,
+                    end_char=sent.end_char,
                 ))
 
         # Basic entity logging
         for ent in doc.ents:
             if ent.label_ in ("MONEY", "ORG", "PERSON", "GPE", "LAW"):
-                hits.append(LexiconHit(rule=f"ner_{ent.label_.lower()}", matched_text=ent.text, severity="info", detail=f"spaCy label={ent.label_}"))
+                hits.append(
+                    LexiconHit(
+                        rule=f"ner_{ent.label_.lower()}",
+                        matched_text=ent.text,
+                        severity="info",
+                        detail=f"spaCy label={ent.label_}",
+                        start_char=ent.start_char,
+                        end_char=ent.end_char,
+                    )
+                )
         return hits
     def _check_presidio(self, text: str) -> list:
         hits = []
         results = self.analyzer.analyze(text=text, language="en", entities=["CREDIT_CARD", "IBAN_CODE", "FINANCIAL_ID", "PHONE_NUMBER", "EMAIL_ADDRESS"])
         for r in results:
-            hits.append(LexiconHit(rule=f"presidio_{r.entity_type.lower()}", matched_text=text[r.start:r.end], severity="high" if r.score >= 0.7 else "info", detail=f"score={r.score:.2f}"))
+            hits.append(
+                LexiconHit(
+                    rule=f"presidio_{r.entity_type.lower()}",
+                    matched_text=text[r.start:r.end],
+                    severity="high" if r.score >= 0.7 else "info",
+                    detail=f"score={r.score:.2f}",
+                    start_char=r.start,
+                    end_char=r.end,
+                )
+            )
         return hits
     def run(self, text: str) -> LexiconResult:
         result = LexiconResult()

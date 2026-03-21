@@ -58,7 +58,7 @@ const EDGE_STYLE_BY_KIND = {
     unavailable: "stroke:#fb7185,stroke-width:2.5px;",
     neutral: "stroke:#4b5563,stroke-width:1.5px;",
 };
-const MAX_SCREENING_TEXT_LENGTH = 20000;
+const MAX_SCREENING_TEXT_LENGTH = 100000;
 const SCREENING_CONTROL_CHAR_PATTERN = /[\u0000-\u001f\u007f-\u009f]/;
 
 let latestReadyState = null;

@@ -1,9 +1,10 @@
-from pydantic import BaseModel, Field, field_validator
+from datetime import datetime
 from enum import Enum
 from typing import Optional
-from datetime import datetime
 
-MAX_CLASSIFY_TEXT_LENGTH = 20000
+from pydantic import BaseModel, Field, field_validator
+
+MAX_CLASSIFY_TEXT_LENGTH = 100000
 
 class Classification(str, Enum):
     SAFE = "SAFE"
@@ -23,6 +24,10 @@ class ClassifyRequest(BaseModel):
         description="Optional entity identifier for Mosaic tracking",
     )
     debug: bool = Field(False, description="Include heavy debug fields in response")
+    include_offending_spans: bool = Field(
+        False,
+        description="Include exact lexicon-derived match spans when the response is LOW_RISK or HIGH_RISK",
+    )
 
     @field_validator("text")
     @classmethod
@@ -101,6 +106,21 @@ class LayerErrorResponse(BaseModel):
     message: str
 
 
+class OffendingSpanResponse(BaseModel):
+    id: str
+    layer: str
+    rule: str
+    severity: str
+    matched_text: str
+    detail: str = ""
+    start_char: int
+    end_char: int
+    start_line: int
+    start_column: int
+    end_line: int
+    end_column: int
+
+
 class ObservabilityResponse(BaseModel):
     degraded: bool = False
     cache_status: str = "disabled"
@@ -120,6 +140,7 @@ class ClassifyResponse(BaseModel):
     mosaic: Optional[MosaicResponse] = None
     regression: Optional[RegressionResponse] = None
     observability: ObservabilityResponse = Field(default_factory=ObservabilityResponse)
+    offending_spans: Optional[list[OffendingSpanResponse]] = None
     timings_ms: dict[str, float] = Field(default_factory=dict)
 
 

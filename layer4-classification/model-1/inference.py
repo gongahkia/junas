@@ -77,7 +77,7 @@ class FinBERTClassifier:
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         try:
             self.tokenizer = AutoTokenizer.from_pretrained(checkpoint_dir, local_files_only=True, use_fast=True)
-        except TypeError:
+        except Exception:
             self.tokenizer = AutoTokenizer.from_pretrained(checkpoint_dir, local_files_only=True)
         self.model = AutoModelForSequenceClassification.from_pretrained(
             checkpoint_dir,

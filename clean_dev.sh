@@ -8,6 +8,7 @@ echo "🧹 Cleaning training artifacts..."
 
 rm -rf "$ROOT/.train_tmp"
 rm -f "$ROOT/all_embeddings.npy" "$ROOT/public_embeddings.npy" "$ROOT/violation_embeddings.npy"
+rm -rf "$ROOT/archive/training-checkpoints"
 rm -rf "$ROOT/layer3-clustering/checkpoints"
 rm -rf "$ROOT/layer4-classification/model-1/checkpoints"
 rm -rf "$ROOT/layer4-classification/model-2/checkpoints"

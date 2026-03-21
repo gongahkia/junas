@@ -37,8 +37,41 @@ let busy = false;
 let guardPopupVisible = false;
 let draftBlocked = false;
 let blockedDraftText = "";
-const MAX_SCREENING_TEXT_LENGTH = 20000;
+const MAX_SCREENING_TEXT_LENGTH = 100000;
 const SCREENING_CONTROL_CHAR_PATTERN = /[\u0000-\u001f\u007f-\u009f]/;
+
+function normalizeApiBase(value) {
+    return value ? value.replace(/\/+$/, "") : "";
+}
+
+function resolveApiBase() {
+    const params = new URLSearchParams(window.location.search);
+    const queryBase = normalizeApiBase(params.get("api"));
+    if (queryBase) {
+        window.localStorage.setItem("noupe.apiBase", queryBase);
+        return queryBase;
+    }
+
+    const savedBase = normalizeApiBase(window.localStorage.getItem("noupe.apiBase"));
+    if (savedBase) {
+        return savedBase;
+    }
+
+    if (window.location.port === "8000" && /^https?:$/.test(window.location.protocol)) {
+        return normalizeApiBase(window.location.origin);
+    }
+
+    return "http://localhost:8000";
+}
+
+const API_BASE = resolveApiBase();
+const API_HOST_LABEL = (() => {
+    try {
+        return new URL(API_BASE).host;
+    } catch (error) {
+        return API_BASE;
+    }
+})();
 
 function refreshActionState(sendLabel = "Send") {
     sendButtonEl.classList.remove("is-blocked", "is-guarded");
@@ -330,7 +363,7 @@ function openGuardPopup(context) {
 
 async function classifyContent(text, sourceLabel = "Content") {
     const screeningText = validateScreeningText(text, sourceLabel);
-    const response = await fetch("/classify", {
+    const response = await fetch(`${API_BASE}/classify`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -495,12 +528,12 @@ async function checkBackend() {
     const dot = backendStatusEl.querySelector(".status-dot");
 
     try {
-        const response = await fetch("/ready");
+        const response = await fetch(`${API_BASE}/ready`);
         const payload = await response.json();
 
         if (payload.ready) {
             dot.style.background = "#86efac";
-            backendStatusTextEl.textContent = "Backend ready on /classify";
+            backendStatusTextEl.textContent = `Backend ready on ${API_HOST_LABEL}`;
         } else {
             dot.style.background = "#facc15";
             const reasons = Array.isArray(payload.reasons) && payload.reasons.length
