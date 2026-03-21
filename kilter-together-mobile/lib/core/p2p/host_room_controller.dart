@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/provider_models.dart';
 import '../models/room_models.dart';
 import '../storage/offline_kilter_catalog_repository.dart';
@@ -9,6 +11,8 @@ import 'host_room_service.dart';
 import 'p2p_message_types.dart';
 import 'p2p_provider.dart';
 import 'p2p_transport.dart';
+
+const String _stateKey = 'kilter_host_room_state';
 
 String _generateSlug() {
   const String chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -468,18 +472,43 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
   int? get hostParticipantId => _hostParticipantId;
 
   void _broadcastState() {
-    // update host UI
     state = HostRoomViewState(
       room: _service.toSnapshot(forParticipantId: _hostParticipantId),
       hosting: true,
     );
-    // send per-peer personalized snapshots
     for (final MapEntry<String, int> entry in _peerParticipantIds.entries) {
       final RoomSnapshot peerSnapshot = _service.toSnapshot(forParticipantId: entry.value);
       _sendTo(entry.key, P2pMessage(
         type: P2pMessageType.roomStateUpdate,
         payload: _snapshotToJson(peerSnapshot),
       ));
+    }
+    _persistState();
+  }
+
+  Future<void> _persistState() async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_stateKey, _service.state.serialize());
+    } catch (e) {
+      developer.log('failed to persist host room state: $e', name: 'HostRoom');
+    }
+  }
+
+  static Future<void> clearPersistedState() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_stateKey);
+  }
+
+  static Future<HostRoomState?> loadPersistedState() async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? data = prefs.getString(_stateKey);
+      if (data == null) return null;
+      return HostRoomState.deserialize(data);
+    } catch (e) {
+      developer.log('failed to load persisted host room state: $e', name: 'HostRoom');
+      return null;
     }
   }
 
@@ -549,6 +578,9 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
     _connectionSub?.cancel();
     unawaited(_transport.stopAdvertising());
     unawaited(_transport.disconnectAll());
+    if (_service.state.status == 'closed') {
+      unawaited(clearPersistedState()); // clean close — no recovery needed
+    }
     super.dispose();
   }
 }

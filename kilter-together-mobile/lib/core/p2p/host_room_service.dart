@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import '../models/provider_models.dart';
 import '../models/room_models.dart';
@@ -37,6 +38,68 @@ class HostRoomState {
   int nextQueueEntryId() => _nextQueueEntryId++;
   int nextFinalistId() => _nextFinalistId++;
   void bumpVersion() => version++;
+
+  String serialize() => jsonEncode(<String, dynamic>{
+    'slug': slug, 'provider_id': providerId, 'room_name': roomName,
+    'status': status, 'version': version, 'fist_bumps_enabled': fistBumpsEnabled,
+    '_next_participant_id': _nextParticipantId,
+    '_next_queue_entry_id': _nextQueueEntryId,
+    '_next_finalist_id': _nextFinalistId,
+    'participants': participants.map((Participant p) => <String, dynamic>{
+      'id': p.id, 'display_name': p.displayName, 'role': p.role,
+      'status': p.status, 'is_online': p.isOnline,
+    }).toList(growable: false),
+    'queue': queue.map((QueueEntry e) => <String, dynamic>{
+      'id': e.id, 'status': e.status, 'position': e.position,
+      'added_by': e.addedBy, 'climb': e.climb.toJson(),
+    }).toList(growable: false),
+    'finalists': finalists.map((FinalistEntry e) => <String, dynamic>{
+      'id': e.id, 'position': e.position, 'added_by': e.addedBy, 'climb': e.climb.toJson(),
+    }).toList(growable: false),
+    'vote_counts': voteCounts,
+    'participant_votes': participantVotes.map((int k, List<String> v) => MapEntry('$k', v)),
+    if (surface != null) 'surface': surface!.toJson(),
+    if (currentClimb != null) 'current_climb': currentClimb!.toJson(),
+  });
+
+  static HostRoomState deserialize(String data) {
+    final Map<String, dynamic> json = jsonDecode(data) as Map<String, dynamic>;
+    final HostRoomState state = HostRoomState(
+      slug: json['slug'] as String? ?? '',
+      providerId: json['provider_id'] as String? ?? '',
+      roomName: json['room_name'] as String?,
+      status: json['status'] as String? ?? 'open',
+      fistBumpsEnabled: json['fist_bumps_enabled'] as bool? ?? true,
+      version: (json['version'] as num?)?.toInt() ?? 1,
+      surface: json['surface'] is Map<String, dynamic> ? ProviderSurface.fromJson(json['surface'] as Map<String, dynamic>) : null,
+      currentClimb: json['current_climb'] is Map<String, dynamic> ? ProviderClimb.fromJson(json['current_climb'] as Map<String, dynamic>) : null,
+    );
+    state._nextParticipantId = (json['_next_participant_id'] as num?)?.toInt() ?? 1;
+    state._nextQueueEntryId = (json['_next_queue_entry_id'] as num?)?.toInt() ?? 1;
+    state._nextFinalistId = (json['_next_finalist_id'] as num?)?.toInt() ?? 1;
+    final List<dynamic> rawParticipants = (json['participants'] as List<dynamic>?) ?? <dynamic>[];
+    for (final dynamic p in rawParticipants) {
+      if (p is Map<String, dynamic>) state.participants.add(Participant.fromJson(p));
+    }
+    final List<dynamic> rawQueue = (json['queue'] as List<dynamic>?) ?? <dynamic>[];
+    for (final dynamic e in rawQueue) {
+      if (e is Map<String, dynamic>) state.queue.add(QueueEntry.fromJson(e));
+    }
+    final List<dynamic> rawFinalists = (json['finalists'] as List<dynamic>?) ?? <dynamic>[];
+    for (final dynamic e in rawFinalists) {
+      if (e is Map<String, dynamic>) state.finalists.add(FinalistEntry.fromJson(e));
+    }
+    final Map<String, dynamic> rawVotes = (json['vote_counts'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+    for (final MapEntry<String, dynamic> entry in rawVotes.entries) {
+      state.voteCounts[entry.key] = (entry.value as num?)?.toInt() ?? 0;
+    }
+    final Map<String, dynamic> rawPVotes = (json['participant_votes'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+    for (final MapEntry<String, dynamic> entry in rawPVotes.entries) {
+      final int key = int.tryParse(entry.key) ?? 0;
+      state.participantVotes[key] = ((entry.value as List<dynamic>?) ?? <dynamic>[]).map((dynamic v) => '$v').toList();
+    }
+    return state;
+  }
 }
 
 class HostRoomService {
