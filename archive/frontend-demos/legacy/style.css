@@ -282,6 +282,106 @@ main {
     background: var(--high-red);
 }
 
+.result-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.result-lead {
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+.result-subcopy {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.result-section {
+    margin-top: 24px;
+}
+
+.section-heading-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.section-heading {
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.section-kicker {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+}
+
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.metric-card {
+    border-radius: 14px;
+    border: 1px solid #ececec;
+    background: #ffffff;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 132px;
+}
+
+.metric-card-safe {
+    border-color: #d6f0e2;
+    background: #f5fcf8;
+}
+
+.metric-card-warning {
+    border-color: #f6e5bf;
+    background: #fffaf0;
+}
+
+.metric-card-danger {
+    border-color: #f4d4d7;
+    background: #fff7f7;
+}
+
+.metric-card-neutral {
+    border-color: #ececec;
+    background: #ffffff;
+}
+
+.metric-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.metric-value {
+    font-size: 1.15rem;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.metric-support {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
 .details {
     margin-top: 24px;
     display: grid;
@@ -296,6 +396,133 @@ main {
     font-size: 0.85rem;
     padding-bottom: 8px;
     border-bottom: 1px solid #efefef;
+}
+
+.timing-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.timing-row {
+    display: grid;
+    gap: 8px;
+}
+
+.timing-row-copy {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 0.84rem;
+}
+
+.timing-label {
+    font-weight: 600;
+}
+
+.timing-value {
+    font-family: 'Space Mono', monospace;
+    color: var(--text-secondary);
+}
+
+.timing-bar-track {
+    width: 100%;
+    height: 10px;
+    border-radius: 999px;
+    background: #ececec;
+    overflow: hidden;
+}
+
+.timing-bar-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #111111 0%, #4b5563 100%);
+}
+
+.span-card-grid {
+    display: grid;
+    gap: 14px;
+}
+
+.span-card {
+    border-radius: 14px;
+    border: 1px solid #ececec;
+    padding: 16px;
+    background: #ffffff;
+    display: grid;
+    gap: 10px;
+}
+
+.span-card-exact {
+    border-color: #f1d1d5;
+    background: #fff8f8;
+}
+
+.span-card-approx {
+    border-color: #f0e3bf;
+    background: #fffdf7;
+}
+
+.span-card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.span-title {
+    font-size: 0.84rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.span-location,
+.span-metrics,
+.span-detail {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.span-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.span-chip-exact {
+    background: #fff0f1;
+    color: #d6455d;
+}
+
+.span-chip-approx {
+    background: #fff3d8;
+    color: #b76b00;
+}
+
+.span-context {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.76rem;
+    line-height: 1.7;
+    word-break: break-word;
+    background: #fbfbfb;
+    border: 1px solid #f0f0f0;
+    border-radius: 10px;
+    padding: 12px 14px;
+    white-space: pre-wrap;
+}
+
+.span-context mark {
+    background: #fff0b3;
+    padding: 1px 3px;
+    border-radius: 4px;
 }
 
 #debug-sidebar {
@@ -474,5 +701,9 @@ main {
 
     #results-display {
         padding: 24px;
+    }
+
+    .metric-grid {
+        grid-template-columns: 1fr;
     }
 }
