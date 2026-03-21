@@ -763,10 +763,13 @@ function inferSkipReason(layer, traceContext) {
     }
 
     if (layer === "mosaic") {
+        const requestEntityId = lastRequestMetrics && lastRequestMetrics.entityId
+            ? String(lastRequestMetrics.entityId).trim()
+            : "";
         if (responseErrors.has("model1") || responseErrors.has("model2")) {
             return "Upstream classifier unavailable";
         }
-        if (!responseData.entity_id && !(responseData.lexicon && safeArray(responseData.lexicon.restricted_entities).length)) {
+        if (!requestEntityId && !(responseData.lexicon && safeArray(responseData.lexicon.restricted_entities).length)) {
             return "No entity available for aggregation";
         }
         return "Aggregation not applicable in this path";
