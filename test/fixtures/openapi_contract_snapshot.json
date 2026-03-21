@@ -1,0 +1,161 @@
+{
+  "info": {
+    "title": "Noupe MNPI Classifier",
+    "version": "0.1.0",
+    "summary": "Backend-only MNPI classification API with archived demo frontends served separately."
+  },
+  "tags": [
+    "Runtime",
+    "Classification"
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Get layer load health",
+        "tags": [
+          "Runtime"
+        ],
+        "response_ref": "#/components/schemas/HealthResponse"
+      }
+    },
+    "/ready": {
+      "get": {
+        "summary": "Get backend readiness",
+        "tags": [
+          "Runtime"
+        ],
+        "response_ref": "#/components/schemas/ReadyResponse"
+      }
+    },
+    "/diagnostics": {
+      "get": {
+        "summary": "Get runtime diagnostics",
+        "tags": [
+          "Runtime"
+        ],
+        "response_ref": "#/components/schemas/DiagnosticsResponse"
+      }
+    },
+    "/metrics": {
+      "get": {
+        "summary": "Get Prometheus metrics",
+        "tags": [
+          "Runtime"
+        ],
+        "response_ref": null
+      }
+    },
+    "/classify": {
+      "post": {
+        "summary": "Classify one document",
+        "tags": [
+          "Classification"
+        ],
+        "request_body_ref": "#/components/schemas/ClassifyRequest",
+        "response_ref": "#/components/schemas/ClassifyResponse"
+      }
+    },
+    "/classify/batch": {
+      "post": {
+        "summary": "Classify multiple documents",
+        "tags": [
+          "Classification"
+        ],
+        "request_body_ref": "#/components/schemas/BatchClassifyRequest",
+        "response_ref": "#/components/schemas/BatchClassifyResponse"
+      }
+    }
+  },
+  "schemas": {
+    "ClassifyRequest": {
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "maxLength": 100000
+        },
+        "entity_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "debug": {
+          "type": "boolean"
+        },
+        "include_offending_spans": {
+          "type": "boolean"
+        }
+      }
+    },
+    "BatchClassifyRequest": {
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 32,
+          "itemsRef": "#/components/schemas/ClassifyRequest"
+        }
+      }
+    },
+    "OffendingSpanResponse": {
+      "required": [
+        "id",
+        "layer",
+        "rule",
+        "severity",
+        "matched_text",
+        "start_char",
+        "end_char",
+        "start_line",
+        "start_column",
+        "end_line",
+        "end_column",
+        "is_exact",
+        "char_length",
+        "line_span"
+      ],
+      "properties": [
+        "id",
+        "layer",
+        "rule",
+        "severity",
+        "matched_text",
+        "detail",
+        "start_char",
+        "end_char",
+        "start_line",
+        "start_column",
+        "end_line",
+        "end_column",
+        "is_exact",
+        "char_length",
+        "line_span",
+        "context_before",
+        "context_after",
+        "score",
+        "score_type",
+        "window_index",
+        "window_count",
+        "window_token_count",
+        "window_stride",
+        "window_max_seq_len"
+      ]
+    },
+    "ObservabilityResponse": {
+      "properties": [
+        "degraded",
+        "cache_status",
+        "active_pipeline",
+        "executed_layers",
+        "skipped_layers",
+        "layer_errors"
+      ]
+    }
+  }
+}
