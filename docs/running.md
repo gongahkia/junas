@@ -25,6 +25,34 @@ Use strict mode to fail on warnings:
 python3 scripts/preflight.py --strict
 ```
 
+## Benchmarking Latency
+
+Place benchmark `.txt` inputs in:
+
+```sh
+test/fixtures/latency-corpus/
+```
+
+Benchmark every `.txt` file in that folder with:
+
+```sh
+./scripts/benchmark_latency_corpus.sh
+```
+
+Useful variants:
+
+```sh
+./scripts/benchmark_latency_corpus.sh --repetitions 10 --warmups 2
+./scripts/benchmark_latency_corpus.sh --no-server --url http://127.0.0.1:8000
+LATENCY_CORPUS_DIR=/path/to/other/texts ./scripts/benchmark_latency_corpus.sh
+```
+
+Outputs are written to `reports/` as:
+
+- `latency_<timestamp>.json`
+- `latency_<timestamp>.csv`
+- `latency_<timestamp>.txt`
+
 ## Running the API
 
 ```sh

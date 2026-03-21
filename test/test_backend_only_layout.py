@@ -44,6 +44,7 @@ class BackendOnlyLayoutTests(unittest.TestCase):
 
     def test_launch_scripts_exist(self):
         expected_paths = [
+            ROOT / "scripts" / "benchmark_latency_corpus.sh",
             ROOT / "scripts" / "clean_dev.sh",
             ROOT / "scripts" / "launch" / "common.sh",
             ROOT / "scripts" / "launch" / "run_dev.sh",
