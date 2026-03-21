@@ -35,6 +35,13 @@ class BackendOnlyLayoutTests(unittest.TestCase):
         for path in expected_paths:
             self.assertTrue(path.exists(), f"missing archived demo asset: {path}")
 
+    def test_latency_corpus_folder_exists(self):
+        expected_paths = [
+            ROOT / "test" / "fixtures" / "latency-corpus" / "README.md",
+        ]
+        for path in expected_paths:
+            self.assertTrue(path.exists(), f"missing latency corpus asset: {path}")
+
     def test_launch_scripts_exist(self):
         expected_paths = [
             ROOT / "scripts" / "clean_dev.sh",
