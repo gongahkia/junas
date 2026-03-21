@@ -100,6 +100,14 @@ class OffendingSpanApiTests(unittest.TestCase):
             self.assertEqual(span["start_column"], 1)
             self.assertEqual(span["end_line"], 2)
             self.assertEqual(span["end_column"], 10)
+            self.assertTrue(span["is_exact"])
+            self.assertEqual(span["char_length"], 9)
+            self.assertEqual(span["line_span"], 1)
+            self.assertEqual(span["context_before"], "alpha\n")
+            self.assertEqual(span["context_after"], "")
+            self.assertEqual(span["score"], 5.0)
+            self.assertEqual(span["score_type"], "rule_score")
+            self.assertIsNone(span["window_index"])
 
     def test_offending_spans_include_classifier_window_for_model_only_risk(self):
         text = "public intro\nconfidential operating review\npublic outro"
@@ -116,6 +124,10 @@ class OffendingSpanApiTests(unittest.TestCase):
                         "end_char": 42,
                         "text": "confidential operating review",
                         "risk_score": 0.88,
+                        "window_index": 1,
+                        "token_count": 6,
+                        "window_stride": 128,
+                        "max_seq_len": 512,
                     },
                     window_count=3,
                 ),
@@ -137,6 +149,18 @@ class OffendingSpanApiTests(unittest.TestCase):
             self.assertEqual(span["matched_text"], "confidential operating review")
             self.assertEqual(span["start_char"], 13)
             self.assertEqual(span["end_char"], 42)
+            self.assertFalse(span["is_exact"])
+            self.assertEqual(span["char_length"], 29)
+            self.assertEqual(span["line_span"], 1)
+            self.assertEqual(span["context_before"], "public intro\n")
+            self.assertEqual(span["context_after"], "\npublic outro")
+            self.assertEqual(span["score"], 0.88)
+            self.assertEqual(span["score_type"], "risk_score")
+            self.assertEqual(span["window_index"], 1)
+            self.assertEqual(span["window_count"], 3)
+            self.assertEqual(span["window_token_count"], 6)
+            self.assertEqual(span["window_stride"], 128)
+            self.assertEqual(span["window_max_seq_len"], 512)
             self.assertIn("windows=3", span["detail"])
 
     def test_offending_spans_include_model2_window_for_high_risk(self):
@@ -154,6 +178,10 @@ class OffendingSpanApiTests(unittest.TestCase):
                         "end_char": 35,
                         "text": "sensitive merger plans",
                         "risk_score": 0.91,
+                        "window_index": 1,
+                        "token_count": 5,
+                        "window_stride": 128,
+                        "max_seq_len": 512,
                     },
                     window_count=3,
                 ),
@@ -166,6 +194,10 @@ class OffendingSpanApiTests(unittest.TestCase):
                         "end_char": 35,
                         "text": "sensitive merger plans",
                         "high_risk_score": 0.84,
+                        "window_index": 1,
+                        "token_count": 5,
+                        "window_stride": 128,
+                        "max_seq_len": 512,
                     },
                     window_count=3,
                 ),
@@ -180,9 +212,11 @@ class OffendingSpanApiTests(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             payload = response.json()
             self.assertEqual(payload["classification"], "HIGH_RISK")
-            layers = [item["layer"] for item in payload["offending_spans"]]
-            self.assertIn("model1", layers)
-            self.assertIn("model2", layers)
+            spans_by_layer = {item["layer"]: item for item in payload["offending_spans"]}
+            self.assertIn("model1", spans_by_layer)
+            self.assertIn("model2", spans_by_layer)
+            self.assertEqual(spans_by_layer["model2"]["score_type"], "high_risk_score")
+            self.assertEqual(spans_by_layer["model2"]["window_count"], 3)
 
 
 class LexiconSpanExtractionTests(unittest.TestCase):
