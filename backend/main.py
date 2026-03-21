@@ -1,4 +1,5 @@
 import argparse
+import bisect
 import hashlib
 import importlib.util
 import json
@@ -20,12 +21,8 @@ except ImportError:
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-CHAT_FRONTEND_ROOT = PROJECT_ROOT / "frontend-chat"
-EMAIL_FRONTEND_ROOT = PROJECT_ROOT / "frontend-email"
-SLACK_FRONTEND_ROOT = PROJECT_ROOT / "frontend-slack"
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode  # noqa: E402
@@ -41,6 +38,7 @@ from backend.schemas import (  # noqa: E402
     LexiconResponse,
     Model1Response,
     Model2Response,
+    OffendingSpanResponse,
     MosaicResponse,
     ReadyResponse,
     RegressionResponse,
@@ -134,7 +132,7 @@ def get_allowed_origins() -> list[str]:
     if not origins:
         origins = ["http://localhost", "http://127.0.0.1"]
 
-    # run_dev.sh opens frontend/index.html directly (file://), which uses Origin: null.
+    # Keep Origin: null allowed for manual file:// launches of the archived demo surfaces.
     if "null" not in origins:
         origins.append("null")
 
@@ -391,6 +389,7 @@ def build_response_cache_key(req: ClassifyRequest, pipeline: list[str]) -> str:
     payload = {
         "text": req.text,
         "entity_id": req.entity_id or "",
+        "include_offending_spans": req.include_offending_spans,
         "pipeline": pipeline,
     }
     digest = hashlib.sha256(json.dumps(payload, sort_keys=True).encode("utf-8")).hexdigest()
@@ -535,6 +534,124 @@ def build_layer_error(layer: str, *, default_phase: str = "runtime", default_mes
     }
 
 
+def _build_line_starts(text: str) -> list[int]:
+    starts = [0]
+    for index, char in enumerate(text):
+        if char == "\n":
+            starts.append(index + 1)
+    return starts
+
+
+def _offset_to_line_column(line_starts: list[int], offset: int) -> tuple[int, int]:
+    line_index = max(0, bisect.bisect_right(line_starts, offset) - 1)
+    line_start = line_starts[line_index]
+    return (line_index + 1, (offset - line_start) + 1)
+
+
+def build_offending_spans(text: str, lex_hits: list[Any]) -> list[OffendingSpanResponse]:
+    line_starts = _build_line_starts(text)
+    spans: list[OffendingSpanResponse] = []
+
+    for index, hit in enumerate(lex_hits):
+        start_char = getattr(hit, "start_char", None)
+        end_char = getattr(hit, "end_char", None)
+        if start_char is None or end_char is None:
+            continue
+
+        start = max(0, int(start_char))
+        end = min(len(text), int(end_char))
+        if end < start:
+            continue
+
+        start_line, start_column = _offset_to_line_column(line_starts, start)
+        end_line, end_column = _offset_to_line_column(line_starts, end)
+        matched_text = text[start:end]
+        spans.append(
+            OffendingSpanResponse(
+                id=f"lexicon:{getattr(hit, 'rule', 'unknown')}:{start}:{end}:{index}",
+                layer="lexicon",
+                rule=str(getattr(hit, "rule", "")),
+                severity=str(getattr(hit, "severity", "")),
+                matched_text=matched_text if matched_text else str(getattr(hit, "matched_text", "")),
+                detail=str(getattr(hit, "detail", "")),
+                start_char=start,
+                end_char=end,
+                start_line=start_line,
+                start_column=start_column,
+                end_line=end_line,
+                end_column=end_column,
+            )
+        )
+
+    return spans
+
+
+def build_classifier_offending_spans(
+    text: str,
+    model1_result: Any | None,
+    model2_result: Any | None,
+    final_classification: Classification,
+) -> list[OffendingSpanResponse]:
+    line_starts = _build_line_starts(text)
+    spans: list[OffendingSpanResponse] = []
+
+    model_specs = [
+        (
+            "model1",
+            model1_result,
+            "risk_score",
+            getattr(model1_result, "label", "") == "risk" if model1_result is not None else False,
+        ),
+        (
+            "model2",
+            model2_result,
+            "high_risk_score",
+            model2_result is not None,
+        ),
+    ]
+
+    for index, (layer, result, score_field, should_include) in enumerate(model_specs):
+        if not should_include or result is None:
+            continue
+
+        top_window = getattr(result, "top_window", None)
+        if not isinstance(top_window, dict):
+            continue
+
+        start = max(0, int(top_window.get("start_char", 0)))
+        end = min(len(text), int(top_window.get("end_char", 0)))
+        if end <= start:
+            continue
+
+        start_line, start_column = _offset_to_line_column(line_starts, start)
+        end_line, end_column = _offset_to_line_column(line_starts, end)
+        score_value = float(top_window.get(score_field, getattr(result, score_field, 0.0)))
+        severity = "high" if final_classification == Classification.HIGH_RISK else "info"
+
+        spans.append(
+            OffendingSpanResponse(
+                id=f"{layer}:sliding_window:{start}:{end}:{index}",
+                layer=layer,
+                rule="sliding_window",
+                severity=severity,
+                matched_text=text[start:end],
+                detail=(
+                    f"approximate classifier window from {layer}; "
+                    f"{score_field}={score_value:.3f}; "
+                    f"windows={int(getattr(result, 'window_count', 1))}"
+                ),
+                start_char=start,
+                end_char=end,
+                start_line=start_line,
+                start_column=start_column,
+                end_line=end_line,
+                end_column=end_column,
+            )
+        )
+
+    return spans
+
+
 def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) -> ClassifyResponse:
     pipeline = _state.get("pipeline", [])
     timings_ms: dict[str, float] = {}
@@ -585,6 +702,9 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
         cache_status = "miss"
 
     lex_resp = None
+    lex_hits: list[Any] = []
+    m1_result = None
+    m2_result = None
     m1_resp = None
     m2_resp = None
     emb_resp = None
@@ -621,6 +741,7 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
                     layer_errors.append(build_layer_error(layer))
                     continue
                 lex_result = lexicon_filter.run(req.text)
+                lex_hits = list(lex_result.hits)
                 lex_resp = LexiconResponse(
                     flagged=lex_result.flagged,
                     high_risk_short_circuit=lex_result.high_risk_short_circuit,
@@ -813,6 +934,13 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
 
     timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
 
+    offending_spans = None
+    if req.include_offending_spans and final_classification in {Classification.LOW_RISK, Classification.HIGH_RISK}:
+        offending_spans = []
+        if lex_resp and lex_resp.flagged:
+            offending_spans.extend(build_offending_spans(req.text, lex_hits))
+        offending_spans.extend(build_classifier_offending_spans(req.text, m1_result, m2_result, final_classification))
+
     response = ClassifyResponse(
         request_id=request_id,
         classification=final_classification,
@@ -823,6 +951,7 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
         clustering=clust_resp,
         mosaic=mosaic_resp,
         regression=reg_resp,
+        offending_spans=offending_spans,
         observability={
             "degraded": degraded,
             "cache_status": cache_status,
@@ -871,6 +1000,9 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    det_info = configure_determinism()
+    logger.info(json.dumps({"event": "determinism", **det_info}))
+
     layers = load_config()
     lazy_heavy = _is_truthy(os.environ.get("NOUPE_LAZY_LOAD_HEAVY"), default=True)
     prewarm_required_layers = _is_truthy(os.environ.get("NOUPE_PREWARM_REQUIRED_LAYERS"), default=True)
@@ -1045,16 +1177,6 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Noupe MNPI Classifier", version="0.1.0", lifespan=lifespan)
-
-if CHAT_FRONTEND_ROOT.exists():
-    app.mount("/chat", StaticFiles(directory=str(CHAT_FRONTEND_ROOT), html=True), name="chat-frontend")
-if EMAIL_FRONTEND_ROOT.exists():
-    app.mount("/email", StaticFiles(directory=str(EMAIL_FRONTEND_ROOT), html=True), name="email-frontend")
-if SLACK_FRONTEND_ROOT.exists():
-    app.mount("/slack", StaticFiles(directory=str(SLACK_FRONTEND_ROOT), html=True), name="slack-frontend")
-
-_det_info = configure_determinism()
-logger.info(json.dumps({"event": "determinism", **_det_info}))
 
 app.add_middleware(
     CORSMiddleware,
