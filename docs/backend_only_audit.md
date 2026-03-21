@@ -23,6 +23,7 @@
 - Archived frontend demos now live under `archive/frontend-demos/`
 - Active backend runtime no longer mounts `/chat`, `/email`, or `/slack`
 - Demo launch is handled by `scripts/launch/run_dev.sh` and `scripts/launch/run_prod.sh`
+- The canonical backend-only run path is `scripts/launch/run_backend_only.sh`
 
 ## Active Runtime Artifacts
 
@@ -47,6 +48,7 @@
 ## Audit Findings
 
 - The active backend is now API-only; demo UI serving moved out of FastAPI.
+- The archived demo surfaces still integrate with the current backend contract and request richer classify metadata such as `include_offending_spans`, timings, cache state, and request ids.
 - Exact match locations are implemented for lexicon-derived findings.
 - Classifier outputs can now surface approximate top-risk windows via sliding-window inference without changing the external request shape.
 - Regression remains an aggregate document-level synthesis layer and does not localize text directly.
