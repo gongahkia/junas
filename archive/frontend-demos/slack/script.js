@@ -177,6 +177,20 @@ function formatTime(date = new Date()) {
     }).format(date);
 }
 
+function formatDurationMs(value) {
+    const numericValue = Number(value);
+    if (!Number.isFinite(numericValue)) {
+        return "n/a";
+    }
+    if (numericValue >= 100) {
+        return `${numericValue.toFixed(1)} ms`;
+    }
+    if (numericValue >= 10) {
+        return `${numericValue.toFixed(2)} ms`;
+    }
+    return `${numericValue.toFixed(3)} ms`;
+}
+
 function showError(message) {
     errorBannerEl.textContent = message;
     errorBannerEl.classList.remove("hidden");
@@ -303,6 +317,39 @@ function buildRiskDetails(result) {
         details.push(`Mosaic layer ${state} this entity with ${result.mosaic.count} recent hit(s).`);
     }
 
+    if (Array.isArray(result.offending_spans) && result.offending_spans.length > 0) {
+        const topSpans = result.offending_spans.slice(0, 3).map((span) => {
+            const location = `line ${span.start_line}:${span.start_column}, chars ${span.start_char}-${span.end_char}`;
+            const exactness = span.is_exact ? "exact" : "approximate";
+            return `${span.layer} ${exactness} span at ${location}: "${span.matched_text}"`;
+        });
+        details.push(`Localized findings: ${topSpans.join(" | ")}`);
+    }
+
+    if (result.timings_ms && Number.isFinite(Number(result.timings_ms.total))) {
+        const layerEntries = Object.entries(result.timings_ms)
+            .filter(([key, value]) => key !== "total" && key !== "cache_hit" && Number.isFinite(Number(value)));
+        const slowestLayer = layerEntries.reduce((slowest, current) => {
+            if (!slowest) {
+                return current;
+            }
+            return Number(current[1]) > Number(slowest[1]) ? current : slowest;
+        }, null);
+        const slowestCopy = slowestLayer ? ` Slowest layer: ${slowestLayer[0]} (${formatDurationMs(slowestLayer[1])}).` : "";
+        details.push(`Backend total latency: ${formatDurationMs(result.timings_ms.total)}.${slowestCopy}`);
+    }
+
+    if (result.observability) {
+        const executed = Array.isArray(result.observability.executed_layers) && result.observability.executed_layers.length
+            ? result.observability.executed_layers.join(", ")
+            : "none";
+        details.push(`Execution path: ${executed}. Cache: ${result.observability.cache_status || "disabled"}.`);
+    }
+
+    if (result.request_id) {
+        details.push(`Request id: ${result.request_id}.`);
+    }
+
     if (result.observability && result.observability.degraded) {
         details.push("The classifier responded in a degraded state. Treat the screening result conservatively.");
     }
@@ -387,7 +434,10 @@ async function classifyContent(text, sourceLabel = "Content") {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ text: screeningText })
+        body: JSON.stringify({
+            text: screeningText,
+            include_offending_spans: true
+        })
     });
 
     if (!response.ok) {
