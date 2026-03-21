@@ -247,6 +247,7 @@ When `include_offending_spans=true`, responses can also include:
 
 - exact lexicon-derived spans
 - approximate `model1` and `model2` spans derived from sliding-window classifier inference
+- per-span localization metrics such as exact-vs-approximate status, local context, span length, score type, score, and classifier window index/count/token sizing
 
 ## Training Models
 
