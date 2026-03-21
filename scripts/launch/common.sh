@@ -38,6 +38,11 @@ cleanup_services() {
 
 open_url() {
     local url="$1"
+    if [ "${NOUPE_NO_BROWSER:-0}" = "1" ]; then
+        echo "ℹ️  Browser auto-open disabled. Open this manually if needed:"
+        echo "   ${url}"
+        return
+    fi
     if command -v open >/dev/null 2>&1; then
         open "$url"
     elif command -v xdg-open >/dev/null 2>&1; then
