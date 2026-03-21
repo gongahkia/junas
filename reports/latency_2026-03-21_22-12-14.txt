@@ -1,0 +1,336 @@
+Noupe Latency Benchmark Report
+
+Generated: 2026-03-21_22-12-14
+Target URL: http://127.0.0.1:8130
+Warmups per file: 1
+Measured repetitions per file: 5
+
+Inputs:
+- /Users/gongahkia/Desktop/coding/smu/Noupe/test/fixtures/latency-corpus/10k.txt
+- /Users/gongahkia/Desktop/coding/smu/Noupe/test/fixtures/latency-corpus/1k.txt
+- /Users/gongahkia/Desktop/coding/smu/Noupe/test/fixtures/latency-corpus/2k.txt
+- /Users/gongahkia/Desktop/coding/smu/Noupe/test/fixtures/latency-corpus/5k.txt
+
+file                            words    chars        min       mean        p50        p95        max
+----------------------------------------------------------------------------------------------------
+10k.txt                          9335    59591   3699.243   3750.486   3741.511   3800.273   3806.675
+1k.txt                           1048     6706    332.713    334.161    334.259    335.044    335.046
+2k.txt                           2022    13277    663.385    670.713    665.993    684.940    688.588
+5k.txt                           4745    32312   1761.688   1767.608   1765.158   1777.107   1779.792
+
+Detailed results:
+
+File: 10k.txt
+Path: /Users/gongahkia/Desktop/coding/smu/Noupe/test/fixtures/latency-corpus/10k.txt
+Words: 9335
+Chars: 59591
+Measured runs: 5
+Summary: min=3699.243 ms, mean=3750.486 ms, p50=3741.511 ms, p95=3800.273 ms, max=3806.675 ms
+Mean backend total: 3745.247 ms
+Average backend timings per step (ms):
+- lexicon: mean=3744.859 min=3693.612 max=3800.873
+- embedding: mean=0.000 min=0.000 max=0.000
+- clustering: mean=0.000 min=0.000 max=0.000
+- model1: mean=0.000 min=0.000 max=0.000
+- model2: mean=0.000 min=0.000 max=0.000
+- mosaic: mean=0.000 min=0.000 max=0.000
+- regression: mean=0.342 min=0.317 max=0.366
+- total: mean=3745.247 min=3694.003 max=3801.290
+Per-run details:
+- Run 1: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=3699.243
+  server_total_ms=3694.003
+  timings_ms:
+    lexicon: 3693.612
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.347
+    total: 3694.003
+- Run 2: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=3806.675
+  server_total_ms=3801.290
+  timings_ms:
+    lexicon: 3800.873
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.366
+    total: 3801.290
+- Run 3: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=3741.511
+  server_total_ms=3736.097
+  timings_ms:
+    lexicon: 3735.718
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.335
+    total: 3736.097
+- Run 4: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=3730.337
+  server_total_ms=3725.223
+  timings_ms:
+    lexicon: 3724.862
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.317
+    total: 3725.223
+- Run 5: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=3774.666
+  server_total_ms=3769.620
+  timings_ms:
+    lexicon: 3769.231
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.345
+    total: 3769.620
+
+File: 1k.txt
+Path: /Users/gongahkia/Desktop/coding/smu/Noupe/test/fixtures/latency-corpus/1k.txt
+Words: 1048
+Chars: 6706
+Measured runs: 5
+Summary: min=332.713 ms, mean=334.161 ms, p50=334.259 ms, p95=335.044 ms, max=335.046 ms
+Mean backend total: 332.086 ms
+Average backend timings per step (ms):
+- lexicon: mean=331.740 min=330.337 max=332.712
+- embedding: mean=0.000 min=0.000 max=0.000
+- clustering: mean=0.000 min=0.000 max=0.000
+- model1: mean=0.000 min=0.000 max=0.000
+- model2: mean=0.000 min=0.000 max=0.000
+- mosaic: mean=0.000 min=0.000 max=0.000
+- regression: mean=0.303 min=0.294 max=0.322
+- total: mean=332.086 min=330.673 max=333.052
+Per-run details:
+- Run 1: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=333.754
+  server_total_ms=331.678
+  timings_ms:
+    lexicon: 331.326
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.308
+    total: 331.678
+- Run 2: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=335.034
+  server_total_ms=333.052
+  timings_ms:
+    lexicon: 332.712
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.298
+    total: 333.052
+- Run 3: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=335.046
+  server_total_ms=332.817
+  timings_ms:
+    lexicon: 332.481
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.295
+    total: 332.817
+- Run 4: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=332.713
+  server_total_ms=330.673
+  timings_ms:
+    lexicon: 330.337
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.294
+    total: 330.673
+- Run 5: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=334.259
+  server_total_ms=332.211
+  timings_ms:
+    lexicon: 331.845
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.322
+    total: 332.211
+
+File: 2k.txt
+Path: /Users/gongahkia/Desktop/coding/smu/Noupe/test/fixtures/latency-corpus/2k.txt
+Words: 2022
+Chars: 13277
+Measured runs: 5
+Summary: min=663.385 ms, mean=670.713 ms, p50=665.993 ms, p95=684.940 ms, max=688.588 ms
+Mean backend total: 668.131 ms
+Average backend timings per step (ms):
+- lexicon: mean=667.758 min=660.526 max=685.451
+- embedding: mean=0.000 min=0.000 max=0.000
+- clustering: mean=0.000 min=0.000 max=0.000
+- model1: mean=0.000 min=0.000 max=0.000
+- model2: mean=0.000 min=0.000 max=0.000
+- mosaic: mean=0.000 min=0.000 max=0.000
+- regression: mean=0.329 min=0.297 max=0.420
+- total: mean=668.131 min=660.870 max=685.922
+Per-run details:
+- Run 1: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=688.588
+  server_total_ms=685.922
+  timings_ms:
+    lexicon: 685.451
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.420
+    total: 685.922
+- Run 2: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=670.350
+  server_total_ms=667.687
+  timings_ms:
+    lexicon: 667.322
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.320
+    total: 667.687
+- Run 3: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=663.385
+  server_total_ms=660.870
+  timings_ms:
+    lexicon: 660.526
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.300
+    total: 660.870
+- Run 4: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=665.250
+  server_total_ms=662.691
+  timings_ms:
+    lexicon: 662.344
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.306
+    total: 662.691
+- Run 5: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=665.993
+  server_total_ms=663.483
+  timings_ms:
+    lexicon: 663.146
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.297
+    total: 663.483
+
+File: 5k.txt
+Path: /Users/gongahkia/Desktop/coding/smu/Noupe/test/fixtures/latency-corpus/5k.txt
+Words: 4745
+Chars: 32312
+Measured runs: 5
+Summary: min=1761.688 ms, mean=1767.608 ms, p50=1765.158 ms, p95=1777.107 ms, max=1779.792 ms
+Mean backend total: 1763.758 ms
+Average backend timings per step (ms):
+- lexicon: mean=1763.378 min=1757.466 max=1775.707
+- embedding: mean=0.000 min=0.000 max=0.000
+- clustering: mean=0.000 min=0.000 max=0.000
+- model1: mean=0.000 min=0.000 max=0.000
+- model2: mean=0.000 min=0.000 max=0.000
+- mosaic: mean=0.000 min=0.000 max=0.000
+- regression: mean=0.335 min=0.319 max=0.347
+- total: mean=1763.758 min=1757.848 max=1776.084
+Per-run details:
+- Run 1: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=1766.367
+  server_total_ms=1762.659
+  timings_ms:
+    lexicon: 1762.296
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.319
+    total: 1762.659
+- Run 2: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=1765.158
+  server_total_ms=1761.021
+  timings_ms:
+    lexicon: 1760.627
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.347
+    total: 1761.021
+- Run 3: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=1765.034
+  server_total_ms=1761.180
+  timings_ms:
+    lexicon: 1760.793
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.342
+    total: 1761.180
+- Run 4: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=1761.688
+  server_total_ms=1757.848
+  timings_ms:
+    lexicon: 1757.466
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.333
+    total: 1757.848
+- Run 5: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=1779.792
+  server_total_ms=1776.084
+  timings_ms:
+    lexicon: 1775.707
+    embedding: 0.000
+    clustering: 0.000
+    model1: 0.000
+    model2: 0.000
+    mosaic: 0.000
+    regression: 0.332
+    total: 1776.084
+
+JSON report: /Users/gongahkia/Desktop/coding/smu/Noupe/reports/latency_2026-03-21_22-12-14.json
+CSV report : /Users/gongahkia/Desktop/coding/smu/Noupe/reports/latency_2026-03-21_22-12-14.csv
