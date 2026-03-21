@@ -103,5 +103,115 @@ class WindowInferencePayloadTests(unittest.TestCase):
         )
 
 
+class SlidingWindowAggregationTests(unittest.TestCase):
+    def test_model1_predict_uses_highest_risk_window(self):
+        module = load_module("test_model1_windows", "layer4-classification/model-1/inference.py")
+        classifier = module.FinBERTClassifier.__new__(module.FinBERTClassifier)
+        classifier._predict_windows = lambda text: (
+            [0.12, 0.91, 0.63],
+            [
+                {
+                    "start_char": 0,
+                    "end_char": 18,
+                    "text": text[0:18],
+                    "risk_score": 0.12,
+                    "window_index": 0,
+                    "token_count": 4,
+                    "window_stride": module.WINDOW_STRIDE,
+                    "max_seq_len": module.MAX_SEQ_LEN,
+                },
+                {
+                    "start_char": 20,
+                    "end_char": 52,
+                    "text": text[20:52],
+                    "risk_score": 0.91,
+                    "window_index": 1,
+                    "token_count": 8,
+                    "window_stride": module.WINDOW_STRIDE,
+                    "max_seq_len": module.MAX_SEQ_LEN,
+                },
+                {
+                    "start_char": 44,
+                    "end_char": 73,
+                    "text": text[44:73],
+                    "risk_score": 0.63,
+                    "window_index": 2,
+                    "token_count": 7,
+                    "window_stride": module.WINDOW_STRIDE,
+                    "max_seq_len": module.MAX_SEQ_LEN,
+                },
+            ],
+        )
+
+        text = "public intro boundary confidential window with merger plan and public outro"
+        result = classifier.predict(text)
+
+        self.assertEqual(result.label, "risk")
+        self.assertEqual(result.risk_score, 0.91)
+        self.assertEqual(result.window_count, 3)
+        self.assertEqual(result.top_window["window_index"], 1)
+        self.assertEqual(result.top_window["start_char"], 20)
+        self.assertEqual(result.top_window["end_char"], 52)
+
+    def test_model2_predict_uses_highest_high_risk_window(self):
+        module = load_module("test_model2_windows", "layer4-classification/model-2/inference.py")
+        classifier = module.BERTSeverityClassifier.__new__(module.BERTSeverityClassifier)
+        classifier._predict_windows = lambda text: (
+            [0.32, 0.48, 0.84],
+            [
+                {
+                    "start_char": 0,
+                    "end_char": 15,
+                    "text": text[0:15],
+                    "high_risk_score": 0.32,
+                    "window_index": 0,
+                    "token_count": 3,
+                    "window_stride": module.WINDOW_STRIDE,
+                    "max_seq_len": module.MAX_SEQ_LEN,
+                },
+                {
+                    "start_char": 14,
+                    "end_char": 39,
+                    "text": text[14:39],
+                    "high_risk_score": 0.48,
+                    "window_index": 1,
+                    "token_count": 5,
+                    "window_stride": module.WINDOW_STRIDE,
+                    "max_seq_len": module.MAX_SEQ_LEN,
+                },
+                {
+                    "start_char": 38,
+                    "end_char": 67,
+                    "text": text[38:67],
+                    "high_risk_score": 0.84,
+                    "window_index": 2,
+                    "token_count": 6,
+                    "window_stride": module.WINDOW_STRIDE,
+                    "max_seq_len": module.MAX_SEQ_LEN,
+                },
+            ],
+        )
+
+        text = "public intro overlap window contains the sensitive merger plan for the board"
+        result = classifier.predict(text)
+
+        self.assertEqual(result.label, "high_risk")
+        self.assertEqual(result.high_risk_score, 0.84)
+        self.assertEqual(result.window_count, 3)
+        self.assertEqual(result.top_window["window_index"], 2)
+        self.assertEqual(result.top_window["start_char"], 38)
+        self.assertEqual(result.top_window["end_char"], 67)
+
+    def test_window_bounds_ignore_padding_and_keep_last_real_offset(self):
+        model1_module = load_module("test_model1_bounds", "layer4-classification/model-1/inference.py")
+        model2_module = load_module("test_model2_bounds", "layer4-classification/model-2/inference.py")
+        offsets = [[0, 0], [11, 19], [20, 27], [0, 0], [28, 33], [0, 0]]
+
+        self.assertEqual(model1_module._window_bounds(offsets), (11, 33))
+        self.assertEqual(model2_module._window_bounds(offsets), (11, 33))
+        self.assertEqual(model1_module._count_window_tokens(offsets), 3)
+        self.assertEqual(model2_module._count_window_tokens(offsets), 3)
+
+
 if __name__ == "__main__":
     unittest.main()
