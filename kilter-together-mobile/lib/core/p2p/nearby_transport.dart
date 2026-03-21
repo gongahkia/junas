@@ -97,7 +97,9 @@ class NearbyTransport implements P2pTransport {
         final P2pPeer peer = P2pPeer(id: endpointId, displayName: endpointName);
         _discoveredController.add(peer);
       },
-      onEndpointLost: (String? endpointId) {},
+      onEndpointLost: (String? endpointId) {
+        if (endpointId != null) _endpointNames.remove(endpointId);
+      },
       serviceId: serviceId,
     );
   }
@@ -118,7 +120,7 @@ class NearbyTransport implements P2pTransport {
 
   @override
   Future<void> disconnectFromPeer(String peerId) async {
-    _nearby.disconnectFromEndpoint(peerId);
+    await _nearby.disconnectFromEndpoint(peerId);
     _onDisconnected(peerId);
   }
 
