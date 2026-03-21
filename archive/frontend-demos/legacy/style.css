@@ -238,8 +238,8 @@ main {
 #results-display {
     padding: 32px;
     border: 1px solid var(--border-color);
-    border-radius: 16px;
-    background: #fafafa;
+    border-radius: 10px;
+    background: #fbfbfb;
     animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -286,7 +286,9 @@ main {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e9e9e9;
 }
 
 .result-lead {
@@ -301,7 +303,9 @@ main {
 }
 
 .result-section {
-    margin-top: 24px;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid #ececec;
 }
 
 .section-heading-row {
@@ -309,19 +313,19 @@ main {
     align-items: flex-end;
     justify-content: space-between;
     gap: 12px;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     flex-wrap: wrap;
 }
 
 .section-heading {
-    font-size: 0.76rem;
+    font-size: 0.72rem;
     font-weight: 800;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
 }
 
 .section-kicker {
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     color: var(--text-secondary);
 }
 
@@ -332,33 +336,34 @@ main {
 }
 
 .metric-card {
-    border-radius: 14px;
-    border: 1px solid #ececec;
+    border-radius: 8px;
+    border: 1px solid #e6e6e6;
     background: #ffffff;
-    padding: 16px;
+    padding: 16px 18px;
     display: flex;
     flex-direction: column;
     gap: 8px;
     min-height: 132px;
+    box-shadow: none;
 }
 
 .metric-card-safe {
-    border-color: #d6f0e2;
-    background: #f5fcf8;
+    border-left: 3px solid #10b981;
+    background: #ffffff;
 }
 
 .metric-card-warning {
-    border-color: #f6e5bf;
-    background: #fffaf0;
+    border-left: 3px solid #ff9800;
+    background: #ffffff;
 }
 
 .metric-card-danger {
-    border-color: #f4d4d7;
-    background: #fff7f7;
+    border-left: 3px solid #ef4444;
+    background: #ffffff;
 }
 
 .metric-card-neutral {
-    border-color: #ececec;
+    border-left: 3px solid #d9d9d9;
     background: #ffffff;
 }
 
@@ -371,7 +376,7 @@ main {
 }
 
 .metric-value {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     line-height: 1.3;
     font-weight: 700;
 }
@@ -400,7 +405,7 @@ main {
 
 .timing-grid {
     display: grid;
-    gap: 12px;
+    gap: 10px;
 }
 
 .timing-row {
@@ -427,40 +432,40 @@ main {
 
 .timing-bar-track {
     width: 100%;
-    height: 10px;
-    border-radius: 999px;
-    background: #ececec;
+    height: 8px;
+    border-radius: 4px;
+    background: #ededed;
     overflow: hidden;
 }
 
 .timing-bar-fill {
     height: 100%;
     border-radius: inherit;
-    background: linear-gradient(90deg, #111111 0%, #4b5563 100%);
+    background: linear-gradient(90deg, #111111 0%, #505866 100%);
 }
 
 .span-card-grid {
     display: grid;
-    gap: 14px;
+    gap: 10px;
 }
 
 .span-card {
-    border-radius: 14px;
-    border: 1px solid #ececec;
-    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #e6e6e6;
+    padding: 16px 18px;
     background: #ffffff;
     display: grid;
     gap: 10px;
 }
 
 .span-card-exact {
-    border-color: #f1d1d5;
-    background: #fff8f8;
+    border-left: 3px solid #ef4444;
+    background: #ffffff;
 }
 
 .span-card-approx {
-    border-color: #f0e3bf;
-    background: #fffdf7;
+    border-left: 3px solid #ff9800;
+    background: #ffffff;
 }
 
 .span-card-head {
@@ -472,10 +477,10 @@ main {
 }
 
 .span-title {
-    font-size: 0.84rem;
+    font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
 }
 
 .span-location,
@@ -489,32 +494,35 @@ main {
 .span-chip {
     display: inline-flex;
     align-items: center;
-    padding: 5px 10px;
-    border-radius: 999px;
+    padding: 5px 9px;
+    border-radius: 6px;
     font-size: 0.66rem;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    border: 1px solid transparent;
 }
 
 .span-chip-exact {
-    background: #fff0f1;
+    background: #fff7f7;
+    border-color: #f1d1d5;
     color: #d6455d;
 }
 
 .span-chip-approx {
-    background: #fff3d8;
+    background: #fffaf0;
+    border-color: #f0e3bf;
     color: #b76b00;
 }
 
 .span-context {
     font-family: 'Space Mono', monospace;
     font-size: 0.76rem;
-    line-height: 1.7;
+    line-height: 1.65;
     word-break: break-word;
-    background: #fbfbfb;
-    border: 1px solid #f0f0f0;
-    border-radius: 10px;
+    background: #fcfcfc;
+    border: 1px solid #ececec;
+    border-radius: 6px;
     padding: 12px 14px;
     white-space: pre-wrap;
 }
