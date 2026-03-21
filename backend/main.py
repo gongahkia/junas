@@ -61,6 +61,27 @@ MODEL_WEIGHT_EXTS = ("safetensors", "bin", "pt", "ckpt")
 SUPPRESSED_REQUEST_LOG_PATHS = {"/health", "/ready", "/metrics"}
 DEFAULT_OPTIONAL_LAYERS = {"mosaic"}
 SPAN_CONTEXT_CHARS = 48
+OPENAPI_TAGS = [
+    {
+        "name": "Runtime",
+        "description": "Health, readiness, diagnostics, and metrics endpoints for the active backend runtime.",
+    },
+    {
+        "name": "Classification",
+        "description": "Document classification endpoints for single-request and batch MNPI screening.",
+    },
+]
+OPENAPI_DESCRIPTION = """
+Noupe is a backend-only MNPI screening API with archived demo frontends served separately by the launcher scripts.
+
+Key behaviors:
+
+- `POST /classify` accepts a single text document and returns a document-level classification of `SAFE`, `LOW_RISK`, or `HIGH_RISK`.
+- `POST /classify/batch` processes up to 32 classify requests sequentially in one HTTP call.
+- `include_offending_spans=true` adds exact lexicon spans and approximate classifier-window spans when the final response is `LOW_RISK` or `HIGH_RISK`.
+- The active runtime is API-only; the legacy/chat/email/slack demo surfaces live under `archive/frontend-demos/` and are launched by `scripts/launch/run_dev.sh` or `scripts/launch/run_prod.sh`.
+- `GET /ready` and `GET /diagnostics` expose degraded startup, lazy-layer warming, and dependency state.
+""".strip()
 
 
 def _is_truthy(value: str | None, *, default: bool = False) -> bool:
@@ -1230,7 +1251,14 @@ async def lifespan(app: FastAPI):
     _state.clear()
 
 
-app = FastAPI(title="Noupe MNPI Classifier", version="0.1.0", lifespan=lifespan)
+app = FastAPI(
+    title="Noupe MNPI Classifier",
+    version="0.1.0",
+    summary="Backend-only MNPI classification API with archived demo frontends served separately.",
+    description=OPENAPI_DESCRIPTION,
+    openapi_tags=OPENAPI_TAGS,
+    lifespan=lifespan,
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -1291,7 +1319,13 @@ async def request_context_middleware(request: Request, call_next):
     return response
 
 
-@app.get("/health", response_model=HealthResponse)
+@app.get(
+    "/health",
+    response_model=HealthResponse,
+    tags=["Runtime"],
+    summary="Get layer load health",
+    description="Return a lightweight snapshot of which runtime layers are currently loaded in memory.",
+)
 async def health():
     models = _state.get("models", {})
     return HealthResponse(
@@ -1306,7 +1340,16 @@ async def health():
     )
 
 
-@app.get("/ready", response_model=ReadyResponse)
+@app.get(
+    "/ready",
+    response_model=ReadyResponse,
+    tags=["Runtime"],
+    summary="Get backend readiness",
+    description=(
+        "Return whether all required configured layers are available and warmed. "
+        "This endpoint remains degraded while required lazy layers are still warming."
+    ),
+)
 async def ready():
     ready_state = build_ready_snapshot()
     refresh_observability_state()
@@ -1321,7 +1364,16 @@ async def ready():
     )
 
 
-@app.get("/diagnostics", response_model=DiagnosticsResponse)
+@app.get(
+    "/diagnostics",
+    response_model=DiagnosticsResponse,
+    tags=["Runtime"],
+    summary="Get runtime diagnostics",
+    description=(
+        "Return the active pipeline, loaded and lazy layers, startup timings, dependency health, "
+        "and accumulated runtime layer failures."
+    ),
+)
 async def diagnostics():
     pipeline = _state.get("pipeline", [])
     models = _state.get("models", {})
@@ -1348,7 +1400,12 @@ async def diagnostics():
     )
 
 
-@app.get("/metrics")
+@app.get(
+    "/metrics",
+    tags=["Runtime"],
+    summary="Get Prometheus metrics",
+    description="Return Prometheus-formatted metrics for HTTP traffic, layer loads, classifications, and dependencies.",
+)
 async def metrics():
     refresh_observability_state()
     observability = get_observability()
@@ -1357,12 +1414,33 @@ async def metrics():
     return Response(content=observability.render_metrics(), media_type=observability.content_type)
 
 
-@app.post("/classify", response_model=ClassifyResponse, dependencies=[Depends(require_api_key)])
+@app.post(
+    "/classify",
+    response_model=ClassifyResponse,
+    dependencies=[Depends(require_api_key)],
+    tags=["Classification"],
+    summary="Classify one document",
+    description=(
+        "Classify a single text document for MNPI sensitivity. "
+        "Set `include_offending_spans=true` to request exact lexicon spans and approximate classifier-window spans "
+        "when the final result is `LOW_RISK` or `HIGH_RISK`."
+    ),
+)
 async def classify(request: Request, req: ClassifyRequest):
     return _classify_core(req, getattr(request.state, "request_id", None), "/classify")
 
 
-@app.post("/classify/batch", response_model=BatchClassifyResponse, dependencies=[Depends(require_api_key)])
+@app.post(
+    "/classify/batch",
+    response_model=BatchClassifyResponse,
+    dependencies=[Depends(require_api_key)],
+    tags=["Classification"],
+    summary="Classify multiple documents",
+    description=(
+        "Process up to 32 classify requests sequentially in one HTTP call. "
+        "Each result preserves the same response shape as `POST /classify`."
+    ),
+)
 async def classify_batch(request: Request, req: BatchClassifyRequest):
     base_request_id = getattr(request.state, "request_id", None)
     results = []
