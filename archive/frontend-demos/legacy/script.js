@@ -64,6 +64,7 @@ const SCREENING_CONTROL_CHAR_PATTERN = /[\u0000-\u001f\u007f-\u009f]/;
 let latestReadyState = null;
 let latestDiagnosticsState = null;
 let lastClassificationResponse = null;
+let lastRequestMetrics = null;
 
 function normalizeApiBase(value) {
     return value ? value.replace(/\/+$/, "") : "";
@@ -138,6 +139,186 @@ function formatPercent(value) {
 
 function formatNumber(value) {
     return Number(value || 0).toFixed(3);
+}
+
+function formatDurationMs(value) {
+    const numericValue = Number(value);
+    if (!Number.isFinite(numericValue)) {
+        return "n/a";
+    }
+    if (numericValue >= 100) {
+        return `${numericValue.toFixed(1)} ms`;
+    }
+    if (numericValue >= 10) {
+        return `${numericValue.toFixed(2)} ms`;
+    }
+    return `${numericValue.toFixed(3)} ms`;
+}
+
+function countWords(value) {
+    const normalized = String(value || "").trim();
+    if (!normalized) {
+        return 0;
+    }
+    return normalized.split(/\s+/).length;
+}
+
+function formatInteger(value) {
+    const numericValue = Number(value);
+    if (!Number.isFinite(numericValue)) {
+        return "0";
+    }
+    return Math.round(numericValue).toLocaleString();
+}
+
+function prettyLayerName(layer) {
+    return LAYER_META[layer] ? LAYER_META[layer].title : String(layer || "");
+}
+
+function buildMetricCard(title, value, supportingCopy, tone = "neutral") {
+    return `
+        <article class="metric-card metric-card-${tone}">
+            <div class="metric-label">${escapeHtml(title)}</div>
+            <div class="metric-value">${escapeHtml(value)}</div>
+            <div class="metric-support">${escapeHtml(supportingCopy)}</div>
+        </article>
+    `;
+}
+
+function buildTimingBreakdown(timings, activePipeline) {
+    const timingEntries = Object.entries(timings || {})
+        .filter(([key, value]) => key !== "total" && key !== "cache_hit" && Number.isFinite(Number(value)));
+
+    if (!timingEntries.length) {
+        return `
+            <section class="result-section">
+                <div class="section-heading-row">
+                    <h3 class="section-heading">Layer Timings</h3>
+                    <span class="section-kicker">No per-layer timings returned</span>
+                </div>
+            </section>
+        `;
+    }
+
+    const order = new Map();
+    safeArray(activePipeline).forEach((layer, index) => {
+        order.set(layer, index);
+    });
+
+    const sortedEntries = timingEntries.sort(([leftKey], [rightKey]) => {
+        const leftIndex = order.has(leftKey) ? order.get(leftKey) : Number.MAX_SAFE_INTEGER;
+        const rightIndex = order.has(rightKey) ? order.get(rightKey) : Number.MAX_SAFE_INTEGER;
+        if (leftIndex !== rightIndex) {
+            return leftIndex - rightIndex;
+        }
+        return leftKey.localeCompare(rightKey);
+    });
+
+    const maxDuration = Math.max(...sortedEntries.map(([, value]) => Number(value)), 0.001);
+    const rows = sortedEntries.map(([layer, value]) => {
+        const duration = Number(value);
+        const widthPct = Math.max(8, Math.round((duration / maxDuration) * 100));
+        return `
+            <div class="timing-row">
+                <div class="timing-row-copy">
+                    <span class="timing-label">${escapeHtml(prettyLayerName(layer))}</span>
+                    <span class="timing-value">${escapeHtml(formatDurationMs(duration))}</span>
+                </div>
+                <div class="timing-bar-track" aria-hidden="true">
+                    <div class="timing-bar-fill" style="width: ${widthPct}%"></div>
+                </div>
+            </div>
+        `;
+    }).join("");
+
+    return `
+        <section class="result-section">
+            <div class="section-heading-row">
+                <h3 class="section-heading">Layer Timings</h3>
+                <span class="section-kicker">Backend-reported execution times</span>
+            </div>
+            <div class="timing-grid">
+                ${rows}
+            </div>
+        </section>
+    `;
+}
+
+function buildOffendingSpanCards(spans) {
+    if (!spans.length) {
+        return `
+            <section class="result-section">
+                <div class="section-heading-row">
+                    <h3 class="section-heading">Localized Findings</h3>
+                    <span class="section-kicker">No location data returned for this response</span>
+                </div>
+            </section>
+        `;
+    }
+
+    const cards = spans.map((span) => {
+        const locationBits = [
+            `char ${formatInteger(span.start_char)}-${formatInteger(span.end_char)}`,
+            `line ${formatInteger(span.start_line)}:${formatInteger(span.start_column)}`,
+        ];
+
+        if (span.end_line !== span.start_line || span.end_column !== span.start_column) {
+            locationBits.push(`to ${formatInteger(span.end_line)}:${formatInteger(span.end_column)}`);
+        }
+
+        if (span.window_index !== null && span.window_index !== undefined) {
+            const totalWindows = span.window_count !== null && span.window_count !== undefined ? span.window_count : "?";
+            locationBits.push(`window ${Number(span.window_index) + 1}/${totalWindows}`);
+        }
+
+        const metricBits = [];
+        if (span.score !== null && span.score !== undefined) {
+            metricBits.push(`${span.score_type || "score"} ${formatNumber(span.score)}`);
+        }
+        metricBits.push(`${formatInteger(span.char_length)} chars`);
+        metricBits.push(`${formatInteger(span.line_span)} line span`);
+
+        if (span.window_token_count !== null && span.window_token_count !== undefined) {
+            metricBits.push(`${formatInteger(span.window_token_count)} tokens`);
+        }
+        if (span.window_stride !== null && span.window_stride !== undefined) {
+            metricBits.push(`stride ${formatInteger(span.window_stride)}`);
+        }
+        if (span.window_max_seq_len !== null && span.window_max_seq_len !== undefined) {
+            metricBits.push(`max seq ${formatInteger(span.window_max_seq_len)}`);
+        }
+
+        const detailCopy = span.detail
+            ? `<div class="span-detail">${escapeHtml(span.detail)}</div>`
+            : "";
+
+        return `
+            <article class="span-card ${span.is_exact ? "span-card-exact" : "span-card-approx"}">
+                <div class="span-card-head">
+                    <div>
+                        <div class="span-title">${escapeHtml(span.layer)} · ${escapeHtml(span.rule)}</div>
+                        <div class="span-location">${escapeHtml(locationBits.join(" · "))}</div>
+                    </div>
+                    <span class="span-chip ${span.is_exact ? "span-chip-exact" : "span-chip-approx"}">${span.is_exact ? "Exact hit" : "Approx window"}</span>
+                </div>
+                <div class="span-context">${escapeHtml(span.context_before || "")}<mark>${escapeHtml(span.matched_text || "")}</mark>${escapeHtml(span.context_after || "")}</div>
+                <div class="span-metrics">${escapeHtml(metricBits.join(" · "))}</div>
+                ${detailCopy}
+            </article>
+        `;
+    }).join("");
+
+    return `
+        <section class="result-section">
+            <div class="section-heading-row">
+                <h3 class="section-heading">Localized Findings</h3>
+                <span class="section-kicker">Exact lexicon hits and approximate classifier windows</span>
+            </div>
+            <div class="span-card-grid">
+                ${cards}
+            </div>
+        </section>
+    `;
 }
 
 function sanitizeScreeningText(value) {
@@ -355,7 +536,7 @@ async function refreshBackendSnapshot() {
     renderArchitectureDiagram(lastClassificationResponse);
 }
 
-function updateResults(data) {
+function updateResults(data, requestMetrics = {}) {
     resultsDisplay.classList.remove("hidden");
 
     const classification = data.classification;
@@ -364,13 +545,87 @@ function updateResults(data) {
     const executed = safeArray(observability.executed_layers);
     const skipped = safeArray(observability.skipped_layers);
     const layerErrors = safeArray(observability.layer_errors);
+    const activePipeline = safeArray(observability.active_pipeline);
+    const spans = safeArray(data.offending_spans);
+    const exactSpanCount = spans.filter((span) => span && span.is_exact).length;
+    const approximateSpanCount = spans.length - exactSpanCount;
+    const timings = data.timings_ms || {};
+    const clientLatencyMs = Number.isFinite(Number(requestMetrics.observedLatencyMs)) ? Number(requestMetrics.observedLatencyMs) : null;
+    const serverTotalMs = Number.isFinite(Number(timings.total)) ? Number(timings.total) : null;
+    const transportMs = clientLatencyMs !== null && serverTotalMs !== null ? Math.max(0, clientLatencyMs - serverTotalMs) : null;
+    const timingEntries = Object.entries(timings)
+        .filter(([key, value]) => key !== "total" && key !== "cache_hit" && Number.isFinite(Number(value)));
+    const slowestLayerEntry = timingEntries.reduce((slowest, current) => {
+        if (!slowest) {
+            return current;
+        }
+        return Number(current[1]) > Number(slowest[1]) ? current : slowest;
+    }, null);
+    const metricsHtml = [
+        buildMetricCard(
+            "Client latency",
+            formatDurationMs(clientLatencyMs),
+            serverTotalMs !== null ? `Browser-observed round trip with API target ${API_HOST_LABEL}.` : "Round-trip time measured in the browser.",
+            classification === "HIGH_RISK" ? "danger" : classification === "LOW_RISK" ? "warning" : "safe",
+        ),
+        buildMetricCard(
+            "Backend total",
+            formatDurationMs(serverTotalMs),
+            transportMs !== null ? `Approx transport and browser overhead: ${formatDurationMs(transportMs)}.` : "Total server execution time returned by the API.",
+            "neutral",
+        ),
+        buildMetricCard(
+            "Request envelope",
+            `${formatInteger(requestMetrics.wordCount)} words · ${formatInteger(requestMetrics.charCount)} chars`,
+            requestMetrics.entityId ? `Entity linked to ${requestMetrics.entityId}.` : "No entity id attached to this request.",
+            "neutral",
+        ),
+        buildMetricCard(
+            "Response path",
+            `${formatInteger(executed.length)} executed · ${formatInteger(skipped.length)} skipped`,
+            `${observability.cache_status || "disabled"} cache · ${observability.degraded ? "degraded" : "healthy"} response.`,
+            observability.degraded ? "danger" : "neutral",
+        ),
+        buildMetricCard(
+            "Localized findings",
+            `${formatInteger(spans.length)} spans`,
+            `${formatInteger(exactSpanCount)} exact · ${formatInteger(approximateSpanCount)} approximate.`,
+            spans.length ? "warning" : "neutral",
+        ),
+        buildMetricCard(
+            "Slowest layer",
+            slowestLayerEntry ? `${prettyLayerName(slowestLayerEntry[0])}` : "No layer data",
+            slowestLayerEntry ? `${formatDurationMs(Number(slowestLayerEntry[1]))} backend time.` : "Per-layer timings were not present in the response.",
+            slowestLayerEntry ? "neutral" : "neutral",
+        ),
+    ].join("");
 
     let html = `
-        <div class="classification-badge ${badgeClass}">${classification}</div>
-        <div style="font-size: 1.1rem; line-height: 1.4;">
-            Analysis indicates this content is <strong>${classification.replace("_", " ")}</strong>.
+        <div class="result-header">
+            <div class="classification-badge ${badgeClass}">${classification}</div>
+            <div class="result-lead">
+                Analysis indicates this content is <strong>${classification.replace("_", " ")}</strong>.
+            </div>
+            <div class="result-subcopy">
+                Request ${escapeHtml(data.request_id || "unavailable")} · cache ${escapeHtml(observability.cache_status || "disabled")} · ${spans.length ? "localization returned" : "no localization returned"}.
+            </div>
         </div>
-        <div class="details">
+        <section class="result-section">
+            <div class="section-heading-row">
+                <h3 class="section-heading">Request Telemetry</h3>
+                <span class="section-kicker">Latency, request sizing, and execution path overview</span>
+            </div>
+            <div class="metric-grid">
+                ${metricsHtml}
+            </div>
+        </section>
+        <section class="result-section">
+            <div class="section-heading-row">
+                <h3 class="section-heading">Pipeline Summary</h3>
+                <span class="section-kicker">Per-layer outputs and backend observability signals</span>
+            </div>
+            <div class="details">
+        </div>
     `;
 
     if (data.lexicon && (data.lexicon.flagged || data.lexicon.total_score > 0)) {
@@ -415,7 +670,7 @@ function updateResults(data) {
         }
     }
 
-    html += `<div class="detail-item"><span>Active Pipeline:</span> <span>${escapeHtml(safeArray(observability.active_pipeline).join(" -> ") || "Unavailable")}</span></div>`;
+    html += `<div class="detail-item"><span>Active Pipeline:</span> <span>${escapeHtml(activePipeline.join(" -> ") || "Unavailable")}</span></div>`;
     html += `<div class="detail-item"><span>Executed Layers:</span> <span>${escapeHtml(executed.join(", ") || "none")}</span></div>`;
     html += `<div class="detail-item"><span>Skipped Layers:</span> <span>${escapeHtml(skipped.join(", ") || "none")}</span></div>`;
     html += `<div class="detail-item"><span>Degraded:</span> <span>${observability.degraded ? "yes" : "no"}</span></div>`;
@@ -426,7 +681,9 @@ function updateResults(data) {
         });
     }
 
-    html += `</div>`;
+    html += `</div></section>`;
+    html += buildTimingBreakdown(timings, activePipeline);
+    html += buildOffendingSpanCards(spans);
     resultsDisplay.innerHTML = html;
 }
 
@@ -1261,12 +1518,15 @@ async function handleClassify() {
     classifyBtn.textContent = "Analyzing...";
 
     try {
+        const cleanedText = validateScreeningText(text, "Classification input");
         const reqBody = {
-            text: validateScreeningText(text, "Classification input"),
+            text: cleanedText,
+            include_offending_spans: true,
         };
         if (entityId) {
             reqBody.entity_id = entityId;
         }
+        const requestStartedAt = performance.now();
 
         const response = await fetch(`${API_BASE}/classify`, {
             method: "POST",
@@ -1289,11 +1549,19 @@ async function handleClassify() {
         }
 
         const data = await response.json();
+        const requestMetrics = {
+            observedLatencyMs: performance.now() - requestStartedAt,
+            wordCount: countWords(cleanedText),
+            charCount: cleanedText.length,
+            entityId,
+        };
         lastClassificationResponse = data;
-        updateResults(data);
+        lastRequestMetrics = requestMetrics;
+        updateResults(data, requestMetrics);
         updateDebugView(reqBody, data);
     } catch (error) {
         lastClassificationResponse = null;
+        lastRequestMetrics = null;
         resultsDisplay.classList.remove("hidden");
         resultsDisplay.innerHTML = `<div style="color: var(--high-red);">Error: ${escapeHtml(error.message)}. Check the API target, readiness state, and layer load status.</div>`;
         renderArchitectureDiagram(null);
