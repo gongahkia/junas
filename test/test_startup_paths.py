@@ -80,6 +80,12 @@ class StartupPathTests(unittest.TestCase):
 
         asyncio.run(scenario())
 
+    def test_multiprocess_metrics_mode_disables_default_memory_cache(self):
+        with patch.dict(os.environ, {"PROMETHEUS_MULTIPROC_DIR": "/tmp/noupe-prom"}, clear=False):
+            cache_cfg = main.get_response_cache_settings()
+        self.assertEqual(cache_cfg["size"], 0)
+        self.assertEqual(cache_cfg["ttl_seconds"], 60.0)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -228,6 +228,7 @@ Useful production launcher env vars:
 - `NOUPE_LOG_LEVEL` (default `info`)
 - `NOUPE_FRONTEND_DEMO_PORT` (default `8081`)
 - `NOUPE_READY_TIMEOUT_SECONDS` (default `180`)
+- `NOUPE_RESPONSE_CACHE_SIZE` (default `0` in the production launcher because the built-in cache is per-worker memory)
 
 `scripts/launch/run_prod.sh` still forces strict startup and will fail if required configured layers cannot load.
 

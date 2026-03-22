@@ -4,6 +4,7 @@ from threading import Lock
 from types import SimpleNamespace
 
 import backend.main as main
+from backend.cache import ResponseCache
 from backend.observability import ObservabilityManager
 
 
@@ -175,6 +176,7 @@ def seed_test_state(
             "cache_cfg": {"size": 32, "ttl_seconds": 60.0},
             "response_cache": OrderedDict(),
             "response_cache_lock": Lock(),
+            "response_cache_store": ResponseCache(size=32, ttl_seconds=60.0),
         }
     )
     main.refresh_observability_state()

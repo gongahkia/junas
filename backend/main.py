@@ -21,11 +21,13 @@ except ImportError:
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.concurrency import run_in_threadpool
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 WORKFLOW_ROOT = PROJECT_ROOT / "backend" / "workflow"
 sys.path.insert(0, str(PROJECT_ROOT))
 
+from backend.cache import ResponseCache  # noqa: E402
 from backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode  # noqa: E402
 from backend.schemas import (  # noqa: E402
     BatchClassifyRequest,
@@ -51,6 +53,7 @@ logger = logging.getLogger("noupe.backend")
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 _state: dict[str, Any] = {}
+CLASSIFY_EXECUTION_LOCK = Lock()
 
 RISK_ORDER = {
     Classification.SAFE: 0,
@@ -201,7 +204,8 @@ def load_config() -> list[str]:
 
 
 def get_response_cache_settings() -> dict[str, float | int]:
-    raw_size = os.environ.get("NOUPE_RESPONSE_CACHE_SIZE", "256")
+    default_size = "0" if get_metrics_mode() == "multiprocess" else "256"
+    raw_size = os.environ.get("NOUPE_RESPONSE_CACHE_SIZE", default_size)
     raw_ttl = os.environ.get("NOUPE_RESPONSE_CACHE_TTL_SECONDS", "60")
     try:
         size = max(0, int(raw_size))
@@ -420,6 +424,10 @@ def build_response_cache_key(req: ClassifyRequest, pipeline: list[str]) -> str:
 
 
 def response_cache_get(key: str) -> dict[str, Any] | None:
+    store = _state.get("response_cache_store")
+    if isinstance(store, ResponseCache):
+        return store.get(key)
+
     cache = _state.get("response_cache")
     lock = _state.get("response_cache_lock")
     cfg = _state.get("cache_cfg", {})
@@ -443,6 +451,11 @@ def response_cache_get(key: str) -> dict[str, Any] | None:
 
 
 def response_cache_set(key: str, payload: dict[str, Any]) -> None:
+    store = _state.get("response_cache_store")
+    if isinstance(store, ResponseCache):
+        store.set(key, payload)
+        return
+
     cache = _state.get("response_cache")
     lock = _state.get("response_cache_lock")
     cfg = _state.get("cache_cfg", {})
@@ -1074,6 +1087,20 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
     return response
 
 
+def _run_classify_sync(req: ClassifyRequest, request_id: str | None, endpoint: str) -> ClassifyResponse:
+    with CLASSIFY_EXECUTION_LOCK:
+        return _classify_core(req, request_id, endpoint)
+
+
+def _run_batch_classify_sync(req: BatchClassifyRequest, base_request_id: str | None) -> BatchClassifyResponse:
+    with CLASSIFY_EXECUTION_LOCK:
+        results = []
+        for idx, item in enumerate(req.items):
+            item_request_id = f"{base_request_id}:{idx}" if base_request_id else None
+            results.append(_classify_core(item, item_request_id, "/classify/batch"))
+        return BatchClassifyResponse(results=results)
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     det_info = configure_determinism()
@@ -1099,6 +1126,7 @@ async def lifespan(app: FastAPI):
     _state["cache_cfg"] = get_response_cache_settings()
     _state["response_cache"] = OrderedDict()
     _state["response_cache_lock"] = Lock()
+    _state["response_cache_store"] = ResponseCache(**_state["cache_cfg"])
 
     t_startup_total = time.perf_counter()
 
@@ -1428,7 +1456,7 @@ async def metrics():
     ),
 )
 async def classify(request: Request, req: ClassifyRequest):
-    return _classify_core(req, getattr(request.state, "request_id", None), "/classify")
+    return await run_in_threadpool(_run_classify_sync, req, getattr(request.state, "request_id", None), "/classify")
 
 
 @app.post(
@@ -1443,12 +1471,7 @@ async def classify(request: Request, req: ClassifyRequest):
     ),
 )
 async def classify_batch(request: Request, req: BatchClassifyRequest):
-    base_request_id = getattr(request.state, "request_id", None)
-    results = []
-    for idx, item in enumerate(req.items):
-        item_request_id = f"{base_request_id}:{idx}" if base_request_id else None
-        results.append(_classify_core(item, item_request_id, "/classify/batch"))
-    return BatchClassifyResponse(results=results)
+    return await run_in_threadpool(_run_batch_classify_sync, req, getattr(request.state, "request_id", None))
 
 
 if __name__ == "__main__":
