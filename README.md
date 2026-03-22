@@ -3,71 +3,76 @@
 
 # `Kilter Together`
 
-Kilter Together is a collaborative climbing session app built with Flutter and peer-to-peer connectivity. One host creates a room, guests join via QR code or invite link, and everyone votes and queues climbs from their phones. No server required — all communication happens over P2P (Multipeer Connectivity on iOS, Nearby Connections on Android).
+[Collaborative](#features) [P2P](#other-nerd-stuff) [Sessioning app](#architecture) for the climbing community.
 
-The app provisions a local offline Kilter dataset for solo browsing and relay-serves it to guests during collaborative sessions.
+***Currently supports [Kilter & Crux boards](#supported-boards)!!!***
 
-## Quick Start
+## Stack
+
+* *Frontend, Backend*: [Dart](), [Riverpod]()
+* *Framework*: [Flutter]()
+* *DB*: [SQLite]()
+* *P2P Transport Layer*: [Swift](), [Google Nearby Connections]()
+* *Board Data*: []()
+* *Package*: []()
+* *CI/CD*: [GitHub Actions]()
+
+## Usage
+
+The below instructions are for building `Kilter Together` from source.
+
+1. First run the below to install `Kilter Together` on your local machine.
 
 ```console
-cd kilter-together-mobile
-flutter pub get
-flutter run
+$ git clone https://github.com/gongahkia/kilter-together && cd kilter-together-mobile
 ```
 
-Requires Flutter SDK installed locally. Targets iOS and Android.
+2. Then run the below to build `Kilter Together` on [your device](#supported-platforms).
 
-## How It Works
+```
+$ flutter pub get
+$ flutter run
+```
 
-1. **Host** opens the app, picks a provider (`kilter` offline dataset or `crux`), and creates a room.
-2. A QR code and invite link (`kiltertogether://join?slug=...`) are generated.
-3. **Guests** scan the QR or tap the link, enter a display name, and join via P2P discovery.
-4. Everyone votes on climbs, manages the queue, and tracks finalists in real-time over P2P.
-5. When the session ends, a recap is saved locally.
-
-## Architecture
-
-- **Flutter** mobile app with feature-first modular structure
-- **Riverpod** for state management
-- **P2P transport layer** with platform-specific implementations:
-  - iOS: Apple Multipeer Connectivity (native Swift plugin)
-  - Android: Google Nearby Connections
-  - Fallback: Stub transport for unsupported platforms
-- **SQLite** offline Kilter catalog with cursor-based pagination
-- **Secure storage** for provider credentials
-- **Deep links** and QR codes for room invites
+3. See [here](#other-nerd-stuff) for more nerd details.
 
 ## Features
 
-- Create and host collaborative climbing sessions
-- Join sessions via QR scan, deep link, or nearby discovery
-- Vote on climbs (fist bumps) with real-time sync
-- Manage climb queue and finalists
-- Solo catalog browsing with grade filtering
-- Session recap with local history
-- Offline-first Kilter dataset
-- Plan sharing between sessions
+* Create and host collaborative climbing sessions *(Kilter Board, Crux-supported boards)*
+* Join sessions via QR scan, deep link, or nearby discovery
+* Vote on climbs with real-time sync
+* Manage climb queue and finalists
+* Solo catalog browsing with grade filtering
+* Session recap with local history
+* Offline-first Kilter dataset
+* Plan sharing between sessions
 
-## Project Structure
+## Screenshots
 
-```
-kilter-together-mobile/
-├── lib/
-│   ├── core/           # shared infra (p2p, models, storage, theme, routing)
-│   ├── features/       # feature modules (room, join, create_room, solo, recap, etc)
-│   ├── app.dart        # app config + deep link handling
-│   └── main.dart       # entry point
-├── ios/Runner/         # native Multipeer Connectivity plugin
-├── android/            # Android platform code
-└── test/               # unit tests
-```
+<div align="center">
+  <img src="./asset/reference/1.png" width="32%">
+  <img src="./asset/reference/2.png" width="32%">
+  <img src="./asset/reference/3.png" width="32%">
+</div>
 
-## Notes
+<div align="center">
+  <img src="./asset/reference/4.png" width="32%">
+  <img src="./asset/reference/5.png" width="32%">
+  <img src="./asset/reference/6.png" width="32%">
+</div>
 
-- P2P sessions are inherently single-host. If the host leaves, the session ends.
-- The offline Kilter catalog must be bootstrapped via Settings before solo browsing.
-- Guests receive the catalog via P2P relay from the host during sessions.
+## Architecture
 
-## License
+![](./asset/reference/architecture.png)
 
-Provisioned under the [MIT License](./LICENSE).
+## Supported platforms
+
+... Add table about which mobile platforms/web it can support currently
+
+## Supported boards
+
+... Add table about which boards are supported
+
+## Other nerd stuff
+
+... Add details about every stage of the app
