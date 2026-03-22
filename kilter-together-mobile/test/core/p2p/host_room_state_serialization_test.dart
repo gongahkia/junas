@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kilter_together_mobile/core/models/provider_models.dart';
-import 'package:kilter_together_mobile/core/models/room_models.dart';
 import 'package:kilter_together_mobile/core/p2p/host_room_service.dart';
 
 ProviderClimb _testClimb(String id) => ProviderClimb(
