@@ -10,6 +10,8 @@
 
 ## Lexicon Layer
 - thresholds are configurable via env/config (`MNPI_ABS_THRESHOLD`, `MNPI_PCT_THRESHOLD`)
+- lexicon score threshold defaults to a fixed `score_threshold`, but can be switched to dynamic mode with `LEXICON_SCORE_THRESHOLD_MODE=dynamic`
+- dynamic lexicon threshold uses `score_threshold + (len(text) / dynamic_chars_per_point) * dynamic_threshold_increment`
 - deterministic high-risk short-circuit triggers:
   - restricted entity match
   - money threshold breach

@@ -19,6 +19,15 @@ ABS_THRESHOLD = get_config_val("thresholds", "mnpi_abs", "MNPI_ABS_THRESHOLD", 1
 PCT_THRESHOLD = get_config_val("thresholds", "mnpi_pct", "MNPI_PCT_THRESHOLD", 5.0, float)
 
 LEXICON_SCORE_THRESHOLD = float(_cfg.get("lexicon", {}).get("score_threshold", 10.0))
+LEXICON_SCORE_THRESHOLD_MODE = str(
+    get_config_val("lexicon", "score_threshold_mode", "LEXICON_SCORE_THRESHOLD_MODE", "static", str)
+).strip().lower()
+LEXICON_DYNAMIC_CHARS_PER_POINT = get_config_val(
+    "lexicon", "dynamic_chars_per_point", "LEXICON_DYNAMIC_CHARS_PER_POINT", 1000.0, float
+)
+LEXICON_DYNAMIC_THRESHOLD_INCREMENT = get_config_val(
+    "lexicon", "dynamic_threshold_increment", "LEXICON_DYNAMIC_THRESHOLD_INCREMENT", 1.0, float
+)
 LEXICON_WEIGHTS = _cfg.get("lexicon_weights", {})
 DEFAULT_HIGH_WEIGHT = float(LEXICON_WEIGHTS.get("default_high", 3.0))
 DEFAULT_INFO_WEIGHT = float(LEXICON_WEIGHTS.get("default_info", 0.5))
@@ -27,6 +36,16 @@ def get_rule_weight(rule: str, severity: str) -> float:
     if rule in LEXICON_WEIGHTS:
         return float(LEXICON_WEIGHTS[rule])
     return DEFAULT_HIGH_WEIGHT if severity == "high" else DEFAULT_INFO_WEIGHT
+
+
+def resolve_score_threshold(text: str) -> float:
+    if LEXICON_SCORE_THRESHOLD_MODE != "dynamic":
+        return LEXICON_SCORE_THRESHOLD
+
+    chars_per_point = max(1.0, float(LEXICON_DYNAMIC_CHARS_PER_POINT))
+    increment = max(0.0, float(LEXICON_DYNAMIC_THRESHOLD_INCREMENT))
+    effective_threshold = LEXICON_SCORE_THRESHOLD + (len(text) / chars_per_point) * increment
+    return round(effective_threshold, 3)
 
 MONEY_PATTERN = re.compile( # matches $1,000,000 | €500K | £2.5M | ¥100B | 1.5 billion etc
     r'[\$€£¥]?\s*\d[\d,]*\.?\d*\s*(?:thousand|million|billion|trillion|[KMBT])\b'
@@ -266,6 +285,7 @@ class LexiconFilter:
         return hits
     def run(self, text: str) -> LexiconResult:
         result = LexiconResult()
+        result.score_threshold = resolve_score_threshold(text)
         result.hits.extend(self._check_money_threshold(text)) # financial figure threshold
         result.hits.extend(self._check_pct_threshold(text)) # percentage threshold
         restricted_hits, restricted_ents = self._check_restricted_list(text) # restricted list cross-ref

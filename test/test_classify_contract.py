@@ -429,6 +429,69 @@ class LexiconSpanExtractionTests(unittest.TestCase):
         cls.lex_mod = load_lexicon_module()
         cls.filter = cls.lex_mod.LexiconFilter()
 
+    def test_dynamic_score_threshold_increases_with_text_length(self):
+        original_mode = self.lex_mod.LEXICON_SCORE_THRESHOLD_MODE
+        original_chars_per_point = self.lex_mod.LEXICON_DYNAMIC_CHARS_PER_POINT
+        original_increment = self.lex_mod.LEXICON_DYNAMIC_THRESHOLD_INCREMENT
+        try:
+            self.lex_mod.LEXICON_SCORE_THRESHOLD_MODE = "dynamic"
+            self.lex_mod.LEXICON_DYNAMIC_CHARS_PER_POINT = 10.0
+            self.lex_mod.LEXICON_DYNAMIC_THRESHOLD_INCREMENT = 2.0
+
+            short_result = self.filter.run("abcde")
+            long_result = self.filter.run("a" * 25)
+
+            self.assertEqual(short_result.score_threshold, 11.0)
+            self.assertEqual(long_result.score_threshold, 15.0)
+            self.assertGreater(long_result.score_threshold, short_result.score_threshold)
+        finally:
+            self.lex_mod.LEXICON_SCORE_THRESHOLD_MODE = original_mode
+            self.lex_mod.LEXICON_DYNAMIC_CHARS_PER_POINT = original_chars_per_point
+            self.lex_mod.LEXICON_DYNAMIC_THRESHOLD_INCREMENT = original_increment
+
+    def test_dynamic_score_threshold_can_prevent_info_only_flag_on_longer_text(self):
+        original_mode = self.lex_mod.LEXICON_SCORE_THRESHOLD_MODE
+        original_chars_per_point = self.lex_mod.LEXICON_DYNAMIC_CHARS_PER_POINT
+        original_increment = self.lex_mod.LEXICON_DYNAMIC_THRESHOLD_INCREMENT
+        original_money = self.filter._check_money_threshold
+        original_pct = self.filter._check_pct_threshold
+        original_restricted = self.filter._check_restricted_list
+        original_ner = self.filter._check_ner
+        original_presidio = self.filter._check_presidio
+        try:
+            self.lex_mod.LEXICON_SCORE_THRESHOLD_MODE = "dynamic"
+            self.lex_mod.LEXICON_DYNAMIC_CHARS_PER_POINT = 10.0
+            self.lex_mod.LEXICON_DYNAMIC_THRESHOLD_INCREMENT = 1.0
+
+            self.filter._check_money_threshold = lambda text: []
+            self.filter._check_pct_threshold = lambda text: []
+            self.filter._check_restricted_list = lambda text: ([], [])
+            self.filter._check_ner = lambda text: [
+                self.lex_mod.LexiconHit(rule="ner_org", matched_text="alpha", severity="info")
+                for _ in range(22)
+            ]
+            self.filter._check_presidio = lambda text: []
+
+            short_result = self.filter.run("short")
+            long_result = self.filter.run("a" * 30)
+
+            self.assertEqual(short_result.total_score, 11.0)
+            self.assertTrue(short_result.score_threshold_exceeded)
+            self.assertTrue(short_result.flagged)
+
+            self.assertEqual(long_result.total_score, 11.0)
+            self.assertFalse(long_result.score_threshold_exceeded)
+            self.assertFalse(long_result.flagged)
+        finally:
+            self.lex_mod.LEXICON_SCORE_THRESHOLD_MODE = original_mode
+            self.lex_mod.LEXICON_DYNAMIC_CHARS_PER_POINT = original_chars_per_point
+            self.lex_mod.LEXICON_DYNAMIC_THRESHOLD_INCREMENT = original_increment
+            self.filter._check_money_threshold = original_money
+            self.filter._check_pct_threshold = original_pct
+            self.filter._check_restricted_list = original_restricted
+            self.filter._check_ner = original_ner
+            self.filter._check_presidio = original_presidio
+
     def test_money_threshold_hit_includes_offsets(self):
         text = "The deal is worth $2.5 billion."
         result = self.filter.run(text)
