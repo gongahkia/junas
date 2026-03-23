@@ -118,9 +118,12 @@ Useful env vars:
 - `NOUPE_PORT` (default `8000`)
 - `NOUPE_HOST` (default `0.0.0.0`)
 - `NOUPE_LOG_LEVEL` (default `info`)
+- `NOUPE_PRETTY_LOGS` (`1` by default; set `NOUPE_PRETTY_LOGS=0` for compact single-line backend JSON logs)
 - `NOUPE_RELOAD=1` to enable autoreload
 
 Bare `uvicorn backend.main:app` startup allows degraded mode by default when configured required layers are missing, and exposes that state through `GET /ready` and `GET /diagnostics`. When lazy loading is enabled, `GET /ready` remains degraded until required lazy layers finish warming.
+
+The Redis-backed Mosaic layer is optional for client handoff. When Redis is unavailable, the backend remains usable and surfaces that dependency state through `GET /ready` and `GET /diagnostics`.
 
 The launcher scripts are stricter by default:
 
@@ -139,6 +142,8 @@ Healthcheck: `curl http://localhost:8000/health`
 Readiness: `curl http://localhost:8000/ready`
 Diagnostics: `curl http://localhost:8000/diagnostics`
 Metrics: `curl http://localhost:8000/metrics`
+
+JSON API endpoints return indented responses by default for terminal readability. The Prometheus `/metrics` endpoint remains plain text.
 
 Classify:
 
@@ -226,6 +231,7 @@ Useful production launcher env vars:
 - `NOUPE_PORT` (default `8000`)
 - `NOUPE_UVICORN_WORKERS` (default `2`)
 - `NOUPE_LOG_LEVEL` (default `info`)
+- `NOUPE_PRETTY_LOGS` (`1` by default; set `NOUPE_PRETTY_LOGS=0` for compact single-line backend JSON logs)
 - `NOUPE_FRONTEND_DEMO_PORT` (default `8081`)
 - `NOUPE_READY_TIMEOUT_SECONDS` (default `180`)
 - `NOUPE_RESPONSE_CACHE_SIZE` (default `0` in the production launcher because the built-in cache is per-worker memory)
@@ -260,6 +266,7 @@ Useful env vars:
 - `NOUPE_HOST` (default `0.0.0.0`)
 - `NOUPE_PORT` (default `8000`)
 - `NOUPE_LOG_LEVEL` (default `info`)
+- `NOUPE_PRETTY_LOGS` (`1` by default; set `NOUPE_PRETTY_LOGS=0` for compact single-line backend JSON logs)
 - `PROMETHEUS_MULTIPROC_DIR` (optional in dev; automatically set by `scripts/launch/run_prod.sh` for multi-worker metrics aggregation)
 
 ## Latency Benchmarking
@@ -374,6 +381,7 @@ Notable keys:
 - `NOUPE_FAIL_ON_LAYER_LOAD_ERROR` (`1`/`0`, default `0` for bare app startup; `scripts/launch/run_prod.sh` overrides to `1`)
 - `NOUPE_FRONTEND_DEMO_PORT` (default `8081` for the archived demo server)
 - `NOUPE_LAZY_LOAD_HEAVY` (`1`/`0`, default `1`)
+- `NOUPE_PRETTY_LOGS` (`1`/`0`, default `1`)
 - `NOUPE_PREWARM_REQUIRED_LAYERS` (`1`/`0`, default `1` when lazy loading is enabled)
 - `NOUPE_RESPONSE_CACHE_SIZE` (default `256`)
 - `NOUPE_RESPONSE_CACHE_TTL_SECONDS` (default `60`)

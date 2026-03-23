@@ -20,8 +20,12 @@ except ImportError:
     import tomli as tomllib
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request, Response
+from fastapi.encoders import jsonable_encoder
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from starlette.concurrency import run_in_threadpool
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 WORKFLOW_ROOT = PROJECT_ROOT / "backend" / "workflow"
@@ -92,6 +96,31 @@ def _is_truthy(value: str | None, *, default: bool = False) -> bool:
     if value is None:
         return default
     return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
+def should_pretty_logs() -> bool:
+    return _is_truthy(os.environ.get("NOUPE_PRETTY_LOGS"), default=True)
+
+
+def render_backend_log(payload: dict[str, Any]) -> str:
+    dump_kwargs: dict[str, Any] = {"ensure_ascii": False}
+    if should_pretty_logs():
+        dump_kwargs["indent"] = 2
+    return json.dumps(payload, **dump_kwargs)
+
+
+def log_backend_event(level: int, **payload: Any) -> None:
+    logger.log(level, render_backend_log(payload))
+
+
+class PrettyJSONResponse(JSONResponse):
+    def render(self, content: Any) -> bytes:
+        return json.dumps(
+            content,
+            ensure_ascii=False,
+            allow_nan=False,
+            indent=2,
+        ).encode("utf-8")
 
 
 def _parse_layers_list(raw: str | list[Any] | None) -> list[str]:
@@ -198,7 +227,7 @@ def load_config() -> list[str]:
                     {},
                 ).get("layers", ["lexicon", "embedding", "clustering", "model1", "model2", "mosaic", "regression"])
             except Exception as e:
-                logger.warning(json.dumps({"event": "config_parse_error", "error": str(e)}))
+                log_backend_event(logging.WARNING, event="config_parse_error", error=str(e))
 
     return ["lexicon", "embedding", "clustering", "model1", "model2", "mosaic", "regression"]
 
@@ -521,7 +550,7 @@ def ensure_layer_loaded(layer: str):
                     outcome="success",
                     duration_seconds=elapsed_ms / 1000.0,
                 )
-            logger.info(json.dumps({"event": "lazy_layer_loaded", "layer": layer, "latency_ms": elapsed_ms}))
+            log_backend_event(logging.INFO, event="lazy_layer_loaded", layer=layer, latency_ms=elapsed_ms)
             refresh_observability_state()
             return model
         except Exception as e:
@@ -535,15 +564,12 @@ def ensure_layer_loaded(layer: str):
                     outcome="error",
                     duration_seconds=elapsed_ms / 1000.0,
                 )
-            logger.warning(
-                json.dumps(
-                    {
-                        "event": "lazy_layer_failed",
-                        "layer": layer,
-                        "latency_ms": elapsed_ms,
-                        "error": str(e),
-                    }
-                )
+            log_backend_event(
+                logging.WARNING,
+                event="lazy_layer_failed",
+                layer=layer,
+                latency_ms=elapsed_ms,
+                error=str(e),
             )
             refresh_observability_state()
             return None
@@ -771,21 +797,18 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
                     duration_seconds=total_ms / 1000.0,
                 )
 
-            logger.info(
-                json.dumps(
-                    {
-                        "event": "classify_summary",
-                        "request_id": request_id,
-                        "classification": cached_class.value,
-                        "timings_ms": cached["timings_ms"],
-                        "active_pipeline": pipeline,
-                        "cache_status": cache_status,
-                        "degraded": degraded,
-                        "executed_layers": cached_observability.get("executed_layers", []),
-                        "skipped_layers": cached_observability.get("skipped_layers", []),
-                        "layer_error_count": len(cached_observability.get("layer_errors", [])),
-                    }
-                )
+            log_backend_event(
+                logging.INFO,
+                event="classify_summary",
+                request_id=request_id,
+                classification=cached_class.value,
+                timings_ms=cached["timings_ms"],
+                active_pipeline=pipeline,
+                cache_status=cache_status,
+                degraded=degraded,
+                executed_layers=cached_observability.get("executed_layers", []),
+                skipped_layers=cached_observability.get("skipped_layers", []),
+                layer_error_count=len(cached_observability.get("layer_errors", [])),
             )
             return ClassifyResponse(**cached)
         cache_status = "miss"
@@ -1000,15 +1023,12 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
                     outcome="error",
                     duration_seconds=max(0.0, time.perf_counter() - t_layer_start),
                 )
-            logger.warning(
-                json.dumps(
-                    {
-                        "event": "layer_runtime_error",
-                        "request_id": request_id,
-                        "layer": layer,
-                        "error": message,
-                    }
-                )
+            log_backend_event(
+                logging.WARNING,
+                event="layer_runtime_error",
+                request_id=request_id,
+                layer=layer,
+                error=message,
             )
         finally:
             timings_ms[layer] = round((time.perf_counter() - t_layer_start) * 1000.0, 3)
@@ -1067,21 +1087,18 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
             duration_seconds=timings_ms["total"] / 1000.0,
         )
 
-    logger.info(
-        json.dumps(
-            {
-                "event": "classify_summary",
-                "request_id": request_id,
-                "classification": final_classification.value,
-                "timings_ms": timings_ms,
-                "active_pipeline": pipeline,
-                "cache_status": cache_status,
-                "degraded": degraded,
-                "executed_layers": executed_layers,
-                "skipped_layers": skipped_layers,
-                "layer_error_count": len(layer_errors),
-            }
-        )
+    log_backend_event(
+        logging.INFO,
+        event="classify_summary",
+        request_id=request_id,
+        classification=final_classification.value,
+        timings_ms=timings_ms,
+        active_pipeline=pipeline,
+        cache_status=cache_status,
+        degraded=degraded,
+        executed_layers=executed_layers,
+        skipped_layers=skipped_layers,
+        layer_error_count=len(layer_errors),
     )
 
     return response
@@ -1104,7 +1121,7 @@ def _run_batch_classify_sync(req: BatchClassifyRequest, base_request_id: str | N
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     det_info = configure_determinism()
-    logger.info(json.dumps({"event": "determinism", **det_info}))
+    log_backend_event(logging.INFO, event="determinism", **det_info)
 
     layers = load_config()
     lazy_heavy = _is_truthy(os.environ.get("NOUPE_LAZY_LOAD_HEAVY"), default=True)
@@ -1227,7 +1244,7 @@ async def lifespan(app: FastAPI):
                     outcome="error",
                     duration_seconds=max(0.0, time.perf_counter() - t_layer),
                 )
-            logger.warning(json.dumps({"event": "layer_load_failed", "layer": layer, "error": str(e)}))
+            log_backend_event(logging.WARNING, event="layer_load_failed", layer=layer, error=str(e))
         finally:
             elapsed_ms = round((time.perf_counter() - t_layer) * 1000.0, 3)
             _state["startup_timings_ms"][layer] = elapsed_ms
@@ -1249,21 +1266,18 @@ async def lifespan(app: FastAPI):
 
     _state["startup_timings_ms"]["total"] = round((time.perf_counter() - t_startup_total) * 1000.0, 3)
 
-    logger.info(
-        json.dumps(
-            {
-                "event": "startup_summary",
-                "pipeline": layers,
-                "loaded_layers": sorted(_state.get("models", {}).keys()),
-                "lazy_layers": sorted(_state.get("lazy_loaders", {}).keys()),
-                "optional_layers": sorted(optional_layers),
-                "missing_required_layers": missing_required_layers,
-                "startup_timings_ms": _state.get("startup_timings_ms", {}),
-                "load_errors": _state.get("load_errors", []),
-                "cache_cfg": _state.get("cache_cfg", {}),
-                "metrics_mode": get_metrics_mode(),
-            }
-        )
+    log_backend_event(
+        logging.INFO,
+        event="startup_summary",
+        pipeline=layers,
+        loaded_layers=sorted(_state.get("models", {}).keys()),
+        lazy_layers=sorted(_state.get("lazy_loaders", {}).keys()),
+        optional_layers=sorted(optional_layers),
+        missing_required_layers=missing_required_layers,
+        startup_timings_ms=_state.get("startup_timings_ms", {}),
+        load_errors=_state.get("load_errors", []),
+        cache_cfg=_state.get("cache_cfg", {}),
+        metrics_mode=get_metrics_mode(),
     )
 
     if missing_required_layers and fail_on_layer_load_error:
@@ -1286,6 +1300,7 @@ app = FastAPI(
     summary="Backend-only MNPI classification API with archived demo frontends served separately.",
     description=OPENAPI_DESCRIPTION,
     openapi_tags=OPENAPI_TAGS,
+    default_response_class=PrettyJSONResponse,
     lifespan=lifespan,
 )
 
@@ -1297,6 +1312,23 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.exception_handler(StarletteHTTPException)
+async def pretty_http_exception_handler(request: Request, exc: StarletteHTTPException):
+    return PrettyJSONResponse(
+        status_code=exc.status_code,
+        content={"detail": exc.detail},
+        headers=exc.headers,
+    )
+
+
+@app.exception_handler(RequestValidationError)
+async def pretty_validation_exception_handler(request: Request, exc: RequestValidationError):
+    return PrettyJSONResponse(
+        status_code=422,
+        content={"detail": jsonable_encoder(exc.errors())},
+    )
 
 
 @app.middleware("http")
@@ -1326,17 +1358,14 @@ async def request_context_middleware(request: Request, call_next):
 
     should_log = request.url.path not in SUPPRESSED_REQUEST_LOG_PATHS or status_code >= 400
     if should_log:
-        logger.info(
-            json.dumps(
-                {
-                    "event": "request",
-                    "request_id": request_id,
-                    "method": request.method,
-                    "path": request.url.path,
-                    "status_code": status_code,
-                    "latency_ms": dt_ms,
-                }
-            )
+        log_backend_event(
+            logging.INFO,
+            event="request",
+            request_id=request_id,
+            method=request.method,
+            path=request.url.path,
+            status_code=status_code,
+            latency_ms=dt_ms,
         )
 
     if response is None:
