@@ -35,7 +35,11 @@ dev = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["api*", "backend*", "configs*", "helper*", "test*", "training*"]
+where = ["src"]
+include = ["noupe*"]
+
+[tool.setuptools.package-dir]
+"" = "src"
 
 [tool.ruff]
 line-length = 120
@@ -74,4 +78,3 @@ module = [
   "configs.runtime",
 ]
 disallow_untyped_defs = true
-

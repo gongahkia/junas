@@ -1,37 +1,7 @@
-import os
-from pathlib import Path
-from typing import Any
+"""Compatibility shim for the canonical `noupe.configs.runtime` module."""
 
-try:
-    import tomllib
-except ImportError:
-    import tomli as tomllib
+from importlib import import_module as _import_module
+import sys as _sys
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-CONFIG_PATH = os.environ.get("NOUPE_CONFIG", str(PROJECT_ROOT / "config.toml"))
-
-def load_config() -> dict[str, Any]:
-    if os.path.exists(CONFIG_PATH):
-        with open(CONFIG_PATH, "rb") as f:
-            try:
-                return tomllib.load(f)
-            except Exception:
-                pass
-    return {}
-
-_cfg = load_config()
-
-def get_config_val(
-    section: str,
-    key: str,
-    env_var: str,
-    default: Any,
-    cast_type: Any = str,
-) -> Any:
-    val = os.getenv(env_var)
-    if val is not None:
-        return cast_type(val)
-    sec = _cfg.get(section, {})
-    if key in sec:
-        return cast_type(sec[key])
-    return cast_type(default)
+_module = _import_module("noupe.configs.runtime")
+_sys.modules[__name__] = _module
