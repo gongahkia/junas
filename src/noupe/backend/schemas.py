@@ -264,8 +264,23 @@ class ClassifyResponse(BaseModel):
                 "observability": {
                     "degraded": False,
                     "cache_status": "disabled",
-                    "active_pipeline": ["lexicon", "embedding", "clustering", "model1", "model2", "mosaic", "regression"],
-                    "executed_layers": ["lexicon", "embedding", "clustering", "model1", "model2", "regression"],
+                    "active_pipeline": [
+                        "lexicon",
+                        "embedding",
+                        "clustering",
+                        "model1",
+                        "model2",
+                        "mosaic",
+                        "regression",
+                    ],
+                    "executed_layers": [
+                        "lexicon",
+                        "embedding",
+                        "clustering",
+                        "model1",
+                        "model2",
+                        "regression",
+                    ],
                     "skipped_layers": ["mosaic"],
                     "layer_errors": [],
                 },
@@ -316,11 +331,17 @@ class ClassifyResponse(BaseModel):
     lexicon: Optional[LexiconResponse] = Field(None, description="Lexicon-layer output for this request.")
     model1: Optional[Model1Response] = Field(
         None,
-        description="Model-1 output. Null when the layer is disabled, unavailable, or skipped after lexicon short-circuit.",
+        description=(
+            "Model-1 output. Null when the layer is disabled, unavailable, "
+            "or skipped after lexicon short-circuit."
+        ),
     )
     model2: Optional[Model2Response] = Field(
         None,
-        description="Model-2 output. Null when the layer is disabled, unavailable, or skipped after a safe Model-1 result.",
+        description=(
+            "Model-2 output. Null when the layer is disabled, unavailable, "
+            "or skipped after a safe Model-1 result."
+        ),
     )
     embedding: Optional[list[float]] = Field(
         None,
@@ -332,10 +353,7 @@ class ClassifyResponse(BaseModel):
         None,
         description="Regression-layer output when a trained checkpoint is available and loaded.",
     )
-    observability: ObservabilityResponse = Field(
-        default_factory=ObservabilityResponse,
-        description="Per-request runtime observability metadata.",
-    )
+    observability: ObservabilityResponse = Field(description="Per-request runtime observability metadata.")
     offending_spans: Optional[list[OffendingSpanResponse]] = Field(
         None,
         description="Exact lexicon spans and approximate classifier-window spans when explicitly requested.",

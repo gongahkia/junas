@@ -1,16 +1,16 @@
 import argparse
 import bisect
-from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import importlib
 import importlib.util
 import json
 import logging
-import os
 import sys
 import time
 import uuid
+from _thread import LockType
 from collections import OrderedDict
+from concurrent.futures import ThreadPoolExecutor
 from contextlib import asynccontextmanager
 from pathlib import Path
 from threading import Lock, Thread
@@ -24,30 +24,33 @@ from fastapi.responses import JSONResponse
 from starlette.concurrency import run_in_threadpool
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
-
-from noupe.backend.cache import ResponseCache  # noqa: E402
-from noupe.backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode  # noqa: E402
-from noupe.backend.schemas import (  # noqa: E402
+from noupe.backend.cache import ResponseCache
+from noupe.backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode
+from noupe.backend.schemas import (
     BatchClassifyRequest,
     BatchClassifyResponse,
     Classification,
     ClassifyRequest,
     ClassifyResponse,
+    DependencyStatusResponse,
     DiagnosticsResponse,
     HealthResponse,
+    LayerErrorResponse,
     LexiconHitResponse,
     LexiconResponse,
     Model1Response,
     Model2Response,
-    OffendingSpanResponse,
     MosaicResponse,
+    ObservabilityResponse,
+    OffendingSpanResponse,
     ReadyResponse,
     RegressionResponse,
 )
-from noupe.configs.artifacts import get_artifact_path  # noqa: E402
-from noupe.configs.runtime import RuntimeSettings, get_runtime_settings  # noqa: E402
-from noupe.helper.determinism import configure_determinism  # noqa: E402
+from noupe.configs.artifacts import get_artifact_path
+from noupe.configs.runtime import RuntimeSettings, get_runtime_settings
+from noupe.helper.determinism import configure_determinism
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
 logger = logging.getLogger("noupe.backend")
 logging.basicConfig(level=logging.INFO, format="%(message)s")
@@ -79,10 +82,15 @@ Noupe is a backend-only MNPI screening API with archived demo frontends served s
 
 Key behaviors:
 
-- `POST /classify` accepts a single text document and returns a document-level classification of `SAFE`, `LOW_RISK`, or `HIGH_RISK`.
-- `POST /classify/batch` processes up to 32 classify requests with bounded in-process concurrency while preserving result order.
-- `include_offending_spans=true` adds exact lexicon spans and approximate classifier-window spans when the final response is `LOW_RISK` or `HIGH_RISK`.
-- The active runtime is API-only; the legacy/chat/email/slack demo surfaces live under `archive/frontend-demos/` and are launched by `scripts/launch/run_dev.sh` or `scripts/launch/run_prod.sh`.
+- `POST /classify` accepts a single text document and returns a document-level
+  classification of `SAFE`, `LOW_RISK`, or `HIGH_RISK`.
+- `POST /classify/batch` processes up to 32 classify requests with bounded
+  in-process concurrency while preserving result order.
+- `include_offending_spans=true` adds exact lexicon spans and approximate
+  classifier-window spans when the final response is `LOW_RISK` or `HIGH_RISK`.
+- The active runtime is API-only; the legacy/chat/email/slack demo surfaces
+  live under `archive/frontend-demos/` and are launched by
+  `scripts/launch/run_dev.sh` or `scripts/launch/run_prod.sh`.
 - `GET /ready` and `GET /diagnostics` expose degraded startup, lazy-layer warming, and dependency state.
 """.strip()
 
@@ -325,7 +333,11 @@ def get_dependency_status() -> dict[str, DependencyStatus]:
 
     if mosaic_model is None:
         latest_error = _get_latest_load_error("mosaic")
-        detail = latest_error.get("error", "mosaic layer is unavailable") if latest_error else "mosaic layer is unavailable"
+        detail = (
+            latest_error.get("error", "mosaic layer is unavailable")
+            if latest_error
+            else "mosaic layer is unavailable"
+        )
         statuses["redis"] = DependencyStatus(
             status="down",
             configured=True,
@@ -513,7 +525,10 @@ def ensure_layer_loaded(layer: str):
     if loader is None:
         return None
 
-    lock: Lock = _state.get("load_lock")
+    lock = _state.get("load_lock")
+    if not isinstance(lock, LockType):
+        return None
+
     with lock:
         existing = models.get(layer)
         if existing is not None:
@@ -565,7 +580,12 @@ def get_layer_model(layer: str):
         return model
     return ensure_layer_loaded(layer)
 
-def build_layer_error(layer: str, *, default_phase: str = "runtime", default_message: str = "layer unavailable") -> dict[str, str]:
+def build_layer_error(
+    layer: str,
+    *,
+    default_phase: str = "runtime",
+    default_message: str = "layer unavailable",
+) -> dict[str, str]:
     latest_error = _get_latest_load_error(layer)
     if latest_error:
         return {
@@ -655,6 +675,11 @@ def build_offending_spans(text: str, lex_hits: list[Any]) -> list[OffendingSpanR
                 is_exact=True,
                 char_length=end - start,
                 line_span=max(1, end_line - start_line + 1),
+                window_index=None,
+                window_count=None,
+                window_token_count=None,
+                window_stride=None,
+                window_max_seq_len=None,
                 context_before=context_before,
                 context_after=context_after,
                 score=score,
@@ -1061,14 +1086,14 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
         mosaic=mosaic_resp,
         regression=reg_resp,
         offending_spans=offending_spans,
-        observability={
-            "degraded": degraded,
-            "cache_status": cache_status,
-            "active_pipeline": list(pipeline),
-            "executed_layers": executed_layers,
-            "skipped_layers": skipped_layers,
-            "layer_errors": layer_errors,
-        },
+        observability=ObservabilityResponse(
+            degraded=degraded,
+            cache_status=cache_status,
+            active_pipeline=list(pipeline),
+            executed_layers=executed_layers,
+            skipped_layers=skipped_layers,
+            layer_errors=[LayerErrorResponse(**error) for error in layer_errors],
+        ),
         timings_ms=timings_ms,
     )
 
@@ -1258,7 +1283,8 @@ async def lifespan(app: FastAPI):
         finally:
             elapsed_ms = round((time.perf_counter() - t_layer) * 1000.0, 3)
             _state["startup_timings_ms"][layer] = elapsed_ms
-            if _get_latest_load_error(layer) is None or _get_latest_load_error(layer).get("phase") != "startup":
+            latest_error = _get_latest_load_error(layer)
+            if latest_error is None or latest_error.get("phase") != "startup":
                 observability = get_observability()
                 if observability is not None:
                     observability.observe_layer_load(
@@ -1456,12 +1482,12 @@ async def diagnostics():
         startup_timings_ms=_state.get("startup_timings_ms", {}),
         metrics_mode=get_metrics_mode(),
         dependency_status={
-            name: {
-                "status": status.status,
-                "configured": status.configured,
-                "healthy": status.healthy,
-                "detail": status.detail,
-            }
+            name: DependencyStatusResponse(
+                status=status.status,
+                configured=status.configured,
+                healthy=status.healthy,
+                detail=status.detail,
+            )
             for name, status in get_dependency_status().items()
         },
         runtime_layer_errors=dict(_state.get("runtime_layer_errors", {})),

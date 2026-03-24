@@ -773,7 +773,9 @@ def build_regression_rows(
                 "m1_score": float(model1.get("risk_score", 0.0) or 0.0),
                 "m2_score": float(model2.get("high_risk_score", 0.0) or 0.0),
                 "clust_score": float(clustering.get("anomaly_score", 0.0) or 0.0),
-                "mosaic_count": float(mosaic.get("count", 0.0) or 0.0),
+                "mosaic_count": float(
+                    mosaic.get("unique_fragment_count", mosaic.get("count", 0.0)) or 0.0
+                ),
                 "target": float(REGRESSION_TARGET_MAP[sample["label"]]),
             }
             rows.append(row)

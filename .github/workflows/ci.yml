@@ -25,17 +25,30 @@ jobs:
           python -m pip install -e ".[dev]"
 
       - name: Ruff
-        run: python -m ruff check backend/cache.py backend/observability.py configs/runtime.py
+        run: python -m ruff check src/noupe backend configs test
 
       - name: Mypy
-        run: python -m mypy backend/cache.py backend/observability.py configs/runtime.py
+        run: python -m mypy src/noupe/backend/main.py src/noupe/backend/cache.py src/noupe/backend/observability.py src/noupe/backend/schemas.py src/noupe/configs/runtime.py src/noupe/configs/artifacts.py
 
       - name: Unit and contract tests
         run: python -m unittest discover -s test -p "test*.py"
 
-  integration-artifacts:
-    if: ${{ hashFiles('artifacts/manifest.json') != '' }}
+  redis-integration:
     runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      NOUPE_RUN_REDIS_INTEGRATION: "1"
+      NOUPE_TEST_REDIS_HOST: "127.0.0.1"
+      NOUPE_TEST_REDIS_PORT: "6379"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -50,5 +63,30 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -e ".[dev]"
 
+      - name: Live Redis integration tests
+        run: python -m unittest test.test_redis_integration
+
+  integration-artifacts:
+    if: ${{ hashFiles('artifacts/manifest.json') != '' }}
+    runs-on: ubuntu-latest
+    env:
+      NOUPE_RUN_REAL_ARTIFACT_INTEGRATION: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install project
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+
+      - name: Hydrate artifacts when legacy checkpoints are available
+        run: python scripts/bootstrap_artifacts.py --sync-from-legacy || true
+
       - name: Conditional real-artifact integration tests
-        run: python -m unittest discover -s test -p "test*_integration.py"
+        run: python -m unittest test.test_runtime_artifact_integration
