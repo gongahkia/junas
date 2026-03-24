@@ -117,32 +117,17 @@ class MosaicAggregator:
 
     @classmethod
     def load(cls):
-        from noupe.configs.runtime import get_config_val
+        from noupe.configs.runtime import get_runtime_settings
 
-        ttl_hours = get_config_val("mosaic", "ttl_hours", "MOSAIC_TTL_HOURS", "24", float)
-        threshold = get_config_val("mosaic", "threshold", "MOSAIC_THRESHOLD", "10", int)
-        redis_host = get_config_val("mosaic", "redis_host", "REDIS_HOST", "localhost", str)
-        redis_port = get_config_val("mosaic", "redis_port", "REDIS_PORT", "6379", int)
-        connect_timeout = get_config_val(
-            "mosaic", "connect_timeout_seconds", "MOSAIC_CONNECT_TIMEOUT_SECONDS", "0.5", float
-        )
-        socket_timeout = get_config_val(
-            "mosaic", "socket_timeout_seconds", "MOSAIC_SOCKET_TIMEOUT_SECONDS", "0.5", float
-        )
-        retry_attempts = get_config_val(
-            "mosaic", "retry_attempts", "MOSAIC_RETRY_ATTEMPTS", "3", int
-        )
-        retry_backoff_ms = get_config_val(
-            "mosaic", "retry_backoff_ms", "MOSAIC_RETRY_BACKOFF_MS", "100", int
-        )
+        settings = get_runtime_settings().mosaic
 
         return cls(
-            host=redis_host,
-            port=redis_port,
-            ttl_hours=ttl_hours,
-            threshold=threshold,
-            connect_timeout=connect_timeout,
-            socket_timeout=socket_timeout,
-            retry_attempts=retry_attempts,
-            retry_backoff_ms=retry_backoff_ms,
+            host=settings.redis_host,
+            port=settings.redis_port,
+            ttl_hours=settings.ttl_hours,
+            threshold=settings.threshold,
+            connect_timeout=settings.connect_timeout_seconds,
+            socket_timeout=settings.socket_timeout_seconds,
+            retry_attempts=settings.retry_attempts,
+            retry_backoff_ms=settings.retry_backoff_ms,
         )

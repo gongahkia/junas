@@ -1,43 +1,29 @@
 #!/usr/bin/env python3
 """One-command preflight checks for local runtime readiness."""
 
+from __future__ import annotations
+
 import argparse
 import json
 import os
 from pathlib import Path
 import socket
+import sys
 
-try:
-    import tomllib
-except ImportError:
-    import tomli as tomllib
+ROOT = Path(__file__).resolve().parent.parent
+SRC_ROOT = ROOT / "src"
+if str(SRC_ROOT) not in sys.path:
+    sys.path.insert(0, str(SRC_ROOT))
 
-VALID_LAYERS = {"lexicon", "embedding", "clustering", "model1", "model2", "mosaic", "regression"}
+from noupe.configs.runtime import ConfigError, VALID_LAYERS, load_runtime_settings
+
+WORKFLOW_ROOT = ROOT / "src" / "noupe" / "workflow"
 
 
 def is_truthy(value: str | None) -> bool:
     if value is None:
         return False
     return value.strip().lower() in {"1", "true", "yes", "on"}
-
-
-def parse_layers_list(raw: str | list | None) -> list[str]:
-    if raw is None:
-        return []
-    if isinstance(raw, str):
-        return [item.strip() for item in raw.split(",") if item.strip()]
-    if isinstance(raw, list):
-        return [str(item).strip() for item in raw if str(item).strip()]
-    return []
-
-
-def load_config(config_path: Path):
-    if not config_path.exists():
-        return {}, [f"config file missing: {config_path}"]
-    try:
-        return tomllib.loads(config_path.read_text()), []
-    except Exception as e:
-        return {}, [f"config parse failure ({config_path}): {e}"]
 
 
 def has_model_weights(path: Path) -> bool:
@@ -55,8 +41,8 @@ def check_spacy_model() -> tuple[bool, str]:
 
         spacy.load("en_core_web_sm")
         return True, "spaCy model en_core_web_sm loaded"
-    except Exception as e:
-        return False, f"spaCy model load failed: {e}"
+    except Exception as exc:
+        return False, f"spaCy model load failed: {exc}"
 
 
 def check_redis(host: str, port: int, timeout: float = 1.0) -> tuple[bool, str]:
@@ -65,8 +51,8 @@ def check_redis(host: str, port: int, timeout: float = 1.0) -> tuple[bool, str]:
     try:
         sock.connect((host, port))
         return True, f"redis reachable at {host}:{port}"
-    except Exception as e:
-        return False, f"redis unreachable at {host}:{port} ({e})"
+    except Exception as exc:
+        return False, f"redis unreachable at {host}:{port} ({exc})"
     finally:
         sock.close()
 
@@ -114,107 +100,114 @@ def has_sentence_transformer_cache(model_name: str) -> bool:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Noupe runtime preflight checks")
     parser.add_argument("--strict", action="store_true", help="exit non-zero on any warning")
+    parser.add_argument("--config", type=str, help="override config.toml path for this run")
+    parser.add_argument("--layers", type=str, help="override active pipeline layers for this run")
     args = parser.parse_args()
 
-    root = Path(__file__).resolve().parent.parent
-    workflow_root = root / "backend" / "workflow"
-    config_path = Path(os.environ.get("NOUPE_CONFIG", str(root / "config.toml")))
-    cfg, cfg_errors = load_config(config_path)
+    cli_overrides: dict[str, object] = {}
+    if args.config:
+        cli_overrides["config_path"] = args.config
+    if args.layers:
+        cli_overrides["pipeline.layers"] = [layer.strip() for layer in args.layers.split(",") if layer.strip()]
 
-    checks = []
-    warnings = []
+    checks: list[str] = []
+    warnings: list[str] = []
 
-    if cfg_errors:
-        warnings.extend(cfg_errors)
-
-    pipeline = cfg.get("pipeline", {}).get(
-        "layers",
-        ["lexicon", "embedding", "clustering", "model1", "model2", "mosaic", "regression"],
-    )
-    optional_layers = set(parse_layers_list(cfg.get("pipeline", {}).get("optional_layers")))
-    configured_layers = set(pipeline)
-    invalid_layers = [l for l in pipeline if l not in VALID_LAYERS]
-    if invalid_layers:
-        warnings.append(f"invalid pipeline layers in config: {invalid_layers}")
+    try:
+        settings = load_runtime_settings(cli_overrides=cli_overrides)
+    except ConfigError as exc:
+        settings = None
+        warnings.append(str(exc))
     else:
-        checks.append(f"pipeline layers valid: {pipeline}")
+        checks.append(f"settings validated: {settings.config_path}")
 
-    def record_layer_state(layer: str, ok: bool, success_msg: str, failure_msg: str) -> None:
-        if layer not in configured_layers:
-            return
-        if ok:
-            checks.append(success_msg)
-            return
-        if layer in optional_layers:
-            checks.append(f"{failure_msg} (optional layer)")
-            return
-        warnings.append(failure_msg)
-
-    ok_spacy, msg_spacy = check_spacy_model()
-    (checks if ok_spacy else warnings).append(msg_spacy)
-
-    clust_ckpt = workflow_root / "layer3-clustering" / "checkpoints" / "anomaly_detector.joblib"
-    record_layer_state(
-        "clustering",
-        clust_ckpt.exists(),
-        f"clustering checkpoint present: {clust_ckpt}",
-        f"clustering checkpoint missing: {clust_ckpt}",
-    )
-
-    m1_dir = workflow_root / "layer4-classification" / "model-1" / "checkpoints" / "best"
-    record_layer_state(
-        "model1",
-        has_model_weights(m1_dir),
-        f"model1 weights present: {m1_dir}",
-        f"model1 weights missing: {m1_dir}",
-    )
-
-    m2_dir = workflow_root / "layer4-classification" / "model-2" / "checkpoints" / "best"
-    record_layer_state(
-        "model2",
-        has_model_weights(m2_dir),
-        f"model2 weights present: {m2_dir}",
-        f"model2 weights missing: {m2_dir}",
-    )
-
-    reg_model = workflow_root / "layer6-regression" / "checkpoints" / "risk_regressor.json"
-    reg_meta = workflow_root / "layer6-regression" / "checkpoints" / "metadata.json"
-    record_layer_state(
-        "regression",
-        reg_model.exists() and reg_meta.exists(),
-        f"regression artifacts present: {reg_model}, {reg_meta}",
-        f"regression artifacts missing: {reg_model} and/or {reg_meta}",
-    )
-
-    mosaic_cfg = cfg.get("mosaic", {})
-    redis_host = os.environ.get("REDIS_HOST", str(mosaic_cfg.get("redis_host", "localhost")))
-    redis_port = int(os.environ.get("REDIS_PORT", str(mosaic_cfg.get("redis_port", 6379))))
-    if "mosaic" in configured_layers:
-        ok_redis, msg_redis = check_redis(redis_host, redis_port)
-        record_layer_state("mosaic", ok_redis, msg_redis, msg_redis)
-
-    hf_offline = any(
-        [
-            is_truthy(os.environ.get("NOUPE_HF_OFFLINE")),
-            is_truthy(os.environ.get("TRANSFORMERS_OFFLINE")),
-            is_truthy(os.environ.get("HF_HUB_OFFLINE")),
-        ]
-    )
-    embed_model = str(cfg.get("embeddings", {}).get("model_name", "all-mpnet-base-v2"))
-    if hf_offline:
-        if has_sentence_transformer_cache(embed_model):
-            checks.append(
-                f"HF offline mode enabled and embedding model cache found for '{embed_model}'"
-            )
+    if settings is not None:
+        pipeline = list(settings.pipeline.layers)
+        optional_layers = set(settings.pipeline.optional_layers)
+        configured_layers = set(pipeline)
+        invalid_layers = [layer for layer in pipeline if layer not in VALID_LAYERS]
+        if invalid_layers:
+            warnings.append(f"invalid pipeline layers in config: {invalid_layers}")
         else:
-            warnings.append(
-                f"HF offline mode enabled but embedding model cache missing for '{embed_model}'"
+            checks.append(f"pipeline layers valid: {pipeline}")
+
+        def record_layer_state(layer: str, ok: bool, success_msg: str, failure_msg: str) -> None:
+            if layer not in configured_layers:
+                return
+            if ok:
+                checks.append(success_msg)
+                return
+            if layer in optional_layers:
+                checks.append(f"{failure_msg} (optional layer)")
+                return
+            warnings.append(failure_msg)
+
+        ok_spacy, msg_spacy = check_spacy_model()
+        (checks if ok_spacy else warnings).append(msg_spacy)
+
+        clust_ckpt = WORKFLOW_ROOT / "layer3_clustering" / "checkpoints" / "anomaly_detector.joblib"
+        record_layer_state(
+            "clustering",
+            clust_ckpt.exists(),
+            f"clustering checkpoint present: {clust_ckpt}",
+            f"clustering checkpoint missing: {clust_ckpt}",
+        )
+
+        m1_dir = WORKFLOW_ROOT / "layer4_classification" / "model1" / "checkpoints" / "best"
+        record_layer_state(
+            "model1",
+            has_model_weights(m1_dir),
+            f"model1 weights present: {m1_dir}",
+            f"model1 weights missing: {m1_dir}",
+        )
+
+        m2_dir = WORKFLOW_ROOT / "layer4_classification" / "model2" / "checkpoints" / "best"
+        record_layer_state(
+            "model2",
+            has_model_weights(m2_dir),
+            f"model2 weights present: {m2_dir}",
+            f"model2 weights missing: {m2_dir}",
+        )
+
+        reg_model = WORKFLOW_ROOT / "layer6_regression" / "checkpoints" / "risk_regressor.json"
+        reg_meta = WORKFLOW_ROOT / "layer6_regression" / "checkpoints" / "metadata.json"
+        record_layer_state(
+            "regression",
+            reg_model.exists() and reg_meta.exists(),
+            f"regression artifacts present: {reg_model}, {reg_meta}",
+            f"regression artifacts missing: {reg_model} and/or {reg_meta}",
+        )
+
+        if "mosaic" in configured_layers:
+            ok_redis, msg_redis = check_redis(
+                settings.mosaic.redis_host,
+                settings.mosaic.redis_port,
+                timeout=max(0.1, settings.mosaic.connect_timeout_seconds),
             )
-    else:
-        checks.append("HF online mode (offline env flags not set)")
+            record_layer_state("mosaic", ok_redis, msg_redis, msg_redis)
+
+        hf_offline = any(
+            [
+                is_truthy(os.environ.get("NOUPE_HF_OFFLINE")),
+                is_truthy(os.environ.get("TRANSFORMERS_OFFLINE")),
+                is_truthy(os.environ.get("HF_HUB_OFFLINE")),
+            ]
+        )
+        embed_model = settings.embeddings.model_name
+        if hf_offline:
+            if has_sentence_transformer_cache(embed_model):
+                checks.append(
+                    f"HF offline mode enabled and embedding model cache found for '{embed_model}'"
+                )
+            else:
+                warnings.append(
+                    f"HF offline mode enabled but embedding model cache missing for '{embed_model}'"
+                )
+        else:
+            checks.append("HF online mode (offline env flags not set)")
 
     print("=== Noupe Preflight ===")
-    print(f"config_path: {config_path}")
+    print(f"config_path: {settings.config_path if settings is not None else (Path(args.config).expanduser().resolve() if args.config else ROOT / 'config.toml')}")
     print("checks:")
     for item in checks:
         print(f"  - {item}")

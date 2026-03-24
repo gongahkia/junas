@@ -1,4 +1,8 @@
+from __future__ import annotations
+
 import os
+from collections.abc import Iterator, Mapping, Sequence
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -7,19 +11,737 @@ try:
 except ImportError:
     import tomli as tomllib
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-CONFIG_PATH = os.environ.get("NOUPE_CONFIG", str(PROJECT_ROOT / "config.toml"))
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config.toml"
+DEFAULT_PIPELINE_LAYERS = (
+    "lexicon",
+    "embedding",
+    "clustering",
+    "model1",
+    "model2",
+    "mosaic",
+    "regression",
+)
+DEFAULT_OPTIONAL_LAYERS = ("mosaic",)
+VALID_LAYERS = frozenset(DEFAULT_PIPELINE_LAYERS)
+LEXICON_SCORE_THRESHOLD_MODES = frozenset({"static", "dynamic"})
 
-def load_config() -> dict[str, Any]:
-    if os.path.exists(CONFIG_PATH):
-        with open(CONFIG_PATH, "rb") as f:
-            try:
-                return tomllib.load(f)
-            except Exception:
-                pass
-    return {}
+KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
+    "api": frozenset({"allowed_origins"}),
+    "embeddings": frozenset({"model_name", "cache_size"}),
+    "isolation_forest": frozenset({"contamination", "max_features", "n_estimators"}),
+    "lexicon": frozenset(
+        {
+            "score_threshold",
+            "score_threshold_mode",
+            "dynamic_chars_per_point",
+            "dynamic_threshold_increment",
+        }
+    ),
+    "lexicon_weights": None,
+    "mosaic": frozenset(
+        {
+            "ttl_hours",
+            "threshold",
+            "redis_host",
+            "redis_port",
+            "connect_timeout_seconds",
+            "socket_timeout_seconds",
+            "retry_attempts",
+            "retry_backoff_ms",
+        }
+    ),
+    "pipeline": frozenset({"layers", "optional_layers"}),
+    "response_cache": frozenset({"size", "ttl_seconds"}),
+    "startup": frozenset(
+        {"lazy_load_heavy", "prewarm_required_layers", "fail_on_layer_load_error"}
+    ),
+    "thresholds": frozenset({"mnpi_abs", "mnpi_pct", "model1", "model2", "lock_path"}),
+}
+_MISSING = object()
 
-_cfg = load_config()
+
+class ConfigError(ValueError):
+    """Raised when runtime settings fail validation."""
+
+
+@dataclass(frozen=True)
+class PipelineSettings:
+    layers: tuple[str, ...]
+    optional_layers: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class ApiSettings:
+    allowed_origins: tuple[str, ...]
+    api_key: str = ""
+
+
+@dataclass(frozen=True)
+class ThresholdSettings:
+    mnpi_abs: float
+    mnpi_pct: float
+    model1: float
+    model2: float
+    lock_path: str
+
+
+@dataclass(frozen=True)
+class IsolationForestSettings:
+    contamination: float
+    max_features: float
+    n_estimators: int
+
+
+@dataclass(frozen=True)
+class EmbeddingsSettings:
+    model_name: str
+    cache_size: int
+
+
+@dataclass(frozen=True)
+class MosaicSettings:
+    ttl_hours: float
+    threshold: int
+    redis_host: str
+    redis_port: int
+    connect_timeout_seconds: float
+    socket_timeout_seconds: float
+    retry_attempts: int
+    retry_backoff_ms: int
+
+
+@dataclass(frozen=True)
+class LexiconSettings:
+    score_threshold: float
+    score_threshold_mode: str
+    dynamic_chars_per_point: float
+    dynamic_threshold_increment: float
+
+
+@dataclass(frozen=True)
+class ResponseCacheSettings:
+    size: int
+    ttl_seconds: float
+
+
+@dataclass(frozen=True)
+class StartupSettings:
+    lazy_load_heavy: bool
+    prewarm_required_layers: bool
+    fail_on_layer_load_error: bool
+    batch_max_concurrency: int
+    artifact_manifest: str
+    pretty_logs: bool
+
+
+@dataclass(frozen=True)
+class RuntimeSettings:
+    config_path: Path
+    raw_config: dict[str, Any] = field(repr=False)
+    pipeline: PipelineSettings
+    api: ApiSettings
+    thresholds: ThresholdSettings
+    isolation_forest: IsolationForestSettings
+    embeddings: EmbeddingsSettings
+    mosaic: MosaicSettings
+    lexicon: LexiconSettings
+    lexicon_weights: dict[str, float]
+    response_cache: ResponseCacheSettings
+    startup: StartupSettings
+
+
+def _is_truthy(value: str | None, *, default: bool = False) -> bool:
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _parse_bool(value: Any, *, label: str) -> bool:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)) and not isinstance(value, bool):
+        return bool(value)
+    if isinstance(value, str):
+        normalized = value.strip().lower()
+        if normalized in {"1", "true", "yes", "on"}:
+            return True
+        if normalized in {"0", "false", "no", "off"}:
+            return False
+    raise ConfigError(f"invalid boolean for {label}: {value!r}")
+
+
+def _parse_list(value: Any, *, label: str) -> tuple[str, ...]:
+    if value is None:
+        return ()
+    if isinstance(value, str):
+        return tuple(item.strip() for item in value.split(",") if item.strip())
+    if isinstance(value, Sequence) and not isinstance(value, (bytes, bytearray, str)):
+        out: list[str] = []
+        for item in value:
+            text = str(item).strip()
+            if text:
+                out.append(text)
+        return tuple(out)
+    raise ConfigError(f"invalid list for {label}: expected comma-separated string or array")
+
+
+def _parse_str(value: Any, *, label: str) -> str:
+    if isinstance(value, str):
+        return value.strip()
+    if value is None:
+        return ""
+    return str(value).strip()
+
+
+def _parse_int(value: Any, *, label: str, minimum: int | None = None, maximum: int | None = None) -> int:
+    try:
+        parsed = int(value)
+    except (TypeError, ValueError) as exc:
+        raise ConfigError(f"invalid integer for {label}: {value!r}") from exc
+    if minimum is not None and parsed < minimum:
+        raise ConfigError(f"{label} must be >= {minimum}, got {parsed}")
+    if maximum is not None and parsed > maximum:
+        raise ConfigError(f"{label} must be <= {maximum}, got {parsed}")
+    return parsed
+
+
+def _parse_float(value: Any, *, label: str, minimum: float | None = None) -> float:
+    try:
+        parsed = float(value)
+    except (TypeError, ValueError) as exc:
+        raise ConfigError(f"invalid float for {label}: {value!r}") from exc
+    if minimum is not None and parsed < minimum:
+        raise ConfigError(f"{label} must be >= {minimum}, got {parsed}")
+    return parsed
+
+
+def _parse_probability(value: Any, *, label: str) -> float:
+    parsed = _parse_float(value, label=label, minimum=0.0)
+    if parsed > 1.0:
+        raise ConfigError(f"{label} must be <= 1.0, got {parsed}")
+    return parsed
+
+
+def _parse_dict(value: Any, *, label: str) -> dict[str, Any]:
+    if value is None:
+        return {}
+    if isinstance(value, Mapping):
+        return dict(value)
+    raise ConfigError(f"invalid mapping for {label}: expected table/object")
+
+
+def _default_response_cache_size() -> int:
+    return 0 if os.environ.get("PROMETHEUS_MULTIPROC_DIR") else 256
+
+
+def _config_path_from_overrides(cli_overrides: Mapping[str, Any] | None = None) -> Path:
+    override = None
+    if cli_overrides is not None:
+        override = cli_overrides.get("config_path")
+    raw_path = override or os.environ.get("NOUPE_CONFIG") or DEFAULT_CONFIG_PATH
+    return Path(raw_path).expanduser().resolve()
+
+
+def _load_toml(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        with path.open("rb") as handle:
+            payload = tomllib.load(handle)
+    except Exception as exc:
+        raise ConfigError(f"config parse failure ({path}): {exc}") from exc
+    if not isinstance(payload, dict):
+        raise ConfigError(f"config root must be a TOML table: {path}")
+    return dict(payload)
+
+
+def _validate_known_keys(raw_config: Mapping[str, Any], *, config_path: Path) -> None:
+    unknown_sections = sorted(set(raw_config) - set(KNOWN_CONFIG_KEYS))
+    if unknown_sections:
+        raise ConfigError(
+            f"unknown config sections in {config_path}: {', '.join(unknown_sections)}"
+        )
+    for section, value in raw_config.items():
+        if not isinstance(value, Mapping):
+            raise ConfigError(f"config section '{section}' in {config_path} must be a table")
+        allowed_keys = KNOWN_CONFIG_KEYS.get(section)
+        if allowed_keys is None:
+            continue
+        unknown_keys = sorted(set(value) - set(allowed_keys))
+        if unknown_keys:
+            raise ConfigError(
+                f"unknown keys in [{section}] of {config_path}: {', '.join(unknown_keys)}"
+            )
+
+
+def load_config(config_path: str | os.PathLike[str] | None = None) -> dict[str, Any]:
+    path = Path(config_path).expanduser().resolve() if config_path is not None else _config_path_from_overrides()
+    payload = _load_toml(path)
+    _validate_known_keys(payload, config_path=path)
+    return payload
+
+
+def _resolve_raw_value(
+    raw_config: Mapping[str, Any],
+    cli_overrides: Mapping[str, Any] | None,
+    *,
+    section: str,
+    key: str,
+    env_vars: Sequence[str],
+    default: Any,
+) -> Any:
+    cli_key = f"{section}.{key}"
+    if cli_overrides is not None and cli_key in cli_overrides:
+        return cli_overrides[cli_key]
+    for env_var in env_vars:
+        value = os.environ.get(env_var)
+        if value is not None:
+            return value
+    section_payload = raw_config.get(section, {})
+    if isinstance(section_payload, Mapping) and key in section_payload:
+        return section_payload[key]
+    return default
+
+
+def _parse_lexicon_weights(value: Any) -> dict[str, float]:
+    payload = _parse_dict(value, label="lexicon_weights")
+    out: dict[str, float] = {}
+    for key, raw_val in payload.items():
+        text_key = str(key).strip()
+        if not text_key:
+            raise ConfigError("lexicon_weights contains an empty rule key")
+        out[text_key] = _parse_float(raw_val, label=f"lexicon_weights.{text_key}", minimum=0.0)
+    return out
+
+
+def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> RuntimeSettings:
+    config_path = _config_path_from_overrides(cli_overrides)
+    raw_config = load_config(config_path)
+
+    pipeline_layers = _parse_list(
+        _resolve_raw_value(
+            raw_config,
+            cli_overrides,
+            section="pipeline",
+            key="layers",
+            env_vars=("PIPELINE_LAYERS",),
+            default=DEFAULT_PIPELINE_LAYERS,
+        ),
+        label="pipeline.layers",
+    ) or DEFAULT_PIPELINE_LAYERS
+    optional_layers = _parse_list(
+        _resolve_raw_value(
+            raw_config,
+            cli_overrides,
+            section="pipeline",
+            key="optional_layers",
+            env_vars=("NOUPE_OPTIONAL_LAYERS",),
+            default=DEFAULT_OPTIONAL_LAYERS,
+        ),
+        label="pipeline.optional_layers",
+    ) or DEFAULT_OPTIONAL_LAYERS
+    invalid_layers = sorted(set(pipeline_layers) - VALID_LAYERS)
+    if invalid_layers:
+        raise ConfigError(f"invalid pipeline layers: {', '.join(invalid_layers)}")
+    invalid_optional_layers = sorted(set(optional_layers) - VALID_LAYERS)
+    if invalid_optional_layers:
+        raise ConfigError(
+            "optional layers must be valid known layers: "
+            + ", ".join(invalid_optional_layers)
+        )
+
+    allowed_origins = _parse_list(
+        _resolve_raw_value(
+            raw_config,
+            cli_overrides,
+            section="api",
+            key="allowed_origins",
+            env_vars=("NOUPE_ALLOWED_ORIGINS",),
+            default=("http://localhost", "http://127.0.0.1"),
+        ),
+        label="api.allowed_origins",
+    ) or ("http://localhost", "http://127.0.0.1")
+    api_key = _parse_str(os.environ.get("NOUPE_API_KEY", ""), label="NOUPE_API_KEY")
+
+    thresholds = ThresholdSettings(
+        mnpi_abs=_parse_float(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="thresholds",
+                key="mnpi_abs",
+                env_vars=("MNPI_ABS_THRESHOLD",),
+                default=1000000.0,
+            ),
+            label="thresholds.mnpi_abs",
+            minimum=0.0,
+        ),
+        mnpi_pct=_parse_float(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="thresholds",
+                key="mnpi_pct",
+                env_vars=("MNPI_PCT_THRESHOLD",),
+                default=5.0,
+            ),
+            label="thresholds.mnpi_pct",
+            minimum=0.0,
+        ),
+        model1=_parse_probability(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="thresholds",
+                key="model1",
+                env_vars=("MODEL1_THRESHOLD",),
+                default=0.5,
+            ),
+            label="thresholds.model1",
+        ),
+        model2=_parse_probability(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="thresholds",
+                key="model2",
+                env_vars=("MODEL2_THRESHOLD",),
+                default=0.5,
+            ),
+            label="thresholds.model2",
+        ),
+        lock_path=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="thresholds",
+                key="lock_path",
+                env_vars=("THRESHOLDS_LOCK_PATH",),
+                default="configs/thresholds.lock.json",
+            ),
+            label="thresholds.lock_path",
+        )
+        or "configs/thresholds.lock.json",
+    )
+
+    isolation_forest = IsolationForestSettings(
+        contamination=_parse_probability(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="isolation_forest",
+                key="contamination",
+                env_vars=("IF_CONTAMINATION",),
+                default=0.05,
+            ),
+            label="isolation_forest.contamination",
+        ),
+        max_features=_parse_probability(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="isolation_forest",
+                key="max_features",
+                env_vars=("IF_MAX_FEATURES",),
+                default=0.3,
+            ),
+            label="isolation_forest.max_features",
+        ),
+        n_estimators=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="isolation_forest",
+                key="n_estimators",
+                env_vars=("IF_N_ESTIMATORS",),
+                default=100,
+            ),
+            label="isolation_forest.n_estimators",
+            minimum=1,
+        ),
+    )
+
+    embeddings = EmbeddingsSettings(
+        model_name=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="embeddings",
+                key="model_name",
+                env_vars=("EMBEDDINGS_MODEL",),
+                default="all-mpnet-base-v2",
+            ),
+            label="embeddings.model_name",
+        )
+        or "all-mpnet-base-v2",
+        cache_size=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="embeddings",
+                key="cache_size",
+                env_vars=("EMBEDDINGS_CACHE_SIZE",),
+                default=512,
+            ),
+            label="embeddings.cache_size",
+            minimum=0,
+        ),
+    )
+
+    mosaic = MosaicSettings(
+        ttl_hours=_parse_float(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="mosaic",
+                key="ttl_hours",
+                env_vars=("MOSAIC_TTL_HOURS",),
+                default=24.0,
+            ),
+            label="mosaic.ttl_hours",
+            minimum=0.1,
+        ),
+        threshold=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="mosaic",
+                key="threshold",
+                env_vars=("MOSAIC_THRESHOLD",),
+                default=10,
+            ),
+            label="mosaic.threshold",
+            minimum=1,
+        ),
+        redis_host=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="mosaic",
+                key="redis_host",
+                env_vars=("REDIS_HOST",),
+                default="localhost",
+            ),
+            label="mosaic.redis_host",
+        )
+        or "localhost",
+        redis_port=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="mosaic",
+                key="redis_port",
+                env_vars=("REDIS_PORT",),
+                default=6379,
+            ),
+            label="mosaic.redis_port",
+            minimum=1,
+            maximum=65535,
+        ),
+        connect_timeout_seconds=_parse_float(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="mosaic",
+                key="connect_timeout_seconds",
+                env_vars=("MOSAIC_CONNECT_TIMEOUT_SECONDS",),
+                default=0.5,
+            ),
+            label="mosaic.connect_timeout_seconds",
+            minimum=0.1,
+        ),
+        socket_timeout_seconds=_parse_float(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="mosaic",
+                key="socket_timeout_seconds",
+                env_vars=("MOSAIC_SOCKET_TIMEOUT_SECONDS",),
+                default=0.5,
+            ),
+            label="mosaic.socket_timeout_seconds",
+            minimum=0.1,
+        ),
+        retry_attempts=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="mosaic",
+                key="retry_attempts",
+                env_vars=("MOSAIC_RETRY_ATTEMPTS",),
+                default=3,
+            ),
+            label="mosaic.retry_attempts",
+            minimum=1,
+        ),
+        retry_backoff_ms=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="mosaic",
+                key="retry_backoff_ms",
+                env_vars=("MOSAIC_RETRY_BACKOFF_MS",),
+                default=100,
+            ),
+            label="mosaic.retry_backoff_ms",
+            minimum=0,
+        ),
+    )
+
+    lexicon = LexiconSettings(
+        score_threshold=_parse_float(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="lexicon",
+                key="score_threshold",
+                env_vars=("LEXICON_SCORE_THRESHOLD",),
+                default=10.0,
+            ),
+            label="lexicon.score_threshold",
+            minimum=0.0,
+        ),
+        score_threshold_mode=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="lexicon",
+                key="score_threshold_mode",
+                env_vars=("LEXICON_SCORE_THRESHOLD_MODE",),
+                default="static",
+            ),
+            label="lexicon.score_threshold_mode",
+        ).lower(),
+        dynamic_chars_per_point=_parse_float(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="lexicon",
+                key="dynamic_chars_per_point",
+                env_vars=("LEXICON_DYNAMIC_CHARS_PER_POINT",),
+                default=1000.0,
+            ),
+            label="lexicon.dynamic_chars_per_point",
+            minimum=1.0,
+        ),
+        dynamic_threshold_increment=_parse_float(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="lexicon",
+                key="dynamic_threshold_increment",
+                env_vars=("LEXICON_DYNAMIC_THRESHOLD_INCREMENT",),
+                default=1.0,
+            ),
+            label="lexicon.dynamic_threshold_increment",
+            minimum=0.0,
+        ),
+    )
+    if lexicon.score_threshold_mode not in LEXICON_SCORE_THRESHOLD_MODES:
+        raise ConfigError(
+            "lexicon.score_threshold_mode must be one of "
+            + ", ".join(sorted(LEXICON_SCORE_THRESHOLD_MODES))
+        )
+
+    lexicon_weights = _parse_lexicon_weights(raw_config.get("lexicon_weights", {}))
+
+    response_cache = ResponseCacheSettings(
+        size=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="response_cache",
+                key="size",
+                env_vars=("NOUPE_RESPONSE_CACHE_SIZE",),
+                default=_default_response_cache_size(),
+            ),
+            label="response_cache.size",
+            minimum=0,
+        ),
+        ttl_seconds=_parse_float(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="response_cache",
+                key="ttl_seconds",
+                env_vars=("NOUPE_RESPONSE_CACHE_TTL_SECONDS",),
+                default=60.0,
+            ),
+            label="response_cache.ttl_seconds",
+            minimum=0.0,
+        ),
+    )
+
+    startup = StartupSettings(
+        lazy_load_heavy=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="startup",
+                key="lazy_load_heavy",
+                env_vars=("NOUPE_LAZY_LOAD_HEAVY",),
+                default=True,
+            ),
+            label="startup.lazy_load_heavy",
+        ),
+        prewarm_required_layers=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="startup",
+                key="prewarm_required_layers",
+                env_vars=("NOUPE_PREWARM_REQUIRED_LAYERS",),
+                default=True,
+            ),
+            label="startup.prewarm_required_layers",
+        ),
+        fail_on_layer_load_error=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="startup",
+                key="fail_on_layer_load_error",
+                env_vars=("NOUPE_FAIL_ON_LAYER_LOAD_ERROR",),
+                default=False,
+            ),
+            label="startup.fail_on_layer_load_error",
+        ),
+        batch_max_concurrency=_parse_int(
+            os.environ.get("NOUPE_BATCH_MAX_CONCURRENCY", min(4, os.cpu_count() or 1)),
+            label="NOUPE_BATCH_MAX_CONCURRENCY",
+            minimum=1,
+        ),
+        artifact_manifest=_parse_str(
+            os.environ.get("NOUPE_ARTIFACT_MANIFEST", "artifacts/manifest.json"),
+            label="NOUPE_ARTIFACT_MANIFEST",
+        )
+        or "artifacts/manifest.json",
+        pretty_logs=_parse_bool(
+            os.environ.get("NOUPE_PRETTY_LOGS", "1"),
+            label="NOUPE_PRETTY_LOGS",
+        ),
+    )
+
+    return RuntimeSettings(
+        config_path=config_path,
+        raw_config=raw_config,
+        pipeline=PipelineSettings(layers=tuple(pipeline_layers), optional_layers=tuple(optional_layers)),
+        api=ApiSettings(allowed_origins=tuple(dict.fromkeys(allowed_origins)), api_key=api_key),
+        thresholds=thresholds,
+        isolation_forest=isolation_forest,
+        embeddings=embeddings,
+        mosaic=mosaic,
+        lexicon=lexicon,
+        lexicon_weights=lexicon_weights,
+        response_cache=response_cache,
+        startup=startup,
+    )
+
+
+def get_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> RuntimeSettings:
+    return load_runtime_settings(cli_overrides=cli_overrides)
+
 
 def get_config_val(
     section: str,
@@ -28,10 +750,35 @@ def get_config_val(
     default: Any,
     cast_type: Any = str,
 ) -> Any:
-    val = os.getenv(env_var)
-    if val is not None:
-        return cast_type(val)
-    sec = _cfg.get(section, {})
-    if key in sec:
-        return cast_type(sec[key])
-    return cast_type(default)
+    raw_config = load_config()
+    value = _resolve_raw_value(
+        raw_config,
+        cli_overrides=None,
+        section=section,
+        key=key,
+        env_vars=(env_var,),
+        default=default,
+    )
+    try:
+        return cast_type(value)
+    except (TypeError, ValueError) as exc:
+        raise ConfigError(
+            f"invalid value for {section}.{key} from {env_var or 'config'}: {value!r}"
+        ) from exc
+
+
+class _ConfigProxy(Mapping[str, Any]):
+    def __getitem__(self, key: str) -> Any:
+        return load_config()[key]
+
+    def __iter__(self) -> Iterator[str]:
+        return iter(load_config())
+
+    def __len__(self) -> int:
+        return len(load_config())
+
+    def get(self, key: str, default: Any = None) -> Any:
+        return load_config().get(key, default)
+
+
+_cfg = _ConfigProxy()

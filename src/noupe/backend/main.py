@@ -6,7 +6,6 @@ import importlib.util
 import json
 import logging
 import os
-import sys
 import time
 import uuid
 from collections import OrderedDict
@@ -14,11 +13,6 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from threading import Lock, Thread
 from typing import Any
-
-try:
-    import tomllib
-except ImportError:
-    import tomli as tomllib
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request, Response
 from fastapi.encoders import jsonable_encoder
@@ -51,7 +45,7 @@ from noupe.backend.schemas import (  # noqa: E402
     ReadyResponse,
     RegressionResponse,
 )
-from noupe.configs.runtime import _cfg  # noqa: E402
+from noupe.configs.runtime import RuntimeSettings, get_runtime_settings  # noqa: E402
 from noupe.helper.determinism import configure_determinism  # noqa: E402
 
 logger = logging.getLogger("noupe.backend")
@@ -99,8 +93,33 @@ def _is_truthy(value: str | None, *, default: bool = False) -> bool:
     return value.strip().lower() in {"1", "true", "yes", "on"}
 
 
+def _runtime_cli_overrides() -> dict[str, Any]:
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument("--config", type=str)
+    parser.add_argument("--layers", type=str)
+    args, _ = parser.parse_known_args()
+
+    overrides: dict[str, Any] = {}
+    if args.config:
+        overrides["config_path"] = args.config
+    if args.layers:
+        overrides["pipeline.layers"] = [layer.strip() for layer in args.layers.split(",") if layer.strip()]
+    return overrides
+
+
+def resolve_runtime_settings() -> RuntimeSettings:
+    return get_runtime_settings(_runtime_cli_overrides())
+
+
+def current_runtime_settings() -> RuntimeSettings:
+    settings = _state.get("settings")
+    if isinstance(settings, RuntimeSettings):
+        return settings
+    return resolve_runtime_settings()
+
+
 def should_pretty_logs() -> bool:
-    return _is_truthy(os.environ.get("NOUPE_PRETTY_LOGS"), default=True)
+    return current_runtime_settings().startup.pretty_logs
 
 
 def render_backend_log(payload: dict[str, Any]) -> str:
@@ -140,14 +159,7 @@ def _parse_layers_list(raw: str | list[Any] | None) -> list[str]:
 
 
 def get_optional_layers() -> set[str]:
-    env_val = os.environ.get("NOUPE_OPTIONAL_LAYERS")
-    if env_val is not None:
-        return set(_parse_layers_list(env_val))
-    cfg_val = _cfg.get("pipeline", {}).get("optional_layers")
-    parsed_cfg = _parse_layers_list(cfg_val)
-    if parsed_cfg:
-        return set(parsed_cfg)
-    return set(DEFAULT_OPTIONAL_LAYERS)
+    return set(current_runtime_settings().pipeline.optional_layers) or set(DEFAULT_OPTIONAL_LAYERS)
 
 
 def max_classification(a: Classification, b: Classification) -> Classification:
@@ -173,20 +185,7 @@ def has_model_weights(path: Path) -> bool:
 
 
 def get_allowed_origins() -> list[str]:
-    env_val = os.environ.get("NOUPE_ALLOWED_ORIGINS")
-    origins: list[str] = []
-
-    if env_val:
-        origins.extend([o.strip() for o in env_val.split(",") if o.strip()])
-    else:
-        cfg_val = _cfg.get("api", {}).get("allowed_origins")
-        if isinstance(cfg_val, list):
-            origins.extend([str(o).strip() for o in cfg_val if str(o).strip()])
-        elif isinstance(cfg_val, str):
-            origins.extend([o.strip() for o in cfg_val.split(",") if o.strip()])
-
-    if not origins:
-        origins = ["http://localhost", "http://127.0.0.1"]
+    origins = list(current_runtime_settings().api.allowed_origins) or ["http://localhost", "http://127.0.0.1"]
 
     # Keep Origin: null allowed for manual file:// launches of the archived demo surfaces.
     if "null" not in origins:
@@ -201,51 +200,18 @@ def get_allowed_origin_regex() -> str:
 
 
 def require_api_key(x_api_key: str | None = Header(default=None, alias="X-API-Key")) -> None:
-    expected = os.environ.get("NOUPE_API_KEY", "").strip()
+    expected = current_runtime_settings().api.api_key
     if expected and x_api_key != expected:
         raise HTTPException(status_code=401, detail="invalid or missing API key")
 
 
 def load_config() -> list[str]:
-    parser = argparse.ArgumentParser(add_help=False)
-    parser.add_argument("--layers", type=str)
-    args, _ = parser.parse_known_args()
-
-    if args.layers:
-        return [l.strip() for l in args.layers.split(",") if l.strip()]
-
-    env_layers = os.environ.get("PIPELINE_LAYERS")
-    if env_layers:
-        return [l.strip() for l in env_layers.split(",") if l.strip()]
-
-    config_path = os.environ.get("NOUPE_CONFIG", str(PROJECT_ROOT / "config.toml"))
-    if os.path.exists(config_path):
-        with open(config_path, "rb") as f:
-            try:
-                cfg = tomllib.load(f)
-                return cfg.get(
-                    "pipeline",
-                    {},
-                ).get("layers", ["lexicon", "embedding", "clustering", "model1", "model2", "mosaic", "regression"])
-            except Exception as e:
-                log_backend_event(logging.WARNING, event="config_parse_error", error=str(e))
-
-    return ["lexicon", "embedding", "clustering", "model1", "model2", "mosaic", "regression"]
+    return list(current_runtime_settings().pipeline.layers)
 
 
 def get_response_cache_settings() -> dict[str, float | int]:
-    default_size = "0" if get_metrics_mode() == "multiprocess" else "256"
-    raw_size = os.environ.get("NOUPE_RESPONSE_CACHE_SIZE", default_size)
-    raw_ttl = os.environ.get("NOUPE_RESPONSE_CACHE_TTL_SECONDS", "60")
-    try:
-        size = max(0, int(raw_size))
-    except ValueError:
-        size = 256
-    try:
-        ttl = max(0.0, float(raw_ttl))
-    except ValueError:
-        ttl = 60.0
-    return {"size": size, "ttl_seconds": ttl}
+    cache_settings = current_runtime_settings().response_cache
+    return {"size": cache_settings.size, "ttl_seconds": cache_settings.ttl_seconds}
 
 
 def get_observability() -> ObservabilityManager | None:
@@ -1124,12 +1090,14 @@ async def lifespan(app: FastAPI):
     det_info = configure_determinism()
     log_backend_event(logging.INFO, event="determinism", **det_info)
 
+    settings = resolve_runtime_settings()
     layers = load_config()
-    lazy_heavy = _is_truthy(os.environ.get("NOUPE_LAZY_LOAD_HEAVY"), default=True)
-    prewarm_required_layers = _is_truthy(os.environ.get("NOUPE_PREWARM_REQUIRED_LAYERS"), default=True)
+    lazy_heavy = settings.startup.lazy_load_heavy
+    prewarm_required_layers = settings.startup.prewarm_required_layers
     optional_layers = get_optional_layers()
-    fail_on_layer_load_error = _is_truthy(os.environ.get("NOUPE_FAIL_ON_LAYER_LOAD_ERROR"), default=False)
+    fail_on_layer_load_error = settings.startup.fail_on_layer_load_error
 
+    _state["settings"] = settings
     _state["pipeline"] = layers
     _state["optional_layers"] = sorted(optional_layers)
     _state["models"] = {}
@@ -1141,7 +1109,10 @@ async def lifespan(app: FastAPI):
     _state["startup_timings_ms"] = {}
     _state["runtime_layer_errors"] = {}
     _state["observability"] = ObservabilityManager()
-    _state["cache_cfg"] = get_response_cache_settings()
+    _state["cache_cfg"] = {
+        "size": settings.response_cache.size,
+        "ttl_seconds": settings.response_cache.ttl_seconds,
+    }
     _state["response_cache"] = OrderedDict()
     _state["response_cache_lock"] = Lock()
     _state["response_cache_store"] = ResponseCache(**_state["cache_cfg"])

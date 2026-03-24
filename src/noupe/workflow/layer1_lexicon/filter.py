@@ -10,23 +10,19 @@ from presidio_analyzer import AnalyzerEngine, PatternRecognizer, Pattern, Recogn
 from presidio_analyzer.predefined_recognizers import CreditCardRecognizer, EmailRecognizer, IbanRecognizer, PhoneRecognizer
 import spacy
 
-from noupe.configs.runtime import _cfg, get_config_val
+from noupe.configs.runtime import get_runtime_settings
+
+SETTINGS = get_runtime_settings()
 
 RESTRICTED_LIST_PATH = os.path.join(os.path.dirname(__file__), "restricted_list.json")
-ABS_THRESHOLD = get_config_val("thresholds", "mnpi_abs", "MNPI_ABS_THRESHOLD", 1000000.0, float)
-PCT_THRESHOLD = get_config_val("thresholds", "mnpi_pct", "MNPI_PCT_THRESHOLD", 5.0, float)
+ABS_THRESHOLD = SETTINGS.thresholds.mnpi_abs
+PCT_THRESHOLD = SETTINGS.thresholds.mnpi_pct
 
-LEXICON_SCORE_THRESHOLD = float(_cfg.get("lexicon", {}).get("score_threshold", 10.0))
-LEXICON_SCORE_THRESHOLD_MODE = str(
-    get_config_val("lexicon", "score_threshold_mode", "LEXICON_SCORE_THRESHOLD_MODE", "static", str)
-).strip().lower()
-LEXICON_DYNAMIC_CHARS_PER_POINT = get_config_val(
-    "lexicon", "dynamic_chars_per_point", "LEXICON_DYNAMIC_CHARS_PER_POINT", 1000.0, float
-)
-LEXICON_DYNAMIC_THRESHOLD_INCREMENT = get_config_val(
-    "lexicon", "dynamic_threshold_increment", "LEXICON_DYNAMIC_THRESHOLD_INCREMENT", 1.0, float
-)
-LEXICON_WEIGHTS = _cfg.get("lexicon_weights", {})
+LEXICON_SCORE_THRESHOLD = SETTINGS.lexicon.score_threshold
+LEXICON_SCORE_THRESHOLD_MODE = SETTINGS.lexicon.score_threshold_mode
+LEXICON_DYNAMIC_CHARS_PER_POINT = SETTINGS.lexicon.dynamic_chars_per_point
+LEXICON_DYNAMIC_THRESHOLD_INCREMENT = SETTINGS.lexicon.dynamic_threshold_increment
+LEXICON_WEIGHTS = dict(SETTINGS.lexicon_weights)
 DEFAULT_HIGH_WEIGHT = float(LEXICON_WEIGHTS.get("default_high", 3.0))
 DEFAULT_INFO_WEIGHT = float(LEXICON_WEIGHTS.get("default_info", 0.5))
 
