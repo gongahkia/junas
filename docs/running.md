@@ -53,6 +53,14 @@ Use strict mode to fail on warnings:
 python3 scripts/preflight.py --strict
 ```
 
+For a one-command verification run that executes linting, type checks, the unit suite, and live smoke tests across lexicon, embedding, clustering, model1, model2, regression, and a temporary Redis-backed mosaic flow:
+
+```sh
+./scripts/verify_runtime.sh
+```
+
+`./scripts/verify_runtime.sh` expects `redis-server` to be available on your `PATH` so it can start an isolated local Redis instance for the mosaic checks.
+
 ## Benchmarking Latency
 
 Place benchmark `.txt` inputs in:

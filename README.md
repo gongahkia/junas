@@ -31,7 +31,10 @@ Noupe is a backend-first MNPI screening repository.
 ./scripts/launch/run_backend_only.sh
 ./scripts/launch/run_dev.sh
 ./scripts/launch/run_prod.sh
+./scripts/verify_runtime.sh
 python3 scripts/bootstrap_artifacts.py --sync-from-legacy
 python3 scripts/preflight.py --strict
 ./.venv/bin/python -m unittest discover -s test -p 'test*.py'
 ```
+
+`./scripts/verify_runtime.sh` is the end-to-end verifier: it runs the static checks, test suite, and live smoke coverage for every runtime layer, including a temporary local Redis-backed mosaic pass.
