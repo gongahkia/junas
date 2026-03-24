@@ -1,20 +1,24 @@
 import os
 from dataclasses import dataclass
+from types import ModuleType
 
 from prometheus_client import (
     CONTENT_TYPE_LATEST,
+    REGISTRY,
     CollectorRegistry,
     Counter,
     Gauge,
     Histogram,
-    REGISTRY,
     generate_latest,
 )
 
+prometheus_multiprocess: ModuleType | None
 try:
-    from prometheus_client import multiprocess
+    from prometheus_client import multiprocess as _prometheus_multiprocess
 except ImportError:  # pragma: no cover
-    multiprocess = None
+    prometheus_multiprocess = None
+else:
+    prometheus_multiprocess = _prometheus_multiprocess
 
 
 def get_metrics_mode() -> str:
@@ -30,7 +34,7 @@ class DependencyStatus:
 
 
 class ObservabilityManager:
-    def __init__(self):
+    def __init__(self) -> None:
         self.mode = get_metrics_mode()
         self.registry = CollectorRegistry(auto_describe=True) if self.mode == "singleprocess" else REGISTRY
 
@@ -170,10 +174,10 @@ class ObservabilityManager:
 
     def render_metrics(self) -> bytes:
         if self.mode == "multiprocess":
-            if multiprocess is None:  # pragma: no cover
+            if prometheus_multiprocess is None:  # pragma: no cover
                 raise RuntimeError("prometheus_client multiprocess support is unavailable")
             registry = CollectorRegistry()
-            multiprocess.MultiProcessCollector(registry)
+            prometheus_multiprocess.MultiProcessCollector(registry)
             return generate_latest(registry)
         return generate_latest(self.registry)
 

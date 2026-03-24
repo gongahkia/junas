@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "noupe"
+version = "0.1.0"
+description = "Backend-first MNPI screening runtime and training workflow."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "sentence-transformers==2.6.1",
+  "numpy==1.26.4",
+  "scikit-learn==1.4.2",
+  "torch>=2.1.0",
+  "transformers>=4.36.0",
+  "accelerate>=0.26.0",
+  "pandas>=2.1.0",
+  "spacy>=3.7.0",
+  "presidio-analyzer>=2.2.0",
+  "presidio-anonymizer>=2.2.0",
+  "fastapi>=0.109.0",
+  "httpx>=0.27.0,<1.0",
+  "uvicorn>=0.27.0",
+  "pydantic>=2.5.0",
+  "prometheus-client>=0.20.0",
+  "redis>=5.0.0",
+  "xgboost>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.11.2",
+  "ruff>=0.6.9",
+]
+
+[tool.setuptools.packages.find]
+include = ["api*", "backend*", "configs*", "helper*", "test*", "training*"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+  "E",
+  "F",
+  "I",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"test/*.py" = ["E402"]
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = true
+exclude = [
+  "^archive/",
+  "^reports/",
+]
+
+[[tool.mypy.overrides]]
+module = [
+  "backend.main",
+  "backend.cache",
+  "backend.observability",
+  "backend.schemas",
+  "configs.runtime",
+]
+disallow_untyped_defs = true
+
