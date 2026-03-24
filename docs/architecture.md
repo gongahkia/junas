@@ -12,14 +12,14 @@ Noupe is a multi-layered Material Non-Public Information (MNPI) classification e
   - FinBERT (binary risk classification over overlapping sliding windows)
   - BERT base uncased (severity classification over overlapping sliding windows)
 - **Anomaly Detection:** Scikit-Learn (Isolation Forest for clustering unknown unknowns)
-- **State Tracking (Mosaic Layer):** Redis (TTL-based fragment frequency tracking across queries)
+- **State Tracking (Mosaic Layer):** Redis rolling-window event aggregation with per-entity ZSETs and per-event metadata
 - **Regression / Final Scoring:** Optional XGBoost layer loaded only when a trained checkpoint is available
 - **Interface Surfaces:** Archived HTML/JS demo frontends under `archive/frontend-demos/`, served separately by `scripts/launch/run_dev.sh` and `scripts/launch/run_prod.sh`
 
 ### Runtime Layout
 
-- The active runtime is backend-only and is exposed through `backend.main:app`.
-- The active stage code now lives under `backend/workflow/` rather than at repository root.
+- The active runtime is backend-only and is exposed through the compatibility shim `backend.main:app`.
+- The canonical stage code now lives under `src/noupe/workflow/`.
 - FastAPI no longer mounts chat/email/slack UI routes directly.
 - The legacy analyzer plus chat/email/slack demos are static archived demo surfaces that call the backend API over HTTP.
 - Swagger and ReDoc are served directly from the FastAPI backend at `/docs` and `/redoc`.
@@ -69,13 +69,13 @@ flowchart TD
     L4 -- "Outputs: Safe" --> L5
     
     %% Convergence to Mosaic 
-    L3 --> L5[Layer 5: Mosaic Aggregation Logic<br/>Redis State Tracker]
+    L3 --> L5[Layer 5: Mosaic Aggregation Logic<br/>Redis Event Aggregator]
     L4b --> L5
     class L5 state;
     
     Redis[(Redis DB)] <--> L5
 
-    L5 -- "Count >= 10 in TTL" --> Escalate[Escalate Low->High Risk]
+    L5 -- "Unique fragments >= threshold in window" --> Escalate[Escalate Low->High Risk]
 
     %% Regression Convergence
     L5 --> Reg[Layer 6: Regression<br/>Feature Weighting]
@@ -105,9 +105,10 @@ flowchart TD
    - **Model 2:** A severity-checking BERT model evaluates the same sliding-window pattern for text flagged by Model 1, determining if the MNPI risk is `LOW_RISK` or `HIGH_RISK`.
 6. **Layer 5: Mosaic Aggregation**
    - Data labeled as `LOW_RISK` proceeds into the Mosaic Tracker. The pipeline connects to a **Redis** instance using the requested `entity_id` (or one inferred from the lexicon).
-   - Redis increments the temporal counter for that entity. If the entity reaches the configured threshold (e.g., $\ge 10$ occurrences) within a configured time-to-live window, the fragmented pieces of context invoke the "Mosaic Theory" and escalate the label to `HIGH_RISK`. 
+   - Redis stores a rolling event history for that entity, trims expired events, and deduplicates fragments by normalized fragment hash inside the active time window.
+   - If the entity reaches the configured threshold of unique `LOW_RISK` fragments within the active window, the fragmented pieces of context invoke the "Mosaic Theory" and escalate the label to `HIGH_RISK`.
 7. **Layer 6: Regression & Final Scoring (Optional)**
-   When a trained regression checkpoint exists, scores across upstream models (lexicon score, anomaly float, Transformer risk probabilities, and mosaic occurrence counts) are synthesized into an aggregate risk probability.
+   When a trained regression checkpoint exists, scores across upstream models (lexicon score, anomaly float, Transformer risk probabilities, and mosaic unique-fragment counts) are synthesized into an aggregate risk probability.
 8. **Response Return**
    The FastAPI structure maps metadata from all layers and encapsulates the final, enumerated decision parameter (`SAFE | LOW_RISK | HIGH_RISK`) into a JSON response. The response can optionally include:
    - per-request observability metadata (`cache_status`, `executed_layers`, `skipped_layers`, `layer_errors`)

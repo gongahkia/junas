@@ -270,7 +270,7 @@ Each batch item returns the same full response shape as `POST /classify`.
 
 ## Embeddings
 
-Outputs from `backend/workflow/layer2-embeddings/generate_embeddings.py`:
+Outputs from `src/noupe/workflow/layer2_embeddings/generate_embeddings.py`:
 
 - `public_embeddings.npy`
 - `violation_embeddings.npy`
@@ -280,7 +280,7 @@ Outputs from `backend/workflow/layer2-embeddings/generate_embeddings.py`:
 
 Isolation Forest checkpoint:
 
-- `backend/workflow/layer3-clustering/checkpoints/anomaly_detector.joblib`
+- `artifacts/layer3_clustering/anomaly_detector.joblib`
 
 Inference output:
 
@@ -296,11 +296,11 @@ Inference output:
 
 Model-1 checkpoint:
 
-- `backend/workflow/layer4-classification/model-1/checkpoints/best/`
+- `artifacts/layer4_classification/model1/best/`
 
 Model-2 checkpoint:
 
-- `backend/workflow/layer4-classification/model-2/checkpoints/best/`
+- `artifacts/layer4_classification/model2/best/`
 
 ## Mosaic
 
@@ -308,8 +308,14 @@ Redis-backed state output:
 
 ```json
 {
+  "entity_id": "string",
   "escalated": "bool",
-  "count": "int"
+  "recent_event_count": "int",
+  "unique_fragment_count": "int",
+  "window_hours": "float",
+  "threshold": "int",
+  "escalation_reason": "string",
+  "matched_event_ids": ["event ids"]
 }
 ```
 

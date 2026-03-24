@@ -9,9 +9,37 @@
 ## Setup
 
 ```sh
-pip install -r requirements.txt
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -e ".[dev]"
 python3 -m spacy download en_core_web_sm
 ```
+
+For reproducible local installs, the repo also ships pinned lockfiles:
+
+```sh
+python -m pip install -r requirements.lock.txt -r requirements-dev.lock.txt
+```
+
+`pyproject.toml` is the canonical dependency and tooling definition. `backend.main:app` remains the supported FastAPI entrypoint, but the canonical Python package now lives under `src/noupe/`.
+
+## Bootstrapping Artifacts
+
+Verify or hydrate runtime artifacts from the committed manifest with:
+
+```sh
+python3 scripts/bootstrap_artifacts.py
+python3 scripts/bootstrap_artifacts.py --sync-from-legacy
+```
+
+If you need to regenerate artifacts from the training pipeline:
+
+```sh
+python3 scripts/bootstrap_artifacts.py --regenerate
+```
+
+The artifact manifest path defaults to `artifacts/manifest.json` and can be overridden with `NOUPE_ARTIFACT_MANIFEST`.
 
 ## Preflight
 
@@ -60,6 +88,8 @@ The `.txt` report now includes both the summary table and the per-file detailed 
 ```sh
 uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 ```
+
+`backend.main:app` is a compatibility shim that re-exports the canonical app from `noupe.backend.main`.
 
 ## Dev Launcher
 
@@ -119,11 +149,26 @@ Useful env vars:
 - `NOUPE_HOST` (default `0.0.0.0`)
 - `NOUPE_LOG_LEVEL` (default `info`)
 - `NOUPE_PRETTY_LOGS` (`1` by default; set `NOUPE_PRETTY_LOGS=0` for compact single-line backend JSON logs)
+- `NOUPE_BATCH_MAX_CONCURRENCY` (default `min(4, os.cpu_count() or 1)`)
+- `NOUPE_ARTIFACT_MANIFEST` (default `artifacts/manifest.json`)
 - `NOUPE_RELOAD=1` to enable autoreload
 
 Bare `uvicorn backend.main:app` startup allows degraded mode by default when configured required layers are missing, and exposes that state through `GET /ready` and `GET /diagnostics`. When lazy loading is enabled, `GET /ready` remains degraded until required lazy layers finish warming.
 
 The Redis-backed Mosaic layer is optional for client handoff. When Redis is unavailable, the backend remains usable and surfaces that dependency state through `GET /ready` and `GET /diagnostics`.
+
+The Mosaic layer now tracks rolling-window event history rather than a blind counter. The HTTP response exposes:
+
+- `entity_id`
+- `escalated`
+- `recent_event_count`
+- `unique_fragment_count`
+- `window_hours`
+- `threshold`
+- `escalation_reason`
+- `matched_event_ids`
+
+Downstream consumers should migrate from the removed `mosaic.count` field to `mosaic.unique_fragment_count` when they need the escalation-driving signal, and to `mosaic.recent_event_count` when they need total event volume.
 
 The launcher scripts are stricter by default:
 
@@ -240,7 +285,7 @@ Useful production launcher env vars:
 
 ## Bootstrapping Artifacts
 
-If model and clustering checkpoints are missing, generate repo-local runtime artifacts with:
+If model and clustering checkpoints are missing, regenerate repo-local runtime artifacts with:
 
 ```sh
 python3 training/train_validate_pipeline.py
@@ -293,7 +338,7 @@ The `/classify` endpoint runs configured layers sequentially:
 3. **Clustering** — Isolation Forest anomaly score (if checkpoint exists).
 4. **Model-1 (FinBERT)** — binary classifier: safe vs risk, executed over overlapping sliding windows so the response can expose approximate top-risk classifier windows (if checkpoint exists).
 5. **Model-2 (BERT)** — binary classifier: low_risk vs high_risk, also executed over overlapping sliding windows when Model-1 predicts risk (if checkpoint exists).
-6. **Mosaic aggregation** — Redis TTL-based fragment tracking; can escalate repeated `LOW_RISK` entity activity.
+6. **Mosaic aggregation** — Redis rolling-window event tracking with unique-fragment escalation and explainable evidence fields.
 7. **Regression** — optional final risk synthesis only when a trained regression checkpoint exists.
 
 Each classification response now includes an additive `observability` object with:
@@ -318,25 +363,25 @@ Both classification training scripts expect CSVs with columns `text,label`.
 Labels: `0` = public/safe, `1` = non-public/risk.
 
 ```sh
-python3 backend/workflow/layer4-classification/model-1/classifier.py data/train.csv data/val.csv
+python3 src/noupe/workflow/layer4_classification/model1/classifier.py data/train.csv data/val.csv
 ```
 
-Checkpoint directory: `backend/workflow/layer4-classification/model-1/checkpoints/best/`.
+Checkpoint directory: `artifacts/layer4_classification/model1/best/`.
 
 ### Model-2 (BERT — high risk vs low risk)
 
 Labels: `0` = low_risk, `1` = high_risk. Train on violation corpus only (no safe/public rows).
 
 ```sh
-python3 backend/workflow/layer4-classification/model-2/classifier.py data/train_violations.csv data/val_violations.csv
+python3 src/noupe/workflow/layer4_classification/model2/classifier.py data/train_violations.csv data/val_violations.csv
 ```
 
-Checkpoint directory: `backend/workflow/layer4-classification/model-2/checkpoints/best/`.
+Checkpoint directory: `artifacts/layer4_classification/model2/best/`.
 
 ## Generating Embeddings
 
 ```sh
-python3 backend/workflow/layer2-embeddings/generate_embeddings.py
+python3 src/noupe/workflow/layer2_embeddings/generate_embeddings.py
 ```
 
 Outputs `public_embeddings.npy`, `violation_embeddings.npy`, and `all_embeddings.npy`.
@@ -344,15 +389,15 @@ Outputs `public_embeddings.npy`, `violation_embeddings.npy`, and `all_embeddings
 ## Training the Anomaly Detector (Isolation Forest)
 
 ```sh
-python3 backend/workflow/layer3-clustering/isolation_forest.py all_embeddings.npy
+python3 src/noupe/workflow/layer3_clustering/isolation_forest.py all_embeddings.npy
 ```
 
-Checkpoint saved to `backend/workflow/layer3-clustering/checkpoints/anomaly_detector.joblib`.
+Checkpoint saved to `artifacts/layer3_clustering/anomaly_detector.joblib`.
 
 Optional custom output path:
 
 ```sh
-python3 backend/workflow/layer3-clustering/isolation_forest.py all_embeddings.npy path/to/output.joblib
+python3 src/noupe/workflow/layer3_clustering/isolation_forest.py all_embeddings.npy path/to/output.joblib
 ```
 
 ## Configuration
@@ -385,11 +430,13 @@ Notable keys:
 - `NOUPE_PREWARM_REQUIRED_LAYERS` (`1`/`0`, default `1` when lazy loading is enabled)
 - `NOUPE_RESPONSE_CACHE_SIZE` (default `256`)
 - `NOUPE_RESPONSE_CACHE_TTL_SECONDS` (default `60`)
+- `NOUPE_BATCH_MAX_CONCURRENCY` (default `min(4, os.cpu_count() or 1)`)
+- `NOUPE_ARTIFACT_MANIFEST` (default `artifacts/manifest.json`)
 - `NOUPE_HF_OFFLINE` (optional offline mode hint for preflight)
 
 ## Restricted List
 
-Edit `backend/workflow/layer1-lexicon/restricted_list.json`:
+Edit `src/noupe/workflow/layer1_lexicon/restricted_list.json`:
 
 ```json
 {"entities": [{"name": "...", "ticker": "...", "isin": "..."}]}

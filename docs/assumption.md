@@ -42,12 +42,13 @@
 
 ## Clustering (Isolation Forest)
 - trained on `all_embeddings.npy`
-- checkpoint path: `backend/workflow/layer3-clustering/checkpoints/anomaly_detector.joblib`
+- checkpoint path: `artifacts/layer3_clustering/anomaly_detector.joblib`
 - `IF_CONTAMINATION`, `IF_MAX_FEATURES`, `IF_N_ESTIMATORS` are configurable
 
 ## Mosaic Aggregation
-- Redis TTL-based fragment tracking
-- escalation threshold: 10+ low-risk fragments for same entity within TTL
+- Redis rolling-window event tracking keyed by entity
+- escalation threshold is evaluated on unique low-risk fragment hashes within the active window
+- response exposes `unique_fragment_count`, `recent_event_count`, and `matched_event_ids`
 - if Redis is unavailable, mosaic layer is a no-op
 
 ## Regression
@@ -55,7 +56,7 @@
 - no random/stub regression is used at runtime
 
 ## FastAPI Orchestration
-- canonical app entrypoint is `backend.main:app`
+- canonical app entrypoint is `noupe.backend.main:app` with compatibility shim `backend.main:app`
 - configurable layer order from `config.toml`/`PIPELINE_LAYERS`/`--layers`
 - optional API key auth is enabled when `NOUPE_API_KEY` is set (applies to both `POST /classify` and `POST /classify/batch`)
 - response includes per-layer outputs, final classification, timings, and observability metadata
