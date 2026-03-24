@@ -945,7 +945,17 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
                     layer_errors.append(build_layer_error(layer))
                     continue
                 is_lr = final_classification == Classification.LOW_RISK
-                m_result = mosaic_agg.aggregate(entity_id=entity_id, is_low_risk=is_lr)
+                m_result = mosaic_agg.aggregate(
+                    entity_id=entity_id,
+                    is_low_risk=is_lr,
+                    fragment_text=req.text,
+                    request_id=request_id,
+                    classification=final_classification.value,
+                    model_scores={
+                        "model1": m1_resp.risk_score if m1_resp else None,
+                        "model2": m2_resp.high_risk_score if m2_resp else None,
+                    },
+                )
                 mosaic_resp = MosaicResponse(
                     escalated=m_result["escalate_to_high_risk"],
                     count=m_result["count"],

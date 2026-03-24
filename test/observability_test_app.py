@@ -144,7 +144,7 @@ class DummyMosaic:
         self.host = "localhost"
         self.port = 6379
 
-    def aggregate(self, entity_id: str, is_low_risk: bool):
+    def aggregate(self, entity_id: str, is_low_risk: bool, **_: object):
         return {
             "escalate_to_high_risk": self.escalated,
             "count": self.count,

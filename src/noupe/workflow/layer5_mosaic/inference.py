@@ -1,6 +1,10 @@
+import hashlib
+import json
 import logging
 import socket
 import time
+import uuid
+from typing import Any
 
 import redis
 
@@ -71,49 +75,180 @@ class MosaicAggregator:
 
     @staticmethod
     def _normalize_entity_id(entity_id: str) -> str:
-        # Normalize whitespace/casing to avoid fragmented counters for semantically identical IDs.
-        normalized = " ".join(entity_id.strip().split()).lower()
-        return normalized
+        return " ".join(entity_id.strip().split()).lower()
 
-    def _aggregate_once(self, key: str, is_low_risk: bool) -> int:
+    @staticmethod
+    def _normalize_fragment(fragment_text: str | None) -> str:
+        if not fragment_text:
+            return ""
+        return " ".join(fragment_text.strip().split()).lower()
+
+    def _default_result(self, entity_id: str = "") -> dict[str, Any]:
+        return {
+            "entity_id": entity_id,
+            "escalate_to_high_risk": False,
+            "count": 0,
+            "recent_event_count": 0,
+            "unique_fragment_count": 0,
+            "window_hours": round(self.ttl_seconds / 3600.0, 3),
+            "threshold": self.threshold,
+            "escalation_reason": "",
+            "matched_event_ids": [],
+        }
+
+    def _entity_events_key(self, entity_id: str) -> str:
+        return f"mosaic:entity:{entity_id}:events"
+
+    def _event_key(self, event_id: str) -> str:
+        return f"mosaic:event:{event_id}"
+
+    def _trim_expired_events(self, events_key: str, min_score: float) -> None:
         if self.redis is None:
-            return 0
-        if is_low_risk:
-            current_count = self.redis.incr(key)
-            if current_count == 1:
-                # Set TTL only on creation to track within a fixed window.
-                self.redis.expire(key, self.ttl_seconds)
-            return int(current_count)
+            return
+        expired_ids = self.redis.zrangebyscore(events_key, 0, min_score)
+        if not expired_ids:
+            return
 
-        hit = self.redis.get(key)
-        return int(hit) if hit else 0
+        pipeline = self.redis.pipeline()
+        pipeline.zremrangebyscore(events_key, 0, min_score)
+        for event_id in expired_ids:
+            pipeline.delete(self._event_key(event_id))
+        pipeline.execute()
 
-    def aggregate(self, entity_id: str, is_low_risk: bool):
+    def _load_recent_events(self, events_key: str, *, now: float) -> list[dict[str, Any]]:
+        if self.redis is None:
+            return []
+
+        min_score = now - self.ttl_seconds
+        self._trim_expired_events(events_key, min_score)
+        event_ids = self.redis.zrevrangebyscore(events_key, "+inf", min_score)
+        if not event_ids:
+            return []
+
+        pipeline = self.redis.pipeline()
+        for event_id in event_ids:
+            pipeline.get(self._event_key(event_id))
+        payloads = pipeline.execute()
+
+        events: list[dict[str, Any]] = []
+        for event_id, raw_payload in zip(event_ids, payloads):
+            if not raw_payload:
+                continue
+            try:
+                payload = json.loads(raw_payload)
+            except Exception:
+                continue
+            payload["event_id"] = event_id
+            events.append(payload)
+        return events
+
+    def _record_event(
+        self,
+        *,
+        entity_id: str,
+        fragment_hash: str,
+        fragment_text: str,
+        request_id: str | None,
+        classification: str | None,
+        model_scores: dict[str, float | None] | None,
+        now: float,
+    ) -> str:
+        if self.redis is None:
+            raise RuntimeError("redis client unavailable")
+
+        event_id = request_id or uuid.uuid4().hex
+        events_key = self._entity_events_key(entity_id)
+        payload = {
+            "entity_id": entity_id,
+            "fragment_hash": fragment_hash,
+            "fragment_preview": fragment_text[:160],
+            "classification": classification or "LOW_RISK",
+            "timestamp": now,
+            "model_scores": model_scores or {},
+        }
+
+        pipeline = self.redis.pipeline()
+        pipeline.zadd(events_key, {event_id: now})
+        pipeline.set(self._event_key(event_id), json.dumps(payload, sort_keys=True))
+        pipeline.expire(events_key, self.ttl_seconds)
+        pipeline.expire(self._event_key(event_id), self.ttl_seconds)
+        pipeline.execute()
+        return event_id
+
+    def _result_from_events(self, entity_id: str, events: list[dict[str, Any]], *, is_low_risk: bool) -> dict[str, Any]:
+        fragment_hashes = {
+            str(event.get("fragment_hash"))
+            for event in events
+            if event.get("fragment_hash")
+        }
+        unique_fragment_count = len(fragment_hashes)
+        recent_event_count = len(events)
+        escalate = bool(is_low_risk and unique_fragment_count >= self.threshold)
+        reason = ""
+        if escalate:
+            reason = (
+                f"{unique_fragment_count} unique low-risk fragments observed "
+                f"within {round(self.ttl_seconds / 3600.0, 3)} hours"
+            )
+        return {
+            "entity_id": entity_id,
+            "escalate_to_high_risk": escalate,
+            "count": unique_fragment_count,
+            "recent_event_count": recent_event_count,
+            "unique_fragment_count": unique_fragment_count,
+            "window_hours": round(self.ttl_seconds / 3600.0, 3),
+            "threshold": self.threshold,
+            "escalation_reason": reason,
+            "matched_event_ids": [str(event.get("event_id", "")) for event in events if event.get("event_id")],
+        }
+
+    def aggregate(
+        self,
+        entity_id: str,
+        is_low_risk: bool,
+        *,
+        fragment_text: str | None = None,
+        request_id: str | None = None,
+        classification: str | None = None,
+        model_scores: dict[str, float | None] | None = None,
+    ) -> dict[str, Any]:
         if not entity_id:
-            return {"escalate_to_high_risk": False, "count": 0}
+            return self._default_result()
 
-        entity_id = self._normalize_entity_id(entity_id)
-        if not entity_id:
-            return {"escalate_to_high_risk": False, "count": 0}
+        normalized_entity_id = self._normalize_entity_id(entity_id)
+        if not normalized_entity_id:
+            return self._default_result()
 
         if not self._ensure_connection():
-            return {"escalate_to_high_risk": False, "count": 0}
+            return self._default_result(normalized_entity_id)
 
-        key = f"mosaic:entity:{entity_id}"
+        fragment_hash = hashlib.sha256(
+            self._normalize_fragment(fragment_text).encode("utf-8")
+        ).hexdigest()
+        events_key = self._entity_events_key(normalized_entity_id)
 
         for _ in range(2):
             try:
-                current_count = self._aggregate_once(key, is_low_risk)
-                escalate = current_count >= self.threshold
-                return {"escalate_to_high_risk": bool(escalate), "count": current_count}
+                now = time.time()
+                if is_low_risk:
+                    self._record_event(
+                        entity_id=normalized_entity_id,
+                        fragment_hash=fragment_hash,
+                        fragment_text=self._normalize_fragment(fragment_text),
+                        request_id=request_id,
+                        classification=classification,
+                        model_scores=model_scores,
+                        now=now,
+                    )
+                events = self._load_recent_events(events_key, now=now)
+                return self._result_from_events(normalized_entity_id, events, is_low_risk=is_low_risk)
             except redis.RedisError:
-                # Fail open for the current request but mark stale connection so the next call reconnects.
                 self.connected = False
                 self.redis = None
                 if not self._ensure_connection():
-                    return {"escalate_to_high_risk": False, "count": 0}
+                    return self._default_result(normalized_entity_id)
 
-        return {"escalate_to_high_risk": False, "count": 0}
+        return self._default_result(normalized_entity_id)
 
     @classmethod
     def load(cls):
