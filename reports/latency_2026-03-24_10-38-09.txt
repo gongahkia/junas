@@ -1,0 +1,128 @@
+Noupe Latency Benchmark Report
+
+Generated: 2026-03-24_10-38-09
+Target URL: http://127.0.0.1:53489
+Warmups per file: 0
+Measured repetitions per file: 1
+
+Inputs:
+- /private/var/folders/55/fw1sdntj20v8650vsmkn7s8c0000gn/T/tmpx9pgcbgr/10000_words.txt
+- /private/var/folders/55/fw1sdntj20v8650vsmkn7s8c0000gn/T/tmpx9pgcbgr/1000_words.txt
+- /private/var/folders/55/fw1sdntj20v8650vsmkn7s8c0000gn/T/tmpx9pgcbgr/2000_words.txt
+- /private/var/folders/55/fw1sdntj20v8650vsmkn7s8c0000gn/T/tmpx9pgcbgr/5000_words.txt
+
+file                            words    chars        min       mean        p50        p95        max
+----------------------------------------------------------------------------------------------------
+10000_words.txt                 10000    98889     10.306     10.306     10.306     10.306     10.306
+1000_words.txt                   1000     8889      4.747      4.747      4.747      4.747      4.747
+2000_words.txt                   2000    18889      5.103      5.103      5.103      5.103      5.103
+5000_words.txt                   5000    48889      5.909      5.909      5.909      5.909      5.909
+
+Detailed results:
+
+File: 10000_words.txt
+Path: /private/var/folders/55/fw1sdntj20v8650vsmkn7s8c0000gn/T/tmpx9pgcbgr/10000_words.txt
+Words: 10000
+Chars: 98889
+Measured runs: 1
+Summary: min=10.306 ms, mean=10.306 ms, p50=10.306 ms, p95=10.306 ms, max=10.306 ms
+Mean backend total: 0.667 ms
+Average backend timings per step (ms):
+- lexicon: mean=0.018 min=0.018 max=0.018
+- embedding: mean=0.002 min=0.002 max=0.002
+- clustering: mean=0.002 min=0.002 max=0.002
+- model1: mean=0.013 min=0.013 max=0.013
+- model2: mean=0.001 min=0.001 max=0.001
+- total: mean=0.667 min=0.667 max=0.667
+Per-run details:
+- Run 1: classification=SAFE cache_status=miss degraded=False
+  client_latency_ms=10.306
+  server_total_ms=0.667
+  timings_ms:
+    lexicon: 0.018
+    embedding: 0.002
+    clustering: 0.002
+    model1: 0.013
+    model2: 0.001
+    total: 0.667
+
+File: 1000_words.txt
+Path: /private/var/folders/55/fw1sdntj20v8650vsmkn7s8c0000gn/T/tmpx9pgcbgr/1000_words.txt
+Words: 1000
+Chars: 8889
+Measured runs: 1
+Summary: min=4.747 ms, mean=4.747 ms, p50=4.747 ms, p95=4.747 ms, max=4.747 ms
+Mean backend total: 0.101 ms
+Average backend timings per step (ms):
+- lexicon: mean=0.011 min=0.011 max=0.011
+- embedding: mean=0.001 min=0.001 max=0.001
+- clustering: mean=0.001 min=0.001 max=0.001
+- model1: mean=0.006 min=0.006 max=0.006
+- model2: mean=0.001 min=0.001 max=0.001
+- total: mean=0.101 min=0.101 max=0.101
+Per-run details:
+- Run 1: classification=SAFE cache_status=miss degraded=False
+  client_latency_ms=4.747
+  server_total_ms=0.101
+  timings_ms:
+    lexicon: 0.011
+    embedding: 0.001
+    clustering: 0.001
+    model1: 0.006
+    model2: 0.001
+    total: 0.101
+
+File: 2000_words.txt
+Path: /private/var/folders/55/fw1sdntj20v8650vsmkn7s8c0000gn/T/tmpx9pgcbgr/2000_words.txt
+Words: 2000
+Chars: 18889
+Measured runs: 1
+Summary: min=5.103 ms, mean=5.103 ms, p50=5.103 ms, p95=5.103 ms, max=5.103 ms
+Mean backend total: 0.138 ms
+Average backend timings per step (ms):
+- lexicon: mean=0.013 min=0.013 max=0.013
+- embedding: mean=0.001 min=0.001 max=0.001
+- clustering: mean=0.001 min=0.001 max=0.001
+- model1: mean=0.006 min=0.006 max=0.006
+- model2: mean=0.000 min=0.000 max=0.000
+- total: mean=0.138 min=0.138 max=0.138
+Per-run details:
+- Run 1: classification=SAFE cache_status=miss degraded=False
+  client_latency_ms=5.103
+  server_total_ms=0.138
+  timings_ms:
+    lexicon: 0.013
+    embedding: 0.001
+    clustering: 0.001
+    model1: 0.006
+    model2: 0.000
+    total: 0.138
+
+File: 5000_words.txt
+Path: /private/var/folders/55/fw1sdntj20v8650vsmkn7s8c0000gn/T/tmpx9pgcbgr/5000_words.txt
+Words: 5000
+Chars: 48889
+Measured runs: 1
+Summary: min=5.909 ms, mean=5.909 ms, p50=5.909 ms, p95=5.909 ms, max=5.909 ms
+Mean backend total: 0.217 ms
+Average backend timings per step (ms):
+- lexicon: mean=0.013 min=0.013 max=0.013
+- embedding: mean=0.001 min=0.001 max=0.001
+- clustering: mean=0.001 min=0.001 max=0.001
+- model1: mean=0.005 min=0.005 max=0.005
+- model2: mean=0.000 min=0.000 max=0.000
+- total: mean=0.217 min=0.217 max=0.217
+Per-run details:
+- Run 1: classification=SAFE cache_status=miss degraded=False
+  client_latency_ms=5.909
+  server_total_ms=0.217
+  timings_ms:
+    lexicon: 0.013
+    embedding: 0.001
+    clustering: 0.001
+    model1: 0.005
+    model2: 0.000
+    total: 0.217
+
+JSON report: /Users/gongahkia/Desktop/coding/smu/Noupe/reports/latency_2026-03-24_10-38-09.json
+CSV report : /Users/gongahkia/Desktop/coding/smu/Noupe/reports/latency_2026-03-24_10-38-09.csv
