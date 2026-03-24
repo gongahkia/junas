@@ -15,9 +15,12 @@ SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
+from noupe.configs.artifacts import (
+    artifact_manifest_path,
+    get_artifact_path,
+    verify_artifact_manifest,
+)
 from noupe.configs.runtime import ConfigError, VALID_LAYERS, load_runtime_settings
-
-WORKFLOW_ROOT = ROOT / "src" / "noupe" / "workflow"
 
 
 def is_truthy(value: str | None) -> bool:
@@ -145,38 +148,62 @@ def main() -> int:
         ok_spacy, msg_spacy = check_spacy_model()
         (checks if ok_spacy else warnings).append(msg_spacy)
 
-        clust_ckpt = WORKFLOW_ROOT / "layer3_clustering" / "checkpoints" / "anomaly_detector.joblib"
-        record_layer_state(
-            "clustering",
-            clust_ckpt.exists(),
-            f"clustering checkpoint present: {clust_ckpt}",
-            f"clustering checkpoint missing: {clust_ckpt}",
-        )
+        manifest_path = artifact_manifest_path()
+        manifest_errors = verify_artifact_manifest(manifest_path)
+        if manifest_errors:
+            warnings.extend(manifest_errors)
+        else:
+            checks.append(f"artifact manifest verified: {manifest_path}")
 
-        m1_dir = WORKFLOW_ROOT / "layer4_classification" / "model1" / "checkpoints" / "best"
-        record_layer_state(
-            "model1",
-            has_model_weights(m1_dir),
-            f"model1 weights present: {m1_dir}",
-            f"model1 weights missing: {m1_dir}",
-        )
+        try:
+            clust_ckpt = get_artifact_path("clustering")
+        except FileNotFoundError as exc:
+            record_layer_state("clustering", False, "", str(exc))
+        else:
+            record_layer_state(
+                "clustering",
+                clust_ckpt.exists(),
+                f"clustering checkpoint present: {clust_ckpt}",
+                f"clustering checkpoint missing: {clust_ckpt}",
+            )
 
-        m2_dir = WORKFLOW_ROOT / "layer4_classification" / "model2" / "checkpoints" / "best"
-        record_layer_state(
-            "model2",
-            has_model_weights(m2_dir),
-            f"model2 weights present: {m2_dir}",
-            f"model2 weights missing: {m2_dir}",
-        )
+        try:
+            m1_dir = get_artifact_path("model1")
+        except FileNotFoundError as exc:
+            record_layer_state("model1", False, "", str(exc))
+        else:
+            record_layer_state(
+                "model1",
+                has_model_weights(m1_dir),
+                f"model1 weights present: {m1_dir}",
+                f"model1 weights missing: {m1_dir}",
+            )
 
-        reg_model = WORKFLOW_ROOT / "layer6_regression" / "checkpoints" / "risk_regressor.json"
-        reg_meta = WORKFLOW_ROOT / "layer6_regression" / "checkpoints" / "metadata.json"
-        record_layer_state(
-            "regression",
-            reg_model.exists() and reg_meta.exists(),
-            f"regression artifacts present: {reg_model}, {reg_meta}",
-            f"regression artifacts missing: {reg_model} and/or {reg_meta}",
-        )
+        try:
+            m2_dir = get_artifact_path("model2")
+        except FileNotFoundError as exc:
+            record_layer_state("model2", False, "", str(exc))
+        else:
+            record_layer_state(
+                "model2",
+                has_model_weights(m2_dir),
+                f"model2 weights present: {m2_dir}",
+                f"model2 weights missing: {m2_dir}",
+            )
+
+        try:
+            reg_dir = get_artifact_path("regression")
+        except FileNotFoundError as exc:
+            record_layer_state("regression", False, "", str(exc))
+        else:
+            reg_model = reg_dir / "risk_regressor.json"
+            reg_meta = reg_dir / "metadata.json"
+            record_layer_state(
+                "regression",
+                reg_model.exists() and reg_meta.exists(),
+                f"regression artifacts present: {reg_model}, {reg_meta}",
+                f"regression artifacts missing: {reg_model} and/or {reg_meta}",
+            )
 
         if "mosaic" in configured_layers:
             ok_redis, msg_redis = check_redis(
@@ -229,7 +256,8 @@ def main() -> int:
     if artifact_warnings:
         print("next_steps:")
         print("  - Full pipeline artifacts are not present in this checkout.")
-        print("  - Generate them with: python3 training/train_validate_pipeline.py")
+        print("  - Hydrate or verify them with: python3 scripts/bootstrap_artifacts.py --sync-from-legacy")
+        print("  - Regenerate them with: python3 scripts/bootstrap_artifacts.py --regenerate")
         print("  - Or run a minimal lexicon-only server with: PIPELINE_LAYERS=lexicon uvicorn backend.main:app --reload")
 
     if args.strict and warnings:

@@ -24,9 +24,7 @@ from fastapi.responses import JSONResponse
 from starlette.concurrency import run_in_threadpool
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-PACKAGE_ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
-WORKFLOW_ROOT = PACKAGE_ROOT / "workflow"
 
 from noupe.backend.cache import ResponseCache  # noqa: E402
 from noupe.backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode  # noqa: E402
@@ -47,6 +45,7 @@ from noupe.backend.schemas import (  # noqa: E402
     ReadyResponse,
     RegressionResponse,
 )
+from noupe.configs.artifacts import get_artifact_path  # noqa: E402
 from noupe.configs.runtime import RuntimeSettings, get_runtime_settings  # noqa: E402
 from noupe.helper.determinism import configure_determinism  # noqa: E402
 
@@ -1171,14 +1170,14 @@ async def lifespan(app: FastAPI):
                     _state["models"]["embedding"] = _load_embedding()
 
             elif layer == "clustering":
-                clust_ckpt = WORKFLOW_ROOT / "layer3_clustering" / "checkpoints" / "anomaly_detector.joblib"
+                clust_ckpt = get_artifact_path("clustering")
                 if not clust_ckpt.exists():
                     raise FileNotFoundError(f"clustering checkpoint missing: {clust_ckpt}")
                 clust_mod = importlib.import_module("noupe.workflow.layer3_clustering.isolation_forest")
-                _state["models"]["clustering"] = clust_mod.MNPIAnomalyDetector.load()
+                _state["models"]["clustering"] = clust_mod.MNPIAnomalyDetector.load(str(clust_ckpt))
 
             elif layer == "model1":
-                model1_ckpt = WORKFLOW_ROOT / "layer4_classification" / "model1" / "checkpoints" / "best"
+                model1_ckpt = get_artifact_path("model1")
                 if not has_model_weights(model1_ckpt):
                     raise FileNotFoundError(f"model1 weights missing: {model1_ckpt}")
 
@@ -1192,7 +1191,7 @@ async def lifespan(app: FastAPI):
                     _state["models"]["model1"] = _load_model1()
 
             elif layer == "model2":
-                model2_ckpt = WORKFLOW_ROOT / "layer4_classification" / "model2" / "checkpoints" / "best"
+                model2_ckpt = get_artifact_path("model2")
                 if not has_model_weights(model2_ckpt):
                     raise FileNotFoundError(f"model2 weights missing: {model2_ckpt}")
 
@@ -1206,15 +1205,19 @@ async def lifespan(app: FastAPI):
                     _state["models"]["model2"] = _load_model2()
 
             elif layer == "regression":
-                reg_model = WORKFLOW_ROOT / "layer6_regression" / "checkpoints" / "risk_regressor.json"
-                reg_meta = WORKFLOW_ROOT / "layer6_regression" / "checkpoints" / "metadata.json"
+                reg_dir = get_artifact_path("regression")
+                reg_model = reg_dir / "risk_regressor.json"
+                reg_meta = reg_dir / "metadata.json"
                 if not reg_model.exists() or not reg_meta.exists():
                     raise FileNotFoundError(
                         f"regression artifacts missing: {reg_model} and/or {reg_meta}"
                     )
 
                 reg_mod = importlib.import_module("noupe.workflow.layer6_regression.inference")
-                _state["models"]["regression"] = reg_mod.XGBoostRegression()
+                _state["models"]["regression"] = reg_mod.XGBoostRegression(
+                    model_path=str(reg_model),
+                    metadata_path=str(reg_meta),
+                )
 
             elif layer == "mosaic":
                 def _load_mosaic():

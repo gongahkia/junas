@@ -22,19 +22,20 @@ SUPPORTED_SCHEMA_VERSIONS = {1, 2}
 
 
 class XGBoostRegression:
-    def __init__(self, model_path: str | None = None):
+    def __init__(self, model_path: str | None = None, metadata_path: str | None = None):
         """
         Multivariate regression layer.
         Loads only from a trained checkpoint; no random in-memory fallback model.
         """
         self.feature_names = CURRENT_FEATURE_NAMES[:]
         self.model_path = model_path or CHECKPOINT_PATH
+        self.metadata_path = metadata_path or METADATA_PATH
         if not os.path.exists(self.model_path):
             raise FileNotFoundError(f"Regression checkpoint not found: {self.model_path}")
-        if not os.path.exists(METADATA_PATH):
-            raise FileNotFoundError(f"Regression metadata not found: {METADATA_PATH}")
+        if not os.path.exists(self.metadata_path):
+            raise FileNotFoundError(f"Regression metadata not found: {self.metadata_path}")
 
-        self._load_metadata(METADATA_PATH)
+        self._load_metadata(self.metadata_path)
 
         self.model = xgb.XGBRegressor(objective="reg:squarederror")
         self.model.load_model(self.model_path)

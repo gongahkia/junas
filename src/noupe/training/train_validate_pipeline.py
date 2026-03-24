@@ -153,6 +153,16 @@ def get_python_executable() -> str:
     return str(venv_python) if venv_python.exists() else sys.executable
 
 
+def refresh_artifact_manifest(python_exec: str) -> None:
+    cmd = [
+        python_exec,
+        str(ROOT / "scripts" / "bootstrap_artifacts.py"),
+        "--update-manifest",
+        "--sync-from-legacy",
+    ]
+    subprocess.run(cmd, check=True, cwd=ROOT)
+
+
 def file_sha256(path: Path) -> str:
     hasher = hashlib.sha256()
     with path.open("rb") as fp:
@@ -1392,6 +1402,7 @@ def main() -> int:
         config_results=config_results,
         pass2_stats=pass2_stats,
     )
+    refresh_artifact_manifest(python_exec)
 
     print("\nFinal 100% retraining complete")
     print(f"Report written to {report_path}")
