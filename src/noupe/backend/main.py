@@ -1,11 +1,13 @@
 import argparse
 import bisect
+from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import importlib
 import importlib.util
 import json
 import logging
 import os
+import sys
 import time
 import uuid
 from collections import OrderedDict
@@ -52,7 +54,6 @@ logger = logging.getLogger("noupe.backend")
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 _state: dict[str, Any] = {}
-CLASSIFY_EXECUTION_LOCK = Lock()
 
 RISK_ORDER = {
     Classification.SAFE: 0,
@@ -80,7 +81,7 @@ Noupe is a backend-only MNPI screening API with archived demo frontends served s
 Key behaviors:
 
 - `POST /classify` accepts a single text document and returns a document-level classification of `SAFE`, `LOW_RISK`, or `HIGH_RISK`.
-- `POST /classify/batch` processes up to 32 classify requests sequentially in one HTTP call.
+- `POST /classify/batch` processes up to 32 classify requests with bounded in-process concurrency while preserving result order.
 - `include_offending_spans=true` adds exact lexicon spans and approximate classifier-window spans when the final response is `LOW_RISK` or `HIGH_RISK`.
 - The active runtime is API-only; the legacy/chat/email/slack demo surfaces live under `archive/frontend-demos/` and are launched by `scripts/launch/run_dev.sh` or `scripts/launch/run_prod.sh`.
 - `GET /ready` and `GET /diagnostics` expose degraded startup, lazy-layer warming, and dependency state.
@@ -240,18 +241,35 @@ def record_layer_load_error(layer: str, error: Exception | str, phase: str) -> N
 
 
 def record_runtime_layer_error(layer: str, message: str) -> None:
-    runtime_errors = _state.setdefault("runtime_layer_errors", {})
-    entry = runtime_errors.setdefault(
-        layer,
-        {
-            "count": 0,
-            "last_seen": None,
-            "last_message": "",
-        },
-    )
-    entry["count"] = int(entry.get("count", 0)) + 1
-    entry["last_seen"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-    entry["last_message"] = message
+    lock: Lock | None = _state.get("runtime_error_lock")
+    if lock is None:
+        runtime_errors = _state.setdefault("runtime_layer_errors", {})
+        entry = runtime_errors.setdefault(
+            layer,
+            {
+                "count": 0,
+                "last_seen": None,
+                "last_message": "",
+            },
+        )
+        entry["count"] = int(entry.get("count", 0)) + 1
+        entry["last_seen"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        entry["last_message"] = message
+        return
+
+    with lock:
+        runtime_errors = _state.setdefault("runtime_layer_errors", {})
+        entry = runtime_errors.setdefault(
+            layer,
+            {
+                "count": 0,
+                "last_seen": None,
+                "last_message": "",
+            },
+        )
+        entry["count"] = int(entry.get("count", 0)) + 1
+        entry["last_seen"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        entry["last_message"] = message
 
 
 def build_ready_snapshot() -> dict[str, Any]:
@@ -1072,17 +1090,31 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
 
 
 def _run_classify_sync(req: ClassifyRequest, request_id: str | None, endpoint: str) -> ClassifyResponse:
-    with CLASSIFY_EXECUTION_LOCK:
-        return _classify_core(req, request_id, endpoint)
+    return _classify_core(req, request_id, endpoint)
+
+
+def get_batch_max_concurrency(item_count: int) -> int:
+    configured = current_runtime_settings().startup.batch_max_concurrency
+    return max(1, min(int(configured), int(item_count)))
 
 
 def _run_batch_classify_sync(req: BatchClassifyRequest, base_request_id: str | None) -> BatchClassifyResponse:
-    with CLASSIFY_EXECUTION_LOCK:
-        results = []
-        for idx, item in enumerate(req.items):
-            item_request_id = f"{base_request_id}:{idx}" if base_request_id else None
-            results.append(_classify_core(item, item_request_id, "/classify/batch"))
+    if not req.items:
+        return BatchClassifyResponse(results=[])
+
+    def _classify_batch_item(payload: tuple[int, ClassifyRequest]) -> ClassifyResponse:
+        idx, item = payload
+        item_request_id = f"{base_request_id}:{idx}" if base_request_id else None
+        return _classify_core(item, item_request_id, "/classify/batch")
+
+    max_workers = get_batch_max_concurrency(len(req.items))
+    if max_workers == 1:
+        results = [_classify_batch_item((idx, item)) for idx, item in enumerate(req.items)]
         return BatchClassifyResponse(results=results)
+
+    with ThreadPoolExecutor(max_workers=max_workers, thread_name_prefix="noupe-batch") as executor:
+        results = list(executor.map(_classify_batch_item, enumerate(req.items)))
+    return BatchClassifyResponse(results=results)
 
 
 @asynccontextmanager
@@ -1108,6 +1140,7 @@ async def lifespan(app: FastAPI):
     _state["warming_required_layers"] = []
     _state["startup_timings_ms"] = {}
     _state["runtime_layer_errors"] = {}
+    _state["runtime_error_lock"] = Lock()
     _state["observability"] = ObservabilityManager()
     _state["cache_cfg"] = {
         "size": settings.response_cache.size,
@@ -1453,7 +1486,7 @@ async def classify(request: Request, req: ClassifyRequest):
     tags=["Classification"],
     summary="Classify multiple documents",
     description=(
-        "Process up to 32 classify requests sequentially in one HTTP call. "
+        "Process up to 32 classify requests in one HTTP call with bounded in-process concurrency. "
         "Each result preserves the same response shape as `POST /classify`."
     ),
 )

@@ -95,7 +95,7 @@ class BatchClassifyRequest(BaseModel):
         ...,
         min_length=1,
         max_length=32,
-        description="List of classify requests processed sequentially in one HTTP call.",
+        description="List of classify requests processed in one HTTP call with bounded in-process concurrency.",
     )
 
 
