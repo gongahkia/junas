@@ -138,8 +138,19 @@ class RegressionResponse(BaseModel):
     reasoning: str = Field("", description="Human-readable summary of the regression feature inputs.")
 
 class MosaicResponse(BaseModel):
+    entity_id: str = Field(description="Normalized entity key used for rolling-window aggregation.")
     escalated: bool = Field(description="Whether Mosaic escalated a low-risk result to high risk.")
-    count: int = Field(description="Current fragment count for the resolved entity key.")
+    recent_event_count: int = Field(description="Number of recent low-risk events observed inside the active window.")
+    unique_fragment_count: int = Field(
+        description="Number of unique fragment hashes observed inside the active window."
+    )
+    window_hours: float = Field(description="Active rolling aggregation window in hours.")
+    threshold: int = Field(description="Unique-fragment threshold required for escalation.")
+    escalation_reason: str = Field("", description="Human-readable reason for the current escalation outcome.")
+    matched_event_ids: list[str] = Field(
+        default_factory=list,
+        description="Recent mosaic event identifiers contributing to the current aggregate.",
+    )
 
 
 class LayerErrorResponse(BaseModel):
@@ -239,7 +250,16 @@ class ClassifyResponse(BaseModel):
                 "model1": {"label": "risk", "confidence": 0.82, "risk_score": 0.82},
                 "model2": {"label": "high_risk", "confidence": 0.99, "high_risk_score": 0.99},
                 "clustering": {"anomaly_score": 0.61, "is_anomaly": False, "raw_score": -0.44},
-                "mosaic": None,
+                "mosaic": {
+                    "entity_id": "acme corp",
+                    "escalated": True,
+                    "recent_event_count": 12,
+                    "unique_fragment_count": 10,
+                    "window_hours": 24.0,
+                    "threshold": 10,
+                    "escalation_reason": "10 unique low-risk fragments observed within 24.0 hours",
+                    "matched_event_ids": ["req-9", "req-8", "req-7"],
+                },
                 "regression": {"risk_score": 0.86, "reasoning": "XGBoost checkpoint produced probability 0.856"},
                 "observability": {
                     "degraded": False,

@@ -146,8 +146,15 @@ class DummyMosaic:
 
     def aggregate(self, entity_id: str, is_low_risk: bool, **_: object):
         return {
+            "entity_id": entity_id,
             "escalate_to_high_risk": self.escalated,
             "count": self.count,
+            "recent_event_count": self.count,
+            "unique_fragment_count": self.count,
+            "window_hours": 24.0,
+            "threshold": 10,
+            "escalation_reason": "dummy mosaic response" if self.escalated else "",
+            "matched_event_ids": ["dummy-event-1"] if self.count else [],
         }
 
 

@@ -71,7 +71,16 @@ Response:
   "model1": {"label": "string", "confidence": "float", "risk_score": "float"} | null,
   "model2": {"label": "string", "confidence": "float", "high_risk_score": "float"} | null,
   "clustering": {"anomaly_score": "float", "is_anomaly": "bool", "raw_score": "float"} | null,
-  "mosaic": {"escalated": "bool", "count": "int"} | null,
+  "mosaic": {
+    "entity_id": "string",
+    "escalated": "bool",
+    "recent_event_count": "int",
+    "unique_fragment_count": "int",
+    "window_hours": "float",
+    "threshold": "int",
+    "escalation_reason": "string",
+    "matched_event_ids": ["event ids"]
+  } | null,
   "regression": {"risk_score": "float", "reasoning": "string"} | null,
   "observability": {
     "degraded": "bool",

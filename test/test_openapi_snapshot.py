@@ -82,6 +82,10 @@ class OpenApiSnapshotTests(unittest.TestCase):
                 "ObservabilityResponse": {
                     "properties": list(payload["components"]["schemas"]["ObservabilityResponse"]["properties"].keys()),
                 },
+                "MosaicResponse": {
+                    "required": payload["components"]["schemas"]["MosaicResponse"].get("required", []),
+                    "properties": list(payload["components"]["schemas"]["MosaicResponse"]["properties"].keys()),
+                },
             },
         }
 

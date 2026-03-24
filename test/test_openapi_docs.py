@@ -34,11 +34,36 @@ class OpenApiDocsTests(unittest.TestCase):
         schemas = payload["components"]["schemas"]
         classify_request = schemas["ClassifyRequest"]
         offending_span = schemas["OffendingSpanResponse"]
+        mosaic_response = schemas["MosaicResponse"]
 
         self.assertIn("include_offending_spans", classify_request["properties"])
         self.assertIn("approximate classifier-window spans", classify_request["properties"]["include_offending_spans"]["description"])
         self.assertIn("context_before", offending_span["properties"])
         self.assertIn("window_token_count", offending_span["properties"])
+        self.assertEqual(
+            list(mosaic_response["properties"].keys()),
+            [
+                "entity_id",
+                "escalated",
+                "recent_event_count",
+                "unique_fragment_count",
+                "window_hours",
+                "threshold",
+                "escalation_reason",
+                "matched_event_ids",
+            ],
+        )
+        self.assertEqual(
+            mosaic_response["required"],
+            [
+                "entity_id",
+                "escalated",
+                "recent_event_count",
+                "unique_fragment_count",
+                "window_hours",
+                "threshold",
+            ],
+        )
 
 
 if __name__ == "__main__":

@@ -957,8 +957,14 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
                     },
                 )
                 mosaic_resp = MosaicResponse(
-                    escalated=m_result["escalate_to_high_risk"],
-                    count=m_result["count"],
+                    entity_id=str(m_result.get("entity_id", entity_id)),
+                    escalated=bool(m_result.get("escalate_to_high_risk", False)),
+                    recent_event_count=int(m_result.get("recent_event_count", 0)),
+                    unique_fragment_count=int(m_result.get("unique_fragment_count", m_result.get("count", 0))),
+                    window_hours=float(m_result.get("window_hours", 0.0)),
+                    threshold=int(m_result.get("threshold", 0)),
+                    escalation_reason=str(m_result.get("escalation_reason", "")),
+                    matched_event_ids=[str(item) for item in m_result.get("matched_event_ids", [])],
                 )
 
                 if is_lr and m_result["escalate_to_high_risk"]:
@@ -978,7 +984,7 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
                 m1_score = m1_resp.risk_score if m1_resp else 0.0
                 m2_score = m2_resp.high_risk_score if m2_resp else 0.0
                 clust_score = clust_resp.get("anomaly_score", 0.0) if clust_resp else 0.0
-                m_count = mosaic_resp.count if mosaic_resp else 0
+                m_count = mosaic_resp.unique_fragment_count if mosaic_resp else 0
 
                 feature_payload = {
                     "lex_score": lex_score,

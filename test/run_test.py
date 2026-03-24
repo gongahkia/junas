@@ -43,7 +43,14 @@ def run_tests():
                 if resp_data.get("model2"):
                     print(f"      Model2: {resp_data['model2']['label']} (conf: {resp_data['model2']['confidence']:.2f})")
                 if resp_data.get("mosaic"):
-                    print(f"      Mosaic: escalated={resp_data['mosaic']['escalated']} (count: {resp_data['mosaic']['count']})")
+                    mosaic = resp_data["mosaic"]
+                    print(
+                        "      Mosaic: "
+                        f"escalated={mosaic['escalated']} "
+                        f"(unique={mosaic['unique_fragment_count']}, "
+                        f"recent={mosaic['recent_event_count']}, "
+                        f"events={len(mosaic['matched_event_ids'])})"
+                    )
                 print("-" * 60)
         except urllib.error.URLError as e:
             print(f"[{test_id}] Request failed: {e}")

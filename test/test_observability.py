@@ -107,6 +107,32 @@ class ObservabilityApiTests(unittest.TestCase):
             self.assertIn("mosaic", payload["observability"]["skipped_layers"])
             self.assertEqual(payload["observability"]["layer_errors"], [])
 
+    def test_mosaic_response_exposes_aggregated_evidence(self):
+        test_app.seed_test_state(
+            pipeline=["lexicon", "model1", "model2", "mosaic"],
+            models={
+                "lexicon": test_app.DummyLexiconFilter(),
+                "model1": test_app.DummyModel1(label="risk", confidence=0.82, risk_score=0.88),
+                "model2": test_app.DummyModel2(label="low_risk", confidence=0.76, high_risk_score=0.21),
+                "mosaic": test_app.DummyMosaic(escalated=True, count=3),
+            },
+        )
+
+        with TestClient(test_app.app) as client:
+            response = client.post(
+                "/classify",
+                json={"text": "internal operating review deck", "entity_id": "Acme Corp"},
+            )
+            self.assertEqual(response.status_code, 200)
+            payload = response.json()
+            self.assertEqual(payload["classification"], "HIGH_RISK")
+            self.assertEqual(payload["mosaic"]["entity_id"], "Acme Corp")
+            self.assertTrue(payload["mosaic"]["escalated"])
+            self.assertEqual(payload["mosaic"]["recent_event_count"], 3)
+            self.assertEqual(payload["mosaic"]["unique_fragment_count"], 3)
+            self.assertEqual(payload["mosaic"]["threshold"], 10)
+            self.assertEqual(payload["mosaic"]["matched_event_ids"], ["dummy-event-1"])
+
     def test_runtime_layer_error_marks_response_and_diagnostics(self):
         test_app.seed_test_state(
             pipeline=["lexicon", "model1"],
