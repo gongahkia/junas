@@ -73,7 +73,15 @@ class LocalRecapRepository {
     }
   }
 
-  Future<List<({String shareId, String slug, String? roomName, String providerId, String createdAt})>> listRecaps({
+  Future<
+      List<
+          ({
+            String shareId,
+            String slug,
+            String? roomName,
+            String providerId,
+            String createdAt
+          })>> listRecaps({
     int limit = 20,
   }) async {
     final Database db = await _open();
@@ -82,17 +90,20 @@ class LocalRecapRepository {
       orderBy: 'created_at DESC',
       limit: limit,
     );
-    return rows.map((Map<String, dynamic> row) => (
-      shareId: row['share_id'] as String,
-      slug: row['slug'] as String,
-      roomName: row['room_name'] as String?,
-      providerId: row['provider_id'] as String,
-      createdAt: row['created_at'] as String,
-    )).toList(growable: false);
+    return rows
+        .map((Map<String, dynamic> row) => (
+              shareId: row['share_id'] as String,
+              slug: row['slug'] as String,
+              roomName: row['room_name'] as String?,
+              providerId: row['provider_id'] as String,
+              createdAt: row['created_at'] as String,
+            ))
+        .toList(growable: false);
   }
 
   Future<void> deleteRecap(String shareId) async {
     final Database db = await _open();
-    await db.delete('recaps', where: 'share_id = ?', whereArgs: <Object?>[shareId]);
+    await db
+        .delete('recaps', where: 'share_id = ?', whereArgs: <Object?>[shareId]);
   }
 }

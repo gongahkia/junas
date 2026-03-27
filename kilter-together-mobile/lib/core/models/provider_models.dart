@@ -52,7 +52,8 @@ class ProviderCapability {
   final List<ProviderAuthField> authFields;
 
   factory ProviderCapability.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> rawFields = (json['auth_fields'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawFields =
+        (json['auth_fields'] as List<dynamic>?) ?? <dynamic>[];
     return ProviderCapability(
       id: json['id'] as String? ?? '',
       label: json['label'] as String? ?? '',
@@ -79,11 +80,13 @@ class ProviderConnectionState {
   final Map<String, String> metadata;
 
   factory ProviderConnectionState.fromJson(Map<String, dynamic> json) {
-    final Map<String, dynamic> rawMetadata = (json['metadata'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+    final Map<String, dynamic> rawMetadata =
+        (json['metadata'] as Map<String, dynamic>?) ?? <String, dynamic>{};
     return ProviderConnectionState(
       connected: json['connected'] as bool? ?? false,
       providerId: json['provider_id'] as String? ?? '',
-      metadata: rawMetadata.map((String key, dynamic value) => MapEntry(key, '$value')),
+      metadata: rawMetadata
+          .map((String key, dynamic value) => MapEntry(key, '$value')),
     );
   }
 }
@@ -106,7 +109,8 @@ class ProviderSurface {
   final Map<String, String> meta;
 
   factory ProviderSurface.fromJson(Map<String, dynamic> json) {
-    final Map<String, dynamic> rawMeta = (json['meta'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+    final Map<String, dynamic> rawMeta =
+        (json['meta'] as Map<String, dynamic>?) ?? <String, dynamic>{};
     return ProviderSurface(
       id: json['id'] as String? ?? '',
       kind: json['kind'] as String? ?? '',
@@ -223,9 +227,12 @@ class ProviderClimb {
   final Map<String, String> meta;
 
   factory ProviderClimb.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> rawMedia = (json['media'] as List<dynamic>?) ?? <dynamic>[];
-    final List<dynamic> rawHolds = (json['highlighted_holds'] as List<dynamic>?) ?? <dynamic>[];
-    final Map<String, dynamic> rawMeta = (json['meta'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+    final List<dynamic> rawMedia =
+        (json['media'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawHolds =
+        (json['highlighted_holds'] as List<dynamic>?) ?? <dynamic>[];
+    final Map<String, dynamic> rawMeta =
+        (json['meta'] as Map<String, dynamic>?) ?? <String, dynamic>{};
     return ProviderClimb(
       id: json['id'] as String? ?? '',
       externalId: json['external_id'] as String? ?? '',
@@ -263,7 +270,9 @@ class ProviderClimb {
       'secondary_grade': secondaryGrade,
       'created_at': createdAt,
       'popularity': popularity,
-      'media': media.map((ProviderClimbMedia item) => item.toJson()).toList(growable: false),
+      'media': media
+          .map((ProviderClimbMedia item) => item.toJson())
+          .toList(growable: false),
       'highlighted_holds': highlightedHolds
           .map((HighlightedHold item) => item.toJson())
           .toList(growable: false),

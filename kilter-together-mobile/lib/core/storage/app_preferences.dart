@@ -6,7 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/app_prefs_models.dart';
 import '../models/session_models.dart';
 
-final Provider<AppPreferences> appPreferencesProvider = Provider<AppPreferences>((Ref ref) {
+final Provider<AppPreferences> appPreferencesProvider =
+    Provider<AppPreferences>((Ref ref) {
   return const AppPreferences();
 });
 
@@ -38,7 +39,8 @@ class AppPreferences {
     await prefs.setString(_appPrefsKey, jsonEncode(appPrefs.toJson()));
   }
 
-  Future<AppPrefs> updateAppPrefs(AppPrefs Function(AppPrefs current) updater) async {
+  Future<AppPrefs> updateAppPrefs(
+      AppPrefs Function(AppPrefs current) updater) async {
     final AppPrefs current = await loadAppPrefs();
     final AppPrefs next = updater(current);
     await saveAppPrefs(next);
@@ -61,13 +63,15 @@ class AppPreferences {
 
   Future<List<Uri>> loadRecentServers() async {
     final SharedPreferences prefs = await _prefs();
-    final List<String> raw = prefs.getStringList(_recentServersKey) ?? <String>[];
+    final List<String> raw =
+        prefs.getStringList(_recentServersKey) ?? <String>[];
     return raw.map(normalizeServerUri).toList(growable: false);
   }
 
   Future<void> rememberServer(Uri server) async {
     final SharedPreferences prefs = await _prefs();
-    final List<String> existing = prefs.getStringList(_recentServersKey) ?? <String>[];
+    final List<String> existing =
+        prefs.getStringList(_recentServersKey) ?? <String>[];
     final List<String> next = <String>[server.toString()];
     for (final String candidate in existing) {
       if (candidate != server.toString()) {

@@ -1,70 +1,86 @@
 import 'package:flutter/material.dart';
 
+import '../theme/app_theme.dart';
+
 class AppBottomBar extends StatelessWidget {
   const AppBottomBar({
     required this.currentIndex,
     required this.onTap,
     super.key,
+    this.animationsEnabled = true,
   });
 
   final int currentIndex;
   final ValueChanged<int> onTap;
+  final bool animationsEnabled;
 
   static const List<_BottomBarSpec> _items = <_BottomBarSpec>[
     _BottomBarSpec(
       branchIndex: 0,
       label: 'Session',
-      icon: Icons.people_outline_rounded,
-      accent: Color(0xFF1A1A1A),
+      icon: Icons.people_alt_outlined,
+      accent: Color(0xFF255543),
     ),
     _BottomBarSpec(
       branchIndex: 1,
       label: 'Solo',
-      icon: Icons.grid_view_rounded,
-      accent: Color(0xFF1A1A1A),
+      icon: Icons.explore_outlined,
+      accent: Color(0xFF7C6D31),
     ),
     _BottomBarSpec(
       branchIndex: 2,
       label: 'Log',
-      icon: Icons.history_rounded,
-      accent: Color(0xFF1A1A1A),
+      icon: Icons.auto_graph_rounded,
+      accent: Color(0xFFC7682F),
     ),
     _BottomBarSpec(
       branchIndex: 3,
       label: 'Settings',
       icon: Icons.tune_rounded,
-      accent: Color(0xFF1A1A1A),
+      accent: Color(0xFF2D3631),
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
+    final KilterPalette palette = kilterPaletteOf(context);
     final int activeIndex = _items.indexWhere(
       (_BottomBarSpec item) => item.branchIndex == currentIndex,
     );
     final int clampedIndex = activeIndex >= 0 ? activeIndex : 0;
     final Color activeAccent = _items[clampedIndex].accent;
+    final Duration motionDuration =
+        animationsEnabled ? const Duration(milliseconds: 280) : Duration.zero;
+    final Curve motionCurve =
+        animationsEnabled ? Curves.easeOutCubic : Curves.linear;
 
     return SafeArea(
       top: false,
       minimum: const EdgeInsets.fromLTRB(16, 0, 16, 14),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: const Color(0xFFFFFFFF),
-          borderRadius: BorderRadius.zero,
-          border: Border.all(color: const Color(0xFFD4D4D4)),
-          boxShadow: const <BoxShadow>[
+          gradient: LinearGradient(
+            colors: <Color>[
+              palette.panel.withValues(alpha: 0.94),
+              palette.panelRaised.withValues(alpha: 0.98),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(32),
+          border: Border.all(color: palette.stroke.withValues(alpha: 0.95)),
+          boxShadow: <BoxShadow>[
             BoxShadow(
-              color: Color(0x191A1A1A),
-              blurRadius: 28,
-              offset: Offset(0, 14),
+              color: palette.ink.withValues(alpha: 0.14),
+              blurRadius: 36,
+              offset: const Offset(0, 18),
             ),
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: SizedBox(
-            height: 84,
+            height: 82,
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final double itemWidth = constraints.maxWidth / _items.length;
@@ -72,23 +88,21 @@ class AppBottomBar extends StatelessWidget {
                 return Stack(
                   children: <Widget>[
                     AnimatedPositioned(
-                      duration: const Duration(milliseconds: 280),
-                      curve: Curves.easeInOutCubic,
+                      duration: motionDuration,
+                      curve: motionCurve,
                       left: itemWidth * clampedIndex,
                       top: 0,
                       bottom: 0,
                       width: itemWidth,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 3),
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 220),
-                          curve: Curves.easeOutCubic,
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: DecoratedBox(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.zero,
+                            borderRadius: BorderRadius.circular(24),
                             gradient: LinearGradient(
                               colors: <Color>[
-                                activeAccent.withValues(alpha: 0.22),
-                                Colors.white,
+                                activeAccent.withValues(alpha: 0.2),
+                                activeAccent.withValues(alpha: 0.08),
                               ],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
@@ -105,6 +119,7 @@ class AppBottomBar extends StatelessWidget {
                           child: _BottomBarItem(
                             spec: item,
                             active: index == clampedIndex,
+                            animationsEnabled: animationsEnabled,
                             onTap: () => onTap(item.branchIndex),
                           ),
                         );
@@ -126,55 +141,60 @@ class _BottomBarItem extends StatelessWidget {
     required this.spec,
     required this.active,
     required this.onTap,
+    required this.animationsEnabled,
   });
 
   final _BottomBarSpec spec;
   final bool active;
   final VoidCallback onTap;
+  final bool animationsEnabled;
 
   @override
   Widget build(BuildContext context) {
-    final Color accent = spec.accent;
-    final Color foreground = active ? accent : const Color(0xFF737373);
+    final KilterPalette palette = kilterPaletteOf(context);
+    final Color foreground = active ? spec.accent : palette.subtleInk;
+    final Duration motionDuration =
+        animationsEnabled ? const Duration(milliseconds: 180) : Duration.zero;
+    final Curve motionCurve =
+        animationsEnabled ? Curves.easeOutCubic : Curves.linear;
 
     return InkWell(
-      borderRadius: BorderRadius.zero,
+      borderRadius: BorderRadius.circular(24),
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             AnimatedContainer(
-              duration: const Duration(milliseconds: 180),
-              curve: Curves.easeOutCubic,
-              width: active ? 38 : 32,
-              height: active ? 38 : 32,
+              duration: motionDuration,
+              curve: motionCurve,
+              width: active ? 42 : 36,
+              height: active ? 42 : 36,
               decoration: BoxDecoration(
                 color: active
-                    ? accent.withValues(alpha: 0.96)
-                    : Colors.transparent,
-                borderRadius: BorderRadius.zero,
+                    ? spec.accent
+                    : palette.panel.withValues(alpha: 0.55),
+                borderRadius: BorderRadius.circular(18),
                 border: Border.all(
                   color: active
-                      ? accent.withValues(alpha: 0.28)
-                      : const Color(0x00000000),
+                      ? spec.accent.withValues(alpha: 0.35)
+                      : palette.stroke.withValues(alpha: 0.6),
                 ),
               ),
               child: Icon(
                 spec.icon,
-                size: active ? 20 : 18,
+                size: active ? 22 : 19,
                 color: active ? Colors.white : foreground,
               ),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 6),
             Text(
               spec.label,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    fontWeight: active ? FontWeight.w700 : FontWeight.w500,
                     color: foreground,
-                    letterSpacing: 0.1,
+                    fontWeight: active ? FontWeight.w700 : FontWeight.w600,
                   ),
             ),
           ],

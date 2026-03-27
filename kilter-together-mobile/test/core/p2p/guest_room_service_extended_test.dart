@@ -20,12 +20,15 @@ void main() {
 
     test('setSurface sends surface json', () {
       const ProviderSurface surface = ProviderSurface(
-        id: 's1', kind: 'board', name: 'Original 40',
+        id: 's1',
+        kind: 'board',
+        name: 'Original 40',
       );
       service.setSurface(surface);
       expect(transport.sentMessages.last.type, P2pMessageType.setSurface);
       final Map<String, dynamic> payload = transport.sentMessages.last.payload;
-      final Map<String, dynamic> surfaceJson = payload['surface'] as Map<String, dynamic>;
+      final Map<String, dynamic> surfaceJson =
+          payload['surface'] as Map<String, dynamic>;
       expect(surfaceJson['id'], 's1');
       expect(surfaceJson['name'], 'Original 40');
     });
@@ -50,14 +53,19 @@ void main() {
 
     test('removeParticipant sends participant id', () {
       service.removeParticipant(3);
-      expect(transport.sentMessages.last.type, P2pMessageType.removeParticipant);
+      expect(
+          transport.sentMessages.last.type, P2pMessageType.removeParticipant);
       expect(transport.sentMessages.last.payload['participant_id'], 3);
     });
 
     test('addQueueEntry sends full climb json', () {
       const ProviderClimb climb = ProviderClimb(
-        id: 'c1', externalId: 'ext-1', providerId: 'kilter',
-        surfaceId: 'board-1', name: 'Test Route', primaryGrade: 'V5',
+        id: 'c1',
+        externalId: 'ext-1',
+        providerId: 'kilter',
+        surfaceId: 'board-1',
+        name: 'Test Route',
+        primaryGrade: 'V5',
       );
       service.addQueueEntry(climb);
       final Map<String, dynamic> climbJson =
@@ -68,8 +76,11 @@ void main() {
 
     test('addFinalist sends full climb json', () {
       const ProviderClimb climb = ProviderClimb(
-        id: 'f1', externalId: 'ext-f1', providerId: 'kilter',
-        surfaceId: 'board-1', name: 'Finalist Route',
+        id: 'f1',
+        externalId: 'ext-f1',
+        providerId: 'kilter',
+        surfaceId: 'board-1',
+        name: 'Finalist Route',
       );
       service.addFinalist(climb);
       final Map<String, dynamic> climbJson =

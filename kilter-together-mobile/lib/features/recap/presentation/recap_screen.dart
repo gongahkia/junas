@@ -8,10 +8,13 @@ import 'package:share_plus/share_plus.dart';
 import '../../../core/deep_links/invite_links.dart';
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/product_models.dart';
+import '../../../core/models/provider_models.dart';
+import '../../../core/presentation/app_surfaces.dart';
 import '../../../core/presentation/climbing_loader.dart';
 import '../../../core/presentation/feedback_prompt_card.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
+import '../../../core/theme/app_theme.dart';
 import '../application/recap_controller.dart';
 
 class RecapScreen extends ConsumerStatefulWidget {
@@ -161,7 +164,9 @@ class _RecapScreenState extends ConsumerState<RecapScreen> {
         .read(appPrefsControllerProvider.notifier)
         .markFeedbackPromptSeen('recap_final_slide');
     if (!mounted) return;
-    setState(() { _feedbackVisible = false; });
+    setState(() {
+      _feedbackVisible = false;
+    });
   }
 
   Future<void> _startRematch({
@@ -215,34 +220,43 @@ class _RecapBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RoomRecap? recap = state.recap;
+    final KilterPalette palette = kilterPaletteOf(context);
 
     if (state.loading && recap == null) {
-      return Card(
+      return AppPanel(
+        accentColor: palette.secondary,
         child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Center(child: ClimbingLoader()),
+          padding: const EdgeInsets.symmetric(vertical: 28),
+          child: Column(
+            children: <Widget>[
+              Center(child: ClimbingLoader()),
+              const SizedBox(height: 16),
+              Text(
+                'Loading recap deck.',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
+          ),
         ),
       );
     }
 
     if (recap == null) {
-      return Card(
-        child: Padding(
-          padding: const EdgeInsets.all(22),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Recap unavailable',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                state.errorMessage ??
-                    'The recap link may be invalid or the server no longer has this snapshot.',
-              ),
-            ],
-          ),
+      return AppPanel(
+        accentColor: const Color(0xFF9B3445),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Recap unavailable',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              state.errorMessage ??
+                  'The recap link may be invalid or the server no longer has this snapshot.',
+            ),
+          ],
         ),
       );
     }
@@ -252,151 +266,145 @@ class _RecapBody extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(22),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  recap.roomName ?? 'Session recap',
-                  style: Theme.of(context).textTheme.displayLarge,
-                ),
-                const SizedBox(height: 8),
+        AppPanel(
+          accentColor: palette.primary,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: <Widget>[
+                  _InfoChip(
+                    label: recap.providerId.toUpperCase(),
+                    color: palette.primary,
+                  ),
+                  if ((recap.surfaceName ?? '').isNotEmpty)
+                    _InfoChip(
+                      label: recap.surfaceName!,
+                      color: palette.secondary,
+                    ),
+                  _InfoChip(
+                    label: 'Slide ${slideIndex + 1} / ${recap.slides.length}',
+                    color: palette.highlight,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 18),
+              Text(
+                recap.roomName ?? 'Session recap',
+                style: Theme.of(context).textTheme.displayLarge,
+              ),
+              const SizedBox(height: 18),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: FilledButton(
+                      onPressed: onShare,
+                      child: const Text('Share recap'),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: FilledButton.tonal(
+                      onPressed: onStartRematch,
+                      child: const Text('Start rematch'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 14),
+        AppPanel(
+          accentColor: palette.highlight,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              AppBadge(
+                label: slide.eyebrow,
+                icon: Icons.insights_rounded,
+                color: palette.highlight,
+              ),
+              const SizedBox(height: 12),
+              Text(
+                slide.title,
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              const SizedBox(height: 10),
+              Text(slide.description),
+              if (slide.stats.isNotEmpty) ...<Widget>[
+                const SizedBox(height: 18),
                 Wrap(
                   spacing: 10,
                   runSpacing: 10,
-                  children: <Widget>[
-                    _InfoChip(label: recap.providerId.toUpperCase()),
-                    if ((recap.surfaceName ?? '').isNotEmpty)
-                      _InfoChip(label: recap.surfaceName!),
-                    _InfoChip(
-                        label:
-                            'Slide ${slideIndex + 1} / ${recap.slides.length}'),
-                  ],
+                  children: slide.stats
+                      .map(
+                        (RecapStat stat) => _InfoChip(
+                          label: '${stat.label}: ${stat.value}',
+                          color: palette.primary,
+                        ),
+                      )
+                      .toList(growable: false),
                 ),
+              ],
+              if (slide.featuredClimb != null) ...<Widget>[
                 const SizedBox(height: 18),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: FilledButton(
-                        onPressed: onShare,
-                        child: const Text('Share recap'),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: FilledButton.tonal(
-                        onPressed: onStartRematch,
-                        child: const Text('Start rematch'),
-                      ),
-                    ),
-                  ],
+                _RecapClimbTile(
+                  label: 'Featured climb',
+                  climb: slide.featuredClimb!,
                 ),
               ],
-            ),
+              if (slide.climbs.isNotEmpty) ...<Widget>[
+                const SizedBox(height: 12),
+                ...slide.climbs.map(
+                  (SessionSummaryClimb item) => _RecapClimbTile(
+                    climb: item.climb,
+                    detail: [
+                      if ((item.voteCount ?? 0) > 0)
+                        '${item.voteCount} fist bump${item.voteCount == 1 ? '' : 's'}',
+                      if ((item.status ?? '').isNotEmpty) item.status!,
+                    ].join(' · '),
+                  ),
+                ),
+              ],
+              if (slide.participants.isNotEmpty) ...<Widget>[
+                const SizedBox(height: 12),
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  children: slide.participants
+                      .map(
+                        (String name) =>
+                            _InfoChip(label: name, color: palette.secondary),
+                      )
+                      .toList(growable: false),
+                ),
+              ],
+            ],
           ),
         ),
         const SizedBox(height: 14),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(22),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  slide.eyebrow,
-                  style: Theme.of(context).textTheme.bodySmall,
+        AppPanel(
+          accentColor: palette.secondary,
+          padding: const EdgeInsets.all(18),
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: FilledButton.tonal(
+                  onPressed: onPrevious,
+                  child: const Text('Previous'),
                 ),
-                const SizedBox(height: 6),
-                Text(
-                  slide.title,
-                  style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: FilledButton(
+                  onPressed: onNext,
+                  child: const Text('Next'),
                 ),
-                const SizedBox(height: 10),
-                Text(slide.description),
-                if (slide.stats.isNotEmpty) ...<Widget>[
-                  const SizedBox(height: 18),
-                  Wrap(
-                    spacing: 10,
-                    runSpacing: 10,
-                    children: slide.stats
-                        .map(
-                          (RecapStat stat) =>
-                              _InfoChip(label: '${stat.label}: ${stat.value}'),
-                        )
-                        .toList(growable: false),
-                  ),
-                ],
-                if (slide.featuredClimb != null) ...<Widget>[
-                  const SizedBox(height: 18),
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text(slide.featuredClimb!.name),
-                    subtitle: Text(
-                      [
-                        if ((slide.featuredClimb!.primaryGrade ?? '')
-                            .isNotEmpty)
-                          slide.featuredClimb!.primaryGrade!,
-                        if ((slide.featuredClimb!.setterName ?? '').isNotEmpty)
-                          slide.featuredClimb!.setterName!,
-                      ].join(' · '),
-                    ),
-                  ),
-                ],
-                if (slide.climbs.isNotEmpty) ...<Widget>[
-                  const SizedBox(height: 12),
-                  ...slide.climbs.map(
-                    (SessionSummaryClimb item) => ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      title: Text(item.climb.name),
-                      subtitle: Text(
-                        [
-                          if ((item.climb.primaryGrade ?? '').isNotEmpty)
-                            item.climb.primaryGrade!,
-                          if ((item.voteCount ?? 0) > 0)
-                            '${item.voteCount} fist bump${item.voteCount == 1 ? '' : 's'}',
-                          if ((item.status ?? '').isNotEmpty) item.status!,
-                        ].join(' · '),
-                      ),
-                    ),
-                  ),
-                ],
-                if (slide.participants.isNotEmpty) ...<Widget>[
-                  const SizedBox(height: 12),
-                  Wrap(
-                    spacing: 10,
-                    runSpacing: 10,
-                    children: slide.participants
-                        .map((String name) => _InfoChip(label: name))
-                        .toList(growable: false),
-                  ),
-                ],
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 14),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(18),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: FilledButton.tonal(
-                    onPressed: onPrevious,
-                    child: const Text('Previous'),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: FilledButton(
-                    onPressed: onNext,
-                    child: const Text('Next'),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         if (feedbackVisible) ...<Widget>[
@@ -417,20 +425,72 @@ class _RecapBody extends StatelessWidget {
 class _InfoChip extends StatelessWidget {
   const _InfoChip({
     required this.label,
+    this.color,
   });
 
   final String label;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF5F5F5),
-        borderRadius: BorderRadius.zero,
-        border: Border.all(color: const Color(0xFFD4D4D4)),
+    return AppBadge(label: label, color: color);
+  }
+}
+
+class _RecapClimbTile extends StatelessWidget {
+  const _RecapClimbTile({
+    required this.climb,
+    this.label,
+    this.detail,
+  });
+
+  final ProviderClimb climb;
+  final String? label;
+  final String? detail;
+
+  @override
+  Widget build(BuildContext context) {
+    final KilterPalette palette = kilterPaletteOf(context);
+
+    final String subtitle = <String>[
+      if ((climb.primaryGrade ?? '').isNotEmpty) climb.primaryGrade!,
+      if ((climb.setterName ?? '').isNotEmpty) climb.setterName!,
+      if ((detail ?? '').trim().isNotEmpty) detail!.trim(),
+    ].join(' · ');
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: palette.panel.withValues(alpha: 0.9),
+          borderRadius: BorderRadius.circular(22),
+          border: Border.all(color: palette.stroke),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              if ((label ?? '').trim().isNotEmpty) ...<Widget>[
+                AppBadge(
+                  label: label!.trim(),
+                  icon: Icons.workspace_premium_outlined,
+                  color: palette.highlight,
+                ),
+                const SizedBox(height: 10),
+              ],
+              Text(
+                climb.name,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              if (subtitle.isNotEmpty) ...<Widget>[
+                const SizedBox(height: 6),
+                Text(subtitle),
+              ],
+            ],
+          ),
+        ),
       ),
-      child: Text(label),
     );
   }
 }

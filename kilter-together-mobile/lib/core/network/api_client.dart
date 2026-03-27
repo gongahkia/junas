@@ -21,12 +21,16 @@ class ApiFailure implements Exception {
       final String? message = payload['error'] as String?;
       final String? code = payload['code'] as String?;
       return ApiFailure(
-        message: message?.trim().isNotEmpty == true ? message!.trim() : error.message ?? 'Request failed.',
+        message: message?.trim().isNotEmpty == true
+            ? message!.trim()
+            : error.message ?? 'Request failed.',
         statusCode: response?.statusCode,
         code: code,
       );
     }
-    return ApiFailure(message: error.message ?? 'Request failed.', statusCode: response?.statusCode);
+    return ApiFailure(
+        message: error.message ?? 'Request failed.',
+        statusCode: response?.statusCode);
   }
   @override
   String toString() => message;
@@ -44,25 +48,41 @@ class ApiClient {
       headers: const <String, String>{'Accept': 'application/json'},
     ));
   }
+
   Never _throwFailure(DioException error) => throw ApiFailure.fromDio(error);
-  Map<String, dynamic> _mapPayload(dynamic data) => (data as Map<String, dynamic>?) ?? <String, dynamic>{};
+  Map<String, dynamic> _mapPayload(dynamic data) =>
+      (data as Map<String, dynamic>?) ?? <String, dynamic>{};
 
   Future<List<ProviderCapability>> getProviderCapabilities(Uri server) async {
     try {
-      final Response<dynamic> response = await _clientFor(server).get<dynamic>('providers/capabilities');
+      final Response<dynamic> response =
+          await _clientFor(server).get<dynamic>('providers/capabilities');
       final Map<String, dynamic> payload = _mapPayload(response.data);
-      final List<dynamic> rawProviders = (payload['providers'] as List<dynamic>?) ?? <dynamic>[];
-      return rawProviders.whereType<Map<String, dynamic>>().map(ProviderCapability.fromJson).toList(growable: false);
-    } on DioException catch (error) { _throwFailure(error); }
+      final List<dynamic> rawProviders =
+          (payload['providers'] as List<dynamic>?) ?? <dynamic>[];
+      return rawProviders
+          .whereType<Map<String, dynamic>>()
+          .map(ProviderCapability.fromJson)
+          .toList(growable: false);
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
   }
 
   Future<List<BoardOption>> getBoards(Uri server) async {
     try {
-      final Response<dynamic> response = await _clientFor(server).get<dynamic>('boards');
+      final Response<dynamic> response =
+          await _clientFor(server).get<dynamic>('boards');
       final Map<String, dynamic> payload = _mapPayload(response.data);
-      final List<dynamic> rawBoards = (payload['boards'] as List<dynamic>?) ?? <dynamic>[];
-      return rawBoards.whereType<Map<String, dynamic>>().map(BoardOption.fromJson).toList(growable: false);
-    } on DioException catch (error) { _throwFailure(error); }
+      final List<dynamic> rawBoards =
+          (payload['boards'] as List<dynamic>?) ?? <dynamic>[];
+      return rawBoards
+          .whereType<Map<String, dynamic>>()
+          .map(BoardOption.fromJson)
+          .toList(growable: false);
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
   }
 
   Future<PaginatedBoardClimbsResponse> getPaginatedClimbs({
@@ -82,20 +102,33 @@ class ApiClient {
       final Response<dynamic> response = await _clientFor(server).get<dynamic>(
         'climbs',
         queryParameters: <String, dynamic>{
-          'board_id': boardId, 'angle': angle, 'page_size': pageSize,
-          'cursor': cursor, 'name': name, 'setter': setter, 'grade': grade,
-          'grade_min': gradeMin, 'grade_max': gradeMax, 'sort': sort,
+          'board_id': boardId,
+          'angle': angle,
+          'page_size': pageSize,
+          'cursor': cursor,
+          'name': name,
+          'setter': setter,
+          'grade': grade,
+          'grade_min': gradeMin,
+          'grade_max': gradeMax,
+          'sort': sort,
         },
       );
       return PaginatedBoardClimbsResponse.fromJson(_mapPayload(response.data));
-    } on DioException catch (error) { _throwFailure(error); }
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
   }
 
-  Future<CatalogManifest> getKilterCatalogManifest({required Uri server}) async {
+  Future<CatalogManifest> getKilterCatalogManifest(
+      {required Uri server}) async {
     try {
-      final Response<dynamic> response = await _clientFor(server).get<dynamic>('catalog/kilter/manifest');
+      final Response<dynamic> response =
+          await _clientFor(server).get<dynamic>('catalog/kilter/manifest');
       return CatalogManifest.fromJson(_mapPayload(response.data));
-    } on DioException catch (error) { _throwFailure(error); }
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
   }
 
   Future<CatalogBootstrapResponse> getKilterCatalogBootstrap({
@@ -106,21 +139,32 @@ class ApiClient {
     try {
       final Response<dynamic> response = await _clientFor(server).get<dynamic>(
         'catalog/kilter/bootstrap',
-        queryParameters: <String, dynamic>{'cursor': cursor, 'page_size': pageSize},
+        queryParameters: <String, dynamic>{
+          'cursor': cursor,
+          'page_size': pageSize
+        },
       );
       final Map<String, dynamic> payload = _mapPayload(response.data);
       return CatalogBootstrapResponse(
-        manifest: CatalogManifest.fromJson((payload['manifest'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
+        manifest: CatalogManifest.fromJson(
+            (payload['manifest'] as Map<String, dynamic>?) ??
+                <String, dynamic>{}),
         boards: ((payload['boards'] as List<dynamic>?) ?? <dynamic>[])
-            .whereType<Map<String, dynamic>>().map(BoardOption.fromJson).toList(growable: false),
+            .whereType<Map<String, dynamic>>()
+            .map(BoardOption.fromJson)
+            .toList(growable: false),
         climbs: ((payload['climbs'] as List<dynamic>?) ?? <dynamic>[])
-            .whereType<Map<String, dynamic>>().map(CatalogClimb.fromJson).toList(growable: false),
+            .whereType<Map<String, dynamic>>()
+            .map(CatalogClimb.fromJson)
+            .toList(growable: false),
         hasMore: payload['has_more'] as bool? ?? false,
         pageSize: (payload['page_size'] as num?)?.toInt() ?? pageSize,
         syncToken: payload['sync_token'] as String?,
         nextCursor: payload['next_cursor'] as String?,
       );
-    } on DioException catch (error) { _throwFailure(error); }
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
   }
 
   Future<CatalogDeltaResponse> getKilterCatalogDelta({
@@ -134,27 +178,38 @@ class ApiClient {
       );
       final Map<String, dynamic> payload = _mapPayload(response.data);
       return CatalogDeltaResponse(
-        manifest: CatalogManifest.fromJson((payload['manifest'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
+        manifest: CatalogManifest.fromJson(
+            (payload['manifest'] as Map<String, dynamic>?) ??
+                <String, dynamic>{}),
         climbs: ((payload['climbs'] as List<dynamic>?) ?? <dynamic>[])
-            .whereType<Map<String, dynamic>>().map(CatalogClimb.fromJson).toList(growable: false),
+            .whereType<Map<String, dynamic>>()
+            .map(CatalogClimb.fromJson)
+            .toList(growable: false),
         requiresFullResync: payload['requires_full_resync'] as bool? ?? false,
         nextToken: payload['next_token'] as String?,
       );
-    } on DioException catch (error) { _throwFailure(error); }
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
   }
 
-  Future<List<int>> downloadImageBytes({required Uri server, required String filename}) async {
+  Future<List<int>> downloadImageBytes(
+      {required Uri server, required String filename}) async {
     try {
-      final Response<List<int>> response = await _clientFor(server).get<List<int>>(
+      final Response<List<int>> response =
+          await _clientFor(server).get<List<int>>(
         'images/${Uri.encodeComponent(filename.contains('/') ? filename.split('/').last : filename)}',
         options: Options(responseType: ResponseType.bytes),
       );
       return response.data ?? const <int>[];
-    } on DioException catch (error) { _throwFailure(error); }
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
   }
 
   String getImageUrl({required Uri server, required String filename}) {
-    final String baseName = filename.contains('/') ? filename.split('/').last : filename;
+    final String baseName =
+        filename.contains('/') ? filename.split('/').last : filename;
     return server.resolve('/api/').resolve('images/$baseName').toString();
   }
 
@@ -181,8 +236,12 @@ class ApiClient {
       );
       final Map<String, dynamic> payload = _mapPayload(response.data);
       return ((payload['surfaces'] as List<dynamic>?) ?? <dynamic>[])
-          .whereType<Map<String, dynamic>>().map(ProviderSurface.fromJson).toList(growable: false);
-    } on DioException catch (error) { _throwFailure(error); }
+          .whereType<Map<String, dynamic>>()
+          .map(ProviderSurface.fromJson)
+          .toList(growable: false);
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
   }
 
   Future<ProviderCatalogClimbsResponse> getSoloProviderClimbs({
@@ -202,13 +261,21 @@ class ApiClient {
       final Response<dynamic> response = await _clientFor(server).post<dynamic>(
         'solo/providers/$providerId/climbs',
         data: <String, dynamic>{
-          'secret': secret, 'surface_id': surfaceId, 'context': context,
-          'q': q, 'sort': sort, 'cursor': cursor, 'grade_min': gradeMin,
-          'grade_max': gradeMax, 'page_size': pageSize,
+          'secret': secret,
+          'surface_id': surfaceId,
+          'context': context,
+          'q': q,
+          'sort': sort,
+          'cursor': cursor,
+          'grade_min': gradeMin,
+          'grade_max': gradeMax,
+          'page_size': pageSize,
         },
       );
       return ProviderCatalogClimbsResponse.fromJson(_mapPayload(response.data));
-    } on DioException catch (error) { _throwFailure(error); }
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
   }
 
   Future<ProviderCatalogClimbResponse> getSoloProviderClimb({
@@ -222,10 +289,16 @@ class ApiClient {
     try {
       final Response<dynamic> response = await _clientFor(server).post<dynamic>(
         'solo/providers/$providerId/climbs/${Uri.encodeComponent(climbId)}',
-        data: <String, dynamic>{'secret': secret, 'surface_id': surfaceId, 'context': context},
+        data: <String, dynamic>{
+          'secret': secret,
+          'surface_id': surfaceId,
+          'context': context
+        },
       );
       return ProviderCatalogClimbResponse.fromJson(_mapPayload(response.data));
-    } on DioException catch (error) { _throwFailure(error); }
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
   }
 
   Future<SoloPlanSnapshot> createSoloPlan({
@@ -244,21 +317,33 @@ class ApiClient {
       final Response<dynamic> response = await _clientFor(server).post<dynamic>(
         'solo/plans',
         data: <String, dynamic>{
-          'provider_id': providerId, 'title': title, 'notes': notes,
-          'surface': surface.toJson(), 'context': context, 'filters': filters,
-          'climbs': climbs.map((ProviderClimb item) => item.toJson()).toList(growable: false),
-          'open_path': openPath, 'created_by': createdBy,
+          'provider_id': providerId,
+          'title': title,
+          'notes': notes,
+          'surface': surface.toJson(),
+          'context': context,
+          'filters': filters,
+          'climbs': climbs
+              .map((ProviderClimb item) => item.toJson())
+              .toList(growable: false),
+          'open_path': openPath,
+          'created_by': createdBy,
         },
       );
       return SoloPlanSnapshot.fromJson(_mapPayload(response.data));
-    } on DioException catch (error) { _throwFailure(error); }
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
   }
 
-  Future<SoloPlanSnapshot> getSoloPlan({required Uri server, required String shareId}) async {
+  Future<SoloPlanSnapshot> getSoloPlan(
+      {required Uri server, required String shareId}) async {
     try {
       final Response<dynamic> response = await _clientFor(server)
           .get<dynamic>('solo/plans/${Uri.encodeComponent(shareId)}');
       return SoloPlanSnapshot.fromJson(_mapPayload(response.data));
-    } on DioException catch (error) { _throwFailure(error); }
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
   }
 }

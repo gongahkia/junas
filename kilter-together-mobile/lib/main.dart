@@ -11,15 +11,32 @@ final Provider<FlutterLocalNotificationsPlugin> localNotificationsProvider =
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final FlutterLocalNotificationsPlugin notifications = FlutterLocalNotificationsPlugin();
-  const AndroidInitializationSettings android = AndroidInitializationSettings('@mipmap/ic_launcher');
-  const DarwinInitializationSettings ios = DarwinInitializationSettings();
-  const InitializationSettings settings = InitializationSettings(android: android, iOS: ios);
+  final FlutterLocalNotificationsPlugin notifications =
+      await _createLocalNotificationsPlugin();
+
+  runApp(
+    ProviderScope(
+      overrides: <Override>[
+        localNotificationsProvider.overrideWithValue(notifications),
+      ],
+      child: const KilterTogetherApp(),
+    ),
+  );
+}
+
+Future<FlutterLocalNotificationsPlugin>
+    _createLocalNotificationsPlugin() async {
+  final FlutterLocalNotificationsPlugin notifications =
+      FlutterLocalNotificationsPlugin();
+  const AndroidInitializationSettings androidInitializationSettings =
+      AndroidInitializationSettings('@mipmap/ic_launcher');
+  const DarwinInitializationSettings iosInitializationSettings =
+      DarwinInitializationSettings();
+  const InitializationSettings settings = InitializationSettings(
+    android: androidInitializationSettings,
+    iOS: iosInitializationSettings,
+  );
+
   await notifications.initialize(settings);
-  runApp(ProviderScope(
-    overrides: <Override>[
-      localNotificationsProvider.overrideWithValue(notifications),
-    ],
-    child: const KilterTogetherApp(),
-  ));
+  return notifications;
 }

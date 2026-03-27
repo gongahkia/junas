@@ -21,7 +21,8 @@ import '../../../core/storage/climb_log_repository.dart';
 import '../../../core/storage/offline_kilter_catalog_repository.dart';
 import '../application/solo_board_controller.dart';
 
-final _loggedClimbIdsProvider = FutureProvider.autoDispose<Set<String>>((Ref ref) {
+final _loggedClimbIdsProvider =
+    FutureProvider.autoDispose<Set<String>>((Ref ref) {
   return ref.read(climbLogRepositoryProvider).loggedClimbIds();
 });
 
@@ -682,7 +683,8 @@ class _FiltersCard extends StatelessWidget {
                 Expanded(
                   child: TextField(
                     controller: gradeMinController,
-                    decoration: const InputDecoration(labelText: 'Grade min', hintText: 'V3'),
+                    decoration: const InputDecoration(
+                        labelText: 'Grade min', hintText: 'V3'),
                     textInputAction: TextInputAction.next,
                   ),
                 ),
@@ -690,7 +692,8 @@ class _FiltersCard extends StatelessWidget {
                 Expanded(
                   child: TextField(
                     controller: gradeMaxController,
-                    decoration: const InputDecoration(labelText: 'Grade max', hintText: 'V8'),
+                    decoration: const InputDecoration(
+                        labelText: 'Grade max', hintText: 'V8'),
                     textInputAction: TextInputAction.search,
                     onSubmitted: (_) => onApply(),
                   ),
@@ -973,8 +976,7 @@ class _ClimbCatalogCard extends StatelessWidget {
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                 ),
-                if (state.pageLoading)
-                  ClimbingLoader(size: 18),
+                if (state.pageLoading) ClimbingLoader(size: 18),
               ],
             ),
             const SizedBox(height: 8),
@@ -986,113 +988,113 @@ class _ClimbCatalogCard extends StatelessWidget {
               const Text('No climbs matched the current filters.')
             else
               Column(
-                children: state.climbs
-                    .map(
-                      (BoardClimb climb) {
-                        final bool isMultiSelected =
-                            selectedClimbIds.contains(climb.uuid);
-                        final bool isLogged = loggedClimbIds.contains(climb.uuid);
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: InkWell(
-                            borderRadius: BorderRadius.zero,
-                            onTap: selectedClimbIds.isNotEmpty
-                                ? () => onLongPressClimb(climb)
-                                : () => onSelectClimb(climb),
-                            onLongPress: () => onLongPressClimb(climb),
-                            child: Stack(
-                              children: <Widget>[
-                                Ink(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.zero,
-                                    border: Border.all(
-                                      color: isMultiSelected
+                children: state.climbs.map(
+                  (BoardClimb climb) {
+                    final bool isMultiSelected =
+                        selectedClimbIds.contains(climb.uuid);
+                    final bool isLogged = loggedClimbIds.contains(climb.uuid);
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: InkWell(
+                        borderRadius: BorderRadius.zero,
+                        onTap: selectedClimbIds.isNotEmpty
+                            ? () => onLongPressClimb(climb)
+                            : () => onSelectClimb(climb),
+                        onLongPress: () => onLongPressClimb(climb),
+                        child: Stack(
+                          children: <Widget>[
+                            Ink(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.zero,
+                                border: Border.all(
+                                  color: isMultiSelected
+                                      ? const Color(0xFF1A1A1A)
+                                      : state.selectedClimb?.uuid == climb.uuid
                                           ? const Color(0xFF1A1A1A)
-                                          : state.selectedClimb?.uuid ==
-                                                  climb.uuid
-                                              ? const Color(0xFF1A1A1A)
-                                              : const Color(0xFFE2E8F0),
-                                      width: isMultiSelected ||
-                                              state.selectedClimb?.uuid ==
-                                                  climb.uuid
-                                          ? 1.4
-                                          : 1,
-                                    ),
-                                    color: isMultiSelected
-                                        ? const Color(0xFFF0F0F0)
-                                        : state.selectedClimb?.uuid ==
-                                                climb.uuid
-                                            ? const Color(0xFFF5F5F5)
-                                            : Colors.white,
-                                  ),
-                                  padding: const EdgeInsets.all(16),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              climb.climbName,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge,
-                                            ),
-                                            const SizedBox(height: 4),
-                                            Text(climb.setterName),
-                                            const SizedBox(height: 4),
-                                            Text(
-                                              [
-                                                if ((climb.gradeForAngle(
-                                                            state.angle) ??
-                                                        '')
-                                                    .isNotEmpty)
-                                                  climb.gradeForAngle(
-                                                      state.angle)!,
-                                                '${climb.ascends} ascends',
-                                              ].join(' · '),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall,
-                                            ),
-                                            if (isLogged) ...<Widget>[
-                                              const SizedBox(height: 6),
-                                              Container(
-                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                                decoration: BoxDecoration(
-                                                  color: const Color(0xFFE8F5E9),
-                                                  borderRadius: BorderRadius.zero,
-                                                ),
-                                                child: const Text('Logged', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Color(0xFF2E7D32))),
-                                              ),
-                                            ],
-                                          ],
-                                        ),
-                                      ),
-                                      const Icon(Icons.chevron_right),
-                                    ],
-                                  ),
+                                          : const Color(0xFFE2E8F0),
+                                  width: isMultiSelected ||
+                                          state.selectedClimb?.uuid ==
+                                              climb.uuid
+                                      ? 1.4
+                                      : 1,
                                 ),
-                                if (selectedClimbIds.isNotEmpty)
-                                  Positioned(
-                                    top: 8,
-                                    right: 8,
-                                    child: Icon(
-                                      isMultiSelected
-                                          ? Icons.check_box
-                                          : Icons.check_box_outline_blank,
-                                      size: 22,
-                                      color: const Color(0xFF1A1A1A),
+                                color: isMultiSelected
+                                    ? const Color(0xFFF0F0F0)
+                                    : state.selectedClimb?.uuid == climb.uuid
+                                        ? const Color(0xFFF5F5F5)
+                                        : Colors.white,
+                              ),
+                              padding: const EdgeInsets.all(16),
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          climb.climbName,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge,
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(climb.setterName),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          [
+                                            if ((climb.gradeForAngle(
+                                                        state.angle) ??
+                                                    '')
+                                                .isNotEmpty)
+                                              climb.gradeForAngle(state.angle)!,
+                                            '${climb.ascends} ascends',
+                                          ].join(' · '),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall,
+                                        ),
+                                        if (isLogged) ...<Widget>[
+                                          const SizedBox(height: 6),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8, vertical: 2),
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xFFE8F5E9),
+                                              borderRadius: BorderRadius.zero,
+                                            ),
+                                            child: const Text('Logged',
+                                                style: TextStyle(
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Color(0xFF2E7D32))),
+                                          ),
+                                        ],
+                                      ],
                                     ),
                                   ),
-                              ],
+                                  const Icon(Icons.chevron_right),
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    )
-                    .toList(growable: false),
+                            if (selectedClimbIds.isNotEmpty)
+                              Positioned(
+                                top: 8,
+                                right: 8,
+                                child: Icon(
+                                  isMultiSelected
+                                      ? Icons.check_box
+                                      : Icons.check_box_outline_blank,
+                                  size: 22,
+                                  color: const Color(0xFF1A1A1A),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ).toList(growable: false),
               ),
             if (selectedClimbIds.isNotEmpty) ...<Widget>[
               const SizedBox(height: 10),

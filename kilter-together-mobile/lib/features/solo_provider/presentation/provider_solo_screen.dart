@@ -779,7 +779,8 @@ class _CatalogCard extends StatelessWidget {
                 Expanded(
                   child: TextField(
                     controller: gradeMinController,
-                    decoration: const InputDecoration(labelText: 'Grade min', hintText: 'V3'),
+                    decoration: const InputDecoration(
+                        labelText: 'Grade min', hintText: 'V3'),
                     textInputAction: TextInputAction.next,
                   ),
                 ),
@@ -787,7 +788,8 @@ class _CatalogCard extends StatelessWidget {
                 Expanded(
                   child: TextField(
                     controller: gradeMaxController,
-                    decoration: const InputDecoration(labelText: 'Grade max', hintText: 'V8'),
+                    decoration: const InputDecoration(
+                        labelText: 'Grade max', hintText: 'V8'),
                     textInputAction: TextInputAction.search,
                     onSubmitted: (_) => onApplyQuery(),
                   ),
@@ -811,119 +813,130 @@ class _CatalogCard extends StatelessWidget {
               const Text('No climbs match the current provider filters.')
             else
               Column(
-                children: state.climbs
-                    .map(
-                      (ProviderClimb climb) {
-                        final bool isMultiSelected =
-                            selectedClimbIds.contains(climb.id);
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: InkWell(
-                            borderRadius: BorderRadius.zero,
-                            onTap: selectedClimbIds.isNotEmpty
-                                ? () => onLongPressClimb(climb)
-                                : () => onSelectClimb(climb),
-                            onLongPress: () => onLongPressClimb(climb),
-                            child: Stack(
-                              children: <Widget>[
-                                Ink(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.zero,
-                                    border: Border.all(
-                                      color: isMultiSelected
+                children: state.climbs.map(
+                  (ProviderClimb climb) {
+                    final bool isMultiSelected =
+                        selectedClimbIds.contains(climb.id);
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: InkWell(
+                        borderRadius: BorderRadius.zero,
+                        onTap: selectedClimbIds.isNotEmpty
+                            ? () => onLongPressClimb(climb)
+                            : () => onSelectClimb(climb),
+                        onLongPress: () => onLongPressClimb(climb),
+                        child: Stack(
+                          children: <Widget>[
+                            Ink(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.zero,
+                                border: Border.all(
+                                  color: isMultiSelected
+                                      ? const Color(0xFF1A1A1A)
+                                      : state.selectedClimb?.id == climb.id
                                           ? const Color(0xFF1A1A1A)
-                                          : state.selectedClimb?.id == climb.id
-                                              ? const Color(0xFF1A1A1A)
-                                              : const Color(0xFFE2E8F0),
-                                      width: isMultiSelected ||
-                                              state.selectedClimb?.id ==
-                                                  climb.id
-                                          ? 1.4
-                                          : 1,
-                                    ),
-                                    color: isMultiSelected
-                                        ? const Color(0xFFF0F0F0)
-                                        : state.selectedClimb?.id == climb.id
-                                            ? const Color(0xFFF5F5F5)
-                                            : Colors.white,
-                                  ),
-                                  padding: const EdgeInsets.all(16),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              climb.name,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleLarge,
-                                            ),
-                                            const SizedBox(height: 4),
-                                            Text(
-                                              [
-                                                if ((climb.primaryGrade ?? '')
-                                                    .isNotEmpty)
-                                                  climb.primaryGrade!,
-                                                if ((climb.setterName ?? '')
-                                                    .isNotEmpty)
-                                                  climb.setterName!,
-                                              ].join(' · '),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall,
-                                            ),
-                                            if (_hasClimbMeta(climb)) ...<Widget>[
-                                              const SizedBox(height: 6),
-                                              Wrap(
-                                                spacing: 8,
-                                                runSpacing: 6,
-                                                children: <Widget>[
-                                                  if ((climb.meta['color'] ?? '').isNotEmpty) _ColorDot(color: _parseClimbColor(climb.meta['color']!)),
-                                                  if ((climb.meta['hold_type'] ?? '').isNotEmpty) _InfoChip(label: climb.meta['hold_type']!),
-                                                  if ((climb.meta['foot_rule'] ?? '').isNotEmpty) _InfoChip(label: climb.meta['foot_rule']!),
-                                                ],
-                                              ),
-                                            ],
-                                          ],
-                                        ),
-                                      ),
-                                      IconButton(
-                                        onPressed: () =>
-                                            onTogglePlannedClimb(climb),
-                                        icon: Icon(
-                                          state.plannedClimbs.any(
-                                            (ProviderClimb item) =>
-                                                item.id == climb.id,
-                                          )
-                                              ? Icons.playlist_add_check_circle
-                                              : Icons.playlist_add,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                          : const Color(0xFFE2E8F0),
+                                  width: isMultiSelected ||
+                                          state.selectedClimb?.id == climb.id
+                                      ? 1.4
+                                      : 1,
                                 ),
-                                if (selectedClimbIds.isNotEmpty)
-                                  Positioned(
-                                    top: 8,
-                                    right: 8,
-                                    child: Icon(
-                                      isMultiSelected
-                                          ? Icons.check_box
-                                          : Icons.check_box_outline_blank,
-                                      size: 22,
-                                      color: const Color(0xFF1A1A1A),
+                                color: isMultiSelected
+                                    ? const Color(0xFFF0F0F0)
+                                    : state.selectedClimb?.id == climb.id
+                                        ? const Color(0xFFF5F5F5)
+                                        : Colors.white,
+                              ),
+                              padding: const EdgeInsets.all(16),
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          climb.name,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge,
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          [
+                                            if ((climb.primaryGrade ?? '')
+                                                .isNotEmpty)
+                                              climb.primaryGrade!,
+                                            if ((climb.setterName ?? '')
+                                                .isNotEmpty)
+                                              climb.setterName!,
+                                          ].join(' · '),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall,
+                                        ),
+                                        if (_hasClimbMeta(climb)) ...<Widget>[
+                                          const SizedBox(height: 6),
+                                          Wrap(
+                                            spacing: 8,
+                                            runSpacing: 6,
+                                            children: <Widget>[
+                                              if ((climb.meta['color'] ?? '')
+                                                  .isNotEmpty)
+                                                _ColorDot(
+                                                    color: _parseClimbColor(
+                                                        climb.meta['color']!)),
+                                              if ((climb.meta['hold_type'] ??
+                                                      '')
+                                                  .isNotEmpty)
+                                                _InfoChip(
+                                                    label: climb
+                                                        .meta['hold_type']!),
+                                              if ((climb.meta['foot_rule'] ??
+                                                      '')
+                                                  .isNotEmpty)
+                                                _InfoChip(
+                                                    label: climb
+                                                        .meta['foot_rule']!),
+                                            ],
+                                          ),
+                                        ],
+                                      ],
                                     ),
                                   ),
-                              ],
+                                  IconButton(
+                                    onPressed: () =>
+                                        onTogglePlannedClimb(climb),
+                                    icon: Icon(
+                                      state.plannedClimbs.any(
+                                        (ProviderClimb item) =>
+                                            item.id == climb.id,
+                                      )
+                                          ? Icons.playlist_add_check_circle
+                                          : Icons.playlist_add,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    )
-                    .toList(growable: false),
+                            if (selectedClimbIds.isNotEmpty)
+                              Positioned(
+                                top: 8,
+                                right: 8,
+                                child: Icon(
+                                  isMultiSelected
+                                      ? Icons.check_box
+                                      : Icons.check_box_outline_blank,
+                                  size: 22,
+                                  color: const Color(0xFF1A1A1A),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ).toList(growable: false),
               ),
             if (selectedClimbIds.isNotEmpty) ...<Widget>[
               const SizedBox(height: 10),

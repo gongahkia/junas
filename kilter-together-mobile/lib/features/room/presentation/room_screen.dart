@@ -256,13 +256,13 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   Timer? _copiedInviteResetTimer;
 
   RoomRouteArgs get _args => RoomRouteArgs(
-    server: 'p2p://local',
-    slug: widget.slug,
-    role: widget.role,
-    displayName: widget.displayName,
-    hostPeerId: widget.hostPeerId,
-    hostPeerName: widget.hostPeerName,
-  );
+        server: 'p2p://local',
+        slug: widget.slug,
+        role: widget.role,
+        displayName: widget.displayName,
+        hostPeerId: widget.hostPeerId,
+        hostPeerName: widget.hostPeerName,
+      );
 
   @override
   void initState() {
@@ -558,9 +558,11 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
           room.permissions.closeRoom) {
         unawaited(_maybeShowCloseFeedback(room));
       }
-      if (!_firstActionHintDismissed && room != null) { // fr-r5 auto-dismiss
+      if (!_firstActionHintDismissed && room != null) {
+        // fr-r5 auto-dismiss
         if (next.room?.myVotes.isNotEmpty == true ||
-            (next.room?.queue.length ?? 0) > (previous?.room?.queue.length ?? 0)) {
+            (next.room?.queue.length ?? 0) >
+                (previous?.room?.queue.length ?? 0)) {
           setState(() {
             _firstActionHintDismissed = true;
           });
@@ -680,14 +682,17 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                         builder: (BuildContext dialogContext) {
                           return AlertDialog(
                             title: const Text('Change surface?'),
-                            content: const Text('This resets the catalog view for all participants.'),
+                            content: const Text(
+                                'This resets the catalog view for all participants.'),
                             actions: <Widget>[
                               TextButton(
-                                onPressed: () => Navigator.of(dialogContext).pop(false),
+                                onPressed: () =>
+                                    Navigator.of(dialogContext).pop(false),
                                 child: const Text('Cancel'),
                               ),
                               FilledButton.tonal(
-                                onPressed: () => Navigator.of(dialogContext).pop(true),
+                                onPressed: () =>
+                                    Navigator.of(dialogContext).pop(true),
                                 child: const Text('Change'),
                               ),
                             ],
@@ -727,283 +732,292 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
         if (!didPop) _showLeaveDialog();
       },
       child: GradientScaffold(
-      title: room.roomName ?? 'Room ${room.slug}',
-      subtitle: 'P2P session',
-      actions: <Widget>[
-        IconButton(
-          onPressed: () => unawaited(_openGuide(room)),
-          icon: const Icon(Icons.help_outline),
-        ),
-        IconButton(
-          onPressed: roomState.refreshing
-              ? null
-              : () => unawaited(controller.refresh()),
-          icon: Icon(roomState.refreshing ? Icons.sync : Icons.refresh),
-        ),
-        IconButton(
-          onPressed: _shareBusy || !shareReadiness.isReady
-              ? null
-              : () => unawaited(
-                  _shareInvite(inviteUri, room.roomName ?? room.slug)),
-          icon: const Icon(Icons.ios_share),
-        ),
-      ],
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          if (roomState.errorMessage != null) ...<Widget>[
-            _MessageCard(
-              title: 'Action blocked',
-              message: roomState.errorMessage!,
-              accent: const Color(0xFF404040),
-            ),
-            const SizedBox(height: 14),
-          ],
-          if (roomState.notice != null) ...<Widget>[
-            _MessageCard(
-              title: 'Updated',
-              message: roomState.notice!,
-              accent: const Color(0xFF1A1A1A),
-            ),
-            const SizedBox(height: 14),
-          ],
-          if (_showCloseFeedback) ...<Widget>[
-            FeedbackPromptCard(
-              title: 'How did closing the room feel?',
-              description:
-                  'A quick signal helps tune the room wrap-up flow before more post-session UI gets added.',
-              onDismiss: () => unawaited(_dismissCloseFeedback()),
-              onSubmit: (String sentiment, String? message) async {
-                await _dismissCloseFeedback();
-              },
-            ),
-            const SizedBox(height: 14),
-          ],
-          if (prefs.pendingRoomSeed != null &&
-              prefs.pendingRoomSeed!.providerId == room.providerId) ...<Widget>[
-            _PendingRoomSeedCard(
-              seed: prefs.pendingRoomSeed!,
-              room: room,
-              actionInFlight: roomState.actionInFlight,
-              onImport: () => unawaited(
-                  _importPendingRoomSeed(prefs.pendingRoomSeed!, room)),
-              onClear: () => unawaited(_clearPendingRoomSeed()),
-            ),
-            const SizedBox(height: 14),
-          ],
-          _OverviewCard(room: room),
-          const SizedBox(height: 14),
-          if (!_firstActionHintDismissed && !prefs.guidedTour.guestCompleted && !_viewerOwnsRoomSetup(room))
-            AnimatedSize(
-              duration: const Duration(milliseconds: 200),
-              child: ClipRect(
-                child: _FirstActionHintCard(
-                  onDismiss: () => setState(() => _firstActionHintDismissed = true),
-                ),
-              ),
-            ),
-          if (!_firstActionHintDismissed && !prefs.guidedTour.guestCompleted && !_viewerOwnsRoomSetup(room))
-            const SizedBox(height: 14),
-          _LiveSignalCard(
-            room: room,
-            roomState: roomState,
+        title: room.roomName ?? 'Room ${room.slug}',
+        subtitle: 'P2P session',
+        actions: <Widget>[
+          IconButton(
+            onPressed: () => unawaited(_openGuide(room)),
+            icon: const Icon(Icons.help_outline),
           ),
-          const SizedBox(height: 14),
-          _ShareReadinessCard(
-            room: room,
-            readiness: shareReadiness,
-            summary: shareReadinessSummary,
+          IconButton(
+            onPressed: roomState.refreshing
+                ? null
+                : () => unawaited(controller.refresh()),
+            icon: Icon(roomState.refreshing ? Icons.sync : Icons.refresh),
           ),
-          const SizedBox(height: 14),
-          if (prioritizeSurfaceSetup && surfaceCard != null) ...<Widget>[
-            surfaceCard,
-            const SizedBox(height: 14),
-          ],
-          _InviteCard(
-            inviteUri: inviteUri,
-            qrUri: webJoinUri,
-            roomSlug: room.slug,
-            joinPath: '/join/${Uri.encodeComponent(room.slug)}',
-            shareReady: shareReadiness.isReady,
-            lockedMessage: shareReadinessSummary,
-            showQr: _showQr && shareReadiness.isReady,
-            copyLabel: _inviteCopied ? 'Copied' : 'Copy invite',
-            shareLabel: _shareBusy ? 'Sharing...' : 'Share invite',
-            onToggleQr: shareReadiness.isReady
-                ? () => setState(() => _showQr = !_showQr)
-                : null,
-            onCopy: shareReadiness.isReady
-                ? () => unawaited(_copyInvite(inviteUri))
-                : null,
-            onShare: _shareBusy || !shareReadiness.isReady
+          IconButton(
+            onPressed: _shareBusy || !shareReadiness.isReady
                 ? null
                 : () => unawaited(
                     _shareInvite(inviteUri, room.roomName ?? room.slug)),
+            icon: const Icon(Icons.ios_share),
           ),
-          const SizedBox(height: 14),
-          _SelfStatusCard(
-            room: room,
-            statuses: _participantStatuses,
-            onChanged: (String? value) {
-              if (value == null) {
-                return;
-              }
-              unawaited(controller.updateMyStatus(value));
-            },
-          ),
-          const SizedBox(height: 14),
-          if (!prioritizeSurfaceSetup && surfaceCard != null) ...<Widget>[
-            surfaceCard,
-            const SizedBox(height: 14),
-          ],
-          CatalogCard(
-            roomState: roomState,
-            queryController: _catalogQueryController,
-            gradeMinController: _gradeMinController,
-            gradeMaxController: _gradeMaxController,
-            sortOptions: _catalogSorts,
-            onSearch: () => unawaited(
-              controller.loadCatalog(
-                q: _catalogQueryController.text.trim(),
-                sort: roomState.catalogSort,
-                gradeMin: _gradeMinController.text.trim(),
-                gradeMax: _gradeMaxController.text.trim(),
+        ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            if (roomState.errorMessage != null) ...<Widget>[
+              _MessageCard(
+                title: 'Action blocked',
+                message: roomState.errorMessage!,
+                accent: const Color(0xFF404040),
               ),
+              const SizedBox(height: 14),
+            ],
+            if (roomState.notice != null) ...<Widget>[
+              _MessageCard(
+                title: 'Updated',
+                message: roomState.notice!,
+                accent: const Color(0xFF1A1A1A),
+              ),
+              const SizedBox(height: 14),
+            ],
+            if (_showCloseFeedback) ...<Widget>[
+              FeedbackPromptCard(
+                title: 'How did closing the room feel?',
+                description:
+                    'A quick signal helps tune the room wrap-up flow before more post-session UI gets added.',
+                onDismiss: () => unawaited(_dismissCloseFeedback()),
+                onSubmit: (String sentiment, String? message) async {
+                  await _dismissCloseFeedback();
+                },
+              ),
+              const SizedBox(height: 14),
+            ],
+            if (prefs.pendingRoomSeed != null &&
+                prefs.pendingRoomSeed!.providerId ==
+                    room.providerId) ...<Widget>[
+              _PendingRoomSeedCard(
+                seed: prefs.pendingRoomSeed!,
+                room: room,
+                actionInFlight: roomState.actionInFlight,
+                onImport: () => unawaited(
+                    _importPendingRoomSeed(prefs.pendingRoomSeed!, room)),
+                onClear: () => unawaited(_clearPendingRoomSeed()),
+              ),
+              const SizedBox(height: 14),
+            ],
+            _OverviewCard(room: room),
+            const SizedBox(height: 14),
+            if (!_firstActionHintDismissed &&
+                !prefs.guidedTour.guestCompleted &&
+                !_viewerOwnsRoomSetup(room))
+              AnimatedSize(
+                duration: const Duration(milliseconds: 200),
+                child: ClipRect(
+                  child: _FirstActionHintCard(
+                    onDismiss: () =>
+                        setState(() => _firstActionHintDismissed = true),
+                  ),
+                ),
+              ),
+            if (!_firstActionHintDismissed &&
+                !prefs.guidedTour.guestCompleted &&
+                !_viewerOwnsRoomSetup(room))
+              const SizedBox(height: 14),
+            _LiveSignalCard(
+              room: room,
+              roomState: roomState,
             ),
-            onSortChanged: (String? value) {
-              if (value == null) {
-                return;
-              }
-              unawaited(
+            const SizedBox(height: 14),
+            _ShareReadinessCard(
+              room: room,
+              readiness: shareReadiness,
+              summary: shareReadinessSummary,
+            ),
+            const SizedBox(height: 14),
+            if (prioritizeSurfaceSetup && surfaceCard != null) ...<Widget>[
+              surfaceCard,
+              const SizedBox(height: 14),
+            ],
+            _InviteCard(
+              inviteUri: inviteUri,
+              qrUri: webJoinUri,
+              roomSlug: room.slug,
+              joinPath: '/join/${Uri.encodeComponent(room.slug)}',
+              shareReady: shareReadiness.isReady,
+              lockedMessage: shareReadinessSummary,
+              showQr: _showQr && shareReadiness.isReady,
+              copyLabel: _inviteCopied ? 'Copied' : 'Copy invite',
+              shareLabel: _shareBusy ? 'Sharing...' : 'Share invite',
+              onToggleQr: shareReadiness.isReady
+                  ? () => setState(() => _showQr = !_showQr)
+                  : null,
+              onCopy: shareReadiness.isReady
+                  ? () => unawaited(_copyInvite(inviteUri))
+                  : null,
+              onShare: _shareBusy || !shareReadiness.isReady
+                  ? null
+                  : () => unawaited(
+                      _shareInvite(inviteUri, room.roomName ?? room.slug)),
+            ),
+            const SizedBox(height: 14),
+            _SelfStatusCard(
+              room: room,
+              statuses: _participantStatuses,
+              onChanged: (String? value) {
+                if (value == null) {
+                  return;
+                }
+                unawaited(controller.updateMyStatus(value));
+              },
+            ),
+            const SizedBox(height: 14),
+            if (!prioritizeSurfaceSetup && surfaceCard != null) ...<Widget>[
+              surfaceCard,
+              const SizedBox(height: 14),
+            ],
+            CatalogCard(
+              roomState: roomState,
+              queryController: _catalogQueryController,
+              gradeMinController: _gradeMinController,
+              gradeMaxController: _gradeMaxController,
+              sortOptions: _catalogSorts,
+              onSearch: () => unawaited(
                 controller.loadCatalog(
                   q: _catalogQueryController.text.trim(),
-                  sort: value,
+                  sort: roomState.catalogSort,
                   gradeMin: _gradeMinController.text.trim(),
                   gradeMax: _gradeMaxController.text.trim(),
                 ),
-              );
-            },
-            onSelectClimb: (String climbId) =>
-                unawaited(controller.selectCatalogClimb(climbId)),
-            onLoadMore: roomState.catalogNextCursor == null
-                ? null
-                : () => unawaited(
-                      controller.loadCatalog(
-                        q: roomState.catalogQuery,
-                        sort: roomState.catalogSort,
-                        cursor: roomState.catalogNextCursor,
+              ),
+              onSortChanged: (String? value) {
+                if (value == null) {
+                  return;
+                }
+                unawaited(
+                  controller.loadCatalog(
+                    q: _catalogQueryController.text.trim(),
+                    sort: value,
+                    gradeMin: _gradeMinController.text.trim(),
+                    gradeMax: _gradeMaxController.text.trim(),
+                  ),
+                );
+              },
+              onSelectClimb: (String climbId) =>
+                  unawaited(controller.selectCatalogClimb(climbId)),
+              onLoadMore: roomState.catalogNextCursor == null
+                  ? null
+                  : () => unawaited(
+                        controller.loadCatalog(
+                          q: roomState.catalogQuery,
+                          sort: roomState.catalogSort,
+                          cursor: roomState.catalogNextCursor,
+                        ),
                       ),
-                    ),
-            onToggleVote: (String climbId) =>
-                unawaited(controller.toggleVote(climbId)),
-            onAddQueue: (String climbId) =>
-                unawaited(controller.addQueueEntry(climbId)),
-            onAddFinalist: (String climbId) =>
-                unawaited(controller.addFinalist(climbId)),
-            onPromoteCurrent: (String climbId) =>
-                unawaited(controller.promoteClimb(climbId, 'current')),
-            onPromoteNext: (String climbId) =>
-                unawaited(controller.promoteClimb(climbId, 'next')),
-          ),
-          const SizedBox(height: 14),
-          _LeaderboardCard(
-            room: room,
-            roomState: roomState,
-            onSelectClimb: (String climbId) =>
-                unawaited(controller.selectCatalogClimb(climbId)),
-            onToggleVote: (String climbId) =>
-                unawaited(controller.toggleVote(climbId)),
-          ),
-          const SizedBox(height: 14),
-          QueueCard(
-            room: room,
-            queueStatuses: _queueStatuses,
-            onMoveUp: (int entryId) =>
-                unawaited(controller.moveQueueEntry(entryId, -1)),
-            onMoveDown: (int entryId) =>
-                unawaited(controller.moveQueueEntry(entryId, 1)),
-            onDelete: (int entryId) =>
-                unawaited(controller.deleteQueueEntry(entryId)),
-            onPromoteCurrent: (String climbId) =>
-                unawaited(controller.promoteClimb(climbId, 'current')),
-            onPromoteNext: (String climbId) =>
-                unawaited(controller.promoteClimb(climbId, 'next')),
-            onStatusChanged: (int entryId, String? value) {
-              if (value == null) {
-                return;
-              }
-              unawaited(controller.addQueueStatusUpdate(entryId, value));
-            },
-            onAutoRefill: room.permissions.manageQueue &&
-                    room.queue.where((QueueEntry e) => e.status == 'queued').isEmpty &&
-                    room.voteCounts.values.any((int c) => c > 0)
-                ? () => unawaited(controller.autoRefillQueue())
-                : null,
-          ),
-          const SizedBox(height: 14),
-          FinalistsCard(
-            room: room,
-            onMoveUp: (int entryId) =>
-                unawaited(controller.moveFinalist(entryId, -1)),
-            onMoveDown: (int entryId) =>
-                unawaited(controller.moveFinalist(entryId, 1)),
-            onDelete: (int entryId) =>
-                unawaited(controller.deleteFinalist(entryId)),
-            onPickRandomFinalists: () =>
-                unawaited(controller.pickRandom('finalists')),
-            onPickRandomTopVoted: () =>
-                unawaited(controller.pickRandom('top_voted')),
-            onPromoteCurrent: (String climbId) =>
-                unawaited(controller.promoteClimb(climbId, 'current')),
-            onPromoteNext: (String climbId) =>
-                unawaited(controller.promoteClimb(climbId, 'next')),
-          ),
-          const SizedBox(height: 14),
-          ParticipantsCard(
-            room: room,
-            onRoleChanged: (int participantId, String? role) {
-              if (role == null) {
-                return;
-              }
-              unawaited(controller.updateParticipantRole(participantId, role));
-            },
-            onRemove: (int participantId) =>
-                unawaited(controller.removeParticipant(participantId)),
-          ),
-          const SizedBox(height: 14),
-          ManageRoomCard(
-            room: room,
-            roomNameController: _roomNameController,
-            assistantModes: _assistantModes,
-            busy: roomState.actionInFlight,
-            onSaveName: room.permissions.editRoomSettings
-                ? () => unawaited(
-                    controller.updateRoomName(_roomNameController.text.trim()))
-                : null,
-            onAssistantModeChanged: room.permissions.manageSession
-                ? (String? value) {
-                    if (value == null) {
-                      return;
+              onToggleVote: (String climbId) =>
+                  unawaited(controller.toggleVote(climbId)),
+              onAddQueue: (String climbId) =>
+                  unawaited(controller.addQueueEntry(climbId)),
+              onAddFinalist: (String climbId) =>
+                  unawaited(controller.addFinalist(climbId)),
+              onPromoteCurrent: (String climbId) =>
+                  unawaited(controller.promoteClimb(climbId, 'current')),
+              onPromoteNext: (String climbId) =>
+                  unawaited(controller.promoteClimb(climbId, 'next')),
+            ),
+            const SizedBox(height: 14),
+            _LeaderboardCard(
+              room: room,
+              roomState: roomState,
+              onSelectClimb: (String climbId) =>
+                  unawaited(controller.selectCatalogClimb(climbId)),
+              onToggleVote: (String climbId) =>
+                  unawaited(controller.toggleVote(climbId)),
+            ),
+            const SizedBox(height: 14),
+            QueueCard(
+              room: room,
+              queueStatuses: _queueStatuses,
+              onMoveUp: (int entryId) =>
+                  unawaited(controller.moveQueueEntry(entryId, -1)),
+              onMoveDown: (int entryId) =>
+                  unawaited(controller.moveQueueEntry(entryId, 1)),
+              onDelete: (int entryId) =>
+                  unawaited(controller.deleteQueueEntry(entryId)),
+              onPromoteCurrent: (String climbId) =>
+                  unawaited(controller.promoteClimb(climbId, 'current')),
+              onPromoteNext: (String climbId) =>
+                  unawaited(controller.promoteClimb(climbId, 'next')),
+              onStatusChanged: (int entryId, String? value) {
+                if (value == null) {
+                  return;
+                }
+                unawaited(controller.addQueueStatusUpdate(entryId, value));
+              },
+              onAutoRefill: room.permissions.manageQueue &&
+                      room.queue
+                          .where((QueueEntry e) => e.status == 'queued')
+                          .isEmpty &&
+                      room.voteCounts.values.any((int c) => c > 0)
+                  ? () => unawaited(controller.autoRefillQueue())
+                  : null,
+            ),
+            const SizedBox(height: 14),
+            FinalistsCard(
+              room: room,
+              onMoveUp: (int entryId) =>
+                  unawaited(controller.moveFinalist(entryId, -1)),
+              onMoveDown: (int entryId) =>
+                  unawaited(controller.moveFinalist(entryId, 1)),
+              onDelete: (int entryId) =>
+                  unawaited(controller.deleteFinalist(entryId)),
+              onPickRandomFinalists: () =>
+                  unawaited(controller.pickRandom('finalists')),
+              onPickRandomTopVoted: () =>
+                  unawaited(controller.pickRandom('top_voted')),
+              onPromoteCurrent: (String climbId) =>
+                  unawaited(controller.promoteClimb(climbId, 'current')),
+              onPromoteNext: (String climbId) =>
+                  unawaited(controller.promoteClimb(climbId, 'next')),
+            ),
+            const SizedBox(height: 14),
+            ParticipantsCard(
+              room: room,
+              onRoleChanged: (int participantId, String? role) {
+                if (role == null) {
+                  return;
+                }
+                unawaited(
+                    controller.updateParticipantRole(participantId, role));
+              },
+              onRemove: (int participantId) =>
+                  unawaited(controller.removeParticipant(participantId)),
+            ),
+            const SizedBox(height: 14),
+            ManageRoomCard(
+              room: room,
+              roomNameController: _roomNameController,
+              assistantModes: _assistantModes,
+              busy: roomState.actionInFlight,
+              onSaveName: room.permissions.editRoomSettings
+                  ? () => unawaited(controller
+                      .updateRoomName(_roomNameController.text.trim()))
+                  : null,
+              onAssistantModeChanged: room.permissions.manageSession
+                  ? (String? value) {
+                      if (value == null) {
+                        return;
+                      }
+                      unawaited(controller.updateAssistantMode(value));
                     }
-                    unawaited(controller.updateAssistantMode(value));
-                  }
-                : null,
-            onFistBumpsChanged: room.permissions.editRoomSettings
-                ? (bool value) =>
-                    unawaited(controller.setFistBumpsEnabled(value))
-                : null,
-            onClearVotes: room.permissions.manageSession
-                ? () => unawaited(controller.clearVotes())
-                : null,
-            onCloseRoom: room.permissions.closeRoom && room.status != 'closed'
-                ? () async {
-                    await controller.closeRoom();
-                  }
-                : null,
-          ),
-        ],
+                  : null,
+              onFistBumpsChanged: room.permissions.editRoomSettings
+                  ? (bool value) =>
+                      unawaited(controller.setFistBumpsEnabled(value))
+                  : null,
+              onClearVotes: room.permissions.manageSession
+                  ? () => unawaited(controller.clearVotes())
+                  : null,
+              onCloseRoom: room.permissions.closeRoom && room.status != 'closed'
+                  ? () async {
+                      await controller.closeRoom();
+                    }
+                  : null,
+            ),
+          ],
+        ),
       ),
-    ),
     ); // PopScope
   }
 }
@@ -1231,20 +1245,25 @@ class _OverviewCard extends StatelessWidget {
                         ? 'CONNECTED'
                         : 'AUTH REQUIRED'),
                 if (room.surface != null) RoomChip(label: room.surface!.name),
-                Container( // fr-r7 online count
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                Container(
+                  // fr-r7 online count
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: const Color(0xFFE0F7FA),
                     borderRadius: BorderRadius.zero,
                   ),
                   child: Text(
                     '${liveParticipants.length} online',
-                    style: textTheme.labelSmall?.copyWith(color: const Color(0xFF00897B)),
+                    style: textTheme.labelSmall
+                        ?.copyWith(color: const Color(0xFF00897B)),
                   ),
                 ),
                 if (liveParticipants.length <= 1 && _viewerOwnsRoomSetup(room))
-                  Container( // fr-r7 waiting chip
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  Container(
+                    // fr-r7 waiting chip
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
                       color: const Color(0xFFFFFBEB),
                       borderRadius: BorderRadius.zero,
@@ -1691,9 +1710,12 @@ class _LeaderboardCard extends StatelessWidget {
                                       _ => queueEntry.status,
                                     },
                                   ),
-                                if (isFinalist) const RoomChip(label: 'Finalist'),
-                                if (myVote) const RoomChip(label: 'Fist bumped'),
-                                if (isSelected) const RoomChip(label: 'Viewing'),
+                                if (isFinalist)
+                                  const RoomChip(label: 'Finalist'),
+                                if (myVote)
+                                  const RoomChip(label: 'Fist bumped'),
+                                if (isSelected)
+                                  const RoomChip(label: 'Viewing'),
                               ],
                             ),
                             const SizedBox(height: 12),

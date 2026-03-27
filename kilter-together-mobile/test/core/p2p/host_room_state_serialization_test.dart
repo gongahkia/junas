@@ -3,9 +3,12 @@ import 'package:kilter_together_mobile/core/models/provider_models.dart';
 import 'package:kilter_together_mobile/core/p2p/host_room_service.dart';
 
 ProviderClimb _testClimb(String id) => ProviderClimb(
-  id: id, externalId: id, providerId: 'kilter', surfaceId: 'board-1',
-  name: 'Climb $id',
-);
+      id: id,
+      externalId: id,
+      providerId: 'kilter',
+      surfaceId: 'board-1',
+      name: 'Climb $id',
+    );
 
 void main() {
   group('HostRoomState serialization', () {
@@ -48,8 +51,10 @@ void main() {
       final HostRoomService service = HostRoomService(
         state: HostRoomState(slug: 'test', providerId: 'kilter'),
       );
-      service.addQueueEntry(climbId: 'c1', addedBy: 'Alice', climb: _testClimb('c1'));
-      service.addQueueEntry(climbId: 'c2', addedBy: 'Bob', climb: _testClimb('c2'));
+      service.addQueueEntry(
+          climbId: 'c1', addedBy: 'Alice', climb: _testClimb('c1'));
+      service.addQueueEntry(
+          climbId: 'c2', addedBy: 'Bob', climb: _testClimb('c2'));
 
       final String json = service.state.serialize();
       final HostRoomState restored = HostRoomState.deserialize(json);
@@ -64,7 +69,8 @@ void main() {
       final HostRoomService service = HostRoomService(
         state: HostRoomState(slug: 'test', providerId: 'kilter'),
       );
-      service.addFinalist(climbId: 'c1', addedBy: 'Alice', climb: _testClimb('c1'));
+      service.addFinalist(
+          climbId: 'c1', addedBy: 'Alice', climb: _testClimb('c1'));
 
       final String json = service.state.serialize();
       final HostRoomState restored = HostRoomState.deserialize(json);
@@ -77,8 +83,10 @@ void main() {
       final HostRoomService service = HostRoomService(
         state: HostRoomState(slug: 'test', providerId: 'kilter'),
       );
-      final int id1 = service.addParticipant(displayName: 'Alice', role: 'host');
-      final int id2 = service.addParticipant(displayName: 'Bob', role: 'participant');
+      final int id1 =
+          service.addParticipant(displayName: 'Alice', role: 'host');
+      final int id2 =
+          service.addParticipant(displayName: 'Bob', role: 'participant');
       service.toggleVote(id1, 'c1');
       service.toggleVote(id2, 'c1');
       service.toggleVote(id2, 'c2');
@@ -97,14 +105,16 @@ void main() {
       );
       service.addParticipant(displayName: 'Alice', role: 'host');
       service.addParticipant(displayName: 'Bob', role: 'participant');
-      service.addQueueEntry(climbId: 'c1', addedBy: 'A', climb: _testClimb('c1'));
+      service.addQueueEntry(
+          climbId: 'c1', addedBy: 'A', climb: _testClimb('c1'));
       service.addFinalist(climbId: 'f1', addedBy: 'A', climb: _testClimb('f1'));
 
       final String json = service.state.serialize();
       final HostRoomState restored = HostRoomState.deserialize(json);
       // Next IDs should continue from where they left off
       final HostRoomService restoredService = HostRoomService(state: restored);
-      final int nextId = restoredService.addParticipant(displayName: 'Charlie', role: 'participant');
+      final int nextId = restoredService.addParticipant(
+          displayName: 'Charlie', role: 'participant');
       expect(nextId, 3); // Alice=1, Bob=2, Charlie=3
     });
 
@@ -124,7 +134,9 @@ void main() {
         state: HostRoomState(slug: 'test', providerId: 'kilter'),
       );
       service.setSurface(const ProviderSurface(
-        id: 'board-1', kind: 'board', name: 'Original 40',
+        id: 'board-1',
+        kind: 'board',
+        name: 'Original 40',
         meta: <String, String>{'angle': '40'},
       ));
 
@@ -139,7 +151,8 @@ void main() {
       final HostRoomService service = HostRoomService(
         state: HostRoomState(slug: 'test', providerId: 'kilter'),
       );
-      service.addQueueEntry(climbId: 'c1', addedBy: 'A', climb: _testClimb('c1'));
+      service.addQueueEntry(
+          climbId: 'c1', addedBy: 'A', climb: _testClimb('c1'));
       service.promoteClimb('c1', 'current');
 
       final String json = service.state.serialize();

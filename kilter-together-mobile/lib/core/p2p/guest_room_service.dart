@@ -82,7 +82,8 @@ class GuestRoomService {
   }
 
   void clearVotes() {
-    _send(const P2pMessage(type: P2pMessageType.clearVotes, payload: <String, dynamic>{}));
+    _send(const P2pMessage(
+        type: P2pMessageType.clearVotes, payload: <String, dynamic>{}));
   }
 
   void updateRoomName(String roomName) {
@@ -128,11 +129,13 @@ class GuestRoomService {
   }
 
   void closeRoom() {
-    _send(const P2pMessage(type: P2pMessageType.closeRoom, payload: <String, dynamic>{}));
+    _send(const P2pMessage(
+        type: P2pMessageType.closeRoom, payload: <String, dynamic>{}));
   }
 
   void leaveRoom() {
-    _send(const P2pMessage(type: P2pMessageType.leaveRoom, payload: <String, dynamic>{}));
+    _send(const P2pMessage(
+        type: P2pMessageType.leaveRoom, payload: <String, dynamic>{}));
   }
 
   void queryCatalog(Map<String, dynamic> query) {
@@ -141,9 +144,11 @@ class GuestRoomService {
 
   void _send(P2pMessage message) {
     transport.send(hostPeerId, message).catchError((Object e) {
-      developer.log('send failed (${message.type.name}): $e', name: 'GuestRoom');
+      developer.log('send failed (${message.type.name}): $e',
+          name: 'GuestRoom');
       onSendError?.call(e);
     });
   }
+
   void Function(Object error)? onSendError;
 }

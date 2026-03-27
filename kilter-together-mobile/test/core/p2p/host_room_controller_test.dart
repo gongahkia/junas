@@ -8,9 +8,12 @@ import 'package:kilter_together_mobile/core/p2p/p2p_transport.dart';
 import 'fake_transport.dart';
 
 ProviderClimb _testClimb(String id) => ProviderClimb(
-  id: id, externalId: id, providerId: 'kilter', surfaceId: 'board-1',
-  name: 'Climb $id',
-);
+      id: id,
+      externalId: id,
+      providerId: 'kilter',
+      surfaceId: 'board-1',
+      name: 'Climb $id',
+    );
 
 void main() {
   group('P2pMessage', () {
@@ -38,7 +41,8 @@ void main() {
       );
       final P2pMessage? decoded = P2pMessage.decode(msg.encode());
       expect(decoded, isNotNull);
-      final Map<String, dynamic> climb = decoded!.payload['climb'] as Map<String, dynamic>;
+      final Map<String, dynamic> climb =
+          decoded!.payload['climb'] as Map<String, dynamic>;
       expect(climb['id'], 'c1');
     });
 
@@ -61,13 +65,16 @@ void main() {
 
     setUp(() {
       service = HostRoomService(
-        state: HostRoomState(slug: 'test-slug', providerId: 'kilter', roomName: 'Test Room'),
+        state: HostRoomState(
+            slug: 'test-slug', providerId: 'kilter', roomName: 'Test Room'),
       );
     });
 
     test('add participant assigns sequential ids', () {
-      final int id1 = service.addParticipant(displayName: 'Alice', role: 'host');
-      final int id2 = service.addParticipant(displayName: 'Bob', role: 'participant');
+      final int id1 =
+          service.addParticipant(displayName: 'Alice', role: 'host');
+      final int id2 =
+          service.addParticipant(displayName: 'Bob', role: 'participant');
       expect(id1, 1);
       expect(id2, 2);
       expect(service.state.participants.length, 2);
@@ -75,7 +82,8 @@ void main() {
 
     test('reject duplicate display name', () {
       service.addParticipant(displayName: 'Alice', role: 'host');
-      expect(service.addParticipant(displayName: 'Alice', role: 'participant'), -1);
+      expect(service.addParticipant(displayName: 'Alice', role: 'participant'),
+          -1);
       expect(service.state.participants.length, 1);
     });
 
@@ -102,8 +110,10 @@ void main() {
     });
 
     test('multiple participants vote independently', () {
-      final int id1 = service.addParticipant(displayName: 'Alice', role: 'host');
-      final int id2 = service.addParticipant(displayName: 'Bob', role: 'participant');
+      final int id1 =
+          service.addParticipant(displayName: 'Alice', role: 'host');
+      final int id2 =
+          service.addParticipant(displayName: 'Bob', role: 'participant');
       service.toggleVote(id1, 'climb1');
       service.toggleVote(id2, 'climb1');
       expect(service.state.voteCounts['climb1'], 2);
@@ -121,15 +131,24 @@ void main() {
     });
 
     test('add queue entry prevents duplicates', () {
-      expect(service.addQueueEntry(climbId: 'c1', addedBy: 'Alice', climb: _testClimb('c1')), true);
-      expect(service.addQueueEntry(climbId: 'c1', addedBy: 'Bob', climb: _testClimb('c1')), false);
+      expect(
+          service.addQueueEntry(
+              climbId: 'c1', addedBy: 'Alice', climb: _testClimb('c1')),
+          true);
+      expect(
+          service.addQueueEntry(
+              climbId: 'c1', addedBy: 'Bob', climb: _testClimb('c1')),
+          false);
       expect(service.state.queue.length, 1);
     });
 
     test('delete queue entry reindexes positions', () {
-      service.addQueueEntry(climbId: 'c1', addedBy: 'A', climb: _testClimb('c1'));
-      service.addQueueEntry(climbId: 'c2', addedBy: 'A', climb: _testClimb('c2'));
-      service.addQueueEntry(climbId: 'c3', addedBy: 'A', climb: _testClimb('c3'));
+      service.addQueueEntry(
+          climbId: 'c1', addedBy: 'A', climb: _testClimb('c1'));
+      service.addQueueEntry(
+          climbId: 'c2', addedBy: 'A', climb: _testClimb('c2'));
+      service.addQueueEntry(
+          climbId: 'c3', addedBy: 'A', climb: _testClimb('c3'));
       service.deleteQueueEntry(service.state.queue[0].id);
       expect(service.state.queue.length, 2);
       expect(service.state.queue[0].position, 0);
@@ -137,13 +156,16 @@ void main() {
     });
 
     test('reorder queue with invalid id fails', () {
-      service.addQueueEntry(climbId: 'c1', addedBy: 'A', climb: _testClimb('c1'));
+      service.addQueueEntry(
+          climbId: 'c1', addedBy: 'A', climb: _testClimb('c1'));
       expect(service.reorderQueue(<int>[999]), false);
     });
 
     test('reorder queue succeeds', () {
-      service.addQueueEntry(climbId: 'c1', addedBy: 'A', climb: _testClimb('c1'));
-      service.addQueueEntry(climbId: 'c2', addedBy: 'A', climb: _testClimb('c2'));
+      service.addQueueEntry(
+          climbId: 'c1', addedBy: 'A', climb: _testClimb('c1'));
+      service.addQueueEntry(
+          climbId: 'c2', addedBy: 'A', climb: _testClimb('c2'));
       final int id1 = service.state.queue[0].id;
       final int id2 = service.state.queue[1].id;
       expect(service.reorderQueue(<int>[id2, id1]), true);
@@ -159,14 +181,16 @@ void main() {
     });
 
     test('promote climb moves from queue to current', () {
-      service.addQueueEntry(climbId: 'c1', addedBy: 'A', climb: _testClimb('c1'));
+      service.addQueueEntry(
+          climbId: 'c1', addedBy: 'A', climb: _testClimb('c1'));
       service.promoteClimb('c1', 'current');
       expect(service.state.currentClimb?.id, 'c1');
       expect(service.state.queue.isEmpty, true);
     });
 
     test('update participant role', () {
-      final int id = service.addParticipant(displayName: 'Alice', role: 'participant');
+      final int id =
+          service.addParticipant(displayName: 'Alice', role: 'participant');
       service.updateParticipantRole(id, 'co_host');
       expect(service.state.participants[0].role, 'co_host');
     });
@@ -180,10 +204,14 @@ void main() {
     });
 
     test('snapshot permissions for host vs participant', () {
-      final int hostId = service.addParticipant(displayName: 'Host', role: 'host');
-      final int guestId = service.addParticipant(displayName: 'Guest', role: 'participant');
-      final RoomSnapshot hostSnap = service.toSnapshot(forParticipantId: hostId);
-      final RoomSnapshot guestSnap = service.toSnapshot(forParticipantId: guestId);
+      final int hostId =
+          service.addParticipant(displayName: 'Host', role: 'host');
+      final int guestId =
+          service.addParticipant(displayName: 'Guest', role: 'participant');
+      final RoomSnapshot hostSnap =
+          service.toSnapshot(forParticipantId: hostId);
+      final RoomSnapshot guestSnap =
+          service.toSnapshot(forParticipantId: guestId);
       expect(hostSnap.canManage, true);
       expect(hostSnap.permissions.closeRoom, true);
       expect(guestSnap.canManage, false);
@@ -192,8 +220,10 @@ void main() {
     });
 
     test('snapshot my_votes scoped to participant', () {
-      final int id1 = service.addParticipant(displayName: 'Alice', role: 'host');
-      final int id2 = service.addParticipant(displayName: 'Bob', role: 'participant');
+      final int id1 =
+          service.addParticipant(displayName: 'Alice', role: 'host');
+      final int id2 =
+          service.addParticipant(displayName: 'Bob', role: 'participant');
       service.toggleVote(id1, 'climb1');
       service.toggleVote(id2, 'climb2');
       final RoomSnapshot snap1 = service.toSnapshot(forParticipantId: id1);
@@ -229,21 +259,29 @@ void main() {
     });
 
     test('pick random from queue returns valid climb', () {
-      service.addQueueEntry(climbId: 'c1', addedBy: 'A', climb: _testClimb('c1'));
+      service.addQueueEntry(
+          climbId: 'c1', addedBy: 'A', climb: _testClimb('c1'));
       expect(service.pickRandom('queue'), isNotNull);
       expect(service.pickRandom('queue')!.id, 'c1');
     });
 
     test('update queue entry status', () {
-      service.addQueueEntry(climbId: 'c1', addedBy: 'A', climb: _testClimb('c1'));
+      service.addQueueEntry(
+          climbId: 'c1', addedBy: 'A', climb: _testClimb('c1'));
       final int entryId = service.state.queue[0].id;
       service.updateQueueEntryStatus(entryId, 'current');
       expect(service.state.queue[0].status, 'current');
     });
 
     test('finalist prevents duplicates', () {
-      expect(service.addFinalist(climbId: 'c1', addedBy: 'A', climb: _testClimb('c1')), true);
-      expect(service.addFinalist(climbId: 'c1', addedBy: 'B', climb: _testClimb('c1')), false);
+      expect(
+          service.addFinalist(
+              climbId: 'c1', addedBy: 'A', climb: _testClimb('c1')),
+          true);
+      expect(
+          service.addFinalist(
+              climbId: 'c1', addedBy: 'B', climb: _testClimb('c1')),
+          false);
     });
 
     test('reorder finalists', () {
@@ -265,7 +303,9 @@ void main() {
       service = GuestRoomService(transport: transport, hostPeerId: 'host-1');
     });
 
-    tearDown(() async { await transport.dispose(); });
+    tearDown(() async {
+      await transport.dispose();
+    });
 
     test('sendJoinRequest sends correct message', () {
       service.sendJoinRequest('Alice');
@@ -354,7 +394,9 @@ void main() {
     test('onSendError fires on failure', () async {
       transport.shouldFailSend = true;
       Object? error;
-      service.onSendError = (Object e) { error = e; };
+      service.onSendError = (Object e) {
+        error = e;
+      };
       service.toggleVote('c1');
       await Future<void>.delayed(const Duration(milliseconds: 50));
       expect(error, isNotNull);
@@ -364,7 +406,10 @@ void main() {
   group('RoomSnapshot.fromJson', () {
     test('parses minimal json', () {
       final RoomSnapshot snap = RoomSnapshot.fromJson(const <String, dynamic>{
-        'slug': 's1', 'status': 'open', 'provider_id': 'kilter', 'version': 3,
+        'slug': 's1',
+        'status': 'open',
+        'provider_id': 'kilter',
+        'version': 3,
       });
       expect(snap.slug, 's1');
       expect(snap.version, 3);
@@ -373,21 +418,37 @@ void main() {
 
     test('parses full json', () {
       final RoomSnapshot snap = RoomSnapshot.fromJson(<String, dynamic>{
-        'slug': 's1', 'status': 'open', 'provider_id': 'kilter', 'version': 1,
-        'fist_bumps_enabled': true, 'can_manage': true,
+        'slug': 's1',
+        'status': 'open',
+        'provider_id': 'kilter',
+        'version': 1,
+        'fist_bumps_enabled': true,
+        'can_manage': true,
         'participants': <Map<String, dynamic>>[
-          <String, dynamic>{'id': 1, 'display_name': 'Alice', 'role': 'host', 'status': 'ready', 'is_online': true},
+          <String, dynamic>{
+            'id': 1,
+            'display_name': 'Alice',
+            'role': 'host',
+            'status': 'ready',
+            'is_online': true
+          },
         ],
         'queue': <Map<String, dynamic>>[
           <String, dynamic>{
-            'id': 1, 'status': 'queued', 'position': 0, 'added_by': 'Alice',
+            'id': 1,
+            'status': 'queued',
+            'position': 0,
+            'added_by': 'Alice',
             'climb': <String, dynamic>{'id': 'c1', 'name': 'Test'},
           },
         ],
         'finalists': <dynamic>[],
         'vote_counts': <String, dynamic>{'c1': 2},
         'my_votes': <String>['c1'],
-        'permissions': <String, dynamic>{'close_room': true, 'manage_queue': true},
+        'permissions': <String, dynamic>{
+          'close_room': true,
+          'manage_queue': true
+        },
       });
       expect(snap.participants.length, 1);
       expect(snap.queue.length, 1);
@@ -398,14 +459,20 @@ void main() {
 
   group('FakeTransport', () {
     late FakeTransport transport;
-    setUp(() { transport = FakeTransport(); });
-    tearDown(() async { await transport.dispose(); });
+    setUp(() {
+      transport = FakeTransport();
+    });
+    tearDown(() async {
+      await transport.dispose();
+    });
 
     test('simulateMessage delivers to stream', () async {
       final List<P2pMessage> received = <P2pMessage>[];
       transport.messages.listen(received.add);
       transport.simulateMessage(const P2pMessage(
-        type: P2pMessageType.joinRequest, payload: <String, dynamic>{}, senderId: 'p1',
+        type: P2pMessageType.joinRequest,
+        payload: <String, dynamic>{},
+        senderId: 'p1',
       ));
       await Future<void>.delayed(const Duration(milliseconds: 10));
       expect(received.length, 1);
@@ -426,18 +493,24 @@ void main() {
     });
 
     test('send records messages', () async {
-      await transport.send('p1', const P2pMessage(
-        type: P2pMessageType.voteToggle, payload: <String, dynamic>{},
-      ));
+      await transport.send(
+          'p1',
+          const P2pMessage(
+            type: P2pMessageType.voteToggle,
+            payload: <String, dynamic>{},
+          ));
       expect(transport.sentMessages.length, 1);
     });
 
     test('send throws when shouldFailSend', () {
       transport.shouldFailSend = true;
       expect(
-        () => transport.send('p1', const P2pMessage(
-          type: P2pMessageType.voteToggle, payload: <String, dynamic>{},
-        )),
+        () => transport.send(
+            'p1',
+            const P2pMessage(
+              type: P2pMessageType.voteToggle,
+              payload: <String, dynamic>{},
+            )),
         throwsException,
       );
     });

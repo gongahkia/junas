@@ -36,37 +36,45 @@ class CatalogRelayService {
     final String? gradeMin = message.payload['grade_min'] as String?;
     final String? gradeMax = message.payload['grade_max'] as String?;
     try {
-      final PaginatedBoardClimbsResponse result = await catalogRepository.queryClimbs(
-        OfflineCatalogQuery(
-          boardId: boardId,
-          angle: angle,
-          page: page,
-          pageSize: pageSize,
-          name: q,
-          sort: sort,
-          gradeMin: gradeMin,
-          gradeMax: gradeMax,
-        ),
-      ).timeout(const Duration(seconds: 10));
-      unawaited(transport.send(senderId, P2pMessage(
-        type: P2pMessageType.catalogResponse,
-        payload: <String, dynamic>{
-          'climbs': result.climbs.map((BoardClimb c) => c.toJson()).toList(growable: false),
-          'has_more': result.hasMore,
-          'page_size': result.pageSize,
-        },
-      )));
+      final PaginatedBoardClimbsResponse result = await catalogRepository
+          .queryClimbs(
+            OfflineCatalogQuery(
+              boardId: boardId,
+              angle: angle,
+              page: page,
+              pageSize: pageSize,
+              name: q,
+              sort: sort,
+              gradeMin: gradeMin,
+              gradeMax: gradeMax,
+            ),
+          )
+          .timeout(const Duration(seconds: 10));
+      unawaited(transport.send(
+          senderId,
+          P2pMessage(
+            type: P2pMessageType.catalogResponse,
+            payload: <String, dynamic>{
+              'climbs': result.climbs
+                  .map((BoardClimb c) => c.toJson())
+                  .toList(growable: false),
+              'has_more': result.hasMore,
+              'page_size': result.pageSize,
+            },
+          )));
     } catch (e) {
       developer.log('Catalog relay query failed: $e', name: 'CatalogRelay');
-      unawaited(transport.send(senderId, P2pMessage(
-        type: P2pMessageType.catalogResponse,
-        payload: <String, dynamic>{
-          'climbs': <dynamic>[],
-          'has_more': false,
-          'page_size': pageSize,
-          'error': '$e',
-        },
-      )));
+      unawaited(transport.send(
+          senderId,
+          P2pMessage(
+            type: P2pMessageType.catalogResponse,
+            payload: <String, dynamic>{
+              'climbs': <dynamic>[],
+              'has_more': false,
+              'page_size': pageSize,
+              'error': '$e',
+            },
+          )));
     }
   }
 }

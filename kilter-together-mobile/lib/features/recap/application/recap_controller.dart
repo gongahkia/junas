@@ -12,7 +12,9 @@ class RecapRouteArgs {
   final String shareId;
   @override
   bool operator ==(Object other) =>
-      other is RecapRouteArgs && other.server == server && other.shareId == shareId;
+      other is RecapRouteArgs &&
+      other.server == server &&
+      other.shareId == shareId;
   @override
   int get hashCode => Object.hash(server, shareId);
 }
@@ -40,7 +42,8 @@ class RecapViewState {
       shareId: shareId,
       recap: clearRecap ? null : (recap ?? this.recap),
       loading: loading ?? this.loading,
-      errorMessage: clearErrorMessage ? null : (errorMessage ?? this.errorMessage),
+      errorMessage:
+          clearErrorMessage ? null : (errorMessage ?? this.errorMessage),
     );
   }
 }
@@ -73,7 +76,8 @@ class RecapController extends StateNotifier<RecapViewState> {
     try {
       final RoomRecap? recap = await _recapRepository.loadRecap(_args.shareId);
       if (recap != null) {
-        state = state.copyWith(recap: recap, loading: false, clearErrorMessage: true);
+        state = state.copyWith(
+            recap: recap, loading: false, clearErrorMessage: true);
       } else {
         state = state.copyWith(
           clearRecap: true,

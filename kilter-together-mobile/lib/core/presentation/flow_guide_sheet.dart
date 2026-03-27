@@ -136,8 +136,8 @@ class _FlowGuideSheet extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: OutlinedButton(
-                      onPressed: () => Navigator.of(context)
-                          .pop(FlowGuideResult.dismissed),
+                      onPressed: () =>
+                          Navigator.of(context).pop(FlowGuideResult.dismissed),
                       child: Text(completed ? 'Done' : 'Not now'),
                     ),
                   ),

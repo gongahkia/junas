@@ -4,6 +4,8 @@ import 'dart:math' as math;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../theme/app_theme.dart';
+
 const List<String> _cheerPhrases = <String>[
   'allez!',
   'vamos!',
@@ -140,14 +142,15 @@ class _TapCheerOverlayState extends State<TapCheerOverlay> {
       return widget.child;
     }
 
+    final KilterPalette palette = kilterPaletteOf(context);
     final TextStyle textStyle =
         Theme.of(context).textTheme.titleMedium!.copyWith(
-      color: const Color(0xFF1A1A1A),
+      color: palette.ink,
       fontWeight: FontWeight.w800,
       letterSpacing: 0.4,
-      shadows: const <Shadow>[
+      shadows: <Shadow>[
         Shadow(
-          color: Color(0x55FFFFFF),
+          color: palette.panel.withValues(alpha: 0.9),
           blurRadius: 12,
         ),
       ],
@@ -195,6 +198,8 @@ class _TapCheerWord extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final KilterPalette palette = kilterPaletteOf(context);
+
     return TweenAnimationBuilder<double>(
       duration: _cheerLifetime,
       tween: Tween<double>(begin: 0, end: 1),
@@ -217,9 +222,11 @@ class _TapCheerWord extends StatelessWidget {
                 opacity: opacity,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    color: const Color(0xF2F0FDFA),
+                    color: palette.panel.withValues(alpha: 0.94),
                     borderRadius: BorderRadius.zero,
-                    border: Border.all(color: const Color(0xFFD3F3EB)),
+                    border: Border.all(
+                      color: palette.primaryGlow.withValues(alpha: 0.8),
+                    ),
                   ),
                   child: Padding(
                     padding:

@@ -253,12 +253,14 @@ class SavedCredentials {
   final Map<String, SavedCredentialPreference> providers;
 
   factory SavedCredentials.fromJson(Map<String, dynamic> json) {
-    final Map<String, dynamic> rawProviders = (json['providers'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+    final Map<String, dynamic> rawProviders =
+        (json['providers'] as Map<String, dynamic>?) ?? <String, dynamic>{};
     return SavedCredentials(
       providers: rawProviders.map(
         (String key, dynamic value) => MapEntry(
           key,
-          SavedCredentialPreference.fromJson((value as Map<dynamic, dynamic>).cast<String, dynamic>()),
+          SavedCredentialPreference.fromJson(
+              (value as Map<dynamic, dynamic>).cast<String, dynamic>()),
         ),
       ),
     );
@@ -267,7 +269,8 @@ class SavedCredentials {
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'providers': providers.map(
-        (String key, SavedCredentialPreference value) => MapEntry(key, value.toJson()),
+        (String key, SavedCredentialPreference value) =>
+            MapEntry(key, value.toJson()),
       ),
     };
   }
@@ -285,7 +288,8 @@ class HostDefaults {
   factory HostDefaults.fromJson(Map<String, dynamic> json) {
     return HostDefaults(
       roomNameTemplate: json['room_name_template'] as String? ?? '',
-      defaultFistBumpsEnabled: json['default_fist_bumps_enabled'] as bool? ?? true,
+      defaultFistBumpsEnabled:
+          json['default_fist_bumps_enabled'] as bool? ?? true,
     );
   }
 
@@ -355,11 +359,13 @@ class PendingRoomSeed {
   final String createdAt;
 
   factory PendingRoomSeed.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> rawClimbs = (json['climbs'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawClimbs =
+        (json['climbs'] as List<dynamic>?) ?? <dynamic>[];
     return PendingRoomSeed(
       providerId: json['provider_id'] as String? ?? '',
       title: json['title'] as String?,
-      surface: ProviderSurface.fromJson((json['surface'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
+      surface: ProviderSurface.fromJson(
+          (json['surface'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
       climbs: rawClimbs
           .whereType<Map<String, dynamic>>()
           .map(ProviderClimb.fromJson)
@@ -374,7 +380,9 @@ class PendingRoomSeed {
       'provider_id': providerId,
       'title': title,
       'surface': surface.toJson(),
-      'climbs': climbs.map((ProviderClimb item) => item.toJson()).toList(growable: false),
+      'climbs': climbs
+          .map((ProviderClimb item) => item.toJson())
+          .toList(growable: false),
       'open_path': openPath,
       'created_at': createdAt,
     };
@@ -405,14 +413,17 @@ class RoomTemplate {
   final String createdAt;
 
   factory RoomTemplate.fromJson(Map<String, dynamic> json) {
-    final Map<String, dynamic> rawCtx = (json['surface_context'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+    final Map<String, dynamic> rawCtx =
+        (json['surface_context'] as Map<String, dynamic>?) ??
+            <String, dynamic>{};
     return RoomTemplate(
       id: json['id'] as String? ?? '',
       name: json['name'] as String? ?? '',
       server: json['server'] as String? ?? '',
       providerId: json['provider_id'] as String? ?? '',
       surfaceId: json['surface_id'] as String?,
-      surfaceContext: rawCtx.map((String key, dynamic value) => MapEntry(key, '$value')),
+      surfaceContext:
+          rawCtx.map((String key, dynamic value) => MapEntry(key, '$value')),
       roomNameTemplate: json['room_name_template'] as String? ?? '',
       fistBumpsEnabled: json['fist_bumps_enabled'] as bool? ?? true,
       createdAt: json['created_at'] as String? ?? '',
@@ -537,25 +548,38 @@ class AppPrefs {
 
   factory AppPrefs.fromJson(Map<String, dynamic> json) {
     final AppPrefs defaults = AppPrefs.defaults();
-    final List<dynamic> rawRecentRooms = (json['recent_rooms'] as List<dynamic>?) ?? <dynamic>[];
-    final List<dynamic> rawSavedFilters = (json['saved_solo_filters'] as List<dynamic>?) ?? <dynamic>[];
-    final List<dynamic> rawFavorites = (json['solo_favorites'] as List<dynamic>?) ?? <dynamic>[];
-    final List<dynamic> rawShortlist = (json['solo_shortlist'] as List<dynamic>?) ?? <dynamic>[];
-    final List<dynamic> rawRoomTemplates = (json['room_templates'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawRecentRooms =
+        (json['recent_rooms'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawSavedFilters =
+        (json['saved_solo_filters'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawFavorites =
+        (json['solo_favorites'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawShortlist =
+        (json['solo_shortlist'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawRoomTemplates =
+        (json['room_templates'] as List<dynamic>?) ?? <dynamic>[];
     final Map<String, dynamic> rawFeedbackPrompts =
-        (json['feedback_prompts'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+        (json['feedback_prompts'] as Map<String, dynamic>?) ??
+            <String, dynamic>{};
     return AppPrefs(
-      savedDisplayName: json['saved_display_name'] as String? ?? defaults.savedDisplayName,
-      lastProviderId: json['last_provider_id'] as String? ?? defaults.lastProviderId,
-      lastKilterBoardId: json['last_kilter_board_id'] as String? ?? defaults.lastKilterBoardId,
-      lastKilterAngle: (json['last_kilter_angle'] as num?)?.toInt() ?? defaults.lastKilterAngle,
-      lastCruxGymSlug: json['last_crux_gym_slug'] as String? ?? defaults.lastCruxGymSlug,
-      lastCruxWallId: json['last_crux_wall_id'] as String? ?? defaults.lastCruxWallId,
+      savedDisplayName:
+          json['saved_display_name'] as String? ?? defaults.savedDisplayName,
+      lastProviderId:
+          json['last_provider_id'] as String? ?? defaults.lastProviderId,
+      lastKilterBoardId:
+          json['last_kilter_board_id'] as String? ?? defaults.lastKilterBoardId,
+      lastKilterAngle: (json['last_kilter_angle'] as num?)?.toInt() ??
+          defaults.lastKilterAngle,
+      lastCruxGymSlug:
+          json['last_crux_gym_slug'] as String? ?? defaults.lastCruxGymSlug,
+      lastCruxWallId:
+          json['last_crux_wall_id'] as String? ?? defaults.lastCruxWallId,
       hostDefaults: json['host_defaults'] is Map<String, dynamic>
           ? HostDefaults.fromJson(json['host_defaults'] as Map<String, dynamic>)
           : defaults.hostDefaults,
       savedCredentials: json['saved_credentials'] is Map<String, dynamic>
-          ? SavedCredentials.fromJson(json['saved_credentials'] as Map<String, dynamic>)
+          ? SavedCredentials.fromJson(
+              json['saved_credentials'] as Map<String, dynamic>)
           : defaults.savedCredentials,
       recentRooms: rawRecentRooms
           .whereType<Map<String, dynamic>>()
@@ -578,21 +602,26 @@ class AppPrefs {
           .map(RoomTemplate.fromJson)
           .toList(growable: false),
       pendingRoomSeed: json['pending_room_seed'] is Map<String, dynamic>
-          ? PendingRoomSeed.fromJson(json['pending_room_seed'] as Map<String, dynamic>)
+          ? PendingRoomSeed.fromJson(
+              json['pending_room_seed'] as Map<String, dynamic>)
           : null,
       soloResume: json['solo_resume'] is Map<String, dynamic>
-          ? SoloResumeState.fromJson(json['solo_resume'] as Map<String, dynamic>)
+          ? SoloResumeState.fromJson(
+              json['solo_resume'] as Map<String, dynamic>)
           : null,
       intro: json['intro'] is Map<String, dynamic>
           ? IntroProgress.fromJson(json['intro'] as Map<String, dynamic>)
           : defaults.intro,
       onboarding: json['onboarding'] is Map<String, dynamic>
-          ? OnboardingProgress.fromJson(json['onboarding'] as Map<String, dynamic>)
+          ? OnboardingProgress.fromJson(
+              json['onboarding'] as Map<String, dynamic>)
           : defaults.onboarding,
       guidedTour: json['guided_tour'] is Map<String, dynamic>
-          ? GuidedTourProgress.fromJson(json['guided_tour'] as Map<String, dynamic>)
+          ? GuidedTourProgress.fromJson(
+              json['guided_tour'] as Map<String, dynamic>)
           : defaults.guidedTour,
-      feedbackPrompts: rawFeedbackPrompts.map((String key, dynamic value) => MapEntry(key, '$value')),
+      feedbackPrompts: rawFeedbackPrompts
+          .map((String key, dynamic value) => MapEntry(key, '$value')),
       settings: json['settings'] is Map<String, dynamic>
           ? AppSettings.fromJson(json['settings'] as Map<String, dynamic>)
           : defaults.settings,
@@ -609,15 +638,21 @@ class AppPrefs {
       'last_crux_wall_id': lastCruxWallId,
       'host_defaults': hostDefaults.toJson(),
       'saved_credentials': savedCredentials.toJson(),
-      'recent_rooms': recentRooms.map((RecentRoom item) => item.toJson()).toList(growable: false),
-      'saved_solo_filters':
-          savedSoloFilters.map((SoloFilterPreset item) => item.toJson()).toList(growable: false),
-      'solo_favorites':
-          soloFavorites.map((SoloSavedClimb item) => item.toJson()).toList(growable: false),
-      'solo_shortlist':
-          soloShortlist.map((SoloSavedClimb item) => item.toJson()).toList(growable: false),
-      'room_templates':
-          roomTemplates.map((RoomTemplate item) => item.toJson()).toList(growable: false),
+      'recent_rooms': recentRooms
+          .map((RecentRoom item) => item.toJson())
+          .toList(growable: false),
+      'saved_solo_filters': savedSoloFilters
+          .map((SoloFilterPreset item) => item.toJson())
+          .toList(growable: false),
+      'solo_favorites': soloFavorites
+          .map((SoloSavedClimb item) => item.toJson())
+          .toList(growable: false),
+      'solo_shortlist': soloShortlist
+          .map((SoloSavedClimb item) => item.toJson())
+          .toList(growable: false),
+      'room_templates': roomTemplates
+          .map((RoomTemplate item) => item.toJson())
+          .toList(growable: false),
       'pending_room_seed': pendingRoomSeed?.toJson(),
       'solo_resume': soloResume?.toJson(),
       'intro': intro.toJson(),

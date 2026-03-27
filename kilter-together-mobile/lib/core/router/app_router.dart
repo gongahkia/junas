@@ -19,7 +19,8 @@ GoRouter buildAppRouter() {
     initialLocation: '/',
     routes: <RouteBase>[
       StatefulShellRoute.indexedStack(
-        builder: (BuildContext context, GoRouterState state, StatefulNavigationShell navigationShell) {
+        builder: (BuildContext context, GoRouterState state,
+            StatefulNavigationShell navigationShell) {
           return AppShell(navigationShell: navigationShell);
         },
         branches: <StatefulShellBranch>[
@@ -28,12 +29,14 @@ GoRouter buildAppRouter() {
             GoRoute(
               path: '/',
               name: 'session-home',
-              builder: (BuildContext context, GoRouterState state) => const SessionHomeScreen(),
+              builder: (BuildContext context, GoRouterState state) =>
+                  const SessionHomeScreen(),
             ),
             GoRoute(
               path: '/create',
               name: 'create-room',
-              builder: (BuildContext context, GoRouterState state) => const CreateRoomScreen(),
+              builder: (BuildContext context, GoRouterState state) =>
+                  const CreateRoomScreen(),
             ),
             GoRoute(
               path: '/join',
@@ -64,7 +67,8 @@ GoRouter buildAppRouter() {
               builder: (BuildContext context, GoRouterState state) {
                 return RecapScreen(
                   shareId: state.uri.queryParameters['share_id'] ??
-                      state.uri.queryParameters['shareId'] ?? '',
+                      state.uri.queryParameters['shareId'] ??
+                      '',
                 );
               },
             ),
@@ -74,7 +78,8 @@ GoRouter buildAppRouter() {
             GoRoute(
               path: '/solo',
               name: 'solo-entry',
-              builder: (BuildContext context, GoRouterState state) => const SoloEntryScreen(),
+              builder: (BuildContext context, GoRouterState state) =>
+                  const SoloEntryScreen(),
             ),
             GoRoute(
               path: '/solo/boards/:boardId',
@@ -82,7 +87,8 @@ GoRouter buildAppRouter() {
               builder: (BuildContext context, GoRouterState state) {
                 return SoloBoardScreen(
                   boardId: state.pathParameters['boardId'] ?? '',
-                  initialAngle: int.tryParse(state.uri.queryParameters['angle'] ?? ''),
+                  initialAngle:
+                      int.tryParse(state.uri.queryParameters['angle'] ?? ''),
                   initialSort: state.uri.queryParameters['sort'],
                   initialQuery: state.uri.queryParameters['q'],
                   initialSetter: state.uri.queryParameters['setter'],
@@ -111,7 +117,8 @@ GoRouter buildAppRouter() {
               builder: (BuildContext context, GoRouterState state) {
                 return PlanScreen(
                   shareId: state.uri.queryParameters['share_id'] ??
-                      state.uri.queryParameters['shareId'] ?? '',
+                      state.uri.queryParameters['shareId'] ??
+                      '',
                 );
               },
             ),
@@ -121,7 +128,8 @@ GoRouter buildAppRouter() {
             GoRoute(
               path: '/log',
               name: 'climb-log',
-              builder: (BuildContext context, GoRouterState state) => const ClimbLogScreen(),
+              builder: (BuildContext context, GoRouterState state) =>
+                  const ClimbLogScreen(),
             ),
           ]),
           // branch 3: settings
@@ -129,12 +137,14 @@ GoRouter buildAppRouter() {
             GoRoute(
               path: '/settings',
               name: 'settings',
-              builder: (BuildContext context, GoRouterState state) => const SettingsScreen(),
+              builder: (BuildContext context, GoRouterState state) =>
+                  const SettingsScreen(),
             ),
             GoRoute(
               path: '/about',
               name: 'about',
-              builder: (BuildContext context, GoRouterState state) => const AboutScreen(),
+              builder: (BuildContext context, GoRouterState state) =>
+                  const AboutScreen(),
             ),
           ]),
         ],

@@ -4,27 +4,31 @@ import 'package:kilter_together_mobile/core/deep_links/invite_links.dart';
 void main() {
   group('InviteLink.parse', () {
     test('parses join link', () {
-      final InviteLink? link = InviteLink.parse('kiltertogether://join?slug=abc123');
+      final InviteLink? link =
+          InviteLink.parse('kiltertogether://join?slug=abc123');
       expect(link, isNotNull);
       expect(link!.kind, InviteKind.join);
       expect(link.slug, 'abc123');
     });
 
     test('parses recap link with share_id', () {
-      final InviteLink? link = InviteLink.parse('kiltertogether://recap?share_id=xyz');
+      final InviteLink? link =
+          InviteLink.parse('kiltertogether://recap?share_id=xyz');
       expect(link, isNotNull);
       expect(link!.kind, InviteKind.recap);
       expect(link.shareId, 'xyz');
     });
 
     test('parses recap link with shareId (camelCase)', () {
-      final InviteLink? link = InviteLink.parse('kiltertogether://recap?shareId=abc');
+      final InviteLink? link =
+          InviteLink.parse('kiltertogether://recap?shareId=abc');
       expect(link, isNotNull);
       expect(link!.shareId, 'abc');
     });
 
     test('parses plan link', () {
-      final InviteLink? link = InviteLink.parse('kiltertogether://plan?share_id=plan123');
+      final InviteLink? link =
+          InviteLink.parse('kiltertogether://plan?share_id=plan123');
       expect(link, isNotNull);
       expect(link!.kind, InviteKind.plan);
       expect(link.shareId, 'plan123');
@@ -47,7 +51,8 @@ void main() {
     });
 
     test('trims whitespace before parsing', () {
-      final InviteLink? link = InviteLink.parse('  kiltertogether://join?slug=trimmed  ');
+      final InviteLink? link =
+          InviteLink.parse('  kiltertogether://join?slug=trimmed  ');
       expect(link, isNotNull);
       expect(link!.slug, 'trimmed');
     });
@@ -66,7 +71,8 @@ void main() {
 
   group('InviteLink.toUri', () {
     test('join link roundtrip', () {
-      const InviteLink link = InviteLink(kind: InviteKind.join, slug: 'test123');
+      const InviteLink link =
+          InviteLink(kind: InviteKind.join, slug: 'test123');
       final String raw = link.toUri().toString();
       final InviteLink? parsed = InviteLink.parse(raw);
       expect(parsed, isNotNull);
@@ -75,7 +81,8 @@ void main() {
     });
 
     test('recap link roundtrip', () {
-      const InviteLink link = InviteLink(kind: InviteKind.recap, shareId: 'share-abc');
+      const InviteLink link =
+          InviteLink(kind: InviteKind.recap, shareId: 'share-abc');
       final String raw = link.toUri().toString();
       final InviteLink? parsed = InviteLink.parse(raw);
       expect(parsed, isNotNull);
@@ -84,7 +91,8 @@ void main() {
     });
 
     test('plan link roundtrip', () {
-      const InviteLink link = InviteLink(kind: InviteKind.plan, shareId: 'plan-xyz');
+      const InviteLink link =
+          InviteLink(kind: InviteKind.plan, shareId: 'plan-xyz');
       final String raw = link.toUri().toString();
       final InviteLink? parsed = InviteLink.parse(raw);
       expect(parsed, isNotNull);
@@ -114,7 +122,8 @@ void main() {
     });
 
     test('includes share_id for recap link', () {
-      const InviteLink link = InviteLink(kind: InviteKind.recap, shareId: 'xyz');
+      const InviteLink link =
+          InviteLink(kind: InviteKind.recap, shareId: 'xyz');
       final Map<String, String> params = link.toRouteQueryParameters();
       expect(params['share_id'], 'xyz');
       expect(params.containsKey('slug'), false);

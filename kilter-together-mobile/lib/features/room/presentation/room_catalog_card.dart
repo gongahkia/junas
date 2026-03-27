@@ -32,7 +32,8 @@ class RoomColorDot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 10, height: 10,
+      width: 10,
+      height: 10,
       decoration: BoxDecoration(shape: BoxShape.circle, color: color),
     );
   }
@@ -49,7 +50,9 @@ class RoomChip extends StatelessWidget {
         color: const Color(0xFFE7F8F4),
         borderRadius: BorderRadius.zero,
       ),
-      child: Text(label, style: const TextStyle(fontWeight: FontWeight.w700, letterSpacing: 0.2)),
+      child: Text(label,
+          style:
+              const TextStyle(fontWeight: FontWeight.w700, letterSpacing: 0.2)),
     );
   }
 }
@@ -91,7 +94,8 @@ class CatalogCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final RoomSnapshot room = roomState.room!;
     final RoomCatalogClimbsResponse? catalog = roomState.catalog;
-    final RoomCatalogClimbResponse? selectedClimb = roomState.selectedCatalogClimb;
+    final RoomCatalogClimbResponse? selectedClimb =
+        roomState.selectedCatalogClimb;
     final List<String> selectedClimbImageUrls = selectedClimb == null
         ? const <String>[]
         : selectedClimb.climb.media
@@ -100,17 +104,24 @@ class CatalogCard extends StatelessWidget {
             .toList(growable: false);
     final QueueEntry? selectedQueueEntry = selectedClimb == null
         ? null
-        : room.queue.where((QueueEntry entry) => entry.climb.id == selectedClimb.climb.id).firstOrNull;
+        : room.queue
+            .where(
+                (QueueEntry entry) => entry.climb.id == selectedClimb.climb.id)
+            .firstOrNull;
     final bool selectedIsQueued = selectedQueueEntry != null;
     final bool selectedIsFinalist = selectedClimb != null &&
-        room.finalists.any((FinalistEntry entry) => entry.climb.id == selectedClimb.climb.id);
+        room.finalists.any(
+            (FinalistEntry entry) => entry.climb.id == selectedClimb.climb.id);
     final String emptyCatalogMessage;
     if (room.status == 'closed') {
-      emptyCatalogMessage = 'This room is closed. Start a new room if you want to browse climbs again.';
+      emptyCatalogMessage =
+          'This room is closed. Start a new room if you want to browse climbs again.';
     } else if (!room.connection.connected) {
-      emptyCatalogMessage = 'Waiting for the host to reconnect the provider before climbs can load.';
+      emptyCatalogMessage =
+          'Waiting for the host to reconnect the provider before climbs can load.';
     } else if (room.surface == null) {
-      emptyCatalogMessage = 'Waiting for the host to choose the shared surface for this room.';
+      emptyCatalogMessage =
+          'Waiting for the host to choose the shared surface for this room.';
     } else {
       emptyCatalogMessage = 'No climbs are loaded for this room surface yet.';
     }
@@ -126,7 +137,8 @@ class CatalogCard extends StatelessWidget {
               controller: queryController,
               decoration: InputDecoration(
                 labelText: 'Search climbs',
-                suffixIcon: IconButton(onPressed: onSearch, icon: const Icon(Icons.search)),
+                suffixIcon: IconButton(
+                    onPressed: onSearch, icon: const Icon(Icons.search)),
               ),
               onSubmitted: (_) => onSearch(),
             ),
@@ -134,37 +146,63 @@ class CatalogCard extends StatelessWidget {
             DropdownButtonFormField<String>(
               initialValue: roomState.catalogSort,
               decoration: const InputDecoration(labelText: 'Sort'),
-              items: sortOptions.map((String value) => DropdownMenuItem<String>(value: value, child: Text(value))).toList(growable: false),
+              items: sortOptions
+                  .map((String value) => DropdownMenuItem<String>(
+                      value: value, child: Text(value)))
+                  .toList(growable: false),
               onChanged: onSortChanged,
             ),
             const SizedBox(height: 12),
             Row(
               children: <Widget>[
-                Expanded(child: TextField(controller: gradeMinController, decoration: const InputDecoration(labelText: 'Grade min', hintText: 'e.g. V3'), textInputAction: TextInputAction.next)),
+                Expanded(
+                    child: TextField(
+                        controller: gradeMinController,
+                        decoration: const InputDecoration(
+                            labelText: 'Grade min', hintText: 'e.g. V3'),
+                        textInputAction: TextInputAction.next)),
                 const SizedBox(width: 12),
-                Expanded(child: TextField(controller: gradeMaxController, decoration: const InputDecoration(labelText: 'Grade max', hintText: 'e.g. V8'), textInputAction: TextInputAction.search, onSubmitted: (_) => onSearch())),
+                Expanded(
+                    child: TextField(
+                        controller: gradeMaxController,
+                        decoration: const InputDecoration(
+                            labelText: 'Grade max', hintText: 'e.g. V8'),
+                        textInputAction: TextInputAction.search,
+                        onSubmitted: (_) => onSearch())),
               ],
             ),
             if (selectedClimb != null) ...<Widget>[
               const SizedBox(height: 16),
               Container(
-                decoration: BoxDecoration(color: const Color(0xFFE9F4FF), borderRadius: BorderRadius.zero),
+                decoration: BoxDecoration(
+                    color: const Color(0xFFE9F4FF),
+                    borderRadius: BorderRadius.zero),
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(selectedClimb.climb.name, style: Theme.of(context).textTheme.titleLarge),
+                    Text(selectedClimb.climb.name,
+                        style: Theme.of(context).textTheme.titleLarge),
                     const SizedBox(height: 8),
                     Wrap(spacing: 10, runSpacing: 10, children: <Widget>[
                       if (selectedIsQueued) const RoomChip(label: 'Queued'),
-                      if (selectedQueueEntry?.status == 'current') const RoomChip(label: 'Current'),
-                      if (selectedQueueEntry?.status == 'next') const RoomChip(label: 'Next'),
+                      if (selectedQueueEntry?.status == 'current')
+                        const RoomChip(label: 'Current'),
+                      if (selectedQueueEntry?.status == 'next')
+                        const RoomChip(label: 'Next'),
                       if (selectedIsFinalist) const RoomChip(label: 'Finalist'),
                     ]),
                     const SizedBox(height: 6),
                     Text(selectedClimb.climb.setterName ?? 'Unknown setter'),
-                    if (selectedClimb.climb.primaryGrade != null) ...<Widget>[const SizedBox(height: 6), Text(selectedClimb.climb.primaryGrade!)],
-                    if ((selectedClimb.climb.description ?? '').isNotEmpty) ...<Widget>[const SizedBox(height: 10), Text(selectedClimb.climb.description!)],
+                    if (selectedClimb.climb.primaryGrade != null) ...<Widget>[
+                      const SizedBox(height: 6),
+                      Text(selectedClimb.climb.primaryGrade!)
+                    ],
+                    if ((selectedClimb.climb.description ?? '')
+                        .isNotEmpty) ...<Widget>[
+                      const SizedBox(height: 10),
+                      Text(selectedClimb.climb.description!)
+                    ],
                     const SizedBox(height: 12),
                     ClimbMediaPreview(
                       imageUrls: selectedClimbImageUrls,
@@ -174,11 +212,42 @@ class CatalogCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     Wrap(spacing: 10, runSpacing: 10, children: <Widget>[
-                      FilledButton.tonal(onPressed: () => onToggleVote(selectedClimb.climb.id), child: Text(selectedClimb.myVote ? 'Remove fist bump' : 'Fist bump')),
-                      if (room.permissions.manageQueue) FilledButton.tonal(onPressed: selectedIsQueued || room.status == 'closed' ? null : () => onAddQueue(selectedClimb.climb.id), child: Text(selectedIsQueued ? 'Already queued' : 'Add to queue')),
-                      if (room.permissions.manageFinalists) FilledButton.tonal(onPressed: selectedIsFinalist || room.status == 'closed' ? null : () => onAddFinalist(selectedClimb.climb.id), child: Text(selectedIsFinalist ? 'Already finalist' : 'Add finalist')),
-                      if (room.permissions.manageSession) FilledButton.tonal(onPressed: room.status == 'closed' ? null : () => onPromoteCurrent(selectedClimb.climb.id), child: const Text('Promote to current')),
-                      if (room.permissions.manageSession) FilledButton.tonal(onPressed: room.status == 'closed' ? null : () => onPromoteNext(selectedClimb.climb.id), child: const Text('Promote to next')),
+                      FilledButton.tonal(
+                          onPressed: () => onToggleVote(selectedClimb.climb.id),
+                          child: Text(selectedClimb.myVote
+                              ? 'Remove fist bump'
+                              : 'Fist bump')),
+                      if (room.permissions.manageQueue)
+                        FilledButton.tonal(
+                            onPressed:
+                                selectedIsQueued || room.status == 'closed'
+                                    ? null
+                                    : () => onAddQueue(selectedClimb.climb.id),
+                            child: Text(selectedIsQueued
+                                ? 'Already queued'
+                                : 'Add to queue')),
+                      if (room.permissions.manageFinalists)
+                        FilledButton.tonal(
+                            onPressed: selectedIsFinalist ||
+                                    room.status == 'closed'
+                                ? null
+                                : () => onAddFinalist(selectedClimb.climb.id),
+                            child: Text(selectedIsFinalist
+                                ? 'Already finalist'
+                                : 'Add finalist')),
+                      if (room.permissions.manageSession)
+                        FilledButton.tonal(
+                            onPressed: room.status == 'closed'
+                                ? null
+                                : () =>
+                                    onPromoteCurrent(selectedClimb.climb.id),
+                            child: const Text('Promote to current')),
+                      if (room.permissions.manageSession)
+                        FilledButton.tonal(
+                            onPressed: room.status == 'closed'
+                                ? null
+                                : () => onPromoteNext(selectedClimb.climb.id),
+                            child: const Text('Promote to next')),
                     ]),
                   ],
                 ),
@@ -186,42 +255,72 @@ class CatalogCard extends StatelessWidget {
             ],
             const SizedBox(height: 16),
             if (roomState.catalogLoading)
-              Padding(padding: const EdgeInsets.symmetric(vertical: 18), child: Center(child: ClimbingLoader()))
+              Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 18),
+                  child: Center(child: ClimbingLoader()))
             else if (catalog == null || catalog.climbs.isEmpty)
               Text(emptyCatalogMessage)
             else
               ...catalog.climbs.map((ProviderClimb climb) => Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: InkWell(
-                  borderRadius: BorderRadius.zero,
-                  onTap: () => onSelectClimb(climb.id),
-                  child: Ink(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.zero, border: Border.all(color: const Color(0xFFE2E8F0)), color: Colors.white),
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(climb.name, style: Theme.of(context).textTheme.titleMedium),
-                        const SizedBox(height: 4),
-                        Text([if ((climb.setterName ?? '').isNotEmpty) climb.setterName!, if ((climb.primaryGrade ?? '').isNotEmpty) climb.primaryGrade!].join(' · '), style: Theme.of(context).textTheme.bodySmall),
-                        if (hasClimbMeta(climb)) ...<Widget>[
-                          const SizedBox(height: 8),
-                          Wrap(spacing: 8, runSpacing: 6, children: <Widget>[
-                            if ((climb.meta['color'] ?? '').isNotEmpty) RoomColorDot(color: parseClimbColor(climb.meta['color']!)),
-                            if ((climb.meta['hold_type'] ?? '').isNotEmpty) RoomChip(label: climb.meta['hold_type']!),
-                            if ((climb.meta['foot_rule'] ?? '').isNotEmpty) RoomChip(label: climb.meta['foot_rule']!),
-                          ]),
-                        ],
-                        const SizedBox(height: 4),
-                        Align(alignment: Alignment.centerRight, child: Text('${catalog.voteCounts[climb.id] ?? 0} bump${(catalog.voteCounts[climb.id] ?? 0) == 1 ? '' : 's'}')),
-                      ],
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: InkWell(
+                      borderRadius: BorderRadius.zero,
+                      onTap: () => onSelectClimb(climb.id),
+                      child: Ink(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.zero,
+                            border: Border.all(color: const Color(0xFFE2E8F0)),
+                            color: Colors.white),
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(climb.name,
+                                style: Theme.of(context).textTheme.titleMedium),
+                            const SizedBox(height: 4),
+                            Text(
+                                [
+                                  if ((climb.setterName ?? '').isNotEmpty)
+                                    climb.setterName!,
+                                  if ((climb.primaryGrade ?? '').isNotEmpty)
+                                    climb.primaryGrade!
+                                ].join(' · '),
+                                style: Theme.of(context).textTheme.bodySmall),
+                            if (hasClimbMeta(climb)) ...<Widget>[
+                              const SizedBox(height: 8),
+                              Wrap(
+                                  spacing: 8,
+                                  runSpacing: 6,
+                                  children: <Widget>[
+                                    if ((climb.meta['color'] ?? '').isNotEmpty)
+                                      RoomColorDot(
+                                          color: parseClimbColor(
+                                              climb.meta['color']!)),
+                                    if ((climb.meta['hold_type'] ?? '')
+                                        .isNotEmpty)
+                                      RoomChip(label: climb.meta['hold_type']!),
+                                    if ((climb.meta['foot_rule'] ?? '')
+                                        .isNotEmpty)
+                                      RoomChip(label: climb.meta['foot_rule']!),
+                                  ]),
+                            ],
+                            const SizedBox(height: 4),
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                    '${catalog.voteCounts[climb.id] ?? 0} bump${(catalog.voteCounts[climb.id] ?? 0) == 1 ? '' : 's'}')),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              )),
+                  )),
             if (onLoadMore != null) ...<Widget>[
               const SizedBox(height: 12),
-              Align(alignment: Alignment.centerLeft, child: FilledButton.tonal(onPressed: onLoadMore, child: const Text('Load more climbs'))),
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: FilledButton.tonal(
+                      onPressed: onLoadMore,
+                      child: const Text('Load more climbs'))),
             ],
           ],
         ),

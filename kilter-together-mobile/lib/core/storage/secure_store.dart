@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-final Provider<SecureStore> secureStoreProvider = Provider<SecureStore>((Ref ref) {
+final Provider<SecureStore> secureStoreProvider =
+    Provider<SecureStore>((Ref ref) {
   return const SecureStore();
 });
 
@@ -22,4 +23,3 @@ class SecureStore {
     return _storage.delete(key: key);
   }
 }
-
