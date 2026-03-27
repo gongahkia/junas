@@ -17,7 +17,8 @@ const String _stateKey = 'kilter_host_room_state';
 String _generateSlug() {
   const String chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
   final Random rng = Random();
-  return List<String>.generate(8, (_) => chars[rng.nextInt(chars.length)]).join();
+  return List<String>.generate(8, (_) => chars[rng.nextInt(chars.length)])
+      .join();
 }
 
 class HostRoomArgs {
@@ -72,7 +73,8 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
   final OfflineKilterCatalogRepository _catalogRepository;
   late final HostRoomService _service;
   CatalogRelayService? _catalogRelay;
-  final Map<String, int> _peerParticipantIds = <String, int>{}; // peerId -> participantId
+  final Map<String, int> _peerParticipantIds =
+      <String, int>{}; // peerId -> participantId
   StreamSubscription<P2pMessage>? _messageSub;
   StreamSubscription<P2pConnectionChange>? _connectionSub;
   int? _hostParticipantId;
@@ -95,7 +97,8 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
       catalogRepository: _catalogRepository,
     )..start();
     _messageSub = _transport.messages.listen(_handleMessage);
-    _connectionSub = _transport.connectionChanges.listen(_handleConnectionChange);
+    _connectionSub =
+        _transport.connectionChanges.listen(_handleConnectionChange);
     try {
       await _transport.startAdvertising(
         displayName: '${_args.roomName}|$slug',
@@ -166,11 +169,14 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
         _broadcastState();
       case P2pMessageType.setFistBumps:
         if (!_senderIsHost(senderId)) return;
-        _service.setFistBumpsEnabled(message.payload['enabled'] as bool? ?? true);
+        _service
+            .setFistBumpsEnabled(message.payload['enabled'] as bool? ?? true);
         _broadcastState();
       case P2pMessageType.setSurface:
         if (!_senderIsHost(senderId)) return;
-        final Map<String, dynamic> raw = (message.payload['surface'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+        final Map<String, dynamic> raw =
+            (message.payload['surface'] as Map<String, dynamic>?) ??
+                <String, dynamic>{};
         _service.setSurface(ProviderSurface.fromJson(raw));
         _broadcastState();
       case P2pMessageType.pickRandom:
@@ -193,38 +199,53 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
   }
 
   void _handleJoinRequest(String peerId, Map<String, dynamic> payload) {
-    final String displayName = (payload['display_name'] as String? ?? '').trim();
+    final String displayName =
+        (payload['display_name'] as String? ?? '').trim();
     if (displayName.isEmpty) {
-      _sendTo(peerId, P2pMessage(
-        type: P2pMessageType.joinRejected,
-        payload: <String, dynamic>{'reason': 'Display name is required.'},
-      ));
+      _sendTo(
+          peerId,
+          P2pMessage(
+            type: P2pMessageType.joinRejected,
+            payload: <String, dynamic>{'reason': 'Display name is required.'},
+          ));
       return;
     }
     if (displayName.length > 40) {
-      _sendTo(peerId, P2pMessage(
-        type: P2pMessageType.joinRejected,
-        payload: <String, dynamic>{'reason': 'Display name must be 40 characters or fewer.'},
-      ));
+      _sendTo(
+          peerId,
+          P2pMessage(
+            type: P2pMessageType.joinRejected,
+            payload: <String, dynamic>{
+              'reason': 'Display name must be 40 characters or fewer.'
+            },
+          ));
       return;
     }
-    final int participantId = _service.addParticipant(displayName: displayName, role: 'participant');
+    final int participantId =
+        _service.addParticipant(displayName: displayName, role: 'participant');
     if (participantId < 0) {
-      _sendTo(peerId, P2pMessage(
-        type: P2pMessageType.joinRejected,
-        payload: <String, dynamic>{'reason': 'That display name is already taken.'},
-      ));
+      _sendTo(
+          peerId,
+          P2pMessage(
+            type: P2pMessageType.joinRejected,
+            payload: <String, dynamic>{
+              'reason': 'That display name is already taken.'
+            },
+          ));
       return;
     }
     _peerParticipantIds[peerId] = participantId;
-    final RoomSnapshot snapshot = _service.toSnapshot(forParticipantId: participantId);
-    _sendTo(peerId, P2pMessage(
-      type: P2pMessageType.joinAccepted,
-      payload: <String, dynamic>{
-        'participant_id': participantId,
-        'snapshot': _snapshotToJson(snapshot),
-      },
-    ));
+    final RoomSnapshot snapshot =
+        _service.toSnapshot(forParticipantId: participantId);
+    _sendTo(
+        peerId,
+        P2pMessage(
+          type: P2pMessageType.joinAccepted,
+          payload: <String, dynamic>{
+            'participant_id': participantId,
+            'snapshot': _snapshotToJson(snapshot),
+          },
+        ));
     _broadcastState();
   }
 
@@ -241,11 +262,13 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
     final int? participantId = _peerParticipantIds[peerId];
     final String addedBy = participantId != null
         ? _service.state.participants
-            .where((Participant p) => p.id == participantId)
-            .map((Participant p) => p.displayName)
-            .firstOrNull ?? ''
+                .where((Participant p) => p.id == participantId)
+                .map((Participant p) => p.displayName)
+                .firstOrNull ??
+            ''
         : '';
-    final Map<String, dynamic> climbJson = (payload['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+    final Map<String, dynamic> climbJson =
+        (payload['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{};
     final ProviderClimb climb = ProviderClimb.fromJson(climbJson);
     _service.addQueueEntry(climbId: climb.id, addedBy: addedBy, climb: climb);
     _broadcastState();
@@ -258,9 +281,10 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
   }
 
   void _handleQueueReorder(String peerId, Map<String, dynamic> payload) {
-    final List<int> entryIds = ((payload['entry_ids'] as List<dynamic>?) ?? <dynamic>[])
-        .map((dynamic e) => (e as num).toInt())
-        .toList(growable: false);
+    final List<int> entryIds =
+        ((payload['entry_ids'] as List<dynamic>?) ?? <dynamic>[])
+            .map((dynamic e) => (e as num).toInt())
+            .toList(growable: false);
     _service.reorderQueue(entryIds);
     _broadcastState();
   }
@@ -269,11 +293,13 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
     final int? participantId = _peerParticipantIds[peerId];
     final String addedBy = participantId != null
         ? _service.state.participants
-            .where((Participant p) => p.id == participantId)
-            .map((Participant p) => p.displayName)
-            .firstOrNull ?? ''
+                .where((Participant p) => p.id == participantId)
+                .map((Participant p) => p.displayName)
+                .firstOrNull ??
+            ''
         : '';
-    final Map<String, dynamic> climbJson = (payload['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+    final Map<String, dynamic> climbJson =
+        (payload['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{};
     final ProviderClimb climb = ProviderClimb.fromJson(climbJson);
     _service.addFinalist(climbId: climb.id, addedBy: addedBy, climb: climb);
     _broadcastState();
@@ -286,9 +312,10 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
   }
 
   void _handleFinalistReorder(String peerId, Map<String, dynamic> payload) {
-    final List<int> entryIds = ((payload['entry_ids'] as List<dynamic>?) ?? <dynamic>[])
-        .map((dynamic e) => (e as num).toInt())
-        .toList(growable: false);
+    final List<int> entryIds =
+        ((payload['entry_ids'] as List<dynamic>?) ?? <dynamic>[])
+            .map((dynamic e) => (e as num).toInt())
+            .toList(growable: false);
     _service.reorderFinalists(entryIds);
     _broadcastState();
   }
@@ -339,10 +366,12 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
     _service.removeParticipant(participantId);
     if (targetPeerId != null) {
       _peerParticipantIds.remove(targetPeerId);
-      _sendTo(targetPeerId, const P2pMessage(
-        type: P2pMessageType.kicked,
-        payload: <String, dynamic>{},
-      ));
+      _sendTo(
+          targetPeerId,
+          const P2pMessage(
+            type: P2pMessageType.kicked,
+            payload: <String, dynamic>{},
+          ));
       unawaited(_transport.disconnectFromPeer(targetPeerId));
     }
     _broadcastState();
@@ -365,7 +394,8 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
   }
 
   void hostAddQueueEntry(ProviderClimb climb) {
-    _service.addQueueEntry(climbId: climb.id, addedBy: _args.displayName, climb: climb);
+    _service.addQueueEntry(
+        climbId: climb.id, addedBy: _args.displayName, climb: climb);
     _broadcastState();
   }
 
@@ -385,7 +415,8 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
   }
 
   void hostAddFinalist(ProviderClimb climb) {
-    _service.addFinalist(climbId: climb.id, addedBy: _args.displayName, climb: climb);
+    _service.addFinalist(
+        climbId: climb.id, addedBy: _args.displayName, climb: climb);
     _broadcastState();
   }
 
@@ -449,10 +480,12 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
     _service.removeParticipant(participantId);
     if (targetPeerId != null) {
       _peerParticipantIds.remove(targetPeerId);
-      _sendTo(targetPeerId, const P2pMessage(
-        type: P2pMessageType.kicked,
-        payload: <String, dynamic>{},
-      ));
+      _sendTo(
+          targetPeerId,
+          const P2pMessage(
+            type: P2pMessageType.kicked,
+            payload: <String, dynamic>{},
+          ));
       unawaited(_transport.disconnectFromPeer(targetPeerId));
     }
     _broadcastState();
@@ -467,7 +500,8 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
     _broadcastState();
   }
 
-  RoomSnapshot get hostSnapshot => _service.toSnapshot(forParticipantId: _hostParticipantId);
+  RoomSnapshot get hostSnapshot =>
+      _service.toSnapshot(forParticipantId: _hostParticipantId);
   String get slug => _service.state.slug;
   int? get hostParticipantId => _hostParticipantId;
 
@@ -477,11 +511,14 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
       hosting: true,
     );
     for (final MapEntry<String, int> entry in _peerParticipantIds.entries) {
-      final RoomSnapshot peerSnapshot = _service.toSnapshot(forParticipantId: entry.value);
-      _sendTo(entry.key, P2pMessage(
-        type: P2pMessageType.roomStateUpdate,
-        payload: _snapshotToJson(peerSnapshot),
-      ));
+      final RoomSnapshot peerSnapshot =
+          _service.toSnapshot(forParticipantId: entry.value);
+      _sendTo(
+          entry.key,
+          P2pMessage(
+            type: P2pMessageType.roomStateUpdate,
+            payload: _snapshotToJson(peerSnapshot),
+          ));
     }
     _persistState();
   }
@@ -507,7 +544,8 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
       if (data == null) return null;
       return HostRoomState.deserialize(data);
     } catch (e) {
-      developer.log('failed to load persisted host room state: $e', name: 'HostRoom');
+      developer.log('failed to load persisted host room state: $e',
+          name: 'HostRoom');
       return null;
     }
   }
@@ -528,28 +566,35 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
       'display_name': snapshot.displayName,
       'vote_counts': snapshot.voteCounts,
       'my_votes': snapshot.myVotes,
-      'participants': snapshot.participants.map((Participant p) => <String, dynamic>{
-        'id': p.id,
-        'display_name': p.displayName,
-        'role': p.role,
-        'status': p.status,
-        'is_online': p.isOnline,
-      }).toList(growable: false),
-      'queue': snapshot.queue.map((QueueEntry e) => <String, dynamic>{
-        'id': e.id,
-        'status': e.status,
-        'position': e.position,
-        'added_by': e.addedBy,
-        'climb': e.climb.toJson(),
-      }).toList(growable: false),
-      'finalists': snapshot.finalists.map((FinalistEntry e) => <String, dynamic>{
-        'id': e.id,
-        'position': e.position,
-        'added_by': e.addedBy,
-        'climb': e.climb.toJson(),
-      }).toList(growable: false),
+      'participants': snapshot.participants
+          .map((Participant p) => <String, dynamic>{
+                'id': p.id,
+                'display_name': p.displayName,
+                'role': p.role,
+                'status': p.status,
+                'is_online': p.isOnline,
+              })
+          .toList(growable: false),
+      'queue': snapshot.queue
+          .map((QueueEntry e) => <String, dynamic>{
+                'id': e.id,
+                'status': e.status,
+                'position': e.position,
+                'added_by': e.addedBy,
+                'climb': e.climb.toJson(),
+              })
+          .toList(growable: false),
+      'finalists': snapshot.finalists
+          .map((FinalistEntry e) => <String, dynamic>{
+                'id': e.id,
+                'position': e.position,
+                'added_by': e.addedBy,
+                'climb': e.climb.toJson(),
+              })
+          .toList(growable: false),
       if (snapshot.surface != null) 'surface': snapshot.surface!.toJson(),
-      if (snapshot.currentClimb != null) 'current_climb': snapshot.currentClimb!.toJson(),
+      if (snapshot.currentClimb != null)
+        'current_climb': snapshot.currentClimb!.toJson(),
       'connection': <String, dynamic>{
         'connected': snapshot.connection.connected,
         'provider_id': snapshot.connection.providerId,

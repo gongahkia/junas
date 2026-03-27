@@ -27,8 +27,8 @@ class ClimbLogEntry {
       id: json['id'] as String? ?? '',
       climbId: json['climb_id'] as String? ?? '',
       providerId: json['provider_id'] as String? ?? '',
-      surfaceContext:
-          rawContext.map((String key, dynamic value) => MapEntry(key, '$value')),
+      surfaceContext: rawContext
+          .map((String key, dynamic value) => MapEntry(key, '$value')),
       timestamp: json['timestamp'] as String? ?? '',
       status: json['status'] as String? ?? 'seen',
       note: json['note'] as String?,

@@ -30,7 +30,8 @@ void main() {
 
   group('RoomPermissions.fromJson', () {
     test('parses all true permissions', () {
-      final RoomPermissions perms = RoomPermissions.fromJson(const <String, dynamic>{
+      final RoomPermissions perms =
+          RoomPermissions.fromJson(const <String, dynamic>{
         'manage_session': true,
         'manage_surface': true,
         'manage_queue': true,
@@ -51,7 +52,8 @@ void main() {
     });
 
     test('defaults all to false', () {
-      final RoomPermissions perms = RoomPermissions.fromJson(const <String, dynamic>{});
+      final RoomPermissions perms =
+          RoomPermissions.fromJson(const <String, dynamic>{});
       expect(perms.manageSession, false);
       expect(perms.manageSurface, false);
       expect(perms.closeRoom, false);
@@ -97,7 +99,8 @@ void main() {
     });
 
     test('defaults for empty json', () {
-      final FinalistEntry entry = FinalistEntry.fromJson(const <String, dynamic>{});
+      final FinalistEntry entry =
+          FinalistEntry.fromJson(const <String, dynamic>{});
       expect(entry.id, 0);
       expect(entry.position, 0);
       expect(entry.addedBy, '');
@@ -123,7 +126,8 @@ void main() {
     });
 
     test('defaults to manual mode', () {
-      final AssistantState state = AssistantState.fromJson(const <String, dynamic>{});
+      final AssistantState state =
+          AssistantState.fromJson(const <String, dynamic>{});
       expect(state.mode, 'manual');
       expect(state.message, isNull);
       expect(state.suggestion, isNull);
@@ -208,7 +212,8 @@ void main() {
 
   group('RoomCatalogClimbsResponse.fromJson', () {
     test('parses climbs and votes', () {
-      final RoomCatalogClimbsResponse resp = RoomCatalogClimbsResponse.fromJson(<String, dynamic>{
+      final RoomCatalogClimbsResponse resp =
+          RoomCatalogClimbsResponse.fromJson(<String, dynamic>{
         'climbs': <Map<String, dynamic>>[
           <String, dynamic>{'id': 'c1', 'name': 'Route A'},
           <String, dynamic>{'id': 'c2', 'name': 'Route B'},
@@ -228,7 +233,8 @@ void main() {
     });
 
     test('defaults for empty json', () {
-      final RoomCatalogClimbsResponse resp = RoomCatalogClimbsResponse.fromJson(const <String, dynamic>{});
+      final RoomCatalogClimbsResponse resp =
+          RoomCatalogClimbsResponse.fromJson(const <String, dynamic>{});
       expect(resp.climbs.isEmpty, true);
       expect(resp.hasMore, false);
       expect(resp.pageSize, 10);
@@ -238,7 +244,8 @@ void main() {
 
   group('RoomCatalogClimbResponse.fromJson', () {
     test('parses single climb response', () {
-      final RoomCatalogClimbResponse resp = RoomCatalogClimbResponse.fromJson(<String, dynamic>{
+      final RoomCatalogClimbResponse resp =
+          RoomCatalogClimbResponse.fromJson(<String, dynamic>{
         'climb': <String, dynamic>{'id': 'c1', 'name': 'Test'},
         'vote_count': 5,
         'my_vote': true,

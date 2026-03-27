@@ -82,7 +82,8 @@ class QueueEntry {
       status: json['status'] as String? ?? 'queued',
       position: (json['position'] as num?)?.toInt() ?? 0,
       addedBy: json['added_by'] as String? ?? '',
-      climb: ProviderClimb.fromJson((json['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
+      climb: ProviderClimb.fromJson(
+          (json['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
     );
   }
 }
@@ -105,7 +106,8 @@ class FinalistEntry {
       id: (json['id'] as num?)?.toInt() ?? 0,
       position: (json['position'] as num?)?.toInt() ?? 0,
       addedBy: json['added_by'] as String? ?? '',
-      climb: ProviderClimb.fromJson((json['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
+      climb: ProviderClimb.fromJson(
+          (json['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
     );
   }
 }
@@ -125,7 +127,8 @@ class AssistantSuggestion {
     return AssistantSuggestion(
       source: json['source'] as String? ?? '',
       readyCount: (json['ready_count'] as num?)?.toInt() ?? 0,
-      climb: ProviderClimb.fromJson((json['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
+      climb: ProviderClimb.fromJson(
+          (json['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
     );
   }
 }
@@ -146,7 +149,8 @@ class AssistantState {
       mode: json['mode'] as String? ?? 'manual',
       message: json['message'] as String?,
       suggestion: json['suggestion'] is Map<String, dynamic>
-          ? AssistantSuggestion.fromJson(json['suggestion'] as Map<String, dynamic>)
+          ? AssistantSuggestion.fromJson(
+              json['suggestion'] as Map<String, dynamic>)
           : null,
     );
   }
@@ -170,9 +174,12 @@ class RoomCatalogClimbsResponse {
   final String? nextCursor;
 
   factory RoomCatalogClimbsResponse.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> rawClimbs = (json['climbs'] as List<dynamic>?) ?? <dynamic>[];
-    final Map<String, dynamic> rawVoteCounts = (json['vote_counts'] as Map<String, dynamic>?) ?? <String, dynamic>{};
-    final List<dynamic> rawMyVotes = (json['my_votes'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawClimbs =
+        (json['climbs'] as List<dynamic>?) ?? <dynamic>[];
+    final Map<String, dynamic> rawVoteCounts =
+        (json['vote_counts'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+    final List<dynamic> rawMyVotes =
+        (json['my_votes'] as List<dynamic>?) ?? <dynamic>[];
     return RoomCatalogClimbsResponse(
       climbs: rawClimbs
           .whereType<Map<String, dynamic>>()
@@ -180,9 +187,10 @@ class RoomCatalogClimbsResponse {
           .toList(growable: false),
       hasMore: json['has_more'] as bool? ?? false,
       pageSize: (json['page_size'] as num?)?.toInt() ?? 10,
-      voteCounts: rawVoteCounts
-          .map((String key, dynamic value) => MapEntry(key, (value as num?)?.toInt() ?? 0)),
-      myVotes: rawMyVotes.map((dynamic value) => '$value').toList(growable: false),
+      voteCounts: rawVoteCounts.map((String key, dynamic value) =>
+          MapEntry(key, (value as num?)?.toInt() ?? 0)),
+      myVotes:
+          rawMyVotes.map((dynamic value) => '$value').toList(growable: false),
       nextCursor: json['next_cursor'] as String?,
     );
   }
@@ -203,7 +211,8 @@ class RoomCatalogClimbResponse {
 
   factory RoomCatalogClimbResponse.fromJson(Map<String, dynamic> json) {
     return RoomCatalogClimbResponse(
-      climb: ProviderClimb.fromJson((json['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
+      climb: ProviderClimb.fromJson(
+          (json['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
       voteCount: (json['vote_count'] as num?)?.toInt() ?? 0,
       myVote: json['my_vote'] as bool? ?? false,
       isQueued: json['is_queued'] as bool? ?? false,
@@ -253,11 +262,16 @@ class RoomSnapshot {
   final AssistantState assistant;
 
   factory RoomSnapshot.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> rawParticipants = (json['participants'] as List<dynamic>?) ?? <dynamic>[];
-    final List<dynamic> rawFinalists = (json['finalists'] as List<dynamic>?) ?? <dynamic>[];
-    final List<dynamic> rawQueue = (json['queue'] as List<dynamic>?) ?? <dynamic>[];
-    final Map<String, dynamic> rawVotes = (json['vote_counts'] as Map<String, dynamic>?) ?? <String, dynamic>{};
-    final List<dynamic> rawMyVotes = (json['my_votes'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawParticipants =
+        (json['participants'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawFinalists =
+        (json['finalists'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawQueue =
+        (json['queue'] as List<dynamic>?) ?? <dynamic>[];
+    final Map<String, dynamic> rawVotes =
+        (json['vote_counts'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+    final List<dynamic> rawMyVotes =
+        (json['my_votes'] as List<dynamic>?) ?? <dynamic>[];
     return RoomSnapshot(
       slug: json['slug'] as String? ?? '',
       roomName: json['room_name'] as String?,
@@ -271,7 +285,8 @@ class RoomSnapshot {
         (json['connection'] as Map<String, dynamic>?) ?? <String, dynamic>{},
       ),
       currentClimb: json['current_climb'] is Map<String, dynamic>
-          ? ProviderClimb.fromJson(json['current_climb'] as Map<String, dynamic>)
+          ? ProviderClimb.fromJson(
+              json['current_climb'] as Map<String, dynamic>)
           : null,
       participants: rawParticipants
           .whereType<Map<String, dynamic>>()
@@ -285,8 +300,10 @@ class RoomSnapshot {
           .whereType<Map<String, dynamic>>()
           .map(QueueEntry.fromJson)
           .toList(growable: false),
-      voteCounts: rawVotes.map((String key, dynamic value) => MapEntry(key, (value as num?)?.toInt() ?? 0)),
-      myVotes: rawMyVotes.map((dynamic value) => '$value').toList(growable: false),
+      voteCounts: rawVotes.map((String key, dynamic value) =>
+          MapEntry(key, (value as num?)?.toInt() ?? 0)),
+      myVotes:
+          rawMyVotes.map((dynamic value) => '$value').toList(growable: false),
       fistBumpsEnabled: json['fist_bumps_enabled'] as bool? ?? true,
       canManage: json['can_manage'] as bool? ?? false,
       permissions: RoomPermissions.fromJson(
@@ -299,4 +316,3 @@ class RoomSnapshot {
     );
   }
 }
-

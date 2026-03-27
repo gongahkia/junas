@@ -7,7 +7,8 @@ import 'p2p_transport.dart';
 
 const String p2pServiceId = 'com.gongahkia.kilterTogether';
 
-final Provider<P2pTransport> p2pTransportProvider = Provider<P2pTransport>((Ref ref) {
+final Provider<P2pTransport> p2pTransportProvider =
+    Provider<P2pTransport>((Ref ref) {
   final P2pTransport transport;
   if (Platform.isAndroid) {
     transport = NearbyTransport();

@@ -24,12 +24,14 @@ class InviteLink {
       case 'recap':
         return InviteLink(
           kind: InviteKind.recap,
-          shareId: uri.queryParameters['share_id'] ?? uri.queryParameters['shareId'],
+          shareId:
+              uri.queryParameters['share_id'] ?? uri.queryParameters['shareId'],
         );
       case 'plan':
         return InviteLink(
           kind: InviteKind.plan,
-          shareId: uri.queryParameters['share_id'] ?? uri.queryParameters['shareId'],
+          shareId:
+              uri.queryParameters['share_id'] ?? uri.queryParameters['shareId'],
         );
       default:
         return null;

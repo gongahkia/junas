@@ -9,9 +9,11 @@ import '../../../core/deep_links/invite_links.dart';
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/product_models.dart';
 import '../../../core/models/provider_models.dart';
+import '../../../core/presentation/app_surfaces.dart';
 import '../../../core/presentation/climbing_loader.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
+import '../../../core/theme/app_theme.dart';
 import '../application/plan_controller.dart';
 
 class PlanScreen extends ConsumerWidget {
@@ -24,7 +26,8 @@ class PlanScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final PlanRouteArgs args = PlanRouteArgs(server: 'p2p://local', shareId: shareId);
+    final PlanRouteArgs args =
+        PlanRouteArgs(server: 'p2p://local', shareId: shareId);
     final PlanViewState state = ref.watch(planControllerProvider(args));
     final PlanController controller =
         ref.read(planControllerProvider(args).notifier);
@@ -71,31 +74,20 @@ class _PlanBody extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final SoloPlanSnapshot? plan = state.plan;
+    final KilterPalette palette = kilterPaletteOf(context);
 
     if (state.loading && plan == null) {
-      return Card(
+      return AppPanel(
+        accentColor: palette.secondary,
         child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Center(child: ClimbingLoader()),
-        ),
-      );
-    }
-
-    if (plan == null) {
-      return Card(
-        child: Padding(
-          padding: const EdgeInsets.all(22),
+          padding: const EdgeInsets.symmetric(vertical: 28),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              Center(child: ClimbingLoader()),
+              const SizedBox(height: 16),
               Text(
-                'Plan unavailable',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                state.errorMessage ??
-                    'The shared plan link may be invalid or the snapshot is no longer available.',
+                'Loading shared plan.',
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ],
           ),
@@ -103,120 +95,141 @@ class _PlanBody extends ConsumerWidget {
       );
     }
 
+    if (plan == null) {
+      return AppPanel(
+        accentColor: const Color(0xFF9B3445),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Plan unavailable',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              state.errorMessage ??
+                  'The shared plan link may be invalid or the snapshot is no longer available.',
+            ),
+          ],
+        ),
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(22),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  plan.title,
-                  style: Theme.of(context).textTheme.displayLarge,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  plan.notes ?? 'No planning note was added to this snapshot.',
-                ),
+        AppPanel(
+          accentColor: palette.secondary,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: <Widget>[
+                  AppBadge(
+                    label: plan.providerId.toUpperCase(),
+                    icon: Icons.terrain_rounded,
+                    color: palette.secondary,
+                  ),
+                  AppBadge(
+                    label: plan.surface.name,
+                    icon: Icons.dashboard_outlined,
+                    color: palette.primary,
+                  ),
+                  AppBadge(
+                    label: '${plan.climbs.length} climbs',
+                    icon: Icons.route_rounded,
+                    color: palette.highlight,
+                  ),
+                  AppBadge(
+                    label: MaterialLocalizations.of(context)
+                        .formatShortDate(plan.createdAt.toLocal()),
+                    icon: Icons.event_note_rounded,
+                    color: palette.subtleInk,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 18),
+              Text(
+                plan.title,
+                style: Theme.of(context).textTheme.displayLarge,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                plan.notes ?? 'No planning note was added to this snapshot.',
+              ),
+              if (plan.filters.isNotEmpty) ...<Widget>[
                 const SizedBox(height: 18),
                 Wrap(
                   spacing: 10,
                   runSpacing: 10,
-                  children: <Widget>[
-                    _InfoChip(label: plan.providerId.toUpperCase()),
-                    _InfoChip(label: plan.surface.name),
-                    _InfoChip(label: '${plan.climbs.length} climbs'),
-                    _InfoChip(
-                      label: MaterialLocalizations.of(context)
-                          .formatShortDate(plan.createdAt.toLocal()),
-                    ),
-                  ],
-                ),
-                if (plan.filters.isNotEmpty) ...<Widget>[
-                  const SizedBox(height: 18),
-                  Wrap(
-                    spacing: 10,
-                    runSpacing: 10,
-                    children: plan.filters.entries
-                        .where((MapEntry<String, String> item) =>
-                            item.value.isNotEmpty)
-                        .map(
-                          (MapEntry<String, String> item) =>
-                              _InfoChip(label: '${item.key}: ${item.value}'),
-                        )
-                        .toList(growable: false),
-                  ),
-                ],
-                const SizedBox(height: 18),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: FilledButton(
-                        onPressed: () => unawaited(_sharePlan(plan)),
-                        child: const Text('Share link'),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: FilledButton.tonal(
-                        onPressed: plan.openPath == null
-                            ? null
-                            : () => _openInSolo(context, plan.openPath!),
-                        child: const Text('Open in solo'),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton(
-                    onPressed: () => unawaited(
-                      _startRoomFromPlan(
-                        context: context,
-                        ref: ref,
-                        plan: plan,
-                      ),
-                    ),
-                    child: const Text('Start room from plan'),
-                  ),
+                  children: plan.filters.entries
+                      .where(
+                        (MapEntry<String, String> item) =>
+                            item.value.isNotEmpty,
+                      )
+                      .map(
+                        (MapEntry<String, String> item) => _InfoChip(
+                          label: '${item.key}: ${item.value}',
+                          color: palette.primary,
+                        ),
+                      )
+                      .toList(growable: false),
                 ),
               ],
-            ),
+              const SizedBox(height: 18),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: FilledButton(
+                      onPressed: () => unawaited(_sharePlan(plan)),
+                      child: const Text('Share link'),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: FilledButton.tonal(
+                      onPressed: plan.openPath == null
+                          ? null
+                          : () => _openInSolo(context, plan.openPath!),
+                      child: const Text('Open in solo'),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  onPressed: () => unawaited(
+                    _startRoomFromPlan(
+                      context: context,
+                      ref: ref,
+                      plan: plan,
+                    ),
+                  ),
+                  child: const Text('Start room from plan'),
+                ),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 14),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(22),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Planned climbs',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                const SizedBox(height: 12),
-                ...plan.climbs.map(
-                  (ProviderClimb climb) => ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Text(climb.name),
-                    subtitle: Text(
-                      [
-                        if ((climb.primaryGrade ?? '').isNotEmpty)
-                          climb.primaryGrade!,
-                        if ((climb.setterName ?? '').isNotEmpty)
-                          climb.setterName!,
-                        if ((climb.meta['color'] ?? '').isNotEmpty)
-                          climb.meta['color']!,
-                      ].join(' · '),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+        AppPanel(
+          accentColor: palette.highlight,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Planned climbs',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              const SizedBox(height: 12),
+              ...plan.climbs.map(
+                (ProviderClimb climb) => _PlanClimbTile(climb: climb),
+              ),
+            ],
           ),
         ),
       ],
@@ -265,20 +278,81 @@ class _PlanBody extends ConsumerWidget {
 class _InfoChip extends StatelessWidget {
   const _InfoChip({
     required this.label,
+    this.color,
   });
 
   final String label;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF5F5F5),
-        borderRadius: BorderRadius.zero,
-        border: Border.all(color: const Color(0xFFD4D4D4)),
+    return AppBadge(label: label, color: color);
+  }
+}
+
+class _PlanClimbTile extends StatelessWidget {
+  const _PlanClimbTile({
+    required this.climb,
+  });
+
+  final ProviderClimb climb;
+
+  @override
+  Widget build(BuildContext context) {
+    final KilterPalette palette = kilterPaletteOf(context);
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: palette.panel.withValues(alpha: 0.9),
+          borderRadius: BorderRadius.circular(22),
+          border: Border.all(color: palette.stroke),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                width: 42,
+                height: 42,
+                decoration: BoxDecoration(
+                  color: palette.highlight.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(
+                  Icons.flag_circle_rounded,
+                  color: palette.highlight,
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      climb.name,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      [
+                        if ((climb.primaryGrade ?? '').isNotEmpty)
+                          climb.primaryGrade!,
+                        if ((climb.setterName ?? '').isNotEmpty)
+                          climb.setterName!,
+                        if ((climb.meta['color'] ?? '').isNotEmpty)
+                          climb.meta['color']!,
+                      ].join(' · '),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
-      child: Text(label),
     );
   }
 }

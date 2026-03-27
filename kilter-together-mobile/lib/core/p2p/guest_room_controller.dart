@@ -68,7 +68,8 @@ class GuestRoomController extends StateNotifier<GuestRoomViewState> {
 
   Future<void> _init() async {
     _messageSub = _transport.messages.listen(_handleMessage);
-    _connectionSub = _transport.connectionChanges.listen(_handleConnectionChange);
+    _connectionSub =
+        _transport.connectionChanges.listen(_handleConnectionChange);
     try {
       await _transport.connectToPeer(_args.hostPeer);
     } catch (e) {
@@ -96,9 +97,11 @@ class GuestRoomController extends StateNotifier<GuestRoomViewState> {
   void _handleMessage(P2pMessage message) {
     switch (message.type) {
       case P2pMessageType.joinAccepted:
-        final int participantId = (message.payload['participant_id'] as num?)?.toInt() ?? 0;
+        final int participantId =
+            (message.payload['participant_id'] as num?)?.toInt() ?? 0;
         final Map<String, dynamic> snapshotJson =
-            (message.payload['snapshot'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+            (message.payload['snapshot'] as Map<String, dynamic>?) ??
+                <String, dynamic>{};
         state = GuestRoomViewState(
           room: RoomSnapshot.fromJson(snapshotJson),
           participantId: participantId,
@@ -106,7 +109,8 @@ class GuestRoomController extends StateNotifier<GuestRoomViewState> {
           loading: false,
         );
       case P2pMessageType.joinRejected:
-        final String reason = message.payload['reason'] as String? ?? 'Join rejected.';
+        final String reason =
+            message.payload['reason'] as String? ?? 'Join rejected.';
         state = GuestRoomViewState(
           loading: false,
           errorMessage: reason,
@@ -134,7 +138,8 @@ class GuestRoomController extends StateNotifier<GuestRoomViewState> {
           roomClosed: true,
         );
       case P2pMessageType.catalogResponse:
-        final List<dynamic> rawClimbs = (message.payload['climbs'] as List<dynamic>?) ?? <dynamic>[];
+        final List<dynamic> rawClimbs =
+            (message.payload['climbs'] as List<dynamic>?) ?? <dynamic>[];
         final List<BoardClimb> climbs = rawClimbs
             .whereType<Map<String, dynamic>>()
             .map(BoardClimb.fromJson)

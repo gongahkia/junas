@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../theme/app_theme.dart';
+import 'app_surfaces.dart';
+
 class FeedbackPromptCard extends StatefulWidget {
   const FeedbackPromptCard({
     required this.title,
@@ -50,49 +53,55 @@ class _FeedbackPromptCardState extends State<FeedbackPromptCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(22),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              widget.title,
-              style: Theme.of(context).textTheme.headlineMedium,
+    final KilterPalette palette = kilterPaletteOf(context);
+
+    return AppPanel(
+      accentColor: palette.highlight,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          AppBadge(
+            label: 'Feedback prompt',
+            icon: Icons.forum_outlined,
+            color: palette.highlight,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            widget.title,
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          const SizedBox(height: 8),
+          Text(widget.description),
+          const SizedBox(height: 16),
+          TextField(
+            controller: _messageController,
+            minLines: 1,
+            maxLines: 3,
+            decoration: const InputDecoration(
+              labelText: 'Optional note',
+              hintText: 'Anything confusing, blocked, or surprisingly good?',
             ),
-            const SizedBox(height: 8),
-            Text(widget.description),
-            const SizedBox(height: 16),
-            TextField(
-              controller: _messageController,
-              minLines: 1,
-              maxLines: 3,
-              decoration: const InputDecoration(
-                labelText: 'Optional note',
-                hintText: 'Anything confusing, blocked, or surprisingly good?',
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: <Widget>[
+              TextButton(
+                onPressed: _submitting ? null : widget.onDismiss,
+                child: const Text('Later'),
               ),
-            ),
-            const SizedBox(height: 16),
-            Wrap(
-              spacing: 10,
-              runSpacing: 10,
-              children: <Widget>[
-                TextButton(
-                  onPressed: _submitting ? null : widget.onDismiss,
-                  child: const Text('Later'),
-                ),
-                FilledButton.tonal(
-                  onPressed: _submitting ? null : () => _submit('positive'),
-                  child: Text(_submitting ? 'Sending...' : 'Helpful'),
-                ),
-                FilledButton.tonal(
-                  onPressed: _submitting ? null : () => _submit('negative'),
-                  child: Text(_submitting ? 'Sending...' : 'Needs work'),
-                ),
-              ],
-            ),
-          ],
-        ),
+              FilledButton.tonal(
+                onPressed: _submitting ? null : () => _submit('positive'),
+                child: Text(_submitting ? 'Sending...' : 'Helpful'),
+              ),
+              FilledButton.tonal(
+                onPressed: _submitting ? null : () => _submit('negative'),
+                child: Text(_submitting ? 'Sending...' : 'Needs work'),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

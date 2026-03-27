@@ -7,7 +7,8 @@ import '../models/board_models.dart';
 import '../models/room_models.dart';
 import 'app_preferences.dart';
 
-final StateNotifierProvider<AppPrefsController, AsyncValue<AppPrefs>> appPrefsControllerProvider =
+final StateNotifierProvider<AppPrefsController, AsyncValue<AppPrefs>>
+    appPrefsControllerProvider =
     StateNotifierProvider<AppPrefsController, AsyncValue<AppPrefs>>((Ref ref) {
   return AppPrefsController(
     repository: ref.read(appPreferencesProvider),
@@ -95,9 +96,10 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
       return _copy(
         current,
         hostDefaults: HostDefaults(
-          roomNameTemplate: roomNameTemplate ?? current.hostDefaults.roomNameTemplate,
-          defaultFistBumpsEnabled:
-              defaultFistBumpsEnabled ?? current.hostDefaults.defaultFistBumpsEnabled,
+          roomNameTemplate:
+              roomNameTemplate ?? current.hostDefaults.roomNameTemplate,
+          defaultFistBumpsEnabled: defaultFistBumpsEnabled ??
+              current.hostDefaults.defaultFistBumpsEnabled,
         ),
       );
     });
@@ -109,7 +111,8 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
   }) {
     return _mutate((AppPrefs current) {
       final Map<String, SavedCredentialPreference> providers =
-          Map<String, SavedCredentialPreference>.from(current.savedCredentials.providers);
+          Map<String, SavedCredentialPreference>.from(
+              current.savedCredentials.providers);
       providers['kilter'] = SavedCredentialPreference(
         remember: remember,
         username: remember ? username.trim() : null,
@@ -127,9 +130,10 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
   }) {
     return _mutate((AppPrefs current) {
       final Map<String, SavedCredentialPreference> providers =
-          Map<String, SavedCredentialPreference>.from(current.savedCredentials.providers);
-      final SavedCredentialPreference previous =
-          providers[providerId] ?? const SavedCredentialPreference(remember: false);
+          Map<String, SavedCredentialPreference>.from(
+              current.savedCredentials.providers);
+      final SavedCredentialPreference previous = providers[providerId] ??
+          const SavedCredentialPreference(remember: false);
       providers[providerId] = SavedCredentialPreference(
         remember: remember,
         username: previous.username,
@@ -191,17 +195,24 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
   }) {
     return _mutate((AppPrefs current) {
       final AppSettings settings = AppSettings(
-        clickCheersEnabled: clickCheersEnabled ?? current.settings.clickCheersEnabled,
-        playfulMotionEnabled: playfulMotionEnabled ?? current.settings.playfulMotionEnabled,
-        autoGuidesEnabled: autoGuidesEnabled ?? current.settings.autoGuidesEnabled,
-        recentRoomsEnabled: recentRoomsEnabled ?? current.settings.recentRoomsEnabled,
+        clickCheersEnabled:
+            clickCheersEnabled ?? current.settings.clickCheersEnabled,
+        playfulMotionEnabled:
+            playfulMotionEnabled ?? current.settings.playfulMotionEnabled,
+        autoGuidesEnabled:
+            autoGuidesEnabled ?? current.settings.autoGuidesEnabled,
+        recentRoomsEnabled:
+            recentRoomsEnabled ?? current.settings.recentRoomsEnabled,
         soloDefaultSort: soloDefaultSort ?? current.settings.soloDefaultSort,
-        notifyOnClimbChange: notifyOnClimbChange ?? current.settings.notifyOnClimbChange,
+        notifyOnClimbChange:
+            notifyOnClimbChange ?? current.settings.notifyOnClimbChange,
       );
       return _copy(
         current,
         settings: settings,
-        recentRooms: settings.recentRoomsEnabled ? current.recentRooms : const <RecentRoom>[],
+        recentRooms: settings.recentRoomsEnabled
+            ? current.recentRooms
+            : const <RecentRoom>[],
       );
     });
   }
@@ -223,7 +234,10 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
         displayName: room.displayName,
         surfaceName: room.surface?.name,
         pinned: current.recentRooms.any(
-          (RecentRoom candidate) => candidate.server == server.toString() && candidate.slug == room.slug && candidate.pinned,
+          (RecentRoom candidate) =>
+              candidate.server == server.toString() &&
+              candidate.slug == room.slug &&
+              candidate.pinned,
         ),
         angle: int.tryParse(room.surface?.meta['angle'] ?? ''),
         climbCount: room.queue.length,
@@ -234,8 +248,10 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
           'fist_bumps_enabled': room.fistBumpsEnabled,
         },
       );
-      final List<RecentRoom> remaining = current.recentRooms.where((RecentRoom candidate) {
-        return !(candidate.server == nextRoom.server && candidate.slug == nextRoom.slug);
+      final List<RecentRoom> remaining =
+          current.recentRooms.where((RecentRoom candidate) {
+        return !(candidate.server == nextRoom.server &&
+            candidate.slug == nextRoom.slug);
       }).toList(growable: true);
       return _copy(
         current,
@@ -250,21 +266,22 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
   }) {
     return _mutate((AppPrefs current) {
       final List<RecentRoom> next = current.recentRooms
-          .map((RecentRoom item) => item.server == server.toString() && item.slug == slug
-              ? RecentRoom(
-                  server: item.server,
-                  slug: item.slug,
-                  providerId: item.providerId,
-                  lastVisitedAt: item.lastVisitedAt,
-                  roomName: item.roomName,
-                  displayName: item.displayName,
-                  surfaceName: item.surfaceName,
-                  pinned: !item.pinned,
-                  angle: item.angle,
-                  climbCount: item.climbCount,
-                  rematchConfig: item.rematchConfig,
-                )
-              : item)
+          .map((RecentRoom item) =>
+              item.server == server.toString() && item.slug == slug
+                  ? RecentRoom(
+                      server: item.server,
+                      slug: item.slug,
+                      providerId: item.providerId,
+                      lastVisitedAt: item.lastVisitedAt,
+                      roomName: item.roomName,
+                      displayName: item.displayName,
+                      surfaceName: item.surfaceName,
+                      pinned: !item.pinned,
+                      angle: item.angle,
+                      climbCount: item.climbCount,
+                      rematchConfig: item.rematchConfig,
+                    )
+                  : item)
           .toList(growable: false);
       return _copy(current, recentRooms: next);
     });
@@ -278,14 +295,16 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
       return _copy(
         current,
         recentRooms: current.recentRooms
-            .where((RecentRoom item) => !(item.server == server.toString() && item.slug == slug))
+            .where((RecentRoom item) =>
+                !(item.server == server.toString() && item.slug == slug))
             .toList(growable: false),
       );
     });
   }
 
   Future<void> clearRecentRooms() {
-    return _mutate((AppPrefs current) => _copy(current, recentRooms: const <RecentRoom>[]));
+    return _mutate((AppPrefs current) =>
+        _copy(current, recentRooms: const <RecentRoom>[]));
   }
 
   Future<void> rememberSoloResume(SoloResumeState soloResume) {
@@ -305,9 +324,12 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
 
   Future<void> toggleSoloFavorite(SoloSavedClimb climb) {
     return _mutate((AppPrefs current) {
-      final bool exists = current.soloFavorites.any((SoloSavedClimb item) => item.key == climb.key);
+      final bool exists = current.soloFavorites
+          .any((SoloSavedClimb item) => item.key == climb.key);
       final List<SoloSavedClimb> next = exists
-          ? current.soloFavorites.where((SoloSavedClimb item) => item.key != climb.key).toList(growable: false)
+          ? current.soloFavorites
+              .where((SoloSavedClimb item) => item.key != climb.key)
+              .toList(growable: false)
           : <SoloSavedClimb>[climb, ...current.soloFavorites];
       return _copy(current, soloFavorites: next);
     });
@@ -315,9 +337,12 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
 
   Future<void> toggleSoloShortlist(SoloSavedClimb climb) {
     return _mutate((AppPrefs current) {
-      final bool exists = current.soloShortlist.any((SoloSavedClimb item) => item.key == climb.key);
+      final bool exists = current.soloShortlist
+          .any((SoloSavedClimb item) => item.key == climb.key);
       final List<SoloSavedClimb> next = exists
-          ? current.soloShortlist.where((SoloSavedClimb item) => item.key != climb.key).toList(growable: false)
+          ? current.soloShortlist
+              .where((SoloSavedClimb item) => item.key != climb.key)
+              .toList(growable: false)
           : <SoloSavedClimb>[climb, ...current.soloShortlist];
       return _copy(current, soloShortlist: next);
     });
@@ -378,7 +403,8 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
   }
 
   Future<void> clearPendingRoomSeed() {
-    return _mutate((AppPrefs current) => _copy(current, clearPendingRoomSeed: true));
+    return _mutate(
+        (AppPrefs current) => _copy(current, clearPendingRoomSeed: true));
   }
 
   Future<void> dismissLandingIntro() {
@@ -491,9 +517,12 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
         guidedTour: GuidedTourProgress(
           version: current.guidedTour.version,
           landingCompleted: current.guidedTour.landingCompleted,
-          hostCompleted: branch == 'host' ? true : current.guidedTour.hostCompleted,
-          guestCompleted: branch == 'guest' ? true : current.guidedTour.guestCompleted,
-          soloCompleted: branch == 'solo' ? true : current.guidedTour.soloCompleted,
+          hostCompleted:
+              branch == 'host' ? true : current.guidedTour.hostCompleted,
+          guestCompleted:
+              branch == 'guest' ? true : current.guidedTour.guestCompleted,
+          soloCompleted:
+              branch == 'solo' ? true : current.guidedTour.soloCompleted,
         ),
       );
     });
@@ -504,8 +533,7 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
       final OnboardingProgress onboarding = OnboardingProgress(
         version: current.onboarding.version,
         dismissed: current.onboarding.dismissed,
-        hostCompleted:
-            current.onboarding.hostSelectedSurface && true,
+        hostCompleted: current.onboarding.hostSelectedSurface && true,
         guestCompleted: current.onboarding.guestCompleted,
         hostConnectedProvider: true,
         hostSelectedSurface: current.onboarding.hostSelectedSurface,
@@ -521,8 +549,7 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
       final OnboardingProgress onboarding = OnboardingProgress(
         version: current.onboarding.version,
         dismissed: current.onboarding.dismissed,
-        hostCompleted:
-            current.onboarding.hostConnectedProvider && true,
+        hostCompleted: current.onboarding.hostConnectedProvider && true,
         guestCompleted: current.onboarding.guestCompleted,
         hostConnectedProvider: current.onboarding.hostConnectedProvider,
         hostSelectedSurface: true,
@@ -575,12 +602,14 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
     if (lastDate == null) {
       return true;
     }
-    return DateTime.now().toUtc().difference(lastDate) >= const Duration(days: 7);
+    return DateTime.now().toUtc().difference(lastDate) >=
+        const Duration(days: 7);
   }
 
   Future<void> markFeedbackPromptSeen(String promptFamily) {
     return _mutate((AppPrefs current) {
-      final Map<String, String> nextPrompts = Map<String, String>.from(current.feedbackPrompts);
+      final Map<String, String> nextPrompts =
+          Map<String, String>.from(current.feedbackPrompts);
       nextPrompts[promptFamily] = DateTime.now().toUtc().toIso8601String();
       return _copy(current, feedbackPrompts: nextPrompts);
     });
@@ -611,7 +640,8 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
 
   Future<void> renameRoomTemplate(String id, String name) {
     return _mutate((AppPrefs current) {
-      final List<RoomTemplate> next = current.roomTemplates.map((RoomTemplate item) {
+      final List<RoomTemplate> next =
+          current.roomTemplates.map((RoomTemplate item) {
         if (item.id != id) {
           return item;
         }
@@ -683,7 +713,9 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
       soloFavorites: soloFavorites ?? current.soloFavorites,
       soloShortlist: soloShortlist ?? current.soloShortlist,
       roomTemplates: roomTemplates ?? current.roomTemplates,
-      pendingRoomSeed: clearPendingRoomSeed ? null : (pendingRoomSeed ?? current.pendingRoomSeed),
+      pendingRoomSeed: clearPendingRoomSeed
+          ? null
+          : (pendingRoomSeed ?? current.pendingRoomSeed),
       soloResume: clearSoloResume ? null : (soloResume ?? current.soloResume),
       intro: intro ?? current.intro,
       onboarding: onboarding ?? current.onboarding,
@@ -731,8 +763,10 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
         if (left.pinned != right.pinned) {
           return left.pinned ? -1 : 1;
         }
-        final int rightTime = DateTime.tryParse(right.lastVisitedAt)?.millisecondsSinceEpoch ?? 0;
-        final int leftTime = DateTime.tryParse(left.lastVisitedAt)?.millisecondsSinceEpoch ?? 0;
+        final int rightTime =
+            DateTime.tryParse(right.lastVisitedAt)?.millisecondsSinceEpoch ?? 0;
+        final int leftTime =
+            DateTime.tryParse(left.lastVisitedAt)?.millisecondsSinceEpoch ?? 0;
         return rightTime.compareTo(leftTime);
       });
     return sorted.take(9).toList(growable: false);
@@ -741,21 +775,26 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
   List<SoloSavedClimb> _normalizeSoloSavedClimbs(List<SoloSavedClimb> value) {
     final Map<String, SoloSavedClimb> deduped = <String, SoloSavedClimb>{};
     for (final SoloSavedClimb climb in value) {
-      if (climb.uuid.isEmpty || climb.boardId.isEmpty || climb.productSizeId == 0) {
+      if (climb.uuid.isEmpty ||
+          climb.boardId.isEmpty ||
+          climb.productSizeId == 0) {
         continue;
       }
       deduped[climb.key] = climb;
     }
     final List<SoloSavedClimb> sorted = deduped.values.toList(growable: false)
       ..sort((SoloSavedClimb left, SoloSavedClimb right) {
-        final int rightTime = DateTime.tryParse(right.savedAt)?.millisecondsSinceEpoch ?? 0;
-        final int leftTime = DateTime.tryParse(left.savedAt)?.millisecondsSinceEpoch ?? 0;
+        final int rightTime =
+            DateTime.tryParse(right.savedAt)?.millisecondsSinceEpoch ?? 0;
+        final int leftTime =
+            DateTime.tryParse(left.savedAt)?.millisecondsSinceEpoch ?? 0;
         return rightTime.compareTo(leftTime);
       });
     return sorted.take(24).toList(growable: false);
   }
 
-  List<SoloFilterPreset> _normalizeSoloFilterPresets(List<SoloFilterPreset> value) {
+  List<SoloFilterPreset> _normalizeSoloFilterPresets(
+      List<SoloFilterPreset> value) {
     final Map<String, SoloFilterPreset> deduped = <String, SoloFilterPreset>{};
     for (final SoloFilterPreset preset in value) {
       if (preset.id.trim().isEmpty || preset.boardId.trim().isEmpty) {
@@ -765,8 +804,10 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
     }
     final List<SoloFilterPreset> sorted = deduped.values.toList(growable: false)
       ..sort((SoloFilterPreset left, SoloFilterPreset right) {
-        final int rightTime = DateTime.tryParse(right.savedAt)?.millisecondsSinceEpoch ?? 0;
-        final int leftTime = DateTime.tryParse(left.savedAt)?.millisecondsSinceEpoch ?? 0;
+        final int rightTime =
+            DateTime.tryParse(right.savedAt)?.millisecondsSinceEpoch ?? 0;
+        final int leftTime =
+            DateTime.tryParse(left.savedAt)?.millisecondsSinceEpoch ?? 0;
         return rightTime.compareTo(leftTime);
       });
     return sorted.take(12).toList(growable: false);
@@ -782,8 +823,10 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
     }
     final List<RoomTemplate> sorted = deduped.values.toList(growable: false)
       ..sort((RoomTemplate left, RoomTemplate right) {
-        final int rightTime = DateTime.tryParse(right.createdAt)?.millisecondsSinceEpoch ?? 0;
-        final int leftTime = DateTime.tryParse(left.createdAt)?.millisecondsSinceEpoch ?? 0;
+        final int rightTime =
+            DateTime.tryParse(right.createdAt)?.millisecondsSinceEpoch ?? 0;
+        final int leftTime =
+            DateTime.tryParse(left.createdAt)?.millisecondsSinceEpoch ?? 0;
         return rightTime.compareTo(leftTime);
       });
     return sorted.take(12).toList(growable: false);
@@ -799,7 +842,8 @@ class AppPrefsController extends StateNotifier<AsyncValue<AppPrefs>> {
       'Saturday',
       'Sunday',
     ];
-    final int index = ((weekday - 1).clamp(0, values.length - 1) as num).toInt();
+    final int index =
+        ((weekday - 1).clamp(0, values.length - 1) as num).toInt();
     return values[index];
   }
 

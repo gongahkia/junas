@@ -17,7 +17,8 @@ class SessionSummaryClimb {
 
   factory SessionSummaryClimb.fromJson(Map<String, dynamic> json) {
     return SessionSummaryClimb(
-      climb: ProviderClimb.fromJson((json['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
+      climb: ProviderClimb.fromJson(
+          (json['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
       position: (json['position'] as num?)?.toInt(),
       status: json['status'] as String?,
       addedBy: json['added_by'] as String?,
@@ -26,12 +27,12 @@ class SessionSummaryClimb {
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-    'climb': climb.toJson(),
-    if (position != null) 'position': position,
-    if (status != null) 'status': status,
-    if (addedBy != null) 'added_by': addedBy,
-    if (voteCount != null) 'vote_count': voteCount,
-  };
+        'climb': climb.toJson(),
+        if (position != null) 'position': position,
+        if (status != null) 'status': status,
+        if (addedBy != null) 'added_by': addedBy,
+        if (voteCount != null) 'vote_count': voteCount,
+      };
 }
 
 class SessionSummary {
@@ -62,9 +63,12 @@ class SessionSummary {
   final List<SessionSummaryClimb> finalists;
 
   factory SessionSummary.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> rawTopVoted = (json['top_voted'] as List<dynamic>?) ?? <dynamic>[];
-    final List<dynamic> rawFinalQueue = (json['final_queue'] as List<dynamic>?) ?? <dynamic>[];
-    final List<dynamic> rawFinalists = (json['finalists'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawTopVoted =
+        (json['top_voted'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawFinalQueue =
+        (json['final_queue'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawFinalists =
+        (json['finalists'] as List<dynamic>?) ?? <dynamic>[];
     return SessionSummary(
       roomSlug: json['room_slug'] as String? ?? '',
       roomName: json['room_name'] as String?,
@@ -73,7 +77,8 @@ class SessionSummary {
       surfaceKind: json['surface_kind'] as String?,
       participantCount: (json['participant_count'] as num?)?.toInt() ?? 0,
       recapShareId: json['recap_share_id'] as String?,
-      closedAt: DateTime.tryParse(json['closed_at'] as String? ?? '') ?? DateTime.now().toUtc(),
+      closedAt: DateTime.tryParse(json['closed_at'] as String? ?? '') ??
+          DateTime.now().toUtc(),
       topVoted: rawTopVoted
           .whereType<Map<String, dynamic>>()
           .map(SessionSummaryClimb.fromJson)
@@ -104,7 +109,8 @@ class ProviderCatalogClimbsResponse {
   final String? nextCursor;
 
   factory ProviderCatalogClimbsResponse.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> rawClimbs = (json['climbs'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawClimbs =
+        (json['climbs'] as List<dynamic>?) ?? <dynamic>[];
     return ProviderCatalogClimbsResponse(
       climbs: rawClimbs
           .whereType<Map<String, dynamic>>()
@@ -126,7 +132,8 @@ class ProviderCatalogClimbResponse {
 
   factory ProviderCatalogClimbResponse.fromJson(Map<String, dynamic> json) {
     return ProviderCatalogClimbResponse(
-      climb: ProviderClimb.fromJson((json['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
+      climb: ProviderClimb.fromJson(
+          (json['climb'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
     );
   }
 }
@@ -147,7 +154,8 @@ class RecapStat {
     );
   }
 
-  Map<String, dynamic> toJson() => <String, dynamic>{'label': label, 'value': value};
+  Map<String, dynamic> toJson() =>
+      <String, dynamic>{'label': label, 'value': value};
 }
 
 class RecapSlide {
@@ -172,9 +180,12 @@ class RecapSlide {
   final List<String> participants;
 
   factory RecapSlide.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> rawStats = (json['stats'] as List<dynamic>?) ?? <dynamic>[];
-    final List<dynamic> rawClimbs = (json['climbs'] as List<dynamic>?) ?? <dynamic>[];
-    final List<dynamic> rawParticipants = (json['participants'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawStats =
+        (json['stats'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawClimbs =
+        (json['climbs'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawParticipants =
+        (json['participants'] as List<dynamic>?) ?? <dynamic>[];
     return RecapSlide(
       id: json['id'] as String? ?? '',
       eyebrow: json['eyebrow'] as String? ?? '',
@@ -185,26 +196,31 @@ class RecapSlide {
           .map(RecapStat.fromJson)
           .toList(growable: false),
       featuredClimb: json['featured_climb'] is Map<String, dynamic>
-          ? ProviderClimb.fromJson(json['featured_climb'] as Map<String, dynamic>)
+          ? ProviderClimb.fromJson(
+              json['featured_climb'] as Map<String, dynamic>)
           : null,
       climbs: rawClimbs
           .whereType<Map<String, dynamic>>()
           .map(SessionSummaryClimb.fromJson)
           .toList(growable: false),
-      participants: rawParticipants.map((dynamic value) => '$value').toList(growable: false),
+      participants: rawParticipants
+          .map((dynamic value) => '$value')
+          .toList(growable: false),
     );
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-    'id': id,
-    'eyebrow': eyebrow,
-    'title': title,
-    'description': description,
-    'stats': stats.map((RecapStat s) => s.toJson()).toList(growable: false),
-    if (featuredClimb != null) 'featured_climb': featuredClimb!.toJson(),
-    'climbs': climbs.map((SessionSummaryClimb c) => c.toJson()).toList(growable: false),
-    'participants': participants,
-  };
+        'id': id,
+        'eyebrow': eyebrow,
+        'title': title,
+        'description': description,
+        'stats': stats.map((RecapStat s) => s.toJson()).toList(growable: false),
+        if (featuredClimb != null) 'featured_climb': featuredClimb!.toJson(),
+        'climbs': climbs
+            .map((SessionSummaryClimb c) => c.toJson())
+            .toList(growable: false),
+        'participants': participants,
+      };
 }
 
 class RoomSeed {
@@ -219,10 +235,12 @@ class RoomSeed {
   final List<ProviderClimb> climbs;
 
   factory RoomSeed.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> rawClimbs = (json['climbs'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawClimbs =
+        (json['climbs'] as List<dynamic>?) ?? <dynamic>[];
     return RoomSeed(
       providerId: json['provider_id'] as String? ?? '',
-      surface: ProviderSurface.fromJson((json['surface'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
+      surface: ProviderSurface.fromJson(
+          (json['surface'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
       climbs: rawClimbs
           .whereType<Map<String, dynamic>>()
           .map(ProviderClimb.fromJson)
@@ -231,10 +249,11 @@ class RoomSeed {
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-    'provider_id': providerId,
-    'surface': surface.toJson(),
-    'climbs': climbs.map((ProviderClimb c) => c.toJson()).toList(growable: false),
-  };
+        'provider_id': providerId,
+        'surface': surface.toJson(),
+        'climbs':
+            climbs.map((ProviderClimb c) => c.toJson()).toList(growable: false),
+      };
 }
 
 class RoomRecap {
@@ -259,14 +278,16 @@ class RoomRecap {
   final RoomSeed? rematchSeed;
 
   factory RoomRecap.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> rawSlides = (json['slides'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawSlides =
+        (json['slides'] as List<dynamic>?) ?? <dynamic>[];
     return RoomRecap(
       shareId: json['share_id'] as String? ?? '',
       roomSlug: json['room_slug'] as String? ?? '',
       roomName: json['room_name'] as String?,
       providerId: json['provider_id'] as String? ?? '',
       surfaceName: json['surface_name'] as String?,
-      closedAt: DateTime.tryParse(json['closed_at'] as String? ?? '') ?? DateTime.now().toUtc(),
+      closedAt: DateTime.tryParse(json['closed_at'] as String? ?? '') ??
+          DateTime.now().toUtc(),
       slides: rawSlides
           .whereType<Map<String, dynamic>>()
           .map(RecapSlide.fromJson)
@@ -278,15 +299,16 @@ class RoomRecap {
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-    'share_id': shareId,
-    'room_slug': roomSlug,
-    if (roomName != null) 'room_name': roomName,
-    'provider_id': providerId,
-    if (surfaceName != null) 'surface_name': surfaceName,
-    'closed_at': closedAt.toUtc().toIso8601String(),
-    'slides': slides.map((RecapSlide s) => s.toJson()).toList(growable: false),
-    if (rematchSeed != null) 'rematch_seed': rematchSeed!.toJson(),
-  };
+        'share_id': shareId,
+        'room_slug': roomSlug,
+        if (roomName != null) 'room_name': roomName,
+        'provider_id': providerId,
+        if (surfaceName != null) 'surface_name': surfaceName,
+        'closed_at': closedAt.toUtc().toIso8601String(),
+        'slides':
+            slides.map((RecapSlide s) => s.toJson()).toList(growable: false),
+        if (rematchSeed != null) 'rematch_seed': rematchSeed!.toJson(),
+      };
 }
 
 class SoloPlanSnapshot {
@@ -315,22 +337,27 @@ class SoloPlanSnapshot {
   final DateTime createdAt;
 
   factory SoloPlanSnapshot.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> rawClimbs = (json['climbs'] as List<dynamic>?) ?? <dynamic>[];
-    final Map<String, dynamic> rawFilters = (json['filters'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+    final List<dynamic> rawClimbs =
+        (json['climbs'] as List<dynamic>?) ?? <dynamic>[];
+    final Map<String, dynamic> rawFilters =
+        (json['filters'] as Map<String, dynamic>?) ?? <String, dynamic>{};
     return SoloPlanSnapshot(
       shareId: json['share_id'] as String? ?? '',
       providerId: json['provider_id'] as String? ?? '',
       title: json['title'] as String? ?? '',
       notes: json['notes'] as String?,
-      surface: ProviderSurface.fromJson((json['surface'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
-      filters: rawFilters.map((String key, dynamic value) => MapEntry(key, '$value')),
+      surface: ProviderSurface.fromJson(
+          (json['surface'] as Map<String, dynamic>?) ?? <String, dynamic>{}),
+      filters: rawFilters
+          .map((String key, dynamic value) => MapEntry(key, '$value')),
       climbs: rawClimbs
           .whereType<Map<String, dynamic>>()
           .map(ProviderClimb.fromJson)
           .toList(growable: false),
       openPath: json['open_path'] as String?,
       createdBy: json['created_by'] as String?,
-      createdAt: DateTime.tryParse(json['created_at'] as String? ?? '') ?? DateTime.now().toUtc(),
+      createdAt: DateTime.tryParse(json['created_at'] as String? ?? '') ??
+          DateTime.now().toUtc(),
     );
   }
 }

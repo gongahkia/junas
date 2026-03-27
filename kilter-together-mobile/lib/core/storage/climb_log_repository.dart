@@ -87,7 +87,10 @@ class ClimbLogRepository {
         columns: <String>['climb_id'],
         distinct: true,
       );
-      return rows.map((Map<String, Object?> row) => row['climb_id'] as String? ?? '').where((String id) => id.isNotEmpty).toSet();
+      return rows
+          .map((Map<String, Object?> row) => row['climb_id'] as String? ?? '')
+          .where((String id) => id.isNotEmpty)
+          .toSet();
     } finally {
       await db.close();
     }
@@ -143,8 +146,8 @@ class ClimbLogRepository {
     try {
       final dynamic decoded = jsonDecode(rawContext);
       if (decoded is Map<String, dynamic>) {
-        surfaceContext = decoded
-            .map((String key, dynamic value) => MapEntry(key, '$value'));
+        surfaceContext =
+            decoded.map((String key, dynamic value) => MapEntry(key, '$value'));
       } else {
         surfaceContext = const <String, String>{};
       }

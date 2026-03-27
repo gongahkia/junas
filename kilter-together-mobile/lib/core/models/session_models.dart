@@ -1,9 +1,11 @@
 Uri normalizeServerUri(String input) {
   final String trimmed = input.trim();
   if (trimmed.isEmpty) throw const FormatException('Server URL is required.');
-  final String withScheme = trimmed.contains('://') ? trimmed : 'https://$trimmed';
+  final String withScheme =
+      trimmed.contains('://') ? trimmed : 'https://$trimmed';
   final Uri uri = Uri.parse(withScheme);
-  final String normalizedPath = uri.path == '/' ? '' : uri.path.replaceFirst(RegExp(r'/+$'), '');
+  final String normalizedPath =
+      uri.path == '/' ? '' : uri.path.replaceFirst(RegExp(r'/+$'), '');
   return uri.replace(path: normalizedPath);
 }
 

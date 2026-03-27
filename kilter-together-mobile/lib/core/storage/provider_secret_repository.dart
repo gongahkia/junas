@@ -41,14 +41,17 @@ class ProviderSecretRepository {
     required Uri server,
     required String providerId,
   }) async {
-    final String? raw = await _secureStore.read(_key(server: server, providerId: providerId));
+    final String? raw =
+        await _secureStore.read(_key(server: server, providerId: providerId));
     if (raw == null || raw.isEmpty) {
       return const <String, String>{};
     }
 
     try {
-      final Map<String, dynamic> decoded = jsonDecode(raw) as Map<String, dynamic>;
-      return decoded.map((String key, dynamic value) => MapEntry(key, '$value'));
+      final Map<String, dynamic> decoded =
+          jsonDecode(raw) as Map<String, dynamic>;
+      return decoded
+          .map((String key, dynamic value) => MapEntry(key, '$value'));
     } catch (_) {
       return const <String, String>{};
     }

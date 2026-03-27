@@ -7,9 +7,12 @@ const MethodChannel _method = MethodChannel('kilter_together/multipeer');
 const EventChannel _events = EventChannel('kilter_together/multipeer_events');
 
 class MultipeerTransport implements P2pTransport {
-  final StreamController<P2pMessage> _messageController = StreamController<P2pMessage>.broadcast();
-  final StreamController<P2pPeer> _discoveredController = StreamController<P2pPeer>.broadcast();
-  final StreamController<P2pConnectionChange> _connectionController = StreamController<P2pConnectionChange>.broadcast();
+  final StreamController<P2pMessage> _messageController =
+      StreamController<P2pMessage>.broadcast();
+  final StreamController<P2pPeer> _discoveredController =
+      StreamController<P2pPeer>.broadcast();
+  final StreamController<P2pConnectionChange> _connectionController =
+      StreamController<P2pConnectionChange>.broadcast();
   final Map<String, P2pPeer> _peers = <String, P2pPeer>{};
   StreamSubscription<dynamic>? _eventSub;
   bool _disposed = false;
@@ -20,7 +23,7 @@ class MultipeerTransport implements P2pTransport {
     _listening = true;
     _eventSub = _events.receiveBroadcastStream().listen(
       _handleEvent,
-      onError: (Object e) { /* channel error — safe to ignore */ },
+      onError: (Object e) {/* channel error — safe to ignore */},
     );
   }
 
@@ -29,7 +32,8 @@ class MultipeerTransport implements P2pTransport {
   @override
   Stream<P2pPeer> get discoveredPeers => _discoveredController.stream;
   @override
-  Stream<P2pConnectionChange> get connectionChanges => _connectionController.stream;
+  Stream<P2pConnectionChange> get connectionChanges =>
+      _connectionController.stream;
   @override
   List<P2pPeer> get connectedPeers => _peers.values.toList(growable: false);
 
@@ -41,18 +45,21 @@ class MultipeerTransport implements P2pTransport {
       case 'peerFound':
         final String peerId = raw['peerId'] as String? ?? '';
         final String displayName = raw['displayName'] as String? ?? peerId;
-        _discoveredController.add(P2pPeer(id: peerId, displayName: displayName));
+        _discoveredController
+            .add(P2pPeer(id: peerId, displayName: displayName));
       case 'connected':
         final String peerId = raw['peerId'] as String? ?? '';
         final String displayName = raw['displayName'] as String? ?? peerId;
         final P2pPeer peer = P2pPeer(id: peerId, displayName: displayName);
         _peers[peerId] = peer;
-        _connectionController.add(P2pConnectionChange(peer: peer, event: P2pConnectionEvent.connected));
+        _connectionController.add(P2pConnectionChange(
+            peer: peer, event: P2pConnectionEvent.connected));
       case 'disconnected':
         final String peerId = raw['peerId'] as String? ?? '';
         final P2pPeer? peer = _peers.remove(peerId);
         if (peer != null) {
-          _connectionController.add(P2pConnectionChange(peer: peer, event: P2pConnectionEvent.disconnected));
+          _connectionController.add(P2pConnectionChange(
+              peer: peer, event: P2pConnectionEvent.disconnected));
         }
       case 'data':
         final String peerId = raw['peerId'] as String? ?? '';
@@ -60,14 +67,16 @@ class MultipeerTransport implements P2pTransport {
         if (bytes == null) return;
         final P2pMessage? msg = P2pMessage.decode(bytes);
         if (msg == null) return;
-        _messageController.add(P2pMessage(type: msg.type, payload: msg.payload, senderId: peerId));
+        _messageController.add(
+            P2pMessage(type: msg.type, payload: msg.payload, senderId: peerId));
       case 'error':
         break; // logged on native side
     }
   }
 
   @override
-  Future<void> startAdvertising({required String displayName, required String serviceId}) async {
+  Future<void> startAdvertising(
+      {required String displayName, required String serviceId}) async {
     _ensureListening();
     await _method.invokeMethod<void>('startAdvertising', <String, dynamic>{
       'displayName': displayName,
@@ -103,10 +112,12 @@ class MultipeerTransport implements P2pTransport {
 
   @override
   Future<void> disconnectFromPeer(String peerId) async {
-    await _method.invokeMethod<void>('disconnectFromPeer', <String, dynamic>{'peerId': peerId});
+    await _method.invokeMethod<void>(
+        'disconnectFromPeer', <String, dynamic>{'peerId': peerId});
     final P2pPeer? peer = _peers.remove(peerId);
     if (peer != null) {
-      _connectionController.add(P2pConnectionChange(peer: peer, event: P2pConnectionEvent.disconnected));
+      _connectionController.add(P2pConnectionChange(
+          peer: peer, event: P2pConnectionEvent.disconnected));
     }
   }
 
@@ -114,7 +125,8 @@ class MultipeerTransport implements P2pTransport {
   Future<void> disconnectAll() async {
     await _method.invokeMethod<void>('disconnectAll');
     for (final P2pPeer peer in _peers.values.toList()) {
-      _connectionController.add(P2pConnectionChange(peer: peer, event: P2pConnectionEvent.disconnected));
+      _connectionController.add(P2pConnectionChange(
+          peer: peer, event: P2pConnectionEvent.disconnected));
     }
     _peers.clear();
   }

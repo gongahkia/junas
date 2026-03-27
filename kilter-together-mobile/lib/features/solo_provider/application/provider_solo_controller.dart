@@ -700,7 +700,8 @@ class ProviderSoloController extends StateNotifier<ProviderSoloViewState> {
 
   void addSelectedToPlannedClimbs() {
     final int count = state.selectedClimbIds.length;
-    final List<ProviderClimb> planned = List<ProviderClimb>.from(state.plannedClimbs);
+    final List<ProviderClimb> planned =
+        List<ProviderClimb>.from(state.plannedClimbs);
     for (final String climbId in state.selectedClimbIds) {
       if (planned.any((ProviderClimb item) => item.id == climbId)) {
         continue; // already planned

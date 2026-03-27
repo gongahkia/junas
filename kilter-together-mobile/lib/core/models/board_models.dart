@@ -81,9 +81,12 @@ class BoardClimb {
   final Map<String, GradeInfo> grades;
 
   factory BoardClimb.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> rawImages = (json['image_filenames'] as List<dynamic>?) ?? <dynamic>[];
-    final List<dynamic> rawHolds = (json['highlighted_holds'] as List<dynamic>?) ?? <dynamic>[];
-    final Map<String, dynamic> rawGrades = (json['grades'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+    final List<dynamic> rawImages =
+        (json['image_filenames'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawHolds =
+        (json['highlighted_holds'] as List<dynamic>?) ?? <dynamic>[];
+    final Map<String, dynamic> rawGrades =
+        (json['grades'] as Map<String, dynamic>?) ?? <String, dynamic>{};
     return BoardClimb(
       uuid: json['uuid'] as String? ?? '',
       climbName: json['climb_name'] as String? ?? '',
@@ -93,7 +96,8 @@ class BoardClimb {
       ascends: (json['ascends'] as num?)?.toInt() ?? 0,
       createdAt: json['created_at'] as String? ?? '',
       description: json['description'] as String?,
-      imageFilenames: rawImages.map((dynamic value) => '$value').toList(growable: false),
+      imageFilenames:
+          rawImages.map((dynamic value) => '$value').toList(growable: false),
       highlightedHolds: rawHolds
           .whereType<Map<String, dynamic>>()
           .map(HighlightedHold.fromJson)
@@ -101,7 +105,8 @@ class BoardClimb {
       grades: rawGrades.map(
         (String key, dynamic value) => MapEntry(
           key,
-          GradeInfo.fromJson((value as Map<dynamic, dynamic>).cast<String, dynamic>()),
+          GradeInfo.fromJson(
+              (value as Map<dynamic, dynamic>).cast<String, dynamic>()),
         ),
       ),
     );
@@ -112,18 +117,21 @@ class BoardClimb {
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-    'uuid': uuid,
-    'climb_name': climbName,
-    'frames': frames,
-    'setter_name': setterName,
-    'product_size_id': productSizeId,
-    'ascends': ascends,
-    'created_at': createdAt,
-    if (description != null) 'description': description,
-    'image_filenames': imageFilenames,
-    'highlighted_holds': highlightedHolds.map((HighlightedHold h) => h.toJson()).toList(growable: false),
-    'grades': grades.map((String k, GradeInfo v) => MapEntry(k, v.toJson())),
-  };
+        'uuid': uuid,
+        'climb_name': climbName,
+        'frames': frames,
+        'setter_name': setterName,
+        'product_size_id': productSizeId,
+        'ascends': ascends,
+        'created_at': createdAt,
+        if (description != null) 'description': description,
+        'image_filenames': imageFilenames,
+        'highlighted_holds': highlightedHolds
+            .map((HighlightedHold h) => h.toJson())
+            .toList(growable: false),
+        'grades':
+            grades.map((String k, GradeInfo v) => MapEntry(k, v.toJson())),
+      };
 }
 
 class PaginatedBoardClimbsResponse {
@@ -140,7 +148,8 @@ class PaginatedBoardClimbsResponse {
   final String? nextCursor;
 
   factory PaginatedBoardClimbsResponse.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> rawClimbs = (json['climbs'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawClimbs =
+        (json['climbs'] as List<dynamic>?) ?? <dynamic>[];
     return PaginatedBoardClimbsResponse(
       climbs: rawClimbs
           .whereType<Map<String, dynamic>>()

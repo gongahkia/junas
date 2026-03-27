@@ -9,9 +9,12 @@ const Strategy _strategy = Strategy.P2P_STAR;
 class NearbyTransport implements P2pTransport {
   NearbyTransport() : _nearby = Nearby();
   final Nearby _nearby;
-  final StreamController<P2pMessage> _messageController = StreamController<P2pMessage>.broadcast();
-  final StreamController<P2pPeer> _discoveredController = StreamController<P2pPeer>.broadcast();
-  final StreamController<P2pConnectionChange> _connectionController = StreamController<P2pConnectionChange>.broadcast();
+  final StreamController<P2pMessage> _messageController =
+      StreamController<P2pMessage>.broadcast();
+  final StreamController<P2pPeer> _discoveredController =
+      StreamController<P2pPeer>.broadcast();
+  final StreamController<P2pConnectionChange> _connectionController =
+      StreamController<P2pConnectionChange>.broadcast();
   final Map<String, P2pPeer> _peers = <String, P2pPeer>{};
   final Map<String, String> _endpointNames = <String, String>{};
   bool _disposed = false;
@@ -21,7 +24,8 @@ class NearbyTransport implements P2pTransport {
   @override
   Stream<P2pPeer> get discoveredPeers => _discoveredController.stream;
   @override
-  Stream<P2pConnectionChange> get connectionChanges => _connectionController.stream;
+  Stream<P2pConnectionChange> get connectionChanges =>
+      _connectionController.stream;
   @override
   List<P2pPeer> get connectedPeers => _peers.values.toList(growable: false);
 
@@ -93,7 +97,8 @@ class NearbyTransport implements P2pTransport {
     await _nearby.startDiscovery(
       _nearby.toString(), // unused user name for discovery
       _strategy,
-      onEndpointFound: (String endpointId, String endpointName, String serviceId) {
+      onEndpointFound:
+          (String endpointId, String endpointName, String serviceId) {
         final P2pPeer peer = P2pPeer(id: endpointId, displayName: endpointName);
         _discoveredController.add(peer);
       },
@@ -134,7 +139,8 @@ class NearbyTransport implements P2pTransport {
 
   @override
   Future<void> send(String peerId, P2pMessage message) async {
-    await _nearby.sendBytesPayload(peerId, Uint8List.fromList(message.encode()));
+    await _nearby.sendBytesPayload(
+        peerId, Uint8List.fromList(message.encode()));
   }
 
   @override

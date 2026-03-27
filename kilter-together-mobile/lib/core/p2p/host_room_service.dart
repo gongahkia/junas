@@ -9,7 +9,8 @@ class HostRoomState {
     required this.providerId,
     this.roomName,
     this.surface,
-    this.connection = const ProviderConnectionState(connected: false, providerId: '', metadata: <String, String>{}),
+    this.connection = const ProviderConnectionState(
+        connected: false, providerId: '', metadata: <String, String>{}),
     this.currentClimb,
     this.status = 'open',
     this.fistBumpsEnabled = true,
@@ -28,7 +29,8 @@ class HostRoomState {
   final List<FinalistEntry> finalists = <FinalistEntry>[];
   final List<QueueEntry> queue = <QueueEntry>[];
   final Map<String, int> voteCounts = <String, int>{};
-  final Map<int, List<String>> participantVotes = <int, List<String>>{}; // participantId -> climbIds
+  final Map<int, List<String>> participantVotes =
+      <int, List<String>>{}; // participantId -> climbIds
   int _nextParticipantId = 1;
   int _nextQueueEntryId = 1;
   int _nextFinalistId = 1;
@@ -40,27 +42,47 @@ class HostRoomState {
   void bumpVersion() => version++;
 
   String serialize() => jsonEncode(<String, dynamic>{
-    'slug': slug, 'provider_id': providerId, 'room_name': roomName,
-    'status': status, 'version': version, 'fist_bumps_enabled': fistBumpsEnabled,
-    '_next_participant_id': _nextParticipantId,
-    '_next_queue_entry_id': _nextQueueEntryId,
-    '_next_finalist_id': _nextFinalistId,
-    'participants': participants.map((Participant p) => <String, dynamic>{
-      'id': p.id, 'display_name': p.displayName, 'role': p.role,
-      'status': p.status, 'is_online': p.isOnline,
-    }).toList(growable: false),
-    'queue': queue.map((QueueEntry e) => <String, dynamic>{
-      'id': e.id, 'status': e.status, 'position': e.position,
-      'added_by': e.addedBy, 'climb': e.climb.toJson(),
-    }).toList(growable: false),
-    'finalists': finalists.map((FinalistEntry e) => <String, dynamic>{
-      'id': e.id, 'position': e.position, 'added_by': e.addedBy, 'climb': e.climb.toJson(),
-    }).toList(growable: false),
-    'vote_counts': voteCounts,
-    'participant_votes': participantVotes.map((int k, List<String> v) => MapEntry('$k', v)),
-    if (surface != null) 'surface': surface!.toJson(),
-    if (currentClimb != null) 'current_climb': currentClimb!.toJson(),
-  });
+        'slug': slug,
+        'provider_id': providerId,
+        'room_name': roomName,
+        'status': status,
+        'version': version,
+        'fist_bumps_enabled': fistBumpsEnabled,
+        '_next_participant_id': _nextParticipantId,
+        '_next_queue_entry_id': _nextQueueEntryId,
+        '_next_finalist_id': _nextFinalistId,
+        'participants': participants
+            .map((Participant p) => <String, dynamic>{
+                  'id': p.id,
+                  'display_name': p.displayName,
+                  'role': p.role,
+                  'status': p.status,
+                  'is_online': p.isOnline,
+                })
+            .toList(growable: false),
+        'queue': queue
+            .map((QueueEntry e) => <String, dynamic>{
+                  'id': e.id,
+                  'status': e.status,
+                  'position': e.position,
+                  'added_by': e.addedBy,
+                  'climb': e.climb.toJson(),
+                })
+            .toList(growable: false),
+        'finalists': finalists
+            .map((FinalistEntry e) => <String, dynamic>{
+                  'id': e.id,
+                  'position': e.position,
+                  'added_by': e.addedBy,
+                  'climb': e.climb.toJson(),
+                })
+            .toList(growable: false),
+        'vote_counts': voteCounts,
+        'participant_votes':
+            participantVotes.map((int k, List<String> v) => MapEntry('$k', v)),
+        if (surface != null) 'surface': surface!.toJson(),
+        if (currentClimb != null) 'current_climb': currentClimb!.toJson(),
+      });
 
   static HostRoomState deserialize(String data) {
     final Map<String, dynamic> json = jsonDecode(data) as Map<String, dynamic>;
@@ -71,32 +93,54 @@ class HostRoomState {
       status: json['status'] as String? ?? 'open',
       fistBumpsEnabled: json['fist_bumps_enabled'] as bool? ?? true,
       version: (json['version'] as num?)?.toInt() ?? 1,
-      surface: json['surface'] is Map<String, dynamic> ? ProviderSurface.fromJson(json['surface'] as Map<String, dynamic>) : null,
-      currentClimb: json['current_climb'] is Map<String, dynamic> ? ProviderClimb.fromJson(json['current_climb'] as Map<String, dynamic>) : null,
+      surface: json['surface'] is Map<String, dynamic>
+          ? ProviderSurface.fromJson(json['surface'] as Map<String, dynamic>)
+          : null,
+      currentClimb: json['current_climb'] is Map<String, dynamic>
+          ? ProviderClimb.fromJson(
+              json['current_climb'] as Map<String, dynamic>)
+          : null,
     );
-    state._nextParticipantId = (json['_next_participant_id'] as num?)?.toInt() ?? 1;
-    state._nextQueueEntryId = (json['_next_queue_entry_id'] as num?)?.toInt() ?? 1;
+    state._nextParticipantId =
+        (json['_next_participant_id'] as num?)?.toInt() ?? 1;
+    state._nextQueueEntryId =
+        (json['_next_queue_entry_id'] as num?)?.toInt() ?? 1;
     state._nextFinalistId = (json['_next_finalist_id'] as num?)?.toInt() ?? 1;
-    final List<dynamic> rawParticipants = (json['participants'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawParticipants =
+        (json['participants'] as List<dynamic>?) ?? <dynamic>[];
     for (final dynamic p in rawParticipants) {
-      if (p is Map<String, dynamic>) state.participants.add(Participant.fromJson(p));
+      if (p is Map<String, dynamic>) {
+        state.participants.add(Participant.fromJson(p));
+      }
     }
-    final List<dynamic> rawQueue = (json['queue'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawQueue =
+        (json['queue'] as List<dynamic>?) ?? <dynamic>[];
     for (final dynamic e in rawQueue) {
-      if (e is Map<String, dynamic>) state.queue.add(QueueEntry.fromJson(e));
+      if (e is Map<String, dynamic>) {
+        state.queue.add(QueueEntry.fromJson(e));
+      }
     }
-    final List<dynamic> rawFinalists = (json['finalists'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawFinalists =
+        (json['finalists'] as List<dynamic>?) ?? <dynamic>[];
     for (final dynamic e in rawFinalists) {
-      if (e is Map<String, dynamic>) state.finalists.add(FinalistEntry.fromJson(e));
+      if (e is Map<String, dynamic>) {
+        state.finalists.add(FinalistEntry.fromJson(e));
+      }
     }
-    final Map<String, dynamic> rawVotes = (json['vote_counts'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+    final Map<String, dynamic> rawVotes =
+        (json['vote_counts'] as Map<String, dynamic>?) ?? <String, dynamic>{};
     for (final MapEntry<String, dynamic> entry in rawVotes.entries) {
       state.voteCounts[entry.key] = (entry.value as num?)?.toInt() ?? 0;
     }
-    final Map<String, dynamic> rawPVotes = (json['participant_votes'] as Map<String, dynamic>?) ?? <String, dynamic>{};
+    final Map<String, dynamic> rawPVotes =
+        (json['participant_votes'] as Map<String, dynamic>?) ??
+            <String, dynamic>{};
     for (final MapEntry<String, dynamic> entry in rawPVotes.entries) {
       final int key = int.tryParse(entry.key) ?? 0;
-      state.participantVotes[key] = ((entry.value as List<dynamic>?) ?? <dynamic>[]).map((dynamic v) => '$v').toList();
+      state.participantVotes[key] =
+          ((entry.value as List<dynamic>?) ?? <dynamic>[])
+              .map((dynamic v) => '$v')
+              .toList();
     }
     return state;
   }
@@ -124,7 +168,8 @@ class HostRoomService {
   }
 
   bool removeParticipant(int participantId) {
-    final int idx = state.participants.indexWhere((Participant p) => p.id == participantId);
+    final int idx =
+        state.participants.indexWhere((Participant p) => p.id == participantId);
     if (idx < 0) return false;
     state.participants.removeAt(idx);
     state.participantVotes.remove(participantId);
@@ -133,36 +178,48 @@ class HostRoomService {
   }
 
   bool updateParticipantRole(int participantId, String role) {
-    final int idx = state.participants.indexWhere((Participant p) => p.id == participantId);
+    final int idx =
+        state.participants.indexWhere((Participant p) => p.id == participantId);
     if (idx < 0) return false;
     final Participant old = state.participants[idx];
     state.participants[idx] = Participant(
-      id: old.id, displayName: old.displayName, role: role,
-      status: old.status, isOnline: old.isOnline,
+      id: old.id,
+      displayName: old.displayName,
+      role: role,
+      status: old.status,
+      isOnline: old.isOnline,
     );
     state.bumpVersion();
     return true;
   }
 
   bool updateParticipantStatus(int participantId, String status) {
-    final int idx = state.participants.indexWhere((Participant p) => p.id == participantId);
+    final int idx =
+        state.participants.indexWhere((Participant p) => p.id == participantId);
     if (idx < 0) return false;
     final Participant old = state.participants[idx];
     state.participants[idx] = Participant(
-      id: old.id, displayName: old.displayName, role: old.role,
-      status: status, isOnline: old.isOnline,
+      id: old.id,
+      displayName: old.displayName,
+      role: old.role,
+      status: status,
+      isOnline: old.isOnline,
     );
     state.bumpVersion();
     return true;
   }
 
   void setParticipantOnline(int participantId, bool online) {
-    final int idx = state.participants.indexWhere((Participant p) => p.id == participantId);
+    final int idx =
+        state.participants.indexWhere((Participant p) => p.id == participantId);
     if (idx < 0) return;
     final Participant old = state.participants[idx];
     state.participants[idx] = Participant(
-      id: old.id, displayName: old.displayName, role: old.role,
-      status: old.status, isOnline: online,
+      id: old.id,
+      displayName: old.displayName,
+      role: old.role,
+      status: old.status,
+      isOnline: online,
     );
     state.bumpVersion();
   }
@@ -170,12 +227,15 @@ class HostRoomService {
   bool toggleVote(int participantId, String climbId) {
     if (!state.fistBumpsEnabled) return false;
     final List<String> votes = state.participantVotes.putIfAbsent(
-      participantId, () => <String>[],
+      participantId,
+      () => <String>[],
     );
     if (votes.contains(climbId)) {
       votes.remove(climbId);
       state.voteCounts[climbId] = (state.voteCounts[climbId] ?? 1) - 1;
-      if ((state.voteCounts[climbId] ?? 0) <= 0) state.voteCounts.remove(climbId);
+      if ((state.voteCounts[climbId] ?? 0) <= 0) {
+        state.voteCounts.remove(climbId);
+      }
     } else {
       votes.add(climbId);
       state.voteCounts[climbId] = (state.voteCounts[climbId] ?? 0) + 1;
@@ -190,7 +250,10 @@ class HostRoomService {
     state.bumpVersion();
   }
 
-  bool addQueueEntry({required String climbId, required String addedBy, required ProviderClimb climb}) {
+  bool addQueueEntry(
+      {required String climbId,
+      required String addedBy,
+      required ProviderClimb climb}) {
     for (final QueueEntry e in state.queue) {
       if (e.climb.id == climbId) return false; // already queued
     }
@@ -238,8 +301,11 @@ class HostRoomService {
     if (idx < 0) return false;
     final QueueEntry old = state.queue[idx];
     state.queue[idx] = QueueEntry(
-      id: old.id, status: status, position: old.position,
-      addedBy: old.addedBy, climb: old.climb,
+      id: old.id,
+      status: status,
+      position: old.position,
+      addedBy: old.addedBy,
+      climb: old.climb,
     );
     state.bumpVersion();
     return true;
@@ -264,7 +330,10 @@ class HostRoomService {
     return false;
   }
 
-  bool addFinalist({required String climbId, required String addedBy, required ProviderClimb climb}) {
+  bool addFinalist(
+      {required String climbId,
+      required String addedBy,
+      required ProviderClimb climb}) {
     for (final FinalistEntry e in state.finalists) {
       if (e.climb.id == climbId) return false;
     }
@@ -280,7 +349,8 @@ class HostRoomService {
   }
 
   bool deleteFinalist(int entryId) {
-    final int idx = state.finalists.indexWhere((FinalistEntry e) => e.id == entryId);
+    final int idx =
+        state.finalists.indexWhere((FinalistEntry e) => e.id == entryId);
     if (idx < 0) return false;
     state.finalists.removeAt(idx);
     _reindexFinalists();
@@ -331,7 +401,9 @@ class HostRoomService {
     if (source == 'queue' && state.queue.isNotEmpty) {
       pool = state.queue.map((QueueEntry e) => e.climb).toList(growable: false);
     } else if (source == 'finalists' && state.finalists.isNotEmpty) {
-      pool = state.finalists.map((FinalistEntry e) => e.climb).toList(growable: false);
+      pool = state.finalists
+          .map((FinalistEntry e) => e.climb)
+          .toList(growable: false);
     } else {
       return null;
     }
@@ -350,7 +422,8 @@ class HostRoomService {
         : <String>[];
     final bool isHostOrCoHost = forParticipantId != null &&
         state.participants.any((Participant p) =>
-            p.id == forParticipantId && (p.role == 'host' || p.role == 'co_host'));
+            p.id == forParticipantId &&
+            (p.role == 'host' || p.role == 'co_host'));
     return RoomSnapshot(
       slug: state.slug,
       roomName: state.roomName,
@@ -391,8 +464,11 @@ class HostRoomService {
     for (int i = 0; i < state.queue.length; i++) {
       final QueueEntry old = state.queue[i];
       state.queue[i] = QueueEntry(
-        id: old.id, status: old.status, position: i,
-        addedBy: old.addedBy, climb: old.climb,
+        id: old.id,
+        status: old.status,
+        position: i,
+        addedBy: old.addedBy,
+        climb: old.climb,
       );
     }
   }
@@ -401,8 +477,10 @@ class HostRoomService {
     for (int i = 0; i < state.finalists.length; i++) {
       final FinalistEntry old = state.finalists[i];
       state.finalists[i] = FinalistEntry(
-        id: old.id, position: i,
-        addedBy: old.addedBy, climb: old.climb,
+        id: old.id,
+        position: i,
+        addedBy: old.addedBy,
+        climb: old.climb,
       );
     }
   }

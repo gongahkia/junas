@@ -68,7 +68,8 @@ class _ClimbingLoaderState extends State<ClimbingLoader> {
             child: LinearProgressIndicator(
               value: progress,
               backgroundColor: const Color(0xFFE5E5E5),
-              valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF1A1A1A)),
+              valueColor:
+                  const AlwaysStoppedAnimation<Color>(Color(0xFF1A1A1A)),
               minHeight: 3,
             ),
           ),

@@ -63,8 +63,20 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           );
     }
     final List<ProviderCapability> capabilities = const <ProviderCapability>[
-      ProviderCapability(id: 'kilter', label: 'Kilter', roomSupported: true, soloSupported: true, surfaceHierarchy: 'board', authFields: <ProviderAuthField>[]),
-      ProviderCapability(id: 'crux', label: 'Crux', roomSupported: true, soloSupported: true, surfaceHierarchy: 'hierarchy', authFields: <ProviderAuthField>[]),
+      ProviderCapability(
+          id: 'kilter',
+          label: 'Kilter',
+          roomSupported: true,
+          soloSupported: true,
+          surfaceHierarchy: 'board',
+          authFields: <ProviderAuthField>[]),
+      ProviderCapability(
+          id: 'crux',
+          label: 'Crux',
+          roomSupported: true,
+          soloSupported: true,
+          surfaceHierarchy: 'hierarchy',
+          authFields: <ProviderAuthField>[]),
     ];
 
     return GradientScaffold(
@@ -129,6 +141,19 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               .read(appPrefsControllerProvider.notifier)
                               .updateSettings(
                                 autoGuidesEnabled: value,
+                              ),
+                        ),
+                      ),
+                      _ToggleTile(
+                        label: 'Enable tap cheers',
+                        description:
+                            'Let taps on the UI throw short celebratory overlays during active browsing.',
+                        value: prefs.settings.clickCheersEnabled,
+                        onChanged: (bool value) => unawaited(
+                          ref
+                              .read(appPrefsControllerProvider.notifier)
+                              .updateSettings(
+                                clickCheersEnabled: value,
                               ),
                         ),
                       ),
@@ -317,24 +342,33 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.zero,
-                                border: Border.all(color: const Color(0xFFE2E8F0)),
+                                border:
+                                    Border.all(color: const Color(0xFFE2E8F0)),
                               ),
                               padding: const EdgeInsets.all(16),
                               child: Row(
                                 children: <Widget>[
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
                                           template.name,
-                                          style: Theme.of(context).textTheme.titleMedium,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
                                         ),
                                         const SizedBox(height: 4),
                                         Text(
                                           providerChoices
-                                                  .where((ProviderCapability item) => item.id == template.providerId)
-                                                  .map((ProviderCapability item) => item.label)
+                                                  .where((ProviderCapability
+                                                          item) =>
+                                                      item.id ==
+                                                      template.providerId)
+                                                  .map((ProviderCapability
+                                                          item) =>
+                                                      item.label)
                                                   .firstOrNull ??
                                               template.providerId,
                                         ),
@@ -344,7 +378,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                   IconButton(
                                     onPressed: () => unawaited(
                                       ref
-                                          .read(appPrefsControllerProvider.notifier)
+                                          .read(appPrefsControllerProvider
+                                              .notifier)
                                           .deleteRoomTemplate(template.id),
                                     ),
                                     icon: const Icon(Icons.delete_outline),

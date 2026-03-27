@@ -6,8 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'core/deep_links/invite_links.dart';
+import 'core/models/app_prefs_models.dart';
 import 'core/presentation/tap_cheer_overlay.dart';
 import 'core/router/app_router.dart';
+import 'core/storage/app_prefs_controller.dart';
 import 'core/storage/offline_kilter_catalog_controller.dart';
 import 'core/theme/app_theme.dart';
 
@@ -75,16 +77,20 @@ class _KilterTogetherAppState extends ConsumerState<KilterTogetherApp> {
             });
           }
         case InviteKind.recap:
-          _router.goNamed('recap', queryParameters: invite.toRouteQueryParameters());
+          _router.goNamed('recap',
+              queryParameters: invite.toRouteQueryParameters());
         case InviteKind.plan:
-          _router.goNamed('plan', queryParameters: invite.toRouteQueryParameters());
+          _router.goNamed('plan',
+              queryParameters: invite.toRouteQueryParameters());
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final bool clickCheersEnabled = false;
+    final AppPrefs prefs = ref.watch(appPrefsControllerProvider).valueOrNull ??
+        AppPrefs.defaults();
+    final bool clickCheersEnabled = prefs.settings.clickCheersEnabled;
 
     return MaterialApp.router(
       title: 'Kilter Together',

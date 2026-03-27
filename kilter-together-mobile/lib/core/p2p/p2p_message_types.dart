@@ -43,26 +43,26 @@ class P2pMessage {
   final String? senderId;
 
   List<int> encode() => utf8.encode(jsonEncode(<String, dynamic>{
-    'type': type.name,
-    'payload': payload,
-    if (senderId != null) 'sender_id': senderId,
-  }));
+        'type': type.name,
+        'payload': payload,
+        if (senderId != null) 'sender_id': senderId,
+      }));
 
   static P2pMessage? decode(List<int> bytes) {
     try {
       final Map<String, dynamic> json =
           jsonDecode(utf8.decode(bytes)) as Map<String, dynamic>;
       final String typeName = json['type'] as String? ?? '';
-      final P2pMessageType? type = P2pMessageType.values
-          .cast<P2pMessageType?>()
-          .firstWhere(
-            (P2pMessageType? t) => t!.name == typeName,
-            orElse: () => null,
-          );
+      final P2pMessageType? type =
+          P2pMessageType.values.cast<P2pMessageType?>().firstWhere(
+                (P2pMessageType? t) => t!.name == typeName,
+                orElse: () => null,
+              );
       if (type == null) return null;
       return P2pMessage(
         type: type,
-        payload: (json['payload'] as Map<String, dynamic>?) ?? <String, dynamic>{},
+        payload:
+            (json['payload'] as Map<String, dynamic>?) ?? <String, dynamic>{},
         senderId: json['sender_id'] as String?,
       );
     } catch (e) {

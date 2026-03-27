@@ -25,21 +25,24 @@ void main() {
 
   group('InviteLink', () {
     test('parse join link', () {
-      final InviteLink? link = InviteLink.parse('kiltertogether://join?slug=abc123');
+      final InviteLink? link =
+          InviteLink.parse('kiltertogether://join?slug=abc123');
       expect(link, isNotNull);
       expect(link!.kind, InviteKind.join);
       expect(link.slug, 'abc123');
     });
 
     test('parse recap link', () {
-      final InviteLink? link = InviteLink.parse('kiltertogether://recap?share_id=xyz');
+      final InviteLink? link =
+          InviteLink.parse('kiltertogether://recap?share_id=xyz');
       expect(link, isNotNull);
       expect(link!.kind, InviteKind.recap);
       expect(link.shareId, 'xyz');
     });
 
     test('toUri roundtrip', () {
-      const InviteLink link = InviteLink(kind: InviteKind.join, slug: 'test123');
+      const InviteLink link =
+          InviteLink(kind: InviteKind.join, slug: 'test123');
       final String raw = link.toUri().toString();
       final InviteLink? parsed = InviteLink.parse(raw);
       expect(parsed, isNotNull);
@@ -64,7 +67,8 @@ void main() {
 
     test('reject duplicate display name', () {
       service.addParticipant(displayName: 'Alice', role: 'host');
-      final int id = service.addParticipant(displayName: 'Alice', role: 'participant');
+      final int id =
+          service.addParticipant(displayName: 'Alice', role: 'participant');
       expect(id, -1);
     });
 

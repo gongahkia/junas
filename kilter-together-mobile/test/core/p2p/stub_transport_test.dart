@@ -17,7 +17,8 @@ void main() {
 
     test('startAdvertising throws UnsupportedError', () {
       expect(
-        () => transport.startAdvertising(displayName: 'Test', serviceId: 'test'),
+        () =>
+            transport.startAdvertising(displayName: 'Test', serviceId: 'test'),
         throwsA(isA<UnsupportedError>()),
       );
     });
@@ -31,16 +32,20 @@ void main() {
 
     test('connectToPeer throws UnsupportedError', () {
       expect(
-        () => transport.connectToPeer(const P2pPeer(id: 'p1', displayName: 'Alice')),
+        () => transport
+            .connectToPeer(const P2pPeer(id: 'p1', displayName: 'Alice')),
         throwsA(isA<UnsupportedError>()),
       );
     });
 
     test('send throws UnsupportedError', () {
       expect(
-        () => transport.send('p1', const P2pMessage(
-          type: P2pMessageType.joinRequest, payload: <String, dynamic>{},
-        )),
+        () => transport.send(
+            'p1',
+            const P2pMessage(
+              type: P2pMessageType.joinRequest,
+              payload: <String, dynamic>{},
+            )),
         throwsA(isA<UnsupportedError>()),
       );
     });
@@ -48,7 +53,8 @@ void main() {
     test('broadcast throws UnsupportedError', () {
       expect(
         () => transport.broadcast(const P2pMessage(
-          type: P2pMessageType.joinRequest, payload: <String, dynamic>{},
+          type: P2pMessageType.joinRequest,
+          payload: <String, dynamic>{},
         )),
         throwsA(isA<UnsupportedError>()),
       );
