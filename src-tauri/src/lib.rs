@@ -1,3 +1,4 @@
+mod document;
 mod error;
 mod keychain;
 mod ml;
@@ -40,6 +41,8 @@ pub fn run() {
             ml::run_summarize,
             ml::run_classify,
             ml::run_embeddings,
+            document::parse_pdf,
+            document::parse_docx,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
