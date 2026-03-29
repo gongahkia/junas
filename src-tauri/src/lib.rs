@@ -1,5 +1,6 @@
 mod document;
 mod error;
+mod legal_api;
 mod vectorstore;
 mod keychain;
 mod ml;
@@ -44,6 +45,8 @@ pub fn run() {
             ml::run_embeddings,
             document::parse_pdf,
             document::parse_docx,
+            legal_api::search_sso_statutes,
+            legal_api::search_commonlii_cases,
             vectorstore::index_document,
             vectorstore::query_similar,
             vectorstore::list_collections,
