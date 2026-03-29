@@ -381,6 +381,65 @@ Provide an improved response that addresses any identified issues. If your initi
 }
 
 /**
+ * Specialized prompt templates for AI-delegated slash commands.
+ * Used by the ReAct tool loop to enrich context before AI analysis.
+ */
+export const AI_COMMAND_PROMPTS: Record<string, (args: string) => string> = {
+  'analyze-contract': (text) =>
+    `Analyze the following contract text under Singapore law. Structure your response as:\n\n` +
+    `1. **Parties & Roles** — identify all parties and their contractual roles\n` +
+    `2. **Key Obligations** — list each party's material obligations\n` +
+    `3. **Risk Clauses** — limitation of liability, indemnification, force majeure, penalty clauses\n` +
+    `4. **Termination Provisions** — grounds, notice periods, consequences\n` +
+    `5. **Payment Terms** — amounts, schedules, late payment consequences\n` +
+    `6. **Important Dates & Deadlines** — commencement, expiry, renewal\n` +
+    `7. **Governing Law & Jurisdiction** — applicable law and dispute resolution\n` +
+    `8. **Missing or Unusual Clauses** — standard provisions that are absent or atypical\n` +
+    `9. **Risk Assessment** — rate overall risk as HIGH / MEDIUM / LOW with justification\n\n` +
+    `Contract text:\n\n${text}`,
+  'summarize-document': (text) =>
+    `Provide a concise legal summary of the following document under Singapore law context. Include:\n\n` +
+    `1. **Document Type** — what kind of legal document this is\n` +
+    `2. **Key Parties** — who is involved\n` +
+    `3. **Core Subject Matter** — what the document covers\n` +
+    `4. **Critical Provisions** — the most important terms\n` +
+    `5. **Action Items** — any deadlines, obligations, or required actions\n` +
+    `6. **Notable Risks** — any concerns or red flags\n\n` +
+    `Document text:\n\n${text}`,
+  'draft-clause': (requirements) =>
+    `Draft a legal clause for use in a Singapore law-governed contract based on these requirements:\n\n` +
+    `${requirements}\n\n` +
+    `Provide:\n` +
+    `1. The drafted clause with proper legal language\n` +
+    `2. Brief commentary explaining key design choices\n` +
+    `3. Any variations or alternative wording to consider\n` +
+    `4. References to relevant Singapore statutes or case law if applicable`,
+  'check-compliance': (text) =>
+    `Review the following text for regulatory compliance under Singapore law. Check against:\n\n` +
+    `1. **PDPA** (Personal Data Protection Act 2012) — data collection, use, disclosure, consent\n` +
+    `2. **Companies Act** — corporate governance, director duties, reporting\n` +
+    `3. **Employment Act** — employee rights, termination, benefits\n` +
+    `4. **Consumer Protection (Fair Trading) Act** — unfair practices, disclaimers\n` +
+    `5. **Contract Law** — unconscionable terms, unfair contract terms\n` +
+    `6. **Industry-specific regulations** if identifiable from context\n\n` +
+    `For each finding, state: the provision, the issue, severity (HIGH/MEDIUM/LOW), and recommended fix.\n\n` +
+    `Text to review:\n\n${text}`,
+  'due-diligence-review': (text) =>
+    `Conduct a legal due diligence review of the following under Singapore law. Assess:\n\n` +
+    `1. **Corporate Structure** — entity type, registration, ownership\n` +
+    `2. **Material Contracts** — key agreements, change of control provisions\n` +
+    `3. **Litigation & Disputes** — pending, threatened, or historical\n` +
+    `4. **Regulatory Compliance** — licenses, permits, approvals\n` +
+    `5. **Intellectual Property** — ownership, registrations, licensing\n` +
+    `6. **Employment Matters** — key employees, restrictive covenants, disputes\n` +
+    `7. **Real Property** — leases, encumbrances, planning approvals\n` +
+    `8. **Financial Obligations** — debt, guarantees, security interests\n` +
+    `9. **Red Flags** — items requiring immediate attention\n\n` +
+    `Provide a risk rating (HIGH/MEDIUM/LOW) for each category.\n\n` +
+    `Materials for review:\n\n${text}`,
+};
+
+/**
  * Prompt for query complexity classification
  */
 export function getComplexityClassificationPrompt(query: string): string {
