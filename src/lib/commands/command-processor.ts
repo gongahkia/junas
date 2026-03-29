@@ -247,11 +247,24 @@ export function processLocalCommand(command: ProcessedCommand): LocalCommandResu
     case 'classify-text':
     case 'fetch-url':
     case 'web-search':
+      return {
+        success: true,
+        content: '__ASYNC_MODEL_COMMAND__',
+        requiresModel: requiresModel(commandType) || undefined,
+      };
+
     case 'use-template': {
       if (typeof window !== 'undefined') {
         window.dispatchEvent(new CustomEvent('junas-open-templates'));
       }
       return { success: true, content: 'Opening template library...' };
+    }
+
+    case 'redline': {
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('junas-open-redline'));
+      }
+      return { success: true, content: 'Opening contract redlining view...' };
     }
 
     case 'search-case-law':
