@@ -247,6 +247,13 @@ export function processLocalCommand(command: ProcessedCommand): LocalCommandResu
     case 'classify-text':
     case 'fetch-url':
     case 'web-search':
+    case 'use-template': {
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('junas-open-templates'));
+      }
+      return { success: true, content: 'Opening template library...' };
+    }
+
     case 'search-case-law':
     case 'research-statute':
     case 'analyze-contract':
