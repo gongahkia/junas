@@ -1,5 +1,6 @@
 mod document;
 mod error;
+mod vectorstore;
 mod keychain;
 mod ml;
 mod providers;
@@ -43,6 +44,10 @@ pub fn run() {
             ml::run_embeddings,
             document::parse_pdf,
             document::parse_docx,
+            vectorstore::index_document,
+            vectorstore::query_similar,
+            vectorstore::list_collections,
+            vectorstore::delete_collection,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
