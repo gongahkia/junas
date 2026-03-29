@@ -12,6 +12,9 @@ import { Message, Conversation } from '@/types/chat';
 import IntroAnimation from '@/components/IntroAnimation';
 import { OnboardingWizard } from '@/components/OnboardingWizard';
 import { TemplateLibrary } from '@/components/TemplateLibrary';
+import { ComplianceDashboard } from '@/components/ComplianceDashboard';
+import { ClauseLibrary } from '@/components/ClauseLibrary';
+import { RedlineView } from '@/components/chat/RedlineView';
 
 import { useJunasContext } from '@/lib/context/JunasContext';
 
@@ -25,6 +28,9 @@ export default function Home() {
   const [showHistoryDialog, setShowHistoryDialog] = useState(false);
   const [showCommandPalette, setShowCommandPalette] = useState(false);
   const [showTemplateLibrary, setShowTemplateLibrary] = useState(false);
+  const [showComplianceDashboard, setShowComplianceDashboard] = useState(false);
+  const [showClauseLibrary, setShowClauseLibrary] = useState(false);
+  const [showRedline, setShowRedline] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(
     () => !StorageManager.hasCompletedOnboarding()
   );
@@ -38,11 +44,22 @@ export default function Home() {
 
   // Cleanup: Remove old event listeners logic as it is now handled by context and provider
 
-  // Listen for /use-template command events
+  // Listen for command events that open dialogs
   useEffect(() => {
-    const handler = () => setShowTemplateLibrary(true);
-    window.addEventListener('junas-open-templates', handler);
-    return () => window.removeEventListener('junas-open-templates', handler);
+    const openTemplates = () => setShowTemplateLibrary(true);
+    const openRedline = () => setShowRedline(true);
+    const openCompliance = () => setShowComplianceDashboard(true);
+    const openClauses = () => setShowClauseLibrary(true);
+    window.addEventListener('junas-open-templates', openTemplates);
+    window.addEventListener('junas-open-redline', openRedline);
+    window.addEventListener('junas-open-compliance', openCompliance);
+    window.addEventListener('junas-open-clauses', openClauses);
+    return () => {
+      window.removeEventListener('junas-open-templates', openTemplates);
+      window.removeEventListener('junas-open-redline', openRedline);
+      window.removeEventListener('junas-open-compliance', openCompliance);
+      window.removeEventListener('junas-open-clauses', openClauses);
+    };
   }, []);
 
   // Global Cmd/Ctrl+Shift+P listener
@@ -170,6 +187,33 @@ export default function Home() {
             setActiveTab('artifacts');
           }}
         />
+
+        {/* Compliance Dashboard */}
+        <ComplianceDashboard
+          isOpen={showComplianceDashboard}
+          onClose={() => setShowComplianceDashboard(false)}
+        />
+
+        {/* Clause Library */}
+        <ClauseLibrary
+          isOpen={showClauseLibrary}
+          onClose={() => setShowClauseLibrary(false)}
+        />
+
+        {/* Redline View */}
+        {showRedline && (
+          <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center p-8">
+            <div className="bg-background border rounded-lg shadow-lg w-full max-w-4xl max-h-[80vh] overflow-y-auto p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-sm font-semibold">Contract Redlining</h2>
+                <button onClick={() => setShowRedline(false)} className="text-xs text-muted-foreground hover:text-foreground">
+                  [ Close ]
+                </button>
+              </div>
+              <RedlineView />
+            </div>
+          </div>
+        )}
 
         {/* Onboarding Wizard */}
         <OnboardingWizard
