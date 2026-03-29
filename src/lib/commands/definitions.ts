@@ -13,6 +13,7 @@ export type CommandType =
   | 'due-diligence-review'
   | 'generate-document'
   | 'use-template'
+  | 'redline'
   | 'fetch-url'
   | 'web-search';
 
@@ -146,6 +147,13 @@ export const COMMANDS: CommandInfo[] = [
     id: 'use-template',
     label: 'use-template',
     description: 'Open the legal document template library',
+    isLocal: true,
+    implemented: true,
+  },
+  {
+    id: 'redline',
+    label: 'redline',
+    description: 'Compare two contract versions with tracked changes',
     isLocal: true,
     implemented: true,
   },
