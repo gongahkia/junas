@@ -55,8 +55,13 @@ fn strip_xml_tags(xml: &str) -> String {
                 in_tag = true;
                 // check for paragraph/break tags
                 let remaining = &xml[xml.len().min(result.len())..];
-                if remaining.starts_with("<w:p ") || remaining.starts_with("<w:p>") || remaining.starts_with("<w:br") {
-                    if !last_was_para { result.push('\n'); last_was_para = true; }
+                if (remaining.starts_with("<w:p ")
+                    || remaining.starts_with("<w:p>")
+                    || remaining.starts_with("<w:br"))
+                    && !last_was_para
+                {
+                    result.push('\n');
+                    last_was_para = true;
                 }
             }
             '>' => { in_tag = false; }

@@ -1,7 +1,9 @@
 export type SingaporeCitationKind = 'slr_r' | 'slr' | 'sgca' | 'sghc' | 'statute_cap';
+export type MalaysiaCitationKind = 'mlj' | 'mlju' | 'mlra' | 'clj' | 'my_statute';
+export type CitationKind = SingaporeCitationKind | MalaysiaCitationKind;
 
 export interface ExtractedCitation {
-  kind: SingaporeCitationKind;
+  kind: CitationKind;
   text: string;
   start: number;
   end: number;
@@ -13,7 +15,7 @@ export interface ExtractedCitation {
 }
 
 interface CitationPattern {
-  kind: SingaporeCitationKind;
+  kind: CitationKind;
   regex: RegExp;
   map: (match: RegExpMatchArray, start: number) => ExtractedCitation | null;
 }

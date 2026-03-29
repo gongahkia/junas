@@ -176,13 +176,26 @@ export default function Home() {
           isOpen={showTemplateLibrary}
           onClose={() => setShowTemplateLibrary(false)}
           onGenerate={(content, title) => {
+            const createdAt = Date.now();
             const artifacts = chatState?.artifacts || [];
             updateChatState({
-              ...chatState,
+              messages: currentMessages,
+              nodeMap: currentNodeMap,
+              currentLeafId,
               artifacts: [
-                { id: `tpl_${Date.now()}`, title, type: 'markdown', content, createdAt: Date.now() },
+                {
+                  id: `tpl_${createdAt}`,
+                  title,
+                  type: 'markdown',
+                  content,
+                  createdAt,
+                  messageId: currentLeafId ?? `template_${createdAt}`,
+                },
                 ...artifacts,
               ],
+              isLoading: chatState?.isLoading ?? false,
+              currentProvider: chatState?.currentProvider || 'gemini',
+              settings: chatState?.settings ?? settings,
             });
             setActiveTab('artifacts');
           }}
@@ -195,10 +208,7 @@ export default function Home() {
         />
 
         {/* Clause Library */}
-        <ClauseLibrary
-          isOpen={showClauseLibrary}
-          onClose={() => setShowClauseLibrary(false)}
-        />
+        <ClauseLibrary isOpen={showClauseLibrary} onClose={() => setShowClauseLibrary(false)} />
 
         {/* Redline View */}
         {showRedline && (
@@ -206,7 +216,10 @@ export default function Home() {
             <div className="bg-background border rounded-lg shadow-lg w-full max-w-4xl max-h-[80vh] overflow-y-auto p-6">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-sm font-semibold">Contract Redlining</h2>
-                <button onClick={() => setShowRedline(false)} className="text-xs text-muted-foreground hover:text-foreground">
+                <button
+                  onClick={() => setShowRedline(false)}
+                  className="text-xs text-muted-foreground hover:text-foreground"
+                >
                   [ Close ]
                 </button>
               </div>

@@ -1,7 +1,7 @@
-import type { ExtractedCitation } from '@/lib/citations/extract';
+import type { CitationKind, ExtractedCitation } from '@/lib/citations/extract';
 
 export interface CitationPattern {
-  kind: string;
+  kind: CitationKind;
   regex: RegExp;
   map: (match: RegExpMatchArray, start: number) => ExtractedCitation | null;
 }

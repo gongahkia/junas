@@ -38,7 +38,7 @@ import {
   normalizeExtractedCitations,
   validateCitations,
 } from '@/lib/citations';
-import type { SingaporeCitationKind } from '@/lib/citations';
+import type { CitationKind } from '@/lib/citations';
 import { recordToolObservability } from '@/lib/observability/chat-observability';
 
 interface ChatInterfaceProps {
@@ -46,8 +46,8 @@ interface ChatInterfaceProps {
   onTabChange?: (tab: 'chat' | 'artifacts' | 'tree') => void;
 }
 
-function mapCitationKindToType(kind: SingaporeCitationKind): Citation['type'] {
-  return kind === 'statute_cap' ? 'statute' : 'case';
+function mapCitationKindToType(kind: CitationKind): Citation['type'] {
+  return kind === 'statute_cap' || kind === 'my_statute' ? 'statute' : 'case';
 }
 
 function buildCitationUrl(citationText: string): string {

@@ -1,6 +1,7 @@
 use crate::error::AppError;
 use futures_util::StreamExt;
-use ndarray::{Array2, Axis};
+use ndarray::Array2;
+use ort::{session::Session, value::TensorRef};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::io::Read;
@@ -14,6 +15,7 @@ const MODEL_CONNECT_TIMEOUT_SECS: u64 = 15;
 const MODEL_REQUEST_TIMEOUT_SECS: u64 = 300;
 const NER_LABELS: &[&str] = &["O", "B-MISC", "I-MISC", "B-PER", "I-PER", "B-ORG", "I-ORG", "B-LOC", "I-LOC"];
 const CLASSIFY_LABELS: &[&str] = &["NEGATIVE", "POSITIVE"];
+type TokenizedInputs = (Array2<i64>, Array2<i64>, Array2<i64>);
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct NerEntity {
@@ -234,7 +236,7 @@ pub async fn clear_model_cache(app: AppHandle) -> Result<(), AppError> {
 
 #[tauri::command]
 pub fn is_onnx_runtime_available() -> bool {
-    ort::Session::builder().is_ok() // actually probe runtime availability
+    Session::builder().is_ok() // actually probe runtime availability
 }
 
 #[tauri::command]
@@ -250,8 +252,8 @@ pub async fn load_model(app: AppHandle, model_type: String) -> Result<String, Ap
 
 // -- inference helpers --
 
-fn create_session(model_path: &Path) -> Result<ort::Session, AppError> {
-    ort::Session::builder()
+fn create_session(model_path: &Path) -> Result<Session, AppError> {
+    Session::builder()
         .map_err(|e| AppError::Provider(format!("ONNX Runtime unavailable: {e}")))?
         .commit_from_file(model_path)
         .map_err(|e| AppError::Provider(format!("failed to load model: {e}")))
@@ -280,7 +282,7 @@ fn softmax(logits: &[f32]) -> Vec<f32> {
 }
 
 fn tokenize_to_arrays(tokenizer: &tokenizers::Tokenizer, text: &str, max_len: usize)
-    -> Result<(Array2<i64>, Array2<i64>, Array2<i64>), AppError>
+    -> Result<TokenizedInputs, AppError>
 {
     let encoding = tokenizer.encode(text, true)
         .map_err(|e| AppError::Provider(format!("tokenization failed: {e}")))?;
@@ -300,27 +302,40 @@ fn tokenize_to_arrays(tokenizer: &tokenizers::Tokenizer, text: &str, max_len: us
 #[tauri::command]
 pub fn run_ner(app: AppHandle, text: String) -> Result<Vec<NerEntity>, AppError> {
     let (mp, tp) = ensure_model_and_tokenizer(&app, "ner")?;
-    let session = create_session(&mp)?;
+    let mut session = create_session(&mp)?;
     let tokenizer = load_tokenizer(&tp)?;
     let (input_ids, attention_mask, token_type_ids) = tokenize_to_arrays(&tokenizer, &text, 512)?;
-    let outputs = session.run(ort::inputs![
-        "input_ids" => input_ids.view(),
-        "attention_mask" => attention_mask.view(),
-        "token_type_ids" => token_type_ids.view()
-    ].map_err(|e| AppError::Provider(e.to_string()))?)
+    let input_ids_shape = [1usize, input_ids.ncols()];
+    let input_ids_data = input_ids.as_slice().ok_or_else(|| AppError::Provider("non-contiguous input_ids".into()))?;
+    let attention_mask_shape = [1usize, attention_mask.ncols()];
+    let attention_mask_data =
+        attention_mask.as_slice().ok_or_else(|| AppError::Provider("non-contiguous attention_mask".into()))?;
+    let token_type_ids_shape = [1usize, token_type_ids.ncols()];
+    let token_type_ids_data =
+        token_type_ids.as_slice().ok_or_else(|| AppError::Provider("non-contiguous token_type_ids".into()))?;
+    let outputs = session.run(ort::inputs! {
+        "input_ids" => TensorRef::from_array_view((input_ids_shape, input_ids_data)).map_err(|e| AppError::Provider(e.to_string()))?,
+        "attention_mask" => TensorRef::from_array_view((attention_mask_shape, attention_mask_data))
+            .map_err(|e| AppError::Provider(e.to_string()))?,
+        "token_type_ids" => TensorRef::from_array_view((token_type_ids_shape, token_type_ids_data))
+            .map_err(|e| AppError::Provider(e.to_string()))?
+    })
         .map_err(|e| AppError::Provider(format!("NER inference failed: {e}")))?;
-    let logits = outputs[0].try_extract_tensor::<f32>()
+    let (shape, logits) = outputs[0].try_extract_tensor::<f32>()
         .map_err(|e| AppError::Provider(format!("output extraction failed: {e}")))?;
-    let shape = logits.shape(); // [1, seq_len, num_labels]
-    let seq_len = shape[1];
-    let num_labels = shape[2];
-    let encoding = tokenizer.encode(&text, true)
+    if shape.len() != 3 || shape[0] != 1 {
+        return Err(AppError::Provider(format!("unexpected NER output shape: {shape}")));
+    }
+    let seq_len = shape[1] as usize;
+    let num_labels = shape[2] as usize;
+    let encoding = tokenizer.encode(text.as_str(), true)
         .map_err(|e| AppError::Provider(format!("re-tokenization failed: {e}")))?;
     let tokens = encoding.get_tokens();
     let offsets = encoding.get_offsets();
     let mut entities = Vec::new();
     for i in 0..seq_len.min(tokens.len()) {
-        let token_logits: Vec<f32> = (0..num_labels).map(|j| logits[[0, i, j]]).collect();
+        let base = i * num_labels;
+        let token_logits = logits[base..base + num_labels].to_vec();
         let probs = softmax(&token_logits);
         let best_idx = probs.iter().enumerate().max_by(|a, b| a.1.partial_cmp(b.1).unwrap()).map(|(i, _)| i).unwrap_or(0);
         if best_idx == 0 { continue; } // O label
@@ -353,18 +368,31 @@ pub fn run_summarize(_app: AppHandle, _text: String, _max_length: u32) -> Result
 #[tauri::command]
 pub fn run_classify(app: AppHandle, text: String) -> Result<Vec<ClassifyResult>, AppError> {
     let (mp, tp) = ensure_model_and_tokenizer(&app, "text-classification")?;
-    let session = create_session(&mp)?;
+    let mut session = create_session(&mp)?;
     let tokenizer = load_tokenizer(&tp)?;
     let (input_ids, attention_mask, _) = tokenize_to_arrays(&tokenizer, &text, 512)?;
-    let outputs = session.run(ort::inputs![
-        "input_ids" => input_ids.view(),
-        "attention_mask" => attention_mask.view()
-    ].map_err(|e| AppError::Provider(e.to_string()))?)
+    let input_ids_shape = [1usize, input_ids.ncols()];
+    let input_ids_data = input_ids.as_slice().ok_or_else(|| AppError::Provider("non-contiguous input_ids".into()))?;
+    let attention_mask_shape = [1usize, attention_mask.ncols()];
+    let attention_mask_data =
+        attention_mask.as_slice().ok_or_else(|| AppError::Provider("non-contiguous attention_mask".into()))?;
+    let outputs = session.run(ort::inputs! {
+        "input_ids" => TensorRef::from_array_view((input_ids_shape, input_ids_data)).map_err(|e| AppError::Provider(e.to_string()))?,
+        "attention_mask" => TensorRef::from_array_view((attention_mask_shape, attention_mask_data))
+            .map_err(|e| AppError::Provider(e.to_string()))?
+    })
         .map_err(|e| AppError::Provider(format!("classification inference failed: {e}")))?;
-    let logits = outputs[0].try_extract_tensor::<f32>()
+    let (shape, logits) = outputs[0].try_extract_tensor::<f32>()
         .map_err(|e| AppError::Provider(format!("output extraction failed: {e}")))?;
-    let logit_slice: Vec<f32> = logits.as_slice().ok_or_else(|| AppError::Provider("non-contiguous output".into()))?.to_vec();
-    let probs = softmax(&logit_slice);
+    let logit_slice = match shape.len() {
+        1 => logits,
+        2 if shape[0] == 1 => {
+            let num_labels = shape[1] as usize;
+            &logits[..num_labels]
+        }
+        _ => return Err(AppError::Provider(format!("unexpected classification output shape: {shape}"))),
+    };
+    let probs = softmax(logit_slice);
     let mut results: Vec<ClassifyResult> = probs.iter().enumerate()
         .map(|(i, &score)| ClassifyResult {
             label: CLASSIFY_LABELS.get(i).unwrap_or(&"UNKNOWN").to_string(),
@@ -377,36 +405,51 @@ pub fn run_classify(app: AppHandle, text: String) -> Result<Vec<ClassifyResult>,
 #[tauri::command]
 pub fn run_embeddings(app: AppHandle, text: String) -> Result<Vec<f32>, AppError> {
     let (mp, tp) = ensure_model_and_tokenizer(&app, "embeddings")?;
-    let session = create_session(&mp)?;
+    let mut session = create_session(&mp)?;
     let tokenizer = load_tokenizer(&tp)?;
     let (input_ids, attention_mask, token_type_ids) = tokenize_to_arrays(&tokenizer, &text, 512)?;
     let mask_f32 = attention_mask.mapv(|x| x as f32);
-    let outputs = session.run(ort::inputs![
-        "input_ids" => input_ids.view(),
-        "attention_mask" => attention_mask.view(),
-        "token_type_ids" => token_type_ids.view()
-    ].map_err(|e| AppError::Provider(e.to_string()))?)
+    let input_ids_shape = [1usize, input_ids.ncols()];
+    let input_ids_data = input_ids.as_slice().ok_or_else(|| AppError::Provider("non-contiguous input_ids".into()))?;
+    let attention_mask_shape = [1usize, attention_mask.ncols()];
+    let attention_mask_data =
+        attention_mask.as_slice().ok_or_else(|| AppError::Provider("non-contiguous attention_mask".into()))?;
+    let token_type_ids_shape = [1usize, token_type_ids.ncols()];
+    let token_type_ids_data =
+        token_type_ids.as_slice().ok_or_else(|| AppError::Provider("non-contiguous token_type_ids".into()))?;
+    let outputs = session.run(ort::inputs! {
+        "input_ids" => TensorRef::from_array_view((input_ids_shape, input_ids_data)).map_err(|e| AppError::Provider(e.to_string()))?,
+        "attention_mask" => TensorRef::from_array_view((attention_mask_shape, attention_mask_data))
+            .map_err(|e| AppError::Provider(e.to_string()))?,
+        "token_type_ids" => TensorRef::from_array_view((token_type_ids_shape, token_type_ids_data))
+            .map_err(|e| AppError::Provider(e.to_string()))?
+    })
         .map_err(|e| AppError::Provider(format!("embeddings inference failed: {e}")))?;
-    let hidden = outputs[0].try_extract_tensor::<f32>()
+    let (shape, hidden) = outputs[0].try_extract_tensor::<f32>()
         .map_err(|e| AppError::Provider(format!("output extraction failed: {e}")))?;
-    let hidden = hidden.to_owned(); // [1, seq_len, hidden_dim]
-    let hidden_2d = hidden.index_axis(Axis(0), 0); // [seq_len, hidden_dim]
-    let mask_col = mask_f32.index_axis(Axis(0), 0); // [seq_len]
-    let seq_len = hidden_2d.shape()[0];
-    let hidden_dim = hidden_2d.shape()[1];
+    if shape.len() != 3 || shape[0] != 1 {
+        return Err(AppError::Provider(format!("unexpected embeddings output shape: {shape}")));
+    }
+    let seq_len = shape[1] as usize;
+    let hidden_dim = shape[2] as usize;
     // mean pooling: sum(hidden * mask) / sum(mask)
     let mut pooled = vec![0.0f32; hidden_dim];
-    let mask_sum: f32 = mask_col.iter().sum::<f32>().max(1.0);
+    let mask_sum: f32 = mask_f32.iter().sum::<f32>().max(1.0);
     for s in 0..seq_len {
-        let m = mask_col[s];
+        let m = mask_f32[[0, s]];
         if m == 0.0 { continue; }
+        let base = s * hidden_dim;
         for d in 0..hidden_dim {
-            pooled[d] += hidden_2d[[s, d]] * m;
+            pooled[d] += hidden[base + d] * m;
         }
     }
-    for d in 0..hidden_dim { pooled[d] /= mask_sum; }
+    for value in &mut pooled {
+        *value /= mask_sum;
+    }
     // L2 normalize
     let norm: f32 = pooled.iter().map(|x| x * x).sum::<f32>().sqrt().max(1e-12);
-    for d in 0..hidden_dim { pooled[d] /= norm; }
+    for value in &mut pooled {
+        *value /= norm;
+    }
     Ok(pooled)
 }
