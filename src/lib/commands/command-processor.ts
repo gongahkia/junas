@@ -249,9 +249,14 @@ export function processLocalCommand(command: ProcessedCommand): LocalCommandResu
     case 'web-search':
     case 'search-case-law':
     case 'research-statute':
+    case 'analyze-contract':
+    case 'summarize-document':
+    case 'draft-clause':
+    case 'check-compliance':
+    case 'due-diligence-review':
       return {
         success: true,
-        content: '__ASYNC_MODEL_COMMAND__', // Signal to ChatInterface to use async processing
+        content: '__ASYNC_MODEL_COMMAND__',
         requiresModel: requiresModel(commandType) || undefined,
       };
 
@@ -457,6 +462,18 @@ export async function processAsyncLocalCommand(
             content: `Error researching statute: ${e.message || String(e)}`,
           };
         }
+      }
+      case 'analyze-contract':
+      case 'summarize-document':
+      case 'draft-clause':
+      case 'check-compliance':
+      case 'due-diligence-review': {
+        const { AI_COMMAND_PROMPTS } = await import('@/lib/prompts/system-prompts');
+        const promptBuilder = AI_COMMAND_PROMPTS[commandType];
+        if (!promptBuilder) {
+          return { success: false, content: `No prompt template for /${commandType}.` };
+        }
+        return { success: true, content: promptBuilder(args) };
       }
 
       default:
