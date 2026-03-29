@@ -10,6 +10,7 @@ import { CommandPalette } from '@/components/chat/CommandPalette';
 import { StorageManager } from '@/lib/storage';
 import { Message, Conversation } from '@/types/chat';
 import IntroAnimation from '@/components/IntroAnimation';
+import { OnboardingWizard } from '@/components/OnboardingWizard';
 
 import { useJunasContext } from '@/lib/context/JunasContext';
 
@@ -22,6 +23,9 @@ export default function Home() {
   const [showAboutDialog, setShowAboutDialog] = useState(false);
   const [showHistoryDialog, setShowHistoryDialog] = useState(false);
   const [showCommandPalette, setShowCommandPalette] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(
+    () => !StorageManager.hasCompletedOnboarding()
+  );
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'chat' | 'artifacts' | 'tree'>('chat');
 
@@ -139,6 +143,16 @@ export default function Home() {
           onSwitchToArtifacts={() => setActiveTab('artifacts')}
           onSwitchToTree={() => setActiveTab('tree')}
           hasMessages={hasMessages}
+        />
+
+        {/* Onboarding Wizard */}
+        <OnboardingWizard
+          open={showOnboarding}
+          onComplete={() => setShowOnboarding(false)}
+          onOpenConfig={() => {
+            setShowOnboarding(false);
+            setShowConfigDialog(true);
+          }}
         />
       </Layout>
     </div>
