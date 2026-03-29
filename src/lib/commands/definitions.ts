@@ -12,6 +12,7 @@ export type CommandType =
   | 'check-compliance'
   | 'due-diligence-review'
   | 'generate-document'
+  | 'use-template'
   | 'fetch-url'
   | 'web-search';
 
@@ -139,6 +140,13 @@ export const COMMANDS: CommandInfo[] = [
     label: 'generate-document',
     description: 'Generate a downloadable text or markdown document',
     isLocal: true, // Processed locally to save the artifact
+    implemented: true,
+  },
+  {
+    id: 'use-template',
+    label: 'use-template',
+    description: 'Open the legal document template library',
+    isLocal: true,
     implemented: true,
   },
   {
