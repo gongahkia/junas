@@ -78,17 +78,15 @@ Junas is a **free, open-source, BYOK (Bring Your Own Key)** desktop AI legal ass
 - [x] Local RAG pipeline (chunk → embed → vector store → retrieve)
 - [x] Risk scoring and traffic-light visualization
 
-## Roadmap
+### Phase 3: Advanced Legal Intelligence (Complete)
+- [x] Singapore legal database integration (SSO, CommonLII direct + Serper fallback)
+- [x] Multi-jurisdiction framework (SG + Malaysia plugin system)
+- [x] Contract redlining with Myers word-level diff + accept/reject
+- [x] Compliance monitoring dashboard (10 SG rules, keyword-based checking)
 
-### Phase 3: Advanced Legal Intelligence
-- [ ] Singapore legal database integration (SSO, CommonLII)
-- [ ] Multi-jurisdiction framework (SG + Malaysia)
-- [ ] Contract redlining with diff view
-- [ ] Compliance monitoring dashboard
-
-### Phase 4: Polish & Distribution
-- [ ] Clause library with market-standard benchmarking
-- [ ] Multi-document workflow agent
+### Phase 4: Polish & Distribution (Complete)
+- [x] Clause library with 4-variant benchmarking (6 clauses with SG case law notes)
+- [x] Multi-document workflow agent (compare, batch-review, summarize-all)
 
 ## Sources
 
