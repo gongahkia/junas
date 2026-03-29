@@ -2,13 +2,15 @@ import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { InlineProviderSelector } from './InlineProviderSelector';
 import { CommandSuggestions } from './CommandSuggestions';
+import { DocumentPreview } from './DocumentPreview';
 import { COMMANDS } from '@/lib/commands/definitions';
 import Fuse from 'fuse.js';
-import { Book } from 'lucide-react';
+import { Book, Paperclip } from 'lucide-react';
 import { StorageManager } from '@/lib/storage';
 import { Snippet } from '@/types/chat';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { isOnnxRuntimeAvailable } from '@/lib/ml/model-manager';
+import type { ParsedDocument } from '@/lib/tauri-bridge';
 
 interface MessageInputProps {
   onSendMessage: (content: string) => void;
@@ -36,6 +38,33 @@ export function MessageInput({
 
   // Snippet state
   const [snippets, setSnippets] = useState<Snippet[]>([]);
+
+  // Document upload state
+  const [attachedDoc, setAttachedDoc] = useState<ParsedDocument | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const handleFileUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const { parsePdf, parseDocx } = await import('@/lib/tauri-bridge');
+      const path = (file as any).path || file.name; // Tauri provides .path on File objects
+      let doc: ParsedDocument;
+      if (file.name.toLowerCase().endsWith('.pdf')) {
+        doc = await parsePdf(path);
+      } else if (file.name.toLowerCase().endsWith('.docx')) {
+        doc = await parseDocx(path);
+      } else {
+        // plain text fallback
+        const text = await file.text();
+        doc = { filename: file.name, text, page_count: 1, char_count: text.length };
+      }
+      setAttachedDoc(doc);
+    } catch (err: any) {
+      console.error('Document parse error:', err);
+    }
+    // reset file input
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  }, []);
 
   // Suggestion state
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -138,7 +167,11 @@ export function MessageInput({
       e.preventDefault();
       if (!message.trim()) return;
 
-      const trimmedMessage = message.trim();
+      let trimmedMessage = message.trim();
+      if (attachedDoc) {
+        trimmedMessage = `[Document: ${attachedDoc.filename}]\n\n${attachedDoc.text}\n\n---\n\n${trimmedMessage}`;
+        setAttachedDoc(null);
+      }
       onSendMessage(trimmedMessage);
 
       setHistory((prev) => {
@@ -245,6 +278,11 @@ export function MessageInput({
               />
             )}
 
+            {attachedDoc && (
+              <div className="mb-2">
+                <DocumentPreview doc={attachedDoc} onRemove={() => setAttachedDoc(null)} />
+              </div>
+            )}
             <div className="border border-muted-foreground/30 bg-muted/10">
               <Textarea
                 ref={textareaRef}
@@ -266,6 +304,24 @@ export function MessageInput({
                     onProviderChange={onProviderChange}
                     disabled={isLoading}
                   />
+
+                  {/* File Upload */}
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept=".pdf,.docx,.txt,.md"
+                    className="hidden"
+                    onChange={handleFileUpload}
+                  />
+                  <button
+                    type="button"
+                    className="flex items-center gap-1.5 px-2 py-1 hover:bg-muted/50 rounded-sm transition-colors text-muted-foreground hover:text-foreground"
+                    title="Attach Document (PDF, DOCX, TXT)"
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    <Paperclip className="h-3.5 w-3.5" />
+                    <span className="hidden sm:inline">Attach</span>
+                  </button>
 
                   {/* Snippets Button */}
                   {snippets.length > 0 && (
