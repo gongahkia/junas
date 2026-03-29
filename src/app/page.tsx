@@ -11,6 +11,7 @@ import { StorageManager } from '@/lib/storage';
 import { Message, Conversation } from '@/types/chat';
 import IntroAnimation from '@/components/IntroAnimation';
 import { OnboardingWizard } from '@/components/OnboardingWizard';
+import { TemplateLibrary } from '@/components/TemplateLibrary';
 
 import { useJunasContext } from '@/lib/context/JunasContext';
 
@@ -23,6 +24,7 @@ export default function Home() {
   const [showAboutDialog, setShowAboutDialog] = useState(false);
   const [showHistoryDialog, setShowHistoryDialog] = useState(false);
   const [showCommandPalette, setShowCommandPalette] = useState(false);
+  const [showTemplateLibrary, setShowTemplateLibrary] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(
     () => !StorageManager.hasCompletedOnboarding()
   );
@@ -35,6 +37,13 @@ export default function Home() {
   const currentLeafId = chatState?.currentLeafId;
 
   // Cleanup: Remove old event listeners logic as it is now handled by context and provider
+
+  // Listen for /use-template command events
+  useEffect(() => {
+    const handler = () => setShowTemplateLibrary(true);
+    window.addEventListener('junas-open-templates', handler);
+    return () => window.removeEventListener('junas-open-templates', handler);
+  }, []);
 
   // Global Cmd/Ctrl+Shift+P listener
   useEffect(() => {
@@ -143,6 +152,23 @@ export default function Home() {
           onSwitchToArtifacts={() => setActiveTab('artifacts')}
           onSwitchToTree={() => setActiveTab('tree')}
           hasMessages={hasMessages}
+        />
+
+        {/* Template Library */}
+        <TemplateLibrary
+          isOpen={showTemplateLibrary}
+          onClose={() => setShowTemplateLibrary(false)}
+          onGenerate={(content, title) => {
+            const artifacts = chatState?.artifacts || [];
+            updateChatState({
+              ...chatState,
+              artifacts: [
+                { id: `tpl_${Date.now()}`, title, type: 'markdown', content, createdAt: Date.now() },
+                ...artifacts,
+              ],
+            });
+            setActiveTab('artifacts');
+          }}
         />
 
         {/* Onboarding Wizard */}
