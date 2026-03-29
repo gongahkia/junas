@@ -90,6 +90,18 @@ export const webSearch = (query: string, apiKey: string) =>
 export const healthCheck = (provider: string, endpoint?: string) =>
   invokeWithAppError<boolean>('health_check', { provider, endpoint });
 
+// document parsing
+export interface ParsedDocument {
+  filename: string;
+  text: string;
+  page_count: number;
+  char_count: number;
+}
+export const parsePdf = (path: string) =>
+  invokeWithAppError<ParsedDocument>('parse_pdf', { path });
+export const parseDocx = (path: string) =>
+  invokeWithAppError<ParsedDocument>('parse_docx', { path });
+
 // streaming
 export const onChatStream = (callback: (chunk: StreamChunk) => void): Promise<UnlistenFn> =>
   listen<StreamChunk>('chat-stream', (event) => callback(event.payload));
