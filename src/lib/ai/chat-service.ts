@@ -270,6 +270,15 @@ export class ChatService {
         config.userContext = { role: role || undefined, preferences: purpose || undefined };
       }
       if (customSystemPrompt) config.baseSystemPrompt = customSystemPrompt;
+      // inject jurisdiction-specific prompt additions
+      try {
+        const { getJurisdiction, getDefaultJurisdiction } = await import('@/lib/jurisdictions');
+        const jurisdictionId = (settings as any).jurisdiction || 'sg';
+        const jurisdiction = getJurisdiction(jurisdictionId) || getDefaultJurisdiction();
+        if (jurisdiction.systemPromptAddition) {
+          config.baseSystemPrompt = (config.baseSystemPrompt || '') + '\n\n' + jurisdiction.systemPromptAddition;
+        }
+      } catch { /* jurisdictions module unavailable, skip */ }
       config.systemPrompt = generateSystemPrompt(config);
       // RAG context injection: retrieve relevant chunks from indexed documents
       try {
