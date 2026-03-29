@@ -19,7 +19,7 @@ log = "0.4"
 tauri = { version = "2.10.0" }
 tauri-plugin-log = "2"
 reqwest = { version = "0.12", features = ["rustls-tls", "json", "stream"] }
-security-framework = "2"
+keyring = { version = "3", features = ["apple-native", "windows-native", "sync-secret-service"] }
 tokio = { version = "1", features = ["full"] }
 thiserror = "1"
 futures-util = "0.3"
