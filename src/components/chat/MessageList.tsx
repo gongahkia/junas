@@ -8,6 +8,8 @@ import {
   normalizeExtractedCitations,
   validateCitations,
 } from '@/lib/citations';
+import { parseRiskFromAIResponse, type RiskAssessment } from '@/lib/risk/risk-parser';
+import { RiskMatrix } from './RiskMatrix';
 
 const MarkdownRenderer = lazy(() => import('./MarkdownRenderer'));
 
@@ -64,6 +66,18 @@ const MessageItemComponent = ({
     return validateCitations(normalized).filter(
       (citation) => citation.validationStatus !== 'valid'
     );
+  }, [message.role, message.content]);
+
+  const riskAssessment = useMemo((): RiskAssessment | null => {
+    if (message.role !== 'assistant') return null;
+    const content = message.content.toLowerCase();
+    const hasRiskKeywords = content.includes('risk assessment') ||
+      content.includes('risk rating') ||
+      (content.includes('high') && content.includes('medium') && content.includes('low') &&
+        (content.includes('contract') || content.includes('compliance') || content.includes('due diligence')));
+    if (!hasRiskKeywords) return null;
+    const parsed = parseRiskFromAIResponse(message.content);
+    return parsed.flags.length > 0 ? parsed : null;
   }, [message.role, message.content]);
 
   return (
@@ -158,6 +172,9 @@ const MessageItemComponent = ({
                 <p className="whitespace-pre-wrap">{message.content}</p>
               )}
             </div>
+
+            {/* Risk Matrix */}
+            {riskAssessment && <RiskMatrix assessment={riskAssessment} />}
 
             {/* Citations */}
             {message.citations && message.citations.length > 0 && (
