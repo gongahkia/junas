@@ -10,6 +10,7 @@ import '../../../core/models/provider_models.dart';
 import '../../../core/models/session_models.dart';
 import '../../../core/presentation/climbing_loader.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
+import '../../../core/provider/provider_registry.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/offline_kilter_catalog_controller.dart';
 import '../../../core/storage/session_repository.dart';
@@ -62,22 +63,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             catalogController.syncNow(catalogServer),
           );
     }
-    final List<ProviderCapability> capabilities = const <ProviderCapability>[
-      ProviderCapability(
-          id: 'kilter',
-          label: 'Kilter',
-          roomSupported: true,
-          soloSupported: true,
-          surfaceHierarchy: 'board',
-          authFields: <ProviderAuthField>[]),
-      ProviderCapability(
-          id: 'crux',
-          label: 'Crux',
-          roomSupported: true,
-          soloSupported: true,
-          surfaceHierarchy: 'hierarchy',
-          authFields: <ProviderAuthField>[]),
-    ];
+    final List<ProviderCapability> capabilities = providerRegistry
+        .map((ProviderDescriptor descriptor) => descriptor.toCapability())
+        .toList(growable: false);
 
     return GradientScaffold(
       title: 'Settings',

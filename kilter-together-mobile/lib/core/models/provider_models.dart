@@ -42,6 +42,7 @@ class ProviderCapability {
     required this.soloSupported,
     required this.surfaceHierarchy,
     required this.authFields,
+    this.features = const <String>[],
   });
 
   final String id;
@@ -50,10 +51,13 @@ class ProviderCapability {
   final bool soloSupported;
   final String surfaceHierarchy;
   final List<ProviderAuthField> authFields;
+  final List<String> features;
 
   factory ProviderCapability.fromJson(Map<String, dynamic> json) {
     final List<dynamic> rawFields =
         (json['auth_fields'] as List<dynamic>?) ?? <dynamic>[];
+    final List<dynamic> rawFeatures =
+        (json['features'] as List<dynamic>?) ?? <dynamic>[];
     return ProviderCapability(
       id: json['id'] as String? ?? '',
       label: json['label'] as String? ?? '',
@@ -64,8 +68,12 @@ class ProviderCapability {
           .whereType<Map<String, dynamic>>()
           .map(ProviderAuthField.fromJson)
           .toList(growable: false),
+      features:
+          rawFeatures.map((dynamic value) => '$value').toList(growable: false),
     );
   }
+
+  bool supportsFeature(String feature) => features.contains(feature);
 }
 
 class ProviderConnectionState {

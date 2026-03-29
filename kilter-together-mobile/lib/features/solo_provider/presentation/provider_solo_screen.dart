@@ -1,10 +1,13 @@
+import 'dart:io';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../core/community/cornifer_models.dart';
 import '../../../core/deep_links/invite_links.dart';
 import '../../../core/models/app_prefs_models.dart';
 import '../../../core/models/product_models.dart';
@@ -17,6 +20,7 @@ import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/provider_secret_repository.dart';
 import '../../../core/storage/session_repository.dart';
+import '../../cornifer/application/cornifer_community_controller.dart';
 import '../application/provider_solo_controller.dart';
 
 class ProviderSoloScreen extends ConsumerStatefulWidget {
@@ -50,11 +54,32 @@ class _ProviderSoloScreenState extends ConsumerState<ProviderSoloScreen> {
   final TextEditingController _gradeMaxController = TextEditingController();
   final TextEditingController _planTitleController = TextEditingController();
   final TextEditingController _planNotesController = TextEditingController();
+  final TextEditingController _corniferUsernameController =
+      TextEditingController();
+  final TextEditingController _corniferPasswordController =
+      TextEditingController();
+  final TextEditingController _corniferBoardNameController =
+      TextEditingController();
+  final TextEditingController _corniferBoardLocationController =
+      TextEditingController();
+  final TextEditingController _corniferBoardDescriptionController =
+      TextEditingController();
+  final TextEditingController _corniferClimbNameController =
+      TextEditingController();
+  final TextEditingController _corniferClimbGradeController =
+      TextEditingController();
+  final TextEditingController _corniferClimbDescriptionController =
+      TextEditingController();
+  final TextEditingController _corniferAttemptController =
+      TextEditingController(text: '1');
   final Map<String, TextEditingController> _secretControllers =
       <String, TextEditingController>{};
+  final Map<String, String> _corniferHoldRoles = <String, String>{};
+  final ImagePicker _imagePicker = ImagePicker();
 
   bool _rememberSecret = false;
   bool _rememberedSecretLoaded = false;
+  String? _corniferImagePath;
 
   ProviderSoloRouteArgs get _args => ProviderSoloRouteArgs(
         providerId: widget.providerId,
@@ -88,6 +113,15 @@ class _ProviderSoloScreenState extends ConsumerState<ProviderSoloScreen> {
     _gradeMaxController.dispose();
     _planTitleController.dispose();
     _planNotesController.dispose();
+    _corniferUsernameController.dispose();
+    _corniferPasswordController.dispose();
+    _corniferBoardNameController.dispose();
+    _corniferBoardLocationController.dispose();
+    _corniferBoardDescriptionController.dispose();
+    _corniferClimbNameController.dispose();
+    _corniferClimbGradeController.dispose();
+    _corniferClimbDescriptionController.dispose();
+    _corniferAttemptController.dispose();
     for (final TextEditingController controller in _secretControllers.values) {
       controller.dispose();
     }
@@ -102,6 +136,10 @@ class _ProviderSoloScreenState extends ConsumerState<ProviderSoloScreen> {
         ref.read(providerSoloControllerProvider(_args).notifier);
     final AppPrefs prefs = ref.watch(appPrefsControllerProvider).valueOrNull ??
         AppPrefs.defaults();
+    final CorniferCommunityState? corniferState =
+        widget.providerId == 'cornifer'
+            ? ref.watch(corniferCommunityControllerProvider(state.server))
+            : null;
 
     final ProviderCapability? capability = state.capability;
     if (capability != null) {
@@ -127,6 +165,17 @@ class _ProviderSoloScreenState extends ConsumerState<ProviderSoloScreen> {
           return;
         }
         _planTitleController.text = '${activeSurface.name} plan';
+      });
+    }
+    if (widget.providerId == 'cornifer' &&
+        _corniferBoardLocationController.text.isEmpty &&
+        state.selectedParentSurface != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted || _corniferBoardLocationController.text.isNotEmpty) {
+          return;
+        }
+        _corniferBoardLocationController.text =
+            state.selectedParentSurface!.name;
       });
     }
 
@@ -161,6 +210,22 @@ class _ProviderSoloScreenState extends ConsumerState<ProviderSoloScreen> {
             ),
             const SizedBox(height: 14),
           ],
+          if (corniferState?.errorMessage != null) ...<Widget>[
+            _MessageCard(
+              title: 'Cornifer community',
+              message: corniferState!.errorMessage!,
+              accent: const Color(0xFF8B1E1E),
+            ),
+            const SizedBox(height: 14),
+          ],
+          if (corniferState?.notice != null) ...<Widget>[
+            _MessageCard(
+              title: 'Cornifer community',
+              message: corniferState!.notice!,
+              accent: const Color(0xFF0F5132),
+            ),
+            const SizedBox(height: 14),
+          ],
           if (state.loading)
             Card(
               child: Padding(
@@ -183,26 +248,46 @@ class _ProviderSoloScreenState extends ConsumerState<ProviderSoloScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _AccessCard(
-                  capability: capability,
-                  rememberSecret: _rememberSecret,
-                  secretControllers: _secretControllers,
-                  surfacesLoading: state.surfacesLoading,
-                  accessLoaded: state.accessLoaded,
-                  onRememberSecretChanged: (bool value) {
-                    setState(() {
-                      _rememberSecret = value;
-                    });
-                  },
-                  onUnlockCatalog: () => unawaited(
-                    _unlockCatalog(
-                      controller: controller,
-                      state: state,
-                      capability: capability,
+                if (capability.authFields.isNotEmpty)
+                  _AccessCard(
+                    capability: capability,
+                    rememberSecret: _rememberSecret,
+                    secretControllers: _secretControllers,
+                    surfacesLoading: state.surfacesLoading,
+                    accessLoaded: state.accessLoaded,
+                    onRememberSecretChanged: (bool value) {
+                      setState(() {
+                        _rememberSecret = value;
+                      });
+                    },
+                    onUnlockCatalog: () => unawaited(
+                      _unlockCatalog(
+                        controller: controller,
+                        state: state,
+                        capability: capability,
+                      ),
                     ),
+                  )
+                else
+                  _OpenCatalogCard(
+                    capability: capability,
+                    surfacesLoading: state.surfacesLoading,
+                    accessLoaded: state.accessLoaded,
+                    onRefresh: () => unawaited(controller.unlockCatalog(
+                      const <String, String>{},
+                    )),
                   ),
-                ),
                 const SizedBox(height: 14),
+                if (widget.providerId == 'cornifer' &&
+                    corniferState != null) ...<Widget>[
+                  _buildCorniferCommunitySection(
+                    context: context,
+                    state: state,
+                    controller: controller,
+                    communityState: corniferState,
+                  ),
+                  const SizedBox(height: 14),
+                ],
                 _SurfaceCard(
                   state: state,
                   onParentChanged: (String? value) {
@@ -308,6 +393,15 @@ class _ProviderSoloScreenState extends ConsumerState<ProviderSoloScreen> {
                       : () =>
                           controller.togglePlannedClimb(state.selectedClimb!),
                 ),
+                if (widget.providerId == 'cornifer' &&
+                    corniferState != null) ...<Widget>[
+                  const SizedBox(height: 14),
+                  _buildCorniferEngagementSection(
+                    context: context,
+                    communityState: corniferState,
+                    climb: state.selectedClimb,
+                  ),
+                ],
               ],
             ),
         ],
@@ -436,6 +530,887 @@ class _ProviderSoloScreenState extends ConsumerState<ProviderSoloScreen> {
       subject: plan.title,
     );
   }
+
+  Widget _buildCorniferCommunitySection({
+    required BuildContext context,
+    required ProviderSoloViewState state,
+    required ProviderSoloController controller,
+    required CorniferCommunityState communityState,
+  }) {
+    final CorniferBoardDraft? boardDraft = communityState.boardDraft;
+    final Uri? server = state.server;
+    final bool signedIn = communityState.session != null;
+    final String resolvedBoardImageUrl =
+        server == null || boardDraft == null || boardDraft.imageUrl.isEmpty
+            ? ''
+            : ref
+                .read(apiClientProvider)
+                .resolveMediaUrl(server: server, url: boardDraft.imageUrl);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(22),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Cornifer community',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Cornifer browse is open-read inside Kilter Together. Sign in only for community actions: publish boards, publish climbs, log tries, and rate climbs.',
+            ),
+            const SizedBox(height: 18),
+            Text(
+              'Account',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 10),
+            if (communityState.loadingSession)
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 12),
+                child: Center(child: ClimbingLoader()),
+              )
+            else if (!signedIn) ...<Widget>[
+              TextField(
+                controller: _corniferUsernameController,
+                decoration: const InputDecoration(
+                  labelText: 'Cornifer username',
+                ),
+                textInputAction: TextInputAction.next,
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: _corniferPasswordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: 'Cornifer password',
+                ),
+                textInputAction: TextInputAction.done,
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: FilledButton(
+                      onPressed: communityState.actionInFlight
+                          ? null
+                          : () => unawaited(_registerCornifer()),
+                      child: const Text('Register'),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: communityState.actionInFlight
+                          ? null
+                          : () => unawaited(_loginCornifer()),
+                      child: const Text('Sign in'),
+                    ),
+                  ),
+                ],
+              ),
+            ] else ...<Widget>[
+              Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: <Widget>[
+                  _InfoChip(
+                    label: 'Signed in as ${communityState.session!.username}',
+                  ),
+                  OutlinedButton(
+                    onPressed: communityState.actionInFlight
+                        ? null
+                        : () => unawaited(_logoutCornifer()),
+                    child: const Text('Sign out'),
+                  ),
+                ],
+              ),
+            ],
+            const SizedBox(height: 24),
+            Text(
+              'Board authoring',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Create a board draft, detect holds from a board photo, review them, and publish the board into the shared Cornifer catalog.',
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: _corniferBoardNameController,
+              decoration: const InputDecoration(labelText: 'Board name'),
+              textInputAction: TextInputAction.next,
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: _corniferBoardLocationController,
+              decoration: const InputDecoration(labelText: 'Location'),
+              textInputAction: TextInputAction.next,
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: _corniferBoardDescriptionController,
+              decoration: const InputDecoration(labelText: 'Board description'),
+              minLines: 2,
+              maxLines: 3,
+            ),
+            const SizedBox(height: 12),
+            if (_corniferImagePath != null) ...<Widget>[
+              ClipRRect(
+                borderRadius: BorderRadius.zero,
+                child: Image.file(
+                  File(_corniferImagePath!),
+                  height: 180,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                _corniferImagePath!,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ] else if (boardDraft != null &&
+                resolvedBoardImageUrl.isNotEmpty) ...<Widget>[
+              ClipRRect(
+                borderRadius: BorderRadius.zero,
+                child: Image.network(
+                  resolvedBoardImageUrl,
+                  height: 180,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  errorBuilder:
+                      (BuildContext context, Object _, StackTrace? __) {
+                    return Container(
+                      height: 180,
+                      width: double.infinity,
+                      color: const Color(0xFFF5F5F5),
+                      alignment: Alignment.center,
+                      child: const Text('Unable to load board image preview'),
+                    );
+                  },
+                ),
+              ),
+            ] else
+              Container(
+                height: 120,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF5F5F5),
+                  border: Border.all(color: const Color(0xFFD4D4D4)),
+                ),
+                alignment: Alignment.center,
+                child: const Text(
+                    'Choose a board photo to start Cornifer authoring'),
+              ),
+            const SizedBox(height: 12),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: FilledButton.tonal(
+                    onPressed: communityState.actionInFlight
+                        ? null
+                        : () => unawaited(_pickCorniferBoardImage()),
+                    child: const Text('Pick board photo'),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: FilledButton(
+                    onPressed: communityState.actionInFlight || !signedIn
+                        ? null
+                        : () => unawaited(_createCorniferBoard()),
+                    child: Text(boardDraft == null
+                        ? 'Create board draft'
+                        : 'Replace draft'),
+                  ),
+                ),
+              ],
+            ),
+            if (boardDraft != null) ...<Widget>[
+              const SizedBox(height: 22),
+              Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF8FAFC),
+                  border: Border.all(color: const Color(0xFFE2E8F0)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: <Widget>[
+                        _InfoChip(label: boardDraft.name),
+                        _InfoChip(label: boardDraft.location),
+                        _InfoChip(
+                          label: boardDraft.draft
+                              ? 'Draft board'
+                              : 'Published board',
+                        ),
+                        _InfoChip(label: '${boardDraft.holds.length} holds'),
+                      ],
+                    ),
+                    if (boardDraft.description.isNotEmpty) ...<Widget>[
+                      const SizedBox(height: 10),
+                      Text(boardDraft.description),
+                    ],
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: FilledButton.tonal(
+                      onPressed: communityState.actionInFlight ||
+                              !signedIn ||
+                              !boardDraft.draft
+                          ? null
+                          : () => unawaited(_detectCorniferHolds()),
+                      child: const Text('Run hold detection'),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: communityState.actionInFlight ||
+                              !signedIn ||
+                              !boardDraft.draft
+                          ? null
+                          : () => unawaited(_addCorniferHold()),
+                      child: const Text('Add manual hold'),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              if (boardDraft.holds.isEmpty)
+                const Text(
+                  'No holds are attached to this board yet. Run detection or add them manually.',
+                )
+              else
+                Column(
+                  children: boardDraft.holds
+                      .map(
+                        (CorniferBoardHold hold) => Container(
+                          margin: const EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: const Color(0xFFE2E8F0)),
+                          ),
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      'Hold ${hold.position + 1}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      'x ${hold.centroidX.toStringAsFixed(1)} · y ${hold.centroidY.toStringAsFixed(1)}',
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: communityState.actionInFlight ||
+                                        !signedIn ||
+                                        !boardDraft.draft
+                                    ? null
+                                    : () => unawaited(_editCorniferHold(hold)),
+                                icon: const Icon(Icons.edit_outlined),
+                              ),
+                              IconButton(
+                                onPressed: communityState.actionInFlight ||
+                                        !signedIn ||
+                                        !boardDraft.draft
+                                    ? null
+                                    : () =>
+                                        unawaited(_deleteCorniferHold(hold)),
+                                icon: const Icon(Icons.delete_outline),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                      .toList(growable: false),
+                ),
+              if (boardDraft.holds.isNotEmpty && boardDraft.draft) ...<Widget>[
+                const SizedBox(height: 8),
+                FilledButton(
+                  onPressed: communityState.actionInFlight || !signedIn
+                      ? null
+                      : () => unawaited(
+                            _publishCorniferBoard(
+                              controller: controller,
+                              boardDraft: boardDraft,
+                            ),
+                          ),
+                  child: const Text('Publish board'),
+                ),
+              ],
+            ],
+            if (boardDraft != null && !boardDraft.draft) ...<Widget>[
+              const SizedBox(height: 24),
+              Text(
+                'Climb authoring',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Assign board holds into a climb with explicit roles. This keeps Cornifer climbs tied to the canonical board map instead of a one-off screenshot.',
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: _corniferClimbNameController,
+                decoration: const InputDecoration(labelText: 'Climb name'),
+                textInputAction: TextInputAction.next,
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: _corniferClimbGradeController,
+                decoration: const InputDecoration(
+                  labelText: 'Primary grade',
+                  hintText: 'V5',
+                ),
+                textInputAction: TextInputAction.next,
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: _corniferClimbDescriptionController,
+                decoration:
+                    const InputDecoration(labelText: 'Climb description'),
+                minLines: 2,
+                maxLines: 3,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Hold roles',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 8),
+              ...boardDraft.holds.map(
+                (CorniferBoardHold hold) => Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: DropdownButtonFormField<String>(
+                    initialValue: _corniferHoldRoles[hold.id] ?? '',
+                    decoration: InputDecoration(
+                      labelText:
+                          'Hold ${hold.position + 1} (${hold.centroidX.toStringAsFixed(0)}, ${hold.centroidY.toStringAsFixed(0)})',
+                    ),
+                    items: const <DropdownMenuItem<String>>[
+                      DropdownMenuItem<String>(
+                        value: '',
+                        child: Text('Not used in this climb'),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'start',
+                        child: Text('Start hold'),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'hand',
+                        child: Text('Hand hold'),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'foothold',
+                        child: Text('Foothold'),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'end',
+                        child: Text('Finish hold'),
+                      ),
+                    ],
+                    onChanged: communityState.actionInFlight || !signedIn
+                        ? null
+                        : (String? value) {
+                            setState(() {
+                              if (value == null || value.isEmpty) {
+                                _corniferHoldRoles.remove(hold.id);
+                              } else {
+                                _corniferHoldRoles[hold.id] = value;
+                              }
+                            });
+                          },
+                  ),
+                ),
+              ),
+              FilledButton(
+                onPressed: communityState.actionInFlight || !signedIn
+                    ? null
+                    : () => unawaited(
+                          _publishCorniferClimb(
+                            controller: controller,
+                            boardDraft: boardDraft,
+                          ),
+                        ),
+                child: const Text('Publish climb'),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCorniferEngagementSection({
+    required BuildContext context,
+    required CorniferCommunityState communityState,
+    required ProviderClimb? climb,
+  }) {
+    if (climb == null) {
+      return const SizedBox.shrink();
+    }
+
+    final int attemptCount = communityState.attemptCounts[climb.id] ??
+        int.tryParse(climb.meta['attempt_count'] ?? '') ??
+        0;
+    final Map<String, int> ratingSummary =
+        communityState.ratingSummaries[climb.id] ??
+            <String, int>{
+              'upvotes': int.tryParse(climb.meta['upvotes'] ?? '') ?? 0,
+              'downvotes': int.tryParse(climb.meta['downvotes'] ?? '') ?? 0,
+            };
+    final int myRating = communityState.myRatings[climb.id] ??
+        int.tryParse(climb.meta['my_rating'] ?? '') ??
+        0;
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(22),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Community actions',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: <Widget>[
+                _InfoChip(label: '${ratingSummary['upvotes'] ?? 0} upvotes'),
+                _InfoChip(
+                    label: '${ratingSummary['downvotes'] ?? 0} downvotes'),
+                _InfoChip(label: '$attemptCount tries logged'),
+                if ((climb.meta['board_name'] ?? '').isNotEmpty)
+                  _InfoChip(label: climb.meta['board_name']!),
+                if ((climb.meta['location'] ?? '').isNotEmpty)
+                  _InfoChip(label: climb.meta['location']!),
+                if (myRating != 0)
+                  _InfoChip(
+                      label: myRating > 0 ? 'You upvoted' : 'You downvoted'),
+              ],
+            ),
+            const SizedBox(height: 16),
+            if (communityState.session == null)
+              const Text(
+                'Sign in above to log tries or rate this Cornifer climb.',
+              )
+            else ...<Widget>[
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: TextField(
+                      controller: _corniferAttemptController,
+                      decoration: const InputDecoration(
+                        labelText: 'Tries used',
+                        hintText: '1',
+                      ),
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  FilledButton(
+                    onPressed: communityState.actionInFlight
+                        ? null
+                        : () => unawaited(_logCorniferAttempt(climb)),
+                    child: const Text('Log tries'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: FilledButton.tonalIcon(
+                      onPressed: communityState.actionInFlight
+                          ? null
+                          : () => unawaited(_rateCorniferClimb(climb, 1)),
+                      icon: const Icon(Icons.thumb_up_alt_outlined),
+                      label: const Text('Upvote'),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: FilledButton.tonalIcon(
+                      onPressed: communityState.actionInFlight
+                          ? null
+                          : () => unawaited(_rateCorniferClimb(climb, -1)),
+                      icon: const Icon(Icons.thumb_down_alt_outlined),
+                      label: const Text('Downvote'),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _pickCorniferBoardImage() async {
+    final XFile? file = await _imagePicker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 90,
+    );
+    if (!mounted || file == null) {
+      return;
+    }
+    setState(() {
+      _corniferImagePath = file.path;
+    });
+  }
+
+  Future<void> _registerCornifer() async {
+    final ProviderSoloViewState state =
+        ref.read(providerSoloControllerProvider(_args));
+    await ref
+        .read(corniferCommunityControllerProvider(state.server).notifier)
+        .register(
+          username: _corniferUsernameController.text,
+          password: _corniferPasswordController.text,
+        );
+  }
+
+  Future<void> _loginCornifer() async {
+    final ProviderSoloViewState state =
+        ref.read(providerSoloControllerProvider(_args));
+    await ref
+        .read(corniferCommunityControllerProvider(state.server).notifier)
+        .login(
+          username: _corniferUsernameController.text,
+          password: _corniferPasswordController.text,
+        );
+  }
+
+  Future<void> _logoutCornifer() async {
+    final ProviderSoloViewState state =
+        ref.read(providerSoloControllerProvider(_args));
+    await ref
+        .read(corniferCommunityControllerProvider(state.server).notifier)
+        .logout();
+  }
+
+  Future<void> _createCorniferBoard() async {
+    final ProviderSoloViewState state =
+        ref.read(providerSoloControllerProvider(_args));
+    if (_corniferImagePath == null || _corniferImagePath!.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('Pick a board photo before creating a board draft.')),
+      );
+      return;
+    }
+    final CorniferBoardDraft? draft = await ref
+        .read(corniferCommunityControllerProvider(state.server).notifier)
+        .createBoard(
+          name: _corniferBoardNameController.text,
+          location: _corniferBoardLocationController.text,
+          description: _corniferBoardDescriptionController.text,
+          imagePath: _corniferImagePath!,
+        );
+    if (draft == null || !mounted) {
+      return;
+    }
+    setState(() {
+      _corniferHoldRoles.clear();
+      _corniferClimbNameController.clear();
+      _corniferClimbGradeController.clear();
+      _corniferClimbDescriptionController.clear();
+    });
+  }
+
+  Future<void> _detectCorniferHolds() async {
+    final ProviderSoloViewState state =
+        ref.read(providerSoloControllerProvider(_args));
+    await ref
+        .read(corniferCommunityControllerProvider(state.server).notifier)
+        .detectHolds();
+  }
+
+  Future<void> _addCorniferHold() async {
+    final ProviderSoloViewState state =
+        ref.read(providerSoloControllerProvider(_args));
+    final CorniferCommunityController communityController =
+        ref.read(corniferCommunityControllerProvider(state.server).notifier);
+    final CorniferCommunityState communityState =
+        ref.read(corniferCommunityControllerProvider(state.server));
+    final CorniferBoardDraft? boardDraft = communityState.boardDraft;
+    if (boardDraft == null) {
+      return;
+    }
+    final CorniferBoardHold? created = await _showCorniferHoldEditor(
+      suggestedPosition: boardDraft.holds.length,
+    );
+    if (created == null) {
+      return;
+    }
+    await communityController.updateBoardHolds(
+      <CorniferBoardHold>[...boardDraft.holds, created],
+    );
+  }
+
+  Future<void> _editCorniferHold(CorniferBoardHold hold) async {
+    final ProviderSoloViewState state =
+        ref.read(providerSoloControllerProvider(_args));
+    final CorniferCommunityController communityController =
+        ref.read(corniferCommunityControllerProvider(state.server).notifier);
+    final CorniferCommunityState communityState =
+        ref.read(corniferCommunityControllerProvider(state.server));
+    final CorniferBoardDraft? boardDraft = communityState.boardDraft;
+    if (boardDraft == null) {
+      return;
+    }
+    final CorniferBoardHold? updated = await _showCorniferHoldEditor(
+      hold: hold,
+      suggestedPosition: hold.position,
+    );
+    if (updated == null) {
+      return;
+    }
+    await communityController.updateBoardHolds(
+      boardDraft.holds
+          .map((CorniferBoardHold item) => item.id == hold.id ? updated : item)
+          .toList(growable: false),
+    );
+  }
+
+  Future<void> _deleteCorniferHold(CorniferBoardHold hold) async {
+    final ProviderSoloViewState state =
+        ref.read(providerSoloControllerProvider(_args));
+    final CorniferCommunityController communityController =
+        ref.read(corniferCommunityControllerProvider(state.server).notifier);
+    final CorniferCommunityState communityState =
+        ref.read(corniferCommunityControllerProvider(state.server));
+    final CorniferBoardDraft? boardDraft = communityState.boardDraft;
+    if (boardDraft == null) {
+      return;
+    }
+    await communityController.updateBoardHolds(
+      boardDraft.holds
+          .where((CorniferBoardHold item) => item.id != hold.id)
+          .toList(growable: false),
+    );
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _corniferHoldRoles.remove(hold.id);
+    });
+  }
+
+  Future<void> _publishCorniferBoard({
+    required ProviderSoloController controller,
+    required CorniferBoardDraft boardDraft,
+  }) async {
+    final ProviderSoloViewState state =
+        ref.read(providerSoloControllerProvider(_args));
+    final CorniferBoardDraft? updated = await ref
+        .read(corniferCommunityControllerProvider(state.server).notifier)
+        .updateBoardHolds(
+          boardDraft.holds,
+          publish: true,
+        );
+    if (updated == null || !mounted) {
+      return;
+    }
+    await _refreshCorniferCatalog(
+      controller: controller,
+      parentSurfaceId: updated.location,
+      childSurfaceId: updated.id,
+    );
+  }
+
+  Future<void> _publishCorniferClimb({
+    required ProviderSoloController controller,
+    required CorniferBoardDraft boardDraft,
+  }) async {
+    final ProviderSoloViewState state =
+        ref.read(providerSoloControllerProvider(_args));
+    final List<CorniferClimbSelection> selectedHolds = boardDraft.holds
+        .where((CorniferBoardHold hold) =>
+            (_corniferHoldRoles[hold.id] ?? '').isNotEmpty)
+        .map(
+          (CorniferBoardHold hold) => CorniferClimbSelection(
+            boardHoldId: hold.id,
+            role: _corniferHoldRoles[hold.id]!,
+          ),
+        )
+        .toList(growable: false);
+    final ProviderClimb? climb = await ref
+        .read(corniferCommunityControllerProvider(state.server).notifier)
+        .createClimb(
+          boardId: boardDraft.id,
+          name: _corniferClimbNameController.text,
+          grade: _corniferClimbGradeController.text,
+          description: _corniferClimbDescriptionController.text,
+          holds: selectedHolds,
+        );
+    if (climb == null || !mounted) {
+      return;
+    }
+    await _refreshCorniferCatalog(
+      controller: controller,
+      parentSurfaceId: boardDraft.location,
+      childSurfaceId: boardDraft.id,
+      climbId: climb.id,
+    );
+    setState(() {
+      _corniferClimbNameController.clear();
+      _corniferClimbGradeController.clear();
+      _corniferClimbDescriptionController.clear();
+      _corniferHoldRoles.clear();
+    });
+  }
+
+  Future<void> _logCorniferAttempt(ProviderClimb climb) async {
+    final ProviderSoloViewState state =
+        ref.read(providerSoloControllerProvider(_args));
+    final int tries = int.tryParse(_corniferAttemptController.text.trim()) ?? 0;
+    await ref
+        .read(corniferCommunityControllerProvider(state.server).notifier)
+        .submitAttempt(
+          climbId: climb.id,
+          tries: tries,
+        );
+  }
+
+  Future<void> _rateCorniferClimb(ProviderClimb climb, int value) async {
+    final ProviderSoloViewState state =
+        ref.read(providerSoloControllerProvider(_args));
+    await ref
+        .read(corniferCommunityControllerProvider(state.server).notifier)
+        .rateClimb(
+          climbId: climb.id,
+          value: value,
+        );
+  }
+
+  Future<void> _refreshCorniferCatalog({
+    required ProviderSoloController controller,
+    String? parentSurfaceId,
+    String? childSurfaceId,
+    String? climbId,
+  }) async {
+    await controller.unlockCatalog(const <String, String>{});
+    if (parentSurfaceId != null && parentSurfaceId.isNotEmpty) {
+      await controller.loadChildSurfaces(parentSurfaceId);
+    }
+    if (childSurfaceId != null && childSurfaceId.isNotEmpty) {
+      await controller.selectChildSurface(childSurfaceId);
+    }
+    if (climbId != null && climbId.isNotEmpty) {
+      await controller.selectClimb(climbId);
+    }
+  }
+
+  Future<CorniferBoardHold?> _showCorniferHoldEditor({
+    CorniferBoardHold? hold,
+    required int suggestedPosition,
+  }) async {
+    final TextEditingController positionController = TextEditingController(
+      text: '${hold?.position ?? suggestedPosition}',
+    );
+    final TextEditingController xController = TextEditingController(
+      text: hold == null ? '' : hold.centroidX.toStringAsFixed(1),
+    );
+    final TextEditingController yController = TextEditingController(
+      text: hold == null ? '' : hold.centroidY.toStringAsFixed(1),
+    );
+
+    final CorniferBoardHold? result = await showDialog<CorniferBoardHold>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(hold == null ? 'Add hold' : 'Edit hold'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextField(
+                controller: positionController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(labelText: 'Position'),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: xController,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                decoration: const InputDecoration(labelText: 'Centroid X'),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: yController,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                decoration: const InputDecoration(labelText: 'Centroid Y'),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancel'),
+            ),
+            FilledButton(
+              onPressed: () {
+                final int? position =
+                    int.tryParse(positionController.text.trim());
+                final double? centroidX =
+                    double.tryParse(xController.text.trim());
+                final double? centroidY =
+                    double.tryParse(yController.text.trim());
+                if (position == null ||
+                    centroidX == null ||
+                    centroidY == null) {
+                  return;
+                }
+                Navigator.of(context).pop(
+                  CorniferBoardHold(
+                    id: hold?.id ??
+                        'hold-${DateTime.now().microsecondsSinceEpoch}',
+                    position: position,
+                    centroidX: centroidX,
+                    centroidY: centroidY,
+                    contour: hold?.contour ?? const <List<num>>[],
+                  ),
+                );
+              },
+              child: const Text('Save'),
+            ),
+          ],
+        );
+      },
+    );
+
+    positionController.dispose();
+    xController.dispose();
+    yController.dispose();
+    return result;
+  }
 }
 
 class _AccessCard extends StatelessWidget {
@@ -507,6 +1482,61 @@ class _AccessCard extends StatelessWidget {
                 if (accessLoaded) ...<Widget>[
                   const SizedBox(width: 12),
                   const Chip(label: Text('Catalog unlocked')),
+                ],
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _OpenCatalogCard extends StatelessWidget {
+  const _OpenCatalogCard({
+    required this.capability,
+    required this.surfacesLoading,
+    required this.accessLoaded,
+    required this.onRefresh,
+  });
+
+  final ProviderCapability capability;
+  final bool surfacesLoading;
+  final bool accessLoaded;
+  final VoidCallback onRefresh;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(22),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              '${capability.label} catalog',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              accessLoaded
+                  ? 'This provider is open-read on the active server. The catalog is already available for solo browse and room seeding.'
+                  : 'This provider does not need a reconnect secret. Kilter Together loads it directly from the active server.',
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: FilledButton.tonal(
+                    onPressed: surfacesLoading ? null : onRefresh,
+                    child: Text(
+                      surfacesLoading ? 'Refreshing...' : 'Refresh catalog',
+                    ),
+                  ),
+                ),
+                if (accessLoaded) ...<Widget>[
+                  const SizedBox(width: 12),
+                  const Chip(label: Text('Open-read')),
                 ],
               ],
             ),

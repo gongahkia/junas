@@ -5,7 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/provider_models.dart';
 import '../models/room_models.dart';
+import '../network/api_client.dart';
 import '../storage/offline_kilter_catalog_repository.dart';
+import '../storage/session_repository.dart';
 import 'catalog_relay_service.dart';
 import 'host_room_service.dart';
 import 'p2p_message_types.dart';
@@ -52,6 +54,8 @@ final hostRoomControllerProvider = StateNotifierProvider.autoDispose
       args: args,
       transport: ref.read(p2pTransportProvider),
       catalogRepository: ref.read(offlineKilterCatalogRepositoryProvider),
+      apiClient: ref.read(apiClientProvider),
+      sessionRepository: ref.read(sessionRepositoryProvider),
     );
   },
 );
@@ -61,9 +65,13 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
     required HostRoomArgs args,
     required P2pTransport transport,
     required OfflineKilterCatalogRepository catalogRepository,
+    required ApiClient apiClient,
+    required SessionRepository sessionRepository,
   })  : _args = args,
         _transport = transport,
         _catalogRepository = catalogRepository,
+        _apiClient = apiClient,
+        _sessionRepository = sessionRepository,
         super(const HostRoomViewState()) {
     _init();
   }
@@ -71,6 +79,8 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
   final HostRoomArgs _args;
   final P2pTransport _transport;
   final OfflineKilterCatalogRepository _catalogRepository;
+  final ApiClient _apiClient;
+  final SessionRepository _sessionRepository;
   late final HostRoomService _service;
   CatalogRelayService? _catalogRelay;
   final Map<String, int> _peerParticipantIds =
@@ -95,6 +105,8 @@ class HostRoomController extends StateNotifier<HostRoomViewState> {
     _catalogRelay = CatalogRelayService(
       transport: _transport,
       catalogRepository: _catalogRepository,
+      apiClient: _apiClient,
+      sessionRepository: _sessionRepository,
     )..start();
     _messageSub = _transport.messages.listen(_handleMessage);
     _connectionSub =

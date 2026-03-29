@@ -8,17 +8,10 @@ import '../../../core/models/app_prefs_models.dart';
 import '../../../core/p2p/p2p_provider.dart';
 import '../../../core/p2p/p2p_transport.dart';
 import '../../../core/presentation/app_surfaces.dart';
+import '../../../core/provider/provider_registry.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/theme/app_theme.dart';
-
-String _providerLabel(String providerId) {
-  return switch (providerId) {
-    'kilter' => 'Kilter',
-    'crux' => 'Crux',
-    _ => providerId,
-  };
-}
 
 String _formatRelativeTime(String raw) {
   final DateTime? parsed = DateTime.tryParse(raw);
@@ -424,15 +417,15 @@ class _RecentRoomTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final KilterPalette palette = kilterPaletteOf(context);
     final String roomLabel = room.roomName ?? 'Room ${room.slug}';
-    final String providerLabel = _providerLabel(room.providerId);
+    final String providerName = providerLabel(room.providerId);
     final String surfaceLabel = (room.surfaceName ?? '').trim().isEmpty
         ? 'Surface pending'
         : room.surfaceName!;
     final String lastSeen = _formatRelativeTime(room.lastVisitedAt);
+    final ProviderDescriptor descriptor = providerDescriptorFor(room.providerId);
 
     return AppPanel(
-      accentColor:
-          room.providerId == 'crux' ? palette.highlight : palette.primary,
+      accentColor: descriptor.accentColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -453,11 +446,9 @@ class _RecentRoomTile extends StatelessWidget {
                       runSpacing: 8,
                       children: <Widget>[
                         AppBadge(
-                          label: providerLabel,
+                          label: providerName,
                           icon: Icons.interests_outlined,
-                          color: room.providerId == 'crux'
-                              ? palette.highlight
-                              : palette.primary,
+                          color: descriptor.accentColor,
                         ),
                         AppBadge(
                           label: surfaceLabel,

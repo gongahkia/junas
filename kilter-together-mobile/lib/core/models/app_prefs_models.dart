@@ -506,6 +506,7 @@ class AppPrefs {
         providers: <String, SavedCredentialPreference>{
           'kilter': SavedCredentialPreference(remember: false),
           'crux': SavedCredentialPreference(remember: false),
+          'cornifer': SavedCredentialPreference(remember: false),
         },
       ),
       recentRooms: const <RecentRoom>[],

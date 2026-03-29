@@ -198,6 +198,9 @@ String? _validateReconnectSecret(
   required String password,
   required String token,
 }) {
+  if (room.providerId == 'cornifer') {
+    return null;
+  }
   if (room.providerId == 'kilter') {
     if (username.trim().isEmpty) {
       return 'Enter the Kilter username before reconnecting the provider on this phone.';
@@ -244,6 +247,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   final TextEditingController _cruxTokenController = TextEditingController();
   final TextEditingController _gradeMinController = TextEditingController();
   final TextEditingController _gradeMaxController = TextEditingController();
+  final TextEditingController _corniferAttemptController =
+      TextEditingController(text: '1');
 
   bool _rememberProviderSecret = false;
   bool _showQr = false;
@@ -281,6 +286,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     _cruxTokenController.dispose();
     _gradeMinController.dispose();
     _gradeMaxController.dispose();
+    _corniferAttemptController.dispose();
     WakelockPlus.disable();
     super.dispose();
   }
@@ -339,6 +345,12 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   }
 
   Future<void> _submitReconnect(RoomSnapshot room) async {
+    if (room.providerId == 'cornifer') {
+      ref.read(roomControllerProvider(_args).notifier).setClientError(
+            'Cornifer browse does not require a room reconnect secret.',
+          );
+      return;
+    }
     final String username = _kilterUsernameController.text.trim();
     final String password = _kilterPasswordController.text;
     final String token = _cruxTokenController.text.trim();
@@ -915,6 +927,21 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                   unawaited(controller.promoteClimb(climbId, 'current')),
               onPromoteNext: (String climbId) =>
                   unawaited(controller.promoteClimb(climbId, 'next')),
+              corniferAttemptController: _corniferAttemptController,
+              communityActionInFlight: roomState.actionInFlight,
+              onSubmitCorniferAttempt: () => unawaited(
+                controller.submitCorniferAttempt(
+                  climbId: roomState.selectedCatalogClimb?.climb.id ?? '',
+                  tries:
+                      int.tryParse(_corniferAttemptController.text.trim()) ?? 0,
+                ),
+              ),
+              onRateCorniferClimb: (int value) => unawaited(
+                controller.rateCorniferClimb(
+                  climbId: roomState.selectedCatalogClimb?.climb.id ?? '',
+                  value: value,
+                ),
+              ),
             ),
             const SizedBox(height: 14),
             _LeaderboardCard(
@@ -2155,6 +2182,7 @@ class _SurfaceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final RoomSnapshot room = roomState.room!;
     final bool kilter = room.providerId == 'kilter';
+    final bool cornifer = room.providerId == 'cornifer';
 
     return Card(
       child: Padding(
@@ -2211,6 +2239,38 @@ class _SurfaceCard extends StatelessWidget {
                     .toList(growable: false),
                 onChanged: onAngleChanged,
               ),
+            ] else if (cornifer) ...<Widget>[
+              DropdownButtonFormField<String>(
+                initialValue: roomState.selectedParentSurfaceId.isEmpty
+                    ? null
+                    : roomState.selectedParentSurfaceId,
+                decoration: const InputDecoration(labelText: 'Location'),
+                items: roomState.parentSurfaces
+                    .map(
+                      (ProviderSurface item) => DropdownMenuItem<String>(
+                        value: item.id,
+                        child: Text(item.name),
+                      ),
+                    )
+                    .toList(growable: false),
+                onChanged: onParentSurfaceChanged,
+              ),
+              const SizedBox(height: 12),
+              DropdownButtonFormField<String>(
+                initialValue: roomState.selectedChildSurfaceId.isEmpty
+                    ? null
+                    : roomState.selectedChildSurfaceId,
+                decoration: const InputDecoration(labelText: 'Board'),
+                items: roomState.childSurfaces
+                    .map(
+                      (ProviderSurface item) => DropdownMenuItem<String>(
+                        value: item.id,
+                        child: Text(item.name),
+                      ),
+                    )
+                    .toList(growable: false),
+                onChanged: onChildSurfaceChanged,
+              ),
             ] else ...<Widget>[
               DropdownButtonFormField<String>(
                 initialValue: roomState.selectedParentSurfaceId.isEmpty
@@ -2263,23 +2323,33 @@ class _SurfaceCard extends StatelessWidget {
                 obscureText: true,
                 decoration: const InputDecoration(labelText: 'Kilter password'),
               ),
+            ] else if (cornifer) ...<Widget>[
+              const Text(
+                'Cornifer room browse is open-read. Community actions in this room use the Cornifer account already signed in on this phone.',
+              ),
             ] else ...<Widget>[
               TextField(
                 controller: cruxTokenController,
                 decoration: const InputDecoration(labelText: 'Crux token'),
               ),
             ],
-            const SizedBox(height: 10),
-            SwitchListTile.adaptive(
-              contentPadding: EdgeInsets.zero,
-              value: rememberProviderSecret,
-              onChanged: onRememberProviderSecretChanged,
-              title: const Text('Remember this provider secret on the device'),
-            ),
+            if (!cornifer) ...<Widget>[
+              const SizedBox(height: 10),
+              SwitchListTile.adaptive(
+                contentPadding: EdgeInsets.zero,
+                value: rememberProviderSecret,
+                onChanged: onRememberProviderSecretChanged,
+                title:
+                    const Text('Remember this provider secret on the device'),
+              ),
+            ],
             if (onReconnect != null)
               FilledButton.tonal(
-                onPressed: roomState.actionInFlight ? null : onReconnect,
-                child: const Text('Reconnect provider'),
+                onPressed:
+                    cornifer || roomState.actionInFlight ? null : onReconnect,
+                child: Text(cornifer
+                    ? 'Cornifer browse needs no reconnect'
+                    : 'Reconnect provider'),
               ),
           ],
         ),

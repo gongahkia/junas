@@ -284,6 +284,9 @@ class ProviderSoloController extends StateNotifier<ProviderSoloViewState> {
         loading: false,
         clearErrorMessage: true,
       );
+      if (capability.authFields.isEmpty) {
+        unawaited(unlockCatalog(const <String, String>{}));
+      }
     } on ApiFailure catch (error) {
       state = state.copyWith(
         server: server,
@@ -316,8 +319,9 @@ class ProviderSoloController extends StateNotifier<ProviderSoloViewState> {
       _secret = Map<String, String>.from(secret);
 
       final AppPrefs prefs = await _sessionRepository.loadAppPrefs();
-      final String preferredParentId =
-          _args.initialParentSurfaceId?.trim().isNotEmpty == true
+      final String preferredParentId = state.selectedParentSurfaceId.isNotEmpty
+          ? state.selectedParentSurfaceId
+          : _args.initialParentSurfaceId?.trim().isNotEmpty == true
               ? _args.initialParentSurfaceId!.trim()
               : state.providerId == 'crux'
                   ? prefs.lastCruxGymSlug
@@ -359,7 +363,7 @@ class ProviderSoloController extends StateNotifier<ProviderSoloViewState> {
 
   Future<void> loadChildSurfaces(String parentSurfaceId) async {
     final Uri? server = state.server;
-    if (server == null || _secret.isEmpty) {
+    if (server == null || !state.accessLoaded) {
       return;
     }
 
@@ -379,8 +383,9 @@ class ProviderSoloController extends StateNotifier<ProviderSoloViewState> {
         secret: _secret,
         parentId: parentSurfaceId,
       );
-      final String preferredChildId =
-          _args.initialChildSurfaceId?.trim().isNotEmpty == true
+      final String preferredChildId = state.selectedChildSurfaceId.isNotEmpty
+          ? state.selectedChildSurfaceId
+          : _args.initialChildSurfaceId?.trim().isNotEmpty == true
               ? _args.initialChildSurfaceId!.trim()
               : '';
       final ProviderSurface? selectedChild = childSurfaces
@@ -456,7 +461,7 @@ class ProviderSoloController extends StateNotifier<ProviderSoloViewState> {
   }) async {
     final Uri? server = state.server;
     if (server == null ||
-        _secret.isEmpty ||
+        !state.accessLoaded ||
         state.selectedParentSurfaceId.isEmpty) {
       return;
     }
@@ -521,7 +526,7 @@ class ProviderSoloController extends StateNotifier<ProviderSoloViewState> {
   Future<void> selectClimb(String climbId) async {
     final Uri? server = state.server;
     if (server == null ||
-        _secret.isEmpty ||
+        !state.accessLoaded ||
         state.selectedParentSurfaceId.isEmpty) {
       return;
     }
@@ -728,9 +733,9 @@ class ProviderSoloController extends StateNotifier<ProviderSoloViewState> {
     final Map<String, String> queryParameters = <String, String>{
       if (state.server != null) 'server': state.server!.toString(),
       if (state.selectedParentSurfaceId.isNotEmpty)
-        'gym': state.selectedParentSurfaceId,
+        'parent': state.selectedParentSurfaceId,
       if (state.selectedChildSurfaceId.isNotEmpty)
-        'wall': state.selectedChildSurfaceId,
+        'child': state.selectedChildSurfaceId,
       if (state.query.trim().isNotEmpty) 'q': state.query.trim(),
       'sort': state.sort,
       if (state.selectedClimb != null) 'climb': state.selectedClimb!.id,

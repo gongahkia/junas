@@ -156,6 +156,7 @@ void main() {
             'placeholder': 'Enter username',
           },
         ],
+        'features': <String>['solo', 'room'],
       });
       expect(cap.id, 'kilter');
       expect(cap.label, 'Kilter Board');
@@ -164,6 +165,8 @@ void main() {
       expect(cap.authFields.length, 1);
       expect(cap.authFields[0].key, 'username');
       expect(cap.authFields[0].placeholder, 'Enter username');
+      expect(cap.supportsFeature('solo'), true);
+      expect(cap.supportsFeature('plans'), false);
     });
 
     test('defaults for empty json', () {

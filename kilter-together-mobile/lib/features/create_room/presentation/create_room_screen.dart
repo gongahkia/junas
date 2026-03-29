@@ -10,6 +10,7 @@ import '../../../core/models/app_prefs_models.dart';
 import '../../../core/p2p/host_room_controller.dart';
 import '../../../core/presentation/app_surfaces.dart';
 import '../../../core/presentation/gradient_scaffold.dart';
+import '../../../core/provider/provider_registry.dart';
 import '../../../core/storage/app_prefs_controller.dart';
 import '../../../core/storage/session_repository.dart';
 import '../../../core/theme/app_theme.dart';
@@ -164,14 +165,18 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
       );
     }
 
+    final List<ProviderDescriptor> roomProviders = providerRegistry
+        .where((ProviderDescriptor descriptor) => descriptor.roomSupported)
+        .toList(growable: false);
+    final ProviderDescriptor selectedProvider =
+        providerDescriptorFor(_selectedProviderId);
+
     return GradientScaffold(
       title: 'Create a room',
       subtitle:
           'Host a P2P session and keep the control surface on one phone while everyone else connects in locally.',
       child: AppPanel(
-        accentColor: _selectedProviderId == 'crux'
-            ? const Color(0xFFC7682F)
-            : const Color(0xFF23533F),
+        accentColor: selectedProvider.accentColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -185,11 +190,9 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
                   color: kilterPaletteOf(context).primary,
                 ),
                 AppBadge(
-                  label: _selectedProviderId.toUpperCase(),
-                  icon: Icons.terrain_rounded,
-                  color: _selectedProviderId == 'crux'
-                      ? kilterPaletteOf(context).highlight
-                      : kilterPaletteOf(context).secondary,
+                  label: selectedProvider.label,
+                  icon: selectedProvider.icon,
+                  color: selectedProvider.accentColor,
                 ),
               ],
             ),
@@ -227,18 +230,15 @@ class _CreateRoomScreenState extends ConsumerState<CreateRoomScreen> {
               multiSelectionEnabled: false,
               emptySelectionAllowed: false,
               showSelectedIcon: false,
-              segments: const <ButtonSegment<String>>[
-                ButtonSegment<String>(
-                  value: 'kilter',
-                  icon: Icon(Icons.grid_view_rounded),
-                  label: Text('Kilter'),
-                ),
-                ButtonSegment<String>(
-                  value: 'crux',
-                  icon: Icon(Icons.layers_outlined),
-                  label: Text('Crux'),
-                ),
-              ],
+              segments: roomProviders
+                  .map(
+                    (ProviderDescriptor provider) => ButtonSegment<String>(
+                      value: provider.id,
+                      icon: Icon(provider.icon),
+                      label: Text(provider.label),
+                    ),
+                  )
+                  .toList(growable: false),
               selected: <String>{_selectedProviderId},
               onSelectionChanged: (Set<String> selection) {
                 final String providerId = selection.first;

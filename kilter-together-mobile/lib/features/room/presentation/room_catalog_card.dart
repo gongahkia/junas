@@ -74,6 +74,10 @@ class CatalogCard extends StatelessWidget {
     required this.onAddFinalist,
     required this.onPromoteCurrent,
     required this.onPromoteNext,
+    required this.corniferAttemptController,
+    required this.onSubmitCorniferAttempt,
+    required this.onRateCorniferClimb,
+    required this.communityActionInFlight,
   });
   final RoomViewState roomState;
   final TextEditingController queryController;
@@ -89,6 +93,10 @@ class CatalogCard extends StatelessWidget {
   final ValueChanged<String> onAddFinalist;
   final ValueChanged<String> onPromoteCurrent;
   final ValueChanged<String> onPromoteNext;
+  final TextEditingController corniferAttemptController;
+  final VoidCallback onSubmitCorniferAttempt;
+  final ValueChanged<int> onRateCorniferClimb;
+  final bool communityActionInFlight;
 
   @override
   Widget build(BuildContext context) {
@@ -249,6 +257,122 @@ class CatalogCard extends StatelessWidget {
                                 : () => onPromoteNext(selectedClimb.climb.id),
                             child: const Text('Promote to next')),
                     ]),
+                    if (room.providerId == 'cornifer') ...<Widget>[
+                      const SizedBox(height: 16),
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF8FAFC),
+                          borderRadius: BorderRadius.zero,
+                          border: Border.all(color: const Color(0xFFE2E8F0)),
+                        ),
+                        padding: const EdgeInsets.all(14),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'Cornifer community',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const SizedBox(height: 8),
+                            Wrap(
+                              spacing: 8,
+                              runSpacing: 8,
+                              children: <Widget>[
+                                RoomChip(
+                                  label:
+                                      '${selectedClimb.climb.meta['upvotes'] ?? '0'} upvotes',
+                                ),
+                                RoomChip(
+                                  label:
+                                      '${selectedClimb.climb.meta['downvotes'] ?? '0'} downvotes',
+                                ),
+                                RoomChip(
+                                  label:
+                                      '${selectedClimb.climb.meta['attempt_count'] ?? '0'} tries logged',
+                                ),
+                                if ((selectedClimb.climb.meta['board_name'] ??
+                                        '')
+                                    .isNotEmpty)
+                                  RoomChip(
+                                    label:
+                                        selectedClimb.climb.meta['board_name']!,
+                                  ),
+                                if ((selectedClimb.climb.meta['location'] ?? '')
+                                    .isNotEmpty)
+                                  RoomChip(
+                                    label:
+                                        selectedClimb.climb.meta['location']!,
+                                  ),
+                                if ((selectedClimb.climb.meta['my_rating'] ??
+                                        '0') !=
+                                    '0')
+                                  RoomChip(
+                                    label: (selectedClimb
+                                                    .climb.meta['my_rating'] ??
+                                                '0') ==
+                                            '1'
+                                        ? 'You upvoted'
+                                        : 'You downvoted',
+                                  ),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+                            const Text(
+                              'These actions use the Cornifer account already signed in on this phone.',
+                            ),
+                            const SizedBox(height: 12),
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: TextField(
+                                    controller: corniferAttemptController,
+                                    decoration: const InputDecoration(
+                                      labelText: 'Tries used',
+                                      hintText: '1',
+                                    ),
+                                    keyboardType: TextInputType.number,
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                FilledButton(
+                                  onPressed: communityActionInFlight
+                                      ? null
+                                      : onSubmitCorniferAttempt,
+                                  child: const Text('Log tries'),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: FilledButton.tonalIcon(
+                                    onPressed: communityActionInFlight
+                                        ? null
+                                        : () => onRateCorniferClimb(1),
+                                    icon:
+                                        const Icon(Icons.thumb_up_alt_outlined),
+                                    label: const Text('Upvote'),
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: FilledButton.tonalIcon(
+                                    onPressed: communityActionInFlight
+                                        ? null
+                                        : () => onRateCorniferClimb(-1),
+                                    icon: const Icon(
+                                        Icons.thumb_down_alt_outlined),
+                                    label: const Text('Downvote'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),

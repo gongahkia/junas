@@ -1,13 +1,19 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/models/board_models.dart';
+import '../../../core/models/catalog_models.dart';
 import '../../../core/models/product_models.dart';
 import '../../../core/models/provider_models.dart';
 import '../../../core/models/room_models.dart';
+import '../../../core/community/cornifer_session_repository.dart';
+import '../../../core/network/api_client.dart';
 import '../../../core/p2p/host_room_controller.dart';
 import '../../../core/p2p/guest_room_controller.dart';
 import '../../../core/p2p/p2p_transport.dart';
 import '../../../core/storage/local_recap_repository.dart';
+import '../../../core/storage/offline_kilter_catalog_repository.dart';
+import '../../../core/storage/session_repository.dart';
 
 const int defaultBoardAngle = 40;
 const String defaultClimbSort = 'popular';
@@ -165,6 +171,11 @@ final roomControllerProvider = StateNotifierProvider.autoDispose
       hostController: hostCtrl,
       guestController: guestCtrl,
       recapRepository: ref.read(localRecapRepositoryProvider),
+      apiClient: ref.read(apiClientProvider),
+      sessionRepository: ref.read(sessionRepositoryProvider),
+      corniferSessionRepository: ref.read(corniferSessionRepositoryProvider),
+      offlineCatalogRepository:
+          ref.read(offlineKilterCatalogRepositoryProvider),
     );
     if (args.role == 'host') {
       final HostRoomArgs ha = HostRoomArgs(
@@ -202,11 +213,19 @@ class RoomController extends StateNotifier<RoomViewState> {
     this.hostController,
     this.guestController,
     required this.recapRepository,
+    required this.apiClient,
+    required this.sessionRepository,
+    required this.corniferSessionRepository,
+    required this.offlineCatalogRepository,
   }) : super(RoomViewState(server: Uri.parse(args.server), slug: args.slug));
 
   final HostRoomController? hostController;
   final GuestRoomController? guestController;
   final LocalRecapRepository recapRepository;
+  final ApiClient apiClient;
+  final SessionRepository sessionRepository;
+  final CorniferSessionRepository corniferSessionRepository;
+  final OfflineKilterCatalogRepository offlineCatalogRepository;
 
   void _applyHostState(HostRoomViewState hs) {
     state = state.copyWith(
@@ -223,6 +242,8 @@ class RoomController extends StateNotifier<RoomViewState> {
       loading: gs.loading,
       errorMessage: gs.errorMessage,
       clearErrorMessage: gs.errorMessage == null,
+      catalog: gs.catalog,
+      catalogLoading: false,
     );
   }
 
@@ -422,19 +443,47 @@ class RoomController extends StateNotifier<RoomViewState> {
   }
 
   Future<void> setSurface() async {
-    final String sid = state.room?.providerId == 'kilter'
-        ? state.selectedParentSurfaceId
-        : state.selectedChildSurfaceId;
+    final String providerId = state.room?.providerId ?? '';
+    final String sid = switch (providerId) {
+      'kilter' => state.selectedParentSurfaceId,
+      'cornifer' => state.selectedChildSurfaceId.isNotEmpty
+          ? state.selectedChildSurfaceId
+          : state.selectedParentSurfaceId,
+      _ => state.selectedChildSurfaceId,
+    };
     if (sid.isEmpty) return;
+    ProviderSurface? selectedSurface;
+    if (providerId == 'cornifer') {
+      selectedSurface = <ProviderSurface>[
+        ...state.childSurfaces,
+        ...state.parentSurfaces,
+      ].cast<ProviderSurface?>().firstWhere(
+            (ProviderSurface? item) => item?.id == sid,
+            orElse: () => null,
+          );
+    } else {
+      selectedSurface = state.parentSurfaces
+          .cast<ProviderSurface?>()
+          .firstWhere((ProviderSurface? item) => item?.id == sid,
+              orElse: () => null);
+    }
     final ProviderSurface surface = ProviderSurface(
       id: sid,
-      kind: state.room?.providerId == 'kilter' ? 'board' : 'wall',
-      name: sid,
-      description: '',
+      kind: selectedSurface?.kind ??
+          (providerId == 'kilter'
+              ? 'board'
+              : providerId == 'cornifer'
+                  ? (state.selectedChildSurfaceId.isNotEmpty
+                      ? 'board'
+                      : 'location')
+                  : 'wall'),
+      name: selectedSurface?.name ?? sid,
+      description: selectedSurface?.description ?? '',
+      parentId: selectedSurface?.parentId,
       meta: <String, String>{
-        if (state.room?.providerId == 'kilter')
-          'angle': '${state.selectedAngle}',
-        if (state.room?.providerId == 'kilter') 'board_id': sid,
+        ...?selectedSurface?.meta,
+        if (providerId == 'kilter') 'angle': '${state.selectedAngle}',
+        if (providerId == 'kilter') 'board_id': sid,
       },
     );
     hostController?.hostSetSurface(surface);
@@ -452,13 +501,80 @@ class RoomController extends StateNotifier<RoomViewState> {
   }
 
   Future<void> loadSurfaces({String? parentId}) async {
-    // host reads board list from offline Kilter catalog as ProviderSurface entries
-    // for Kilter: surfaces are boards (product_size_id + name)
-    // for Crux: would need relay — not yet supported
     if (hostController != null) {
       state = state.copyWith(surfacesLoading: true);
-      // host can set surface directly by ID — populate with the current surface if available
       final RoomSnapshot? room = state.room;
+      final String providerId = room?.providerId ?? '';
+      try {
+        if (providerId == 'kilter') {
+          final List<ProviderSurface> surfaces =
+              (await offlineCatalogRepository.getBoards())
+                  .map((board) => ProviderSurface(
+                        id: '${board.id}',
+                        kind: 'board',
+                        name: board.kilterName.isNotEmpty
+                            ? board.kilterName
+                            : board.name,
+                        meta: <String, String>{'board_id': '${board.id}'},
+                      ))
+                  .toList(growable: false);
+          state = state.copyWith(
+            surfacesLoading: false,
+            parentSurfaces: surfaces,
+            selectedParentSurfaceId:
+                room?.surface?.id ?? state.selectedParentSurfaceId,
+          );
+          return;
+        }
+        if (providerId == 'cornifer') {
+          final Uri? server = await sessionRepository.loadActiveServer();
+          if (server == null) {
+            state = state.copyWith(
+              surfacesLoading: false,
+              errorMessage:
+                  'Choose an active server before loading Cornifer surfaces.',
+            );
+            return;
+          }
+          final List<ProviderSurface> surfaces =
+              await apiClient.getSoloProviderSurfaces(
+            server: server,
+            providerId: providerId,
+            secret: const <String, String>{},
+            parentId: parentId,
+          );
+          final String selectedParentSurfaceId = parentId ??
+              (room?.surface == null
+                  ? state.selectedParentSurfaceId
+                  : room!.surface!.kind == 'location'
+                      ? room.surface!.id
+                      : room.surface!.parentId ??
+                          state.selectedParentSurfaceId);
+          final String selectedChildSurfaceId = parentId == null
+              ? room?.surface?.kind == 'board'
+                  ? room!.surface!.id
+                  : ''
+              : room?.surface?.kind == 'board' &&
+                      room?.surface?.parentId == parentId
+                  ? room!.surface!.id
+                  : state.selectedChildSurfaceId;
+          state = state.copyWith(
+            surfacesLoading: false,
+            parentSurfaces: parentId == null ? surfaces : state.parentSurfaces,
+            childSurfaces:
+                parentId == null ? const <ProviderSurface>[] : surfaces,
+            selectedParentSurfaceId: selectedParentSurfaceId,
+            selectedChildSurfaceId: selectedChildSurfaceId,
+          );
+          return;
+        }
+      } catch (error) {
+        state = state.copyWith(
+          surfacesLoading: false,
+          errorMessage: '$error',
+        );
+        return;
+      }
       final List<ProviderSurface> surfaces = <ProviderSurface>[];
       if (room?.surface != null) {
         surfaces.add(room!.surface!);
@@ -490,10 +606,16 @@ class RoomController extends StateNotifier<RoomViewState> {
       clearErrorMessage: true,
     );
     if (guestController != null) {
-      // guest sends catalog query to host via P2P
+      final String providerId = state.room?.providerId ?? '';
+      final String surfaceId = providerId == 'cornifer'
+          ? (state.selectedChildSurfaceId.isNotEmpty
+              ? state.selectedChildSurfaceId
+              : state.selectedParentSurfaceId)
+          : state.selectedParentSurfaceId;
       guestController!.service?.queryCatalog(<String, dynamic>{
-        'board_id': state.selectedParentSurfaceId,
-        'angle': state.selectedAngle,
+        'provider_id': providerId,
+        'surface_id': surfaceId,
+        'context': <String, String>{'angle': '${state.selectedAngle}'},
         'page': 1,
         'page_size': 10,
         'q': q ?? state.catalogQuery,
@@ -501,8 +623,6 @@ class RoomController extends StateNotifier<RoomViewState> {
         'grade_min': gradeMin,
         'grade_max': gradeMax,
       });
-      // response arrives async via guestController catalogResponse handling
-      // set a timeout to clear loading state if no response
       Future<void>.delayed(const Duration(seconds: 5), () {
         if (state.catalogLoading) {
           state = state.copyWith(
@@ -510,13 +630,110 @@ class RoomController extends StateNotifier<RoomViewState> {
         }
       });
     } else if (hostController != null) {
-      // host queries own offline catalog directly — build ProviderClimb results
-      // from the host's room snapshot current data
-      state = state.copyWith(
-        catalogLoading: false,
-        notice:
-            'Host catalog browsing uses the offline Kilter database directly via the solo tab.',
-      );
+      final RoomSnapshot? room = state.room;
+      if (room == null) {
+        state = state.copyWith(
+          catalogLoading: false,
+          errorMessage: 'No room data available for catalog query.',
+        );
+        return;
+      }
+      try {
+        if (room.providerId == 'kilter') {
+          final PaginatedBoardClimbsResponse result =
+              await offlineCatalogRepository.queryClimbs(
+            OfflineCatalogQuery(
+              boardId: state.selectedParentSurfaceId,
+              angle: state.selectedAngle,
+              page: 1,
+              pageSize: 10,
+              name: q ?? state.catalogQuery,
+              sort: sort ?? state.catalogSort,
+              gradeMin: gradeMin,
+              gradeMax: gradeMax,
+            ),
+          );
+          state = state.copyWith(
+            catalogLoading: false,
+            catalog: RoomCatalogClimbsResponse(
+              climbs: result.climbs
+                  .map((BoardClimb climb) => ProviderClimb(
+                        id: 'kilter:${climb.productSizeId}:${climb.uuid}',
+                        externalId: climb.uuid,
+                        providerId: 'kilter',
+                        surfaceId: state.selectedParentSurfaceId,
+                        name: climb.climbName,
+                        description: climb.description,
+                        setterName: climb.setterName,
+                        primaryGrade: climb.gradeForAngle(state.selectedAngle),
+                        createdAt: climb.createdAt,
+                        popularity: climb.ascends,
+                        highlightedHolds: climb.highlightedHolds,
+                        meta: <String, String>{
+                          'board_id': state.selectedParentSurfaceId,
+                          'angle': '${state.selectedAngle}',
+                        },
+                      ))
+                  .toList(growable: false),
+              hasMore: result.hasMore,
+              pageSize: result.pageSize,
+              voteCounts: room.voteCounts,
+              myVotes: room.myVotes,
+            ),
+          );
+          return;
+        }
+        if (room.providerId == 'cornifer') {
+          final Uri? server = await sessionRepository.loadActiveServer();
+          if (server == null) {
+            throw StateError(
+              'Choose an active server before browsing Cornifer in a room.',
+            );
+          }
+          final ProviderCatalogClimbsResponse result =
+              await apiClient.getSoloProviderClimbs(
+            server: server,
+            providerId: room.providerId,
+            secret: const <String, String>{},
+            surfaceId: state.selectedChildSurfaceId.isNotEmpty
+                ? state.selectedChildSurfaceId
+                : state.selectedParentSurfaceId,
+            context: <String, String>{'angle': '${state.selectedAngle}'},
+            q: q ?? state.catalogQuery,
+            sort: sort ?? state.catalogSort,
+            gradeMin: gradeMin,
+            gradeMax: gradeMax,
+            pageSize: 10,
+          );
+          final List<ProviderClimb> climbs = result.climbs
+              .map((ProviderClimb climb) => _resolveProviderClimbMedia(
+                    climb,
+                    server: server,
+                  ))
+              .toList(growable: false);
+          state = state.copyWith(
+            catalogLoading: false,
+            catalog: RoomCatalogClimbsResponse(
+              climbs: climbs,
+              hasMore: result.hasMore,
+              pageSize: result.pageSize,
+              nextCursor: result.nextCursor,
+              voteCounts: room.voteCounts,
+              myVotes: room.myVotes,
+            ),
+          );
+          return;
+        }
+        state = state.copyWith(
+          catalogLoading: false,
+          notice: '${room.providerId} room catalog browsing is not wired yet.',
+        );
+      } catch (error) {
+        state = state.copyWith(
+          catalogLoading: false,
+          errorMessage: '$error',
+        );
+      }
     } else {
       state = state.copyWith(
           catalogLoading: false,
@@ -525,7 +742,6 @@ class RoomController extends StateNotifier<RoomViewState> {
   }
 
   Future<void> selectCatalogClimb(String climbId) async {
-    // find the climb in queue, finalists, or current climb and set as selected
     final ProviderClimb? climb = _findClimb(climbId);
     if (climb == null) {
       state = state.copyWith(errorMessage: 'Climb not found in room data.');
@@ -543,6 +759,151 @@ class RoomController extends StateNotifier<RoomViewState> {
         isQueued: isQueued,
       ),
     );
+  }
+
+  Future<void> submitCorniferAttempt({
+    required String climbId,
+    required int tries,
+  }) async {
+    if (climbId.trim().isEmpty) {
+      state = state.copyWith(
+        errorMessage: 'Choose a Cornifer climb before logging tries.',
+        clearNotice: true,
+      );
+      return;
+    }
+    if (tries <= 0) {
+      state = state.copyWith(
+        errorMessage: 'Tries used must be at least 1.',
+        clearNotice: true,
+      );
+      return;
+    }
+    final RoomSnapshot? room = state.room;
+    if (room == null || room.providerId != 'cornifer') {
+      state = state.copyWith(
+        errorMessage:
+            'Cornifer community actions are only available in Cornifer rooms.',
+        clearNotice: true,
+      );
+      return;
+    }
+    final Uri? server = await sessionRepository.loadActiveServer();
+    if (server == null) {
+      state = state.copyWith(
+        errorMessage:
+            'Choose the active self-hosted server before logging Cornifer attempts from a room.',
+        clearNotice: true,
+      );
+      return;
+    }
+    final corniferSession = await corniferSessionRepository.load(server);
+    if (corniferSession == null) {
+      state = state.copyWith(
+        errorMessage:
+            'Sign in to Cornifer in solo browse on this device before logging attempts from a room.',
+        clearNotice: true,
+      );
+      return;
+    }
+
+    try {
+      state = state.copyWith(
+        actionInFlight: true,
+        clearErrorMessage: true,
+        clearNotice: true,
+      );
+      final int attemptCount = await apiClient.submitCorniferAttempt(
+        server: server,
+        token: corniferSession.token,
+        climbId: climbId,
+        tries: tries,
+      );
+      _updateCorniferClimbMetrics(
+        climbId,
+        attemptCount: attemptCount,
+      );
+      state = state.copyWith(
+        actionInFlight: false,
+        notice: 'Cornifer tries logged from the room view.',
+      );
+    } on ApiFailure catch (error) {
+      state = state.copyWith(
+        actionInFlight: false,
+        errorMessage: error.message,
+      );
+    }
+  }
+
+  Future<void> rateCorniferClimb({
+    required String climbId,
+    required int value,
+  }) async {
+    if (climbId.trim().isEmpty) {
+      state = state.copyWith(
+        errorMessage: 'Choose a Cornifer climb before rating it.',
+        clearNotice: true,
+      );
+      return;
+    }
+    final RoomSnapshot? room = state.room;
+    if (room == null || room.providerId != 'cornifer') {
+      state = state.copyWith(
+        errorMessage:
+            'Cornifer community actions are only available in Cornifer rooms.',
+        clearNotice: true,
+      );
+      return;
+    }
+    final Uri? server = await sessionRepository.loadActiveServer();
+    if (server == null) {
+      state = state.copyWith(
+        errorMessage:
+            'Choose the active self-hosted server before rating Cornifer climbs from a room.',
+        clearNotice: true,
+      );
+      return;
+    }
+    final corniferSession = await corniferSessionRepository.load(server);
+    if (corniferSession == null) {
+      state = state.copyWith(
+        errorMessage:
+            'Sign in to Cornifer in solo browse on this device before rating climbs from a room.',
+        clearNotice: true,
+      );
+      return;
+    }
+
+    try {
+      state = state.copyWith(
+        actionInFlight: true,
+        clearErrorMessage: true,
+        clearNotice: true,
+      );
+      final Map<String, int> summary = await apiClient.rateCorniferClimb(
+        server: server,
+        token: corniferSession.token,
+        climbId: climbId,
+        value: value,
+      );
+      _updateCorniferClimbMetrics(
+        climbId,
+        upvotes: summary['upvotes'],
+        downvotes: summary['downvotes'],
+        myRating: value,
+      );
+      state = state.copyWith(
+        actionInFlight: false,
+        notice: value > 0
+            ? 'Cornifer upvote saved from the room view.'
+            : 'Cornifer downvote saved from the room view.',
+      );
+    } on ApiFailure catch (error) {
+      state = state.copyWith(
+        actionInFlight: false,
+        errorMessage: error.message,
+      );
+    }
   }
 
   Future<void> reconnectProvider(Map<String, String> secret) async {
@@ -605,9 +966,120 @@ class RoomController extends StateNotifier<RoomViewState> {
     state = state.copyWith(errorMessage: message, clearNotice: true);
   }
 
+  void _updateCorniferClimbMetrics(
+    String climbId, {
+    int? attemptCount,
+    int? upvotes,
+    int? downvotes,
+    int? myRating,
+  }) {
+    final ProviderClimb? currentSelected = state.selectedCatalogClimb?.climb;
+    final List<ProviderClimb>? catalogClimbs = state.catalog?.climbs;
+    final ProviderClimb? source = currentSelected?.id == climbId
+        ? currentSelected
+        : catalogClimbs?.cast<ProviderClimb?>().firstWhere(
+              (ProviderClimb? climb) => climb?.id == climbId,
+              orElse: () => null,
+            );
+    if (source == null) {
+      return;
+    }
+
+    final int resolvedAttemptCount =
+        attemptCount ?? int.tryParse(source.meta['attempt_count'] ?? '') ?? 0;
+    final int resolvedUpvotes =
+        upvotes ?? int.tryParse(source.meta['upvotes'] ?? '') ?? 0;
+    final int resolvedDownvotes =
+        downvotes ?? int.tryParse(source.meta['downvotes'] ?? '') ?? 0;
+    final int resolvedMyRating =
+        myRating ?? int.tryParse(source.meta['my_rating'] ?? '') ?? 0;
+    final ProviderClimb updated = ProviderClimb(
+      id: source.id,
+      externalId: source.externalId,
+      providerId: source.providerId,
+      surfaceId: source.surfaceId,
+      name: source.name,
+      description: source.description,
+      setterName: source.setterName,
+      primaryGrade: source.primaryGrade,
+      secondaryGrade: source.secondaryGrade,
+      createdAt: source.createdAt,
+      popularity: resolvedUpvotes - resolvedDownvotes + resolvedAttemptCount,
+      media: source.media,
+      highlightedHolds: source.highlightedHolds,
+      meta: <String, String>{
+        ...source.meta,
+        'attempt_count': '$resolvedAttemptCount',
+        'upvotes': '$resolvedUpvotes',
+        'downvotes': '$resolvedDownvotes',
+        'my_rating': '$resolvedMyRating',
+      },
+    );
+
+    final RoomCatalogClimbsResponse? catalog = state.catalog;
+    state = state.copyWith(
+      catalog: catalog == null
+          ? null
+          : RoomCatalogClimbsResponse(
+              climbs: catalog.climbs
+                  .map(
+                    (ProviderClimb climb) =>
+                        climb.id == climbId ? updated : climb,
+                  )
+                  .toList(growable: false),
+              hasMore: catalog.hasMore,
+              pageSize: catalog.pageSize,
+              voteCounts: catalog.voteCounts,
+              myVotes: catalog.myVotes,
+              nextCursor: catalog.nextCursor,
+            ),
+      selectedCatalogClimb: state.selectedCatalogClimb?.climb.id == climbId
+          ? RoomCatalogClimbResponse(
+              climb: updated,
+              voteCount: state.selectedCatalogClimb!.voteCount,
+              myVote: state.selectedCatalogClimb!.myVote,
+              isQueued: state.selectedCatalogClimb!.isQueued,
+            )
+          : state.selectedCatalogClimb,
+    );
+  }
+
+  ProviderClimb _resolveProviderClimbMedia(
+    ProviderClimb climb, {
+    required Uri server,
+  }) {
+    return ProviderClimb(
+      id: climb.id,
+      externalId: climb.externalId,
+      providerId: climb.providerId,
+      surfaceId: climb.surfaceId,
+      name: climb.name,
+      description: climb.description,
+      setterName: climb.setterName,
+      primaryGrade: climb.primaryGrade,
+      secondaryGrade: climb.secondaryGrade,
+      createdAt: climb.createdAt,
+      popularity: climb.popularity,
+      media: climb.media
+          .map(
+            (ProviderClimbMedia item) => ProviderClimbMedia(
+              url: apiClient.resolveMediaUrl(server: server, url: item.url),
+              kind: item.kind,
+            ),
+          )
+          .toList(growable: false),
+      highlightedHolds: climb.highlightedHolds,
+      meta: climb.meta,
+    );
+  }
+
   ProviderClimb? _findClimb(String climbId) {
     final RoomSnapshot? room = state.room;
     if (room == null) return null;
+    for (final ProviderClimb climb
+        in state.catalog?.climbs ?? <ProviderClimb>[]) {
+      if (climb.id == climbId) return climb;
+    }
     for (final QueueEntry e in room.queue) {
       if (e.climb.id == climbId) return e.climb;
     }

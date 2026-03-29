@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/board_models.dart';
+import '../community/cornifer_models.dart';
 import '../models/catalog_models.dart';
 import '../models/product_models.dart';
 import '../models/provider_models.dart';
@@ -47,6 +48,15 @@ class ApiClient {
       sendTimeout: const Duration(seconds: 12),
       headers: const <String, String>{'Accept': 'application/json'},
     ));
+  }
+
+  Options _authorizedOptions(String token) {
+    return Options(
+      headers: <String, String>{
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
   }
 
   Never _throwFailure(DioException error) => throw ApiFailure.fromDio(error);
@@ -342,6 +352,219 @@ class ApiClient {
       final Response<dynamic> response = await _clientFor(server)
           .get<dynamic>('solo/plans/${Uri.encodeComponent(shareId)}');
       return SoloPlanSnapshot.fromJson(_mapPayload(response.data));
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
+  }
+
+  Future<CorniferSession> registerCornifer({
+    required Uri server,
+    required String username,
+    required String password,
+  }) async {
+    try {
+      final Response<dynamic> response =
+          await _clientFor(server).post<dynamic>(
+        'cornifer/auth/register',
+        data: <String, dynamic>{
+          'username': username,
+          'password': password,
+        },
+      );
+      return CorniferSession.fromJson(_mapPayload(response.data));
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
+  }
+
+  Future<CorniferSession> loginCornifer({
+    required Uri server,
+    required String username,
+    required String password,
+  }) async {
+    try {
+      final Response<dynamic> response =
+          await _clientFor(server).post<dynamic>(
+        'cornifer/auth/login',
+        data: <String, dynamic>{
+          'username': username,
+          'password': password,
+        },
+      );
+      return CorniferSession.fromJson(_mapPayload(response.data));
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
+  }
+
+  Future<void> logoutCornifer({
+    required Uri server,
+    required String token,
+  }) async {
+    try {
+      await _clientFor(server).post<dynamic>(
+        'cornifer/auth/logout',
+        options: _authorizedOptions(token),
+      );
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
+  }
+
+  Future<CorniferSession> fetchCorniferMe({
+    required Uri server,
+    required String token,
+  }) async {
+    try {
+      final Response<dynamic> response = await _clientFor(server).get<dynamic>(
+        'cornifer/me',
+        options: _authorizedOptions(token),
+      );
+      final Map<String, dynamic> payload = _mapPayload(response.data);
+      return CorniferSession(
+        token: token,
+        username: payload['username'] as String? ?? '',
+      );
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
+  }
+
+  Future<CorniferBoardDraft> createCorniferBoard({
+    required Uri server,
+    required String token,
+    required String name,
+    required String location,
+    required String description,
+    required String imagePath,
+  }) async {
+    try {
+      final FormData formData = FormData.fromMap(<String, dynamic>{
+        'name': name,
+        'location': location,
+        'description': description,
+        'image': await MultipartFile.fromFile(imagePath),
+      });
+      final Response<dynamic> response =
+          await _clientFor(server).post<dynamic>(
+        'cornifer/boards',
+        data: formData,
+        options: _authorizedOptions(token),
+      );
+      return CorniferBoardDraft.fromJson(_mapPayload(response.data));
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
+  }
+
+  Future<CorniferBoardDraft> detectCorniferBoardHolds({
+    required Uri server,
+    required String token,
+    required String boardId,
+  }) async {
+    try {
+      final Response<dynamic> response =
+          await _clientFor(server).post<dynamic>(
+        'cornifer/boards/${Uri.encodeComponent(boardId)}/detect-holds',
+        options: _authorizedOptions(token),
+      );
+      return CorniferBoardDraft.fromJson(_mapPayload(response.data));
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
+  }
+
+  Future<CorniferBoardDraft> confirmCorniferBoardHolds({
+    required Uri server,
+    required String token,
+    required String boardId,
+    required List<CorniferBoardHold> holds,
+    bool publish = true,
+  }) async {
+    try {
+      final Response<dynamic> response = await _clientFor(server).put<dynamic>(
+        'cornifer/boards/${Uri.encodeComponent(boardId)}/holds',
+        data: <String, dynamic>{
+          'publish': publish,
+          'holds':
+              holds.map((CorniferBoardHold hold) => hold.toJson()).toList(),
+        },
+        options: _authorizedOptions(token),
+      );
+      return CorniferBoardDraft.fromJson(_mapPayload(response.data));
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
+  }
+
+  Future<ProviderCatalogClimbResponse> createCorniferClimb({
+    required Uri server,
+    required String token,
+    required String boardId,
+    required String name,
+    required String grade,
+    required String description,
+    required List<CorniferClimbSelection> holds,
+  }) async {
+    try {
+      final Response<dynamic> response =
+          await _clientFor(server).post<dynamic>(
+        'cornifer/climbs',
+        data: <String, dynamic>{
+          'board_id': boardId,
+          'name': name,
+          'grade': grade,
+          'description': description,
+          'holds': holds
+              .map((CorniferClimbSelection item) => item.toJson())
+              .toList(growable: false),
+        },
+        options: _authorizedOptions(token),
+      );
+      return ProviderCatalogClimbResponse.fromJson(_mapPayload(response.data));
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
+  }
+
+  Future<int> submitCorniferAttempt({
+    required Uri server,
+    required String token,
+    required String climbId,
+    required int tries,
+  }) async {
+    try {
+      final Response<dynamic> response =
+          await _clientFor(server).post<dynamic>(
+        'cornifer/climbs/${Uri.encodeComponent(climbId)}/attempts',
+        data: <String, dynamic>{'tries': tries},
+        options: _authorizedOptions(token),
+      );
+      final Map<String, dynamic> payload = _mapPayload(response.data);
+      return (payload['attempt_count'] as num?)?.toInt() ?? 0;
+    } on DioException catch (error) {
+      _throwFailure(error);
+    }
+  }
+
+  Future<Map<String, int>> rateCorniferClimb({
+    required Uri server,
+    required String token,
+    required String climbId,
+    required int value,
+  }) async {
+    try {
+      final Response<dynamic> response =
+          await _clientFor(server).post<dynamic>(
+        'cornifer/climbs/${Uri.encodeComponent(climbId)}/rating',
+        data: <String, dynamic>{'value': value},
+        options: _authorizedOptions(token),
+      );
+      final Map<String, dynamic> payload = _mapPayload(response.data);
+      return <String, int>{
+        'upvotes': (payload['upvotes'] as num?)?.toInt() ?? 0,
+        'downvotes': (payload['downvotes'] as num?)?.toInt() ?? 0,
+      };
     } on DioException catch (error) {
       _throwFailure(error);
     }

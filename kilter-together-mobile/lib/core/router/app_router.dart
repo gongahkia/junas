@@ -103,8 +103,10 @@ GoRouter buildAppRouter() {
               builder: (BuildContext context, GoRouterState state) {
                 return ProviderSoloScreen(
                   providerId: state.pathParameters['providerId'] ?? '',
-                  initialParentSurfaceId: state.uri.queryParameters['gym'],
-                  initialChildSurfaceId: state.uri.queryParameters['wall'],
+                  initialParentSurfaceId: state.uri.queryParameters['parent'] ??
+                      state.uri.queryParameters['gym'],
+                  initialChildSurfaceId: state.uri.queryParameters['child'] ??
+                      state.uri.queryParameters['wall'],
                   initialQuery: state.uri.queryParameters['q'],
                   initialSort: state.uri.queryParameters['sort'],
                   initialClimbId: state.uri.queryParameters['climb'],
