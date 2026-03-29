@@ -271,6 +271,24 @@ export class ChatService {
       }
       if (customSystemPrompt) config.baseSystemPrompt = customSystemPrompt;
       config.systemPrompt = generateSystemPrompt(config);
+      // RAG context injection: retrieve relevant chunks from indexed documents
+      try {
+        const { queryRelevantChunks, formatRagContext, listCollections } = await import('@/lib/rag/rag-service');
+        const collections = await listCollections();
+        if (collections.length > 0) {
+          const lastUserMsg = [...messages].reverse().find((m) => m.role === 'user');
+          if (lastUserMsg) {
+            const allResults = await Promise.all(
+              collections.map((col) => queryRelevantChunks(col, lastUserMsg.content, 3))
+            );
+            const merged = allResults.flat().sort((a, b) => b.score - a.score).slice(0, 5);
+            const ragContext = formatRagContext(merged.filter((r) => r.score > 0.3));
+            if (ragContext) {
+              config.systemPrompt = ragContext + config.systemPrompt;
+            }
+          }
+        }
+      } catch { /* RAG unavailable (embeddings model not downloaded), skip silently */ }
       const formattedMessages: bridge.Message[] = budgetedMessages.map((msg) => ({
         role: msg.role,
         content: msg.content,
