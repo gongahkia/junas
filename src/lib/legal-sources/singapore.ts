@@ -109,6 +109,22 @@ async function runProviderSearch(
   return client.webSearch(scopedQuery, apiKey);
 }
 
+async function searchViaSso(query: string): Promise<LegalSearchResult[]> {
+  try {
+    const { invoke } = await import('@tauri-apps/api/core');
+    const results = await invoke<Array<{ title: string; url: string; snippet: string }>>('search_sso_statutes', { query });
+    return results.map((r) => ({ title: r.title, url: r.url, snippet: r.snippet }));
+  } catch { return []; }
+}
+
+async function searchViaCommonlii(query: string): Promise<LegalSearchResult[]> {
+  try {
+    const { invoke } = await import('@tauri-apps/api/core');
+    const results = await invoke<Array<{ title: string; url: string; snippet: string }>>('search_commonlii_cases', { query });
+    return results.map((r) => ({ title: r.title, url: r.url, snippet: r.snippet }));
+  } catch { return []; }
+}
+
 export function createSingaporeLegalSourceAdapter(
   config?: SingaporeLegalSourceConfig
 ): SingaporeLegalSourceAdapter {
@@ -116,31 +132,29 @@ export function createSingaporeLegalSourceAdapter(
 
   return {
     async searchCaseLaw(query: string): Promise<LegalSearchResult[]> {
+      // 1. local cache
       if (resolved.mode === 'local-first') {
         const localResults = readLocalCache(resolved.caseLawCacheKey, query);
         if (localResults.length > 0) return localResults;
       }
-
-      return runProviderSearch(
-        query,
-        'Singapore case law',
-        resolved.caseLawDomains,
-        resolved.providerKey
-      );
+      // 2. CommonLII direct search
+      const commonliiResults = await searchViaCommonlii(query);
+      if (commonliiResults.length > 0) return commonliiResults;
+      // 3. Serper fallback
+      return runProviderSearch(query, 'Singapore case law', resolved.caseLawDomains, resolved.providerKey);
     },
 
     async researchStatute(query: string): Promise<LegalSearchResult[]> {
+      // 1. local cache
       if (resolved.mode === 'local-first') {
         const localResults = readLocalCache(resolved.statuteCacheKey, query);
         if (localResults.length > 0) return localResults;
       }
-
-      return runProviderSearch(
-        query,
-        'Singapore statutes',
-        resolved.statuteDomains,
-        resolved.providerKey
-      );
+      // 2. SSO direct search
+      const ssoResults = await searchViaSso(query);
+      if (ssoResults.length > 0) return ssoResults;
+      // 3. Serper fallback
+      return runProviderSearch(query, 'Singapore statutes', resolved.statuteDomains, resolved.providerKey);
     },
   };
 }
