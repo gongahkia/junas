@@ -14,19 +14,24 @@ interface SimilarityResult {
   score: number;
 }
 
-function createUnsupportedRuntimeError(): Error & { code: string } {
-  const error = new Error('RAG indexing is available only in the desktop app.') as Error & {
-    code: string;
-  };
-  error.code = 'UNSUPPORTED_RUNTIME';
-  return error;
+// --- in-memory vector store for web mode ---
+const webCollections = new Map<string, VectorEntry[]>();
+
+function cosineSimilarity(a: number[], b: number[]): number {
+  let dot = 0, na = 0, nb = 0;
+  for (let i = 0; i < a.length; i++) {
+    dot += a[i] * b[i];
+    na += a[i] * a[i];
+    nb += b[i] * b[i];
+  }
+  const denom = Math.sqrt(na) * Math.sqrt(nb);
+  return denom === 0 ? 0 : dot / denom;
 }
 
 async function invokeRag<T>(command: string, args: Record<string, unknown>): Promise<T> {
   if (!isTauriRuntime()) {
-    throw createUnsupportedRuntimeError();
+    throw Object.assign(new Error('RAG Tauri command called in web mode.'), { code: 'UNSUPPORTED_RUNTIME' });
   }
-
   try {
     const { invoke } = await import('@tauri-apps/api/core');
     return await invoke<T>(command, args);
@@ -36,6 +41,10 @@ async function invokeRag<T>(command: string, args: Record<string, unknown>): Pro
 }
 
 async function embedText(text: string): Promise<number[]> {
+  if (!isTauriRuntime()) {
+    const { webRunEmbeddings } = await import('@/lib/ml/tauri-ml-bridge');
+    return webRunEmbeddings(text);
+  }
   return invokeRag<number[]>('run_embeddings', { text });
 }
 
@@ -48,17 +57,15 @@ export async function indexDocument(
   const entries: VectorEntry[] = [];
   for (let i = 0; i < chunks.length; i += 1) {
     const embedding = await embedText(chunks[i].text);
-    entries.push({
-      chunk_id: chunks[i].id,
-      text: chunks[i].text,
-      embedding,
-    });
+    entries.push({ chunk_id: chunks[i].id, text: chunks[i].text, embedding });
     onProgress?.(i + 1, chunks.length);
   }
-  return invokeRag<number>('index_document', {
-    collection: collectionName,
-    entries,
-  });
+  if (!isTauriRuntime()) {
+    const existing = webCollections.get(collectionName) || [];
+    webCollections.set(collectionName, [...existing, ...entries]);
+    return entries.length;
+  }
+  return invokeRag<number>('index_document', { collection: collectionName, entries });
 }
 
 export async function queryRelevantChunks(
@@ -67,11 +74,17 @@ export async function queryRelevantChunks(
   topK = 5
 ): Promise<SimilarityResult[]> {
   const queryEmbedding = await embedText(query);
-  return invokeRag<SimilarityResult[]>('query_similar', {
-    collection: collectionName,
-    queryEmbedding,
-    topK,
-  });
+  if (!isTauriRuntime()) {
+    const entries = webCollections.get(collectionName) || [];
+    const scored = entries.map((e) => ({
+      chunk_id: e.chunk_id,
+      text: e.text,
+      score: cosineSimilarity(queryEmbedding, e.embedding),
+    }));
+    scored.sort((a, b) => b.score - a.score);
+    return scored.slice(0, topK);
+  }
+  return invokeRag<SimilarityResult[]>('query_similar', { collection: collectionName, queryEmbedding, topK });
 }
 
 export function formatRagContext(results: SimilarityResult[]): string {
@@ -84,11 +97,11 @@ export function formatRagContext(results: SimilarityResult[]): string {
 }
 
 export async function listCollections(): Promise<string[]> {
-  if (!isTauriRuntime()) return [];
+  if (!isTauriRuntime()) return Array.from(webCollections.keys());
   return invokeRag<string[]>('list_collections', {});
 }
 
 export async function deleteCollection(name: string): Promise<boolean> {
-  if (!isTauriRuntime()) return false;
+  if (!isTauriRuntime()) return webCollections.delete(name);
   return invokeRag<boolean>('delete_collection', { collection: name });
 }
