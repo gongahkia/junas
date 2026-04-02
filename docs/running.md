@@ -225,6 +225,14 @@ NOUPE_LAUNCH_TELEMETRY_FILE=reports/launch_telemetry.json ./scripts/launch/run_b
 cat reports/launch_telemetry.json
 ```
 
+Watch-style terminal status view:
+
+```sh
+python3 scripts/watch_backend_status.py
+python3 scripts/watch_backend_status.py --once
+python3 scripts/watch_backend_status.py --base-url http://127.0.0.1:8010 --interval-seconds 1.5
+```
+
 ## Request Tracing By `X-Request-ID`
 
 When you need to debug one request end-to-end, run the backend through `tee` so logs are persisted:
