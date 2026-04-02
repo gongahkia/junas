@@ -16,6 +16,7 @@ import {
   createSingaporeLegalSourceAdapter,
   loadSingaporeLegalSourceConfigFromStorage,
 } from '@/lib/legal-sources';
+import { WINDOW_EVENTS, emitWindowEvent } from '@/lib/events';
 
 export type {
   CommandType,
@@ -254,16 +255,12 @@ export function processLocalCommand(command: ProcessedCommand): LocalCommandResu
       };
 
     case 'use-template': {
-      if (typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent('junas-open-templates'));
-      }
+      emitWindowEvent(WINDOW_EVENTS.openTemplates);
       return { success: true, content: 'Opening template library...' };
     }
 
     case 'redline': {
-      if (typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent('junas-open-redline'));
-      }
+      emitWindowEvent(WINDOW_EVENTS.openRedline);
       return { success: true, content: 'Opening contract redlining view...' };
     }
 
