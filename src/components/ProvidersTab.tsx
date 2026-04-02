@@ -7,12 +7,14 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Info } from 'lucide-react';
 import { getApiKey, setApiKey, healthCheck } from '@/lib/tauri-bridge';
 import { PROVIDER_LIST } from '@/lib/providers/registry';
+import { isTauriRuntime } from '@/lib/runtime';
 export function ProvidersTab() {
   const [apiKeys, setApiKeysState] = useState<Record<string, string>>({});
   const [showKeys, setShowKeys] = useState<Record<string, boolean>>({});
   const [isSaving, setIsSaving] = useState(false);
   const [configuredProviders, setConfiguredProviders] = useState<Record<string, boolean>>({});
   const [providerHealth, setProviderHealth] = useState<Record<string, string>>({});
+  const runtimeMode = isTauriRuntime() ? 'tauri' : 'web';
   useEffect(() => {
     loadKeys();
     checkAllHealth();
@@ -124,8 +126,17 @@ export function ProvidersTab() {
               <Alert variant="warning" className="py-2 mt-2">
                 <Info className="h-4 w-4" />
                 <AlertDescription className="text-xs">
-                  <strong>Desktop app:</strong> Local providers connect directly — no tunneling
-                  needed.
+                  {runtimeMode === 'tauri' ? (
+                    <>
+                      <strong>Desktop mode:</strong> Local providers connect directly without
+                      tunneling.
+                    </>
+                  ) : (
+                    <>
+                      <strong>Browser mode:</strong> Local providers must be reachable from your
+                      browser and allow cross-origin requests.
+                    </>
+                  )}
                 </AlertDescription>
               </Alert>
             )}
