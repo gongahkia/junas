@@ -346,11 +346,13 @@ export class ChatService {
             return bridge.chatGemini(formattedMessages, model, chatSettings, apiKey);
           }
           if (provider === 'ollama') {
-            const endpoint = 'http://localhost:11434';
+            const storedEndpoint = await getApiKey('ollama').catch(() => '');
+            const endpoint = storedEndpoint.trim() || 'http://localhost:11434';
             return bridge.chatOllama(formattedMessages, model, endpoint, chatSettings);
           }
           if (provider === 'lmstudio') {
-            const endpoint = 'http://localhost:1234';
+            const storedEndpoint = await getApiKey('lmstudio').catch(() => '');
+            const endpoint = storedEndpoint.trim() || 'http://localhost:1234';
             return bridge.chatLmstudio(formattedMessages, model, endpoint, chatSettings);
           }
           throw new Error(`Unsupported provider: ${provider}`);
