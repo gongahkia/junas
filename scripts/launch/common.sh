@@ -283,3 +283,69 @@ print_selected_frontends() {
         echo "   Slack demo: ${SLACK_FRONTEND_URL}"
     fi
 }
+
+emit_launch_telemetry_report() {
+    local report_path="${NOUPE_LAUNCH_TELEMETRY_FILE:-}"
+    local frontend_selection="${1:-${FRONTEND_SELECTION:-none}}"
+
+    if [ -z "${report_path}" ]; then
+        return 0
+    fi
+
+    mkdir -p "$(dirname "${report_path}")"
+
+    if ! python3 - "${BACKEND_URL}" "${report_path}" "${frontend_selection}" <<'PY'
+import datetime
+import json
+import sys
+import urllib.error
+import urllib.request
+from pathlib import Path
+
+base_url = sys.argv[1].rstrip("/")
+report_path = Path(sys.argv[2])
+frontend_selection = sys.argv[3]
+
+def fetch_json(path: str) -> dict:
+    url = f"{base_url}{path}"
+    with urllib.request.urlopen(url, timeout=3) as response:
+        payload = json.loads(response.read().decode("utf-8"))
+        if isinstance(payload, dict):
+            return payload
+        return {"raw": payload}
+
+ready = fetch_json("/ready")
+diagnostics = fetch_json("/diagnostics")
+
+report = {
+    "generated_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    "backend_url": base_url,
+    "frontend_selection": frontend_selection,
+    "ready": {
+        "status": ready.get("status"),
+        "ready": ready.get("ready"),
+        "pipeline": ready.get("pipeline", []),
+        "missing_required_layers": ready.get("missing_required_layers", []),
+        "warming_required_layers": ready.get("warming_required_layers", []),
+        "reasons": ready.get("reasons", []),
+    },
+    "diagnostics": {
+        "pipeline": diagnostics.get("pipeline", []),
+        "loaded_layers": diagnostics.get("loaded_layers", []),
+        "lazy_layers": diagnostics.get("lazy_layers", []),
+        "warming_required_layers": diagnostics.get("warming_required_layers", []),
+        "startup_timings_ms": diagnostics.get("startup_timings_ms", {}),
+        "load_errors": diagnostics.get("load_errors", []),
+        "dependency_status": diagnostics.get("dependency_status", {}),
+        "runtime_layer_errors": diagnostics.get("runtime_layer_errors", {}),
+    },
+}
+
+report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+print(f"🧾 Launch telemetry written to {report_path}")
+PY
+    then
+        echo "⚠️  Failed to write launch telemetry report to ${report_path}"
+        return 1
+    fi
+}

@@ -132,6 +132,7 @@ Useful launcher env vars:
 - `NOUPE_PORT` (default `8000`)
 - `NOUPE_FRONTEND_DEMO_PORT` (default `8081`)
 - `NOUPE_READY_TIMEOUT_SECONDS` (default `180`)
+- `NOUPE_LAUNCH_TELEMETRY_FILE` (optional; write startup telemetry JSON after readiness)
 - `NOUPE_ALLOW_PARTIAL_START=1` if you intentionally want degraded startup
 - `NOUPE_PREFLIGHT_STRICT=0` to relax preflight warnings
 
@@ -160,6 +161,7 @@ Useful env vars:
 - `NOUPE_BATCH_MAX_CONCURRENCY` (default `min(4, os.cpu_count() or 1)`)
 - `NOUPE_ARTIFACT_MANIFEST` (default `artifacts/manifest.json`)
 - `NOUPE_RELOAD=1` to enable autoreload
+- `NOUPE_LAUNCH_TELEMETRY_FILE` (optional; write startup telemetry JSON after readiness)
 
 Bare `uvicorn backend.main:app` startup allows degraded mode by default when configured required layers are missing, and exposes that state through `GET /ready` and `GET /diagnostics`. When lazy loading is enabled, `GET /ready` remains degraded until required lazy layers finish warming.
 
@@ -215,6 +217,13 @@ curl -X POST http://localhost:8000/classify \
 ```
 
 API docs auto-served at `http://localhost:8000/docs` (Swagger) and `http://localhost:8000/redoc`.
+
+Optional launch telemetry report:
+
+```sh
+NOUPE_LAUNCH_TELEMETRY_FILE=reports/launch_telemetry.json ./scripts/launch/run_backend_only.sh
+cat reports/launch_telemetry.json
+```
 
 ## Request Tracing By `X-Request-ID`
 

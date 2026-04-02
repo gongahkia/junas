@@ -40,6 +40,7 @@ python3 -m uvicorn backend.main:app \
 BACKEND_PID=$!
 
 wait_for_backend_ready
+emit_launch_telemetry_report "${FRONTEND_SELECTION}" || true
 
 if selection_requires_demo_server; then
     start_demo_server
