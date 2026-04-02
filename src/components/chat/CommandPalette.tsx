@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import {
   Search,
   Settings,
@@ -18,20 +18,44 @@ import {
   Tags,
   MessageSquare,
   GitGraph,
+  Globe,
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { isOnnxRuntimeAvailable } from '@/lib/ml/model-manager';
+import { emitOpenConfigDialog, type ConfigDialogTab } from '@/lib/events';
+import type { CommandCategory, CommandType } from '@/lib/commands/definitions';
+import { getAvailableCommands } from '@/lib/commands/search';
 
 export interface CommandItem {
   id: string;
   label: string;
   description: string;
   icon: React.ReactNode;
-  category: 'system' | 'research' | 'analysis' | 'drafting' | 'tools';
+  category: 'system' | CommandCategory;
   isLocal?: boolean;
   action?: () => void;
 }
+
+const COMMAND_ICONS: Record<CommandType, React.ReactNode> = {
+  'search-case-law': <Search className="h-4 w-4" />,
+  'research-statute': <BookOpen className="h-4 w-4" />,
+  'extract-entities': <Users className="h-4 w-4" />,
+  'analyze-document': <BarChart className="h-4 w-4" />,
+  'summarize-local': <Cpu className="h-4 w-4" />,
+  'ner-advanced': <Tags className="h-4 w-4" />,
+  'classify-text': <Sparkles className="h-4 w-4" />,
+  'analyze-contract': <FileSearch className="h-4 w-4" />,
+  'summarize-document': <FileText className="h-4 w-4" />,
+  'due-diligence-review': <Briefcase className="h-4 w-4" />,
+  'draft-clause': <FileSignature className="h-4 w-4" />,
+  'check-compliance': <Scale className="h-4 w-4" />,
+  'generate-document': <FileText className="h-4 w-4" />,
+  'use-template': <Book className="h-4 w-4" />,
+  redline: <FileSearch className="h-4 w-4" />,
+  'fetch-url': <Globe className="h-4 w-4" />,
+  'web-search': <Search className="h-4 w-4" />,
+};
 
 interface CommandPaletteProps {
   isOpen: boolean;
@@ -85,6 +109,11 @@ export function CommandPalette({
       isMounted = false;
     };
   }, []);
+
+  const openConfigTab = (tab: ConfigDialogTab) => {
+    onOpenConfig();
+    window.setTimeout(() => emitOpenConfigDialog(tab), 100);
+  };
 
   const systemCommands: CommandItem[] = [
     ...(onNewChat
@@ -161,16 +190,7 @@ export function CommandPalette({
       description: 'Manage user persona and roles',
       icon: <Settings className="h-4 w-4" />,
       category: 'system',
-      action: () => {
-        onOpenConfig();
-        setTimeout(
-          () =>
-            window.dispatchEvent(
-              new CustomEvent('open-config-dialog', { detail: { tab: 'profile' } })
-            ),
-          100
-        );
-      },
+      action: () => openConfigTab('profile'),
     },
     {
       id: 'config-generation',
@@ -178,16 +198,7 @@ export function CommandPalette({
       description: 'Adjust temperature, tokens, and model parameters',
       icon: <Settings className="h-4 w-4" />,
       category: 'system',
-      action: () => {
-        onOpenConfig();
-        setTimeout(
-          () =>
-            window.dispatchEvent(
-              new CustomEvent('open-config-dialog', { detail: { tab: 'generation' } })
-            ),
-          100
-        );
-      },
+      action: () => openConfigTab('generation'),
     },
     {
       id: 'config-local-models',
@@ -195,16 +206,7 @@ export function CommandPalette({
       description: 'Manage downloaded AI models',
       icon: <Settings className="h-4 w-4" />,
       category: 'system',
-      action: () => {
-        onOpenConfig();
-        setTimeout(
-          () =>
-            window.dispatchEvent(
-              new CustomEvent('open-config-dialog', { detail: { tab: 'localModels' } })
-            ),
-          100
-        );
-      },
+      action: () => openConfigTab('localModels'),
     },
     {
       id: 'config-providers',
@@ -212,16 +214,7 @@ export function CommandPalette({
       description: 'Configure API keys for external providers',
       icon: <Settings className="h-4 w-4" />,
       category: 'system',
-      action: () => {
-        onOpenConfig();
-        setTimeout(
-          () =>
-            window.dispatchEvent(
-              new CustomEvent('open-config-dialog', { detail: { tab: 'providers' } })
-            ),
-          100
-        );
-      },
+      action: () => openConfigTab('providers'),
     },
     {
       id: 'config-tools',
@@ -229,16 +222,7 @@ export function CommandPalette({
       description: 'Enable or disable analysis tools',
       icon: <Settings className="h-4 w-4" />,
       category: 'system',
-      action: () => {
-        onOpenConfig();
-        setTimeout(
-          () =>
-            window.dispatchEvent(
-              new CustomEvent('open-config-dialog', { detail: { tab: 'tools' } })
-            ),
-          100
-        );
-      },
+      action: () => openConfigTab('tools'),
     },
     {
       id: 'config-snippets',
@@ -246,16 +230,7 @@ export function CommandPalette({
       description: 'Manage reusable prompt snippets',
       icon: <Settings className="h-4 w-4" />,
       category: 'system',
-      action: () => {
-        onOpenConfig();
-        setTimeout(
-          () =>
-            window.dispatchEvent(
-              new CustomEvent('open-config-dialog', { detail: { tab: 'snippets' } })
-            ),
-          100
-        );
-      },
+      action: () => openConfigTab('snippets'),
     },
     {
       id: 'config-interface',
@@ -263,16 +238,7 @@ export function CommandPalette({
       description: 'Customize theme and appearance',
       icon: <Settings className="h-4 w-4" />,
       category: 'system',
-      action: () => {
-        onOpenConfig();
-        setTimeout(
-          () =>
-            window.dispatchEvent(
-              new CustomEvent('open-config-dialog', { detail: { tab: 'interface' } })
-            ),
-          100
-        );
-      },
+      action: () => openConfigTab('interface'),
     },
     {
       id: 'config-developer',
@@ -280,16 +246,7 @@ export function CommandPalette({
       description: 'Advanced settings and TOML configuration',
       icon: <Settings className="h-4 w-4" />,
       category: 'system',
-      action: () => {
-        onOpenConfig();
-        setTimeout(
-          () =>
-            window.dispatchEvent(
-              new CustomEvent('open-config-dialog', { detail: { tab: 'developer' } })
-            ),
-          100
-        );
-      },
+      action: () => openConfigTab('developer'),
     },
     ...(hasMessages
       ? [
@@ -321,118 +278,29 @@ export function CommandPalette({
     },
   ];
 
-  const toolCommands: CommandItem[] = [
-    {
-      id: 'search-case-law',
-      label: 'search-case-law',
-      description: 'Search Singapore legal database for relevant cases',
-      icon: <Search className="h-4 w-4" />,
-      category: 'research',
-      isLocal: false,
-    },
-    {
-      id: 'research-statute',
-      label: 'research-statute',
-      description: 'Look up statutory provisions and interpretations',
-      icon: <BookOpen className="h-4 w-4" />,
-      category: 'research',
-      isLocal: false,
-    },
-    {
-      id: 'extract-entities',
-      label: 'extract-entities',
-      description: 'Extract people, organizations, dates, citations (no AI)',
-      icon: <Users className="h-4 w-4" />,
-      category: 'analysis',
-      isLocal: true,
-    },
-    {
-      id: 'analyze-document',
-      label: 'analyze-document',
-      description: 'Get statistics, readability, keywords, structure (no AI)',
-      icon: <BarChart className="h-4 w-4" />,
-      category: 'analysis',
-      isLocal: true,
-    },
-    {
-      id: 'summarize-local',
-      label: 'summarize-local',
-      description: 'Summarize text using local ONNX model (requires download)',
-      icon: <Cpu className="h-4 w-4" />,
-      category: 'analysis',
-      isLocal: true,
-    },
-    {
-      id: 'ner-advanced',
-      label: 'ner-advanced',
-      description: 'Advanced NER using BERT model (requires download)',
-      icon: <Tags className="h-4 w-4" />,
-      category: 'analysis',
-      isLocal: true,
-    },
-    {
-      id: 'classify-text',
-      label: 'classify-text',
-      description: 'Classify text sentiment using local model (requires download)',
-      icon: <Sparkles className="h-4 w-4" />,
-      category: 'analysis',
-      isLocal: true,
-    },
-    {
-      id: 'analyze-contract',
-      label: 'analyze-contract',
-      description: 'Extract key terms, obligations, and risks from contract',
-      icon: <FileSearch className="h-4 w-4" />,
-      category: 'analysis',
-      isLocal: false,
-    },
-    {
-      id: 'summarize-document',
-      label: 'summarize-document',
-      description: 'Generate concise summary of legal document',
-      icon: <FileText className="h-4 w-4" />,
-      category: 'analysis',
-      isLocal: false,
-    },
-    {
-      id: 'due-diligence-review',
-      label: 'due-diligence-review',
-      description: 'Conduct legal due diligence checklist',
-      icon: <Briefcase className="h-4 w-4" />,
-      category: 'analysis',
-      isLocal: false,
-    },
-    {
-      id: 'draft-clause',
-      label: 'draft-clause',
-      description: 'Generate legal clause based on requirements',
-      icon: <FileSignature className="h-4 w-4" />,
-      category: 'drafting',
-      isLocal: false,
-    },
-    {
-      id: 'check-compliance',
-      label: 'check-compliance',
-      description: 'Verify regulatory compliance for Singapore law',
-      icon: <Scale className="h-4 w-4" />,
-      category: 'tools',
-      isLocal: false,
-    },
-  ];
-
-  const onnxRequiredToolIds = new Set(['summarize-local', 'ner-advanced', 'classify-text']);
-  const visibleToolCommands = onnxAvailable
-    ? toolCommands
-    : toolCommands.filter((command) => !onnxRequiredToolIds.has(command.id));
+  const manualCommands = useMemo<CommandItem[]>(
+    () =>
+      getAvailableCommands(onnxAvailable).map((command) => ({
+        id: command.id,
+        label: command.label,
+        description: command.description,
+        icon: COMMAND_ICONS[command.id],
+        category: command.category,
+        isLocal: command.isLocal,
+      })),
+    [onnxAvailable]
+  );
 
   // If showing manual, display tool commands. Otherwise display system commands.
-  const activeCommands = showManual ? visibleToolCommands : systemCommands;
+  const activeCommands = showManual ? manualCommands : systemCommands;
+  const normalizedSearchQuery = searchQuery.trim().toLowerCase();
 
   // Filter commands based on search query
   const filteredCommands = activeCommands.filter(
     (cmd) =>
-      cmd.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      cmd.description.toLowerCase().includes(searchQuery.toLowerCase())
+      cmd.label.toLowerCase().includes(normalizedSearchQuery) ||
+      cmd.description.toLowerCase().includes(normalizedSearchQuery) ||
+      cmd.category.toLowerCase().includes(normalizedSearchQuery)
   );
 
   // Group commands by category (only relevant for manual view)
