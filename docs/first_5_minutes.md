@@ -37,6 +37,31 @@ curl -X POST http://localhost:8000/classify \
   -d '{"text":"Acme Corp is acquiring GlobalTech for $2.5 billion"}'
 ```
 
+Sample Python call:
+
+```python
+from noupe import NoupeClient
+
+with NoupeClient("http://localhost:8000") as client:
+    result = client.classify(
+        text="Acme Corp is acquiring GlobalTech for $2.5 billion",
+        include_offending_spans=True,
+    )
+    print(result.classification)
+```
+
+If you are integrating from an asyncio application, use `AsyncNoupeClient` from the same package. Both clients call the same backend routes.
+
+Run the included example scripts:
+
+```sh
+python scripts/examples/sync_client_example.py \
+  "Acme Corp is acquiring GlobalTech for $2.5 billion"
+
+python scripts/examples/async_client_example.py \
+  "Acme Corp is acquiring GlobalTech for $2.5 billion"
+```
+
 ## 3) Dev Mode With Demo Frontends
 
 Start backend + choose frontend(s) interactively:

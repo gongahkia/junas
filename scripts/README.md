@@ -3,6 +3,8 @@
 This folder contains operational and maintenance commands.
 
 - `launch/`: runnable backend and demo launchers
+- `examples/`: runnable sync and async Python client examples
+- `check_python_clients.sh`: syntax and unit checks for the sync and async Python clients; used by tracked git hooks
 - `benchmark_latency.py`: latency benchmark runner
 - `benchmark_latency_corpus.sh`: shell wrapper that benchmarks all `.txt` files in `test/fixtures/latency-corpus/` by default
 - `bootstrap_artifacts.py`: verify, hydrate, or regenerate runtime artifacts from the committed manifest

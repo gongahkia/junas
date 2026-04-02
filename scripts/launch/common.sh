@@ -16,8 +16,6 @@ DEMO_ROOT="${ROOT}/archive/frontend-demos"
 DEMO_BASE_URL="http://localhost:${NOUPE_FRONTEND_DEMO_PORT}"
 LEGACY_FRONTEND_URL="${DEMO_BASE_URL}/legacy/?api=${BACKEND_URL}"
 CHAT_FRONTEND_URL="${DEMO_BASE_URL}/chat/?api=${BACKEND_URL}"
-EMAIL_FRONTEND_URL="${DEMO_BASE_URL}/email/?api=${BACKEND_URL}"
-SLACK_FRONTEND_URL="${DEMO_BASE_URL}/slack/?api=${BACKEND_URL}"
 
 cleanup_services() {
     local exit_code=$?
@@ -163,15 +161,24 @@ activate_venv() {
 
 prompt_frontends() {
     local default_selection="$1"
-    local default_numeric="5"
+    local default_numeric="3"
 
     if [ "${default_selection}" = "none" ]; then
-        default_numeric="6"
+        default_numeric="4"
     fi
 
     if [ -n "${NOUPE_FRONTENDS:-}" ]; then
-        FRONTEND_SELECTION="${NOUPE_FRONTENDS}"
-        return
+        case "${NOUPE_FRONTENDS}" in
+            legacy|chat|all|none)
+                FRONTEND_SELECTION="${NOUPE_FRONTENDS}"
+                return
+                ;;
+            *)
+                echo "❌ Invalid NOUPE_FRONTENDS value: ${NOUPE_FRONTENDS}"
+                echo "   Valid values: legacy | chat | all | none"
+                exit 1
+                ;;
+        esac
     fi
 
     if [ ! -t 0 ]; then
@@ -183,21 +190,17 @@ prompt_frontends() {
     echo "Which frontend(s) should open after the backend is ready?"
     echo "  1) Legacy analyzer only (${LEGACY_FRONTEND_URL})"
     echo "  2) Chat demo only (${CHAT_FRONTEND_URL})"
-    echo "  3) Email demo only (${EMAIL_FRONTEND_URL})"
-    echo "  4) Slack demo only (${SLACK_FRONTEND_URL})"
-    echo "  5) All frontends"
-    echo "  6) Backend only (do not open a frontend)"
+    echo "  3) All frontends"
+    echo "  4) Backend only (do not open a frontend)"
     printf "Selection [%s]: " "${default_numeric}"
     read -r selection
 
     case "${selection:-${default_numeric}}" in
         1) FRONTEND_SELECTION="legacy" ;;
         2) FRONTEND_SELECTION="chat" ;;
-        3) FRONTEND_SELECTION="email" ;;
-        4) FRONTEND_SELECTION="slack" ;;
-        5) FRONTEND_SELECTION="all" ;;
-        6) FRONTEND_SELECTION="none" ;;
-        legacy|chat|email|slack|all|none|both) FRONTEND_SELECTION="${selection}" ;;
+        3) FRONTEND_SELECTION="all" ;;
+        4) FRONTEND_SELECTION="none" ;;
+        legacy|chat|all|none) FRONTEND_SELECTION="${selection}" ;;
         *)
             echo "⚠️  Unrecognized selection. Defaulting to ${default_selection}."
             FRONTEND_SELECTION="${default_selection}"
@@ -212,12 +215,6 @@ selection_includes() {
         all)
             return 0
             ;;
-        both)
-            case "${surface}" in
-                legacy|chat) return 0 ;;
-            esac
-            return 1
-            ;;
         "${surface}")
             return 0
             ;;
@@ -229,7 +226,7 @@ selection_includes() {
 
 selection_requires_demo_server() {
     case "${FRONTEND_SELECTION}" in
-        legacy|chat|email|slack|all|both) return 0 ;;
+        legacy|chat|all) return 0 ;;
         *) return 1 ;;
     esac
 }
@@ -259,14 +256,6 @@ open_selected_frontends() {
         echo "🌐 Opening chat demo..."
         open_url "${CHAT_FRONTEND_URL}"
     fi
-    if selection_includes "email"; then
-        echo "🌐 Opening email demo..."
-        open_url "${EMAIL_FRONTEND_URL}"
-    fi
-    if selection_includes "slack"; then
-        echo "🌐 Opening slack demo..."
-        open_url "${SLACK_FRONTEND_URL}"
-    fi
 }
 
 print_selected_frontends() {
@@ -275,12 +264,6 @@ print_selected_frontends() {
     fi
     if selection_includes "chat"; then
         echo "   Chat demo: ${CHAT_FRONTEND_URL}"
-    fi
-    if selection_includes "email"; then
-        echo "   Email demo: ${EMAIL_FRONTEND_URL}"
-    fi
-    if selection_includes "slack"; then
-        echo "   Slack demo: ${SLACK_FRONTEND_URL}"
     fi
 }
 

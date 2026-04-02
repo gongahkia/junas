@@ -23,7 +23,7 @@
 ## Archived Demo Surfaces
 
 - Archived frontend demos now live under `archive/frontend-demos/`
-- Active backend runtime no longer mounts `/chat`, `/email`, or `/slack`
+- Active backend runtime does not mount demo UI routes directly
 - Demo launch is handled by `scripts/launch/run_dev.sh` and `scripts/launch/run_prod.sh`
 - The canonical backend-only run path is `scripts/launch/run_backend_only.sh`
 

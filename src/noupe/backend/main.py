@@ -88,7 +88,7 @@ Key behaviors:
   in-process concurrency while preserving result order.
 - `include_offending_spans=true` adds exact lexicon spans and approximate
   classifier-window spans when the final response is `LOW_RISK` or `HIGH_RISK`.
-- The active runtime is API-only; the legacy/chat/email/slack demo surfaces
+- The active runtime is API-only; the legacy/chat demo surfaces
   live under `archive/frontend-demos/` and are launched by
   `scripts/launch/run_dev.sh` or `scripts/launch/run_prod.sh`.
 - `GET /ready` and `GET /diagnostics` expose degraded startup, lazy-layer warming, and dependency state.

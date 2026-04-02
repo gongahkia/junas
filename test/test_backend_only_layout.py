@@ -21,7 +21,7 @@ main.app.router.lifespan_context = _noop_lifespan
 class BackendOnlyLayoutTests(unittest.TestCase):
     def test_frontend_routes_are_not_mounted(self):
         with TestClient(main.app) as client:
-            for path in ("/chat/", "/email/", "/slack/"):
+            for path in ("/legacy/", "/chat/"):
                 response = client.get(path)
                 self.assertEqual(response.status_code, 404)
 
@@ -29,8 +29,6 @@ class BackendOnlyLayoutTests(unittest.TestCase):
         expected_paths = [
             ROOT / "archive" / "frontend-demos" / "legacy" / "index.html",
             ROOT / "archive" / "frontend-demos" / "chat" / "index.html",
-            ROOT / "archive" / "frontend-demos" / "email" / "index.html",
-            ROOT / "archive" / "frontend-demos" / "slack" / "index.html",
         ]
         for path in expected_paths:
             self.assertTrue(path.exists(), f"missing archived demo asset: {path}")

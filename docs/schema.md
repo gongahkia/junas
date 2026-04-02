@@ -28,6 +28,12 @@ python3 scripts/validate_training_data.py docs/json/batch*.json
 
 ## API — `POST /classify`
 
+Python integration surfaces for this contract:
+
+- `NoupeClient`: synchronous wrapper over the HTTP API
+- `AsyncNoupeClient`: asynchronous wrapper over the same HTTP API
+- usage and run instructions: `docs/api/python_client.md`
+
 Request:
 
 ```json

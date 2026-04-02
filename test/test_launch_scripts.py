@@ -92,11 +92,11 @@ class LaunchScriptSmokeTests(unittest.TestCase):
         finally:
             self._stop_script(proc)
 
-    def test_run_prod_starts_backend_and_legacy_demo_server(self):
-        proc, backend_port, demo_port = self._start_script("run_prod.sh", frontends="legacy")
+    def test_run_prod_starts_backend_and_chat_demo_server(self):
+        proc, backend_port, demo_port = self._start_script("run_prod.sh", frontends="chat")
         try:
             ready_payload = wait_for_url(f"http://127.0.0.1:{backend_port}/ready", proc, timeout=60.0)
-            demo_html = wait_for_url(f"http://127.0.0.1:{demo_port}/legacy/", proc, timeout=60.0)
+            demo_html = wait_for_url(f"http://127.0.0.1:{demo_port}/chat/", proc, timeout=60.0)
             self.assertIn('"ready":true', ready_payload.replace(" ", "").lower())
             self.assertIn("<!doctype html>", demo_html.lower())
             self.assertIn("noupe", demo_html.lower())

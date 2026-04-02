@@ -120,14 +120,12 @@ Frontend choices:
 
 - legacy analyzer only: `http://localhost:8081/legacy/?api=http://localhost:8000`
 - chat demo only: `http://localhost:8081/chat/?api=http://localhost:8000`
-- email demo only: `http://localhost:8081/email/?api=http://localhost:8000`
-- slack demo only: `http://localhost:8081/slack/?api=http://localhost:8000`
 - all frontends
 - backend only
 
 Useful launcher env vars:
 
-- `NOUPE_FRONTENDS=legacy|chat|email|slack|all|none`
+- `NOUPE_FRONTENDS=legacy|chat|all|none`
 - `PIPELINE_LAYERS=lexicon,embedding,...` to skip the layer prompt and force a specific pipeline
 - `NOUPE_PORT` (default `8000`)
 - `NOUPE_FRONTEND_DEMO_PORT` (default `8081`)
@@ -277,22 +275,6 @@ Chat demo UI:
 - Requests `include_offending_spans=true` and surfaces localization, timing, cache, and request-id details inside the guard modal
 - `LOW_RISK` triggers a warning with override, `HIGH_RISK` is blocked
 
-Email demo UI:
-
-- `http://localhost:8081/email/?api=http://localhost:8000`
-- Outlook-inspired mock compose surface that screens `subject + body` on send
-- DOCX uploads are screened when attached and rejected if `HIGH_RISK`
-- Requests `include_offending_spans=true` and surfaces localization, timing, cache, and request-id details inside the guard modal
-- `LOW_RISK` triggers a warning with override, `HIGH_RISK` is blocked
-
-Slack demo UI:
-
-- `http://localhost:8081/slack/?api=http://localhost:8000`
-- Slack-inspired mock channel surface that screens the composed message on send
-- DOCX uploads are screened before they are posted to the channel
-- Requests `include_offending_spans=true` and surfaces localization, timing, cache, and request-id details inside the guard modal
-- `LOW_RISK` triggers a warning with override, `HIGH_RISK` is blocked
-
 Legacy analyzer UI:
 
 - `http://localhost:8081/legacy/?api=http://localhost:8000`
@@ -307,6 +289,39 @@ curl -X POST http://localhost:8000/classify/batch \
   -d '{"items":[{"text":"Company A earnings leak"},{"text":"Public press release", "debug": false}]}'
 ```
 
+Python client:
+
+```python
+from noupe import NoupeClient
+
+with NoupeClient("http://localhost:8000") as client:
+    result = client.classify(
+        text="Acme Corp is acquiring GlobalTech for $2.5 billion next quarter.",
+        entity_id="acme-corp",
+        include_offending_spans=True,
+    )
+
+    print(result.classification)
+    print(result.timings_ms)
+    print(result.model_dump())
+```
+
+The clients are implemented at `src/noupe/client.py`. `NoupeClient` is synchronous, `AsyncNoupeClient` is asynchronous, and both call the same backend endpoints. Full usage is documented in `docs/api/python_client.md`.
+
+Run the included example scripts:
+
+```sh
+python scripts/examples/sync_client_example.py \
+  "Acme Corp is acquiring GlobalTech for $2.5 billion next quarter." \
+  --include-offending-spans
+
+python scripts/examples/async_client_example.py \
+  "Acme Corp is acquiring GlobalTech for $2.5 billion next quarter." \
+  --include-offending-spans
+```
+
+Use the sync client when the caller is ordinary blocking Python. Use the async client when the caller already runs under `asyncio` and should avoid blocking the event loop.
+
 ## Production Profile
 
 Use the production launcher (no autoreload, multi-worker):
@@ -319,14 +334,14 @@ Use the production launcher (no autoreload, multi-worker):
 
 - always runs strict preflight checks
 - does not prompt for pipeline layers
-- still asks which surface(s) to open: legacy analyzer, chat demo, email demo, slack demo, all, or backend only
+- still asks which surface(s) to open: legacy analyzer, chat demo, all, or backend only
 - starts the backend in multi-worker mode
 - waits for `GET /ready` before opening any selected frontend
 - provisions `PROMETHEUS_MULTIPROC_DIR` automatically so `/metrics` aggregates across workers
 
 Useful production launcher env vars:
 
-- `NOUPE_FRONTENDS=legacy|chat|email|slack|all|none`
+- `NOUPE_FRONTENDS=legacy|chat|all|none`
 - `NOUPE_HOST` (default `0.0.0.0`)
 - `NOUPE_PORT` (default `8000`)
 - `NOUPE_UVICORN_WORKERS` (default `2`)
@@ -358,7 +373,7 @@ If you only need a minimal local server without trained artifacts, you can run l
 PIPELINE_LAYERS=lexicon uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-The legacy analyzer and the chat/email/slack demos now live under `archive/frontend-demos/` and are served by the launch scripts from a separate static file server.
+The legacy analyzer and the chat demo now live under `archive/frontend-demos/` and are served by the launch scripts from a separate static file server.
 
 Useful env vars:
 
