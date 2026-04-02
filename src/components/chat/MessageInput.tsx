@@ -51,40 +51,21 @@ export function MessageInput({
     if (!file) return;
     try {
       const { parsePdf, parseDocx } = await import('@/lib/tauri-bridge');
-      const path = (file as File & { path?: string }).path || file.name; // Tauri provides .path on File objects
       let doc: ParsedDocument;
       if (file.name.toLowerCase().endsWith('.pdf')) {
-        if (!isTauriRuntime()) {
-          doc = {
-            filename: file.name,
-            text: 'PDF parsing is only available in the desktop app. Use the Tauri build for full document parsing.',
-            page_count: 0,
-            char_count: 0,
-          };
-        } else {
-          doc = await parsePdf(path);
-        }
+        const input = isTauriRuntime() ? ((file as File & { path?: string }).path || file.name) : file;
+        doc = await parsePdf(input);
       } else if (file.name.toLowerCase().endsWith('.docx')) {
-        if (!isTauriRuntime()) {
-          doc = {
-            filename: file.name,
-            text: 'DOCX parsing is only available in the desktop app. Use the Tauri build for full document parsing.',
-            page_count: 0,
-            char_count: 0,
-          };
-        } else {
-          doc = await parseDocx(path);
-        }
+        const input = isTauriRuntime() ? ((file as File & { path?: string }).path || file.name) : file;
+        doc = await parseDocx(input);
       } else {
-        // plain text fallback
-        const text = await file.text();
+        const text = await file.text(); // plain text fallback
         doc = { filename: file.name, text, page_count: 1, char_count: text.length };
       }
       setAttachedDoc(doc);
     } catch (err: any) {
       console.error('Document parse error:', err);
     }
-    // reset file input
     if (fileInputRef.current) fileInputRef.current.value = '';
   }, []);
 
