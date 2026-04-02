@@ -1,0 +1,77 @@
+"use client";
+import { useMemo } from "react";
+
+export interface CommandDef {
+  id: string;
+  label: string;
+  description: string;
+  category: string;
+}
+
+export const COMMANDS: CommandDef[] = [
+  { id: "search-case-law", label: "Search Case Law", description: "Search legal databases for case law", category: "Research" },
+  { id: "research-statute", label: "Research Statute", description: "Look up statutory provisions", category: "Research" },
+  { id: "analyze-contract", label: "Analyze Contract", description: "Extract key terms and risks from a contract", category: "Analysis" },
+  { id: "summarize-document", label: "Summarize Document", description: "AI-powered document summary", category: "Analysis" },
+  { id: "extract-entities", label: "Extract Entities", description: "Identify persons, organizations, dates, citations", category: "Analysis" },
+  { id: "analyze-document", label: "Analyze Document", description: "Statistics, readability, and structure analysis", category: "Analysis" },
+  { id: "draft-clause", label: "Draft Clause", description: "Generate a legal clause for a specific purpose", category: "Drafting" },
+  { id: "check-compliance", label: "Check Compliance", description: "Verify document against compliance rules", category: "Analysis" },
+  { id: "due-diligence-review", label: "Due Diligence Review", description: "Legal due diligence checklist", category: "Analysis" },
+  { id: "use-template", label: "Use Template", description: "Open the template library", category: "Drafting" },
+  { id: "redline", label: "Redline Compare", description: "Compare two versions of a document", category: "Tools" },
+];
+
+const normalizeQuery = (value: string) => value.trim().toLowerCase();
+
+export const filterCommands = (query: string, commands: CommandDef[] = COMMANDS) => {
+  const normalized = normalizeQuery(query);
+  if (!normalized) return commands;
+
+  return commands.filter((command) => {
+    const haystacks = [command.id, command.label, command.description, command.category];
+    return haystacks.some((field) => field.toLowerCase().includes(normalized));
+  });
+};
+
+interface Props {
+  query: string;
+  onSelect: (commandId: string) => void;
+  isOpen: boolean;
+  selectedIndex: number;
+}
+
+export default function CommandSuggestions({ query, onSelect, isOpen, selectedIndex }: Props) {
+  const matches = useMemo(() => {
+    return filterCommands(query);
+  }, [query]);
+
+  if (!isOpen) return null;
+
+  const selectedMatchIndex = matches.length === 0 ? -1 : Math.min(selectedIndex, matches.length - 1);
+
+  return (
+    <div style={{ position: "absolute", bottom: "100%", left: 0, right: 0, marginBottom: "0.25rem", background: "#fff", border: "1px solid #cbd5e1", borderRadius: "0.5rem", boxShadow: "0 4px 12px rgba(0,0,0,0.1)", maxHeight: "240px", overflowY: "auto", zIndex: 50 }}>
+      {matches.length === 0 ? (
+        <div style={{ padding: "0.75rem 0.6rem", color: "#64748b", fontSize: "0.8rem" }}>
+          No matching commands
+        </div>
+      ) : null}
+      {matches.map((cmd, i) => (
+        <div
+          key={cmd.id}
+          onClick={() => onSelect(cmd.id)}
+          style={{
+            padding: "0.4rem 0.6rem", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.5rem",
+            background: i === selectedMatchIndex ? "#dbeafe" : "transparent",
+            borderBottom: i < matches.length - 1 ? "1px solid #f1f5f9" : "none",
+          }}
+        >
+          <span style={{ fontFamily: "monospace", fontSize: "0.8rem", fontWeight: 600, color: "#1d4ed8" }}>/{cmd.id}</span>
+          <span style={{ fontSize: "0.8rem", color: "#475569" }}>{cmd.description}</span>
+          <span style={{ marginLeft: "auto", fontSize: "0.65rem", color: "#94a3b8", fontWeight: 600 }}>{cmd.category}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
