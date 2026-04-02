@@ -1,49 +1,41 @@
 /**
- * Migration utility to transfer API keys from localStorage to session storage
- * This ensures users don't lose their configured keys after the security upgrade
+ * Migration utility for legacy browser key storage.
+ * Moves old bundled key payloads into per-provider keys used by the current runtime adapters.
  */
+import { isTauriRuntime } from '@/lib/runtime';
+
+const WEB_KEY_PREFIX = 'junas_web_api_key_';
 
 export async function migrateApiKeysToSession(): Promise<boolean> {
   try {
-    // Desktop app uses OS keychain via Tauri commands, so web session migration is not applicable.
-    if (typeof window !== 'undefined' && (window as any).__TAURI_INTERNALS__) {
+    // Desktop app uses OS keychain via Tauri commands.
+    if (isTauriRuntime()) {
       localStorage.setItem('junas_keys_migrated', 'true');
       return true;
     }
 
-    // Check if already migrated
+    // Browser mode migration: move legacy key bundle into per-provider browser keys.
     const migrated = localStorage.getItem('junas_keys_migrated');
     if (migrated === 'true') {
       return true;
     }
 
-    // Try to get old API keys from localStorage
     const oldKeysStr = localStorage.getItem('junas_api_keys');
     if (!oldKeysStr) {
-      // No old keys to migrate
       localStorage.setItem('junas_keys_migrated', 'true');
       return true;
     }
 
     try {
-      const oldKeys = JSON.parse(oldKeysStr);
-
-      // Send keys to session storage
-      const response = await fetch('/api/auth/keys', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(oldKeys),
-      });
-
-      if (response.ok) {
-        // Migration successful - remove old keys and mark as migrated
-        localStorage.removeItem('junas_api_keys');
-        localStorage.setItem('junas_keys_migrated', 'true');
-        return true;
-      } else {
-        console.error('Failed to migrate API keys to session');
-        return false;
+      const oldKeys = JSON.parse(oldKeysStr) as Record<string, unknown>;
+      for (const [provider, key] of Object.entries(oldKeys)) {
+        if (typeof key === 'string' && key.trim().length > 0) {
+          localStorage.setItem(`${WEB_KEY_PREFIX}${provider}`, key.trim());
+        }
       }
+      localStorage.removeItem('junas_api_keys');
+      localStorage.setItem('junas_keys_migrated', 'true');
+      return true;
     } catch (error) {
       console.error('Error parsing old API keys:', error);
       return false;
@@ -58,7 +50,7 @@ export async function migrateApiKeysToSession(): Promise<boolean> {
  * Check if migration is needed
  */
 export function needsMigration(): boolean {
-  if (typeof window !== 'undefined' && (window as any).__TAURI_INTERNALS__) {
+  if (isTauriRuntime()) {
     return false;
   }
 
