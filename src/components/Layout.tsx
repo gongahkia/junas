@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ToastProvider } from '@/components/ui/toast';
 import { migrateApiKeysToSession } from '@/lib/migrate-keys';
+import { isTauriRuntime } from '@/lib/runtime';
 import { MobileMenu } from './MobileMenu';
 
 interface LayoutProps {
@@ -29,6 +30,7 @@ export function Layout({
   onHistory,
 }: LayoutProps) {
   const [mounted, setMounted] = useState(false);
+  const isWebMode = !isTauriRuntime();
 
   useEffect(() => {
     setMounted(true);
@@ -152,6 +154,15 @@ export function Layout({
               </div>
             </div>
           </header>
+        )}
+
+        {!focusMode && isWebMode && (
+          <div className="shrink-0 border-b bg-amber-50 text-amber-900 dark:bg-amber-950/30 dark:text-amber-100">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 py-2 text-[11px] md:text-xs font-mono">
+              [ Web Mode ] Browser adapters are active. Desktop-only capabilities like local model
+              downloads and native PDF/DOCX parsing are limited.
+            </div>
+          </div>
         )}
 
         {/* Main content */}
