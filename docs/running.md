@@ -216,6 +216,36 @@ curl -X POST http://localhost:8000/classify \
 
 API docs auto-served at `http://localhost:8000/docs` (Swagger) and `http://localhost:8000/redoc`.
 
+## Request Tracing By `X-Request-ID`
+
+When you need to debug one request end-to-end, run the backend through `tee` so logs are persisted:
+
+```sh
+./scripts/launch/run_backend_only.sh | tee reports/backend.log
+```
+
+Send a classify request and capture response headers:
+
+```sh
+curl -sS -D /tmp/noupe-headers.txt -o /tmp/noupe-body.json \
+  -X POST http://localhost:8000/classify \
+  -H "Content-Type: application/json" \
+  -d '{"text":"Acme Corp is acquiring GlobalTech for $2.5 billion"}'
+```
+
+Extract the request id and follow only matching log lines:
+
+```sh
+REQUEST_ID="$(grep -i '^x-request-id:' /tmp/noupe-headers.txt | awk '{print $2}' | tr -d '\r')"
+./scripts/trace_request_logs.sh --log-file reports/backend.log --request-id "${REQUEST_ID}"
+```
+
+One-shot view (no follow):
+
+```sh
+./scripts/trace_request_logs.sh --log-file reports/backend.log --request-id "${REQUEST_ID}" --no-follow
+```
+
 Swagger/OpenAPI now documents:
 
 - the backend-only runtime and archived-demo split
