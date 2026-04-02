@@ -21,6 +21,7 @@ const DEFAULT_SETTINGS: ChatSettings = {
 };
 let cachedSettings: ChatSettings | null = null; // in-memory cache for sync access
 let cachedChatState: ChatState | null = null;
+let cachedConversationsList: Conversation[] = [];
 export class StorageManager {
   static getChatState(): ChatState | null {
     return cachedChatState;
@@ -47,8 +48,8 @@ export class StorageManager {
     }
   }
   static getConversations(): Conversation[] {
-    return [];
-  } // async wrapper needed; sync stub
+    return cachedConversationsList;
+  }
   static async getConversationsAsync(): Promise<
     { id: string; title: string; createdAt: string; updatedAt: string }[]
   > {
@@ -69,7 +70,11 @@ export class StorageManager {
       })
     );
 
-    return metadata.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+    const sorted = metadata.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+    // hydrate sync cache
+    const loaded = await Promise.all(sorted.map((m) => this.loadConversationById(m.id)));
+    cachedConversationsList = loaded.filter((c): c is Conversation => c !== null);
+    return sorted;
   }
   static async loadConversationById(id: string): Promise<Conversation | null> {
     const raw = await fs.loadConversation(id);
@@ -104,15 +109,23 @@ export class StorageManager {
     } as Conversation;
   }
   static saveConversation(conversation: Conversation): void {
+    const idx = cachedConversationsList.findIndex((c) => c.id === conversation.id);
+    if (idx >= 0) cachedConversationsList[idx] = conversation;
+    else cachedConversationsList.unshift(conversation);
     fs.saveConversation(conversation.id, {
       ...conversation,
       updatedAt: new Date().toISOString(),
     }).catch(console.error);
   }
   static deleteConversation(id: string): void {
+    cachedConversationsList = cachedConversationsList.filter((c) => c.id !== id);
     fs.deleteConversation(id).catch(console.error);
   }
-  static clearConversations(): void {} // no-op; individual deletes preferred
+  static clearConversations(): void {
+    const ids = cachedConversationsList.map((c) => c.id);
+    cachedConversationsList = [];
+    for (const id of ids) fs.deleteConversation(id).catch(console.error);
+  }
   static clearAllData(): void {
     cachedSettings = null;
     cachedChatState = null;
