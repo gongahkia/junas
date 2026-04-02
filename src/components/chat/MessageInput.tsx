@@ -3,8 +3,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { InlineProviderSelector } from './InlineProviderSelector';
 import { CommandSuggestions } from './CommandSuggestions';
 import { DocumentPreview } from './DocumentPreview';
-import { COMMANDS } from '@/lib/commands/definitions';
-import Fuse from 'fuse.js';
+import {
+  createCommandSearch,
+  getAvailableCommands,
+  getCommandMatches,
+} from '@/lib/commands/search';
 import { Book, Paperclip } from 'lucide-react';
 import { StorageManager } from '@/lib/storage';
 import { Snippet } from '@/types/chat';
@@ -71,19 +74,11 @@ export function MessageInput({
   const [commandQuery, setCommandQuery] = useState('');
   const [suggestionIndex, setSuggestionIndex] = useState(0);
   const [onnxAvailable, setOnnxAvailable] = useState(true);
-  const availableCommands = useMemo(
-    () => COMMANDS.filter((command) => onnxAvailable || !command.requiresOnnx),
-    [onnxAvailable]
+  const availableCommands = useMemo(() => getAvailableCommands(onnxAvailable), [onnxAvailable]);
+  const commandSearchIndex = useMemo(
+    () => createCommandSearch(availableCommands),
+    [availableCommands]
   );
-
-  // Fuse instance for matching logic in handleKeyDown
-  const fuse = useMemo(() => {
-    return new Fuse(availableCommands, {
-      keys: ['id', 'description', 'label'],
-      threshold: 0.4,
-      distance: 100,
-    });
-  }, [availableCommands]);
 
   useEffect(() => {
     setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
@@ -190,10 +185,14 @@ export function MessageInput({
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (showSuggestions) {
-        // Calculate matches to know the count for clamping
-        const matches = commandQuery
-          ? fuse.search(commandQuery).map((r) => r.item)
-          : availableCommands;
+        const matches = getCommandMatches(commandQuery, availableCommands, commandSearchIndex);
+        if (matches.length === 0) {
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            setShowSuggestions(false);
+          }
+          return;
+        }
 
         if (e.key === 'ArrowDown') {
           e.preventDefault();
@@ -254,8 +253,8 @@ export function MessageInput({
       showSuggestions,
       suggestionIndex,
       commandQuery,
-      fuse,
       availableCommands,
+      commandSearchIndex,
       history,
       historyIndex,
       draft,
