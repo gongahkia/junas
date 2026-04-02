@@ -8,13 +8,14 @@ import { AboutDialog } from '@/components/AboutDialog';
 import { HistoryDialog } from '@/components/chat/HistoryDialog';
 import { CommandPalette } from '@/components/chat/CommandPalette';
 import { StorageManager } from '@/lib/storage';
-import { Message, Conversation } from '@/types/chat';
+import { Conversation } from '@/types/chat';
 import IntroAnimation from '@/components/IntroAnimation';
 import { OnboardingWizard } from '@/components/OnboardingWizard';
 import { TemplateLibrary } from '@/components/TemplateLibrary';
 import { ComplianceDashboard } from '@/components/ComplianceDashboard';
 import { ClauseLibrary } from '@/components/ClauseLibrary';
 import { RedlineView } from '@/components/chat/RedlineView';
+import { WINDOW_EVENTS } from '@/lib/events';
 
 import { useJunasContext } from '@/lib/context/JunasContext';
 
@@ -50,15 +51,15 @@ export default function Home() {
     const openRedline = () => setShowRedline(true);
     const openCompliance = () => setShowComplianceDashboard(true);
     const openClauses = () => setShowClauseLibrary(true);
-    window.addEventListener('junas-open-templates', openTemplates);
-    window.addEventListener('junas-open-redline', openRedline);
-    window.addEventListener('junas-open-compliance', openCompliance);
-    window.addEventListener('junas-open-clauses', openClauses);
+    window.addEventListener(WINDOW_EVENTS.openTemplates, openTemplates);
+    window.addEventListener(WINDOW_EVENTS.openRedline, openRedline);
+    window.addEventListener(WINDOW_EVENTS.openCompliance, openCompliance);
+    window.addEventListener(WINDOW_EVENTS.openClauses, openClauses);
     return () => {
-      window.removeEventListener('junas-open-templates', openTemplates);
-      window.removeEventListener('junas-open-redline', openRedline);
-      window.removeEventListener('junas-open-compliance', openCompliance);
-      window.removeEventListener('junas-open-clauses', openClauses);
+      window.removeEventListener(WINDOW_EVENTS.openTemplates, openTemplates);
+      window.removeEventListener(WINDOW_EVENTS.openRedline, openRedline);
+      window.removeEventListener(WINDOW_EVENTS.openCompliance, openCompliance);
+      window.removeEventListener(WINDOW_EVENTS.openClauses, openClauses);
     };
   }, []);
 
@@ -105,7 +106,7 @@ export default function Home() {
       messages: conversation.messages,
       artifacts: conversation.artifacts || [],
       isLoading: false,
-      currentProvider: 'gemini',
+      currentProvider: chatState?.currentProvider || 'gemini',
       settings: settings,
     });
   };
