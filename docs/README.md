@@ -8,4 +8,5 @@ This folder contains operator and developer documentation.
 - `architecture.md`: pipeline architecture overview
 - `assumption.md`: implementation assumptions and invariants
 - `backend_only_audit.md`: backend-only repository audit notes
+- `api/`: generated Postman collection and cURL snippets from OpenAPI
 - `json/`: example training corpus batches

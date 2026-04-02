@@ -1,0 +1,164 @@
+{
+  "info": {
+    "name": "Noupe API (Generated from OpenAPI)",
+    "description": "Generated from backend.main:app OpenAPI contract.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "noupeApiKey",
+      "value": "dev-secret"
+    }
+  ],
+  "item": [
+    {
+      "name": "POST /classify",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "X-API-Key",
+            "value": "{{noupeApiKey}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/classify",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "classify"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"debug\": false,\n  \"entity_id\": \"Acme Corp\",\n  \"include_offending_spans\": true,\n  \"text\": \"Acme Corp is acquiring GlobalTech for $2.5 billion next quarter.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "description": "Classify one document"
+    },
+    {
+      "name": "POST /classify/batch",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "X-API-Key",
+            "value": "{{noupeApiKey}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/classify/batch",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "classify",
+            "batch"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"items\": [\n    {\n      \"include_offending_spans\": true,\n      \"text\": \"Acme Corp is acquiring GlobalTech for $2.5 billion next quarter.\"\n    },\n    {\n      \"debug\": false,\n      \"text\": \"Public press release for next week's earnings call.\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "description": "Classify multiple documents"
+    },
+    {
+      "name": "GET /diagnostics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/diagnostics",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "diagnostics"
+          ]
+        }
+      },
+      "response": [],
+      "description": "Get runtime diagnostics"
+    },
+    {
+      "name": "GET /health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "response": [],
+      "description": "Get layer load health"
+    },
+    {
+      "name": "GET /metrics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/metrics",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "metrics"
+          ]
+        }
+      },
+      "response": [],
+      "description": "Get Prometheus metrics"
+    },
+    {
+      "name": "GET /ready",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/ready",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "ready"
+          ]
+        }
+      },
+      "response": [],
+      "description": "Get backend readiness"
+    }
+  ]
+}
