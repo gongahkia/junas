@@ -14,6 +14,7 @@ import { Snippet } from '@/types/chat';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { isOnnxRuntimeAvailable } from '@/lib/ml/model-manager';
 import type { ParsedDocument } from '@/lib/tauri-bridge';
+import { isTauriRuntime } from '@/lib/runtime';
 
 interface MessageInputProps {
   onSendMessage: (content: string) => void;
@@ -50,12 +51,30 @@ export function MessageInput({
     if (!file) return;
     try {
       const { parsePdf, parseDocx } = await import('@/lib/tauri-bridge');
-      const path = (file as any).path || file.name; // Tauri provides .path on File objects
+      const path = (file as File & { path?: string }).path || file.name; // Tauri provides .path on File objects
       let doc: ParsedDocument;
       if (file.name.toLowerCase().endsWith('.pdf')) {
-        doc = await parsePdf(path);
+        if (!isTauriRuntime()) {
+          doc = {
+            filename: file.name,
+            text: 'PDF parsing is only available in the desktop app. Use the Tauri build for full document parsing.',
+            page_count: 0,
+            char_count: 0,
+          };
+        } else {
+          doc = await parsePdf(path);
+        }
       } else if (file.name.toLowerCase().endsWith('.docx')) {
-        doc = await parseDocx(path);
+        if (!isTauriRuntime()) {
+          doc = {
+            filename: file.name,
+            text: 'DOCX parsing is only available in the desktop app. Use the Tauri build for full document parsing.',
+            page_count: 0,
+            char_count: 0,
+          };
+        } else {
+          doc = await parseDocx(path);
+        }
       } else {
         // plain text fallback
         const text = await file.text();
