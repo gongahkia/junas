@@ -1,5 +1,5 @@
-import { invoke } from '@tauri-apps/api/core';
 import { toErrorWithCode } from '@/lib/tauri-error';
+import { isTauriRuntime } from '@/lib/runtime';
 
 export interface NerEntity {
   entity: string;
@@ -22,8 +22,21 @@ export interface ModelCacheStatus {
   sha256?: string | null;
 }
 
+function createUnsupportedRuntimeError(feature: string): Error & { code: string } {
+  const error = new Error(`${feature} requires the Tauri desktop runtime.`) as Error & {
+    code: string;
+  };
+  error.code = 'UNSUPPORTED_RUNTIME';
+  return error;
+}
+
 async function invokeWithAppError<T>(command: string, args: Record<string, unknown>): Promise<T> {
+  if (!isTauriRuntime()) {
+    throw createUnsupportedRuntimeError(`Command "${command}"`);
+  }
+
   try {
+    const { invoke } = await import('@tauri-apps/api/core');
     return await invoke<T>(command, args);
   } catch (error) {
     throw toErrorWithCode(error);
