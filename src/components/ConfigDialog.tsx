@@ -42,6 +42,7 @@ import {
 import { useJunasContext } from '@/lib/context/JunasContext';
 import { ASCII_LOGOS } from '@/lib/ascii-logos';
 import { toActionableToastDescription } from '@/lib/tauri-error';
+import { WINDOW_EVENTS, isOpenConfigDialogEvent, type ConfigDialogTab } from '@/lib/events';
 import { z } from 'zod';
 
 interface ConfigDialogProps {
@@ -86,15 +87,7 @@ const TomlSettingsSchema = z
   })
   .passthrough();
 
-type Tab =
-  | 'profile'
-  | 'generation'
-  | 'localModels'
-  | 'providers'
-  | 'tools'
-  | 'snippets'
-  | 'interface'
-  | 'developer';
+type Tab = ConfigDialogTab;
 
 export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   const { settings, updateSettings } = useJunasContext();
@@ -103,13 +96,13 @@ export function ConfigDialog({ isOpen, onClose }: ConfigDialogProps) {
   // Listen for custom event to open Providers tab
   // Keeping this for now as it might be triggered from other non-React parts or simple commands
   useEffect(() => {
-    const handler = (e: any) => {
-      if (e.detail && e.detail.tab) {
-        setActiveTab(e.detail.tab);
+    const handler = (event: Event) => {
+      if (isOpenConfigDialogEvent(event)) {
+        setActiveTab(event.detail.tab);
       }
     };
-    window.addEventListener('open-config-dialog', handler);
-    return () => window.removeEventListener('open-config-dialog', handler);
+    window.addEventListener(WINDOW_EVENTS.openConfigDialog, handler);
+    return () => window.removeEventListener(WINDOW_EVENTS.openConfigDialog, handler);
   }, []);
 
   // Profile state
