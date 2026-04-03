@@ -30,7 +30,7 @@ function renderMetricValue(value: number | undefined): string {
 }
 
 export default async function SearchMetricsPage() {
-  const metrics = await getSearchMetrics();
+  const metrics = (await getSearchMetrics()) as MetricsResponse | null;
   const latestOpenlex = metrics?.latest?.junas?.three_stage;
 
   return (

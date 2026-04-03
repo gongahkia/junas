@@ -49,11 +49,14 @@ export default async function StatutesPage({
   const perPage = Number(searchParams?.per_page ?? "20") || 20;
 
   const isSg = jurisdiction === "sg";
-  const [search, chapters, sgResults] = await Promise.all([
+  const [searchRaw, chaptersRaw, sgResultsRaw] = await Promise.all([
     isSg ? Promise.resolve({ total: 0, results: [] }) : q.trim() ? searchStatutes(q, chapter, mode, page, perPage) : Promise.resolve({ total: 0, results: [] }),
     isSg ? Promise.resolve({ chapters: [] }) : listStatuteChapters(),
     isSg && q.trim() ? searchSSO(q) : Promise.resolve([]),
   ]);
+  const search = searchRaw as StatuteSearchResponse;
+  const chapters = chaptersRaw as ChaptersResponse;
+  const sgResults = sgResultsRaw as SgResult[];
 
   return (
     <section className="statute-grid">
@@ -89,7 +92,7 @@ export default async function StatutesPage({
           <>
             <h3>Singapore Statutes ({sgResults.length})</h3>
             <ul className="results-list">
-              {sgResults.map((row, i) => (
+              {sgResults.map((row: SgResult, i: number) => (
                 <li key={i} className="result-card">
                   <div className="result-header">
                     <a href={row.url} target="_blank" rel="noopener noreferrer"><strong>{row.title}</strong></a>
@@ -104,7 +107,7 @@ export default async function StatutesPage({
           <>
             <h3>Results ({search.total})</h3>
             <ul className="results-list">
-              {search.results.map((row) => (
+              {search.results.map((row: StatuteResult) => (
                 <li key={`${row.number}-${row.search_mode}`} className="result-card">
                   <div className="result-header">
                     <Link href={`/statutes/section/${encodeURIComponent(row.number)}`}><strong>{row.number}</strong></Link>
@@ -123,7 +126,7 @@ export default async function StatutesPage({
       <aside>
         <h3>Chapters</h3>
         <ul className="chapter-list">
-          {chapters.chapters.map((item) => (
+          {chapters.chapters.map((item: ChapterItem) => (
             <li key={item.chapter_number}>
               <Link href={`/statutes/chapter/${encodeURIComponent(item.chapter_number)}`}>
                 {item.chapter_number}

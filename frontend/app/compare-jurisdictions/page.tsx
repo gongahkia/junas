@@ -26,14 +26,14 @@ export default function CompareJurisdictionsPage() {
     try {
       if (mode === "clauses") {
         const results: Record<string, Clause[]> = {};
-        await Promise.all([...selected].map(async (j) => {
+        await Promise.all(Array.from(selected).map(async (j) => {
           const data = await listClauses(query, j);
           results[j] = Array.isArray(data) ? data : [];
         }));
         setClauseResults(results);
         setGlossaryResults(null);
       } else {
-        const data = await compareGlossaryTerm(query, [...selected]);
+        const data = await compareGlossaryTerm(query, Array.from(selected));
         setGlossaryResults(data);
         setClauseResults({});
       }
@@ -67,7 +67,7 @@ export default function CompareJurisdictionsPage() {
       {/* clause results: side by side */}
       {Object.keys(clauseResults).length > 0 && (
         <div style={{ display: "grid", gridTemplateColumns: `repeat(${selected.size}, 1fr)`, gap: "1rem" }}>
-          {[...selected].map((jId) => (
+          {Array.from(selected).map((jId) => (
             <div key={jId}>
               <h3 style={{ fontSize: "1rem", margin: "0 0 0.5rem" }}>{jurisdictions.find((j) => j.id === jId)?.name || jId}</h3>
               {(clauseResults[jId] || []).length === 0 ? <p className="meta-line">No matching clauses</p> : (

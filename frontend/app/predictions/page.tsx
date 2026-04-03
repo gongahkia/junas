@@ -293,7 +293,7 @@ export default async function PredictionsPage({
               {caseholdResult.result.option_scores.map((score, index) => (
                 <li
                   key={`score-${index}`}
-                  className={index === caseholdResult.result.selected_option ? "prediction-selected" : undefined}
+                  className={index === caseholdResult.result?.selected_option ? "prediction-selected" : undefined}
                 >
                   option {index}: {score.toFixed(3)}
                 </li>

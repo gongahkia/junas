@@ -13,7 +13,8 @@ type ChapterResponse = {
 
 export default async function ChapterPage({ params }: { params: { chapter_number: string } }) {
   const chapterNumber = decodeURIComponent(params.chapter_number);
-  const chapter = (await getChapterSections(chapterNumber)) ?? { chapter_number: chapterNumber, sections: [] };
+  const chapter = ((await getChapterSections(chapterNumber)) ??
+    { chapter_number: chapterNumber, sections: [] }) as ChapterResponse;
 
   return (
     <section>

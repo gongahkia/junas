@@ -132,13 +132,15 @@ export default async function ResearchPage({
       : { result: null as AskResponse | null, error: null as string | null };
 
   const activeConversationId = askResult.result?.conversation_id ?? (conversationIdInput || null);
-  const [conversation, config] = await Promise.all([
-    activeConversationId ? getResearchConversation(activeConversationId) : Promise.resolve(null),
-    getResearchConfig(),
+  const [conversation, config]: [ConversationResponse | null, ConfigResponse | null] = await Promise.all([
+    activeConversationId
+      ? (getResearchConversation(activeConversationId) as Promise<ConversationResponse | null>)
+      : Promise.resolve(null),
+    getResearchConfig() as Promise<ConfigResponse | null>,
   ]);
 
   const availableSources = (config?.available_sources ?? ["statute", "glossary", "case_law", "treaty"]).filter(
-    (source): source is SourceType => isSourceType(source),
+    (source: string): source is SourceType => isSourceType(source),
   );
   const turns = conversation?.turns ?? [];
   const latestAssistant = [...turns].reverse().find((turn) => turn.role === "assistant") ?? null;

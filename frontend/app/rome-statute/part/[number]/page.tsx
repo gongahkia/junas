@@ -19,7 +19,7 @@ export default async function RomePartPage({
     number: string;
   };
 }) {
-  const part = await getRomeStatutePart(params.number);
+  const part = (await getRomeStatutePart(params.number)) as PartResponse | null;
 
   if (!part) {
     return (

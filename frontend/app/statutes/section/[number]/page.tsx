@@ -15,7 +15,7 @@ type SectionResponse = {
 
 export default async function SectionPage({ params }: { params: { number: string } }) {
   const number = decodeURIComponent(params.number);
-  const section = await getStatuteSection(number);
+  const section = (await getStatuteSection(number)) as SectionResponse | null;
 
   if (!section) {
     return (
