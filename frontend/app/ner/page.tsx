@@ -1,6 +1,8 @@
-import Link from "next/link";
-import type { ReactNode } from "react";
-import { listEntityTypes, extractEntities } from "../../lib/api-server";
+"use client";
+
+import type { FormEvent, ReactNode } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { listEntityTypes, extractEntities } from "../../lib/api-client";
 
 type NerEntity = {
   text: string;
@@ -44,22 +46,6 @@ const exampleTextsByLanguage: Record<"de" | "en", string[]> = {
   ],
 };
 
-async function fetchEntityTypes(): Promise<EntityTypesResponse> {
-  return (await listEntityTypes()) as EntityTypesResponse;
-}
-
-async function fetchExtraction(
-  text: string,
-  language: "de" | "en",
-  granularity: "fine" | "coarse",
-  useGazetteer: boolean,
-): Promise<{ result: NerExtractionResponse | null; error: string | null }> {
-  if (!text.trim()) return { result: null, error: null };
-  const data = await extractEntities(text, language, granularity, useGazetteer);
-  if (data?.error) return { result: null, error: data.error };
-  return { result: data as NerExtractionResponse, error: null };
-}
-
 function renderAnnotatedText(text: string, entities: NerEntity[]): ReactNode[] {
   const sorted = [...entities].sort((a, b) => {
     if (a.start !== b.start) {
@@ -97,32 +83,92 @@ function renderAnnotatedText(text: string, entities: NerEntity[]): ReactNode[] {
   return nodes;
 }
 
-export default async function NerPage({
-  searchParams,
-}: {
-  searchParams?: {
-    text?: string;
-    language?: "de" | "en";
-    granularity?: "fine" | "coarse";
-    use_gazetteer?: "true" | "false";
-    run?: "0" | "1";
+export default function NerPage() {
+  const [language, setLanguage] = useState<"de" | "en">("de");
+  const [granularity, setGranularity] = useState<"fine" | "coarse">("fine");
+  const [useGazetteer, setUseGazetteer] = useState(true);
+  const [text, setText] = useState(exampleTextsByLanguage.de[0]);
+
+  const [types, setTypes] = useState<EntityTypesResponse>({ fine_grained: [], coarse_grained: [] });
+  const [result, setResult] = useState<NerExtractionResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasRun, setHasRun] = useState(false);
+
+  const examples = useMemo(() => exampleTextsByLanguage[language], [language]);
+
+  useEffect(() => {
+    let isActive = true;
+    (async () => {
+      const data = (await listEntityTypes()) as EntityTypesResponse;
+      if (!isActive) return;
+      setTypes({
+        fine_grained: Array.isArray(data?.fine_grained) ? data.fine_grained : [],
+        coarse_grained: Array.isArray(data?.coarse_grained) ? data.coarse_grained : [],
+      });
+    })();
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
+  const runExtraction = async (
+    inputText: string,
+    selectedLanguage: "de" | "en",
+    selectedGranularity: "fine" | "coarse",
+    selectedUseGazetteer: boolean,
+  ) => {
+    const normalizedText = inputText.trim();
+    if (!normalizedText) {
+      setError("Enter legal text before extraction.");
+      setResult(null);
+      setHasRun(true);
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+    setHasRun(true);
+    try {
+      const data = await extractEntities(
+        normalizedText,
+        selectedLanguage,
+        selectedGranularity,
+        selectedUseGazetteer,
+      );
+      if (data?.error) {
+        setError(String(data.error));
+        setResult(null);
+      } else {
+        setResult(data as NerExtractionResponse);
+      }
+    } catch (requestError) {
+      setError(requestError instanceof Error ? requestError.message : "Extraction request failed.");
+      setResult(null);
+    } finally {
+      setIsLoading(false);
+    }
   };
-}) {
-  const language = searchParams?.language === "en" ? "en" : "de";
-  const examples = exampleTextsByLanguage[language];
-  const text = searchParams?.text ?? examples[0];
-  const granularity = searchParams?.granularity === "coarse" ? "coarse" : "fine";
-  const useGazetteer = searchParams?.use_gazetteer !== "false";
-  const shouldRun = searchParams?.run === "1";
 
-  const [types, extraction] = await Promise.all([
-    fetchEntityTypes(),
-    shouldRun
-      ? fetchExtraction(text, language, granularity, useGazetteer)
-      : Promise.resolve({ result: null, error: null }),
-  ]);
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await runExtraction(text, language, granularity, useGazetteer);
+  };
 
-  const result = extraction.result;
+  const onLanguageChange = (value: "de" | "en") => {
+    setLanguage(value);
+    setText(exampleTextsByLanguage[value][0]);
+    setResult(null);
+    setError(null);
+    setHasRun(false);
+  };
+
+  const onExampleClick = async (example: string) => {
+    setText(example);
+    await runExtraction(example, language, granularity, useGazetteer);
+  };
+
   const entityTotal = result ? Object.values(result.entity_counts).reduce((sum, value) => sum + value, 0) : 0;
 
   return (
@@ -137,48 +183,67 @@ export default async function NerPage({
           Dataset license note: Legal-Entity-Recognition is distributed under CC-BY-NC-SA 4.0.
         </p>
 
-        <form method="get" action="/ner" className="ner-form">
-          <input type="hidden" name="run" value="1" />
-
+        <form className="ner-form" onSubmit={onSubmit}>
           <label htmlFor="language">Language</label>
-          <select id="language" name="language" defaultValue={language}>
+          <select
+            id="language"
+            name="language"
+            value={language}
+            onChange={(event) => onLanguageChange(event.target.value === "en" ? "en" : "de")}
+          >
             <option value="de">German (de)</option>
             <option value="en">English (en)</option>
           </select>
 
           <label htmlFor="text">Legal text</label>
-          <textarea id="text" name="text" rows={10} defaultValue={text} placeholder="Paste legal text..." />
+          <textarea
+            id="text"
+            name="text"
+            rows={10}
+            value={text}
+            onChange={(event) => setText(event.target.value)}
+            placeholder="Paste legal text..."
+          />
 
           <label htmlFor="granularity">Entity granularity</label>
-          <select id="granularity" name="granularity" defaultValue={granularity}>
+          <select
+            id="granularity"
+            name="granularity"
+            value={granularity}
+            onChange={(event) => setGranularity(event.target.value === "coarse" ? "coarse" : "fine")}
+          >
             <option value="fine">fine (19 entity types)</option>
             <option value="coarse">coarse (7 entity groups)</option>
           </select>
 
           <label className="checkbox-row">
-            <input type="checkbox" name="use_gazetteer" value="true" defaultChecked={useGazetteer} />
+            <input
+              type="checkbox"
+              name="use_gazetteer"
+              value="true"
+              checked={useGazetteer}
+              onChange={(event) => setUseGazetteer(event.target.checked)}
+            />
             Apply gazetteer post-processing (German only)
           </label>
 
-          <button type="submit">Extract Entities</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? "Extracting..." : "Extract Entities"}
+          </button>
         </form>
 
         <div className="chip-row">
           {examples.map((example, index) => (
-            <Link
-              key={`example-${language}-${index}`}
-              className="chip"
-              href={`/ner?run=1&language=${language}&granularity=${granularity}&use_gazetteer=${useGazetteer ? "true" : "false"}&text=${encodeURIComponent(example)}`}
-            >
+            <button key={`example-${language}-${index}`} className="chip" type="button" onClick={() => onExampleClick(example)}>
               Example {index + 1}
-            </Link>
+            </button>
           ))}
         </div>
 
-        {extraction.error ? (
+        {error ? (
           <article className="result-card">
             <h3>Extraction unavailable</h3>
-            <p>{extraction.error}</p>
+            <p>{error}</p>
           </article>
         ) : null}
 
@@ -217,6 +282,8 @@ export default async function NerPage({
               </tbody>
             </table>
           </>
+        ) : hasRun ? (
+          <p>No entities extracted.</p>
         ) : null}
       </div>
 
