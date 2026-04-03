@@ -24,6 +24,12 @@ make up
 
 Open http://localhost:3000
 
+## Repository Direction
+
+As of April 3, 2026, `frontend/` + `backend/` is the primary product stack and source of truth.
+
+The legacy desktop stack in `src/` + `src-tauri/` is being migrated into the unified web platform and will be removed after feature parity and stabilization.
+
 ## Features
 
 | Category | Feature | Description |
@@ -91,6 +97,9 @@ All endpoints at `http://localhost:8000/api/v1/`. Full Swagger docs at `/docs`.
 make dev       # backend + frontend in dev mode
 make test      # run pytest
 make lint      # ruff + mypy
+npm run dev:unified                 # same as make dev
+npm run test:backend:routers        # lightweight backend API checks
+npm run build:unified               # build Next.js frontend
 ```
 
 ## BYOK (Bring Your Own Key)
