@@ -1,10 +1,13 @@
-import Link from "next/link";
+"use client";
+
+import type { FormEvent } from "react";
+import { useState } from "react";
 import {
   predictScotus as apiPredictScotus,
   predictEcthr as apiPredictEcthr,
   predictCasehold as apiPredictCasehold,
   predictEurlex as apiPredictEurlex,
-} from "../../lib/api-server";
+} from "../../lib/api-client";
 
 type PredictionTab = "scotus" | "ecthr" | "casehold" | "eurlex";
 
@@ -53,100 +56,131 @@ const defaultCaseholdOptions = [
   "federal preemption automatically applies to state contracts",
 ];
 
-function normalizeTab(value: string | undefined): PredictionTab {
-  if (value === "ecthr" || value === "casehold" || value === "eurlex") {
-    return value;
-  }
-  return "scotus";
-}
+export default function PredictionsPage() {
+  const [tab, setTab] = useState<PredictionTab>("scotus");
 
-function toNumber(value: string | undefined, fallback: number): number {
-  const parsed = Number(value);
-  if (!Number.isFinite(parsed)) {
-    return fallback;
-  }
-  return parsed;
-}
+  const [scotusText, setScotusText] = useState(sampleScotus);
+  const [ecthrText, setEcthrText] = useState(sampleEcthr);
+  const [caseholdContext, setCaseholdContext] = useState(sampleCasehold);
+  const [eurlexText, setEurlexText] = useState(sampleEurlex);
 
-async function predictScotus(text: string, topK: number): Promise<{ result: ScotusResponse | null; error: string | null }> {
-  const res = await apiPredictScotus(text, topK);
-  if (res?.error) return { result: null, error: res.error };
-  return { result: res as ScotusResponse, error: null };
-}
-async function predictEcthr(text: string, task: "violation" | "alleged", threshold: number): Promise<{ result: EcthrResponse | null; error: string | null }> {
-  const res = await apiPredictEcthr(text, task, threshold);
-  if (res?.error) return { result: null, error: res.error };
-  return { result: res as EcthrResponse, error: null };
-}
-async function predictCasehold(context: string, options: string[]): Promise<{ result: CaseholdResponse | null; error: string | null }> {
-  const res = await apiPredictCasehold(context, options);
-  if (res?.error) return { result: null, error: res.error };
-  return { result: res as CaseholdResponse, error: null };
-}
-async function predictEurlex(text: string, threshold: number, maxLabels: number): Promise<{ result: EurlexResponse | null; error: string | null }> {
-  const res = await apiPredictEurlex(text, threshold, maxLabels);
-  if (res?.error) return { result: null, error: res.error };
-  return { result: res as EurlexResponse, error: null };
-}
+  const [topK, setTopK] = useState(3);
+  const [ecthrTask, setEcthrTask] = useState<"violation" | "alleged">("violation");
+  const [threshold, setThreshold] = useState(0.5);
+  const [maxLabels, setMaxLabels] = useState(10);
+  const [caseholdOptions, setCaseholdOptions] = useState<string[]>(defaultCaseholdOptions);
 
-export default async function PredictionsPage({
-  searchParams,
-}: {
-  searchParams?: {
-    tab?: string;
-    run?: "0" | "1";
-    text?: string;
-    context?: string;
-    top_k?: string;
-    task?: "violation" | "alleged";
-    threshold?: string;
-    max_labels?: string;
-    option_0?: string;
-    option_1?: string;
-    option_2?: string;
-    option_3?: string;
-    option_4?: string;
+  const [scotusResult, setScotusResult] = useState<ScotusResponse | null>(null);
+  const [ecthrResult, setEcthrResult] = useState<EcthrResponse | null>(null);
+  const [caseholdResult, setCaseholdResult] = useState<CaseholdResponse | null>(null);
+  const [eurlexResult, setEurlexResult] = useState<EurlexResponse | null>(null);
+  const [activeError, setActiveError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onTabChange = (nextTab: PredictionTab) => {
+    setTab(nextTab);
+    setActiveError(null);
   };
-}) {
-  const tab = normalizeTab(searchParams?.tab);
-  const shouldRun = searchParams?.run === "1";
 
-  const textDefault =
-    tab === "scotus" ? sampleScotus : tab === "ecthr" ? sampleEcthr : tab === "eurlex" ? sampleEurlex : "";
-  const text = (searchParams?.text ?? textDefault).trim();
-  const context = (searchParams?.context ?? sampleCasehold).trim();
+  const onCaseholdOptionChange = (index: number, value: string) => {
+    setCaseholdOptions((current) => current.map((option, optionIndex) => (optionIndex === index ? value : option)));
+  };
 
-  const topK = Math.min(14, Math.max(1, toNumber(searchParams?.top_k, 3)));
-  const ecthrTask: "violation" | "alleged" = searchParams?.task === "alleged" ? "alleged" : "violation";
-  const threshold = Math.min(1, Math.max(0, toNumber(searchParams?.threshold, 0.5)));
-  const maxLabels = Math.min(100, Math.max(1, toNumber(searchParams?.max_labels, 10)));
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-  const caseholdOptions = [
-    (searchParams?.option_0 ?? defaultCaseholdOptions[0]).trim(),
-    (searchParams?.option_1 ?? defaultCaseholdOptions[1]).trim(),
-    (searchParams?.option_2 ?? defaultCaseholdOptions[2]).trim(),
-    (searchParams?.option_3 ?? defaultCaseholdOptions[3]).trim(),
-    (searchParams?.option_4 ?? defaultCaseholdOptions[4]).trim(),
-  ];
+    setActiveError(null);
+    setIsLoading(true);
 
-  const scotusResult =
-    tab === "scotus" && shouldRun && text
-      ? await predictScotus(text, topK)
-      : { result: null as ScotusResponse | null, error: null as string | null };
-  const ecthrResult =
-    tab === "ecthr" && shouldRun && text
-      ? await predictEcthr(text, ecthrTask, threshold)
-      : { result: null as EcthrResponse | null, error: null as string | null };
-  const caseholdResult =
-    tab === "casehold" && shouldRun && context
-      ? await predictCasehold(context, caseholdOptions)
-      : { result: null as CaseholdResponse | null, error: null as string | null };
-  const eurlexResult =
-    tab === "eurlex" && shouldRun && text
-      ? await predictEurlex(text, threshold, maxLabels)
-      : { result: null as EurlexResponse | null, error: null as string | null };
+    try {
+      if (tab === "scotus") {
+        const normalizedText = scotusText.trim();
+        if (!normalizedText) {
+          setActiveError("Enter opinion text before predicting.");
+          setScotusResult(null);
+          return;
+        }
 
-  const activeError = scotusResult.error ?? ecthrResult.error ?? caseholdResult.error ?? eurlexResult.error;
+        const data = await apiPredictScotus(normalizedText, Math.min(14, Math.max(1, Number(topK) || 3)));
+        if (data?.error) {
+          setActiveError(String(data.error));
+          setScotusResult(null);
+        } else {
+          setScotusResult(data as ScotusResponse);
+        }
+        return;
+      }
+
+      if (tab === "ecthr") {
+        const normalizedText = ecthrText.trim();
+        if (!normalizedText) {
+          setActiveError("Enter case facts before predicting.");
+          setEcthrResult(null);
+          return;
+        }
+
+        const data = await apiPredictEcthr(
+          normalizedText,
+          ecthrTask,
+          Math.min(1, Math.max(0, Number(threshold) || 0.5)),
+        );
+        if (data?.error) {
+          setActiveError(String(data.error));
+          setEcthrResult(null);
+        } else {
+          setEcthrResult(data as EcthrResponse);
+        }
+        return;
+      }
+
+      if (tab === "casehold") {
+        const normalizedContext = caseholdContext.trim();
+        const normalizedOptions = caseholdOptions.map((option) => option.trim());
+        if (!normalizedContext) {
+          setActiveError("Enter context with <HOLDING> before prediction.");
+          setCaseholdResult(null);
+          return;
+        }
+        if (normalizedOptions.some((option) => !option)) {
+          setActiveError("All five candidate options must be provided.");
+          setCaseholdResult(null);
+          return;
+        }
+
+        const data = await apiPredictCasehold(normalizedContext, normalizedOptions);
+        if (data?.error) {
+          setActiveError(String(data.error));
+          setCaseholdResult(null);
+        } else {
+          setCaseholdResult(data as CaseholdResponse);
+        }
+        return;
+      }
+
+      const normalizedText = eurlexText.trim();
+      if (!normalizedText) {
+        setActiveError("Enter EU legislation text before classification.");
+        setEurlexResult(null);
+        return;
+      }
+
+      const data = await apiPredictEurlex(
+        normalizedText,
+        Math.min(1, Math.max(0, Number(threshold) || 0.5)),
+        Math.min(100, Math.max(1, Number(maxLabels) || 10)),
+      );
+      if (data?.error) {
+        setActiveError(String(data.error));
+        setEurlexResult(null);
+      } else {
+        setEurlexResult(data as EurlexResponse);
+      }
+    } catch (requestError) {
+      setActiveError(requestError instanceof Error ? requestError.message : "Prediction request failed.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <section className="predictions-grid">
@@ -155,92 +189,156 @@ export default async function PredictionsPage({
         <p>Run LexGLUE task demos for SCOTUS, ECtHR, CaseHOLD, and EUR-LEX classifiers.</p>
 
         <div className="chip-row">
-          <Link href="/predictions?tab=scotus" className={`chip ${tab === "scotus" ? "chip-active" : ""}`}>
+          <button
+            type="button"
+            className={`chip ${tab === "scotus" ? "chip-active" : ""}`}
+            onClick={() => onTabChange("scotus")}
+          >
             SCOTUS
-          </Link>
-          <Link href="/predictions?tab=ecthr" className={`chip ${tab === "ecthr" ? "chip-active" : ""}`}>
+          </button>
+          <button
+            type="button"
+            className={`chip ${tab === "ecthr" ? "chip-active" : ""}`}
+            onClick={() => onTabChange("ecthr")}
+          >
             ECtHR
-          </Link>
-          <Link href="/predictions?tab=casehold" className={`chip ${tab === "casehold" ? "chip-active" : ""}`}>
+          </button>
+          <button
+            type="button"
+            className={`chip ${tab === "casehold" ? "chip-active" : ""}`}
+            onClick={() => onTabChange("casehold")}
+          >
             CaseHOLD
-          </Link>
-          <Link href="/predictions?tab=eurlex" className={`chip ${tab === "eurlex" ? "chip-active" : ""}`}>
+          </button>
+          <button
+            type="button"
+            className={`chip ${tab === "eurlex" ? "chip-active" : ""}`}
+            onClick={() => onTabChange("eurlex")}
+          >
             EUR-LEX
-          </Link>
+          </button>
         </div>
 
-        {tab === "scotus" ? (
-          <form method="get" action="/predictions" className="ner-form">
-            <input type="hidden" name="tab" value="scotus" />
-            <input type="hidden" name="run" value="1" />
+        <form className="ner-form" onSubmit={onSubmit}>
+          {tab === "scotus" ? (
+            <>
+              <label htmlFor="text">Opinion text</label>
+              <textarea id="text" name="text" rows={10} value={scotusText} onChange={(event) => setScotusText(event.target.value)} />
 
-            <label htmlFor="text">Opinion text</label>
-            <textarea id="text" name="text" rows={10} defaultValue={text} />
+              <label htmlFor="top_k">Top predictions</label>
+              <input
+                id="top_k"
+                name="top_k"
+                type="number"
+                min={1}
+                max={14}
+                value={topK}
+                onChange={(event) => setTopK(Number(event.target.value) || 3)}
+              />
 
-            <label htmlFor="top_k">Top predictions</label>
-            <input id="top_k" name="top_k" type="number" min={1} max={14} defaultValue={topK} />
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? "Predicting..." : "Predict Issue Area"}
+              </button>
+            </>
+          ) : null}
 
-            <button type="submit">Predict Issue Area</button>
-          </form>
-        ) : null}
+          {tab === "ecthr" ? (
+            <>
+              <label htmlFor="text">Case facts</label>
+              <textarea id="text" name="text" rows={10} value={ecthrText} onChange={(event) => setEcthrText(event.target.value)} />
 
-        {tab === "ecthr" ? (
-          <form method="get" action="/predictions" className="ner-form">
-            <input type="hidden" name="tab" value="ecthr" />
-            <input type="hidden" name="run" value="1" />
+              <label htmlFor="task">Task</label>
+              <select
+                id="task"
+                name="task"
+                value={ecthrTask}
+                onChange={(event) => setEcthrTask(event.target.value === "alleged" ? "alleged" : "violation")}
+              >
+                <option value="violation">Violation (Task A)</option>
+                <option value="alleged">Alleged (Task B)</option>
+              </select>
 
-            <label htmlFor="text">Case facts</label>
-            <textarea id="text" name="text" rows={10} defaultValue={text} />
+              <label htmlFor="threshold">Confidence threshold</label>
+              <input
+                id="threshold"
+                name="threshold"
+                type="number"
+                min={0}
+                max={1}
+                step={0.05}
+                value={threshold}
+                onChange={(event) => setThreshold(Number(event.target.value) || 0.5)}
+              />
 
-            <label htmlFor="task">Task</label>
-            <select id="task" name="task" defaultValue={ecthrTask}>
-              <option value="violation">Violation (Task A)</option>
-              <option value="alleged">Alleged (Task B)</option>
-            </select>
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? "Predicting..." : "Predict Articles"}
+              </button>
+            </>
+          ) : null}
 
-            <label htmlFor="threshold">Confidence threshold</label>
-            <input id="threshold" name="threshold" type="number" min={0} max={1} step={0.05} defaultValue={threshold} />
+          {tab === "casehold" ? (
+            <>
+              <label htmlFor="context">Context with &lt;HOLDING&gt;</label>
+              <textarea
+                id="context"
+                name="context"
+                rows={8}
+                value={caseholdContext}
+                onChange={(event) => setCaseholdContext(event.target.value)}
+              />
 
-            <button type="submit">Predict Articles</button>
-          </form>
-        ) : null}
+              {caseholdOptions.map((option, index) => (
+                <div key={`option-${index}`}>
+                  <label htmlFor={`option_${index}`}>Option {index}</label>
+                  <input
+                    id={`option_${index}`}
+                    name={`option_${index}`}
+                    value={option}
+                    onChange={(event) => onCaseholdOptionChange(index, event.target.value)}
+                  />
+                </div>
+              ))}
 
-        {tab === "casehold" ? (
-          <form method="get" action="/predictions" className="ner-form">
-            <input type="hidden" name="tab" value="casehold" />
-            <input type="hidden" name="run" value="1" />
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? "Selecting..." : "Select Holding"}
+              </button>
+            </>
+          ) : null}
 
-            <label htmlFor="context">Context with &lt;HOLDING&gt;</label>
-            <textarea id="context" name="context" rows={8} defaultValue={context} />
+          {tab === "eurlex" ? (
+            <>
+              <label htmlFor="text">EU legislation text</label>
+              <textarea id="text" name="text" rows={10} value={eurlexText} onChange={(event) => setEurlexText(event.target.value)} />
 
-            {caseholdOptions.map((option, index) => (
-              <div key={`option-${index}`}>
-                <label htmlFor={`option_${index}`}>Option {index}</label>
-                <input id={`option_${index}`} name={`option_${index}`} defaultValue={option} />
-              </div>
-            ))}
+              <label htmlFor="threshold">Confidence threshold</label>
+              <input
+                id="threshold"
+                name="threshold"
+                type="number"
+                min={0}
+                max={1}
+                step={0.05}
+                value={threshold}
+                onChange={(event) => setThreshold(Number(event.target.value) || 0.5)}
+              />
 
-            <button type="submit">Select Holding</button>
-          </form>
-        ) : null}
+              <label htmlFor="max_labels">Max labels</label>
+              <input
+                id="max_labels"
+                name="max_labels"
+                type="number"
+                min={1}
+                max={100}
+                value={maxLabels}
+                onChange={(event) => setMaxLabels(Number(event.target.value) || 10)}
+              />
 
-        {tab === "eurlex" ? (
-          <form method="get" action="/predictions" className="ner-form">
-            <input type="hidden" name="tab" value="eurlex" />
-            <input type="hidden" name="run" value="1" />
-
-            <label htmlFor="text">EU legislation text</label>
-            <textarea id="text" name="text" rows={10} defaultValue={text} />
-
-            <label htmlFor="threshold">Confidence threshold</label>
-            <input id="threshold" name="threshold" type="number" min={0} max={1} step={0.05} defaultValue={threshold} />
-
-            <label htmlFor="max_labels">Max labels</label>
-            <input id="max_labels" name="max_labels" type="number" min={1} max={100} defaultValue={maxLabels} />
-
-            <button type="submit">Classify EuroVoc Labels</button>
-          </form>
-        ) : null}
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? "Classifying..." : "Classify EuroVoc Labels"}
+              </button>
+            </>
+          ) : null}
+        </form>
 
         {activeError ? (
           <article className="result-card">
@@ -249,14 +347,14 @@ export default async function PredictionsPage({
           </article>
         ) : null}
 
-        {tab === "scotus" && scotusResult.result ? (
+        {tab === "scotus" && scotusResult ? (
           <article className="result-card">
             <h3>Predicted Issue Area</h3>
             <p>
-              <strong>{scotusResult.result.prediction.issue_area}</strong> ({scotusResult.result.prediction.confidence.toFixed(3)})
+              <strong>{scotusResult.prediction.issue_area}</strong> ({scotusResult.prediction.confidence.toFixed(3)})
             </p>
             <ul className="results-list">
-              {scotusResult.result.alternatives.map((item) => (
+              {scotusResult.alternatives.map((item) => (
                 <li key={`${item.issue_area}-${item.issue_area_id}`}>
                   {item.issue_area}: {item.confidence.toFixed(3)}
                 </li>
@@ -265,14 +363,14 @@ export default async function PredictionsPage({
           </article>
         ) : null}
 
-        {tab === "ecthr" && ecthrResult.result ? (
+        {tab === "ecthr" && ecthrResult ? (
           <article className="result-card">
             <h3>Predicted Articles</h3>
-            {ecthrResult.result.predictions.length === 0 ? (
-              <p>No article above threshold. no_violation_probability: {ecthrResult.result.no_violation_probability.toFixed(3)}</p>
+            {ecthrResult.predictions.length === 0 ? (
+              <p>No article above threshold. no_violation_probability: {ecthrResult.no_violation_probability.toFixed(3)}</p>
             ) : (
               <ul className="results-list">
-                {ecthrResult.result.predictions.map((item) => (
+                {ecthrResult.predictions.map((item) => (
                   <li key={`${item.article}-${item.article_id}`}>
                     <strong>{item.article}</strong> ({item.confidence.toFixed(3)}) - {item.right}
                   </li>
@@ -282,18 +380,18 @@ export default async function PredictionsPage({
           </article>
         ) : null}
 
-        {tab === "casehold" && caseholdResult.result ? (
+        {tab === "casehold" && caseholdResult ? (
           <article className="result-card">
             <h3>Selected Holding</h3>
             <p>
-              Option {caseholdResult.result.selected_option}: {caseholdResult.result.selected_text}
+              Option {caseholdResult.selected_option}: {caseholdResult.selected_text}
             </p>
-            <p className="meta-line">confidence: {caseholdResult.result.confidence.toFixed(3)}</p>
+            <p className="meta-line">confidence: {caseholdResult.confidence.toFixed(3)}</p>
             <ul className="results-list">
-              {caseholdResult.result.option_scores.map((score, index) => (
+              {caseholdResult.option_scores.map((score, index) => (
                 <li
                   key={`score-${index}`}
-                  className={index === caseholdResult.result?.selected_option ? "prediction-selected" : undefined}
+                  className={index === caseholdResult.selected_option ? "prediction-selected" : undefined}
                 >
                   option {index}: {score.toFixed(3)}
                 </li>
@@ -302,11 +400,11 @@ export default async function PredictionsPage({
           </article>
         ) : null}
 
-        {tab === "eurlex" && eurlexResult.result ? (
+        {tab === "eurlex" && eurlexResult ? (
           <article className="result-card">
-            <h3>Predicted EuroVoc Labels ({eurlexResult.result.total_labels})</h3>
+            <h3>Predicted EuroVoc Labels ({eurlexResult.total_labels})</h3>
             <ul className="results-list">
-              {eurlexResult.result.labels.map((item) => (
+              {eurlexResult.labels.map((item) => (
                 <li key={`${item.eurovoc_id}-${item.concept}`}>
                   {item.concept} ({item.eurovoc_id}) - {item.confidence.toFixed(3)}
                 </li>
@@ -320,8 +418,8 @@ export default async function PredictionsPage({
         <h3>Active Task</h3>
         <ul className="chapter-list">
           <li>tab: {tab}</li>
-          <li>run: {shouldRun ? "yes" : "no"}</li>
-          <li>api: server</li>
+          <li>status: {isLoading ? "running" : "idle"}</li>
+          <li>api: client POST</li>
         </ul>
 
         <h3>Tips</h3>
