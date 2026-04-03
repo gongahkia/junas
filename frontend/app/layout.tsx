@@ -9,16 +9,18 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
         <script dangerouslySetInnerHTML={{ __html: `try{if(localStorage.getItem("junas-theme")==="dark"||(!localStorage.getItem("junas-theme")&&window.matchMedia("(prefers-color-scheme:dark)").matches)){document.documentElement.classList.add("dark")}}catch(e){}` }} />
       </head>
       <body>
         <ThemeProvider>
           <div className="shell">
-            <SideNav apiBaseUrl={apiBaseUrl} />
+            <SideNav />
             <main className="content">{children}</main>
           </div>
         </ThemeProvider>
