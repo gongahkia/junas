@@ -1,5 +1,6 @@
 "use client";
 import { useMemo } from "react";
+import { COMMAND_DEFINITIONS } from "../../lib/commands/definitions";
 
 export interface CommandDef {
   id: string;
@@ -8,19 +9,19 @@ export interface CommandDef {
   category: string;
 }
 
-export const COMMANDS: CommandDef[] = [
-  { id: "search-case-law", label: "Search Case Law", description: "Search legal databases for case law", category: "Research" },
-  { id: "research-statute", label: "Research Statute", description: "Look up statutory provisions", category: "Research" },
-  { id: "analyze-contract", label: "Analyze Contract", description: "Extract key terms and risks from a contract", category: "Analysis" },
-  { id: "summarize-document", label: "Summarize Document", description: "AI-powered document summary", category: "Analysis" },
-  { id: "extract-entities", label: "Extract Entities", description: "Identify persons, organizations, dates, citations", category: "Analysis" },
-  { id: "analyze-document", label: "Analyze Document", description: "Statistics, readability, and structure analysis", category: "Analysis" },
-  { id: "draft-clause", label: "Draft Clause", description: "Generate a legal clause for a specific purpose", category: "Drafting" },
-  { id: "check-compliance", label: "Check Compliance", description: "Verify document against compliance rules", category: "Analysis" },
-  { id: "due-diligence-review", label: "Due Diligence Review", description: "Legal due diligence checklist", category: "Analysis" },
-  { id: "use-template", label: "Use Template", description: "Open the template library", category: "Drafting" },
-  { id: "redline", label: "Redline Compare", description: "Compare two versions of a document", category: "Tools" },
-];
+export const COMMANDS: CommandDef[] = COMMAND_DEFINITIONS.reduce<CommandDef[]>(
+  (acc, definition) => {
+    if (definition.action.kind !== "command") return acc;
+    acc.push({
+      id: definition.action.commandId,
+      label: definition.label,
+      description: definition.description,
+      category: `${definition.category[0].toUpperCase()}${definition.category.slice(1)}`,
+    });
+    return acc;
+  },
+  [],
+);
 
 const normalizeQuery = (value: string) => value.trim().toLowerCase();
 
