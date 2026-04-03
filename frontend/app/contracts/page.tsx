@@ -1,5 +1,8 @@
-import Link from "next/link";
-import { classifyContract as classifyContractApi, scanToS as scanToSApi } from "../../lib/api-server";
+"use client";
+
+import type { FormEvent } from "react";
+import { useState } from "react";
+import { classifyContract as classifyContractApi, scanToS as scanToSApi } from "../../lib/api-client";
 
 type ClauseResult = {
   segment_index: number;
@@ -41,51 +44,70 @@ SECTION 3. INDEMNIFICATION. The Company shall indemnify and hold harmless the Co
 
 const sampleToS = `By using our service, you agree to these terms. We may terminate your account at any time without notice. We may update these terms unilaterally by posting changes on our website.`;
 
-async function classifyContract(
-  text: string,
-  topKTypes: number,
-): Promise<{ result: ContractClassifyResponse | null; error: string | null }> {
-  if (!text.trim()) return { result: null, error: null };
-  const data = await classifyContractApi(text, topKTypes);
-  if (data?.error) return { result: null, error: data.error };
-  return { result: data as ContractClassifyResponse, error: null };
-}
+export default function ContractsPage() {
+  const [tab, setTab] = useState<"classify" | "tos">("classify");
+  const [text, setText] = useState(sampleContract);
+  const [topKTypes, setTopKTypes] = useState(3);
+  const [threshold, setThreshold] = useState(0.5);
 
-async function scanToS(
-  text: string,
-  threshold: number,
-): Promise<{ result: ToSResponse | null; error: string | null }> {
-  if (!text.trim()) return { result: null, error: null };
-  const data = await scanToSApi(text, threshold);
-  if (data?.error) return { result: null, error: data.error };
-  return { result: data as ToSResponse, error: null };
-}
+  const [classifyResult, setClassifyResult] = useState<ContractClassifyResponse | null>(null);
+  const [tosResult, setTosResult] = useState<ToSResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-export default async function ContractsPage({
-  searchParams,
-}: {
-  searchParams?: {
-    tab?: "classify" | "tos";
-    text?: string;
-    top_k_types?: string;
-    threshold?: string;
-    run?: "0" | "1";
+  const onTabChange = (nextTab: "classify" | "tos") => {
+    setTab(nextTab);
+    setError(null);
+    setClassifyResult(null);
+    setTosResult(null);
+    setText(nextTab === "classify" ? sampleContract : sampleToS);
   };
-}) {
-  const tab = searchParams?.tab === "tos" ? "tos" : "classify";
-  const text = searchParams?.text ?? (tab === "classify" ? sampleContract : sampleToS);
-  const topKTypes = Number(searchParams?.top_k_types ?? "3") || 3;
-  const threshold = Number(searchParams?.threshold ?? "0.5") || 0.5;
-  const shouldRun = searchParams?.run === "1";
 
-  const classifyResult =
-    tab === "classify" && shouldRun
-      ? await classifyContract(text, topKTypes)
-      : { result: null as ContractClassifyResponse | null, error: null as string | null };
-  const tosResult =
-    tab === "tos" && shouldRun
-      ? await scanToS(text, threshold)
-      : { result: null as ToSResponse | null, error: null as string | null };
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const normalizedText = text.trim();
+    if (!normalizedText) {
+      setError("Enter contract text before running analysis.");
+      setClassifyResult(null);
+      setTosResult(null);
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+    try {
+      if (tab === "classify") {
+        const data = await classifyContractApi(
+          normalizedText,
+          Math.min(5, Math.max(1, Number(topKTypes) || 3)),
+        );
+        if (data?.error) {
+          setError(String(data.error));
+          setClassifyResult(null);
+        } else {
+          setClassifyResult(data as ContractClassifyResponse);
+        }
+        setTosResult(null);
+        return;
+      }
+
+      const data = await scanToSApi(normalizedText, Math.min(1, Math.max(0, Number(threshold) || 0.5)));
+      if (data?.error) {
+        setError(String(data.error));
+        setTosResult(null);
+      } else {
+        setTosResult(data as ToSResponse);
+      }
+      setClassifyResult(null);
+    } catch (requestError) {
+      setError(requestError instanceof Error ? requestError.message : "Contract analysis request failed.");
+      setClassifyResult(null);
+      setTosResult(null);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <section className="contracts-grid">
@@ -94,66 +116,78 @@ export default async function ContractsPage({
         <p>Classify contract clauses and detect potentially unfair Terms of Service language.</p>
 
         <div className="chip-row">
-          <Link href="/contracts?tab=classify" className={`chip ${tab === "classify" ? "chip-active" : ""}`}>
+          <button
+            type="button"
+            className={`chip ${tab === "classify" ? "chip-active" : ""}`}
+            onClick={() => onTabChange("classify")}
+          >
             Clause Classification
-          </Link>
-          <Link href="/contracts?tab=tos" className={`chip ${tab === "tos" ? "chip-active" : ""}`}>
+          </button>
+          <button
+            type="button"
+            className={`chip ${tab === "tos" ? "chip-active" : ""}`}
+            onClick={() => onTabChange("tos")}
+          >
             ToS Scanner
-          </Link>
+          </button>
         </div>
 
-        {tab === "classify" ? (
-          <form method="get" action="/contracts" className="ner-form">
-            <input type="hidden" name="tab" value="classify" />
-            <input type="hidden" name="run" value="1" />
+        <form className="ner-form" onSubmit={onSubmit}>
+          {tab === "classify" ? (
+            <>
+              <label htmlFor="text">Contract text</label>
+              <textarea id="text" name="text" rows={12} value={text} onChange={(event) => setText(event.target.value)} />
 
-            <label htmlFor="text">Contract text</label>
-            <textarea id="text" name="text" rows={12} defaultValue={text} />
+              <label htmlFor="top_k_types">Top clause types per segment</label>
+              <input
+                id="top_k_types"
+                name="top_k_types"
+                type="number"
+                min={1}
+                max={5}
+                value={topKTypes}
+                onChange={(event) => setTopKTypes(Number(event.target.value) || 3)}
+              />
 
-            <label htmlFor="top_k_types">Top clause types per segment</label>
-            <input id="top_k_types" name="top_k_types" type="number" min={1} max={5} defaultValue={topKTypes} />
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? "Analyzing..." : "Analyze Contract"}
+              </button>
+            </>
+          ) : (
+            <>
+              <label htmlFor="text">Terms of service text</label>
+              <textarea id="text" name="text" rows={12} value={text} onChange={(event) => setText(event.target.value)} />
 
-            <button type="submit">Analyze Contract</button>
-          </form>
-        ) : (
-          <form method="get" action="/contracts" className="ner-form">
-            <input type="hidden" name="tab" value="tos" />
-            <input type="hidden" name="run" value="1" />
+              <label htmlFor="threshold">Unfair confidence threshold</label>
+              <input
+                id="threshold"
+                name="threshold"
+                type="number"
+                step={0.05}
+                min={0}
+                max={1}
+                value={threshold}
+                onChange={(event) => setThreshold(Number(event.target.value) || 0.5)}
+              />
 
-            <label htmlFor="text">Terms of service text</label>
-            <textarea id="text" name="text" rows={12} defaultValue={text} />
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? "Scanning..." : "Scan for Unfair Clauses"}
+              </button>
+            </>
+          )}
+        </form>
 
-            <label htmlFor="threshold">Unfair confidence threshold</label>
-            <input
-              id="threshold"
-              name="threshold"
-              type="number"
-              step={0.05}
-              min={0}
-              max={1}
-              defaultValue={threshold}
-            />
-
-            <button type="submit">Scan for Unfair Clauses</button>
-          </form>
-        )}
-
-        {tab === "classify" && classifyResult.error ? (
+        {error ? (
           <article className="result-card">
-            <p>{classifyResult.error}</p>
+            <p>{error}</p>
           </article>
         ) : null}
-        {tab === "tos" && tosResult.error ? (
-          <article className="result-card">
-            <p>{tosResult.error}</p>
-          </article>
-        ) : null}
 
-        {tab === "classify" && classifyResult.result ? (
+        {tab === "classify" && classifyResult ? (
           <>
-            <h3>Classified Clauses ({classifyResult.result.total_clauses})</h3>
+            <h3>Classified Clauses ({classifyResult.total_clauses})</h3>
             <ul className="results-list">
-              {classifyResult.result.clauses.map((clause) => (
+              {classifyResult.clauses.map((clause) => (
                 <li key={`${clause.segment_index}-${clause.start}`} className="result-card">
                   <div className="result-header">
                     <strong>{clause.clause_type}</strong>
@@ -173,13 +207,13 @@ export default async function ContractsPage({
           </>
         ) : null}
 
-        {tab === "tos" && tosResult.result ? (
+        {tab === "tos" && tosResult ? (
           <>
             <h3>
-              ToS Scan ({tosResult.result.unfair_count}/{tosResult.result.total_sentences} unfair)
+              ToS Scan ({tosResult.unfair_count}/{tosResult.total_sentences} unfair)
             </h3>
             <ul className="results-list">
-              {tosResult.result.sentences.map((sentence) => {
+              {tosResult.sentences.map((sentence) => {
                 const highest = Math.max(
                   0,
                   ...sentence.unfair_categories.map((item) => Number(item.confidence ?? 0)),
@@ -211,9 +245,9 @@ export default async function ContractsPage({
 
       <aside>
         <h3>Summary</h3>
-        {tab === "classify" && classifyResult.result ? (
+        {tab === "classify" && classifyResult ? (
           <ul className="chapter-list">
-            {Object.entries(classifyResult.result.clause_distribution).map(([clauseType, count]) => (
+            {Object.entries(classifyResult.clause_distribution).map(([clauseType, count]) => (
               <li key={clauseType}>
                 {clauseType}: {count}
               </li>
@@ -221,11 +255,11 @@ export default async function ContractsPage({
           </ul>
         ) : null}
 
-        {tab === "tos" && tosResult.result ? (
+        {tab === "tos" && tosResult ? (
           <>
-            <p>Severity score: {tosResult.result.severity_score.toFixed(3)}</p>
+            <p>Severity score: {tosResult.severity_score.toFixed(3)}</p>
             <ul className="chapter-list">
-              {Object.entries(tosResult.result.summary).map(([category, count]) => (
+              {Object.entries(tosResult.summary).map(([category, count]) => (
                 <li key={category}>
                   {category}: {count}
                 </li>
