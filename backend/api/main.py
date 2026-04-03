@@ -81,6 +81,7 @@ tags_metadata = [
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    existing_rome_statute_service = getattr(app.state, "rome_statute_service", None)
     app.state.start_time = time.time()
     app.state.request_count = 0
     app.state.rate_limiter = SimpleRateLimiter(settings)
@@ -92,7 +93,7 @@ async def lifespan(app: FastAPI):
     app.state.court_predictor = None
     app.state.benchmark_service = None
     app.state.legal_qa_service = None
-    app.state.rome_statute_service = None
+    app.state.rome_statute_service = existing_rome_statute_service
     app.state.elasticsearch = (
         elasticsearch_client_cls(settings.elasticsearch_url) if elasticsearch_client_cls else None
     )
@@ -143,10 +144,11 @@ async def lifespan(app: FastAPI):
     except Exception as exc:  # pragma: no cover - depends on local model files
         logger.warning("court predictor startup load failed: %s", exc)
 
-    try:
-        app.state.rome_statute_service = create_rome_statute_service(settings.rome_statute_data_path)
-    except Exception as exc:  # pragma: no cover - depends on local files
-        logger.warning("rome statute startup load failed: %s", exc)
+    if app.state.rome_statute_service is None:
+        try:
+            app.state.rome_statute_service = create_rome_statute_service(settings.rome_statute_data_path)
+        except Exception as exc:  # pragma: no cover - depends on local files
+            logger.warning("rome statute startup load failed: %s", exc)
 
     app.state.benchmark_service = BenchmarkService(
         database_url=settings.database_url,
