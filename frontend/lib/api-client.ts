@@ -218,10 +218,15 @@ export async function listStatuteChapters() {
 }
 
 // case retrieval
-export async function searchCases(query: string, topK = 10, stages = ["bm25", "dense", "rerank"]) {
+export async function searchCases(
+  query: string,
+  topK = 10,
+  stages = ["bm25", "dense", "rerank"],
+  includeScores = true,
+) {
   const resp = await fetch(apiUrl("/search/cases"), {
     method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ query, top_k: topK, stages, include_scores: true }),
+    body: JSON.stringify({ query, top_k: topK, stages, include_scores: includeScores }),
   });
   return resp.json();
 }

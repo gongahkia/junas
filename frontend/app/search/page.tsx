@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import { searchCases, listCharges } from "../../lib/api-server";
+import { useEffect, useState } from "react";
+import { searchCases, listCharges } from "../../lib/api-client";
 
 type SearchResult = {
   case_id: string;
@@ -39,47 +42,70 @@ function normalizeStages(raw: string | string[] | undefined): string[] {
   return ["bm25", "dense", "rerank"];
 }
 
-async function fetchCaseSearch(
-  query: string,
-  topK: number,
-  stages: string[],
-  includeScores: boolean,
-): Promise<{ result: SearchResponse | null; error: string | null }> {
-  if (!query.trim()) return { result: null, error: null };
-  const data = await searchCases(query, topK, stages, includeScores);
-  if (data?.error) return { result: null, error: data.error };
-  return { result: data as SearchResponse, error: null };
-}
+export default function CaseSearchPage() {
+  const [query, setQuery] = useState(defaultQuery);
+  const [topK, setTopK] = useState(10);
+  const [stages, setStages] = useState<string[]>(normalizeStages(undefined));
+  const [includeScores, setIncludeScores] = useState(true);
 
-async function fetchCharges(): Promise<ChargesResponse> {
-  return (await listCharges()) as ChargesResponse;
-}
+  const [charges, setCharges] = useState<ChargesResponse>({ charges: [] });
+  const [result, setResult] = useState<SearchResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasRun, setHasRun] = useState(false);
 
-export default async function CaseSearchPage({
-  searchParams,
-}: {
-  searchParams?: {
-    query?: string;
-    top_k?: string;
-    stages?: string | string[];
-    include_scores?: "true" | "false";
-    run?: "0" | "1";
+  useEffect(() => {
+    let isActive = true;
+    (async () => {
+      const data = (await listCharges()) as ChargesResponse;
+      if (!isActive) return;
+      if (Array.isArray(data?.charges)) {
+        setCharges({ charges: data.charges });
+      }
+    })();
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
+  const toggleStage = (stage: "bm25" | "dense" | "rerank") => {
+    setStages((current) => (current.includes(stage) ? current.filter((item) => item !== stage) : [...current, stage]));
   };
-}) {
-  const query = searchParams?.query ?? defaultQuery;
-  const topK = Number(searchParams?.top_k ?? "10") || 10;
-  const stages = normalizeStages(searchParams?.stages);
-  const includeScores = searchParams?.include_scores !== "false";
-  const shouldRun = searchParams?.run === "1";
 
-  const [charges, search] = await Promise.all([
-    fetchCharges(),
-    shouldRun
-      ? fetchCaseSearch(query, topK, stages, includeScores)
-      : Promise.resolve({ result: null, error: null }),
-  ]);
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const normalizedQuery = query.trim();
+    if (!normalizedQuery) {
+      setError("Enter a case fact description before searching.");
+      setResult(null);
+      setHasRun(true);
+      return;
+    }
+    if (stages.length === 0) {
+      setError("Select at least one retrieval stage.");
+      setResult(null);
+      setHasRun(true);
+      return;
+    }
 
-  const result = search.result;
+    setIsLoading(true);
+    setError(null);
+    setHasRun(true);
+    try {
+      const data = await searchCases(normalizedQuery, Math.min(50, Math.max(1, Number(topK) || 10)), stages, includeScores);
+      if (data?.error) {
+        setError(String(data.error));
+        setResult(null);
+      } else {
+        setResult(data as SearchResponse);
+      }
+    } catch (submitError) {
+      setError(submitError instanceof Error ? submitError.message : "Search request failed.");
+      setResult(null);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <section className="search-grid">
@@ -93,22 +119,40 @@ export default async function CaseSearchPage({
           Dataset note: LeCaRD is used for retrieval benchmarking and research comparison.
         </p>
 
-        <form method="get" action="/search" className="ner-form">
-          <input type="hidden" name="run" value="1" />
-
+        <form className="ner-form" onSubmit={onSubmit}>
           <label htmlFor="query">Case fact description (Chinese)</label>
-          <textarea id="query" name="query" rows={10} defaultValue={query} />
+          <textarea id="query" name="query" rows={10} value={query} onChange={(event) => setQuery(event.target.value)} />
 
           <label htmlFor="top_k">Results</label>
-          <input id="top_k" name="top_k" type="number" min={1} max={50} defaultValue={topK} />
+          <input
+            id="top_k"
+            name="top_k"
+            type="number"
+            min={1}
+            max={50}
+            value={topK}
+            onChange={(event) => setTopK(Number(event.target.value) || 10)}
+          />
 
           <div className="chip-row">
             <label className="checkbox-row">
-              <input type="checkbox" name="stages" value="bm25" defaultChecked={stages.includes("bm25")} />
+              <input
+                type="checkbox"
+                name="stages"
+                value="bm25"
+                checked={stages.includes("bm25")}
+                onChange={() => toggleStage("bm25")}
+              />
               BM25
             </label>
             <label className="checkbox-row">
-              <input type="checkbox" name="stages" value="dense" defaultChecked={stages.includes("dense")} />
+              <input
+                type="checkbox"
+                name="stages"
+                value="dense"
+                checked={stages.includes("dense")}
+                onChange={() => toggleStage("dense")}
+              />
               Dense
             </label>
             <label className="checkbox-row">
@@ -116,28 +160,37 @@ export default async function CaseSearchPage({
                 type="checkbox"
                 name="stages"
                 value="rerank"
-                defaultChecked={stages.includes("rerank")}
+                checked={stages.includes("rerank")}
+                onChange={() => toggleStage("rerank")}
               />
               Re-rank
             </label>
           </div>
 
           <label className="checkbox-row">
-            <input type="checkbox" name="include_scores" value="true" defaultChecked={includeScores} />
+            <input
+              type="checkbox"
+              name="include_scores"
+              value="true"
+              checked={includeScores}
+              onChange={(event) => setIncludeScores(event.target.checked)}
+            />
             Include relevance scores
           </label>
 
-          <button type="submit">Search Cases</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? "Searching..." : "Search Cases"}
+          </button>
         </form>
 
         <p>
           <Link href="/search/metrics">View evaluation metrics</Link>
         </p>
 
-        {search.error ? (
+        {error ? (
           <article className="result-card">
             <h3>Search unavailable</h3>
-            <p>{search.error}</p>
+            <p>{error}</p>
           </article>
         ) : null}
 
@@ -170,6 +223,8 @@ export default async function CaseSearchPage({
               ))}
             </ul>
           </>
+        ) : hasRun ? (
+          <p>No results.</p>
         ) : (
           <p>Submit a query to run retrieval.</p>
         )}
