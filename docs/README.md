@@ -7,6 +7,7 @@ This folder contains operator and developer documentation.
 - `schema.md`: API and artifact contracts
 - `architecture.md`: pipeline architecture overview
 - `assumption.md`: implementation assumptions and invariants
+- `layer_trigger_strings.md`: copy-paste sample strings to exercise each pipeline layer
 - `backend_only_audit.md`: backend-only repository audit notes
 - `api/`: generated Postman collection, cURL snippets, and Python client integration notes
 - `json/`: example training corpus batches
