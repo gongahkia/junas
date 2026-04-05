@@ -74,19 +74,22 @@
                     <h3>JSON Response</h3>
                     <pre><code id="json-code" class="language-json">Waiting for data...</code></pre>
                 </div>
-                <div class="debug-section">
-                    <h3>Classification trace</h3>
-                    <div id="trace-summary" class="trace-summary">
-                        <span class="trace-chip trace-chip-neutral">No classification yet</span>
-                        <span class="trace-copy">Waiting for backend diagnostics and the first classification request.</span>
-                    </div>
-                    <div id="architecture-diagram" class="diagram-surface">
-                        <span class="diagram-placeholder">Waiting for classification...</span>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
+
+    <section id="trace-workspace" aria-label="Classification trace">
+        <div id="trace-workspace-inner">
+            <h2>Classification trace</h2>
+            <div id="trace-summary" class="trace-summary">
+                <span class="trace-chip trace-chip-neutral">No classification yet</span>
+                <span class="trace-copy">Waiting for backend diagnostics and the first classification request.</span>
+            </div>
+            <div id="architecture-diagram" class="diagram-surface">
+                <span class="diagram-placeholder">Waiting for classification...</span>
+            </div>
+        </div>
+    </section>
 
     <script src="script.js"></script>
 </body>
