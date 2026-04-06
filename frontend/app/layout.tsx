@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SideNav from "../components/side-nav";
+import ToastContainer from "../components/toast-container";
 import { ThemeProvider } from "../lib/theme-provider";
 import "./globals.css";
 
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <SideNav />
             <main className="content">{children}</main>
           </div>
+          <ToastContainer />
         </ThemeProvider>
       </body>
     </html>

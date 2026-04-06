@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { listConversations, deleteConversation, type ConversationMeta } from "../lib/conversation-store";
 import ThemeToggle from "./theme-toggle";
+import NotificationsPanel, { useUnreadCount } from "./notifications-panel";
 
 const TOOL_LINKS = [
   { href: "/glossary", label: "Glossary" },
@@ -39,6 +40,8 @@ export default function SideNav() {
   const [toolsOpen, setToolsOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeConvId, setActiveConvId] = useState("");
+  const [notifOpen, setNotifOpen] = useState(false);
+  const unreadCount = useUnreadCount();
 
   useEffect(() => {
     setConversations(listConversations());
@@ -135,8 +138,15 @@ export default function SideNav() {
 
       <div className="sidebar-footer">
         <Link href="/settings" className="sidebar-settings-link" onClick={() => setMobileOpen(false)}>Settings</Link>
-        <ThemeToggle />
+        <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+          <button type="button" className="sidebar-notif-btn" onClick={() => setNotifOpen(true)} title="Notifications">
+            <span>Logs</span>
+            {unreadCount > 0 && <span className="notif-badge">{unreadCount > 99 ? "99+" : unreadCount}</span>}
+          </button>
+          <ThemeToggle />
+        </div>
       </div>
+      <NotificationsPanel isOpen={notifOpen} onClose={() => setNotifOpen(false)} />
     </aside>
   );
 }

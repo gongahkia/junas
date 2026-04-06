@@ -8,9 +8,12 @@ import { saveConversation, loadConversation, generateConversationId, listConvers
 import { useKeyboardShortcuts } from "../lib/use-keyboard-shortcuts";
 import TokenCounter from "../components/chat/TokenCounter";
 import CommandSuggestions, { COMMANDS } from "../components/chat/CommandSuggestions";
+import { addNotification } from "../lib/notification-store";
+import ProviderSelector from "../components/provider-selector";
+import ArtifactsPanel, { extractArtifacts } from "../components/artifacts-panel";
 
 const LegalMarkdownRenderer = lazy(() => import("../components/chat/LegalMarkdownRenderer"));
-const GitTree = lazy(() => import("../components/chat/GitTree"));
+const ForceGraph = lazy(() => import("../components/chat/ForceGraph"));
 const CommandPalette = lazy(() => import("../components/chat/CommandPalette"));
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
@@ -38,6 +41,8 @@ export default function HomePage() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   // file upload
   const [pendingFile, setPendingFile] = useState<{ name: string; text: string } | null>(null);
+  // artifacts
+  const [artifactsContent, setArtifactsContent] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   // refs
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -136,12 +141,35 @@ export default function HomePage() {
       setCurrentLeafId(asstId);
       return;
     }
-    // streaming
+    // stream AI response using shared function
+    streamResponse(map, parentId);
+  };
+
+  const stopGeneration = () => { abortRef.current?.abort(); };
+  const newChat = () => { setNodeMap({}); setCurrentLeafId(""); setConversationId(""); setActiveTab("chat"); };
+  const notifyActiveConversation = (id: string) => { window.dispatchEvent(new CustomEvent("junas:active-conversation", { detail: { id } })); };
+
+  const startEdit = (msgId: string) => { const msg = nodeMap[msgId]; if (msg?.role === "user") { setEditingId(msgId); setEditContent(msg.content); } };
+  const saveEdit = () => {
+    if (!editingId || !nodeMap[editingId]?.parentId) return;
+    const parentOfEdited = nodeMap[editingId].parentId!;
+    const edited: TreeMessage = { id: createId(), role: "user", content: editContent.trim(), parentId: parentOfEdited, childrenIds: [], timestamp: Date.now() };
+    const newMap = addChild(nodeMap, parentOfEdited, edited);
+    setEditingId(null); setEditContent("");
+    // stream directly from the branch point — don't go through sendMessage
+    streamResponse(newMap, edited.id);
+  };
+
+  // core streaming function — takes explicit map and parentId to avoid stale closures
+  const streamResponse = async (map: NodeMap, userNodeId: string) => {
+    let cid = conversationId;
+    if (!cid) { cid = generateConversationId(); setConversationId(cid); }
     const asstId = createId();
-    const asstMsg: TreeMessage = { id: asstId, role: "assistant", content: "", parentId, childrenIds: [], timestamp: Date.now() };
-    map = addChild(map, parentId, asstMsg);
+    const asstMsg: TreeMessage = { id: asstId, role: "assistant", content: "", parentId: userNodeId, childrenIds: [], timestamp: Date.now() };
+    map = addChild(map, userNodeId, asstMsg);
     setNodeMap(map);
     setCurrentLeafId(asstId);
+    notifyActiveConversation(cid);
     setStreaming(true);
     startTimeRef.current = Date.now();
     const controller = new AbortController();
@@ -184,21 +212,17 @@ export default function HomePage() {
       }
       setNodeMap(prev => ({ ...prev, [asstId]: { ...prev[asstId], content: accumulated, responseTimeMs: Date.now() - startTimeRef.current } }));
     } catch (err: any) {
-      if (err.name !== "AbortError") setNodeMap(prev => ({ ...prev, [asstId]: { ...prev[asstId], content: `Error: ${err.message}` } }));
+      if (err.name !== "AbortError") {
+        addNotification("error", "Chat Error", err.message || "Failed to get response");
+        setNodeMap(prev => {
+          const updated = { ...prev };
+          delete updated[asstId];
+          if (updated[userNodeId]) updated[userNodeId] = { ...updated[userNodeId], childrenIds: updated[userNodeId].childrenIds.filter(c => c !== asstId) };
+          return updated;
+        });
+        setCurrentLeafId(userNodeId);
+      }
     } finally { setStreaming(false); abortRef.current = null; }
-  };
-
-  const stopGeneration = () => { abortRef.current?.abort(); };
-  const newChat = () => { setNodeMap({}); setCurrentLeafId(""); setConversationId(""); setActiveTab("chat"); };
-  const notifyActiveConversation = (id: string) => { window.dispatchEvent(new CustomEvent("junas:active-conversation", { detail: { id } })); };
-
-  const startEdit = (msgId: string) => { const msg = nodeMap[msgId]; if (msg?.role === "user") { setEditingId(msgId); setEditContent(msg.content); } };
-  const saveEdit = () => {
-    if (!editingId || !nodeMap[editingId]?.parentId) return;
-    const edited: TreeMessage = { id: createId(), role: "user", content: editContent.trim(), parentId: nodeMap[editingId].parentId, childrenIds: [], timestamp: Date.now() };
-    const newMap = addChild(nodeMap, nodeMap[editingId].parentId!, edited);
-    setNodeMap(newMap); setCurrentLeafId(edited.id); setEditingId(null); setEditContent("");
-    setTimeout(() => sendMessage(editContent.trim()), 50);
   };
 
   const switchBranch = (msgId: string, dir: "prev" | "next") => {
@@ -234,7 +258,7 @@ export default function HomePage() {
         const result = await parseDocument(file);
         setPendingFile({ name: result.filename || file.name, text: result.text });
       }
-    } catch (err: any) { setPendingFile({ name: file.name, text: `[Error parsing: ${err.message}]` }); }
+    } catch (err: any) { addNotification("error", "File Error", `Failed to parse ${file.name}: ${err.message}`); }
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -291,13 +315,7 @@ export default function HomePage() {
           <span className="toolbar-hint">/ for commands · Cmd+K palette</span>
         </div>
         <div className="toolbar-right">
-          <select value={provider} onChange={e => setProvider(e.target.value)} className="provider-select">
-            <option value="claude">Claude</option>
-            <option value="openai">OpenAI</option>
-            <option value="gemini">Gemini</option>
-            <option value="ollama">Ollama</option>
-            <option value="lmstudio">LM Studio</option>
-          </select>
+          <ProviderSelector value={provider} onChange={setProvider} />
           <button type="button" className="ask-btn" onClick={() => sendMessage()} disabled={streaming}>
             {streaming ? "..." : "Ask Junas"}
           </button>
@@ -312,7 +330,6 @@ export default function HomePage() {
         /* --- EMPTY STATE: centered Harvey-style input --- */
         <div className="chat-home">
           <div className="chat-home-inner">
-            <h1 className="chat-home-title">Ask Junas anything...</h1>
             <div style={{ position: "relative" }}>
               <CommandSuggestions query={cmdQuery} onSelect={onCommandSelect} isOpen={cmdOpen} selectedIndex={cmdIndex} />
               {pendingFile && (
@@ -322,14 +339,6 @@ export default function HomePage() {
                 </div>
               )}
               {renderInputBar(true)}
-            </div>
-            <div className="chat-home-chips">
-              <span className="source-chip">Case Law</span>
-              <span className="source-chip">Statutes</span>
-              <span className="source-chip">Compliance</span>
-              <span className="source-chip">Contracts</span>
-              <span className="source-chip">NER</span>
-              <span className="source-chip">Predictions</span>
             </div>
           </div>
         </div>
@@ -399,6 +408,11 @@ export default function HomePage() {
                           {m.role === "user" && (
                             <button type="button" className="chat-msg-action-btn" onClick={() => startEdit(m.id)}>Edit</button>
                           )}
+                          {m.role === "assistant" && extractArtifacts(m.content).length > 0 && (
+                            <button type="button" className="artifact-btn" onClick={() => setArtifactsContent(m.content)}>
+                              Artifacts ({extractArtifacts(m.content).length})
+                            </button>
+                          )}
                           {m.role === "assistant" && m.responseTimeMs && (
                             <TokenCounter content={m.content} isStreaming={streaming && m.id === currentLeafId} provider={provider} responseTimeMs={m.responseTimeMs} />
                           )}
@@ -434,9 +448,9 @@ export default function HomePage() {
               </div>
             </>
           ) : (
-            <div style={{ flex: 1, overflow: "auto", padding: "1.5rem" }}>
-              <Suspense fallback={<div className="meta-line">Loading tree...</div>}>
-                <GitTree nodeMap={nodeMap} currentLeafId={currentLeafId} onSelectNode={onSelectNode} />
+            <div style={{ flex: 1, overflow: "hidden" }}>
+              <Suspense fallback={<div className="meta-line" style={{ padding: "1.5rem" }}>Loading graph...</div>}>
+                <ForceGraph nodeMap={nodeMap} currentLeafId={currentLeafId} onSelectNode={onSelectNode} />
               </Suspense>
             </div>
           )}
@@ -447,6 +461,7 @@ export default function HomePage() {
       <Suspense fallback={null}>
         <CommandPalette isOpen={paletteOpen} onClose={() => setPaletteOpen(false)} onSelectCommand={onCommandSelect} onNewChat={newChat} />
       </Suspense>
+      <ArtifactsPanel isOpen={!!artifactsContent} onClose={() => setArtifactsContent("")} content={artifactsContent} />
     </div>
   );
 }
