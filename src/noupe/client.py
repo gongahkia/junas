@@ -126,7 +126,8 @@ class NoupeAPIError(RuntimeError):
 
 
 class NoupeClient:
-    """Typed Python client for the Noupe backend HTTP API."""
+    """Typed Python client for the Noup
+    e backend HTTP API."""
 
     def __init__(
         self,
