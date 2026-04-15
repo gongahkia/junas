@@ -1,5 +1,7 @@
 from importlib import resources
 
+from kt.providers import registry
+from kt.providers.base import AuthToken, Climb, ClimbQuery, Layout, ProviderStatus
 from kt.providers.moonboard import static_catalog
 
 
@@ -63,3 +65,72 @@ async def test_multi_provider_session_requires_provider_for_climb_search(client)
     )
     assert ok.status_code == 200, ok.text
     assert len(ok.json()["climbs"]) == 2
+
+
+async def test_layouts_endpoint_serves_and_caches_public_provider(client):
+    create = await client.post(
+        "/api/sessions",
+        json={"host_display_name": "Alex", "provider": "moonboard_catalog"},
+    )
+    assert create.status_code == 200, create.text
+    code = create.json()["code"]
+
+    first = await client.get(f"/api/sessions/{code}/layouts")
+    assert first.status_code == 200, first.text
+    layouts = first.json()["layouts"]
+    assert {layout["id"] for layout in layouts} >= {"benchmarks", "2016", "2017"}
+
+
+class CountingProvider:
+    key = "counting"
+    name = "Counting"
+    status = ProviderStatus.OK
+    requires_credentials = False
+
+    def __init__(self) -> None:
+        self.search_calls = 0
+
+    async def authenticate(self, creds):
+        return AuthToken(provider=self.key, value="public")
+
+    async def list_layouts(self, token):
+        return [Layout(id="default", name="Default")]
+
+    async def search_climbs(self, token, query: ClimbQuery):
+        self.search_calls += 1
+        return [
+            Climb(
+                id=f"c{self.search_calls}",
+                provider=self.key,
+                name="Cached",
+                setter=None,
+                grade=None,
+                angle=None,
+                ascents=None,
+            )
+        ]
+
+    async def get_climb(self, token, climb_id):
+        raise KeyError(climb_id)
+
+
+async def test_climb_search_uses_session_scoped_cache(client):
+    provider = CountingProvider()
+    registry.register(provider)
+    try:
+        create = await client.post(
+            "/api/sessions",
+            json={"host_display_name": "Alex", "provider": "counting"},
+        )
+        assert create.status_code == 200, create.text
+        code = create.json()["code"]
+
+        first = await client.get(f"/api/sessions/{code}/climbs")
+        second = await client.get(f"/api/sessions/{code}/climbs")
+
+        assert first.status_code == 200, first.text
+        assert second.status_code == 200, second.text
+        assert provider.search_calls == 1
+        assert first.json() == second.json()
+    finally:
+        registry.bootstrap()

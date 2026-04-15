@@ -11,7 +11,7 @@ class CreateSessionReq(BaseModel):
     enabled_providers: list[str] | None = None
 
     @model_validator(mode="after")
-    def normalize_providers(self) -> "CreateSessionReq":
+    def normalize_providers(self) -> CreateSessionReq:
         enabled = [p.strip() for p in (self.enabled_providers or []) if p.strip()]
         if self.provider:
             primary = self.provider.strip()
@@ -88,6 +88,16 @@ class ClimbOut(BaseModel):
 
 class ClimbsResp(BaseModel):
     climbs: list[ClimbOut]
+
+
+class LayoutOut(BaseModel):
+    id: str
+    name: str
+    angles: list[int]
+
+
+class LayoutsResp(BaseModel):
+    layouts: list[LayoutOut]
 
 
 class ErrorResp(BaseModel):
