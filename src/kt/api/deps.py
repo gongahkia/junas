@@ -29,3 +29,7 @@ def get_credentials_repo(
 
 def get_hub(request: Request) -> SessionHub:
     return request.app.state.hub
+
+
+def get_rate_limiter(request: Request):
+    return request.app.state.rate_limiter

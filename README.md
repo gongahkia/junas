@@ -135,3 +135,30 @@ Permissions: `host` for provider/role admin, `host`+`cohost` for queue reorder/f
 
 Session state is persisted to SQLite on every mutation. Restart the server mid-session and reconnect with a fresh `ws_token` — the room snapshot is restored from the database.
 
+## Rate limiting
+
+Per-IP token-bucket on the public REST endpoints. Defaults (`KT_RL_*` overridable):
+
+| Route                          | Per minute |
+|--------------------------------|------------|
+| `POST /api/sessions`           | 10         |
+| `POST /api/sessions/{c}/join`  | 30         |
+| `GET  /api/sessions/{c}/climbs`| 60         |
+
+Set the value to `0` to disable. Behind a reverse proxy, set `X-Forwarded-For` so the limiter sees the real client.
+
+## Session sweeper
+
+A background task ends sessions idle for `KT_SESSION_IDLE_MAX_HOURS` (default 24h) and drops their stored credentials and ws_tokens. Runs every `KT_SWEEP_INTERVAL_SECONDS` (default 5 min).
+
+## Rotating `KT_CRED_KEY`
+
+`KT_CRED_KEY` is a Fernet key. Rotation procedure:
+
+1. Generate a new key: `python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"`.
+2. End all active sessions (their credentials are deleted on session end), or accept that existing ciphertexts will become unreadable.
+3. Restart the server with the new `KT_CRED_KEY`.
+4. Hosts must reattach their credentials.
+
+For zero-downtime rotation we'd need MultiFernet — not implemented; out of scope until there is a public deployment to protect.
+

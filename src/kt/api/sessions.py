@@ -3,11 +3,19 @@ from __future__ import annotations
 import secrets
 import string
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 
-from kt.api.deps import get_cipher, get_credentials_repo, get_hub, get_sessions_repo, get_settings
+from kt.api.deps import (
+    get_cipher,
+    get_credentials_repo,
+    get_hub,
+    get_rate_limiter,
+    get_sessions_repo,
+    get_settings,
+)
 from kt.config import Settings
 from kt.providers import registry
+from kt.ratelimit import RateLimiter, client_key
 from kt.realtime.hub import SessionHub
 from kt.realtime.state import Participant, Role, SessionState, now_iso
 from kt.repos.credentials_repo import CredentialsRepo
@@ -35,9 +43,12 @@ def _code(n: int) -> str:
 @router.post("", response_model=CreateSessionResp)
 async def create_session(
     req: CreateSessionReq,
+    request: Request,
     settings: Settings = Depends(get_settings),
     repo: SessionsRepo = Depends(get_sessions_repo),
+    rl: RateLimiter = Depends(get_rate_limiter),
 ):
+    rl.check(client_key(request), "create_session", settings.rl_create_session_per_min)
     known = {p["key"] for p in registry.describe()}
     invalid = [p for p in req.enabled_providers if p not in known]
     if invalid:
@@ -89,10 +100,13 @@ async def get_session(code: str, repo: SessionsRepo = Depends(get_sessions_repo)
 async def join_session(
     code: str,
     req: JoinSessionReq,
+    request: Request,
     settings: Settings = Depends(get_settings),
     repo: SessionsRepo = Depends(get_sessions_repo),
     hub: SessionHub = Depends(get_hub),
+    rl: RateLimiter = Depends(get_rate_limiter),
 ):
+    rl.check(client_key(request), "join_session", settings.rl_join_per_min)
     row = await repo.get(code)
     if not row or row["ended_at"]:
         raise HTTPException(404, {"error": "not_found"})

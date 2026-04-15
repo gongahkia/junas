@@ -6,12 +6,16 @@ from kt.api.boards import router as boards_router
 from kt.api.health import router as health_router
 from kt.api.sessions import router as sessions_router
 from kt.api.ws import router as ws_router
+import asyncio
+
 from kt.config import Settings
 from kt.db import close_db, init_db
 from kt.logging import configure_logging, log
 from kt.providers import registry
+from kt.ratelimit import RateLimiter
 from kt.realtime.hub import SessionHub
 from kt.repos.sessions_repo import SessionsRepo
+from kt.sweeper import run_forever as sweeper_run_forever
 
 
 @asynccontextmanager
@@ -21,10 +25,19 @@ async def lifespan(app: FastAPI):
     await init_db(settings.db_path)
     registry.bootstrap()
     app.state.hub = SessionHub(SessionsRepo())
+    app.state.rate_limiter = RateLimiter()
+    sweeper = asyncio.create_task(
+        sweeper_run_forever(settings.session_idle_max_hours, settings.sweep_interval_seconds)
+    )
     log().info("startup", db=str(settings.db_path), providers=len(registry.all_providers()))
     try:
         yield
     finally:
+        sweeper.cancel()
+        try:
+            await sweeper
+        except (asyncio.CancelledError, Exception):
+            pass
         await close_db()
 
 
