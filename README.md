@@ -3,7 +3,7 @@
 # Kilter Together
 
 <div align="center">
-  <img src="./asset/reference/1.gif" width="35%">
+  <img src="./asset/reference/1.gif" width="25%">
 </div>
 
 Backend-only service for collaborative climbing-board sessions.
@@ -12,26 +12,18 @@ A FastAPI service that aggregates real climbing boards (Kilter, Tension, Grassho
 
 The host owns the session and supplies any board credentials they want to enable. Guests join with a session code, no credentials required.
 
-## Status
-
-Greenfield rewrite. The previous Flutter P2P client, FastAPI Cornifer service, and React/Vite frontend have been deleted. This repository contains only the FastAPI backend.
-
-## Architecture
+## Usage
 
 ```
-clients
-  | REST (sessions, credentials, climb search)
-  | WebSocket /ws/sessions/{code}  (queue, votes, presence)
-  v
-FastAPI app
-  - api/        REST + WS handlers
-  - realtime/   session engine, hub, protocol
-  - providers/  Aurora / Kilter / MoonBoard adapters
-  - repos/      SQLite-backed persistence
-  - security/   Fernet-encrypted host credentials
-  v
-SQLite (single file, mounted volume in Docker)
+make dev            # backend uvicorn with reload (port 8000)
+make test           # pytest
+make lint           # ruff + mypy
+make docker         # build + run via docker composeq
 ```
+
+Open <http://localhost:8000/docs> for the generated OpenAPI UI after `make dev`.
+
+See `.env.example` for required env (notably `KT_CRED_KEY`, a base64 Fernet key).
 
 ## Boards
 
@@ -50,18 +42,12 @@ SQLite (single file, mounted volume in Docker)
 
 Aurora boards share one client; one provider class is parameterized per board key.
 
-## Dev
+## Architecture
 
-```
-make dev            # backend uvicorn with reload (port 8000)
-make test           # pytest
-make lint           # ruff + mypy
-make docker         # build + run via docker compose
+```mermaid
+...
 ```
 
-Open <http://localhost:8000/docs> for the generated OpenAPI UI after `make dev`.
-
-See `.env.example` for required env (notably `KT_CRED_KEY`, a base64 Fernet key).
 
 ## ToS / credentials
 
