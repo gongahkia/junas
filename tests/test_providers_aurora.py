@@ -57,45 +57,64 @@ async def test_login_missing_creds():
 
 
 async def test_search_climbs_paginates_via_complete_flag():
-    pages = [
+    climbs_pages = [
         {
             "_complete": False,
-            "climbs": [{"uuid": "1", "name": "Alpha", "angle": 40}],
+            "climbs": [{"uuid": "1", "name": "Alpha"}],
             "shared_syncs": [{"table_name": "climbs", "last_synchronized_at": "2026-01-01"}],
         },
-        {
-            "_complete": True,
-            "climbs": [{"uuid": "2", "name": "Beta", "angle": 50}],
-        },
+        {"_complete": True, "climbs": [{"uuid": "2", "name": "Beta"}]},
     ]
-    call_count = {"n": 0}
+    counts = {"climbs": 0, "stats": 0}
 
     def h(req: httpx.Request) -> httpx.Response:
         assert req.url.path == "/sync"
         assert req.headers["content-type"] == "application/x-www-form-urlencoded"
-        page = pages[call_count["n"]]
-        call_count["n"] += 1
-        return httpx.Response(200, json=page)
+        body = req.content.decode()
+        if "climbs=" in body and "climb_stats=" not in body:
+            page = climbs_pages[counts["climbs"]]
+            counts["climbs"] += 1
+            return httpx.Response(200, json=page)
+        if "climb_stats=" in body:
+            counts["stats"] += 1
+            return httpx.Response(200, json={"_complete": True, "climb_stats": []})
+        return httpx.Response(200, json={"_complete": True})
 
     p = AuroraProvider(
         "tension", "Tension", client=AuroraClient("tension", transport=_mock(h))
     )
     out = await p.search_climbs(AuthToken("tension", "tok"), ClimbQuery(limit=10))
     assert [c.id for c in out] == ["1", "2"]
-    assert call_count["n"] == 2
+    assert counts["climbs"] == 2
+    assert counts["stats"] >= 1
 
 
-async def test_search_climbs_filters():
-    page = {
-        "_complete": True,
-        "climbs": [
-            {"uuid": "1", "name": "Alpha", "angle": 40},
-            {"uuid": "2", "name": "Beta", "angle": 50},
-            {"uuid": "3", "name": "Alpha-2", "angle": 40},
-        ],
-    }
-
-    def h(req): return httpx.Response(200, json=page)
+async def test_search_climbs_filters_with_stats():
+    def h(req: httpx.Request) -> httpx.Response:
+        body = req.content.decode()
+        if "climb_stats=" in body:
+            return httpx.Response(
+                200,
+                json={
+                    "_complete": True,
+                    "climb_stats": [
+                        {"climb_uuid": "1", "angle": 40, "difficulty_average": 22, "ascensionist_count": 100},
+                        {"climb_uuid": "2", "angle": 50, "difficulty_average": 25, "ascensionist_count": 5},
+                        {"climb_uuid": "3", "angle": 40, "difficulty_average": 18, "ascensionist_count": 12},
+                    ],
+                },
+            )
+        return httpx.Response(
+            200,
+            json={
+                "_complete": True,
+                "climbs": [
+                    {"uuid": "1", "name": "Alpha"},
+                    {"uuid": "2", "name": "Beta"},
+                    {"uuid": "3", "name": "Alpha-2"},
+                ],
+            },
+        )
 
     p = AuroraProvider(
         "tension", "Tension", client=AuroraClient("tension", transport=_mock(h))
@@ -104,10 +123,12 @@ async def test_search_climbs_filters():
         AuthToken("tension", "tok"), ClimbQuery(text="alpha", angle=40, limit=10)
     )
     assert [c.id for c in out] == ["1", "3"]
+    assert out[0].grade == "22" and out[0].angle == 40 and out[0].ascents == 100
+    assert out[1].grade == "18"
 
 
 async def test_search_climbs_5xx_unavailable():
-    def h(req): return httpx.Response(503)
+    def h(req: httpx.Request) -> httpx.Response: return httpx.Response(503)
     p = AuroraProvider(
         "tension", "Tension", client=AuroraClient("tension", transport=_mock(h))
     )
@@ -124,7 +145,11 @@ async def test_list_layouts_via_sync():
         ],
     }
 
-    def h(req): return httpx.Response(200, json=page)
+    def h(req: httpx.Request) -> httpx.Response:
+        body = req.content.decode()
+        if "layouts=" in body:
+            return httpx.Response(200, json=page)
+        return httpx.Response(200, json={"_complete": True})
 
     p = AuroraProvider(
         "tension", "Tension", client=AuroraClient("tension", transport=_mock(h))

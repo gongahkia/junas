@@ -23,6 +23,23 @@ AURORA_BOARDS: dict[str, str] = {
 }
 
 
+_PK_BY_TABLE: dict[str, tuple[str, ...]] = {
+    "climbs": ("uuid",),
+    "layouts": ("id",),
+    "climb_stats": ("climb_uuid", "angle"),
+    "ascents": ("uuid",),
+    "products": ("id",),
+    "users": ("id",),
+}
+
+
+def _row_key(table: str, row: dict[str, Any]) -> str:
+    pk = _PK_BY_TABLE.get(table)
+    if pk:
+        return "|".join(str(row.get(k)) for k in pk)
+    return str(row.get("uuid") or row.get("id") or id(row))
+
+
 class _TableCache:
     """In-memory per-(token, table) cache with delta sync via shared_syncs."""
 
@@ -55,8 +72,7 @@ class _TableCache:
             for i, page in enumerate(pages, 1):
                 chunk = page.get(table) or (page.get("PUT") or {}).get(table) or []
                 for row in chunk:
-                    rid = str(row.get("uuid") or row.get("id") or row.get("name"))
-                    store[rid] = row
+                    store[_row_key(table, row)] = row
                 for ss in page.get("shared_syncs", []) or []:
                     if ss.get("table_name") == table and ss.get("last_synchronized_at"):
                         latest = ss["last_synchronized_at"]
@@ -111,40 +127,80 @@ class AuroraProvider:
     ) -> list[Climb]:
         if token is None:
             raise ProviderAuthError("auth required")
-        rows = await self._cache.get_rows(
-            self._client, token.value, "climbs", self._max_sync_pages
-        )
+        climbs_rows, stats_by_uuid = await self._climbs_and_stats(token.value)
+
         if query.layout_id:
-            rows = [r for r in rows if str(r.get("layout_id")) == str(query.layout_id)]
-        if query.angle is not None:
-            rows = [r for r in rows if r.get("angle") == query.angle]
+            climbs_rows = [
+                r for r in climbs_rows if str(r.get("layout_id")) == str(query.layout_id)
+            ]
         if query.text:
             t = query.text.lower()
-            rows = [r for r in rows if t in str(r.get("name", "")).lower()]
-        rows = rows[query.offset : query.offset + query.limit]
-        return [_to_climb(self.key, r) for r in rows]
+            climbs_rows = [r for r in climbs_rows if t in str(r.get("name", "")).lower()]
+
+        materialized: list[Climb] = []
+        for c in climbs_rows:
+            uuid = str(c.get("uuid") or c.get("id"))
+            stats_list = stats_by_uuid.get(uuid, [])
+            if query.angle is not None:
+                stats_list = [s for s in stats_list if s.get("angle") == query.angle]
+            if not stats_list:
+                if query.angle is not None:
+                    continue
+                materialized.append(_to_climb(self.key, c, None))
+            else:
+                # Pick the most-ascended stats row to represent the climb
+                best = max(stats_list, key=lambda s: s.get("ascensionist_count") or 0)
+                materialized.append(_to_climb(self.key, c, best))
+
+        return materialized[query.offset : query.offset + query.limit]
 
     async def get_climb(self, token: AuthToken | None, climb_id: str) -> Climb:
         if token is None:
             raise ProviderAuthError("auth required")
-        rows = await self._cache.get_rows(
-            self._client, token.value, "climbs", self._max_sync_pages
-        )
-        for r in rows:
+        climbs_rows, stats_by_uuid = await self._climbs_and_stats(token.value)
+        for r in climbs_rows:
             if str(r.get("uuid") or r.get("id")) == climb_id:
-                return _to_climb(self.key, r)
+                stats_list = stats_by_uuid.get(climb_id, [])
+                stats = max(stats_list, key=lambda s: s.get("ascensionist_count") or 0) if stats_list else None
+                return _to_climb(self.key, r, stats)
         raise KeyError(climb_id)
 
+    async def _climbs_and_stats(
+        self, token: str
+    ) -> tuple[list[dict[str, Any]], dict[str, list[dict[str, Any]]]]:
+        climbs = await self._cache.get_rows(
+            self._client, token, "climbs", self._max_sync_pages
+        )
+        stats = await self._cache.get_rows(
+            self._client, token, "climb_stats", self._max_sync_pages
+        )
+        index: dict[str, list[dict[str, Any]]] = {}
+        for s in stats:
+            uuid = s.get("climb_uuid")
+            if not uuid:
+                continue
+            index.setdefault(str(uuid), []).append(s)
+        return climbs, index
 
-def _to_climb(provider: str, raw: dict[str, Any]) -> Climb:
+
+def _to_climb(provider: str, raw: dict[str, Any], stats: dict[str, Any] | None) -> Climb:
+    grade: str | None = None
+    angle: int | None = None
+    ascents: int | None = None
+    if stats:
+        difficulty = stats.get("difficulty_average")
+        if difficulty is not None:
+            grade = str(difficulty)
+        angle = stats.get("angle")
+        ascents = stats.get("ascensionist_count")
     return Climb(
         id=str(raw.get("uuid") or raw.get("id")),
         provider=provider,
         name=str(raw.get("name", "")),
         setter=raw.get("setter_username") or raw.get("setter"),
-        grade=raw.get("grade") or raw.get("difficulty"),
-        angle=raw.get("angle"),
-        ascents=raw.get("ascensionist_count"),
+        grade=grade,
+        angle=angle,
+        ascents=ascents,
         holds=list(raw.get("frames") or raw.get("holds") or []),
         extras={k: v for k, v in raw.items() if k not in {"uuid", "id", "name"}},
     )
