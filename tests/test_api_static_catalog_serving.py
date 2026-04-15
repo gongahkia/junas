@@ -35,6 +35,8 @@ async def test_bundled_moonboard_catalog_is_served_over_api(client):
     assert all(climb["id"] for climb in climbs)
     assert all(climb["name"] for climb in climbs)
     assert all(climb["grade"] for climb in climbs)
+    assert all(isinstance(climb["holds"], list) for climb in climbs)
+    assert all(climb["extras"]["layout"] == "2016" for climb in climbs)
 
 
 async def test_multi_provider_session_requires_provider_for_climb_search(client):

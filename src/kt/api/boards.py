@@ -147,6 +147,8 @@ async def list_climbs(
             grade=c.grade,
             angle=c.angle,
             ascents=c.ascents,
+            holds=c.holds,
+            extras=c.extras,
         ).model_dump()
         for c in climbs
     ]

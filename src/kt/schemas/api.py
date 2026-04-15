@@ -84,6 +84,8 @@ class ClimbOut(BaseModel):
     grade: str | None
     angle: int | None
     ascents: int | None
+    holds: list[Any] = Field(default_factory=list)
+    extras: dict[str, Any] = Field(default_factory=dict)
 
 
 class ClimbsResp(BaseModel):
