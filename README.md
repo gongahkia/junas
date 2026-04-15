@@ -2,6 +2,10 @@
 
 # Kilter Together
 
+<div align="center">
+  <img src="./asset/reference/1.gif" width="35%">
+</div>
+
 Backend-only service for collaborative climbing-board sessions.
 
 A FastAPI service that aggregates real climbing boards (Kilter, Tension, Grasshopper, MoonBoard, plus the rest of the Aurora ecosystem) and brokers multiplayer sessions where climbers queue, vote on, and finalize climbs together over WebSockets.
