@@ -40,8 +40,9 @@ SQLite (single file, mounted volume in Docker)
 | touchstone   | ok            | Aurora ecosystem                                          |
 | aurora       | ok            | Aurora ecosystem                                          |
 | moonboard    | ok            | Host's logbook (web `/Logbook/GetLogbook`)                |
-| moonboard_catalog | ok       | Bundled static 2016/2017 catalog, no auth (MIT, lucien1011/MoonBoard-Route) |
+| moonboard_catalog | ok       | Bundled simonchase benchmarks + lucien1011 catalogs, no auth |
 | kilter       | experimental  | Kilter split from Aurora 2026-03; new infra (Keycloak)    |
+| crux         | ok            | cruxapp.ca, gym-scoped (Bearer token + gym_slug in creds) |
 
 Aurora boards share one client; one provider class is parameterized per board key.
 

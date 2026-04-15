@@ -40,6 +40,7 @@ def bootstrap() -> None:
     """Register all built-in providers. Called at app startup."""
     reset()
     from kt.providers.aurora.provider import AURORA_BOARDS, AuroraProvider
+    from kt.providers.crux.provider import CruxProvider
     from kt.providers.kilter.provider import KilterProvider
     from kt.providers.moonboard.catalog_provider import MoonboardCatalogProvider
     from kt.providers.moonboard.provider import MoonboardProvider
@@ -49,6 +50,7 @@ def bootstrap() -> None:
     register(KilterProvider())
     register(MoonboardProvider())
     register(MoonboardCatalogProvider())
+    register(CruxProvider())
 
 
 __all__ = ["register", "get", "all_providers", "describe", "reset", "bootstrap", "ProviderStatus"]
