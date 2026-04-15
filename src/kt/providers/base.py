@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass, field
 from enum import StrEnum
 from typing import Any, Protocol
@@ -35,7 +36,7 @@ class Climb:
     grade: str | None
     angle: int | None
     ascents: int | None
-    holds: list[dict[str, Any]] = field(default_factory=list)
+    holds: list[Any] = field(default_factory=list)
     extras: dict[str, Any] = field(default_factory=dict)
 
 
@@ -52,14 +53,18 @@ class ClimbQuery:
     offset: int = 0
 
 
-def matches_holds(climb_holds: list[str], required: tuple[str, ...], forbidden: tuple[str, ...]) -> bool:
+def matches_holds(
+    climb_holds: Iterable[Any],
+    required: tuple[str, ...],
+    forbidden: tuple[str, ...],
+) -> bool:
     """Return True if a climb's hold list satisfies the required/forbidden filter.
 
     Hold tokens are compared case-insensitively to be tolerant of formats like
     'C5' vs 'c5' across providers."""
     if not required and not forbidden:
         return True
-    have = {h.upper() for h in climb_holds if h}
+    have = {str(h).upper() for h in climb_holds if h}
     for r in required:
         if r.upper() not in have:
             return False
