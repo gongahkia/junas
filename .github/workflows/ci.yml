@@ -1,25 +1,25 @@
-name: Kilter Together CI on push
+name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
 
 jobs:
-  flutter:
+  python:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: kilter-together-mobile
     steps:
       - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
+      - uses: actions/setup-python@v5
         with:
-          channel: stable
-      - name: Install dependencies
-        run: flutter pub get
-      - name: Analyze
-        run: flutter analyze --no-fatal-infos
-      - name: Run tests
-        run: flutter test
+          python-version: "3.12"
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      - name: Lint
+        run: ruff check src tests
+      - name: Type check
+        run: mypy src
+      - name: Test
+        run: pytest -q
