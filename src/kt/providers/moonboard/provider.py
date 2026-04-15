@@ -13,6 +13,12 @@ from kt.providers.base import (
 
 
 class MoonboardProvider:
+    """MoonBoard provider — surfaces the host's own logbook entries.
+
+    The MoonBoard website does not expose a public problems API; the mobile app
+    uses different infrastructure. `search_climbs` therefore returns the host
+    user's own logged ascents, which is still useful for queueing repeats."""
+
     key = "moonboard"
     name = "MoonBoard"
     status = ProviderStatus.OK
@@ -41,30 +47,35 @@ class MoonboardProvider:
     ) -> list[Climb]:
         if token is None:
             raise ProviderUnavailable("auth required")
-        raw = await self._scraper.list_problems(
-            session_cookie=token.value,
-            layout_id=query.layout_id or "2019",
-            text=query.text,
-            limit=query.limit,
-            offset=query.offset,
+        page = (query.offset // max(1, query.limit)) + 1
+        data, _total = await self._scraper.list_logbook(
+            session_cookie=token.value, page=page, page_size=query.limit
         )
-        return [
-            Climb(
-                id=str(r.get("id")),
-                provider=self.key,
-                name=str(r.get("name", "")),
-                setter=r.get("setter"),
-                grade=r.get("grade"),
-                angle=r.get("angle"),
-                ascents=r.get("ascents"),
-                holds=list(r.get("holds") or []),
-            )
-            for r in raw
-        ]
+        climbs = [_to_climb(self.key, r) for r in data]
+        if query.text:
+            t = query.text.lower()
+            climbs = [c for c in climbs if t in c.name.lower()]
+        return climbs
 
     async def get_climb(self, token: AuthToken | None, climb_id: str) -> Climb:
-        climbs = await self.search_climbs(token, ClimbQuery(limit=1_000))
-        for c in climbs:
-            if c.id == climb_id:
-                return c
+        for page in range(1, 50):
+            data, _ = await self._scraper.list_logbook(token.value, page=page, page_size=50)
+            if not data:
+                break
+            for r in data:
+                if str(r.get("Id") or r.get("ProblemId")) == climb_id:
+                    return _to_climb(self.key, r)
         raise KeyError(climb_id)
+
+
+def _to_climb(provider: str, raw: dict[str, Any]) -> Climb:
+    return Climb(
+        id=str(raw.get("Id") or raw.get("ProblemId") or raw.get("id")),
+        provider=provider,
+        name=str(raw.get("Name") or raw.get("ProblemName") or ""),
+        setter=raw.get("Setter") or raw.get("SetByUserName"),
+        grade=raw.get("Grade") or raw.get("GradeName"),
+        angle=raw.get("Angle"),
+        ascents=raw.get("Repeats") or raw.get("Count"),
+        extras={k: v for k, v in raw.items() if k not in {"Id", "Name", "ProblemName"}},
+    )
