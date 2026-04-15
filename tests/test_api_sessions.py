@@ -7,7 +7,7 @@ async def test_create_session_and_get(client):
     body = r.json()
     code = body["code"]
     assert len(code) == 6
-    assert body["host_secret"] and body["host_participant_id"]
+    assert body["host_secret"] and body["host_participant_id"] and body["host_ws_token"]
 
     r = await client.get(f"/api/sessions/{code}")
     assert r.status_code == 200
@@ -69,6 +69,27 @@ async def test_join_and_ws_token_issued(client):
 
     r = await client.get(f"/api/sessions/{code}")
     assert r.json()["participant_count"] == 2
+
+
+async def test_host_token_can_be_refreshed(client):
+    create = (
+        await client.post(
+            "/api/sessions",
+            json={"host_display_name": "Alex", "provider": "tension"},
+        )
+    ).json()
+    code = create["code"]
+
+    bad = await client.post(f"/api/sessions/{code}/host-token", json={"host_secret": "wrong"})
+    assert bad.status_code == 403
+
+    ok = await client.post(
+        f"/api/sessions/{code}/host-token",
+        json={"host_secret": create["host_secret"]},
+    )
+    assert ok.status_code == 200
+    assert ok.json()["participant_id"] == create["host_participant_id"]
+    assert ok.json()["ws_token"]
 
 
 async def test_end_session_requires_host_secret(client):

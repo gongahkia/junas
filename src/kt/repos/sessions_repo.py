@@ -63,6 +63,14 @@ class SessionsRepo:
 
     async def save_state(self, code: str, state: dict[str, Any]) -> None:
         now = datetime.now(UTC).isoformat()
+        enabled_providers = state.get("enabled_providers")
+        if isinstance(enabled_providers, list):
+            await db().execute(
+                "UPDATE sessions SET enabled_providers=?, state_json=?, updated_at=? WHERE code=?",
+                (json.dumps(enabled_providers), json.dumps(state), now, code),
+            )
+            await db().commit()
+            return
         await db().execute(
             "UPDATE sessions SET state_json=?, updated_at=? WHERE code=?",
             (json.dumps(state), now, code),

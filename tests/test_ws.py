@@ -18,18 +18,12 @@ async def test_ws_full_flow(tmp_path):
             json={"host_display_name": "Host", "provider": "tension"},
         ).json()
         code = create["code"]
-        host_id = create["host_participant_id"]
-
-        # host needs a ws_token too — use the join flow, but for host we need
-        # to mint one directly via the test app's repo.
-        from kt.repos.sessions_repo import SessionsRepo
-        repo = SessionsRepo()
-        await repo.put_ws_token("host-tk", code, host_id, ttl_seconds=120)
+        host_tk = create["host_ws_token"]
 
         guest = tc.post(f"/api/sessions/{code}/join", json={"display_name": "Guest"}).json()
         guest_tk = guest["ws_token"]
 
-        with tc.websocket_connect(f"/ws/sessions/{code}?token=host-tk") as host_ws:
+        with tc.websocket_connect(f"/ws/sessions/{code}?token={host_tk}") as host_ws:
             with tc.websocket_connect(f"/ws/sessions/{code}?token={guest_tk}") as guest_ws:
                 # both receive an initial roomStateUpdate
                 host_first = host_ws.receive_json()

@@ -132,9 +132,12 @@ def _add_to_queue(state, participant_id, payload):
     name = payload.get("name") or ""
     if not climb_id:
         raise BadRequest("climb_id required")
-    if not state.provider:
+    enabled_providers = state.providers()
+    if not enabled_providers:
         raise BadRequest("session has no provider")
-    provider = state.provider
+    provider = payload.get("provider") or state.provider or enabled_providers[0]
+    if provider not in enabled_providers:
+        raise BadRequest("provider not enabled for session")
     q_id = f"{provider}:{climb_id}"
     if any(q.id == q_id for q in state.queue):
         raise BadRequest("climb already queued")
@@ -149,6 +152,37 @@ def _add_to_queue(state, participant_id, payload):
     )
     state = replace(state, queue=[*state.queue, q])
     return state, [Event("queueUpdate", {"queue": [q.__dict__ for q in state.queue]})]
+
+
+def _set_providers(state, participant_id, payload):
+    _require(state, participant_id, {Role.HOST})
+    raw = payload.get("enabled_providers", payload.get("providers"))
+    if not isinstance(raw, list):
+        raise BadRequest("enabled_providers must be list[str]")
+    enabled_providers = []
+    for provider in raw:
+        if not isinstance(provider, str) or not provider.strip():
+            raise BadRequest("enabled_providers must be list[str]")
+        provider = provider.strip()
+        if provider not in enabled_providers:
+            enabled_providers.append(provider)
+    if not enabled_providers:
+        raise BadRequest("at least one provider required")
+
+    kept_ids = {q.id for q in state.queue if q.provider in enabled_providers}
+    queue = [q for q in state.queue if q.id in kept_ids]
+    finalists = [f for f in state.finalists if f in kept_ids]
+    state = replace(
+        state,
+        provider=enabled_providers[0],
+        enabled_providers=enabled_providers,
+        queue=queue,
+        finalists=finalists,
+    )
+    return state, [
+        Event("providersUpdate", {"enabled_providers": enabled_providers}),
+        Event("queueUpdate", {"queue": [q.__dict__ for q in state.queue]}),
+    ]
 
 
 def _vote(state, participant_id, payload):
@@ -242,6 +276,7 @@ _HANDLERS = {
     "joinRoom": _join,
     "leaveRoom": _leave,
     "setRole": _set_role,
+    "setProviders": _set_providers,
     "kickParticipant": _kick,
     "addToQueue": _add_to_queue,
     "voteClimb": _vote,

@@ -27,6 +27,7 @@ class CreateSessionResp(BaseModel):
     code: str
     host_participant_id: str
     host_secret: str
+    host_ws_token: str
 
 
 class JoinSessionReq(BaseModel):
@@ -57,6 +58,15 @@ class AttachCredentialsReq(BaseModel):
 class AttachCredentialsResp(BaseModel):
     provider: str
     ok: bool
+
+
+class HostTokenReq(BaseModel):
+    host_secret: str
+
+
+class HostTokenResp(BaseModel):
+    participant_id: str
+    ws_token: str
 
 
 class ProviderDescriptor(BaseModel):

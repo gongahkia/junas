@@ -26,6 +26,8 @@ from kt.schemas.api import (
     AttachCredentialsResp,
     CreateSessionReq,
     CreateSessionResp,
+    HostTokenReq,
+    HostTokenResp,
     JoinSessionReq,
     JoinSessionResp,
     SessionSummary,
@@ -86,7 +88,14 @@ async def create_session(
         enabled_providers=enabled_providers,
         state=state.to_dict(),
     )
-    return CreateSessionResp(code=code, host_participant_id=host_id, host_secret=host_secret)
+    host_ws_token = new_secret()
+    await repo.put_ws_token(host_ws_token, code, host_id, settings.ws_token_ttl_seconds)
+    return CreateSessionResp(
+        code=code,
+        host_participant_id=host_id,
+        host_secret=host_secret,
+        host_ws_token=host_ws_token,
+    )
 
 
 @router.get("/{code}", response_model=SessionSummary)
@@ -136,6 +145,28 @@ async def join_session(
     ws_token = new_secret()
     await repo.put_ws_token(ws_token, code, participant_id, settings.ws_token_ttl_seconds)
     return JoinSessionResp(participant_id=participant_id, ws_token=ws_token)
+
+
+@router.post("/{code}/host-token", response_model=HostTokenResp)
+async def create_host_token(
+    code: str,
+    req: HostTokenReq,
+    settings: Annotated[Settings, Depends(get_settings)],
+    repo: Annotated[SessionsRepo, Depends(get_sessions_repo)],
+):
+    row = await repo.get(code)
+    if not row or row["ended_at"]:
+        raise HTTPException(404, {"error": "not_found"})
+    if not verify_secret(req.host_secret, row["host_secret_hash"]):
+        raise HTTPException(403, {"error": "bad_host_secret"})
+    ws_token = new_secret()
+    await repo.put_ws_token(
+        ws_token,
+        code,
+        row["host_participant_id"],
+        settings.ws_token_ttl_seconds,
+    )
+    return HostTokenResp(participant_id=row["host_participant_id"], ws_token=ws_token)
 
 
 @router.delete("/{code}")

@@ -15,6 +15,7 @@ def _state(host="h1") -> SessionState:
         code="ABCDEF",
         host_id=host,
         provider="tension",
+        enabled_providers=["tension"],
         participants={
             host: Participant(id=host, display_name="H", role=Role.HOST, joined_at=now_iso())
         },
@@ -88,6 +89,90 @@ def test_add_to_queue_dedup():
     s, _ = apply_action(s, "h1", {"type": "addToQueue", "payload": {"climb_id": "c1", "name": "x"}})
     with pytest.raises(BadRequest):
         apply_action(s, "h1", {"type": "addToQueue", "payload": {"climb_id": "c1", "name": "x"}})
+
+
+def test_add_to_queue_can_target_enabled_provider():
+    s = _state()
+    s = SessionState(
+        code=s.code,
+        host_id=s.host_id,
+        provider="tension",
+        enabled_providers=["tension", "moonboard_catalog"],
+        participants=s.participants,
+    )
+    s, _ = apply_action(
+        s,
+        "h1",
+        {
+            "type": "addToQueue",
+            "payload": {
+                "provider": "moonboard_catalog",
+                "climb_id": "m1",
+                "name": "Moon",
+            },
+        },
+    )
+    assert s.queue[0].id == "moonboard_catalog:m1"
+    assert s.queue[0].provider == "moonboard_catalog"
+
+
+def test_add_to_queue_rejects_disabled_provider():
+    s = _state()
+    with pytest.raises(BadRequest):
+        apply_action(
+            s,
+            "h1",
+            {
+                "type": "addToQueue",
+                "payload": {"provider": "crux", "climb_id": "c1", "name": "x"},
+            },
+        )
+
+
+def test_set_providers_updates_session_and_prunes_disabled_queue_entries():
+    s = _state()
+    s = SessionState(
+        code=s.code,
+        host_id=s.host_id,
+        provider="tension",
+        enabled_providers=["tension", "moonboard_catalog"],
+        participants=s.participants,
+    )
+    s, _ = apply_action(
+        s,
+        "h1",
+        {
+            "type": "addToQueue",
+            "payload": {"provider": "tension", "climb_id": "t1", "name": "Tension"},
+        },
+    )
+    s, _ = apply_action(
+        s,
+        "h1",
+        {
+            "type": "addToQueue",
+            "payload": {
+                "provider": "moonboard_catalog",
+                "climb_id": "m1",
+                "name": "Moon",
+            },
+        },
+    )
+    s, _ = apply_action(
+        s,
+        "h1",
+        {"type": "markFinalist", "payload": {"queue_id": "tension:t1"}},
+    )
+    s, evs = apply_action(
+        s,
+        "h1",
+        {"type": "setProviders", "payload": {"enabled_providers": ["moonboard_catalog"]}},
+    )
+    assert s.provider == "moonboard_catalog"
+    assert s.enabled_providers == ["moonboard_catalog"]
+    assert [q.id for q in s.queue] == ["moonboard_catalog:m1"]
+    assert s.finalists == []
+    assert any(e.type == "providersUpdate" for e in evs)
 
 
 def test_vote_idempotent_and_toggle():
