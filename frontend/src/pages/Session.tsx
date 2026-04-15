@@ -48,6 +48,13 @@ export function Session() {
           if (msg.type === "roomStateUpdate") setState(msg.payload)
           else if (msg.type === "error") setErr(msg.payload.detail || msg.payload.error)
           else if (msg.type === "sessionEnded") { setConn("closed"); setErr("session ended by host") }
+          else if (msg.type === "participantKicked" && msg.payload?.participant_id === me.participant_id) {
+            sockRef.current?.close()
+            storage.remove(code)
+            setConn("closed")
+            setErr("you were removed from the session")
+            setTimeout(() => navigate("/"), 1200)
+          }
         },
       })
     }
@@ -203,46 +210,70 @@ export function Session() {
             <Card className="p-5">
               <h2 className="text-lg font-semibold mb-3">Climbers</h2>
               <ul className="space-y-2">
-                {Object.values(state.participants).map((p) => (
-                  <li key={p.id} className="flex items-center justify-between text-sm">
-                    <span>{p.display_name}{p.id === meId && " (you)"}</span>
-                    <Pill tone={p.role === "host" ? "warn" : "neutral"}>{p.role}</Pill>
-                  </li>
-                ))}
+                {Object.values(state.participants).map((p) => {
+                  const canManage = isHost && p.id !== state.host_id // host can't manage themselves
+                  return (
+                    <li key={p.id} className="flex items-center justify-between text-sm gap-2">
+                      <span className="truncate">{p.display_name}{p.id === meId && " (you)"}</span>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <Pill tone={p.role === "host" ? "warn" : "neutral"}>{p.role}</Pill>
+                        {canManage && p.role === "participant" && (
+                          <button
+                            onClick={() => action("setRole", { participant_id: p.id, role: "cohost" })}
+                            className="text-xs px-2 py-0.5 rounded border border-[var(--color-border)] hover:bg-[var(--color-surface-2)]"
+                            title="Promote to cohost"
+                          >↑ cohost</button>
+                        )}
+                        {canManage && p.role === "cohost" && (
+                          <button
+                            onClick={() => action("setRole", { participant_id: p.id, role: "participant" })}
+                            className="text-xs px-2 py-0.5 rounded border border-[var(--color-border)] hover:bg-[var(--color-surface-2)]"
+                            title="Demote to participant"
+                          >↓ participant</button>
+                        )}
+                        {canManage && (
+                          <button
+                            onClick={() => {
+                              if (confirm(`Remove ${p.display_name} from the session?`))
+                                action("kickParticipant", { participant_id: p.id })
+                            }}
+                            className="text-xs px-2 py-0.5 rounded border border-[var(--color-danger)]/30 text-[var(--color-danger)] hover:bg-[var(--color-danger)]/10"
+                            title="Remove from session"
+                          >✕</button>
+                        )}
+                      </div>
+                    </li>
+                  )
+                })}
               </ul>
             </Card>
 
             <Card className="p-5">
-              <h2 className="text-lg font-semibold mb-3">Boards</h2>
-              {state.enabled_providers.length === 0 ? (
-                <p className="text-sm text-[var(--color-text-muted)]">No providers enabled. {isHost && "Open Credentials to add one."}</p>
-              ) : (
-                <ul className="space-y-1.5">
-                  {state.enabled_providers.map((p: string) => (
-                    <li key={p}><Pill tone="ok">{p}</Pill></li>
-                  ))}
-                </ul>
-              )}
+              <h2 className="text-lg font-semibold mb-3">Board</h2>
+              {state.provider
+                ? <Pill tone="ok">{state.provider}</Pill>
+                : <p className="text-sm text-[var(--color-text-muted)]">No board set.</p>}
             </Card>
           </div>
         </div>
       )}
 
-      {showBrowser && (
+      {showBrowser && state?.provider && (
         <ClimbBrowser
           code={code}
-          enabledProviders={state?.enabled_providers ?? []}
+          provider={state.provider}
           onClose={() => setShowBrowser(false)}
-          onAdd={(provider, climb_id, name) => {
-            action("addToQueue", { provider, climb_id, name })
+          onAdd={(climb_id, name) => {
+            action("addToQueue", { climb_id, name })
             setShowBrowser(false)
           }}
         />
       )}
 
-      {showCreds && me?.host_secret && (
+      {showCreds && me?.host_secret && state?.provider && (
         <CredentialsModal
           code={code}
+          provider={state.provider}
           hostSecret={me.host_secret}
           onClose={() => setShowCreds(false)}
         />

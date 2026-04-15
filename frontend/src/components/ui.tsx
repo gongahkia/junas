@@ -69,10 +69,7 @@ export function PageShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-full">
       <header className="border-b border-[var(--color-border)] px-6 py-4 flex items-center justify-between">
-        <a href="/" className="text-lg font-semibold tracking-tight">
-          <span className="text-[var(--color-accent)]">▲</span> Kilter Together
-        </a>
-        <span className="text-xs text-[var(--color-text-muted)]">collaborative climbing sessions</span>
+        <a href="/" className="text-lg font-semibold tracking-tight">Kilter Together</a>
       </header>
       <main className="max-w-5xl mx-auto p-6">{children}</main>
     </div>

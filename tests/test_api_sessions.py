@@ -1,7 +1,7 @@
 async def test_create_session_and_get(client):
     r = await client.post(
         "/api/sessions",
-        json={"host_display_name": "Alex", "enabled_providers": ["tension"]},
+        json={"host_display_name": "Alex", "provider": "tension"},
     )
     assert r.status_code == 200, r.text
     body = r.json()
@@ -12,7 +12,7 @@ async def test_create_session_and_get(client):
     r = await client.get(f"/api/sessions/{code}")
     assert r.status_code == 200
     s = r.json()
-    assert s["enabled_providers"] == ["tension"]
+    assert s["provider"] == "tension"
     assert s["participant_count"] == 1
     assert s["queue_length"] == 0
 
@@ -20,17 +20,17 @@ async def test_create_session_and_get(client):
 async def test_create_session_unknown_provider(client):
     r = await client.post(
         "/api/sessions",
-        json={"host_display_name": "Alex", "enabled_providers": ["not-a-board"]},
+        json={"host_display_name": "Alex", "provider": "not-a-board"},
     )
     assert r.status_code == 400
-    assert r.json()["detail"]["error"] == "unknown_providers"
+    assert r.json()["detail"]["error"] == "unknown_provider"
 
 
 async def test_join_and_ws_token_issued(client):
     create = (
         await client.post(
             "/api/sessions",
-            json={"host_display_name": "Alex", "enabled_providers": ["tension"]},
+            json={"host_display_name": "Alex", "provider": "tension"},
         )
     ).json()
     code = create["code"]
@@ -46,7 +46,7 @@ async def test_join_and_ws_token_issued(client):
 async def test_end_session_requires_host_secret(client):
     create = (
         await client.post(
-            "/api/sessions", json={"host_display_name": "A", "enabled_providers": []}
+            "/api/sessions", json={"host_display_name": "A", "provider": "tension"}
         )
     ).json()
     code = create["code"]

@@ -18,7 +18,7 @@ export type JoinSessionResp = {
 
 export type SessionSummary = {
   code: string
-  enabled_providers: string[]
+  provider: string
   participant_count: number
   queue_length: number
   created_at: string
@@ -64,7 +64,7 @@ export type CompletedClimb = {
 export type SessionState = {
   code: string
   host_id: string
-  enabled_providers: string[]
+  provider: string
   participants: Record<string, Participant>
   queue: QueuedClimb[]
   finalists: string[]
@@ -77,6 +77,6 @@ export type WsMessage =
   | { type: "participantsUpdate"; payload: { participants: Participant[] } }
   | { type: "finalistsUpdate"; payload: { finalists: string[] } }
   | { type: "historyUpdate"; payload: { history: CompletedClimb[] } }
-  | { type: "providersUpdate"; payload: { providers: string[] } }
   | { type: "sessionEnded"; payload: Record<string, never> }
+  | { type: "participantKicked"; payload: { participant_id: string } }
   | { type: "error"; payload: { error: string; detail?: string } }

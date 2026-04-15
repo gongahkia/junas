@@ -28,7 +28,6 @@ async def list_providers():
 async def list_climbs(
     code: str,
     request: Request,
-    provider: str = Query(...),
     text: str | None = Query(None),
     angle: int | None = Query(None),
     layout_id: str | None = Query(None),
@@ -45,8 +44,7 @@ async def list_climbs(
     row = await repo.get(code)
     if not row or row["ended_at"]:
         raise HTTPException(404, {"error": "not_found"})
-    if provider not in row["enabled_providers"]:
-        raise HTTPException(400, {"error": "provider_not_enabled"})
+    provider = row["provider"]
     try:
         p = registry.get(provider)
     except KeyError:

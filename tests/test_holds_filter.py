@@ -79,14 +79,13 @@ async def test_climbs_endpoint_threads_holds(client):
     create = (
         await client.post(
             "/api/sessions",
-            json={"host_display_name": "H", "enabled_providers": ["moonboard_catalog"]},
+            json={"host_display_name": "H", "provider": "moonboard_catalog"},
         )
     ).json()
     code = create["code"]
     r = await client.get(
         f"/api/sessions/{code}/climbs",
         params=[
-            ("provider", "moonboard_catalog"),
             ("layout_id", "benchmarks"),
             ("holds_required", "C5"),
             ("limit", 5),

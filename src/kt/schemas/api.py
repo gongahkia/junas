@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 
 class CreateSessionReq(BaseModel):
     host_display_name: str = Field(min_length=1, max_length=40)
-    enabled_providers: list[str] = Field(default_factory=list)
+    provider: str = Field(min_length=1)
 
 
 class CreateSessionResp(BaseModel):
@@ -27,7 +27,7 @@ class JoinSessionResp(BaseModel):
 
 class SessionSummary(BaseModel):
     code: str
-    enabled_providers: list[str]
+    provider: str
     participant_count: int
     queue_length: int
     created_at: str

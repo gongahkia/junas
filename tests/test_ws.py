@@ -16,7 +16,7 @@ async def test_ws_full_flow(tmp_path):
     with TestClient(app) as tc:
         create = tc.post(
             "/api/sessions",
-            json={"host_display_name": "Host", "enabled_providers": ["tension"]},
+            json={"host_display_name": "Host", "provider": "tension"},
         ).json()
         code = create["code"]
         host_secret = create["host_secret"]
@@ -47,7 +47,6 @@ async def test_ws_full_flow(tmp_path):
                         {
                             "type": "addToQueue",
                             "payload": {
-                                "provider": "tension",
                                 "climb_id": "c1",
                                 "name": "Test",
                             },
@@ -68,7 +67,6 @@ async def test_ws_full_flow(tmp_path):
                         {
                             "type": "addToQueue",
                             "payload": {
-                                "provider": "tension",
                                 "climb_id": "c1",
                                 "name": "Test",
                             },
@@ -86,7 +84,7 @@ def test_ws_rejects_missing_token(tmp_path):
     app = create_app(settings)
     with TestClient(app) as tc:
         create = tc.post(
-            "/api/sessions", json={"host_display_name": "H", "enabled_providers": []}
+            "/api/sessions", json={"host_display_name": "H", "provider": "tension"}
         ).json()
         code = create["code"]
         try:

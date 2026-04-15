@@ -1,20 +1,19 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { api } from "../api/client"
 import type { ClimbOut } from "../api/types"
 import { Button, Input, Label, Modal, Pill } from "./ui"
 
 export function ClimbBrowser({
   code,
-  enabledProviders,
+  provider,
   onClose,
   onAdd,
 }: {
   code: string
-  enabledProviders: string[]
+  provider: string
   onClose: () => void
-  onAdd: (provider: string, climb_id: string, name: string) => void
+  onAdd: (climb_id: string, name: string) => void
 }) {
-  const [provider, setProvider] = useState(enabledProviders[0] ?? "")
   const [text, setText] = useState("")
   const [layoutId, setLayoutId] = useState("")
   const [angle, setAngle] = useState("")
@@ -23,16 +22,10 @@ export function ClimbBrowser({
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState<string | null>(null)
 
-  useEffect(() => {
-    setProvider(enabledProviders[0] ?? "")
-  }, [enabledProviders])
-
   async function search() {
-    if (!provider) { setErr("pick a provider"); return }
     setBusy(true); setErr(null)
     try {
       const r = await api.searchClimbs(code, {
-        provider,
         text: text || undefined,
         layout_id: layoutId || undefined,
         angle: angle ? Number(angle) : undefined,
@@ -44,34 +37,21 @@ export function ClimbBrowser({
   }
 
   return (
-    <Modal open onClose={onClose} title="Browse climbs">
+    <Modal open onClose={onClose} title={`Browse climbs — ${provider}`}>
       <div className="space-y-3">
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <Label>Provider</Label>
-            <select
-              className="w-full bg-[var(--color-surface-2)] border border-[var(--color-border)] rounded-lg px-3 py-2 text-[var(--color-text)]"
-              value={provider}
-              onChange={(e) => setProvider(e.target.value)}
-            >
-              {enabledProviders.length === 0 && <option value="">no providers enabled</option>}
-              {enabledProviders.map((p) => <option key={p} value={p}>{p}</option>)}
-            </select>
-          </div>
-          <div>
             <Label>Layout / Gym slug</Label>
             <Input value={layoutId} onChange={(e) => setLayoutId(e.target.value)} placeholder="e.g. benchmarks, 2019" />
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <Label>Search text</Label>
-            <Input value={text} onChange={(e) => setText(e.target.value)} placeholder="name, setter…" />
           </div>
           <div>
             <Label>Angle</Label>
             <Input value={angle} onChange={(e) => setAngle(e.target.value)} placeholder="e.g. 40" />
           </div>
+        </div>
+        <div>
+          <Label>Search text</Label>
+          <Input value={text} onChange={(e) => setText(e.target.value)} placeholder="name, setter…" />
         </div>
         <div>
           <Label>Holds required (comma separated)</Label>
@@ -92,7 +72,7 @@ export function ClimbBrowser({
                     {c.ascents != null && <span>· {c.ascents} sends</span>}
                   </div>
                 </div>
-                <Button onClick={() => onAdd(c.provider, c.id, c.name || c.id)}>Add</Button>
+                <Button onClick={() => onAdd(c.id, c.name || c.id)}>Add</Button>
               </li>
             ))}
           </ul>

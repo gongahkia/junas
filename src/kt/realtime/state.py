@@ -47,7 +47,7 @@ class CompletedClimb:
 class SessionState:
     code: str
     host_id: str
-    enabled_providers: list[str] = field(default_factory=list)
+    provider: str = ""
     participants: dict[str, Participant] = field(default_factory=dict)
     queue: list[QueuedClimb] = field(default_factory=list)
     finalists: list[str] = field(default_factory=list)
@@ -57,7 +57,7 @@ class SessionState:
         return {
             "code": self.code,
             "host_id": self.host_id,
-            "enabled_providers": list(self.enabled_providers),
+            "provider": self.provider,
             "participants": {pid: asdict(p) for pid, p in self.participants.items()},
             "queue": [asdict(q) for q in self.queue],
             "finalists": list(self.finalists),
@@ -77,10 +77,14 @@ class SessionState:
         }
         queue = [QueuedClimb(**q) for q in d.get("queue", [])]
         history = [CompletedClimb(**h) for h in d.get("history", [])]
+        provider = d.get("provider") or ""
+        if not provider:  # back-compat for any rows written as enabled_providers=[p]
+            legacy = d.get("enabled_providers") or []
+            if legacy: provider = legacy[0]
         return cls(
             code=d["code"],
             host_id=d["host_id"],
-            enabled_providers=list(d.get("enabled_providers") or []),
+            provider=provider,
             participants=parts,
             queue=queue,
             finalists=list(d.get("finalists") or []),

@@ -28,7 +28,7 @@ def test_zero_disables():
 
 
 async def test_create_session_rate_limited(client):
-    body = {"host_display_name": "A", "enabled_providers": []}
+    body = {"host_display_name": "A", "provider": "tension"}
     seen_429 = False
     for _ in range(15):
         r = await client.post("/api/sessions", json=body)

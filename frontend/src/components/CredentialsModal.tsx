@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { api } from "../api/client"
-import type { ProviderDescriptor } from "../api/types"
-import { Button, Input, Label, Modal, Pill } from "./ui"
+import { Button, Input, Label, Modal } from "./ui"
+import { PROVIDER_LINKS } from "../lib/providerLinks"
 
-type Field = { key: string; label: string; type?: string; placeholder?: string }
+export type CredField = { key: string; label: string; type?: string; placeholder?: string }
 
-const FIELDS_BY_PROVIDER: Record<string, Field[]> = {
+export const FIELDS_BY_PROVIDER: Record<string, CredField[]> = {
   tension: [
     { key: "username", label: "Username" },
     { key: "password", label: "Password", type: "password" },
@@ -48,22 +48,20 @@ const FIELDS_BY_PROVIDER: Record<string, Field[]> = {
 
 export function CredentialsModal({
   code,
+  provider,
   hostSecret,
   onClose,
 }: {
   code: string
+  provider: string
   hostSecret: string
   onClose: () => void
 }) {
-  const [providers, setProviders] = useState<ProviderDescriptor[]>([])
-  const [chosen, setChosen] = useState<string>("")
   const [values, setValues] = useState<Record<string, string>>({})
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState<{ type: "ok" | "bad"; text: string } | null>(null)
 
-  useEffect(() => { api.listProviders().then(setProviders).catch(() => {}) }, [])
-
-  const fields = FIELDS_BY_PROVIDER[chosen] ?? [
+  const fields: CredField[] = FIELDS_BY_PROVIDER[provider] ?? [
     { key: "username", label: "Username" },
     { key: "password", label: "Password", type: "password" },
   ]
@@ -71,54 +69,47 @@ export function CredentialsModal({
   async function attach() {
     setBusy(true); setMsg(null)
     try {
-      await api.attachCredentials(code, chosen, values, hostSecret)
-      setMsg({ type: "ok", text: `${chosen}: attached & validated` })
+      await api.attachCredentials(code, provider, values, hostSecret)
+      setMsg({ type: "ok", text: `${provider}: attached & validated` })
       setValues({})
     } catch (e) { setMsg({ type: "bad", text: String(e) }) } finally { setBusy(false) }
   }
 
   return (
-    <Modal open onClose={onClose} title="Provider credentials">
-      <p className="text-sm text-[var(--color-text-muted)] mb-4">
+    <Modal open onClose={onClose} title={`Credentials — ${provider}`}>
+      <p className="text-sm text-[var(--color-text-muted)] mb-2">
         Credentials are encrypted at rest and deleted when the session ends. Only you (the host) can attach.
       </p>
-
-      <Label>Pick a provider</Label>
-      <div className="flex flex-wrap gap-1.5 mb-4">
-        {providers.map((p) => (
-          <button
-            key={p.key}
-            onClick={() => { setChosen(p.key); setValues({}); setMsg(null) }}
-            className={`px-2.5 py-1 rounded-lg text-sm border ${
-              chosen === p.key
-                ? "border-[var(--color-accent)] bg-[var(--color-accent)]/10"
-                : "border-[var(--color-border)] bg-[var(--color-surface-2)]"
-            }`}
-          >
-            {p.name}{!p.requires_credentials && " ·"} {!p.requires_credentials && <Pill tone="ok">no creds</Pill>}
-          </button>
-        ))}
-      </div>
-
-      {chosen && (
-        <div className="space-y-3">
-          {fields.length === 0 && <p className="text-sm text-[var(--color-text-muted)]">No credentials needed for this provider.</p>}
-          {fields.map((f) => (
-            <div key={f.key}>
-              <Label>{f.label}</Label>
-              <Input
-                type={f.type ?? "text"}
-                placeholder={f.placeholder}
-                value={values[f.key] ?? ""}
-                onChange={(e) => setValues({ ...values, [f.key]: e.target.value })}
-              />
-            </div>
-          ))}
-          <Button onClick={attach} disabled={busy} className="w-full">
-            {busy ? "validating..." : `Attach ${chosen}`}
-          </Button>
-        </div>
+      {PROVIDER_LINKS[provider] && (
+        <p className="text-sm mb-4">
+          <a
+            href={PROVIDER_LINKS[provider].url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--color-accent)] hover:underline"
+          >{PROVIDER_LINKS[provider].label} ↗</a>
+        </p>
       )}
+
+      <div className="space-y-3">
+        {fields.length === 0 && <p className="text-sm text-[var(--color-text-muted)]">No credentials needed for this provider.</p>}
+        {fields.map((f) => (
+          <div key={f.key}>
+            <Label>{f.label}</Label>
+            <Input
+              type={f.type ?? "text"}
+              placeholder={f.placeholder}
+              value={values[f.key] ?? ""}
+              onChange={(e) => setValues({ ...values, [f.key]: e.target.value })}
+            />
+          </div>
+        ))}
+        {fields.length > 0 && (
+          <Button onClick={attach} disabled={busy} className="w-full">
+            {busy ? "validating..." : `Attach ${provider}`}
+          </Button>
+        )}
+      </div>
 
       {msg && (
         <div className={`mt-4 p-3 rounded-lg text-sm ${msg.type === "ok" ? "bg-[var(--color-success)]/15 text-[var(--color-success)]" : "bg-[var(--color-danger)]/15 text-[var(--color-danger)]"}`}>

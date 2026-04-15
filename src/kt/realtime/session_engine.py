@@ -105,24 +105,36 @@ def _set_role(state, participant_id, payload):
     return state, [Event("participantsUpdate", {"participants": [p.__dict__ for p in state.participants.values()]})]
 
 
-def _set_providers(state, participant_id, payload):
+def _kick(state, participant_id, payload):
     _require(state, participant_id, {Role.HOST})
-    providers = payload.get("providers")
-    if not isinstance(providers, list) or not all(isinstance(p, str) for p in providers):
-        raise BadRequest("providers must be list[str]")
-    state = replace(state, enabled_providers=list(dict.fromkeys(providers)))
-    return state, [Event("providersUpdate", {"providers": state.enabled_providers})]
+    target = payload.get("participant_id")
+    if not target or target not in state.participants:
+        raise BadRequest("participant_id required")
+    if target == state.host_id:
+        raise BadRequest("cannot kick host")
+    parts = {k: v for k, v in state.participants.items() if k != target}
+    queue = [q for q in state.queue if q.added_by != target]
+    for q in queue:
+        q.votes = [v for v in q.votes if v != target]
+    kept_ids = {q.id for q in queue}
+    finalists = [f for f in state.finalists if f in kept_ids]
+    state = replace(state, participants=parts, queue=queue, finalists=finalists)
+    return state, [
+        Event("participantsUpdate", {"participants": [p.__dict__ for p in state.participants.values()]}),
+        Event("queueUpdate", {"queue": [q.__dict__ for q in state.queue]}),
+        Event("participantKicked", {"participant_id": target}),
+    ]
 
 
 def _add_to_queue(state, participant_id, payload):
     _require(state, participant_id, {Role.HOST, Role.COHOST, Role.PARTICIPANT})
-    provider = payload.get("provider")
     climb_id = payload.get("climb_id")
     name = payload.get("name") or ""
-    if not provider or not climb_id:
-        raise BadRequest("provider and climb_id required")
-    if provider not in state.enabled_providers:
-        raise BadRequest("provider not enabled for this session")
+    if not climb_id:
+        raise BadRequest("climb_id required")
+    if not state.provider:
+        raise BadRequest("session has no provider")
+    provider = state.provider
     q_id = f"{provider}:{climb_id}"
     if any(q.id == q_id for q in state.queue):
         raise BadRequest("climb already queued")
@@ -230,7 +242,7 @@ _HANDLERS = {
     "joinRoom": _join,
     "leaveRoom": _leave,
     "setRole": _set_role,
-    "setProviders": _set_providers,
+    "kickParticipant": _kick,
     "addToQueue": _add_to_queue,
     "voteClimb": _vote,
     "reorderQueue": _reorder,

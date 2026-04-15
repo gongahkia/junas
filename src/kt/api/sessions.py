@@ -50,9 +50,8 @@ async def create_session(
 ):
     rl.check(client_key(request), "create_session", settings.rl_create_session_per_min)
     known = {p["key"] for p in registry.describe()}
-    invalid = [p for p in req.enabled_providers if p not in known]
-    if invalid:
-        raise HTTPException(400, {"error": "unknown_providers", "detail": invalid})
+    if req.provider not in known:
+        raise HTTPException(400, {"error": "unknown_provider", "detail": req.provider})
 
     code = _code(settings.session_code_len)
     host_id = secrets.token_urlsafe(9)
@@ -60,7 +59,7 @@ async def create_session(
     state = SessionState(
         code=code,
         host_id=host_id,
-        enabled_providers=list(req.enabled_providers),
+        provider=req.provider,
         participants={
             host_id: Participant(
                 id=host_id,
@@ -74,7 +73,7 @@ async def create_session(
         code=code,
         host_participant_id=host_id,
         host_secret_hash=hash_secret(host_secret),
-        enabled_providers=list(req.enabled_providers),
+        provider=req.provider,
         state=state.to_dict(),
     )
     return CreateSessionResp(code=code, host_participant_id=host_id, host_secret=host_secret)
@@ -88,7 +87,7 @@ async def get_session(code: str, repo: SessionsRepo = Depends(get_sessions_repo)
     state = row["state"]
     return SessionSummary(
         code=row["code"],
-        enabled_providers=row["enabled_providers"],
+        provider=row["provider"],
         participant_count=len(state.get("participants") or {}),
         queue_length=len(state.get("queue") or []),
         created_at=row["created_at"],
@@ -160,6 +159,8 @@ async def attach_credentials(
         raise HTTPException(404, {"error": "not_found"})
     if not verify_secret(req.host_secret, row["host_secret_hash"]):
         raise HTTPException(403, {"error": "bad_host_secret"})
+    if req.provider != row["provider"]:
+        raise HTTPException(400, {"error": "provider_mismatch", "detail": row["provider"]})
     try:
         provider = registry.get(req.provider)
     except KeyError:
@@ -172,13 +173,5 @@ async def attach_credentials(
             raise HTTPException(400, {"error": "auth_failed", "detail": str(e)}) from e
 
     await creds_repo.put(code, req.provider, req.credentials)
-
-    if req.provider not in row["enabled_providers"]:
-        new_enabled = [*row["enabled_providers"], req.provider]
-        await repo.set_enabled_providers(code, new_enabled)
-        live = await hub.load_or_restore(code)
-        if live:
-            async with live.lock:
-                live.state.enabled_providers = new_enabled
-                await repo.save_state(code, live.state.to_dict())
+    _ = hub  # kept for signature stability; no state change required
     return AttachCredentialsResp(provider=req.provider, ok=True)

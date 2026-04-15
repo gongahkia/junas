@@ -13,7 +13,7 @@ class SessionsRepo:
         code: str,
         host_participant_id: str,
         host_secret_hash: str,
-        enabled_providers: list[str],
+        provider: str,
         state: dict[str, Any],
     ) -> None:
         now = datetime.now(timezone.utc).isoformat()
@@ -27,7 +27,7 @@ class SessionsRepo:
                 code,
                 host_participant_id,
                 host_secret_hash,
-                json.dumps(enabled_providers),
+                provider,  # column retained; stores single provider key now (not JSON list)
                 json.dumps(state),
                 now,
                 now,
@@ -45,11 +45,17 @@ class SessionsRepo:
             row = await cur.fetchone()
         if not row:
             return None
+        raw = row["enabled_providers"]
+        try: # tolerate legacy JSON-list rows during dev
+            parsed = json.loads(raw)
+            provider = parsed[0] if isinstance(parsed, list) and parsed else raw
+        except (json.JSONDecodeError, TypeError):
+            provider = raw
         return {
             "code": row["code"],
             "host_participant_id": row["host_participant_id"],
             "host_secret_hash": row["host_secret_hash"],
-            "enabled_providers": json.loads(row["enabled_providers"]),
+            "provider": provider,
             "state": json.loads(row["state_json"]),
             "created_at": row["created_at"],
             "updated_at": row["updated_at"],
@@ -61,14 +67,6 @@ class SessionsRepo:
         await db().execute(
             "UPDATE sessions SET state_json=?, updated_at=? WHERE code=?",
             (json.dumps(state), now, code),
-        )
-        await db().commit()
-
-    async def set_enabled_providers(self, code: str, providers: list[str]) -> None:
-        now = datetime.now(timezone.utc).isoformat()
-        await db().execute(
-            "UPDATE sessions SET enabled_providers=?, updated_at=? WHERE code=?",
-            (json.dumps(providers), now, code),
         )
         await db().commit()
 

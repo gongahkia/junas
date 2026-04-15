@@ -22,6 +22,10 @@ from kt.sweeper import run_forever as sweeper_run_forever
 async def lifespan(app: FastAPI):
     settings: Settings = app.state.settings
     configure_logging(settings.log_level)
+    if not settings.cred_key:  # dev convenience: ephemeral key + warning (creds lost on restart)
+        from cryptography.fernet import Fernet
+        settings.cred_key = Fernet.generate_key().decode()
+        log().warning("cred_key_autogen", msg="KT_CRED_KEY unset — generated ephemeral key; set KT_CRED_KEY to persist credentials across restarts")
     await init_db(settings.db_path)
     registry.bootstrap()
     app.state.hub = SessionHub(SessionsRepo())

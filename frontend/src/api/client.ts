@@ -22,8 +22,9 @@ async function jfetch<T>(input: string, init?: RequestInit): Promise<T> {
     headers: { "content-type": "application/json", ...(init?.headers ?? {}) },
   })
   if (!r.ok) {
-    let detail: unknown
-    try { detail = await r.json() } catch { detail = await r.text() }
+    const raw = await r.text() // read once; .json() consumes the stream and breaks the .text() fallback
+    let detail: unknown = raw
+    if (raw) { try { detail = JSON.parse(raw) } catch { /* keep raw text */ } }
     throw new ApiError(r.status, detail)
   }
   if (r.status === 204) return undefined as T
@@ -35,10 +36,10 @@ export const api = {
 
   listProviders: () => jfetch<ProviderDescriptor[]>("/api/providers"),
 
-  createSession: (host_display_name: string, enabled_providers: string[]) =>
+  createSession: (host_display_name: string, provider: string) =>
     jfetch<CreateSessionResp>("/api/sessions", {
       method: "POST",
-      body: JSON.stringify({ host_display_name, enabled_providers }),
+      body: JSON.stringify({ host_display_name, provider }),
     }),
 
   getSession: (code: string) =>
@@ -73,7 +74,6 @@ export const api = {
   searchClimbs: (
     code: string,
     params: {
-      provider: string
       text?: string
       angle?: number
       layout_id?: string
@@ -84,7 +84,6 @@ export const api = {
     },
   ) => {
     const q = new URLSearchParams()
-    q.set("provider", params.provider)
     if (params.text) q.set("text", params.text)
     if (params.angle != null) q.set("angle", String(params.angle))
     if (params.layout_id) q.set("layout_id", params.layout_id)
