@@ -1,0 +1,117 @@
+from __future__ import annotations
+
+import json
+from datetime import datetime, timezone
+from typing import Any
+
+from kt.db import db
+
+
+class SessionsRepo:
+    async def create(
+        self,
+        code: str,
+        host_participant_id: str,
+        host_secret_hash: str,
+        enabled_providers: list[str],
+        state: dict[str, Any],
+    ) -> None:
+        now = datetime.now(timezone.utc).isoformat()
+        await db().execute(
+            """
+            INSERT INTO sessions(code, host_participant_id, host_secret_hash,
+                enabled_providers, state_json, created_at, updated_at)
+            VALUES (?,?,?,?,?,?,?)
+            """,
+            (
+                code,
+                host_participant_id,
+                host_secret_hash,
+                json.dumps(enabled_providers),
+                json.dumps(state),
+                now,
+                now,
+            ),
+        )
+        await db().commit()
+
+    async def get(self, code: str) -> dict[str, Any] | None:
+        async with db().execute(
+            """SELECT code, host_participant_id, host_secret_hash, enabled_providers,
+                      state_json, created_at, updated_at, ended_at
+               FROM sessions WHERE code=?""",
+            (code,),
+        ) as cur:
+            row = await cur.fetchone()
+        if not row:
+            return None
+        return {
+            "code": row["code"],
+            "host_participant_id": row["host_participant_id"],
+            "host_secret_hash": row["host_secret_hash"],
+            "enabled_providers": json.loads(row["enabled_providers"]),
+            "state": json.loads(row["state_json"]),
+            "created_at": row["created_at"],
+            "updated_at": row["updated_at"],
+            "ended_at": row["ended_at"],
+        }
+
+    async def save_state(self, code: str, state: dict[str, Any]) -> None:
+        now = datetime.now(timezone.utc).isoformat()
+        await db().execute(
+            "UPDATE sessions SET state_json=?, updated_at=? WHERE code=?",
+            (json.dumps(state), now, code),
+        )
+        await db().commit()
+
+    async def set_enabled_providers(self, code: str, providers: list[str]) -> None:
+        now = datetime.now(timezone.utc).isoformat()
+        await db().execute(
+            "UPDATE sessions SET enabled_providers=?, updated_at=? WHERE code=?",
+            (json.dumps(providers), now, code),
+        )
+        await db().commit()
+
+    async def end(self, code: str) -> None:
+        now = datetime.now(timezone.utc).isoformat()
+        await db().execute(
+            "UPDATE sessions SET ended_at=?, updated_at=? WHERE code=?",
+            (now, now, code),
+        )
+        await db().commit()
+
+    async def put_ws_token(
+        self, token: str, session_code: str, participant_id: str, ttl_seconds: int
+    ) -> None:
+        from datetime import timedelta
+
+        now = datetime.now(timezone.utc)
+        await db().execute(
+            """INSERT INTO ws_tokens(token, session_code, participant_id, created_at, expires_at)
+               VALUES (?,?,?,?,?)""",
+            (
+                token,
+                session_code,
+                participant_id,
+                now.isoformat(),
+                (now + timedelta(seconds=ttl_seconds)).isoformat(),
+            ),
+        )
+        await db().commit()
+
+    async def consume_ws_token(self, token: str) -> dict[str, Any] | None:
+        now = datetime.now(timezone.utc).isoformat()
+        async with db().execute(
+            """SELECT token, session_code, participant_id, expires_at, used_at
+               FROM ws_tokens WHERE token=?""",
+            (token,),
+        ) as cur:
+            row = await cur.fetchone()
+        if not row or row["used_at"] is not None or row["expires_at"] < now:
+            return None
+        await db().execute("UPDATE ws_tokens SET used_at=? WHERE token=?", (now, token))
+        await db().commit()
+        return {
+            "session_code": row["session_code"],
+            "participant_id": row["participant_id"],
+        }
