@@ -121,6 +121,15 @@ class SessionsRepo:
             "participant_id": row["participant_id"],
         }
 
+    async def delete_expired_ws_tokens(self) -> int:
+        now = datetime.now(UTC).isoformat()
+        cur = await db().execute(
+            "DELETE FROM ws_tokens WHERE expires_at <= ? OR used_at IS NOT NULL",
+            (now,),
+        )
+        await db().commit()
+        return cur.rowcount
+
 
 def _parse_enabled_providers(raw: str) -> list[str]:
     try:

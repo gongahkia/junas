@@ -7,9 +7,14 @@ from datetime import UTC, datetime, timedelta
 
 from kt.db import db
 from kt.logging import log
+from kt.repos.climbs_cache_repo import ClimbsCacheRepo
+from kt.repos.sessions_repo import SessionsRepo
 
 
 async def sweep_once(idle_max_hours: int) -> int:
+    await SessionsRepo().delete_expired_ws_tokens()
+    await ClimbsCacheRepo().delete_expired()
+
     cutoff = (datetime.now(UTC) - timedelta(hours=idle_max_hours)).isoformat()
     async with db().execute(
         "SELECT code FROM sessions WHERE ended_at IS NULL AND updated_at < ?",

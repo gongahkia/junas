@@ -7,7 +7,8 @@ import json
 from dataclasses import dataclass, field
 from typing import Any
 
-from kt.realtime.session_engine import Event, apply_action
+from kt.providers import registry
+from kt.realtime.session_engine import BadRequest, Event, apply_action
 from kt.realtime.state import SessionState
 from kt.repos.sessions_repo import SessionsRepo
 
@@ -70,6 +71,8 @@ class SessionHub:
         live = await self.load_or_restore(code)
         if live is None:
             raise KeyError("session not found")
+        if action.get("type") == "setProviders":
+            _validate_known_providers(action)
         async with live.lock:
             new_state, events = apply_action(live.state, participant_id, action)
             live.state = new_state
@@ -103,3 +106,14 @@ def serialize(msg: dict[str, Any]) -> str:
 
 def deserialize(raw: str) -> dict[str, Any]:
     return json.loads(raw)
+
+
+def _validate_known_providers(action: dict[str, Any]) -> None:
+    payload = action.get("payload") or {}
+    raw = payload.get("enabled_providers", payload.get("providers"))
+    if not isinstance(raw, list):
+        return
+    known = {p["key"] for p in registry.describe()}
+    unknown = [provider for provider in raw if provider not in known]
+    if unknown:
+        raise BadRequest(f"unknown provider: {unknown[0]}")

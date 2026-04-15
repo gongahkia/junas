@@ -4,6 +4,7 @@ import secrets
 import string
 from typing import Annotated
 
+import aiosqlite
 from fastapi import APIRouter, Depends, HTTPException, Request
 
 from kt.api.deps import (
@@ -63,31 +64,39 @@ async def create_session(
     enabled_providers = _validate_providers(req.enabled_providers or [req.provider or ""])
     provider = req.provider or enabled_providers[0]
 
-    code = _code(settings.session_code_len)
     host_id = secrets.token_urlsafe(9)
     host_secret = new_secret()
-    state = SessionState(
-        code=code,
-        host_id=host_id,
-        provider=provider,
-        enabled_providers=enabled_providers,
-        participants={
-            host_id: Participant(
-                id=host_id,
-                display_name=req.host_display_name,
-                role=Role.HOST,
-                joined_at=now_iso(),
+    code = ""
+    for _ in range(10):
+        code = _code(settings.session_code_len)
+        state = SessionState(
+            code=code,
+            host_id=host_id,
+            provider=provider,
+            enabled_providers=enabled_providers,
+            participants={
+                host_id: Participant(
+                    id=host_id,
+                    display_name=req.host_display_name,
+                    role=Role.HOST,
+                    joined_at=now_iso(),
+                )
+            },
+        )
+        try:
+            await repo.create(
+                code=code,
+                host_participant_id=host_id,
+                host_secret_hash=hash_secret(host_secret),
+                provider=provider,
+                enabled_providers=enabled_providers,
+                state=state.to_dict(),
             )
-        },
-    )
-    await repo.create(
-        code=code,
-        host_participant_id=host_id,
-        host_secret_hash=hash_secret(host_secret),
-        provider=provider,
-        enabled_providers=enabled_providers,
-        state=state.to_dict(),
-    )
+            break
+        except aiosqlite.IntegrityError:
+            code = ""
+    if not code:
+        raise HTTPException(503, {"error": "session_code_exhausted"})
     host_ws_token = new_secret()
     await repo.put_ws_token(host_ws_token, code, host_id, settings.ws_token_ttl_seconds)
     return CreateSessionResp(
