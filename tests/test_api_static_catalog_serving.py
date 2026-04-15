@@ -33,3 +33,33 @@ async def test_bundled_moonboard_catalog_is_served_over_api(client):
     assert all(climb["id"] for climb in climbs)
     assert all(climb["name"] for climb in climbs)
     assert all(climb["grade"] for climb in climbs)
+
+
+async def test_multi_provider_session_requires_provider_for_climb_search(client):
+    create = await client.post(
+        "/api/sessions",
+        json={
+            "host_display_name": "Alex",
+            "enabled_providers": ["moonboard_catalog", "crux"],
+        },
+    )
+    assert create.status_code == 200, create.text
+    code = create.json()["code"]
+
+    missing = await client.get(f"/api/sessions/{code}/climbs")
+    assert missing.status_code == 400
+    assert missing.json()["detail"]["error"] == "provider_required"
+
+    disabled = await client.get(
+        f"/api/sessions/{code}/climbs",
+        params={"provider": "tension"},
+    )
+    assert disabled.status_code == 400
+    assert disabled.json()["detail"]["error"] == "provider_not_enabled"
+
+    ok = await client.get(
+        f"/api/sessions/{code}/climbs",
+        params={"provider": "moonboard_catalog", "layout_id": "2016", "limit": 2},
+    )
+    assert ok.status_code == 200, ok.text
+    assert len(ok.json()["climbs"]) == 2

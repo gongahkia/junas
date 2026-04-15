@@ -13,8 +13,26 @@ async def test_create_session_and_get(client):
     assert r.status_code == 200
     s = r.json()
     assert s["provider"] == "tension"
+    assert s["enabled_providers"] == ["tension"]
     assert s["participant_count"] == 1
     assert s["queue_length"] == 0
+
+
+async def test_create_session_with_multiple_enabled_providers(client):
+    r = await client.post(
+        "/api/sessions",
+        json={
+            "host_display_name": "Alex",
+            "enabled_providers": ["moonboard_catalog", "crux"],
+        },
+    )
+    assert r.status_code == 200, r.text
+    code = r.json()["code"]
+
+    r = await client.get(f"/api/sessions/{code}")
+    assert r.status_code == 200
+    assert r.json()["provider"] == "moonboard_catalog"
+    assert r.json()["enabled_providers"] == ["moonboard_catalog", "crux"]
 
 
 async def test_create_session_unknown_provider(client):
@@ -24,6 +42,16 @@ async def test_create_session_unknown_provider(client):
     )
     assert r.status_code == 400
     assert r.json()["detail"]["error"] == "unknown_provider"
+
+
+async def test_create_session_unknown_enabled_provider(client):
+    r = await client.post(
+        "/api/sessions",
+        json={"host_display_name": "Alex", "enabled_providers": ["tension", "bad"]},
+    )
+    assert r.status_code == 400
+    assert r.json()["detail"]["error"] == "unknown_provider"
+    assert r.json()["detail"]["detail"] == "bad"
 
 
 async def test_join_and_ws_token_issued(client):

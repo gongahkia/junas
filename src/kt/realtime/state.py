@@ -48,16 +48,24 @@ class SessionState:
     code: str
     host_id: str
     provider: str = ""
+    enabled_providers: list[str] = field(default_factory=list)
     participants: dict[str, Participant] = field(default_factory=dict)
     queue: list[QueuedClimb] = field(default_factory=list)
     finalists: list[str] = field(default_factory=list)
     history: list[CompletedClimb] = field(default_factory=list)
 
+    def providers(self) -> list[str]:
+        if self.enabled_providers:
+            return list(self.enabled_providers)
+        return [self.provider] if self.provider else []
+
     def to_dict(self) -> dict[str, Any]:
+        enabled_providers = self.providers()
         return {
             "code": self.code,
             "host_id": self.host_id,
-            "provider": self.provider,
+            "provider": self.provider or (enabled_providers[0] if enabled_providers else ""),
+            "enabled_providers": enabled_providers,
             "participants": {pid: asdict(p) for pid, p in self.participants.items()},
             "queue": [asdict(q) for q in self.queue],
             "finalists": list(self.finalists),
@@ -77,15 +85,17 @@ class SessionState:
         }
         queue = [QueuedClimb(**q) for q in d.get("queue", [])]
         history = [CompletedClimb(**h) for h in d.get("history", [])]
+        enabled_providers = list(d.get("enabled_providers") or [])
         provider = d.get("provider") or ""
-        if not provider:  # back-compat for any rows written as enabled_providers=[p]
-            legacy = d.get("enabled_providers") or []
-            if legacy:
-                provider = legacy[0]
+        if not enabled_providers and provider:
+            enabled_providers = [provider]
+        if not provider and enabled_providers:
+            provider = enabled_providers[0]
         return cls(
             code=d["code"],
             host_id=d["host_id"],
             provider=provider,
+            enabled_providers=enabled_providers,
             participants=parts,
             queue=queue,
             finalists=list(d.get("finalists") or []),

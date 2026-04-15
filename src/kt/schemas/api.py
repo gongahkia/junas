@@ -2,12 +2,25 @@ from __future__ import annotations
 
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 
 class CreateSessionReq(BaseModel):
     host_display_name: str = Field(min_length=1, max_length=40)
-    provider: str = Field(min_length=1)
+    provider: str | None = Field(default=None, min_length=1)
+    enabled_providers: list[str] | None = None
+
+    @model_validator(mode="after")
+    def normalize_providers(self) -> "CreateSessionReq":
+        enabled = [p.strip() for p in (self.enabled_providers or []) if p.strip()]
+        if self.provider:
+            primary = self.provider.strip()
+            enabled = [primary, *(p for p in enabled if p != primary)]
+        if not enabled:
+            raise ValueError("provider or enabled_providers required")
+        self.provider = self.provider or enabled[0]
+        self.enabled_providers = enabled
+        return self
 
 
 class CreateSessionResp(BaseModel):
@@ -28,6 +41,7 @@ class JoinSessionResp(BaseModel):
 class SessionSummary(BaseModel):
     code: str
     provider: str
+    enabled_providers: list[str]
     participant_count: int
     queue_length: int
     created_at: str

@@ -41,6 +41,14 @@ def _code(n: int) -> str:
     return "".join(secrets.choice(_ALPHABET) for _ in range(n))
 
 
+def _validate_providers(providers: list[str]) -> list[str]:
+    known = {p["key"] for p in registry.describe()}
+    unknown = [p for p in providers if p not in known]
+    if unknown:
+        raise HTTPException(400, {"error": "unknown_provider", "detail": unknown[0]})
+    return providers
+
+
 @router.post("", response_model=CreateSessionResp)
 async def create_session(
     req: CreateSessionReq,
@@ -50,9 +58,8 @@ async def create_session(
     rl: Annotated[RateLimiter, Depends(get_rate_limiter)],
 ):
     rl.check(client_key(request), "create_session", settings.rl_create_session_per_min)
-    known = {p["key"] for p in registry.describe()}
-    if req.provider not in known:
-        raise HTTPException(400, {"error": "unknown_provider", "detail": req.provider})
+    enabled_providers = _validate_providers(req.enabled_providers or [req.provider or ""])
+    provider = req.provider or enabled_providers[0]
 
     code = _code(settings.session_code_len)
     host_id = secrets.token_urlsafe(9)
@@ -60,7 +67,8 @@ async def create_session(
     state = SessionState(
         code=code,
         host_id=host_id,
-        provider=req.provider,
+        provider=provider,
+        enabled_providers=enabled_providers,
         participants={
             host_id: Participant(
                 id=host_id,
@@ -74,7 +82,8 @@ async def create_session(
         code=code,
         host_participant_id=host_id,
         host_secret_hash=hash_secret(host_secret),
-        provider=req.provider,
+        provider=provider,
+        enabled_providers=enabled_providers,
         state=state.to_dict(),
     )
     return CreateSessionResp(code=code, host_participant_id=host_id, host_secret=host_secret)
@@ -89,6 +98,7 @@ async def get_session(code: str, repo: Annotated[SessionsRepo, Depends(get_sessi
     return SessionSummary(
         code=row["code"],
         provider=row["provider"],
+        enabled_providers=row["enabled_providers"],
         participant_count=len(state.get("participants") or {}),
         queue_length=len(state.get("queue") or []),
         created_at=row["created_at"],
@@ -160,8 +170,8 @@ async def attach_credentials(
         raise HTTPException(404, {"error": "not_found"})
     if not verify_secret(req.host_secret, row["host_secret_hash"]):
         raise HTTPException(403, {"error": "bad_host_secret"})
-    if req.provider != row["provider"]:
-        raise HTTPException(400, {"error": "provider_mismatch", "detail": row["provider"]})
+    if req.provider not in row["enabled_providers"]:
+        raise HTTPException(400, {"error": "provider_not_enabled", "detail": row["enabled_providers"]})
     try:
         provider = registry.get(req.provider)
     except KeyError:

@@ -37,6 +37,7 @@ async def list_climbs(
     text: Annotated[str | None, Query()] = None,
     angle: Annotated[int | None, Query()] = None,
     layout_id: Annotated[str | None, Query()] = None,
+    provider: Annotated[str | None, Query()] = None,
     holds_required: Annotated[list[str] | None, Query()] = None,
     holds_forbidden: Annotated[list[str] | None, Query()] = None,
     limit: Annotated[int, Query(ge=1, le=500)] = 50,
@@ -46,7 +47,13 @@ async def list_climbs(
     row = await repo.get(code)
     if not row or row["ended_at"]:
         raise HTTPException(404, {"error": "not_found"})
-    provider = row["provider"]
+    enabled_providers = row["enabled_providers"]
+    if provider is None:
+        if len(enabled_providers) != 1:
+            raise HTTPException(400, {"error": "provider_required", "detail": enabled_providers})
+        provider = enabled_providers[0]
+    elif provider not in enabled_providers:
+        raise HTTPException(400, {"error": "provider_not_enabled", "detail": enabled_providers})
     try:
         p = registry.get(provider)
     except KeyError:

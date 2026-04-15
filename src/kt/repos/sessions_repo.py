@@ -15,8 +15,10 @@ class SessionsRepo:
         host_secret_hash: str,
         provider: str,
         state: dict[str, Any],
+        enabled_providers: list[str] | None = None,
     ) -> None:
         now = datetime.now(UTC).isoformat()
+        enabled = enabled_providers or [provider]
         await db().execute(
             """
             INSERT INTO sessions(code, host_participant_id, host_secret_hash,
@@ -27,7 +29,7 @@ class SessionsRepo:
                 code,
                 host_participant_id,
                 host_secret_hash,
-                provider,  # column retained; stores single provider key now (not JSON list)
+                json.dumps(enabled),
                 json.dumps(state),
                 now,
                 now,
@@ -45,17 +47,14 @@ class SessionsRepo:
             row = await cur.fetchone()
         if not row:
             return None
-        raw = row["enabled_providers"]
-        try: # tolerate legacy JSON-list rows during dev
-            parsed = json.loads(raw)
-            provider = parsed[0] if isinstance(parsed, list) and parsed else raw
-        except (json.JSONDecodeError, TypeError):
-            provider = raw
+        enabled_providers = _parse_enabled_providers(row["enabled_providers"])
+        provider = enabled_providers[0] if enabled_providers else ""
         return {
             "code": row["code"],
             "host_participant_id": row["host_participant_id"],
             "host_secret_hash": row["host_secret_hash"],
             "provider": provider,
+            "enabled_providers": enabled_providers,
             "state": json.loads(row["state_json"]),
             "created_at": row["created_at"],
             "updated_at": row["updated_at"],
@@ -113,3 +112,15 @@ class SessionsRepo:
             "session_code": row["session_code"],
             "participant_id": row["participant_id"],
         }
+
+
+def _parse_enabled_providers(raw: str) -> list[str]:
+    try:
+        parsed = json.loads(raw)
+    except (json.JSONDecodeError, TypeError):
+        parsed = raw
+    if isinstance(parsed, list):
+        return [str(p) for p in parsed if str(p)]
+    if isinstance(parsed, str) and parsed:
+        return [parsed]
+    return []
