@@ -39,7 +39,8 @@ SQLite (single file, mounted volume in Docker)
 | soill        | ok            | Aurora ecosystem                                          |
 | touchstone   | ok            | Aurora ecosystem                                          |
 | aurora       | ok            | Aurora ecosystem                                          |
-| moonboard    | ok            | HTML scraper, 24h cache                                   |
+| moonboard    | ok            | Host's logbook (web `/Logbook/GetLogbook`)                |
+| moonboard_catalog | ok       | Bundled static 2016/2017 catalog, no auth (MIT, lucien1011/MoonBoard-Route) |
 | kilter       | experimental  | Kilter split from Aurora 2026-03; new infra (Keycloak)    |
 
 Aurora boards share one client; one provider class is parameterized per board key.

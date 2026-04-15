@@ -64,6 +64,6 @@ async def test_list_providers(client):
     r = await client.get("/api/providers")
     assert r.status_code == 200
     keys = {p["key"] for p in r.json()}
-    assert {"tension", "grasshopper", "decoy", "soill", "touchstone", "aurora", "moonboard", "kilter"} <= keys
+    assert {"tension", "grasshopper", "decoy", "soill", "touchstone", "aurora", "moonboard", "moonboard_catalog", "kilter"} <= keys
     kilter = [p for p in r.json() if p["key"] == "kilter"][0]
     assert kilter["status"] == "experimental"

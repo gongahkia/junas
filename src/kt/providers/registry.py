@@ -41,12 +41,14 @@ def bootstrap() -> None:
     reset()
     from kt.providers.aurora.provider import AURORA_BOARDS, AuroraProvider
     from kt.providers.kilter.provider import KilterProvider
+    from kt.providers.moonboard.catalog_provider import MoonboardCatalogProvider
     from kt.providers.moonboard.provider import MoonboardProvider
 
     for key, label in AURORA_BOARDS.items():
         register(AuroraProvider(key=key, name=label))
     register(KilterProvider())
     register(MoonboardProvider())
+    register(MoonboardCatalogProvider())
 
 
 __all__ = ["register", "get", "all_providers", "describe", "reset", "bootstrap", "ProviderStatus"]
