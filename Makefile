@@ -26,3 +26,9 @@ docker:
 clean:
 	rm -rf .pytest_cache .mypy_cache .ruff_cache build dist *.egg-info
 	find . -type d -name __pycache__ -exec rm -rf {} +
+
+smoke-aurora:
+	$(PY) -m scripts.smoke_aurora
+
+smoke-moonboard:
+	$(PY) -m scripts.smoke_moonboard
