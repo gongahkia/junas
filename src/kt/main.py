@@ -2,15 +2,23 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
+from kt.api.boards import router as boards_router
 from kt.api.health import router as health_router
+from kt.api.sessions import router as sessions_router
+from kt.api.ws import router as ws_router
 from kt.config import Settings
 from kt.db import close_db, init_db
+from kt.providers import registry
+from kt.realtime.hub import SessionHub
+from kt.repos.sessions_repo import SessionsRepo
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     settings: Settings = app.state.settings
     await init_db(settings.db_path)
+    registry.bootstrap()
+    app.state.hub = SessionHub(SessionsRepo())
     try:
         yield
     finally:
@@ -22,6 +30,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app = FastAPI(title="Kilter Together", version="2.0.0", lifespan=lifespan)
     app.state.settings = settings
     app.include_router(health_router)
+    app.include_router(sessions_router)
+    app.include_router(boards_router)
+    app.include_router(ws_router)
     return app
 
 
