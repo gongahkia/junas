@@ -15,9 +15,12 @@ from kt.providers.base import (
 class KilterProvider:
     """Experimental Kilter provider.
 
-    Kilter split from Aurora on 2026-03-26 and moved to Keycloak OIDC + PowerSync.
-    Until a stable client exists (tracking lemeryfertitta/BoardLib #78), this
-    provider returns 503-equivalents so the rest of the backend stays healthy."""
+    Auth is wired against the new Keycloak realm (idp.kiltergrips.com) and will
+    succeed if the host supplies a valid `client_id`. Data fetch is not yet
+    implemented because the new app uses PowerSync, not a REST API.
+
+    Tracking lemeryfertitta/BoardLib#78 — flip to OK status and implement
+    list_layouts/search_climbs once a PowerSync client lands."""
 
     key = "kilter"
     name = "Kilter Board"
@@ -31,17 +34,25 @@ class KilterProvider:
 
     async def authenticate(self, creds: dict[str, Any]) -> AuthToken:
         token = await self._client.login(
-            creds.get("username", ""), creds.get("password", "")
+            creds.get("username", ""),
+            creds.get("password", ""),
+            client_id=creds.get("client_id"),
         )
         return AuthToken(provider=self.key, value=token)
 
     async def list_layouts(self, token: AuthToken | None) -> list[Layout]:
-        raise ProviderUnavailable("kilter provider is experimental; upstream migration in progress")
+        raise ProviderUnavailable(
+            "kilter data fetch requires PowerSync; not yet implemented"
+        )
 
     async def search_climbs(
         self, token: AuthToken | None, query: ClimbQuery
     ) -> list[Climb]:
-        raise ProviderUnavailable("kilter provider is experimental; upstream migration in progress")
+        raise ProviderUnavailable(
+            "kilter data fetch requires PowerSync; not yet implemented"
+        )
 
     async def get_climb(self, token: AuthToken | None, climb_id: str) -> Climb:
-        raise ProviderUnavailable("kilter provider is experimental; upstream migration in progress")
+        raise ProviderUnavailable(
+            "kilter data fetch requires PowerSync; not yet implemented"
+        )
