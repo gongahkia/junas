@@ -1,24 +1,39 @@
-.PHONY: dev test lint typecheck run docker fmt clean
+.PHONY: venv install dev test lint typecheck run docker fmt clean smoke-aurora smoke-moonboard smoke-crux frontend-dev frontend-build dev-all
 
-PY ?= python3
+VENV ?= .venv
+PY := $(VENV)/bin/python
+PIP := $(VENV)/bin/pip
+UVICORN := $(VENV)/bin/uvicorn
+PYTEST := $(VENV)/bin/pytest
+RUFF := $(VENV)/bin/ruff
+MYPY := $(VENV)/bin/mypy
 
-dev:
-	uvicorn kt.main:app --reload --host 0.0.0.0 --port 8000
+$(VENV)/bin/python:
+	python3 -m venv $(VENV)
+	$(PIP) install --upgrade pip
+	$(PIP) install -e ".[dev]"
 
-run:
-	uvicorn kt.main:app --host 0.0.0.0 --port 8000
+venv: $(VENV)/bin/python
 
-test:
-	pytest -q
+install: venv
 
-lint:
-	ruff check src tests
+dev: venv
+	$(UVICORN) kt.main:app --reload --host 0.0.0.0 --port 8000
 
-fmt:
-	ruff format src tests
+run: venv
+	$(UVICORN) kt.main:app --host 0.0.0.0 --port 8000
 
-typecheck:
-	mypy src
+test: venv
+	$(PYTEST) -q
+
+lint: venv
+	$(RUFF) check src tests
+
+fmt: venv
+	$(RUFF) format src tests
+
+typecheck: venv
+	$(MYPY) src
 
 docker:
 	docker compose up --build
@@ -27,20 +42,20 @@ clean:
 	rm -rf .pytest_cache .mypy_cache .ruff_cache build dist *.egg-info
 	find . -type d -name __pycache__ -exec rm -rf {} +
 
-smoke-aurora:
+smoke-aurora: venv
 	$(PY) -m scripts.smoke_aurora
 
-smoke-moonboard:
+smoke-moonboard: venv
 	$(PY) -m scripts.smoke_moonboard
 
-smoke-crux:
+smoke-crux: venv
 	$(PY) -m scripts.smoke_crux
 
 frontend-dev:
-	cd frontend && npm run dev
+	cd frontend && npm install && npm run dev
 
 frontend-build:
-	cd frontend && npm run build
+	cd frontend && npm install && npm run build
 
 dev-all:
 	@echo "run 'make dev' and 'make frontend-dev' in two terminals"
