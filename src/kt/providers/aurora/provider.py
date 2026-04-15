@@ -44,14 +44,14 @@ class AuroraProvider:
     async def list_layouts(self, token: AuthToken | None) -> list[Layout]:
         if token is None:
             raise ProviderAuthError("auth required")
-        raw = await self._client.list_layouts(token.value)
+        rows = await self._client.fetch_table(token.value, "layouts")
         return [
             Layout(
-                id=str(item.get("id")),
-                name=str(item.get("name", "")),
-                angles=list(item.get("angles") or []),
+                id=str(r.get("id")),
+                name=str(r.get("name", "")),
+                angles=list(r.get("angles") or []),
             )
-            for item in raw
+            for r in rows
         ]
 
     async def search_climbs(
@@ -59,20 +59,24 @@ class AuroraProvider:
     ) -> list[Climb]:
         if token is None:
             raise ProviderAuthError("auth required")
-        raw = await self._client.sync_climbs(token.value, layout_id=query.layout_id)
-        climbs = [_to_climb(self.key, c) for c in raw]
+        rows = await self._client.fetch_table(token.value, "climbs")
+        if query.layout_id:
+            rows = [r for r in rows if str(r.get("layout_id")) == str(query.layout_id)]
+        if query.angle is not None:
+            rows = [r for r in rows if r.get("angle") == query.angle]
         if query.text:
             t = query.text.lower()
-            climbs = [c for c in climbs if t in c.name.lower()]
-        if query.angle is not None:
-            climbs = [c for c in climbs if c.angle == query.angle]
-        return climbs[query.offset : query.offset + query.limit]
+            rows = [r for r in rows if t in str(r.get("name", "")).lower()]
+        rows = rows[query.offset : query.offset + query.limit]
+        return [_to_climb(self.key, r) for r in rows]
 
     async def get_climb(self, token: AuthToken | None, climb_id: str) -> Climb:
-        results = await self.search_climbs(token, ClimbQuery(limit=10_000))
-        for c in results:
-            if c.id == climb_id:
-                return c
+        if token is None:
+            raise ProviderAuthError("auth required")
+        rows = await self._client.fetch_table(token.value, "climbs")
+        for r in rows:
+            if str(r.get("uuid") or r.get("id")) == climb_id:
+                return _to_climb(self.key, r)
         raise KeyError(climb_id)
 
 
