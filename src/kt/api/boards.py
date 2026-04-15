@@ -186,7 +186,12 @@ async def list_layouts(
         raise HTTPException(400, {"error": "auth_failed", "detail": str(e)}) from e
 
     payload = [
-        LayoutOut(id=layout.id, name=layout.name, angles=layout.angles).model_dump()
+        LayoutOut(
+            id=layout.id,
+            name=layout.name,
+            angles=layout.angles,
+            extras=layout.extras,
+        ).model_dump()
         for layout in layouts
     ]
     await cache_repo.put(provider, cache_key, payload, settings.cache_ttl_seconds)

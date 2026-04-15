@@ -64,28 +64,23 @@ class CruxClient:
     async def get_gym(self, token: str, gym_slug: str) -> dict[str, Any]:
         return await self.get(token, f"/gyms/{gym_slug}")
 
+    async def get_me(self, token: str) -> dict[str, Any]:
+        return await self.get(token, "/users/me")
+
     async def list_walls(self, token: str, gym_slug: str) -> list[dict[str, Any]]:
         data = await self.get(token, f"/gyms/{gym_slug}/gym_walls")
         return _as_list(data)
 
     async def list_official_climbs(
-        self, token: str, gym_slug: str, page: int = 1, per_page: int = 50
+        self, token: str, gym_slug: str
     ) -> list[dict[str, Any]]:
-        data = await self.get(
-            token,
-            f"/gyms/{gym_slug}/climbs/official",
-            params={"page": page, "per_page": per_page},
-        )
+        data = await self.get(token, f"/gyms/{gym_slug}/climbs/official")
         return _as_list(data)
 
     async def list_custom_climbs(
-        self, token: str, gym_slug: str, page: int = 1, per_page: int = 50
+        self, token: str, gym_slug: str
     ) -> list[dict[str, Any]]:
-        data = await self.get(
-            token,
-            f"/gyms/{gym_slug}/climbs/custom",
-            params={"page": page, "per_page": per_page},
-        )
+        data = await self.get(token, f"/gyms/{gym_slug}/climbs/custom")
         return _as_list(data)
 
     async def get_climb(self, token: str, climb_id: str) -> dict[str, Any]:

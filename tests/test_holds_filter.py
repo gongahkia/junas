@@ -70,7 +70,7 @@ async def test_crux_filters_required_holds():
         AuthToken("crux", "tok", extras={"gym_slug": "g"}),
         ClimbQuery(holds_required=("x2",), limit=10),
     )
-    assert [c.id for c in out] == ["1"]
+    assert [c.id for c in out] == ["crux:1"]
 
 
 async def test_climbs_endpoint_threads_holds(client):

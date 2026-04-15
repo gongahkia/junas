@@ -23,6 +23,7 @@ class Layout:
     id: str
     name: str
     angles: list[int] = field(default_factory=list)
+    extras: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)

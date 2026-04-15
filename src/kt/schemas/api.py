@@ -94,6 +94,7 @@ class LayoutOut(BaseModel):
     id: str
     name: str
     angles: list[int]
+    extras: dict[str, Any] = Field(default_factory=dict)
 
 
 class LayoutsResp(BaseModel):
