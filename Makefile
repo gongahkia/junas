@@ -32,3 +32,6 @@ smoke-aurora:
 
 smoke-moonboard:
 	$(PY) -m scripts.smoke_moonboard
+
+smoke-crux:
+	$(PY) -m scripts.smoke_crux
