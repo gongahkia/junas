@@ -16,6 +16,7 @@ from kt.providers.base import (
     ClimbQuery,
     Layout,
     ProviderStatus,
+    matches_holds,
 )
 from kt.providers.moonboard import static_catalog
 
@@ -37,14 +38,21 @@ class MoonboardCatalogProvider:
         self, token: AuthToken | None, query: ClimbQuery
     ) -> list[Climb]:
         layout = query.layout_id or "benchmarks"
+        # Pull a wider slice when filtering by holds since we filter post-fetch.
+        fetch_limit = query.limit * 10 if (query.holds_required or query.holds_forbidden) else query.limit
         rows = static_catalog.search(
             layout=layout,
             text=query.text,
             grade=query.grade_min,
-            limit=query.limit,
+            limit=fetch_limit,
             offset=query.offset,
         )
-        return [_to_climb(r) for r in rows]
+        if query.holds_required or query.holds_forbidden:
+            rows = [
+                r for r in rows
+                if matches_holds(list(r.get("holds") or []), query.holds_required, query.holds_forbidden)
+            ]
+        return [_to_climb(r) for r in rows[: query.limit]]
 
     async def get_climb(self, token: AuthToken | None, climb_id: str) -> Climb:
         for layout in static_catalog.supported_layouts():

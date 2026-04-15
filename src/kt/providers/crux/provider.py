@@ -16,6 +16,7 @@ from kt.providers.base import (
     Layout,
     ProviderAuthError,
     ProviderStatus,
+    matches_holds,
 )
 from kt.providers.crux.client import CruxClient
 
@@ -87,6 +88,11 @@ class CruxProvider:
             ]
         if query.angle is not None:
             rows = [r for r in rows if r.get("angle") == query.angle]
+        if query.holds_required or query.holds_forbidden:
+            rows = [
+                r for r in rows
+                if matches_holds(list(r.get("holds") or []), query.holds_required, query.holds_forbidden)
+            ]
 
         return [_to_climb(r) for r in rows[: query.limit]]
 
