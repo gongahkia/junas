@@ -122,6 +122,6 @@ async def test_list_walls():
 
     p = CruxProvider(client=CruxClient(transport=_mock(h)))
     layouts = await p.list_layouts(AuthToken("crux", "tok", extras={"gym_slug": "g"}))
-    assert [l.id for l in layouts] == ["7", "8"]
+    assert [layout.id for layout in layouts] == ["7", "8"]
     assert layouts[0].angles == [30, 35, 40, 45, 50]
     assert layouts[1].angles == []

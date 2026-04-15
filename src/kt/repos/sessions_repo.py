@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from kt.db import db
@@ -16,7 +16,7 @@ class SessionsRepo:
         provider: str,
         state: dict[str, Any],
     ) -> None:
-        now = datetime.now(timezone.utc).isoformat()
+        now = datetime.now(UTC).isoformat()
         await db().execute(
             """
             INSERT INTO sessions(code, host_participant_id, host_secret_hash,
@@ -63,7 +63,7 @@ class SessionsRepo:
         }
 
     async def save_state(self, code: str, state: dict[str, Any]) -> None:
-        now = datetime.now(timezone.utc).isoformat()
+        now = datetime.now(UTC).isoformat()
         await db().execute(
             "UPDATE sessions SET state_json=?, updated_at=? WHERE code=?",
             (json.dumps(state), now, code),
@@ -71,7 +71,7 @@ class SessionsRepo:
         await db().commit()
 
     async def end(self, code: str) -> None:
-        now = datetime.now(timezone.utc).isoformat()
+        now = datetime.now(UTC).isoformat()
         await db().execute(
             "UPDATE sessions SET ended_at=?, updated_at=? WHERE code=?",
             (now, now, code),
@@ -83,7 +83,7 @@ class SessionsRepo:
     ) -> None:
         from datetime import timedelta
 
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         await db().execute(
             """INSERT INTO ws_tokens(token, session_code, participant_id, created_at, expires_at)
                VALUES (?,?,?,?,?)""",
@@ -98,7 +98,7 @@ class SessionsRepo:
         await db().commit()
 
     async def consume_ws_token(self, token: str) -> dict[str, Any] | None:
-        now = datetime.now(timezone.utc).isoformat()
+        now = datetime.now(UTC).isoformat()
         async with db().execute(
             """SELECT token, session_code, participant_id, expires_at, used_at
                FROM ws_tokens WHERE token=?""",

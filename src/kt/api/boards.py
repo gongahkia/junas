@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Annotated
+
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 
 from kt.api.deps import (
@@ -28,17 +30,17 @@ async def list_providers():
 async def list_climbs(
     code: str,
     request: Request,
-    text: str | None = Query(None),
-    angle: int | None = Query(None),
-    layout_id: str | None = Query(None),
-    holds_required: list[str] = Query(default_factory=list),
-    holds_forbidden: list[str] = Query(default_factory=list),
-    limit: int = Query(50, ge=1, le=500),
-    offset: int = Query(0, ge=0),
-    settings: Settings = Depends(get_settings),
-    repo: SessionsRepo = Depends(get_sessions_repo),
-    creds_repo: CredentialsRepo = Depends(get_credentials_repo),
-    rl: RateLimiter = Depends(get_rate_limiter),
+    settings: Annotated[Settings, Depends(get_settings)],
+    repo: Annotated[SessionsRepo, Depends(get_sessions_repo)],
+    creds_repo: Annotated[CredentialsRepo, Depends(get_credentials_repo)],
+    rl: Annotated[RateLimiter, Depends(get_rate_limiter)],
+    text: Annotated[str | None, Query()] = None,
+    angle: Annotated[int | None, Query()] = None,
+    layout_id: Annotated[str | None, Query()] = None,
+    holds_required: Annotated[list[str] | None, Query()] = None,
+    holds_forbidden: Annotated[list[str] | None, Query()] = None,
+    limit: Annotated[int, Query(ge=1, le=500)] = 50,
+    offset: Annotated[int, Query(ge=0)] = 0,
 ):
     rl.check(client_key(request), "list_climbs", settings.rl_climbs_per_min)
     row = await repo.get(code)
@@ -69,8 +71,8 @@ async def list_climbs(
                 layout_id=layout_id,
                 angle=angle,
                 text=text,
-                holds_required=tuple(holds_required),
-                holds_forbidden=tuple(holds_forbidden),
+                holds_required=tuple(holds_required or ()),
+                holds_forbidden=tuple(holds_forbidden or ()),
                 limit=limit,
                 offset=offset,
             ),

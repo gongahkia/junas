@@ -155,7 +155,7 @@ async def test_list_layouts_via_sync():
         "tension", "Tension", client=AuroraClient("tension", transport=_mock(h))
     )
     layouts = await p.list_layouts(AuthToken("tension", "tok"))
-    assert [l.id for l in layouts] == ["7", "9"]
+    assert [layout.id for layout in layouts] == ["7", "9"]
     assert layouts[0].angles == [20, 40]
 
 

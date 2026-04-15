@@ -8,7 +8,8 @@ latest `aurora.py`.
 
 from __future__ import annotations
 
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 from urllib.parse import quote
 
 import httpx
@@ -146,7 +147,7 @@ class AuroraClient:
         token: str,
         table_name: str,
         max_pages: int = 100,
-        on_page: "Callable[[int, int], None] | None" = None,
+        on_page: Callable[[int, int], None] | None = None,
     ) -> list[dict[str, Any]]:
         """Sync one shared table from epoch and return its rows across pages."""
         rows: list[dict[str, Any]] = []

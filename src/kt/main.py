@@ -1,3 +1,4 @@
+import asyncio
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -6,8 +7,6 @@ from kt.api.boards import router as boards_router
 from kt.api.health import router as health_router
 from kt.api.sessions import router as sessions_router
 from kt.api.ws import router as ws_router
-import asyncio
-
 from kt.config import Settings
 from kt.db import close_db, init_db
 from kt.logging import configure_logging, log

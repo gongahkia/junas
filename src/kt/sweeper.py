@@ -3,14 +3,14 @@
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 from kt.db import db
 from kt.logging import log
 
 
 async def sweep_once(idle_max_hours: int) -> int:
-    cutoff = (datetime.now(timezone.utc) - timedelta(hours=idle_max_hours)).isoformat()
+    cutoff = (datetime.now(UTC) - timedelta(hours=idle_max_hours)).isoformat()
     async with db().execute(
         "SELECT code FROM sessions WHERE ended_at IS NULL AND updated_at < ?",
         (cutoff,),
@@ -18,7 +18,7 @@ async def sweep_once(idle_max_hours: int) -> int:
         rows = await cur.fetchall()
     if not rows:
         return 0
-    now = datetime.now(timezone.utc).isoformat()
+    now = datetime.now(UTC).isoformat()
     codes = [r[0] for r in rows]
     for code in codes:
         await db().execute(

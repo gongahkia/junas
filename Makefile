@@ -1,4 +1,4 @@
-.PHONY: venv install dev test lint typecheck run docker fmt clean smoke-aurora smoke-moonboard smoke-crux frontend-dev frontend-build dev-all
+.PHONY: venv install dev test lint typecheck run docker fmt clean smoke-aurora smoke-moonboard smoke-crux
 
 VENV ?= .venv
 PY := $(VENV)/bin/python
@@ -50,12 +50,3 @@ smoke-moonboard: venv
 
 smoke-crux: venv
 	$(PY) -m scripts.smoke_crux
-
-frontend-dev:
-	cd frontend && npm install && npm run dev
-
-frontend-build:
-	cd frontend && npm install && npm run build
-
-dev-all:
-	@echo "run 'make dev' and 'make frontend-dev' in two terminals"

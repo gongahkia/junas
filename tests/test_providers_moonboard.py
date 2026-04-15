@@ -12,7 +12,6 @@ from kt.providers.base import (
 from kt.providers.moonboard.provider import MoonboardProvider
 from kt.providers.moonboard.scraper import MoonboardScraper
 
-
 _LOGIN_HTML = """
 <html><body>
   <form action="/Account/Login" method="post">
@@ -117,4 +116,4 @@ async def test_search_5xx_unavailable():
 async def test_layouts_static():
     p = MoonboardProvider(scraper=MoonboardScraper())
     layouts = await p.list_layouts(AuthToken("moonboard", "c"))
-    assert {l.id for l in layouts} == {"2016", "2019", "2024"}
+    assert {layout.id for layout in layouts} == {"2016", "2019", "2024"}

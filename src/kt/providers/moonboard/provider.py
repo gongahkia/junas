@@ -58,6 +58,8 @@ class MoonboardProvider:
         return climbs
 
     async def get_climb(self, token: AuthToken | None, climb_id: str) -> Climb:
+        if token is None:
+            raise ProviderUnavailable("auth required")
         for page in range(1, 50):
             data, _ = await self._scraper.list_logbook(token.value, page=page, page_size=50)
             if not data:

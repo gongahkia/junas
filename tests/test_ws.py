@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import asyncio
 import json
 
 from fastapi.testclient import TestClient
@@ -19,18 +18,15 @@ async def test_ws_full_flow(tmp_path):
             json={"host_display_name": "Host", "provider": "tension"},
         ).json()
         code = create["code"]
-        host_secret = create["host_secret"]
         host_id = create["host_participant_id"]
 
         # host needs a ws_token too — use the join flow, but for host we need
         # to mint one directly via the test app's repo.
-        from kt.realtime.hub import SessionHub
         from kt.repos.sessions_repo import SessionsRepo
         repo = SessionsRepo()
         await repo.put_ws_token("host-tk", code, host_id, ttl_seconds=120)
 
         guest = tc.post(f"/api/sessions/{code}/join", json={"display_name": "Guest"}).json()
-        guest_id = guest["participant_id"]
         guest_tk = guest["ws_token"]
 
         with tc.websocket_connect(f"/ws/sessions/{code}?token=host-tk") as host_ws:

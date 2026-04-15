@@ -3,12 +3,12 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
-from enum import Enum
+from datetime import UTC, datetime
+from enum import StrEnum
 from typing import Any
 
 
-class Role(str, Enum):
+class Role(StrEnum):
     HOST = "host"
     COHOST = "cohost"
     PARTICIPANT = "participant"
@@ -80,7 +80,8 @@ class SessionState:
         provider = d.get("provider") or ""
         if not provider:  # back-compat for any rows written as enabled_providers=[p]
             legacy = d.get("enabled_providers") or []
-            if legacy: provider = legacy[0]
+            if legacy:
+                provider = legacy[0]
         return cls(
             code=d["code"],
             host_id=d["host_id"],
@@ -93,4 +94,4 @@ class SessionState:
 
 
 def now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()

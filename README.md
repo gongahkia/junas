@@ -2,7 +2,7 @@
 
 # Kilter Together
 
-Backend for collaborative climbing-board sessions.
+Backend-only service for collaborative climbing-board sessions.
 
 A FastAPI service that aggregates real climbing boards (Kilter, Tension, Grasshopper, MoonBoard, plus the rest of the Aurora ecosystem) and brokers multiplayer sessions where climbers queue, vote on, and finalize climbs together over WebSockets.
 
@@ -10,7 +10,7 @@ The host owns the session and supplies any board credentials they want to enable
 
 ## Status
 
-Greenfield rewrite. The previous Flutter P2P client and FastAPI Cornifer service have been deleted. This repository now contains the backend only; a thin client will sit on top later.
+Greenfield rewrite. The previous Flutter P2P client, FastAPI Cornifer service, and React/Vite frontend have been deleted. This repository contains only the FastAPI backend.
 
 ## Architecture
 
@@ -50,13 +50,12 @@ Aurora boards share one client; one provider class is parameterized per board ke
 
 ```
 make dev            # backend uvicorn with reload (port 8000)
-make frontend-dev   # frontend vite dev server (port 5173, proxies /api + /ws to backend)
 make test           # pytest
 make lint           # ruff + mypy
 make docker         # build + run via docker compose
 ```
 
-In two terminals: `make dev` then `make frontend-dev`. Open <http://localhost:5173>.
+Open <http://localhost:8000/docs> for the generated OpenAPI UI after `make dev`.
 
 See `.env.example` for required env (notably `KT_CRED_KEY`, a base64 Fernet key).
 
@@ -166,4 +165,3 @@ A background task ends sessions idle for `KT_SESSION_IDLE_MAX_HOURS` (default 24
 4. Hosts must reattach their credentials.
 
 For zero-downtime rotation we'd need MultiFernet — not implemented; out of scope until there is a public deployment to protect.
-

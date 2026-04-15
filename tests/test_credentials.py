@@ -1,3 +1,5 @@
+from datetime import UTC
+
 from cryptography.fernet import Fernet
 
 from kt.repos.credentials_repo import CredentialsRepo
@@ -30,11 +32,11 @@ def test_secret_helpers():
 
 async def test_repo_put_get_delete(db_ready, cred_key):
     # seed a session row to satisfy FK
-    from datetime import datetime, timezone
+    from datetime import datetime
 
     from kt.db import db
 
-    now = datetime.now(timezone.utc).isoformat()
+    now = datetime.now(UTC).isoformat()
     await db().execute(
         "INSERT INTO sessions(code, host_participant_id, host_secret_hash, enabled_providers, state_json, created_at, updated_at) VALUES (?,?,?,?,?,?,?)",
         ("ABCDEF", "h1", "hh", "[]", "{}", now, now),

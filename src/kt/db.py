@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from importlib import resources
 from pathlib import Path
 
@@ -48,9 +48,8 @@ async def _applied_versions(conn: aiosqlite.Connection) -> set[int]:
 async def _run_migrations(conn: aiosqlite.Connection) -> None:
     applied = await _applied_versions(conn)
     files = sorted(
-        p
-        for p in resources.files("kt.migrations").iterdir()
-        if p.name.endswith(".sql")
+        (p for p in resources.files("kt.migrations").iterdir() if p.name.endswith(".sql")),
+        key=lambda p: p.name,
     )
     for f in files:
         version = int(f.name.split("_", 1)[0])
@@ -60,6 +59,6 @@ async def _run_migrations(conn: aiosqlite.Connection) -> None:
         await conn.executescript(sql)
         await conn.execute(
             "INSERT INTO schema_version(version, applied_at) VALUES (?, ?)",
-            (version, datetime.now(timezone.utc).isoformat()),
+            (version, datetime.now(UTC).isoformat()),
         )
         await conn.commit()

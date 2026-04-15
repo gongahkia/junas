@@ -1,4 +1,4 @@
-from kt.db import db, init_db, close_db
+from kt.db import close_db, db, init_db
 
 
 async def test_migrations_apply(tmp_path):

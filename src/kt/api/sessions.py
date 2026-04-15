@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import secrets
 import string
+from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 
@@ -44,9 +45,9 @@ def _code(n: int) -> str:
 async def create_session(
     req: CreateSessionReq,
     request: Request,
-    settings: Settings = Depends(get_settings),
-    repo: SessionsRepo = Depends(get_sessions_repo),
-    rl: RateLimiter = Depends(get_rate_limiter),
+    settings: Annotated[Settings, Depends(get_settings)],
+    repo: Annotated[SessionsRepo, Depends(get_sessions_repo)],
+    rl: Annotated[RateLimiter, Depends(get_rate_limiter)],
 ):
     rl.check(client_key(request), "create_session", settings.rl_create_session_per_min)
     known = {p["key"] for p in registry.describe()}
@@ -80,7 +81,7 @@ async def create_session(
 
 
 @router.get("/{code}", response_model=SessionSummary)
-async def get_session(code: str, repo: SessionsRepo = Depends(get_sessions_repo)):
+async def get_session(code: str, repo: Annotated[SessionsRepo, Depends(get_sessions_repo)]):
     row = await repo.get(code)
     if not row or row["ended_at"]:
         raise HTTPException(404, {"error": "not_found"})
@@ -100,10 +101,10 @@ async def join_session(
     code: str,
     req: JoinSessionReq,
     request: Request,
-    settings: Settings = Depends(get_settings),
-    repo: SessionsRepo = Depends(get_sessions_repo),
-    hub: SessionHub = Depends(get_hub),
-    rl: RateLimiter = Depends(get_rate_limiter),
+    settings: Annotated[Settings, Depends(get_settings)],
+    repo: Annotated[SessionsRepo, Depends(get_sessions_repo)],
+    hub: Annotated[SessionHub, Depends(get_hub)],
+    rl: Annotated[RateLimiter, Depends(get_rate_limiter)],
 ):
     rl.check(client_key(request), "join_session", settings.rl_join_per_min)
     row = await repo.get(code)
@@ -131,9 +132,9 @@ async def join_session(
 async def end_session(
     code: str,
     host_secret: str,
-    repo: SessionsRepo = Depends(get_sessions_repo),
-    creds_repo: CredentialsRepo = Depends(get_credentials_repo),
-    hub: SessionHub = Depends(get_hub),
+    repo: Annotated[SessionsRepo, Depends(get_sessions_repo)],
+    creds_repo: Annotated[CredentialsRepo, Depends(get_credentials_repo)],
+    hub: Annotated[SessionHub, Depends(get_hub)],
 ):
     row = await repo.get(code)
     if not row or row["ended_at"]:
@@ -149,10 +150,10 @@ async def end_session(
 async def attach_credentials(
     code: str,
     req: AttachCredentialsReq,
-    repo: SessionsRepo = Depends(get_sessions_repo),
-    creds_repo: CredentialsRepo = Depends(get_credentials_repo),
-    cipher: CredentialCipher = Depends(get_cipher),
-    hub: SessionHub = Depends(get_hub),
+    repo: Annotated[SessionsRepo, Depends(get_sessions_repo)],
+    creds_repo: Annotated[CredentialsRepo, Depends(get_credentials_repo)],
+    cipher: Annotated[CredentialCipher, Depends(get_cipher)],
+    hub: Annotated[SessionHub, Depends(get_hub)],
 ):
     row = await repo.get(code)
     if not row or row["ended_at"]:

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Annotated
+
 from fastapi import Depends, Request
 
 from kt.config import Settings
@@ -17,12 +19,12 @@ def get_sessions_repo() -> SessionsRepo:
     return SessionsRepo()
 
 
-def get_cipher(settings: Settings = Depends(get_settings)) -> CredentialCipher:
+def get_cipher(settings: Annotated[Settings, Depends(get_settings)]) -> CredentialCipher:
     return CredentialCipher(settings.cred_key)
 
 
 def get_credentials_repo(
-    cipher: CredentialCipher = Depends(get_cipher),
+    cipher: Annotated[CredentialCipher, Depends(get_cipher)],
 ) -> CredentialsRepo:
     return CredentialsRepo(cipher)
 

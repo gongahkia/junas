@@ -32,7 +32,10 @@ class MoonboardCatalogProvider:
         return AuthToken(provider=self.key, value="public")
 
     async def list_layouts(self, token: AuthToken | None) -> list[Layout]:
-        return [Layout(id=l, name=f"MoonBoard {l}") for l in static_catalog.supported_layouts()]
+        return [
+            Layout(id=layout, name=f"MoonBoard {layout}")
+            for layout in static_catalog.supported_layouts()
+        ]
 
     async def search_climbs(
         self, token: AuthToken | None, query: ClimbQuery

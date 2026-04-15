@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from kt.db import db
@@ -13,7 +13,7 @@ class CredentialsRepo:
 
     async def put(self, session_code: str, provider: str, creds: dict[str, Any]) -> None:
         ciphertext = self._cipher.encrypt(creds)
-        now = datetime.now(timezone.utc).isoformat()
+        now = datetime.now(UTC).isoformat()
         await db().execute(
             """
             INSERT INTO host_credentials(session_code, provider, ciphertext, created_at)

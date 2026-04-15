@@ -59,7 +59,7 @@ async def test_provider_search_climbs():
 async def test_provider_layouts():
     p = MoonboardCatalogProvider()
     layouts = await p.list_layouts(None)
-    assert {l.id for l in layouts} >= {"2016", "2017"}
+    assert {layout.id for layout in layouts} >= {"2016", "2017"}
 
 
 async def test_provider_no_auth_needed():

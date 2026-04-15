@@ -5,7 +5,6 @@ Single-process. If we ever scale horizontally, swap this for Redis-backed."""
 from __future__ import annotations
 
 import time
-from collections import defaultdict
 from dataclasses import dataclass
 
 from fastapi import HTTPException, Request

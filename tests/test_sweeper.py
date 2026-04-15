@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 from kt.db import db
 from kt.repos.credentials_repo import CredentialsRepo
@@ -16,7 +16,7 @@ async def test_sweep_ends_idle_and_drops_creds(db_ready, cred_key):
     await creds.put("OLDONE", "tension", {"u": "x"})
     await creds.put("FRESH1", "tension", {"u": "y"})
 
-    old = (datetime.now(timezone.utc) - timedelta(hours=48)).isoformat()
+    old = (datetime.now(UTC) - timedelta(hours=48)).isoformat()
     await db().execute("UPDATE sessions SET updated_at=? WHERE code=?", (old, "OLDONE"))
     await db().commit()
 
