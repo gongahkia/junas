@@ -1,8 +1,18 @@
-"""Bundled MoonBoard problem catalog (2016 + 2017 layouts).
+"""Bundled MoonBoard problem catalogs.
 
-Source: lucien1011/MoonBoard-Route (MIT). The dataset records have shape
-{Grade, Moves, UserRating}; we synthesize a stable id by hashing moves+grade
-since the upstream JSON does not carry one."""
+Two complementary sources, both vendored under data/:
+
+* `benchmarks.json` — community benchmark problems from
+  https://moonboard.simonchase.com/benchmarks.json. Rich metadata: real
+  MoonBoard ids, names, setter, repeats, hold roles (start/mid/end), star
+  ratings, sandbag score. ~2k problems across all board generations.
+
+* `2016.json` / `2017.json` — full layout catalogs from
+  lucien1011/MoonBoard-Route (MIT). Schema {Grade, Moves, UserRating}; no
+  names/setters but covers ~32k problems.
+
+The catalog is unified so consumers see a single search surface.
+"""
 
 from __future__ import annotations
 
@@ -16,10 +26,15 @@ _LAYOUT_FILES: dict[str, str] = {
     "2016": "2016.json",
     "2017": "2017.json",
 }
+_BENCHMARKS_FILE = "benchmarks.json"
 
 
 def supported_layouts() -> list[str]:
-    return list(_LAYOUT_FILES.keys())
+    return ["benchmarks", *_LAYOUT_FILES.keys()]
+
+
+def _read(filename: str) -> str:
+    return resources.files("kt.providers.moonboard.data").joinpath(filename).read_text()
 
 
 def _stable_id(grade: str, moves: list[str]) -> str:
@@ -33,13 +48,14 @@ def _stable_id(grade: str, moves: list[str]) -> str:
 
 @lru_cache(maxsize=8)
 def load_layout(layout: str) -> list[dict[str, Any]]:
+    if layout == "benchmarks":
+        return _load_benchmarks()
     fn = _LAYOUT_FILES.get(layout)
     if fn is None:
         return []
-    raw = resources.files("kt.providers.moonboard.data").joinpath(fn).read_text()
-    data = json.loads(raw)
+    raw = json.loads(_read(fn))
     out: list[dict[str, Any]] = []
-    for rec in data:
+    for rec in raw:
         moves = list(rec.get("Moves") or [])
         grade = str(rec.get("Grade") or "")
         out.append(
@@ -47,12 +63,55 @@ def load_layout(layout: str) -> list[dict[str, Any]]:
                 "id": _stable_id(grade, moves),
                 "name": f"{grade} ({len(moves)} holds)",
                 "grade": grade,
+                "setter": None,
                 "user_rating": rec.get("UserRating", 0),
+                "repeats": None,
                 "holds": moves,
+                "start_holds": [],
+                "mid_holds": [],
+                "end_holds": [],
                 "layout": layout,
+                "mb_type": None,
             }
         )
     return out
+
+
+def _load_benchmarks() -> list[dict[str, Any]]:
+    raw = json.loads(_read(_BENCHMARKS_FILE))
+    out: list[dict[str, Any]] = []
+    for rec in raw:
+        start = list(rec.get("start_holds") or [])
+        mid = list(rec.get("mid_holds") or [])
+        end = list(rec.get("end_holds") or [])
+        out.append(
+            {
+                "id": str(rec.get("id")),
+                "name": str(rec.get("name") or ""),
+                "grade": _font_grade(rec.get("grade")),
+                "setter": rec.get("setter"),
+                "user_rating": rec.get("avg_user_stars"),
+                "repeats": rec.get("repeats"),
+                "holds": [*start, *mid, *end],
+                "start_holds": start,
+                "mid_holds": mid,
+                "end_holds": end,
+                "layout": "benchmarks",
+                "mb_type": rec.get("mb_type"),
+            }
+        )
+    return out
+
+
+# simonchase encodes grades as integers; map to Font scale matching MoonBoard.
+_FONT_GRADES = ["6A", "6A+", "6B", "6B+", "6C", "6C+", "7A", "7A+", "7B", "7B+",
+                "7C", "7C+", "8A", "8A+", "8B", "8B+", "8C", "8C+"]
+
+
+def _font_grade(value: Any) -> str:
+    if isinstance(value, int) and 0 <= value < len(_FONT_GRADES):
+        return _FONT_GRADES[value]
+    return str(value) if value is not None else ""
 
 
 def search(
@@ -70,7 +129,9 @@ def search(
         rows = [
             r
             for r in rows
-            if t in r["name"].lower() or t in r["grade"].lower() or t in r["id"]
+            if t in r["name"].lower()
+            or t in (r["setter"] or "").lower()
+            or t in r["grade"].lower()
         ]
     return rows[offset : offset + limit]
 

@@ -36,7 +36,7 @@ class MoonboardCatalogProvider:
     async def search_climbs(
         self, token: AuthToken | None, query: ClimbQuery
     ) -> list[Climb]:
-        layout = query.layout_id or static_catalog.supported_layouts()[0]
+        layout = query.layout_id or "benchmarks"
         rows = static_catalog.search(
             layout=layout,
             text=query.text,
@@ -59,10 +59,17 @@ def _to_climb(rec: dict[str, Any]) -> Climb:
         id=rec["id"],
         provider="moonboard_catalog",
         name=rec["name"],
-        setter=None,
+        setter=rec.get("setter"),
         grade=rec["grade"],
         angle=None,
-        ascents=None,
+        ascents=rec.get("repeats"),
         holds=list(rec["holds"]),
-        extras={"layout": rec["layout"], "user_rating": rec["user_rating"]},
+        extras={
+            "layout": rec["layout"],
+            "user_rating": rec.get("user_rating"),
+            "mb_type": rec.get("mb_type"),
+            "start_holds": rec.get("start_holds") or [],
+            "mid_holds": rec.get("mid_holds") or [],
+            "end_holds": rec.get("end_holds") or [],
+        },
     )

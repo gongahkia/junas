@@ -4,8 +4,26 @@ from kt.providers.moonboard.catalog_provider import MoonboardCatalogProvider
 
 
 def test_layouts_supported():
-    assert "2016" in static_catalog.supported_layouts()
-    assert "2017" in static_catalog.supported_layouts()
+    layouts = static_catalog.supported_layouts()
+    assert "benchmarks" in layouts
+    assert "2016" in layouts
+    assert "2017" in layouts
+
+
+def test_benchmarks_have_real_metadata():
+    rows = static_catalog.load_layout("benchmarks")
+    assert len(rows) > 1500
+    by_setter = next((r for r in rows if r["setter"] == "Ben Moon"), None)
+    assert by_setter is not None
+    assert by_setter["name"]
+    assert by_setter["repeats"] is not None
+    assert by_setter["start_holds"] and by_setter["end_holds"]
+
+
+def test_search_benchmarks_by_setter():
+    rows = static_catalog.search("benchmarks", text="ben moon", limit=20)
+    assert rows
+    assert all("ben moon" in (r["setter"] or "").lower() for r in rows)
 
 
 def test_load_2016_has_thousands():
