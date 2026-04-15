@@ -40,8 +40,8 @@ async def test_login_full_flow():
         if req.method == "POST" and req.url.path == "/Account/Login":
             body = req.content.decode()
             assert "__RequestVerificationToken=form-token-xyz" in body
-            assert "Login.Username=alice" in body
-            assert "Login.Password=hunter2" in body
+            assert "Login.Username=test-user" in body
+            assert "Login.Password=test-pass-not-real" in body
             state["got_post"] = True
             return httpx.Response(
                 302,
@@ -55,7 +55,7 @@ async def test_login_full_flow():
         return httpx.Response(404)
 
     s = MoonboardScraper(transport=_mock(h))
-    cookie = await s.login("alice", "hunter2")
+    cookie = await s.login("test-user", "test-pass-not-real")
     assert cookie == "auth-cookie-abc"
     assert state["got_post"]
 
