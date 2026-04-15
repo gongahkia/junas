@@ -60,7 +60,7 @@ async def main() -> int:
     print(f"smoke: board={board} host={AURORA_HOSTS[board]} max_pages={max_pages}", flush=True)
 
     client = AuroraClient(board)
-    provider = AuroraProvider(board, AURORA_BOARDS[board], client=client)
+    provider = AuroraProvider(board, AURORA_BOARDS[board], client=client, max_sync_pages=max_pages)
 
     print("step: authenticate", flush=True)
     t0 = time.monotonic()
@@ -99,15 +99,21 @@ async def main() -> int:
         }
         print(f"  sample_record={json.dumps(sample, default=str)[:600]}", flush=True)
 
-    print("step: search_climbs (text='a', limit=10) — exercises full provider path", flush=True)
+    print("step: search_climbs (text='a', limit=10) — exercises provider cache path", flush=True)
+    t0 = time.monotonic()
     try:
         climbs = await provider.search_climbs(token, ClimbQuery(text="a", limit=10))
     except Exception as e:
         print(f"  FAIL search_climbs: {type(e).__name__}: {e}")
         return 1
-    print(f"  OK search_climbs: {len(climbs)} climbs", flush=True)
+    print(f"  OK search_climbs: {len(climbs)} climbs in {time.monotonic()-t0:.2f}s (delta-sync after warm cache)", flush=True)
     for c in climbs[:5]:
         print(f"    - id={c.id!r} name={c.name!r} grade={c.grade} angle={c.angle} ascents={c.ascents}", flush=True)
+
+    print("step: search_climbs again (should be near-instant — cache hot, no new deltas)", flush=True)
+    t0 = time.monotonic()
+    climbs = await provider.search_climbs(token, ClimbQuery(text="b", limit=5))
+    print(f"  OK search_climbs#2: {len(climbs)} climbs in {time.monotonic()-t0:.2f}s", flush=True)
 
     print("DONE", flush=True)
     return 0
