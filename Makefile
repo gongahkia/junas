@@ -35,3 +35,12 @@ smoke-moonboard:
 
 smoke-crux:
 	$(PY) -m scripts.smoke_crux
+
+frontend-dev:
+	cd frontend && npm run dev
+
+frontend-build:
+	cd frontend && npm run build
+
+dev-all:
+	@echo "run 'make dev' and 'make frontend-dev' in two terminals"

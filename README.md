@@ -49,11 +49,14 @@ Aurora boards share one client; one provider class is parameterized per board ke
 ## Dev
 
 ```
-make dev      # uvicorn with reload
-make test     # pytest
-make lint     # ruff + mypy
-make docker   # build + run via docker compose
+make dev            # backend uvicorn with reload (port 8000)
+make frontend-dev   # frontend vite dev server (port 5173, proxies /api + /ws to backend)
+make test           # pytest
+make lint           # ruff + mypy
+make docker         # build + run via docker compose
 ```
+
+In two terminals: `make dev` then `make frontend-dev`. Open <http://localhost:5173>.
 
 See `.env.example` for required env (notably `KT_CRED_KEY`, a base64 Fernet key).
 
