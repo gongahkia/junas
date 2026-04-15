@@ -8,6 +8,7 @@ from kt.api.sessions import router as sessions_router
 from kt.api.ws import router as ws_router
 from kt.config import Settings
 from kt.db import close_db, init_db
+from kt.logging import configure_logging, log
 from kt.providers import registry
 from kt.realtime.hub import SessionHub
 from kt.repos.sessions_repo import SessionsRepo
@@ -16,9 +17,11 @@ from kt.repos.sessions_repo import SessionsRepo
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     settings: Settings = app.state.settings
+    configure_logging(settings.log_level)
     await init_db(settings.db_path)
     registry.bootstrap()
     app.state.hub = SessionHub(SessionsRepo())
+    log().info("startup", db=str(settings.db_path), providers=len(registry.all_providers()))
     try:
         yield
     finally:
