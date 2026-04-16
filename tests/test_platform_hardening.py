@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import pytest
 from cryptography.fernet import Fernet
 from httpx import AsyncClient
 
+from kt.config import Settings
+from kt.main import create_app
 from kt.security import CredentialCipher
 
 
@@ -62,3 +65,11 @@ def test_multifernet_single_key_still_works():
     c = CredentialCipher(key)
     ct = c.encrypt({"x": 1})
     assert c.decrypt(ct) == {"x": 1}
+
+
+@pytest.mark.asyncio
+async def test_startup_fails_without_cred_key(tmp_path):
+    app = create_app(Settings(db_path=tmp_path / "test.db", cred_key=""))
+    with pytest.raises(RuntimeError, match="KT_CRED_KEY"):
+        async with app.router.lifespan_context(app):
+            pass
