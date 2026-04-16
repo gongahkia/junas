@@ -10,6 +10,7 @@ from typing import Any
 from kt.providers import registry
 from kt.realtime.session_engine import BadRequest, Event, apply_action
 from kt.realtime.state import SessionState
+from kt.repos.logbook_repo import LogbookRepo
 from kt.repos.session_events_repo import SessionEventsRepo
 from kt.repos.sessions_repo import SessionsRepo
 
@@ -39,10 +40,12 @@ class SessionHub:
         self,
         repo: SessionsRepo,
         events_repo: SessionEventsRepo | None = None,
+        logbook_repo: LogbookRepo | None = None,
     ) -> None:
         self._sessions: dict[str, LiveSession] = {}
         self._repo = repo
         self._events_repo = events_repo or SessionEventsRepo()
+        self._logbook_repo = logbook_repo or LogbookRepo()
         self._global_lock = asyncio.Lock()
 
     async def load_or_restore(self, code: str) -> LiveSession | None:
@@ -82,6 +85,7 @@ class SessionHub:
         if action.get("type") == "setProviders":
             _validate_known_providers(action)
         async with live.lock:
+            prev_queue_by_id = {q.id: q for q in live.state.queue}
             new_state, events = apply_action(live.state, participant_id, action)
             live.state = new_state
             await self._repo.save_state(code, new_state.to_dict())
@@ -94,10 +98,48 @@ class SessionHub:
                 code, "roomStateUpdate", new_state.to_dict()
             )
             live.last_seq = snapshot_seq
+        if action.get("type") == "markCompleted":
+            await self._maybe_write_logbook(
+                code, new_state, participant_id, action, prev_queue_by_id
+            )
         for ev, seq in logged:
             await self._broadcast(live, ev, seq)
         await self._send_room_state(live, snapshot_seq)
         return events
+
+    async def _maybe_write_logbook(
+        self,
+        code: str,
+        state: SessionState,
+        participant_id: str,
+        action: dict[str, Any],
+        prev_queue_by_id: dict[str, Any],
+    ) -> None:
+        participant = state.participants.get(participant_id)
+        if participant is None or not participant.user_id:
+            return
+        payload = action.get("payload") or {}
+        q_id = payload.get("queue_id")
+        q = prev_queue_by_id.get(q_id) if q_id else None
+        if q is None:
+            return
+        try:
+            await self._logbook_repo.add(
+                user_id=participant.user_id,
+                provider=q.provider,
+                climb_id=q.climb_id,
+                result=str(payload.get("result") or "sent"),
+                name=q.name,
+                session_code=code,
+                grade_at_send=payload.get("grade_at_send"),
+                attempts=_maybe_int(payload.get("attempts")),
+                rpe=_maybe_int(payload.get("rpe")),
+                duration_seconds=_maybe_int(payload.get("duration_seconds")),
+                notes=payload.get("notes"),
+            )
+        except ValueError:
+            # Invalid fields (e.g. bad result / out-of-range rpe) — skip write.
+            return
 
     async def _broadcast(self, live: LiveSession, event: Event, seq: int) -> None:
         msg = {"type": event.type, "payload": event.payload, "seq": seq}
@@ -130,6 +172,15 @@ def serialize(msg: dict[str, Any]) -> str:
 
 def deserialize(raw: str) -> dict[str, Any]:
     return json.loads(raw)
+
+
+def _maybe_int(raw: Any) -> int | None:
+    if raw is None:
+        return None
+    try:
+        return int(raw)
+    except (TypeError, ValueError):
+        return None
 
 
 def _validate_known_providers(action: dict[str, Any]) -> None:

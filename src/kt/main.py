@@ -8,6 +8,7 @@ from kt.api.auth import router as auth_router
 from kt.api.boards import router as boards_router
 from kt.api.grades import router as grades_router
 from kt.api.health import router as health_router
+from kt.api.logbook import router as logbook_router
 from kt.api.sessions import router as sessions_router
 from kt.api.ws import router as ws_router
 from kt.config import Settings
@@ -16,6 +17,7 @@ from kt.logging import configure_logging, log
 from kt.providers import registry
 from kt.ratelimit import RateLimiter
 from kt.realtime.hub import SessionHub
+from kt.repos.logbook_repo import LogbookRepo
 from kt.repos.session_events_repo import SessionEventsRepo
 from kt.repos.sessions_repo import SessionsRepo
 from kt.sweeper import run_forever as sweeper_run_forever
@@ -33,7 +35,11 @@ async def lifespan(app: FastAPI):
         log().warning("cred_key_autogen", msg="KT_CRED_KEY unset — generated ephemeral key; set KT_CRED_KEY to persist credentials across restarts")
     await init_db(settings.db_path)
     registry.bootstrap()
-    app.state.hub = SessionHub(SessionsRepo(), SessionEventsRepo())
+    app.state.hub = SessionHub(
+        SessionsRepo(),
+        SessionEventsRepo(),
+        logbook_repo=LogbookRepo(),
+    )
     app.state.rate_limiter = RateLimiter()
     sweeper = asyncio.create_task(
         sweeper_run_forever(settings.session_idle_max_hours, settings.sweep_interval_seconds)
@@ -75,6 +81,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         app.include_router(auth_router, prefix=prefix)
         app.include_router(me_router, prefix=prefix)
         app.include_router(grades_router, prefix=prefix)
+        app.include_router(logbook_router, prefix=prefix)
     return app
 
 
