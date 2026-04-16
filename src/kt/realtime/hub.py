@@ -10,6 +10,7 @@ from typing import Any
 from kt.providers import registry
 from kt.realtime.session_engine import BadRequest, Event, apply_action
 from kt.realtime.state import SessionState
+from kt.repos.climb_votes_repo import ClimbVotesRepo
 from kt.repos.logbook_repo import LogbookRepo
 from kt.repos.session_events_repo import SessionEventsRepo
 from kt.repos.sessions_repo import SessionsRepo
@@ -41,11 +42,13 @@ class SessionHub:
         repo: SessionsRepo,
         events_repo: SessionEventsRepo | None = None,
         logbook_repo: LogbookRepo | None = None,
+        votes_repo: ClimbVotesRepo | None = None,
     ) -> None:
         self._sessions: dict[str, LiveSession] = {}
         self._repo = repo
         self._events_repo = events_repo or SessionEventsRepo()
         self._logbook_repo = logbook_repo or LogbookRepo()
+        self._votes_repo = votes_repo or ClimbVotesRepo()
         self._global_lock = asyncio.Lock()
 
     async def load_or_restore(self, code: str) -> LiveSession | None:
@@ -98,14 +101,39 @@ class SessionHub:
                 code, "roomStateUpdate", new_state.to_dict()
             )
             live.last_seq = snapshot_seq
-        if action.get("type") == "markCompleted":
+        action_type = action.get("type")
+        if action_type == "markCompleted":
             await self._maybe_write_logbook(
                 code, new_state, participant_id, action, prev_queue_by_id
             )
+        elif action_type in {"voteQuality", "voteGrade"}:
+            await self._persist_vote(code, action_type, events)
         for ev, seq in logged:
             await self._broadcast(live, ev, seq)
         await self._send_room_state(live, snapshot_seq)
         return events
+
+    async def _persist_vote(
+        self, code: str, action_type: str, events: list[Event]
+    ) -> None:
+        for ev in events:
+            payload = ev.payload
+            if action_type == "voteQuality" and ev.type == "qualityVote":
+                await self._votes_repo.upsert(
+                    session_code=code,
+                    participant_id=str(payload.get("participant_id")),
+                    provider=str(payload.get("provider")),
+                    climb_id=str(payload.get("climb_id")),
+                    quality=payload.get("stars"),
+                )
+            elif action_type == "voteGrade" and ev.type == "gradeVote":
+                await self._votes_repo.upsert(
+                    session_code=code,
+                    participant_id=str(payload.get("participant_id")),
+                    provider=str(payload.get("provider")),
+                    climb_id=str(payload.get("climb_id")),
+                    grade_v=payload.get("grade_v"),
+                )
 
     async def _maybe_write_logbook(
         self,
@@ -154,6 +182,11 @@ class SessionHub:
         }
         for c in list(live.conns.values()):
             await c.send(snapshot)
+
+    async def consensus_for(
+        self, code: str, provider: str, climb_id: str
+    ) -> dict[str, Any]:
+        return await self._votes_repo.consensus(code, provider, climb_id)
 
     async def events_since(self, code: str, since_seq: int) -> list[dict[str, Any]]:
         return await self._events_repo.list_since(code, since_seq)

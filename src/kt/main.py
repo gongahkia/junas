@@ -17,6 +17,7 @@ from kt.logging import configure_logging, log
 from kt.providers import registry
 from kt.ratelimit import RateLimiter
 from kt.realtime.hub import SessionHub
+from kt.repos.climb_votes_repo import ClimbVotesRepo
 from kt.repos.logbook_repo import LogbookRepo
 from kt.repos.session_events_repo import SessionEventsRepo
 from kt.repos.sessions_repo import SessionsRepo
@@ -39,6 +40,7 @@ async def lifespan(app: FastAPI):
         SessionsRepo(),
         SessionEventsRepo(),
         logbook_repo=LogbookRepo(),
+        votes_repo=ClimbVotesRepo(),
     )
     app.state.rate_limiter = RateLimiter()
     sweeper = asyncio.create_task(

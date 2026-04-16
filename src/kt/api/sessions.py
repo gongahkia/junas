@@ -5,7 +5,8 @@ import string
 from typing import Annotated
 
 import aiosqlite
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
+from fastapi.responses import PlainTextResponse
 
 from kt.api.auth import get_optional_user
 from kt.api.deps import (
@@ -240,3 +241,74 @@ async def attach_credentials(
     await creds_repo.put(code, req.provider, req.credentials)
     _ = hub  # kept for signature stability; no state change required
     return AttachCredentialsResp(provider=req.provider, ok=True)
+
+
+@router.get("/{code}/messages")
+async def list_messages(
+    code: str,
+    repo: Annotated[SessionsRepo, Depends(get_sessions_repo)],
+    hub: Annotated[SessionHub, Depends(get_hub)],
+    kind: Annotated[str, Query(pattern=r"^(chat|beta|all)$")] = "all",
+    since_seq: Annotated[int, Query(ge=0)] = 0,
+    limit: Annotated[int, Query(ge=1, le=500)] = 100,
+):
+    row = await repo.get(code)
+    if not row:
+        raise HTTPException(404, {"error": "not_found"})
+    events = await hub.events_since(code, since_seq)
+    wanted: set[str] = (
+        {"chatMessage", "betaMessage"}
+        if kind == "all"
+        else {"chatMessage"}
+        if kind == "chat"
+        else {"betaMessage"}
+    )
+    out = [e for e in events if e["type"] in wanted][-limit:]
+    return {"messages": out, "next_seq": out[-1]["seq"] if out else since_seq}
+
+
+@router.get("/{code}/consensus")
+async def get_consensus(
+    code: str,
+    provider: Annotated[str, Query(min_length=1, max_length=64)],
+    climb_id: Annotated[str, Query(min_length=1, max_length=128)],
+    repo: Annotated[SessionsRepo, Depends(get_sessions_repo)],
+    hub: Annotated[SessionHub, Depends(get_hub)],
+):
+    row = await repo.get(code)
+    if not row:
+        raise HTTPException(404, {"error": "not_found"})
+    return await hub.consensus_for(code, provider, climb_id)
+
+
+@router.get("/{code}/export")
+async def export_session(
+    code: str,
+    repo: Annotated[SessionsRepo, Depends(get_sessions_repo)],
+    hub: Annotated[SessionHub, Depends(get_hub)],
+    format: Annotated[str, Query(pattern=r"^(json|csv)$")] = "json",
+):
+    row = await repo.get(code)
+    if not row:
+        raise HTTPException(404, {"error": "not_found"})
+    state = row["state"]
+    events = await hub.events_since(code, 0)
+    if format == "json":
+        return {
+            "code": code,
+            "state": state,
+            "events": events,
+            "created_at": row["created_at"],
+            "ended_at": row["ended_at"],
+        }
+    # CSV: just the completion history — the most common export target.
+    import csv
+    import io
+
+    buf = io.StringIO()
+    cols = ["provider", "climb_id", "name", "completed_by", "result", "completed_at"]
+    w = csv.DictWriter(buf, fieldnames=cols)
+    w.writeheader()
+    for h in state.get("history") or []:
+        w.writerow({k: h.get(k) for k in cols})
+    return PlainTextResponse(buf.getvalue(), media_type="text/csv")

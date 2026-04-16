@@ -272,6 +272,113 @@ def _mark_completed(state, participant_id, payload):
     ]
 
 
+def _send_chat(state, participant_id, payload):
+    _require(state, participant_id, {Role.HOST, Role.COHOST, Role.PARTICIPANT})
+    body = str(payload.get("body") or "").strip()
+    if not body or len(body) > 1000:
+        raise BadRequest("body required (<= 1000 chars)")
+    return state, [
+        Event(
+            "chatMessage",
+            {
+                "participant_id": participant_id,
+                "body": body,
+                "sent_at": now_iso(),
+            },
+        )
+    ]
+
+
+def _send_beta(state, participant_id, payload):
+    _require(state, participant_id, {Role.HOST, Role.COHOST, Role.PARTICIPANT})
+    q_id = payload.get("queue_id")
+    body = str(payload.get("body") or "").strip()
+    if not q_id or not any(q.id == q_id for q in state.queue):
+        raise BadRequest("queue_id not found")
+    if not body or len(body) > 1000:
+        raise BadRequest("body required (<= 1000 chars)")
+    return state, [
+        Event(
+            "betaMessage",
+            {
+                "participant_id": participant_id,
+                "queue_id": q_id,
+                "body": body,
+                "sent_at": now_iso(),
+            },
+        )
+    ]
+
+
+def _vote_quality(state, participant_id, payload):
+    _require(state, participant_id, {Role.HOST, Role.COHOST, Role.PARTICIPANT})
+    q_id = payload.get("queue_id")
+    stars = payload.get("stars")
+    q = next((x for x in state.queue if x.id == q_id), None)
+    if q is None:
+        raise BadRequest("queue_id not found")
+    if not isinstance(stars, (int, float)) or not (0 <= float(stars) <= 5):
+        raise BadRequest("stars must be 0..5")
+    return state, [
+        Event(
+            "qualityVote",
+            {
+                "participant_id": participant_id,
+                "queue_id": q_id,
+                "provider": q.provider,
+                "climb_id": q.climb_id,
+                "stars": float(stars),
+            },
+        )
+    ]
+
+
+def _vote_grade(state, participant_id, payload):
+    _require(state, participant_id, {Role.HOST, Role.COHOST, Role.PARTICIPANT})
+    q_id = payload.get("queue_id")
+    grade_v = payload.get("grade_v")
+    q = next((x for x in state.queue if x.id == q_id), None)
+    if q is None:
+        raise BadRequest("queue_id not found")
+    if not isinstance(grade_v, int) or not (0 <= grade_v <= 17):
+        raise BadRequest("grade_v must be an int in 0..17")
+    return state, [
+        Event(
+            "gradeVote",
+            {
+                "participant_id": participant_id,
+                "queue_id": q_id,
+                "provider": q.provider,
+                "climb_id": q.climb_id,
+                "grade_v": grade_v,
+            },
+        )
+    ]
+
+
+def _set_session_meta(state, participant_id, payload):
+    _require(state, participant_id, {Role.HOST})
+    changes: dict[str, Any] = {}
+    if "title" in payload:
+        changes["title"] = str(payload.get("title") or "").strip()[:200]
+    if "description" in payload:
+        changes["description"] = str(payload.get("description") or "").strip()[:1000]
+    if "tags" in payload:
+        raw = payload.get("tags")
+        if not isinstance(raw, list):
+            raise BadRequest("tags must be list[str]")
+        cleaned = []
+        for t in raw:
+            tag = str(t).strip()[:40]
+            if tag and tag not in cleaned:
+                cleaned.append(tag)
+        changes["tags"] = cleaned
+    if not changes:
+        return state, []
+    state = replace(state, **changes)
+    return state, [Event("sessionMetaUpdate", changes)]
+
+
 _HANDLERS = {
     "joinRoom": _join,
     "leaveRoom": _leave,
@@ -284,4 +391,9 @@ _HANDLERS = {
     "removeFromQueue": _remove,
     "markFinalist": _mark_finalist,
     "markCompleted": _mark_completed,
+    "sendChat": _send_chat,
+    "sendBeta": _send_beta,
+    "voteQuality": _vote_quality,
+    "voteGrade": _vote_grade,
+    "setSessionMeta": _set_session_meta,
 }

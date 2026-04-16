@@ -54,6 +54,9 @@ class SessionState:
     queue: list[QueuedClimb] = field(default_factory=list)
     finalists: list[str] = field(default_factory=list)
     history: list[CompletedClimb] = field(default_factory=list)
+    title: str = ""
+    description: str = ""
+    tags: list[str] = field(default_factory=list)
 
     def providers(self) -> list[str]:
         if self.enabled_providers:
@@ -71,6 +74,9 @@ class SessionState:
             "queue": [asdict(q) for q in self.queue],
             "finalists": list(self.finalists),
             "history": [asdict(h) for h in self.history],
+            "title": self.title,
+            "description": self.description,
+            "tags": list(self.tags),
         }
 
     @classmethod
@@ -102,6 +108,9 @@ class SessionState:
             queue=queue,
             finalists=list(d.get("finalists") or []),
             history=history,
+            title=str(d.get("title") or ""),
+            description=str(d.get("description") or ""),
+            tags=list(d.get("tags") or []),
         )
 
 
