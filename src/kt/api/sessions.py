@@ -7,6 +7,7 @@ from typing import Annotated
 import aiosqlite
 from fastapi import APIRouter, Depends, HTTPException, Request
 
+from kt.api.auth import get_optional_user
 from kt.api.deps import (
     get_cipher,
     get_credentials_repo,
@@ -59,6 +60,7 @@ async def create_session(
     settings: Annotated[Settings, Depends(get_settings)],
     repo: Annotated[SessionsRepo, Depends(get_sessions_repo)],
     rl: Annotated[RateLimiter, Depends(get_rate_limiter)],
+    current_user: Annotated[dict | None, Depends(get_optional_user)] = None,
 ):
     rl.check(client_key(request), "create_session", settings.rl_create_session_per_min)
     enabled_providers = _validate_providers(req.enabled_providers or [req.provider or ""])
@@ -80,6 +82,7 @@ async def create_session(
                     display_name=req.host_display_name,
                     role=Role.HOST,
                     joined_at=now_iso(),
+                    user_id=current_user["id"] if current_user else None,
                 )
             },
         )
@@ -133,23 +136,34 @@ async def join_session(
     repo: Annotated[SessionsRepo, Depends(get_sessions_repo)],
     hub: Annotated[SessionHub, Depends(get_hub)],
     rl: Annotated[RateLimiter, Depends(get_rate_limiter)],
+    current_user: Annotated[dict | None, Depends(get_optional_user)] = None,
 ):
     rl.check(client_key(request), "join_session", settings.rl_join_per_min)
     row = await repo.get(code)
     if not row or row["ended_at"]:
         raise HTTPException(404, {"error": "not_found"})
 
-    participant_id = secrets.token_urlsafe(9)
     live = await hub.load_or_restore(code)
     assert live is not None
+    participant_id: str | None = None
     async with live.lock:
-        live.state.participants[participant_id] = Participant(
-            id=participant_id,
-            display_name=req.display_name,
-            role=Role.PARTICIPANT,
-            joined_at=now_iso(),
-        )
-        await repo.save_state(code, live.state.to_dict())
+        # If the user is signed in and already a participant in this session,
+        # keep the same participant_id (stable identity across rejoins).
+        if current_user is not None:
+            for pid, p in live.state.participants.items():
+                if p.user_id == current_user["id"]:
+                    participant_id = pid
+                    break
+        if participant_id is None:
+            participant_id = secrets.token_urlsafe(9)
+            live.state.participants[participant_id] = Participant(
+                id=participant_id,
+                display_name=req.display_name,
+                role=Role.PARTICIPANT,
+                joined_at=now_iso(),
+                user_id=current_user["id"] if current_user else None,
+            )
+            await repo.save_state(code, live.state.to_dict())
 
     ws_token = new_secret()
     await repo.put_ws_token(ws_token, code, participant_id, settings.ws_token_ttl_seconds)

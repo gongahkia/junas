@@ -4,11 +4,15 @@ from typing import Annotated
 
 from fastapi import Depends, Request
 
+from kt.auth.service import AuthService
 from kt.config import Settings
 from kt.realtime.hub import SessionHub
+from kt.repos.auth_sessions_repo import AuthSessionsRepo
 from kt.repos.climbs_cache_repo import ClimbsCacheRepo
 from kt.repos.credentials_repo import CredentialsRepo
+from kt.repos.magic_links_repo import MagicLinksRepo
 from kt.repos.sessions_repo import SessionsRepo
+from kt.repos.users_repo import UsersRepo
 from kt.security import CredentialCipher
 
 
@@ -40,3 +44,23 @@ def get_hub(request: Request) -> SessionHub:
 
 def get_rate_limiter(request: Request):
     return request.app.state.rate_limiter
+
+
+def get_users_repo() -> UsersRepo:
+    return UsersRepo()
+
+
+def get_auth_sessions_repo() -> AuthSessionsRepo:
+    return AuthSessionsRepo()
+
+
+def get_magic_links_repo() -> MagicLinksRepo:
+    return MagicLinksRepo()
+
+
+def get_auth_service(
+    settings: Annotated[Settings, Depends(get_settings)],
+    users: Annotated[UsersRepo, Depends(get_users_repo)],
+    sessions: Annotated[AuthSessionsRepo, Depends(get_auth_sessions_repo)],
+) -> AuthService:
+    return AuthService(settings=settings, users=users, auth_sessions=sessions)

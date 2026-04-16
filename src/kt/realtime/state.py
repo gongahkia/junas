@@ -20,6 +20,7 @@ class Participant:
     display_name: str
     role: Role
     joined_at: str
+    user_id: str | None = None
 
 
 @dataclass
@@ -80,6 +81,7 @@ class SessionState:
                 display_name=p["display_name"],
                 role=Role(p["role"]),
                 joined_at=p["joined_at"],
+                user_id=p.get("user_id"),
             )
             for pid, p in d.get("participants", {}).items()
         }

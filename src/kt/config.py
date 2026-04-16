@@ -24,3 +24,11 @@ class Settings(BaseSettings):
     # sweeper
     session_idle_max_hours: int = 24  # end sessions with no activity for this long
     sweep_interval_seconds: int = 300  # how often the sweeper runs
+
+    # auth
+    auth_access_ttl_seconds: int = 3600
+    auth_refresh_ttl_seconds: int = 30 * 24 * 3600
+    auth_magic_link_ttl_seconds: int = 900
+    # when true, POST /auth/magic-link returns the token in the response body.
+    # production deployments should set this to false and plug in an email sender.
+    auth_return_magic_links: bool = True

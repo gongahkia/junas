@@ -3,6 +3,8 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 
+from kt.api.auth import me_router
+from kt.api.auth import router as auth_router
 from kt.api.boards import router as boards_router
 from kt.api.health import router as health_router
 from kt.api.sessions import router as sessions_router
@@ -69,6 +71,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     for prefix in ("/api/v1", "/api"):
         app.include_router(sessions_router, prefix=prefix)
         app.include_router(boards_router, prefix=prefix)
+        app.include_router(auth_router, prefix=prefix)
+        app.include_router(me_router, prefix=prefix)
     return app
 
 
