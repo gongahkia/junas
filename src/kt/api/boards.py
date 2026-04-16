@@ -6,9 +6,8 @@ import json
 from collections.abc import Mapping
 from typing import Annotated, Any
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request
+from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
 
-from kt.api.auth import get_optional_user
 from kt.api.deps import (
     get_climbs_cache_repo,
     get_credentials_repo,
@@ -41,6 +40,7 @@ from kt.schemas.api import (
     ProviderDescriptor,
     SetterRef,
 )
+from kt.security import verify_secret
 
 router = APIRouter()
 
@@ -63,6 +63,16 @@ def _select_provider(row: dict, provider: str | None) -> str:
     if provider not in enabled_providers:
         raise HTTPException(400, {"error": "provider_not_enabled", "detail": enabled_providers})
     return provider
+
+
+def _require_read_token(read_token: str | None, row: dict) -> None:
+    expected = row.get("read_token_hash")
+    if not expected:
+        raise HTTPException(503, {"error": "session_not_hardened"})
+    if not read_token:
+        raise HTTPException(401, {"error": "read_token_required"})
+    if not verify_secret(read_token, expected):
+        raise HTTPException(403, {"error": "bad_read_token"})
 
 
 def _cache_key(code: str, kind: str, params: Mapping[str, object]) -> str:
@@ -258,15 +268,15 @@ async def list_climbs(
     stars_min: Annotated[float | None, Query(ge=0, le=5)] = None,
     grade_min_v: Annotated[int | None, Query(ge=0, le=17)] = None,
     grade_max_v: Annotated[int | None, Query(ge=0, le=17)] = None,
-    current_user: Annotated[dict | None, Depends(get_optional_user)] = None,
+    read_token: Annotated[str | None, Header(alias="X-Session-Read-Token")] = None,
 ):
-    _ = current_user  # populates request.state.user for account-aware rate limiter
     rl.check(client_key(request), "list_climbs", settings.rl_climbs_per_min)
     if sort not in _ALLOWED_SORTS:
         raise HTTPException(400, {"error": "bad_sort", "detail": sorted(_ALLOWED_SORTS)})
     row = await repo.get(code)
     if not row or row["ended_at"]:
         raise HTTPException(404, {"error": "not_found"})
+    _require_read_token(read_token, row)
     provider = _select_provider(row, provider)
     try:
         p = registry.get(provider)
@@ -321,6 +331,7 @@ async def list_climbs(
             if len(cached_climbs) >= overfetch
             else None
         )
+        await repo.touch(code)
         return ClimbsResp(climbs=window, next_cursor=next_cursor)
 
     token = await _auth_token(code, provider, p, creds_repo)
@@ -360,21 +371,27 @@ async def list_climbs(
         if len(climbs) >= overfetch
         else None
     )
+    await repo.touch(code)
     return ClimbsResp(climbs=window, next_cursor=next_cursor)
 
 
 @router.get("/sessions/{code}/layouts", response_model=LayoutsResp)
 async def list_layouts(
     code: str,
+    request: Request,
     settings: Annotated[Settings, Depends(get_settings)],
     repo: Annotated[SessionsRepo, Depends(get_sessions_repo)],
     creds_repo: Annotated[CredentialsRepo, Depends(get_credentials_repo)],
     cache_repo: Annotated[ClimbsCacheRepo, Depends(get_climbs_cache_repo)],
+    rl: Annotated[RateLimiter, Depends(get_rate_limiter)],
     provider: Annotated[str | None, Query()] = None,
+    read_token: Annotated[str | None, Header(alias="X-Session-Read-Token")] = None,
 ):
+    rl.check(client_key(request), "list_layouts", settings.rl_layouts_per_min)
     row = await repo.get(code)
     if not row or row["ended_at"]:
         raise HTTPException(404, {"error": "not_found"})
+    _require_read_token(read_token, row)
     provider = _select_provider(row, provider)
     try:
         p = registry.get(provider)
@@ -384,6 +401,7 @@ async def list_layouts(
     cache_key = _cache_key(code, "layouts", {})
     cached = await cache_repo.get(provider, cache_key)
     if cached is not None:
+        await repo.touch(code)
         return LayoutsResp(layouts=[LayoutOut(**layout) for layout in cached])
 
     token = await _auth_token(code, provider, p, creds_repo)
@@ -404,4 +422,5 @@ async def list_layouts(
         for layout in layouts
     ]
     await cache_repo.put(provider, cache_key, payload, settings.cache_ttl_seconds)
+    await repo.touch(code)
     return LayoutsResp(layouts=[LayoutOut(**layout) for layout in payload])

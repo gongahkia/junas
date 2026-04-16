@@ -34,13 +34,16 @@ class _FakeProvider:
         raise KeyError(climb_id)
 
 
-async def _create_session(client: AsyncClient, provider_key: str) -> str:
+async def _create_session(
+    client: AsyncClient, provider_key: str
+) -> tuple[str, dict[str, str]]:
     r = await client.post(
         "/api/v1/sessions",
         json={"host_display_name": "Host", "provider": provider_key},
     )
     assert r.status_code == 200, r.text
-    return r.json()["code"]
+    payload = r.json()
+    return payload["code"], {"X-Session-Read-Token": payload["session_read_token"]}
 
 
 def _make_climbs(n: int = 30) -> list[Climb]:
@@ -72,8 +75,10 @@ async def test_climbs_are_enriched_with_grades_and_media(client: AsyncClient):
     climbs = _make_climbs(5)
     registry.register(_FakeProvider(climbs))
     try:
-        code = await _create_session(client, "fake")
-        r = await client.get(f"/api/v1/sessions/{code}/climbs?limit=5")
+        code, read_headers = await _create_session(client, "fake")
+        r = await client.get(
+            f"/api/v1/sessions/{code}/climbs?limit=5", headers=read_headers
+        )
         assert r.status_code == 200, r.text
         body = r.json()
         assert len(body["climbs"]) == 5
@@ -92,8 +97,10 @@ async def test_climbs_cursor_pagination_round_trips(client: AsyncClient):
     climbs = _make_climbs(20)
     registry.register(_FakeProvider(climbs))
     try:
-        code = await _create_session(client, "fake")
-        page1 = await client.get(f"/api/v1/sessions/{code}/climbs?limit=5")
+        code, read_headers = await _create_session(client, "fake")
+        page1 = await client.get(
+            f"/api/v1/sessions/{code}/climbs?limit=5", headers=read_headers
+        )
         ids1 = [c["id"] for c in page1.json()["climbs"]]
         assert len(ids1) == 5
         cursor = page1.json()["next_cursor"]
@@ -104,6 +111,7 @@ async def test_climbs_cursor_pagination_round_trips(client: AsyncClient):
         page2 = await client.get(
             f"/api/v1/sessions/{code}/climbs",
             params={"limit": 5, "cursor": cursor},
+            headers=read_headers,
         )
         ids2 = [c["id"] for c in page2.json()["climbs"]]
         assert ids2 != ids1
@@ -116,10 +124,11 @@ async def test_climbs_grade_filter(client: AsyncClient):
     climbs = _make_climbs(30)
     registry.register(_FakeProvider(climbs))
     try:
-        code = await _create_session(client, "fake")
+        code, read_headers = await _create_session(client, "fake")
         r = await client.get(
             f"/api/v1/sessions/{code}/climbs",
             params={"limit": 10, "grade_min_v": 6, "grade_max_v": 11},
+            headers=read_headers,
         )
         assert r.status_code == 200
         vs = [c["grades"]["v"] for c in r.json()["climbs"] if c["grades"]]
@@ -133,10 +142,11 @@ async def test_climbs_sort_by_stars(client: AsyncClient):
     climbs = _make_climbs(10)
     registry.register(_FakeProvider(climbs))
     try:
-        code = await _create_session(client, "fake")
+        code, read_headers = await _create_session(client, "fake")
         r = await client.get(
             f"/api/v1/sessions/{code}/climbs",
             params={"limit": 10, "sort": "stars"},
+            headers=read_headers,
         )
         assert r.status_code == 200
         starseq = [c["stars"] or 0 for c in r.json()["climbs"]]
@@ -149,10 +159,11 @@ async def test_climbs_bad_cursor_returns_400(client: AsyncClient):
     climbs = _make_climbs(5)
     registry.register(_FakeProvider(climbs))
     try:
-        code = await _create_session(client, "fake")
+        code, read_headers = await _create_session(client, "fake")
         r = await client.get(
             f"/api/v1/sessions/{code}/climbs",
             params={"cursor": "not-a-real-cursor", "limit": 5},
+            headers=read_headers,
         )
         assert r.status_code == 400
     finally:
@@ -163,10 +174,11 @@ async def test_climbs_bad_sort_returns_400(client: AsyncClient):
     climbs = _make_climbs(3)
     registry.register(_FakeProvider(climbs))
     try:
-        code = await _create_session(client, "fake")
+        code, read_headers = await _create_session(client, "fake")
         r = await client.get(
             f"/api/v1/sessions/{code}/climbs",
             params={"sort": "chaos"},
+            headers=read_headers,
         )
         assert r.status_code == 400
     finally:

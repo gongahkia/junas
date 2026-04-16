@@ -19,19 +19,16 @@ async def test_legacy_prefix_still_works_with_deprecation_headers(client: AsyncC
     assert "/api/v1/providers" in link
 
 
-async def test_v1_session_create_and_join(client: AsyncClient):
+async def test_v1_session_create_and_read(client: AsyncClient):
     create = await client.post(
         "/api/v1/sessions",
         json={"host_display_name": "Host", "provider": "tension"},
     )
     assert create.status_code == 200
-    code = create.json()["code"]
+    payload = create.json()
+    code = payload["code"]
+    read_headers = {"X-Session-Read-Token": payload["session_read_token"]}
 
-    join = await client.post(
-        f"/api/v1/sessions/{code}/join", json={"display_name": "Guest"}
-    )
-    assert join.status_code == 200
-
-    summary = await client.get(f"/api/v1/sessions/{code}")
+    summary = await client.get(f"/api/v1/sessions/{code}", headers=read_headers)
     assert summary.status_code == 200
-    assert summary.json()["participant_count"] == 2
+    assert summary.json()["enabled_providers"] == ["tension"]

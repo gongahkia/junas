@@ -82,6 +82,7 @@ async def test_climbs_endpoint_threads_holds(client):
         )
     ).json()
     code = create["code"]
+    read_headers = {"X-Session-Read-Token": create["session_read_token"]}
     r = await client.get(
         f"/api/sessions/{code}/climbs",
         params=[
@@ -89,6 +90,7 @@ async def test_climbs_endpoint_threads_holds(client):
             ("holds_required", "C5"),
             ("limit", 5),
         ],
+        headers=read_headers,
     )
     assert r.status_code == 200
     body = r.json()

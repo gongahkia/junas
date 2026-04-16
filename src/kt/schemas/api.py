@@ -25,26 +25,15 @@ class CreateSessionReq(BaseModel):
 
 class CreateSessionResp(BaseModel):
     code: str
-    host_participant_id: str
     host_secret: str
-    host_ws_token: str
-
-
-class JoinSessionReq(BaseModel):
-    display_name: str = Field(min_length=1, max_length=40)
-
-
-class JoinSessionResp(BaseModel):
-    participant_id: str
-    ws_token: str
+    session_read_token: str
 
 
 class SessionSummary(BaseModel):
     code: str
     provider: str
     enabled_providers: list[str]
-    participant_count: int
-    queue_length: int
+    attached_providers: list[str]
     created_at: str
     ended_at: str | None
 
@@ -58,15 +47,6 @@ class AttachCredentialsReq(BaseModel):
 class AttachCredentialsResp(BaseModel):
     provider: str
     ok: bool
-
-
-class HostTokenReq(BaseModel):
-    host_secret: str
-
-
-class HostTokenResp(BaseModel):
-    participant_id: str
-    ws_token: str
 
 
 class ProviderDescriptor(BaseModel):
