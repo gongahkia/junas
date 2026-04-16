@@ -68,11 +68,25 @@ async def test_boards_nearby_attaches_distance(client: AsyncClient):
 async def test_boards_reload_is_idempotent(client: AsyncClient):
     first = await client.get("/api/v1/boards")
     before = first.json()["count"]
-    r = await client.post("/api/v1/boards/reload")
+    r = await client.post(
+        "/api/v1/boards/reload",
+        headers={"X-Boards-Reload-Secret": "reload-secret"},
+    )
     assert r.status_code == 200
     body = r.json()
     assert body["total"] == before
     assert body["loaded"] == before  # upserting the same features
+
+
+async def test_boards_reload_requires_secret(client: AsyncClient):
+    missing = await client.post("/api/v1/boards/reload")
+    assert missing.status_code == 401
+
+    bad = await client.post(
+        "/api/v1/boards/reload",
+        headers={"X-Boards-Reload-Secret": "wrong"},
+    )
+    assert bad.status_code == 403
 
 
 async def test_boards_404_for_unknown(client: AsyncClient):

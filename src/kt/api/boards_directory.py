@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+import secrets
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
 
-from kt.api.deps import get_boards_repo
+from kt.api.deps import get_boards_repo, get_rate_limiter, get_settings
 from kt.boards.loader import ingest_geojson
+from kt.config import Settings
+from kt.ratelimit import RateLimiter, client_key
 from kt.repos.boards_repo import BoardsRepo
 
 router = APIRouter(prefix="/boards")
@@ -43,7 +46,20 @@ async def get_board(bid: str, repo: Annotated[BoardsRepo, Depends(get_boards_rep
 
 
 @router.post("/reload")
-async def reload_boards(repo: Annotated[BoardsRepo, Depends(get_boards_repo)]):
+async def reload_boards(
+    request: Request,
+    settings: Annotated[Settings, Depends(get_settings)],
+    rl: Annotated[RateLimiter, Depends(get_rate_limiter)],
+    repo: Annotated[BoardsRepo, Depends(get_boards_repo)],
+    reload_secret: Annotated[str | None, Header(alias="X-Boards-Reload-Secret")] = None,
+):
+    rl.check(client_key(request), "boards_reload", settings.rl_boards_reload_per_min)
+    if not settings.boards_reload_secret:
+        raise HTTPException(503, {"error": "reload_disabled"})
+    if not reload_secret:
+        raise HTTPException(401, {"error": "reload_secret_required"})
+    if not secrets.compare_digest(reload_secret, settings.boards_reload_secret):
+        raise HTTPException(403, {"error": "bad_reload_secret"})
     # Load the bundled sample. Operators can replace the data at runtime by
     # seeding the board_locations table from an external GeoJSON via the CLI.
     count = await ingest_geojson()

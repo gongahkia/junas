@@ -20,7 +20,11 @@ def cred_key() -> str:
 
 @pytest.fixture
 def settings(tmp_path: Path, cred_key: str) -> Settings:
-    return Settings(db_path=tmp_path / "test.db", cred_key=cred_key)
+    return Settings(
+        db_path=tmp_path / "test.db",
+        cred_key=cred_key,
+        boards_reload_secret="reload-secret",
+    )
 
 
 @pytest.fixture
