@@ -1,4 +1,4 @@
-.PHONY: venv install dev test lint typecheck run docker fmt clean smoke-aurora smoke-moonboard smoke-crux
+.PHONY: venv install dev test lint typecheck security run docker fmt clean smoke-aurora smoke-moonboard smoke-crux
 
 VENV ?= .venv
 PY := $(VENV)/bin/python
@@ -7,6 +7,8 @@ UVICORN := $(VENV)/bin/uvicorn
 PYTEST := $(VENV)/bin/pytest
 RUFF := $(VENV)/bin/ruff
 MYPY := $(VENV)/bin/mypy
+PIP_AUDIT := $(VENV)/bin/pip-audit
+BANDIT := $(VENV)/bin/bandit
 
 $(VENV)/bin/python:
 	python3 -m venv $(VENV)
@@ -34,6 +36,10 @@ fmt: venv
 
 typecheck: venv
 	$(MYPY) src
+
+security: venv
+	$(PIP_AUDIT)
+	$(BANDIT) -q -r src/kt -x tests
 
 docker:
 	docker compose up --build

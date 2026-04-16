@@ -15,10 +15,10 @@ dependencies = [
   "httpx>=0.27",
   "aiosqlite>=0.20",
   "cryptography>=43",
-  "python-jose[cryptography]>=3.3",
   "selectolax>=0.3.21",
   "tenacity>=9.0",
   "structlog>=24.4",
+  "python-multipart>=0.0.9",
 ]
 
 [project.optional-dependencies]
@@ -28,7 +28,8 @@ dev = [
   "httpx>=0.27",
   "ruff>=0.6",
   "mypy>=1.11",
-  "types-python-jose",
+  "pip-audit>=2.8",
+  "bandit>=1.7.9",
 ]
 
 [tool.setuptools.packages.find]
@@ -37,6 +38,7 @@ where = ["src"]
 [tool.setuptools.package-data]
 "kt.migrations" = ["*.sql"]
 "kt.providers.moonboard.data" = ["*.json", "LICENSE"]
+"kt.boards.data" = ["*.geojson"]
 
 [tool.ruff]
 line-length = 100

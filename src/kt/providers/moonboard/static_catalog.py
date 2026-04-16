@@ -38,7 +38,7 @@ def _read(filename: str) -> str:
 
 
 def _stable_id(grade: str, moves: list[str]) -> str:
-    h = hashlib.sha1()
+    h = hashlib.sha1(usedforsecurity=False)
     h.update(grade.encode("utf-8"))
     for m in moves:
         h.update(b"|")

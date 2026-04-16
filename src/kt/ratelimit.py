@@ -48,7 +48,8 @@ class RateLimiter:
 
 
 def client_key(request: Request) -> str:
+    """Key for rate-limit buckets: forwarded IP > direct IP."""
     fwd = request.headers.get("x-forwarded-for")
     if fwd:
-        return fwd.split(",")[0].strip()
-    return request.client.host if request.client else "unknown"
+        return f"ip:{fwd.split(',')[0].strip()}"
+    return f"ip:{request.client.host if request.client else 'unknown'}"

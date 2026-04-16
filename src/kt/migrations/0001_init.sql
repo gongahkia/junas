@@ -35,13 +35,3 @@ CREATE TABLE IF NOT EXISTS climbs_cache (
 );
 
 CREATE INDEX IF NOT EXISTS idx_cache_expiry ON climbs_cache(expires_at);
-
-CREATE TABLE IF NOT EXISTS ws_tokens (
-    token TEXT PRIMARY KEY,
-    session_code TEXT NOT NULL,
-    participant_id TEXT NOT NULL,
-    created_at TEXT NOT NULL,
-    expires_at TEXT NOT NULL,
-    used_at TEXT,
-    FOREIGN KEY (session_code) REFERENCES sessions(code) ON DELETE CASCADE
-);

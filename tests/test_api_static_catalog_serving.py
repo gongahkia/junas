@@ -21,11 +21,14 @@ async def test_bundled_moonboard_catalog_is_served_over_api(client):
         json={"host_display_name": "Alex", "provider": "moonboard_catalog"},
     )
     assert create.status_code == 200, create.text
-    code = create.json()["code"]
+    payload = create.json()
+    code = payload["code"]
+    read_headers = {"X-Session-Read-Token": payload["session_read_token"]}
 
     response = await client.get(
         f"/api/sessions/{code}/climbs",
         params={"layout_id": "2016", "limit": 25},
+        headers=read_headers,
     )
     assert response.status_code == 200, response.text
 
@@ -48,15 +51,18 @@ async def test_multi_provider_session_requires_provider_for_climb_search(client)
         },
     )
     assert create.status_code == 200, create.text
-    code = create.json()["code"]
+    payload = create.json()
+    code = payload["code"]
+    read_headers = {"X-Session-Read-Token": payload["session_read_token"]}
 
-    missing = await client.get(f"/api/sessions/{code}/climbs")
+    missing = await client.get(f"/api/sessions/{code}/climbs", headers=read_headers)
     assert missing.status_code == 400
     assert missing.json()["detail"]["error"] == "provider_required"
 
     disabled = await client.get(
         f"/api/sessions/{code}/climbs",
         params={"provider": "tension"},
+        headers=read_headers,
     )
     assert disabled.status_code == 400
     assert disabled.json()["detail"]["error"] == "provider_not_enabled"
@@ -64,6 +70,7 @@ async def test_multi_provider_session_requires_provider_for_climb_search(client)
     ok = await client.get(
         f"/api/sessions/{code}/climbs",
         params={"provider": "moonboard_catalog", "layout_id": "2016", "limit": 2},
+        headers=read_headers,
     )
     assert ok.status_code == 200, ok.text
     assert len(ok.json()["climbs"]) == 2
@@ -75,9 +82,11 @@ async def test_layouts_endpoint_serves_and_caches_public_provider(client):
         json={"host_display_name": "Alex", "provider": "moonboard_catalog"},
     )
     assert create.status_code == 200, create.text
-    code = create.json()["code"]
+    payload = create.json()
+    code = payload["code"]
+    read_headers = {"X-Session-Read-Token": payload["session_read_token"]}
 
-    first = await client.get(f"/api/sessions/{code}/layouts")
+    first = await client.get(f"/api/sessions/{code}/layouts", headers=read_headers)
     assert first.status_code == 200, first.text
     layouts = first.json()["layouts"]
     assert {layout["id"] for layout in layouts} >= {"benchmarks", "2016", "2017"}
@@ -125,10 +134,12 @@ async def test_climb_search_uses_session_scoped_cache(client):
             json={"host_display_name": "Alex", "provider": "counting"},
         )
         assert create.status_code == 200, create.text
-        code = create.json()["code"]
+        payload = create.json()
+        code = payload["code"]
+        read_headers = {"X-Session-Read-Token": payload["session_read_token"]}
 
-        first = await client.get(f"/api/sessions/{code}/climbs")
-        second = await client.get(f"/api/sessions/{code}/climbs")
+        first = await client.get(f"/api/sessions/{code}/climbs", headers=read_headers)
+        second = await client.get(f"/api/sessions/{code}/climbs", headers=read_headers)
 
         assert first.status_code == 200, first.text
         assert second.status_code == 200, second.text

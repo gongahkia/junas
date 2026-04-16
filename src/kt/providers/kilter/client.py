@@ -25,7 +25,7 @@ from kt.providers.base import (
 )
 
 KEYCLOAK_TOKEN_URL = (
-    "https://idp.kiltergrips.com/realms/kilter/protocol/openid-connect/token"
+    "https://idp.kiltergrips.com/realms/kilter/protocol/openid-connect/token"  # nosec B105
 )
 PORTAL_API_BASE = "https://portal.kiltergrips.com/api"
 POWERSYNC_BASE = "https://sync1.kiltergrips.com"

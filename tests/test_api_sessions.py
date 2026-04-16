@@ -7,15 +7,16 @@ async def test_create_session_and_get(client):
     body = r.json()
     code = body["code"]
     assert len(code) == 6
-    assert body["host_secret"] and body["host_participant_id"] and body["host_ws_token"]
+    assert body["host_secret"]
+    assert body["session_read_token"]
+    read_headers = {"X-Session-Read-Token": body["session_read_token"]}
 
-    r = await client.get(f"/api/sessions/{code}")
+    r = await client.get(f"/api/sessions/{code}", headers=read_headers)
     assert r.status_code == 200
     s = r.json()
     assert s["provider"] == "tension"
     assert s["enabled_providers"] == ["tension"]
-    assert s["participant_count"] == 1
-    assert s["queue_length"] == 0
+    assert s["attached_providers"] == []
 
 
 async def test_create_session_with_multiple_enabled_providers(client):
@@ -27,9 +28,11 @@ async def test_create_session_with_multiple_enabled_providers(client):
         },
     )
     assert r.status_code == 200, r.text
-    code = r.json()["code"]
+    payload = r.json()
+    code = payload["code"]
+    read_headers = {"X-Session-Read-Token": payload["session_read_token"]}
 
-    r = await client.get(f"/api/sessions/{code}")
+    r = await client.get(f"/api/sessions/{code}", headers=read_headers)
     assert r.status_code == 200
     assert r.json()["provider"] == "moonboard_catalog"
     assert r.json()["enabled_providers"] == ["moonboard_catalog", "crux"]
@@ -54,42 +57,44 @@ async def test_create_session_unknown_enabled_provider(client):
     assert r.json()["detail"]["detail"] == "bad"
 
 
-async def test_join_and_ws_token_issued(client):
+async def test_attach_credentials_and_reflect_in_summary(client):
     create = (
         await client.post(
             "/api/sessions",
-            json={"host_display_name": "Alex", "provider": "tension"},
+            json={
+                "host_display_name": "Alex",
+                "enabled_providers": ["moonboard_catalog", "crux"],
+            },
         )
     ).json()
     code = create["code"]
-    r = await client.post(f"/api/sessions/{code}/join", json={"display_name": "Guest"})
-    assert r.status_code == 200, r.text
-    body = r.json()
-    assert body["participant_id"] and body["ws_token"]
+    host_secret = create["host_secret"]
+    read_headers = {"X-Session-Read-Token": create["session_read_token"]}
 
-    r = await client.get(f"/api/sessions/{code}")
-    assert r.json()["participant_count"] == 2
-
-
-async def test_host_token_can_be_refreshed(client):
-    create = (
-        await client.post(
-            "/api/sessions",
-            json={"host_display_name": "Alex", "provider": "tension"},
-        )
-    ).json()
-    code = create["code"]
-
-    bad = await client.post(f"/api/sessions/{code}/host-token", json={"host_secret": "wrong"})
+    bad = await client.post(
+        f"/api/sessions/{code}/credentials",
+        json={
+            "provider": "moonboard_catalog",
+            "credentials": {"token": "irrelevant"},
+            "host_secret": "wrong",
+        },
+    )
     assert bad.status_code == 403
 
     ok = await client.post(
-        f"/api/sessions/{code}/host-token",
-        json={"host_secret": create["host_secret"]},
+        f"/api/sessions/{code}/credentials",
+        json={
+            "provider": "moonboard_catalog",
+            "credentials": {"token": "irrelevant"},
+            "host_secret": host_secret,
+        },
     )
     assert ok.status_code == 200
-    assert ok.json()["participant_id"] == create["host_participant_id"]
-    assert ok.json()["ws_token"]
+    assert ok.json() == {"provider": "moonboard_catalog", "ok": True}
+
+    summary = await client.get(f"/api/sessions/{code}", headers=read_headers)
+    assert summary.status_code == 200
+    assert summary.json()["attached_providers"] == ["moonboard_catalog"]
 
 
 async def test_end_session_requires_host_secret(client):
@@ -99,13 +104,19 @@ async def test_end_session_requires_host_secret(client):
         )
     ).json()
     code = create["code"]
-    r = await client.delete(f"/api/sessions/{code}", params={"host_secret": "wrong"})
+    r = await client.delete(
+        f"/api/sessions/{code}", headers={"X-Host-Secret": "wrong"}
+    )
     assert r.status_code == 403
     r = await client.delete(
-        f"/api/sessions/{code}", params={"host_secret": create["host_secret"]}
+        f"/api/sessions/{code}",
+        headers={"X-Host-Secret": create["host_secret"]},
     )
     assert r.status_code == 200
-    r = await client.get(f"/api/sessions/{code}")
+    r = await client.get(
+        f"/api/sessions/{code}",
+        headers={"X-Session-Read-Token": create["session_read_token"]},
+    )
     assert r.status_code == 404
 
 
@@ -113,6 +124,34 @@ async def test_list_providers(client):
     r = await client.get("/api/providers")
     assert r.status_code == 200
     keys = {p["key"] for p in r.json()}
-    assert {"tension", "grasshopper", "decoy", "soill", "touchstone", "aurora", "moonboard", "moonboard_catalog", "kilter", "crux"} <= keys
+    assert {
+        "tension",
+        "grasshopper",
+        "decoy",
+        "soill",
+        "touchstone",
+        "aurora",
+        "moonboard",
+        "moonboard_catalog",
+        "kilter",
+        "crux",
+    } <= keys
     kilter = [p for p in r.json() if p["key"] == "kilter"][0]
     assert kilter["status"] == "experimental"
+
+
+async def test_read_token_required_for_session_summary(client):
+    create = (
+        await client.post(
+            "/api/sessions",
+            json={"host_display_name": "Alex", "provider": "tension"},
+        )
+    ).json()
+    code = create["code"]
+    missing = await client.get(f"/api/sessions/{code}")
+    assert missing.status_code == 401
+
+    bad = await client.get(
+        f"/api/sessions/{code}", headers={"X-Session-Read-Token": "bad"}
+    )
+    assert bad.status_code == 403
