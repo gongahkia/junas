@@ -21,5 +21,9 @@ jobs:
         run: ruff check src tests
       - name: Type check
         run: mypy src
+      - name: Dependency audit
+        run: pip-audit
+      - name: Security scan
+        run: bandit -q -r src/kt -x tests -s B104,B105
       - name: Test
         run: pytest -q
