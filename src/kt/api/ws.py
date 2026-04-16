@@ -18,6 +18,15 @@ async def session_ws(ws: WebSocket, code: str):
     hub = ws.app.state.hub
     repo = SessionsRepo()
     token = ws.query_params.get("token")
+    since_raw = ws.query_params.get("since_seq")
+    try:
+        since_seq = int(since_raw) if since_raw is not None else 0
+    except (TypeError, ValueError):
+        await ws.send_text(
+            serialize({"type": "error", "payload": {"error": "bad_since_seq"}})
+        )
+        await ws.close(code=4400)
+        return
     if not token:
         await ws.send_text(serialize({"type": "error", "payload": {"error": "token_required"}}))
         await ws.close(code=4401)
@@ -36,8 +45,28 @@ async def session_ws(ws: WebSocket, code: str):
         await ws.close(code=4404)
         return
 
+    if since_seq > 0:
+        replayed = await hub.events_since(code, since_seq)
+        for entry in replayed:
+            await ws.send_text(
+                serialize(
+                    {
+                        "type": entry["type"],
+                        "payload": entry["payload"],
+                        "seq": entry["seq"],
+                        "replay": True,
+                    }
+                )
+            )
+
     await ws.send_text(
-        serialize({"type": "roomStateUpdate", "payload": live.state.to_dict()})
+        serialize(
+            {
+                "type": "roomStateUpdate",
+                "payload": live.state.to_dict(),
+                "seq": live.last_seq,
+            }
+        )
     )
 
     send_task = asyncio.create_task(_pump_outbound(ws, conn))

@@ -35,7 +35,7 @@ from kt.schemas.api import (
 )
 from kt.security import CredentialCipher, hash_secret, new_secret, verify_secret
 
-router = APIRouter(prefix="/api/sessions")
+router = APIRouter(prefix="/sessions")
 
 _ALPHABET = string.ascii_uppercase + "23456789"
 

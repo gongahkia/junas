@@ -1,4 +1,14 @@
+from importlib import resources
+
 from kt.db import close_db, db, init_db
+
+
+def _migration_count() -> int:
+    return sum(
+        1
+        for p in resources.files("kt.migrations").iterdir()
+        if p.name.endswith(".sql")
+    )
 
 
 async def test_migrations_apply(tmp_path):
@@ -24,6 +34,6 @@ async def test_migrations_idempotent(tmp_path):
     try:
         async with db().execute("SELECT COUNT(*) FROM schema_version") as cur:
             (n,) = await cur.fetchone()
-        assert n == 1
+        assert n == _migration_count()
     finally:
         await close_db()

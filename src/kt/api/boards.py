@@ -29,7 +29,7 @@ from kt.repos.credentials_repo import CredentialsRepo
 from kt.repos.sessions_repo import SessionsRepo
 from kt.schemas.api import ClimbOut, ClimbsResp, LayoutOut, LayoutsResp, ProviderDescriptor
 
-router = APIRouter(prefix="/api")
+router = APIRouter()
 
 
 @router.get("/providers", response_model=list[ProviderDescriptor])

@@ -1,7 +1,7 @@
 import asyncio
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 
 from kt.api.boards import router as boards_router
 from kt.api.health import router as health_router
@@ -13,8 +13,11 @@ from kt.logging import configure_logging, log
 from kt.providers import registry
 from kt.ratelimit import RateLimiter
 from kt.realtime.hub import SessionHub
+from kt.repos.session_events_repo import SessionEventsRepo
 from kt.repos.sessions_repo import SessionsRepo
 from kt.sweeper import run_forever as sweeper_run_forever
+
+LEGACY_API_SUNSET = "Wed, 01 Jul 2026 00:00:00 GMT"
 
 
 @asynccontextmanager
@@ -27,7 +30,7 @@ async def lifespan(app: FastAPI):
         log().warning("cred_key_autogen", msg="KT_CRED_KEY unset — generated ephemeral key; set KT_CRED_KEY to persist credentials across restarts")
     await init_db(settings.db_path)
     registry.bootstrap()
-    app.state.hub = SessionHub(SessionsRepo())
+    app.state.hub = SessionHub(SessionsRepo(), SessionEventsRepo())
     app.state.rate_limiter = RateLimiter()
     sweeper = asyncio.create_task(
         sweeper_run_forever(settings.session_idle_max_hours, settings.sweep_interval_seconds)
@@ -44,14 +47,28 @@ async def lifespan(app: FastAPI):
         await close_db()
 
 
+async def _legacy_api_deprecation(request: Request, call_next):
+    response = await call_next(request)
+    path = request.url.path
+    if path.startswith("/api/") and not path.startswith("/api/v1/"):
+        response.headers["Deprecation"] = "true"
+        response.headers["Sunset"] = LEGACY_API_SUNSET
+        response.headers["Link"] = (
+            f'<{path.replace("/api/", "/api/v1/", 1)}>; rel="successor-version"'
+        )
+    return response
+
+
 def create_app(settings: Settings | None = None) -> FastAPI:
     settings = settings or Settings()
-    app = FastAPI(title="Kilter Together", version="2.0.0", lifespan=lifespan)
+    app = FastAPI(title="Kilter Together", version="2.1.0", lifespan=lifespan)
     app.state.settings = settings
+    app.middleware("http")(_legacy_api_deprecation)
     app.include_router(health_router)
-    app.include_router(sessions_router)
-    app.include_router(boards_router)
     app.include_router(ws_router)
+    for prefix in ("/api/v1", "/api"):
+        app.include_router(sessions_router, prefix=prefix)
+        app.include_router(boards_router, prefix=prefix)
     return app
 
 
