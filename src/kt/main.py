@@ -1,7 +1,9 @@
 import asyncio
+import time
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
+from fastapi.middleware.gzip import GZipMiddleware
 
 from kt.api.auth import me_router
 from kt.api.auth import router as auth_router
@@ -16,6 +18,7 @@ from kt.boards.loader import ingest_geojson
 from kt.config import Settings
 from kt.db import close_db, init_db
 from kt.logging import configure_logging, log
+from kt.metrics import Metrics
 from kt.providers import registry
 from kt.ratelimit import RateLimiter
 from kt.realtime.hub import SessionHub
@@ -46,6 +49,7 @@ async def lifespan(app: FastAPI):
         votes_repo=ClimbVotesRepo(),
     )
     app.state.rate_limiter = RateLimiter()
+    app.state.metrics = Metrics()
     if await BoardsRepo().count() == 0 and settings.boards_autoload_sample:
         try:
             loaded = await ingest_geojson()
@@ -79,10 +83,30 @@ async def _legacy_api_deprecation(request: Request, call_next):
     return response
 
 
+async def _metrics_middleware(request: Request, call_next):
+    start = time.perf_counter()
+    response = await call_next(request)
+    elapsed = time.perf_counter() - start
+    metrics: Metrics | None = getattr(request.app.state, "metrics", None)
+    if metrics is not None:
+        route = request.scope.get("route")
+        # Prefer the template path (e.g. /api/v1/sessions/{code}) over the literal URL.
+        route_path = getattr(route, "path", None) or request.url.path
+        metrics.observe_http(
+            method=request.method,
+            route=route_path,
+            status=response.status_code,
+            duration=elapsed,
+        )
+    return response
+
+
 def create_app(settings: Settings | None = None) -> FastAPI:
     settings = settings or Settings()
-    app = FastAPI(title="Kilter Together", version="2.1.0", lifespan=lifespan)
+    app = FastAPI(title="Kilter Together", version="2.2.0", lifespan=lifespan)
     app.state.settings = settings
+    app.add_middleware(GZipMiddleware, minimum_size=1024)
+    app.middleware("http")(_metrics_middleware)
     app.middleware("http")(_legacy_api_deprecation)
     app.include_router(health_router)
     app.include_router(ws_router)

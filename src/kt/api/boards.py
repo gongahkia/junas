@@ -8,6 +8,7 @@ from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 
+from kt.api.auth import get_optional_user
 from kt.api.deps import (
     get_climbs_cache_repo,
     get_credentials_repo,
@@ -257,7 +258,9 @@ async def list_climbs(
     stars_min: Annotated[float | None, Query(ge=0, le=5)] = None,
     grade_min_v: Annotated[int | None, Query(ge=0, le=17)] = None,
     grade_max_v: Annotated[int | None, Query(ge=0, le=17)] = None,
+    current_user: Annotated[dict | None, Depends(get_optional_user)] = None,
 ):
+    _ = current_user  # populates request.state.user for account-aware rate limiter
     rl.check(client_key(request), "list_climbs", settings.rl_climbs_per_min)
     if sort not in _ALLOWED_SORTS:
         raise HTTPException(400, {"error": "bad_sort", "detail": sorted(_ALLOWED_SORTS)})
