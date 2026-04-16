@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+import base64
 import hashlib
 import json
 from collections.abc import Mapping
-from typing import Annotated
+from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 
@@ -15,10 +16,12 @@ from kt.api.deps import (
     get_settings,
 )
 from kt.config import Settings
+from kt.grades import parse_to_v, system_value
 from kt.providers import registry
 from kt.providers.base import (
     AuthToken,
     BoardProvider,
+    Climb,
     ClimbQuery,
     ProviderAuthError,
     ProviderUnavailable,
@@ -27,9 +30,22 @@ from kt.ratelimit import RateLimiter, client_key
 from kt.repos.climbs_cache_repo import ClimbsCacheRepo
 from kt.repos.credentials_repo import CredentialsRepo
 from kt.repos.sessions_repo import SessionsRepo
-from kt.schemas.api import ClimbOut, ClimbsResp, LayoutOut, LayoutsResp, ProviderDescriptor
+from kt.schemas.api import (
+    ClimbOut,
+    ClimbsResp,
+    GradeOut,
+    LayoutOut,
+    LayoutsResp,
+    MediaRef,
+    ProviderDescriptor,
+    SetterRef,
+)
 
 router = APIRouter()
+
+_MAX_OVERFETCH_MULTIPLIER = 5
+_MAX_OVERFETCH_CAP = 500
+_ALLOWED_SORTS = {"stars", "ascents", "newest", "grade_asc", "grade_desc", "default"}
 
 
 @router.get("/providers", response_model=list[ProviderDescriptor])
@@ -76,6 +92,149 @@ async def _auth_token(
         raise HTTPException(503, {"error": "provider_unavailable", "detail": str(e)}) from e
 
 
+def _encode_cursor(offset: int, query_hash: str) -> str:
+    payload = json.dumps({"o": offset, "h": query_hash}, separators=(",", ":"))
+    return base64.urlsafe_b64encode(payload.encode()).rstrip(b"=").decode()
+
+
+def _decode_cursor(cursor: str, expected_hash: str) -> int:
+    try:
+        pad = "=" * (-len(cursor) % 4)
+        payload = json.loads(base64.urlsafe_b64decode(cursor + pad).decode())
+    except (ValueError, TypeError, json.JSONDecodeError) as e:
+        raise HTTPException(400, {"error": "bad_cursor"}) from e
+    if payload.get("h") != expected_hash:
+        # Query shape changed; ask the client to restart pagination.
+        raise HTTPException(400, {"error": "cursor_query_mismatch"})
+    offset = int(payload.get("o") or 0)
+    if offset < 0:
+        raise HTTPException(400, {"error": "bad_cursor"})
+    return offset
+
+
+def _grade_raw(climb: Climb) -> str | None:
+    if climb.grade:
+        return str(climb.grade)
+    extras = climb.extras or {}
+    for k in ("grade", "grade_raw", "difficulty_string"):
+        v = extras.get(k)
+        if v:
+            return str(v)
+    return None
+
+
+def _stars(climb: Climb) -> float | None:
+    extras = climb.extras or {}
+    for k in ("quality_average", "stars", "user_rating", "average_quality"):
+        v = extras.get(k)
+        if v is None:
+            continue
+        try:
+            return float(v)
+        except (TypeError, ValueError):
+            continue
+    return None
+
+
+def _tags(climb: Climb) -> list[str]:
+    extras = climb.extras or {}
+    raw = extras.get("tags")
+    if isinstance(raw, list):
+        return [str(t) for t in raw if t]
+    return []
+
+
+def _media(climb: Climb) -> list[MediaRef]:
+    extras = climb.extras or {}
+    out: list[MediaRef] = []
+    for key, kind in (("image_url", "image"), ("thumbnail_url", "thumbnail"), ("video_url", "video")):
+        url = extras.get(key)
+        if url:
+            out.append(MediaRef(kind=kind, url=str(url)))
+    return out
+
+
+def _setter_ref(climb: Climb) -> SetterRef | None:
+    if climb.setter:
+        return SetterRef(name=str(climb.setter))
+    extras = climb.extras or {}
+    name = extras.get("setter_name") or extras.get("setter_username") or extras.get("setter")
+    if name:
+        return SetterRef(name=str(name))
+    return None
+
+
+def _grade_out(raw: str | None) -> GradeOut | None:
+    if raw is None:
+        return None
+    v = parse_to_v(raw)
+    if v is None:
+        return GradeOut(raw=raw)
+    return GradeOut(
+        raw=raw,
+        v=v,
+        font=system_value(v, "font"),
+        yds=system_value(v, "yds"),
+        uiaa=system_value(v, "uiaa"),
+    )
+
+
+def _enrich(climb: Climb) -> ClimbOut:
+    grade_raw = _grade_raw(climb)
+    return ClimbOut(
+        id=climb.id,
+        provider=climb.provider,
+        name=climb.name,
+        setter=climb.setter,
+        setter_ref=_setter_ref(climb),
+        grade=grade_raw,
+        grades=_grade_out(grade_raw),
+        angle=climb.angle,
+        ascents=climb.ascents,
+        stars=_stars(climb),
+        holds=climb.holds,
+        tags=_tags(climb),
+        media=_media(climb),
+        extras=climb.extras,
+    )
+
+
+def _apply_post_filters(
+    climbs: list[ClimbOut],
+    *,
+    sort: str,
+    stars_min: float | None,
+    grade_min_v: int | None,
+    grade_max_v: int | None,
+) -> list[ClimbOut]:
+    if stars_min is not None:
+        climbs = [c for c in climbs if (c.stars or 0) >= stars_min]
+    if grade_min_v is not None or grade_max_v is not None:
+        filtered: list[ClimbOut] = []
+        for c in climbs:
+            v = c.grades.v if c.grades else None
+            if v is None:
+                continue
+            if grade_min_v is not None and v < grade_min_v:
+                continue
+            if grade_max_v is not None and v > grade_max_v:
+                continue
+            filtered.append(c)
+        climbs = filtered
+    if sort == "stars":
+        climbs.sort(key=lambda c: (c.stars if c.stars is not None else -1.0), reverse=True)
+    elif sort == "ascents":
+        climbs.sort(key=lambda c: (c.ascents if c.ascents is not None else -1), reverse=True)
+    elif sort == "grade_asc":
+        climbs.sort(key=lambda c: (c.grades.v if c.grades and c.grades.v is not None else 99))
+    elif sort == "grade_desc":
+        climbs.sort(
+            key=lambda c: (c.grades.v if c.grades and c.grades.v is not None else -1),
+            reverse=True,
+        )
+    return climbs
+
+
 @router.get("/sessions/{code}/climbs", response_model=ClimbsResp)
 async def list_climbs(
     code: str,
@@ -93,8 +252,15 @@ async def list_climbs(
     holds_forbidden: Annotated[list[str] | None, Query()] = None,
     limit: Annotated[int, Query(ge=1, le=500)] = 50,
     offset: Annotated[int, Query(ge=0)] = 0,
+    cursor: Annotated[str | None, Query()] = None,
+    sort: Annotated[str, Query()] = "default",
+    stars_min: Annotated[float | None, Query(ge=0, le=5)] = None,
+    grade_min_v: Annotated[int | None, Query(ge=0, le=17)] = None,
+    grade_max_v: Annotated[int | None, Query(ge=0, le=17)] = None,
 ):
     rl.check(client_key(request), "list_climbs", settings.rl_climbs_per_min)
+    if sort not in _ALLOWED_SORTS:
+        raise HTTPException(400, {"error": "bad_sort", "detail": sorted(_ALLOWED_SORTS)})
     row = await repo.get(code)
     if not row or row["ended_at"]:
         raise HTTPException(404, {"error": "not_found"})
@@ -104,19 +270,55 @@ async def list_climbs(
     except KeyError:
         raise HTTPException(400, {"error": "unknown_provider"}) from None
 
-    params = {
+    # Hash only the query shape (not offset/limit) so cursor stays valid while paging.
+    shape_params: dict[str, Any] = {
         "text": text,
         "angle": angle,
         "layout_id": layout_id,
         "holds_required": holds_required or [],
         "holds_forbidden": holds_forbidden or [],
-        "limit": limit,
-        "offset": offset,
+        "sort": sort,
+        "stars_min": stars_min,
+        "grade_min_v": grade_min_v,
+        "grade_max_v": grade_max_v,
     }
-    cache_key = _cache_key(code, "climbs", params)
+    query_hash = _cache_key(code, "climbs_shape", shape_params)
+
+    if cursor is not None:
+        offset = _decode_cursor(cursor, query_hash)
+
+    overfetch = (
+        min(max(limit * _MAX_OVERFETCH_MULTIPLIER, limit), _MAX_OVERFETCH_CAP)
+        if (
+            stars_min is not None
+            or grade_min_v is not None
+            or grade_max_v is not None
+            or sort != "default"
+        )
+        else limit
+    )
+
+    cache_key_params = dict(shape_params)
+    cache_key_params["limit"] = overfetch
+    cache_key_params["offset"] = offset
+    cache_key = _cache_key(code, "climbs", cache_key_params)
     cached = await cache_repo.get(provider, cache_key)
     if cached is not None:
-        return ClimbsResp(climbs=[ClimbOut(**c) for c in cached])
+        cached_climbs = [ClimbOut(**c) for c in cached]
+        filtered = _apply_post_filters(
+            cached_climbs,
+            sort=sort,
+            stars_min=stars_min,
+            grade_min_v=grade_min_v,
+            grade_max_v=grade_max_v,
+        )
+        window = filtered[:limit]
+        next_cursor = (
+            _encode_cursor(offset + overfetch, query_hash)
+            if len(cached_climbs) >= overfetch
+            else None
+        )
+        return ClimbsResp(climbs=window, next_cursor=next_cursor)
 
     token = await _auth_token(code, provider, p, creds_repo)
 
@@ -129,7 +331,7 @@ async def list_climbs(
                 text=text,
                 holds_required=tuple(holds_required or ()),
                 holds_forbidden=tuple(holds_forbidden or ()),
-                limit=limit,
+                limit=overfetch,
                 offset=offset,
             ),
         )
@@ -138,22 +340,24 @@ async def list_climbs(
     except ProviderAuthError as e:
         raise HTTPException(400, {"error": "auth_failed", "detail": str(e)}) from e
 
-    payload = [
-        ClimbOut(
-            id=c.id,
-            provider=c.provider,
-            name=c.name,
-            setter=c.setter,
-            grade=c.grade,
-            angle=c.angle,
-            ascents=c.ascents,
-            holds=c.holds,
-            extras=c.extras,
-        ).model_dump()
-        for c in climbs
-    ]
+    enriched = [_enrich(c) for c in climbs]
+    payload = [c.model_dump() for c in enriched]
     await cache_repo.put(provider, cache_key, payload, settings.cache_ttl_seconds)
-    return ClimbsResp(climbs=[ClimbOut(**c) for c in payload])
+
+    filtered = _apply_post_filters(
+        enriched,
+        sort=sort,
+        stars_min=stars_min,
+        grade_min_v=grade_min_v,
+        grade_max_v=grade_max_v,
+    )
+    window = filtered[:limit]
+    next_cursor = (
+        _encode_cursor(offset + overfetch, query_hash)
+        if len(climbs) >= overfetch
+        else None
+    )
+    return ClimbsResp(climbs=window, next_cursor=next_cursor)
 
 
 @router.get("/sessions/{code}/layouts", response_model=LayoutsResp)

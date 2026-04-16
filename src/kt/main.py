@@ -6,6 +6,7 @@ from fastapi import FastAPI, Request
 from kt.api.auth import me_router
 from kt.api.auth import router as auth_router
 from kt.api.boards import router as boards_router
+from kt.api.grades import router as grades_router
 from kt.api.health import router as health_router
 from kt.api.sessions import router as sessions_router
 from kt.api.ws import router as ws_router
@@ -73,6 +74,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         app.include_router(boards_router, prefix=prefix)
         app.include_router(auth_router, prefix=prefix)
         app.include_router(me_router, prefix=prefix)
+        app.include_router(grades_router, prefix=prefix)
     return app
 
 

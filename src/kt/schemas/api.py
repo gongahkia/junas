@@ -76,20 +76,45 @@ class ProviderDescriptor(BaseModel):
     requires_credentials: bool
 
 
+class GradeOut(BaseModel):
+    raw: str | None = None
+    v: int | None = None
+    font: str | None = None
+    yds: str | None = None
+    uiaa: str | None = None
+
+
+class MediaRef(BaseModel):
+    kind: str  # "image" | "video" | "thumbnail"
+    url: str
+
+
+class SetterRef(BaseModel):
+    name: str | None = None
+    url: str | None = None
+
+
 class ClimbOut(BaseModel):
     id: str
     provider: str
     name: str
-    setter: str | None
-    grade: str | None
+    setter: str | None  # legacy string form; prefer setter_ref
+    setter_ref: SetterRef | None = None
+    grade: str | None  # legacy raw grade string; prefer grades
+    grades: GradeOut | None = None
     angle: int | None
     ascents: int | None
+    stars: float | None = None
     holds: list[Any] = Field(default_factory=list)
+    tags: list[str] = Field(default_factory=list)
+    media: list[MediaRef] = Field(default_factory=list)
     extras: dict[str, Any] = Field(default_factory=dict)
 
 
 class ClimbsResp(BaseModel):
     climbs: list[ClimbOut]
+    next_cursor: str | None = None
+    total_estimate: int | None = None
 
 
 class LayoutOut(BaseModel):
