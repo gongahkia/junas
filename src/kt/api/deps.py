@@ -8,6 +8,7 @@ from kt.auth.service import AuthService
 from kt.config import Settings
 from kt.realtime.hub import SessionHub
 from kt.repos.auth_sessions_repo import AuthSessionsRepo
+from kt.repos.boards_repo import BoardsRepo
 from kt.repos.climb_notes_repo import ClimbNotesRepo
 from kt.repos.climbs_cache_repo import ClimbsCacheRepo
 from kt.repos.credentials_repo import CredentialsRepo
@@ -79,3 +80,7 @@ def get_favorites_repo() -> FavoritesRepo:
 
 def get_climb_notes_repo() -> ClimbNotesRepo:
     return ClimbNotesRepo()
+
+
+def get_boards_repo() -> BoardsRepo:
+    return BoardsRepo()

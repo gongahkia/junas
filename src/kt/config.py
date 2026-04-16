@@ -32,3 +32,6 @@ class Settings(BaseSettings):
     # when true, POST /auth/magic-link returns the token in the response body.
     # production deployments should set this to false and plug in an email sender.
     auth_return_magic_links: bool = True
+
+    # boards directory
+    boards_autoload_sample: bool = True
