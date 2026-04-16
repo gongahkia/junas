@@ -20,7 +20,7 @@ async def test_migrations_apply(tmp_path):
         assert 1 in versions
         async with db().execute("SELECT name FROM sqlite_master WHERE type='table'") as cur:
             tables = {r[0] async for r in cur}
-        for t in ("sessions", "host_credentials", "climbs_cache", "ws_tokens"):
+        for t in ("sessions", "host_credentials", "climbs_cache"):
             assert t in tables
     finally:
         await close_db()

@@ -15,11 +15,17 @@ async def healthz() -> dict[str, str]:
 
 
 @router.get("/readyz")
-async def readyz(request: Request) -> dict[str, object]:
+async def readyz() -> dict[str, object]:
     db_ok = True
+    active_sessions = 0
     try:
         async with db().execute("SELECT 1") as cur:
             await cur.fetchone()
+        async with db().execute(
+            "SELECT COUNT(*) FROM sessions WHERE ended_at IS NULL"
+        ) as cur:
+            row = await cur.fetchone()
+        active_sessions = int(row[0]) if row else 0
     except Exception:
         db_ok = False
     provider_statuses = {p.key: p.status.value for p in registry.all_providers()}
@@ -27,7 +33,7 @@ async def readyz(request: Request) -> dict[str, object]:
         "status": "ok" if db_ok else "degraded",
         "db": "ok" if db_ok else "error",
         "providers": provider_statuses,
-        "hub_live_sessions": len(getattr(request.app.state, "hub", object()).__dict__.get("_sessions", {})),
+        "active_sessions": active_sessions,
     }
 
 
