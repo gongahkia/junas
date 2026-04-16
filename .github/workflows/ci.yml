@@ -24,6 +24,6 @@ jobs:
       - name: Dependency audit
         run: pip-audit
       - name: Security scan
-        run: bandit -q -r src/kt -x tests -s B104,B105
+        run: bandit -q -r src/kt -x tests
       - name: Test
         run: pytest -q

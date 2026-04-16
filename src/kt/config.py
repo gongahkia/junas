@@ -9,8 +9,6 @@ class Settings(BaseSettings):
     db_path: Path = Path("./data/kt.db")
     cred_key: str = ""  # overridden in env; required for credential storage
     log_level: str = "info"
-    host: str = "0.0.0.0"
-    port: int = 8000
 
     session_code_len: int = 6
     cache_ttl_seconds: int = 86_400

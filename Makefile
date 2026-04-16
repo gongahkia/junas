@@ -39,7 +39,7 @@ typecheck: venv
 
 security: venv
 	$(PIP_AUDIT)
-	$(BANDIT) -q -r src/kt -x tests -s B104,B105
+	$(BANDIT) -q -r src/kt -x tests
 
 docker:
 	docker compose up --build
