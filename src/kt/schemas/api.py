@@ -54,6 +54,13 @@ class ProviderDescriptor(BaseModel):
     name: str
     status: str
     requires_credentials: bool
+    capabilities: dict[str, bool] = Field(default_factory=dict)
+    source: str | None = None
+    status_reason: str | None = None
+    status_reason_code: str | None = None
+    is_data_ready: bool = False
+    readiness: str = "limited"
+    taxonomy_version: str = "2026-04-aggregator-v1"
 
 
 class GradeOut(BaseModel):
@@ -91,10 +98,33 @@ class ClimbOut(BaseModel):
     extras: dict[str, Any] = Field(default_factory=dict)
 
 
+class CacheMeta(BaseModel):
+    hit: bool
+    stale: bool
+    cached_at: str | None = None
+    expires_at: str | None = None
+
+
+class ResponseMeta(BaseModel):
+    provider: str
+    fetched_at: str
+    cache: CacheMeta
+    served_by: list[str] = Field(default_factory=list)
+
+
+class ProviderWarning(BaseModel):
+    provider: str
+    error: str
+    detail: str | None = None
+    stale_cache_served: bool = False
+
+
 class ClimbsResp(BaseModel):
     climbs: list[ClimbOut]
     next_cursor: str | None = None
     total_estimate: int | None = None
+    meta: ResponseMeta | None = None
+    warnings: list[ProviderWarning] = Field(default_factory=list)
 
 
 class LayoutOut(BaseModel):
@@ -106,6 +136,8 @@ class LayoutOut(BaseModel):
 
 class LayoutsResp(BaseModel):
     layouts: list[LayoutOut]
+    meta: ResponseMeta | None = None
+    warnings: list[ProviderWarning] = Field(default_factory=list)
 
 
 class ErrorResp(BaseModel):

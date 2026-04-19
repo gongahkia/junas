@@ -138,6 +138,63 @@ async def test_list_providers(client):
     } <= keys
     kilter = [p for p in r.json() if p["key"] == "kilter"][0]
     assert kilter["status"] == "experimental"
+    assert "capabilities" in kilter
+    assert {"list_layouts", "search_climbs", "get_climb", "live_data"} == set(
+        kilter["capabilities"]
+    )
+    assert kilter["taxonomy_version"] == "2026-04-aggregator-v1"
+    assert "readiness" in kilter
+    assert "is_data_ready" in kilter
+
+
+async def test_create_session_rejects_not_ready_provider(client):
+    from kt.providers import registry
+    from kt.providers.base import AuthToken, Climb, ClimbQuery, Layout, ProviderStatus
+
+    class NotReadyProvider:
+        key = "notready"
+        name = "NotReady"
+        status = ProviderStatus.EXPERIMENTAL
+        requires_credentials = False
+        capabilities = {
+            "list_layouts": False,
+            "search_climbs": False,
+            "get_climb": False,
+            "live_data": False,
+        }
+
+        async def authenticate(self, creds):
+            return AuthToken(provider=self.key, value="na")
+
+        async def list_layouts(self, token):
+            return [Layout(id="na", name="NA")]
+
+        async def search_climbs(self, token, query: ClimbQuery):
+            return []
+
+        async def get_climb(self, token, climb_id: str):
+            return Climb(
+                id=climb_id,
+                provider=self.key,
+                name="x",
+                setter=None,
+                grade=None,
+                angle=None,
+                ascents=None,
+            )
+
+    registry.register(NotReadyProvider())
+    try:
+        r = await client.post(
+            "/api/sessions",
+            json={"host_display_name": "Alex", "provider": "notready"},
+        )
+        assert r.status_code == 400
+        assert r.json()["detail"]["error"] == "provider_not_ready"
+        detail = r.json()["detail"]["detail"]
+        assert detail["provider"] == "notready"
+    finally:
+        registry.bootstrap()
 
 
 async def test_read_token_required_for_session_summary(client):

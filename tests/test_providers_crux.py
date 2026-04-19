@@ -228,3 +228,19 @@ async def test_get_climb_accepts_prefixed_id_and_maps_detail():
     assert climb.extras["external_id"] == "42"
     assert climb.extras["gym_slug"] == "g"
     assert climb.extras["image_url"] == "https://img.example/42.jpg"
+
+
+async def test_list_official_schema_drift_raises_unavailable():
+    def h(req: httpx.Request) -> httpx.Response:
+        if req.url.path.endswith("/official"):
+            return httpx.Response(200, json={"unexpected": "shape"})
+        if req.url.path.endswith("/custom"):
+            return httpx.Response(200, json=[])
+        return httpx.Response(200, json={})
+
+    p = CruxProvider(client=CruxClient(transport=_mock(h)))
+    with pytest.raises(ProviderUnavailable):
+        await p.search_climbs(
+            AuthToken("crux", "tok", extras={"gym_slug": "g"}),
+            ClimbQuery(limit=10),
+        )

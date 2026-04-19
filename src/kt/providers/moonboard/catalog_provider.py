@@ -26,6 +26,13 @@ class MoonboardCatalogProvider:
     name = "MoonBoard (catalog)"
     status = ProviderStatus.OK
     requires_credentials = False
+    source = "bundled_static_catalog"
+    capabilities = {
+        "list_layouts": True,
+        "search_climbs": True,
+        "get_climb": True,
+        "live_data": False,
+    }
 
     async def authenticate(self, creds: dict[str, Any]) -> AuthToken:
         # No auth needed; return a token-shaped sentinel.

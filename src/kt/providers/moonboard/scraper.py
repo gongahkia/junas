@@ -60,32 +60,37 @@ class MoonboardScraper:
     async def login(self, username: str, password: str) -> str:
         if not username or not password:
             raise ProviderAuthError("username and password required")
-        async with self._client() as c:
-            r = await c.get("/Account/Login")
-            if r.status_code >= 500:
-                raise ProviderUnavailable(f"upstream {r.status_code}")
-            m = _FORM_TOKEN_RE.search(r.text)
-            if not m:
-                raise ProviderAuthError("could not find anti-forgery token on login page")
-            form_token = m.group(1)
+        try:
+            async with self._client() as c:
+                r = await c.get("/Account/Login")
+                if r.status_code >= 500:
+                    raise ProviderUnavailable(f"upstream {r.status_code}")
+                m = _FORM_TOKEN_RE.search(r.text)
+                if not m:
+                    raise ProviderAuthError("could not find anti-forgery token on login page")
+                form_token = m.group(1)
 
-            r2 = await c.post(
-                "/Account/Login",
-                data={
-                    "__RequestVerificationToken": form_token,
-                    "Login.Username": username,
-                    "Login.Password": password,
-                    "send": "login",
-                },
-                headers={"Referer": f"{self.base_url}/Account/Login"},
-            )
-            if r2.status_code >= 500:
-                raise ProviderUnavailable(f"upstream {r2.status_code}")
-            cookie = c.cookies.get("_MoonBoard")
-            if not cookie:
-                # Validation message inline, not always 4xx
-                raise ProviderAuthError("login did not yield _MoonBoard cookie")
-            return cookie
+                r2 = await c.post(
+                    "/Account/Login",
+                    data={
+                        "__RequestVerificationToken": form_token,
+                        "Login.Username": username,
+                        "Login.Password": password,
+                        "send": "login",
+                    },
+                    headers={"Referer": f"{self.base_url}/Account/Login"},
+                )
+                if r2.status_code >= 500:
+                    raise ProviderUnavailable(f"upstream {r2.status_code}")
+                cookie = c.cookies.get("_MoonBoard")
+                if not cookie:
+                    # Validation message inline, not always 4xx
+                    raise ProviderAuthError("login did not yield _MoonBoard cookie")
+                return cookie
+        except httpx.TimeoutException as e:
+            raise ProviderUnavailable("upstream timeout") from e
+        except httpx.RequestError as e:
+            raise ProviderUnavailable(f"network error: {type(e).__name__}") from e
 
     async def list_logbook(
         self,
@@ -101,25 +106,47 @@ class MoonboardScraper:
             "sort": sort,
             "filter": filter_expr,
         })
-        async with self._client() as c:
-            r = await c.post(
-                "/Logbook/GetLogbook",
-                content=body,
-                headers={
-                    "Content-Type": "application/x-www-form-urlencoded",
-                    "X-Requested-With": "XMLHttpRequest",
-                    "Cookie": f"_MoonBoard={session_cookie}",
-                },
-            )
-            if r.status_code in (401, 403):
-                raise ProviderAuthError("session rejected")
-            if r.status_code >= 500:
-                raise ProviderUnavailable(f"upstream {r.status_code}")
-            r.raise_for_status()
-            payload = r.json()
-            if isinstance(payload, dict):
-                data = payload.get("Data") or []
-                total = payload.get("Total") or 0
-                if isinstance(data, list):
-                    return data, int(total)
-            return [], 0
+        try:
+            async with self._client() as c:
+                r = await c.post(
+                    "/Logbook/GetLogbook",
+                    content=body,
+                    headers={
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "X-Requested-With": "XMLHttpRequest",
+                        "Cookie": f"_MoonBoard={session_cookie}",
+                    },
+                )
+        except httpx.TimeoutException as e:
+            raise ProviderUnavailable("upstream timeout") from e
+        except httpx.RequestError as e:
+            raise ProviderUnavailable(f"network error: {type(e).__name__}") from e
+        if r.status_code in (401, 403):
+            raise ProviderAuthError("session rejected")
+        if r.status_code >= 500:
+            raise ProviderUnavailable(f"upstream {r.status_code}")
+        r.raise_for_status()
+        payload = _json_dict(r, context="moonboard logbook")
+        if "Data" not in payload or "Total" not in payload:
+            raise ProviderUnavailable("upstream_schema_drift: logbook missing Data/Total")
+        data = payload.get("Data")
+        total = payload.get("Total")
+        if not isinstance(data, list):
+            raise ProviderUnavailable("upstream_schema_drift: logbook Data is not a list")
+        if not isinstance(total, (int, str, bytes)):
+            raise ProviderUnavailable("upstream_schema_drift: logbook Total is not numeric")
+        try:
+            total_int = int(total)
+        except (TypeError, ValueError) as e:
+            raise ProviderUnavailable("upstream_schema_drift: logbook Total is not numeric") from e
+        return data, total_int
+
+
+def _json_dict(response: httpx.Response, *, context: str) -> dict[str, Any]:
+    try:
+        payload = response.json()
+    except ValueError as e:
+        raise ProviderUnavailable(f"upstream_schema_drift: invalid json in {context}") from e
+    if not isinstance(payload, dict):
+        raise ProviderUnavailable(f"upstream_schema_drift: expected object in {context}")
+    return payload

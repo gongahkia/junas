@@ -23,6 +23,13 @@ class MoonboardProvider:
     name = "MoonBoard"
     status = ProviderStatus.OK
     requires_credentials = True
+    source = "web_scrape"
+    capabilities = {
+        "list_layouts": True,
+        "search_climbs": True,
+        "get_climb": True,
+        "live_data": True,
+    }
 
     def __init__(self, scraper: Any = None) -> None:
         from kt.providers.moonboard.scraper import MoonboardScraper

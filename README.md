@@ -8,7 +8,7 @@ This service is intentionally focused on:
 
 1. Provider discovery (Aurora ecosystem boards, MoonBoard, Kilter, Crux).
 2. Per-session credential attachment for upstream providers.
-3. Climb and layout retrieval from enabled providers.
+3. Climb and layout retrieval/aggregation from enabled providers.
 4. Physical board-location lookup (GeoJSON-backed).
 5. Grade-system conversion helpers.
 
@@ -34,6 +34,12 @@ Open <http://localhost:8000/docs> after `make dev`.
 GET /api/v1/providers
 ```
 
+Each provider descriptor includes status, credentials requirement, capability
+flags (`list_layouts`, `search_climbs`, `get_climb`, `live_data`), source,
+and optional status reason.
+Descriptors also include normalized taxonomy fields:
+`taxonomy_version`, `readiness`, and `is_data_ready`.
+
 ### Session (credential context)
 
 ```text
@@ -45,6 +51,8 @@ POST   /api/v1/sessions/{code}/credentials
 
 Session create returns `code`, `host_secret`, and `session_read_token`.
 Session summary returns enabled providers and currently attached providers.
+Providers that are not data-ready are rejected at session creation with
+`provider_not_ready`.
 
 ### Climb/layout access
 
@@ -54,6 +62,17 @@ GET /api/v1/sessions/{code}/climbs
 ```
 
 `/climbs` supports cursor pagination, grade filters, hold filters, and sorting.
+If a session has multiple enabled providers and no `provider` query is passed,
+the API aggregates across all enabled providers and returns partial-failure
+warnings per provider instead of hard-failing the whole response.
+
+Both `/climbs` and `/layouts` responses include:
+
+- `meta`: provider context (`provider` or `multi`), cache freshness details, and `served_by`.
+- `warnings`: provider-scoped errors (including stale-cache fallback usage).
+
+Each climb/layout carries provenance metadata in `extras._provenance`
+(`source_provider`, `fetched_at`, `normalized_fields`).
 
 ### Boards directory
 
@@ -81,6 +100,11 @@ GET /readyz
 GET /metrics
 ```
 
+`/readyz` includes provider capabilities/source/status reason plus
+`rate_limiter_backend`.
+Rate limiting supports `KT_RL_BACKEND=in_memory|redis` with Redis settings:
+`KT_RL_REDIS_URL`, `KT_RL_REDIS_PREFIX`, `KT_RL_REDIS_TTL_SECONDS`.
+
 ## Supported providers
 
 - `tension`
@@ -91,7 +115,7 @@ GET /metrics
 - `aurora`
 - `moonboard`
 - `moonboard_catalog`
-- `kilter` (experimental)
+- `kilter` (experimental; currently legacy-catalog backed unless PowerSync is integrated)
 - `crux`
 
 ## Credentials

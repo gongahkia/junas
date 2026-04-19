@@ -9,18 +9,40 @@ from kt.db import db
 
 class ClimbsCacheRepo:
     async def get(self, provider: str, cache_key: str) -> Any | None:
+        entry = await self.get_with_meta(provider, cache_key, allow_stale=False)
+        return entry["payload"] if entry else None
+
+    async def get_with_meta(
+        self,
+        provider: str,
+        cache_key: str,
+        *,
+        allow_stale: bool = False,
+    ) -> dict[str, Any] | None:
         now = datetime.now(UTC).isoformat()
-        async with db().execute(
+        if allow_stale:
+            sql = """
+            SELECT payload_json, created_at, expires_at FROM climbs_cache
+            WHERE provider=? AND cache_key=?
             """
-            SELECT payload_json FROM climbs_cache
+            args: tuple[Any, ...] = (provider, cache_key)
+        else:
+            sql = """
+            SELECT payload_json, created_at, expires_at FROM climbs_cache
             WHERE provider=? AND cache_key=? AND expires_at > ?
-            """,
-            (provider, cache_key, now),
-        ) as cur:
+            """
+            args = (provider, cache_key, now)
+        async with db().execute(sql, args) as cur:
             row = await cur.fetchone()
         if not row:
             return None
-        return json.loads(row["payload_json"])
+        stale = str(row["expires_at"]) <= now
+        return {
+            "payload": json.loads(row["payload_json"]),
+            "created_at": row["created_at"],
+            "expires_at": row["expires_at"],
+            "stale": stale,
+        }
 
     async def put(
         self,

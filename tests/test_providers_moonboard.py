@@ -117,3 +117,13 @@ async def test_layouts_static():
     p = MoonboardProvider(scraper=MoonboardScraper())
     layouts = await p.list_layouts(AuthToken("moonboard", "c"))
     assert {layout.id for layout in layouts} == {"2016", "2019", "2024"}
+
+
+async def test_logbook_schema_drift_raises_unavailable():
+    def h(req: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, json={"Rows": []})
+
+    s = MoonboardScraper(transport=_mock(h))
+    p = MoonboardProvider(scraper=s)
+    with pytest.raises(ProviderUnavailable):
+        await p.search_climbs(AuthToken("moonboard", "c"), ClimbQuery(limit=5))

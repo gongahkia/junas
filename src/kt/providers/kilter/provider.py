@@ -28,6 +28,13 @@ class KilterProvider:
     name = "Kilter Board"
     status = ProviderStatus.EXPERIMENTAL
     requires_credentials = True
+    source = "legacy_catalog_or_powersync"
+    capabilities = {
+        "list_layouts": False,
+        "search_climbs": False,
+        "get_climb": False,
+        "live_data": False,
+    }
 
     def __init__(
         self,
@@ -72,3 +79,25 @@ class KilterProvider:
                 "to an extracted legacy SQLite catalog"
             )
         return self._legacy_catalog
+
+    def describe(self) -> dict[str, object]:
+        legacy_available = self._legacy_catalog.available
+        return {
+            "capabilities": {
+                "list_layouts": legacy_available,
+                "search_climbs": legacy_available,
+                "get_climb": legacy_available,
+                "live_data": False,
+            },
+            "source": "legacy_catalog" if legacy_available else "none",
+            "status_reason": (
+                "operating in legacy catalog mode; live PowerSync sync unavailable"
+                if legacy_available
+                else "awaiting PowerSync integration or KT_KILTER_LEGACY_DB_PATH"
+            ),
+            "status_reason_code": (
+                "kilter_legacy_catalog_mode"
+                if legacy_available
+                else "kilter_powersync_pending"
+            ),
+        }

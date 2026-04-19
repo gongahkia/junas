@@ -63,34 +63,39 @@ class AuroraClient:
 
     @_retry
     async def login(self, username: str, password: str) -> str:
-        async with self._client("application/json") as c:
-            r = await c.post(
-                "/sessions",
-                json={
-                    "username": username,
-                    "password": password,
-                    "tou": "accepted",
-                    "pp": "accepted",
-                    "ua": "app",
-                },
-            )
-            if r.status_code in (401, 403, 422):
-                detail = r.text[:300] if r.text else ""
-                raise ProviderAuthError(f"upstream rejected ({r.status_code}): {detail}")
-            if r.status_code >= 500:
-                raise ProviderUnavailable(f"upstream {r.status_code}")
-            r.raise_for_status()
-            data = r.json()
-            session = data.get("session")
-            if isinstance(session, dict):
-                token = session.get("token")
-            elif isinstance(session, str):
-                token = session
-            else:
-                token = None
-            if not token:
-                raise ProviderAuthError("no token in response")
-            return token
+        try:
+            async with self._client("application/json") as c:
+                r = await c.post(
+                    "/sessions",
+                    json={
+                        "username": username,
+                        "password": password,
+                        "tou": "accepted",
+                        "pp": "accepted",
+                        "ua": "app",
+                    },
+                )
+        except httpx.TimeoutException as e:
+            raise ProviderUnavailable("upstream timeout") from e
+        except httpx.RequestError as e:
+            raise ProviderUnavailable(f"network error: {type(e).__name__}") from e
+        if r.status_code in (401, 403, 422):
+            detail = r.text[:300] if r.text else ""
+            raise ProviderAuthError(f"upstream rejected ({r.status_code}): {detail}")
+        if r.status_code >= 500:
+            raise ProviderUnavailable(f"upstream {r.status_code}")
+        r.raise_for_status()
+        data = _json_dict(r, context="aurora login")
+        session = data.get("session")
+        if isinstance(session, dict):
+            token = session.get("token")
+        elif isinstance(session, str):
+            token = session
+        else:
+            token = None
+        if not token:
+            raise ProviderAuthError("no token in response")
+        return token
 
     async def sync(
         self,
@@ -133,14 +138,19 @@ class AuroraClient:
         headers: dict[str, str] = {}
         if token:
             headers["Cookie"] = f"token={token}"
-        async with self._client("application/x-www-form-urlencoded") as c:
-            r = await c.post("/sync", content=payload, headers=headers)
-            if r.status_code in (401, 403):
-                raise ProviderAuthError("token rejected")
-            if r.status_code >= 500:
-                raise ProviderUnavailable(f"upstream {r.status_code}")
-            r.raise_for_status()
-            return r.json()
+        try:
+            async with self._client("application/x-www-form-urlencoded") as c:
+                r = await c.post("/sync", content=payload, headers=headers)
+        except httpx.TimeoutException as e:
+            raise ProviderUnavailable("upstream timeout") from e
+        except httpx.RequestError as e:
+            raise ProviderUnavailable(f"network error: {type(e).__name__}") from e
+        if r.status_code in (401, 403):
+            raise ProviderAuthError("token rejected")
+        if r.status_code >= 500:
+            raise ProviderUnavailable(f"upstream {r.status_code}")
+        r.raise_for_status()
+        return _json_dict(r, context="aurora sync")
 
     async def fetch_table(
         self,
@@ -166,3 +176,13 @@ class AuroraClient:
             if on_page is not None:
                 on_page(i, len(rows))
         return rows
+
+
+def _json_dict(response: httpx.Response, *, context: str) -> dict[str, Any]:
+    try:
+        payload = response.json()
+    except ValueError as e:
+        raise ProviderUnavailable(f"upstream_schema_drift: invalid json in {context}") from e
+    if not isinstance(payload, dict):
+        raise ProviderUnavailable(f"upstream_schema_drift: expected object in {context}")
+    return payload

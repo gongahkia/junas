@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from kt.providers.base import BoardProvider, ProviderStatus
+from kt.providers.taxonomy import normalize_provider_descriptor
 
 _providers: dict[str, BoardProvider] = {}
 
@@ -21,15 +22,32 @@ def all_providers() -> list[BoardProvider]:
 
 
 def describe() -> list[dict[str, object]]:
-    return [
-        {
+    out: list[dict[str, object]] = []
+    for p in _providers.values():
+        inferred_capabilities = {
+            "list_layouts": callable(getattr(p, "list_layouts", None)),
+            "search_climbs": callable(getattr(p, "search_climbs", None)),
+            "get_climb": callable(getattr(p, "get_climb", None)),
+            "live_data": False,
+        }
+        declared_capabilities = dict(getattr(p, "capabilities", {}) or {})
+        inferred_capabilities.update(declared_capabilities)
+        base: dict[str, object] = {
             "key": p.key,
             "name": p.name,
             "status": p.status.value,
             "requires_credentials": p.requires_credentials,
+            "capabilities": inferred_capabilities,
+            "source": getattr(p, "source", None),
+            "status_reason": None,
         }
-        for p in _providers.values()
-    ]
+        custom_describe = getattr(p, "describe", None)
+        if callable(custom_describe):
+            extra = custom_describe()
+            if isinstance(extra, dict):
+                base.update(extra)
+        out.append(normalize_provider_descriptor(base))
+    return out
 
 
 def reset() -> None:

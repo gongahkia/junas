@@ -15,7 +15,7 @@ async def healthz() -> dict[str, str]:
 
 
 @router.get("/readyz")
-async def readyz() -> dict[str, object]:
+async def readyz(request: Request) -> dict[str, object]:
     db_ok = True
     active_sessions = 0
     try:
@@ -28,11 +28,31 @@ async def readyz() -> dict[str, object]:
         active_sessions = int(row[0]) if row else 0
     except Exception:
         db_ok = False
-    provider_statuses = {p.key: p.status.value for p in registry.all_providers()}
+    provider_statuses = {
+        p["key"]: {
+            "status": p["status"],
+            "source": p.get("source"),
+            "capabilities": p.get("capabilities") or {},
+            "status_reason": p.get("status_reason"),
+        }
+        for p in registry.describe()
+    }
+    rl = getattr(request.app.state, "rate_limiter", None)
+    rl_status = rl.status() if rl and hasattr(rl, "status") else {}
     return {
         "status": "ok" if db_ok else "degraded",
         "db": "ok" if db_ok else "error",
+        "rate_limiter_backend": rl_status.get(
+            "active_backend",
+            getattr(request.app.state.settings, "rl_backend", "in_memory"),
+        ),
+        "rate_limiter_configured_backend": rl_status.get(
+            "configured_backend",
+            getattr(request.app.state.settings, "rl_backend", "in_memory"),
+        ),
+        "rate_limiter_error": rl_status.get("last_backend_error"),
         "providers": provider_statuses,
+        "provider_count": len(provider_statuses),
         "active_sessions": active_sessions,
     }
 

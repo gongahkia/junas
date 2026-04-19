@@ -31,7 +31,7 @@ async def lifespan(app: FastAPI):
         raise RuntimeError("KT_CRED_KEY must be set before startup")
     await init_db(settings.db_path)
     registry.bootstrap()
-    app.state.rate_limiter = RateLimiter()
+    app.state.rate_limiter = RateLimiter.from_settings(settings)
     app.state.metrics = Metrics()
     if await BoardsRepo().count() == 0 and settings.boards_autoload_sample:
         try:
@@ -42,7 +42,12 @@ async def lifespan(app: FastAPI):
     sweeper = asyncio.create_task(
         sweeper_run_forever(settings.session_idle_max_hours, settings.sweep_interval_seconds)
     )
-    log().info("startup", db=str(settings.db_path), providers=len(registry.all_providers()))
+    log().info(
+        "startup",
+        db=str(settings.db_path),
+        providers=len(registry.all_providers()),
+        rate_limiter=app.state.rate_limiter.status(),
+    )
     try:
         yield
     finally:

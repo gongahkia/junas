@@ -4,6 +4,7 @@ import base64
 import hashlib
 import json
 from collections.abc import Mapping
+from datetime import UTC, datetime, timedelta
 from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
@@ -23,6 +24,7 @@ from kt.providers.base import (
     BoardProvider,
     Climb,
     ClimbQuery,
+    Layout,
     ProviderAuthError,
     ProviderUnavailable,
 )
@@ -31,6 +33,7 @@ from kt.repos.climbs_cache_repo import ClimbsCacheRepo
 from kt.repos.credentials_repo import CredentialsRepo
 from kt.repos.sessions_repo import SessionsRepo
 from kt.schemas.api import (
+    CacheMeta,
     ClimbOut,
     ClimbsResp,
     GradeOut,
@@ -38,6 +41,8 @@ from kt.schemas.api import (
     LayoutsResp,
     MediaRef,
     ProviderDescriptor,
+    ProviderWarning,
+    ResponseMeta,
     SetterRef,
 )
 from kt.security import verify_secret
@@ -54,15 +59,13 @@ async def list_providers():
     return [ProviderDescriptor(**p) for p in registry.describe()]
 
 
-def _select_provider(row: dict, provider: str | None) -> str:
+def _resolve_providers(row: dict, provider: str | None) -> tuple[list[str], bool]:
     enabled_providers = row["enabled_providers"]
     if provider is None:
-        if len(enabled_providers) != 1:
-            raise HTTPException(400, {"error": "provider_required", "detail": enabled_providers})
-        return enabled_providers[0]
+        return enabled_providers, len(enabled_providers) > 1
     if provider not in enabled_providers:
         raise HTTPException(400, {"error": "provider_not_enabled", "detail": enabled_providers})
-    return provider
+    return [provider], False
 
 
 def _require_read_token(read_token: str | None, row: dict) -> None:
@@ -84,25 +87,6 @@ def _cache_key(code: str, kind: str, params: Mapping[str, object]) -> str:
     return hashlib.sha256(raw.encode()).hexdigest()
 
 
-async def _auth_token(
-    code: str,
-    provider: str,
-    p: BoardProvider,
-    creds_repo: CredentialsRepo,
-) -> AuthToken | None:
-    if not p.requires_credentials:
-        return None
-    creds = await creds_repo.get(code, provider)
-    if creds is None:
-        raise HTTPException(400, {"error": "no_credentials_for_provider"})
-    try:
-        return await p.authenticate(creds)
-    except ProviderAuthError as e:
-        raise HTTPException(400, {"error": "auth_failed", "detail": str(e)}) from e
-    except ProviderUnavailable as e:
-        raise HTTPException(503, {"error": "provider_unavailable", "detail": str(e)}) from e
-
-
 def _encode_cursor(offset: int, query_hash: str) -> str:
     payload = json.dumps({"o": offset, "h": query_hash}, separators=(",", ":"))
     return base64.urlsafe_b64encode(payload.encode()).rstrip(b"=").decode()
@@ -115,7 +99,6 @@ def _decode_cursor(cursor: str, expected_hash: str) -> int:
     except (ValueError, TypeError, json.JSONDecodeError) as e:
         raise HTTPException(400, {"error": "bad_cursor"}) from e
     if payload.get("h") != expected_hash:
-        # Query shape changed; ask the client to restart pagination.
         raise HTTPException(400, {"error": "cursor_query_mismatch"})
     offset = int(payload.get("o") or 0)
     if offset < 0:
@@ -190,7 +173,23 @@ def _grade_out(raw: str | None) -> GradeOut | None:
     )
 
 
-def _enrich(climb: Climb) -> ClimbOut:
+def _with_provenance(
+    extras: dict[str, Any] | None,
+    *,
+    provider: str,
+    fetched_at: str,
+    normalized_fields: list[str],
+) -> dict[str, Any]:
+    out = dict(extras or {})
+    out["_provenance"] = {
+        "source_provider": provider,
+        "fetched_at": fetched_at,
+        "normalized_fields": normalized_fields,
+    }
+    return out
+
+
+def _enrich(climb: Climb, fetched_at: str) -> ClimbOut:
     grade_raw = _grade_raw(climb)
     return ClimbOut(
         id=climb.id,
@@ -206,7 +205,26 @@ def _enrich(climb: Climb) -> ClimbOut:
         holds=climb.holds,
         tags=_tags(climb),
         media=_media(climb),
-        extras=climb.extras,
+        extras=_with_provenance(
+            climb.extras,
+            provider=climb.provider,
+            fetched_at=fetched_at,
+            normalized_fields=["name", "grade", "angle", "ascents", "holds"],
+        ),
+    )
+
+
+def _layout_out(layout: Layout, provider: str, fetched_at: str) -> LayoutOut:
+    return LayoutOut(
+        id=layout.id,
+        name=layout.name,
+        angles=layout.angles,
+        extras=_with_provenance(
+            layout.extras,
+            provider=provider,
+            fetched_at=fetched_at,
+            normalized_fields=["id", "name", "angles"],
+        ),
     )
 
 
@@ -246,6 +264,276 @@ def _apply_post_filters(
     return climbs
 
 
+def _warning(
+    provider: str,
+    *,
+    error: str,
+    detail: str | None = None,
+    stale_cache_served: bool = False,
+) -> ProviderWarning:
+    return ProviderWarning(
+        provider=provider,
+        error=error,
+        detail=detail,
+        stale_cache_served=stale_cache_served,
+    )
+
+
+def _classify_unavailable(detail: str | None) -> str:
+    lower = (detail or "").lower()
+    if "timeout" in lower:
+        return "provider_timeout"
+    if "network" in lower:
+        return "provider_network_error"
+    return "provider_unavailable"
+
+
+def _cache_meta_from_entry(entry: dict[str, Any], *, hit: bool) -> CacheMeta:
+    return CacheMeta(
+        hit=hit,
+        stale=bool(entry.get("stale")),
+        cached_at=entry.get("created_at"),
+        expires_at=entry.get("expires_at"),
+    )
+
+
+def _merge_cache_meta(metas: list[CacheMeta]) -> CacheMeta:
+    if not metas:
+        return CacheMeta(hit=False, stale=False)
+    cached_ats = [m.cached_at for m in metas if m.cached_at]
+    expires_ats = [m.expires_at for m in metas if m.expires_at]
+    return CacheMeta(
+        hit=all(m.hit for m in metas),
+        stale=any(m.stale for m in metas),
+        cached_at=min(cached_ats) if cached_ats else None,
+        expires_at=min(expires_ats) if expires_ats else None,
+    )
+
+
+def _overfetch_limit(
+    *,
+    limit: int,
+    sort: str,
+    stars_min: float | None,
+    grade_min_v: int | None,
+    grade_max_v: int | None,
+) -> int:
+    if (
+        stars_min is not None
+        or grade_min_v is not None
+        or grade_max_v is not None
+        or sort != "default"
+    ):
+        return min(max(limit * _MAX_OVERFETCH_MULTIPLIER, limit), _MAX_OVERFETCH_CAP)
+    return limit
+
+
+def _cache_expiry_iso(fetched_at: str, ttl_seconds: int) -> str:
+    return (datetime.fromisoformat(fetched_at) + timedelta(seconds=ttl_seconds)).isoformat()
+
+
+def _response_meta(provider: str, cache: CacheMeta, served_by: list[str]) -> ResponseMeta:
+    return ResponseMeta(
+        provider=provider,
+        fetched_at=datetime.now(UTC).isoformat(),
+        cache=cache,
+        served_by=served_by,
+    )
+
+
+async def _auth_token_for_provider(
+    *,
+    code: str,
+    provider_key: str,
+    provider: BoardProvider,
+    creds_repo: CredentialsRepo,
+) -> tuple[AuthToken | None, ProviderWarning | None]:
+    if not provider.requires_credentials:
+        return None, None
+    creds = await creds_repo.get(code, provider_key)
+    if creds is None:
+        return None, _warning(provider_key, error="no_credentials_for_provider")
+    try:
+        token = await provider.authenticate(creds)
+        return token, None
+    except ProviderAuthError as e:
+        return None, _warning(provider_key, error="auth_failed", detail=str(e))
+    except ProviderUnavailable as e:
+        return None, _warning(
+            provider_key,
+            error=_classify_unavailable(str(e)),
+            detail=str(e),
+        )
+
+
+async def _fetch_climbs_for_provider(
+    *,
+    code: str,
+    provider_key: str,
+    query: ClimbQuery,
+    cache_key: str,
+    settings: Settings,
+    creds_repo: CredentialsRepo,
+    cache_repo: ClimbsCacheRepo,
+) -> tuple[list[ClimbOut], CacheMeta, int, ProviderWarning | None]:
+    try:
+        provider = registry.get(provider_key)
+    except KeyError:
+        return [], CacheMeta(hit=False, stale=False), 0, _warning(
+            provider_key,
+            error="unknown_provider",
+        )
+
+    fresh_entry = await cache_repo.get_with_meta(provider_key, cache_key, allow_stale=False)
+    if fresh_entry is not None:
+        climbs = [ClimbOut(**c) for c in fresh_entry["payload"]]
+        return climbs, _cache_meta_from_entry(fresh_entry, hit=True), len(climbs), None
+
+    token, auth_warning = await _auth_token_for_provider(
+        code=code,
+        provider_key=provider_key,
+        provider=provider,
+        creds_repo=creds_repo,
+    )
+    if auth_warning is not None:
+        stale_entry = await cache_repo.get_with_meta(provider_key, cache_key, allow_stale=True)
+        if stale_entry is not None:
+            climbs = [ClimbOut(**c) for c in stale_entry["payload"]]
+            return climbs, _cache_meta_from_entry(stale_entry, hit=True), len(climbs), _warning(
+                provider_key,
+                error=auth_warning.error,
+                detail=auth_warning.detail,
+                stale_cache_served=True,
+            )
+        return [], CacheMeta(hit=False, stale=False), 0, auth_warning
+
+    try:
+        climbs_raw = await provider.search_climbs(token, query)
+    except ProviderUnavailable as e:
+        stale_entry = await cache_repo.get_with_meta(provider_key, cache_key, allow_stale=True)
+        if stale_entry is not None:
+            climbs = [ClimbOut(**c) for c in stale_entry["payload"]]
+            return climbs, _cache_meta_from_entry(stale_entry, hit=True), len(climbs), _warning(
+                provider_key,
+                error=_classify_unavailable(str(e)),
+                detail=str(e),
+                stale_cache_served=True,
+            )
+        return [], CacheMeta(hit=False, stale=False), 0, _warning(
+            provider_key,
+            error=_classify_unavailable(str(e)),
+            detail=str(e),
+        )
+    except ProviderAuthError as e:
+        stale_entry = await cache_repo.get_with_meta(provider_key, cache_key, allow_stale=True)
+        if stale_entry is not None:
+            climbs = [ClimbOut(**c) for c in stale_entry["payload"]]
+            return climbs, _cache_meta_from_entry(stale_entry, hit=True), len(climbs), _warning(
+                provider_key,
+                error="auth_failed",
+                detail=str(e),
+                stale_cache_served=True,
+            )
+        return [], CacheMeta(hit=False, stale=False), 0, _warning(
+            provider_key,
+            error="auth_failed",
+            detail=str(e),
+        )
+
+    fetched_at = datetime.now(UTC).isoformat()
+    climbs = [_enrich(c, fetched_at) for c in climbs_raw]
+    payload = [c.model_dump() for c in climbs]
+    await cache_repo.put(provider_key, cache_key, payload, settings.cache_ttl_seconds)
+    return climbs, CacheMeta(
+        hit=False,
+        stale=False,
+        cached_at=fetched_at,
+        expires_at=_cache_expiry_iso(fetched_at, settings.cache_ttl_seconds),
+    ), len(climbs_raw), None
+
+
+async def _fetch_layouts_for_provider(
+    *,
+    code: str,
+    provider_key: str,
+    cache_key: str,
+    settings: Settings,
+    creds_repo: CredentialsRepo,
+    cache_repo: ClimbsCacheRepo,
+) -> tuple[list[LayoutOut], CacheMeta, ProviderWarning | None]:
+    try:
+        provider = registry.get(provider_key)
+    except KeyError:
+        return [], CacheMeta(hit=False, stale=False), _warning(provider_key, error="unknown_provider")
+
+    fresh_entry = await cache_repo.get_with_meta(provider_key, cache_key, allow_stale=False)
+    if fresh_entry is not None:
+        layouts = [LayoutOut(**layout) for layout in fresh_entry["payload"]]
+        return layouts, _cache_meta_from_entry(fresh_entry, hit=True), None
+
+    token, auth_warning = await _auth_token_for_provider(
+        code=code,
+        provider_key=provider_key,
+        provider=provider,
+        creds_repo=creds_repo,
+    )
+    if auth_warning is not None:
+        stale_entry = await cache_repo.get_with_meta(provider_key, cache_key, allow_stale=True)
+        if stale_entry is not None:
+            layouts = [LayoutOut(**layout) for layout in stale_entry["payload"]]
+            return layouts, _cache_meta_from_entry(stale_entry, hit=True), _warning(
+                provider_key,
+                error=auth_warning.error,
+                detail=auth_warning.detail,
+                stale_cache_served=True,
+            )
+        return [], CacheMeta(hit=False, stale=False), auth_warning
+
+    try:
+        layouts_raw = await provider.list_layouts(token)
+    except ProviderUnavailable as e:
+        stale_entry = await cache_repo.get_with_meta(provider_key, cache_key, allow_stale=True)
+        if stale_entry is not None:
+            layouts = [LayoutOut(**layout) for layout in stale_entry["payload"]]
+            return layouts, _cache_meta_from_entry(stale_entry, hit=True), _warning(
+                provider_key,
+                error=_classify_unavailable(str(e)),
+                detail=str(e),
+                stale_cache_served=True,
+            )
+        return [], CacheMeta(hit=False, stale=False), _warning(
+            provider_key,
+            error=_classify_unavailable(str(e)),
+            detail=str(e),
+        )
+    except ProviderAuthError as e:
+        stale_entry = await cache_repo.get_with_meta(provider_key, cache_key, allow_stale=True)
+        if stale_entry is not None:
+            layouts = [LayoutOut(**layout) for layout in stale_entry["payload"]]
+            return layouts, _cache_meta_from_entry(stale_entry, hit=True), _warning(
+                provider_key,
+                error="auth_failed",
+                detail=str(e),
+                stale_cache_served=True,
+            )
+        return [], CacheMeta(hit=False, stale=False), _warning(
+            provider_key,
+            error="auth_failed",
+            detail=str(e),
+        )
+
+    fetched_at = datetime.now(UTC).isoformat()
+    layouts = [_layout_out(layout, provider_key, fetched_at) for layout in layouts_raw]
+    payload = [layout.model_dump() for layout in layouts]
+    await cache_repo.put(provider_key, cache_key, payload, settings.cache_ttl_seconds)
+    return layouts, CacheMeta(
+        hit=False,
+        stale=False,
+        cached_at=fetched_at,
+        expires_at=_cache_expiry_iso(fetched_at, settings.cache_ttl_seconds),
+    ), None
+
+
 @router.get("/sessions/{code}/climbs", response_model=ClimbsResp)
 async def list_climbs(
     code: str,
@@ -273,17 +561,14 @@ async def list_climbs(
     rl.check(client_key(request), "list_climbs", settings.rl_climbs_per_min)
     if sort not in _ALLOWED_SORTS:
         raise HTTPException(400, {"error": "bad_sort", "detail": sorted(_ALLOWED_SORTS)})
+
     row = await repo.get(code)
     if not row or row["ended_at"]:
         raise HTTPException(404, {"error": "not_found"})
     _require_read_token(read_token, row)
-    provider = _select_provider(row, provider)
-    try:
-        p = registry.get(provider)
-    except KeyError:
-        raise HTTPException(400, {"error": "unknown_provider"}) from None
 
-    # Hash only the query shape (not offset/limit) so cursor stays valid while paging.
+    provider_keys, is_multi = _resolve_providers(row, provider)
+
     shape_params: dict[str, Any] = {
         "text": text,
         "angle": angle,
@@ -297,49 +582,36 @@ async def list_climbs(
     }
     query_hash = _cache_key(code, "climbs_shape", shape_params)
 
+    if is_multi and cursor is not None:
+        raise HTTPException(400, {"error": "cursor_requires_provider"})
+
     if cursor is not None:
         offset = _decode_cursor(cursor, query_hash)
 
-    overfetch = (
-        min(max(limit * _MAX_OVERFETCH_MULTIPLIER, limit), _MAX_OVERFETCH_CAP)
-        if (
-            stars_min is not None
-            or grade_min_v is not None
-            or grade_max_v is not None
-            or sort != "default"
-        )
-        else limit
+    overfetch = _overfetch_limit(
+        limit=limit,
+        sort=sort,
+        stars_min=stars_min,
+        grade_min_v=grade_min_v,
+        grade_max_v=grade_max_v,
     )
 
-    cache_key_params = dict(shape_params)
-    cache_key_params["limit"] = overfetch
-    cache_key_params["offset"] = offset
-    cache_key = _cache_key(code, "climbs", cache_key_params)
-    cached = await cache_repo.get(provider, cache_key)
-    if cached is not None:
-        cached_climbs = [ClimbOut(**c) for c in cached]
-        filtered = _apply_post_filters(
-            cached_climbs,
-            sort=sort,
-            stars_min=stars_min,
-            grade_min_v=grade_min_v,
-            grade_max_v=grade_max_v,
-        )
-        window = filtered[:limit]
-        next_cursor = (
-            _encode_cursor(offset + overfetch, query_hash)
-            if len(cached_climbs) >= overfetch
-            else None
-        )
-        await repo.touch(code)
-        return ClimbsResp(climbs=window, next_cursor=next_cursor)
+    all_climbs: list[ClimbOut] = []
+    warnings: list[ProviderWarning] = []
+    cache_metas: list[CacheMeta] = []
+    served_by: list[str] = []
+    max_raw_count = 0
 
-    token = await _auth_token(code, provider, p, creds_repo)
+    for provider_key in provider_keys:
+        cache_key_params = dict(shape_params)
+        cache_key_params["limit"] = overfetch
+        cache_key_params["offset"] = offset
+        cache_key = _cache_key(code, "climbs", cache_key_params)
 
-    try:
-        climbs = await p.search_climbs(
-            token,
-            ClimbQuery(
+        climbs, cache_meta, raw_count, warning = await _fetch_climbs_for_provider(
+            code=code,
+            provider_key=provider_key,
+            query=ClimbQuery(
                 layout_id=layout_id,
                 angle=angle,
                 text=text,
@@ -348,31 +620,49 @@ async def list_climbs(
                 limit=overfetch,
                 offset=offset,
             ),
+            cache_key=cache_key,
+            settings=settings,
+            creds_repo=creds_repo,
+            cache_repo=cache_repo,
         )
-    except ProviderUnavailable as e:
-        raise HTTPException(503, {"error": "provider_unavailable", "detail": str(e)}) from e
-    except ProviderAuthError as e:
-        raise HTTPException(400, {"error": "auth_failed", "detail": str(e)}) from e
+        if climbs:
+            all_climbs.extend(climbs)
+            served_by.append(provider_key)
+        cache_metas.append(cache_meta)
+        max_raw_count = max(max_raw_count, raw_count)
+        if warning is not None:
+            warnings.append(warning)
 
-    enriched = [_enrich(c) for c in climbs]
-    payload = [c.model_dump() for c in enriched]
-    await cache_repo.put(provider, cache_key, payload, settings.cache_ttl_seconds)
+    if not is_multi and not all_climbs and warnings:
+        first = warnings[0]
+        if first.error in {"auth_failed", "no_credentials_for_provider"}:
+            raise HTTPException(400, {"error": first.error, "detail": first.detail})
+        raise HTTPException(503, {"error": first.error, "detail": first.detail})
 
     filtered = _apply_post_filters(
-        enriched,
+        all_climbs,
         sort=sort,
         stars_min=stars_min,
         grade_min_v=grade_min_v,
         grade_max_v=grade_max_v,
     )
     window = filtered[:limit]
-    next_cursor = (
-        _encode_cursor(offset + overfetch, query_hash)
-        if len(climbs) >= overfetch
-        else None
-    )
+
+    next_cursor = None
+    if not is_multi and max_raw_count >= overfetch:
+        next_cursor = _encode_cursor(offset + overfetch, query_hash)
+
     await repo.touch(code)
-    return ClimbsResp(climbs=window, next_cursor=next_cursor)
+    return ClimbsResp(
+        climbs=window,
+        next_cursor=next_cursor,
+        meta=_response_meta(
+            "multi" if is_multi else provider_keys[0],
+            _merge_cache_meta(cache_metas),
+            served_by,
+        ),
+        warnings=warnings,
+    )
 
 
 @router.get("/sessions/{code}/layouts", response_model=LayoutsResp)
@@ -388,39 +678,49 @@ async def list_layouts(
     read_token: Annotated[str | None, Header(alias="X-Session-Read-Token")] = None,
 ):
     rl.check(client_key(request), "list_layouts", settings.rl_layouts_per_min)
+
     row = await repo.get(code)
     if not row or row["ended_at"]:
         raise HTTPException(404, {"error": "not_found"})
     _require_read_token(read_token, row)
-    provider = _select_provider(row, provider)
-    try:
-        p = registry.get(provider)
-    except KeyError:
-        raise HTTPException(400, {"error": "unknown_provider"}) from None
 
-    cache_key = _cache_key(code, "layouts", {})
-    cached = await cache_repo.get(provider, cache_key)
-    if cached is not None:
-        await repo.touch(code)
-        return LayoutsResp(layouts=[LayoutOut(**layout) for layout in cached])
+    provider_keys, is_multi = _resolve_providers(row, provider)
 
-    token = await _auth_token(code, provider, p, creds_repo)
-    try:
-        layouts = await p.list_layouts(token)
-    except ProviderUnavailable as e:
-        raise HTTPException(503, {"error": "provider_unavailable", "detail": str(e)}) from e
-    except ProviderAuthError as e:
-        raise HTTPException(400, {"error": "auth_failed", "detail": str(e)}) from e
+    all_layouts: list[LayoutOut] = []
+    warnings: list[ProviderWarning] = []
+    cache_metas: list[CacheMeta] = []
+    served_by: list[str] = []
 
-    payload = [
-        LayoutOut(
-            id=layout.id,
-            name=layout.name,
-            angles=layout.angles,
-            extras=layout.extras,
-        ).model_dump()
-        for layout in layouts
-    ]
-    await cache_repo.put(provider, cache_key, payload, settings.cache_ttl_seconds)
+    for provider_key in provider_keys:
+        cache_key = _cache_key(code, "layouts", {})
+        layouts, cache_meta, warning = await _fetch_layouts_for_provider(
+            code=code,
+            provider_key=provider_key,
+            cache_key=cache_key,
+            settings=settings,
+            creds_repo=creds_repo,
+            cache_repo=cache_repo,
+        )
+        if layouts:
+            all_layouts.extend(layouts)
+            served_by.append(provider_key)
+        cache_metas.append(cache_meta)
+        if warning is not None:
+            warnings.append(warning)
+
+    if not is_multi and not all_layouts and warnings:
+        first = warnings[0]
+        if first.error in {"auth_failed", "no_credentials_for_provider"}:
+            raise HTTPException(400, {"error": first.error, "detail": first.detail})
+        raise HTTPException(503, {"error": first.error, "detail": first.detail})
+
     await repo.touch(code)
-    return LayoutsResp(layouts=[LayoutOut(**layout) for layout in payload])
+    return LayoutsResp(
+        layouts=all_layouts,
+        meta=_response_meta(
+            "multi" if is_multi else provider_keys[0],
+            _merge_cache_meta(cache_metas),
+            served_by,
+        ),
+        warnings=warnings,
+    )

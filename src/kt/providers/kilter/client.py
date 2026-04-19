@@ -49,24 +49,34 @@ class KilterClient:
             )
         if not username or not password:
             raise ProviderAuthError("username and password required")
-        async with httpx.AsyncClient(timeout=15.0, transport=self._transport) as c:
-            r = await c.post(
-                KEYCLOAK_TOKEN_URL,
-                data={
-                    "grant_type": "password",
-                    "client_id": cid,
-                    "username": username,
-                    "password": password,
-                    "scope": "openid",
-                },
-            )
-            if r.status_code in (400, 401, 403):
-                raise ProviderAuthError(f"keycloak rejected: {r.text[:200]}")
-            if r.status_code >= 500:
-                raise ProviderUnavailable(f"keycloak {r.status_code}")
-            r.raise_for_status()
+        try:
+            async with httpx.AsyncClient(timeout=15.0, transport=self._transport) as c:
+                r = await c.post(
+                    KEYCLOAK_TOKEN_URL,
+                    data={
+                        "grant_type": "password",
+                        "client_id": cid,
+                        "username": username,
+                        "password": password,
+                        "scope": "openid",
+                    },
+                )
+        except httpx.TimeoutException as e:
+            raise ProviderUnavailable("keycloak timeout") from e
+        except httpx.RequestError as e:
+            raise ProviderUnavailable(f"keycloak network error: {type(e).__name__}") from e
+        if r.status_code in (400, 401, 403):
+            raise ProviderAuthError(f"keycloak rejected: {r.text[:200]}")
+        if r.status_code >= 500:
+            raise ProviderUnavailable(f"keycloak {r.status_code}")
+        r.raise_for_status()
+        try:
             data = r.json()
-            token = data.get("access_token")
-            if not token:
-                raise ProviderAuthError("keycloak returned no access_token")
-            return token
+        except ValueError as e:
+            raise ProviderUnavailable("upstream_schema_drift: invalid keycloak json") from e
+        if not isinstance(data, dict):
+            raise ProviderUnavailable("upstream_schema_drift: expected keycloak object")
+        token = data.get("access_token")
+        if not token:
+            raise ProviderAuthError("keycloak returned no access_token")
+        return token

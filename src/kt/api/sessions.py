@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import secrets
 import string
-from typing import Annotated
+from typing import Annotated, Any
 
 import aiosqlite
 from fastapi import APIRouter, Depends, Header, HTTPException, Request
@@ -37,11 +37,34 @@ def _code(n: int) -> str:
     return "".join(secrets.choice(_ALPHABET) for _ in range(n))
 
 
+def _provider_descriptors() -> dict[str, dict[str, Any]]:
+    return {str(p["key"]): p for p in registry.describe()}
+
+
+def _raise_provider_not_ready(provider_key: str, desc: dict[str, Any]) -> None:
+    raise HTTPException(
+        400,
+        {
+            "error": "provider_not_ready",
+            "detail": {
+                "provider": provider_key,
+                "readiness": desc.get("readiness"),
+                "status_reason": desc.get("status_reason"),
+                "status_reason_code": desc.get("status_reason_code"),
+            },
+        },
+    )
+
+
 def _validate_providers(providers: list[str]) -> list[str]:
-    known = {p["key"] for p in registry.describe()}
-    unknown = [p for p in providers if p not in known]
+    descriptors = _provider_descriptors()
+    unknown = [p for p in providers if p not in descriptors]
     if unknown:
         raise HTTPException(400, {"error": "unknown_provider", "detail": unknown[0]})
+    for provider in providers:
+        desc = descriptors[provider]
+        if not bool(desc.get("is_data_ready")):
+            _raise_provider_not_ready(provider, desc)
     return providers
 
 
@@ -175,6 +198,12 @@ async def attach_credentials(
             400,
             {"error": "provider_not_enabled", "detail": row["enabled_providers"]},
         )
+    descriptors = _provider_descriptors()
+    desc = descriptors.get(req.provider)
+    if desc is None:
+        raise HTTPException(400, {"error": "unknown_provider"}) from None
+    if not bool(desc.get("is_data_ready")):
+        _raise_provider_not_ready(req.provider, desc)
     try:
         provider = registry.get(req.provider)
     except KeyError:

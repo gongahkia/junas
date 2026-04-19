@@ -64,6 +64,14 @@ async def test_authenticate_upstream_5xx_is_unavailable():
         await p.authenticate({"username": "u", "password": "p"})
 
 
+async def test_authenticate_schema_drift_is_unavailable():
+    def handler(req): return httpx.Response(200, json=["unexpected"])
+    client = KilterClient(client_id="cid", transport=httpx.MockTransport(handler))
+    p = KilterProvider(client=client)
+    with pytest.raises(ProviderUnavailable):
+        await p.authenticate({"username": "u", "password": "p"})
+
+
 async def test_data_calls_still_unavailable_pending_powersync():
     p = KilterProvider()
     with pytest.raises(ProviderUnavailable):

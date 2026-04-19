@@ -50,16 +50,21 @@ class CruxClient:
 
     @_retry
     async def get(self, token: str, path: str, params: dict[str, Any] | None = None) -> Any:
-        async with self._client(token) as c:
-            r = await c.get(path, params=params or {})
-            if r.status_code == 401:
-                raise ProviderAuthError("token rejected")
-            if r.status_code == 404:
-                raise KeyError(path)
-            if r.status_code >= 500:
-                raise ProviderUnavailable(f"upstream {r.status_code}")
-            r.raise_for_status()
-            return r.json()
+        try:
+            async with self._client(token) as c:
+                r = await c.get(path, params=params or {})
+        except httpx.TimeoutException as e:
+            raise ProviderUnavailable("upstream timeout") from e
+        except httpx.RequestError as e:
+            raise ProviderUnavailable(f"network error: {type(e).__name__}") from e
+        if r.status_code == 401:
+            raise ProviderAuthError("token rejected")
+        if r.status_code == 404:
+            raise KeyError(path)
+        if r.status_code >= 500:
+            raise ProviderUnavailable(f"upstream {r.status_code}")
+        r.raise_for_status()
+        return _json_payload(r, context=f"crux GET {path}")
 
     async def get_gym(self, token: str, gym_slug: str) -> dict[str, Any]:
         return await self.get(token, f"/gyms/{gym_slug}")
@@ -69,30 +74,44 @@ class CruxClient:
 
     async def list_walls(self, token: str, gym_slug: str) -> list[dict[str, Any]]:
         data = await self.get(token, f"/gyms/{gym_slug}/gym_walls")
-        return _as_list(data)
+        return _as_list(data, context="crux gym_walls")
 
     async def list_official_climbs(
         self, token: str, gym_slug: str
     ) -> list[dict[str, Any]]:
         data = await self.get(token, f"/gyms/{gym_slug}/climbs/official")
-        return _as_list(data)
+        return _as_list(data, context="crux official climbs")
 
     async def list_custom_climbs(
         self, token: str, gym_slug: str
     ) -> list[dict[str, Any]]:
         data = await self.get(token, f"/gyms/{gym_slug}/climbs/custom")
-        return _as_list(data)
+        return _as_list(data, context="crux custom climbs")
 
     async def get_climb(self, token: str, climb_id: str) -> dict[str, Any]:
         return await self.get(token, f"/climbs/{climb_id}")
 
 
-def _as_list(payload: Any) -> list[dict[str, Any]]:
+def _json_payload(response: httpx.Response, *, context: str) -> Any:
+    try:
+        payload = response.json()
+    except ValueError as e:
+        raise ProviderUnavailable(f"upstream_schema_drift: invalid json in {context}") from e
+    if not isinstance(payload, (dict, list)):
+        raise ProviderUnavailable(f"upstream_schema_drift: unexpected payload type in {context}")
+    return payload
+
+
+def _as_list(payload: Any, *, context: str) -> list[dict[str, Any]]:
     if isinstance(payload, list):
+        if not all(isinstance(item, dict) for item in payload):
+            raise ProviderUnavailable(f"upstream_schema_drift: non-object row in {context}")
         return payload
     if isinstance(payload, dict):
         for key in ("data", "climbs", "results", "items"):
             v = payload.get(key)
             if isinstance(v, list):
+                if not all(isinstance(item, dict) for item in v):
+                    raise ProviderUnavailable(f"upstream_schema_drift: non-object row in {context}")
                 return v
-    return []
+    raise ProviderUnavailable(f"upstream_schema_drift: no list field found in {context}")

@@ -42,7 +42,24 @@ def test_register_and_get():
     registry.register(p)
     assert registry.get("fake") is p
     assert registry.describe() == [
-        {"key": "fake", "name": "Fake", "status": "ok", "requires_credentials": False}
+        {
+            "key": "fake",
+            "name": "Fake",
+            "status": "ok",
+            "requires_credentials": False,
+            "capabilities": {
+                "list_layouts": True,
+                "search_climbs": True,
+                "get_climb": True,
+                "live_data": False,
+            },
+            "source": None,
+            "status_reason": None,
+            "status_reason_code": None,
+            "is_data_ready": True,
+            "readiness": "ready",
+            "taxonomy_version": "2026-04-aggregator-v1",
+        }
     ]
 
 

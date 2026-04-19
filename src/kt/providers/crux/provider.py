@@ -28,6 +28,13 @@ class CruxProvider:
     name = "Crux Climbing"
     status = ProviderStatus.OK
     requires_credentials = True
+    source = "upstream_api"
+    capabilities = {
+        "list_layouts": True,
+        "search_climbs": True,
+        "get_climb": True,
+        "live_data": True,
+    }
 
     def __init__(self, client: CruxClient | None = None) -> None:
         self._client = client or CruxClient()

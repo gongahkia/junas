@@ -14,6 +14,10 @@ class Settings(BaseSettings):
     cache_ttl_seconds: int = 86_400
 
     # rate limits (per remote IP)
+    rl_backend: str = "in_memory"
+    rl_redis_url: str = ""
+    rl_redis_prefix: str = "kt:rl"
+    rl_redis_ttl_seconds: int = 300
     rl_create_session_per_min: int = 10
     rl_get_session_per_min: int = 120
     rl_attach_credentials_per_min: int = 30

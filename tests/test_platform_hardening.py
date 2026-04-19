@@ -17,6 +17,8 @@ async def test_readyz_reports_db_and_providers(client: AsyncClient):
     assert body["status"] == "ok"
     assert isinstance(body["providers"], dict)
     assert "tension" in body["providers"]
+    assert body["rate_limiter_backend"] in {"in_memory", "in_memory_fallback", "redis"}
+    assert "rate_limiter_configured_backend" in body
 
 
 async def test_metrics_exposes_request_counts(client: AsyncClient):

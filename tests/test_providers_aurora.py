@@ -159,6 +159,17 @@ async def test_list_layouts_via_sync():
     assert layouts[0].angles == [20, 40]
 
 
+async def test_sync_schema_drift_raises_unavailable():
+    def h(req: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, json=[{"not": "an object"}])
+
+    p = AuroraProvider(
+        "tension", "Tension", client=AuroraClient("tension", transport=_mock(h))
+    )
+    with pytest.raises(ProviderUnavailable):
+        await p.search_climbs(AuthToken("tension", "tok"), ClimbQuery(limit=1))
+
+
 def test_unknown_board_rejected():
     with pytest.raises(KeyError):
         AuroraClient("nonsense")

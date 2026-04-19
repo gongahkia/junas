@@ -36,3 +36,29 @@ async def test_create_session_rate_limited(client):
             seen_429 = True
             break
     assert seen_429, "expected create_session to rate limit"
+
+
+def test_redis_backend_without_url_falls_back_to_in_memory():
+    rl = RateLimiter(backend="redis", redis_url="")
+    status = rl.status()
+    assert status["configured_backend"] == "redis"
+    assert status["active_backend"] in {"in_memory", "in_memory_fallback"}
+    assert status["last_backend_error"] is not None
+
+
+class _BrokenRedis:
+    def eval(self, *_args, **_kwargs):
+        raise RuntimeError("redis down")
+
+
+def test_redis_runtime_error_falls_back():
+    rl = RateLimiter(
+        backend="redis",
+        redis_url="redis://example",
+        redis_client=_BrokenRedis(),
+    )
+    # First call fails on Redis and then falls back to in-memory.
+    rl.check("ip", "route", 5)
+    status = rl.status()
+    assert status["active_backend"] == "in_memory_fallback"
+    assert status["last_backend_error"] is not None

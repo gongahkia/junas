@@ -86,6 +86,13 @@ class _TableCache:
 class AuroraProvider:
     status = ProviderStatus.OK
     requires_credentials = True
+    source = "upstream_api"
+    capabilities = {
+        "list_layouts": True,
+        "search_climbs": True,
+        "get_climb": True,
+        "live_data": True,
+    }
 
     def __init__(
         self,

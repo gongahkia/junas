@@ -42,7 +42,7 @@ async def test_bundled_moonboard_catalog_is_served_over_api(client):
     assert all(climb["extras"]["layout"] == "2016" for climb in climbs)
 
 
-async def test_multi_provider_session_requires_provider_for_climb_search(client):
+async def test_multi_provider_session_aggregates_without_provider_query(client):
     create = await client.post(
         "/api/sessions",
         json={
@@ -55,9 +55,15 @@ async def test_multi_provider_session_requires_provider_for_climb_search(client)
     code = payload["code"]
     read_headers = {"X-Session-Read-Token": payload["session_read_token"]}
 
-    missing = await client.get(f"/api/sessions/{code}/climbs", headers=read_headers)
-    assert missing.status_code == 400
-    assert missing.json()["detail"]["error"] == "provider_required"
+    missing = await client.get(
+        f"/api/sessions/{code}/climbs",
+        params={"layout_id": "2016", "limit": 2},
+        headers=read_headers,
+    )
+    assert missing.status_code == 200
+    body = missing.json()
+    assert "warnings" in body
+    assert body["meta"]["provider"] == "multi"
 
     disabled = await client.get(
         f"/api/sessions/{code}/climbs",
@@ -144,6 +150,8 @@ async def test_climb_search_uses_session_scoped_cache(client):
         assert first.status_code == 200, first.text
         assert second.status_code == 200, second.text
         assert provider.search_calls == 1
-        assert first.json() == second.json()
+        assert first.json()["climbs"] == second.json()["climbs"]
+        assert first.json()["meta"]["cache"]["hit"] is False
+        assert second.json()["meta"]["cache"]["hit"] is True
     finally:
         registry.bootstrap()
