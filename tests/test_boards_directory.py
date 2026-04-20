@@ -15,6 +15,8 @@ async def test_boards_sample_autoloaded_on_startup(client: AsyncClient):
         assert b["board_type"]
         assert b["board_family"]
         assert "is_adjustable" in b
+        assert b["source_name"] == "bundled_sample"
+        assert b["ingestion_run_id"]
 
 
 async def test_boards_by_type(client: AsyncClient):
@@ -54,6 +56,8 @@ async def test_boards_get_returns_properties_and_distance(client: AsyncClient):
     assert body["layout_type"] == "mirror"
     assert body["holdset_version"] == "2019"
     assert body["is_adjustable"] is False
+    assert body["source_name"] == "bundled_sample"
+    assert body["ingestion_run_id"]
     # raw_json round-trips into properties
     assert body["properties"]["gym_name"] == body["gym_name"]
 
@@ -83,6 +87,8 @@ async def test_boards_reload_is_idempotent(client: AsyncClient):
     body = r.json()
     assert body["total"] == before
     assert body["loaded"] == before  # upserting the same features
+    assert body["source_name"] == "bundled_sample"
+    assert body["mode"] == "sample"
 
 
 async def test_boards_reload_requires_secret(client: AsyncClient):

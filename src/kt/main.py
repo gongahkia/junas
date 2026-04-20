@@ -11,6 +11,8 @@ from kt.api.grades import router as grades_router
 from kt.api.health import router as health_router
 from kt.api.sessions import router as sessions_router
 from kt.boards.loader import ingest_geojson
+from kt.boards.sync import run_forever as boards_sync_run_forever
+from kt.boards.sync import sync_boards
 from kt.config import Settings
 from kt.db import close_db, init_db
 from kt.logging import configure_logging, log
@@ -35,13 +37,27 @@ async def lifespan(app: FastAPI):
     app.state.metrics = Metrics()
     if await BoardsRepo().count() == 0 and settings.boards_autoload_sample:
         try:
-            loaded = await ingest_geojson()
-            log().info("boards_autoload", loaded=loaded)
+            result = await sync_boards(settings, mode="configured")
+            log().info(
+                "boards_autoload",
+                loaded=result.loaded,
+                source_name=result.source_name,
+                source_version=result.source_version,
+                mode=result.mode,
+            )
         except Exception as e:
-            log().warning("boards_autoload_failed", error=str(e))
+            loaded = await ingest_geojson()
+            log().warning(
+                "boards_autoload_fallback_sample",
+                error=str(e),
+                loaded=loaded,
+            )
     sweeper = asyncio.create_task(
         sweeper_run_forever(settings.session_idle_max_hours, settings.sweep_interval_seconds)
     )
+    boards_sync_task: asyncio.Task[None] | None = None
+    if settings.boards_sync_enabled:
+        boards_sync_task = asyncio.create_task(boards_sync_run_forever(settings))
     log().info(
         "startup",
         db=str(settings.db_path),
@@ -52,10 +68,17 @@ async def lifespan(app: FastAPI):
         yield
     finally:
         sweeper.cancel()
+        if boards_sync_task is not None:
+            boards_sync_task.cancel()
         try:
             await sweeper
         except (asyncio.CancelledError, Exception):
             pass
+        if boards_sync_task is not None:
+            try:
+                await boards_sync_task
+            except (asyncio.CancelledError, Exception):
+                pass
         await close_db()
 
 

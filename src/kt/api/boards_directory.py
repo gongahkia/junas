@@ -6,7 +6,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
 
 from kt.api.deps import get_boards_repo, get_rate_limiter, get_settings
-from kt.boards.loader import ingest_geojson
+from kt.boards.sync import sync_boards
 from kt.config import Settings
 from kt.ratelimit import RateLimiter, client_key
 from kt.repos.boards_repo import BoardsRepo
@@ -52,6 +52,7 @@ async def reload_boards(
     rl: Annotated[RateLimiter, Depends(get_rate_limiter)],
     repo: Annotated[BoardsRepo, Depends(get_boards_repo)],
     reload_secret: Annotated[str | None, Header(alias="X-Boards-Reload-Secret")] = None,
+    source: Annotated[str, Query(pattern="^(configured|sample|remote|auto)$")] = "configured",
 ):
     rl.check(client_key(request), "boards_reload", settings.rl_boards_reload_per_min)
     if not settings.boards_reload_secret:
@@ -60,7 +61,13 @@ async def reload_boards(
         raise HTTPException(401, {"error": "reload_secret_required"})
     if not secrets.compare_digest(reload_secret, settings.boards_reload_secret):
         raise HTTPException(403, {"error": "bad_reload_secret"})
-    # Load the bundled sample. Operators can replace the data at runtime by
-    # seeding the board_locations table from an external GeoJSON via the CLI.
-    count = await ingest_geojson()
-    return {"loaded": count, "total": await repo.count()}
+    result = await sync_boards(settings, mode=source)
+    return {
+        "loaded": result.loaded,
+        "total": await repo.count(),
+        "source_name": result.source_name,
+        "source_url": result.source_url,
+        "source_version": result.source_version,
+        "source_updated_at": result.source_updated_at,
+        "mode": result.mode,
+    }

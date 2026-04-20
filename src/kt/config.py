@@ -33,3 +33,9 @@ class Settings(BaseSettings):
     # boards directory
     boards_autoload_sample: bool = True
     boards_reload_secret: str = ""
+    boards_source_mode: str = "sample"  # sample | remote | auto
+    boards_source_name: str = "hangtime_climbing_boards"
+    boards_source_url: str = ""
+    boards_sync_enabled: bool = False
+    boards_sync_interval_seconds: int = 21_600
+    boards_sync_timeout_seconds: int = 30

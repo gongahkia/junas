@@ -87,6 +87,9 @@ POST /api/v1/boards/reload
 Board responses include normalized metadata fields (`board_family`, `setup_year`,
 `layout_type`, `holdset_version`, `is_adjustable`) alongside original source
 properties.
+Reload supports `source=configured|sample|remote|auto`. Configure remote sync
+with `KT_BOARDS_SOURCE_MODE`, `KT_BOARDS_SOURCE_URL`, and enable scheduled
+refresh with `KT_BOARDS_SYNC_ENABLED=true` plus `KT_BOARDS_SYNC_INTERVAL_SECONDS`.
 
 ### Grade conversion
 

@@ -12,7 +12,9 @@ class BoardsRepo:
         async with db().execute(
             """SELECT id, provider_key, gym_name, country, city, lat, lon,
                       angle_min, angle_max, board_type, board_family, setup_year,
-                      layout_type, holdset_version, is_adjustable, updated_at, raw_json
+                      layout_type, holdset_version, is_adjustable, source_name,
+                      source_url, source_version, source_updated_at, ingestion_run_id,
+                      updated_at, raw_json
                FROM board_locations WHERE id=?""",
             (bid,),
         ) as cur:
@@ -27,7 +29,9 @@ class BoardsRepo:
         sql = [
             """SELECT id, provider_key, gym_name, country, city, lat, lon,
                       angle_min, angle_max, board_type, board_family, setup_year,
-                      layout_type, holdset_version, is_adjustable, updated_at, raw_json
+                      layout_type, holdset_version, is_adjustable, source_name,
+                      source_url, source_version, source_updated_at, ingestion_run_id,
+                      updated_at, raw_json
                FROM board_locations WHERE 1=1"""
         ]
         args: list[Any] = []
@@ -55,7 +59,9 @@ class BoardsRepo:
         sql = [
             """SELECT id, provider_key, gym_name, country, city, lat, lon,
                       angle_min, angle_max, board_type, board_family, setup_year,
-                      layout_type, holdset_version, is_adjustable, updated_at, raw_json
+                      layout_type, holdset_version, is_adjustable, source_name,
+                      source_url, source_version, source_updated_at, ingestion_run_id,
+                      updated_at, raw_json
                FROM board_locations
                WHERE lat BETWEEN ? AND ?"""
         ]
