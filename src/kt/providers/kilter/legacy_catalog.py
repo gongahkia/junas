@@ -29,12 +29,25 @@ class KilterLegacyCatalog:
     retired download/bootstrap flow.
     """
 
-    def __init__(self, path: str | Path | None = None) -> None:
+    def __init__(
+        self,
+        path: str | Path | None = None,
+        *,
+        provider_key: str = "kilter",
+    ) -> None:
         self.path = Path(path).expanduser() if path else None
+        self.provider_key = provider_key
 
     @classmethod
-    def from_env(cls) -> KilterLegacyCatalog:
-        return cls(os.environ.get("KT_KILTER_LEGACY_DB_PATH"))
+    def from_env(
+        cls,
+        *,
+        provider_key: str = "kilter",
+    ) -> KilterLegacyCatalog:
+        return cls(
+            os.environ.get("KT_KILTER_LEGACY_DB_PATH"),
+            provider_key=provider_key,
+        )
 
     @property
     def available(self) -> bool:
@@ -140,7 +153,7 @@ class KilterLegacyCatalog:
                 query.offset,
             ),
         )
-        climbs = [_to_climb(row, angle) for row in rows]
+        climbs = [self._to_climb(row, angle) for row in rows]
         if query.holds_required or query.holds_forbidden:
             climbs = [
                 climb
@@ -150,7 +163,7 @@ class KilterLegacyCatalog:
         return climbs[: query.limit]
 
     def get_climb(self, climb_id: str, query: ClimbQuery) -> Climb:
-        requested_board_id, uuid = _parse_climb_id(climb_id)
+        requested_board_id, uuid = self.parse_climb_id(climb_id)
         board_id = _parse_board_id(query.layout_id or str(requested_board_id))
         if requested_board_id != board_id:
             raise ProviderAuthError(f"climb {climb_id} does not belong to board {board_id}")
@@ -192,7 +205,10 @@ class KilterLegacyCatalog:
         )
         if not rows:
             raise KeyError(climb_id)
-        return _to_climb(rows[0], angle)
+        return self._to_climb(rows[0], angle)
+
+    def parse_climb_id(self, climb_id: str) -> tuple[int, str]:
+        return _parse_climb_id(climb_id)
 
     def _fetch_all(self, sql: str, params: tuple[Any, ...] = ()) -> list[dict[str, Any]]:
         if not self.available:
@@ -206,6 +222,32 @@ class KilterLegacyCatalog:
                 return [dict(row) for row in conn.execute(sql, params).fetchall()]
         except sqlite3.Error as e:
             raise ProviderUnavailable(f"kilter legacy catalog query failed: {e}") from e
+
+    def _to_climb(self, row: dict[str, Any], angle: int) -> Climb:
+        board_id = int(row["product_size_id"])
+        uuid = str(row["uuid"])
+        image_urls = [_image_url(filename) for filename in _split_images(row.get("image_filenames"))]
+        image_urls = [url for url in image_urls if url]
+        return Climb(
+            id=f"kilter:{board_id}:{uuid}",
+            provider=self.provider_key,
+            name=str(row.get("climb_name") or ""),
+            setter=row.get("setter_name"),
+            grade=row.get("boulder_name"),
+            angle=angle,
+            ascents=row.get("ascends"),
+            holds=_frame_hold_tokens(row.get("frames")),
+            extras={
+                "external_id": uuid,
+                "description": row.get("description"),
+                "board_id": str(board_id),
+                "route_grade": row.get("route_name"),
+                "frames": row.get("frames"),
+                "created_at": row.get("created_at"),
+                "image_urls": image_urls,
+                "highlighted_holds": _highlighted_holds(row.get("frames")),
+            },
+        )
 
 
 def _parse_board_id(raw: str | None) -> int:
@@ -233,33 +275,6 @@ def _parse_climb_id(climb_id: str) -> tuple[int, str]:
     if not match:
         raise ProviderAuthError(f"invalid kilter climb id: {climb_id}")
     return int(match.group(1)), match.group(2)
-
-
-def _to_climb(row: dict[str, Any], angle: int) -> Climb:
-    board_id = int(row["product_size_id"])
-    uuid = str(row["uuid"])
-    image_urls = [_image_url(filename) for filename in _split_images(row.get("image_filenames"))]
-    image_urls = [url for url in image_urls if url]
-    return Climb(
-        id=f"kilter:{board_id}:{uuid}",
-        provider="kilter",
-        name=str(row.get("climb_name") or ""),
-        setter=row.get("setter_name"),
-        grade=row.get("boulder_name"),
-        angle=angle,
-        ascents=row.get("ascends"),
-        holds=_frame_hold_tokens(row.get("frames")),
-        extras={
-            "external_id": uuid,
-            "description": row.get("description"),
-            "board_id": str(board_id),
-            "route_grade": row.get("route_name"),
-            "frames": row.get("frames"),
-            "created_at": row.get("created_at"),
-            "image_urls": image_urls,
-            "highlighted_holds": _highlighted_holds(row.get("frames")),
-        },
-    )
 
 
 def _split_images(raw: Any) -> list[str]:

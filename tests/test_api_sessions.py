@@ -134,6 +134,7 @@ async def test_list_providers(client):
         "moonboard",
         "moonboard_catalog",
         "kilter",
+        "kilter_legacy",
         "crux",
     } <= keys
     kilter = [p for p in r.json() if p["key"] == "kilter"][0]

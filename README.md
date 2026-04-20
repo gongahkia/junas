@@ -115,7 +115,8 @@ Rate limiting supports `KT_RL_BACKEND=in_memory|redis` with Redis settings:
 - `aurora`
 - `moonboard`
 - `moonboard_catalog`
-- `kilter` (experimental; currently legacy-catalog backed unless PowerSync is integrated)
+- `kilter` (experimental Kilter v2; PowerSync integration pending)
+- `kilter_legacy` (experimental; local legacy SQLite catalog via `KT_KILTER_LEGACY_DB_PATH`)
 - `crux`
 
 ## Credentials

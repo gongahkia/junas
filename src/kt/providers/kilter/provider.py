@@ -10,25 +10,27 @@ from kt.providers.base import (
     ProviderStatus,
     ProviderUnavailable,
 )
-from kt.providers.kilter.legacy_catalog import KilterLegacyCatalog
 
 
 class KilterProvider:
-    """Experimental Kilter provider.
+    """Experimental Kilter v2 provider.
 
     Auth is wired against the new Keycloak realm (idp.kiltergrips.com) and will
-    succeed if the host supplies a valid `client_id`. Current first-party data
-    fetch still needs PowerSync; meanwhile, a read-only legacy SQLite catalog
-    can be supplied through `KT_KILTER_LEGACY_DB_PATH`.
+    succeed if the host supplies a valid `client_id`. Data fetch still needs a
+    first-party PowerSync integration and is intentionally unavailable here.
 
     Tracking lemeryfertitta/BoardLib#78 — flip to OK status once a PowerSync
-    client lands."""
+    client lands.
+
+    Legacy SQLite catalog support now lives in `kilter_legacy` provider to
+    avoid cross-system mixing and ambiguous behavior.
+    """
 
     key = "kilter"
-    name = "Kilter Board"
+    name = "Kilter Board (v2)"
     status = ProviderStatus.EXPERIMENTAL
     requires_credentials = True
-    source = "legacy_catalog_or_powersync"
+    source = "powersync_pending"
     capabilities = {
         "list_layouts": False,
         "search_climbs": False,
@@ -39,12 +41,10 @@ class KilterProvider:
     def __init__(
         self,
         client: Any = None,
-        legacy_catalog: KilterLegacyCatalog | None = None,
     ) -> None:
         from kt.providers.kilter.client import KilterClient
 
         self._client = client or KilterClient()
-        self._legacy_catalog = legacy_catalog or KilterLegacyCatalog.from_env()
 
     async def authenticate(self, creds: dict[str, Any]) -> AuthToken:
         token = await self._client.login(
@@ -56,48 +56,25 @@ class KilterProvider:
         return AuthToken(provider=self.key, value=token, extras={"username": username})
 
     async def list_layouts(self, token: AuthToken | None) -> list[Layout]:
-        return self._catalog().list_layouts()
+        raise ProviderUnavailable("kilter v2 layouts unavailable until PowerSync integration")
 
     async def search_climbs(
         self, token: AuthToken | None, query: ClimbQuery
     ) -> list[Climb]:
-        return self._catalog().search_climbs(query)
+        raise ProviderUnavailable("kilter v2 climbs unavailable until PowerSync integration")
 
     async def get_climb(self, token: AuthToken | None, climb_id: str) -> Climb:
-        board_id = token.extras.get("board_id") if token else None
-        angle = token.extras.get("angle") if token else None
-        query = ClimbQuery(
-            layout_id=str(board_id) if board_id else None,
-            angle=int(angle) if angle is not None else None,
-        )
-        return self._catalog().get_climb(climb_id, query)
-
-    def _catalog(self) -> KilterLegacyCatalog:
-        if not self._legacy_catalog.available:
-            raise ProviderUnavailable(
-                "kilter data fetch requires PowerSync, or set KT_KILTER_LEGACY_DB_PATH "
-                "to an extracted legacy SQLite catalog"
-            )
-        return self._legacy_catalog
+        raise ProviderUnavailable("kilter v2 climb detail unavailable until PowerSync integration")
 
     def describe(self) -> dict[str, object]:
-        legacy_available = self._legacy_catalog.available
         return {
             "capabilities": {
-                "list_layouts": legacy_available,
-                "search_climbs": legacy_available,
-                "get_climb": legacy_available,
+                "list_layouts": False,
+                "search_climbs": False,
+                "get_climb": False,
                 "live_data": False,
             },
-            "source": "legacy_catalog" if legacy_available else "none",
-            "status_reason": (
-                "operating in legacy catalog mode; live PowerSync sync unavailable"
-                if legacy_available
-                else "awaiting PowerSync integration or KT_KILTER_LEGACY_DB_PATH"
-            ),
-            "status_reason_code": (
-                "kilter_legacy_catalog_mode"
-                if legacy_available
-                else "kilter_powersync_pending"
-            ),
+            "source": self.source,
+            "status_reason": "awaiting PowerSync integration for Kilter v2 data APIs",
+            "status_reason_code": "kilter_powersync_pending",
         }

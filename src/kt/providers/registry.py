@@ -59,6 +59,7 @@ def bootstrap() -> None:
     reset()
     from kt.providers.aurora.provider import AURORA_BOARDS, AuroraProvider
     from kt.providers.crux.provider import CruxProvider
+    from kt.providers.kilter.legacy_provider import KilterLegacyProvider
     from kt.providers.kilter.provider import KilterProvider
     from kt.providers.moonboard.catalog_provider import MoonboardCatalogProvider
     from kt.providers.moonboard.provider import MoonboardProvider
@@ -66,6 +67,7 @@ def bootstrap() -> None:
     for key, label in AURORA_BOARDS.items():
         register(AuroraProvider(key=key, name=label))
     register(KilterProvider())
+    register(KilterLegacyProvider())
     register(MoonboardProvider())
     register(MoonboardCatalogProvider())
     register(CruxProvider())

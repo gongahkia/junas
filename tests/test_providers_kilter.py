@@ -14,6 +14,7 @@ from kt.providers.base import (
 )
 from kt.providers.kilter.client import KilterClient
 from kt.providers.kilter.legacy_catalog import KilterLegacyCatalog
+from kt.providers.kilter.legacy_provider import KilterLegacyProvider
 from kt.providers.kilter.provider import KilterProvider
 
 
@@ -82,11 +83,13 @@ async def test_data_calls_still_unavailable_pending_powersync():
         await p.get_climb(None, "x")
 
 
-async def test_legacy_catalog_lists_boards_and_searches_climbs(tmp_path):
+async def test_legacy_provider_lists_boards_and_searches_climbs(tmp_path):
     db_path = tmp_path / "kilter.sqlite3"
     _write_legacy_catalog(db_path)
 
-    p = KilterProvider(legacy_catalog=KilterLegacyCatalog(db_path))
+    p = KilterLegacyProvider(
+        legacy_catalog=KilterLegacyCatalog(db_path, provider_key="kilter_legacy")
+    )
 
     layouts = await p.list_layouts(None)
     assert [layout.id for layout in layouts] == ["14"]
@@ -99,26 +102,30 @@ async def test_legacy_catalog_lists_boards_and_searches_climbs(tmp_path):
         ClimbQuery(layout_id="14", angle=40, text="swoop", holds_required=("1080",)),
     )
     assert [climb.id for climb in climbs] == ["kilter:14:uuid-a"]
+    assert [climb.provider for climb in climbs] == ["kilter_legacy"]
     assert climbs[0].grade == "V6"
     assert climbs[0].holds == ["1080", "1110"]
     assert climbs[0].extras["route_grade"] == "5.12d"
     assert climbs[0].extras["image_urls"] == ["/api/images/original.png"]
 
     detail = await p.get_climb(
-        AuthToken("kilter", "tok", extras={"board_id": "14", "angle": 40}),
+        AuthToken("kilter_legacy", "tok", extras={"board_id": "14", "angle": 40}),
         "kilter:14:uuid-a",
     )
     assert detail.name == "Swooped"
+    assert detail.provider == "kilter_legacy"
     assert detail.extras["highlighted_holds"] == [
         {"position": 1080, "role_id": 12},
         {"position": 1110, "role_id": 15},
     ]
 
 
-async def test_legacy_catalog_validates_board_and_angle(tmp_path):
+async def test_legacy_provider_validates_board_and_angle(tmp_path):
     db_path = tmp_path / "kilter.sqlite3"
     _write_legacy_catalog(db_path)
-    p = KilterProvider(legacy_catalog=KilterLegacyCatalog(db_path))
+    p = KilterLegacyProvider(
+        legacy_catalog=KilterLegacyCatalog(db_path, provider_key="kilter_legacy")
+    )
 
     with pytest.raises(ProviderAuthError):
         await p.search_climbs(None, ClimbQuery(angle=40))
