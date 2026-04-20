@@ -8,6 +8,10 @@ def test_layouts_supported():
     assert "benchmarks" in layouts
     assert "2016" in layouts
     assert "2017" in layouts
+    assert "2019_benchmarks" in layouts
+    assert "2024_benchmarks" in layouts
+    assert "mini_2020_benchmarks" in layouts
+    assert "mini_2025_benchmarks" in layouts
 
 
 def test_benchmarks_have_real_metadata():
@@ -59,7 +63,21 @@ async def test_provider_search_climbs():
 async def test_provider_layouts():
     p = MoonboardCatalogProvider()
     layouts = await p.list_layouts(None)
-    assert {layout.id for layout in layouts} >= {"2016", "2017"}
+    assert {layout.id for layout in layouts} >= {
+        "2016",
+        "2017",
+        "2019_benchmarks",
+        "2024_benchmarks",
+        "mini_2020_benchmarks",
+        "mini_2025_benchmarks",
+    }
+
+
+def test_setup_specific_benchmark_layouts_have_data():
+    for layout in ("2019_benchmarks", "2024_benchmarks", "mini_2025_benchmarks"):
+        rows = static_catalog.load_layout(layout)
+        assert rows
+        assert all(row["layout"] == layout for row in rows)
 
 
 async def test_provider_no_auth_needed():

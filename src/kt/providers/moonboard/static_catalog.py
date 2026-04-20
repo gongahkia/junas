@@ -11,7 +11,9 @@ Two complementary sources, both vendored under data/:
   lucien1011/MoonBoard-Route (MIT). Schema {Grade, Moves, UserRating}; no
   names/setters but covers ~32k problems.
 
-The catalog is unified so consumers see a single search surface.
+The catalog is unified so consumers see a single search surface, while also
+exposing setup-specific benchmark views (2016/2017/2019/2024/mini variants)
+derived from `mb_type` in the bundled benchmark data.
 """
 
 from __future__ import annotations
@@ -27,10 +29,36 @@ _LAYOUT_FILES: dict[str, str] = {
     "2017": "2017.json",
 }
 _BENCHMARKS_FILE = "benchmarks.json"
+_MB_TYPE_LAYOUTS: dict[int, str] = {
+    # Community-inferred mapping from benchmark `mb_type` codes to setup families.
+    0: "2016_benchmarks",
+    1: "2017_benchmarks",
+    2: "2019_benchmarks",
+    3: "mini_2020_benchmarks",
+    4: "2024_benchmarks",
+    5: "mini_2025_benchmarks",
+}
+_MB_TYPE_LAYOUTS_REVERSE: dict[str, int] = {v: k for k, v in _MB_TYPE_LAYOUTS.items()}
+
+_LAYOUT_LABELS: dict[str, str] = {
+    "benchmarks": "MoonBoard Benchmarks (all setups)",
+    "2016": "MoonBoard 2016 (full static)",
+    "2017": "MoonBoard 2017 (full static)",
+    "2016_benchmarks": "MoonBoard 2016 Benchmarks",
+    "2017_benchmarks": "MoonBoard 2017 Benchmarks",
+    "2019_benchmarks": "MoonBoard 2019 Benchmarks",
+    "mini_2020_benchmarks": "Mini MoonBoard 2020 Benchmarks",
+    "2024_benchmarks": "MoonBoard 2024 Benchmarks",
+    "mini_2025_benchmarks": "Mini MoonBoard 2025 Benchmarks",
+}
 
 
 def supported_layouts() -> list[str]:
-    return ["benchmarks", *_LAYOUT_FILES.keys()]
+    return ["benchmarks", *_LAYOUT_FILES.keys(), *_MB_TYPE_LAYOUTS.values()]
+
+
+def layout_name(layout: str) -> str:
+    return _LAYOUT_LABELS.get(layout, f"MoonBoard {layout}")
 
 
 def _read(filename: str) -> str:
@@ -50,6 +78,9 @@ def _stable_id(grade: str, moves: list[str]) -> str:
 def load_layout(layout: str) -> list[dict[str, Any]]:
     if layout == "benchmarks":
         return _load_benchmarks()
+    mb_type = _MB_TYPE_LAYOUTS_REVERSE.get(layout)
+    if mb_type is not None:
+        return _load_benchmarks(filter_mb_type=mb_type, layout_id=layout)
     fn = _LAYOUT_FILES.get(layout)
     if fn is None:
         return []
@@ -77,13 +108,21 @@ def load_layout(layout: str) -> list[dict[str, Any]]:
     return out
 
 
-def _load_benchmarks() -> list[dict[str, Any]]:
+def _load_benchmarks(
+    *,
+    filter_mb_type: int | None = None,
+    layout_id: str = "benchmarks",
+) -> list[dict[str, Any]]:
     raw = json.loads(_read(_BENCHMARKS_FILE))
     out: list[dict[str, Any]] = []
     for rec in raw:
+        mb_type = _safe_int(rec.get("mb_type"))
+        if filter_mb_type is not None and mb_type != filter_mb_type:
+            continue
         start = list(rec.get("start_holds") or [])
         mid = list(rec.get("mid_holds") or [])
         end = list(rec.get("end_holds") or [])
+        mapped_layout = _MB_TYPE_LAYOUTS.get(mb_type or -1)
         out.append(
             {
                 "id": str(rec.get("id")),
@@ -96,8 +135,9 @@ def _load_benchmarks() -> list[dict[str, Any]]:
                 "start_holds": start,
                 "mid_holds": mid,
                 "end_holds": end,
-                "layout": "benchmarks",
+                "layout": layout_id,
                 "mb_type": rec.get("mb_type"),
+                "setup": mapped_layout,
             }
         )
     return out
@@ -112,6 +152,13 @@ def _font_grade(value: Any) -> str:
     if isinstance(value, int) and 0 <= value < len(_FONT_GRADES):
         return _FONT_GRADES[value]
     return str(value) if value is not None else ""
+
+
+def _safe_int(value: Any) -> int | None:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
 
 
 def search(

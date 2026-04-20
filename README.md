@@ -125,6 +125,12 @@ Rate limiting supports `KT_RL_BACKEND=in_memory|redis` with Redis settings:
 - `kilter_legacy` (experimental; local legacy SQLite catalog via `KT_KILTER_LEGACY_DB_PATH`)
 - `crux`
 
+MoonBoard notes:
+- `moonboard` uses authenticated web logbook access (personal entries), not a
+  bulk public problems scrape.
+- `moonboard_catalog` uses bundled static datasets and now exposes setup-specific
+  benchmark layouts including 2019/2024 and mini variants.
+
 ## Credentials
 
 Host-supplied provider credentials are encrypted at rest with Fernet (`KT_CRED_KEY`) and removed when a session is ended or swept as idle.

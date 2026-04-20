@@ -116,7 +116,14 @@ async def test_search_5xx_unavailable():
 async def test_layouts_static():
     p = MoonboardProvider(scraper=MoonboardScraper())
     layouts = await p.list_layouts(AuthToken("moonboard", "c"))
-    assert {layout.id for layout in layouts} == {"2016", "2019", "2024"}
+    assert {layout.id for layout in layouts} == {
+        "2016",
+        "2017",
+        "2019",
+        "mini_2020",
+        "2024",
+        "mini_2025",
+    }
 
 
 async def test_logbook_schema_drift_raises_unavailable():

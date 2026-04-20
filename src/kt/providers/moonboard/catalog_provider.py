@@ -40,7 +40,11 @@ class MoonboardCatalogProvider:
 
     async def list_layouts(self, token: AuthToken | None) -> list[Layout]:
         return [
-            Layout(id=layout, name=f"MoonBoard {layout}")
+            Layout(
+                id=layout,
+                name=static_catalog.layout_name(layout),
+                extras={"source": "benchmarks" if "benchmarks" in layout else "full_static"},
+            )
             for layout in static_catalog.supported_layouts()
         ]
 
