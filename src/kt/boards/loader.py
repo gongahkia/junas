@@ -51,8 +51,9 @@ async def ingest_geojson(
             continue
         await db().execute(
             """INSERT INTO board_locations(id, provider_key, gym_name, country, city,
-                    lat, lon, angle_min, angle_max, board_type, updated_at, raw_json)
-               VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
+                    lat, lon, angle_min, angle_max, board_type, board_family, setup_year,
+                    layout_type, holdset_version, is_adjustable, updated_at, raw_json)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
                ON CONFLICT(id) DO UPDATE SET
                    provider_key=excluded.provider_key,
                    gym_name=excluded.gym_name,
@@ -63,6 +64,11 @@ async def ingest_geojson(
                    angle_min=excluded.angle_min,
                    angle_max=excluded.angle_max,
                    board_type=excluded.board_type,
+                   board_family=excluded.board_family,
+                   setup_year=excluded.setup_year,
+                   layout_type=excluded.layout_type,
+                   holdset_version=excluded.holdset_version,
+                   is_adjustable=excluded.is_adjustable,
                    updated_at=excluded.updated_at,
                    raw_json=excluded.raw_json""",
             (
@@ -76,6 +82,11 @@ async def ingest_geojson(
                 _maybe_int(props.get("angle_min")),
                 _maybe_int(props.get("angle_max")),
                 str(props.get("board_type") or ""),
+                _board_family(props),
+                _maybe_int(props.get("setup_year")),
+                _maybe_text(props.get("layout_type")),
+                _maybe_text(props.get("holdset_version")),
+                _is_adjustable(props),
                 now,
                 json.dumps(props),
             ),
@@ -92,3 +103,37 @@ def _maybe_int(raw: Any) -> int | None:
         return int(raw)
     except (TypeError, ValueError):
         return None
+
+
+def _maybe_text(raw: Any) -> str | None:
+    if raw is None:
+        return None
+    text = str(raw).strip()
+    return text if text else None
+
+
+def _board_family(props: dict[str, Any]) -> str:
+    explicit = _maybe_text(props.get("board_family"))
+    if explicit:
+        return explicit.lower()
+    fallback = _maybe_text(props.get("board_type"))
+    if fallback:
+        return fallback.lower()
+    return "unknown"
+
+
+def _is_adjustable(props: dict[str, Any]) -> int | None:
+    explicit = props.get("is_adjustable")
+    if explicit is not None:
+        if isinstance(explicit, bool):
+            return 1 if explicit else 0
+        text = str(explicit).strip().lower()
+        if text in {"1", "true", "yes"}:
+            return 1
+        if text in {"0", "false", "no"}:
+            return 0
+    angle_min = _maybe_int(props.get("angle_min"))
+    angle_max = _maybe_int(props.get("angle_max"))
+    if angle_min is None or angle_max is None:
+        return None
+    return 1 if angle_min != angle_max else 0

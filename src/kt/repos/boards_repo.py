@@ -11,7 +11,8 @@ class BoardsRepo:
     async def get(self, bid: str) -> dict[str, Any] | None:
         async with db().execute(
             """SELECT id, provider_key, gym_name, country, city, lat, lon,
-                      angle_min, angle_max, board_type, updated_at, raw_json
+                      angle_min, angle_max, board_type, board_family, setup_year,
+                      layout_type, holdset_version, is_adjustable, updated_at, raw_json
                FROM board_locations WHERE id=?""",
             (bid,),
         ) as cur:
@@ -25,7 +26,8 @@ class BoardsRepo:
     ) -> list[dict[str, Any]]:
         sql = [
             """SELECT id, provider_key, gym_name, country, city, lat, lon,
-                      angle_min, angle_max, board_type, updated_at, raw_json
+                      angle_min, angle_max, board_type, board_family, setup_year,
+                      layout_type, holdset_version, is_adjustable, updated_at, raw_json
                FROM board_locations WHERE 1=1"""
         ]
         args: list[Any] = []
@@ -52,7 +54,8 @@ class BoardsRepo:
         lat_min, lat_max, lon_min, lon_max, wraps = _bounding_box(lat, lon, radius_km)
         sql = [
             """SELECT id, provider_key, gym_name, country, city, lat, lon,
-                      angle_min, angle_max, board_type, updated_at, raw_json
+                      angle_min, angle_max, board_type, board_family, setup_year,
+                      layout_type, holdset_version, is_adjustable, updated_at, raw_json
                FROM board_locations
                WHERE lat BETWEEN ? AND ?"""
         ]
@@ -99,6 +102,8 @@ class BoardsRepo:
 
 def _unpack(row: dict[str, Any]) -> dict[str, Any]:
     raw = row.pop("raw_json", None)
+    if row.get("is_adjustable") is not None:
+        row["is_adjustable"] = bool(row["is_adjustable"])
     row["properties"] = json.loads(raw) if raw else {}
     return row
 

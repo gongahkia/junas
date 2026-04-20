@@ -84,6 +84,9 @@ POST /api/v1/boards/reload
 ```
 
 `POST /boards/reload` requires `X-Boards-Reload-Secret` to match `KT_BOARDS_RELOAD_SECRET`.
+Board responses include normalized metadata fields (`board_family`, `setup_year`,
+`layout_type`, `holdset_version`, `is_adjustable`) alongside original source
+properties.
 
 ### Grade conversion
 

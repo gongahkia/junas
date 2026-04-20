@@ -13,6 +13,8 @@ async def test_boards_sample_autoloaded_on_startup(client: AsyncClient):
     for b in body["boards"]:
         assert b["lat"] and b["lon"]
         assert b["board_type"]
+        assert b["board_family"]
+        assert "is_adjustable" in b
 
 
 async def test_boards_by_type(client: AsyncClient):
@@ -47,6 +49,11 @@ async def test_boards_get_returns_properties_and_distance(client: AsyncClient):
     assert g.status_code == 200
     body = g.json()
     assert body["city"] == "London"
+    assert body["board_family"] == "moonboard"
+    assert body["setup_year"] == 2019
+    assert body["layout_type"] == "mirror"
+    assert body["holdset_version"] == "2019"
+    assert body["is_adjustable"] is False
     # raw_json round-trips into properties
     assert body["properties"]["gym_name"] == body["gym_name"]
 
