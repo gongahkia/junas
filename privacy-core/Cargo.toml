@@ -1,0 +1,42 @@
+[package]
+name = "privacy-core"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+privacy-common = { path = "../privacy-common" }
+crossbeam-channel = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+image = { workspace = true }
+regex = { workspace = true }
+leptess = { workspace = true }
+toml = { workspace = true }
+chrono = { workspace = true }
+serde = { workspace = true }
+ort = { workspace = true }
+ndarray = { workspace = true }
+ureq = { workspace = true }
+sha2 = { workspace = true }
+hex = { workspace = true }
+rayon = { workspace = true }
+log = "0.4"
+serde_json = { workspace = true }
+portable-pty = "0.8"
+vt100 = "0.15"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+screencapturekit = "0.3"
+core-graphics = "0.23"
+core-foundation = "0.10"
+core-video-rs = "0.3"
+core-media-rs = "0.3"
+cocoa = "0.25"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+xcb = "1"
+ashpd = "0.10"
+pipewire = "0.8"
+
+[dev-dependencies]
+tempfile = "3.26.0"

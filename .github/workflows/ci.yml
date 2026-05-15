@@ -1,60 +1,31 @@
-name: cAIpng CI/CD on push
-
+name: Aki CI/CD on push
 on:
   push:
-    branches: [main]
+    branches: [main, master]
   pull_request:
-    branches: [main]
-
+    branches: [main, master]
 jobs:
-  backend-lint:
+  build-test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: install system deps
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends \
+            pkg-config clang libclang-dev \
+            libtesseract-dev libleptonica-dev tesseract-ocr \
+            libxcb1-dev \
+            libpipewire-0.3-dev libspa-0.2-dev
+      - uses: dtolnay/rust-toolchain@stable
         with:
-          node-version: "18"
-      - run: npm install
-      - run: npx eslint src/ --ext .js || true
-
-  backend-test:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-      - run: npm install
-      - run: npm test || true
-
-  training-lint:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: training
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - run: pip install ruff
-      - run: ruff check . || true
-
-  training-test:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: training
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - run: pip install -r requirements.txt
-      - run: python -m pytest tests/ -v || true
+          components: clippy, rustfmt
+      - uses: Swatinem/rust-cache@v2
+      - name: fmt
+        run: cargo fmt --all -- --check
+      - name: clippy
+        run: cargo clippy --all-targets -- -D warnings
+      - name: build
+        run: cargo build --all
+      - name: test
+        run: cargo test --all
