@@ -1,1 +1,0 @@
-"""Bundled MoonBoard catalog resources."""
