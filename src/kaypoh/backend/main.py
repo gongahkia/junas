@@ -1287,11 +1287,15 @@ def _build_review_engine() -> PreSendReviewEngine:
     # surfaced as a layer model so tests / deployments can swap implementations without
     # touching the engine. when unwired, engine falls through to the deterministic regex.
     llm_defined_term_extractor = get_layer_model("llm_defined_term_extractor")
+    # audit_grade-only inverse-audit helper. output is journaled as coverage_warning events.
+    # advisory only — engine never acts on these.
+    llm_coverage_auditor = get_layer_model("llm_coverage_auditor")
 
     return PreSendReviewEngine(
         public_evidence_retriever=public_evidence,
         llm_adjudicator=llm_adjudicator,
         llm_defined_term_extractor=llm_defined_term_extractor,
+        llm_coverage_auditor=llm_coverage_auditor,
     )
 
 

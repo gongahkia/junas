@@ -448,6 +448,14 @@ class ReviewResponse(BaseModel):
         default_factory=list,
         description="Privacy guard decisions for any outbound retrieval operations.",
     )
+    coverage_warnings: list[dict[str, Any]] = Field(
+        default_factory=list,
+        description=(
+            "Advisory output from the audit_grade LLM inverse audit ('what did we miss?'). "
+            "Each warning carries at least rule_guess and why fields. Engine never acts on "
+            "these — reviewer attention only. Also journaled as coverage_warning events."
+        ),
+    )
     timings_ms: dict[str, float] = Field(
         default_factory=dict,
         description="Review timing breakdown in milliseconds plus total request time.",
