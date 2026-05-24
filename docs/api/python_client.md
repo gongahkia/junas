@@ -139,6 +139,30 @@ with NoupeClient("http://localhost:8000") as client:
         print(result.classification)
 ```
 
+## Pre-Send Review
+
+Use `review` when the caller needs PII and MNPI findings, source/destination jurisdiction handling, scores, and remediation suggestions before sending a document:
+
+```python
+from noupe import NoupeClient
+
+with NoupeClient("http://localhost:8000") as client:
+    result = client.review(
+        text="Please send to Tan S1234567D. Confidential: Acme Corp will acquire GlobalTech before announcement.",
+        source_jurisdiction="SG",
+        destination_jurisdiction="US",
+        document_type="research_note",
+        entity_id="Acme Corp",
+    )
+
+    print(result.overall_risk)
+    print(result.pii_score, result.mnpi_score)
+    print(result.findings)
+    print(result.suggestions)
+```
+
+For file inputs, pass `document_base64`, `document_filename`, and optionally `document_mime_type`. Supported v1 extraction paths are plain text, DOCX, and PDF when `pypdf` is installed.
+
 ## Runtime Status
 
 ```python
@@ -192,6 +216,7 @@ except NoupeAPIError as exc:
 - `client.classify(...)` -> `POST /classify`
 - `client.classify_batch(...)` -> `POST /classify/batch`
 - `client.classify_many(...)` -> convenience wrapper over `POST /classify/batch`
+- `client.review(...)` -> `POST /review`
 
 The async client exposes the same method names and endpoint mapping, but each method is awaited:
 
@@ -202,3 +227,4 @@ The async client exposes the same method names and endpoint mapping, but each me
 - `await async_client.classify(...)`
 - `await async_client.classify_batch(...)`
 - `await async_client.classify_many(...)`
+- `await async_client.review(...)`

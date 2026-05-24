@@ -17,6 +17,67 @@ async def _noop_lifespan(app):
 main.app.router.lifespan_context = _noop_lifespan
 
 
+class DummyPublicEvidence:
+    def __init__(self):
+        self.last_text = None
+
+    def retrieve(self, *, text: str, entity_id: str | None = None, lexicon=None):
+        self.last_text = text
+        return {
+            "status": "queried",
+            "provider": "exa",
+            "detail": "retrieved 1 public sources",
+            "queries": [
+                {
+                    "query": f"{entity_id} acquisition press release SEC filing news",
+                    "blocked": False,
+                    "reason": "sanitized query approved",
+                }
+            ],
+            "sources": [
+                {
+                    "title": "Acme announces acquisition",
+                    "url": "https://example.com/acme-acquisition",
+                    "published_date": "2026-01-02",
+                    "author": "",
+                    "highlights": ["Acme announced the transaction publicly."],
+                    "text": "Acme announced the transaction publicly.",
+                    "score": 0.9,
+                }
+            ],
+            "privacy_ledger": [
+                {
+                    "destination": "exa",
+                    "operation": "external_query",
+                    "allowed": True,
+                    "reason": "sanitized query approved",
+                    "query": f"{entity_id} acquisition press release SEC filing news",
+                    "redactions": [],
+                }
+            ],
+        }
+
+
+class DummyLLMAdjudicator:
+    def __init__(self):
+        self.last_payload = None
+
+    def adjudicate(self, **kwargs):
+        self.last_payload = kwargs
+        return {
+            "status": "adjudicated",
+            "provider": "vllm",
+            "model": "gpt-oss-20b",
+            "risk_label": "SAFE",
+            "public_status": "public",
+            "confidence": 0.92,
+            "materiality_reason": "The acquisition claim is matched to a public source.",
+            "matched_public_sources": ["https://example.com/acme-acquisition"],
+            "unverified_claims": [],
+            "review_recommendation": "No reviewer escalation required.",
+        }
+
+
 def _docx_base64(paragraphs: list[str]) -> str:
     body = "".join(
         f"<w:p><w:r><w:t>{paragraph}</w:t></w:r></w:p>"
@@ -147,6 +208,35 @@ class PreSendReviewApiTests(unittest.TestCase):
 
         self.assertEqual(response.status_code, 422)
         self.assertIn("unsupported document_mime_type", response.json()["detail"])
+
+    def test_review_reuses_optional_public_evidence_and_local_llm(self):
+        public_evidence = DummyPublicEvidence()
+        llm = DummyLLMAdjudicator()
+        main._state["models"] = {
+            "public_evidence": public_evidence,
+            "llm_adjudicator": llm,
+        }
+
+        text = "Acme Corp publicly announced its acquisition of GlobalTech for $2.5 billion."
+        with TestClient(main.app) as client:
+            response = client.post(
+                "/review",
+                json={
+                    "text": text,
+                    "entity_id": "Acme Corp",
+                    "source_jurisdiction": "SG",
+                    "destination_jurisdiction": "SG",
+                },
+            )
+
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        self.assertEqual(payload["overall_risk"], "SAFE")
+        self.assertEqual(payload["public_evidence"]["status"], "queried")
+        self.assertEqual(payload["llm_adjudication"]["public_status"], "public")
+        self.assertEqual(payload["privacy_ledger"][0]["destination"], "exa")
+        self.assertEqual(public_evidence.last_text, text)
+        self.assertEqual(llm.last_payload["text"], text)
 
 
 if __name__ == "__main__":

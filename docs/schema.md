@@ -197,6 +197,88 @@ Notes:
 - External retrieval layers must use sanitized queries only; the private document text and offending spans are not sent to public-source providers.
 - `observability.degraded=true` means the pipeline returned a best-effort result because a configured layer that should have executed was unavailable or failed at runtime.
 
+## API — `POST /review`
+
+Pre-send review endpoint for customer workflows where a document is screened before it is sent. It scores PII and MNPI separately, applies source and destination jurisdictions with a strictest-wins policy, returns exact character offsets for highlights, and suggests redactions or rewrites.
+
+Request:
+
+```json
+{
+  "text": "string | null",
+  "document_base64": "base64 text/docx/pdf | null",
+  "document_filename": "string | null",
+  "document_mime_type": "text/plain | application/pdf | application/vnd.openxmlformats-officedocument.wordprocessingml.document | null",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "document_type": "generic",
+  "review_profile": "strict",
+  "entity_id": "issuer or company name | null",
+  "include_suggestions": true
+}
+```
+
+Response:
+
+```json
+{
+  "request_id": "string | null",
+  "overall_risk": "SAFE | LOW_RISK | HIGH_RISK",
+  "classification": "SAFE | LOW_RISK | HIGH_RISK",
+  "document_score": "float",
+  "pii_score": "float",
+  "mnpi_score": "float",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "US",
+  "jurisdictions_applied": ["SG", "US"],
+  "jurisdiction_policy": "strictest_wins",
+  "document_type": "research_note",
+  "review_profile": "strict",
+  "document": {
+    "filename": "inline.txt",
+    "mime_type": "text/plain",
+    "extraction_method": "inline_text | base64_text | docx_xml | pypdf",
+    "page_count": "int | null",
+    "char_count": "int"
+  },
+  "findings": [
+    {
+      "id": "string",
+      "category": "PII | MNPI",
+      "rule": "string",
+      "jurisdiction": "SG",
+      "severity": "low | medium | high",
+      "score": "float",
+      "matched_text": "string",
+      "start_char": "int",
+      "end_char": "int",
+      "reason": "string",
+      "legal_basis": "string"
+    }
+  ],
+  "suggestions": [
+    {
+      "id": "string",
+      "finding_id": "string",
+      "action": "redact | remove_or_hold | verify_or_rewrite",
+      "replacement_text": "string",
+      "rationale": "string"
+    }
+  ],
+  "public_evidence": "same shape as POST /classify public_evidence | null",
+  "llm_adjudication": "same shape as POST /classify llm_adjudication | null",
+  "privacy_ledger": [],
+  "timings_ms": {"extract": "float", "review": "float", "total": "float"}
+}
+```
+
+Notes:
+
+- `text` and `document_base64` are mutually optional at the field level, but at least one is required.
+- `classification` is intentionally duplicated from `overall_risk` so existing classifier consumers can read a familiar field.
+- External retrieval is only used when public evidence is enabled. It receives sanitized public-source queries, not private document text.
+- The local LLM adjudicator is only used when enabled and allowed by the configured local/private base URL policy.
+
 ## API — `POST /classify/batch`
 
 Request:

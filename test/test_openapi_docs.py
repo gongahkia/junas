@@ -26,17 +26,25 @@ class OpenApiDocsTests(unittest.TestCase):
 
         classify_operation = payload["paths"]["/classify"]["post"]
         batch_operation = payload["paths"]["/classify/batch"]["post"]
+        review_operation = payload["paths"]["/review"]["post"]
 
         self.assertEqual(classify_operation["summary"], "Classify one document")
         self.assertEqual(batch_operation["summary"], "Classify multiple documents")
+        self.assertEqual(review_operation["summary"], "Review a document before sending")
         self.assertIn("include_offending_spans", classify_operation["description"])
+        self.assertIn("strictest-wins", review_operation["description"])
 
         schemas = payload["components"]["schemas"]
         classify_request = schemas["ClassifyRequest"]
+        review_request = schemas["ReviewRequest"]
+        review_response = schemas["ReviewResponse"]
         offending_span = schemas["OffendingSpanResponse"]
         mosaic_response = schemas["MosaicResponse"]
 
         self.assertIn("include_offending_spans", classify_request["properties"])
+        self.assertIn("document_base64", review_request["properties"])
+        self.assertIn("pii_score", review_response["properties"])
+        self.assertIn("mnpi_score", review_response["properties"])
         self.assertIn("approximate classifier-window spans", classify_request["properties"]["include_offending_spans"]["description"])
         self.assertIn("context_before", offending_span["properties"])
         self.assertIn("window_token_count", offending_span["properties"])

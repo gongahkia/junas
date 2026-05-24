@@ -9,6 +9,8 @@ from .backend.schemas import (
     DiagnosticsResponse,
     HealthResponse,
     ReadyResponse,
+    ReviewRequest,
+    ReviewResponse,
 )
 from .client import (
     AsyncNoupeClient,
@@ -34,6 +36,8 @@ __all__ = [
     "NoupeAPIError",
     "NoupeClient",
     "ReadyResponse",
+    "ReviewRequest",
+    "ReviewResponse",
     "async_classify_text",
     "classify_text",
 ]

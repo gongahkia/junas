@@ -55,6 +55,58 @@ def build_classify_payload(*, request_id: str, classification: str = "SAFE") -> 
     }
 
 
+def build_review_payload(*, request_id: str, classification: str = "LOW_RISK") -> dict:
+    return {
+        "request_id": request_id,
+        "overall_risk": classification,
+        "classification": classification,
+        "document_score": 58.0,
+        "pii_score": 58.0,
+        "mnpi_score": 0.0,
+        "source_jurisdiction": "SG",
+        "destination_jurisdiction": "US",
+        "jurisdictions_applied": ["SG", "US"],
+        "jurisdiction_policy": "strictest_wins",
+        "document_type": "generic",
+        "review_profile": "strict",
+        "document": {
+            "filename": "inline.txt",
+            "mime_type": "text/plain",
+            "extraction_method": "inline_text",
+            "page_count": None,
+            "char_count": 48,
+        },
+        "findings": [
+            {
+                "id": "pii:email_address:10:28:0",
+                "category": "PII",
+                "rule": "email_address",
+                "jurisdiction": "SG",
+                "severity": "medium",
+                "score": 55.0,
+                "matched_text": "jane@example.com",
+                "start_char": 10,
+                "end_char": 26,
+                "reason": "Email address can identify an individual",
+                "legal_basis": "SG_PDPA_PERSONAL_DATA",
+            }
+        ],
+        "suggestions": [
+            {
+                "id": "suggestion:0",
+                "finding_id": "pii:email_address:10:28:0",
+                "action": "redact",
+                "replacement_text": "[REDACTED PERSONAL DATA]",
+                "rationale": "Remove or mask personal data.",
+            }
+        ],
+        "public_evidence": None,
+        "llm_adjudication": None,
+        "privacy_ledger": [],
+        "timings_ms": {"extract": 0.1, "review": 0.4, "total": 0.5},
+    }
+
+
 class NoupeClientTests(unittest.TestCase):
     def test_classify_sends_expected_payload_and_api_key(self):
         observed: dict[str, object] = {}
@@ -87,6 +139,42 @@ class NoupeClientTests(unittest.TestCase):
                 "entity_id": "acme-corp",
                 "debug": False,
                 "include_offending_spans": True,
+            },
+        )
+
+    def test_review_sends_expected_payload_and_returns_typed_response(self):
+        observed: dict[str, object] = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            observed["method"] = request.method
+            observed["path"] = request.url.path
+            observed["body"] = json.loads(request.content.decode("utf-8"))
+            return httpx.Response(200, json=build_review_payload(request_id="review-1"))
+
+        transport = httpx.MockTransport(handler)
+
+        with NoupeClient("http://noupe.test", transport=transport) as client:
+            result = client.review(
+                text="Send to jane@example.com",
+                source_jurisdiction="SG",
+                destination_jurisdiction="US",
+                document_type="email",
+                include_suggestions=True,
+            )
+
+        self.assertEqual(result.classification, Classification.LOW_RISK)
+        self.assertEqual(result.request_id, "review-1")
+        self.assertEqual(observed["method"], "POST")
+        self.assertEqual(observed["path"], "/review")
+        self.assertEqual(
+            observed["body"],
+            {
+                "text": "Send to jane@example.com",
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "US",
+                "document_type": "email",
+                "review_profile": "strict",
+                "include_suggestions": True,
             },
         )
 
@@ -194,6 +282,46 @@ class NoupeClientTests(unittest.TestCase):
                 "entity_id": "acme-board",
                 "debug": False,
                 "include_offending_spans": True,
+            },
+        )
+
+    def test_async_review_uses_same_backend_contract(self):
+        observed: dict[str, object] = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            observed["method"] = request.method
+            observed["path"] = request.url.path
+            observed["body"] = json.loads(request.content.decode("utf-8"))
+            return httpx.Response(200, json=build_review_payload(request_id="review-async", classification="HIGH_RISK"))
+
+        async def scenario() -> None:
+            transport = httpx.MockTransport(handler)
+            async with AsyncNoupeClient("http://noupe.test", transport=transport) as client:
+                result = await client.review(
+                    document_base64="U2VuZCB0byBqYW5lQGV4YW1wbGUuY29t",
+                    document_filename="memo.txt",
+                    document_mime_type="text/plain",
+                    source_jurisdiction="SG",
+                    destination_jurisdiction="SEA",
+                )
+                self.assertEqual(result.classification, Classification.HIGH_RISK)
+                self.assertEqual(result.request_id, "review-async")
+
+        asyncio.run(scenario())
+
+        self.assertEqual(observed["method"], "POST")
+        self.assertEqual(observed["path"], "/review")
+        self.assertEqual(
+            observed["body"],
+            {
+                "document_base64": "U2VuZCB0byBqYW5lQGV4YW1wbGUuY29t",
+                "document_filename": "memo.txt",
+                "document_mime_type": "text/plain",
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "SEA",
+                "document_type": "generic",
+                "review_profile": "strict",
+                "include_suggestions": True,
             },
         )
 

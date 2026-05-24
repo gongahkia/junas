@@ -214,6 +214,23 @@ curl -X POST http://localhost:8000/classify \
   -d '{"text": "Acme Corp is acquiring GlobalTech for $2.5 billion", "include_offending_spans": true}'
 ```
 
+Pre-send PII + MNPI review with source/destination jurisdictions:
+
+```sh
+curl -X POST http://localhost:8000/review \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Please send to Tan S1234567D. Confidential: Acme Corp will acquire GlobalTech before announcement for $2.5 billion.",
+    "source_jurisdiction": "SG",
+    "destination_jurisdiction": "US",
+    "document_type": "research_note",
+    "entity_id": "Acme Corp",
+    "include_suggestions": true
+  }'
+```
+
+For file uploads through an integration, send base64 text, DOCX, or PDF content with `document_base64`, `document_filename`, and optionally `document_mime_type`. The response includes `pii_score`, `mnpi_score`, exact finding offsets, and suggested redactions or rewrites.
+
 API docs auto-served at `http://localhost:8000/docs` (Swagger) and `http://localhost:8000/redoc`.
 
 ## Optional Public Evidence + Local LLM

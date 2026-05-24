@@ -13,6 +13,8 @@ from .backend.schemas import (
     DiagnosticsResponse,
     HealthResponse,
     ReadyResponse,
+    ReviewRequest,
+    ReviewResponse,
 )
 
 DEFAULT_BASE_URL = "http://localhost:8000"
@@ -117,6 +119,41 @@ def _coerce_batch_request(
     return BatchClassifyRequest(items=normalized_items)
 
 
+def _coerce_review_request(
+    *,
+    request: ReviewRequest | Mapping[str, Any] | None,
+    text: str | None,
+    document_base64: str | None,
+    document_filename: str | None,
+    document_mime_type: str | None,
+    source_jurisdiction: str,
+    destination_jurisdiction: str,
+    document_type: str,
+    review_profile: str,
+    entity_id: str | None,
+    include_suggestions: bool,
+) -> ReviewRequest:
+    if request is not None:
+        if text is not None or document_base64 is not None:
+            raise ValueError("pass either request=... or text/document_base64=..., not both")
+        if isinstance(request, ReviewRequest):
+            return request
+        return ReviewRequest.model_validate(request)
+
+    return ReviewRequest(
+        text=text,
+        document_base64=document_base64,
+        document_filename=document_filename,
+        document_mime_type=document_mime_type,
+        source_jurisdiction=source_jurisdiction,
+        destination_jurisdiction=destination_jurisdiction,
+        document_type=document_type,
+        review_profile=review_profile,
+        entity_id=entity_id,
+        include_suggestions=include_suggestions,
+    )
+
+
 class NoupeAPIError(RuntimeError):
     def __init__(self, message: str, *, status_code: int, detail: str = "", body: Any = None) -> None:
         super().__init__(message)
@@ -126,8 +163,7 @@ class NoupeAPIError(RuntimeError):
 
 
 class NoupeClient:
-    """Typed Python client for the Noup
-    e backend HTTP API."""
+    """Typed Python client for the Noupe backend HTTP API."""
 
     def __init__(
         self,
@@ -230,6 +266,42 @@ class NoupeClient:
         items: Sequence[ClassifyRequest | Mapping[str, Any]],
     ) -> list[ClassifyResponse]:
         return self.classify_batch(items=items).results
+
+    def review(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        request: ReviewRequest | Mapping[str, Any] | None = None,
+    ) -> ReviewResponse:
+        payload = _coerce_review_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+        )
+        return ReviewResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/review",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
 
 
 class AsyncNoupeClient:
@@ -336,6 +408,42 @@ class AsyncNoupeClient:
         items: Sequence[ClassifyRequest | Mapping[str, Any]],
     ) -> list[ClassifyResponse]:
         return (await self.classify_batch(items=items)).results
+
+    async def review(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        request: ReviewRequest | Mapping[str, Any] | None = None,
+    ) -> ReviewResponse:
+        payload = _coerce_review_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+        )
+        return ReviewResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/review",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
 
 
 def classify_text(

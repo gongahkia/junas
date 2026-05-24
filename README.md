@@ -1,6 +1,6 @@
 # Noupe
 
-Noupe is a backend-first MNPI screening repository.
+Noupe is a backend-first MNPI screening repository. The current API supports both document-level MNPI classification and pre-send PII/MNPI review with jurisdiction-aware findings and remediation suggestions.
 
 ## Layout
 
