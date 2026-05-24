@@ -49,6 +49,21 @@ class LocalLLMAdjudicator:
         # Privacy-hardened input mode. `raw_text` (default) ships document text; in
         # `structured_tokens`, the adjudicator only ships abstract tokens + hashes.
         self.llm_input_mode = str(getattr(settings, "llm_input_mode", "raw_text") or "raw_text")
+        # provider=local_distilled config: the LoRA adapter directory and the HF base
+        # model id. Read from settings or env (env wins, matches the rest of the
+        # runtime). Only consulted when provider=local_distilled.
+        self.distilled_adapter_path = str(
+            getattr(settings, "distilled_adapter_path", "") or os.environ.get(
+                "KAYPOH_LLM_DISTILLED_ADAPTER_PATH", "",
+            ) or ""
+        )
+        self.distilled_base_model = str(
+            getattr(settings, "distilled_base_model", "") or os.environ.get(
+                "KAYPOH_LLM_DISTILLED_BASE_MODEL", "",
+            ) or "Qwen/Qwen2.5-1.5B-Instruct"
+        )
+        # cached student adjudicator (lazy-built on first local_distilled call)
+        self._distilled_student: Any | None = None
 
     def _disabled(self, detail: str) -> dict[str, Any]:
         return {
