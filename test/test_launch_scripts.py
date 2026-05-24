@@ -37,16 +37,12 @@ def wait_for_url(url: str, proc: subprocess.Popen, timeout: float = 45.0) -> str
 
 
 class LaunchScriptSmokeTests(unittest.TestCase):
-    def _start_script(self, script_name: str, *, frontends: str = "none") -> tuple[subprocess.Popen, int, int]:
+    def _start_script(self, script_name: str) -> tuple[subprocess.Popen, int]:
         backend_port = reserve_port()
-        demo_port = reserve_port()
         env = {
             **os.environ,
             "KAYPOH_HOST": "127.0.0.1",
             "KAYPOH_PORT": str(backend_port),
-            "KAYPOH_FRONTEND_DEMO_PORT": str(demo_port),
-            "KAYPOH_FRONTENDS": frontends,
-            "KAYPOH_NO_BROWSER": "1",
             "KAYPOH_UVICORN_WORKERS": "1",
             "PIPELINE_LAYERS": "lexicon",
         }
@@ -58,7 +54,7 @@ class LaunchScriptSmokeTests(unittest.TestCase):
             stderr=subprocess.STDOUT,
             text=True,
         )
-        return proc, backend_port, demo_port
+        return proc, backend_port
 
     def _stop_script(self, proc: subprocess.Popen) -> None:
         proc.terminate()
@@ -72,7 +68,7 @@ class LaunchScriptSmokeTests(unittest.TestCase):
                 proc.stdout.close()
 
     def test_run_backend_only_starts_ready_backend(self):
-        proc, backend_port, _demo_port = self._start_script("run_backend_only.sh")
+        proc, backend_port = self._start_script("run_backend_only.sh")
         try:
             ready_payload = wait_for_url(f"http://127.0.0.1:{backend_port}/ready", proc)
             health_payload = http_get_text(f"http://127.0.0.1:{backend_port}/health")
@@ -81,25 +77,23 @@ class LaunchScriptSmokeTests(unittest.TestCase):
         finally:
             self._stop_script(proc)
 
-    def test_run_dev_starts_backend_and_legacy_demo_server(self):
-        proc, backend_port, demo_port = self._start_script("run_dev.sh", frontends="legacy")
+    def test_run_dev_starts_ready_backend(self):
+        proc, backend_port = self._start_script("run_dev.sh")
         try:
             ready_payload = wait_for_url(f"http://127.0.0.1:{backend_port}/ready", proc)
-            demo_html = wait_for_url(f"http://127.0.0.1:{demo_port}/legacy/", proc)
+            health_payload = http_get_text(f"http://127.0.0.1:{backend_port}/health")
             self.assertIn('"ready":true', ready_payload.replace(" ", "").lower())
-            self.assertIn("<!doctype html>", demo_html.lower())
-            self.assertIn("kaypoh", demo_html.lower())
+            self.assertIn('"lexicon_loaded":true', health_payload.replace(" ", "").lower())
         finally:
             self._stop_script(proc)
 
-    def test_run_prod_starts_backend_and_chat_demo_server(self):
-        proc, backend_port, demo_port = self._start_script("run_prod.sh", frontends="chat")
+    def test_run_prod_starts_ready_backend(self):
+        proc, backend_port = self._start_script("run_prod.sh")
         try:
             ready_payload = wait_for_url(f"http://127.0.0.1:{backend_port}/ready", proc, timeout=60.0)
-            demo_html = wait_for_url(f"http://127.0.0.1:{demo_port}/chat/", proc, timeout=60.0)
+            health_payload = http_get_text(f"http://127.0.0.1:{backend_port}/health")
             self.assertIn('"ready":true', ready_payload.replace(" ", "").lower())
-            self.assertIn("<!doctype html>", demo_html.lower())
-            self.assertIn("kaypoh", demo_html.lower())
+            self.assertIn('"lexicon_loaded":true', health_payload.replace(" ", "").lower())
         finally:
             self._stop_script(proc)
 

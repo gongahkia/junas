@@ -25,13 +25,8 @@ class BackendOnlyLayoutTests(unittest.TestCase):
                 response = client.get(path)
                 self.assertEqual(response.status_code, 404)
 
-    def test_archived_demo_assets_exist(self):
-        expected_paths = [
-            ROOT / "archive" / "frontend-demos" / "legacy" / "index.html",
-            ROOT / "archive" / "frontend-demos" / "chat" / "index.html",
-        ]
-        for path in expected_paths:
-            self.assertTrue(path.exists(), f"missing archived demo asset: {path}")
+    def test_archived_demo_assets_are_pruned(self):
+        self.assertFalse((ROOT / "archive" / "frontend-demos").exists())
 
     def test_latency_corpus_folder_exists(self):
         expected_paths = [

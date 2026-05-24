@@ -10,7 +10,7 @@ PIPELINE_LAYERS_NORMALIZED=""
 
 trap cleanup_services EXIT INT TERM
 
-echo "🚀 Starting Kaypoh development services..."
+echo "🚀 Starting Kaypoh development backend..."
 
 apply_pipeline_selection() {
     local requested
@@ -204,11 +204,9 @@ pipeline_has_layer() {
     esac
 }
 
-prompt_frontends "all"
 prompt_pipeline_layers
 
 echo ""
-echo "Frontend selection: ${FRONTEND_SELECTION}"
 echo "Pipeline selection: ${PIPELINE_LAYERS_NORMALIZED}"
 print_pipeline_notes
 
@@ -262,18 +260,10 @@ python3 -m uvicorn backend.main:app --host "${KAYPOH_HOST}" --port "${KAYPOH_POR
 BACKEND_PID=$!
 
 wait_for_backend_ready
-emit_launch_telemetry_report "${FRONTEND_SELECTION}" || true
+emit_launch_telemetry_report "dev" || true
 
-if selection_requires_demo_server; then
-    start_demo_server
-    open_selected_frontends
-else
-    echo "ℹ️  Backend is ready. No frontend opened."
-fi
-
-echo "✅ Services are running."
+echo "✅ Development backend is running."
 echo "   Backend: ${BACKEND_URL}"
-print_selected_frontends
 echo "Press Ctrl+C to stop everything."
 
 wait "${BACKEND_PID}"
