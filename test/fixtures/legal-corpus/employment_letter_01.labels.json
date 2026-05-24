@@ -1,0 +1,17 @@
+{
+  "doc_id": "employment_letter_01",
+  "document_type": "employment_letter",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {"rule": "named_person", "matched_text": "Mr Andrew Goh"},
+    {"rule": "named_person", "matched_text": "Andrew Goh"},
+    {"rule": "sg_postal_address", "matched_text": "069113"},
+    {"rule": "phone_number", "matched_text": "+65 9876 5432"},
+    {"rule": "passport_number", "matched_text": "E1234567"},
+    {"rule": "sg_uen", "matched_text": "200512345A"},
+    {"rule": "financial_amount", "matched_text": "$250,000"},
+    {"rule": "email_address", "matched_text": "hr@initiatives.sg"}
+  ],
+  "must_not_detect": []
+}

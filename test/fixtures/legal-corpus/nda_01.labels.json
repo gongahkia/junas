@@ -1,0 +1,17 @@
+{
+  "doc_id": "nda_01",
+  "document_type": "NDA",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {"rule": "sg_nric_fin", "matched_text": "S2345678E"},
+    {"rule": "named_person", "matched_text": "Dr Sarah Chen"},
+    {"rule": "named_person", "matched_text": "Sarah Chen"},
+    {"rule": "email_address", "matched_text": "sarah.chen@initiatives.sg"}
+  ],
+  "must_not_detect": [
+    {"matched_text": "Company", "reason": "defined term"},
+    {"matched_text": "Consultant", "reason": "defined term"},
+    {"matched_text": "NDA", "reason": "defined term"}
+  ]
+}

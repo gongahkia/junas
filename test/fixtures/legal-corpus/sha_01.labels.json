@@ -1,0 +1,20 @@
+{
+  "doc_id": "sha_01",
+  "document_type": "SHA",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {"rule": "sg_uen", "matched_text": "200512345A"},
+    {"rule": "sg_uen", "matched_text": "T09LL5678B"},
+    {"rule": "sg_nric_fin", "matched_text": "S3456789F"},
+    {"rule": "named_person", "matched_text": "Mr Kenneth Wong"},
+    {"rule": "named_person", "matched_text": "Kenneth Wong"},
+    {"rule": "financial_amount", "matched_text": "$10 million"},
+    {"rule": "financial_percentage", "matched_text": "25%"}
+  ],
+  "must_not_detect": [
+    {"matched_text": "Founder", "reason": "defined term"},
+    {"matched_text": "Investor", "reason": "defined term"},
+    {"matched_text": "SHA", "reason": "defined term"}
+  ]
+}
