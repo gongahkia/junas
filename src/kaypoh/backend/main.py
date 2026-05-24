@@ -25,7 +25,13 @@ from fastapi.responses import JSONResponse
 from starlette.concurrency import run_in_threadpool
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from kaypoh.anonymize import DeterministicAnonymizer, reidentify as _reidentify_text
+from kaypoh.anonymize import (
+    DeterministicAnonymizer,
+    compute_document_hash as _compute_document_hash,
+    load_mapping as _load_persisted_mapping,
+    reidentify as _reidentify_text,
+    save_mapping as _save_persisted_mapping,
+)
 from kaypoh.review.decisions import (
     Decision,
     ReviewSessionError,
@@ -1457,6 +1463,28 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None) -> Anonym
         findings=result.findings,
     )
     timings_ms["anonymize"] = round((time.perf_counter() - t_anonymize_start) * 1000.0, 3)
+
+    document_hash = _compute_document_hash(document.text)
+    mapping_persisted = False
+    if _review_persistence_enabled() and anonymization.mapping:
+        try:
+            _save_persisted_mapping(
+                document_hash=document_hash,
+                mapping=[
+                    {
+                        "placeholder": entry.placeholder,
+                        "entity_type": entry.entity_type,
+                        "original_text": entry.original_text,
+                        "occurrence_count": entry.occurrence_count,
+                    }
+                    for entry in anonymization.mapping
+                ],
+            )
+            mapping_persisted = True
+        except OSError as exc:
+            # persistence is best-effort; the client still has the mapping in the response.
+            log_backend_event(logging.WARNING, event="mapping_persist_failed", error=str(exc))
+
     timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
 
     review_response = _build_review_response(
@@ -1469,6 +1497,8 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None) -> Anonym
     response = AnonymizeResponse(
         **review_response.model_dump(mode="python"),
         anonymized_text=anonymization.anonymized_text,
+        document_hash=document_hash,
+        mapping_persisted=mapping_persisted,
         mapping=[
             AnonymizationMappingEntryResponse(
                 placeholder=entry.placeholder,

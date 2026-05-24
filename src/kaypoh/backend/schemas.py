@@ -467,11 +467,23 @@ class ReidentifyRequest(BaseModel):
         max_length=MAX_CLASSIFY_TEXT_LENGTH,
         description="Text containing placeholders that should be restored.",
     )
-    mapping: list[ReidentifyMappingEntry] = Field(
-        ...,
-        min_length=1,
+    mapping: Optional[list[ReidentifyMappingEntry]] = Field(
+        None,
         max_length=10000,
-        description="Mapping entries from a prior /anonymize call, or a caller-supplied equivalent.",
+        description=(
+            "Mapping entries from a prior /anonymize call. Required unless document_hash is provided "
+            "and KAYPOH_REVIEW_PERSIST is enabled with a persisted mapping for that hash."
+        ),
+    )
+    document_hash: Optional[str] = Field(
+        None,
+        min_length=64,
+        max_length=64,
+        description=(
+            "Hex SHA-256 of the original document text (returned by /anonymize as `document_hash`). "
+            "If set and a persisted mapping exists locally, the runtime restores from that. "
+            "Either `mapping` or `document_hash` is required."
+        ),
     )
 
     @field_validator("anonymized_text")
@@ -482,6 +494,12 @@ class ReidentifyRequest(BaseModel):
         if not cleaned.strip():
             raise ValueError("anonymized_text must contain non-whitespace printable content")
         return cleaned
+
+    @model_validator(mode="after")
+    def require_mapping_or_hash(self):
+        if not self.mapping and not self.document_hash:
+            raise ValueError("either `mapping` or `document_hash` is required")
+        return self
 
 
 class ReidentifyResponse(BaseModel):
@@ -623,6 +641,18 @@ class AnonymizeResponse(ReviewResponse):
     )
 
     anonymized_text: str = Field(description="Extracted document text with accepted findings replaced by placeholders.")
+    document_hash: str = Field(
+        "",
+        description=(
+            "SHA-256 of the extracted document text. Use this as the `document_hash` field on "
+            "POST /reidentify to recover the mapping without retaining it client-side. Persisted "
+            "locally only when KAYPOH_REVIEW_PERSIST=1."
+        ),
+    )
+    mapping_persisted: bool = Field(
+        False,
+        description="True when the mapping was written to the local mapping store for later reidentify.",
+    )
     mapping: list[AnonymizationMappingEntryResponse] = Field(
         default_factory=list,
         description="Local mapping from placeholders back to original text.",
