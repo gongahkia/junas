@@ -5,6 +5,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from kaypoh.backend.schemas import Classification
+from kaypoh.review.citations import mnpi_rationale, pii_rationale
 from kaypoh.review.defined_terms import extract_defined_terms, is_defined_term
 from kaypoh.review.entity_linker import canonical_person, strip_honorific
 from kaypoh.review.jurisdictions import JurisdictionRulePack, resolve_rule_packs
@@ -366,15 +367,19 @@ class PreSendReviewEngine:
             if finding.category == "PII":
                 action = "redact"
                 replacement = "[REDACTED PERSONAL DATA]"
-                rationale = "Remove or mask personal data unless it is necessary for the recipient and purpose."
+                rationale = pii_rationale(rule=finding.rule, jurisdiction=finding.jurisdiction)
             elif finding.severity == "high":
                 action = "remove_or_hold"
                 replacement = "[REMOVE UNTIL PUBLICLY DISCLOSED OR APPROVED]"
-                rationale = "Hold or remove apparent non-public material information before sending."
+                rationale = mnpi_rationale(
+                    rule=finding.rule, jurisdiction=finding.jurisdiction, severity=finding.severity
+                )
             else:
                 action = "verify_or_rewrite"
                 replacement = "[CITE PUBLIC SOURCE OR GENERALISE CLAIM]"
-                rationale = "Verify public availability or rewrite to remove unsupported specificity."
+                rationale = mnpi_rationale(
+                    rule=finding.rule, jurisdiction=finding.jurisdiction, severity=finding.severity
+                )
 
             suggestions.append(
                 ReviewSuggestion(
