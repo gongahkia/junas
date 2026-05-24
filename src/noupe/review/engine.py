@@ -119,6 +119,21 @@ def _new_finding(
     )
 
 
+def _pack_scope(packs: list[JurisdictionRulePack]) -> str:
+    return "+".join(pack.code for pack in packs)
+
+
+def _legal_basis(packs: list[JurisdictionRulePack], field_name: str) -> str:
+    rules: list[str] = []
+    seen: set[str] = set()
+    for pack in packs:
+        for rule in getattr(pack, field_name):
+            if rule not in seen:
+                rules.append(rule)
+                seen.add(rule)
+    return ", ".join(rules)
+
+
 class PreSendReviewEngine:
     def __init__(
         self,
@@ -131,16 +146,25 @@ class PreSendReviewEngine:
 
     def _pii_findings(self, text: str, packs: list[JurisdictionRulePack]) -> list[ReviewFinding]:
         findings: list[ReviewFinding] = []
-        primary = packs[0]
-        patterns = [
-            ("sg_nric_fin", SG_NRIC_RE, "high", "Singapore NRIC/FIN-like identifier"),
-            ("email_address", EMAIL_RE, "medium", "Email address can identify an individual"),
-            ("phone_number", PHONE_RE, "medium", "Phone number can identify or contact an individual"),
-            ("passport_number", PASSPORT_RE, "high", "Passport-like identifier"),
-            ("sg_postal_address", SG_POSTAL_RE, "medium", "Singapore postal-code address signal"),
-            ("bank_account", BANK_ACCOUNT_RE, "high", "Bank/account-like financial identifier"),
-            ("named_person", NAME_RE, "low", "Named person reference"),
-        ]
+        jurisdiction = _pack_scope(packs)
+        legal_basis = _legal_basis(packs, "pii_rules")
+        patterns = []
+        if any(pack.code == "SG" for pack in packs):
+            patterns.extend(
+                [
+                    ("sg_nric_fin", SG_NRIC_RE, "high", "Singapore NRIC/FIN-like identifier"),
+                    ("sg_postal_address", SG_POSTAL_RE, "medium", "Singapore postal-code address signal"),
+                ]
+            )
+        patterns.extend(
+            [
+                ("email_address", EMAIL_RE, "medium", "Email address can identify an individual"),
+                ("phone_number", PHONE_RE, "medium", "Phone number can identify or contact an individual"),
+                ("passport_number", PASSPORT_RE, "high", "Passport-like identifier"),
+                ("bank_account", BANK_ACCOUNT_RE, "high", "Bank/account-like financial identifier"),
+                ("named_person", NAME_RE, "low", "Named person reference"),
+            ]
+        )
 
         idx = 0
         for rule, pattern, severity, reason in patterns:
@@ -153,13 +177,13 @@ class PreSendReviewEngine:
                         idx=idx,
                         category="PII",
                         rule=rule,
-                        jurisdiction=primary.code,
+                        jurisdiction=jurisdiction,
                         severity=severity,
                         matched_text=text[start:end],
                         start=start,
                         end=end,
                         reason=reason,
-                        legal_basis=", ".join(primary.pii_rules),
+                        legal_basis=legal_basis,
                     )
                 )
                 idx += 1
@@ -167,7 +191,8 @@ class PreSendReviewEngine:
 
     def _mnpi_findings(self, text: str, packs: list[JurisdictionRulePack]) -> list[ReviewFinding]:
         findings: list[ReviewFinding] = []
-        primary = packs[0]
+        jurisdiction = _pack_scope(packs)
+        legal_basis = _legal_basis(packs, "mnpi_rules")
         idx = 0
         for match in MATERIAL_EVENT_RE.finditer(text):
             context = _line_context(text, match.start(), match.end())
@@ -185,13 +210,13 @@ class PreSendReviewEngine:
                     idx=idx,
                     category="MNPI",
                     rule="material_event",
-                    jurisdiction=primary.code,
+                    jurisdiction=jurisdiction,
                     severity=severity,
                     matched_text=context or match.group(),
                     start=max(0, text.rfind("\n", 0, match.start()) + 1),
                     end=(text.find("\n", match.end()) if text.find("\n", match.end()) >= 0 else len(text)),
                     reason=reason,
-                    legal_basis=", ".join(primary.mnpi_rules),
+                    legal_basis=legal_basis,
                 )
             )
             idx += 1
@@ -208,13 +233,13 @@ class PreSendReviewEngine:
                         idx=idx,
                         category="MNPI",
                         rule=rule,
-                        jurisdiction=primary.code,
+                        jurisdiction=jurisdiction,
                         severity=severity,
                         matched_text=match.group(),
                         start=match.start(),
                         end=match.end(),
                         reason=reason,
-                        legal_basis=", ".join(primary.mnpi_rules),
+                        legal_basis=legal_basis,
                     )
                 )
                 idx += 1

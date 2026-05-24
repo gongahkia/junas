@@ -148,6 +148,9 @@ class PreSendReviewApiTests(unittest.TestCase):
         self.assertEqual(payload["jurisdictions_applied"], ["SG", "US"])
         self.assertEqual(payload["source_jurisdiction"], "SG")
         self.assertEqual(payload["destination_jurisdiction"], "US")
+        self.assertTrue(payload["findings"])
+        self.assertTrue(all(finding["jurisdiction"] == "SG+US" for finding in payload["findings"]))
+        self.assertTrue(any("US_MNPI_INSIDER_TRADING" in finding["legal_basis"] for finding in payload["findings"]))
 
     def test_review_accepts_base64_text_document(self):
         encoded = base64.b64encode(
