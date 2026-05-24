@@ -331,6 +331,22 @@ class LLMAdjudicationResponse(BaseModel):
         description="Claims the local LLM could not match to public evidence.",
     )
     review_recommendation: str = Field("", description="Suggested reviewer action.")
+    input_mode: str = Field(
+        "raw_text",
+        description=(
+            "LLM input mode used for this adjudication. `raw_text` (default) sent the "
+            "document text + sanitised context. `structured_tokens` sent only abstract "
+            "tokens + SHA-256 hashes; the doc body never left the process boundary."
+        ),
+    )
+    output_clamped: bool = Field(
+        False,
+        description=(
+            "True when the LLM tried to emit a value outside the structured-mode closed "
+            "vocabulary and the server clamped its response. Only meaningful in "
+            "input_mode=structured_tokens."
+        ),
+    )
 
 
 class ReviewDocumentMetadataResponse(BaseModel):
