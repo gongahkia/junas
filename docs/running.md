@@ -176,6 +176,11 @@ with KaypohClient("http://localhost:8000") as client:
 
 `KaypohClient` is synchronous and `AsyncKaypohClient` is asynchronous. Both support `anonymize(...)`, `review(...)`, `reidentify(...)`, `classify(...)`, and batch classification. Full usage is documented in `docs/api/python_client.md`.
 
+Two end-to-end example scripts ship under `scripts/examples/`:
+
+- `round_trip_example.py` — `anonymise → simulated external LLM → reidentify`, with `--use-document-hash` to demo the persistent-mapping path.
+- `decision_flow_example.py` — `/review → POST /review/{id}/decision (with X-Reviewer-ID) → GET /review/{id}` and a follow-on audit-pack export command.
+
 ## Optional Public Evidence And Local LLM
 
 Kaypoh can add sanitized public-source verification (Exa or Tinyfish) and local LLM adjudication:

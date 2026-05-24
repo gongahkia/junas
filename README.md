@@ -74,6 +74,8 @@ python3 scripts/verify_journal.py
 
 python scripts/examples/sync_client_example.py "Acme Corp is acquiring GlobalTech next quarter."
 python scripts/examples/async_client_example.py "Acme Corp is acquiring GlobalTech next quarter."
+python scripts/examples/round_trip_example.py "Send Dr Jane Tan S1234567D the draft."
+python scripts/examples/decision_flow_example.py --reviewer-id "you@example.com" "Send Dr Jane Tan S1234567D the draft. Confidential acquisition for $2.5 billion."
 ./scripts/verify_runtime.sh
 python3 scripts/bootstrap_artifacts.py --sync-from-legacy
 python3 scripts/preflight.py --strict
