@@ -24,9 +24,14 @@ from fastapi.responses import JSONResponse
 from starlette.concurrency import run_in_threadpool
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
+from kaypoh.anonymize import DeterministicAnonymizer
 from kaypoh.backend.cache import ResponseCache
 from kaypoh.backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode
 from kaypoh.backend.schemas import (
+    AnonymizationMappingEntryResponse,
+    AnonymizationReplacementResponse,
+    AnonymizeRequest,
+    AnonymizeResponse,
     BatchClassifyRequest,
     BatchClassifyResponse,
     Classification,
@@ -86,24 +91,30 @@ OPENAPI_TAGS = [
         "name": "Classification",
         "description": "Document classification endpoints for single-request and batch MNPI screening.",
     },
+    {
+        "name": "Anonymization",
+        "description": "Pre-send document review and deterministic local anonymization endpoints.",
+    },
 ]
 OPENAPI_DESCRIPTION = """
-Kaypoh is a backend-only MNPI screening API with archived demo frontends served separately by the launcher scripts.
+Kaypoh is an API-first pre-send safety engine for PII anonymization and MNPI review.
 
 Key behaviors:
 
+- `POST /anonymize` extracts inline text or text/DOCX/PDF payloads, runs the
+  PII/MNPI review stack, and returns deterministic placeholders plus a local
+  mapping table for safe downstream analysis.
+- `POST /review` runs the same evidence-first pre-send review without rewriting
+  the document, returning localized findings, remediation suggestions,
+  jurisdiction coverage, and separate PII/MNPI scores.
 - `POST /classify` accepts a single text document and returns a document-level
-  classification of `SAFE`, `LOW_RISK`, or `HIGH_RISK`.
+  legacy MNPI classification of `SAFE`, `LOW_RISK`, or `HIGH_RISK`.
 - `POST /classify/batch` processes up to 32 classify requests with bounded
   in-process concurrency while preserving result order.
-- `POST /review` runs a pre-send PII and MNPI review over inline text or
-  base64-encoded text/DOCX/PDF documents, returning localized findings,
-  remediation suggestions, jurisdiction coverage, and separate PII/MNPI scores.
 - `include_offending_spans=true` adds exact lexicon spans and approximate
   classifier-window spans when the final response is `LOW_RISK` or `HIGH_RISK`.
-- The active runtime is API-only; the legacy/chat demo surfaces
-  live under `archive/frontend-demos/` and are launched by
-  `scripts/launch/run_dev.sh` or `scripts/launch/run_prod.sh`.
+- Chain-of-evidence is exposed through findings, suggestions, public-source
+  summaries, and privacy-ledger entries. Raw chain-of-thought is not exposed.
 - `GET /ready` and `GET /diagnostics` expose degraded startup, lazy-layer warming, and dependency state.
 """.strip()
 
@@ -208,7 +219,7 @@ def has_model_weights(path: Path) -> bool:
 def get_allowed_origins() -> list[str]:
     origins = list(current_runtime_settings().api.allowed_origins) or ["http://localhost", "http://127.0.0.1"]
 
-    # Keep Origin: null allowed for manual file:// launches of the archived demo surfaces.
+    # Keep Origin: null allowed for local desktop wrappers and manual file:// clients.
     if "null" not in origins:
         origins.append("null")
 
@@ -216,7 +227,7 @@ def get_allowed_origins() -> list[str]:
 
 
 def get_allowed_origin_regex() -> str:
-    # Allow localhost origins on any port for local frontend servers.
+    # Allow localhost origins on any port for local clients and development servers.
     return r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$"
 
 
