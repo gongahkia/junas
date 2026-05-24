@@ -103,26 +103,43 @@ def _build_prompt(doc_type: str, *, adversarial: bool, multilingual: bool) -> tu
     return system, user
 
 
+class FixtureGenerationError(RuntimeError):
+    """Raised when the OpenAI call fails or returns an unexpected payload shape."""
+
+
 def _call_openai(system: str, user: str, *, model: str, api_key: str) -> str:
-    response = httpx.post(
-        "https://api.openai.com/v1/chat/completions",
-        headers={
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
-        },
-        json={
-            "model": model,
-            "messages": [
-                {"role": "system", "content": system},
-                {"role": "user", "content": user},
-            ],
-            "temperature": 0.7,
-        },
-        timeout=60.0,
-    )
-    response.raise_for_status()
-    payload = response.json()
-    return payload["choices"][0]["message"]["content"].strip()
+    try:
+        response = httpx.post(
+            "https://api.openai.com/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": model,
+                "messages": [
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": user},
+                ],
+                "temperature": 0.7,
+            },
+            timeout=60.0,
+        )
+    except httpx.HTTPError as exc:
+        raise FixtureGenerationError(f"network error calling OpenAI: {exc}") from exc
+    if response.status_code >= 400:
+        # surface the API's own error body — usually the actionable thing (model misnamed,
+        # rate-limited, key revoked).
+        raise FixtureGenerationError(
+            f"OpenAI returned {response.status_code}: {response.text[:500]}"
+        )
+    try:
+        payload = response.json()
+        return payload["choices"][0]["message"]["content"].strip()
+    except (KeyError, IndexError, ValueError) as exc:
+        raise FixtureGenerationError(
+            f"unexpected OpenAI response shape: {response.text[:500]!r}"
+        ) from exc
 
 
 def _labels_stub(slug: str, doc_type: str) -> dict:
@@ -165,7 +182,11 @@ def main(argv: list[str] | None = None) -> int:
         print("OPENAI_API_KEY is not set", file=sys.stderr)
         return 2
 
-    body = _call_openai(system, user, model=args.model, api_key=api_key)
+    try:
+        body = _call_openai(system, user, model=args.model, api_key=api_key)
+    except FixtureGenerationError as exc:
+        print(f"fixture generation failed: {exc}", file=sys.stderr)
+        return 1
 
     if args.stdout or not args.slug:
         print(body)

@@ -68,8 +68,10 @@ def _load_registry() -> tuple[dict[str, JurisdictionRulePack], dict[str, str]]:
         for path in sorted(pack_dir.glob("*.toml")):
             try:
                 pack, pack_aliases = _load_pack_file(path)
-            except (KeyError, tomllib.TOMLDecodeError) as exc:
-                # malformed customer pack: log to stderr and skip rather than crash startup.
+            except (KeyError, tomllib.TOMLDecodeError, OSError, UnicodeDecodeError) as exc:
+                # malformed / unreadable customer pack: log to stderr and skip rather than crash
+                # startup. OSError covers permission-denied / vanished file; UnicodeDecodeError
+                # covers a non-utf-8 file dropped in by mistake.
                 import sys
 
                 print(f"kaypoh: skipping malformed jurisdiction pack {path}: {exc}", file=sys.stderr)
