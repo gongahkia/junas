@@ -123,16 +123,30 @@ def _join_suffixes(codes: Iterable[str], lookup: dict[str, str]) -> str:
     return " ".join(parts)
 
 
-def pii_rationale(*, rule: str, jurisdiction: str) -> str:
+# longest matched_text we'll inline into a rationale. anything longer is truncated with an
+# ellipsis so the audit-pack artefact stays scannable.
+_MATCHED_TEXT_INLINE_LIMIT = 80
+
+
+def _format_matched_prefix(matched_text: str) -> str:
+    if not matched_text:
+        return ""
+    cleaned = " ".join(matched_text.split())  # collapse whitespace/newlines for a tidy quote
+    if len(cleaned) > _MATCHED_TEXT_INLINE_LIMIT:
+        cleaned = cleaned[: _MATCHED_TEXT_INLINE_LIMIT - 1].rstrip() + "…"
+    return f'"{cleaned}" detected → '
+
+
+def pii_rationale(*, rule: str, jurisdiction: str, matched_text: str = "") -> str:
     base = _PII_DEFAULT_RATIONALE.get(
         rule,
         "Personal data should be masked unless the recipient and purpose are documented.",
     )
     suffix = _join_suffixes(_split_jurisdictions(jurisdiction), _PII_JURISDICTION_SUFFIX)
-    return f"{base} {suffix}".strip()
+    return f"{_format_matched_prefix(matched_text)}{base} {suffix}".strip()
 
 
-def mnpi_rationale(*, rule: str, jurisdiction: str, severity: str) -> str:
+def mnpi_rationale(*, rule: str, jurisdiction: str, severity: str, matched_text: str = "") -> str:
     base = _MNPI_DEFAULT_RATIONALE.get(
         rule,
         "Material non-public information detected. Hold until publicly disclosed or generalise the claim.",
@@ -141,4 +155,4 @@ def mnpi_rationale(*, rule: str, jurisdiction: str, severity: str) -> str:
     if severity == "low":
         # public-context evidence already detected; soften the directive but keep the citation.
         base = base.rstrip(".") + " — appears public; verify the disclosing source before relying on it."
-    return f"{base} {suffix}".strip()
+    return f"{_format_matched_prefix(matched_text)}{base} {suffix}".strip()

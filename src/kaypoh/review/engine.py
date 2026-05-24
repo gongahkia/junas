@@ -34,7 +34,11 @@ MATERIAL_EVENT_RE = re.compile(
 # distinct `rule` per finding, which lets downstream suggestions cite the right thing.
 TRANSACTION_CODENAME_RE = re.compile(
     # "Project Raven", "Project Atlas Holdings" — internal deal nicknames are nearly always MNPI.
-    r"\bProject\s+[A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+){0,2}\b"
+    # the leading "Project" is case-insensitive; the codename token requires titlecase or all-caps
+    # so we don't false-positive on "project plan" / "project status" prose.
+    # whitespace between tokens is intra-line only — `\s+` would greedily consume newlines and
+    # swallow the next paragraph into the matched_text.
+    r"\b(?i:Project)[ \t]+(?:[A-Z][A-Za-z]+|[A-Z]{2,})(?:[ \t]+(?:[A-Z][A-Za-z]+|[A-Z]{2,})){0,2}\b"
 )
 DEFINITIVE_AGREEMENT_RE = re.compile(
     r"\b(?:definitive\s+agreement|binding\s+agreement|share\s+purchase\s+agreement|SPA|"
@@ -321,10 +325,16 @@ class PreSendReviewEngine:
                 idx += 1
         return findings
 
-    def _mnpi_findings(self, text: str, packs: list[JurisdictionRulePack]) -> list[ReviewFinding]:
+    def _mnpi_findings(
+        self,
+        text: str,
+        packs: list[JurisdictionRulePack],
+        defined_terms: set[str] | None = None,
+    ) -> list[ReviewFinding]:
         findings: list[ReviewFinding] = []
         jurisdiction = _pack_scope(packs)
         legal_basis = _legal_basis(packs, "mnpi_rules")
+        defined = defined_terms or set()
         idx = 0
         for match in MATERIAL_EVENT_RE.finditer(text):
             context = _line_context(text, match.start(), match.end())
@@ -353,6 +363,11 @@ class PreSendReviewEngine:
             )
             idx += 1
 
+        # rules where matching a contract's own defined term (e.g. "SPA" abbreviating itself)
+        # would false-positive. blanket-suppressing every MNPI rule against defined terms is
+        # too aggressive (e.g. "Project Atlas" as a defined transaction codename is still MNPI),
+        # so we only suppress the abbreviation-style rules.
+        suppressible_rules = {"definitive_agreement", "material_adverse_change"}
         for pattern, rule, severity, reason in [
             (NONPUBLIC_RE, "nonpublic_marker", "high", "Explicit non-public/confidentiality marker"),
             (TRANSACTION_CODENAME_RE, "transaction_codename", "high",
@@ -368,6 +383,8 @@ class PreSendReviewEngine:
             (LONG_NUMBER_RE, "large_number", "medium", "Large numeric value may be material"),
         ]:
             for match in pattern.finditer(text):
+                if rule in suppressible_rules and is_defined_term(match.group(), defined):
+                    continue
                 findings.append(
                     _new_finding(
                         idx=idx,
@@ -457,7 +474,9 @@ class PreSendReviewEngine:
     ) -> ReviewResult:
         packs = resolve_rule_packs(source_jurisdiction, destination_jurisdiction)
         defined_terms = extract_defined_terms(text)
-        findings = self._pii_findings(text, packs, document_type, defined_terms) + self._mnpi_findings(text, packs)
+        findings = self._pii_findings(text, packs, document_type, defined_terms) + self._mnpi_findings(
+            text, packs, defined_terms
+        )
         pii_score = self._score(findings, "PII")
         mnpi_score = self._score(findings, "MNPI")
         document_score = max(pii_score, mnpi_score)
