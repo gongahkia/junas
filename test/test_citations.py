@@ -42,6 +42,25 @@ class CitationRationaleTests(unittest.TestCase):
         self.assertIn("UEN", text)
         self.assertIn("directors", text)
 
+    def test_matched_text_prefixes_pii_rationale(self):
+        text = pii_rationale(rule="sg_nric_fin", jurisdiction="SG", matched_text="S1234567D")
+        self.assertTrue(text.startswith('"S1234567D" detected → '), text)
+
+    def test_matched_text_prefixes_mnpi_rationale(self):
+        text = mnpi_rationale(rule="transaction_codename", jurisdiction="SG", severity="high", matched_text="Project Atlas")
+        self.assertTrue(text.startswith('"Project Atlas" detected → '), text)
+
+    def test_matched_text_collapses_whitespace_and_truncates(self):
+        long_match = "x" * 200
+        text = pii_rationale(rule="named_person", jurisdiction="SG", matched_text=long_match)
+        # truncation marker present, full 200-char run absent
+        self.assertIn("…", text)
+        self.assertNotIn("x" * 100, text)
+
+    def test_no_prefix_when_matched_text_empty(self):
+        text = pii_rationale(rule="sg_nric_fin", jurisdiction="SG", matched_text="")
+        self.assertFalse(text.startswith('"'))
+
 
 class CitedSuggestionsEndToEndTests(unittest.TestCase):
     def setUp(self):
@@ -78,6 +97,15 @@ class CitedSuggestionsEndToEndTests(unittest.TestCase):
         self.assertTrue(mnpi_suggestions, "expected MNPI suggestions for acquisition + monetary amount")
         self.assertTrue(any("PDPA" in s["rationale"] for s in pii_suggestions))
         self.assertTrue(any("Securities and Futures Act" in s["rationale"] for s in mnpi_suggestions))
+
+        # every PII suggestion's rationale should lead with the matched text in quotes
+        for suggestion in pii_suggestions:
+            finding = next(f for f in payload["findings"] if f["id"] == suggestion["finding_id"])
+            quoted_prefix = f'"{finding["matched_text"]}" detected → '
+            # named_person matches may include whitespace that gets collapsed in the prefix;
+            # only assert prefix presence when matched_text is short and clean
+            if "\n" not in finding["matched_text"] and len(finding["matched_text"]) <= 80:
+                self.assertTrue(suggestion["rationale"].startswith(quoted_prefix), suggestion["rationale"])
 
 
 if __name__ == "__main__":
