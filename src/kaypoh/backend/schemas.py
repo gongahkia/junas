@@ -491,6 +491,65 @@ class ReidentifyResponse(BaseModel):
     timings_ms: dict[str, float] = Field(default_factory=dict, description="Reidentify timing breakdown in milliseconds.")
 
 
+class ReviewDecisionRequest(BaseModel):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "finding_id": "pii:named_person:5:16:0",
+                "action": "reject",
+                "replacement_text": "",
+                "rationale": "Defined term in contract preamble, not a real party",
+            }
+        }
+    )
+
+    finding_id: str = Field(..., min_length=1, max_length=256, description="Finding identifier from a prior /review response.")
+    action: str = Field(..., description="One of: accept, reject, rewrite.")
+    replacement_text: str = Field("", max_length=4096, description="Rewrite text when action=rewrite.")
+    rationale: str = Field("", max_length=2048, description="Reviewer note recorded in the journal.")
+
+    @field_validator("action")
+    @classmethod
+    def normalize_action(cls, value: str) -> str:
+        normalized = value.strip().lower()
+        if normalized not in {"accept", "reject", "rewrite"}:
+            raise ValueError("action must be one of: accept, reject, rewrite")
+        return normalized
+
+
+class ReviewDecisionResponse(BaseModel):
+    review_id: str = Field(description="Review session identifier.")
+    finding_id: str = Field(description="Finding identifier whose decision was recorded.")
+    action: str = Field(description="Recorded action: accept, reject, or rewrite.")
+    seq: int = Field(description="Journal sequence number for this decision event.")
+    ts: str = Field(description="UTC timestamp of the journal entry.")
+    hmac: str = Field(description="HMAC of the journal entry; reference for downstream audit verification.")
+
+
+class ReviewSessionFindingState(BaseModel):
+    id: str = Field(description="Finding identifier.")
+    category: str = Field(description="PII or MNPI.")
+    rule: str = Field(description="Rule that produced the finding.")
+    severity: str = Field(description="low | medium | high.")
+    matched_text: str = Field(description="Exact matched text from the original document.")
+    start_char: int = Field(description="Zero-based inclusive start offset.")
+    end_char: int = Field(description="Zero-based exclusive end offset.")
+    decision: Optional[str] = Field(None, description="Current decision: accept, reject, or rewrite. None when undecided.")
+    decision_seq: Optional[int] = Field(None, description="Journal seq for the most recent decision on this finding.")
+    decision_ts: Optional[str] = Field(None, description="Timestamp of the most recent decision.")
+
+
+class ReviewSessionStateResponse(BaseModel):
+    review_id: str = Field(description="Review session identifier.")
+    text_hash: str = Field(description="SHA-256 of the reviewed document text.")
+    document_type: str = Field(description="Document type recorded at session start.")
+    source_jurisdiction: str = Field(description="Source jurisdiction recorded at session start.")
+    destination_jurisdiction: str = Field(description="Destination jurisdiction recorded at session start.")
+    findings: list[ReviewSessionFindingState] = Field(default_factory=list, description="Findings merged with their latest decision.")
+    decisions_recorded: int = Field(description="Total number of decision events in this session.")
+    audit_exports: list[dict] = Field(default_factory=list, description="Audit-pack exports recorded against this session.")
+
+
 class AnonymizationReplacementResponse(BaseModel):
     finding_id: str = Field(description="Review finding that drove this replacement.")
     placeholder: str = Field(description="Placeholder inserted into anonymized_text.")

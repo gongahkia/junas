@@ -23,3 +23,6 @@ echo "🧪 Verifying Kaypoh sync and async Python clients..."
     scripts/examples/sync_client_example.py \
     scripts/examples/async_client_example.py
 "${PYTHON_BIN}" -m unittest test.test_python_client
+
+echo "🧪 Running legal-corpus recall gate..."
+PYTHONPATH="${ROOT}/src" "${PYTHON_BIN}" "${ROOT}/scripts/recall_gate.py"

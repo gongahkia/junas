@@ -5,6 +5,7 @@ import importlib
 import importlib.util
 import json
 import logging
+import os
 import sys
 import time
 import uuid
@@ -25,6 +26,14 @@ from starlette.concurrency import run_in_threadpool
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from kaypoh.anonymize import DeterministicAnonymizer, reidentify as _reidentify_text
+from kaypoh.review.decisions import (
+    Decision,
+    ReviewSessionError,
+    findings_after_decisions,
+    get_session_state,
+    record_decision,
+    start_review_session,
+)
 from kaypoh.backend.cache import ResponseCache
 from kaypoh.backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode
 from kaypoh.backend.schemas import (
@@ -55,10 +64,14 @@ from kaypoh.backend.schemas import (
     RegressionResponse,
     ReidentifyRequest,
     ReidentifyResponse,
+    ReviewDecisionRequest,
+    ReviewDecisionResponse,
     ReviewDocumentMetadataResponse,
     ReviewFindingResponse,
     ReviewRequest,
     ReviewResponse,
+    ReviewSessionFindingState,
+    ReviewSessionStateResponse,
     ReviewSuggestionResponse,
 )
 from kaypoh.configs.artifacts import get_artifact_path
@@ -1331,6 +1344,35 @@ def _build_review_response(
     )
 
 
+def _review_persistence_enabled() -> bool:
+    return _is_truthy(os.environ.get("KAYPOH_REVIEW_PERSIST"), default=False)
+
+
+def _persist_review_session(*, request_id: str | None, req: ReviewRequest, document_text: str, findings: list[Any]) -> None:
+    if not _review_persistence_enabled() or not request_id:
+        return
+    text_hash = hashlib.sha256(document_text.encode("utf-8")).hexdigest()
+    start_review_session(
+        review_id=request_id,
+        text_hash=text_hash,
+        document_type=req.document_type,
+        source_jurisdiction=req.source_jurisdiction,
+        destination_jurisdiction=req.destination_jurisdiction,
+        findings=[
+            {
+                "id": f.id,
+                "category": f.category,
+                "rule": f.rule,
+                "severity": f.severity,
+                "matched_text": f.matched_text,
+                "start_char": f.start_char,
+                "end_char": f.end_char,
+            }
+            for f in findings
+        ],
+    )
+
+
 def _run_review_sync(req: ReviewRequest, request_id: str | None) -> ReviewResponse:
     timings_ms: dict[str, float] = {}
     t_total_start = time.perf_counter()
@@ -1352,6 +1394,7 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None) -> ReviewRespon
         document_type=req.document_type,
     )
     timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
+    _persist_review_session(request_id=request_id, req=req, document_text=document.text, findings=result.findings)
     timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
 
     response = _build_review_response(

@@ -12,12 +12,15 @@ import re
 
 
 # matches the two most common defined-term introduction patterns:
-#   (the "Purchaser") | ("Vendor") | (collectively, the "Sellers")
+#   (the "Purchaser") | (this "Agreement") | ("Vendor") | (collectively, the "Sellers")
 #   "Company" means | "Buyer" shall mean | "Parties" has the meaning
+# the Title-Case capture is intentionally case-sensitive so lowercase quoted fragments are ignored.
+# only the leading determiner and the trailing verb are case-insensitive via inline (?i:...).
 _DEFINED_TERM_PATTERN = re.compile(
-    r'\(\s*(?:the\s+|collectively,?\s+(?:the\s+)?)?["“‘]([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*)["”’]\s*\)'
-    r'|["“‘]([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*)["”’]\s+(?:means|shall\s+mean|has\s+the\s+meaning|refers\s+to|will\s+mean)',
-    re.IGNORECASE,
+    r'\(\s*(?:(?i:(?:the|this|that|these|those)\s+|collectively,?\s+(?:the\s+)?))?'
+    r'["“‘]([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*)["”’]\s*\)'
+    r'|["“‘]([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*)["”’]\s+'
+    r'(?i:means|shall\s+mean|has\s+the\s+meaning|refers\s+to|will\s+mean)'
 )
 
 # honorifics to strip when comparing a named_person match against the defined-term set.
