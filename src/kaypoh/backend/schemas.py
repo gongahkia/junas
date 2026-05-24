@@ -188,6 +188,32 @@ class ReviewRequest(BaseModel):
         return self
 
 
+class AnonymizeRequest(ReviewRequest):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "text": (
+                    "Send Dr Jane Tan S1234567D the confidential draft. "
+                    "Acme Corp expects a $2.5 billion acquisition before announcement."
+                ),
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "US",
+                "document_type": "email",
+                "include_suggestions": True,
+                "include_mnpi_scalars": True,
+            }
+        }
+    )
+
+    include_mnpi_scalars: bool = Field(
+        True,
+        description=(
+            "Also replace exact financial amounts, percentages, and large numbers. "
+            "Broad MNPI material-event passages remain review findings rather than automatic replacements."
+        ),
+    )
+
+
 class LexiconHitResponse(BaseModel):
     rule: str = Field(description="Lexicon rule name that produced the hit.")
     matched_text: str = Field(description="Matched surface text recorded by the lexicon layer.")
@@ -407,6 +433,85 @@ class ReviewResponse(BaseModel):
     timings_ms: dict[str, float] = Field(
         default_factory=dict,
         description="Review timing breakdown in milliseconds plus total request time.",
+    )
+
+
+class AnonymizationMappingEntryResponse(BaseModel):
+    placeholder: str = Field(description="Deterministic replacement token assigned to the original text.")
+    entity_type: str = Field(description="Normalized anonymization entity type, such as PERSON or NRIC_FIN.")
+    original_text: str = Field(description="Original text replaced locally by this placeholder.")
+    occurrence_count: int = Field(description="Number of accepted replacements using this mapping entry.")
+
+
+class AnonymizationReplacementResponse(BaseModel):
+    finding_id: str = Field(description="Review finding that drove this replacement.")
+    placeholder: str = Field(description="Placeholder inserted into anonymized_text.")
+    entity_type: str = Field(description="Normalized anonymization entity type.")
+    original_text: str = Field(description="Exact original substring replaced.")
+    start_char: int = Field(description="Zero-based inclusive starting character offset in the extracted text.")
+    end_char: int = Field(description="Zero-based exclusive ending character offset in the extracted text.")
+
+
+class AnonymizeResponse(ReviewResponse):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "request_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                "overall_risk": "HIGH_RISK",
+                "classification": "HIGH_RISK",
+                "document_score": 91.0,
+                "pii_score": 88.0,
+                "mnpi_score": 91.0,
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "US",
+                "jurisdictions_applied": ["SG", "US"],
+                "jurisdiction_policy": "strictest_wins",
+                "document_type": "email",
+                "review_profile": "strict",
+                "document": {
+                    "filename": "inline.txt",
+                    "mime_type": "text/plain",
+                    "extraction_method": "inline_text",
+                    "page_count": None,
+                    "char_count": 120,
+                },
+                "findings": [],
+                "suggestions": [],
+                "anonymized_text": "Send [PERSON_1] [NRIC_FIN_1] the confidential draft.",
+                "mapping": [
+                    {
+                        "placeholder": "[PERSON_1]",
+                        "entity_type": "PERSON",
+                        "original_text": "Dr Jane Tan",
+                        "occurrence_count": 1,
+                    }
+                ],
+                "replacements": [
+                    {
+                        "finding_id": "pii:named_person:5:16:0",
+                        "placeholder": "[PERSON_1]",
+                        "entity_type": "PERSON",
+                        "original_text": "Dr Jane Tan",
+                        "start_char": 5,
+                        "end_char": 16,
+                    }
+                ],
+                "public_evidence": None,
+                "llm_adjudication": None,
+                "privacy_ledger": [],
+                "timings_ms": {"extract": 0.1, "review": 0.4, "anonymize": 0.2, "total": 0.7},
+            }
+        }
+    )
+
+    anonymized_text: str = Field(description="Extracted document text with accepted findings replaced by placeholders.")
+    mapping: list[AnonymizationMappingEntryResponse] = Field(
+        default_factory=list,
+        description="Local mapping from placeholders back to original text.",
+    )
+    replacements: list[AnonymizationReplacementResponse] = Field(
+        default_factory=list,
+        description="Accepted span-level replacements applied to build anonymized_text.",
     )
 
 
