@@ -1,0 +1,15 @@
+{
+  "doc_id": "vn_sha_01",
+  "document_type": "SHA",
+  "source_jurisdiction": "VN",
+  "destination_jurisdiction": "VN",
+  "must_detect": [
+    {"rule": "vn_cccd", "matched_text": "001202012345"},
+    {"rule": "named_person", "matched_text": "Mr Nguyen Van Anh"},
+    {"rule": "email_address", "matched_text": "nguyen.vananh@saigon.vn"},
+    {"rule": "financial_percentage", "matched_text": "30%"}
+  ],
+  "must_not_detect": [
+    {"matched_text": "SHA", "reason": "defined term SHA must not fire as definitive_agreement"}
+  ]
+}

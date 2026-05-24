@@ -50,6 +50,32 @@ _PII_DEFAULT_RATIONALE = {
         "Named persons are personal data under PDPA s2. For counterparty principals in a "
         "definitive agreement, treat as high sensitivity and mask before any external send."
     ),
+    # SEA jurisdictional ID rationales — kept short and statute-cited so the audit-pack
+    # artefact stays scannable. Customers can override via KAYPOH_CITATIONS_OVERRIDE.
+    "my_mykad": (
+        "Malaysia MyKad is sensitive personal data under PDPA Malaysia 2010 sections 6-7. "
+        "Mask unless explicit consent and documented purpose are on file."
+    ),
+    "id_nik": (
+        "Indonesia NIK is civil-registry personal data under UU PDP 27/2022 articles 4-10. "
+        "Disclose only with explicit consent and a documented lawful basis."
+    ),
+    "th_national_id": (
+        "Thailand 13-digit national identifier is personal data under PDPA B.E. 2562 (2019) "
+        "section 26. Mask unless lawful-basis documentation is on file."
+    ),
+    "ph_philsys": (
+        "Philippines PhilSys PSN is sensitive personal information under the Data Privacy "
+        "Act of 2012 (RA 10173) section 3(l). Mask unless explicit consent is on record."
+    ),
+    "ph_tin": (
+        "Philippines TIN is a government-issued identifier classified as personal "
+        "information under RA 10173. Mask unless tax-administration purpose is documented."
+    ),
+    "vn_cccd": (
+        "Vietnam CCCD is personal data under Decree 13/2023/ND-CP articles 2-3. Mask "
+        "unless explicit consent and documented purpose are on file."
+    ),
 }
 
 # rule -> short MNPI rationale (the citation is jurisdiction-specific so we layer on a suffix)
@@ -98,6 +124,11 @@ _PII_JURISDICTION_SUFFIX = {
     "EU": "Reference: GDPR Article 4 (personal data) and Article 5 (data-minimisation principle).",
     "UK": "Reference: UK GDPR Article 4 and the UK Data Protection Act 2018.",
     "US": "Reference: applicable US sectoral privacy law (state-level + sector-specific).",
+    "MY": "Reference: Malaysia Personal Data Protection Act 2010.",
+    "ID": "Reference: Indonesia UU Perlindungan Data Pribadi (UU PDP) No. 27/2022.",
+    "TH": "Reference: Thailand Personal Data Protection Act B.E. 2562 (2019).",
+    "PH": "Reference: Philippines Data Privacy Act of 2012 (RA 10173).",
+    "VN": "Reference: Vietnam Personal Data Protection Decree 13/2023/ND-CP.",
 }
 
 # jurisdiction-pack -> MNPI statute suffix.
@@ -108,6 +139,12 @@ _MNPI_JURISDICTION_SUFFIX = {
     "US": "Reference: SEC insider-trading guidance and Regulation FD (selective disclosure).",
     "UK": "Reference: UK Market Abuse Regulation (UK MAR) Article 7 (inside information).",
     "EU": "Reference: EU Market Abuse Regulation (EU MAR) Article 7 (inside information).",
+    "MY": "Reference: Capital Markets and Services Act 2007 ss188-189 (insider trading).",
+    "ID": "Reference: OJK capital-market disclosure regulation and Indonesia Law on Capital "
+    "Market UU 8/1995 articles 95-99.",
+    "TH": "Reference: Thailand Securities and Exchange Act B.E. 2535 ss241-243.",
+    "PH": "Reference: Philippines Securities Regulation Code (RA 8799) section 27.",
+    "VN": "Reference: Vietnam Law on Securities 2019 Article 12 (prohibited acts).",
 }
 
 

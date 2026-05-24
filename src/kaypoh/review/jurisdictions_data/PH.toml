@@ -1,0 +1,27 @@
+code = "PH"
+label = "Philippines"
+pii_rules = ["PH_DPA_PERSONAL_DATA"]
+mnpi_rules = ["PH_SRC_INSIDER_TRADING"]
+references = [
+    "Philippines Data Privacy Act of 2012 (Republic Act 10173)",
+    "Philippines Securities Regulation Code (Republic Act 8799) section 27",
+]
+aliases = ["PH", "PHILIPPINES"]
+
+# PhilSys (Philippine Identification System) — 12-digit Philippine System Number in
+# the canonical XXXX-XXXX-XXXX dashed layout.
+[[recognizers]]
+name = "PhilSys PSN"
+rule_name = "ph_philsys"
+pattern = '\b\d{4}-\d{4}-\d{4}\b'
+severity = "high"
+reason = "Philippines PhilSys System Number (PSN)"
+
+# TIN (Tax Identification Number): 9 or 12 digits with a 3-3-3 or 3-3-3-3 dashed layout.
+# Anchored on the dash format to avoid colliding with phone-style 9-12 digit runs.
+[[recognizers]]
+name = "Philippines TIN"
+rule_name = "ph_tin"
+pattern = '\b\d{3}-\d{3}-\d{3}(?:-\d{3})?\b'
+severity = "medium"
+reason = "Philippines Tax Identification Number (TIN)"

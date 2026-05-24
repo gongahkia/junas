@@ -1,0 +1,21 @@
+code = "ID"
+label = "Indonesia"
+pii_rules = ["ID_UU_PDP_PERSONAL_DATA"]
+mnpi_rules = ["ID_OJK_MARKET_ABUSE"]
+references = [
+    "Undang-Undang Perlindungan Data Pribadi (UU PDP) No. 27/2022",
+    "OJK Regulation on Capital Market Disclosure and Insider Trading",
+]
+aliases = ["ID", "INDONESIA"]
+
+# NIK (Nomor Induk Kependudukan): 16-digit civil-registry number, no separator. The
+# length is unique enough across SEA national IDs that a bare \b\d{16}\b suffices —
+# arbitrary 16-digit runs in business text are rare (credit-card spans are typically
+# 13/15/16 digits with internal grouping, but those carry their own detectors and the
+# overall span match is acceptable for v1).
+[[recognizers]]
+name = "NIK"
+rule_name = "id_nik"
+pattern = '\b\d{16}\b'
+severity = "high"
+reason = "Indonesia NIK (Nomor Induk Kependudukan) civil-registry identifier"

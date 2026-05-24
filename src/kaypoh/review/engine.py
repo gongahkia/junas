@@ -269,6 +269,43 @@ class PreSendReviewEngine:
                 )
                 idx += 1
 
+        # TOML-driven recognizers from each pack. fires per-pack rather than per-jurisdiction
+        # query because a SG+MY query should run BOTH MyKad and NRIC detectors. dedup-on-span
+        # below prevents the same matched bytes being double-counted when packs overlap (e.g.,
+        # a customer pack defining its own `email_address` recognizer).
+        seen_spans: set[tuple[str, int, int]] = {
+            (f.rule, f.start_char, f.end_char) for f in findings
+        }
+        for pack in packs:
+            for recognizer in pack.recognizers:
+                for match in recognizer.pattern.finditer(text):
+                    cg = recognizer.capture_group
+                    if cg and match.lastindex and cg <= match.lastindex:
+                        start, end = match.span(cg)
+                    else:
+                        start, end = match.span()
+                    if end <= start:
+                        continue
+                    span_key = (recognizer.rule_name, start, end)
+                    if span_key in seen_spans:
+                        continue
+                    seen_spans.add(span_key)
+                    findings.append(
+                        _new_finding(
+                            idx=idx,
+                            category="PII",
+                            rule=recognizer.rule_name,
+                            jurisdiction=jurisdiction,
+                            severity=recognizer.severity,
+                            matched_text=text[start:end],
+                            start=start,
+                            end=end,
+                            reason=recognizer.reason,
+                            legal_basis=legal_basis,
+                        )
+                    )
+                    idx += 1
+
         # named_person uses a two-pass anchor + variant linker so `Dr Jane Tan` and a later bare
         # `Jane Tan` collapse to the same anonymisation key. defined terms are suppressed.
         findings.extend(

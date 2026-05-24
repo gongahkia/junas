@@ -126,10 +126,10 @@ Snapshot of detection capabilities by jurisdiction as of 2026-05-24. ✓ = avail
 
 | Capability | SG | SEA | MY | ID | TH | PH | VN | US | UK | EU |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Curated jurisdiction pack registered | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ | ✓ | ✓ |
-| Statute-cited suggestion rationales | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ | ✓ | ✓ |
-| Local national-ID detector (NRIC / MyKad / NIK / etc.) | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
-| Local company-ID detector (UEN / SSM / EIN / etc.) | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Curated jurisdiction pack registered | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Statute-cited suggestion rationales | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Local national-ID detector (NRIC / MyKad / NIK / etc.) | ✓ | ✗ | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| Local company-ID detector (UEN / SSM / EIN / etc.) | ✓ | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
 | Local postal-address format | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | **Universal PII rules** | | | | | | | | | | |
 | `passport_number` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
@@ -148,7 +148,7 @@ Snapshot of detection capabilities by jurisdiction as of 2026-05-24. ✓ = avail
 | `financial_percentage` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | `large_number` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 
-When a customer specifies a jurisdiction without a curated pack (MY / ID / TH / PH / VN today), the runtime falls through to a synthesised baseline pack named `{CODE}_PERSONAL_DATA_BASELINE` and `{CODE}_MNPI_BASELINE`. Universal rules still fire; jurisdiction-specific local-ID detection and statute-cited rationales do not. Expansion-sequence items 19–20 close that gap.
+When a customer specifies a jurisdiction without a curated pack, the runtime falls through to a synthesised baseline pack named `{CODE}_PERSONAL_DATA_BASELINE` and `{CODE}_MNPI_BASELINE`. Universal rules still fire; jurisdiction-specific local-ID detection and statute-cited rationales do not. As of 2026-05-24, every SEA jurisdiction (SG / MY / ID / TH / PH / VN) and the Western set (US / UK / EU) ship a curated pack via items 19–20; the fall-through case now mostly applies to customers' bespoke codes.
 
 ## Expansion Sequence
 
@@ -187,7 +187,7 @@ Open work organised by theme. Shipped items are struck through and retained for 
 ### Jurisdiction breadth
 
 19. ~~Migrate `src/kaypoh/review/jurisdictions.py` from a hardcoded dict to a `jurisdictions/*.toml` plugin directory so customers can bring their own packs.~~ Shipped 2026-05-24. Built-ins live in `src/kaypoh/review/jurisdictions_data/*.toml`; customers point `KAYPOH_JURISDICTION_PACKS_DIR` at an extra dir whose `*.toml` files override built-ins by `code`.
-20. Curated SEA packs: MyKad (MY), KTP/NIK (ID), Thai national ID (TH), PhilSys/TIN (PH), CCCD (VN). Each pack ships a local-ID recognizer, statute citations, and rule-level suggestion rationales. Driven by the same fixture-corpus + recall-gate discipline used for SG.
+20. ~~Curated SEA packs: MyKad (MY), KTP/NIK (ID), Thai national ID (TH), PhilSys/TIN (PH), CCCD (VN). Each pack ships a local-ID recognizer, statute citations, and rule-level suggestion rationales. Driven by the same fixture-corpus + recall-gate discipline used for SG.~~ Shipped 2026-05-24 (seed). TOML schema extended with `[[recognizers]]` entries (compiled with case-insensitive regex by default; optional `capture_group` for prefix-anchored detectors); engine iterates `pack.recognizers` after the hardcoded SG block and dedup-on-span keeps overlapping packs clean. New rules: `my_mykad`, `id_nik`, `th_national_id`, `ph_philsys`, `ph_tin`, `vn_cccd`. Each pack adds a jurisdiction suffix to PII and MNPI rationale chains. Seed corpus at `test/fixtures/legal-corpus-sea/` (one fixture per jurisdiction) baselined at 1.0 recall + 1.0 precision in `legal-corpus-sea.lock.json`. Corpus growth to 30+ docs per jurisdiction and bare-digit (non-dashed) recognizer variants are follow-ups under item 1's discipline.
 21. ~~Statute-citation override hook (`citations_override.toml`) so customers can substitute internal compliance policy citations without forking the engine. Keyed by `(rule, jurisdiction)`, consulted before the built-in dict.~~ Shipped 2026-05-24. `KAYPOH_CITATIONS_OVERRIDE` points at a TOML with `[pii.<rule>]` / `[mnpi.<rule>]` tables keyed by jurisdiction code (`SG`, `US`, …) or `default`; consulted before the built-in lookup and honours the low-severity softener.
 
 ### Distribution surface

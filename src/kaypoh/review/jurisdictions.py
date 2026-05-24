@@ -12,17 +12,35 @@ Each pack TOML carries:
     mnpi_rules      -- list of rule identifiers
     references      -- list of citation strings
     aliases         -- optional list of aliases that normalise to `code`
+    [[recognizers]] -- optional list of jurisdiction-local PII recognizers, each with:
+                       name, rule_name, pattern, severity ∈ {low,medium,high}, reason
+                       and optional capture_group (int, defaults to 0 for full-match span)
 """
 
 from __future__ import annotations
 
 import os
+import re
 import tomllib
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 
 _BUILTIN_PACKS_DIR = Path(__file__).parent / "jurisdictions_data"
+
+
+_VALID_SEVERITIES = frozenset({"low", "medium", "high"})
+
+
+@dataclass(frozen=True)
+class Recognizer:
+    """A jurisdiction-local PII recognizer compiled from a TOML pack."""
+    name: str  # human-readable identifier; also used in error messages
+    rule_name: str  # the rule string emitted on the finding
+    pattern: "re.Pattern[str]"
+    severity: str
+    reason: str
+    capture_group: int = 0  # 0 = full match; >0 = pick that capture group's span
 
 
 @dataclass(frozen=True)
@@ -32,6 +50,58 @@ class JurisdictionRulePack:
     pii_rules: tuple[str, ...]
     mnpi_rules: tuple[str, ...]
     references: tuple[str, ...]
+    recognizers: tuple[Recognizer, ...] = field(default_factory=tuple)
+
+
+def _compile_recognizers(code: str, raw_list: list) -> tuple[Recognizer, ...]:
+    """Compile raw TOML recognizer entries into Recognizer objects. Malformed entries are
+    skipped with a stderr warning so a single typo cannot brick a whole pack."""
+    import sys
+
+    compiled: list[Recognizer] = []
+    for idx, item in enumerate(raw_list or []):
+        if not isinstance(item, dict):
+            continue
+        try:
+            name = str(item["name"])
+            rule_name = str(item["rule_name"])
+            pattern_str = str(item["pattern"])
+            severity = str(item.get("severity", "high")).lower()
+            reason = str(item.get("reason", f"{name} detector"))
+            capture_group = int(item.get("capture_group", 0))
+        except (KeyError, ValueError, TypeError) as exc:
+            print(
+                f"kaypoh: {code} recognizer #{idx}: malformed entry skipped ({exc})",
+                file=sys.stderr,
+            )
+            continue
+        if severity not in _VALID_SEVERITIES:
+            print(
+                f"kaypoh: {code} recognizer {name!r}: invalid severity {severity!r}; skipping",
+                file=sys.stderr,
+            )
+            continue
+        # case-insensitive by default — most national-ID formats appear in mixed case.
+        # packs can prefix the pattern with `(?-i:...)` if they need case-sensitive matching.
+        try:
+            pattern = re.compile(pattern_str, re.IGNORECASE)
+        except re.error as exc:
+            print(
+                f"kaypoh: {code} recognizer {name!r}: pattern compile failed ({exc}); skipping",
+                file=sys.stderr,
+            )
+            continue
+        compiled.append(
+            Recognizer(
+                name=name,
+                rule_name=rule_name,
+                pattern=pattern,
+                severity=severity,
+                reason=reason,
+                capture_group=capture_group,
+            )
+        )
+    return tuple(compiled)
 
 
 def _load_pack_file(path: Path) -> tuple[JurisdictionRulePack, list[str]]:
@@ -43,6 +113,7 @@ def _load_pack_file(path: Path) -> tuple[JurisdictionRulePack, list[str]]:
         pii_rules=tuple(str(r) for r in raw.get("pii_rules", [])),
         mnpi_rules=tuple(str(r) for r in raw.get("mnpi_rules", [])),
         references=tuple(str(r) for r in raw.get("references", [])),
+        recognizers=_compile_recognizers(code, raw.get("recognizers", [])),
     )
     aliases = [str(a).strip().upper() for a in raw.get("aliases", [])]
     if code not in aliases:
