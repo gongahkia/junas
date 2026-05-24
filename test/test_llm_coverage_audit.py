@@ -54,7 +54,7 @@ class CoverageAuditPrivacyTests(unittest.TestCase):
     def test_auditor_never_sees_matched_text_or_spans(self):
         auditor = DummyAuditor()
         engine = PreSendReviewEngine(llm_coverage_auditor=auditor)
-        text = "Send Dr Jane Tan S1234567D the draft. Confidential acquisition pending."
+        text = "Acme acquisition for $2.5 billion is pending."  # in ambiguous band
         engine.review(
             text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
             entity_id=None, include_suggestions=False, document_type="memo",
@@ -72,7 +72,7 @@ class CoverageAuditPrivacyTests(unittest.TestCase):
     def test_auditor_receives_sha256_body_hash(self):
         auditor = DummyAuditor()
         engine = PreSendReviewEngine(llm_coverage_auditor=auditor)
-        text = "any text"
+        text = "Acme acquisition for $2.5 billion is pending."
         engine.review(
             text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
             entity_id=None, include_suggestions=False, document_type="generic",
@@ -88,7 +88,7 @@ class CoverageAuditResultIntegrationTests(unittest.TestCase):
         auditor = DummyAuditor()
         engine = PreSendReviewEngine(llm_coverage_auditor=auditor)
         result = engine.review(
-            text="Confidential acquisition is happening.", source_jurisdiction="SG",
+            text="Acme acquisition for $2.5 billion is pending.", source_jurisdiction="SG",
             destination_jurisdiction="SG", entity_id=None, include_suggestions=False,
             document_type="memo", review_profile="audit_grade",
         )
@@ -128,10 +128,11 @@ class CoverageAuditResultIntegrationTests(unittest.TestCase):
 
     def test_failing_auditor_is_safe(self):
         engine = PreSendReviewEngine(llm_coverage_auditor=FailingAuditor())
+        text = "Acme acquisition for $2.5 billion is pending."  # in ambiguous band
         result = engine.review(
-            text="Acme acquisition for $2.5 billion is pending.", source_jurisdiction="SG",
-            destination_jurisdiction="SG", entity_id=None, include_suggestions=False,
-            document_type="memo", review_profile="audit_grade",
+            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
+            entity_id=None, include_suggestions=False, document_type="memo",
+            review_profile="audit_grade",
         )
         # auditor crashed; coverage_warnings should be [] but the review still completed.
         self.assertEqual(result.coverage_warnings, [])
@@ -148,7 +149,7 @@ class CoverageAuditResultIntegrationTests(unittest.TestCase):
                 ]
         engine = PreSendReviewEngine(llm_coverage_auditor=BadAuditor())
         result = engine.review(
-            text="Acme acquisition is pending.", source_jurisdiction="SG",
+            text="Acme acquisition for $2.5 billion is pending.", source_jurisdiction="SG",
             destination_jurisdiction="SG", entity_id=None, include_suggestions=False,
             document_type="memo", review_profile="audit_grade",
         )
@@ -188,7 +189,7 @@ class CoverageAuditJournalingTests(unittest.TestCase):
         importlib.reload(main_mod)
 
     def test_warnings_journaled_with_persist_enabled(self):
-        text = "Confidential acquisition for $2.5 billion pending; Project pending."
+        text = "Acme acquisition for $2.5 billion is pending."  # in ambiguous band
         with TestClient(self.main.app) as client:
             response = client.post(
                 "/review",
