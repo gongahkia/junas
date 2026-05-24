@@ -289,6 +289,127 @@ class LLMAdjudicationResponse(BaseModel):
     review_recommendation: str = Field("", description="Suggested reviewer action.")
 
 
+class ReviewDocumentMetadataResponse(BaseModel):
+    filename: str = Field(description="Original or inferred document filename.")
+    mime_type: str = Field(description="Document MIME type used for extraction.")
+    extraction_method: str = Field(description="Extraction path used for review, such as inline_text or docx_xml.")
+    page_count: Optional[int] = Field(None, description="Extracted page count when available, such as for PDFs.")
+    char_count: int = Field(description="Character count of the normalized extracted text reviewed by the engine.")
+
+
+class ReviewFindingResponse(BaseModel):
+    id: str = Field(description="Stable finding identifier for frontend highlighting.")
+    category: str = Field(description="Finding category: PII or MNPI.")
+    rule: str = Field(description="Rule or detector that produced the finding.")
+    jurisdiction: str = Field(description="Jurisdiction rule pack responsible for the finding.")
+    severity: str = Field(description="Finding severity: low, medium, or high.")
+    score: float = Field(description="Numeric risk contribution for this finding.")
+    matched_text: str = Field(description="Exact reviewed text span or local context that triggered the finding.")
+    start_char: int = Field(description="Zero-based inclusive starting character offset.")
+    end_char: int = Field(description="Zero-based exclusive ending character offset.")
+    reason: str = Field(description="Human-readable reason this finding is risky.")
+    legal_basis: str = Field(description="Policy or legal rule family applied to this finding.")
+
+
+class ReviewSuggestionResponse(BaseModel):
+    id: str = Field(description="Stable suggestion identifier.")
+    finding_id: str = Field(description="Finding this suggestion remediates.")
+    action: str = Field(description="Suggested action, such as redact, remove_or_hold, or verify_or_rewrite.")
+    replacement_text: str = Field(description="Suggested replacement placeholder or rewrite instruction.")
+    rationale: str = Field(description="Reason this remediation is appropriate.")
+
+
+class ReviewResponse(BaseModel):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "request_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                "overall_risk": "HIGH_RISK",
+                "classification": "HIGH_RISK",
+                "document_score": 91.0,
+                "pii_score": 85.0,
+                "mnpi_score": 91.0,
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "US",
+                "jurisdictions_applied": ["SG", "US"],
+                "jurisdiction_policy": "strictest_wins",
+                "document_type": "research_note",
+                "review_profile": "strict",
+                "document": {
+                    "filename": "inline.txt",
+                    "mime_type": "text/plain",
+                    "extraction_method": "inline_text",
+                    "page_count": None,
+                    "char_count": 112,
+                },
+                "findings": [
+                    {
+                        "id": "pii:sg_nric_fin:25:34:0",
+                        "category": "PII",
+                        "rule": "sg_nric_fin",
+                        "jurisdiction": "SG",
+                        "severity": "high",
+                        "score": 85.0,
+                        "matched_text": "S1234567D",
+                        "start_char": 25,
+                        "end_char": 34,
+                        "reason": "Singapore NRIC/FIN-like identifier",
+                        "legal_basis": "SG_PDPA_PERSONAL_DATA, SG_PDPA_SENSITIVE_CONTEXT",
+                    }
+                ],
+                "suggestions": [
+                    {
+                        "id": "suggestion:0",
+                        "finding_id": "pii:sg_nric_fin:25:34:0",
+                        "action": "redact",
+                        "replacement_text": "[REDACTED PERSONAL DATA]",
+                        "rationale": "Remove or mask personal data unless it is necessary for the recipient and purpose.",
+                    }
+                ],
+                "public_evidence": None,
+                "llm_adjudication": None,
+                "privacy_ledger": [],
+                "timings_ms": {"review": 3.2, "total": 3.2},
+            }
+        }
+    )
+
+    request_id: Optional[str] = Field(None, description="Per-request UUID also returned as the X-Request-ID header.")
+    overall_risk: Classification = Field(description="Document-level pre-send risk rating.")
+    classification: Classification = Field(description="Alias of overall_risk for existing classifier consumers.")
+    document_score: float = Field(description="Overall numeric risk score after strictest-wins aggregation.")
+    pii_score: float = Field(description="PII-specific numeric risk score.")
+    mnpi_score: float = Field(description="MNPI-specific numeric risk score.")
+    source_jurisdiction: str = Field(description="Jurisdiction where the document originates.")
+    destination_jurisdiction: str = Field(description="Jurisdiction where the document will be sent.")
+    jurisdictions_applied: list[str] = Field(description="Resolved jurisdiction rule packs applied to the review.")
+    jurisdiction_policy: str = Field(description="Jurisdiction aggregation policy; v1 uses strictest_wins.")
+    document_type: str = Field(description="Customer-supplied document type reviewed by the endpoint.")
+    review_profile: str = Field(description="Review profile used by the endpoint.")
+    document: ReviewDocumentMetadataResponse = Field(description="Extracted document metadata.")
+    findings: list[ReviewFindingResponse] = Field(default_factory=list, description="Localized PII and MNPI findings.")
+    suggestions: list[ReviewSuggestionResponse] = Field(
+        default_factory=list,
+        description="Suggested redactions or rewrite actions for findings.",
+    )
+    public_evidence: Optional[PublicEvidenceResponse] = Field(
+        None,
+        description="Sanitized public-source retrieval output when public evidence is enabled.",
+    )
+    llm_adjudication: Optional[LLMAdjudicationResponse] = Field(
+        None,
+        description="Local LLM adjudication output when the local adjudicator is enabled.",
+    )
+    privacy_ledger: list[PrivacyLedgerEntryResponse] = Field(
+        default_factory=list,
+        description="Privacy guard decisions for any outbound retrieval operations.",
+    )
+    timings_ms: dict[str, float] = Field(
+        default_factory=dict,
+        description="Review timing breakdown in milliseconds plus total request time.",
+    )
+
+
 class MosaicResponse(BaseModel):
     entity_id: str = Field(description="Normalized entity key used for rolling-window aggregation.")
     escalated: bool = Field(description="Whether Mosaic escalated a low-risk result to high risk.")

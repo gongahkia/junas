@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+import html
 import re
 import zipfile
 from dataclasses import dataclass
@@ -45,15 +46,26 @@ def _extract_docx(data: bytes) -> str:
         except KeyError as exc:
             raise ValueError("DOCX payload missing word/document.xml") from exc
 
-    root = ElementTree.fromstring(document_xml)
-    namespace = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
-    paragraphs: list[str] = []
-    for paragraph in root.findall(".//w:p", namespace):
-        parts = [node.text or "" for node in paragraph.findall(".//w:t", namespace)]
-        text = "".join(parts).strip()
-        if text:
-            paragraphs.append(text)
-    return "\n".join(paragraphs)
+    try:
+        root = ElementTree.fromstring(document_xml)
+        namespace = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
+        paragraphs: list[str] = []
+        for paragraph in root.findall(".//w:p", namespace):
+            parts = [node.text or "" for node in paragraph.findall(".//w:t", namespace)]
+            text = "".join(parts).strip()
+            if text:
+                paragraphs.append(text)
+        return "\n".join(paragraphs)
+    except Exception:
+        xml = document_xml.decode("utf-8", errors="replace")
+        paragraph_xml = re.findall(r"<w:p\b.*?</w:p>", xml, flags=re.IGNORECASE | re.DOTALL) or [xml]
+        paragraphs = []
+        for paragraph in paragraph_xml:
+            parts = re.findall(r"<w:t(?:\s[^>]*)?>(.*?)</w:t>", paragraph, flags=re.IGNORECASE | re.DOTALL)
+            text = "".join(html.unescape(re.sub(r"<[^>]+>", "", part)) for part in parts).strip()
+            if text:
+                paragraphs.append(text)
+        return "\n".join(paragraphs)
 
 
 def _extract_pdf(data: bytes) -> tuple[str, int | None]:

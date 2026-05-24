@@ -48,10 +48,17 @@ from noupe.backend.schemas import (
     PublicEvidenceResponse,
     ReadyResponse,
     RegressionResponse,
+    ReviewDocumentMetadataResponse,
+    ReviewFindingResponse,
+    ReviewRequest,
+    ReviewResponse,
+    ReviewSuggestionResponse,
 )
 from noupe.configs.artifacts import get_artifact_path
 from noupe.configs.runtime import RuntimeSettings, get_runtime_settings
 from noupe.helper.determinism import configure_determinism
+from noupe.review.document import extract_review_document
+from noupe.review.engine import PreSendReviewEngine
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
@@ -89,6 +96,9 @@ Key behaviors:
   classification of `SAFE`, `LOW_RISK`, or `HIGH_RISK`.
 - `POST /classify/batch` processes up to 32 classify requests with bounded
   in-process concurrency while preserving result order.
+- `POST /review` runs a pre-send PII and MNPI review over inline text or
+  base64-encoded text/DOCX/PDF documents, returning localized findings,
+  remediation suggestions, jurisdiction coverage, and separate PII/MNPI scores.
 - `include_offending_spans=true` adds exact lexicon spans and approximate
   classifier-window spans when the final response is `LOW_RISK` or `HIGH_RISK`.
 - The active runtime is API-only; the legacy/chat demo surfaces
@@ -1218,6 +1228,133 @@ def _run_batch_classify_sync(req: BatchClassifyRequest, base_request_id: str | N
     return BatchClassifyResponse(results=results)
 
 
+def _build_review_engine() -> PreSendReviewEngine:
+    settings = current_runtime_settings()
+
+    public_evidence = get_layer_model("public_evidence")
+    if public_evidence is None and settings.public_evidence.enabled:
+        from noupe.workflow.layer7_public_evidence.inference import PublicEvidenceRetriever
+        from noupe.workflow.privacy_guard import PrivacyGuard
+
+        public_evidence = PublicEvidenceRetriever(
+            settings.public_evidence,
+            PrivacyGuard(
+                external_query_policy=settings.privacy.external_query_policy,
+                max_query_chars=settings.privacy.max_query_chars,
+                redact_exact_numbers=settings.privacy.redact_exact_numbers,
+            ),
+        )
+
+    llm_adjudicator = get_layer_model("llm_adjudicator")
+    if llm_adjudicator is None and settings.llm.enabled:
+        from noupe.workflow.layer8_llm_adjudicator.inference import LocalLLMAdjudicator
+
+        llm_adjudicator = LocalLLMAdjudicator(settings.llm)
+
+    return PreSendReviewEngine(
+        public_evidence_retriever=public_evidence,
+        llm_adjudicator=llm_adjudicator,
+    )
+
+
+def _run_review_sync(req: ReviewRequest, request_id: str | None) -> ReviewResponse:
+    timings_ms: dict[str, float] = {}
+    t_total_start = time.perf_counter()
+    t_extract_start = time.perf_counter()
+    try:
+        document = extract_review_document(req)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    timings_ms["extract"] = round((time.perf_counter() - t_extract_start) * 1000.0, 3)
+
+    t_review_start = time.perf_counter()
+    engine = _build_review_engine()
+    result = engine.review(
+        text=document.text,
+        source_jurisdiction=req.source_jurisdiction,
+        destination_jurisdiction=req.destination_jurisdiction,
+        entity_id=req.entity_id,
+        include_suggestions=req.include_suggestions,
+    )
+    timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
+    timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
+
+    response = ReviewResponse(
+        request_id=request_id,
+        overall_risk=result.overall_risk,
+        classification=result.overall_risk,
+        document_score=result.document_score,
+        pii_score=result.pii_score,
+        mnpi_score=result.mnpi_score,
+        source_jurisdiction=req.source_jurisdiction,
+        destination_jurisdiction=req.destination_jurisdiction,
+        jurisdictions_applied=result.jurisdictions_applied,
+        jurisdiction_policy=result.jurisdiction_policy,
+        document_type=req.document_type,
+        review_profile=req.review_profile,
+        document=ReviewDocumentMetadataResponse(
+            filename=document.filename,
+            mime_type=document.mime_type,
+            extraction_method=document.extraction_method,
+            page_count=document.page_count,
+            char_count=len(document.text),
+        ),
+        findings=[
+            ReviewFindingResponse(
+                id=finding.id,
+                category=finding.category,
+                rule=finding.rule,
+                jurisdiction=finding.jurisdiction,
+                severity=finding.severity,
+                score=finding.score,
+                matched_text=finding.matched_text,
+                start_char=finding.start_char,
+                end_char=finding.end_char,
+                reason=finding.reason,
+                legal_basis=finding.legal_basis,
+            )
+            for finding in result.findings
+        ],
+        suggestions=[
+            ReviewSuggestionResponse(
+                id=suggestion.id,
+                finding_id=suggestion.finding_id,
+                action=suggestion.action,
+                replacement_text=suggestion.replacement_text,
+                rationale=suggestion.rationale,
+            )
+            for suggestion in result.suggestions
+        ],
+        public_evidence=PublicEvidenceResponse(**result.public_evidence) if result.public_evidence else None,
+        llm_adjudication=LLMAdjudicationResponse(**result.llm_adjudication) if result.llm_adjudication else None,
+        privacy_ledger=[PrivacyLedgerEntryResponse(**entry) for entry in result.privacy_ledger],
+        timings_ms=timings_ms,
+    )
+
+    observability = get_observability()
+    if observability is not None:
+        observability.observe_classification(
+            endpoint="/review",
+            classification=result.overall_risk.value,
+            cache_status="disabled",
+            degraded=False,
+            duration_seconds=timings_ms["total"] / 1000.0,
+        )
+
+    log_backend_event(
+        logging.INFO,
+        event="review_summary",
+        request_id=request_id,
+        classification=result.overall_risk.value,
+        pii_score=result.pii_score,
+        mnpi_score=result.mnpi_score,
+        finding_count=len(result.findings),
+        jurisdictions_applied=result.jurisdictions_applied,
+        timings_ms=timings_ms,
+    )
+    return response
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     det_info = configure_determinism()
@@ -1606,6 +1743,22 @@ async def classify(request: Request, req: ClassifyRequest):
 )
 async def classify_batch(request: Request, req: BatchClassifyRequest):
     return await run_in_threadpool(_run_batch_classify_sync, req, getattr(request.state, "request_id", None))
+
+
+@app.post(
+    "/review",
+    response_model=ReviewResponse,
+    dependencies=[Depends(require_api_key)],
+    tags=["Classification"],
+    summary="Review a document before sending",
+    description=(
+        "Run a pre-send review for PII and MNPI risk over inline text or a base64-encoded text, DOCX, or PDF "
+        "document. The endpoint applies source and destination jurisdictions using a strictest-wins policy, "
+        "returns localized findings, and suggests redactions or rewrites."
+    ),
+)
+async def review_document(request: Request, req: ReviewRequest):
+    return await run_in_threadpool(_run_review_sync, req, getattr(request.state, "request_id", None))
 
 
 if __name__ == "__main__":
