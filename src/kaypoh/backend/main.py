@@ -1356,6 +1356,7 @@ def _build_review_response(
         public_evidence=PublicEvidenceResponse(**result.public_evidence) if result.public_evidence else None,
         llm_adjudication=LLMAdjudicationResponse(**result.llm_adjudication) if result.llm_adjudication else None,
         privacy_ledger=[PrivacyLedgerEntryResponse(**entry) for entry in result.privacy_ledger],
+        coverage_warnings=list(result.coverage_warnings),
         timings_ms=timings_ms,
     )
 
