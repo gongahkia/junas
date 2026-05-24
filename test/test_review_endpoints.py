@@ -78,6 +78,57 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
             self.assertEqual(updated_finding["decision"], "reject")
             self.assertEqual(updated["decisions_recorded"], 1)
 
+    def test_reviewer_id_header_persists_on_decision(self):
+        with TestClient(self.main.app) as client:
+            review_id = self._start_session(client)
+            state = client.get(f"/review/{review_id}").json()
+            target = state["findings"][0]
+
+            resp = client.post(
+                f"/review/{review_id}/decision",
+                json={"finding_id": target["id"], "action": "accept"},
+                headers={"X-Reviewer-ID": "priya.raman@example.bank"},
+            )
+            self.assertEqual(resp.status_code, 200)
+            self.assertEqual(resp.json()["reviewer_id"], "priya.raman@example.bank")
+
+            updated = client.get(f"/review/{review_id}").json()
+            updated_finding = next(f for f in updated["findings"] if f["id"] == target["id"])
+            self.assertEqual(updated_finding["decision_reviewer_id"], "priya.raman@example.bank")
+
+    def test_reviewer_id_falls_back_to_body_when_header_missing(self):
+        with TestClient(self.main.app) as client:
+            review_id = self._start_session(client)
+            target = client.get(f"/review/{review_id}").json()["findings"][0]
+
+            resp = client.post(
+                f"/review/{review_id}/decision",
+                json={
+                    "finding_id": target["id"],
+                    "action": "accept",
+                    "reviewer_id": "sarah.lim@example.law",
+                },
+            )
+            self.assertEqual(resp.status_code, 200)
+            self.assertEqual(resp.json()["reviewer_id"], "sarah.lim@example.law")
+
+    def test_reviewer_id_header_overrides_body(self):
+        with TestClient(self.main.app) as client:
+            review_id = self._start_session(client)
+            target = client.get(f"/review/{review_id}").json()["findings"][0]
+
+            resp = client.post(
+                f"/review/{review_id}/decision",
+                json={
+                    "finding_id": target["id"],
+                    "action": "accept",
+                    "reviewer_id": "body.identity@example.com",
+                },
+                headers={"X-Reviewer-ID": "header.identity@example.com"},
+            )
+            self.assertEqual(resp.status_code, 200)
+            self.assertEqual(resp.json()["reviewer_id"], "header.identity@example.com")
+
     def test_unknown_finding_returns_404(self):
         with TestClient(self.main.app) as client:
             review_id = self._start_session(client)

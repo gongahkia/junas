@@ -1995,6 +1995,7 @@ def _serialize_session_state(state: dict[str, Any]) -> ReviewSessionStateRespons
                 decision=decision["action"] if decision else None,
                 decision_seq=decision["seq"] if decision else None,
                 decision_ts=decision["ts"] if decision else None,
+                decision_reviewer_id=decision.get("reviewer_id") if decision else None,
             )
         )
     return ReviewSessionStateResponse(
@@ -2018,11 +2019,20 @@ def _serialize_session_state(state: dict[str, Any]) -> ReviewSessionStateRespons
     description=(
         "Append an accept | reject | rewrite decision for a finding from a prior /review response. "
         "Decisions are persisted to the append-only HMAC-chained journal under KAYPOH_JOURNAL_DIR. "
+        "Reviewer identity is sourced from the X-Reviewer-ID header by default; the request body "
+        "`reviewer_id` field is used only when the header is absent. "
         "Requires KAYPOH_REVIEW_PERSIST=1; otherwise 409."
     ),
 )
-async def post_review_decision(review_id: str, req: ReviewDecisionRequest):
+async def post_review_decision(
+    review_id: str,
+    req: ReviewDecisionRequest,
+    x_reviewer_id: str | None = Header(default=None, alias="X-Reviewer-ID"),
+):
     _ensure_persistence_enabled()
+    # header is authoritative because it is closer to the identity-provider edge; body fills in
+    # only when the header is missing. both empty is allowed (decision still records).
+    resolved_reviewer_id = (x_reviewer_id or req.reviewer_id or "").strip()[:256]
     try:
         result = record_decision(
             review_id=review_id,
@@ -2031,6 +2041,7 @@ async def post_review_decision(review_id: str, req: ReviewDecisionRequest):
                 action=req.action,
                 replacement_text=req.replacement_text,
                 rationale=req.rationale,
+                reviewer_id=resolved_reviewer_id,
             ),
         )
     except ReviewSessionError as exc:

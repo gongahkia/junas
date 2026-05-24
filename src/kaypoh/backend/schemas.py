@@ -499,6 +499,7 @@ class ReviewDecisionRequest(BaseModel):
                 "action": "reject",
                 "replacement_text": "",
                 "rationale": "Defined term in contract preamble, not a real party",
+                "reviewer_id": "priya.raman@example.bank",
             }
         }
     )
@@ -507,6 +508,14 @@ class ReviewDecisionRequest(BaseModel):
     action: str = Field(..., description="One of: accept, reject, rewrite.")
     replacement_text: str = Field("", max_length=4096, description="Rewrite text when action=rewrite.")
     rationale: str = Field("", max_length=2048, description="Reviewer note recorded in the journal.")
+    reviewer_id: str = Field(
+        "",
+        max_length=256,
+        description=(
+            "Optional reviewer identifier (email, employee number, SSO subject). "
+            "If omitted and the X-Reviewer-ID header is present, the header value is used."
+        ),
+    )
 
     @field_validator("action")
     @classmethod
@@ -521,6 +530,7 @@ class ReviewDecisionResponse(BaseModel):
     review_id: str = Field(description="Review session identifier.")
     finding_id: str = Field(description="Finding identifier whose decision was recorded.")
     action: str = Field(description="Recorded action: accept, reject, or rewrite.")
+    reviewer_id: str = Field("", description="Reviewer identifier persisted alongside the decision.")
     seq: int = Field(description="Journal sequence number for this decision event.")
     ts: str = Field(description="UTC timestamp of the journal entry.")
     hmac: str = Field(description="HMAC of the journal entry; reference for downstream audit verification.")
@@ -537,6 +547,7 @@ class ReviewSessionFindingState(BaseModel):
     decision: Optional[str] = Field(None, description="Current decision: accept, reject, or rewrite. None when undecided.")
     decision_seq: Optional[int] = Field(None, description="Journal seq for the most recent decision on this finding.")
     decision_ts: Optional[str] = Field(None, description="Timestamp of the most recent decision.")
+    decision_reviewer_id: Optional[str] = Field(None, description="Reviewer identifier on the latest decision.")
 
 
 class ReviewSessionStateResponse(BaseModel):
