@@ -19,6 +19,7 @@ EVENT_REVIEW_STARTED = "review_started"
 EVENT_DECISION_RECORDED = "decision_recorded"
 EVENT_ANONYMIZE_APPLIED = "anonymize_applied"
 EVENT_AUDIT_EXPORTED = "audit_exported"
+EVENT_COVERAGE_WARNING = "coverage_warning"  # advisory output from the LLM inverse audit
 
 
 class ReviewSessionError(ValueError):
