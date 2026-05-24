@@ -1,11 +1,11 @@
 # Kaypoh
 
-Kaypoh is a backend-first MNPI screening repository. The current API supports both document-level MNPI classification and pre-send PII/MNPI review with jurisdiction-aware findings and remediation suggestions.
+Kaypoh is an API-first pre-send safety engine for PII anonymization and MNPI review. The current API supports deterministic local placeholders, mapping tables, jurisdiction-aware findings, remediation suggestions, and legacy document-level MNPI classification.
 
 ## Layout
 
 - `api/`: compatibility exports for older `api.main`, `api.schemas`, and `api.client` imports
-- `archive/`: archived demo frontends and archived training checkpoints
+- `archive/`: pruned holding area for tracked artifacts that should stay outside active runtime paths
 - `artifacts/`: runtime checkpoints verified by `artifacts/manifest.json`
 - `backend/`: compatibility exports for `backend.main:app`, `backend.client`, and related legacy imports
 - `configs/`: compatibility exports for runtime config helpers
@@ -20,6 +20,7 @@ Kaypoh is a backend-first MNPI screening repository. The current API supports bo
 
 - FastAPI app: `src/kaypoh/backend/main.py` with compatibility shim `backend.main:app`
 - Python client: `src/kaypoh/client.py` with docs in `docs/api/python_client.md`
+- Pivot architecture: `ARCHITECTURE-PIVOT-24-MAY.md`
 - Workflow stages: `src/kaypoh/workflow/`
 - Runtime artifacts: `artifacts/` with manifest verification in `artifacts/manifest.json`
 - Backend-only launcher: `scripts/launch/run_backend_only.sh`
@@ -33,6 +34,7 @@ Kaypoh is a backend-first MNPI screening repository. The current API supports bo
 ./scripts/launch/run_dev.sh
 ./scripts/launch/run_prod.sh
 ./scripts/check_python_clients.sh
+curl -X POST http://localhost:8000/anonymize -H "Content-Type: application/json" -d '{"text":"Send Dr Jane Tan S1234567D the confidential draft.","source_jurisdiction":"SG","destination_jurisdiction":"US"}'
 python scripts/examples/sync_client_example.py "Acme Corp is acquiring GlobalTech next quarter."
 python scripts/examples/async_client_example.py "Acme Corp is acquiring GlobalTech next quarter."
 ./scripts/verify_runtime.sh
@@ -43,6 +45,6 @@ python3 scripts/preflight.py --strict
 
 `./scripts/verify_runtime.sh` is the end-to-end verifier: it runs the static checks, test suite, and live smoke coverage for every runtime layer, including a temporary local Redis-backed mosaic pass.
 
-For Python integrations, Kaypoh ships both `KaypohClient` and `AsyncKaypohClient` over the same backend API. See `docs/api/python_client.md`.
+For Python integrations, Kaypoh ships both `KaypohClient` and `AsyncKaypohClient` over the same backend API, including `review(...)` and `anonymize(...)`. See `docs/api/python_client.md`.
 
 This clone also uses tracked git hooks from `.githooks/` to run `./scripts/check_python_clients.sh` before commit and before push.
