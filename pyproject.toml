@@ -5,17 +5,14 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "kaypoh"
 version = "0.1.0"
-description = "Backend-first MNPI screening runtime and training workflow."
+description = "Pre-send PII anonymisation and MNPI review runtime. Ships as kaypoh-local (offline desktop SKU) and kaypoh-server (full ML + retrieval + LLM stack)."
 readme = "README.md"
 requires-python = ">=3.10"
+# base = kaypoh-local. Deterministic engine + Presidio + spaCy + FastAPI + extractors.
+# No torch, transformers, sentence-transformers, redis, xgboost, scikit-learn, pandas, or accelerate.
+# httpx stays because it is also the Python client transport.
 dependencies = [
-  "sentence-transformers==2.6.1",
-  "numpy==1.26.4",
-  "scikit-learn==1.4.2",
-  "torch>=2.1.0",
-  "transformers>=4.36.0",
-  "accelerate>=0.26.0",
-  "pandas>=2.1.0",
+  "numpy>=1.26",
   "spacy>=3.7.0",
   "presidio-analyzer>=2.2.0",
   "presidio-anonymizer>=2.2.0",
@@ -24,14 +21,29 @@ dependencies = [
   "uvicorn>=0.27.0",
   "pydantic>=2.5.0",
   "prometheus-client>=0.20.0",
-  "redis>=5.0.0",
-  "xgboost>=2.0.0",
+  "pypdf>=4.0.0",
 ]
 
 [project.optional-dependencies]
+# install kaypoh[local] for the desktop SKU. Equivalent to the base install but documents intent.
+local = []
+# install kaypoh[server] for the full classifier stack: model layers, mosaic, retrieval, LLM.
+server = [
+  "sentence-transformers==2.6.1",
+  "scikit-learn==1.4.2",
+  "torch>=2.1.0",
+  "transformers>=4.36.0",
+  "accelerate>=0.26.0",
+  "pandas>=2.1.0",
+  "redis>=5.0.0",
+  "xgboost>=2.0.0",
+]
 dev = [
   "mypy>=1.11.2",
   "ruff>=0.6.9",
+]
+packaging = [
+  "pyinstaller>=6.3",
 ]
 
 [tool.setuptools.packages.find]
