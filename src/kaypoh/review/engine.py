@@ -417,18 +417,28 @@ class PreSendReviewEngine:
             if finding.category == "PII":
                 action = "redact"
                 replacement = "[REDACTED PERSONAL DATA]"
-                rationale = pii_rationale(rule=finding.rule, jurisdiction=finding.jurisdiction)
+                rationale = pii_rationale(
+                    rule=finding.rule,
+                    jurisdiction=finding.jurisdiction,
+                    matched_text=finding.matched_text,
+                )
             elif finding.severity == "high":
                 action = "remove_or_hold"
                 replacement = "[REMOVE UNTIL PUBLICLY DISCLOSED OR APPROVED]"
                 rationale = mnpi_rationale(
-                    rule=finding.rule, jurisdiction=finding.jurisdiction, severity=finding.severity
+                    rule=finding.rule,
+                    jurisdiction=finding.jurisdiction,
+                    severity=finding.severity,
+                    matched_text=finding.matched_text,
                 )
             else:
                 action = "verify_or_rewrite"
                 replacement = "[CITE PUBLIC SOURCE OR GENERALISE CLAIM]"
                 rationale = mnpi_rationale(
-                    rule=finding.rule, jurisdiction=finding.jurisdiction, severity=finding.severity
+                    rule=finding.rule,
+                    jurisdiction=finding.jurisdiction,
+                    severity=finding.severity,
+                    matched_text=finding.matched_text,
                 )
 
             suggestions.append(
