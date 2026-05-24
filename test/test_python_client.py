@@ -107,6 +107,35 @@ def build_review_payload(*, request_id: str, classification: str = "LOW_RISK") -
     }
 
 
+def build_anonymize_payload(*, request_id: str, classification: str = "LOW_RISK") -> dict:
+    payload = build_review_payload(request_id=request_id, classification=classification)
+    payload.update(
+        {
+            "anonymized_text": "Send [EMAIL_1]",
+            "mapping": [
+                {
+                    "placeholder": "[EMAIL_1]",
+                    "entity_type": "EMAIL",
+                    "original_text": "jane@example.com",
+                    "occurrence_count": 1,
+                }
+            ],
+            "replacements": [
+                {
+                    "finding_id": "pii:email_address:10:28:0",
+                    "placeholder": "[EMAIL_1]",
+                    "entity_type": "EMAIL",
+                    "original_text": "jane@example.com",
+                    "start_char": 10,
+                    "end_char": 26,
+                }
+            ],
+        }
+    )
+    payload["timings_ms"] = {"extract": 0.1, "review": 0.4, "anonymize": 0.1, "total": 0.6}
+    return payload
+
+
 class KaypohClientTests(unittest.TestCase):
     def test_classify_sends_expected_payload_and_api_key(self):
         observed: dict[str, object] = {}
@@ -175,6 +204,45 @@ class KaypohClientTests(unittest.TestCase):
                 "document_type": "email",
                 "review_profile": "strict",
                 "include_suggestions": True,
+            },
+        )
+
+    def test_anonymize_sends_expected_payload_and_returns_typed_response(self):
+        observed: dict[str, object] = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            observed["method"] = request.method
+            observed["path"] = request.url.path
+            observed["body"] = json.loads(request.content.decode("utf-8"))
+            return httpx.Response(200, json=build_anonymize_payload(request_id="anon-1"))
+
+        transport = httpx.MockTransport(handler)
+
+        with KaypohClient("http://kaypoh.test", transport=transport) as client:
+            result = client.anonymize(
+                text="Send to jane@example.com",
+                source_jurisdiction="SG",
+                destination_jurisdiction="US",
+                document_type="email",
+                include_mnpi_scalars=False,
+            )
+
+        self.assertEqual(result.classification, Classification.LOW_RISK)
+        self.assertEqual(result.request_id, "anon-1")
+        self.assertEqual(result.anonymized_text, "Send [EMAIL_1]")
+        self.assertEqual(result.mapping[0].placeholder, "[EMAIL_1]")
+        self.assertEqual(observed["method"], "POST")
+        self.assertEqual(observed["path"], "/anonymize")
+        self.assertEqual(
+            observed["body"],
+            {
+                "text": "Send to jane@example.com",
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "US",
+                "document_type": "email",
+                "review_profile": "strict",
+                "include_suggestions": True,
+                "include_mnpi_scalars": False,
             },
         )
 
@@ -322,6 +390,49 @@ class KaypohClientTests(unittest.TestCase):
                 "document_type": "generic",
                 "review_profile": "strict",
                 "include_suggestions": True,
+            },
+        )
+
+    def test_async_anonymize_uses_same_backend_contract(self):
+        observed: dict[str, object] = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            observed["method"] = request.method
+            observed["path"] = request.url.path
+            observed["body"] = json.loads(request.content.decode("utf-8"))
+            return httpx.Response(200, json=build_anonymize_payload(request_id="anon-async", classification="HIGH_RISK"))
+
+        async def scenario() -> None:
+            transport = httpx.MockTransport(handler)
+            async with AsyncKaypohClient("http://kaypoh.test", transport=transport) as client:
+                result = await client.anonymize(
+                    document_base64="U2VuZCB0byBqYW5lQGV4YW1wbGUuY29t",
+                    document_filename="memo.txt",
+                    document_mime_type="text/plain",
+                    source_jurisdiction="SG",
+                    destination_jurisdiction="SEA",
+                    include_mnpi_scalars=True,
+                )
+                self.assertEqual(result.classification, Classification.HIGH_RISK)
+                self.assertEqual(result.request_id, "anon-async")
+                self.assertEqual(result.anonymized_text, "Send [EMAIL_1]")
+
+        asyncio.run(scenario())
+
+        self.assertEqual(observed["method"], "POST")
+        self.assertEqual(observed["path"], "/anonymize")
+        self.assertEqual(
+            observed["body"],
+            {
+                "document_base64": "U2VuZCB0byBqYW5lQGV4YW1wbGUuY29t",
+                "document_filename": "memo.txt",
+                "document_mime_type": "text/plain",
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "SEA",
+                "document_type": "generic",
+                "review_profile": "strict",
+                "include_suggestions": True,
+                "include_mnpi_scalars": True,
             },
         )
 

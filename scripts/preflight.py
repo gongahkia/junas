@@ -16,6 +16,7 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 from kaypoh.configs.artifacts import (
+    artifact_names_for_layers,
     artifact_manifest_path,
     get_artifact_path,
     verify_artifact_manifest,
@@ -128,6 +129,7 @@ def main() -> int:
         pipeline = list(settings.pipeline.layers)
         optional_layers = set(settings.pipeline.optional_layers)
         configured_layers = set(pipeline)
+        configured_artifact_names = artifact_names_for_layers(pipeline)
         invalid_layers = [layer for layer in pipeline if layer not in VALID_LAYERS]
         if invalid_layers:
             warnings.append(f"invalid pipeline layers in config: {invalid_layers}")
@@ -145,15 +147,21 @@ def main() -> int:
                 return
             warnings.append(failure_msg)
 
-        ok_spacy, msg_spacy = check_spacy_model()
-        (checks if ok_spacy else warnings).append(msg_spacy)
+        if "lexicon" in configured_layers:
+            ok_spacy, msg_spacy = check_spacy_model()
+            (checks if ok_spacy else warnings).append(msg_spacy)
 
         manifest_path = artifact_manifest_path()
         manifest_errors = verify_artifact_manifest(manifest_path)
-        if manifest_errors:
-            warnings.extend(manifest_errors)
+        if manifest_errors and configured_artifact_names:
+            warnings.extend(
+                error
+                for error in manifest_errors
+                if any(f"for {name}" in error or f"'{name}'" in error for name in configured_artifact_names)
+                or "artifact manifest" in error
+            )
         else:
-            checks.append(f"artifact manifest verified: {manifest_path}")
+            checks.append(f"artifact manifest verified for active layers: {manifest_path}")
 
         try:
             clust_ckpt = get_artifact_path("clustering")

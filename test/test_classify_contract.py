@@ -426,7 +426,12 @@ class BatchClassifyApiTests(unittest.TestCase):
 class LexiconSpanExtractionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.lex_mod = load_lexicon_module()
+        try:
+            cls.lex_mod = load_lexicon_module()
+        except ModuleNotFoundError as exc:
+            if exc.name == "spacy":
+                raise unittest.SkipTest("legacy lexicon span tests require spacy") from exc
+            raise
         cls.filter = cls.lex_mod.LexiconFilter()
 
     def test_dynamic_score_threshold_increases_with_text_length(self):

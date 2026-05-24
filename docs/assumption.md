@@ -6,7 +6,7 @@
 - batch classification is limited to 32 items per call
 - models run on CPU by default; GPU auto-detected via `torch.cuda.is_available()`
 - no auth by default unless `KAYPOH_API_KEY` is configured
-- active runtime is API-only; archived demo surfaces are not part of the current product path
+- active runtime is API-only; legacy UI surfaces are not part of the current product path
 - `POST /anonymize` and `POST /review` are the primary product endpoints
 
 ## Lexicon Layer

@@ -38,7 +38,7 @@ Or use the repository launchers:
 ./scripts/launch/run_prod.sh
 ```
 
-The launchers start the backend, run preflight checks, and wait for readiness. They do not serve archived demo frontends.
+The launchers start the backend, run preflight checks, and wait for readiness. They do not serve legacy UI assets.
 
 Useful env vars:
 

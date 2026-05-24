@@ -324,7 +324,7 @@ class ReviewDocumentMetadataResponse(BaseModel):
 
 
 class ReviewFindingResponse(BaseModel):
-    id: str = Field(description="Stable finding identifier for frontend highlighting.")
+    id: str = Field(description="Stable finding identifier for client-side highlighting.")
     category: str = Field(description="Finding category: PII or MNPI.")
     rule: str = Field(description="Rule or detector that produced the finding.")
     jurisdiction: str = Field(description="Jurisdiction rule pack responsible for the finding.")
@@ -538,7 +538,7 @@ class LayerErrorResponse(BaseModel):
 
 
 class OffendingSpanResponse(BaseModel):
-    id: str = Field(description="Stable span identifier for frontend keying and reconciliation.")
+    id: str = Field(description="Stable span identifier for client keying and reconciliation.")
     layer: str = Field(description="Origin layer for the span: lexicon, model1, or model2.")
     rule: str = Field(description="Rule name or span source label.")
     severity: str = Field(description="Severity associated with the span source.")

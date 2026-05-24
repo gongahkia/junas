@@ -19,6 +19,7 @@ class OpenApiSnapshotTests(unittest.TestCase):
             yield
 
         main.app.router.lifespan_context = _noop_lifespan
+        main.app.openapi_schema = None
 
         with TestClient(main.app) as client:
             response = client.get("/openapi.json")

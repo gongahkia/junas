@@ -80,7 +80,8 @@ class BenchmarkLatencyTests(unittest.TestCase):
 
         port = reserve_port()
         base_url = f"http://127.0.0.1:{port}"
-        python_exec = ROOT / ".venv" / "bin" / "python"
+        venv_python = ROOT / ".venv" / "bin" / "python"
+        python_exec = venv_python if venv_python.exists() else Path(sys.executable)
         backend_proc = subprocess.Popen(
             [
                 str(python_exec),

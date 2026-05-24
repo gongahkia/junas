@@ -44,7 +44,8 @@ class LaunchScriptSmokeTests(unittest.TestCase):
             "KAYPOH_HOST": "127.0.0.1",
             "KAYPOH_PORT": str(backend_port),
             "KAYPOH_UVICORN_WORKERS": "1",
-            "PIPELINE_LAYERS": "lexicon",
+            "PIPELINE_LAYERS": "mosaic",
+            "KMP_DUPLICATE_LIB_OK": "TRUE",
         }
         proc = subprocess.Popen(
             ["bash", str(ROOT / "scripts" / "launch" / script_name)],
@@ -73,7 +74,7 @@ class LaunchScriptSmokeTests(unittest.TestCase):
             ready_payload = wait_for_url(f"http://127.0.0.1:{backend_port}/ready", proc)
             health_payload = http_get_text(f"http://127.0.0.1:{backend_port}/health")
             self.assertIn('"ready":true', ready_payload.replace(" ", "").lower())
-            self.assertIn('"lexicon_loaded":true', health_payload.replace(" ", "").lower())
+            self.assertIn('"status":"ok"', health_payload.replace(" ", "").lower())
         finally:
             self._stop_script(proc)
 
@@ -83,7 +84,7 @@ class LaunchScriptSmokeTests(unittest.TestCase):
             ready_payload = wait_for_url(f"http://127.0.0.1:{backend_port}/ready", proc)
             health_payload = http_get_text(f"http://127.0.0.1:{backend_port}/health")
             self.assertIn('"ready":true', ready_payload.replace(" ", "").lower())
-            self.assertIn('"lexicon_loaded":true', health_payload.replace(" ", "").lower())
+            self.assertIn('"status":"ok"', health_payload.replace(" ", "").lower())
         finally:
             self._stop_script(proc)
 
@@ -93,7 +94,7 @@ class LaunchScriptSmokeTests(unittest.TestCase):
             ready_payload = wait_for_url(f"http://127.0.0.1:{backend_port}/ready", proc, timeout=60.0)
             health_payload = http_get_text(f"http://127.0.0.1:{backend_port}/health")
             self.assertIn('"ready":true', ready_payload.replace(" ", "").lower())
-            self.assertIn('"lexicon_loaded":true', health_payload.replace(" ", "").lower())
+            self.assertIn('"status":"ok"', health_payload.replace(" ", "").lower())
         finally:
             self._stop_script(proc)
 

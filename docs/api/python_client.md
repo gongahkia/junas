@@ -163,6 +163,28 @@ with KaypohClient("http://localhost:8000") as client:
 
 For file inputs, pass `document_base64`, `document_filename`, and optionally `document_mime_type`. Supported v1 extraction paths are plain text, DOCX, and PDF when `pypdf` is installed.
 
+## Pre-Send Anonymization
+
+Use `anonymize` when the caller needs the same findings plus deterministic placeholders and a local mapping table:
+
+```python
+from kaypoh import KaypohClient
+
+with KaypohClient("http://localhost:8000") as client:
+    result = client.anonymize(
+        text="Send Dr Jane Tan S1234567D the confidential draft.",
+        source_jurisdiction="SG",
+        destination_jurisdiction="US",
+        document_type="email",
+    )
+
+    print(result.anonymized_text)
+    print(result.mapping)
+    print(result.replacements)
+```
+
+Set `include_mnpi_scalars=False` when monetary amounts, percentages, and large numbers should remain in the output as review-only findings instead of automatic replacements.
+
 ## Runtime Status
 
 ```python
@@ -217,6 +239,7 @@ except KaypohAPIError as exc:
 - `client.classify_batch(...)` -> `POST /classify/batch`
 - `client.classify_many(...)` -> convenience wrapper over `POST /classify/batch`
 - `client.review(...)` -> `POST /review`
+- `client.anonymize(...)` -> `POST /anonymize`
 
 The async client exposes the same method names and endpoint mapping, but each method is awaited:
 
@@ -228,3 +251,4 @@ The async client exposes the same method names and endpoint mapping, but each me
 - `await async_client.classify_batch(...)`
 - `await async_client.classify_many(...)`
 - `await async_client.review(...)`
+- `await async_client.anonymize(...)`

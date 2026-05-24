@@ -71,7 +71,7 @@ Kaypoh may use public-source retrieval and local LLM adjudication, subject to pr
 
 ## Runtime Guarantees
 
-- The backend is the active runtime; there is no active bundled frontend in this repository.
+- The backend is the active runtime; there is no active bundled UI in this repository.
 - Compatibility shims under `api/`, `backend/`, and `configs/` support older imports.
 - Runtime artifacts are checked through `artifacts/manifest.json`.
 - Missing optional layers should degrade explicitly through readiness, diagnostics, and response observability rather than silently changing behavior.

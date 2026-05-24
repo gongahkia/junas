@@ -56,7 +56,7 @@ class PreflightValidationTests(unittest.TestCase):
             root = Path(tmpdir).resolve()
             with self._patch_artifact_root(root):
                 _, manifest_path = self._populate_fake_artifacts(root)
-                (root / "artifacts" / "layer3_clustering" / "anomaly_detector.joblib").write_text(
+                (root / "artifacts" / "layer4_classification" / "model1" / "best" / "weights.bin").write_text(
                     "mutated\n",
                     encoding="utf-8",
                 )
@@ -97,7 +97,7 @@ class PreflightValidationTests(unittest.TestCase):
             root = Path(tmpdir).resolve()
             with self._patch_artifact_root(root):
                 config_path, manifest_path = self._populate_fake_artifacts(root)
-                (root / "artifacts" / "layer3_clustering" / "anomaly_detector.joblib").write_text(
+                (root / "artifacts" / "layer4_classification" / "model1" / "best" / "weights.bin").write_text(
                     "mutated\n",
                     encoding="utf-8",
                 )
@@ -110,6 +110,25 @@ class PreflightValidationTests(unittest.TestCase):
                     exit_code = preflight.main()
 
         self.assertEqual(exit_code, 1)
+
+    def test_preflight_strict_ignores_inactive_artifact_hash_mismatch(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir).resolve()
+            with self._patch_artifact_root(root):
+                config_path, manifest_path = self._populate_fake_artifacts(root)
+                (root / "artifacts" / "layer3_clustering" / "anomaly_detector.joblib").write_text(
+                    "mutated\n",
+                    encoding="utf-8",
+                )
+
+                with (
+                    patch.object(preflight, "check_spacy_model", return_value=(True, "spaCy model loaded")),
+                    patch.object(sys, "argv", ["preflight.py", "--strict", "--config", str(config_path)]),
+                    patch.dict("os.environ", {"KAYPOH_ARTIFACT_MANIFEST": str(manifest_path)}, clear=False),
+                ):
+                    exit_code = preflight.main()
+
+        self.assertEqual(exit_code, 0)
 
 
 if __name__ == "__main__":
