@@ -5,6 +5,8 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from kaypoh.backend.schemas import Classification
+from kaypoh.review.defined_terms import extract_defined_terms, is_defined_term
+from kaypoh.review.entity_linker import canonical_person, strip_honorific
 from kaypoh.review.jurisdictions import JurisdictionRulePack, resolve_rule_packs
 from kaypoh.workflow.privacy_guard import EMAIL_RE, LONG_NUMBER_RE, MONEY_RE, PERCENT_RE, PHONE_RE
 
@@ -154,10 +156,12 @@ class PreSendReviewEngine:
         text: str,
         packs: list[JurisdictionRulePack],
         document_type: str = "generic",
+        defined_terms: set[str] | None = None,
     ) -> list[ReviewFinding]:
         findings: list[ReviewFinding] = []
         jurisdiction = _pack_scope(packs)
         legal_basis = _legal_basis(packs, "pii_rules")
+        defined = defined_terms or set()
         patterns = []
         if any(pack.code == "SG" for pack in packs):
             patterns.extend(
@@ -167,16 +171,12 @@ class PreSendReviewEngine:
                     ("sg_postal_address", SG_POSTAL_RE, "medium", "Singapore postal-code address signal"),
                 ]
             )
-        named_person_severity = (
-            "high" if document_type.strip().lower() in NAMED_PERSON_HIGH_SEVERITY_DOC_TYPES else "low"
-        )
         patterns.extend(
             [
                 ("email_address", EMAIL_RE, "medium", "Email address can identify an individual"),
                 ("phone_number", PHONE_RE, "medium", "Phone number can identify or contact an individual"),
                 ("passport_number", PASSPORT_RE, "high", "Passport-like identifier"),
                 ("bank_account", BANK_ACCOUNT_RE, "high", "Bank/account-like financial identifier"),
-                ("named_person", NAME_RE, named_person_severity, "Named person reference"),
             ]
         )
 
@@ -200,6 +200,98 @@ class PreSendReviewEngine:
                         legal_basis=legal_basis,
                     )
                 )
+                idx += 1
+
+        # named_person uses a two-pass anchor + variant linker so `Dr Jane Tan` and a later bare
+        # `Jane Tan` collapse to the same anonymisation key. defined terms are suppressed.
+        findings.extend(
+            self._named_person_findings(
+                text=text,
+                jurisdiction=jurisdiction,
+                legal_basis=legal_basis,
+                defined_terms=defined,
+                document_type=document_type,
+                idx_start=idx,
+            )
+        )
+        return findings
+
+    def _named_person_findings(
+        self,
+        *,
+        text: str,
+        jurisdiction: str,
+        legal_basis: str,
+        defined_terms: set[str],
+        document_type: str,
+        idx_start: int,
+    ) -> list[ReviewFinding]:
+        severity = (
+            "high" if document_type.strip().lower() in NAMED_PERSON_HIGH_SEVERITY_DOC_TYPES else "low"
+        )
+        findings: list[ReviewFinding] = []
+        occupied: list[tuple[int, int]] = []
+        anchors: dict[str, str] = {}  # canonical key -> honorific-stripped surface form
+        idx = idx_start
+
+        # pass 1: honorific-led names anchor the canonical set
+        for match in NAME_RE.finditer(text):
+            start, end = match.span()
+            matched_text = text[start:end]
+            if is_defined_term(matched_text, defined_terms):
+                continue
+            findings.append(
+                _new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="named_person",
+                    jurisdiction=jurisdiction,
+                    severity=severity,
+                    matched_text=matched_text,
+                    start=start,
+                    end=end,
+                    reason="Named person reference",
+                    legal_basis=legal_basis,
+                )
+            )
+            occupied.append((start, end))
+            idx += 1
+            canonical = canonical_person(matched_text)
+            stripped = strip_honorific(matched_text)
+            if canonical and stripped and canonical != stripped.casefold():
+                anchors.setdefault(canonical, stripped)
+            elif canonical and stripped:
+                anchors.setdefault(canonical, stripped)
+
+        # pass 2: bare variants of an anchored name (e.g., later mentions without honorific).
+        # surname-only matching is intentionally deferred to a richer linker; this pass only
+        # matches the full anchored stripped form.
+        for canonical, stripped in anchors.items():
+            if len(stripped) < 3:
+                continue
+            variant_pattern = re.compile(rf"\b{re.escape(stripped)}\b")
+            for match in variant_pattern.finditer(text):
+                start, end = match.span()
+                if any(start < oe and os_ < end for os_, oe in occupied):
+                    continue
+                matched_text = text[start:end]
+                if is_defined_term(matched_text, defined_terms):
+                    continue
+                findings.append(
+                    _new_finding(
+                        idx=idx,
+                        category="PII",
+                        rule="named_person",
+                        jurisdiction=jurisdiction,
+                        severity=severity,
+                        matched_text=matched_text,
+                        start=start,
+                        end=end,
+                        reason="Named person variant linked to an anchored honorific reference",
+                        legal_basis=legal_basis,
+                    )
+                )
+                occupied.append((start, end))
                 idx += 1
         return findings
 
@@ -326,7 +418,8 @@ class PreSendReviewEngine:
         document_type: str = "generic",
     ) -> ReviewResult:
         packs = resolve_rule_packs(source_jurisdiction, destination_jurisdiction)
-        findings = self._pii_findings(text, packs, document_type) + self._mnpi_findings(text, packs)
+        defined_terms = extract_defined_terms(text)
+        findings = self._pii_findings(text, packs, document_type, defined_terms) + self._mnpi_findings(text, packs)
         pii_score = self._score(findings, "PII")
         mnpi_score = self._score(findings, "MNPI")
         document_score = max(pii_score, mnpi_score)

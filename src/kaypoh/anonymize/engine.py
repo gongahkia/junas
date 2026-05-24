@@ -5,6 +5,8 @@ from collections import OrderedDict
 from dataclasses import dataclass
 from typing import Any
 
+from kaypoh.review.entity_linker import canonical_org, canonical_person
+
 
 PII_RULE_ENTITY_TYPES = {
     "sg_nric_fin": "NRIC_FIN",
@@ -74,7 +76,11 @@ def _canonicalize(entity_type: str, text: str) -> str:
     if entity_type == "PHONE":
         digits = re.sub(r"\D+", "", cleaned)
         return digits or cleaned
-    if entity_type in {"PERSON", "ADDRESS"}:
+    if entity_type == "PERSON":
+        return canonical_person(cleaned) or cleaned.casefold()
+    if entity_type == "ORG":
+        return canonical_org(cleaned) or cleaned.casefold()
+    if entity_type == "ADDRESS":
         return cleaned.casefold()
     return cleaned
 
