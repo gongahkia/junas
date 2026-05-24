@@ -6,4 +6,4 @@ This folder is a compatibility surface.
 - `api/client.py` re-exports the canonical sync and async Python clients from `backend.client`
 - `api/schemas.py` re-exports the canonical Pydantic models from `backend.schemas`
 
-New runtime work should target `backend/`, and new Python integration work should target `src/noupe/client.py` via `noupe.client`.
+New runtime work should target `backend/`, and new Python integration work should target `src/kaypoh/client.py` via `kaypoh.client`.

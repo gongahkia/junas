@@ -1,22 +1,22 @@
 # Python Client
 
-Noupe ships typed sync and async Python clients for the same backend HTTP API.
-They are not separate backends and do not introduce a second API contract. They call the same Noupe service, with the same endpoints and response models.
+Kaypoh ships typed sync and async Python clients for the same backend HTTP API.
+They are not separate backends and do not introduce a second API contract. They call the same Kaypoh service, with the same endpoints and response models.
 
 Canonical import:
 
 ```python
-from noupe import NoupeClient
-from noupe import AsyncNoupeClient
+from kaypoh import KaypohClient
+from kaypoh import AsyncKaypohClient
 ```
 
 Repo-local compatibility imports also exist:
 
 ```python
-from backend.client import NoupeClient
-from backend.client import AsyncNoupeClient
-from api.client import NoupeClient
-from api.client import AsyncNoupeClient
+from backend.client import KaypohClient
+from backend.client import AsyncKaypohClient
+from api.client import KaypohClient
+from api.client import AsyncKaypohClient
 ```
 
 ## Install
@@ -35,18 +35,18 @@ Start the backend first in a separate terminal:
 
 ## Which Client To Use
 
-- `NoupeClient`: use in standard blocking Python scripts, notebooks, CLIs, and simple backend jobs
-- `AsyncNoupeClient`: use inside `asyncio` applications such as FastAPI handlers, async workers, and services that already use `await`
-- both call the same Noupe backend routes and return the same typed response models
+- `KaypohClient`: use in standard blocking Python scripts, notebooks, CLIs, and simple backend jobs
+- `AsyncKaypohClient`: use inside `asyncio` applications such as FastAPI handlers, async workers, and services that already use `await`
+- both call the same Kaypoh backend routes and return the same typed response models
 
 ## Quickstart
 
 Synchronous:
 
 ```python
-from noupe import NoupeClient
+from kaypoh import KaypohClient
 
-with NoupeClient("http://localhost:8000") as client:
+with KaypohClient("http://localhost:8000") as client:
     result = client.classify(
         text="Acme Corp is acquiring GlobalTech for $2.5 billion next quarter.",
         entity_id="acme-corp",
@@ -63,11 +63,11 @@ Asynchronous:
 ```python
 import asyncio
 
-from noupe import AsyncNoupeClient
+from kaypoh import AsyncKaypohClient
 
 
 async def main() -> None:
-    async with AsyncNoupeClient("http://localhost:8000") as client:
+    async with AsyncKaypohClient("http://localhost:8000") as client:
         result = await client.classify(
             text="Acme Corp is acquiring GlobalTech for $2.5 billion next quarter.",
             entity_id="acme-corp",
@@ -101,13 +101,13 @@ python scripts/examples/async_client_example.py \
 Authenticated example:
 
 ```sh
-NOUPE_API_KEY="dev-secret" ./scripts/launch/run_backend_only.sh
+KAYPOH_API_KEY="dev-secret" ./scripts/launch/run_backend_only.sh
 python scripts/examples/sync_client_example.py \
   "Restricted board memo" \
   --api-key dev-secret
 ```
 
-Returned values are typed Pydantic models from `noupe.backend.schemas`, so they support:
+Returned values are typed Pydantic models from `kaypoh.backend.schemas`, so they support:
 
 ```python
 result.model_dump()
@@ -117,23 +117,23 @@ result.model_dump_json(indent=2)
 ## API Key
 
 ```python
-from noupe import NoupeClient
+from kaypoh import KaypohClient
 
-with NoupeClient("http://localhost:8000", api_key="dev-secret") as client:
+with KaypohClient("http://localhost:8000", api_key="dev-secret") as client:
     result = client.classify(text="Draft board memo")
 ```
 
 ## Batch Classification
 
 ```python
-from noupe import NoupeClient
+from kaypoh import KaypohClient
 
 items = [
     {"text": "Acme Corp is acquiring GlobalTech next quarter.", "include_offending_spans": True},
     {"text": "Public press release for next week's earnings call."},
 ]
 
-with NoupeClient("http://localhost:8000") as client:
+with KaypohClient("http://localhost:8000") as client:
     batch = client.classify_batch(items)
     for result in batch.results:
         print(result.classification)
@@ -144,9 +144,9 @@ with NoupeClient("http://localhost:8000") as client:
 Use `review` when the caller needs PII and MNPI findings, source/destination jurisdiction handling, scores, and remediation suggestions before sending a document:
 
 ```python
-from noupe import NoupeClient
+from kaypoh import KaypohClient
 
-with NoupeClient("http://localhost:8000") as client:
+with KaypohClient("http://localhost:8000") as client:
     result = client.review(
         text="Please send to Tan S1234567D. Confidential: Acme Corp will acquire GlobalTech before announcement.",
         source_jurisdiction="SG",
@@ -166,9 +166,9 @@ For file inputs, pass `document_base64`, `document_filename`, and optionally `do
 ## Runtime Status
 
 ```python
-from noupe import NoupeClient
+from kaypoh import KaypohClient
 
-with NoupeClient("http://localhost:8000") as client:
+with KaypohClient("http://localhost:8000") as client:
     print(client.health())
     print(client.ready())
     print(client.diagnostics())
@@ -179,11 +179,11 @@ Async variant:
 ```python
 import asyncio
 
-from noupe import AsyncNoupeClient
+from kaypoh import AsyncKaypohClient
 
 
 async def main() -> None:
-    async with AsyncNoupeClient("http://localhost:8000") as client:
+    async with AsyncKaypohClient("http://localhost:8000") as client:
         print(await client.health())
         print(await client.ready())
         print(await client.diagnostics())
@@ -194,15 +194,15 @@ asyncio.run(main())
 
 ## Error Handling
 
-HTTP errors raise `NoupeAPIError` and include the status code plus parsed error detail:
+HTTP errors raise `KaypohAPIError` and include the status code plus parsed error detail:
 
 ```python
-from noupe import NoupeAPIError, NoupeClient
+from kaypoh import KaypohAPIError, KaypohClient
 
 try:
-    with NoupeClient("http://localhost:8000", api_key="wrong-key") as client:
+    with KaypohClient("http://localhost:8000", api_key="wrong-key") as client:
         client.classify(text="Public update")
-except NoupeAPIError as exc:
+except KaypohAPIError as exc:
     print(exc.status_code)
     print(exc.detail)
 ```

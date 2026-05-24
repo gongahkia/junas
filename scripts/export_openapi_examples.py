@@ -144,7 +144,7 @@ def build_postman_item(
     if body_payload is not None:
         headers.append({"key": "Content-Type", "value": "application/json"})
     if path.startswith("/classify"):
-        headers.append({"key": "X-API-Key", "value": "{{noupeApiKey}}"})
+        headers.append({"key": "X-API-Key", "value": "{{kaypohApiKey}}"})
 
     path_parts = [part for part in path.split("/") if part]
     url = {
@@ -198,7 +198,7 @@ def build_curl_block(
     if body_payload is not None:
         lines.append('  -H "Content-Type: application/json" \\')
     if path.startswith("/classify"):
-        lines.append('  -H "X-API-Key: ${NOUPE_API_KEY:-dev-secret}" \\')
+        lines.append('  -H "X-API-Key: ${KAYPOH_API_KEY:-dev-secret}" \\')
     if body_payload is not None:
         compact = json.dumps(body_payload, separators=(",", ":"))
         lines.append(f"  -d '{compact}'")
@@ -242,13 +242,13 @@ def main() -> int:
 
     collection = {
         "info": {
-            "name": "Noupe API (Generated from OpenAPI)",
+            "name": "Kaypoh API (Generated from OpenAPI)",
             "description": "Generated from backend.main:app OpenAPI contract.",
             "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
         },
         "variable": [
             {"key": "baseUrl", "value": args.base_url},
-            {"key": "noupeApiKey", "value": "dev-secret"},
+            {"key": "kaypohApiKey", "value": "dev-secret"},
         ],
         "item": [
             build_postman_item(
@@ -262,7 +262,7 @@ def main() -> int:
         ],
     }
 
-    postman_path = output_dir / "noupe.postman_collection.json"
+    postman_path = output_dir / "kaypoh.postman_collection.json"
     postman_path.write_text(json.dumps(collection, indent=2) + "\n", encoding="utf-8")
 
     curl_lines = [

@@ -12,7 +12,7 @@ SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from noupe import AsyncNoupeClient, Classification, NoupeAPIError, NoupeClient, async_classify_text
+from kaypoh import AsyncKaypohClient, Classification, KaypohAPIError, KaypohClient, async_classify_text
 
 
 def build_classify_payload(*, request_id: str, classification: str = "SAFE") -> dict:
@@ -107,7 +107,7 @@ def build_review_payload(*, request_id: str, classification: str = "LOW_RISK") -
     }
 
 
-class NoupeClientTests(unittest.TestCase):
+class KaypohClientTests(unittest.TestCase):
     def test_classify_sends_expected_payload_and_api_key(self):
         observed: dict[str, object] = {}
 
@@ -120,7 +120,7 @@ class NoupeClientTests(unittest.TestCase):
 
         transport = httpx.MockTransport(handler)
 
-        with NoupeClient("http://noupe.test", api_key="dev-secret", transport=transport) as client:
+        with KaypohClient("http://kaypoh.test", api_key="dev-secret", transport=transport) as client:
             result = client.classify(
                 text="Acme Corp is acquiring GlobalTech next quarter.",
                 entity_id="acme-corp",
@@ -153,7 +153,7 @@ class NoupeClientTests(unittest.TestCase):
 
         transport = httpx.MockTransport(handler)
 
-        with NoupeClient("http://noupe.test", transport=transport) as client:
+        with KaypohClient("http://kaypoh.test", transport=transport) as client:
             result = client.review(
                 text="Send to jane@example.com",
                 source_jurisdiction="SG",
@@ -224,7 +224,7 @@ class NoupeClientTests(unittest.TestCase):
 
         transport = httpx.MockTransport(handler)
 
-        with NoupeClient("http://noupe.test", transport=transport) as client:
+        with KaypohClient("http://kaypoh.test", transport=transport) as client:
             ready = client.ready()
             diagnostics = client.diagnostics()
             results = client.classify_many(
@@ -238,14 +238,14 @@ class NoupeClientTests(unittest.TestCase):
         self.assertEqual(diagnostics.loaded_layers, ["lexicon", "model1"])
         self.assertEqual([result.request_id for result in results], ["req-2", "req-3"])
 
-    def test_http_errors_raise_noupe_api_error(self):
+    def test_http_errors_raise_kaypoh_api_error(self):
         def handler(request: httpx.Request) -> httpx.Response:
             return httpx.Response(401, json={"detail": "invalid or missing API key"})
 
         transport = httpx.MockTransport(handler)
 
-        with self.assertRaises(NoupeAPIError) as ctx:
-            with NoupeClient("http://noupe.test", api_key="wrong-key", transport=transport) as client:
+        with self.assertRaises(KaypohAPIError) as ctx:
+            with KaypohClient("http://kaypoh.test", api_key="wrong-key", transport=transport) as client:
                 client.classify(text="Public update")
 
         self.assertEqual(ctx.exception.status_code, 401)
@@ -262,7 +262,7 @@ class NoupeClientTests(unittest.TestCase):
 
         async def scenario() -> None:
             transport = httpx.MockTransport(handler)
-            async with AsyncNoupeClient("http://noupe.test", transport=transport) as client:
+            async with AsyncKaypohClient("http://kaypoh.test", transport=transport) as client:
                 result = await client.classify(
                     text="Restricted board draft",
                     entity_id="acme-board",
@@ -296,7 +296,7 @@ class NoupeClientTests(unittest.TestCase):
 
         async def scenario() -> None:
             transport = httpx.MockTransport(handler)
-            async with AsyncNoupeClient("http://noupe.test", transport=transport) as client:
+            async with AsyncKaypohClient("http://kaypoh.test", transport=transport) as client:
                 result = await client.review(
                     document_base64="U2VuZCB0byBqYW5lQGV4YW1wbGUuY29t",
                     document_filename="memo.txt",
@@ -333,7 +333,7 @@ class NoupeClientTests(unittest.TestCase):
             transport = httpx.MockTransport(handler)
             result = await async_classify_text(
                 "Public update",
-                base_url="http://noupe.test",
+                base_url="http://kaypoh.test",
                 transport=transport,
             )
             self.assertEqual(result.classification, Classification.SAFE)
@@ -387,7 +387,7 @@ class NoupeClientTests(unittest.TestCase):
                         },
                     )
                 if request.url.path == "/metrics":
-                    return httpx.Response(200, text="noupe_requests_total 1\n")
+                    return httpx.Response(200, text="kaypoh_requests_total 1\n")
                 if request.url.path == "/classify/batch":
                     body = json.loads(request.content.decode("utf-8"))
                     self.assertEqual(len(body["items"]), 2)
@@ -403,7 +403,7 @@ class NoupeClientTests(unittest.TestCase):
                 raise AssertionError(f"unexpected path: {request.url.path}")
 
             transport = httpx.MockTransport(handler)
-            async with AsyncNoupeClient("http://noupe.test", transport=transport) as client:
+            async with AsyncKaypohClient("http://kaypoh.test", transport=transport) as client:
                 health = await client.health()
                 ready = await client.ready()
                 diagnostics = await client.diagnostics()
@@ -424,21 +424,21 @@ class NoupeClientTests(unittest.TestCase):
             self.assertTrue(health.lexicon_loaded)
             self.assertTrue(ready.ready)
             self.assertEqual(diagnostics.loaded_layers, ["lexicon", "model1"])
-            self.assertIn("noupe_requests_total", metrics)
+            self.assertIn("kaypoh_requests_total", metrics)
             self.assertEqual([result.request_id for result in batch.results], ["req-async-2", "req-async-3"])
             self.assertEqual([result.classification for result in many], [Classification.SAFE, Classification.LOW_RISK])
 
         asyncio.run(scenario())
 
-    def test_async_http_errors_raise_noupe_api_error(self):
+    def test_async_http_errors_raise_kaypoh_api_error(self):
         async def scenario() -> None:
             def handler(request: httpx.Request) -> httpx.Response:
                 return httpx.Response(401, json={"detail": "invalid or missing API key"})
 
             transport = httpx.MockTransport(handler)
 
-            with self.assertRaises(NoupeAPIError) as ctx:
-                async with AsyncNoupeClient("http://noupe.test", api_key="wrong-key", transport=transport) as client:
+            with self.assertRaises(KaypohAPIError) as ctx:
+                async with AsyncKaypohClient("http://kaypoh.test", api_key="wrong-key", transport=transport) as client:
                     await client.classify(text="Public update")
 
             self.assertEqual(ctx.exception.status_code, 401)

@@ -37,7 +37,7 @@ class ResponseFormattingTests(unittest.TestCase):
         self.assertEqual(len(json.loads(response.text)["results"]), 2)
 
     def test_http_error_response_is_pretty_json(self):
-        with patch.dict(os.environ, {"NOUPE_API_KEY": "top-secret"}, clear=False):
+        with patch.dict(os.environ, {"KAYPOH_API_KEY": "top-secret"}, clear=False):
             with TestClient(test_app.app) as client:
                 response = client.post("/classify", json={"text": "public update"})
 

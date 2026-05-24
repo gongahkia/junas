@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PYTHON_BIN="${PYTHON_BIN:-$ROOT/.venv/bin/python}"
 CURL_BIN="${CURL_BIN:-curl}"
-HOST="${NOUPE_VERIFY_HOST:-127.0.0.1}"
+HOST="${KAYPOH_VERIFY_HOST:-127.0.0.1}"
 
 TEMP_DIR=""
 SERVER_PID=""
@@ -169,10 +169,10 @@ start_server() {
   (
     cd "$ROOT"
     export KMP_DUPLICATE_LIB_OK=TRUE
-    export NOUPE_FAIL_ON_LAYER_LOAD_ERROR=1
-    export NOUPE_LAZY_LOAD_HEAVY=0
-    export NOUPE_PREWARM_REQUIRED_LAYERS=0
-    export NOUPE_PRETTY_LOGS=0
+    export KAYPOH_FAIL_ON_LAYER_LOAD_ERROR=1
+    export KAYPOH_LAZY_LOAD_HEAVY=0
+    export KAYPOH_PREWARM_REQUIRED_LAYERS=0
+    export KAYPOH_PRETTY_LOGS=0
     while (($#)); do
       export "$1"
       shift
@@ -239,7 +239,7 @@ smoke_runtime_endpoints() {
 
   request GET "http://${HOST}:${port}/metrics"
   assert_status 200
-  assert_contains "$HTTP_BODY" 'noupe_http_requests_total' "/metrics should expose Noupe Prometheus counters"
+  assert_contains "$HTTP_BODY" 'kaypoh_http_requests_total' "/metrics should expose Kaypoh Prometheus counters"
 }
 
 smoke_lexicon_embedding_clustering() {
@@ -325,22 +325,22 @@ main() {
   (
     cd "$ROOT"
     "$PYTHON_BIN" -m ruff check \
-      src/noupe/backend/main.py \
-      src/noupe/backend/schemas.py \
-      src/noupe/configs/runtime.py \
-      src/noupe/configs/artifacts.py \
+      src/kaypoh/backend/main.py \
+      src/kaypoh/backend/schemas.py \
+      src/kaypoh/configs/runtime.py \
+      src/kaypoh/configs/artifacts.py \
       test/test_runtime_settings_validation.py \
       test/test_preflight_validation.py \
       test/test_redis_integration.py \
       test/test_runtime_artifact_integration.py \
       test/integration_helpers.py
     "$PYTHON_BIN" -m mypy \
-      src/noupe/backend/main.py \
-      src/noupe/backend/cache.py \
-      src/noupe/backend/observability.py \
-      src/noupe/backend/schemas.py \
-      src/noupe/configs/runtime.py \
-      src/noupe/configs/artifacts.py
+      src/kaypoh/backend/main.py \
+      src/kaypoh/backend/cache.py \
+      src/kaypoh/backend/observability.py \
+      src/kaypoh/backend/schemas.py \
+      src/kaypoh/configs/runtime.py \
+      src/kaypoh/configs/artifacts.py
     "$PYTHON_BIN" -m unittest discover -s test -p 'test*.py'
   )
 

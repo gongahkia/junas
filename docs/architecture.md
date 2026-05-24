@@ -1,8 +1,8 @@
-# Noupe Architecture
+# Kaypoh Architecture
 
 ## System Overview
 
-Noupe is a multi-layered Material Non-Public Information (MNPI) classification engine. The system is orchestrated by a FastAPI backend that conditionally loads and executes a sequence of analytical layers in a pipeline to predict sensitivity.
+Kaypoh is a multi-layered Material Non-Public Information (MNPI) classification engine. The system is orchestrated by a FastAPI backend that conditionally loads and executes a sequence of analytical layers in a pipeline to predict sensitivity.
 
 ### Key Technologies
 - **API & Orchestration:** FastAPI, Uvicorn, Pydantic (Python 3.10+)
@@ -21,7 +21,7 @@ Noupe is a multi-layered Material Non-Public Information (MNPI) classification e
 ### Runtime Layout
 
 - The active runtime is backend-only and is exposed through the compatibility shim `backend.main:app`.
-- The canonical stage code now lives under `src/noupe/workflow/`.
+- The canonical stage code now lives under `src/kaypoh/workflow/`.
 - FastAPI does not mount demo UI routes directly.
 - The legacy analyzer and chat demos are static archived demo surfaces that call the backend API over HTTP.
 - Swagger and ReDoc are served directly from the FastAPI backend at `/docs` and `/redoc`.

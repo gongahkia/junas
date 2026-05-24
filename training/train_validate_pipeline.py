@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Train/validate the full Noupe pipeline in two passes.
+"""Train/validate the full Kaypoh pipeline in two passes.
 
 Pass 1 (80/20):
 - train supervised models (model1/model2) and report train/val F1
@@ -107,7 +107,7 @@ class PipelineError(RuntimeError):
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Train/validate full Noupe pipeline")
+    parser = argparse.ArgumentParser(description="Train/validate full Kaypoh pipeline")
     parser.add_argument("--seed", type=int, default=42, help="Random seed for 80/20 split")
     parser.add_argument("--test-size", type=float, default=0.2, help="Validation split ratio")
     parser.add_argument(
@@ -616,15 +616,15 @@ def start_backend(config_path: Path, port: int, seed: int, extra_env: dict[str, 
     python_exec = get_python_executable()
     env = {
         **os.environ,
-        "NOUPE_CONFIG": str(config_path.resolve()),
-        "NOUPE_DETERMINISTIC": "1",
-        "NOUPE_SEED": str(seed),
+        "KAYPOH_CONFIG": str(config_path.resolve()),
+        "KAYPOH_DETERMINISTIC": "1",
+        "KAYPOH_SEED": str(seed),
         "PYTHONUNBUFFERED": "1",
     }
     if extra_env:
         env.update(extra_env)
 
-    fd, log_path_raw = tempfile.mkstemp(prefix=f"noupe_backend_{port}_", suffix=".log")
+    fd, log_path_raw = tempfile.mkstemp(prefix=f"kaypoh_backend_{port}_", suffix=".log")
     os.close(fd)
     log_path = Path(log_path_raw)
     log_fp = log_path.open("w", encoding="utf-8")
@@ -694,10 +694,10 @@ def build_regression_rows(
 ) -> tuple[list[dict[str, float]], dict[str, Any]]:
     extra_env = {
         "PIPELINE_LAYERS": UPSTREAM_LAYERS,
-        "NOUPE_OPTIONAL_LAYERS": "mosaic,regression",
-        "NOUPE_FAIL_ON_LAYER_LOAD_ERROR": "0",
-        "NOUPE_LAZY_LOAD_HEAVY": "0",
-        "NOUPE_PREWARM_REQUIRED_LAYERS": "0",
+        "KAYPOH_OPTIONAL_LAYERS": "mosaic,regression",
+        "KAYPOH_FAIL_ON_LAYER_LOAD_ERROR": "0",
+        "KAYPOH_LAZY_LOAD_HEAVY": "0",
+        "KAYPOH_PREWARM_REQUIRED_LAYERS": "0",
     }
 
     handle, base_url = start_backend_and_wait(
@@ -1334,7 +1334,7 @@ def main() -> int:
         persist_resume_state(resume_state_path, resume_state)
 
     print("=" * 72)
-    print("Noupe Train/Validate Pipeline")
+    print("Kaypoh Train/Validate Pipeline")
     print("=" * 72)
     if resume_enabled:
         print(f"Resume state: {resume_state_path}")

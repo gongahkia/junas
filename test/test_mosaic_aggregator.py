@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 
-from noupe.workflow.layer5_mosaic import inference as mosaic_inference
+from kaypoh.workflow.layer5_mosaic import inference as mosaic_inference
 
 
 class FakeRedisPipeline:

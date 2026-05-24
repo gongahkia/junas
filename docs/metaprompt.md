@@ -5,7 +5,7 @@ Use the template below to prompt an LLM to generate layer-targeted test strings 
 Replace `<X_CONTEXT>` and `<Y_COMPANY>` before use.
 
 ```text
-You are generating backend test strings for Noupe's `/classify` pipeline.
+You are generating backend test strings for Kaypoh's `/classify` pipeline.
 
 Context inputs:
 - X_CONTEXT: <X_CONTEXT>

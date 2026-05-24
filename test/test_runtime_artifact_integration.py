@@ -12,8 +12,8 @@ class RuntimeArtifactIntegrationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         require_env_flag(
-            "NOUPE_RUN_REAL_ARTIFACT_INTEGRATION",
-            reason="set NOUPE_RUN_REAL_ARTIFACT_INTEGRATION=1 to run real-artifact runtime tests",
+            "KAYPOH_RUN_REAL_ARTIFACT_INTEGRATION",
+            reason="set KAYPOH_RUN_REAL_ARTIFACT_INTEGRATION=1 to run real-artifact runtime tests",
         )
         ensure_real_artifacts_available()
 
@@ -23,15 +23,15 @@ class RuntimeArtifactIntegrationTests(unittest.TestCase):
             {
                 "KMP_DUPLICATE_LIB_OK": "TRUE",
                 "PIPELINE_LAYERS": "model1,model2",
-                "NOUPE_OPTIONAL_LAYERS": "",
-                "NOUPE_FAIL_ON_LAYER_LOAD_ERROR": "1",
-                "NOUPE_LAZY_LOAD_HEAVY": "0",
+                "KAYPOH_OPTIONAL_LAYERS": "",
+                "KAYPOH_FAIL_ON_LAYER_LOAD_ERROR": "1",
+                "KAYPOH_LAZY_LOAD_HEAVY": "0",
             },
             clear=False,
         )
         cls.env_patcher.start()
 
-        canonical_main = importlib.import_module("noupe.backend.main")
+        canonical_main = importlib.import_module("kaypoh.backend.main")
         importlib.reload(canonical_main)
         shim_main = importlib.import_module("backend.main")
         cls.main = importlib.reload(shim_main)

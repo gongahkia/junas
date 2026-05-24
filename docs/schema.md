@@ -1,6 +1,6 @@
 # I/O Schemas
 
-Per-layer input/output contracts for the Noupe MNPI pipeline.
+Per-layer input/output contracts for the Kaypoh MNPI pipeline.
 
 ## Training Data — `TrainingBatch`
 
@@ -30,8 +30,8 @@ python3 scripts/validate_training_data.py docs/json/batch*.json
 
 Python integration surfaces for this contract:
 
-- `NoupeClient`: synchronous wrapper over the HTTP API
-- `AsyncNoupeClient`: asynchronous wrapper over the same HTTP API
+- `KaypohClient`: synchronous wrapper over the HTTP API
+- `AsyncKaypohClient`: asynchronous wrapper over the same HTTP API
 - usage and run instructions: `docs/api/python_client.md`
 
 Request:
@@ -45,7 +45,7 @@ Request:
 }
 ```
 
-If `NOUPE_API_KEY` is configured, include header:
+If `KAYPOH_API_KEY` is configured, include header:
 
 `X-API-Key: <value>`
 
@@ -300,7 +300,7 @@ Notes:
 
 - maximum batch size is `32`
 - each item reuses the same request contract as `POST /classify`
-- if `NOUPE_API_KEY` is configured, `X-API-Key` is also required for `POST /classify/batch`
+- if `KAYPOH_API_KEY` is configured, `X-API-Key` is also required for `POST /classify/batch`
 
 Response:
 
@@ -411,7 +411,7 @@ Each batch item returns the same full response shape as `POST /classify`.
 
 ## Embeddings
 
-Outputs from `src/noupe/workflow/layer2_embeddings/generate_embeddings.py`:
+Outputs from `src/kaypoh/workflow/layer2_embeddings/generate_embeddings.py`:
 
 - `public_embeddings.npy`
 - `violation_embeddings.npy`

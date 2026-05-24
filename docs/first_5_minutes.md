@@ -40,9 +40,9 @@ curl -X POST http://localhost:8000/classify \
 Sample Python call:
 
 ```python
-from noupe import NoupeClient
+from kaypoh import KaypohClient
 
-with NoupeClient("http://localhost:8000") as client:
+with KaypohClient("http://localhost:8000") as client:
     result = client.classify(
         text="Acme Corp is acquiring GlobalTech for $2.5 billion",
         include_offending_spans=True,
@@ -50,7 +50,7 @@ with NoupeClient("http://localhost:8000") as client:
     print(result.classification)
 ```
 
-If you are integrating from an asyncio application, use `AsyncNoupeClient` from the same package. Both clients call the same backend routes.
+If you are integrating from an asyncio application, use `AsyncKaypohClient` from the same package. Both clients call the same backend routes.
 
 Run the included example scripts:
 
@@ -73,8 +73,8 @@ Start backend + choose frontend(s) interactively:
 Non-interactive examples:
 
 ```sh
-NOUPE_FRONTENDS=legacy PIPELINE_LAYERS=lexicon ./scripts/launch/run_dev.sh
-NOUPE_FRONTENDS=all ./scripts/launch/run_dev.sh
+KAYPOH_FRONTENDS=legacy PIPELINE_LAYERS=lexicon ./scripts/launch/run_dev.sh
+KAYPOH_FRONTENDS=all ./scripts/launch/run_dev.sh
 ```
 
 Default demo base URL:
@@ -88,7 +88,7 @@ http://localhost:8081
 Start backend with API key requirement:
 
 ```sh
-NOUPE_API_KEY="dev-secret" ./scripts/launch/run_backend_only.sh
+KAYPOH_API_KEY="dev-secret" ./scripts/launch/run_backend_only.sh
 ```
 
 Call classify with auth header:
@@ -119,18 +119,18 @@ python3 scripts/preflight.py --strict
 If port `8000` is occupied:
 
 ```sh
-NOUPE_PORT=8010 ./scripts/launch/run_backend_only.sh
+KAYPOH_PORT=8010 ./scripts/launch/run_backend_only.sh
 ```
 
 If you need per-request tracing by `X-Request-ID`:
 
 ```sh
 ./scripts/launch/run_backend_only.sh | tee reports/backend.log
-curl -sS -D /tmp/noupe-headers.txt -o /tmp/noupe-body.json \
+curl -sS -D /tmp/kaypoh-headers.txt -o /tmp/kaypoh-body.json \
   -X POST http://localhost:8000/classify \
   -H "Content-Type: application/json" \
   -d '{"text":"Acme Corp is acquiring GlobalTech for $2.5 billion"}'
-REQUEST_ID="$(grep -i '^x-request-id:' /tmp/noupe-headers.txt | awk '{print $2}' | tr -d '\r')"
+REQUEST_ID="$(grep -i '^x-request-id:' /tmp/kaypoh-headers.txt | awk '{print $2}' | tr -d '\r')"
 ./scripts/trace_request_logs.sh --log-file reports/backend.log --request-id "${REQUEST_ID}"
 ```
 

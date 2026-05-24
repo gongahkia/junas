@@ -21,7 +21,7 @@ class OpenApiDocsTests(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             payload = response.json()
 
-        self.assertEqual(payload["info"]["title"], "Noupe MNPI Classifier")
+        self.assertEqual(payload["info"]["title"], "Kaypoh MNPI Classifier")
         self.assertIn("backend-only", payload["info"]["description"])
 
         classify_operation = payload["paths"]["/classify"]["post"]

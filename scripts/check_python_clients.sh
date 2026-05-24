@@ -15,9 +15,9 @@ fi
 
 cd "${ROOT}"
 
-echo "🧪 Verifying Noupe sync and async Python clients..."
+echo "🧪 Verifying Kaypoh sync and async Python clients..."
 "${PYTHON_BIN}" -m py_compile \
-    src/noupe/client.py \
+    src/kaypoh/client.py \
     api/client.py \
     backend/client.py \
     scripts/examples/sync_client_example.py \

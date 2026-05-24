@@ -4,7 +4,7 @@ import time
 
 import redis
 
-logger = logging.getLogger("noupe.mosaic")
+logger = logging.getLogger("kaypoh.mosaic")
 
 
 class MosaicAggregator:

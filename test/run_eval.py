@@ -28,7 +28,7 @@ DEFAULT_DATA = Path(__file__).parent / "eval.json"
 LABELS = ["SAFE", "LOW_RISK", "HIGH_RISK"]
 
 def parse_args():
-    p = argparse.ArgumentParser(description="Noupe pipeline eval runner")
+    p = argparse.ArgumentParser(description="Kaypoh pipeline eval runner")
     p.add_argument("--config", required=True, help="path to config.toml to use for this run")
     p.add_argument("--data", default=str(DEFAULT_DATA), help="path to eval JSON (default: test/eval.json)")
     p.add_argument("--port", type=int, default=8000, help="backend port (default: 8000)")
@@ -142,9 +142,9 @@ def main():
         python = str(venv_python) if venv_python.exists() else sys.executable
         env = {
             **os.environ,
-            "NOUPE_CONFIG": config_path,
-            "NOUPE_DETERMINISTIC": "1",
-            "NOUPE_SEED": str(args.seed),
+            "KAYPOH_CONFIG": config_path,
+            "KAYPOH_DETERMINISTIC": "1",
+            "KAYPOH_SEED": str(args.seed),
         }
         cmd = [python, "-m", "uvicorn", "backend.main:app",
                "--host", "0.0.0.0", "--port", str(args.port)]

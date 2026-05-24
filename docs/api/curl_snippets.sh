@@ -7,13 +7,13 @@ BASE_URL="${BASE_URL:-http://localhost:8000}"
 # POST /classify - Classify one document
 curl -sS -X POST "${BASE_URL}/classify" \
   -H "Content-Type: application/json" \
-  -H "X-API-Key: ${NOUPE_API_KEY:-dev-secret}" \
+  -H "X-API-Key: ${KAYPOH_API_KEY:-dev-secret}" \
   -d '{"debug":false,"entity_id":"Acme Corp","include_offending_spans":true,"text":"Acme Corp is acquiring GlobalTech for $2.5 billion next quarter."}'
 
 # POST /classify/batch - Classify multiple documents
 curl -sS -X POST "${BASE_URL}/classify/batch" \
   -H "Content-Type: application/json" \
-  -H "X-API-Key: ${NOUPE_API_KEY:-dev-secret}" \
+  -H "X-API-Key: ${KAYPOH_API_KEY:-dev-secret}" \
   -d '{"items":[{"include_offending_spans":true,"text":"Acme Corp is acquiring GlobalTech for $2.5 billion next quarter."},{"debug":false,"text":"Public press release for next week's earnings call."}]}'
 
 # GET /diagnostics - Get runtime diagnostics

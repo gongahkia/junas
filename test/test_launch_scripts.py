@@ -42,12 +42,12 @@ class LaunchScriptSmokeTests(unittest.TestCase):
         demo_port = reserve_port()
         env = {
             **os.environ,
-            "NOUPE_HOST": "127.0.0.1",
-            "NOUPE_PORT": str(backend_port),
-            "NOUPE_FRONTEND_DEMO_PORT": str(demo_port),
-            "NOUPE_FRONTENDS": frontends,
-            "NOUPE_NO_BROWSER": "1",
-            "NOUPE_UVICORN_WORKERS": "1",
+            "KAYPOH_HOST": "127.0.0.1",
+            "KAYPOH_PORT": str(backend_port),
+            "KAYPOH_FRONTEND_DEMO_PORT": str(demo_port),
+            "KAYPOH_FRONTENDS": frontends,
+            "KAYPOH_NO_BROWSER": "1",
+            "KAYPOH_UVICORN_WORKERS": "1",
             "PIPELINE_LAYERS": "lexicon",
         }
         proc = subprocess.Popen(
@@ -88,7 +88,7 @@ class LaunchScriptSmokeTests(unittest.TestCase):
             demo_html = wait_for_url(f"http://127.0.0.1:{demo_port}/legacy/", proc)
             self.assertIn('"ready":true', ready_payload.replace(" ", "").lower())
             self.assertIn("<!doctype html>", demo_html.lower())
-            self.assertIn("noupe", demo_html.lower())
+            self.assertIn("kaypoh", demo_html.lower())
         finally:
             self._stop_script(proc)
 
@@ -99,7 +99,7 @@ class LaunchScriptSmokeTests(unittest.TestCase):
             demo_html = wait_for_url(f"http://127.0.0.1:{demo_port}/chat/", proc, timeout=60.0)
             self.assertIn('"ready":true', ready_payload.replace(" ", "").lower())
             self.assertIn("<!doctype html>", demo_html.lower())
-            self.assertIn("noupe", demo_html.lower())
+            self.assertIn("kaypoh", demo_html.lower())
         finally:
             self._stop_script(proc)
 

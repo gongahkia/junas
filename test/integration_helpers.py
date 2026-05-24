@@ -12,7 +12,7 @@ from pathlib import Path
 
 import redis
 
-from noupe.configs.artifacts import artifact_manifest_path, verify_artifact_manifest
+from kaypoh.configs.artifacts import artifact_manifest_path, verify_artifact_manifest
 
 ROOT = Path(__file__).resolve().parent.parent
 FIXTURES_DIR = ROOT / "test" / "fixtures"
@@ -42,8 +42,8 @@ def find_free_tcp_port() -> int:
 
 class TemporaryRedisServer:
     def __init__(self) -> None:
-        self.host = os.environ.get("NOUPE_TEST_REDIS_HOST", "127.0.0.1")
-        env_port = os.environ.get("NOUPE_TEST_REDIS_PORT")
+        self.host = os.environ.get("KAYPOH_TEST_REDIS_HOST", "127.0.0.1")
+        env_port = os.environ.get("KAYPOH_TEST_REDIS_PORT")
         self.port = int(env_port) if env_port else find_free_tcp_port()
         self._managed = env_port is None
         self._process: subprocess.Popen | None = None

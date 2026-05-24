@@ -15,12 +15,12 @@ SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from noupe.configs.artifacts import (
+from kaypoh.configs.artifacts import (
     artifact_manifest_path,
     get_artifact_path,
     verify_artifact_manifest,
 )
-from noupe.configs.runtime import ConfigError, VALID_LAYERS, load_runtime_settings
+from kaypoh.configs.runtime import ConfigError, VALID_LAYERS, load_runtime_settings
 
 
 def is_truthy(value: str | None) -> bool:
@@ -101,7 +101,7 @@ def has_sentence_transformer_cache(model_name: str) -> bool:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Noupe runtime preflight checks")
+    parser = argparse.ArgumentParser(description="Kaypoh runtime preflight checks")
     parser.add_argument("--strict", action="store_true", help="exit non-zero on any warning")
     parser.add_argument("--config", type=str, help="override config.toml path for this run")
     parser.add_argument("--layers", type=str, help="override active pipeline layers for this run")
@@ -215,7 +215,7 @@ def main() -> int:
 
         hf_offline = any(
             [
-                is_truthy(os.environ.get("NOUPE_HF_OFFLINE")),
+                is_truthy(os.environ.get("KAYPOH_HF_OFFLINE")),
                 is_truthy(os.environ.get("TRANSFORMERS_OFFLINE")),
                 is_truthy(os.environ.get("HF_HUB_OFFLINE")),
             ]
@@ -233,7 +233,7 @@ def main() -> int:
         else:
             checks.append("HF online mode (offline env flags not set)")
 
-    print("=== Noupe Preflight ===")
+    print("=== Kaypoh Preflight ===")
     print(f"config_path: {settings.config_path if settings is not None else (Path(args.config).expanduser().resolve() if args.config else ROOT / 'config.toml')}")
     print("checks:")
     for item in checks:

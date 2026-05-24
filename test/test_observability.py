@@ -56,7 +56,7 @@ class ObservabilityApiTests(unittest.TestCase):
             metrics_before = client.get("/metrics").text
             classify_total_before = parse_metric_value(
                 metrics_before,
-                "noupe_classification_results_total",
+                "kaypoh_classification_results_total",
                 endpoint="/classify",
                 classification="SAFE",
                 cache_status="miss",
@@ -70,7 +70,7 @@ class ObservabilityApiTests(unittest.TestCase):
             metrics_after = client.get("/metrics").text
             classify_total_after = parse_metric_value(
                 metrics_after,
-                "noupe_classification_results_total",
+                "kaypoh_classification_results_total",
                 endpoint="/classify",
                 classification="SAFE",
                 cache_status="miss",
@@ -79,7 +79,7 @@ class ObservabilityApiTests(unittest.TestCase):
             self.assertEqual(classify_total_after, 1.0)
             ready_total = parse_metric_value(
                 metrics_after,
-                "noupe_http_requests_total",
+                "kaypoh_http_requests_total",
                 endpoint="/ready",
                 method="GET",
                 status_code="200",
@@ -157,7 +157,7 @@ class ObservabilityApiTests(unittest.TestCase):
             metrics_text = client.get("/metrics").text
             layer_error_total = parse_metric_value(
                 metrics_text,
-                "noupe_layer_execution_total",
+                "kaypoh_layer_execution_total",
                 layer="model1",
                 outcome="error",
             )
@@ -166,7 +166,7 @@ class ObservabilityApiTests(unittest.TestCase):
 
 class MultiprocessMetricsSmokeTests(unittest.TestCase):
     def test_metrics_endpoint_works_in_multiprocess_mode(self):
-        temp_dir = tempfile.mkdtemp(prefix="noupe-prom-")
+        temp_dir = tempfile.mkdtemp(prefix="kaypoh-prom-")
         port = 8123
         env = {
             **os.environ,
@@ -214,7 +214,7 @@ class MultiprocessMetricsSmokeTests(unittest.TestCase):
 
             miss_total = parse_metric_value(
                 metrics_text,
-                "noupe_classification_results_total",
+                "kaypoh_classification_results_total",
                 endpoint="/classify",
                 classification="SAFE",
                 cache_status="miss",
@@ -222,14 +222,14 @@ class MultiprocessMetricsSmokeTests(unittest.TestCase):
             )
             hit_total = parse_metric_value(
                 metrics_text,
-                "noupe_classification_results_total",
+                "kaypoh_classification_results_total",
                 endpoint="/classify",
                 classification="SAFE",
                 cache_status="hit",
                 degraded="false",
             )
             self.assertEqual((miss_total or 0.0) + (hit_total or 0.0), 6.0)
-            self.assertIn("noupe_http_requests_total", metrics_text)
+            self.assertIn("kaypoh_http_requests_total", metrics_text)
             self.assertTrue(any(name.endswith(".db") for name in os.listdir(temp_dir)))
         finally:
             proc.send_signal(signal.SIGTERM)

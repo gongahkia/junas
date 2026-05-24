@@ -2,18 +2,18 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-NOUPE_HOST="${NOUPE_HOST:-0.0.0.0}"
-NOUPE_PORT="${NOUPE_PORT:-8000}"
-NOUPE_READY_TIMEOUT_SECONDS="${NOUPE_READY_TIMEOUT_SECONDS:-180}"
-NOUPE_FRONTEND_DEMO_PORT="${NOUPE_FRONTEND_DEMO_PORT:-${NOUPE_OLD_FRONTEND_PORT:-8081}}"
+KAYPOH_HOST="${KAYPOH_HOST:-0.0.0.0}"
+KAYPOH_PORT="${KAYPOH_PORT:-8000}"
+KAYPOH_READY_TIMEOUT_SECONDS="${KAYPOH_READY_TIMEOUT_SECONDS:-180}"
+KAYPOH_FRONTEND_DEMO_PORT="${KAYPOH_FRONTEND_DEMO_PORT:-${KAYPOH_OLD_FRONTEND_PORT:-8081}}"
 
 BACKEND_PID=""
 DEMO_SERVER_PID=""
 FRONTEND_SELECTION="${FRONTEND_SELECTION:-}"
 
-BACKEND_URL="http://localhost:${NOUPE_PORT}"
+BACKEND_URL="http://localhost:${KAYPOH_PORT}"
 DEMO_ROOT="${ROOT}/archive/frontend-demos"
-DEMO_BASE_URL="http://localhost:${NOUPE_FRONTEND_DEMO_PORT}"
+DEMO_BASE_URL="http://localhost:${KAYPOH_FRONTEND_DEMO_PORT}"
 LEGACY_FRONTEND_URL="${DEMO_BASE_URL}/legacy/?api=${BACKEND_URL}"
 CHAT_FRONTEND_URL="${DEMO_BASE_URL}/chat/?api=${BACKEND_URL}"
 
@@ -36,7 +36,7 @@ cleanup_services() {
 
 open_url() {
     local url="$1"
-    if [ "${NOUPE_NO_BROWSER:-0}" = "1" ]; then
+    if [ "${KAYPOH_NO_BROWSER:-0}" = "1" ]; then
         echo "ℹ️  Browser auto-open disabled. Open this manually if needed:"
         echo "   ${url}"
         return
@@ -86,11 +86,11 @@ PY
 }
 
 wait_for_backend_ready() {
-    local ready_url="http://127.0.0.1:${NOUPE_PORT}/ready"
+    local ready_url="http://127.0.0.1:${KAYPOH_PORT}/ready"
 
     echo "⏳ Waiting for backend readiness at ${ready_url}..."
 
-    python3 - "${BACKEND_PID}" "${NOUPE_PORT}" "${NOUPE_READY_TIMEOUT_SECONDS}" <<'PY'
+    python3 - "${BACKEND_PID}" "${KAYPOH_PORT}" "${KAYPOH_READY_TIMEOUT_SECONDS}" <<'PY'
 import json
 import os
 import sys
@@ -167,14 +167,14 @@ prompt_frontends() {
         default_numeric="4"
     fi
 
-    if [ -n "${NOUPE_FRONTENDS:-}" ]; then
-        case "${NOUPE_FRONTENDS}" in
+    if [ -n "${KAYPOH_FRONTENDS:-}" ]; then
+        case "${KAYPOH_FRONTENDS}" in
             legacy|chat|all|none)
-                FRONTEND_SELECTION="${NOUPE_FRONTENDS}"
+                FRONTEND_SELECTION="${KAYPOH_FRONTENDS}"
                 return
                 ;;
             *)
-                echo "❌ Invalid NOUPE_FRONTENDS value: ${NOUPE_FRONTENDS}"
+                echo "❌ Invalid KAYPOH_FRONTENDS value: ${KAYPOH_FRONTENDS}"
                 echo "   Valid values: legacy | chat | all | none"
                 exit 1
                 ;;
@@ -242,9 +242,9 @@ start_demo_server() {
     fi
 
     echo "🌐 Starting archived frontend demo server on ${DEMO_BASE_URL}/ ..."
-    python3 -m http.server "${NOUPE_FRONTEND_DEMO_PORT}" -d "${DEMO_ROOT}" >/dev/null 2>&1 &
+    python3 -m http.server "${KAYPOH_FRONTEND_DEMO_PORT}" -d "${DEMO_ROOT}" >/dev/null 2>&1 &
     DEMO_SERVER_PID=$!
-    wait_for_url "http://127.0.0.1:${NOUPE_FRONTEND_DEMO_PORT}/legacy/" "${DEMO_SERVER_PID}" 30
+    wait_for_url "http://127.0.0.1:${KAYPOH_FRONTEND_DEMO_PORT}/legacy/" "${DEMO_SERVER_PID}" 30
 }
 
 open_selected_frontends() {
@@ -268,7 +268,7 @@ print_selected_frontends() {
 }
 
 emit_launch_telemetry_report() {
-    local report_path="${NOUPE_LAUNCH_TELEMETRY_FILE:-}"
+    local report_path="${KAYPOH_LAUNCH_TELEMETRY_FILE:-}"
     local frontend_selection="${1:-${FRONTEND_SELECTION:-none}}"
 
     if [ -z "${report_path}" ]; then

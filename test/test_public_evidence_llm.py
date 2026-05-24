@@ -5,8 +5,8 @@ from types import SimpleNamespace
 from fastapi.testclient import TestClient
 
 import backend.main as main
-from noupe.workflow.layer7_public_evidence.inference import PublicEvidenceRetriever
-from noupe.workflow.privacy_guard import PrivacyGuard
+from kaypoh.workflow.layer7_public_evidence.inference import PublicEvidenceRetriever
+from kaypoh.workflow.privacy_guard import PrivacyGuard
 from test import observability_test_app as test_app
 
 

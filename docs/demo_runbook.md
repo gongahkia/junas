@@ -1,4 +1,4 @@
-# Noupe Internal Demo Runbook
+# Kaypoh Internal Demo Runbook
 
 Presentation script covering **(a) solution architecture** and **(b) API versatility**.
 
@@ -7,7 +7,7 @@ Presentation script covering **(a) solution architecture** and **(b) API versati
 ## Prerequisites
 
 ```sh
-cd /Users/gongahkia/Desktop/coding/smu/Noupe
+cd /Users/gongahkia/Desktop/coding/smu/Kaypoh
 source .venv/bin/activate
 redis-server &                          # mosaic layer needs Redis
 ./scripts/launch/run_backend_only.sh    # starts FastAPI on :8000
@@ -115,7 +115,7 @@ Input text
 
 ### A3. Heuristics — Lexicon Layer Detail
 
-The lexicon layer (`src/noupe/workflow/layer1_lexicon/filter.py`) applies **5 rule families**, each with configurable weights:
+The lexicon layer (`src/kaypoh/workflow/layer1_lexicon/filter.py`) applies **5 rule families**, each with configurable weights:
 
 | Rule | Trigger | Severity | Weight |
 |------|---------|----------|--------|
@@ -355,9 +355,9 @@ python3 scripts/examples/async_client_example.py \
 Show this snippet to demonstrate how simple integration is:
 
 ```python
-from noupe import NoupeClient
+from kaypoh import KaypohClient
 
-with NoupeClient("http://localhost:8000") as client:
+with KaypohClient("http://localhost:8000") as client:
     result = client.classify(
         text="Acme Corp is acquiring GlobalTech for $2.5 billion next quarter.",
         include_offending_spans=True,
@@ -373,9 +373,9 @@ with NoupeClient("http://localhost:8000") as client:
 Async version:
 
 ```python
-from noupe import AsyncNoupeClient
+from kaypoh import AsyncKaypohClient
 
-async with AsyncNoupeClient("http://localhost:8000") as client:
+async with AsyncKaypohClient("http://localhost:8000") as client:
     result = await client.classify(text="...")
     batch  = await client.classify_batch(items=[
         {"text": "First document..."},
@@ -383,13 +383,13 @@ async with AsyncNoupeClient("http://localhost:8000") as client:
     ])
 ```
 
-**Talking point**: the Python library is a thin typed wrapper — `NoupeClient` and `AsyncNoupeClient` return Pydantic models with full autocomplete. Error handling via `NoupeAPIError` with `.status_code`, `.detail`, `.body`.
+**Talking point**: the Python library is a thin typed wrapper — `KaypohClient` and `AsyncKaypohClient` return Pydantic models with full autocomplete. Error handling via `KaypohAPIError` with `.status_code`, `.detail`, `.body`.
 
 ---
 
 ### B3. Frontend Integration Demos
 
-**Key message**: Noupe is a **backend-first solution** — any frontend can consume the REST API. We ship two reference frontends as proof of concept.
+**Key message**: Kaypoh is a **backend-first solution** — any frontend can consume the REST API. We ship two reference frontends as proof of concept.
 
 #### B3.1 Legacy Analyzer UI
 
@@ -418,7 +418,7 @@ open archive/frontend-demos/chat/index.html
 
 **What to show**:
 - Type a message in the chat box → hit send
-- Noupe screens the message via `POST /classify` **before** it enters the chat
+- Kaypoh screens the message via `POST /classify` **before** it enters the chat
 - **SAFE**: message passes through immediately
 - **LOW_RISK**: guardrail popup appears — "Review required", user can override
 - **HIGH_RISK**: guardrail popup blocks send — "Cannot send" (no override)
@@ -429,7 +429,7 @@ open archive/frontend-demos/chat/index.html
 
 #### B3.3 The versatility argument
 
-> Since Noupe exposes a standard REST API with JSON request/response, **any frontend or system can integrate**:
+> Since Kaypoh exposes a standard REST API with JSON request/response, **any frontend or system can integrate**:
 > - Web apps (as demonstrated by both reference UIs)
 > - Mobile apps
 > - Slack/Teams bots
@@ -438,7 +438,7 @@ open archive/frontend-demos/chat/index.html
 > - CI/CD pipelines (scan PRs for leaked MNPI)
 > - Any language with an HTTP client
 >
-> We additionally ship a **native Python client library** (`noupe` package) for direct programmatic integration, with both sync and async support.
+> We additionally ship a **native Python client library** (`kaypoh` package) for direct programmatic integration, with both sync and async support.
 
 ---
 

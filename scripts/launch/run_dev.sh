@@ -3,14 +3,14 @@ set -euo pipefail
 
 source "$(cd "$(dirname "$0")" && pwd)/common.sh"
 
-export NOUPE_FAIL_ON_LAYER_LOAD_ERROR="${NOUPE_FAIL_ON_LAYER_LOAD_ERROR:-1}"
+export KAYPOH_FAIL_ON_LAYER_LOAD_ERROR="${KAYPOH_FAIL_ON_LAYER_LOAD_ERROR:-1}"
 
 CANONICAL_LAYERS=("lexicon" "embedding" "clustering" "model1" "model2" "mosaic" "regression")
 PIPELINE_LAYERS_NORMALIZED=""
 
 trap cleanup_services EXIT INT TERM
 
-echo "🚀 Starting Noupe development services..."
+echo "🚀 Starting Kaypoh development services..."
 
 apply_pipeline_selection() {
     local requested
@@ -216,7 +216,7 @@ activate_venv
 WORKFLOW_ROOT="${ROOT}/backend/workflow"
 
 echo "🧪 Running preflight checks..."
-if [ "${NOUPE_PREFLIGHT_STRICT:-1}" = "1" ]; then
+if [ "${KAYPOH_PREFLIGHT_STRICT:-1}" = "1" ]; then
     python3 "${ROOT}/scripts/preflight.py" --strict
 else
     python3 "${ROOT}/scripts/preflight.py" || true
@@ -250,15 +250,15 @@ if [ "${MISSING}" -gt 0 ]; then
     echo "  Startup is blocked to avoid degraded runtime."
     echo "────────────────────────────────────────────────────"
     echo ""
-    if [ "${NOUPE_ALLOW_PARTIAL_START:-0}" != "1" ]; then
-        echo "Set NOUPE_ALLOW_PARTIAL_START=1 only if you intentionally want degraded startup."
+    if [ "${KAYPOH_ALLOW_PARTIAL_START:-0}" != "1" ]; then
+        echo "Set KAYPOH_ALLOW_PARTIAL_START=1 only if you intentionally want degraded startup."
         exit 1
     fi
-    export NOUPE_FAIL_ON_LAYER_LOAD_ERROR="${NOUPE_FAIL_ON_LAYER_LOAD_ERROR:-0}"
+    export KAYPOH_FAIL_ON_LAYER_LOAD_ERROR="${KAYPOH_FAIL_ON_LAYER_LOAD_ERROR:-0}"
 fi
 
 echo "📦 Booting FastAPI backend on ${BACKEND_URL}..."
-python3 -m uvicorn backend.main:app --host "${NOUPE_HOST}" --port "${NOUPE_PORT}" &
+python3 -m uvicorn backend.main:app --host "${KAYPOH_HOST}" --port "${KAYPOH_PORT}" &
 BACKEND_PID=$!
 
 wait_for_backend_ready

@@ -74,11 +74,11 @@ function resolveApiBase() {
     const params = new URLSearchParams(window.location.search);
     const queryBase = normalizeApiBase(params.get("api"));
     if (queryBase) {
-        window.localStorage.setItem("noupe.apiBase", queryBase);
+        window.localStorage.setItem("kaypoh.apiBase", queryBase);
         return queryBase;
     }
 
-    const savedBase = normalizeApiBase(window.localStorage.getItem("noupe.apiBase"));
+    const savedBase = normalizeApiBase(window.localStorage.getItem("kaypoh.apiBase"));
     if (savedBase) {
         return savedBase;
     }

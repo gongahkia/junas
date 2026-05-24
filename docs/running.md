@@ -1,4 +1,4 @@
-# Running Noupe
+# Running Kaypoh
 
 ## Prerequisites
 
@@ -22,7 +22,7 @@ For reproducible local installs, the repo also ships pinned lockfiles:
 python -m pip install -r requirements.lock.txt -r requirements-dev.lock.txt
 ```
 
-`pyproject.toml` is the canonical dependency and tooling definition. `backend.main:app` remains the supported FastAPI entrypoint, but the canonical Python package now lives under `src/noupe/`.
+`pyproject.toml` is the canonical dependency and tooling definition. `backend.main:app` remains the supported FastAPI entrypoint, but the canonical Python package now lives under `src/kaypoh/`.
 
 ## Bootstrapping Artifacts
 
@@ -39,7 +39,7 @@ If you need to regenerate artifacts from the training pipeline:
 python3 scripts/bootstrap_artifacts.py --regenerate
 ```
 
-The artifact manifest path defaults to `artifacts/manifest.json` and can be overridden with `NOUPE_ARTIFACT_MANIFEST`.
+The artifact manifest path defaults to `artifacts/manifest.json` and can be overridden with `KAYPOH_ARTIFACT_MANIFEST`.
 
 ## Preflight
 
@@ -97,7 +97,7 @@ The `.txt` report now includes both the summary table and the per-file detailed 
 uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-`backend.main:app` is a compatibility shim that re-exports the canonical app from `noupe.backend.main`.
+`backend.main:app` is a compatibility shim that re-exports the canonical app from `kaypoh.backend.main`.
 
 ## Dev Launcher
 
@@ -125,14 +125,14 @@ Frontend choices:
 
 Useful launcher env vars:
 
-- `NOUPE_FRONTENDS=legacy|chat|all|none`
+- `KAYPOH_FRONTENDS=legacy|chat|all|none`
 - `PIPELINE_LAYERS=lexicon,embedding,...` to skip the layer prompt and force a specific pipeline
-- `NOUPE_PORT` (default `8000`)
-- `NOUPE_FRONTEND_DEMO_PORT` (default `8081`)
-- `NOUPE_READY_TIMEOUT_SECONDS` (default `180`)
-- `NOUPE_LAUNCH_TELEMETRY_FILE` (optional; write startup telemetry JSON after readiness)
-- `NOUPE_ALLOW_PARTIAL_START=1` if you intentionally want degraded startup
-- `NOUPE_PREFLIGHT_STRICT=0` to relax preflight warnings
+- `KAYPOH_PORT` (default `8000`)
+- `KAYPOH_FRONTEND_DEMO_PORT` (default `8081`)
+- `KAYPOH_READY_TIMEOUT_SECONDS` (default `180`)
+- `KAYPOH_LAUNCH_TELEMETRY_FILE` (optional; write startup telemetry JSON after readiness)
+- `KAYPOH_ALLOW_PARTIAL_START=1` if you intentionally want degraded startup
+- `KAYPOH_PREFLIGHT_STRICT=0` to relax preflight warnings
 
 Example minimal launcher path:
 
@@ -152,14 +152,14 @@ Run the backend without any demo UI:
 
 Useful env vars:
 
-- `NOUPE_PORT` (default `8000`)
-- `NOUPE_HOST` (default `0.0.0.0`)
-- `NOUPE_LOG_LEVEL` (default `info`)
-- `NOUPE_PRETTY_LOGS` (`1` by default; set `NOUPE_PRETTY_LOGS=0` for compact single-line backend JSON logs)
-- `NOUPE_BATCH_MAX_CONCURRENCY` (default `min(4, os.cpu_count() or 1)`)
-- `NOUPE_ARTIFACT_MANIFEST` (default `artifacts/manifest.json`)
-- `NOUPE_RELOAD=1` to enable autoreload
-- `NOUPE_LAUNCH_TELEMETRY_FILE` (optional; write startup telemetry JSON after readiness)
+- `KAYPOH_PORT` (default `8000`)
+- `KAYPOH_HOST` (default `0.0.0.0`)
+- `KAYPOH_LOG_LEVEL` (default `info`)
+- `KAYPOH_PRETTY_LOGS` (`1` by default; set `KAYPOH_PRETTY_LOGS=0` for compact single-line backend JSON logs)
+- `KAYPOH_BATCH_MAX_CONCURRENCY` (default `min(4, os.cpu_count() or 1)`)
+- `KAYPOH_ARTIFACT_MANIFEST` (default `artifacts/manifest.json`)
+- `KAYPOH_RELOAD=1` to enable autoreload
+- `KAYPOH_LAUNCH_TELEMETRY_FILE` (optional; write startup telemetry JSON after readiness)
 
 Bare `uvicorn backend.main:app` startup allows degraded mode by default when configured required layers are missing, and exposes that state through `GET /ready` and `GET /diagnostics`. When lazy loading is enabled, `GET /ready` remains degraded until required lazy layers finish warming.
 
@@ -180,14 +180,14 @@ Downstream consumers should migrate from the removed `mosaic.count` field to `mo
 
 The launcher scripts are stricter by default:
 
-- `scripts/launch/run_dev.sh` defaults `NOUPE_FAIL_ON_LAYER_LOAD_ERROR=1`
-- `scripts/launch/run_backend_only.sh` defaults `NOUPE_FAIL_ON_LAYER_LOAD_ERROR=1`
+- `scripts/launch/run_dev.sh` defaults `KAYPOH_FAIL_ON_LAYER_LOAD_ERROR=1`
+- `scripts/launch/run_backend_only.sh` defaults `KAYPOH_FAIL_ON_LAYER_LOAD_ERROR=1`
 - `scripts/launch/run_prod.sh` forces strict startup and strict preflight checks
 
 Use strict startup locally when you want missing required layers to fail fast:
 
 ```sh
-NOUPE_FAIL_ON_LAYER_LOAD_ERROR=1 uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+KAYPOH_FAIL_ON_LAYER_LOAD_ERROR=1 uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 Healthcheck: `curl http://localhost:8000/health`
@@ -235,24 +235,24 @@ API docs auto-served at `http://localhost:8000/docs` (Swagger) and `http://local
 
 ## Optional Public Evidence + Local LLM
 
-Noupe can add sanitized public-source verification and local-only LLM adjudication to the normal pipeline:
+Kaypoh can add sanitized public-source verification and local-only LLM adjudication to the normal pipeline:
 
 ```sh
 PIPELINE_LAYERS=lexicon,model1,model2,public_evidence,llm_adjudicator \
-NOUPE_PUBLIC_EVIDENCE_ENABLED=1 \
+KAYPOH_PUBLIC_EVIDENCE_ENABLED=1 \
 EXA_API_KEY="..." \
-NOUPE_LLM_ENABLED=1 \
-NOUPE_LLM_BASE_URL="http://10.0.0.25:8001/v1" \
-NOUPE_LLM_MODEL="gpt-oss-20b" \
+KAYPOH_LLM_ENABLED=1 \
+KAYPOH_LLM_BASE_URL="http://10.0.0.25:8001/v1" \
+KAYPOH_LLM_MODEL="gpt-oss-20b" \
 uvicorn backend.main:app --host 0.0.0.0 --port 8000
 ```
 
-The public evidence layer sends only sanitized entity/ticker/event/date queries to external retrieval providers. The local LLM layer may receive the original document text only when the configured base URL is loopback/private, unless `NOUPE_LLM_ALLOW_REMOTE_BASE_URL=1` is explicitly set.
+The public evidence layer sends only sanitized entity/ticker/event/date queries to external retrieval providers. The local LLM layer may receive the original document text only when the configured base URL is loopback/private, unless `KAYPOH_LLM_ALLOW_REMOTE_BASE_URL=1` is explicitly set.
 
 Optional launch telemetry report:
 
 ```sh
-NOUPE_LAUNCH_TELEMETRY_FILE=reports/launch_telemetry.json ./scripts/launch/run_backend_only.sh
+KAYPOH_LAUNCH_TELEMETRY_FILE=reports/launch_telemetry.json ./scripts/launch/run_backend_only.sh
 cat reports/launch_telemetry.json
 ```
 
@@ -275,7 +275,7 @@ When you need to debug one request end-to-end, run the backend through `tee` so 
 Send a classify request and capture response headers:
 
 ```sh
-curl -sS -D /tmp/noupe-headers.txt -o /tmp/noupe-body.json \
+curl -sS -D /tmp/kaypoh-headers.txt -o /tmp/kaypoh-body.json \
   -X POST http://localhost:8000/classify \
   -H "Content-Type: application/json" \
   -d '{"text":"Acme Corp is acquiring GlobalTech for $2.5 billion"}'
@@ -284,7 +284,7 @@ curl -sS -D /tmp/noupe-headers.txt -o /tmp/noupe-body.json \
 Extract the request id and follow only matching log lines:
 
 ```sh
-REQUEST_ID="$(grep -i '^x-request-id:' /tmp/noupe-headers.txt | awk '{print $2}' | tr -d '\r')"
+REQUEST_ID="$(grep -i '^x-request-id:' /tmp/kaypoh-headers.txt | awk '{print $2}' | tr -d '\r')"
 ./scripts/trace_request_logs.sh --log-file reports/backend.log --request-id "${REQUEST_ID}"
 ```
 
@@ -325,9 +325,9 @@ curl -X POST http://localhost:8000/classify/batch \
 Python client:
 
 ```python
-from noupe import NoupeClient
+from kaypoh import KaypohClient
 
-with NoupeClient("http://localhost:8000") as client:
+with KaypohClient("http://localhost:8000") as client:
     result = client.classify(
         text="Acme Corp is acquiring GlobalTech for $2.5 billion next quarter.",
         entity_id="acme-corp",
@@ -339,7 +339,7 @@ with NoupeClient("http://localhost:8000") as client:
     print(result.model_dump())
 ```
 
-The clients are implemented at `src/noupe/client.py`. `NoupeClient` is synchronous, `AsyncNoupeClient` is asynchronous, and both call the same backend endpoints. Full usage is documented in `docs/api/python_client.md`.
+The clients are implemented at `src/kaypoh/client.py`. `KaypohClient` is synchronous, `AsyncKaypohClient` is asynchronous, and both call the same backend endpoints. Full usage is documented in `docs/api/python_client.md`.
 
 Run the included example scripts:
 
@@ -374,15 +374,15 @@ Use the production launcher (no autoreload, multi-worker):
 
 Useful production launcher env vars:
 
-- `NOUPE_FRONTENDS=legacy|chat|all|none`
-- `NOUPE_HOST` (default `0.0.0.0`)
-- `NOUPE_PORT` (default `8000`)
-- `NOUPE_UVICORN_WORKERS` (default `2`)
-- `NOUPE_LOG_LEVEL` (default `info`)
-- `NOUPE_PRETTY_LOGS` (`1` by default; set `NOUPE_PRETTY_LOGS=0` for compact single-line backend JSON logs)
-- `NOUPE_FRONTEND_DEMO_PORT` (default `8081`)
-- `NOUPE_READY_TIMEOUT_SECONDS` (default `180`)
-- `NOUPE_RESPONSE_CACHE_SIZE` (default `0` in the production launcher because the built-in cache is per-worker memory)
+- `KAYPOH_FRONTENDS=legacy|chat|all|none`
+- `KAYPOH_HOST` (default `0.0.0.0`)
+- `KAYPOH_PORT` (default `8000`)
+- `KAYPOH_UVICORN_WORKERS` (default `2`)
+- `KAYPOH_LOG_LEVEL` (default `info`)
+- `KAYPOH_PRETTY_LOGS` (`1` by default; set `KAYPOH_PRETTY_LOGS=0` for compact single-line backend JSON logs)
+- `KAYPOH_FRONTEND_DEMO_PORT` (default `8081`)
+- `KAYPOH_READY_TIMEOUT_SECONDS` (default `180`)
+- `KAYPOH_RESPONSE_CACHE_SIZE` (default `0` in the production launcher because the built-in cache is per-worker memory)
 
 `scripts/launch/run_prod.sh` still forces strict startup and will fail if required configured layers cannot load.
 
@@ -410,11 +410,11 @@ The legacy analyzer and the chat demo now live under `archive/frontend-demos/` a
 
 Useful env vars:
 
-- `NOUPE_UVICORN_WORKERS` (default `2`)
-- `NOUPE_HOST` (default `0.0.0.0`)
-- `NOUPE_PORT` (default `8000`)
-- `NOUPE_LOG_LEVEL` (default `info`)
-- `NOUPE_PRETTY_LOGS` (`1` by default; set `NOUPE_PRETTY_LOGS=0` for compact single-line backend JSON logs)
+- `KAYPOH_UVICORN_WORKERS` (default `2`)
+- `KAYPOH_HOST` (default `0.0.0.0`)
+- `KAYPOH_PORT` (default `8000`)
+- `KAYPOH_LOG_LEVEL` (default `info`)
+- `KAYPOH_PRETTY_LOGS` (`1` by default; set `KAYPOH_PRETTY_LOGS=0` for compact single-line backend JSON logs)
 - `PROMETHEUS_MULTIPROC_DIR` (optional in dev; automatically set by `scripts/launch/run_prod.sh` for multi-worker metrics aggregation)
 
 ## Latency Benchmarking
@@ -466,7 +466,7 @@ Both classification training scripts expect CSVs with columns `text,label`.
 Labels: `0` = public/safe, `1` = non-public/risk.
 
 ```sh
-python3 src/noupe/workflow/layer4_classification/model1/classifier.py data/train.csv data/val.csv
+python3 src/kaypoh/workflow/layer4_classification/model1/classifier.py data/train.csv data/val.csv
 ```
 
 Checkpoint directory: `artifacts/layer4_classification/model1/best/`.
@@ -476,7 +476,7 @@ Checkpoint directory: `artifacts/layer4_classification/model1/best/`.
 Labels: `0` = low_risk, `1` = high_risk. Train on violation corpus only (no safe/public rows).
 
 ```sh
-python3 src/noupe/workflow/layer4_classification/model2/classifier.py data/train_violations.csv data/val_violations.csv
+python3 src/kaypoh/workflow/layer4_classification/model2/classifier.py data/train_violations.csv data/val_violations.csv
 ```
 
 Checkpoint directory: `artifacts/layer4_classification/model2/best/`.
@@ -484,7 +484,7 @@ Checkpoint directory: `artifacts/layer4_classification/model2/best/`.
 ## Generating Embeddings
 
 ```sh
-python3 src/noupe/workflow/layer2_embeddings/generate_embeddings.py
+python3 src/kaypoh/workflow/layer2_embeddings/generate_embeddings.py
 ```
 
 Outputs `public_embeddings.npy`, `violation_embeddings.npy`, and `all_embeddings.npy`.
@@ -492,7 +492,7 @@ Outputs `public_embeddings.npy`, `violation_embeddings.npy`, and `all_embeddings
 ## Training the Anomaly Detector (Isolation Forest)
 
 ```sh
-python3 src/noupe/workflow/layer3_clustering/isolation_forest.py all_embeddings.npy
+python3 src/kaypoh/workflow/layer3_clustering/isolation_forest.py all_embeddings.npy
 ```
 
 Checkpoint saved to `artifacts/layer3_clustering/anomaly_detector.joblib`.
@@ -500,7 +500,7 @@ Checkpoint saved to `artifacts/layer3_clustering/anomaly_detector.joblib`.
 Optional custom output path:
 
 ```sh
-python3 src/noupe/workflow/layer3_clustering/isolation_forest.py all_embeddings.npy path/to/output.joblib
+python3 src/kaypoh/workflow/layer3_clustering/isolation_forest.py all_embeddings.npy path/to/output.joblib
 ```
 
 ## Configuration
@@ -524,22 +524,22 @@ Notable keys:
 - `MOSAIC_SOCKET_TIMEOUT_SECONDS`
 - `MOSAIC_RETRY_ATTEMPTS`
 - `MOSAIC_RETRY_BACKOFF_MS`
-- `NOUPE_ALLOWED_ORIGINS` (comma-separated CORS origins)
-- `NOUPE_API_KEY` (optional; when set, both `POST /classify` and `POST /classify/batch` require `X-API-Key`)
-- `NOUPE_FAIL_ON_LAYER_LOAD_ERROR` (`1`/`0`, default `0` for bare app startup; `scripts/launch/run_prod.sh` overrides to `1`)
-- `NOUPE_FRONTEND_DEMO_PORT` (default `8081` for the archived demo server)
-- `NOUPE_LAZY_LOAD_HEAVY` (`1`/`0`, default `1`)
-- `NOUPE_PRETTY_LOGS` (`1`/`0`, default `1`)
-- `NOUPE_PREWARM_REQUIRED_LAYERS` (`1`/`0`, default `1` when lazy loading is enabled)
-- `NOUPE_RESPONSE_CACHE_SIZE` (default `256`)
-- `NOUPE_RESPONSE_CACHE_TTL_SECONDS` (default `60`)
-- `NOUPE_BATCH_MAX_CONCURRENCY` (default `min(4, os.cpu_count() or 1)`)
-- `NOUPE_ARTIFACT_MANIFEST` (default `artifacts/manifest.json`)
-- `NOUPE_HF_OFFLINE` (optional offline mode hint for preflight)
+- `KAYPOH_ALLOWED_ORIGINS` (comma-separated CORS origins)
+- `KAYPOH_API_KEY` (optional; when set, both `POST /classify` and `POST /classify/batch` require `X-API-Key`)
+- `KAYPOH_FAIL_ON_LAYER_LOAD_ERROR` (`1`/`0`, default `0` for bare app startup; `scripts/launch/run_prod.sh` overrides to `1`)
+- `KAYPOH_FRONTEND_DEMO_PORT` (default `8081` for the archived demo server)
+- `KAYPOH_LAZY_LOAD_HEAVY` (`1`/`0`, default `1`)
+- `KAYPOH_PRETTY_LOGS` (`1`/`0`, default `1`)
+- `KAYPOH_PREWARM_REQUIRED_LAYERS` (`1`/`0`, default `1` when lazy loading is enabled)
+- `KAYPOH_RESPONSE_CACHE_SIZE` (default `256`)
+- `KAYPOH_RESPONSE_CACHE_TTL_SECONDS` (default `60`)
+- `KAYPOH_BATCH_MAX_CONCURRENCY` (default `min(4, os.cpu_count() or 1)`)
+- `KAYPOH_ARTIFACT_MANIFEST` (default `artifacts/manifest.json`)
+- `KAYPOH_HF_OFFLINE` (optional offline mode hint for preflight)
 
 ## Restricted List
 
-Edit `src/noupe/workflow/layer1_lexicon/restricted_list.json`:
+Edit `src/kaypoh/workflow/layer1_lexicon/restricted_list.json`:
 
 ```json
 {"entities": [{"name": "...", "ticker": "...", "isin": "..."}]}

@@ -3,13 +3,13 @@
 import argparse
 import asyncio
 
-from noupe import AsyncNoupeClient
+from kaypoh import AsyncKaypohClient
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run one classify request through the asynchronous Noupe client.")
+    parser = argparse.ArgumentParser(description="Run one classify request through the asynchronous Kaypoh client.")
     parser.add_argument("text", help="Text payload to classify.")
-    parser.add_argument("--base-url", default="http://localhost:8000", help="Noupe backend base URL.")
+    parser.add_argument("--base-url", default="http://localhost:8000", help="Kaypoh backend base URL.")
     parser.add_argument("--api-key", default=None, help="Optional X-API-Key value.")
     parser.add_argument("--entity-id", default=None, help="Optional entity id for mosaic correlation.")
     parser.add_argument(
@@ -27,7 +27,7 @@ def parse_args() -> argparse.Namespace:
 
 async def main() -> None:
     args = parse_args()
-    async with AsyncNoupeClient(args.base_url, api_key=args.api_key) as client:
+    async with AsyncKaypohClient(args.base_url, api_key=args.api_key) as client:
         result = await client.classify(
             text=args.text,
             entity_id=args.entity_id,

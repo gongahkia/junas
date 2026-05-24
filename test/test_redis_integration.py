@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 
 import backend.main as main
 import test.observability_test_app as test_app
-from noupe.workflow.layer5_mosaic import inference as mosaic_inference
+from kaypoh.workflow.layer5_mosaic import inference as mosaic_inference
 from test.integration_helpers import TemporaryRedisServer, load_json_fixture, require_env_flag
 
 
@@ -13,8 +13,8 @@ class RedisMosaicIntegrationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         require_env_flag(
-            "NOUPE_RUN_REDIS_INTEGRATION",
-            reason="set NOUPE_RUN_REDIS_INTEGRATION=1 to run live Redis-backed mosaic tests",
+            "KAYPOH_RUN_REDIS_INTEGRATION",
+            reason="set KAYPOH_RUN_REDIS_INTEGRATION=1 to run live Redis-backed mosaic tests",
         )
         cls.redis_server = TemporaryRedisServer().start()
         cls.fixture = load_json_fixture("runtime_golden_corpus.json")

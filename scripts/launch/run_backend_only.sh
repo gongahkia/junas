@@ -3,20 +3,20 @@ set -euo pipefail
 
 source "$(cd "$(dirname "$0")" && pwd)/common.sh"
 
-HOST="${NOUPE_HOST:-0.0.0.0}"
-PORT="${NOUPE_PORT:-8000}"
-LOG_LEVEL="${NOUPE_LOG_LEVEL:-info}"
-RELOAD="${NOUPE_RELOAD:-0}"
+HOST="${KAYPOH_HOST:-0.0.0.0}"
+PORT="${KAYPOH_PORT:-8000}"
+LOG_LEVEL="${KAYPOH_LOG_LEVEL:-info}"
+RELOAD="${KAYPOH_RELOAD:-0}"
 FRONTEND_SELECTION="none"
 
-export NOUPE_FAIL_ON_LAYER_LOAD_ERROR="${NOUPE_FAIL_ON_LAYER_LOAD_ERROR:-1}"
+export KAYPOH_FAIL_ON_LAYER_LOAD_ERROR="${KAYPOH_FAIL_ON_LAYER_LOAD_ERROR:-1}"
 
 trap cleanup_services EXIT INT TERM
 
 activate_venv
 
 echo "🧪 Running backend-only preflight checks..."
-if [ "${NOUPE_PREFLIGHT_STRICT:-1}" = "1" ]; then
+if [ "${KAYPOH_PREFLIGHT_STRICT:-1}" = "1" ]; then
     python3 "${ROOT}/scripts/preflight.py" --strict
 else
     python3 "${ROOT}/scripts/preflight.py" || true

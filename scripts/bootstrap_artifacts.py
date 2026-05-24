@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify, sync, and regenerate Noupe runtime artifacts."""
+"""Verify, sync, and regenerate Kaypoh runtime artifacts."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from noupe.configs.artifacts import (
+from kaypoh.configs.artifacts import (
     artifact_manifest_path,
     sync_legacy_artifacts,
     verify_artifact_manifest,
@@ -41,7 +41,7 @@ def _run_training() -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Verify or bootstrap Noupe runtime artifacts")
+    parser = argparse.ArgumentParser(description="Verify or bootstrap Kaypoh runtime artifacts")
     parser.add_argument("--manifest", type=str, help="override artifact manifest path")
     parser.add_argument(
         "--update-manifest",

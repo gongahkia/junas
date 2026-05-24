@@ -6,7 +6,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import scripts.preflight as preflight
-from noupe.configs import artifacts as artifact_config
+from kaypoh.configs import artifacts as artifact_config
 
 
 class PreflightValidationTests(unittest.TestCase):
@@ -105,7 +105,7 @@ class PreflightValidationTests(unittest.TestCase):
                 with (
                     patch.object(preflight, "check_spacy_model", return_value=(True, "spaCy model loaded")),
                     patch.object(sys, "argv", ["preflight.py", "--strict", "--config", str(config_path)]),
-                    patch.dict("os.environ", {"NOUPE_ARTIFACT_MANIFEST": str(manifest_path)}, clear=False),
+                    patch.dict("os.environ", {"KAYPOH_ARTIFACT_MANIFEST": str(manifest_path)}, clear=False),
                 ):
                     exit_code = preflight.main()
 

@@ -19,7 +19,7 @@ const assistantReplies = {
     message: [
         "Draft received. If this were a real assistant workflow, I would continue only because the guardrail allowed it through.",
         "Screening passed. The chat response is hardcoded here, but the approval path is the real feature being demonstrated.",
-        "Message accepted. This shows how Noupe can sit in front of a normal conversational interface as a preventive check."
+        "Message accepted. This shows how Kaypoh can sit in front of a normal conversational interface as a preventive check."
     ],
     upload: [
         "Document accepted. The upload itself is not the point here; the screening gate is.",
@@ -48,11 +48,11 @@ function resolveApiBase() {
     const params = new URLSearchParams(window.location.search);
     const queryBase = normalizeApiBase(params.get("api"));
     if (queryBase) {
-        window.localStorage.setItem("noupe.apiBase", queryBase);
+        window.localStorage.setItem("kaypoh.apiBase", queryBase);
         return queryBase;
     }
 
-    const savedBase = normalizeApiBase(window.localStorage.getItem("noupe.apiBase"));
+    const savedBase = normalizeApiBase(window.localStorage.getItem("kaypoh.apiBase"));
     if (savedBase) {
         return savedBase;
     }
@@ -222,7 +222,7 @@ function createMessageElement({ role, body, tagLabel, tagClass, kind = "text", f
 
     const roleSpan = document.createElement("span");
     roleSpan.className = "message-role";
-    roleSpan.textContent = role === "assistant" ? "Noupe Assistant" : "User";
+    roleSpan.textContent = role === "assistant" ? "Kaypoh Assistant" : "User";
     meta.appendChild(roleSpan);
 
     if (tagLabel) {
@@ -354,7 +354,7 @@ function buildModalContext(result, sourceLabel) {
             ...shared,
             canProceed: false,
             title: "High-risk content blocked",
-            summary: `Noupe classified this ${sourceLabel} as HIGH_RISK. It cannot be added to the chat transcript.`,
+            summary: `Kaypoh classified this ${sourceLabel} as HIGH_RISK. It cannot be added to the chat transcript.`,
             classificationClass: "screening-high",
             confirmLabel: "Blocked"
         };
@@ -365,7 +365,7 @@ function buildModalContext(result, sourceLabel) {
             ...shared,
             canProceed: true,
             title: "Low-risk content needs review",
-            summary: `Noupe classified this ${sourceLabel} as LOW_RISK. You can override the warning, but the action is intentionally interrupted first.`,
+            summary: `Kaypoh classified this ${sourceLabel} as LOW_RISK. You can override the warning, but the action is intentionally interrupted first.`,
             classificationClass: "screening-low",
             confirmLabel: "Proceed anyway"
         };
@@ -375,7 +375,7 @@ function buildModalContext(result, sourceLabel) {
         ...shared,
         canProceed: true,
         title: "Content cleared",
-        summary: `Noupe classified this ${sourceLabel} as SAFE.`,
+        summary: `Kaypoh classified this ${sourceLabel} as SAFE.`,
         classificationClass: "screening-safe",
         confirmLabel: "Continue"
     };
@@ -499,7 +499,7 @@ async function guardAndHandle({ text, sourceLabel, kind, filename = "", busyAlre
         await appendAssistantReply(kind);
         return true;
     } catch (error) {
-        showError(`Unable to screen content through Noupe. The action was stopped. ${error.message}`);
+        showError(`Unable to screen content through Kaypoh. The action was stopped. ${error.message}`);
         return false;
     } finally {
         setBusy(false);

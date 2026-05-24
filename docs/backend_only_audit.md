@@ -2,20 +2,20 @@
 
 ## Active Runtime
 
-- Canonical API entrypoint: `src/noupe/backend/main.py` with compatibility shim `backend.main:app`
-- Canonical request/response schemas: `src/noupe/backend/schemas.py`
-- Active workflow root: `src/noupe/workflow/`
+- Canonical API entrypoint: `src/kaypoh/backend/main.py` with compatibility shim `backend.main:app`
+- Canonical request/response schemas: `src/kaypoh/backend/schemas.py`
+- Active workflow root: `src/kaypoh/workflow/`
 - Active workflow stages:
-  - `src/noupe/workflow/layer0_parser/`
-  - `src/noupe/workflow/layer1_lexicon/`
-  - `src/noupe/workflow/layer2_embeddings/`
-  - `src/noupe/workflow/layer3_clustering/`
-  - `src/noupe/workflow/layer4_classification/`
-  - `src/noupe/workflow/layer5_mosaic/`
-  - `src/noupe/workflow/layer6_regression/`
+  - `src/kaypoh/workflow/layer0_parser/`
+  - `src/kaypoh/workflow/layer1_lexicon/`
+  - `src/kaypoh/workflow/layer2_embeddings/`
+  - `src/kaypoh/workflow/layer3_clustering/`
+  - `src/kaypoh/workflow/layer4_classification/`
+  - `src/kaypoh/workflow/layer5_mosaic/`
+  - `src/kaypoh/workflow/layer6_regression/`
 - Supporting runtime code:
-  - `src/noupe/configs/`
-  - `src/noupe/helper/`
+  - `src/kaypoh/configs/`
+  - `src/kaypoh/helper/`
   - `scripts/`
   - `training/`
   - `test/`
@@ -50,7 +50,7 @@
 ## Audit Findings
 
 - The active backend is now API-only; demo UI serving moved out of FastAPI.
-- The canonical runtime workflow now lives under `src/noupe/workflow/`, while `backend/`, `api/`, and `configs/` remain compatibility shims.
+- The canonical runtime workflow now lives under `src/kaypoh/workflow/`, while `backend/`, `api/`, and `configs/` remain compatibility shims.
 - The archived demo surfaces still integrate with the current backend contract and request richer classify metadata such as `include_offending_spans`, timings, cache state, and request ids.
 - Exact match locations are implemented for lexicon-derived findings.
 - Classifier outputs can now surface approximate top-risk windows via sliding-window inference without changing the external request shape.

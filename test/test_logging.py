@@ -51,14 +51,14 @@ class BackendLoggingTests(unittest.TestCase):
     def test_render_backend_log_compact_when_disabled(self):
         payload = {"event": "request", "path": "/classify", "status_code": 200}
 
-        with patch.dict(os.environ, {"NOUPE_PRETTY_LOGS": "0"}, clear=False):
+        with patch.dict(os.environ, {"KAYPOH_PRETTY_LOGS": "0"}, clear=False):
             rendered = main.render_backend_log(payload)
 
         self.assertNotIn("\n", rendered)
         self.assertEqual(json.loads(rendered), payload)
 
     def test_classify_and_request_logs_use_shared_formatter(self):
-        with patch.dict(os.environ, {"NOUPE_PRETTY_LOGS": "1"}, clear=False):
+        with patch.dict(os.environ, {"KAYPOH_PRETTY_LOGS": "1"}, clear=False):
             with capture_backend_logs() as messages:
                 with TestClient(test_app.app) as client:
                     response = client.post("/classify", json={"text": "public update"})

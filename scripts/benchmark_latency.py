@@ -95,7 +95,7 @@ def start_backend(args: argparse.Namespace) -> subprocess.Popen:
     python_exec = get_python_executable()
     env = {**os.environ}
     if args.config:
-        env["NOUPE_CONFIG"] = str(args.config.resolve())
+        env["KAYPOH_CONFIG"] = str(args.config.resolve())
 
     cmd = [
         python_exec,
@@ -292,7 +292,7 @@ def write_reports(
         writer.writerows(summaries)
 
     lines = [
-        "Noupe Latency Benchmark Report",
+        "Kaypoh Latency Benchmark Report",
         "",
         f"Generated: {timestamp}",
         f"Target URL: {base_url}",

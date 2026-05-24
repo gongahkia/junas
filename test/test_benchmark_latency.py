@@ -133,7 +133,7 @@ class BenchmarkLatencyTests(unittest.TestCase):
             txt_payload = new_txt[0].read_text(encoding="utf-8")
             self.assertIn("sample.txt", report_payload)
             self.assertIn("\"runs\":", report_payload)
-            self.assertIn("Noupe Latency Benchmark Report", txt_payload)
+            self.assertIn("Kaypoh Latency Benchmark Report", txt_payload)
             self.assertIn("sample.txt", txt_payload)
             self.assertIn("Detailed results:", txt_payload)
             self.assertIn("Per-run details:", txt_payload)

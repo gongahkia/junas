@@ -5,7 +5,7 @@
 - single-document classification per API call
 - batch classification is limited to 32 items per call
 - models run on CPU by default; GPU auto-detected via `torch.cuda.is_available()`
-- no auth by default unless `NOUPE_API_KEY` is configured
+- no auth by default unless `KAYPOH_API_KEY` is configured
 - archived demo surfaces call the backend over HTTP and are not mounted by FastAPI
 
 ## Lexicon Layer
@@ -68,9 +68,9 @@
 - deterministic high-risk short-circuit floors remain high risk
 
 ## FastAPI Orchestration
-- canonical app entrypoint is `noupe.backend.main:app` with compatibility shim `backend.main:app`
+- canonical app entrypoint is `kaypoh.backend.main:app` with compatibility shim `backend.main:app`
 - configurable layer order from `config.toml`/`PIPELINE_LAYERS`/`--layers`
-- optional API key auth is enabled when `NOUPE_API_KEY` is set (applies to both `POST /classify` and `POST /classify/batch`)
+- optional API key auth is enabled when `KAYPOH_API_KEY` is set (applies to both `POST /classify` and `POST /classify/batch`)
 - response includes per-layer outputs, final classification, timings, and observability metadata
 - `include_offending_spans=true` adds exact lexicon spans and approximate classifier-window spans for `LOW_RISK` and `HIGH_RISK` responses
 - health endpoint: `GET /health`

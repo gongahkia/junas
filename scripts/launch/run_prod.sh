@@ -3,20 +3,20 @@ set -euo pipefail
 
 source "$(cd "$(dirname "$0")" && pwd)/common.sh"
 
-HOST="${NOUPE_HOST:-0.0.0.0}"
-PORT="${NOUPE_PORT:-8000}"
-WORKERS="${NOUPE_UVICORN_WORKERS:-2}"
-LOG_LEVEL="${NOUPE_LOG_LEVEL:-info}"
+HOST="${KAYPOH_HOST:-0.0.0.0}"
+PORT="${KAYPOH_PORT:-8000}"
+WORKERS="${KAYPOH_UVICORN_WORKERS:-2}"
+LOG_LEVEL="${KAYPOH_LOG_LEVEL:-info}"
 
-export NOUPE_FAIL_ON_LAYER_LOAD_ERROR=1
-export NOUPE_LAZY_LOAD_HEAVY="${NOUPE_LAZY_LOAD_HEAVY:-0}"
-export NOUPE_RESPONSE_CACHE_SIZE="${NOUPE_RESPONSE_CACHE_SIZE:-0}"
+export KAYPOH_FAIL_ON_LAYER_LOAD_ERROR=1
+export KAYPOH_LAZY_LOAD_HEAVY="${KAYPOH_LAZY_LOAD_HEAVY:-0}"
+export KAYPOH_RESPONSE_CACHE_SIZE="${KAYPOH_RESPONSE_CACHE_SIZE:-0}"
 PROM_DIR="${PROMETHEUS_MULTIPROC_DIR:-$ROOT/.prometheus-multiproc}"
 export PROMETHEUS_MULTIPROC_DIR="$PROM_DIR"
 
 trap cleanup_services EXIT INT TERM
 
-echo "🚀 Starting Noupe production services..."
+echo "🚀 Starting Kaypoh production services..."
 
 prompt_frontends "none"
 

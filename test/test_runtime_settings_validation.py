@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from noupe.configs import runtime
+from kaypoh.configs import runtime
 
 
 class RuntimeSettingsValidationTests(unittest.TestCase):

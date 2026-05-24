@@ -19,7 +19,7 @@ class StartupPathTests(unittest.TestCase):
                 patch.object(main, "has_model_weights", return_value=False),
                 patch.dict(
                     os.environ,
-                    {"NOUPE_FAIL_ON_LAYER_LOAD_ERROR": "0", "NOUPE_LAZY_LOAD_HEAVY": "0"},
+                    {"KAYPOH_FAIL_ON_LAYER_LOAD_ERROR": "0", "KAYPOH_LAZY_LOAD_HEAVY": "0"},
                     clear=False,
                 ),
             ):
@@ -45,7 +45,7 @@ class StartupPathTests(unittest.TestCase):
                 patch.object(main, "has_model_weights", return_value=False),
                 patch.dict(
                     os.environ,
-                    {"NOUPE_FAIL_ON_LAYER_LOAD_ERROR": "1", "NOUPE_LAZY_LOAD_HEAVY": "0"},
+                    {"KAYPOH_FAIL_ON_LAYER_LOAD_ERROR": "1", "KAYPOH_LAZY_LOAD_HEAVY": "0"},
                     clear=False,
                 ),
             ):
@@ -66,7 +66,7 @@ class StartupPathTests(unittest.TestCase):
                 patch.object(main, "load_module_from_path", side_effect=FileNotFoundError("redis module missing")),
                 patch.dict(
                     os.environ,
-                    {"NOUPE_FAIL_ON_LAYER_LOAD_ERROR": "1", "NOUPE_LAZY_LOAD_HEAVY": "0"},
+                    {"KAYPOH_FAIL_ON_LAYER_LOAD_ERROR": "1", "KAYPOH_LAZY_LOAD_HEAVY": "0"},
                     clear=False,
                 ),
             ):
@@ -81,7 +81,7 @@ class StartupPathTests(unittest.TestCase):
         asyncio.run(scenario())
 
     def test_multiprocess_metrics_mode_disables_default_memory_cache(self):
-        with patch.dict(os.environ, {"PROMETHEUS_MULTIPROC_DIR": "/tmp/noupe-prom"}, clear=False):
+        with patch.dict(os.environ, {"PROMETHEUS_MULTIPROC_DIR": "/tmp/kaypoh-prom"}, clear=False):
             cache_cfg = main.get_response_cache_settings()
         self.assertEqual(cache_cfg["size"], 0)
         self.assertEqual(cache_cfg["ttl_seconds"], 60.0)
