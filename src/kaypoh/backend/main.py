@@ -1360,6 +1360,23 @@ def _review_persistence_enabled() -> bool:
     return _is_truthy(os.environ.get("KAYPOH_REVIEW_PERSIST"), default=False)
 
 
+def _persist_coverage_warnings(*, request_id: str | None, warnings: list[Any]) -> None:
+    """Journal each LLM inverse-audit warning as a coverage_warning event. Advisory only —
+    never gates downstream review state. Requires KAYPOH_REVIEW_PERSIST=1 and a request_id
+    (the review-session anchor) just like decision_recorded does."""
+    if not _review_persistence_enabled() or not request_id or not warnings:
+        return
+    from kaypoh.review.decisions import EVENT_COVERAGE_WARNING
+    from kaypoh.review.journal import append_event
+
+    for warning in warnings:
+        append_event(
+            event_type=EVENT_COVERAGE_WARNING,
+            review_id=request_id,
+            payload=dict(warning),
+        )
+
+
 def _persist_review_session(*, request_id: str | None, req: ReviewRequest, document_text: str, findings: list[Any]) -> None:
     if not _review_persistence_enabled() or not request_id:
         return
@@ -1409,6 +1426,7 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None) -> ReviewRespon
     )
     timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
     _persist_review_session(request_id=request_id, req=req, document_text=document.text, findings=result.findings)
+    _persist_coverage_warnings(request_id=request_id, warnings=result.coverage_warnings)
     timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
 
     response = _build_review_response(

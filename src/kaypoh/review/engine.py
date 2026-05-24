@@ -166,6 +166,7 @@ class ReviewResult:
     public_evidence: dict[str, Any] | None = None
     llm_adjudication: dict[str, Any] | None = None
     privacy_ledger: list[dict[str, Any]] = field(default_factory=list)
+    coverage_warnings: list[dict[str, Any]] = field(default_factory=list)
 
 
 def _risk_from_score(score: float) -> Classification:
@@ -234,6 +235,7 @@ class PreSendReviewEngine:
         public_evidence_retriever: Any | None = None,
         llm_adjudicator: Any | None = None,
         llm_defined_term_extractor: Any | None = None,
+        llm_coverage_auditor: Any | None = None,
     ):
         self.public_evidence_retriever = public_evidence_retriever
         self.llm_adjudicator = llm_adjudicator
@@ -241,6 +243,11 @@ class PreSendReviewEngine:
         # deterministic regex misses (`hereinafter referred to as "X"`, etc.). cached by
         # document hash so paired-doc workflows don't re-pay the LLM cost.
         self.llm_defined_term_extractor = llm_defined_term_extractor
+        # audit_grade-only inverse audit. given the deterministic findings + a doc hash,
+        # advises on patterns that may have been missed. output is journaled as
+        # `coverage_warning` events and surfaced on ReviewResult; advisory only — never
+        # mutates findings, scores, or classification.
+        self.llm_coverage_auditor = llm_coverage_auditor
 
     def _pii_findings(
         self,
@@ -709,6 +716,20 @@ class PreSendReviewEngine:
             if label in Classification.__members__ and max(pii_score, mnpi_score) < 85.0:
                 overall_risk = Classification(label)
 
+        # inverse-audit "what did we miss?" — audit_grade only. advisory output goes both
+        # into the result (for immediate reviewer visibility) AND the journal (so the
+        # audit-pack export carries it). engine never acts on these warnings.
+        coverage_warnings: list[dict[str, Any]] = []
+        if engage_llm_tier and self.llm_coverage_auditor is not None:
+            from kaypoh.review.llm_coverage_audit import run_coverage_audit
+
+            coverage_warnings = run_coverage_audit(
+                text=text,
+                findings=findings,
+                document_type=document_type,
+                auditor=self.llm_coverage_auditor,
+            )
+
         return ReviewResult(
             overall_risk=overall_risk,
             document_score=round(document_score, 3),
@@ -721,4 +742,5 @@ class PreSendReviewEngine:
             public_evidence=public_evidence,
             llm_adjudication=llm_adjudication,
             privacy_ledger=privacy_ledger,
+            coverage_warnings=coverage_warnings,
         )
