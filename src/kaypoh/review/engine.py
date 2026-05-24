@@ -46,8 +46,16 @@ DEFINITIVE_AGREEMENT_RE = re.compile(
     r"memorandum\s+of\s+understanding|MOU|letter\s+of\s+intent|LOI)\b",
     re.IGNORECASE,
 )
+# MAC / MAE matcher. Bare `MAC` and `MAE` are deliberately NOT in the alternation: they
+# collide with consumer-product references ("mac mini", "MAE Asia office") and with
+# unrelated initialisms. Contracts that abbreviate themselves as "MAC" are handled by
+# defined-term suppression at the engine level; bare-token MAC outside a defined-term
+# context is too noisy to be useful. Cost of this tightening: a clause that uses bare
+# `MAC` without "clause"/"change"/"effect" nearby is missed by the deterministic regex
+# — but those documents are exactly the ones the `audit_grade` LLM tier exists to catch.
 MAC_CLAUSE_RE = re.compile(
-    r"\b(?:material\s+adverse\s+change|material\s+adverse\s+effect|MAC\s+clause|MAE\s+clause|MAC|MAE)\b",
+    r"\b(?:material\s+adverse\s+change|material\s+adverse\s+effect|"
+    r"MAC\s+clause|MAE\s+clause|MAC\s+threshold|MAE\s+threshold)\b",
     re.IGNORECASE,
 )
 EMBARGO_RE = re.compile(
@@ -213,6 +221,56 @@ def _new_finding(
     )
 
 
+# Narrow negation-window check used by the MAC/MAE rule. Looks ~20 chars left of the match
+# for a negator that immediately precedes it. Catches the common forms — "no MAC", "not a
+# MAC clause", "without any MAC clause" — without trying to be a general parser. Anything
+# more nuanced (subordinate clauses, double negatives) is deliberately left to the LLM tier.
+_NEGATION_LOOKBACK = re.compile(
+    r"\b(?:no|not|without|never|absent|excluding)\b[\s\w]{0,15}\Z",
+    re.IGNORECASE,
+)
+
+
+def _is_negated_context(text: str, match_start: int) -> bool:
+    window = text[max(0, match_start - 25):match_start]
+    return bool(_NEGATION_LOOKBACK.search(window))
+
+
+# Rules whose span "wins" over phone_number when the two overlap on the same bytes.
+# These are all primary-identifier detectors: a NRIC or UEN that happens to match the
+# loose PHONE_RE alternation is canonically the identifier, not a phone number.
+_HIGHER_PRIORITY_THAN_PHONE = frozenset({
+    "sg_nric_fin", "sg_uen",
+    "my_mykad", "id_nik", "th_national_id", "ph_philsys", "ph_tin", "vn_cccd",
+    "passport_number", "bank_account",
+})
+
+
+def _suppress_redundant_phone_findings(findings: list["ReviewFinding"]) -> list["ReviewFinding"]:
+    """Drop phone_number findings whose [start, end) is fully covered by a higher-priority
+    identifier finding (NRIC, UEN, MyKad, NIK, CCCD, passport, bank account).
+
+    Conservative: only suppresses when the higher-priority span fully *contains* the phone
+    span. A partially-overlapping phone match keeps firing so we don't accidentally lose
+    real phones that touch other entities."""
+    spans_to_beat: list[tuple[int, int]] = [
+        (f.start_char, f.end_char)
+        for f in findings
+        if f.rule in _HIGHER_PRIORITY_THAN_PHONE
+    ]
+    if not spans_to_beat:
+        return findings
+    kept: list["ReviewFinding"] = []
+    for f in findings:
+        if f.rule == "phone_number" and any(
+            lo <= f.start_char and f.end_char <= hi
+            for lo, hi in spans_to_beat
+        ):
+            continue
+        kept.append(f)
+    return kept
+
+
 def _pack_scope(packs: list[JurisdictionRulePack]) -> str:
     return "+".join(pack.code for pack in packs)
 
@@ -349,6 +407,14 @@ class PreSendReviewEngine:
                 idx_start=idx,
             )
         )
+
+        # cross-rule span-dedup post-pass. PHONE_RE is intentionally loose so any number-like
+        # span (NRIC, UEN, MyKad, NIK, CCCD, etc.) also matches it. We could tighten PHONE_RE
+        # but that risks losing real phones; instead, drop phone_number findings whose span is
+        # *fully contained* within a higher-priority national-/company-ID span. The
+        # higher-priority finding stays; the duplicate phone finding gets suppressed.
+        findings = _suppress_redundant_phone_findings(findings)
+
         return findings
 
     def _named_person_findings(
@@ -540,6 +606,11 @@ class PreSendReviewEngine:
             effective_severity = MNPI_DOC_TYPE_SEVERITY_OVERRIDES.get((rule, doc_type_key), severity)
             for match in pattern.finditer(text):
                 if rule in suppressible_rules and is_defined_term(match.group(), defined):
+                    continue
+                # narrow negation guard for MAC/MAE-style rules. catches the most common
+                # "no MAC clause concerns" / "not subject to MAC clause" patterns. doesn't
+                # try to be a general NLP solver — that's the audit_grade LLM tier's job.
+                if rule == "material_adverse_change" and _is_negated_context(text, match.start()):
                     continue
                 findings.append(
                     _new_finding(
