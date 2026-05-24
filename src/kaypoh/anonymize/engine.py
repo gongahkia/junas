@@ -8,6 +8,7 @@ from typing import Any
 
 PII_RULE_ENTITY_TYPES = {
     "sg_nric_fin": "NRIC_FIN",
+    "sg_uen": "UEN",
     "sg_postal_address": "ADDRESS",
     "email_address": "EMAIL",
     "phone_number": "PHONE",
@@ -68,7 +69,7 @@ def _attr(obj: Any, name: str, default: Any = None) -> Any:
 
 def _canonicalize(entity_type: str, text: str) -> str:
     cleaned = re.sub(r"\s+", " ", text.strip())
-    if entity_type in {"EMAIL", "NRIC_FIN", "PASSPORT", "BANK_ACCOUNT"}:
+    if entity_type in {"EMAIL", "NRIC_FIN", "PASSPORT", "BANK_ACCOUNT", "UEN"}:
         return re.sub(r"[\s-]+", "", cleaned).upper()
     if entity_type == "PHONE":
         digits = re.sub(r"\D+", "", cleaned)
