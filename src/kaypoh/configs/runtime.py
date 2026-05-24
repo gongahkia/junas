@@ -69,6 +69,7 @@ KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
             "model",
             "timeout_seconds",
             "allow_remote_base_url",
+            "tenant_opt_in_openai",
         }
     ),
     "privacy": frozenset(
@@ -157,6 +158,12 @@ class LLMSettings:
     model: str
     timeout_seconds: float
     allow_remote_base_url: bool
+    # Tenant-level opt-in flag for the OpenAI provider specifically. Distinct from
+    # `allow_remote_base_url`: that flag is the deployer-level gate ("remote URLs are
+    # permitted"); this flag is the tenant-level gate ("this specific tenant has signed
+    # off on OpenAI as the LLM backend"). Both must be true to use provider=openai.
+    # Default False — must be explicitly turned on per tenant.
+    tenant_opt_in_openai: bool = False
 
 
 @dataclass(frozen=True)
@@ -805,9 +812,28 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
             ),
             label="llm.allow_remote_base_url",
         ),
+        tenant_opt_in_openai=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="llm",
+                key="tenant_opt_in_openai",
+                env_vars=("KAYPOH_LLM_TENANT_OPT_IN_OPENAI",),
+                default=False,
+            ),
+            label="llm.tenant_opt_in_openai",
+        ),
     )
-    if llm.provider not in {"vllm", "ollama", "none"}:
-        raise ConfigError("llm.provider must be one of: vllm, ollama, none")
+    if llm.provider not in {"vllm", "ollama", "openai", "none"}:
+        raise ConfigError("llm.provider must be one of: vllm, ollama, openai, none")
+    # belt-and-braces: refuse to even construct LLMSettings with provider=openai unless
+    # both gates are explicitly set. Surfacing the error at config-load time means a
+    # misconfigured tenant fails fast instead of silently degrading to local-private.
+    if llm.provider == "openai" and not (llm.allow_remote_base_url and llm.tenant_opt_in_openai):
+        raise ConfigError(
+            "llm.provider=openai requires BOTH llm.allow_remote_base_url=true "
+            "(deployer-level gate) AND llm.tenant_opt_in_openai=true (tenant-level gate)"
+        )
 
     privacy = PrivacySettings(
         external_query_policy=_parse_str(

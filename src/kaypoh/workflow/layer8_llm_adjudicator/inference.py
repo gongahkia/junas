@@ -43,6 +43,9 @@ class LocalLLMAdjudicator:
         self.model = str(getattr(settings, "model", "gpt-oss-20b") or "gpt-oss-20b")
         self.timeout_seconds = max(0.1, float(getattr(settings, "timeout_seconds", 20.0) or 20.0))
         self.allow_remote_base_url = bool(getattr(settings, "allow_remote_base_url", False))
+        # Tenant-level opt-in for OpenAI specifically. Only consulted when provider=openai.
+        # Defaults to False to preserve the "private-by-default" posture.
+        self.tenant_opt_in_openai = bool(getattr(settings, "tenant_opt_in_openai", False))
 
     def _disabled(self, detail: str) -> dict[str, Any]:
         return {
@@ -180,7 +183,7 @@ class LocalLLMAdjudicator:
                 "unverified_claims": [],
                 "review_recommendation": "LLM base URL is not local/private; refusing to send document text",
             }
-        if self.provider not in {"vllm", "ollama"}:
+        if self.provider not in {"vllm", "ollama", "openai"}:
             return {
                 "status": "error",
                 "provider": self.provider,
@@ -191,7 +194,24 @@ class LocalLLMAdjudicator:
                 "materiality_reason": "",
                 "matched_public_sources": [],
                 "unverified_claims": [],
-                "review_recommendation": f"unsupported local LLM provider: {self.provider}",
+                "review_recommendation": f"unsupported LLM provider: {self.provider}",
+            }
+        # Tenant-level OpenAI opt-in gate. Mirrors the config-load check so a runtime
+        # mutation (test harness, hot-reload) can't bypass the tenant opt-in either.
+        if self.provider == "openai" and not self.tenant_opt_in_openai:
+            return {
+                "status": "error",
+                "provider": self.provider,
+                "model": self.model,
+                "risk_label": None,
+                "public_status": "not_checked",
+                "confidence": 0.0,
+                "materiality_reason": "",
+                "matched_public_sources": [],
+                "unverified_claims": [],
+                "review_recommendation": (
+                    "provider=openai requires tenant_opt_in_openai=true; refusing to send"
+                ),
             }
 
         try:

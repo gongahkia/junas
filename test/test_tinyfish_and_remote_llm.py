@@ -109,15 +109,22 @@ class TinyfishAdapterTests(unittest.TestCase):
         self.assertIn("unsupported public evidence provider", payload["detail"])
 
 
-def _llm_settings(*, base_url: str, allow_remote: bool) -> SimpleNamespace:
+def _llm_settings(
+    *,
+    base_url: str,
+    allow_remote: bool,
+    provider: str = "vllm",
+    tenant_opt_in_openai: bool = False,
+) -> SimpleNamespace:
     return SimpleNamespace(
         enabled=True,
-        provider="vllm",
+        provider=provider,
         api_key="",
         base_url=base_url,
         model="gpt-oss-20b",
         timeout_seconds=2.0,
         allow_remote_base_url=allow_remote,
+        tenant_opt_in_openai=tenant_opt_in_openai,
     )
 
 
