@@ -623,7 +623,13 @@ class PreSendReviewEngine:
         """
         if review_profile != "audit_grade":
             return False
-        if self.public_evidence_retriever is None and self.llm_adjudicator is None:
+        # any of the three LLM-tier helpers is sufficient to engage the band gate;
+        # individual helpers still self-gate on their own preconditions further down.
+        if (
+            self.public_evidence_retriever is None
+            and self.llm_adjudicator is None
+            and self.llm_coverage_auditor is None
+        ):
             return False
         return LLM_TIER_MNPI_LOWER <= mnpi_score < LLM_TIER_MNPI_UPPER
 
