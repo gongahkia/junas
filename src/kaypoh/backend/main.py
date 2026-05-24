@@ -1283,9 +1283,15 @@ def _build_review_engine() -> PreSendReviewEngine:
 
         llm_adjudicator = LocalLLMAdjudicator(settings.llm)
 
+    # audit_grade-only helper: catches preamble defined-term patterns the regex misses.
+    # surfaced as a layer model so tests / deployments can swap implementations without
+    # touching the engine. when unwired, engine falls through to the deterministic regex.
+    llm_defined_term_extractor = get_layer_model("llm_defined_term_extractor")
+
     return PreSendReviewEngine(
         public_evidence_retriever=public_evidence,
         llm_adjudicator=llm_adjudicator,
+        llm_defined_term_extractor=llm_defined_term_extractor,
     )
 
 

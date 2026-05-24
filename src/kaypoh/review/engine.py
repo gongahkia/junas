@@ -233,9 +233,14 @@ class PreSendReviewEngine:
         *,
         public_evidence_retriever: Any | None = None,
         llm_adjudicator: Any | None = None,
+        llm_defined_term_extractor: Any | None = None,
     ):
         self.public_evidence_retriever = public_evidence_retriever
         self.llm_adjudicator = llm_adjudicator
+        # audit_grade-only LLM helper that catches preamble defined-term patterns the
+        # deterministic regex misses (`hereinafter referred to as "X"`, etc.). cached by
+        # document hash so paired-doc workflows don't re-pay the LLM cost.
+        self.llm_defined_term_extractor = llm_defined_term_extractor
 
     def _pii_findings(
         self,
@@ -660,6 +665,15 @@ class PreSendReviewEngine:
             )
         packs = resolve_rule_packs(source_jurisdiction, destination_jurisdiction)
         defined_terms = extract_defined_terms(text)
+        # audit_grade-only LLM pre-pass over the preamble to catch defined terms the regex
+        # misses. cached by document hash; raw doc body is not sent (the helper sees only
+        # the first PREAMBLE_CHAR_CAP characters).
+        if review_profile == "audit_grade" and self.llm_defined_term_extractor is not None:
+            from kaypoh.review.llm_defined_terms import extract_with_cache
+
+            defined_terms = defined_terms | extract_with_cache(
+                text=text, extractor=self.llm_defined_term_extractor,
+            )
         # cross-doc defined-term inheritance: merge prior session-scoped terms into the current
         # document's set, then persist the current document's terms back to the session store so
         # the next related-doc review inherits them too. SPA defines `the "Purchaser"` once;
