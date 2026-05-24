@@ -201,24 +201,33 @@ def _coerce_reidentify_request(
     request: ReidentifyRequest | Mapping[str, Any] | None,
     anonymized_text: str | None,
     mapping: Sequence[ReidentifyMappingEntry | Mapping[str, Any]] | None,
+    document_hash: str | None = None,
 ) -> ReidentifyRequest:
     if request is not None:
-        if anonymized_text is not None or mapping is not None:
-            raise ValueError("pass either request=... or anonymized_text/mapping=..., not both")
+        if anonymized_text is not None or mapping is not None or document_hash is not None:
+            raise ValueError("pass either request=... or anonymized_text/mapping/document_hash=..., not both")
         if isinstance(request, ReidentifyRequest):
             return request
         return ReidentifyRequest.model_validate(request)
 
     if anonymized_text is None:
         raise ValueError("anonymized_text is required when request is not provided")
-    if mapping is None:
-        raise ValueError("mapping is required when request is not provided")
+    if mapping is None and not document_hash:
+        raise ValueError("either mapping or document_hash is required when request is not provided")
 
-    normalized_mapping = [
-        entry if isinstance(entry, ReidentifyMappingEntry) else ReidentifyMappingEntry.model_validate(entry)
-        for entry in mapping
-    ]
-    return ReidentifyRequest(anonymized_text=anonymized_text, mapping=normalized_mapping)
+    normalized_mapping = (
+        [
+            entry if isinstance(entry, ReidentifyMappingEntry) else ReidentifyMappingEntry.model_validate(entry)
+            for entry in mapping
+        ]
+        if mapping is not None
+        else None
+    )
+    return ReidentifyRequest(
+        anonymized_text=anonymized_text,
+        mapping=normalized_mapping,
+        document_hash=document_hash,
+    )
 
 
 class KaypohAPIError(RuntimeError):
@@ -413,12 +422,14 @@ class KaypohClient:
         anonymized_text: str | None = None,
         *,
         mapping: Sequence[ReidentifyMappingEntry | Mapping[str, Any]] | None = None,
+        document_hash: str | None = None,
         request: ReidentifyRequest | Mapping[str, Any] | None = None,
     ) -> ReidentifyResponse:
         payload = _coerce_reidentify_request(
             request=request,
             anonymized_text=anonymized_text,
             mapping=mapping,
+            document_hash=document_hash,
         )
         return ReidentifyResponse.model_validate(
             self._request_json(

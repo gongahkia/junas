@@ -1970,10 +1970,24 @@ async def anonymize_document(request: Request, req: AnonymizeRequest):
 
 def _run_reidentify_sync(req: ReidentifyRequest, request_id: str | None) -> ReidentifyResponse:
     t_total_start = time.perf_counter()
-    text, count = _reidentify_text(
-        anonymized_text=req.anonymized_text,
-        mapping=[entry.model_dump() for entry in req.mapping],
-    )
+
+    mapping_dicts: list[dict[str, Any]]
+    if req.mapping:
+        mapping_dicts = [entry.model_dump() for entry in req.mapping]
+    else:
+        # `mapping` is empty and the model validator already guaranteed `document_hash` is present.
+        persisted = _load_persisted_mapping(req.document_hash or "")
+        if not persisted:
+            raise HTTPException(
+                status_code=404,
+                detail=(
+                    "no persisted mapping for document_hash; supply `mapping` inline or call "
+                    "/anonymize first with KAYPOH_REVIEW_PERSIST=1"
+                ),
+            )
+        mapping_dicts = persisted
+
+    text, count = _reidentify_text(anonymized_text=req.anonymized_text, mapping=mapping_dicts)
     total_ms = round((time.perf_counter() - t_total_start) * 1000.0, 3)
     return ReidentifyResponse(
         request_id=request_id,

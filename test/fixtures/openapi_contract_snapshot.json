@@ -229,12 +229,12 @@
     },
     "ReidentifyRequest": {
       "required": [
-        "anonymized_text",
-        "mapping"
+        "anonymized_text"
       ],
       "properties": [
         "anonymized_text",
-        "mapping"
+        "mapping",
+        "document_hash"
       ]
     },
     "ReidentifyResponse": {
@@ -327,6 +327,8 @@
         "privacy_ledger",
         "timings_ms",
         "anonymized_text",
+        "document_hash",
+        "mapping_persisted",
         "mapping",
         "replacements"
       ]
