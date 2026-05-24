@@ -720,16 +720,32 @@ class PreSendReviewEngine:
         overall_risk: Classification,
         public_evidence: dict[str, Any] | None,
         engage: bool,
+        findings: list | None = None,
+        entity_id: str | None = None,
     ) -> dict[str, Any] | None:
         if not engage:
             return None
         if self.llm_adjudicator is None or overall_risk == Classification.SAFE:
             return None
-        return self.llm_adjudicator.adjudicate(
-            text=text,
-            current_classification=overall_risk.value,
-            public_evidence=public_evidence,
-        )
+        # adjudicate() accepts findings + entity_id as optional kwargs so
+        # structured-tokens mode has the data it needs. raw_text mode ignores them.
+        # using kwargs-with-default avoids breaking callers that implement the older
+        # interface (dummy adjudicators in tests, etc.).
+        try:
+            return self.llm_adjudicator.adjudicate(
+                text=text,
+                current_classification=overall_risk.value,
+                public_evidence=public_evidence,
+                findings=findings,
+                entity_id=entity_id,
+            )
+        except TypeError:
+            # backwards-compat shim: older adjudicators reject the new kwargs.
+            return self.llm_adjudicator.adjudicate(
+                text=text,
+                current_classification=overall_risk.value,
+                public_evidence=public_evidence,
+            )
 
     def review(
         self,
@@ -787,6 +803,8 @@ class PreSendReviewEngine:
             overall_risk=overall_risk,
             public_evidence=public_evidence,
             engage=engage_llm_tier,
+            findings=findings,
+            entity_id=entity_id,
         )
         if llm_adjudication and llm_adjudication.get("status") == "adjudicated":
             label = llm_adjudication.get("risk_label")

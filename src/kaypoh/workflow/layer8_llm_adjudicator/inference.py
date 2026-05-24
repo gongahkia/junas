@@ -46,6 +46,9 @@ class LocalLLMAdjudicator:
         # Tenant-level opt-in for OpenAI specifically. Only consulted when provider=openai.
         # Defaults to False to preserve the "private-by-default" posture.
         self.tenant_opt_in_openai = bool(getattr(settings, "tenant_opt_in_openai", False))
+        # Privacy-hardened input mode. `raw_text` (default) ships document text; in
+        # `structured_tokens`, the adjudicator only ships abstract tokens + hashes.
+        self.llm_input_mode = str(getattr(settings, "llm_input_mode", "raw_text") or "raw_text")
 
     def _disabled(self, detail: str) -> dict[str, Any]:
         return {
@@ -60,6 +63,41 @@ class LocalLLMAdjudicator:
             "unverified_claims": [],
             "review_recommendation": detail,
         }
+
+    def _build_structured_messages(
+        self,
+        *,
+        structured_query: dict[str, Any],
+    ) -> list[dict[str, str]]:
+        """Build the system+user messages for structured-tokens mode. The LLM sees only
+        the structured query (rule names, severities, jurisdiction codes, body hash,
+        per-finding context-window hashes) — no raw document text."""
+        from kaypoh.workflow.layer8_llm_adjudicator.structured_query import STRUCTURED_REASONS
+
+        allowed_reasons = ", ".join(sorted(STRUCTURED_REASONS))
+        return [
+            {
+                "role": "system",
+                "content": (
+                    "You are a privacy-hardened compliance adjudicator. You do NOT receive "
+                    "the document text; you receive only structured tokens describing the "
+                    "deterministic findings and a SHA-256 hash of the document body. "
+                    "Reason about materiality and public-status from the token shape alone. "
+                    "Return only compact JSON with keys: risk_label, public_status, confidence, "
+                    "materiality_reason, matched_public_sources, unverified_claims, review_recommendation. "
+                    "risk_label must be SAFE, LOW_RISK, or HIGH_RISK. "
+                    "public_status must be public, not_public, ambiguous, or not_checked. "
+                    f"materiality_reason MUST be one of: {allowed_reasons}. "
+                    "matched_public_sources MUST be an empty list (you have no URL access). "
+                    "unverified_claims MUST be an empty list. "
+                    "review_recommendation MUST be ≤80 characters and contain no document text."
+                ),
+            },
+            {
+                "role": "user",
+                "content": json.dumps(structured_query, ensure_ascii=False, sort_keys=True),
+            },
+        ]
 
     def _build_messages(
         self,
@@ -165,6 +203,8 @@ class LocalLLMAdjudicator:
         model1: Any = None,
         model2: Any = None,
         public_evidence: Any = None,
+        findings: list | None = None,
+        entity_id: str | None = None,
     ) -> dict[str, Any]:
         if not self.enabled or self.provider == "none":
             return self._disabled("local LLM adjudication is disabled")
@@ -215,6 +255,29 @@ class LocalLLMAdjudicator:
             }
 
         try:
+            if self.llm_input_mode == "structured_tokens":
+                # privacy-hardened path: no raw text or matched_text leaves the process.
+                # builder, transport, and response-clamp all live in structured_query.py.
+                from kaypoh.workflow.layer8_llm_adjudicator.structured_query import (
+                    build_structured_query,
+                    clamp_structured_output,
+                )
+
+                structured_query = build_structured_query(
+                    text=text,
+                    findings=list(findings or []),
+                    entity_id=entity_id,
+                    current_classification=current_classification,
+                    public_evidence=public_evidence if isinstance(public_evidence, dict) else None,
+                )
+                messages = self._build_structured_messages(structured_query=structured_query)
+                payload = self._call_openai_compatible(messages)
+                clamped, was_clamped = clamp_structured_output(payload)
+                normalized = self._normalize_payload(clamped)
+                normalized["input_mode"] = "structured_tokens"
+                normalized["output_clamped"] = was_clamped
+                return normalized
+
             messages = self._build_messages(
                 text=text,
                 current_classification=current_classification,
@@ -224,7 +287,10 @@ class LocalLLMAdjudicator:
                 public_evidence=public_evidence,
             )
             payload = self._call_openai_compatible(messages)
-            return self._normalize_payload(payload)
+            normalized = self._normalize_payload(payload)
+            normalized["input_mode"] = "raw_text"
+            normalized["output_clamped"] = False
+            return normalized
         except Exception as exc:
             return {
                 "status": "error",
