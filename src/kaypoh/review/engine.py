@@ -24,7 +24,32 @@ MATERIAL_EVENT_RE = re.compile(
     r"\b(acquisition|acquire|merger|takeover|buyout|earnings|guidance|forecast|"
     r"profit warning|dividend|buyback|bankruptcy|restructuring|layoff|fraud|"
     r"investigation|subpoena|cybersecurity|breach|financing|offering|ipo|"
-    r"impairment|provision|resignation|ceo|cfo)\b",
+    r"impairment|provision|resignation|ceo|cfo|"
+    # legal-contract additions: deal-closing + definitive-agreement vocabulary
+    r"definitive\s+agreement|binding\s+agreement|memorandum\s+of\s+understanding|"
+    r"letter\s+of\s+intent|consummation|closing|settlement\s+agreement)\b",
+    re.IGNORECASE,
+)
+# legal-contract MNPI rules. each compiles independently so the engine can emit a
+# distinct `rule` per finding, which lets downstream suggestions cite the right thing.
+TRANSACTION_CODENAME_RE = re.compile(
+    # "Project Raven", "Project Atlas Holdings" — internal deal nicknames are nearly always MNPI.
+    r"\bProject\s+[A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+){0,2}\b"
+)
+DEFINITIVE_AGREEMENT_RE = re.compile(
+    r"\b(?:definitive\s+agreement|binding\s+agreement|share\s+purchase\s+agreement|SPA|"
+    r"shareholders'?\s+agreement|SHA|asset\s+purchase\s+agreement|APA|term\s+sheet|"
+    r"memorandum\s+of\s+understanding|MOU|letter\s+of\s+intent|LOI)\b",
+    re.IGNORECASE,
+)
+MAC_CLAUSE_RE = re.compile(
+    r"\b(?:material\s+adverse\s+change|material\s+adverse\s+effect|MAC\s+clause|MAE\s+clause|MAC|MAE)\b",
+    re.IGNORECASE,
+)
+EMBARGO_RE = re.compile(
+    # signing-date and announcement-window markers commonly used in deal comms
+    r"\b(?:under\s+embargo|embargoed|press\s+hold|signing\s+date|effective\s+date|"
+    r"announcement\s+date|completion\s+date|closing\s+date)\b",
     re.IGNORECASE,
 )
 NONPUBLIC_RE = re.compile(
@@ -330,6 +355,14 @@ class PreSendReviewEngine:
 
         for pattern, rule, severity, reason in [
             (NONPUBLIC_RE, "nonpublic_marker", "high", "Explicit non-public/confidentiality marker"),
+            (TRANSACTION_CODENAME_RE, "transaction_codename", "high",
+             "Internal deal codename detected; treat as MNPI until publicly disclosed"),
+            (DEFINITIVE_AGREEMENT_RE, "definitive_agreement", "high",
+             "Definitive-agreement reference may carry MNPI before announcement"),
+            (MAC_CLAUSE_RE, "material_adverse_change", "high",
+             "Material adverse change / effect language signals MNPI-grade context"),
+            (EMBARGO_RE, "embargo_marker", "high",
+             "Embargo / signing-date marker indicates MNPI handling"),
             (MONEY_RE, "financial_amount", "medium", "Specific financial amount may be material"),
             (PERCENT_RE, "financial_percentage", "medium", "Specific financial percentage may be material"),
             (LONG_NUMBER_RE, "large_number", "medium", "Large numeric value may be material"),

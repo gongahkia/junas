@@ -59,6 +59,22 @@ _MNPI_DEFAULT_RATIONALE = {
         "Explicit non-public / confidentiality marker detected. Treat the surrounding passage "
         "as MNPI unless the marker has been formally lifted."
     ),
+    "transaction_codename": (
+        "Internal deal codename detected. Treat as MNPI until the underlying transaction is "
+        "publicly announced; do not reference the codename in external communications."
+    ),
+    "definitive_agreement": (
+        "Definitive-agreement reference detected (SPA / SHA / APA / MOU / term sheet). "
+        "Existence of a binding deal document is itself MNPI before public announcement."
+    ),
+    "material_adverse_change": (
+        "Material adverse change / effect language detected. MAC/MAE clauses are price-sensitive "
+        "and signal MNPI-grade context; hold until disclosed."
+    ),
+    "embargo_marker": (
+        "Embargo / signing-date / closing-date marker detected. Treat the surrounding passage as "
+        "MNPI until the embargo lifts."
+    ),
     "financial_amount": (
         "Specific monetary value may be material non-public information. Verify the value is "
         "publicly disclosed; otherwise generalise or redact."
