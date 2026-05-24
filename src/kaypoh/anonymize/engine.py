@@ -200,3 +200,24 @@ class DeterministicAnonymizer:
                 continue
             accepted.append(candidate)
         return sorted(accepted, key=lambda item: (item.start_char, item.end_char))
+
+
+def reidentify(*, anonymized_text: str, mapping: list[Any]) -> tuple[str, int]:
+    """Restore original text in place of placeholders. Sort by placeholder length desc so
+    `[PERSON_1]` does not partially match inside `[PERSON_10]`."""
+    entries: list[tuple[str, str]] = []
+    for entry in mapping:
+        placeholder = str(_attr(entry, "placeholder", "") or "")
+        original = str(_attr(entry, "original_text", "") or "")
+        if placeholder:
+            entries.append((placeholder, original))
+    entries.sort(key=lambda pair: len(pair[0]), reverse=True)
+
+    text = anonymized_text
+    total = 0
+    for placeholder, original in entries:
+        count = text.count(placeholder)
+        if count:
+            text = text.replace(placeholder, original)
+            total += count
+    return text, total

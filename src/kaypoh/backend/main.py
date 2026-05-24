@@ -24,7 +24,7 @@ from fastapi.responses import JSONResponse
 from starlette.concurrency import run_in_threadpool
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from kaypoh.anonymize import DeterministicAnonymizer
+from kaypoh.anonymize import DeterministicAnonymizer, reidentify as _reidentify_text
 from kaypoh.backend.cache import ResponseCache
 from kaypoh.backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode
 from kaypoh.backend.schemas import (
@@ -53,6 +53,8 @@ from kaypoh.backend.schemas import (
     PublicEvidenceResponse,
     ReadyResponse,
     RegressionResponse,
+    ReidentifyRequest,
+    ReidentifyResponse,
     ReviewDocumentMetadataResponse,
     ReviewFindingResponse,
     ReviewRequest,
@@ -1347,6 +1349,7 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None) -> ReviewRespon
         destination_jurisdiction=req.destination_jurisdiction,
         entity_id=req.entity_id,
         include_suggestions=req.include_suggestions,
+        document_type=req.document_type,
     )
     timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
     timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
@@ -1401,6 +1404,7 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None) -> Anonym
         destination_jurisdiction=req.destination_jurisdiction,
         entity_id=req.entity_id,
         include_suggestions=req.include_suggestions,
+        document_type=req.document_type,
     )
     timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
 
@@ -1889,6 +1893,38 @@ async def review_document(request: Request, req: ReviewRequest):
 )
 async def anonymize_document(request: Request, req: AnonymizeRequest):
     return await run_in_threadpool(_run_anonymize_sync, req, getattr(request.state, "request_id", None))
+
+
+def _run_reidentify_sync(req: ReidentifyRequest, request_id: str | None) -> ReidentifyResponse:
+    t_total_start = time.perf_counter()
+    text, count = _reidentify_text(
+        anonymized_text=req.anonymized_text,
+        mapping=[entry.model_dump() for entry in req.mapping],
+    )
+    total_ms = round((time.perf_counter() - t_total_start) * 1000.0, 3)
+    return ReidentifyResponse(
+        request_id=request_id,
+        text=text,
+        replacement_count=count,
+        timings_ms={"reidentify": total_ms, "total": total_ms},
+    )
+
+
+@app.post(
+    "/reidentify",
+    response_model=ReidentifyResponse,
+    dependencies=[Depends(require_api_key)],
+    tags=["Anonymization"],
+    summary="Reidentify previously anonymized text",
+    description=(
+        "Deterministic inverse of /anonymize. Takes anonymized_text plus the caller-supplied "
+        "mapping (typically the mapping field from a prior /anonymize response) and restores "
+        "the original spans. Runs entirely on the request payload; no document extraction, no "
+        "review engine, no model layers."
+    ),
+)
+async def reidentify_document(request: Request, req: ReidentifyRequest):
+    return await run_in_threadpool(_run_reidentify_sync, req, getattr(request.state, "request_id", None))
 
 
 if __name__ == "__main__":

@@ -10,6 +10,7 @@ from kaypoh.workflow.privacy_guard import EMAIL_RE, LONG_NUMBER_RE, MONEY_RE, PE
 
 
 SG_NRIC_RE = re.compile(r"\b[STFGM]\d{7}[A-Z]\b", re.IGNORECASE)
+SG_UEN_RE = re.compile(r"\b(?:\d{8,9}[A-Z]|T\d{2}[A-Z]{2}\d{4}[A-Z])\b")  # ACRA UEN: legacy 8-9 digit + check letter; new T-format
 PASSPORT_RE = re.compile(r"\b(?:passport|pass no\.?|passport no\.?)\s*[:#-]?\s*([A-Z0-9]{6,12})\b", re.IGNORECASE)
 SG_POSTAL_RE = re.compile(r"\b(?:Singapore|S)\s*(\d{6})\b", re.IGNORECASE)
 BANK_ACCOUNT_RE = re.compile(
@@ -34,6 +35,10 @@ NAME_RE = re.compile(r"\b(?:Mr|Ms|Mrs|Dr)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2
 
 
 SEVERITY_SCORE = {"low": 25.0, "medium": 55.0, "high": 85.0}
+
+# document types where a named person reference is materially sensitive (counterparty principals,
+# signatories, beneficial owners). lifts named_person severity from low to high.
+NAMED_PERSON_HIGH_SEVERITY_DOC_TYPES = frozenset({"spa", "nda", "sha", "term_sheet", "shareholders_agreement"})
 
 
 @dataclass
@@ -144,7 +149,12 @@ class PreSendReviewEngine:
         self.public_evidence_retriever = public_evidence_retriever
         self.llm_adjudicator = llm_adjudicator
 
-    def _pii_findings(self, text: str, packs: list[JurisdictionRulePack]) -> list[ReviewFinding]:
+    def _pii_findings(
+        self,
+        text: str,
+        packs: list[JurisdictionRulePack],
+        document_type: str = "generic",
+    ) -> list[ReviewFinding]:
         findings: list[ReviewFinding] = []
         jurisdiction = _pack_scope(packs)
         legal_basis = _legal_basis(packs, "pii_rules")
@@ -153,16 +163,20 @@ class PreSendReviewEngine:
             patterns.extend(
                 [
                     ("sg_nric_fin", SG_NRIC_RE, "high", "Singapore NRIC/FIN-like identifier"),
+                    ("sg_uen", SG_UEN_RE, "high", "Singapore ACRA UEN identifier"),
                     ("sg_postal_address", SG_POSTAL_RE, "medium", "Singapore postal-code address signal"),
                 ]
             )
+        named_person_severity = (
+            "high" if document_type.strip().lower() in NAMED_PERSON_HIGH_SEVERITY_DOC_TYPES else "low"
+        )
         patterns.extend(
             [
                 ("email_address", EMAIL_RE, "medium", "Email address can identify an individual"),
                 ("phone_number", PHONE_RE, "medium", "Phone number can identify or contact an individual"),
                 ("passport_number", PASSPORT_RE, "high", "Passport-like identifier"),
                 ("bank_account", BANK_ACCOUNT_RE, "high", "Bank/account-like financial identifier"),
-                ("named_person", NAME_RE, "low", "Named person reference"),
+                ("named_person", NAME_RE, named_person_severity, "Named person reference"),
             ]
         )
 
@@ -309,9 +323,10 @@ class PreSendReviewEngine:
         destination_jurisdiction: str,
         entity_id: str | None,
         include_suggestions: bool,
+        document_type: str = "generic",
     ) -> ReviewResult:
         packs = resolve_rule_packs(source_jurisdiction, destination_jurisdiction)
-        findings = self._pii_findings(text, packs) + self._mnpi_findings(text, packs)
+        findings = self._pii_findings(text, packs, document_type) + self._mnpi_findings(text, packs)
         pii_score = self._score(findings, "PII")
         mnpi_score = self._score(findings, "MNPI")
         document_score = max(pii_score, mnpi_score)

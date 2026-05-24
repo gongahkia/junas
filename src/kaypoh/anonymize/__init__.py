@@ -5,6 +5,7 @@ from .engine import (
     AnonymizationReplacement,
     AnonymizationResult,
     DeterministicAnonymizer,
+    reidentify,
 )
 
 __all__ = [
@@ -12,4 +13,5 @@ __all__ = [
     "AnonymizationReplacement",
     "AnonymizationResult",
     "DeterministicAnonymizer",
+    "reidentify",
 ]

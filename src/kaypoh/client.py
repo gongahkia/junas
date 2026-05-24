@@ -15,6 +15,9 @@ from .backend.schemas import (
     DiagnosticsResponse,
     HealthResponse,
     ReadyResponse,
+    ReidentifyMappingEntry,
+    ReidentifyRequest,
+    ReidentifyResponse,
     ReviewRequest,
     ReviewResponse,
 )
@@ -191,6 +194,31 @@ def _coerce_anonymize_request(
         include_suggestions=include_suggestions,
         include_mnpi_scalars=include_mnpi_scalars,
     )
+
+
+def _coerce_reidentify_request(
+    *,
+    request: ReidentifyRequest | Mapping[str, Any] | None,
+    anonymized_text: str | None,
+    mapping: Sequence[ReidentifyMappingEntry | Mapping[str, Any]] | None,
+) -> ReidentifyRequest:
+    if request is not None:
+        if anonymized_text is not None or mapping is not None:
+            raise ValueError("pass either request=... or anonymized_text/mapping=..., not both")
+        if isinstance(request, ReidentifyRequest):
+            return request
+        return ReidentifyRequest.model_validate(request)
+
+    if anonymized_text is None:
+        raise ValueError("anonymized_text is required when request is not provided")
+    if mapping is None:
+        raise ValueError("mapping is required when request is not provided")
+
+    normalized_mapping = [
+        entry if isinstance(entry, ReidentifyMappingEntry) else ReidentifyMappingEntry.model_validate(entry)
+        for entry in mapping
+    ]
+    return ReidentifyRequest(anonymized_text=anonymized_text, mapping=normalized_mapping)
 
 
 class KaypohAPIError(RuntimeError):
@@ -380,6 +408,26 @@ class KaypohClient:
             )
         )
 
+    def reidentify(
+        self,
+        anonymized_text: str | None = None,
+        *,
+        mapping: Sequence[ReidentifyMappingEntry | Mapping[str, Any]] | None = None,
+        request: ReidentifyRequest | Mapping[str, Any] | None = None,
+    ) -> ReidentifyResponse:
+        payload = _coerce_reidentify_request(
+            request=request,
+            anonymized_text=anonymized_text,
+            mapping=mapping,
+        )
+        return ReidentifyResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/reidentify",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
 
 class AsyncKaypohClient:
     """Async typed Python client for the Kaypoh backend HTTP API."""
@@ -560,6 +608,26 @@ class AsyncKaypohClient:
             )
         )
 
+    async def reidentify(
+        self,
+        anonymized_text: str | None = None,
+        *,
+        mapping: Sequence[ReidentifyMappingEntry | Mapping[str, Any]] | None = None,
+        request: ReidentifyRequest | Mapping[str, Any] | None = None,
+    ) -> ReidentifyResponse:
+        payload = _coerce_reidentify_request(
+            request=request,
+            anonymized_text=anonymized_text,
+            mapping=mapping,
+        )
+        return ReidentifyResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/reidentify",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
 
 def classify_text(
     text: str,
@@ -619,6 +687,9 @@ __all__ = [
     "DEFAULT_TIMEOUT_SECONDS",
     "KaypohAPIError",
     "KaypohClient",
+    "ReidentifyMappingEntry",
+    "ReidentifyRequest",
+    "ReidentifyResponse",
     "async_classify_text",
     "classify_text",
 ]

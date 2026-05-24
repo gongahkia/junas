@@ -443,6 +443,54 @@ class AnonymizationMappingEntryResponse(BaseModel):
     occurrence_count: int = Field(description="Number of accepted replacements using this mapping entry.")
 
 
+class ReidentifyMappingEntry(BaseModel):
+    placeholder: str = Field(..., min_length=1, max_length=128, description="Placeholder present in anonymized_text.")
+    original_text: str = Field(..., max_length=4096, description="Original text to restore.")
+
+
+class ReidentifyRequest(BaseModel):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "anonymized_text": "Send [PERSON_1] [NRIC_FIN_1] the draft.",
+                "mapping": [
+                    {"placeholder": "[PERSON_1]", "original_text": "Dr Jane Tan"},
+                    {"placeholder": "[NRIC_FIN_1]", "original_text": "S1234567D"},
+                ],
+            }
+        }
+    )
+
+    anonymized_text: str = Field(
+        ...,
+        min_length=1,
+        max_length=MAX_CLASSIFY_TEXT_LENGTH,
+        description="Text containing placeholders that should be restored.",
+    )
+    mapping: list[ReidentifyMappingEntry] = Field(
+        ...,
+        min_length=1,
+        max_length=10000,
+        description="Mapping entries from a prior /anonymize call, or a caller-supplied equivalent.",
+    )
+
+    @field_validator("anonymized_text")
+    @classmethod
+    def sanitize_anonymized_text(cls, value: str) -> str:
+        cleaned = value.replace("\x00", "")
+        cleaned = "".join(ch for ch in cleaned if ch.isprintable() or ch in ("\n", "\r", "\t"))
+        if not cleaned.strip():
+            raise ValueError("anonymized_text must contain non-whitespace printable content")
+        return cleaned
+
+
+class ReidentifyResponse(BaseModel):
+    request_id: Optional[str] = Field(None, description="Per-request UUID also returned as the X-Request-ID header.")
+    text: str = Field(description="Reconstructed text with placeholders replaced by their originals.")
+    replacement_count: int = Field(description="Number of placeholder occurrences replaced.")
+    timings_ms: dict[str, float] = Field(default_factory=dict, description="Reidentify timing breakdown in milliseconds.")
+
+
 class AnonymizationReplacementResponse(BaseModel):
     finding_id: str = Field(description="Review finding that drove this replacement.")
     placeholder: str = Field(description="Placeholder inserted into anonymized_text.")
