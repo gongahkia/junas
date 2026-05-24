@@ -2,7 +2,7 @@
 
 This folder contains operational and maintenance commands.
 
-- `launch/`: runnable backend and demo launchers
+- `launch/`: runnable backend launchers
 - `examples/`: runnable sync and async Python client examples
 - `check_python_clients.sh`: syntax and unit checks for the sync and async Python clients; used by tracked git hooks
 - `benchmark_latency.py`: latency benchmark runner
