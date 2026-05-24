@@ -11,12 +11,15 @@ mutation can't bypass the tenant opt-in.
 """
 
 import json
+import tempfile
+import textwrap
 import unittest
+from pathlib import Path
 from types import SimpleNamespace
 
 import httpx
 
-from kaypoh.configs.runtime import ConfigError, _load_runtime_settings_from_inputs
+from kaypoh.configs.runtime import ConfigError, load_runtime_settings
 from kaypoh.workflow.layer8_llm_adjudicator.inference import LocalLLMAdjudicator
 
 
@@ -102,47 +105,67 @@ class AdjudicateTimeGateTests(unittest.TestCase):
 class ConfigLoadTimeGateTests(unittest.TestCase):
     """Gate checks at config-load time — the fail-fast defence."""
 
-    def _load(self, *, provider: str, allow_remote: bool, tenant_opt_in: bool):
-        cli = {
-            ("llm", "enabled"): True,
-            ("llm", "provider"): provider,
-            ("llm", "base_url"): "https://api.openai.com/v1",
-            ("llm", "model"): "gpt-4o-mini",
-            ("llm", "allow_remote_base_url"): allow_remote,
-            ("llm", "tenant_opt_in_openai"): tenant_opt_in,
-        }
-        return _load_runtime_settings_from_inputs(
-            raw_config={}, cli_overrides=cli, environ={},
-        )
+    def _write_config(self, content: str) -> Path:
+        tempdir = tempfile.TemporaryDirectory()
+        self.addCleanup(tempdir.cleanup)
+        path = Path(tempdir.name) / "config.toml"
+        path.write_text(textwrap.dedent(content).strip() + "\n", encoding="utf-8")
+        return path
+
+    def _base_config(self, *, allow_remote: str, tenant_opt_in: str, provider: str = "openai") -> Path:
+        return self._write_config(f"""
+            [pipeline]
+            layers = ["lexicon"]
+
+            [llm]
+            enabled = true
+            provider = "{provider}"
+            base_url = "https://api.openai.com/v1"
+            model = "gpt-4o-mini"
+            allow_remote_base_url = {allow_remote}
+            tenant_opt_in_openai = {tenant_opt_in}
+        """)
 
     def test_openai_provider_rejected_when_remote_flag_missing(self):
+        config = self._base_config(allow_remote="false", tenant_opt_in="true")
         with self.assertRaises(ConfigError) as ctx:
-            self._load(provider="openai", allow_remote=False, tenant_opt_in=True)
+            load_runtime_settings(cli_overrides={"config_path": str(config)})
         self.assertIn("allow_remote_base_url", str(ctx.exception))
 
     def test_openai_provider_rejected_when_tenant_opt_in_missing(self):
+        config = self._base_config(allow_remote="true", tenant_opt_in="false")
         with self.assertRaises(ConfigError) as ctx:
-            self._load(provider="openai", allow_remote=True, tenant_opt_in=False)
+            load_runtime_settings(cli_overrides={"config_path": str(config)})
         self.assertIn("tenant_opt_in_openai", str(ctx.exception))
 
     def test_openai_provider_accepted_with_both_gates(self):
-        settings = self._load(provider="openai", allow_remote=True, tenant_opt_in=True)
+        config = self._base_config(allow_remote="true", tenant_opt_in="true")
+        settings = load_runtime_settings(cli_overrides={"config_path": str(config)})
         self.assertEqual(settings.llm.provider, "openai")
         self.assertTrue(settings.llm.tenant_opt_in_openai)
 
     def test_unknown_provider_rejected(self):
+        config = self._write_config("""
+            [pipeline]
+            layers = ["lexicon"]
+
+            [llm]
+            provider = "claude"
+        """)
         with self.assertRaises(ConfigError):
-            self._load(provider="claude", allow_remote=True, tenant_opt_in=True)
+            load_runtime_settings(cli_overrides={"config_path": str(config)})
 
     def test_local_provider_does_not_need_tenant_flag(self):
         # vllm/ollama paths must not be affected by the new tenant gate
-        settings = _load_runtime_settings_from_inputs(
-            raw_config={}, cli_overrides={
-                ("llm", "enabled"): True,
-                ("llm", "provider"): "vllm",
-                ("llm", "base_url"): "http://127.0.0.1:8001/v1",
-            }, environ={},
-        )
+        config = self._write_config("""
+            [pipeline]
+            layers = ["lexicon"]
+
+            [llm]
+            provider = "vllm"
+            base_url = "http://127.0.0.1:8001/v1"
+        """)
+        settings = load_runtime_settings(cli_overrides={"config_path": str(config)})
         self.assertEqual(settings.llm.provider, "vllm")
         self.assertFalse(settings.llm.tenant_opt_in_openai)
 
