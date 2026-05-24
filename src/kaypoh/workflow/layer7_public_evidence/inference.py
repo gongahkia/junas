@@ -11,6 +11,15 @@ from kaypoh.workflow.privacy_guard import PrivacyGuard
 
 YEAR_RE = re.compile(r"\b20\d{2}\b")
 
+# default endpoint per provider; overridden by public_evidence.endpoint when set explicitly.
+_DEFAULT_ENDPOINTS = {
+    "exa": "https://api.exa.ai/search",
+    "tinyfish": "https://api.search.tinyfish.ai/",
+}
+
+# providers we ship a real adapter for. anything else returns status=error.
+_SUPPORTED_PROVIDERS = frozenset({"exa", "tinyfish"})
+
 EVENT_KEYWORDS: dict[str, tuple[str, ...]] = {
     "acquisition merger takeover": ("acquisition", "acquire", "merger", "takeover", "buyout"),
     "earnings guidance outlook": ("earnings", "guidance", "outlook", "forecast", "eps", "revenue"),
@@ -50,7 +59,8 @@ class PublicEvidenceRetriever:
         self.enabled = bool(getattr(settings, "enabled", False))
         self.provider = str(getattr(settings, "provider", "exa") or "exa").lower()
         self.api_key = str(getattr(settings, "api_key", "") or "")
-        self.endpoint = str(getattr(settings, "endpoint", "https://api.exa.ai/search") or "")
+        configured_endpoint = str(getattr(settings, "endpoint", "") or "")
+        self.endpoint = configured_endpoint or _DEFAULT_ENDPOINTS.get(self.provider, "")
         self.max_results = max(1, int(getattr(settings, "max_results", 5) or 5))
         self.timeout_seconds = max(0.1, float(getattr(settings, "timeout_seconds", 8.0) or 8.0))
         self.guard = guard or PrivacyGuard.load()
@@ -91,6 +101,36 @@ class PublicEvidenceRetriever:
             for terms in self._event_terms(text):
                 queries.append(" ".join(part for part in [entity, terms, suffix] if part).strip())
         return _dedupe(queries)[: self.max_results]
+
+    def _search_tinyfish(self, query: str) -> list[dict[str, Any]]:
+        # tinyfish search is a GET with the query as a query-string param. response shape:
+        # { query, results: [{position, site_name, snippet, title, url, thumbnail_url?}], ... }
+        # docs: https://docs.tinyfish.ai/api-reference/search-the-web
+        params = {"query": query, "page": "0"}
+        headers = {"X-API-Key": self.api_key, "Accept": "application/json"}
+        with httpx.Client(timeout=self.timeout_seconds) as client:
+            response = client.get(self.endpoint, headers=headers, params=params)
+            response.raise_for_status()
+            payload = response.json()
+
+        results = payload.get("results", []) if isinstance(payload, dict) else []
+        sources: list[dict[str, Any]] = []
+        for item in results:
+            if not isinstance(item, dict):
+                continue
+            snippet = str(item.get("snippet", "") or "")
+            sources.append(
+                {
+                    "title": str(item.get("title", "") or ""),
+                    "url": str(item.get("url", "") or ""),
+                    "published_date": "",  # tinyfish search omits a publish date in the v1 contract
+                    "author": str(item.get("site_name", "") or ""),
+                    "highlights": [snippet] if snippet else [],
+                    "text": snippet[:800],
+                    "score": None,
+                }
+            )
+        return sources
 
     def _search_exa(self, query: str) -> list[dict[str, Any]]:
         headers = {"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"}
@@ -165,16 +205,7 @@ class PublicEvidenceRetriever:
                 "sources": [],
                 "privacy_ledger": ledger,
             }
-        if self.provider == "tinyfish":
-            return {
-                "status": "skipped",
-                "provider": self.provider,
-                "detail": "tinyfish retrieval adapter is configured but not implemented in this runtime",
-                "queries": query_records,
-                "sources": [],
-                "privacy_ledger": ledger,
-            }
-        if self.provider != "exa":
+        if self.provider not in _SUPPORTED_PROVIDERS:
             return {
                 "status": "error",
                 "provider": self.provider,
@@ -184,19 +215,21 @@ class PublicEvidenceRetriever:
                 "privacy_ledger": ledger,
             }
         if not self.api_key:
+            key_env = "EXA_API_KEY" if self.provider == "exa" else "TINYFISH_API_KEY"
             return {
                 "status": "skipped",
                 "provider": self.provider,
-                "detail": "EXA_API_KEY is not configured",
+                "detail": f"{key_env} is not configured",
                 "queries": query_records,
                 "sources": [],
                 "privacy_ledger": ledger,
             }
 
+        search_fn = self._search_tinyfish if self.provider == "tinyfish" else self._search_exa
         sources: list[dict[str, Any]] = []
         try:
             for query in approved_queries:
-                sources.extend(self._search_exa(query))
+                sources.extend(search_fn(query))
         except Exception as exc:
             return {
                 "status": "error",
