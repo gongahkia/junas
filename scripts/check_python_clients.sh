@@ -53,7 +53,9 @@ echo "🧪 Verifying Kaypoh sync and async Python clients..."
     api/client.py \
     backend/client.py \
     scripts/examples/sync_client_example.py \
-    scripts/examples/async_client_example.py
+    scripts/examples/async_client_example.py \
+    scripts/examples/round_trip_example.py \
+    scripts/examples/decision_flow_example.py
 "${PYTHON_BIN}" -m unittest test.test_python_client
 
 echo "🧪 Running legal-corpus recall gate..."
