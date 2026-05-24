@@ -33,6 +33,20 @@ fi
 
 cd "${ROOT}"
 
+# verify the venv actually has the runtime deps. an empty venv (created but never
+# pip-installed) is the most common silent failure: tests run but ImportError on httpx.
+if ! "${PYTHON_BIN}" -c "import httpx, fastapi, pydantic, presidio_analyzer" >/dev/null 2>&1; then
+    cat >&2 <<EOM
+❌ ${PYTHON_BIN} is missing runtime deps (httpx / fastapi / pydantic / presidio).
+
+Install them:
+    "${PYTHON_BIN}" -m pip install --upgrade pip
+    "${PYTHON_BIN}" -m pip install -e ".[local,dev]"     # or ".[server,dev]"
+    "${PYTHON_BIN}" -m spacy download en_core_web_sm
+EOM
+    exit 1
+fi
+
 echo "🧪 Verifying Kaypoh sync and async Python clients..."
 "${PYTHON_BIN}" -m py_compile \
     src/kaypoh/client.py \

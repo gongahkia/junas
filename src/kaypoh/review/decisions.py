@@ -31,6 +31,7 @@ class Decision:
     action: str  # accept | reject | rewrite
     replacement_text: str = ""
     rationale: str = ""
+    reviewer_id: str = ""  # who recorded this decision; sourced from header or body
 
 
 def start_review_session(
@@ -75,12 +76,14 @@ def record_decision(*, review_id: str, decision: Decision) -> dict[str, Any]:
             "action": decision.action,
             "replacement_text": decision.replacement_text,
             "rationale": decision.rationale,
+            "reviewer_id": decision.reviewer_id,
         },
     )
     return {
         "review_id": review_id,
         "finding_id": decision.finding_id,
         "action": decision.action,
+        "reviewer_id": decision.reviewer_id,
         "seq": entry.seq,
         "ts": entry.ts,
         "hmac": entry.hmac,
