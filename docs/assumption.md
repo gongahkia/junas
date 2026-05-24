@@ -55,6 +55,18 @@
 - regression is optional and only loaded when a trained model checkpoint exists
 - no random/stub regression is used at runtime
 
+## Public Evidence
+- public-source retrieval is optional and disabled by default
+- external providers receive only sanitized entity/ticker/event/date queries
+- original request text, offending spans, emails, phone numbers, and exact private financial values are not sent externally
+- `privacy_ledger` records every outbound query decision
+
+## Local LLM Adjudication
+- local LLM adjudication is optional and disabled by default
+- the local model may receive the full request text only when served from a local/private base URL or when explicitly allowed by config
+- adjudication output is structured JSON and can downgrade model-only risk when public evidence supports that the claim is already public
+- deterministic high-risk short-circuit floors remain high risk
+
 ## FastAPI Orchestration
 - canonical app entrypoint is `noupe.backend.main:app` with compatibility shim `backend.main:app`
 - configurable layer order from `config.toml`/`PIPELINE_LAYERS`/`--layers`

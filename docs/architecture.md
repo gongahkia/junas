@@ -14,6 +14,8 @@ Noupe is a multi-layered Material Non-Public Information (MNPI) classification e
 - **Anomaly Detection:** Scikit-Learn (Isolation Forest for clustering unknown unknowns)
 - **State Tracking (Mosaic Layer):** Redis rolling-window event aggregation with per-entity ZSETs and per-event metadata
 - **Regression / Final Scoring:** Optional XGBoost layer loaded only when a trained checkpoint is available
+- **Public Evidence Verification:** Optional sanitized public-source retrieval layer for checking whether risky claims are already public without sending private text externally
+- **Local LLM Adjudication:** Optional local-only LLM layer for reconciling existing scores and public evidence into reviewer-facing rationale
 - **Interface Surfaces:** Archived HTML/JS demo frontends under `archive/frontend-demos/`, served separately by `scripts/launch/run_dev.sh` and `scripts/launch/run_prod.sh`
 
 ### Runtime Layout
@@ -109,8 +111,13 @@ flowchart TD
    - If the entity reaches the configured threshold of unique `LOW_RISK` fragments within the active window, the fragmented pieces of context invoke the "Mosaic Theory" and escalate the label to `HIGH_RISK`.
 7. **Layer 6: Regression & Final Scoring (Optional)**
    When a trained regression checkpoint exists, scores across upstream models (lexicon score, anomaly float, Transformer risk probabilities, and mosaic unique-fragment counts) are synthesized into an aggregate risk probability.
-8. **Response Return**
+8. **Public Evidence Verification (Optional)**
+   When configured, the runtime locally extracts entity, ticker, event category, and broad date hints, then sends only sanitized public-source queries to the configured retrieval provider. The original document text, offending spans, exact private figures, and personal data are not sent externally. Each outbound query decision is recorded in `privacy_ledger`.
+9. **Local LLM Adjudication (Optional)**
+   A local OpenAI-compatible model endpoint can receive the full document text, current layer outputs, and retrieved public evidence. Because this layer is local-only by default, it may inspect the private document and return structured adjudication fields such as public status, unverified claims, confidence, and reviewer recommendation.
+10. **Response Return**
    The FastAPI structure maps metadata from all layers and encapsulates the final, enumerated decision parameter (`SAFE | LOW_RISK | HIGH_RISK`) into a JSON response. The response can optionally include:
    - per-request observability metadata (`cache_status`, `executed_layers`, `skipped_layers`, `layer_errors`)
    - exact lexicon spans
    - approximate classifier-window spans derived from sliding-window inference
+   - sanitized public-source evidence, local LLM adjudication, and privacy-ledger entries when those layers are enabled

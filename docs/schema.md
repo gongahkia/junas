@@ -88,6 +88,57 @@ Response:
     "matched_event_ids": ["event ids"]
   } | null,
   "regression": {"risk_score": "float", "reasoning": "string"} | null,
+  "public_evidence": {
+    "status": "disabled|skipped|queried|error",
+    "provider": "exa|tinyfish|none",
+    "detail": "string",
+    "queries": [
+      {"query": "sanitized string", "blocked": "bool", "reason": "string"}
+    ],
+    "sources": [
+      {
+        "title": "string",
+        "url": "string",
+        "published_date": "string",
+        "author": "string",
+        "highlights": ["string"],
+        "text": "string",
+        "score": "float | null"
+      }
+    ],
+    "privacy_ledger": [
+      {
+        "destination": "string",
+        "operation": "string",
+        "allowed": "bool",
+        "reason": "string",
+        "query": "sanitized string",
+        "redactions": ["string"]
+      }
+    ]
+  } | null,
+  "llm_adjudication": {
+    "status": "disabled|adjudicated|error",
+    "provider": "vllm|ollama|none",
+    "model": "string",
+    "risk_label": "SAFE | LOW_RISK | HIGH_RISK | null",
+    "public_status": "public|not_public|ambiguous|not_checked",
+    "confidence": "float",
+    "materiality_reason": "string",
+    "matched_public_sources": ["url or source id"],
+    "unverified_claims": ["string"],
+    "review_recommendation": "string"
+  } | null,
+  "privacy_ledger": [
+    {
+      "destination": "string",
+      "operation": "string",
+      "allowed": "bool",
+      "reason": "string",
+      "query": "sanitized string",
+      "redactions": ["string"]
+    }
+  ],
   "observability": {
     "degraded": "bool",
     "cache_status": "hit | miss | disabled",
@@ -142,6 +193,8 @@ Notes:
 - `score_type` is usually `rule_score`, `risk_score`, or `high_risk_score`.
 - `window_index` is zero-based and only populated for classifier-derived spans.
 - `model1`/`model2`/`clustering`/`regression` may be `null` when layers are disabled or missing checkpoints.
+- `public_evidence` and `llm_adjudication` are populated only when their optional pipeline layers are configured.
+- External retrieval layers must use sanitized queries only; the private document text and offending spans are not sent to public-source providers.
 - `observability.degraded=true` means the pipeline returned a best-effort result because a configured layer that should have executed was unavailable or failed at runtime.
 
 ## API — `POST /classify/batch`

@@ -38,11 +38,14 @@ from noupe.backend.schemas import (
     LayerErrorResponse,
     LexiconHitResponse,
     LexiconResponse,
+    LLMAdjudicationResponse,
     Model1Response,
     Model2Response,
     MosaicResponse,
     ObservabilityResponse,
     OffendingSpanResponse,
+    PrivacyLedgerEntryResponse,
+    PublicEvidenceResponse,
     ReadyResponse,
     RegressionResponse,
 )
@@ -511,6 +514,9 @@ def should_cache_response(req: ClassifyRequest, pipeline: list[str]) -> bool:
     # Mosaic mutates state (Redis counters), so keep cache disabled when mosaic layer is active.
     if "mosaic" in pipeline:
         return False
+    # Public retrieval and local adjudication depend on current external/local service state.
+    if "public_evidence" in pipeline or "llm_adjudicator" in pipeline:
+        return False
     return True
 
 
@@ -832,6 +838,9 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
     clust_resp = None
     mosaic_resp = None
     reg_resp = None
+    public_evidence_resp = None
+    llm_adjudication_resp = None
+    privacy_ledger: list[dict[str, Any]] = []
 
     final_classification = Classification.SAFE
     classification_floor = Classification.SAFE
@@ -996,6 +1005,55 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
                     classification_floor = Classification.HIGH_RISK
                     final_classification = Classification.HIGH_RISK
 
+            elif layer == "public_evidence":
+                if final_classification == Classification.SAFE and not (lex_resp and lex_resp.flagged):
+                    outcome = "skipped"
+                    skipped_layers.append(layer)
+                    continue
+
+                retriever = get_layer_model("public_evidence")
+                if retriever is None:
+                    degraded = True
+                    outcome = "unavailable"
+                    layer_errors.append(build_layer_error(layer))
+                    continue
+                evidence_result = retriever.retrieve(
+                    text=req.text,
+                    entity_id=req.entity_id,
+                    lexicon=lex_resp,
+                )
+                public_evidence_resp = PublicEvidenceResponse(**evidence_result)
+                privacy_ledger.extend(evidence_result.get("privacy_ledger", []))
+
+            elif layer == "llm_adjudicator":
+                adjudicator = get_layer_model("llm_adjudicator")
+                if adjudicator is None:
+                    degraded = True
+                    outcome = "unavailable"
+                    layer_errors.append(build_layer_error(layer))
+                    continue
+                if final_classification == Classification.SAFE and public_evidence_resp is None:
+                    outcome = "skipped"
+                    skipped_layers.append(layer)
+                    continue
+                adjudication_result = adjudicator.adjudicate(
+                    text=req.text,
+                    current_classification=final_classification.value,
+                    lexicon=lex_resp,
+                    model1=m1_resp,
+                    model2=m2_resp,
+                    public_evidence=public_evidence_resp,
+                )
+                llm_adjudication_resp = LLMAdjudicationResponse(**adjudication_result)
+                if llm_adjudication_resp.status == "adjudicated" and llm_adjudication_resp.risk_label is not None:
+                    if classification_floor == Classification.HIGH_RISK:
+                        final_classification = max_classification(
+                            llm_adjudication_resp.risk_label,
+                            classification_floor,
+                        )
+                    else:
+                        final_classification = llm_adjudication_resp.risk_label
+
             elif layer == "regression":
                 reg_model = get_layer_model("regression")
                 if reg_model is None:
@@ -1085,6 +1143,9 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
         clustering=clust_resp,
         mosaic=mosaic_resp,
         regression=reg_resp,
+        public_evidence=public_evidence_resp,
+        llm_adjudication=llm_adjudication_resp,
+        privacy_ledger=[PrivacyLedgerEntryResponse(**entry) for entry in privacy_ledger],
         offending_spans=offending_spans,
         observability=ObservabilityResponse(
             degraded=degraded,
@@ -1266,6 +1327,14 @@ async def lifespan(app: FastAPI):
                     return mos_mod.MosaicAggregator.load()
 
                 _state["lazy_loaders"]["mosaic"] = _load_mosaic
+
+            elif layer == "public_evidence":
+                evidence_mod = importlib.import_module("noupe.workflow.layer7_public_evidence.inference")
+                _state["models"]["public_evidence"] = evidence_mod.PublicEvidenceRetriever.load()
+
+            elif layer == "llm_adjudicator":
+                llm_mod = importlib.import_module("noupe.workflow.layer8_llm_adjudicator.inference")
+                _state["models"]["llm_adjudicator"] = llm_mod.LocalLLMAdjudicator.load()
             else:
                 raise ValueError(f"unknown pipeline layer: {layer}")
 

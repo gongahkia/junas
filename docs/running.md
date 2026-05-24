@@ -216,6 +216,22 @@ curl -X POST http://localhost:8000/classify \
 
 API docs auto-served at `http://localhost:8000/docs` (Swagger) and `http://localhost:8000/redoc`.
 
+## Optional Public Evidence + Local LLM
+
+Noupe can add sanitized public-source verification and local-only LLM adjudication to the normal pipeline:
+
+```sh
+PIPELINE_LAYERS=lexicon,model1,model2,public_evidence,llm_adjudicator \
+NOUPE_PUBLIC_EVIDENCE_ENABLED=1 \
+EXA_API_KEY="..." \
+NOUPE_LLM_ENABLED=1 \
+NOUPE_LLM_BASE_URL="http://10.0.0.25:8001/v1" \
+NOUPE_LLM_MODEL="gpt-oss-20b" \
+uvicorn backend.main:app --host 0.0.0.0 --port 8000
+```
+
+The public evidence layer sends only sanitized entity/ticker/event/date queries to external retrieval providers. The local LLM layer may receive the original document text only when the configured base URL is loopback/private, unless `NOUPE_LLM_ALLOW_REMOTE_BASE_URL=1` is explicitly set.
+
 Optional launch telemetry report:
 
 ```sh

@@ -39,6 +39,26 @@ socket_timeout_seconds = 0.5
 retry_attempts = 3
 retry_backoff_ms = 100
 
+[public_evidence]
+enabled = false
+provider = "exa"
+endpoint = "https://api.exa.ai/search"
+max_results = 5
+timeout_seconds = 8.0
+
+[llm]
+enabled = false
+provider = "vllm"
+base_url = "http://127.0.0.1:8001/v1"
+model = "gpt-oss-20b"
+timeout_seconds = 20.0
+allow_remote_base_url = false
+
+[privacy]
+external_query_policy = "sanitized_only"
+max_query_chars = 180
+redact_exact_numbers = true
+
 [lexicon]
 score_threshold = 10.0
 score_threshold_mode = "static"

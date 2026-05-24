@@ -23,8 +23,9 @@ DEFAULT_PIPELINE_LAYERS = (
     "regression",
 )
 DEFAULT_OPTIONAL_LAYERS = ("mosaic",)
-VALID_LAYERS = frozenset(DEFAULT_PIPELINE_LAYERS)
+VALID_LAYERS = frozenset(DEFAULT_PIPELINE_LAYERS + ("public_evidence", "llm_adjudicator"))
 LEXICON_SCORE_THRESHOLD_MODES = frozenset({"static", "dynamic"})
+EXTERNAL_QUERY_POLICIES = frozenset({"sanitized_only", "derived_hashes_only", "disabled"})
 
 KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
     "api": frozenset({"allowed_origins"}),
@@ -49,6 +50,32 @@ KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
             "socket_timeout_seconds",
             "retry_attempts",
             "retry_backoff_ms",
+        }
+    ),
+    "public_evidence": frozenset(
+        {
+            "enabled",
+            "provider",
+            "endpoint",
+            "max_results",
+            "timeout_seconds",
+        }
+    ),
+    "llm": frozenset(
+        {
+            "enabled",
+            "provider",
+            "base_url",
+            "model",
+            "timeout_seconds",
+            "allow_remote_base_url",
+        }
+    ),
+    "privacy": frozenset(
+        {
+            "external_query_policy",
+            "max_query_chars",
+            "redact_exact_numbers",
         }
     ),
     "pipeline": frozenset({"layers", "optional_layers"}),
@@ -112,6 +139,34 @@ class MosaicSettings:
 
 
 @dataclass(frozen=True)
+class PublicEvidenceSettings:
+    enabled: bool
+    provider: str
+    api_key: str
+    endpoint: str
+    max_results: int
+    timeout_seconds: float
+
+
+@dataclass(frozen=True)
+class LLMSettings:
+    enabled: bool
+    provider: str
+    api_key: str
+    base_url: str
+    model: str
+    timeout_seconds: float
+    allow_remote_base_url: bool
+
+
+@dataclass(frozen=True)
+class PrivacySettings:
+    external_query_policy: str
+    max_query_chars: int
+    redact_exact_numbers: bool
+
+
+@dataclass(frozen=True)
 class LexiconSettings:
     score_threshold: float
     score_threshold_mode: str
@@ -145,6 +200,9 @@ class RuntimeSettings:
     isolation_forest: IsolationForestSettings
     embeddings: EmbeddingsSettings
     mosaic: MosaicSettings
+    public_evidence: PublicEvidenceSettings
+    llm: LLMSettings
+    privacy: PrivacySettings
     lexicon: LexiconSettings
     lexicon_weights: dict[str, float]
     response_cache: ResponseCacheSettings
@@ -589,6 +647,192 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         ),
     )
 
+    public_evidence = PublicEvidenceSettings(
+        enabled=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="public_evidence",
+                key="enabled",
+                env_vars=("NOUPE_PUBLIC_EVIDENCE_ENABLED",),
+                default=False,
+            ),
+            label="public_evidence.enabled",
+        ),
+        provider=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="public_evidence",
+                key="provider",
+                env_vars=("NOUPE_PUBLIC_EVIDENCE_PROVIDER",),
+                default="exa",
+            ),
+            label="public_evidence.provider",
+        ).lower()
+        or "exa",
+        api_key=_parse_str(os.environ.get("EXA_API_KEY", ""), label="EXA_API_KEY"),
+        endpoint=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="public_evidence",
+                key="endpoint",
+                env_vars=("NOUPE_PUBLIC_EVIDENCE_ENDPOINT",),
+                default="https://api.exa.ai/search",
+            ),
+            label="public_evidence.endpoint",
+        )
+        or "https://api.exa.ai/search",
+        max_results=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="public_evidence",
+                key="max_results",
+                env_vars=("NOUPE_PUBLIC_EVIDENCE_MAX_RESULTS",),
+                default=5,
+            ),
+            label="public_evidence.max_results",
+            minimum=1,
+            maximum=20,
+        ),
+        timeout_seconds=_parse_float(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="public_evidence",
+                key="timeout_seconds",
+                env_vars=("NOUPE_PUBLIC_EVIDENCE_TIMEOUT_SECONDS",),
+                default=8.0,
+            ),
+            label="public_evidence.timeout_seconds",
+            minimum=0.1,
+        ),
+    )
+    if public_evidence.provider not in {"exa", "tinyfish", "none"}:
+        raise ConfigError("public_evidence.provider must be one of: exa, tinyfish, none")
+
+    llm = LLMSettings(
+        enabled=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="llm",
+                key="enabled",
+                env_vars=("NOUPE_LLM_ENABLED",),
+                default=False,
+            ),
+            label="llm.enabled",
+        ),
+        provider=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="llm",
+                key="provider",
+                env_vars=("NOUPE_LLM_PROVIDER",),
+                default="vllm",
+            ),
+            label="llm.provider",
+        ).lower()
+        or "vllm",
+        api_key=_parse_str(os.environ.get("NOUPE_LLM_API_KEY", ""), label="NOUPE_LLM_API_KEY"),
+        base_url=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="llm",
+                key="base_url",
+                env_vars=("NOUPE_LLM_BASE_URL",),
+                default="http://127.0.0.1:8001/v1",
+            ),
+            label="llm.base_url",
+        )
+        or "http://127.0.0.1:8001/v1",
+        model=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="llm",
+                key="model",
+                env_vars=("NOUPE_LLM_MODEL",),
+                default="gpt-oss-20b",
+            ),
+            label="llm.model",
+        )
+        or "gpt-oss-20b",
+        timeout_seconds=_parse_float(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="llm",
+                key="timeout_seconds",
+                env_vars=("NOUPE_LLM_TIMEOUT_SECONDS",),
+                default=20.0,
+            ),
+            label="llm.timeout_seconds",
+            minimum=0.1,
+        ),
+        allow_remote_base_url=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="llm",
+                key="allow_remote_base_url",
+                env_vars=("NOUPE_LLM_ALLOW_REMOTE_BASE_URL",),
+                default=False,
+            ),
+            label="llm.allow_remote_base_url",
+        ),
+    )
+    if llm.provider not in {"vllm", "ollama", "none"}:
+        raise ConfigError("llm.provider must be one of: vllm, ollama, none")
+
+    privacy = PrivacySettings(
+        external_query_policy=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="privacy",
+                key="external_query_policy",
+                env_vars=("NOUPE_EXTERNAL_QUERY_POLICY",),
+                default="sanitized_only",
+            ),
+            label="privacy.external_query_policy",
+        ).lower()
+        or "sanitized_only",
+        max_query_chars=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="privacy",
+                key="max_query_chars",
+                env_vars=("NOUPE_PRIVACY_MAX_QUERY_CHARS",),
+                default=180,
+            ),
+            label="privacy.max_query_chars",
+            minimum=32,
+            maximum=512,
+        ),
+        redact_exact_numbers=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="privacy",
+                key="redact_exact_numbers",
+                env_vars=("NOUPE_PRIVACY_REDACT_EXACT_NUMBERS",),
+                default=True,
+            ),
+            label="privacy.redact_exact_numbers",
+        ),
+    )
+    if privacy.external_query_policy not in EXTERNAL_QUERY_POLICIES:
+        raise ConfigError(
+            "privacy.external_query_policy must be one of "
+            + ", ".join(sorted(EXTERNAL_QUERY_POLICIES))
+        )
+
     lexicon = LexiconSettings(
         score_threshold=_parse_float(
             _resolve_raw_value(
@@ -732,6 +976,9 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         isolation_forest=isolation_forest,
         embeddings=embeddings,
         mosaic=mosaic,
+        public_evidence=public_evidence,
+        llm=llm,
+        privacy=privacy,
         lexicon=lexicon,
         lexicon_weights=lexicon_weights,
         response_cache=response_cache,

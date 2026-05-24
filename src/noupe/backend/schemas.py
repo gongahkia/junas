@@ -137,6 +137,69 @@ class RegressionResponse(BaseModel):
     risk_score: float = Field(description="Aggregate regression risk probability.")
     reasoning: str = Field("", description="Human-readable summary of the regression feature inputs.")
 
+
+class PublicEvidenceQueryResponse(BaseModel):
+    query: str = Field("", description="Sanitized query approved for or blocked from external retrieval.")
+    blocked: bool = Field(False, description="Whether the privacy guard blocked this query.")
+    reason: str = Field("", description="Privacy guard decision reason.")
+
+
+class PublicEvidenceSourceResponse(BaseModel):
+    title: str = Field("", description="Public-source title returned by the retrieval provider.")
+    url: str = Field("", description="Public-source URL returned by the retrieval provider.")
+    published_date: str = Field("", description="Provider-supplied publication date when available.")
+    author: str = Field("", description="Provider-supplied author when available.")
+    highlights: list[str] = Field(default_factory=list, description="Provider-supplied source highlights.")
+    text: str = Field("", description="Short public-source text excerpt returned by the provider.")
+    score: Optional[float] = Field(None, description="Provider relevance score when available.")
+
+
+class PrivacyLedgerEntryResponse(BaseModel):
+    destination: str = Field(description="External destination name, such as exa or tinyfish.")
+    operation: str = Field(description="Operation guarded by the privacy policy.")
+    allowed: bool = Field(description="Whether the operation was allowed.")
+    reason: str = Field(description="Guard decision reason.")
+    query: str = Field("", description="Sanitized query if one was allowed or evaluated.")
+    redactions: list[str] = Field(default_factory=list, description="Redaction classes applied to the query.")
+
+
+class PublicEvidenceResponse(BaseModel):
+    status: str = Field(description="Retrieval status: disabled, skipped, queried, or error.")
+    provider: str = Field(description="Configured public evidence provider.")
+    detail: str = Field("", description="Human-readable retrieval outcome.")
+    queries: list[PublicEvidenceQueryResponse] = Field(
+        default_factory=list,
+        description="Sanitized public-source queries considered by the layer.",
+    )
+    sources: list[PublicEvidenceSourceResponse] = Field(
+        default_factory=list,
+        description="Public sources retrieved without sending private document text.",
+    )
+    privacy_ledger: list[PrivacyLedgerEntryResponse] = Field(
+        default_factory=list,
+        description="Per-query privacy decisions for outbound retrieval.",
+    )
+
+
+class LLMAdjudicationResponse(BaseModel):
+    status: str = Field(description="Adjudication status: disabled, adjudicated, or error.")
+    provider: str = Field(description="Local LLM provider, such as vllm or ollama.")
+    model: str = Field(description="Configured local model name.")
+    risk_label: Optional[Classification] = Field(None, description="LLM-adjudicated final risk label.")
+    public_status: str = Field("not_checked", description="public, not_public, ambiguous, or not_checked.")
+    confidence: float = Field(0.0, description="LLM confidence in the adjudicated label.")
+    materiality_reason: str = Field("", description="Short local-only rationale for materiality.")
+    matched_public_sources: list[str] = Field(
+        default_factory=list,
+        description="Public source URLs or identifiers the local LLM considered matching.",
+    )
+    unverified_claims: list[str] = Field(
+        default_factory=list,
+        description="Claims the local LLM could not match to public evidence.",
+    )
+    review_recommendation: str = Field("", description="Suggested reviewer action.")
+
+
 class MosaicResponse(BaseModel):
     entity_id: str = Field(description="Normalized entity key used for rolling-window aggregation.")
     escalated: bool = Field(description="Whether Mosaic escalated a low-risk result to high risk.")
@@ -352,6 +415,18 @@ class ClassifyResponse(BaseModel):
     regression: Optional[RegressionResponse] = Field(
         None,
         description="Regression-layer output when a trained checkpoint is available and loaded.",
+    )
+    public_evidence: Optional[PublicEvidenceResponse] = Field(
+        None,
+        description="Sanitized public-source retrieval output when the public evidence layer is enabled.",
+    )
+    llm_adjudication: Optional[LLMAdjudicationResponse] = Field(
+        None,
+        description="Local LLM adjudication output when the local adjudicator layer is enabled.",
+    )
+    privacy_ledger: list[PrivacyLedgerEntryResponse] = Field(
+        default_factory=list,
+        description="Privacy guard decisions for any outbound retrieval operations.",
     )
     observability: ObservabilityResponse = Field(description="Per-request runtime observability metadata.")
     offending_spans: Optional[list[OffendingSpanResponse]] = Field(
