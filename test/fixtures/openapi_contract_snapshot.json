@@ -65,6 +65,55 @@
         "request_body_ref": "#/components/schemas/BatchClassifyRequest",
         "response_ref": "#/components/schemas/BatchClassifyResponse"
       }
+    },
+    "/review": {
+      "post": {
+        "summary": "Review a document before sending",
+        "tags": [
+          "Anonymization"
+        ],
+        "request_body_ref": "#/components/schemas/ReviewRequest",
+        "response_ref": "#/components/schemas/ReviewResponse"
+      }
+    },
+    "/anonymize": {
+      "post": {
+        "summary": "Anonymize a document before sending",
+        "tags": [
+          "Anonymization"
+        ],
+        "request_body_ref": "#/components/schemas/AnonymizeRequest",
+        "response_ref": "#/components/schemas/AnonymizeResponse"
+      }
+    },
+    "/reidentify": {
+      "post": {
+        "summary": "Reidentify previously anonymized text",
+        "tags": [
+          "Anonymization"
+        ],
+        "request_body_ref": "#/components/schemas/ReidentifyRequest",
+        "response_ref": "#/components/schemas/ReidentifyResponse"
+      }
+    },
+    "/review/{review_id}/decision": {
+      "post": {
+        "summary": "Record a per-finding decision",
+        "tags": [
+          "Anonymization"
+        ],
+        "request_body_ref": "#/components/schemas/ReviewDecisionRequest",
+        "response_ref": "#/components/schemas/ReviewDecisionResponse"
+      }
+    },
+    "/review/{review_id}": {
+      "get": {
+        "summary": "Inspect review session state",
+        "tags": [
+          "Anonymization"
+        ],
+        "response_ref": "#/components/schemas/ReviewSessionStateResponse"
+      }
     }
   },
   "schemas": {
@@ -176,6 +225,130 @@
         "threshold",
         "escalation_reason",
         "matched_event_ids"
+      ]
+    },
+    "ReidentifyRequest": {
+      "required": [
+        "anonymized_text",
+        "mapping"
+      ],
+      "properties": [
+        "anonymized_text",
+        "mapping"
+      ]
+    },
+    "ReidentifyResponse": {
+      "properties": [
+        "request_id",
+        "text",
+        "replacement_count",
+        "timings_ms"
+      ]
+    },
+    "ReviewDecisionRequest": {
+      "required": [
+        "finding_id",
+        "action"
+      ],
+      "properties": [
+        "finding_id",
+        "action",
+        "replacement_text",
+        "rationale"
+      ]
+    },
+    "ReviewDecisionResponse": {
+      "properties": [
+        "review_id",
+        "finding_id",
+        "action",
+        "seq",
+        "ts",
+        "hmac"
+      ]
+    },
+    "ReviewSessionStateResponse": {
+      "properties": [
+        "review_id",
+        "text_hash",
+        "document_type",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "findings",
+        "decisions_recorded",
+        "audit_exports"
+      ]
+    },
+    "ReviewSessionFindingState": {
+      "required": [
+        "id",
+        "category",
+        "rule",
+        "severity",
+        "matched_text",
+        "start_char",
+        "end_char"
+      ],
+      "properties": [
+        "id",
+        "category",
+        "rule",
+        "severity",
+        "matched_text",
+        "start_char",
+        "end_char",
+        "decision",
+        "decision_seq",
+        "decision_ts"
+      ]
+    },
+    "AnonymizeResponse": {
+      "properties": [
+        "request_id",
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "document",
+        "findings",
+        "suggestions",
+        "public_evidence",
+        "llm_adjudication",
+        "privacy_ledger",
+        "timings_ms",
+        "anonymized_text",
+        "mapping",
+        "replacements"
+      ]
+    },
+    "ReviewResponse": {
+      "properties": [
+        "request_id",
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "document",
+        "findings",
+        "suggestions",
+        "public_evidence",
+        "llm_adjudication",
+        "privacy_ledger",
+        "timings_ms"
       ]
     }
   }

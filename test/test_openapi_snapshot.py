@@ -52,7 +52,19 @@ class OpenApiSnapshotTests(unittest.TestCase):
                     for method, details in operations.items()
                 }
                 for path, operations in payload["paths"].items()
-                if path in {"/health", "/ready", "/diagnostics", "/metrics", "/classify", "/classify/batch"}
+                if path in {
+                    "/health",
+                    "/ready",
+                    "/diagnostics",
+                    "/metrics",
+                    "/classify",
+                    "/classify/batch",
+                    "/review",
+                    "/anonymize",
+                    "/reidentify",
+                    "/review/{review_id}",
+                    "/review/{review_id}/decision",
+                }
             },
             "schemas": {
                 "ClassifyRequest": {
@@ -86,6 +98,33 @@ class OpenApiSnapshotTests(unittest.TestCase):
                 "MosaicResponse": {
                     "required": payload["components"]["schemas"]["MosaicResponse"].get("required", []),
                     "properties": list(payload["components"]["schemas"]["MosaicResponse"]["properties"].keys()),
+                },
+                "ReidentifyRequest": {
+                    "required": payload["components"]["schemas"]["ReidentifyRequest"].get("required", []),
+                    "properties": list(payload["components"]["schemas"]["ReidentifyRequest"]["properties"].keys()),
+                },
+                "ReidentifyResponse": {
+                    "properties": list(payload["components"]["schemas"]["ReidentifyResponse"]["properties"].keys()),
+                },
+                "ReviewDecisionRequest": {
+                    "required": payload["components"]["schemas"]["ReviewDecisionRequest"].get("required", []),
+                    "properties": list(payload["components"]["schemas"]["ReviewDecisionRequest"]["properties"].keys()),
+                },
+                "ReviewDecisionResponse": {
+                    "properties": list(payload["components"]["schemas"]["ReviewDecisionResponse"]["properties"].keys()),
+                },
+                "ReviewSessionStateResponse": {
+                    "properties": list(payload["components"]["schemas"]["ReviewSessionStateResponse"]["properties"].keys()),
+                },
+                "ReviewSessionFindingState": {
+                    "required": payload["components"]["schemas"]["ReviewSessionFindingState"].get("required", []),
+                    "properties": list(payload["components"]["schemas"]["ReviewSessionFindingState"]["properties"].keys()),
+                },
+                "AnonymizeResponse": {
+                    "properties": list(payload["components"]["schemas"]["AnonymizeResponse"]["properties"].keys()),
+                },
+                "ReviewResponse": {
+                    "properties": list(payload["components"]["schemas"]["ReviewResponse"]["properties"].keys()),
                 },
             },
         }

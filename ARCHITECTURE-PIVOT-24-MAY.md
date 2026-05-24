@@ -50,11 +50,11 @@ Active runtime:
 - `POST /classify` and `POST /classify/batch`: legacy classifier compatibility.
 - `GET /health`, `/ready`, `/diagnostics`, `/metrics`: operational surfaces.
 
-Distribution shape:
+Distribution shape (shipped 2026-05-24):
 
-- `kaypoh-local`: offline-default desktop SKU. Deterministic engine + Presidio + spaCy + extractors only. No `torch`, `transformers`, `sentence-transformers`, `redis`, or external HTTP. Bundles `en_core_web_sm`. Packaged for PyInstaller / Tauri / Electron shells. Browser extensions, mail plugins, and Slack/Outlook hooks are thin clients of the local daemon on `127.0.0.1`.
-- `kaypoh-server`: full stack including model layers, mosaic aggregation, public-evidence retrieval (Exa, Tinyfish), and local/remote LLM adjudication. Cloud opt-in flows live here.
-- Both SKUs share `src/kaypoh/` and the same wire contracts. Splitting is a packaging concern, not a fork.
+- `kaypoh-local` (`pip install kaypoh[local]`): offline-default desktop SKU. Deterministic engine + Presidio + spaCy + extractors only. No `torch`, `transformers`, `sentence-transformers`, `redis`, `xgboost`, `scikit-learn`, `pandas`, or `accelerate`. Bundles `en_core_web_sm` via the PyInstaller spec at `packaging/kaypoh-local.spec`. The entrypoint at `packaging/kaypoh_local_entrypoint.py` binds 127.0.0.1:8765 by default. Browser extensions, mail plugins, and Slack/Outlook hooks are thin clients of the local daemon on `127.0.0.1`.
+- `kaypoh-server` (`pip install kaypoh[server]`): full stack including model layers, mosaic aggregation, public-evidence retrieval (Exa, Tinyfish), and local/remote LLM adjudication. Cloud opt-in flows live here.
+- Both SKUs share `src/kaypoh/` and the same wire contracts. Splitting is a packaging concern, not a fork. `test/test_local_sku_runtime.py` blocks every server-only module via `sys.modules[name] = None` and proves the local SKU still boots and round-trips through anonymize+reidentify.
 
 Deprecated product assumptions:
 
@@ -69,8 +69,8 @@ Deprecated product assumptions:
 2. ~~Add mandatory review-state APIs so users can approve, reject, or add findings before write-out. Persist decisions to a local append-only journal, HMAC-chained from a customer-held key, exportable as a signed audit pack for internal audit and MAS-style inspection.~~ **Shipped 2026-05-24:** `POST /review/{id}/decision`, `GET /review/{id}`, HMAC-chained journal under `KAYPOH_JOURNAL_DIR`, audit-pack export+verify scripts. Next: extend audit pack to include reviewer identity claims and per-organisation key rotation.
 3. Add fuzzy entity linking for variants such as `Dr Jane Tan`, `Jane Tan`, `Tan`, and for corporate forms (`ACME Pte. Ltd.` ↔ `Acme` ↔ `the Company` ↔ defined-term references).
 4. Ship `POST /reidentify` and persist per-document `{document_hash: mapping}` locally so the round-trip survives client restarts.
-5. Split packaging into `kaypoh-local` (offline-default desktop SKU) and `kaypoh-server` (full ML + retrieval + LLM stack). Same source tree, different extras and dep manifests.
+5. ~~Split packaging into `kaypoh-local` (offline-default desktop SKU) and `kaypoh-server` (full ML + retrieval + LLM stack). Same source tree, different extras and dep manifests.~~ **Shipped 2026-05-24:** `[project.optional-dependencies]` carries `local`, `server`, `dev`, `packaging`. Heavy deps moved to `server`. PyInstaller spec under `packaging/`. `test_local_sku_runtime.py` enforces the contract.
 6. Expand jurisdiction packs from SG to SEA (MY/ID/TH/PH/VN), then US/UK/EU. Move `jurisdictions.py` from a hardcoded dict to a `jurisdictions/*.toml` plugin directory so customers can bring their own packs.
-7. Add local LLM adjudication for MNPI materiality and public-status review, always returning structured JSON evidence. Allow remote LLM endpoints when explicitly opted in for accuracy, gated by `allow_remote_base_url` and the privacy guard.
-8. Complete the Tinyfish public-source retrieval adapter (currently stubbed) and keep Exa in parity, both behind `PrivacyGuard.check_external_query`. Cloud retrieval is allowed when it materially improves specificity or accuracy.
+7. Local LLM adjudication for MNPI materiality and public-status review returns structured JSON evidence. Remote LLM endpoints are allowed when explicitly opted in via `allow_remote_base_url`, gated by `_is_private_or_local_base_url` and the privacy guard. **Tested 2026-05-24** via `test/test_tinyfish_and_remote_llm.py::RemoteLLMOptInTests`.
+8. ~~Complete the Tinyfish public-source retrieval adapter (currently stubbed) and keep Exa in parity, both behind `PrivacyGuard.check_external_query`. Cloud retrieval is allowed when it materially improves specificity or accuracy.~~ **Shipped 2026-05-24:** real Tinyfish adapter against `GET https://api.search.tinyfish.ai/` with `X-API-Key`. Endpoint and API-key env (`TINYFISH_API_KEY`) auto-resolved per provider in `configs/runtime.py`.
 9. Consider a Rust or Go span engine only after profiling shows deterministic extraction/replacement is the bottleneck. The current bottleneck is more likely model inference and document extraction than string replacement.
