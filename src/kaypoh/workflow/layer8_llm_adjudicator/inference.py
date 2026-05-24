@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ipaddress
 import json
+import os
 from typing import Any
 from urllib.parse import urlparse
 
@@ -223,6 +224,16 @@ class LocalLLMAdjudicator:
     ) -> dict[str, Any]:
         if not self.enabled or self.provider == "none":
             return self._disabled("local LLM adjudication is disabled")
+        # local_distilled is a fully-local provider: no base_url, no remote-URL gate,
+        # no tenant opt-in. It's the "shipped student model" path — runs entirely on
+        # CPU/GPU inside the kaypoh-server process. Delegate to LocalDistilledAdjudicator.
+        if self.provider == "local_distilled":
+            return self._adjudicate_via_local_distilled(
+                text=text,
+                current_classification=current_classification,
+                findings=findings,
+                entity_id=entity_id,
+            )
         if not self.base_url:
             return self._disabled("local LLM base URL is not configured")
         if not self.allow_remote_base_url and not _is_private_or_local_base_url(self.base_url):
@@ -238,7 +249,7 @@ class LocalLLMAdjudicator:
                 "unverified_claims": [],
                 "review_recommendation": "LLM base URL is not local/private; refusing to send document text",
             }
-        if self.provider not in {"vllm", "ollama", "openai"}:
+        if self.provider not in {"vllm", "ollama", "openai", "local_distilled"}:
             return {
                 "status": "error",
                 "provider": self.provider,
@@ -319,6 +330,65 @@ class LocalLLMAdjudicator:
                 "unverified_claims": [],
                 "review_recommendation": str(exc),
             }
+
+    def _adjudicate_via_local_distilled(
+        self,
+        *,
+        text: str,
+        current_classification: str,
+        findings: list | None,
+        entity_id: str | None,
+    ) -> dict[str, Any]:
+        """Delegate to the local_distilled student. Lazy-loads the
+        LocalDistilledAdjudicator on first call so importing this module stays free
+        even when the user never reaches the local_distilled branch."""
+        if not self.distilled_adapter_path:
+            return {
+                "status": "error",
+                "provider": "local_distilled",
+                "model": "",
+                "risk_label": None,
+                "public_status": "not_checked",
+                "confidence": 0.0,
+                "materiality_reason": "",
+                "matched_public_sources": [],
+                "unverified_claims": [],
+                "review_recommendation": (
+                    "provider=local_distilled requires KAYPOH_LLM_DISTILLED_ADAPTER_PATH "
+                    "(or settings.llm.distilled_adapter_path) to point at a LoRA adapter dir"
+                ),
+            }
+        if self._distilled_student is None:
+            try:
+                from training.distillation.student_provider import (
+                    build_local_distilled_adjudicator,
+                )
+                from pathlib import Path as _P
+
+                self._distilled_student = build_local_distilled_adjudicator(
+                    adapter_path=_P(self.distilled_adapter_path),
+                    base_model=self.distilled_base_model,
+                    input_mode=self.llm_input_mode,
+                )
+            except Exception as exc:
+                return {
+                    "status": "error",
+                    "provider": "local_distilled",
+                    "model": self.distilled_base_model,
+                    "risk_label": None,
+                    "public_status": "not_checked",
+                    "confidence": 0.0,
+                    "materiality_reason": "",
+                    "matched_public_sources": [],
+                    "unverified_claims": [],
+                    "review_recommendation": f"local_distilled load failed: {exc}",
+                }
+        return self._distilled_student.adjudicate(
+            text=text,
+            current_classification=current_classification,
+            findings=findings,
+            entity_id=entity_id,
+        )
 
     @classmethod
     def load(cls) -> "LocalLLMAdjudicator":

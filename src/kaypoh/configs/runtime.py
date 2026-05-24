@@ -843,8 +843,10 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
             label="llm.llm_input_mode",
         ),
     )
-    if llm.provider not in {"vllm", "ollama", "openai", "none"}:
-        raise ConfigError("llm.provider must be one of: vllm, ollama, openai, none")
+    if llm.provider not in {"vllm", "ollama", "openai", "local_distilled", "none"}:
+        raise ConfigError(
+            "llm.provider must be one of: vllm, ollama, openai, local_distilled, none"
+        )
     if llm.llm_input_mode not in {"raw_text", "structured_tokens"}:
         raise ConfigError("llm.llm_input_mode must be one of: raw_text, structured_tokens")
     # belt-and-braces: refuse to even construct LLMSettings with provider=openai unless
