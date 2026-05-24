@@ -72,6 +72,25 @@ SEVERITY_SCORE = {"low": 25.0, "medium": 55.0, "high": 85.0}
 # signatories, beneficial owners). lifts named_person severity from low to high.
 NAMED_PERSON_HIGH_SEVERITY_DOC_TYPES = frozenset({"spa", "nda", "sha", "term_sheet", "shareholders_agreement"})
 
+# Two-tier router defaults. The LLM tier engages when:
+#   1. the review profile is `audit_grade` (caller opted in), AND
+#   2. an LLM adjudicator + public-evidence retriever are wired into the engine, AND
+#   3. the MNPI score lands in the ambiguous band [LLM_TIER_MNPI_LOWER, LLM_TIER_MNPI_UPPER).
+# Documents with mnpi_score < LOWER are confidently SAFE on deterministic signal alone;
+# documents with mnpi_score >= UPPER are confidently risky and the LLM cannot soften them
+# below the deterministic-floor invariant anyway. The band keeps p95 latency bounded for
+# the 90% case by only spending LLM tokens where the verdict can actually move.
+#
+# Defaults below were picked from the score-from-severity table:
+#   single medium finding score ≈ 55; two medium findings ≈ 58; one high ≈ 85.
+# So the band [25, 70) covers documents with at least one medium finding but no high.
+# `scripts/calibrate_escalation_threshold.py` writes tenant-specific bounds into
+# configs/runtime.py once enough journal-replay data exists.
+LLM_TIER_MNPI_LOWER = 25.0
+LLM_TIER_MNPI_UPPER = 70.0
+
+VALID_REVIEW_PROFILES = frozenset({"strict", "audit_grade"})
+
 # tokens that NAME_RE may accidentally bind as the trailing word of a multi-token name
 # (e.g. "Mr Lee Ltd" → trailing "Ltd"). suppressed in the surname-only fuzzy pass so we don't
 # fire on every corporate-suffix occurrence in the document.
@@ -577,7 +596,30 @@ class PreSendReviewEngine:
             )
         return suggestions
 
-    def _maybe_public_evidence(self, *, text: str, entity_id: str | None, mnpi_score: float) -> dict[str, Any] | None:
+    def _llm_tier_engaged(self, *, review_profile: str, mnpi_score: float) -> bool:
+        """Return True when the document is eligible for LLM-tier reasoning.
+
+        Three gates, all must hold:
+          - profile opt-in: `audit_grade` (caller asked for the LLM tier)
+          - score band: mnpi_score in [LLM_TIER_MNPI_LOWER, LLM_TIER_MNPI_UPPER)
+          - components available: at least one of (public_evidence_retriever, llm_adjudicator)
+
+        This is the two-tier engine's router: a document outside the ambiguous band either
+        can't be moved by the LLM (score already high enough to be a deterministic high) or
+        doesn't need the LLM (score already SAFE on deterministic signal). The router keeps
+        p95 latency bounded for the 90% case.
+        """
+        if review_profile != "audit_grade":
+            return False
+        if self.public_evidence_retriever is None and self.llm_adjudicator is None:
+            return False
+        return LLM_TIER_MNPI_LOWER <= mnpi_score < LLM_TIER_MNPI_UPPER
+
+    def _maybe_public_evidence(
+        self, *, text: str, entity_id: str | None, mnpi_score: float, engage: bool
+    ) -> dict[str, Any] | None:
+        if not engage:
+            return None
         if mnpi_score <= 0 or self.public_evidence_retriever is None:
             return None
         return self.public_evidence_retriever.retrieve(text=text, entity_id=entity_id, lexicon=None)
@@ -588,7 +630,10 @@ class PreSendReviewEngine:
         text: str,
         overall_risk: Classification,
         public_evidence: dict[str, Any] | None,
+        engage: bool,
     ) -> dict[str, Any] | None:
+        if not engage:
+            return None
         if self.llm_adjudicator is None or overall_risk == Classification.SAFE:
             return None
         return self.llm_adjudicator.adjudicate(
@@ -607,7 +652,12 @@ class PreSendReviewEngine:
         include_suggestions: bool,
         document_type: str = "generic",
         session_id: str | None = None,
+        review_profile: str = "strict",
     ) -> ReviewResult:
+        if review_profile not in VALID_REVIEW_PROFILES:
+            raise ValueError(
+                f"review_profile must be one of {sorted(VALID_REVIEW_PROFILES)}; got {review_profile!r}"
+            )
         packs = resolve_rule_packs(source_jurisdiction, destination_jurisdiction)
         defined_terms = extract_defined_terms(text)
         # cross-doc defined-term inheritance: merge prior session-scoped terms into the current
@@ -629,12 +679,16 @@ class PreSendReviewEngine:
         document_score = max(pii_score, mnpi_score)
         overall_risk = _risk_from_score(document_score)
 
-        public_evidence = self._maybe_public_evidence(text=text, entity_id=entity_id, mnpi_score=mnpi_score)
+        engage_llm_tier = self._llm_tier_engaged(review_profile=review_profile, mnpi_score=mnpi_score)
+        public_evidence = self._maybe_public_evidence(
+            text=text, entity_id=entity_id, mnpi_score=mnpi_score, engage=engage_llm_tier
+        )
         privacy_ledger = list((public_evidence or {}).get("privacy_ledger", []))
         llm_adjudication = self._maybe_llm_adjudication(
             text=text,
             overall_risk=overall_risk,
             public_evidence=public_evidence,
+            engage=engage_llm_tier,
         )
         if llm_adjudication and llm_adjudication.get("status") == "adjudicated":
             label = llm_adjudication.get("risk_label")

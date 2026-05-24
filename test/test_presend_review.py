@@ -238,6 +238,7 @@ class PreSendReviewApiTests(unittest.TestCase):
                     "entity_id": "Acme Corp",
                     "source_jurisdiction": "SG",
                     "destination_jurisdiction": "SG",
+                    "review_profile": "audit_grade",
                 },
             )
 

@@ -150,7 +150,14 @@ class ReviewRequest(BaseModel):
     review_profile: str = Field(
         "strict",
         max_length=64,
-        description="Review profile. v1 supports strict behavior with strictest jurisdiction wins.",
+        pattern=r"^(?:strict|audit_grade)$",
+        description=(
+            "Review profile. `strict` (default) runs the deterministic engine only and never "
+            "calls a remote LLM or public-evidence retriever. `audit_grade` engages the LLM "
+            "tier (MNPI materiality adjudication, public-evidence retrieval, optional LLM-"
+            "assisted defined-term extraction) when the deterministic score is in the "
+            "ambiguous band — `kaypoh-server` SKU only."
+        ),
     )
     entity_id: Optional[str] = Field(
         None,

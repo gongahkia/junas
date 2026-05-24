@@ -1399,6 +1399,7 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None) -> ReviewRespon
         include_suggestions=req.include_suggestions,
         document_type=req.document_type,
         session_id=req.session_id,
+        review_profile=req.review_profile,
     )
     timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
     _persist_review_session(request_id=request_id, req=req, document_text=document.text, findings=result.findings)
@@ -1456,6 +1457,7 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None) -> Anonym
         include_suggestions=req.include_suggestions,
         document_type=req.document_type,
         session_id=req.session_id,
+        review_profile=req.review_profile,
     )
     timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
 
