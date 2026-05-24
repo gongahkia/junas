@@ -9,7 +9,7 @@ Kaypoh should be treated as a pre-send document safety layer first, not as a raw
 3. Return review findings, remediation suggestions, and scores.
 4. For safe downstream analysis, produce deterministic placeholders and a local mapping table through `POST /anonymize`.
 
-`POST /review` and `POST /anonymize` are the primary product surfaces. `POST /classify` is retained as a compatibility shim; the legacy `lexicon → embedding → clustering → model1 → model2 → mosaic → regression` pipeline is no longer the product wedge and the team does not invest in further classifier training. Investment goes into the deterministic engine plus LLM-assisted reasoning instead.
+`POST /review` and `POST /anonymize` are the primary product surfaces. `POST /classify` is retained as a compatibility shim; the legacy `lexicon → embedding → clustering → model1 → model2 → mosaic → regression` pipeline is no longer the product wedge and the team does not invest in further training of that classifier stack. Investment goes into the deterministic engine, LLM-assisted reasoning, and — for accuracy recovery on the LLM tier — targeted distillation and preference-tuning (expansion-sequence items 29–32).
 
 ## Accuracy-First Shape
 
@@ -82,6 +82,15 @@ Two profiles ship:
 
 A **structured-tokens-in/out** runtime LLM mode is offered: instead of sending raw text fragments to the LLM, the server sends `{entity_id, context_window_hash, sanitised_query}` over a constrained vocabulary the server has already validated. Stronger privacy guarantee than redact-then-send; engineering cost depends on the specific tenant requirement.
 
+### Distillation and feedback training
+
+Two training tracks are admitted as accuracy-recovery levers on top of the deterministic + LLM stack. Both preserve the deterministic-high invariant — training can move medium / low / SAFE labels but cannot teach the LLM tier to suppress a deterministic-high finding.
+
+- **Cloud-adjudicator distillation → local student.** Trains a small (1–3B param) model from cloud-LLM verdicts over the synthetic + adversarial legal corpora (build-time scope; no customer text). Goal: ship `audit_grade` on the offline-default `kaypoh-local` SKU without a cloud round-trip. Drops in as a new `KAYPOH_LLM_PROVIDER` value behind the existing `LocalLLMAdjudicator` interface.
+- **Journal-driven preference tuning.** The HMAC-chained decision journal already pairs each finding with a reviewer action ∈ `{accept, reject, rewrite}`. Treat `accept` vs `reject` as a DPO/IPO preference signal over the LLM tier's verdicts. Hard prerequisite: per-tenant sanitisation of rationales before any journal export, gated by the `PrivacyGuard` ledger.
+
+Expansion-sequence items 29–32 break these into shippable units. The recall + precision gates (`scripts/recall_gate.py`) and the adversarial corpus are the evaluation harness for both tracks: a trained artefact ships only when it meets or beats the locked baselines.
+
 ## Target Runtime
 
 Active endpoints:
@@ -107,7 +116,7 @@ The browser-extension thin client (planned) is an MV3 service worker hooking `pa
 ### Deprecated product assumptions
 
 - Archived HTML demo frontends are not active runtime surfaces.
-- The old classifier-only framing is not the product architecture. `/classify` and `/classify/batch` are compatibility-only; investment goes into the deterministic engine and LLM-assisted reasoning.
+- The old classifier-only framing is not the product architecture. `/classify` and `/classify/batch` are compatibility-only; investment goes into the deterministic engine, LLM-assisted reasoning, and LLM-tier distillation / preference-tuning.
 - Model confidence alone is not sufficient for a defensible MNPI decision.
 - "Strict offline, full stop" is not the platform stance. Offline-default applies to the desktop SKU; cloud is allowed elsewhere when it improves specificity or accuracy and the privacy guard permits it.
 
@@ -192,6 +201,18 @@ Open work organised by theme. Shipped items are struck through and retained for 
 ### Privacy hardening
 
 27. Structured-tokens-in/out runtime LLM mode for regulated tenants: send `{entity_id, context_window_hash, sanitised_query}` instead of raw text fragments. Stronger guarantee than redact-then-send.
+
+### Continuous accuracy substrate (training)
+
+These items target overall accuracy improvement on the LLM tier without changing the deterministic-engine contract. Every item gates on the existing recall + precision baselines in `test/fixtures/legal-corpus/recall.lock.json` and `test/fixtures/legal-corpus-adversarial/recall_adversarial.lock.json` — a trained artefact ships only when it meets or beats both.
+
+29. **Cloud-adjudicator distillation → local student model.** Teacher: the cloud LLM wired in `layer8_llm_adjudicator` (OpenAI provider behind `allow_remote_base_url=True`). Student: a 1–3B param base (Qwen-1.5B / Phi-3-mini / Gemma-2B) LoRA-tuned on teacher verdicts. New directory `training/distillation/` carries (a) `teacher_collector.py` that runs the cloud adjudicator over `test/fixtures/legal-corpus/` + `legal-corpus-adversarial/` + generator-produced synthetic fixtures and writes a JSONL of `{text, deterministic_findings, teacher_verdict}`; (b) `distill_train.py` that LoRA-fine-tunes the chosen base on that JSONL with structured-JSON output supervision; (c) `eval_against_corpus.py` that gates on the existing precision/recall baselines. Drop-in deployment: register the student as `KAYPOH_LLM_PROVIDER=local_distilled` reusing the existing `LocalLLMAdjudicator` interface — no runtime contract changes. Eventual goal: bundle the student into the `kaypoh-local` PyInstaller spec so `audit_grade` works offline.
+
+30. **Journal-driven preference tuning (DPO).** New module `training/journal_preference_export.py` reads the HMAC-chained journal (`KAYPOH_JOURNAL_DIR/journal.jsonl`), filters to `decision_recorded` events with an associated LLM verdict, and produces a sanitised JSONL of preference pairs (`accept` = chosen, `reject` = rejected). Sanitisation is the gating step: a `PrivacyGuard.sanitise_for_training()` pass strips matched-text spans, named-person tokens, and email/phone/NRIC values from rationales before export; every export emits a privacy-ledger entry. Trainer: standard DPO on the local student from item 29 (or directly on a local-only base if 29 hasn't shipped). Per-tenant fine-tunes are out of scope for v1 — the first release pools accepted/rejected pairs across all consenting tenants and produces a single shared-tenant model.
+
+31. **Journal-trained severity calibrator.** Replace the hard-coded `MNPI_DOC_TYPE_SEVERITY_OVERRIDES` table with a small gradient-boosted-trees model (LightGBM or `sklearn.ensemble.GradientBoostingClassifier`) trained on `(rule, jurisdiction, document_type, context-feature-bag)` → reviewer-accepted severity, taken from `decision_recorded` events on findings whose decision was `accept` or `rewrite`. Scope is narrow: only medium ↔ low borderline; `high`-severity findings are not subject to ML adjustment (preserves deterministic-floor invariant). Lives under `training/severity_calibrator/` with `train.py` + `serve.py`; ships in `kaypoh-server` (adds `scikit-learn` to `[server]`); desktop SKU keeps the deterministic table. Activated per request via `review_profile=audit_grade` only.
+
+32. **Escalation-threshold calibration for the two-tier engine** (paired with item 7). Single Bayesian-opt script `scripts/calibrate_escalation_threshold.py` searches over the score-band threshold that decides whether a document escalates from the deterministic-only path to the LLM tier. Optimises a configurable mix of precision, recall, p95 latency, and per-call LLM cost on the adversarial corpus + a sample of journal-replay documents. Writes the optimised bound into `configs/runtime.py`'s defaults; tenants override via env. Lightweight — no model training, just hyperparameter search — so it ships first and serves as the eval scaffolding that items 29–31 plug into.
 
 ### Deferred
 
