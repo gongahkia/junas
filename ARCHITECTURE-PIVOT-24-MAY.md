@@ -16,7 +16,7 @@ Kaypoh should be treated as a pre-send document safety layer first, not as a raw
 PII is the first product wedge because it is span-local and more measurable than MNPI. The system optimises recall before automation convenience:
 
 - SG-first recognizers for NRIC/FIN, UEN (ACRA), passport-like identifiers, postal-address signals, phone, email, named-person markers, and bank/account references.
-- Legal-contract defined-term suppression so tokens like `Purchaser`, `Vendor`, `Schedule 1`, and `the Company` do not false-positive as named persons. The suppression list is parsed from the contract's own defined-terms block per document. Defined-term inheritance across linked documents within a review session is a planned extension: a SPA + ancillary disclosure schedule should share one suppression set.
+- Legal-contract defined-term suppression so tokens like `Purchaser`, `Vendor`, `Schedule 1`, and `the Company` do not false-positive as named persons. The suppression list is parsed from the contract's own defined-terms block per document. Defined-term inheritance across linked documents within a review session is wired: pass `session_id` to `/review` or `/anonymize` and the SPA's `the "Purchaser"` definition is automatically inherited by a paired disclosure schedule reviewed in the same session.
 - Fuzzy entity linking so `ACME Pte. Ltd.`, `Acme`, and `the Company` resolve to the same anonymisation key within a document, and `Dr Jane Tan` / `Jane Tan` / `Tan` collapse to one `[PERSON_1]`.
 - Deterministic placeholders such as `[PERSON_1]`, `[NRIC_FIN_1]`, and `[EMAIL_1]`.
 - Exact-span replacement from end to start so offsets remain stable.
@@ -186,7 +186,7 @@ Open work organised by theme. Shipped items are struck through and retained for 
 22. Browser-extension MV3 thin client (chatgpt.com / claude.ai / gemini.google.com). Calls `127.0.0.1:8765/anonymize` on paste; retains `document_hash` client-side; one-click in-place re-identify after the LLM round-trip.
 23. macOS code-signing + notarisation pipeline for the PyInstaller `kaypoh-local` binary.
 24. Windows desktop build.
-25. Defined-term inheritance across linked documents within a review session: session-scoped suppression set carries SPA definitions into related-doc reviews.
+25. ~~Defined-term inheritance across linked documents within a review session: session-scoped suppression set carries SPA definitions into related-doc reviews.~~ Shipped 2026-05-24. `POST /review` and `POST /anonymize` accept `session_id`; engine merges previously-extracted terms for that session into the current document's defined-term set and persists the union to `${KAYPOH_JOURNAL_DIR}/sessions/{session_id}.json`. Module: `src/kaypoh/review/session_store.py`.
 26. ~~`kaypoh-local` / `kaypoh-server` packaging split with `[project.optional-dependencies]`. Heavy deps moved to `server`. PyInstaller spec under `packaging/`. `test_local_sku_runtime.py` enforces the contract.~~ Shipped 2026-05-24.
 
 ### Privacy hardening

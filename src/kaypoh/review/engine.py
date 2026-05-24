@@ -569,9 +569,21 @@ class PreSendReviewEngine:
         entity_id: str | None,
         include_suggestions: bool,
         document_type: str = "generic",
+        session_id: str | None = None,
     ) -> ReviewResult:
         packs = resolve_rule_packs(source_jurisdiction, destination_jurisdiction)
         defined_terms = extract_defined_terms(text)
+        # cross-doc defined-term inheritance: merge prior session-scoped terms into the current
+        # document's set, then persist the current document's terms back to the session store so
+        # the next related-doc review inherits them too. SPA defines `the "Purchaser"` once;
+        # a paired disclosure schedule reviewed in the same session inherits that suppression.
+        if session_id:
+            from kaypoh.review.session_store import add_defined_terms, load_defined_terms
+
+            inherited = load_defined_terms(session_id)
+            defined_terms = defined_terms | inherited
+            if defined_terms - inherited:
+                add_defined_terms(session_id, defined_terms - inherited)
         findings = self._pii_findings(text, packs, document_type, defined_terms) + self._mnpi_findings(
             text, packs, defined_terms, document_type
         )

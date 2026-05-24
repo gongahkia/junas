@@ -161,6 +161,17 @@ class ReviewRequest(BaseModel):
         True,
         description="Include redaction or rewrite suggestions for each finding.",
     )
+    session_id: Optional[str] = Field(
+        None,
+        max_length=128,
+        pattern=r"^[A-Za-z0-9_\-]{1,128}$",
+        description=(
+            "Optional review-session identifier. When provided, defined terms extracted from "
+            "this document are merged into a session-scoped suppression set and inherited by "
+            "subsequent /review or /anonymize calls with the same session_id. Useful for "
+            "paired documents such as SPA + disclosure schedule that share definitions."
+        ),
+    )
 
     @field_validator("text")
     @classmethod
