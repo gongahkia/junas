@@ -6,7 +6,8 @@
 - batch classification is limited to 32 items per call
 - models run on CPU by default; GPU auto-detected via `torch.cuda.is_available()`
 - no auth by default unless `KAYPOH_API_KEY` is configured
-- archived demo surfaces call the backend over HTTP and are not mounted by FastAPI
+- active runtime is API-only; archived demo surfaces are not part of the current product path
+- `POST /anonymize` and `POST /review` are the primary product endpoints
 
 ## Lexicon Layer
 - thresholds are configurable via env/config (`MNPI_ABS_THRESHOLD`, `MNPI_PCT_THRESHOLD`)
@@ -70,7 +71,7 @@
 ## FastAPI Orchestration
 - canonical app entrypoint is `kaypoh.backend.main:app` with compatibility shim `backend.main:app`
 - configurable layer order from `config.toml`/`PIPELINE_LAYERS`/`--layers`
-- optional API key auth is enabled when `KAYPOH_API_KEY` is set (applies to both `POST /classify` and `POST /classify/batch`)
+- optional API key auth is enabled when `KAYPOH_API_KEY` is set (applies to protected POST endpoints)
 - response includes per-layer outputs, final classification, timings, and observability metadata
 - `include_offending_spans=true` adds exact lexicon spans and approximate classifier-window spans for `LOW_RISK` and `HIGH_RISK` responses
 - health endpoint: `GET /health`
@@ -79,4 +80,6 @@
 - metrics endpoint: `GET /metrics`
 - classify endpoint: `POST /classify`
 - batch endpoint: `POST /classify/batch`
+- review endpoint: `POST /review`
+- anonymize endpoint: `POST /anonymize`
 - Swagger and ReDoc are served by FastAPI at `/docs` and `/redoc`
