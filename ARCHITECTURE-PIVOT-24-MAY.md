@@ -200,7 +200,7 @@ Open work organised by theme. Shipped items are struck through and retained for 
 
 ### Privacy hardening
 
-27. Structured-tokens-in/out runtime LLM mode for regulated tenants: send `{entity_id, context_window_hash, sanitised_query}` instead of raw text fragments. Stronger guarantee than redact-then-send.
+27. ~~Structured-tokens-in/out runtime LLM mode for regulated tenants: send `{entity_id, context_window_hash, sanitised_query}` instead of raw text fragments. Stronger guarantee than redact-then-send.~~ Shipped 2026-05-24. `llm.llm_input_mode ∈ {raw_text (default), structured_tokens}`. In structured mode the request body contains zero raw document text (verified by tests that grep the wire payload), the LLM sees only `{mode, entity_id, body_hash, findings: [{rule, category, severity, jurisdiction, context_window_hash}, ...], public_evidence_summary: {status, source_count, blocked_query_count}}`, and the response is server-clamped against `STRUCTURED_REASONS` (closed vocabulary of 8 reason codes). `matched_public_sources` and `unverified_claims` are always emptied in structured mode (potential URL/text leak channels). `output_clamped` boolean on the response tells the auditor whether the LLM tried to step outside the closed vocabulary. `LLMAdjudicationResponse` schema gains `input_mode` and `output_clamped` fields so the wire contract makes the privacy posture explicit.
 
 ### Continuous accuracy substrate (training)
 
