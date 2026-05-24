@@ -6,6 +6,8 @@ from typing import Any
 import httpx
 
 from .backend.schemas import (
+    AnonymizeRequest,
+    AnonymizeResponse,
     BatchClassifyRequest,
     BatchClassifyResponse,
     ClassifyRequest,
@@ -151,6 +153,43 @@ def _coerce_review_request(
         review_profile=review_profile,
         entity_id=entity_id,
         include_suggestions=include_suggestions,
+    )
+
+
+def _coerce_anonymize_request(
+    *,
+    request: AnonymizeRequest | Mapping[str, Any] | None,
+    text: str | None,
+    document_base64: str | None,
+    document_filename: str | None,
+    document_mime_type: str | None,
+    source_jurisdiction: str,
+    destination_jurisdiction: str,
+    document_type: str,
+    review_profile: str,
+    entity_id: str | None,
+    include_suggestions: bool,
+    include_mnpi_scalars: bool,
+) -> AnonymizeRequest:
+    if request is not None:
+        if text is not None or document_base64 is not None:
+            raise ValueError("pass either request=... or text/document_base64=..., not both")
+        if isinstance(request, AnonymizeRequest):
+            return request
+        return AnonymizeRequest.model_validate(request)
+
+    return AnonymizeRequest(
+        text=text,
+        document_base64=document_base64,
+        document_filename=document_filename,
+        document_mime_type=document_mime_type,
+        source_jurisdiction=source_jurisdiction,
+        destination_jurisdiction=destination_jurisdiction,
+        document_type=document_type,
+        review_profile=review_profile,
+        entity_id=entity_id,
+        include_suggestions=include_suggestions,
+        include_mnpi_scalars=include_mnpi_scalars,
     )
 
 
@@ -303,6 +342,44 @@ class KaypohClient:
             )
         )
 
+    def anonymize(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        include_mnpi_scalars: bool = True,
+        request: AnonymizeRequest | Mapping[str, Any] | None = None,
+    ) -> AnonymizeResponse:
+        payload = _coerce_anonymize_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            include_mnpi_scalars=include_mnpi_scalars,
+        )
+        return AnonymizeResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/anonymize",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
 
 class AsyncKaypohClient:
     """Async typed Python client for the Kaypoh backend HTTP API."""
@@ -445,6 +522,44 @@ class AsyncKaypohClient:
             )
         )
 
+    async def anonymize(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        include_mnpi_scalars: bool = True,
+        request: AnonymizeRequest | Mapping[str, Any] | None = None,
+    ) -> AnonymizeResponse:
+        payload = _coerce_anonymize_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            include_mnpi_scalars=include_mnpi_scalars,
+        )
+        return AnonymizeResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/anonymize",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
 
 def classify_text(
     text: str,
@@ -497,6 +612,8 @@ async def async_classify_text(
 
 
 __all__ = [
+    "AnonymizeRequest",
+    "AnonymizeResponse",
     "AsyncKaypohClient",
     "DEFAULT_BASE_URL",
     "DEFAULT_TIMEOUT_SECONDS",

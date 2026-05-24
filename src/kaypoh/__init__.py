@@ -1,6 +1,8 @@
 """Canonical Kaypoh package."""
 
 from .backend.schemas import (
+    AnonymizeRequest,
+    AnonymizeResponse,
     BatchClassifyRequest,
     BatchClassifyResponse,
     Classification,
@@ -23,6 +25,8 @@ from .client import (
 )
 
 __all__ = [
+    "AnonymizeRequest",
+    "AnonymizeResponse",
     "AsyncKaypohClient",
     "BatchClassifyRequest",
     "BatchClassifyResponse",

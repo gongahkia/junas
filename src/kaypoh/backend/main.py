@@ -1268,29 +1268,15 @@ def _build_review_engine() -> PreSendReviewEngine:
     )
 
 
-def _run_review_sync(req: ReviewRequest, request_id: str | None) -> ReviewResponse:
-    timings_ms: dict[str, float] = {}
-    t_total_start = time.perf_counter()
-    t_extract_start = time.perf_counter()
-    try:
-        document = extract_review_document(req)
-    except ValueError as exc:
-        raise HTTPException(status_code=422, detail=str(exc)) from exc
-    timings_ms["extract"] = round((time.perf_counter() - t_extract_start) * 1000.0, 3)
-
-    t_review_start = time.perf_counter()
-    engine = _build_review_engine()
-    result = engine.review(
-        text=document.text,
-        source_jurisdiction=req.source_jurisdiction,
-        destination_jurisdiction=req.destination_jurisdiction,
-        entity_id=req.entity_id,
-        include_suggestions=req.include_suggestions,
-    )
-    timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
-    timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
-
-    response = ReviewResponse(
+def _build_review_response(
+    *,
+    req: ReviewRequest,
+    request_id: str | None,
+    document: Any,
+    result: Any,
+    timings_ms: dict[str, float],
+) -> ReviewResponse:
+    return ReviewResponse(
         request_id=request_id,
         overall_risk=result.overall_risk,
         classification=result.overall_risk,
@@ -1342,6 +1328,37 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None) -> ReviewRespon
         timings_ms=timings_ms,
     )
 
+
+def _run_review_sync(req: ReviewRequest, request_id: str | None) -> ReviewResponse:
+    timings_ms: dict[str, float] = {}
+    t_total_start = time.perf_counter()
+    t_extract_start = time.perf_counter()
+    try:
+        document = extract_review_document(req)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    timings_ms["extract"] = round((time.perf_counter() - t_extract_start) * 1000.0, 3)
+
+    t_review_start = time.perf_counter()
+    engine = _build_review_engine()
+    result = engine.review(
+        text=document.text,
+        source_jurisdiction=req.source_jurisdiction,
+        destination_jurisdiction=req.destination_jurisdiction,
+        entity_id=req.entity_id,
+        include_suggestions=req.include_suggestions,
+    )
+    timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
+    timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
+
+    response = _build_review_response(
+        req=req,
+        request_id=request_id,
+        document=document,
+        result=result,
+        timings_ms=timings_ms,
+    )
+
     observability = get_observability()
     if observability is not None:
         observability.observe_classification(
@@ -1360,6 +1377,92 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None) -> ReviewRespon
         pii_score=result.pii_score,
         mnpi_score=result.mnpi_score,
         finding_count=len(result.findings),
+        jurisdictions_applied=result.jurisdictions_applied,
+        timings_ms=timings_ms,
+    )
+    return response
+
+
+def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None) -> AnonymizeResponse:
+    timings_ms: dict[str, float] = {}
+    t_total_start = time.perf_counter()
+    t_extract_start = time.perf_counter()
+    try:
+        document = extract_review_document(req)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    timings_ms["extract"] = round((time.perf_counter() - t_extract_start) * 1000.0, 3)
+
+    t_review_start = time.perf_counter()
+    engine = _build_review_engine()
+    result = engine.review(
+        text=document.text,
+        source_jurisdiction=req.source_jurisdiction,
+        destination_jurisdiction=req.destination_jurisdiction,
+        entity_id=req.entity_id,
+        include_suggestions=req.include_suggestions,
+    )
+    timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
+
+    t_anonymize_start = time.perf_counter()
+    anonymization = DeterministicAnonymizer(include_mnpi_scalars=req.include_mnpi_scalars).anonymize(
+        text=document.text,
+        findings=result.findings,
+    )
+    timings_ms["anonymize"] = round((time.perf_counter() - t_anonymize_start) * 1000.0, 3)
+    timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
+
+    review_response = _build_review_response(
+        req=req,
+        request_id=request_id,
+        document=document,
+        result=result,
+        timings_ms=timings_ms,
+    )
+    response = AnonymizeResponse(
+        **review_response.model_dump(mode="python"),
+        anonymized_text=anonymization.anonymized_text,
+        mapping=[
+            AnonymizationMappingEntryResponse(
+                placeholder=entry.placeholder,
+                entity_type=entry.entity_type,
+                original_text=entry.original_text,
+                occurrence_count=entry.occurrence_count,
+            )
+            for entry in anonymization.mapping
+        ],
+        replacements=[
+            AnonymizationReplacementResponse(
+                finding_id=replacement.finding_id,
+                placeholder=replacement.placeholder,
+                entity_type=replacement.entity_type,
+                original_text=replacement.original_text,
+                start_char=replacement.start_char,
+                end_char=replacement.end_char,
+            )
+            for replacement in anonymization.replacements
+        ],
+    )
+
+    observability = get_observability()
+    if observability is not None:
+        observability.observe_classification(
+            endpoint="/anonymize",
+            classification=result.overall_risk.value,
+            cache_status="disabled",
+            degraded=False,
+            duration_seconds=timings_ms["total"] / 1000.0,
+        )
+
+    log_backend_event(
+        logging.INFO,
+        event="anonymize_summary",
+        request_id=request_id,
+        classification=result.overall_risk.value,
+        pii_score=result.pii_score,
+        mnpi_score=result.mnpi_score,
+        finding_count=len(result.findings),
+        replacement_count=len(anonymization.replacements),
         jurisdictions_applied=result.jurisdictions_applied,
         timings_ms=timings_ms,
     )
@@ -1548,9 +1651,9 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Kaypoh MNPI Classifier",
+    title="Kaypoh Document Safety API",
     version="0.1.0",
-    summary="Backend-only MNPI classification API with archived demo frontends served separately.",
+    summary="API-first PII anonymization and MNPI review service.",
     description=OPENAPI_DESCRIPTION,
     openapi_tags=OPENAPI_TAGS,
     default_response_class=PrettyJSONResponse,
@@ -1760,7 +1863,7 @@ async def classify_batch(request: Request, req: BatchClassifyRequest):
     "/review",
     response_model=ReviewResponse,
     dependencies=[Depends(require_api_key)],
-    tags=["Classification"],
+    tags=["Anonymization"],
     summary="Review a document before sending",
     description=(
         "Run a pre-send review for PII and MNPI risk over inline text or a base64-encoded text, DOCX, or PDF "
@@ -1770,6 +1873,22 @@ async def classify_batch(request: Request, req: BatchClassifyRequest):
 )
 async def review_document(request: Request, req: ReviewRequest):
     return await run_in_threadpool(_run_review_sync, req, getattr(request.state, "request_id", None))
+
+
+@app.post(
+    "/anonymize",
+    response_model=AnonymizeResponse,
+    dependencies=[Depends(require_api_key)],
+    tags=["Anonymization"],
+    summary="Anonymize a document before sending",
+    description=(
+        "Run the pre-send PII/MNPI review and return extracted text with deterministic placeholders. "
+        "PII findings are replaced by default; exact MNPI scalar findings such as financial amounts and "
+        "percentages can also be replaced while broad material-event passages remain review findings."
+    ),
+)
+async def anonymize_document(request: Request, req: AnonymizeRequest):
+    return await run_in_threadpool(_run_anonymize_sync, req, getattr(request.state, "request_id", None))
 
 
 if __name__ == "__main__":
