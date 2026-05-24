@@ -80,7 +80,7 @@ Two profiles ship:
 
 ### Privacy hardening for regulated tenants
 
-A **structured-tokens-in/out** runtime LLM mode is offered: instead of sending raw text fragments to the LLM, the server sends `{entity_id, context_window_hash, sanitised_query}` over a constrained vocabulary the server has already validated. Stronger privacy guarantee than redact-then-send; engineering cost depends on the specific tenant requirement.
+A **structured-tokens-in/out** runtime LLM mode is offered: instead of sending raw text fragments to the LLM, the server sends `{entity_id, body_hash, findings_summary, public_evidence_summary}` plus per-finding `context_window_hash` values, over a constrained vocabulary the server has already validated. Stronger privacy guarantee than redact-then-send. Activated by setting `llm.llm_input_mode = "structured_tokens"` (env `KAYPOH_LLM_INPUT_MODE`); default remains `raw_text` so existing tenants are unaffected. In structured mode the server clamps the LLM's response against a closed `STRUCTURED_REASONS` vocabulary, strips `matched_public_sources` and `unverified_claims` (potential leak channels), and surfaces `output_clamped: bool` on the adjudication response so an auditor can see how often the model attempted to emit free-form prose. Module: `src/kaypoh/workflow/layer8_llm_adjudicator/structured_query.py`.
 
 ### Distillation and feedback training
 
