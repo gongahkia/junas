@@ -70,6 +70,7 @@ KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
             "timeout_seconds",
             "allow_remote_base_url",
             "tenant_opt_in_openai",
+            "llm_input_mode",
         }
     ),
     "privacy": frozenset(
@@ -164,6 +165,13 @@ class LLMSettings:
     # off on OpenAI as the LLM backend"). Both must be true to use provider=openai.
     # Default False — must be explicitly turned on per tenant.
     tenant_opt_in_openai: bool = False
+    # Privacy-hardened mode for regulated tenants. `raw_text` (default) ships the
+    # document text + sanitised context. `structured_tokens` ships only abstract
+    # tokens — rule names, severities, jurisdiction codes, SHA-256 hashes of the
+    # body and per-finding context windows — and clamps the LLM's response against
+    # a closed vocabulary (`STRUCTURED_REASONS`). The doc text never leaves the
+    # process boundary via this path.
+    llm_input_mode: str = "raw_text"
 
 
 @dataclass(frozen=True)
@@ -823,9 +831,22 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
             ),
             label="llm.tenant_opt_in_openai",
         ),
+        llm_input_mode=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="llm",
+                key="llm_input_mode",
+                env_vars=("KAYPOH_LLM_INPUT_MODE",),
+                default="raw_text",
+            ),
+            label="llm.llm_input_mode",
+        ),
     )
     if llm.provider not in {"vllm", "ollama", "openai", "none"}:
         raise ConfigError("llm.provider must be one of: vllm, ollama, openai, none")
+    if llm.llm_input_mode not in {"raw_text", "structured_tokens"}:
+        raise ConfigError("llm.llm_input_mode must be one of: raw_text, structured_tokens")
     # belt-and-braces: refuse to even construct LLMSettings with provider=openai unless
     # both gates are explicitly set. Surfacing the error at config-load time means a
     # misconfigured tenant fails fast instead of silently degrading to local-private.
