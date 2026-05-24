@@ -2,7 +2,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 MAX_CLASSIFY_TEXT_LENGTH = 100000
 
@@ -97,6 +97,95 @@ class BatchClassifyRequest(BaseModel):
         max_length=32,
         description="List of classify requests processed in one HTTP call with bounded in-process concurrency.",
     )
+
+
+class ReviewRequest(BaseModel):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "text": "Please send the draft deck to Tan S1234567D. Acme Corp has confidential Q1 guidance.",
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "SG",
+                "document_type": "research_note",
+                "entity_id": "Acme Corp",
+                "include_suggestions": True,
+            }
+        }
+    )
+
+    text: Optional[str] = Field(
+        None,
+        max_length=MAX_CLASSIFY_TEXT_LENGTH,
+        description="Inline document text. Provide either text or document_base64.",
+    )
+    document_base64: Optional[str] = Field(
+        None,
+        description="Base64-encoded text, DOCX, or PDF document payload.",
+    )
+    document_filename: Optional[str] = Field(
+        None,
+        max_length=256,
+        description="Original filename used to infer document type when MIME type is omitted.",
+    )
+    document_mime_type: Optional[str] = Field(
+        None,
+        max_length=128,
+        description="MIME type for document_base64, such as text/plain, application/pdf, or DOCX MIME.",
+    )
+    source_jurisdiction: str = Field(
+        "SG",
+        max_length=32,
+        description="Jurisdiction where the document originates.",
+    )
+    destination_jurisdiction: str = Field(
+        "SG",
+        max_length=32,
+        description="Jurisdiction where the document will be sent.",
+    )
+    document_type: str = Field(
+        "generic",
+        max_length=64,
+        description="Customer-supplied document type, such as email, research_note, deck, or memo.",
+    )
+    review_profile: str = Field(
+        "strict",
+        max_length=64,
+        description="Review profile. v1 supports strict behavior with strictest jurisdiction wins.",
+    )
+    entity_id: Optional[str] = Field(
+        None,
+        max_length=128,
+        description="Optional issuer/entity used for public-source MNPI checks.",
+    )
+    include_suggestions: bool = Field(
+        True,
+        description="Include redaction or rewrite suggestions for each finding.",
+    )
+
+    @field_validator("text")
+    @classmethod
+    def sanitize_optional_text(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return None
+        cleaned = value.replace("\x00", "")
+        cleaned = "".join(ch for ch in cleaned if ch.isprintable() or ch in ("\n", "\r", "\t"))
+        cleaned = cleaned.strip()
+        if not cleaned:
+            return None
+        if len(cleaned) > MAX_CLASSIFY_TEXT_LENGTH:
+            raise ValueError(f"text exceeds max sanitized length of {MAX_CLASSIFY_TEXT_LENGTH}")
+        return cleaned
+
+    @field_validator("entity_id")
+    @classmethod
+    def sanitize_review_entity_id(cls, value: Optional[str]) -> Optional[str]:
+        return ClassifyRequest.sanitize_entity_id(value)
+
+    @model_validator(mode="after")
+    def require_text_or_document(self):
+        if not self.text and not self.document_base64:
+            raise ValueError("either text or document_base64 is required")
+        return self
 
 
 class LexiconHitResponse(BaseModel):
