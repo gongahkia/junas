@@ -84,6 +84,63 @@ class AuditPackTests(unittest.TestCase):
         self.assertEqual(verify.returncode, 0, msg=verify.stderr)
         self.assertIn("valid", verify.stdout)
 
+    def test_manifest_reviewer_rollup_counts_actions_per_reviewer(self):
+        self.decisions.start_review_session(
+            review_id="rev-rollup",
+            text_hash="hash-y",
+            document_type="SPA",
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            findings=[
+                {"id": "f1", "category": "PII", "rule": "named_person", "severity": "high",
+                 "matched_text": "Dr Jane Tan", "start_char": 0, "end_char": 11},
+                {"id": "f2", "category": "PII", "rule": "named_person", "severity": "high",
+                 "matched_text": "Mr John Lim", "start_char": 12, "end_char": 23},
+                {"id": "f3", "category": "MNPI", "rule": "transaction_codename", "severity": "high",
+                 "matched_text": "Project Atlas", "start_char": 24, "end_char": 37},
+            ],
+        )
+        self.decisions.record_decision(
+            review_id="rev-rollup",
+            decision=self.decisions.Decision(finding_id="f1", action="accept", reviewer_id="alice"),
+        )
+        self.decisions.record_decision(
+            review_id="rev-rollup",
+            decision=self.decisions.Decision(finding_id="f2", action="reject", reviewer_id="alice"),
+        )
+        self.decisions.record_decision(
+            review_id="rev-rollup",
+            decision=self.decisions.Decision(finding_id="f3", action="rewrite", reviewer_id="bob"),
+        )
+        output = self.tmpdir / "rollup.zip"
+        result = self._run("export_audit_pack.py", "rev-rollup", "--output", str(output))
+        self.assertEqual(result.returncode, 0, msg=result.stderr)
+
+        with zipfile.ZipFile(output) as archive:
+            manifest = json.loads(archive.read("manifest.json"))
+        rollup = manifest["reviewer_rollup"]
+        self.assertEqual(rollup["alice"], {"accept": 1, "reject": 1, "rewrite": 0})
+        self.assertEqual(rollup["bob"], {"accept": 0, "reject": 0, "rewrite": 1})
+
+    def test_min_wait_gate_flags_batch_approval(self):
+        # immediate accept after session start should trip a non-zero wait bound.
+        self._seed()
+        output = self.tmpdir / "wait.zip"
+        env = dict(os.environ)
+        env["KAYPOH_AUDIT_MIN_WAIT_SECONDS"] = "60"
+        env["PYTHONPATH"] = str(REPO_ROOT / "src")
+        result = subprocess.run(
+            [sys.executable, str(REPO_ROOT / "scripts" / "export_audit_pack.py"),
+             "rev-pack", "--output", str(output)],
+            capture_output=True, text=True, env=env, cwd=REPO_ROOT,
+        )
+        # exit 2 = chain valid but min-wait violation surfaced
+        self.assertEqual(result.returncode, 2, msg=result.stderr)
+        self.assertIn("min-wait violation", result.stderr)
+        with zipfile.ZipFile(output) as archive:
+            manifest = json.loads(archive.read("manifest.json"))
+        self.assertEqual(manifest["min_wait_status"], "violation")
+
     def test_verify_detects_tampered_manifest(self):
         self._seed()
         output = self.tmpdir / "pack.zip"

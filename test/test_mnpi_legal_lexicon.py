@@ -79,6 +79,22 @@ class MnpiLegalLexiconTests(unittest.TestCase):
         self.assertIn("Signing Date", markers)
         self.assertIn("Closing Date", markers)
 
+    def test_transaction_codename_severity_softens_for_casual_prose(self):
+        text = "Project Raven is heating up."
+        spa_result = self._review(text, document_type="SPA")
+        casual_result = self._review(text, document_type="casual")
+        spa_codename = _rules(spa_result.findings, "transaction_codename")[0]
+        casual_codename = _rules(casual_result.findings, "transaction_codename")[0]
+        self.assertEqual(spa_codename.severity, "high")
+        self.assertEqual(casual_codename.severity, "medium")
+
+    def test_embargo_marker_stays_high_in_memo(self):
+        text = "Embargoed until announcement."
+        memo_result = self._review(text, document_type="memo")
+        embargo = _rules(memo_result.findings, "embargo_marker")
+        self.assertTrue(embargo)
+        self.assertEqual(embargo[0].severity, "high")
+
     def test_new_rules_carry_cited_suggestions(self):
         text = "Project Atlas: MAC clause invoked before Closing Date. SHA executed."
         result = self.engine.review(

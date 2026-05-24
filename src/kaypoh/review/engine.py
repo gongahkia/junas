@@ -72,6 +72,43 @@ SEVERITY_SCORE = {"low": 25.0, "medium": 55.0, "high": 85.0}
 # signatories, beneficial owners). lifts named_person severity from low to high.
 NAMED_PERSON_HIGH_SEVERITY_DOC_TYPES = frozenset({"spa", "nda", "sha", "term_sheet", "shareholders_agreement"})
 
+# tokens that NAME_RE may accidentally bind as the trailing word of a multi-token name
+# (e.g. "Mr Lee Ltd" → trailing "Ltd"). suppressed in the surname-only fuzzy pass so we don't
+# fire on every corporate-suffix occurrence in the document.
+_SURNAME_DENYLIST = frozenset({
+    "ltd", "limited", "inc", "incorporated", "llc", "llp", "plc", "corp", "corporation",
+    "co", "company", "gmbh", "ag", "sa", "nv", "bv", "pte", "pvt", "sdn", "bhd",
+    "holdings", "industries", "ventures", "capital", "partners", "group",
+})
+
+# per-document-type MNPI severity overrides. mirrors NAMED_PERSON_HIGH_SEVERITY_DOC_TYPES.
+# the deterministic engine defaults below ship the strict/high posture; overrides soften severity
+# for casual-prose document types where the same vocabulary is less load-bearing, and tighten
+# severity for external-memo / research-note contexts where deal vocabulary is highly sensitive.
+# keyed by (rule, doc_type) -> severity; doc_type is casefolded before lookup.
+MNPI_DOC_TYPE_SEVERITY_OVERRIDES: dict[tuple[str, str], str] = {
+    # transaction_codename: defaults to high. softened in casual prose. retained high for memos.
+    ("transaction_codename", "generic"): "medium",
+    ("transaction_codename", "casual"): "medium",
+    ("transaction_codename", "chat"): "medium",
+    ("transaction_codename", "email_casual"): "medium",
+    ("transaction_codename", "memo"): "high",
+    ("transaction_codename", "research_note"): "high",
+    ("transaction_codename", "external_memo"): "high",
+    # definitive_agreement abbreviation context — softer in prose than in a contract face page.
+    ("definitive_agreement", "generic"): "medium",
+    ("definitive_agreement", "casual"): "medium",
+    ("definitive_agreement", "chat"): "medium",
+    # MAC clause language outside an actual contract is informational, not MNPI-grade.
+    ("material_adverse_change", "generic"): "medium",
+    ("material_adverse_change", "casual"): "medium",
+    ("material_adverse_change", "chat"): "medium",
+    # embargo markers in a memo or research note are the canonical "do not send" signal.
+    ("embargo_marker", "memo"): "high",
+    ("embargo_marker", "research_note"): "high",
+    ("embargo_marker", "external_memo"): "high",
+}
+
 
 @dataclass
 class ReviewFinding:
@@ -294,8 +331,10 @@ class PreSendReviewEngine:
                 anchors.setdefault(canonical, stripped)
 
         # pass 2: bare variants of an anchored name (e.g., later mentions without honorific).
-        # surname-only matching is intentionally deferred to a richer linker; this pass only
-        # matches the full anchored stripped form.
+        # full-name variants first, then surname-only variants. surname-only matching is
+        # intentionally narrow: only the trailing token of an anchored honorific name fires, and
+        # only when it appears as a stand-alone capitalised word. avoids false-positives on
+        # common surname-shaped words appearing without an anchored reference in the same doc.
         for canonical, stripped in anchors.items():
             if len(stripped) < 3:
                 continue
@@ -323,6 +362,52 @@ class PreSendReviewEngine:
                 )
                 occupied.append((start, end))
                 idx += 1
+
+        # pass 3: surname-only fuzzy variants. only fires when a multi-token honorific anchor
+        # exists ("Dr Jane Tan" → "Tan"), the surname token is title-cased and ≥2 chars, and the
+        # surname is not also a defined term in the document. word boundaries (\b...\b) already
+        # exclude mid-word matches like "Tannery" or "Tanner".
+        # corporate suffixes that NAME_RE might have swallowed (e.g. "Mr Lee Ltd") would otherwise
+        # bind "Ltd" as a surname and fire on every Ltd in the doc — denylist guards against that.
+        seen_surnames: set[str] = set()
+        for canonical, stripped in anchors.items():
+            tokens = stripped.split()
+            if len(tokens) < 2:
+                continue
+            surname = tokens[-1]
+            if len(surname) < 2 or not surname[0].isupper():
+                continue
+            if surname.casefold() in _SURNAME_DENYLIST:
+                continue
+            if surname.casefold() in seen_surnames:
+                continue
+            if is_defined_term(surname, defined_terms):
+                continue
+            seen_surnames.add(surname.casefold())
+            surname_pattern = re.compile(rf"\b{re.escape(surname)}\b")
+            for match in surname_pattern.finditer(text):
+                start, end = match.span()
+                if any(start < oe and os_ < end for os_, oe in occupied):
+                    continue
+                matched_text = text[start:end]
+                if is_defined_term(matched_text, defined_terms):
+                    continue
+                findings.append(
+                    _new_finding(
+                        idx=idx,
+                        category="PII",
+                        rule="named_person",
+                        jurisdiction=jurisdiction,
+                        severity=severity,
+                        matched_text=matched_text,
+                        start=start,
+                        end=end,
+                        reason="Surname-only reference linked to an anchored honorific name",
+                        legal_basis=legal_basis,
+                    )
+                )
+                occupied.append((start, end))
+                idx += 1
         return findings
 
     def _mnpi_findings(
@@ -330,11 +415,13 @@ class PreSendReviewEngine:
         text: str,
         packs: list[JurisdictionRulePack],
         defined_terms: set[str] | None = None,
+        document_type: str = "generic",
     ) -> list[ReviewFinding]:
         findings: list[ReviewFinding] = []
         jurisdiction = _pack_scope(packs)
         legal_basis = _legal_basis(packs, "mnpi_rules")
         defined = defined_terms or set()
+        doc_type_key = (document_type or "generic").strip().lower()
         idx = 0
         for match in MATERIAL_EVENT_RE.finditer(text):
             context = _line_context(text, match.start(), match.end())
@@ -382,6 +469,7 @@ class PreSendReviewEngine:
             (PERCENT_RE, "financial_percentage", "medium", "Specific financial percentage may be material"),
             (LONG_NUMBER_RE, "large_number", "medium", "Large numeric value may be material"),
         ]:
+            effective_severity = MNPI_DOC_TYPE_SEVERITY_OVERRIDES.get((rule, doc_type_key), severity)
             for match in pattern.finditer(text):
                 if rule in suppressible_rules and is_defined_term(match.group(), defined):
                     continue
@@ -391,7 +479,7 @@ class PreSendReviewEngine:
                         category="MNPI",
                         rule=rule,
                         jurisdiction=jurisdiction,
-                        severity=severity,
+                        severity=effective_severity,
                         matched_text=match.group(),
                         start=match.start(),
                         end=match.end(),
@@ -485,7 +573,7 @@ class PreSendReviewEngine:
         packs = resolve_rule_packs(source_jurisdiction, destination_jurisdiction)
         defined_terms = extract_defined_terms(text)
         findings = self._pii_findings(text, packs, document_type, defined_terms) + self._mnpi_findings(
-            text, packs, defined_terms
+            text, packs, defined_terms, document_type
         )
         pii_score = self._score(findings, "PII")
         mnpi_score = self._score(findings, "MNPI")

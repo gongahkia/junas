@@ -26,5 +26,64 @@ class CanonicalOrgTests(unittest.TestCase):
         self.assertNotEqual(canonical_org("Acme Pte Ltd"), canonical_org("Globex Pte Ltd"))
 
 
+class SurnameVariantTests(unittest.TestCase):
+    def test_surname_only_reference_resolves_after_anchored_honorific(self):
+        from kaypoh.review.engine import PreSendReviewEngine
+
+        engine = PreSendReviewEngine()
+        text = "Dr Jane Tan met the buyer. Tan confirmed the terms."
+        result = engine.review(
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="SPA",
+        )
+        matched = [f.matched_text for f in result.findings if f.rule == "named_person"]
+        self.assertIn("Dr Jane Tan", matched)
+        self.assertIn("Tan", matched)
+
+    def test_surname_only_skips_corporate_suffix_denylist(self):
+        from kaypoh.review.engine import PreSendReviewEngine
+
+        engine = PreSendReviewEngine()
+        # "Ltd" can be accidentally captured as the trailing token of a NAME_RE match. the
+        # surname pass must NOT then fire \bLtd\b across the document.
+        text = "Mr Lee Ltd signed. Acme Ltd is the buyer. Globex Ltd is the seller."
+        result = engine.review(
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="SPA",
+        )
+        ltd_findings = [
+            f for f in result.findings if f.rule == "named_person" and f.matched_text == "Ltd"
+        ]
+        self.assertEqual(ltd_findings, [])
+
+    def test_surname_only_skips_when_defined_term(self):
+        from kaypoh.review.engine import PreSendReviewEngine
+
+        engine = PreSendReviewEngine()
+        # "Tan" is defined as a contract term — should not collapse to a named_person variant.
+        text = 'Dr Jane Tan signed. "Tan" means the trustee. The Tan trust held the shares.'
+        result = engine.review(
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="SPA",
+        )
+        bare_tan = [
+            f for f in result.findings
+            if f.rule == "named_person" and f.matched_text == "Tan" and f.start_char != text.index("Dr Jane Tan")
+        ]
+        self.assertEqual(bare_tan, [])
+
+
 if __name__ == "__main__":
     unittest.main()

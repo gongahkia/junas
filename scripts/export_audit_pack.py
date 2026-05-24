@@ -22,8 +22,11 @@ import argparse
 import hashlib
 import hmac
 import json
+import os
 import sys
 import zipfile
+from collections import defaultdict
+from datetime import datetime, timezone
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -55,6 +58,57 @@ def _entries_to_dicts(entries: list[JournalEntry]) -> list[dict]:
     return [json.loads(entry.to_json()) for entry in entries]
 
 
+def _parse_iso(ts: str) -> float:
+    # journal timestamps are %Y-%m-%dT%H:%M:%SZ; treat as UTC epoch seconds.
+    return datetime.strptime(ts, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc).timestamp()
+
+
+def _build_reviewer_rollup(decisions: list[dict]) -> dict[str, dict[str, int]]:
+    """Per-reviewer action counts. Surfaces maker-checker violations: when one reviewer's
+    counts dominate accept-only decisions, an auditor can spot self-approval at a glance."""
+    rollup: dict[str, dict[str, int]] = defaultdict(lambda: {"accept": 0, "reject": 0, "rewrite": 0})
+    for decision in decisions:
+        reviewer = decision.get("reviewer_id") or "unattributed"
+        action = decision.get("action")
+        if action in ("accept", "reject", "rewrite"):
+            rollup[reviewer][action] += 1
+    return {k: dict(v) for k, v in rollup.items()}
+
+
+def _check_min_wait(entries: list[JournalEntry]) -> tuple[bool, str | None]:
+    """Optional gate: if KAYPOH_AUDIT_MIN_WAIT_SECONDS is set, require the elapsed time
+    between session start and the earliest decision_recorded to exceed that bound. Surfaces
+    batch-approval red flags where a reviewer rubber-stamps every finding in seconds."""
+    bound_raw = os.environ.get("KAYPOH_AUDIT_MIN_WAIT_SECONDS", "").strip()
+    if not bound_raw:
+        return True, None
+    try:
+        bound = float(bound_raw)
+    except ValueError:
+        return True, None
+    if bound <= 0:
+        return True, None
+
+    start_ts: float | None = None
+    earliest_decision_ts: float | None = None
+    for entry in entries:
+        if entry.event_type == EVENT_REVIEW_STARTED and start_ts is None:
+            start_ts = _parse_iso(entry.ts)
+        elif entry.event_type == EVENT_DECISION_RECORDED:
+            ts = _parse_iso(entry.ts)
+            if earliest_decision_ts is None or ts < earliest_decision_ts:
+                earliest_decision_ts = ts
+    if start_ts is None or earliest_decision_ts is None:
+        return True, None
+    elapsed = earliest_decision_ts - start_ts
+    if elapsed < bound:
+        return False, (
+            f"min-wait violation: first decision recorded {elapsed:.0f}s after review start; "
+            f"KAYPOH_AUDIT_MIN_WAIT_SECONDS={bound:g}"
+        )
+    return True, None
+
+
 def build_pack(review_id: str, output_path: Path) -> dict:
     entries = read_journal(review_id=review_id)
     if not entries or entries[0].event_type != EVENT_REVIEW_STARTED:
@@ -69,6 +123,8 @@ def build_pack(review_id: str, output_path: Path) -> dict:
         for entry in entries
         if entry.event_type == EVENT_DECISION_RECORDED
     ]
+    reviewer_rollup = _build_reviewer_rollup(decisions)
+    wait_ok, wait_warning = _check_min_wait(entries)
     manifest = {
         "review_id": review_id,
         "text_hash": init_payload.get("text_hash"),
@@ -81,6 +137,9 @@ def build_pack(review_id: str, output_path: Path) -> dict:
         "journal_chain_errors": errors,
         "first_seq": entries[0].seq,
         "last_seq": entries[-1].seq,
+        "reviewer_rollup": reviewer_rollup,
+        "min_wait_status": "ok" if wait_ok else "violation",
+        "min_wait_warning": wait_warning,
     }
     manifest["pack_hmac"] = _seal_manifest(manifest)
 
@@ -126,7 +185,12 @@ def main(argv: list[str] | None = None) -> int:
     manifest = build_pack(args.review_id, args.output)
     print(f"wrote {args.output}")
     print(json.dumps(manifest, indent=2, sort_keys=True))
-    return 0 if manifest["journal_chain_status"] == "valid" else 1
+    if manifest["journal_chain_status"] != "valid":
+        return 1
+    if manifest.get("min_wait_status") == "violation":
+        print(f"warning: {manifest.get('min_wait_warning')}", file=sys.stderr)
+        return 2  # surface the red flag but the pack itself is still valid
+    return 0
 
 
 if __name__ == "__main__":

@@ -10,6 +10,9 @@ References here are intentionally short and load-bearing. They are not legal adv
 
 from __future__ import annotations
 
+import os
+import tomllib
+from pathlib import Path
 from typing import Iterable
 
 
@@ -108,6 +111,63 @@ _MNPI_JURISDICTION_SUFFIX = {
 }
 
 
+# customer override hook. an internal compliance team can point KAYPOH_CITATIONS_OVERRIDE at a
+# `citations_override.toml` that re-routes (rule, jurisdiction) pairs to internal policy
+# citations instead of the built-in PDPA/SFA/GDPR/MAR/Reg-FD references. consulted before the
+# built-in lookup, so it can substitute *and* extend.
+#
+# TOML schema:
+#     [pii.sg_nric_fin]
+#     SG = "Internal Compliance Manual §4.2 — NRIC handling"
+#     default = "Substitute citation when no jurisdiction-specific override is present"
+#
+#     [mnpi.transaction_codename]
+#     SG = "Internal Trading Policy §7 — Deal codenames"
+#
+# The `default` key is consulted when no per-jurisdiction key matches the rationale's
+# jurisdiction. Falls through to the built-in if no override key matches.
+_CITATIONS_OVERRIDE_CACHE: dict[Path, tuple[dict[str, dict[str, dict[str, str]]], float]] = {}
+
+
+def _load_citations_override() -> dict[str, dict[str, dict[str, str]]]:
+    override_env = os.environ.get("KAYPOH_CITATIONS_OVERRIDE", "").strip()
+    if not override_env:
+        return {}
+    path = Path(override_env).expanduser()
+    if not path.exists():
+        return {}
+    mtime = path.stat().st_mtime
+    cached = _CITATIONS_OVERRIDE_CACHE.get(path)
+    if cached and cached[1] == mtime:
+        return cached[0]
+    try:
+        raw = tomllib.loads(path.read_text(encoding="utf-8"))
+    except tomllib.TOMLDecodeError:
+        return {}
+    normalized: dict[str, dict[str, dict[str, str]]] = {"pii": {}, "mnpi": {}}
+    for category in ("pii", "mnpi"):
+        section = raw.get(category, {}) or {}
+        if isinstance(section, dict):
+            for rule, juris_map in section.items():
+                if isinstance(juris_map, dict):
+                    normalized[category][rule] = {
+                        str(k).strip().upper(): str(v) for k, v in juris_map.items()
+                    }
+    _CITATIONS_OVERRIDE_CACHE[path] = (normalized, mtime)
+    return normalized
+
+
+def _lookup_override(category: str, rule: str, codes: list[str]) -> str | None:
+    overrides = _load_citations_override().get(category, {}).get(rule)
+    if not overrides:
+        return None
+    for code in codes:
+        hit = overrides.get(code.upper())
+        if hit:
+            return hit
+    return overrides.get("DEFAULT")
+
+
 def _split_jurisdictions(jurisdiction_field: str) -> list[str]:
     return [code.strip() for code in jurisdiction_field.split("+") if code.strip()]
 
@@ -138,20 +198,31 @@ def _format_matched_prefix(matched_text: str) -> str:
 
 
 def pii_rationale(*, rule: str, jurisdiction: str, matched_text: str = "") -> str:
+    codes = _split_jurisdictions(jurisdiction)
+    override = _lookup_override("pii", rule, codes)
+    if override:
+        return f"{_format_matched_prefix(matched_text)}{override}".strip()
     base = _PII_DEFAULT_RATIONALE.get(
         rule,
         "Personal data should be masked unless the recipient and purpose are documented.",
     )
-    suffix = _join_suffixes(_split_jurisdictions(jurisdiction), _PII_JURISDICTION_SUFFIX)
+    suffix = _join_suffixes(codes, _PII_JURISDICTION_SUFFIX)
     return f"{_format_matched_prefix(matched_text)}{base} {suffix}".strip()
 
 
 def mnpi_rationale(*, rule: str, jurisdiction: str, severity: str, matched_text: str = "") -> str:
+    codes = _split_jurisdictions(jurisdiction)
+    override = _lookup_override("mnpi", rule, codes)
+    if override:
+        # severity softening still applies to override text so the audit artefact stays coherent.
+        if severity == "low":
+            override = override.rstrip(".") + " — appears public; verify the disclosing source before relying on it."
+        return f"{_format_matched_prefix(matched_text)}{override}".strip()
     base = _MNPI_DEFAULT_RATIONALE.get(
         rule,
         "Material non-public information detected. Hold until publicly disclosed or generalise the claim.",
     )
-    suffix = _join_suffixes(_split_jurisdictions(jurisdiction), _MNPI_JURISDICTION_SUFFIX)
+    suffix = _join_suffixes(codes, _MNPI_JURISDICTION_SUFFIX)
     if severity == "low":
         # public-context evidence already detected; soften the directive but keep the citation.
         base = base.rstrip(".") + " — appears public; verify the disclosing source before relying on it."

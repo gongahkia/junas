@@ -1,22 +1,28 @@
+"""Jurisdiction rule-pack registry.
+
+Packs ship as TOML in `src/kaypoh/review/jurisdictions_data/*.toml` and are loaded at import.
+Customers can extend or override the registry by pointing `KAYPOH_JURISDICTION_PACKS_DIR` at
+an additional directory of `*.toml` files. Customer packs override built-ins with the same
+`code`, so a tenant can re-cite policy without forking the engine.
+
+Each pack TOML carries:
+    code            -- canonical code (e.g. "SG"); upper-cased
+    label           -- human label
+    pii_rules       -- list of rule identifiers
+    mnpi_rules      -- list of rule identifiers
+    references      -- list of citation strings
+    aliases         -- optional list of aliases that normalise to `code`
+"""
+
 from __future__ import annotations
 
+import os
+import tomllib
 from dataclasses import dataclass
+from pathlib import Path
 
 
-JURISDICTION_ALIASES = {
-    "SG": "SG",
-    "SINGAPORE": "SG",
-    "SEA": "SEA",
-    "ASEAN": "SEA",
-    "US": "US",
-    "USA": "US",
-    "UNITED STATES": "US",
-    "UK": "UK",
-    "GB": "UK",
-    "UNITED KINGDOM": "UK",
-    "EU": "EU",
-    "EEA": "EU",
-}
+_BUILTIN_PACKS_DIR = Path(__file__).parent / "jurisdictions_data"
 
 
 @dataclass(frozen=True)
@@ -28,46 +34,59 @@ class JurisdictionRulePack:
     references: tuple[str, ...]
 
 
-RULE_PACKS: dict[str, JurisdictionRulePack] = {
-    "SG": JurisdictionRulePack(
-        code="SG",
-        label="Singapore",
-        pii_rules=("SG_PDPA_PERSONAL_DATA", "SG_PDPA_SENSITIVE_CONTEXT"),
-        mnpi_rules=("SG_SFA_INSIDE_INFORMATION", "SG_SFA_GENERALLY_AVAILABLE"),
-        references=(
-            "Personal Data Protection Act 2012",
-            "Securities and Futures Act 2001 sections 215, 218, 219",
-        ),
-    ),
-    "SEA": JurisdictionRulePack(
-        code="SEA",
-        label="Southeast Asia baseline",
-        pii_rules=("SEA_PERSONAL_DATA_BASELINE",),
-        mnpi_rules=("SEA_MARKET_ABUSE_BASELINE",),
-        references=("ASEAN-oriented cross-border privacy and market-abuse baseline",),
-    ),
-    "US": JurisdictionRulePack(
-        code="US",
-        label="United States",
-        pii_rules=("US_PRIVACY_BASELINE",),
-        mnpi_rules=("US_MNPI_INSIDER_TRADING", "US_REG_FD_PUBLIC_DISCLOSURE"),
-        references=("SEC insider trading / MNPI guidance", "Regulation FD"),
-    ),
-    "UK": JurisdictionRulePack(
-        code="UK",
-        label="United Kingdom",
-        pii_rules=("UK_GDPR_PERSONAL_DATA",),
-        mnpi_rules=("UK_MAR_INSIDE_INFORMATION",),
-        references=("UK GDPR", "UK Market Abuse Regulation"),
-    ),
-    "EU": JurisdictionRulePack(
-        code="EU",
-        label="European Union",
-        pii_rules=("EU_GDPR_PERSONAL_DATA",),
-        mnpi_rules=("EU_MAR_INSIDE_INFORMATION",),
-        references=("GDPR Article 4", "EU Market Abuse Regulation"),
-    ),
-}
+def _load_pack_file(path: Path) -> tuple[JurisdictionRulePack, list[str]]:
+    raw = tomllib.loads(path.read_text(encoding="utf-8"))
+    code = str(raw["code"]).strip().upper()
+    pack = JurisdictionRulePack(
+        code=code,
+        label=str(raw.get("label", code)),
+        pii_rules=tuple(str(r) for r in raw.get("pii_rules", [])),
+        mnpi_rules=tuple(str(r) for r in raw.get("mnpi_rules", [])),
+        references=tuple(str(r) for r in raw.get("references", [])),
+    )
+    aliases = [str(a).strip().upper() for a in raw.get("aliases", [])]
+    if code not in aliases:
+        aliases.append(code)
+    return pack, aliases
+
+
+def _discover_pack_dirs() -> list[Path]:
+    dirs: list[Path] = [_BUILTIN_PACKS_DIR]
+    override = os.environ.get("KAYPOH_JURISDICTION_PACKS_DIR", "").strip()
+    if override:
+        # customer override directory wins via late-registration (overrides built-ins by code)
+        dirs.append(Path(override).expanduser())
+    return dirs
+
+
+def _load_registry() -> tuple[dict[str, JurisdictionRulePack], dict[str, str]]:
+    packs: dict[str, JurisdictionRulePack] = {}
+    aliases: dict[str, str] = {}
+    for pack_dir in _discover_pack_dirs():
+        if not pack_dir.exists() or not pack_dir.is_dir():
+            continue
+        for path in sorted(pack_dir.glob("*.toml")):
+            try:
+                pack, pack_aliases = _load_pack_file(path)
+            except (KeyError, tomllib.TOMLDecodeError) as exc:
+                # malformed customer pack: log to stderr and skip rather than crash startup.
+                import sys
+
+                print(f"kaypoh: skipping malformed jurisdiction pack {path}: {exc}", file=sys.stderr)
+                continue
+            packs[pack.code] = pack
+            for alias in pack_aliases:
+                aliases[alias] = pack.code
+    return packs, aliases
+
+
+RULE_PACKS, JURISDICTION_ALIASES = _load_registry()
+
+
+def reload_registry() -> None:
+    """Re-read pack TOMLs from disk. Useful in tests that point at temporary pack dirs."""
+    global RULE_PACKS, JURISDICTION_ALIASES
+    RULE_PACKS, JURISDICTION_ALIASES = _load_registry()
 
 
 def normalize_jurisdiction(value: str | None, *, default: str = "SG") -> str:

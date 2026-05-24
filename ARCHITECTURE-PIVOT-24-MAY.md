@@ -41,7 +41,7 @@ Synthetic data is a first-class artefact. `test/fixtures/legal-corpus/` is the h
 
 ### Statute citations
 
-Suggestion rationales are statute-cited and lead with the matched text in quotes — for example, `"S1234567D" detected → PDPA s13 and PDPC NRIC Advisory (effective 31 Dec 2026): NRIC/FIN must not be ...`. Reviewers can forward the rationale verbatim to internal audit. Customers needing internal policy citations instead of the built-in PDPA/SFA/GDPR/MAR/Reg-FD references use the `citations_override.toml` hook (planned), keyed by `(rule, jurisdiction)`, consulted before the built-in lookup.
+Suggestion rationales are statute-cited and lead with the matched text in quotes — for example, `"S1234567D" detected → PDPA s13 and PDPC NRIC Advisory (effective 31 Dec 2026): NRIC/FIN must not be ...`. Reviewers can forward the rationale verbatim to internal audit. Customers needing internal policy citations instead of the built-in PDPA/SFA/GDPR/MAR/Reg-FD references use the `KAYPOH_CITATIONS_OVERRIDE` hook, keyed by `(rule, jurisdiction)`, consulted before the built-in lookup.
 
 ## LLM and Retrieval Policy
 
@@ -94,7 +94,7 @@ Active endpoints:
 - `POST /classify` and `POST /classify/batch`: legacy classifier compatibility. Investment frozen.
 - `GET /health`, `/ready`, `/diagnostics`, `/metrics`: operational surfaces.
 
-Audit-pack tooling: `scripts/export_audit_pack.py` produces HMAC-sealed ZIPs; verification via `scripts/verify_audit_pack.py` and whole-journal integrity via `scripts/verify_journal.py`. Planned extensions: reviewer roll-up in the manifest (decisions by reviewer X: accept N, reject M, rewrite K — surfaces maker-checker violations), per-organisation `KAYPOH_JOURNAL_KEY` rotation with versioned `key_version` chain headers, and an optional `KAYPOH_AUDIT_MIN_WAIT_SECONDS` gate that surfaces batch-approval red flags. Recall-baseline changes (`recall.lock.json`) are similarly attributable: actor + commit SHA + diff summary committed alongside the lock so an auditor can reconstruct *why* recall expectations changed.
+Audit-pack tooling: `scripts/export_audit_pack.py` produces HMAC-sealed ZIPs; verification via `scripts/verify_audit_pack.py` and whole-journal integrity via `scripts/verify_journal.py`. Shipped extensions: reviewer roll-up in the manifest (decisions by reviewer X: accept N, reject M, rewrite K — surfaces maker-checker violations), and the optional `KAYPOH_AUDIT_MIN_WAIT_SECONDS` gate that surfaces batch-approval red flags (exit code `2` on violation, pack still HMAC-sealed). Planned: per-organisation `KAYPOH_JOURNAL_KEY` rotation with versioned `key_version` chain headers. Recall-baseline changes (`recall.lock.json`) are similarly attributable: actor + commit SHA + diff summary committed alongside the lock so an auditor can reconstruct *why* recall expectations changed.
 
 ### Distribution shape
 
@@ -147,9 +147,9 @@ Open work organised by theme. Shipped items are struck through and retained for 
 
 ### Accuracy substrate
 
-1. Grow the legal-contract fixture corpus from 6 → 30 docs using the OpenAI-backed `scripts/generate_legal_fixture.py`. Hand-validate before lock-baseline refresh. Push to 50 with adversarial + multilingual coverage as the second pass.
+1. Grow the legal-contract fixture corpus from 6 → 30 docs using the OpenAI-backed `scripts/generate_legal_fixture.py`. Hand-validate before lock-baseline refresh. Push to 50 with adversarial + multilingual coverage as the second pass. *(Generator script shipped 2026-05-24; corpus growth still requires hand-review per generated doc.)*
 2. Land `test/fixtures/legal-corpus-adversarial/` plus `recall_adversarial.lock.json` so precision is a regression metric, not just recall. Adversarial fixtures cover NRIC in URLs, tables, ZWJ chars, OCR ligature artefacts, broken DOCX runs.
-3. Per-document-type MNPI severity overrides mirroring `NAMED_PERSON_HIGH_SEVERITY_DOC_TYPES`. The `document_type` signal is already plumbed through `engine.review(...)`.
+3. ~~Per-document-type MNPI severity overrides mirroring `NAMED_PERSON_HIGH_SEVERITY_DOC_TYPES`. The `document_type` signal is already plumbed through `engine.review(...)`.~~ Shipped 2026-05-24. `MNPI_DOC_TYPE_SEVERITY_OVERRIDES` in `engine.py` softens `transaction_codename` / `definitive_agreement` / `material_adverse_change` to medium in casual prose, keeps high in `memo` / `research_note` / `external_memo`.
 4. ~~UEN regex (legacy + T-format), legal-contract defined-term suppression, MNPI legal lexicon (`transaction_codename`, `definitive_agreement`, `material_adverse_change`, `embargo_marker`), 6-doc corpus seed, recall.lock baseline at 1.0 across 13 rules.~~ Shipped 2026-05-24.
 
 ### LLM-assisted runtime (server SKU, opt-in)
@@ -164,22 +164,22 @@ Open work organised by theme. Shipped items are struck through and retained for 
 
 ### Round-trip + persistence
 
-12. Fuzzy entity linking for non-anchored variants — extend the linker to recognise bare surname references when an anchored honorific form is present elsewhere in the same document.
+12. ~~Fuzzy entity linking for non-anchored variants — extend the linker to recognise bare surname references when an anchored honorific form is present elsewhere in the same document.~~ Shipped 2026-05-24. Pass 3 in `_named_person_findings`: trailing surname tokens from anchored multi-word names fire as `named_person` variants, suppressed if the surname matches a contract defined term.
 13. ~~`POST /reidentify` + persistent per-document mapping store keyed by SHA-256 of the extracted text.~~ Shipped 2026-05-24.
 
 ### Audit-grade compliance
 
 14. Per-organisation `KAYPOH_JOURNAL_KEY` rotation with a versioned tenant-id → key mapping and a forward-compatible chain header (`prev_hmac`, `key_version`). Rotation events written as `journal_key_rolled` sentinels.
-15. Audit-pack reviewer roll-up: manifest summarises "decisions by reviewer X: accept N, reject M, rewrite K." Surfaces maker-checker violations where one reviewer approves their own decision.
+15. ~~Audit-pack reviewer roll-up: manifest summarises "decisions by reviewer X: accept N, reject M, rewrite K." Surfaces maker-checker violations where one reviewer approves their own decision.~~ Shipped 2026-05-24. `_build_reviewer_rollup` in `scripts/export_audit_pack.py` writes `reviewer_rollup` to the manifest and feeds it into `pack_hmac`.
 16. Reviewer attribution for `recall.lock.json` updates: actor + commit SHA + diff summary committed alongside lock changes so auditors can reconstruct *why* recall expectations changed.
-17. Reviewer-mandated wait period: optional `KAYPOH_AUDIT_MIN_WAIT_SECONDS` gate on `scripts/export_audit_pack.py` to surface batch-approval red flags.
+17. ~~Reviewer-mandated wait period: optional `KAYPOH_AUDIT_MIN_WAIT_SECONDS` gate on `scripts/export_audit_pack.py` to surface batch-approval red flags.~~ Shipped 2026-05-24. The exporter emits `min_wait_status` / `min_wait_warning` in the manifest and exits `2` when the bound is violated; the pack itself remains HMAC-sealed.
 18. ~~`POST /review/{id}/decision`, `GET /review/{id}`, HMAC-chained journal under `KAYPOH_JOURNAL_DIR`, audit-pack export+verify scripts. Reviewer identity threaded through schemas + endpoint + session view.~~ Shipped 2026-05-24.
 
 ### Jurisdiction breadth
 
-19. Migrate `src/kaypoh/review/jurisdictions.py` from a hardcoded dict to a `jurisdictions/*.toml` plugin directory so customers can bring their own packs.
+19. ~~Migrate `src/kaypoh/review/jurisdictions.py` from a hardcoded dict to a `jurisdictions/*.toml` plugin directory so customers can bring their own packs.~~ Shipped 2026-05-24. Built-ins live in `src/kaypoh/review/jurisdictions_data/*.toml`; customers point `KAYPOH_JURISDICTION_PACKS_DIR` at an extra dir whose `*.toml` files override built-ins by `code`.
 20. Curated SEA packs: MyKad (MY), KTP/NIK (ID), Thai national ID (TH), PhilSys/TIN (PH), CCCD (VN). Each pack ships a local-ID recognizer, statute citations, and rule-level suggestion rationales. Driven by the same fixture-corpus + recall-gate discipline used for SG.
-21. Statute-citation override hook (`citations_override.toml`) so customers can substitute internal compliance policy citations without forking the engine. Keyed by `(rule, jurisdiction)`, consulted before the built-in dict.
+21. ~~Statute-citation override hook (`citations_override.toml`) so customers can substitute internal compliance policy citations without forking the engine. Keyed by `(rule, jurisdiction)`, consulted before the built-in dict.~~ Shipped 2026-05-24. `KAYPOH_CITATIONS_OVERRIDE` points at a TOML with `[pii.<rule>]` / `[mnpi.<rule>]` tables keyed by jurisdiction code (`SG`, `US`, …) or `default`; consulted before the built-in lookup and honours the low-severity softener.
 
 ### Distribution surface
 
