@@ -1970,6 +1970,93 @@ async def reidentify_document(request: Request, req: ReidentifyRequest):
     return await run_in_threadpool(_run_reidentify_sync, req, getattr(request.state, "request_id", None))
 
 
+def _ensure_persistence_enabled() -> None:
+    if not _review_persistence_enabled():
+        raise HTTPException(
+            status_code=409,
+            detail="review persistence is disabled; set KAYPOH_REVIEW_PERSIST=1 to enable",
+        )
+
+
+def _serialize_session_state(state: dict[str, Any]) -> ReviewSessionStateResponse:
+    decisions_by_id = {d["finding_id"]: d for d in state.get("decisions", [])}
+    findings: list[ReviewSessionFindingState] = []
+    for finding in state.get("findings", []):
+        decision = decisions_by_id.get(finding.get("id"))
+        findings.append(
+            ReviewSessionFindingState(
+                id=finding["id"],
+                category=finding["category"],
+                rule=finding["rule"],
+                severity=finding["severity"],
+                matched_text=finding["matched_text"],
+                start_char=finding["start_char"],
+                end_char=finding["end_char"],
+                decision=decision["action"] if decision else None,
+                decision_seq=decision["seq"] if decision else None,
+                decision_ts=decision["ts"] if decision else None,
+            )
+        )
+    return ReviewSessionStateResponse(
+        review_id=state["review_id"],
+        text_hash=state.get("text_hash") or "",
+        document_type=state.get("document_type") or "generic",
+        source_jurisdiction=state.get("source_jurisdiction") or "SG",
+        destination_jurisdiction=state.get("destination_jurisdiction") or "SG",
+        findings=findings,
+        decisions_recorded=len(state.get("decisions", [])),
+        audit_exports=list(state.get("audit_exports", [])),
+    )
+
+
+@app.post(
+    "/review/{review_id}/decision",
+    response_model=ReviewDecisionResponse,
+    dependencies=[Depends(require_api_key)],
+    tags=["Anonymization"],
+    summary="Record a per-finding decision",
+    description=(
+        "Append an accept | reject | rewrite decision for a finding from a prior /review response. "
+        "Decisions are persisted to the append-only HMAC-chained journal under KAYPOH_JOURNAL_DIR. "
+        "Requires KAYPOH_REVIEW_PERSIST=1; otherwise 409."
+    ),
+)
+async def post_review_decision(review_id: str, req: ReviewDecisionRequest):
+    _ensure_persistence_enabled()
+    try:
+        result = record_decision(
+            review_id=review_id,
+            decision=Decision(
+                finding_id=req.finding_id,
+                action=req.action,
+                replacement_text=req.replacement_text,
+                rationale=req.rationale,
+            ),
+        )
+    except ReviewSessionError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    return ReviewDecisionResponse(**result)
+
+
+@app.get(
+    "/review/{review_id}",
+    response_model=ReviewSessionStateResponse,
+    dependencies=[Depends(require_api_key)],
+    tags=["Anonymization"],
+    summary="Inspect review session state",
+    description=(
+        "Reconstruct the current state of a review session from the journal: findings merged "
+        "with the most recent decision per finding. Requires KAYPOH_REVIEW_PERSIST=1."
+    ),
+)
+async def get_review_session(review_id: str):
+    _ensure_persistence_enabled()
+    state = get_session_state(review_id=review_id)
+    if state is None:
+        raise HTTPException(status_code=404, detail=f"unknown review_id: {review_id}")
+    return _serialize_session_state(state)
+
+
 if __name__ == "__main__":
     import uvicorn
 
