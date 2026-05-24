@@ -1,0 +1,24 @@
+{
+  "doc_id": "multilingual_sg_01",
+  "document_type": "NDA",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "_note": "SG multilingual name diversity: Malay (Siti Aishah binti Abdullah), Chinese (Tan Wei Ming), Tamil (Ramasamy Lakshmi). Probes whether name regex handles `binti`/`bin`/`a/l`/`a/p` connectors. Also probes UEN-as-phone false positive when the UEN digits look like a phone fragment.",
+  "must_detect": [
+    {"rule": "sg_nric_fin", "matched_text": "S3344556B"},
+    {"rule": "sg_nric_fin", "matched_text": "S7788990C"},
+    {"rule": "sg_nric_fin", "matched_text": "S1122334D"},
+    {"rule": "sg_uen", "matched_text": "200811223X"},
+    {"rule": "named_person", "matched_text": "Dr Siti Aishah binti Abdullah"},
+    {"rule": "named_person", "matched_text": "Mr Tan Wei Ming"},
+    {"rule": "named_person", "matched_text": "Ms Ramasamy Lakshmi"},
+    {"rule": "email_address", "matched_text": "siti.aishah@lotus.sg"},
+    {"rule": "phone_number", "matched_text": "+65 9123 4567"},
+    {"rule": "transaction_codename", "matched_text": "Project Mahkota"},
+    {"rule": "financial_amount", "matched_text": "$850 million"}
+  ],
+  "must_not_detect": [
+    {"matched_text": "NDA", "reason": "defined term NDA must not fire as definitive_agreement"},
+    {"matched_text": "200811223", "reason": "UEN digits must not also fire as phone_number"}
+  ]
+}
