@@ -647,6 +647,48 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         ),
     )
 
+    public_evidence_provider = (
+        _parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="public_evidence",
+                key="provider",
+                env_vars=("KAYPOH_PUBLIC_EVIDENCE_PROVIDER",),
+                default="exa",
+            ),
+            label="public_evidence.provider",
+        ).lower()
+        or "exa"
+    )
+    # provider-specific defaults: api key env name + endpoint default.
+    _provider_defaults = {
+        "exa": ("EXA_API_KEY", "https://api.exa.ai/search"),
+        "tinyfish": ("TINYFISH_API_KEY", "https://api.search.tinyfish.ai/"),
+        "none": ("", ""),
+    }
+    _key_env, _endpoint_default = _provider_defaults.get(public_evidence_provider, ("", ""))
+    public_evidence_api_key = (
+        _parse_str(os.environ.get(_key_env, ""), label=_key_env) if _key_env else ""
+    )
+
+    _resolved_endpoint = _parse_str(
+        _resolve_raw_value(
+            raw_config,
+            cli_overrides,
+            section="public_evidence",
+            key="endpoint",
+            env_vars=("KAYPOH_PUBLIC_EVIDENCE_ENDPOINT",),
+            default=_endpoint_default,
+        ),
+        label="public_evidence.endpoint",
+    ) or _endpoint_default
+    # if the resolved endpoint is the exa default but the provider is not exa, the user has
+    # likely flipped only `provider` without updating the legacy endpoint in config.toml.
+    # snap to the provider's default endpoint in that case so tinyfish requests don't hit exa.
+    if public_evidence_provider != "exa" and _resolved_endpoint == "https://api.exa.ai/search":
+        _resolved_endpoint = _endpoint_default
+
     public_evidence = PublicEvidenceSettings(
         enabled=_parse_bool(
             _resolve_raw_value(
@@ -659,31 +701,9 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
             ),
             label="public_evidence.enabled",
         ),
-        provider=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="public_evidence",
-                key="provider",
-                env_vars=("KAYPOH_PUBLIC_EVIDENCE_PROVIDER",),
-                default="exa",
-            ),
-            label="public_evidence.provider",
-        ).lower()
-        or "exa",
-        api_key=_parse_str(os.environ.get("EXA_API_KEY", ""), label="EXA_API_KEY"),
-        endpoint=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="public_evidence",
-                key="endpoint",
-                env_vars=("KAYPOH_PUBLIC_EVIDENCE_ENDPOINT",),
-                default="https://api.exa.ai/search",
-            ),
-            label="public_evidence.endpoint",
-        )
-        or "https://api.exa.ai/search",
+        provider=public_evidence_provider,
+        api_key=public_evidence_api_key,
+        endpoint=_resolved_endpoint,
         max_results=_parse_int(
             _resolve_raw_value(
                 raw_config,
