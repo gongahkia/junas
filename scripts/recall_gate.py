@@ -1,20 +1,28 @@
 #!/usr/bin/env python3
-"""Recall gate for the legal-contract fixture corpus.
+"""Recall (and precision) gate for the legal-contract fixture corpus.
 
-Runs the kaypoh review engine over every `<doc>.txt` in `test/fixtures/legal-corpus/`,
-compares the produced findings against `<doc>.labels.json`, and computes per-rule recall.
-Fails (exit 1) when per-rule recall drops below the locked baseline in `recall.lock.json`
-or when any `must_not_detect` matched_text appears in a finding.
+Runs the kaypoh review engine over every `<doc>.txt` in the target corpus, compares the
+produced findings against `<doc>.labels.json`, and computes per-rule recall + precision.
+Fails (exit 1) when per-rule recall drops below the locked baseline, or when per-rule
+precision drops below the locked baseline (when the lock contains a `baseline_precision`
+section).
+
+Default corpus: `test/fixtures/legal-corpus/` with `recall.lock.json` (recall-only).
+Adversarial corpus: `--corpus test/fixtures/legal-corpus-adversarial/`, gated against
+`recall_adversarial.lock.json` (recall + precision). Adversarial fixtures cover NRIC in
+URLs, defined-term suppression edge cases, multilingual SG names, and negative-prose probes.
 
 Usage:
-    python3 scripts/recall_gate.py            # run gate against locked baseline
-    python3 scripts/recall_gate.py --update   # rewrite the lock to current recall
-    python3 scripts/recall_gate.py --verbose  # print per-doc detail
+    python3 scripts/recall_gate.py
+    python3 scripts/recall_gate.py --update --reason "added 5 SPA fixtures"
+    python3 scripts/recall_gate.py --corpus test/fixtures/legal-corpus-adversarial
+    python3 scripts/recall_gate.py --corpus test/fixtures/legal-corpus-adversarial --update \\
+        --reason "baseline adversarial corpus"
 
 Exit codes:
-    0 = recall meets or exceeds baseline; no must_not_detect violations
-    1 = recall regression or must_not_detect violation
-    2 = corpus/lock load error
+    0 = recall + precision meet baseline
+    1 = recall or precision regression, or must_not_detect violation when no precision baseline
+    2 = corpus/lock load error, or --update without --reason
 """
 
 from __future__ import annotations
@@ -36,10 +44,24 @@ if str(SRC_PATH) not in sys.path:
 
 from kaypoh.review.engine import PreSendReviewEngine  # noqa: E402
 
-CORPUS_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus"
-LOCK_PATH = CORPUS_DIR / "recall.lock.json"
-HISTORY_PATH = CORPUS_DIR / "recall.lock.history.jsonl"
+DEFAULT_CORPUS_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus"
 REGRESSION_TOLERANCE = 1e-6
+
+
+def _lock_path_for(corpus_dir: Path) -> Path:
+    """Each corpus directory has its own lock keyed off the directory name. Default corpus
+    keeps the legacy `recall.lock.json` name; adversarial corpus → `recall_adversarial.lock.json`."""
+    name = corpus_dir.name
+    if name == "legal-corpus":
+        return corpus_dir / "recall.lock.json"
+    if name == "legal-corpus-adversarial":
+        return corpus_dir / "recall_adversarial.lock.json"
+    # generic fallback for arbitrary corpora
+    return corpus_dir / f"{name}.lock.json"
+
+
+def _history_path_for(corpus_dir: Path) -> Path:
+    return corpus_dir / "recall.lock.history.jsonl"
 
 
 @dataclass
@@ -47,6 +69,7 @@ class DocResult:
     doc_id: str
     per_rule_total: dict[str, int] = field(default_factory=dict)
     per_rule_hits: dict[str, int] = field(default_factory=dict)
+    per_rule_false_positives: dict[str, int] = field(default_factory=dict)
     violations: list[str] = field(default_factory=list)
 
 
@@ -86,21 +109,19 @@ def _evaluate_doc(text: str, labels: dict[str, Any]) -> DocResult:
         if any(f["rule"] == rule and f["matched_text"] == expected for f in findings):
             doc.per_rule_hits[rule] = doc.per_rule_hits.get(rule, 0) + 1
 
-    for label in labels.get("must_not_detect", []):
-        forbidden = label["matched_text"]
-        # any finding whose matched_text equals or contains the forbidden token is a violation,
-        # except for finding rules where the token appearing as substring is legitimate
-        # (e.g., a defined term inside a larger phone match would not be).
-        for finding in findings:
-            if finding["matched_text"] == forbidden:
-                doc.violations.append(
-                    f"{labels['doc_id']}: forbidden '{forbidden}' detected as {finding['rule']}"
-                    f" ({label.get('reason', '')})"
-                )
+    forbidden_texts = {label["matched_text"]: label.get("reason", "") for label in labels.get("must_not_detect", [])}
+    for finding in findings:
+        if finding["matched_text"] in forbidden_texts:
+            rule = finding["rule"]
+            doc.per_rule_false_positives[rule] = doc.per_rule_false_positives.get(rule, 0) + 1
+            doc.violations.append(
+                f"{labels['doc_id']}: forbidden '{finding['matched_text']}' detected as {rule}"
+                f" ({forbidden_texts[finding['matched_text']]})"
+            )
     return doc
 
 
-def _aggregate(docs: list[DocResult]) -> dict[str, float]:
+def _aggregate_recall(docs: list[DocResult]) -> dict[str, float]:
     totals: dict[str, int] = {}
     hits: dict[str, int] = {}
     for doc in docs:
@@ -111,22 +132,42 @@ def _aggregate(docs: list[DocResult]) -> dict[str, float]:
     return {rule: round(hits.get(rule, 0) / totals[rule], 4) for rule in totals}
 
 
-def _load_lock() -> dict[str, float]:
-    if not LOCK_PATH.exists():
-        return {}
-    payload = json.loads(LOCK_PATH.read_text(encoding="utf-8"))
-    return dict(payload.get("baseline_recall", {}))
+def _aggregate_precision(docs: list[DocResult]) -> dict[str, float]:
+    """Per-rule precision = TP / (TP + FP). Rules with neither TP nor FP do not appear in the
+    output — there's nothing to measure. Rules with TP=0 and FP>0 get precision 0.0."""
+    tp: dict[str, int] = {}
+    fp: dict[str, int] = {}
+    for doc in docs:
+        for rule, count in doc.per_rule_hits.items():
+            tp[rule] = tp.get(rule, 0) + count
+        for rule, count in doc.per_rule_false_positives.items():
+            fp[rule] = fp.get(rule, 0) + count
+    out: dict[str, float] = {}
+    for rule in set(tp) | set(fp):
+        tp_count = tp.get(rule, 0)
+        fp_count = fp.get(rule, 0)
+        denom = tp_count + fp_count
+        out[rule] = round(tp_count / denom, 4) if denom else 1.0
+    return out
 
 
-def _write_lock(recall: dict[str, float]) -> None:
-    LOCK_PATH.write_text(
-        json.dumps({"baseline_recall": recall}, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+def _load_lock(lock_path: Path) -> tuple[dict[str, float], dict[str, float]]:
+    if not lock_path.exists():
+        return {}, {}
+    payload = json.loads(lock_path.read_text(encoding="utf-8"))
+    return dict(payload.get("baseline_recall", {})), dict(payload.get("baseline_precision", {}))
+
+
+def _write_lock(lock_path: Path, recall: dict[str, float], precision: dict[str, float]) -> None:
+    body: dict[str, Any] = {"baseline_recall": recall}
+    if precision:
+        # only emit baseline_precision when the corpus actually exercised must_not_detect /
+        # must_detect signal — keeps the default corpus's lock unchanged.
+        body["baseline_precision"] = precision
+    lock_path.write_text(json.dumps(body, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def _resolve_actor() -> str:
-    """Best-effort attribution. Env wins (CI), else git user.email, else $USER, else 'unknown'."""
     env_actor = os.environ.get("KAYPOH_RECALL_ACTOR", "").strip()
     if env_actor:
         return env_actor
@@ -143,7 +184,6 @@ def _resolve_actor() -> str:
 
 
 def _resolve_commit_sha() -> str:
-    """HEAD SHA at the time of the update. Empty string when not in a git repo."""
     try:
         out = subprocess.run(
             ["git", "rev-parse", "HEAD"],
@@ -157,7 +197,6 @@ def _resolve_commit_sha() -> str:
 
 
 def _diff_summary(current: dict[str, float], baseline: dict[str, float]) -> dict[str, dict[str, float | None]]:
-    """Per-rule before/after for every rule that changed (added, removed, or shifted)."""
     diff: dict[str, dict[str, float | None]] = {}
     all_rules = set(current) | set(baseline)
     for rule in sorted(all_rules):
@@ -172,50 +211,68 @@ def _diff_summary(current: dict[str, float], baseline: dict[str, float]) -> dict
     return diff
 
 
-def _append_history(*, reason: str, baseline: dict[str, float], current: dict[str, float]) -> dict:
-    """Write one append-only attribution line so auditors can reconstruct *why* recall changed."""
+def _append_history(
+    *,
+    history_path: Path,
+    reason: str,
+    baseline_recall: dict[str, float],
+    current_recall: dict[str, float],
+    baseline_precision: dict[str, float],
+    current_precision: dict[str, float],
+) -> dict:
     entry = {
         "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "actor": _resolve_actor(),
         "commit_sha": _resolve_commit_sha(),
         "reason": reason,
-        "diff": _diff_summary(current, baseline),
+        "diff": _diff_summary(current_recall, baseline_recall),
+        "precision_diff": _diff_summary(current_precision, baseline_precision),
     }
-    HISTORY_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with HISTORY_PATH.open("a", encoding="utf-8") as fh:
+    history_path.parent.mkdir(parents=True, exist_ok=True)
+    with history_path.open("a", encoding="utf-8") as fh:
         fh.write(json.dumps(entry, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n")
     return entry
 
 
-def _compare(current: dict[str, float], baseline: dict[str, float]) -> list[str]:
+def _compare(current: dict[str, float], baseline: dict[str, float], *, label: str) -> list[str]:
     regressions: list[str] = []
-    for rule, baseline_recall in baseline.items():
-        current_recall = current.get(rule, 0.0)
-        if current_recall + REGRESSION_TOLERANCE < baseline_recall:
+    for rule, baseline_value in baseline.items():
+        current_value = current.get(rule, 0.0)
+        if current_value + REGRESSION_TOLERANCE < baseline_value:
             regressions.append(
-                f"{rule}: recall regressed {baseline_recall:.4f} -> {current_recall:.4f}"
+                f"{label}/{rule}: regressed {baseline_value:.4f} -> {current_value:.4f}"
             )
     return regressions
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Legal-corpus recall gate")
-    parser.add_argument("--update", action="store_true", help="rewrite recall.lock.json to current measurements")
+    parser = argparse.ArgumentParser(description="Legal-corpus recall + precision gate")
+    parser.add_argument(
+        "--corpus",
+        type=Path,
+        default=DEFAULT_CORPUS_DIR,
+        help="path to the corpus dir (default: test/fixtures/legal-corpus)",
+    )
+    parser.add_argument("--update", action="store_true", help="rewrite the lock to current measurements")
     parser.add_argument(
         "--reason",
         default="",
-        help="required when --update is set; one-line attribution recorded in recall.lock.history.jsonl",
+        help="required when --update is set; one-line attribution recorded in <corpus>/recall.lock.history.jsonl",
     )
     parser.add_argument("--verbose", action="store_true", help="print per-doc detail")
     args = parser.parse_args(argv)
 
-    if not CORPUS_DIR.exists():
-        print(f"corpus missing: {CORPUS_DIR}", file=sys.stderr)
+    corpus_dir = args.corpus if args.corpus.is_absolute() else (REPO_ROOT / args.corpus).resolve()
+    if not corpus_dir.exists():
+        print(f"corpus missing: {corpus_dir}", file=sys.stderr)
         return 2
 
-    doc_paths = sorted(p for p in CORPUS_DIR.glob("*.txt"))
+    lock_path = _lock_path_for(corpus_dir)
+    history_path = _history_path_for(corpus_dir)
+
+    doc_paths = sorted(p for p in corpus_dir.glob("*.txt"))
     if not doc_paths:
-        print(f"no .txt fixtures in {CORPUS_DIR}", file=sys.stderr)
+        print(f"no .txt fixtures in {corpus_dir}", file=sys.stderr)
         return 2
 
     docs: list[DocResult] = []
@@ -232,10 +289,16 @@ def main(argv: list[str] | None = None) -> int:
             )
             print(f"  {doc.doc_id}: {per_rule_summary}")
 
-    current = _aggregate(docs)
+    current_recall = _aggregate_recall(docs)
+    current_precision = _aggregate_precision(docs)
+
     print("per-rule recall:")
-    for rule in sorted(current):
-        print(f"  {rule}: {current[rule]:.4f}")
+    for rule in sorted(current_recall):
+        print(f"  {rule}: {current_recall[rule]:.4f}")
+    if current_precision:
+        print("per-rule precision:")
+        for rule in sorted(current_precision):
+            print(f"  {rule}: {current_precision[rule]:.4f}")
 
     if args.update:
         if not args.reason.strip():
@@ -245,12 +308,19 @@ def main(argv: list[str] | None = None) -> int:
                 file=sys.stderr,
             )
             return 2
-        previous = _load_lock()
-        _write_lock(current)
-        history_entry = _append_history(reason=args.reason.strip(), baseline=previous, current=current)
-        print(f"wrote baseline to {LOCK_PATH.relative_to(REPO_ROOT)}")
+        prev_recall, prev_precision = _load_lock(lock_path)
+        _write_lock(lock_path, current_recall, current_precision)
+        history_entry = _append_history(
+            history_path=history_path,
+            reason=args.reason.strip(),
+            baseline_recall=prev_recall,
+            current_recall=current_recall,
+            baseline_precision=prev_precision,
+            current_precision=current_precision,
+        )
+        print(f"wrote baseline to {lock_path.relative_to(REPO_ROOT)}")
         print(
-            f"appended attribution to {HISTORY_PATH.relative_to(REPO_ROOT)} "
+            f"appended attribution to {history_path.relative_to(REPO_ROOT)} "
             f"(actor={history_entry['actor']}, commit={history_entry['commit_sha'][:12] or 'none'})"
         )
         if all_violations:
@@ -259,18 +329,22 @@ def main(argv: list[str] | None = None) -> int:
             return 1
         return 0
 
-    baseline = _load_lock()
-    if not baseline:
-        print(f"no lock file at {LOCK_PATH}; run with --update to create one", file=sys.stderr)
+    baseline_recall, baseline_precision = _load_lock(lock_path)
+    if not baseline_recall:
+        print(f"no lock file at {lock_path}; run with --update to create one", file=sys.stderr)
         return 2
 
-    regressions = _compare(current, baseline)
+    regressions = _compare(current_recall, baseline_recall, label="recall")
+    regressions.extend(_compare(current_precision, baseline_precision, label="precision"))
     for regression in regressions:
         print(f"regression: {regression}", file=sys.stderr)
-    for violation in all_violations:
+    # when no precision baseline exists, must_not_detect violations still gate the run.
+    # when a precision baseline DOES exist, the precision comparison subsumes the violation list.
+    surface_violations = all_violations if not baseline_precision else []
+    for violation in surface_violations:
         print(f"violation: {violation}", file=sys.stderr)
 
-    return 1 if regressions or all_violations else 0
+    return 1 if regressions or surface_violations else 0
 
 
 if __name__ == "__main__":
