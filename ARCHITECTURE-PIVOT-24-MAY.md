@@ -44,7 +44,9 @@ Active runtime:
 - `POST /anonymize`: primary pre-processing endpoint for documents leaving the customer environment.
 - `POST /review`: same evidence stack without text rewriting.
 - `POST /reidentify`: deterministic inverse of `/anonymize` using a caller-supplied mapping, so the round-trip (`anonymise → external LLM → re-identify`) closes inside the runtime instead of in client code.
-- `POST /review/{id}/decision`: per-finding `accept | reject | rewrite` review-state mutations, persisted to a local append-only journal and exportable as a signed audit pack.
+- `POST /review/{review_id}/decision`: per-finding `accept | reject | rewrite` review-state mutations, persisted to the append-only HMAC-chained journal at `${KAYPOH_JOURNAL_DIR:-./kaypoh-journal}/journal.jsonl`. Gated by `KAYPOH_REVIEW_PERSIST=1`; the request UUID returned from `/review` is the `review_id`.
+- `GET /review/{review_id}`: replay the journal for a session and return findings merged with their latest decision; surfaces `decisions_recorded` and audit-export references.
+- Audit packs ship through `scripts/export_audit_pack.py` (HMAC-sealed ZIP) and are verified via `scripts/verify_audit_pack.py` + `scripts/verify_journal.py`.
 - `POST /classify` and `POST /classify/batch`: legacy classifier compatibility.
 - `GET /health`, `/ready`, `/diagnostics`, `/metrics`: operational surfaces.
 
@@ -64,7 +66,7 @@ Deprecated product assumptions:
 ## Expansion Sequence
 
 1. Harden SG PII recall and precision with adversarial fixture coverage. Land UEN regex (legacy `\d{8,9}[A-Z]` and new-format `T\d{2}[A-Z]{2}\d{4}[A-Z]`), legal-contract defined-term suppression parsed from the document's own definitions block, and a curated legal-contract fixture corpus (~50 SPAs/NDAs/SHAs/term sheets with hand-labelled spans). Recall is gated in CI; PRs that drop recall fail.
-2. Add mandatory review-state APIs so users can approve, reject, or add findings before write-out. Persist decisions to a local append-only journal, HMAC-chained from a customer-held key, exportable as a signed audit pack for internal audit and MAS-style inspection.
+2. ~~Add mandatory review-state APIs so users can approve, reject, or add findings before write-out. Persist decisions to a local append-only journal, HMAC-chained from a customer-held key, exportable as a signed audit pack for internal audit and MAS-style inspection.~~ **Shipped 2026-05-24:** `POST /review/{id}/decision`, `GET /review/{id}`, HMAC-chained journal under `KAYPOH_JOURNAL_DIR`, audit-pack export+verify scripts. Next: extend audit pack to include reviewer identity claims and per-organisation key rotation.
 3. Add fuzzy entity linking for variants such as `Dr Jane Tan`, `Jane Tan`, `Tan`, and for corporate forms (`ACME Pte. Ltd.` ↔ `Acme` ↔ `the Company` ↔ defined-term references).
 4. Ship `POST /reidentify` and persist per-document `{document_hash: mapping}` locally so the round-trip survives client restarts.
 5. Split packaging into `kaypoh-local` (offline-default desktop SKU) and `kaypoh-server` (full ML + retrieval + LLM stack). Same source tree, different extras and dep manifests.
