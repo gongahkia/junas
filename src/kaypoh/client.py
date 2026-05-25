@@ -13,6 +13,8 @@ from .backend.schemas import (
     ClassifyRequest,
     ClassifyResponse,
     DiagnosticsResponse,
+    DocumentScrubRequest,
+    DocumentScrubResponse,
     HealthResponse,
     ReadyResponse,
     ReidentifyMappingEntry,
@@ -230,6 +232,28 @@ def _coerce_reidentify_request(
     )
 
 
+def _coerce_document_scrub_request(
+    *,
+    request: DocumentScrubRequest | Mapping[str, Any] | None,
+    document_base64: str | None,
+    document_filename: str | None,
+    document_mime_type: str | None,
+) -> DocumentScrubRequest:
+    if request is not None:
+        if document_base64 is not None:
+            raise ValueError("pass either request=... or document_base64=..., not both")
+        if isinstance(request, DocumentScrubRequest):
+            return request
+        return DocumentScrubRequest.model_validate(request)
+    if document_base64 is None:
+        raise ValueError("document_base64 is required when request is not provided")
+    return DocumentScrubRequest(
+        document_base64=document_base64,
+        document_filename=document_filename,
+        document_mime_type=document_mime_type,
+    )
+
+
 class KaypohAPIError(RuntimeError):
     def __init__(self, message: str, *, status_code: int, detail: str = "", body: Any = None) -> None:
         super().__init__(message)
@@ -413,6 +437,28 @@ class KaypohClient:
             self._request_json(
                 "POST",
                 "/anonymize",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    def scrub_document(
+        self,
+        document_base64: str | None = None,
+        *,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        request: DocumentScrubRequest | Mapping[str, Any] | None = None,
+    ) -> DocumentScrubResponse:
+        payload = _coerce_document_scrub_request(
+            request=request,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+        )
+        return DocumentScrubResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/documents/scrub",
                 json_body=payload.model_dump(mode="json", exclude_none=True),
             )
         )
@@ -619,17 +665,41 @@ class AsyncKaypohClient:
             )
         )
 
+    async def scrub_document(
+        self,
+        document_base64: str | None = None,
+        *,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        request: DocumentScrubRequest | Mapping[str, Any] | None = None,
+    ) -> DocumentScrubResponse:
+        payload = _coerce_document_scrub_request(
+            request=request,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+        )
+        return DocumentScrubResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/documents/scrub",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
     async def reidentify(
         self,
         anonymized_text: str | None = None,
         *,
         mapping: Sequence[ReidentifyMappingEntry | Mapping[str, Any]] | None = None,
+        document_hash: str | None = None,
         request: ReidentifyRequest | Mapping[str, Any] | None = None,
     ) -> ReidentifyResponse:
         payload = _coerce_reidentify_request(
             request=request,
             anonymized_text=anonymized_text,
             mapping=mapping,
+            document_hash=document_hash,
         )
         return ReidentifyResponse.model_validate(
             await self._request_json(

@@ -62,6 +62,7 @@ class OpenApiSnapshotTests(unittest.TestCase):
                     "/review",
                     "/anonymize",
                     "/reidentify",
+                    "/documents/scrub",
                     "/review/{review_id}",
                     "/review/{review_id}/decision",
                 }
@@ -105,6 +106,13 @@ class OpenApiSnapshotTests(unittest.TestCase):
                 },
                 "ReidentifyResponse": {
                     "properties": list(payload["components"]["schemas"]["ReidentifyResponse"]["properties"].keys()),
+                },
+                "DocumentScrubRequest": {
+                    "required": payload["components"]["schemas"]["DocumentScrubRequest"].get("required", []),
+                    "properties": list(payload["components"]["schemas"]["DocumentScrubRequest"]["properties"].keys()),
+                },
+                "DocumentScrubResponse": {
+                    "properties": list(payload["components"]["schemas"]["DocumentScrubResponse"]["properties"].keys()),
                 },
                 "ReviewDecisionRequest": {
                     "required": payload["components"]["schemas"]["ReviewDecisionRequest"].get("required", []),

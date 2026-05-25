@@ -53,14 +53,14 @@ def compute_document_hash(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
-def _mapping_dir() -> Path:
-    return journal_dir() / "mappings"
+def _mapping_dir(tenant_id: str | None = None) -> Path:
+    return journal_dir(tenant_id) / "mappings"
 
 
-def _mapping_path(document_hash: str) -> Path:
+def _mapping_path(document_hash: str, tenant_id: str | None = None) -> Path:
     # safety: hashes are hex so they cannot contain path separators, but normalise anyway
     safe = "".join(ch for ch in document_hash if ch.isalnum())[:128]
-    return _mapping_dir() / f"{safe}.json"
+    return _mapping_dir(tenant_id) / f"{safe}.json"
 
 
 def _now_iso() -> str:
@@ -98,7 +98,7 @@ def _build_plain_payload(*, document_hash: str, mapping: list[Any]) -> dict[str,
     }
 
 
-def save_mapping(*, document_hash: str, mapping: list[Any]) -> Path:
+def save_mapping(*, document_hash: str, mapping: list[Any], tenant_id: str | None = None) -> Path:
     """Persist a mapping table for a document. Overwrite-safe."""
     plain_payload = _build_plain_payload(document_hash=document_hash, mapping=mapping)
     fernet = _fernet_from_env()
@@ -116,7 +116,7 @@ def save_mapping(*, document_hash: str, mapping: list[Any]) -> Path:
             "ciphertext": ciphertext,
         }
     with _mapping_lock:
-        path = _mapping_path(document_hash)
+        path = _mapping_path(document_hash, tenant_id)
         path.parent.mkdir(parents=True, exist_ok=True)
         # atomic write: full payload to a temp file then rename so a crash mid-write cannot
         # leave a half-written mapping that would silently round-trip wrong later.
@@ -126,8 +126,8 @@ def save_mapping(*, document_hash: str, mapping: list[Any]) -> Path:
     return path
 
 
-def load_mapping(document_hash: str) -> list[dict[str, Any]] | None:
-    path = _mapping_path(document_hash)
+def load_mapping(document_hash: str, *, tenant_id: str | None = None) -> list[dict[str, Any]] | None:
+    path = _mapping_path(document_hash, tenant_id)
     if not path.exists():
         return None
     with _mapping_lock:
@@ -150,20 +150,20 @@ def load_mapping(document_hash: str) -> list[dict[str, Any]] | None:
     return list(data.get("mapping", []))
 
 
-def purge_mapping(document_hash: str) -> bool:
+def purge_mapping(document_hash: str, *, tenant_id: str | None = None) -> bool:
     """Delete a single mapping by document hash. Returns True when a file was removed."""
     with _mapping_lock:
-        path = _mapping_path(document_hash)
+        path = _mapping_path(document_hash, tenant_id)
         if not path.exists():
             return False
         path.unlink()
         return True
 
 
-def mapping_exists(document_hash: str) -> bool:
+def mapping_exists(document_hash: str, *, tenant_id: str | None = None) -> bool:
     """Return True when a persisted mapping file exists for the document hash."""
     with _mapping_lock:
-        return _mapping_path(document_hash).exists()
+        return _mapping_path(document_hash, tenant_id).exists()
 
 
 def _mapping_created_at(path: Path) -> datetime | None:
@@ -180,14 +180,19 @@ def _mapping_created_at(path: Path) -> datetime | None:
         return None
 
 
-def purge_expired_mappings(*, older_than_days: int, dry_run: bool = False) -> list[dict[str, Any]]:
+def purge_expired_mappings(
+    *,
+    older_than_days: int,
+    dry_run: bool = False,
+    tenant_id: str | None = None,
+) -> list[dict[str, Any]]:
     """List or delete mappings older than the supplied age threshold."""
     if older_than_days < 0:
         raise ValueError("older_than_days must be >= 0")
     cutoff = datetime.now(timezone.utc) - timedelta(days=older_than_days)
     removed: list[dict[str, Any]] = []
     with _mapping_lock:
-        mapping_dir = _mapping_dir()
+        mapping_dir = _mapping_dir(tenant_id)
         if not mapping_dir.exists():
             return []
         for path in sorted(mapping_dir.glob("*.json")):

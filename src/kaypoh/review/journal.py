@@ -36,6 +36,7 @@ import hashlib
 import hmac
 import json
 import os
+import re
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -48,6 +49,7 @@ GENESIS_HASH = "GENESIS"
 DEFAULT_JOURNAL_DIR_NAME = "kaypoh-journal"
 DEFAULT_DEV_KEY = b"kaypoh-default-dev-key"  # production must set KAYPOH_JOURNAL_KEY
 LEGACY_KEY_VERSION = ""  # sentinel: entries without a key_version field use the legacy env-var key
+_TENANT_STORAGE_RE = re.compile(r"[^A-Za-z0-9_.-]+")
 
 _journal_lock = Lock()
 
@@ -98,12 +100,20 @@ class JournalEntry:
         )
 
 
-def journal_dir() -> Path:
-    return Path(os.environ.get("KAYPOH_JOURNAL_DIR", f"./{DEFAULT_JOURNAL_DIR_NAME}"))
+def _tenant_storage_dir_name(tenant_id: str) -> str:
+    safe = _TENANT_STORAGE_RE.sub("_", tenant_id.strip())[:128].strip("._-")
+    return safe or hashlib.sha256(tenant_id.encode("utf-8")).hexdigest()[:32]
 
 
-def journal_path() -> Path:
-    return journal_dir() / "journal.jsonl"
+def journal_dir(tenant_id: str | None = None) -> Path:
+    base = Path(os.environ.get("KAYPOH_JOURNAL_DIR", f"./{DEFAULT_JOURNAL_DIR_NAME}"))
+    if not tenant_id:
+        return base
+    return base / "tenants" / _tenant_storage_dir_name(tenant_id)
+
+
+def journal_path(tenant_id: str | None = None) -> Path:
+    return journal_dir(tenant_id) / "journal.jsonl"
 
 
 def _legacy_journal_key() -> bytes:
@@ -208,12 +218,18 @@ def _read_last_entry(path: Path) -> JournalEntry | None:
     return JournalEntry.from_dict(json.loads(last_line))
 
 
-def append_event(*, event_type: str, review_id: str, payload: dict[str, Any]) -> JournalEntry:
+def append_event(
+    *,
+    event_type: str,
+    review_id: str,
+    payload: dict[str, Any],
+    tenant_id: str | None = None,
+) -> JournalEntry:
     """Append a single event, chained to the previous entry. Thread-safe within a process.
     Uses the active key version from the keystore; falls back to the legacy single-key when
     no keystore is configured."""
     with _journal_lock:
-        path = journal_path()
+        path = journal_path(tenant_id)
         path.parent.mkdir(parents=True, exist_ok=True)
         last = _read_last_entry(path)
         seq = (last.seq + 1) if last else 0
@@ -252,8 +268,8 @@ def append_event(*, event_type: str, review_id: str, payload: dict[str, Any]) ->
         return entry
 
 
-def read_journal(*, review_id: str | None = None) -> list[JournalEntry]:
-    path = journal_path()
+def read_journal(*, review_id: str | None = None, tenant_id: str | None = None) -> list[JournalEntry]:
+    path = journal_path(tenant_id)
     if not path.exists():
         return []
     entries: list[JournalEntry] = []
@@ -268,12 +284,12 @@ def read_journal(*, review_id: str | None = None) -> list[JournalEntry]:
     return entries
 
 
-def verify_chain(entries: list[JournalEntry] | None = None) -> tuple[bool, list[str]]:
+def verify_chain(entries: list[JournalEntry] | None = None, *, tenant_id: str | None = None) -> tuple[bool, list[str]]:
     """Recompute the HMAC chain over `entries` (or the whole journal). Returns (valid, errors).
     Each entry's key is resolved by its `key_version`; entries whose version is not in the
     keystore record a key-resolution error and the chain is marked invalid."""
     if entries is None:
-        entries = read_journal()
+        entries = read_journal(tenant_id=tenant_id)
     errors: list[str] = []
     prev_hash = GENESIS_HASH
     expected_seq = 0
@@ -308,7 +324,13 @@ def verify_chain(entries: list[JournalEntry] | None = None) -> tuple[bool, list[
 EVENT_JOURNAL_KEY_ROLLED = "journal_key_rolled"
 
 
-def rotate_journal_key(*, to_version: str, reason: str, review_id: str = "system") -> JournalEntry:
+def rotate_journal_key(
+    *,
+    to_version: str,
+    reason: str,
+    review_id: str = "system",
+    tenant_id: str | None = None,
+) -> JournalEntry:
     """Mark a key rotation in the chain. The keystore must already have `to_version` configured
     and set as `active`; this function just emits the sentinel event sealed under the new key.
     The sentinel records the prior active version (read from the last entry's key_version) so
@@ -323,7 +345,7 @@ def rotate_journal_key(*, to_version: str, reason: str, review_id: str = "system
             f"rotation expects the keystore's active version to already be {to_version!r}; "
             f"got {store.get('active')!r}"
         )
-    last = _read_last_entry(journal_path())
+    last = _read_last_entry(journal_path(tenant_id))
     from_version = last.key_version if last else LEGACY_KEY_VERSION
     return append_event(
         event_type=EVENT_JOURNAL_KEY_ROLLED,
@@ -333,4 +355,5 @@ def rotate_journal_key(*, to_version: str, reason: str, review_id: str = "system
             "to_version": to_version,
             "reason": reason,
         },
+        tenant_id=tenant_id,
     )

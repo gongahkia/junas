@@ -362,6 +362,24 @@ class ReviewDocumentMetadataResponse(BaseModel):
     extraction_method: str = Field(description="Extraction path used for review, such as inline_text or docx_xml.")
     page_count: Optional[int] = Field(None, description="Extracted page count when available, such as for PDFs.")
     char_count: int = Field(description="Character count of the normalized extracted text reviewed by the engine.")
+    extraction_quality: str = Field("accepted", description="Extraction quality gate result for the reviewed text.")
+    extraction_warnings: list[str] = Field(
+        default_factory=list,
+        description="Non-blocking extraction warnings, such as image-bearing PDFs with a valid text layer.",
+    )
+    metadata_findings: list["DocumentMetadataFindingResponse"] = Field(
+        default_factory=list,
+        description="Container metadata leakage findings separate from visible-text PII/MNPI findings.",
+    )
+
+
+class DocumentMetadataFindingResponse(BaseModel):
+    id: str = Field(description="Stable metadata finding identifier.")
+    source: str = Field(description="Metadata source, such as docx_core_properties, pdf_info, or image_exif.")
+    field: str = Field(description="Metadata field name.")
+    severity: str = Field(description="Metadata leakage severity: low, medium, or high.")
+    detail: str = Field(description="Why this metadata can leak information.")
+    value_preview: str = Field("", description="Short preview of the metadata value for reviewer inspection.")
 
 
 class ReviewFindingResponse(BaseModel):
@@ -560,6 +578,46 @@ class ReidentifyResponse(BaseModel):
     timings_ms: dict[str, float] = Field(
         default_factory=dict,
         description="Reidentify timing breakdown in milliseconds.",
+    )
+
+
+class DocumentScrubRequest(BaseModel):
+    document_base64: str = Field(..., description="Base64-encoded DOCX, PDF, JPEG, or PNG document payload.")
+    document_filename: Optional[str] = Field(
+        None,
+        max_length=256,
+        description="Original filename used to infer document type when MIME type is omitted.",
+    )
+    document_mime_type: Optional[str] = Field(
+        None,
+        max_length=128,
+        description="MIME type for the scrub target.",
+    )
+
+
+class DocumentScrubActionResponse(BaseModel):
+    source: str = Field(description="Metadata source that was scrubbed.")
+    field: str = Field(description="Metadata field or container that was scrubbed.")
+    action: str = Field(description="Scrub action, usually removed.")
+
+
+class DocumentScrubResponse(BaseModel):
+    request_id: Optional[str] = Field(None, description="Per-request UUID also returned as the X-Request-ID header.")
+    document_base64: str = Field(description="Base64-encoded scrubbed document payload.")
+    document_filename: str = Field(description="Filename associated with the scrubbed document.")
+    document_mime_type: str = Field(description="MIME type of the scrubbed document.")
+    scrubbed: bool = Field(description="Whether any metadata container or field was scrubbed.")
+    actions: list[DocumentScrubActionResponse] = Field(
+        default_factory=list,
+        description="Metadata scrub actions applied to the payload.",
+    )
+    metadata_findings: list[DocumentMetadataFindingResponse] = Field(
+        default_factory=list,
+        description="Metadata findings detected before scrubbing.",
+    )
+    remaining_warnings: list[DocumentMetadataFindingResponse] = Field(
+        default_factory=list,
+        description="Metadata findings still present after best-effort scrubbing.",
     )
 
 

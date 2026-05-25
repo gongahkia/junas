@@ -12,7 +12,6 @@ from typing import Any
 
 from kaypoh.review.journal import JournalEntry, append_event, read_journal
 
-
 ALLOWED_ACTIONS = frozenset({"accept", "reject", "rewrite"})
 
 EVENT_REVIEW_STARTED = "review_started"
@@ -43,6 +42,7 @@ def start_review_session(
     source_jurisdiction: str,
     destination_jurisdiction: str,
     findings: list[dict[str, Any]],
+    tenant_id: str | None = None,
 ) -> JournalEntry:
     return append_event(
         event_type=EVENT_REVIEW_STARTED,
@@ -54,14 +54,15 @@ def start_review_session(
             "destination_jurisdiction": destination_jurisdiction,
             "findings": findings,
         },
+        tenant_id=tenant_id,
     )
 
 
-def record_decision(*, review_id: str, decision: Decision) -> dict[str, Any]:
+def record_decision(*, review_id: str, decision: Decision, tenant_id: str | None = None) -> dict[str, Any]:
     if decision.action not in ALLOWED_ACTIONS:
         raise ReviewSessionError(f"action must be one of {sorted(ALLOWED_ACTIONS)}; got '{decision.action}'")
 
-    session = read_journal(review_id=review_id)
+    session = read_journal(review_id=review_id, tenant_id=tenant_id)
     if not session or session[0].event_type != EVENT_REVIEW_STARTED:
         raise ReviewSessionError(f"unknown review_id: {review_id}")
 
@@ -79,6 +80,7 @@ def record_decision(*, review_id: str, decision: Decision) -> dict[str, Any]:
             "rationale": decision.rationale,
             "reviewer_id": decision.reviewer_id,
         },
+        tenant_id=tenant_id,
     )
     return {
         "review_id": review_id,
@@ -91,8 +93,8 @@ def record_decision(*, review_id: str, decision: Decision) -> dict[str, Any]:
     }
 
 
-def get_session_state(*, review_id: str) -> dict[str, Any] | None:
-    entries = read_journal(review_id=review_id)
+def get_session_state(*, review_id: str, tenant_id: str | None = None) -> dict[str, Any] | None:
+    entries = read_journal(review_id=review_id, tenant_id=tenant_id)
     if not entries or entries[0].event_type != EVENT_REVIEW_STARTED:
         return None
     init = entries[0].payload

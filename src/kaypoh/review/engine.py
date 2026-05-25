@@ -758,6 +758,7 @@ class PreSendReviewEngine:
         document_type: str = "generic",
         session_id: str | None = None,
         review_profile: str = "strict",
+        tenant_id: str | None = None,
     ) -> ReviewResult:
         if review_profile not in VALID_REVIEW_PROFILES:
             raise ValueError(
@@ -781,10 +782,10 @@ class PreSendReviewEngine:
         if session_id:
             from kaypoh.review.session_store import add_defined_terms, load_defined_terms
 
-            inherited = load_defined_terms(session_id)
+            inherited = load_defined_terms(session_id, tenant_id=tenant_id)
             defined_terms = defined_terms | inherited
             if defined_terms - inherited:
-                add_defined_terms(session_id, defined_terms - inherited)
+                add_defined_terms(session_id, defined_terms - inherited, tenant_id=tenant_id)
         findings = self._pii_findings(text, packs, document_type, defined_terms) + self._mnpi_findings(
             text, packs, defined_terms, document_type
         )

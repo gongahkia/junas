@@ -60,6 +60,20 @@ external_query_policy = "sanitized_only"
 max_query_chars = 180
 redact_exact_numbers = true
 
+[document_ingest]
+fail_closed = true
+min_pdf_text_chars = 20
+min_pdf_chars_per_page = 20
+max_empty_pdf_page_ratio = 0.2
+reject_image_only_pdf = true
+
+[tenancy]
+enabled = false
+auth_modes = ["api_key", "jwt"]
+jwt_tenant_claim = "tenant_id"
+jwt_subject_claim = "sub"
+jwt_roles_claim = "roles"
+
 [lexicon]
 score_threshold = 10.0
 score_threshold_mode = "static"

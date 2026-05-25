@@ -1,3 +1,4 @@
+import json
 import os
 import tempfile
 import textwrap
@@ -178,6 +179,79 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
             runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
 
         self.assertIn("siem.sink", str(ctx.exception))
+
+    def test_tenancy_settings_load_api_key_registry(self):
+        credentials_json = json.dumps(
+            {
+                "tenant-a-key": {
+                    "tenant_id": "tenant-a",
+                    "subject": "svc-a",
+                    "roles": ["reviewer", "auditor"],
+                }
+            },
+            separators=(",", ":"),
+        )
+        config_path = self._write_config(
+            f"""
+            [pipeline]
+            layers = ["lexicon"]
+
+            [tenancy]
+            enabled = true
+            auth_modes = ["api_key"]
+            tenant_credentials_json = {credentials_json!r}
+            """
+        )
+
+        settings = runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
+
+        self.assertTrue(settings.tenancy.enabled)
+        self.assertEqual(settings.tenancy.auth_modes, ("api_key",))
+        self.assertEqual(len(settings.tenancy.tenant_credentials), 1)
+        credential = settings.tenancy.tenant_credentials[0]
+        self.assertEqual(credential.tenant_id, "tenant-a")
+        self.assertEqual(credential.subject, "svc-a")
+        self.assertEqual(credential.roles, ("reviewer", "auditor"))
+
+    def test_tenancy_enabled_requires_jwt_validation_material(self):
+        config_path = self._write_config(
+            """
+            [pipeline]
+            layers = ["lexicon"]
+
+            [tenancy]
+            enabled = true
+            auth_modes = ["jwt"]
+            """
+        )
+
+        with self.assertRaises(runtime.ConfigError) as ctx:
+            runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
+
+        self.assertIn("jwt_hs256_secret or tenancy.jwt_jwks_url", str(ctx.exception))
+
+    def test_document_ingest_settings_load_from_config(self):
+        config_path = self._write_config(
+            """
+            [pipeline]
+            layers = ["lexicon"]
+
+            [document_ingest]
+            fail_closed = true
+            min_pdf_text_chars = 64
+            min_pdf_chars_per_page = 32
+            max_empty_pdf_page_ratio = 0.5
+            reject_image_only_pdf = false
+            """
+        )
+
+        settings = runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
+
+        self.assertTrue(settings.document_ingest.fail_closed)
+        self.assertEqual(settings.document_ingest.min_pdf_text_chars, 64)
+        self.assertEqual(settings.document_ingest.min_pdf_chars_per_page, 32)
+        self.assertEqual(settings.document_ingest.max_empty_pdf_page_ratio, 0.5)
+        self.assertFalse(settings.document_ingest.reject_image_only_pdf)
 
 
 if __name__ == "__main__":

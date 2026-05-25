@@ -1,4 +1,5 @@
 import argparse
+import base64
 import bisect
 import hashlib
 import importlib
@@ -41,6 +42,16 @@ from kaypoh.anonymize import (
 from kaypoh.anonymize import (
     save_mapping as _save_persisted_mapping,
 )
+from kaypoh.backend.auth import (
+    AUDIT_ROLES,
+    DECISION_ROLES,
+    DISABLED_TENANT_CONTEXT,
+    REVIEW_ROLES,
+    AuthFailure,
+    TenantContext,
+    require_roles,
+    resolve_tenant_context,
+)
 from kaypoh.backend.cache import ResponseCache
 from kaypoh.backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode
 from kaypoh.backend.schemas import (
@@ -55,6 +66,9 @@ from kaypoh.backend.schemas import (
     ClassifyResponse,
     DependencyStatusResponse,
     DiagnosticsResponse,
+    DocumentScrubActionResponse,
+    DocumentScrubRequest,
+    DocumentScrubResponse,
     HealthResponse,
     LayerErrorResponse,
     LexiconHitResponse,
@@ -94,6 +108,7 @@ from kaypoh.review.decisions import (
 )
 from kaypoh.review.document import extract_review_document
 from kaypoh.review.engine import PreSendReviewEngine
+from kaypoh.review.metadata import scrub_document
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
@@ -125,6 +140,10 @@ OPENAPI_TAGS = [
         "name": "Anonymization",
         "description": "Pre-send document review and deterministic local anonymization endpoints.",
     },
+    {
+        "name": "Documents",
+        "description": "Document metadata inspection and scrubbing endpoints.",
+    },
 ]
 OPENAPI_DESCRIPTION = """
 Kaypoh is an API-first pre-send safety engine for PII anonymization and MNPI review.
@@ -145,6 +164,8 @@ Key behaviors:
   classifier-window spans when the final response is `LOW_RISK` or `HIGH_RISK`.
 - Chain-of-evidence is exposed through findings, suggestions, public-source
   summaries, and privacy-ledger entries. Raw chain-of-thought is not exposed.
+- `POST /documents/scrub` removes supported DOCX/PDF/image metadata leakage before
+  sharing a file outside the tenant boundary.
 - `GET /ready` and `GET /diagnostics` expose degraded startup, lazy-layer warming, and dependency state.
 """.strip()
 
@@ -261,18 +282,65 @@ def get_allowed_origin_regex() -> str:
     return r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$"
 
 
-def require_api_key(request: Request, x_api_key: str | None = Header(default=None, alias="X-API-Key")) -> None:
+def _require_access(
+    request: Request,
+    allowed_roles: frozenset[str],
+    *,
+    x_api_key: str | None,
+    authorization: str | None,
+) -> TenantContext:
     settings = current_runtime_settings()
-    expected = settings.api.api_key
-    if expected and x_api_key != expected:
-        emit_security_event(
-            action="api_key_check",
-            outcome="denied",
-            request_id=getattr(request.state, "request_id", None),
-            details={"path": request.url.path, "method": request.method},
-            settings=settings.siem,
+    request_id = getattr(request.state, "request_id", None)
+    try:
+        context = resolve_tenant_context(
+            settings=settings,
+            request_id=request_id,
+            path=request.url.path,
+            method=request.method,
+            x_api_key=x_api_key,
+            authorization=authorization,
         )
-        raise HTTPException(status_code=401, detail="invalid or missing API key")
+        require_roles(
+            context,
+            allowed_roles,
+            settings=settings,
+            request_id=request_id,
+            path=request.url.path,
+            method=request.method,
+        )
+    except AuthFailure as exc:
+        raise HTTPException(status_code=exc.status_code, detail=exc.detail) from exc
+    request.state.tenant_context = context
+    return context
+
+
+def require_review_access(
+    request: Request,
+    x_api_key: str | None = Header(default=None, alias="X-API-Key"),
+    authorization: str | None = Header(default=None, alias="Authorization"),
+) -> TenantContext:
+    return _require_access(request, REVIEW_ROLES, x_api_key=x_api_key, authorization=authorization)
+
+
+def require_decision_access(
+    request: Request,
+    x_api_key: str | None = Header(default=None, alias="X-API-Key"),
+    authorization: str | None = Header(default=None, alias="Authorization"),
+) -> TenantContext:
+    return _require_access(request, DECISION_ROLES, x_api_key=x_api_key, authorization=authorization)
+
+
+def require_audit_access(
+    request: Request,
+    x_api_key: str | None = Header(default=None, alias="X-API-Key"),
+    authorization: str | None = Header(default=None, alias="Authorization"),
+) -> TenantContext:
+    return _require_access(request, AUDIT_ROLES, x_api_key=x_api_key, authorization=authorization)
+
+
+def tenant_context_from_request(request: Request) -> TenantContext:
+    context = getattr(request.state, "tenant_context", None)
+    return context if isinstance(context, TenantContext) else DISABLED_TENANT_CONTEXT
 
 
 def load_config() -> list[str]:
@@ -1360,6 +1428,9 @@ def _build_review_response(
             extraction_method=document.extraction_method,
             page_count=document.page_count,
             char_count=len(document.text),
+            extraction_quality=getattr(document, "extraction_quality", "accepted"),
+            extraction_warnings=list(getattr(document, "extraction_warnings", []) or []),
+            metadata_findings=list(getattr(document, "metadata_findings", []) or []),
         ),
         findings=[
             ReviewFindingResponse(
@@ -1399,7 +1470,12 @@ def _review_persistence_enabled() -> bool:
     return _is_truthy(os.environ.get("KAYPOH_REVIEW_PERSIST"), default=False)
 
 
-def _persist_coverage_warnings(*, request_id: str | None, warnings: list[Any]) -> None:
+def _persist_coverage_warnings(
+    *,
+    request_id: str | None,
+    warnings: list[Any],
+    tenant_id: str | None = None,
+) -> None:
     """Journal each LLM inverse-audit warning as a coverage_warning event. Advisory only —
     never gates downstream review state. Requires KAYPOH_REVIEW_PERSIST=1 and a request_id
     (the review-session anchor) just like decision_recorded does."""
@@ -1413,6 +1489,7 @@ def _persist_coverage_warnings(*, request_id: str | None, warnings: list[Any]) -
             event_type=EVENT_COVERAGE_WARNING,
             review_id=request_id,
             payload=dict(warning),
+            tenant_id=tenant_id,
         )
 
 
@@ -1422,6 +1499,7 @@ def _persist_review_session(
     req: ReviewRequest,
     document_text: str,
     findings: list[Any],
+    tenant_id: str | None = None,
 ) -> None:
     if not _review_persistence_enabled() or not request_id:
         return
@@ -1444,15 +1522,16 @@ def _persist_review_session(
             }
             for f in findings
         ],
+        tenant_id=tenant_id,
     )
 
 
-def _run_review_sync(req: ReviewRequest, request_id: str | None) -> ReviewResponse:
+def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantContext) -> ReviewResponse:
     timings_ms: dict[str, float] = {}
     t_total_start = time.perf_counter()
     t_extract_start = time.perf_counter()
     try:
-        document = extract_review_document(req)
+        document = extract_review_document(req, current_runtime_settings().document_ingest)
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     timings_ms["extract"] = round((time.perf_counter() - t_extract_start) * 1000.0, 3)
@@ -1468,10 +1547,21 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None) -> ReviewRespon
         document_type=req.document_type,
         session_id=req.session_id,
         review_profile=req.review_profile,
+        tenant_id=tenant.storage_tenant_id,
     )
     timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
-    _persist_review_session(request_id=request_id, req=req, document_text=document.text, findings=result.findings)
-    _persist_coverage_warnings(request_id=request_id, warnings=result.coverage_warnings)
+    _persist_review_session(
+        request_id=request_id,
+        req=req,
+        document_text=document.text,
+        findings=result.findings,
+        tenant_id=tenant.storage_tenant_id,
+    )
+    _persist_coverage_warnings(
+        request_id=request_id,
+        warnings=result.coverage_warnings,
+        tenant_id=tenant.storage_tenant_id,
+    )
     timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
 
     response = _build_review_response(
@@ -1512,12 +1602,12 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None) -> ReviewRespon
     return response
 
 
-def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None) -> AnonymizeResponse:
+def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: TenantContext) -> AnonymizeResponse:
     timings_ms: dict[str, float] = {}
     t_total_start = time.perf_counter()
     t_extract_start = time.perf_counter()
     try:
-        document = extract_review_document(req)
+        document = extract_review_document(req, current_runtime_settings().document_ingest)
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     timings_ms["extract"] = round((time.perf_counter() - t_extract_start) * 1000.0, 3)
@@ -1533,6 +1623,7 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None) -> Anonym
         document_type=req.document_type,
         session_id=req.session_id,
         review_profile=req.review_profile,
+        tenant_id=tenant.storage_tenant_id,
     )
     timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
 
@@ -1558,6 +1649,7 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None) -> Anonym
                     }
                     for entry in anonymization.mapping
                 ],
+                tenant_id=tenant.storage_tenant_id,
             )
             mapping_persisted = True
         except (OSError, MappingStoreError) as exc:
@@ -2012,7 +2104,7 @@ async def metrics():
 @app.post(
     "/classify",
     response_model=ClassifyResponse,
-    dependencies=[Depends(require_api_key)],
+    dependencies=[Depends(require_review_access)],
     tags=["Classification"],
     summary="Classify one document",
     description=(
@@ -2028,7 +2120,7 @@ async def classify(request: Request, req: ClassifyRequest):
 @app.post(
     "/classify/batch",
     response_model=BatchClassifyResponse,
-    dependencies=[Depends(require_api_key)],
+    dependencies=[Depends(require_review_access)],
     tags=["Classification"],
     summary="Classify multiple documents",
     description=(
@@ -2043,7 +2135,7 @@ async def classify_batch(request: Request, req: BatchClassifyRequest):
 @app.post(
     "/review",
     response_model=ReviewResponse,
-    dependencies=[Depends(require_api_key)],
+    dependencies=[Depends(require_review_access)],
     tags=["Anonymization"],
     summary="Review a document before sending",
     description=(
@@ -2053,13 +2145,18 @@ async def classify_batch(request: Request, req: BatchClassifyRequest):
     ),
 )
 async def review_document(request: Request, req: ReviewRequest):
-    return await run_in_threadpool(_run_review_sync, req, getattr(request.state, "request_id", None))
+    return await run_in_threadpool(
+        _run_review_sync,
+        req,
+        getattr(request.state, "request_id", None),
+        tenant_context_from_request(request),
+    )
 
 
 @app.post(
     "/anonymize",
     response_model=AnonymizeResponse,
-    dependencies=[Depends(require_api_key)],
+    dependencies=[Depends(require_review_access)],
     tags=["Anonymization"],
     summary="Anonymize a document before sending",
     description=(
@@ -2069,10 +2166,68 @@ async def review_document(request: Request, req: ReviewRequest):
     ),
 )
 async def anonymize_document(request: Request, req: AnonymizeRequest):
-    return await run_in_threadpool(_run_anonymize_sync, req, getattr(request.state, "request_id", None))
+    return await run_in_threadpool(
+        _run_anonymize_sync,
+        req,
+        getattr(request.state, "request_id", None),
+        tenant_context_from_request(request),
+    )
 
 
-def _run_reidentify_sync(req: ReidentifyRequest, request_id: str | None) -> ReidentifyResponse:
+def _infer_scrub_mime_type(filename: str, mime_type: str | None) -> str:
+    if mime_type:
+        return mime_type.strip().lower()
+    lower = filename.lower()
+    if lower.endswith(".docx"):
+        return "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    if lower.endswith(".pdf"):
+        return "application/pdf"
+    if lower.endswith((".jpg", ".jpeg")):
+        return "image/jpeg"
+    if lower.endswith(".png"):
+        return "image/png"
+    return "application/octet-stream"
+
+
+def _run_document_scrub_sync(req: DocumentScrubRequest, request_id: str | None) -> DocumentScrubResponse:
+    filename = str(req.document_filename or "document")
+    mime_type = _infer_scrub_mime_type(filename, req.document_mime_type)
+    try:
+        data = base64.b64decode(req.document_base64, validate=True)
+    except Exception as exc:
+        raise HTTPException(status_code=422, detail="document_base64 must be valid base64") from exc
+    try:
+        result = scrub_document(data, filename=filename, mime_type=mime_type)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    return DocumentScrubResponse(
+        request_id=request_id,
+        document_base64=base64.b64encode(result.data).decode("ascii"),
+        document_filename=result.filename,
+        document_mime_type=result.mime_type,
+        scrubbed=result.scrubbed,
+        actions=[DocumentScrubActionResponse(**action) for action in result.actions],
+        metadata_findings=[finding.to_dict() for finding in result.original_findings],
+        remaining_warnings=[finding.to_dict() for finding in result.remaining_findings],
+    )
+
+
+@app.post(
+    "/documents/scrub",
+    response_model=DocumentScrubResponse,
+    dependencies=[Depends(require_review_access)],
+    tags=["Documents"],
+    summary="Scrub document metadata",
+    description=(
+        "Remove supported metadata leakage from DOCX, PDF, JPEG, or PNG payloads. "
+        "Visible document text is preserved where practical; metadata findings and scrub actions are returned."
+    ),
+)
+async def scrub_document_metadata(request: Request, req: DocumentScrubRequest):
+    return await run_in_threadpool(_run_document_scrub_sync, req, getattr(request.state, "request_id", None))
+
+
+def _run_reidentify_sync(req: ReidentifyRequest, request_id: str | None, tenant: TenantContext) -> ReidentifyResponse:
     t_total_start = time.perf_counter()
 
     mapping_dicts: list[dict[str, Any]]
@@ -2081,7 +2236,7 @@ def _run_reidentify_sync(req: ReidentifyRequest, request_id: str | None) -> Reid
     else:
         # `mapping` is empty and the model validator already guaranteed `document_hash` is present.
         try:
-            persisted = _load_persisted_mapping(req.document_hash or "")
+            persisted = _load_persisted_mapping(req.document_hash or "", tenant_id=tenant.storage_tenant_id)
         except MappingStoreError as exc:
             emit_security_event(
                 action="mapping_reidentify",
@@ -2114,7 +2269,7 @@ def _run_reidentify_sync(req: ReidentifyRequest, request_id: str | None) -> Reid
 @app.post(
     "/reidentify",
     response_model=ReidentifyResponse,
-    dependencies=[Depends(require_api_key)],
+    dependencies=[Depends(require_review_access)],
     tags=["Anonymization"],
     summary="Reidentify previously anonymized text",
     description=(
@@ -2125,7 +2280,12 @@ def _run_reidentify_sync(req: ReidentifyRequest, request_id: str | None) -> Reid
     ),
 )
 async def reidentify_document(request: Request, req: ReidentifyRequest):
-    return await run_in_threadpool(_run_reidentify_sync, req, getattr(request.state, "request_id", None))
+    return await run_in_threadpool(
+        _run_reidentify_sync,
+        req,
+        getattr(request.state, "request_id", None),
+        tenant_context_from_request(request),
+    )
 
 
 def _ensure_persistence_enabled() -> None:
@@ -2171,7 +2331,7 @@ def _serialize_session_state(state: dict[str, Any]) -> ReviewSessionStateRespons
 @app.post(
     "/review/{review_id}/decision",
     response_model=ReviewDecisionResponse,
-    dependencies=[Depends(require_api_key)],
+    dependencies=[Depends(require_decision_access)],
     tags=["Anonymization"],
     summary="Record a per-finding decision",
     description=(
@@ -2183,6 +2343,7 @@ def _serialize_session_state(state: dict[str, Any]) -> ReviewSessionStateRespons
     ),
 )
 async def post_review_decision(
+    request: Request,
     review_id: str,
     req: ReviewDecisionRequest,
     x_reviewer_id: str | None = Header(default=None, alias="X-Reviewer-ID"),
@@ -2201,6 +2362,7 @@ async def post_review_decision(
                 rationale=req.rationale,
                 reviewer_id=resolved_reviewer_id,
             ),
+            tenant_id=tenant_context_from_request(request).storage_tenant_id,
         )
     except ReviewSessionError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
@@ -2210,7 +2372,7 @@ async def post_review_decision(
 @app.get(
     "/review/{review_id}",
     response_model=ReviewSessionStateResponse,
-    dependencies=[Depends(require_api_key)],
+    dependencies=[Depends(require_audit_access)],
     tags=["Anonymization"],
     summary="Inspect review session state",
     description=(
@@ -2218,9 +2380,9 @@ async def post_review_decision(
         "with the most recent decision per finding. Requires KAYPOH_REVIEW_PERSIST=1."
     ),
 )
-async def get_review_session(review_id: str):
+async def get_review_session(request: Request, review_id: str):
     _ensure_persistence_enabled()
-    state = get_session_state(review_id=review_id)
+    state = get_session_state(review_id=review_id, tenant_id=tenant_context_from_request(request).storage_tenant_id)
     if state is None:
         raise HTTPException(status_code=404, detail=f"unknown review_id: {review_id}")
     return _serialize_session_state(state)

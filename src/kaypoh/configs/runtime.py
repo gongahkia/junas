@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import ipaddress
+import json
 import os
 from collections.abc import Iterator, Mapping, Sequence
 from dataclasses import dataclass, field
@@ -28,6 +29,8 @@ DEFAULT_OPTIONAL_LAYERS = ("mosaic",)
 VALID_LAYERS = frozenset(DEFAULT_PIPELINE_LAYERS + ("public_evidence", "llm_adjudicator"))
 LEXICON_SCORE_THRESHOLD_MODES = frozenset({"static", "dynamic"})
 EXTERNAL_QUERY_POLICIES = frozenset({"sanitized_only", "derived_hashes_only", "disabled"})
+TENANCY_AUTH_MODES = frozenset({"api_key", "jwt"})
+TENANCY_ROLES = frozenset({"reviewer", "maker", "checker", "admin", "auditor"})
 SIEM_FACILITIES = frozenset(
     {
         "auth",
@@ -50,6 +53,15 @@ SIEM_FACILITIES = frozenset(
 
 KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
     "api": frozenset({"allowed_origins"}),
+    "document_ingest": frozenset(
+        {
+            "fail_closed",
+            "min_pdf_text_chars",
+            "min_pdf_chars_per_page",
+            "max_empty_pdf_page_ratio",
+            "reject_image_only_pdf",
+        }
+    ),
     "embeddings": frozenset({"model_name", "cache_size"}),
     "isolation_forest": frozenset({"contamination", "max_features", "n_estimators"}),
     "lexicon": frozenset(
@@ -108,6 +120,20 @@ KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
     "startup": frozenset(
         {"lazy_load_heavy", "prewarm_required_layers", "fail_on_layer_load_error"}
     ),
+    "tenancy": frozenset(
+        {
+            "enabled",
+            "auth_modes",
+            "tenant_credentials_json",
+            "jwt_issuer",
+            "jwt_audience",
+            "jwt_jwks_url",
+            "jwt_hs256_secret",
+            "jwt_tenant_claim",
+            "jwt_subject_claim",
+            "jwt_roles_claim",
+        }
+    ),
     "thresholds": frozenset({"mnpi_abs", "mnpi_pct", "model1", "model2", "lock_path"}),
 }
 _MISSING = object()
@@ -127,6 +153,37 @@ class PipelineSettings:
 class ApiSettings:
     allowed_origins: tuple[str, ...]
     api_key: str = ""
+
+
+@dataclass(frozen=True)
+class DocumentIngestSettings:
+    fail_closed: bool
+    min_pdf_text_chars: int
+    min_pdf_chars_per_page: int
+    max_empty_pdf_page_ratio: float
+    reject_image_only_pdf: bool
+
+
+@dataclass(frozen=True)
+class TenantCredential:
+    api_key: str
+    tenant_id: str
+    subject: str
+    roles: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class TenancySettings:
+    enabled: bool
+    auth_modes: tuple[str, ...]
+    tenant_credentials: tuple[TenantCredential, ...]
+    jwt_issuer: str
+    jwt_audience: str
+    jwt_jwks_url: str
+    jwt_hs256_secret: str
+    jwt_tenant_claim: str
+    jwt_subject_claim: str
+    jwt_roles_claim: str
 
 
 @dataclass(frozen=True)
@@ -248,6 +305,8 @@ class RuntimeSettings:
     raw_config: dict[str, Any] = field(repr=False)
     pipeline: PipelineSettings
     api: ApiSettings
+    document_ingest: DocumentIngestSettings
+    tenancy: TenancySettings
     thresholds: ThresholdSettings
     isolation_forest: IsolationForestSettings
     embeddings: EmbeddingsSettings
@@ -352,6 +411,55 @@ def _parse_dict(value: Any, *, label: str) -> dict[str, Any]:
     if isinstance(value, Mapping):
         return dict(value)
     raise ConfigError(f"invalid mapping for {label}: expected table/object")
+
+
+def _parse_tenant_credentials(value: Any, *, label: str) -> tuple[TenantCredential, ...]:
+    if value in (None, ""):
+        return ()
+    raw = value
+    if isinstance(value, str):
+        try:
+            raw = json.loads(value)
+        except json.JSONDecodeError as exc:
+            raise ConfigError(f"{label} must be valid JSON") from exc
+
+    entries: list[dict[str, Any]] = []
+    if isinstance(raw, Mapping):
+        for api_key, body in raw.items():
+            if not isinstance(body, Mapping):
+                raise ConfigError(f"{label} mapping values must be objects")
+            entries.append({"api_key": str(api_key), **dict(body)})
+    elif isinstance(raw, Sequence) and not isinstance(raw, (bytes, bytearray, str)):
+        for item in raw:
+            if not isinstance(item, Mapping):
+                raise ConfigError(f"{label} array items must be objects")
+            entries.append(dict(item))
+    else:
+        raise ConfigError(f"{label} must be a JSON object or array")
+
+    credentials: list[TenantCredential] = []
+    seen_keys: set[str] = set()
+    for index, item in enumerate(entries):
+        api_key = _parse_str(item.get("api_key", ""), label=f"{label}[{index}].api_key")
+        tenant_id = _parse_str(item.get("tenant_id", ""), label=f"{label}[{index}].tenant_id")
+        subject = _parse_str(item.get("subject", ""), label=f"{label}[{index}].subject") or tenant_id
+        roles = tuple(role.lower() for role in _parse_list(item.get("roles", ()), label=f"{label}[{index}].roles"))
+        if not api_key:
+            raise ConfigError(f"{label}[{index}].api_key must not be empty")
+        if api_key in seen_keys:
+            raise ConfigError(f"{label} contains a duplicate api_key")
+        if not tenant_id:
+            raise ConfigError(f"{label}[{index}].tenant_id must not be empty")
+        invalid_roles = sorted(set(roles) - TENANCY_ROLES)
+        if invalid_roles:
+            raise ConfigError(f"{label}[{index}].roles contains invalid roles: {', '.join(invalid_roles)}")
+        if not roles:
+            raise ConfigError(f"{label}[{index}].roles must not be empty")
+        seen_keys.add(api_key)
+        credentials.append(
+            TenantCredential(api_key=api_key, tenant_id=tenant_id, subject=subject, roles=roles)
+        )
+    return tuple(credentials)
 
 
 def _default_response_cache_size() -> int:
@@ -486,6 +594,198 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         label="api.allowed_origins",
     ) or ("http://localhost", "http://127.0.0.1")
     api_key = _parse_str(os.environ.get("KAYPOH_API_KEY", ""), label="KAYPOH_API_KEY")
+
+    document_ingest = DocumentIngestSettings(
+        fail_closed=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="document_ingest",
+                key="fail_closed",
+                env_vars=("KAYPOH_DOCUMENT_FAIL_CLOSED",),
+                default=True,
+            ),
+            label="document_ingest.fail_closed",
+        ),
+        min_pdf_text_chars=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="document_ingest",
+                key="min_pdf_text_chars",
+                env_vars=("KAYPOH_PDF_MIN_TEXT_CHARS",),
+                default=20,
+            ),
+            label="document_ingest.min_pdf_text_chars",
+            minimum=0,
+        ),
+        min_pdf_chars_per_page=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="document_ingest",
+                key="min_pdf_chars_per_page",
+                env_vars=("KAYPOH_PDF_MIN_CHARS_PER_PAGE",),
+                default=20,
+            ),
+            label="document_ingest.min_pdf_chars_per_page",
+            minimum=0,
+        ),
+        max_empty_pdf_page_ratio=_parse_probability(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="document_ingest",
+                key="max_empty_pdf_page_ratio",
+                env_vars=("KAYPOH_PDF_MAX_EMPTY_PAGE_RATIO",),
+                default=0.2,
+            ),
+            label="document_ingest.max_empty_pdf_page_ratio",
+        ),
+        reject_image_only_pdf=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="document_ingest",
+                key="reject_image_only_pdf",
+                env_vars=("KAYPOH_REJECT_IMAGE_ONLY_PDF",),
+                default=True,
+            ),
+            label="document_ingest.reject_image_only_pdf",
+        ),
+    )
+
+    tenancy_auth_modes = tuple(
+        mode.lower()
+        for mode in (
+            _parse_list(
+                _resolve_raw_value(
+                    raw_config,
+                    cli_overrides,
+                    section="tenancy",
+                    key="auth_modes",
+                    env_vars=("KAYPOH_TENANCY_AUTH_MODES",),
+                    default=("api_key", "jwt"),
+                ),
+                label="tenancy.auth_modes",
+            )
+            or ("api_key", "jwt")
+        )
+    )
+    invalid_auth_modes = sorted(set(tenancy_auth_modes) - TENANCY_AUTH_MODES)
+    if invalid_auth_modes:
+        raise ConfigError(f"tenancy.auth_modes contains invalid modes: {', '.join(invalid_auth_modes)}")
+    tenancy = TenancySettings(
+        enabled=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="tenancy",
+                key="enabled",
+                env_vars=("KAYPOH_TENANCY_ENABLED",),
+                default=False,
+            ),
+            label="tenancy.enabled",
+        ),
+        auth_modes=tenancy_auth_modes,
+        tenant_credentials=_parse_tenant_credentials(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="tenancy",
+                key="tenant_credentials_json",
+                env_vars=("KAYPOH_TENANT_CREDENTIALS_JSON",),
+                default="",
+            ),
+            label="tenancy.tenant_credentials_json",
+        ),
+        jwt_issuer=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="tenancy",
+                key="jwt_issuer",
+                env_vars=("KAYPOH_JWT_ISSUER",),
+                default="",
+            ),
+            label="tenancy.jwt_issuer",
+        ),
+        jwt_audience=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="tenancy",
+                key="jwt_audience",
+                env_vars=("KAYPOH_JWT_AUDIENCE",),
+                default="",
+            ),
+            label="tenancy.jwt_audience",
+        ),
+        jwt_jwks_url=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="tenancy",
+                key="jwt_jwks_url",
+                env_vars=("KAYPOH_JWT_JWKS_URL",),
+                default="",
+            ),
+            label="tenancy.jwt_jwks_url",
+        ),
+        jwt_hs256_secret=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="tenancy",
+                key="jwt_hs256_secret",
+                env_vars=("KAYPOH_JWT_HS256_SECRET",),
+                default="",
+            ),
+            label="tenancy.jwt_hs256_secret",
+        ),
+        jwt_tenant_claim=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="tenancy",
+                key="jwt_tenant_claim",
+                env_vars=("KAYPOH_JWT_TENANT_CLAIM",),
+                default="tenant_id",
+            ),
+            label="tenancy.jwt_tenant_claim",
+        )
+        or "tenant_id",
+        jwt_subject_claim=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="tenancy",
+                key="jwt_subject_claim",
+                env_vars=("KAYPOH_JWT_SUBJECT_CLAIM",),
+                default="sub",
+            ),
+            label="tenancy.jwt_subject_claim",
+        )
+        or "sub",
+        jwt_roles_claim=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="tenancy",
+                key="jwt_roles_claim",
+                env_vars=("KAYPOH_JWT_ROLES_CLAIM",),
+                default="roles",
+            ),
+            label="tenancy.jwt_roles_claim",
+        )
+        or "roles",
+    )
+    if tenancy.enabled and not tenancy.auth_modes:
+        raise ConfigError("tenancy.auth_modes must not be empty when tenancy.enabled=true")
+    if tenancy.enabled and "api_key" in tenancy.auth_modes and not tenancy.tenant_credentials:
+        raise ConfigError("tenancy.tenant_credentials_json is required when tenancy api_key mode is enabled")
+    if tenancy.enabled and "jwt" in tenancy.auth_modes and not (tenancy.jwt_hs256_secret or tenancy.jwt_jwks_url):
+        raise ConfigError("tenancy.jwt_hs256_secret or tenancy.jwt_jwks_url is required when jwt mode is enabled")
 
     thresholds = ThresholdSettings(
         mnpi_abs=_parse_float(
@@ -1196,6 +1496,8 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         raw_config=raw_config,
         pipeline=PipelineSettings(layers=tuple(pipeline_layers), optional_layers=tuple(optional_layers)),
         api=ApiSettings(allowed_origins=tuple(dict.fromkeys(allowed_origins)), api_key=api_key),
+        document_ingest=document_ingest,
+        tenancy=tenancy,
         thresholds=thresholds,
         isolation_forest=isolation_forest,
         embeddings=embeddings,
