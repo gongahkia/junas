@@ -30,6 +30,16 @@ Anti-positioning (claims kaypoh deliberately does **not** make):
 - *Not* a public-status oracle. Public-status verification requires `audit_grade` + a configured public-evidence provider + sufficient entity context.
 - *Not* a substitute for legal review. Reviewer attribution + maker-checker controls are scaffolding for human judgement, not a replacement for it.
 
+### Why now / demand signals
+
+The market timing is not "AI is popular"; it is that unsanctioned GenAI use has become a measurable data-loss vector while regulators are moving from principles into supervisory expectations. Evidence to keep current before external use:
+
+- LayerX's 2025 GenAI reporting says organisations lacked visibility into 89% of enterprise GenAI usage, while its later Enterprise AI and SaaS Data Security Report says 77% of GenAI users pasted data into tools and about 40% of file uploads to GenAI sites contained PII/PCI. Sources: [LayerX Enterprise GenAI Security Report 2025](https://layerxsecurity.com/blog/layerxs-enterprise-genai-security-report-2025-exposing-hidden-ai-security-blind-spots/) and [LayerX Enterprise AI and SaaS Data Security Report 2025](https://go.layerxsecurity.com/hubfs/LayerX_Enterprise_AI_and_SaaS_Data_Security_Report.pdf).
+- Cyberhaven's 2025 AI Adoption and Risk Report put sensitive data at 34.8% of enterprise data shared with AI tools, up from 10.7% two years earlier. Source: [Cyberhaven 2025 AI Adoption and Risk Report](https://www.cyberhaven.com/resources/lp-eb-ai-adoption-risk-report-2025).
+- Netskope's 2026 Cloud and Threat Report says GenAI data-policy violations doubled year over year, with the average organisation seeing 223 incidents per month. Source: [Netskope Cloud and Threat Report 2026](https://www.netskope.com/resources/cloud-and-threat-reports/cloud-and-threat-report-2026).
+- Gartner predicted in February 2025 that by 2027 more than 40% of AI-related data breaches would be caused by improper cross-border GenAI use. Source: [Gartner press release, 17 Feb 2025](https://www.gartner.com/en/newsroom/press-releases/2025-02-17-gartner-predicts-forty-percent-of-ai-data-breaches-will-arise-from-cross-border-genai-misuse-by-2027).
+- Regulator posture is tightening in kaypoh's target jurisdictions: IMDA / AI Verify finalised the Model AI Governance Framework for Generative AI on 30 May 2024; OAIC guidance from 21 Oct 2024 recommends not entering personal information, especially sensitive information, into publicly available GenAI tools; APRA's 30 Apr 2026 AI letter calls for stronger AI risk management across regulated entities; MAS issued a Nov 2025 consultation on AI Risk Management Guidelines for financial institutions. Sources: [IMDA / AI Verify](https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/factsheets/2024/gen-ai-and-digital-foss-ai-governance-playbook), [OAIC commercial AI guidance](https://www.oaic.gov.au/privacy/privacy-guidance-for-organisations-and-government-agencies/guidance-on-privacy-and-the-use-of-commercially-available-ai-products), [APRA AI letter](https://www.apra.gov.au/apra-letter-to-industry-on-artificial-intelligence-ai), [Baker McKenzie summary of MAS consultation](https://insightplus.bakermckenzie.com/bm/financial-services-regulatory/singapore-mas-publishes-consultation-paper-on-proposed-guidelines-on-ai-risk-management-for-financial-institutions).
+
 ## Accuracy-First Shape
 
 PII is the first product wedge because it is span-local and more measurable than MNPI. The system optimises recall before automation convenience:
@@ -53,6 +63,8 @@ Legal-contract MNPI surface is distinct from finance-comms MNPI and is detected 
 - `embargo_marker` — Signing Date / Closing Date / Effective Date / Embargoed / Press Hold.
 
 Defined-term suppression extends to MNPI for abbreviation-style rules (`definitive_agreement`, `material_adverse_change`) so a contract abbreviating itself as `"SPA"` or `"MAC"` does not trip its own meta-reference. `transaction_codename` and `embargo_marker` are not suppressed because the defined term is the substantive risk.
+
+SG legal/finance coverage should keep expanding in the wedge direction, not into generic DLP breadth. The backlog includes PayNow identifiers, MAS licence numbers, SGX stock codes and counter names, insurance policy numbers, crypto wallet addresses for MAS-regulated VASP workflows, court and tribunal references, IPOS registration numbers, ACRA filing references, HDB / strata / title references, URA / SLA references, and contract-commercial terms such as unit pricing, discounts, volume commitments, royalty rates, and total contract value. These are first-class because they appear in the documents the ICP actually wants to send into LLMs.
 
 ### Evaluation corpus posture
 
@@ -124,10 +136,15 @@ Active endpoints:
 
 Audit-pack tooling: `scripts/export_audit_pack.py` produces HMAC-sealed ZIPs; verification via `scripts/verify_audit_pack.py` and whole-journal integrity via `scripts/verify_journal.py`. Shipped extensions: reviewer roll-up in the manifest (decisions by reviewer X: accept N, reject M, rewrite K — surfaces maker-checker violations), the optional `KAYPOH_AUDIT_MIN_WAIT_SECONDS` gate that surfaces batch-approval red flags (exit code `2` on violation, pack still HMAC-sealed), and per-organisation `KAYPOH_JOURNAL_KEYS_FILE` rotation: each entry serialises with its `key_version`, `verify_chain` resolves keys per-entry, and `rotate_journal_key(to_version, reason)` writes a `journal_key_rolled` sentinel sealed under the new active key. Recall-baseline changes (`recall.lock.json`) are similarly attributable: actor + commit SHA + diff summary committed alongside the lock so an auditor can reconstruct *why* recall expectations changed.
 
+### Format gate posture
+
+Document ingest should fail closed when the extractor cannot prove it has a reliable text layer. Scanned PDFs, image-only PDFs, and uncertain PDFs are rejected with conversion guidance instead of best-effort OCR. Candidate gate signals: embedded text-layer presence and density, large-area embedded image coverage, page text/image ratio, and producer metadata. The refusal message should tell the user to convert or export to `.docx` and re-submit. False confidence is worse than a blocked upload in this category.
+
 ### Distribution shape
 
 - `kaypoh-local` (`pip install kaypoh[local]`): offline-default desktop SKU. Deterministic engine + Presidio + spaCy + extractors only. No `torch`, `transformers`, `sentence-transformers`, `redis`, `xgboost`, `scikit-learn`, `pandas`, or `accelerate`. Bundles `en_core_web_sm` via the PyInstaller spec at `packaging/kaypoh-local.spec`. The entrypoint at `packaging/kaypoh_local_entrypoint.py` binds 127.0.0.1:8765 by default. Browser extensions, mail plugins, and Slack/Outlook hooks are thin clients of the local daemon on `127.0.0.1`.
 - `kaypoh-server` (`pip install kaypoh[server]`): full stack including the legacy classifier (compatibility only), mosaic aggregation, public-evidence retrieval (Exa, Tinyfish), and local/remote LLM adjudication (vLLM, Ollama, OpenAI). Cloud opt-in flows live here.
+- Enterprise `kaypoh-server` deployment modes are future packaging shapes, not replacements for the desktop wedge. Default enterprise posture is a customer-managed appliance: VM/container deployed inside the customer's own environment, operated by the customer's platform team, with customer-held keys and no kaypoh access to content. A later premium BYOC managed-service option may let kaypoh operate the appliance health/upgrade plane only; the customer still owns root credentials, data keys, content, vault, and audit logs.
 - Both SKUs share `src/kaypoh/` and the same wire contracts. Splitting is a packaging concern, not a fork. `test/test_local_sku_runtime.py` blocks every server-only module via `sys.modules[name] = None` and proves the local SKU still boots and round-trips through `anonymize → reidentify`.
 
 The browser-extension thin client (planned) is an MV3 service worker hooking `paste` / `beforesend` events on chatgpt.com, claude.ai, gemini.google.com. Rewrites the textarea via `POST http://127.0.0.1:8765/anonymize`. Document hash retained client-side so the paired in-place re-identify after the LLM round-trip is one click.
@@ -141,9 +158,9 @@ The browser-extension thin client (planned) is an MV3 service worker hooking `pa
 
 ### Known gaps as of 2026-05-25
 
-The current `/review` path is deliberately conservative and deterministic. PII coverage is not yet a general semantic personal-data engine: broad address parsing, DOB/age, online/device identifiers, health/biometric special-category data, US SSN / driver-license, UK NI, EU member-state ID breadth, and non-honorific name detection are not fully implemented. MNPI coverage detects evidence of material events, non-public markers, legal-contract signals, and exact scalars; it does not prove legal materiality or public status by default. Public-status verification requires the `audit_grade` tier plus configured public-evidence provider credentials and enough entity context to form a privacy-approved query.
+The current `/review` path is deliberately conservative and deterministic. PII coverage is not yet a general semantic personal-data engine: broad address parsing, DOB/age, online/device identifiers, health/biometric special-category data, US SSN / driver-license, UK NI, EU member-state ID breadth, and non-honorific name detection are not fully implemented. SG legal/finance sensitive-data coverage is still incomplete: PayNow IDs, MAS licence numbers, SGX counter identifiers, IPOS / ACRA / court references, property-title references, and richer commercial-term detectors are backlog items. MNPI coverage detects evidence of material events, non-public markers, legal-contract signals, and exact scalars; it does not prove legal materiality or public status by default. Public-status verification requires the `audit_grade` tier plus configured public-evidence provider credentials and enough entity context to form a privacy-approved query.
 
-Some LLM surfaces are scaffolded or injectable rather than fully production-wired runtime layers. LLM-defined-term extraction and inverse coverage audit exist, but they are not first-class configured layers with readiness/diagnostics parity. Rationale composition and journal-trained severity calibration are roadmap items. Remote raw-text LLM mode can still send document text, but only after the explicit remote-URL gate and the explicit remote-raw-text gate are enabled; remote endpoints otherwise default to `structured_tokens`. Evaluation is still seed-scale, though `docs/accuracy.md` now publishes the locked detector baselines. Persistence remains confidentiality-sensitive: HMAC protects journal integrity, mapping records can be Fernet-encrypted when `KAYPOH_MAPPING_STORE_KEY` is configured, and matched-text journal payloads remain plaintext unless the deployment adds separate encryption, access control, and retention policy.
+Some LLM surfaces are scaffolded or injectable rather than fully production-wired runtime layers. LLM-defined-term extraction and inverse coverage audit exist, but they are not first-class configured layers with readiness/diagnostics parity. Rationale composition and journal-trained severity calibration are roadmap items. Remote raw-text LLM mode can still send document text, but only after the explicit remote-URL gate and the explicit remote-raw-text gate are enabled; remote endpoints otherwise default to `structured_tokens`. Evaluation is still seed-scale, though `docs/accuracy.md` now publishes the locked detector baselines. Persistence remains confidentiality-sensitive: HMAC protects journal integrity, mapping records can be Fernet-encrypted when `KAYPOH_MAPPING_STORE_KEY` is configured, and matched-text journal payloads remain plaintext unless the deployment adds separate encryption, access control, and retention policy. Document metadata leakage is not yet covered: DOCX core/app properties, comments, track-change authors, PDF XMP metadata, and image EXIF/GPS need a review/scrub surface.
 
 ### Enterprise readiness self-assessment (2026-05-25)
 
@@ -158,6 +175,7 @@ Honest scoring across procurement-relevant dimensions. Each row maps to expansio
 | Auditability | 7/10 | shipped (14–18); rationale composition (38) lifts to 8/10 |
 | Security / procurement readiness | 5/10 | 41 shipped (mapping encryption + retention), 43 shipped (deployment hardening + SIEM); 42 (SSO/RBAC/tenancy) remains |
 | Distribution-surface coverage | 3/10 | 22 (browser ext), 44 (Word/Outlook), 45 (DMS connectors), 47 (clipboard/file-watcher) |
+| Pre-send document safety completeness | 4/10 | 48 (SG legal/finance sensitive data), 49 (metadata), 50 (format gate) |
 | Product differentiation | 7/10 | reversible local anonymisation + legal-MNPI angle holds; 46 shipped (`docs/accuracy.md`) |
 
 The 2/10 on "broad enterprise DLP replacement" is intentional. The 7/10 on "narrow legal/finance pilot value" is the wedge.
@@ -174,6 +192,7 @@ Snapshot of detection capabilities by jurisdiction as of 2026-05-25. ✓ = avail
 | Local company-ID detector (UEN / SSM / EIN / etc.) | ✓ | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
 | Local postal-address format | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | Broad postal-address parser (multi-line / free-form) | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| SG legal/finance sensitive-data pack | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | **Universal PII rules** | | | | | | | | | | |
 | `passport_number` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | `email_address` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
@@ -214,6 +233,9 @@ Operational hardening coverage as of 2026-05-25:
 | SSO (OIDC/SAML) + RBAC | ✗ |
 | SIEM export (JSON-over-syslog) | ✓ |
 | Per-detector recall + precision published in `docs/accuracy.md` | ✓ |
+| Document metadata leakage review/scrub | ✗ |
+| Fail-closed scanned-PDF / uncertain-format gate | ✗ |
+| Enterprise appliance / BYOC deployment posture | ✗ |
 
 ### Coverage gaps → expansion-item map
 
@@ -223,6 +245,7 @@ Every ✗ in the jurisdiction-coverage table and every operational-hardening row
 |---|---|
 | Broad postal-address parser (multi-line) | 34 |
 | General semantic PII / NER fallback in `/review` | 35 |
+| SG legal/finance sensitive-data pack | 48 |
 | DOB / age detector | 33 |
 | IP / device / online identifier detector | 33 |
 | Health / biometric special-category detector | 33 (conservative seed) + 40 (corpus lock) |
@@ -231,6 +254,9 @@ Every ✗ in the jurisdiction-coverage table and every operational-hardening row
 | Source-verified public-status adjudication by default | 36 |
 | Multi-tenant request isolation | 42 |
 | SSO + RBAC | 42 |
+| Document metadata leakage review/scrub | 49 |
+| Fail-closed scanned-PDF / uncertain-format gate | 50 |
+| Enterprise appliance / BYOC deployment posture | 51 |
 
 ## Expansion Sequence
 
@@ -333,6 +359,18 @@ These items unblock procurement at SG/SEA law firms and listed-company in-house 
 46. ~~Published per-detector accuracy disclosure (`docs/accuracy.md`).~~ Shipped 2026-05-25. `scripts/generate_accuracy_doc.py` renders `docs/accuracy.md` from `recall.lock.json`, `recall_adversarial.lock.json`, and `legal-corpus-sea.lock.json`, including corpus fixture counts, per-detector recall/precision, and known limitations. `test/test_accuracy_doc.py` fails when the committed disclosure drifts from the lock files.
 
 47. **Clipboard + file-watcher fallback (desktop SKU).** For surfaces without a native add-in (Slack desktop, generic web textareas, native macOS/Windows apps), ship an opt-in clipboard monitor + watched-folder daemon that runs everything paste-buffered or dropped into the folder through `/review` and surfaces a system-tray notification on findings. Strict opt-in; off by default; never autoreplaces clipboard content — one-click "anonymise this" only. Bounded scope: closes the long-tail-surface gap without committing to per-app integrations.
+
+48. **SG legal/finance sensitive-data expansion.** Add wedge-specific detectors and fixtures for PayNow IDs, MAS licence numbers, SGX stock codes / counter names, insurance policy numbers, crypto wallet addresses, court references, IPOS registration numbers, ACRA filing references, HDB / strata / title references, URA / SLA references, and contract-commercial terms such as unit pricing, discounts, volume commitments, royalty rates, and total contract value. Ship each detector only with recall + adversarial precision locks.
+
+49. **Document metadata leakage review and scrubber.** Add a pre-send metadata surface that reports and optionally strips DOCX core/app properties, comments, track-change authors, PDF XMP metadata, and image EXIF/GPS. The review output should distinguish visible text findings from metadata findings so auditors can see both content risk and container risk.
+
+50. **Fail-closed document ingest gate.** Treat PDF and rich-document acceptance as a detector with its own tests. Reject scanned PDFs, image-only PDFs, and uncertain PDFs based on text-layer density, image coverage, text/image ratio, and producer metadata. Do not silently OCR or best-effort extract; tell the user to convert/export to `.docx` and re-submit.
+
+51. **Enterprise server deployment modes.** Package `kaypoh-server` for customer-managed VM/container deployment first. Document key ownership, no-content-access boundaries, upgrade process, and operational responsibilities. Keep customer-hosted/kaypoh-managed BYOC as a later premium path with a sharply separated operations plane and no read path to content, vault, or audit logs.
+
+52. **Commercial validation gates.** Month 3: stop or pivot if fewer than 5 of 15 discovery calls express willingness to pay for a local/on-prem pilot. Month 4: stop, narrow, or hire if MNPI benchmark recall remains below 0.80. Month 6: stop or re-scope if no paid pilots convert. Ambitious v1 proof points: precision >= 0.95, recall >= 0.85 on an internal held-out eval set, no critical pilot incidents, and three paid pilot conversions.
+
+53. **Source-backed why-now evidence maintenance.** Keep the demand-signal section citation-backed and date-stamped. Before using it externally, re-check LayerX, Cyberhaven, Netskope, Gartner, IMDA, MAS, OAIC, and APRA sources; drop any claim whose source cannot be recovered or whose methodology no longer supports the wording.
 
 ### Deferred
 
