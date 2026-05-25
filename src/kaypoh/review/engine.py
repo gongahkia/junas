@@ -137,6 +137,28 @@ MNPI_DOC_TYPE_SEVERITY_OVERRIDES: dict[tuple[str, str], str] = {
 }
 
 
+# source-verification states for MNPI findings. exposes whether a public-status check
+# actually happened, so reviewers can tell "we did not look" apart from "we looked and
+# found nothing". PII findings always carry `not_checked` — public-status is not a
+# meaningful concept for personal data. see item 36 in ARCHITECTURE-PIVOT-24-MAY.md.
+SOURCE_VERIFICATION_NOT_CHECKED = "not_checked"
+SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED = "public_source_matched"
+SOURCE_VERIFICATION_NO_PUBLIC_SOURCE_FOUND = "no_public_source_found"
+SOURCE_VERIFICATION_AMBIGUOUS = "ambiguous"
+VALID_SOURCE_VERIFICATION = frozenset({
+    SOURCE_VERIFICATION_NOT_CHECKED,
+    SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED,
+    SOURCE_VERIFICATION_NO_PUBLIC_SOURCE_FOUND,
+    SOURCE_VERIFICATION_AMBIGUOUS,
+})
+
+# in-document URL detector. used to honour item 36's "the document itself contains a
+# citable public source reference" carve-out: a material_event sentence that contains
+# a http(s) URL is treated as self-citing. conservative — does not try to distinguish
+# public press wires from private wiki links; the maker/checker review is the backstop.
+_INDOC_URL_RE = re.compile(r"https?://\S+", re.IGNORECASE)
+
+
 @dataclass
 class ReviewFinding:
     id: str
@@ -150,6 +172,7 @@ class ReviewFinding:
     end_char: int
     reason: str
     legal_basis: str
+    source_verification: str = SOURCE_VERIFICATION_NOT_CHECKED
 
 
 @dataclass
@@ -205,6 +228,7 @@ def _new_finding(
     end: int,
     reason: str,
     legal_basis: str,
+    source_verification: str = SOURCE_VERIFICATION_NOT_CHECKED,
 ) -> ReviewFinding:
     return ReviewFinding(
         id=f"{category.lower()}:{rule}:{start}:{end}:{idx}",
@@ -218,6 +242,7 @@ def _new_finding(
         end_char=end,
         reason=reason,
         legal_basis=legal_basis,
+        source_verification=source_verification,
     )
 
 
@@ -244,6 +269,36 @@ _HIGHER_PRIORITY_THAN_PHONE = frozenset({
     "my_mykad", "id_nik", "th_national_id", "ph_philsys", "ph_tin", "vn_cccd",
     "passport_number", "bank_account",
 })
+
+
+def _apply_retrieval_verification(
+    findings: list["ReviewFinding"], public_evidence: dict[str, Any] | None
+) -> None:
+    """Mutate MNPI findings' source_verification based on retriever output.
+
+    Aggregate model: the retriever returns one verdict for the whole doc, so all MNPI
+    findings inherit that verdict. PII findings are never touched (public-status is not
+    meaningful for personal data). MNPI findings already marked public_source_matched
+    by an in-doc URL (see _mnpi_findings material_event branch) are not overwritten."""
+    if not public_evidence:
+        return
+    status = str(public_evidence.get("status") or "")
+    if status != "queried":
+        return
+    sources = public_evidence.get("sources") or []
+    unverified = public_evidence.get("unverified_claims") or []
+    if sources:
+        verdict = SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED
+    elif unverified:
+        verdict = SOURCE_VERIFICATION_AMBIGUOUS
+    else:
+        verdict = SOURCE_VERIFICATION_NO_PUBLIC_SOURCE_FOUND
+    for f in findings:
+        if f.category != "MNPI":
+            continue
+        if f.source_verification == SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED:
+            continue
+        f.source_verification = verdict
 
 
 def _suppress_redundant_phone_findings(findings: list["ReviewFinding"]) -> list["ReviewFinding"]:
@@ -559,14 +614,20 @@ class PreSendReviewEngine:
         idx = 0
         for match in MATERIAL_EVENT_RE.finditer(text):
             context = _line_context(text, match.start(), match.end())
+            # item 36: phrasing alone ("publicly announced", "press release") no longer softens
+            # severity. soften only when the same line carries a citable http(s) URL — the
+            # document is self-citing. retrieval-driven softening is layered in by the post-pass
+            # in review() once the public-evidence retriever has actually run.
             severity = "medium"
             reason = "Material corporate or market event language"
+            source_verification = SOURCE_VERIFICATION_NOT_CHECKED
             if NONPUBLIC_RE.search(context):
                 severity = "high"
                 reason = "Material event appears tied to non-public or restricted context"
-            elif PUBLIC_RE.search(context):
+            elif PUBLIC_RE.search(context) and _INDOC_URL_RE.search(context):
                 severity = "low"
-                reason = "Material event appears public, but source should be verified"
+                reason = "Material event paired with an in-document citable source reference"
+                source_verification = SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED
 
             findings.append(
                 _new_finding(
@@ -580,6 +641,7 @@ class PreSendReviewEngine:
                     end=(text.find("\n", match.end()) if text.find("\n", match.end()) >= 0 else len(text)),
                     reason=reason,
                     legal_basis=legal_basis,
+                    source_verification=source_verification,
                 )
             )
             idx += 1
@@ -798,6 +860,15 @@ class PreSendReviewEngine:
         public_evidence = self._maybe_public_evidence(
             text=text, entity_id=entity_id, mnpi_score=mnpi_score, engage=engage_llm_tier
         )
+        # item 36: after retrieval, attribute a source-verification state to every MNPI finding.
+        # aggregate semantics (the retriever returns one verdict for the document, not per-finding):
+        #   queried + sources non-empty   -> public_source_matched
+        #   queried + sources empty       -> no_public_source_found
+        #   queried + sources empty + an unverified_claim signal -> ambiguous
+        #   any other status              -> leave whatever _mnpi_findings already set
+        # MNPI findings that already self-cited via _INDOC_URL_RE keep their public_source_matched
+        # state (per-finding evidence beats document-aggregate retrieval evidence).
+        _apply_retrieval_verification(findings, public_evidence)
         privacy_ledger = list((public_evidence or {}).get("privacy_ledger", []))
         llm_adjudication = self._maybe_llm_adjudication(
             text=text,

@@ -394,6 +394,17 @@ class ReviewFindingResponse(BaseModel):
     end_char: int = Field(description="Zero-based exclusive ending character offset.")
     reason: str = Field(description="Human-readable reason this finding is risky.")
     legal_basis: str = Field(description="Policy or legal rule family applied to this finding.")
+    source_verification: str = Field(
+        "not_checked",
+        description=(
+            "Public-status proof state for MNPI findings: `not_checked` (strict profile or "
+            "no retriever wired), `public_source_matched` (audit_grade retriever returned at "
+            "least one source, or the document itself cites an http(s) URL beside the event), "
+            "`no_public_source_found` (retriever queried but returned no sources), or "
+            "`ambiguous` (retriever returned conflicting / unverified signals). PII findings "
+            "always carry `not_checked` — public-status is not meaningful for personal data."
+        ),
+    )
 
 
 class ReviewSuggestionResponse(BaseModel):

@@ -1445,6 +1445,7 @@ def _build_review_response(
                 end_char=finding.end_char,
                 reason=finding.reason,
                 legal_basis=finding.legal_basis,
+                source_verification=getattr(finding, "source_verification", "not_checked"),
             )
             for finding in result.findings
         ],

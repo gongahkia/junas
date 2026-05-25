@@ -7,3 +7,15 @@ references = [
     "Securities and Futures Act 2001 sections 215, 218, 219",
 ]
 aliases = ["SG", "SINGAPORE"]
+
+# SG court neutral citation. SAL convention: [YYYY] SG{COURT_CODE} <decision number>.
+# Court codes covered: CA, HC, HC(A), HC(F), HCAR, HCAF, HCF, HC/SIC, DC, FC, MC, CRA.
+# Wedge detector — case citations in pre-send legal-firm documents identify the matter
+# and counterparty even when no NRIC is present. Severity is medium: the citation itself
+# is public but the surrounding pre-send legal memo context typically is not.
+[[recognizers]]
+name = "SG court citation"
+rule_name = "sg_court_citation"
+pattern = '\[\d{4}\]\s+SG(?:CA|HC\([AF]\)|HCAR|HCAF|HCF|HC/SIC|HC|DC|FC|MC|CRA)\s+\d+'
+severity = "medium"
+reason = "Singapore court neutral citation identifies a matter and counterparty"
