@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import ipaddress
 import os
 from collections.abc import Iterator, Mapping, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 try:
     import tomllib
@@ -69,6 +71,7 @@ KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
             "model",
             "timeout_seconds",
             "allow_remote_base_url",
+            "allow_remote_raw_text",
             "tenant_opt_in_openai",
             "llm_input_mode",
         }
@@ -159,6 +162,11 @@ class LLMSettings:
     model: str
     timeout_seconds: float
     allow_remote_base_url: bool
+    # Separate, explicit consent for sending raw document text to a remote LLM endpoint.
+    # `allow_remote_base_url` permits remote transport in general; this flag permits the
+    # highest-risk payload shape. Remote endpoints default to structured_tokens unless
+    # this is set and llm_input_mode is explicitly raw_text.
+    allow_remote_raw_text: bool = False
     # Tenant-level opt-in flag for the OpenAI provider specifically. Distinct from
     # `allow_remote_base_url`: that flag is the deployer-level gate ("remote URLs are
     # permitted"); this flag is the tenant-level gate ("this specific tenant has signed
@@ -294,6 +302,18 @@ def _parse_probability(value: Any, *, label: str) -> float:
     if parsed > 1.0:
         raise ConfigError(f"{label} must be <= 1.0, got {parsed}")
     return parsed
+
+
+def _is_private_or_local_base_url(base_url: str) -> bool:
+    parsed = urlparse(base_url)
+    host = parsed.hostname or ""
+    if host in {"localhost", "127.0.0.1", "::1"}:
+        return True
+    try:
+        addr = ipaddress.ip_address(host)
+        return addr.is_private or addr.is_loopback or addr.is_link_local
+    except ValueError:
+        return host.endswith(".local")
 
 
 def _parse_dict(value: Any, *, label: str) -> dict[str, Any]:
@@ -748,19 +768,19 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
     if public_evidence.provider not in {"exa", "tinyfish", "none"}:
         raise ConfigError("public_evidence.provider must be one of: exa, tinyfish, none")
 
-    llm = LLMSettings(
-        enabled=_parse_bool(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="llm",
-                key="enabled",
-                env_vars=("KAYPOH_LLM_ENABLED",),
-                default=False,
-            ),
-            label="llm.enabled",
+    llm_enabled = _parse_bool(
+        _resolve_raw_value(
+            raw_config,
+            cli_overrides,
+            section="llm",
+            key="enabled",
+            env_vars=("KAYPOH_LLM_ENABLED",),
+            default=False,
         ),
-        provider=_parse_str(
+        label="llm.enabled",
+    )
+    llm_provider = (
+        _parse_str(
             _resolve_raw_value(
                 raw_config,
                 cli_overrides,
@@ -771,9 +791,10 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
             ),
             label="llm.provider",
         ).lower()
-        or "vllm",
-        api_key=_parse_str(os.environ.get("KAYPOH_LLM_API_KEY", ""), label="KAYPOH_LLM_API_KEY"),
-        base_url=_parse_str(
+        or "vllm"
+    )
+    llm_base_url = (
+        _parse_str(
             _resolve_raw_value(
                 raw_config,
                 cli_overrides,
@@ -784,7 +805,50 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
             ),
             label="llm.base_url",
         )
-        or "http://127.0.0.1:8001/v1",
+        or "http://127.0.0.1:8001/v1"
+    )
+    llm_allow_remote_base_url = _parse_bool(
+        _resolve_raw_value(
+            raw_config,
+            cli_overrides,
+            section="llm",
+            key="allow_remote_base_url",
+            env_vars=("KAYPOH_LLM_ALLOW_REMOTE_BASE_URL",),
+            default=False,
+        ),
+        label="llm.allow_remote_base_url",
+    )
+    llm_allow_remote_raw_text = _parse_bool(
+        _resolve_raw_value(
+            raw_config,
+            cli_overrides,
+            section="llm",
+            key="allow_remote_raw_text",
+            env_vars=("KAYPOH_LLM_ALLOW_REMOTE_RAW_TEXT",),
+            default=False,
+        ),
+        label="llm.allow_remote_raw_text",
+    )
+    raw_llm_input_mode = _resolve_raw_value(
+        raw_config,
+        cli_overrides,
+        section="llm",
+        key="llm_input_mode",
+        env_vars=("KAYPOH_LLM_INPUT_MODE",),
+        default=_MISSING,
+    )
+    llm_base_is_remote = bool(llm_base_url) and not _is_private_or_local_base_url(llm_base_url)
+    llm_input_mode_explicit = raw_llm_input_mode is not _MISSING
+    if llm_input_mode_explicit:
+        llm_input_mode = _parse_str(raw_llm_input_mode, label="llm.llm_input_mode") or "raw_text"
+    else:
+        llm_input_mode = "structured_tokens" if llm_base_is_remote else "raw_text"
+
+    llm = LLMSettings(
+        enabled=llm_enabled,
+        provider=llm_provider,
+        api_key=_parse_str(os.environ.get("KAYPOH_LLM_API_KEY", ""), label="KAYPOH_LLM_API_KEY"),
+        base_url=llm_base_url,
         model=_parse_str(
             _resolve_raw_value(
                 raw_config,
@@ -809,17 +873,8 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
             label="llm.timeout_seconds",
             minimum=0.1,
         ),
-        allow_remote_base_url=_parse_bool(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="llm",
-                key="allow_remote_base_url",
-                env_vars=("KAYPOH_LLM_ALLOW_REMOTE_BASE_URL",),
-                default=False,
-            ),
-            label="llm.allow_remote_base_url",
-        ),
+        allow_remote_base_url=llm_allow_remote_base_url,
+        allow_remote_raw_text=llm_allow_remote_raw_text,
         tenant_opt_in_openai=_parse_bool(
             _resolve_raw_value(
                 raw_config,
@@ -831,17 +886,7 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
             ),
             label="llm.tenant_opt_in_openai",
         ),
-        llm_input_mode=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="llm",
-                key="llm_input_mode",
-                env_vars=("KAYPOH_LLM_INPUT_MODE",),
-                default="raw_text",
-            ),
-            label="llm.llm_input_mode",
-        ),
+        llm_input_mode=llm_input_mode,
     )
     if llm.provider not in {"vllm", "ollama", "openai", "local_distilled", "none"}:
         raise ConfigError(
@@ -849,6 +894,18 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         )
     if llm.llm_input_mode not in {"raw_text", "structured_tokens"}:
         raise ConfigError("llm.llm_input_mode must be one of: raw_text, structured_tokens")
+    if (
+        llm.enabled
+        and llm.provider not in {"local_distilled", "none"}
+        and llm_base_is_remote
+        and llm.llm_input_mode == "raw_text"
+        and not llm.allow_remote_raw_text
+    ):
+        raise ConfigError(
+            "remote llm_input_mode=raw_text requires llm.allow_remote_raw_text=true "
+            "(env KAYPOH_LLM_ALLOW_REMOTE_RAW_TEXT=1). Omit llm.llm_input_mode to use "
+            "the remote default structured_tokens mode."
+        )
     # belt-and-braces: refuse to even construct LLMSettings with provider=openai unless
     # both gates are explicitly set. Surfacing the error at config-load time means a
     # misconfigured tenant fails fast instead of silently degrading to local-private.

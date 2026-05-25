@@ -196,7 +196,11 @@ KAYPOH_LLM_MODEL="gpt-oss-20b" \
 uvicorn backend.main:app --host 0.0.0.0 --port 8000
 ```
 
-The public-evidence layer sends only sanitized entity/ticker/event/date queries to external retrieval providers; both Exa and Tinyfish go through the same `PrivacyGuard.check_external_query` gate and every decision is recorded in the response's `privacy_ledger`. The local LLM layer may receive original document text only when the configured base URL is loopback/private (`127.0.0.1`, `::1`, RFC1918, `*.local`), unless `KAYPOH_LLM_ALLOW_REMOTE_BASE_URL=1` is set explicitly. API responses expose structured evidence and privacy-ledger decisions, not raw chain-of-thought.
+The public-evidence layer sends only sanitized entity/ticker/event/date queries to external retrieval providers; both Exa and Tinyfish go through the same `PrivacyGuard.check_external_query` gate and every decision is recorded in the response's `privacy_ledger`. The LLM layer may receive original document text only when the configured base URL is loopback/private (`127.0.0.1`, `::1`, RFC1918, `*.local`). Remote LLM URLs require `KAYPOH_LLM_ALLOW_REMOTE_BASE_URL=1`; remote endpoints default to `structured_tokens` unless `KAYPOH_LLM_INPUT_MODE=raw_text` and `KAYPOH_LLM_ALLOW_REMOTE_RAW_TEXT=1` are both explicitly set. API responses expose structured evidence and privacy-ledger decisions, not raw chain-of-thought.
+
+## Persistent Mapping Store
+
+When `KAYPOH_REVIEW_PERSIST=1`, `/anonymize` can persist placeholder mappings under `${KAYPOH_JOURNAL_DIR}/mappings/` so `/reidentify` can restore text later from a `document_hash`. Set `KAYPOH_MAPPING_STORE_KEY` to encrypt newly written mapping files; see `docs/mapping-store-hardening.md`.
 
 ## Legal-Corpus Recall Gate
 

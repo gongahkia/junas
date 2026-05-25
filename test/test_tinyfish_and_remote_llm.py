@@ -14,7 +14,10 @@ from kaypoh.workflow.layer8_llm_adjudicator.inference import LocalLLMAdjudicator
 from kaypoh.workflow.privacy_guard import PrivacyGuard
 
 
-def _tinyfish_settings(api_key: str = "tf-test-key", endpoint: str = "https://api.search.tinyfish.ai/") -> SimpleNamespace:
+def _tinyfish_settings(
+    api_key: str = "tf-test-key",
+    endpoint: str = "https://api.search.tinyfish.ai/",
+) -> SimpleNamespace:
     return SimpleNamespace(
         enabled=True,
         provider="tinyfish",
@@ -115,17 +118,23 @@ def _llm_settings(
     allow_remote: bool,
     provider: str = "vllm",
     tenant_opt_in_openai: bool = False,
+    llm_input_mode: str | None = None,
+    allow_remote_raw_text: bool = False,
 ) -> SimpleNamespace:
-    return SimpleNamespace(
-        enabled=True,
-        provider=provider,
-        api_key="",
-        base_url=base_url,
-        model="gpt-oss-20b",
-        timeout_seconds=2.0,
-        allow_remote_base_url=allow_remote,
-        tenant_opt_in_openai=tenant_opt_in_openai,
-    )
+    payload = {
+        "enabled": True,
+        "provider": provider,
+        "api_key": "",
+        "base_url": base_url,
+        "model": "gpt-oss-20b",
+        "timeout_seconds": 2.0,
+        "allow_remote_base_url": allow_remote,
+        "tenant_opt_in_openai": tenant_opt_in_openai,
+        "allow_remote_raw_text": allow_remote_raw_text,
+    }
+    if llm_input_mode is not None:
+        payload["llm_input_mode"] = llm_input_mode
+    return SimpleNamespace(**payload)
 
 
 class RemoteLLMOptInTests(unittest.TestCase):
@@ -181,7 +190,53 @@ class RemoteLLMOptInTests(unittest.TestCase):
         self.assertEqual(result["status"], "adjudicated")
         self.assertEqual(result["risk_label"], "SAFE")
         self.assertEqual(result["public_status"], "public")
+        self.assertEqual(result["input_mode"], "structured_tokens")
         self.assertIn("llm.example.com", captured["url"])
+
+    def test_remote_raw_text_refused_without_raw_text_opt_in(self):
+        adjudicator = LocalLLMAdjudicator(
+            _llm_settings(
+                base_url="https://llm.example.com/v1",
+                allow_remote=True,
+                llm_input_mode="raw_text",
+            )
+        )
+        result = adjudicator.adjudicate(text="Acme acquisition.", current_classification="LOW_RISK")
+        self.assertEqual(result["status"], "error")
+        self.assertIn("allow_remote_raw_text", result["review_recommendation"])
+
+    def test_remote_raw_text_runs_with_raw_text_opt_in(self):
+        captured: dict = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            captured["body"] = json.loads(request.content.decode("utf-8"))
+            return httpx.Response(200, json=self._adjudicator_response_payload())
+
+        adjudicator = LocalLLMAdjudicator(
+            _llm_settings(
+                base_url="https://llm.example.com/v1",
+                allow_remote=True,
+                llm_input_mode="raw_text",
+                allow_remote_raw_text=True,
+            )
+        )
+        transport = httpx.MockTransport(handler)
+        original = httpx.Client
+
+        def factory(*args, **kwargs):
+            kwargs["transport"] = transport
+            return original(*args, **kwargs)
+
+        httpx.Client = factory  # type: ignore[assignment]
+        try:
+            result = adjudicator.adjudicate(text="Acme acquisition.", current_classification="LOW_RISK")
+        finally:
+            httpx.Client = original  # type: ignore[assignment]
+
+        self.assertEqual(result["status"], "adjudicated")
+        self.assertEqual(result["input_mode"], "raw_text")
+        user_message = next(m for m in captured["body"]["messages"] if m["role"] == "user")
+        self.assertIn("Acme acquisition.", user_message["content"])
 
     def test_loopback_base_url_runs_without_opt_in(self):
         captured: dict = {}

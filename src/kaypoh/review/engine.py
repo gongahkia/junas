@@ -11,9 +11,9 @@ from kaypoh.review.entity_linker import canonical_person, strip_honorific
 from kaypoh.review.jurisdictions import JurisdictionRulePack, resolve_rule_packs
 from kaypoh.workflow.privacy_guard import EMAIL_RE, LONG_NUMBER_RE, MONEY_RE, PERCENT_RE, PHONE_RE
 
-
 SG_NRIC_RE = re.compile(r"\b[STFGM]\d{7}[A-Z]\b", re.IGNORECASE)
-SG_UEN_RE = re.compile(r"\b(?:\d{8,9}[A-Z]|T\d{2}[A-Z]{2}\d{4}[A-Z])\b")  # ACRA UEN: legacy 8-9 digit + check letter; new T-format
+# ACRA UEN: legacy 8-9 digit + check letter; new T-format.
+SG_UEN_RE = re.compile(r"\b(?:\d{8,9}[A-Z]|T\d{2}[A-Z]{2}\d{4}[A-Z])\b")
 PASSPORT_RE = re.compile(r"\b(?:passport|pass no\.?|passport no\.?)\s*[:#-]?\s*([A-Z0-9]{6,12})\b", re.IGNORECASE)
 SG_POSTAL_RE = re.compile(r"\b(?:Singapore|S)\s*(\d{6})\b", re.IGNORECASE)
 BANK_ACCOUNT_RE = re.compile(
@@ -806,6 +806,22 @@ class PreSendReviewEngine:
             findings=findings,
             entity_id=entity_id,
         )
+        if llm_adjudication is not None:
+            privacy_ledger.append(
+                {
+                    "destination": str(llm_adjudication.get("provider") or "llm"),
+                    "operation": "llm_adjudication",
+                    "allowed": llm_adjudication.get("status") == "adjudicated",
+                    "reason": str(
+                        llm_adjudication.get("review_recommendation")
+                        or llm_adjudication.get("status")
+                        or ""
+                    ),
+                    "query": "",
+                    "redactions": [],
+                    "input_mode": str(llm_adjudication.get("input_mode") or ""),
+                }
+            )
         if llm_adjudication and llm_adjudication.get("status") == "adjudicated":
             label = llm_adjudication.get("risk_label")
             if label in Classification.__members__ and max(pii_score, mnpi_score) < 85.0:

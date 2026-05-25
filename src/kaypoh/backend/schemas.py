@@ -294,6 +294,13 @@ class PrivacyLedgerEntryResponse(BaseModel):
     reason: str = Field(description="Guard decision reason.")
     query: str = Field("", description="Sanitized query if one was allowed or evaluated.")
     redactions: list[str] = Field(default_factory=list, description="Redaction classes applied to the query.")
+    input_mode: str = Field(
+        "",
+        description=(
+            "LLM input mode for llm_adjudication ledger events, such as raw_text or "
+            "structured_tokens. Empty for non-LLM privacy decisions."
+        ),
+    )
 
 
 class PublicEvidenceResponse(BaseModel):
@@ -423,7 +430,9 @@ class ReviewResponse(BaseModel):
                         "finding_id": "pii:sg_nric_fin:25:34:0",
                         "action": "redact",
                         "replacement_text": "[REDACTED PERSONAL DATA]",
-                        "rationale": "Remove or mask personal data unless it is necessary for the recipient and purpose.",
+                        "rationale": (
+                            "Remove or mask personal data unless it is necessary for the recipient and purpose."
+                        ),
                     }
                 ],
                 "public_evidence": None,
@@ -462,7 +471,7 @@ class ReviewResponse(BaseModel):
     )
     privacy_ledger: list[PrivacyLedgerEntryResponse] = Field(
         default_factory=list,
-        description="Privacy guard decisions for any outbound retrieval operations.",
+        description="Privacy guard decisions for outbound retrieval and LLM adjudication operations.",
     )
     coverage_warnings: list[dict[str, Any]] = Field(
         default_factory=list,
@@ -548,7 +557,10 @@ class ReidentifyResponse(BaseModel):
     request_id: Optional[str] = Field(None, description="Per-request UUID also returned as the X-Request-ID header.")
     text: str = Field(description="Reconstructed text with placeholders replaced by their originals.")
     replacement_count: int = Field(description="Number of placeholder occurrences replaced.")
-    timings_ms: dict[str, float] = Field(default_factory=dict, description="Reidentify timing breakdown in milliseconds.")
+    timings_ms: dict[str, float] = Field(
+        default_factory=dict,
+        description="Reidentify timing breakdown in milliseconds.",
+    )
 
 
 class ReviewDecisionRequest(BaseModel):
@@ -564,7 +576,12 @@ class ReviewDecisionRequest(BaseModel):
         }
     )
 
-    finding_id: str = Field(..., min_length=1, max_length=256, description="Finding identifier from a prior /review response.")
+    finding_id: str = Field(
+        ...,
+        min_length=1,
+        max_length=256,
+        description="Finding identifier from a prior /review response.",
+    )
     action: str = Field(..., description="One of: accept, reject, rewrite.")
     replacement_text: str = Field("", max_length=4096, description="Rewrite text when action=rewrite.")
     rationale: str = Field("", max_length=2048, description="Reviewer note recorded in the journal.")
@@ -604,7 +621,10 @@ class ReviewSessionFindingState(BaseModel):
     matched_text: str = Field(description="Exact matched text from the original document.")
     start_char: int = Field(description="Zero-based inclusive start offset.")
     end_char: int = Field(description="Zero-based exclusive end offset.")
-    decision: Optional[str] = Field(None, description="Current decision: accept, reject, or rewrite. None when undecided.")
+    decision: Optional[str] = Field(
+        None,
+        description="Current decision: accept, reject, or rewrite. None when undecided.",
+    )
     decision_seq: Optional[int] = Field(None, description="Journal seq for the most recent decision on this finding.")
     decision_ts: Optional[str] = Field(None, description="Timestamp of the most recent decision.")
     decision_reviewer_id: Optional[str] = Field(None, description="Reviewer identifier on the latest decision.")
@@ -616,9 +636,15 @@ class ReviewSessionStateResponse(BaseModel):
     document_type: str = Field(description="Document type recorded at session start.")
     source_jurisdiction: str = Field(description="Source jurisdiction recorded at session start.")
     destination_jurisdiction: str = Field(description="Destination jurisdiction recorded at session start.")
-    findings: list[ReviewSessionFindingState] = Field(default_factory=list, description="Findings merged with their latest decision.")
+    findings: list[ReviewSessionFindingState] = Field(
+        default_factory=list,
+        description="Findings merged with their latest decision.",
+    )
     decisions_recorded: int = Field(description="Total number of decision events in this session.")
-    audit_exports: list[dict] = Field(default_factory=list, description="Audit-pack exports recorded against this session.")
+    audit_exports: list[dict] = Field(
+        default_factory=list,
+        description="Audit-pack exports recorded against this session.",
+    )
 
 
 class AnonymizationReplacementResponse(BaseModel):
@@ -931,7 +957,7 @@ class ClassifyResponse(BaseModel):
     )
     privacy_ledger: list[PrivacyLedgerEntryResponse] = Field(
         default_factory=list,
-        description="Privacy guard decisions for any outbound retrieval operations.",
+        description="Privacy guard decisions for outbound retrieval and LLM adjudication operations.",
     )
     observability: ObservabilityResponse = Field(description="Per-request runtime observability metadata.")
     offending_spans: Optional[list[OffendingSpanResponse]] = Field(

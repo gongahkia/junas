@@ -99,7 +99,7 @@ Two profiles ship:
 
 ### Privacy hardening for regulated tenants
 
-A **structured-tokens-in/out** runtime LLM mode is offered: instead of sending raw text fragments to the LLM, the server sends `{entity_id, body_hash, findings_summary, public_evidence_summary}` plus per-finding `context_window_hash` values, over a constrained vocabulary the server has already validated. Stronger privacy guarantee than redact-then-send. Activated by setting `llm.llm_input_mode = "structured_tokens"` (env `KAYPOH_LLM_INPUT_MODE`); default remains `raw_text` so existing tenants are unaffected. In structured mode the server clamps the LLM's response against a closed `STRUCTURED_REASONS` vocabulary, strips `matched_public_sources` and `unverified_claims` (potential leak channels), and surfaces `output_clamped: bool` on the adjudication response so an auditor can see how often the model attempted to emit free-form prose. Module: `src/kaypoh/workflow/layer8_llm_adjudicator/structured_query.py`.
+A **structured-tokens-in/out** runtime LLM mode is offered: instead of sending raw text fragments to the LLM, the server sends `{entity_id, body_hash, findings_summary, public_evidence_summary}` plus per-finding `context_window_hash` values, over a constrained vocabulary the server has already validated. Stronger privacy guarantee than redact-then-send. Activated by setting `llm.llm_input_mode = "structured_tokens"` (env `KAYPOH_LLM_INPUT_MODE`); local/private LLM endpoints keep `raw_text` as the default, while remote endpoints default to `structured_tokens`. Remote `raw_text` now requires both `KAYPOH_LLM_ALLOW_REMOTE_BASE_URL=1` and `KAYPOH_LLM_ALLOW_REMOTE_RAW_TEXT=1`. In structured mode the server clamps the LLM's response against a closed `STRUCTURED_REASONS` vocabulary, strips `matched_public_sources` and `unverified_claims` (potential leak channels), and surfaces `output_clamped: bool` on the adjudication response so an auditor can see how often the model attempted to emit free-form prose. Module: `src/kaypoh/workflow/layer8_llm_adjudicator/structured_query.py`.
 
 ### Distillation and feedback training
 
@@ -143,7 +143,7 @@ The browser-extension thin client (planned) is an MV3 service worker hooking `pa
 
 The current `/review` path is deliberately conservative and deterministic. PII coverage is not yet a general semantic personal-data engine: broad address parsing, DOB/age, online/device identifiers, health/biometric special-category data, US SSN / driver-license, UK NI, EU member-state ID breadth, and non-honorific name detection are not fully implemented. MNPI coverage detects evidence of material events, non-public markers, legal-contract signals, and exact scalars; it does not prove legal materiality or public status by default. Public-status verification requires the `audit_grade` tier plus configured public-evidence provider credentials and enough entity context to form a privacy-approved query.
 
-Some LLM surfaces are scaffolded or injectable rather than fully production-wired runtime layers. LLM-defined-term extraction and inverse coverage audit exist, but they are not first-class configured layers with readiness/diagnostics parity. Rationale composition and journal-trained severity calibration are roadmap items. Remote raw-text LLM mode can send document text once the explicit deployment and tenant gates are enabled; `structured_tokens` is safer for regulated tenants but is not the default. Evaluation is still seed-scale, and persistence remains confidentiality-sensitive: HMAC protects journal integrity, but mapping records and matched-text journal payloads are plaintext unless the deployment adds encryption, access control, and retention policy.
+Some LLM surfaces are scaffolded or injectable rather than fully production-wired runtime layers. LLM-defined-term extraction and inverse coverage audit exist, but they are not first-class configured layers with readiness/diagnostics parity. Rationale composition and journal-trained severity calibration are roadmap items. Remote raw-text LLM mode can still send document text, but only after the explicit remote-URL gate and the explicit remote-raw-text gate are enabled; remote endpoints otherwise default to `structured_tokens`. Evaluation is still seed-scale, though `docs/accuracy.md` now publishes the locked detector baselines. Persistence remains confidentiality-sensitive: HMAC protects journal integrity, mapping records can be Fernet-encrypted when `KAYPOH_MAPPING_STORE_KEY` is configured, and matched-text journal payloads remain plaintext unless the deployment adds separate encryption, access control, and retention policy.
 
 ### Enterprise readiness self-assessment (2026-05-25)
 
@@ -156,9 +156,9 @@ Honest scoring across procurement-relevant dimensions. Each row maps to expansio
 | Compliance-grade PII accuracy | 4/10 | 33 (detectors), 34 (addresses), 35 (semantic fallback), 40 (corpus locks) |
 | MNPI decision reliability | 4/10 | 36 (public-status proof states), 38 (bounded rationale) |
 | Auditability | 7/10 | shipped (14–18); rationale composition (38) lifts to 8/10 |
-| Security / procurement readiness | 3/10 | 41 (mapping encryption + retention), 42 (SSO/RBAC/tenancy), 43 (deployment hardening + SIEM) |
+| Security / procurement readiness | 4/10 | 41 shipped (mapping encryption + retention); 42 (SSO/RBAC/tenancy), 43 (deployment hardening + SIEM) remain |
 | Distribution-surface coverage | 3/10 | 22 (browser ext), 44 (Word/Outlook), 45 (DMS connectors), 47 (clipboard/file-watcher) |
-| Product differentiation | 7/10 | reversible local anonymisation + legal-MNPI angle holds; defended by 46 (published per-detector accuracy) |
+| Product differentiation | 7/10 | reversible local anonymisation + legal-MNPI angle holds; 46 shipped (`docs/accuracy.md`) |
 
 The 2/10 on "broad enterprise DLP replacement" is intentional. The 7/10 on "narrow legal/finance pilot value" is the wedge.
 
@@ -207,13 +207,13 @@ Operational hardening coverage as of 2026-05-25:
 |---|:---:|
 | HMAC-chained review journal integrity | ✓ |
 | Journal key rotation | ✓ |
-| Plaintext local mapping-store encryption | ✗ |
-| Mapping retention / purge tooling | ✗ |
-| Filesystem ACL / deployment hardening recipe | ✗ |
+| Encrypted local mapping-store option | ✓ |
+| Mapping retention / purge tooling | ✓ |
+| Mapping-store ACL / at-rest encryption guidance | ✓ |
 | Multi-tenant request isolation (server SKU) | ✗ |
 | SSO (OIDC/SAML) + RBAC | ✗ |
 | SIEM export (CEF / JSON-over-syslog) | ✗ |
-| Per-detector recall + precision published in `docs/accuracy.md` | ✗ |
+| Per-detector recall + precision published in `docs/accuracy.md` | ✓ |
 
 ### Coverage gaps → expansion-item map
 
@@ -229,13 +229,10 @@ Every ✗ in the jurisdiction-coverage table and every operational-hardening row
 | US SSN / driver-license detector | 33 |
 | UK NI / EU member-state national-ID detector | 33 |
 | Source-verified public-status adjudication by default | 36 |
-| Plaintext local mapping-store encryption | 41 |
-| Mapping retention / purge tooling | 41 |
-| Filesystem ACL / deployment hardening recipe | 41 + 43 |
+| Broader deployment hardening recipe | 43 |
 | Multi-tenant request isolation | 42 |
 | SSO + RBAC | 42 |
 | SIEM export | 43 |
-| Published per-detector accuracy disclosure | 46 |
 
 ## Expansion Sequence
 
@@ -317,11 +314,11 @@ These items target overall accuracy improvement on the LLM tier without changing
 
 38. **Implement LLM rationale composition.** Add bounded structured rationale composition for accepted findings only. Output must be short, citation-aware, and chain-of-thought-free; it must work in `structured_tokens` mode and respect `KAYPOH_CITATIONS_OVERRIDE`.
 
-39. **Make `structured_tokens` the regulated-tenant default.** Keep `raw_text` available only through explicit tenant opt-in when the LLM endpoint is remote. Add config validation warnings for remote LLM + raw-text combinations, and record the input mode in every LLM privacy-ledger event.
+39. ~~Make `structured_tokens` the regulated-tenant default.~~ Shipped 2026-05-25. Remote LLM endpoints now default to `structured_tokens` when `llm.llm_input_mode` is unset; local/private endpoints keep `raw_text` as the default. Explicit remote `raw_text` requires `llm.allow_remote_raw_text=true` / `KAYPOH_LLM_ALLOW_REMOTE_RAW_TEXT=1` in addition to the existing remote URL gate. `PrivacyLedgerEntryResponse` carries `input_mode`, and `/review` + legacy `/classify` append an `llm_adjudication` privacy-ledger event whenever the LLM tier is invoked.
 
 40. **Expand evaluation corpora to compliance-grade gates.** Replace seed-scale coverage claims with locked targets: 50 default legal-contract fixtures, 50 adversarial/negative fixtures, 30 fixtures per SEA jurisdiction, OCR/PDF broken-run variants, multilingual name variants, and sector-specific finance / HR / healthcare / legal templates. Require both recall and precision locks before any new detector is marked available in the coverage table.
 
-41. **Harden persistence and mapping storage.** Add an encrypted mapping-store option, retention/purge CLI, and deployment guidance for filesystem ACLs and at-rest encryption. HMAC remains the journal-integrity primitive; mapping confidentiality and deletion become separate operator-visible controls.
+41. ~~Harden persistence and mapping storage.~~ Shipped 2026-05-25. Persisted mappings can be Fernet-encrypted by setting `KAYPOH_MAPPING_STORE_KEY`; legacy plaintext mappings remain readable for compatibility. `scripts/purge_mappings.py` deletes mappings by `document_hash` or by retention age with `--dry-run`, and `docs/mapping-store-hardening.md` documents key generation, retention, filesystem ACLs, and disk-encryption expectations. HMAC remains the journal-integrity primitive; mapping confidentiality and deletion are now separate operator-visible controls.
 
 ### Enterprise GTM substrate
 
@@ -335,7 +332,7 @@ These items unblock procurement at SG/SEA law firms and listed-company in-house 
 
 45. **DMS connectors: iManage Work + NetDocuments.** Read-side connectors that batch-scan a matter / workspace folder, run `/review`, and surface findings inside the DMS UI as document tags. Read-only by default; write-back (anonymise-in-place) is a separate opt-in. iManage Work API + NetDocuments REST API are the two integration targets covering the [Inference] majority of SG / UK / AU law-firm DMS share — verify with each ICP pilot before sequencing.
 
-46. **Published per-detector accuracy disclosure (`docs/accuracy.md`).** Turn the locks (`recall.lock.json` + `recall_adversarial.lock.json` + `legal-corpus-sea.lock.json` + future per-jurisdiction locks) into a public-facing accuracy disclosure listing, per detector, per corpus, recall + precision + adversarial precision + corpus size + known failure modes. Auto-generated from the lock files in CI so it cannot drift from reality. Honest numbers are the procurement-trust play — the alternative is competing on marketing-grade claims against vendors with bigger budgets, which is a loss.
+46. ~~Published per-detector accuracy disclosure (`docs/accuracy.md`).~~ Shipped 2026-05-25. `scripts/generate_accuracy_doc.py` renders `docs/accuracy.md` from `recall.lock.json`, `recall_adversarial.lock.json`, and `legal-corpus-sea.lock.json`, including corpus fixture counts, per-detector recall/precision, and known limitations. `test/test_accuracy_doc.py` fails when the committed disclosure drifts from the lock files.
 
 47. **Clipboard + file-watcher fallback (desktop SKU).** For surfaces without a native add-in (Slack desktop, generic web textareas, native macOS/Windows apps), ship an opt-in clipboard monitor + watched-folder daemon that runs everything paste-buffered or dropped into the folder through `/review` and surfaces a system-tray notification on findings. Strict opt-in; off by default; never autoreplaces clipboard content — one-click "anonymise this" only. Bounded scope: closes the long-tail-surface gap without committing to per-app integrations.
 

@@ -113,7 +113,8 @@ Response:
         "allowed": "bool",
         "reason": "string",
         "query": "sanitized string",
-        "redactions": ["string"]
+        "redactions": ["string"],
+        "input_mode": "raw_text or structured_tokens for LLM ledger events; empty otherwise"
       }
     ]
   } | null,
@@ -127,7 +128,9 @@ Response:
     "materiality_reason": "string",
     "matched_public_sources": ["url or source id"],
     "unverified_claims": ["string"],
-    "review_recommendation": "string"
+    "review_recommendation": "string",
+    "input_mode": "raw_text|structured_tokens",
+    "output_clamped": "bool"
   } | null,
   "privacy_ledger": [
     {
@@ -136,7 +139,8 @@ Response:
       "allowed": "bool",
       "reason": "string",
       "query": "sanitized string",
-      "redactions": ["string"]
+      "redactions": ["string"],
+      "input_mode": "raw_text or structured_tokens for LLM ledger events; empty otherwise"
     }
   ],
   "observability": {

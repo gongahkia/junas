@@ -8,7 +8,6 @@ from urllib.parse import urlparse
 
 import httpx
 
-
 ALLOWED_LABELS = {"SAFE", "LOW_RISK", "HIGH_RISK"}
 ALLOWED_PUBLIC_STATUS = {"public", "not_public", "ambiguous", "not_checked"}
 
@@ -44,12 +43,16 @@ class LocalLLMAdjudicator:
         self.model = str(getattr(settings, "model", "gpt-oss-20b") or "gpt-oss-20b")
         self.timeout_seconds = max(0.1, float(getattr(settings, "timeout_seconds", 20.0) or 20.0))
         self.allow_remote_base_url = bool(getattr(settings, "allow_remote_base_url", False))
+        self.allow_remote_raw_text = bool(getattr(settings, "allow_remote_raw_text", False))
         # Tenant-level opt-in for OpenAI specifically. Only consulted when provider=openai.
         # Defaults to False to preserve the "private-by-default" posture.
         self.tenant_opt_in_openai = bool(getattr(settings, "tenant_opt_in_openai", False))
-        # Privacy-hardened input mode. `raw_text` (default) ships document text; in
-        # `structured_tokens`, the adjudicator only ships abstract tokens + hashes.
-        self.llm_input_mode = str(getattr(settings, "llm_input_mode", "raw_text") or "raw_text")
+        # Privacy-hardened input mode. Runtime settings resolve this before construction;
+        # direct test harnesses that omit it get the same remote-safe default here.
+        raw_input_mode = getattr(settings, "llm_input_mode", None)
+        if raw_input_mode is None:
+            raw_input_mode = "structured_tokens" if not _is_private_or_local_base_url(self.base_url) else "raw_text"
+        self.llm_input_mode = str(raw_input_mode or "raw_text")
         # provider=local_distilled config: the LoRA adapter directory and the HF base
         # model id. Read from settings or env (env wins, matches the rest of the
         # runtime). Only consulted when provider=local_distilled.
@@ -78,6 +81,8 @@ class LocalLLMAdjudicator:
             "matched_public_sources": [],
             "unverified_claims": [],
             "review_recommendation": detail,
+            "input_mode": self.llm_input_mode,
+            "output_clamped": False,
         }
 
     def _build_structured_messages(
@@ -236,7 +241,8 @@ class LocalLLMAdjudicator:
             )
         if not self.base_url:
             return self._disabled("local LLM base URL is not configured")
-        if not self.allow_remote_base_url and not _is_private_or_local_base_url(self.base_url):
+        base_is_remote = not _is_private_or_local_base_url(self.base_url)
+        if not self.allow_remote_base_url and base_is_remote:
             return {
                 "status": "error",
                 "provider": self.provider,
@@ -248,6 +254,26 @@ class LocalLLMAdjudicator:
                 "matched_public_sources": [],
                 "unverified_claims": [],
                 "review_recommendation": "LLM base URL is not local/private; refusing to send document text",
+                "input_mode": self.llm_input_mode,
+                "output_clamped": False,
+            }
+        if base_is_remote and self.llm_input_mode == "raw_text" and not self.allow_remote_raw_text:
+            return {
+                "status": "error",
+                "provider": self.provider,
+                "model": self.model,
+                "risk_label": None,
+                "public_status": "not_checked",
+                "confidence": 0.0,
+                "materiality_reason": "",
+                "matched_public_sources": [],
+                "unverified_claims": [],
+                "review_recommendation": (
+                    "remote raw_text LLM input requires allow_remote_raw_text=true; "
+                    "use structured_tokens or explicitly opt in"
+                ),
+                "input_mode": "raw_text",
+                "output_clamped": False,
             }
         if self.provider not in {"vllm", "ollama", "openai", "local_distilled"}:
             return {
@@ -261,6 +287,8 @@ class LocalLLMAdjudicator:
                 "matched_public_sources": [],
                 "unverified_claims": [],
                 "review_recommendation": f"unsupported LLM provider: {self.provider}",
+                "input_mode": self.llm_input_mode,
+                "output_clamped": False,
             }
         # Tenant-level OpenAI opt-in gate. Mirrors the config-load check so a runtime
         # mutation (test harness, hot-reload) can't bypass the tenant opt-in either.
@@ -278,6 +306,8 @@ class LocalLLMAdjudicator:
                 "review_recommendation": (
                     "provider=openai requires tenant_opt_in_openai=true; refusing to send"
                 ),
+                "input_mode": self.llm_input_mode,
+                "output_clamped": False,
             }
 
         try:
@@ -329,6 +359,8 @@ class LocalLLMAdjudicator:
                 "matched_public_sources": [],
                 "unverified_claims": [],
                 "review_recommendation": str(exc),
+                "input_mode": self.llm_input_mode,
+                "output_clamped": False,
             }
 
     def _adjudicate_via_local_distilled(
@@ -357,13 +389,16 @@ class LocalLLMAdjudicator:
                     "provider=local_distilled requires KAYPOH_LLM_DISTILLED_ADAPTER_PATH "
                     "(or settings.llm.distilled_adapter_path) to point at a LoRA adapter dir"
                 ),
+                "input_mode": self.llm_input_mode,
+                "output_clamped": False,
             }
         if self._distilled_student is None:
             try:
+                from pathlib import Path as _P
+
                 from training.distillation.student_provider import (
                     build_local_distilled_adjudicator,
                 )
-                from pathlib import Path as _P
 
                 self._distilled_student = build_local_distilled_adjudicator(
                     adapter_path=_P(self.distilled_adapter_path),
@@ -382,6 +417,8 @@ class LocalLLMAdjudicator:
                     "matched_public_sources": [],
                     "unverified_claims": [],
                     "review_recommendation": f"local_distilled load failed: {exc}",
+                    "input_mode": self.llm_input_mode,
+                    "output_clamped": False,
                 }
         return self._distilled_student.adjudicate(
             text=text,

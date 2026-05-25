@@ -69,6 +69,8 @@ class DummyLLMAdjudicator:
             "matched_public_sources": ["https://example.com/acme-acquisition"],
             "unverified_claims": [],
             "review_recommendation": "No reviewer escalation required.",
+            "input_mode": "structured_tokens",
+            "output_clamped": False,
         }
 
 
@@ -147,6 +149,8 @@ class PublicEvidenceLLMApiTests(unittest.TestCase):
         self.assertEqual(payload["public_evidence"]["status"], "queried")
         self.assertEqual(payload["llm_adjudication"]["public_status"], "public")
         self.assertEqual(payload["privacy_ledger"][0]["destination"], "exa")
+        self.assertEqual(payload["privacy_ledger"][1]["operation"], "llm_adjudication")
+        self.assertEqual(payload["privacy_ledger"][1]["input_mode"], "structured_tokens")
         self.assertEqual(llm.last_payload["text"], text)
 
 

@@ -27,18 +27,19 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from kaypoh.anonymize import (
     DeterministicAnonymizer,
-    compute_document_hash as _compute_document_hash,
-    load_mapping as _load_persisted_mapping,
-    reidentify as _reidentify_text,
-    save_mapping as _save_persisted_mapping,
+    MappingStoreError,
 )
-from kaypoh.review.decisions import (
-    Decision,
-    ReviewSessionError,
-    findings_after_decisions,
-    get_session_state,
-    record_decision,
-    start_review_session,
+from kaypoh.anonymize import (
+    compute_document_hash as _compute_document_hash,
+)
+from kaypoh.anonymize import (
+    load_mapping as _load_persisted_mapping,
+)
+from kaypoh.anonymize import (
+    reidentify as _reidentify_text,
+)
+from kaypoh.anonymize import (
+    save_mapping as _save_persisted_mapping,
 )
 from kaypoh.backend.cache import ResponseCache
 from kaypoh.backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode
@@ -83,6 +84,13 @@ from kaypoh.backend.schemas import (
 from kaypoh.configs.artifacts import get_artifact_path
 from kaypoh.configs.runtime import RuntimeSettings, get_runtime_settings
 from kaypoh.helper.determinism import configure_determinism
+from kaypoh.review.decisions import (
+    Decision,
+    ReviewSessionError,
+    get_session_state,
+    record_decision,
+    start_review_session,
+)
 from kaypoh.review.document import extract_review_document
 from kaypoh.review.engine import PreSendReviewEngine
 
@@ -1087,6 +1095,17 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
                     public_evidence=public_evidence_resp,
                 )
                 llm_adjudication_resp = LLMAdjudicationResponse(**adjudication_result)
+                privacy_ledger.append(
+                    {
+                        "destination": llm_adjudication_resp.provider or "llm",
+                        "operation": "llm_adjudication",
+                        "allowed": llm_adjudication_resp.status == "adjudicated",
+                        "reason": llm_adjudication_resp.review_recommendation or llm_adjudication_resp.status,
+                        "query": "",
+                        "redactions": [],
+                        "input_mode": llm_adjudication_resp.input_mode,
+                    }
+                )
                 if llm_adjudication_resp.status == "adjudicated" and llm_adjudication_resp.risk_label is not None:
                     if classification_floor == Classification.HIGH_RISK:
                         final_classification = max_classification(
@@ -1382,7 +1401,13 @@ def _persist_coverage_warnings(*, request_id: str | None, warnings: list[Any]) -
         )
 
 
-def _persist_review_session(*, request_id: str | None, req: ReviewRequest, document_text: str, findings: list[Any]) -> None:
+def _persist_review_session(
+    *,
+    request_id: str | None,
+    req: ReviewRequest,
+    document_text: str,
+    findings: list[Any],
+) -> None:
     if not _review_persistence_enabled() or not request_id:
         return
     text_hash = hashlib.sha256(document_text.encode("utf-8")).hexdigest()
@@ -1514,7 +1539,7 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None) -> Anonym
                 ],
             )
             mapping_persisted = True
-        except OSError as exc:
+        except (OSError, MappingStoreError) as exc:
             # persistence is best-effort; the client still has the mapping in the response.
             log_backend_event(logging.WARNING, event="mapping_persist_failed", error=str(exc))
 
@@ -2009,7 +2034,10 @@ def _run_reidentify_sync(req: ReidentifyRequest, request_id: str | None) -> Reid
         mapping_dicts = [entry.model_dump() for entry in req.mapping]
     else:
         # `mapping` is empty and the model validator already guaranteed `document_hash` is present.
-        persisted = _load_persisted_mapping(req.document_hash or "")
+        try:
+            persisted = _load_persisted_mapping(req.document_hash or "")
+        except MappingStoreError as exc:
+            raise HTTPException(status_code=409, detail=str(exc)) from exc
         if not persisted:
             raise HTTPException(
                 status_code=404,

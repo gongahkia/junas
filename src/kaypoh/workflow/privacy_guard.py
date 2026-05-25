@@ -4,7 +4,6 @@ import re
 from dataclasses import dataclass, field
 from typing import Any
 
-
 EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECASE)
 PHONE_RE = re.compile(r"(?:\+?\d[\d\s().-]{7,}\d)")
 MONEY_RE = re.compile(
@@ -25,6 +24,7 @@ class PrivacyLedgerEntry:
     reason: str
     query: str = ""
     redactions: list[str] = field(default_factory=list)
+    input_mode: str = ""
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -34,6 +34,7 @@ class PrivacyLedgerEntry:
             "reason": self.reason,
             "query": self.query,
             "redactions": list(self.redactions),
+            "input_mode": self.input_mode,
         }
 
 
