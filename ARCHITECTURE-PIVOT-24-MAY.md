@@ -173,9 +173,9 @@ Honest scoring across procurement-relevant dimensions. Each row maps to expansio
 | Compliance-grade PII accuracy | 4/10 | 33 (detectors), 34 (addresses), 35 (semantic fallback), 40 (corpus locks) |
 | MNPI decision reliability | 4/10 | 36 (public-status proof states), 38 (bounded rationale) |
 | Auditability | 7/10 | shipped (14–18); rationale composition (38) lifts to 8/10 |
-| Security / procurement readiness | 5/10 | 41 shipped (mapping encryption + retention), 43 shipped (deployment hardening + SIEM); 42 (SSO/RBAC/tenancy) remains |
+| Security / procurement readiness | 7/10 | 41 shipped (mapping encryption + retention), 42A shipped (tenant isolation + JWT/API-key RBAC), 43 shipped (deployment hardening + SIEM); SAML/IdP polish remains |
 | Distribution-surface coverage | 3/10 | 22 (browser ext), 44 (Word/Outlook), 45 (DMS connectors), 47 (clipboard/file-watcher) |
-| Pre-send document safety completeness | 4/10 | 48 (SG legal/finance sensitive data), 49 (metadata), 50 (format gate) |
+| Pre-send document safety completeness | 7/10 | 49 shipped (metadata review/scrub), 50 shipped (fail-closed ingest); 48 (SG legal/finance sensitive data) remains |
 | Product differentiation | 7/10 | reversible local anonymisation + legal-MNPI angle holds; 46 shipped (`docs/accuracy.md`) |
 
 The 2/10 on "broad enterprise DLP replacement" is intentional. The 7/10 on "narrow legal/finance pilot value" is the wedge.
@@ -229,12 +229,12 @@ Operational hardening coverage as of 2026-05-25:
 | Encrypted local mapping-store option | ✓ |
 | Mapping retention / purge tooling | ✓ |
 | Mapping-store ACL / at-rest encryption guidance | ✓ |
-| Multi-tenant request isolation (server SKU) | ✗ |
-| SSO (OIDC/SAML) + RBAC | ✗ |
+| Multi-tenant request isolation (server SKU) | ✓ |
+| SSO (OIDC/SAML) + RBAC | △ |
 | SIEM export (JSON-over-syslog) | ✓ |
 | Per-detector recall + precision published in `docs/accuracy.md` | ✓ |
-| Document metadata leakage review/scrub | ✗ |
-| Fail-closed scanned-PDF / uncertain-format gate | ✗ |
+| Document metadata leakage review/scrub | ✓ |
+| Fail-closed scanned-PDF / uncertain-format gate | ✓ |
 | Enterprise appliance / BYOC deployment posture | ✗ |
 
 ### Coverage gaps → expansion-item map
@@ -252,10 +252,7 @@ Every ✗ in the jurisdiction-coverage table and every operational-hardening row
 | US SSN / driver-license detector | 33 |
 | UK NI / EU member-state national-ID detector | 33 |
 | Source-verified public-status adjudication by default | 36 |
-| Multi-tenant request isolation | 42 |
-| SSO + RBAC | 42 |
-| Document metadata leakage review/scrub | 49 |
-| Fail-closed scanned-PDF / uncertain-format gate | 50 |
+| SAML/Okta/Azure AD packaging on top of JWT/RBAC primitive | 42 |
 | Enterprise appliance / BYOC deployment posture | 51 |
 
 ## Expansion Sequence
@@ -348,7 +345,7 @@ These items target overall accuracy improvement on the LLM tier without changing
 
 These items unblock procurement at SG/SEA law firms and listed-company in-house teams. They are the lowest-leverage technical work but the highest-leverage commercial work, and explicitly serve the ICP defined above — not a general DLP push.
 
-42. **Multi-tenant isolation + SSO/RBAC for the server SKU.** Per-tenant request scoping on `/review`, `/anonymize`, `/reidentify`, and the journal endpoints. Journal partitioning by tenant (separate `journal.jsonl` per tenant, distinct `KAYPOH_JOURNAL_KEYS_FILE` entry). OIDC + SAML SSO with Okta and Azure AD as priority IdPs. Role-based access for `reviewer | maker | checker | admin | auditor`. Tenant-id derived from the validated JWT, never a request header — header-based tenancy is too easy to spoof under pen-test. The desktop SKU stays single-tenant by design.
+42. **Multi-tenant isolation + SSO/RBAC for the server SKU.** Partial shipped 2026-05-25. Tenant context now resolves from a configured API-key registry or validated JWT, never from caller-supplied tenant headers. Role checks cover `reviewer | maker | checker | admin | auditor`, with stricter maker/checker/admin and auditor/checker/admin gates on decision and review-state endpoints. Journals, persisted mappings, and defined-term session sidecars are partitioned under tenant-specific storage paths, and tests prove cross-tenant review, decision, mapping, and session leakage is blocked. Remaining work: production IdP packaging for Okta / Azure AD / SAML and explicit per-tenant key-management UX.
 
 43. ~~Deployment hardening + SIEM integration.~~ Shipped 2026-05-25. `docs/deployment-hardening.md` now covers filesystem ACLs, at-rest disk encryption, Nginx / Envoy mTLS proxy shapes, secrets-manager handling, Kubernetes security context / volume posture, and SIEM setup. Runtime SIEM export is config-gated under `[siem]` / `KAYPOH_SIEM_*` and emits `kaypoh.siem.v1` JSON-over-syslog events for privacy-ledger entries, HMAC journal appends, API-key denials, HTTP errors, and mapping-store persistence/decrypt failures. Payloads hash or summarize sensitive fields so raw document text, matched text, mapping originals, public-evidence queries, reviewer rationales, and secrets do not enter SIEM.
 
@@ -362,9 +359,9 @@ These items unblock procurement at SG/SEA law firms and listed-company in-house 
 
 48. **SG legal/finance sensitive-data expansion.** Add wedge-specific detectors and fixtures for PayNow IDs, MAS licence numbers, SGX stock codes / counter names, insurance policy numbers, crypto wallet addresses, court references, IPOS registration numbers, ACRA filing references, HDB / strata / title references, URA / SLA references, and contract-commercial terms such as unit pricing, discounts, volume commitments, royalty rates, and total contract value. Ship each detector only with recall + adversarial precision locks.
 
-49. **Document metadata leakage review and scrubber.** Add a pre-send metadata surface that reports and optionally strips DOCX core/app properties, comments, track-change authors, PDF XMP metadata, and image EXIF/GPS. The review output should distinguish visible text findings from metadata findings so auditors can see both content risk and container risk.
+49. ~~Document metadata leakage review and scrubber.~~ Shipped 2026-05-25. `/review` and `/anonymize` now report container metadata findings under `document.metadata_findings`, separate from visible-text PII/MNPI findings. `POST /documents/scrub` returns scrubbed base64 payloads plus scrub actions for DOCX properties/comments/track-change author/date attributes, PDF info metadata, and JPEG/PNG EXIF when Pillow is installed.
 
-50. **Fail-closed document ingest gate.** Treat PDF and rich-document acceptance as a detector with its own tests. Reject scanned PDFs, image-only PDFs, and uncertain PDFs based on text-layer density, image coverage, text/image ratio, and producer metadata. Do not silently OCR or best-effort extract; tell the user to convert/export to `.docx` and re-submit.
+50. ~~Fail-closed document ingest gate.~~ Shipped 2026-05-25. PDF extraction now applies a configurable fail-closed quality gate using text-layer density, empty-page ratio, embedded image signals, and scanner/producer metadata hints. Sparse, image-only, or scanned-like PDFs return `422` with conversion guidance instead of silently reviewing partial text; text-layer PDFs continue through normal `/review` and `/anonymize` flow.
 
 51. **Enterprise server deployment modes.** Package `kaypoh-server` for customer-managed VM/container deployment first. Document key ownership, no-content-access boundaries, upgrade process, and operational responsibilities. Keep customer-hosted/kaypoh-managed BYOC as a later premium path with a sharply separated operations plane and no read path to content, vault, or audit logs.
 

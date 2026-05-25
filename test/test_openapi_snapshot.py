@@ -7,7 +7,6 @@ from fastapi.testclient import TestClient
 
 import backend.main as main
 
-
 ROOT = Path(__file__).resolve().parent.parent
 SNAPSHOT_PATH = ROOT / "test" / "fixtures" / "openapi_contract_snapshot.json"
 
@@ -26,6 +25,8 @@ class OpenApiSnapshotTests(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         payload = response.json()
+        schemas = payload["components"]["schemas"]
+        batch_items = schemas["BatchClassifyRequest"]["properties"]["items"]
         extracted = {
             "info": {
                 "title": payload["info"]["title"],
@@ -39,7 +40,11 @@ class OpenApiSnapshotTests(unittest.TestCase):
                         "summary": details.get("summary"),
                         "tags": details.get("tags", []),
                         **(
-                            {"request_body_ref": details["requestBody"]["content"]["application/json"]["schema"]["$ref"]}
+                            {
+                                "request_body_ref": details["requestBody"]["content"]["application/json"]["schema"][
+                                    "$ref"
+                                ]
+                            }
                             if "requestBody" in details
                             else {}
                         ),
@@ -69,70 +74,70 @@ class OpenApiSnapshotTests(unittest.TestCase):
             },
             "schemas": {
                 "ClassifyRequest": {
-                    "required": payload["components"]["schemas"]["ClassifyRequest"].get("required", []),
+                    "required": schemas["ClassifyRequest"].get("required", []),
                     "properties": {
                         name: {
                             "type": schema.get("type", [entry.get("type") for entry in schema.get("anyOf", [])]),
                             **({"maxLength": schema["maxLength"]} if "maxLength" in schema else {}),
                         }
-                        for name, schema in payload["components"]["schemas"]["ClassifyRequest"]["properties"].items()
+                        for name, schema in schemas["ClassifyRequest"]["properties"].items()
                     },
                 },
                 "BatchClassifyRequest": {
-                    "required": payload["components"]["schemas"]["BatchClassifyRequest"].get("required", []),
+                    "required": schemas["BatchClassifyRequest"].get("required", []),
                     "properties": {
                         "items": {
-                            "type": payload["components"]["schemas"]["BatchClassifyRequest"]["properties"]["items"]["type"],
-                            "minItems": payload["components"]["schemas"]["BatchClassifyRequest"]["properties"]["items"]["minItems"],
-                            "maxItems": payload["components"]["schemas"]["BatchClassifyRequest"]["properties"]["items"]["maxItems"],
-                            "itemsRef": payload["components"]["schemas"]["BatchClassifyRequest"]["properties"]["items"]["items"]["$ref"],
+                            "type": batch_items["type"],
+                            "minItems": batch_items["minItems"],
+                            "maxItems": batch_items["maxItems"],
+                            "itemsRef": batch_items["items"]["$ref"],
                         }
                     },
                 },
                 "OffendingSpanResponse": {
-                    "required": payload["components"]["schemas"]["OffendingSpanResponse"].get("required", []),
-                    "properties": list(payload["components"]["schemas"]["OffendingSpanResponse"]["properties"].keys()),
+                    "required": schemas["OffendingSpanResponse"].get("required", []),
+                    "properties": list(schemas["OffendingSpanResponse"]["properties"].keys()),
                 },
                 "ObservabilityResponse": {
-                    "properties": list(payload["components"]["schemas"]["ObservabilityResponse"]["properties"].keys()),
+                    "properties": list(schemas["ObservabilityResponse"]["properties"].keys()),
                 },
                 "MosaicResponse": {
-                    "required": payload["components"]["schemas"]["MosaicResponse"].get("required", []),
-                    "properties": list(payload["components"]["schemas"]["MosaicResponse"]["properties"].keys()),
+                    "required": schemas["MosaicResponse"].get("required", []),
+                    "properties": list(schemas["MosaicResponse"]["properties"].keys()),
                 },
                 "ReidentifyRequest": {
-                    "required": payload["components"]["schemas"]["ReidentifyRequest"].get("required", []),
-                    "properties": list(payload["components"]["schemas"]["ReidentifyRequest"]["properties"].keys()),
+                    "required": schemas["ReidentifyRequest"].get("required", []),
+                    "properties": list(schemas["ReidentifyRequest"]["properties"].keys()),
                 },
                 "ReidentifyResponse": {
-                    "properties": list(payload["components"]["schemas"]["ReidentifyResponse"]["properties"].keys()),
+                    "properties": list(schemas["ReidentifyResponse"]["properties"].keys()),
                 },
                 "DocumentScrubRequest": {
-                    "required": payload["components"]["schemas"]["DocumentScrubRequest"].get("required", []),
-                    "properties": list(payload["components"]["schemas"]["DocumentScrubRequest"]["properties"].keys()),
+                    "required": schemas["DocumentScrubRequest"].get("required", []),
+                    "properties": list(schemas["DocumentScrubRequest"]["properties"].keys()),
                 },
                 "DocumentScrubResponse": {
-                    "properties": list(payload["components"]["schemas"]["DocumentScrubResponse"]["properties"].keys()),
+                    "properties": list(schemas["DocumentScrubResponse"]["properties"].keys()),
                 },
                 "ReviewDecisionRequest": {
-                    "required": payload["components"]["schemas"]["ReviewDecisionRequest"].get("required", []),
-                    "properties": list(payload["components"]["schemas"]["ReviewDecisionRequest"]["properties"].keys()),
+                    "required": schemas["ReviewDecisionRequest"].get("required", []),
+                    "properties": list(schemas["ReviewDecisionRequest"]["properties"].keys()),
                 },
                 "ReviewDecisionResponse": {
-                    "properties": list(payload["components"]["schemas"]["ReviewDecisionResponse"]["properties"].keys()),
+                    "properties": list(schemas["ReviewDecisionResponse"]["properties"].keys()),
                 },
                 "ReviewSessionStateResponse": {
-                    "properties": list(payload["components"]["schemas"]["ReviewSessionStateResponse"]["properties"].keys()),
+                    "properties": list(schemas["ReviewSessionStateResponse"]["properties"].keys()),
                 },
                 "ReviewSessionFindingState": {
-                    "required": payload["components"]["schemas"]["ReviewSessionFindingState"].get("required", []),
-                    "properties": list(payload["components"]["schemas"]["ReviewSessionFindingState"]["properties"].keys()),
+                    "required": schemas["ReviewSessionFindingState"].get("required", []),
+                    "properties": list(schemas["ReviewSessionFindingState"]["properties"].keys()),
                 },
                 "AnonymizeResponse": {
-                    "properties": list(payload["components"]["schemas"]["AnonymizeResponse"]["properties"].keys()),
+                    "properties": list(schemas["AnonymizeResponse"]["properties"].keys()),
                 },
                 "ReviewResponse": {
-                    "properties": list(payload["components"]["schemas"]["ReviewResponse"]["properties"].keys()),
+                    "properties": list(schemas["ReviewResponse"]["properties"].keys()),
                 },
             },
         }

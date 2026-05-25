@@ -61,7 +61,8 @@ class OpenApiDocsTests(unittest.TestCase):
         self.assertIn("anonymized_text", anonymize_response["properties"])
         self.assertIn("mapping", anonymize_response["properties"])
         self.assertIn("replacements", anonymize_response["properties"])
-        self.assertIn("approximate classifier-window spans", classify_request["properties"]["include_offending_spans"]["description"])
+        include_spans_description = classify_request["properties"]["include_offending_spans"]["description"]
+        self.assertIn("approximate classifier-window spans", include_spans_description)
         self.assertIn("context_before", offending_span["properties"])
         self.assertIn("window_token_count", offending_span["properties"])
         self.assertEqual(
