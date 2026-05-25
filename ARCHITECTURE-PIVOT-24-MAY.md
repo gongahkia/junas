@@ -156,7 +156,7 @@ Honest scoring across procurement-relevant dimensions. Each row maps to expansio
 | Compliance-grade PII accuracy | 4/10 | 33 (detectors), 34 (addresses), 35 (semantic fallback), 40 (corpus locks) |
 | MNPI decision reliability | 4/10 | 36 (public-status proof states), 38 (bounded rationale) |
 | Auditability | 7/10 | shipped (14–18); rationale composition (38) lifts to 8/10 |
-| Security / procurement readiness | 4/10 | 41 shipped (mapping encryption + retention); 42 (SSO/RBAC/tenancy), 43 (deployment hardening + SIEM) remain |
+| Security / procurement readiness | 5/10 | 41 shipped (mapping encryption + retention), 43 shipped (deployment hardening + SIEM); 42 (SSO/RBAC/tenancy) remains |
 | Distribution-surface coverage | 3/10 | 22 (browser ext), 44 (Word/Outlook), 45 (DMS connectors), 47 (clipboard/file-watcher) |
 | Product differentiation | 7/10 | reversible local anonymisation + legal-MNPI angle holds; 46 shipped (`docs/accuracy.md`) |
 
@@ -212,7 +212,7 @@ Operational hardening coverage as of 2026-05-25:
 | Mapping-store ACL / at-rest encryption guidance | ✓ |
 | Multi-tenant request isolation (server SKU) | ✗ |
 | SSO (OIDC/SAML) + RBAC | ✗ |
-| SIEM export (CEF / JSON-over-syslog) | ✗ |
+| SIEM export (JSON-over-syslog) | ✓ |
 | Per-detector recall + precision published in `docs/accuracy.md` | ✓ |
 
 ### Coverage gaps → expansion-item map
@@ -229,10 +229,8 @@ Every ✗ in the jurisdiction-coverage table and every operational-hardening row
 | US SSN / driver-license detector | 33 |
 | UK NI / EU member-state national-ID detector | 33 |
 | Source-verified public-status adjudication by default | 36 |
-| Broader deployment hardening recipe | 43 |
 | Multi-tenant request isolation | 42 |
 | SSO + RBAC | 42 |
-| SIEM export | 43 |
 
 ## Expansion Sequence
 
@@ -326,7 +324,7 @@ These items unblock procurement at SG/SEA law firms and listed-company in-house 
 
 42. **Multi-tenant isolation + SSO/RBAC for the server SKU.** Per-tenant request scoping on `/review`, `/anonymize`, `/reidentify`, and the journal endpoints. Journal partitioning by tenant (separate `journal.jsonl` per tenant, distinct `KAYPOH_JOURNAL_KEYS_FILE` entry). OIDC + SAML SSO with Okta and Azure AD as priority IdPs. Role-based access for `reviewer | maker | checker | admin | auditor`. Tenant-id derived from the validated JWT, never a request header — header-based tenancy is too easy to spoof under pen-test. The desktop SKU stays single-tenant by design.
 
-43. **Deployment hardening + SIEM integration.** Ship a `docs/deployment-hardening.md` covering filesystem ACLs, at-rest disk encryption (LUKS / FileVault / BitLocker pointers), reverse-proxy config (Nginx + Envoy with mTLS examples), secrets-manager integration (AWS Secrets Manager, HashiCorp Vault), and Kubernetes manifests for the server SKU. SIEM export: every privacy-ledger entry, journal entry, and policy-violation event emits CEF or JSON-over-syslog consumable by Splunk / Sentinel / Sumo. Pairs with item 41 to complete the procurement security story (SOC2-style controls without the audit itself).
+43. ~~Deployment hardening + SIEM integration.~~ Shipped 2026-05-25. `docs/deployment-hardening.md` now covers filesystem ACLs, at-rest disk encryption, Nginx / Envoy mTLS proxy shapes, secrets-manager handling, Kubernetes security context / volume posture, and SIEM setup. Runtime SIEM export is config-gated under `[siem]` / `KAYPOH_SIEM_*` and emits `kaypoh.siem.v1` JSON-over-syslog events for privacy-ledger entries, HMAC journal appends, API-key denials, HTTP errors, and mapping-store persistence/decrypt failures. Payloads hash or summarize sensitive fields so raw document text, matched text, mapping originals, public-evidence queries, reviewer rationales, and secrets do not enter SIEM.
 
 44. **Word add-in + Outlook add-in.** Microsoft 365 add-ins hooking pre-send (Outlook) and pre-save / pre-share (Word). Same `127.0.0.1:8765/anonymize` contract as the browser extension (item 22); Office.js client; document-hash retained client-side for in-place re-identify. The Outlook add-in is the higher-leverage surface because legal/IR teams send drafts via email and the threading model gives a natural "review before send" interception point. Office store distribution unblocks IT-managed deployment via M365 admin centre.
 

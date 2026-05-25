@@ -37,12 +37,12 @@ import hmac
 import json
 import os
 import time
-import tomllib
 from dataclasses import dataclass
 from pathlib import Path
 from threading import Lock
 from typing import Any
 
+import tomllib
 
 GENESIS_HASH = "GENESIS"
 DEFAULT_JOURNAL_DIR_NAME = "kaypoh-journal"
@@ -242,6 +242,13 @@ def append_event(*, event_type: str, review_id: str, payload: dict[str, Any]) ->
         )
         with path.open("a", encoding="utf-8") as fh:
             fh.write(entry.to_json() + "\n")
+        try:
+            from kaypoh.backend.siem import emit_journal_event
+
+            emit_journal_event(entry)
+        except Exception:
+            # SIEM export must never weaken the journal's append-only durability.
+            pass
         return entry
 
 

@@ -84,3 +84,10 @@ presidio_phone_number = 1.0
 presidio_email_address = 1.0
 default_high = 3.0
 default_info = 0.5
+
+[siem]
+enabled = false
+sink = "syslog"
+syslog_address = "/var/run/syslog"
+facility = "local4"
+app_name = "kaypoh"

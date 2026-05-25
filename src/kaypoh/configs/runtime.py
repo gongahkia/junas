@@ -28,6 +28,25 @@ DEFAULT_OPTIONAL_LAYERS = ("mosaic",)
 VALID_LAYERS = frozenset(DEFAULT_PIPELINE_LAYERS + ("public_evidence", "llm_adjudicator"))
 LEXICON_SCORE_THRESHOLD_MODES = frozenset({"static", "dynamic"})
 EXTERNAL_QUERY_POLICIES = frozenset({"sanitized_only", "derived_hashes_only", "disabled"})
+SIEM_FACILITIES = frozenset(
+    {
+        "auth",
+        "authpriv",
+        "cron",
+        "daemon",
+        "kern",
+        "local0",
+        "local1",
+        "local2",
+        "local3",
+        "local4",
+        "local5",
+        "local6",
+        "local7",
+        "syslog",
+        "user",
+    }
+)
 
 KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
     "api": frozenset({"allowed_origins"}),
@@ -85,6 +104,7 @@ KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
     ),
     "pipeline": frozenset({"layers", "optional_layers"}),
     "response_cache": frozenset({"size", "ttl_seconds"}),
+    "siem": frozenset({"enabled", "sink", "syslog_address", "facility", "app_name"}),
     "startup": frozenset(
         {"lazy_load_heavy", "prewarm_required_layers", "fail_on_layer_load_error"}
     ),
@@ -204,6 +224,15 @@ class ResponseCacheSettings:
 
 
 @dataclass(frozen=True)
+class SIEMSettings:
+    enabled: bool
+    sink: str
+    syslog_address: str
+    facility: str
+    app_name: str
+
+
+@dataclass(frozen=True)
 class StartupSettings:
     lazy_load_heavy: bool
     prewarm_required_layers: bool
@@ -229,6 +258,7 @@ class RuntimeSettings:
     lexicon: LexiconSettings
     lexicon_weights: dict[str, float]
     response_cache: ResponseCacheSettings
+    siem: SIEMSettings
     startup: StartupSettings
 
 
@@ -1043,6 +1073,74 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         ),
     )
 
+    siem = SIEMSettings(
+        enabled=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="siem",
+                key="enabled",
+                env_vars=("KAYPOH_SIEM_ENABLED",),
+                default=False,
+            ),
+            label="siem.enabled",
+        ),
+        sink=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="siem",
+                key="sink",
+                env_vars=("KAYPOH_SIEM_SINK",),
+                default="syslog",
+            ),
+            label="siem.sink",
+        ).lower()
+        or "syslog",
+        syslog_address=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="siem",
+                key="syslog_address",
+                env_vars=("KAYPOH_SIEM_SYSLOG_ADDRESS",),
+                default="/var/run/syslog",
+            ),
+            label="siem.syslog_address",
+        )
+        or "/var/run/syslog",
+        facility=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="siem",
+                key="facility",
+                env_vars=("KAYPOH_SIEM_FACILITY",),
+                default="local4",
+            ),
+            label="siem.facility",
+        ).lower()
+        or "local4",
+        app_name=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="siem",
+                key="app_name",
+                env_vars=("KAYPOH_SIEM_APP_NAME",),
+                default="kaypoh",
+            ),
+            label="siem.app_name",
+        )
+        or "kaypoh",
+    )
+    if siem.sink not in {"syslog", "stdout"}:
+        raise ConfigError("siem.sink must be one of: syslog, stdout")
+    if siem.facility not in SIEM_FACILITIES:
+        raise ConfigError("siem.facility must be a known syslog facility")
+    if not siem.app_name:
+        raise ConfigError("siem.app_name must not be empty")
+
     startup = StartupSettings(
         lazy_load_heavy=_parse_bool(
             _resolve_raw_value(
@@ -1108,6 +1206,7 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         lexicon=lexicon,
         lexicon_weights=lexicon_weights,
         response_cache=response_cache,
+        siem=siem,
         startup=startup,
     )
 

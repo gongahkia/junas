@@ -1,6 +1,7 @@
 import unittest
 from contextlib import asynccontextmanager
 from types import SimpleNamespace
+from unittest import mock
 
 from fastapi.testclient import TestClient
 
@@ -140,8 +141,9 @@ class PublicEvidenceLLMApiTests(unittest.TestCase):
             },
         )
 
-        with TestClient(test_app.app) as client:
-            response = client.post("/classify", json={"text": text, "entity_id": "Acme Corp"})
+        with mock.patch("backend.main.emit_privacy_ledger_events") as emit_privacy_events:
+            with TestClient(test_app.app) as client:
+                response = client.post("/classify", json={"text": text, "entity_id": "Acme Corp"})
 
         self.assertEqual(response.status_code, 200)
         payload = response.json()
@@ -151,6 +153,9 @@ class PublicEvidenceLLMApiTests(unittest.TestCase):
         self.assertEqual(payload["privacy_ledger"][0]["destination"], "exa")
         self.assertEqual(payload["privacy_ledger"][1]["operation"], "llm_adjudication")
         self.assertEqual(payload["privacy_ledger"][1]["input_mode"], "structured_tokens")
+        emit_privacy_events.assert_called_once()
+        self.assertEqual(emit_privacy_events.call_args.kwargs["endpoint"], "/classify")
+        self.assertEqual(len(emit_privacy_events.call_args.args[0]), 2)
         self.assertEqual(llm.last_payload["text"], text)
 
 

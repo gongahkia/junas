@@ -81,6 +81,7 @@ from kaypoh.backend.schemas import (
     ReviewSessionStateResponse,
     ReviewSuggestionResponse,
 )
+from kaypoh.backend.siem import emit_privacy_ledger_events, emit_security_event
 from kaypoh.configs.artifacts import get_artifact_path
 from kaypoh.configs.runtime import RuntimeSettings, get_runtime_settings
 from kaypoh.helper.determinism import configure_determinism
@@ -260,9 +261,17 @@ def get_allowed_origin_regex() -> str:
     return r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$"
 
 
-def require_api_key(x_api_key: str | None = Header(default=None, alias="X-API-Key")) -> None:
-    expected = current_runtime_settings().api.api_key
+def require_api_key(request: Request, x_api_key: str | None = Header(default=None, alias="X-API-Key")) -> None:
+    settings = current_runtime_settings()
+    expected = settings.api.api_key
     if expected and x_api_key != expected:
+        emit_security_event(
+            action="api_key_check",
+            outcome="denied",
+            request_id=getattr(request.state, "request_id", None),
+            details={"path": request.url.path, "method": request.method},
+            settings=settings.siem,
+        )
         raise HTTPException(status_code=401, detail="invalid or missing API key")
 
 
@@ -1247,6 +1256,12 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
         skipped_layers=skipped_layers,
         layer_error_count=len(layer_errors),
     )
+    emit_privacy_ledger_events(
+        privacy_ledger,
+        request_id=request_id,
+        endpoint=endpoint,
+        settings=current_runtime_settings().siem,
+    )
 
     return response
 
@@ -1488,6 +1503,12 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None) -> ReviewRespon
         jurisdictions_applied=result.jurisdictions_applied,
         timings_ms=timings_ms,
     )
+    emit_privacy_ledger_events(
+        result.privacy_ledger,
+        request_id=request_id,
+        endpoint="/review",
+        settings=current_runtime_settings().siem,
+    )
     return response
 
 
@@ -1542,6 +1563,13 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None) -> Anonym
         except (OSError, MappingStoreError) as exc:
             # persistence is best-effort; the client still has the mapping in the response.
             log_backend_event(logging.WARNING, event="mapping_persist_failed", error=str(exc))
+            emit_security_event(
+                action="mapping_persist",
+                outcome="failed",
+                request_id=request_id,
+                details={"error": str(exc), "document_hash": document_hash},
+                settings=current_runtime_settings().siem,
+            )
 
     timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
 
@@ -1600,6 +1628,12 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None) -> Anonym
         replacement_count=len(anonymization.replacements),
         jurisdictions_applied=result.jurisdictions_applied,
         timings_ms=timings_ms,
+    )
+    emit_privacy_ledger_events(
+        result.privacy_ledger,
+        request_id=request_id,
+        endpoint="/anonymize",
+        settings=current_runtime_settings().siem,
     )
     return response
 
@@ -1858,6 +1892,18 @@ async def request_context_middleware(request: Request, call_next):
             status_code=status_code,
             latency_ms=dt_ms,
         )
+    if status_code >= 400:
+        emit_security_event(
+            action="http_request",
+            outcome="error",
+            request_id=request_id,
+            details={
+                "method": request.method,
+                "path": request.url.path,
+                "status_code": status_code,
+            },
+            settings=current_runtime_settings().siem,
+        )
 
     if response is None:
         if request_error is not None:
@@ -2037,6 +2083,13 @@ def _run_reidentify_sync(req: ReidentifyRequest, request_id: str | None) -> Reid
         try:
             persisted = _load_persisted_mapping(req.document_hash or "")
         except MappingStoreError as exc:
+            emit_security_event(
+                action="mapping_reidentify",
+                outcome="failed",
+                request_id=request_id,
+                details={"error": str(exc), "document_hash": req.document_hash or ""},
+                settings=current_runtime_settings().siem,
+            )
             raise HTTPException(status_code=409, detail=str(exc)) from exc
         if not persisted:
             raise HTTPException(

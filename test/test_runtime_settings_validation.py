@@ -139,6 +139,46 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
 
         self.assertEqual(settings.llm.llm_input_mode, "raw_text")
 
+    def test_siem_settings_load_from_config(self):
+        config_path = self._write_config(
+            """
+            [pipeline]
+            layers = ["lexicon"]
+
+            [siem]
+            enabled = true
+            sink = "stdout"
+            syslog_address = "udp://127.0.0.1:5514"
+            facility = "local5"
+            app_name = "kaypoh-test"
+            """
+        )
+
+        settings = runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
+
+        self.assertTrue(settings.siem.enabled)
+        self.assertEqual(settings.siem.sink, "stdout")
+        self.assertEqual(settings.siem.syslog_address, "udp://127.0.0.1:5514")
+        self.assertEqual(settings.siem.facility, "local5")
+        self.assertEqual(settings.siem.app_name, "kaypoh-test")
+
+    def test_invalid_siem_sink_raises_config_error(self):
+        config_path = self._write_config(
+            """
+            [pipeline]
+            layers = ["lexicon"]
+
+            [siem]
+            enabled = true
+            sink = "file"
+            """
+        )
+
+        with self.assertRaises(runtime.ConfigError) as ctx:
+            runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
+
+        self.assertIn("siem.sink", str(ctx.exception))
+
 
 if __name__ == "__main__":
     unittest.main()

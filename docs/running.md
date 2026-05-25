@@ -202,6 +202,10 @@ The public-evidence layer sends only sanitized entity/ticker/event/date queries 
 
 When `KAYPOH_REVIEW_PERSIST=1`, `/anonymize` can persist placeholder mappings under `${KAYPOH_JOURNAL_DIR}/mappings/` so `/reidentify` can restore text later from a `document_hash`. Set `KAYPOH_MAPPING_STORE_KEY` to encrypt newly written mapping files; see `docs/mapping-store-hardening.md`.
 
+## SIEM Export
+
+Set `KAYPOH_SIEM_ENABLED=1` to emit JSON-over-syslog audit/security events for privacy-ledger decisions, HMAC journal appends, API-key denials, HTTP errors, and mapping-store persistence/decrypt failures. Configure `KAYPOH_SIEM_SYSLOG_ADDRESS` as a Unix syslog socket path or `udp://host:port`; see `docs/deployment-hardening.md`.
+
 ## Legal-Corpus Recall Gate
 
 A hand-labelled SG legal-contract corpus lives under `test/fixtures/legal-corpus/`. The recall gate runs every fixture through the engine and fails on per-rule regression:

@@ -6,6 +6,7 @@ This folder contains operator and developer documentation.
 - `schema.md`: API and artifact contracts
 - `architecture.md`: pipeline architecture overview
 - `accuracy.md`: generated per-detector recall/precision disclosure
+- `deployment-hardening.md`: production filesystem, transport, secrets, Kubernetes, and SIEM guidance
 - `mapping-store-hardening.md`: encryption, retention, and deployment controls for persisted mappings
 - `assumption.md`: implementation assumptions and invariants
 - `api/`: generated Postman collection, cURL snippets, and Python client integration notes
