@@ -11,6 +11,25 @@ Kaypoh should be treated as a pre-send document safety layer first, not as a raw
 
 `POST /review` and `POST /anonymize` are the primary product surfaces. `POST /classify` is retained as a compatibility shim; the legacy `lexicon → embedding → clustering → model1 → model2 → mosaic → regression` pipeline is no longer the product wedge and the team does not invest in further training of that classifier stack. Investment goes into the deterministic engine, LLM-assisted reasoning, and — for accuracy recovery on the LLM tier — targeted distillation and preference-tuning (expansion-sequence items 29–32).
 
+## Positioning and ICP
+
+Kaypoh is a *narrow, defensible* pre-send safety layer for legal-corporate workflows where client/issuer confidentiality is a procurement blocker for GenAI adoption. It is **not** a horizontal DLP replacement. Microsoft Purview, Google Sensitive Data Protection, Netskope, and Nightfall already compete on detector breadth + infrastructure coverage; matching them is a multi-year investment with no defensible wedge. Kaypoh wins where those tools are weakest: SG/SEA-native local-ID + legal-MNPI detection, reversible local anonymisation, an HMAC-sealed reviewer-attributed audit trail, and an offline-default desktop SKU that survives an air-gapped review-board demo.
+
+Initial ICP (priority-ordered):
+
+- Singapore / SEA law firms experimenting with GenAI but blocked by client-confidentiality duty under PDPA + Legal Profession Act.
+- Listed-company in-house legal and corporate-secretarial teams subject to SGX / Bursa / IDX / SET / PSE / HOSE continuous-disclosure rules.
+- M&A, capital-markets, and PE deal teams pre-announcement.
+- Investor-relations functions managing embargo windows.
+- Corporate legal departments where ABA Formal Opinion 512 (or non-US equivalents) is being cited as a GenAI-adoption blocker.
+
+Anti-positioning (claims kaypoh deliberately does **not** make):
+
+- *Not* a general DLP. Endpoint coverage, network egress control, file-share scanning, SaaS posture management are out of scope.
+- *Not* a legally conclusive MNPI classifier. Reg FD / MAR / SFA materiality is contextual; kaypoh surfaces *evidence* of MNPI for human review, not a regulatory determination.
+- *Not* a public-status oracle. Public-status verification requires `audit_grade` + a configured public-evidence provider + sufficient entity context.
+- *Not* a substitute for legal review. Reviewer attribution + maker-checker controls are scaffolding for human judgement, not a replacement for it.
+
 ## Accuracy-First Shape
 
 PII is the first product wedge because it is span-local and more measurable than MNPI. The system optimises recall before automation convenience:
@@ -120,9 +139,32 @@ The browser-extension thin client (planned) is an MV3 service worker hooking `pa
 - Model confidence alone is not sufficient for a defensible MNPI decision.
 - "Strict offline, full stop" is not the platform stance. Offline-default applies to the desktop SKU; cloud is allowed elsewhere when it improves specificity or accuracy and the privacy guard permits it.
 
+### Known gaps as of 2026-05-25
+
+The current `/review` path is deliberately conservative and deterministic. PII coverage is not yet a general semantic personal-data engine: broad address parsing, DOB/age, online/device identifiers, health/biometric special-category data, US SSN / driver-license, UK NI, EU member-state ID breadth, and non-honorific name detection are not fully implemented. MNPI coverage detects evidence of material events, non-public markers, legal-contract signals, and exact scalars; it does not prove legal materiality or public status by default. Public-status verification requires the `audit_grade` tier plus configured public-evidence provider credentials and enough entity context to form a privacy-approved query.
+
+Some LLM surfaces are scaffolded or injectable rather than fully production-wired runtime layers. LLM-defined-term extraction and inverse coverage audit exist, but they are not first-class configured layers with readiness/diagnostics parity. Rationale composition and journal-trained severity calibration are roadmap items. Remote raw-text LLM mode can send document text once the explicit deployment and tenant gates are enabled; `structured_tokens` is safer for regulated tenants but is not the default. Evaluation is still seed-scale, and persistence remains confidentiality-sensitive: HMAC protects journal integrity, but mapping records and matched-text journal payloads are plaintext unless the deployment adds encryption, access control, and retention policy.
+
+### Enterprise readiness self-assessment (2026-05-25)
+
+Honest scoring across procurement-relevant dimensions. Each row maps to expansion items that close the gap; refusing to score a dimension is dishonest, and the 2/10 line is on purpose.
+
+| Dimension | Rating | Closing items / posture |
+|---|:---:|---|
+| Narrow legal/finance pilot value (SG/SEA) | 7/10 | continued corpus growth (1, 40); ICP-targeted distribution (44, 45) |
+| Broad enterprise DLP replacement | 2/10 | **out of scope** — see anti-positioning |
+| Compliance-grade PII accuracy | 4/10 | 33 (detectors), 34 (addresses), 35 (semantic fallback), 40 (corpus locks) |
+| MNPI decision reliability | 4/10 | 36 (public-status proof states), 38 (bounded rationale) |
+| Auditability | 7/10 | shipped (14–18); rationale composition (38) lifts to 8/10 |
+| Security / procurement readiness | 3/10 | 41 (mapping encryption + retention), 42 (SSO/RBAC/tenancy), 43 (deployment hardening + SIEM) |
+| Distribution-surface coverage | 3/10 | 22 (browser ext), 44 (Word/Outlook), 45 (DMS connectors), 47 (clipboard/file-watcher) |
+| Product differentiation | 7/10 | reversible local anonymisation + legal-MNPI angle holds; defended by 46 (published per-detector accuracy) |
+
+The 2/10 on "broad enterprise DLP replacement" is intentional. The 7/10 on "narrow legal/finance pilot value" is the wedge.
+
 ## Jurisdiction Coverage
 
-Snapshot of detection capabilities by jurisdiction as of 2026-05-24. ✓ = available today; ✗ = not yet implemented. Universal rules fire regardless of jurisdiction pack; jurisdiction-specific rules and statute citations require a curated pack.
+Snapshot of detection capabilities by jurisdiction as of 2026-05-25. ✓ = available today; △ = available only under explicit configuration / opt-in; ✗ = not yet implemented. Universal rules fire regardless of jurisdiction pack; jurisdiction-specific rules and statute citations require a curated pack.
 
 | Capability | SG | SEA | MY | ID | TH | PH | VN | US | UK | EU |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -131,12 +173,19 @@ Snapshot of detection capabilities by jurisdiction as of 2026-05-24. ✓ = avail
 | Local national-ID detector (NRIC / MyKad / NIK / etc.) | ✓ | ✗ | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
 | Local company-ID detector (UEN / SSM / EIN / etc.) | ✓ | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
 | Local postal-address format | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Broad postal-address parser (multi-line / free-form) | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | **Universal PII rules** | | | | | | | | | | |
 | `passport_number` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | `email_address` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | `phone_number` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | `bank_account` / IBAN | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| `named_person` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `named_person` (honorific-anchored + linked variants) | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| General semantic PII model / NER fallback in `/review` | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| DOB / age detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| IP / device / online identifier detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Health / biometric special-category detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| US SSN / driver-license detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| UK NI / EU member-state national-ID detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | **Universal MNPI rules** | | | | | | | | | | |
 | `material_event` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | `nonpublic_marker` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
@@ -147,8 +196,46 @@ Snapshot of detection capabilities by jurisdiction as of 2026-05-24. ✓ = avail
 | `financial_amount` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | `financial_percentage` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | `large_number` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Source-verified public-status adjudication by default | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| `audit_grade` public-evidence adjudication | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ |
 
-When a customer specifies a jurisdiction without a curated pack, the runtime falls through to a synthesised baseline pack named `{CODE}_PERSONAL_DATA_BASELINE` and `{CODE}_MNPI_BASELINE`. Universal rules still fire; jurisdiction-specific local-ID detection and statute-cited rationales do not. As of 2026-05-24, every SEA jurisdiction (SG / MY / ID / TH / PH / VN) and the Western set (US / UK / EU) ship a curated pack via items 19–20; the fall-through case now mostly applies to customers' bespoke codes.
+When a customer specifies a jurisdiction without a curated pack, the runtime falls through to a synthesised baseline pack named `{CODE}_PERSONAL_DATA_BASELINE` and `{CODE}_MNPI_BASELINE`. Universal rules still fire; jurisdiction-specific local-ID detection and statute-cited rationales do not. As of 2026-05-25, every SEA jurisdiction (SG / MY / ID / TH / PH / VN) and the Western set (US / UK / EU) ship a curated pack via items 19–20; the fall-through case now mostly applies to customers' bespoke codes.
+
+Operational hardening coverage as of 2026-05-25:
+
+| Capability | Status |
+|---|:---:|
+| HMAC-chained review journal integrity | ✓ |
+| Journal key rotation | ✓ |
+| Plaintext local mapping-store encryption | ✗ |
+| Mapping retention / purge tooling | ✗ |
+| Filesystem ACL / deployment hardening recipe | ✗ |
+| Multi-tenant request isolation (server SKU) | ✗ |
+| SSO (OIDC/SAML) + RBAC | ✗ |
+| SIEM export (CEF / JSON-over-syslog) | ✗ |
+| Per-detector recall + precision published in `docs/accuracy.md` | ✗ |
+
+### Coverage gaps → expansion-item map
+
+Every ✗ in the jurisdiction-coverage table and every operational-hardening row above has an explicit closing item. No ✗ is left orphaned.
+
+| Capability gap | Closing item(s) |
+|---|---|
+| Broad postal-address parser (multi-line) | 34 |
+| General semantic PII / NER fallback in `/review` | 35 |
+| DOB / age detector | 33 |
+| IP / device / online identifier detector | 33 |
+| Health / biometric special-category detector | 33 (conservative seed) + 40 (corpus lock) |
+| US SSN / driver-license detector | 33 |
+| UK NI / EU member-state national-ID detector | 33 |
+| Source-verified public-status adjudication by default | 36 |
+| Plaintext local mapping-store encryption | 41 |
+| Mapping retention / purge tooling | 41 |
+| Filesystem ACL / deployment hardening recipe | 41 + 43 |
+| Multi-tenant request isolation | 42 |
+| SSO + RBAC | 42 |
+| SIEM export | 43 |
+| Published per-detector accuracy disclosure | 46 |
 
 ## Expansion Sequence
 
@@ -206,6 +293,8 @@ Open work organised by theme. Shipped items are struck through and retained for 
 
 These items target overall accuracy improvement on the LLM tier without changing the deterministic-engine contract. Every item gates on the existing recall + precision baselines in `test/fixtures/legal-corpus/recall.lock.json` and `test/fixtures/legal-corpus-adversarial/recall_adversarial.lock.json` — a trained artefact ships only when it meets or beats both.
 
+> **Training-run KIV — 2026-05-25:** operator will execute item 29 (LoRA distillation), and dataset-prep / dry-run for items 30 (DPO export) and 31 (severity calibrator) during the 2026-05-25 lunch window. Pipeline scaffolding (`training/distillation/`) is ready. Promotion gates remain `--min-agreement ≥ 0.85` and `--max-invariant-violations == 0` against `legal-corpus-adversarial`. Trained artefacts that miss either gate do not ship; the deterministic + cloud-teacher path stays the production fallback.
+
 29. ~~Cloud-adjudicator distillation → local student model.~~ Shipped 2026-05-24 (pipeline scaffolding). `training/distillation/` ships five components: `prompts.py` (shared message templates so teacher/student/trainer see byte-identical shapes), `teacher_collector.py` (walks corpora, calls the configured teacher adjudicator, writes idempotent JSONL + a per-call training ledger to `${KAYPOH_JOURNAL_DIR}/training_ledger.jsonl`), `distill_train.py` (LoRA-tunes a configurable base model; `--dry-run` validates the dataset without any GPU code path — catches single-label degeneracy, too-few-rows, malformed teacher verdicts), `eval_against_corpus.py` (measures agreement-rate vs deterministic engine + counts invariant violations where the student tries to upgrade past a deterministic label), and `student_provider.py` (`LocalDistilledAdjudicator` — loads the LoRA adapter and serves `adjudicate()` calls). `LocalLLMAdjudicator` routes `provider=local_distilled` to the student backend via `KAYPOH_LLM_DISTILLED_ADAPTER_PATH` + `KAYPOH_LLM_DISTILLED_BASE_MODEL`. Heavy ML imports (`torch`/`transformers`/`peft`) are lazy so the scaffolding tests run on a clean Python env. 16 tests cover the full pipeline with mocked LLMs. Actual training and student promotion remain operator-driven; the pipeline is ready to run as soon as you have an OpenAI key + a GPU box + `pip install peft datasets accelerate`.
 
 30. **Journal-driven preference tuning (DPO).** New module `training/journal_preference_export.py` reads the HMAC-chained journal (`KAYPOH_JOURNAL_DIR/journal.jsonl`), filters to `decision_recorded` events with an associated LLM verdict, and produces a sanitised JSONL of preference pairs (`accept` = chosen, `reject` = rejected). Sanitisation is the gating step: a `PrivacyGuard.sanitise_for_training()` pass strips matched-text spans, named-person tokens, and email/phone/NRIC values from rationales before export; every export emits a privacy-ledger entry. Trainer: standard DPO on the local student from item 29 (or directly on a local-only base if 29 hasn't shipped). Per-tenant fine-tunes are out of scope for v1 — the first release pools accepted/rejected pairs across all consenting tenants and produces a single shared-tenant model.
@@ -213,6 +302,42 @@ These items target overall accuracy improvement on the LLM tier without changing
 31. **Journal-trained severity calibrator.** Replace the hard-coded `MNPI_DOC_TYPE_SEVERITY_OVERRIDES` table with a small gradient-boosted-trees model (LightGBM or `sklearn.ensemble.GradientBoostingClassifier`) trained on `(rule, jurisdiction, document_type, context-feature-bag)` → reviewer-accepted severity, taken from `decision_recorded` events on findings whose decision was `accept` or `rewrite`. Scope is narrow: only medium ↔ low borderline; `high`-severity findings are not subject to ML adjustment (preserves deterministic-floor invariant). Lives under `training/severity_calibrator/` with `train.py` + `serve.py`; ships in `kaypoh-server` (adds `scikit-learn` to `[server]`); desktop SKU keeps the deterministic table. Activated per request via `review_profile=audit_grade` only.
 
 32. ~~Escalation-threshold calibration for the two-tier engine~~ Shipped 2026-05-24. `scripts/calibrate_escalation_threshold.py` searches over `(LLM_TIER_MNPI_LOWER, LLM_TIER_MNPI_UPPER)` pairs, scoring each candidate on a weighted mix of precision, recall, escalation-rate (LLM cost proxy), and latency-score against any corpus directory. Includes shipped defaults as a baseline candidate so the report shows whether the recommendation actually improves over status quo. `--apply` writes the recommendation to `configs/runtime_calibrated.toml` for explicit opt-in by `configs/runtime.py` (engine continues to use compile-time defaults unless the file is wired). Default 50 iterations of random sampling over the 2-D band space; objective weights tunable via `--w-precision`, `--w-recall`, `--w-latency`, `--w-cost`. Lightweight — no model training, just hyperparameter search — and serves as the eval scaffolding that items 29–31 will plug into.
+
+### Gap-closure roadmap
+
+33. **Broaden deterministic PII recognizers.** Add conservative detectors for DOB/age, IP address, device identifiers, US SSN, US driver-license patterns, UK NI number, and EU member-state national-ID hooks. Ship each detector behind recall + precision fixtures first; default-enable only rules whose adversarial precision baseline does not regress.
+
+34. **Add broad address detection.** Introduce a jurisdiction-aware address layer. SG keeps the current postal-code signal as the strict baseline; US/UK/EU start with conservative postal-address patterns; SEA packs get opt-in address recognizers where a reliable local format exists. Free-form multi-line address detection stays disabled until the corpus covers false positives in contracts, invoices, and signature blocks.
+
+35. **Add semantic PII fallback.** Add an optional local semantic PII pass to `/review` using Presidio/spaCy or a lightweight local NER model for names, organizations-as-identifiers, addresses, dates of birth, and special-category cues. Keep it feature-flagged and off in `strict` local default until defined-term, signatory, organization, and multilingual SG precision fixtures are locked.
+
+36. **Make public-status proof explicit.** Add a source-verification state to MNPI findings: `not_checked`, `public_source_matched`, `no_public_source_found`, and `ambiguous`. Do not let phrases such as "publicly announced" or "press release" soften severity unless public evidence is configured and matched, or the document itself contains a citable public source reference.
+
+37. **Production-wire LLM helper layers.** Promote LLM-defined-term extraction and inverse coverage audit from injectable helpers to named runtime components with config keys, readiness/diagnostics visibility, and privacy-ledger events. `strict` remains deterministic; only `audit_grade` may invoke these layers.
+
+38. **Implement LLM rationale composition.** Add bounded structured rationale composition for accepted findings only. Output must be short, citation-aware, and chain-of-thought-free; it must work in `structured_tokens` mode and respect `KAYPOH_CITATIONS_OVERRIDE`.
+
+39. **Make `structured_tokens` the regulated-tenant default.** Keep `raw_text` available only through explicit tenant opt-in when the LLM endpoint is remote. Add config validation warnings for remote LLM + raw-text combinations, and record the input mode in every LLM privacy-ledger event.
+
+40. **Expand evaluation corpora to compliance-grade gates.** Replace seed-scale coverage claims with locked targets: 50 default legal-contract fixtures, 50 adversarial/negative fixtures, 30 fixtures per SEA jurisdiction, OCR/PDF broken-run variants, multilingual name variants, and sector-specific finance / HR / healthcare / legal templates. Require both recall and precision locks before any new detector is marked available in the coverage table.
+
+41. **Harden persistence and mapping storage.** Add an encrypted mapping-store option, retention/purge CLI, and deployment guidance for filesystem ACLs and at-rest encryption. HMAC remains the journal-integrity primitive; mapping confidentiality and deletion become separate operator-visible controls.
+
+### Enterprise GTM substrate
+
+These items unblock procurement at SG/SEA law firms and listed-company in-house teams. They are the lowest-leverage technical work but the highest-leverage commercial work, and explicitly serve the ICP defined above — not a general DLP push.
+
+42. **Multi-tenant isolation + SSO/RBAC for the server SKU.** Per-tenant request scoping on `/review`, `/anonymize`, `/reidentify`, and the journal endpoints. Journal partitioning by tenant (separate `journal.jsonl` per tenant, distinct `KAYPOH_JOURNAL_KEYS_FILE` entry). OIDC + SAML SSO with Okta and Azure AD as priority IdPs. Role-based access for `reviewer | maker | checker | admin | auditor`. Tenant-id derived from the validated JWT, never a request header — header-based tenancy is too easy to spoof under pen-test. The desktop SKU stays single-tenant by design.
+
+43. **Deployment hardening + SIEM integration.** Ship a `docs/deployment-hardening.md` covering filesystem ACLs, at-rest disk encryption (LUKS / FileVault / BitLocker pointers), reverse-proxy config (Nginx + Envoy with mTLS examples), secrets-manager integration (AWS Secrets Manager, HashiCorp Vault), and Kubernetes manifests for the server SKU. SIEM export: every privacy-ledger entry, journal entry, and policy-violation event emits CEF or JSON-over-syslog consumable by Splunk / Sentinel / Sumo. Pairs with item 41 to complete the procurement security story (SOC2-style controls without the audit itself).
+
+44. **Word add-in + Outlook add-in.** Microsoft 365 add-ins hooking pre-send (Outlook) and pre-save / pre-share (Word). Same `127.0.0.1:8765/anonymize` contract as the browser extension (item 22); Office.js client; document-hash retained client-side for in-place re-identify. The Outlook add-in is the higher-leverage surface because legal/IR teams send drafts via email and the threading model gives a natural "review before send" interception point. Office store distribution unblocks IT-managed deployment via M365 admin centre.
+
+45. **DMS connectors: iManage Work + NetDocuments.** Read-side connectors that batch-scan a matter / workspace folder, run `/review`, and surface findings inside the DMS UI as document tags. Read-only by default; write-back (anonymise-in-place) is a separate opt-in. iManage Work API + NetDocuments REST API are the two integration targets covering the [Inference] majority of SG / UK / AU law-firm DMS share — verify with each ICP pilot before sequencing.
+
+46. **Published per-detector accuracy disclosure (`docs/accuracy.md`).** Turn the locks (`recall.lock.json` + `recall_adversarial.lock.json` + `legal-corpus-sea.lock.json` + future per-jurisdiction locks) into a public-facing accuracy disclosure listing, per detector, per corpus, recall + precision + adversarial precision + corpus size + known failure modes. Auto-generated from the lock files in CI so it cannot drift from reality. Honest numbers are the procurement-trust play — the alternative is competing on marketing-grade claims against vendors with bigger budgets, which is a loss.
+
+47. **Clipboard + file-watcher fallback (desktop SKU).** For surfaces without a native add-in (Slack desktop, generic web textareas, native macOS/Windows apps), ship an opt-in clipboard monitor + watched-folder daemon that runs everything paste-buffered or dropped into the folder through `/review` and surfaces a system-tray notification on findings. Strict opt-in; off by default; never autoreplaces clipboard content — one-click "anonymise this" only. Bounded scope: closes the long-tail-surface gap without committing to per-app integrations.
 
 ### Deferred
 
