@@ -243,7 +243,19 @@ Response:
     "mime_type": "text/plain",
     "extraction_method": "inline_text | base64_text | docx_xml | pypdf",
     "page_count": "int | null",
-    "char_count": "int"
+    "char_count": "int",
+    "extraction_quality": "accepted",
+    "extraction_warnings": [],
+    "metadata_findings": [
+      {
+        "id": "metadata:docx_core_properties:creator",
+        "source": "docx_core_properties | docx_comments | docx_track_changes | pdf_info | image_exif",
+        "field": "creator",
+        "severity": "low | medium | high",
+        "detail": "string",
+        "value_preview": "short string"
+      }
+    ]
   },
   "findings": [
     {
@@ -280,8 +292,39 @@ Notes:
 
 - `text` and `document_base64` are mutually optional at the field level, but at least one is required.
 - `classification` is intentionally duplicated from `overall_risk` so existing classifier consumers can read a familiar field.
+- PDF extraction fails closed when the text layer is absent or too sparse; scanned/image-only PDFs must be converted/exported before review.
+- `document.metadata_findings` reports container metadata leakage separately from visible-text PII/MNPI findings, so text offsets remain stable.
 - External retrieval is only used when public evidence is enabled. It receives sanitized public-source queries, not private document text.
 - The local LLM adjudicator is only used when enabled and allowed by the configured local/private base URL policy.
+
+## API — `POST /documents/scrub`
+
+Best-effort metadata scrub endpoint for supported document containers.
+
+Request:
+
+```json
+{
+  "document_base64": "base64 docx/pdf/jpeg/png",
+  "document_filename": "draft.docx",
+  "document_mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document | application/pdf | image/jpeg | image/png | null"
+}
+```
+
+Response:
+
+```json
+{
+  "request_id": "string | null",
+  "document_base64": "base64 scrubbed payload",
+  "document_filename": "draft.docx",
+  "document_mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "scrubbed": true,
+  "actions": [{"source": "docx", "field": "docProps/core.xml", "action": "removed"}],
+  "metadata_findings": [],
+  "remaining_warnings": []
+}
+```
 
 ## API — `POST /classify/batch`
 

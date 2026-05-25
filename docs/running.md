@@ -56,6 +56,9 @@ Useful env vars:
 - `KAYPOH_PRETTY_LOGS` (`1` by default)
 - `PIPELINE_LAYERS=lexicon,embedding,...`
 - `KAYPOH_API_KEY` for `X-API-Key` auth on protected POST endpoints
+- `KAYPOH_TENANCY_ENABLED=1` to resolve tenant/roles from a configured API-key registry or JWT.
+- `KAYPOH_TENANT_CREDENTIALS_JSON` maps API keys to `{tenant_id, subject, roles}` when tenancy API-key mode is enabled.
+- `KAYPOH_JWT_HS256_SECRET` or `KAYPOH_JWT_JWKS_URL` enables JWT tenant auth; tenant IDs come from claims, never caller-supplied tenant headers.
 - `KAYPOH_FAIL_ON_LAYER_LOAD_ERROR=1` to fail fast when required layers cannot load
 - `KAYPOH_LAUNCH_TELEMETRY_FILE=reports/launch_telemetry.json`
 - `KAYPOH_REVIEW_PERSIST=1` to enable `/review/{id}/decision` and `GET /review/{id}` (writes to the HMAC-chained journal)
@@ -156,7 +159,15 @@ curl -X POST http://localhost:8000/classify/batch \
   -d '{"items":[{"text":"Company A earnings leak"},{"text":"Public press release"}]}'
 ```
 
-For file uploads through an integration, send base64 text, DOCX, or PDF content with `document_base64`, `document_filename`, and optionally `document_mime_type`.
+For file uploads through an integration, send base64 text, DOCX, or PDF content with `document_base64`, `document_filename`, and optionally `document_mime_type`. PDF ingestion fails closed when the text layer is missing or too sparse; convert scanned/image-only files to `.docx` or submit a PDF with a reliable text layer.
+
+Metadata findings are reported under `document.metadata_findings` separately from visible-text findings. To remove supported DOCX/PDF/JPEG/PNG metadata before sharing a file, call:
+
+```sh
+curl -X POST http://localhost:8000/documents/scrub \
+  -H "Content-Type: application/json" \
+  -d '{"document_base64":"...","document_filename":"draft.docx"}'
+```
 
 ## Python Client
 
@@ -174,7 +185,7 @@ with KaypohClient("http://localhost:8000") as client:
     print(result.mapping)
 ```
 
-`KaypohClient` is synchronous and `AsyncKaypohClient` is asynchronous. Both support `anonymize(...)`, `review(...)`, `reidentify(...)`, `classify(...)`, and batch classification. Full usage is documented in `docs/api/python_client.md`.
+`KaypohClient` is synchronous and `AsyncKaypohClient` is asynchronous. Both support `anonymize(...)`, `review(...)`, `reidentify(...)`, `scrub_document(...)`, `classify(...)`, and batch classification. Full usage is documented in `docs/api/python_client.md`.
 
 Two end-to-end example scripts ship under `scripts/examples/`:
 
@@ -200,7 +211,7 @@ The public-evidence layer sends only sanitized entity/ticker/event/date queries 
 
 ## Persistent Mapping Store
 
-When `KAYPOH_REVIEW_PERSIST=1`, `/anonymize` can persist placeholder mappings under `${KAYPOH_JOURNAL_DIR}/mappings/` so `/reidentify` can restore text later from a `document_hash`. Set `KAYPOH_MAPPING_STORE_KEY` to encrypt newly written mapping files; see `docs/mapping-store-hardening.md`.
+When `KAYPOH_REVIEW_PERSIST=1`, `/anonymize` can persist placeholder mappings under `${KAYPOH_JOURNAL_DIR}/mappings/` so `/reidentify` can restore text later from a `document_hash`. With tenancy enabled, journal, mapping, and defined-term session files are partitioned under `${KAYPOH_JOURNAL_DIR}/tenants/{tenant_id}/`. Set `KAYPOH_MAPPING_STORE_KEY` to encrypt newly written mapping files; see `docs/mapping-store-hardening.md`.
 
 ## SIEM Export
 

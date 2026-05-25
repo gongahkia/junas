@@ -161,7 +161,22 @@ with KaypohClient("http://localhost:8000") as client:
     print(result.suggestions)
 ```
 
-For file inputs, pass `document_base64`, `document_filename`, and optionally `document_mime_type`. Supported v1 extraction paths are plain text, DOCX, and PDF when `pypdf` is installed.
+For file inputs, pass `document_base64`, `document_filename`, and optionally `document_mime_type`. Supported v1 extraction paths are plain text, DOCX, and PDF when `pypdf` is installed. PDF review fails closed when the text layer is absent or too sparse, and metadata leakage findings are returned under `result.document.metadata_findings`.
+
+To scrub supported container metadata before sharing a file:
+
+```python
+from kaypoh import KaypohClient
+
+with KaypohClient("http://localhost:8000") as client:
+    scrubbed = client.scrub_document(
+        document_base64=encoded_docx,
+        document_filename="draft.docx",
+    )
+
+    print(scrubbed.actions)
+    print(scrubbed.document_base64)
+```
 
 ## Pre-Send Anonymization
 

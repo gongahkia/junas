@@ -24,8 +24,11 @@ Recommended ownership:
 | `/var/lib/kaypoh/journal` | `kaypoh:kaypoh` | `0700` | HMAC journal, mapping store, audit packs |
 | `/var/log/kaypoh` | `kaypoh:adm` | `0750` | Process logs when not shipping directly |
 
-Do not share `KAYPOH_JOURNAL_DIR` between tenants. Use one journal directory and one
-journal key namespace per tenant until server-side tenancy isolation is enabled.
+When `KAYPOH_TENANCY_ENABLED=1`, Kaypoh partitions journals, mappings, and defined-term
+session sidecars under `${KAYPOH_JOURNAL_DIR}/tenants/{tenant_id}/`. Tenant IDs are
+derived from configured API-key credentials or validated JWT claims, never from
+caller-supplied tenant headers. Keep the base journal directory private to the Kaypoh
+service account.
 
 ## At-Rest Encryption
 
@@ -143,6 +146,36 @@ containers:
 
 Add network policies so only the ingress/proxy namespace can reach the Kaypoh service.
 If public evidence or remote LLM providers are disabled, block outbound internet egress.
+
+## Tenant Auth And RBAC
+
+Legacy single-tenant deployments can keep using `KAYPOH_API_KEY`. Multi-tenant server
+deployments should enable tenancy and choose API-key registry mode, JWT mode, or both:
+
+```sh
+export KAYPOH_TENANCY_ENABLED=1
+export KAYPOH_TENANCY_AUTH_MODES=api_key,jwt
+export KAYPOH_TENANT_CREDENTIALS_JSON='{"tenant-a-key":{"tenant_id":"tenant-a","subject":"svc-a","roles":["reviewer","maker","auditor"]}}'
+export KAYPOH_JWT_JWKS_URL=https://idp.example/.well-known/jwks.json
+export KAYPOH_JWT_ISSUER=https://idp.example/
+export KAYPOH_JWT_AUDIENCE=kaypoh-api
+```
+
+Supported roles are `reviewer`, `maker`, `checker`, `admin`, and `auditor`. Review,
+anonymize, reidentify, and scrub routes accept `reviewer|maker|checker|admin`; decision
+recording requires `maker|checker|admin`; review-session reads require
+`auditor|checker|admin`.
+
+## Document Ingest And Metadata
+
+PDF review fails closed by default when the extracted text layer is missing, too sparse,
+or image-only. Do not enable best-effort OCR in the server path; convert scanned files to
+DOCX or submit a PDF with a reliable text layer.
+
+`/review` and `/anonymize` report DOCX/PDF/image container metadata under
+`document.metadata_findings`. `/documents/scrub` removes supported DOCX properties,
+comments, track-change author/date attributes, PDF info metadata, and JPEG/PNG EXIF where
+the installed dependencies support that file type.
 
 ## SIEM Export
 

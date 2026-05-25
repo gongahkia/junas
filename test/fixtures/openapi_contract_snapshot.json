@@ -7,7 +7,8 @@
   "tags": [
     "Runtime",
     "Classification",
-    "Anonymization"
+    "Anonymization",
+    "Documents"
   ],
   "paths": {
     "/health": {
@@ -94,6 +95,16 @@
         ],
         "request_body_ref": "#/components/schemas/ReidentifyRequest",
         "response_ref": "#/components/schemas/ReidentifyResponse"
+      }
+    },
+    "/documents/scrub": {
+      "post": {
+        "summary": "Scrub document metadata",
+        "tags": [
+          "Documents"
+        ],
+        "request_body_ref": "#/components/schemas/DocumentScrubRequest",
+        "response_ref": "#/components/schemas/DocumentScrubResponse"
       }
     },
     "/review/{review_id}/decision": {
@@ -243,6 +254,28 @@
         "text",
         "replacement_count",
         "timings_ms"
+      ]
+    },
+    "DocumentScrubRequest": {
+      "required": [
+        "document_base64"
+      ],
+      "properties": [
+        "document_base64",
+        "document_filename",
+        "document_mime_type"
+      ]
+    },
+    "DocumentScrubResponse": {
+      "properties": [
+        "request_id",
+        "document_base64",
+        "document_filename",
+        "document_mime_type",
+        "scrubbed",
+        "actions",
+        "metadata_findings",
+        "remaining_warnings"
       ]
     },
     "ReviewDecisionRequest": {
