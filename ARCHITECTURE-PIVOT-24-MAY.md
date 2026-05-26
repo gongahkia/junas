@@ -1,5 +1,7 @@
 # Kaypoh Architecture Pivot - 24 May 2026
 
+> Last revised 2026-05-26. Title date refers to the original pivot decision; the body is kept current as items ship.
+
 ## Decision
 
 Kaypoh should be treated as a pre-send document safety layer first, not as a raw MNPI classifier. The core workflow is:
@@ -68,7 +70,11 @@ SG legal/finance coverage should keep expanding in the wedge direction, not into
 
 ### Evaluation corpus posture
 
-Synthetic data is a first-class artefact. `test/fixtures/legal-corpus/` is the hand-labelled gold set (hard-fail recall gate). `test/fixtures/legal-corpus-adversarial/` (planned) holds OpenAI-generated obfuscated PII / negative-prose / multilingual variants and gates precision separately. Adversarial and multilingual coverage matter because SG contracts mix English with Mandarin, Bahasa Melayu, and Tamil names, and PDF inputs come with OCR ligature artefacts and broken DOCX runs. The generation tooling at `scripts/generate_legal_fixture.py` (planned) wraps the OpenAI API; hand-review remains mandatory before any lock-baseline refresh.
+Synthetic data is a first-class artefact. `test/fixtures/legal-corpus/` is the default legal-contract corpus (118 fixtures as of 2026-05-26). `test/fixtures/legal-corpus-adversarial/` is the obfuscated / negative-prose / multilingual corpus (115 fixtures). `test/fixtures/legal-corpus-sea/` and `test/fixtures/legal-corpus-hk-au-jp-kr/` are seed jurisdiction corpora for MY / ID / TH / PH / VN and HK / AU / JP / KR respectively. `docs/accuracy.md` is generated from the committed lock files and is the public accuracy disclosure.
+
+Adversarial and multilingual coverage matter because SG contracts mix English with Mandarin, Bahasa Melayu, and Tamil names, and PDF inputs come with OCR ligature artefacts and broken DOCX runs. The generation tooling at `scripts/generate_legal_fixture.py`, `scripts/generate_legal_fixture_batch.py`, `scripts/autolabel_fixture.py`, and `scripts/autolabel_batch.py` wraps the OpenAI API for build-time synthetic inputs only. Hand spot-checking remains mandatory before any model-derived label baseline is treated as procurement-grade.
+
+The HK / AU / JP / KR seed corpus is **one fixture per jurisdiction** as of 2026-05-26 (4 fixtures total); recall/precision at 1.0 is trivially achievable at that volume and should not be read as population-level coverage. SEA seed corpus is similarly one fixture per jurisdiction (5 fixtures total). Item 86 follow-up + item 90/91 discipline grows each toward the 30-doc-per-jurisdiction target before the coverage claim hardens.
 
 ### Statute citations
 
@@ -129,6 +135,7 @@ Active endpoints:
 - `POST /anonymize`: primary pre-processing endpoint for documents leaving the customer environment. Returns `document_hash` and a `mapping_persisted` flag when `KAYPOH_REVIEW_PERSIST=1`.
 - `POST /review`: same evidence stack without text rewriting.
 - `POST /reidentify`: deterministic inverse of `/anonymize` using either a caller-supplied `mapping` or a `document_hash` referencing the local persistent store.
+- `POST /documents/scrub`: metadata scrubber for supported DOCX / PDF / JPEG / PNG payloads. Returns scrubbed base64, metadata findings found before scrubbing, scrub actions, and any remaining warnings.
 - `POST /review/{review_id}/decision`: per-finding `accept | reject | rewrite` review-state mutations, persisted to the append-only HMAC-chained journal at `${KAYPOH_JOURNAL_DIR:-./kaypoh-journal}/journal.jsonl`. Gated by `KAYPOH_REVIEW_PERSIST=1`. Decisions carry `reviewer_id` sourced from the `X-Reviewer-ID` header (header takes precedence over body).
 - `GET /review/{review_id}`: replay the journal for a session and return findings merged with their latest decision; surfaces `decisions_recorded`, `decision_reviewer_id` per finding, and audit-export references.
 - `POST /classify` and `POST /classify/batch`: programmatic compatibility surface over `engine.review()`; legacy classifier fields remain `null`.
@@ -138,7 +145,7 @@ Audit-pack tooling: `scripts/export_audit_pack.py` produces HMAC-sealed ZIPs; ve
 
 ### Format gate posture
 
-Document ingest should fail closed when the extractor cannot prove it has a reliable text layer. Scanned PDFs, image-only PDFs, and uncertain PDFs are rejected with conversion guidance instead of best-effort OCR. Candidate gate signals: embedded text-layer presence and density, large-area embedded image coverage, page text/image ratio, and producer metadata. The refusal message should tell the user to convert or export to `.docx` and re-submit. False confidence is worse than a blocked upload in this category.
+Document ingest fails closed when the PDF extractor cannot prove it has a reliable text layer. Scanned PDFs, image-only PDFs, and uncertain PDFs are rejected with conversion guidance instead of best-effort OCR. The gate uses text-layer density, empty-page ratio, embedded-image signals, and scanner/producer metadata. Text-layer PDFs still pass, but image-bearing PDFs surface extraction warnings because only the text layer has been reviewed. False confidence is worse than a blocked upload in this category.
 
 ### Distribution shape
 
@@ -156,71 +163,80 @@ The browser-extension thin client (planned) is an MV3 service worker hooking `pa
 - Model confidence alone is not sufficient for a defensible MNPI decision.
 - "Strict offline, full stop" is not the platform stance. Offline-default applies to the desktop SKU; cloud is allowed elsewhere when it improves specificity or accuracy and the privacy guard permits it.
 
-### Known gaps as of 2026-05-25
+### Known gaps as of 2026-05-26
 
-The current `/review` path is deliberately conservative and deterministic. PII coverage is not yet a general semantic personal-data engine: broad address parsing, DOB/age, online/device identifiers, health/biometric special-category data, US SSN / driver-license, UK NI, EU member-state ID breadth, and non-honorific name detection are not fully implemented. SG legal/finance sensitive-data coverage is still incomplete: PayNow IDs, MAS licence numbers, SGX counter identifiers, IPOS / ACRA / court references, property-title references, and richer commercial-term detectors are backlog items. MNPI coverage detects evidence of material events, non-public markers, legal-contract signals, and exact scalars; it does not prove legal materiality or public status by default. Public-status verification requires the `audit_grade` tier plus configured public-evidence provider credentials and enough entity context to form a privacy-approved query.
+The current `/review` path is deliberately conservative and deterministic. PII coverage is not yet a general semantic personal-data engine: broad address parsing, DOB/age, online/device identifiers, health/biometric special-category data, US SSN / driver-license / EIN, UK NI, EU member-state ID breadth, and non-honorific name detection are not fully implemented. Jurisdiction-local direct identifiers now cover SG / SEA seed packs plus HK / AU / JP / KR seed packs, but those newer packs are seed-scale and do not yet include local postal-address recognizers. SG legal/finance sensitive-data coverage has a first shipped slice (`sg_court_citation`); PayNow IDs, MAS licence numbers, SGX counter identifiers, IPOS / ACRA filing references, property-title references, and richer commercial-term detectors remain backlog items.
 
-Some LLM surfaces are scaffolded or injectable rather than fully production-wired runtime layers. LLM-defined-term extraction and inverse coverage audit exist, but they are not first-class configured layers with readiness/diagnostics parity. Rationale composition and journal-trained severity calibration are roadmap items. Remote raw-text LLM mode can still send document text, but only after the explicit remote-URL gate and the explicit remote-raw-text gate are enabled; remote endpoints otherwise default to `structured_tokens`. Evaluation is still seed-scale, though `docs/accuracy.md` now publishes the locked detector baselines. Persistence remains confidentiality-sensitive: HMAC protects journal integrity, mapping records can be Fernet-encrypted when `KAYPOH_MAPPING_STORE_KEY` is configured, and matched-text journal payloads remain plaintext unless the deployment adds separate encryption, access control, and retention policy. Document metadata leakage is not yet covered: DOCX core/app properties, comments, track-change authors, PDF XMP metadata, and image EXIF/GPS need a review/scrub surface.
+MNPI coverage detects evidence of material events, non-public markers, legal-contract signals, and exact scalars; it still does not prove legal materiality or public status by default. Public-status verification requires the `audit_grade` tier plus configured public-evidence provider credentials and enough entity context to form a privacy-approved query. Contingent / probabilistic MNPI, tipping language, selective-disclosure markers, blackout-window reasoning, sector-specific packs, and HK's narrower "not generally known" semantics remain open.
 
-### Enterprise readiness self-assessment (2026-05-25)
+Some LLM surfaces are scaffolded or injectable rather than fully production-wired runtime layers. LLM-defined-term extraction and inverse coverage audit exist, but they are not first-class configured layers with readiness/diagnostics parity. Rationale composition and journal-trained severity calibration are roadmap items. Remote raw-text LLM mode can still send document text, but only after the explicit remote-URL gate and explicit remote-raw-text gate are enabled; remote endpoints otherwise default to `structured_tokens`.
+
+Evaluation is broader but still seed-scale for non-SG jurisdictions: `docs/accuracy.md` publishes locked baselines over 118 default, 115 adversarial, 5 SEA, and 4 HK/AU/JP/KR fixtures. Persistence remains confidentiality-sensitive: HMAC protects journal integrity, mapping records can be Fernet-encrypted when `KAYPOH_MAPPING_STORE_KEY` is configured, and matched-text journal payloads remain plaintext unless the deployment adds separate encryption, access control, and retention policy. Mapping persistence is still best-effort on `/anonymize`; item 65 remains open because a store write failure logs/returns the inline mapping instead of refusing the request.
+
+Document metadata leakage review/scrub now exists for DOCX core/app/custom properties, DOCX comments, DOCX track-change author/date/initials, PDF info metadata, and JPEG/PNG EXIF when optional dependencies are installed. Remaining document-safety gaps are the broader container/binary surfaces: embedded binaries, hidden Office content, PDF annotations/forms/XMP/embedded files, XLSX pivot caches, PPTX notes/masters, EML/MSG attachments, archives, HTML/SVG/RTF/Markdown hidden text, and image OCR.
+
+### Enterprise readiness self-assessment (2026-05-26)
 
 Honest scoring across procurement-relevant dimensions. Each row maps to expansion items that close the gap; refusing to score a dimension is dishonest, and the 2/10 line is on purpose.
 
 | Dimension | Rating | Closing items / posture |
 |---|:---:|---|
-| Narrow legal/finance pilot value (SG/SEA) | 7/10 | continued corpus growth (1, 40); ICP-targeted distribution (44, 45) |
+| Narrow legal/finance pilot value (SG/APAC) | 8/10 | SG/SEA + HK/AU/JP/KR direct-ID seed packs, reversible anonymisation, metadata scrub, accuracy disclosure; corpus depth and integrations still limit scale (1, 40, 44, 45) |
 | Broad enterprise DLP replacement | 2/10 | **out of scope** — see anti-positioning |
-| Compliance-grade PII accuracy | 4/10 | 33 (detectors), 34 (addresses), 35 (semantic fallback), 40 (corpus locks) |
-| MNPI decision reliability | 4/10 | 36 (public-status proof states), 38 (bounded rationale) |
-| Auditability | 7/10 | shipped (14–18); rationale composition (38) lifts to 8/10 |
-| Security / procurement readiness | 7/10 | 41 shipped (mapping encryption + retention), 42A shipped (tenant isolation + JWT/API-key RBAC), 43 shipped (deployment hardening + SIEM); SAML/IdP polish remains |
-| Distribution-surface coverage | 3/10 | 22 (browser ext), 44 (Word/Outlook), 45 (DMS connectors), 47 (clipboard/file-watcher) |
-| Pre-send document safety completeness | 7/10 | 49 shipped (metadata review/scrub), 50 shipped (fail-closed ingest); 48 (SG legal/finance sensitive data) remains |
-| Product differentiation | 7/10 | reversible local anonymisation + legal-MNPI angle holds; 46 shipped (`docs/accuracy.md`) |
+| Compliance-grade PII accuracy | 5/10 | direct-ID coverage materially improved; broad PII, semantic names, addresses, DOB/age, online IDs, and special-category data remain (33, 34, 35, 40, 70, 71, 78, 79) |
+| MNPI decision reliability | 5/10 | deterministic legal-MNPI rules + source-verification states are useful; contingent/tipping/selective-disclosure/blackout/sector gaps remain (72–85) |
+| Auditability | 7/10 | shipped (14–18, 36, 46); reviewer identity binding (57), bounded rationale (38), defensibility export (89) lift this further |
+| Security / procurement readiness | 6/10 | mapping encryption/retention, tenant isolation/RBAC, deployment hardening, and SIEM shipped (41–43); reviewer identity binding, local-daemon ACL, subject erasure, per-tenant citations, and workflow-wide fail-closed remain (57–60, 65) |
+| Distribution / integration coverage | 4/10 | Docker/Compose server path exists (51 partial); browser extension, Office add-ins, DMS connectors, clipboard/file-watcher, macOS notarisation, and Windows build remain (22–24, 44, 45, 47) |
+| Pre-send document safety completeness | 7/10 | metadata review/scrub + fail-closed PDF ingest shipped (49, 50); SG wedge pack, container recursion, image OCR, and fail-closed meta-audit remain (48, 61, 64, 65) |
+| Enterprise appliance / BYOC operability | 5/10 | deterministic Docker image and managed-LLM overlay exist (51 partial); no full appliance runbook, upgrade/backup story, external KMS integration, or customer-held ops-plane separation yet |
+| Product differentiation | 8/10 | reversible local anonymisation + APAC legal-MNPI/direct-ID angle + HMAC audit trail hold; breadth remains intentionally narrower than DLP incumbents |
 
-The 2/10 on "broad enterprise DLP replacement" is intentional. The 7/10 on "narrow legal/finance pilot value" is the wedge.
+The 2/10 on "broad enterprise DLP replacement" is intentional. The 8/10 on "narrow legal/finance pilot value" is the wedge; it is not a claim of general compliance-grade coverage.
 
 ## Jurisdiction Coverage
 
-Snapshot of detection capabilities by jurisdiction as of 2026-05-25. ✓ = available today; △ = available only under explicit configuration / opt-in; ✗ = not yet implemented. Universal rules fire regardless of jurisdiction pack; jurisdiction-specific rules and statute citations require a curated pack.
+Snapshot of detection capabilities by jurisdiction as of 2026-05-26. ✓ = available today; △ = partially available or available only under explicit configuration / opt-in; ✗ = not yet implemented. Universal rules fire regardless of jurisdiction pack; jurisdiction-specific rules and statute citations require a curated pack.
 
-| Capability | SG | SEA | MY | ID | TH | PH | VN | US | UK | EU |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Curated jurisdiction pack registered | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Statute-cited suggestion rationales | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Local national-ID detector (NRIC / MyKad / NIK / etc.) | ✓ | ✗ | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
-| Local company-ID detector (UEN / SSM / EIN / etc.) | ✓ | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ | ✗ | ✗ |
-| Local postal-address format | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
-| Broad postal-address parser (multi-line / free-form) | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
-| SG legal/finance sensitive-data pack | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
-| **Universal PII rules** | | | | | | | | | | |
-| `passport_number` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| `email_address` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| `phone_number` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| `bank_account` / IBAN | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| `named_person` (honorific-anchored + linked variants) | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| General semantic PII model / NER fallback in `/review` | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
-| DOB / age detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
-| IP / device / online identifier detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
-| Health / biometric special-category detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
-| US SSN / driver-license detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
-| UK NI / EU member-state national-ID detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
-| **Universal MNPI rules** | | | | | | | | | | |
-| `material_event` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| `nonpublic_marker` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| `transaction_codename` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| `definitive_agreement` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| `material_adverse_change` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| `embargo_marker` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| `financial_amount` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| `financial_percentage` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| `large_number` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Source-verified public-status adjudication by default | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
-| `audit_grade` public-evidence adjudication | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ |
+| Capability | SG | SEA | MY | ID | TH | PH | VN | HK | AU | JP | KR | US | UK | EU |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| Curated jurisdiction pack registered | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Statute-cited suggestion rationales | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Local personal/government-ID detector | ✓ | ✗ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| Local company/tax-ID detector | ✓ | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ | ✓ | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ |
+| Local postal-address format | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Broad postal-address parser (multi-line / free-form) | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| SG legal/finance sensitive-data pack | △ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| **Universal PII rules** | | | | | | | | | | | | | | |
+| `passport_number` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `email_address` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `phone_number` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `bank_account` / IBAN [^bank-adv] | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `named_person` (honorific-anchored + linked variants) | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| General semantic PII model / NER fallback in `/review` | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| DOB / age detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| IP / device / online identifier detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Health / biometric special-category detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| US SSN / driver-license detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| UK NI / EU member-state national-ID detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| **Universal MNPI rules** | | | | | | | | | | | | | | |
+| `material_event` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `nonpublic_marker` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `transaction_codename` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `definitive_agreement` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `material_adverse_change` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `embargo_marker` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `financial_amount` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `financial_percentage` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `large_number` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Source-verified public-status adjudication by default | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| `audit_grade` public-evidence adjudication | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ |
 
-When a customer specifies a jurisdiction without a curated pack, the runtime falls through to a synthesised baseline pack named `{CODE}_PERSONAL_DATA_BASELINE` and `{CODE}_MNPI_BASELINE`. Universal rules still fire; jurisdiction-specific local-ID detection and statute-cited rationales do not. As of 2026-05-25, every SEA jurisdiction (SG / MY / ID / TH / PH / VN) and the Western set (US / UK / EU) ship a curated pack via items 19–20; the fall-through case now mostly applies to customers' bespoke codes.
+[^bank-adv]: `bank_account` is shipped as a universal recognizer in `engine.py` (`BANK_ACCOUNT_RE`), but its adversarial-corpus recall is locked at 0.0 ("not locked") in `recall_adversarial.lock.json` as of 2026-05-26. Detector is available; adversarial precision/recall baselines have not been hand-locked yet. Item 40 corpus discipline closes this.
 
-Operational hardening coverage as of 2026-05-25:
+When a customer specifies a jurisdiction without a curated pack, the runtime falls through to a synthesised baseline pack named `{CODE}_PERSONAL_DATA_BASELINE` and `{CODE}_MNPI_BASELINE`. Universal rules still fire; jurisdiction-specific local-ID detection and statute-cited rationales do not. As of 2026-05-26, SG / SEA / MY / ID / TH / PH / VN / HK / AU / JP / KR / US / UK / EU ship curated packs. The fall-through case mostly applies to bespoke customer codes. The HK / AU / JP / KR packs are useful but seed-scale: they ship direct personal/company identifiers and statutes, not full local address or jurisdiction-specific MNPI language coverage.
+
+Operational hardening coverage as of 2026-05-26:
 
 | Capability | Status |
 |---|:---:|
@@ -230,36 +246,54 @@ Operational hardening coverage as of 2026-05-25:
 | Mapping retention / purge tooling | ✓ |
 | Mapping-store ACL / at-rest encryption guidance | ✓ |
 | Multi-tenant request isolation (server SKU) | ✓ |
-| SSO (OIDC/SAML) + RBAC | △ |
+| JWT/API-key tenant auth + RBAC | ✓ |
+| SSO / production IdP packaging (Okta / Azure AD / SAML) | △ |
 | SIEM export (JSON-over-syslog) | ✓ |
 | Per-detector recall + precision published in `docs/accuracy.md` | ✓ |
 | Document metadata leakage review/scrub | ✓ |
 | Fail-closed scanned-PDF / uncertain-format gate | ✓ |
-| Enterprise appliance / BYOC deployment posture | ✗ |
+| Workflow-wide `degraded_modes` / fail-closed all layers | ✗ |
+| Enterprise appliance / BYOC deployment posture | △ |
+| Reviewer identity bound to authenticated principal | ✗ |
+| Local-daemon production ACL | ✗ |
+| Subject-erasure reverse index | ✗ |
+| Per-tenant citation override files | ✗ |
 
 ### Coverage gaps → expansion-item map
 
-Every ✗ in the jurisdiction-coverage table and every operational-hardening row above has an explicit closing item. No ✗ is left orphaned.
+The map below distinguishes product-critical gaps with explicit closing items from breadth gaps that stay out of scope until promoted into the roadmap.
 
 | Capability gap | Closing item(s) |
 |---|---|
+| Local personal/government-ID detector gaps for US / UK / EU | 33 |
+| Local company/tax-ID parity outside shipped packs | 33 for US EIN; future jurisdiction-pack follow-up before any UK/EU/SEA company-ID coverage claim |
+| HK / AU / JP / KR local postal-address formats | 86 follow-up + 34 |
 | Broad postal-address parser (multi-line) | 34 |
 | General semantic PII / NER fallback in `/review` | 35 |
-| SG legal/finance sensitive-data pack | 48 |
+| SG legal/finance sensitive-data pack beyond `sg_court_citation` | 48 |
 | DOB / age detector | 33 |
 | IP / device / online identifier detector | 33 |
 | Health / biometric special-category detector | 33 (conservative seed) + 40 (corpus lock) |
 | US SSN / driver-license detector | 33 |
 | UK NI / EU member-state national-ID detector | 33 |
-| Source-verified public-status adjudication by default | 36 |
-| SAML/Okta/Azure AD packaging on top of JWT/RBAC primitive | 42 |
+| Source-verified public-status adjudication by default | 36 shipped explicit proof states; default-on retrieval remains intentionally off outside `audit_grade` |
+| SSO/Okta/Azure AD/SAML packaging on top of JWT/RBAC primitive | 42 |
 | Enterprise appliance / BYOC deployment posture | 51 |
+| Reviewer identity binding | 57 |
+| Local-daemon ACL | 58 |
+| Subject-erasure reverse index | 59 |
+| Per-tenant citation overrides | 60 |
+| Binary/container coverage | 61 |
+| Image OCR / recognition | 64 |
+| Workflow-wide fail-closed / degraded-mode audit | 65 |
 
 ## First-Principles Statutory Analysis
 
 The deterministic engine's defensibility derives from anchoring every detector to a statutory or regulatory concept. This section enumerates each in-scope jurisdiction's PII and MNPI / insider-information definitions, maps current detector coverage against them, and surfaces gaps as actionable expansion items. Treat this as the authoritative source for the planned `docs/statutory-coverage.md` (item 69).
 
 Citations below are sourced from official statutes, regulator guidance, and authoritative commentary as of 2026-05-26. Item 53 keeps these citations current before any external use.
+
+> [Unverified] Statute section numbers in the tables below (notably SG SFA s215/s218/s219/s221, HK SFO Cap. 571 Part XIV s270-281, JP FIEA Art 166-167, KR FSCMA Art 174-179) are reproduced from public commentary and not re-checked against the primary statute text on every doc edit. Before any external use of these citations (procurement pack, defensibility report, customer-facing rationale), re-verify against the official statute revision in force as of the use date. Item 53 owns this cadence; item 88 (regulator-update watcher) automates it.
 
 ### PII / personal data — by jurisdiction
 
@@ -271,6 +305,10 @@ Citations below are sourced from official statutes, regulator guidance, and auth
 | **Thailand (TH)** | PDPA B.E. 2562 (2019) s6 | "any information relating to a Person, which enables the identification of such Person, whether directly or indirectly" | Sensitive personal data per s26 (race, religion, biometric, health) requires explicit consent |
 | **Philippines (PH)** | Data Privacy Act 2012 (RA 10173) s3(g)(h) | "any information from which the identity of an individual is apparent or can be reasonably and directly ascertained, or when put together with other information would directly and certainly identify an individual" | Distinguishes personal information from sensitive personal information (s3(l)) |
 | **Vietnam (VN)** | Decree 13/2023/ND-CP Art 2 | "information in the form of symbols, letters, numbers, images, sounds or similar forms in electronic environment that is associated with a specific person or helps to identify a specific person" | Basic + sensitive (10 categories including health, sex life, financial accounts) |
+| **Hong Kong (HK)** | Personal Data (Privacy) Ordinance (Cap. 486) s2(1); PCPD guidance | Data relating directly or indirectly to a living individual, where identity is directly or indirectly ascertainable and access/processing is practicable | "Practicable" narrows the reach versus GDPR-style "reasonably likely" tests, but HKID and matter/counterparty records are plainly covered |
+| **Australia (AU)** | Privacy Act 1988 (Cth) s6(1); OAIC APP guidance | "information or an opinion about an identified individual, or an individual who is reasonably identifiable" | Broad and context-dependent; includes opinions, inferred facts, TFNs, health, credit, employee-record contexts, and sole-trader/business overlap |
+| **Japan (JP)** | APPI Art 2; My Number Act | Information about a living individual that identifies a specific individual, including information readily collated with other information, plus individual identification codes | My Number / Individual Number is a restricted identifier; APPI also recognises special care-required personal information |
+| **Korea (KR)** | Personal Information Protection Act Art 2; Art 24 / 24-2 identifier controls | Information relating to a living individual that identifies the individual directly or when combined with other information | Resident registration numbers are high-control identifiers; sensitive information and personally identifiable information have separate handling limits |
 | **United States (US)** | CCPA/CPRA Cal. Civ. Code §1798.140(v); HIPAA 45 CFR §164.514; GLBA "non-public personal information" | "information that identifies, relates to, describes, is reasonably capable of being associated with, or could reasonably be linked, directly or indirectly, with a particular consumer or household" | Patchwork: CCPA + state laws + sectoral (HIPAA / GLBA / FERPA / COPPA); SSN is a federal flashpoint via various statutes |
 | **United Kingdom (UK)** | UK GDPR Art 4(1); DPA 2018 s3(2) | "any information relating to an identified or identifiable natural person ('data subject')" | "All means reasonably likely to be used" (Recital 26 retained) |
 | **European Union (EU)** | GDPR Art 4(1); Recital 26 | identical to UK GDPR | Plus Art 9 special-category (health, biometric, genetic, sex life, religion, racial/ethnic origin, political opinion, trade-union membership) |
@@ -284,7 +322,7 @@ Citations below are sourced from official statutes, regulator guidance, and auth
 
 **What kaypoh currently catches (against these definitions):**
 
-The deterministic engine fires on **statute-named direct identifiers**: NRIC/FIN, UEN, MyKad, NIK, Thai national ID, PhilSys, TIN, CCCD, passport, email, phone, bank/IBAN, named person (honorific-anchored + linked variants), SG postal-address, SG court-citation. These are unambiguously PII in every jurisdiction above.
+The deterministic engine fires on **statute-named direct identifiers**: NRIC/FIN, UEN, MyKad, NIK, Thai national ID, PhilSys, PH TIN, CCCD, HKID, HK CR No., AU TFN / ABN / ACN, JP My Number / corporate number, KR RRN / business registration number, passport, email, phone, bank/IBAN, named person (honorific-anchored + linked variants), SG postal-address, and SG court-citation. These are unambiguously personal-data or matter-identifying signals in the jurisdictions above. The non-SG jurisdiction packs are still seed-scale and should not be sold as population-level coverage.
 
 **What kaypoh currently misses (gaps surfaced by definitions):**
 
@@ -300,6 +338,7 @@ The deterministic engine fires on **statute-named direct identifiers**: NRIC/FIN
 | Broad postal-address parsing | SG-only postal-code signal | **Item 34** |
 | Free-form named persons (no honorific) | Honorific-anchored only | **Item 35** (semantic fallback) |
 | Inferred attributes (relationship, location) | No inference layer | **Item 79** (new — below) |
+| HK / AU / JP / KR local postal-address patterns | Seed packs cover direct ID/company ID only | **Item 86** follow-up + **Item 34** |
 
 ### MNPI / insider information — by jurisdiction
 
@@ -343,8 +382,8 @@ The MNPI lexicon detects **deal-stage and corporate-event tells**: `transaction_
 | HK "not generally known" narrower test | Public-evidence retrieval uses general-availability semantics | **Item 82** (new — below) |
 | Selective disclosure red flags (Reg FD trigger) | No detector for analyst-call / institutional-investor mailing language | **Item 83** (new — below) |
 | Quiet-period / blackout-window markers | Partial via `embargo_marker`; no calendrical reasoning | **Item 84** (new — below) |
-| Jurisdiction-specific safe-harbour citations on findings | Statute citations generic | **Item 85** (new — below) |
-| HK / AU / JP / KR curated packs | Not yet shipped | **Item 86** (new — below) |
+| Jurisdiction-specific safe-harbour citations on findings | Suggestion rationales append jurisdiction statute suffixes, but findings do not yet carry full safe-harbour / regulator-pack context | **Item 85** + **Item 89** |
+| HK / AU / JP / KR jurisdiction-specific MNPI lexicon variants | Seed packs ship statutes and direct-ID recognizers; MNPI detection still mostly uses universal rules | **Item 86** follow-up + **Item 82** / **Item 85** |
 
 ### Threats and gaps — summary
 
@@ -471,7 +510,7 @@ Open work organised by theme. Shipped items are struck through and retained for 
 
 These items target overall accuracy improvement on the LLM tier without changing the deterministic-engine contract. Every item gates on the existing recall + precision baselines in `test/fixtures/legal-corpus/recall.lock.json` and `test/fixtures/legal-corpus-adversarial/recall_adversarial.lock.json` — a trained artefact ships only when it meets or beats both.
 
-> **Training-run KIV — 2026-05-25:** operator will execute item 29 (LoRA distillation), and dataset-prep / dry-run for items 30 (DPO export) and 31 (severity calibrator) during the 2026-05-25 lunch window. Pipeline scaffolding (`training/distillation/`) is ready. Promotion gates remain `--min-agreement ≥ 0.85` and `--max-invariant-violations == 0` against `legal-corpus-adversarial`. Trained artefacts that miss either gate do not ship; the deterministic + cloud-teacher path stays the production fallback.
+> **Training-run status — 2026-05-26:** item 29 pipeline scaffolding (`training/distillation/`) is ready and `local_distilled` is wired as a provider, but no trained student artefact is promoted. Dataset-prep / dry-run for items 30 (DPO export) and 31 (severity calibrator) remains operator work. Promotion gates remain `--min-agreement ≥ 0.85` and `--max-invariant-violations == 0` against `legal-corpus-adversarial`. Trained artefacts that miss either gate do not ship; the deterministic + cloud-teacher path stays the production fallback.
 
 29. ~~Cloud-adjudicator distillation → local student model.~~ Shipped 2026-05-24 (pipeline scaffolding). `training/distillation/` ships five components: `prompts.py` (shared message templates so teacher/student/trainer see byte-identical shapes), `teacher_collector.py` (walks corpora, calls the configured teacher adjudicator, writes idempotent JSONL + a per-call training ledger to `${KAYPOH_JOURNAL_DIR}/training_ledger.jsonl`), `distill_train.py` (LoRA-tunes a configurable base model; `--dry-run` validates the dataset without any GPU code path — catches single-label degeneracy, too-few-rows, malformed teacher verdicts), `eval_against_corpus.py` (measures agreement-rate vs deterministic engine + counts invariant violations where the student tries to upgrade past a deterministic label), and `student_provider.py` (`LocalDistilledAdjudicator` — loads the LoRA adapter and serves `adjudicate()` calls). `LocalLLMAdjudicator` routes `provider=local_distilled` to the student backend via `KAYPOH_LLM_DISTILLED_ADAPTER_PATH` + `KAYPOH_LLM_DISTILLED_BASE_MODEL`. Heavy ML imports (`torch`/`transformers`/`peft`) are lazy so the scaffolding tests run on a clean Python env. 16 tests cover the full pipeline with mocked LLMs. Actual training and student promotion remain operator-driven; the pipeline is ready to run as soon as you have an OpenAI key + a GPU box + `pip install peft datasets accelerate`.
 
@@ -535,7 +574,7 @@ These items target overall accuracy improvement on the LLM tier without changing
 
 85. **Jurisdiction-specific MNPI statute citations on findings.** Today MNPI suggestions cite a generic legal basis. Wire the same statute-citation pattern as PII findings: SG findings cite SFA s218-221 + relevant SGX listing rule; US findings cite Rule 10b-5 + Reg FD; EU/UK findings cite MAR Art 7 / Art 14 / Art 17; HK findings cite SFO Part XIV; AU findings cite Corporations Act s1042A; JP findings cite FIEA Art 166-167; KR findings cite FSCMA Art 174-179. Resolved per `destination_jurisdiction`. Override via `KAYPOH_CITATIONS_OVERRIDE` (per-tenant per item 60).
 
-86. **Curated jurisdiction packs — HK / AU / JP / KR.** Today curated packs ship for SG / MY / ID / TH / PH / VN / US / UK / EU. The first-principles analysis identifies HK / AU / JP / KR as in-scope for the legal-corporate ICP (HK financial centre + AU APRA-regulated + JP/KR institutional cross-border deals). Each pack needs: local national-ID detector (HK ID `A123456(7)`, AU TFN, JP MyNumber, KR RRN — RRN is *strictly* regulated under PIPA Art 24-2), local company-ID (HK Companies Registry CR No., AU ABN/ACN, JP corporate number, KR business registration number), local postal-address format, statute citations, MNPI lexicon variants. Ships under the same jurisdiction-pack TOML schema (item 19).
+86. **Curated jurisdiction packs — HK / AU / JP / KR.** Partially shipped 2026-05-26. Built-in TOML packs, aliases, statute rationales, checksum validators, direct personal/government-ID recognizers, company/tax-ID recognizers, seed fixtures, and combined recall/precision lock are in place for HK / AU / JP / KR. Shipped rules: `hk_hkid`, `hk_cr_no`, `au_tfn`, `au_abn`, `au_acn`, `jp_my_number`, `jp_corporate_number`, `kr_rrn`, `kr_business_registration`. Remaining work: local postal-address formats, jurisdiction-specific MNPI lexicon variants, and corpus growth beyond one seed fixture per jurisdiction. The first-principles analysis keeps HK / AU / JP / KR in scope for the legal-corporate ICP (HK financial centre + AU APRA-regulated + JP/KR institutional cross-border deals).
 
 ### Procurement-substrate items surfaced by the first-principles analysis
 
@@ -596,7 +635,7 @@ These items unblock procurement at SG/SEA law firms and listed-company in-house 
 
 45. **DMS connectors: iManage Work + NetDocuments.** Read-side connectors that batch-scan a matter / workspace folder, run `/review`, and surface findings inside the DMS UI as document tags. Read-only by default; write-back (anonymise-in-place) is a separate opt-in. iManage Work API + NetDocuments REST API are the two integration targets covering the [Inference] majority of SG / UK / AU law-firm DMS share — verify with each ICP pilot before sequencing.
 
-46. ~~Published per-detector accuracy disclosure (`docs/accuracy.md`).~~ Shipped 2026-05-25. `scripts/generate_accuracy_doc.py` renders `docs/accuracy.md` from `recall.lock.json`, `recall_adversarial.lock.json`, and `legal-corpus-sea.lock.json`, including corpus fixture counts, per-detector recall/precision, and known limitations. `test/test_accuracy_doc.py` fails when the committed disclosure drifts from the lock files.
+46. ~~Published per-detector accuracy disclosure (`docs/accuracy.md`).~~ Shipped 2026-05-25; refreshed 2026-05-26 after the autolabel sweep and HK/AU/JP/KR seed packs. `scripts/generate_accuracy_doc.py` renders `docs/accuracy.md` from `recall.lock.json`, `recall_adversarial.lock.json`, `legal-corpus-sea.lock.json`, and `legal-corpus-hk-au-jp-kr.lock.json`, including corpus fixture counts, per-detector recall/precision, and known limitations. `test/test_accuracy_doc.py` fails when the committed disclosure drifts from the lock files.
 
 47. **Clipboard + file-watcher fallback (desktop SKU).** For surfaces without a native add-in (Slack desktop, generic web textareas, native macOS/Windows apps), ship an opt-in clipboard monitor + watched-folder daemon that runs everything paste-buffered or dropped into the folder through `/review` and surfaces a system-tray notification on findings. Strict opt-in; off by default; never autoreplaces clipboard content — one-click "anonymise this" only. Bounded scope: closes the long-tail-surface gap without committing to per-app integrations.
 
