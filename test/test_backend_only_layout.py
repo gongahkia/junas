@@ -6,7 +6,6 @@ from fastapi.testclient import TestClient
 
 import backend.main as main
 
-
 ROOT = Path(__file__).resolve().parent.parent
 
 
@@ -43,32 +42,36 @@ class BackendOnlyLayoutTests(unittest.TestCase):
             ROOT / "scripts" / "launch" / "run_dev.sh",
             ROOT / "scripts" / "launch" / "run_prod.sh",
             ROOT / "scripts" / "launch" / "run_backend_only.sh",
-            ROOT / "scripts" / "train_dev.sh",
         ]
         for path in expected_paths:
             self.assertTrue(path.exists(), f"missing launcher: {path}")
 
-    def test_workflow_layout_is_nested_under_backend(self):
+    def test_workflow_layout_is_in_canonical_package(self):
         expected_paths = [
-            ROOT / "backend" / "workflow" / "layer0-parser" / "parse_docs.py",
-            ROOT / "backend" / "workflow" / "layer1-lexicon" / "filter.py",
-            ROOT / "backend" / "workflow" / "layer2-embeddings" / "inference.py",
-            ROOT / "backend" / "workflow" / "layer3-clustering" / "isolation_forest.py",
-            ROOT / "backend" / "workflow" / "layer4-classification" / "model-1" / "inference.py",
-            ROOT / "backend" / "workflow" / "layer4-classification" / "model-2" / "inference.py",
-            ROOT / "backend" / "workflow" / "layer5-mosaic" / "inference.py",
-            ROOT / "backend" / "workflow" / "layer6-regression" / "inference.py",
+            ROOT / "src" / "kaypoh" / "workflow" / "layer0_parser" / "parse_docs.py",
+            ROOT / "src" / "kaypoh" / "workflow" / "layer7_public_evidence" / "inference.py",
+            ROOT / "src" / "kaypoh" / "workflow" / "layer8_llm_adjudicator" / "inference.py",
+            ROOT / "src" / "kaypoh" / "workflow" / "privacy_guard.py",
         ]
         for path in expected_paths:
             self.assertTrue(path.exists(), f"missing workflow file: {path}")
 
-    def test_duplicate_root_shims_are_removed(self):
+    def test_removed_legacy_layout_is_absent(self):
         removed_paths = [
+            ROOT / "backend" / "workflow",
             ROOT / "clustering",
             ROOT / "embeddings",
+            ROOT / "helper",
             ROOT / "lexicon",
             ROOT / "model-1",
             ROOT / "model-2",
+            ROOT / "scripts" / "train_dev.sh",
+            ROOT / "src" / "kaypoh" / "workflow" / "layer1_lexicon",
+            ROOT / "src" / "kaypoh" / "workflow" / "layer2_embeddings",
+            ROOT / "src" / "kaypoh" / "workflow" / "layer3_clustering",
+            ROOT / "src" / "kaypoh" / "workflow" / "layer4_classification",
+            ROOT / "src" / "kaypoh" / "workflow" / "layer5_mosaic",
+            ROOT / "src" / "kaypoh" / "workflow" / "layer6_regression",
         ]
         for path in removed_paths:
             self.assertFalse(path.exists(), f"duplicate shim should be removed: {path}")
@@ -79,13 +82,15 @@ class BackendOnlyLayoutTests(unittest.TestCase):
             ROOT / "api" / "README.md",
             ROOT / "archive" / "README.md",
             ROOT / "backend" / "README.md",
-            ROOT / "backend" / "workflow" / "README.md",
             ROOT / "configs" / "README.md",
             ROOT / "docs" / "README.md",
-            ROOT / "helper" / "README.md",
             ROOT / "reports" / "README.md",
             ROOT / "scripts" / "README.md",
             ROOT / "scripts" / "launch" / "README.md",
+            ROOT / "src" / "kaypoh" / "backend" / "README.md",
+            ROOT / "src" / "kaypoh" / "configs" / "README.md",
+            ROOT / "src" / "kaypoh" / "helper" / "README.md",
+            ROOT / "src" / "kaypoh" / "workflow" / "README.md",
             ROOT / "test" / "README.md",
             ROOT / "training" / "README.md",
         ]
