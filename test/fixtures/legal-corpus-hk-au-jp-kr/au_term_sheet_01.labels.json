@@ -1,0 +1,20 @@
+{
+  "doc_id": "au_term_sheet_01",
+  "document_type": "term_sheet",
+  "source_jurisdiction": "AU",
+  "destination_jurisdiction": "AU",
+  "must_detect": [
+    {"rule": "definitive_agreement", "matched_text": "TERM SHEET"},
+    {"rule": "transaction_codename", "matched_text": "Project Wattle"},
+    {"rule": "au_abn", "matched_text": "51 824 753 556"},
+    {"rule": "au_acn", "matched_text": "004 085 616"},
+    {"rule": "named_person", "matched_text": "Ms Olivia Brown"},
+    {"rule": "au_tfn", "matched_text": "123 456 782"},
+    {"rule": "financial_amount", "matched_text": "AUD 8,500,000"},
+    {"rule": "financial_amount", "matched_text": "AUD 40,000,000"},
+    {"rule": "embargo_marker", "matched_text": "Closing Date"},
+    {"rule": "email_address", "matched_text": "olivia.brown@example.com.au"},
+    {"rule": "nonpublic_marker", "matched_text": "confidential"}
+  ],
+  "must_not_detect": []
+}

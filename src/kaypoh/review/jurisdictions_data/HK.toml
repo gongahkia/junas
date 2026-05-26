@@ -1,0 +1,32 @@
+code = "HK"
+label = "Hong Kong"
+pii_rules = ["HK_PDPO_PERSONAL_DATA"]
+mnpi_rules = ["HK_SFO_INSIDE_INFORMATION"]
+references = [
+    "Personal Data (Privacy) Ordinance (Cap. 486) section 2",
+    "Securities and Futures Ordinance (Cap. 571) Part XIV sections 270-281",
+]
+aliases = ["HK", "HONG KONG", "HONG KONG SAR"]
+
+# Hong Kong Identity Card number. The OECD TIN guide gives the public format as
+# one or two letters, six digits, and a bracketed check digit; the validator applies
+# the standard mod-11 HKID check so random serials do not pass.
+[[recognizers]]
+name = "Hong Kong Identity Card"
+rule_name = "hk_hkid"
+pattern = '(?:HKID|HKIC|Hong Kong Identity Card|Hong Kong ID)(?:\s+is)?[\s:.#-]*([A-Z]{1,2}\d{6}\(?[0-9A]\)?)'
+severity = "high"
+reason = "Hong Kong Identity Card number"
+capture_group = 1
+validator = "hk_hkid"
+
+# Companies Registry context anchor. Since UBI rollout, the first eight digits of
+# the Business Registration Certificate number are the company/entity identifier,
+# but legacy CR No. labels still appear in deal documents and mapping searches.
+[[recognizers]]
+name = "Hong Kong CR number"
+rule_name = "hk_cr_no"
+pattern = '(?:CR\s*No\.?|Company\s+Number|Companies\s+Registry\s+No\.?|BRN|Business\s+Registration\s+Number)[\s:.#-]*(\d{7,9})'
+severity = "medium"
+reason = "Hong Kong company / business registration identifier"
+capture_group = 1

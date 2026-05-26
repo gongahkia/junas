@@ -41,6 +41,12 @@ CORPORA = (
         lock_name="legal-corpus-sea.lock.json",
         description="Seed local-ID fixtures for MY, ID, TH, PH, and VN.",
     ),
+    CorpusSpec(
+        name="HK/AU/JP/KR jurisdiction corpus",
+        path=ROOT / "test" / "fixtures" / "legal-corpus-hk-au-jp-kr",
+        lock_name="legal-corpus-hk-au-jp-kr.lock.json",
+        description="Seed local-ID fixtures for HK, AU, JP, and KR.",
+    ),
 )
 
 

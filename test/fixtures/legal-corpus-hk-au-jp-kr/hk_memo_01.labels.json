@@ -1,0 +1,18 @@
+{
+  "doc_id": "hk_memo_01",
+  "document_type": "memo",
+  "source_jurisdiction": "HK",
+  "destination_jurisdiction": "HK",
+  "must_detect": [
+    {"rule": "transaction_codename", "matched_text": "Project Bauhinia"},
+    {"rule": "named_person", "matched_text": "Mr Chan Tai Man"},
+    {"rule": "email_address", "matched_text": "chan.taiman@example.hk"},
+    {"rule": "hk_hkid", "matched_text": "A123456(3)"},
+    {"rule": "hk_cr_no", "matched_text": "1234567"},
+    {"rule": "definitive_agreement", "matched_text": "Share Purchase Agreement"},
+    {"rule": "financial_amount", "matched_text": "HKD 120,000,000"},
+    {"rule": "embargo_marker", "matched_text": "Closing Date"},
+    {"rule": "nonpublic_marker", "matched_text": "CONFIDENTIAL"}
+  ],
+  "must_not_detect": []
+}

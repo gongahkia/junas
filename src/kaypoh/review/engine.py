@@ -271,6 +271,8 @@ def _is_negated_context(text: str, match_start: int) -> bool:
 _HIGHER_PRIORITY_THAN_PHONE = frozenset({
     "sg_nric_fin", "sg_uen",
     "my_mykad", "id_nik", "th_national_id", "ph_philsys", "ph_tin", "vn_cccd",
+    "hk_hkid", "hk_cr_no", "au_tfn", "au_abn", "au_acn",
+    "jp_my_number", "jp_corporate_number", "kr_rrn", "kr_business_registration",
     "passport_number", "bank_account",
 })
 
@@ -433,6 +435,8 @@ class PreSendReviewEngine:
                     else:
                         start, end = match.span()
                     if end <= start:
+                        continue
+                    if not recognizer.is_valid(text[start:end]):
                         continue
                     span_key = (recognizer.rule_name, start, end)
                     if span_key in seen_spans:

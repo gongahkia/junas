@@ -1,0 +1,28 @@
+code = "JP"
+label = "Japan"
+pii_rules = ["JP_APPI_PERSONAL_INFORMATION", "JP_MY_NUMBER_RESTRICTED_IDENTIFIER"]
+mnpi_rules = ["JP_FIEA_INSIDER_TRADING"]
+references = [
+    "Act on the Protection of Personal Information Article 2",
+    "Act on the Use of Numbers to Identify a Specific Individual in Administrative Procedures",
+    "Financial Instruments and Exchange Act Articles 166-167",
+]
+aliases = ["JP", "JPN", "JAPAN"]
+
+[[recognizers]]
+name = "Japan Individual Number"
+rule_name = "jp_my_number"
+pattern = '(?:My\s+Number|Individual\s+Number|個人番号)[\s:.#-]*(\d{4}\s?\d{4}\s?\d{4}|\d{12})'
+severity = "high"
+reason = "Japan My Number / Individual Number"
+capture_group = 1
+validator = "jp_my_number"
+
+[[recognizers]]
+name = "Japan Corporate Number"
+rule_name = "jp_corporate_number"
+pattern = '(?:Corporate\s+Number|法人番号)[\s:.#-]*(\d{13})'
+severity = "medium"
+reason = "Japan Corporate Number"
+capture_group = 1
+validator = "jp_corporate_number"

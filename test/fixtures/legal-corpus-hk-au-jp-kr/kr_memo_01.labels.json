@@ -1,0 +1,17 @@
+{
+  "doc_id": "kr_memo_01",
+  "document_type": "memo",
+  "source_jurisdiction": "KR",
+  "destination_jurisdiction": "KR",
+  "must_detect": [
+    {"rule": "transaction_codename", "matched_text": "Project Han River"},
+    {"rule": "named_person", "matched_text": "Mr Kim Min Jun"},
+    {"rule": "kr_rrn", "matched_text": "900101-1234568"},
+    {"rule": "kr_business_registration", "matched_text": "220-81-62517"},
+    {"rule": "financial_amount", "matched_text": "KRW 45,000,000,000"},
+    {"rule": "embargo_marker", "matched_text": "Closing Date"},
+    {"rule": "nonpublic_marker", "matched_text": "confidential"},
+    {"rule": "email_address", "matched_text": "minjun.kim@example.kr"}
+  ],
+  "must_not_detect": []
+}

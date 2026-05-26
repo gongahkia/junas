@@ -1,0 +1,36 @@
+code = "AU"
+label = "Australia"
+pii_rules = ["AU_PRIVACY_ACT_PERSONAL_INFORMATION"]
+mnpi_rules = ["AU_CORPORATIONS_ACT_INSIDE_INFORMATION"]
+references = [
+    "Privacy Act 1988 (Cth) Australian Privacy Principles",
+    "Corporations Act 2001 (Cth) sections 1042A-1043O",
+]
+aliases = ["AU", "AUS", "AUSTRALIA"]
+
+[[recognizers]]
+name = "Australian Tax File Number"
+rule_name = "au_tfn"
+pattern = '(?:TFN|Tax\s+File\s+Number)[\s:.#-]*(\d(?:[\s-]?\d){8})'
+severity = "high"
+reason = "Australian Tax File Number"
+capture_group = 1
+validator = "au_tfn"
+
+[[recognizers]]
+name = "Australian Business Number"
+rule_name = "au_abn"
+pattern = '(?:ABN|Australian\s+Business\s+Number)[\s:.#-]*(\d{2}\s?\d{3}\s?\d{3}\s?\d{3}|\d{11})'
+severity = "medium"
+reason = "Australian Business Number"
+capture_group = 1
+validator = "au_abn"
+
+[[recognizers]]
+name = "Australian Company Number"
+rule_name = "au_acn"
+pattern = '(?:ACN|A\.C\.N\.|Australian\s+Company\s+Number)[\s:.#-]*(\d{3}\s?\d{3}\s?\d{3}|\d{9})'
+severity = "medium"
+reason = "Australian Company Number"
+capture_group = 1
+validator = "au_acn"

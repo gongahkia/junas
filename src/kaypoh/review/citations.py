@@ -76,6 +76,42 @@ _PII_DEFAULT_RATIONALE = {
         "Vietnam CCCD is personal data under Decree 13/2023/ND-CP articles 2-3. Mask "
         "unless explicit consent and documented purpose are on file."
     ),
+    "hk_hkid": (
+        "Hong Kong Identity Card number is personal data under PDPO Cap. 486 section 2. "
+        "Mask unless collection/use is necessary for the documented purpose."
+    ),
+    "hk_cr_no": (
+        "Hong Kong company / business registration identifiers can identify transaction "
+        "parties and sole proprietors. Mask where the recipient and purpose are not documented."
+    ),
+    "au_tfn": (
+        "Australian TFNs are high-risk government identifiers. Mask unless TFN handling is "
+        "strictly required and authorised for the documented purpose."
+    ),
+    "au_abn": (
+        "Australian ABNs identify entities and can identify sole traders. Mask unless the "
+        "recipient and business purpose are documented."
+    ),
+    "au_acn": (
+        "Australian ACNs identify registered companies. Mask in private deal context unless "
+        "the recipient and purpose are documented."
+    ),
+    "jp_my_number": (
+        "Japan My Number / Individual Number is a restricted identifier under the Number Act "
+        "and personal information under APPI. Mask unless statutory handling authority is on file."
+    ),
+    "jp_corporate_number": (
+        "Japan Corporate Number identifies legal entities and deal counterparties. Mask in "
+        "private matter context unless disclosure is intended and documented."
+    ),
+    "kr_rrn": (
+        "Korean resident registration numbers are restricted identifiers under PIPA Article "
+        "24-2. Mask unless explicit statutory authority and purpose are documented."
+    ),
+    "kr_business_registration": (
+        "Korean business registration numbers identify business counterparties. Mask in "
+        "private deal context unless recipient and purpose are documented."
+    ),
 }
 
 # rule -> short MNPI rationale (the citation is jurisdiction-specific so we layer on a suffix)
@@ -129,6 +165,10 @@ _PII_JURISDICTION_SUFFIX = {
     "TH": "Reference: Thailand Personal Data Protection Act B.E. 2562 (2019).",
     "PH": "Reference: Philippines Data Privacy Act of 2012 (RA 10173).",
     "VN": "Reference: Vietnam Personal Data Protection Decree 13/2023/ND-CP.",
+    "HK": "Reference: Hong Kong Personal Data (Privacy) Ordinance (Cap. 486) section 2.",
+    "AU": "Reference: Australia Privacy Act 1988 and Australian Privacy Principles.",
+    "JP": "Reference: Japan APPI Article 2 and My Number Act handling restrictions.",
+    "KR": "Reference: Korea Personal Information Protection Act Articles 2 and 24-2.",
 }
 
 # jurisdiction-pack -> MNPI statute suffix.
@@ -145,6 +185,10 @@ _MNPI_JURISDICTION_SUFFIX = {
     "TH": "Reference: Thailand Securities and Exchange Act B.E. 2535 ss241-243.",
     "PH": "Reference: Philippines Securities Regulation Code (RA 8799) section 27.",
     "VN": "Reference: Vietnam Law on Securities 2019 Article 12 (prohibited acts).",
+    "HK": "Reference: Securities and Futures Ordinance (Cap. 571) Part XIV ss270-281.",
+    "AU": "Reference: Corporations Act 2001 (Cth) ss1042A-1043O.",
+    "JP": "Reference: Financial Instruments and Exchange Act Articles 166-167.",
+    "KR": "Reference: Financial Investment Services and Capital Markets Act Articles 174-179.",
 }
 
 

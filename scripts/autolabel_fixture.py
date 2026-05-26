@@ -54,6 +54,10 @@ PII_RULES = [
     "sg_nric_fin", "sg_uen", "sg_postal_address",
     "my_mykad", "id_nik", "th_national_id",
     "ph_philsys", "ph_tin", "vn_cccd",
+    "hk_hkid", "hk_cr_no",
+    "au_tfn", "au_abn", "au_acn",
+    "jp_my_number", "jp_corporate_number",
+    "kr_rrn", "kr_business_registration",
     "passport_number", "email_address", "phone_number",
     "bank_account", "named_person", "sg_court_citation",
 ]

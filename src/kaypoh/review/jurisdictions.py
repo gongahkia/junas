@@ -13,8 +13,9 @@ Each pack TOML carries:
     references      -- list of citation strings
     aliases         -- optional list of aliases that normalise to `code`
     [[recognizers]] -- optional list of jurisdiction-local PII recognizers, each with:
-                       name, rule_name, pattern, severity ∈ {low,medium,high}, reason
-                       and optional capture_group (int, defaults to 0 for full-match span)
+                       name, rule_name, pattern, severity ∈ {low,medium,high}, reason,
+                       optional capture_group (int, defaults to 0 for full-match span),
+                       and optional validator (named checksum/shape validator)
 """
 
 from __future__ import annotations
@@ -22,6 +23,7 @@ from __future__ import annotations
 import os
 import re
 import tomllib
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -41,6 +43,110 @@ class Recognizer:
     severity: str
     reason: str
     capture_group: int = 0  # 0 = full match; >0 = pick that capture group's span
+    validator_name: str = ""
+
+    def is_valid(self, value: str) -> bool:
+        if not self.validator_name:
+            return True
+        return _VALIDATORS[self.validator_name](value)
+
+
+def _digits(value: str) -> str:
+    return "".join(ch for ch in value if ch.isdigit())
+
+
+def _validate_hk_hkid(value: str) -> bool:
+    normalized = re.sub(r"[\s()\-]", "", value).upper()
+    match = re.fullmatch(r"([A-Z]{1,2})(\d{6})([0-9A])", normalized)
+    if not match:
+        return False
+    letters, digits, check = match.groups()
+    letter_values = [ord(ch) - 55 for ch in letters]  # A=10 ... Z=35
+    if len(letter_values) == 1:
+        letter_values.insert(0, 36)  # single-letter HKIDs use a leading space value
+    values = letter_values + [int(ch) for ch in digits]
+    weights = [9, 8, 7, 6, 5, 4, 3, 2]
+    check_value = 10 if check == "A" else int(check)
+    return (sum(value * weight for value, weight in zip(values, weights)) + check_value) % 11 == 0
+
+
+def _validate_au_tfn(value: str) -> bool:
+    digits = _digits(value)
+    if len(digits) != 9:
+        return False
+    weights = [1, 4, 3, 7, 5, 8, 6, 9, 10]
+    return sum(int(digit) * weight for digit, weight in zip(digits, weights)) % 11 == 0
+
+
+def _validate_au_abn(value: str) -> bool:
+    digits = _digits(value)
+    if len(digits) != 11:
+        return False
+    weights = [10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+    adjusted = [int(digit) for digit in digits]
+    adjusted[0] -= 1
+    return sum(digit * weight for digit, weight in zip(adjusted, weights)) % 89 == 0
+
+
+def _validate_au_acn(value: str) -> bool:
+    digits = _digits(value)
+    if len(digits) != 9:
+        return False
+    weights = [8, 7, 6, 5, 4, 3, 2, 1]
+    check_digit = (10 - (sum(int(digit) * weight for digit, weight in zip(digits[:8], weights)) % 10)) % 10
+    return check_digit == int(digits[8])
+
+
+def _validate_jp_my_number(value: str) -> bool:
+    digits = _digits(value)
+    if len(digits) != 12:
+        return False
+    weights = [6, 5, 4, 3, 2, 7, 6, 5, 4, 3, 2]
+    remainder = sum(int(digit) * weight for digit, weight in zip(digits[:11], weights)) % 11
+    check_digit = 0 if remainder <= 1 else 11 - remainder
+    return check_digit == int(digits[11])
+
+
+def _validate_jp_corporate_number(value: str) -> bool:
+    digits = _digits(value)
+    if len(digits) != 13:
+        return False
+    total = 0
+    for index, digit in enumerate(reversed(digits[1:]), start=1):
+        total += int(digit) * (1 if index % 2 else 2)
+    check_digit = 9 - (total % 9)
+    return check_digit == int(digits[0])
+
+
+def _validate_kr_rrn(value: str) -> bool:
+    digits = _digits(value)
+    if len(digits) != 13:
+        return False
+    weights = [2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5]
+    check_digit = (11 - (sum(int(digit) * weight for digit, weight in zip(digits[:12], weights)) % 11)) % 10
+    return check_digit == int(digits[12])
+
+
+def _validate_kr_business_registration(value: str) -> bool:
+    digits = _digits(value)
+    if len(digits) != 10:
+        return False
+    weights = [1, 3, 7, 1, 3, 7, 1, 3, 5]
+    products = [int(digit) * weight for digit, weight in zip(digits[:9], weights)]
+    check_digit = (10 - ((sum(products) + products[-1] // 10) % 10)) % 10
+    return check_digit == int(digits[9])
+
+
+_VALIDATORS: dict[str, Callable[[str], bool]] = {
+    "hk_hkid": _validate_hk_hkid,
+    "au_tfn": _validate_au_tfn,
+    "au_abn": _validate_au_abn,
+    "au_acn": _validate_au_acn,
+    "jp_my_number": _validate_jp_my_number,
+    "jp_corporate_number": _validate_jp_corporate_number,
+    "kr_rrn": _validate_kr_rrn,
+    "kr_business_registration": _validate_kr_business_registration,
+}
 
 
 @dataclass(frozen=True)
@@ -69,6 +175,7 @@ def _compile_recognizers(code: str, raw_list: list) -> tuple[Recognizer, ...]:
             severity = str(item.get("severity", "high")).lower()
             reason = str(item.get("reason", f"{name} detector"))
             capture_group = int(item.get("capture_group", 0))
+            validator_name = str(item.get("validator", "")).strip()
         except (KeyError, ValueError, TypeError) as exc:
             print(
                 f"kaypoh: {code} recognizer #{idx}: malformed entry skipped ({exc})",
@@ -78,6 +185,12 @@ def _compile_recognizers(code: str, raw_list: list) -> tuple[Recognizer, ...]:
         if severity not in _VALID_SEVERITIES:
             print(
                 f"kaypoh: {code} recognizer {name!r}: invalid severity {severity!r}; skipping",
+                file=sys.stderr,
+            )
+            continue
+        if validator_name and validator_name not in _VALIDATORS:
+            print(
+                f"kaypoh: {code} recognizer {name!r}: unknown validator {validator_name!r}; skipping",
                 file=sys.stderr,
             )
             continue
@@ -99,6 +212,7 @@ def _compile_recognizers(code: str, raw_list: list) -> tuple[Recognizer, ...]:
                 severity=severity,
                 reason=reason,
                 capture_group=capture_group,
+                validator_name=validator_name,
             )
         )
     return tuple(compiled)
