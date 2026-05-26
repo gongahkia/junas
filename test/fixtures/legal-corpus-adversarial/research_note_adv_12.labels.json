@@ -3,7 +3,43 @@
   "document_type": "research_note",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
+  "must_detect": [
+    {
+      "rule": "sg_uen",
+      "matched_text": "198765432A"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Emily Tan Wei Ming"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 45,000,000"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Mr. Ahmad Firdaus Bin Rahman"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "research@quantumdynamics.sg"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S1234567A"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Ramasamy"
+    }
+  ],
   "must_not_detect": [],
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

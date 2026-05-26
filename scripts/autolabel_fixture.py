@@ -34,6 +34,21 @@ SG_POSTAL_LABEL_RE = re.compile(r"\b(?:Singapore|S)\s*(\d{6})\b", re.IGNORECASE)
 SIX_DIGIT_RE = re.compile(r"\b\d{6}\b")
 SG_NRIC_LABEL_RE = re.compile(r"^[STFGM]\d{7}[A-Z]$", re.IGNORECASE)
 SG_UEN_LABEL_RE = re.compile(r"^(?:\d{8,9}[A-Z]|T\d{2}[A-Z]{2}\d{4}[A-Z])$")
+FINANCIAL_AMOUNT_LABEL_RE = re.compile(
+    r"(?:S\$|US\$|A\$|HK\$|[\$€£¥]|"
+    r"\b(?:SGD|USD|EUR|GBP|JPY|AUD|HKD|KRW|CNY|RMB|MYR|IDR|THB|PHP|VND)\b\s*(?:S\$|US\$|A\$|HK\$|[\$€£¥])?)"
+    r"\s*\d(?:[\d,]*\d)?(?:\.\d+)?(?:\s*(?:thousand|million|billion|trillion|[KMBT]))?"
+    r"|\b\d(?:[\d,]*\d)?(?:\.\d+)?\s*(?:thousand|million|billion|trillion|[KMBT])\b",
+    re.IGNORECASE,
+)
+PHONE_LABEL_RE = re.compile(r"(?:\+?\d[\d\s().-]{7,}\d)")
+NONPUBLIC_LABEL_RE = re.compile(
+    r"\b(confidential|non-public|nonpublic|not yet public|not disclosed|undisclosed|"
+    r"internal only|internal circulation only|internal use only|restricted|do not distribute|"
+    r"should not be distributed externally|before announcement|pre-announcement|"
+    r"quiet period|material non-public information|mnpi)\b",
+    re.IGNORECASE,
+)
 
 PII_RULES = [
     "sg_nric_fin", "sg_uen", "sg_postal_address",
@@ -127,6 +142,12 @@ def _build_user_prompt(body: str, doc_type: str) -> str:
 
 def _strip_boundary_punctuation(text: str, body: str) -> str:
     candidate = text.strip()
+    for suffix in ("'s", "’s"):
+        if candidate.endswith(suffix):
+            shortened = candidate[:-len(suffix)].rstrip()
+            if shortened and shortened in body:
+                candidate = shortened
+                break
     while candidate and candidate[-1] in ",;:.":
         shortened = candidate[:-1].rstrip()
         if not shortened or shortened not in body:
@@ -144,6 +165,18 @@ def _canonicalize_span(rule: str | None, text: str, body: str) -> str:
         match = SIX_DIGIT_RE.search(candidate)
         if match:
             return match.group(0)
+    if rule == "nonpublic_marker":
+        match = NONPUBLIC_LABEL_RE.search(candidate)
+        if match:
+            return match.group(0)
+    if rule == "financial_amount":
+        match = FINANCIAL_AMOUNT_LABEL_RE.search(candidate)
+        if match:
+            return match.group(0)
+    if rule == "phone_number":
+        match = PHONE_LABEL_RE.search(candidate)
+        if match:
+            return match.group(0)
     return candidate
 
 
@@ -152,6 +185,8 @@ def _invalid_label_reason(rule: str, text: str) -> str:
         return "invalid Singapore NRIC/FIN shape"
     if rule == "sg_uen" and not SG_UEN_LABEL_RE.fullmatch(text):
         return "invalid Singapore UEN shape"
+    if rule == "financial_amount" and not FINANCIAL_AMOUNT_LABEL_RE.fullmatch(text):
+        return "unsupported financial amount shape"
     return ""
 
 
@@ -159,7 +194,7 @@ def _is_reasoning_model(model: str) -> bool:
     return model.startswith(("o1", "o3", "o4"))
 
 
-def _call_openai(messages: list[dict], *, model: str, api_key: str) -> str:
+def _chat_body(messages: list[dict], *, model: str) -> dict:
     body: dict = {
         "model": model,
         "messages": messages,
@@ -170,6 +205,19 @@ def _call_openai(messages: list[dict], *, model: str, api_key: str) -> str:
     else:
         body["temperature"] = 0.0
         body["max_tokens"] = 4000
+    return body
+
+
+def _extract_message_content(payload: dict) -> str:
+    content = payload["choices"][0]["message"].get("content") or ""
+    if not content.strip():
+        finish_reason = payload["choices"][0].get("finish_reason", "")
+        raise RuntimeError(f"OpenAI returned empty content (finish_reason={finish_reason})")
+    return content
+
+
+def _call_openai(messages: list[dict], *, model: str, api_key: str) -> str:
+    body = _chat_body(messages, model=model)
     resp = httpx.post(
         "https://api.openai.com/v1/chat/completions",
         headers={
@@ -181,12 +229,59 @@ def _call_openai(messages: list[dict], *, model: str, api_key: str) -> str:
     )
     if resp.status_code >= 400:
         raise RuntimeError(f"OpenAI {resp.status_code}: {resp.text[:800]}")
-    payload = resp.json()
-    content = payload["choices"][0]["message"].get("content") or ""
-    if not content.strip():
-        finish_reason = payload["choices"][0].get("finish_reason", "")
-        raise RuntimeError(f"OpenAI returned empty content (finish_reason={finish_reason})")
-    return content
+    return _extract_message_content(resp.json())
+
+
+def _azure_env(*names: str) -> str:
+    for name in names:
+        value = os.environ.get(name, "").strip()
+        if value:
+            return value
+    return ""
+
+
+def label_model_for_provider(provider: str, model: str) -> str:
+    if provider == "azure":
+        deployment = _azure_env(
+            "KAYPOH_AUTOLABEL_AZURE_DEPLOYMENT",
+            "GPT5_MINI_DEPLOYMENT",
+            "GPT5_PRO_DEPLOYMENT",
+            "AZURE_OPENAI_DEPLOYMENT",
+            "AZURE_DEPLOYMENT",
+        )
+        return f"azure:{deployment or model}"
+    return f"openai:{model}"
+
+
+def _call_azure_openai(messages: list[dict], *, model: str, api_key: str) -> tuple[str, str]:
+    endpoint = _azure_env("KAYPOH_AUTOLABEL_AZURE_ENDPOINT", "GPT5_MINI_ENDPOINT", "GPT5_PRO_ENDPOINT")
+    deployment = _azure_env("KAYPOH_AUTOLABEL_AZURE_DEPLOYMENT", "GPT5_MINI_DEPLOYMENT", "GPT5_PRO_DEPLOYMENT", "AZURE_OPENAI_DEPLOYMENT", "AZURE_DEPLOYMENT")
+    api_version = _azure_env("KAYPOH_AUTOLABEL_AZURE_API_VERSION", "GPT5_MINI_API_VERSION", "GPT5_PRO_API_VERSION", "AZURE_OPENAI_API_VERSION")
+    if not endpoint or not deployment or not api_version:
+        raise RuntimeError("Azure autolabel provider requires endpoint, deployment, and api-version env vars")
+    body = _chat_body(messages, model=model)
+    body.pop("model", None)
+    url = f"{endpoint.rstrip('/')}/openai/deployments/{deployment}/chat/completions?api-version={api_version}"
+    resp = httpx.post(
+        url,
+        headers={
+            "api-key": api_key,
+            "Content-Type": "application/json",
+        },
+        json=body,
+        timeout=180.0,
+    )
+    if resp.status_code >= 400:
+        raise RuntimeError(f"Azure OpenAI {resp.status_code}: {resp.text[:800]}")
+    return _extract_message_content(resp.json()), deployment
+
+
+def _call_model(messages: list[dict], *, model: str, provider: str, api_key: str) -> tuple[str, str]:
+    if provider == "openai":
+        return _call_openai(messages, model=model, api_key=api_key), model
+    if provider == "azure":
+        return _call_azure_openai(messages, model=model, api_key=api_key)
+    raise ValueError(f"unknown autolabel provider: {provider}")
 
 
 def _validate_labels(labels: dict, body: str) -> tuple[dict, list[str]]:
@@ -224,6 +319,12 @@ def _validate_labels(labels: dict, body: str) -> tuple[dict, list[str]]:
             warnings.append("drop must_not_detect: empty text")
             continue
         text = _strip_boundary_punctuation(text, body)
+        if SG_NRIC_LABEL_RE.fullmatch(text):
+            warnings.append(f"drop must_not_detect: valid Singapore NRIC/FIN should be must_detect text={text!r}")
+            continue
+        if SG_UEN_LABEL_RE.fullmatch(text):
+            warnings.append(f"drop must_not_detect: valid Singapore UEN should be must_detect text={text!r}")
+            continue
         if text not in body:
             warnings.append(f"drop must_not_detect: text not verbatim text={text!r}")
             continue
@@ -248,8 +349,10 @@ def _existing_is_human(labels_path: Path) -> bool:
 
 
 def autolabel(
-    fixture_path: Path, *, model: str, api_key: str, force: bool = False
+    fixture_path: Path, *, model: str, api_key: str, force: bool = False, provider: str = "openai"
 ) -> dict:
+    provider = provider.strip().lower()
+    expected_label_model = label_model_for_provider(provider, model)
     body = fixture_path.read_text(encoding="utf-8")
     labels_path = fixture_path.with_suffix(".labels.json")
     if labels_path.exists():
@@ -260,13 +363,14 @@ def autolabel(
                 existing = json.loads(labels_path.read_text(encoding="utf-8"))
             except json.JSONDecodeError:
                 existing = {}
-            if existing.get("_label_model") == model:
+            if existing.get("_label_model") in {model, expected_label_model}:
                 return {"status": "skipped_same_model", "path": str(labels_path)}
     doc_type = _infer_doc_type(fixture_path)
     user = _build_user_prompt(body, doc_type)
-    raw = _call_openai(
+    raw, label_model = _call_model(
         [{"role": "user", "content": SYSTEM + "\n\n" + user}],
         model=model,
+        provider=provider,
         api_key=api_key,
     )
     try:
@@ -281,8 +385,8 @@ def autolabel(
         "destination_jurisdiction": "SG",
         "must_detect": cleaned["must_detect"],
         "must_not_detect": cleaned["must_not_detect"],
-        "_label_source": f"{model}-auto",
-        "_label_model": model,
+        "_label_source": f"{provider}:{label_model}-auto",
+        "_label_model": f"{provider}:{label_model}",
         "_label_warnings": warnings,
         "_label_note": (
             "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. "
@@ -312,13 +416,22 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Re-label even if labels.json already exists (will not overwrite human labels)",
     )
+    parser.add_argument(
+        "--provider",
+        choices=("openai", "azure"),
+        default=os.environ.get("KAYPOH_AUTOLABEL_PROVIDER", "openai"),
+        help="Model provider (default: openai, env KAYPOH_AUTOLABEL_PROVIDER)",
+    )
     args = parser.parse_args(argv)
-    api_key = os.environ.get("OPENAI_API_KEY", "").strip()
+    if args.provider == "azure":
+        api_key = _azure_env("KAYPOH_AUTOLABEL_AZURE_API_KEY", "GPT5_MINI_API_KEY", "GPT5_PRO_API_KEY", "AZURE_OPENAI_API_KEY")
+    else:
+        api_key = os.environ.get("OPENAI_API_KEY", "").strip()
     if not api_key:
-        print("OPENAI_API_KEY not set", file=sys.stderr)
+        print(f"{args.provider} API key not set", file=sys.stderr)
         return 2
     result = autolabel(
-        Path(args.fixture_path), model=args.model, api_key=api_key, force=args.force
+        Path(args.fixture_path), model=args.model, api_key=api_key, force=args.force, provider=args.provider
     )
     print(json.dumps(result, indent=2))
     return 0 if result.get("status", "").startswith(("labeled", "skipped")) else 1

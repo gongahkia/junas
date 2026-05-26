@@ -7,8 +7,10 @@ from typing import Any
 EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECASE)
 PHONE_RE = re.compile(r"(?:\+?\d[\d\s().-]{7,}\d)")
 MONEY_RE = re.compile(
-    r"[\$€£¥]\s*\d[\d,]*(?:\.\d+)?(?:\s*(?:thousand|million|billion|trillion|[KMBT]))?"
-    r"|\b\d[\d,]*(?:\.\d+)?\s*(?:thousand|million|billion|trillion|[KMBT])\b",
+    r"(?:S\$|US\$|A\$|HK\$|[\$€£¥]|"
+    r"\b(?:SGD|USD|EUR|GBP|JPY|AUD|HKD|KRW|CNY|RMB|MYR|IDR|THB|PHP|VND)\b\s*(?:S\$|US\$|A\$|HK\$|[\$€£¥])?)"
+    r"\s*\d(?:[\d,]*\d)?(?:\.\d+)?(?:\s*(?:thousand|million|billion|trillion|[KMBT]))?"
+    r"|\b\d(?:[\d,]*\d)?(?:\.\d+)?\s*(?:thousand|million|billion|trillion|[KMBT])\b",
     re.IGNORECASE,
 )
 PERCENT_RE = re.compile(r"\b\d+(?:\.\d+)?\s*%")

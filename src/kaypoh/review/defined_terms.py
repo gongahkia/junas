@@ -18,9 +18,15 @@ import re
 # only the leading determiner and the trailing verb are case-insensitive via inline (?i:...).
 _DEFINED_TERM_PATTERN = re.compile(
     r'\(\s*(?:(?i:(?:the|this|that|these|those)\s+|collectively,?\s+(?:the\s+)?))?'
-    r'["“‘]([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*)["”’]\s*\)'
-    r'|["“‘]([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*)["”’]\s+'
+    r'["“‘]([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*)(?:[,.;:])?["”’]\s*\)'
+    r'|["“‘]([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*)(?:[,.;:])?["”’]\s+'
     r'(?i:means|shall\s+mean|has\s+the\s+meaning|refers\s+to|will\s+mean)'
+    r'|(?i:\b(?:the|this|that|these|those)\s+)'
+    r'["“‘]([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*)(?:[,.;:])?["”’]\s+'
+    r'(?i:is|shall\s+be|will\s+be|refers\s+to|means)'
+    r'|\b(?i:(?:share\s+purchase\s+agreement|shareholders?\s+agreement|'
+    r'asset\s+purchase\s+agreement|memorandum\s+of\s+understanding|'
+    r'letter\s+of\s+intent|term\s+sheet))\s*\(([A-Z]{2,5})\)'
 )
 
 # honorifics to strip when comparing a named_person match against the defined-term set.

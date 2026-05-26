@@ -24,16 +24,20 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
-from scripts.autolabel_fixture import _existing_is_human, autolabel  # noqa: E402
+from scripts.autolabel_fixture import _azure_env, _existing_is_human, autolabel, label_model_for_provider  # noqa: E402
 
 CORPUS = REPO / "test" / "fixtures" / "legal-corpus"
 ADV = REPO / "test" / "fixtures" / "legal-corpus-adversarial"
 
 
-def _label_one(fx: Path, *, model: str, api_key: str, force: bool) -> dict:
+def _provider_label_model(provider: str, model: str) -> str:
+    return label_model_for_provider(provider, model)
+
+
+def _label_one(fx: Path, *, model: str, api_key: str, force: bool, provider: str) -> dict:
     t_doc = time.monotonic()
     try:
-        result = autolabel(fx, model=model, api_key=api_key, force=force)
+        result = autolabel(fx, model=model, api_key=api_key, force=force, provider=provider)
         return {
             "fixture": fx,
             "result": result,
@@ -47,7 +51,7 @@ def _label_one(fx: Path, *, model: str, api_key: str, force: bool) -> dict:
         }
 
 
-def _skip_status(fx: Path, *, model: str, force: bool) -> str:
+def _skip_status(fx: Path, *, label_model: str, force: bool) -> str:
     labels_path = fx.with_suffix(".labels.json")
     if not labels_path.exists():
         return ""
@@ -61,7 +65,10 @@ def _skip_status(fx: Path, *, model: str, force: bool) -> str:
         existing = json.loads(labels_path.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
         return ""
-    if existing.get("_label_model") == model:
+    existing_model = existing.get("_label_model")
+    if existing_model == label_model:
+        return "skipped_same_model"
+    if label_model.startswith("openai:") and existing_model == label_model.split(":", 1)[1]:
         return "skipped_same_model"
     return ""
 
@@ -114,6 +121,12 @@ def main() -> int:
         default=os.environ.get("KAYPOH_AUTOLABEL_MODEL", "o1"),
         help="OpenAI model (default: o1)",
     )
+    parser.add_argument(
+        "--provider",
+        choices=("openai", "azure"),
+        default=os.environ.get("KAYPOH_AUTOLABEL_PROVIDER", "openai"),
+        help="Model provider (default: openai, env KAYPOH_AUTOLABEL_PROVIDER)",
+    )
     parser.add_argument("--force", action="store_true",
                         help="Re-label fixtures that already have labels (skips human-labeled)")
     parser.add_argument("--limit", type=int, default=0,
@@ -128,9 +141,12 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    api_key = os.environ.get("OPENAI_API_KEY", "").strip()
+    if args.provider == "azure":
+        api_key = _azure_env("KAYPOH_AUTOLABEL_AZURE_API_KEY", "GPT5_MINI_API_KEY", "GPT5_PRO_API_KEY", "AZURE_OPENAI_API_KEY")
+    else:
+        api_key = os.environ.get("OPENAI_API_KEY", "").strip()
     if not api_key:
-        print("OPENAI_API_KEY not set", file=sys.stderr)
+        print(f"{args.provider} API key not set", file=sys.stderr)
         return 2
 
     dirs: list[Path] = []
@@ -149,9 +165,10 @@ def main() -> int:
         workers = 1
 
     print(
-        f"model: {args.model}  fixtures discovered: {len(fixtures)}  workers: {workers}",
+        f"provider: {args.provider}  model: {args.model}  fixtures discovered: {len(fixtures)}  workers: {workers}",
         flush=True,
     )
+    label_model = _provider_label_model(args.provider, args.model)
 
     ok = skip = err = 0
     t_start = time.monotonic()
@@ -159,7 +176,9 @@ def main() -> int:
         for fx in fixtures:
             if args.limit and ok >= args.limit:
                 break
-            payload = _label_one(fx, model=args.model, api_key=api_key, force=args.force)
+            payload = _label_one(
+                fx, model=args.model, api_key=api_key, force=args.force, provider=args.provider
+            )
             d_ok, d_skip, d_err = _record_result(payload)
             ok += d_ok
             skip += d_skip
@@ -170,7 +189,7 @@ def main() -> int:
     else:
         pending: list[Path] = []
         for fx in fixtures:
-            status = _skip_status(fx, model=args.model, force=args.force)
+            status = _skip_status(fx, label_model=label_model, force=args.force)
             if status:
                 d_ok, d_skip, d_err = _record_result(_skip_payload(fx, status))
                 ok += d_ok
@@ -188,7 +207,14 @@ def main() -> int:
                     fx = next(pending_iter)
                 except StopIteration:
                     return
-                active.add(pool.submit(_label_one, fx, model=args.model, api_key=api_key, force=args.force))
+                active.add(pool.submit(
+                    _label_one,
+                    fx,
+                    model=args.model,
+                    api_key=api_key,
+                    force=args.force,
+                    provider=args.provider,
+                ))
 
             for _ in range(min(workers, len(pending))):
                 submit_next()

@@ -66,7 +66,8 @@ EMBARGO_RE = re.compile(
 )
 NONPUBLIC_RE = re.compile(
     r"\b(confidential|non-public|nonpublic|not yet public|not disclosed|undisclosed|"
-    r"internal only|restricted|do not distribute|before announcement|pre-announcement|"
+    r"internal only|internal circulation only|internal use only|restricted|do not distribute|"
+    r"should not be distributed externally|before announcement|pre-announcement|"
     r"quiet period|material non-public information|mnpi)\b",
     re.IGNORECASE,
 )

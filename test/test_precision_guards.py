@@ -14,6 +14,7 @@ regress them without breaking the build:
 import unittest
 
 from kaypoh.review.engine import PreSendReviewEngine
+from kaypoh.workflow.privacy_guard import PrivacyGuard
 
 
 def _rules_matched(text: str, *, jurisdiction: str = "SG") -> list[tuple[str, str]]:
@@ -95,6 +96,37 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         text = "Call +65 9876 5432. NRIC S1234567D separately on file."
         phones = [m for r, m in _rules_matched(text) if r == "phone_number"]
         self.assertIn("+65 9876 5432", phones)
+
+
+class FinancialAmountGuards(unittest.TestCase):
+    def test_currency_code_amounts_do_not_swallow_trailing_punctuation(self):
+        text = "The consideration is SGD 12,500, subject to completion accounts."
+        amounts = [m for r, m in _rules_matched(text) if r == "financial_amount"]
+        self.assertIn("SGD 12,500", amounts)
+        self.assertNotIn("SGD 12,500,", amounts)
+
+    def test_multi_currency_codes_still_fire(self):
+        text = "Funding includes USD 2.5 million, HKD 8,000,000 and JPY 120 million."
+        amounts = [m for r, m in _rules_matched(text) if r == "financial_amount"]
+        self.assertIn("USD 2.5 million", amounts)
+        self.assertIn("HKD 8,000,000", amounts)
+        self.assertIn("JPY 120 million", amounts)
+
+
+class PrivacyGuardAmountGuards(unittest.TestCase):
+    def test_privacy_guard_redacts_currency_code_amounts_cleanly(self):
+        guard = PrivacyGuard(max_query_chars=140, redact_exact_numbers=True)
+
+        sanitized, redactions = guard.sanitize_query(
+            "Quantum will invest SGD 12,500, and HKD 8,000,000 before announcement."
+        )
+
+        self.assertIn("amount", redactions)
+        self.assertNotIn("SGD 12,500", sanitized)
+        self.assertNotIn("HKD 8,000,000", sanitized)
+        self.assertNotIn("12,500", sanitized)
+        self.assertNotIn("8,000,000", sanitized)
+        self.assertEqual(sanitized.count("[amount]"), 2)
 
 
 if __name__ == "__main__":

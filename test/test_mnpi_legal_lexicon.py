@@ -61,6 +61,25 @@ class MnpiLegalLexiconTests(unittest.TestCase):
         # standalone "SPA" tokens should be suppressed because the contract defines SPA as its own nickname
         self.assertNotIn("SPA", matches)
 
+    def test_definitive_agreement_suppressed_for_unquoted_defined_acronym(self):
+        text = (
+            "This Share Purchase Agreement (SPA) between Acme and Globex has been signed. "
+            "The SPA governs the purchase mechanics."
+        )
+        result = self._review(text)
+        matches = {f.matched_text for f in _rules(result.findings, "definitive_agreement")}
+        self.assertIn("Share Purchase Agreement", matches)
+        self.assertNotIn("SPA", matches)
+
+    def test_definitive_agreement_suppressed_for_quoted_acronym_with_internal_comma(self):
+        text = (
+            'This offer, the "SPA," is contingent on the signing of our employment agreement. '
+            "Further details will be provided upon acceptance of this SPA."
+        )
+        result = self._review(text, document_type="generic")
+        matches = {f.matched_text for f in _rules(result.findings, "definitive_agreement")}
+        self.assertNotIn("SPA", matches)
+
     def test_material_adverse_change_detects_clause_and_acronym(self):
         text = "The Purchaser may invoke the MAC clause upon any material adverse effect."
         result = self._review(text)

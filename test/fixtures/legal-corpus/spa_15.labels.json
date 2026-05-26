@@ -55,10 +55,6 @@
     {
       "rule": "financial_amount",
       "matched_text": "SGD 500,000"
-    },
-    {
-      "rule": "financial_amount",
-      "matched_text": "Five Hundred Thousand Singapore Dollars"
     }
   ],
   "must_not_detect": [
@@ -69,6 +65,8 @@
   ],
   "_label_source": "o1-auto",
   "_label_model": "o1",
-  "_label_warnings": [],
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Five Hundred Thousand Singapore Dollars'"
+  ],
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

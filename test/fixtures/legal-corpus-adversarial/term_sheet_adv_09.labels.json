@@ -3,7 +3,76 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "must_not_detect": [],
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "must_detect": [
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Series B Funding Term Sheet"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "rule": "sg_uen",
+      "matched_text": "200912345A"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 5,000,000"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Samuel Tan"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S2345678B"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 8123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "samuel.tan@example.sg"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 20,000,000"
+    },
+    {
+      "rule": "embargo_marker",
+      "matched_text": "Closing Date"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Ms. Alice Lim"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "alice.lim@techinnovate.sg"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "defined term"
+    },
+    {
+      "matched_text": "Investors",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "Company",
+      "reason": "role-noun defined term"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
