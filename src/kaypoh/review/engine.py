@@ -452,6 +452,90 @@ _PSEUDONYMISED_LINKABLE_RULES = frozenset({
 })
 
 
+# item 101: quasi-identifier combination seed. PDPA s2 ("identified from that data and
+# other information"), GDPR Recital 26 ("means reasonably likely to be used"), and CCPA
+# §1798.140(v) ("reasonably capable of being associated") all extend personal data to
+# combinations of attributes that re-identify when joined. Single named_person + phone is
+# noise; named_person + NRIC + phone + email + address in the same paragraph is a
+# re-identification dossier. The seed rule fires when ≥3 distinct quasi-identifier rules
+# co-occur within a 500-char sliding window. Activated under audit_grade only — the v1
+# rule is deliberately conservative recall-wise; item 70 v2 owns the full k-anonymity
+# probability estimate.
+_QUASI_IDENTIFIER_RULES = frozenset({
+    # named-person + direct contact
+    "named_person", "email_address", "phone_number", "bank_account",
+    # postal-address signals
+    "sg_postal_address", "jp_postal_code", "au_postal_address",
+    # SG / SEA / HK / AU / JP / KR / US / UK local government / company IDs
+    "sg_nric_fin", "sg_uen", "passport_number",
+    "my_mykad", "id_nik", "th_national_id", "ph_philsys", "ph_tin", "vn_cccd",
+    "hk_hkid", "hk_cr_no", "au_tfn", "au_abn", "au_acn",
+    "jp_my_number", "jp_corporate_number", "kr_rrn", "kr_business_registration",
+    "us_ssn", "us_ein", "uk_nin",
+    # pseudonymised-but-linkable (item 99)
+    "employee_id", "customer_account_number", "medical_record_number",
+})
+_QUASI_IDENTIFIER_WINDOW = 500
+_QUASI_IDENTIFIER_MIN_DISTINCT = 3
+
+
+def _detect_quasi_identifier_combinations(
+    findings: list["ReviewFinding"],
+    *,
+    review_profile: str,
+    jurisdiction: str,
+    legal_basis: str,
+    idx_start: int,
+) -> list["ReviewFinding"]:
+    """Greedy left-to-right sliding window over quasi-identifier findings sorted by
+    start_char. Emits at most one combination finding per cluster — once a window with
+    ≥3 distinct rules is emitted, the left pointer advances past the cluster to avoid
+    overlapping emissions. audit_grade only; strict stays span-local."""
+    if review_profile != "audit_grade":
+        return []
+    quasi = sorted(
+        [f for f in findings if f.rule in _QUASI_IDENTIFIER_RULES],
+        key=lambda f: f.start_char,
+    )
+    if len(quasi) < _QUASI_IDENTIFIER_MIN_DISTINCT:
+        return []
+
+    out: list["ReviewFinding"] = []
+    idx = idx_start
+    left = 0
+    while left < len(quasi):
+        right = left
+        while right + 1 < len(quasi) and quasi[right + 1].start_char - quasi[left].start_char <= _QUASI_IDENTIFIER_WINDOW:
+            right += 1
+        distinct_rules = {quasi[k].rule for k in range(left, right + 1)}
+        if len(distinct_rules) >= _QUASI_IDENTIFIER_MIN_DISTINCT:
+            window_start = quasi[left].start_char
+            window_end = max(quasi[k].end_char for k in range(left, right + 1))
+            out.append(
+                _new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="quasi_identifier_combination",
+                    jurisdiction=jurisdiction,
+                    severity="medium",
+                    matched_text=f"{len(distinct_rules)} distinct quasi-identifiers within {window_end - window_start} chars",
+                    start=window_start,
+                    end=window_end,
+                    reason=(
+                        f"{len(distinct_rules)} distinct quasi-identifier rules co-occur "
+                        f"within a {_QUASI_IDENTIFIER_WINDOW}-char window — combination "
+                        f"is personal data under PDPA s2 / GDPR Recital 26"
+                    ),
+                    legal_basis=legal_basis,
+                )
+            )
+            idx += 1
+            left = right + 1  # advance past this cluster
+        else:
+            left += 1
+    return out
+
+
 def _amplify_pseudonymised_when_linked(findings: list["ReviewFinding"]) -> None:
     """Lift pseudonymised-but-linkable PII findings from medium → high when a named_person
     finding appears anywhere in the same document. Mutates findings in place."""
@@ -1070,6 +1154,20 @@ class PreSendReviewEngine:
         # items 95 + 96: lift contingent/tipping severity when co-located with a deal substrate.
         # Mutates in place before scoring so the escalated severity feeds into mnpi_score.
         _amplify_co_occurring_low_mnpi(findings)
+
+        # item 101: quasi-identifier combination seed. audit_grade only; appends one finding
+        # per cluster of ≥3 distinct quasi-identifier rules within a 500-char window.
+        jurisdiction_label = _pack_scope(packs)
+        pii_legal_basis = _legal_basis(packs, "pii_rules")
+        findings.extend(
+            _detect_quasi_identifier_combinations(
+                findings,
+                review_profile=review_profile,
+                jurisdiction=jurisdiction_label,
+                legal_basis=pii_legal_basis,
+                idx_start=len(findings),
+            )
+        )
         pii_score = self._score(findings, "PII")
         mnpi_score = self._score(findings, "MNPI")
         document_score = max(pii_score, mnpi_score)

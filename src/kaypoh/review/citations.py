@@ -173,6 +173,14 @@ _PII_DEFAULT_RATIONALE = {
         "(health data) + PDPC special-category guidance. Mask unless statutory authority "
         "and purpose are on file."
     ),
+    "quasi_identifier_combination": (
+        "Three or more distinct quasi-identifiers co-occur within a 500-character window. "
+        "Under PDPA s2 ('identified from that data and other information'), GDPR Recital "
+        "26 ('means reasonably likely to be used'), and CCPA §1798.140(v) ('reasonably "
+        "capable of being associated'), the combination is personal data even when the "
+        "individual attributes are not. Sweeney 2000: DOB + 5-digit ZIP + gender uniquely "
+        "identifies ~87% of US adults. Generalise or aggregate before disclosure."
+    ),
 }
 
 # rule -> short MNPI rationale (the citation is jurisdiction-specific so we layer on a suffix)
