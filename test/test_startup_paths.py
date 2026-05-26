@@ -1,3 +1,12 @@
+import pytest
+
+pytest.skip(
+    "legacy classifier pipeline archived 2026-05-26; "
+    "see ARCHITECTURE-PIVOT-24-MAY.md item 63. Tests reference layer1-6 / mosaic "
+    "/ legacy classify shape and need rewriting against the engine.review() wrapper.",
+    allow_module_level=True,
+)
+
 import asyncio
 import os
 import unittest

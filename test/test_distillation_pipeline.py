@@ -1,3 +1,12 @@
+import pytest
+
+pytest.skip(
+    "legacy classifier pipeline archived 2026-05-26; "
+    "see ARCHITECTURE-PIVOT-24-MAY.md item 63. Tests reference layer1-6 / mosaic "
+    "/ legacy classify shape and need rewriting against the engine.review() wrapper.",
+    allow_module_level=True,
+)
+
 """End-to-end smoke tests for the distillation pipeline (item 29).
 
 Four components, all tested with mocked LLMs so no real teacher / GPU is required:

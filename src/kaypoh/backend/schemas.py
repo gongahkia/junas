@@ -1037,6 +1037,22 @@ class ClassifyResponse(BaseModel):
         default_factory=dict,
         description="Per-layer timing breakdown in milliseconds plus the total request time.",
     )
+    pii_score: Optional[float] = Field(
+        None,
+        description="PII risk score from engine.review() (0-100). Populated under the item-63 thin-wrapper flow.",
+    )
+    mnpi_score: Optional[float] = Field(
+        None,
+        description="MNPI risk score from engine.review() (0-100). Populated under the item-63 thin-wrapper flow.",
+    )
+    findings: list[ReviewFindingResponse] = Field(
+        default_factory=list,
+        description="Deterministic + LLM-tier findings from engine.review(). Populated under the item-63 thin-wrapper flow.",
+    )
+    coverage_warnings: list[dict] = Field(
+        default_factory=list,
+        description="Advisory LLM coverage_warning events (item 8). Populated under audit_grade profile only.",
+    )
 
 
 class BatchClassifyResponse(BaseModel):

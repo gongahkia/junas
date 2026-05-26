@@ -245,8 +245,6 @@ def get_optional_layers() -> set[str]:
     return set(current_runtime_settings().pipeline.optional_layers) or set(DEFAULT_OPTIONAL_LAYERS)
 
 
-def max_classification(a: Classification, b: Classification) -> Classification:
-    return a if RISK_ORDER[a] >= RISK_ORDER[b] else b
 
 
 def load_module_from_path(module_name: str, path: str):
@@ -771,543 +769,95 @@ def _optional_int(value: Any) -> int | None:
         return None
 
 
-def build_offending_spans(text: str, lex_hits: list[Any]) -> list[OffendingSpanResponse]:
-    line_starts = _build_line_starts(text)
-    spans: list[OffendingSpanResponse] = []
-
-    for index, hit in enumerate(lex_hits):
-        start_char = getattr(hit, "start_char", None)
-        end_char = getattr(hit, "end_char", None)
-        if start_char is None or end_char is None:
-            continue
-
-        start = max(0, int(start_char))
-        end = min(len(text), int(end_char))
-        if end < start:
-            continue
-
-        start_line, start_column = _offset_to_line_column(line_starts, start)
-        end_line, end_column = _offset_to_line_column(line_starts, end)
-        matched_text = text[start:end]
-        context_before, context_after = _build_context_window(text, start, end)
-        score = _optional_float(getattr(hit, "score", None))
-        spans.append(
-            OffendingSpanResponse(
-                id=f"lexicon:{getattr(hit, 'rule', 'unknown')}:{start}:{end}:{index}",
-                layer="lexicon",
-                rule=str(getattr(hit, "rule", "")),
-                severity=str(getattr(hit, "severity", "")),
-                matched_text=matched_text if matched_text else str(getattr(hit, "matched_text", "")),
-                detail=str(getattr(hit, "detail", "")),
-                start_char=start,
-                end_char=end,
-                start_line=start_line,
-                start_column=start_column,
-                end_line=end_line,
-                end_column=end_column,
-                is_exact=True,
-                char_length=end - start,
-                line_span=max(1, end_line - start_line + 1),
-                window_index=None,
-                window_count=None,
-                window_token_count=None,
-                window_stride=None,
-                window_max_seq_len=None,
-                context_before=context_before,
-                context_after=context_after,
-                score=score,
-                score_type="rule_score" if score is not None else None,
-            )
-        )
-
-    return spans
-
-
-def build_classifier_offending_spans(
-    text: str,
-    model1_result: Any | None,
-    model2_result: Any | None,
-    final_classification: Classification,
-) -> list[OffendingSpanResponse]:
-    line_starts = _build_line_starts(text)
-    spans: list[OffendingSpanResponse] = []
-
-    model_specs = [
-        (
-            "model1",
-            model1_result,
-            "risk_score",
-            getattr(model1_result, "label", "") == "risk" if model1_result is not None else False,
-        ),
-        (
-            "model2",
-            model2_result,
-            "high_risk_score",
-            model2_result is not None,
-        ),
-    ]
-
-    for index, (layer, result, score_field, should_include) in enumerate(model_specs):
-        if not should_include or result is None:
-            continue
-
-        top_window = getattr(result, "top_window", None)
-        if not isinstance(top_window, dict):
-            continue
-
-        start = max(0, int(top_window.get("start_char", 0)))
-        end = min(len(text), int(top_window.get("end_char", 0)))
-        if end <= start:
-            continue
-
-        start_line, start_column = _offset_to_line_column(line_starts, start)
-        end_line, end_column = _offset_to_line_column(line_starts, end)
-        score_value = float(top_window.get(score_field, getattr(result, score_field, 0.0)))
-        severity = "high" if final_classification == Classification.HIGH_RISK else "info"
-        context_before, context_after = _build_context_window(text, start, end)
-        window_index = _optional_int(top_window.get("window_index"))
-        window_count = _optional_int(getattr(result, "window_count", 1))
-        window_token_count = _optional_int(top_window.get("token_count"))
-        window_stride = _optional_int(top_window.get("window_stride"))
-        window_max_seq_len = _optional_int(top_window.get("max_seq_len"))
-        matched_text = str(top_window.get("text") or text[start:end])
-
-        spans.append(
-            OffendingSpanResponse(
-                id=f"{layer}:sliding_window:{start}:{end}:{index}",
-                layer=layer,
-                rule="sliding_window",
-                severity=severity,
-                matched_text=matched_text,
-                detail=(
-                    f"approximate classifier window from {layer}; "
-                    f"{score_field}={score_value:.3f}; "
-                    f"window_index={window_index if window_index is not None else 0}; "
-                    f"windows={window_count if window_count is not None else 1}"
-                ),
-                start_char=start,
-                end_char=end,
-                start_line=start_line,
-                start_column=start_column,
-                end_line=end_line,
-                end_column=end_column,
-                is_exact=False,
-                char_length=end - start,
-                line_span=max(1, end_line - start_line + 1),
-                context_before=context_before,
-                context_after=context_after,
-                score=score_value,
-                score_type=score_field,
-                window_index=window_index,
-                window_count=window_count,
-                window_token_count=window_token_count,
-                window_stride=window_stride,
-                window_max_seq_len=window_max_seq_len,
-            )
-        )
-
-    return spans
-
 
 def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) -> ClassifyResponse:
-    pipeline = _state.get("pipeline", [])
-    timings_ms: dict[str, float] = {}
-    t_total_start = time.perf_counter()
+    """Thin wrapper over engine.review() per ARCHITECTURE-PIVOT-24-MAY.md item 63.
+
+    Legacy 9-layer pipeline (layer1_lexicon through layer6_regression + layer5_mosaic)
+    archived 2026-05-26. /classify is retained as a programmatic surface for technical
+    clients that want a flat findings dump without /review's session/decision/journal
+    state. Legacy fields on the response (lexicon, model1, model2, embedding, clustering,
+    mosaic, regression) are permanent None.
+    """
+    t_start = time.perf_counter()
     observability = get_observability()
 
-    cache_key = None
-    cache_status = "disabled"
-    if should_cache_response(req, pipeline):
-        cache_key = build_response_cache_key(req, pipeline)
-        cached = response_cache_get(cache_key)
-        if cached is not None:
-            cache_status = "hit"
-            total_ms = round((time.perf_counter() - t_total_start) * 1000.0, 3)
-            cached["request_id"] = request_id
-            cached["timings_ms"] = {"cache_hit": 1.0, "total": total_ms}
-            cached_observability = dict(cached.get("observability", {}))
-            cached_observability["cache_status"] = cache_status
-            cached["observability"] = cached_observability
-            cached_class = Classification(cached.get("classification", Classification.SAFE.value))
-            degraded = bool(cached_observability.get("degraded", False))
-            if observability is not None:
-                observability.observe_classification(
-                    endpoint=endpoint,
-                    classification=cached_class.value,
-                    cache_status=cache_status,
-                    degraded=degraded,
-                    duration_seconds=total_ms / 1000.0,
-                )
+    engine = _build_review_engine()
+    result = engine.review(
+        text=req.text,
+        source_jurisdiction="SG",
+        destination_jurisdiction="SG",
+        entity_id=req.entity_id,
+        include_suggestions=False,
+        document_type="generic",
+        review_profile="strict",
+        tenant_id=None,
+    )
+    timings_ms = {"total": round((time.perf_counter() - t_start) * 1000.0, 3)}
 
-            log_backend_event(
-                logging.INFO,
-                event="classify_summary",
-                request_id=request_id,
-                classification=cached_class.value,
-                timings_ms=cached["timings_ms"],
-                active_pipeline=pipeline,
-                cache_status=cache_status,
-                degraded=degraded,
-                executed_layers=cached_observability.get("executed_layers", []),
-                skipped_layers=cached_observability.get("skipped_layers", []),
-                layer_error_count=len(cached_observability.get("layer_errors", [])),
-            )
-            return ClassifyResponse(**cached)
-        cache_status = "miss"
-
-    lex_resp = None
-    lex_hits: list[Any] = []
-    m1_result = None
-    m2_result = None
-    m1_resp = None
-    m2_resp = None
-    emb_resp = None
-    clust_resp = None
-    mosaic_resp = None
-    reg_resp = None
     public_evidence_resp = None
-    llm_adjudication_resp = None
-    privacy_ledger: list[dict[str, Any]] = []
-
-    final_classification = Classification.SAFE
-    classification_floor = Classification.SAFE
-    current_embedding = None
-
-    skip_to_regression = False
-    # Model-2 is strictly gated by Model-1 risk output.
-    skip_model2 = True
-    degraded = False
-    layer_errors: list[dict[str, str]] = []
-    executed_layers: list[str] = []
-    skipped_layers: list[str] = []
-
-    for layer in pipeline:
-        t_layer_start = time.perf_counter()
-        outcome = "executed"
+    if result.public_evidence is not None:
         try:
-            if skip_to_regression and layer != "regression":
-                outcome = "skipped"
-                skipped_layers.append(layer)
-                continue
+            public_evidence_resp = PublicEvidenceResponse(**result.public_evidence)
+        except Exception:
+            public_evidence_resp = None
 
-            if layer == "lexicon":
-                lexicon_filter = get_layer_model("lexicon")
-                if lexicon_filter is None:
-                    degraded = True
-                    outcome = "unavailable"
-                    layer_errors.append(build_layer_error(layer))
-                    continue
-                lex_result = lexicon_filter.run(req.text)
-                lex_hits = list(lex_result.hits)
-                lex_resp = LexiconResponse(
-                    flagged=lex_result.flagged,
-                    high_risk_short_circuit=lex_result.high_risk_short_circuit,
-                    total_score=lex_result.total_score,
-                    score_threshold=lex_result.score_threshold,
-                    score_threshold_exceeded=lex_result.score_threshold_exceeded,
-                    hits=[
-                        LexiconHitResponse(
-                            rule=h.rule,
-                            matched_text=h.matched_text,
-                            severity=h.severity,
-                            detail=h.detail,
-                            score=h.score,
-                        )
-                        for h in lex_result.hits
-                    ],
-                    restricted_entities=lex_result.restricted_entities_found,
-                )
-                if lex_result.high_risk_short_circuit:
-                    classification_floor = Classification.HIGH_RISK
-                    final_classification = Classification.HIGH_RISK
-                    skip_to_regression = True
-                elif lex_result.flagged:
-                    classification_floor = max_classification(classification_floor, Classification.LOW_RISK)
-                    final_classification = max_classification(final_classification, classification_floor)
+    llm_adjudication_resp = None
+    if result.llm_adjudication is not None:
+        try:
+            llm_adjudication_resp = LLMAdjudicationResponse(**result.llm_adjudication)
+        except Exception:
+            llm_adjudication_resp = None
 
-            elif layer == "embedding":
-                encoder = get_layer_model("embedding")
-                if encoder is None:
-                    degraded = True
-                    outcome = "unavailable"
-                    layer_errors.append(build_layer_error(layer))
-                    continue
-                current_embedding = encoder.encode(req.text)
-                if req.debug:
-                    emb_resp = current_embedding.tolist()
+    privacy_ledger_resp = []
+    for entry in result.privacy_ledger:
+        try:
+            privacy_ledger_resp.append(PrivacyLedgerEntryResponse(**entry))
+        except Exception:
+            continue
 
-            elif layer == "clustering":
-                if current_embedding is None:
-                    outcome = "skipped"
-                    skipped_layers.append(layer)
-                    continue
-                detector = get_layer_model("clustering")
-                if detector is None:
-                    degraded = True
-                    outcome = "unavailable"
-                    layer_errors.append(build_layer_error(layer))
-                    continue
-                clust_resp = detector.score(current_embedding)
-
-            elif layer == "model1":
-                model1 = get_layer_model("model1")
-                if model1 is None:
-                    degraded = True
-                    outcome = "unavailable"
-                    layer_errors.append(build_layer_error(layer))
-                    continue
-                m1_result = model1.predict(req.text)
-                m1_resp = Model1Response(
-                    label=m1_result.label,
-                    confidence=m1_result.confidence,
-                    risk_score=m1_result.risk_score,
-                )
-                if m1_result.label == "safe":
-                    final_classification = max_classification(Classification.SAFE, classification_floor)
-                    skip_model2 = True
-                else:
-                    skip_model2 = False
-                    final_classification = max_classification(Classification.LOW_RISK, classification_floor)
-
-            elif layer == "model2":
-                if skip_model2:
-                    outcome = "skipped"
-                    skipped_layers.append(layer)
-                    continue
-                model2 = get_layer_model("model2")
-                if model2 is None:
-                    degraded = True
-                    outcome = "unavailable"
-                    layer_errors.append(build_layer_error(layer))
-                    continue
-                m2_result = model2.predict(req.text)
-                m2_resp = Model2Response(
-                    label=m2_result.label,
-                    confidence=m2_result.confidence,
-                    high_risk_score=m2_result.high_risk_score,
-                )
-                model2_class = Classification.HIGH_RISK if m2_result.label == "high_risk" else Classification.LOW_RISK
-                final_classification = max_classification(model2_class, classification_floor)
-
-            elif layer == "mosaic":
-                entity_id = req.entity_id
-                if not entity_id and lex_resp and lex_resp.restricted_entities:
-                    entity_id = lex_resp.restricted_entities[0].get("name")
-
-                if not entity_id:
-                    outcome = "skipped"
-                    skipped_layers.append(layer)
-                    continue
-
-                mosaic_agg = get_layer_model("mosaic")
-                if mosaic_agg is None:
-                    degraded = True
-                    outcome = "unavailable"
-                    layer_errors.append(build_layer_error(layer))
-                    continue
-                is_lr = final_classification == Classification.LOW_RISK
-                m_result = mosaic_agg.aggregate(
-                    entity_id=entity_id,
-                    is_low_risk=is_lr,
-                    fragment_text=req.text,
-                    request_id=request_id,
-                    classification=final_classification.value,
-                    model_scores={
-                        "model1": m1_resp.risk_score if m1_resp else None,
-                        "model2": m2_resp.high_risk_score if m2_resp else None,
-                    },
-                )
-                mosaic_resp = MosaicResponse(
-                    entity_id=str(m_result.get("entity_id", entity_id)),
-                    escalated=bool(m_result.get("escalate_to_high_risk", False)),
-                    recent_event_count=int(m_result.get("recent_event_count", 0)),
-                    unique_fragment_count=int(m_result.get("unique_fragment_count", m_result.get("count", 0))),
-                    window_hours=float(m_result.get("window_hours", 0.0)),
-                    threshold=int(m_result.get("threshold", 0)),
-                    escalation_reason=str(m_result.get("escalation_reason", "")),
-                    matched_event_ids=[str(item) for item in m_result.get("matched_event_ids", [])],
-                )
-
-                if is_lr and m_result["escalate_to_high_risk"]:
-                    classification_floor = Classification.HIGH_RISK
-                    final_classification = Classification.HIGH_RISK
-
-            elif layer == "public_evidence":
-                if final_classification == Classification.SAFE and not (lex_resp and lex_resp.flagged):
-                    outcome = "skipped"
-                    skipped_layers.append(layer)
-                    continue
-
-                retriever = get_layer_model("public_evidence")
-                if retriever is None:
-                    degraded = True
-                    outcome = "unavailable"
-                    layer_errors.append(build_layer_error(layer))
-                    continue
-                evidence_result = retriever.retrieve(
-                    text=req.text,
-                    entity_id=req.entity_id,
-                    lexicon=lex_resp,
-                )
-                public_evidence_resp = PublicEvidenceResponse(**evidence_result)
-                privacy_ledger.extend(evidence_result.get("privacy_ledger", []))
-
-            elif layer == "llm_adjudicator":
-                adjudicator = get_layer_model("llm_adjudicator")
-                if adjudicator is None:
-                    degraded = True
-                    outcome = "unavailable"
-                    layer_errors.append(build_layer_error(layer))
-                    continue
-                if final_classification == Classification.SAFE and public_evidence_resp is None:
-                    outcome = "skipped"
-                    skipped_layers.append(layer)
-                    continue
-                adjudication_result = adjudicator.adjudicate(
-                    text=req.text,
-                    current_classification=final_classification.value,
-                    lexicon=lex_resp,
-                    model1=m1_resp,
-                    model2=m2_resp,
-                    public_evidence=public_evidence_resp,
-                )
-                llm_adjudication_resp = LLMAdjudicationResponse(**adjudication_result)
-                privacy_ledger.append(
-                    {
-                        "destination": llm_adjudication_resp.provider or "llm",
-                        "operation": "llm_adjudication",
-                        "allowed": llm_adjudication_resp.status == "adjudicated",
-                        "reason": llm_adjudication_resp.review_recommendation or llm_adjudication_resp.status,
-                        "query": "",
-                        "redactions": [],
-                        "input_mode": llm_adjudication_resp.input_mode,
-                    }
-                )
-                if llm_adjudication_resp.status == "adjudicated" and llm_adjudication_resp.risk_label is not None:
-                    if classification_floor == Classification.HIGH_RISK:
-                        final_classification = max_classification(
-                            llm_adjudication_resp.risk_label,
-                            classification_floor,
-                        )
-                    else:
-                        final_classification = llm_adjudication_resp.risk_label
-
-            elif layer == "regression":
-                reg_model = get_layer_model("regression")
-                if reg_model is None:
-                    degraded = True
-                    outcome = "unavailable"
-                    layer_errors.append(build_layer_error(layer))
-                    continue
-                lex_score = lex_resp.total_score if lex_resp else 0.0
-                lex_threshold = float(getattr(lex_resp, "score_threshold", 0.0) or 0.0)
-                lex_score_over_threshold = max(0.0, lex_score - lex_threshold)
-                m1_score = m1_resp.risk_score if m1_resp else 0.0
-                m2_score = m2_resp.high_risk_score if m2_resp else 0.0
-                clust_score = clust_resp.get("anomaly_score", 0.0) if clust_resp else 0.0
-                m_count = mosaic_resp.unique_fragment_count if mosaic_resp else 0
-
-                feature_payload = {
-                    "lex_score": lex_score,
-                    "lex_threshold": lex_threshold,
-                    "lex_score_over_threshold": lex_score_over_threshold,
-                    "m1_score": m1_score,
-                    "m2_score": m2_score,
-                    "clust_score": clust_score,
-                    "mosaic_count": m_count,
-                }
-                reg_result = reg_model.predict(feature_payload)
-                reg_resp = RegressionResponse(
-                    risk_score=reg_result["risk_score"],
-                    reasoning=reg_result["reasoning"],
-                )
-
-                reg_class = (
-                    Classification.HIGH_RISK
-                    if reg_result["label"] == "high_risk"
-                    else (
-                        Classification.LOW_RISK if reg_result["label"] == "low_risk" else Classification.SAFE
-                    )
-                )
-                final_classification = max_classification(reg_class, classification_floor)
-
-        except Exception as e:
-            outcome = "error"
-            degraded = True
-            message = str(e)
-            layer_errors.append({"layer": layer, "phase": "runtime", "message": message})
-            record_runtime_layer_error(layer, message)
-            if observability is not None:
-                observability.observe_layer_load(
-                    layer=layer,
-                    phase="runtime",
-                    outcome="error",
-                    duration_seconds=max(0.0, time.perf_counter() - t_layer_start),
-                )
-            log_backend_event(
-                logging.WARNING,
-                event="layer_runtime_error",
-                request_id=request_id,
-                layer=layer,
-                error=message,
-            )
-        finally:
-            timings_ms[layer] = round((time.perf_counter() - t_layer_start) * 1000.0, 3)
-            if outcome == "executed":
-                executed_layers.append(layer)
-            if observability is not None:
-                observability.observe_layer_execution(
-                    layer=layer,
-                    outcome=outcome,
-                    duration_seconds=timings_ms[layer] / 1000.0,
-                )
-
-    timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
-
-    offending_spans = None
-    if req.include_offending_spans and final_classification in {Classification.LOW_RISK, Classification.HIGH_RISK}:
-        offending_spans = []
-        if lex_resp and lex_resp.flagged:
-            offending_spans.extend(build_offending_spans(req.text, lex_hits))
-        offending_spans.extend(build_classifier_offending_spans(req.text, m1_result, m2_result, final_classification))
+    findings_resp = []
+    for f in result.findings:
+        try:
+            findings_resp.append(ReviewFindingResponse.model_validate(f.__dict__))
+        except Exception:
+            continue
 
     response = ClassifyResponse(
         request_id=request_id,
-        classification=final_classification,
-        lexicon=lex_resp,
-        model1=m1_resp,
-        model2=m2_resp,
-        embedding=emb_resp,
-        clustering=clust_resp,
-        mosaic=mosaic_resp,
-        regression=reg_resp,
+        classification=result.overall_risk,
+        lexicon=None,
+        model1=None,
+        model2=None,
+        embedding=None,
+        clustering=None,
+        mosaic=None,
+        regression=None,
         public_evidence=public_evidence_resp,
         llm_adjudication=llm_adjudication_resp,
-        privacy_ledger=[PrivacyLedgerEntryResponse(**entry) for entry in privacy_ledger],
-        offending_spans=offending_spans,
+        privacy_ledger=privacy_ledger_resp,
+        offending_spans=None,
         observability=ObservabilityResponse(
-            degraded=degraded,
-            cache_status=cache_status,
-            active_pipeline=list(pipeline),
-            executed_layers=executed_layers,
-            skipped_layers=skipped_layers,
-            layer_errors=[LayerErrorResponse(**error) for error in layer_errors],
+            degraded=False,
+            cache_status="disabled",
+            active_pipeline=["engine.review"],
+            executed_layers=["engine.review"],
+            skipped_layers=[],
+            layer_errors=[],
         ),
         timings_ms=timings_ms,
+        pii_score=result.pii_score,
+        mnpi_score=result.mnpi_score,
+        findings=findings_resp,
+        coverage_warnings=list(result.coverage_warnings),
     )
-
-    if cache_key is not None:
-        cache_payload = response.model_dump(mode="json")
-        cache_payload["request_id"] = None
-        cache_payload["timings_ms"] = {}
-        response_cache_set(cache_key, cache_payload)
 
     if observability is not None:
         observability.observe_classification(
             endpoint=endpoint,
-            classification=final_classification.value,
-            cache_status=cache_status,
-            degraded=degraded,
+            classification=result.overall_risk.value,
+            cache_status="disabled",
+            degraded=False,
             duration_seconds=timings_ms["total"] / 1000.0,
         )
 
@@ -1315,17 +865,17 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
         logging.INFO,
         event="classify_summary",
         request_id=request_id,
-        classification=final_classification.value,
+        classification=result.overall_risk.value,
         timings_ms=timings_ms,
-        active_pipeline=pipeline,
-        cache_status=cache_status,
-        degraded=degraded,
-        executed_layers=executed_layers,
-        skipped_layers=skipped_layers,
-        layer_error_count=len(layer_errors),
+        active_pipeline=["engine.review"],
+        cache_status="disabled",
+        degraded=False,
+        executed_layers=["engine.review"],
+        skipped_layers=[],
+        layer_error_count=0,
     )
     emit_privacy_ledger_events(
-        privacy_ledger,
+        result.privacy_ledger,
         request_id=request_id,
         endpoint=endpoint,
         settings=current_runtime_settings().siem,
@@ -1769,79 +1319,14 @@ async def lifespan(app: FastAPI):
     for layer in layers:
         t_layer = time.perf_counter()
         try:
-            if layer == "lexicon":
-                lex_mod = importlib.import_module("kaypoh.workflow.layer1_lexicon.filter")
-                _state["models"]["lexicon"] = lex_mod.LexiconFilter()
+            if layer in {"lexicon", "embedding", "clustering", "model1", "model2", "regression", "mosaic"}:
+                # legacy layer archived 2026-05-26 (ARCHITECTURE-PIVOT-24-MAY.md item 63).
+                # silently skip so existing configs don't break startup; remove from
+                # configs/runtime.toml on next deploy.
+                log_backend_event(logging.INFO, event="legacy_layer_skipped", layer=layer)
+                continue
 
-            elif layer == "embedding":
-
-                def _load_embedding():
-                    emb_mod = importlib.import_module("kaypoh.workflow.layer2_embeddings.inference")
-                    return emb_mod.EmbeddingsEncoder.get_instance()
-
-                if lazy_heavy:
-                    _state["lazy_loaders"]["embedding"] = _load_embedding
-                else:
-                    _state["models"]["embedding"] = _load_embedding()
-
-            elif layer == "clustering":
-                clust_ckpt = get_artifact_path("clustering")
-                if not clust_ckpt.exists():
-                    raise FileNotFoundError(f"clustering checkpoint missing: {clust_ckpt}")
-                clust_mod = importlib.import_module("kaypoh.workflow.layer3_clustering.isolation_forest")
-                _state["models"]["clustering"] = clust_mod.MNPIAnomalyDetector.load(str(clust_ckpt))
-
-            elif layer == "model1":
-                model1_ckpt = get_artifact_path("model1")
-                if not has_model_weights(model1_ckpt):
-                    raise FileNotFoundError(f"model1 weights missing: {model1_ckpt}")
-
-                def _load_model1():
-                    m1_mod = importlib.import_module("kaypoh.workflow.layer4_classification.model1.inference")
-                    return m1_mod.FinBERTClassifier(checkpoint_dir=str(model1_ckpt))
-
-                if lazy_heavy:
-                    _state["lazy_loaders"]["model1"] = _load_model1
-                else:
-                    _state["models"]["model1"] = _load_model1()
-
-            elif layer == "model2":
-                model2_ckpt = get_artifact_path("model2")
-                if not has_model_weights(model2_ckpt):
-                    raise FileNotFoundError(f"model2 weights missing: {model2_ckpt}")
-
-                def _load_model2():
-                    m2_mod = importlib.import_module("kaypoh.workflow.layer4_classification.model2.inference")
-                    return m2_mod.BERTSeverityClassifier(checkpoint_dir=str(model2_ckpt))
-
-                if lazy_heavy:
-                    _state["lazy_loaders"]["model2"] = _load_model2
-                else:
-                    _state["models"]["model2"] = _load_model2()
-
-            elif layer == "regression":
-                reg_dir = get_artifact_path("regression")
-                reg_model = reg_dir / "risk_regressor.json"
-                reg_meta = reg_dir / "metadata.json"
-                if not reg_model.exists() or not reg_meta.exists():
-                    raise FileNotFoundError(
-                        f"regression artifacts missing: {reg_model} and/or {reg_meta}"
-                    )
-
-                reg_mod = importlib.import_module("kaypoh.workflow.layer6_regression.inference")
-                _state["models"]["regression"] = reg_mod.XGBoostRegression(
-                    model_path=str(reg_model),
-                    metadata_path=str(reg_meta),
-                )
-
-            elif layer == "mosaic":
-                def _load_mosaic():
-                    mos_mod = importlib.import_module("kaypoh.workflow.layer5_mosaic.inference")
-                    return mos_mod.MosaicAggregator.load()
-
-                _state["lazy_loaders"]["mosaic"] = _load_mosaic
-
-            elif layer == "public_evidence":
+            if layer == "public_evidence":
                 evidence_mod = importlib.import_module("kaypoh.workflow.layer7_public_evidence.inference")
                 _state["models"]["public_evidence"] = evidence_mod.PublicEvidenceRetriever.load()
 

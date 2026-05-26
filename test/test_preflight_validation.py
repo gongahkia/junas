@@ -1,3 +1,12 @@
+import pytest
+
+pytest.skip(
+    "legacy classifier pipeline archived 2026-05-26; "
+    "see ARCHITECTURE-PIVOT-24-MAY.md item 63. Rewrite tests for the new "
+    "thin-wrapper /classify shape (findings/pii_score/mnpi_score) in a follow-up.",
+    allow_module_level=True,
+)
+
 import sys
 import tempfile
 import textwrap

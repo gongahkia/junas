@@ -276,10 +276,14 @@ Open work organised by theme. Shipped items are struck through and retained for 
 10. ~~Local LLM adjudication and remote-LLM opt-in tested via `test/test_tinyfish_and_remote_llm.py::RemoteLLMOptInTests`.~~ Shipped 2026-05-24.
 11. ~~Tinyfish public-source retrieval adapter against `GET https://api.search.tinyfish.ai/` with `X-API-Key`.~~ Shipped 2026-05-24.
 
+54. **LLM upgrade path / symmetric findings.** Promote `coverage_warning` events (item 8) from advisory-only to a first-class LLM-raised finding type with `origin=llm`, capped severity (cannot exceed deterministic-medium floor; cannot suppress deterministic-high), required evidence trace (`context_window_hash` + structured reason from `STRUCTURED_REASONS`), and reviewer-action support via `POST /review/{id}/decision`. Closes the asymmetry where deterministic misses surfaced by the LLM go un-actioned. Gated by `audit_grade` + tenant opt-in; never overrides deterministic-high invariant.
+
 ### Round-trip + persistence
 
 12. ~~Fuzzy entity linking for non-anchored variants — extend the linker to recognise bare surname references when an anchored honorific form is present elsewhere in the same document.~~ Shipped 2026-05-24. Pass 3 in `_named_person_findings`: trailing surname tokens from anchored multi-word names fire as `named_person` variants, suppressed if the surname matches a contract defined term.
 13. ~~`POST /reidentify` + persistent per-document mapping store keyed by SHA-256 of the extracted text.~~ Shipped 2026-05-24.
+
+55. **Matter-scoped defined-term inheritance.** Add a `matter_id` dimension above `session_id` (item 25). Sessions belong to a matter; defined terms accumulate at matter level and inherit into every session within that matter. Persistence under `${KAYPOH_JOURNAL_DIR}/matters/{matter_id}/defined_terms.json`. Tenant + matter isolation enforced via the same plumbing as item 42. Closes the real-world M&A case of 30+ documents over weeks across multiple reviewers — session-scoping was the right v1 but loses inheritance the moment the review session rotates.
 
 ### Audit-grade compliance
 
@@ -288,6 +292,8 @@ Open work organised by theme. Shipped items are struck through and retained for 
 16. ~~Reviewer attribution for `recall.lock.json` updates: actor + commit SHA + diff summary committed alongside lock changes so auditors can reconstruct *why* recall expectations changed.~~ Shipped 2026-05-24. `scripts/recall_gate.py --update` now requires `--reason` and appends `{ts, actor, commit_sha, reason, diff}` to `test/fixtures/legal-corpus/recall.lock.history.jsonl`. Actor resolves from `KAYPOH_RECALL_ACTOR` → `git config user.email` → `$USER`; commit SHA from `git rev-parse HEAD`.
 17. ~~Reviewer-mandated wait period: optional `KAYPOH_AUDIT_MIN_WAIT_SECONDS` gate on `scripts/export_audit_pack.py` to surface batch-approval red flags.~~ Shipped 2026-05-24. The exporter emits `min_wait_status` / `min_wait_warning` in the manifest and exits `2` when the bound is violated; the pack itself remains HMAC-sealed.
 18. ~~`POST /review/{id}/decision`, `GET /review/{id}`, HMAC-chained journal under `KAYPOH_JOURNAL_DIR`, audit-pack export+verify scripts. Reviewer identity threaded through schemas + endpoint + session view.~~ Shipped 2026-05-24.
+
+57. **Bind reviewer identity to authenticated principal.** Drop free-form `X-Reviewer-ID` header trust. Reviewer identity must resolve from the JWT subject or API-key principal — same source as tenant resolution under item 42 — so maker-checker rollup (item 15) cannot be spoofed by a caller submitting two different header values. Free-form header accepted only when `KAYPOH_DEV_AUTH=1` for local development. New journal field `reviewer_identity_source ∈ {jwt, api_key, dev_header}` distinguishes authenticated from legacy attribution. Existing journal entries keep header-sourced `reviewer_id` for back-compat; verification scripts surface a warning when a session contains mixed sources.
 
 ### Jurisdiction breadth
 
@@ -303,9 +309,65 @@ Open work organised by theme. Shipped items are struck through and retained for 
 25. ~~Defined-term inheritance across linked documents within a review session: session-scoped suppression set carries SPA definitions into related-doc reviews.~~ Shipped 2026-05-24. `POST /review` and `POST /anonymize` accept `session_id`; engine merges previously-extracted terms for that session into the current document's defined-term set and persists the union to `${KAYPOH_JOURNAL_DIR}/sessions/{session_id}.json`. Module: `src/kaypoh/review/session_store.py`.
 26. ~~`kaypoh-local` / `kaypoh-server` packaging split with `[project.optional-dependencies]`. Heavy deps moved to `server`. PyInstaller spec under `packaging/`. `test_local_sku_runtime.py` enforces the contract.~~ Shipped 2026-05-24.
 
+63. **Repurpose `/classify` as a programmatic findings surface (post-deprecation).** Today `/classify` and `/classify/batch` lazy-import the legacy 9-layer pipeline (`layer1_lexicon → layer2_embeddings → layer3_clustering → layer4_classification.model1+model2 → layer5_mosaic → layer6_regression → layer7_public_evidence → layer8_llm_adjudicator`) and return a model-confidence score with no statute-cited rationale. Repoint the endpoint at `engine.review(...)` so it returns the same deterministic + LLM-tier evidence stack as `/review`, in a flatter machine-readable shape better suited to programmatic clients (no review-session state, no decision endpoint, no journal write by default). Wire contract: `POST /classify {text, document_type, jurisdiction, review_profile}` → `{findings: [...], pii_score, mnpi_score, source_verification, coverage_warnings}`. Legacy classifier kept callable for one release as `POST /classify?engine=legacy` returning the old score shape, with `Deprecation` + `Sunset` headers; sunset after one major version. Layers 1–6 stay on disk until sunset completes, then archived. Closes the "is it useful at all?" question — the endpoint becomes a thin client over the current architecture instead of a dead pipeline.
+
+58. **Local-daemon production-grade access control (later actionable).** Today `127.0.0.1:8765` has no auth — vulnerable to DNS rebinding (browser-originated cross-origin requests), malicious local processes (npm postinstall, other users on shared macOS), and cross-tab credential theft against the mapping store. Add: Origin header allowlist (`chrome-extension://*`, `https://chatgpt.com`, `https://claude.ai`, `https://gemini.google.com`, configured Office add-in origins); per-install pairing token written to OS keychain (macOS Keychain / Windows Credential Manager / GNOME Keyring) with first-connect handshake from the browser ext + Office add-in; optional Unix-domain-socket binding (`KAYPOH_LOCAL_SOCKET_PATH`) for stricter macOS/Linux deployments. Sequenced after item 22 so there is a real client to handshake with; blocks before any procurement-security review can sign off on the desktop SKU.
+
 ### Privacy hardening
 
 27. ~~Structured-tokens-in/out runtime LLM mode for regulated tenants: send `{entity_id, context_window_hash, sanitised_query}` instead of raw text fragments. Stronger guarantee than redact-then-send.~~ Shipped 2026-05-24. `llm.llm_input_mode ∈ {raw_text (default), structured_tokens}`. In structured mode the request body contains zero raw document text (verified by tests that grep the wire payload), the LLM sees only `{mode, entity_id, body_hash, findings: [{rule, category, severity, jurisdiction, context_window_hash}, ...], public_evidence_summary: {status, source_count, blocked_query_count}}`, and the response is server-clamped against `STRUCTURED_REASONS` (closed vocabulary of 8 reason codes). `matched_public_sources` and `unverified_claims` are always emptied in structured mode (potential URL/text leak channels). `output_clamped` boolean on the response tells the auditor whether the LLM tried to step outside the closed vocabulary. `LLMAdjudicationResponse` schema gains `input_mode` and `output_clamped` fields so the wire contract makes the privacy posture explicit.
+
+59. **Subject-erasure path + multi-jurisdiction equivalents (ASAP).** Today `scripts/purge_mappings.py` (item 41) deletes by `document_hash` or by retention age. Neither path satisfies a subject-initiated deletion request ("delete every mapping containing NRIC X"). Implement: per-tenant reverse-index `(tenant_id, pii_hash) → [document_hash, ...]` where `pii_hash = HMAC(canonical_value, tenant_secret)` and canonicalisation normalises NRIC casing, lowercases email, strips phone non-digits. The index itself does not leak PII. Subject-deletion request → derive `pii_hash` → scan reverse-index → delete matching mappings → emit `subject_erasure_recorded` journal events with statute citation. New CLI `scripts/erase_subject.py --tenant X --value Y --citation PDPA-s16`. Statute citations covered: PDPC PDPA s16 + Advisory Guidelines on Anonymisation (SG), GDPR Art 17 (EU), UK DPA 2018 s47, CCPA/CPRA right to delete (California), Australia Privacy Act APP 11.2, Japan APPI Art 30, Korea PIPA Art 36, Brazil LGPD Art 18, India DPDPA 2023 s12, HK PCPD PDPO s26. Per-jurisdiction rationale resolved via `KAYPOH_CITATIONS_OVERRIDE` (per item 60).
+
+60. **Per-tenant `KAYPOH_CITATIONS_OVERRIDE` (ASAP).** Today `KAYPOH_CITATIONS_OVERRIDE` is a single global TOML — in a multi-tenant server SKU this leaks tenant A's internal policy citations into tenant B's rationales. Migrate to per-tenant resolution: `KAYPOH_CITATIONS_OVERRIDE_DIR/{tenant_id}.toml`, resolved through the same tenant-context plumbing as item 42. Global file remains as fallback for tenants without an override. Tests prove cross-tenant citation leakage is blocked, mirroring the cross-tenant isolation suite from item 42.
+
+61. **Binary content + container metadata coverage (ASAP).** Today's pipeline is text-extract-then-rewrite — embedded binaries inside DOCX/PDF/XLSX/PPTX/EML/archives pass through carrying PII the text path already scrubbed. Coverage surfaces required:
+    - **DOCX:** embedded images, OLE objects, footnotes/endnotes, table headers/footers, embedded fonts, comment author metadata (item 49 partial — extend).
+    - **PDF:** AcroForm fields, annotations (author-attributed), XFA forms, embedded files, signed/encrypted regions.
+    - **XLSX:** cell comments, hidden sheets, hidden rows/cols, named ranges, **pivot caches** (retain source data after sheet delete), defined names, ext lists.
+    - **PPTX:** speaker notes, slide masters, hidden slides, embedded media.
+    - **Email (`.eml`/`.msg`):** attachments (recursive), inline base64 images, forwarded mail.
+    - **Archives:** ZIP / 7z / tar containing nested docs (recursive extract → review per-entry).
+    - **HTML:** `data-*` attributes, HTML comments, `display:none` content, attribute-encoded text.
+    - **SVG:** text-in-graphics, metadata block.
+    - **RTF:** embedded objects, `\object` tagged binaries.
+    - **Markdown:** HTML comments, image alt-text.
+    - **Tracked-change deleted text** (DOCX `w:del` elements).
+
+    **Container-security vectors** (treat as fail-closed per item 65):
+    - Password-protected DOCX/PDF/ZIP — refuse with explicit error, do not prompt for password silently.
+    - Macro-enabled containers (`.docm`, `.xlsm`, `.pptm`) — refuse by default; opt-in extras for tenants who explicitly accept macro risk.
+    - PDF JavaScript (`/JS`, `/JavaScript` actions, `/OpenAction`) — strip + log finding; never execute.
+    - External references — DOCX `<w:hyperlink>` to remote images / `<v:imagedata r:href>`, PDF `URI` actions, HTML `<img src="http://...">` — flag as `external_reference` finding; tracking pixels are a privacy leak.
+    - Polyglot files (file claims DOCX but is actually a polyglot ZIP/JAR/PDF) — magic-byte check against declared content-type; fail closed on mismatch.
+    - Compression bombs — zip bombs, gzip bombs, recursive nested archives — cap decompression ratio + recursion depth, refuse on breach.
+    - XXE / billion-laughs in XML-based formats (DOCX, SVG, RTF, XML) — use `defusedxml` everywhere; disable DTD resolution.
+    - Path traversal in archives — `../` entries, absolute paths, symbolic links — reject archive entirely.
+    - Embedded foreign docs — Office docs inside PDF (`/EmbeddedFiles`), PDF inside DOCX (OLE), `.eml` inside `.zip` inside `.docx` — recurse with depth cap, treat each as a sub-document.
+
+    Item 50 fail-closed gate extends per-container: if the extractor cannot enumerate embedded binaries (encrypted ZIP, corrupted XLSX, polyglot file), refuse rather than proceed with partial coverage. Image OCR / image recognition is item 64 (separated for provider-pluggability).
+
+64. **Image recognition + OCR with multi-provider backend.** Embedded images, scanned annexures, signature blocks, and screenshots-of-text inside DOCX/PDF/PPTX/EML routinely carry the same NRIC / UEN / counter-party-name PII that the text-path scrubs. Today these slip through. Add an `ImageScanner` interface with pluggable providers selected via `KAYPOH_IMAGE_SCAN_PROVIDER ∈ {none, tesseract, openai_vision, google_vision, aws_rekognition, azure_vision}`:
+
+    - **Local: Tesseract** — offline-default, ships in `[ocr]` extras; baseline coverage for typed text in screenshots.
+    - **Cloud: OpenAI Vision** (gpt-4o / o1 vision) — best on mixed text + signature + handwriting; tenant opt-in (same opt-in matrix as the LLM tier per the per-tenant principle), key via `OPENAI_API_KEY`.
+    - **Cloud: Google Cloud Vision** — strong on Asian-script OCR (Mandarin/Tamil signatures common in SG/SEA contracts), key via `GOOGLE_APPLICATION_CREDENTIALS` (service account JSON path).
+    - **Cloud: AWS Rekognition** — face/PII detection in image content (driver-license photos, passport pages), key via `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` (or instance profile).
+    - **Cloud: Azure AI Vision** — for tenants standardised on Microsoft cloud; key via `AZURE_VISION_KEY` / `AZURE_VISION_ENDPOINT`.
+
+    All cloud providers pass through `PrivacyGuard` first — raw image bytes are *content*, so they get the same treatment as raw document text in the LLM tier (per-tenant opt-in, ledger entry per call, structured_tokens-equivalent metadata-only mode where the provider API supports it). `kaypoh-local` desktop SKU stays Tesseract-only by default; cloud-vision is `kaypoh-server` + opt-in. Returned findings carry `source: "image_ocr"` + `image_locator: {container_path, image_index}` so reviewers can trace which image flagged. Fail-closed per item 65: if the configured provider is unreachable, refuse the document rather than silently skipping image content.
+
+65. **Fail-closed everywhere — workflow-wide audit.** Item 50's fail-closed posture is currently scoped to PDF ingest. Extend the principle to every step of the workflow where ambiguous state today defaults open:
+
+    - **Detector failures** — if any deterministic recognizer throws (regex catastrophic backtrack, jurisdiction-pack parse error), today the engine catches + continues; should refuse and surface the error rather than ship a finding-incomplete review.
+    - **LLM-tier failures** — if `audit_grade` is requested but the LLM provider 5xxs, today the engine downgrades to deterministic-only silently; should either refuse or surface `llm_tier_status: degraded` explicitly so the reviewer knows audit_grade did not actually engage.
+    - **Public-evidence retrieval failures** — if Tinyfish/Exa errors, today returns `not_checked` indistinguishably from "actually not checked"; should surface `retrieval_status: error` separately.
+    - **Mapping-store failures** — if `KAYPOH_REVIEW_PERSIST=1` but the store path is unwritable or `KAYPOH_MAPPING_STORE_KEY` is missing when encryption is required, today writes plaintext or fails open; should refuse the request.
+    - **Image-scan failures** — per item 64, if the configured image provider is unreachable, refuse rather than silently skip image content.
+    - **Subject-erasure failures** — if reverse-index lookup fails (item 59), refuse the erasure request rather than report success.
+    - **Citation-override resolution failures** — if `KAYPOH_CITATIONS_OVERRIDE_DIR/{tenant_id}.toml` is malformed, refuse rather than fall back to global silently.
+
+    Single meta-audit pass: grep every `try / except` in `src/kaypoh/` for swallowed exceptions in the runtime path; add `_fail_closed_or_open` decision points with explicit logging + structured error responses. Surface a `degraded_modes` array on every API response so callers can act on partial coverage rather than discover it post-hoc.
 
 ### Continuous accuracy substrate (training)
 
@@ -320,6 +382,22 @@ These items target overall accuracy improvement on the LLM tier without changing
 31. **Journal-trained severity calibrator.** Replace the hard-coded `MNPI_DOC_TYPE_SEVERITY_OVERRIDES` table with a small gradient-boosted-trees model (LightGBM or `sklearn.ensemble.GradientBoostingClassifier`) trained on `(rule, jurisdiction, document_type, context-feature-bag)` → reviewer-accepted severity, taken from `decision_recorded` events on findings whose decision was `accept` or `rewrite`. Scope is narrow: only medium ↔ low borderline; `high`-severity findings are not subject to ML adjustment (preserves deterministic-floor invariant). Lives under `training/severity_calibrator/` with `train.py` + `serve.py`; ships in `kaypoh-server` (adds `scikit-learn` to `[server]`); desktop SKU keeps the deterministic table. Activated per request via `review_profile=audit_grade` only.
 
 32. ~~Escalation-threshold calibration for the two-tier engine~~ Shipped 2026-05-24. `scripts/calibrate_escalation_threshold.py` searches over `(LLM_TIER_MNPI_LOWER, LLM_TIER_MNPI_UPPER)` pairs, scoring each candidate on a weighted mix of precision, recall, escalation-rate (LLM cost proxy), and latency-score against any corpus directory. Includes shipped defaults as a baseline candidate so the report shows whether the recommendation actually improves over status quo. `--apply` writes the recommendation to `configs/runtime_calibrated.toml` for explicit opt-in by `configs/runtime.py` (engine continues to use compile-time defaults unless the file is wired). Default 50 iterations of random sampling over the 2-D band space; objective weights tunable via `--w-precision`, `--w-recall`, `--w-latency`, `--w-cost`. Lightweight — no model training, just hyperparameter search — and serves as the eval scaffolding that items 29–31 will plug into.
+
+62. **Synthetic-corpus prompt actionables + API-key documentation.** Improve `scripts/generate_legal_fixture.py` prompts to widen the synthetic distribution so the distilled student (item 29) and DPO export (item 30) do not collapse onto the generator's own distribution:
+    - Sweep SG / SEA jurisdictions per batch (currently single-jurisdiction).
+    - Inject obfuscation modes as prompt parameters: NRIC-in-URL, NRIC-with-ZWJ, NRIC-across-line-break, OCR ligature artefacts, broken-DOCX-runs.
+    - Mix English / Mandarin / Bahasa Melayu / Tamil names per doc (SG-realistic).
+    - Vary `document_type`: SPA, SHA, APA, MOU, LOI, term sheet, memo, research note, embargoed press release, earnings call transcript.
+    - Generate negative-prose siblings ("no MAC clause", "without any SPA", absent codename) for adversarial precision.
+    - Generate adversarial false-positive bait (Mac OS X mentions, MAC addresses, "spa day", "Tan-coloured envelope") to keep precision from regressing.
+    - Hand-review remains mandatory before any `recall.lock.json` / `recall_adversarial.lock.json` refresh.
+    **OpenAI API key:** `export OPENAI_API_KEY=...` in shell env before running `python3 scripts/generate_legal_fixture.py <doc_type> --slug <name>` (script reads `os.environ["OPENAI_API_KEY"]`; example invocations at top of the script).
+
+66. **Trained classifier as additive recall booster.** The deterministic engine has a precision floor (statute-citable findings) but a recall ceiling on contextual MNPI — implied materiality, sector-specific tells, negotiation-stage signals, cross-document inference. Reintroduce a trained classifier as an *additive* signal, never as the source of truth. Training corpus: synthetic (`legal-corpus`, `legal-corpus-adversarial`, `legal-corpus-sea`) + reviewer-accepted findings from the journal (item 30 sanitisation). Output: `classifier_score` field on `/review` response, plus per-rule classifier-suggested findings tagged `origin=classifier` and capped at deterministic-medium severity (cannot upgrade past deterministic-high, cannot suppress deterministic-high — same invariant as the LLM tier). Inference is fast and local; LightGBM or a small transformer (DistilBERT-class). Lives under `src/kaypoh/classifiers/` — NEW code, not revived layer4. Shipped under `audit_grade` only; `strict` stays pure-deterministic.
+
+67. **Document similarity / clustering as advisory signal.** When a document is structurally similar to known-MNPI documents in the corpus, that's a useful signal even when no deterministic rule fires. Embed every reviewed document with a small local model (e.g. `all-MiniLM-L6-v2` via `sentence-transformers` in the `[ml]` extras), index in a local FAISS or hnswlib index per tenant, and on `/review` return `similar_documents: [{doc_hash, similarity, reviewer_disposition}]` as advisory context. Surfaces "this doc is in the same cluster as 3 docs the reviewer accepted as high-MNPI last month" without making the engine act on it. Never feeds into severity scoring directly; reviewer judgment closes the loop. Lives under `src/kaypoh/similarity/` — NEW code, not revived layer2 + layer3.
+
+68. **Multi-signal aggregator with transparent attribution.** Replace the implicit "max severity wins" rule in `engine.review()` with an explicit aggregator that combines deterministic findings (precision anchor) + classifier score (item 66) + similarity matches (item 67) + LLM verdict (existing) + public-evidence verification (existing) into a single `aggregated_mnpi_score` and per-signal attribution. The aggregator is **not** a black-box regression — it's a transparent weighted blend with reviewer-visible per-signal contributions: `{deterministic: 0.55 (anchor), classifier: 0.18 (DistilBERT), similarity: 0.08, llm: 0.15, public_evidence: -0.20}`. Reviewer can see exactly which signal pushed the score. Weights are config-tunable per tenant (per-tenant principle), defaults locked by the calibration script (item 32 extended). Deterministic findings remain non-negotiable (a deterministic-high cannot be diluted by other signals voting low). Lives in `src/kaypoh/aggregator/` — NEW code; the layer5 mosaic concept is reborn as a transparent, statute-citable aggregator.
 
 ### Gap-closure roadmap
 
@@ -340,6 +418,17 @@ These items target overall accuracy improvement on the LLM tier without changing
 40. **Expand evaluation corpora to compliance-grade gates.** Replace seed-scale coverage claims with locked targets: 50 default legal-contract fixtures, 50 adversarial/negative fixtures, 30 fixtures per SEA jurisdiction, OCR/PDF broken-run variants, multilingual name variants, and sector-specific finance / HR / healthcare / legal templates. Require both recall and precision locks before any new detector is marked available in the coverage table.
 
 41. ~~Harden persistence and mapping storage.~~ Shipped 2026-05-25. Persisted mappings can be Fernet-encrypted by setting `KAYPOH_MAPPING_STORE_KEY`; legacy plaintext mappings remain readable for compatibility. `scripts/purge_mappings.py` deletes mappings by `document_hash` or by retention age with `--dry-run`, and `docs/mapping-store-hardening.md` documents key generation, retention, filesystem ACLs, and disk-encryption expectations. HMAC remains the journal-integrity primitive; mapping confidentiality and deletion are now separate operator-visible controls.
+
+56. **Latency SLO targets + CI gate.** Publish explicit p95 latency budgets and gate them in CI via `test/benchmarks/`:
+
+    | Path | Profile | p95 budget |
+    |---|---|---|
+    | `/review` | `strict` | < 500 ms (doc ≤ 10 KB extracted text) |
+    | `/review` | `audit_grade` | < 3 s |
+    | `/anonymize` | `strict` | < 800 ms |
+    | `/anonymize` | `audit_grade` | < 4 s |
+
+    [Inference] Targets derived from pre-send UX research: paste/Outlook-send users tolerate ≤500 ms perceptibly, ≤3 s acceptable with explicit "reviewing…" indicator (Grammarly / Notion AI bands). Benchmark fixtures cover doc-size variation (1 KB / 10 KB / 100 KB) and seed corpora. Numbers locked only after first benchmark run; until then, they are aspirational. Latency results feed back into item 32 escalation calibration so cost ↔ latency ↔ accuracy trade is explicit.
 
 ### Enterprise GTM substrate
 
@@ -368,6 +457,22 @@ These items unblock procurement at SG/SEA law firms and listed-company in-house 
 52. **Commercial validation gates.** Month 3: stop or pivot if fewer than 5 of 15 discovery calls express willingness to pay for a local/on-prem pilot. Month 4: stop, narrow, or hire if MNPI benchmark recall remains below 0.80. Month 6: stop or re-scope if no paid pilots convert. Ambitious v1 proof points: precision >= 0.95, recall >= 0.85 on an internal held-out eval set, no critical pilot incidents, and three paid pilot conversions.
 
 53. **Source-backed why-now evidence maintenance.** Keep the demand-signal section citation-backed and date-stamped. Before using it externally, re-check LayerX, Cyberhaven, Netskope, Gartner, IMDA, MAS, OAIC, and APRA sources; drop any claim whose source cannot be recovered or whose methodology no longer supports the wording.
+
+### Maintenance / codebase health
+
+Recurring refactor cadence so the codebase stays debuggable, maintainable, and easy to extend as expansion items land. Each refactor is sequenced after a related feature cluster so there is real surface to consolidate. All refactors are gated by existing recall + precision locks — zero behaviour change.
+
+M1. **Engine refactor — after item 33 (broader PII detectors).** `src/kaypoh/review/engine.py` will gain detector branches. Extract a `DetectorRegistry` so each detector (NRIC, UEN, MyKad, NIK, SSN, DOB, IP, etc.) lives in its own module under `src/kaypoh/review/detectors/{rule}.py`, plugin-registered into the engine. Engine becomes a coordinator, not a switch statement. Recall + precision locks gate the refactor.
+
+M2. **Schemas refactor — after items 54–57 (new finding origins, reviewer identity sources).** `src/kaypoh/backend/schemas.py` will gain fields per expansion. Split into `schemas/findings.py`, `schemas/decisions.py`, `schemas/audit.py`, `schemas/llm.py`. Single import path preserved via `__init__.py` re-export.
+
+M3. **Workflow refactor — after item 37 (LLM helpers promoted).** Standardise the runtime-component interface across `src/kaypoh/workflow/layer8_llm_adjudicator/` siblings: each component exposes `name`, `enabled_under_profile`, `privacy_ledger_events`, `health()`. `/diagnostics` and `/ready` enumerate them uniformly.
+
+M4. **Extractor refactor — after item 61 (binary content coverage).** Extractors will multiply (DOCX-binary, PDF-binary, XLSX, PPTX, EML, MSG, ZIP, HTML, SVG, RTF, MD, image-OCR). Consolidate under `src/kaypoh/extractors/` with a common `Extractor` protocol returning `{text, metadata_findings, binary_findings, container_type}`. Format-gate (item 50) becomes per-extractor `accept(content) -> Decision`.
+
+M5. **Persistence refactor — after items 59–60 (subject erasure + per-tenant citations).** Mapping store, session store, journal store, citations store all gain tenant + matter dimensions. Extract a `TenantScopedStore` base with consistent path layout `{base}/{tenant_id}/{store_kind}/...`. Migration script for existing single-tenant deployments.
+
+M6. **Recurring dead-code sweep (every ~10 shipped items).** Schedule `vulture` + `ruff --select=F` + manual review of `# TODO` / `# XXX` / `# FIXME` markers. Cap at 1 day per sweep; reverts allowed if it touches anything not strictly dead. Goal is delta-readability, not codegolf.
 
 ### Deferred
 

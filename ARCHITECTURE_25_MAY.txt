@@ -1,0 +1,184 @@
+Kaypoh runtime flow — 25 May 2026
+==================================
+
+Live /review and /anonymize path. /classify is the LEGACY classifier shim
+(frozen, compat-only). The live "classifier/sorter" is the deterministic
+engine below.
+
+
+                      ┌──────────────────────────────────────────────┐
+                      │              HTTP API surface                │
+                      │  POST /review        POST /anonymize         │
+                      │  POST /reidentify    POST /documents/scrub   │
+                      │  POST /review/{id}/decision                  │
+                      │  GET  /review/{id}                           │
+                      │  POST /classify  ← FROZEN, legacy shim       │
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  Auth + tenant resolution   (item 42)        │
+                      │  JWT subject  OR  API-key principal          │
+                      │  X-Reviewer-ID accepted only in dev mode     │
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  Ingest                                      │
+                      │   ├─ Inline text                             │
+                      │   ├─ DOCX extractor                          │
+                      │   └─ PDF extractor + FAIL-CLOSED gate ← 50   │
+                      │       (scanned / image-only / sparse → 422)  │
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  Container metadata scan   (item 49)         │
+                      │  DOCX core/app props, comments,              │
+                      │  track-change authors, PDF info, EXIF        │
+                      │  → metadata_findings  (separate channel)     │
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  engine.review(text, doc_type, jurisdiction, │
+                      │                session_id, review_profile)   │
+                      │                                              │
+                      │  1. Load jurisdiction pack  (items 19/20)    │
+                      │     SG | MY | ID | TH | PH | VN | US | UK |  │
+                      │     EU  + customer TOML overrides            │
+                      │                                              │
+                      │  2. Defined-term extraction                  │
+                      │     • regex preamble pass                    │
+                      │     • session/matter inheritance (item 25 +  │
+                      │       planned 55)                            │
+                      │     • LLM-assisted (audit_grade only, ← 6)   │
+                      │                                              │
+                      │  3. Deterministic recognizers   ← THE WEDGE  │
+                      │     PII:                                     │
+                      │       NRIC/FIN, UEN, MyKad, NIK,             │
+                      │       Thai-ID, PhilSys/TIN, CCCD,            │
+                      │       passport, email, phone, bank/IBAN,     │
+                      │       named_person (3-pass anchor + variant) │
+                      │       sg_court_citation (item 48 seed)       │
+                      │     MNPI:                                    │
+                      │       material_event, nonpublic_marker,      │
+                      │       transaction_codename,                  │
+                      │       definitive_agreement,                  │
+                      │       material_adverse_change,               │
+                      │       embargo_marker,                        │
+                      │       financial_amount/_percentage,          │
+                      │       large_number                           │
+                      │                                              │
+                      │  4. Suppress defined-term hits               │
+                      │     (e.g. don't fire 'Purchaser' as person   │
+                      │      when contract defines it)               │
+                      │                                              │
+                      │  5. Fuzzy entity linking                     │
+                      │     (Dr Jane Tan / Jane Tan / Tan → 1 key;   │
+                      │      ACME Pte. Ltd. / Acme → 1 key)          │
+                      │                                              │
+                      │  6. Score → pii_score, mnpi_score            │
+                      │  7. Per-doc-type severity override (item 3)  │
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                                  audit_grade  AND
+                                  mnpi_score ∈ [25, 70)
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  LLM tier (gated, tenant opt-in)             │
+                      │                                              │
+                      │  ┌──────────────────────────────────┐        │
+                      │  │ PrivacyGuard.check_external_query│        │
+                      │  │ → sanitised entity/ticker/event  │────────┼──→ Tinyfish / Exa
+                      │  └──────────────────────────────────┘        │     (public-source
+                      │                                              │      retrieval)
+                      │  ┌──────────────────────────────────┐        │
+                      │  │ LLM adjudicator                  │        │
+                      │  │  raw_text  OR  structured_tokens │────────┼──→ vLLM / Ollama /
+                      │  │  (regulated tenants → tokens)    │        │     OpenAI / local
+                      │  │  STRUCTURED_REASONS clamp        │        │     distilled student
+                      │  └──────────────────────────────────┘        │     (item 29)
+                      │                                              │
+                      │  ┌──────────────────────────────────┐        │
+                      │  │ Coverage audit ("what missed?")  │        │
+                      │  │ → coverage_warning (advisory)    │        │
+                      │  │ becomes 1st-class finding ← 54   │        │
+                      │  └──────────────────────────────────┘        │
+                      │                                              │
+                      │  INVARIANT: never overrides deterministic-   │
+                      │  high; can only soften medium → low when     │
+                      │  public evidence supports it                 │
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  Source-verification attribution  (item 36)  │
+                      │  per finding: not_checked | public_source_   │
+                      │  matched | no_public_source_found | ambiguous│
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  Response build                              │
+                      │  findings + suggestions + scores +           │
+                      │  source_verification + coverage_warnings +   │
+                      │  privacy_ledger                              │
+                      └────────┬────────────────────────────┬────────┘
+                               │                            │
+                  /anonymize only:                          │
+                  end-to-start span replacement             │
+                  with [PERSON_1], [NRIC_FIN_1], ...        │
+                               │                            │
+                               ▼                            │
+              ┌────────────────────────────────┐            │
+              │  Mapping store                 │            │
+              │  ${KAYPOH_JOURNAL_DIR}/        │            │
+              │   {tenant}/mappings/{doc_hash} │            │
+              │  Fernet-encrypted (opt-in)     │            │
+              │  ↑ /reidentify reads this      │            │
+              │  ↑ purge_mappings.py prunes    │            │
+              │  ↑ erase_subject.py (item 59)  │            │
+              └────────────────────────────────┘            │
+                                                            │
+                                                            ▼
+                      ┌──────────────────────────────────────────────┐
+                      │  HMAC-chained journal (append-only)          │
+                      │  ${KAYPOH_JOURNAL_DIR}/{tenant}/journal.jsonl│
+                      │  events: review | decision | coverage_warning│
+                      │          journal_key_rolled | metadata_scan  │
+                      │  key rotation: KAYPOH_JOURNAL_KEYS_FILE      │
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  Audit-pack export                           │
+                      │  scripts/export_audit_pack.py  → HMAC ZIP    │
+                      │  scripts/verify_audit_pack.py                │
+                      │  scripts/verify_journal.py                   │
+                      │  reviewer roll-up (maker-checker red flags)  │
+                      └──────────────────────────────────────────────┘
+
+                                  Side rail (build-time only)
+                      ┌──────────────────────────────────────────────┐
+                      │  scripts/generate_legal_fixture[_batch].py   │
+                      │   → test/fixtures/legal-corpus[-adversarial] │
+                      │   → recall.lock.json + recall_adversarial.   │
+                      │     lock.json (precision + recall gates)     │
+                      │   → docs/accuracy.md (item 46)               │
+                      │   → training/distillation/ (items 29–32)     │
+                      └──────────────────────────────────────────────┘
+
+
+Key things this diagram makes obvious
+-------------------------------------
+
+• The deterministic engine IS the classifier. /classify is just a legacy
+  compatibility shim now.
+
+• The LLM tier is a SIDE BRANCH, not the main path — only fires under
+  audit_grade + ambiguous-score band + tenant opt-in.
+
+• Everything privacy-sensitive (LLM, retrieval) passes through PrivacyGuard
+  before any external call.
+
+• Three persistence stores have different durability semantics:
+    - journal: append-only HMAC-chained
+    - mapping store: mutable, Fernet-encrypt opt-in
+    - session/matter store: mutable-by-design for inheritance
+
+• The build-time fixture pipeline feeds the recall/precision locks that
+  gate every detector and every trained artefact.
