@@ -154,6 +154,25 @@ _PII_DEFAULT_RATIONALE = {
         "embargo-window MNPI surface under SFA s218 (insider trading) and SGX Mainboard "
         "Rule 703 (continuous disclosure)."
     ),
+    "employee_id": (
+        "Employee identifier is pseudonymised-but-linkable personal data: the employer "
+        "retains the re-identification key linking the ID to a named individual. GDPR "
+        "Recital 26 + PDPC Anonymisation Advisory Guidelines treat such data as personal "
+        "data when the controller can re-link. Mask before any external send unless "
+        "internal-HR purpose is documented."
+    ),
+    "customer_account_number": (
+        "Customer / member account identifier is pseudonymised-but-linkable personal data. "
+        "GDPR Recital 26 + PDPC Anonymisation Advisory Guidelines apply when the "
+        "organisation retains the linking key. Mask unless the recipient and purpose are "
+        "documented under PDPA s18 / GDPR Art 6."
+    ),
+    "medical_record_number": (
+        "Medical record number / patient identifier is special-category personal data "
+        "linkable to a patient. HIPAA 45 CFR §164.514 (de-identification) + GDPR Art 9 "
+        "(health data) + PDPC special-category guidance. Mask unless statutory authority "
+        "and purpose are on file."
+    ),
 }
 
 # rule -> short MNPI rationale (the citation is jurisdiction-specific so we layer on a suffix)

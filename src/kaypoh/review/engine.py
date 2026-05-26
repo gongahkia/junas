@@ -101,7 +101,28 @@ CONTINGENT_MNPI_RE = re.compile(
     r")\b",
     re.IGNORECASE,
 )
-# items 96: tipping / forwarding language (SFA s219, Rule 10b5-2, MAR Art 14, SFO Part XIV).
+# item 99: pseudonymised-but-linkable identifiers. GDPR Recital 26 + PDPC Anonymisation
+# Advisory Guidelines treat IDs that the organisation can re-link to a subject as personal
+# data even when the bare token isn't immediately identifying. Each pattern is anchor-required
+# (Employee ID: / EMP- / Customer Account: / ACCT- / Patient ID: / MRN:) and the capture
+# group is wrapped in (?-i:...) with a digit-presence lookahead to defend against bare
+# lowercase prose ("Employee ID will be linked to your NRIC") matching the capture as if
+# "will" were an identifier.
+EMPLOYEE_ID_RE = re.compile(
+    r"(?:Employee\s+(?:ID|No\.?|Number)|EMP-|Staff\s+(?:ID|No\.?|Number))[\s:.#-]*"
+    r"(?-i:(?=[A-Z0-9-]*\d)([A-Z0-9][A-Z0-9-]{3,11}))\b",
+    re.IGNORECASE,
+)
+CUSTOMER_ACCOUNT_RE = re.compile(
+    r"(?:Customer\s+(?:Account|ID|Reference)|ACCT-|CUST-|Member\s+(?:ID|No\.?|Number))[\s:.#-]*"
+    r"(?-i:(?=[A-Z0-9-]*\d)([A-Z0-9][A-Z0-9-]{3,15}))\b",
+    re.IGNORECASE,
+)
+MEDICAL_RECORD_RE = re.compile(
+    r"(?:MRN|Medical\s+Record\s+(?:No\.?|Number)|Patient\s+(?:ID|No\.?|Number))[\s:.#-]*(\d{6,12})\b",
+    re.IGNORECASE,
+)
+# item 96: tipping / forwarding language (SFA s219, Rule 10b5-2, MAR Art 14, SFO Part XIV).
 # Same co-occurrence amplifier discipline as item 95 — alone these phrases are noise, but
 # proximity to MNPI substrate is the tipping offence.
 TIPPING_RE = re.compile(
@@ -391,6 +412,30 @@ def _amplify_co_occurring_low_mnpi(findings: list["ReviewFinding"]) -> None:
                 break
 
 
+# item 99: pseudonymised-but-linkable identifier rules. Escalate medium → high when a
+# named_person finding co-occurs anywhere in the same document. The linking-key risk that
+# makes GDPR Recital 26 / PDPC Anonymisation Advisory treat these as personal data is
+# document-scoped, not span-local — once a named person + an internal ID both appear in
+# the same doc, the re-link is trivial.
+_PSEUDONYMISED_LINKABLE_RULES = frozenset({
+    "employee_id", "customer_account_number", "medical_record_number",
+})
+
+
+def _amplify_pseudonymised_when_linked(findings: list["ReviewFinding"]) -> None:
+    """Lift pseudonymised-but-linkable PII findings from medium → high when a named_person
+    finding appears anywhere in the same document. Mutates findings in place."""
+    has_named_person = any(f.rule == "named_person" for f in findings)
+    if not has_named_person:
+        return
+    for f in findings:
+        if f.rule not in _PSEUDONYMISED_LINKABLE_RULES or f.severity != "medium":
+            continue
+        f.severity = "high"
+        f.score = SEVERITY_SCORE["high"]
+        f.reason = f.reason + " — escalated due to named_person re-link risk (GDPR Recital 26)"
+
+
 def _suppress_redundant_phone_findings(findings: list["ReviewFinding"]) -> list["ReviewFinding"]:
     """Drop phone_number findings whose [start, end) is fully covered by a higher-priority
     identifier finding (NRIC, UEN, MyKad, NIK, CCCD, passport, bank account).
@@ -478,6 +523,14 @@ class PreSendReviewEngine:
                 ("phone_number", PHONE_RE, "medium", "Phone number can identify or contact an individual"),
                 ("passport_number", PASSPORT_RE, "high", "Passport-like identifier"),
                 ("bank_account", BANK_ACCOUNT_RE, "high", "Bank/account-like financial identifier"),
+                # item 99: pseudonymised-but-linkable identifiers. medium standalone; amplified
+                # to high when a named_person finding co-occurs anywhere in the document.
+                ("employee_id", EMPLOYEE_ID_RE, "medium",
+                 "Employee identifier — pseudonymised-but-linkable personal data"),
+                ("customer_account_number", CUSTOMER_ACCOUNT_RE, "medium",
+                 "Customer account / member identifier — pseudonymised-but-linkable personal data"),
+                ("medical_record_number", MEDICAL_RECORD_RE, "high",
+                 "Medical record / patient identifier — special-category personal data"),
             ]
         )
 
@@ -561,6 +614,10 @@ class PreSendReviewEngine:
         # *fully contained* within a higher-priority national-/company-ID span. The
         # higher-priority finding stays; the duplicate phone finding gets suppressed.
         findings = _suppress_redundant_phone_findings(findings)
+
+        # item 99: pseudonymised-but-linkable IDs escalate medium → high when a named_person
+        # co-occurs in the same document. The named_person pass above must have run first.
+        _amplify_pseudonymised_when_linked(findings)
 
         return findings
 
