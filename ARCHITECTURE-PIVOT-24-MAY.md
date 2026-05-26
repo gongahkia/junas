@@ -255,6 +255,104 @@ Every ✗ in the jurisdiction-coverage table and every operational-hardening row
 | SAML/Okta/Azure AD packaging on top of JWT/RBAC primitive | 42 |
 | Enterprise appliance / BYOC deployment posture | 51 |
 
+## First-Principles Statutory Analysis
+
+The deterministic engine's defensibility derives from anchoring every detector to a statutory or regulatory concept. This section enumerates each in-scope jurisdiction's PII and MNPI / insider-information definitions, maps current detector coverage against them, and surfaces gaps as actionable expansion items. Treat this as the authoritative source for the planned `docs/statutory-coverage.md` (item 69).
+
+Citations below are sourced from official statutes, regulator guidance, and authoritative commentary as of 2026-05-26. Item 53 keeps these citations current before any external use.
+
+### PII / personal data — by jurisdiction
+
+| Jurisdiction | Statute / source | Definition pivot | Reach |
+|---|---|---|---|
+| **Singapore (SG)** | PDPA 2012 s2(1); PDPC Advisory Guidelines on Key Concepts (rev 2024) | "data, whether true or not, about an individual who can be identified from that data; or from that data and other information to which the organisation has or is likely to have access" | Very wide: "or is likely to have access" pulls in quasi-identifiers and contextual combinations |
+| **Malaysia (MY)** | Personal Data Protection Act 2010 s4 (as amended 2024) | "any information that relates directly or indirectly to a data subject, who is identified or identifiable" | "Directly or indirectly" + statutory list of sensitive personal data |
+| **Indonesia (ID)** | UU PDP No. 27/2022 Art 1, Art 4 | "data about an identified or identifiable natural person, alone or combined with other information" | General + 7-category specific personal data (health, biometric, genetic, etc.) |
+| **Thailand (TH)** | PDPA B.E. 2562 (2019) s6 | "any information relating to a Person, which enables the identification of such Person, whether directly or indirectly" | Sensitive personal data per s26 (race, religion, biometric, health) requires explicit consent |
+| **Philippines (PH)** | Data Privacy Act 2012 (RA 10173) s3(g)(h) | "any information from which the identity of an individual is apparent or can be reasonably and directly ascertained, or when put together with other information would directly and certainly identify an individual" | Distinguishes personal information from sensitive personal information (s3(l)) |
+| **Vietnam (VN)** | Decree 13/2023/ND-CP Art 2 | "information in the form of symbols, letters, numbers, images, sounds or similar forms in electronic environment that is associated with a specific person or helps to identify a specific person" | Basic + sensitive (10 categories including health, sex life, financial accounts) |
+| **United States (US)** | CCPA/CPRA Cal. Civ. Code §1798.140(v); HIPAA 45 CFR §164.514; GLBA "non-public personal information" | "information that identifies, relates to, describes, is reasonably capable of being associated with, or could reasonably be linked, directly or indirectly, with a particular consumer or household" | Patchwork: CCPA + state laws + sectoral (HIPAA / GLBA / FERPA / COPPA); SSN is a federal flashpoint via various statutes |
+| **United Kingdom (UK)** | UK GDPR Art 4(1); DPA 2018 s3(2) | "any information relating to an identified or identifiable natural person ('data subject')" | "All means reasonably likely to be used" (Recital 26 retained) |
+| **European Union (EU)** | GDPR Art 4(1); Recital 26 | identical to UK GDPR | Plus Art 9 special-category (health, biometric, genetic, sex life, religion, racial/ethnic origin, political opinion, trade-union membership) |
+
+**Common doctrine across jurisdictions:**
+
+- *Identifiability is a spectrum, not a binary.* "Reasonably likely to be used" (GDPR Recital 26 / UK / EU) and "is likely to have access" (PDPA SG) explicitly cover indirect identification.
+- *Quasi-identifier combinations are PII.* Sweeney 2000: DOB + 5-digit ZIP + gender uniquely identifies ~87% of US adults. No single attribute is PII; the combination is.
+- *Special-category data triggers a separate consent regime.* GDPR Art 9, PDPC special-category, PIPA "sensitive information", LGPD Art 5(II), APPI "special care-required", DPDPA "sensitive personal data" all require explicit / heightened consent and stricter handling.
+- *Pseudonymised but linkable data remains personal data.* GDPR Recital 26 explicit; PDPC Advisory Guidelines on Anonymisation similar.
+
+**What kaypoh currently catches (against these definitions):**
+
+The deterministic engine fires on **statute-named direct identifiers**: NRIC/FIN, UEN, MyKad, NIK, Thai national ID, PhilSys, TIN, CCCD, passport, email, phone, bank/IBAN, named person (honorific-anchored + linked variants), SG postal-address, SG court-citation. These are unambiguously PII in every jurisdiction above.
+
+**What kaypoh currently misses (gaps surfaced by definitions):**
+
+| Statutory concept | Detection gap | Closing item |
+|---|---|---|
+| Quasi-identifier combinations (PDPA + GDPR + CCPA reach) | No multi-attribute reasoning | **Item 70** |
+| Special-category data (GDPR Art 9, PDPC special-cat, PIPA, LGPD, APPI, DPDPA) | No health / biometric / sex life / religion / political opinion / trade-union detectors | **Item 71** |
+| Pseudonymised-but-linkable IDs | No employee-ID, customer-account-number, internal-session-ID detectors | **Item 78** (new — below) |
+| Date of birth / age | No detector | **Item 33** |
+| IP address / device identifier | No detector | **Item 33** |
+| US SSN, driver-license, EIN | No detector | **Item 33** |
+| UK NI, EU member-state national ID | No detector | **Item 33** |
+| Broad postal-address parsing | SG-only postal-code signal | **Item 34** |
+| Free-form named persons (no honorific) | Honorific-anchored only | **Item 35** (semantic fallback) |
+| Inferred attributes (relationship, location) | No inference layer | **Item 79** (new — below) |
+
+### MNPI / insider information — by jurisdiction
+
+| Jurisdiction | Statute / source | "Material" pivot | "Non-public" pivot |
+|---|---|---|---|
+| **Singapore (SG)** | SFA s218 (insider trading), s219 (tipping), s221 (penalty); MAS Disclosure of Interests; SGX Mainboard / Catalist Rules ch 7 | "information that is not generally available but, if it were generally available, a reasonable person would expect it to have a material effect on the price or value" of securities | "generally available" — limbs in s215 |
+| **Malaysia (MY)** | Capital Markets and Services Act 2007 s183-198; Bursa Listing Requirements ch 9 | "information that on becoming generally available, a reasonable person would expect to have a material effect on the price or value of securities" | "generally available" per s184 |
+| **Indonesia (ID)** | UU Pasar Modal No. 8/1995 Art 95-99; OJK Reg 31/POJK.04/2015 | "material information that has not been made public and that may influence investor decisions or the price of securities" | "has not been disclosed to the public" |
+| **Thailand (TH)** | Securities and Exchange Act B.E. 2535 s241-244 (insider trading); SEC Notification TorChor.1/2566 | "information that has not been disclosed to the public which, if disclosed, may have a material effect on the price of securities" | "has not been disclosed to the public" |
+| **Philippines (PH)** | Securities Regulation Code (RA 8799) s27; SEC Memorandum Circular No. 11 s.2019 | "material non-public information... [information] which would have been considered important by a reasonable investor in making investment decisions" | "is not generally available to the public" |
+| **Vietnam (VN)** | Law on Securities 2019 Art 11, Art 124; Decree 155/2020/ND-CP | "information about an issuer or about securities not yet made public that, if made public, would have a significant impact on the price of securities" | "not yet made public" |
+| **United States (US)** | Securities Exchange Act 1934 s10(b); SEC Rule 10b-5; Reg FD (17 CFR 243.100); SEC v. Texas Gulf Sulphur (1968); Basic v. Levinson (1988) | "substantial likelihood that a reasonable shareholder would consider it important in deciding whether to buy, hold, or sell" — Basic v. Levinson | "not disclosed in a manner sufficient to ensure broad, non-exclusionary distribution" — Reg FD |
+| **United Kingdom (UK)** | UK Market Abuse Regulation (UK MAR) Art 7; Criminal Justice Act 1993 s56 | "information of a precise nature, which has not been made public, relating, directly or indirectly, to one or more issuers... and which, if it were made public, would be likely to have a significant effect on the prices" | "not been made public" — limbs in UK MAR Art 7(1)(a) |
+| **European Union (EU)** | EU Market Abuse Regulation 596/2014 Art 7; MAR Art 14 (prohibition); MAR Art 17 (disclosure obligation) | identical to UK MAR (UK MAR is post-Brexit copy) | identical |
+| **Hong Kong (HK)** | Securities and Futures Ordinance (Cap 571) Part XIV s270-281; SFC Inside Information Guidelines (2012) | "specific information about... a corporation... which is not generally known to the persons who are accustomed or would be likely to deal in the listed securities... but would if generally known to them be likely to materially affect the price" | "not generally known" — note this is a *narrower* test than "not generally available" |
+| **Australia (AU)** | Corporations Act 2001 s1042A-1043O; ASIC Regulatory Guide 62 | "information that is not generally available and, if the information were generally available, a reasonable person would expect it to have a material effect on the price or value of financial products" | "generally available" |
+| **Japan (JP)** | Financial Instruments and Exchange Act Art 166-167 (insider trading); JFSA Cabinet Office Order | "material fact" enumerated in specific decisions / occurrences / financial-results criteria, not yet publicly disclosed | "publicly disclosed" per Art 166 |
+| **Korea (KR)** | Financial Investment Services and Capital Markets Act (FSCMA) Art 174-179; FSC Enforcement Decree Art 201 | "important information... not yet publicly disclosed" | "publicly disclosed" |
+
+**Common doctrine across jurisdictions:**
+
+- *Materiality is contextual to issuer size and circumstance.* SEC Staff Accounting Bulletin No. 99 explicit. A $1M impact on a $10M company is material; on a $100B company, immaterial. **No jurisdiction in the table above defines a fixed numerical materiality threshold** — every regime is a "reasonable investor" / "significant effect" test.
+- *Non-public is "not generally available" in most jurisdictions, but HK's "not generally known" is narrower.* Information *available* but not *known* by the target audience still triggers HK's regime.
+- *MNPI is forward-looking and probabilistic.* Basic v. Levinson sets a "magnitude × probability" test for contingent / future events (e.g. merger negotiations). A discussion that's only 30% likely to close can still be MNPI if the deal would be massive.
+- *Selective disclosure to analysts / institutional holders triggers obligations.* Reg FD (US) is the canonical example; MAR Art 17 (EU/UK) similar.
+- *Tipping liability is co-extensive with trading liability.* SFA s219 (SG), Rule 10b5-2 (US), MAR Art 14 (EU/UK) — passing the information on to someone who *might* trade is itself the offence.
+
+**What kaypoh currently catches (against these definitions):**
+
+The MNPI lexicon detects **deal-stage and corporate-event tells**: `transaction_codename` (Project <CapitalizedName>), `definitive_agreement` (SPA/SHA/APA/MOU/LOI/Term Sheet), `material_adverse_change` (MAC/MAE), `embargo_marker` (Signing/Closing/Effective Date), `material_event` (broad), `nonpublic_marker` (broad), `financial_amount`, `financial_percentage`, `large_number`. Plus source-verification states (item 36) and `audit_grade` public-evidence retrieval.
+
+**What kaypoh currently misses (gaps surfaced by definitions):**
+
+| Statutory / doctrinal concept | Detection gap | Closing item |
+|---|---|---|
+| Issuer-relative materiality (SAB No. 99, MAR "significant effect") | Severity is uniform regardless of entity size | **Item 73** |
+| Cross-document materiality (SEC v. Texas Gulf Sulphur — pieces individually noise, together MNPI) | Per-doc only; defined-term inheritance is the only cross-doc plumbing | **Item 74** |
+| Forward-looking / probabilistic MNPI (Basic v. Levinson) | No detector for hedged / contingent language ("if we acquire", "subject to board approval") | **Item 80** (new — below) |
+| Sector-specific MNPI (pharma trial endpoints, FDA decisions, tech sec-incident, FS regulatory action) | No sector packs | **Item 72** |
+| Tipping language detection (passing-on as the offence) | No detector for forwarding / sharing / re-distribution language | **Item 81** (new — below) |
+| HK "not generally known" narrower test | Public-evidence retrieval uses general-availability semantics | **Item 82** (new — below) |
+| Selective disclosure red flags (Reg FD trigger) | No detector for analyst-call / institutional-investor mailing language | **Item 83** (new — below) |
+| Quiet-period / blackout-window markers | Partial via `embargo_marker`; no calendrical reasoning | **Item 84** (new — below) |
+| Jurisdiction-specific safe-harbour citations on findings | Statute citations generic | **Item 85** (new — below) |
+| HK / AU / JP / KR curated packs | Not yet shipped | **Item 86** (new — below) |
+
+### Threats and gaps — summary
+
+A document that contains *only* implied materiality + a target entity + a quiet-period reference would today **pass kaypoh's `strict` profile with no findings**. The lexicon doesn't fire; the entity is named in a public press release; the quiet-period reference doesn't match `embargo_marker`. Reviewer sees SAFE. That's a real recall hole on a textbook MNPI scenario. Items 70–86 close it across multiple axes (multi-attribute reasoning, sector specificity, cross-document inference, jurisdiction-specific doctrine).
+
+The deterministic engine is the *precision floor*. The first-principles analysis above is the *recall ceiling* it's measured against.
+
+
 ## Expansion Sequence
 
 Open work organised by theme. Shipped items are struck through and retained for traceability.
@@ -398,6 +496,54 @@ These items target overall accuracy improvement on the LLM tier without changing
 67. **Document similarity / clustering as advisory signal.** When a document is structurally similar to known-MNPI documents in the corpus, that's a useful signal even when no deterministic rule fires. Embed every reviewed document with a small local model (e.g. `all-MiniLM-L6-v2` via `sentence-transformers` in the `[ml]` extras), index in a local FAISS or hnswlib index per tenant, and on `/review` return `similar_documents: [{doc_hash, similarity, reviewer_disposition}]` as advisory context. Surfaces "this doc is in the same cluster as 3 docs the reviewer accepted as high-MNPI last month" without making the engine act on it. Never feeds into severity scoring directly; reviewer judgment closes the loop. Lives under `src/kaypoh/similarity/` — NEW code, not revived layer2 + layer3.
 
 68. **Multi-signal aggregator with transparent attribution.** Replace the implicit "max severity wins" rule in `engine.review()` with an explicit aggregator that combines deterministic findings (precision anchor) + classifier score (item 66) + similarity matches (item 67) + LLM verdict (existing) + public-evidence verification (existing) into a single `aggregated_mnpi_score` and per-signal attribution. The aggregator is **not** a black-box regression — it's a transparent weighted blend with reviewer-visible per-signal contributions: `{deterministic: 0.55 (anchor), classifier: 0.18 (DistilBERT), similarity: 0.08, llm: 0.15, public_evidence: -0.20}`. Reviewer can see exactly which signal pushed the score. Weights are config-tunable per tenant (per-tenant principle), defaults locked by the calibration script (item 32 extended). Deterministic findings remain non-negotiable (a deterministic-high cannot be diluted by other signals voting low). Lives in `src/kaypoh/aggregator/` — NEW code; the layer5 mosaic concept is reborn as a transparent, statute-citable aggregator.
+
+69. **First-principles statutory taxonomy (`docs/statutory-coverage.md`).** Author a formal mapping of each in-scope jurisdiction's PII + MNPI statutory definition → required detector categories → current detector coverage → known gaps. Replaces ad-hoc "we cover SG" assertions with a defensible audit-trail of *exactly* which statutory concepts each detector implements. Maintained alongside jurisdiction packs; updated whenever a regulator publishes new guidance (item 53 keeps citations current). The doc itself is downstream of the "First-principles statutory analysis" section in this architecture doc — which is the authoritative draft of the taxonomy until `docs/statutory-coverage.md` is generated.
+
+70. **Quasi-identifier combination detection.** Fire a `quasi_identifier_combination` finding when a document contains ≥3 quasi-identifiers (DOB + postcode + gender; employer + role + salary; address + family relationship; full-name + birthplace + employer) that together breach a k-anonymity threshold (default k=5). Severity scaled by re-identification probability estimate. Multi-attribute reasoning, not span-local. Anchors in PDPA s2 ("identified from that data or from that data and other information"), GDPR Recital 26 ("means reasonably likely to be used"), CCPA "reasonably capable of being associated". New module `src/kaypoh/review/quasi_identifiers/`.
+
+71. **Special-category PII detectors.** Detect health (diagnosis codes, medication names, treatment narratives), biometric (fingerprint refs, facial templates, gait signatures), sex life / sexual orientation, religion, racial/ethnic origin, political opinion, trade-union membership. Each maps to a special-severity tier under GDPR Art 9, PDPC special-category (per s17 + Advisory Guidelines), PIPA "sensitive information", LGPD Art 5(II), APPI "special care-required personal information", DPDPA "sensitive personal data". Ships as new detector pack under `src/kaypoh/review/detectors/special_category/`.
+
+72. **Sector-specific MNPI packs.** Beyond M&A + earnings tells: pharma (clinical trial primary endpoints, FDA correspondence, AE reports), tech (security incident pre-disclosure, executive departures, security-vuln advisories), financial-services (regulatory investigation, capital ratio breaches, AML enforcement actions), energy (reserve revisions, environmental incidents, pipeline disruptions), legal (settlement amounts, judgment pre-publication, sealed-court-record references). Each sector pack ships its own lexicon + statute citations + adversarial fixtures. Loaded per `industry_sector` field on `/review` request.
+
+73. **Entity-size-relative materiality.** Cross-reference detected entities against a market-cap / annual-revenue lookup (provided via opt-in connector to SGX / Bursa / IDX / SET / PSE / HOSE / Bloomberg / Refinitiv at `audit_grade`); scale `financial_amount` and `financial_percentage` severity by entity-relative thresholds. SEC Staff Accounting Bulletin No. 99 anchor: materiality is contextual to issuer size. Default heuristic when no lookup configured: 1% of market cap as rough materiality floor. Cached per `entity_id` with TTL.
+
+74. **Cross-document materiality reasoning.** Extend defined-term inheritance (item 25 / 55) to per-finding cross-document inference. When document A in a matter has a `transaction_codename` and document B has a specific entity reference, surface a `combined_mnpi_inference` finding tagged with both source documents and the inference chain. Built on top of the matter store (item 55).
+
+75. **Cross-jurisdiction conflict resolution.** Today `/review` already accepts `source_jurisdiction` + `destination_jurisdiction` separately, but the engine runs the *strictest-wins* policy. Extend to surface findings under both jurisdictions with explicit attribution: `{rule: "sg_nric_fin", source_juris_finding: true, destination_juris_finding: true}` and `{rule: "us_ssn", source_juris_finding: false, destination_juris_finding: true}`. Distinguishes "you can't export this under PDPA" from "the destination juris (US) does not regulate this" so the reviewer can see why a finding fires.
+
+76. **Active-learning loop closure.** Extend item 30 (DPO export) into an end-to-end loop: reviewer-rejected findings → adversarial corpus growth → adversarial detector retraining → tighter precision baseline. Reviewer-accepted previously-missed spans (e.g. from coverage_warning promotions per item 54) → positive corpus growth → recall lock improvement. Requires journal sanitisation (item 30 prerequisite) + a `scripts/promote_journal_to_corpus.py` tool that surfaces candidate fixtures for hand-review before they enter the recall gate.
+
+### Statutory-gap closure (PII / personal-data side)
+
+77. ~~placeholder, intentionally unused~~ (numbering preserved so subsequent items align with the first-principles gap table above)
+
+78. **Pseudonymised-but-linkable identifier detection.** GDPR Recital 26 and PDPC Anonymisation Advisory Guidelines both treat pseudonymised data that *the organisation* can re-link as personal data. Add detectors for: employee IDs (`EMP-XXXXX`, `SE-XXXXX` patterns), customer account numbers (numeric with org-prefix), internal session IDs (UUID with `_session` / `_user` tagging), bank-internal customer reference numbers, hospital MRNs (medical record numbers), insurance member IDs. Detection requires both pattern + context (the surrounding sentence references "employee", "customer", "patient", "member" — defined-term suppression is not in scope here because these tokens are *anchored* to specific subjects, not generic role nouns). Severity tier: PII medium by default, escalating to PII high under `audit_grade` when linkable to a named person in the same document.
+
+79. **Inferred-attribute detection (relationship + location + employer chain).** When a document contains a named person AND a relationship verb / location preposition / employment marker pointing to another entity, surface a `personal_attribute_inference` finding for the inferred attribute. Examples: "John Tan's wife Mary" → infers Mary's family relationship; "Sarah works at Acme" → infers Sarah's employer; "Dr Lim lives in Bukit Timah" → infers Lim's residential area. The PII universe under PDPA / GDPR / CCPA is the *inferred attribute*, not just the named person. Severity medium by default, contextual escalation when special-category inference (health condition, religious affiliation, sexual orientation) is the result. Local NER + relation extraction; lives behind `audit_grade` to keep `strict` precision-pure.
+
+### Statutory-gap closure (MNPI side)
+
+80. **Forward-looking / contingent-language MNPI detection.** Basic v. Levinson (US) plus MAR Art 7(2-3) (EU/UK) and SFA s215 (SG) all extend MNPI to *probabilistic / contingent* future events. Add detectors for: contingent verbs ("if approved", "should the board agree", "subject to regulatory clearance"), probabilistic language ("likely to", "may result in", "expected to"), hedged disclosure ("management believes", "early indications suggest"), pre-decisional markers ("under consideration", "in discussions", "exploratory"). Severity gated by adjacency to known MNPI tells (deal codename, definitive agreement, regulatory entity) — alone these phrases are noise; in proximity to existing MNPI signals they amplify the score. Lives as new rule `contingent_mnpi_language`.
+
+81. **Tipping-language detection.** SFA s219 (SG), Rule 10b5-2 (US), MAR Art 14 (EU/UK), SFO Part XIV (HK) all make *passing on* MNPI co-extensive with trading on it. Add detectors for: forwarding language ("please share with", "feel free to circulate", "passing this along"), institutional-investor distribution markers ("for distribution to clients only", "select investors", "limited partners list"), draft-sharing markers ("attached for your review", "see attached deck"). Severity tier: MNPI high when adjacent to existing MNPI findings (one rule firing alone is noise; tipping language + MNPI content together is the tipping offence). New rule `tipping_language`.
+
+82. **Public-evidence retrieval — narrower "not generally known" semantics for HK.** Today the public-evidence retriever uses general-availability semantics (matched a public source → soften severity). HK SFO Part XIV is narrower: "not generally known to the persons who are accustomed or would be likely to deal in the listed securities". A press release buried on an obscure regulator page is "available" but not "generally known". When `destination_jurisdiction == "HK"`, public-evidence soft-down requires a stricter retrieval threshold (multiple major-publication hits + recency window ≤14 days). Configurable per `KAYPOH_HK_PUBLIC_EVIDENCE_PROFILE`.
+
+83. **Selective-disclosure red-flag detection (Reg FD trigger).** Reg FD (US Rule 100, 17 CFR 243.100) prohibits selective disclosure of MNPI to analysts / institutional investors / shareholders without simultaneous public disclosure. Add detectors for: analyst-call language ("Q&A with sell-side", "analyst day prep", "buy-side mailing"), institutional-mailing markers ("to our largest holders", "for institutional investors only"), one-on-one meeting language ("scheduled call with [analyst firm]"). When co-occurring with MNPI findings, surface a `selective_disclosure_risk` finding tagged with Reg FD / equivalent jurisdiction rule. New rule `selective_disclosure_risk`.
+
+84. **Calendrical reasoning — quiet-period + blackout-window detection.** Most listed-company regimes have quiet periods around earnings (e.g. US SEC 30-day pre-earnings, SGX no-go window). Today `embargo_marker` catches explicit "Embargoed" / "Press Hold" strings but no calendrical reasoning. Add a `blackout_period_reference` rule that fires when a document references a date / period within a known blackout window for a detected entity (requires entity → ticker → next-earnings-date lookup at `audit_grade`). Closes the gap where a doc is dated mid-quiet-period without saying "embargo".
+
+85. **Jurisdiction-specific MNPI statute citations on findings.** Today MNPI suggestions cite a generic legal basis. Wire the same statute-citation pattern as PII findings: SG findings cite SFA s218-221 + relevant SGX listing rule; US findings cite Rule 10b-5 + Reg FD; EU/UK findings cite MAR Art 7 / Art 14 / Art 17; HK findings cite SFO Part XIV; AU findings cite Corporations Act s1042A; JP findings cite FIEA Art 166-167; KR findings cite FSCMA Art 174-179. Resolved per `destination_jurisdiction`. Override via `KAYPOH_CITATIONS_OVERRIDE` (per-tenant per item 60).
+
+86. **Curated jurisdiction packs — HK / AU / JP / KR.** Today curated packs ship for SG / MY / ID / TH / PH / VN / US / UK / EU. The first-principles analysis identifies HK / AU / JP / KR as in-scope for the legal-corporate ICP (HK financial centre + AU APRA-regulated + JP/KR institutional cross-border deals). Each pack needs: local national-ID detector (HK ID `A123456(7)`, AU TFN, JP MyNumber, KR RRN — RRN is *strictly* regulated under PIPA Art 24-2), local company-ID (HK Companies Registry CR No., AU ABN/ACN, JP corporate number, KR business registration number), local postal-address format, statute citations, MNPI lexicon variants. Ships under the same jurisdiction-pack TOML schema (item 19).
+
+### Procurement-substrate items surfaced by the first-principles analysis
+
+87. **Per-jurisdiction defensibility audit report.** Generate `docs/defensibility/{jurisdiction}.md` per jurisdiction from `docs/statutory-coverage.md` (item 69) — a 2-page PDF-renderable summary a procurement reviewer can hand to compliance: "this is what kaypoh detects under PDPA, with statute citations; this is what it doesn't detect; this is how the residual risk is managed." Generated, not hand-authored — drift from the statutory taxonomy is caught by CI.
+
+88. **Regulator-update watcher.** Statutes drift. PDPC publishes new advisory guidelines; MAS updates AI Risk Management Guidelines; OAIC issues new AI guidance; SEC promulgates new disclosure rules. Add `scripts/check_regulator_updates.py` that polls a configured list of regulator publication feeds (RSS / Atom where available, manual checklist where not) and surfaces a diff against the last-known statute-citation snapshot. Cadence: weekly. Output goes to the maintenance backlog as a "regulator-update-pending" item.
+
+89. **Defensibility evidence pack export.** Extend the audit-pack tool (`scripts/export_audit_pack.py`) with an opt-in `--include-defensibility` flag that bundles, for every finding in the pack: matched statute, statute version date, jurisdiction-specific safe-harbour analysis, current PDPC/SEC/MAS guidance citation, and a sanitised reviewer-accept-rate from journal history. Reviewers forward the pack to internal audit + external regulators with no additional hand-prep.
 
 ### Gap-closure roadmap
 
