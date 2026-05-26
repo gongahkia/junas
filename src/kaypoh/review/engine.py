@@ -122,6 +122,34 @@ MEDICAL_RECORD_RE = re.compile(
     r"(?:MRN|Medical\s+Record\s+(?:No\.?|Number)|Patient\s+(?:ID|No\.?|Number))[\s:.#-]*(\d{6,12})\b",
     re.IGNORECASE,
 )
+# item 97: Reg FD selective-disclosure red-flags (17 CFR 243.100 — verified against
+# Cornell LII 2026-05-26). Vocabulary derived from Reg FD §100(b)(1) recipient categories:
+#   (i)  brokers/dealers or associated persons
+#   (ii) investment advisers / institutional investment managers (Form 13F filers)
+#   (iii) investment companies / affiliated persons
+#   (iv) holders of the issuer's securities reasonably foreseeable to trade on the info
+# Fires only when packs include US (Reg FD is US-specific); subject to the same
+# co-occurrence amplifier as items 95/96 — low standalone, medium when adjacent to an
+# MNPI substrate within ±200 chars.
+SELECTIVE_DISCLOSURE_RE = re.compile(
+    r"\b("
+    # analyst-day / analyst-prep — Reg FD §100(b)(1)(i)+(ii) typical recipients
+    r"analyst\s+(?:day|call|q&a|breakfast|prep|briefing)|"
+    r"sell-?side\s+(?:analyst|mailing|distribution|coverage|q&a|outreach)|"
+    r"buy-?side\s+(?:analyst|mailing|distribution|q&a|outreach)|"
+    # one-on-one / institutional meeting language — Reg FD §100(b)(1)(i-iii)
+    r"one-?on-?one\s+(?:call|meeting|session|briefing)\s+with|"
+    r"(?:institutional|select|preferred|key)\s+(?:investor|holder|client)s?\s+only|"
+    # broker-dealer / investment adviser / 13F filer recipient categories
+    r"broker-?dealer\s+(?:contact|distribution|mailing|outreach)|"
+    r"investment\s+adviser\s+(?:mailing|distribution|outreach)|"
+    r"13F\s+filer|"
+    # Reg FD §100(b)(1)(iv) — holders of issuer's securities
+    r"top-?ten\s+(?:holders|shareholders|investors)|"
+    r"largest\s+institutional\s+(?:holders|shareholders|investors)"
+    r")\b",
+    re.IGNORECASE,
+)
 # item 96: tipping / forwarding language (SFA s219, Rule 10b5-2, MAR Art 14, SFO Part XIV).
 # Same co-occurrence amplifier discipline as item 95 — alone these phrases are noise, but
 # proximity to MNPI substrate is the tipping offence.
@@ -378,7 +406,9 @@ def _apply_retrieval_verification(
 # proximity check is char-based, matching the existing _line_context convention used for
 # material_event. A bare "in discussions" or "please share" is noise; the same phrase
 # adjacent to "Project Sapphire" or a definitive-agreement reference is the offence.
-_CO_OCCURRENCE_AMPLIFIER_RULES = frozenset({"contingent_mnpi_language", "tipping_language"})
+_CO_OCCURRENCE_AMPLIFIER_RULES = frozenset({
+    "contingent_mnpi_language", "tipping_language", "selective_disclosure_risk",
+})
 _CO_OCCURRENCE_TRIGGER_RULES = frozenset({
     "transaction_codename", "definitive_agreement", "material_adverse_change",
     "material_event", "embargo_marker", "nonpublic_marker",
@@ -839,16 +869,24 @@ class PreSendReviewEngine:
                 )
                 idx += 1
 
-        # items 95 + 96: contingent + tipping language post-pass. ships at severity `low`;
-        # the post-pass amplifier in review() escalates to `medium` when adjacent to a deal
-        # substrate. Negation guard borrowed from the MAC rule — "no longer in discussions"
-        # / "without further consideration" patterns should not fire.
-        for pattern, rule, reason in [
+        # items 95 + 96 + 97: contingent + tipping + Reg FD selective-disclosure language.
+        # All three ship at severity `low`; the post-pass amplifier in review() escalates to
+        # `medium` when adjacent to a deal substrate. Negation guard reused for contingent.
+        # selective_disclosure_risk only fires when destination/source jurisdiction includes US
+        # (Reg FD is US-specific — 17 CFR 243.100). The juris-gate is checked outside the loop.
+        is_us_scope = any(pack.code == "US" for pack in packs)
+        post_pass_rules: list[tuple[Any, str, str]] = [
             (CONTINGENT_MNPI_RE, "contingent_mnpi_language",
              "Contingent / forward-looking language; amplifies when adjacent to deal substrate"),
             (TIPPING_RE, "tipping_language",
              "Forwarding / distribution language; amplifies when adjacent to MNPI substrate"),
-        ]:
+        ]
+        if is_us_scope:
+            post_pass_rules.append(
+                (SELECTIVE_DISCLOSURE_RE, "selective_disclosure_risk",
+                 "Selective-disclosure language (Reg FD); amplifies when adjacent to MNPI substrate")
+            )
+        for pattern, rule, reason in post_pass_rules:
             for match in pattern.finditer(text):
                 if rule == "contingent_mnpi_language" and _is_negated_context(text, match.start()):
                     continue

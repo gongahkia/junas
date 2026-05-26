@@ -225,6 +225,15 @@ _MNPI_DEFAULT_RATIONALE = {
         "trading on it. If the surrounding passage contains MNPI, confirm recipient "
         "authorisation before forwarding or distributing."
     ),
+    "selective_disclosure_risk": (
+        "Selective-disclosure language detected (Reg FD trigger). 17 CFR 243.100 prohibits "
+        "issuers (or persons acting on their behalf) from disclosing material non-public "
+        "information to brokers/dealers, investment advisers / 13F filers, investment "
+        "companies, or holders of the issuer's securities reasonably foreseeable to trade, "
+        "without simultaneous (intentional) or prompt (unintentional) public disclosure. "
+        "If the surrounding passage contains MNPI, ensure simultaneous public disclosure or "
+        "obtain a Reg FD §100(b)(2) confidentiality undertaking from the recipient."
+    ),
 }
 
 # jurisdiction-pack -> statute suffix appended to PII rationales for that jurisdiction.

@@ -32,6 +32,7 @@ _RULE_FIXTURES: dict[str, str] = {
     "large_number": "Portfolio holds 50,000,000 shares of the issuer.",
     "contingent_mnpi_language": "The transaction is subject to board approval before announcement.",
     "tipping_language": "Please share with the analyst team before close of business.",
+    "selective_disclosure_risk": "Plan the analyst day for next Friday with top-ten holders.",
 }
 
 # all in-scope destination jurisdictions (matches the §Jurisdiction Coverage table).
@@ -88,8 +89,14 @@ class EnginePipelineSuffixTests(unittest.TestCase):
         return [s.rationale for s in result.suggestions if s.finding_id in finding_ids]
 
     def test_each_rule_x_destination_carries_suffix_end_to_end(self):
+        # selective_disclosure_risk is US-only (Reg FD is US-specific — 17 CFR 243.100).
+        # It only fires when packs include US; the suffix-carry guarantee is tested under
+        # the US-scoped routing path separately (see test_selective_disclosure_us_path).
+        us_only_rules = {"selective_disclosure_risk"}
         for rule, text in _RULE_FIXTURES.items():
             for juris in _DESTINATION_JURISDICTIONS:
+                if rule in us_only_rules and juris != "US":
+                    continue
                 rationales = self._suggestion_rationales_for_rule(
                     text=text, source=juris, destination=juris, rule=rule,
                 )
@@ -101,6 +108,18 @@ class EnginePipelineSuffixTests(unittest.TestCase):
                     self.assertIn(expected, r,
                                   f"{rule!r} × {juris}: suffix {expected!r} missing from "
                                   f"suggestion.rationale: {r!r}")
+
+    def test_selective_disclosure_us_path_carries_suffix(self):
+        # The US-only selective_disclosure_risk rule still carries the US suffix when
+        # it fires under US-scoped routing.
+        rationales = self._suggestion_rationales_for_rule(
+            text=_RULE_FIXTURES["selective_disclosure_risk"],
+            source="US", destination="US", rule="selective_disclosure_risk",
+        )
+        self.assertTrue(rationales)
+        for r in rationales:
+            self.assertIn(_MNPI_JURISDICTION_SUFFIX["US"], r,
+                          f"selective_disclosure_risk × US: US suffix missing: {r!r}")
 
     def test_cross_jurisdiction_carries_both_suffixes(self):
         # source=SG, destination=US must include both SG SFA suffix AND US Reg FD suffix.
