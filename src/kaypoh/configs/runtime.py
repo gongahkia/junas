@@ -84,6 +84,10 @@ KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
             "timeout_seconds",
             "max_images",
             "max_bytes",
+            "max_total_bytes",
+            "pdf_render_pages",
+            "pdf_render_max_pages",
+            "pdf_render_scale",
             "model",
             "openai_base_url",
             "aws_region",
@@ -92,6 +96,7 @@ KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
             "tenant_opt_in_google",
             "tenant_opt_in_aws",
             "tenant_opt_in_azure",
+            "tenant_opt_ins_json",
         }
     ),
     "privacy": frozenset(
@@ -218,6 +223,10 @@ class ImageScanSettings:
     timeout_seconds: float
     max_images: int
     max_bytes: int
+    max_total_bytes: int
+    pdf_render_pages: bool
+    pdf_render_max_pages: int
+    pdf_render_scale: float
     model: str
     openai_api_key: str
     openai_base_url: str
@@ -229,6 +238,7 @@ class ImageScanSettings:
     tenant_opt_in_google: bool = False
     tenant_opt_in_aws: bool = False
     tenant_opt_in_azure: bool = False
+    tenant_opt_ins: dict[str, tuple[str, ...]] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -410,6 +420,43 @@ def _parse_tenant_credentials(value: Any, *, label: str) -> tuple[TenantCredenti
             TenantCredential(api_key=api_key, tenant_id=tenant_id, subject=subject, roles=roles)
         )
     return tuple(credentials)
+
+
+def _parse_provider_opt_in_map(value: Any, *, label: str) -> dict[str, tuple[str, ...]]:
+    if value in (None, ""):
+        return {}
+    raw = value
+    if isinstance(value, str):
+        try:
+            raw = json.loads(value)
+        except json.JSONDecodeError as exc:
+            raise ConfigError(f"{label} must be valid JSON") from exc
+    if not isinstance(raw, Mapping):
+        raise ConfigError(f"{label} must be a JSON object")
+
+    out: dict[str, tuple[str, ...]] = {}
+    for tenant_id, providers in raw.items():
+        tenant = _parse_str(tenant_id, label=f"{label}.tenant_id")
+        if not tenant:
+            raise ConfigError(f"{label} tenant ids must not be empty")
+        if isinstance(providers, Mapping):
+            provider_names = [
+                name
+                for name, enabled in providers.items()
+                if _parse_bool(enabled, label=f"{label}.{tenant}.{name}")
+            ]
+        else:
+            provider_names = list(_parse_list(providers, label=f"{label}.{tenant}"))
+        normalized: list[str] = []
+        for provider in provider_names:
+            provider_name = str(provider).strip().lower()
+            if provider_name != "*" and provider_name not in IMAGE_SCAN_PROVIDERS:
+                raise ConfigError(f"{label}.{tenant} contains unknown provider: {provider_name}")
+            if provider_name == "none":
+                continue
+            normalized.append(provider_name)
+        out[tenant] = tuple(sorted(set(normalized)))
+    return out
 
 
 def _default_response_cache_size() -> int:
@@ -1020,6 +1067,55 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
             minimum=1024,
             maximum=50 * 1024 * 1024,
         ),
+        max_total_bytes=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="image_scan",
+                key="max_total_bytes",
+                env_vars=("KAYPOH_IMAGE_SCAN_MAX_TOTAL_BYTES",),
+                default=100 * 1024 * 1024,
+            ),
+            label="image_scan.max_total_bytes",
+            minimum=1024,
+            maximum=500 * 1024 * 1024,
+        ),
+        pdf_render_pages=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="image_scan",
+                key="pdf_render_pages",
+                env_vars=("KAYPOH_IMAGE_SCAN_PDF_RENDER_PAGES",),
+                default=True,
+            ),
+            label="image_scan.pdf_render_pages",
+        ),
+        pdf_render_max_pages=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="image_scan",
+                key="pdf_render_max_pages",
+                env_vars=("KAYPOH_IMAGE_SCAN_PDF_RENDER_MAX_PAGES",),
+                default=8,
+            ),
+            label="image_scan.pdf_render_max_pages",
+            minimum=1,
+            maximum=100,
+        ),
+        pdf_render_scale=_parse_float(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="image_scan",
+                key="pdf_render_scale",
+                env_vars=("KAYPOH_IMAGE_SCAN_PDF_RENDER_SCALE",),
+                default=2.0,
+            ),
+            label="image_scan.pdf_render_scale",
+            minimum=0.25,
+        ),
         model=_parse_str(
             _resolve_raw_value(
                 raw_config,
@@ -1116,18 +1212,35 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
             ),
             label="image_scan.tenant_opt_in_azure",
         ),
+        tenant_opt_ins=_parse_provider_opt_in_map(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="image_scan",
+                key="tenant_opt_ins_json",
+                env_vars=("KAYPOH_IMAGE_SCAN_TENANT_OPT_INS_JSON",),
+                default="",
+            ),
+            label="image_scan.tenant_opt_ins_json",
+        ),
     )
     if image_scan.provider not in IMAGE_SCAN_PROVIDERS:
         raise ConfigError(
             "image_scan.provider must be one of: " + ", ".join(sorted(IMAGE_SCAN_PROVIDERS))
         )
-    if image_scan.provider == "openai_vision" and not image_scan.tenant_opt_in_openai:
+    provider_has_tenant_map = any(
+        image_scan.provider in set(providers) or "*" in set(providers)
+        for providers in image_scan.tenant_opt_ins.values()
+    )
+    if image_scan.max_total_bytes < image_scan.max_bytes:
+        raise ConfigError("image_scan.max_total_bytes must be >= image_scan.max_bytes")
+    if image_scan.provider == "openai_vision" and not (image_scan.tenant_opt_in_openai or provider_has_tenant_map):
         raise ConfigError("image_scan.provider=openai_vision requires image_scan.tenant_opt_in_openai=true")
-    if image_scan.provider == "google_vision" and not image_scan.tenant_opt_in_google:
+    if image_scan.provider == "google_vision" and not (image_scan.tenant_opt_in_google or provider_has_tenant_map):
         raise ConfigError("image_scan.provider=google_vision requires image_scan.tenant_opt_in_google=true")
-    if image_scan.provider == "aws_rekognition" and not image_scan.tenant_opt_in_aws:
+    if image_scan.provider == "aws_rekognition" and not (image_scan.tenant_opt_in_aws or provider_has_tenant_map):
         raise ConfigError("image_scan.provider=aws_rekognition requires image_scan.tenant_opt_in_aws=true")
-    if image_scan.provider == "azure_vision" and not image_scan.tenant_opt_in_azure:
+    if image_scan.provider == "azure_vision" and not (image_scan.tenant_opt_in_azure or provider_has_tenant_map):
         raise ConfigError("image_scan.provider=azure_vision requires image_scan.tenant_opt_in_azure=true")
 
     privacy = PrivacySettings(

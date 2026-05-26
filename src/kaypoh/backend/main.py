@@ -103,7 +103,10 @@ from kaypoh.review.image_scan import (
     ImageScanError,
     append_ocr_text_blocks,
     build_image_scanner,
+    health_check_image_scan,
     image_locator_for_span,
+    image_ocr_metadata_for_span,
+    redacted_image_artifacts,
     scan_image_candidates,
 )
 from kaypoh.review.metadata import scrub_document
@@ -385,13 +388,18 @@ def build_ready_snapshot() -> dict[str, Any]:
         reasons.append(f"missing required layers: {', '.join(missing_layers)}")
     if warming_layers:
         reasons.append(f"warming required layers: {', '.join(warming_layers)}")
+    image_status = get_dependency_status().get("image_scan")
+    image_scan_ready = True
+    if image_status is not None and image_status.configured and image_status.healthy is False:
+        image_scan_ready = False
+        reasons.append(f"image_scan unavailable: {image_status.detail}")
 
     return {
         "pipeline": pipeline,
         "required_layers": required_layers,
         "warming_layers": warming_layers,
         "missing_layers": missing_layers,
-        "ready": len(missing_layers) == 0 and len(warming_layers) == 0,
+        "ready": len(missing_layers) == 0 and len(warming_layers) == 0 and image_scan_ready,
         "reasons": reasons,
     }
 
@@ -432,6 +440,13 @@ def get_dependency_status() -> dict[str, DependencyStatus]:
             healthy=None,
             detail="LLM adjudication is disabled",
         )
+    image_scan_status = health_check_image_scan(settings.image_scan)
+    statuses["image_scan"] = DependencyStatus(
+        status=str(image_scan_status["status"]),
+        configured=bool(image_scan_status["configured"]),
+        healthy=image_scan_status["healthy"],
+        detail=str(image_scan_status["detail"]),
+    )
     return statuses
 
 
@@ -912,7 +927,7 @@ def _build_privacy_guard() -> PrivacyGuard:
     )
 
 
-def _scan_document_images(document: Any) -> tuple[Any, list[dict[str, Any]]]:
+def _scan_document_images(document: Any, *, tenant_id: str | None) -> tuple[Any, list[dict[str, Any]]]:
     settings = current_runtime_settings().image_scan
     provider = str(getattr(settings, "provider", "none") or "none").lower()
     if provider == "none":
@@ -925,7 +940,7 @@ def _scan_document_images(document: Any) -> tuple[Any, list[dict[str, Any]]]:
     scanner = get_layer_model("image_scanner")
     try:
         if scanner is None:
-            scanner = build_image_scanner(settings, _build_privacy_guard())
+            scanner = build_image_scanner(settings, _build_privacy_guard(), tenant_id=tenant_id)
         if scanner is None:
             raise ImageScanError("image OCR provider is disabled")
         results, privacy_ledger = scan_image_candidates(
@@ -966,8 +981,38 @@ def _annotate_image_ocr_findings(document: Any, findings: list[Any]) -> None:
         locator = image_locator_for_span(spans, int(finding.start_char), int(finding.end_char))
         if locator is None:
             continue
+        metadata = image_ocr_metadata_for_span(spans, int(finding.start_char), int(finding.end_char)) or {}
         finding.source = "image_ocr"
         finding.image_locator = locator
+        finding.image_ocr_confidence = metadata.get("confidence")
+        finding.image_ocr_regions = metadata.get("regions", [])
+
+
+def _degraded_mode(mode: str, status: str, reason: str, detail: dict[str, Any] | None = None) -> dict[str, Any]:
+    payload: dict[str, Any] = {"mode": mode, "status": status, "reason": reason}
+    if detail:
+        payload["detail"] = detail
+    return payload
+
+
+def _image_scan_error_detail(exc: Exception) -> dict[str, Any]:
+    reason = str(exc)
+    return {
+        "message": reason,
+        "degraded_modes": [
+            _degraded_mode("image_ocr", "failed_closed", reason),
+        ],
+    }
+
+
+def _document_degraded_modes(document: Any) -> list[dict[str, Any]]:
+    modes: list[dict[str, Any]] = []
+    for warning in list(getattr(document, "extraction_warnings", []) or []):
+        if "reviewed text layer only" in warning:
+            modes.append(_degraded_mode("image_ocr", "skipped", warning))
+        if "page(s) for configured image OCR" in warning:
+            modes.append(_degraded_mode("image_ocr", "page_rendered", warning))
+    return modes
 
 
 def _build_review_response(
@@ -977,6 +1022,7 @@ def _build_review_response(
     document: Any,
     result: Any,
     timings_ms: dict[str, float],
+    degraded_modes: list[dict[str, Any]] | None = None,
 ) -> ReviewResponse:
     return ReviewResponse(
         request_id=request_id,
@@ -1016,6 +1062,8 @@ def _build_review_response(
                 legal_basis=finding.legal_basis,
                 source=getattr(finding, "source", "text"),
                 image_locator=getattr(finding, "image_locator", None),
+                image_ocr_confidence=getattr(finding, "image_ocr_confidence", None),
+                image_ocr_regions=getattr(finding, "image_ocr_regions", []),
                 source_verification=getattr(finding, "source_verification", "not_checked"),
             )
             for finding in result.findings
@@ -1034,6 +1082,7 @@ def _build_review_response(
         llm_adjudication=LLMAdjudicationResponse(**result.llm_adjudication) if result.llm_adjudication else None,
         privacy_ledger=[PrivacyLedgerEntryResponse(**entry) for entry in result.privacy_ledger],
         coverage_warnings=list(result.coverage_warnings),
+        degraded_modes=list(degraded_modes or []),
         timings_ms=timings_ms,
     )
 
@@ -1093,6 +1142,8 @@ def _persist_review_session(
                 "end_char": f.end_char,
                 "source": getattr(f, "source", "text"),
                 "image_locator": getattr(f, "image_locator", None),
+                "image_ocr_confidence": getattr(f, "image_ocr_confidence", None),
+                "image_ocr_regions": getattr(f, "image_ocr_regions", []),
             }
             for f in findings
         ],
@@ -1109,16 +1160,22 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
             req,
             current_runtime_settings().document_ingest,
             image_scan_enabled=_image_scan_enabled(),
+            image_scan_settings=current_runtime_settings().image_scan,
         )
-    except ValueError as exc:
-        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    except (ValueError, ImageScanError) as exc:
+        detail = _image_scan_error_detail(exc) if isinstance(exc, ImageScanError) else str(exc)
+        raise HTTPException(status_code=422, detail=detail) from exc
     timings_ms["extract"] = round((time.perf_counter() - t_extract_start) * 1000.0, 3)
+    degraded_modes = _document_degraded_modes(document)
 
     t_image_scan_start = time.perf_counter()
     try:
-        document, image_privacy_ledger = _scan_document_images(document)
+        document, image_privacy_ledger = _scan_document_images(
+            document,
+            tenant_id=tenant.tenant_id if tenant.enabled else None,
+        )
     except ImageScanError as exc:
-        raise HTTPException(status_code=422, detail=str(exc)) from exc
+        raise HTTPException(status_code=422, detail=_image_scan_error_detail(exc)) from exc
     if image_privacy_ledger:
         timings_ms["image_ocr"] = round((time.perf_counter() - t_image_scan_start) * 1000.0, 3)
 
@@ -1158,6 +1215,7 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
         document=document,
         result=result,
         timings_ms=timings_ms,
+        degraded_modes=degraded_modes,
     )
 
     observability = get_observability()
@@ -1166,7 +1224,7 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
             endpoint="/review",
             classification=result.overall_risk.value,
             cache_status="disabled",
-            degraded=False,
+            degraded=bool(degraded_modes),
             duration_seconds=timings_ms["total"] / 1000.0,
         )
 
@@ -1199,16 +1257,22 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
             req,
             current_runtime_settings().document_ingest,
             image_scan_enabled=_image_scan_enabled(),
+            image_scan_settings=current_runtime_settings().image_scan,
         )
-    except ValueError as exc:
-        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    except (ValueError, ImageScanError) as exc:
+        detail = _image_scan_error_detail(exc) if isinstance(exc, ImageScanError) else str(exc)
+        raise HTTPException(status_code=422, detail=detail) from exc
     timings_ms["extract"] = round((time.perf_counter() - t_extract_start) * 1000.0, 3)
+    degraded_modes = _document_degraded_modes(document)
 
     t_image_scan_start = time.perf_counter()
     try:
-        document, image_privacy_ledger = _scan_document_images(document)
+        document, image_privacy_ledger = _scan_document_images(
+            document,
+            tenant_id=tenant.tenant_id if tenant.enabled else None,
+        )
     except ImageScanError as exc:
-        raise HTTPException(status_code=422, detail=str(exc)) from exc
+        raise HTTPException(status_code=422, detail=_image_scan_error_detail(exc)) from exc
     if image_privacy_ledger:
         timings_ms["image_ocr"] = round((time.perf_counter() - t_image_scan_start) * 1000.0, 3)
 
@@ -1234,6 +1298,12 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
         text=document.text,
         findings=result.findings,
     )
+    redacted_images, redaction_degraded_modes = redacted_image_artifacts(
+        list(getattr(document, "image_candidates", []) or []),
+        list(getattr(document, "image_text_spans", []) or []),
+        [(replacement.start_char, replacement.end_char) for replacement in anonymization.replacements],
+    )
+    degraded_modes.extend(redaction_degraded_modes)
     timings_ms["anonymize"] = round((time.perf_counter() - t_anonymize_start) * 1000.0, 3)
 
     document_hash = _compute_document_hash(document.text)
@@ -1273,6 +1343,7 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
         document=document,
         result=result,
         timings_ms=timings_ms,
+        degraded_modes=degraded_modes,
     )
     response = AnonymizeResponse(
         **review_response.model_dump(mode="python"),
@@ -1299,6 +1370,7 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
             )
             for replacement in anonymization.replacements
         ],
+        redacted_images=redacted_images,
     )
 
     observability = get_observability()
@@ -1307,7 +1379,7 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
             endpoint="/anonymize",
             classification=result.overall_risk.value,
             cache_status="disabled",
-            degraded=False,
+            degraded=bool(degraded_modes),
             duration_seconds=timings_ms["total"] / 1000.0,
         )
 
@@ -1843,6 +1915,8 @@ def _serialize_session_state(state: dict[str, Any]) -> ReviewSessionStateRespons
                 end_char=finding["end_char"],
                 source=finding.get("source", "text"),
                 image_locator=finding.get("image_locator"),
+                image_ocr_confidence=finding.get("image_ocr_confidence"),
+                image_ocr_regions=finding.get("image_ocr_regions", []),
                 decision=decision["action"] if decision else None,
                 decision_seq=decision["seq"] if decision else None,
                 decision_ts=decision["ts"] if decision else None,

@@ -405,9 +405,19 @@ class ReviewFindingResponse(BaseModel):
         "text",
         description="Finding source: text for extracted document text, image_ocr for OCR-derived image text.",
     )
-    image_locator: Optional[dict[str, Any]] = Field(
+    image_locator: Optional["ImageLocatorResponse"] = Field(
         None,
         description="Image locator for OCR-derived findings, including container_path and image_index.",
+    )
+    image_ocr_confidence: Optional[float] = Field(
+        None,
+        ge=0.0,
+        le=1.0,
+        description="OCR provider confidence for the source image span when available.",
+    )
+    image_ocr_regions: list["ImageTextRegionResponse"] = Field(
+        default_factory=list,
+        description="OCR text regions and normalized bounding boxes overlapping this finding.",
     )
     source_verification: str = Field(
         "not_checked",
@@ -428,6 +438,41 @@ class ReviewSuggestionResponse(BaseModel):
     action: str = Field(description="Suggested action, such as redact, remove_or_hold, or verify_or_rewrite.")
     replacement_text: str = Field(description="Suggested replacement placeholder or rewrite instruction.")
     rationale: str = Field(description="Reason this remediation is appropriate.")
+
+
+class ImageBoundingBoxResponse(BaseModel):
+    x: float = Field(ge=0.0, le=1.0, description="Normalized left coordinate.")
+    y: float = Field(ge=0.0, le=1.0, description="Normalized top coordinate.")
+    width: float = Field(ge=0.0, le=1.0, description="Normalized box width.")
+    height: float = Field(ge=0.0, le=1.0, description="Normalized box height.")
+
+
+class ImageLocatorResponse(BaseModel):
+    container_path: str = Field(description="Path or synthetic name of the image inside the submitted document.")
+    image_index: int = Field(description="Zero-based image index within the document.")
+    page_number: Optional[int] = Field(None, description="One-based PDF page number when known.")
+    source_type: str = Field(
+        "embedded_image",
+        description="Image source type, such as standalone_image or pdf_page_render.",
+    )
+
+
+class ImageTextRegionResponse(BaseModel):
+    text: str = Field(description="OCR text in this region.")
+    start_char: int = Field(description="Zero-based inclusive start offset in the reviewed text.")
+    end_char: int = Field(description="Zero-based exclusive end offset in the reviewed text.")
+    bounding_box: Optional[ImageBoundingBoxResponse] = Field(
+        None,
+        description="Normalized source-image bounding box for this OCR region.",
+    )
+    confidence: Optional[float] = Field(None, ge=0.0, le=1.0, description="Provider confidence when available.")
+
+
+class DegradedModeResponse(BaseModel):
+    mode: str = Field(description="Subsystem or coverage mode that degraded, such as image_ocr or image_redaction.")
+    status: str = Field(description="Degradation status, such as skipped, failed_closed, or unavailable.")
+    reason: str = Field(description="Human-readable reason for the degraded mode.")
+    detail: Optional[dict[str, Any]] = Field(None, description="Optional structured detail for operators.")
 
 
 class ReviewResponse(BaseModel):
@@ -524,6 +569,10 @@ class ReviewResponse(BaseModel):
             "Each warning carries at least rule_guess and why fields. Engine never acts on "
             "these — reviewer attention only. Also journaled as coverage_warning events."
         ),
+    )
+    degraded_modes: list[DegradedModeResponse] = Field(
+        default_factory=list,
+        description="Explicit fail-closed or best-effort coverage limitations surfaced for this response.",
     )
     timings_ms: dict[str, float] = Field(
         default_factory=dict,
@@ -706,7 +755,12 @@ class ReviewSessionFindingState(BaseModel):
     start_char: int = Field(description="Zero-based inclusive start offset.")
     end_char: int = Field(description="Zero-based exclusive end offset.")
     source: str = Field("text", description="Finding source: text or image_ocr.")
-    image_locator: Optional[dict[str, Any]] = Field(None, description="Image locator for OCR-derived findings.")
+    image_locator: Optional[ImageLocatorResponse] = Field(None, description="Image locator for OCR-derived findings.")
+    image_ocr_confidence: Optional[float] = Field(None, ge=0.0, le=1.0, description="OCR confidence when available.")
+    image_ocr_regions: list[ImageTextRegionResponse] = Field(
+        default_factory=list,
+        description="OCR text regions overlapping this persisted finding.",
+    )
     decision: Optional[str] = Field(
         None,
         description="Current decision: accept, reject, or rewrite. None when undecided.",
@@ -740,6 +794,16 @@ class AnonymizationReplacementResponse(BaseModel):
     original_text: str = Field(description="Exact original substring replaced.")
     start_char: int = Field(description="Zero-based inclusive starting character offset in the extracted text.")
     end_char: int = Field(description="Zero-based exclusive ending character offset in the extracted text.")
+
+
+class RedactedImageResponse(BaseModel):
+    container_path: str = Field(description="Path or synthetic name of the redacted image source.")
+    image_index: int = Field(description="Zero-based image index within the submitted document.")
+    page_number: Optional[int] = Field(None, description="One-based PDF page number when known.")
+    source_type: str = Field("embedded_image", description="Image source type.")
+    mime_type: str = Field(description="MIME type of the returned redacted artifact.")
+    document_base64: str = Field(description="Base64-encoded redacted PNG artifact.")
+    redaction_count: int = Field(description="Number of OCR bounding boxes redacted in this artifact.")
 
 
 class AnonymizeResponse(ReviewResponse):
@@ -814,6 +878,13 @@ class AnonymizeResponse(ReviewResponse):
     replacements: list[AnonymizationReplacementResponse] = Field(
         default_factory=list,
         description="Accepted span-level replacements applied to build anonymized_text.",
+    )
+    redacted_images: list[RedactedImageResponse] = Field(
+        default_factory=list,
+        description=(
+            "Best-effort redacted PNG artifacts for image-origin findings. Empty when no image findings "
+            "were replaced or the OCR provider returned no bounding boxes."
+        ),
     )
 
 
@@ -1010,6 +1081,10 @@ class ClassifyResponse(BaseModel):
     coverage_warnings: list[dict] = Field(
         default_factory=list,
         description="Advisory LLM coverage_warning events (item 8). Populated under audit_grade profile only.",
+    )
+    degraded_modes: list[DegradedModeResponse] = Field(
+        default_factory=list,
+        description="Explicit fail-closed or best-effort coverage limitations surfaced for this response.",
     )
 
 

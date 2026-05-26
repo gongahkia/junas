@@ -13,6 +13,7 @@ from kaypoh.review.image_scan import (
     ImageCandidate,
     collect_docx_images,
     collect_pdf_images,
+    collect_pdf_page_renders,
     image_mime_from_name,
     standalone_image_candidate,
 )
@@ -81,6 +82,14 @@ def _extract_docx(data: bytes) -> str:
             if text:
                 paragraphs.append(text)
         return "\n".join(paragraphs)
+
+
+def _docx_image_count(data: bytes) -> int:
+    try:
+        with zipfile.ZipFile(BytesIO(data)) as archive:
+            return sum(1 for name in archive.namelist() if name.startswith("word/media/"))
+    except Exception:
+        return 0
 
 
 def _pdf_page_image_count(page: Any) -> int:
@@ -153,8 +162,8 @@ def _extract_pdf(
         warnings.append("PDF appears image-heavy without enough extractable text")
     if scanner_hint and avg_chars_per_page < min_chars_per_page:
         warnings.append("PDF producer metadata suggests scanned/OCR content with insufficient text")
-    if warnings and image_scan_enabled and image_count:
-        warnings.append("PDF text layer is sparse; configured image OCR will scan embedded images")
+    if warnings and image_scan_enabled:
+        warnings.append("PDF text layer is sparse; configured image OCR will scan images or rendered pages")
         return extracted, page_count, "ocr_pending", warnings
     if warnings:
         raise ValueError(
@@ -187,6 +196,7 @@ def extract_review_document(
     ingest_settings: Any | None = None,
     *,
     image_scan_enabled: bool = False,
+    image_scan_settings: Any | None = None,
 ) -> ExtractedDocument:
     text = getattr(payload, "text", None)
     filename = str(getattr(payload, "document_filename", "") or "inline.txt")
@@ -219,7 +229,7 @@ def extract_review_document(
             finding.to_dict()
             for finding in inspect_metadata(data, filename=filename, mime_type=mime_type)
         ]
-    except ValueError:
+    except Exception:
         metadata_findings = []
     if mime_type in SUPPORTED_TEXT_MIMES:
         extracted = data.decode("utf-8", errors="replace")
@@ -233,7 +243,12 @@ def extract_review_document(
         method = "docx_xml"
         page_count = None
         extraction_quality = "accepted"
-        extraction_warnings = []
+        image_count = _docx_image_count(data)
+        extraction_warnings = (
+            ["DOCX contains embedded images; reviewed text layer only"]
+            if image_count and not image_scan_enabled
+            else []
+        )
         image_candidates = collect_docx_images(data) if image_scan_enabled else []
     elif mime_type == SUPPORTED_PDF_MIME:
         extracted, page_count, extraction_quality, extraction_warnings = _extract_pdf(
@@ -243,7 +258,23 @@ def extract_review_document(
         )
         method = "pypdf"
         image_candidates = collect_pdf_images(data) if image_scan_enabled else []
-    elif mime_type in SUPPORTED_IMAGE_REVIEW_MIMES or image_mime_from_name(filename, data) in SUPPORTED_IMAGE_REVIEW_MIMES:
+        if image_scan_enabled and not image_candidates and extraction_quality == "ocr_pending":
+            render_enabled = bool(getattr(image_scan_settings, "pdf_render_pages", True))
+            if render_enabled:
+                image_candidates = collect_pdf_page_renders(
+                    data,
+                    max_pages=int(getattr(image_scan_settings, "pdf_render_max_pages", 8) or 8),
+                    scale=float(getattr(image_scan_settings, "pdf_render_scale", 2.0) or 2.0),
+                )
+                if image_candidates:
+                    extraction_warnings = list(extraction_warnings)
+                    extraction_warnings.append(
+                        f"PDF rendered {len(image_candidates)} page(s) for configured image OCR"
+                    )
+    elif (
+        mime_type in SUPPORTED_IMAGE_REVIEW_MIMES
+        or image_mime_from_name(filename, data) in SUPPORTED_IMAGE_REVIEW_MIMES
+    ):
         if not image_scan_enabled:
             raise ValueError(f"unsupported document_mime_type: {mime_type}")
         extracted = ""

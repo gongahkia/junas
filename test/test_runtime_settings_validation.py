@@ -265,6 +265,10 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
             timeout_seconds = 3.5
             max_images = 4
             max_bytes = 2048
+            max_total_bytes = 8192
+            pdf_render_pages = true
+            pdf_render_max_pages = 2
+            pdf_render_scale = 1.5
             """
         )
 
@@ -274,6 +278,10 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
         self.assertEqual(settings.image_scan.timeout_seconds, 3.5)
         self.assertEqual(settings.image_scan.max_images, 4)
         self.assertEqual(settings.image_scan.max_bytes, 2048)
+        self.assertEqual(settings.image_scan.max_total_bytes, 8192)
+        self.assertTrue(settings.image_scan.pdf_render_pages)
+        self.assertEqual(settings.image_scan.pdf_render_max_pages, 2)
+        self.assertEqual(settings.image_scan.pdf_render_scale, 1.5)
 
     def test_invalid_image_scan_provider_raises_config_error(self):
         config_path = self._write_config(
@@ -306,6 +314,23 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
             runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
 
         self.assertIn("tenant_opt_in_openai", str(ctx.exception))
+
+    def test_cloud_image_scan_provider_accepts_per_tenant_opt_in_map(self):
+        config_path = self._write_config(
+            """
+            [pipeline]
+            layers = []
+
+            [image_scan]
+            provider = "openai_vision"
+            tenant_opt_ins_json = '{"tenant-a": ["openai_vision"]}'
+            """
+        )
+
+        settings = runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
+
+        self.assertFalse(settings.image_scan.tenant_opt_in_openai)
+        self.assertEqual(settings.image_scan.tenant_opt_ins["tenant-a"], ("openai_vision",))
 
 
 if __name__ == "__main__":

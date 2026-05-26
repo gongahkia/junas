@@ -273,6 +273,8 @@ class ReviewFinding:
     source_verification: str = SOURCE_VERIFICATION_NOT_CHECKED
     source: str = "text"
     image_locator: dict[str, Any] | None = None
+    image_ocr_confidence: float | None = None
+    image_ocr_regions: list[dict[str, Any]] = field(default_factory=list)
 
 
 @dataclass

@@ -87,16 +87,6 @@
         "response_ref": "#/components/schemas/AnonymizeResponse"
       }
     },
-    "/reidentify": {
-      "post": {
-        "summary": "Reidentify previously anonymized text",
-        "tags": [
-          "Anonymization"
-        ],
-        "request_body_ref": "#/components/schemas/ReidentifyRequest",
-        "response_ref": "#/components/schemas/ReidentifyResponse"
-      }
-    },
     "/documents/scrub": {
       "post": {
         "summary": "Scrub document metadata",
@@ -105,6 +95,16 @@
         ],
         "request_body_ref": "#/components/schemas/DocumentScrubRequest",
         "response_ref": "#/components/schemas/DocumentScrubResponse"
+      }
+    },
+    "/reidentify": {
+      "post": {
+        "summary": "Reidentify previously anonymized text",
+        "tags": [
+          "Anonymization"
+        ],
+        "request_body_ref": "#/components/schemas/ReidentifyRequest",
+        "response_ref": "#/components/schemas/ReidentifyResponse"
       }
     },
     "/review/{review_id}/decision": {
@@ -334,6 +334,8 @@
         "end_char",
         "source",
         "image_locator",
+        "image_ocr_confidence",
+        "image_ocr_regions",
         "decision",
         "decision_seq",
         "decision_ts",
@@ -361,12 +363,14 @@
         "llm_adjudication",
         "privacy_ledger",
         "coverage_warnings",
+        "degraded_modes",
         "timings_ms",
         "anonymized_text",
         "document_hash",
         "mapping_persisted",
         "mapping",
-        "replacements"
+        "replacements",
+        "redacted_images"
       ]
     },
     "ReviewResponse": {
@@ -390,6 +394,7 @@
         "llm_adjudication",
         "privacy_ledger",
         "coverage_warnings",
+        "degraded_modes",
         "timings_ms"
       ]
     }

@@ -173,7 +173,7 @@ Some LLM surfaces are scaffolded or injectable rather than fully production-wire
 
 Evaluation is broader but still seed-scale for non-SG jurisdictions: `docs/accuracy.md` publishes locked baselines over 118 default, 115 adversarial, 5 SEA, and 4 HK/AU/JP/KR fixtures. Persistence remains confidentiality-sensitive: HMAC protects journal integrity, mapping records can be Fernet-encrypted when `KAYPOH_MAPPING_STORE_KEY` is configured, and matched-text journal payloads remain plaintext unless the deployment adds separate encryption, access control, and retention policy. Mapping persistence is still best-effort on `/anonymize`; item 65 remains open because a store write failure logs/returns the inline mapping instead of refusing the request.
 
-Document metadata leakage review/scrub now exists for DOCX core/app/custom properties, DOCX comments, DOCX track-change author/date/initials, PDF info metadata, and JPEG/PNG EXIF when optional dependencies are installed. Remaining document-safety gaps are the broader container/binary surfaces: embedded binaries, hidden Office content, PDF annotations/forms/XMP/embedded files, XLSX pivot caches, PPTX notes/masters, EML/MSG attachments, archives, HTML/SVG/RTF/Markdown hidden text, and image OCR.
+Document metadata leakage review/scrub now exists for DOCX core/app/custom properties, DOCX comments, DOCX track-change author/date/initials, PDF info metadata, and JPEG/PNG EXIF when optional dependencies are installed. Image OCR now covers supported DOCX/PDF/JPEG/PNG paths with typed OCR metadata, per-tenant cloud opt-in, readiness diagnostics, and best-effort redacted image artifacts. Remaining document-safety gaps are the broader container/binary surfaces: embedded binaries, hidden Office content, PDF annotations/forms/XMP/embedded files, XLSX pivot caches, PPTX notes/masters, EML/MSG attachments, archives, and HTML/SVG/RTF/Markdown hidden text.
 
 ### Enterprise readiness self-assessment (2026-05-26)
 
@@ -186,9 +186,9 @@ Honest scoring across procurement-relevant dimensions. Each row maps to expansio
 | Compliance-grade PII accuracy | 5/10 | direct-ID coverage materially improved; broad PII, semantic names, addresses, DOB/age, online IDs, and special-category data remain (33, 34, 35, 40, 70, 71, 78, 79) |
 | MNPI decision reliability | 5/10 | deterministic legal-MNPI rules + source-verification states are useful; contingent/tipping/selective-disclosure/blackout/sector gaps remain (72–85) |
 | Auditability | 7/10 | shipped (14–18, 36, 46); reviewer identity binding (57), bounded rationale (38), defensibility export (89) lift this further |
-| Security / procurement readiness | 6/10 | mapping encryption/retention, tenant isolation/RBAC, deployment hardening, and SIEM shipped (41–43); reviewer identity binding, local-daemon ACL, subject erasure, per-tenant citations, and workflow-wide fail-closed remain (57–60, 65) |
+| Security / procurement readiness | 6/10 | mapping encryption/retention, tenant isolation/RBAC, deployment hardening, SIEM, and OCR provider diagnostics/tenant opt-in shipped (41–43, 64); reviewer identity binding, local-daemon ACL, subject erasure, per-tenant citations, and workflow-wide fail-closed remain (57–60, 65) |
 | Distribution / integration coverage | 4/10 | Docker/Compose server path exists (51 partial); browser extension, Office add-ins, DMS connectors, clipboard/file-watcher, macOS notarisation, and Windows build remain (22–24, 44, 45, 47) |
-| Pre-send document safety completeness | 7/10 | metadata review/scrub + fail-closed PDF ingest shipped (49, 50); SG wedge pack, container recursion, image OCR, and fail-closed meta-audit remain (48, 61, 64, 65) |
+| Pre-send document safety completeness | 7/10 | metadata review/scrub, fail-closed PDF ingest, and image OCR shipped (49, 50, 64); SG wedge pack, container recursion, and fail-closed meta-audit remain (48, 61, 65) |
 | Enterprise appliance / BYOC operability | 5/10 | deterministic Docker image and managed-LLM overlay exist (51 partial); no full appliance runbook, upgrade/backup story, external KMS integration, or customer-held ops-plane separation yet |
 | Product differentiation | 8/10 | reversible local anonymisation + APAC legal-MNPI/direct-ID angle + HMAC audit trail hold; breadth remains intentionally narrower than DLP incumbents |
 
@@ -252,7 +252,7 @@ Operational hardening coverage as of 2026-05-26:
 | Per-detector recall + precision published in `docs/accuracy.md` | ✓ |
 | Document metadata leakage review/scrub | ✓ |
 | Fail-closed scanned-PDF / uncertain-format gate | ✓ |
-| Workflow-wide `degraded_modes` / fail-closed all layers | ✗ |
+| Workflow-wide `degraded_modes` / fail-closed all layers | △ |
 | Enterprise appliance / BYOC deployment posture | △ |
 | Reviewer identity bound to authenticated principal | ✗ |
 | Local-daemon production ACL | ✗ |
@@ -518,15 +518,15 @@ Open work organised by theme. Shipped items are struck through and retained for 
     - **Cloud: AWS Rekognition** — OCR text extraction via `DetectText`, key via `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` (or instance profile). Non-text face/passport-photo recognition remains a detector/schema follow-up.
     - **Cloud: Azure AI Vision** — for tenants standardised on Microsoft cloud; key via `AZURE_VISION_KEY` / `AZURE_VISION_ENDPOINT`.
 
-    All cloud providers pass through `PrivacyGuard` first — raw image bytes are *content*, so they get the same treatment as raw document text in the LLM tier (per-tenant opt-in, ledger entry per call, structured_tokens-equivalent metadata-only mode where the provider API supports it). `kaypoh-local` desktop SKU stays Tesseract-only by default; cloud-vision is `kaypoh-server` + opt-in. Returned findings carry `source: "image_ocr"` + `image_locator: {container_path, image_index}` so reviewers can trace which image flagged. Fail-closed per item 65: if the configured provider is unreachable, refuse the document rather than silently skipping image content.
+    All cloud providers pass through `PrivacyGuard` first — raw image bytes are *content*, so they get the same treatment as raw document text in the LLM tier. Cloud image OCR now has tenant-aware allow lists via `KAYPOH_IMAGE_SCAN_TENANT_OPT_INS_JSON` in addition to the legacy global opt-in flags, and every external image call records a privacy-ledger entry. OCR results carry typed locators, confidence where available, and normalized bounding boxes where the provider exposes them. `/anonymize` returns the anonymized OCR transcript plus best-effort redacted PNG artifacts for standalone images and rendered/scanned PDF pages when bounding boxes exist; if a provider returns text without boxes, `degraded_modes` reports that pixel redaction was unavailable. Readiness/diagnostics expose image-scan provider health, and image extraction enforces per-image, total-byte, image-count, and rendered-page caps. `kaypoh-local` desktop SKU stays Tesseract-only by default; cloud-vision is `kaypoh-server` + tenant opt-in. Fail-closed per item 65: if the configured provider is unreachable, refuse the document rather than silently skipping image content.
 
-65. **Fail-closed everywhere — workflow-wide audit.** Item 50's fail-closed posture is currently scoped to PDF ingest. Extend the principle to every step of the workflow where ambiguous state today defaults open:
+65. **Fail-closed everywhere — workflow-wide audit.** Item 50's fail-closed posture is no longer scoped only to PDF ingest: item 64 now fails closed for configured OCR provider failures and surfaces OCR/redaction coverage through `degraded_modes`. The broader workflow-wide meta-audit remains open. Extend the principle to every remaining step where ambiguous state today defaults open:
 
     - **Detector failures** — if any deterministic recognizer throws (regex catastrophic backtrack, jurisdiction-pack parse error), today the engine catches + continues; should refuse and surface the error rather than ship a finding-incomplete review.
     - **LLM-tier failures** — if `audit_grade` is requested but the LLM provider 5xxs, today the engine downgrades to deterministic-only silently; should either refuse or surface `llm_tier_status: degraded` explicitly so the reviewer knows audit_grade did not actually engage.
     - **Public-evidence retrieval failures** — if Tinyfish/Exa errors, today returns `not_checked` indistinguishably from "actually not checked"; should surface `retrieval_status: error` separately.
     - **Mapping-store failures** — if `KAYPOH_REVIEW_PERSIST=1` but the store path is unwritable or `KAYPOH_MAPPING_STORE_KEY` is missing when encryption is required, today writes plaintext or fails open; should refuse the request.
-    - **Image-scan failures** — per item 64, if the configured image provider is unreachable, refuse rather than silently skip image content.
+    - ~~**Image-scan failures** — per item 64, if the configured image provider is unreachable, refuse rather than silently skip image content.~~ Shipped 2026-05-26 for configured OCR providers, with structured fail-closed HTTP detail and `degraded_modes` for non-fatal OCR/redaction coverage gaps.
     - **Subject-erasure failures** — if reverse-index lookup fails (item 59), refuse the erasure request rather than report success.
     - **Citation-override resolution failures** — if `KAYPOH_CITATIONS_OVERRIDE_DIR/{tenant_id}.toml` is malformed, refuse rather than fall back to global silently.
 

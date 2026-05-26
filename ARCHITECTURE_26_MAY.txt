@@ -319,15 +319,17 @@ What changed in this version vs ARCHITECTURE_25_MAY.txt
 
 3. Fail-closed gate (item 50) extended into a workflow-wide roadmap item
    (item 65) covering container security, detector failures, LLM-tier failures,
-   public-evidence retrieval failures, mapping-store failures, image-scan
-   failures, subject-erasure failures, citation-override resolution failures.
-   The target is a `degraded_modes` array on every API response so callers can
-   act on partial coverage rather than discover it post-hoc. The meta-audit is
-   still open.
+   public-evidence retrieval failures, mapping-store failures, subject-erasure
+   failures, citation-override resolution failures. Image-scan failures are now
+   fail-closed, and /review, /anonymize, and /classify expose `degraded_modes`
+   for the shipped OCR/redaction coverage gaps. The meta-audit is still open.
 
 4. Image-scan / OCR layer (item 64) shipped between metadata scan and
    engine.review() — pluggable backend (Tesseract / OpenAI Vision / Google /
-   AWS Rekognition / Azure). All cloud providers pass through PrivacyGuard.
+   AWS Rekognition / Azure). All cloud providers pass through PrivacyGuard,
+   tenant-aware opt-in, diagnostics/readiness, confidence/box parsing where
+   available, PDF page-render fallback, and best-effort redacted image artifacts
+   on /anonymize.
 
 5. Container coverage (item 61) substantially expanded: XLSX pivot caches,
    PPTX slide-masters, EML/MSG attachments recursive, ZIP/archive nesting,

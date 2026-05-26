@@ -33,11 +33,13 @@ class ImageLocator:
     container_path: str
     image_index: int
     page_number: int | None = None
+    source_type: str = "embedded_image"
 
     def to_dict(self) -> dict[str, Any]:
         payload: dict[str, Any] = {
             "container_path": self.container_path,
             "image_index": self.image_index,
+            "source_type": self.source_type,
         }
         if self.page_number is not None:
             payload["page_number"] = self.page_number
@@ -52,11 +54,50 @@ class ImageCandidate:
 
 
 @dataclass(frozen=True)
+class ImageBoundingBox:
+    x: float
+    y: float
+    width: float
+    height: float
+
+    def to_dict(self) -> dict[str, float]:
+        return {
+            "x": self.x,
+            "y": self.y,
+            "width": self.width,
+            "height": self.height,
+        }
+
+
+@dataclass(frozen=True)
+class ImageTextRegion:
+    text: str
+    start_char: int
+    end_char: int
+    bounding_box: ImageBoundingBox | None = None
+    confidence: float | None = None
+
+    def to_dict(self) -> dict[str, Any]:
+        payload: dict[str, Any] = {
+            "text": self.text,
+            "start_char": self.start_char,
+            "end_char": self.end_char,
+        }
+        if self.bounding_box is not None:
+            payload["bounding_box"] = self.bounding_box.to_dict()
+        if self.confidence is not None:
+            payload["confidence"] = self.confidence
+        return payload
+
+
+@dataclass(frozen=True)
 class ImageOcrResult:
     text: str
     locator: ImageLocator
     provider: str
     privacy_ledger: list[dict[str, Any]] = field(default_factory=list)
+    confidence: float | None = None
+    regions: list[ImageTextRegion] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
@@ -65,6 +106,8 @@ class ImageTextSpan:
     end_char: int
     locator: ImageLocator
     provider: str
+    confidence: float | None = None
+    regions: list[ImageTextRegion] = field(default_factory=list)
 
 
 class ImageScanner(Protocol):
@@ -115,7 +158,7 @@ def collect_docx_images(data: bytes) -> list[ImageCandidate]:
                 ImageCandidate(
                     data=image_data,
                     mime_type=mime_type,
-                    locator=ImageLocator(container_path=name, image_index=index),
+                    locator=ImageLocator(container_path=name, image_index=index, source_type="docx_embedded_image"),
                 )
             )
     return candidates
@@ -148,6 +191,7 @@ def collect_pdf_images(data: bytes) -> list[ImageCandidate]:
                         container_path=name,
                         image_index=image_index,
                         page_number=page_index + 1,
+                        source_type="pdf_embedded_image",
                     ),
                 )
             )
@@ -155,20 +199,74 @@ def collect_pdf_images(data: bytes) -> list[ImageCandidate]:
     return candidates
 
 
+def collect_pdf_page_renders(
+    data: bytes,
+    *,
+    max_pages: int = 8,
+    scale: float = 2.0,
+) -> list[ImageCandidate]:
+    try:
+        import pypdfium2 as pdfium
+    except Exception as exc:
+        raise ImageScanError("PDF page rendering requires the optional pypdfium2 dependency") from exc
+
+    candidates: list[ImageCandidate] = []
+    try:
+        pdf = pdfium.PdfDocument(data)
+    except Exception as exc:
+        raise ImageScanError(f"PDF page rendering failed: {exc}") from exc
+    page_count = min(len(pdf), max_pages)
+    try:
+        for page_index in range(page_count):
+            page = pdf[page_index]
+            try:
+                bitmap = page.render(scale=scale)
+                image = bitmap.to_pil()
+                with BytesIO() as buffer:
+                    image.save(buffer, format="PNG")
+                    image_data = buffer.getvalue()
+            finally:
+                close = getattr(page, "close", None)
+                if callable(close):
+                    close()
+            candidates.append(
+                ImageCandidate(
+                    data=image_data,
+                    mime_type="image/png",
+                    locator=ImageLocator(
+                        container_path=f"page-{page_index + 1}.png",
+                        image_index=page_index,
+                        page_number=page_index + 1,
+                        source_type="pdf_page_render",
+                    ),
+                )
+            )
+    finally:
+        close = getattr(pdf, "close", None)
+        if callable(close):
+            close()
+    return candidates
+
+
 def standalone_image_candidate(data: bytes, *, filename: str, mime_type: str) -> ImageCandidate:
     return ImageCandidate(
         data=data,
         mime_type=image_mime_from_name(filename, data) if not mime_type else mime_type,
-        locator=ImageLocator(container_path=filename or "document-image", image_index=0),
+        locator=ImageLocator(
+            container_path=filename or "document-image",
+            image_index=0,
+            source_type="standalone_image",
+        ),
     )
 
 
 class _CloudImageScanner:
     provider: str
 
-    def __init__(self, *, privacy_guard: PrivacyGuard, tenant_opt_in: bool):
+    def __init__(self, *, privacy_guard: PrivacyGuard, tenant_opt_in: bool, tenant_id: str | None = None):
         self.privacy_guard = privacy_guard
         self.tenant_opt_in = tenant_opt_in
+        self.tenant_id = tenant_id
 
     def _ledger_or_raise(self, candidate: ImageCandidate) -> list[dict[str, Any]]:
         entry = self.privacy_guard.check_external_content(
@@ -188,30 +286,176 @@ class TesseractImageScanner:
 
     def scan(self, candidate: ImageCandidate) -> ImageOcrResult:
         try:
-            from PIL import Image
             import pytesseract
+            from PIL import Image
         except Exception as exc:
             raise ImageScanError("Tesseract OCR requires Pillow and pytesseract") from exc
 
         try:
             with Image.open(BytesIO(candidate.data)) as image:
-                text = pytesseract.image_to_string(image)
+                text, regions, confidence = _tesseract_text_regions(pytesseract, image)
         except Exception as exc:
             raise ImageScanError(f"Tesseract OCR failed for {candidate.locator.container_path}: {exc}") from exc
         return ImageOcrResult(
             text=clean_ocr_text(text),
             locator=candidate.locator,
             provider=self.provider,
+            confidence=confidence,
+            regions=regions,
         )
+
+
+def _mean_confidence(values: list[float]) -> float | None:
+    valid = [value for value in values if 0.0 <= value <= 1.0]
+    if not valid:
+        return None
+    return sum(valid) / len(valid)
+
+
+def _normalize_confidence(raw: Any) -> float | None:
+    try:
+        value = float(raw)
+    except (TypeError, ValueError):
+        return None
+    if value < 0:
+        return None
+    if value > 1.0:
+        value = value / 100.0
+    return max(0.0, min(1.0, value))
+
+
+def _bbox_from_pixels(
+    left: Any,
+    top: Any,
+    width: Any,
+    height: Any,
+    image_width: int,
+    image_height: int,
+) -> ImageBoundingBox:
+    iw = max(1, int(image_width))
+    ih = max(1, int(image_height))
+    return ImageBoundingBox(
+        x=max(0.0, min(1.0, float(left or 0) / iw)),
+        y=max(0.0, min(1.0, float(top or 0) / ih)),
+        width=max(0.0, min(1.0, float(width or 0) / iw)),
+        height=max(0.0, min(1.0, float(height or 0) / ih)),
+    )
+
+
+def _bbox_from_vertices(vertices: Any) -> ImageBoundingBox | None:
+    points: list[tuple[float, float]] = []
+    for vertex in vertices or []:
+        x = getattr(vertex, "x", None)
+        y = getattr(vertex, "y", None)
+        if x is None and isinstance(vertex, dict):
+            x = vertex.get("x")
+            y = vertex.get("y")
+        if x is None or y is None:
+            continue
+        points.append((float(x), float(y)))
+    if not points:
+        return None
+    xs = [point[0] for point in points]
+    ys = [point[1] for point in points]
+    min_x = max(0.0, min(xs))
+    min_y = max(0.0, min(ys))
+    max_x = min(1.0, max(xs))
+    max_y = min(1.0, max(ys))
+    return ImageBoundingBox(
+        x=min_x,
+        y=min_y,
+        width=max(0.0, max_x - min_x),
+        height=max(0.0, max_y - min_y),
+    )
+
+
+def _bbox_from_polygon(raw_polygon: Any) -> ImageBoundingBox | None:
+    if raw_polygon is None:
+        return None
+    values = list(raw_polygon)
+    if len(values) < 4:
+        return None
+    xs = [float(values[index]) for index in range(0, len(values), 2)]
+    ys = [float(values[index]) for index in range(1, len(values), 2)]
+    min_x = max(0.0, min(xs))
+    min_y = max(0.0, min(ys))
+    max_x = min(1.0, max(xs))
+    max_y = min(1.0, max(ys))
+    return ImageBoundingBox(
+        x=min_x,
+        y=min_y,
+        width=max(0.0, max_x - min_x),
+        height=max(0.0, max_y - min_y),
+    )
+
+
+def _list_item(values: Any, index: int, default: Any = None) -> Any:
+    try:
+        return values[index]
+    except Exception:
+        return default
+
+
+def _append_region_text(parts: list[str], text: str, *, separator: str = " ") -> int:
+    if not text:
+        return sum(len(part) for part in parts)
+    if parts:
+        parts.append(separator)
+    start = sum(len(part) for part in parts)
+    parts.append(text)
+    return start
+
+
+def _tesseract_text_regions(pytesseract: Any, image: Any) -> tuple[str, list[ImageTextRegion], float | None]:
+    try:
+        data = pytesseract.image_to_data(image, output_type=pytesseract.Output.DICT)
+    except Exception:
+        return pytesseract.image_to_string(image), [], None
+
+    width, height = image.size
+    parts: list[str] = []
+    regions: list[ImageTextRegion] = []
+    confidences: list[float] = []
+    texts = list(data.get("text", []) or [])
+    for index, raw_text in enumerate(texts):
+        word = clean_ocr_text(str(raw_text or ""))
+        if not word:
+            continue
+        start = _append_region_text(parts, word)
+        end = start + len(word)
+        confidence = _normalize_confidence(_list_item(data.get("conf", []), index))
+        if confidence is not None:
+            confidences.append(confidence)
+        regions.append(
+            ImageTextRegion(
+                text=word,
+                start_char=start,
+                end_char=end,
+                bounding_box=_bbox_from_pixels(
+                    _list_item(data.get("left", []), index, 0),
+                    _list_item(data.get("top", []), index, 0),
+                    _list_item(data.get("width", []), index, 0),
+                    _list_item(data.get("height", []), index, 0),
+                    width,
+                    height,
+                ),
+                confidence=confidence,
+            )
+        )
+    text = "".join(parts)
+    if not text:
+        text = pytesseract.image_to_string(image)
+    return text, regions, _mean_confidence(confidences)
 
 
 class OpenAIVisionImageScanner(_CloudImageScanner):
     provider = "openai_vision"
 
-    def __init__(self, settings: Any, *, privacy_guard: PrivacyGuard):
+    def __init__(self, settings: Any, *, privacy_guard: PrivacyGuard, tenant_id: str | None = None):
         super().__init__(
             privacy_guard=privacy_guard,
-            tenant_opt_in=bool(getattr(settings, "tenant_opt_in_openai", False)),
+            tenant_opt_in=_image_scan_tenant_opt_in(settings, "openai_vision", tenant_id),
+            tenant_id=tenant_id,
         )
         self.api_key = str(getattr(settings, "openai_api_key", "") or "")
         self.base_url = str(getattr(settings, "openai_base_url", "https://api.openai.com/v1/responses") or "")
@@ -276,10 +520,11 @@ def _extract_openai_output_text(payload: dict[str, Any]) -> str:
 class GoogleVisionImageScanner(_CloudImageScanner):
     provider = "google_vision"
 
-    def __init__(self, settings: Any, *, privacy_guard: PrivacyGuard):
+    def __init__(self, settings: Any, *, privacy_guard: PrivacyGuard, tenant_id: str | None = None):
         super().__init__(
             privacy_guard=privacy_guard,
-            tenant_opt_in=bool(getattr(settings, "tenant_opt_in_google", False)),
+            tenant_opt_in=_image_scan_tenant_opt_in(settings, "google_vision", tenant_id),
+            tenant_id=tenant_id,
         )
         try:
             from google.cloud import vision
@@ -299,6 +544,7 @@ class GoogleVisionImageScanner(_CloudImageScanner):
         if error:
             raise ImageScanError(f"google_vision OCR failed: {error}")
         full_text = getattr(getattr(response, "full_text_annotation", None), "text", "")
+        regions = _google_text_regions(response)
         if not full_text:
             annotations = getattr(response, "text_annotations", []) or []
             if annotations:
@@ -308,16 +554,47 @@ class GoogleVisionImageScanner(_CloudImageScanner):
             locator=candidate.locator,
             provider=self.provider,
             privacy_ledger=ledger,
+            regions=regions,
+            confidence=_mean_confidence([region.confidence for region in regions if region.confidence is not None]),
         )
+
+
+def _google_text_regions(response: Any) -> list[ImageTextRegion]:
+    annotations = list(getattr(response, "text_annotations", []) or [])
+    if len(annotations) <= 1:
+        return []
+    regions: list[ImageTextRegion] = []
+    parts: list[str] = []
+    for annotation in annotations[1:]:
+        word = clean_ocr_text(str(getattr(annotation, "description", "") or ""))
+        if not word:
+            continue
+        start = _append_region_text(parts, word)
+        vertices = getattr(getattr(annotation, "bounding_poly", None), "normalized_vertices", None)
+        if not vertices:
+            vertices = getattr(getattr(annotation, "bounding_poly", None), "vertices", None)
+            # Non-normalized Google vertices are not portable without dimensions.
+            vertices = None
+        regions.append(
+            ImageTextRegion(
+                text=word,
+                start_char=start,
+                end_char=start + len(word),
+                bounding_box=_bbox_from_vertices(vertices),
+                confidence=None,
+            )
+        )
+    return regions
 
 
 class AWSRekognitionImageScanner(_CloudImageScanner):
     provider = "aws_rekognition"
 
-    def __init__(self, settings: Any, *, privacy_guard: PrivacyGuard):
+    def __init__(self, settings: Any, *, privacy_guard: PrivacyGuard, tenant_id: str | None = None):
         super().__init__(
             privacy_guard=privacy_guard,
-            tenant_opt_in=bool(getattr(settings, "tenant_opt_in_aws", False)),
+            tenant_opt_in=_image_scan_tenant_opt_in(settings, "aws_rekognition", tenant_id),
+            tenant_id=tenant_id,
         )
         try:
             import boto3
@@ -339,12 +616,14 @@ class AWSRekognitionImageScanner(_CloudImageScanner):
         if not lines:
             lines = [item for item in detections if item.get("Type") == "WORD"]
         lines.sort(key=_rekognition_sort_key)
-        text = "\n".join(str(item.get("DetectedText", "") or "") for item in lines)
+        text, regions, confidence = _rekognition_regions(lines)
         return ImageOcrResult(
             text=clean_ocr_text(text),
             locator=candidate.locator,
             provider=self.provider,
             privacy_ledger=ledger,
+            confidence=confidence,
+            regions=regions,
         )
 
 
@@ -353,13 +632,44 @@ def _rekognition_sort_key(item: dict[str, Any]) -> tuple[float, float, int]:
     return (float(box.get("Top", 0.0) or 0.0), float(box.get("Left", 0.0) or 0.0), int(item.get("Id", 0) or 0))
 
 
+def _rekognition_regions(items: list[dict[str, Any]]) -> tuple[str, list[ImageTextRegion], float | None]:
+    parts: list[str] = []
+    regions: list[ImageTextRegion] = []
+    confidences: list[float] = []
+    for item in items:
+        line = clean_ocr_text(str(item.get("DetectedText", "") or ""))
+        if not line:
+            continue
+        start = _append_region_text(parts, line, separator="\n")
+        box = ((item.get("Geometry") or {}).get("BoundingBox") or {})
+        confidence = _normalize_confidence(item.get("Confidence"))
+        if confidence is not None:
+            confidences.append(confidence)
+        regions.append(
+            ImageTextRegion(
+                text=line,
+                start_char=start,
+                end_char=start + len(line),
+                bounding_box=ImageBoundingBox(
+                    x=float(box.get("Left", 0.0) or 0.0),
+                    y=float(box.get("Top", 0.0) or 0.0),
+                    width=float(box.get("Width", 0.0) or 0.0),
+                    height=float(box.get("Height", 0.0) or 0.0),
+                ),
+                confidence=confidence,
+            )
+        )
+    return "".join(parts), regions, _mean_confidence(confidences)
+
+
 class AzureVisionImageScanner(_CloudImageScanner):
     provider = "azure_vision"
 
-    def __init__(self, settings: Any, *, privacy_guard: PrivacyGuard):
+    def __init__(self, settings: Any, *, privacy_guard: PrivacyGuard, tenant_id: str | None = None):
         super().__init__(
             privacy_guard=privacy_guard,
-            tenant_opt_in=bool(getattr(settings, "tenant_opt_in_azure", False)),
+            tenant_opt_in=_image_scan_tenant_opt_in(settings, "azure_vision", tenant_id),
+            tenant_id=tenant_id,
         )
         endpoint = str(getattr(settings, "azure_endpoint", "") or "")
         key = str(getattr(settings, "azure_key", "") or "")
@@ -384,34 +694,68 @@ class AzureVisionImageScanner(_CloudImageScanner):
         except Exception as exc:
             raise ImageScanError(f"azure_vision OCR failed: {exc}") from exc
         lines: list[str] = []
+        regions: list[ImageTextRegion] = []
+        parts: list[str] = []
         read = getattr(result, "read", None)
         for block in getattr(read, "blocks", []) or []:
             for line in getattr(block, "lines", []) or []:
                 text = str(getattr(line, "text", "") or "")
                 if text:
                     lines.append(text)
+                    cleaned_text = clean_ocr_text(text)
+                    start = _append_region_text(parts, cleaned_text, separator="\n")
+                    regions.append(
+                        ImageTextRegion(
+                            text=cleaned_text,
+                            start_char=start,
+                            end_char=start + len(cleaned_text),
+                            bounding_box=_bbox_from_polygon(getattr(line, "bounding_polygon", None)),
+                            confidence=None,
+                        )
+                    )
         return ImageOcrResult(
             text=clean_ocr_text("\n".join(lines)),
             locator=candidate.locator,
             provider=self.provider,
             privacy_ledger=ledger,
+            regions=regions,
         )
 
 
-def build_image_scanner(settings: Any, privacy_guard: PrivacyGuard) -> ImageScanner | None:
+def _image_scan_tenant_opt_in(settings: Any, provider: str, tenant_id: str | None) -> bool:
+    flag_by_provider = {
+        "openai_vision": "tenant_opt_in_openai",
+        "google_vision": "tenant_opt_in_google",
+        "aws_rekognition": "tenant_opt_in_aws",
+        "azure_vision": "tenant_opt_in_azure",
+    }
+    global_flag = bool(getattr(settings, flag_by_provider.get(provider, ""), False))
+    tenant_map = getattr(settings, "tenant_opt_ins", {}) or {}
+    if tenant_id:
+        allowed = set(tenant_map.get(tenant_id, ()) or ())
+        if provider in allowed or "*" in allowed:
+            return True
+    return global_flag
+
+
+def build_image_scanner(
+    settings: Any,
+    privacy_guard: PrivacyGuard,
+    tenant_id: str | None = None,
+) -> ImageScanner | None:
     provider = str(getattr(settings, "provider", "none") or "none").lower()
     if provider == "none":
         return None
     if provider == "tesseract":
         return TesseractImageScanner()
     if provider == "openai_vision":
-        return OpenAIVisionImageScanner(settings, privacy_guard=privacy_guard)
+        return OpenAIVisionImageScanner(settings, privacy_guard=privacy_guard, tenant_id=tenant_id)
     if provider == "google_vision":
-        return GoogleVisionImageScanner(settings, privacy_guard=privacy_guard)
+        return GoogleVisionImageScanner(settings, privacy_guard=privacy_guard, tenant_id=tenant_id)
     if provider == "aws_rekognition":
-        return AWSRekognitionImageScanner(settings, privacy_guard=privacy_guard)
+        return AWSRekognitionImageScanner(settings, privacy_guard=privacy_guard, tenant_id=tenant_id)
     if provider == "azure_vision":
-        return AzureVisionImageScanner(settings, privacy_guard=privacy_guard)
+        return AzureVisionImageScanner(settings, privacy_guard=privacy_guard, tenant_id=tenant_id)
     raise ImageScanError(f"unsupported image OCR provider: {provider}")
 
 
@@ -423,21 +767,31 @@ def scan_image_candidates(
 ) -> tuple[list[ImageOcrResult], list[dict[str, Any]]]:
     max_images = int(getattr(settings, "max_images", 32) or 32)
     max_bytes = int(getattr(settings, "max_bytes", 10 * 1024 * 1024) or (10 * 1024 * 1024))
+    max_total_bytes = int(getattr(settings, "max_total_bytes", max_bytes * max_images) or (max_bytes * max_images))
     if len(candidates) > max_images:
         raise ImageScanError(f"image OCR refused {len(candidates)} images; maximum is {max_images}")
+    total_bytes = sum(len(candidate.data) for candidate in candidates)
+    if total_bytes > max_total_bytes:
+        raise ImageScanError(f"image OCR refused {total_bytes} total image bytes; maximum is {max_total_bytes}")
 
     results: list[ImageOcrResult] = []
     privacy_ledger: list[dict[str, Any]] = []
     for candidate in candidates:
         if candidate.mime_type not in SUPPORTED_IMAGE_MIMES:
-            raise ImageScanError(f"image OCR does not support {candidate.mime_type} at {candidate.locator.container_path}")
+            raise ImageScanError(
+                f"image OCR does not support {candidate.mime_type} at {candidate.locator.container_path}"
+            )
         if len(candidate.data) > max_bytes:
             raise ImageScanError(
                 f"image OCR refused {candidate.locator.container_path}; "
                 f"{len(candidate.data)} bytes exceeds maximum {max_bytes}"
             )
         raw_result = scanner.scan(candidate)
-        result = _coerce_scan_result(raw_result, candidate=candidate, provider=getattr(scanner, "provider", "image_ocr"))
+        result = _coerce_scan_result(
+            raw_result,
+            candidate=candidate,
+            provider=getattr(scanner, "provider", "image_ocr"),
+        )
         privacy_ledger.extend(result.privacy_ledger)
         if result.text:
             results.append(result)
@@ -459,8 +813,22 @@ def _coerce_scan_result(raw_result: Any, *, candidate: ImageCandidate, provider:
             locator=candidate.locator,
             provider=str(raw_result.get("provider", provider) or provider),
             privacy_ledger=list(raw_result.get("privacy_ledger", []) or []),
+            confidence=_normalize_confidence(raw_result.get("confidence")),
         )
     raise ImageScanError(f"image scanner returned unsupported result type: {type(raw_result).__name__}")
+
+
+def _offset_regions(regions: list[ImageTextRegion], offset: int) -> list[ImageTextRegion]:
+    return [
+        ImageTextRegion(
+            text=region.text,
+            start_char=region.start_char + offset,
+            end_char=region.end_char + offset,
+            bounding_box=region.bounding_box,
+            confidence=region.confidence,
+        )
+        for region in regions
+    ]
 
 
 def append_ocr_text_blocks(
@@ -486,6 +854,8 @@ def append_ocr_text_blocks(
                 end_char=end,
                 locator=result.locator,
                 provider=result.provider,
+                confidence=result.confidence,
+                regions=_offset_regions(result.regions, start),
             )
         )
     return text, spans
@@ -496,3 +866,222 @@ def image_locator_for_span(spans: list[ImageTextSpan], start: int, end: int) -> 
         if span.start_char <= start and end <= span.end_char:
             return span.locator.to_dict()
     return None
+
+
+def image_ocr_metadata_for_span(spans: list[ImageTextSpan], start: int, end: int) -> dict[str, Any] | None:
+    for span in spans:
+        if span.start_char <= start and end <= span.end_char:
+            regions = image_regions_for_span(spans, start, end)
+            return {
+                "locator": span.locator.to_dict(),
+                "provider": span.provider,
+                "confidence": span.confidence,
+                "regions": [region.to_dict() for region in regions],
+            }
+    return None
+
+
+def image_regions_for_span(spans: list[ImageTextSpan], start: int, end: int) -> list[ImageTextRegion]:
+    regions: list[ImageTextRegion] = []
+    for span in spans:
+        if end < span.start_char or start > span.end_char:
+            continue
+        for region in span.regions:
+            if region.end_char <= start or region.start_char >= end:
+                continue
+            regions.append(region)
+    return regions
+
+
+def health_check_image_scan(settings: Any) -> dict[str, Any]:
+    provider = str(getattr(settings, "provider", "none") or "none").lower()
+    if provider == "none":
+        return {
+            "status": "disabled",
+            "configured": False,
+            "healthy": None,
+            "detail": "image OCR is disabled",
+        }
+    if provider == "tesseract":
+        try:
+            import pytesseract
+            from PIL import Image  # noqa: F401
+
+            version = pytesseract.get_tesseract_version()
+        except Exception as exc:
+            return {
+                "status": "down",
+                "configured": True,
+                "healthy": False,
+                "detail": f"provider=tesseract unavailable: {exc}",
+            }
+        return {
+            "status": "up",
+            "configured": True,
+            "healthy": True,
+            "detail": f"provider=tesseract; version={version}",
+        }
+    if provider == "openai_vision":
+        configured = bool(getattr(settings, "openai_api_key", ""))
+        healthy = configured and _cloud_provider_has_any_opt_in(settings, provider)
+        detail = "provider=openai_vision"
+        if not configured:
+            detail += "; OPENAI_API_KEY missing"
+        if not _cloud_provider_has_any_opt_in(settings, provider):
+            detail += "; tenant opt-in missing"
+        return {
+            "status": "configured" if healthy else "down",
+            "configured": configured,
+            "healthy": healthy,
+            "detail": detail,
+        }
+    if provider == "google_vision":
+        try:
+            from google.cloud import vision  # noqa: F401
+            import_ok = True
+        except Exception as exc:
+            import_ok = False
+            import_error = str(exc)
+        else:
+            import_error = ""
+        healthy = import_ok and _cloud_provider_has_any_opt_in(settings, provider)
+        detail = "provider=google_vision"
+        if not import_ok:
+            detail += f"; google-cloud-vision unavailable: {import_error}"
+        if not _cloud_provider_has_any_opt_in(settings, provider):
+            detail += "; tenant opt-in missing"
+        return {"status": "configured" if healthy else "down", "configured": True, "healthy": healthy, "detail": detail}
+    if provider == "aws_rekognition":
+        try:
+            import boto3  # noqa: F401
+            import_ok = True
+        except Exception as exc:
+            import_ok = False
+            import_error = str(exc)
+        else:
+            import_error = ""
+        healthy = import_ok and _cloud_provider_has_any_opt_in(settings, provider)
+        detail = f"provider=aws_rekognition; region={getattr(settings, 'aws_region', '') or 'default'}"
+        if not import_ok:
+            detail += f"; boto3 unavailable: {import_error}"
+        if not _cloud_provider_has_any_opt_in(settings, provider):
+            detail += "; tenant opt-in missing"
+        return {"status": "configured" if healthy else "down", "configured": True, "healthy": healthy, "detail": detail}
+    if provider == "azure_vision":
+        configured = bool(getattr(settings, "azure_endpoint", "")) and bool(getattr(settings, "azure_key", ""))
+        try:
+            from azure.ai.vision.imageanalysis import ImageAnalysisClient  # noqa: F401
+            import_ok = True
+        except Exception as exc:
+            import_ok = False
+            import_error = str(exc)
+        else:
+            import_error = ""
+        healthy = configured and import_ok and _cloud_provider_has_any_opt_in(settings, provider)
+        detail = "provider=azure_vision"
+        if not configured:
+            detail += "; AZURE_VISION_ENDPOINT or AZURE_VISION_KEY missing"
+        if not import_ok:
+            detail += f"; azure-ai-vision-imageanalysis unavailable: {import_error}"
+        if not _cloud_provider_has_any_opt_in(settings, provider):
+            detail += "; tenant opt-in missing"
+        return {
+            "status": "configured" if healthy else "down",
+            "configured": configured,
+            "healthy": healthy,
+            "detail": detail,
+        }
+    return {
+        "status": "down",
+        "configured": True,
+        "healthy": False,
+        "detail": f"unsupported image OCR provider: {provider}",
+    }
+
+
+def _cloud_provider_has_any_opt_in(settings: Any, provider: str) -> bool:
+    if _image_scan_tenant_opt_in(settings, provider, None):
+        return True
+    tenant_map = getattr(settings, "tenant_opt_ins", {}) or {}
+    return any(provider in set(value or ()) or "*" in set(value or ()) for value in tenant_map.values())
+
+
+def redacted_image_artifacts(
+    candidates: list[ImageCandidate],
+    spans: list[ImageTextSpan],
+    replacement_spans: list[tuple[int, int]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    boxes_by_key: dict[tuple[str, int, int | None], list[ImageBoundingBox]] = {}
+    missing_boxes: set[tuple[str, int, int | None]] = set()
+    for start, end in replacement_spans:
+        matched_span = next((span for span in spans if span.start_char <= start and end <= span.end_char), None)
+        if matched_span is None:
+            continue
+        key = (
+            matched_span.locator.container_path,
+            matched_span.locator.image_index,
+            matched_span.locator.page_number,
+        )
+        regions = image_regions_for_span(spans, start, end)
+        boxes = [region.bounding_box for region in regions if region.bounding_box is not None]
+        if boxes:
+            boxes_by_key.setdefault(key, []).extend(boxes)
+        else:
+            missing_boxes.add(key)
+
+    artifacts: list[dict[str, Any]] = []
+    degraded_modes: list[dict[str, Any]] = []
+    candidate_by_key = {
+        (candidate.locator.container_path, candidate.locator.image_index, candidate.locator.page_number): candidate
+        for candidate in candidates
+    }
+    for key, boxes in boxes_by_key.items():
+        candidate = candidate_by_key.get(key)
+        if candidate is None:
+            continue
+        try:
+            artifacts.append(_redact_candidate(candidate, boxes))
+        except Exception as exc:
+            degraded_modes.append(
+                {
+                    "mode": "image_redaction",
+                    "status": "unavailable",
+                    "reason": f"redaction failed for {candidate.locator.container_path}: {exc}",
+                }
+            )
+    for key in sorted(missing_boxes - set(boxes_by_key)):
+        degraded_modes.append(
+            {
+                "mode": "image_redaction",
+                "status": "unavailable",
+                "reason": f"OCR provider returned no bounding boxes for {key[0]}#{key[1]}",
+            }
+        )
+    return artifacts, degraded_modes
+
+
+def _redact_candidate(candidate: ImageCandidate, boxes: list[ImageBoundingBox]) -> dict[str, Any]:
+    from PIL import Image, ImageDraw
+
+    with Image.open(BytesIO(candidate.data)) as image:
+        redacted = image.convert("RGB")
+        draw = ImageDraw.Draw(redacted)
+        width, height = redacted.size
+        for box in boxes:
+            left = int(max(0.0, min(1.0, box.x)) * width)
+            top = int(max(0.0, min(1.0, box.y)) * height)
+            right = int(max(0.0, min(1.0, box.x + box.width)) * width)
+            bottom = int(max(0.0, min(1.0, box.y + box.height)) * height)
+            draw.rectangle((left, top, max(left + 1, right), max(top + 1, bottom)), fill=(0, 0, 0))
+        with BytesIO() as buffer:
+            redacted.save(buffer, format="PNG")
+            encoded = base64.b64encode(buffer.getvalue()).decode("ascii")
+    return {
+        "container_path": candidate.locator.container_path,
+        "image_index": candidate.locator.image_index,
+        "page_number": candidate.locator.page_number,
+        "source_type": candidate.locator.source_type,
+        "mime_type": "image/png",
+        "document_base64": encoded,
+        "redaction_count": len(boxes),
+    }

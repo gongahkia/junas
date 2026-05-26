@@ -1,5 +1,6 @@
 import base64
 import os
+import types
 import unittest
 import zipfile
 from contextlib import asynccontextmanager
@@ -10,7 +11,19 @@ from fastapi.testclient import TestClient
 from PIL import Image
 
 import backend.main as main
-from kaypoh.review.image_scan import ImageOcrResult, ImageScanError, collect_docx_images
+from kaypoh.review.document import extract_review_document
+from kaypoh.review.image_scan import (
+    AWSRekognitionImageScanner,
+    ImageBoundingBox,
+    ImageCandidate,
+    ImageLocator,
+    ImageOcrResult,
+    ImageScanError,
+    ImageTextRegion,
+    collect_docx_images,
+    scan_image_candidates,
+)
+from kaypoh.workflow.privacy_guard import PrivacyGuard
 
 
 @asynccontextmanager
@@ -54,11 +67,22 @@ class FakeImageScanner:
         self.last_candidate = candidate
         if self.fail:
             raise ImageScanError("fake OCR unavailable")
+        regions = [
+            ImageTextRegion(
+                text=self.text,
+                start_char=0,
+                end_char=len(self.text),
+                bounding_box=ImageBoundingBox(x=0.05, y=0.1, width=0.6, height=0.5),
+                confidence=0.98,
+            )
+        ]
         return ImageOcrResult(
             text=self.text,
             locator=candidate.locator,
             provider=self.provider,
             privacy_ledger=list(self.ledger),
+            confidence=0.98,
+            regions=regions,
         )
 
 
@@ -112,6 +136,8 @@ class ImageScanTests(unittest.TestCase):
         self.assertEqual(finding["source"], "image_ocr")
         self.assertEqual(finding["image_locator"]["container_path"], "scan.png")
         self.assertEqual(finding["image_locator"]["image_index"], 0)
+        self.assertEqual(finding["image_ocr_confidence"], 0.98)
+        self.assertEqual(finding["image_ocr_regions"][0]["bounding_box"]["x"], 0.05)
         self.assertEqual(scanner.last_candidate.mime_type, "image/png")
 
     def test_image_ocr_failure_fails_closed(self):
@@ -125,7 +151,9 @@ class ImageScanTests(unittest.TestCase):
                 )
 
         self.assertEqual(response.status_code, 422)
-        self.assertIn("fake OCR unavailable", response.json()["detail"])
+        detail = response.json()["detail"]
+        self.assertEqual(detail["message"], "fake OCR unavailable")
+        self.assertEqual(detail["degraded_modes"][0]["status"], "failed_closed")
 
     def test_cloud_image_ocr_privacy_ledger_is_returned(self):
         ledger = [
@@ -159,6 +187,137 @@ class ImageScanTests(unittest.TestCase):
         self.assertEqual(entry["operation"], "image_ocr")
         self.assertEqual(entry["content_sha256"], "a" * 64)
         self.assertEqual(entry["content_type"], "image/png")
+
+    def test_anonymize_returns_redacted_image_artifact_when_boxes_exist(self):
+        main._state["models"] = {"image_scanner": FakeImageScanner(text="S1234567D")}
+        encoded = base64.b64encode(_png_bytes()).decode("ascii")
+        with mock.patch.dict(os.environ, {"KAYPOH_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
+            with TestClient(main.app) as client:
+                response = client.post(
+                    "/anonymize",
+                    json={
+                        "document_base64": encoded,
+                        "document_filename": "scan.png",
+                        "source_jurisdiction": "SG",
+                        "destination_jurisdiction": "SG",
+                    },
+                )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        self.assertIn("[NRIC_FIN_1]", payload["anonymized_text"])
+        self.assertEqual(len(payload["redacted_images"]), 1)
+        redacted = payload["redacted_images"][0]
+        self.assertEqual(redacted["mime_type"], "image/png")
+        self.assertGreater(len(base64.b64decode(redacted["document_base64"])), 0)
+        self.assertEqual(payload["degraded_modes"], [])
+
+    def test_anonymize_reports_degraded_mode_when_boxes_missing(self):
+        class NoBoxScanner(FakeImageScanner):
+            def scan(self, candidate):
+                return ImageOcrResult(text="S1234567D", locator=candidate.locator, provider=self.provider)
+
+        main._state["models"] = {"image_scanner": NoBoxScanner()}
+        encoded = base64.b64encode(_png_bytes()).decode("ascii")
+        with mock.patch.dict(os.environ, {"KAYPOH_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
+            with TestClient(main.app) as client:
+                response = client.post(
+                    "/anonymize",
+                    json={"document_base64": encoded, "document_filename": "scan.png"},
+                )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        self.assertEqual(payload["redacted_images"], [])
+        self.assertEqual(payload["degraded_modes"][0]["mode"], "image_redaction")
+
+    def test_scan_image_candidates_enforces_total_byte_limit(self):
+        candidate = ImageCandidate(
+            data=b"x" * 10,
+            mime_type="image/png",
+            locator=ImageLocator(container_path="a.png", image_index=0),
+        )
+        settings = types.SimpleNamespace(max_images=4, max_bytes=1024, max_total_bytes=12)
+        with self.assertRaises(ImageScanError) as ctx:
+            scan_image_candidates([candidate, candidate], scanner=FakeImageScanner(), settings=settings)
+
+        self.assertIn("total image bytes", str(ctx.exception))
+
+    def test_pdf_ocr_uses_page_render_fallback_when_no_embedded_images(self):
+        rendered = ImageCandidate(
+            data=_png_bytes(),
+            mime_type="image/png",
+            locator=ImageLocator(
+                container_path="page-1.png",
+                image_index=0,
+                page_number=1,
+                source_type="pdf_page_render",
+            ),
+        )
+        payload = types.SimpleNamespace(
+            document_base64=base64.b64encode(b"%PDF-stub").decode("ascii"),
+            document_filename="scan.pdf",
+            document_mime_type="application/pdf",
+        )
+        image_settings = types.SimpleNamespace(pdf_render_pages=True, pdf_render_max_pages=1, pdf_render_scale=1.0)
+        with mock.patch("kaypoh.review.document._extract_pdf") as extract_pdf:
+            with mock.patch("kaypoh.review.document.collect_pdf_images", return_value=[]):
+                with mock.patch("kaypoh.review.document.collect_pdf_page_renders", return_value=[rendered]) as renderer:
+                    extract_pdf.return_value = ("", 1, "ocr_pending", ["sparse PDF"])
+                    document = extract_review_document(
+                        payload,
+                        types.SimpleNamespace(fail_closed=True),
+                        image_scan_enabled=True,
+                        image_scan_settings=image_settings,
+                    )
+
+        self.assertEqual(document.image_candidates, [rendered])
+        renderer.assert_called_once()
+        self.assertIn("PDF rendered 1 page", document.extraction_warnings[-1])
+
+    def test_aws_rekognition_provider_parses_regions_and_ledger(self):
+        class FakeRekognitionClient:
+            def detect_text(self, Image):
+                return {
+                    "TextDetections": [
+                        {
+                            "Type": "LINE",
+                            "DetectedText": "S1234567D",
+                            "Confidence": 99.0,
+                            "Geometry": {"BoundingBox": {"Left": 0.1, "Top": 0.2, "Width": 0.3, "Height": 0.4}},
+                        }
+                    ]
+                }
+
+        fake_boto3 = types.SimpleNamespace(client=lambda *args, **kwargs: FakeRekognitionClient())
+        settings = types.SimpleNamespace(
+            provider="aws_rekognition",
+            aws_region="ap-southeast-1",
+            tenant_opt_in_aws=False,
+            tenant_opt_ins={"tenant-a": ("aws_rekognition",)},
+        )
+        guard = PrivacyGuard(external_query_policy="sanitized_only", max_query_chars=256)
+        candidate = ImageCandidate(
+            data=_png_bytes(),
+            mime_type="image/png",
+            locator=ImageLocator(container_path="scan.png", image_index=0),
+        )
+        with mock.patch.dict("sys.modules", {"boto3": fake_boto3}):
+            scanner = AWSRekognitionImageScanner(settings, privacy_guard=guard, tenant_id="tenant-a")
+            result = scanner.scan(candidate)
+
+        self.assertEqual(result.text, "S1234567D")
+        self.assertEqual(result.regions[0].bounding_box.x, 0.1)
+        self.assertEqual(result.privacy_ledger[0]["allowed"], True)
+
+    def test_diagnostics_include_image_scan_dependency(self):
+        with TestClient(main.app) as client:
+            response = client.get("/diagnostics")
+
+        self.assertEqual(response.status_code, 200)
+        image_status = response.json()["dependency_status"]["image_scan"]
+        self.assertEqual(image_status["status"], "disabled")
+        self.assertFalse(image_status["configured"])
 
 
 if __name__ == "__main__":
