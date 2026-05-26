@@ -71,7 +71,10 @@ NONPUBLIC_RE = re.compile(
     re.IGNORECASE,
 )
 PUBLIC_RE = re.compile(r"\b(publicly announced|press release|filed|disclosed|published|reported)\b", re.IGNORECASE)
-NAME_RE = re.compile(r"\b(?:Mr|Ms|Mrs|Dr)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2}\b")
+NAME_RE = re.compile(
+    r"\b(?i:(?:Mr|Ms|Mrs|Mdm|Dr|Prof))\.?[ \t]+[A-Z][a-z]+"
+    r"(?:[ \t]+(?:(?i:bin|binti|s/o|d/o|a/l|a/p|al)[ \t]+)?[A-Z][a-z]+){0,5}\b"
+)
 
 
 SEVERITY_SCORE = {"low": 25.0, "medium": 55.0, "high": 85.0}

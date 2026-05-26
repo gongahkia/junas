@@ -3,7 +3,92 @@
   "document_type": "SHA",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "must_not_detect": [],
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "must_detect": [
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "SHAREHOLDERS AGREEMENT"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Shareholders Agreement"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Tan Wei Ming"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S2345678D"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "567890"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 9123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "twm@syntheticmail.sg"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Mrs. Siti Aishah binti Abdullah"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S3456789E"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "234567"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 9876 5432"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "siti.abdullah@sample.sg"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S4567890F"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "345678"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 9234 5678"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "ramasamy.muthu@fakemail.sg"
+    },
+    {
+      "rule": "sg_uen",
+      "matched_text": "T12LL3456K"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "048623"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 500,000"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Agreement",
+      "reason": "contract-defined term"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

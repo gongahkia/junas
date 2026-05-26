@@ -24,10 +24,16 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 from pathlib import Path
 
 import httpx
+
+SG_POSTAL_LABEL_RE = re.compile(r"\b(?:Singapore|S)\s*(\d{6})\b", re.IGNORECASE)
+SIX_DIGIT_RE = re.compile(r"\b\d{6}\b")
+SG_NRIC_LABEL_RE = re.compile(r"^[STFGM]\d{7}[A-Z]$", re.IGNORECASE)
+SG_UEN_LABEL_RE = re.compile(r"^(?:\d{8,9}[A-Z]|T\d{2}[A-Z]{2}\d{4}[A-Z])$")
 
 PII_RULES = [
     "sg_nric_fin", "sg_uen", "sg_postal_address",
@@ -107,7 +113,9 @@ def _build_user_prompt(body: str, doc_type: str) -> str:
         f"10. sg_nric_fin: 9-char identifier matching ^[STFG]\\d{{7}}[A-Z]$.\n"
         f"11. sg_uen: legacy 9-char (^\\d{{8}}[A-Z]$) or T-format "
         f"(^T\\d{{2}}[A-Z]{{2}}\\d{{4}}[A-Z]$).\n"
-        f"12. must_not_detect: contract defined-term abbreviations such as "
+        f"12. sg_postal_address: label only the 6-digit Singapore postal code "
+        f"that follows Singapore/S, not the full street address.\n"
+        f"13. must_not_detect: contract defined-term abbreviations such as "
         f"'(the \"Purchaser\")' → list 'Purchaser'; '(\"SPA\")' → list 'SPA'. "
         f"Include role-noun defined terms even if they do not appear in a "
         f"defining clause but the document treats them as roles (Vendor, "
@@ -115,6 +123,36 @@ def _build_user_prompt(body: str, doc_type: str) -> str:
         f"DOCUMENT BODY:\n---\n{body}\n---\n\n"
         f"Return only the JSON object. No prose, no markdown fences."
     )
+
+
+def _strip_boundary_punctuation(text: str, body: str) -> str:
+    candidate = text.strip()
+    while candidate and candidate[-1] in ",;:.":
+        shortened = candidate[:-1].rstrip()
+        if not shortened or shortened not in body:
+            break
+        candidate = shortened
+    return candidate
+
+
+def _canonicalize_span(rule: str | None, text: str, body: str) -> str:
+    candidate = _strip_boundary_punctuation(text, body)
+    if rule == "sg_postal_address":
+        match = SG_POSTAL_LABEL_RE.search(candidate)
+        if match:
+            return match.group(1)
+        match = SIX_DIGIT_RE.search(candidate)
+        if match:
+            return match.group(0)
+    return candidate
+
+
+def _invalid_label_reason(rule: str, text: str) -> str:
+    if rule == "sg_nric_fin" and not SG_NRIC_LABEL_RE.fullmatch(text):
+        return "invalid Singapore NRIC/FIN shape"
+    if rule == "sg_uen" and not SG_UEN_LABEL_RE.fullmatch(text):
+        return "invalid Singapore UEN shape"
+    return ""
 
 
 def _is_reasoning_model(model: str) -> bool:
@@ -128,7 +166,7 @@ def _call_openai(messages: list[dict], *, model: str, api_key: str) -> str:
         "response_format": {"type": "json_object"},
     }
     if _is_reasoning_model(model):
-        body["max_completion_tokens"] = 8000  # reasoning models reserve tokens for thinking
+        body["max_completion_tokens"] = 16000  # reasoning models reserve tokens for thinking
     else:
         body["temperature"] = 0.0
         body["max_tokens"] = 4000
@@ -144,7 +182,11 @@ def _call_openai(messages: list[dict], *, model: str, api_key: str) -> str:
     if resp.status_code >= 400:
         raise RuntimeError(f"OpenAI {resp.status_code}: {resp.text[:800]}")
     payload = resp.json()
-    return payload["choices"][0]["message"]["content"]
+    content = payload["choices"][0]["message"].get("content") or ""
+    if not content.strip():
+        finish_reason = payload["choices"][0].get("finish_reason", "")
+        raise RuntimeError(f"OpenAI returned empty content (finish_reason={finish_reason})")
+    return content
 
 
 def _validate_labels(labels: dict, body: str) -> tuple[dict, list[str]]:
@@ -159,6 +201,11 @@ def _validate_labels(labels: dict, body: str) -> tuple[dict, list[str]]:
             continue
         if not isinstance(text, str) or not text:
             warnings.append(f"drop must_detect: empty text for rule {rule!r}")
+            continue
+        text = _canonicalize_span(rule, text, body)
+        invalid_reason = _invalid_label_reason(rule, text)
+        if invalid_reason:
+            warnings.append(f"drop must_detect: {invalid_reason} rule={rule!r} text={text!r}")
             continue
         if text not in body:
             warnings.append(f"drop must_detect: text not verbatim rule={rule!r} text={text!r}")
@@ -176,6 +223,7 @@ def _validate_labels(labels: dict, body: str) -> tuple[dict, list[str]]:
         if not isinstance(text, str) or not text:
             warnings.append("drop must_not_detect: empty text")
             continue
+        text = _strip_boundary_punctuation(text, body)
         if text not in body:
             warnings.append(f"drop must_not_detect: text not verbatim text={text!r}")
             continue
@@ -204,15 +252,16 @@ def autolabel(
 ) -> dict:
     body = fixture_path.read_text(encoding="utf-8")
     labels_path = fixture_path.with_suffix(".labels.json")
-    if labels_path.exists() and not force:
+    if labels_path.exists():
         if _existing_is_human(labels_path):
             return {"status": "skipped_human_labeled", "path": str(labels_path)}
-        try:
-            existing = json.loads(labels_path.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            existing = {}
-        if existing.get("_label_model") == model:
-            return {"status": "skipped_same_model", "path": str(labels_path)}
+        if not force:
+            try:
+                existing = json.loads(labels_path.read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                existing = {}
+            if existing.get("_label_model") == model:
+                return {"status": "skipped_same_model", "path": str(labels_path)}
     doc_type = _infer_doc_type(fixture_path)
     user = _build_user_prompt(body, doc_type)
     raw = _call_openai(

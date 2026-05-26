@@ -27,6 +27,39 @@ class CanonicalOrgTests(unittest.TestCase):
 
 
 class SurnameVariantTests(unittest.TestCase):
+    def test_named_person_does_not_cross_line_boundaries(self):
+        from kaypoh.review.engine import PreSendReviewEngine
+
+        engine = PreSendReviewEngine()
+        text = "Mr. John Tan  \nBlk 789, Jurong East Street 21"
+        result = engine.review(
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="SPA",
+        )
+        matched = [f.matched_text for f in result.findings if f.rule == "named_person"]
+        self.assertIn("Mr. John Tan", matched)
+        self.assertNotIn("Mr. John Tan  \nBlk", matched)
+
+    def test_named_person_handles_malay_name_particles(self):
+        from kaypoh.review.engine import PreSendReviewEngine
+
+        engine = PreSendReviewEngine()
+        text = "Ms. Siti Aishah binti Abdullah briefed the board."
+        result = engine.review(
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="SPA",
+        )
+        matched = [f.matched_text for f in result.findings if f.rule == "named_person"]
+        self.assertIn("Ms. Siti Aishah binti Abdullah", matched)
+
     def test_surname_only_reference_resolves_after_anchored_honorific(self):
         from kaypoh.review.engine import PreSendReviewEngine
 

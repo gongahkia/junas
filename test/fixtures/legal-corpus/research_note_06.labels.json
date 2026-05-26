@@ -3,7 +3,51 @@
   "document_type": "research_note",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
+  "must_detect": [
+    {
+      "rule": "sg_uen",
+      "matched_text": "198765432W"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S8765432D"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Tan Wei Ming"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Ms. Siti Aishah binti Abdullah"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Mr. Ramasamy Muthu"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "insights@fictresearch.sg"
+    },
+    {
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 150 million"
+    },
+    {
+      "rule": "nonpublic_marker",
+      "matched_text": "this communication is intended for internal use only and should not be distributed externally"
+    }
+  ],
   "must_not_detect": [],
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
