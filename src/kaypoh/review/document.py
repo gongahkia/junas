@@ -9,11 +9,19 @@ from io import BytesIO
 from typing import Any
 from xml.etree import ElementTree
 
+from kaypoh.review.image_scan import (
+    ImageCandidate,
+    collect_docx_images,
+    collect_pdf_images,
+    image_mime_from_name,
+    standalone_image_candidate,
+)
 from kaypoh.review.metadata import inspect_metadata
 
 SUPPORTED_DOCX_MIME = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 SUPPORTED_PDF_MIME = "application/pdf"
 SUPPORTED_TEXT_MIMES = {"text/plain", "text/markdown", "application/json"}
+SUPPORTED_IMAGE_REVIEW_MIMES = {"image/jpeg", "image/png"}
 
 
 @dataclass(frozen=True)
@@ -26,6 +34,9 @@ class ExtractedDocument:
     extraction_quality: str = "accepted"
     extraction_warnings: list[str] | None = None
     metadata_findings: list[dict[str, str]] | None = None
+    image_candidates: list[ImageCandidate] | None = None
+    image_text_spans: list[Any] | None = None
+    image_scan_provider: str = "none"
 
 
 def _clean_text(text: str) -> str:
@@ -93,7 +104,12 @@ def _pdf_metadata_text(reader: Any) -> str:
     return " ".join(str(value) for value in metadata.values() if value)
 
 
-def _extract_pdf(data: bytes, ingest_settings: Any | None = None) -> tuple[str, int | None, str, list[str]]:
+def _extract_pdf(
+    data: bytes,
+    ingest_settings: Any | None = None,
+    *,
+    image_scan_enabled: bool = False,
+) -> tuple[str, int | None, str, list[str]]:
     try:
         from pypdf import PdfReader
     except Exception as exc:
@@ -137,6 +153,9 @@ def _extract_pdf(data: bytes, ingest_settings: Any | None = None) -> tuple[str, 
         warnings.append("PDF appears image-heavy without enough extractable text")
     if scanner_hint and avg_chars_per_page < min_chars_per_page:
         warnings.append("PDF producer metadata suggests scanned/OCR content with insufficient text")
+    if warnings and image_scan_enabled and image_count:
+        warnings.append("PDF text layer is sparse; configured image OCR will scan embedded images")
+        return extracted, page_count, "ocr_pending", warnings
     if warnings:
         raise ValueError(
             "document extraction failed closed: "
@@ -156,10 +175,19 @@ def _infer_mime_type(filename: str, mime_type: str | None) -> str:
         return SUPPORTED_DOCX_MIME
     if lower.endswith(".pdf"):
         return SUPPORTED_PDF_MIME
+    if lower.endswith((".jpg", ".jpeg")):
+        return "image/jpeg"
+    if lower.endswith(".png"):
+        return "image/png"
     return "text/plain"
 
 
-def extract_review_document(payload: Any, ingest_settings: Any | None = None) -> ExtractedDocument:
+def extract_review_document(
+    payload: Any,
+    ingest_settings: Any | None = None,
+    *,
+    image_scan_enabled: bool = False,
+) -> ExtractedDocument:
     text = getattr(payload, "text", None)
     filename = str(getattr(payload, "document_filename", "") or "inline.txt")
     mime_type = _infer_mime_type(filename, getattr(payload, "document_mime_type", None))
@@ -177,6 +205,8 @@ def extract_review_document(payload: Any, ingest_settings: Any | None = None) ->
             extraction_quality="accepted",
             extraction_warnings=[],
             metadata_findings=[],
+            image_candidates=[],
+            image_text_spans=[],
         )
 
     raw_base64 = getattr(payload, "document_base64", None)
@@ -197,20 +227,36 @@ def extract_review_document(payload: Any, ingest_settings: Any | None = None) ->
         page_count = None
         extraction_quality = "accepted"
         extraction_warnings: list[str] = []
+        image_candidates: list[ImageCandidate] = []
     elif mime_type == SUPPORTED_DOCX_MIME:
         extracted = _extract_docx(data)
         method = "docx_xml"
         page_count = None
         extraction_quality = "accepted"
         extraction_warnings = []
+        image_candidates = collect_docx_images(data) if image_scan_enabled else []
     elif mime_type == SUPPORTED_PDF_MIME:
-        extracted, page_count, extraction_quality, extraction_warnings = _extract_pdf(data, ingest_settings)
+        extracted, page_count, extraction_quality, extraction_warnings = _extract_pdf(
+            data,
+            ingest_settings,
+            image_scan_enabled=image_scan_enabled,
+        )
         method = "pypdf"
+        image_candidates = collect_pdf_images(data) if image_scan_enabled else []
+    elif mime_type in SUPPORTED_IMAGE_REVIEW_MIMES or image_mime_from_name(filename, data) in SUPPORTED_IMAGE_REVIEW_MIMES:
+        if not image_scan_enabled:
+            raise ValueError(f"unsupported document_mime_type: {mime_type}")
+        extracted = ""
+        method = "image_ocr"
+        page_count = None
+        extraction_quality = "ocr_pending"
+        extraction_warnings = ["standalone image payload requires configured image OCR"]
+        image_candidates = [standalone_image_candidate(data, filename=filename, mime_type=mime_type)]
     else:
         raise ValueError(f"unsupported document_mime_type: {mime_type}")
 
     cleaned = _clean_text(extracted)
-    if not cleaned:
+    if not cleaned and not image_candidates:
         raise ValueError("document extraction produced no text")
     return ExtractedDocument(
         text=cleaned,
@@ -221,4 +267,7 @@ def extract_review_document(payload: Any, ingest_settings: Any | None = None) ->
         extraction_quality=extraction_quality,
         extraction_warnings=extraction_warnings,
         metadata_findings=metadata_findings,
+        image_candidates=image_candidates,
+        image_text_spans=[],
+        image_scan_provider="none",
     )

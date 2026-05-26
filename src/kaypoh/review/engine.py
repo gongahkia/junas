@@ -271,6 +271,8 @@ class ReviewFinding:
     reason: str
     legal_basis: str
     source_verification: str = SOURCE_VERIFICATION_NOT_CHECKED
+    source: str = "text"
+    image_locator: dict[str, Any] | None = None
 
 
 @dataclass

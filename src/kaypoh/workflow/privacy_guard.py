@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import re
 from dataclasses import dataclass, field
 from typing import Any
@@ -27,6 +28,8 @@ class PrivacyLedgerEntry:
     query: str = ""
     redactions: list[str] = field(default_factory=list)
     input_mode: str = ""
+    content_sha256: str = ""
+    content_type: str = ""
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -37,6 +40,8 @@ class PrivacyLedgerEntry:
             "query": self.query,
             "redactions": list(self.redactions),
             "input_mode": self.input_mode,
+            "content_sha256": self.content_sha256,
+            "content_type": self.content_type,
         }
 
 
@@ -148,6 +153,61 @@ class PrivacyGuard:
             reason="sanitized query approved",
             query=sanitized,
             redactions=redactions,
+        )
+
+    def check_external_content(
+        self,
+        content: bytes,
+        *,
+        destination: str,
+        content_type: str = "",
+        tenant_opt_in: bool = False,
+        operation: str = "external_content",
+    ) -> PrivacyLedgerEntry:
+        content_hash = hashlib.sha256(content).hexdigest()
+        if self.external_query_policy == "disabled":
+            return PrivacyLedgerEntry(
+                destination=destination,
+                operation=operation,
+                allowed=False,
+                reason="external content transfer is disabled",
+                content_sha256=content_hash,
+                content_type=content_type,
+            )
+        if self.external_query_policy == "derived_hashes_only":
+            return PrivacyLedgerEntry(
+                destination=destination,
+                operation=operation,
+                allowed=False,
+                reason="raw content transfer is disallowed by policy",
+                content_sha256=content_hash,
+                content_type=content_type,
+            )
+        if not tenant_opt_in:
+            return PrivacyLedgerEntry(
+                destination=destination,
+                operation=operation,
+                allowed=False,
+                reason="tenant has not opted in to this external image OCR provider",
+                content_sha256=content_hash,
+                content_type=content_type,
+            )
+        if not content:
+            return PrivacyLedgerEntry(
+                destination=destination,
+                operation=operation,
+                allowed=False,
+                reason="content is empty",
+                content_sha256=content_hash,
+                content_type=content_type,
+            )
+        return PrivacyLedgerEntry(
+            destination=destination,
+            operation=operation,
+            allowed=True,
+            reason="external image OCR content transfer approved",
+            content_sha256=content_hash,
+            content_type=content_type,
         )
 
     @classmethod

@@ -13,6 +13,7 @@ from _thread import LockType
 from collections import OrderedDict
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import asynccontextmanager
+from dataclasses import replace
 from pathlib import Path
 from threading import Lock, Thread
 from typing import Any
@@ -98,7 +99,15 @@ from kaypoh.review.decisions import (
 )
 from kaypoh.review.document import extract_review_document
 from kaypoh.review.engine import PreSendReviewEngine
+from kaypoh.review.image_scan import (
+    ImageScanError,
+    append_ocr_text_blocks,
+    build_image_scanner,
+    image_locator_for_span,
+    scan_image_candidates,
+)
 from kaypoh.review.metadata import scrub_document
+from kaypoh.workflow.privacy_guard import PrivacyGuard
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
@@ -890,6 +899,77 @@ def _build_review_engine() -> PreSendReviewEngine:
     )
 
 
+def _image_scan_enabled() -> bool:
+    return str(current_runtime_settings().image_scan.provider or "none").lower() != "none"
+
+
+def _build_privacy_guard() -> PrivacyGuard:
+    settings = current_runtime_settings()
+    return PrivacyGuard(
+        external_query_policy=settings.privacy.external_query_policy,
+        max_query_chars=settings.privacy.max_query_chars,
+        redact_exact_numbers=settings.privacy.redact_exact_numbers,
+    )
+
+
+def _scan_document_images(document: Any) -> tuple[Any, list[dict[str, Any]]]:
+    settings = current_runtime_settings().image_scan
+    provider = str(getattr(settings, "provider", "none") or "none").lower()
+    if provider == "none":
+        return document, []
+
+    candidates = list(getattr(document, "image_candidates", []) or [])
+    if not candidates:
+        return document, []
+
+    scanner = get_layer_model("image_scanner")
+    try:
+        if scanner is None:
+            scanner = build_image_scanner(settings, _build_privacy_guard())
+        if scanner is None:
+            raise ImageScanError("image OCR provider is disabled")
+        results, privacy_ledger = scan_image_candidates(
+            candidates,
+            scanner=scanner,
+            settings=settings,
+        )
+        text, spans = append_ocr_text_blocks(document.text, results)
+    except ImageScanError:
+        raise
+    except Exception as exc:
+        raise ImageScanError(f"image OCR failed: {exc}") from exc
+
+    if not text.strip():
+        raise ImageScanError("image OCR produced no reviewable text")
+
+    warnings = list(getattr(document, "extraction_warnings", []) or [])
+    if results:
+        warnings.append(f"Image OCR scanned {len(results)} image(s) with provider {provider}")
+    return (
+        replace(
+            document,
+            text=text,
+            extraction_quality="accepted",
+            extraction_warnings=warnings,
+            image_text_spans=spans,
+            image_scan_provider=provider,
+        ),
+        privacy_ledger,
+    )
+
+
+def _annotate_image_ocr_findings(document: Any, findings: list[Any]) -> None:
+    spans = list(getattr(document, "image_text_spans", []) or [])
+    if not spans:
+        return
+    for finding in findings:
+        locator = image_locator_for_span(spans, int(finding.start_char), int(finding.end_char))
+        if locator is None:
+            continue
+        finding.source = "image_ocr"
+        finding.image_locator = locator
+
+
 def _build_review_response(
     *,
     req: ReviewRequest,
@@ -934,6 +1014,8 @@ def _build_review_response(
                 end_char=finding.end_char,
                 reason=finding.reason,
                 legal_basis=finding.legal_basis,
+                source=getattr(finding, "source", "text"),
+                image_locator=getattr(finding, "image_locator", None),
                 source_verification=getattr(finding, "source_verification", "not_checked"),
             )
             for finding in result.findings
@@ -1009,6 +1091,8 @@ def _persist_review_session(
                 "matched_text": f.matched_text,
                 "start_char": f.start_char,
                 "end_char": f.end_char,
+                "source": getattr(f, "source", "text"),
+                "image_locator": getattr(f, "image_locator", None),
             }
             for f in findings
         ],
@@ -1021,10 +1105,22 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
     t_total_start = time.perf_counter()
     t_extract_start = time.perf_counter()
     try:
-        document = extract_review_document(req, current_runtime_settings().document_ingest)
+        document = extract_review_document(
+            req,
+            current_runtime_settings().document_ingest,
+            image_scan_enabled=_image_scan_enabled(),
+        )
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     timings_ms["extract"] = round((time.perf_counter() - t_extract_start) * 1000.0, 3)
+
+    t_image_scan_start = time.perf_counter()
+    try:
+        document, image_privacy_ledger = _scan_document_images(document)
+    except ImageScanError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    if image_privacy_ledger:
+        timings_ms["image_ocr"] = round((time.perf_counter() - t_image_scan_start) * 1000.0, 3)
 
     t_review_start = time.perf_counter()
     engine = _build_review_engine()
@@ -1039,6 +1135,8 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
         review_profile=req.review_profile,
         tenant_id=tenant.storage_tenant_id,
     )
+    _annotate_image_ocr_findings(document, result.findings)
+    result.privacy_ledger = image_privacy_ledger + list(result.privacy_ledger)
     timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
     _persist_review_session(
         request_id=request_id,
@@ -1097,10 +1195,22 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
     t_total_start = time.perf_counter()
     t_extract_start = time.perf_counter()
     try:
-        document = extract_review_document(req, current_runtime_settings().document_ingest)
+        document = extract_review_document(
+            req,
+            current_runtime_settings().document_ingest,
+            image_scan_enabled=_image_scan_enabled(),
+        )
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     timings_ms["extract"] = round((time.perf_counter() - t_extract_start) * 1000.0, 3)
+
+    t_image_scan_start = time.perf_counter()
+    try:
+        document, image_privacy_ledger = _scan_document_images(document)
+    except ImageScanError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    if image_privacy_ledger:
+        timings_ms["image_ocr"] = round((time.perf_counter() - t_image_scan_start) * 1000.0, 3)
 
     t_review_start = time.perf_counter()
     engine = _build_review_engine()
@@ -1115,6 +1225,8 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
         review_profile=req.review_profile,
         tenant_id=tenant.storage_tenant_id,
     )
+    _annotate_image_ocr_findings(document, result.findings)
+    result.privacy_ledger = image_privacy_ledger + list(result.privacy_ledger)
     timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
 
     t_anonymize_start = time.perf_counter()
@@ -1729,6 +1841,8 @@ def _serialize_session_state(state: dict[str, Any]) -> ReviewSessionStateRespons
                 matched_text=finding["matched_text"],
                 start_char=finding["start_char"],
                 end_char=finding["end_char"],
+                source=finding.get("source", "text"),
+                image_locator=finding.get("image_locator"),
                 decision=decision["action"] if decision else None,
                 decision_seq=decision["seq"] if decision else None,
                 decision_ts=decision["ts"] if decision else None,

@@ -20,6 +20,9 @@ DEFAULT_PIPELINE_LAYERS: tuple[str, ...] = ()
 DEFAULT_OPTIONAL_LAYERS: tuple[str, ...] = ()
 VALID_LAYERS = frozenset(("public_evidence", "llm_adjudicator"))
 EXTERNAL_QUERY_POLICIES = frozenset({"sanitized_only", "derived_hashes_only", "disabled"})
+IMAGE_SCAN_PROVIDERS = frozenset(
+    {"none", "tesseract", "openai_vision", "google_vision", "aws_rekognition", "azure_vision"}
+)
 TENANCY_AUTH_MODES = frozenset({"api_key", "jwt"})
 TENANCY_ROLES = frozenset({"reviewer", "maker", "checker", "admin", "auditor"})
 SIEM_FACILITIES = frozenset(
@@ -73,6 +76,22 @@ KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
             "allow_remote_raw_text",
             "tenant_opt_in_openai",
             "llm_input_mode",
+        }
+    ),
+    "image_scan": frozenset(
+        {
+            "provider",
+            "timeout_seconds",
+            "max_images",
+            "max_bytes",
+            "model",
+            "openai_base_url",
+            "aws_region",
+            "azure_endpoint",
+            "tenant_opt_in_openai",
+            "tenant_opt_in_google",
+            "tenant_opt_in_aws",
+            "tenant_opt_in_azure",
         }
     ),
     "privacy": frozenset(
@@ -194,6 +213,25 @@ class LLMSettings:
 
 
 @dataclass(frozen=True)
+class ImageScanSettings:
+    provider: str
+    timeout_seconds: float
+    max_images: int
+    max_bytes: int
+    model: str
+    openai_api_key: str
+    openai_base_url: str
+    google_credentials_path: str
+    aws_region: str
+    azure_key: str
+    azure_endpoint: str
+    tenant_opt_in_openai: bool = False
+    tenant_opt_in_google: bool = False
+    tenant_opt_in_aws: bool = False
+    tenant_opt_in_azure: bool = False
+
+
+@dataclass(frozen=True)
 class PrivacySettings:
     external_query_policy: str
     max_query_chars: int
@@ -234,6 +272,7 @@ class RuntimeSettings:
     tenancy: TenancySettings
     public_evidence: PublicEvidenceSettings
     llm: LLMSettings
+    image_scan: ImageScanSettings
     privacy: PrivacySettings
     response_cache: ResponseCacheSettings
     siem: SIEMSettings
@@ -927,6 +966,170 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
             "(deployer-level gate) AND llm.tenant_opt_in_openai=true (tenant-level gate)"
         )
 
+    image_scan_provider = (
+        _parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="image_scan",
+                key="provider",
+                env_vars=("KAYPOH_IMAGE_SCAN_PROVIDER",),
+                default="none",
+            ),
+            label="image_scan.provider",
+        ).lower()
+        or "none"
+    )
+    image_scan = ImageScanSettings(
+        provider=image_scan_provider,
+        timeout_seconds=_parse_float(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="image_scan",
+                key="timeout_seconds",
+                env_vars=("KAYPOH_IMAGE_SCAN_TIMEOUT_SECONDS",),
+                default=20.0,
+            ),
+            label="image_scan.timeout_seconds",
+            minimum=0.1,
+        ),
+        max_images=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="image_scan",
+                key="max_images",
+                env_vars=("KAYPOH_IMAGE_SCAN_MAX_IMAGES",),
+                default=32,
+            ),
+            label="image_scan.max_images",
+            minimum=1,
+            maximum=500,
+        ),
+        max_bytes=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="image_scan",
+                key="max_bytes",
+                env_vars=("KAYPOH_IMAGE_SCAN_MAX_BYTES",),
+                default=10 * 1024 * 1024,
+            ),
+            label="image_scan.max_bytes",
+            minimum=1024,
+            maximum=50 * 1024 * 1024,
+        ),
+        model=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="image_scan",
+                key="model",
+                env_vars=("KAYPOH_IMAGE_SCAN_MODEL",),
+                default="gpt-4o-mini",
+            ),
+            label="image_scan.model",
+        )
+        or "gpt-4o-mini",
+        openai_api_key=_parse_str(os.environ.get("OPENAI_API_KEY", ""), label="OPENAI_API_KEY"),
+        openai_base_url=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="image_scan",
+                key="openai_base_url",
+                env_vars=("KAYPOH_IMAGE_SCAN_OPENAI_BASE_URL",),
+                default="https://api.openai.com/v1/responses",
+            ),
+            label="image_scan.openai_base_url",
+        )
+        or "https://api.openai.com/v1/responses",
+        google_credentials_path=_parse_str(
+            os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", ""),
+            label="GOOGLE_APPLICATION_CREDENTIALS",
+        ),
+        aws_region=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="image_scan",
+                key="aws_region",
+                env_vars=("AWS_REGION", "AWS_DEFAULT_REGION"),
+                default="",
+            ),
+            label="image_scan.aws_region",
+        ),
+        azure_key=_parse_str(os.environ.get("AZURE_VISION_KEY", ""), label="AZURE_VISION_KEY"),
+        azure_endpoint=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="image_scan",
+                key="azure_endpoint",
+                env_vars=("AZURE_VISION_ENDPOINT",),
+                default="",
+            ),
+            label="image_scan.azure_endpoint",
+        ),
+        tenant_opt_in_openai=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="image_scan",
+                key="tenant_opt_in_openai",
+                env_vars=("KAYPOH_IMAGE_SCAN_TENANT_OPT_IN_OPENAI",),
+                default=False,
+            ),
+            label="image_scan.tenant_opt_in_openai",
+        ),
+        tenant_opt_in_google=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="image_scan",
+                key="tenant_opt_in_google",
+                env_vars=("KAYPOH_IMAGE_SCAN_TENANT_OPT_IN_GOOGLE",),
+                default=False,
+            ),
+            label="image_scan.tenant_opt_in_google",
+        ),
+        tenant_opt_in_aws=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="image_scan",
+                key="tenant_opt_in_aws",
+                env_vars=("KAYPOH_IMAGE_SCAN_TENANT_OPT_IN_AWS",),
+                default=False,
+            ),
+            label="image_scan.tenant_opt_in_aws",
+        ),
+        tenant_opt_in_azure=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="image_scan",
+                key="tenant_opt_in_azure",
+                env_vars=("KAYPOH_IMAGE_SCAN_TENANT_OPT_IN_AZURE",),
+                default=False,
+            ),
+            label="image_scan.tenant_opt_in_azure",
+        ),
+    )
+    if image_scan.provider not in IMAGE_SCAN_PROVIDERS:
+        raise ConfigError(
+            "image_scan.provider must be one of: " + ", ".join(sorted(IMAGE_SCAN_PROVIDERS))
+        )
+    if image_scan.provider == "openai_vision" and not image_scan.tenant_opt_in_openai:
+        raise ConfigError("image_scan.provider=openai_vision requires image_scan.tenant_opt_in_openai=true")
+    if image_scan.provider == "google_vision" and not image_scan.tenant_opt_in_google:
+        raise ConfigError("image_scan.provider=google_vision requires image_scan.tenant_opt_in_google=true")
+    if image_scan.provider == "aws_rekognition" and not image_scan.tenant_opt_in_aws:
+        raise ConfigError("image_scan.provider=aws_rekognition requires image_scan.tenant_opt_in_aws=true")
+    if image_scan.provider == "azure_vision" and not image_scan.tenant_opt_in_azure:
+        raise ConfigError("image_scan.provider=azure_vision requires image_scan.tenant_opt_in_azure=true")
+
     privacy = PrivacySettings(
         external_query_policy=_parse_str(
             _resolve_raw_value(
@@ -1120,6 +1323,7 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         tenancy=tenancy,
         public_evidence=public_evidence,
         llm=llm,
+        image_scan=image_scan,
         privacy=privacy,
         response_cache=response_cache,
         siem=siem,

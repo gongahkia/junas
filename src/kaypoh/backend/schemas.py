@@ -300,6 +300,14 @@ class PrivacyLedgerEntryResponse(BaseModel):
             "structured_tokens. Empty for non-LLM privacy decisions."
         ),
     )
+    content_sha256: str = Field(
+        "",
+        description="SHA-256 of raw content evaluated by the privacy guard, such as image OCR bytes.",
+    )
+    content_type: str = Field(
+        "",
+        description="MIME type for raw content evaluated by the privacy guard.",
+    )
 
 
 class PublicEvidenceResponse(BaseModel):
@@ -393,6 +401,14 @@ class ReviewFindingResponse(BaseModel):
     end_char: int = Field(description="Zero-based exclusive ending character offset.")
     reason: str = Field(description="Human-readable reason this finding is risky.")
     legal_basis: str = Field(description="Policy or legal rule family applied to this finding.")
+    source: str = Field(
+        "text",
+        description="Finding source: text for extracted document text, image_ocr for OCR-derived image text.",
+    )
+    image_locator: Optional[dict[str, Any]] = Field(
+        None,
+        description="Image locator for OCR-derived findings, including container_path and image_index.",
+    )
     source_verification: str = Field(
         "not_checked",
         description=(
@@ -689,6 +705,8 @@ class ReviewSessionFindingState(BaseModel):
     matched_text: str = Field(description="Exact matched text from the original document.")
     start_char: int = Field(description="Zero-based inclusive start offset.")
     end_char: int = Field(description="Zero-based exclusive end offset.")
+    source: str = Field("text", description="Finding source: text or image_ocr.")
+    image_locator: Optional[dict[str, Any]] = Field(None, description="Image locator for OCR-derived findings.")
     decision: Optional[str] = Field(
         None,
         description="Current decision: accept, reject, or rewrite. None when undecided.",

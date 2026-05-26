@@ -131,6 +131,8 @@ def build_privacy_ledger_siem_events(
             "input_mode": str(entry.get("input_mode", "") or ""),
             "redactions": list(entry.get("redactions", []) or []),
             "reason": str(entry.get("reason", "") or ""),
+            "content_sha256": str(entry.get("content_sha256", "") or ""),
+            "content_type": str(entry.get("content_type", "") or ""),
         }
         query = str(entry.get("query", "") or "")
         if query:
