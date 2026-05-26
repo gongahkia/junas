@@ -14,12 +14,15 @@ import backend.main as main
 from kaypoh.review.document import extract_review_document
 from kaypoh.review.image_scan import (
     AWSRekognitionImageScanner,
+    AzureVisionImageScanner,
+    GoogleVisionImageScanner,
     ImageBoundingBox,
     ImageCandidate,
     ImageLocator,
     ImageOcrResult,
     ImageScanError,
     ImageTextRegion,
+    OpenAIVisionImageScanner,
     collect_docx_images,
     scan_image_candidates,
 )
@@ -309,6 +312,162 @@ class ImageScanTests(unittest.TestCase):
         self.assertEqual(result.text, "S1234567D")
         self.assertEqual(result.regions[0].bounding_box.x, 0.1)
         self.assertEqual(result.privacy_ledger[0]["allowed"], True)
+
+    def test_openai_vision_provider_sends_image_and_parses_text(self):
+        class FakeResponse:
+            def raise_for_status(self):
+                return None
+
+            def json(self):
+                return {"output_text": "S1234567D"}
+
+        class FakeClient:
+            last_json = None
+
+            def __init__(self, timeout):
+                self.timeout = timeout
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, exc_type, exc, tb):
+                return False
+
+            def post(self, url, headers, json):
+                FakeClient.last_json = json
+                return FakeResponse()
+
+        settings = types.SimpleNamespace(
+            provider="openai_vision",
+            openai_api_key="sk-test",
+            openai_base_url="https://api.openai.test/v1/responses",
+            model="gpt-4o-mini",
+            timeout_seconds=3.0,
+            tenant_opt_in_openai=False,
+            tenant_opt_ins={"tenant-a": ("openai_vision",)},
+        )
+        guard = PrivacyGuard(external_query_policy="sanitized_only", max_query_chars=256)
+        candidate = ImageCandidate(
+            data=_png_bytes(),
+            mime_type="image/png",
+            locator=ImageLocator(container_path="scan.png", image_index=0),
+        )
+        with mock.patch("kaypoh.review.image_scan.httpx.Client", FakeClient):
+            scanner = OpenAIVisionImageScanner(settings, privacy_guard=guard, tenant_id="tenant-a")
+            result = scanner.scan(candidate)
+
+        self.assertEqual(result.text, "S1234567D")
+        self.assertEqual(FakeClient.last_json["model"], "gpt-4o-mini")
+        image_part = FakeClient.last_json["input"][0]["content"][1]
+        self.assertTrue(image_part["image_url"].startswith("data:image/png;base64,"))
+        self.assertEqual(result.privacy_ledger[0]["destination"], "openai_vision")
+
+    def test_google_vision_provider_parses_annotations(self):
+        class FakeVertex:
+            def __init__(self, x, y):
+                self.x = x
+                self.y = y
+
+        class FakeAnnotation:
+            def __init__(self, description, vertices=None):
+                self.description = description
+                self.bounding_poly = types.SimpleNamespace(normalized_vertices=vertices or [])
+
+        class FakeGoogleResponse:
+            error = types.SimpleNamespace(message="")
+            full_text_annotation = types.SimpleNamespace(text="S1234567D")
+            text_annotations = [
+                FakeAnnotation("S1234567D"),
+                FakeAnnotation("S1234567D", [FakeVertex(0.1, 0.2), FakeVertex(0.4, 0.2), FakeVertex(0.4, 0.5)]),
+            ]
+
+        class FakeVisionModule:
+            class Image:
+                def __init__(self, content):
+                    self.content = content
+
+            class ImageAnnotatorClient:
+                def document_text_detection(self, image):
+                    return FakeGoogleResponse()
+
+        settings = types.SimpleNamespace(
+            provider="google_vision",
+            tenant_opt_in_google=False,
+            tenant_opt_ins={"tenant-a": ("google_vision",)},
+        )
+        guard = PrivacyGuard(external_query_policy="sanitized_only", max_query_chars=256)
+        candidate = ImageCandidate(
+            data=_png_bytes(),
+            mime_type="image/png",
+            locator=ImageLocator(container_path="scan.png", image_index=0),
+        )
+        with mock.patch.dict(
+            "sys.modules",
+            {
+                "google": types.SimpleNamespace(),
+                "google.cloud": types.SimpleNamespace(vision=FakeVisionModule),
+                "google.cloud.vision": FakeVisionModule,
+            },
+        ):
+            scanner = GoogleVisionImageScanner(settings, privacy_guard=guard, tenant_id="tenant-a")
+            result = scanner.scan(candidate)
+
+        self.assertEqual(result.text, "S1234567D")
+        self.assertEqual(result.regions[0].bounding_box.x, 0.1)
+        self.assertEqual(result.privacy_ledger[0]["destination"], "google_vision")
+
+    def test_azure_vision_provider_parses_read_lines(self):
+        class FakeImageAnalysisClient:
+            def __init__(self, endpoint, credential):
+                self.endpoint = endpoint
+                self.credential = credential
+
+            def analyze(self, image_data, visual_features):
+                line = types.SimpleNamespace(
+                    text="S1234567D",
+                    bounding_polygon=[0.1, 0.2, 0.4, 0.2, 0.4, 0.5, 0.1, 0.5],
+                )
+                block = types.SimpleNamespace(lines=[line])
+                return types.SimpleNamespace(read=types.SimpleNamespace(blocks=[block]))
+
+        class FakeCredential:
+            def __init__(self, key):
+                self.key = key
+
+        fake_imageanalysis = types.SimpleNamespace(ImageAnalysisClient=FakeImageAnalysisClient)
+        fake_models = types.SimpleNamespace(VisualFeatures=types.SimpleNamespace(READ="read"))
+        fake_credentials = types.SimpleNamespace(AzureKeyCredential=FakeCredential)
+        settings = types.SimpleNamespace(
+            provider="azure_vision",
+            azure_endpoint="https://azure.test",
+            azure_key="test-key",
+            tenant_opt_in_azure=False,
+            tenant_opt_ins={"tenant-a": ("azure_vision",)},
+        )
+        guard = PrivacyGuard(external_query_policy="sanitized_only", max_query_chars=256)
+        candidate = ImageCandidate(
+            data=_png_bytes(),
+            mime_type="image/png",
+            locator=ImageLocator(container_path="scan.png", image_index=0),
+        )
+        with mock.patch.dict(
+            "sys.modules",
+            {
+                "azure": types.SimpleNamespace(),
+                "azure.ai": types.SimpleNamespace(),
+                "azure.ai.vision": types.SimpleNamespace(imageanalysis=fake_imageanalysis),
+                "azure.ai.vision.imageanalysis": fake_imageanalysis,
+                "azure.ai.vision.imageanalysis.models": fake_models,
+                "azure.core": types.SimpleNamespace(credentials=fake_credentials),
+                "azure.core.credentials": fake_credentials,
+            },
+        ):
+            scanner = AzureVisionImageScanner(settings, privacy_guard=guard, tenant_id="tenant-a")
+            result = scanner.scan(candidate)
+
+        self.assertEqual(result.text, "S1234567D")
+        self.assertAlmostEqual(result.regions[0].bounding_box.width, 0.3)
+        self.assertEqual(result.privacy_ledger[0]["destination"], "azure_vision")
 
     def test_diagnostics_include_image_scan_dependency(self):
         with TestClient(main.app) as client:
