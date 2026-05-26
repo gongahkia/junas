@@ -19,3 +19,41 @@ rule_name = "sg_court_citation"
 pattern = '\[\d{4}\]\s+SG(?:CA|HC\([AF]\)|HCAR|HCAF|HCF|HC/SIC|HC|DC|FC|MC|CRA)\s+\d+'
 severity = "medium"
 reason = "Singapore court neutral citation identifies a matter and counterparty"
+
+# PayNow identifier — UEN / NRIC / SG mobile, anchored on PayNow context.
+# capture_group=1 takes just the identifier, not the leading PayNow anchor, so the
+# placeholder replacement stays clean. Mobile leg requires +65 prefix OR bare 8-digit
+# starting with 8 or 9 (SG mobile prefixes). PSA s33 + MAS PaymentServices guidance
+# treat the identifier-recipient pair as a sensitive disclosure pre-validation.
+[[recognizers]]
+name = "Singapore PayNow identifier"
+rule_name = "sg_paynow"
+pattern = '(?:PayNow|Pay\s*Now|PAYNOW)(?:\s+(?:ID|to|address|account|details|number))?[\s:.#-]*([STFGM]\d{7}[A-Z]|\d{8,9}[A-Z]|T\d{2}[A-Z]{2}\d{4}[A-Z]|\+?65[\s-]?[89]\d{3}[\s-]?\d{4}|[89]\d{7})'
+severity = "high"
+reason = "Singapore PayNow identifier (UEN / NRIC / mobile)"
+capture_group = 1
+
+# MAS-issued licence number — Capital Markets Services (CMS) / Financial Adviser (FA).
+# Anchored on a MAS or licence-context word to avoid false-positive collisions with
+# Content Management System ticket numbers, FA Cup years, etc. Conservative recall in
+# exchange for survivable precision against the false-positive surface.
+[[recognizers]]
+name = "Singapore MAS licence number"
+rule_name = "sg_mas_licence"
+pattern = '(?:MAS\s+licen[cs]e|MAS\s+No\.?|MAS\s+Register|MAS\s+ID|licen[cs]e\s+no\.?|licensed\s+by\s+MAS)[\s:#.()-]*((?:CMS|FA)\d{6,8})'
+severity = "medium"
+reason = "Singapore MAS capital markets services / financial adviser licence number"
+capture_group = 1
+
+# SGX counter / cashtag code. Format: 1 uppercase letter + 1-3 uppercase-letter-or-digit
+# (DBS, D05, U11, ABC1). Anchored on SGX / counter / ticker / stock code context.
+# Capture group wrapped in (?-i:...) to enforce uppercase even though the recognizer
+# compiler runs the pattern under re.IGNORECASE — without the case-sensitive group,
+# "SGX is..." and "SGX in..." would false-positive on the lowercase 2-letter tokens.
+[[recognizers]]
+name = "Singapore SGX counter code"
+rule_name = "sg_sgx_counter"
+pattern = '(?:SGX[:\s.-]+|listed\s+on\s+SGX(?:\s+as)?[\s:.-]*|SGX\s+(?:counter|code|ticker)[\s:.#-]*|(?:counter|ticker|stock\s+code)[\s:.#-]*SGX[\s:.#-]*)(?-i:([A-Z][A-Z0-9]{1,3}))\b'
+severity = "low"
+reason = "SGX counter / cashtag identifier"
+capture_group = 1

@@ -137,6 +137,23 @@ _PII_DEFAULT_RATIONALE = {
         "(combined with street/suburb). Treat as personal information under Privacy Act "
         "1988 APP 6 unless disclosure is authorised."
     ),
+    "sg_paynow": (
+        "Singapore PayNow identifier pairs a payee recipient with their UEN / NRIC / "
+        "mobile number. Treat as sensitive disclosure under PDPA s13 + MAS PaymentServices "
+        "Act 2019 + the PayNow service-provider undertakings. Mask before any external send."
+    ),
+    "sg_mas_licence": (
+        "Singapore MAS-issued capital markets services (CMS) or financial adviser (FA) "
+        "licence number identifies a regulated entity. Mask in private deal context "
+        "unless the recipient and purpose are documented under the Securities and Futures "
+        "Act 2001 / Financial Advisers Act 2001 disclosure framework."
+    ),
+    "sg_sgx_counter": (
+        "SGX counter / cashtag identifies a listed issuer. Public information, but "
+        "association with a counterparty / deal codename in a pre-send memo signals an "
+        "embargo-window MNPI surface under SFA s218 (insider trading) and SGX Mainboard "
+        "Rule 703 (continuous disclosure)."
+    ),
 }
 
 # rule -> short MNPI rationale (the citation is jurisdiction-specific so we layer on a suffix)
