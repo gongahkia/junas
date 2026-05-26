@@ -254,6 +254,59 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
         self.assertEqual(settings.document_ingest.max_empty_pdf_page_ratio, 0.5)
         self.assertFalse(settings.document_ingest.reject_image_only_pdf)
 
+    def test_image_scan_settings_load_from_config(self):
+        config_path = self._write_config(
+            """
+            [pipeline]
+            layers = []
+
+            [image_scan]
+            provider = "tesseract"
+            timeout_seconds = 3.5
+            max_images = 4
+            max_bytes = 2048
+            """
+        )
+
+        settings = runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
+
+        self.assertEqual(settings.image_scan.provider, "tesseract")
+        self.assertEqual(settings.image_scan.timeout_seconds, 3.5)
+        self.assertEqual(settings.image_scan.max_images, 4)
+        self.assertEqual(settings.image_scan.max_bytes, 2048)
+
+    def test_invalid_image_scan_provider_raises_config_error(self):
+        config_path = self._write_config(
+            """
+            [pipeline]
+            layers = []
+
+            [image_scan]
+            provider = "magic"
+            """
+        )
+
+        with self.assertRaises(runtime.ConfigError) as ctx:
+            runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
+
+        self.assertIn("image_scan.provider", str(ctx.exception))
+
+    def test_cloud_image_scan_provider_requires_tenant_opt_in(self):
+        config_path = self._write_config(
+            """
+            [pipeline]
+            layers = []
+
+            [image_scan]
+            provider = "openai_vision"
+            """
+        )
+
+        with self.assertRaises(runtime.ConfigError) as ctx:
+            runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
+
+        self.assertIn("tenant_opt_in_openai", str(ctx.exception))
+
 
 if __name__ == "__main__":
     unittest.main()

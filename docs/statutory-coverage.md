@@ -174,7 +174,7 @@ The detector inventory above is one defensibility axis. The operational surfaces
 | Local-daemon production ACL | backlog | item 58 |
 | Workflow-wide fail-closed audit | backlog | item 65 |
 | Binary / container metadata coverage (XLSX pivot cache, PPTX notes, EML attachments, archives) | backlog | item 61 |
-| Image OCR / recognition | backlog | item 64 |
+| Image OCR / recognition | shipped | item 64 |
 
 ## Disclaimers
 

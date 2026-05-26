@@ -53,7 +53,7 @@ return shape.
                       └────────────────────┬─────────────────────────┘
                                            │
                       ┌────────────────────▼─────────────────────────┐
-                      │  (planned 64) Image scan / OCR               │
+                      │  (shipped 64) Image scan / OCR               │
                       │   Tesseract (local) | OpenAI Vision |        │
                       │   Google Cloud Vision | AWS Rekognition |    │
                       │   Azure AI Vision                            │
@@ -325,7 +325,7 @@ What changed in this version vs ARCHITECTURE_25_MAY.txt
    act on partial coverage rather than discover it post-hoc. The meta-audit is
    still open.
 
-4. Image-scan / OCR layer (item 64) added between metadata scan and
+4. Image-scan / OCR layer (item 64) shipped between metadata scan and
    engine.review() — pluggable backend (Tesseract / OpenAI Vision / Google /
    AWS Rekognition / Azure). All cloud providers pass through PrivacyGuard.
 
