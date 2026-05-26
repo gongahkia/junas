@@ -15,8 +15,11 @@ class AccuracyDocTests(unittest.TestCase):
         self.assertIn("default legal corpus", rendered)
         self.assertIn("adversarial corpus", rendered)
         self.assertIn("SEA jurisdiction corpus", rendered)
+        self.assertIn("HK/AU/JP/KR jurisdiction corpus", rendered)
         self.assertIn("`sg_nric_fin`", rendered)
         self.assertIn("`my_mykad`", rendered)
+        self.assertIn("`au_tfn`", rendered)
+        self.assertIn("`jp_my_number`", rendered)
         self.assertIn("not locked", rendered)
 
 
