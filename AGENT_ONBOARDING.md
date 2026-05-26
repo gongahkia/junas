@@ -26,18 +26,20 @@ Older docs (`ARCHITECTURE_25_MAY.txt` does not exist — it was renamed) are his
 
 ## 3. The state of the codebase as of 2026-05-26
 
-**Just landed (commits `fdf448d` + `3361512`):**
+**Current state after the 2026-05-26 pivot cleanup:**
 
 - Legacy 9-layer classifier (`src/kaypoh/workflow/layer1_lexicon` through `layer6_regression` + `layer5_mosaic`) **deleted from the repo**. `/classify` is now a thin wrapper over `engine.review()` returning a flat findings shape. See item 63.
 - 13 new expansion items (54–68) covering: LLM symmetric findings, matter-scoped inheritance, latency SLO, reviewer identity binding, local-daemon ACL, subject-erasure (PDPA s16 / GDPR Art 17 / etc.), per-tenant citations, container coverage, image scanning (Tesseract / OpenAI Vision / Google / AWS / Azure), fail-closed everywhere, additive signals (classifier + similarity + transparent aggregator).
 - 13 more items (69–86) derived from first-principles statutory analysis of every in-scope jurisdiction. Plus procurement-substrate items 87–89.
-- Two explicit next-todos: items 90 (HK/AU/JP/KR fixture seeding) and 91 (autolabel sweep on the 233-fixture synthetic corpus).
+- Items 90 and 91 are implemented: HK/AU/JP/KR packs + seed fixtures are in place, and the default/adversarial recall locks were refreshed after the autolabel sweep.
+- Runtime setup is UV-first. Use `uv run ...` with the project lock; do not revive `requirements.txt` workflows.
+- Docker support exists for the deterministic API server via `Dockerfile` and `docker-compose.yml`.
 
 **Tests:**
 
-- `268 passing` on core review / anonymize / tenant / source-verification surfaces.
-- `8 modules skipped` pending rewrite for the new `/classify` thin-wrapper shape. They are explicitly marked with `pytest.skip(allow_module_level=True, ...)` and a clear reason. They are: `test_classify_contract`, `test_window_inference_payloads`, `test_redis_integration`, `test_preflight_validation`, `test_logging`, `test_observability`, `test_startup_paths`, `test_distillation_pipeline`.
-- Pre-existing env-issue failures unrelated to the surgery: `test_anonymize::test_anonymize_accepts_docx_base64_document` (xml.etree expat missing on Python 3.14), `test_document_hardening` (same expat issue), `test_benchmark_*` (latency targets), `test_accuracy_doc::test_accuracy_doc_matches_locks` (stale — needs regeneration after corpus growth). These are not your problem unless explicitly asked.
+- Focused detector / corpus / runtime suites should run through `uv run python -m unittest ...`.
+- Use `scripts/verify_runtime.sh` for the current deterministic API smoke path.
+- The old skipped modules for the classifier/mosaic/Redis/artifact stack have been removed instead of kept as skips.
 
 **Repo state:**
 
@@ -46,13 +48,12 @@ src/kaypoh/
 ├── anonymize/         # placeholder rewriting + mapping store
 ├── backend/           # FastAPI app: main.py, schemas.py, auth.py, ...
 ├── client.py          # Python SDK
-├── configs/           # runtime + artifacts config
+├── configs/           # runtime config
 ├── helper/            # determinism
 ├── review/            # engine.py + jurisdictions/ + detectors
-├── training/          # distillation pipeline (item 29)
 └── workflow/
     ├── layer0_parser
-    ├── layer7_public_evidence   # Tinyfish / Exa retrieval
+    ├── layer7_public_evidence   # Exa / Tinyfish / Serper / SerpAPI retrieval
     ├── layer8_llm_adjudicator   # LLM tier (vLLM / Ollama / OpenAI)
     └── privacy_guard.py
 ```
@@ -87,48 +88,7 @@ These are project-wide invariants. Every PR is measured against them.
 
 ## 5. What to work on next (in order)
 
-The user has explicitly flagged two items as immediate next-todos in the architecture doc. **Do these first** unless the user has redirected you to something else:
-
-### Item 91 — Run the autolabel pipeline against the 233-fixture corpus
-
-**State of the world:** 233 synthetic fixtures (118 default + 115 adversarial) exist under `test/fixtures/legal-corpus/` and `test/fixtures/legal-corpus-adversarial/`. Each has a stub `labels.json` from `scripts/generate_legal_fixture.py` carrying `_generation_note: "AUTO-GENERATED STUB"`. The recall gate cannot use them until `must_detect` / `must_not_detect` are filled.
-
-**Tools already built (do not re-implement):**
-
-- `scripts/autolabel_fixture.py` — single-fixture auto-labeler. Default model `o1`. Validates that every `matched_text` appears verbatim in the body, drops hallucinations, writes provenance fields `_label_source`, `_label_model`, `_label_warnings`, `_label_note`. Protects existing human labels (only re-labels stubs or other auto-labels unless `--force`).
-- `scripts/autolabel_batch.py` — walks both corpora, calls `autolabel_fixture.autolabel()` per file.
-
-**Execution order:**
-
-1. **Validation run** — auto-label 5 fixtures first to confirm o1 works through the API path: `OPENAI_API_KEY=$(grep OPENAI_API_KEY .env | cut -d= -f2) scripts/autolabel_batch.py --model o1 --limit 5`. Spot-check the output by hand. [Inference] Each fixture should produce ~5–15 `must_detect` entries + ~2–5 `must_not_detect` entries. Hallucinated text (not in body) gets filtered with a warning surfaced in `_label_warnings`.
-
-2. **Full sweep** — once spot-check passes: `OPENAI_API_KEY=... scripts/autolabel_batch.py --model o1`. [Inference] ~$12 at o1 prices for 233 fixtures, ~30 min wall clock.
-
-3. **Spot-check ≥10% of auto-labels** before promoting any baseline. Pick ~25 random fixtures, eyeball the labels, fix any systematic miss the validator didn't catch.
-
-4. **Refresh recall lock** with provenance: `python3 scripts/recall_gate.py --update --reason "auto-label sweep with o1 on 2026-05-26 (item 91); manual spot-check of 25 fixtures completed"`. The history file `test/fixtures/legal-corpus/recall.lock.history.jsonl` records actor + commit SHA + reason per item 16.
-
-**Caveat the user must understand before you do step 4:** auto-labeled fixtures + auto-derived recall lock = circular gate. The recall gate measures the engine against labels the engine's teacher generated. Promotion is only safe after the spot-check. Surface this in the lock-update reason explicitly so an auditor can reconstruct the provenance.
-
-### Item 90 — HK / AU / JP / KR fixture seeding
-
-**Depends on:** item 86 (curated jurisdiction packs for HK / AU / JP / KR — TOML detector + statute citations under `src/kaypoh/review/jurisdictions_data/`).
-
-**Execution order:**
-
-1. **Land detectors first.** Each pack needs at minimum: local national-ID regex, local company-ID regex, statute-citation strings. Detector patterns:
-    - HK: HK ID `^[A-Z]{1,2}[0-9]{6}\(?[0-9A]\)?$`; CR No. `^[0-9]{7,9}$` (with context anchor)
-    - AU: TFN `^[0-9]{9}$` (algorithm-validated); ABN `^[0-9]{11}$`; ACN `^[0-9]{9}$`
-    - JP: MyNumber `^[0-9]{12}$` (algorithm-validated); corporate number `^[0-9]{13}$`
-    - KR: RRN `^[0-9]{6}-[0-9]{7}$` (strictly regulated under PIPA Art 24-2 — needs explicit handling docs); business registration number `^[0-9]{3}-[0-9]{2}-[0-9]{5}$`
-    - **Validate digit-algorithm correctness for TFN / MyNumber.** Pure-regex without checksum will false-positive on serial numbers.
-2. **Seed fixtures.** One fixture per jurisdiction hand-validated by you (engine should fire detectors against it). Place under `test/fixtures/legal-corpus-hk-au-jp-kr/{hk,au,jp,kr}/`.
-3. **Grow corpus.** Run `scripts/generate_legal_fixture_batch.py` with jurisdiction-scoped prompts (you'll need to extend the script to take `--jurisdiction` — currently SG-hardcoded in the prompt). 30 docs per jurisdiction.
-4. **Auto-label** via item 91's tools.
-5. **Seed lock baseline.** `legal-corpus-hk-au-jp-kr.lock.json` with `baseline_recall = 1.0` + `baseline_precision = 1.0` for each new detector.
-6. **Statute citations.** Per item 85: SG findings cite SFA s218-221; HK findings cite SFO Part XIV s270-281; AU findings cite Corporations Act s1042A-1043O; JP findings cite FIEA Art 166-167; KR findings cite FSCMA Art 174-179. The first-principles section has the full citation table.
-
-### After 90 + 91
+Items 90 and 91 are done. Pick the next highest-leverage open item by ICP impact:
 
 Pick the next highest-leverage open item by ICP impact:
 

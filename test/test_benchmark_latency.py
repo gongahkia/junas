@@ -6,9 +6,8 @@ import sys
 import tempfile
 import time
 import unittest
-from unittest import mock
 from pathlib import Path
-
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -80,11 +79,9 @@ class BenchmarkLatencyTests(unittest.TestCase):
 
         port = reserve_port()
         base_url = f"http://127.0.0.1:{port}"
-        venv_python = ROOT / ".venv" / "bin" / "python"
-        python_exec = venv_python if venv_python.exists() else Path(sys.executable)
         backend_proc = subprocess.Popen(
             [
-                str(python_exec),
+                sys.executable,
                 "-m",
                 "uvicorn",
                 "test.observability_test_app:app",

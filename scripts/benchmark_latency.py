@@ -7,6 +7,7 @@ import argparse
 import csv
 import json
 import os
+import shutil
 import signal
 import subprocess
 import sys
@@ -17,9 +18,8 @@ from datetime import datetime
 from pathlib import Path
 from statistics import mean
 
-
 ROOT = Path(__file__).resolve().parent.parent
-TIMING_KEY_ORDER = ["lexicon", "embedding", "clustering", "model1", "model2", "mosaic", "regression", "cache_hit", "total"]
+TIMING_KEY_ORDER = ["review", "extract", "anonymize", "cache_hit", "total"]
 
 
 def parse_args() -> argparse.Namespace:
@@ -66,11 +66,6 @@ def resolve_inputs(args: argparse.Namespace) -> list[Path]:
     return unique_paths
 
 
-def get_python_executable() -> str:
-    venv_python = ROOT / ".venv" / "bin" / "python"
-    return str(venv_python) if venv_python.exists() else sys.executable
-
-
 def wait_for_ready(base_url: str, timeout: int) -> dict:
     deadline = time.time() + timeout
     ready_url = f"{base_url}/ready"
@@ -92,21 +87,16 @@ def wait_for_ready(base_url: str, timeout: int) -> dict:
 
 
 def start_backend(args: argparse.Namespace) -> subprocess.Popen:
-    python_exec = get_python_executable()
     env = {**os.environ}
+    env.setdefault("UV_PROJECT_ENVIRONMENT", str(ROOT / ".venv-uv"))
+    env.setdefault("UV_PYTHON", "3.12")
     if args.config:
         env["KAYPOH_CONFIG"] = str(args.config.resolve())
 
-    cmd = [
-        python_exec,
-        "-m",
-        "uvicorn",
-        "backend.main:app",
-        "--host",
-        "127.0.0.1",
-        "--port",
-        str(args.port),
-    ]
+    if shutil.which("uv"):
+        cmd = ["uv", "run", "uvicorn", "backend.main:app", "--host", "127.0.0.1", "--port", str(args.port)]
+    else:
+        cmd = [sys.executable, "-m", "uvicorn", "backend.main:app", "--host", "127.0.0.1", "--port", str(args.port)]
     return subprocess.Popen(cmd, cwd=str(ROOT), env=env)
 
 

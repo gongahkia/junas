@@ -21,7 +21,7 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
         config_path = self._write_config(
             """
             [pipeline
-            layers = ["model1"]
+            layers = ["public_evidence"]
             """
         )
 
@@ -30,11 +30,11 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
 
         self.assertIn("config parse failure", str(ctx.exception))
 
-    def test_invalid_type_raises_config_error(self):
+    def test_unknown_archived_section_raises_config_error(self):
         config_path = self._write_config(
             """
             [pipeline]
-            layers = ["model1"]
+            layers = []
 
             [mosaic]
             threshold = "many"
@@ -44,31 +44,32 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
         with self.assertRaises(runtime.ConfigError) as ctx:
             runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
 
-        self.assertIn("invalid integer for mosaic.threshold", str(ctx.exception))
+        self.assertIn("unknown config sections", str(ctx.exception))
+        self.assertIn("mosaic", str(ctx.exception))
 
     def test_cli_overrides_take_precedence_over_env_and_config(self):
         config_path = self._write_config(
             """
             [pipeline]
-            layers = ["lexicon"]
+            layers = ["public_evidence"]
             """
         )
 
-        with patch.dict(os.environ, {"PIPELINE_LAYERS": "model1,model2"}, clear=False):
+        with patch.dict(os.environ, {"PIPELINE_LAYERS": "public_evidence,llm_adjudicator"}, clear=False):
             settings = runtime.load_runtime_settings(
                 cli_overrides={
                     "config_path": str(config_path),
-                    "pipeline.layers": ["model2"],
+                    "pipeline.layers": ["llm_adjudicator"],
                 }
             )
 
-        self.assertEqual(settings.pipeline.layers, ("model2",))
+        self.assertEqual(settings.pipeline.layers, ("llm_adjudicator",))
 
     def test_remote_llm_defaults_to_structured_tokens_when_mode_unset(self):
         config_path = self._write_config(
             """
             [pipeline]
-            layers = ["lexicon"]
+            layers = []
 
             [llm]
             enabled = true
@@ -86,7 +87,7 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
         config_path = self._write_config(
             """
             [pipeline]
-            layers = ["lexicon"]
+            layers = []
 
             [llm]
             enabled = true
@@ -106,7 +107,7 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
         config_path = self._write_config(
             """
             [pipeline]
-            layers = ["lexicon"]
+            layers = []
 
             [llm]
             enabled = true
@@ -127,7 +128,7 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
         config_path = self._write_config(
             """
             [pipeline]
-            layers = ["lexicon"]
+            layers = []
 
             [llm]
             enabled = true
@@ -144,7 +145,7 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
         config_path = self._write_config(
             """
             [pipeline]
-            layers = ["lexicon"]
+            layers = []
 
             [siem]
             enabled = true
@@ -167,7 +168,7 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
         config_path = self._write_config(
             """
             [pipeline]
-            layers = ["lexicon"]
+            layers = []
 
             [siem]
             enabled = true
@@ -194,7 +195,7 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
         config_path = self._write_config(
             f"""
             [pipeline]
-            layers = ["lexicon"]
+            layers = []
 
             [tenancy]
             enabled = true
@@ -217,7 +218,7 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
         config_path = self._write_config(
             """
             [pipeline]
-            layers = ["lexicon"]
+            layers = []
 
             [tenancy]
             enabled = true
@@ -234,7 +235,7 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
         config_path = self._write_config(
             """
             [pipeline]
-            layers = ["lexicon"]
+            layers = []
 
             [document_ingest]
             fail_closed = true

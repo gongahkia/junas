@@ -36,7 +36,7 @@ class OpenApiDocsTests(unittest.TestCase):
         self.assertEqual(review_operation["summary"], "Review a document before sending")
         self.assertEqual(anonymize_operation["summary"], "Anonymize a document before sending")
         self.assertEqual(scrub_operation["summary"], "Scrub document metadata")
-        self.assertIn("include_offending_spans", classify_operation["description"])
+        self.assertIn("deterministic review engine", classify_operation["description"])
         self.assertIn("strictest-wins", review_operation["description"])
         self.assertIn("deterministic placeholders", anonymize_operation["description"])
 
@@ -48,8 +48,6 @@ class OpenApiDocsTests(unittest.TestCase):
         review_response = schemas["ReviewResponse"]
         scrub_request = schemas["DocumentScrubRequest"]
         scrub_response = schemas["DocumentScrubResponse"]
-        offending_span = schemas["OffendingSpanResponse"]
-        mosaic_response = schemas["MosaicResponse"]
 
         self.assertIn("include_offending_spans", classify_request["properties"])
         self.assertIn("document_base64", review_request["properties"])
@@ -62,33 +60,10 @@ class OpenApiDocsTests(unittest.TestCase):
         self.assertIn("mapping", anonymize_response["properties"])
         self.assertIn("replacements", anonymize_response["properties"])
         include_spans_description = classify_request["properties"]["include_offending_spans"]["description"]
-        self.assertIn("approximate classifier-window spans", include_spans_description)
-        self.assertIn("context_before", offending_span["properties"])
-        self.assertIn("window_token_count", offending_span["properties"])
-        self.assertEqual(
-            list(mosaic_response["properties"].keys()),
-            [
-                "entity_id",
-                "escalated",
-                "recent_event_count",
-                "unique_fragment_count",
-                "window_hours",
-                "threshold",
-                "escalation_reason",
-                "matched_event_ids",
-            ],
-        )
-        self.assertEqual(
-            mosaic_response["required"],
-            [
-                "entity_id",
-                "escalated",
-                "recent_event_count",
-                "unique_fragment_count",
-                "window_hours",
-                "threshold",
-            ],
-        )
+        self.assertIn("Deprecated compatibility flag", include_spans_description)
+        classify_response = schemas["ClassifyResponse"]
+        self.assertIn("findings", classify_response["properties"])
+        self.assertIn("Deprecated compatibility field", classify_response["properties"]["mosaic"]["description"])
 
 
 if __name__ == "__main__":

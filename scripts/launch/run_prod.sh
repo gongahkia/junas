@@ -16,18 +16,16 @@ export PROMETHEUS_MULTIPROC_DIR="$PROM_DIR"
 
 trap cleanup_services EXIT INT TERM
 
-echo "🚀 Starting Kaypoh production backend..."
+echo "Starting Kaypoh production backend..."
 
-activate_venv
-
-echo "🧪 Running strict preflight checks..."
-python3 "${ROOT}/scripts/preflight.py" --strict
+echo "Running strict preflight checks..."
+python_cmd "${ROOT}/scripts/preflight.py" --strict
 
 rm -rf "${PROM_DIR}"
 mkdir -p "${PROM_DIR}"
 
-echo "📦 Booting production backend on ${BACKEND_URL}..."
-python3 -m uvicorn backend.main:app \
+echo "Booting production backend on ${BACKEND_URL}..."
+uvicorn_cmd backend.main:app \
     --host "${HOST}" \
     --port "${PORT}" \
     --workers "${WORKERS}" \
@@ -37,7 +35,7 @@ BACKEND_PID=$!
 wait_for_backend_ready
 emit_launch_telemetry_report "prod" || true
 
-echo "✅ Production backend is running."
+echo "Production backend is running."
 echo "   Backend: ${BACKEND_URL}"
 echo "Press Ctrl+C to stop everything."
 

@@ -115,7 +115,7 @@ class ConfigLoadTimeGateTests(unittest.TestCase):
     def _base_config(self, *, allow_remote: str, tenant_opt_in: str, provider: str = "openai") -> Path:
         return self._write_config(f"""
             [pipeline]
-            layers = ["lexicon"]
+            layers = []
 
             [llm]
             enabled = true
@@ -147,7 +147,7 @@ class ConfigLoadTimeGateTests(unittest.TestCase):
     def test_unknown_provider_rejected(self):
         config = self._write_config("""
             [pipeline]
-            layers = ["lexicon"]
+            layers = []
 
             [llm]
             provider = "claude"
@@ -159,7 +159,7 @@ class ConfigLoadTimeGateTests(unittest.TestCase):
         # vllm/ollama paths must not be affected by the new tenant gate
         config = self._write_config("""
             [pipeline]
-            layers = ["lexicon"]
+            layers = []
 
             [llm]
             provider = "vllm"

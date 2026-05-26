@@ -19,7 +19,7 @@ curl -sS -X POST "${BASE_URL}/classify/batch" \
 # GET /diagnostics - Get runtime diagnostics
 curl -sS -X GET "${BASE_URL}/diagnostics"
 
-# GET /health - Get layer load health
+# GET /health - Get runtime health
 curl -sS -X GET "${BASE_URL}/health"
 
 # GET /metrics - Get Prometheus metrics

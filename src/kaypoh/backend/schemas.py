@@ -1,4 +1,3 @@
-from datetime import datetime
 from enum import Enum
 from typing import Any, Optional
 
@@ -32,7 +31,7 @@ class ClassifyRequest(BaseModel):
     entity_id: Optional[str] = Field(
         None,
         max_length=128,
-        description="Optional entity identifier used by the Mosaic layer to correlate repeated low-risk fragments.",
+        description="Optional issuer/entity context used by audit-grade public-source MNPI checks.",
     )
     debug: bool = Field(
         False,
@@ -41,8 +40,8 @@ class ClassifyRequest(BaseModel):
     include_offending_spans: bool = Field(
         False,
         description=(
-            "Include exact lexicon-derived spans and approximate classifier-window spans when the final "
-            "response is LOW_RISK or HIGH_RISK."
+            "Deprecated compatibility flag. Current clients should read deterministic review `findings` "
+            "for span evidence."
         ),
     )
 
@@ -801,18 +800,18 @@ class AnonymizeResponse(ReviewResponse):
 
 
 class MosaicResponse(BaseModel):
-    entity_id: str = Field(description="Normalized entity key used for rolling-window aggregation.")
-    escalated: bool = Field(description="Whether Mosaic escalated a low-risk result to high risk.")
-    recent_event_count: int = Field(description="Number of recent low-risk events observed inside the active window.")
+    entity_id: str = Field(description="Deprecated compatibility field; Mosaic is archived.")
+    escalated: bool = Field(description="Deprecated compatibility field; Mosaic is archived.")
+    recent_event_count: int = Field(description="Deprecated compatibility field; Mosaic is archived.")
     unique_fragment_count: int = Field(
-        description="Number of unique fragment hashes observed inside the active window."
+        description="Deprecated compatibility field; Mosaic is archived."
     )
-    window_hours: float = Field(description="Active rolling aggregation window in hours.")
-    threshold: int = Field(description="Unique-fragment threshold required for escalation.")
-    escalation_reason: str = Field("", description="Human-readable reason for the current escalation outcome.")
+    window_hours: float = Field(description="Deprecated compatibility field; Mosaic is archived.")
+    threshold: int = Field(description="Deprecated compatibility field; Mosaic is archived.")
+    escalation_reason: str = Field("", description="Deprecated compatibility field; Mosaic is archived.")
     matched_event_ids: list[str] = Field(
         default_factory=list,
-        description="Recent mosaic event identifiers contributing to the current aggregate.",
+        description="Deprecated compatibility field; Mosaic is archived.",
     )
 
 
@@ -824,10 +823,10 @@ class LayerErrorResponse(BaseModel):
 
 class OffendingSpanResponse(BaseModel):
     id: str = Field(description="Stable span identifier for client keying and reconciliation.")
-    layer: str = Field(description="Origin layer for the span: lexicon, model1, or model2.")
+    layer: str = Field(description="Origin layer for the span. Deprecated; use ReviewFindingResponse.")
     rule: str = Field(description="Rule name or span source label.")
     severity: str = Field(description="Severity associated with the span source.")
-    matched_text: str = Field(description="Matched text or approximate classifier window text.")
+    matched_text: str = Field(description="Matched text for the span. Deprecated; use ReviewFindingResponse.")
     detail: str = Field("", description="Additional human-readable context for the span.")
     start_char: int = Field(description="Zero-based inclusive starting character offset.")
     end_char: int = Field(description="Zero-based exclusive ending character offset.")
@@ -835,7 +834,7 @@ class OffendingSpanResponse(BaseModel):
     start_column: int = Field(description="One-based starting column number.")
     end_line: int = Field(description="One-based ending line number.")
     end_column: int = Field(description="One-based ending column number.")
-    is_exact: bool = Field(description="True for exact lexicon hits, false for approximate classifier windows.")
+    is_exact: bool = Field(description="Deprecated; use ReviewFindingResponse offsets.")
     char_length: int = Field(description="Span length in characters.")
     line_span: int = Field(description="Number of lines covered by the span.")
     context_before: str = Field("", description="Up to 48 characters of leading local context.")
@@ -893,128 +892,69 @@ class ClassifyResponse(BaseModel):
             "example": {
                 "request_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
                 "classification": "HIGH_RISK",
-                "lexicon": {
-                    "flagged": True,
-                    "high_risk_short_circuit": False,
-                    "total_score": 12.5,
-                    "score_threshold": 10.0,
-                    "score_threshold_exceeded": True,
-                    "hits": [
-                        {
-                            "rule": "money_threshold",
-                            "matched_text": "$2.5 billion",
-                            "severity": "high",
-                            "detail": "parsed=2500000000 >= threshold=1000000",
-                            "score": 2.0,
-                        }
-                    ],
-                    "restricted_entities": [{"name": "Acme Corp", "ticker": "ACME", "isin": "US0000000001"}],
-                },
-                "model1": {"label": "risk", "confidence": 0.82, "risk_score": 0.82},
-                "model2": {"label": "high_risk", "confidence": 0.99, "high_risk_score": 0.99},
-                "clustering": {"anomaly_score": 0.61, "is_anomaly": False, "raw_score": -0.44},
-                "mosaic": {
-                    "entity_id": "acme corp",
-                    "escalated": True,
-                    "recent_event_count": 12,
-                    "unique_fragment_count": 10,
-                    "window_hours": 24.0,
-                    "threshold": 10,
-                    "escalation_reason": "10 unique low-risk fragments observed within 24.0 hours",
-                    "matched_event_ids": ["req-9", "req-8", "req-7"],
-                },
-                "regression": {"risk_score": 0.86, "reasoning": "XGBoost checkpoint produced probability 0.856"},
+                "lexicon": None,
+                "model1": None,
+                "model2": None,
+                "embedding": None,
+                "clustering": None,
+                "mosaic": None,
+                "regression": None,
+                "public_evidence": None,
+                "llm_adjudication": None,
+                "privacy_ledger": [],
                 "observability": {
                     "degraded": False,
                     "cache_status": "disabled",
-                    "active_pipeline": [
-                        "lexicon",
-                        "embedding",
-                        "clustering",
-                        "model1",
-                        "model2",
-                        "mosaic",
-                        "regression",
-                    ],
-                    "executed_layers": [
-                        "lexicon",
-                        "embedding",
-                        "clustering",
-                        "model1",
-                        "model2",
-                        "regression",
-                    ],
-                    "skipped_layers": ["mosaic"],
+                    "active_pipeline": ["engine.review"],
+                    "executed_layers": ["engine.review"],
+                    "skipped_layers": [],
                     "layer_errors": [],
                 },
-                "offending_spans": [
+                "offending_spans": None,
+                "timings_ms": {"total": 4.2},
+                "pii_score": 0.0,
+                "mnpi_score": 91.0,
+                "findings": [
                     {
-                        "id": "lexicon:money_threshold:38:50:0",
-                        "layer": "lexicon",
-                        "rule": "money_threshold",
+                        "id": "mnpi:material_event:0:56:0",
+                        "category": "MNPI",
+                        "rule": "material_event",
+                        "jurisdiction": "SG",
                         "severity": "high",
-                        "matched_text": "$2.5 billion",
-                        "detail": "parsed=2500000000 >= threshold=1000000",
-                        "start_char": 38,
-                        "end_char": 50,
-                        "start_line": 1,
-                        "start_column": 39,
-                        "end_line": 1,
-                        "end_column": 51,
-                        "is_exact": True,
-                        "char_length": 12,
-                        "line_span": 1,
-                        "context_before": "Acme Corp is acquiring GlobalTech for ",
-                        "context_after": " next quarter.",
-                        "score": 2.0,
-                        "score_type": "rule_score",
-                        "window_index": None,
-                        "window_count": None,
-                        "window_token_count": None,
-                        "window_stride": None,
-                        "window_max_seq_len": None,
+                        "score": 91.0,
+                        "matched_text": "Acme Corp will acquire GlobalTech before announcement.",
+                        "start_char": 0,
+                        "end_char": 56,
+                        "reason": "Material corporate event before public disclosure",
+                        "legal_basis": "SG_SFA_MARKET_MISCONDUCT",
+                        "source_verification": "not_checked",
                     }
                 ],
-                "embedding": None,
-                "timings_ms": {
-                    "lexicon": 11.467,
-                    "embedding": 200.766,
-                    "clustering": 4.989,
-                    "model1": 669.045,
-                    "model2": 592.709,
-                    "regression": 2.053,
-                    "total": 1491.608,
-                },
+                "coverage_warnings": [],
             }
         }
     )
 
     request_id: Optional[str] = Field(None, description="Per-request UUID also returned as the X-Request-ID header.")
-    classification: Classification = Field(description="Final document-level classification.")
-    lexicon: Optional[LexiconResponse] = Field(None, description="Lexicon-layer output for this request.")
+    classification: Classification = Field(description="Final document-level classification from engine.review().")
+    lexicon: Optional[LexiconResponse] = Field(None, description="Deprecated compatibility field; always null.")
     model1: Optional[Model1Response] = Field(
         None,
-        description=(
-            "Model-1 output. Null when the layer is disabled, unavailable, "
-            "or skipped after lexicon short-circuit."
-        ),
+        description="Deprecated compatibility field; always null.",
     )
     model2: Optional[Model2Response] = Field(
         None,
-        description=(
-            "Model-2 output. Null when the layer is disabled, unavailable, "
-            "or skipped after a safe Model-1 result."
-        ),
+        description="Deprecated compatibility field; always null.",
     )
     embedding: Optional[list[float]] = Field(
         None,
-        description="Dense embedding vector. Included only when debug=true.",
+        description="Deprecated compatibility field; always null.",
     )
-    clustering: Optional[dict] = Field(None, description="Clustering-layer output for this request.")
-    mosaic: Optional[MosaicResponse] = Field(None, description="Mosaic aggregation output for this request.")
+    clustering: Optional[dict] = Field(None, description="Deprecated compatibility field; always null.")
+    mosaic: Optional[MosaicResponse] = Field(None, description="Deprecated compatibility field; always null.")
     regression: Optional[RegressionResponse] = Field(
         None,
-        description="Regression-layer output when a trained checkpoint is available and loaded.",
+        description="Deprecated compatibility field; always null.",
     )
     public_evidence: Optional[PublicEvidenceResponse] = Field(
         None,
@@ -1031,11 +971,11 @@ class ClassifyResponse(BaseModel):
     observability: ObservabilityResponse = Field(description="Per-request runtime observability metadata.")
     offending_spans: Optional[list[OffendingSpanResponse]] = Field(
         None,
-        description="Exact lexicon spans and approximate classifier-window spans when explicitly requested.",
+        description="Deprecated compatibility field; use `findings` for current span evidence.",
     )
     timings_ms: dict[str, float] = Field(
         default_factory=dict,
-        description="Per-layer timing breakdown in milliseconds plus the total request time.",
+        description="Review timing breakdown in milliseconds plus the total request time.",
     )
     pii_score: Optional[float] = Field(
         None,
@@ -1047,7 +987,7 @@ class ClassifyResponse(BaseModel):
     )
     findings: list[ReviewFindingResponse] = Field(
         default_factory=list,
-        description="Deterministic + LLM-tier findings from engine.review(). Populated under the item-63 thin-wrapper flow.",
+        description="Deterministic review findings from engine.review().",
     )
     coverage_warnings: list[dict] = Field(
         default_factory=list,
@@ -1062,57 +1002,17 @@ class BatchClassifyResponse(BaseModel):
     )
 
 
-class TrainingSentence(BaseModel):
-    text: str = Field(description="Sentence text used for training.")
-    label: str = Field(description="Canonical or legacy label for the sentence.")
-
-    @field_validator("label")
-    @classmethod
-    def normalize_label(cls, value: str) -> str:
-        raw = value.strip().lower().replace("_", " ").replace("-", " ")
-        mapping = {
-            "non": "non",
-            "non sensitive": "non",
-            "nonsensitive": "non",
-            "low": "low",
-            "low risk": "low",
-            "low sensitivity": "low",
-            "high": "high",
-            "high risk": "high",
-            "high sensitivity": "high",
-        }
-        if raw not in mapping:
-            raise ValueError("label must be one of: non, low, high (or supported aliases)")
-        return mapping[raw]
-
-class TrainingDocument(BaseModel):
-    document_creation: datetime = Field(description="Document creation timestamp.")
-    document_name: str = Field(description="Document name or identifier.")
-    document_sentence_array: list[TrainingSentence] = Field(
-        ...,
-        min_length=1,
-        description="Ordered sentence payloads for the document.",
-    )
-
-
-class TrainingBatch(BaseModel):
-    batch_name: str = Field(description="Batch identifier.")
-    batch_creation: datetime = Field(description="Batch creation timestamp.")
-    documents: list[TrainingDocument] = Field(
-        ...,
-        min_length=1,
-        description="Training documents included in the batch.",
-    )
-
 class HealthResponse(BaseModel):
     status: str = Field(description="Health endpoint status.")
-    lexicon_loaded: bool = Field(description="Whether the lexicon layer is currently loaded.")
-    model1_loaded: bool = Field(description="Whether Model-1 is currently loaded.")
-    model2_loaded: bool = Field(description="Whether Model-2 is currently loaded.")
-    embedding_loaded: bool = Field(False, description="Whether the embedding layer is currently loaded.")
-    clustering_loaded: bool = Field(False, description="Whether the clustering layer is currently loaded.")
-    mosaic_loaded: bool = Field(False, description="Whether the Mosaic layer is currently loaded.")
-    regression_loaded: bool = Field(False, description="Whether the regression layer is currently loaded.")
+    lexicon_loaded: bool = Field(False, description="Deprecated compatibility field; legacy layer archived.")
+    model1_loaded: bool = Field(False, description="Deprecated compatibility field; legacy layer archived.")
+    model2_loaded: bool = Field(False, description="Deprecated compatibility field; legacy layer archived.")
+    embedding_loaded: bool = Field(False, description="Deprecated compatibility field; legacy layer archived.")
+    clustering_loaded: bool = Field(False, description="Deprecated compatibility field; legacy layer archived.")
+    mosaic_loaded: bool = Field(False, description="Deprecated compatibility field; legacy layer archived.")
+    regression_loaded: bool = Field(False, description="Deprecated compatibility field; legacy layer archived.")
+    public_evidence_loaded: bool = Field(False, description="Whether the public evidence retriever is loaded.")
+    llm_adjudicator_loaded: bool = Field(False, description="Whether the LLM adjudicator is loaded.")
 
 
 class ReadyResponse(BaseModel):
@@ -1160,7 +1060,7 @@ class DiagnosticsResponse(BaseModel):
     metrics_mode: str = Field("singleprocess", description="Prometheus export mode: singleprocess or multiprocess.")
     dependency_status: dict[str, DependencyStatusResponse] = Field(
         default_factory=dict,
-        description="Dependency-level health information such as Redis connectivity.",
+        description="Dependency-level health information for optional retrieval and adjudication helpers.",
     )
     runtime_layer_errors: dict[str, RuntimeLayerErrorSummaryResponse] = Field(
         default_factory=dict,

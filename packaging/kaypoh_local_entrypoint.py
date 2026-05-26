@@ -1,7 +1,7 @@
 """PyInstaller entrypoint for the kaypoh-local desktop SKU.
 
-Boots the FastAPI runtime on 127.0.0.1 with the lexicon-only pipeline (no server-side
-classifier layers) and no external HTTP. The frozen binary is intended to be launched
+Boots the FastAPI runtime on 127.0.0.1 with the deterministic engine and no
+external HTTP. The frozen binary is intended to be launched
 by a desktop shell (Tauri / Electron) which talks to it over loopback.
 """
 
@@ -14,7 +14,7 @@ import sys
 def _set_local_defaults() -> None:
     os.environ.setdefault("KAYPOH_HOST", "127.0.0.1")
     os.environ.setdefault("KAYPOH_PORT", "8765")
-    os.environ.setdefault("KAYPOH_PIPELINE_LAYERS", "lexicon")
+    os.environ.setdefault("PIPELINE_LAYERS", "")
     os.environ.setdefault("KAYPOH_PUBLIC_EVIDENCE_ENABLED", "0")
     os.environ.setdefault("KAYPOH_LLM_ENABLED", "0")
     os.environ.setdefault("KAYPOH_REVIEW_PERSIST", "1")
@@ -23,6 +23,7 @@ def _set_local_defaults() -> None:
 def main() -> int:
     _set_local_defaults()
     import uvicorn
+
     from backend.main import app  # noqa: F401  -- ensures app symbol resolves
 
     host = os.environ["KAYPOH_HOST"]

@@ -16,18 +16,9 @@ except ImportError:
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config.toml"
-DEFAULT_PIPELINE_LAYERS = (
-    "lexicon",
-    "embedding",
-    "clustering",
-    "model1",
-    "model2",
-    "mosaic",
-    "regression",
-)
-DEFAULT_OPTIONAL_LAYERS = ("mosaic",)
-VALID_LAYERS = frozenset(DEFAULT_PIPELINE_LAYERS + ("public_evidence", "llm_adjudicator"))
-LEXICON_SCORE_THRESHOLD_MODES = frozenset({"static", "dynamic"})
+DEFAULT_PIPELINE_LAYERS: tuple[str, ...] = ()
+DEFAULT_OPTIONAL_LAYERS: tuple[str, ...] = ()
+VALID_LAYERS = frozenset(("public_evidence", "llm_adjudicator"))
 EXTERNAL_QUERY_POLICIES = frozenset({"sanitized_only", "derived_hashes_only", "disabled"})
 TENANCY_AUTH_MODES = frozenset({"api_key", "jwt"})
 TENANCY_ROLES = frozenset({"reviewer", "maker", "checker", "admin", "auditor"})
@@ -60,29 +51,6 @@ KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
             "min_pdf_chars_per_page",
             "max_empty_pdf_page_ratio",
             "reject_image_only_pdf",
-        }
-    ),
-    "embeddings": frozenset({"model_name", "cache_size"}),
-    "isolation_forest": frozenset({"contamination", "max_features", "n_estimators"}),
-    "lexicon": frozenset(
-        {
-            "score_threshold",
-            "score_threshold_mode",
-            "dynamic_chars_per_point",
-            "dynamic_threshold_increment",
-        }
-    ),
-    "lexicon_weights": None,
-    "mosaic": frozenset(
-        {
-            "ttl_hours",
-            "threshold",
-            "redis_host",
-            "redis_port",
-            "connect_timeout_seconds",
-            "socket_timeout_seconds",
-            "retry_attempts",
-            "retry_backoff_ms",
         }
     ),
     "public_evidence": frozenset(
@@ -134,7 +102,6 @@ KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
             "jwt_roles_claim",
         }
     ),
-    "thresholds": frozenset({"mnpi_abs", "mnpi_pct", "model1", "model2", "lock_path"}),
 }
 _MISSING = object()
 
@@ -187,44 +154,11 @@ class TenancySettings:
 
 
 @dataclass(frozen=True)
-class ThresholdSettings:
-    mnpi_abs: float
-    mnpi_pct: float
-    model1: float
-    model2: float
-    lock_path: str
-
-
-@dataclass(frozen=True)
-class IsolationForestSettings:
-    contamination: float
-    max_features: float
-    n_estimators: int
-
-
-@dataclass(frozen=True)
-class EmbeddingsSettings:
-    model_name: str
-    cache_size: int
-
-
-@dataclass(frozen=True)
-class MosaicSettings:
-    ttl_hours: float
-    threshold: int
-    redis_host: str
-    redis_port: int
-    connect_timeout_seconds: float
-    socket_timeout_seconds: float
-    retry_attempts: int
-    retry_backoff_ms: int
-
-
-@dataclass(frozen=True)
 class PublicEvidenceSettings:
     enabled: bool
     provider: str
     api_key: str
+    backup_api_key: str
     endpoint: str
     max_results: int
     timeout_seconds: float
@@ -267,14 +201,6 @@ class PrivacySettings:
 
 
 @dataclass(frozen=True)
-class LexiconSettings:
-    score_threshold: float
-    score_threshold_mode: str
-    dynamic_chars_per_point: float
-    dynamic_threshold_increment: float
-
-
-@dataclass(frozen=True)
 class ResponseCacheSettings:
     size: int
     ttl_seconds: float
@@ -295,7 +221,6 @@ class StartupSettings:
     prewarm_required_layers: bool
     fail_on_layer_load_error: bool
     batch_max_concurrency: int
-    artifact_manifest: str
     pretty_logs: bool
 
 
@@ -307,15 +232,9 @@ class RuntimeSettings:
     api: ApiSettings
     document_ingest: DocumentIngestSettings
     tenancy: TenancySettings
-    thresholds: ThresholdSettings
-    isolation_forest: IsolationForestSettings
-    embeddings: EmbeddingsSettings
-    mosaic: MosaicSettings
     public_evidence: PublicEvidenceSettings
     llm: LLMSettings
     privacy: PrivacySettings
-    lexicon: LexiconSettings
-    lexicon_weights: dict[str, float]
     response_cache: ResponseCacheSettings
     siem: SIEMSettings
     startup: StartupSettings
@@ -403,14 +322,6 @@ def _is_private_or_local_base_url(base_url: str) -> bool:
         return addr.is_private or addr.is_loopback or addr.is_link_local
     except ValueError:
         return host.endswith(".local")
-
-
-def _parse_dict(value: Any, *, label: str) -> dict[str, Any]:
-    if value is None:
-        return {}
-    if isinstance(value, Mapping):
-        return dict(value)
-    raise ConfigError(f"invalid mapping for {label}: expected table/object")
 
 
 def _parse_tenant_credentials(value: Any, *, label: str) -> tuple[TenantCredential, ...]:
@@ -533,17 +444,6 @@ def _resolve_raw_value(
     if isinstance(section_payload, Mapping) and key in section_payload:
         return section_payload[key]
     return default
-
-
-def _parse_lexicon_weights(value: Any) -> dict[str, float]:
-    payload = _parse_dict(value, label="lexicon_weights")
-    out: dict[str, float] = {}
-    for key, raw_val in payload.items():
-        text_key = str(key).strip()
-        if not text_key:
-            raise ConfigError("lexicon_weights contains an empty rule key")
-        out[text_key] = _parse_float(raw_val, label=f"lexicon_weights.{text_key}", minimum=0.0)
-    return out
 
 
 def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> RuntimeSettings:
@@ -787,231 +687,6 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
     if tenancy.enabled and "jwt" in tenancy.auth_modes and not (tenancy.jwt_hs256_secret or tenancy.jwt_jwks_url):
         raise ConfigError("tenancy.jwt_hs256_secret or tenancy.jwt_jwks_url is required when jwt mode is enabled")
 
-    thresholds = ThresholdSettings(
-        mnpi_abs=_parse_float(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="thresholds",
-                key="mnpi_abs",
-                env_vars=("MNPI_ABS_THRESHOLD",),
-                default=1000000.0,
-            ),
-            label="thresholds.mnpi_abs",
-            minimum=0.0,
-        ),
-        mnpi_pct=_parse_float(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="thresholds",
-                key="mnpi_pct",
-                env_vars=("MNPI_PCT_THRESHOLD",),
-                default=5.0,
-            ),
-            label="thresholds.mnpi_pct",
-            minimum=0.0,
-        ),
-        model1=_parse_probability(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="thresholds",
-                key="model1",
-                env_vars=("MODEL1_THRESHOLD",),
-                default=0.5,
-            ),
-            label="thresholds.model1",
-        ),
-        model2=_parse_probability(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="thresholds",
-                key="model2",
-                env_vars=("MODEL2_THRESHOLD",),
-                default=0.5,
-            ),
-            label="thresholds.model2",
-        ),
-        lock_path=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="thresholds",
-                key="lock_path",
-                env_vars=("THRESHOLDS_LOCK_PATH",),
-                default="configs/thresholds.lock.json",
-            ),
-            label="thresholds.lock_path",
-        )
-        or "configs/thresholds.lock.json",
-    )
-
-    isolation_forest = IsolationForestSettings(
-        contamination=_parse_probability(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="isolation_forest",
-                key="contamination",
-                env_vars=("IF_CONTAMINATION",),
-                default=0.05,
-            ),
-            label="isolation_forest.contamination",
-        ),
-        max_features=_parse_probability(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="isolation_forest",
-                key="max_features",
-                env_vars=("IF_MAX_FEATURES",),
-                default=0.3,
-            ),
-            label="isolation_forest.max_features",
-        ),
-        n_estimators=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="isolation_forest",
-                key="n_estimators",
-                env_vars=("IF_N_ESTIMATORS",),
-                default=100,
-            ),
-            label="isolation_forest.n_estimators",
-            minimum=1,
-        ),
-    )
-
-    embeddings = EmbeddingsSettings(
-        model_name=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="embeddings",
-                key="model_name",
-                env_vars=("EMBEDDINGS_MODEL",),
-                default="all-mpnet-base-v2",
-            ),
-            label="embeddings.model_name",
-        )
-        or "all-mpnet-base-v2",
-        cache_size=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="embeddings",
-                key="cache_size",
-                env_vars=("EMBEDDINGS_CACHE_SIZE",),
-                default=512,
-            ),
-            label="embeddings.cache_size",
-            minimum=0,
-        ),
-    )
-
-    mosaic = MosaicSettings(
-        ttl_hours=_parse_float(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="mosaic",
-                key="ttl_hours",
-                env_vars=("MOSAIC_TTL_HOURS",),
-                default=24.0,
-            ),
-            label="mosaic.ttl_hours",
-            minimum=0.1,
-        ),
-        threshold=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="mosaic",
-                key="threshold",
-                env_vars=("MOSAIC_THRESHOLD",),
-                default=10,
-            ),
-            label="mosaic.threshold",
-            minimum=1,
-        ),
-        redis_host=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="mosaic",
-                key="redis_host",
-                env_vars=("REDIS_HOST",),
-                default="localhost",
-            ),
-            label="mosaic.redis_host",
-        )
-        or "localhost",
-        redis_port=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="mosaic",
-                key="redis_port",
-                env_vars=("REDIS_PORT",),
-                default=6379,
-            ),
-            label="mosaic.redis_port",
-            minimum=1,
-            maximum=65535,
-        ),
-        connect_timeout_seconds=_parse_float(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="mosaic",
-                key="connect_timeout_seconds",
-                env_vars=("MOSAIC_CONNECT_TIMEOUT_SECONDS",),
-                default=0.5,
-            ),
-            label="mosaic.connect_timeout_seconds",
-            minimum=0.1,
-        ),
-        socket_timeout_seconds=_parse_float(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="mosaic",
-                key="socket_timeout_seconds",
-                env_vars=("MOSAIC_SOCKET_TIMEOUT_SECONDS",),
-                default=0.5,
-            ),
-            label="mosaic.socket_timeout_seconds",
-            minimum=0.1,
-        ),
-        retry_attempts=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="mosaic",
-                key="retry_attempts",
-                env_vars=("MOSAIC_RETRY_ATTEMPTS",),
-                default=3,
-            ),
-            label="mosaic.retry_attempts",
-            minimum=1,
-        ),
-        retry_backoff_ms=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="mosaic",
-                key="retry_backoff_ms",
-                env_vars=("MOSAIC_RETRY_BACKOFF_MS",),
-                default=100,
-            ),
-            label="mosaic.retry_backoff_ms",
-            minimum=0,
-        ),
-    )
-
     public_evidence_provider = (
         _parse_str(
             _resolve_raw_value(
@@ -1030,6 +705,8 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
     _provider_defaults = {
         "exa": ("EXA_API_KEY", "https://api.exa.ai/search"),
         "tinyfish": ("TINYFISH_API_KEY", "https://api.search.tinyfish.ai/"),
+        "serper": ("SERPER_API_KEY", "https://google.serper.dev/search"),
+        "serpapi": ("SERPAPI_KEY_PRIMARY", "https://serpapi.com/search.json"),
         "none": ("", ""),
     }
     _key_env, _endpoint_default = _provider_defaults.get(public_evidence_provider, ("", ""))
@@ -1068,6 +745,11 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         ),
         provider=public_evidence_provider,
         api_key=public_evidence_api_key,
+        backup_api_key=(
+            _parse_str(os.environ.get("SERPAPI_KEY_BACKUP", ""), label="SERPAPI_KEY_BACKUP")
+            if public_evidence_provider == "serpapi"
+            else ""
+        ),
         endpoint=_resolved_endpoint,
         max_results=_parse_int(
             _resolve_raw_value(
@@ -1095,8 +777,8 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
             minimum=0.1,
         ),
     )
-    if public_evidence.provider not in {"exa", "tinyfish", "none"}:
-        raise ConfigError("public_evidence.provider must be one of: exa, tinyfish, none")
+    if public_evidence.provider not in {"exa", "tinyfish", "serper", "serpapi", "none"}:
+        raise ConfigError("public_evidence.provider must be one of: exa, tinyfish, serper, serpapi, none")
 
     llm_enabled = _parse_bool(
         _resolve_raw_value(
@@ -1289,63 +971,6 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
             + ", ".join(sorted(EXTERNAL_QUERY_POLICIES))
         )
 
-    lexicon = LexiconSettings(
-        score_threshold=_parse_float(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="lexicon",
-                key="score_threshold",
-                env_vars=("LEXICON_SCORE_THRESHOLD",),
-                default=10.0,
-            ),
-            label="lexicon.score_threshold",
-            minimum=0.0,
-        ),
-        score_threshold_mode=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="lexicon",
-                key="score_threshold_mode",
-                env_vars=("LEXICON_SCORE_THRESHOLD_MODE",),
-                default="static",
-            ),
-            label="lexicon.score_threshold_mode",
-        ).lower(),
-        dynamic_chars_per_point=_parse_float(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="lexicon",
-                key="dynamic_chars_per_point",
-                env_vars=("LEXICON_DYNAMIC_CHARS_PER_POINT",),
-                default=1000.0,
-            ),
-            label="lexicon.dynamic_chars_per_point",
-            minimum=1.0,
-        ),
-        dynamic_threshold_increment=_parse_float(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="lexicon",
-                key="dynamic_threshold_increment",
-                env_vars=("LEXICON_DYNAMIC_THRESHOLD_INCREMENT",),
-                default=1.0,
-            ),
-            label="lexicon.dynamic_threshold_increment",
-            minimum=0.0,
-        ),
-    )
-    if lexicon.score_threshold_mode not in LEXICON_SCORE_THRESHOLD_MODES:
-        raise ConfigError(
-            "lexicon.score_threshold_mode must be one of "
-            + ", ".join(sorted(LEXICON_SCORE_THRESHOLD_MODES))
-        )
-
-    lexicon_weights = _parse_lexicon_weights(raw_config.get("lexicon_weights", {}))
-
     response_cache = ResponseCacheSettings(
         size=_parse_int(
             _resolve_raw_value(
@@ -1480,11 +1105,6 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
             label="KAYPOH_BATCH_MAX_CONCURRENCY",
             minimum=1,
         ),
-        artifact_manifest=_parse_str(
-            os.environ.get("KAYPOH_ARTIFACT_MANIFEST", "artifacts/manifest.json"),
-            label="KAYPOH_ARTIFACT_MANIFEST",
-        )
-        or "artifacts/manifest.json",
         pretty_logs=_parse_bool(
             os.environ.get("KAYPOH_PRETTY_LOGS", "1"),
             label="KAYPOH_PRETTY_LOGS",
@@ -1498,15 +1118,9 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         api=ApiSettings(allowed_origins=tuple(dict.fromkeys(allowed_origins)), api_key=api_key),
         document_ingest=document_ingest,
         tenancy=tenancy,
-        thresholds=thresholds,
-        isolation_forest=isolation_forest,
-        embeddings=embeddings,
-        mosaic=mosaic,
         public_evidence=public_evidence,
         llm=llm,
         privacy=privacy,
-        lexicon=lexicon,
-        lexicon_weights=lexicon_weights,
         response_cache=response_cache,
         siem=siem,
         startup=startup,

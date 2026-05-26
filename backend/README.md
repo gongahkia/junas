@@ -1,8 +1,5 @@
 # Backend Folder
 
-This folder contains the active backend implementation.
+This folder contains compatibility shims for older `backend.*` imports.
 
-- `main.py`: FastAPI app and pipeline orchestration
-- `schemas.py`: request and response contracts
-- `observability.py`: metrics and dependency tracking
-- `workflow/`: the active stage-by-stage runtime pipeline
+Canonical code lives under `src/kaypoh/backend/`.

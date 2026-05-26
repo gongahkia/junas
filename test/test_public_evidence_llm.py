@@ -128,14 +128,12 @@ class PublicEvidencePrivacyTests(unittest.TestCase):
 
 
 class PublicEvidenceLLMApiTests(unittest.TestCase):
-    def test_local_llm_adjudication_can_downgrade_public_model_only_risk(self):
+    def test_classify_stays_strict_deterministic_even_when_llm_layers_seeded(self):
         text = "Acme Corp announced its acquisition of GlobalTech in a public press release."
         llm = DummyLLMAdjudicator()
         test_app.seed_test_state(
-            pipeline=["lexicon", "model1", "public_evidence", "llm_adjudicator"],
+            pipeline=["public_evidence", "llm_adjudicator"],
             models={
-                "lexicon": test_app.DummyLexiconFilter(flagged=False),
-                "model1": test_app.DummyModel1(label="risk", confidence=0.8, risk_score=0.8),
                 "public_evidence": DummyPublicEvidence(),
                 "llm_adjudicator": llm,
             },
@@ -147,16 +145,17 @@ class PublicEvidenceLLMApiTests(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         payload = response.json()
-        self.assertEqual(payload["classification"], "SAFE")
-        self.assertEqual(payload["public_evidence"]["status"], "queried")
-        self.assertEqual(payload["llm_adjudication"]["public_status"], "public")
-        self.assertEqual(payload["privacy_ledger"][0]["destination"], "exa")
-        self.assertEqual(payload["privacy_ledger"][1]["operation"], "llm_adjudication")
-        self.assertEqual(payload["privacy_ledger"][1]["input_mode"], "structured_tokens")
+        self.assertEqual(payload["classification"], "LOW_RISK")
+        self.assertIsNone(payload["public_evidence"])
+        self.assertIsNone(payload["llm_adjudication"])
+        self.assertEqual(payload["privacy_ledger"], [])
+        self.assertEqual(payload["lexicon"], None)
+        self.assertEqual(payload["model1"], None)
+        self.assertEqual(payload["mosaic"], None)
+        self.assertFalse(hasattr(llm, "last_payload"))
         emit_privacy_events.assert_called_once()
         self.assertEqual(emit_privacy_events.call_args.kwargs["endpoint"], "/classify")
-        self.assertEqual(len(emit_privacy_events.call_args.args[0]), 2)
-        self.assertEqual(llm.last_payload["text"], text)
+        self.assertEqual(len(emit_privacy_events.call_args.args[0]), 0)
 
 
 if __name__ == "__main__":

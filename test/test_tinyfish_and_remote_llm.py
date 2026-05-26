@@ -28,6 +28,24 @@ def _tinyfish_settings(
     )
 
 
+def _provider_settings(
+    *,
+    provider: str,
+    api_key: str = "test-key",
+    backup_api_key: str = "",
+    endpoint: str,
+) -> SimpleNamespace:
+    return SimpleNamespace(
+        enabled=True,
+        provider=provider,
+        api_key=api_key,
+        backup_api_key=backup_api_key,
+        endpoint=endpoint,
+        max_results=3,
+        timeout_seconds=2.0,
+    )
+
+
 class TinyfishAdapterTests(unittest.TestCase):
     def test_tinyfish_search_translates_results_and_uses_x_api_key_header(self):
         captured: dict = {}
@@ -110,6 +128,149 @@ class TinyfishAdapterTests(unittest.TestCase):
         payload = retriever.retrieve(text="Acme Corp acquisition.", entity_id="Acme Corp")
         self.assertEqual(payload["status"], "error")
         self.assertIn("unsupported public evidence provider", payload["detail"])
+
+    def test_serper_search_translates_organic_results(self):
+        captured: dict = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            captured["x_api_key"] = request.headers.get("X-API-KEY", "")
+            captured["body"] = json.loads(request.content.decode("utf-8"))
+            return httpx.Response(
+                200,
+                json={
+                    "organic": [
+                        {
+                            "title": "Acme acquisition announced",
+                            "link": "https://example.com/serper-acme",
+                            "snippet": "Acme publicly announced the acquisition.",
+                            "date": "May 26, 2026",
+                            "source": "Example Wire",
+                        }
+                    ]
+                },
+            )
+
+        retriever = PublicEvidenceRetriever(
+            _provider_settings(
+                provider="serper",
+                endpoint="https://google.serper.dev/search",
+            ),
+            PrivacyGuard(),
+        )
+        transport = httpx.MockTransport(handler)
+        original = httpx.Client
+
+        def factory(*args, **kwargs):
+            kwargs["transport"] = transport
+            return original(*args, **kwargs)
+
+        httpx.Client = factory  # type: ignore[assignment]
+        try:
+            payload = retriever.retrieve(text="Acme Corp acquisition press release.", entity_id="Acme Corp")
+        finally:
+            httpx.Client = original  # type: ignore[assignment]
+
+        self.assertEqual(payload["status"], "queried")
+        self.assertEqual(payload["provider"], "serper")
+        self.assertEqual(payload["sources"][0]["url"], "https://example.com/serper-acme")
+        self.assertEqual(payload["sources"][0]["author"], "Example Wire")
+        self.assertEqual(captured["x_api_key"], "test-key")
+        self.assertEqual(captured["body"]["num"], 3)
+        self.assertIn("Acme", captured["body"]["q"])
+
+    def test_serpapi_search_translates_organic_results(self):
+        captured: dict = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            captured["params"] = dict(request.url.params)
+            return httpx.Response(
+                200,
+                json={
+                    "organic_results": [
+                        {
+                            "title": "Acme acquisition filing",
+                            "link": "https://example.com/serpapi-acme",
+                            "snippet": "The acquisition was disclosed in a filing.",
+                            "date": "May 26, 2026",
+                            "source": "Example Search",
+                        }
+                    ]
+                },
+            )
+
+        retriever = PublicEvidenceRetriever(
+            _provider_settings(
+                provider="serpapi",
+                endpoint="https://serpapi.com/search.json",
+            ),
+            PrivacyGuard(),
+        )
+        transport = httpx.MockTransport(handler)
+        original = httpx.Client
+
+        def factory(*args, **kwargs):
+            kwargs["transport"] = transport
+            return original(*args, **kwargs)
+
+        httpx.Client = factory  # type: ignore[assignment]
+        try:
+            payload = retriever.retrieve(text="Acme Corp acquisition press release.", entity_id="Acme Corp")
+        finally:
+            httpx.Client = original  # type: ignore[assignment]
+
+        self.assertEqual(payload["status"], "queried")
+        self.assertEqual(payload["provider"], "serpapi")
+        self.assertEqual(payload["sources"][0]["url"], "https://example.com/serpapi-acme")
+        self.assertEqual(captured["params"]["engine"], "google")
+        self.assertEqual(captured["params"]["api_key"], "test-key")
+        self.assertEqual(captured["params"]["num"], "3")
+
+    def test_serpapi_retries_backup_key_on_primary_auth_failure(self):
+        seen_keys: list[str] = []
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            api_key = request.url.params.get("api_key", "")
+            seen_keys.append(api_key)
+            if api_key == "primary-key":
+                return httpx.Response(429, json={"error": "quota exhausted"})
+            return httpx.Response(
+                200,
+                json={
+                    "organic_results": [
+                        {
+                            "title": "Backup result",
+                            "link": "https://example.com/backup",
+                            "snippet": "Backup key succeeded.",
+                        }
+                    ]
+                },
+            )
+
+        retriever = PublicEvidenceRetriever(
+            _provider_settings(
+                provider="serpapi",
+                api_key="primary-key",
+                backup_api_key="backup-key",
+                endpoint="https://serpapi.com/search.json",
+            ),
+            PrivacyGuard(),
+        )
+        transport = httpx.MockTransport(handler)
+        original = httpx.Client
+
+        def factory(*args, **kwargs):
+            kwargs["transport"] = transport
+            return original(*args, **kwargs)
+
+        httpx.Client = factory  # type: ignore[assignment]
+        try:
+            payload = retriever.retrieve(text="Acme Corp acquisition press release.", entity_id="Acme Corp")
+        finally:
+            httpx.Client = original  # type: ignore[assignment]
+
+        self.assertEqual(payload["status"], "queried")
+        self.assertEqual(payload["sources"][0]["url"], "https://example.com/backup")
+        self.assertEqual(seen_keys, ["primary-key", "backup-key"])
 
 
 def _llm_settings(

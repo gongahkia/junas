@@ -1,105 +1,69 @@
 # Kaypoh
 
-> **Coding agents arriving at this repo: start with [`AGENT_ONBOARDING.md`](AGENT_ONBOARDING.md), then read `ARCHITECTURE-PIVOT-24-MAY.md` and `ARCHITECTURE_26_MAY.txt`.**
+> Coding agents arriving at this repo: start with [`AGENT_ONBOARDING.md`](AGENT_ONBOARDING.md), then read `ARCHITECTURE-PIVOT-24-MAY.md` and `ARCHITECTURE_26_MAY.txt`.
 
-Kaypoh is an API-first pre-send safety engine for PII anonymization and MNPI review.
+Kaypoh is an API-first pre-send safety engine for PII anonymization and MNPI review. The deterministic review engine is the runtime source of truth; `/classify` is now a compatibility shim over `engine.review()`.
 
-Two distribution SKUs share the same source tree:
+## Runtime
 
-- **`kaypoh-local`** (`pip install kaypoh[local]`) — offline-default desktop SKU. Deterministic engine + Presidio + spaCy + FastAPI. No `torch`, `transformers`, `sentence-transformers`, `redis`, `xgboost`, `scikit-learn`, `pandas`, or external HTTP. PyInstaller spec at `packaging/kaypoh-local.spec` bundles `en_core_web_sm` for desktop distribution.
-- **`kaypoh-server`** (`pip install kaypoh[server]`) — full stack: deterministic engine + public-source retrieval (Exa, Tinyfish) + local + opt-in remote LLM adjudication (vLLM, Ollama, OpenAI). Legacy 9-layer classifier (FinBERT / BERT-severity / mosaic / regression) archived 2026-05-26 per `ARCHITECTURE-PIVOT-24-MAY.md` item 63; `/classify` is now a thin wrapper over `engine.review()`.
-
-Both SKUs serve the same wire contracts.
+- `kaypoh-local`: offline-default desktop SKU. Deterministic engine + Presidio + spaCy + FastAPI. No `torch`, `transformers`, `sentence-transformers`, `redis`, `xgboost`, `scikit-learn`, `pandas`, or external HTTP.
+- `kaypoh-server`: same deterministic engine plus opt-in public evidence and LLM adjudication. Retrieval providers currently supported: Exa, Tinyfish, Serper, SerpAPI. External calls must pass `PrivacyGuard` and tenant/deployer opt-in.
 
 ## Layout
 
-- `api/`: compatibility exports for older `api.main`, `api.schemas`, and `api.client` imports
-- `archive/`: pruned holding area for tracked artifacts that should stay outside active runtime paths
-- `artifacts/`: runtime checkpoints verified by `artifacts/manifest.json`
-- `backend/`: compatibility exports for `backend.main:app`, `backend.client`, and related legacy imports
-- `configs/`: compatibility exports for runtime config helpers
-- `docs/`: operator docs, schema docs, architecture notes, and sample corpus JSON
-- `packaging/`: PyInstaller spec + entrypoint for the `kaypoh-local` desktop binary
-- `reports/`: generated benchmark and training reports
-- `scripts/`: launchers, benchmarking, preflight, validation, recall gate, and audit-pack tooling
-- `src/kaypoh/`: canonical Python package for runtime, workflow, config, helper, and training code
-- `test/`: automated tests, fixtures, and the legal-contract recall corpus
-- `training/`: end-to-end model and pipeline training entrypoints
+- `src/kaypoh/`: canonical Python package.
+- `backend/`, `api/`, `configs/`: compatibility shims for older imports.
+- `scripts/`: UV-first launchers, preflight, recall gates, audit tooling.
+- `test/`: automated tests and legal-contract corpora.
+- `training/distillation/`: pivot-aligned local-student distillation work.
+- `packaging/`: PyInstaller local desktop packaging.
 
-## Canonical Runtime Paths
-
-- FastAPI app: `src/kaypoh/backend/main.py` with compatibility shim `backend.main:app`
-- Python client: `src/kaypoh/client.py` with docs in `docs/api/python_client.md`
-- Pivot architecture: `ARCHITECTURE-PIVOT-24-MAY.md`
-- Workflow stages: `src/kaypoh/workflow/`
-- Runtime artifacts: `artifacts/` with manifest verification in `artifacts/manifest.json`
-- Backend-only launcher: `scripts/launch/run_backend_only.sh`
-- Dev launcher: `scripts/launch/run_dev.sh`
-- Production-style launcher: `scripts/launch/run_prod.sh`
-
-## Primary Endpoints
-
-- `POST /anonymize` — extracts inline text or base64 TXT/DOCX/PDF, returns deterministic placeholders + a local mapping table.
-- `POST /reidentify` — deterministic inverse using the caller-supplied mapping. Closes the `anonymise → external LLM → re-identify` round-trip inside the runtime.
-- `POST /review` — same evidence stack without rewriting text. Returns findings + suggestions + jurisdiction-scoped scores. The `request_id` returned here is the `review_id` for the decision flow.
-- `POST /review/{review_id}/decision` — record `accept | reject | rewrite` per finding. Persisted to the HMAC-chained journal when `KAYPOH_REVIEW_PERSIST=1`.
-- `GET /review/{review_id}` — replay the session state from the journal.
-- `POST /classify`, `POST /classify/batch` — legacy single-doc / batch classifier (server SKU only).
-- `GET /health`, `/ready`, `/diagnostics`, `/metrics` — operational surfaces.
+The archived layer1-6 classifier stack, old artifact manifest, root helper folder, and classifier training entrypoints have been removed.
 
 ## Common Commands
 
 ```sh
+uv sync --extra dev
+uv run python -m spacy download en_core_web_sm
+
 ./scripts/launch/run_backend_only.sh
 ./scripts/launch/run_dev.sh
 ./scripts/launch/run_prod.sh
-./scripts/check_python_clients.sh
+./scripts/verify_runtime.sh
+
 curl -X POST http://localhost:8000/anonymize -H "Content-Type: application/json" \
   -d '{"text":"Send Dr Jane Tan S1234567D the confidential draft.","source_jurisdiction":"SG","destination_jurisdiction":"US","document_type":"SPA"}'
 
-# round-trip: anonymise -> LLM -> reidentify with the same mapping
-curl -X POST http://localhost:8000/reidentify -H "Content-Type: application/json" \
-  -d '{"anonymized_text":"Send [PERSON_1] [NRIC_FIN_1] the draft.","mapping":[{"placeholder":"[PERSON_1]","original_text":"Dr Jane Tan"},{"placeholder":"[NRIC_FIN_1]","original_text":"S1234567D"}]}'
-
-# decision flow (KAYPOH_REVIEW_PERSIST=1 + KAYPOH_JOURNAL_KEY set)
-curl -X POST http://localhost:8000/review/$REVIEW_ID/decision -H "Content-Type: application/json" \
-  -d '{"finding_id":"pii:named_person:5:16:0","action":"reject","rationale":"defined-term false positive"}'
-
-# legal-corpus recall gate
-PYTHONPATH=src python3 scripts/recall_gate.py
-PYTHONPATH=src python3 scripts/recall_gate.py --update --verbose
-
-# audit-pack export + verify
-python3 scripts/export_audit_pack.py $REVIEW_ID --output ./out/audit.zip
-python3 scripts/verify_audit_pack.py ./out/audit.zip
-python3 scripts/verify_journal.py
-
-python scripts/examples/sync_client_example.py "Acme Corp is acquiring GlobalTech next quarter."
-python scripts/examples/async_client_example.py "Acme Corp is acquiring GlobalTech next quarter."
-python scripts/examples/round_trip_example.py "Send Dr Jane Tan S1234567D the draft."
-python scripts/examples/decision_flow_example.py --reviewer-id "you@example.com" "Send Dr Jane Tan S1234567D the draft. Confidential acquisition for $2.5 billion."
-./scripts/verify_runtime.sh
-python3 scripts/bootstrap_artifacts.py --sync-from-legacy
-python3 scripts/preflight.py --strict
-./.venv/bin/python -m unittest discover -s test -p 'test*.py'
+uv run python scripts/recall_gate.py
+uv run python scripts/generate_accuracy_doc.py --check
 ```
 
-`./scripts/verify_runtime.sh` is the end-to-end verifier: it runs the static checks, test suite, and live smoke coverage for every runtime layer, including a temporary local Redis-backed mosaic pass. (Server SKU only — uses heavy ML deps.)
+## Docker
 
-`./scripts/check_python_clients.sh` runs the Python client checks plus the legal-corpus recall gate. Wired into the tracked git hooks under `.githooks/` so PRs that drop per-rule recall fail before push.
+```sh
+docker compose up --build
+curl http://localhost:8000/ready
+```
 
-For Python integrations, Kaypoh ships both `KaypohClient` and `AsyncKaypohClient` over the same backend API. Methods include `review(...)`, `anonymize(...)`, `reidentify(...)`, `classify(...)`, and `classify_batch(...)`. See `docs/api/python_client.md`.
+The compose service defaults to deterministic-only. Set `KAYPOH_PUBLIC_EVIDENCE_ENABLED=1` plus a provider key, or `KAYPOH_LLM_ENABLED=1` plus the explicit LLM opt-in gates, only for tenant-approved server deployments.
+Compose reads `.env` for variable substitution but passes only Kaypoh runtime/provider variables into the container.
+
+For an accuracy-first managed deployment where Kaypoh provides the LLM key for an opted-in tenant:
+
+```sh
+KAYPOH_LLM_API_KEY=... \
+KAYPOH_LLM_TENANT_OPT_IN_OPENAI=1 \
+SERPER_API_KEY=... \
+docker compose -f docker-compose.yml -f docker-compose.managed-llm.yml up --build
+```
 
 ## Desktop SKU
 
-Build the offline-default desktop binary:
-
 ```sh
-pip install -e ".[local,packaging]"
-python -m spacy download en_core_web_sm
-pyinstaller packaging/kaypoh-local.spec
-# launches on http://127.0.0.1:8765 by default
+uv sync --extra local --extra packaging
+uv run python -m spacy download en_core_web_sm
+uv run pyinstaller packaging/kaypoh-local.spec
 ./dist/kaypoh-local/kaypoh-local
 ```
 
-See `packaging/README.md` for the offline-guarantee verification recipe.
+See `packaging/README.md` for packaging notes. Python client docs live in `docs/api/python_client.md`.

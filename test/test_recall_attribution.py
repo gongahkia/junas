@@ -5,7 +5,6 @@ import json
 import os
 import subprocess
 import sys
-import tempfile
 import unittest
 from pathlib import Path
 
@@ -84,11 +83,13 @@ class RecallAttributionTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, msg=result.stderr)
         entry = json.loads(HISTORY_PATH.read_text(encoding="utf-8").strip().splitlines()[-1])
         diff = entry["diff"]
-        # named_person moved 0.5 -> 1.0
+        current_lock = json.loads(self._lock_backup)
+        expected_named_person = current_lock["baseline_recall"]["named_person"]
+        # named_person moved 0.5 -> the current committed baseline.
         self.assertIn("named_person", diff)
         self.assertEqual(diff["named_person"]["old"], 0.5)
-        self.assertEqual(diff["named_person"]["new"], 1.0)
-        # the rest of the rules were ADDED (old=None, new=1.0)
+        self.assertEqual(diff["named_person"]["new"], expected_named_person)
+        # the rest of the rules were added from the committed lock.
         added_rules = [r for r, d in diff.items() if d.get("old") is None]
         self.assertTrue(added_rules, f"expected added rules in diff: {diff}")
 

@@ -1,11 +1,8 @@
-# Backend Workflow
+# Workflow
 
-This folder contains the active MNPI workflow stages that the backend orchestrates.
+This folder contains optional workflow helpers around the deterministic review engine.
 
-- `layer0-parser/`: corpus parsing helpers
-- `layer1-lexicon/`: rules, restricted list matching, spaCy, and Presidio checks
-- `layer2-embeddings/`: sentence-transformer embedding generation and runtime encoding
-- `layer3-clustering/`: isolation forest anomaly scoring
-- `layer4-classification/`: transformer classifiers for risk and severity
-- `layer5-mosaic/`: Redis-backed mosaic aggregation
-- `layer6-regression/`: optional aggregate scoring layer
+- `layer0_parser/`: corpus/document parsing helpers.
+- `layer7_public_evidence/`: privacy-gated public-source retrieval.
+- `layer8_llm_adjudicator/`: advisory LLM adjudication.
+- `privacy_guard.py`: outbound-query privacy gate used by external-call surfaces.

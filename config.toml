@@ -1,48 +1,16 @@
 [pipeline]
-layers = [
-    "lexicon",
-    "embedding",
-    "clustering",
-    "model1",
-    "model2",
-    "mosaic",
-    "regression"
-]
-optional_layers = ["mosaic", "regression"]
+# Empty by default: /review and /classify use the deterministic engine directly.
+# Optional audit-grade helpers can be enabled with public_evidence,llm_adjudicator.
+layers = []
+optional_layers = []
 
 [api]
 allowed_origins = ["http://localhost", "http://127.0.0.1"]
 
-[thresholds]
-mnpi_abs = 1000000.0
-mnpi_pct = 5.0
-model1 = 0.5
-model2 = 0.5
-lock_path = "configs/thresholds.lock.json"
-
-[isolation_forest]
-contamination = 0.05
-max_features = 0.3
-n_estimators = 100
-
-[embeddings]
-model_name = "all-mpnet-base-v2"
-cache_size = 512
-
-[mosaic]
-ttl_hours = 24.0
-threshold = 10
-redis_host = "localhost"
-redis_port = 6379
-connect_timeout_seconds = 0.5
-socket_timeout_seconds = 0.5
-retry_attempts = 3
-retry_backoff_ms = 100
-
 [public_evidence]
 enabled = false
+# Supported providers: exa, tinyfish, serper, serpapi, none.
 provider = "exa"
-endpoint = "https://api.exa.ai/search"
 max_results = 5
 timeout_seconds = 8.0
 
@@ -54,6 +22,7 @@ model = "gpt-oss-20b"
 timeout_seconds = 20.0
 allow_remote_base_url = false
 allow_remote_raw_text = false
+tenant_opt_in_openai = false
 
 [privacy]
 external_query_policy = "sanitized_only"
@@ -73,31 +42,6 @@ auth_modes = ["api_key", "jwt"]
 jwt_tenant_claim = "tenant_id"
 jwt_subject_claim = "sub"
 jwt_roles_claim = "roles"
-
-[lexicon]
-score_threshold = 10.0
-score_threshold_mode = "static"
-dynamic_chars_per_point = 1000.0
-dynamic_threshold_increment = 1.0
-
-[lexicon_weights]
-money_threshold = 2.0
-pct_threshold = 1.0
-restricted_list = 5.0
-ner_event_entity_correlation = 4.0
-ner_org_money_correlation = 1.0
-ner_org = 0.5
-ner_person = 0.5
-ner_money = 0.5
-ner_gpe = 0.5
-ner_law = 0.5
-presidio_financial_id = 5.0
-presidio_credit_card = 5.0
-presidio_iban_code = 5.0
-presidio_phone_number = 1.0
-presidio_email_address = 1.0
-default_high = 3.0
-default_info = 0.5
 
 [siem]
 enabled = false

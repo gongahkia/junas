@@ -8,17 +8,18 @@ import httpx
 
 from kaypoh.workflow.privacy_guard import PrivacyGuard
 
-
 YEAR_RE = re.compile(r"\b20\d{2}\b")
 
 # default endpoint per provider; overridden by public_evidence.endpoint when set explicitly.
 _DEFAULT_ENDPOINTS = {
     "exa": "https://api.exa.ai/search",
     "tinyfish": "https://api.search.tinyfish.ai/",
+    "serper": "https://google.serper.dev/search",
+    "serpapi": "https://serpapi.com/search.json",
 }
 
 # providers we ship a real adapter for. anything else returns status=error.
-_SUPPORTED_PROVIDERS = frozenset({"exa", "tinyfish"})
+_SUPPORTED_PROVIDERS = frozenset({"exa", "tinyfish", "serper", "serpapi"})
 
 EVENT_KEYWORDS: dict[str, tuple[str, ...]] = {
     "acquisition merger takeover": ("acquisition", "acquire", "merger", "takeover", "buyout"),
@@ -59,6 +60,7 @@ class PublicEvidenceRetriever:
         self.enabled = bool(getattr(settings, "enabled", False))
         self.provider = str(getattr(settings, "provider", "exa") or "exa").lower()
         self.api_key = str(getattr(settings, "api_key", "") or "")
+        self.backup_api_key = str(getattr(settings, "backup_api_key", "") or "")
         configured_endpoint = str(getattr(settings, "endpoint", "") or "")
         self.endpoint = configured_endpoint or _DEFAULT_ENDPOINTS.get(self.provider, "")
         self.max_results = max(1, int(getattr(settings, "max_results", 5) or 5))
@@ -164,6 +166,84 @@ class PublicEvidenceRetriever:
             )
         return sources
 
+    def _search_serper(self, query: str) -> list[dict[str, Any]]:
+        # Serper search is a POST to google.serper.dev/search with X-API-KEY.
+        # Response shape: {organic: [{title, link, snippet, date?, source?}], ...}
+        headers = {"X-API-KEY": self.api_key, "Content-Type": "application/json"}
+        body = {"q": query, "num": self.max_results}
+        with httpx.Client(timeout=self.timeout_seconds) as client:
+            response = client.post(self.endpoint, headers=headers, json=body)
+            response.raise_for_status()
+            payload = response.json()
+
+        results = payload.get("organic", []) if isinstance(payload, dict) else []
+        sources: list[dict[str, Any]] = []
+        for item in results:
+            if not isinstance(item, dict):
+                continue
+            snippet = str(item.get("snippet", "") or "")
+            sources.append(
+                {
+                    "title": str(item.get("title", "") or ""),
+                    "url": str(item.get("link", item.get("url", "")) or ""),
+                    "published_date": str(item.get("date", item.get("publishedDate", "")) or ""),
+                    "author": str(item.get("source", "") or ""),
+                    "highlights": [snippet] if snippet else [],
+                    "text": snippet[:800],
+                    "score": None,
+                }
+            )
+        return sources
+
+    def _search_serpapi_with_key(self, query: str, api_key: str) -> list[dict[str, Any]]:
+        # SerpAPI's Google endpoint is GET /search.json with engine=google, q, api_key.
+        # Organic results live under organic_results.
+        params = {
+            "engine": "google",
+            "q": query,
+            "api_key": api_key,
+            "num": str(self.max_results),
+        }
+        with httpx.Client(timeout=self.timeout_seconds) as client:
+            response = client.get(self.endpoint, params=params)
+            response.raise_for_status()
+            payload = response.json()
+
+        results = payload.get("organic_results", []) if isinstance(payload, dict) else []
+        sources: list[dict[str, Any]] = []
+        for item in results:
+            if not isinstance(item, dict):
+                continue
+            snippet = str(item.get("snippet", "") or "")
+            sources.append(
+                {
+                    "title": str(item.get("title", "") or ""),
+                    "url": str(item.get("link", item.get("url", "")) or ""),
+                    "published_date": str(item.get("date", "") or ""),
+                    "author": str(item.get("source", item.get("author", "")) or ""),
+                    "highlights": [snippet] if snippet else [],
+                    "text": snippet[:800],
+                    "score": None,
+                }
+            )
+        return sources
+
+    def _search_serpapi(self, query: str) -> list[dict[str, Any]]:
+        primary_key = self.api_key or self.backup_api_key
+        if not primary_key:
+            return []
+        try:
+            return self._search_serpapi_with_key(query, primary_key)
+        except httpx.HTTPStatusError as exc:
+            status_code = exc.response.status_code
+            if (
+                self.backup_api_key
+                and primary_key != self.backup_api_key
+                and status_code in {401, 403, 429}
+            ):
+                return self._search_serpapi_with_key(query, self.backup_api_key)
+            raise
+
     def retrieve(self, *, text: str, entity_id: str | None = None, lexicon: Any = None) -> dict[str, Any]:
         queries = self.build_queries(text=text, entity_id=entity_id, lexicon=lexicon)
         query_records: list[dict[str, Any]] = []
@@ -214,8 +294,17 @@ class PublicEvidenceRetriever:
                 "sources": [],
                 "privacy_ledger": ledger,
             }
-        if not self.api_key:
-            key_env = "EXA_API_KEY" if self.provider == "exa" else "TINYFISH_API_KEY"
+        if self.provider == "serpapi":
+            missing_key = not (self.api_key or self.backup_api_key)
+        else:
+            missing_key = not self.api_key
+        if missing_key:
+            key_env = {
+                "exa": "EXA_API_KEY",
+                "tinyfish": "TINYFISH_API_KEY",
+                "serper": "SERPER_API_KEY",
+                "serpapi": "SERPAPI_KEY_PRIMARY or SERPAPI_KEY_BACKUP",
+            }.get(self.provider, "provider API key")
             return {
                 "status": "skipped",
                 "provider": self.provider,
@@ -225,7 +314,12 @@ class PublicEvidenceRetriever:
                 "privacy_ledger": ledger,
             }
 
-        search_fn = self._search_tinyfish if self.provider == "tinyfish" else self._search_exa
+        search_fn = {
+            "exa": self._search_exa,
+            "tinyfish": self._search_tinyfish,
+            "serper": self._search_serper,
+            "serpapi": self._search_serpapi,
+        }[self.provider]
         sources: list[dict[str, Any]] = []
         try:
             for query in approved_queries:

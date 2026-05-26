@@ -5,6 +5,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+
 def extract_json_objects(text, decoder=json.JSONDecoder()):
     """Find and parse all JSON objects in a given block of text."""
     pos = 0
@@ -181,11 +182,10 @@ def write_batch_file(formatted_docs, output_file):
     print(f" -> Created {output_path}")
 
 
-def parse_and_convert(input_file, output_target="docs/json"):
+def parse_and_convert(input_file, output_target="generated/training-json"):
     with open(input_file, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    from tqdm import tqdm
     json_objects = parse_document_objects(content)
     print(f"Found {len(json_objects)} document JSON object(s) in {input_file}.")
 
@@ -204,7 +204,7 @@ def parse_and_convert(input_file, output_target="docs/json"):
     }
     
     formatted_docs = []
-    for idx, doc in enumerate(tqdm(json_objects, desc="Ingesting Documents", unit="doc")):
+    for idx, doc in enumerate(json_objects):
         formatted_docs.append(normalise_document(doc, idx, label_map))
 
     output_path = Path(output_target)
@@ -220,5 +220,5 @@ if __name__ == "__main__":
         sys.exit(1)
 
     input_file = sys.argv[1]
-    output_target = sys.argv[2] if len(sys.argv) > 2 else "docs/json"
+    output_target = sys.argv[2] if len(sys.argv) > 2 else "generated/training-json"
     parse_and_convert(input_file, output_target)

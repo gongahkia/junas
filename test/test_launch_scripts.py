@@ -6,7 +6,6 @@ import unittest
 import urllib.request
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parent.parent
 
 
@@ -44,7 +43,7 @@ class LaunchScriptSmokeTests(unittest.TestCase):
             "KAYPOH_HOST": "127.0.0.1",
             "KAYPOH_PORT": str(backend_port),
             "KAYPOH_UVICORN_WORKERS": "1",
-            "PIPELINE_LAYERS": "mosaic",
+            "PIPELINE_LAYERS": "",
             "KMP_DUPLICATE_LIB_OK": "TRUE",
         }
         proc = subprocess.Popen(

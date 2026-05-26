@@ -3,7 +3,6 @@ import base64
 import bisect
 import hashlib
 import importlib
-import importlib.util
 import json
 import logging
 import os
@@ -70,19 +69,11 @@ from kaypoh.backend.schemas import (
     DocumentScrubRequest,
     DocumentScrubResponse,
     HealthResponse,
-    LayerErrorResponse,
-    LexiconHitResponse,
-    LexiconResponse,
     LLMAdjudicationResponse,
-    Model1Response,
-    Model2Response,
-    MosaicResponse,
     ObservabilityResponse,
-    OffendingSpanResponse,
     PrivacyLedgerEntryResponse,
     PublicEvidenceResponse,
     ReadyResponse,
-    RegressionResponse,
     ReidentifyRequest,
     ReidentifyResponse,
     ReviewDecisionRequest,
@@ -96,7 +87,6 @@ from kaypoh.backend.schemas import (
     ReviewSuggestionResponse,
 )
 from kaypoh.backend.siem import emit_privacy_ledger_events, emit_security_event
-from kaypoh.configs.artifacts import get_artifact_path
 from kaypoh.configs.runtime import RuntimeSettings, get_runtime_settings
 from kaypoh.helper.determinism import configure_determinism
 from kaypoh.review.decisions import (
@@ -123,9 +113,7 @@ RISK_ORDER = {
     Classification.HIGH_RISK: 2,
 }
 
-MODEL_WEIGHT_EXTS = ("safetensors", "bin", "pt", "ckpt")
 SUPPRESSED_REQUEST_LOG_PATHS = {"/health", "/ready", "/metrics"}
-DEFAULT_OPTIONAL_LAYERS = {"mosaic"}
 SPAN_CONTEXT_CHARS = 48
 OPENAPI_TAGS = [
     {
@@ -156,12 +144,13 @@ Key behaviors:
 - `POST /review` runs the same evidence-first pre-send review without rewriting
   the document, returning localized findings, remediation suggestions,
   jurisdiction coverage, and separate PII/MNPI scores.
-- `POST /classify` accepts a single text document and returns a document-level
-  legacy MNPI classification of `SAFE`, `LOW_RISK`, or `HIGH_RISK`.
+- `POST /classify` is a compatibility shim over the deterministic review engine
+  and returns a document-level `SAFE`, `LOW_RISK`, or `HIGH_RISK` label plus
+  review findings.
 - `POST /classify/batch` processes up to 32 classify requests with bounded
   in-process concurrency while preserving result order.
-- `include_offending_spans=true` adds exact lexicon spans and approximate
-  classifier-window spans when the final response is `LOW_RISK` or `HIGH_RISK`.
+- `include_offending_spans` is retained for older clients; the active response
+  surface is the deterministic findings list.
 - Chain-of-evidence is exposed through findings, suggestions, public-source
   summaries, and privacy-ledger entries. Raw chain-of-thought is not exposed.
 - `POST /documents/scrub` removes supported DOCX/PDF/image metadata leakage before
@@ -226,43 +215,8 @@ class PrettyJSONResponse(JSONResponse):
         ).encode("utf-8")
 
 
-def _parse_layers_list(raw: str | list[Any] | None) -> list[str]:
-    if raw is None:
-        return []
-    if isinstance(raw, str):
-        return [v.strip() for v in raw.split(",") if v.strip()]
-    if isinstance(raw, list):
-        out: list[str] = []
-        for item in raw:
-            text = str(item).strip()
-            if text:
-                out.append(text)
-        return out
-    return []
-
-
 def get_optional_layers() -> set[str]:
-    return set(current_runtime_settings().pipeline.optional_layers) or set(DEFAULT_OPTIONAL_LAYERS)
-
-
-
-
-def load_module_from_path(module_name: str, path: str):
-    spec = importlib.util.spec_from_file_location(module_name, path)
-    if spec is None or spec.loader is None:
-        raise ImportError(f"Cannot load module {module_name} from {path}")
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod
-
-
-def has_model_weights(path: Path) -> bool:
-    if not path.exists() or not path.is_dir():
-        return False
-    for ext in MODEL_WEIGHT_EXTS:
-        if any(path.glob(f"*.{ext}")):
-            return True
-    return False
+    return set(current_runtime_settings().pipeline.optional_layers)
 
 
 def get_allowed_origins() -> list[str]:
@@ -434,53 +388,41 @@ def build_ready_snapshot() -> dict[str, Any]:
 
 
 def get_dependency_status() -> dict[str, DependencyStatus]:
-    pipeline = _state.get("pipeline", [])
     models = _state.get("models", {})
     lazy_loaders = _state.get("lazy_loaders", {})
+    settings = current_runtime_settings()
     statuses: dict[str, DependencyStatus] = {}
 
-    mosaic_configured = "mosaic" in pipeline
-    if not mosaic_configured:
-        statuses["redis"] = DependencyStatus(
+    if settings.public_evidence.enabled:
+        loaded = "public_evidence" in models or "public_evidence" in lazy_loaders
+        statuses["public_evidence"] = DependencyStatus(
+            status="unknown" if loaded else "configured",
+            configured=True,
+            healthy=None,
+            detail=f"provider={settings.public_evidence.provider}",
+        )
+    else:
+        statuses["public_evidence"] = DependencyStatus(
             status="disabled",
             configured=False,
             healthy=None,
-            detail="mosaic layer is not configured in the active pipeline",
+            detail="public evidence retrieval is disabled",
         )
-        return statuses
 
-    mosaic_model = models.get("mosaic")
-    if mosaic_model is None and "mosaic" in lazy_loaders:
-        statuses["redis"] = DependencyStatus(
+    if settings.llm.enabled:
+        statuses["llm_adjudicator"] = DependencyStatus(
             status="unknown",
             configured=True,
             healthy=None,
-            detail="mosaic layer is configured but has not been loaded yet",
+            detail=f"provider={settings.llm.provider}; model={settings.llm.model}",
         )
-        return statuses
-
-    if mosaic_model is None:
-        latest_error = _get_latest_load_error("mosaic")
-        detail = (
-            latest_error.get("error", "mosaic layer is unavailable")
-            if latest_error
-            else "mosaic layer is unavailable"
+    else:
+        statuses["llm_adjudicator"] = DependencyStatus(
+            status="disabled",
+            configured=False,
+            healthy=None,
+            detail="LLM adjudication is disabled",
         )
-        statuses["redis"] = DependencyStatus(
-            status="down",
-            configured=True,
-            healthy=False,
-            detail=detail,
-        )
-        return statuses
-
-    healthy = bool(getattr(mosaic_model, "connected", False))
-    statuses["redis"] = DependencyStatus(
-        status="up" if healthy else "down",
-        configured=True,
-        healthy=healthy,
-        detail=f"redis target {getattr(mosaic_model, 'host', 'unknown')}:{getattr(mosaic_model, 'port', 'unknown')}",
-    )
     return statuses
 
 
@@ -635,9 +577,6 @@ def should_cache_response(req: ClassifyRequest, pipeline: list[str]) -> bool:
     if req.debug:
         return False
     if req.entity_id:
-        return False
-    # Mosaic mutates state (Redis counters), so keep cache disabled when mosaic layer is active.
-    if "mosaic" in pipeline:
         return False
     # Public retrieval and local adjudication depend on current external/local service state.
     if "public_evidence" in pipeline or "llm_adjudicator" in pipeline:
@@ -1319,13 +1258,6 @@ async def lifespan(app: FastAPI):
     for layer in layers:
         t_layer = time.perf_counter()
         try:
-            if layer in {"lexicon", "embedding", "clustering", "model1", "model2", "regression", "mosaic"}:
-                # legacy layer archived 2026-05-26 (ARCHITECTURE-PIVOT-24-MAY.md item 63).
-                # silently skip so existing configs don't break startup; remove from
-                # configs/runtime.toml on next deploy.
-                log_backend_event(logging.INFO, event="legacy_layer_skipped", layer=layer)
-                continue
-
             if layer == "public_evidence":
                 evidence_mod = importlib.import_module("kaypoh.workflow.layer7_public_evidence.inference")
                 _state["models"]["public_evidence"] = evidence_mod.PublicEvidenceRetriever.load()
@@ -1496,20 +1428,22 @@ async def request_context_middleware(request: Request, call_next):
     "/health",
     response_model=HealthResponse,
     tags=["Runtime"],
-    summary="Get layer load health",
-    description="Return a lightweight snapshot of which runtime layers are currently loaded in memory.",
+    summary="Get runtime health",
+    description="Return a lightweight snapshot of active optional runtime helpers.",
 )
 async def health():
     models = _state.get("models", {})
     return HealthResponse(
         status="ok",
-        lexicon_loaded="lexicon" in models,
-        model1_loaded="model1" in models,
-        model2_loaded="model2" in models,
-        embedding_loaded="embedding" in models,
-        clustering_loaded="clustering" in models,
-        mosaic_loaded="mosaic" in models,
-        regression_loaded="regression" in models,
+        lexicon_loaded=False,
+        model1_loaded=False,
+        model2_loaded=False,
+        embedding_loaded=False,
+        clustering_loaded=False,
+        mosaic_loaded=False,
+        regression_loaded=False,
+        public_evidence_loaded="public_evidence" in models,
+        llm_adjudicator_loaded="llm_adjudicator" in models,
     )
 
 
@@ -1594,9 +1528,8 @@ async def metrics():
     tags=["Classification"],
     summary="Classify one document",
     description=(
-        "Classify a single text document for MNPI sensitivity. "
-        "Set `include_offending_spans=true` to request exact lexicon spans and approximate classifier-window spans "
-        "when the final result is `LOW_RISK` or `HIGH_RISK`."
+        "Classify a single text document through the deterministic review engine. "
+        "`include_offending_spans` is retained for older clients; use `findings` for current span evidence."
     ),
 )
 async def classify(request: Request, req: ClassifyRequest):

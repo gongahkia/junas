@@ -1,7 +1,6 @@
 # Helper Folder
 
-This folder contains shared helper modules used across runtime and training code.
+This package contains shared helper modules used by the canonical `kaypoh`
+package.
 
-- `determinism.py`: reproducibility setup
-- `training_corpus.py`: corpus loading helpers
-- `trello/`: Trello-related integration helper
+- `determinism.py`: reproducibility setup used by backend startup and tests.

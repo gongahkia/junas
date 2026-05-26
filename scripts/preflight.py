@@ -1,45 +1,27 @@
 #!/usr/bin/env python3
-"""One-command preflight checks for local runtime readiness."""
+"""One-command preflight checks for the current Kaypoh runtime."""
 
 from __future__ import annotations
 
 import argparse
 import json
 import os
-from pathlib import Path
-import socket
 import sys
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from kaypoh.configs.artifacts import (
-    artifact_names_for_layers,
-    artifact_manifest_path,
-    get_artifact_path,
-    verify_artifact_manifest,
-)
-from kaypoh.configs.runtime import ConfigError, VALID_LAYERS, load_runtime_settings
+from kaypoh.configs.runtime import ConfigError, load_runtime_settings  # noqa: E402
 
 
-def is_truthy(value: str | None) -> bool:
-    if value is None:
-        return False
-    return value.strip().lower() in {"1", "true", "yes", "on"}
+def _has_env(name: str) -> bool:
+    return bool(os.environ.get(name, "").strip())
 
 
-def has_model_weights(path: Path) -> bool:
-    if not path.exists() or not path.is_dir():
-        return False
-    for ext in ("safetensors", "bin", "pt", "ckpt"):
-        if list(path.glob(f"*.{ext}")):
-            return True
-    return False
-
-
-def check_spacy_model() -> tuple[bool, str]:
+def _check_spacy_model() -> tuple[bool, str]:
     try:
         import spacy
 
@@ -49,56 +31,12 @@ def check_spacy_model() -> tuple[bool, str]:
         return False, f"spaCy model load failed: {exc}"
 
 
-def check_redis(host: str, port: int, timeout: float = 1.0) -> tuple[bool, str]:
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.settimeout(timeout)
+def _check_optional_import(module_name: str, label: str) -> tuple[bool, str]:
     try:
-        sock.connect((host, port))
-        return True, f"redis reachable at {host}:{port}"
+        __import__(module_name)
+        return True, f"{label} import available"
     except Exception as exc:
-        return False, f"redis unreachable at {host}:{port} ({exc})"
-    finally:
-        sock.close()
-
-
-def has_sentence_transformer_cache(model_name: str) -> bool:
-    model_name = model_name.strip()
-    if not model_name:
-        return False
-
-    as_path = Path(model_name).expanduser()
-    if as_path.exists():
-        return True
-
-    normalized = model_name.strip("/")
-    st_home = Path(
-        os.environ.get(
-            "SENTENCE_TRANSFORMERS_HOME",
-            str(Path.home() / ".cache" / "torch" / "sentence_transformers"),
-        )
-    ).expanduser()
-    st_candidates = [
-        st_home / normalized,
-        st_home / normalized.replace("/", "_"),
-        st_home / f"sentence-transformers_{normalized.replace('/', '_')}",
-    ]
-    for candidate in st_candidates:
-        if candidate.exists():
-            return True
-
-    hf_home = Path(
-        os.environ.get("HF_HOME", str(Path.home() / ".cache" / "huggingface"))
-    ).expanduser()
-    hub_root = hf_home / "hub"
-    hf_ids = [normalized]
-    if "/" not in normalized:
-        hf_ids.append(f"sentence-transformers/{normalized}")
-    for model_id in hf_ids:
-        repo_dir = hub_root / f"models--{model_id.replace('/', '--')}"
-        snapshots = repo_dir / "snapshots"
-        if snapshots.exists() and any(snapshots.iterdir()):
-            return True
-    return False
+        return False, f"{label} import unavailable: {exc}"
 
 
 def main() -> int:
@@ -124,125 +62,52 @@ def main() -> int:
         warnings.append(str(exc))
     else:
         checks.append(f"settings validated: {settings.config_path}")
+        checks.append(f"pipeline layers valid: {list(settings.pipeline.layers)}")
+
+    ok_spacy, msg_spacy = _check_spacy_model()
+    (checks if ok_spacy else warnings).append(msg_spacy)
+
+    ok_pypdf, msg_pypdf = _check_optional_import("pypdf", "PDF extractor")
+    (checks if ok_pypdf else warnings).append(msg_pypdf)
+
+    ok_pillow, msg_pillow = _check_optional_import("PIL", "image metadata scrubber")
+    (checks if ok_pillow else warnings).append(msg_pillow)
 
     if settings is not None:
-        pipeline = list(settings.pipeline.layers)
-        optional_layers = set(settings.pipeline.optional_layers)
-        configured_layers = set(pipeline)
-        configured_artifact_names = artifact_names_for_layers(pipeline)
-        invalid_layers = [layer for layer in pipeline if layer not in VALID_LAYERS]
-        if invalid_layers:
-            warnings.append(f"invalid pipeline layers in config: {invalid_layers}")
-        else:
-            checks.append(f"pipeline layers valid: {pipeline}")
-
-        def record_layer_state(layer: str, ok: bool, success_msg: str, failure_msg: str) -> None:
-            if layer not in configured_layers:
-                return
-            if ok:
-                checks.append(success_msg)
-                return
-            if layer in optional_layers:
-                checks.append(f"{failure_msg} (optional layer)")
-                return
-            warnings.append(failure_msg)
-
-        if "lexicon" in configured_layers:
-            ok_spacy, msg_spacy = check_spacy_model()
-            (checks if ok_spacy else warnings).append(msg_spacy)
-
-        manifest_path = artifact_manifest_path()
-        manifest_errors = verify_artifact_manifest(manifest_path)
-        if manifest_errors and configured_artifact_names:
-            warnings.extend(
-                error
-                for error in manifest_errors
-                if any(f"for {name}" in error or f"'{name}'" in error for name in configured_artifact_names)
-                or "artifact manifest" in error
-            )
-        else:
-            checks.append(f"artifact manifest verified for active layers: {manifest_path}")
-
-        try:
-            clust_ckpt = get_artifact_path("clustering")
-        except FileNotFoundError as exc:
-            record_layer_state("clustering", False, "", str(exc))
-        else:
-            record_layer_state(
-                "clustering",
-                clust_ckpt.exists(),
-                f"clustering checkpoint present: {clust_ckpt}",
-                f"clustering checkpoint missing: {clust_ckpt}",
-            )
-
-        try:
-            m1_dir = get_artifact_path("model1")
-        except FileNotFoundError as exc:
-            record_layer_state("model1", False, "", str(exc))
-        else:
-            record_layer_state(
-                "model1",
-                has_model_weights(m1_dir),
-                f"model1 weights present: {m1_dir}",
-                f"model1 weights missing: {m1_dir}",
-            )
-
-        try:
-            m2_dir = get_artifact_path("model2")
-        except FileNotFoundError as exc:
-            record_layer_state("model2", False, "", str(exc))
-        else:
-            record_layer_state(
-                "model2",
-                has_model_weights(m2_dir),
-                f"model2 weights present: {m2_dir}",
-                f"model2 weights missing: {m2_dir}",
-            )
-
-        try:
-            reg_dir = get_artifact_path("regression")
-        except FileNotFoundError as exc:
-            record_layer_state("regression", False, "", str(exc))
-        else:
-            reg_model = reg_dir / "risk_regressor.json"
-            reg_meta = reg_dir / "metadata.json"
-            record_layer_state(
-                "regression",
-                reg_model.exists() and reg_meta.exists(),
-                f"regression artifacts present: {reg_model}, {reg_meta}",
-                f"regression artifacts missing: {reg_model} and/or {reg_meta}",
-            )
-
-        if "mosaic" in configured_layers:
-            ok_redis, msg_redis = check_redis(
-                settings.mosaic.redis_host,
-                settings.mosaic.redis_port,
-                timeout=max(0.1, settings.mosaic.connect_timeout_seconds),
-            )
-            record_layer_state("mosaic", ok_redis, msg_redis, msg_redis)
-
-        hf_offline = any(
-            [
-                is_truthy(os.environ.get("KAYPOH_HF_OFFLINE")),
-                is_truthy(os.environ.get("TRANSFORMERS_OFFLINE")),
-                is_truthy(os.environ.get("HF_HUB_OFFLINE")),
-            ]
-        )
-        embed_model = settings.embeddings.model_name
-        if hf_offline:
-            if has_sentence_transformer_cache(embed_model):
+        provider_keys = {
+            "exa": ("EXA_API_KEY",),
+            "tinyfish": ("TINYFISH_API_KEY",),
+            "serper": ("SERPER_API_KEY",),
+            "serpapi": ("SERPAPI_KEY_PRIMARY", "SERPAPI_KEY_BACKUP"),
+            "none": (),
+        }
+        if settings.public_evidence.enabled and settings.public_evidence.provider != "none":
+            accepted = provider_keys.get(settings.public_evidence.provider, ())
+            if any(_has_env(name) for name in accepted):
                 checks.append(
-                    f"HF offline mode enabled and embedding model cache found for '{embed_model}'"
+                    f"public evidence provider configured: {settings.public_evidence.provider}"
                 )
             else:
                 warnings.append(
-                    f"HF offline mode enabled but embedding model cache missing for '{embed_model}'"
+                    "public evidence is enabled but no key is set for "
+                    f"{settings.public_evidence.provider}: {', '.join(accepted)}"
                 )
         else:
-            checks.append("HF online mode (offline env flags not set)")
+            checks.append("public evidence disabled")
+
+        if settings.llm.enabled and settings.llm.provider != "none":
+            if settings.llm.provider == "openai" and not _has_env("KAYPOH_LLM_API_KEY"):
+                warnings.append("OpenAI LLM provider enabled but KAYPOH_LLM_API_KEY is empty")
+            else:
+                checks.append(f"LLM adjudicator configured: {settings.llm.provider}")
+        else:
+            checks.append("LLM adjudicator disabled")
 
     print("=== Kaypoh Preflight ===")
-    print(f"config_path: {settings.config_path if settings is not None else (Path(args.config).expanduser().resolve() if args.config else ROOT / 'config.toml')}")
+    config_path = settings.config_path if settings is not None else (
+        Path(args.config).expanduser().resolve() if args.config else ROOT / "config.toml"
+    )
+    print(f"config_path: {config_path}")
     print("checks:")
     for item in checks:
         print(f"  - {item}")
@@ -253,20 +118,8 @@ def main() -> int:
     else:
         print("  - none")
 
-    payload = {"checks": checks, "warnings": warnings}
     print("summary_json:")
-    print(json.dumps(payload, indent=2))
-
-    artifact_warnings = [
-        item for item in warnings
-        if any(token in item for token in ("checkpoint missing", "weights missing", "artifacts missing"))
-    ]
-    if artifact_warnings:
-        print("next_steps:")
-        print("  - Full pipeline artifacts are not present in this checkout.")
-        print("  - Hydrate or verify them with: python3 scripts/bootstrap_artifacts.py --sync-from-legacy")
-        print("  - Regenerate them with: python3 scripts/bootstrap_artifacts.py --regenerate")
-        print("  - Or run a minimal lexicon-only server with: PIPELINE_LAYERS=lexicon uvicorn backend.main:app --reload")
+    print(json.dumps({"checks": checks, "warnings": warnings}, indent=2))
 
     if args.strict and warnings:
         return 1

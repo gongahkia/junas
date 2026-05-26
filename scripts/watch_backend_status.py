@@ -13,7 +13,6 @@ import urllib.request
 from dataclasses import dataclass
 from typing import Any
 
-
 METRIC_LINE_RE = re.compile(
     r"^(?P<name>[a-zA-Z_:][a-zA-Z0-9_:]*)(?:\{(?P<labels>[^}]*)\})?\s+(?P<value>[-+]?[0-9]*\.?[0-9]+(?:[eE][-+]?[0-9]+)?)$"
 )
@@ -134,13 +133,8 @@ def format_status_block(
 
     if health is not None:
         loaded_bits = [
-            f"lexicon={bool_icon(health.get('lexicon_loaded'))}",
-            f"embedding={bool_icon(health.get('embedding_loaded'))}",
-            f"clustering={bool_icon(health.get('clustering_loaded'))}",
-            f"model1={bool_icon(health.get('model1_loaded'))}",
-            f"model2={bool_icon(health.get('model2_loaded'))}",
-            f"mosaic={bool_icon(health.get('mosaic_loaded'))}",
-            f"regression={bool_icon(health.get('regression_loaded'))}",
+            f"public_evidence={bool_icon(health.get('public_evidence_loaded'))}",
+            f"llm={bool_icon(health.get('llm_adjudicator_loaded'))}",
         ]
         lines.append(f"Health: {' '.join(loaded_bits)}")
     else:
@@ -150,13 +144,14 @@ def format_status_block(
         loaded_layers = ",".join(diagnostics.get("loaded_layers", []) or []) or "-"
         lazy_layers = ",".join(diagnostics.get("lazy_layers", []) or []) or "-"
         startup_total = (diagnostics.get("startup_timings_ms") or {}).get("total")
-        dep_redis = (diagnostics.get("dependency_status") or {}).get("redis", {})
-        dep_summary = dep_redis.get("status", "n/a")
+        deps = diagnostics.get("dependency_status") or {}
+        dep_summary = ",".join(f"{name}:{payload.get('status', 'n/a')}" for name, payload in sorted(deps.items()))
+        dep_summary = dep_summary or "none"
         lines.append(
             "Diagnostics: "
             f"loaded={loaded_layers} lazy={lazy_layers} "
             f"startup_total_ms={startup_total if startup_total is not None else 'n/a'} "
-            f"redis={dep_summary}"
+            f"deps={dep_summary}"
         )
     else:
         lines.append("Diagnostics: unavailable")

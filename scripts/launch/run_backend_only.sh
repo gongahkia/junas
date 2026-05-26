@@ -12,24 +12,18 @@ export KAYPOH_FAIL_ON_LAYER_LOAD_ERROR="${KAYPOH_FAIL_ON_LAYER_LOAD_ERROR:-1}"
 
 trap cleanup_services EXIT INT TERM
 
-activate_venv
+echo "Running backend-only preflight checks..."
+run_preflight
 
-echo "🧪 Running backend-only preflight checks..."
-if [ "${KAYPOH_PREFLIGHT_STRICT:-1}" = "1" ]; then
-    python3 "${ROOT}/scripts/preflight.py" --strict
-else
-    python3 "${ROOT}/scripts/preflight.py" || true
-fi
-
-echo "📦 Starting backend only on ${BACKEND_URL}..."
+echo "Starting backend only on ${BACKEND_URL}..."
 if [ "${RELOAD}" = "1" ]; then
-    python3 -m uvicorn backend.main:app \
+    uvicorn_cmd backend.main:app \
         --host "${HOST}" \
         --port "${PORT}" \
         --log-level "${LOG_LEVEL}" \
         --reload &
 else
-    python3 -m uvicorn backend.main:app \
+    uvicorn_cmd backend.main:app \
         --host "${HOST}" \
         --port "${PORT}" \
         --log-level "${LOG_LEVEL}" &
@@ -39,7 +33,7 @@ BACKEND_PID=$!
 wait_for_backend_ready
 emit_launch_telemetry_report "none" || true
 
-echo "✅ Backend-only service is running."
+echo "Backend-only service is running."
 echo "   Backend: ${BACKEND_URL}"
 echo "Press Ctrl+C to stop."
 

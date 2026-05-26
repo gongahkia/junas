@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "kaypoh"
 version = "0.1.0"
-description = "Pre-send PII anonymisation and MNPI review runtime. Ships as kaypoh-local (offline desktop SKU) and kaypoh-server (full ML + retrieval + LLM stack)."
+description = "Pre-send PII anonymisation and MNPI review runtime. Ships as kaypoh-local (offline desktop SKU) and kaypoh-server (deterministic review plus opt-in retrieval/LLM adjudication)."
 readme = "README.md"
 requires-python = ">=3.10"
 # base = kaypoh-local. Deterministic engine + Presidio + spaCy + FastAPI + extractors.
@@ -30,19 +30,12 @@ dependencies = [
 [project.optional-dependencies]
 # install kaypoh[local] for the desktop SKU. Equivalent to the base install but documents intent.
 local = []
-# install kaypoh[server] for the full classifier stack: model layers, mosaic, retrieval, LLM.
-server = [
-  "sentence-transformers==2.6.1",
-  "scikit-learn==1.4.2",
-  "torch>=2.1.0",
-  "transformers>=4.36.0",
-  "accelerate>=0.26.0",
-  "pandas>=2.1.0",
-  "redis>=5.0.0",
-  "xgboost>=2.0.0",
-]
+# install kaypoh[server] for opt-in public evidence + LLM adjudication surfaces.
+# The archived classifier stack is intentionally not a dependency of this extra.
+server = []
 dev = [
   "mypy>=1.11.2",
+  "pytest>=8.0.0",
   "ruff>=0.6.9",
 ]
 packaging = [

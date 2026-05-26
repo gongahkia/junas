@@ -7,7 +7,6 @@ one of the blocked names at module load (rather than lazily) will surface as an 
 here and the test fails loud.
 """
 
-import importlib
 import os
 import subprocess
 import sys
@@ -31,7 +30,7 @@ BLOCKED_HEAVY_DEPS = (
 def _subprocess_with_blocked_deps(snippet: str) -> subprocess.CompletedProcess:
     env = dict(os.environ)
     env["PYTHONPATH"] = str(REPO_ROOT / "src")
-    env["KAYPOH_PIPELINE_LAYERS"] = "lexicon"
+    env["PIPELINE_LAYERS"] = ""
     # subprocess isolates sys.modules from the parent test process
     prelude = (
         "import sys\n"
@@ -69,8 +68,13 @@ class LocalSkuRuntimeTests(unittest.TestCase):
             "result = engine.review(text=text, source_jurisdiction='SG', destination_jurisdiction='SG',\n"
             "                       entity_id=None, include_suggestions=False, document_type='SPA')\n"
             "anon = DeterministicAnonymizer().anonymize(text=text, findings=result.findings)\n"
-            "back, n = reidentify(anonymized_text=anon.anonymized_text,\n"
-            "                    mapping=[{'placeholder': m.placeholder, 'original_text': m.original_text} for m in anon.mapping])\n"
+            "back, n = reidentify(\n"
+            "    anonymized_text=anon.anonymized_text,\n"
+            "    mapping=[\n"
+            "        {'placeholder': m.placeholder, 'original_text': m.original_text}\n"
+            "        for m in anon.mapping\n"
+            "    ],\n"
+            ")\n"
             "assert back == text, (back, text)\n"
             "assert n >= 2, n\n"
             "assert '[PERSON_1]' in anon.anonymized_text\n"

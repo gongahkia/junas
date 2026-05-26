@@ -2,15 +2,16 @@
 """eval runner: spawns backend with a given config, runs eval data, prints precision/recall/F1.
 
 usage:
-    python test/run_eval.py --config configs/eval_run_1.toml
-    python test/run_eval.py --config configs/eval_run_2.toml --data test/eval.json
-    python test/run_eval.py --config config.toml --no-server   # if server already running
+    uv run python test/run_eval.py --config config.toml
+    uv run python test/run_eval.py --config config.toml --data test/eval.json
+    uv run python test/run_eval.py --config config.toml --no-server   # if server already running
 
 eval.json format: each item must have 'text' and 'expected_classification' (SAFE|LOW_RISK|HIGH_RISK).
 """
 import argparse
 import json
 import os
+import shutil
 import signal
 import subprocess
 import sys
@@ -20,10 +21,14 @@ import urllib.request
 from collections import defaultdict
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
-from helper.determinism import configure_determinism
+ROOT = Path(__file__).resolve().parent.parent
+SRC_ROOT = ROOT / "src"
+if str(SRC_ROOT) not in sys.path:
+    sys.path.insert(0, str(SRC_ROOT))
 
-REPO_ROOT = Path(__file__).parent.parent
+from kaypoh.helper.determinism import configure_determinism
+
+REPO_ROOT = ROOT
 DEFAULT_DATA = Path(__file__).parent / "eval.json"
 LABELS = ["SAFE", "LOW_RISK", "HIGH_RISK"]
 
@@ -138,19 +143,23 @@ def main():
 
     server_proc = None
     if not args.no_server:
-        venv_python = REPO_ROOT / ".venv" / "bin" / "python"
-        python = str(venv_python) if venv_python.exists() else sys.executable
         env = {
             **os.environ,
             "KAYPOH_CONFIG": config_path,
             "KAYPOH_DETERMINISTIC": "1",
             "KAYPOH_SEED": str(args.seed),
         }
-        cmd = [python, "-m", "uvicorn", "backend.main:app",
-               "--host", "0.0.0.0", "--port", str(args.port)]
+        env.setdefault("UV_PROJECT_ENVIRONMENT", str(REPO_ROOT / ".venv-uv"))
+        env.setdefault("UV_PYTHON", "3.12")
+        if shutil.which("uv"):
+            cmd = ["uv", "run", "uvicorn", "backend.main:app",
+                   "--host", "0.0.0.0", "--port", str(args.port)]
+        else:
+            cmd = [sys.executable, "-m", "uvicorn", "backend.main:app",
+                   "--host", "0.0.0.0", "--port", str(args.port)]
         print(f"[eval] config  : {config_path}")
         print(f"[eval] data    : {data_path}")
-        print(f"[eval] starting backend...")
+        print("[eval] starting backend...")
         server_proc = subprocess.Popen(cmd, cwd=str(REPO_ROOT), env=env)
         readiness = wait_for_server(api_url, args.timeout)
         if not readiness:

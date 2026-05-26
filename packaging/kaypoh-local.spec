@@ -1,9 +1,9 @@
 # PyInstaller spec for the kaypoh-local desktop SKU.
 #
 # Build:
-#     pip install -e ".[local,packaging]"
+#     uv sync --extra local --extra packaging
 #     python -m spacy download en_core_web_sm
-#     pyinstaller packaging/kaypoh-local.spec
+#     uv run pyinstaller packaging/kaypoh-local.spec
 #
 # Output: dist/kaypoh-local (single-folder bundle; flip onefile=True for single binary).
 #
@@ -41,7 +41,6 @@ hidden_imports = (
         "kaypoh.review.entity_linker",
         "kaypoh.anonymize.engine",
         "kaypoh.workflow.privacy_guard",
-        "kaypoh.workflow.layer1_lexicon.filter",
     ]
 )
 
@@ -58,11 +57,8 @@ excludes = [
     "sklearn",
     "pandas",
     "tensorflow",
-    "kaypoh.workflow.layer2_embeddings",
-    "kaypoh.workflow.layer3_clustering",
-    "kaypoh.workflow.layer4_classification",
-    "kaypoh.workflow.layer5_mosaic",
-    "kaypoh.workflow.layer6_regression",
+    "kaypoh.workflow.layer7_public_evidence",
+    "kaypoh.workflow.layer8_llm_adjudicator",
 ]
 
 a = Analysis(
