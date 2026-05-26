@@ -1,11 +1,13 @@
 # Kaypoh
 
+> **Coding agents arriving at this repo: start with [`AGENT_ONBOARDING.md`](AGENT_ONBOARDING.md), then read `ARCHITECTURE-PIVOT-24-MAY.md` and `ARCHITECTURE_26_MAY.txt`.**
+
 Kaypoh is an API-first pre-send safety engine for PII anonymization and MNPI review.
 
 Two distribution SKUs share the same source tree:
 
 - **`kaypoh-local`** (`pip install kaypoh[local]`) — offline-default desktop SKU. Deterministic engine + Presidio + spaCy + FastAPI. No `torch`, `transformers`, `sentence-transformers`, `redis`, `xgboost`, `scikit-learn`, `pandas`, or external HTTP. PyInstaller spec at `packaging/kaypoh-local.spec` bundles `en_core_web_sm` for desktop distribution.
-- **`kaypoh-server`** (`pip install kaypoh[server]`) — full stack: model layers (FinBERT, BERT severity), mosaic aggregation, public-source retrieval (Exa, Tinyfish), local + opt-in remote LLM adjudication.
+- **`kaypoh-server`** (`pip install kaypoh[server]`) — full stack: deterministic engine + public-source retrieval (Exa, Tinyfish) + local + opt-in remote LLM adjudication (vLLM, Ollama, OpenAI). Legacy 9-layer classifier (FinBERT / BERT-severity / mosaic / regression) archived 2026-05-26 per `ARCHITECTURE-PIVOT-24-MAY.md` item 63; `/classify` is now a thin wrapper over `engine.review()`.
 
 Both SKUs serve the same wire contracts.
 

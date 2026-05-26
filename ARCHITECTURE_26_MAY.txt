@@ -1,0 +1,360 @@
+Kaypoh runtime flow — 26 May 2026
+==================================
+
+Current state after the 26 May surgery: legacy 9-layer classifier pipeline
+ARCHIVED. Live "classifier/sorter" is the deterministic engine. /classify is
+now a THIN WRAPPER over engine.review() (ARCHITECTURE-PIVOT-24-MAY.md item 63).
+
+The planned additive-signal architecture (items 66 / 67 / 68 / 70 / 78 / 79 /
+80–86) is sketched on the right rail below — NOT YET IMPLEMENTED, but every
+new signal slots into the existing engine.review() return shape.
+
+
+                      ┌──────────────────────────────────────────────┐
+                      │              HTTP API surface                │
+                      │  POST /review        POST /anonymize         │
+                      │  POST /reidentify    POST /documents/scrub   │
+                      │  POST /review/{id}/decision                  │
+                      │  GET  /review/{id}                           │
+                      │  POST /classify  ← THIN WRAPPER over          │
+                      │                    engine.review() (item 63) │
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  Auth + tenant resolution   (item 42)        │
+                      │  JWT subject  OR  API-key principal          │
+                      │  X-Reviewer-ID accepted only in dev mode     │
+                      │  (item 57: bind to authenticated principal)  │
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  Ingest                                      │
+                      │   ├─ Inline text                             │
+                      │   ├─ DOCX extractor                          │
+                      │   ├─ PDF extractor + FAIL-CLOSED gate ← 50   │
+                      │   │   (scanned / image-only / sparse → 422)  │
+                      │   └─ (planned 61) XLSX / PPTX / EML / MSG /  │
+                      │       ZIP / HTML / SVG / RTF / MD            │
+                      │       + container security: password / macro │
+                      │       / polyglot / XXE / bomb / traversal    │
+                      │       all fail-closed (item 65)              │
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  Container metadata scan   (item 49)         │
+                      │  DOCX core/app props, comments,              │
+                      │  track-change authors, PDF info, EXIF        │
+                      │  → metadata_findings  (separate channel)     │
+                      │  (planned 61) extend to OLE, XFA, AcroForm,  │
+                      │  pivot caches, XMP, embedded foreign docs    │
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  (planned 64) Image scan / OCR               │
+                      │   Tesseract (local) | OpenAI Vision |        │
+                      │   Google Cloud Vision | AWS Rekognition |    │
+                      │   Azure AI Vision                            │
+                      │   All cloud providers → PrivacyGuard          │
+                      │   findings tagged source="image_ocr"         │
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  engine.review(text, doc_type, jurisdiction, │
+                      │                session_id, matter_id,        │
+                      │                review_profile, tenant_id)    │
+                      │                                              │
+                      │  1. Load jurisdiction pack  (items 19/20)    │
+                      │     SHIPPED: SG | MY | ID | TH | PH | VN |   │
+                      │              US | UK | EU                    │
+                      │     PLANNED (item 86): HK | AU | JP | KR     │
+                      │                                              │
+                      │  2. Defined-term extraction                  │
+                      │     • regex preamble pass                    │
+                      │     • session inheritance (item 25, shipped) │
+                      │     • matter inheritance (item 55, planned)  │
+                      │     • LLM-assisted (audit_grade only, ← 6)   │
+                      │                                              │
+                      │  3. Deterministic recognizers   ← THE WEDGE  │
+                      │                                              │
+                      │     PII (shipped):                           │
+                      │       NRIC/FIN, UEN, MyKad, NIK,             │
+                      │       Thai-ID, PhilSys/TIN, CCCD,            │
+                      │       passport, email, phone, bank/IBAN,     │
+                      │       named_person (3-pass anchor + variant),│
+                      │       sg_court_citation, sg_postal_address   │
+                      │                                              │
+                      │     PII (planned):                           │
+                      │       DOB/age, IP/device, US SSN/DL,         │
+                      │       UK NI, EU member-state IDs  (item 33)  │
+                      │       broad postal-address parser (item 34)  │
+                      │       semantic PII NER fallback  (item 35)   │
+                      │       pseudonymised-but-linkable (item 78)   │
+                      │       inferred attribute chain   (item 79)   │
+                      │       quasi-identifier combos    (item 70)   │
+                      │       special-category data      (item 71)   │
+                      │                                              │
+                      │     MNPI (shipped):                          │
+                      │       material_event, nonpublic_marker,      │
+                      │       transaction_codename,                  │
+                      │       definitive_agreement,                  │
+                      │       material_adverse_change,               │
+                      │       embargo_marker,                        │
+                      │       financial_amount, financial_percentage,│
+                      │       large_number                           │
+                      │                                              │
+                      │     MNPI (planned):                          │
+                      │       contingent_mnpi_language   (item 80)   │
+                      │       tipping_language           (item 81)   │
+                      │       selective_disclosure_risk  (item 83)   │
+                      │       blackout_period_reference  (item 84)   │
+                      │       sector-specific packs      (item 72)   │
+                      │                                              │
+                      │  4. Suppress defined-term hits               │
+                      │     (e.g. don't fire 'Purchaser' as person   │
+                      │      when contract defines it)               │
+                      │                                              │
+                      │  5. Fuzzy entity linking                     │
+                      │     (Dr Jane Tan / Jane Tan / Tan → 1 key;   │
+                      │      ACME Pte. Ltd. / Acme → 1 key)          │
+                      │                                              │
+                      │  6. Score → pii_score, mnpi_score            │
+                      │  7. Per-doc-type severity override (item 3)  │
+                      │  8. Issuer-relative materiality (item 73,    │
+                      │     planned: scale by market-cap lookup)     │
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                                  audit_grade  AND
+                                  mnpi_score ∈ [25, 70)
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  LLM tier (gated, tenant opt-in)             │
+                      │                                              │
+                      │  ┌──────────────────────────────────┐        │
+                      │  │ PrivacyGuard.check_external_query│        │
+                      │  │ → sanitised entity/ticker/event  │────────┼──→ Tinyfish / Exa
+                      │  └──────────────────────────────────┘        │     (public-source
+                      │                                              │      retrieval)
+                      │  ┌──────────────────────────────────┐        │
+                      │  │ LLM adjudicator                  │        │
+                      │  │  raw_text  OR  structured_tokens │────────┼──→ vLLM / Ollama /
+                      │  │  (regulated tenants → tokens)    │        │     OpenAI / local
+                      │  │  STRUCTURED_REASONS clamp        │        │     distilled student
+                      │  └──────────────────────────────────┘        │     (item 29)
+                      │                                              │
+                      │  ┌──────────────────────────────────┐        │
+                      │  │ Coverage audit ("what missed?")  │        │
+                      │  │ → coverage_warning (advisory)    │        │
+                      │  │ becomes 1st-class finding ← 54   │        │
+                      │  │ (planned: LLM can RAISE findings,│        │
+                      │  │  not just downgrade)             │        │
+                      │  └──────────────────────────────────┘        │
+                      │                                              │
+                      │  INVARIANT: never overrides deterministic-   │
+                      │  high; can only soften medium → low when     │
+                      │  public evidence supports it.                │
+                      │  Item 54 keeps invariant under upgrade path. │
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  (planned 66/67/68) Additive signals          │
+                      │  Replaces the deleted layer1-6 stack         │
+                      │  with explicit, transparent contributions.   │
+                      │                                              │
+                      │  • Classifier (item 66) — DistilBERT-class   │
+                      │    trained on legal-corpus + journal-accepted│
+                      │    findings. Cap: deterministic-medium.      │
+                      │                                              │
+                      │  • Doc similarity (item 67) — local embed +  │
+                      │    FAISS per tenant. Advisory only.          │
+                      │                                              │
+                      │  • Aggregator (item 68) — transparent weighted│
+                      │    blend with per-signal attribution.        │
+                      │    {deterministic: 0.55 (anchor),            │
+                      │     classifier:    0.18,                     │
+                      │     similarity:    0.08,                     │
+                      │     llm:           0.15,                     │
+                      │     public_ev:    -0.20}                     │
+                      │                                              │
+                      │  • Cross-doc inference (item 74) — combined  │
+                      │    findings across matter-scoped session.    │
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  Source-verification attribution  (item 36)  │
+                      │  per finding: not_checked | public_source_   │
+                      │  matched | no_public_source_found | ambiguous│
+                      │  (item 82 planned: HK uses NARROWER          │
+                      │   "not generally known" semantics)           │
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  Response build                              │
+                      │  findings + suggestions + scores +           │
+                      │  source_verification + coverage_warnings +   │
+                      │  privacy_ledger + (planned) classifier_score │
+                      │  + similar_documents + aggregated_score +    │
+                      │  per_signal_attribution + degraded_modes     │
+                      │  (item 65: degraded_modes on every response) │
+                      └────────┬────────────────────────────┬────────┘
+                               │                            │
+                  /anonymize only:                          │
+                  end-to-start span replacement             │
+                  with [PERSON_1], [NRIC_FIN_1], ...        │
+                               │                            │
+                               ▼                            │
+              ┌────────────────────────────────┐            │
+              │  Mapping store                 │            │
+              │  ${KAYPOH_JOURNAL_DIR}/        │            │
+              │   {tenant}/mappings/{doc_hash} │            │
+              │  Fernet-encrypted (opt-in)     │            │
+              │  ↑ /reidentify reads this      │            │
+              │  ↑ purge_mappings.py prunes    │            │
+              │  ↑ (planned 59) erase_subject  │            │
+              │     reverse-index path for     │            │
+              │     PDPA s16 / GDPR Art 17 etc │            │
+              └────────────────────────────────┘            │
+                                                            │
+                                                            ▼
+                      ┌──────────────────────────────────────────────┐
+                      │  HMAC-chained journal (append-only)          │
+                      │  ${KAYPOH_JOURNAL_DIR}/{tenant}/journal.jsonl│
+                      │  events: review | decision | coverage_warning│
+                      │          journal_key_rolled | metadata_scan  │
+                      │          subject_erasure_recorded (planned)  │
+                      │  key rotation: KAYPOH_JOURNAL_KEYS_FILE      │
+                      └────────────────────┬─────────────────────────┘
+                                           │
+                      ┌────────────────────▼─────────────────────────┐
+                      │  Audit-pack export                           │
+                      │  scripts/export_audit_pack.py  → HMAC ZIP    │
+                      │  scripts/verify_audit_pack.py                │
+                      │  scripts/verify_journal.py                   │
+                      │  reviewer roll-up (maker-checker red flags)  │
+                      │  (planned 89) --include-defensibility        │
+                      │  bundles statute citations + safe-harbour    │
+                      │  per finding for regulator submission.       │
+                      └──────────────────────────────────────────────┘
+
+                                  Side rail (build-time only)
+                      ┌──────────────────────────────────────────────┐
+                      │  scripts/generate_legal_fixture.py           │
+                      │   single-doc generator                       │
+                      │  scripts/generate_legal_fixture_batch.py     │
+                      │   batched wrapper                            │
+                      │  scripts/autolabel_fixture.py                │
+                      │   o1 / gpt-4o auto-labeler with provenance   │
+                      │   field `_label_source`                      │
+                      │  scripts/autolabel_batch.py                  │
+                      │   batched auto-labeler                       │
+                      │   → test/fixtures/legal-corpus[-adversarial] │
+                      │   → recall.lock.json + recall_adversarial.   │
+                      │     lock.json (precision + recall gates)     │
+                      │   → docs/accuracy.md (item 46)               │
+                      │   → training/distillation/ (items 29-32)     │
+                      └──────────────────────────────────────────────┘
+
+                                  PII / personal data (multi-juris)
+                      ┌──────────────────────────────────────────────┐
+                      │  Statutory anchor per jurisdiction:          │
+                      │   SG  PDPA s2(1)        EU  GDPR Art 4(1)    │
+                      │   MY  PDPA s4           UK  UK GDPR Art 4(1) │
+                      │   ID  UU PDP Art 1/4    US  CCPA §1798.140(v)│
+                      │   TH  PDPA s6              + HIPAA + GLBA    │
+                      │   PH  RA10173 s3(g)(h)  HK  PDPO s2          │
+                      │   VN  Decree 13 Art 2   AU  Privacy Act 1988 │
+                      │                         JP  APPI Art 2        │
+                      │                         KR  PIPA Art 2        │
+                      │  Special category: GDPR Art 9, PDPC,         │
+                      │   PIPA, LGPD, APPI, DPDPA                    │
+                      │  See ARCHITECTURE-PIVOT-24-MAY.md             │
+                      │   "First-Principles Statutory Analysis"      │
+                      │   for the full mapping.                      │
+                      └──────────────────────────────────────────────┘
+
+                                  MNPI / insider information (multi-juris)
+                      ┌──────────────────────────────────────────────┐
+                      │  Statutory anchor per jurisdiction:          │
+                      │   SG  SFA s218-221  +  SGX Ch7               │
+                      │   MY  CMSA s183-198 +  Bursa Ch9              │
+                      │   ID  UU8/1995 Art 95-99 + OJK 31/2015        │
+                      │   TH  SEA s241-244                            │
+                      │   PH  RA8799 s27   + SEC MC11/2019            │
+                      │   VN  Law on Securities 2019 Art 11/124       │
+                      │   US  Rule 10b-5 + Reg FD + Basic v.Levinson  │
+                      │   UK  UK MAR Art 7 + CJA1993 s56              │
+                      │   EU  EU MAR 596/2014 Art 7/14/17             │
+                      │   HK  SFO Part XIV s270-281                   │
+                      │   AU  Corps Act s1042A-1043O                  │
+                      │   JP  FIEA Art 166-167                        │
+                      │   KR  FSCMA Art 174-179                       │
+                      │  Reasonable-investor materiality everywhere; │
+                      │   HK's "not generally known" is narrower.    │
+                      │  See ARCHITECTURE-PIVOT-24-MAY.md             │
+                      │   "First-Principles Statutory Analysis"      │
+                      │   for the full mapping.                      │
+                      └──────────────────────────────────────────────┘
+
+
+What changed in this version vs ARCHITECTURE_25_MAY.txt
+-------------------------------------------------------
+
+1. /classify is no longer a "FROZEN legacy shim" — it's a thin wrapper over
+   engine.review() returning a flat findings shape. Legacy layer1-6 + mosaic
+   are DELETED from src/kaypoh/workflow/.
+
+2. New planned signal layers (66 / 67 / 68) added as a side branch between LLM
+   adjudication and source-verification. These REPLACE the conceptual role of
+   the deleted layer1-6 stack with transparent, statute-citable additive
+   signals — not a revival of the legacy code.
+
+3. Fail-closed gate (item 50) extended to a workflow-wide invariant (item 65)
+   covering container security, detector failures, LLM-tier failures,
+   public-evidence retrieval failures, mapping-store failures, image-scan
+   failures, subject-erasure failures, citation-override resolution failures.
+   Every API response now surfaces a `degraded_modes` array so callers can
+   act on partial coverage rather than discover it post-hoc.
+
+4. Image-scan / OCR layer (item 64) added between metadata scan and
+   engine.review() — pluggable backend (Tesseract / OpenAI Vision / Google /
+   AWS Rekognition / Azure). All cloud providers pass through PrivacyGuard.
+
+5. Container coverage (item 61) substantially expanded: XLSX pivot caches,
+   PPTX slide-masters, EML/MSG attachments recursive, ZIP/archive nesting,
+   plus security vectors (password-protected, macro-enabled, polyglot, XXE,
+   compression bombs, path traversal, embedded foreign docs).
+
+6. Statutory anchors enumerated for every in-scope jurisdiction including
+   the four new ones (HK / AU / JP / KR) added under item 86. Detector
+   coverage maps to a specific statute, not a generic "we cover SG".
+
+
+Key things this diagram makes obvious
+-------------------------------------
+
+• The deterministic engine IS the classifier. /classify is now a thin
+  wrapper over engine.review(), not a separate pipeline.
+
+• The LLM tier is a SIDE BRANCH, not the main path — only fires under
+  audit_grade + ambiguous-score band + tenant opt-in.
+
+• Items 66/67/68 are the conceptual heirs of the deleted legacy stack —
+  classifier as additive recall booster, doc similarity as advisory
+  signal, transparent aggregator replacing implicit max-severity-wins.
+  None of these override the deterministic-high invariant.
+
+• Everything privacy-sensitive (LLM, retrieval, image scan) passes
+  through PrivacyGuard before any external call. Per-tenant opt-in is
+  the standing principle for every new external-call feature.
+
+• Fail-closed is a workflow-wide invariant, not just a PDF-ingest
+  rule. Every layer surfaces degraded_modes when it can't fully execute.
+
+• Three persistence stores have different durability semantics:
+    - journal: append-only HMAC-chained
+    - mapping store: mutable, Fernet-encrypt opt-in,
+      reverse-index for subject erasure (planned)
+    - session/matter store: mutable-by-design for inheritance
+
+• Statute citations are per-jurisdiction and per-finding (item 85),
+  resolved through KAYPOH_CITATIONS_OVERRIDE which is now per-tenant
+  (item 60).
