@@ -12,6 +12,7 @@ from kaypoh.review import citations
 class CitationsOverrideTests(unittest.TestCase):
     def setUp(self):
         self._orig_env = os.environ.get("KAYPOH_CITATIONS_OVERRIDE")
+        self._orig_dir = os.environ.get("KAYPOH_CITATIONS_OVERRIDE_DIR")
         citations._CITATIONS_OVERRIDE_CACHE.clear()
 
     def tearDown(self):
@@ -19,6 +20,10 @@ class CitationsOverrideTests(unittest.TestCase):
             os.environ.pop("KAYPOH_CITATIONS_OVERRIDE", None)
         else:
             os.environ["KAYPOH_CITATIONS_OVERRIDE"] = self._orig_env
+        if self._orig_dir is None:
+            os.environ.pop("KAYPOH_CITATIONS_OVERRIDE_DIR", None)
+        else:
+            os.environ["KAYPOH_CITATIONS_OVERRIDE_DIR"] = self._orig_dir
         citations._CITATIONS_OVERRIDE_CACHE.clear()
 
     def test_override_substitutes_pii_citation_for_matching_jurisdiction(self):
@@ -75,10 +80,44 @@ class CitationsOverrideTests(unittest.TestCase):
             self.assertIn("Internal Trading Policy §3", text)
             self.assertIn("appears public", text)
 
-    def test_missing_override_file_falls_through_silently(self):
+    def test_missing_configured_override_file_fails_closed(self):
         os.environ["KAYPOH_CITATIONS_OVERRIDE"] = "/no/such/path.toml"
-        text = citations.pii_rationale(rule="sg_nric_fin", jurisdiction="SG")
-        self.assertIn("PDPA", text)
+        with self.assertRaises(citations.CitationOverrideError):
+            citations.pii_rationale(rule="sg_nric_fin", jurisdiction="SG")
+
+    def test_tenant_override_does_not_leak_to_other_tenant(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            override_dir = Path(tmp)
+            (override_dir / "tenant-a.toml").write_text(
+                "[pii.sg_nric_fin]\n"
+                'SG = "Tenant A Policy §1"\n',
+                encoding="utf-8",
+            )
+            os.environ["KAYPOH_CITATIONS_OVERRIDE_DIR"] = str(override_dir)
+
+            tenant_a = citations.pii_rationale(
+                rule="sg_nric_fin",
+                jurisdiction="SG",
+                tenant_id="tenant-a",
+            )
+            tenant_b = citations.pii_rationale(
+                rule="sg_nric_fin",
+                jurisdiction="SG",
+                tenant_id="tenant-b",
+            )
+
+            self.assertIn("Tenant A Policy", tenant_a)
+            self.assertIn("PDPA", tenant_b)
+            self.assertNotIn("Tenant A Policy", tenant_b)
+
+    def test_malformed_tenant_override_fails_closed(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            override_dir = Path(tmp)
+            (override_dir / "tenant-a.toml").write_text("[pii.sg_nric_fin\n", encoding="utf-8")
+            os.environ["KAYPOH_CITATIONS_OVERRIDE_DIR"] = str(override_dir)
+
+            with self.assertRaises(citations.CitationOverrideError):
+                citations.pii_rationale(rule="sg_nric_fin", jurisdiction="SG", tenant_id="tenant-a")
 
 
 if __name__ == "__main__":

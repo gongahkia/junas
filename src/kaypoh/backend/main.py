@@ -98,7 +98,7 @@ from kaypoh.review.decisions import (
     start_review_session,
 )
 from kaypoh.review.document import extract_review_document
-from kaypoh.review.engine import PreSendReviewEngine
+from kaypoh.review.engine import PreSendReviewEngine, ReviewLayerError
 from kaypoh.review.image_scan import (
     ImageScanError,
     append_ocr_text_blocks,
@@ -106,6 +106,7 @@ from kaypoh.review.image_scan import (
     health_check_image_scan,
     image_locator_for_span,
     image_ocr_metadata_for_span,
+    redacted_document_artifact,
     redacted_image_artifacts,
     scan_image_candidates,
 )
@@ -746,45 +747,68 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
     observability = get_observability()
 
     engine = _build_review_engine()
-    result = engine.review(
-        text=req.text,
-        source_jurisdiction="SG",
-        destination_jurisdiction="SG",
-        entity_id=req.entity_id,
-        include_suggestions=False,
-        document_type="generic",
-        review_profile="strict",
-        tenant_id=None,
-    )
+    try:
+        result = engine.review(
+            text=req.text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=req.entity_id,
+            include_suggestions=False,
+            document_type="generic",
+            review_profile="strict",
+            tenant_id=None,
+        )
+    except ReviewLayerError as exc:
+        raise HTTPException(status_code=503, detail=_layer_error_detail(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=_detector_error_detail(exc)) from exc
     timings_ms = {"total": round((time.perf_counter() - t_start) * 1000.0, 3)}
 
     public_evidence_resp = None
     if result.public_evidence is not None:
         try:
             public_evidence_resp = PublicEvidenceResponse(**result.public_evidence)
-        except Exception:
-            public_evidence_resp = None
+        except Exception as exc:
+            raise HTTPException(
+                status_code=500,
+                detail=_layer_error_detail(
+                    ReviewLayerError("public_evidence", f"public-evidence response validation failed: {exc}")
+                ),
+            ) from exc
 
     llm_adjudication_resp = None
     if result.llm_adjudication is not None:
         try:
             llm_adjudication_resp = LLMAdjudicationResponse(**result.llm_adjudication)
-        except Exception:
-            llm_adjudication_resp = None
+        except Exception as exc:
+            raise HTTPException(
+                status_code=500,
+                detail=_layer_error_detail(
+                    ReviewLayerError("llm_adjudicator", f"LLM adjudication response validation failed: {exc}")
+                ),
+            ) from exc
 
     privacy_ledger_resp = []
     for entry in result.privacy_ledger:
         try:
             privacy_ledger_resp.append(PrivacyLedgerEntryResponse(**entry))
-        except Exception:
-            continue
+        except Exception as exc:
+            raise HTTPException(
+                status_code=500,
+                detail=_layer_error_detail(
+                    ReviewLayerError("privacy_ledger", f"privacy ledger response validation failed: {exc}")
+                ),
+            ) from exc
 
     findings_resp = []
     for f in result.findings:
         try:
             findings_resp.append(ReviewFindingResponse.model_validate(f.__dict__))
-        except Exception:
-            continue
+        except Exception as exc:
+            raise HTTPException(
+                status_code=500,
+                detail=_detector_error_detail(exc),
+            ) from exc
 
     response = ClassifyResponse(
         request_id=request_id,
@@ -1005,6 +1029,26 @@ def _image_scan_error_detail(exc: Exception) -> dict[str, Any]:
     }
 
 
+def _layer_error_detail(exc: ReviewLayerError) -> dict[str, Any]:
+    reason = str(exc)
+    return {
+        "message": reason,
+        "degraded_modes": [
+            _degraded_mode(exc.layer, "failed_closed", reason),
+        ],
+    }
+
+
+def _detector_error_detail(exc: Exception) -> dict[str, Any]:
+    reason = str(exc)
+    return {
+        "message": f"deterministic review failed closed: {reason}",
+        "degraded_modes": [
+            _degraded_mode("detector", "failed_closed", reason),
+        ],
+    }
+
+
 def _document_degraded_modes(document: Any) -> list[dict[str, Any]]:
     modes: list[dict[str, Any]] = []
     for warning in list(getattr(document, "extraction_warnings", []) or []):
@@ -1181,17 +1225,22 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
 
     t_review_start = time.perf_counter()
     engine = _build_review_engine()
-    result = engine.review(
-        text=document.text,
-        source_jurisdiction=req.source_jurisdiction,
-        destination_jurisdiction=req.destination_jurisdiction,
-        entity_id=req.entity_id,
-        include_suggestions=req.include_suggestions,
-        document_type=req.document_type,
-        session_id=req.session_id,
-        review_profile=req.review_profile,
-        tenant_id=tenant.storage_tenant_id,
-    )
+    try:
+        result = engine.review(
+            text=document.text,
+            source_jurisdiction=req.source_jurisdiction,
+            destination_jurisdiction=req.destination_jurisdiction,
+            entity_id=req.entity_id,
+            include_suggestions=req.include_suggestions,
+            document_type=req.document_type,
+            session_id=req.session_id,
+            review_profile=req.review_profile,
+            tenant_id=tenant.storage_tenant_id,
+        )
+    except ReviewLayerError as exc:
+        raise HTTPException(status_code=503, detail=_layer_error_detail(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=_detector_error_detail(exc)) from exc
     _annotate_image_ocr_findings(document, result.findings)
     result.privacy_ledger = image_privacy_ledger + list(result.privacy_ledger)
     timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
@@ -1278,17 +1327,22 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
 
     t_review_start = time.perf_counter()
     engine = _build_review_engine()
-    result = engine.review(
-        text=document.text,
-        source_jurisdiction=req.source_jurisdiction,
-        destination_jurisdiction=req.destination_jurisdiction,
-        entity_id=req.entity_id,
-        include_suggestions=req.include_suggestions,
-        document_type=req.document_type,
-        session_id=req.session_id,
-        review_profile=req.review_profile,
-        tenant_id=tenant.storage_tenant_id,
-    )
+    try:
+        result = engine.review(
+            text=document.text,
+            source_jurisdiction=req.source_jurisdiction,
+            destination_jurisdiction=req.destination_jurisdiction,
+            entity_id=req.entity_id,
+            include_suggestions=req.include_suggestions,
+            document_type=req.document_type,
+            session_id=req.session_id,
+            review_profile=req.review_profile,
+            tenant_id=tenant.storage_tenant_id,
+        )
+    except ReviewLayerError as exc:
+        raise HTTPException(status_code=503, detail=_layer_error_detail(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=_detector_error_detail(exc)) from exc
     _annotate_image_ocr_findings(document, result.findings)
     result.privacy_ledger = image_privacy_ledger + list(result.privacy_ledger)
     timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
@@ -1304,6 +1358,18 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
         [(replacement.start_char, replacement.end_char) for replacement in anonymization.replacements],
     )
     degraded_modes.extend(redaction_degraded_modes)
+    redacted_document, document_redaction_degraded_modes = redacted_document_artifact(
+        original_data=getattr(document, "original_data", None),
+        filename=document.filename,
+        mime_type=document.mime_type,
+        candidates=list(getattr(document, "image_candidates", []) or []),
+        spans=list(getattr(document, "image_text_spans", []) or []),
+        replacement_spans=[
+            (replacement.start_char, replacement.end_char)
+            for replacement in anonymization.replacements
+        ],
+    )
+    degraded_modes.extend(document_redaction_degraded_modes)
     timings_ms["anonymize"] = round((time.perf_counter() - t_anonymize_start) * 1000.0, 3)
 
     document_hash = _compute_document_hash(document.text)
@@ -1325,7 +1391,6 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
             )
             mapping_persisted = True
         except (OSError, MappingStoreError) as exc:
-            # persistence is best-effort; the client still has the mapping in the response.
             log_backend_event(logging.WARNING, event="mapping_persist_failed", error=str(exc))
             emit_security_event(
                 action="mapping_persist",
@@ -1334,6 +1399,20 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
                 details={"error": str(exc), "document_hash": document_hash},
                 settings=current_runtime_settings().siem,
             )
+            raise HTTPException(
+                status_code=503,
+                detail={
+                    "message": f"mapping-store persistence failed closed: {exc}",
+                    "degraded_modes": [
+                        _degraded_mode(
+                            "mapping_store",
+                            "failed_closed",
+                            str(exc),
+                            {"document_hash": document_hash},
+                        )
+                    ],
+                },
+            ) from exc
 
     timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
 
@@ -1371,6 +1450,7 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
             for replacement in anonymization.replacements
         ],
         redacted_images=redacted_images,
+        redacted_document=redacted_document,
     )
 
     observability = get_observability()

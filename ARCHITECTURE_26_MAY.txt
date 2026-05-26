@@ -36,7 +36,7 @@ return shape.
                       │   ├─ DOCX extractor                          │
                       │   ├─ PDF extractor + FAIL-CLOSED gate ← 50   │
                       │   │   (scanned / image-only / sparse → 422)  │
-                      │   └─ (planned 61) XLSX / PPTX / EML / MSG /  │
+                      │   └─ (partial 61) XLSX / PPTX / EML / MSG /  │
                       │       ZIP / HTML / SVG / RTF / MD            │
                       │       + container security: password / macro │
                       │       / polyglot / XXE / bomb / traversal    │
@@ -48,7 +48,7 @@ return shape.
                       │  DOCX core/app props, comments,              │
                       │  track-change authors, PDF info, EXIF        │
                       │  → metadata_findings  (separate channel)     │
-                      │  (planned 61) extend to OLE, XFA, AcroForm,  │
+                      │  (partial 61) extend to OLE, XFA, AcroForm,  │
                       │  pivot caches, XMP, embedded foreign docs    │
                       └────────────────────┬─────────────────────────┘
                                            │
@@ -204,7 +204,7 @@ return shape.
                       │  privacy_ledger + (planned) classifier_score │
                       │  + similar_documents + aggregated_score +    │
                       │  per_signal_attribution + degraded_modes     │
-                      │  (planned item 65: degraded_modes everywhere)│
+                      │  (partial item 65: degraded_modes everywhere)│
                       └────────┬────────────────────────────┬────────┘
                                │                            │
                   /anonymize only:                          │
@@ -320,21 +320,25 @@ What changed in this version vs ARCHITECTURE_25_MAY.txt
 3. Fail-closed gate (item 50) extended into a workflow-wide roadmap item
    (item 65) covering container security, detector failures, LLM-tier failures,
    public-evidence retrieval failures, mapping-store failures, subject-erasure
-   failures, citation-override resolution failures. Image-scan failures are now
-   fail-closed, and /review, /anonymize, and /classify expose `degraded_modes`
-   for the shipped OCR/redaction coverage gaps. The meta-audit is still open.
+   failures, citation-override resolution failures. Image-scan, mapping-store,
+   public-evidence, LLM-adjudication, citation-override, and container-scan
+   failures now fail closed in shipped paths. The subject-erasure branch and
+   full swallowed-exception meta-audit are still open.
 
 4. Image-scan / OCR layer (item 64) shipped between metadata scan and
    engine.review() — pluggable backend (Tesseract / OpenAI Vision / Google /
    AWS Rekognition / Azure). All cloud providers pass through PrivacyGuard,
    tenant-aware opt-in, diagnostics/readiness, confidence/box parsing where
-   available, PDF page-render fallback, and best-effort redacted image artifacts
-   on /anonymize.
+   available, line-level span-to-box clipping, PDF page-render fallback,
+   redacted image artifacts, and redacted source-document output for standalone
+   images, DOCX media, and flattened PDF page renders on /anonymize.
 
-5. Container coverage (item 61) substantially expanded: XLSX pivot caches,
-   PPTX slide-masters, EML/MSG attachments recursive, ZIP/archive nesting,
-   plus security vectors (password-protected, macro-enabled, polyglot, XXE,
-   compression bombs, path traversal, embedded foreign docs).
+5. Container coverage (item 61) substantially expanded in code: DOCX hidden
+   parts, PDF annotations/forms/embedded files, XLSX pivot caches/hidden sheets,
+   PPTX notes/masters, EML attachments, ZIP/TAR nesting, HTML/SVG/RTF/Markdown
+   hidden text, plus security vectors (password-protected, macro-enabled,
+   polyglot/magic mismatch, XML entity/DTD, compression bombs, path traversal,
+   embedded foreign docs). Native MSG and 7z currently fail closed.
 
 6. Statutory anchors enumerated for every in-scope jurisdiction. HK / AU /
    JP / KR packs and one-fixture seed locks shipped under items 86 / 90, but
@@ -361,8 +365,8 @@ Key things this diagram makes obvious
   the standing principle for every new external-call feature.
 
 • Fail-closed is a workflow-wide invariant, not just a PDF-ingest
-  rule. Item 65 owns the remaining work to surface degraded_modes consistently
-  when a layer can't fully execute.
+  rule. Item 65 now covers the shipped runtime layers above; subject-erasure and
+  the full swallowed-exception meta-audit remain.
 
 • Three persistence stores have different durability semantics:
     - journal: append-only HMAC-chained

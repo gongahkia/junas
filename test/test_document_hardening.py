@@ -1,7 +1,9 @@
 import base64
+import email
 import unittest
 import zipfile
 from contextlib import asynccontextmanager
+from email.message import EmailMessage
 from io import BytesIO
 
 from fastapi.testclient import TestClient
@@ -47,6 +49,71 @@ def _docx_bytes() -> bytes:
             archive.writestr("word/document.xml", document_xml)
             archive.writestr("docProps/core.xml", core_xml)
             archive.writestr("word/comments.xml", comments_xml)
+        return buffer.getvalue()
+
+
+def _xlsx_with_hidden_sheet() -> bytes:
+    with BytesIO() as buffer:
+        with zipfile.ZipFile(buffer, "w") as archive:
+            archive.writestr(
+                "xl/workbook.xml",
+                (
+                    '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
+                    '<sheets><sheet name="Visible" sheetId="1"/>'
+                    '<sheet name="Hidden" sheetId="2" state="hidden"/></sheets>'
+                    '<definedNames><definedName name="SecretRange">Hidden!$A$1</definedName></definedNames>'
+                    "</workbook>"
+                ),
+            )
+            archive.writestr(
+                "xl/sharedStrings.xml",
+                (
+                    '<sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
+                    "<si><t>Dr Jane Tan S1234567D</t></si></sst>"
+                ),
+            )
+            archive.writestr(
+                "xl/pivotCache/pivotCacheRecords1.xml",
+                (
+                    '<pivotCacheRecords xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
+                    '<r><s v="Tan S1234567D"/></r></pivotCacheRecords>'
+                ),
+            )
+        return buffer.getvalue()
+
+
+def _pptx_with_notes() -> bytes:
+    with BytesIO() as buffer:
+        with zipfile.ZipFile(buffer, "w") as archive:
+            archive.writestr(
+                "ppt/presentation.xml",
+                '<p:presentation xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main"/>',
+            )
+            archive.writestr(
+                "ppt/slides/slide1.xml",
+                '<p:sld xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" '
+                'xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">'
+                "<a:t>Public slide</a:t></p:sld>",
+            )
+            archive.writestr(
+                "ppt/notesSlides/notesSlide1.xml",
+                '<p:notes xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" '
+                'xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">'
+                "<a:t>Speaker note: S1234567D</a:t></p:notes>",
+            )
+            archive.writestr(
+                "ppt/slideMasters/slideMaster1.xml",
+                '<p:sldMaster xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" '
+                'xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">'
+                "<a:t>Master contains Jane Tan</a:t></p:sldMaster>",
+            )
+        return buffer.getvalue()
+
+
+def _zip_bytes(name: str, payload: bytes) -> bytes:
+    with BytesIO() as buffer:
+        with zipfile.ZipFile(buffer, "w") as archive:
+            archive.writestr(name, payload)
         return buffer.getvalue()
 
 
@@ -221,6 +288,130 @@ class DocumentHardeningTests(unittest.TestCase):
             mime_type="image/jpeg",
         )
         self.assertFalse(any(finding.field == "Artist" for finding in remaining))
+
+    def test_docx_hidden_parts_are_extracted_for_review(self):
+        document_xml = (
+            '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+            "<w:body><w:p><w:r><w:t>Visible text only.</w:t></w:r></w:p></w:body></w:document>"
+        )
+        footnotes_xml = (
+            '<w:footnotes xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+            "<w:footnote><w:p><w:r><w:t>S1234567D in footnote.</w:t></w:r></w:p></w:footnote></w:footnotes>"
+        )
+        with BytesIO() as buffer:
+            with zipfile.ZipFile(buffer, "w") as archive:
+                archive.writestr("word/document.xml", document_xml)
+                archive.writestr("word/footnotes.xml", footnotes_xml)
+            encoded = base64.b64encode(buffer.getvalue()).decode("ascii")
+
+        with TestClient(main.app) as client:
+            response = client.post(
+                "/review",
+                json={"document_base64": encoded, "document_filename": "draft.docx"},
+            )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertTrue(any(finding["rule"] == "sg_nric_fin" for finding in response.json()["findings"]))
+        sources = {finding["source"] for finding in response.json()["document"]["metadata_findings"]}
+        self.assertIn("docx_hidden_part", sources)
+
+    def test_xlsx_hidden_sheet_and_pivot_cache_are_reviewed(self):
+        encoded = base64.b64encode(_xlsx_with_hidden_sheet()).decode("ascii")
+        with TestClient(main.app) as client:
+            response = client.post(
+                "/review",
+                json={"document_base64": encoded, "document_filename": "book.xlsx"},
+            )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        self.assertTrue(any(finding["rule"] == "sg_nric_fin" for finding in payload["findings"]))
+        sources = {finding["source"] for finding in payload["document"]["metadata_findings"]}
+        self.assertIn("xlsx_hidden_sheet", sources)
+        self.assertIn("xlsx_defined_name", sources)
+
+    def test_pptx_notes_and_masters_are_reviewed(self):
+        encoded = base64.b64encode(_pptx_with_notes()).decode("ascii")
+        with TestClient(main.app) as client:
+            response = client.post(
+                "/review",
+                json={"document_base64": encoded, "document_filename": "deck.pptx"},
+            )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        self.assertTrue(any(finding["rule"] == "sg_nric_fin" for finding in payload["findings"]))
+        sources = {finding["source"] for finding in payload["document"]["metadata_findings"]}
+        self.assertIn("pptx_speaker_notes", sources)
+        self.assertIn("pptx_slide_master", sources)
+
+    def test_eml_attachment_is_recursed(self):
+        message = EmailMessage()
+        message["From"] = "sender@example.com"
+        message["To"] = "recipient@example.com"
+        message["Subject"] = "Draft"
+        message.set_content("See attachment.")
+        message.add_attachment(
+            b"S1234567D in attachment",
+            maintype="text",
+            subtype="plain",
+            filename="attachment.txt",
+        )
+        encoded = base64.b64encode(message.as_bytes(policy=email.policy.default)).decode("ascii")
+        with TestClient(main.app) as client:
+            response = client.post(
+                "/review",
+                json={"document_base64": encoded, "document_filename": "mail.eml"},
+            )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertTrue(any(finding["rule"] == "sg_nric_fin" for finding in response.json()["findings"]))
+
+    def test_zip_path_traversal_fails_closed(self):
+        encoded = base64.b64encode(_zip_bytes("../secret.txt", b"S1234567D")).decode("ascii")
+        with TestClient(main.app) as client:
+            response = client.post(
+                "/review",
+                json={"document_base64": encoded, "document_filename": "archive.zip"},
+            )
+
+        self.assertEqual(response.status_code, 422)
+        self.assertIn("container scan failed closed", response.json()["detail"])
+
+    def test_html_svg_markdown_and_rtf_hidden_content_are_reviewed(self):
+        cases = [
+            ("page.html", b'<!-- S1234567D --><div style="display:none">Jane Tan</div>'),
+            ("image.svg", b'<svg xmlns="http://www.w3.org/2000/svg"><metadata>S1234567D</metadata></svg>'),
+            ("note.md", b"Visible\n<!-- S1234567D -->\n![Jane Tan](x.png)"),
+            ("doc.rtf", b"{\\rtf1\\ansi S1234567D \\object hidden}"),
+        ]
+        with TestClient(main.app) as client:
+            for filename, payload in cases:
+                response = client.post(
+                    "/review",
+                    json={"document_base64": base64.b64encode(payload).decode("ascii"), "document_filename": filename},
+                )
+                self.assertEqual(response.status_code, 200, response.text)
+                self.assertTrue(any(finding["rule"] == "sg_nric_fin" for finding in response.json()["findings"]))
+
+    def test_msg_and_macro_enabled_containers_fail_closed(self):
+        msg_response_payload = base64.b64encode(b"not really msg").decode("ascii")
+        with TestClient(main.app) as client:
+            msg_response = client.post(
+                "/review",
+                json={"document_base64": msg_response_payload, "document_filename": "mail.msg"},
+            )
+            docm_response = client.post(
+                "/review",
+                json={
+                    "document_base64": base64.b64encode(_docx_bytes()).decode("ascii"),
+                    "document_filename": "macro.docm",
+                    "document_mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                },
+            )
+
+        self.assertEqual(msg_response.status_code, 422)
+        self.assertEqual(docm_response.status_code, 422)
 
 
 if __name__ == "__main__":

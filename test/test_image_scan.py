@@ -24,6 +24,7 @@ from kaypoh.review.image_scan import (
     ImageTextRegion,
     OpenAIVisionImageScanner,
     collect_docx_images,
+    image_boxes_for_span,
     scan_image_candidates,
 )
 from kaypoh.workflow.privacy_guard import PrivacyGuard
@@ -140,7 +141,7 @@ class ImageScanTests(unittest.TestCase):
         self.assertEqual(finding["image_locator"]["container_path"], "scan.png")
         self.assertEqual(finding["image_locator"]["image_index"], 0)
         self.assertEqual(finding["image_ocr_confidence"], 0.98)
-        self.assertEqual(finding["image_ocr_regions"][0]["bounding_box"]["x"], 0.05)
+        self.assertGreater(finding["image_ocr_regions"][0]["bounding_box"]["x"], 0.05)
         self.assertEqual(scanner.last_candidate.mime_type, "image/png")
 
     def test_image_ocr_failure_fails_closed(self):
@@ -213,7 +214,36 @@ class ImageScanTests(unittest.TestCase):
         redacted = payload["redacted_images"][0]
         self.assertEqual(redacted["mime_type"], "image/png")
         self.assertGreater(len(base64.b64decode(redacted["document_base64"])), 0)
+        self.assertEqual(payload["redacted_document"]["mime_type"], "image/png")
+        self.assertGreater(len(base64.b64decode(payload["redacted_document"]["document_base64"])), 0)
         self.assertEqual(payload["degraded_modes"], [])
+
+    def test_docx_anonymize_returns_redacted_docx_container(self):
+        main._state["models"] = {"image_scanner": FakeImageScanner(text="S1234567D")}
+        encoded = base64.b64encode(_docx_with_embedded_png()).decode("ascii")
+        with mock.patch.dict(os.environ, {"KAYPOH_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
+            with TestClient(main.app) as client:
+                response = client.post(
+                    "/anonymize",
+                    json={
+                        "document_base64": encoded,
+                        "document_filename": "draft.docx",
+                        "source_jurisdiction": "SG",
+                        "destination_jurisdiction": "SG",
+                    },
+                )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        redacted_document = payload["redacted_document"]
+        self.assertEqual(
+            redacted_document["mime_type"],
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        )
+        rewritten = base64.b64decode(redacted_document["document_base64"])
+        with zipfile.ZipFile(BytesIO(rewritten)) as archive:
+            redacted_image = archive.read("word/media/image1.png")
+        self.assertNotEqual(redacted_image, _png_bytes())
 
     def test_anonymize_reports_degraded_mode_when_boxes_missing(self):
         class NoBoxScanner(FakeImageScanner):
@@ -246,7 +276,37 @@ class ImageScanTests(unittest.TestCase):
 
         self.assertIn("total image bytes", str(ctx.exception))
 
+    def test_line_level_region_boxes_are_clipped_to_matched_span(self):
+        span = types.SimpleNamespace(
+            start_char=0,
+            end_char=len("Alpha S1234567D Omega"),
+            locator=ImageLocator(container_path="scan.png", image_index=0),
+            regions=[
+                ImageTextRegion(
+                    text="Alpha S1234567D Omega",
+                    start_char=0,
+                    end_char=len("Alpha S1234567D Omega"),
+                    bounding_box=ImageBoundingBox(x=0.0, y=0.0, width=1.0, height=0.2),
+                )
+            ],
+        )
+        start = len("Alpha ")
+        end = start + len("S1234567D")
+
+        boxes = image_boxes_for_span([span], start, end)
+
+        self.assertEqual(len(boxes), 1)
+        self.assertGreater(boxes[0].x, 0.2)
+        self.assertLess(boxes[0].width, 0.6)
+
     def test_pdf_ocr_uses_page_render_fallback_when_no_embedded_images(self):
+        from pypdf import PdfWriter
+
+        writer = PdfWriter()
+        writer.add_blank_page(width=72, height=72)
+        with BytesIO() as buffer:
+            writer.write(buffer)
+            pdf_bytes = buffer.getvalue()
         rendered = ImageCandidate(
             data=_png_bytes(),
             mime_type="image/png",
@@ -258,7 +318,7 @@ class ImageScanTests(unittest.TestCase):
             ),
         )
         payload = types.SimpleNamespace(
-            document_base64=base64.b64encode(b"%PDF-stub").decode("ascii"),
+            document_base64=base64.b64encode(pdf_bytes).decode("ascii"),
             document_filename="scan.pdf",
             document_mime_type="application/pdf",
         )
@@ -312,6 +372,54 @@ class ImageScanTests(unittest.TestCase):
         self.assertEqual(result.text, "S1234567D")
         self.assertEqual(result.regions[0].bounding_box.x, 0.1)
         self.assertEqual(result.privacy_ledger[0]["allowed"], True)
+
+    def test_aws_rekognition_prefers_word_boxes_when_available(self):
+        class FakeRekognitionClient:
+            def detect_text(self, Image):
+                return {
+                    "TextDetections": [
+                        {
+                            "Type": "LINE",
+                            "DetectedText": "Alpha S1234567D",
+                            "Confidence": 99.0,
+                            "Geometry": {"BoundingBox": {"Left": 0.1, "Top": 0.2, "Width": 0.8, "Height": 0.4}},
+                        },
+                        {
+                            "Type": "WORD",
+                            "DetectedText": "Alpha",
+                            "Confidence": 98.0,
+                            "Geometry": {"BoundingBox": {"Left": 0.1, "Top": 0.2, "Width": 0.2, "Height": 0.4}},
+                        },
+                        {
+                            "Type": "WORD",
+                            "DetectedText": "S1234567D",
+                            "Confidence": 99.0,
+                            "Geometry": {"BoundingBox": {"Left": 0.4, "Top": 0.2, "Width": 0.3, "Height": 0.4}},
+                        },
+                    ]
+                }
+
+        fake_boto3 = types.SimpleNamespace(client=lambda *args, **kwargs: FakeRekognitionClient())
+        settings = types.SimpleNamespace(
+            provider="aws_rekognition",
+            aws_region="ap-southeast-1",
+            tenant_opt_in_aws=True,
+            tenant_opt_ins={},
+        )
+        candidate = ImageCandidate(
+            data=_png_bytes(),
+            mime_type="image/png",
+            locator=ImageLocator(container_path="scan.png", image_index=0),
+        )
+        with mock.patch.dict("sys.modules", {"boto3": fake_boto3}):
+            scanner = AWSRekognitionImageScanner(
+                settings,
+                privacy_guard=PrivacyGuard(external_query_policy="sanitized_only", max_query_chars=256),
+            )
+            result = scanner.scan(candidate)
+
+        self.assertEqual([region.text for region in result.regions], ["Alpha", "S1234567D"])
+        self.assertAlmostEqual(result.regions[1].bounding_box.x, 0.4)
 
     def test_openai_vision_provider_sends_image_and_parses_text(self):
         class FakeResponse:

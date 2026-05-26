@@ -3,6 +3,7 @@ from __future__ import annotations
 import base64
 import mimetypes
 import re
+import zipfile
 from dataclasses import dataclass, field
 from io import BytesIO
 from typing import Any, Protocol
@@ -67,6 +68,19 @@ class ImageBoundingBox:
             "width": self.width,
             "height": self.height,
         }
+
+    def clipped_to_text_range(self, *, text_length: int, start: int, end: int) -> "ImageBoundingBox":
+        length = max(1, int(text_length))
+        clipped_start = max(0, min(length, int(start)))
+        clipped_end = max(clipped_start + 1, min(length, int(end)))
+        left_ratio = clipped_start / length
+        right_ratio = clipped_end / length
+        return ImageBoundingBox(
+            x=max(0.0, min(1.0, self.x + self.width * left_ratio)),
+            y=self.y,
+            width=max(0.0, min(1.0, self.width * (right_ratio - left_ratio))),
+            height=self.height,
+        )
 
 
 @dataclass(frozen=True)
@@ -612,11 +626,14 @@ class AWSRekognitionImageScanner(_CloudImageScanner):
         except Exception as exc:
             raise ImageScanError(f"aws_rekognition OCR failed: {exc}") from exc
         detections = response.get("TextDetections", []) or []
+        words = [item for item in detections if item.get("Type") == "WORD"]
         lines = [item for item in detections if item.get("Type") == "LINE"]
-        if not lines:
-            lines = [item for item in detections if item.get("Type") == "WORD"]
-        lines.sort(key=_rekognition_sort_key)
-        text, regions, confidence = _rekognition_regions(lines)
+        items = words or lines
+        items.sort(key=_rekognition_sort_key)
+        text, regions, confidence = _rekognition_regions(
+            items,
+            separator=" " if words else "\n",
+        )
         return ImageOcrResult(
             text=clean_ocr_text(text),
             locator=candidate.locator,
@@ -632,7 +649,11 @@ def _rekognition_sort_key(item: dict[str, Any]) -> tuple[float, float, int]:
     return (float(box.get("Top", 0.0) or 0.0), float(box.get("Left", 0.0) or 0.0), int(item.get("Id", 0) or 0))
 
 
-def _rekognition_regions(items: list[dict[str, Any]]) -> tuple[str, list[ImageTextRegion], float | None]:
+def _rekognition_regions(
+    items: list[dict[str, Any]],
+    *,
+    separator: str = "\n",
+) -> tuple[str, list[ImageTextRegion], float | None]:
     parts: list[str] = []
     regions: list[ImageTextRegion] = []
     confidences: list[float] = []
@@ -640,7 +661,7 @@ def _rekognition_regions(items: list[dict[str, Any]]) -> tuple[str, list[ImageTe
         line = clean_ocr_text(str(item.get("DetectedText", "") or ""))
         if not line:
             continue
-        start = _append_region_text(parts, line, separator="\n")
+        start = _append_region_text(parts, line, separator=separator)
         box = ((item.get("Geometry") or {}).get("BoundingBox") or {})
         confidence = _normalize_confidence(item.get("Confidence"))
         if confidence is not None:
@@ -703,18 +724,35 @@ class AzureVisionImageScanner(_CloudImageScanner):
                 if text:
                     lines.append(text)
                     cleaned_text = clean_ocr_text(text)
-                    start = _append_region_text(parts, cleaned_text, separator="\n")
-                    regions.append(
-                        ImageTextRegion(
-                            text=cleaned_text,
-                            start_char=start,
-                            end_char=start + len(cleaned_text),
-                            bounding_box=_bbox_from_polygon(getattr(line, "bounding_polygon", None)),
-                            confidence=None,
+                    words = list(getattr(line, "words", []) or [])
+                    if words:
+                        for word in words:
+                            word_text = clean_ocr_text(str(getattr(word, "text", "") or ""))
+                            if not word_text:
+                                continue
+                            start = _append_region_text(parts, word_text, separator=" ")
+                            regions.append(
+                                ImageTextRegion(
+                                    text=word_text,
+                                    start_char=start,
+                                    end_char=start + len(word_text),
+                                    bounding_box=_bbox_from_polygon(getattr(word, "bounding_polygon", None)),
+                                    confidence=_normalize_confidence(getattr(word, "confidence", None)),
+                                )
+                            )
+                    else:
+                        start = _append_region_text(parts, cleaned_text, separator="\n")
+                        regions.append(
+                            ImageTextRegion(
+                                text=cleaned_text,
+                                start_char=start,
+                                end_char=start + len(cleaned_text),
+                                bounding_box=_bbox_from_polygon(getattr(line, "bounding_polygon", None)),
+                                confidence=None,
+                            )
                         )
-                    )
         return ImageOcrResult(
-            text=clean_ocr_text("\n".join(lines)),
+            text=clean_ocr_text("".join(parts) if parts else "\n".join(lines)),
             locator=candidate.locator,
             provider=self.provider,
             privacy_ledger=ledger,
@@ -889,8 +927,40 @@ def image_regions_for_span(spans: list[ImageTextSpan], start: int, end: int) -> 
         for region in span.regions:
             if region.end_char <= start or region.start_char >= end:
                 continue
-            regions.append(region)
+            regions.append(_clip_region_to_span(region, start, end))
     return regions
+
+
+def image_boxes_for_span(spans: list[ImageTextSpan], start: int, end: int) -> list[ImageBoundingBox]:
+    return [
+        region.bounding_box
+        for region in image_regions_for_span(spans, start, end)
+        if region.bounding_box is not None
+    ]
+
+
+def _clip_region_to_span(region: ImageTextRegion, start: int, end: int) -> ImageTextRegion:
+    overlap_start = max(region.start_char, start)
+    overlap_end = min(region.end_char, end)
+    if overlap_start <= region.start_char and overlap_end >= region.end_char:
+        return region
+    local_start = max(0, overlap_start - region.start_char)
+    local_end = max(local_start + 1, overlap_end - region.start_char)
+    text = region.text[local_start:local_end] if region.text else region.text
+    box = region.bounding_box
+    if box is not None:
+        box = box.clipped_to_text_range(
+            text_length=len(region.text or ""),
+            start=local_start,
+            end=local_end,
+        )
+    return ImageTextRegion(
+        text=text,
+        start_char=overlap_start,
+        end_char=overlap_end,
+        bounding_box=box,
+        confidence=region.confidence,
+    )
 
 
 def health_check_image_scan(settings: Any) -> dict[str, Any]:
@@ -1011,24 +1081,7 @@ def redacted_image_artifacts(
     spans: list[ImageTextSpan],
     replacement_spans: list[tuple[int, int]],
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    boxes_by_key: dict[tuple[str, int, int | None], list[ImageBoundingBox]] = {}
-    missing_boxes: set[tuple[str, int, int | None]] = set()
-    for start, end in replacement_spans:
-        matched_span = next((span for span in spans if span.start_char <= start and end <= span.end_char), None)
-        if matched_span is None:
-            continue
-        key = (
-            matched_span.locator.container_path,
-            matched_span.locator.image_index,
-            matched_span.locator.page_number,
-        )
-        regions = image_regions_for_span(spans, start, end)
-        boxes = [region.bounding_box for region in regions if region.bounding_box is not None]
-        if boxes:
-            boxes_by_key.setdefault(key, []).extend(boxes)
-        else:
-            missing_boxes.add(key)
-
+    boxes_by_key, missing_boxes = _boxes_by_source_key(spans, replacement_spans)
     artifacts: list[dict[str, Any]] = []
     degraded_modes: list[dict[str, Any]] = []
     candidate_by_key = {
@@ -1060,22 +1113,113 @@ def redacted_image_artifacts(
     return artifacts, degraded_modes
 
 
-def _redact_candidate(candidate: ImageCandidate, boxes: list[ImageBoundingBox]) -> dict[str, Any]:
-    from PIL import Image, ImageDraw
+def redacted_document_artifact(
+    *,
+    original_data: bytes | None,
+    filename: str,
+    mime_type: str,
+    candidates: list[ImageCandidate],
+    spans: list[ImageTextSpan],
+    replacement_spans: list[tuple[int, int]],
+) -> tuple[dict[str, Any] | None, list[dict[str, Any]]]:
+    if not original_data:
+        return None, []
+    boxes_by_key, missing_boxes = _boxes_by_source_key(spans, replacement_spans)
+    degraded_modes = _missing_box_degraded_modes(missing_boxes, boxes_by_key)
+    if not boxes_by_key:
+        return None, degraded_modes
+    normalized = mime_type.lower()
+    candidate_by_key = {
+        (candidate.locator.container_path, candidate.locator.image_index, candidate.locator.page_number): candidate
+        for candidate in candidates
+    }
+    try:
+        if normalized == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+            payload = _redact_docx_document(original_data, candidate_by_key, boxes_by_key)
+            count = sum(len(boxes) for boxes in boxes_by_key.values())
+            return {
+                "filename": _redacted_filename(filename, ".docx"),
+                "mime_type": normalized,
+                "document_base64": base64.b64encode(payload).decode("ascii"),
+                "method": "docx_media_rewrite",
+                "redaction_count": count,
+                "warnings": [],
+            }, degraded_modes
+        if normalized == "application/pdf":
+            payload = _redact_pdf_document(original_data, candidate_by_key, boxes_by_key)
+            count = sum(len(boxes) for boxes in boxes_by_key.values())
+            return {
+                "filename": _redacted_filename(filename, ".pdf"),
+                "mime_type": "application/pdf",
+                "document_base64": base64.b64encode(payload).decode("ascii"),
+                "method": "pdf_flattened_page_pixels",
+                "redaction_count": count,
+                "warnings": ["PDF was flattened; signatures, forms, layers, and editable text are not preserved."],
+            }, degraded_modes
+        if normalized in {"image/png", "image/jpeg"} and len(candidates) == 1:
+            boxes = next(iter(boxes_by_key.values()))
+            payload, output_mime = _redact_image_bytes(candidates[0].data, boxes, output_mime=normalized)
+            return {
+                "filename": _redacted_filename(filename, ".png" if output_mime == "image/png" else ".jpg"),
+                "mime_type": output_mime,
+                "document_base64": base64.b64encode(payload).decode("ascii"),
+                "method": "standalone_image_pixels",
+                "redaction_count": len(boxes),
+                "warnings": [],
+            }, degraded_modes
+    except Exception as exc:
+        degraded_modes.append(
+            {
+                "mode": "document_redaction",
+                "status": "unavailable",
+                "reason": f"redacted document output failed for {filename}: {exc}",
+            }
+        )
+    return None, degraded_modes
 
-    with Image.open(BytesIO(candidate.data)) as image:
-        redacted = image.convert("RGB")
-        draw = ImageDraw.Draw(redacted)
-        width, height = redacted.size
-        for box in boxes:
-            left = int(max(0.0, min(1.0, box.x)) * width)
-            top = int(max(0.0, min(1.0, box.y)) * height)
-            right = int(max(0.0, min(1.0, box.x + box.width)) * width)
-            bottom = int(max(0.0, min(1.0, box.y + box.height)) * height)
-            draw.rectangle((left, top, max(left + 1, right), max(top + 1, bottom)), fill=(0, 0, 0))
-        with BytesIO() as buffer:
-            redacted.save(buffer, format="PNG")
-            encoded = base64.b64encode(buffer.getvalue()).decode("ascii")
+
+def _boxes_by_source_key(
+    spans: list[ImageTextSpan],
+    replacement_spans: list[tuple[int, int]],
+) -> tuple[dict[tuple[str, int, int | None], list[ImageBoundingBox]], set[tuple[str, int, int | None]]]:
+    boxes_by_key: dict[tuple[str, int, int | None], list[ImageBoundingBox]] = {}
+    missing_boxes: set[tuple[str, int, int | None]] = set()
+    for start, end in replacement_spans:
+        matched_span = next((span for span in spans if span.start_char <= start and end <= span.end_char), None)
+        if matched_span is None:
+            continue
+        key = (
+            matched_span.locator.container_path,
+            matched_span.locator.image_index,
+            matched_span.locator.page_number,
+        )
+        boxes = image_boxes_for_span(spans, start, end)
+        if boxes:
+            boxes_by_key.setdefault(key, []).extend(boxes)
+        else:
+            missing_boxes.add(key)
+    return boxes_by_key, missing_boxes
+
+
+def _missing_box_degraded_modes(
+    missing_boxes: set[tuple[str, int, int | None]],
+    boxes_by_key: dict[tuple[str, int, int | None], list[ImageBoundingBox]],
+) -> list[dict[str, Any]]:
+    degraded_modes: list[dict[str, Any]] = []
+    for key in sorted(missing_boxes - set(boxes_by_key)):
+        degraded_modes.append(
+            {
+                "mode": "image_redaction",
+                "status": "unavailable",
+                "reason": f"OCR provider returned no bounding boxes for {key[0]}#{key[1]}",
+            }
+        )
+    return degraded_modes
+
+
+def _redact_candidate(candidate: ImageCandidate, boxes: list[ImageBoundingBox]) -> dict[str, Any]:
+    payload, _ = _redact_image_bytes(candidate.data, boxes, output_mime="image/png")
+    encoded = base64.b64encode(payload).decode("ascii")
     return {
         "container_path": candidate.locator.container_path,
         "image_index": candidate.locator.image_index,
@@ -1085,3 +1229,117 @@ def _redact_candidate(candidate: ImageCandidate, boxes: list[ImageBoundingBox]) 
         "document_base64": encoded,
         "redaction_count": len(boxes),
     }
+
+
+def _redact_image_bytes(
+    data: bytes,
+    boxes: list[ImageBoundingBox],
+    *,
+    output_mime: str = "image/png",
+) -> tuple[bytes, str]:
+    from PIL import Image
+
+    with Image.open(BytesIO(data)) as image:
+        redacted = image.convert("RGB")
+        _draw_boxes(redacted, boxes)
+        with BytesIO() as buffer:
+            if output_mime == "image/jpeg":
+                redacted.save(buffer, format="JPEG", quality=95)
+                return buffer.getvalue(), "image/jpeg"
+            redacted.save(buffer, format="PNG")
+            return buffer.getvalue(), "image/png"
+
+
+def _draw_boxes(image: Any, boxes: list[ImageBoundingBox]) -> None:
+    from PIL import ImageDraw
+
+    draw = ImageDraw.Draw(image)
+    width, height = image.size
+    for box in boxes:
+        left = int(max(0.0, min(1.0, box.x)) * width)
+        top = int(max(0.0, min(1.0, box.y)) * height)
+        right = int(max(0.0, min(1.0, box.x + box.width)) * width)
+        bottom = int(max(0.0, min(1.0, box.y + box.height)) * height)
+        draw.rectangle((left, top, max(left + 1, right), max(top + 1, bottom)), fill=(0, 0, 0))
+
+
+def _redact_docx_document(
+    original_data: bytes,
+    candidate_by_key: dict[tuple[str, int, int | None], ImageCandidate],
+    boxes_by_key: dict[tuple[str, int, int | None], list[ImageBoundingBox]],
+) -> bytes:
+    replacements: dict[str, bytes] = {}
+    for key, boxes in boxes_by_key.items():
+        candidate = candidate_by_key.get(key)
+        if candidate is None:
+            continue
+        path = candidate.locator.container_path
+        output_mime = (
+            "image/jpeg"
+            if candidate.mime_type == "image/jpeg" or path.lower().endswith((".jpg", ".jpeg"))
+            else "image/png"
+        )
+        payload, _ = _redact_image_bytes(candidate.data, boxes, output_mime=output_mime)
+        replacements[path] = payload
+    if not replacements:
+        raise ImageScanError("no DOCX media entries could be mapped for redaction")
+    with BytesIO() as buffer:
+        with (
+            zipfile.ZipFile(BytesIO(original_data), "r") as source,
+            zipfile.ZipFile(buffer, "w", zipfile.ZIP_DEFLATED) as target,
+        ):
+            for item in source.infolist():
+                content = source.read(item.filename)
+                target.writestr(item, replacements.get(item.filename, content))
+        return buffer.getvalue()
+
+
+def _redact_pdf_document(
+    original_data: bytes,
+    candidate_by_key: dict[tuple[str, int, int | None], ImageCandidate],
+    boxes_by_key: dict[tuple[str, int, int | None], list[ImageBoundingBox]],
+) -> bytes:
+    page_boxes: dict[int, list[ImageBoundingBox]] = {}
+    for key, boxes in boxes_by_key.items():
+        candidate = candidate_by_key.get(key)
+        if candidate is None:
+            continue
+        if candidate.locator.source_type != "pdf_page_render" or candidate.locator.page_number is None:
+            raise ImageScanError("PDF embedded-image redaction requires rendered page coordinates")
+        page_boxes.setdefault(candidate.locator.page_number, []).extend(boxes)
+    if not page_boxes:
+        raise ImageScanError("no PDF page-render boxes available for document redaction")
+    try:
+        import pypdfium2 as pdfium
+    except Exception as exc:
+        raise ImageScanError("PDF flattened redaction requires pypdfium2") from exc
+    pdf = pdfium.PdfDocument(original_data)
+    images: list[Any] = []
+    try:
+        for page_index in range(len(pdf)):
+            page = pdf[page_index]
+            try:
+                bitmap = page.render(scale=2.0)
+                image = bitmap.to_pil().convert("RGB")
+            finally:
+                close = getattr(page, "close", None)
+                if callable(close):
+                    close()
+            boxes = page_boxes.get(page_index + 1, [])
+            if boxes:
+                _draw_boxes(image, boxes)
+            images.append(image)
+    finally:
+        close = getattr(pdf, "close", None)
+        if callable(close):
+            close()
+    if not images:
+        raise ImageScanError("PDF rendered no pages for document redaction")
+    with BytesIO() as buffer:
+        images[0].save(buffer, format="PDF", save_all=True, append_images=images[1:])
+        return buffer.getvalue()
+
+
+def _redacted_filename(filename: str, suffix: str) -> str:
+    stem = filename.rsplit(".", 1)[0] if "." in filename else filename
+    return f"{stem}.redacted{suffix}"

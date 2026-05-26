@@ -11,10 +11,10 @@ References here are intentionally short and load-bearing. They are not legal adv
 from __future__ import annotations
 
 import os
-import tomllib
 from pathlib import Path
 from typing import Iterable
 
+import tomllib
 
 # rule -> short PII rationale used when no jurisdiction-specific override applies.
 _PII_DEFAULT_RATIONALE = {
@@ -301,21 +301,29 @@ _MNPI_JURISDICTION_SUFFIX = {
 _CITATIONS_OVERRIDE_CACHE: dict[Path, tuple[dict[str, dict[str, dict[str, str]]], float]] = {}
 
 
-def _load_citations_override() -> dict[str, dict[str, dict[str, str]]]:
-    override_env = os.environ.get("KAYPOH_CITATIONS_OVERRIDE", "").strip()
-    if not override_env:
-        return {}
-    path = Path(override_env).expanduser()
+class CitationOverrideError(ValueError):
+    """Raised when configured citation overrides cannot be resolved safely."""
+
+
+def _load_citations_override_path(path: Path) -> dict[str, dict[str, dict[str, str]]]:
     if not path.exists():
-        return {}
-    mtime = path.stat().st_mtime
+        raise CitationOverrideError(f"citation override file does not exist: {path}")
+    try:
+        stat = path.stat()
+    except OSError as exc:
+        raise CitationOverrideError(f"citation override file is not readable: {path}") from exc
+    mtime = stat.st_mtime
     cached = _CITATIONS_OVERRIDE_CACHE.get(path)
     if cached and cached[1] == mtime:
         return cached[0]
     try:
         raw = tomllib.loads(path.read_text(encoding="utf-8"))
-    except tomllib.TOMLDecodeError:
-        return {}
+    except tomllib.TOMLDecodeError as exc:
+        raise CitationOverrideError(f"citation override TOML is malformed: {path}: {exc}") from exc
+    except OSError as exc:
+        raise CitationOverrideError(f"citation override file is not readable: {path}") from exc
+    if not isinstance(raw, dict):
+        raise CitationOverrideError(f"citation override TOML root must be a table: {path}")
     normalized: dict[str, dict[str, dict[str, str]]] = {"pii": {}, "mnpi": {}}
     for category in ("pii", "mnpi"):
         section = raw.get(category, {}) or {}
@@ -325,12 +333,42 @@ def _load_citations_override() -> dict[str, dict[str, dict[str, str]]]:
                     normalized[category][rule] = {
                         str(k).strip().upper(): str(v) for k, v in juris_map.items()
                     }
+                else:
+                    raise CitationOverrideError(
+                        f"citation override section {category}.{rule} must be a jurisdiction table"
+                    )
+        else:
+            raise CitationOverrideError(f"citation override section {category} must be a table")
     _CITATIONS_OVERRIDE_CACHE[path] = (normalized, mtime)
     return normalized
 
 
-def _lookup_override(category: str, rule: str, codes: list[str]) -> str | None:
-    overrides = _load_citations_override().get(category, {}).get(rule)
+def _load_global_citations_override() -> dict[str, dict[str, dict[str, str]]]:
+    override_env = os.environ.get("KAYPOH_CITATIONS_OVERRIDE", "").strip()
+    if not override_env:
+        return {}
+    return _load_citations_override_path(Path(override_env).expanduser())
+
+
+def _load_tenant_citations_override(tenant_id: str | None) -> dict[str, dict[str, dict[str, str]]]:
+    override_dir = os.environ.get("KAYPOH_CITATIONS_OVERRIDE_DIR", "").strip()
+    if not override_dir or not tenant_id:
+        return {}
+    if "/" in tenant_id or "\\" in tenant_id or tenant_id in {".", ".."}:
+        raise CitationOverrideError("tenant_id is not safe for citation override path resolution")
+    path = Path(override_dir).expanduser() / f"{tenant_id}.toml"
+    if not path.exists():
+        return {}
+    return _load_citations_override_path(path)
+
+
+def _lookup_in_override(
+    override: dict[str, dict[str, dict[str, str]]],
+    category: str,
+    rule: str,
+    codes: list[str],
+) -> str | None:
+    overrides = override.get(category, {}).get(rule)
     if not overrides:
         return None
     for code in codes:
@@ -338,6 +376,14 @@ def _lookup_override(category: str, rule: str, codes: list[str]) -> str | None:
         if hit:
             return hit
     return overrides.get("DEFAULT")
+
+
+def _lookup_override(category: str, rule: str, codes: list[str], *, tenant_id: str | None = None) -> str | None:
+    tenant_override = _load_tenant_citations_override(tenant_id)
+    hit = _lookup_in_override(tenant_override, category, rule, codes)
+    if hit:
+        return hit
+    return _lookup_in_override(_load_global_citations_override(), category, rule, codes)
 
 
 def _split_jurisdictions(jurisdiction_field: str) -> list[str]:
@@ -369,9 +415,15 @@ def _format_matched_prefix(matched_text: str) -> str:
     return f'"{cleaned}" detected → '
 
 
-def pii_rationale(*, rule: str, jurisdiction: str, matched_text: str = "") -> str:
+def pii_rationale(
+    *,
+    rule: str,
+    jurisdiction: str,
+    matched_text: str = "",
+    tenant_id: str | None = None,
+) -> str:
     codes = _split_jurisdictions(jurisdiction)
-    override = _lookup_override("pii", rule, codes)
+    override = _lookup_override("pii", rule, codes, tenant_id=tenant_id)
     if override:
         return f"{_format_matched_prefix(matched_text)}{override}".strip()
     base = _PII_DEFAULT_RATIONALE.get(
@@ -382,9 +434,16 @@ def pii_rationale(*, rule: str, jurisdiction: str, matched_text: str = "") -> st
     return f"{_format_matched_prefix(matched_text)}{base} {suffix}".strip()
 
 
-def mnpi_rationale(*, rule: str, jurisdiction: str, severity: str, matched_text: str = "") -> str:
+def mnpi_rationale(
+    *,
+    rule: str,
+    jurisdiction: str,
+    severity: str,
+    matched_text: str = "",
+    tenant_id: str | None = None,
+) -> str:
     codes = _split_jurisdictions(jurisdiction)
-    override = _lookup_override("mnpi", rule, codes)
+    override = _lookup_override("mnpi", rule, codes, tenant_id=tenant_id)
     if override:
         # severity softening still applies to override text so the audit artefact stays coherent.
         if severity == "low":

@@ -73,6 +73,7 @@ def run_coverage_audit(
     findings: list,
     document_type: str,
     auditor: LLMCoverageAuditor,
+    fail_closed: bool = False,
 ) -> list[dict[str, Any]]:
     """Call the auditor with a privacy-safe summary; return the list of warnings.
     Catches auditor failures and returns []."""
@@ -83,6 +84,8 @@ def run_coverage_audit(
             findings=summary, body_hash=body_hash, document_type=document_type,
         ) or []
     except Exception:
+        if fail_closed:
+            raise
         return []
     # normalize: each warning must be a dict with at least rule_guess + why fields
     normalized: list[dict[str, Any]] = []

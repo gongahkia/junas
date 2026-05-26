@@ -206,7 +206,7 @@ class PreSendReviewApiTests(unittest.TestCase):
             payload["document"]["mime_type"],
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         )
-        self.assertEqual(payload["document"]["extraction_method"], "docx_xml")
+        self.assertEqual(payload["document"]["extraction_method"], "docx_container_xml")
         self.assertEqual(payload["jurisdictions_applied"], ["SG", "SEA"])
         self.assertTrue(any(finding["rule"] == "passport_number" for finding in payload["findings"]))
 

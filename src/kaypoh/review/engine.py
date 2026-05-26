@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from kaypoh.backend.schemas import Classification
-from kaypoh.review.citations import mnpi_rationale, pii_rationale
+from kaypoh.review.citations import CitationOverrideError, mnpi_rationale, pii_rationale
 from kaypoh.review.defined_terms import extract_defined_terms, is_defined_term
 from kaypoh.review.entity_linker import canonical_person, strip_honorific
 from kaypoh.review.jurisdictions import JurisdictionRulePack, resolve_rule_packs
@@ -302,6 +302,14 @@ class ReviewResult:
     coverage_warnings: list[dict[str, Any]] = field(default_factory=list)
 
 
+class ReviewLayerError(RuntimeError):
+    """Raised when an enabled review layer fails closed at runtime."""
+
+    def __init__(self, layer: str, message: str):
+        super().__init__(message)
+        self.layer = layer
+
+
 def _risk_from_score(score: float) -> Classification:
     if score >= 70.0:
         return Classification.HIGH_RISK
@@ -509,7 +517,10 @@ def _detect_quasi_identifier_combinations(
     left = 0
     while left < len(quasi):
         right = left
-        while right + 1 < len(quasi) and quasi[right + 1].start_char - quasi[left].start_char <= _QUASI_IDENTIFIER_WINDOW:
+        while (
+            right + 1 < len(quasi)
+            and quasi[right + 1].start_char - quasi[left].start_char <= _QUASI_IDENTIFIER_WINDOW
+        ):
             right += 1
         distinct_rules = {quasi[k].rule for k in range(left, right + 1)}
         if len(distinct_rules) >= _QUASI_IDENTIFIER_MIN_DISTINCT:
@@ -522,7 +533,10 @@ def _detect_quasi_identifier_combinations(
                     rule="quasi_identifier_combination",
                     jurisdiction=jurisdiction,
                     severity="medium",
-                    matched_text=f"{len(distinct_rules)} distinct quasi-identifiers within {window_end - window_start} chars",
+                    matched_text=(
+                        f"{len(distinct_rules)} distinct quasi-identifiers "
+                        f"within {window_end - window_start} chars"
+                    ),
                     start=window_start,
                     end=window_end,
                     reason=(
@@ -1001,7 +1015,13 @@ class PreSendReviewEngine:
             return 0.0
         return min(100.0, max(matches) + max(0, len(matches) - 1) * 3.0)
 
-    def _suggestions(self, findings: list[ReviewFinding], include_suggestions: bool) -> list[ReviewSuggestion]:
+    def _suggestions(
+        self,
+        findings: list[ReviewFinding],
+        include_suggestions: bool,
+        *,
+        tenant_id: str | None = None,
+    ) -> list[ReviewSuggestion]:
         if not include_suggestions:
             return []
 
@@ -1014,6 +1034,7 @@ class PreSendReviewEngine:
                     rule=finding.rule,
                     jurisdiction=finding.jurisdiction,
                     matched_text=finding.matched_text,
+                    tenant_id=tenant_id,
                 )
             elif finding.severity == "high":
                 action = "remove_or_hold"
@@ -1023,6 +1044,7 @@ class PreSendReviewEngine:
                     jurisdiction=finding.jurisdiction,
                     severity=finding.severity,
                     matched_text=finding.matched_text,
+                    tenant_id=tenant_id,
                 )
             else:
                 action = "verify_or_rewrite"
@@ -1032,6 +1054,7 @@ class PreSendReviewEngine:
                     jurisdiction=finding.jurisdiction,
                     severity=finding.severity,
                     matched_text=finding.matched_text,
+                    tenant_id=tenant_id,
                 )
 
             suggestions.append(
@@ -1077,7 +1100,10 @@ class PreSendReviewEngine:
             return None
         if mnpi_score <= 0 or self.public_evidence_retriever is None:
             return None
-        return self.public_evidence_retriever.retrieve(text=text, entity_id=entity_id, lexicon=None)
+        try:
+            return self.public_evidence_retriever.retrieve(text=text, entity_id=entity_id, lexicon=None)
+        except Exception as exc:
+            raise ReviewLayerError("public_evidence", f"public-evidence retrieval failed: {exc}") from exc
 
     def _maybe_llm_adjudication(
         self,
@@ -1107,11 +1133,16 @@ class PreSendReviewEngine:
             )
         except TypeError:
             # backwards-compat shim: older adjudicators reject the new kwargs.
-            return self.llm_adjudicator.adjudicate(
-                text=text,
-                current_classification=overall_risk.value,
-                public_evidence=public_evidence,
-            )
+            try:
+                return self.llm_adjudicator.adjudicate(
+                    text=text,
+                    current_classification=overall_risk.value,
+                    public_evidence=public_evidence,
+                )
+            except Exception as retry_exc:
+                raise ReviewLayerError("llm_adjudicator", f"LLM adjudication failed: {retry_exc}") from retry_exc
+        except Exception as exc:
+            raise ReviewLayerError("llm_adjudicator", f"LLM adjudication failed: {exc}") from exc
 
     def review(
         self,
@@ -1233,6 +1264,10 @@ class PreSendReviewEngine:
                 document_type=document_type,
                 auditor=self.llm_coverage_auditor,
             )
+        try:
+            suggestions = self._suggestions(findings, include_suggestions, tenant_id=tenant_id)
+        except CitationOverrideError as exc:
+            raise ReviewLayerError("citation_override", f"citation override resolution failed: {exc}") from exc
 
         return ReviewResult(
             overall_risk=overall_risk,
@@ -1242,7 +1277,7 @@ class PreSendReviewEngine:
             jurisdictions_applied=[pack.code for pack in packs],
             jurisdiction_policy="strictest_wins",
             findings=findings,
-            suggestions=self._suggestions(findings, include_suggestions),
+            suggestions=suggestions,
             public_evidence=public_evidence,
             llm_adjudication=llm_adjudication,
             privacy_ledger=privacy_ledger,

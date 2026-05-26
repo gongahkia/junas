@@ -125,7 +125,7 @@ These rules fire regardless of jurisdiction; the statutory anchor is jurisdictio
 - **Tipping co-extensivity** — SFA s219 + Rule 10b5-2 + MAR Art 14 + SFO Part XIV. Implemented as `tipping_language` with co-occurrence amplifier (item 96).
 - **Selective disclosure (Reg FD)** — 17 CFR 243.100. Implemented as `selective_disclosure_risk`, US-only, with co-occurrence amplifier (item 97).
 - **Jurisdiction-suffix wiring** — every MNPI finding's suggestion rationale carries the destination-jurisdiction statute suffix; cross-jurisdiction routing (e.g. source=SG, destination=US) carries BOTH suffixes. Audited by `test/test_mnpi_jurisdiction_suffix.py` (item 94).
-- **Statute-citation override** — `KAYPOH_CITATIONS_OVERRIDE` per-tenant TOML substitutes internal compliance citations before the built-in lookup. Per-tenant variant (`KAYPOH_CITATIONS_OVERRIDE_DIR/{tenant_id}.toml`) is item 60 backlog.
+- **Statute-citation override** — `KAYPOH_CITATIONS_OVERRIDE_DIR/{tenant_id}.toml` resolves tenant-specific internal compliance citations before the global `KAYPOH_CITATIONS_OVERRIDE` fallback. Malformed configured overrides fail closed instead of silently falling back.
 
 ## Known statutory gaps
 

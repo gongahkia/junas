@@ -12,6 +12,7 @@ from kaypoh.review.engine import (
     LLM_TIER_MNPI_LOWER,
     LLM_TIER_MNPI_UPPER,
     PreSendReviewEngine,
+    ReviewLayerError,
 )
 
 
@@ -114,6 +115,44 @@ class AuditGradeProfileTests(unittest.TestCase):
         self.assertGreaterEqual(result.mnpi_score, LLM_TIER_MNPI_UPPER)
         self.assertEqual(self.adj.calls, 0, "score above UPPER means LLM cannot lift it; skip")
         self.assertEqual(self.pe.calls, 0)
+
+    def test_public_evidence_failure_fails_closed(self):
+        class FailingPublicEvidence:
+            def retrieve(self, **kwargs):
+                raise RuntimeError("retriever down")
+
+        engine = PreSendReviewEngine(public_evidence_retriever=FailingPublicEvidence())
+        with self.assertRaises(ReviewLayerError) as ctx:
+            engine.review(
+                text="Acme Corp publicly announced its acquisition of GlobalTech for $2.5 billion.",
+                source_jurisdiction="SG",
+                destination_jurisdiction="SG",
+                entity_id="Acme Corp",
+                include_suggestions=False,
+                document_type="generic",
+                review_profile="audit_grade",
+            )
+
+        self.assertEqual(ctx.exception.layer, "public_evidence")
+
+    def test_llm_adjudicator_failure_fails_closed(self):
+        class FailingLLM:
+            def adjudicate(self, **kwargs):
+                raise RuntimeError("llm down")
+
+        engine = PreSendReviewEngine(llm_adjudicator=FailingLLM())
+        with self.assertRaises(ReviewLayerError) as ctx:
+            engine.review(
+                text="Acme Corp publicly announced its acquisition of GlobalTech for $2.5 billion.",
+                source_jurisdiction="SG",
+                destination_jurisdiction="SG",
+                entity_id="Acme Corp",
+                include_suggestions=False,
+                document_type="generic",
+                review_profile="audit_grade",
+            )
+
+        self.assertEqual(ctx.exception.layer, "llm_adjudicator")
 
 
 class ProfileValidationTests(unittest.TestCase):

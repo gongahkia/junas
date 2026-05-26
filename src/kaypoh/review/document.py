@@ -9,6 +9,25 @@ from io import BytesIO
 from typing import Any
 from xml.etree import ElementTree
 
+from kaypoh.review.container_scan import (
+    DOCX_MIME,
+    EML_MIMES,
+    HTML_MIMES,
+    MARKDOWN_MIMES,
+    PDF_MIME,
+    PPTX_MIME,
+    RTF_MIMES,
+    SVG_MIMES,
+    TAR_MIMES,
+    XLSX_MIME,
+    ZIP_MIMES,
+    ContainerScanError,
+    is_container_mime,
+    scan_container,
+)
+from kaypoh.review.container_scan import (
+    infer_mime_type as infer_container_mime_type,
+)
 from kaypoh.review.image_scan import (
     ImageCandidate,
     collect_docx_images,
@@ -19,10 +38,27 @@ from kaypoh.review.image_scan import (
 )
 from kaypoh.review.metadata import inspect_metadata
 
-SUPPORTED_DOCX_MIME = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-SUPPORTED_PDF_MIME = "application/pdf"
+SUPPORTED_DOCX_MIME = DOCX_MIME
+SUPPORTED_XLSX_MIME = XLSX_MIME
+SUPPORTED_PPTX_MIME = PPTX_MIME
+SUPPORTED_PDF_MIME = PDF_MIME
 SUPPORTED_TEXT_MIMES = {"text/plain", "text/markdown", "application/json"}
 SUPPORTED_IMAGE_REVIEW_MIMES = {"image/jpeg", "image/png"}
+SUPPORTED_CONTAINER_MIMES = {
+    SUPPORTED_DOCX_MIME,
+    SUPPORTED_XLSX_MIME,
+    SUPPORTED_PPTX_MIME,
+    SUPPORTED_PDF_MIME,
+    *ZIP_MIMES,
+    *TAR_MIMES,
+    *HTML_MIMES,
+    *SVG_MIMES,
+    *RTF_MIMES,
+    *EML_MIMES,
+    *MARKDOWN_MIMES,
+    "application/vnd.ms-outlook",
+    "application/x-7z-compressed",
+}
 
 
 @dataclass(frozen=True)
@@ -31,6 +67,7 @@ class ExtractedDocument:
     filename: str
     mime_type: str
     extraction_method: str
+    original_data: bytes | None = None
     page_count: int | None = None
     extraction_quality: str = "accepted"
     extraction_warnings: list[str] | None = None
@@ -82,6 +119,10 @@ def _extract_docx(data: bytes) -> str:
             if text:
                 paragraphs.append(text)
         return "\n".join(paragraphs)
+
+
+def _merge_text_blocks(*blocks: str) -> str:
+    return "\n\n".join(block.strip() for block in blocks if block and block.strip())
 
 
 def _docx_image_count(data: bytes) -> int:
@@ -179,11 +220,10 @@ def _extract_pdf(
 def _infer_mime_type(filename: str, mime_type: str | None) -> str:
     if mime_type:
         return mime_type.strip().lower()
+    inferred = infer_container_mime_type(filename)
+    if inferred != "text/plain":
+        return inferred
     lower = filename.lower()
-    if lower.endswith(".docx"):
-        return SUPPORTED_DOCX_MIME
-    if lower.endswith(".pdf"):
-        return SUPPORTED_PDF_MIME
     if lower.endswith((".jpg", ".jpeg")):
         return "image/jpeg"
     if lower.endswith(".png"):
@@ -211,6 +251,7 @@ def extract_review_document(
             filename=filename,
             mime_type="text/plain",
             extraction_method="inline_text",
+            original_data=None,
             page_count=None,
             extraction_quality="accepted",
             extraction_warnings=[],
@@ -229,18 +270,40 @@ def extract_review_document(
             finding.to_dict()
             for finding in inspect_metadata(data, filename=filename, mime_type=mime_type)
         ]
-    except Exception:
-        metadata_findings = []
+    except Exception as exc:
+        raise ValueError(f"metadata inspection failed closed: {exc}") from exc
+    container_text = ""
+    container_findings: list[dict[str, str]] = []
+    container_warnings: list[str] = []
+    container_image_candidates: list[ImageCandidate] = []
+    if is_container_mime(mime_type):
+        try:
+            container_scan = scan_container(
+                data,
+                filename=filename,
+                mime_type=mime_type,
+                image_scan_enabled=image_scan_enabled,
+            )
+        except ContainerScanError as exc:
+            raise ValueError(f"container scan failed closed: {exc}") from exc
+        container_text = container_scan.text
+        container_findings = [finding.to_dict() for finding in container_scan.findings]
+        container_warnings = list(container_scan.warnings)
+        container_image_candidates = list(container_scan.image_candidates)
+        metadata_findings.extend(container_findings)
+
     if mime_type in SUPPORTED_TEXT_MIMES:
         extracted = data.decode("utf-8", errors="replace")
+        if mime_type == "text/markdown":
+            extracted = _merge_text_blocks(extracted, container_text)
         method = "base64_text"
         page_count = None
         extraction_quality = "accepted"
-        extraction_warnings: list[str] = []
+        extraction_warnings = container_warnings
         image_candidates: list[ImageCandidate] = []
     elif mime_type == SUPPORTED_DOCX_MIME:
-        extracted = _extract_docx(data)
-        method = "docx_xml"
+        extracted = container_text or _extract_docx(data)
+        method = "docx_container_xml"
         page_count = None
         extraction_quality = "accepted"
         image_count = _docx_image_count(data)
@@ -249,13 +312,16 @@ def extract_review_document(
             if image_count and not image_scan_enabled
             else []
         )
-        image_candidates = collect_docx_images(data) if image_scan_enabled else []
+        extraction_warnings.extend(container_warnings)
+        image_candidates = container_image_candidates or (collect_docx_images(data) if image_scan_enabled else [])
     elif mime_type == SUPPORTED_PDF_MIME:
         extracted, page_count, extraction_quality, extraction_warnings = _extract_pdf(
             data,
             ingest_settings,
             image_scan_enabled=image_scan_enabled,
         )
+        extracted = _merge_text_blocks(extracted, container_text)
+        extraction_warnings.extend(container_warnings)
         method = "pypdf"
         image_candidates = collect_pdf_images(data) if image_scan_enabled else []
         if image_scan_enabled and not image_candidates and extraction_quality == "ocr_pending":
@@ -271,6 +337,13 @@ def extract_review_document(
                     extraction_warnings.append(
                         f"PDF rendered {len(image_candidates)} page(s) for configured image OCR"
                     )
+    elif mime_type in SUPPORTED_CONTAINER_MIMES:
+        extracted = container_text
+        method = f"{mime_type.split('/')[-1]}_container"
+        page_count = None
+        extraction_quality = "accepted"
+        extraction_warnings = container_warnings
+        image_candidates = container_image_candidates
     elif (
         mime_type in SUPPORTED_IMAGE_REVIEW_MIMES
         or image_mime_from_name(filename, data) in SUPPORTED_IMAGE_REVIEW_MIMES
@@ -294,6 +367,7 @@ def extract_review_document(
         filename=filename,
         mime_type=mime_type,
         extraction_method=method,
+        original_data=data,
         page_count=page_count,
         extraction_quality=extraction_quality,
         extraction_warnings=extraction_warnings,

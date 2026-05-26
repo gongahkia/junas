@@ -366,7 +366,9 @@ class LLMAdjudicationResponse(BaseModel):
 class ReviewDocumentMetadataResponse(BaseModel):
     filename: str = Field(description="Original or inferred document filename.")
     mime_type: str = Field(description="Document MIME type used for extraction.")
-    extraction_method: str = Field(description="Extraction path used for review, such as inline_text or docx_xml.")
+    extraction_method: str = Field(
+        description="Extraction path used for review, such as inline_text, docx_container_xml, or pypdf."
+    )
     page_count: Optional[int] = Field(None, description="Extracted page count when available, such as for PDFs.")
     char_count: int = Field(description="Character count of the normalized extracted text reviewed by the engine.")
     extraction_quality: str = Field("accepted", description="Extraction quality gate result for the reviewed text.")
@@ -806,6 +808,20 @@ class RedactedImageResponse(BaseModel):
     redaction_count: int = Field(description="Number of OCR bounding boxes redacted in this artifact.")
 
 
+class RedactedDocumentResponse(BaseModel):
+    filename: str = Field(description="Filename for the rewritten redacted document.")
+    mime_type: str = Field(description="MIME type of the rewritten redacted document.")
+    document_base64: str = Field(description="Base64-encoded rewritten redacted document.")
+    method: str = Field(
+        description="Container rewrite method, such as docx_media_rewrite or pdf_flattened_page_pixels."
+    )
+    redaction_count: int = Field(description="Number of OCR bounding boxes written back into the document.")
+    warnings: list[str] = Field(
+        default_factory=list,
+        description="Warnings about fidelity changes in the rewritten document, such as PDF flattening.",
+    )
+
+
 class AnonymizeResponse(ReviewResponse):
     model_config = ConfigDict(
         json_schema_extra={
@@ -884,6 +900,13 @@ class AnonymizeResponse(ReviewResponse):
         description=(
             "Best-effort redacted PNG artifacts for image-origin findings. Empty when no image findings "
             "were replaced or the OCR provider returned no bounding boxes."
+        ),
+    )
+    redacted_document: Optional[RedactedDocumentResponse] = Field(
+        None,
+        description=(
+            "Rewritten source container with OCR pixel redactions applied. DOCX rewrites embedded media; "
+            "PDF output is a flattened pixel-safe PDF."
         ),
     )
 

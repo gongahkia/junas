@@ -114,7 +114,7 @@ class AnonymizeApiTests(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         payload = response.json()
-        self.assertEqual(payload["document"]["extraction_method"], "docx_xml")
+        self.assertEqual(payload["document"]["extraction_method"], "docx_container_xml")
         self.assertEqual(payload["document"]["filename"], "draft.docx")
         self.assertIn("[PASSPORT_1]", payload["anonymized_text"])
         self.assertIn("[PERSON_1]", payload["anonymized_text"])
@@ -151,11 +151,21 @@ class AnonymizeApiTests(unittest.TestCase):
         with TestClient(main.app) as client:
             generic = client.post(
                 "/review",
-                json={"text": text, "source_jurisdiction": "SG", "destination_jurisdiction": "SG", "document_type": "generic"},
+                json={
+                    "text": text,
+                    "source_jurisdiction": "SG",
+                    "destination_jurisdiction": "SG",
+                    "document_type": "generic",
+                },
             )
             spa = client.post(
                 "/review",
-                json={"text": text, "source_jurisdiction": "SG", "destination_jurisdiction": "SG", "document_type": "SPA"},
+                json={
+                    "text": text,
+                    "source_jurisdiction": "SG",
+                    "destination_jurisdiction": "SG",
+                    "document_type": "SPA",
+                },
             )
 
         generic_named = [f for f in generic.json()["findings"] if f["rule"] == "named_person"]

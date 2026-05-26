@@ -15,6 +15,7 @@ import unittest
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from unittest import mock
 
 from cryptography.fernet import Fernet
 from fastapi.testclient import TestClient
@@ -90,6 +91,23 @@ class MappingStorePersistTests(unittest.TestCase):
             )
             self.assertEqual(restored.status_code, 200, restored.text)
             self.assertEqual(restored.json()["text"], text)
+
+    def test_anonymize_mapping_store_failure_fails_closed(self):
+        with mock.patch.object(self.main, "_save_persisted_mapping", side_effect=OSError("disk full")):
+            with TestClient(self.main.app) as client:
+                response = client.post(
+                    "/anonymize",
+                    json={
+                        "text": "Send Dr Jane Tan S1234567D the draft.",
+                        "source_jurisdiction": "SG",
+                        "destination_jurisdiction": "SG",
+                    },
+                )
+
+        self.assertEqual(response.status_code, 503)
+        detail = response.json()["detail"]
+        self.assertEqual(detail["degraded_modes"][0]["mode"], "mapping_store")
+        self.assertEqual(detail["degraded_modes"][0]["status"], "failed_closed")
 
     def test_reidentify_returns_404_for_unknown_hash(self):
         with TestClient(self.main.app) as client:
