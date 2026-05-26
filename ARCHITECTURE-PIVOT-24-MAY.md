@@ -265,17 +265,24 @@ The map below distinguishes product-critical gaps with explicit closing items fr
 
 | Capability gap | Closing item(s) |
 |---|---|
-| Local personal/government-ID detector gaps for US / UK / EU | 33 |
-| Local company/tax-ID parity outside shipped packs | 33 for US EIN; future jurisdiction-pack follow-up before any UK/EU/SEA company-ID coverage claim |
-| HK / AU / JP / KR local postal-address formats | 86 follow-up + 34 |
+| Local personal/government-ID detector gaps for EU (DE/FR/IT/ES) | 33 — US SSN, UK NIN shipped 2026-05-26 |
+| Local company/tax-ID parity outside shipped packs | 33 for US EIN shipped; UK company number + EU member-state company IDs remain |
+| HK / KR local postal-address formats | 86 follow-up + 34 — JP postal code, AU state+postcode shipped 2026-05-26 |
 | Broad postal-address parser (multi-line) | 34 |
 | General semantic PII / NER fallback in `/review` | 35 |
-| SG legal/finance sensitive-data pack beyond `sg_court_citation` | 48 |
+| SG wedge follow-up: IPOS / ACRA filing / HDB strata / URA refs / contract-commercial terms | 48 / 100 — PayNow / MAS licence / SGX counter shipped 2026-05-26 (first slice) |
+| Pseudonymised-but-linkable IDs (employee / customer / patient) | 99 shipped 2026-05-26 |
+| Quasi-identifier combination reasoning | 101 shipped 2026-05-26 (seed; audit_grade only); item 70 v2 owns the full k-anonymity probability estimate |
+| Contingent / forward-looking MNPI | 95 shipped 2026-05-26 |
+| Tipping-language MNPI | 96 shipped 2026-05-26 |
+| Reg FD selective-disclosure | 97 shipped 2026-05-26 (US-gated) |
 | DOB / age detector | 33 |
 | IP / device / online identifier detector | 33 |
-| Health / biometric special-category detector | 33 (conservative seed) + 40 (corpus lock) |
-| US SSN / driver-license detector | 33 |
-| UK NI / EU member-state national-ID detector | 33 |
+| Health / biometric special-category detector | 71 / 98 |
+| US driver-license / ITIN detector | 33 |
+| EU member-state national-ID detector | 33 |
+| Procurement-grade statutory-coverage artefact | 93 shipped 2026-05-26 (`docs/statutory-coverage.md` + 17-test drift gate) |
+| MNPI jurisdiction-suffix wiring guarantee | 94 shipped 2026-05-26 (audit confirms suffix lands on every (rule × juris) pair) |
 | Source-verified public-status adjudication by default | 36 shipped explicit proof states; default-on retrieval remains intentionally off outside `audit_grade` |
 | SSO/Okta/Azure AD/SAML packaging on top of JWT/RBAC primitive | 42 |
 | Enterprise appliance / BYOC deployment posture | 51 |
