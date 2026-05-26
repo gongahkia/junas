@@ -112,6 +112,31 @@ _PII_DEFAULT_RATIONALE = {
         "Korean business registration numbers identify business counterparties. Mask in "
         "private deal context unless recipient and purpose are documented."
     ),
+    "us_ssn": (
+        "US Social Security Number is a high-risk federal identifier. Mask unless the "
+        "disclosure is to a federally-authorised recipient and the purpose is documented "
+        "(e.g. payroll, tax filing). State privacy law and HIPAA/GLBA sectoral rules apply."
+    ),
+    "us_ein": (
+        "US Employer Identification Number identifies entities and may identify sole "
+        "proprietors. Mask in private deal context unless the recipient and purpose are "
+        "documented."
+    ),
+    "uk_nin": (
+        "UK National Insurance Number is a restricted government identifier. Mask unless "
+        "the recipient is statutorily authorised (HMRC, employer) and the purpose is "
+        "documented under UK GDPR Art 6 lawful basis."
+    ),
+    "jp_postal_code": (
+        "Japan postal codes can re-identify residential addresses when combined with name "
+        "or building references. Mask unless the recipient and purpose are documented "
+        "under APPI Art 18."
+    ),
+    "au_postal_address": (
+        "Australian state + postcode pairings can re-identify residential addresses "
+        "(combined with street/suburb). Treat as personal information under Privacy Act "
+        "1988 APP 6 unless disclosure is authorised."
+    ),
 }
 
 # rule -> short MNPI rationale (the citation is jurisdiction-specific so we layer on a suffix)

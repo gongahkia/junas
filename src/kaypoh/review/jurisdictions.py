@@ -137,6 +137,61 @@ def _validate_kr_business_registration(value: str) -> bool:
     return check_digit == int(digits[9])
 
 
+def _validate_us_ssn(value: str) -> bool:
+    # SSA disallows: area 000 / 666 / 900-999; group 00; serial 0000.
+    # also reject the famous test number 078-05-1120 and the 219-09-9999 advertising leak —
+    # both are public-knowledge "never valid" sentinels per SSA.
+    digits = _digits(value)
+    if len(digits) != 9:
+        return False
+    area, group, serial = digits[0:3], digits[3:5], digits[5:9]
+    if area in {"000", "666"} or area.startswith("9"):
+        return False
+    if group == "00" or serial == "0000":
+        return False
+    if digits in {"078051120", "219099999"}:
+        return False
+    return True
+
+
+def _validate_us_ein(value: str) -> bool:
+    # IRS publishes a closed prefix list; only allocated prefixes are valid.
+    digits = _digits(value)
+    if len(digits) != 9:
+        return False
+    prefix = digits[0:2]
+    allocated = {
+        "01", "02", "03", "04", "05", "06", "10", "11", "12", "13", "14", "15", "16",
+        "20", "21", "22", "23", "24", "25", "26", "27",
+        "30", "31", "32", "33", "34", "35", "36", "37", "38", "39",
+        "40", "41", "42", "43", "44", "45", "46", "47", "48",
+        "50", "51", "52", "53", "54", "55", "56", "57", "58", "59",
+        "60", "61", "62", "63", "64", "65", "66", "67", "68",
+        "71", "72", "73", "74", "75", "76", "77",
+        "80", "81", "82", "83", "84", "85", "86", "87", "88",
+        "90", "91", "92", "93", "94", "95", "98", "99",
+    }
+    return prefix in allocated
+
+
+def _validate_uk_nin(value: str) -> bool:
+    # HMRC NINO format: 2 letters + 6 digits + 1 of [A B C D].
+    # Disallowed first letters: D F I Q U V. Disallowed second letters: D F I Q U V O.
+    # Reserved prefixes never issued: BG GB KN NK NT TN ZZ.
+    normalized = re.sub(r"\s", "", value).upper()
+    match = re.fullmatch(r"([A-Z]{2})(\d{6})([A-D])", normalized)
+    if not match:
+        return False
+    prefix = match.group(1)
+    if prefix[0] in {"D", "F", "I", "Q", "U", "V"}:
+        return False
+    if prefix[1] in {"D", "F", "I", "Q", "U", "V", "O"}:
+        return False
+    if prefix in {"BG", "GB", "KN", "NK", "NT", "TN", "ZZ"}:
+        return False
+    return True
+
+
 _VALIDATORS: dict[str, Callable[[str], bool]] = {
     "hk_hkid": _validate_hk_hkid,
     "au_tfn": _validate_au_tfn,
@@ -146,6 +201,9 @@ _VALIDATORS: dict[str, Callable[[str], bool]] = {
     "jp_corporate_number": _validate_jp_corporate_number,
     "kr_rrn": _validate_kr_rrn,
     "kr_business_registration": _validate_kr_business_registration,
+    "us_ssn": _validate_us_ssn,
+    "us_ein": _validate_us_ein,
+    "uk_nin": _validate_uk_nin,
 }
 
 

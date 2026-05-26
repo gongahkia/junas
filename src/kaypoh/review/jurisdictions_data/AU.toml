@@ -34,3 +34,15 @@ severity = "medium"
 reason = "Australian Company Number"
 capture_group = 1
 validator = "au_acn"
+
+# Australian postal address signal. AU postcodes are 4 digits and require disambiguation
+# from arbitrary 4-digit numbers in deal docs (year-like, counter-like). Anchored on a
+# trailing state abbreviation (NSW / VIC / QLD / WA / SA / TAS / ACT / NT) followed by
+# the 4-digit postcode, which is the canonical Australia Post layout for the last line
+# of a postal address.
+[[recognizers]]
+name = "Australian postal address"
+rule_name = "au_postal_address"
+pattern = '\b(NSW|VIC|QLD|WA|SA|TAS|ACT|NT)\s+(\d{4})\b'
+severity = "medium"
+reason = "Australian state + 4-digit postcode"

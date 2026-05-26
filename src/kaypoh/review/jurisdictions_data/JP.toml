@@ -26,3 +26,15 @@ severity = "medium"
 reason = "Japan Corporate Number"
 capture_group = 1
 validator = "jp_corporate_number"
+
+# Japan postal code. JP Post canonical form is 〒XXX-XXXX (3 digits + dash + 4 digits)
+# or the bare XXX-XXXX form when the postal mark is omitted. Anchored on the postal
+# mark or a leading "postal code" / "〒" / "Zip" context word to avoid colliding with
+# arbitrary 7-digit-dashed identifiers in deal docs.
+[[recognizers]]
+name = "Japan postal code"
+rule_name = "jp_postal_code"
+pattern = '(?:〒|postal\s+code|zip\s+code|郵便番号)[\s:.#-]*(\d{3}-\d{4})'
+severity = "medium"
+reason = "Japan postal code"
+capture_group = 1

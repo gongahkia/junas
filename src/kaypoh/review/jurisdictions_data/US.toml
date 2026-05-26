@@ -4,3 +4,27 @@ pii_rules = ["US_PRIVACY_BASELINE"]
 mnpi_rules = ["US_MNPI_INSIDER_TRADING", "US_REG_FD_PUBLIC_DISCLOSURE"]
 references = ["SEC insider trading / MNPI guidance", "Regulation FD"]
 aliases = ["US", "USA", "UNITED STATES"]
+
+# US Social Security Number. SSA-issued, hyphenated XXX-XX-XXXX form is the canonical
+# representation. Validator rejects area 000/666/9XX, group 00, serial 0000, and the
+# publicly-known sentinels (078-05-1120 wallet leak, 219-09-9999 ad leak). v1 ships
+# only the dashed form because bare 9-digit runs collide with phone-style identifiers.
+[[recognizers]]
+name = "US Social Security Number"
+rule_name = "us_ssn"
+pattern = '\b(\d{3}-\d{2}-\d{4})\b'
+severity = "high"
+reason = "US Social Security Number"
+capture_group = 1
+validator = "us_ssn"
+
+# US Employer Identification Number. IRS-issued, hyphenated XX-XXXXXXX form. Prefix
+# allowlist enforced by validator — only IRS-allocated prefixes pass.
+[[recognizers]]
+name = "US Employer Identification Number"
+rule_name = "us_ein"
+pattern = '(?:EIN|Employer\s+Identification\s+Number|Federal\s+Tax\s+ID|FEIN)[\s:.#-]*(\d{2}-\d{7})'
+severity = "medium"
+reason = "US Employer Identification Number"
+capture_group = 1
+validator = "us_ein"

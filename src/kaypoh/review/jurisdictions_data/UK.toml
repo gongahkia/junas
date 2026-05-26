@@ -4,3 +4,17 @@ pii_rules = ["UK_GDPR_PERSONAL_DATA"]
 mnpi_rules = ["UK_MAR_INSIDE_INFORMATION"]
 references = ["UK GDPR", "UK Market Abuse Regulation"]
 aliases = ["UK", "GB", "UNITED KINGDOM"]
+
+# UK National Insurance Number. HMRC format: 2 letters + 6 digits + suffix letter A-D.
+# Validator excludes the administrative-only prefix letters (D F I Q U V in pos 1;
+# D F I Q U V O in pos 2) and the reserved prefixes (BG GB KN NK NT TN ZZ). v1 ships
+# the canonical no-space and space-separated forms ("AB 12 34 56 C"); HMRC printouts
+# vary on grouping.
+[[recognizers]]
+name = "UK National Insurance Number"
+rule_name = "uk_nin"
+pattern = '(?:NIN|National\s+Insurance\s+Number|NI\s+No\.?)[\s:.#-]*([A-Z]{2}\s?\d{2}\s?\d{2}\s?\d{2}\s?[A-D])'
+severity = "high"
+reason = "UK National Insurance Number"
+capture_group = 1
+validator = "uk_nin"
