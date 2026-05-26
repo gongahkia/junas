@@ -176,6 +176,19 @@ _MNPI_DEFAULT_RATIONALE = {
     "large_number": (
         "Large numeric value may be material non-public information. Verify or generalise."
     ),
+    "contingent_mnpi_language": (
+        "Contingent / forward-looking language detected. Under Basic v. Levinson (US), "
+        "SFA s215 (SG), and MAR Art 7(2-3) (EU/UK), probabilistic / hedged statements "
+        "about a corporate event can be MNPI when materiality × probability is significant. "
+        "Treat as MNPI when adjacent to a deal substrate (codename, definitive agreement, "
+        "material event, MAC clause, embargo marker)."
+    ),
+    "tipping_language": (
+        "Forwarding / distribution language detected. Under SFA s219 (SG), Rule 10b5-2 (US), "
+        "MAR Art 14 (EU/UK), and SFO Part XIV (HK), passing on MNPI is co-extensive with "
+        "trading on it. If the surrounding passage contains MNPI, confirm recipient "
+        "authorisation before forwarding or distributing."
+    ),
 }
 
 # jurisdiction-pack -> statute suffix appended to PII rationales for that jurisdiction.

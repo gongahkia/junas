@@ -76,6 +76,51 @@ NAME_RE = re.compile(
     r"\b(?i:(?:Mr|Ms|Mrs|Mdm|Dr|Prof))\.?[ \t]+[A-Z][a-z]+"
     r"(?:[ \t]+(?:(?i:bin|binti|s/o|d/o|a/l|a/p|al)[ \t]+)?[A-Z][a-z]+){0,5}\b"
 )
+# items 95 + 96: contingent / forward-looking MNPI vocabulary (Basic v. Levinson, MAR Art 7(2-3),
+# SFA s215). Standalone these phrases are noise; the co-occurrence amplifier in review() lifts
+# severity from low to medium when a match co-locates within ±200 chars of a deal substrate
+# (transaction_codename, definitive_agreement, material_adverse_change, material_event,
+# embargo_marker, nonpublic_marker). Common likelihood verbs ("likely to", "expected to") are
+# gated on deal-stage verbs to keep precision survivable — bare "likely to" is everywhere.
+CONTINGENT_MNPI_RE = re.compile(
+    r"\b("
+    r"if (?:approved|the (?:deal|transaction|merger|acquisition) (?:closes|completes))|"
+    r"should the board (?:agree|approve)|"
+    r"subject to (?:board|shareholder|shareholders'|regulatory|management|due diligence|"
+    r"financing|condition[s]?\s+precedent) (?:approval|clearance|sign[ -]off|consent)|"
+    r"(?:likely|expected) to (?:close|approve|materialise|materialize|impact|complete|"
+    r"result in|conclude|sign|announce)|"
+    r"under (?:active )?consideration|"
+    r"in (?:advanced |preliminary |early[ -]stage |ongoing )?(?:discussions|negotiations)|"
+    r"exploratory(?:\s+(?:talks|discussions|stage|phase))?|"
+    r"pre[ -]decisional|"
+    r"management believes|"
+    r"early indications suggest|"
+    r"may (?:result in|lead to|trigger) (?:a |an )?(?:acquisition|merger|disposal|takeover|"
+    r"restructuring|divestiture|impairment|spin[ -]off)"
+    r")\b",
+    re.IGNORECASE,
+)
+# items 96: tipping / forwarding language (SFA s219, Rule 10b5-2, MAR Art 14, SFO Part XIV).
+# Same co-occurrence amplifier discipline as item 95 — alone these phrases are noise, but
+# proximity to MNPI substrate is the tipping offence.
+TIPPING_RE = re.compile(
+    r"\b("
+    r"please (?:share|forward|circulate|distribute) (?:with|to)\b[^\n]{0,40}|"
+    r"feel free to (?:share|forward|circulate|distribute)|"
+    r"passing this (?:along|on)|"
+    r"for (?:distribution|circulation) to (?:clients|investors|partners|select|preferred|"
+    r"institutional|limited partners)|"
+    r"limited partners? list|"
+    r"select (?:investors|holders|clients)|"
+    r"institutional (?:investors|holders|clients) only|"
+    r"(?:to|with) our (?:largest|key|preferred|select|top) (?:holders|clients|investors|"
+    r"shareholders|stakeholders)|"
+    r"sell[ -]side (?:mailing|distribution|q&a)|"
+    r"buy[ -]side (?:mailing|distribution|q&a)"
+    r")",
+    re.IGNORECASE,
+)
 
 
 SEVERITY_SCORE = {"low": 25.0, "medium": 55.0, "high": 85.0}
@@ -305,6 +350,45 @@ def _apply_retrieval_verification(
         if f.source_verification == SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED:
             continue
         f.source_verification = verdict
+
+
+# items 95 + 96: rules whose severity is low standalone but escalates to medium when a
+# match co-locates within ±_CO_OCCURRENCE_WINDOW chars of a higher-severity MNPI rule. The
+# proximity check is char-based, matching the existing _line_context convention used for
+# material_event. A bare "in discussions" or "please share" is noise; the same phrase
+# adjacent to "Project Sapphire" or a definitive-agreement reference is the offence.
+_CO_OCCURRENCE_AMPLIFIER_RULES = frozenset({"contingent_mnpi_language", "tipping_language"})
+_CO_OCCURRENCE_TRIGGER_RULES = frozenset({
+    "transaction_codename", "definitive_agreement", "material_adverse_change",
+    "material_event", "embargo_marker", "nonpublic_marker",
+})
+_CO_OCCURRENCE_WINDOW = 200
+
+
+def _amplify_co_occurring_low_mnpi(findings: list["ReviewFinding"]) -> None:
+    """Lift `contingent_mnpi_language` / `tipping_language` from low → medium when within
+    ±_CO_OCCURRENCE_WINDOW chars of a trigger MNPI rule. Mutates findings in place."""
+    trigger_spans = [
+        (f.start_char, f.end_char)
+        for f in findings
+        if f.rule in _CO_OCCURRENCE_TRIGGER_RULES
+    ]
+    if not trigger_spans:
+        return
+    for f in findings:
+        if f.rule not in _CO_OCCURRENCE_AMPLIFIER_RULES or f.severity != "low":
+            continue
+        # window: any overlap between [f.start-W, f.end+W] and [lo, hi]
+        f_lo = max(0, f.start_char - _CO_OCCURRENCE_WINDOW)
+        f_hi = f.end_char + _CO_OCCURRENCE_WINDOW
+        for lo, hi in trigger_spans:
+            if f_lo <= hi and lo <= f_hi:
+                f.severity = "medium"
+                f.score = SEVERITY_SCORE["medium"]
+                f.reason = (
+                    f.reason + " — escalated due to adjacent MNPI substrate within ±200 chars"
+                )
+                break
 
 
 def _suppress_redundant_phone_findings(findings: list["ReviewFinding"]) -> list["ReviewFinding"]:
@@ -697,6 +781,35 @@ class PreSendReviewEngine:
                     )
                 )
                 idx += 1
+
+        # items 95 + 96: contingent + tipping language post-pass. ships at severity `low`;
+        # the post-pass amplifier in review() escalates to `medium` when adjacent to a deal
+        # substrate. Negation guard borrowed from the MAC rule — "no longer in discussions"
+        # / "without further consideration" patterns should not fire.
+        for pattern, rule, reason in [
+            (CONTINGENT_MNPI_RE, "contingent_mnpi_language",
+             "Contingent / forward-looking language; amplifies when adjacent to deal substrate"),
+            (TIPPING_RE, "tipping_language",
+             "Forwarding / distribution language; amplifies when adjacent to MNPI substrate"),
+        ]:
+            for match in pattern.finditer(text):
+                if rule == "contingent_mnpi_language" and _is_negated_context(text, match.start()):
+                    continue
+                findings.append(
+                    _new_finding(
+                        idx=idx,
+                        category="MNPI",
+                        rule=rule,
+                        jurisdiction=jurisdiction,
+                        severity="low",
+                        matched_text=match.group(),
+                        start=match.start(),
+                        end=match.end(),
+                        reason=reason,
+                        legal_basis=legal_basis,
+                    )
+                )
+                idx += 1
         return findings
 
     def _score(self, findings: list[ReviewFinding], category: str) -> float:
@@ -859,6 +972,9 @@ class PreSendReviewEngine:
         findings = self._pii_findings(text, packs, document_type, defined_terms) + self._mnpi_findings(
             text, packs, defined_terms, document_type
         )
+        # items 95 + 96: lift contingent/tipping severity when co-located with a deal substrate.
+        # Mutates in place before scoring so the escalated severity feeds into mnpi_score.
+        _amplify_co_occurring_low_mnpi(findings)
         pii_score = self._score(findings, "PII")
         mnpi_score = self._score(findings, "MNPI")
         document_score = max(pii_score, mnpi_score)
