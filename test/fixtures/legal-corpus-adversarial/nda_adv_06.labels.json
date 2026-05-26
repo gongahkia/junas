@@ -3,7 +3,56 @@
   "document_type": "NDA",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "must_not_detect": [],
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "must_detect": [
+    {
+      "rule": "named_person",
+      "matched_text": "Mr. Tan Wei Ming"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S2345678B"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "238456"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Siti Aishah binti Abdullah"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S3456789C"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "048616"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "sitiaishah@abcinno.sg"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Agreement",
+      "reason": "defined term in contract"
+    },
+    {
+      "matched_text": "this Agreement",
+      "reason": "defined term in contract"
+    },
+    {
+      "matched_text": "Confidential Information",
+      "reason": "defined term in contract"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
