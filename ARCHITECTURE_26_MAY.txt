@@ -109,7 +109,14 @@ return shape.
                       │       (audit_grade seed, item 101),          │
                       │       cross_border_transfer_marker (109),    │
                       │       consent_withdrawal_marker (110),       │
-                      │       data_minimisation_marker (111)         │
+                      │       data_minimisation_marker (111),        │
+                      │       religious_belief (item 98 v1),         │
+                      │       trade_union_membership (item 98 v1),   │
+                      │       political_opinion (item 98 v1),        │
+                      │       minor_data_reference (item 107 v1 —    │
+                      │       per-juris severity from cliffs map:    │
+                      │       IN/SG/UK/AU/HK/AE/SA/BR <18; EU <16;   │
+                      │       CN <14; US <13)                        │
                       │                                              │
                       │     PII (planned):                           │
                       │       DOB/age, IP/device, US DL/ITIN,        │
@@ -117,7 +124,8 @@ return shape.
                       │       broad postal-address parser (item 34)  │
                       │       semantic PII NER fallback  (item 35)   │
                       │       inferred attribute chain   (item 79)   │
-                      │       special-category data      (item 71)   │
+                      │       special-category v2: health/biometric/ │
+                      │       sex life (items 105/106/108)           │
                       │                                              │
                       │     MNPI (shipped):                          │
                       │       material_event, nonpublic_marker,      │

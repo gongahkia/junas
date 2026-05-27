@@ -388,6 +388,247 @@ DATA_MINIMISATION_RE = re.compile(
 )
 
 
+# item 98: special-category PII v1 seed — religion / union / political. Anchored detectors
+# under GDPR Art 9(1) (verbatim list: racial/ethnic, political, religion/philosophy, trade-union,
+# genetic, biometric, health, sex life); PIPA Korea Art 23 (sensitive incl. union + political);
+# APPI Japan Art 2(3) "special care-required" (creed covers religion + political; union NOT
+# explicitly enumerated); LGPD Brazil Art 5(II); PIPL China Art 28 (religion + minors <14;
+# political NOT explicitly enumerated); UAE PDPL Art 15 + KSA PDPL Art 6 (religion + political,
+# union NOT enumerated); PDPC SG Advisory Guidelines on Key Concepts (rev Oct 2024) treats these
+# as warranting higher standard of protection (not a distinct legal class). DPDPA India has no
+# sensitive-data tier (escalation is via SDF designation s10, not data-class).
+#
+# v1 ships religion/union/political only. Health/biometric/sex-life are items 105/106/108.
+#
+# Anchor strategy: each pattern requires proximity context within ±6 tokens. Religion fires
+# only near a named_person OR explicit faith/practice marker. Trade-union fires only near
+# membership/representation marker. Political fires only near member/supporter/voter marker.
+# Defends against Christian Dior / Hindu Kush / AFL Premiership / Trade Union Square /
+# "ruling party of the contract" / "Independent Green Party".
+#
+# Per-category opt-out via KAYPOH_SPECIAL_CATEGORY_DISABLE=religion,union,political for tenants
+# with high false-positive sensitivity.
+
+# Religion vocabulary anchored on faith/practice marker. The non-capturing trailing context
+# absorbs whitespace + up to 30 chars of the faith-marker so the matched span covers the
+# subject phrase, not just the lone faith token. Lowercase prose matches via re.IGNORECASE
+# but the FAITH_RE alternation excludes proper-name colliders: "Dior" / "Khan" are not faiths.
+_RELIGION_TERMS = (
+    r"Christian|Catholic|Protestant|Anglican|Methodist|Orthodox|Lutheran|Baptist|"
+    r"Muslim|Sunni|Shia|Shi'?ite|Muhammadan|"
+    r"Buddhist|Theravada|Mahayana|"
+    r"Hindu|"
+    r"Sikh|"
+    r"Jewish|Judaic|Orthodox\s+Jew|"
+    r"Jain|"
+    r"Taoist|Daoist|"
+    r"agnostic|atheist|"
+    r"Bahai|Baha'?i|"
+    r"Zoroastrian|Parsi"
+)
+RELIGION_RE = re.compile(
+    # The matched span includes both the faith marker AND the trigger phrase to give
+    # reviewers context. Trigger phrases lock the religious-belief reading.
+    r"\b(?:"
+    # Pattern A: "Dr Jane Tan is a (devout|practicing|observant)? Muslim" / "...is Christian"
+    r"(?:Mr|Ms|Mrs|Mdm|Dr|Prof|Sir|Dame)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}\s+"
+    r"(?:is|was|identifies\s+as|practices?|practiced|practising|practised|"
+    r"belongs?\s+to|adheres?\s+to|converted\s+to|raised\s+(?:as\s+)?(?:a\s+)?)\s+"
+    r"(?:a\s+)?(?:devout|practi[cs]ing|observant|orthodox|reformed|liberal)?\s*"
+    r"(?:" + _RELIGION_TERMS + r")"
+    r"|"
+    # Pattern B: explicit faith / religion / religious-affiliation marker
+    r"(?:religious\s+affiliation|faith|religion|religious\s+belief|religious\s+practice|"
+    r"creed)\s*[:=]\s*(?:" + _RELIGION_TERMS + r")"
+    r"|"
+    # Pattern C: "members? of the (Catholic|Buddhist|...) (church|community|faith)"
+    r"members?\s+of\s+(?:the\s+)?(?:" + _RELIGION_TERMS + r")\s+"
+    r"(?:church|community|faith|congregation|temple|mosque|parish|gurudwara|synagogue)"
+    r"|"
+    # Pattern D: "attends? the (parish|mosque|temple|synagogue|gurudwara)"
+    r"(?:attends?|prays\s+at|worships\s+at)\s+(?:the\s+)?"
+    r"(?:parish|mosque|temple|synagogue|gurudwara|church|congregation)"
+    r")\b",
+    re.IGNORECASE,
+)
+
+# Trade-union vocabulary requires explicit membership / representation marker. Excludes
+# "Trade Union Square", "Union Pacific" (railway), "AFL Premiership" (Australian Football).
+TRADE_UNION_RE = re.compile(
+    r"\b(?:"
+    # Pattern A: "member of (the )? (NTUC|union|...)"
+    r"member\s+of\s+(?:the\s+)?(?:NTUC|TUC|AFL[- ]CIO|DGB|CGT|trade\s+union|labou?r\s+union|"
+    r"workers'?\s+union|union)"
+    r"|"
+    # Pattern B: "joined the union" / "joined NTUC" — employment context implied by verb
+    r"joined\s+(?:the\s+)?(?:NTUC|TUC|AFL[- ]CIO|DGB|CGT|trade\s+union|labou?r\s+union|"
+    r"workers'?\s+union)"
+    r"|"
+    # Pattern C: explicit role + employment context
+    r"(?:union\s+(?:member|representative|delegate|steward)|shop\s+steward)"
+    r"|"
+    # Pattern D: collective-bargaining + action markers (these don't need pre-context)
+    r"collective\s+bargaining\s+(?:agreement|representative|unit)|"
+    r"(?:strike|industrial\s+action)\s+ballot|"
+    r"picket\s+line"
+    r"|"
+    # Pattern E: "represented by (the )? union"
+    r"represented\s+by\s+(?:the\s+|her\s+|his\s+|their\s+)?(?:union|trade\s+union|labou?r\s+union)"
+    r")\b",
+    re.IGNORECASE,
+)
+
+# Political-opinion vocabulary requires explicit party-membership / electoral marker. Excludes
+# court usage ("the opposition argued"), legal-language usage ("ruling party of the contract"),
+# and adjective-only "Independent" / "Green" without party-suffix anchor.
+_POLITICAL_PARTIES = (
+    # SG
+    r"PAP|People'?s\s+Action\s+Party|WP|Workers'?\s+Party|PSP|Progress\s+Singapore\s+Party|"
+    r"SDP|Singapore\s+Democratic\s+Party|"
+    # US
+    r"Democrats?|Democratic\s+Party|Republicans?|Republican\s+Party|GOP|"
+    # UK — bare "Labour" / "Conservatives" included because the surrounding pattern
+    # (voted for / member of / donated to) already locks the political reading.
+    r"Tory|Tories|Conservatives?|Conservative\s+Party|Labour(?:\s+Party)?|"
+    r"Liberal\s+Democrats?|Lib\s+Dems?|Reform\s+UK|Green\s+Party|"
+    # JP / KR
+    r"LDP|Liberal\s+Democratic\s+Party\s+of\s+Japan|CDP|Komeito|"
+    r"Democratic\s+Party\s+of\s+Korea|People\s+Power\s+Party|"
+    # CN
+    r"CCP|Chinese\s+Communist\s+Party|"
+    # AU
+    r"Labor\s+Party|Liberal\s+Party\s+of\s+Australia|Nationals\s+Party|"
+    # DE / FR / IT
+    r"CDU|SPD|AfD|Bündnis\s+90|Die\s+Linke|"
+    r"En\s+Marche|La\s+République\s+En\s+Marche|RN|Rassemblement\s+National|"
+    # IN
+    r"BJP|Bharatiya\s+Janata\s+Party|INC|Indian\s+National\s+Congress|AAP|Aam\s+Aadmi\s+Party"
+)
+POLITICAL_RE = re.compile(
+    r"\b(?:"
+    # Pattern A: "member of (the )? <Party>"
+    r"members?\s+of\s+(?:the\s+)?(?:" + _POLITICAL_PARTIES + r")"
+    r"|"
+    # Pattern B: "supporter of (the )? <Party>" / "donated to <Party>"
+    r"(?:supporters?|donors?|activists?)\s+(?:of|for|to)\s+(?:the\s+)?"
+    r"(?:" + _POLITICAL_PARTIES + r")"
+    r"|"
+    r"donated\s+(?:to|towards?)\s+(?:the\s+)?(?:" + _POLITICAL_PARTIES + r")"
+    r"|"
+    # Pattern C: voted/campaigned + party
+    r"(?:voted\s+(?:for|against)|campaigned\s+for|endorsed)\s+(?:the\s+)?"
+    r"(?:" + _POLITICAL_PARTIES + r")"
+    r"|"
+    # Pattern D: registered party affiliation
+    r"registered\s+(?:as\s+(?:a\s+)?)?(?:" + _POLITICAL_PARTIES + r")"
+    r"|"
+    # Pattern E: explicit affiliation marker
+    r"(?:political\s+affiliation|party\s+affiliation|party\s+membership)\s*[:=]\s*"
+    r"(?:" + _POLITICAL_PARTIES + r")"
+    r")\b",
+    re.IGNORECASE,
+)
+
+
+# item 107: jurisdiction-age-cliff minors detector. Single rule with per-juris severity
+# resolution via _MINOR_AGE_CLIFFS map (research-recommended; avoids duplicate findings).
+#
+# Statutes (verified 2026-05-27):
+#  - DPDPA India 2023 s2(f) + s9: "child" = under 18; verifiable parental consent;
+#    s9(3) prohibits behavioural monitoring / targeted ads to children
+#  - GDPR Art 8: default 16; member states may lower to ≥13
+#  - PIPL China Art 31: under 14 = minor requiring guardian consent
+#  - COPPA US 16 CFR Part 312: under 13 (Jan 2025 amendments — data retention + third-party opt-in)
+#  - PDPC SG Advisory Guidelines on Children's Personal Data (Mar 2024): default under 18;
+#    under-13 cannot give valid consent
+#  - UK ICO Age-Appropriate Design Code: under 18 in force Sept 2021
+#  - AU OAIC Children's Online Privacy Code: under 18 (mandated by Privacy Amendment Act 2024;
+#    OAIC code due Dec 2026)
+#  - HK PCPD Guidance Note on Personal Data of Minors: under 18
+#  - UAE PDPL: no explicit cliff; defers to Wadeema Law (Federal Law 3/2016) under 18
+#  - KSA PDPL: child = under 18 via Saudi Child Protection Law
+#  - LGPD Brazil Art 14: under 18 + special protection for under-12
+_MINOR_AGE_CLIFFS: dict[str, int] = {
+    "IN": 18,  # DPDPA s2(f)
+    "SG": 18,  # PDPC Children's Data Advisory Guidelines (Mar 2024)
+    "UK": 18,  # ICO Age-Appropriate Design Code
+    "AU": 18,  # OAIC Children's Code (pending Dec 2026)
+    "HK": 18,  # PCPD Minors Guidance Note
+    "AE": 18,  # Wadeema Law
+    "SA": 18,  # Saudi Child Protection Law
+    "BR": 18,  # LGPD Art 14
+    "EU": 16,  # GDPR Art 8 default (member states may lower to 13)
+    "CN": 14,  # PIPL Art 31
+    "US": 13,  # COPPA
+    # SEA baseline conservatively follows the strictest SG/MY/ID/TH/PH/VN default
+    "SEA": 18,
+    "MY": 18,
+    "ID": 18,
+    "TH": 18,
+    "PH": 18,
+    "VN": 18,
+    "JP": 18,
+    "KR": 18,
+}
+
+# Match explicit age/grade/minor lexicon. Captures the age digit so the post-pass can resolve
+# severity against the applicable jurisdiction cliff.
+MINOR_DATA_RE = re.compile(
+    r"\b(?:"
+    # Pattern A: "age N" / "aged N" / "N years old" / "N-year-old" with N in 0-19
+    r"(?:age[ds]?|aged)\s+(?P<age_a>\d{1,2})\b"
+    r"|"
+    r"(?P<age_b>\d{1,2})[- ]year[- ]old"
+    r"|"
+    r"(?P<age_c>\d{1,2})\s+years?\s+old"
+    r"|"
+    # Pattern B: "under N" / "below N" / "younger than N"
+    r"(?:under|below|younger\s+than)\s+(?P<age_d>1[0-8]|[1-9])\s+(?:years?\s+of\s+age|years?\s+old|"
+    r"$|[,\.\)\]\;])"
+    r"|"
+    # Pattern C: minor/juvenile/child lexicon — must be adjacent to data/processing marker
+    # OR parental-consent marker to avoid "child labour law" / "children's clothing" FPs
+    r"(?:minor|child(?:ren)?|juvenile|underage|ward)(?:'?s)?\s+"
+    r"(?:personal\s+data|data|information|profile|account|consent|details)"
+    r"|"
+    r"(?:personal\s+data|data|information|account|profile)\s+of\s+(?:a\s+|the\s+)?"
+    r"(?:minors?|child(?:ren)?|juveniles?|underage\s+(?:user|customer|individual)s?)"
+    r"|"
+    # Pattern D: school-grade markers (SG / UK / US)
+    r"(?:primary|secondary)\s+(?P<grade_sg>[1-6])\b"
+    r"|"
+    r"Year\s+(?P<grade_uk>[1-9]|1[0-3])\s+(?:student|pupil|class)"
+    r"|"
+    r"(?P<grade_us>\d{1,2})(?:st|nd|rd|th)\s+grade(?:\s+(?:student|class|teacher))?"
+    r"|"
+    r"(?:kindergarten|nursery|preschool|playgroup|elementary\s+school|"
+    r"middle\s+school|junior\s+high|high\s+school)\s+"
+    r"(?:student|pupil|class|enrolment|enrollment|register|roster)"
+    r"|"
+    # Pattern E: verifiable parental consent / VPC / guardian consent
+    r"verifiable\s+parental\s+consent|"
+    r"\bVPC\b|"
+    r"parental\s+consent|"
+    r"guardian(?:'s)?\s+consent|"
+    r"consent\s+of\s+(?:a\s+|the\s+)?parent(?:\s+or\s+guardian)?|"
+    r"in\s+loco\s+parentis"
+    r")",
+    re.IGNORECASE,
+)
+
+# Reject "for 18+ years (of experience|in the industry)" and "Year N of the contract"
+# false positives via post-match context check. Keep this here so the regex stays readable.
+_MINOR_FP_TRAILING = re.compile(
+    r"^\s*(?:\+|of\s+(?:experience|service|industry|tenure|the\s+(?:contract|agreement|"
+    r"term|lease|policy|grade)))",
+    re.IGNORECASE,
+)
+_MINOR_FP_LEADING_GRADE = re.compile(
+    r"\b(?:grade|category|level|class|rating|tier)\s*$",
+    re.IGNORECASE,
+)
+
+
 SEVERITY_SCORE = {"low": 25.0, "medium": 55.0, "high": 85.0}
 
 # document types where a named person reference is materially sensitive (counterparty principals,
@@ -694,6 +935,233 @@ _PII_NEGATION_GUARDED = frozenset({
     "consent_withdrawal_marker",
     "data_minimisation_marker",
 })
+
+
+# item 98: special-category PII opt-out. Tenants with high false-positive sensitivity can
+# disable individual categories via KAYPOH_SPECIAL_CATEGORY_DISABLE=religion,union,political.
+# Default-enabled in strict + audit_grade. Categories are casefolded comma-separated.
+_SPECIAL_CATEGORY_RULES = frozenset({"religious_belief", "trade_union_membership", "political_opinion"})
+
+
+def _disabled_special_categories() -> frozenset[str]:
+    import os
+    raw = os.environ.get("KAYPOH_SPECIAL_CATEGORY_DISABLE", "")
+    if not raw.strip():
+        return frozenset()
+    disabled: set[str] = set()
+    for token in raw.split(","):
+        token = token.strip().casefold()
+        # map shorthand category names to actual rule names
+        if token == "religion":
+            disabled.add("religious_belief")
+        elif token == "union":
+            disabled.add("trade_union_membership")
+        elif token == "political":
+            disabled.add("political_opinion")
+        elif token in _SPECIAL_CATEGORY_RULES:
+            disabled.add(token)
+    return frozenset(disabled)
+
+
+# item 107: minor-data severity resolver. Walks applicable jurisdiction packs and picks the
+# strictest cliff that the extracted age falls below. Returns the highest severity tier across
+# all packs where age < cliff. Falls back to medium when no jurisdiction matches (e.g., a
+# `parental consent` reference without an age digit — the marker alone is medium-severity PII).
+def _resolve_minor_severity(
+    extracted_age: int | None,
+    applicable_juris: list[str],
+) -> tuple[str, list[str]]:
+    """Return (severity, triggered_juris_codes). `triggered_juris_codes` is the list of
+    jurisdictions where extracted_age falls under the cliff — empty when the matcher was a
+    parental-consent / minor-lexicon hit with no explicit age (severity stays at high because
+    the marker is unambiguous)."""
+    if extracted_age is None:
+        # Pure marker hit (`parental consent`, `minor`, `kindergarten student`, etc.) — high
+        # under every cliff that ships in _MINOR_AGE_CLIFFS, because the absence of an age
+        # digit + an explicit minor-context marker is conservatively a minor-data reference.
+        return "high", applicable_juris
+    triggered: list[str] = []
+    for code in applicable_juris:
+        cliff = _MINOR_AGE_CLIFFS.get(code)
+        if cliff is not None and extracted_age < cliff:
+            triggered.append(code)
+    if not triggered:
+        return "low", []  # age explicitly above all applicable cliffs — adult-data reference
+    # Strictest (highest cliff) jurisdiction wins severity. Under-13 references are high
+    # everywhere; under-16 references are high under IN/SG/UK/AU/HK but medium under EU/CN/US.
+    max_cliff = max(_MINOR_AGE_CLIFFS[code] for code in triggered)
+    if extracted_age < min(_MINOR_AGE_CLIFFS.get(code, 99) for code in applicable_juris):
+        return "high", triggered  # below the strictest cliff in scope → high everywhere
+    return "medium", triggered
+
+
+def _detect_minor_data_references(
+    text: str,
+    *,
+    packs: list[JurisdictionRulePack],
+    jurisdiction: str,
+    legal_basis: str,
+    idx_start: int,
+) -> list["ReviewFinding"]:
+    """Fire `minor_data_reference` per item 107. Single rule with per-jurisdiction-resolved
+    severity. False-positive guards: rejects `18+ years of experience`, `Grade A / Grade 1`
+    without school context, `Year N of the contract`."""
+    applicable = [pack.code for pack in packs if pack.code in _MINOR_AGE_CLIFFS]
+    if not applicable:
+        # Synthesised baseline pack outside the cliffs registry — be conservative, use SG cliff
+        applicable = ["SG"]
+
+    out: list["ReviewFinding"] = []
+    idx = idx_start
+    seen_spans: set[tuple[int, int]] = set()
+    for m in MINOR_DATA_RE.finditer(text):
+        # FP guard A: "for 18+ years of experience" / "18+ years of service"
+        trailing = text[m.end():m.end() + 40]
+        if _MINOR_FP_TRAILING.match(trailing):
+            continue
+        # FP guard B: "Grade 1" preceded by Grade/Category/Level/Class — caught by the regex
+        # itself for school-context patterns; this catches the broader case.
+        leading = text[max(0, m.start() - 12):m.start()]
+        if _MINOR_FP_LEADING_GRADE.search(leading) and m.group("grade_us"):
+            continue
+
+        # Extract the age digit if any of the age groups matched
+        extracted_age: int | None = None
+        for group_name in ("age_a", "age_b", "age_c", "age_d"):
+            if m.group(group_name):
+                try:
+                    candidate = int(m.group(group_name))
+                except ValueError:
+                    continue
+                # Sanity-clamp to 0-25 — outside this range it's not a human age in context
+                if 0 <= candidate <= 25:
+                    extracted_age = candidate
+                    break
+
+        # Reject "26 years old" / "75 years old" etc. — adult references; not a minor signal
+        if extracted_age is not None and extracted_age > 19:
+            continue
+
+        # School-grade markers imply minor; estimate age from grade number so per-juris cliff
+        # resolution picks the right severity. Approximate mappings:
+        #   SG Primary N → age N+6 (P1 ~ 7, P6 ~ 12); Secondary N → age N+12
+        #   UK Year N    → age N+4 (Y1 ~ 5, Y13 ~ 17-18)
+        #   US Grade N   → age N+5 (G1 ~ 6, G12 ~ 17-18)
+        if extracted_age is None:
+            if m.group("grade_sg"):
+                try:
+                    extracted_age = int(m.group("grade_sg")) + 6  # SG primary
+                except ValueError:
+                    extracted_age = 10
+            elif m.group("grade_uk"):
+                try:
+                    extracted_age = int(m.group("grade_uk")) + 4
+                except ValueError:
+                    extracted_age = 12
+            elif m.group("grade_us"):
+                try:
+                    extracted_age = int(m.group("grade_us")) + 5
+                except ValueError:
+                    extracted_age = 11
+
+        severity, triggered_juris = _resolve_minor_severity(extracted_age, applicable)
+        if severity == "low":
+            continue  # explicit adult-data reference; not surfaced
+
+        span = (m.start(), m.end())
+        if span in seen_spans:
+            continue
+        seen_spans.add(span)
+
+        reason_parts = []
+        if extracted_age is not None:
+            reason_parts.append(f"explicit age reference ({extracted_age}) detected")
+        else:
+            reason_parts.append("minor-data marker detected without explicit age")
+        if triggered_juris:
+            cliff_strs = [
+                f"{code} (<{_MINOR_AGE_CLIFFS[code]})" for code in triggered_juris
+            ]
+            reason_parts.append(
+                f"falls under children's-data regime for: {', '.join(cliff_strs)}"
+            )
+        out.append(
+            _new_finding(
+                idx=idx,
+                category="PII",
+                rule="minor_data_reference",
+                jurisdiction=jurisdiction,
+                severity=severity,
+                matched_text=m.group(),
+                start=m.start(),
+                end=m.end(),
+                reason="; ".join(reason_parts),
+                legal_basis=legal_basis,
+            )
+        )
+        idx += 1
+    return out
+
+
+def _detect_special_category_findings(
+    text: str,
+    *,
+    packs: list[JurisdictionRulePack],
+    jurisdiction: str,
+    legal_basis: str,
+    idx_start: int,
+) -> list["ReviewFinding"]:
+    """Fire religious_belief / trade_union_membership / political_opinion findings per
+    item 98 v1. Each pattern carries built-in context anchors so a strict-profile pass is
+    safe. Per-category opt-out via KAYPOH_SPECIAL_CATEGORY_DISABLE env var.
+
+    Jurisdiction posture:
+      - GDPR Art 9 + PIPA Art 23 + LGPD Art 5(II) + UAE PDPL Art 15 + KSA PDPL Art 6 cover
+        all three.
+      - APPI Japan ('creed') covers religion + political; union is NOT explicitly enumerated.
+      - PIPL China Art 28 covers religion; political is NOT explicitly enumerated.
+      - PDPC SG / DPDPA IN treat these as warranting higher protection but not as a distinct
+        statutory class.
+
+    Severity is high under GDPR Art 9 / PIPA Art 23 / LGPD / UAE / KSA / SG higher-standard.
+    """
+    disabled = _disabled_special_categories()
+    out: list["ReviewFinding"] = []
+    idx = idx_start
+    seen_spans: set[tuple[str, int, int]] = set()
+
+    rules: list[tuple[str, "re.Pattern[str]", str]] = [
+        ("religious_belief", RELIGION_RE,
+         "Religious-belief reference detected; special-category personal data"),
+        ("trade_union_membership", TRADE_UNION_RE,
+         "Trade-union membership reference detected; special-category personal data"),
+        ("political_opinion", POLITICAL_RE,
+         "Political-opinion / party-affiliation reference detected; special-category personal data"),
+    ]
+    for rule_name, pattern, reason in rules:
+        if rule_name in disabled:
+            continue
+        for m in pattern.finditer(text):
+            key = (rule_name, m.start(), m.end())
+            if key in seen_spans:
+                continue
+            seen_spans.add(key)
+            out.append(
+                _new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule=rule_name,
+                    jurisdiction=jurisdiction,
+                    severity="high",
+                    matched_text=m.group(),
+                    start=m.start(),
+                    end=m.end(),
+                    reason=reason,
+                    legal_basis=legal_basis,
+                )
+            )
+            idx += 1
+    return out
 
 
 # item 101: quasi-identifier combination seed. PDPA s2 ("identified from that data and
@@ -1419,6 +1887,31 @@ class PreSendReviewEngine:
                 defined_terms=defined,
                 document_type=document_type,
                 idx_start=idx,
+            )
+        )
+
+        # item 98: special-category PII v1 seed — religion / union / political. Default-enabled
+        # in strict; per-category opt-out via KAYPOH_SPECIAL_CATEGORY_DISABLE. Strict anchors
+        # within the regex defend against Christian Dior / Hindu Kush / AFL Premiership FPs.
+        findings.extend(
+            _detect_special_category_findings(
+                text=text,
+                packs=packs,
+                jurisdiction=jurisdiction,
+                legal_basis=legal_basis,
+                idx_start=len(findings),
+            )
+        )
+
+        # item 107: minor_data_reference with per-jurisdiction-resolved severity. Single rule;
+        # strictest applicable cliff wins. Age regex + grade markers + minor lexicon + VPC.
+        findings.extend(
+            _detect_minor_data_references(
+                text=text,
+                packs=packs,
+                jurisdiction=jurisdiction,
+                legal_basis=legal_basis,
+                idx_start=len(findings),
             )
         )
 

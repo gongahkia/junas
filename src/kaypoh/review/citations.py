@@ -205,6 +205,63 @@ _PII_DEFAULT_RATIONALE = {
         "Act APP 11.2 (AU) — confirm the request is logged, scoped, and acted on "
         "within the statutory deadline before forwarding."
     ),
+    # item 98: special-category PII v1 seed.
+    "religious_belief": (
+        "Religious-belief reference detected (item 98). Under GDPR Art 9(1) "
+        "('religious or philosophical beliefs' is verbatim special category); PIPA "
+        "Korea Art 23 ('ideology, belief'); APPI Japan Art 2(3) ('creed' covers "
+        "religion); LGPD Brazil Art 5(II); PIPL China Art 28 (religion as sensitive "
+        "PI); UAE PDPL Art 15 + KSA PDPL Art 6 (religious belief sensitive); PDPC "
+        "SG Advisory Guidelines on Key Concepts (Oct 2024 revision) treats religion "
+        "as warranting higher standard of protection. DPDPA India has no sensitive-"
+        "data tier; SDF designation (s10) is the escalation mechanism. Detector "
+        "flags presence; downstream legal review required for jurisdiction-specific "
+        "permissibility (e.g., KSA Basic Law Art 1 + 26 on state religion; UAE "
+        "Federal Decree-Law 34/2023 on religious denigration). Mask, redact, or "
+        "remove before disclosure unless explicit consent is on file."
+    ),
+    "trade_union_membership": (
+        "Trade-union membership reference detected (item 98). Under GDPR Art 9(1) "
+        "('trade union membership' is verbatim special category); PIPA Korea Art 23 "
+        "(labor union membership); LGPD Brazil Art 5(II) (trade union + political/"
+        "religious/philosophical organisation membership); UAE PDPL Art 15 + KSA "
+        "PDPL Art 6 (where applicable). APPI Japan and PIPL China do NOT explicitly "
+        "enumerate union membership — kaypoh still surfaces under GDPR / PIPA / LGPD "
+        "scope. Mask before disclosure; collective-bargaining + industrial-action "
+        "markers also trigger this rule."
+    ),
+    "political_opinion": (
+        "Political-opinion / party-affiliation reference detected (item 98). Under "
+        "GDPR Art 9(1) ('political opinions' is verbatim special category); PIPA "
+        "Korea Art 23 (political views); APPI Japan Art 2(3) ('creed' covers "
+        "political opinion); LGPD Brazil Art 5(II); UAE PDPL Art 15 + KSA PDPL Art "
+        "6 (political belief sensitive). PIPL China Art 28 does NOT explicitly "
+        "enumerate political opinion — kaypoh still surfaces under GDPR / PIPA / "
+        "APPI / LGPD scope. Detector flags presence; jurisdiction-specific permis"
+        "sibility analysis is downstream of detection. Mask before disclosure."
+    ),
+    # item 107: jurisdiction-age-cliff minors detector.
+    "minor_data_reference": (
+        "Minor / children's-data reference detected (item 107). Under DPDPA India "
+        "2023 s2(f) + s9 ('child' = under 18; verifiable parental consent required; "
+        "s9(3) prohibits behavioural monitoring + targeted ads to children); GDPR "
+        "Art 8 (default 16; member states may lower to 13 — DE/HU/IE/LU/NL/PL/RO/"
+        "SK/HR retained 16; FR/GR/SI 15; AT/BG/CY/ES/IT/LT 14; BE/DK/EE/FI/LV/MT/"
+        "NO/PT/SE 13); PIPL China Art 31 (under 14 = minor; guardian consent + "
+        "dedicated rules); COPPA US 16 CFR Part 312 (under 13; Jan 2025 amendments "
+        "tightened data retention + third-party opt-in); PDPC SG Advisory Guide"
+        "lines on Children's Personal Data (Mar 2024; default under 18; under-13 "
+        "cannot give valid consent); UK ICO Age-Appropriate Design Code (under 18; "
+        "in force Sept 2021); AU OAIC Children's Online Privacy Code (under 18; "
+        "Privacy Amendment Act 2024 mandates; OAIC code due Dec 2026); HK PCPD "
+        "Minors Guidance Note (under 18); UAE PDPL via Wadeema Law (Federal Law "
+        "3/2016; under 18); KSA PDPL via Saudi Child Protection Law (under 18); "
+        "LGPD Brazil Art 14 (under 18; under-12 special protection). Severity "
+        "resolves against the strictest applicable jurisdiction cliff. Verifiable "
+        "parental / guardian consent must be on file before any processing of a "
+        "child's data; targeted advertising to children is prohibited in most "
+        "in-scope regimes."
+    ),
     # item 102: India DPDPA recognizers.
     "in_aadhaar": (
         "India Aadhaar is a 12-digit identifier issued by UIDAI. Under DPDPA 2023 s2(t) "
