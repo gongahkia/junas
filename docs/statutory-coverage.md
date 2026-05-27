@@ -30,6 +30,10 @@ Each jurisdiction below ships a curated TOML pack at `src/kaypoh/review/jurisdic
 | **UK** | United Kingdom | UK GDPR Art 4(1); Data Protection Act 2018 s3(2) | UK Market Abuse Regulation (UK MAR) Art 7 |
 | **EU** | European Union | GDPR Art 4(1); Recital 26; Art 9 special-category | EU Market Abuse Regulation 596/2014 Art 7 |
 | **SEA** | Southeast Asia baseline | ASEAN cross-border privacy baseline | ASEAN-baseline market-abuse principles |
+| **IN** | India | Digital Personal Data Protection Act 2023 (DPDPA) ss 2(t), 9, 10, 16 | SEBI (Prohibition of Insider Trading) Regulations 2015 |
+| **CN** | China | Personal Information Protection Law 2021 (PIPL) Arts 4, 28, 31, 38; CSL 2016; DSL 2021 | China Securities Law Arts 50-54 |
+| **AE** | United Arab Emirates | UAE Federal Decree-Law 45/2021 (PDPL) Arts 1, 15, 22; DIFC DPL 2020; ADGM Data Protection Regs 2021 | UAE Securities and Commodities Authority (SCA) regulations |
+| **SA** | Saudi Arabia | KSA Personal Data Protection Law 2023 (Royal Decree M/19) + SDAIA Implementing Regulations 2024; Art 29 (cross-border) | Saudi Capital Market Authority (CMA) Market Conduct Regulations |
 
 ## Universal PII detectors
 
@@ -46,6 +50,9 @@ These rules fire regardless of source/destination jurisdiction. The statutory an
 | `customer_account_number` | GDPR Recital 26 + PDPC Anonymisation Advisory Guidelines | medium → high | escalates to high when named_person co-occurs (item 99) |
 | `medical_record_number` | HIPAA 45 CFR §164.514 + GDPR Art 9 + PDPC special-category | high | already high standalone (special-category) |
 | `quasi_identifier_combination` | PDPA s2 + GDPR Recital 26 + CCPA §1798.140(v) + Sweeney 2000 | medium | audit_grade only; fires when ≥3 distinct quasi-IDs cluster within 500 chars (item 101) |
+| `cross_border_transfer_marker` | PDPA s26 + PDP Regulations 2021 + ASEAN MCCs + APEC CBPR (SG); GDPR Chapter V Arts 44-49 (EU); UK GDPR + DPA 2018 Part 5 + UK IDTA (UK); PIPL Art 38 + CAC + SAMR Measures 2026 + GB/T 46068-2025 (CN); DPDPA 2023 s16 (IN); UAE PDPL Art 22 (UAE); KSA PDPL Art 29 (SA); LGPD Art 33 (BR) — SCC / IDTA / adequacy / CAC / ASEAN MCCs / APEC CBPR / BCR / Schrems II / data-export vocabulary | medium | item 109; PII-handling-event lexicon under `_PII_NEGATION_GUARDED` frozenset; no MNPI co-occurrence amplifier |
+| `consent_withdrawal_marker` | PDPA s16 + Advisory Guidelines on Anonymisation (SG); GDPR Art 7(3) + Art 17 + Art 21 + Art 16 (EU); UK GDPR Art 17/21 + DPA 2018 s47 (UK); CCPA/CPRA §1798.105/120/125 (US-CA); DPDPA 2023 s12 + s13 (IN); LGPD Art 18 (BR); APPI Art 30 (JP); PIPA Art 36 (KR); PIPL Art 47 (CN); HK PDPO s26 (HK); AU Privacy Act APP 11.2 (AU) — DSAR / right-to-erasure / right-to-delete / do-not-sell / objection / rectification / retention-expired vocabulary | medium | item 110; PII-handling-event lexicon under `_PII_NEGATION_GUARDED` |
+| `data_minimisation_marker` | GDPR Art 5(1)(c) + UK GDPR Art 5(1)(c) ("adequate, relevant and limited to what is necessary"); PDPA s18 + Notification Obligation (SG); PIPL Art 6 (CN); LGPD Art 6 II (BR); DPDPA 2023 s5 (IN); HIPAA Minimum Necessary Standard 45 CFR §164.502(b) (US-health) — purpose-limitation / adequate-relevant-limited / over-collection / Minimum-Necessary vocabulary | medium | item 111; PII-handling-event lexicon under `_PII_NEGATION_GUARDED` |
 
 ## Jurisdiction-specific PII detectors
 
@@ -98,6 +105,40 @@ Each row is a TOML recognizer in `src/kaypoh/review/jurisdictions_data/<CODE>.to
 | `us_ein` | IRS — Employer Identification Number | medium | `us_ein` (IRS prefix allowlist) |
 | `uk_nin` | UK GDPR + Data Protection Act 2018 — National Insurance Number | high | `uk_nin` (HMRC prefix-exclusion: D F I Q U V first letter, O second; reserved BG/GB/KN/NK/NT/TN/ZZ) |
 
+### IN (India) — item 102
+
+| Rule | Statutory anchor | Severity | Validator |
+|---|---|---|---|
+| `in_aadhaar` | DPDPA 2023 s2(t) + Aadhaar Act 2016 s9 — UIDAI 12-digit identifier | high | `in_aadhaar` (Verhoeff checksum per UIDAI; leading digit 2-9; rejects all-same-digit + known test vectors) |
+| `in_pan` | DPDPA 2023 s2(t) + Income Tax Department (CBDT) — Permanent Account Number | high | `in_pan` (format `[A-Z]{3}[PCHFATBLJG][A-Z]\d{4}[A-Z]`; 4th letter encodes entity type) |
+| `in_gstin` | DPDPA 2023 s2(t) — Goods and Services Tax Identification Number | medium | format-only in v1 (Luhn MOD 36 checksum deferred to v2) |
+| `in_voter_id` | DPDPA 2023 s2(t) — Election Commission Photo Identity Card (EPIC) | medium | none (format `[A-Z]{3}\d{7}` with Voter ID / EPIC context anchor) |
+
+### CN (China) — item 103
+
+| Rule | Statutory anchor | Severity | Validator |
+|---|---|---|---|
+| `cn_resident_id` | PIPL 2021 Art 4 + Art 28 (sensitive PI) — 居民身份证号 18-digit | high | `cn_resident_id` (ISO 7064 MOD 11-2 per GB 11643-1999; supports `X` tail) |
+| `cn_uscc` | GB 32100-2015 — Unified Social Credit Code 18-char corporate identifier | medium | `cn_uscc` (ISO 7064 MOD 31-3; alphabet excludes I/O/Z/S/V) |
+| `cn_phone` | PIPL 2021 Art 4 — China mobile phone (11-digit, starts 1[3-9]) | medium | none (context-anchored on 手机 / 电话 / Mobile / Phone) |
+| `cn_passport` | PIPL 2021 Art 4 — China passport (`[EGD]\d{8}`) | high | none |
+
+### AE (United Arab Emirates) — item 104
+
+| Rule | Statutory anchor | Severity | Validator |
+|---|---|---|---|
+| `ae_emirates_id` | UAE PDPL Art 1 + Art 15 (sensitive) — Emirates ID 15-digit (784-prefix) | high | `ae_emirates_id` (format + 784 prefix; government checksum not publicly documented per web search 2026-05-27) |
+| `ae_trade_licence` | UAE PDPL Art 1 — DED / DMCC / ADGM / DIFC commercial licence | medium | none (issuer-context anchored) |
+| `ae_passport` | UAE PDPL Art 1 — UAE passport (`[A-Z]\d{8}`) | high | none |
+
+### SA (Saudi Arabia) — item 104
+
+| Rule | Statutory anchor | Severity | Validator |
+|---|---|---|---|
+| `sa_national_id` | KSA PDPL 2023 + SDAIA Implementing Regulations 2024 Art 6 (sensitive) — 10-digit (1 = citizen / 2 = resident) | high | `sa_national_id` (format + leading-digit; Saudi MOI checksum not publicly documented per web search 2026-05-27) |
+| `sa_iqama` | KSA PDPL 2023 — 10-digit residence permit (starts with 2) | high | `sa_iqama` (format + leading-digit-2) |
+| `sa_commercial_registration` | KSA PDPL 2023 — 10-digit Commercial Registration (CR) | medium | none (Arabic + English context anchored on `CR No.` / `سجل تجاري`) |
+
 ## MNPI / inside-information detectors
 
 These rules fire regardless of jurisdiction; the statutory anchor is jurisdiction-resolved at finding time via `citations.py:_MNPI_JURISDICTION_SUFFIX`.
@@ -127,6 +168,9 @@ These rules fire regardless of jurisdiction; the statutory anchor is jurisdictio
 ## Cross-cutting doctrinal coverage
 
 - **Quasi-identifier reasoning** — PDPA s2 ("identified from that data and other information"), GDPR Recital 26 ("means reasonably likely to be used"), CCPA §1798.140(v) ("reasonably capable of being associated"), Sweeney 2000 (DOB+ZIP+gender → 87% re-identification). Implemented as `quasi_identifier_combination` (item 101).
+- **Cross-border personal-data transfer** — PDPA s26 + PDP Regulations 2021 (SG) + ASEAN MCCs joint guide Jan 2025 + APEC CBPR; GDPR Chapter V (EU); UK GDPR + DPA 2018 Part 5 + UK IDTA (UK); PIPL Art 38 + CAC + SAMR Measures effective 1 Jan 2026 + GB/T 46068-2025 effective 1 Mar 2026 (CN); DPDPA s16 (IN); UAE PDPL Art 22 (UAE); KSA PDPL Art 29 (SA); LGPD Art 33 (BR). Implemented as `cross_border_transfer_marker` (item 109).
+- **Consent withdrawal + data-subject rights** — PDPA s16 (SG); GDPR Art 7(3) + Art 17 + Art 21 + Art 16 (EU); UK GDPR Art 17/21 + DPA 2018 s47 (UK); CCPA/CPRA §1798.105/120/125 (US-CA); DPDPA s12+s13 (IN); LGPD Art 18 (BR); APPI Art 30 (JP); PIPA Art 36 (KR); PIPL Art 47 (CN); HK PDPO s26 (HK); AU APP 11.2 (AU). Implemented as `consent_withdrawal_marker` (item 110).
+- **Data-minimisation / purpose limitation** — GDPR Art 5(1)(c) + UK GDPR Art 5(1)(c); PDPA s18 (SG); PIPL Art 6 (CN); LGPD Art 6 II (BR); DPDPA s5 (IN); HIPAA Minimum Necessary Standard §164.502(b) (US). Implemented as `data_minimisation_marker` (item 111).
 - **Pseudonymised-but-linkable identifiers** — GDPR Recital 26 + PDPC Anonymisation Advisory Guidelines treat IDs the controller can re-link as personal data. Implemented as `employee_id`, `customer_account_number`, `medical_record_number` with named_person co-occurrence amplifier (item 99).
 - **Contingent / forward-looking MNPI** — Basic v. Levinson + MAR Art 7(2-3) + SFA s215. Implemented as `contingent_mnpi_language` with co-occurrence amplifier (item 95).
 - **Tipping co-extensivity** — SFA s219 + Rule 10b5-2 + MAR Art 14 + SFO Part XIV. Implemented as `tipping_language` with co-occurrence amplifier (item 96).

@@ -1,0 +1,16 @@
+{
+  "doc_id": "ae_pdpl_memo_01",
+  "document_type": "memo",
+  "source_jurisdiction": "AE",
+  "destination_jurisdiction": "AE",
+  "must_detect": [
+    {"rule": "ae_emirates_id", "matched_text": "784-1975-1234567-1"},
+    {"rule": "ae_passport", "matched_text": "A12345678"},
+    {"rule": "named_person", "matched_text": "Mr Khalid Al Maktoum"},
+    {"rule": "email_address", "matched_text": "khalid.almaktoum@example.ae"},
+    {"rule": "transaction_codename", "matched_text": "Project Falcon"},
+    {"rule": "embargo_marker", "matched_text": "Closing Date"}
+  ],
+  "must_not_detect": [],
+  "_label_source": "hand"
+}

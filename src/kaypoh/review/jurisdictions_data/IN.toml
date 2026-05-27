@@ -1,0 +1,55 @@
+code = "IN"
+label = "India"
+pii_rules = ["IN_DPDPA_PERSONAL_DATA", "IN_DPDPA_SENSITIVE_CONTEXT"]
+mnpi_rules = ["IN_SEBI_PIT"]
+references = [
+    "Digital Personal Data Protection Act 2023 (DPDPA) sections 2(t), 9, 10, 16",
+    "DPDP Rules 2025",
+    "SEBI (Prohibition of Insider Trading) Regulations 2015",
+]
+aliases = ["IN", "INDIA", "IND"]
+
+# Aadhaar 12-digit identifier. UIDAI issues numbers beginning 2-9; Verhoeff checksum
+# in final position. Validator rejects 0/1-prefixed, all-same-digit, and well-known
+# test patterns. Statutory anchor: DPDPA 2023 s2(t) + Aadhaar Act 2016 s9.
+[[recognizers]]
+name = "India Aadhaar"
+rule_name = "in_aadhaar"
+pattern = '(?:Aadhaar(?:\s+(?:No\.?|Number))?[\s:.#-]*)?\b((?:\d{4}\s\d{4}\s\d{4})|(?:\d{4}-\d{4}-\d{4})|(?:\d{12}))\b'
+severity = "high"
+reason = "India Aadhaar number — Verhoeff-validated 12-digit identifier"
+capture_group = 1
+validator = "in_aadhaar"
+
+# India PAN (Permanent Account Number). 10-char alphanumeric. 4th letter encodes
+# entity type (P=Individual, C=Company, H=HUF, F=Firm, A=AOP, T=Trust, B=BOI,
+# L=Local-Authority, J=AOP-other, G=Government). Format-only validator.
+[[recognizers]]
+name = "India PAN"
+rule_name = "in_pan"
+pattern = '(?:PAN(?:\s+No\.?|\s+Number)?|Permanent\s+Account\s+Number)[\s:.#-]*([A-Z]{3}[PCHFATBLJG][A-Z]\d{4}[A-Z])\b'
+severity = "high"
+reason = "India PAN — taxpayer identifier (CBDT Income Tax Department)"
+capture_group = 1
+validator = "in_pan"
+
+# GSTIN 15-character business identifier. Format: state(2) + PAN(10) + entity(1) +
+# 'Z' + checksum(1). Format-only validator in v1 (Luhn MOD 36 checksum deferred).
+[[recognizers]]
+name = "India GSTIN"
+rule_name = "in_gstin"
+pattern = '(?:GSTIN|GST\s+(?:No\.?|Number)|GST\s+Identification\s+Number)[\s:.#-]*(\d{2}[A-Z]{3}[PCHFATBLJG][A-Z]\d{4}[A-Z]\dZ[\dA-Z])\b'
+severity = "medium"
+reason = "India GSTIN — GST identification number"
+capture_group = 1
+
+# India Voter ID (EPIC) — Election Commission Photo Identity Card.
+# Pattern: 3 letters + 7 digits. Anchored on "Voter ID" / "EPIC" context to defend
+# against bare 3-letter-7-digit collisions.
+[[recognizers]]
+name = "India Voter ID (EPIC)"
+rule_name = "in_voter_id"
+pattern = '(?:Voter\s+ID(?:\s+No\.?)?|EPIC(?:\s+No\.?)?)[\s:.#-]*([A-Z]{3}\d{7})\b'
+severity = "medium"
+reason = "India Voter ID (EPIC) — Election Commission photo identity"
+capture_group = 1

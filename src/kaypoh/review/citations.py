@@ -181,6 +181,115 @@ _PII_DEFAULT_RATIONALE = {
         "individual attributes are not. Sweeney 2000: DOB + 5-digit ZIP + gender uniquely "
         "identifies ~87% of US adults. Generalise or aggregate before disclosure."
     ),
+    "cross_border_transfer_marker": (
+        "Cross-border personal-data transfer marker detected. Under PDPA s26 + PDP "
+        "Regulations 2021 (SG; ASEAN MCCs / RIPD MCCs joint guide released Jan 2025; "
+        "APEC CBPR + PRP certifications recognised); GDPR Chapter V Arts 44-49 (EU; "
+        "adequacy / SCC / BCR / certifications / derogations); UK GDPR + DPA 2018 Part 5 "
+        "+ UK IDTA (UK); PIPL Art 38 + CAC + SAMR Measures for Certification of Cross-"
+        "Border Personal Information Transfer (CN; effective 1 Jan 2026; GB/T 46068-2025 "
+        "effective 1 Mar 2026); DPDPA 2023 s16 (IN); UAE PDPL Art 22 (UAE); KSA PDPL "
+        "Art 29 (SA); LGPD Art 33 (BR) — verify the relied-on transfer mechanism is "
+        "documented (SCC executed / BCR approved / adequacy in force / consent obtained) "
+        "before disclosure. Item 53 cadence owns the in-force statute revision."
+    ),
+    "consent_withdrawal_marker": (
+        "Consent-withdrawal / data-subject-rights marker detected. Under PDPA s16 + "
+        "PDPC Advisory Guidelines on Anonymisation (SG); GDPR Art 7(3) ('as easy to "
+        "withdraw as to give') + Art 17 (erasure) + Art 21 (objection) + Art 16 "
+        "(rectification) (EU); UK GDPR Art 17/21 + DPA 2018 s47 (UK); CCPA/CPRA "
+        "§1798.105 (delete) / §1798.120 (do-not-sell) / §1798.125 (right-to-know) "
+        "(US-CA); DPDPA 2023 s12 (correction + erasure) + s13 (grievance redressal) "
+        "(IN); LGPD Art 18 (BR); APPI Art 30 (cessation of use) (JP); PIPA Art 36 "
+        "(deletion) (KR); PIPL Art 47 (deletion) (CN); HK PDPO s26 (HK); AU Privacy "
+        "Act APP 11.2 (AU) — confirm the request is logged, scoped, and acted on "
+        "within the statutory deadline before forwarding."
+    ),
+    # item 102: India DPDPA recognizers.
+    "in_aadhaar": (
+        "India Aadhaar is a 12-digit identifier issued by UIDAI. Under DPDPA 2023 s2(t) "
+        "(personal data) + s10 (Significant Data Fiduciary heightened-care) + Aadhaar Act "
+        "2016 s9, masking is required before any disclosure that is not strictly necessary "
+        "for the documented purpose. Verhoeff checksum validated; leading digit 2-9."
+    ),
+    "in_pan": (
+        "India PAN is a 10-character taxpayer identifier issued by the Income Tax Department "
+        "(CBDT). Personal data under DPDPA 2023 s2(t). Mask before disclosure unless the "
+        "tax-administration purpose is documented and consented."
+    ),
+    "in_gstin": (
+        "India GSTIN is a 15-character GST identification number embedding a PAN. Personal "
+        "data under DPDPA 2023 s2(t) when paired with a named individual (proprietorship); "
+        "commercial identifier otherwise. Mask unless the GST-administration purpose is on file."
+    ),
+    "in_voter_id": (
+        "India Voter ID (EPIC) is an Election Commission photo-identity number. Personal "
+        "data under DPDPA 2023 s2(t). Mask before disclosure unless the recipient is "
+        "authorised and the purpose is documented."
+    ),
+    # item 103: China PIPL recognizers.
+    "cn_resident_id": (
+        "China Resident Identity Card number (居民身份证号) is an 18-digit identifier with "
+        "embedded birth date and administrative-division code. Under PIPL 2021 Art 4 "
+        "(personal information) + Art 28 (sensitive personal information when linked to "
+        "biometric / health / financial-account context), masking is required. ISO 7064 "
+        "MOD 11-2 checksum validated (GB 11643-1999)."
+    ),
+    "cn_uscc": (
+        "China Unified Social Credit Code (统一社会信用代码) is an 18-character corporate "
+        "identifier per GB 32100-2015. Commercial identifier; mask in shared documents that "
+        "may reveal counterparty identity pre-announcement. ISO 7064 MOD 31-3 checksum "
+        "validated (alphabet excludes I/O/Z/S/V)."
+    ),
+    "cn_phone": (
+        "China mobile phone number (11-digit, starts 1[3-9]). Personal information under "
+        "PIPL 2021 Art 4. Mask unless the recipient is intended and the purpose is documented."
+    ),
+    "cn_passport": (
+        "China passport number (E/G/D + 8 digits). Personal information under PIPL 2021 "
+        "Art 4 and a travel-document identifier; mask before disclosure unless explicit "
+        "consent and a documented purpose are on file."
+    ),
+    # item 104: UAE PDPL recognizers.
+    "ae_emirates_id": (
+        "UAE Emirates ID is a 15-digit national identifier prefixed 784 (UAE ISO-3166). "
+        "Under UAE PDPL Art 1 (personal data) + Art 15 (sensitive data when paired with "
+        "religion / health / biometric context), masking is required before disclosure."
+    ),
+    "ae_trade_licence": (
+        "UAE Trade / commercial licence number (DED / DMCC / ADGM / DIFC issuer-specific). "
+        "Commercial identifier under UAE PDPL Art 1 when paired with a director name; "
+        "mask in pre-announcement documents."
+    ),
+    "ae_passport": (
+        "UAE passport number (single letter + 8 digits). Personal data under UAE PDPL Art 1 "
+        "and a travel-document identifier; mask before disclosure unless documented consent."
+    ),
+    # item 104: KSA PDPL recognizers.
+    "sa_national_id": (
+        "KSA National ID is a 10-digit identifier (1 = citizen, 2 = resident). Under KSA "
+        "PDPL 2023 (Royal Decree M/19) + SDAIA Implementing Regulations 2024 Art 6 "
+        "(sensitive data when paired with religion / criminal / health context), masking "
+        "is required."
+    ),
+    "sa_iqama": (
+        "KSA Iqama is a 10-digit residence permit (starts with 2). Personal data under "
+        "KSA PDPL 2023. Mask before disclosure unless the recipient is authorised."
+    ),
+    "sa_commercial_registration": (
+        "KSA Commercial Registration (CR) is a 10-digit business identifier. Commercial "
+        "identifier under KSA PDPL when paired with a director name; mask in pre-"
+        "announcement documents."
+    ),
+    "data_minimisation_marker": (
+        "Data-minimisation / over-collection marker detected. Under GDPR Art 5(1)(c) + "
+        "UK GDPR Art 5(1)(c) ('adequate, relevant and limited to what is necessary'); "
+        "PDPA s18 + Notification Obligation (SG); PIPL Art 6 (CN); LGPD Art 6 II "
+        "('necessidade') (BR); DPDPA 2023 s5 (IN); HIPAA Minimum Necessary Standard "
+        "45 CFR §164.502(b) (US-health) — verify the collected fields are limited to "
+        "the documented purpose. Recent enforcement: CNIL fined Free Mobile €27M "
+        "(early 2026) for retention failures."
+    ),
 }
 
 # rule -> short MNPI rationale (the citation is jurisdiction-specific so we layer on a suffix)
@@ -320,6 +429,10 @@ _PII_JURISDICTION_SUFFIX = {
     "AU": "Reference: Australia Privacy Act 1988 and Australian Privacy Principles.",
     "JP": "Reference: Japan APPI Article 2 and My Number Act handling restrictions.",
     "KR": "Reference: Korea Personal Information Protection Act Articles 2 and 24-2.",
+    "IN": "Reference: India Digital Personal Data Protection Act 2023 (DPDPA) sections 2(t), 9, 10, 16.",
+    "CN": "Reference: China Personal Information Protection Law 2021 (PIPL) Articles 4, 28, 31, 38; CSL 2016; DSL 2021.",
+    "AE": "Reference: UAE Federal Decree-Law 45/2021 (PDPL) Articles 1, 15, 22; DIFC DPL 2020; ADGM Data Protection Regs 2021.",
+    "SA": "Reference: KSA Personal Data Protection Law 2023 (Royal Decree M/19) + SDAIA Implementing Regulations 2024; Article 29 (cross-border).",
 }
 
 # jurisdiction-pack -> MNPI statute suffix.
@@ -340,6 +453,10 @@ _MNPI_JURISDICTION_SUFFIX = {
     "AU": "Reference: Corporations Act 2001 (Cth) ss1042A-1043O.",
     "JP": "Reference: Financial Instruments and Exchange Act Articles 166-167.",
     "KR": "Reference: Financial Investment Services and Capital Markets Act Articles 174-179.",
+    "IN": "Reference: SEBI (Prohibition of Insider Trading) Regulations 2015.",
+    "CN": "Reference: China Securities Law Articles 50-54 (insider trading).",
+    "AE": "Reference: UAE Securities and Commodities Authority (SCA) market-abuse regulations.",
+    "SA": "Reference: Saudi Capital Market Authority (CMA) Market Conduct Regulations.",
 }
 
 

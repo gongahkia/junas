@@ -1,0 +1,17 @@
+{
+  "doc_id": "in_dpdpa_memo_01",
+  "document_type": "NDA",
+  "source_jurisdiction": "IN",
+  "destination_jurisdiction": "IN",
+  "must_detect": [
+    {"rule": "in_aadhaar", "matched_text": "234123412346"},
+    {"rule": "in_pan", "matched_text": "ABCPK1234A"},
+    {"rule": "in_gstin", "matched_text": "27ABCPK1234A1Z5"},
+    {"rule": "in_voter_id", "matched_text": "ABC1234567"},
+    {"rule": "named_person", "matched_text": "Mr Rajan Iyer"},
+    {"rule": "email_address", "matched_text": "rajan.iyer@lotuscapital.in"},
+    {"rule": "transaction_codename", "matched_text": "Project Banyan"}
+  ],
+  "must_not_detect": [],
+  "_label_source": "hand"
+}

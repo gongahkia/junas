@@ -1,0 +1,20 @@
+{
+  "doc_id": "consent_withdrawal_memo_01",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "EU",
+  "must_detect": [
+    {"rule": "consent_withdrawal_marker", "matched_text": "data subject access request"},
+    {"rule": "consent_withdrawal_marker", "matched_text": "DSAR"},
+    {"rule": "consent_withdrawal_marker", "matched_text": "erasure requests"},
+    {"rule": "consent_withdrawal_marker", "matched_text": "right to erasure"},
+    {"rule": "consent_withdrawal_marker", "matched_text": "right to delete"},
+    {"rule": "consent_withdrawal_marker", "matched_text": "right to know"},
+    {"rule": "consent_withdrawal_marker", "matched_text": "do not sell my personal information"},
+    {"rule": "consent_withdrawal_marker", "matched_text": "rectification requests"},
+    {"rule": "consent_withdrawal_marker", "matched_text": "retention period has expired"},
+    {"rule": "consent_withdrawal_marker", "matched_text": "withdraw consent"}
+  ],
+  "must_not_detect": [],
+  "_label_source": "hand"
+}

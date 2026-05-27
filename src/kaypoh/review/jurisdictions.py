@@ -174,6 +174,126 @@ def _validate_us_ein(value: str) -> bool:
     return prefix in allocated
 
 
+# item 102: India Aadhaar Verhoeff checksum. UIDAI publishes the 12-digit identifier
+# with the Verhoeff check digit in the final position; UIDAI issues numbers beginning
+# with 2-9 only (0 and 1 are reserved). Rejects all-same-digit and well-known UIDAI
+# test vectors. Source: aadhaarvalidate.com, UIDAI Developer Documentation.
+_VERHOEFF_D = (
+    (0, 1, 2, 3, 4, 5, 6, 7, 8, 9),
+    (1, 2, 3, 4, 0, 6, 7, 8, 9, 5),
+    (2, 3, 4, 0, 1, 7, 8, 9, 5, 6),
+    (3, 4, 0, 1, 2, 8, 9, 5, 6, 7),
+    (4, 0, 1, 2, 3, 9, 5, 6, 7, 8),
+    (5, 9, 8, 7, 6, 0, 4, 3, 2, 1),
+    (6, 5, 9, 8, 7, 1, 0, 4, 3, 2),
+    (7, 6, 5, 9, 8, 2, 1, 0, 4, 3),
+    (8, 7, 6, 5, 9, 3, 2, 1, 0, 4),
+    (9, 8, 7, 6, 5, 4, 3, 2, 1, 0),
+)
+_VERHOEFF_P = (
+    (0, 1, 2, 3, 4, 5, 6, 7, 8, 9),
+    (1, 5, 7, 6, 2, 8, 3, 0, 9, 4),
+    (5, 8, 0, 3, 7, 9, 6, 1, 4, 2),
+    (8, 9, 1, 6, 0, 4, 3, 5, 2, 7),
+    (9, 4, 5, 3, 1, 2, 6, 8, 7, 0),
+    (4, 2, 8, 6, 5, 7, 3, 9, 0, 1),
+    (2, 7, 9, 3, 8, 0, 6, 4, 1, 5),
+    (7, 0, 4, 6, 9, 1, 3, 2, 5, 8),
+)
+
+
+def _validate_in_aadhaar(value: str) -> bool:
+    digits = _digits(value)
+    if len(digits) != 12:
+        return False
+    # UIDAI: leading digit must be 2-9 (0 and 1 reserved).
+    if digits[0] in {"0", "1"}:
+        return False
+    # reject obvious test patterns: all-same-digit / sequential.
+    if len(set(digits)) == 1:
+        return False
+    if digits in {"123456789012", "999999999999"}:
+        return False
+    check = 0
+    for index, digit in enumerate(reversed(digits)):
+        check = _VERHOEFF_D[check][_VERHOEFF_P[index % 8][int(digit)]]
+    return check == 0
+
+
+# item 102: India PAN format. 10 chars: [A-Z]{3}[PCHFATBLJ][A-Z][0-9]{4}[A-Z].
+# 4th char encodes entity type: P=Individual, C=Company, H=HUF, F=Firm, A=AOP,
+# T=Trust, B=BOI, L=Local-Authority, J=AOP-other-than-trust. (G=Government also
+# appears in practice — included.) Validator is format-only.
+def _validate_in_pan(value: str) -> bool:
+    normalized = re.sub(r"\s", "", value).upper()
+    return bool(re.fullmatch(r"[A-Z]{3}[PCHFATBLJG][A-Z]\d{4}[A-Z]", normalized))
+
+
+# item 103: China Resident ID. 18-digit identifier with ISO 7064 MOD 11-2 checksum.
+# Weights: [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2]; check digit lookup [1,0,X,9,8,7,6,5,4,3,2]
+# indexed by `sum(weighted) % 11`. Last digit is 0-9 or 'X'. Source: GB 11643-1999,
+# ISO 7064:1983 + Wikipedia Resident Identity Card.
+_CN_RESIDENT_WEIGHTS = (7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2)
+_CN_RESIDENT_CHECKS = ("1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2")
+
+
+def _validate_cn_resident_id(value: str) -> bool:
+    normalized = re.sub(r"\s", "", value).upper()
+    if not re.fullmatch(r"\d{17}[\dX]", normalized):
+        return False
+    total = sum(int(normalized[i]) * _CN_RESIDENT_WEIGHTS[i] for i in range(17))
+    return _CN_RESIDENT_CHECKS[total % 11] == normalized[17]
+
+
+# item 103: China Unified Social Credit Code (USCC). 18-char alphanumeric;
+# excludes I, O, Z, S, V. Position 1: registration management dept; position 2:
+# institution category; positions 3-8: GB/T 2260 administrative division;
+# positions 9-17: subject identifier; position 18: ISO 7064 MOD 31-3 checksum.
+# Source: GB 32100-2015. Weights are powers-of-2 mod 31 (doubling sequence
+# adjusted for 17 positions).
+_USCC_ALPHABET = "0123456789ABCDEFGHJKLMNPQRTUWXY"  # 31 chars, excludes I O Z S V
+_USCC_WEIGHTS = (1, 3, 9, 27, 19, 26, 16, 17, 20, 29, 25, 13, 8, 24, 10, 30, 28)
+
+
+def _validate_cn_uscc(value: str) -> bool:
+    normalized = re.sub(r"\s", "", value).upper()
+    if len(normalized) != 18:
+        return False
+    if not all(c in _USCC_ALPHABET for c in normalized):
+        return False
+    total = sum(_USCC_ALPHABET.index(normalized[i]) * _USCC_WEIGHTS[i] for i in range(17))
+    check = (31 - (total % 31)) % 31
+    return _USCC_ALPHABET[check] == normalized[17]
+
+
+# item 104: UAE Emirates ID format. 15 digits, must start with 784 (UAE country code);
+# pattern: 784-YYYY-NNNNNNN-N. UAE government checksum algorithm is not publicly
+# documented (per web search 2026-05-27); validator is format + 784-prefix only.
+def _validate_ae_emirates_id(value: str) -> bool:
+    digits = _digits(value)
+    if len(digits) != 15:
+        return False
+    return digits.startswith("784")
+
+
+# item 104: KSA National ID format. 10 digits; first digit 1 = citizen, 2 = resident
+# (Iqama). Saudi MOI checksum algorithm is not publicly documented (per web search
+# 2026-05-27); validator is format + leading-digit only.
+def _validate_sa_national_id(value: str) -> bool:
+    digits = _digits(value)
+    if len(digits) != 10:
+        return False
+    return digits[0] in {"1", "2"}
+
+
+def _validate_sa_iqama(value: str) -> bool:
+    # Iqama is a 10-digit residence permit. Starts with 2.
+    digits = _digits(value)
+    if len(digits) != 10:
+        return False
+    return digits[0] == "2"
+
+
 def _validate_uk_nin(value: str) -> bool:
     # HMRC NINO format: 2 letters + 6 digits + 1 of [A B C D].
     # Disallowed first letters: D F I Q U V. Disallowed second letters: D F I Q U V O.
@@ -204,6 +324,13 @@ _VALIDATORS: dict[str, Callable[[str], bool]] = {
     "us_ssn": _validate_us_ssn,
     "us_ein": _validate_us_ein,
     "uk_nin": _validate_uk_nin,
+    "in_aadhaar": _validate_in_aadhaar,
+    "in_pan": _validate_in_pan,
+    "cn_resident_id": _validate_cn_resident_id,
+    "cn_uscc": _validate_cn_uscc,
+    "ae_emirates_id": _validate_ae_emirates_id,
+    "sa_national_id": _validate_sa_national_id,
+    "sa_iqama": _validate_sa_iqama,
 }
 
 

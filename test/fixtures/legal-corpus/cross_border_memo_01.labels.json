@@ -1,0 +1,20 @@
+{
+  "doc_id": "cross_border_memo_01",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "EU",
+  "must_detect": [
+    {"rule": "transaction_codename", "matched_text": "Project Meridian"},
+    {"rule": "cross_border_transfer_marker", "matched_text": "EU SCCs"},
+    {"rule": "cross_border_transfer_marker", "matched_text": "personal data export"},
+    {"rule": "cross_border_transfer_marker", "matched_text": "adequacy decision"},
+    {"rule": "cross_border_transfer_marker", "matched_text": "ASEAN MCCs"},
+    {"rule": "cross_border_transfer_marker", "matched_text": "binding corporate rules"},
+    {"rule": "cross_border_transfer_marker", "matched_text": "transfer outside Singapore"},
+    {"rule": "cross_border_transfer_marker", "matched_text": "Schrems II reliance"},
+    {"rule": "cross_border_transfer_marker", "matched_text": "CAC standard contract"},
+    {"rule": "cross_border_transfer_marker", "matched_text": "APEC CBPR"}
+  ],
+  "must_not_detect": [],
+  "_label_source": "hand"
+}

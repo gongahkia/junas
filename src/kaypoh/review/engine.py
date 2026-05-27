@@ -306,6 +306,86 @@ CYBER_INCIDENT_RE = re.compile(
     r")\b",
     re.IGNORECASE,
 )
+# item 109: cross-border personal-data transfer markers. Statutes: PDPA s26 + PDP Regulations
+# 2021 (SG; ASEAN MCCs + RIPD MCCs released Jan 2025); GDPR Chapter V Arts 44-49 (EU); UK GDPR
+# + DPA 2018 Part 5 (UK); PIPL Art 38 + CAC + SAMR Measures for Certification of Cross-Border
+# Personal Information Transfer effective 1 Jan 2026 + GB/T 46068-2025 effective 1 Mar 2026
+# (CN); DPDPA 2023 s16 (IN); UAE PDPL Art 22 (UAE); KSA PDPL Art 29 (SA); LGPD Art 33 (BR).
+# `data export to` is constrained by a following `[a-z]` lookahead so we don't fire on
+# unrelated prose like "data export tool".
+CROSS_BORDER_TRANSFER_RE = re.compile(
+    r"\b("
+    r"transfer(?:s|red|ring)?\s+outside\s+(?:Singapore|the\s+EEA|the\s+EU|the\s+UK|the\s+Kingdom|the\s+territory)|"
+    r"third[- ]country\s+(?:transfer|recipient|jurisdiction)|"
+    r"standard\s+contractual\s+clauses?|"
+    r"SCCs?\s+(?:executed|in\s+place|signed)|"
+    r"EU\s+SCCs?|"
+    r"UK\s+IDTA|"
+    r"adequacy\s+(?:decision|finding|determination)|"
+    r"CAC\s+security\s+assessment|"
+    r"CAC\s+standard\s+contract|"
+    r"China\s+SCCs?|"
+    r"ASEAN\s+(?:MCCs?|Model\s+Contractual\s+Clauses)|"
+    r"RIPD\s+MCCs?|"
+    r"APEC\s+CBPR|"
+    r"Cross[- ]Border\s+Privacy\s+Rules|"
+    r"PRP\s+certification|"
+    r"binding\s+corporate\s+rules|"
+    r"BCRs?\s+(?:approved|in\s+place|relied\s+on)|"
+    r"Schrems\s+II(?:\s+reliance)?|"
+    r"personal\s+data\s+export|"
+    r"data\s+export\s+to\s+(?=[A-Za-z])"
+    r")\b",
+    re.IGNORECASE,
+)
+# item 110: consent-withdrawal + data-subject-rights markers. Statutes: PDPA s16 + Advisory
+# Guidelines on Anonymisation (SG); GDPR Art 7(3) + Art 17 + Art 21 + Art 16 (EU; "as easy
+# to withdraw as to give"); UK GDPR Art 17/21 + DPA 2018 s47 (UK); CCPA/CPRA §1798.105/120/125
+# (US-CA); DPDPA 2023 s12+s13 (IN); LGPD Art 18 (BR); APPI Art 30 (JP); PIPA Art 36 (KR);
+# PIPL Art 47 (CN); HK PDPO s26 (HK); AU Privacy Act APP 11.2 (AU).
+CONSENT_WITHDRAWAL_RE = re.compile(
+    r"\b("
+    r"withdraw(?:al)?\s+(?:of\s+)?(?:my\s+|her\s+|his\s+|their\s+)?consent|"
+    r"withdrew\s+(?:my\s+|her\s+|his\s+|their\s+)?consent|"
+    r"consent\s+(?:has\s+been\s+|is\s+|was\s+)?withdrawn|"
+    r"data\s+subject\s+access\s+requests?|"
+    r"DSARs?|"
+    r"right\s+to\s+erasure|"
+    r"erasure\s+requests?|"
+    r"request\s+for\s+erasure|"
+    r"right\s+to\s+be\s+forgotten|"
+    r"right\s+to\s+delete|"
+    r"do\s+not\s+sell\s+(?:my\s+)?(?:personal\s+)?(?:data|information)|"
+    r"right\s+to\s+know|"
+    r"data\s+deletion\s+requests?|"
+    r"delete\s+(?:my|her|his|their)\s+(?:personal\s+)?data|"
+    r"objection\s+to\s+processing|"
+    r"right\s+to\s+object|"
+    r"rectification\s+requests?|"
+    r"right\s+to\s+rectification|"
+    r"retention\s+period\s+(?:has\s+)?(?:expired|lapsed|elapsed)"
+    r")\b",
+    re.IGNORECASE,
+)
+# item 111: data-minimisation / over-collection markers. Statutes: GDPR Art 5(1)(c) +
+# UK GDPR Art 5(1)(c) ("adequate, relevant and limited to what is necessary"); PDPA s18 +
+# Notification Obligation (SG); PIPL Art 6 (CN); LGPD Art 6 II (BR); DPDPA s5 (IN);
+# HIPAA Minimum Necessary Standard §164.502(b) (US). Recent enforcement: CNIL fined Free
+# Mobile €27M early 2026 for retention failures.
+DATA_MINIMISATION_RE = re.compile(
+    r"\b("
+    r"data\s+minimi[sz]ation(?:\s+principle)?|"
+    r"purpose\s+limitation|"
+    r"adequate,?\s+relevant\s+and\s+limited|"
+    r"limited\s+to\s+what\s+is\s+necessary|"
+    r"necessary\s+for\s+the\s+(?:stated\s+|specific\s+)?purpose|"
+    r"collect(?:ing|ed|s)?\s+(?:more|excess(?:ive)?)\s+(?:data|personal\s+data|information)|"
+    r"over[- ]collect(?:ion|ing)|"
+    r"excessive\s+data\s+collection|"
+    r"minimum\s+necessary\s+standard"
+    r")\b",
+    re.IGNORECASE,
+)
 
 
 SEVERITY_SCORE = {"low": 25.0, "medium": 55.0, "high": 85.0}
@@ -604,6 +684,17 @@ _PSEUDONYMISED_LINKABLE_RULES = frozenset({
 })
 
 
+# items 109/110/111: PII-handling-event rules that require a lookback-25 negation guard.
+# These describe data flows / retention triggers / over-collection language; "no cross-border
+# transfer is contemplated", "consent has not been withdrawn", "we are not over-collecting"
+# should not fire. Parallel to the MNPI-side `_negation_guarded` set in `_mnpi_findings`.
+_PII_NEGATION_GUARDED = frozenset({
+    "cross_border_transfer_marker",
+    "consent_withdrawal_marker",
+    "data_minimisation_marker",
+})
+
+
 # item 101: quasi-identifier combination seed. PDPA s2 ("identified from that data and
 # other information"), GDPR Recital 26 ("means reasonably likely to be used"), and CCPA
 # §1798.140(v) ("reasonably capable of being associated") all extend personal data to
@@ -803,6 +894,14 @@ class PreSendReviewEngine:
                  "Customer account / member identifier — pseudonymised-but-linkable personal data"),
                 ("medical_record_number", MEDICAL_RECORD_RE, "high",
                  "Medical record / patient identifier — special-category personal data"),
+                # items 109/110/111: PII-handling-event markers. medium standalone; negation
+                # guard via `_PII_NEGATION_GUARDED` lookback-25.
+                ("cross_border_transfer_marker", CROSS_BORDER_TRANSFER_RE, "medium",
+                 "Cross-border personal-data transfer marker"),
+                ("consent_withdrawal_marker", CONSENT_WITHDRAWAL_RE, "medium",
+                 "Consent-withdrawal / data-subject-rights marker"),
+                ("data_minimisation_marker", DATA_MINIMISATION_RE, "medium",
+                 "Data-minimisation / over-collection marker"),
             ]
         )
 
@@ -811,6 +910,8 @@ class PreSendReviewEngine:
             for match in pattern.finditer(text):
                 start, end = match.span(1) if match.lastindex else match.span()
                 if end <= start:
+                    continue
+                if rule in _PII_NEGATION_GUARDED and _is_negated_context(text, start):
                     continue
                 findings.append(
                     _new_finding(

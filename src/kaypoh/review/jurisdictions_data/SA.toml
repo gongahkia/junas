@@ -1,0 +1,43 @@
+code = "SA"
+label = "Saudi Arabia"
+pii_rules = ["SA_PDPL_PERSONAL_DATA", "SA_PDPL_SENSITIVE_CONTEXT"]
+mnpi_rules = ["SA_CMA_INSIDER_TRADING"]
+references = [
+    "KSA Personal Data Protection Law 2023 (Royal Decree M/19)",
+    "SDAIA Implementing Regulations 2024",
+    "KSA PDPL Article 29 (cross-border transfer)",
+    "Saudi CMA Market Conduct Regulations",
+]
+aliases = ["SA", "KSA", "SAUDI ARABIA", "KINGDOM OF SAUDI ARABIA"]
+
+# KSA National ID — 10-digit identifier. First digit 1 = citizen, 2 = resident.
+# Saudi MOI checksum algorithm not publicly documented; validator enforces
+# format + leading-digit constraint.
+[[recognizers]]
+name = "KSA National ID"
+rule_name = "sa_national_id"
+pattern = '(?:National\s+ID(?:\s+No\.?)?|الهوية\s+الوطنية|رقم\s+الهوية)[\s:.#-]*((?:1|2)\d{9})\b'
+severity = "high"
+reason = "KSA National ID — Saudi citizen/resident identifier"
+capture_group = 1
+validator = "sa_national_id"
+
+# KSA Iqama — 10-digit residence permit. Starts with 2.
+[[recognizers]]
+name = "KSA Iqama"
+rule_name = "sa_iqama"
+pattern = '(?:Iqama(?:\s+(?:No\.?|Number))?|الإقامة|إقامة)[\s:.#-]*(2\d{9})\b'
+severity = "high"
+reason = "KSA Iqama — residence-permit identifier"
+capture_group = 1
+validator = "sa_iqama"
+
+# KSA Commercial Registration (CR) — 10-digit registration number. Format-only
+# with strict context anchor.
+[[recognizers]]
+name = "KSA Commercial Registration"
+rule_name = "sa_commercial_registration"
+pattern = '(?:CR\s+(?:No\.?|Number)|Commercial\s+Registration(?:\s+(?:No\.?|Number))?|سجل\s+تجاري)[\s:.#-]*(\d{10})\b'
+severity = "medium"
+reason = "KSA Commercial Registration number"
+capture_group = 1

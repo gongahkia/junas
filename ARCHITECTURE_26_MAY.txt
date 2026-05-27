@@ -70,8 +70,11 @@ return shape.
                       │  1. Load jurisdiction pack  (items 19/20/86) │
                       │     SHIPPED: SG | MY | ID | TH | PH | VN |   │
                       │              HK | AU | JP | KR |             │
-                      │              US | UK | EU                    │
-                      │     HK/AU/JP/KR are seed-scale (item 90)     │
+                      │              US | UK | EU |                  │
+                      │              IN | CN | AE | SA (items        │
+                      │              102/103/104, shipped 26-05-27)  │
+                      │     HK/AU/JP/KR + IN/CN/AE/SA are seed-scale │
+                      │     (item 90 + item 1 corpus discipline)     │
                       │                                              │
                       │  2. Defined-term extraction                  │
                       │     • regex preamble pass                    │
@@ -86,7 +89,13 @@ return shape.
                       │       Thai-ID, PhilSys/TIN, CCCD,            │
                       │       HKID/CR, AU TFN/ABN/ACN, JP MyNumber/  │
                       │       corporate/postal, KR RRN/business,     │
-                      │       US SSN/EIN, UK NIN, passport, email,   │
+                      │       US SSN/EIN, UK NIN,                    │
+                      │       IN Aadhaar/PAN/GSTIN/Voter (102),      │
+                      │       CN Resident-ID/USCC/phone/passport     │
+                      │       (103),                                 │
+                      │       AE Emirates-ID/Trade-Licence/Passport  │
+                      │       (104), SA National-ID/Iqama/CR (104),  │
+                      │       passport, email,                       │
                       │       phone, bank/IBAN, named_person,        │
                       │       sg_court_citation, sg_postal_address,  │
                       │       sg_paynow, sg_mas_licence,             │
@@ -94,7 +103,10 @@ return shape.
                       │       employee_id, customer_account_number,  │
                       │       medical_record_number,                 │
                       │       quasi_identifier_combination           │
-                      │       (audit_grade seed, item 101)           │
+                      │       (audit_grade seed, item 101),          │
+                      │       cross_border_transfer_marker (109),    │
+                      │       consent_withdrawal_marker (110),       │
+                      │       data_minimisation_marker (111)         │
                       │                                              │
                       │     PII (planned):                           │
                       │       DOB/age, IP/device, US DL/ITIN,        │
