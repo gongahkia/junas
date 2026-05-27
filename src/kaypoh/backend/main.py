@@ -1234,6 +1234,7 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
             include_suggestions=req.include_suggestions,
             document_type=req.document_type,
             session_id=req.session_id,
+            matter_id=req.matter_id,
             review_profile=req.review_profile,
             tenant_id=tenant.storage_tenant_id,
         )
@@ -1243,6 +1244,7 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
         raise HTTPException(status_code=500, detail=_detector_error_detail(exc)) from exc
     _annotate_image_ocr_findings(document, result.findings)
     result.privacy_ledger = image_privacy_ledger + list(result.privacy_ledger)
+    degraded_modes.extend(list(getattr(result, "degraded_modes", []) or []))
     timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
     _persist_review_session(
         request_id=request_id,
@@ -1336,6 +1338,7 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
             include_suggestions=req.include_suggestions,
             document_type=req.document_type,
             session_id=req.session_id,
+            matter_id=req.matter_id,
             review_profile=req.review_profile,
             tenant_id=tenant.storage_tenant_id,
         )
@@ -1345,6 +1348,7 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
         raise HTTPException(status_code=500, detail=_detector_error_detail(exc)) from exc
     _annotate_image_ocr_findings(document, result.findings)
     result.privacy_ledger = image_privacy_ledger + list(result.privacy_ledger)
+    degraded_modes.extend(list(getattr(result, "degraded_modes", []) or []))
     timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
 
     t_anonymize_start = time.perf_counter()

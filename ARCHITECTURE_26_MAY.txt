@@ -63,9 +63,10 @@ return shape.
                                            │
                       ┌────────────────────▼─────────────────────────┐
                       │  engine.review(text, doc_type, jurisdiction, │
-                      │                session_id, review_profile,   │
-                      │                tenant_id)                    │
-                      │                + planned matter_id (item 55) │
+                      │                session_id, matter_id,        │
+                      │                review_profile, tenant_id)    │
+                      │                matter_id shipped 26-05-27    │
+                      │                (item 55)                     │
                       │                                              │
                       │  1. Load jurisdiction pack  (items 19/20/86) │
                       │     SHIPPED: SG | MY | ID | TH | PH | VN |   │
@@ -79,7 +80,9 @@ return shape.
                       │  2. Defined-term extraction                  │
                       │     • regex preamble pass                    │
                       │     • session inheritance (item 25, shipped) │
-                      │     • matter inheritance (item 55, planned)  │
+                      │     • matter inheritance (item 55, shipped   │
+                      │       26-05-27 — JSON sidecar at journal/    │
+                      │       matters/{matter_id}/defined_terms.json)│
                       │     • LLM-assisted (audit_grade only, ← 6)   │
                       │                                              │
                       │  3. Deterministic recognizers   ← THE WEDGE  │
@@ -132,10 +135,14 @@ return shape.
                       │       dpt_protocol_event_marker (item 112),  │
                       │       esg_climate_pre_disclosure (item 113), │
                       │       esg_target_revision (item 113),        │
-                      │       cyber_incident_pre_disclosure (114)    │
+                      │       cyber_incident_pre_disclosure (114),   │
+                      │       blackout_period_reference (item 84,    │
+                      │       shipped 26-05-27 — SGX 14d/30d,        │
+                      │       HKEX App C3 30d/60d, UK MAR 30d,       │
+                      │       EU MAR 30d; US Reg FD intentionally    │
+                      │       not registered — no codified duration) │
                       │                                              │
                       │     MNPI (planned):                          │
-                      │       blackout_period_reference  (item 84)   │
                       │       sector-specific packs      (item 72)   │
                       │                                              │
                       │  4. Suppress defined-term hits               │
@@ -149,7 +156,11 @@ return shape.
                       │  6. Score → pii_score, mnpi_score            │
                       │  7. Per-doc-type severity override (item 3)  │
                       │  8. Issuer-relative materiality (item 73,    │
-                      │     planned: scale by market-cap lookup)     │
+                      │     shipped 26-05-27 v1 — SAB 99 5% US,      │
+                      │     ASX GN8 5/10% AU + ASX-300 halving,      │
+                      │     MAR/SGX/HKEX advisory-only; fail-loud    │
+                      │     via degraded_modes when no               │
+                      │     EntitySizeLookup configured)             │
                       └────────────────────┬─────────────────────────┘
                                            │
                                   audit_grade  AND

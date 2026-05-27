@@ -178,6 +178,18 @@ class ReviewRequest(BaseModel):
             "paired documents such as SPA + disclosure schedule that share definitions."
         ),
     )
+    matter_id: Optional[str] = Field(
+        None,
+        max_length=128,
+        pattern=r"^[A-Za-z0-9_\-:]{1,128}$",
+        description=(
+            "Optional matter identifier (item 55). Sits above session_id: defined terms "
+            "accumulate at matter level and inherit into every session within that matter. "
+            "Closes the M&A real-world case of 30+ documents over weeks across multiple "
+            "reviewers. Colon allowed for `{dms_vendor}:{matter_id}` composite keys aligned "
+            "with iManage Work / NetDocuments matter IDs."
+        ),
+    )
 
     @field_validator("text")
     @classmethod

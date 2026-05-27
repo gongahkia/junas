@@ -516,6 +516,7 @@ class ReviewResult:
     llm_adjudication: dict[str, Any] | None = None
     privacy_ledger: list[dict[str, Any]] = field(default_factory=list)
     coverage_warnings: list[dict[str, Any]] = field(default_factory=list)
+    degraded_modes: list[dict[str, Any]] = field(default_factory=list)
 
 
 class ReviewLayerError(RuntimeError):
@@ -799,6 +800,441 @@ def _amplify_pseudonymised_when_linked(findings: list["ReviewFinding"]) -> None:
         f.reason = f.reason + " — escalated due to named_person re-link risk (GDPR Recital 26)"
 
 
+# item 73: entity-size-relative materiality (SAB 99 + ASX GN8).
+#
+# SEC Staff Accounting Bulletin No. 99 (1999) accepts 5% as a "preliminary assumption / initial
+# step" against revenue or total assets but mandates qualitative overlay. ASX Guidance Note 8
+# publishes numeric earnings-variance bands: ≥10% material (presume disclose); ≤5% non-material;
+# 5–10% grey zone; ASX 300 issuers apply 5% not 10%; non-guiding ≥15% surprise floor.
+#
+# ESMA / BaFin / SGX MB 703 / HKEX MB 13.09 / UK MAR Art 7 explicitly refuse a generic
+# numeric trigger — kaypoh surfaces the percentage as advisory only for those jurisdictions
+# rather than coding a numeric verdict that contradicts regulator posture.
+#
+# Fail-loud when no entity_size_lookup is configured: emit a degraded_modes entry and leave
+# financial_amount/financial_percentage findings at their default severity. Silent 1% default
+# would systematically mis-tier small-cap docs.
+#
+# Sources:
+#  - https://www.sec.gov/interps/account/sab99.htm
+#  - https://www.asx.com.au/documents/about/guidance-note-8-clean-copy.pdf
+#  - https://www.bafin.de/EN/Aufsicht/BoersenMaerkte/Emittentenleitfaden/Modul3/Kapitel1/...
+#  - https://rulebook.sgx.com/rulebook/703-0
+#  - https://en-rules.hkex.com.hk/rulebook/1309-0
+
+# Per-jurisdiction tier ladders. Threshold = fraction-of-base (revenue or market_cap). Tier
+# at or above threshold yields the named severity. Walk from highest tier downward; first
+# threshold met wins. Existing SEVERITY_SCORE only defines low/medium/high — we collapse the
+# would-be "critical" top into "high" rather than expand the global severity vocabulary.
+_MATERIALITY_TIERS_US: tuple[tuple[float, str], ...] = (
+    (0.05, "high"),      # SAB 99 "5% rule of thumb"
+    (0.01, "medium"),    # below 5% but non-trivial
+)
+_MATERIALITY_TIERS_AU_GENERAL: tuple[tuple[float, str], ...] = (
+    (0.10, "high"),      # ASX GN8 ≥10% disclose presumption
+    (0.05, "medium"),    # ASX GN8 5-10% grey zone
+)
+_MATERIALITY_TIERS_AU_ASX300: tuple[tuple[float, str], ...] = (
+    (0.05, "high"),       # halved per ASX GN8 ASX-300 guidance
+    (0.025, "medium"),
+)
+# Jurisdictions whose regulators explicitly refuse a numeric threshold. We surface percentage
+# vs base as advisory reason but never mutate severity. Reviewer judgement closes the loop.
+_MATERIALITY_ADVISORY_ONLY: frozenset[str] = frozenset({"SG", "HK", "UK", "EU", "MY", "ID", "TH", "PH", "VN", "JP", "KR"})
+
+_MATERIALITY_SCALED_RULES: frozenset[str] = frozenset({"financial_amount", "financial_percentage"})
+
+
+class EntitySizeLookup:
+    """Protocol for entity revenue / market-cap lookups (item 73).
+
+    Returns a dict with at least one of `revenue` or `market_cap` in the entity's reporting
+    currency. Subclasses may attach `is_asx_300: bool` for AU jurisdiction halving. Implementers
+    are responsible for currency normalisation against the matched value's currency — the engine
+    treats `revenue`/`market_cap` as already in the same denomination as the finding text.
+
+    Engine never instantiates a default lookup. Without one, financial_amount and
+    financial_percentage findings keep their default severity and the engine emits a
+    `materiality_lookup_not_configured` degraded mode rather than guess."""
+
+    def lookup(self, entity_id: str, jurisdiction: str) -> dict[str, Any] | None:
+        raise NotImplementedError
+
+
+# Parses an MNPI financial_amount matched_text into a numeric base value in millions. Returns
+# None when the unit suffix is missing — `$5,000,000` parses; `$5,000,000.00` parses; bare
+# `$5` does not get scaled (too noisy without a unit). Conservative: prefer not to scale than
+# to scale wrongly.
+_AMOUNT_UNIT_RE = re.compile(
+    r"(?P<num>\d(?:[\d,]*\d)?(?:\.\d+)?)\s*(?P<unit>thousand|million|billion|trillion|[KMBT])?",
+    re.IGNORECASE,
+)
+_UNIT_MULTIPLIER: dict[str, float] = {
+    "": 1.0, "K": 1e3, "THOUSAND": 1e3,
+    "M": 1e6, "MILLION": 1e6,
+    "B": 1e9, "BILLION": 1e9,
+    "T": 1e12, "TRILLION": 1e12,
+}
+
+
+def _parse_financial_amount(matched_text: str) -> float | None:
+    """Return the matched amount as a raw numeric value, or None when unparseable. Currency
+    symbols are ignored — entity-size comparison is denomination-agnostic at this layer; the
+    EntitySizeLookup caller is responsible for currency-normalising its revenue / market_cap
+    values to the same denomination as the source document."""
+    m = _AMOUNT_UNIT_RE.search(matched_text)
+    if not m:
+        return None
+    num_str = m.group("num").replace(",", "")
+    try:
+        num = float(num_str)
+    except ValueError:
+        return None
+    unit_key = (m.group("unit") or "").upper()
+    multiplier = _UNIT_MULTIPLIER.get(unit_key, 1.0)
+    return num * multiplier
+
+
+def _parse_financial_percentage(matched_text: str) -> float | None:
+    """Return percentage as a fraction (5% → 0.05). None when unparseable."""
+    m = re.search(r"(\d+(?:\.\d+)?)\s*%", matched_text)
+    if not m:
+        return None
+    try:
+        return float(m.group(1)) / 100.0
+    except ValueError:
+        return None
+
+
+def _resolve_tiers(jurisdiction: str, entity_info: dict[str, Any] | None) -> tuple[tuple[float, str], ...] | None:
+    """Return the tier ladder for the given jurisdiction. None for advisory-only jurisdictions
+    (engine surfaces percentage as reason suffix but does not mutate severity)."""
+    juris_codes = jurisdiction.split("+")
+    if any(code == "AU" for code in juris_codes):
+        if entity_info and entity_info.get("is_asx_300"):
+            return _MATERIALITY_TIERS_AU_ASX300
+        return _MATERIALITY_TIERS_AU_GENERAL
+    if any(code == "US" for code in juris_codes):
+        return _MATERIALITY_TIERS_US
+    if any(code in _MATERIALITY_ADVISORY_ONLY for code in juris_codes):
+        return None
+    # Unknown / synthesised baseline pack: default to US ladder (SAB 99 is the most-cited).
+    return _MATERIALITY_TIERS_US
+
+
+def _tier_for(fraction: float, ladder: tuple[tuple[float, str], ...]) -> str | None:
+    for threshold, severity in ladder:
+        if fraction >= threshold:
+            return severity
+    return None
+
+
+def _scale_financial_by_entity_size(
+    findings: list["ReviewFinding"],
+    *,
+    jurisdiction: str,
+    entity_id: str | None,
+    entity_size_lookup: "EntitySizeLookup | None",
+) -> list[dict[str, Any]]:
+    """Mutate financial_amount / financial_percentage finding severities per item 73 ladder.
+    Returns a list of degraded_modes entries when the lookup is unavailable or returns
+    insufficient data. Fails loud — no silent default."""
+    affected = [f for f in findings if f.rule in _MATERIALITY_SCALED_RULES]
+    if not affected:
+        return []
+    if entity_size_lookup is None or not entity_id:
+        return [
+            {
+                "mode": "materiality_lookup_not_configured",
+                "status": "skipped",
+                "reason": (
+                    "no entity_size_lookup configured or entity_id not provided; "
+                    "financial_amount / financial_percentage findings kept at default "
+                    "severity. SAB 99 5% / ASX GN8 entity-relative scaling unavailable."
+                ),
+                "detail": {"affected_finding_count": len(affected)},
+            }
+        ]
+    try:
+        entity_info = entity_size_lookup.lookup(entity_id, jurisdiction)
+    except Exception as exc:  # entity-source providers are external — fail loud, not closed
+        return [
+            {
+                "mode": "materiality_lookup_failed",
+                "status": "failed_closed",
+                "reason": f"entity size lookup raised: {exc}",
+                "detail": {"entity_id": entity_id, "jurisdiction": jurisdiction},
+            }
+        ]
+    if not entity_info:
+        return [
+            {
+                "mode": "materiality_lookup_missing_entity",
+                "status": "skipped",
+                "reason": (
+                    f"entity_size_lookup returned no record for {entity_id!r} under "
+                    f"jurisdiction {jurisdiction}; financial findings kept at default severity"
+                ),
+                "detail": {"entity_id": entity_id, "jurisdiction": jurisdiction},
+            }
+        ]
+    ladder = _resolve_tiers(jurisdiction, entity_info)
+    # Choose the larger of (revenue, market_cap) as the base — SAB 99 doesn't mandate which.
+    # Larger base yields a lower fraction → softer tier. Conservative for over-firing.
+    base = max(
+        float(entity_info.get("revenue") or 0.0),
+        float(entity_info.get("market_cap") or 0.0),
+    )
+    if base <= 0:
+        return [
+            {
+                "mode": "materiality_lookup_invalid_base",
+                "status": "skipped",
+                "reason": "entity_size_lookup returned non-positive revenue and market_cap",
+                "detail": {"entity_id": entity_id, "jurisdiction": jurisdiction},
+            }
+        ]
+    for f in affected:
+        if f.rule == "financial_amount":
+            value = _parse_financial_amount(f.matched_text)
+            if value is None:
+                continue
+            fraction = value / base
+        else:  # financial_percentage — direct fraction; entity base used for context only
+            fraction = _parse_financial_percentage(f.matched_text)
+            if fraction is None:
+                continue
+        if ladder is None:
+            # Advisory-only jurisdiction (MAR / SGX / HKEX): annotate reason, leave severity.
+            f.reason = (
+                f.reason
+                + f" — entity-relative {fraction:.2%} (regulator declines numeric materiality threshold; review required)"
+            )
+            continue
+        new_tier = _tier_for(fraction, ladder)
+        if new_tier is None or SEVERITY_SCORE[new_tier] <= SEVERITY_SCORE[f.severity]:
+            # Tier ladder did not exceed the deterministic floor. Leave severity intact.
+            f.reason = f.reason + f" — entity-relative {fraction:.2%} (below scaling tier)"
+            continue
+        f.severity = new_tier
+        f.score = SEVERITY_SCORE[new_tier]
+        f.reason = (
+            f.reason
+            + f" — escalated to {new_tier} per SAB 99 / ASX GN8 entity-relative tier "
+            f"({fraction:.2%} of base)"
+        )
+    return []
+
+
+# item 84: blackout-window calendrical detector.
+#
+# Most listed-company regimes have a closed period before results announcements. Today's
+# `embargo_marker` catches explicit "embargoed" / "press hold" strings but no calendrical
+# reasoning. This pass fires `blackout_period_reference` when a document references both
+# (a) its own date and (b) a results / earnings announcement date such that today falls
+# within the jurisdiction's blackout window.
+#
+# Jurisdiction registry (verified 2026-05-27):
+#  - SGX Mainboard Rule 1207(19)(c): 2 weeks before Q1-Q3; 1 month before half / full-year.
+#    https://rulebook.sgx.com/rulebook/1207
+#  - HKEX MB Appendix C3 (formerly Appendix 10 Model Code, renumbered Update 91):
+#    30 days before interim / quarterly; 60 days before annual results.
+#    https://en-rules.hkex.com.hk/rulebook/model-code-securities-transactions-directors-listed-issuers-1
+#  - UK MAR Art 19(11) + UKLR (formerly LR 9.2.6): 30 calendar days closed period for PDMRs
+#    before interim and year-end financial reports.
+#    https://handbook.fca.org.uk/handbook?entityId=uklr
+#  - US Reg FD: no codified duration. Firm-policy 2–4 weeks; advisory only here.
+#    https://icrinc.com/news-resources/quiet-period-questions-answered-for-public-companies/
+#  - ASX: no exchange-mandated duration (LR 12.9 + GN 27 require an issuer trading policy
+#    but do not set a length). Advisory only.
+#
+# v1 ships per-juris explicit-date detection only. ticker → next-earnings-date lookup is
+# deferred to v2 (audit_grade; depends on item 73 entity_size_lookup substrate + EDGAR
+# connector — earnings dates without a paid feed are estimates, not ground truth).
+
+_BLACKOUT_WINDOW_DAYS: dict[str, dict[str, int]] = {
+    "SG": {"interim": 14, "annual": 30},   # SGX MB 1207(19)(c)
+    "HK": {"interim": 30, "annual": 60},   # HKEX MB App C3
+    "UK": {"interim": 30, "annual": 30},   # UK MAR Art 19(11) + UKLR
+    "EU": {"interim": 30, "annual": 30},   # EU MAR Art 19(11) (parallel to UK MAR)
+}
+
+# Earnings-date anchors. Each carries a period_type label so the engine selects the right
+# window. Order matters — more specific patterns first to avoid mis-classifying "annual" as
+# "interim".
+_EARNINGS_DATE_ANCHORS: tuple[tuple[re.Pattern[str], str], ...] = (
+    (re.compile(
+        r"\b(?:full[ -]year|annual|FY|year[ -]end)\s+results?\s+(?:announcement\s+)?"
+        r"(?:to\s+be\s+(?:released|announced|published)\s+on|scheduled\s+for|"
+        r"on|due|expected\s+on|set\s+for)\s+"
+        r"([\w,/\- ]{6,40}?)(?=[.\n,;]|\Z)",
+        re.IGNORECASE,
+    ), "annual"),
+    (re.compile(
+        r"\b(?:interim|half[ -]year|H[12]|Q[1-4]|quarterly)\s+results?\s+"
+        r"(?:announcement\s+)?(?:to\s+be\s+(?:released|announced|published)\s+on|"
+        r"scheduled\s+for|on|due|expected\s+on|set\s+for)\s+"
+        r"([\w,/\- ]{6,40}?)(?=[.\n,;]|\Z)",
+        re.IGNORECASE,
+    ), "interim"),
+    (re.compile(
+        # Generic "earnings on" / "results on" without period qualifier — default to interim
+        # (the shorter window is more conservative; reviewer can override).
+        r"\b(?:earnings|results)\s+(?:announcement\s+)?"
+        r"(?:to\s+be\s+(?:released|announced|published)\s+on|scheduled\s+for|"
+        r"on|due|expected\s+on|set\s+for)\s+"
+        r"([\w,/\- ]{6,40}?)(?=[.\n,;]|\Z)",
+        re.IGNORECASE,
+    ), "interim"),
+)
+
+# Document date anchors. First match wins. Several common memo / email / contract headers.
+_DOC_DATE_ANCHORS: tuple[re.Pattern[str], ...] = (
+    re.compile(r"\bDate\s*[:\-]\s*([\w,/\- ]{6,30})", re.IGNORECASE),
+    re.compile(r"\bToday(?:'s\s+date)?\s+is\s+([\w,/\- ]{6,30})", re.IGNORECASE),
+    re.compile(r"\bMemo\s+date\s*[:\-]\s*([\w,/\- ]{6,30})", re.IGNORECASE),
+    re.compile(r"\bDated\s+(?:as\s+of\s+)?([\w,/\- ]{6,30})", re.IGNORECASE),
+)
+
+# Date parsing covering the SG/UK/EU/HK conventions reviewers actually use.
+_MONTH_NAMES: dict[str, int] = {
+    "jan": 1, "january": 1, "feb": 2, "february": 2, "mar": 3, "march": 3,
+    "apr": 4, "april": 4, "may": 5, "jun": 6, "june": 6, "jul": 7, "july": 7,
+    "aug": 8, "august": 8, "sep": 9, "sept": 9, "september": 9,
+    "oct": 10, "october": 10, "nov": 11, "november": 11, "dec": 12, "december": 12,
+}
+_DATE_ISO_RE = re.compile(r"\b(\d{4})-(\d{1,2})-(\d{1,2})\b")
+_DATE_DMY_NAME_RE = re.compile(
+    r"\b(\d{1,2})\s+([A-Za-z]{3,9})\s+(\d{4})\b"
+)
+_DATE_MDY_NAME_RE = re.compile(
+    r"\b([A-Za-z]{3,9})\s+(\d{1,2}),?\s+(\d{4})\b"
+)
+_DATE_DMY_SLASH_RE = re.compile(r"\b(\d{1,2})/(\d{1,2})/(\d{4})\b")
+
+
+def _parse_date(text: str) -> tuple[int, int, int] | None:
+    """Return (year, month, day) for the first recognised date in `text`. Tries ISO,
+    DMY-name, MDY-name, and DMY-slash forms. Returns None when none match. DMY-slash
+    is the SG/UK/EU convention — US MDY-slash ambiguity is left to the reviewer.
+
+    Implemented with stdlib only to keep `kaypoh-local` torch-ban discipline intact.
+    """
+    import datetime as _dt
+    text = text.strip()
+    m = _DATE_ISO_RE.search(text)
+    if m:
+        try:
+            _dt.date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+            return int(m.group(1)), int(m.group(2)), int(m.group(3))
+        except ValueError:
+            pass
+    m = _DATE_DMY_NAME_RE.search(text)
+    if m:
+        month = _MONTH_NAMES.get(m.group(2).lower())
+        if month:
+            try:
+                _dt.date(int(m.group(3)), month, int(m.group(1)))
+                return int(m.group(3)), month, int(m.group(1))
+            except ValueError:
+                pass
+    m = _DATE_MDY_NAME_RE.search(text)
+    if m:
+        month = _MONTH_NAMES.get(m.group(1).lower())
+        if month:
+            try:
+                _dt.date(int(m.group(3)), month, int(m.group(2)))
+                return int(m.group(3)), month, int(m.group(2))
+            except ValueError:
+                pass
+    m = _DATE_DMY_SLASH_RE.search(text)
+    if m:
+        try:
+            _dt.date(int(m.group(3)), int(m.group(2)), int(m.group(1)))
+            return int(m.group(3)), int(m.group(2)), int(m.group(1))
+        except ValueError:
+            pass
+    return None
+
+
+def _detect_blackout_period_references(
+    text: str,
+    *,
+    packs: list[JurisdictionRulePack],
+    jurisdiction: str,
+    legal_basis: str,
+    idx_start: int,
+) -> list["ReviewFinding"]:
+    """Fire `blackout_period_reference` when document date + earnings date co-occur within
+    the per-jurisdiction blackout window. Only fires when at least one applicable juris is
+    in `_BLACKOUT_WINDOW_DAYS`. Severity medium standalone."""
+    applicable_juris = [pack.code for pack in packs if pack.code in _BLACKOUT_WINDOW_DAYS]
+    if not applicable_juris:
+        return []
+
+    doc_date: tuple[int, int, int] | None = None
+    for anchor in _DOC_DATE_ANCHORS:
+        m = anchor.search(text)
+        if m:
+            doc_date = _parse_date(m.group(1))
+            if doc_date:
+                break
+    if doc_date is None:
+        return []
+
+    import datetime as _dt
+    doc_d = _dt.date(*doc_date)
+
+    out: list["ReviewFinding"] = []
+    idx = idx_start
+    # Dedup by parsed earnings date — both the specific anchor (annual / interim with
+    # period qualifier) and the generic anchor can match the same date phrase; the more
+    # specific match wins via iteration order.
+    seen_earnings: set[tuple[int, int, int]] = set()
+    for pattern, period in _EARNINGS_DATE_ANCHORS:
+        for m in pattern.finditer(text):
+            earnings_date = _parse_date(m.group(1))
+            if not earnings_date:
+                continue
+            if earnings_date in seen_earnings:
+                continue
+            seen_earnings.add(earnings_date)
+            ed = _dt.date(*earnings_date)
+            delta = (ed - doc_d).days
+            if delta < 0:
+                continue
+            # Pick the strictest applicable jurisdiction (longest window).
+            applicable_window = max(
+                _BLACKOUT_WINDOW_DAYS[code][period] for code in applicable_juris
+            )
+            if delta > applicable_window:
+                continue
+            window_owner = max(
+                applicable_juris,
+                key=lambda code: _BLACKOUT_WINDOW_DAYS[code][period],
+            )
+            out.append(
+                _new_finding(
+                    idx=idx,
+                    category="MNPI",
+                    rule="blackout_period_reference",
+                    jurisdiction=jurisdiction,
+                    severity="medium",
+                    matched_text=m.group(),
+                    start=m.start(),
+                    end=m.end(),
+                    reason=(
+                        f"Document dated {doc_d.isoformat()}; {period} results "
+                        f"announcement on {ed.isoformat()} is within {window_owner} "
+                        f"{applicable_window}-day blackout window (delta={delta} days)"
+                    ),
+                    legal_basis=legal_basis,
+                )
+            )
+            idx += 1
+    return out
+
+
 def _suppress_redundant_phone_findings(findings: list["ReviewFinding"]) -> list["ReviewFinding"]:
     """Drop phone_number findings whose [start, end) is fully covered by a higher-priority
     identifier finding (NRIC, UEN, MyKad, NIK, CCCD, passport, bank account).
@@ -847,6 +1283,7 @@ class PreSendReviewEngine:
         llm_adjudicator: Any | None = None,
         llm_defined_term_extractor: Any | None = None,
         llm_coverage_auditor: Any | None = None,
+        entity_size_lookup: EntitySizeLookup | None = None,
     ):
         self.public_evidence_retriever = public_evidence_retriever
         self.llm_adjudicator = llm_adjudicator
@@ -859,6 +1296,10 @@ class PreSendReviewEngine:
         # `coverage_warning` events and surfaced on ReviewResult; advisory only — never
         # mutates findings, scores, or classification.
         self.llm_coverage_auditor = llm_coverage_auditor
+        # item 73: entity revenue / market-cap source. Engine never instantiates a default —
+        # without one, financial_amount / financial_percentage findings keep their default
+        # severity and the engine emits a materiality_lookup_not_configured degraded mode.
+        self.entity_size_lookup = entity_size_lookup
 
     def _pii_findings(
         self,
@@ -1416,6 +1857,7 @@ class PreSendReviewEngine:
         include_suggestions: bool,
         document_type: str = "generic",
         session_id: str | None = None,
+        matter_id: str | None = None,
         review_profile: str = "strict",
         tenant_id: str | None = None,
     ) -> ReviewResult:
@@ -1445,12 +1887,51 @@ class PreSendReviewEngine:
             defined_terms = defined_terms | inherited
             if defined_terms - inherited:
                 add_defined_terms(session_id, defined_terms - inherited, tenant_id=tenant_id)
+        # item 55: matter-scoped inheritance sits above session-scope. Sessions belong to a matter;
+        # defined terms accumulate at matter level and inherit into every session within that matter.
+        # Closes the 30+ document M&A case where session-scope loses inheritance once the session
+        # rotates. matter terms persist across reviewers / weeks / sessions under the same matter_id.
+        if matter_id:
+            from kaypoh.review.matter_store import (
+                add_defined_terms as add_matter_terms,
+                load_defined_terms as load_matter_terms,
+            )
+
+            matter_inherited = load_matter_terms(matter_id, tenant_id=tenant_id)
+            defined_terms = defined_terms | matter_inherited
+            if defined_terms - matter_inherited:
+                add_matter_terms(matter_id, defined_terms - matter_inherited, tenant_id=tenant_id)
         findings = self._pii_findings(text, packs, document_type, defined_terms) + self._mnpi_findings(
             text, packs, defined_terms, document_type
         )
         # items 95 + 96: lift contingent/tipping severity when co-located with a deal substrate.
         # Mutates in place before scoring so the escalated severity feeds into mnpi_score.
         _amplify_co_occurring_low_mnpi(findings)
+
+        # item 73: entity-size-relative materiality (SAB 99 + ASX GN8). Mutates
+        # financial_amount / financial_percentage severities per jurisdiction tier ladder
+        # when an entity_size_lookup is configured. Fails loud via degraded_modes when not.
+        degraded_modes: list[dict[str, Any]] = _scale_financial_by_entity_size(
+            findings,
+            jurisdiction=_pack_scope(packs),
+            entity_id=entity_id,
+            entity_size_lookup=self.entity_size_lookup,
+        )
+
+        # item 84: blackout-window calendrical detector. Fires when document date + earnings
+        # date co-occur within the per-jurisdiction closed period (SGX 14d/30d, HKEX 30d/60d,
+        # UK/EU MAR 30d/30d). US Reg FD has no codified duration; not registered. Standalone
+        # medium severity — does not need the items-95/96/97 amplifier.
+        mnpi_legal_basis = _legal_basis(packs, "mnpi_rules")
+        findings.extend(
+            _detect_blackout_period_references(
+                text,
+                packs=packs,
+                jurisdiction=_pack_scope(packs),
+                legal_basis=mnpi_legal_basis,
+                idx_start=len(findings),
+            )
+        )
 
         # item 101: quasi-identifier combination seed. audit_grade only; appends one finding
         # per cluster of ≥3 distinct quasi-identifier rules within a 500-char window.
@@ -1544,4 +2025,5 @@ class PreSendReviewEngine:
             llm_adjudication=llm_adjudication,
             privacy_ledger=privacy_ledger,
             coverage_warnings=coverage_warnings,
+            degraded_modes=degraded_modes,
         )

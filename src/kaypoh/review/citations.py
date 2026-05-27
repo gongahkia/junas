@@ -411,6 +411,18 @@ _MNPI_DEFAULT_RATIONALE = {
         "publicly disclosed or generalise the claim; verify the in-force C&DI revision per "
         "item 53 cadence before relying on the citation externally."
     ),
+    "blackout_period_reference": (
+        "Blackout / closed-period reference detected (item 84). Document date and a "
+        "scheduled results-announcement date co-occur inside the issuer's closed period. "
+        "Under SGX Mainboard Rule 1207(19)(c) (SG: 2 weeks Q1-Q3; 1 month half/full-year), "
+        "HKEX Mainboard Appendix C3 / formerly Appendix 10 Model Code (HK: 30 days "
+        "interim/quarterly; 60 days annual), UK MAR Article 19(11) + UKLR / former LR "
+        "9.2.6 (UK/EU: 30-day closed period for PDMRs), and EU MAR Article 19(11), "
+        "communications during a closed period that move price-sensitive information "
+        "outside the issuer trigger insider-dealing and selective-disclosure exposure. "
+        "Hold until the period ends or restrict to whitelist recipients on the maintained "
+        "insider list."
+    ),
 }
 
 # jurisdiction-pack -> statute suffix appended to PII rationales for that jurisdiction.
