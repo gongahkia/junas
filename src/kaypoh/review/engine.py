@@ -170,6 +170,142 @@ TIPPING_RE = re.compile(
     r")",
     re.IGNORECASE,
 )
+# item 115: insider-list / wall-cross markers. List-maintenance + wall-cross-event vocabulary
+# anchored in MAR Art 18 (mandatory insider list), FSMA s118 (UK), FINRA Rule 5280
+# (US watch/restricted list), SFA s218 + SGX Mainboard Listing Rule 1207(6A) (SG). Same
+# co-occurrence amplifier discipline as items 95/96/97 — low standalone, medium when adjacent
+# to MNPI substrate within ±200 chars. Negation guard reused.
+INSIDER_LIST_RE = re.compile(
+    r"\b("
+    r"insider\s+lists?|"
+    r"restricted\s+lists?|"
+    r"watch\s+lists?|"
+    r"wall[- ]cross(?:ed|ing|es)|"
+    r"crossed?\s+over\s+the\s+wall|"
+    r"brought\s+(?:them\s+|him\s+|her\s+|the\s+\w+\s+)?over\s+the\s+wall|"
+    r"taken?\s+over\s+the\s+wall"
+    r")\b",
+    re.IGNORECASE,
+)
+# item 115: information-barrier markers. Barrier-existence vocabulary anchored in
+# FCA SYSC 10 + FSA COB 11.4 information-barrier rules (UK), FINRA Rule 5280 (US),
+# MAS Notice SFA 04-N16 + Securities and Futures Act (SG), MAR Art 11 market-soundings (EU).
+INFORMATION_BARRIER_RE = re.compile(
+    r"\b("
+    r"chinese\s+walls?|"
+    r"information\s+barriers?|"
+    r"ethical\s+walls?|"
+    r"ethical\s+screens?"
+    r")\b",
+    re.IGNORECASE,
+)
+# item 112: crypto / digital-asset pre-listing + enforcement markers. Token-launch / TGE /
+# airdrop / unlock / exchange-listing vocabulary anchored in MAS Notice PSN02 (2 Apr 2024,
+# revised 30 Jun 2025) + Payment Services Act 2019 s6 (DPT licensing) + MAS Guidelines on
+# Digital Token Offerings (May 2020) (SG); SEC Securities Act §5 + Howey + Reg FD as applied
+# to token issuers (US); MiCA Title II asset-referenced + e-money tokens (EU); SFO Cap 571 +
+# SFC VATP Position Paper (HK). `TGE` is case-locked to defend against lowercase prose.
+DPT_PRE_LISTING_RE = re.compile(
+    r"\b("
+    r"genesis\s+block|"
+    r"mainnet\s+(?:launch|go[- ]live|activation)|"
+    r"token\s+generation\s+event|"
+    r"(?-i:TGE)|"
+    r"airdrop\s+(?:schedule|allocation|snapshot)|"
+    r"vesting\s+cliff|"
+    r"unlock\s+(?:event|schedule|cliff)|"
+    r"exchange\s+listing\s+(?:decision|approval|application)|"
+    r"listed\s+on\s+(?:Binance|Coinbase|Kraken|OKX|Bybit|Upbit|Bitfinex|Gemini|Crypto\.com)|"
+    r"wells\s+notice|"
+    r"SEC\s+subpoena|"
+    r"MAS\s+no[- ]action|"
+    r"licence\s+revocation|"
+    r"delisting\s+decision|"
+    r"enforcement\s+action"
+    r")\b",
+    re.IGNORECASE,
+)
+# item 112: digital-asset protocol-event markers. Hard fork / governance / staking
+# vocabulary; pre-public-announcement these are MNPI for token issuers + holders.
+DPT_PROTOCOL_EVENT_RE = re.compile(
+    r"\b("
+    r"hard\s+fork|"
+    r"chain\s+split|"
+    r"consensus\s+change|"
+    r"governance\s+proposal|"
+    r"protocol\s+upgrade|"
+    r"validator\s+slashing|"
+    r"staking[- ]rewards?\s+(?:adjustment|change|reduction|increase)|"
+    r"treasury\s+rebalancing|"
+    r"multi[- ]sig\s+(?:transfer|movement|rotation)"
+    r")\b",
+    re.IGNORECASE,
+)
+# item 113: ESG / sustainability pre-disclosure markers. SGX Listing Rule 711A/711B + ISSB
+# IFRS S2 (Scope 1+2 mandatory FY 2025; Scope 3 mandatory for STI constituents FY 2026);
+# EU CSRD Directive 2022/2464 + SFDR Reg 2019/2088 + ESRS Delegated Reg 2023/2772; SEC
+# Final Rule 33-11275 (climate disclosure, partial-stay pending); ISSB IFRS S1 sustainability
+# disclosure. `Scope 1/2/3` are case-anchored (the GHG-Protocol convention is capital S).
+ESG_CLIMATE_PRE_DISCLOSURE_RE = re.compile(
+    r"\b("
+    r"(?-i:Scope\s+[123])(?:\s+(?:GHG\s+)?emissions?|\s+category)?|"
+    r"tCO2e|"
+    r"science[- ]based\s+targets?|"
+    r"SBTi[- ]validated|"
+    r"transition\s+plan|"
+    r"physical[- ]risk\s+assessment|"
+    r"value[- ]chain\s+emissions|"
+    r"materiality\s+reassessment|"
+    r"climate[- ]related\s+(?:disclosures?|risks?)|"
+    r"IFRS\s+S[12]\s+(?:compliance|disclosure)"
+    r")\b",
+    re.IGNORECASE,
+)
+# item 113: ESG target revision + assurance markers. Restating prior-year emissions or
+# revising a published climate target is materially price-sensitive under SGX 711A/711B +
+# IFRS S2 (revisions require explicit disclosure). Limited / reasonable assurance opinions
+# carry the same MNPI weight as financial-audit opinions when issued on a sustainability
+# report.
+ESG_TARGET_REVISION_RE = re.compile(
+    r"\b("
+    r"revise\s+(?:downward|upward)[^.\n]{0,40}?(?:emissions?|targets?)|"
+    r"restate\s+(?:prior[- ]year\s+)?(?:Scope\s+[123]|emissions?)|"
+    r"change\s+(?:the\s+)?baseline\s+year|"
+    r"limited\s+assurance(?:\s+opinion)?|"
+    r"reasonable\s+assurance(?:\s+opinion)?|"
+    r"qualified\s+opinion\s+on\s+sustainability|"
+    r"adverse\s+opinion\s+on\s+sustainability|"
+    r"assurance\s+scope"
+    r")\b",
+    re.IGNORECASE,
+)
+# item 114: cyber-incident pre-disclosure detector. SEC 8-K Item 1.05 (effective Dec 2023;
+# 4-business-day disclosure window from MATERIALITY DETERMINATION per SEC Division of Corp
+# Fin C&DIs re-issued May/Jun 2024) — a pre-determination / pre-disclosure draft is MNPI by
+# construction. Co-anchored by NYDFS 23 NYCRR 500.17 (FS NY), EU NIS2 Directive 2022/2555
+# (EU/UK FS), MAS TRM Guidelines (Jan 2021) + MAS Notice 644 (SG), UK FCA SYSC 13 +
+# PRA SS1/21 (UK). Severity follows the co-occurrence amplifier; explicit 8-K timer /
+# materiality-determination language is also detected as substrate via the 8-K phrase set.
+CYBER_INCIDENT_RE = re.compile(
+    r"\b("
+    r"we\s+have\s+(?:determined|concluded)\s+(?:that\s+)?(?:this\s+|the\s+)?incident\s+is|"
+    r"incident\s+is\s+(?:material|materially\s+impactful)|"
+    r"materiality\s+determination|"
+    r"material\s+cybersecurity\s+incident|"
+    r"ransomware\s+(?:affecting|incident|attack|deployment)|"
+    r"data\s+exfiltration\s+(?:confirmed|detected|suspected)|"
+    r"unauthori[sz]ed\s+access\s+to\s+(?:production|customer|corporate|internal)|"
+    r"RAT\s+detected|"
+    r"lateral\s+movement(?:\s+(?:detected|observed))?|"
+    r"command[- ]and[- ]control\s+(?:beacon|server|infrastructure)|"
+    r"extortion\s+demand|"
+    r"decryption\s+key|"
+    r"8[- ]?K\s+(?:filing|Item\s+1\.05)|"
+    r"Item\s+1\.05\s+(?:disclosure|filing|notification)|"
+    r"4[- ]business[- ]day\s+(?:window|timer|deadline)"
+    r")\b",
+    re.IGNORECASE,
+)
 
 
 SEVERITY_SCORE = {"low": 25.0, "medium": 55.0, "high": 85.0}
@@ -361,7 +497,7 @@ def _new_finding(
 # MAC clause", "without any MAC clause" — without trying to be a general parser. Anything
 # more nuanced (subordinate clauses, double negatives) is deliberately left to the LLM tier.
 _NEGATION_LOOKBACK = re.compile(
-    r"\b(?:no|not|without|never|absent|excluding)\b[\s\w]{0,15}\Z",
+    r"\b(?:no|nor|not|without|never|absent|excluding|neither)\b[\s\w]{0,15}\Z",
     re.IGNORECASE,
 )
 
@@ -420,6 +556,10 @@ def _apply_retrieval_verification(
 # adjacent to "Project Sapphire" or a definitive-agreement reference is the offence.
 _CO_OCCURRENCE_AMPLIFIER_RULES = frozenset({
     "contingent_mnpi_language", "tipping_language", "selective_disclosure_risk",
+    "insider_list_marker", "information_barrier_marker",
+    "dpt_pre_listing_marker", "dpt_protocol_event_marker",
+    "esg_climate_pre_disclosure", "esg_target_revision",
+    "cyber_incident_pre_disclosure",
 })
 _CO_OCCURRENCE_TRIGGER_RULES = frozenset({
     "transaction_codename", "definitive_agreement", "material_adverse_change",
@@ -982,15 +1122,36 @@ class PreSendReviewEngine:
              "Contingent / forward-looking language; amplifies when adjacent to deal substrate"),
             (TIPPING_RE, "tipping_language",
              "Forwarding / distribution language; amplifies when adjacent to MNPI substrate"),
+            (INSIDER_LIST_RE, "insider_list_marker",
+             "Insider-list / wall-cross marker; amplifies when adjacent to MNPI substrate"),
+            (INFORMATION_BARRIER_RE, "information_barrier_marker",
+             "Information-barrier marker; amplifies when adjacent to MNPI substrate"),
+            (DPT_PRE_LISTING_RE, "dpt_pre_listing_marker",
+             "Digital-asset pre-listing / enforcement marker; amplifies when adjacent to MNPI substrate"),
+            (DPT_PROTOCOL_EVENT_RE, "dpt_protocol_event_marker",
+             "Digital-asset protocol-event marker; amplifies when adjacent to MNPI substrate"),
+            (ESG_CLIMATE_PRE_DISCLOSURE_RE, "esg_climate_pre_disclosure",
+             "ESG / climate pre-disclosure marker; amplifies when adjacent to MNPI substrate"),
+            (ESG_TARGET_REVISION_RE, "esg_target_revision",
+             "ESG target revision / assurance opinion; amplifies when adjacent to MNPI substrate"),
+            (CYBER_INCIDENT_RE, "cyber_incident_pre_disclosure",
+             "Cyber-incident pre-disclosure marker; amplifies when adjacent to MNPI substrate"),
         ]
         if is_us_scope:
             post_pass_rules.append(
                 (SELECTIVE_DISCLOSURE_RE, "selective_disclosure_risk",
                  "Selective-disclosure language (Reg FD); amplifies when adjacent to MNPI substrate")
             )
+        # rules where lookback-window negation should suppress firing.
+        _negation_guarded = {
+            "contingent_mnpi_language", "insider_list_marker", "information_barrier_marker",
+            "dpt_pre_listing_marker", "dpt_protocol_event_marker",
+            "esg_climate_pre_disclosure", "esg_target_revision",
+            "cyber_incident_pre_disclosure",
+        }
         for pattern, rule, reason in post_pass_rules:
             for match in pattern.finditer(text):
-                if rule == "contingent_mnpi_language" and _is_negated_context(text, match.start()):
+                if rule in _negation_guarded and _is_negated_context(text, match.start()):
                     continue
                 findings.append(
                     _new_finding(

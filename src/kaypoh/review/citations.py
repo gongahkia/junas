@@ -242,6 +242,66 @@ _MNPI_DEFAULT_RATIONALE = {
         "If the surrounding passage contains MNPI, ensure simultaneous public disclosure or "
         "obtain a Reg FD §100(b)(2) confidentiality undertaking from the recipient."
     ),
+    "insider_list_marker": (
+        "Insider-list / wall-cross marker detected. Under MAR Art 18 (EU/UK — mandatory "
+        "insider-list maintenance), FINRA Rule 5280 (US watch/restricted lists), "
+        "SFA s218 + SGX Mainboard Listing Rule 1207(6A) (SG), and Corporations Act "
+        "s1043F (AU), persons added to such lists are presumed to be in possession of "
+        "inside information. Confirm the recipient is on the maintained insider list and "
+        "that the disclosure is recorded before forwarding."
+    ),
+    "information_barrier_marker": (
+        "Information-barrier marker detected. Under FCA SYSC 10 + FSA COB 11.4 (UK), "
+        "FINRA Rule 5280 (US), MAS Notice SFA 04-N16 (SG), and MAR Art 11 (EU market "
+        "soundings), information barriers (Chinese walls / ethical screens) restrict the "
+        "flow of inside information between business units. References to crossing or "
+        "breaching a barrier are presumptively MNPI-handling events; confirm the recipient "
+        "is on the appropriate side of the barrier before forwarding."
+    ),
+    "dpt_pre_listing_marker": (
+        "Digital-asset pre-listing / enforcement marker detected. Under MAS Notice PSN02 "
+        "(2 Apr 2024, revised 30 Jun 2025) + Payment Services Act 2019 s6 (DPT licensing) "
+        "+ MAS Guidelines on Digital Token Offerings (SG); US Securities Act §5 + Howey + "
+        "SEC Reg FD as applied to token issuers; MiCA Title II (EU asset-referenced + "
+        "e-money tokens); SFO Cap 571 + SFC VATP Position Paper (HK) — token-launch, "
+        "exchange-listing, and enforcement-action language is MNPI pre-public-announcement. "
+        "Hold until publicly disclosed or generalise the claim."
+    ),
+    "dpt_protocol_event_marker": (
+        "Digital-asset protocol-event marker detected. Hard forks, governance proposals, "
+        "validator slashing, and staking-rewards changes are price-sensitive token-issuer "
+        "events under MAS Notice PSN02 + Payment Services Act 2019 (SG), SEC Reg FD as "
+        "applied to token issuers (US), MiCA Art 88 (EU significant ART/EMT events), and "
+        "SFC VATP Code (HK). Hold until publicly disclosed."
+    ),
+    "esg_climate_pre_disclosure": (
+        "ESG / climate pre-disclosure marker detected. Under SGX Listing Rule 711A/711B + "
+        "ISSB IFRS S2 (Scope 1+2 mandatory FYC 2025; Scope 3 mandatory for STI constituents "
+        "FYC 2026) (SG); EU CSRD Directive 2022/2464 + ESRS Delegated Reg 2023/2772 + "
+        "SFDR Reg 2019/2088 (EU); SEC Final Rule 33-11275 (US climate disclosure, partial "
+        "stay pending); ISSB IFRS S1 (sustainability) — pre-disclosure climate metrics and "
+        "transition-plan language are price-sensitive when the issuer is in scope of any "
+        "of these regimes. Hold until publicly disclosed."
+    ),
+    "esg_target_revision": (
+        "ESG target revision / assurance opinion detected. Restating prior-year emissions, "
+        "revising a published climate target, or changing the baseline year is materially "
+        "price-sensitive under SGX 711A/711B + IFRS S2 (SG), EU CSRD + ESRS (EU), and SEC "
+        "Final Rule 33-11275 (US). Limited / reasonable / qualified / adverse assurance "
+        "opinions on a sustainability report carry the same MNPI weight as financial-audit "
+        "opinions. Hold until publicly disclosed."
+    ),
+    "cyber_incident_pre_disclosure": (
+        "Cyber-incident pre-disclosure marker detected. Under SEC 8-K Item 1.05 (effective "
+        "Dec 2023; 4-business-day window from materiality determination per SEC Division "
+        "of Corp Fin C&DIs re-issued May/Jun 2024) + SEC Final Rule 33-11216 (US); NYDFS "
+        "23 NYCRR 500.17 (NY FS, 72-hour notification); EU NIS2 Directive 2022/2555 "
+        "(early-warning 24h / incident-notification 72h); MAS TRM Guidelines (Jan 2021) + "
+        "MAS Notice 644 (SG, 1-hour notification); UK FCA SYSC 13 + PRA SS1/21 — a draft "
+        "incident-disclosure or pre-determination memo is MNPI by construction. Hold until "
+        "publicly disclosed or generalise the claim; verify the in-force C&DI revision per "
+        "item 53 cadence before relying on the citation externally."
+    ),
 }
 
 # jurisdiction-pack -> statute suffix appended to PII rationales for that jurisdiction.

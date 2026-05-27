@@ -1,0 +1,14 @@
+{
+  "doc_id": "insider_list_memo_01",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {"rule": "transaction_codename", "matched_text": "Project Sapphire"},
+    {"rule": "insider_list_marker", "matched_text": "wall-crossed"},
+    {"rule": "insider_list_marker", "matched_text": "insider list"},
+    {"rule": "information_barrier_marker", "matched_text": "information barrier"}
+  ],
+  "must_not_detect": [],
+  "_label_source": "hand"
+}

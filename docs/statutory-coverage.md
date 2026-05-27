@@ -116,6 +116,8 @@ These rules fire regardless of jurisdiction; the statutory anchor is jurisdictio
 | `contingent_mnpi_language` | Basic v. Levinson + MAR Art 7(2-3) + SFA s215 — contingent / probabilistic / pre-decisional language ("subject to board approval", "in discussions", "management believes", gated "likely/expected to close|approve|materialise") | low → medium | item 95; co-occurrence amplifier escalates to medium when within ±200 chars of a deal substrate |
 | `tipping_language` | SFA s219 + Rule 10b5-2 + MAR Art 14 + SFO Part XIV — passing-on / forwarding / select-distribution language | low → medium | item 96; same ±200 char amplifier |
 | `selective_disclosure_risk` | 17 CFR 243.100 (Reg FD) §100(b)(1)(i-iv) recipient categories — brokers/dealers, investment advisers / 13F filers, investment companies, holders of issuer's securities reasonably foreseeable to trade | low → medium | item 97; **US-only** (registers into the post-pass only when packs include US); same ±200 char amplifier |
+| `insider_list_marker` | MAR Art 18 (EU/UK insider-list maintenance) + FINRA Rule 5280 (US watch/restricted list) + SFA s218 + SGX Mainboard Listing Rule 1207(6A) (SG) + Corporations Act s1043F (AU) — list-maintenance + wall-cross-event vocabulary | low → medium | item 115; same ±200 char amplifier; negation guard reused |
+| `information_barrier_marker` | FCA SYSC 10 + FSA COB 11.4 (UK information barriers) + FINRA Rule 5280 (US) + MAS Notice SFA 04-N16 (SG) + MAR Art 11 (EU market soundings) — barrier-existence vocabulary | low → medium | item 115; same ±200 char amplifier; negation guard reused |
 
 ## Cross-cutting doctrinal coverage
 
@@ -124,6 +126,8 @@ These rules fire regardless of jurisdiction; the statutory anchor is jurisdictio
 - **Contingent / forward-looking MNPI** — Basic v. Levinson + MAR Art 7(2-3) + SFA s215. Implemented as `contingent_mnpi_language` with co-occurrence amplifier (item 95).
 - **Tipping co-extensivity** — SFA s219 + Rule 10b5-2 + MAR Art 14 + SFO Part XIV. Implemented as `tipping_language` with co-occurrence amplifier (item 96).
 - **Selective disclosure (Reg FD)** — 17 CFR 243.100. Implemented as `selective_disclosure_risk`, US-only, with co-occurrence amplifier (item 97).
+- **Insider-list / wall-cross markers** — MAR Art 18 + FINRA Rule 5280 + SFA s218 + SGX 1207(6A) + Corporations Act s1043F. Implemented as `insider_list_marker` with co-occurrence amplifier (item 115).
+- **Information-barrier markers** — FCA SYSC 10 + FSA COB 11.4 + FINRA Rule 5280 + MAS Notice SFA 04-N16 + MAR Art 11. Implemented as `information_barrier_marker` with co-occurrence amplifier (item 115).
 - **Jurisdiction-suffix wiring** — every MNPI finding's suggestion rationale carries the destination-jurisdiction statute suffix; cross-jurisdiction routing (e.g. source=SG, destination=US) carries BOTH suffixes. Audited by `test/test_mnpi_jurisdiction_suffix.py` (item 94).
 - **Statute-citation override** — `KAYPOH_CITATIONS_OVERRIDE_DIR/{tenant_id}.toml` resolves tenant-specific internal compliance citations before the global `KAYPOH_CITATIONS_OVERRIDE` fallback. Malformed configured overrides fail closed instead of silently falling back.
 

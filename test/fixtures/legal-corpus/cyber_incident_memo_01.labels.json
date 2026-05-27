@@ -1,0 +1,19 @@
+{
+  "doc_id": "cyber_incident_memo_01",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "US",
+  "must_detect": [
+    {"rule": "transaction_codename", "matched_text": "Project Halberd"},
+    {"rule": "cyber_incident_pre_disclosure", "matched_text": "Ransomware affecting"},
+    {"rule": "cyber_incident_pre_disclosure", "matched_text": "Data exfiltration confirmed"},
+    {"rule": "cyber_incident_pre_disclosure", "matched_text": "Lateral movement observed"},
+    {"rule": "cyber_incident_pre_disclosure", "matched_text": "Command-and-control beacon"},
+    {"rule": "cyber_incident_pre_disclosure", "matched_text": "Extortion demand"},
+    {"rule": "cyber_incident_pre_disclosure", "matched_text": "materiality determination"},
+    {"rule": "cyber_incident_pre_disclosure", "matched_text": "4-business-day timer"},
+    {"rule": "cyber_incident_pre_disclosure", "matched_text": "8-K Item 1.05"}
+  ],
+  "must_not_detect": [],
+  "_label_source": "hand"
+}
