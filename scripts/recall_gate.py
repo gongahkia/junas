@@ -39,10 +39,13 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_PATH = REPO_ROOT / "src"
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
 from kaypoh.review.engine import PreSendReviewEngine  # noqa: E402
+from scripts.candidate_review import collect_review_status_violations  # noqa: E402
 
 DEFAULT_CORPUS_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus"
 REGRESSION_TOLERANCE = 1e-6
@@ -62,6 +65,13 @@ def _lock_path_for(corpus_dir: Path) -> Path:
 
 def _history_path_for(corpus_dir: Path) -> Path:
     return corpus_dir / "recall.lock.history.jsonl"
+
+
+def _relative(path: Path) -> str:
+    try:
+        return str(path.relative_to(REPO_ROOT))
+    except ValueError:
+        return str(path)
 
 
 @dataclass
@@ -245,6 +255,11 @@ def _compare(current: dict[str, float], baseline: dict[str, float], *, label: st
     return regressions
 
 
+def _reason_mentions_human_review(reason: str) -> bool:
+    normalized = reason.strip().lower()
+    return "candidate" in normalized and ("human" in normalized or "review" in normalized or "approved" in normalized)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Legal-corpus recall + precision gate")
     parser.add_argument(
@@ -258,6 +273,11 @@ def main(argv: list[str] | None = None) -> int:
         "--reason",
         default="",
         help="required when --update is set; one-line attribution recorded in <corpus>/recall.lock.history.jsonl",
+    )
+    parser.add_argument(
+        "--require-human-reviewed",
+        action="store_true",
+        help="fail if generated/candidate labels in the corpus lack explicit human approval",
     )
     parser.add_argument("--verbose", action="store_true", help="print per-doc detail")
     args = parser.parse_args(argv)
@@ -274,6 +294,14 @@ def main(argv: list[str] | None = None) -> int:
     if not doc_paths:
         print(f"no .txt fixtures in {corpus_dir}", file=sys.stderr)
         return 2
+
+    if args.require_human_reviewed:
+        review_violations = collect_review_status_violations(corpus_dir)
+        if review_violations:
+            print("generated/candidate labels require human approval:", file=sys.stderr)
+            for violation in review_violations:
+                print(f"human-review violation: {violation}", file=sys.stderr)
+            return 2
 
     docs: list[DocResult] = []
     all_violations: list[str] = []
@@ -308,6 +336,12 @@ def main(argv: list[str] | None = None) -> int:
                 file=sys.stderr,
             )
             return 2
+        if args.require_human_reviewed and not _reason_mentions_human_review(args.reason):
+            print(
+                "--update with --require-human-reviewed requires --reason to mention candidate human review provenance",
+                file=sys.stderr,
+            )
+            return 2
         prev_recall, prev_precision = _load_lock(lock_path)
         _write_lock(lock_path, current_recall, current_precision)
         history_entry = _append_history(
@@ -318,9 +352,9 @@ def main(argv: list[str] | None = None) -> int:
             baseline_precision=prev_precision,
             current_precision=current_precision,
         )
-        print(f"wrote baseline to {lock_path.relative_to(REPO_ROOT)}")
+        print(f"wrote baseline to {_relative(lock_path)}")
         print(
-            f"appended attribution to {history_path.relative_to(REPO_ROOT)} "
+            f"appended attribution to {_relative(history_path)} "
             f"(actor={history_entry['actor']}, commit={history_entry['commit_sha'][:12] or 'none'})"
         )
         if all_violations:
