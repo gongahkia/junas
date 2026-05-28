@@ -234,10 +234,13 @@ def _post_live_json(
     endpoint: str,
     payload: dict[str, Any],
     api_key: str,
+    bearer_token: str = "",
 ) -> dict[str, Any]:
     headers = {"Content-Type": "application/json"}
     if api_key:
         headers["X-API-Key"] = api_key
+    if bearer_token:
+        headers["Authorization"] = f"Bearer {bearer_token}"
     request = urllib.request.Request(
         f"{base_url.rstrip('/')}{endpoint}",
         data=json.dumps(payload).encode("utf-8"),
@@ -262,6 +265,7 @@ def run_live_http_case(
     case: LatencyCase,
     warmups: int,
     repetitions: int,
+    bearer_token: str = "",
 ) -> dict[str, Any]:
     endpoint = f"/{case.surface}"
     text = case.fixture_path.read_text(encoding="utf-8")
@@ -269,7 +273,13 @@ def run_live_http_case(
 
     for _ in range(warmups):
         try:
-            _post_live_json(base_url=base_url, endpoint=endpoint, payload=payload, api_key=api_key)
+            _post_live_json(
+                base_url=base_url,
+                endpoint=endpoint,
+                payload=payload,
+                api_key=api_key,
+                bearer_token=bearer_token,
+            )
         except RuntimeError as exc:
             raise RuntimeError(f"{case.key} live warmup failed: {exc}") from exc
 
@@ -278,7 +288,13 @@ def run_live_http_case(
     for _ in range(repetitions):
         started = time.perf_counter()
         try:
-            body = _post_live_json(base_url=base_url, endpoint=endpoint, payload=payload, api_key=api_key)
+            body = _post_live_json(
+                base_url=base_url,
+                endpoint=endpoint,
+                payload=payload,
+                api_key=api_key,
+                bearer_token=bearer_token,
+            )
         except RuntimeError as exc:
             raise RuntimeError(f"{case.key} live run failed: {exc}") from exc
         elapsed_ms = (time.perf_counter() - started) * 1000.0
@@ -305,6 +321,7 @@ def run_live_http_gate(
     repetitions: int,
     base_url: str,
     api_key: str = "",
+    bearer_token: str = "",
 ) -> list[dict[str, Any]]:
     return [
         run_live_http_case(
@@ -313,6 +330,7 @@ def run_live_http_gate(
             case=case,
             warmups=warmups,
             repetitions=repetitions,
+            bearer_token=bearer_token,
         )
         for case in cases
     ]
@@ -370,8 +388,17 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="X-API-Key for live HTTP mode; falls back to KAYPOH_LATENCY_SLO_API_KEY or KAYPOH_API_KEY",
     )
+    parser.add_argument(
+        "--bearer-token",
+        default=None,
+        help="bearer token for live HTTP mode; falls back to KAYPOH_LATENCY_SLO_BEARER_TOKEN",
+    )
     parser.add_argument("--verbose-logs", action="store_true", help="show backend request logs during the run")
     return parser.parse_args()
+
+
+def resolve_live_base_url(arg_base_url: str | None) -> str:
+    return (arg_base_url or os.environ.get("KAYPOH_LATENCY_SLO_BASE_URL", "")).strip()
 
 
 def main() -> int:
@@ -391,18 +418,25 @@ def main() -> int:
         surfaces=list(args.surfaces or VALID_SURFACES),
         profiles=list(args.profiles or VALID_PROFILES),
     )
-    if args.base_url:
+    live_base_url = resolve_live_base_url(args.base_url)
+    if live_base_url:
         api_key = (
             args.api_key
             if args.api_key is not None
             else os.environ.get("KAYPOH_LATENCY_SLO_API_KEY", os.environ.get("KAYPOH_API_KEY", ""))
         )
+        bearer_token = (
+            args.bearer_token
+            if args.bearer_token is not None
+            else os.environ.get("KAYPOH_LATENCY_SLO_BEARER_TOKEN", "")
+        )
         results = run_live_http_gate(
             cases=cases,
             warmups=warmups,
             repetitions=repetitions,
-            base_url=args.base_url,
+            base_url=live_base_url,
             api_key=api_key,
+            bearer_token=bearer_token,
         )
     else:
         results = run_gate(

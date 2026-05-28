@@ -1,11 +1,13 @@
 import importlib.util
 import json
+import os
 import sys
 import tempfile
 import threading
 import unittest
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -112,12 +114,14 @@ class LatencySloGateTests(unittest.TestCase):
         class Handler(BaseHTTPRequestHandler):
             paths: list[str] = []
             api_keys: list[str] = []
+            authorizations: list[str] = []
 
             def do_POST(self):
                 size = int(self.headers.get("Content-Length", "0"))
                 payload = json.loads(self.rfile.read(size).decode("utf-8"))
                 self.__class__.paths.append(self.path)
                 self.__class__.api_keys.append(self.headers.get("X-API-Key", ""))
+                self.__class__.authorizations.append(self.headers.get("Authorization", ""))
                 body = json.dumps(
                     {
                         "received_profile": payload.get("review_profile"),
@@ -153,6 +157,7 @@ class LatencySloGateTests(unittest.TestCase):
                     repetitions=2,
                     base_url=base_url,
                     api_key="test-key",
+                    bearer_token="bearer-test",
                 )
             finally:
                 server.shutdown()
@@ -164,6 +169,13 @@ class LatencySloGateTests(unittest.TestCase):
         self.assertEqual(results[0]["mean_server_total_ms"], 12.5)
         self.assertEqual(Handler.paths, ["/review", "/review"])
         self.assertEqual(Handler.api_keys, ["test-key", "test-key"])
+        self.assertEqual(Handler.authorizations, ["Bearer bearer-test", "Bearer bearer-test"])
+
+    def test_live_base_url_can_come_from_environment(self):
+        with mock.patch.dict(os.environ, {"KAYPOH_LATENCY_SLO_BASE_URL": "https://staging.example"}, clear=False):
+            self.assertEqual(self.mod.resolve_live_base_url(None), "https://staging.example")
+
+        self.assertEqual(self.mod.resolve_live_base_url("http://127.0.0.1:8131"), "http://127.0.0.1:8131")
 
 
 if __name__ == "__main__":

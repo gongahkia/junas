@@ -47,6 +47,7 @@ SIEM_FACILITIES = frozenset(
 
 KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
     "api": frozenset({"allowed_origins"}),
+    "local_daemon": frozenset({"acl_enabled", "allowed_origins", "token", "token_file"}),
     "document_ingest": frozenset(
         {
             "fail_closed",
@@ -144,6 +145,14 @@ class PipelineSettings:
 class ApiSettings:
     allowed_origins: tuple[str, ...]
     api_key: str = ""
+
+
+@dataclass(frozen=True)
+class LocalDaemonSettings:
+    acl_enabled: bool
+    allowed_origins: tuple[str, ...]
+    token: str
+    token_file: str
 
 
 @dataclass(frozen=True)
@@ -278,6 +287,7 @@ class RuntimeSettings:
     raw_config: dict[str, Any] = field(repr=False)
     pipeline: PipelineSettings
     api: ApiSettings
+    local_daemon: LocalDaemonSettings
     document_ingest: DocumentIngestSettings
     tenancy: TenancySettings
     public_evidence: PublicEvidenceSettings
@@ -580,6 +590,64 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         label="api.allowed_origins",
     ) or ("http://localhost", "http://127.0.0.1")
     api_key = _parse_str(os.environ.get("KAYPOH_API_KEY", ""), label="KAYPOH_API_KEY")
+
+    local_daemon_allowed_origins = _parse_list(
+        _resolve_raw_value(
+            raw_config,
+            cli_overrides,
+            section="local_daemon",
+            key="allowed_origins",
+            env_vars=("KAYPOH_LOCAL_DAEMON_ALLOWED_ORIGINS",),
+            default=(
+                "chrome-extension://*",
+                "https://chatgpt.com",
+                "https://claude.ai",
+                "https://gemini.google.com",
+            ),
+        ),
+        label="local_daemon.allowed_origins",
+    ) or (
+        "chrome-extension://*",
+        "https://chatgpt.com",
+        "https://claude.ai",
+        "https://gemini.google.com",
+    )
+    local_daemon = LocalDaemonSettings(
+        acl_enabled=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="local_daemon",
+                key="acl_enabled",
+                env_vars=("KAYPOH_LOCAL_DAEMON_ACL_ENABLED",),
+                default=False,
+            ),
+            label="local_daemon.acl_enabled",
+        ),
+        allowed_origins=tuple(dict.fromkeys(local_daemon_allowed_origins)),
+        token=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="local_daemon",
+                key="token",
+                env_vars=("KAYPOH_LOCAL_DAEMON_TOKEN",),
+                default="",
+            ),
+            label="local_daemon.token",
+        ),
+        token_file=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="local_daemon",
+                key="token_file",
+                env_vars=("KAYPOH_LOCAL_DAEMON_TOKEN_FILE",),
+                default="",
+            ),
+            label="local_daemon.token_file",
+        ),
+    )
 
     document_ingest = DocumentIngestSettings(
         fail_closed=_parse_bool(
@@ -1432,6 +1500,7 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         raw_config=raw_config,
         pipeline=PipelineSettings(layers=tuple(pipeline_layers), optional_layers=tuple(optional_layers)),
         api=ApiSettings(allowed_origins=tuple(dict.fromkeys(allowed_origins)), api_key=api_key),
+        local_daemon=local_daemon,
         document_ingest=document_ingest,
         tenancy=tenancy,
         public_evidence=public_evidence,

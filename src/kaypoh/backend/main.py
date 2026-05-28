@@ -2,10 +2,12 @@ import argparse
 import base64
 import bisect
 import hashlib
+import hmac
 import importlib
 import json
 import logging
 import os
+import re
 import sys
 import time
 import uuid
@@ -53,6 +55,12 @@ from kaypoh.backend.auth import (
     resolve_tenant_context,
 )
 from kaypoh.backend.cache import ResponseCache
+from kaypoh.backend.local_auth import (
+    LOCAL_TOKEN_HEADER,
+    LocalDaemonAuthError,
+    origin_allowed,
+    resolve_local_daemon_token,
+)
 from kaypoh.backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode
 from kaypoh.backend.schemas import (
     AnonymizationMappingEntryResponse,
@@ -129,6 +137,15 @@ RISK_ORDER = {
 
 SUPPRESSED_REQUEST_LOG_PATHS = {"/health", "/ready", "/metrics"}
 SPAN_CONTEXT_CHARS = 48
+LOCAL_DAEMON_PROTECTED_PATHS = {
+    "/anonymize",
+    "/classify",
+    "/classify/batch",
+    "/documents/scrub",
+    "/reidentify",
+    "/review",
+}
+LOCAL_DAEMON_PROTECTED_PREFIXES = ("/review/",)
 OPENAPI_TAGS = [
     {
         "name": "Runtime",
@@ -234,7 +251,10 @@ def get_optional_layers() -> set[str]:
 
 
 def get_allowed_origins() -> list[str]:
-    origins = list(current_runtime_settings().api.allowed_origins) or ["http://localhost", "http://127.0.0.1"]
+    settings = current_runtime_settings()
+    origins = list(settings.api.allowed_origins) or ["http://localhost", "http://127.0.0.1"]
+    if settings.local_daemon.acl_enabled:
+        origins.extend(origin for origin in settings.local_daemon.allowed_origins if "*" not in origin)
 
     # Keep Origin: null allowed for local desktop wrappers and manual file:// clients.
     if "null" not in origins:
@@ -245,7 +265,27 @@ def get_allowed_origins() -> list[str]:
 
 def get_allowed_origin_regex() -> str:
     # Allow localhost origins on any port for local clients and development servers.
-    return r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$"
+    patterns = [r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$"]
+    settings = current_runtime_settings()
+    if settings.local_daemon.acl_enabled:
+        for origin in settings.local_daemon.allowed_origins:
+            if "*" in origin:
+                patterns.append("^" + re.escape(origin).replace(r"\*", ".*") + "$")
+    return "|".join(f"(?:{pattern})" for pattern in patterns)
+
+
+def _local_daemon_protected_path(path: str) -> bool:
+    return path in LOCAL_DAEMON_PROTECTED_PATHS or any(path.startswith(prefix) for prefix in LOCAL_DAEMON_PROTECTED_PREFIXES)
+
+
+def _local_daemon_token() -> str:
+    cached = _state.get("local_daemon_token")
+    if isinstance(cached, str) and cached:
+        return cached
+    token = resolve_local_daemon_token(current_runtime_settings().local_daemon)
+    if token:
+        _state["local_daemon_token"] = token
+    return token
 
 
 def _require_access(
@@ -1639,6 +1679,31 @@ app.add_middleware(
 )
 
 
+@app.middleware("http")
+async def local_daemon_acl_middleware(request: Request, call_next):
+    settings = current_runtime_settings().local_daemon
+    if not settings.acl_enabled:
+        return await call_next(request)
+
+    origin = request.headers.get("Origin")
+    if not origin_allowed(origin, settings.allowed_origins):
+        return PrettyJSONResponse(status_code=403, content={"detail": "origin not allowed for local daemon"})
+
+    if request.method.upper() != "OPTIONS" and _local_daemon_protected_path(request.url.path):
+        try:
+            expected = _local_daemon_token()
+        except LocalDaemonAuthError as exc:
+            return PrettyJSONResponse(
+                status_code=503,
+                content={"detail": f"local daemon token not provisioned: {exc}"},
+            )
+        supplied = request.headers.get(LOCAL_TOKEN_HEADER, "")
+        if not expected or not supplied or not hmac.compare_digest(supplied, expected):
+            return PrettyJSONResponse(status_code=401, content={"detail": "missing or invalid local daemon token"})
+
+    return await call_next(request)
+
+
 @app.exception_handler(StarletteHTTPException)
 async def pretty_http_exception_handler(request: Request, exc: StarletteHTTPException):
     return PrettyJSONResponse(
@@ -1712,6 +1777,32 @@ async def request_context_middleware(request: Request, call_next):
 
     response.headers["X-Request-ID"] = request_id
     return response
+
+
+@app.get(
+    "/local/pairing/status",
+    tags=["Runtime"],
+    summary="Get local daemon pairing status",
+    description=(
+        "Return whether the local desktop daemon ACL is enabled and whether a local token "
+        "has been provisioned. The token value is never returned."
+    ),
+)
+async def local_pairing_status():
+    settings = current_runtime_settings().local_daemon
+    token_provisioned = False
+    token_error = ""
+    if settings.acl_enabled:
+        try:
+            token_provisioned = bool(_local_daemon_token())
+        except LocalDaemonAuthError as exc:
+            token_error = str(exc)
+    return {
+        "acl_enabled": settings.acl_enabled,
+        "token_provisioned": token_provisioned,
+        "allowed_origins": list(settings.allowed_origins),
+        "token_error": token_error,
+    }
 
 
 @app.get(

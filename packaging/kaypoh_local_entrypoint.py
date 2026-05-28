@@ -18,6 +18,7 @@ def _set_local_defaults() -> None:
     os.environ.setdefault("KAYPOH_PUBLIC_EVIDENCE_ENABLED", "0")
     os.environ.setdefault("KAYPOH_LLM_ENABLED", "0")
     os.environ.setdefault("KAYPOH_REVIEW_PERSIST", "1")
+    os.environ.setdefault("KAYPOH_LOCAL_DAEMON_ACL_ENABLED", "1")
 
 
 def main() -> int:
