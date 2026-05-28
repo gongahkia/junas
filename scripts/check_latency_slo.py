@@ -9,17 +9,19 @@ request validation, routing, endpoint code, and response serialization.
 from __future__ import annotations
 
 import argparse
-from contextlib import contextmanager
 import json
 import logging
+import os
 import sys
 import time
+import urllib.error
+import urllib.request
+from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from statistics import mean
 from typing import Any
-
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_BUDGET_FILE = ROOT / "test" / "benchmarks" / "latency_slo_budgets.json"
@@ -134,6 +136,42 @@ def quiet_latency_logs(enabled: bool):
             logger.setLevel(level)
 
 
+def _case_result(
+    *,
+    case: LatencyCase,
+    mode: str,
+    warmups: int,
+    repetitions: int,
+    latencies_ms: list[float],
+    server_totals_ms: list[float],
+    base_url: str = "",
+) -> dict[str, Any]:
+    p95_ms = percentile(latencies_ms, 0.95)
+    passed = p95_ms <= case.budget_ms
+    result = {
+        "case": case.key,
+        "mode": mode,
+        "surface": case.surface,
+        "profile": case.profile,
+        "fixture": str(case.fixture_path),
+        "fixture_bytes": case.fixture_path.stat().st_size,
+        "warmups": warmups,
+        "repetitions": repetitions,
+        "budget_ms": case.budget_ms,
+        "min_ms": round(min(latencies_ms), 3),
+        "mean_ms": round(mean(latencies_ms), 3),
+        "p50_ms": percentile(latencies_ms, 0.50),
+        "p95_ms": p95_ms,
+        "max_ms": round(max(latencies_ms), 3),
+        "mean_server_total_ms": round(mean(server_totals_ms), 3) if server_totals_ms else None,
+        "passed": passed,
+        "latencies_ms": latencies_ms,
+    }
+    if base_url:
+        result["base_url"] = base_url
+    return result
+
+
 def run_case(client: Any, case: LatencyCase, *, warmups: int, repetitions: int) -> dict[str, Any]:
     endpoint = f"/{case.surface}"
     text = case.fixture_path.read_text(encoding="utf-8")
@@ -158,26 +196,14 @@ def run_case(client: Any, case: LatencyCase, *, warmups: int, repetitions: int) 
         if total is not None:
             server_totals_ms.append(float(total))
 
-    p95_ms = percentile(latencies_ms, 0.95)
-    passed = p95_ms <= case.budget_ms
-    return {
-        "case": case.key,
-        "surface": case.surface,
-        "profile": case.profile,
-        "fixture": str(case.fixture_path),
-        "fixture_bytes": case.fixture_path.stat().st_size,
-        "warmups": warmups,
-        "repetitions": repetitions,
-        "budget_ms": case.budget_ms,
-        "min_ms": round(min(latencies_ms), 3),
-        "mean_ms": round(mean(latencies_ms), 3),
-        "p50_ms": percentile(latencies_ms, 0.50),
-        "p95_ms": p95_ms,
-        "max_ms": round(max(latencies_ms), 3),
-        "mean_server_total_ms": round(mean(server_totals_ms), 3) if server_totals_ms else None,
-        "passed": passed,
-        "latencies_ms": latencies_ms,
-    }
+    return _case_result(
+        case=case,
+        mode="in_process",
+        warmups=warmups,
+        repetitions=repetitions,
+        latencies_ms=latencies_ms,
+        server_totals_ms=server_totals_ms,
+    )
 
 
 def run_gate(
@@ -193,12 +219,103 @@ def run_gate(
         sys.path.insert(0, str(ROOT))
 
     from fastapi.testclient import TestClient
+
     from kaypoh.backend import main as backend_main
 
     backend_main._state.clear()
     with quiet_latency_logs(quiet_logs):
         with TestClient(backend_main.app) as client:
             return [run_case(client, case, warmups=warmups, repetitions=repetitions) for case in cases]
+
+
+def _post_live_json(
+    *,
+    base_url: str,
+    endpoint: str,
+    payload: dict[str, Any],
+    api_key: str,
+) -> dict[str, Any]:
+    headers = {"Content-Type": "application/json"}
+    if api_key:
+        headers["X-API-Key"] = api_key
+    request = urllib.request.Request(
+        f"{base_url.rstrip('/')}{endpoint}",
+        data=json.dumps(payload).encode("utf-8"),
+        headers=headers,
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=300) as response:
+            body = json.loads(response.read().decode("utf-8"))
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="replace")
+        raise RuntimeError(f"HTTP {exc.code}: {detail}") from exc
+    if not isinstance(body, dict):
+        raise RuntimeError(f"unexpected non-object response from {endpoint}: {body!r}")
+    return body
+
+
+def run_live_http_case(
+    *,
+    base_url: str,
+    api_key: str,
+    case: LatencyCase,
+    warmups: int,
+    repetitions: int,
+) -> dict[str, Any]:
+    endpoint = f"/{case.surface}"
+    text = case.fixture_path.read_text(encoding="utf-8")
+    payload = _payload_for_case(case, text)
+
+    for _ in range(warmups):
+        try:
+            _post_live_json(base_url=base_url, endpoint=endpoint, payload=payload, api_key=api_key)
+        except RuntimeError as exc:
+            raise RuntimeError(f"{case.key} live warmup failed: {exc}") from exc
+
+    latencies_ms: list[float] = []
+    server_totals_ms: list[float] = []
+    for _ in range(repetitions):
+        started = time.perf_counter()
+        try:
+            body = _post_live_json(base_url=base_url, endpoint=endpoint, payload=payload, api_key=api_key)
+        except RuntimeError as exc:
+            raise RuntimeError(f"{case.key} live run failed: {exc}") from exc
+        elapsed_ms = (time.perf_counter() - started) * 1000.0
+        latencies_ms.append(round(elapsed_ms, 3))
+        total = (body.get("timings_ms") or {}).get("total")
+        if total is not None:
+            server_totals_ms.append(float(total))
+
+    return _case_result(
+        case=case,
+        mode="live_http",
+        warmups=warmups,
+        repetitions=repetitions,
+        latencies_ms=latencies_ms,
+        server_totals_ms=server_totals_ms,
+        base_url=base_url.rstrip("/"),
+    )
+
+
+def run_live_http_gate(
+    *,
+    cases: list[LatencyCase],
+    warmups: int,
+    repetitions: int,
+    base_url: str,
+    api_key: str = "",
+) -> list[dict[str, Any]]:
+    return [
+        run_live_http_case(
+            base_url=base_url,
+            api_key=api_key,
+            case=case,
+            warmups=warmups,
+            repetitions=repetitions,
+        )
+        for case in cases
+    ]
 
 
 def render_summary(results: list[dict[str, Any]]) -> str:
@@ -223,7 +340,17 @@ def write_report(results: list[dict[str, Any]], report_dir: Path) -> Path:
     report_dir.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     path = report_dir / f"latency_slo_{timestamp}.json"
-    path.write_text(json.dumps({"results": results}, indent=2), encoding="utf-8")
+    path.write_text(
+        json.dumps(
+            {
+                "schema_version": "kaypoh.latency_slo.v1",
+                "generated_at": timestamp,
+                "results": results,
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
     return path
 
 
@@ -237,6 +364,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--repetitions", type=int, help="measured runs per case")
     parser.add_argument("--no-fail", action="store_true", help="always exit 0 after reporting")
     parser.add_argument("--write-report", action="store_true", help="write reports/latency_slo_*.json")
+    parser.add_argument("--base-url", help="run against a live HTTP server instead of in-process TestClient")
+    parser.add_argument(
+        "--api-key",
+        default=None,
+        help="X-API-Key for live HTTP mode; falls back to KAYPOH_LATENCY_SLO_API_KEY or KAYPOH_API_KEY",
+    )
     parser.add_argument("--verbose-logs", action="store_true", help="show backend request logs during the run")
     return parser.parse_args()
 
@@ -258,12 +391,26 @@ def main() -> int:
         surfaces=list(args.surfaces or VALID_SURFACES),
         profiles=list(args.profiles or VALID_PROFILES),
     )
-    results = run_gate(
-        cases=cases,
-        warmups=warmups,
-        repetitions=repetitions,
-        quiet_logs=not args.verbose_logs,
-    )
+    if args.base_url:
+        api_key = (
+            args.api_key
+            if args.api_key is not None
+            else os.environ.get("KAYPOH_LATENCY_SLO_API_KEY", os.environ.get("KAYPOH_API_KEY", ""))
+        )
+        results = run_live_http_gate(
+            cases=cases,
+            warmups=warmups,
+            repetitions=repetitions,
+            base_url=args.base_url,
+            api_key=api_key,
+        )
+    else:
+        results = run_gate(
+            cases=cases,
+            warmups=warmups,
+            repetitions=repetitions,
+            quiet_logs=not args.verbose_logs,
+        )
     print(render_summary(results))
     if args.write_report:
         print(f"\nJSON report: {write_report(results, DEFAULT_REPORT_DIR)}")

@@ -74,6 +74,27 @@ _PII_DEFAULT_RATIONALE = {
         "identifiers and serial numbers; GDPR Recital 30 and CCPA §1798.140 cover "
         "device identifiers that can single out a person or household. Mask before send."
     ),
+    "cookie_id": (
+        "Cookie identifier detected. GDPR Recital 30 explicitly lists cookie identifiers "
+        "as online identifiers, and CCPA §1798.140 covers persistent identifiers. Mask or "
+        "rotate before external disclosure unless the recipient and purpose are documented."
+    ),
+    "advertising_id": (
+        "Mobile advertising identifier detected. GDPR Recital 30 and CCPA §1798.140 cover "
+        "device and advertising identifiers that can single out a person or household. "
+        "Mask before send."
+    ),
+    "device_serial_number": (
+        "Device serial number detected. HIPAA 45 CFR §164.514 lists device identifiers "
+        "and serial numbers; GDPR Recital 30 and CCPA §1798.140 cover device identifiers. "
+        "Mask unless disclosure is purpose-limited."
+    ),
+    "eu_national_id": (
+        "EU national identity / personal identifier detected. GDPR Art 4(1) treats direct "
+        "and indirect identifiers as personal data, and Art 87 permits member-state rules "
+        "for national identification numbers. Mask unless a lawful basis and recipient "
+        "purpose are documented."
+    ),
     "named_person": (
         "Named persons are personal data under PDPA s2. For counterparty principals in a "
         "definitive agreement, treat as high sensitivity and mask before any external send."
@@ -225,6 +246,23 @@ _PII_DEFAULT_RATIONALE = {
         "Singapore URA planning submission / decision reference identifies a development-"
         "control application or written-permission record. In pre-send real-estate, "
         "financing, or corporate documents, mask unless disclosure is intended and documented."
+    ),
+    "sg_insurance_policy_number": (
+        "Singapore insurance policy / certificate / claim reference identifies a policyholder, "
+        "insured asset, beneficiary, or claim workflow in private documents. Treat as "
+        "matter-identifying personal or confidential information under PDPA s2/s18 and mask "
+        "unless disclosure is intended."
+    ),
+    "crypto_wallet_address": (
+        "Crypto wallet / DPT address detected in a labelled transfer or VASP context. "
+        "Wallet addresses can identify customers or counterparties when paired with KYC, "
+        "matter, or transaction context; MAS DPT controls and PDPA purpose-limitation "
+        "expectations apply. Mask unless disclosure is documented."
+    ),
+    "sg_tribunal_reference": (
+        "Singapore tribunal / regulator dispute reference detected. In SCT, ECT, CDRT, "
+        "STB, PDPC, or IPOS matter context, the reference can link parties to private "
+        "claims or complaints. Mask unless recipient and purpose are documented."
     ),
     "employee_id": (
         "Employee identifier is pseudonymised-but-linkable personal data: the employer "
@@ -520,6 +558,29 @@ _MNPI_DEFAULT_RATIONALE = {
     "large_number": (
         "Large numeric value may be material non-public information. Verify or generalise."
     ),
+    "contract_unit_price": (
+        "Contract unit price / per-unit economics detected. In commercial, procurement, "
+        "licensing, or M&A context, unit economics can be price-sensitive or competitively "
+        "confidential. Verify public disclosure before sending externally."
+    ),
+    "contract_discount_rate": (
+        "Contract discount or rebate rate detected. Customer-specific pricing concessions "
+        "can be commercially sensitive MNPI or confidential negotiation information. "
+        "Generalise or hold unless disclosure is approved."
+    ),
+    "volume_commitment": (
+        "Contract volume commitment detected. Minimum purchase, seat, licence, energy, or "
+        "supply commitments can be material to issuer forecasts and commercial negotiations. "
+        "Verify public status before external disclosure."
+    ),
+    "royalty_rate": (
+        "Royalty rate detected. Licence economics can disclose confidential valuation, IP, "
+        "or revenue-share terms. Hold or generalise unless disclosure is intended and approved."
+    ),
+    "total_contract_value": (
+        "Total contract value detected. Aggregate contract value can be material to revenue "
+        "forecasts or deal economics. Verify public disclosure or redact before sending."
+    ),
     "contingent_mnpi_language": (
         "Contingent / forward-looking language detected. Under Basic v. Levinson (US), "
         "SFA s215 (SG), and MAR Art 7(2-3) (EU/UK), probabilistic / hedged statements "
@@ -633,9 +694,18 @@ _PII_JURISDICTION_SUFFIX = {
     "JP": "Reference: Japan APPI Article 2 and My Number Act handling restrictions.",
     "KR": "Reference: Korea Personal Information Protection Act Articles 2 and 24-2.",
     "IN": "Reference: India Digital Personal Data Protection Act 2023 (DPDPA) sections 2(t), 9, 10, 16.",
-    "CN": "Reference: China Personal Information Protection Law 2021 (PIPL) Articles 4, 28, 31, 38; CSL 2016; DSL 2021.",
-    "AE": "Reference: UAE Federal Decree-Law 45/2021 (PDPL) Articles 1, 15, 22; DIFC DPL 2020; ADGM Data Protection Regs 2021.",
-    "SA": "Reference: KSA Personal Data Protection Law 2023 (Royal Decree M/19) + SDAIA Implementing Regulations 2024; Article 29 (cross-border).",
+    "CN": (
+        "Reference: China Personal Information Protection Law 2021 (PIPL) Articles 4, "
+        "28, 31, 38; CSL 2016; DSL 2021."
+    ),
+    "AE": (
+        "Reference: UAE Federal Decree-Law 45/2021 (PDPL) Articles 1, 15, 22; "
+        "DIFC DPL 2020; ADGM Data Protection Regs 2021."
+    ),
+    "SA": (
+        "Reference: KSA Personal Data Protection Law 2023 (Royal Decree M/19) + "
+        "SDAIA Implementing Regulations 2024; Article 29 (cross-border)."
+    ),
 }
 
 # jurisdiction-pack -> MNPI statute suffix.

@@ -9,7 +9,6 @@ import unittest
 from kaypoh.review.citations import pii_rationale
 from kaypoh.review.engine import PreSendReviewEngine
 
-
 US_DRIVER_LICENSE_SAMPLES = {
     "AL": "1234567",
     "AK": "1234567",
@@ -87,6 +86,7 @@ class Item33IdentifierTests(unittest.TestCase):
             "DOB: 1988-02-14",
             "Date of birth: February 14, 1988",
             "Born on 14/02/1988",
+            "Birthday: 14 February 1988",
         ]:
             with self.subTest(text=text):
                 self.assertIn("date_of_birth", self._rules(text))
@@ -96,6 +96,8 @@ class Item33IdentifierTests(unittest.TestCase):
 
     def test_adult_age_field_fires_but_minor_age_stays_with_minor_detector(self):
         self.assertIn("age_reference", self._rules("Age: 42"))
+        self.assertIn("age_reference", self._rules("The client is 42 years old."))
+        self.assertIn("age_reference", self._rules("Applicant turns 67 next month."))
         minor_rules = self._rules("Age: 12")
         self.assertNotIn("age_reference", minor_rules)
         self.assertIn("minor_data_reference", minor_rules)
@@ -110,6 +112,24 @@ class Item33IdentifierTests(unittest.TestCase):
         self.assertNotIn("mac_address", self._rules("MAC clause to be negotiated."))
         self.assertIn("imei", self._rules("IMEI: 490154203237518"))
         self.assertNotIn("imei", self._rules("IMEI: 490154203237519"))
+        self.assertIn("cookie_id", self._rules("Cookie ID: abcdef1234567890"))
+        self.assertIn("advertising_id", self._rules("GAID: 123e4567-e89b-12d3-a456-426614174000"))
+        self.assertIn("device_serial_number", self._rules("Device serial number: AB12CD34EF56"))
+        self.assertNotIn("cookie_id", self._rules("Cookie preference: chocolatechip"))
+        self.assertNotIn("device_serial_number", self._rules("Serial number 42 in the schedule."))
+
+    def test_eu_national_id_requires_eu_pack_and_label(self):
+        eu_result = self.engine.review(
+            text="DE national ID: L01X00T47 is attached.",
+            source_jurisdiction="EU",
+            destination_jurisdiction="EU",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="generic",
+            review_profile="strict",
+        )
+        self.assertIn("eu_national_id", {finding.rule for finding in eu_result.findings})
+        self.assertNotIn("eu_national_id", self._rules("DE national ID: L01X00T47"))
 
     def test_us_itin_fires_and_validator_rejects_bad_middle_range(self):
         self.assertIn("us_itin", self._rules("ITIN: 912-70-1234"))
@@ -128,6 +148,11 @@ class Item33IdentifierTests(unittest.TestCase):
         self.assertNotIn("us_driver_license", {finding.rule for finding in result.findings})
         self.assertTrue(any(w.get("rule_guess") == "us_driver_license" for w in result.coverage_warnings))
 
+    def test_audit_grade_warns_on_masked_driver_license(self):
+        result = self._review("CA Driver License: A1234***", profile="audit_grade")
+        self.assertNotIn("us_driver_license", {finding.rule for finding in result.findings})
+        self.assertTrue(any("masked or partial" in w.get("why", "") for w in result.coverage_warnings))
+
     def test_strict_profile_does_not_warn_on_driver_license_missing_state(self):
         result = self._review("Driver License: A1234567", profile="strict")
         self.assertEqual(result.coverage_warnings, [])
@@ -143,6 +168,10 @@ class Item33IdentifierTests(unittest.TestCase):
             "ip_address",
             "mac_address",
             "imei",
+            "cookie_id",
+            "advertising_id",
+            "device_serial_number",
+            "eu_national_id",
             "us_itin",
             "us_driver_license",
         ]:

@@ -19,9 +19,10 @@ brittle to edit. The goal is to ensure the doc cannot silently lose track of a s
 detector or a registered jurisdiction.
 """
 
-import tomllib
 import unittest
 from pathlib import Path
+
+import tomllib
 
 from kaypoh.review import jurisdictions
 from kaypoh.review.citations import (
@@ -30,7 +31,6 @@ from kaypoh.review.citations import (
     _PII_DEFAULT_RATIONALE,
     _PII_JURISDICTION_SUFFIX,
 )
-
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DOC_PATH = REPO_ROOT / "docs" / "statutory-coverage.md"
@@ -41,6 +41,8 @@ PACKS_DIR = REPO_ROOT / "src" / "kaypoh" / "review" / "jurisdictions_data"
 _UNIVERSAL_PII_RULES = {
     "email_address", "phone_number", "passport_number", "bank_account",
     "named_person", "date_of_birth", "age_reference", "ip_address", "mac_address", "imei",
+    "cookie_id", "advertising_id", "device_serial_number", "eu_national_id",
+    "sg_insurance_policy_number", "crypto_wallet_address", "sg_tribunal_reference",
     "employee_id", "customer_account_number", "medical_record_number",
     "religious_belief", "trade_union_membership", "political_opinion",
     "health_condition", "medical_treatment", "biometric_identifier", "genetic_data",
@@ -52,6 +54,8 @@ _UNIVERSAL_MNPI_RULES = {
     "material_event", "nonpublic_marker", "transaction_codename",
     "definitive_agreement", "material_adverse_change", "embargo_marker",
     "financial_amount", "financial_percentage", "large_number",
+    "contract_unit_price", "contract_discount_rate", "volume_commitment",
+    "royalty_rate", "total_contract_value",
     "contingent_mnpi_language", "tipping_language", "selective_disclosure_risk",
 }
 

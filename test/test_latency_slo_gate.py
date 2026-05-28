@@ -1,9 +1,11 @@
 import importlib.util
+import json
 import sys
 import tempfile
+import threading
 import unittest
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -105,6 +107,63 @@ class LatencySloGateTests(unittest.TestCase):
             config = {"default_fixture": "does/not/matter.txt", "budgets_ms": {"review.strict": 500.0}}
 
             self.assertEqual(self.mod.resolve_fixture(config, str(fixture)), fixture.resolve())
+
+    def test_live_http_gate_records_mode_and_api_key(self):
+        class Handler(BaseHTTPRequestHandler):
+            paths: list[str] = []
+            api_keys: list[str] = []
+
+            def do_POST(self):
+                size = int(self.headers.get("Content-Length", "0"))
+                payload = json.loads(self.rfile.read(size).decode("utf-8"))
+                self.__class__.paths.append(self.path)
+                self.__class__.api_keys.append(self.headers.get("X-API-Key", ""))
+                body = json.dumps(
+                    {
+                        "received_profile": payload.get("review_profile"),
+                        "timings_ms": {"total": 12.5},
+                    }
+                ).encode("utf-8")
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+
+            def log_message(self, *args):
+                return
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            fixture = Path(tmp_dir) / "sample.txt"
+            fixture.write_text("sample text", encoding="utf-8")
+            server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+            thread = threading.Thread(target=server.serve_forever, daemon=True)
+            thread.start()
+            try:
+                base_url = f"http://127.0.0.1:{server.server_address[1]}"
+                case = self.mod.LatencyCase(
+                    surface="review",
+                    profile="strict",
+                    budget_ms=500.0,
+                    fixture_path=fixture,
+                )
+                results = self.mod.run_live_http_gate(
+                    cases=[case],
+                    warmups=0,
+                    repetitions=2,
+                    base_url=base_url,
+                    api_key="test-key",
+                )
+            finally:
+                server.shutdown()
+                server.server_close()
+                thread.join(timeout=5)
+
+        self.assertEqual(results[0]["mode"], "live_http")
+        self.assertEqual(results[0]["base_url"], base_url)
+        self.assertEqual(results[0]["mean_server_total_ms"], 12.5)
+        self.assertEqual(Handler.paths, ["/review", "/review"])
+        self.assertEqual(Handler.api_keys, ["test-key", "test-key"])
 
 
 if __name__ == "__main__":

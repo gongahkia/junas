@@ -32,13 +32,18 @@ _DOB_DATE_FRAGMENT = (
     + _DOB_MONTH + r"\s+\d{1,2},?\s+\d{4})"
 )
 DATE_OF_BIRTH_RE = re.compile(
-    r"\b(?:DOB|D\.O\.B\.|date\s+of\s+birth|birth\s+date|born(?:\s+on)?)\s*[:#=\-]?\s*("
+    r"\b(?:DOB|D\.O\.B\.|date\s+of\s+birth|birth\s*date|birthday|born(?:\s+on)?)\s*[:#=\-]?\s*("
     + _DOB_DATE_FRAGMENT
     + r")\b",
     re.IGNORECASE,
 )
 AGE_FIELD_RE = re.compile(
-    r"\b(?:age\s+at\s+(?:intake|onboarding|screening)|current\s+age|age)\s*[:=]\s*(\d{1,3})\b",
+    r"\b(?:"
+    r"(?:age\s+at\s+(?:intake|onboarding|screening)|current\s+age|age)\s*[:=]\s*(?P<age_field>\d{1,3})|"
+    r"(?:aged|turns?|turning)\s+(?P<age_turns>\d{1,3})|"
+    r"(?:client|employee|patient|applicant|customer|data\s+subject|subject)\s+"
+    r"(?:is\s+)?(?P<age_years>\d{2,3})\s+years?\s+old"
+    r")\b",
     re.IGNORECASE,
 )
 IPV4_CONTEXT_RE = re.compile(
@@ -57,6 +62,28 @@ MAC_ADDRESS_RE = re.compile(
     re.IGNORECASE,
 )
 IMEI_RE = re.compile(r"\b(?:IMEI|device\s+IMEI)\s*[:#=\-]?\s*(\d(?:[\s-]?\d){14})\b", re.IGNORECASE)
+COOKIE_ID_RE = re.compile(
+    r"\b(?:cookie(?:\s+id)?|session\s+cookie|browser\s+cookie)\s*[:#=]\s*"
+    r"([A-Za-z0-9][A-Za-z0-9._~-]{11,127})\b",
+    re.IGNORECASE,
+)
+ADVERTISING_ID_RE = re.compile(
+    r"\b(?:IDFA|GAID|AAID|advertising\s+ID|ad\s+ID|mobile\s+ad\s+ID)\s*[:#=]\s*"
+    r"([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})\b",
+    re.IGNORECASE,
+)
+DEVICE_SERIAL_RE = re.compile(
+    r"\b(?:device|hardware|laptop|mobile|phone|tablet)\s+"
+    r"(?:serial(?:\s+number)?|S/N|SN)\s*[:#=]?\s*([A-Z0-9][A-Z0-9-]{5,31})\b",
+    re.IGNORECASE,
+)
+EU_NATIONAL_ID_RE = re.compile(
+    r"\b(?P<country>DE|FR|ES|IT|NL|BE|PL|SE|IE|AT|PT|DK)\s+"
+    r"(?:national\s+ID|identity\s+(?:card|number)|personal\s+ID|personnummer|"
+    r"DNI|NIE|NIF|codice\s+fiscale|BSN|PESEL|PPSN|CPR)\s*[:#=\-]?\s*"
+    r"(?P<id>[A-Z0-9][A-Z0-9 ./-]{5,31}[A-Z0-9])\b",
+    re.IGNORECASE,
+)
 
 _US_STATE_NAME_TO_CODE = {
     "ALABAMA": "AL", "ALASKA": "AK", "ARIZONA": "AZ", "ARKANSAS": "AR", "CALIFORNIA": "CA",
@@ -90,7 +117,8 @@ _US_DRIVER_LICENSE_RE = re.compile(
 )
 _US_DRIVER_LICENSE_ANY_RE = re.compile(
     r"\b(?:driver'?s?\s+licen[cs]e|driver\s+licen[cs]e\s+number|DLN|DL\s*#|D/L|"
-    r"licen[cs]e\s+(?:no\.?|number))\s*[:#=\-]?\s*(?P<number>[A-Z0-9*][A-Z0-9*\-]{3,19})\b",
+    r"licen[cs]e\s+(?:no\.?|number))\s*[:#=\-]?\s*(?P<number>[A-Z0-9*][A-Z0-9*\-]{3,19})"
+    r"(?=$|\s|[.,;:)])",
     re.IGNORECASE,
 )
 _US_STATE_CONTEXT_RE = re.compile(
@@ -116,6 +144,52 @@ _US_DRIVER_LICENSE_PATTERNS: dict[str, str] = {
     "VA": r"(?:[A-Z]\d{8,11}|\d{9})", "WA": r"[A-Z0-9*]{12}",
     "WV": r"(?:[A-Z]\d{6}|\d{7})", "WI": r"[A-Z]\d{13}", "WY": r"\d{9,10}",
 }
+SG_INSURANCE_POLICY_RE = re.compile(
+    r"\b(?:insurance\s+)?(?:policy|certificate|claim)\s+(?:no\.?|number|ref(?:erence)?)\s*[:#=\-]?\s*"
+    r"([A-Z]{1,6}[A-Z0-9/-]{5,30})\b",
+    re.IGNORECASE,
+)
+CRYPTO_WALLET_RE = re.compile(
+    r"\b(?:crypto|digital[- ]asset|DPT|VASP|wallet|deposit|withdrawal)\s+"
+    r"(?:wallet\s+)?(?:address|account|ref(?:erence)?)\s*[:#=\-]?\s*"
+    r"((?:0x[a-fA-F0-9]{40}|bc1[ac-hj-np-z02-9]{25,62}|[13][a-km-zA-HJ-NP-Z1-9]{25,34}|"
+    r"T[1-9A-HJ-NP-Za-km-z]{33}|[1-9A-HJ-NP-Za-km-z]{32,44}))\b",
+    re.IGNORECASE,
+)
+SG_TRIBUNAL_REFERENCE_RE = re.compile(
+    r"\b(?:(?:SCT|ECT|CDRT|STB|PDPC|IPOS)\s*(?:case|claim|complaint|dispute)?|"
+    r"Small\s+Claims\s+Tribunal|Employment\s+Claims\s+Tribunal|"
+    r"Community\s+Disputes\s+Resolution\s+Tribunal|Strata\s+Titles\s+Boards|"
+    r"Personal\s+Data\s+Protection\s+Commission)\s+"
+    r"(?:no\.?|number|ref(?:erence)?|case|claim|complaint)\s*[:#=\-]?\s*"
+    r"([A-Z]{1,8}[-/ ]?\d{2,6}[-/ ]?\d{2,6}(?:[-/][A-Z0-9]{1,8})?)\b",
+    re.IGNORECASE,
+)
+CONTRACT_UNIT_PRICE_RE = re.compile(
+    r"\b(?:unit\s+price|price\s+per\s+(?:share|unit|seat|licen[cs]e)|per-unit\s+price)\s*"
+    r"(?:is|of|:|=)?\s*(?:SGD|USD|S\$|\$)\s*[\d,]+(?:\.\d{1,4})?\b",
+    re.IGNORECASE,
+)
+CONTRACT_DISCOUNT_RE = re.compile(
+    r"\b(?:contract\s+)?(?:discount|rebate)\s*(?:rate)?\s*(?:is|of|:|=)?\s*"
+    r"\d{1,2}(?:\.\d+)?\s*%(?=$|\s|[.,;:)])",
+    re.IGNORECASE,
+)
+VOLUME_COMMITMENT_RE = re.compile(
+    r"\b(?:minimum|annual|monthly|quarterly)?\s*volume\s+commitment\s*(?:is|of|:|=)?\s*"
+    r"\d{1,3}(?:,\d{3})+(?:\.\d+)?\s*(?:units|licen[cs]es|seats|tonnes|tons|MWh|kWh)\b",
+    re.IGNORECASE,
+)
+ROYALTY_RATE_RE = re.compile(
+    r"\b(?:royalty\s+rate\s*(?:is|of|:|=)?\s*\d{1,2}(?:\.\d+)?\s*%|"
+    r"\d{1,2}(?:\.\d+)?\s*%\s+royalty)(?=$|\s|[.,;:)])",
+    re.IGNORECASE,
+)
+TOTAL_CONTRACT_VALUE_RE = re.compile(
+    r"\b(?:total\s+contract\s+value|aggregate\s+contract\s+value|contract\s+value|TCV)\s*"
+    r"(?:is|of|:|=)?\s*(?:SGD|USD|S\$|\$)\s*[\d,]+(?:\.\d{1,2})?\b",
+    re.IGNORECASE,
+)
 MATERIAL_EVENT_RE = re.compile(
     r"\b(acquisition|acquire|merger|takeover|buyout|earnings|guidance|forecast|"
     r"profit warning|dividend|buyback|bankruptcy|restructuring|layoff|fraud|"
@@ -1128,9 +1202,27 @@ def _valid_us_driver_license(state: str, value: str) -> bool:
     return bool(pattern and re.fullmatch(pattern, compact))
 
 
+def _age_from_match(match: re.Match[str]) -> int | None:
+    for group_name in ("age_field", "age_turns", "age_years"):
+        value = match.groupdict().get(group_name)
+        if not value:
+            continue
+        try:
+            return int(value)
+        except ValueError:
+            return None
+    return None
+
+
+def _driver_license_value_is_masked(value: str) -> bool:
+    compact = re.sub(r"[\s-]", "", value)
+    return bool(re.search(r"(?:\*{2,}|X{3,}|x{3,})", compact))
+
+
 def _detect_core_identifier_findings(
     text: str,
     *,
+    packs: list[JurisdictionRulePack],
     jurisdiction: str,
     legal_basis: str,
     idx_start: int,
@@ -1159,9 +1251,14 @@ def _detect_core_identifier_findings(
         idx += 1
 
     for match in AGE_FIELD_RE.finditer(text):
-        age = int(match.group(1))
+        age = _age_from_match(match)
+        if age is None:
+            continue
         if age < 20 or age > 120:
             continue
+        matched_text = str(age)
+        start = match.start(match.lastgroup) if match.lastgroup else match.start()
+        end = match.end(match.lastgroup) if match.lastgroup else match.end()
         out.append(
             _new_finding(
                 idx=idx,
@@ -1169,9 +1266,9 @@ def _detect_core_identifier_findings(
                 rule="age_reference",
                 jurisdiction=jurisdiction,
                 severity="medium",
-                matched_text=match.group(1),
-                start=match.start(1),
-                end=match.end(1),
+                matched_text=matched_text,
+                start=start,
+                end=end,
                 reason="Age field detected; minor ages are owned by minor_data_reference",
                 legal_basis=legal_basis,
             )
@@ -1242,6 +1339,75 @@ def _detect_core_identifier_findings(
         )
         idx += 1
 
+    for match in COOKIE_ID_RE.finditer(text):
+        out.append(
+            _new_finding(
+                idx=idx,
+                category="PII",
+                rule="cookie_id",
+                jurisdiction=jurisdiction,
+                severity="medium",
+                matched_text=match.group(1),
+                start=match.start(1),
+                end=match.end(1),
+                reason="Cookie identifier / online identifier detected",
+                legal_basis=legal_basis,
+            )
+        )
+        idx += 1
+
+    for match in ADVERTISING_ID_RE.finditer(text):
+        out.append(
+            _new_finding(
+                idx=idx,
+                category="PII",
+                rule="advertising_id",
+                jurisdiction=jurisdiction,
+                severity="medium",
+                matched_text=match.group(1),
+                start=match.start(1),
+                end=match.end(1),
+                reason="Advertising identifier / online identifier detected",
+                legal_basis=legal_basis,
+            )
+        )
+        idx += 1
+
+    for match in DEVICE_SERIAL_RE.finditer(text):
+        out.append(
+            _new_finding(
+                idx=idx,
+                category="PII",
+                rule="device_serial_number",
+                jurisdiction=jurisdiction,
+                severity="medium",
+                matched_text=match.group(1),
+                start=match.start(1),
+                end=match.end(1),
+                reason="Device serial number detected",
+                legal_basis=legal_basis,
+            )
+        )
+        idx += 1
+
+    if any(pack.code == "EU" for pack in packs):
+        for match in EU_NATIONAL_ID_RE.finditer(text):
+            out.append(
+                _new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="eu_national_id",
+                    jurisdiction=jurisdiction,
+                    severity="high",
+                    matched_text=match.group("id"),
+                    start=match.start("id"),
+                    end=match.end("id"),
+                    reason=f"EU {match.group('country').upper()} national identifier detected",
+                    legal_basis=legal_basis,
+                )
+            )
+            idx += 1
+
     return out
 
 
@@ -1260,7 +1426,11 @@ def _detect_us_driver_license_findings(
     seen_spans: set[tuple[int, int]] = set()
     for match in _US_DRIVER_LICENSE_RE.finditer(text):
         state = _state_near_driver_license(text, match.start(), match.end(), match.group("state"))
-        if not state or not _valid_us_driver_license(state, match.group("number")):
+        if (
+            not state
+            or _driver_license_value_is_masked(match.group("number"))
+            or not _valid_us_driver_license(state, match.group("number"))
+        ):
             continue
         span = match.span("number")
         if span in seen_spans:
@@ -1284,6 +1454,64 @@ def _detect_us_driver_license_findings(
     return out
 
 
+def _detect_sg_wedge_remainder_findings(
+    text: str,
+    *,
+    packs: list[JurisdictionRulePack],
+    jurisdiction: str,
+    legal_basis: str,
+    idx_start: int,
+) -> list["ReviewFinding"]:
+    if not any(pack.code == "SG" for pack in packs):
+        return []
+    out: list["ReviewFinding"] = []
+    idx = idx_start
+    rules = [
+        (
+            "sg_insurance_policy_number",
+            SG_INSURANCE_POLICY_RE,
+            "medium",
+            "Singapore insurance policy / certificate / claim reference detected",
+        ),
+        (
+            "crypto_wallet_address",
+            CRYPTO_WALLET_RE,
+            "high",
+            "Crypto wallet / DPT transfer address detected in a labelled VASP/payment context",
+        ),
+        (
+            "sg_tribunal_reference",
+            SG_TRIBUNAL_REFERENCE_RE,
+            "medium",
+            "Singapore tribunal / regulator dispute reference detected",
+        ),
+    ]
+    seen: set[tuple[str, int, int]] = set()
+    for rule, pattern, severity, reason in rules:
+        for match in pattern.finditer(text):
+            span = match.span(1)
+            key = (rule, span[0], span[1])
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(
+                _new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule=rule,
+                    jurisdiction=jurisdiction,
+                    severity=severity,
+                    matched_text=match.group(1),
+                    start=span[0],
+                    end=span[1],
+                    reason=reason,
+                    legal_basis=legal_basis,
+                )
+            )
+            idx += 1
+    return out
+
+
 def _driver_license_coverage_warnings(
     text: str,
     *,
@@ -1295,10 +1523,33 @@ def _driver_license_coverage_warnings(
     warnings: list[dict[str, Any]] = []
     for match in _US_DRIVER_LICENSE_ANY_RE.finditer(text):
         state = _state_near_driver_license(text, match.start(), match.end(), None)
+        number = match.group("number")
         if state:
+            if not _valid_us_driver_license(state, number) and _driver_license_value_is_masked(number):
+                warnings.append(
+                    {
+                        "rule_guess": "us_driver_license",
+                        "why": (
+                            "Driver-license-like field appears masked or partial; "
+                            "state-specific validation was not applied."
+                        ),
+                        "confidence": 0.68,
+                    }
+                )
             continue
         candidate = _potential_state_near_driver_license(text, match.start(), match.end())
-        if candidate and candidate not in _US_STATE_CODES:
+        if candidate in _US_STATE_CODES and _driver_license_value_is_masked(number):
+            warnings.append(
+                {
+                    "rule_guess": "us_driver_license",
+                    "why": (
+                        "Driver-license-like field appears masked or partial; "
+                        "state-specific validation was not applied."
+                    ),
+                    "confidence": 0.68,
+                }
+            )
+        elif candidate and candidate not in _US_STATE_CODES:
             warnings.append(
                 {
                     "rule_guess": "us_driver_license",
@@ -1496,9 +1747,8 @@ def _resolve_minor_severity(
             triggered.append(code)
     if not triggered:
         return "low", []  # age explicitly above all applicable cliffs — adult-data reference
-    # Strictest (highest cliff) jurisdiction wins severity. Under-13 references are high
+    # Strictest jurisdiction wins severity. Under-13 references are high
     # everywhere; under-16 references are high under IN/SG/UK/AU/HK but medium under EU/CN/US.
-    max_cliff = max(_MINOR_AGE_CLIFFS[code] for code in triggered)
     if extracted_age < min(_MINOR_AGE_CLIFFS.get(code, 99) for code in applicable_juris):
         return "high", triggered  # below the strictest cliff in scope → high everywhere
     return "medium", triggered
@@ -1713,6 +1963,9 @@ _QUASI_IDENTIFIER_RULES = frozenset({
     "employee_id", "customer_account_number", "medical_record_number",
     # item 33 mini-slice: DOB/age + online/device identifiers.
     "date_of_birth", "age_reference", "ip_address", "mac_address", "imei",
+    "cookie_id", "advertising_id", "device_serial_number", "eu_national_id",
+    # SG wedge direct matter references
+    "sg_insurance_policy_number", "crypto_wallet_address", "sg_tribunal_reference",
 })
 _QUASI_IDENTIFIER_WINDOW = 500
 _QUASI_IDENTIFIER_MIN_DISTINCT = 3
@@ -1835,7 +2088,9 @@ _MATERIALITY_TIERS_AU_ASX300: tuple[tuple[float, str], ...] = (
 )
 # Jurisdictions whose regulators explicitly refuse a numeric threshold. We surface percentage
 # vs base as advisory reason but never mutate severity. Reviewer judgement closes the loop.
-_MATERIALITY_ADVISORY_ONLY: frozenset[str] = frozenset({"SG", "HK", "UK", "EU", "MY", "ID", "TH", "PH", "VN", "JP", "KR"})
+_MATERIALITY_ADVISORY_ONLY: frozenset[str] = frozenset(
+    {"SG", "HK", "UK", "EU", "MY", "ID", "TH", "PH", "VN", "JP", "KR"}
+)
 
 _MATERIALITY_SCALED_RULES: frozenset[str] = frozenset({"financial_amount", "financial_percentage"})
 
@@ -2003,7 +2258,8 @@ def _scale_financial_by_entity_size(
             # Advisory-only jurisdiction (MAR / SGX / HKEX): annotate reason, leave severity.
             f.reason = (
                 f.reason
-                + f" — entity-relative {fraction:.2%} (regulator declines numeric materiality threshold; review required)"
+                + f" — entity-relative {fraction:.2%} "
+                "(regulator declines numeric materiality threshold; review required)"
             )
             continue
         new_tier = _tier_for(fraction, ladder)
@@ -2410,6 +2666,7 @@ class PreSendReviewEngine:
         findings.extend(
             _detect_core_identifier_findings(
                 text,
+                packs=packs,
                 jurisdiction=jurisdiction,
                 legal_basis=legal_basis,
                 idx_start=len(findings),
@@ -2421,6 +2678,16 @@ class PreSendReviewEngine:
         # configured shape; audit_grade separately warns on missing/unsupported state.
         findings.extend(
             _detect_us_driver_license_findings(
+                text,
+                packs=packs,
+                jurisdiction=jurisdiction,
+                legal_basis=legal_basis,
+                idx_start=len(findings),
+            )
+        )
+
+        findings.extend(
+            _detect_sg_wedge_remainder_findings(
                 text,
                 packs=packs,
                 jurisdiction=jurisdiction,
@@ -2672,6 +2939,16 @@ class PreSendReviewEngine:
             (MONEY_RE, "financial_amount", "medium", "Specific financial amount may be material"),
             (PERCENT_RE, "financial_percentage", "medium", "Specific financial percentage may be material"),
             (LONG_NUMBER_RE, "large_number", "medium", "Large numeric value may be material"),
+            (CONTRACT_UNIT_PRICE_RE, "contract_unit_price", "medium",
+             "Contract unit price / per-unit economics may be commercially sensitive MNPI"),
+            (CONTRACT_DISCOUNT_RE, "contract_discount_rate", "medium",
+             "Contract discount or rebate rate may be commercially sensitive MNPI"),
+            (VOLUME_COMMITMENT_RE, "volume_commitment", "medium",
+             "Contract volume commitment may be commercially sensitive MNPI"),
+            (ROYALTY_RATE_RE, "royalty_rate", "medium",
+             "Royalty rate may be commercially sensitive MNPI"),
+            (TOTAL_CONTRACT_VALUE_RE, "total_contract_value", "medium",
+             "Total contract value may be commercially sensitive MNPI"),
         ]:
             effective_severity = MNPI_DOC_TYPE_SEVERITY_OVERRIDES.get((rule, doc_type_key), severity)
             for match in pattern.finditer(text):
@@ -2939,6 +3216,8 @@ class PreSendReviewEngine:
         if matter_id:
             from kaypoh.review.matter_store import (
                 add_defined_terms as add_matter_terms,
+            )
+            from kaypoh.review.matter_store import (
                 load_defined_terms as load_matter_terms,
             )
 

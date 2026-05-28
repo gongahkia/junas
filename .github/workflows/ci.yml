@@ -1,0 +1,102 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: "17 19 * * *"
+
+jobs:
+  tests:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --extra dev
+      - run: uv run python -m spacy download en_core_web_sm
+      - run: uv run python -m unittest discover -s test -p "test_*.py"
+
+  latency-slo:
+    name: Latency SLO
+    runs-on: ubuntu-latest
+    env:
+      KAYPOH_RUN_LATENCY_SLO: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --extra dev
+      - run: uv run python -m spacy download en_core_web_sm
+      - run: uv run python -m unittest test.benchmarks.test_latency_slo
+      - run: uv run python scripts/check_latency_slo.py --write-report
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: latency-slo-reports
+          path: reports/latency_slo_*.json
+          if-no-files-found: warn
+
+  live-latency:
+    name: Live HTTP latency
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --extra dev
+      - run: uv run python -m spacy download en_core_web_sm
+      - name: Start server
+        run: |
+          uv run uvicorn backend.main:app --host 127.0.0.1 --port 8131 > reports/live_latency_uvicorn.log 2>&1 &
+          echo "$!" > reports/live_latency_uvicorn.pid
+      - name: Wait for readiness
+        run: |
+          uv run python - <<'PY'
+          import json
+          import time
+          import urllib.request
+
+          deadline = time.time() + 90
+          while time.time() < deadline:
+              try:
+                  with urllib.request.urlopen("http://127.0.0.1:8131/ready", timeout=2) as response:
+                      payload = json.loads(response.read().decode("utf-8"))
+                  if payload.get("ready") is True:
+                      raise SystemExit(0)
+              except Exception:
+                  pass
+              time.sleep(1)
+          raise SystemExit("server did not become ready")
+          PY
+      - name: Run live latency SLO
+        run: >
+          uv run python scripts/check_latency_slo.py
+          --base-url http://127.0.0.1:8131
+          --fixture test/fixtures/latency-corpus/5k.txt
+          --write-report
+      - name: Stop server
+        if: always()
+        run: |
+          if [ -f reports/live_latency_uvicorn.pid ]; then
+            kill "$(cat reports/live_latency_uvicorn.pid)" || true
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-latency-reports
+          path: |
+            reports/latency_slo_*.json
+            reports/live_latency_uvicorn.log
+          if-no-files-found: warn

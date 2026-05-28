@@ -21,6 +21,10 @@ def _has_env(name: str) -> bool:
     return bool(os.environ.get(name, "").strip())
 
 
+def _is_truthy_env(name: str) -> bool:
+    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
+
+
 def _check_spacy_model() -> tuple[bool, str]:
     try:
         import spacy
@@ -44,7 +48,15 @@ def main() -> int:
     parser.add_argument("--strict", action="store_true", help="exit non-zero on any warning")
     parser.add_argument("--config", type=str, help="override config.toml path for this run")
     parser.add_argument("--layers", type=str, help="override active pipeline layers for this run")
+    parser.add_argument(
+        "--deployment",
+        choices=("local", "production"),
+        default=os.environ.get("KAYPOH_DEPLOYMENT_MODE", "local").strip().lower() or "local",
+        help="deployment posture to validate; production fails strict preflight when dev-only auth is enabled",
+    )
     args = parser.parse_args()
+    if args.deployment not in {"local", "production"}:
+        parser.error("--deployment must be one of: local, production")
 
     cli_overrides: dict[str, object] = {}
     if args.config:
@@ -72,6 +84,15 @@ def main() -> int:
 
     ok_pillow, msg_pillow = _check_optional_import("PIL", "image metadata scrubber")
     (checks if ok_pillow else warnings).append(msg_pillow)
+
+    if args.deployment == "production" and _is_truthy_env("KAYPOH_DEV_AUTH"):
+        warnings.append(
+            "KAYPOH_DEV_AUTH=1 enables dev-only X-Reviewer-ID attribution; disable it for production"
+        )
+    elif _is_truthy_env("KAYPOH_DEV_AUTH"):
+        checks.append("dev reviewer header accepted for local deployment only")
+    else:
+        checks.append("dev reviewer header disabled")
 
     if settings is not None:
         provider_keys = {
@@ -108,6 +129,7 @@ def main() -> int:
         Path(args.config).expanduser().resolve() if args.config else ROOT / "config.toml"
     )
     print(f"config_path: {config_path}")
+    print(f"deployment: {args.deployment}")
     print("checks:")
     for item in checks:
         print(f"  - {item}")

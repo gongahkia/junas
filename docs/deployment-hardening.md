@@ -171,6 +171,53 @@ Decision attribution is bound to the authenticated principal: JWT deployments re
 token subject, API-key deployments record the configured credential subject, and
 `X-Reviewer-ID` is accepted only for local development with `KAYPOH_DEV_AUTH=1`.
 
+## Subject Erasure Runbook
+
+Subject erasure uses the HMAC reverse index under
+`${KAYPOH_JOURNAL_DIR}/subject_index/` or the tenant-scoped equivalent. The index stores
+only HMACs and persisted reference metadata; it does not store raw PII. Operators must
+set the same `KAYPOH_SUBJECT_INDEX_KEY` used when the data was indexed.
+
+Before handling a request, rebuild the index if the deployment predates subject-index
+enforcement or if mappings/journals were restored from backup:
+
+```sh
+export KAYPOH_JOURNAL_DIR=/var/lib/kaypoh/journal
+export KAYPOH_JOURNAL_KEY=...
+export KAYPOH_SUBJECT_INDEX_KEY=...
+
+uv run python scripts/erase_subject.py --tenant tenant-a --backfill --json
+```
+
+Use dry-run first and attach the ticket, DSAR, or legal citation to the real erase:
+
+```sh
+uv run python scripts/erase_subject.py \
+  --tenant tenant-a \
+  --value "jane@example.com" \
+  --dry-run \
+  --json
+
+uv run python scripts/erase_subject.py \
+  --tenant tenant-a \
+  --value "jane@example.com" \
+  --citation "DSR-2026-05-28-001" \
+  --json
+```
+
+Verify the result by repeating the dry-run and checking journal integrity:
+
+```sh
+uv run python scripts/erase_subject.py --tenant tenant-a --value "jane@example.com" --dry-run --json
+uv run python scripts/verify_journal.py --tenant tenant-a
+```
+
+This is not universal deletion. Reversible mapping files are deleted, and immutable review
+journal references receive `subject_erasure_recorded` tombstones. Append-only journals,
+application logs, SIEM exports, backups, cold archives, and records created before the
+subject index existed remain governed by the customer's retention and legal-hold policy.
+The operator must separately expire or tombstone those systems according to policy.
+
 ## Document Ingest And Metadata
 
 PDF review fails closed by default when the extracted text layer is missing, too sparse,

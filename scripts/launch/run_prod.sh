@@ -19,7 +19,7 @@ trap cleanup_services EXIT INT TERM
 echo "Starting Kaypoh production backend..."
 
 echo "Running strict preflight checks..."
-python_cmd "${ROOT}/scripts/preflight.py" --strict
+python_cmd "${ROOT}/scripts/preflight.py" --strict --deployment production
 
 rm -rf "${PROM_DIR}"
 mkdir -p "${PROM_DIR}"
