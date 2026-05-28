@@ -30,6 +30,10 @@ _session_lock = Lock()
 _SESSION_ID_RE = re.compile(r"^[A-Za-z0-9_\-]{1,128}$")
 
 
+class SessionStoreError(RuntimeError):
+    """Raised when session-scoped defined terms cannot be read safely."""
+
+
 def _sessions_dir(tenant_id: str | None = None) -> Path:
     return journal_dir(tenant_id) / "sessions"
 
@@ -48,17 +52,19 @@ def session_path(session_id: str, tenant_id: str | None = None) -> Path:
 
 def load_defined_terms(session_id: str, tenant_id: str | None = None) -> set[str]:
     """Return the casefolded set of defined terms previously accumulated for this session.
-    Empty set when the session is new or the file is missing/corrupt."""
+    Empty set when the session is new. Corrupt/unreadable sidecars fail closed."""
     path = session_path(session_id, tenant_id)
     if not path.exists():
         return set()
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return set()
+    except OSError as exc:
+        raise SessionStoreError(f"cannot read session defined-term sidecar: {path}") from exc
+    except json.JSONDecodeError as exc:
+        raise SessionStoreError(f"session defined-term sidecar is not valid JSON: {path}") from exc
     terms = payload.get("defined_terms", [])
     if not isinstance(terms, list):
-        return set()
+        raise SessionStoreError(f"session defined-term sidecar has invalid shape: {path}")
     return {str(t).strip().casefold() for t in terms if t}
 
 

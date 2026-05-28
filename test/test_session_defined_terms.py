@@ -15,7 +15,7 @@ import unittest
 from pathlib import Path
 
 from kaypoh.review import session_store
-from kaypoh.review.engine import PreSendReviewEngine
+from kaypoh.review.engine import PreSendReviewEngine, ReviewLayerError
 
 
 class SessionStoreTests(unittest.TestCase):
@@ -40,6 +40,13 @@ class SessionStoreTests(unittest.TestCase):
 
     def test_load_unknown_session_returns_empty(self):
         self.assertEqual(session_store.load_defined_terms("never-existed"), set())
+
+    def test_corrupt_session_sidecar_raises(self):
+        path = session_store.session_path("sess-corrupt")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("{not-json", encoding="utf-8")
+        with self.assertRaises(session_store.SessionStoreError):
+            session_store.load_defined_terms("sess-corrupt")
 
     def test_invalid_session_id_raises(self):
         for bad in ("with space", "with/slash", "", "x" * 200, "../escape"):
@@ -83,6 +90,22 @@ class EngineSessionInheritanceTests(unittest.TestCase):
                          f"expected inherited defined term to suppress 'Mr Purchaser'; got {names_b}")
         # but Dr Jane Tan still fires — inheritance suppresses defined terms only
         self.assertIn("Dr Jane Tan", names_b)
+
+    def test_corrupt_session_sidecar_fails_closed_in_engine(self):
+        path = session_store.session_path("deal-corrupt")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("{not-json", encoding="utf-8")
+        with self.assertRaises(ReviewLayerError) as ctx:
+            self.engine.review(
+                text="Dr Jane Tan signs.",
+                source_jurisdiction="SG",
+                destination_jurisdiction="SG",
+                entity_id=None,
+                include_suggestions=False,
+                document_type="generic",
+                session_id="deal-corrupt",
+            )
+        self.assertEqual(ctx.exception.layer, "session_defined_terms")
 
     def test_no_session_means_no_inheritance(self):
         doc_a = 'This Agreement (the "Purchaser") names Globex.'

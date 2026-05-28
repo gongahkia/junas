@@ -35,6 +35,10 @@ _matter_lock = Lock()
 _MATTER_ID_RE = re.compile(r"^[A-Za-z0-9_\-:]{1,128}$")  # colon allowed for `{dms_vendor}:{matter_id}` keys
 
 
+class MatterStoreError(RuntimeError):
+    """Raised when matter-scoped defined terms cannot be read safely."""
+
+
 def _matters_dir(tenant_id: str | None = None) -> Path:
     return journal_dir(tenant_id) / "matters"
 
@@ -53,17 +57,19 @@ def matter_path(matter_id: str, tenant_id: str | None = None) -> Path:
 
 def load_defined_terms(matter_id: str, tenant_id: str | None = None) -> set[str]:
     """Return the casefolded set of defined terms previously accumulated for this matter.
-    Empty set when the matter is new or the file is missing/corrupt."""
+    Empty set when the matter is new. Corrupt/unreadable sidecars fail closed."""
     path = matter_path(matter_id, tenant_id)
     if not path.exists():
         return set()
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return set()
+    except OSError as exc:
+        raise MatterStoreError(f"cannot read matter defined-term sidecar: {path}") from exc
+    except json.JSONDecodeError as exc:
+        raise MatterStoreError(f"matter defined-term sidecar is not valid JSON: {path}") from exc
     terms = payload.get("defined_terms", [])
     if not isinstance(terms, list):
-        return set()
+        raise MatterStoreError(f"matter defined-term sidecar has invalid shape: {path}")
     return {str(t).strip().casefold() for t in terms if t}
 
 

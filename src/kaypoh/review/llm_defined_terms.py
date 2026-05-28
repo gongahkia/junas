@@ -15,7 +15,8 @@ process boundary via this path.
 
 Cache layout: `${KAYPOH_JOURNAL_DIR}/llm_defined_terms/{document_hash}.json` carrying
 `{"terms": [casefolded, sorted], "ts": "<iso utc>"}`. Cache reads tolerate a missing
-or malformed entry by returning an empty set and re-running the extractor.
+or malformed entry by re-running the extractor. Under the API audit_grade path,
+extractor and cache-write failures fail closed instead of silently dropping this layer.
 """
 
 from __future__ import annotations
@@ -47,6 +48,10 @@ class LLMDefinedTermExtractor(Protocol):
           - return an empty list if nothing is found or the call fails
         """
         ...
+
+
+class LLMDefinedTermError(RuntimeError):
+    """Raised when the audit_grade defined-term helper cannot produce trustworthy output."""
 
 
 def _journal_dir() -> Path:
@@ -94,6 +99,7 @@ def extract_with_cache(
     *,
     text: str,
     extractor: LLMDefinedTermExtractor,
+    fail_closed: bool = False,
 ) -> set[str]:
     """Return the casefolded set of LLM-extracted defined terms for `text`, using the
     on-disk cache when present. Cache key is SHA-256 of the full document text.
@@ -108,12 +114,27 @@ def extract_with_cache(
             return cached
     preamble = text[:PREAMBLE_CHAR_CAP]
     try:
-        raw_terms = extractor.extract(preamble) or []
-    except Exception:
-        # extractor failure (network error, malformed model output) is non-fatal — the
-        # deterministic regex still ran. fall through to an empty LLM contribution.
+        raw_terms = extractor.extract(preamble)
+    except Exception as exc:
+        if fail_closed:
+            raise LLMDefinedTermError(f"extractor failed: {exc}") from exc
         raw_terms = []
+    if raw_terms is None:
+        raw_terms = []
+    if not isinstance(raw_terms, list):
+        if fail_closed:
+            raise LLMDefinedTermError("extractor returned non-list output")
+        raw_terms = []
+    invalid_terms = [type(term).__name__ for term in raw_terms if not isinstance(term, str)]
+    if invalid_terms and fail_closed:
+        raise LLMDefinedTermError(
+            "extractor returned non-string terms: " + ", ".join(invalid_terms[:3])
+        )
     terms = {str(t).strip().casefold() for t in raw_terms if t and isinstance(t, str)}
     with _cache_lock:
-        _store_cache(doc_hash, terms)
+        try:
+            _store_cache(doc_hash, terms)
+        except OSError as exc:
+            if fail_closed:
+                raise LLMDefinedTermError(f"cache write failed: {exc}") from exc
     return terms

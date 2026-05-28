@@ -3195,9 +3195,14 @@ class PreSendReviewEngine:
         if review_profile == "audit_grade" and self.llm_defined_term_extractor is not None:
             from kaypoh.review.llm_defined_terms import extract_with_cache
 
-            defined_terms = defined_terms | extract_with_cache(
-                text=text, extractor=self.llm_defined_term_extractor,
-            )
+            try:
+                defined_terms = defined_terms | extract_with_cache(
+                    text=text,
+                    extractor=self.llm_defined_term_extractor,
+                    fail_closed=True,
+                )
+            except Exception as exc:
+                raise ReviewLayerError("llm_defined_terms", f"LLM defined-term extraction failed: {exc}") from exc
         # cross-doc defined-term inheritance: merge prior session-scoped terms into the current
         # document's set, then persist the current document's terms back to the session store so
         # the next related-doc review inherits them too. SPA defines `the "Purchaser"` once;
@@ -3205,10 +3210,13 @@ class PreSendReviewEngine:
         if session_id:
             from kaypoh.review.session_store import add_defined_terms, load_defined_terms
 
-            inherited = load_defined_terms(session_id, tenant_id=tenant_id)
-            defined_terms = defined_terms | inherited
-            if defined_terms - inherited:
-                add_defined_terms(session_id, defined_terms - inherited, tenant_id=tenant_id)
+            try:
+                inherited = load_defined_terms(session_id, tenant_id=tenant_id)
+                defined_terms = defined_terms | inherited
+                if defined_terms - inherited:
+                    add_defined_terms(session_id, defined_terms - inherited, tenant_id=tenant_id)
+            except Exception as exc:
+                raise ReviewLayerError("session_defined_terms", f"session defined-term store failed: {exc}") from exc
         # item 55: matter-scoped inheritance sits above session-scope. Sessions belong to a matter;
         # defined terms accumulate at matter level and inherit into every session within that matter.
         # Closes the 30+ document M&A case where session-scope loses inheritance once the session
@@ -3221,10 +3229,13 @@ class PreSendReviewEngine:
                 load_defined_terms as load_matter_terms,
             )
 
-            matter_inherited = load_matter_terms(matter_id, tenant_id=tenant_id)
-            defined_terms = defined_terms | matter_inherited
-            if defined_terms - matter_inherited:
-                add_matter_terms(matter_id, defined_terms - matter_inherited, tenant_id=tenant_id)
+            try:
+                matter_inherited = load_matter_terms(matter_id, tenant_id=tenant_id)
+                defined_terms = defined_terms | matter_inherited
+                if defined_terms - matter_inherited:
+                    add_matter_terms(matter_id, defined_terms - matter_inherited, tenant_id=tenant_id)
+            except Exception as exc:
+                raise ReviewLayerError("matter_defined_terms", f"matter defined-term store failed: {exc}") from exc
         findings = self._pii_findings(text, packs, document_type, defined_terms) + self._mnpi_findings(
             text, packs, defined_terms, document_type
         )
@@ -3329,14 +3340,18 @@ class PreSendReviewEngine:
         if engage_llm_tier and self.llm_coverage_auditor is not None:
             from kaypoh.review.llm_coverage_audit import run_coverage_audit
 
-            coverage_warnings.extend(
-                run_coverage_audit(
-                    text=text,
-                    findings=findings,
-                    document_type=document_type,
-                    auditor=self.llm_coverage_auditor,
+            try:
+                coverage_warnings.extend(
+                    run_coverage_audit(
+                        text=text,
+                        findings=findings,
+                        document_type=document_type,
+                        auditor=self.llm_coverage_auditor,
+                        fail_closed=True,
+                    )
                 )
-            )
+            except Exception as exc:
+                raise ReviewLayerError("llm_coverage_audit", f"LLM coverage audit failed: {exc}") from exc
         try:
             suggestions = self._suggestions(findings, include_suggestions, tenant_id=tenant_id)
         except CitationOverrideError as exc:

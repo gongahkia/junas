@@ -17,7 +17,7 @@ from pathlib import Path
 from fastapi.testclient import TestClient
 
 import backend.main as main
-from kaypoh.review.engine import PreSendReviewEngine
+from kaypoh.review.engine import PreSendReviewEngine, ReviewLayerError
 
 
 @asynccontextmanager
@@ -126,18 +126,18 @@ class CoverageAuditResultIntegrationTests(unittest.TestCase):
         )
         self.assertEqual(auditor.calls, 0)
 
-    def test_failing_auditor_is_safe(self):
+    def test_failing_auditor_fails_closed_under_engine(self):
         engine = PreSendReviewEngine(llm_coverage_auditor=FailingAuditor())
         text = "Acme acquisition for $2.5 billion is pending."  # in ambiguous band
-        result = engine.review(
-            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-            entity_id=None, include_suggestions=False, document_type="memo",
-            review_profile="audit_grade",
-        )
-        # auditor crashed; coverage_warnings should be [] but the review still completed.
-        self.assertEqual(result.coverage_warnings, [])
+        with self.assertRaises(ReviewLayerError) as ctx:
+            engine.review(
+                text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
+                entity_id=None, include_suggestions=False, document_type="memo",
+                review_profile="audit_grade",
+            )
+        self.assertEqual(ctx.exception.layer, "llm_coverage_audit")
 
-    def test_malformed_warning_fields_are_dropped(self):
+    def test_malformed_warning_fields_fail_closed_under_engine(self):
         class BadAuditor:
             def audit(self, *, findings, body_hash, document_type):
                 return [
@@ -148,12 +148,13 @@ class CoverageAuditResultIntegrationTests(unittest.TestCase):
                     {"rule_guess": "y", "why": "ok2"},      # valid
                 ]
         engine = PreSendReviewEngine(llm_coverage_auditor=BadAuditor())
-        result = engine.review(
-            text="Acme acquisition for $2.5 billion is pending.", source_jurisdiction="SG",
-            destination_jurisdiction="SG", entity_id=None, include_suggestions=False,
-            document_type="memo", review_profile="audit_grade",
-        )
-        self.assertEqual(len(result.coverage_warnings), 2)
+        with self.assertRaises(ReviewLayerError) as ctx:
+            engine.review(
+                text="Acme acquisition for $2.5 billion is pending.", source_jurisdiction="SG",
+                destination_jurisdiction="SG", entity_id=None, include_suggestions=False,
+                document_type="memo", review_profile="audit_grade",
+            )
+        self.assertEqual(ctx.exception.layer, "llm_coverage_audit")
 
 
 class CoverageAuditJournalingTests(unittest.TestCase):

@@ -76,23 +76,35 @@ def run_coverage_audit(
     fail_closed: bool = False,
 ) -> list[dict[str, Any]]:
     """Call the auditor with a privacy-safe summary; return the list of warnings.
-    Catches auditor failures and returns []."""
+    Catches auditor failures and returns [] unless fail_closed is set."""
     body_hash = compute_body_hash(text)
     summary = _summarize_for_audit(findings)
     try:
         warnings = auditor.audit(
             findings=summary, body_hash=body_hash, document_type=document_type,
-        ) or []
-    except Exception:
+        )
+    except Exception as exc:
         if fail_closed:
-            raise
+            raise RuntimeError(f"coverage auditor failed: {exc}") from exc
+        return []
+    if warnings is None:
+        warnings = []
+    if not isinstance(warnings, list):
+        if fail_closed:
+            raise RuntimeError("coverage auditor returned non-list output")
         return []
     # normalize: each warning must be a dict with at least rule_guess + why fields
     normalized: list[dict[str, Any]] = []
-    for warning in warnings:
+    for index, warning in enumerate(warnings):
         if not isinstance(warning, dict):
+            if fail_closed:
+                raise RuntimeError(f"coverage auditor warning {index} is not an object")
             continue
         if "rule_guess" not in warning or "why" not in warning:
+            if fail_closed:
+                raise RuntimeError(
+                    f"coverage auditor warning {index} missing rule_guess or why"
+                )
             continue
         normalized.append(dict(warning))
     return normalized

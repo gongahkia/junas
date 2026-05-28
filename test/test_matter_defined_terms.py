@@ -17,7 +17,7 @@ import tempfile
 import unittest
 
 from kaypoh.review import matter_store
-from kaypoh.review.engine import PreSendReviewEngine
+from kaypoh.review.engine import PreSendReviewEngine, ReviewLayerError
 
 
 class MatterStoreTests(unittest.TestCase):
@@ -42,6 +42,13 @@ class MatterStoreTests(unittest.TestCase):
 
     def test_load_unknown_matter_returns_empty(self):
         self.assertEqual(matter_store.load_defined_terms("never-existed"), set())
+
+    def test_corrupt_matter_sidecar_raises(self):
+        path = matter_store.matter_path("matter-corrupt")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("{not-json", encoding="utf-8")
+        with self.assertRaises(matter_store.MatterStoreError):
+            matter_store.load_defined_terms("matter-corrupt")
 
     def test_dms_vendor_colon_composite_key_allowed(self):
         # iManage / NetDocuments matter IDs are commonly composed as `{vendor}:{id}`.
@@ -98,6 +105,22 @@ class EngineMatterInheritanceTests(unittest.TestCase):
         self.assertNotIn("Mr Purchaser", names_b,
                          f"expected matter-inherited defined term to suppress; got {names_b}")
         self.assertIn("Dr Jane Tan", names_b)
+
+    def test_corrupt_matter_sidecar_fails_closed_in_engine(self):
+        path = matter_store.matter_path("matter-corrupt")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("{not-json", encoding="utf-8")
+        with self.assertRaises(ReviewLayerError) as ctx:
+            self.engine.review(
+                text="Dr Jane Tan signs.",
+                source_jurisdiction="SG",
+                destination_jurisdiction="SG",
+                entity_id=None,
+                include_suggestions=False,
+                document_type="generic",
+                matter_id="matter-corrupt",
+            )
+        self.assertEqual(ctx.exception.layer, "matter_defined_terms")
 
     def test_no_matter_means_no_inheritance(self):
         doc_a = 'Acme Pte. Ltd. (the "Purchaser") signs the SPA.'

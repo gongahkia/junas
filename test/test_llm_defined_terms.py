@@ -16,7 +16,7 @@ import unittest
 from pathlib import Path
 
 from kaypoh.review import llm_defined_terms
-from kaypoh.review.engine import PreSendReviewEngine
+from kaypoh.review.engine import PreSendReviewEngine, ReviewLayerError
 
 
 class DummyExtractor:
@@ -69,6 +69,20 @@ class LLMDefinedTermCacheTests(unittest.TestCase):
         result = llm_defined_terms.extract_with_cache(text="x", extractor=extractor)
         self.assertEqual(result, set())
         self.assertEqual(extractor.calls, 1)
+
+    def test_failing_extractor_raises_when_fail_closed(self):
+        extractor = FailingExtractor()
+        with self.assertRaises(llm_defined_terms.LLMDefinedTermError):
+            llm_defined_terms.extract_with_cache(text="x", extractor=extractor, fail_closed=True)
+        self.assertEqual(extractor.calls, 1)
+
+    def test_malformed_extractor_output_raises_when_fail_closed(self):
+        class BadExtractor:
+            def extract(self, preamble: str):
+                return "Seller"
+
+        with self.assertRaises(llm_defined_terms.LLMDefinedTermError):
+            llm_defined_terms.extract_with_cache(text="x", extractor=BadExtractor(), fail_closed=True)
 
     def test_preamble_is_truncated_to_cap(self):
         long_text = "A" * (llm_defined_terms.PREAMBLE_CHAR_CAP + 5000)
@@ -124,6 +138,21 @@ class EngineLLMDefinedTermIntegrationTests(unittest.TestCase):
                 review_profile="audit_grade",
             )
         self.assertEqual(extractor.calls, 1, "calls 2+ must be served from on-disk cache")
+
+    def test_audit_grade_failing_extractor_fails_closed(self):
+        extractor = FailingExtractor()
+        engine = PreSendReviewEngine(llm_defined_term_extractor=extractor)
+        with self.assertRaises(ReviewLayerError) as ctx:
+            engine.review(
+                text="Mr Seller shall execute the contract.",
+                source_jurisdiction="SG",
+                destination_jurisdiction="SG",
+                entity_id=None,
+                include_suggestions=False,
+                document_type="SPA",
+                review_profile="audit_grade",
+            )
+        self.assertEqual(ctx.exception.layer, "llm_defined_terms")
 
 
 if __name__ == "__main__":
