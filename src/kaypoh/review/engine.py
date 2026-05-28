@@ -3126,9 +3126,17 @@ class PreSendReviewEngine:
         if mnpi_score <= 0 or self.public_evidence_retriever is None:
             return None
         try:
-            return self.public_evidence_retriever.retrieve(text=text, entity_id=entity_id, lexicon=None)
+            result = self.public_evidence_retriever.retrieve(text=text, entity_id=entity_id, lexicon=None)
         except Exception as exc:
             raise ReviewLayerError("public_evidence", f"public-evidence retrieval failed: {exc}") from exc
+        if isinstance(result, dict) and result.get("status") == "error":
+            detail = str(result.get("detail") or result.get("review_recommendation") or "provider returned error")
+            raise ReviewLayerError("public_evidence", f"public-evidence retrieval failed: {detail}")
+        if isinstance(result, dict) and result.get("status") == "skipped":
+            detail = str(result.get("detail") or "")
+            if "key" in detail.lower() and "not configured" in detail.lower():
+                raise ReviewLayerError("public_evidence", f"public-evidence retrieval failed: {detail}")
+        return result
 
     def _maybe_llm_adjudication(
         self,
@@ -3168,6 +3176,10 @@ class PreSendReviewEngine:
                 raise ReviewLayerError("llm_adjudicator", f"LLM adjudication failed: {retry_exc}") from retry_exc
         except Exception as exc:
             raise ReviewLayerError("llm_adjudicator", f"LLM adjudication failed: {exc}") from exc
+        if isinstance(result, dict) and result.get("status") == "error":
+            detail = str(result.get("review_recommendation") or result.get("detail") or "provider returned error")
+            raise ReviewLayerError("llm_adjudicator", f"LLM adjudication failed: {detail}")
+        return result
 
     def review(
         self,
