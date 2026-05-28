@@ -71,6 +71,51 @@ def _variant_notes(*, adversarial: bool, multilingual: bool, variant: str) -> li
     return notes
 
 
+def _concept_generation_notes(concept: str) -> list[str]:
+    if concept == "direct_identifiers":
+        return [
+            "Include at least two direct identifiers: one jurisdiction-local ID/company/tax identifier and one "
+            "universal contact/account identifier.",
+            "Include one invalid, public, or generic identifier-shaped bait item that should test precision.",
+        ]
+    if concept == "special_category":
+        return [
+            "Anchor sensitive data to a fictional person and include at least two categories such as health, "
+            "biometric, genetic, religious, union, political, sexual-orientation, or minor data.",
+            "Include one benign phrase that reuses sensitive vocabulary without describing a person's sensitive data.",
+        ]
+    if concept == "privacy_events":
+        return [
+            "Include at least two privacy workflow events such as cross-border transfer, consent withdrawal, DSAR, "
+            "erasure, retention, or minimisation.",
+            "Include one completed, negated, or policy-only control statement that should test precision.",
+        ]
+    if concept == "universal_mnpi":
+        return [
+            "Include at least two universal market-sensitive signals such as a deal codename, non-public marker, "
+            "definitive agreement, embargo date, financial amount, percentage, or MAC/MAE clause.",
+            "Include one public-source, stale, lowercase project-management, or negated MAC sentence.",
+        ]
+    if concept == "jurisdictional_mnpi":
+        return [
+            "Use the local exchange/regulator vocabulary for non-public/public-status or disclosure timing.",
+            "Include one local public-filing or already-announced reference that should test public-status precision.",
+        ]
+    if concept == "sector_mnpi":
+        return [
+            "Include at least two sector-sensitive signals from cyber, crypto/DPT, ESG/climate, insider lists, "
+            "information barriers, commercial terms, blackout windows, tipping, or selective disclosure.",
+            "Include one educational, marketing, or operations-only sentence that reuses sector vocabulary benignly.",
+        ]
+    if concept == "quasi_identifiers":
+        return [
+            "Create a linkable cluster of weak identifiers around one fictional person, such as DOB/age, role, "
+            "employer, device, location, account, or session reference.",
+            "Include similar weak identifiers separated from any person so the corpus tests over-detection.",
+        ]
+    return []
+
+
 def _build_prompt(
     doc_type: str,
     *,
@@ -101,6 +146,7 @@ def _build_prompt(
         "Include at least one benign or negative sentence that should help evaluate precision.",
         "Do not mention Kaypoh, tests, labels, detector rules, or expected outputs.",
     ]
+    constraints.extend(_concept_generation_notes(concept))
     constraints.extend(_variant_notes(adversarial=adversarial, multilingual=multilingual, variant=variant))
     user = (
         "Generate a synthetic legal fixture.\n\n"
