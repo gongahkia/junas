@@ -226,6 +226,53 @@ class GeneticDataTests(_BaseSpecialCategoryTests):
         self.assertEqual(len(self._findings_for("BRCA Holdings signed the term sheet.", "genetic_data")), 0)
 
 
+class SexualOrientationTests(_BaseSpecialCategoryTests):
+    def test_explicit_orientation_field(self):
+        f = self._findings_for("Sexual orientation: bisexual.", "sexual_orientation")
+        self.assertEqual(len(f), 1)
+        self.assertEqual(f[0].severity, "high")
+
+    def test_named_subject_orientation(self):
+        self.assertEqual(len(self._findings_for("Ms Lee identifies as lesbian.", "sexual_orientation")), 1)
+
+    def test_same_sex_partner_with_named_subject(self):
+        self.assertEqual(len(self._findings_for("Mr Tan disclosed a same-sex spouse.", "sexual_orientation")), 1)
+
+    def test_orientation_week_does_not_fire(self):
+        self.assertEqual(len(self._findings_for("Orientation week starts on Monday.", "sexual_orientation")), 0)
+
+    def test_policy_debate_without_subject_does_not_fire(self):
+        self.assertEqual(
+            len(self._findings_for("The memo discusses same-sex marriage policy.", "sexual_orientation")),
+            0,
+        )
+
+
+class SexLifeReferenceTests(_BaseSpecialCategoryTests):
+    def test_explicit_sexual_history_field(self):
+        f = self._findings_for("Sexual history: disclosed to clinic intake nurse.", "sex_life_reference")
+        self.assertEqual(len(f), 1)
+        self.assertEqual(f[0].severity, "high")
+
+    def test_named_subject_sexual_activity(self):
+        self.assertEqual(len(self._findings_for("Ms Lee reported sexual activity.", "sex_life_reference")), 1)
+
+    def test_sti_status_field(self):
+        self.assertEqual(
+            len(self._findings_for("STI status: pending laboratory confirmation.", "sex_life_reference")),
+            1,
+        )
+
+    def test_unrelated_sex_word_does_not_fire(self):
+        self.assertEqual(
+            len(self._findings_for("Sex-disaggregated statistics were reviewed.", "sex_life_reference")),
+            0,
+        )
+
+    def test_activity_without_sexual_context_does_not_fire(self):
+        self.assertEqual(len(self._findings_for("Ms Lee reported increased activity.", "sex_life_reference")), 0)
+
+
 class OptOutTests(_BaseSpecialCategoryTests):
     def tearDown(self):
         os.environ.pop("KAYPOH_SPECIAL_CATEGORY_DISABLE", None)
@@ -258,6 +305,12 @@ class OptOutTests(_BaseSpecialCategoryTests):
         os.environ["KAYPOH_SPECIAL_CATEGORY_DISABLE"] = "biometric,genetic"
         text = "Biometric template: fingerprint hash. Genetic test result: BRCA1 positive."
         for rule in ("biometric_identifier", "genetic_data"):
+            self.assertEqual(len(self._findings_for(text, rule)), 0, f"expected {rule} disabled")
+
+    def test_disable_sexual_categories(self):
+        os.environ["KAYPOH_SPECIAL_CATEGORY_DISABLE"] = "sexual"
+        text = "Sexual orientation: bisexual. Sexual history: disclosed to clinic intake nurse."
+        for rule in ("sexual_orientation", "sex_life_reference"):
             self.assertEqual(len(self._findings_for(text, rule)), 0, f"expected {rule} disabled")
 
 
@@ -296,6 +349,16 @@ class CitationsTests(_BaseSpecialCategoryTests):
     def test_genetic_citation_includes_gdpr_art_9(self):
         from kaypoh.review.citations import pii_rationale
         rationale = pii_rationale(rule="genetic_data", jurisdiction="EU", matched_text="BRCA1 positive")
+        self.assertIn("GDPR Art 9", rationale)
+
+    def test_orientation_citation_includes_gdpr_art_9(self):
+        from kaypoh.review.citations import pii_rationale
+        rationale = pii_rationale(rule="sexual_orientation", jurisdiction="EU", matched_text="bisexual")
+        self.assertIn("GDPR Art 9", rationale)
+
+    def test_sex_life_citation_includes_gdpr_art_9(self):
+        from kaypoh.review.citations import pii_rationale
+        rationale = pii_rationale(rule="sex_life_reference", jurisdiction="EU", matched_text="Sexual history")
         self.assertIn("GDPR Art 9", rationale)
 
 

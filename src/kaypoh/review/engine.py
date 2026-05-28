@@ -614,6 +614,36 @@ GENETIC_DATA_RE = re.compile(
     re.IGNORECASE,
 )
 
+_SEXUAL_ORIENTATION_TERMS = (
+    r"gay|lesbian|bisexual|queer|homosexual|heterosexual|asexual|pansexual|"
+    r"LGBTQ\+?|LGBTIQ\+?"
+)
+SEXUAL_ORIENTATION_RE = re.compile(
+    r"\b(?:"
+    r"(?:sexual\s+orientation|orientation)\s*[:=]\s*(?:" + _SEXUAL_ORIENTATION_TERMS + r")"
+    r"|"
+    r"(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}\s+"
+    r"(?:identifies\s+as|identified\s+as|came\s+out\s+as|is|was)\s+"
+    r"(?:a\s+|an\s+)?(?:" + _SEXUAL_ORIENTATION_TERMS + r")"
+    r"|"
+    r"(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}\s+"
+    r"(?:has|listed|named|disclosed)\s+(?:a\s+)?same[- ]sex\s+(?:partner|spouse)"
+    r")\b",
+    re.IGNORECASE,
+)
+
+SEX_LIFE_RE = re.compile(
+    r"\b(?:"
+    r"(?:sexual\s+history|sex\s+life|sexual\s+activity|STI\s+status|contraception\s+use)"
+    r"\s*[:=]\s*[A-Za-z0-9][^\n.;]{0,80}"
+    r"|"
+    r"(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}\s+"
+    r"(?:disclosed|reported|confirmed|denied)\s+"
+    r"(?:sexual\s+history|sexual\s+activity|STI\s+status|contraception\s+use)"
+    r")\b",
+    re.IGNORECASE,
+)
+
 
 # item 107: jurisdiction-age-cliff minors detector. Single rule with per-juris severity
 # resolution via _MINOR_AGE_CLIFFS map (research-recommended; avoids duplicate findings).
@@ -1028,6 +1058,7 @@ _PII_NEGATION_GUARDED = frozenset({
 _SPECIAL_CATEGORY_RULES = frozenset({
     "religious_belief", "trade_union_membership", "political_opinion",
     "health_condition", "medical_treatment", "biometric_identifier", "genetic_data",
+    "sexual_orientation", "sex_life_reference",
 })
 
 
@@ -1052,6 +1083,10 @@ def _disabled_special_categories() -> frozenset[str]:
             disabled.add("biometric_identifier")
         elif token == "genetic":
             disabled.add("genetic_data")
+        elif token in {"sexual", "sex"}:
+            disabled.update({"sexual_orientation", "sex_life_reference"})
+        elif token == "orientation":
+            disabled.add("sexual_orientation")
         elif token in _SPECIAL_CATEGORY_RULES:
             disabled.add(token)
     return frozenset(disabled)
@@ -1217,6 +1252,7 @@ def _detect_special_category_findings(
         medical identifiers and treatment narratives.
       - GDPR Art 9 covers genetic data and uniquely identifying biometric data; HIPAA 45 CFR
         164.514 safe harbor enumerates biometric identifiers including finger and voice prints.
+      - GDPR Art 9 covers sex life and sexual orientation directly.
       - PDPC SG / DPDPA IN treat these as warranting higher protection but not as a distinct
         statutory class.
 
@@ -1242,6 +1278,10 @@ def _detect_special_category_findings(
          "Biometric identifier reference detected; special-category personal data"),
         ("genetic_data", GENETIC_DATA_RE,
          "Genetic-data reference detected; special-category personal data"),
+        ("sexual_orientation", SEXUAL_ORIENTATION_RE,
+         "Sexual-orientation reference detected; special-category personal data"),
+        ("sex_life_reference", SEX_LIFE_RE,
+         "Sex-life reference detected; special-category personal data"),
     ]
     for rule_name, pattern, reason in rules:
         if rule_name in disabled:

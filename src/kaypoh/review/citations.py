@@ -285,6 +285,23 @@ _PII_DEFAULT_RATIONALE = {
         "and pathogenic-variant references before disclosure unless explicit "
         "consent or statutory authority is documented."
     ),
+    "sexual_orientation": (
+        "Sexual-orientation reference detected (item 108). GDPR Art 9(1) lists a "
+        "natural person's sexual orientation as special-category personal data. "
+        "PDPC SG Key Concepts guidance still treats the underlying facts as "
+        "personal data when the individual is identifiable, and the project applies "
+        "the higher-protection special-category posture for pre-send review. Mask "
+        "or remove before disclosure unless explicit consent and purpose are "
+        "documented."
+    ),
+    "sex_life_reference": (
+        "Sex-life reference detected (item 108). GDPR Art 9(1) lists data "
+        "concerning a natural person's sex life as special-category personal data. "
+        "Where the same passage includes health or treatment details, HIPAA / HHS "
+        "PHI principles may also apply in US healthcare context. Mask or remove "
+        "before disclosure unless explicit consent, statutory authority, or a "
+        "documented care purpose is on file."
+    ),
     # item 107: jurisdiction-age-cliff minors detector.
     "minor_data_reference": (
         "Minor / children's-data reference detected (item 107). Under DPDPA India "
