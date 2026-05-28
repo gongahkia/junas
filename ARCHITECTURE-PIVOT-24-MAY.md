@@ -76,6 +76,52 @@ Adversarial and multilingual coverage matter because SG contracts mix English wi
 
 The HK / AU / JP / KR seed corpus is **one fixture per jurisdiction** as of 2026-05-26 (4 fixtures total); recall/precision at 1.0 is trivially achievable at that volume and should not be read as population-level coverage. SEA seed corpus is similarly one fixture per jurisdiction (5 fixtures total). Item 86 follow-up + item 90/91 discipline grows each toward the 30-doc-per-jurisdiction target before the coverage claim hardens.
 
+Candidate corpus growth now runs through the quarantined `test/fixtures/legal-corpus-candidates/` path rather than directly into the locked corpora. The generator and auto-labeler use independent prompts over the statutory taxonomy in `scripts/fixture_taxonomy.py`; generated labels remain `_human_review_status: "pending"` and cannot promote into recall locks until human spot-check / promotion records exist. Staged Azure-mini runs are the operating plan:
+
+- **Stage A — jurisdiction scout:** 21 candidates per jurisdiction = 7 statutory concepts × `memo` × 3 variants (`default`, `adversarial`, `negative`) × count 1. Purpose: provider sanity, label quality, detector-gap shape, and early cost/latency read.
+- **Stage B — jurisdiction coverage:** 84 candidates per jurisdiction = 7 statutory concepts × 4 default document types (`memo`, `term_sheet`, `privacy_notice`, `incident_report`) × 3 variants × count 1. Purpose: broad jurisdiction coverage before any procurement-grade claim.
+- **Stage C — saturation:** 252 candidates per jurisdiction total = Stage B matrix × count 3; 4,284 candidates globally across all 17 in-scope jurisdiction packs. Purpose: stable benchmark depth, not immediate lock promotion.
+
+Progress is tracked here until the candidate corpus has its own generated report. Status values: `next`, `pending`, `running`, `generated`, `labeled`, `evaluated`, `reviewed`, `promoted`, or `blocked`.
+
+| Priority | Jurisdiction | Stage A | Stage B | Stage C | Notes |
+|---:|---|---|---|---|---|
+| 1 | SG | running | pending | pending | Stage A run started 2026-05-28 in `/tmp/kaypoh-candidate-run-20260528-080405`; validates SG/SEA legal-finance value before scaling. |
+| 2 | MY | pending | pending | pending | SEA seed pack; Bursa / PDPA coverage depth. |
+| 3 | ID | pending | pending | pending | SEA seed pack; OJK / PDP coverage depth. |
+| 4 | TH | pending | pending | pending | SEA seed pack; SEC / PDPA coverage depth. |
+| 5 | PH | pending | pending | pending | SEA seed pack; SEC / Data Privacy Act coverage depth. |
+| 6 | VN | pending | pending | pending | SEA seed pack; SSC / Decree 13 coverage depth. |
+| 7 | HK | pending | pending | pending | Financial-centre pack; "not generally known" MNPI semantics need stress. |
+| 8 | AU | pending | pending | pending | APRA/ASX/ASIC pack; TFN/ABN/ACN plus market-abuse coverage. |
+| 9 | JP | pending | pending | pending | APPI/My Number + FIEA material-fact coverage. |
+| 10 | KR | pending | pending | pending | PIPA/RRN + FSCMA coverage. |
+| 11 | IN | pending | pending | pending | New seed pack; DPDPA + Aadhaar/PAN/GSTIN coverage. |
+| 12 | CN | pending | pending | pending | New seed pack; PIPL/CSL/DSL + Resident ID/USCC coverage. |
+| 13 | AE | pending | pending | pending | New seed pack; PDPL + Emirates ID / trade-licence coverage. |
+| 14 | SA | pending | pending | pending | New seed pack; PDPL + National ID/Iqama/CR coverage. |
+| 15 | US | pending | pending | pending | Mature market-abuse baseline; Reg FD / sectoral PII stress. |
+| 16 | UK | pending | pending | pending | UK GDPR / UK MAR pack; closed-period and NIN stress. |
+| 17 | EU | pending | pending | pending | GDPR / MAR pack; member-state ID and special-category stress. |
+
+The first executable run is SG Stage A:
+
+```bash
+UV_PROJECT_ENVIRONMENT=.venv-uv uv run python scripts/run_candidate_corpus_pipeline.py \
+  --profile custom \
+  --jurisdictions SG \
+  --concepts all \
+  --doc-types memo \
+  --variants default,adversarial,negative \
+  --count 1 \
+  --generation-provider azure \
+  --generation-model azure-deployment \
+  --autolabel-provider azure \
+  --autolabel-model azure-deployment \
+  --workers 1 \
+  --generation-max-failures 1
+```
+
 ### Statute citations
 
 Suggestion rationales are statute-cited and lead with the matched text in quotes — for example, `"S1234567D" detected → PDPA s13 and PDPC NRIC Advisory (effective 31 Dec 2026): NRIC/FIN must not be ...`. Reviewers can forward the rationale verbatim to internal audit. Customers needing internal policy citations instead of the built-in PDPA/SFA/GDPR/MAR/Reg-FD references use the `KAYPOH_CITATIONS_OVERRIDE` hook, keyed by `(rule, jurisdiction)`, consulted before the built-in lookup.
@@ -690,7 +736,7 @@ These were the immediate blockers before deeper detector/product work.
 
 39. ~~Make `structured_tokens` the regulated-tenant default.~~ Shipped 2026-05-25. Remote LLM endpoints now default to `structured_tokens` when `llm.llm_input_mode` is unset; local/private endpoints keep `raw_text` as the default. Explicit remote `raw_text` requires `llm.allow_remote_raw_text=true` / `KAYPOH_LLM_ALLOW_REMOTE_RAW_TEXT=1` in addition to the existing remote URL gate. `PrivacyLedgerEntryResponse` carries `input_mode`, and `/review` + legacy `/classify` append an `llm_adjudication` privacy-ledger event whenever the LLM tier is invoked.
 
-40. **Expand evaluation corpora to compliance-grade gates.** Replace seed-scale coverage claims with locked targets: 50 default legal-contract fixtures, 50 adversarial/negative fixtures, 30 fixtures per SEA jurisdiction, OCR/PDF broken-run variants, multilingual name variants, and sector-specific finance / HR / healthcare / legal templates. Require both recall and precision locks before any new detector is marked available in the coverage table.
+40. **Expand evaluation corpora to compliance-grade gates.** Replace seed-scale coverage claims with locked targets: 50 default legal-contract fixtures, 50 adversarial/negative fixtures, 30 fixtures per SEA jurisdiction, OCR/PDF broken-run variants, multilingual name variants, and sector-specific finance / HR / healthcare / legal templates. Require both recall and precision locks before any new detector is marked available in the coverage table. 2026-05-28 operating path: grow quarantine candidates through the staged Azure-mini plan in §Evaluation corpus posture; only promote reviewed subsets into locked corpora.
 
 41. ~~Harden persistence and mapping storage.~~ Shipped 2026-05-25. Persisted mappings can be Fernet-encrypted by setting `KAYPOH_MAPPING_STORE_KEY`; legacy plaintext mappings remain readable for compatibility. `scripts/purge_mappings.py` deletes mappings by `document_hash` or by retention age with `--dry-run`, and `docs/mapping-store-hardening.md` documents key generation, retention, filesystem ACLs, and disk-encryption expectations. HMAC remains the journal-integrity primitive; mapping confidentiality and deletion are now separate operator-visible controls.
 
