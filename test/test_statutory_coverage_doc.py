@@ -42,6 +42,9 @@ _UNIVERSAL_PII_RULES = {
     "email_address", "phone_number", "passport_number", "bank_account",
     "named_person",
     "employee_id", "customer_account_number", "medical_record_number",
+    "religious_belief", "trade_union_membership", "political_opinion",
+    "health_condition", "medical_treatment", "biometric_identifier", "genetic_data",
+    "sexual_orientation", "sex_life_reference", "minor_data_reference",
 }
 
 # MNPI rule names emitted by engine.py:_mnpi_findings (universal — no TOML).

@@ -407,8 +407,8 @@ DATA_MINIMISATION_RE = re.compile(
 # Defends against Christian Dior / Hindu Kush / AFL Premiership / Trade Union Square /
 # "ruling party of the contract" / "Independent Green Party".
 #
-# Per-category opt-out via KAYPOH_SPECIAL_CATEGORY_DISABLE=religion,union,political,health
-# for tenants with high false-positive sensitivity.
+# Per-category opt-out via KAYPOH_SPECIAL_CATEGORY_DISABLE=religion,union,political,
+# health,biometric,genetic,sexual for tenants with high false-positive sensitivity.
 
 # Religion vocabulary anchored on faith/practice marker. The non-capturing trailing context
 # absorbs whitespace + up to 30 chars of the faith-marker so the matched span covers the
@@ -1053,7 +1053,8 @@ _PII_NEGATION_GUARDED = frozenset({
 
 
 # Special-category PII opt-out. Tenants with high false-positive sensitivity can disable
-# individual categories via KAYPOH_SPECIAL_CATEGORY_DISABLE=religion,union,political,health.
+# individual categories via KAYPOH_SPECIAL_CATEGORY_DISABLE=religion,union,political,
+# health,biometric,genetic,sexual.
 # Default-enabled in strict + audit_grade. Categories are casefolded comma-separated.
 _SPECIAL_CATEGORY_RULES = frozenset({
     "religious_belief", "trade_union_membership", "political_opinion",
