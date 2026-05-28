@@ -44,6 +44,21 @@ class ContingentMnpiRecallTests(_ReviewHelper):
                           "contingent_mnpi_language")
         self.assertTrue(f)
 
+    def test_subject_to_regulatory_approvals_plural(self):
+        f = self._by_rule(self._findings("Completion remains subject to regulatory approvals."),
+                          "contingent_mnpi_language")
+        self.assertTrue(f)
+
+    def test_subject_to_investment_committee_approval(self):
+        f = self._by_rule(self._findings("The disposal is subject to investment committee approval."),
+                          "contingent_mnpi_language")
+        self.assertTrue(f)
+
+    def test_pending_board_approval(self):
+        f = self._by_rule(self._findings("Signing remains pending board approval."),
+                          "contingent_mnpi_language")
+        self.assertTrue(f)
+
     def test_if_approved(self):
         f = self._by_rule(self._findings("If approved, the deal closes Q3."),
                           "contingent_mnpi_language")
@@ -66,6 +81,11 @@ class ContingentMnpiRecallTests(_ReviewHelper):
 
     def test_in_advanced_negotiations(self):
         f = self._by_rule(self._findings("We are in advanced negotiations on the SPA."),
+                          "contingent_mnpi_language")
+        self.assertTrue(f)
+
+    def test_non_binding_discussions(self):
+        f = self._by_rule(self._findings("The issuer is in non-binding discussions with the target."),
                           "contingent_mnpi_language")
         self.assertTrue(f)
 
@@ -109,6 +129,21 @@ class ContingentMnpiPrecisionTests(_ReviewHelper):
         f = self._by_rule(self._findings("This is not under consideration at this time."),
                           "contingent_mnpi_language")
         self.assertFalse(f)
+
+    def test_employment_contingent_background_check_does_not_fire(self):
+        f = self._by_rule(
+            self._findings("This employment offer is contingent on background checks."),
+            "contingent_mnpi_language",
+        )
+        self.assertFalse(f)
+
+    def test_hr_under_consideration_fires_only_low_when_generic(self):
+        f = self._by_rule(
+            self._findings("The HR policy remains under consideration by management."),
+            "contingent_mnpi_language",
+        )
+        self.assertTrue(f)
+        self.assertEqual(f[0].severity, "low")
 
 
 class TippingLanguageRecallTests(_ReviewHelper):

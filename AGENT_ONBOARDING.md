@@ -24,14 +24,14 @@ Older docs (`ARCHITECTURE_25_MAY.txt` does not exist — it was renamed) are his
 
 ---
 
-## 3. The state of the codebase as of 2026-05-26
+## 3. The state of the codebase as of 2026-05-28
 
 **Current state after the 2026-05-26 pivot cleanup:**
 
 - Legacy 9-layer classifier (`src/kaypoh/workflow/layer1_lexicon` through `layer6_regression` + `layer5_mosaic`) **deleted from the repo**. `/classify` is now a thin wrapper over `engine.review()` returning a flat findings shape. See item 63.
-- 13 new expansion items (54-68) covering: LLM symmetric findings, matter-scoped inheritance, latency SLO, reviewer identity binding, local-daemon ACL, subject-erasure (PDPA s16 / GDPR Art 17 / etc.), per-tenant citations, container coverage, image scanning (Tesseract / OpenAI Vision / Google / AWS / Azure), fail-closed everywhere, additive signals (classifier + similarity + transparent aggregator). Subject erasure (item 59), reviewer identity binding (item 57), and latency SLO (item 56) shipped on 2026-05-28.
-- 13 more items (69–86) derived from first-principles statutory analysis of every in-scope jurisdiction. Plus procurement-substrate items 87–89.
-- Items 90 and 91 are implemented: HK/AU/JP/KR packs + seed fixtures are in place, and the default/adversarial recall locks were refreshed after the autolabel sweep.
+- 13 new expansion items (54-68) covering: LLM symmetric findings, matter-scoped inheritance, latency SLO, reviewer identity binding, local-daemon ACL, subject-erasure (PDPA s16 / GDPR Art 17 / etc.), per-tenant citations, container coverage, image scanning (Tesseract / OpenAI Vision / Google / AWS / Azure), fail-closed everywhere, additive signals (classifier + similarity + transparent aggregator). Subject erasure (item 59), reviewer identity binding (item 57), latency SLO (item 56), and the runtime fail-closed audit (item 65) shipped on 2026-05-28.
+- 13 more items (69–86) derived from first-principles statutory analysis of every in-scope jurisdiction. Items 78, 80, 84, 90, and 91 are implemented; procurement-substrate items 87–89 remain open.
+- Items 90 and 91 are implemented: HK/AU/JP/KR packs + seed fixtures are in place, and the default/adversarial recall locks were refreshed after the autolabel sweep. Items 78 and 80 shipped 2026-05-28 with new default/adversarial corpus fixtures and refreshed recall locks.
 - Runtime setup is UV-first. Use `uv run ...` with the project lock; do not revive `requirements.txt` workflows.
 - Docker support exists for the deterministic API server via `Dockerfile` and `docker-compose.yml`.
 
@@ -88,16 +88,14 @@ These are project-wide invariants. Every PR is measured against them.
 
 ## 5. What to work on next (in order)
 
-Items 90 and 91 are done. Pick the next highest-leverage open item by ICP impact:
-
 Pick the next highest-leverage open item by ICP impact:
 
-- **Item 78** (pseudonymised IDs) — high recall lift on PII without new training data.
-- **Item 80** (contingent MNPI language) — closes the textbook MNPI recall hole the first-principles analysis surfaced.
-- **Item 84** (calendrical reasoning for quiet periods) — high signal for IR / corporate-secretarial ICP segment.
+- **Item 37** (production-wire LLM helper layers) — makes audit-grade defined-term extraction and inverse coverage audit visible, configurable, and diagnosable.
+- **Item 82** (HK "not generally known" public-evidence semantics) — closes a jurisdiction-specific MNPI defensibility gap.
+- **Items 87 / 89** (defensibility report + evidence pack export) — turns the statute coverage work into procurement-facing artefacts.
 - **Item 33 remainder** (EU member-state IDs + broader cookie/ad-ID/device serials + semantic DOB/age) — DOB/adult-age, IP/MAC/IMEI, US ITIN/DLN mini-slice shipped 2026-05-28.
-- **Item 48 remainder** — second slice (IPOS / ACRA / HDB / strata / title / URA / SLA references) shipped 2026-05-28; remaining wedge work is contract-commercial terms, insurance-policy numbers, crypto wallet refs, and non-SAL tribunal refs.
-- **Item 58** (local-daemon production ACL) — closes the remaining high-leverage local/server boundary hardening gap.
+- **Items 34 / 35 / 79** (addresses, semantic PII, inferred attributes) — broader PII recall once the deterministic slices are stable.
+- **Item 48 fixture growth / item 86 follow-up** — SG wedge and jurisdiction packs are stronger now, but still need deeper adversarial/real-world fixture growth.
 
 Always check the architecture doc for the latest user prioritisation before picking. If unsure, ask the user.
 

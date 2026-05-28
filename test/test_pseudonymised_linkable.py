@@ -1,13 +1,16 @@
-"""Item 99: pseudonymised-but-linkable identifier detectors.
+"""Items 78 + 99: pseudonymised-but-linkable identifier detectors.
 
-Three new universal PII rules in `engine.py`:
+Universal PII rules in `engine.py`:
     employee_id              (medium standalone)
     customer_account_number  (medium standalone)
     medical_record_number    (high standalone — special-category)
+    internal_session_id      (medium standalone)
+    bank_customer_reference  (medium standalone)
+    insurance_member_id      (medium standalone)
 
-`_amplify_pseudonymised_when_linked` escalates employee_id and customer_account_number
-from medium → high when a named_person finding co-occurs anywhere in the same document.
-medical_record_number is already high standalone — escalation is a no-op for it.
+`_amplify_pseudonymised_when_linked` escalates medium standalone rules to high when a
+named_person finding co-occurs anywhere in the same document. medical_record_number is
+already high standalone — escalation is a no-op for it.
 
 Citation: GDPR Recital 26 + PDPC Anonymisation Advisory Guidelines treat IDs the
 controller can re-link to a subject as personal data.
@@ -126,6 +129,71 @@ class MedicalRecordPrecisionTests(_Base):
         self.assertEqual(f, [])
 
 
+class InternalSessionRecallTests(_Base):
+    def test_session_id_labelled_uuid(self):
+        f = self._by_rule(
+            "Session ID: 550e8400-e29b-41d4-a716-446655440000 was opened.",
+            "internal_session_id",
+        )
+        self.assertEqual(len(f), 1)
+
+    def test_suffixed_session_uuid(self):
+        f = self._by_rule(
+            "Audit token 550e8400-e29b-41d4-a716-446655440000_session was exported.",
+            "internal_session_id",
+        )
+        self.assertEqual(len(f), 1)
+
+
+class InternalSessionPrecisionTests(_Base):
+    def test_bare_uuid_does_not_fire(self):
+        f = self._by_rule(
+            "Reference 550e8400-e29b-41d4-a716-446655440000 appears in the log.",
+            "internal_session_id",
+        )
+        self.assertEqual(f, [])
+
+    def test_session_id_prose_without_uuid_does_not_fire(self):
+        f = self._by_rule("The session ID will be rotated after logout.", "internal_session_id")
+        self.assertEqual(f, [])
+
+
+class BankCustomerReferenceTests(_Base):
+    def test_bank_cif_label_fires(self):
+        f = self._by_rule("Bank CIF: CIF-778899 remains restricted.", "bank_customer_reference")
+        self.assertEqual(len(f), 1)
+
+    def test_customer_information_file_fires(self):
+        f = self._by_rule(
+            "Customer information file number BCR-2026-001 is in the annex.",
+            "bank_customer_reference",
+        )
+        self.assertEqual(len(f), 1)
+
+    def test_bank_reference_prose_does_not_fire(self):
+        f = self._by_rule("The bank reference material was updated.", "bank_customer_reference")
+        self.assertEqual(f, [])
+
+
+class InsuranceMemberIdTests(_Base):
+    def test_insurance_member_id_fires(self):
+        f = self._by_rule("Insurance member ID: IM-778899 was added.", "insurance_member_id")
+        self.assertEqual(len(f), 1)
+
+    def test_policy_member_number_fires(self):
+        f = self._by_rule("Policy member number PM-2026-001 is in the claims file.", "insurance_member_id")
+        self.assertEqual(len(f), 1)
+
+    def test_insurance_member_id_does_not_double_count_customer_rule(self):
+        text = "Insurance member ID: IM-778899 was added."
+        self.assertEqual(self._by_rule(text, "customer_account_number"), [])
+        self.assertEqual(len(self._by_rule(text, "insurance_member_id")), 1)
+
+    def test_member_benefits_prose_does_not_fire(self):
+        f = self._by_rule("The member benefits guide explains coverage tiers.", "insurance_member_id")
+        self.assertEqual(f, [])
+
+
 class NamedPersonAmplifierTests(_Base):
     """Item 99 amplifier: medium → high when a named_person co-occurs in the same document."""
 
@@ -157,6 +225,21 @@ class NamedPersonAmplifierTests(_Base):
         f = self._by_rule("MRN: 1234567 admitted Tuesday.", "medical_record_number")
         self.assertEqual(f[0].severity, "high")
 
+    def test_internal_session_with_named_person_escalates(self):
+        text = "Ms Lina Koh used Session ID: 550e8400-e29b-41d4-a716-446655440000."
+        f = self._by_rule(text, "internal_session_id")
+        self.assertEqual(f[0].severity, "high")
+
+    def test_bank_customer_reference_with_named_person_escalates(self):
+        text = "Mr Lee Wei Ming has Bank CIF: CIF-778899."
+        f = self._by_rule(text, "bank_customer_reference")
+        self.assertEqual(f[0].severity, "high")
+
+    def test_insurance_member_id_with_named_person_escalates(self):
+        text = "Dr Sarah Lim holds Insurance member ID: IM-778899."
+        f = self._by_rule(text, "insurance_member_id")
+        self.assertEqual(f[0].severity, "high")
+
     def test_far_apart_named_person_still_amplifies(self):
         # The amplifier is document-scoped, not ±200 chars — the named_person and ID can be
         # paragraphs apart and the linkage risk still holds.
@@ -184,6 +267,21 @@ class PseudonymisedCitationTests(unittest.TestCase):
         text = pii_rationale(rule="medical_record_number", jurisdiction="US", matched_text="1234567")
         self.assertIn("HIPAA", text)
         self.assertIn("Art 9", text)
+
+    def test_internal_session_citation_carries_recital_26(self):
+        text = pii_rationale(rule="internal_session_id", jurisdiction="EU", matched_text="session")
+        self.assertIn("Recital 26", text)
+        self.assertIn("PDPC", text)
+
+    def test_bank_customer_reference_citation_carries_recital_26(self):
+        text = pii_rationale(rule="bank_customer_reference", jurisdiction="SG", matched_text="CIF-778899")
+        self.assertIn("Recital 26", text)
+        self.assertIn("financial", text.lower())
+
+    def test_insurance_member_id_citation_carries_pdpc(self):
+        text = pii_rationale(rule="insurance_member_id", jurisdiction="SG", matched_text="IM-778899")
+        self.assertIn("PDPC", text)
+        self.assertIn("policyholder", text)
 
 
 if __name__ == "__main__":

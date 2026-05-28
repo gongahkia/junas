@@ -6,6 +6,7 @@ from unittest import mock
 from fastapi.testclient import TestClient
 
 import backend.main as main
+from kaypoh.review.engine import Classification, ReviewResult
 from kaypoh.workflow.layer7_public_evidence.inference import PublicEvidenceRetriever
 from kaypoh.workflow.privacy_guard import PrivacyGuard
 from test import observability_test_app as test_app
@@ -156,6 +157,37 @@ class PublicEvidenceLLMApiTests(unittest.TestCase):
         emit_privacy_events.assert_called_once()
         self.assertEqual(emit_privacy_events.call_args.kwargs["endpoint"], "/classify")
         self.assertEqual(len(emit_privacy_events.call_args.args[0]), 0)
+
+    def test_classify_surfaces_engine_degraded_modes(self):
+        class DegradedEngine:
+            def review(self, **kwargs):
+                return ReviewResult(
+                    overall_risk=Classification.SAFE,
+                    document_score=0.0,
+                    pii_score=0.0,
+                    mnpi_score=0.0,
+                    jurisdictions_applied=["SG"],
+                    jurisdiction_policy="strictest_wins",
+                    degraded_modes=[
+                        {
+                            "mode": "entity_size_lookup",
+                            "status": "unavailable",
+                            "reason": "entity_size_lookup is not configured",
+                            "detail": {"entity_id": "Acme Corp"},
+                        }
+                    ],
+                )
+
+        with mock.patch("backend.main._build_review_engine", return_value=DegradedEngine()):
+            response = main._classify_core(
+                main.ClassifyRequest(text="Acme Corp revenue threshold check", entity_id="Acme Corp"),
+                "req-1",
+                "/classify",
+            )
+
+        self.assertTrue(response.observability.degraded)
+        self.assertEqual(response.degraded_modes[0].mode, "entity_size_lookup")
+        self.assertEqual(response.degraded_modes[0].status, "unavailable")
 
 
 if __name__ == "__main__":

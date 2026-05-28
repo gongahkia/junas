@@ -256,12 +256,16 @@ CONTINGENT_MNPI_RE = re.compile(
     r"\b("
     r"if (?:approved|the (?:deal|transaction|merger|acquisition) (?:closes|completes))|"
     r"should the board (?:agree|approve)|"
-    r"subject to (?:board|shareholder|shareholders'|regulatory|management|due diligence|"
-    r"financing|condition[s]?\s+precedent) (?:approval|clearance|sign[ -]off|consent)|"
+    r"subject to (?:board|shareholder|shareholders'|regulatory|management|"
+    r"investment\s+committee|IC|due diligence|financing|condition[s]?\s+precedent) "
+    r"(?:approval[s]?|clearance[s]?|sign[ -]off|consent)|"
+    r"pending (?:board|shareholder|shareholders'|regulatory|management|investment\s+committee|IC) "
+    r"(?:approval[s]?|clearance[s]?|sign[ -]off|consent)|"
     r"(?:likely|expected) to (?:close|approve|materialise|materialize|impact|complete|"
     r"result in|conclude|sign|announce)|"
     r"under (?:active )?consideration|"
-    r"in (?:advanced |preliminary |early[ -]stage |ongoing )?(?:discussions|negotiations)|"
+    r"in (?:advanced |preliminary |early[ -]stage |ongoing |non[ -]binding )?"
+    r"(?:discussions|negotiations)|"
     r"exploratory(?:\s+(?:talks|discussions|stage|phase))?|"
     r"pre[ -]decisional|"
     r"management believes|"
@@ -271,25 +275,56 @@ CONTINGENT_MNPI_RE = re.compile(
     r")\b",
     re.IGNORECASE,
 )
-# item 99: pseudonymised-but-linkable identifiers. GDPR Recital 26 + PDPC Anonymisation
-# Advisory Guidelines treat IDs that the organisation can re-link to a subject as personal
-# data even when the bare token isn't immediately identifying. Each pattern is anchor-required
-# (Employee ID: / EMP- / Customer Account: / ACCT- / Patient ID: / MRN:) and the capture
-# group is wrapped in (?-i:...) with a digit-presence lookahead to defend against bare
-# lowercase prose ("Employee ID will be linked to your NRIC") matching the capture as if
-# "will" were an identifier.
+# items 78 + 99: pseudonymised-but-linkable identifiers. GDPR Recital 26 + PDPC
+# Anonymisation Advisory Guidelines treat IDs that the organisation can re-link to a
+# subject as personal data even when the bare token is not immediately identifying.
+# Every pattern is context-anchored, and non-UUID captures are case-sensitive with a
+# digit-presence lookahead to defend against lowercase prose matching as an identifier.
 EMPLOYEE_ID_RE = re.compile(
     r"(?:Employee\s+(?:ID|No\.?|Number)|EMP-|Staff\s+(?:ID|No\.?|Number))[\s:.#-]*"
     r"(?-i:(?=[A-Z0-9-]*\d)([A-Z0-9][A-Z0-9-]{3,11}))\b",
     re.IGNORECASE,
 )
 CUSTOMER_ACCOUNT_RE = re.compile(
-    r"(?:Customer\s+(?:Account|ID|Reference)|ACCT-|CUST-|Member\s+(?:ID|No\.?|Number))[\s:.#-]*"
+    r"(?:(?<!Bank\s)Customer\s+(?:Account|ID|Reference)|ACCT-|CUST-|"
+    r"(?<!Insurance\s)(?<!Policy\s)(?<!Plan\s)(?<!Benefits\s)(?<!Insured\s)"
+    r"Member\s+(?:ID|No\.?|Number))[\s:.#-]*"
     r"(?-i:(?=[A-Z0-9-]*\d)([A-Z0-9][A-Z0-9-]{3,15}))\b",
     re.IGNORECASE,
 )
 MEDICAL_RECORD_RE = re.compile(
     r"(?:MRN|Medical\s+Record\s+(?:No\.?|Number)|Patient\s+(?:ID|No\.?|Number))[\s:.#-]*(\d{6,12})\b",
+    re.IGNORECASE,
+)
+_UUID_TOKEN = r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+INTERNAL_SESSION_ID_RE = re.compile(
+    r"\b(?:"
+    r"(?:internal\s+)?(?:user\s+)?session\s+(?:ID|token)|"
+    r"login\s+session\s+(?:ID|token)|"
+    r"internal\s+user\s+(?:ID|token)"
+    r")\s*[:=#-]\s*(?:uuid\s*)?"
+    r"(?:" + _UUID_TOKEN + r")(?:_(?:session|user))?\b|"
+    r"\b(?:" + _UUID_TOKEN + r")_(?:session|user)\b",
+    re.IGNORECASE,
+)
+BANK_CUSTOMER_REFERENCE_RE = re.compile(
+    r"\b(?:"
+    r"bank\s+(?:customer|client|internal)\s+(?:reference|ref|ID|No\.?|Number)|"
+    r"CIF\s+(?:ID|No\.?|Number)|"
+    r"bank\s+CIF|"
+    r"customer\s+information\s+file\s+(?:ID|No\.?|Number)"
+    r")[\s:.#-]*(?-i:(?=[A-Z0-9-]*\d)[A-Z0-9][A-Z0-9-]{4,15})\b",
+    re.IGNORECASE,
+)
+INSURANCE_MEMBER_ID_RE = re.compile(
+    r"\b(?:"
+    r"insurance\s+member\s+(?:ID|No\.?|Number)|"
+    r"policy\s+member\s+(?:ID|No\.?|Number)|"
+    r"plan\s+member\s+(?:ID|No\.?|Number)|"
+    r"benefits\s+member\s+(?:ID|No\.?|Number)|"
+    r"insured\s+member\s+(?:ID|No\.?|Number)|"
+    r"member\s+certificate\s+(?:ID|No\.?|Number)"
+    r")[\s:.#-]*(?-i:(?=[A-Z0-9-]*\d)[A-Z0-9][A-Z0-9-]{4,15})\b",
     re.IGNORECASE,
 )
 # item 97: Reg FD selective-disclosure red-flags (17 CFR 243.100 — verified against
@@ -1661,13 +1696,14 @@ def _amplify_co_occurring_low_mnpi(findings: list["ReviewFinding"]) -> None:
                 break
 
 
-# item 99: pseudonymised-but-linkable identifier rules. Escalate medium → high when a
+# items 78 + 99: pseudonymised-but-linkable identifier rules. Escalate medium → high when a
 # named_person finding co-occurs anywhere in the same document. The linking-key risk that
 # makes GDPR Recital 26 / PDPC Anonymisation Advisory treat these as personal data is
 # document-scoped, not span-local — once a named person + an internal ID both appear in
 # the same doc, the re-link is trivial.
 _PSEUDONYMISED_LINKABLE_RULES = frozenset({
     "employee_id", "customer_account_number", "medical_record_number",
+    "internal_session_id", "bank_customer_reference", "insurance_member_id",
 })
 
 
@@ -1959,8 +1995,9 @@ _QUASI_IDENTIFIER_RULES = frozenset({
     "hk_hkid", "hk_cr_no", "au_tfn", "au_abn", "au_acn",
     "jp_my_number", "jp_corporate_number", "kr_rrn", "kr_business_registration",
     "us_ssn", "us_ein", "us_itin", "us_driver_license", "uk_nin",
-    # pseudonymised-but-linkable (item 99)
+    # pseudonymised-but-linkable (items 78 + 99)
     "employee_id", "customer_account_number", "medical_record_number",
+    "internal_session_id", "bank_customer_reference", "insurance_member_id",
     # item 33 mini-slice: DOB/age + online/device identifiers.
     "date_of_birth", "age_reference", "ip_address", "mac_address", "imei",
     "cookie_id", "advertising_id", "device_serial_number", "eu_national_id",
@@ -2586,6 +2623,12 @@ class PreSendReviewEngine:
                  "Customer account / member identifier — pseudonymised-but-linkable personal data"),
                 ("medical_record_number", MEDICAL_RECORD_RE, "high",
                  "Medical record / patient identifier — special-category personal data"),
+                ("internal_session_id", INTERNAL_SESSION_ID_RE, "medium",
+                 "Internal session / user token — pseudonymised-but-linkable personal data"),
+                ("bank_customer_reference", BANK_CUSTOMER_REFERENCE_RE, "medium",
+                 "Bank customer reference — pseudonymised-but-linkable personal data"),
+                ("insurance_member_id", INSURANCE_MEMBER_ID_RE, "medium",
+                 "Insurance member identifier — pseudonymised-but-linkable personal data"),
                 # items 109/110/111: PII-handling-event markers. medium standalone; negation
                 # guard via `_PII_NEGATION_GUARDED` lookback-25.
                 ("cross_border_transfer_marker", CROSS_BORDER_TRANSFER_RE, "medium",
@@ -3157,7 +3200,7 @@ class PreSendReviewEngine:
         # using kwargs-with-default avoids breaking callers that implement the older
         # interface (dummy adjudicators in tests, etc.).
         try:
-            return self.llm_adjudicator.adjudicate(
+            result = self.llm_adjudicator.adjudicate(
                 text=text,
                 current_classification=overall_risk.value,
                 public_evidence=public_evidence,
@@ -3167,7 +3210,7 @@ class PreSendReviewEngine:
         except TypeError:
             # backwards-compat shim: older adjudicators reject the new kwargs.
             try:
-                return self.llm_adjudicator.adjudicate(
+                result = self.llm_adjudicator.adjudicate(
                     text=text,
                     current_classification=overall_risk.value,
                     public_evidence=public_evidence,

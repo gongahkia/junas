@@ -283,6 +283,24 @@ _PII_DEFAULT_RATIONALE = {
         "(health data) + PDPC special-category guidance. Mask unless statutory authority "
         "and purpose are on file."
     ),
+    "internal_session_id": (
+        "Internal session / user token is pseudonymised-but-linkable personal data when "
+        "the organisation retains logs or account records that can re-link the token to a "
+        "person. GDPR Recital 26 + PDPC Anonymisation Advisory Guidelines apply; mask "
+        "before external disclosure unless the recipient and purpose are documented."
+    ),
+    "bank_customer_reference": (
+        "Bank CIF / customer reference is pseudonymised-but-linkable personal data and "
+        "may identify a financial customer through the bank's internal records. GDPR "
+        "Recital 26 + PDPC Anonymisation Advisory Guidelines apply, with financial-sector "
+        "confidentiality expectations. Mask unless disclosure is intended and approved."
+    ),
+    "insurance_member_id": (
+        "Insurance member / certificate identifier is pseudonymised-but-linkable personal "
+        "data: the insurer or plan administrator can re-link it to the policyholder, "
+        "insured member, beneficiary, or claim. GDPR Recital 26 + PDPC Anonymisation "
+        "Advisory Guidelines apply. Mask unless disclosure is intended and approved."
+    ),
     "quasi_identifier_combination": (
         "Three or more distinct quasi-identifiers co-occur within a 500-character window. "
         "Under PDPA s2 ('identified from that data and other information'), GDPR Recital "

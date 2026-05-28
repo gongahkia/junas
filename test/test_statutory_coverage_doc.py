@@ -44,6 +44,7 @@ _UNIVERSAL_PII_RULES = {
     "cookie_id", "advertising_id", "device_serial_number", "eu_national_id",
     "sg_insurance_policy_number", "crypto_wallet_address", "sg_tribunal_reference",
     "employee_id", "customer_account_number", "medical_record_number",
+    "internal_session_id", "bank_customer_reference", "insurance_member_id",
     "religious_belief", "trade_union_membership", "political_opinion",
     "health_condition", "medical_treatment", "biometric_identifier", "genetic_data",
     "sexual_orientation", "sex_life_reference", "minor_data_reference",

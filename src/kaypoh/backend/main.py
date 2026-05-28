@@ -803,6 +803,7 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
         raise HTTPException(status_code=503, detail=_layer_error_detail(exc)) from exc
     except Exception as exc:
         raise HTTPException(status_code=500, detail=_detector_error_detail(exc)) from exc
+    degraded_modes = list(getattr(result, "degraded_modes", []) or [])
     timings_ms = {"total": round((time.perf_counter() - t_start) * 1000.0, 3)}
 
     public_evidence_resp = None
@@ -866,7 +867,7 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
         privacy_ledger=privacy_ledger_resp,
         offending_spans=None,
         observability=ObservabilityResponse(
-            degraded=False,
+            degraded=bool(degraded_modes),
             cache_status="disabled",
             active_pipeline=["engine.review"],
             executed_layers=["engine.review"],
@@ -878,6 +879,7 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
         mnpi_score=result.mnpi_score,
         findings=findings_resp,
         coverage_warnings=list(result.coverage_warnings),
+        degraded_modes=degraded_modes,
     )
 
     if observability is not None:
@@ -885,7 +887,7 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
             endpoint=endpoint,
             classification=result.overall_risk.value,
             cache_status="disabled",
-            degraded=False,
+            degraded=bool(degraded_modes),
             duration_seconds=timings_ms["total"] / 1000.0,
         )
 
@@ -897,10 +899,10 @@ def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) 
         timings_ms=timings_ms,
         active_pipeline=["engine.review"],
         cache_status="disabled",
-        degraded=False,
+        degraded=bool(degraded_modes),
         executed_layers=["engine.review"],
         skipped_layers=[],
-        layer_error_count=0,
+        layer_error_count=len(degraded_modes),
     )
     emit_privacy_ledger_events(
         result.privacy_ledger,

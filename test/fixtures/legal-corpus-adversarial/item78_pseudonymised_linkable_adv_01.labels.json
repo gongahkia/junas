@@ -1,0 +1,50 @@
+{
+  "doc_id": "item78_pseudonymised_linkable_adv_01",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {"rule": "employee_id", "matched_text": "EMP-90210"},
+    {"rule": "customer_account_number", "matched_text": "CUST-445566"},
+    {"rule": "medical_record_number", "matched_text": "7654321"},
+    {
+      "rule": "internal_session_id",
+      "matched_text": "User session ID: 550e8400-e29b-41d4-a716-446655440001"
+    },
+    {"rule": "bank_customer_reference", "matched_text": "Bank customer reference: BCR-2026-001"},
+    {"rule": "insurance_member_id", "matched_text": "Plan member number PM-2026-001"}
+  ],
+  "must_not_detect": [
+    {
+      "rule": "internal_session_id",
+      "matched_text": "session ID will be rotated",
+      "reason": "session-ID prose without a token"
+    },
+    {
+      "rule": "internal_session_id",
+      "matched_text": "550e8400-e29b-41d4-a716-446655440000",
+      "reason": "bare UUID without session/user context"
+    },
+    {
+      "rule": "customer_account_number",
+      "matched_text": "customer account will be migrated",
+      "reason": "customer-account prose without a concrete account number"
+    },
+    {
+      "rule": "bank_customer_reference",
+      "matched_text": "bank reference material",
+      "reason": "bank-reference prose without a concrete customer reference"
+    },
+    {
+      "rule": "insurance_member_id",
+      "matched_text": "member benefits guide",
+      "reason": "benefits prose without a concrete member identifier"
+    },
+    {
+      "rule": "medical_record_number",
+      "matched_text": "Patient ID badges",
+      "reason": "badge prose without a patient identifier"
+    }
+  ],
+  "_label_source": "hand"
+}
