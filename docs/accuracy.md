@@ -7,7 +7,7 @@ This file is generated from committed recall and precision locks. Do not edit it
 | Corpus | Fixtures | Lock file | Description |
 |---|---:|---|---|
 | default legal corpus | 130 | `test/fixtures/legal-corpus/recall.lock.json` | Hand-labelled SG/legal-contract seed corpus. |
-| adversarial corpus | 120 | `test/fixtures/legal-corpus-adversarial/recall_adversarial.lock.json` | Negative, obfuscated, and multilingual probes. |
+| adversarial corpus | 121 | `test/fixtures/legal-corpus-adversarial/recall_adversarial.lock.json` | Negative, obfuscated, and multilingual probes. |
 | SEA jurisdiction corpus | 5 | `test/fixtures/legal-corpus-sea/legal-corpus-sea.lock.json` | Seed local-ID fixtures for MY, ID, TH, PH, and VN. |
 | HK/AU/JP/KR jurisdiction corpus | 4 | `test/fixtures/legal-corpus-hk-au-jp-kr/legal-corpus-hk-au-jp-kr.lock.json` | Seed local-ID fixtures for HK, AU, JP, and KR. |
 
@@ -59,27 +59,27 @@ This file is generated from committed recall and precision locks. Do not edit it
 | default legal corpus | 130 | `total_contract_value` | 1.0000 | 1.0000 |
 | default legal corpus | 130 | `transaction_codename` | 1.0000 | 1.0000 |
 | default legal corpus | 130 | `volume_commitment` | 1.0000 | 1.0000 |
-| adversarial corpus | 120 | `bank_account` | 0.0000 | not locked |
-| adversarial corpus | 120 | `biometric_identifier` | 1.0000 | 1.0000 |
-| adversarial corpus | 120 | `definitive_agreement` | 0.9474 | 1.0000 |
-| adversarial corpus | 120 | `email_address` | 1.0000 | 1.0000 |
-| adversarial corpus | 120 | `embargo_marker` | 1.0000 | 1.0000 |
-| adversarial corpus | 120 | `financial_amount` | 0.9910 | 1.0000 |
-| adversarial corpus | 120 | `financial_percentage` | 1.0000 | 1.0000 |
-| adversarial corpus | 120 | `genetic_data` | 1.0000 | 1.0000 |
-| adversarial corpus | 120 | `health_condition` | 1.0000 | 1.0000 |
-| adversarial corpus | 120 | `large_number` | 0.8182 | 1.0000 |
-| adversarial corpus | 120 | `material_event` | 0.0000 | not locked |
-| adversarial corpus | 120 | `medical_treatment` | 1.0000 | 1.0000 |
-| adversarial corpus | 120 | `named_person` | 0.9778 | 1.0000 |
-| adversarial corpus | 120 | `nonpublic_marker` | 1.0000 | 1.0000 |
-| adversarial corpus | 120 | `phone_number` | 0.9529 | 1.0000 |
-| adversarial corpus | 120 | `sex_life_reference` | 1.0000 | 1.0000 |
-| adversarial corpus | 120 | `sexual_orientation` | 1.0000 | 1.0000 |
-| adversarial corpus | 120 | `sg_nric_fin` | 1.0000 | 1.0000 |
-| adversarial corpus | 120 | `sg_postal_address` | 1.0000 | 1.0000 |
-| adversarial corpus | 120 | `sg_uen` | 1.0000 | 1.0000 |
-| adversarial corpus | 120 | `transaction_codename` | 0.9091 | 1.0000 |
+| adversarial corpus | 121 | `bank_account` | 0.0000 | not locked |
+| adversarial corpus | 121 | `biometric_identifier` | 1.0000 | 1.0000 |
+| adversarial corpus | 121 | `definitive_agreement` | 0.9474 | 1.0000 |
+| adversarial corpus | 121 | `email_address` | 1.0000 | 1.0000 |
+| adversarial corpus | 121 | `embargo_marker` | 1.0000 | 1.0000 |
+| adversarial corpus | 121 | `financial_amount` | 0.9910 | 1.0000 |
+| adversarial corpus | 121 | `financial_percentage` | 1.0000 | 1.0000 |
+| adversarial corpus | 121 | `genetic_data` | 1.0000 | 1.0000 |
+| adversarial corpus | 121 | `health_condition` | 1.0000 | 1.0000 |
+| adversarial corpus | 121 | `large_number` | 0.8182 | 1.0000 |
+| adversarial corpus | 121 | `material_event` | 0.0000 | not locked |
+| adversarial corpus | 121 | `medical_treatment` | 1.0000 | 1.0000 |
+| adversarial corpus | 121 | `named_person` | 0.9778 | 1.0000 |
+| adversarial corpus | 121 | `nonpublic_marker` | 1.0000 | 1.0000 |
+| adversarial corpus | 121 | `phone_number` | 0.9529 | 1.0000 |
+| adversarial corpus | 121 | `sex_life_reference` | 1.0000 | 1.0000 |
+| adversarial corpus | 121 | `sexual_orientation` | 1.0000 | 1.0000 |
+| adversarial corpus | 121 | `sg_nric_fin` | 1.0000 | 1.0000 |
+| adversarial corpus | 121 | `sg_postal_address` | 1.0000 | 1.0000 |
+| adversarial corpus | 121 | `sg_uen` | 1.0000 | 1.0000 |
+| adversarial corpus | 121 | `transaction_codename` | 0.9091 | 1.0000 |
 | SEA jurisdiction corpus | 5 | `email_address` | 1.0000 | 1.0000 |
 | SEA jurisdiction corpus | 5 | `embargo_marker` | 1.0000 | 1.0000 |
 | SEA jurisdiction corpus | 5 | `financial_percentage` | 1.0000 | 1.0000 |

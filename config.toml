@@ -7,6 +7,10 @@ optional_layers = []
 [api]
 allowed_origins = ["http://localhost", "http://127.0.0.1"]
 
+[local_daemon]
+acl_enabled = false
+allowed_origins = ["chrome-extension://*", "https://chatgpt.com", "https://claude.ai", "https://gemini.google.com"]
+
 [public_evidence]
 enabled = false
 # Supported providers: exa, tinyfish, serper, serpapi, none.

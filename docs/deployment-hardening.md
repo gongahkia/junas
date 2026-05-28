@@ -218,6 +218,34 @@ application logs, SIEM exports, backups, cold archives, and records created befo
 subject index existed remain governed by the customer's retention and legal-hold policy.
 The operator must separately expire or tombstone those systems according to policy.
 
+## Retention Manifest
+
+Production strict preflight checks for an operator-maintained retention manifest. The
+manifest records whether journal, mapping-store, application-log, SIEM, and backup
+retention controls are configured; it does not perform deletion by itself.
+
+Point Kaypoh at the manifest with `KAYPOH_RETENTION_MANIFEST`, or keep
+`retention_manifest.json` at the repository/deployment root:
+
+```json
+{
+  "controls": {
+    "journal": { "retention_days": 2555 },
+    "mapping_store": { "delete_after_days": 90 },
+    "logs": { "policy": "log-platform-policy-123" },
+    "siem": { "external_policy_ref": "splunk-index-retention" },
+    "backups": { "retain_for_days": 365 }
+  }
+}
+```
+
+Validate it before production deploys:
+
+```sh
+uv run python scripts/check_retention_manifest.py --manifest /etc/kaypoh/retention_manifest.json --strict
+KAYPOH_RETENTION_MANIFEST=/etc/kaypoh/retention_manifest.json uv run python scripts/preflight.py --deployment production --strict
+```
+
 ## Document Ingest And Metadata
 
 PDF review fails closed by default when the extracted text layer is missing, too sparse,

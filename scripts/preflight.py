@@ -8,13 +8,24 @@ import json
 import os
 import sys
 from pathlib import Path
+from typing import Any
+
+try:
+    import tomllib
+except ImportError:
+    import tomli as tomllib
 
 ROOT = Path(__file__).resolve().parent.parent
+SCRIPT_DIR = Path(__file__).resolve().parent
 SRC_ROOT = ROOT / "src"
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 from kaypoh.configs.runtime import ConfigError, load_runtime_settings  # noqa: E402
+
+import check_retention_manifest  # noqa: E402
 
 
 def _has_env(name: str) -> bool:
@@ -23,6 +34,69 @@ def _has_env(name: str) -> bool:
 
 def _is_truthy_env(name: str) -> bool:
     return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _valid_mapping_store_key() -> tuple[bool, str]:
+    key = os.environ.get("KAYPOH_MAPPING_STORE_KEY", "").strip()
+    if not key:
+        return False, "KAYPOH_MAPPING_STORE_KEY is required when persistence is enabled in production"
+    try:
+        from cryptography.fernet import Fernet
+
+        Fernet(key.encode("ascii"))
+    except Exception as exc:
+        return False, f"KAYPOH_MAPPING_STORE_KEY is not a valid Fernet key: {exc}"
+    return True, "mapping store encryption key configured"
+
+
+def _valid_subject_index_key() -> tuple[bool, str]:
+    if _has_env("KAYPOH_SUBJECT_INDEX_KEY"):
+        return True, "subject index key configured"
+    return False, "KAYPOH_SUBJECT_INDEX_KEY is required when persistence is enabled in production"
+
+
+def _valid_journal_keys_file() -> tuple[bool, str]:
+    raw = os.environ.get("KAYPOH_JOURNAL_KEYS_FILE", "").strip()
+    if not raw:
+        return False, "KAYPOH_JOURNAL_KEYS_FILE is required for production journal key rotation"
+    path = Path(raw).expanduser()
+    if not path.exists():
+        return False, f"KAYPOH_JOURNAL_KEYS_FILE does not exist: {path}"
+    try:
+        payload = tomllib.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        return False, f"KAYPOH_JOURNAL_KEYS_FILE parse failed: {exc}"
+    active = str(payload.get("active", "") or "").strip()
+    keys = payload.get("keys", {}) or {}
+    if not active:
+        return False, "KAYPOH_JOURNAL_KEYS_FILE must define active"
+    if not isinstance(keys, dict) or active not in keys:
+        return False, "KAYPOH_JOURNAL_KEYS_FILE active version must exist under [keys]"
+    body = keys.get(active)
+    if not isinstance(body, dict) or not str(body.get("secret", "") or "").strip():
+        return False, "KAYPOH_JOURNAL_KEYS_FILE active key must define a non-empty secret"
+    return True, f"journal key rotation configured: {active}"
+
+
+def _production_auth_configured(settings: Any) -> tuple[bool, str]:
+    tenancy = getattr(settings, "tenancy", None)
+    if bool(getattr(tenancy, "enabled", False)):
+        return True, "tenant auth enabled"
+    api = getattr(settings, "api", None)
+    if str(getattr(api, "api_key", "") or "").strip() or _has_env("KAYPOH_API_KEY"):
+        return True, "global API key configured"
+    return False, "production deployment requires tenant auth or KAYPOH_API_KEY"
+
+
+def _retention_manifest_configured() -> tuple[bool, str]:
+    path = check_retention_manifest._manifest_path(None)
+    payload = check_retention_manifest.check_manifest(path)
+    if payload["ok"]:
+        return True, f"retention manifest configured: {path}"
+    missing = ", ".join(
+        item["control"] for item in payload["controls"] if item["status"] != "configured"
+    )
+    return False, f"retention manifest incomplete ({missing}) at {path}"
 
 
 def _check_spacy_model() -> tuple[bool, str]:
@@ -95,6 +169,23 @@ def main() -> int:
         checks.append("dev reviewer header disabled")
 
     if settings is not None:
+        if args.deployment == "production":
+            auth_ok, auth_msg = _production_auth_configured(settings)
+            (checks if auth_ok else warnings).append(auth_msg)
+
+            retention_ok, retention_msg = _retention_manifest_configured()
+            (checks if retention_ok else warnings).append(retention_msg)
+
+            if _is_truthy_env("KAYPOH_REVIEW_PERSIST"):
+                for ok, message in (
+                    _valid_mapping_store_key(),
+                    _valid_subject_index_key(),
+                    _valid_journal_keys_file(),
+                ):
+                    (checks if ok else warnings).append(message)
+            else:
+                checks.append("review persistence disabled")
+
         provider_keys = {
             "exa": ("EXA_API_KEY",),
             "tinyfish": ("TINYFISH_API_KEY",),

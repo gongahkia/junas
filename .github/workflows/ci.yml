@@ -59,6 +59,7 @@ jobs:
       - run: uv run python -m spacy download en_core_web_sm
       - name: Start server
         run: |
+          mkdir -p reports
           uv run uvicorn backend.main:app --host 127.0.0.1 --port 8131 > reports/live_latency_uvicorn.log 2>&1 &
           echo "$!" > reports/live_latency_uvicorn.pid
       - name: Wait for readiness
@@ -99,4 +100,46 @@ jobs:
           path: |
             reports/latency_slo_*.json
             reports/live_latency_uvicorn.log
+          if-no-files-found: warn
+
+  staging-latency:
+    name: Staging deployment latency
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    env:
+      KAYPOH_LATENCY_SLO_BASE_URL: ${{ secrets.KAYPOH_LATENCY_SLO_BASE_URL }}
+      KAYPOH_LATENCY_SLO_API_KEY: ${{ secrets.KAYPOH_LATENCY_SLO_API_KEY }}
+      KAYPOH_LATENCY_SLO_BEARER_TOKEN: ${{ secrets.KAYPOH_LATENCY_SLO_BEARER_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check staging latency configuration
+        id: staging
+        run: |
+          if [ -n "$KAYPOH_LATENCY_SLO_BASE_URL" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "KAYPOH_LATENCY_SLO_BASE_URL is not set; skipping staging latency benchmark"
+          fi
+      - uses: actions/setup-python@v5
+        if: steps.staging.outputs.enabled == 'true'
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v5
+        if: steps.staging.outputs.enabled == 'true'
+      - run: uv sync --extra dev
+        if: steps.staging.outputs.enabled == 'true'
+      - run: uv run python -m spacy download en_core_web_sm
+        if: steps.staging.outputs.enabled == 'true'
+      - name: Run staging latency SLO
+        if: steps.staging.outputs.enabled == 'true'
+        run: >
+          uv run python scripts/check_latency_slo.py
+          --fixture test/fixtures/latency-corpus/5k.txt
+          --write-report
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: staging-latency-reports
+          path: reports/latency_slo_*.json
           if-no-files-found: warn

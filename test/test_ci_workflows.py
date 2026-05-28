@@ -21,6 +21,14 @@ class CiWorkflowTests(unittest.TestCase):
         self.assertIn("--base-url http://127.0.0.1:8131", text)
         self.assertIn("test/fixtures/latency-corpus/5k.txt", text)
 
+    def test_staging_latency_job_uses_secret_base_url_and_artifacts(self):
+        text = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+
+        self.assertIn("Staging deployment latency", text)
+        self.assertIn("secrets.KAYPOH_LATENCY_SLO_BASE_URL", text)
+        self.assertIn("KAYPOH_LATENCY_SLO_BEARER_TOKEN", text)
+        self.assertIn("staging-latency-reports", text)
+
 
 if __name__ == "__main__":
     unittest.main()

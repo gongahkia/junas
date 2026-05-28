@@ -1,6 +1,8 @@
 import os
+import shutil
 import socket
 import subprocess
+import tempfile
 import time
 import unittest
 import urllib.request
@@ -46,6 +48,24 @@ class LaunchScriptSmokeTests(unittest.TestCase):
             "PIPELINE_LAYERS": "",
             "KMP_DUPLICATE_LIB_OK": "TRUE",
         }
+        tmp_dir = None
+        if script_name == "run_prod.sh":
+            tmp_dir = tempfile.mkdtemp(prefix="kaypoh-launch-")
+            manifest = Path(tmp_dir) / "retention_manifest.json"
+            manifest.write_text(
+                """
+{
+  "journal": {"retention_days": 2555},
+  "mapping_store": {"retention_days": 90},
+  "logs": {"policy": "launch-test-log-retention"},
+  "siem": {"external_policy_ref": "launch-test-siem-retention"},
+  "backups": {"retention_days": 365}
+}
+""".strip(),
+                encoding="utf-8",
+            )
+            env["KAYPOH_API_KEY"] = "launch-test-api-key"
+            env["KAYPOH_RETENTION_MANIFEST"] = str(manifest)
         proc = subprocess.Popen(
             ["bash", str(ROOT / "scripts" / "launch" / script_name)],
             cwd=str(ROOT),
@@ -54,6 +74,7 @@ class LaunchScriptSmokeTests(unittest.TestCase):
             stderr=subprocess.STDOUT,
             text=True,
         )
+        proc._kaypoh_tmp_dir = tmp_dir  # type: ignore[attr-defined]
         return proc, backend_port
 
     def _stop_script(self, proc: subprocess.Popen) -> None:
@@ -64,6 +85,9 @@ class LaunchScriptSmokeTests(unittest.TestCase):
             proc.kill()
             proc.wait(timeout=10)
         finally:
+            tmp_dir = getattr(proc, "_kaypoh_tmp_dir", None)
+            if tmp_dir:
+                shutil.rmtree(tmp_dir, ignore_errors=True)
             if proc.stdout is not None:
                 proc.stdout.close()
 
