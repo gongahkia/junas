@@ -19,6 +19,7 @@ EVENT_DECISION_RECORDED = "decision_recorded"
 EVENT_ANONYMIZE_APPLIED = "anonymize_applied"
 EVENT_AUDIT_EXPORTED = "audit_exported"
 EVENT_COVERAGE_WARNING = "coverage_warning"  # advisory output from the LLM inverse audit
+EVENT_SUBJECT_ERASURE_RECORDED = "subject_erasure_recorded"
 
 
 class ReviewSessionError(ValueError):
@@ -91,6 +92,30 @@ def record_decision(*, review_id: str, decision: Decision, tenant_id: str | None
         "ts": entry.ts,
         "hmac": entry.hmac,
     }
+
+
+def record_subject_erasure(
+    *,
+    review_id: str,
+    pii_hash: str,
+    citation: str,
+    document_hash: str = "",
+    finding_ids: list[str] | None = None,
+    rules: list[str] | None = None,
+    tenant_id: str | None = None,
+) -> JournalEntry:
+    return append_event(
+        event_type=EVENT_SUBJECT_ERASURE_RECORDED,
+        review_id=review_id,
+        payload={
+            "pii_hash": pii_hash,
+            "citation": citation,
+            "document_hash": document_hash,
+            "finding_ids": sorted(set(finding_ids or [])),
+            "rules": sorted(set(rules or [])),
+        },
+        tenant_id=tenant_id,
+    )
 
 
 def get_session_state(*, review_id: str, tenant_id: str | None = None) -> dict[str, Any] | None:

@@ -59,6 +59,7 @@ class TenantIsolationTests(unittest.TestCase):
             "KAYPOH_JOURNAL_DIR": str(self.tmpdir),
             "KAYPOH_JOURNAL_KEY": "tenant-test-key",
             "KAYPOH_REVIEW_PERSIST": "1",
+            "KAYPOH_SUBJECT_INDEX_KEY": "subject-index-test-key",
         }
         self._old_env = {key: os.environ.get(key) for key in self._env}
         os.environ.update(self._env)

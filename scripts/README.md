@@ -10,6 +10,7 @@ This folder contains operational and maintenance commands.
 - `export_openapi_examples.py`: generate Postman and cURL examples from the current OpenAPI contract.
 - `generate_accuracy_doc.py`: regenerate `docs/accuracy.md` from committed corpus locks.
 - `preflight.py`: current runtime readiness checks.
+- `erase_subject.py`: rebuild/query the HMAC subject-erasure reverse index and erase by subject value.
 - `purge_mappings.py`: delete persisted anonymization mappings by document hash or retention age.
 - `trace_request_logs.sh`: tail backend logs and filter by a specific `X-Request-ID`.
 - `verify_runtime.sh`: UV-first verification for lint, focused tests, and live HTTP smoke.

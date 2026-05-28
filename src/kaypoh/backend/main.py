@@ -111,6 +111,7 @@ from kaypoh.review.image_scan import (
     scan_image_candidates,
 )
 from kaypoh.review.metadata import scrub_document
+from kaypoh.review.subject_index import SubjectIndexError, index_review_findings, require_subject_index_key
 from kaypoh.workflow.privacy_guard import PrivacyGuard
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
@@ -1169,28 +1170,36 @@ def _persist_review_session(
     if not _review_persistence_enabled() or not request_id:
         return
     text_hash = hashlib.sha256(document_text.encode("utf-8")).hexdigest()
+    serialized_findings = [
+        {
+            "id": f.id,
+            "category": f.category,
+            "rule": f.rule,
+            "severity": f.severity,
+            "matched_text": f.matched_text,
+            "start_char": f.start_char,
+            "end_char": f.end_char,
+            "source": getattr(f, "source", "text"),
+            "image_locator": getattr(f, "image_locator", None),
+            "image_ocr_confidence": getattr(f, "image_ocr_confidence", None),
+            "image_ocr_regions": getattr(f, "image_ocr_regions", []),
+        }
+        for f in findings
+    ]
+    require_subject_index_key()
     start_review_session(
         review_id=request_id,
         text_hash=text_hash,
         document_type=req.document_type,
         source_jurisdiction=req.source_jurisdiction,
         destination_jurisdiction=req.destination_jurisdiction,
-        findings=[
-            {
-                "id": f.id,
-                "category": f.category,
-                "rule": f.rule,
-                "severity": f.severity,
-                "matched_text": f.matched_text,
-                "start_char": f.start_char,
-                "end_char": f.end_char,
-                "source": getattr(f, "source", "text"),
-                "image_locator": getattr(f, "image_locator", None),
-                "image_ocr_confidence": getattr(f, "image_ocr_confidence", None),
-                "image_ocr_regions": getattr(f, "image_ocr_regions", []),
-            }
-            for f in findings
-        ],
+        findings=serialized_findings,
+        tenant_id=tenant_id,
+    )
+    index_review_findings(
+        review_id=request_id,
+        document_hash=text_hash,
+        findings=serialized_findings,
         tenant_id=tenant_id,
     )
 
@@ -1246,13 +1255,25 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
     result.privacy_ledger = image_privacy_ledger + list(result.privacy_ledger)
     degraded_modes.extend(list(getattr(result, "degraded_modes", []) or []))
     timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
-    _persist_review_session(
-        request_id=request_id,
-        req=req,
-        document_text=document.text,
-        findings=result.findings,
-        tenant_id=tenant.storage_tenant_id,
-    )
+    try:
+        _persist_review_session(
+            request_id=request_id,
+            req=req,
+            document_text=document.text,
+            findings=result.findings,
+            tenant_id=tenant.storage_tenant_id,
+        )
+    except SubjectIndexError as exc:
+        log_backend_event(logging.WARNING, event="review_subject_index_failed", error=str(exc))
+        raise HTTPException(
+            status_code=503,
+            detail={
+                "message": f"review persistence failed closed: {exc}",
+                "degraded_modes": [
+                    _degraded_mode("subject_index", "failed_closed", str(exc), {})
+                ],
+            },
+        ) from exc
     _persist_coverage_warnings(
         request_id=request_id,
         warnings=result.coverage_warnings,
@@ -1394,7 +1415,8 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
                 tenant_id=tenant.storage_tenant_id,
             )
             mapping_persisted = True
-        except (OSError, MappingStoreError) as exc:
+        except (OSError, MappingStoreError, SubjectIndexError) as exc:
+            mode = "subject_index" if isinstance(exc, SubjectIndexError) else "mapping_store"
             log_backend_event(logging.WARNING, event="mapping_persist_failed", error=str(exc))
             emit_security_event(
                 action="mapping_persist",
@@ -1406,10 +1428,10 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
             raise HTTPException(
                 status_code=503,
                 detail={
-                    "message": f"mapping-store persistence failed closed: {exc}",
+                    "message": f"{mode.replace('_', '-')} persistence failed closed: {exc}",
                     "degraded_modes": [
                         _degraded_mode(
-                            "mapping_store",
+                            mode,
                             "failed_closed",
                             str(exc),
                             {"document_hash": document_hash},

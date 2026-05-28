@@ -163,6 +163,7 @@ class CoverageAuditJournalingTests(unittest.TestCase):
         os.environ["KAYPOH_JOURNAL_DIR"] = str(self.tmpdir)
         os.environ["KAYPOH_JOURNAL_KEY"] = "audit-test-key"
         os.environ["KAYPOH_REVIEW_PERSIST"] = "1"
+        os.environ["KAYPOH_SUBJECT_INDEX_KEY"] = "subject-index-test-key"
 
         # reload journal + main so they pick up the new env
         import kaypoh.review.journal as journal_mod
@@ -183,7 +184,7 @@ class CoverageAuditJournalingTests(unittest.TestCase):
 
     def tearDown(self):
         self._tmpdir.cleanup()
-        for var in ("KAYPOH_JOURNAL_DIR", "KAYPOH_JOURNAL_KEY", "KAYPOH_REVIEW_PERSIST"):
+        for var in ("KAYPOH_JOURNAL_DIR", "KAYPOH_JOURNAL_KEY", "KAYPOH_REVIEW_PERSIST", "KAYPOH_SUBJECT_INDEX_KEY"):
             os.environ.pop(var, None)
         import backend.main as main_mod
         importlib.reload(main_mod)

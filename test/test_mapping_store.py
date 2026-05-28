@@ -33,6 +33,7 @@ class MappingStorePersistTests(unittest.TestCase):
         os.environ["KAYPOH_JOURNAL_DIR"] = str(self.tmpdir)
         os.environ["KAYPOH_JOURNAL_KEY"] = "mapping-test-key"
         os.environ["KAYPOH_REVIEW_PERSIST"] = "1"
+        os.environ["KAYPOH_SUBJECT_INDEX_KEY"] = "subject-index-test-key"
 
         import backend.main as main_mod
         import kaypoh.anonymize.mapping_store as mapping_mod
@@ -54,6 +55,7 @@ class MappingStorePersistTests(unittest.TestCase):
             "KAYPOH_JOURNAL_KEY",
             "KAYPOH_REVIEW_PERSIST",
             "KAYPOH_MAPPING_STORE_KEY",
+            "KAYPOH_SUBJECT_INDEX_KEY",
         ):
             os.environ.pop(var, None)
         import backend.main as main_mod

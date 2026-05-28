@@ -36,6 +36,7 @@ from threading import Lock
 from typing import Any
 
 from kaypoh.review.journal import journal_dir
+from kaypoh.review.subject_index import SubjectIndexError, index_mapping, require_subject_index_key
 
 _mapping_lock = Lock()
 MAPPING_STORE_KEY_ENV = "KAYPOH_MAPPING_STORE_KEY"
@@ -100,6 +101,7 @@ def _build_plain_payload(*, document_hash: str, mapping: list[Any]) -> dict[str,
 
 def save_mapping(*, document_hash: str, mapping: list[Any], tenant_id: str | None = None) -> Path:
     """Persist a mapping table for a document. Overwrite-safe."""
+    require_subject_index_key()
     plain_payload = _build_plain_payload(document_hash=document_hash, mapping=mapping)
     fernet = _fernet_from_env()
     if fernet is None:
@@ -123,6 +125,12 @@ def save_mapping(*, document_hash: str, mapping: list[Any], tenant_id: str | Non
         tmp = path.with_suffix(".json.tmp")
         tmp.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         tmp.replace(path)
+    try:
+        index_mapping(document_hash=document_hash, mapping=mapping, tenant_id=tenant_id)
+    except SubjectIndexError:
+        with _mapping_lock:
+            path.unlink(missing_ok=True)
+        raise
     return path
 
 

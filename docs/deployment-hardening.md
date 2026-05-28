@@ -107,6 +107,7 @@ Keep these values out of checked-in config and shell history:
 | `KAYPOH_API_KEY` | API access gate for local/server endpoints |
 | `KAYPOH_JOURNAL_KEY` or `KAYPOH_JOURNAL_KEYS_FILE` | HMAC journal sealing |
 | `KAYPOH_MAPPING_STORE_KEY` | Fernet encryption for persisted mappings |
+| `KAYPOH_SUBJECT_INDEX_KEY` | HMAC key for subject-erasure reverse-index lookups |
 | `KAYPOH_EXA_API_KEY`, `KAYPOH_TINYFISH_API_KEY`, `KAYPOH_LLM_API_KEY` | External providers |
 
 Recommended sources:
