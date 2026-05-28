@@ -263,6 +263,28 @@ _PII_DEFAULT_RATIONALE = {
         "external disclosure unless the recipient and lawful medical purpose are "
         "documented."
     ),
+    "biometric_identifier": (
+        "Biometric identifier reference detected (item 106). GDPR Art 9(1) treats "
+        "biometric data processed for uniquely identifying a natural person as "
+        "special-category personal data; GDPR Recital 51 clarifies that ordinary "
+        "photographs are not automatically special-category biometric data unless "
+        "processed by specific technical means for unique identification or "
+        "authentication. HIPAA 45 CFR §164.514 safe harbor enumerates biometric "
+        "identifiers, including finger and voice prints, as identifiers to remove. "
+        "PIPL China Art 28 also enumerates biometrics as sensitive personal "
+        "information. Mask biometric templates, hashes, scans, and authentication "
+        "records before disclosure unless explicit consent and purpose are on file."
+    ),
+    "genetic_data": (
+        "Genetic-data reference detected (item 106). GDPR Art 9(1) treats genetic "
+        "data as special-category personal data; HIPAA / HHS de-identification "
+        "guidance treats unique health-record characteristics and linked health "
+        "information as PHI; PIPL China Art 28 treats medical-health status and "
+        "related sensitive personal information as requiring strict protection. "
+        "Mask DNA profiles, genetic-test results, genome sequences, carrier status, "
+        "and pathogenic-variant references before disclosure unless explicit "
+        "consent or statutory authority is documented."
+    ),
     # item 107: jurisdiction-age-cliff minors detector.
     "minor_data_reference": (
         "Minor / children's-data reference detected (item 107). Under DPDPA India "

@@ -579,6 +579,41 @@ MEDICAL_TREATMENT_RE = re.compile(
     re.IGNORECASE,
 )
 
+BIOMETRIC_IDENTIFIER_RE = re.compile(
+    r"\b(?:"
+    # GDPR Recital 51: photographs are biometric only when processed through specific
+    # technical means for unique identification/authentication. Keep this anchored on
+    # templates, enrollment, matching, or authentication language.
+    r"biometric\s+(?:template|identifier|record|profile|enrol(?:l)?ment|authentication|match)"
+    r"(?:\s*[:=]\s*(?:finger(?:print)?|voice\s*print|voiceprint|retina|iris|face|facial|palm\s+vein)"
+    r"\s+(?:template|scan|hash|record|identifier|match))?"
+    r"|"
+    r"finger(?:print)?\s+(?:template|scan|hash|record|enrol(?:l)?ment|authentication|match)"
+    r"|"
+    r"voice\s*print|voiceprint|"
+    r"(?:retina|retinal|iris)\s+(?:scan|template|pattern|recognition|match)|"
+    r"(?:facial\s+recognition|face\s+recognition|faceprint)\s+"
+    r"(?:template|embedding|identifier|match|authentication)|"
+    r"palm\s+vein\s+(?:template|scan|pattern)|"
+    r"gait\s+(?:signature|recognition|template)"
+    r")\b",
+    re.IGNORECASE,
+)
+
+GENETIC_DATA_RE = re.compile(
+    r"\b(?:"
+    r"(?:genetic|genomic|DNA)\s+(?:test(?:ing)?(?:\s+result)?|result|profile|sequence|data|report|marker)"
+    r"(?:\s*[:=]\s*(?:BRCA[12]|APOE\s*e[234]|HLA[-\s]?[A-Z0-9]+)\s+"
+    r"(?:positive|negative|carrier|variant|mutation|status))?"
+    r"|"
+    r"(?:BRCA[12]|APOE\s*e[234]|HLA[-\s]?[A-Z0-9]+)\s+"
+    r"(?:positive|negative|carrier|variant|mutation|status)"
+    r"|"
+    r"(?:carrier\s+status|pathogenic\s+variant|germline\s+mutation|whole\s+genome\s+sequence)"
+    r")\b",
+    re.IGNORECASE,
+)
+
 
 # item 107: jurisdiction-age-cliff minors detector. Single rule with per-juris severity
 # resolution via _MINOR_AGE_CLIFFS map (research-recommended; avoids duplicate findings).
@@ -992,7 +1027,7 @@ _PII_NEGATION_GUARDED = frozenset({
 # Default-enabled in strict + audit_grade. Categories are casefolded comma-separated.
 _SPECIAL_CATEGORY_RULES = frozenset({
     "religious_belief", "trade_union_membership", "political_opinion",
-    "health_condition", "medical_treatment",
+    "health_condition", "medical_treatment", "biometric_identifier", "genetic_data",
 })
 
 
@@ -1013,6 +1048,10 @@ def _disabled_special_categories() -> frozenset[str]:
             disabled.add("political_opinion")
         elif token in {"health", "medical"}:
             disabled.update({"health_condition", "medical_treatment"})
+        elif token == "biometric":
+            disabled.add("biometric_identifier")
+        elif token == "genetic":
+            disabled.add("genetic_data")
         elif token in _SPECIAL_CATEGORY_RULES:
             disabled.add(token)
     return frozenset(disabled)
@@ -1176,6 +1215,8 @@ def _detect_special_category_findings(
       - PIPL China Art 28 covers religion; political is NOT explicitly enumerated.
       - GDPR Art 9 covers health; HIPAA 45 CFR 164.514 and PDPC healthcare guidance anchor
         medical identifiers and treatment narratives.
+      - GDPR Art 9 covers genetic data and uniquely identifying biometric data; HIPAA 45 CFR
+        164.514 safe harbor enumerates biometric identifiers including finger and voice prints.
       - PDPC SG / DPDPA IN treat these as warranting higher protection but not as a distinct
         statutory class.
 
@@ -1197,6 +1238,10 @@ def _detect_special_category_findings(
          "Health condition / diagnosis reference detected; special-category personal data"),
         ("medical_treatment", MEDICAL_TREATMENT_RE,
          "Medical treatment / medication reference detected; special-category personal data"),
+        ("biometric_identifier", BIOMETRIC_IDENTIFIER_RE,
+         "Biometric identifier reference detected; special-category personal data"),
+        ("genetic_data", GENETIC_DATA_RE,
+         "Genetic-data reference detected; special-category personal data"),
     ]
     for rule_name, pattern, reason in rules:
         if rule_name in disabled:

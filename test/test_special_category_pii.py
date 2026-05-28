@@ -176,7 +176,54 @@ class MedicalTreatmentTests(_BaseSpecialCategoryTests):
         self.assertEqual(len(self._findings_for("The metformin market study was circulated.", "medical_treatment")), 0)
 
     def test_general_surgery_metaphor_does_not_fire(self):
-        self.assertEqual(len(self._findings_for("The restructuring required financial surgery.", "medical_treatment")), 0)
+        self.assertEqual(
+            len(self._findings_for("The restructuring required financial surgery.", "medical_treatment")),
+            0,
+        )
+
+
+class BiometricIdentifierTests(_BaseSpecialCategoryTests):
+    def test_biometric_template(self):
+        f = self._findings_for("Biometric template: fingerprint hash.", "biometric_identifier")
+        self.assertEqual(len(f), 1)
+        self.assertEqual(f[0].severity, "high")
+
+    def test_voiceprint(self):
+        self.assertEqual(len(self._findings_for("The access log stores a voiceprint.", "biometric_identifier")), 1)
+
+    def test_facial_recognition_template(self):
+        self.assertEqual(
+            len(self._findings_for("Facial recognition template match succeeded.", "biometric_identifier")),
+            1,
+        )
+
+    def test_passport_photo_without_recognition_does_not_fire(self):
+        self.assertEqual(len(self._findings_for("The passport photo was attached.", "biometric_identifier")), 0)
+
+    def test_fingerprint_metaphor_does_not_fire(self):
+        self.assertEqual(
+            len(self._findings_for("The deal has a unique market fingerprint.", "biometric_identifier")),
+            0,
+        )
+
+
+class GeneticDataTests(_BaseSpecialCategoryTests):
+    def test_genetic_test_result(self):
+        f = self._findings_for("Genetic test result: BRCA1 positive.", "genetic_data")
+        self.assertEqual(len(f), 1)
+        self.assertEqual(f[0].severity, "high")
+
+    def test_dna_profile(self):
+        self.assertEqual(len(self._findings_for("The file includes a DNA profile.", "genetic_data")), 1)
+
+    def test_pathogenic_variant(self):
+        self.assertEqual(len(self._findings_for("Pathogenic variant noted in the report.", "genetic_data")), 1)
+
+    def test_dna_metaphor_does_not_fire(self):
+        self.assertEqual(len(self._findings_for("Customer obsession is in the company's DNA.", "genetic_data")), 0)
+
+    def test_brca_without_result_context_does_not_fire(self):
+        self.assertEqual(len(self._findings_for("BRCA Holdings signed the term sheet.", "genetic_data")), 0)
 
 
 class OptOutTests(_BaseSpecialCategoryTests):
@@ -207,6 +254,12 @@ class OptOutTests(_BaseSpecialCategoryTests):
         for rule in ("health_condition", "medical_treatment"):
             self.assertEqual(len(self._findings_for(text, rule)), 0, f"expected {rule} disabled")
 
+    def test_disable_biometric_and_genetic(self):
+        os.environ["KAYPOH_SPECIAL_CATEGORY_DISABLE"] = "biometric,genetic"
+        text = "Biometric template: fingerprint hash. Genetic test result: BRCA1 positive."
+        for rule in ("biometric_identifier", "genetic_data"):
+            self.assertEqual(len(self._findings_for(text, rule)), 0, f"expected {rule} disabled")
+
 
 class CitationsTests(_BaseSpecialCategoryTests):
     def test_religion_citation_includes_gdpr_art_9(self):
@@ -234,6 +287,16 @@ class CitationsTests(_BaseSpecialCategoryTests):
         from kaypoh.review.citations import pii_rationale
         rationale = pii_rationale(rule="medical_treatment", jurisdiction="SG", matched_text="metformin")
         self.assertIn("Healthcare Sector Advisory", rationale)
+
+    def test_biometric_citation_includes_recital_51(self):
+        from kaypoh.review.citations import pii_rationale
+        rationale = pii_rationale(rule="biometric_identifier", jurisdiction="EU", matched_text="fingerprint hash")
+        self.assertIn("Recital 51", rationale)
+
+    def test_genetic_citation_includes_gdpr_art_9(self):
+        from kaypoh.review.citations import pii_rationale
+        rationale = pii_rationale(rule="genetic_data", jurisdiction="EU", matched_text="BRCA1 positive")
+        self.assertIn("GDPR Art 9", rationale)
 
 
 if __name__ == "__main__":
