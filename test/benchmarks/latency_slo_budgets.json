@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "description": "Item 56 opt-in p95 latency SLO budgets. The default fixture is <=10 KB extracted text.",
+  "default_fixture": "test/fixtures/latency-corpus/1k.txt",
+  "default_warmups": 1,
+  "default_repetitions": 5,
+  "budgets_ms": {
+    "review.strict": 500.0,
+    "review.audit_grade": 3000.0,
+    "anonymize.strict": 800.0,
+    "anonymize.audit_grade": 4000.0
+  }
+}

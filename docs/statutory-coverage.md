@@ -260,7 +260,7 @@ The detector inventory above is one defensibility axis. The operational surfaces
 | Reviewer-mandated wait period (audit-pack export) | shipped | item 17 |
 | Audit-pack reviewer roll-up (maker-checker visibility) | shipped | item 15 |
 | Recall-baseline reviewer attribution | shipped | item 16 |
-| Latency SLO targets in CI | partial | item 56 |
+| Latency SLO targets in CI | shipped | item 56 |
 | Per-tenant citations override | backlog | item 60 |
 | Subject-erasure reverse-index | shipped | item 59 |
 | Reviewer identity bound to authenticated principal | shipped | item 57 |

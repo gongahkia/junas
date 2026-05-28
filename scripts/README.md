@@ -7,6 +7,7 @@ This folder contains operational and maintenance commands.
 - `check_python_clients.sh`: syntax and unit checks for the sync and async Python clients.
 - `benchmark_latency.py`: latency benchmark runner for current HTTP surfaces.
 - `benchmark_latency_corpus.sh`: shell wrapper for `test/fixtures/latency-corpus/`.
+- `check_latency_slo.py`: opt-in p95 SLO gate for `/review` and `/anonymize` strict/audit-grade paths.
 - `export_openapi_examples.py`: generate Postman and cURL examples from the current OpenAPI contract.
 - `generate_accuracy_doc.py`: regenerate `docs/accuracy.md` from committed corpus locks.
 - `preflight.py`: current runtime readiness checks.

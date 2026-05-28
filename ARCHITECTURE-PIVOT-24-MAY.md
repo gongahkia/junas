@@ -694,7 +694,7 @@ These were the immediate blockers before deeper detector/product work.
 
 41. ~~Harden persistence and mapping storage.~~ Shipped 2026-05-25. Persisted mappings can be Fernet-encrypted by setting `KAYPOH_MAPPING_STORE_KEY`; legacy plaintext mappings remain readable for compatibility. `scripts/purge_mappings.py` deletes mappings by `document_hash` or by retention age with `--dry-run`, and `docs/mapping-store-hardening.md` documents key generation, retention, filesystem ACLs, and disk-encryption expectations. HMAC remains the journal-integrity primitive; mapping confidentiality and deletion are now separate operator-visible controls.
 
-56. **Latency SLO targets + CI gate.** Publish explicit p95 latency budgets and gate them in CI via `test/benchmarks/`:
+56. ~~Latency SLO targets + CI gate.~~ Shipped 2026-05-28. Explicit p95 budgets live in `test/benchmarks/latency_slo_budgets.json`; `scripts/check_latency_slo.py` runs an in-process FastAPI SLO gate over `/review` and `/anonymize` for strict and audit-grade profiles, using the <=10 KB `test/fixtures/latency-corpus/1k.txt` fixture by default. CI can opt in with `KAYPOH_RUN_LATENCY_SLO=1 PYTHONPATH=src python3 -m pytest test/benchmarks -q`; operators can run `python3 scripts/check_latency_slo.py --write-report` to write `reports/latency_slo_*.json`.
 
     | Path | Profile | p95 budget |
     |---|---|---|
@@ -703,7 +703,7 @@ These were the immediate blockers before deeper detector/product work.
     | `/anonymize` | `strict` | < 800 ms |
     | `/anonymize` | `audit_grade` | < 4 s |
 
-    [Inference] Targets derived from pre-send UX research: paste/Outlook-send users tolerate ≤500 ms perceptibly, ≤3 s acceptable with explicit "reviewing…" indicator (Grammarly / Notion AI bands). Benchmark fixtures cover doc-size variation (1 KB / 10 KB / 100 KB) and seed corpora. Numbers locked only after first benchmark run; until then, they are aspirational. Latency results feed back into item 32 escalation calibration so cost ↔ latency ↔ accuracy trade is explicit.
+    [Inference] Targets derived from pre-send UX research: paste/Outlook-send users tolerate <=500 ms perceptibly, <=3 s acceptable with explicit "reviewing..." indicator (Grammarly / Notion AI bands). The SLO gate is opt-in because host timing is noisy; regular unit tests validate the budget config and harness shape, while `test/benchmarks/` enforces the live p95 thresholds when enabled. Latency results feed back into item 32 escalation calibration so cost, latency, and accuracy tradeoffs remain explicit.
 
 ### Enterprise GTM substrate
 
