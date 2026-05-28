@@ -1,0 +1,27 @@
+{
+  "doc_id": "special_category_adv_01",
+  "document_type": "generic",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {"rule": "named_person", "matched_text": "Dr Priya Raman"},
+    {"rule": "health_condition", "matched_text": "Diagnosis: chronic kidney disease"},
+    {"rule": "medical_treatment", "matched_text": "Medication: sertraline"},
+    {"rule": "biometric_identifier", "matched_text": "Biometric template: palm vein scan"},
+    {"rule": "genetic_data", "matched_text": "Genetic test result: APOE e4 carrier"},
+    {"rule": "sexual_orientation", "matched_text": "Sexual orientation: queer"},
+    {"rule": "sex_life_reference", "matched_text": "Sexual history: disclosed to clinic intake nurse"}
+  ],
+  "must_not_detect": [
+    {"matched_text": "passport photo", "reason": "ordinary photo is not biometric data without unique-identification processing"},
+    {"matched_text": "orientation week", "reason": "generic event orientation is not sexual orientation"},
+    {"matched_text": "company's DNA", "reason": "metaphorical DNA is not genetic data"},
+    {"matched_text": "same-sex marriage policy", "reason": "policy discussion without an identified subject should not fire"},
+    {"matched_text": "metformin market study", "reason": "drug-market discussion is not a patient treatment reference"},
+    {"matched_text": "financial surgery", "reason": "metaphorical surgery is not medical treatment"},
+    {"matched_text": "BRCA Holdings", "reason": "company name is not a genetic-test result"},
+    {"matched_text": "E11.9 file reference", "reason": "ICD-like token without diagnosis-code anchor should not fire"}
+  ],
+  "_label_source": "hand",
+  "_label_note": "Hand-reviewed after build-time OpenAI fixture generation failed with invalid API key."
+}

@@ -60,6 +60,9 @@ PII_RULES = [
     "kr_rrn", "kr_business_registration",
     "passport_number", "email_address", "phone_number",
     "bank_account", "named_person", "sg_court_citation",
+    "religious_belief", "trade_union_membership", "political_opinion",
+    "health_condition", "medical_treatment", "biometric_identifier", "genetic_data",
+    "sexual_orientation", "sex_life_reference", "minor_data_reference",
 ]
 MNPI_RULES = [
     "material_event", "nonpublic_marker", "transaction_codename",
@@ -72,6 +75,7 @@ DOC_TYPE_TO_FIELD = {
     "spa": "SPA", "nda": "NDA", "sha": "SHA",
     "term_sheet": "term_sheet", "memo": "memo",
     "research_note": "research_note", "employment_letter": "generic",
+    "special_category": "generic",
 }
 
 SYSTEM = (
@@ -134,7 +138,14 @@ def _build_user_prompt(body: str, doc_type: str) -> str:
         f"(^T\\d{{2}}[A-Z]{{2}}\\d{{4}}[A-Z]$).\n"
         f"12. sg_postal_address: label only the 6-digit Singapore postal code "
         f"that follows Singapore/S, not the full street address.\n"
-        f"13. must_not_detect: contract defined-term abbreviations such as "
+        f"13. special-category rules: label the full anchored phrase the detector should match, "
+        f"not only the sensitive value. Examples: health_condition='Diagnosis: type 2 diabetes', "
+        f"medical_treatment='Medication: metformin', biometric_identifier='Biometric template: "
+        f"fingerprint hash', genetic_data='Genetic test result: BRCA1 positive', "
+        f"sexual_orientation='Sexual orientation: bisexual', sex_life_reference='Sexual history: "
+        f"disclosed to clinic intake nurse'. Do NOT label generic false-positive bait such as "
+        f"passport photo, orientation week, company DNA, same-sex policy, or medication market studies.\n"
+        f"14. must_not_detect: contract defined-term abbreviations such as "
         f"'(the \"Purchaser\")' → list 'Purchaser'; '(\"SPA\")' → list 'SPA'. "
         f"Include role-noun defined terms even if they do not appear in a "
         f"defining clause but the document treats them as roles (Vendor, "

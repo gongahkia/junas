@@ -1,0 +1,19 @@
+{
+  "doc_id": "special_category_01",
+  "document_type": "generic",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {"rule": "named_person", "matched_text": "Dr Priya Raman"},
+    {"rule": "named_person", "matched_text": "Ms Lina Koh"},
+    {"rule": "health_condition", "matched_text": "Diagnosis: type 2 diabetes"},
+    {"rule": "medical_treatment", "matched_text": "Medication: metformin"},
+    {"rule": "biometric_identifier", "matched_text": "Biometric template: fingerprint hash"},
+    {"rule": "genetic_data", "matched_text": "Genetic test result: BRCA1 positive"},
+    {"rule": "sexual_orientation", "matched_text": "Sexual orientation: bisexual"},
+    {"rule": "sex_life_reference", "matched_text": "Sexual history: disclosed to clinic intake nurse"}
+  ],
+  "must_not_detect": [],
+  "_label_source": "hand",
+  "_label_note": "Hand-reviewed after build-time OpenAI fixture generation failed with invalid API key."
+}

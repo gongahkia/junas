@@ -42,6 +42,7 @@ DOC_TYPES = {
     "memo": "a short internal deal memo using a Project codename for an unannounced acquisition",
     "research_note": "a short equity-research analyst note referencing forthcoming earnings",
     "employment_letter": "a Singapore-style employment offer letter, signatory block + salary line",
+    "special_category": "a synthetic healthcare / HR intake note focused on special-category personal data",
 }
 
 # document types map to the schema of must_detect labels — the recall gate expects these rule names.
@@ -53,6 +54,7 @@ DOC_TYPE_TO_DOC_TYPE_FIELD = {
     "memo": "memo",
     "research_note": "research_note",
     "employment_letter": "generic",
+    "special_category": "generic",
 }
 
 
@@ -76,6 +78,19 @@ def _build_prompt(doc_type: str, *, adversarial: bool, multilingual: bool) -> tu
         "Include at least one named person with an honorific (Dr / Mr / Ms / Mrs).",
         "If the document type is SPA/SHA/term_sheet/memo, include a fictional financial amount.",
     ]
+    if doc_type == "special_category":
+        constraints = [
+            f"Draft {base_kind}.",
+            "Length: 8–12 lines of plain text.",
+            "Use only fictional people and organisations.",
+            "Include one explicit health-condition field, e.g. 'Diagnosis: type 2 diabetes'.",
+            "Include one explicit medication or treatment field, e.g. 'Medication: metformin'.",
+            "Include one biometric-authentication field, e.g. 'Biometric template: fingerprint hash'.",
+            "Include one genetic-data field, e.g. 'Genetic test result: BRCA1 positive'.",
+            "Include one sexual-orientation field, e.g. 'Sexual orientation: bisexual'.",
+            "Include one sex-life field, e.g. 'Sexual history: disclosed to clinic intake nurse'.",
+            "Include at least one named person with an honorific (Dr / Mr / Ms / Mrs).",
+        ]
     if multilingual:
         constraints.append(
             "Mix at least two named persons: one English/Chinese name (e.g. Tan Wei Ming), "
@@ -83,18 +98,24 @@ def _build_prompt(doc_type: str, *, adversarial: bool, multilingual: bool) -> tu
             "(e.g. Ramasamy Muthu). The rest of the body remains English."
         )
     if adversarial:
-        constraints.append(
-            "Insert at least one obfuscated identifier (e.g. NRIC embedded inside a URL such as "
-            "https://example.sg/user/S1234567D, or with non-breaking spaces between digits)."
-        )
-        constraints.append(
-            "Include at least one negative-prose sentence that uses words like 'project plan' or "
-            "'project status' in lowercase so that the transaction_codename detector should NOT fire."
-        )
-        constraints.append(
-            "Include at least one defined term abbreviation like (the \"SPA\") immediately "
-            "followed later by standalone references to that defined term."
-        )
+        if doc_type == "special_category":
+            constraints.append(
+                "Include false-positive bait that should NOT be detected: passport photo, orientation week, "
+                "company DNA, same-sex marriage policy, metformin market study, and financial surgery."
+            )
+        else:
+            constraints.append(
+                "Insert at least one obfuscated identifier (e.g. NRIC embedded inside a URL such as "
+                "https://example.sg/user/S1234567D, or with non-breaking spaces between digits)."
+            )
+            constraints.append(
+                "Include at least one negative-prose sentence that uses words like 'project plan' or "
+                "'project status' in lowercase so that the transaction_codename detector should NOT fire."
+            )
+            constraints.append(
+                "Include at least one defined term abbreviation like (the \"SPA\") immediately "
+                "followed later by standalone references to that defined term."
+            )
     user = (
         "Generate a synthetic legal fixture.\n\n"
         + "\n".join(f"- {c}" for c in constraints)
