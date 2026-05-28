@@ -1,0 +1,178 @@
+{
+  "doc_id": "sg_sector_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@kestrelwave.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "devraj.tham@kestrelwave.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Serene Toh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Iqram Salleh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Devraj Tham"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "share only de-identified samples"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Auric DPT Services Pte. Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "We have executed a non-binding term sheet to acquire 70% of Auric DPT Services Pte. Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "70%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$84"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "this is not generally available information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "ransomware incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "2,104"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers apply"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping is prohibited under the SFA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not selectively disclose any ratchet terms"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure of commercial terms"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "emissions disclosure restatement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "contingent on conditions precedent"
+    }
+  ],
+  "must_not_detect": [],
+  "uncertain": [
+    {
+      "matched_text": "MAS pre-notification",
+      "concept": "regulatory_pre-notification (MAS)",
+      "reason": "Regulatory filing step that may be sensitive but not explicitly listed in allowed MNPI rules."
+    },
+    {
+      "matched_text": "earn-out",
+      "concept": "commercial_term_signal (earn-out)",
+      "reason": "Deal term indicating contingent consideration; commercially sensitive but not in specified MNPI term list."
+    },
+    {
+      "matched_text": "DPT wallet AUM",
+      "concept": "crypto_metric_signal",
+      "reason": "Non-public crypto business metric referenced for earn-out; not a defined MNPI rule."
+    },
+    {
+      "matched_text": "tokenised-carbon marketplace volumes",
+      "concept": "esg/market_metric_signal",
+      "reason": "Non-public volume metric relevant to ESG/crypto business; not covered by specified MNPI rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

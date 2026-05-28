@@ -1,0 +1,146 @@
+{
+  "doc_id": "sg_sector_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Cedar"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$112"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "ransomware incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "B L A C K O U T"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Wei Liang Tan (GC)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Khoo (CFO)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Tan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@esteronpacific.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "do not tip counterparties"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "avoid selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$6.3m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "expected to be price\u2011sensitive"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "7O0\u2011IL\u20112"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "selective disclosure risk",
+      "reason": "Educational/marketing usage in a generic public context, not a live market-sensitive risk disclosure"
+    },
+    {
+      "matched_text": "insider list hygiene",
+      "reason": "Educational/marketing usage in a generic public context, not a live insider list control event"
+    },
+    {
+      "matched_text": "Material Adverse Change",
+      "reason": "Negated context; states no MAC is asserted"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "XX19\u20113A",
+      "concept": "account reference",
+      "reason": "May be an internal or customer/bank account reference but not clearly covered by a specific allowed PII rule"
+    },
+    {
+      "matched_text": "PROJ\u2011CED4R\u201100 7",
+      "concept": "internal document reference",
+      "reason": "Potentially sensitive internal identifier but not clearly mapped to an allowed PII rule"
+    },
+    {
+      "matched_text": "Q29kZURlYWw%3D",
+      "concept": "internal list identifier/token",
+      "reason": "URL parameter may function as an internal ID or token but not clearly an 'internal_session_id'"
+    },
+    {
+      "matched_text": "LumenChain DPT pilot metrics",
+      "concept": "dpt protocol/pilot event",
+      "reason": "Non-public crypto pilot details may be market sensitive, but mapping to the specific DPT event markers is not explicit"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

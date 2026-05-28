@@ -3,12 +3,171 @@
   "document_type": "memo",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sgcompliance@tamarindrobotics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "zara.quek@larkspurbanyan.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daven Koh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lila Ong"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Master Rio Tan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Zara Quek"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Koh"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Mr. Daven Koh (Head of Product) disclosed insulin-dependent diabetes treatment at Seabreeze Medical on 14 May 2026"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "Mr. Daven Koh (Head of Product) disclosed insulin-dependent diabetes treatment at Seabreeze Medical on 14 May 2026 and provided a thumbprint scan for the New Tiong Vale plant turnstiles"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Ms. Lila Ong (Senior Engineer) has stated she is Buddhist"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Ms. Lila Ong (Senior Engineer) has stated she is Buddhist and serves as a steward of the Mech-Tech Workers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "Master Rio Tan (intern, age 16)"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Master Rio Tan (intern, age 16) attended a safety orientation session; minor status requires guardian consent before retention of training photos"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "replace full names with employee codes in the virtual data room"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "hash biometric templates"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not upload facility pass logs beyond 90 days"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "draft term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$120m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Hibiscus"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "Any external sharing of preliminary FY2026 revenue guidance for OrchidOne would be reasonably expected to materially affect value; treat as MNPI and coordinate timing with the Exchange\u2019s regulatory team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not mention product codenames, sports sponsorships (e.g., East Pier Otters), or site locations before the cleansing notice"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list updates"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Palm Circuits Pte. Ltd"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company",
+      "reason": "Defined term/role-noun; not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "export of her religion or union membership to the data room needs explicit consent or redaction",
+      "concept": "consent requirement",
+      "reason": "PDPA-relevant consent requirement but no specific allowed rule for generic consent markers (only withdrawal listed)."
+    },
+    {
+      "matched_text": "For PDPA DPIA and insider-list updates under the SFA",
+      "concept": "DPIA/record-of-processing",
+      "reason": "Privacy governance activity referenced (DPIA), not covered by an allowed PII rule."
+    },
+    {
+      "matched_text": "update the Record of Processing",
+      "concept": "record of processing",
+      "reason": "Privacy governance/record-keeping reference; not mapped to a listed PII rule."
+    },
+    {
+      "matched_text": "limit access via MangroveOS-Audit",
+      "concept": "access control",
+      "reason": "Security control relevant to PDPA but not covered by an allowed privacy-event marker."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

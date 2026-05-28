@@ -3,12 +3,245 @@
   "document_type": "memo",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed acquisition of Kestrel Robotics Pte. Ltd. and concurrent private placement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unreleased NimbusCore Router specs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$1.18"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "indicative cornerstone investor names"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "wall-crossing list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Caution List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Clean Walls Protocol"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not collect NRIC, passport scans, or bank account numbers unless necessary"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data Minimisation Standard"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Edmund Tay"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "employee ID KR-2198"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "edmund.tay@kestrel-robotics.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "has diagnosed Type 1 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "is on an insulin pump"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "his facial-recognition template is stored for Lionport Tower access"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Mr. Edmund Tay is a practising Buddhist"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "a dues-paying member of the Horizon Tech Staff Union"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "his union membership number HTSU-4471"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "he has a minor dependent aged 12"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redact timestamps from exports to the deal room"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "pre-sound investors receive pathfinder slides sans revenue-by-customer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "wall-crossing acknowledgments"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "outside the wall"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "leaking the placement timetable would be price-sensitive"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "exported beyond Singapore"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "X-Transfer Checklist"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "OrchidQuant Engine",
+      "reason": "Product name, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "NimbusCore Router",
+      "reason": "Product name, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "OrchidQuant genetic algorithm module",
+      "reason": "Product name containing sensitive terms, not personal data"
+    },
+    {
+      "matched_text": "Biometric Edge demo kit",
+      "reason": "Product name containing sensitive terms, not personal data"
+    },
+    {
+      "matched_text": "Tembusu Tigers",
+      "reason": "Metaphorical/sports codename, not PII/MNPI"
+    },
+    {
+      "matched_text": "SingaBay Vista",
+      "reason": "Place name example, not PII/MNPI"
+    },
+    {
+      "matched_text": "DEI Fair Horizons Charter",
+      "reason": "Policy name, not PII/MNPI"
+    },
+    {
+      "matched_text": "political football",
+      "reason": "Idiomatic expression, not PII/MNPI"
+    },
+    {
+      "matched_text": "NRIC",
+      "reason": "Generic identifier category mention; no actual ID value present"
+    },
+    {
+      "matched_text": "passport scans",
+      "reason": "Generic identifier category mention; no actual document number"
+    },
+    {
+      "matched_text": "bank account numbers",
+      "reason": "Generic identifier category mention; no actual account number"
+    },
+    {
+      "matched_text": "sexual orientation, religion, and political belief",
+      "reason": "Generic DEI policy prose; not about an identified individual"
+    },
+    {
+      "matched_text": "LionCity CRM",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "MeridianPay Wallet",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Prayer-room access logs",
+      "reason": "Generic data category mention; not tied to an identifiable individual"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "docroom@seabrightdynamics.sg",
+      "concept": "organizational email address",
+      "reason": "Generic mailbox; may not be data about an identifiable individual under PDPA"
+    },
+    {
+      "matched_text": "sgcompliance@seabrightdynamics.sg",
+      "concept": "organizational email address",
+      "reason": "Generic mailbox; may not be data about an identifiable individual under PDPA"
+    },
+    {
+      "matched_text": "trading halt",
+      "concept": "market intervention notice",
+      "reason": "Potential MNPI context but not mapped to a specific allowed MNPI rule token"
+    },
+    {
+      "matched_text": "Prayer-room access logs for Level 12 are PDPA data",
+      "concept": "religion-inference data",
+      "reason": "Sensitive inference risk noted but not anchored to a specific identifiable individual"
+    },
+    {
+      "matched_text": "without consent",
+      "concept": "consent requirement reference",
+      "reason": "Consent mentioned generally; not a withdrawal/DSAR marker in allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+  ],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
