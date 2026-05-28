@@ -61,6 +61,17 @@ class GenerateCandidateCorpusTests(unittest.TestCase):
         self.assertEqual(line_count, 4284)
         self.assertIn("planned=4284", stdout.getvalue())
 
+    def test_negative_max_failures_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            result = generate_candidate_corpus.main([
+                "--out-dir",
+                str(Path(tmp) / "candidates"),
+                "--max-failures",
+                "-1",
+                "--dry-run",
+            ])
+        self.assertEqual(result, 2)
+
 class CandidatePipelineEnvTests(unittest.TestCase):
     def test_load_env_file_supports_unexported_and_exported_values_without_overriding(self):
         with tempfile.TemporaryDirectory() as tmp:

@@ -142,6 +142,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--candidate-dir", type=Path, default=DEFAULT_CANDIDATE_DIR)
     parser.add_argument("--run-dir", type=Path, default=None)
     parser.add_argument("--generation-model", default=os.environ.get("KAYPOH_FIXTURE_MODEL", "gpt-4o"))
+    parser.add_argument(
+        "--generation-max-failures",
+        type=int,
+        default=int(os.environ.get("KAYPOH_CANDIDATE_MAX_FAILURES", "1")),
+    )
     parser.add_argument("--autolabel-model", default=os.environ.get("KAYPOH_AUTOLABEL_MODEL", "o1"))
     parser.add_argument("--workers", type=int, default=int(os.environ.get("KAYPOH_AUTOLABEL_WORKERS", "1")))
     parser.add_argument("--env-file", type=Path, default=REPO_ROOT / ".env")
@@ -190,6 +195,8 @@ def main(argv: list[str] | None = None) -> int:
             str(candidate_dir),
             "--model",
             args.generation_model,
+            "--max-failures",
+            str(args.generation_max_failures),
             "--manifest-dir",
             str(run_dir),
         ]

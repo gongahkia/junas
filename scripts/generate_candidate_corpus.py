@@ -206,6 +206,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--model", default=os.environ.get("KAYPOH_FIXTURE_MODEL", "gpt-4o"))
     parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT)
     parser.add_argument(
+        "--max-failures",
+        type=int,
+        default=int(os.environ.get("KAYPOH_CANDIDATE_MAX_FAILURES", "3")),
+        help="stop after this many generation failures (0 = keep going)",
+    )
+    parser.add_argument(
         "--manifest-dir",
         type=Path,
         help="write generation JSONL manifests here (default for real runs: /tmp/kaypoh-candidate-run-*)",
@@ -234,6 +240,9 @@ def main(argv: list[str] | None = None) -> int:
         return 2
     if args.count < 1:
         print("--count must be >= 1", file=sys.stderr)
+        return 2
+    if args.max_failures < 0:
+        print("--max-failures must be >= 0", file=sys.stderr)
         return 2
     if not args.dry_run and not os.environ.get("OPENAI_API_KEY", "").strip():
         print("OPENAI_API_KEY is not set", file=sys.stderr)
@@ -289,6 +298,13 @@ def main(argv: list[str] | None = None) -> int:
                     manifest_dir / "generation_manifest.jsonl",
                     {"event": "failed", "returncode": rc, **asdict(item)},
                 )
+            if args.max_failures and failed >= args.max_failures:
+                print(
+                    f"stopping after {failed} generation failures (--max-failures={args.max_failures})",
+                    file=sys.stderr,
+                    flush=True,
+                )
+                break
     elapsed = int(time.monotonic() - t0)
     print(f"candidate generation summary: ok={ok} failed={failed} skipped={expected - len(plan)} elapsed={elapsed}s")
     if not args.dry_run:
