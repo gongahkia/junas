@@ -5,8 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts import generate_candidate_corpus
-from scripts import run_candidate_corpus_pipeline
+from scripts import generate_candidate_corpus, run_candidate_corpus_pipeline
 from scripts.fixture_taxonomy import CONCEPTS, JURISDICTIONS
 
 
@@ -72,7 +71,8 @@ class CandidatePipelineEnvTests(unittest.TestCase):
                 "GPT5_MINI_API_VERSION=\"2024-01-01\"\n",
                 encoding="utf-8",
             )
-            previous = {key: os.environ.get(key) for key in ("OPENAI_API_KEY", "GPT5_MINI_ENDPOINT", "GPT5_MINI_API_VERSION")}
+            env_keys = ("OPENAI_API_KEY", "GPT5_MINI_ENDPOINT", "GPT5_MINI_API_VERSION")
+            previous = {key: os.environ.get(key) for key in env_keys}
             try:
                 os.environ["OPENAI_API_KEY"] = "already-set"
                 os.environ.pop("GPT5_MINI_ENDPOINT", None)
