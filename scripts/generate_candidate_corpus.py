@@ -165,6 +165,7 @@ def _append_jsonl(path: Path, payload: dict) -> None:
 def _run_one(
     *,
     item: CandidatePlanItem,
+    provider: str,
     model: str,
     dry_run: bool,
 ) -> int:
@@ -181,6 +182,8 @@ def _run_one(
         "--candidate",
         "--out-dir",
         str(Path(item.txt_path).parent),
+        "--provider",
+        provider,
         "--model",
         model,
     ]
@@ -203,6 +206,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--doc-types", default=",".join(DEFAULT_DOC_TYPES), help="comma list or all")
     parser.add_argument("--variants", default=",".join(DEFAULT_VARIANTS), help="comma list")
     parser.add_argument("--count", type=int, default=1, help="target fixtures per matrix cell")
+    parser.add_argument(
+        "--provider",
+        choices=("openai", "azure"),
+        default=os.environ.get("KAYPOH_FIXTURE_PROVIDER", "openai"),
+        help="Model provider for fixture generation",
+    )
     parser.add_argument("--model", default=os.environ.get("KAYPOH_FIXTURE_MODEL", "gpt-4o"))
     parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT)
     parser.add_argument(
@@ -244,7 +253,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.max_failures < 0:
         print("--max-failures must be >= 0", file=sys.stderr)
         return 2
-    if not args.dry_run and not os.environ.get("OPENAI_API_KEY", "").strip():
+    if not args.dry_run and args.provider == "openai" and not os.environ.get("OPENAI_API_KEY", "").strip():
         print("OPENAI_API_KEY is not set", file=sys.stderr)
         return 2
 
@@ -284,6 +293,7 @@ def main(argv: list[str] | None = None) -> int:
     for item in plan:
         rc = _run_one(
             item=item,
+            provider=args.provider,
             model=args.model,
             dry_run=args.dry_run,
         )

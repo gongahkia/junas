@@ -60,6 +60,11 @@ class GenerateLegalFixtureTests(unittest.TestCase):
         self.assertIn("jurisdiction-local ID/company/tax identifier", result.stdout)
         self.assertIn("identifier-shaped bait", result.stdout)
 
+    def test_dry_run_accepts_azure_provider(self):
+        result = self._run("memo", "--provider", "azure", "--dry-run")
+        self.assertEqual(result.returncode, 0, msg=result.stderr)
+        self.assertIn("Generate a synthetic legal fixture", result.stdout)
+
     def test_missing_api_key_returns_2(self):
         # remove key from env so script bails out before any network call.
         result = self._run("spa", "--slug", "spa_99", env_extra={"OPENAI_API_KEY": ""})

@@ -39,6 +39,34 @@ AZURE_ENV_GROUPS = (
         "AZURE_OPENAI_API_VERSION",
     ),
 )
+AZURE_FIXTURE_ENV_GROUPS = (
+    (
+        "KAYPOH_FIXTURE_AZURE_API_KEY",
+        "GPT5_MINI_API_KEY",
+        "GPT5_PRO_API_KEY",
+        "AZURE_OPENAI_API_KEY",
+    ),
+    (
+        "KAYPOH_FIXTURE_AZURE_ENDPOINT",
+        "GPT5_MINI_ENDPOINT",
+        "GPT5_PRO_ENDPOINT",
+        "AZURE_ENDPOINT",
+    ),
+    (
+        "KAYPOH_FIXTURE_AZURE_DEPLOYMENT",
+        "GPT5_MINI_DEPLOYMENT",
+        "GPT5_PRO_DEPLOYMENT",
+        "AZURE_OPENAI_DEPLOYMENT",
+        "AZURE_DEPLOYMENT",
+    ),
+    (
+        "KAYPOH_FIXTURE_AZURE_API_VERSION",
+        "GPT5_MINI_API_VERSION",
+        "GPT5_PRO_API_VERSION",
+        "API_VERSION",
+        "AZURE_OPENAI_API_VERSION",
+    ),
+)
 
 
 def _default_run_dir() -> Path:
@@ -139,8 +167,18 @@ def _print_or_run(
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Run candidate fixture corpus pipeline")
     parser.add_argument("--profile", default="saturation-4284", choices=("custom", "saturation-4284"))
+    parser.add_argument("--jurisdictions", default="all")
+    parser.add_argument("--concepts", default="all")
+    parser.add_argument("--doc-types", default="")
+    parser.add_argument("--variants", default="")
+    parser.add_argument("--count", type=int, default=1)
     parser.add_argument("--candidate-dir", type=Path, default=DEFAULT_CANDIDATE_DIR)
     parser.add_argument("--run-dir", type=Path, default=None)
+    parser.add_argument(
+        "--generation-provider",
+        choices=("openai", "azure"),
+        default=os.environ.get("KAYPOH_FIXTURE_PROVIDER", "azure"),
+    )
     parser.add_argument("--generation-model", default=os.environ.get("KAYPOH_FIXTURE_MODEL", "gpt-4o"))
     parser.add_argument(
         "--generation-max-failures",
@@ -148,6 +186,11 @@ def main(argv: list[str] | None = None) -> int:
         default=int(os.environ.get("KAYPOH_CANDIDATE_MAX_FAILURES", "1")),
     )
     parser.add_argument("--autolabel-model", default=os.environ.get("KAYPOH_AUTOLABEL_MODEL", "o1"))
+    parser.add_argument(
+        "--autolabel-provider",
+        choices=("openai", "azure"),
+        default=os.environ.get("KAYPOH_AUTOLABEL_PROVIDER", "azure"),
+    )
     parser.add_argument("--workers", type=int, default=int(os.environ.get("KAYPOH_AUTOLABEL_WORKERS", "1")))
     parser.add_argument("--env-file", type=Path, default=REPO_ROOT / ".env")
     parser.add_argument("--no-env-file", action="store_true")
@@ -170,13 +213,23 @@ def main(argv: list[str] | None = None) -> int:
     if sum(bool(flag) for flag in (args.generate_only, args.label_only, args.evaluate_only)) > 1:
         print("choose at most one of --generate-only, --label-only, --evaluate-only", file=sys.stderr)
         return 2
+    if args.generation_provider == "azure" and args.generation_model == "gpt-4o":
+        args.generation_model = os.environ.get("KAYPOH_FIXTURE_MODEL", "azure-deployment")
+    if args.autolabel_provider == "azure" and args.autolabel_model == "o1":
+        args.autolabel_model = os.environ.get("KAYPOH_AUTOLABEL_MODEL", "azure-deployment")
 
     if not args.dry_run:
         missing: list[str] = []
         if not args.label_only and not args.evaluate_only:
-            missing.extend(_missing_env("OPENAI_API_KEY"))
+            if args.generation_provider == "openai":
+                missing.extend(_missing_env("OPENAI_API_KEY"))
+            else:
+                missing.extend(_missing_env_groups(AZURE_FIXTURE_ENV_GROUPS))
         if not args.generate_only and not args.evaluate_only:
-            missing.extend(_missing_env_groups(AZURE_ENV_GROUPS))
+            if args.autolabel_provider == "openai":
+                missing.extend(_missing_env("OPENAI_API_KEY"))
+            else:
+                missing.extend(_missing_env_groups(AZURE_ENV_GROUPS))
         if missing:
             print("missing required env vars:", file=sys.stderr)
             for name in sorted(set(missing)):
@@ -191,8 +244,16 @@ def main(argv: list[str] | None = None) -> int:
             str(REPO_ROOT / "scripts" / "generate_candidate_corpus.py"),
             "--profile",
             args.profile,
+            "--jurisdictions",
+            args.jurisdictions,
+            "--concepts",
+            args.concepts,
+            "--count",
+            str(args.count),
             "--out-dir",
             str(candidate_dir),
+            "--provider",
+            args.generation_provider,
             "--model",
             args.generation_model,
             "--max-failures",
@@ -200,6 +261,10 @@ def main(argv: list[str] | None = None) -> int:
             "--manifest-dir",
             str(run_dir),
         ]
+        if args.doc_types:
+            generation_cmd.extend(["--doc-types", args.doc_types])
+        if args.variants:
+            generation_cmd.extend(["--variants", args.variants])
         if args.dry_run:
             generation_cmd.append("--dry-run")
         rc = _print_or_run(generation_cmd, dry_run=False, run_dir=run_dir, step="generate")
@@ -214,7 +279,7 @@ def main(argv: list[str] | None = None) -> int:
             "--candidate-dir",
             str(candidate_dir),
             "--provider",
-            "azure",
+            args.autolabel_provider,
             "--model",
             args.autolabel_model,
             "--workers",

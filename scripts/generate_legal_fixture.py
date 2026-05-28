@@ -48,6 +48,14 @@ ADVERSARIAL_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus-adversarial"
 CANDIDATE_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"
 
 
+def _azure_env(*names: str) -> str:
+    for name in names:
+        value = os.environ.get(name, "").strip()
+        if value:
+            return value
+    return ""
+
+
 def _variant_notes(*, adversarial: bool, multilingual: bool, variant: str) -> list[str]:
     notes: list[str] = []
     if variant == "negative":
@@ -160,6 +168,27 @@ class FixtureGenerationError(RuntimeError):
     """Raised when the OpenAI call fails or returns an unexpected payload shape."""
 
 
+def _fixture_chat_payload(system: str, user: str, *, model: str) -> dict:
+    return {
+        "model": model,
+        "messages": [
+            {"role": "system", "content": system},
+            {"role": "user", "content": user},
+        ],
+        "temperature": 0.7,
+    }
+
+
+def _extract_fixture_body(response: httpx.Response, *, provider: str) -> str:
+    if response.status_code >= 400:
+        raise FixtureGenerationError(f"{provider} returned {response.status_code}: {response.text[:500]}")
+    try:
+        payload = response.json()
+        return payload["choices"][0]["message"]["content"].strip()
+    except (KeyError, IndexError, ValueError) as exc:
+        raise FixtureGenerationError(f"unexpected {provider} response shape: {response.text[:500]!r}") from exc
+
+
 def _call_openai(system: str, user: str, *, model: str, api_key: str) -> str:
     try:
         response = httpx.post(
@@ -168,31 +197,74 @@ def _call_openai(system: str, user: str, *, model: str, api_key: str) -> str:
                 "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json",
             },
-            json={
-                "model": model,
-                "messages": [
-                    {"role": "system", "content": system},
-                    {"role": "user", "content": user},
-                ],
-                "temperature": 0.7,
-            },
+            json=_fixture_chat_payload(system, user, model=model),
             timeout=60.0,
         )
     except httpx.HTTPError as exc:
         raise FixtureGenerationError(f"network error calling OpenAI: {exc}") from exc
-    if response.status_code >= 400:
-        # surface the API's own error body — usually the actionable thing (model misnamed,
-        # rate-limited, key revoked).
-        raise FixtureGenerationError(
-            f"OpenAI returned {response.status_code}: {response.text[:500]}"
-        )
+    return _extract_fixture_body(response, provider="OpenAI")
+
+
+def _call_azure_openai(system: str, user: str, *, model: str, api_key: str) -> str:
+    endpoint = _azure_env("KAYPOH_FIXTURE_AZURE_ENDPOINT", "GPT5_MINI_ENDPOINT", "GPT5_PRO_ENDPOINT", "AZURE_ENDPOINT")
+    deployment = _azure_env(
+        "KAYPOH_FIXTURE_AZURE_DEPLOYMENT",
+        "GPT5_MINI_DEPLOYMENT",
+        "GPT5_PRO_DEPLOYMENT",
+        "AZURE_OPENAI_DEPLOYMENT",
+        "AZURE_DEPLOYMENT",
+    )
+    api_version = _azure_env(
+        "KAYPOH_FIXTURE_AZURE_API_VERSION",
+        "GPT5_MINI_API_VERSION",
+        "GPT5_PRO_API_VERSION",
+        "API_VERSION",
+        "AZURE_OPENAI_API_VERSION",
+    )
+    if not endpoint or not deployment or not api_version:
+        raise FixtureGenerationError("Azure fixture provider requires endpoint, deployment, and api-version env vars")
+    body = _fixture_chat_payload(system, user, model=model)
+    body.pop("model", None)
+    body.pop("temperature", None)
+    url = f"{endpoint.rstrip('/')}/openai/deployments/{deployment}/chat/completions?api-version={api_version}"
     try:
-        payload = response.json()
-        return payload["choices"][0]["message"]["content"].strip()
-    except (KeyError, IndexError, ValueError) as exc:
-        raise FixtureGenerationError(
-            f"unexpected OpenAI response shape: {response.text[:500]!r}"
-        ) from exc
+        response = httpx.post(
+            url,
+            headers={
+                "api-key": api_key,
+                "Content-Type": "application/json",
+            },
+            json=body,
+            timeout=60.0,
+        )
+    except httpx.HTTPError as exc:
+        raise FixtureGenerationError(f"network error calling Azure OpenAI: {exc}") from exc
+    return _extract_fixture_body(response, provider="Azure OpenAI")
+
+
+def _api_key_for_provider(provider: str) -> str:
+    if provider == "azure":
+        return _azure_env(
+            "KAYPOH_FIXTURE_AZURE_API_KEY",
+            "GPT5_MINI_API_KEY",
+            "GPT5_PRO_API_KEY",
+            "AZURE_OPENAI_API_KEY",
+        )
+    return os.environ.get("OPENAI_API_KEY", "").strip()
+
+
+def _api_key_error(provider: str) -> str:
+    if provider == "azure":
+        return "Azure fixture API key is not set (KAYPOH_FIXTURE_AZURE_API_KEY or GPT5_MINI_API_KEY/GPT5_PRO_API_KEY)"
+    return "OPENAI_API_KEY is not set"
+
+
+def _call_fixture_model(system: str, user: str, *, provider: str, model: str, api_key: str) -> str:
+    if provider == "openai":
+        return _call_openai(system, user, model=model, api_key=api_key)
+    if provider == "azure":
+        return _call_azure_openai(system, user, model=model, api_key=api_key)
+    raise ValueError(f"unknown fixture generation provider: {provider}")
 
 
 def _labels_stub(
@@ -238,6 +310,12 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--adversarial", action="store_true", help="Generate adversarial / obfuscated variant")
     parser.add_argument("--multilingual", action="store_true", help="Include multilingual SG names")
+    parser.add_argument(
+        "--provider",
+        choices=("openai", "azure"),
+        default=os.environ.get("KAYPOH_FIXTURE_PROVIDER", "openai"),
+        help="Model provider (default: openai, env KAYPOH_FIXTURE_PROVIDER)",
+    )
     parser.add_argument("--model", default=os.environ.get("KAYPOH_FIXTURE_MODEL", "gpt-4o-mini"))
     parser.add_argument("--candidate", action="store_true", help="Write to candidate quarantine corpus")
     parser.add_argument("--out-dir", type=Path, help="Override output directory")
@@ -261,13 +339,14 @@ def main(argv: list[str] | None = None) -> int:
         print(user)
         return 0
 
-    api_key = os.environ.get("OPENAI_API_KEY", "").strip()
+    provider = args.provider.strip().lower()
+    api_key = _api_key_for_provider(provider)
     if not api_key:
-        print("OPENAI_API_KEY is not set", file=sys.stderr)
+        print(_api_key_error(provider), file=sys.stderr)
         return 2
 
     try:
-        body = _call_openai(system, user, model=args.model, api_key=api_key)
+        body = _call_fixture_model(system, user, provider=provider, model=args.model, api_key=api_key)
     except FixtureGenerationError as exc:
         print(f"fixture generation failed: {exc}", file=sys.stderr)
         return 1

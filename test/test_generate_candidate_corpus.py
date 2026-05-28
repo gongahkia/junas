@@ -47,6 +47,8 @@ class GenerateCandidateCorpusTests(unittest.TestCase):
                 result = generate_candidate_corpus.main([
                     "--profile",
                     "saturation-4284",
+                    "--provider",
+                    "azure",
                     "--out-dir",
                     str(tmp_path / "candidates"),
                     "--manifest-dir",
@@ -60,6 +62,7 @@ class GenerateCandidateCorpusTests(unittest.TestCase):
         self.assertEqual(result, 0)
         self.assertEqual(line_count, 4284)
         self.assertIn("planned=4284", stdout.getvalue())
+        self.assertIn("--provider azure", stdout.getvalue())
 
     def test_negative_max_failures_is_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
