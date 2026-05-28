@@ -46,6 +46,7 @@ from scripts.fixture_taxonomy import (  # noqa: E402
 CORPUS_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus"
 ADVERSARIAL_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus-adversarial"
 CANDIDATE_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"
+FIXTURE_TIMEOUT_SECONDS = float(os.environ.get("KAYPOH_FIXTURE_TIMEOUT_SECONDS", "180"))
 
 
 def _azure_env(*names: str) -> str:
@@ -198,7 +199,7 @@ def _call_openai(system: str, user: str, *, model: str, api_key: str) -> str:
                 "Content-Type": "application/json",
             },
             json=_fixture_chat_payload(system, user, model=model),
-            timeout=60.0,
+            timeout=FIXTURE_TIMEOUT_SECONDS,
         )
     except httpx.HTTPError as exc:
         raise FixtureGenerationError(f"network error calling OpenAI: {exc}") from exc
@@ -235,7 +236,7 @@ def _call_azure_openai(system: str, user: str, *, model: str, api_key: str) -> s
                 "Content-Type": "application/json",
             },
             json=body,
-            timeout=60.0,
+            timeout=FIXTURE_TIMEOUT_SECONDS,
         )
     except httpx.HTTPError as exc:
         raise FixtureGenerationError(f"network error calling Azure OpenAI: {exc}") from exc
