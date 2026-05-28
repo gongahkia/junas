@@ -57,3 +57,67 @@ pattern = '(?:SGX[:\s.-]+|listed\s+on\s+SGX(?:\s+as)?[\s:.-]*|SGX\s+(?:counter|c
 severity = "low"
 reason = "SGX counter / cashtag identifier"
 capture_group = 1
+
+# IPOS trade-mark application / registration number. Official IPOS decision pages show
+# legacy `TM No. T8601301A` / `T0722229A-02` and newer `TM No. 40201515702X` forms.
+# Anchor required because the shapes can collide with contract exhibits and SKU strings.
+[[recognizers]]
+name = "Singapore IPOS trade mark number"
+rule_name = "sg_ipos_tm_number"
+pattern = '(?:IPOS\s+(?:application|registration|trade\s*mark)|Trade\s*Mark\s+(?:Application\s+)?(?:No\.?|Number)|TM\s+No\.?)[\s:#-]*((?:T\d{7}[A-Z]|40\d{9}[A-Z])(?:-\d{2})?)'
+severity = "medium"
+reason = "Singapore IPOS trade mark application / registration number"
+capture_group = 1
+
+# ACRA/Bizfile transaction number. ACRA help pages refer to Transaction ID / Transaction
+# number for Bizfile applications and NOE filings; public Bizfile guide screenshots show
+# `Transaction No.: T250008051`. Anchor on transaction/filing/lodgement context.
+[[recognizers]]
+name = "Singapore ACRA Bizfile transaction number"
+rule_name = "sg_acra_transaction_number"
+pattern = '(?:(?:ACRA|Bizfile|BizFile)\s+)?(?:transaction|filing|lodgement)\s*(?:No\.?|number|ID|ref(?:erence)?)[\s:.#-]*([A-Z]\d{9,12})'
+severity = "medium"
+reason = "Singapore ACRA / Bizfile transaction or filing reference"
+capture_group = 1
+
+# HDB matter references. HDB resale/HFE guidance asks applicants to quote HFE reference
+# number, sales registration number, resale case number, and OTP serial number. Format is
+# not publicly specified, so v1 stays label-anchored and alphanumeric.
+[[recognizers]]
+name = "Singapore HDB matter reference"
+rule_name = "sg_hdb_reference"
+pattern = '(?:HDB\s+)?(?:HFE\s+reference\s+number|HFE\s+ref(?:erence)?|sales\s+registration\s+number|resale\s+case\s+number|OTP\s+serial\s+number)[\s:.#-]*([A-Z]{2,4}\d{6,12}[A-Z]?|\d{6,12}[A-Z]?)'
+severity = "medium"
+reason = "Singapore HDB flat-purchase / resale matter reference"
+capture_group = 1
+
+# SLA land / strata / accessory lot numbers. SLA documents the MK/TS district + lot +
+# check-alphabet system, with strata lot prefix U and accessory lot prefix A.
+[[recognizers]]
+name = "Singapore SLA land or strata lot number"
+rule_name = "sg_sla_lot_number"
+pattern = '(?:SLA|INLIS|Lot\s+Number|MK/TS|MKTS|land\s+lot|cadastral|strata\s+lot|accessory\s+lot)[^,\n]{0,40}?((?:MK|TS)\s*\d{1,2}\s*(?:(?:U\d{1,6}|A\d{1,4}|\d{5})[A-Z])(?:\s*PT)?)'
+severity = "medium"
+reason = "Singapore SLA MK/TS land, strata, or accessory lot number"
+capture_group = 1
+
+# SLA/BCA title-plan references. SLA publishes CP / CPST / RT plan categories; BCA strata
+# guidance refers to Management Corporation Strata Title Plan numbers and MCST references.
+[[recognizers]]
+name = "Singapore SLA / MCST plan number"
+rule_name = "sg_sla_title_plan_number"
+pattern = '(?:SLA\s+)?(?:(?:CP|CPST|RT)\s+(?:Plan\s+)?(?:No\.?|number)|(?:Certified|Strata\s+Certified|Registrar\s+of\s+Title)\s+Plan\s+(?:No\.?|number)|Management\s+Corporation\s+Strata\s+Title\s+Plan\s+No\.?|MCST(?:\s+No\.?)?)[\s:#-]*((?:CPST|CP|RT)?\s*\d{1,6})'
+severity = "medium"
+reason = "Singapore SLA title-plan / strata-title plan reference"
+capture_group = 1
+
+# URA planning submission / decision reference. URA examples include parent submission
+# number `010903-15A2` and Planning Decisions API fields `decision_no` / `submission_no`
+# such as `P291210-03B1-Z000`.
+[[recognizers]]
+name = "Singapore URA planning reference"
+rule_name = "sg_ura_planning_reference"
+pattern = '(?:URA\s+)?(?:submission|decision|planning|development|DC|written\s+permission|provisional\s+permission|parent\s+submission)\s*(?:No\.?|number|ref(?:erence)?|ID)?[\s:#-]*([A-Z]?\d{6}-\d{2}[A-Z]\d(?:-[A-Z0-9]{4})?)'
+severity = "medium"
+reason = "Singapore URA planning submission / decision reference"
+capture_group = 1

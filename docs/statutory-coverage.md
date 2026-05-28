@@ -84,6 +84,12 @@ Each row is a TOML recognizer in `src/kaypoh/review/jurisdictions_data/<CODE>.to
 | `sg_paynow` | PDPA s13 + MAS PaymentServices Act 2019 + PayNow service-provider undertakings | high | none |
 | `sg_mas_licence` | SFA 2001 + Financial Advisers Act 2001 (CMS / FA licensee disclosure) | medium | none |
 | `sg_sgx_counter` | SFA s218 (insider trading) + SGX Mainboard Rule 703 (continuous disclosure) | low | none |
+| `sg_ipos_tm_number` | IPOS Trade Marks Act / IPOS application record — TM No. T8601301A / 40201515702X forms | medium | none |
+| `sg_acra_transaction_number` | ACRA / Bizfile transaction or filing reference | medium | none |
+| `sg_hdb_reference` | HDB HFE / resale / sales-registration / OTP matter reference | medium | none |
+| `sg_sla_lot_number` | SLA MK/TS land, strata, and accessory lot numbering system | medium | none |
+| `sg_sla_title_plan_number` | SLA CP / CPST / RT plan and MCST title-plan references | medium | none |
+| `sg_ura_planning_reference` | URA development-control submission / decision reference | medium | none |
 
 ### MY / ID / TH / PH / VN
 

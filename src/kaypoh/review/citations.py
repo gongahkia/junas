@@ -194,6 +194,38 @@ _PII_DEFAULT_RATIONALE = {
         "embargo-window MNPI surface under SFA s218 (insider trading) and SGX Mainboard "
         "Rule 703 (continuous disclosure)."
     ),
+    "sg_ipos_tm_number": (
+        "Singapore IPOS trade-mark application or registration number identifies an IP "
+        "asset and dispute/application record. In a pre-send legal or transaction memo, "
+        "treat as matter-identifying confidential information and mask unless disclosure "
+        "is intended and documented."
+    ),
+    "sg_acra_transaction_number": (
+        "Singapore ACRA / Bizfile transaction or filing reference identifies a corporate-"
+        "registry lodgement workflow. In a private corporate-secretarial or deal document, "
+        "mask unless the recipient and purpose are documented under PDPA s18 and the "
+        "Companies Act filing context."
+    ),
+    "sg_hdb_reference": (
+        "Singapore HDB flat-purchase / resale / HFE references identify a housing matter "
+        "and can link named applicants, sellers, occupiers, and property details. Treat "
+        "as personal data under PDPA s2 and mask unless disclosure is purpose-limited."
+    ),
+    "sg_sla_lot_number": (
+        "Singapore SLA MK/TS land, strata, or accessory lot number identifies a specific "
+        "land or strata parcel. In conveyancing, financing, or dispute context it links "
+        "parties to property interests and should be masked unless disclosure is intended."
+    ),
+    "sg_sla_title_plan_number": (
+        "Singapore SLA title-plan / strata-title plan reference identifies a property-"
+        "title record or management-corporation strata title plan. Mask in private legal "
+        "or real-estate documents unless the recipient and purpose are documented."
+    ),
+    "sg_ura_planning_reference": (
+        "Singapore URA planning submission / decision reference identifies a development-"
+        "control application or written-permission record. In pre-send real-estate, "
+        "financing, or corporate documents, mask unless disclosure is intended and documented."
+    ),
     "employee_id": (
         "Employee identifier is pseudonymised-but-linkable personal data: the employer "
         "retains the re-identification key linking the ID to a named individual. GDPR "

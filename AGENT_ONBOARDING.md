@@ -96,7 +96,7 @@ Pick the next highest-leverage open item by ICP impact:
 - **Item 80** (contingent MNPI language) — closes the textbook MNPI recall hole the first-principles analysis surfaced.
 - **Item 84** (calendrical reasoning for quiet periods) — high signal for IR / corporate-secretarial ICP segment.
 - **Item 33 remainder** (EU member-state IDs + broader cookie/ad-ID/device serials + semantic DOB/age) — DOB/adult-age, IP/MAC/IMEI, US ITIN/DLN mini-slice shipped 2026-05-28.
-- **Item 48** (SG wedge second slice) — IPOS / ACRA / HDB / strata / title / URA / SLA references.
+- **Item 48 remainder** — second slice (IPOS / ACRA / HDB / strata / title / URA / SLA references) shipped 2026-05-28; remaining wedge work is contract-commercial terms, insurance-policy numbers, crypto wallet refs, and non-SAL tribunal refs.
 - **Item 56** (latency SLO gate) — keeps detector growth from quietly degrading runtime.
 
 Always check the architecture doc for the latest user prioritisation before picking. If unsure, ask the user.
