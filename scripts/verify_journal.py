@@ -18,14 +18,35 @@ if str(SRC_PATH) not in sys.path:
 from kaypoh.review.journal import journal_path, read_journal, verify_chain  # noqa: E402
 
 
+def _identity_source_warnings(entries) -> list[str]:
+    sources_by_review: dict[str, set[str]] = {}
+    for entry in entries:
+        if entry.event_type != "decision_recorded":
+            continue
+        source = str(entry.payload.get("reviewer_identity_source", "") or "")
+        if not source:
+            source = "legacy" if entry.payload.get("reviewer_id") else "none"
+        sources_by_review.setdefault(entry.review_id, set()).add(source)
+    warnings: list[str] = []
+    for review_id, sources in sorted(sources_by_review.items()):
+        if len(sources) > 1:
+            warnings.append(
+                f"review {review_id} has mixed reviewer identity sources: {', '.join(sorted(sources))}"
+            )
+    return warnings
+
+
 def main() -> int:
     entries = read_journal()
     if not entries:
         print(f"journal at {journal_path()} is empty or missing")
         return 0
     valid, errors = verify_chain(entries)
+    warnings = _identity_source_warnings(entries)
     print(f"entries: {len(entries)}")
     print(f"chain: {'valid' if valid else 'tampered'}")
+    for warning in warnings:
+        print(f"warning: {warning}", file=sys.stderr)
     for error in errors:
         print(f"  - {error}", file=sys.stderr)
     return 0 if valid else 1

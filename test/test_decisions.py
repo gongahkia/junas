@@ -51,6 +51,7 @@ class DecisionStateMachineTests(unittest.TestCase):
             decision=self.decisions_mod.Decision(finding_id="f1", action="reject", rationale="defined term"),
         )
         self.assertEqual(result["action"], "reject")
+        self.assertEqual(result["reviewer_identity_source"], "none")
         self.assertEqual(result["seq"], 1)
         self.assertTrue(result["hmac"])
 
@@ -87,6 +88,35 @@ class DecisionStateMachineTests(unittest.TestCase):
         kept = self.decisions_mod.findings_after_decisions(state)
         kept_ids = {f["id"] for f in kept}
         self.assertEqual(kept_ids, {"f2"})  # f1 rejected, f2 undecided defaults to kept
+
+    def test_verify_journal_warns_on_mixed_identity_sources(self):
+        import scripts.verify_journal as verify_journal
+
+        entries = [
+            self.journal_mod.JournalEntry(
+                seq=0,
+                ts="2026-05-28T00:00:00Z",
+                event_type="decision_recorded",
+                review_id="rev-1",
+                payload={"reviewer_id": "legacy-reviewer"},
+                prev_hash="",
+                hmac="",
+            ),
+            self.journal_mod.JournalEntry(
+                seq=1,
+                ts="2026-05-28T00:00:01Z",
+                event_type="decision_recorded",
+                review_id="rev-1",
+                payload={"reviewer_id": "casey", "reviewer_identity_source": "jwt"},
+                prev_hash="",
+                hmac="",
+            ),
+        ]
+
+        self.assertEqual(
+            verify_journal._identity_source_warnings(entries),
+            ["review rev-1 has mixed reviewer identity sources: jwt, legacy"],
+        )
 
 
 if __name__ == "__main__":

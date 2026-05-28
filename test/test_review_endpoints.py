@@ -38,7 +38,13 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
 
     def tearDown(self):
         self._tmpdir.cleanup()
-        for var in ("KAYPOH_JOURNAL_DIR", "KAYPOH_JOURNAL_KEY", "KAYPOH_REVIEW_PERSIST", "KAYPOH_SUBJECT_INDEX_KEY"):
+        for var in (
+            "KAYPOH_JOURNAL_DIR",
+            "KAYPOH_JOURNAL_KEY",
+            "KAYPOH_REVIEW_PERSIST",
+            "KAYPOH_SUBJECT_INDEX_KEY",
+            "KAYPOH_DEV_AUTH",
+        ):
             os.environ.pop(var, None)
         import backend.main as main_mod
         importlib.reload(main_mod)
@@ -73,13 +79,15 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
             )
             self.assertEqual(decision_resp.status_code, 200)
             self.assertEqual(decision_resp.json()["action"], "reject")
+            self.assertEqual(decision_resp.json()["reviewer_id"], "")
+            self.assertEqual(decision_resp.json()["reviewer_identity_source"], "none")
 
             updated = client.get(f"/review/{review_id}").json()
             updated_finding = next(f for f in updated["findings"] if f["id"] == target["id"])
             self.assertEqual(updated_finding["decision"], "reject")
             self.assertEqual(updated["decisions_recorded"], 1)
 
-    def test_reviewer_id_header_persists_on_decision(self):
+    def test_reviewer_id_header_is_ignored_without_dev_auth(self):
         with TestClient(self.main.app) as client:
             review_id = self._start_session(client)
             state = client.get(f"/review/{review_id}").json()
@@ -91,13 +99,15 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
                 headers={"X-Reviewer-ID": "priya.raman@example.bank"},
             )
             self.assertEqual(resp.status_code, 200)
-            self.assertEqual(resp.json()["reviewer_id"], "priya.raman@example.bank")
+            self.assertEqual(resp.json()["reviewer_id"], "")
+            self.assertEqual(resp.json()["reviewer_identity_source"], "none")
 
             updated = client.get(f"/review/{review_id}").json()
             updated_finding = next(f for f in updated["findings"] if f["id"] == target["id"])
-            self.assertEqual(updated_finding["decision_reviewer_id"], "priya.raman@example.bank")
+            self.assertEqual(updated_finding["decision_reviewer_id"], "")
+            self.assertEqual(updated_finding["decision_reviewer_identity_source"], "none")
 
-    def test_reviewer_id_falls_back_to_body_when_header_missing(self):
+    def test_request_body_reviewer_id_is_not_authoritative(self):
         with TestClient(self.main.app) as client:
             review_id = self._start_session(client)
             target = client.get(f"/review/{review_id}").json()["findings"][0]
@@ -111,9 +121,11 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
                 },
             )
             self.assertEqual(resp.status_code, 200)
-            self.assertEqual(resp.json()["reviewer_id"], "sarah.lim@example.law")
+            self.assertEqual(resp.json()["reviewer_id"], "")
+            self.assertEqual(resp.json()["reviewer_identity_source"], "none")
 
-    def test_reviewer_id_header_overrides_body(self):
+    def test_reviewer_id_header_is_dev_only_and_overrides_body(self):
+        os.environ["KAYPOH_DEV_AUTH"] = "1"
         with TestClient(self.main.app) as client:
             review_id = self._start_session(client)
             target = client.get(f"/review/{review_id}").json()["findings"][0]
@@ -129,6 +141,7 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
             )
             self.assertEqual(resp.status_code, 200)
             self.assertEqual(resp.json()["reviewer_id"], "header.identity@example.com")
+            self.assertEqual(resp.json()["reviewer_identity_source"], "dev_header")
 
     def test_unknown_finding_returns_404(self):
         with TestClient(self.main.app) as client:

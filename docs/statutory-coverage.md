@@ -247,7 +247,7 @@ The detector inventory above is one defensibility axis. The operational surfaces
 | Latency SLO targets in CI | partial | item 56 |
 | Per-tenant citations override | backlog | item 60 |
 | Subject-erasure reverse-index | shipped | item 59 |
-| Reviewer identity bound to authenticated principal | backlog | item 57 |
+| Reviewer identity bound to authenticated principal | shipped | item 57 |
 | Local-daemon production ACL | backlog | item 58 |
 | Workflow-wide fail-closed audit | backlog | item 65 |
 | Binary / container metadata coverage (XLSX pivot cache, PPTX notes, EML attachments, archives) | backlog | item 61 |

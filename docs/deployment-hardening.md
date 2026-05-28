@@ -167,6 +167,10 @@ anonymize, reidentify, and scrub routes accept `reviewer|maker|checker|admin`; d
 recording requires `maker|checker|admin`; review-session reads require
 `auditor|checker|admin`.
 
+Decision attribution is bound to the authenticated principal: JWT deployments record the
+token subject, API-key deployments record the configured credential subject, and
+`X-Reviewer-ID` is accepted only for local development with `KAYPOH_DEV_AUTH=1`.
+
 ## Document Ingest And Metadata
 
 PDF review fails closed by default when the extracted text layer is missing, too sparse,

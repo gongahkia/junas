@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 """Demonstrate the review → decision → session-state audit flow.
 
-Requires the backend to run with `KAYPOH_REVIEW_PERSIST=1` and a journal key.
+Requires the backend to run with `KAYPOH_REVIEW_PERSIST=1`, a journal key, and a
+subject-index key. `--reviewer-id` is a local-dev helper and requires `KAYPOH_DEV_AUTH=1`;
+server deployments attribute decisions to the authenticated JWT/API-key principal.
 
 Run:
-    KAYPOH_REVIEW_PERSIST=1 KAYPOH_JOURNAL_KEY=$(openssl rand -hex 32) \\
+    KAYPOH_REVIEW_PERSIST=1 KAYPOH_DEV_AUTH=1 \\
+      KAYPOH_JOURNAL_KEY=$(openssl rand -hex 32) \\
+      KAYPOH_SUBJECT_INDEX_KEY=$(openssl rand -hex 32) \\
       uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 
     python3 scripts/examples/decision_flow_example.py \\
@@ -23,7 +27,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("text", help="Document text to review.")
     parser.add_argument("--base-url", default="http://localhost:8000")
     parser.add_argument("--api-key", default=None, help="Optional X-API-Key value.")
-    parser.add_argument("--reviewer-id", default="", help="Identity recorded against each decision.")
+    parser.add_argument("--reviewer-id", default="", help="Dev-only X-Reviewer-ID when KAYPOH_DEV_AUTH=1.")
     parser.add_argument("--source", default="SG")
     parser.add_argument("--destination", default="US")
     parser.add_argument("--document-type", default="SPA")
@@ -95,7 +99,8 @@ def main() -> None:
         for finding in state_body["findings"]:
             badge = finding["decision"] or "undecided"
             by = f" by {finding['decision_reviewer_id']}" if finding.get("decision_reviewer_id") else ""
-            print(f"  - {finding['id']} -> {badge}{by}")
+            source = finding.get("decision_reviewer_identity_source") or "none"
+            print(f"  - {finding['id']} -> {badge}{by} [{source}]")
 
         print(
             "\nExport an audit pack with:\n"

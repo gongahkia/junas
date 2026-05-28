@@ -32,7 +32,8 @@ class Decision:
     action: str  # accept | reject | rewrite
     replacement_text: str = ""
     rationale: str = ""
-    reviewer_id: str = ""  # who recorded this decision; sourced from header or body
+    reviewer_id: str = ""  # who recorded this decision; auth principal for new production entries
+    reviewer_identity_source: str = "none"  # jwt | api_key | dev_header | none | legacy
 
 
 def start_review_session(
@@ -80,6 +81,7 @@ def record_decision(*, review_id: str, decision: Decision, tenant_id: str | None
             "replacement_text": decision.replacement_text,
             "rationale": decision.rationale,
             "reviewer_id": decision.reviewer_id,
+            "reviewer_identity_source": decision.reviewer_identity_source,
         },
         tenant_id=tenant_id,
     )
@@ -88,6 +90,7 @@ def record_decision(*, review_id: str, decision: Decision, tenant_id: str | None
         "finding_id": decision.finding_id,
         "action": decision.action,
         "reviewer_id": decision.reviewer_id,
+        "reviewer_identity_source": decision.reviewer_identity_source,
         "seq": entry.seq,
         "ts": entry.ts,
         "hmac": entry.hmac,

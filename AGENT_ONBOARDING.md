@@ -29,7 +29,7 @@ Older docs (`ARCHITECTURE_25_MAY.txt` does not exist — it was renamed) are his
 **Current state after the 2026-05-26 pivot cleanup:**
 
 - Legacy 9-layer classifier (`src/kaypoh/workflow/layer1_lexicon` through `layer6_regression` + `layer5_mosaic`) **deleted from the repo**. `/classify` is now a thin wrapper over `engine.review()` returning a flat findings shape. See item 63.
-- 13 new expansion items (54–68) covering: LLM symmetric findings, matter-scoped inheritance, latency SLO, reviewer identity binding, local-daemon ACL, subject-erasure (PDPA s16 / GDPR Art 17 / etc.), per-tenant citations, container coverage, image scanning (Tesseract / OpenAI Vision / Google / AWS / Azure), fail-closed everywhere, additive signals (classifier + similarity + transparent aggregator). Subject erasure (item 59) shipped on 2026-05-28; reviewer identity binding and latency SLO remain open in that band.
+- 13 new expansion items (54–68) covering: LLM symmetric findings, matter-scoped inheritance, latency SLO, reviewer identity binding, local-daemon ACL, subject-erasure (PDPA s16 / GDPR Art 17 / etc.), per-tenant citations, container coverage, image scanning (Tesseract / OpenAI Vision / Google / AWS / Azure), fail-closed everywhere, additive signals (classifier + similarity + transparent aggregator). Subject erasure (item 59) and reviewer identity binding (item 57) shipped on 2026-05-28; latency SLO remains open in that band.
 - 13 more items (69–86) derived from first-principles statutory analysis of every in-scope jurisdiction. Plus procurement-substrate items 87–89.
 - Items 90 and 91 are implemented: HK/AU/JP/KR packs + seed fixtures are in place, and the default/adversarial recall locks were refreshed after the autolabel sweep.
 - Runtime setup is UV-first. Use `uv run ...` with the project lock; do not revive `requirements.txt` workflows.
@@ -95,7 +95,6 @@ Pick the next highest-leverage open item by ICP impact:
 - **Item 78** (pseudonymised IDs) — high recall lift on PII without new training data.
 - **Item 80** (contingent MNPI language) — closes the textbook MNPI recall hole the first-principles analysis surfaced.
 - **Item 84** (calendrical reasoning for quiet periods) — high signal for IR / corporate-secretarial ICP segment.
-- **Item 57** (reviewer identity binding) — security hole per the doc.
 - **Item 33** (DOB/age + online/device IDs + US ITIN/DLN) — broad PII recall lift.
 - **Item 48** (SG wedge second slice) — IPOS / ACRA / HDB / strata / title / URA / SLA references.
 - **Item 56** (latency SLO gate) — keeps detector growth from quietly degrading runtime.

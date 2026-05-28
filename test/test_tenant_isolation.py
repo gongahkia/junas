@@ -127,6 +127,8 @@ class TenantIsolationTests(unittest.TestCase):
                 json={"finding_id": target["id"], "action": "accept"},
             )
             self.assertEqual(tenant_a_decision.status_code, 200)
+            self.assertEqual(tenant_a_decision.json()["reviewer_id"], "alice")
+            self.assertEqual(tenant_a_decision.json()["reviewer_identity_source"], "api_key")
 
     def test_mapping_store_reidentify_is_tenant_scoped_and_header_tenant_is_ignored(self):
         with TestClient(self.main.app) as client:
@@ -168,6 +170,8 @@ class TenantIsolationTests(unittest.TestCase):
 
 class TenantJWTAuthTests(unittest.TestCase):
     def setUp(self):
+        self._tmpdir = tempfile.TemporaryDirectory()
+        self.tmpdir = Path(self._tmpdir.name)
         self.secret = "jwt-test-secret"
         self._env = {
             "KAYPOH_TENANCY_ENABLED": "1",
@@ -175,6 +179,10 @@ class TenantJWTAuthTests(unittest.TestCase):
             "KAYPOH_JWT_HS256_SECRET": self.secret,
             "KAYPOH_JWT_ISSUER": "https://issuer.example",
             "KAYPOH_JWT_AUDIENCE": "kaypoh-api",
+            "KAYPOH_JOURNAL_DIR": str(self.tmpdir),
+            "KAYPOH_JOURNAL_KEY": "jwt-test-journal-key",
+            "KAYPOH_REVIEW_PERSIST": "1",
+            "KAYPOH_SUBJECT_INDEX_KEY": "subject-index-test-key",
         }
         self._old_env = {key: os.environ.get(key) for key in self._env}
         os.environ.update(self._env)
@@ -188,6 +196,7 @@ class TenantJWTAuthTests(unittest.TestCase):
         self.main.app.openapi_schema = None
 
     def tearDown(self):
+        self._tmpdir.cleanup()
         for key, old_value in self._old_env.items():
             if old_value is None:
                 os.environ.pop(key, None)
@@ -219,6 +228,41 @@ class TenantJWTAuthTests(unittest.TestCase):
             )
 
         self.assertEqual(response.status_code, 200, response.text)
+
+    def test_jwt_subject_is_recorded_as_reviewer_identity(self):
+        token = self._token(sub="casey", roles=["maker", "auditor"])
+        with TestClient(self.main.app) as client:
+            review = client.post(
+                "/review",
+                headers={"Authorization": f"Bearer {token}"},
+                json={"text": "Send Dr Jane Tan to jane@example.com."},
+            )
+            self.assertEqual(review.status_code, 200, review.text)
+            payload = review.json()
+            decision = client.post(
+                f"/review/{payload['request_id']}/decision",
+                headers={
+                    "Authorization": f"Bearer {token}",
+                    "X-Reviewer-ID": "spoofed@example.com",
+                },
+                json={
+                    "finding_id": payload["findings"][0]["id"],
+                    "action": "accept",
+                    "reviewer_id": "body-spoof@example.com",
+                },
+            )
+            self.assertEqual(decision.status_code, 200, decision.text)
+            self.assertEqual(decision.json()["reviewer_id"], "casey")
+            self.assertEqual(decision.json()["reviewer_identity_source"], "jwt")
+
+            state = client.get(
+                f"/review/{payload['request_id']}",
+                headers={"Authorization": f"Bearer {token}"},
+            )
+            self.assertEqual(state.status_code, 200, state.text)
+            finding = state.json()["findings"][0]
+            self.assertEqual(finding["decision_reviewer_id"], "casey")
+            self.assertEqual(finding["decision_reviewer_identity_source"], "jwt")
 
     def test_jwt_bad_audience_is_rejected(self):
         token = self._token(aud="other-api")

@@ -718,7 +718,6 @@ class ReviewDecisionRequest(BaseModel):
                 "action": "reject",
                 "replacement_text": "",
                 "rationale": "Defined term in contract preamble, not a real party",
-                "reviewer_id": "priya.raman@example.bank",
             }
         }
     )
@@ -736,8 +735,9 @@ class ReviewDecisionRequest(BaseModel):
         "",
         max_length=256,
         description=(
-            "Optional reviewer identifier (email, employee number, SSO subject). "
-            "If omitted and the X-Reviewer-ID header is present, the header value is used."
+            "Deprecated compatibility field. Production reviewer identity is resolved from "
+            "the authenticated JWT/API-key principal; local development may use X-Reviewer-ID "
+            "when KAYPOH_DEV_AUTH=1."
         ),
     )
 
@@ -755,6 +755,10 @@ class ReviewDecisionResponse(BaseModel):
     finding_id: str = Field(description="Finding identifier whose decision was recorded.")
     action: str = Field(description="Recorded action: accept, reject, or rewrite.")
     reviewer_id: str = Field("", description="Reviewer identifier persisted alongside the decision.")
+    reviewer_identity_source: str = Field(
+        "none",
+        description="Source for reviewer_id: jwt, api_key, dev_header, none, or legacy.",
+    )
     seq: int = Field(description="Journal sequence number for this decision event.")
     ts: str = Field(description="UTC timestamp of the journal entry.")
     hmac: str = Field(description="HMAC of the journal entry; reference for downstream audit verification.")
@@ -782,6 +786,10 @@ class ReviewSessionFindingState(BaseModel):
     decision_seq: Optional[int] = Field(None, description="Journal seq for the most recent decision on this finding.")
     decision_ts: Optional[str] = Field(None, description="Timestamp of the most recent decision.")
     decision_reviewer_id: Optional[str] = Field(None, description="Reviewer identifier on the latest decision.")
+    decision_reviewer_identity_source: Optional[str] = Field(
+        None,
+        description="Source for decision_reviewer_id on the latest decision.",
+    )
 
 
 class ReviewSessionStateResponse(BaseModel):

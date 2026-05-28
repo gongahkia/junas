@@ -2005,6 +2005,20 @@ def _ensure_persistence_enabled() -> None:
         )
 
 
+def _resolve_reviewer_identity(
+    *,
+    tenant: TenantContext,
+    x_reviewer_id: str | None,
+) -> tuple[str, str]:
+    if tenant.enabled:
+        reviewer_id = (tenant.subject or tenant.tenant_id or "").strip()[:256]
+        return reviewer_id, tenant.auth_mode if tenant.auth_mode in {"api_key", "jwt"} else "authenticated"
+    dev_reviewer_id = (x_reviewer_id or "").strip()
+    if _is_truthy(os.environ.get("KAYPOH_DEV_AUTH")) and dev_reviewer_id:
+        return dev_reviewer_id[:256], "dev_header"
+    return "", "none"
+
+
 def _serialize_session_state(state: dict[str, Any]) -> ReviewSessionStateResponse:
     decisions_by_id = {d["finding_id"]: d for d in state.get("decisions", [])}
     findings: list[ReviewSessionFindingState] = []
@@ -2027,6 +2041,9 @@ def _serialize_session_state(state: dict[str, Any]) -> ReviewSessionStateRespons
                 decision_seq=decision["seq"] if decision else None,
                 decision_ts=decision["ts"] if decision else None,
                 decision_reviewer_id=decision.get("reviewer_id") if decision else None,
+                decision_reviewer_identity_source=(
+                    decision.get("reviewer_identity_source") if decision else None
+                ),
             )
         )
     return ReviewSessionStateResponse(
@@ -2050,8 +2067,9 @@ def _serialize_session_state(state: dict[str, Any]) -> ReviewSessionStateRespons
     description=(
         "Append an accept | reject | rewrite decision for a finding from a prior /review response. "
         "Decisions are persisted to the append-only HMAC-chained journal under KAYPOH_JOURNAL_DIR. "
-        "Reviewer identity is sourced from the X-Reviewer-ID header by default; the request body "
-        "`reviewer_id` field is used only when the header is absent. "
+        "Reviewer identity is resolved from the authenticated JWT/API-key principal. "
+        "X-Reviewer-ID is accepted only when KAYPOH_DEV_AUTH=1 for local development; "
+        "the request body `reviewer_id` field is retained for compatibility but is not authoritative. "
         "Requires KAYPOH_REVIEW_PERSIST=1; otherwise 409."
     ),
 )
@@ -2062,9 +2080,11 @@ async def post_review_decision(
     x_reviewer_id: str | None = Header(default=None, alias="X-Reviewer-ID"),
 ):
     _ensure_persistence_enabled()
-    # header is authoritative because it is closer to the identity-provider edge; body fills in
-    # only when the header is missing. both empty is allowed (decision still records).
-    resolved_reviewer_id = (x_reviewer_id or req.reviewer_id or "").strip()[:256]
+    tenant = tenant_context_from_request(request)
+    resolved_reviewer_id, reviewer_identity_source = _resolve_reviewer_identity(
+        tenant=tenant,
+        x_reviewer_id=x_reviewer_id,
+    )
     try:
         result = record_decision(
             review_id=review_id,
@@ -2074,8 +2094,9 @@ async def post_review_decision(
                 replacement_text=req.replacement_text,
                 rationale=req.rationale,
                 reviewer_id=resolved_reviewer_id,
+                reviewer_identity_source=reviewer_identity_source,
             ),
-            tenant_id=tenant_context_from_request(request).storage_tenant_id,
+            tenant_id=tenant.storage_tenant_id,
         )
     except ReviewSessionError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
