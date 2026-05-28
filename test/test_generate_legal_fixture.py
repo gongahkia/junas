@@ -26,20 +26,33 @@ class GenerateLegalFixtureTests(unittest.TestCase):
     def test_dry_run_emits_constraints(self):
         result = self._run("spa", "--dry-run")
         self.assertEqual(result.returncode, 0, msg=result.stderr)
-        self.assertIn("Share Purchase Agreement", result.stdout)
-        self.assertIn("fictional Singapore NRIC", result.stdout)
-        self.assertIn("fictional UEN", result.stdout)
+        self.assertIn("Jurisdiction context", result.stdout)
+        self.assertIn("Singapore", result.stdout)
+        self.assertIn("Coverage concept", result.stdout)
 
     def test_dry_run_adversarial_includes_obfuscation_clause(self):
         result = self._run("memo", "--adversarial", "--dry-run")
         self.assertEqual(result.returncode, 0)
-        self.assertIn("obfuscated identifier", result.stdout)
-        self.assertIn("project plan", result.stdout)
+        self.assertIn("obfuscated identifiers", result.stdout)
+        self.assertIn("negative bait", result.stdout)
 
     def test_dry_run_multilingual_includes_name_diversity_clause(self):
         result = self._run("sha", "--multilingual", "--dry-run")
         self.assertEqual(result.returncode, 0)
-        self.assertIn("Malay name", result.stdout)
+        self.assertIn("mixed-script", result.stdout)
+
+    def test_dry_run_supports_non_sg_statutory_context(self):
+        result = self._run(
+            "privacy_notice",
+            "--jurisdiction",
+            "CN",
+            "--concept",
+            "privacy_events",
+            "--dry-run",
+        )
+        self.assertEqual(result.returncode, 0, msg=result.stderr)
+        self.assertIn("PIPL", result.stdout)
+        self.assertIn("Cross-border transfer", result.stdout)
 
     def test_missing_api_key_returns_2(self):
         # remove key from env so script bails out before any network call.

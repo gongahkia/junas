@@ -31,91 +31,77 @@ from pathlib import Path
 import httpx
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts.fixture_taxonomy import (  # noqa: E402
+    CONCEPTS,
+    DOC_TYPE_TO_FIELD,
+    DOC_TYPES,
+    JURISDICTIONS,
+    concept_prompt,
+    jurisdiction_prompt,
+)
+
 CORPUS_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus"
 ADVERSARIAL_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus-adversarial"
-
-DOC_TYPES = {
-    "spa": "a Singapore-style Share Purchase Agreement (face page only, ~10 lines)",
-    "nda": "a Singapore-style Non-Disclosure Agreement (preamble + 2 clauses)",
-    "sha": "a Singapore-style Shareholders Agreement face page with 2–3 shareholder lines",
-    "term_sheet": "a Series B funding term sheet (10–12 lines, no boilerplate)",
-    "memo": "a short internal deal memo using a Project codename for an unannounced acquisition",
-    "research_note": "a short equity-research analyst note referencing forthcoming earnings",
-    "employment_letter": "a Singapore-style employment offer letter, signatory block + salary line",
-    "special_category": "a synthetic healthcare / HR intake note focused on special-category personal data",
-}
-
-# document types map to the schema of must_detect labels — the recall gate expects these rule names.
-DOC_TYPE_TO_DOC_TYPE_FIELD = {
-    "spa": "SPA",
-    "nda": "NDA",
-    "sha": "SHA",
-    "term_sheet": "term_sheet",
-    "memo": "memo",
-    "research_note": "research_note",
-    "employment_letter": "generic",
-    "special_category": "generic",
-}
+CANDIDATE_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"
 
 
-def _build_prompt(doc_type: str, *, adversarial: bool, multilingual: bool) -> tuple[str, str]:
-    base_kind = DOC_TYPES[doc_type]
-    system = (
-        "You are a legal-text fixture generator for a regulated-PII / MNPI detection test "
-        "harness. Your outputs are SYNTHETIC: every entity, number, identifier, and address you "
-        "produce is fictional, and the document must be obviously a test fixture. Do not use "
-        "any real person, real company, real NRIC/FIN, or real UEN. Never produce content that "
-        "could be confused with a real legal document. Output only the text of the fixture — no "
-        "preamble, no commentary, no markdown fences."
-    )
-    constraints = [
-        f"Draft {base_kind}.",
-        "Length: 8–14 lines of plain text.",
-        "Include at least one fictional Singapore NRIC of the form S1234567A through S9999999Z.",
-        "Include at least one fictional UEN (legacy 9-char or T-format).",
-        "Include at least one fictional Singapore phone number (+65 ...).",
-        "Include at least one fictional email address ending in .sg.",
-        "Include at least one named person with an honorific (Dr / Mr / Ms / Mrs).",
-        "If the document type is SPA/SHA/term_sheet/memo, include a fictional financial amount.",
-    ]
-    if doc_type == "special_category":
-        constraints = [
-            f"Draft {base_kind}.",
-            "Length: 8–12 lines of plain text.",
-            "Use only fictional people and organisations.",
-            "Include one explicit health-condition field, e.g. 'Diagnosis: type 2 diabetes'.",
-            "Include one explicit medication or treatment field, e.g. 'Medication: metformin'.",
-            "Include one biometric-authentication field, e.g. 'Biometric template: fingerprint hash'.",
-            "Include one genetic-data field, e.g. 'Genetic test result: BRCA1 positive'.",
-            "Include one sexual-orientation field, e.g. 'Sexual orientation: bisexual'.",
-            "Include one sex-life field, e.g. 'Sexual history: disclosed to clinic intake nurse'.",
-            "Include at least one named person with an honorific (Dr / Mr / Ms / Mrs).",
-        ]
+def _variant_notes(*, adversarial: bool, multilingual: bool, variant: str) -> list[str]:
+    notes: list[str] = []
+    if variant == "negative":
+        notes.append("Bias the document toward false-positive bait and benign uses of risky vocabulary.")
+    elif variant == "multilingual":
+        multilingual = True
+    elif variant == "adversarial":
+        adversarial = True
     if multilingual:
-        constraints.append(
-            "Mix at least two named persons: one English/Chinese name (e.g. Tan Wei Ming), "
-            "one Malay name (e.g. Siti Aishah binti Abdullah), and optionally one Tamil name "
-            "(e.g. Ramasamy Muthu). The rest of the body remains English."
+        notes.append(
+            "Include local realistic names and at least one non-English or mixed-script surface where natural."
         )
     if adversarial:
-        if doc_type == "special_category":
-            constraints.append(
-                "Include false-positive bait that should NOT be detected: passport photo, orientation week, "
-                "company DNA, same-sex marriage policy, metformin market study, and financial surgery."
-            )
-        else:
-            constraints.append(
-                "Insert at least one obfuscated identifier (e.g. NRIC embedded inside a URL such as "
-                "https://example.sg/user/S1234567D, or with non-breaking spaces between digits)."
-            )
-            constraints.append(
-                "Include at least one negative-prose sentence that uses words like 'project plan' or "
-                "'project status' in lowercase so that the transaction_codename detector should NOT fire."
-            )
-            constraints.append(
-                "Include at least one defined term abbreviation like (the \"SPA\") immediately "
-                "followed later by standalone references to that defined term."
-            )
+        notes.append(
+            "Include obfuscated identifiers, broken line runs, OCR-like spacing, or URL-embedded values."
+        )
+        notes.append(
+            "Include negative bait that should not be detected, such as negated MAC language, public-source "
+            "references, lowercase project-management prose, product names, or generic policy text."
+        )
+    return notes
+
+
+def _build_prompt(
+    doc_type: str,
+    *,
+    adversarial: bool,
+    multilingual: bool,
+    jurisdiction: str = "SG",
+    concept: str = "universal_mnpi",
+    variant: str = "default",
+) -> tuple[str, str]:
+    base_kind = DOC_TYPES[doc_type]
+    system = (
+        "You are a legal/finance fixture generator for evaluating PII and MNPI coverage. "
+        "Generate useful synthetic test documents, not documents designed to placate an existing detector. "
+        "Every person, organisation, identifier, address, account, and transaction must be fictional. "
+        "Do not use real companies, real people, real securities identifiers, or real government IDs. "
+        "Output only the fixture body: no preamble, no commentary, no markdown fences."
+    )
+    constraints = [
+        f"Jurisdiction context:\n{jurisdiction_prompt(jurisdiction)}",
+        f"Coverage concept:\n{concept_prompt(concept)}",
+        f"Draft {base_kind}.",
+        "Length: 10–18 lines of plain text.",
+        "Make the fixture realistic enough to evaluate legal/compliance coverage.",
+        "Include at least one fictional named person with an honorific.",
+        "Include at least one fictional organisation and one fictional email/contact channel.",
+        "Use jurisdiction-local terminology, regulator/exchange context, and document conventions where relevant.",
+        "Include both straightforward signals and at least one subtle contextual signal.",
+        "Include at least one benign or negative sentence that should help evaluate precision.",
+        "Do not mention Kaypoh, tests, labels, detector rules, or expected outputs.",
+    ]
+    constraints.extend(_variant_notes(adversarial=adversarial, multilingual=multilingual, variant=variant))
     user = (
         "Generate a synthetic legal fixture.\n\n"
         + "\n".join(f"- {c}" for c in constraints)
@@ -163,14 +149,27 @@ def _call_openai(system: str, user: str, *, model: str, api_key: str) -> str:
         ) from exc
 
 
-def _labels_stub(slug: str, doc_type: str) -> dict:
+def _labels_stub(
+    slug: str,
+    doc_type: str,
+    *,
+    jurisdiction: str,
+    concept: str,
+    prompt_version: str,
+    human_review_status: str,
+) -> dict:
     return {
         "doc_id": slug,
-        "document_type": DOC_TYPE_TO_DOC_TYPE_FIELD[doc_type],
-        "source_jurisdiction": "SG",
-        "destination_jurisdiction": "SG",
+        "document_type": DOC_TYPE_TO_FIELD[doc_type],
+        "source_jurisdiction": jurisdiction,
+        "destination_jurisdiction": jurisdiction,
         "must_detect": [],
         "must_not_detect": [],
+        "uncertain": [],
+        "_taxonomy_concept": concept,
+        "_taxonomy_version": "architecture-pivot-2026-05-26",
+        "_prompt_version": prompt_version,
+        "_human_review_status": human_review_status,
         "_generation_note": (
             "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect "
             "by inspecting the fixture text before this file is committed and before the "
@@ -183,14 +182,32 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Synthetic legal-fixture generator")
     parser.add_argument("doc_type", choices=sorted(DOC_TYPES), help="Document type to generate")
     parser.add_argument("--slug", required=False, help="Output slug (e.g., spa_02). Required unless --dry-run.")
+    parser.add_argument("--jurisdiction", choices=sorted(JURISDICTIONS), default="SG")
+    parser.add_argument("--concept", choices=sorted(CONCEPTS), default="universal_mnpi")
+    parser.add_argument(
+        "--variant",
+        choices=("default", "adversarial", "multilingual", "negative"),
+        default="default",
+        help="Prompt variant. Legacy --adversarial/--multilingual are still accepted.",
+    )
     parser.add_argument("--adversarial", action="store_true", help="Generate adversarial / obfuscated variant")
     parser.add_argument("--multilingual", action="store_true", help="Include multilingual SG names")
     parser.add_argument("--model", default=os.environ.get("KAYPOH_FIXTURE_MODEL", "gpt-4o-mini"))
+    parser.add_argument("--candidate", action="store_true", help="Write to candidate quarantine corpus")
+    parser.add_argument("--out-dir", type=Path, help="Override output directory")
     parser.add_argument("--dry-run", action="store_true", help="Print prompt only; no network call")
     parser.add_argument("--stdout", action="store_true", help="Print fixture to stdout rather than writing files")
     args = parser.parse_args(argv)
 
-    system, user = _build_prompt(args.doc_type, adversarial=args.adversarial, multilingual=args.multilingual)
+    prompt_version = "jurisdiction-taxonomy-v1"
+    system, user = _build_prompt(
+        args.doc_type,
+        adversarial=args.adversarial,
+        multilingual=args.multilingual,
+        jurisdiction=args.jurisdiction,
+        concept=args.concept,
+        variant=args.variant,
+    )
     if args.dry_run:
         print("=== system ===")
         print(system)
@@ -213,7 +230,12 @@ def main(argv: list[str] | None = None) -> int:
         print(body)
         return 0
 
-    target_dir = ADVERSARIAL_DIR if args.adversarial else CORPUS_DIR
+    if args.out_dir:
+        target_dir = args.out_dir if args.out_dir.is_absolute() else REPO_ROOT / args.out_dir
+    elif args.candidate:
+        target_dir = CANDIDATE_DIR / args.jurisdiction.lower() / args.concept
+    else:
+        target_dir = ADVERSARIAL_DIR if args.adversarial or args.variant == "adversarial" else CORPUS_DIR
     target_dir.mkdir(parents=True, exist_ok=True)
     txt_path = target_dir / f"{args.slug}.txt"
     labels_path = target_dir / f"{args.slug}.labels.json"
@@ -222,7 +244,18 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     txt_path.write_text(body + ("\n" if not body.endswith("\n") else ""), encoding="utf-8")
     labels_path.write_text(
-        json.dumps(_labels_stub(args.slug, args.doc_type), indent=2) + "\n", encoding="utf-8"
+        json.dumps(
+            _labels_stub(
+                args.slug,
+                args.doc_type,
+                jurisdiction=args.jurisdiction,
+                concept=args.concept,
+                prompt_version=prompt_version,
+                human_review_status="pending" if args.candidate else "unreviewed",
+            ),
+            indent=2,
+        ) + "\n",
+        encoding="utf-8",
     )
     print(f"wrote {txt_path.relative_to(REPO_ROOT)}")
     print(f"wrote {labels_path.relative_to(REPO_ROOT)}")

@@ -28,6 +28,7 @@ from scripts.autolabel_fixture import _azure_env, _existing_is_human, autolabel,
 
 CORPUS = REPO / "test" / "fixtures" / "legal-corpus"
 ADV = REPO / "test" / "fixtures" / "legal-corpus-adversarial"
+CANDIDATES = REPO / "test" / "fixtures" / "legal-corpus-candidates"
 
 
 def _provider_label_model(provider: str, model: str) -> str:
@@ -133,6 +134,8 @@ def main() -> int:
                         help="Stop after N successful labelings (0 = no limit)")
     parser.add_argument("--corpus-only", action="store_true")
     parser.add_argument("--adversarial-only", action="store_true")
+    parser.add_argument("--candidate-only", action="store_true")
+    parser.add_argument("--candidate-dir", type=Path, default=CANDIDATES)
     parser.add_argument(
         "--workers",
         type=int,
@@ -142,7 +145,12 @@ def main() -> int:
     args = parser.parse_args()
 
     if args.provider == "azure":
-        api_key = _azure_env("KAYPOH_AUTOLABEL_AZURE_API_KEY", "GPT5_MINI_API_KEY", "GPT5_PRO_API_KEY", "AZURE_OPENAI_API_KEY")
+        api_key = _azure_env(
+            "KAYPOH_AUTOLABEL_AZURE_API_KEY",
+            "GPT5_MINI_API_KEY",
+            "GPT5_PRO_API_KEY",
+            "AZURE_OPENAI_API_KEY",
+        )
     else:
         api_key = os.environ.get("OPENAI_API_KEY", "").strip()
     if not api_key:
@@ -150,14 +158,17 @@ def main() -> int:
         return 2
 
     dirs: list[Path] = []
-    if not args.adversarial_only:
-        dirs.append(CORPUS)
-    if not args.corpus_only:
-        dirs.append(ADV)
+    if args.candidate_only:
+        dirs.append(args.candidate_dir if args.candidate_dir.is_absolute() else REPO / args.candidate_dir)
+    else:
+        if not args.adversarial_only:
+            dirs.append(CORPUS)
+        if not args.corpus_only:
+            dirs.append(ADV)
 
     fixtures: list[Path] = []
     for d in dirs:
-        fixtures.extend(sorted(d.glob("*.txt")))
+        fixtures.extend(sorted(d.glob("**/*.txt")))
 
     workers = max(1, args.workers)
     if args.limit and workers > 1:
@@ -239,7 +250,7 @@ def main() -> int:
                     break
 
     elapsed = int(time.monotonic() - t_start)
-    print(f"\n=== summary ===")
+    print("\n=== summary ===")
     print(f"labeled: {ok}  skipped: {skip}  errors: {err}  elapsed: {elapsed}s")
     print("Spot-check at least 10% of auto-labeled fixtures before refreshing recall.lock.json.")
     return 0 if err == 0 else 1

@@ -30,6 +30,20 @@ from pathlib import Path
 
 import httpx
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from scripts.fixture_taxonomy import (  # noqa: E402
+    CONCEPTS,
+    DOC_TYPE_TO_FIELD,
+    JURISDICTIONS,
+    MNPI_RULES,
+    PII_RULES,
+    concept_prompt,
+    jurisdiction_prompt,
+)
+
 SG_POSTAL_LABEL_RE = re.compile(r"\b(?:Singapore|S)\s*(\d{6})\b", re.IGNORECASE)
 SIX_DIGIT_RE = re.compile(r"\b\d{6}\b")
 SG_NRIC_LABEL_RE = re.compile(r"^[STFGM]\d{7}[A-Z]$", re.IGNORECASE)
@@ -50,41 +64,13 @@ NONPUBLIC_LABEL_RE = re.compile(
     re.IGNORECASE,
 )
 
-PII_RULES = [
-    "sg_nric_fin", "sg_uen", "sg_postal_address",
-    "my_mykad", "id_nik", "th_national_id",
-    "ph_philsys", "ph_tin", "vn_cccd",
-    "hk_hkid", "hk_cr_no",
-    "au_tfn", "au_abn", "au_acn",
-    "jp_my_number", "jp_corporate_number",
-    "kr_rrn", "kr_business_registration",
-    "passport_number", "email_address", "phone_number",
-    "bank_account", "named_person", "sg_court_citation",
-    "religious_belief", "trade_union_membership", "political_opinion",
-    "health_condition", "medical_treatment", "biometric_identifier", "genetic_data",
-    "sexual_orientation", "sex_life_reference", "minor_data_reference",
-]
-MNPI_RULES = [
-    "material_event", "nonpublic_marker", "transaction_codename",
-    "definitive_agreement", "material_adverse_change", "embargo_marker",
-    "financial_amount", "financial_percentage", "large_number",
-]
 ALL_RULES = PII_RULES + MNPI_RULES
 
-DOC_TYPE_TO_FIELD = {
-    "spa": "SPA", "nda": "NDA", "sha": "SHA",
-    "term_sheet": "term_sheet", "memo": "memo",
-    "research_note": "research_note", "employment_letter": "generic",
-    "special_category": "generic",
-}
-
 SYSTEM = (
-    "You are a precision labeler for a legal/finance PII/MNPI detection test "
-    "harness. Given a synthetic legal-style document you must enumerate every "
-    "span that should be detected as PII or MNPI, and every span that looks "
-    "PII/MNPI-shaped but must NOT be detected because it is a defined term. "
-    "Be exhaustive — list every distinct span, including all repeats. Never "
-    "invent text that is not in the source verbatim."
+    "You are an independent precision labeler for synthetic legal/finance PII and MNPI "
+    "fixtures. Label the document against the supplied jurisdiction taxonomy. Do not infer "
+    "what an existing detector can pass; identify what should be treated as PII/MNPI for "
+    "coverage evaluation. Be exhaustive and never invent text that is not in the source verbatim."
 )
 
 
@@ -99,17 +85,67 @@ def _infer_doc_type(p: Path) -> str:
     return DOC_TYPE_TO_FIELD.get(stem, "generic")
 
 
-def _build_user_prompt(body: str, doc_type: str) -> str:
+def _read_context(fixture_path: Path) -> dict[str, str]:
+    labels_path = fixture_path.with_suffix(".labels.json")
+    if labels_path.exists():
+        try:
+            existing = json.loads(labels_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            existing = {}
+        if isinstance(existing, dict):
+            return {
+                "document_type": str(existing.get("document_type") or _infer_doc_type(fixture_path)),
+                "source_jurisdiction": str(existing.get("source_jurisdiction") or "SG").upper(),
+                "destination_jurisdiction": str(existing.get("destination_jurisdiction") or "SG").upper(),
+                "taxonomy_concept": str(existing.get("_taxonomy_concept") or "universal_mnpi"),
+                "taxonomy_version": str(existing.get("_taxonomy_version") or "architecture-pivot-2026-05-26"),
+            }
+    return {
+        "document_type": _infer_doc_type(fixture_path),
+        "source_jurisdiction": "SG",
+        "destination_jurisdiction": "SG",
+        "taxonomy_concept": "universal_mnpi",
+        "taxonomy_version": "architecture-pivot-2026-05-26",
+    }
+
+
+def _normalise_context(context: dict[str, str]) -> dict[str, str]:
+    raw_source = context.get("source_jurisdiction", "SG").upper()
+    source = raw_source if raw_source in JURISDICTIONS else "SG"
+    raw_destination = context.get("destination_jurisdiction", source).upper()
+    destination = raw_destination if raw_destination in JURISDICTIONS else source
+    concept = context.get("taxonomy_concept", "universal_mnpi")
+    return {
+        "document_type": context.get("document_type", "generic") or "generic",
+        "source_jurisdiction": source,
+        "destination_jurisdiction": destination,
+        "taxonomy_concept": concept if concept in CONCEPTS else "universal_mnpi",
+        "taxonomy_version": context.get("taxonomy_version", "architecture-pivot-2026-05-26"),
+    }
+
+
+def _build_user_prompt(
+    body: str,
+    doc_type: str,
+    *,
+    source_jurisdiction: str = "SG",
+    destination_jurisdiction: str = "SG",
+    taxonomy_concept: str = "universal_mnpi",
+) -> str:
     return (
         f"Document type: {doc_type}\n"
-        f"Source jurisdiction: SG\n\n"
+        f"Source jurisdiction:\n{jurisdiction_prompt(source_jurisdiction)}\n\n"
+        f"Destination jurisdiction:\n{jurisdiction_prompt(destination_jurisdiction)}\n\n"
+        f"Coverage concept:\n{concept_prompt(taxonomy_concept)}\n\n"
         f"Valid PII rules: {', '.join(PII_RULES)}\n"
         f"Valid MNPI rules: {', '.join(MNPI_RULES)}\n\n"
         f"Return JSON in this exact shape:\n"
-        f'{{"must_detect": [{{"rule": "<one-of-the-rules>", '
+        f'{{"must_detect": [{{"category": "PII|MNPI", "rule": "<one-of-the-rules>", '
         f'"matched_text": "<verbatim span from doc>"}}, ...], '
         f'"must_not_detect": [{{"matched_text": "<defined-term span>", '
-        f'"reason": "<one-line>"}}]}}\n\n'
+        f'"reason": "<one-line>"}}, ...], '
+        f'"uncertain": [{{"matched_text": "<verbatim span>", "concept": "<short concept>", '
+        f'"reason": "<why this is legally relevant but not clearly covered by an allowed rule>"}}]}}\n\n'
         f"Rules:\n"
         f"1. matched_text MUST appear verbatim in the document (exact case, "
         f"exact characters, no surrounding whitespace).\n"
@@ -138,14 +174,18 @@ def _build_user_prompt(body: str, doc_type: str) -> str:
         f"(^T\\d{{2}}[A-Z]{{2}}\\d{{4}}[A-Z]$).\n"
         f"12. sg_postal_address: label only the 6-digit Singapore postal code "
         f"that follows Singapore/S, not the full street address.\n"
-        f"13. special-category rules: label the full anchored phrase the detector should match, "
-        f"not only the sensitive value. Examples: health_condition='Diagnosis: type 2 diabetes', "
-        f"medical_treatment='Medication: metformin', biometric_identifier='Biometric template: "
-        f"fingerprint hash', genetic_data='Genetic test result: BRCA1 positive', "
-        f"sexual_orientation='Sexual orientation: bisexual', sex_life_reference='Sexual history: "
-        f"disclosed to clinic intake nurse'. Do NOT label generic false-positive bait such as "
-        f"passport photo, orientation week, company DNA, same-sex policy, or medication market studies.\n"
-        f"14. must_not_detect: contract defined-term abbreviations such as "
+        f"13. jurisdiction-local ID rules: use the jurisdiction-specific rule when a local ID, tax, "
+        f"company, resident, passport, national-insurance, driver-license, My Number, Aadhaar, PAN, "
+        f"GSTIN, USCC, Emirates ID, Iqama, or commercial-registration span is present.\n"
+        f"14. special-category rules: label the full anchored phrase, not only the sensitive value. "
+        f"Do NOT label generic false-positive bait such as passport photo, orientation week, company "
+        f"DNA, same-sex policy, medication market studies, or sports-team names.\n"
+        f"15. privacy-event markers: label live cross-border transfer, consent/DSAR/erasure, "
+        f"retention, and minimisation markers. Do NOT label negated or already-completed controls.\n"
+        f"16. sector/event MNPI: label crypto/DPT, ESG/climate, cyber incident, insider list, "
+        f"information barrier, blackout, tipping, and selective-disclosure spans only where the "
+        f"document context makes them market/compliance sensitive.\n"
+        f"17. must_not_detect: contract defined-term abbreviations such as "
         f"'(the \"Purchaser\")' → list 'Purchaser'; '(\"SPA\")' → list 'SPA'. "
         f"Include role-noun defined terms even if they do not appear in a "
         f"defining clause but the document treats them as roles (Vendor, "
@@ -270,8 +310,19 @@ def label_model_for_provider(provider: str, model: str) -> str:
 
 def _call_azure_openai(messages: list[dict], *, model: str, api_key: str) -> tuple[str, str]:
     endpoint = _azure_env("KAYPOH_AUTOLABEL_AZURE_ENDPOINT", "GPT5_MINI_ENDPOINT", "GPT5_PRO_ENDPOINT")
-    deployment = _azure_env("KAYPOH_AUTOLABEL_AZURE_DEPLOYMENT", "GPT5_MINI_DEPLOYMENT", "GPT5_PRO_DEPLOYMENT", "AZURE_OPENAI_DEPLOYMENT", "AZURE_DEPLOYMENT")
-    api_version = _azure_env("KAYPOH_AUTOLABEL_AZURE_API_VERSION", "GPT5_MINI_API_VERSION", "GPT5_PRO_API_VERSION", "AZURE_OPENAI_API_VERSION")
+    deployment = _azure_env(
+        "KAYPOH_AUTOLABEL_AZURE_DEPLOYMENT",
+        "GPT5_MINI_DEPLOYMENT",
+        "GPT5_PRO_DEPLOYMENT",
+        "AZURE_OPENAI_DEPLOYMENT",
+        "AZURE_DEPLOYMENT",
+    )
+    api_version = _azure_env(
+        "KAYPOH_AUTOLABEL_AZURE_API_VERSION",
+        "GPT5_MINI_API_VERSION",
+        "GPT5_PRO_API_VERSION",
+        "AZURE_OPENAI_API_VERSION",
+    )
     if not endpoint or not deployment or not api_version:
         raise RuntimeError("Azure autolabel provider requires endpoint, deployment, and api-version env vars")
     body = _chat_body(messages, model=model)
@@ -324,7 +375,14 @@ def _validate_labels(labels: dict, body: str) -> tuple[dict, list[str]]:
         if key in seen_must:
             continue
         seen_must.add(key)
-        cleaned_must.append({"rule": rule, "matched_text": text})
+        category = "PII" if rule in PII_RULES else "MNPI"
+        raw_category = str(entry.get("category") or category).upper()
+        if raw_category not in {"PII", "MNPI"}:
+            warnings.append(f"normalise category for rule={rule!r} text={text!r}")
+            raw_category = category
+        if raw_category != category:
+            warnings.append(f"normalise mismatched category {raw_category!r} to {category!r} for rule={rule!r}")
+        cleaned_must.append({"category": category, "rule": rule, "matched_text": text})
     cleaned_not = []
     seen_not: set[str] = set()
     for entry in labels.get("must_not_detect", []) or []:
@@ -347,7 +405,32 @@ def _validate_labels(labels: dict, body: str) -> tuple[dict, list[str]]:
             continue
         seen_not.add(text)
         cleaned_not.append({"matched_text": text, "reason": reason})
-    return {"must_detect": cleaned_must, "must_not_detect": cleaned_not}, warnings
+    cleaned_uncertain = []
+    seen_uncertain: set[str] = set()
+    for entry in labels.get("uncertain", []) or []:
+        text = entry.get("matched_text")
+        if not isinstance(text, str) or not text:
+            warnings.append("drop uncertain: empty text")
+            continue
+        text = _strip_boundary_punctuation(text, body)
+        if text not in body:
+            warnings.append(f"drop uncertain: text not verbatim text={text!r}")
+            continue
+        if text in seen_uncertain:
+            continue
+        seen_uncertain.add(text)
+        cleaned_uncertain.append(
+            {
+                "matched_text": text,
+                "concept": str(entry.get("concept") or "unmapped statutory concept")[:160],
+                "reason": str(entry.get("reason") or "legally relevant but not clearly mapped")[:500],
+            }
+        )
+    return {
+        "must_detect": cleaned_must,
+        "must_not_detect": cleaned_not,
+        "uncertain": cleaned_uncertain,
+    }, warnings
 
 
 def _existing_is_human(labels_path: Path) -> bool:
@@ -364,7 +447,15 @@ def _existing_is_human(labels_path: Path) -> bool:
 
 
 def autolabel(
-    fixture_path: Path, *, model: str, api_key: str, force: bool = False, provider: str = "openai"
+    fixture_path: Path,
+    *,
+    model: str,
+    api_key: str,
+    force: bool = False,
+    provider: str = "openai",
+    source_jurisdiction: str | None = None,
+    destination_jurisdiction: str | None = None,
+    taxonomy_concept: str | None = None,
 ) -> dict:
     provider = provider.strip().lower()
     expected_label_model = label_model_for_provider(provider, model)
@@ -380,8 +471,22 @@ def autolabel(
                 existing = {}
             if existing.get("_label_model") in {model, expected_label_model}:
                 return {"status": "skipped_same_model", "path": str(labels_path)}
-    doc_type = _infer_doc_type(fixture_path)
-    user = _build_user_prompt(body, doc_type)
+    context = _normalise_context(_read_context(fixture_path))
+    if source_jurisdiction:
+        context["source_jurisdiction"] = source_jurisdiction.upper()
+    if destination_jurisdiction:
+        context["destination_jurisdiction"] = destination_jurisdiction.upper()
+    if taxonomy_concept:
+        context["taxonomy_concept"] = taxonomy_concept
+    context = _normalise_context(context)
+    doc_type = context["document_type"]
+    user = _build_user_prompt(
+        body,
+        doc_type,
+        source_jurisdiction=context["source_jurisdiction"],
+        destination_jurisdiction=context["destination_jurisdiction"],
+        taxonomy_concept=context["taxonomy_concept"],
+    )
     raw, label_model = _call_model(
         [{"role": "user", "content": SYSTEM + "\n\n" + user}],
         model=model,
@@ -396,13 +501,17 @@ def autolabel(
     out = {
         "doc_id": fixture_path.stem,
         "document_type": doc_type,
-        "source_jurisdiction": "SG",
-        "destination_jurisdiction": "SG",
+        "source_jurisdiction": context["source_jurisdiction"],
+        "destination_jurisdiction": context["destination_jurisdiction"],
         "must_detect": cleaned["must_detect"],
         "must_not_detect": cleaned["must_not_detect"],
+        "uncertain": cleaned["uncertain"],
         "_label_source": f"{provider}:{label_model}-auto",
         "_label_model": f"{provider}:{label_model}",
         "_label_warnings": warnings,
+        "_taxonomy_concept": context["taxonomy_concept"],
+        "_taxonomy_version": context["taxonomy_version"],
+        "_human_review_status": "pending",
         "_label_note": (
             "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. "
             "Lock updates must include this provenance in --reason per item 16."
@@ -414,6 +523,7 @@ def autolabel(
         "path": str(labels_path),
         "must_detect_count": len(cleaned["must_detect"]),
         "must_not_detect_count": len(cleaned["must_not_detect"]),
+        "uncertain_count": len(cleaned["uncertain"]),
         "warnings": len(warnings),
     }
 
@@ -437,16 +547,31 @@ def main(argv: list[str] | None = None) -> int:
         default=os.environ.get("KAYPOH_AUTOLABEL_PROVIDER", "openai"),
         help="Model provider (default: openai, env KAYPOH_AUTOLABEL_PROVIDER)",
     )
+    parser.add_argument("--source-jurisdiction", choices=sorted(JURISDICTIONS))
+    parser.add_argument("--destination-jurisdiction", choices=sorted(JURISDICTIONS))
+    parser.add_argument("--concept", choices=sorted(CONCEPTS), dest="taxonomy_concept")
     args = parser.parse_args(argv)
     if args.provider == "azure":
-        api_key = _azure_env("KAYPOH_AUTOLABEL_AZURE_API_KEY", "GPT5_MINI_API_KEY", "GPT5_PRO_API_KEY", "AZURE_OPENAI_API_KEY")
+        api_key = _azure_env(
+            "KAYPOH_AUTOLABEL_AZURE_API_KEY",
+            "GPT5_MINI_API_KEY",
+            "GPT5_PRO_API_KEY",
+            "AZURE_OPENAI_API_KEY",
+        )
     else:
         api_key = os.environ.get("OPENAI_API_KEY", "").strip()
     if not api_key:
         print(f"{args.provider} API key not set", file=sys.stderr)
         return 2
     result = autolabel(
-        Path(args.fixture_path), model=args.model, api_key=api_key, force=args.force, provider=args.provider
+        Path(args.fixture_path),
+        model=args.model,
+        api_key=api_key,
+        force=args.force,
+        provider=args.provider,
+        source_jurisdiction=args.source_jurisdiction,
+        destination_jurisdiction=args.destination_jurisdiction,
+        taxonomy_concept=args.taxonomy_concept,
     )
     print(json.dumps(result, indent=2))
     return 0 if result.get("status", "").startswith(("labeled", "skipped")) else 1
