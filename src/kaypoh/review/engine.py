@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ipaddress
 import re
 from dataclasses import dataclass, field
 from typing import Any
@@ -20,6 +21,101 @@ BANK_ACCOUNT_RE = re.compile(
     r"\b(?:bank account|account no\.?|acct no\.?|iban|swift)\s*[:#-]?\s*([A-Z0-9 -]{8,34})\b",
     re.IGNORECASE,
 )
+_DOB_MONTH = (
+    r"(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|"
+    r"Aug(?:ust)?|Sep(?:t|tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)"
+)
+_DOB_DATE_FRAGMENT = (
+    r"(?:\d{4}-\d{1,2}-\d{1,2}|"
+    r"\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|"
+    r"\d{1,2}\s+" + _DOB_MONTH + r"\s+\d{4}|"
+    + _DOB_MONTH + r"\s+\d{1,2},?\s+\d{4})"
+)
+DATE_OF_BIRTH_RE = re.compile(
+    r"\b(?:DOB|D\.O\.B\.|date\s+of\s+birth|birth\s+date|born(?:\s+on)?)\s*[:#=\-]?\s*("
+    + _DOB_DATE_FRAGMENT
+    + r")\b",
+    re.IGNORECASE,
+)
+AGE_FIELD_RE = re.compile(
+    r"\b(?:age\s+at\s+(?:intake|onboarding|screening)|current\s+age|age)\s*[:=]\s*(\d{1,3})\b",
+    re.IGNORECASE,
+)
+IPV4_CONTEXT_RE = re.compile(
+    r"\b(?:IP(?:v4)?\s+address|source\s+IP|client\s+IP|remote\s+IP|login\s+IP|last\s+IP|"
+    r"x-forwarded-for)\s*[:=]?\s*((?:\d{1,3}\.){3}\d{1,3})\b",
+    re.IGNORECASE,
+)
+IPV6_CONTEXT_RE = re.compile(
+    r"\b(?:IPv6\s+address|source\s+IPv6|client\s+IPv6|remote\s+IPv6|login\s+IPv6|"
+    r"IP\s+address)\s*[:=]?\s*([0-9A-Fa-f:]{2,39})\b",
+    re.IGNORECASE,
+)
+MAC_ADDRESS_RE = re.compile(
+    r"\b(?:MAC\s+address|device\s+MAC|Wi-?Fi\s+MAC|BSSID)\s*[:=]?\s*"
+    r"((?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2})\b",
+    re.IGNORECASE,
+)
+IMEI_RE = re.compile(r"\b(?:IMEI|device\s+IMEI)\s*[:#=\-]?\s*(\d(?:[\s-]?\d){14})\b", re.IGNORECASE)
+
+_US_STATE_NAME_TO_CODE = {
+    "ALABAMA": "AL", "ALASKA": "AK", "ARIZONA": "AZ", "ARKANSAS": "AR", "CALIFORNIA": "CA",
+    "COLORADO": "CO", "CONNECTICUT": "CT", "DELAWARE": "DE", "FLORIDA": "FL", "GEORGIA": "GA",
+    "HAWAII": "HI", "IDAHO": "ID", "ILLINOIS": "IL", "INDIANA": "IN", "IOWA": "IA",
+    "KANSAS": "KS", "KENTUCKY": "KY", "LOUISIANA": "LA", "MAINE": "ME", "MARYLAND": "MD",
+    "MASSACHUSETTS": "MA", "MICHIGAN": "MI", "MINNESOTA": "MN", "MISSISSIPPI": "MS",
+    "MISSOURI": "MO", "MONTANA": "MT", "NEBRASKA": "NE", "NEVADA": "NV", "NEW HAMPSHIRE": "NH",
+    "NEW JERSEY": "NJ", "NEW MEXICO": "NM", "NEW YORK": "NY", "NORTH CAROLINA": "NC",
+    "NORTH DAKOTA": "ND", "OHIO": "OH", "OKLAHOMA": "OK", "OREGON": "OR", "PENNSYLVANIA": "PA",
+    "RHODE ISLAND": "RI", "SOUTH CAROLINA": "SC", "SOUTH DAKOTA": "SD", "TENNESSEE": "TN",
+    "TEXAS": "TX", "UTAH": "UT", "VERMONT": "VT", "VIRGINIA": "VA", "WASHINGTON": "WA",
+    "WEST VIRGINIA": "WV", "WISCONSIN": "WI", "WYOMING": "WY",
+}
+_US_STATE_CODES = frozenset(_US_STATE_NAME_TO_CODE.values())
+_US_STATE_TOKEN = (
+    r"(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|"
+    r"MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|"
+    r"Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|"
+    r"Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|"
+    r"Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|"
+    r"New\s+Hampshire|New\s+Jersey|New\s+Mexico|New\s+York|North\s+Carolina|North\s+Dakota|"
+    r"Ohio|Oklahoma|Oregon|Pennsylvania|Rhode\s+Island|South\s+Carolina|South\s+Dakota|"
+    r"Tennessee|Texas|Utah|Vermont|Virginia|Washington|West\s+Virginia|Wisconsin|Wyoming)"
+)
+_US_DRIVER_LICENSE_RE = re.compile(
+    r"\b(?:(?P<state>" + _US_STATE_TOKEN + r")\s+)?"
+    r"(?:driver'?s?\s+licen[cs]e|driver\s+licen[cs]e\s+number|DLN|DL\s*#|D/L|"
+    r"licen[cs]e\s+(?:no\.?|number))\s*[:#=\-]?\s*(?P<number>[A-Z0-9*][A-Z0-9*\-]{3,19})\b",
+    re.IGNORECASE,
+)
+_US_DRIVER_LICENSE_ANY_RE = re.compile(
+    r"\b(?:driver'?s?\s+licen[cs]e|driver\s+licen[cs]e\s+number|DLN|DL\s*#|D/L|"
+    r"licen[cs]e\s+(?:no\.?|number))\s*[:#=\-]?\s*(?P<number>[A-Z0-9*][A-Z0-9*\-]{3,19})\b",
+    re.IGNORECASE,
+)
+_US_STATE_CONTEXT_RE = re.compile(
+    r"\b(?:state|issuing\s+state|state\s+of\s+issue|issuer)\s*[:=]?\s*([A-Z]{2}|[A-Za-z]+(?:\s+[A-Za-z]+)?)\b",
+    re.IGNORECASE,
+)
+_US_DRIVER_LICENSE_PATTERNS: dict[str, str] = {
+    "AL": r"\d{7,8}", "AK": r"\d{7}", "AZ": r"(?:[A-Z]\d{8}|\d{9})", "AR": r"\d{4,9}",
+    "CA": r"[A-Z]\d{7}", "CO": r"(?:\d{9}|[A-Z]\d{3,6})", "CT": r"\d{9}", "DE": r"\d{1,7}",
+    "FL": r"[A-Z]\d{12}", "GA": r"\d{7,9}", "HI": r"(?:[A-Z]\d{8}|\d{9})",
+    "ID": r"(?:[A-Z]{2}\d{6}[A-Z]|\d{9})", "IL": r"[A-Z]\d{11,12}",
+    "IN": r"(?:[A-Z]\d{9}|\d{9,10})", "IA": r"(?:\d{3}[A-Z]{2}\d{4}|\d{9})",
+    "KS": r"(?:[A-Z]\d{8}|\d{9})", "KY": r"(?:[A-Z]\d{8}|\d{9})", "LA": r"\d{1,9}",
+    "ME": r"\d{7,8}", "MD": r"[A-Z]\d{12}", "MA": r"(?:[A-Z]\d{8}|\d{9})",
+    "MI": r"[A-Z]\d{12}", "MN": r"[A-Z]\d{12}", "MS": r"\d{9}",
+    "MO": r"(?:[A-Z]\d{5,9}|\d{9})", "MT": r"(?:\d{13}|\d{9})", "NE": r"[A-Z]\d{6,8}",
+    "NV": r"(?:\d{9,10}|X\d{8})", "NH": r"\d{2}[A-Z]{3}\d{5}", "NJ": r"[A-Z]\d{14}",
+    "NM": r"\d{8,9}", "NY": r"(?:\d{9}|[A-Z]\d{7})", "NC": r"\d{1,12}",
+    "ND": r"(?:[A-Z]{3}\d{6}|\d{9})", "OH": r"(?:[A-Z]{2}\d{6}|\d{8})",
+    "OK": r"(?:[A-Z]\d{9}|\d{9})", "OR": r"\d{1,9}", "PA": r"\d{8}",
+    "RI": r"(?:\d{7}|V\d{6})", "SC": r"\d{5,11}", "SD": r"(?:\d{6,10}|\d{12})",
+    "TN": r"\d{7,9}", "TX": r"\d{7,8}", "UT": r"\d{4,10}", "VT": r"(?:\d{8}|\d{7}A)",
+    "VA": r"(?:[A-Z]\d{8,11}|\d{9})", "WA": r"[A-Z0-9*]{12}",
+    "WV": r"(?:[A-Z]\d{6}|\d{7})", "WI": r"[A-Z]\d{13}", "WY": r"\d{9,10}",
+}
 MATERIAL_EVENT_RE = re.compile(
     r"\b(acquisition|acquire|merger|takeover|buyout|earnings|guidance|forecast|"
     r"profit warning|dividend|buyback|bankruptcy|restructuring|layoff|fraud|"
@@ -691,7 +787,7 @@ _MINOR_AGE_CLIFFS: dict[str, int] = {
 MINOR_DATA_RE = re.compile(
     r"\b(?:"
     # Pattern A: "age N" / "aged N" / "N years old" / "N-year-old" with N in 0-19
-    r"(?:age[ds]?|aged)\s+(?P<age_a>\d{1,2})\b"
+    r"(?:age[ds]?|aged)\s*[:=]?\s*(?P<age_a>\d{1,2})\b"
     r"|"
     r"(?P<age_b>\d{1,2})[- ]year[- ]old"
     r"|"
@@ -944,6 +1040,289 @@ def _is_negated_context(text: str, match_start: int) -> bool:
     return bool(_NEGATION_LOOKBACK.search(window))
 
 
+def _digits_only(value: str) -> str:
+    return "".join(ch for ch in value if ch.isdigit())
+
+
+def _valid_dob_date(value: str) -> bool:
+    parsed = _parse_date(value)
+    if parsed is None:
+        slash = re.fullmatch(r"\s*(\d{1,2})[/-](\d{1,2})[/-](\d{2,4})\s*", value)
+        if slash:
+            import datetime as _dt
+
+            first, second, year = int(slash.group(1)), int(slash.group(2)), int(slash.group(3))
+            if year < 100:
+                year += 2000 if year <= 30 else 1900
+            for month, day in ((first, second), (second, first)):
+                try:
+                    _dt.date(year, month, day)
+                    parsed = (year, month, day)
+                    break
+                except ValueError:
+                    continue
+    if parsed is None:
+        return False
+    year = parsed[0]
+    return 1900 <= year <= 2100
+
+
+def _luhn_valid(digits: str) -> bool:
+    if not digits or not digits.isdigit():
+        return False
+    total = 0
+    double = False
+    for char in reversed(digits):
+        value = int(char)
+        if double:
+            value *= 2
+            if value > 9:
+                value -= 9
+        total += value
+        double = not double
+    return total % 10 == 0
+
+
+def _ip_version(value: str) -> int | None:
+    try:
+        return ipaddress.ip_address(value).version
+    except ValueError:
+        return None
+
+
+def _normalise_us_state(value: str | None) -> str | None:
+    if not value:
+        return None
+    normalized = " ".join(value.upper().split())
+    if normalized in _US_STATE_CODES:
+        return normalized
+    return _US_STATE_NAME_TO_CODE.get(normalized)
+
+
+def _state_near_driver_license(text: str, start: int, end: int, explicit_state: str | None) -> str | None:
+    state = _normalise_us_state(explicit_state)
+    if state:
+        return state
+    window = text[max(0, start - 90): min(len(text), end + 90)]
+    for match in _US_STATE_CONTEXT_RE.finditer(window):
+        state = _normalise_us_state(match.group(1))
+        if state:
+            return state
+    return None
+
+
+def _potential_state_near_driver_license(text: str, start: int, end: int) -> str | None:
+    window = text[max(0, start - 40): min(len(text), end + 40)]
+    before = re.search(r"\b([A-Z]{2})\s*$", window[: min(40, start - max(0, start - 40))])
+    if before:
+        return before.group(1)
+    context = _US_STATE_CONTEXT_RE.search(window)
+    if context:
+        return " ".join(context.group(1).upper().split())
+    return None
+
+
+def _valid_us_driver_license(state: str, value: str) -> bool:
+    compact = re.sub(r"[\s-]", "", value).upper()
+    pattern = _US_DRIVER_LICENSE_PATTERNS.get(state)
+    return bool(pattern and re.fullmatch(pattern, compact))
+
+
+def _detect_core_identifier_findings(
+    text: str,
+    *,
+    jurisdiction: str,
+    legal_basis: str,
+    idx_start: int,
+) -> list["ReviewFinding"]:
+    out: list["ReviewFinding"] = []
+    idx = idx_start
+
+    for match in DATE_OF_BIRTH_RE.finditer(text):
+        value = match.group(1)
+        if not _valid_dob_date(value):
+            continue
+        out.append(
+            _new_finding(
+                idx=idx,
+                category="PII",
+                rule="date_of_birth",
+                jurisdiction=jurisdiction,
+                severity="high",
+                matched_text=value,
+                start=match.start(1),
+                end=match.end(1),
+                reason="Date-of-birth field detected",
+                legal_basis=legal_basis,
+            )
+        )
+        idx += 1
+
+    for match in AGE_FIELD_RE.finditer(text):
+        age = int(match.group(1))
+        if age < 20 or age > 120:
+            continue
+        out.append(
+            _new_finding(
+                idx=idx,
+                category="PII",
+                rule="age_reference",
+                jurisdiction=jurisdiction,
+                severity="medium",
+                matched_text=match.group(1),
+                start=match.start(1),
+                end=match.end(1),
+                reason="Age field detected; minor ages are owned by minor_data_reference",
+                legal_basis=legal_basis,
+            )
+        )
+        idx += 1
+
+    network_patterns = (
+        ("ip_address", IPV4_CONTEXT_RE, 4, "IPv4 address / online identifier detected"),
+        ("ip_address", IPV6_CONTEXT_RE, 6, "IPv6 address / online identifier detected"),
+    )
+    for rule, pattern, version, reason in network_patterns:
+        for match in pattern.finditer(text):
+            value = match.group(1)
+            if _ip_version(value) != version:
+                continue
+            out.append(
+                _new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule=rule,
+                    jurisdiction=jurisdiction,
+                    severity="medium",
+                    matched_text=value,
+                    start=match.start(1),
+                    end=match.end(1),
+                    reason=reason,
+                    legal_basis=legal_basis,
+                )
+            )
+            idx += 1
+
+    for match in MAC_ADDRESS_RE.finditer(text):
+        value = match.group(1)
+        out.append(
+            _new_finding(
+                idx=idx,
+                category="PII",
+                rule="mac_address",
+                jurisdiction=jurisdiction,
+                severity="medium",
+                matched_text=value,
+                start=match.start(1),
+                end=match.end(1),
+                reason="MAC address / device identifier detected",
+                legal_basis=legal_basis,
+            )
+        )
+        idx += 1
+
+    for match in IMEI_RE.finditer(text):
+        value = match.group(1)
+        digits = _digits_only(value)
+        if len(digits) != 15 or not _luhn_valid(digits):
+            continue
+        out.append(
+            _new_finding(
+                idx=idx,
+                category="PII",
+                rule="imei",
+                jurisdiction=jurisdiction,
+                severity="high",
+                matched_text=value,
+                start=match.start(1),
+                end=match.end(1),
+                reason="IMEI / mobile-device identifier detected",
+                legal_basis=legal_basis,
+            )
+        )
+        idx += 1
+
+    return out
+
+
+def _detect_us_driver_license_findings(
+    text: str,
+    *,
+    packs: list[JurisdictionRulePack],
+    jurisdiction: str,
+    legal_basis: str,
+    idx_start: int,
+) -> list["ReviewFinding"]:
+    if not any(pack.code == "US" for pack in packs):
+        return []
+    out: list["ReviewFinding"] = []
+    idx = idx_start
+    seen_spans: set[tuple[int, int]] = set()
+    for match in _US_DRIVER_LICENSE_RE.finditer(text):
+        state = _state_near_driver_license(text, match.start(), match.end(), match.group("state"))
+        if not state or not _valid_us_driver_license(state, match.group("number")):
+            continue
+        span = match.span("number")
+        if span in seen_spans:
+            continue
+        seen_spans.add(span)
+        out.append(
+            _new_finding(
+                idx=idx,
+                category="PII",
+                rule="us_driver_license",
+                jurisdiction=jurisdiction,
+                severity="high",
+                matched_text=match.group("number"),
+                start=span[0],
+                end=span[1],
+                reason=f"US {state} driver-license identifier detected",
+                legal_basis=legal_basis,
+            )
+        )
+        idx += 1
+    return out
+
+
+def _driver_license_coverage_warnings(
+    text: str,
+    *,
+    packs: list[JurisdictionRulePack],
+    review_profile: str,
+) -> list[dict[str, Any]]:
+    if review_profile != "audit_grade" or not any(pack.code == "US" for pack in packs):
+        return []
+    warnings: list[dict[str, Any]] = []
+    for match in _US_DRIVER_LICENSE_ANY_RE.finditer(text):
+        state = _state_near_driver_license(text, match.start(), match.end(), None)
+        if state:
+            continue
+        candidate = _potential_state_near_driver_license(text, match.start(), match.end())
+        if candidate and candidate not in _US_STATE_CODES:
+            warnings.append(
+                {
+                    "rule_guess": "us_driver_license",
+                    "why": (
+                        "Driver-license-like field has an unsupported issuer/state; "
+                        "state-specific validation was not applied."
+                    ),
+                    "confidence": 0.72,
+                }
+            )
+        else:
+            warnings.append(
+                {
+                    "rule_guess": "us_driver_license",
+                    "why": (
+                        "Driver-license-like field is missing an issuing state; "
+                        "state-specific validation was not applied."
+                    ),
+                    "confidence": 0.7,
+                }
+            )
+    return warnings
+
+
 # Rules whose span "wins" over phone_number when the two overlap on the same bytes.
 # These are all primary-identifier detectors: a NRIC or UEN that happens to match the
 # loose PHONE_RE alternation is canonically the identifier, not a phone number.
@@ -952,7 +1331,7 @@ _HIGHER_PRIORITY_THAN_PHONE = frozenset({
     "my_mykad", "id_nik", "th_national_id", "ph_philsys", "ph_tin", "vn_cccd",
     "hk_hkid", "hk_cr_no", "au_tfn", "au_abn", "au_acn",
     "jp_my_number", "jp_corporate_number", "kr_rrn", "kr_business_registration",
-    "passport_number", "bank_account",
+    "passport_number", "bank_account", "us_itin", "us_driver_license", "imei",
 })
 
 
@@ -1329,9 +1708,11 @@ _QUASI_IDENTIFIER_RULES = frozenset({
     "my_mykad", "id_nik", "th_national_id", "ph_philsys", "ph_tin", "vn_cccd",
     "hk_hkid", "hk_cr_no", "au_tfn", "au_abn", "au_acn",
     "jp_my_number", "jp_corporate_number", "kr_rrn", "kr_business_registration",
-    "us_ssn", "us_ein", "uk_nin",
+    "us_ssn", "us_ein", "us_itin", "us_driver_license", "uk_nin",
     # pseudonymised-but-linkable (item 99)
     "employee_id", "customer_account_number", "medical_record_number",
+    # item 33 mini-slice: DOB/age + online/device identifiers.
+    "date_of_birth", "age_reference", "ip_address", "mac_address", "imei",
 })
 _QUASI_IDENTIFIER_WINDOW = 500
 _QUASI_IDENTIFIER_MIN_DISTINCT = 3
@@ -2023,6 +2404,31 @@ class PreSendReviewEngine:
                     )
                     idx += 1
 
+        # item 33 mini-slice: anchored DOB/adult-age fields and online/device
+        # identifiers. Kept as a post-pass because the validators are richer than a
+        # single jurisdiction TOML recognizer can express cleanly.
+        findings.extend(
+            _detect_core_identifier_findings(
+                text,
+                jurisdiction=jurisdiction,
+                legal_basis=legal_basis,
+                idx_start=len(findings),
+            )
+        )
+
+        # item 33 mini-slice: US driver-license formats are state-specific. The strict
+        # path only emits when a state can be resolved and the number matches that state's
+        # configured shape; audit_grade separately warns on missing/unsupported state.
+        findings.extend(
+            _detect_us_driver_license_findings(
+                text,
+                packs=packs,
+                jurisdiction=jurisdiction,
+                legal_basis=legal_basis,
+                idx_start=len(findings),
+            )
+        )
+
         # named_person uses a two-pass anchor + variant linker so `Dr Jane Tan` and a later bare
         # `Jane Tan` collapse to the same anonymisation key. defined terms are suppressed.
         findings.extend(
@@ -2636,15 +3042,21 @@ class PreSendReviewEngine:
         # inverse-audit "what did we miss?" — audit_grade only. advisory output goes both
         # into the result (for immediate reviewer visibility) AND the journal (so the
         # audit-pack export carries it). engine never acts on these warnings.
-        coverage_warnings: list[dict[str, Any]] = []
+        coverage_warnings: list[dict[str, Any]] = _driver_license_coverage_warnings(
+            text,
+            packs=packs,
+            review_profile=review_profile,
+        )
         if engage_llm_tier and self.llm_coverage_auditor is not None:
             from kaypoh.review.llm_coverage_audit import run_coverage_audit
 
-            coverage_warnings = run_coverage_audit(
-                text=text,
-                findings=findings,
-                document_type=document_type,
-                auditor=self.llm_coverage_auditor,
+            coverage_warnings.extend(
+                run_coverage_audit(
+                    text=text,
+                    findings=findings,
+                    document_type=document_type,
+                    auditor=self.llm_coverage_auditor,
+                )
             )
         try:
             suggestions = self._suggestions(findings, include_suggestions, tenant_id=tenant_id)

@@ -28,3 +28,15 @@ severity = "medium"
 reason = "US Employer Identification Number"
 capture_group = 1
 validator = "us_ein"
+
+# US Individual Taxpayer Identification Number. IRS-issued, SSN-shaped 9XX-XX-XXXX
+# with middle-digit ranges 50-65, 70-88, 90-92, 94-99. Anchor required because the
+# shape overlaps SSN-like references.
+[[recognizers]]
+name = "US Individual Taxpayer Identification Number"
+rule_name = "us_itin"
+pattern = '(?:ITIN|Individual\s+Taxpayer\s+Identification\s+Number|IRS\s+TIN)[\s:.#-]*(9\d{2}-\d{2}-\d{4})'
+severity = "high"
+reason = "US Individual Taxpayer Identification Number"
+capture_group = 1
+validator = "us_itin"

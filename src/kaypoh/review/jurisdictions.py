@@ -174,6 +174,17 @@ def _validate_us_ein(value: str) -> bool:
     return prefix in allocated
 
 
+def _validate_us_itin(value: str) -> bool:
+    # IRS IRM: ITINs are 9XX-50-XXXX through 9XX-65-XXXX,
+    # 9XX-70-XXXX through 9XX-88-XXXX, 9XX-90-XXXX through 9XX-92-XXXX,
+    # or 9XX-94-XXXX through 9XX-99-XXXX.
+    digits = _digits(value)
+    if len(digits) != 9 or not digits.startswith("9"):
+        return False
+    middle = int(digits[3:5])
+    return 50 <= middle <= 65 or 70 <= middle <= 88 or 90 <= middle <= 92 or 94 <= middle <= 99
+
+
 # item 102: India Aadhaar Verhoeff checksum. UIDAI publishes the 12-digit identifier
 # with the Verhoeff check digit in the final position; UIDAI issues numbers beginning
 # with 2-9 only (0 and 1 are reserved). Rejects all-same-digit and well-known UIDAI
@@ -323,6 +334,7 @@ _VALIDATORS: dict[str, Callable[[str], bool]] = {
     "kr_business_registration": _validate_kr_business_registration,
     "us_ssn": _validate_us_ssn,
     "us_ein": _validate_us_ein,
+    "us_itin": _validate_us_itin,
     "uk_nin": _validate_uk_nin,
     "in_aadhaar": _validate_in_aadhaar,
     "in_pan": _validate_in_pan,

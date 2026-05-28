@@ -46,6 +46,34 @@ _PII_DEFAULT_RATIONALE = {
         "Bank account / IBAN / SWIFT references are financial identifiers. Mask unless the "
         "disclosure is to the bona-fide counterparty and the purpose is documented."
     ),
+    "date_of_birth": (
+        "Date of birth is a direct quasi-identifier: HIPAA 45 CFR §164.514(b)(2)(i)(C) "
+        "lists dates tied to an individual in the de-identification safe harbor, while "
+        "PDPA s2 / GDPR Recital 26 / CCPA §1798.140 treat linkable attributes as "
+        "personal data. Mask or generalise unless disclosure is purpose-limited."
+    ),
+    "age_reference": (
+        "Age can identify or narrow an individual when combined with name, address, "
+        "role, or account data. HIPAA 45 CFR §164.514(b)(2)(i)(C) treats ages over 89 "
+        "as identifying, and PDPA s2 / GDPR Recital 26 cover linkable attributes. "
+        "Generalise or suppress unless age is necessary for the documented purpose."
+    ),
+    "ip_address": (
+        "IP address / online identifier detected. GDPR Recital 30 explicitly lists "
+        "internet protocol addresses and cookie/device identifiers as online identifiers; "
+        "HIPAA 45 CFR §164.514 includes IP addresses in the safe-harbor identifier list, "
+        "and CCPA §1798.140 covers online identifiers. Mask before external disclosure."
+    ),
+    "mac_address": (
+        "MAC address / device identifier detected. HIPAA 45 CFR §164.514 lists device "
+        "identifiers and serial numbers; GDPR Recital 30 and CCPA §1798.140 cover "
+        "device/online identifiers that can single out a person or household. Mask before send."
+    ),
+    "imei": (
+        "IMEI / mobile-device identifier detected. HIPAA 45 CFR §164.514 lists device "
+        "identifiers and serial numbers; GDPR Recital 30 and CCPA §1798.140 cover "
+        "device identifiers that can single out a person or household. Mask before send."
+    ),
     "named_person": (
         "Named persons are personal data under PDPA s2. For counterparty principals in a "
         "definitive agreement, treat as high sensitivity and mask before any external send."
@@ -121,6 +149,18 @@ _PII_DEFAULT_RATIONALE = {
         "US Employer Identification Number identifies entities and may identify sole "
         "proprietors. Mask in private deal context unless the recipient and purpose are "
         "documented."
+    ),
+    "us_itin": (
+        "US Individual Taxpayer Identification Number is an IRS-issued taxpayer identifier "
+        "for individuals who are not eligible for SSNs. Treat as high-risk personal data "
+        "under US sectoral and state privacy law; mask unless the tax-administration "
+        "recipient and purpose are documented."
+    ),
+    "us_driver_license": (
+        "US driver-license number is a government-issued license identifier. HIPAA 45 CFR "
+        "§164.514 lists certificate/license numbers in the de-identification safe harbor, "
+        "and CCPA §1798.140 covers government identifiers. Mask unless the recipient and "
+        "lawful purpose are documented."
     ),
     "uk_nin": (
         "UK National Insurance Number is a restricted government identifier. Mask unless "

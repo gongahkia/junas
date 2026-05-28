@@ -40,7 +40,7 @@ PACKS_DIR = REPO_ROOT / "src" / "kaypoh" / "review" / "jurisdictions_data"
 # Keep in sync with the universal-PII pattern list in engine.py.
 _UNIVERSAL_PII_RULES = {
     "email_address", "phone_number", "passport_number", "bank_account",
-    "named_person",
+    "named_person", "date_of_birth", "age_reference", "ip_address", "mac_address", "imei",
     "employee_id", "customer_account_number", "medical_record_number",
     "religious_belief", "trade_union_membership", "political_opinion",
     "health_condition", "medical_treatment", "biometric_identifier", "genetic_data",

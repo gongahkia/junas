@@ -1,6 +1,6 @@
 # Kaypoh Statutory Coverage
 
-> Last revised 2026-05-26. Procurement-facing artefact mapping every shipped detector to the statute it implements. Authoritative source for "what kaypoh actually detects under PDPA / GDPR / SFA / MAR / Reg FD" assertions. Companion to `ARCHITECTURE-PIVOT-24-MAY.md` §First-Principles Statutory Analysis — that section is the editorial draft; this doc is the standalone artefact a procurement reviewer can hand to compliance.
+> Last revised 2026-05-28. Procurement-facing artefact mapping every shipped detector to the statute it implements. Authoritative source for "what kaypoh actually detects under PDPA / GDPR / SFA / MAR / Reg FD" assertions. Companion to `ARCHITECTURE-PIVOT-24-MAY.md` §First-Principles Statutory Analysis — that section is the editorial draft; this doc is the standalone artefact a procurement reviewer can hand to compliance.
 
 This file is regression-tested. `test/test_statutory_coverage_doc.py` asserts that every jurisdiction in `citations.py:_MNPI_JURISDICTION_SUFFIX` / `_PII_JURISDICTION_SUFFIX`, every detector rule_name in `jurisdictions_data/*.toml`, and every PII/MNPI rationale key in `citations.py` is mentioned somewhere in this file. Drift fails CI.
 
@@ -45,6 +45,11 @@ These rules fire regardless of source/destination jurisdiction. The statutory an
 | `phone_number` | PDPA s2 / GDPR Art 4(1) | medium | universal |
 | `passport_number` | PDPA s2 + PDPC NRIC Advisory | high | universal |
 | `bank_account` | financial-identifier across PDPA + GLBA + GDPR Art 5 | high | universal |
+| `date_of_birth` | HIPAA 45 CFR §164.514(b)(2)(i)(C) + PDPA s2 + GDPR Recital 26 + CCPA §1798.140 | high | item 33 mini-slice; anchored DOB / date-of-birth / born fields with calendar validator |
+| `age_reference` | HIPAA 45 CFR §164.514(b)(2)(i)(C) + PDPA s2 + GDPR Recital 26 | medium | item 33 mini-slice; adult age fields only; minor ages remain owned by `minor_data_reference` |
+| `ip_address` | GDPR Recital 30 + HIPAA 45 CFR §164.514(b)(2)(i)(O) + CCPA §1798.140 | medium | item 33 mini-slice; context-anchored IPv4 / IPv6 with `ipaddress` validator |
+| `mac_address` | HIPAA 45 CFR §164.514(b)(2)(i)(M) + GDPR Recital 30 + CCPA §1798.140 | medium | item 33 mini-slice; MAC / BSSID context anchor |
+| `imei` | HIPAA 45 CFR §164.514(b)(2)(i)(M) + GDPR Recital 30 + CCPA §1798.140 | high | item 33 mini-slice; IMEI context anchor + Luhn validator |
 | `named_person` | PDPA s2 / GDPR Art 4(1) — honorific-anchored | low/high | severity escalates in counterparty docs (SPA / NDA / SHA / term sheet) |
 | `employee_id` | GDPR Recital 26 + PDPC Anonymisation Advisory Guidelines | medium → high | escalates to high when named_person co-occurs (item 99) |
 | `customer_account_number` | GDPR Recital 26 + PDPC Anonymisation Advisory Guidelines | medium → high | escalates to high when named_person co-occurs (item 99) |
@@ -113,6 +118,8 @@ Each row is a TOML recognizer in `src/kaypoh/review/jurisdictions_data/<CODE>.to
 |---|---|---|---|
 | `us_ssn` | SSA + applicable sectoral privacy law (HIPAA / GLBA / state) | high | `us_ssn` (rejects area 000/666/9XX, group 00, serial 0000, public sentinels 078-05-1120 / 219-09-9999) |
 | `us_ein` | IRS — Employer Identification Number | medium | `us_ein` (IRS prefix allowlist) |
+| `us_itin` | IRS — Individual Taxpayer Identification Number | high | `us_itin` (9XX form with IRS middle-range validation; ITIN / IRS TIN anchor required) |
+| `us_driver_license` | HIPAA 45 CFR §164.514 certificate/license number + CCPA §1798.140 government identifier | high | state-specific all-50-state shape registry; emits only when issuer state is resolved; `audit_grade` warns on missing/unsupported issuer |
 | `uk_nin` | UK GDPR + Data Protection Act 2018 — National Insurance Number | high | `uk_nin` (HMRC prefix-exclusion: D F I Q U V first letter, O second; reserved BG/GB/KN/NK/NT/TN/ZZ) |
 
 ### IN (India) — item 102
@@ -179,6 +186,9 @@ These rules fire regardless of jurisdiction; the statutory anchor is jurisdictio
 ## Cross-cutting doctrinal coverage
 
 - **Quasi-identifier reasoning** — PDPA s2 ("identified from that data and other information"), GDPR Recital 26 ("means reasonably likely to be used"), CCPA §1798.140(v) ("reasonably capable of being associated"), Sweeney 2000 (DOB+ZIP+gender → 87% re-identification). Implemented as `quasi_identifier_combination` (item 101).
+- **DOB / adult-age fields** — HIPAA 45 CFR §164.514(b)(2)(i)(C) includes dates tied to an individual and ages over 89 in the de-identification safe-harbor identifier list; PDPA s2, GDPR Recital 26, and CCPA §1798.140 cover linkable quasi-identifiers. Implemented as `date_of_birth` and `age_reference` (item 33 mini-slice). Minor ages remain routed to `minor_data_reference`.
+- **Online / device identifiers** — GDPR Recital 30 explicitly names IP addresses and device/cookie identifiers as online identifiers; HIPAA 45 CFR §164.514(b)(2)(i)(M)/(O) lists device identifiers and IP addresses; CCPA §1798.140 covers online identifiers. Implemented as `ip_address`, `mac_address`, and `imei` with validators (item 33 mini-slice).
+- **US taxpayer and driver-license identifiers** — IRS ITIN format guidance plus HIPAA 45 CFR §164.514 certificate/license-number safe-harbor language and CCPA §1798.140 government-identifier coverage. Implemented as `us_itin` and `us_driver_license` (item 33 mini-slice). Driver-license detection is state-shape constrained and audit-grade warns when the issuer state is missing or unsupported.
 - **Cross-border personal-data transfer** — PDPA s26 + PDP Regulations 2021 (SG) + ASEAN MCCs joint guide Jan 2025 + APEC CBPR; GDPR Chapter V (EU); UK GDPR + DPA 2018 Part 5 + UK IDTA (UK); PIPL Art 38 + CAC + SAMR Measures effective 1 Jan 2026 + GB/T 46068-2025 effective 1 Mar 2026 (CN); DPDPA s16 (IN); UAE PDPL Art 22 (UAE); KSA PDPL Art 29 (SA); LGPD Art 33 (BR). Implemented as `cross_border_transfer_marker` (item 109).
 - **Consent withdrawal + data-subject rights** — PDPA s16 (SG); GDPR Art 7(3) + Art 17 + Art 21 + Art 16 (EU); UK GDPR Art 17/21 + DPA 2018 s47 (UK); CCPA/CPRA §1798.105/120/125 (US-CA); DPDPA s12+s13 (IN); LGPD Art 18 (BR); APPI Art 30 (JP); PIPA Art 36 (KR); PIPL Art 47 (CN); HK PDPO s26 (HK); AU APP 11.2 (AU). Implemented as `consent_withdrawal_marker` (item 110).
 - **Data-minimisation / purpose limitation** — GDPR Art 5(1)(c) + UK GDPR Art 5(1)(c); PDPA s18 (SG); PIPL Art 6 (CN); LGPD Art 6 II (BR); DPDPA s5 (IN); HIPAA Minimum Necessary Standard §164.502(b) (US). Implemented as `data_minimisation_marker` (item 111).
@@ -207,9 +217,9 @@ These statutory concepts are recognised in the first-principles analysis and are
 
 | Statutory concept | Detector gap | Item |
 |---|---|---|
-| DOB / age | no detector | 33 |
-| IP / device / online identifier | no detector | 33 |
-| US driver-license / ITIN | no detector | 33 |
+| DOB / age | mini-slice shipped 2026-05-28: `date_of_birth` + adult `age_reference`; broader semantic age/DOB inference remains open | 33 partial |
+| IP / device / online identifier | mini-slice shipped 2026-05-28: `ip_address`, `mac_address`, `imei`; broader cookie / advertising-ID / device-serial coverage remains open | 33 partial |
+| US driver-license / ITIN | mini-slice shipped 2026-05-28: `us_itin` + `us_driver_license` with all-50-state shape registry and audit-grade missing/unsupported issuer warnings; EU member-state ID breadth still open | 33 partial |
 | EU member-state national-IDs (DE Personalausweis, FR INSEE, etc.) | no detector | 33 |
 | Broad postal-address parsing (multi-line, free-form) | only SG / JP / AU postal recognizers ship | 34 |
 | General semantic PII / NER fallback | not implemented | 35 |

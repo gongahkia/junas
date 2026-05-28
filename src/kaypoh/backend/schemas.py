@@ -579,9 +579,10 @@ class ReviewResponse(BaseModel):
     coverage_warnings: list[dict[str, Any]] = Field(
         default_factory=list,
         description=(
-            "Advisory output from the audit_grade LLM inverse audit ('what did we miss?'). "
-            "Each warning carries at least rule_guess and why fields. Engine never acts on "
-            "these — reviewer attention only. Also journaled as coverage_warning events."
+            "Advisory output from deterministic audit-grade coverage checks and the "
+            "audit_grade LLM inverse audit ('what did we miss?'). Each warning carries "
+            "at least rule_guess and why fields. Engine never acts on these — reviewer "
+            "attention only. Also journaled as coverage_warning events."
         ),
     )
     degraded_modes: list[DegradedModeResponse] = Field(
