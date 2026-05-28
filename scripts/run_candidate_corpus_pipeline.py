@@ -13,11 +13,31 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CANDIDATE_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"
-AZURE_ENV_VARS = (
-    "KAYPOH_AUTOLABEL_AZURE_API_KEY",
-    "KAYPOH_AUTOLABEL_AZURE_ENDPOINT",
-    "KAYPOH_AUTOLABEL_AZURE_DEPLOYMENT",
-    "KAYPOH_AUTOLABEL_AZURE_API_VERSION",
+AZURE_ENV_GROUPS = (
+    (
+        "KAYPOH_AUTOLABEL_AZURE_API_KEY",
+        "GPT5_MINI_API_KEY",
+        "GPT5_PRO_API_KEY",
+        "AZURE_OPENAI_API_KEY",
+    ),
+    (
+        "KAYPOH_AUTOLABEL_AZURE_ENDPOINT",
+        "GPT5_MINI_ENDPOINT",
+        "GPT5_PRO_ENDPOINT",
+    ),
+    (
+        "KAYPOH_AUTOLABEL_AZURE_DEPLOYMENT",
+        "GPT5_MINI_DEPLOYMENT",
+        "GPT5_PRO_DEPLOYMENT",
+        "AZURE_OPENAI_DEPLOYMENT",
+        "AZURE_DEPLOYMENT",
+    ),
+    (
+        "KAYPOH_AUTOLABEL_AZURE_API_VERSION",
+        "GPT5_MINI_API_VERSION",
+        "GPT5_PRO_API_VERSION",
+        "AZURE_OPENAI_API_VERSION",
+    ),
 )
 
 
@@ -32,6 +52,37 @@ def _resolve(path: Path) -> Path:
 
 def _missing_env(*names: str) -> list[str]:
     return [name for name in names if not os.environ.get(name, "").strip()]
+
+
+def _missing_env_groups(groups: tuple[tuple[str, ...], ...]) -> list[str]:
+    return [" or ".join(group) for group in groups if not any(os.environ.get(name, "").strip() for name in group)]
+
+
+def _load_env_file(path: Path) -> int:
+    if not path.exists():
+        return 0
+    loaded = 0
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.startswith("export "):
+            line = line.removeprefix("export ").strip()
+        if "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        if not key or not (key[0].isalpha() or key[0] == "_"):
+            continue
+        if not all(char.isalnum() or char == "_" for char in key):
+            continue
+        value = value.strip()
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in {"'", '"'}:
+            value = value[1:-1]
+        if key not in os.environ:
+            os.environ[key] = value
+            loaded += 1
+    return loaded
 
 
 def _append_event(run_dir: Path, payload: dict) -> None:
@@ -93,6 +144,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--generation-model", default=os.environ.get("KAYPOH_FIXTURE_MODEL", "gpt-4o"))
     parser.add_argument("--autolabel-model", default=os.environ.get("KAYPOH_AUTOLABEL_MODEL", "o1"))
     parser.add_argument("--workers", type=int, default=int(os.environ.get("KAYPOH_AUTOLABEL_WORKERS", "1")))
+    parser.add_argument("--env-file", type=Path, default=REPO_ROOT / ".env")
+    parser.add_argument("--no-env-file", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--generate-only", action="store_true")
     parser.add_argument("--label-only", action="store_true")
@@ -103,6 +156,11 @@ def main(argv: list[str] | None = None) -> int:
     run_dir = _resolve(args.run_dir) if args.run_dir else _default_run_dir()
     run_dir.mkdir(parents=True, exist_ok=True)
     print(f"run_dir: {run_dir}")
+    if not args.no_env_file:
+        env_file = _resolve(args.env_file)
+        loaded = _load_env_file(env_file)
+        if env_file.exists():
+            print(f"loaded env file: {env_file} ({loaded} new keys)")
 
     if sum(bool(flag) for flag in (args.generate_only, args.label_only, args.evaluate_only)) > 1:
         print("choose at most one of --generate-only, --label-only, --evaluate-only", file=sys.stderr)
@@ -113,7 +171,7 @@ def main(argv: list[str] | None = None) -> int:
         if not args.label_only and not args.evaluate_only:
             missing.extend(_missing_env("OPENAI_API_KEY"))
         if not args.generate_only and not args.evaluate_only:
-            missing.extend(_missing_env(*AZURE_ENV_VARS))
+            missing.extend(_missing_env_groups(AZURE_ENV_GROUPS))
         if missing:
             print("missing required env vars:", file=sys.stderr)
             for name in sorted(set(missing)):

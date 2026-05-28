@@ -1,10 +1,12 @@
 import contextlib
 import io
+import os
 import tempfile
 import unittest
 from pathlib import Path
 
 from scripts import generate_candidate_corpus
+from scripts import run_candidate_corpus_pipeline
 from scripts.fixture_taxonomy import CONCEPTS, JURISDICTIONS
 
 
@@ -59,6 +61,45 @@ class GenerateCandidateCorpusTests(unittest.TestCase):
         self.assertEqual(result, 0)
         self.assertEqual(line_count, 4284)
         self.assertIn("planned=4284", stdout.getvalue())
+
+class CandidatePipelineEnvTests(unittest.TestCase):
+    def test_load_env_file_supports_unexported_and_exported_values_without_overriding(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            env_path = Path(tmp) / ".env"
+            env_path.write_text(
+                "OPENAI_API_KEY=from-file\n"
+                "export GPT5_MINI_ENDPOINT='https://example.test'\n"
+                "GPT5_MINI_API_VERSION=\"2024-01-01\"\n",
+                encoding="utf-8",
+            )
+            previous = {key: os.environ.get(key) for key in ("OPENAI_API_KEY", "GPT5_MINI_ENDPOINT", "GPT5_MINI_API_VERSION")}
+            try:
+                os.environ["OPENAI_API_KEY"] = "already-set"
+                os.environ.pop("GPT5_MINI_ENDPOINT", None)
+                os.environ.pop("GPT5_MINI_API_VERSION", None)
+                loaded = run_candidate_corpus_pipeline._load_env_file(env_path)
+                self.assertEqual(loaded, 2)
+                self.assertEqual(os.environ["OPENAI_API_KEY"], "already-set")
+                self.assertEqual(os.environ["GPT5_MINI_ENDPOINT"], "https://example.test")
+                self.assertEqual(os.environ["GPT5_MINI_API_VERSION"], "2024-01-01")
+            finally:
+                for key, value in previous.items():
+                    if value is None:
+                        os.environ.pop(key, None)
+                    else:
+                        os.environ[key] = value
+
+    def test_missing_env_groups_accepts_aliases(self):
+        group = (("PRIMARY_MISSING", "SECONDARY_PRESENT"),)
+        previous = os.environ.get("SECONDARY_PRESENT")
+        try:
+            os.environ["SECONDARY_PRESENT"] = "value"
+            self.assertEqual(run_candidate_corpus_pipeline._missing_env_groups(group), [])
+        finally:
+            if previous is None:
+                os.environ.pop("SECONDARY_PRESENT", None)
+            else:
+                os.environ["SECONDARY_PRESENT"] = previous
 
 
 if __name__ == "__main__":
