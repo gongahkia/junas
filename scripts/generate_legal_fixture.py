@@ -169,6 +169,13 @@ class FixtureGenerationError(RuntimeError):
     """Raised when the OpenAI call fails or returns an unexpected payload shape."""
 
 
+def _relative(path: Path) -> str:
+    try:
+        return str(path.relative_to(REPO_ROOT))
+    except ValueError:
+        return str(path)
+
+
 def _fixture_chat_payload(system: str, user: str, *, model: str) -> dict:
     return {
         "model": model,
@@ -383,8 +390,8 @@ def main(argv: list[str] | None = None) -> int:
         ) + "\n",
         encoding="utf-8",
     )
-    print(f"wrote {txt_path.relative_to(REPO_ROOT)}")
-    print(f"wrote {labels_path.relative_to(REPO_ROOT)}")
+    print(f"wrote {_relative(txt_path)}")
+    print(f"wrote {_relative(labels_path)}")
     print("HAND-REVIEW the labels stub before refreshing recall.lock.json.")
     return 0
 

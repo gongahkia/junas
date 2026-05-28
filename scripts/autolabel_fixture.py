@@ -327,6 +327,10 @@ def _call_azure_openai(messages: list[dict], *, model: str, api_key: str) -> tup
         raise RuntimeError("Azure autolabel provider requires endpoint, deployment, and api-version env vars")
     body = _chat_body(messages, model=model)
     body.pop("model", None)
+    body.pop("temperature", None)
+    if "max_tokens" in body:
+        body["max_completion_tokens"] = body.pop("max_tokens")
+    body["max_completion_tokens"] = max(int(body.get("max_completion_tokens") or 0), 16000)
     url = f"{endpoint.rstrip('/')}/openai/deployments/{deployment}/chat/completions?api-version={api_version}"
     resp = httpx.post(
         url,
