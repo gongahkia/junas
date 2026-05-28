@@ -240,6 +240,29 @@ _PII_DEFAULT_RATIONALE = {
         "APPI / LGPD scope. Detector flags presence; jurisdiction-specific permis"
         "sibility analysis is downstream of detection. Mask before disclosure."
     ),
+    "health_condition": (
+        "Health-condition / diagnosis reference detected (item 105). Under GDPR Art "
+        "9(1), data concerning health is special-category personal data; HIPAA 45 "
+        "CFR §164.514 and HHS de-identification guidance treat health information "
+        "linked to identifiers as PHI and require removal of medical record numbers "
+        "and other identifying health fields for safe-harbor de-identification; "
+        "PDPC SG Healthcare Sector Advisory Guidelines apply PDPA consent, purpose, "
+        "and protection obligations to healthcare institutions. PIPL China Art 28 "
+        "also enumerates medical-health status as sensitive personal information. "
+        "Mask before disclosure unless explicit consent, statutory authority, or a "
+        "documented care/payment purpose is on file."
+    ),
+    "medical_treatment": (
+        "Medication / treatment reference detected (item 105). Treatment, therapy, "
+        "prescription, and procedure details reveal data concerning health under "
+        "GDPR Art 9(1). HIPAA protects individually identifiable information about "
+        "the provision of health care and requires medical identifiers and unique "
+        "health-record characteristics to be removed for safe-harbor de-identifica"
+        "tion under 45 CFR §164.514. PDPC SG Healthcare Sector Advisory Guidelines "
+        "apply PDPA purpose and consent limits to medical-care data. Mask before "
+        "external disclosure unless the recipient and lawful medical purpose are "
+        "documented."
+    ),
     # item 107: jurisdiction-age-cliff minors detector.
     "minor_data_reference": (
         "Minor / children's-data reference detected (item 107). Under DPDPA India "

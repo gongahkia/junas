@@ -131,6 +131,54 @@ class PoliticalOpinionTests(_BaseSpecialCategoryTests):
         )
 
 
+class HealthConditionTests(_BaseSpecialCategoryTests):
+    def test_diagnosed_condition_with_honorific(self):
+        f = self._findings_for("Ms Lee was diagnosed with type 2 diabetes.", "health_condition")
+        self.assertEqual(len(f), 1)
+        self.assertEqual(f[0].severity, "high")
+
+    def test_explicit_diagnosis_field(self):
+        self.assertEqual(len(self._findings_for("Diagnosis: chronic kidney disease.", "health_condition")), 1)
+
+    def test_hiv_positive(self):
+        self.assertEqual(len(self._findings_for("Mr Tan tested positive for HIV.", "health_condition")), 1)
+
+    def test_icd_code_requires_medical_anchor(self):
+        self.assertEqual(len(self._findings_for("Diagnosis code: E11.9", "health_condition")), 1)
+        self.assertEqual(
+            len(self._findings_for("The file reference is E11.9 in the bundle.", "health_condition")),
+            0,
+        )
+
+    def test_generic_wellness_context_does_not_fire(self):
+        self.assertEqual(
+            len(self._findings_for("The wellness seminar mentioned diabetes prevention.", "health_condition")),
+            0,
+        )
+
+    def test_cancer_charity_context_does_not_fire(self):
+        self.assertEqual(len(self._findings_for("The company donated to a cancer charity.", "health_condition")), 0)
+
+
+class MedicalTreatmentTests(_BaseSpecialCategoryTests):
+    def test_prescribed_medication_with_honorific(self):
+        f = self._findings_for("Mr Lim is prescribed metformin.", "medical_treatment")
+        self.assertEqual(len(f), 1)
+        self.assertEqual(f[0].severity, "high")
+
+    def test_explicit_medication_field(self):
+        self.assertEqual(len(self._findings_for("Medication: sertraline.", "medical_treatment")), 1)
+
+    def test_procedure_treatment_marker(self):
+        self.assertEqual(len(self._findings_for("The patient was scheduled for chemotherapy.", "medical_treatment")), 1)
+
+    def test_unanchored_drug_market_context_does_not_fire(self):
+        self.assertEqual(len(self._findings_for("The metformin market study was circulated.", "medical_treatment")), 0)
+
+    def test_general_surgery_metaphor_does_not_fire(self):
+        self.assertEqual(len(self._findings_for("The restructuring required financial surgery.", "medical_treatment")), 0)
+
+
 class OptOutTests(_BaseSpecialCategoryTests):
     def tearDown(self):
         os.environ.pop("KAYPOH_SPECIAL_CATEGORY_DISABLE", None)
@@ -153,6 +201,12 @@ class OptOutTests(_BaseSpecialCategoryTests):
         for rule in ("religious_belief", "trade_union_membership", "political_opinion"):
             self.assertEqual(len(self._findings_for(text, rule)), 0, f"expected {rule} disabled")
 
+    def test_disable_health(self):
+        os.environ["KAYPOH_SPECIAL_CATEGORY_DISABLE"] = "health"
+        text = "Ms Lee was diagnosed with type 2 diabetes. Medication: metformin."
+        for rule in ("health_condition", "medical_treatment"):
+            self.assertEqual(len(self._findings_for(text, rule)), 0, f"expected {rule} disabled")
+
 
 class CitationsTests(_BaseSpecialCategoryTests):
     def test_religion_citation_includes_gdpr_art_9(self):
@@ -169,6 +223,17 @@ class CitationsTests(_BaseSpecialCategoryTests):
         from kaypoh.review.citations import pii_rationale
         rationale = pii_rationale(rule="political_opinion", jurisdiction="EU", matched_text="PAP")
         self.assertIn("LGPD", rationale)
+
+    def test_health_citation_includes_gdpr_and_hipaa(self):
+        from kaypoh.review.citations import pii_rationale
+        rationale = pii_rationale(rule="health_condition", jurisdiction="EU", matched_text="diabetes")
+        self.assertIn("GDPR Art 9", rationale)
+        self.assertIn("HIPAA", rationale)
+
+    def test_treatment_citation_includes_pdpc_healthcare(self):
+        from kaypoh.review.citations import pii_rationale
+        rationale = pii_rationale(rule="medical_treatment", jurisdiction="SG", matched_text="metformin")
+        self.assertIn("Healthcare Sector Advisory", rationale)
 
 
 if __name__ == "__main__":

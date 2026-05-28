@@ -398,7 +398,8 @@ DATA_MINIMISATION_RE = re.compile(
 # as warranting higher standard of protection (not a distinct legal class). DPDPA India has no
 # sensitive-data tier (escalation is via SDF designation s10, not data-class).
 #
-# v1 ships religion/union/political only. Health/biometric/sex-life are items 105/106/108.
+# v1 shipped religion/union/political. Items 105/106/108 extend the same strict-anchor
+# pattern to health/medical, biometric/genetic, and sex-life/orientation.
 #
 # Anchor strategy: each pattern requires proximity context within ±6 tokens. Religion fires
 # only near a named_person OR explicit faith/practice marker. Trade-union fires only near
@@ -406,8 +407,8 @@ DATA_MINIMISATION_RE = re.compile(
 # Defends against Christian Dior / Hindu Kush / AFL Premiership / Trade Union Square /
 # "ruling party of the contract" / "Independent Green Party".
 #
-# Per-category opt-out via KAYPOH_SPECIAL_CATEGORY_DISABLE=religion,union,political for tenants
-# with high false-positive sensitivity.
+# Per-category opt-out via KAYPOH_SPECIAL_CATEGORY_DISABLE=religion,union,political,health
+# for tenants with high false-positive sensitivity.
 
 # Religion vocabulary anchored on faith/practice marker. The non-capturing trailing context
 # absorbs whitespace + up to 30 chars of the faith-marker so the matched span covers the
@@ -525,6 +526,55 @@ POLITICAL_RE = re.compile(
     # Pattern E: explicit affiliation marker
     r"(?:political\s+affiliation|party\s+affiliation|party\s+membership)\s*[:=]\s*"
     r"(?:" + _POLITICAL_PARTIES + r")"
+    r")\b",
+    re.IGNORECASE,
+)
+
+_HEALTH_CONDITION_TERMS = (
+    r"type\s+[12]\s+diabetes|diabetes|hypertension|HIV|AIDS|cancer|carcinoma|"
+    r"leukaemia|leukemia|asthma|epilepsy|schizophrenia|bipolar\s+disorder|"
+    r"major\s+depressive\s+disorder|depression|anxiety\s+disorder|PTSD|"
+    r"pregnancy|pregnant|tuberculosis|hepatitis\s+[ABC]|chronic\s+kidney\s+disease"
+)
+HEALTH_CONDITION_RE = re.compile(
+    r"\b(?:"
+    # Pattern A: named subject + diagnosis / condition verb.
+    r"(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}\s+"
+    r"(?:has|had|reports|reported|is\s+diagnosed\s+with|was\s+diagnosed\s+with|"
+    r"is\s+positive\s+for|tested\s+positive\s+for|is\s+being\s+treated\s+for)\s+"
+    r"(?:a\s+|an\s+)?(?:" + _HEALTH_CONDITION_TERMS + r")"
+    r"|"
+    # Pattern B: explicit medical-field marker.
+    r"(?:diagnosis|diagnoses|medical\s+condition|health\s+condition|clinical\s+condition|"
+    r"problem\s+list|past\s+medical\s+history)\s*[:=]\s*"
+    r"(?:a\s+|an\s+)?(?:" + _HEALTH_CONDITION_TERMS + r")"
+    r"|"
+    # Pattern C: canonical ICD diagnosis code, but only when anchored as a diagnosis code.
+    r"(?:diagnosis\s+code|ICD-10(?:-CM)?\s+code|ICD\s+code)\s*[:#-]?\s*"
+    r"[A-Z]\d{2}(?:\.\d{1,4})?"
+    r")\b",
+    re.IGNORECASE,
+)
+
+_MEDICATION_TERMS = (
+    r"metformin|insulin|semaglutide|warfarin|heparin|sertraline|fluoxetine|"
+    r"olanzapine|lithium|lamotrigine|levetiracetam|salbutamol|albuterol|"
+    r"antiretroviral\s+therapy|PrEP|Truvada|chemotherapy|radiotherapy|dialysis"
+)
+MEDICAL_TREATMENT_RE = re.compile(
+    r"\b(?:"
+    # Pattern A: named subject + treatment / prescription verb.
+    r"(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}\s+"
+    r"(?:is\s+prescribed|was\s+prescribed|takes|took|is\s+taking|started|receives|"
+    r"received|underwent|is\s+undergoing)\s+(?:" + _MEDICATION_TERMS + r")"
+    r"|"
+    # Pattern B: explicit treatment / medication field marker.
+    r"(?:medication|medications|prescription|treatment|therapy|Rx)\s*[:=]\s*"
+    r"(?:" + _MEDICATION_TERMS + r")"
+    r"|"
+    # Pattern C: procedure/treatment marker with a medical verb.
+    r"(?:scheduled\s+for|underwent|receiving|received|referred\s+for)\s+"
+    r"(?:chemotherapy|radiotherapy|dialysis|surgery|cognitive\s+behavio(?:u)?ral\s+therapy|CBT)"
     r")\b",
     re.IGNORECASE,
 )
@@ -937,10 +987,13 @@ _PII_NEGATION_GUARDED = frozenset({
 })
 
 
-# item 98: special-category PII opt-out. Tenants with high false-positive sensitivity can
-# disable individual categories via KAYPOH_SPECIAL_CATEGORY_DISABLE=religion,union,political.
+# Special-category PII opt-out. Tenants with high false-positive sensitivity can disable
+# individual categories via KAYPOH_SPECIAL_CATEGORY_DISABLE=religion,union,political,health.
 # Default-enabled in strict + audit_grade. Categories are casefolded comma-separated.
-_SPECIAL_CATEGORY_RULES = frozenset({"religious_belief", "trade_union_membership", "political_opinion"})
+_SPECIAL_CATEGORY_RULES = frozenset({
+    "religious_belief", "trade_union_membership", "political_opinion",
+    "health_condition", "medical_treatment",
+})
 
 
 def _disabled_special_categories() -> frozenset[str]:
@@ -958,6 +1011,8 @@ def _disabled_special_categories() -> frozenset[str]:
             disabled.add("trade_union_membership")
         elif token == "political":
             disabled.add("political_opinion")
+        elif token in {"health", "medical"}:
+            disabled.update({"health_condition", "medical_treatment"})
         elif token in _SPECIAL_CATEGORY_RULES:
             disabled.add(token)
     return frozenset(disabled)
@@ -1111,8 +1166,7 @@ def _detect_special_category_findings(
     legal_basis: str,
     idx_start: int,
 ) -> list["ReviewFinding"]:
-    """Fire religious_belief / trade_union_membership / political_opinion findings per
-    item 98 v1. Each pattern carries built-in context anchors so a strict-profile pass is
+    """Fire special-category PII findings. Each pattern carries built-in context anchors so a strict-profile pass is
     safe. Per-category opt-out via KAYPOH_SPECIAL_CATEGORY_DISABLE env var.
 
     Jurisdiction posture:
@@ -1120,6 +1174,8 @@ def _detect_special_category_findings(
         all three.
       - APPI Japan ('creed') covers religion + political; union is NOT explicitly enumerated.
       - PIPL China Art 28 covers religion; political is NOT explicitly enumerated.
+      - GDPR Art 9 covers health; HIPAA 45 CFR 164.514 and PDPC healthcare guidance anchor
+        medical identifiers and treatment narratives.
       - PDPC SG / DPDPA IN treat these as warranting higher protection but not as a distinct
         statutory class.
 
@@ -1137,6 +1193,10 @@ def _detect_special_category_findings(
          "Trade-union membership reference detected; special-category personal data"),
         ("political_opinion", POLITICAL_RE,
          "Political-opinion / party-affiliation reference detected; special-category personal data"),
+        ("health_condition", HEALTH_CONDITION_RE,
+         "Health condition / diagnosis reference detected; special-category personal data"),
+        ("medical_treatment", MEDICAL_TREATMENT_RE,
+         "Medical treatment / medication reference detected; special-category personal data"),
     ]
     for rule_name, pattern, reason in rules:
         if rule_name in disabled:
