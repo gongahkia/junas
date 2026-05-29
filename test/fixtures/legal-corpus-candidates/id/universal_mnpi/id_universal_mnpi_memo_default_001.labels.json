@@ -3,13 +3,326 @@
   "document_type": "memo",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Dr. Arifana Wicaksono Putradewa"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Sari Ambarwati Pradipta"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Gede Prasetyo"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@arunatek.example.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@arunatek.example.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "deal-desk@arunatek.example.id"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Kelapa"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargoed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SHA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 1.35 trillion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "20%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 210 billion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "6.2%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "9\u201311%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "3%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for release"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure to sell-side until 2026-07-15 09:00 WIB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "quiet period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "55%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal use only"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Dr. Arifana Wicaksono Putradewa"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Sari Ambarwati Pradipta"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Gede Prasetyo"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@arunatek.example.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@arunatek.example.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "deal-desk@arunatek.example.id"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Kelapa"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargoed until 2026-07-15 09:00 WIB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SHA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "signing on 2026-06-30"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 1.35 trillion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "20%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "should not be shared outside the deal team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed acquisition of 55% of PT Sagara Fintek Nusantara (e-money)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 210 billion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "6.2%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "9\u201311%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "3%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for release"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective-disclosure guidance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure to sell-side until 2026-07-15 09:00 WIB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "quiet period applies"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "55%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal use only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "e-money license transition subject to approval by Otoritas Jasa Keuangan Nusantara and Bank Kepulauan"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no government IDs will be collected beyond UU PDP minimums"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo lifts"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day",
+      "reason": "False-positive bait; not a definitive agreement (SPA)."
+    },
+    {
+      "matched_text": "mac",
+      "reason": "Lowercase project-management note; not Material Adverse Change."
+    }
+  ],
   "uncertain": [],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

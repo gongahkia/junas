@@ -3,13 +3,125 @@
   "document_type": "memo",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@lontarpay.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@lontarpay.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "LOI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "50%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@lontarpay.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@lontarpay.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "LOI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "50%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "03 June 2026 09:00 WIB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "any media quotes must cite the public LOI and not internal forecasts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "analyst briefing pack uses only public-source references and stale industry data"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "123-456-XYZ"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "000000-000000"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAE/MAC",
+      "reason": "negated MAC/MAE language; rule 8 excludes labeling negated MAC"
+    },
+    {
+      "matched_text": "the Company",
+      "reason": "role noun/defined term, not PII or MNPI"
+    },
+    {
+      "matched_text": "project mgmt",
+      "reason": "lowercase project-management prose, not a transaction codename per rule 6"
+    },
+    {
+      "matched_text": "spa-day",
+      "reason": "false-positive bait; not Share Purchase Agreement or PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "this line is not a trading signal",
+      "concept": "tipping_language (negated)",
+      "reason": "mentions trading signal but is a disclaimer; relevance to market abuse/tipping is contextual and not explicitly covered"
+    },
+    {
+      "matched_text": "pending BEN-File upload scheduling and OJK acknowledgment",
+      "concept": "blackout_period_reference",
+      "reason": "suggests a hold pending regulator acknowledgment but not an explicit blackout/embargo marker per rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
