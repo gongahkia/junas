@@ -3,13 +3,281 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-Public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Lotus Banyan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "waranya.chai@aurorafibre.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Waranya Chai"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "prasert.kiatkul@aurorafibre.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Prasert Kiatkul"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-20-123-456"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo date/time"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 1,250,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "19.9%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 600,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "75%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "25%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "6.4%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "limit personal data in the SET filing"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redact employee IDs and contact details"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-Public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Lotus Banyan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "waranya.chai@aurorafibre.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Waranya Chai"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "prasert.kiatkul@aurorafibre.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Prasert Kiatkul"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-20-123-456"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo date/time"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 1,250,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "19.9%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 600,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "75%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "25%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "6.4%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "limit personal data in the SET filing"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redact employee IDs and contact details"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Subscription Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Convertible Debenture Terms"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Intercreditor Deed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not include pro forma tables before embargo lifts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed THB 1,250,000,000 convertible debentures and 19.9% private placement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "Conditions precedent include"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo date/time for external communications: 2026-07-15 09:00 ICT"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SSA",
+      "reason": "defined-term abbreviation for a contract"
+    },
+    {
+      "matched_text": "wellness spa-day vouchers",
+      "reason": "irrelevant HR perk bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "todo",
+      "reason": "project-management prose; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "cross-border Facility Agreement",
+      "concept": "cross_border_transfer_marker",
+      "reason": "Refers to cross-border financing; may entail cross-border data sharing but context is not a privacy transfer event."
+    },
+    {
+      "matched_text": "pending SET/SEC review and notification under the SEA",
+      "concept": "nonpublic_marker",
+      "reason": "Implies pre-disclosure regulatory review status but lacks explicit nonpublic keywords beyond 'pending'."
+    },
+    {
+      "matched_text": "Bank of Thailand consent for offshore inflow",
+      "concept": "cross_border_transfer_marker",
+      "reason": "Signals cross-border capital movement; could involve data transfer, but not clearly a privacy-event marker."
+    },
+    {
+      "matched_text": "Investor-relations draft (internal)",
+      "concept": "nonpublic_marker",
+      "reason": "Indicates internal-only status, but not on the explicit nonpublic keyword list."
+    },
+    {
+      "matched_text": "2026-07-15 09:00 ICT",
+      "concept": "embargo_marker",
+      "reason": "This is the embargo timestamp; detection often keys off the word 'Embargo' rather than the datetime itself."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

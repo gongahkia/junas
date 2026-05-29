@@ -3,13 +3,279 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Aran Kietkamol"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "w.phongchai@tnd.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@tnd.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66\u20112\u20113 4 5\u20116 7 8 9"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 2100 8899"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee No. TH\u2011EMP\u20110 2 7 7"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR Ref. TH\u2011INT\u20111 6\u2011S"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "stored facial\u2011geometry templates"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Type 1 diabetes treatment"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "identifies as Muslim"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "registered to the Eastern Manufacturing Workers\u2019 Union"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "same\u2011sex partnership status"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "16\u2011year\u2011old trainee (minor data)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "retain onshore only and segregate from project dataroom"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "scrub before board packs are compiled"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "USD 180,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List v3.2"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout remains in force"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading by directors and their spouses is prohibited until the SET disclosure posts"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Aran Kietkamol"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "w.phongchai@tnd.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@tnd.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66\u20112\u20113 4 5\u20116 7 8 9"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 2100 8899"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee No. TH\u2011EMP\u20110 2 7 7"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR Ref. TH\u2011INT\u20111 6\u2011S"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "stored facial\u2011geometry templates"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Type 1 diabetes treatment"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "identifies as Muslim"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "registered to the Eastern Manufacturing Workers\u2019 Union"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "same\u2011sex partnership status"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "16\u2011year\u2011old trainee (minor data)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "retain onshore only and segregate from project dataroom"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "scrub before board packs are compiled"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Wirot Phongchai"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Siriporn Nadee"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "USD 180,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed USD 180,000,000 amortising term loan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List v3.2"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout remains in force"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading by directors and their spouses is prohibited until the SET disclosure posts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project KHWA N"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "mixing them with draft terms risks tainting recipients with MNPI"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Nakhon Jade Tigers",
+      "reason": "Sports team/name is non-PII and non-MNPI bait"
+    },
+    {
+      "matched_text": "SkyLime ERP",
+      "reason": "Product name is non-PII and non-MNPI bait"
+    },
+    {
+      "matched_text": "the lotus blooms after the rain",
+      "reason": "Metaphor, not PII/MNPI"
+    },
+    {
+      "matched_text": "Corporate Open Culture Charter",
+      "reason": "Generic policy name, not PII/MNPI"
+    },
+    {
+      "matched_text": "diversity, equity, and inclusion statement",
+      "reason": "Generic DEI policy reference, not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "do not transmit her file cross\u2011border without consent and DPA safeguards",
+      "concept": "cross_border_transfer_control",
+      "reason": "Cross-border transfer and consent are mentioned, but as a prohibition rather than a live transfer; rule advises not to tag negated controls."
+    },
+    {
+      "matched_text": "TH\u2011**\u2011***\u2011****\u2011**",
+      "concept": "masked_thai_national_id",
+      "reason": "Appears to be a masked Thai identifier from OCR artefacts; not a full valid ID but indicates potential PII requiring redaction."
+    },
+    {
+      "matched_text": "Until signing",
+      "concept": "embargo_timing",
+      "reason": "Signals a timing restriction linked to signing, but does not match explicit Embargoed/Signing Date patterns in allowed rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,264 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@thanaratdyn.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "finance-ops@thanaratdyn.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@thanaratdyn.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Siriporn Ketsiri"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lalida Wattanapong"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Nopphadon Jitprasert"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpID: TH_xx_00\u20119  81"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "PDPA minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "mask full DOB to YYYY"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "address field blanked per minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border t r a n s f e r"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers active"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@thanaratdyn.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "finance-ops@thanaratdyn.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@thanaratdyn.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Siriporn Ketsiri"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lalida Wattanapong"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Nopphadon Jitprasert"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpID: TH_xx_00\u20119  81"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "PDPA minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "mask full DOB to YYYY"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "address field blanked per minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "collect initials for dependents only"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "production logs are configured to contain no personal data by design"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border t r a n s f e r"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "HRIS vendor Pava Cloud (HK) Ltd and Pava Cloud SG receive payroll metadata only"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfer Impact Assessment TI-TH/SG/HK-004 completed"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Data Export Approval DEA\u2011TH/ZX\u201121 granted by DPO on 2026\u201105\u201120"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "draft term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Clean Room CR\u201102"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "privately placed Series B debentures"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project \u201cNok Yai\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no further processing of optional contact fields"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "TND PCL",
+      "reason": "Company acronym defined in parentheses; not PII/MNPI."
+    },
+    {
+      "matched_text": "SCR",
+      "reason": "Regulator acronym defined in parentheses; not PII/MNPI."
+    },
+    {
+      "matched_text": "BEM",
+      "reason": "Market acronym defined in parentheses; not PII/MNPI."
+    },
+    {
+      "matched_text": "DPO",
+      "reason": "Role acronym, not an individual\u2019s name."
+    },
+    {
+      "matched_text": "Finance Ops",
+      "reason": "Organizational role label, not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR-TH/2026/00112",
+      "concept": "DSAR_marker",
+      "reason": "DSAR markers are legally relevant but not listed as an allowed rule."
+    },
+    {
+      "matched_text": "CUST\u20117x9G",
+      "concept": "customer_reference",
+      "reason": "Customer reference identifier is PII-like but no specific allowed rule category fits."
+    },
+    {
+      "matched_text": "call recordings for 2025\u2011Q4 erased",
+      "concept": "erasure_marker",
+      "reason": "Erasure/deletion events are legally relevant but not included in allowed rules."
+    },
+    {
+      "matched_text": "Erasure workflow",
+      "concept": "erasure_marker",
+      "reason": "Indicates deletion process; category not in allowed rules."
+    },
+    {
+      "matched_text": "purged 2026\u201105\u201122",
+      "concept": "erasure_marker",
+      "reason": "Signals deletion timing; erasure markers not in allowed rules."
+    },
+    {
+      "matched_text": "ER\u2011SG\u2011024",
+      "concept": "erasure_confirmation_id",
+      "reason": "Deletion confirmation ID is relevant to erasure but not in allowed rules."
+    },
+    {
+      "matched_text": "reduce retention from 7 years to 3 years",
+      "concept": "retention_marker",
+      "reason": "Retention-period change is relevant but no explicit allowed rule exists."
+    },
+    {
+      "matched_text": "retained 30 days",
+      "concept": "retention_marker",
+      "reason": "Retention duration is relevant but not covered by allowed rules."
+    },
+    {
+      "matched_text": "hotline +66\u2011X\u2011XXX\u2011XXXX (masked)",
+      "concept": "phone_number",
+      "reason": "Masked phone-like string; may not be matched by strict phone regexes."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
