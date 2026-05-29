@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts import autolabel_fixture
+from scripts import autolabel_fixture, generate_legal_fixture
 from scripts.evaluate_candidate_corpus import _evaluate_one, _summary
 from scripts.fixture_taxonomy import JURISDICTIONS, MNPI_RULES, PII_RULES
 
@@ -30,8 +30,23 @@ class CandidateFixtureToolingTests(unittest.TestCase):
         )
         self.assertIn("PIPL", prompt)
         self.assertIn("not generally known", prompt)
-        self.assertIn("Do not infer what an existing detector can pass", autolabel_fixture.SYSTEM)
+        self.assertIn("strict detector-aligned labels", autolabel_fixture.SYSTEM)
+        self.assertIn("ideal_must_detect", prompt)
         self.assertIn("uncertain", prompt)
+
+    def test_negative_generation_prompt_does_not_force_dense_positives(self):
+        _, prompt = generate_legal_fixture._build_prompt(
+            "memo",
+            adversarial=False,
+            multilingual=False,
+            jurisdiction="SG",
+            concept="special_category",
+            variant="negative",
+        )
+        self.assertIn("primarily a precision fixture", prompt)
+        self.assertIn("at most one or two clearly intentional positive spans", prompt)
+        self.assertIn("Do not add a named person", prompt)
+        self.assertNotIn("Include at least one fictional named person with an honorific", prompt)
 
     def test_label_validation_preserves_category_and_uncertain_notes(self):
         body = "Dr Jane Tan S1234567D reviewed Project Atlas before announcement."
@@ -41,6 +56,10 @@ class CandidateFixtureToolingTests(unittest.TestCase):
                 {"category": "PII", "rule": "transaction_codename", "matched_text": "Project Atlas"},
                 {"rule": "not_a_rule", "matched_text": "Project Atlas"},
             ],
+            "ideal_must_detect": [
+                {"category": "MNPI", "rule": "transaction_codename", "matched_text": "Project Atlas"},
+                {"category": "PII", "rule": "named_person", "matched_text": "Not In Body"},
+            ],
             "must_not_detect": [{"matched_text": "Purchaser", "reason": "defined role"}],
             "uncertain": [{"matched_text": "before announcement", "concept": "public status", "reason": "contextual"}],
         }
@@ -48,9 +67,13 @@ class CandidateFixtureToolingTests(unittest.TestCase):
         self.assertEqual(cleaned["must_detect"][0]["category"], "PII")
         self.assertEqual(cleaned["must_detect"][1]["category"], "MNPI")
         self.assertEqual(len(cleaned["must_detect"]), 2)
+        self.assertEqual(cleaned["ideal_must_detect"], [
+            {"category": "MNPI", "rule": "transaction_codename", "matched_text": "Project Atlas"},
+        ])
         self.assertEqual(cleaned["uncertain"][0]["concept"], "public status")
         self.assertTrue(any("invalid rule" in warning for warning in warnings))
         self.assertTrue(any("mismatched category" in warning for warning in warnings))
+        self.assertTrue(any("ideal_must_detect" in warning and "not verbatim" in warning for warning in warnings))
 
     def test_candidate_evaluator_reports_matched_and_missed_without_locking(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -68,6 +91,11 @@ class CandidateFixtureToolingTests(unittest.TestCase):
                             {"category": "PII", "rule": "sg_nric_fin", "matched_text": "S1234567D"},
                             {"category": "MNPI", "rule": "transaction_codename", "matched_text": "Project Missing"},
                         ],
+                        "ideal_must_detect": [
+                            {"category": "PII", "rule": "sg_nric_fin", "matched_text": "S1234567D"},
+                            {"category": "MNPI", "rule": "nonpublic_marker", "matched_text": "before announcement"},
+                            {"category": "MNPI", "rule": "transaction_codename", "matched_text": "Project Missing"},
+                        ],
                         "must_not_detect": [],
                         "uncertain": [{"matched_text": "before announcement", "concept": "public status"}],
                         "_label_source": "openai:test-auto",
@@ -80,8 +108,12 @@ class CandidateFixtureToolingTests(unittest.TestCase):
         summary = _summary([report])
         self.assertEqual(len(report.matched), 1)
         self.assertEqual(len(report.missed), 1)
+        self.assertEqual(len(report.ideal_matched), 2)
+        self.assertEqual(len(report.ideal_missed), 1)
         self.assertEqual(report.human_review_status, "pending")
         self.assertEqual(summary["candidate_recall"], 0.5)
+        self.assertIn("candidate_precision", summary)
+        self.assertEqual(summary["ideal_candidate_recall"], 0.6667)
 
 
 if __name__ == "__main__":

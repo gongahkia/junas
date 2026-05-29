@@ -102,7 +102,7 @@ def _record_result(payload: dict) -> tuple[int, int, int]:
     status = r.get("status", "")
     if status == "labeled":
         print(
-            f"  + {fx.name}  must={r['must_detect_count']} "
+            f"  + {fx.name}  must={r['must_detect_count']} ideal={r.get('ideal_must_detect_count', 0)} "
             f"not={r['must_not_detect_count']} warn={r['warnings']} {dt_ms}ms",
             flush=True,
         )

@@ -27,6 +27,93 @@
     {
       "category": "PII",
       "rule": "named_person",
+      "matched_text": "Ms. Zara Quek"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Koh"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$120m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Hibiscus"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company",
+      "reason": "Defined term/role-noun; not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "export of her religion or union membership to the data room needs explicit consent or redaction",
+      "concept": "consent requirement",
+      "reason": "PDPA-relevant consent requirement but no specific allowed rule for generic consent markers (only withdrawal listed)."
+    },
+    {
+      "matched_text": "For PDPA DPIA and insider-list updates under the SFA",
+      "concept": "DPIA/record-of-processing",
+      "reason": "Privacy governance activity referenced (DPIA), not covered by an allowed PII rule."
+    },
+    {
+      "matched_text": "update the Record of Processing",
+      "concept": "record of processing",
+      "reason": "Privacy governance/record-keeping reference; not mapped to a listed PII rule."
+    },
+    {
+      "matched_text": "limit access via MangroveOS-Audit",
+      "concept": "access control",
+      "reason": "Security control relevant to PDPA but not covered by an allowed privacy-event marker."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sgcompliance@tamarindrobotics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "zara.quek@larkspurbanyan.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daven Koh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lila Ong"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
       "matched_text": "Master Rio Tan"
     },
     {
@@ -135,39 +222,6 @@
       "matched_text": "proposed acquisition of Palm Circuits Pte. Ltd"
     }
   ],
-  "must_not_detect": [
-    {
-      "matched_text": "the Company",
-      "reason": "Defined term/role-noun; not PII or MNPI"
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "export of her religion or union membership to the data room needs explicit consent or redaction",
-      "concept": "consent requirement",
-      "reason": "PDPA-relevant consent requirement but no specific allowed rule for generic consent markers (only withdrawal listed)."
-    },
-    {
-      "matched_text": "For PDPA DPIA and insider-list updates under the SFA",
-      "concept": "DPIA/record-of-processing",
-      "reason": "Privacy governance activity referenced (DPIA), not covered by an allowed PII rule."
-    },
-    {
-      "matched_text": "update the Record of Processing",
-      "concept": "record of processing",
-      "reason": "Privacy governance/record-keeping reference; not mapped to a listed PII rule."
-    },
-    {
-      "matched_text": "limit access via MangroveOS-Audit",
-      "concept": "access control",
-      "reason": "Security control relevant to PDPA but not covered by an allowed privacy-event marker."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
+  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending."
 }

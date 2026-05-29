@@ -2,10 +2,10 @@
 """LLM-assisted auto-labeler for legal-fixture .txt files.
 
 Reads a fixture body, asks a strong reasoning model (default: o1) to enumerate
-every PII / MNPI span the deterministic engine must detect and every defined-term
-span it must NOT detect, and writes a labels.json with provenance fields so
-downstream tooling can distinguish human ground-truth from model-derived
-ground-truth.
+both detector-aligned benchmark spans and broader ideal statutory spans, plus
+every defined-term span it must NOT detect. Writes a labels.json with provenance
+fields so downstream tooling can distinguish human ground-truth from
+model-derived ground-truth.
 
 INTEGRITY NOTE: the recall gate (scripts/recall_gate.py) reads labels uniformly.
 Refreshing recall.lock.json from an auto-labeled corpus implicitly accepts model
@@ -68,9 +68,10 @@ ALL_RULES = PII_RULES + MNPI_RULES
 
 SYSTEM = (
     "You are an independent precision labeler for synthetic legal/finance PII and MNPI "
-    "fixtures. Label the document against the supplied jurisdiction taxonomy. Do not infer "
-    "what an existing detector can pass; identify what should be treated as PII/MNPI for "
-    "coverage evaluation. Be exhaustive and never invent text that is not in the source verbatim."
+    "fixtures. Label the document against the supplied jurisdiction taxonomy using two tiers: "
+    "strict detector-aligned labels for benchmark truth, and broader ideal statutory labels for "
+    "gap discovery. Be exhaustive in the ideal tier and conservative in the strict tier. Never "
+    "invent text that is not in the source verbatim."
 )
 
 
@@ -142,6 +143,8 @@ def _build_user_prompt(
         f"Return JSON in this exact shape:\n"
         f'{{"must_detect": [{{"category": "PII|MNPI", "rule": "<one-of-the-rules>", '
         f'"matched_text": "<verbatim span from doc>"}}, ...], '
+        f'"ideal_must_detect": [{{"category": "PII|MNPI", "rule": "<one-of-the-rules>", '
+        f'"matched_text": "<verbatim span from doc>"}}, ...], '
         f'"must_not_detect": [{{"matched_text": "<defined-term span>", '
         f'"reason": "<one-line>"}}, ...], '
         f'"uncertain": [{{"matched_text": "<verbatim span>", "concept": "<short concept>", '
@@ -149,43 +152,51 @@ def _build_user_prompt(
         f"Rules:\n"
         f"1. matched_text MUST appear verbatim in the document (exact case, "
         f"exact characters, no surrounding whitespace).\n"
-        f"2. List every distinct span. If the same value appears twice with "
+        f"2. must_detect is the strict benchmark tier: include only spans that a deterministic strict-mode "
+        f"regex/rule engine should reasonably catch today from the exact words present. Do not put broad "
+        f"legal judgments, implied context, paraphrases, public-status conclusions, or unsupported synonyms here.\n"
+        f"3. ideal_must_detect is the legal-coverage tier: include every legally relevant PII/MNPI span that "
+        f"would be useful for roadmap gap discovery, even when it is too semantic, contextual, or broad for "
+        f"current strict-mode detection. Repeat strict-tier entries here too.\n"
+        f"4. List every distinct span. If the same value appears twice with "
         f"different casing (e.g. 'Share Purchase Agreement' and 'SHARE PURCHASE "
         f"AGREEMENT'), list both entries.\n"
-        f"3. named_person: only people with honorifics (Dr/Mr/Ms/Mrs/Prof) OR "
+        f"5. named_person: only people with honorifics (Dr/Mr/Ms/Mrs/Prof) OR "
         f"clearly named in a signature block. Do NOT label generic role nouns "
         f"like 'Vendor', 'Purchaser', 'the Company', 'the Seller'.\n"
-        f"4. transaction_codename: 'Project <CapitalizedName>' pattern only "
+        f"6. transaction_codename: 'Project <CapitalizedName>' pattern only "
         f"(e.g. 'Project Atlas', 'Project Pegasus').\n"
-        f"5. definitive_agreement: Share Purchase Agreement / SPA / Shareholders "
+        f"7. definitive_agreement: Share Purchase Agreement / SPA / Shareholders "
         f"Agreement / SHA / APA / MOU / LOI / Term Sheet. List capitalised and "
         f"all-caps variants as separate entries.\n"
-        f"6. material_adverse_change: 'Material Adverse Change' / 'Material "
+        f"8. material_adverse_change: 'Material Adverse Change' / 'Material "
         f"Adverse Effect' / explicit 'MAC clause' or 'MAE'. Do NOT label "
         f"'no MAC' / 'without any MAC' (those are negated).\n"
-        f"7. embargo_marker: Signing Date / Closing Date / Effective Date / "
+        f"9. embargo_marker: Signing Date / Closing Date / Effective Date / "
         f"Embargoed / Press Hold.\n"
-        f"8. financial_amount: monetary values with currency (e.g. '$2.5 "
+        f"10. financial_amount: monetary values with currency (e.g. '$2.5 "
         f"billion', 'SGD 1,000,000', 'USD 50 million').\n"
-        f"9. financial_percentage: percentage values (e.g. '15%', '12.5 per "
+        f"11. financial_percentage: percentage values (e.g. '15%', '12.5 per "
         f"cent').\n"
-        f"10. sg_nric_fin: 9-char identifier matching ^[STFG]\\d{{7}}[A-Z]$.\n"
-        f"11. sg_uen: legacy 9-char (^\\d{{8}}[A-Z]$) or T-format "
+        f"12. sg_nric_fin: 9-char identifier matching ^[STFG]\\d{{7}}[A-Z]$.\n"
+        f"13. sg_uen: legacy 9-char (^\\d{{8}}[A-Z]$) or T-format "
         f"(^T\\d{{2}}[A-Z]{{2}}\\d{{4}}[A-Z]$).\n"
-        f"12. sg_postal_address: label only the 6-digit Singapore postal code "
+        f"14. sg_postal_address: label only the 6-digit Singapore postal code "
         f"that follows Singapore/S, not the full street address.\n"
-        f"13. jurisdiction-local ID rules: use the jurisdiction-specific rule when a local ID, tax, "
+        f"15. jurisdiction-local ID rules: use the jurisdiction-specific rule when a local ID, tax, "
         f"company, resident, passport, national-insurance, driver-license, My Number, Aadhaar, PAN, "
         f"GSTIN, USCC, Emirates ID, Iqama, or commercial-registration span is present.\n"
-        f"14. special-category rules: label the full anchored phrase, not only the sensitive value. "
+        f"16. special-category rules: label the full anchored phrase, not only the sensitive value. "
         f"Do NOT label generic false-positive bait such as passport photo, orientation week, company "
         f"DNA, same-sex policy, medication market studies, or sports-team names.\n"
-        f"15. privacy-event markers: label live cross-border transfer, consent/DSAR/erasure, "
+        f"17. privacy-event markers: label live cross-border transfer, consent/DSAR/erasure, "
         f"retention, and minimisation markers. Do NOT label negated or already-completed controls.\n"
-        f"16. sector/event MNPI: label crypto/DPT, ESG/climate, cyber incident, insider list, "
+        f"18. sector/event MNPI: label crypto/DPT, ESG/climate, cyber incident, insider list, "
         f"information barrier, blackout, tipping, and selective-disclosure spans only where the "
         f"document context makes them market/compliance sensitive.\n"
-        f"17. must_not_detect: contract defined-term abbreviations such as "
+        f"19. For negative fixtures, keep must_detect small and precise. Put broader legally interesting "
+        f"signals in ideal_must_detect, and put false-positive bait in must_not_detect.\n"
+        f"20. must_not_detect: contract defined-term abbreviations such as "
         f"'(the \"Purchaser\")' → list 'Purchaser'; '(\"SPA\")' → list 'SPA'. "
         f"Include role-noun defined terms even if they do not appear in a "
         f"defining clause but the document treats them as roles (Vendor, "
@@ -354,31 +365,36 @@ def _call_model(messages: list[dict], *, model: str, provider: str, api_key: str
     raise ValueError(f"unknown autolabel provider: {provider}")
 
 
-def _validate_labels(labels: dict, body: str) -> tuple[dict, list[str]]:
-    warnings: list[str] = []
-    cleaned_must = []
-    seen_must: set[tuple[str, str]] = set()
-    for entry in labels.get("must_detect", []) or []:
+def _clean_detect_entries(
+    entries: list[dict] | None,
+    body: str,
+    warnings: list[str],
+    *,
+    field_name: str,
+) -> list[dict[str, str]]:
+    cleaned = []
+    seen: set[tuple[str, str]] = set()
+    for entry in entries or []:
         rule = entry.get("rule")
         text = entry.get("matched_text")
         if rule not in ALL_RULES:
-            warnings.append(f"drop must_detect: invalid rule {rule!r} text={text!r}")
+            warnings.append(f"drop {field_name}: invalid rule {rule!r} text={text!r}")
             continue
         if not isinstance(text, str) or not text:
-            warnings.append(f"drop must_detect: empty text for rule {rule!r}")
+            warnings.append(f"drop {field_name}: empty text for rule {rule!r}")
             continue
         text = _canonicalize_span(rule, text, body)
         invalid_reason = _invalid_label_reason(rule, text)
         if invalid_reason:
-            warnings.append(f"drop must_detect: {invalid_reason} rule={rule!r} text={text!r}")
+            warnings.append(f"drop {field_name}: {invalid_reason} rule={rule!r} text={text!r}")
             continue
         if text not in body:
-            warnings.append(f"drop must_detect: text not verbatim rule={rule!r} text={text!r}")
+            warnings.append(f"drop {field_name}: text not verbatim rule={rule!r} text={text!r}")
             continue
         key = (rule, text)
-        if key in seen_must:
+        if key in seen:
             continue
-        seen_must.add(key)
+        seen.add(key)
         category = "PII" if rule in PII_RULES else "MNPI"
         raw_category = str(entry.get("category") or category).upper()
         if raw_category not in {"PII", "MNPI"}:
@@ -386,7 +402,25 @@ def _validate_labels(labels: dict, body: str) -> tuple[dict, list[str]]:
             raw_category = category
         if raw_category != category:
             warnings.append(f"normalise mismatched category {raw_category!r} to {category!r} for rule={rule!r}")
-        cleaned_must.append({"category": category, "rule": rule, "matched_text": text})
+        cleaned.append({"category": category, "rule": rule, "matched_text": text})
+    return cleaned
+
+
+def _validate_labels(labels: dict, body: str) -> tuple[dict, list[str]]:
+    warnings: list[str] = []
+    cleaned_must = _clean_detect_entries(
+        labels.get("must_detect", []),
+        body,
+        warnings,
+        field_name="must_detect",
+    )
+    ideal_source = labels.get("ideal_must_detect", None)
+    cleaned_ideal = _clean_detect_entries(
+        ideal_source if ideal_source is not None else labels.get("must_detect", []),
+        body,
+        warnings,
+        field_name="ideal_must_detect",
+    )
     cleaned_not = []
     seen_not: set[str] = set()
     for entry in labels.get("must_not_detect", []) or []:
@@ -432,6 +466,7 @@ def _validate_labels(labels: dict, body: str) -> tuple[dict, list[str]]:
         )
     return {
         "must_detect": cleaned_must,
+        "ideal_must_detect": cleaned_ideal,
         "must_not_detect": cleaned_not,
         "uncertain": cleaned_uncertain,
     }, warnings
@@ -508,6 +543,7 @@ def autolabel(
         "source_jurisdiction": context["source_jurisdiction"],
         "destination_jurisdiction": context["destination_jurisdiction"],
         "must_detect": cleaned["must_detect"],
+        "ideal_must_detect": cleaned["ideal_must_detect"],
         "must_not_detect": cleaned["must_not_detect"],
         "uncertain": cleaned["uncertain"],
         "_label_source": f"{provider}:{label_model}-auto",
@@ -526,6 +562,7 @@ def autolabel(
         "status": "labeled",
         "path": str(labels_path),
         "must_detect_count": len(cleaned["must_detect"]),
+        "ideal_must_detect_count": len(cleaned["ideal_must_detect"]),
         "must_not_detect_count": len(cleaned["must_not_detect"]),
         "uncertain_count": len(cleaned["uncertain"]),
         "warnings": len(warnings),

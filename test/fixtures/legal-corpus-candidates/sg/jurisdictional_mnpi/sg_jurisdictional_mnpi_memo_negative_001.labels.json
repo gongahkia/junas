@@ -25,6 +25,63 @@
       "matched_text": "Mr. Desmond Khoo"
     },
     {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    }
+  ],
+  "must_not_detect": [],
+  "uncertain": [
+    {
+      "matched_text": "PDPA business asset transaction exception",
+      "concept": "PDPA business-asset transaction legal basis",
+      "reason": "Legally relevant PDPA basis for sharing personal data in M&A, but not clearly covered by an allowed privacy-event marker rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@heliovista.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@heliovista.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lin Wei"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Desmond Khoo"
+    },
+    {
       "category": "PII",
       "rule": "data_minimisation_marker",
       "matched_text": "Do not collect or circulate NRIC numbers or full residential addresses"
@@ -115,19 +172,6 @@
       "matched_text": "Insider List"
     }
   ],
-  "must_not_detect": [],
-  "uncertain": [
-    {
-      "matched_text": "PDPA business asset transaction exception",
-      "concept": "PDPA business-asset transaction legal basis",
-      "reason": "Legally relevant PDPA basis for sharing personal data in M&A, but not clearly covered by an allowed privacy-event marker rule."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
+  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending."
 }

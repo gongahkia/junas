@@ -60,7 +60,15 @@ def _azure_env(*names: str) -> str:
 def _variant_notes(*, adversarial: bool, multilingual: bool, variant: str) -> list[str]:
     notes: list[str] = []
     if variant == "negative":
-        notes.append("Bias the document toward false-positive bait and benign uses of risky vocabulary.")
+        notes.append(
+            "Negative variant: make this primarily a precision fixture. Use false-positive bait, benign uses "
+            "of risky vocabulary, public/stale/already-announced facts, invalid identifier-shaped values, "
+            "generic form labels, role mailboxes, or public helplines."
+        )
+        notes.append(
+            "Negative variant: include at most one or two clearly intentional positive spans, separated from "
+            "the bait. Do not turn the document into a dense real-risk memo."
+        )
     elif variant == "multilingual":
         multilingual = True
     elif variant == "adversarial":
@@ -125,6 +133,49 @@ def _concept_generation_notes(concept: str) -> list[str]:
     return []
 
 
+def _negative_concept_notes(concept: str) -> list[str]:
+    if concept == "direct_identifiers":
+        return [
+            "Prefer invalid checksum IDs, generic placeholders, role-only titles, public helplines, "
+            "department mailboxes, and form labels. If adding positives, keep them to one local ID or one "
+            "person-contact pair.",
+        ]
+    if concept == "special_category":
+        return [
+            "Prefer product names, policy names, abstract DEI text, sports/place metaphors, and generic "
+            "wellness prose. Avoid person-linked health, union, religion, political, biometric, genetic, "
+            "sex-life, or minor data unless it is the single intentional positive.",
+        ]
+    if concept == "privacy_events":
+        return [
+            "Prefer completed, negated, policy-only, or generic control language. Avoid live cross-border "
+            "transfer, DSAR, erasure, consent-withdrawal, retention-expiry, or minimisation failures unless "
+            "there is only one intentional positive.",
+        ]
+    if concept == "universal_mnpi":
+        return [
+            "Prefer public-source, stale, already-announced, lowercase project-management, spa-day, or "
+            "negated MAC language. Avoid dense pre-announcement deal facts.",
+        ]
+    if concept == "jurisdictional_mnpi":
+        return [
+            "Prefer local public filings, already-announced exchange updates, stale disclosure timing, and "
+            "non-issuer operational updates. Avoid live blackout, selective-disclosure, or pre-clearance "
+            "facts unless they are the single intentional positive.",
+        ]
+    if concept == "sector_mnpi":
+        return [
+            "Prefer educational, marketing, operations-only, tabletop, or product-name uses of crypto, ESG, "
+            "cyber, insider-list, information-barrier, blackout, tipping, and commercial-term vocabulary.",
+        ]
+    if concept == "quasi_identifiers":
+        return [
+            "Prefer weak identifiers separated from names and from each other. Avoid a dense re-identification "
+            "cluster unless it is the single intentional positive.",
+        ]
+    return []
+
+
 def _build_prompt(
     doc_type: str,
     *,
@@ -142,20 +193,33 @@ def _build_prompt(
         "Do not use real companies, real people, real securities identifiers, or real government IDs. "
         "Output only the fixture body: no preamble, no commentary, no markdown fences."
     )
+    is_negative = variant == "negative"
     constraints = [
         f"Jurisdiction context:\n{jurisdiction_prompt(jurisdiction)}",
         f"Coverage concept:\n{concept_prompt(concept)}",
         f"Draft {base_kind}.",
         "Length: 10–18 lines of plain text.",
         "Make the fixture realistic enough to evaluate legal/compliance coverage.",
-        "Include at least one fictional named person with an honorific.",
-        "Include at least one fictional organisation and one fictional email/contact channel.",
+        "Include at least one fictional organisation.",
         "Use jurisdiction-local terminology, regulator/exchange context, and document conventions where relevant.",
-        "Include both straightforward signals and at least one subtle contextual signal.",
         "Include at least one benign or negative sentence that should help evaluate precision.",
         "Do not mention Kaypoh, tests, labels, detector rules, or expected outputs.",
     ]
-    constraints.extend(_concept_generation_notes(concept))
+    if is_negative:
+        constraints.append(
+            "Do not add a named person, personal email, direct phone number, live deal codename, confidential "
+            "marker, or market-sensitive amount merely to make the document look realistic."
+        )
+        constraints.extend(_negative_concept_notes(concept))
+    else:
+        constraints.extend(
+            [
+                "Include at least one fictional named person with an honorific.",
+                "Include at least one fictional email/contact channel.",
+                "Include both straightforward signals and at least one subtle contextual signal.",
+            ]
+        )
+        constraints.extend(_concept_generation_notes(concept))
     constraints.extend(_variant_notes(adversarial=adversarial, multilingual=multilingual, variant=variant))
     user = (
         "Generate a synthetic legal fixture.\n\n"
@@ -290,6 +354,7 @@ def _labels_stub(
         "source_jurisdiction": jurisdiction,
         "destination_jurisdiction": jurisdiction,
         "must_detect": [],
+        "ideal_must_detect": [],
         "must_not_detect": [],
         "uncertain": [],
         "_taxonomy_concept": concept,

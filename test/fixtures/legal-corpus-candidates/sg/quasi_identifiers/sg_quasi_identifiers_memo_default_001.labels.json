@@ -6,6 +6,115 @@
   "must_detect": [
     {
       "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "SGD 1.10"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Farah Lim"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "farah.lim@novacrest.example.com"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@novacrest.example.com"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Board Risk Committee",
+      "reason": "Role/governance body; not PII or MNPI"
+    },
+    {
+      "matched_text": "External Counsel",
+      "reason": "Role noun; not PII/MNPI"
+    },
+    {
+      "matched_text": "Deputy Finance Manager",
+      "reason": "Role noun; not PII on its own"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role noun; not PII/MNPI"
+    },
+    {
+      "matched_text": "HR",
+      "reason": "Department/role reference; not PII"
+    },
+    {
+      "matched_text": "directors",
+      "reason": "Role category; not PII"
+    },
+    {
+      "matched_text": "connected persons",
+      "reason": "Role category; not PII"
+    },
+    {
+      "matched_text": "insiders",
+      "reason": "Role category; not PII"
+    },
+    {
+      "matched_text": "29-year-old",
+      "reason": "Generic demographic alone; not identifiable by itself per context"
+    },
+    {
+      "matched_text": "MKT-NB-117",
+      "reason": "Device ID alone; not identifying a person in this context"
+    },
+    {
+      "matched_text": "Eastport district",
+      "reason": "Generic location reference; not PII by itself"
+    },
+    {
+      "matched_text": "Westport precinct office",
+      "reason": "Generic workplace location; not PII by itself"
+    },
+    {
+      "matched_text": "AstralOS handset model Orchid A2",
+      "reason": "Device model; not a personal identifier"
+    },
+    {
+      "matched_text": "Harborlight engineers",
+      "reason": "Group descriptor; no individuals identified"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Data retention: delete any exports of the target\u2019s employee records within 14 days post-completion",
+      "concept": "retention/deletion marker",
+      "reason": "Live retention/deletion instruction is privacy-relevant but no explicit 'retention' rule name listed"
+    },
+    {
+      "matched_text": "analyst briefing embargo",
+      "concept": "embargo",
+      "reason": "Embargo concept is present but rule enumerates 'Embargoed'/'Press Hold' specifically"
+    },
+    {
+      "matched_text": "Confidential\u2014Price Sensitive",
+      "concept": "price-sensitive classification",
+      "reason": "Indicates MNPI handling but not a listed MNPI rule token"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
       "rule": "material_event",
       "matched_text": "Proposed acquisition of Harborlight Robotics Pte. Ltd"
     },
@@ -90,86 +199,6 @@
       "matched_text": "adequate but not excessive"
     }
   ],
-  "must_not_detect": [
-    {
-      "matched_text": "Board Risk Committee",
-      "reason": "Role/governance body; not PII or MNPI"
-    },
-    {
-      "matched_text": "External Counsel",
-      "reason": "Role noun; not PII/MNPI"
-    },
-    {
-      "matched_text": "Deputy Finance Manager",
-      "reason": "Role noun; not PII on its own"
-    },
-    {
-      "matched_text": "Company Secretary",
-      "reason": "Role noun; not PII/MNPI"
-    },
-    {
-      "matched_text": "HR",
-      "reason": "Department/role reference; not PII"
-    },
-    {
-      "matched_text": "directors",
-      "reason": "Role category; not PII"
-    },
-    {
-      "matched_text": "connected persons",
-      "reason": "Role category; not PII"
-    },
-    {
-      "matched_text": "insiders",
-      "reason": "Role category; not PII"
-    },
-    {
-      "matched_text": "29-year-old",
-      "reason": "Generic demographic alone; not identifiable by itself per context"
-    },
-    {
-      "matched_text": "MKT-NB-117",
-      "reason": "Device ID alone; not identifying a person in this context"
-    },
-    {
-      "matched_text": "Eastport district",
-      "reason": "Generic location reference; not PII by itself"
-    },
-    {
-      "matched_text": "Westport precinct office",
-      "reason": "Generic workplace location; not PII by itself"
-    },
-    {
-      "matched_text": "AstralOS handset model Orchid A2",
-      "reason": "Device model; not a personal identifier"
-    },
-    {
-      "matched_text": "Harborlight engineers",
-      "reason": "Group descriptor; no individuals identified"
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "Data retention: delete any exports of the target\u2019s employee records within 14 days post-completion",
-      "concept": "retention/deletion marker",
-      "reason": "Live retention/deletion instruction is privacy-relevant but no explicit 'retention' rule name listed"
-    },
-    {
-      "matched_text": "analyst briefing embargo",
-      "concept": "embargo",
-      "reason": "Embargo concept is present but rule enumerates 'Embargoed'/'Press Hold' specifically"
-    },
-    {
-      "matched_text": "Confidential\u2014Price Sensitive",
-      "concept": "price-sensitive classification",
-      "reason": "Indicates MNPI handling but not a listed MNPI rule token"
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "quasi_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
+  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending."
 }

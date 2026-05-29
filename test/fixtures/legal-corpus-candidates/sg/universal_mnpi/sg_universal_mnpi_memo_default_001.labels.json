@@ -11,6 +11,104 @@
     },
     {
       "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Sandpiper"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "55.2%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "SGD 480,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealroom@amberwren-legal.sg"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Darya Ong"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Leon Tay"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Sera Ng"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Julian Koh"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "TSA",
+      "reason": "Agreement abbreviation not in allowed definitive_agreement rules"
+    },
+    {
+      "matched_text": "SSA",
+      "reason": "Agreement abbreviation not in allowed definitive_agreement rules"
+    },
+    {
+      "matched_text": "LSD",
+      "reason": "Defined-term abbreviation (Long-Stop Date), not PII/MNPI"
+    },
+    {
+      "matched_text": "spa-day vouchers",
+      "reason": "Spa-day bait; unrelated to definitive agreements or MNPI"
+    },
+    {
+      "matched_text": "public source",
+      "reason": "Explicitly indicates information is public and not MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Target signing 12 Sep 2026",
+      "concept": "signing date marker",
+      "reason": "Refers to anticipated signing but does not use the explicit 'Signing Date' label in allowed embargo_marker list"
+    },
+    {
+      "matched_text": "SORA+195 bps",
+      "concept": "interest margin",
+      "reason": "Financing margin could be price-sensitive but basis points are not clearly covered by allowed financial_percentage or other MNPI rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Confidential"
+    },
+    {
+      "category": "MNPI",
       "rule": "nonpublic_marker",
       "matched_text": "Not for SGXNet circulation"
     },
@@ -120,45 +218,6 @@
       "matched_text": "Mr. Julian Koh"
     }
   ],
-  "must_not_detect": [
-    {
-      "matched_text": "TSA",
-      "reason": "Agreement abbreviation not in allowed definitive_agreement rules"
-    },
-    {
-      "matched_text": "SSA",
-      "reason": "Agreement abbreviation not in allowed definitive_agreement rules"
-    },
-    {
-      "matched_text": "LSD",
-      "reason": "Defined-term abbreviation (Long-Stop Date), not PII/MNPI"
-    },
-    {
-      "matched_text": "spa-day vouchers",
-      "reason": "Spa-day bait; unrelated to definitive agreements or MNPI"
-    },
-    {
-      "matched_text": "public source",
-      "reason": "Explicitly indicates information is public and not MNPI"
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "Target signing 12 Sep 2026",
-      "concept": "signing date marker",
-      "reason": "Refers to anticipated signing but does not use the explicit 'Signing Date' label in allowed embargo_marker list"
-    },
-    {
-      "matched_text": "SORA+195 bps",
-      "concept": "interest margin",
-      "reason": "Financing margin could be price-sensitive but basis points are not clearly covered by allowed financial_percentage or other MNPI rules"
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
+  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending."
 }

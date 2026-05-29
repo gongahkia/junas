@@ -72,7 +72,7 @@ SG legal/finance coverage should keep expanding in the wedge direction, not into
 
 Synthetic data is a first-class artefact. `test/fixtures/legal-corpus/` is the default legal-contract corpus (118 fixtures as of 2026-05-26). `test/fixtures/legal-corpus-adversarial/` is the obfuscated / negative-prose / multilingual corpus (115 fixtures). `test/fixtures/legal-corpus-sea/` and `test/fixtures/legal-corpus-hk-au-jp-kr/` are seed jurisdiction corpora for MY / ID / TH / PH / VN and HK / AU / JP / KR respectively. `docs/accuracy.md` is generated from the committed lock files and is the public accuracy disclosure.
 
-Adversarial and multilingual coverage matter because SG contracts mix English with Mandarin, Bahasa Melayu, and Tamil names, and PDF inputs come with OCR ligature artefacts and broken DOCX runs. The generation tooling at `scripts/generate_legal_fixture.py`, `scripts/generate_legal_fixture_batch.py`, `scripts/autolabel_fixture.py`, and `scripts/autolabel_batch.py` wraps the OpenAI API for build-time synthetic inputs only. Hand spot-checking remains mandatory before any model-derived label baseline is treated as procurement-grade.
+Adversarial and multilingual coverage matter because SG contracts mix English with Mandarin, Bahasa Melayu, and Tamil names, and PDF inputs come with OCR ligature artefacts and broken DOCX runs. The generation tooling at `scripts/generate_legal_fixture.py`, `scripts/generate_legal_fixture_batch.py`, `scripts/autolabel_fixture.py`, and `scripts/autolabel_batch.py` wraps OpenAI-compatible or Azure OpenAI APIs for build-time synthetic inputs only. Candidate labels now carry two tiers: `must_detect` is detector-aligned strict-mode benchmark truth, while `ideal_must_detect` preserves broader statutory/legal relevance for gap discovery. Hand spot-checking remains mandatory before any model-derived label baseline is treated as procurement-grade.
 
 The HK / AU / JP / KR seed corpus is **one fixture per jurisdiction** as of 2026-05-26 (4 fixtures total); recall/precision at 1.0 is trivially achievable at that volume and should not be read as population-level coverage. SEA seed corpus is similarly one fixture per jurisdiction (5 fixtures total). Item 86 follow-up + item 90/91 discipline grows each toward the 30-doc-per-jurisdiction target before the coverage claim hardens.
 
@@ -86,7 +86,7 @@ Progress is tracked here until the candidate corpus has its own generated report
 
 | Priority | Jurisdiction | Stage A | Stage B | Stage C | Notes |
 |---:|---|---|---|---|---|
-| 1 | SG | evaluated | pending | pending | Stage A: 21 docs generated + labeled, 0 provider errors; candidate recall 0.4475, 10 must-not violations; human review pending. Run: `/tmp/kaypoh-candidate-run-20260528-080405`. |
+| 1 | SG | evaluated | pending | pending | Stage A retuned in place: 21 docs; strict recall 1.0, strict precision 0.4718; ideal recall 0.4475; 10 must-not violations; human review pending. Run: `/tmp/kaypoh-candidate-run-20260528-080405`. |
 | 2 | MY | pending | pending | pending | SEA seed pack; Bursa / PDPA coverage depth. |
 | 3 | ID | pending | pending | pending | SEA seed pack; OJK / PDP coverage depth. |
 | 4 | TH | pending | pending | pending | SEA seed pack; SEC / PDPA coverage depth. |

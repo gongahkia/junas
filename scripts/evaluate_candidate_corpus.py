@@ -32,6 +32,8 @@ class CandidateDocReport:
     label_source: str
     matched: list[dict[str, str]] = field(default_factory=list)
     missed: list[dict[str, str]] = field(default_factory=list)
+    ideal_matched: list[dict[str, str]] = field(default_factory=list)
+    ideal_missed: list[dict[str, str]] = field(default_factory=list)
     unexpected: list[dict[str, str]] = field(default_factory=list)
     must_not_detect_violations: list[dict[str, str]] = field(default_factory=list)
     uncertain: list[dict[str, str]] = field(default_factory=list)
@@ -79,6 +81,16 @@ def _evaluate_one(path: Path) -> CandidateDocReport:
     expected_keys = {(item["rule"], item["matched_text"]) for item in expected}
     matched = [item for item in expected if (item["rule"], item["matched_text"]) in finding_keys]
     missed = [item for item in expected if (item["rule"], item["matched_text"]) not in finding_keys]
+    ideal = [
+        {
+            "category": str(item.get("category") or ""),
+            "rule": str(item["rule"]),
+            "matched_text": str(item["matched_text"]),
+        }
+        for item in labels.get("ideal_must_detect", [])
+    ]
+    ideal_matched = [item for item in ideal if (item["rule"], item["matched_text"]) in finding_keys]
+    ideal_missed = [item for item in ideal if (item["rule"], item["matched_text"]) not in finding_keys]
     unexpected = [item for item in findings if (item["rule"], item["matched_text"]) not in expected_keys]
     forbidden = {str(item["matched_text"]): str(item.get("reason") or "") for item in labels.get("must_not_detect", [])}
     violations = [
@@ -100,6 +112,8 @@ def _evaluate_one(path: Path) -> CandidateDocReport:
         label_source=str(labels.get("_label_source") or "unknown"),
         matched=matched,
         missed=missed,
+        ideal_matched=ideal_matched,
+        ideal_missed=ideal_missed,
         unexpected=unexpected,
         must_not_detect_violations=violations,
         uncertain=[
@@ -117,23 +131,39 @@ def _summary(reports: list[CandidateDocReport]) -> dict[str, Any]:
     total_expected = sum(len(report.matched) + len(report.missed) for report in reports)
     total_matched = sum(len(report.matched) for report in reports)
     total_missed = sum(len(report.missed) for report in reports)
+    total_ideal = sum(len(report.ideal_matched) + len(report.ideal_missed) for report in reports)
+    total_ideal_matched = sum(len(report.ideal_matched) for report in reports)
+    total_ideal_missed = sum(len(report.ideal_missed) for report in reports)
     total_unexpected = sum(len(report.unexpected) for report in reports)
     total_violations = sum(len(report.must_not_detect_violations) for report in reports)
     by_rule: dict[str, dict[str, int]] = {}
+    ideal_by_rule: dict[str, dict[str, int]] = {}
     for report in reports:
         for item in report.matched:
             by_rule.setdefault(item["rule"], {"matched": 0, "missed": 0})["matched"] += 1
         for item in report.missed:
             by_rule.setdefault(item["rule"], {"matched": 0, "missed": 0})["missed"] += 1
+        for item in report.ideal_matched:
+            ideal_by_rule.setdefault(item["rule"], {"matched": 0, "missed": 0})["matched"] += 1
+        for item in report.ideal_missed:
+            ideal_by_rule.setdefault(item["rule"], {"matched": 0, "missed": 0})["missed"] += 1
     return {
         "doc_count": len(reports),
         "expected_labels": total_expected,
         "matched": total_matched,
         "missed": total_missed,
+        "ideal_labels": total_ideal,
+        "ideal_matched": total_ideal_matched,
+        "ideal_missed": total_ideal_missed,
         "unexpected": total_unexpected,
         "must_not_detect_violations": total_violations,
         "candidate_recall": round(total_matched / total_expected, 4) if total_expected else 0.0,
+        "candidate_precision": round(total_matched / (total_matched + total_unexpected), 4)
+        if total_matched + total_unexpected
+        else 0.0,
+        "ideal_candidate_recall": round(total_ideal_matched / total_ideal, 4) if total_ideal else 0.0,
         "by_rule": by_rule,
+        "ideal_by_rule": ideal_by_rule,
     }
 
 

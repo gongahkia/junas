@@ -6,6 +6,78 @@
   "must_detect": [
     {
       "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal circulation only"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Aveline Khoo"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "aveline.khoo@harbourpine.com.sg"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$2.02"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$11.2m"
+    }
+  ],
+  "must_not_detect": [],
+  "uncertain": [
+    {
+      "matched_text": "compliance@harbourpine.com.sg",
+      "concept": "email address (group mailbox)",
+      "reason": "Generic team inbox may not relate to an identifiable individual under PDPA."
+    },
+    {
+      "matched_text": "ext 8421",
+      "concept": "phone extension",
+      "reason": "Short internal extension lacks sufficient context to identify an individual alone."
+    },
+    {
+      "matched_text": "QuokkaPhone-12",
+      "concept": "device model/name",
+      "reason": "Appears to be a model or label rather than a unique device serial number."
+    },
+    {
+      "matched_text": "ledger ac c t 00 3-9 7-AX",
+      "concept": "internal account identifier",
+      "reason": "May be a de-identified ledger/account code not linked to an individual; not clearly a bank_account."
+    },
+    {
+      "matched_text": "MBR\u201122",
+      "concept": "device tag",
+      "reason": "Device tag appears without any link to a person; may not be personal data on its own."
+    },
+    {
+      "matched_text": "12 Bayleaf Square, Lvl 25, Jade Promenade",
+      "concept": "partial address/location",
+      "reason": "No Singapore 6-digit postal code; location alone is a weak identifier unless linked with other data."
+    },
+    {
+      "matched_text": "A 35-year-old engineer in Citrus Park",
+      "concept": "generic demographics",
+      "reason": "Example of non-identifiable demographics; not specific to an individual per the memo."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
       "rule": "material_event",
       "matched_text": "proposed acquisition of Heliotrope Robotics Limited"
     },
@@ -105,49 +177,6 @@
       "matched_text": "do not collect NRIC numbers for meeting access"
     }
   ],
-  "must_not_detect": [],
-  "uncertain": [
-    {
-      "matched_text": "compliance@harbourpine.com.sg",
-      "concept": "email address (group mailbox)",
-      "reason": "Generic team inbox may not relate to an identifiable individual under PDPA."
-    },
-    {
-      "matched_text": "ext 8421",
-      "concept": "phone extension",
-      "reason": "Short internal extension lacks sufficient context to identify an individual alone."
-    },
-    {
-      "matched_text": "QuokkaPhone-12",
-      "concept": "device model/name",
-      "reason": "Appears to be a model or label rather than a unique device serial number."
-    },
-    {
-      "matched_text": "ledger ac c t 00 3-9 7-AX",
-      "concept": "internal account identifier",
-      "reason": "May be a de-identified ledger/account code not linked to an individual; not clearly a bank_account."
-    },
-    {
-      "matched_text": "MBR\u201122",
-      "concept": "device tag",
-      "reason": "Device tag appears without any link to a person; may not be personal data on its own."
-    },
-    {
-      "matched_text": "12 Bayleaf Square, Lvl 25, Jade Promenade",
-      "concept": "partial address/location",
-      "reason": "No Singapore 6-digit postal code; location alone is a weak identifier unless linked with other data."
-    },
-    {
-      "matched_text": "A 35-year-old engineer in Citrus Park",
-      "concept": "generic demographics",
-      "reason": "Example of non-identifiable demographics; not specific to an individual per the memo."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "quasi_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
+  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending."
 }

@@ -25,6 +25,8 @@ def _summary(fixture_path: Path, labels: dict) -> dict:
         engine = {
             "matched": len(report.matched),
             "missed": len(report.missed),
+            "ideal_matched": len(report.ideal_matched),
+            "ideal_missed": len(report.ideal_missed),
             "unexpected": len(report.unexpected),
             "must_not_detect_violations": len(report.must_not_detect_violations),
             "uncertain": len(report.uncertain),
@@ -43,6 +45,7 @@ def _summary(fixture_path: Path, labels: dict) -> dict:
         "label_model": labels.get("_label_model"),
         "human_review_status": labels.get("_human_review_status"),
         "must_detect": len(labels.get("must_detect", []) or []),
+        "ideal_must_detect": len(labels.get("ideal_must_detect", []) or []),
         "must_not_detect": len(labels.get("must_not_detect", []) or []),
         "uncertain": len(labels.get("uncertain", []) or []),
         "engine": engine,

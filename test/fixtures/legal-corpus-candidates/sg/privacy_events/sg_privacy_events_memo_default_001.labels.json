@@ -36,6 +36,83 @@
     },
     {
       "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    }
+  ],
+  "must_not_detect": [],
+  "uncertain": [
+    {
+      "matched_text": "DSAR",
+      "concept": "DSAR marker",
+      "reason": "DSAR is a privacy handling event under PDPA but there is no explicit DSAR marker in the allowed rules."
+    },
+    {
+      "matched_text": "erasure",
+      "concept": "erasure marker",
+      "reason": "Erasure/deletion is a privacy handling event but not listed as an allowed marker rule."
+    },
+    {
+      "matched_text": "Retention",
+      "concept": "retention marker",
+      "reason": "Retention schedules are privacy handling events but no retention marker is defined in the allowed rules."
+    },
+    {
+      "matched_text": "Data portability",
+      "concept": "data portability marker",
+      "reason": "PDPA data portability is legally relevant but not covered by an allowed marker rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Liora Chan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kelvin Miu"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@auroracomet.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ilya Sih"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Serafina Oon"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "room@auroracomet.sg"
+    },
+    {
+      "category": "PII",
       "rule": "cross_border_transfer_marker",
       "matched_text": "Cross-border transfer"
     },
@@ -80,34 +157,6 @@
       "matched_text": "wall-crossed"
     }
   ],
-  "must_not_detect": [],
-  "uncertain": [
-    {
-      "matched_text": "DSAR",
-      "concept": "DSAR marker",
-      "reason": "DSAR is a privacy handling event under PDPA but there is no explicit DSAR marker in the allowed rules."
-    },
-    {
-      "matched_text": "erasure",
-      "concept": "erasure marker",
-      "reason": "Erasure/deletion is a privacy handling event but not listed as an allowed marker rule."
-    },
-    {
-      "matched_text": "Retention",
-      "concept": "retention marker",
-      "reason": "Retention schedules are privacy handling events but no retention marker is defined in the allowed rules."
-    },
-    {
-      "matched_text": "Data portability",
-      "concept": "data portability marker",
-      "reason": "PDPA data portability is legally relevant but not covered by an allowed marker rule."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
+  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending."
 }

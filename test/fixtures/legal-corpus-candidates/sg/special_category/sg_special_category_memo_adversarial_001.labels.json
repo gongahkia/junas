@@ -16,6 +16,122 @@
     },
     {
       "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Darius Koh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Leona Quek"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 6 8 8 8  2 3 4 0"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 6 7 0 0  4 1 19"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "mna@arcturus-legal.sg"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC",
+      "reason": "Negated MAC reference (\"does not constitute a MAC\"); excluded by rule 6"
+    },
+    {
+      "matched_text": "Nimbus CRM",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "nimbus crm",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "SableDrive",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Fair Horizons Policy 2025",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Code of Conduct",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Harbor Hawks",
+      "reason": "Sports team; not PII/MNPI"
+    },
+    {
+      "matched_text": "biometric authentication",
+      "reason": "Generic term; not linked to an individual"
+    },
+    {
+      "matched_text": "sex-life",
+      "reason": "Generic phrase; not about an identifiable person"
+    },
+    {
+      "matched_text": "do not move the goalposts",
+      "reason": "Metaphor; not PII/MNPI"
+    },
+    {
+      "matched_text": "Northbridge",
+      "reason": "Place name; not PII/MNPI"
+    },
+    {
+      "matched_text": "do not foreign-transfer special-category data",
+      "reason": "Negated control directive; per rule 15, do not label controls"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "leona.quek%40peregrine-harvest.sg",
+      "concept": "email_address (URL-encoded)",
+      "reason": "Email address appears URL-encoded within a URL parameter; PII but not in standard email format"
+    },
+    {
+      "matched_text": "Singapore 44  099",
+      "concept": "sg_postal_address",
+      "reason": "Looks like an obfuscated/malformed postal code; not a valid 6-digit SG postal code after 'Singapore'"
+    },
+    {
+      "matched_text": "ensure withdrawal options",
+      "concept": "consent_withdrawal_marker",
+      "reason": "Directive about consent withdrawal options; not a live privacy-event per rule 15"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Sapphire"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
       "rule": "contract_unit_price",
       "matched_text": "S$4.28 per Riverlynx share"
     },
@@ -120,78 +236,6 @@
       "matched_text": "mna@arcturus-legal.sg"
     }
   ],
-  "must_not_detect": [
-    {
-      "matched_text": "MAC",
-      "reason": "Negated MAC reference (\"does not constitute a MAC\"); excluded by rule 6"
-    },
-    {
-      "matched_text": "Nimbus CRM",
-      "reason": "Product name; not PII/MNPI"
-    },
-    {
-      "matched_text": "nimbus crm",
-      "reason": "Product name; not PII/MNPI"
-    },
-    {
-      "matched_text": "SableDrive",
-      "reason": "Product name; not PII/MNPI"
-    },
-    {
-      "matched_text": "Fair Horizons Policy 2025",
-      "reason": "Policy name; not PII/MNPI"
-    },
-    {
-      "matched_text": "Code of Conduct",
-      "reason": "Policy name; not PII/MNPI"
-    },
-    {
-      "matched_text": "Harbor Hawks",
-      "reason": "Sports team; not PII/MNPI"
-    },
-    {
-      "matched_text": "biometric authentication",
-      "reason": "Generic term; not linked to an individual"
-    },
-    {
-      "matched_text": "sex-life",
-      "reason": "Generic phrase; not about an identifiable person"
-    },
-    {
-      "matched_text": "do not move the goalposts",
-      "reason": "Metaphor; not PII/MNPI"
-    },
-    {
-      "matched_text": "Northbridge",
-      "reason": "Place name; not PII/MNPI"
-    },
-    {
-      "matched_text": "do not foreign-transfer special-category data",
-      "reason": "Negated control directive; per rule 15, do not label controls"
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "leona.quek%40peregrine-harvest.sg",
-      "concept": "email_address (URL-encoded)",
-      "reason": "Email address appears URL-encoded within a URL parameter; PII but not in standard email format"
-    },
-    {
-      "matched_text": "Singapore 44  099",
-      "concept": "sg_postal_address",
-      "reason": "Looks like an obfuscated/malformed postal code; not a valid 6-digit SG postal code after 'Singapore'"
-    },
-    {
-      "matched_text": "ensure withdrawal options",
-      "concept": "consent_withdrawal_marker",
-      "reason": "Directive about consent withdrawal options; not a live privacy-event per rule 15"
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
+  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending."
 }
