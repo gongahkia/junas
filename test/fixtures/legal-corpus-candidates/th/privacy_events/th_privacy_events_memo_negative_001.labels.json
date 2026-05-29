@@ -3,13 +3,93 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@pravaan.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfers remain restricted to approved destinations per Section 28 PDPA"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Positive cross\u2011border transfer: Data\u2011Export Approval TH\u2011GX\u2011091 granted 10 May 2569 for hashed payroll identifiers to SkyLedger Analytics SGP Pte. Ltd. (Singapore) under SCC\u2011TH\u2011SG v2.1"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation: onboarding forms collect role\u2011based elements only; optional fields (e.g., personal interests) are suppressed by default and not stored"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@pravaan.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfers remain restricted to approved destinations per Section 28 PDPA"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Positive cross\u2011border transfer: Data\u2011Export Approval TH\u2011GX\u2011091 granted 10 May 2569 for hashed payroll identifiers to SkyLedger Analytics SGP Pte. Ltd. (Singapore) under SCC\u2011TH\u2011SG v2.1"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border vendor due diligence confirms onward transfer bans and encryption at rest"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation: onboarding forms collect role\u2011based elements only; optional fields (e.g., personal interests) are suppressed by default and not stored"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    }
+  ],
   "must_not_detect": [],
-  "uncertain": [],
+  "uncertain": [
+    {
+      "matched_text": "DSAR handling: no open access/correction/erasure requests as of month\u2011end; the DSAR SLA tracker shows 0 pending and 0 overdue",
+      "concept": "dsar_marker",
+      "reason": "DSAR and erasure handling is a privacy-event signal, but there is no explicit DSAR/erasure rule in the allowed list."
+    },
+    {
+      "matched_text": "Retention: employee files are governed by RET\u201112 (12 months post\u2011termination) and finance records by RET\u201107 (7 years); no exceptions or holds are recorded",
+      "concept": "retention_marker",
+      "reason": "Retention policies are privacy-event signals, but there is no explicit retention rule in the allowed list."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,163 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1990-08-14"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.34.55.12"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@siammeridian.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "treasury@eab-labuan.example"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "E-009122"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout calendar"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1990-08-14"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.34.55.12"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@siammeridian.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "treasury@eab-labuan.example"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "E-009122"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout calendar"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "For the incident review last quarter, the procurement analyst (DOB 1990-08-14), based in Pathum Thani Province, using company handset device tag SM-PT-4421 and login alias \u201cproc.ops44\u201d, accessed the vendor portal via home network 10.34.55.12; payroll wallet ref EPAY-7782 and internal staff code E-009122 were recorded"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "SM-PT-4421"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "EPAY-7782"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 1990-08-14"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "must not collect passport scans for casual contractors"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "rejects device serials in forms"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "exclude any staff details or IP addresses from exhibits"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "ID No.: ________",
+      "reason": "Placeholder field; blank and not personal data."
+    },
+    {
+      "matched_text": "Customer Ref: XXX-XXX",
+      "reason": "Placeholder/anonymised example; not personal data."
+    },
+    {
+      "matched_text": "Android phone",
+      "reason": "Generic device category; not identifying by itself."
+    },
+    {
+      "matched_text": "Windows laptop",
+      "reason": "Generic device category; not identifying by itself."
+    },
+    {
+      "matched_text": "a mid-career warehouse supervisor in the central region",
+      "reason": "Generic demographic example; not identifying by itself."
+    },
+    {
+      "matched_text": "ID/Passport No",
+      "reason": "Field label only; no actual identifier present."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "are to be purged after 90 days per our retention schedule",
+      "concept": "retention_marker",
+      "reason": "Indicates a retention/purge control; legally relevant privacy marker but no explicit allowed rule name provided for retention."
+    },
+    {
+      "matched_text": "login alias \u201cproc.ops44\u201d",
+      "concept": "username/account identifier",
+      "reason": "Identifies a specific user login; potentially PII but not clearly mapped to an allowed rule (e.g., not explicitly an internal_session_id)."
+    },
+    {
+      "matched_text": "updated consent notices",
+      "concept": "consent_marker",
+      "reason": "References PDPA consent processing; relevant privacy governance but allowed rules only include consent_withdrawal_marker, not general consent."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
