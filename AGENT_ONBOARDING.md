@@ -1,6 +1,6 @@
 # Agent Onboarding — Kaypoh
 
-You are an independent coding agent picking up work on Kaypoh. **Read this file first**, then the two documents it points at, before touching any code. Do not skim. Every section below is load-bearing.
+You are an independent coding agent picking up work on Kaypoh. **Read this file first**, then the architecture document it points at, before touching any code. Do not skim. Every section below is load-bearing.
 
 Date this onboarding was written: **2026-05-26**.
 
@@ -12,15 +12,13 @@ Kaypoh is a pre-send document safety layer for legal-corporate workflows where c
 
 ---
 
-## 2. The two documents you must read before coding
+## 2. The document you must read before coding
 
-In this order, end-to-end:
+Read this end-to-end:
 
 1. **`ARCHITECTURE-PIVOT-24-MAY.md`** — the authoritative product / architecture / roadmap doc. Items 1–89 + M1–M6 + items 90–91. Items in `~~strikethrough~~` are shipped; un-struck items are open. The `## First-Principles Statutory Analysis` section is the ground truth for what's defensible per jurisdiction.
 
-2. **`ARCHITECTURE_26_MAY.txt`** — ASCII diagram of the current + planned runtime flow. Shows what's shipped vs planned, where each new feature slots in, and what changed in the 2026-05-26 surgery.
-
-Older docs (`ARCHITECTURE_25_MAY.txt` does not exist — it was renamed) are historical only.
+Older `ARCHITECTURE_*.txt` docs are historical only. Runtime flow now lives in `ARCHITECTURE-PIVOT-24-MAY.md` § Target Runtime and the code path in §7 below.
 
 ---
 
@@ -120,7 +118,7 @@ Always check the architecture doc for the latest user prioritisation before pick
 |---|---|
 | Understand the product wedge + ICP | `ARCHITECTURE-PIVOT-24-MAY.md` § Positioning and ICP |
 | Find what's shipped vs planned | `ARCHITECTURE-PIVOT-24-MAY.md` § Expansion Sequence (strikethrough = shipped) |
-| Understand the runtime flow | `ARCHITECTURE_26_MAY.txt` |
+| Understand the runtime flow | `ARCHITECTURE-PIVOT-24-MAY.md` § Target Runtime; then `src/kaypoh/backend/main.py::_run_review_sync` → `src/kaypoh/review/engine.py::PreSendReviewEngine.review` |
 | Find the statute behind a detector | `ARCHITECTURE-PIVOT-24-MAY.md` § First-Principles Statutory Analysis |
 | Add a new jurisdiction pack | `src/kaypoh/review/jurisdictions_data/*.toml` (item 19 schema) |
 | Add a new detector | `src/kaypoh/review/engine.py` — `_pii_findings` / `_mnpi_findings`; future: `src/kaypoh/review/detectors/` after the M1 refactor |

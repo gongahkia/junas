@@ -1,6 +1,6 @@
 # Kaypoh
 
-> Coding agents arriving at this repo: start with [`AGENT_ONBOARDING.md`](AGENT_ONBOARDING.md), then read `ARCHITECTURE-PIVOT-24-MAY.md` and `ARCHITECTURE_26_MAY.txt`.
+> Coding agents arriving at this repo: start with [`AGENT_ONBOARDING.md`](AGENT_ONBOARDING.md), then read `ARCHITECTURE-PIVOT-24-MAY.md`.
 
 Kaypoh is an API-first pre-send safety engine for PII anonymization and MNPI review. The deterministic review engine is the runtime source of truth; `/classify` is now a compatibility shim over `engine.review()`.
 
