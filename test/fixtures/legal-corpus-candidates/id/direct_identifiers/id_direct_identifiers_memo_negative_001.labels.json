@@ -3,13 +3,134 @@
   "document_type": "memo",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "id_nik",
+      "matched_text": "0000000000000000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "000-000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@pt-bumirantai.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@pt-bumirantai.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "F1234567"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "black-out internal"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "id_nik",
+      "matched_text": "0000000000000000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "000-000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@pt-bumirantai.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@pt-bumirantai.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "F1234567"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "black-out internal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "tanpa memuat nilai transaksi atau proyeksi sensitif"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "0800-88-7788",
+      "reason": "Public helpline number, not a natural-person identifier"
+    },
+    {
+      "matched_text": "0800-11-12345",
+      "reason": "Public helpline number, not a natural-person identifier"
+    },
+    {
+      "matched_text": "Nama Lengkap",
+      "reason": "Generic form label, not personal data"
+    },
+    {
+      "matched_text": "Alamat Domisili",
+      "reason": "Generic form label, not personal data"
+    },
+    {
+      "matched_text": "Nomor Rekening",
+      "reason": "Generic form label, not personal data"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "NPWP 00.000.000.0-000.000",
+      "concept": "Indonesian tax number (NPWP)",
+      "reason": "Tax ID is personal data in ID but there is no explicit NPWP rule in the allowed set"
+    },
+    {
+      "matched_text": "NIB: 9999999999999",
+      "concept": "Company identifier (NIB)",
+      "reason": "Company ID is a direct identifier in legal/business context but no corresponding allowed rule"
+    },
+    {
+      "matched_text": "Jl. Contoh No. 0, Jakarta",
+      "concept": "Postal address (ID)",
+      "reason": "Physical address can be personal data but there is no general address rule for ID in the allowed set"
+    },
+    {
+      "matched_text": "kebijakan retensi",
+      "concept": "Retention policy marker",
+      "reason": "Data retention is a privacy governance signal but there is no explicit retention rule in the allowed set"
+    },
+    {
+      "matched_text": "informasi material non-publik",
+      "concept": "Nonpublic information marker",
+      "reason": "MNPI phrase appears in a negated context; unclear whether to tag under nonpublic_marker"
+    },
+    {
+      "matched_text": "Form KYC internal",
+      "concept": "KYC/compliance marker",
+      "reason": "Indicates collection/processing of personal data but not covered by a specific allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
