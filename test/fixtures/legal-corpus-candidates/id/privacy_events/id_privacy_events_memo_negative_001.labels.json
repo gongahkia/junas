@@ -7,54 +7,39 @@
     {
       "category": "PII",
       "rule": "email_address",
-      "matched_text": "privacy@bayupay.co.id"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
       "matched_text": "disclosures@bayupay.co.id"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+62-000-0000"
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "has been minimised"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Minimisation Checkpoint"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfer"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-Border Transfer Mechanism"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "the acquisition of PT Argo Dompet Digital"
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "erasure request"
     }
   ],
   "ideal_must_detect": [
     {
       "category": "PII",
       "rule": "email_address",
-      "matched_text": "privacy@bayupay.co.id"
+      "matched_text": "disclosures@bayupay.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "erasure request"
     },
     {
       "category": "PII",
       "rule": "email_address",
-      "matched_text": "disclosures@bayupay.co.id"
+      "matched_text": "privacy@bayupay.co.id"
     },
     {
       "category": "PII",
@@ -79,7 +64,7 @@
     {
       "category": "PII",
       "rule": "advertising_id",
-      "matched_text": "\u201cdevice_ad_id\u201d"
+      "matched_text": "“device_ad_id”"
     },
     {
       "category": "PII",
@@ -119,11 +104,11 @@
   ],
   "must_not_detect": [
     {
-      "matched_text": "\u201cNIK:\u201d",
+      "matched_text": "“NIK:”",
       "reason": "Placeholder label only; no actual identifier value present"
     },
     {
-      "matched_text": "\u201cNPWP:\u201d",
+      "matched_text": "“NPWP:”",
       "reason": "Placeholder label only; no actual identifier value present"
     },
     {
@@ -131,17 +116,17 @@
       "reason": "Role noun used for an entity, not a person or PII"
     },
     {
-      "matched_text": "\u201cleak/breach\u201d",
+      "matched_text": "“leak/breach”",
       "reason": "Explicitly negated; refers to tabletop drills, not a live incident"
     },
     {
-      "matched_text": "\u201cHR-Form-ACK\u201d",
+      "matched_text": "“HR-Form-ACK”",
       "reason": "Generic form code; not a personal identifier"
     }
   ],
   "uncertain": [
     {
-      "matched_text": "\u201cNPWP:\u201d",
+      "matched_text": "“NPWP:”",
       "concept": "Indonesian tax ID (NPWP) label",
       "reason": "Legally PII in ID context but not covered by allowed rules here and no value present"
     },
@@ -152,7 +137,7 @@
     },
     {
       "matched_text": "nama ibu kandung",
-      "concept": "Mother\u2019s maiden name field",
+      "concept": "Mother’s maiden name field",
       "reason": "Sensitive personal attribute removed; not mapped to an allowed rule"
     },
     {
@@ -178,6 +163,39 @@
   ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_agent_review": {
+    "status": "strict_tier_cleaned_owner_approved",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "notes": "Reconciled ID Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
+  },
+  "_owner_acceptance": {
+    "status": "owner_approved_id_stage_a_for_internal_benchmarking",
+    "accepted_by": "gongahkia",
+    "accepted_at_utc": "2026-05-29T08:19:15Z",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
+  },
+  "_human_review": {
+    "status": "approved",
+    "decision": "approve",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "reviewed_at_utc": "2026-05-29T08:19:15Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+  },
+  "_human_review_history": [
+    {
+      "status": "approved",
+      "decision": "approve",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "reviewed_at_utc": "2026-05-29T08:19:15Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    }
+  ]
 }

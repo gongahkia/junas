@@ -194,6 +194,81 @@ class MacMaePrecisionGuards(unittest.TestCase):
                 f"benign MNPI-marker heading should be suppressed; got {matched!r}",
             )
 
+    def test_indonesian_no_mnpi_marker_does_not_fire(self):
+        text = "Kesimpulan: tidak ada MNPI baru dalam materi publik ini."
+        for rule, matched in _rules_matched(text, jurisdiction="ID"):
+            self.assertNotEqual(
+                rule,
+                "nonpublic_marker",
+                f"Indonesian no-MNPI marker should be suppressed; got {matched!r}",
+            )
+
+    def test_indonesian_public_transaction_status_does_not_fire_material_event(self):
+        text = (
+            "Public Transaction Status: the acquisition was announced on IDXNet on 12 May 2025, "
+            "and no material non-public information remains in this memo."
+        )
+        for rule, matched in _rules_matched(text, jurisdiction="ID"):
+            self.assertNotEqual(
+                rule,
+                "material_event",
+                f"public/no-MNPI Indonesia transaction status should be suppressed; got {matched!r}",
+            )
+
+    def test_no_new_material_terms_line_does_not_fire_material_event(self):
+        text = "No new material terms, pricing, or financing arrangements are included here."
+        for rule, matched in _rules_matched(text, jurisdiction="ID"):
+            self.assertNotEqual(
+                rule,
+                "material_event",
+                f"no-new-material-terms line should not be material_event; got {matched!r}",
+            )
+
+    def test_indonesian_public_context_heading_does_not_fire_material_event(self):
+        text = "Corporate context: Indonesian fintech issuer with employment onboarding for post-acquisition integration."
+        for rule, matched in _rules_matched(text, jurisdiction="ID"):
+            self.assertNotEqual(
+                rule,
+                "material_event",
+                f"public context heading should not be material_event; got {matched!r}",
+            )
+
+    def test_anti_fraud_transfer_line_does_not_fire_material_event(self):
+        text = "Cross-border transfer for anti-fraud analytics is approved under Data Export Approval DEA-2026-11."
+        for rule, matched in _rules_matched(text, jurisdiction="ID"):
+            self.assertNotEqual(
+                rule,
+                "material_event",
+                f"anti-fraud privacy-transfer line should not be material_event; got {matched!r}",
+            )
+
+    def test_public_employment_integration_line_does_not_fire_material_event(self):
+        text = "Employment integration (public): HR will roll out a voluntary wellness program post-closing."
+        for rule, matched in _rules_matched(text, jurisdiction="ID"):
+            self.assertNotEqual(
+                rule,
+                "material_event",
+                f"public employment-integration line should not be material_event; got {matched!r}",
+            )
+
+    def test_indonesian_negated_mac_does_not_fire(self):
+        text = "Draft SPA tidak memuat klausul material adverse change (bukan MAC)."
+        for rule, matched in _rules_matched(text, jurisdiction="ID"):
+            self.assertNotEqual(
+                rule,
+                "material_adverse_change",
+                f"Indonesian negated MAC line should be suppressed; got {matched!r}",
+            )
+
+    def test_no_event_material_adverse_change_does_not_fire(self):
+        text = "No event has occurred that would reasonably be expected to constitute a Material Adverse Change."
+        for rule, matched in _rules_matched(text, jurisdiction="ID"):
+            self.assertNotEqual(
+                rule,
+                "material_adverse_change",
+                f"no-event MAC line should be suppressed; got {matched!r}",
+            )
+
 
 class PhoneNumberSpanDedupGuards(unittest.TestCase):
     def _has_phone_match(self, text: str, matched_text: str, jurisdiction: str = "SG") -> bool:
@@ -250,6 +325,11 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         self.assertNotIn("1-300-88-0000", phones)
         self.assertNotIn("03-6200 0000", phones)
 
+    def test_indonesian_toll_free_hotline_does_not_fire(self):
+        text = "Hotline investor 0800-11-12345 adalah nomor publik dan bukan nomor pribadi."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="ID") if r == "phone_number"]
+        self.assertNotIn("0800-11-12345", phones)
+
     def test_phone_does_not_fire_on_dates_or_ip_literals(self):
         text = "DOB 14-03-1990; session ref 2026-05-28; IP 192.0.2.17."
         phones = [m for r, m in _rules_matched(text) if r == "phone_number"]
@@ -276,6 +356,15 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         phones = [m for r, m in _rules_matched(text, jurisdiction="MY") if r == "phone_number"]
         self.assertNotIn("2022012345678", phones)
         self.assertNotIn("8765432109", phones)
+
+    def test_phone_does_not_fire_on_indonesian_nib_npwp_or_rekening(self):
+        text = (
+            "NPWP 45.987.321.0-123.456, NIB 2315478901234, "
+            "and no. rekening 065-889912-44 are identifiers, not personal phone numbers."
+        )
+        phones = [m for r, m in _rules_matched(text, jurisdiction="ID") if r == "phone_number"]
+        self.assertNotIn("2315478901234", phones)
+        self.assertNotIn("065-889912-44", phones)
 
     def test_phone_does_not_fire_on_ocr_account_or_url_id_fragments(self):
         text = (
@@ -408,6 +497,16 @@ class BankAccountGuards(unittest.TestCase):
         accounts = [m for r, m in _rules_matched(text) if r == "bank_account"]
         self.assertNotIn("1234-XXXX-XXXX", accounts)
 
+    def test_ocr_mixed_case_employee_id_does_not_partial_match(self):
+        text = "Catatan sensitif disimpan under id karyawan EMP-2O26-l1l."
+        employees = [m for r, m in _rules_matched(text, jurisdiction="ID") if r == "employee_id"]
+        self.assertNotIn("2O26-", employees)
+
+    def test_audit_hash_employee_like_token_does_not_fire(self):
+        text = "The Q2 auto-deletion job completed with audit hash A-EMP-26-044."
+        employees = [m for r, m in _rules_matched(text, jurisdiction="ID") if r == "employee_id"]
+        self.assertNotIn("26-044", employees)
+
     def test_explicit_bank_account_number_still_fires(self):
         text = "Escrow account 123-456-789-0 is held at East Harbor Bank."
         accounts = [m for r, m in _rules_matched(text) if r == "bank_account"]
@@ -476,6 +575,11 @@ class FinancialAmountGuards(unittest.TestCase):
         agreements = [m for r, m in _rules_matched(text) if r == "definitive_agreement"]
         self.assertNotIn("spa", agreements)
 
+    def test_spa_day_with_space_does_not_fire_as_definitive_agreement(self):
+        text = "Book HR spa day pilot Friday at 14:00."
+        agreements = [m for r, m in _rules_matched(text) if r == "definitive_agreement"]
+        self.assertNotIn("spa", agreements)
+
     def test_passport_words_without_digits_do_not_fire(self):
         text = "External releases should mask passport digits and no passport numbers are processed."
         passports = [m for r, m in _rules_matched(text, jurisdiction="MY") if r == "passport_number"]
@@ -510,6 +614,23 @@ class LargeNumberPrecisionGuards(unittest.TestCase):
         self.assertNotIn("2022012345678", numbers)
         self.assertNotIn("201801023456", numbers)
 
+    def test_large_number_inside_indonesian_nib_and_rekening_is_suppressed(self):
+        text = "NIB 9999999999999 and no. rekening 065-889912-44 are registry/payment identifiers."
+        numbers = [m for r, m in _rules_matched(text, jurisdiction="ID") if r == "large_number"]
+        self.assertNotIn("9999999999999", numbers)
+        self.assertNotIn("889912", numbers)
+
+    def test_large_number_inside_indonesian_wallet_or_wa_link_is_suppressed(self):
+        text = "Akun internal 88-120394-07 is not bank data; wa.me/6281123456789 is a contact link."
+        numbers = [m for r, m in _rules_matched(text, jurisdiction="ID") if r == "large_number"]
+        self.assertNotIn("120394", numbers)
+        self.assertNotIn("12345678", numbers)
+
+    def test_large_number_inside_phone_number_is_suppressed(self):
+        text = "Contact finance at 021-12345678 for scheduling."
+        numbers = [m for r, m in _rules_matched(text, jurisdiction="ID") if r == "large_number"]
+        self.assertNotIn("12345678", numbers)
+
     def test_large_number_inside_url_identifier_is_suppressed(self):
         text = "Draft link: https://example.my/deal?uid=EID-840102145019&co=201901012345."
         numbers = [m for r, m in _rules_matched(text, jurisdiction="MY") if r == "large_number"]
@@ -530,6 +651,18 @@ class LargeNumberPrecisionGuards(unittest.TestCase):
         text = "The seller will transfer 100,000 ordinary shares of Acme Pte. Ltd., UEN 199999999K."
         numbers = [m for r, m in _rules_matched(text) if r == "large_number"]
         self.assertIn("100,000", numbers)
+
+
+class EducationalMnpiMarkerGuards(unittest.TestCase):
+    def test_training_insider_list_reference_does_not_fire(self):
+        text = "Training materials only reference insider lists and blackout windows; they are educational."
+        rules = [r for r, _ in _rules_matched(text, jurisdiction="ID")]
+        self.assertNotIn("insider_list_marker", rules)
+
+    def test_policy_training_information_barrier_reference_does_not_fire(self):
+        text = "Policy training example: information barrier and blackout are not market-moving events."
+        rules = [r for r, _ in _rules_matched(text, jurisdiction="ID")]
+        self.assertNotIn("information_barrier_marker", rules)
 
 
 class PrivacyGuardAmountGuards(unittest.TestCase):

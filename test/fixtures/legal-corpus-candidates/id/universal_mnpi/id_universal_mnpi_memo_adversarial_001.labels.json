@@ -5,9 +5,39 @@
   "destination_jurisdiction": "ID",
   "must_detect": [
     {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ren.arif@kudapay.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "mira.t@kudapay.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@dompet-nusantara.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Rendra Arif"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Sari Lintang"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Untung Prakoso"
+    },
+    {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project KUDA"
+      "rule": "material_event",
+      "matched_text": "Re: Project KUDA — Proposed acquisition of 35% of PT KudaPay Sentosa (fintech) by PT Dompet Nusantara Teknologi Tbk (Perseroan)."
     },
     {
       "category": "MNPI",
@@ -16,8 +46,13 @@
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo until 12 June 2026 09:00 WIB"
+      "rule": "nonpublic_marker",
+      "matched_text": "quiet period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project KUDA"
     },
     {
       "category": "MNPI",
@@ -51,49 +86,16 @@
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAE"
+      "rule": "large_number",
+      "matched_text": "142,500,000,000"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not circulate outside BoD"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "quiet period applies"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout for insiders 1\u201312 June 2026"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "material information"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Bpk. Dr. Rendra Arif"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ibu Mira Tanjung"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Sari Lintang"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Untung Prakoso"
-    },
+      "rule": "large_number",
+      "matched_text": "25,000,000,000"
+    }
+  ],
+  "ideal_must_detect": [
     {
       "category": "PII",
       "rule": "email_address",
@@ -107,24 +109,27 @@
     {
       "category": "PII",
       "rule": "email_address",
-      "matched_text": "corpsec@dompet-nusantara.co.id"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
       "matched_text": "legal@dompet-nusantara.co.id"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "EmpID EN-0O1-7l"
-    }
-  ],
-  "ideal_must_detect": [
+      "rule": "named_person",
+      "matched_text": "Dr. Rendra Arif"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Sari Lintang"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Untung Prakoso"
+    },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project KUDA"
+      "rule": "material_event",
+      "matched_text": "Re: Project KUDA — Proposed acquisition of 35% of PT KudaPay Sentosa (fintech) by PT Dompet Nusantara Teknologi Tbk (Perseroan)."
     },
     {
       "category": "MNPI",
@@ -133,8 +138,13 @@
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo until 12 June 2026 09:00 WIB"
+      "rule": "nonpublic_marker",
+      "matched_text": "quiet period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project KUDA"
     },
     {
       "category": "MNPI",
@@ -165,6 +175,21 @@
       "category": "MNPI",
       "rule": "financial_percentage",
       "matched_text": "0.6%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "142,500,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "25,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo until 12 June 2026 09:00 WIB"
     },
     {
       "category": "MNPI",
@@ -194,7 +219,7 @@
     {
       "category": "MNPI",
       "rule": "blackout_period_reference",
-      "matched_text": "trading blackout for insiders 1\u201312 June 2026"
+      "matched_text": "trading blackout for insiders 1–12 June 2026"
     },
     {
       "category": "MNPI",
@@ -223,33 +248,8 @@
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Sari Lintang"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Untung Prakoso"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ren.arif@kudapay.id"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "mira.t@kudapay.id"
-    },
-    {
-      "category": "PII",
       "rule": "email_address",
       "matched_text": "corpsec@dompet-nusantara.co.id"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@dompet-nusantara.co.id"
     },
     {
       "category": "PII",
@@ -264,7 +264,7 @@
     {
       "category": "PII",
       "rule": "bank_customer_reference",
-      "matched_text": "VirtAcct 77\u201100\u2011xx\u201198"
+      "matched_text": "VirtAcct 77‑00‑xx‑98"
     },
     {
       "category": "PII",
@@ -301,7 +301,7 @@
   ],
   "uncertain": [
     {
-      "matched_text": "VirtAcct 77\u201100\u2011xx\u201198",
+      "matched_text": "VirtAcct 77‑00‑xx‑98",
       "concept": "bank_customer_reference",
       "reason": "Looks like a masked virtual/bank account reference; format is non-standard and partially redacted."
     },
@@ -336,6 +336,39 @@
   "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_agent_review": {
+    "status": "strict_tier_cleaned_owner_approved",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "notes": "Reconciled ID Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
+  },
+  "_owner_acceptance": {
+    "status": "owner_approved_id_stage_a_for_internal_benchmarking",
+    "accepted_by": "gongahkia",
+    "accepted_at_utc": "2026-05-29T08:19:15Z",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
+  },
+  "_human_review": {
+    "status": "approved",
+    "decision": "approve",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "reviewed_at_utc": "2026-05-29T08:19:15Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+  },
+  "_human_review_history": [
+    {
+      "status": "approved",
+      "decision": "approve",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "reviewed_at_utc": "2026-05-29T08:19:15Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    }
+  ]
 }

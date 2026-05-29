@@ -5,66 +5,46 @@
   "destination_jurisdiction": "ID",
   "must_detect": [
     {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "riwayat kesehatan: diabetes tipe 1"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "keanggotaan Serikat Pekerja Fintech Bersatu"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "enrolmen biometrik (template sidik jari fp:adk-7gQ1...)"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "EMP-2O26-l1l"
-    },
-    {
       "category": "PII",
       "rule": "email_address",
       "matched_text": "legal@ldn.co.id"
     },
     {
       "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "menyatakan agama Katolik"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "rencana akuisisi PT Cakrawala Peerpay"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Akuisisi PT Cakrawala Peerpay"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "mnpi wall"
-    },
-    {
-      "category": "PII",
       "rule": "phone_number",
       "matched_text": "+62-21-555-0110"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "mnpi"
     }
   ],
   "ideal_must_detect": [
     {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@ldn.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62-21-555-0110"
+    },
+    {
       "category": "MNPI",
       "rule": "nonpublic_marker",
       "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "mnpi"
     },
     {
       "category": "PII",
@@ -88,11 +68,6 @@
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@ldn.co.id"
-    },
-    {
-      "category": "PII",
       "rule": "religious_belief",
       "matched_text": "menyatakan agama Katolik"
     },
@@ -110,11 +85,6 @@
       "category": "MNPI",
       "rule": "information_barrier_marker",
       "matched_text": "mnpi wall"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+62-21-555-0110"
     },
     {
       "category": "PII",
@@ -149,7 +119,7 @@
     {
       "category": "MNPI",
       "rule": "selective_disclosure_risk",
-      "matched_text": "bocoran istilah kode \u201cProyek BungaRaya\u201d di media sosial"
+      "matched_text": "bocoran istilah kode “Proyek BungaRaya” di media sosial"
     },
     {
       "category": "MNPI",
@@ -226,7 +196,7 @@
       "reason": "Indicates location of MNPI document but not covered by allowed rules"
     },
     {
-      "matched_text": "server \u201cintra-ldn\u201d",
+      "matched_text": "server “intra-ldn”",
       "concept": "internal system hostname",
       "reason": "Infrastructure detail; potentially sensitive but not in allowed categories"
     }
@@ -236,6 +206,39 @@
   "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_agent_review": {
+    "status": "strict_tier_cleaned_owner_approved",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "notes": "Reconciled ID Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
+  },
+  "_owner_acceptance": {
+    "status": "owner_approved_id_stage_a_for_internal_benchmarking",
+    "accepted_by": "gongahkia",
+    "accepted_at_utc": "2026-05-29T08:19:15Z",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
+  },
+  "_human_review": {
+    "status": "approved",
+    "decision": "approve",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "reviewed_at_utc": "2026-05-29T08:19:15Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+  },
+  "_human_review_history": [
+    {
+      "status": "approved",
+      "decision": "approve",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "reviewed_at_utc": "2026-05-29T08:19:15Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    }
+  ]
 }

@@ -6,28 +6,13 @@
   "must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ibu Nadya Pramana"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Bapak Rendra Kusuma"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Seno Mahardika"
-    },
-    {
-      "category": "PII",
       "rule": "email_address",
       "matched_text": "nadya.pramana@arunika.example"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "corpsec@arunika.example"
+      "rule": "named_person",
+      "matched_text": "Dr. Seno Mahardika"
     },
     {
       "category": "MNPI",
@@ -36,38 +21,45 @@
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "IDR 182.000"
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
     },
     {
       "category": "MNPI",
       "rule": "financial_amount",
-      "matched_text": "IDR 6,5 m"
+      "matched_text": "IDR 6,5"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "2%"
     },
     {
       "category": "MNPI",
       "rule": "insider_list_marker",
-      "matched_text": "Insider List v3.2"
+      "matched_text": "Insider List"
     },
     {
       "category": "MNPI",
       "rule": "information_barrier_marker",
       "matched_text": "information barrier"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "nadya.pramana@arunika.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Seno Mahardika"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Periode blackout"
-    },
-    {
-      "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "tipping"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selektif disclosure"
+      "rule": "definitive_agreement",
+      "matched_text": "Term sheet"
     },
     {
       "category": "MNPI",
@@ -76,21 +68,24 @@
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-publik"
+      "rule": "financial_amount",
+      "matched_text": "IDR 6,5"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "belum diungkap publik"
+      "rule": "financial_percentage",
+      "matched_text": "2%"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "insiden ransomware"
-    }
-  ],
-  "ideal_must_detect": [
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    },
     {
       "category": "PII",
       "rule": "named_person",
@@ -100,16 +95,6 @@
       "category": "PII",
       "rule": "named_person",
       "matched_text": "Bapak Rendra Kusuma"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Seno Mahardika"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "nadya.pramana@arunika.example"
     },
     {
       "category": "PII",
@@ -135,11 +120,6 @@
       "category": "PII",
       "rule": "data_minimisation_marker",
       "matched_text": "nomor hp bertopeng"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term sheet"
     },
     {
       "category": "MNPI",
@@ -184,11 +164,6 @@
     {
       "category": "MNPI",
       "rule": "information_barrier_marker",
-      "matched_text": "information barrier"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
       "matched_text": "Penghalang informasi"
     },
     {
@@ -205,11 +180,6 @@
       "category": "MNPI",
       "rule": "selective_disclosure_risk",
       "matched_text": "selektif disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
     },
     {
       "category": "MNPI",
@@ -274,6 +244,39 @@
   "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_agent_review": {
+    "status": "strict_tier_cleaned_owner_approved",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "notes": "Reconciled ID Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
+  },
+  "_owner_acceptance": {
+    "status": "owner_approved_id_stage_a_for_internal_benchmarking",
+    "accepted_by": "gongahkia",
+    "accepted_at_utc": "2026-05-29T08:19:15Z",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
+  },
+  "_human_review": {
+    "status": "approved",
+    "decision": "approve",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "reviewed_at_utc": "2026-05-29T08:19:15Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+  },
+  "_human_review_history": [
+    {
+      "status": "approved",
+      "decision": "approve",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "reviewed_at_utc": "2026-05-29T08:19:15Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    }
+  ]
 }

@@ -5,121 +5,96 @@
   "destination_jurisdiction": "ID",
   "must_detect": [
     {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "informasi ini material dan belum dipublikasikan"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "informasi ini material dan belum dipublikasikan"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "80%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "IDR 1,250,000,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "+18%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Kupu-Kupu"
-    },
-    {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Bapak Dimas Prakoso"
+      "rule": "email_address",
+      "matched_text": "legal@arunikafin.co.id"
     },
     {
       "category": "PII",
       "rule": "employee_id",
-      "matched_text": "AFN-EMP-0451"
-    },
-    {
-      "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "cuti medis untuk penanganan diabetes tipe 1"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "diabetes tipe 1"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "template biometrik wajah"
-    },
-    {
-      "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "mengungkapkan agama Islam"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "keanggotaan serikat Serikat Karyawan Arunika"
+      "matched_text": "0451"
     },
     {
       "category": "PII",
       "rule": "named_person",
-      "matched_text": "Ibu Ratna Wening"
+      "matched_text": "Mr. Joel"
     },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Joel P. Santara"
-    },
-    {
-      "category": "PII",
-      "rule": "sexual_orientation",
-      "matched_text": "kemitraan sesama jenis"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Aira Prakoso (12)"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "(12)"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "dilarang menyimpan rapor atau ID sekolah di HRIS"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "corpsec@arunikafin.co.id"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@arunikafin.co.id"
-    }
-  ],
-  "ideal_must_detect": [
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
       "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Kupu"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 1,250,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "18%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "1,250,000,000,000"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@arunikafin.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "0451"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Joel"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Kupu"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 1,250,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "18%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "1,250,000,000,000"
     },
     {
       "category": "MNPI",
@@ -130,16 +105,6 @@
       "category": "MNPI",
       "rule": "nonpublic_marker",
       "matched_text": "informasi ini material dan belum dipublikasikan"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "80%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "IDR 1,250,000,000,000"
     },
     {
       "category": "MNPI",
@@ -227,11 +192,6 @@
       "matched_text": "corpsec@arunikafin.co.id"
     },
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@arunikafin.co.id"
-    },
-    {
       "category": "MNPI",
       "rule": "selective_disclosure_risk",
       "matched_text": "mohon tidak disebarluaskan di luar Komite Investasi"
@@ -239,7 +199,7 @@
     {
       "category": "MNPI",
       "rule": "selective_disclosure_risk",
-      "matched_text": "jangan membahas \u201cProject Kupu-Kupu\u201d di pertandingan Bandung Fire Monkeys atau kafe di Senopati"
+      "matched_text": "jangan membahas “Project Kupu-Kupu” di pertandingan Bandung Fire Monkeys atau kafe di Senopati"
     },
     {
       "category": "MNPI",
@@ -272,7 +232,7 @@
       "reason": "Product/token name; not PII/MNPI by itself"
     },
     {
-      "matched_text": "\u201cBiometric Breeze\u201d",
+      "matched_text": "“Biometric Breeze”",
       "reason": "UI theme name; disclaimer states not related to biometrics/genetic data"
     },
     {
@@ -327,6 +287,39 @@
   "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_agent_review": {
+    "status": "strict_tier_cleaned_owner_approved",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "notes": "Reconciled ID Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
+  },
+  "_owner_acceptance": {
+    "status": "owner_approved_id_stage_a_for_internal_benchmarking",
+    "accepted_by": "gongahkia",
+    "accepted_at_utc": "2026-05-29T08:19:15Z",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
+  },
+  "_human_review": {
+    "status": "approved",
+    "decision": "approve",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "reviewed_at_utc": "2026-05-29T08:19:15Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+  },
+  "_human_review_history": [
+    {
+      "status": "approved",
+      "decision": "approve",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "reviewed_at_utc": "2026-05-29T08:19:15Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    }
+  ]
 }

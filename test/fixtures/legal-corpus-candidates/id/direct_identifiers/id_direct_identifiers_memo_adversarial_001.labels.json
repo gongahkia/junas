@@ -6,16 +6,6 @@
   "must_detect": [
     {
       "category": "PII",
-      "rule": "id_nik",
-      "matched_text": "3275090712345678"
-    },
-    {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "Q1234567"
-    },
-    {
-      "category": "PII",
       "rule": "email_address",
       "matched_text": "d.hartanto@arunika.invalid"
     },
@@ -35,19 +25,31 @@
       "matched_text": "021-12345678"
     },
     {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    }
+  ],
+  "ideal_must_detect": [
+    {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "777-66-000123456"
+      "rule": "email_address",
+      "matched_text": "d.hartanto@arunika.invalid"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Bapak Dimas Hartanto"
+      "rule": "email_address",
+      "matched_text": "legal@arunika.invalid"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ibu Maya Prameswari"
+      "rule": "phone_number",
+      "matched_text": "+62-811-2345-6789"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "021-12345678"
     },
     {
       "category": "MNPI",
@@ -55,13 +57,6 @@
       "matched_text": "MNPI"
     },
     {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout trading"
-    }
-  ],
-  "ideal_must_detect": [
-    {
       "category": "PII",
       "rule": "id_nik",
       "matched_text": "3275090712345678"
@@ -70,26 +65,6 @@
       "category": "PII",
       "rule": "passport_number",
       "matched_text": "Q1234567"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "d.hartanto@arunika.invalid"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@arunika.invalid"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+62-811-2345-6789"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "021-12345678"
     },
     {
       "category": "PII",
@@ -118,11 +93,6 @@
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
       "rule": "blackout_period_reference",
       "matched_text": "blackout trading"
     },
@@ -134,7 +104,7 @@
     {
       "category": "MNPI",
       "rule": "transaction_codename",
-      "matched_text": "kode internal proyek \u201cMerak-7\u201d"
+      "matched_text": "kode internal proyek “Merak-7”"
     },
     {
       "category": "MNPI",
@@ -257,6 +227,39 @@
   "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_agent_review": {
+    "status": "strict_tier_cleaned_owner_approved",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "notes": "Reconciled ID Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
+  },
+  "_owner_acceptance": {
+    "status": "owner_approved_id_stage_a_for_internal_benchmarking",
+    "accepted_by": "gongahkia",
+    "accepted_at_utc": "2026-05-29T08:19:15Z",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
+  },
+  "_human_review": {
+    "status": "approved",
+    "decision": "approve",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "reviewed_at_utc": "2026-05-29T08:19:15Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+  },
+  "_human_review_history": [
+    {
+      "status": "approved",
+      "decision": "approve",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "reviewed_at_utc": "2026-05-29T08:19:15Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    }
+  ]
 }

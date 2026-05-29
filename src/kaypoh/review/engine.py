@@ -217,8 +217,16 @@ _MATERIAL_EVENT_NEGATED_CONTEXT_RE = re.compile(
     r"not\s+(?:price[- ]sensitive|a\s+profit\s+forecast|profit\s+forecast|"
     r"profit\s+warning|earnings\s+guidance|mnpi|upsi)|"
     r"absence\s+of\s+mnpi|no\s+(?:new\s+)?(?:price[- ]sensitive|upsi|mnpi)|no\s+unpublished|"
-    r"contains\s+no\s+unpublished|public\s+and\s+stale|already[-\s]+announced\s+terms|"
+    r"no\s+material\s+non[- ]public\s+information\s+remains|"
+    r"contains\s+no\s+unpublished|public\s+and\s+stale|public/stale|"
+    r"already[-\s]+announced\s+terms|"
     r"no\s+upsi\s+(?:is\s+)?included|are\s+not\s+upsi|"
+    r"disclosure\s+status\s+regarding|corporate\s+context|"
+    r"no\s+event\s+has\s+occurred|"
+    r"no\s+new\s+material\s+terms|internal\s+timelines\s+are\s+illustrative\s+only|"
+    r"does\s+not\s+alter\s+risk\s+profile|anti[- ]fraud\s+analytics|fully\s+remediated|"
+    r"no\s+cross[- ]border\s+movement[^\n.;]{0,80}(?:planned|required)|"
+    r"breach\s+may\s+trigger\s+internal\s+sanctions|employment\s+integration|"
     r"does\s+not\s+(?:itself\s+)?create\s+a\s+current\s+disclosure\s+obligation|"
     r"does\s+not\s+(?:itself\s+)?(?:contain|constitute)\s+(?:mnpi|"
     r"(?:a\s+)?mac|earnings\s+guidance|(?:a\s+)?profit\s+forecast)|"
@@ -239,6 +247,8 @@ _MATERIAL_EVENT_PUBLIC_CONTEXT_RE = re.compile(
     r"(?:previously|already)[-\s]+announced|"
     r"public(?:ly)?\s+available|"
     r"public\s+(?:announcement|disclosures?|information|reference|source|filings?|notice)|"
+    r"public\s+(?:release|transaction\s+status)|"
+    r"announced\s+on|e[- ]disclosure|"
     r"public\s+and\s+stale|"
     r"from\s+(?:public|openly\s+available)\s+materials?|"
     r"no\s+(?:new\s+)?(?:price[- ]sensitive|upsi|mnpi)|no\s+unpublished|"
@@ -332,7 +342,7 @@ CONTINGENT_MNPI_RE = re.compile(
 # digit-presence lookahead to defend against lowercase prose matching as an identifier.
 EMPLOYEE_ID_RE = re.compile(
     r"(?:Employee\s+(?:ID|No\.?|Number)|EMP-|Staff\s+(?:ID|No\.?|Number))[\s:.#-]*"
-    r"(?-i:(?=[A-Z0-9-]*\d)([A-Z0-9][A-Z0-9-]{3,11}))\b",
+    r"(?-i:(?=[A-Z0-9-]*\d)([A-Z0-9][A-Z0-9-]{3,11}))(?![A-Za-z0-9-])",
     re.IGNORECASE,
 )
 CUSTOMER_ACCOUNT_RE = re.compile(
@@ -1215,6 +1225,7 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"compliance\s+desk|deal\s+desk|"
     r"public(?:-facing)?\s+help\s*desk|public\s+helpdesk|public\s+helpline|"
     r"public\s+hotline|public\s+line|"
+    r"hotline\s+investor|nomor\s+publik|bukan\s+nomor\s+pribadi|"
     r"general\s+(?:queries|enquiries)|queries\s+contact|general\s+hotline|not\s+personal\s+data|"
     r"not\s+a\s+deal\s+contact|not\s+MNPI"
     r")\b",
@@ -1243,19 +1254,22 @@ _DATE_LIKE_PHONE_RE = re.compile(
 )
 _IPV4_LITERAL_RE = re.compile(r"(?:\d{1,3}\.){3}\d{1,3}\Z")
 _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
-    r"\b(?:UEN|NRIC|FIN|MyKad|passport|a/c|acc\s*t|account|company\s+no|co\.\s+no|"
-    r"reg\.\s+no|registration\s+no|tax\s+ref|TIN|EPF|SWIFT|IMEI|IP|DOB|dated|"
+    r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|a/c|acc\s*t|account|"
+    r"rekening|company\s+no|co\.\s+no|"
+    r"reg\.\s+no|registration\s+no|tax\s+ref|tax\s+no|TIN|EPF|SWIFT|IMEI|IP|DOB|dated|"
+    r"Rp|IDR|harga|nilai|miliar|triliun|billion|million|RSU|"
     r"Aadhaar|PAN|GSTIN|placeholder|sample|specimen|test\s+fields?|training\s+placeholder|"
     r"session\s+ref|SSA\s+ref|job\s+ID|asset\s+tag|badge)\b",
     re.IGNORECASE,
 )
 _LARGE_NUMBER_IDENTIFIER_CONTEXT_RE = re.compile(
-    r"\b(?:UEN|NRIC|FIN|MyKad|passport|postal|IMEI|IP|company\s+no|co\.\s+no|"
+    r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|postal|IMEI|IP|company\s+no|co\.\s+no|"
     r"reg\.\s+no|registration\s+no|tax\s+ref|TIN|EPF|SWIFT|account\s+no|a/c|"
-    r"acc\s*t|bank\s+account|session\s+ref|SSA\s+ref|job\s+ID|generic\s+label)\b",
+    r"acc\s*t|rekening|rek\.?|escrow|bank\s+account|akun\s+internal|non-bank|"
+    r"internal\s+wallet|wa\.me|session\s+ref|SSA\s+ref|job\s+ID|generic\s+label)\b",
     re.IGNORECASE,
 )
-_URL_PARAM_IDENTIFIER_CONTEXT_RE = re.compile(r"[?&](?:id|uid|co|ref)=", re.IGNORECASE)
+_URL_PARAM_IDENTIFIER_CONTEXT_RE = re.compile(r"[?&](?:id|uid|co|ref|nik|npwp|nib)=", re.IGNORECASE)
 _PLACEHOLDER_IDENTIFIER_CONTEXT_RE = re.compile(
     r"\b(?:invalid\s+placeholder|placeholder\s+with\s+an\s+invalid\s+checksum|"
     r"template\s+field|test\s+fields?|generic\s+placeholder|training\s+placeholder|"
@@ -1308,7 +1322,7 @@ def _is_functional_contact_context(text: str, start: int, end: int) -> bool:
 
 def _is_public_or_generic_phone_context(text: str, start: int, end: int) -> bool:
     digits = _digits_only(text[start:end])
-    if digits.startswith("1800"):
+    if digits.startswith("1800") or digits.startswith("0800"):
         return True
     context = _line_context(text, start, end)
     return bool(_PUBLIC_PHONE_CONTEXT_RE.search(context))
@@ -1341,10 +1355,27 @@ def _is_negated_mac_address_context(text: str, start: int, end: int) -> bool:
     return bool(re.search(r"\bnot\s+(?:a\s+|an\s+|the\s+)?MAC\s+address\b", context, re.IGNORECASE))
 
 
+def _is_negated_material_adverse_change_context(text: str, start: int, end: int) -> bool:
+    if _is_negated_context(text, start):
+        return True
+    context = _line_context(text, start, end)
+    return bool(re.search(
+        r"\b(?:"
+        r"no\s+event\s+has\s+occurred[^\n.;]{0,120}material\s+adverse\s+change|"
+        r"tidak[^\n.;]{0,80}material\s+adverse\s+change|"
+        r"bukan\s+mac|not\s+a\s+mac"
+        r")\b",
+        context,
+        re.IGNORECASE,
+    ))
+
+
 def _is_negated_nonpublic_marker_context(text: str, start: int, end: int) -> bool:
     context = _line_context(text, start, end)
     return bool(re.search(
         r"\b(?:not\s+(?:mnpi|upsi)|no\s+(?:upsi|mnpi)|"
+        r"tidak\s+ada\s+mnpi|no\s+material\s+non[- ]public\s+information\s+remains|"
+        r"mnpi\s+screening[^\n.;]{0,80}does\s+not\s+trigger|"
         r"does\s+not\s+add\s+unpublished\s+price[- ]sensitive\s+information|"
         r"unless\s+upsi\s+is\s+actually\s+present|mnpi\s+markers?:|"
         r"disclosed\s+in\s+annual\s+reports|disclosed\s+via\s+public\s+notice)\b",
@@ -1390,6 +1421,7 @@ def _is_identifier_like_large_number_context(text: str, start: int, end: int) ->
         return True
     return bool(
         _LARGE_NUMBER_IDENTIFIER_CONTEXT_RE.search(context)
+        or _LARGE_NUMBER_IDENTIFIER_CONTEXT_RE.search(wider_context)
         or _URL_PARAM_IDENTIFIER_CONTEXT_RE.search(context)
     )
 
@@ -1409,6 +1441,19 @@ def _is_public_or_benign_amount_context(text: str, start: int, end: int) -> bool
     return bool(_PUBLIC_OR_BENIGN_AMOUNT_CONTEXT_RE.search(context))
 
 
+def _is_educational_mnpi_marker_context(text: str, start: int, end: int) -> bool:
+    context = _line_context(text, start, end)
+    return bool(re.search(
+        r"\b(?:"
+        r"training\s+materials?\s+only|policy\s+training\s+examples?|"
+        r"educational\s+and\s+not\s+transaction[- ]related|"
+        r"not\s+as\s+market[- ]moving\s+events?|educational\s+example\s+only"
+        r")\b",
+        context,
+        re.IGNORECASE,
+    ))
+
+
 def _is_percent_encoded_fragment(text: str, start: int, end: int) -> bool:
     return end < len(text) - 1 and text[end:end + 2].lower() in {
         "20", "21", "22", "23", "24", "25", "26", "27", "28", "29",
@@ -1418,7 +1463,7 @@ def _is_percent_encoded_fragment(text: str, start: int, end: int) -> bool:
 
 
 def _is_spa_day_reference(text: str, start: int, end: int) -> bool:
-    return text[start:end].casefold() == "spa" and text[end:end + 4].casefold() == "-day"
+    return text[start:end].casefold() == "spa" and text[end:end + 4].casefold() in {"-day", " day"}
 
 
 def _digits_only(value: str) -> str:
@@ -1894,6 +1939,7 @@ _HIGHER_PRIORITY_THAN_PHONE = frozenset({
     "passport_number", "bank_account", "us_itin", "us_driver_license", "imei",
 })
 _HIGHER_PRIORITY_THAN_LARGE_NUMBER = _HIGHER_PRIORITY_THAN_PHONE | frozenset({
+    "phone_number",
     "financial_percentage", "date_of_birth", "age_reference",
     "ip_address", "mac_address", "cookie_id", "advertising_id", "device_serial_number",
     "sg_postal_address", "medical_record_number", "eu_national_id",
@@ -2981,6 +3027,8 @@ class PreSendReviewEngine:
                     digits = _digits_only(text[start:end])
                     if digits and set(digits) == {"0"}:
                         continue
+                    if re.search(r"\baudit\s+hash\b", _line_context(text, start, end), re.IGNORECASE):
+                        continue
                 if rule == "email_address" and _is_functional_contact_context(text, start, end):
                     continue
                 if rule == "phone_number" and _is_public_or_generic_phone_context(text, start, end):
@@ -3362,7 +3410,9 @@ class PreSendReviewEngine:
                 # narrow negation guard for MAC/MAE-style rules. catches the most common
                 # "no MAC clause concerns" / "not subject to MAC clause" patterns. doesn't
                 # try to be a general NLP solver — that's the audit_grade LLM tier's job.
-                if rule == "material_adverse_change" and _is_negated_context(text, match.start()):
+                if rule == "material_adverse_change" and _is_negated_material_adverse_change_context(
+                    text, match.start(), match.end()
+                ):
                     continue
                 if rule == "financial_amount" and _is_identifier_like_financial_amount(
                     text, match.start(), match.end()
@@ -3433,6 +3483,10 @@ class PreSendReviewEngine:
         for pattern, rule, reason in post_pass_rules:
             for match in pattern.finditer(text):
                 if rule in _negation_guarded and _is_negated_context(text, match.start()):
+                    continue
+                if rule in {"insider_list_marker", "information_barrier_marker"} and (
+                    _is_educational_mnpi_marker_context(text, match.start(), match.end())
+                ):
                     continue
                 findings.append(
                     _new_finding(
