@@ -113,6 +113,24 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         phones = [m for r, m in _rules_matched(text) if r == "phone_number"]
         self.assertNotIn("+65 6100 0000", phones)
 
+    def test_phone_does_not_fire_on_dates_or_ip_literals(self):
+        text = "DOB 14-03-1990; session ref 2026-05-28; IP 192.0.2.17."
+        phones = [m for r, m in _rules_matched(text) if r == "phone_number"]
+        self.assertNotIn("14-03-1990", phones)
+        self.assertNotIn("2026-05-28", phones)
+        self.assertNotIn("192.0.2.17", phones)
+
+    def test_phone_does_not_fire_on_account_or_uen_fragments(self):
+        text = "UEN: 2018 998765 K. Escrow account 123-456-789-0 is corporate."
+        phones = [m for r, m in _rules_matched(text) if r == "phone_number"]
+        self.assertNotIn("2018 998765", phones)
+        self.assertNotIn("123-456-789-0", phones)
+
+    def test_phone_does_not_fire_on_imei_like_bare_identifier(self):
+        text = "IMEI 356000112233445 appears in logs."
+        phones = [m for r, m in _rules_matched(text) if r == "phone_number"]
+        self.assertNotIn("356000112233445", phones)
+
 
 class FunctionalContactGuards(unittest.TestCase):
     def test_role_based_legal_mailbox_does_not_fire(self):
@@ -158,6 +176,41 @@ class FinancialAmountGuards(unittest.TestCase):
         self.assertIn("USD 2.5 million", amounts)
         self.assertIn("HKD 8,000,000", amounts)
         self.assertIn("JPY 120 million", amounts)
+
+    def test_currency_amount_does_not_swallow_next_word_unit_letter(self):
+        text = "Financing includes S$120,000,000 bridge debt."
+        amounts = [m for r, m in _rules_matched(text) if r == "financial_amount"]
+        self.assertIn("S$120,000,000", amounts)
+        self.assertNotIn("S$120,000,000 b", amounts)
+
+    def test_decimal_currency_amount_still_fires_as_whole_amount(self):
+        text = "Unpublished valuation range is S$4.20 to S$4.60 per share."
+        amounts = [m for r, m in _rules_matched(text) if r == "financial_amount"]
+        self.assertIn("S$4.20", amounts)
+        self.assertIn("S$4.60", amounts)
+        self.assertNotIn("S$4", amounts)
+
+    def test_uen_like_token_does_not_fire_as_financial_amount(self):
+        text = "Issuer UEN 201912345K appears on the cover page."
+        amounts = [m for r, m in _rules_matched(text) if r == "financial_amount"]
+        self.assertNotIn("201912345K", amounts)
+
+
+class LargeNumberPrecisionGuards(unittest.TestCase):
+    def test_large_number_inside_financial_amount_is_suppressed(self):
+        text = "Consideration is S$120,000,000 cash."
+        numbers = [m for r, m in _rules_matched(text) if r == "large_number"]
+        self.assertNotIn("120,000,000", numbers)
+
+    def test_large_number_inside_postal_code_is_suppressed(self):
+        text = "Registered office: Singapore 049899."
+        numbers = [m for r, m in _rules_matched(text) if r == "large_number"]
+        self.assertNotIn("049899", numbers)
+
+    def test_standalone_large_share_count_still_fires(self):
+        text = "The seller will transfer 100,000 ordinary shares."
+        numbers = [m for r, m in _rules_matched(text) if r == "large_number"]
+        self.assertIn("100,000", numbers)
 
 
 class PrivacyGuardAmountGuards(unittest.TestCase):

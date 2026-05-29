@@ -12,7 +12,7 @@ MONEY_RE = re.compile(
     r"\b(?:SGD|USD|EUR|GBP|JPY|AUD|HKD|KRW|CNY|RMB|MYR|IDR|THB|PHP|VND)\b\s*(?:S\$|US\$|A\$|HK\$|[\$€£¥])?)"
     r"\s*\d(?:[\d,]*\d)?(?:\.\d+)?"
     r"(?:(?:\s*(?:thousand|million|billion|trillion)\b)|(?:\s*[KMBT]\b))?"
-    r"(?=$|\s|[.,;:)])"
+    r"(?=$|\s|[,;:)\]–—-]|\.(?!\d))"
     r"|\b\d(?:[\d,]*\d)?(?:\.\d+)?"
     r"(?:(?:\s+(?:thousand|million|billion|trillion)\b)|(?:[KMBT]\b))",
     re.IGNORECASE,
