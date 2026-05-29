@@ -224,8 +224,8 @@ _MATERIAL_EVENT_NEGATED_CONTEXT_RE = re.compile(
 )
 _MATERIAL_EVENT_PUBLIC_CONTEXT_RE = re.compile(
     r"\b(?:"
-    r"generally\s+available|already\s+(?:announced|disclosed)|"
-    r"public(?:ly)?\s+(?:available|announced|disclosed|reported)|"
+    r"generally\s+available|"
+    r"public(?:ly)?\s+available|"
     r"public\s+(?:information|reference|source|filings?)|"
     r"from\s+(?:public|openly\s+available)\s+materials?|"
     r"not\s+price[- ]sensitive|not\s+mnpi|not\s+required|"
