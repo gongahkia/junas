@@ -188,6 +188,19 @@ class BiometricIdentifierTests(_BaseSpecialCategoryTests):
         self.assertEqual(len(f), 1)
         self.assertEqual(f[0].severity, "high")
 
+    def test_biometric_authentication_phrase_alone_does_not_fire(self):
+        self.assertEqual(
+            len(self._findings_for("The phrase biometric authentication appears in the security standard.",
+                                   "biometric_identifier")),
+            0,
+        )
+
+    def test_biometric_authentication_with_specific_template_still_fires(self):
+        self.assertEqual(
+            len(self._findings_for("Biometric authentication: fingerprint template.", "biometric_identifier")),
+            1,
+        )
+
     def test_voiceprint(self):
         self.assertEqual(len(self._findings_for("The access log stores a voiceprint.", "biometric_identifier")), 1)
 

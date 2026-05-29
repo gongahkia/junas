@@ -1142,11 +1142,68 @@ _NEGATION_LOOKBACK = re.compile(
     r"\b(?:no|nor|not|without|never|absent|excluding|neither)\b[\s\w]{0,15}\Z",
     re.IGNORECASE,
 )
+_ASSERTION_NEGATION_LOOKBACK = re.compile(
+    r"\b(?:nothing|no\s+(?:statement|language|draft|section|clause))\b[^\n.;]{0,80}"
+    r"\b(?:asserts?|states?|constitutes?|indicates?|confirms?|says)\s+"
+    r"(?:a|an|any|the)?\s*\Z",
+    re.IGNORECASE,
+)
+_FUNCTIONAL_CONTACT_CONTEXT_RE = re.compile(
+    r"\b(?:"
+    r"role[- ]only|role[- ]based|role\s+mailbox|functional\s+mailbox|"
+    r"role/functional\s+mailbox|shared\s+inbox|treasury\s+contact|"
+    r"generic\s+help\s*desk|public(?:-facing)?\s+help\s*desk|public\s+helpdesk|"
+    r"public\s+helpline|general\s+(?:queries|enquiries)|not\s+personal\s+data|"
+    r"not\s+linked\s+to\s+an?\s+identifiable\s+individual"
+    r")\b",
+    re.IGNORECASE,
+)
+_PUBLIC_PHONE_CONTEXT_RE = re.compile(
+    r"\b(?:"
+    r"public(?:-facing)?\s+help\s*desk|public\s+helpdesk|public\s+helpline|"
+    r"general\s+(?:queries|enquiries)|general\s+hotline|not\s+personal\s+data|"
+    r"not\s+a\s+deal\s+contact|not\s+MNPI"
+    r")\b",
+    re.IGNORECASE,
+)
+_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
+    "admin", "ap", "ar", "billing", "cosec", "compliance", "contact", "help",
+    "helpdesk", "info", "legal", "privacy", "support", "treasury",
+})
 
 
 def _is_negated_context(text: str, match_start: int) -> bool:
     window = text[max(0, match_start - 25):match_start]
-    return bool(_NEGATION_LOOKBACK.search(window))
+    if _NEGATION_LOOKBACK.search(window):
+        return True
+    longer_window = text[max(0, match_start - 100):match_start]
+    return bool(_ASSERTION_NEGATION_LOOKBACK.search(longer_window))
+
+
+def _is_functional_contact_context(text: str, start: int, end: int) -> bool:
+    left = max(text.rfind("\n", 0, start), text.rfind(";", 0, start)) + 1
+    right_candidates = [
+        pos for pos in (text.find("\n", end), text.find(";", end)) if pos >= 0
+    ]
+    right = min(right_candidates) if right_candidates else len(text)
+    context = text[left:right].strip()
+    if _FUNCTIONAL_CONTACT_CONTEXT_RE.search(context):
+        return True
+    local_part = text[start:end].split("@", 1)[0].casefold()
+    next_clause = text[end:min(len(text), end + 120)]
+    return (
+        local_part in _ROLE_MAILBOX_LOCAL_PARTS
+        and next_clause.lstrip().startswith(";")
+        and bool(_FUNCTIONAL_CONTACT_CONTEXT_RE.search(next_clause))
+    )
+
+
+def _is_public_or_generic_phone_context(text: str, start: int, end: int) -> bool:
+    digits = _digits_only(text[start:end])
+    if digits.startswith("1800"):
+        return True
+    context = _line_context(text, start, end)
+    return bool(_PUBLIC_PHONE_CONTEXT_RE.search(context))
 
 
 def _digits_only(value: str) -> str:
@@ -1820,10 +1877,14 @@ def _detect_minor_data_references(
         if _MINOR_FP_LEADING_GRADE.search(leading) and m.group("grade_us"):
             continue
 
-        # Extract the age digit if any of the age groups matched
+        # Extract the age digit if any of the age groups matched. If an explicit
+        # adult age matched the broad age regex, suppress it immediately instead of
+        # treating it like a marker-only minor reference.
         extracted_age: int | None = None
+        explicit_age_seen = False
         for group_name in ("age_a", "age_b", "age_c", "age_d"):
             if m.group(group_name):
+                explicit_age_seen = True
                 try:
                     candidate = int(m.group(group_name))
                 except ValueError:
@@ -1831,10 +1892,10 @@ def _detect_minor_data_references(
                 # Sanity-clamp to 0-25 — outside this range it's not a human age in context
                 if 0 <= candidate <= 25:
                     extracted_age = candidate
-                    break
+                break
 
         # Reject "26 years old" / "75 years old" etc. — adult references; not a minor signal
-        if extracted_age is not None and extracted_age > 19:
+        if explicit_age_seen and (extracted_age is None or extracted_age > 19):
             continue
 
         # School-grade markers imply minor; estimate age from grade number so per-juris cliff
@@ -1953,6 +2014,11 @@ def _detect_special_category_findings(
         if rule_name in disabled:
             continue
         for m in pattern.finditer(text):
+            if rule_name == "biometric_identifier" and m.group().strip().casefold() in {
+                "biometric authentication",
+                "biometric match",
+            }:
+                continue
             key = (rule_name, m.start(), m.end())
             if key in seen_spans:
                 continue
@@ -2647,6 +2713,10 @@ class PreSendReviewEngine:
                 if end <= start:
                     continue
                 if rule in _PII_NEGATION_GUARDED and _is_negated_context(text, start):
+                    continue
+                if rule == "email_address" and _is_functional_contact_context(text, start, end):
+                    continue
+                if rule == "phone_number" and _is_public_or_generic_phone_context(text, start, end):
                     continue
                 findings.append(
                     _new_finding(

@@ -30,11 +30,6 @@
       "matched_text": "S0000000Z"
     },
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1800-000-0000"
-    },
-    {
       "category": "MNPI",
       "rule": "financial_amount",
       "matched_text": "S$4.20"
@@ -69,6 +64,10 @@
     {
       "matched_text": "Counterparty",
       "reason": "Role noun used as a label, not PII"
+    },
+    {
+      "matched_text": "1800-000-0000",
+      "reason": "General hotline; not personal data under PDPA"
     }
   ],
   "uncertain": [
@@ -145,11 +144,6 @@
       "category": "PII",
       "rule": "sg_nric_fin",
       "matched_text": "S0000000Z"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1800-000-0000"
     },
     {
       "category": "MNPI",

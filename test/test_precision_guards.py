@@ -60,6 +60,12 @@ class MacMaePrecisionGuards(unittest.TestCase):
         rules = {r for r, _ in _rules_matched(text)}
         self.assertIn("material_adverse_change", rules)
 
+    def test_nothing_herein_asserts_mac_does_not_fire(self):
+        text = "For avoidance of doubt, nothing herein asserts a Material Adverse Change."
+        for rule, matched in _rules_matched(text):
+            self.assertNotEqual(rule, "material_adverse_change",
+                                f"assertion-negated MAC phrase should be suppressed; got {matched!r}")
+
 
 class PhoneNumberSpanDedupGuards(unittest.TestCase):
     def _has_phone_match(self, text: str, matched_text: str, jurisdiction: str = "SG") -> bool:
@@ -96,6 +102,47 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         text = "Call +65 9876 5432. NRIC S1234567D separately on file."
         phones = [m for r, m in _rules_matched(text) if r == "phone_number"]
         self.assertIn("+65 9876 5432", phones)
+
+    def test_public_helpline_does_not_fire_as_phone(self):
+        text = "General enquiries 1800 000 0000 is a public helpline and not personal data."
+        phones = [m for r, m in _rules_matched(text) if r == "phone_number"]
+        self.assertNotIn("1800 000 0000", phones)
+
+    def test_public_helpdesk_phone_does_not_fire(self):
+        text = "The vendor's public help desk help@example.com and +65 6100 0000 are not MNPI."
+        phones = [m for r, m in _rules_matched(text) if r == "phone_number"]
+        self.assertNotIn("+65 6100 0000", phones)
+
+
+class FunctionalContactGuards(unittest.TestCase):
+    def test_role_based_legal_mailbox_does_not_fire(self):
+        text = "For SGX submissions, counsel contact: legal@pryce-han.example; role-based signoff acceptable."
+        emails = [m for r, m in _rules_matched(text) if r == "email_address"]
+        self.assertNotIn("legal@pryce-han.example", emails)
+
+    def test_role_only_company_secretary_mailbox_does_not_fire(self):
+        text = "Deal lead is named separately; role-only contact: Company Secretary, cosec@velorise.com.sg."
+        emails = [m for r, m in _rules_matched(text) if r == "email_address"]
+        self.assertNotIn("cosec@velorise.com.sg", emails)
+
+    def test_personal_email_still_fires(self):
+        text = "Contact Ms Jane Tan at jane.tan@example.sg."
+        emails = [m for r, m in _rules_matched(text) if r == "email_address"]
+        self.assertIn("jane.tan@example.sg", emails)
+
+    def test_personal_email_before_later_role_only_contact_still_fires(self):
+        text = (
+            "Deal lead: Mr. Adrian Khoo, adrian.khoo@velorise.com.sg; "
+            "role-only contact: Company Secretary, cosec@velorise.com.sg."
+        )
+        emails = [m for r, m in _rules_matched(text) if r == "email_address"]
+        self.assertIn("adrian.khoo@velorise.com.sg", emails)
+        self.assertNotIn("cosec@velorise.com.sg", emails)
+
+    def test_unqualified_legal_mailbox_still_fires(self):
+        text = "For inquiries, email legal@techinsights.sg."
+        emails = [m for r, m in _rules_matched(text) if r == "email_address"]
+        self.assertIn("legal@techinsights.sg", emails)
 
 
 class FinancialAmountGuards(unittest.TestCase):

@@ -133,6 +133,10 @@ class MinorDataReferenceTests(unittest.TestCase):
         f = self._fires("User aged 25 has consented.", source="EU", dest="EU")
         self.assertEqual(len(f), 0)
 
+    def test_29_year_old_does_not_fire(self):
+        f = self._fires("A 29-year-old marketing intern queried the IR page.", source="SG", dest="SG")
+        self.assertEqual(len(f), 0)
+
     # --- cross-jurisdiction routing ---
     def test_strictest_juris_wins(self):
         # source SG (cliff 18) + dest CN (cliff 14): age 16 → falls under SG only → high

@@ -4,9 +4,11 @@
 from __future__ import annotations
 
 import argparse
+import re
 import json
 import sys
 import time
+from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -35,6 +37,7 @@ class CandidateDocReport:
     ideal_matched: list[dict[str, str]] = field(default_factory=list)
     ideal_missed: list[dict[str, str]] = field(default_factory=list)
     unexpected: list[dict[str, str]] = field(default_factory=list)
+    unexpected_triage: list[dict[str, str]] = field(default_factory=list)
     must_not_detect_violations: list[dict[str, str]] = field(default_factory=list)
     uncertain: list[dict[str, str]] = field(default_factory=list)
 
@@ -66,6 +69,73 @@ def _run_engine(text: str, labels: dict[str, Any]) -> list[dict[str, str]]:
     ]
 
 
+_DATE_OR_IP_LIKE_RE = re.compile(
+    r"^(?:\d{4}[-/]\d{1,2}[-/]\d{1,2}(?:\s+\d{1,2})?|"
+    r"\d{1,2}[-/]\d{1,2}[-/]\d{2,4}(?:\s+\d{1,2})?|"
+    r"\d{1,3}(?:\.\d{1,3}){2,3})$"
+)
+
+
+def _looks_numeric_detector_false_positive(finding: dict[str, str]) -> bool:
+    rule = finding["rule"]
+    text = finding["matched_text"].strip()
+    digits = "".join(ch for ch in text if ch.isdigit())
+    if rule == "phone_number":
+        if _DATE_OR_IP_LIKE_RE.fullmatch(text):
+            return True
+        if len(digits) >= 14 and not text.startswith("+"):
+            return True
+        return False
+    if rule == "financial_amount":
+        return bool(re.fullmatch(r"\d{6,}\s*[KMBT]", text, re.IGNORECASE))
+    if rule == "large_number":
+        return bool(re.fullmatch(r"0{6,}", digits))
+    return False
+
+
+def _triage_unexpected(
+    finding: dict[str, str],
+    *,
+    expected: list[dict[str, str]],
+    ideal: list[dict[str, str]],
+    must_not_detect: list[dict[str, str]],
+    uncertain: list[dict[str, str]],
+) -> dict[str, str]:
+    """Heuristic queueing only. Human review decides final label/detector action."""
+    key = (finding["rule"], finding["matched_text"])
+    ideal_keys = {(item["rule"], item["matched_text"]) for item in ideal}
+    expected_texts = {item["matched_text"] for item in expected}
+    ideal_texts = {item["matched_text"] for item in ideal}
+    forbidden = {item["matched_text"]: item.get("reason", "") for item in must_not_detect}
+    uncertain_by_text = {item["matched_text"]: item.get("concept", "") for item in uncertain}
+
+    if finding["matched_text"] in forbidden:
+        bucket = "actual_detector_false_positive"
+        reason = f"matched must_not_detect span: {forbidden[finding['matched_text']]}"
+    elif key in ideal_keys:
+        bucket = "ideal_only_statutory_gap"
+        reason = "exact match appears in ideal_must_detect but not detector-aligned must_detect"
+    elif finding["matched_text"] in expected_texts or finding["matched_text"] in ideal_texts:
+        bucket = "taxonomy_model_label_mismatch"
+        reason = "same span is labeled under another rule/category"
+    elif finding["matched_text"] in uncertain_by_text:
+        bucket = "taxonomy_model_label_mismatch"
+        reason = f"same span is marked uncertain: {uncertain_by_text[finding['matched_text']]}"
+    elif _looks_numeric_detector_false_positive(finding):
+        bucket = "actual_detector_false_positive"
+        reason = "numeric shape looks like date/IP/identifier noise rather than the emitted rule"
+    else:
+        bucket = "real_detector_hit_missing_from_strict_labels"
+        reason = "not in must_detect; inspect whether strict labels should include it"
+
+    return {
+        "bucket": bucket,
+        "rule": finding["rule"],
+        "matched_text": finding["matched_text"],
+        "reason": reason,
+    }
+
+
 def _evaluate_one(path: Path) -> CandidateDocReport:
     text, labels = _load_pair(path)
     findings = _run_engine(text, labels)
@@ -92,7 +162,29 @@ def _evaluate_one(path: Path) -> CandidateDocReport:
     ideal_matched = [item for item in ideal if (item["rule"], item["matched_text"]) in finding_keys]
     ideal_missed = [item for item in ideal if (item["rule"], item["matched_text"]) not in finding_keys]
     unexpected = [item for item in findings if (item["rule"], item["matched_text"]) not in expected_keys]
-    forbidden = {str(item["matched_text"]): str(item.get("reason") or "") for item in labels.get("must_not_detect", [])}
+    must_not_detect = [
+        {"matched_text": str(item["matched_text"]), "reason": str(item.get("reason") or "")}
+        for item in labels.get("must_not_detect", [])
+    ]
+    uncertain = [
+        {
+            "matched_text": str(item.get("matched_text") or ""),
+            "concept": str(item.get("concept") or ""),
+            "reason": str(item.get("reason") or ""),
+        }
+        for item in labels.get("uncertain", [])
+    ]
+    unexpected_triage = [
+        _triage_unexpected(
+            item,
+            expected=expected,
+            ideal=ideal,
+            must_not_detect=must_not_detect,
+            uncertain=uncertain,
+        )
+        for item in unexpected
+    ]
+    forbidden = {item["matched_text"]: item["reason"] for item in must_not_detect}
     violations = [
         {
             "rule": finding["rule"],
@@ -115,15 +207,9 @@ def _evaluate_one(path: Path) -> CandidateDocReport:
         ideal_matched=ideal_matched,
         ideal_missed=ideal_missed,
         unexpected=unexpected,
+        unexpected_triage=unexpected_triage,
         must_not_detect_violations=violations,
-        uncertain=[
-            {
-                "matched_text": str(item.get("matched_text") or ""),
-                "concept": str(item.get("concept") or ""),
-                "reason": str(item.get("reason") or ""),
-            }
-            for item in labels.get("uncertain", [])
-        ],
+        uncertain=uncertain,
     )
 
 
@@ -138,6 +224,7 @@ def _summary(reports: list[CandidateDocReport]) -> dict[str, Any]:
     total_violations = sum(len(report.must_not_detect_violations) for report in reports)
     by_rule: dict[str, dict[str, int]] = {}
     ideal_by_rule: dict[str, dict[str, int]] = {}
+    unexpected_triage = Counter[str]()
     for report in reports:
         for item in report.matched:
             by_rule.setdefault(item["rule"], {"matched": 0, "missed": 0})["matched"] += 1
@@ -147,6 +234,8 @@ def _summary(reports: list[CandidateDocReport]) -> dict[str, Any]:
             ideal_by_rule.setdefault(item["rule"], {"matched": 0, "missed": 0})["matched"] += 1
         for item in report.ideal_missed:
             ideal_by_rule.setdefault(item["rule"], {"matched": 0, "missed": 0})["missed"] += 1
+        for item in report.unexpected_triage:
+            unexpected_triage[item["bucket"]] += 1
     return {
         "doc_count": len(reports),
         "expected_labels": total_expected,
@@ -164,6 +253,7 @@ def _summary(reports: list[CandidateDocReport]) -> dict[str, Any]:
         "ideal_candidate_recall": round(total_ideal_matched / total_ideal, 4) if total_ideal else 0.0,
         "by_rule": by_rule,
         "ideal_by_rule": ideal_by_rule,
+        "unexpected_triage": dict(sorted(unexpected_triage.items())),
     }
 
 

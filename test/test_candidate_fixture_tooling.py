@@ -110,9 +110,13 @@ class CandidateFixtureToolingTests(unittest.TestCase):
         self.assertEqual(len(report.missed), 1)
         self.assertEqual(len(report.ideal_matched), 2)
         self.assertEqual(len(report.ideal_missed), 1)
+        triage_buckets = {item["bucket"] for item in report.unexpected_triage}
+        self.assertIn("ideal_only_statutory_gap", triage_buckets)
+        self.assertIn("real_detector_hit_missing_from_strict_labels", triage_buckets)
         self.assertEqual(report.human_review_status, "pending")
         self.assertEqual(summary["candidate_recall"], 0.5)
         self.assertIn("candidate_precision", summary)
+        self.assertIn("unexpected_triage", summary)
         self.assertEqual(summary["ideal_candidate_recall"], 0.6667)
 
 

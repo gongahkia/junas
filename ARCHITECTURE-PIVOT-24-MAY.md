@@ -86,7 +86,7 @@ Progress is tracked here until the candidate corpus has its own generated report
 
 | Priority | Jurisdiction | Stage A | Stage B | Stage C | Notes |
 |---:|---|---|---|---|---|
-| 1 | SG | evaluated | pending | pending | Stage A retuned in place: 21 docs; strict recall 1.0, strict precision 0.4718; ideal recall 0.4475; 10 must-not violations; human review pending. Run: `/tmp/kaypoh-candidate-run-20260528-080405`. |
+| 1 | SG | evaluated | pending | pending | Stage A precision-cleaned: 21 docs; strict recall 1.0, strict precision 0.4848; ideal recall 0.4464; 0 must-not violations; human review pending. Run: `/tmp/kaypoh-sg-stage-a-precision-cleanup.json` (from `/tmp/kaypoh-candidate-run-20260528-080405`). |
 | 2 | MY | pending | pending | pending | SEA seed pack; Bursa / PDPA coverage depth. |
 | 3 | ID | pending | pending | pending | SEA seed pack; OJK / PDP coverage depth. |
 | 4 | TH | pending | pending | pending | SEA seed pack; SEC / PDPA coverage depth. |
