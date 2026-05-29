@@ -15,7 +15,10 @@ from kaypoh.workflow.privacy_guard import EMAIL_RE, LONG_NUMBER_RE, MONEY_RE, PE
 SG_NRIC_RE = re.compile(r"\b[STFGM]\d{7}[A-Z]\b", re.IGNORECASE)
 # ACRA UEN: legacy 8-9 digit + check letter; new T-format.
 SG_UEN_RE = re.compile(r"\b(?:\d{8,9}[A-Z]|T\d{2}[A-Z]{2}\d{4}[A-Z])\b")
-PASSPORT_RE = re.compile(r"\b(?:passport|pass no\.?|passport no\.?)\s*[:#-]?\s*([A-Z0-9]{6,12})\b", re.IGNORECASE)
+PASSPORT_RE = re.compile(
+    r"\b(?:passport|pass no\.?|passport no\.?)\s*[:#-]?\s*((?=[A-Z0-9]*\d)[A-Z0-9]{6,12})\b",
+    re.IGNORECASE,
+)
 SG_POSTAL_RE = re.compile(r"\b(?:Singapore|S)\s*(\d{6})\b", re.IGNORECASE)
 BANK_ACCOUNT_RE = re.compile(
     r"\b(?:account\s+no\.?|acct\s+no\.?|a/c|iban|swift|bank\s+account)\s*[:#-]\s*"
@@ -213,6 +216,9 @@ _MATERIAL_EVENT_NEGATED_CONTEXT_RE = re.compile(
     r"\b(?:"
     r"not\s+(?:price[- ]sensitive|a\s+profit\s+forecast|profit\s+forecast|"
     r"profit\s+warning|earnings\s+guidance|mnpi)|"
+    r"absence\s+of\s+mnpi|no\s+(?:new\s+)?price[- ]sensitive|no\s+unpublished|"
+    r"contains\s+no\s+unpublished|public\s+and\s+stale|already[-\s]+announced\s+terms|"
+    r"does\s+not\s+(?:itself\s+)?create\s+a\s+current\s+disclosure\s+obligation|"
     r"does\s+not\s+(?:itself\s+)?(?:contain|constitute)\s+(?:mnpi|"
     r"(?:a\s+)?mac|earnings\s+guidance|(?:a\s+)?profit\s+forecast)|"
     r"no\s+material\s+adverse\s+change|"
@@ -225,10 +231,14 @@ _MATERIAL_EVENT_NEGATED_CONTEXT_RE = re.compile(
 _MATERIAL_EVENT_PUBLIC_CONTEXT_RE = re.compile(
     r"\b(?:"
     r"generally\s+available|"
+    r"(?:previously|already)[-\s]+announced|"
     r"public(?:ly)?\s+available|"
-    r"public\s+(?:information|reference|source|filings?)|"
+    r"public\s+(?:announcement|disclosures?|information|reference|source|filings?)|"
+    r"public\s+and\s+stale|"
     r"from\s+(?:public|openly\s+available)\s+materials?|"
-    r"not\s+price[- ]sensitive|not\s+mnpi|not\s+required|"
+    r"no\s+(?:new\s+)?price[- ]sensitive|no\s+unpublished|"
+    r"not\s+price[- ]sensitive|not\s+mnpi|not\s+required|not\s+an\s+announcement|"
+    r"educational|training|"
     r"no\s+(?:sgxnet\s+)?disclosure\s+is\s+required"
     r")\b",
     re.IGNORECASE,
@@ -1197,6 +1207,7 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"\b(?:"
     r"compliance\s+desk|deal\s+desk|"
     r"public(?:-facing)?\s+help\s*desk|public\s+helpdesk|public\s+helpline|"
+    r"public\s+hotline|public\s+line|"
     r"general\s+(?:queries|enquiries)|queries\s+contact|general\s+hotline|not\s+personal\s+data|"
     r"not\s+a\s+deal\s+contact|not\s+MNPI"
     r")\b",
@@ -1219,15 +1230,18 @@ _DATE_LIKE_PHONE_RE = re.compile(
 )
 _IPV4_LITERAL_RE = re.compile(r"(?:\d{1,3}\.){3}\d{1,3}\Z")
 _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
-    r"\b(?:UEN|NRIC|FIN|passport|a/c|account|IMEI|IP|DOB|dated|session\s+ref|"
-    r"asset\s+tag|badge)\b",
+    r"\b(?:UEN|NRIC|FIN|MyKad|passport|a/c|acc\s*t|account|company\s+no|co\.\s+no|"
+    r"reg\.\s+no|registration\s+no|tax\s+ref|TIN|EPF|SWIFT|IMEI|IP|DOB|dated|"
+    r"session\s+ref|SSA\s+ref|job\s+ID|asset\s+tag|badge)\b",
     re.IGNORECASE,
 )
 _LARGE_NUMBER_IDENTIFIER_CONTEXT_RE = re.compile(
-    r"\b(?:UEN|NRIC|FIN|passport|postal|IMEI|IP|account\s+no\.?|a/c|bank\s+account|"
-    r"generic\s+label)\b",
+    r"\b(?:UEN|NRIC|FIN|MyKad|passport|postal|IMEI|IP|company\s+no|co\.\s+no|"
+    r"reg\.\s+no|registration\s+no|tax\s+ref|TIN|EPF|SWIFT|account\s+no|a/c|"
+    r"acc\s*t|bank\s+account|session\s+ref|SSA\s+ref|job\s+ID|generic\s+label)\b",
     re.IGNORECASE,
 )
+_URL_PARAM_IDENTIFIER_CONTEXT_RE = re.compile(r"[?&](?:id|uid|co|ref)=", re.IGNORECASE)
 _PLACEHOLDER_IDENTIFIER_CONTEXT_RE = re.compile(
     r"\b(?:invalid\s+placeholder|placeholder\s+with\s+an\s+invalid\s+checksum|"
     r"template\s+field|generic\s+placeholder)\b",
@@ -1295,8 +1309,22 @@ def _is_non_phone_numeric_context(text: str, start: int, end: int) -> bool:
     if matched.startswith("+"):
         return False
     context = text[max(0, start - 90): min(len(text), end + 90)]
-    has_separator = bool(re.search(r"[\s.-]", matched))
-    return bool(has_separator and _NON_PHONE_NUMERIC_CONTEXT_RE.search(context))
+    return bool(
+        _NON_PHONE_NUMERIC_CONTEXT_RE.search(context)
+        or _URL_PARAM_IDENTIFIER_CONTEXT_RE.search(context)
+    )
+
+
+def _is_special_category_false_positive_context(rule_name: str, text: str, start: int, end: int) -> bool:
+    context = _line_context(text, start, end)
+    if rule_name == "genetic_data" and re.search(
+        r"\b(?:genetic\s+algorithms?|software\s+features?|not\s+about\s+any\s+person|"
+        r"not\s+personal\s+data)\b",
+        context,
+        re.IGNORECASE,
+    ):
+        return True
+    return False
 
 
 def _is_identifier_like_large_number_context(text: str, start: int, end: int) -> bool:
@@ -1308,7 +1336,13 @@ def _is_identifier_like_large_number_context(text: str, start: int, end: int) ->
     line_match_start = max(0, line.find(matched))
     line_match_end = line_match_start + len(matched)
     context = line[max(0, line_match_start - 40): min(len(line), line_match_end + 16)]
-    return bool(_LARGE_NUMBER_IDENTIFIER_CONTEXT_RE.search(context))
+    wider_context = line[max(0, line_match_start - 120): min(len(line), line_match_end + 16)]
+    if "http" in wider_context.casefold() and "," not in matched:
+        return True
+    return bool(
+        _LARGE_NUMBER_IDENTIFIER_CONTEXT_RE.search(context)
+        or _URL_PARAM_IDENTIFIER_CONTEXT_RE.search(context)
+    )
 
 
 def _is_identifier_like_financial_amount(text: str, start: int, end: int) -> bool:
@@ -2156,6 +2190,8 @@ def _detect_special_category_findings(
                 "biometric match",
             }:
                 continue
+            if _is_special_category_false_positive_context(rule_name, text, m.start(), m.end()):
+                continue
             key = (rule_name, m.start(), m.end())
             if key in seen_spans:
                 continue
@@ -2926,6 +2962,9 @@ class PreSendReviewEngine:
                     else:
                         start, end = match.span()
                     if end <= start:
+                        continue
+                    digits = _digits_only(text[start:end])
+                    if digits and set(digits) == {"0"}:
                         continue
                     if not recognizer.is_valid(text[start:end]):
                         continue

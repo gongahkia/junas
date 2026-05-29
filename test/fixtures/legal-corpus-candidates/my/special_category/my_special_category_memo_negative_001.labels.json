@@ -1,0 +1,313 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled MY Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T04:00:07Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T04:00:07Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T04:00:07Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "owner_approved_my_stage_a_for_internal_benchmarking"
+  },
+  "_strict_label_cleanup": {
+    "new_ideal_must_detect_count": 16,
+    "new_must_detect_count": 8,
+    "notes": "MY Stage A strict tier reconciled to deterministic strict-mode engine after manual mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+    "old_ideal_must_detect_count": 13,
+    "old_must_detect_count": 5,
+    "removed_must_not_detect": [],
+    "reviewed_at_utc": "2026-05-29T03:59:20Z",
+    "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_special_category_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "governance@tamankencana.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investor.relations@tamankencana.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EMP-77A",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Type 1 diabetes condition",
+      "rule": "health_condition"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MoU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Bank Account No. [masked]",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NRIC/Passport [not collected]",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Emergency Contact [role mailbox only]",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restrict to HR-Legal only",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure to analysts or the Bukit Angkasa Falcons fan club",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "prior to Bursa disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "materiality is triggered",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal legal note re: Taman Kencana Berhad (Company No.: TK-00000) \u2014 compliance with PDPA, CMSA, and Bursa Listing Requirements for proposed financing and HR updates.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing note: covenant summaries may be circulated in aggregate; absence of amounts is intentional to avoid inadvertent MNPI prior to Bursa disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "governance@tamankencana.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investor.relations@tamankencana.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EMP-77A",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal legal note re: Taman Kencana Berhad (Company No.: TK-00000) \u2014 compliance with PDPA, CMSA, and Bursa Listing Requirements for proposed financing and HR updates.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing note: covenant summaries may be circulated in aggregate; absence of amounts is intentional to avoid inadvertent MNPI prior to Bursa disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MoU",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Cloud Palm 2.0",
+      "reason": "Product name bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "Teh Tarik Spark",
+      "reason": "Product name bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "Selera Raya Bundle",
+      "reason": "Product name bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "Rainbow Inclusion Charter 2026",
+      "reason": "Policy name bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "Safe Canteen Code",
+      "reason": "Policy name bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "Green Sprint",
+      "reason": "Policy name bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "Bukit Angkasa Falcons",
+      "reason": "Sports team bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "Harimau River derby",
+      "reason": "Sports/event bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "Merak City Meteors",
+      "reason": "Sports team bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "Wellness Fridays",
+      "reason": "Generic program/metaphor bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "stadium metaphors",
+      "reason": "Metaphor bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "ACC-0000-XYZ",
+      "reason": "Code-like string bait; not in allowed PII rules"
+    },
+    {
+      "matched_text": "99.99.99",
+      "reason": "Code-like string bait; not in allowed PII rules"
+    },
+    {
+      "matched_text": "Jalan Anggerik 9",
+      "reason": "Generic address/venue; not a supported postal-address rule"
+    },
+    {
+      "matched_text": "Company No.: TK-00000",
+      "reason": "Company identifier; not an allowed PII rule"
+    },
+    {
+      "matched_text": "Employee A",
+      "reason": "Not a named person under the rules"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "data minimisation",
+      "matched_text": "NRIC/Passport [not collected]",
+      "reason": "Indicates PDPA minimisation for ID/passport fields; no actual identifier present and negated collection"
+    },
+    {
+      "concept": "data minimisation",
+      "matched_text": "Residential Address [not collected]",
+      "reason": "Indicates minimisation; not a supported postal-address type and collection is negated"
+    },
+    {
+      "concept": "sensitive financial PII control",
+      "matched_text": "Bank Account No. [masked]",
+      "reason": "Reveals presence of bank-account field with masking; no actual account number provided"
+    },
+    {
+      "concept": "PII placeholder",
+      "matched_text": "Emergency Contact [role mailbox only]",
+      "reason": "Suggests contact details but limited to role mailbox; no personal contact value present"
+    },
+    {
+      "concept": "information barrier",
+      "matched_text": "restrict to HR-Legal only",
+      "reason": "Access restriction relating to sensitive personal data; marker not explicitly listed"
+    },
+    {
+      "concept": "selective disclosure control",
+      "matched_text": "no selective disclosure to analysts or the Bukit Angkasa Falcons fan club",
+      "reason": "Compliance directive; negated form rather than an incident marker"
+    },
+    {
+      "concept": "non-public status",
+      "matched_text": "prior to Bursa disclosure",
+      "reason": "Indicates pre-disclosure phase; not a standard nonpublic marker phrase"
+    },
+    {
+      "concept": "material event threshold",
+      "matched_text": "materiality is triggered",
+      "reason": "Potential MNPI trigger in hypothetical phrasing; not a concrete event"
+    },
+    {
+      "concept": "definitive agreement reference",
+      "matched_text": "term sheet",
+      "reason": "Lower-case variant may not be captured by strict pattern matching"
+    },
+    {
+      "concept": "internal identifier",
+      "matched_text": "draft ID: TNK-MEMO-0000-BETA",
+      "reason": "Internal document ID; no matching allowed PII rule for such identifiers"
+    },
+    {
+      "concept": "announcement reference",
+      "matched_text": "Announcement Ref: TK-ANN-XY00",
+      "reason": "Reference code not covered by allowed rules"
+    },
+    {
+      "concept": "location descriptor",
+      "matched_text": "Merak City shared office at Jalan Anggerik 9",
+      "reason": "Venue/address-like information but outside supported postal-address rules"
+    },
+    {
+      "concept": "medical information",
+      "matched_text": "medical certificate",
+      "reason": "Indicates medical documentation; allowed rules focus on conditions/treatment rather than documents"
+    }
+  ]
+}

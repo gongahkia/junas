@@ -1,0 +1,317 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled MY Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T04:00:07Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T04:00:07Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'"
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T04:00:07Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "owner_approved_my_stage_a_for_internal_benchmarking"
+  },
+  "_strict_label_cleanup": {
+    "new_ideal_must_detect_count": 23,
+    "new_must_detect_count": 11,
+    "notes": "MY Stage A strict tier reconciled to deterministic strict-mode engine after manual mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+    "old_ideal_must_detect_count": 17,
+    "old_must_detect_count": 6,
+    "removed_must_not_detect": [],
+    "reviewed_at_utc": "2026-05-29T03:59:20Z",
+    "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_direct_identifiers_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "800101-14-7788",
+      "rule": "my_mykad"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12-3456-7890123",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr@serilapis.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@serilapis.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@serilapis.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Remove placeholder fields before any submission",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Identifier-shaped samples in drafts are non-operative and must not be included in filings",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For drafting convenience, company tax labels should remain generic (e.g., [Company Tax Ref]) and not replaced with live numbers; do not insert SST or customs account numbers into public-facing appendices",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employment letter templates for Plant Manager and Accounts Supervisor roles must use role mailboxes only and omit personal contacts",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Any scanned IDs, utility bills, or payroll slips attached to financing or employment annexures must be removed before circulation to directors or uploaded to the exchange portal",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Board pack versions should carry version dates only (e.g., [Version Date]) and avoid embedding metadata that could reveal draft counterparties or employee initials",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No unpublished financial metrics, customer names, or pricing terms are to be circulated beyond what was summarised in the 2 April 2026 Kencana LINK announcement",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "doing so may contravene the Securities Markets Act (MY) provisions on MNPI",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "remains subject to internal credit approvals",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "further details are intentionally withheld until binding terms exist",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "contain no new price-sensitive information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal legal note: PDPA and market disclosure compliance for Seri Lapis Berhad (Company No.: 2022012345678-Z, invalid format) in relation to proposed financing with Crescent Bay Capital Sdn Bhd (Co. No.: 2019123456789, invalid length).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "If staff require guidance on redaction or anonymisation under PDPA, queries should be sent to compliance@serilapis.com.my; external investor queries should be routed to ir@serilapis.com.my or the Exchange Investor Helpline at 03-6200 0000 (public line).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Any scanned IDs, utility bills, or payroll slips attached to financing or employment annexures must be removed before circulation to directors or uploaded to the exchange portal.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject to the above controls, Legal and Compliance consider the current drafts fit for submission to the exchange portal and lender\u2019s data room without risk of inadvertent PDPA breach or unlawful selective disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hr@serilapis.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@serilapis.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12-3456-7890123",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "800101-14-7788",
+      "rule": "my_mykad"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal legal note: PDPA and market disclosure compliance for Seri Lapis Berhad (Company No.: 2022012345678-Z, invalid format) in relation to proposed financing with Crescent Bay Capital Sdn Bhd (Co. No.: 2019123456789, invalid length).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "If staff require guidance on redaction or anonymisation under PDPA, queries should be sent to compliance@serilapis.com.my; external investor queries should be routed to ir@serilapis.com.my or the Exchange Investor Helpline at 03-6200 0000 (public line).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Any scanned IDs, utility bills, or payroll slips attached to financing or employment annexures must be removed before circulation to directors or uploaded to the exchange portal.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject to the above controls, Legal and Compliance consider the current drafts fit for submission to the exchange portal and lender\u2019s data room without risk of inadvertent PDPA breach or unlawful selective disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "[NRIC]",
+      "reason": "Placeholder field label; not actual PII."
+    },
+    {
+      "matched_text": "[Passport No]",
+      "reason": "Placeholder field label; not actual PII."
+    },
+    {
+      "matched_text": "[Bank Account]",
+      "reason": "Placeholder field label; not actual PII."
+    },
+    {
+      "matched_text": "[EPF No]",
+      "reason": "Placeholder field label; not actual PII."
+    },
+    {
+      "matched_text": "[Income Tax Ref]",
+      "reason": "Placeholder field label; not actual PII."
+    },
+    {
+      "matched_text": "[Residential Address]",
+      "reason": "Placeholder field label; not actual PII."
+    },
+    {
+      "matched_text": "[Authorised Signatory]",
+      "reason": "Placeholder role label; not a person or identifier."
+    },
+    {
+      "matched_text": "[Witness Name]",
+      "reason": "Placeholder role label; not a person or identifier."
+    },
+    {
+      "matched_text": "[Version Date]",
+      "reason": "Template token; not PII."
+    },
+    {
+      "matched_text": "1-800-88-4242",
+      "reason": "Public helpline number; not personal data."
+    },
+    {
+      "matched_text": "03-6200 0000",
+      "reason": "Public helpline number; not personal data."
+    },
+    {
+      "matched_text": "SWIFT FICNMYKL0XX",
+      "reason": "Bank identifier code sample; not personal data."
+    },
+    {
+      "matched_text": "Plant Manager",
+      "reason": "Job title/role, not a named person."
+    },
+    {
+      "matched_text": "Accounts Supervisor",
+      "reason": "Job title/role, not a named person."
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "my_company_registration_number",
+      "matched_text": "2022012345678-Z",
+      "reason": "Malaysia company registration-style number; corporate identifier not covered by allowed rules and flagged invalid."
+    },
+    {
+      "concept": "my_company_registration_number",
+      "matched_text": "2019123456789",
+      "reason": "Malaysia company registration-style number; corporate identifier not covered by allowed rules and flagged invalid."
+    },
+    {
+      "concept": "my_epf_number",
+      "matched_text": "EPF 0000000",
+      "reason": "Malaysia EPF member number is personal data but not covered by allowed rules; here a placeholder sample."
+    },
+    {
+      "concept": "tax_identifier_generic",
+      "matched_text": "TIN C-1234567890",
+      "reason": "Tax identifier reference not mapped to an allowed jurisdictional rule and marked invalid format."
+    }
+  ]
+}

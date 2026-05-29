@@ -1,0 +1,246 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled MY Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T04:00:07Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T04:00:07Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T04:00:07Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "owner_approved_my_stage_a_for_internal_benchmarking"
+  },
+  "_strict_label_cleanup": {
+    "new_ideal_must_detect_count": 20,
+    "new_must_detect_count": 11,
+    "notes": "MY Stage A strict tier reconciled to deterministic strict-mode engine after manual mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+    "old_ideal_must_detect_count": 17,
+    "old_must_detect_count": 8,
+    "removed_must_not_detect": [],
+    "reviewed_at_utc": "2026-05-29T03:59:20Z",
+    "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_universal_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "000000-00-0000",
+      "rule": "my_mykad"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123-456-789-0",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03-5555 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03-6000 1111",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@bendera-baharu.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@bendera-baharu.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cosec@bendera-baharu.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IC no",
+      "rule": "my_mykad"
+    },
+    {
+      "category": "PII",
+      "matched_text": "bank account",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "spa",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "share purchase agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "for discussion only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "to be released on 15 Sep 2026 at 08:45 MYT",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo time",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not circulate externally before the embargo time",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cmsa/listing rules context: the proposed financing discussed below is not a \u201cmaterial transaction\u201d under LR para 10.02 based on public thresholds; any future variation will be assessed before announcement",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "before announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@bendera-baharu.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@bendera-baharu.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03-5555 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03-6000 1111",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123-456-789-0",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cmsa/listing rules context: the proposed financing discussed below is not a \u201cmaterial transaction\u201d under LR para 10.02 based on public thresholds; any future variation will be assessed before announcement",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "before announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "spa",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "share purchase agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa day",
+      "reason": "Staff perk reference; not a Share Purchase Agreement (false-positive bait)."
+    },
+    {
+      "matched_text": "no material adverse change",
+      "reason": "Negated MAC language; excluded per rule 8."
+    },
+    {
+      "matched_text": "vendor",
+      "reason": "Role-noun reference, not PII/MNPI; treat as defined-term style role to exclude."
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "nonpublic_marker",
+      "matched_text": "preliminary",
+      "reason": "Draft status may imply non-public/discussion-only context but not an explicit allowed marker."
+    },
+    {
+      "concept": "selective_disclosure_control",
+      "matched_text": "only upon exchange filing confirmation",
+      "reason": "Implies gating of external dissemination; compliance-sensitive but not an explicit allowed token."
+    },
+    {
+      "concept": "PII scope",
+      "matched_text": "public helplines",
+      "reason": "Numbers are organizational helplines, not natural-person data; scope under PDPA may be questionable."
+    }
+  ]
+}

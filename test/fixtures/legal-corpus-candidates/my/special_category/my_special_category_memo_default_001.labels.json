@@ -1,0 +1,367 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled MY Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T04:00:07Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T04:00:07Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM120 million'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM120 million'"
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T04:00:07Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "owner_approved_my_stage_a_for_internal_benchmarking"
+  },
+  "_strict_label_cleanup": {
+    "new_ideal_must_detect_count": 35,
+    "new_must_detect_count": 12,
+    "notes": "MY Stage A strict tier reconciled to deterministic strict-mode engine after manual mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+    "old_ideal_must_detect_count": 27,
+    "old_must_detect_count": 22,
+    "removed_must_not_detect": [],
+    "reviewed_at_utc": "2026-05-29T03:59:20Z",
+    "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_special_category_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Encik Hariz Firdaus",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AHB-EMP-0442",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ongoing insulin therapy for Type 2 diabetes",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Type 2 diabetes",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "current membership in the Metal & Machinery Workers Union of Seri Nusa",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "his fingerprint templates and facial-recognition vectors",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Puan Aina Latif",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "she observes fasting for religious reasons",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "WhatsApp screenshots of access gates showing facial recognition matches",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@auricharvest.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic testing results",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sexual orientation",
+      "rule": "sexual_orientation"
+    },
+    {
+      "category": "PII",
+      "matched_text": "not required for processing",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PDPA data minimisation applies",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "strictly need-to-know",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Tebu",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "uncirculated",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8\u201310%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not for external circulation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "dividend timetable adjustment",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Q2 EBITDA is 8\u201310% below internal guidance",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "preliminary proposal to acquire Nusacane Foods Sdn Bhd",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic testing",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Auric Harvest Berhad \u2014 Internal Compliance Memo re PDPA and MNPI controls for financing/employment matters (BDE context), 29 May 2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The draft term sheet with Selat Bayu Capital Sdn Bhd for a RM120 million sukuk/term facility and the preliminary proposal to acquire Nusacane Foods Sdn Bhd (Project Tebu) are price-sensitive and non-public; disclosure controls under Para 9.03 of the BDE LR apply.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Board Pack v0.3 (uncirculated) contains a forecast indicating Q2 EBITDA is 8\u201310% below internal guidance and contemplates a dividend timetable adjustment; treat both items as MNPI pending formal announcement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "AHB-EMP-0442",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic testing",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Auric Harvest Berhad \u2014 Internal Compliance Memo re PDPA and MNPI controls for financing/employment matters (BDE context), 29 May 2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The draft term sheet with Selat Bayu Capital Sdn Bhd for a RM120 million sukuk/term facility and the preliminary proposal to acquire Nusacane Foods Sdn Bhd (Project Tebu) are price-sensitive and non-public; disclosure controls under Para 9.03 of the BDE LR apply.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Board Pack v0.3 (uncirculated) contains a forecast indicating Q2 EBITDA is 8\u201310% below internal guidance and contemplates a dividend timetable adjustment; treat both items as MNPI pending formal announcement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Tebu",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Open Horizons Hiring Policy",
+      "reason": "Policy name bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "Fair Play Gifts & Hospitality Policy",
+      "reason": "Policy name bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "MoonLotus ERP",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "SunRay Router",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "BlueKite Analytics",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "kick the hornet\u2019s nest",
+      "reason": "Metaphor bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "Seri Nusa Comets",
+      "reason": "Sports team; not PII/MNPI"
+    },
+    {
+      "matched_text": "Nebula HRIS",
+      "reason": "Product/system name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Bursa Darul Exchange",
+      "reason": "Institution/place reference; not PII/MNPI"
+    },
+    {
+      "matched_text": "our annual training discusses religion and sexual orientation as abstract concepts only",
+      "reason": "Generic DEI prose; not anchored to an identifiable person"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "data minimisation principle",
+      "matched_text": "strictly need-to-know",
+      "reason": "Minimisation concept is legally relevant but not an explicit marker term in allowed rules"
+    },
+    {
+      "concept": "consent governance",
+      "matched_text": "PDPA-compliant consent records maintained by HR",
+      "reason": "Indicates consent record-keeping but not a consent withdrawal/DSAR marker covered by rules"
+    },
+    {
+      "concept": "retention/control",
+      "matched_text": "do not forward or store them outside approved repositories",
+      "reason": "Retention/handling instruction relevant to privacy but not a defined privacy-event marker"
+    },
+    {
+      "concept": "disclosure control reference",
+      "matched_text": "Para 9.03 of the BDE LR apply",
+      "reason": "Compliance reference indicating MNPI handling; not covered by a specific MNPI rule token"
+    },
+    {
+      "concept": "information barrier/insider control",
+      "matched_text": "circulate to Board and Exco only",
+      "reason": "Suggests restricted circulation; borderline with information barrier marker but not explicitly listed in allowed rules"
+    }
+  ]
+}

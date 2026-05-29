@@ -1,0 +1,205 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled MY Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T04:00:07Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T04:00:07Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T04:00:07Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "owner_approved_my_stage_a_for_internal_benchmarking"
+  },
+  "_strict_label_cleanup": {
+    "new_ideal_must_detect_count": 14,
+    "new_must_detect_count": 3,
+    "notes": "MY Stage A strict tier reconciled to deterministic strict-mode engine after manual mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+    "old_ideal_must_detect_count": 11,
+    "old_must_detect_count": 4,
+    "removed_must_not_detect": [],
+    "reviewed_at_utc": "2026-05-29T03:59:20Z",
+    "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_jurisdictional_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "may be material",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed period",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not circulate the flash outside the designated working group",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "discuss with analysts",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no Bursa announcement has been made",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet stage",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IC No",
+      "rule": "my_mykad"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Staff ID",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IC No. is not required or collected here and no bank details are requested at this stage",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "announced via Bursa",
+      "reason": "Public disclosure reference; not MNPI"
+    },
+    {
+      "matched_text": "AGM notice",
+      "reason": "Public Bursa filing; not MNPI"
+    },
+    {
+      "matched_text": "IR mailbox",
+      "reason": "Generic/public contact; no email address value"
+    },
+    {
+      "matched_text": "helpline",
+      "reason": "Generic/public contact; no phone number value"
+    },
+    {
+      "matched_text": "business registration numbers",
+      "reason": "Company identifiers; public and not personal data"
+    },
+    {
+      "matched_text": "Vendor",
+      "reason": "Role noun; not PII/MNPI"
+    },
+    {
+      "matched_text": "Company",
+      "reason": "Role noun; not PII/MNPI"
+    },
+    {
+      "matched_text": "press releases",
+      "reason": "Public references; not MNPI"
+    },
+    {
+      "matched_text": "Investor Relations calendar",
+      "reason": "Public timing; not MNPI"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "internal reference ID",
+      "matched_text": "LM-OPS-TEST-009",
+      "reason": "May function as an internal tracking/identifier akin to an internal_session_id; rule coverage uncertain"
+    },
+    {
+      "concept": "counterparty identity (financing)",
+      "matched_text": "Harimau Bay Capital Sdn Bhd",
+      "reason": "Counterparty name in non-announced financing could be MNPI depending on materiality; not explicitly covered by listed MNPI rules"
+    },
+    {
+      "concept": "local listing-rule trigger",
+      "matched_text": "Paragraphs 9.03 and 9.35A",
+      "reason": "Jurisdiction-specific disclosure obligations underpin MNPI handling; not mapped to a specific allowed rule"
+    },
+    {
+      "concept": "insider list/information barrier",
+      "matched_text": "working group",
+      "reason": "Implies restricted access list; insider_list_marker would require explicit 'insider list' wording"
+    }
+  ]
+}

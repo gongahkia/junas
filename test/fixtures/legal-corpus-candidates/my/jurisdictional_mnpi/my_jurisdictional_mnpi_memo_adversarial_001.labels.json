@@ -1,0 +1,357 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled MY Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T04:00:07Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T04:00:07Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM120,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM120,000,000'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'"
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T04:00:07Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "owner_approved_my_stage_a_for_internal_benchmarking"
+  },
+  "_strict_label_cleanup": {
+    "new_ideal_must_detect_count": 32,
+    "new_must_detect_count": 14,
+    "notes": "MY Stage A strict tier reconciled to deterministic strict-mode engine after manual mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+    "old_ideal_must_detect_count": 25,
+    "old_must_detect_count": 13,
+    "removed_must_not_detect": [],
+    "reviewed_at_utc": "2026-05-29T03:59:20Z",
+    "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_jurisdictional_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Puan Nadira Salleh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Encik Farid Rahman",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@awanberlabuh.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investor-relations@awanberlabuh.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7 9 1 2 3 - 0 5 - 5 5 5 5",
+      "rule": "my_mykad"
+    },
+    {
+      "category": "PII",
+      "matched_text": "(+60 1x-3xx xxxx)",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closed period",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12\u201315%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not be selectively disclosed",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No external sharing",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "under NDA",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no dealings per MMLR paragraph 14.08",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Private & Confidential",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not circulate beyond deal team (PDPA applies)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "avoid hints in vendor RFPs",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout comms policy applies",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure risks",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Immediate Announcement",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheets",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inadvertent selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: MNPI assessment for proposed private placement and sukuk financing; disclosure obligations under Bursa Lestari Main Market Listing Requirements (MMLR)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public: Negotiations to acquire 51% of Kembara Logistik Sdn Bhd at ~7.5x FY25 EBITDA; exclusivity until 30 June 2026; break fee RM3.0m payable by target on competing bid",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "An analyst briefing deck shared under NDA on 18 June 2026 contains preliminary 2Q revenue guidance (+12\u201315% qoq) not previously announced; this is MNPI and must not be selectively disclosed",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Materiality: thresholds are exceeded relative to the issuer\u2019s size; an Immediate Announcement to Bursa Lestari is required under MMLR paragraph 9.03 upon signing of binding financing and SPA; target release before market open next business day",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@awanberlabuh.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investor-relations@awanberlabuh.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: MNPI assessment for proposed private placement and sukuk financing; disclosure obligations under Bursa Lestari Main Market Listing Requirements (MMLR)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public: Negotiations to acquire 51% of Kembara Logistik Sdn Bhd at ~7.5x FY25 EBITDA; exclusivity until 30 June 2026; break fee RM3.0m payable by target on competing bid",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "An analyst briefing deck shared under NDA on 18 June 2026 contains preliminary 2Q revenue guidance (+12\u201315% qoq) not previously announced; this is MNPI and must not be selectively disclosed",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Materiality: thresholds are exceeded relative to the issuer\u2019s size; an Immediate Announcement to Bursa Lestari is required under MMLR paragraph 9.03 upon signing of binding financing and SPA; target release before market open next business day",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC",
+      "reason": "Negated MAC reference; rule excludes negated occurrences"
+    },
+    {
+      "matched_text": "project pelangi",
+      "reason": "Not in 'Project <CapitalizedName>' codename pattern"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "2 0 1 1 0 4 4 1 1 9 K",
+      "reason": "Corporate registration number; not in allowed PII rules"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "phone_number",
+      "matched_text": "(+60 1x-3xx xxxx)",
+      "reason": "Masked digits may not meet strict phone regex; still identifies contact number"
+    },
+    {
+      "concept": "my_mykad",
+      "matched_text": "7 9 1 2 3 - 0 5 - 5 5 5 5",
+      "reason": "Spaces within NRIC may evade strict pattern matching though it is clearly a MyKad number"
+    },
+    {
+      "concept": "information_barrier_marker",
+      "matched_text": "under NDA",
+      "reason": "Confidentiality under NDA is an information barrier but may not be explicitly covered by allowed markers"
+    },
+    {
+      "concept": "information_barrier_marker",
+      "matched_text": "Private & Confidential",
+      "reason": "Header confidentiality legend indicates info barrier; some detectors may not flag this"
+    },
+    {
+      "concept": "embargo_marker",
+      "matched_text": "term sheet target signing 04 July 2026",
+      "reason": "Scheduling implies embargo until signing but lacks explicit 'Signing Date' phrase"
+    },
+    {
+      "concept": "material_event",
+      "matched_text": "Immediate Announcement",
+      "reason": "Bursa disclosure trigger phrasing is material but not a specific allowed keyword marker"
+    },
+    {
+      "concept": "blackout_period_reference",
+      "matched_text": "blackout comms policy applies",
+      "reason": "Blackout policy reference is relevant but not the canonical 'Closed period' phrasing"
+    }
+  ]
+}

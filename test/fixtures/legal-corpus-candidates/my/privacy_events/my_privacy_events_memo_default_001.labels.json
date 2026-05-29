@@ -1,0 +1,330 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled MY Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T04:00:07Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T04:00:07Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T04:00:07Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "owner_approved_my_stage_a_for_internal_benchmarking"
+  },
+  "_strict_label_cleanup": {
+    "new_ideal_must_detect_count": 29,
+    "new_must_detect_count": 15,
+    "notes": "MY Stage A strict tier reconciled to deterministic strict-mode engine after manual mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+    "old_ideal_must_detect_count": 20,
+    "old_must_detect_count": 14,
+    "removed_must_not_detect": [],
+    "reviewed_at_utc": "2026-05-29T03:59:20Z",
+    "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_privacy_events_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Dr. Liyana Rahmat",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@aurorameridian.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+60 3-6600 1234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Pn. Farah Syafika",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "En. Hazriq Naim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@aurorameridian.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mnpi.office@aurorameridian.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "vendor.compliance@aurorameridian.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed export of payroll attributes to OrbitPay Systems Pte. Ltd. (SG) under Data Export Approval DEA-2026-017",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employment onboarding forms collected only role-necessary data (minimisation)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DPA Schedule 3 (Retention and Minimisation)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Restricted List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "dealing by named insiders paused",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: draft term sheet with Pacific Zenith Capital Sdn Bhd includes covenant ratios and pricing triggers",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Aurora Meridian Berhad \u2014 Internal Compliance Memorandum re PDPA/CMSA handling for Q2 onboarding, financing, and vendor transfers.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: draft term sheet with Pacific Zenith Capital Sdn Bhd includes covenant ratios and pricing triggers; as non-public information likely to affect value, it is treated as MNPI until announcement via the Exchange portal.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "mnpi.office@aurorameridian.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+60 3-6600 1234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Liyana Rahmat",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Aurora Meridian Berhad \u2014 Internal Compliance Memorandum re PDPA/CMSA handling for Q2 onboarding, financing, and vendor transfers.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: draft term sheet with Pacific Zenith Capital Sdn Bhd includes covenant ratios and pricing triggers; as non-public information likely to affect value, it is treated as MNPI until announcement via the Exchange portal.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Restricted List",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "fingerprint timekeeping consent",
+      "reason": "Generic policy mention; not an individual biometric identifier and explicitly negated"
+    },
+    {
+      "matched_text": "biometric data",
+      "reason": "Negated control statement; no data collected"
+    },
+    {
+      "matched_text": "trading window closure",
+      "reason": "Explicitly negated; not an active blackout"
+    },
+    {
+      "matched_text": "no personal data has been transferred outside Malaysia in Q2",
+      "reason": "Explicit negation; avoid implying live cross-border transfer"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "dsar_marker",
+      "matched_text": "DSAR",
+      "reason": "DSAR handling event is legally relevant but not an allowed rule category"
+    },
+    {
+      "concept": "erasure_marker",
+      "matched_text": "legacy scans were erased on 15 May 2026",
+      "reason": "Erasure action relevant to PDPA but no explicit erasure rule category provided"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention Schedule 3",
+      "reason": "Retention scheduling is relevant but no explicit retention rule category provided"
+    },
+    {
+      "concept": "retention_period",
+      "matched_text": "caps candidate data at 24 months and payroll records at 7 years",
+      "reason": "Specific retention periods are relevant but no allowed retention rule category"
+    },
+    {
+      "concept": "my_mykad reference",
+      "matched_text": "NRIC copies",
+      "reason": "References Malaysian ID type without any identifiable number"
+    },
+    {
+      "concept": "data_export_approval_id",
+      "matched_text": "Data Export Approval DEA-2026-017",
+      "reason": "Governance identifier for cross-border transfer approval; not covered by an allowed rule"
+    }
+  ]
+}

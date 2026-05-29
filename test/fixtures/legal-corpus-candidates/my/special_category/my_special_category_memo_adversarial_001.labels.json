@@ -1,0 +1,385 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled MY Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T04:00:07Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T04:00:07Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM120,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM120,000,000'"
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T04:00:07Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "owner_approved_my_stage_a_for_internal_benchmarking"
+  },
+  "_strict_label_cleanup": {
+    "new_ideal_must_detect_count": 36,
+    "new_must_detect_count": 18,
+    "notes": "MY Stage A strict tier reconciled to deterministic strict-mode engine after manual mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+    "old_ideal_must_detect_count": 26,
+    "old_must_detect_count": 16,
+    "removed_must_not_detect": [],
+    "reviewed_at_utc": "2026-05-29T03:59:20Z",
+    "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_special_category_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Encik Farid Johari",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EMP- 1 9 7 6 -xq",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "has disclosed Type 1 diabetes",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "identifies as Muslim",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template for Encik Farid",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "is a member of Kesatuan Pekerja Serunai Logistics",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "his daughter, Nur Aila (age 15)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 15",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Suriya Ramlan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@serunai-logistics.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+60-3- 88 4 0 1 9 2",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Mangosteen",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change (MAC)",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "warehouse asset disposal",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Q3 revenue guidance",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed period",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not trade",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective briefing",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "need-to-know basis",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimisation SOP",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minor data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 15",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential internal memo \u2014 Serunai Logistics Berhad \u2014 PDPA/MNPI handling for Project Mangosteen employment changes and term financing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The draft disposal and Q3 revenue guidance constitute MNPI; no external sharing or selective briefing is permitted prior to the formal exchange announcement, and any board circulation must be marked \u201crestricted\u201d and logged.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Draft Term Sheet (RM120,000,000 sukuk murabahah, private placement) with Bank Lembayung Islamik Berhad remains non-public and, as currently framed, does not constitute a material adverse change (MAC) under Clause 12.4 of the SPA draft.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public-source references (e.g., news about the Bandar Selasih logistics park) may be cited, but they cannot be combined with internal forecasts to create implied guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Only",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+60-3- 88 4 0 1 9 2",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Suriya Ramlan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minor data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 15",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential internal memo \u2014 Serunai Logistics Berhad \u2014 PDPA/MNPI handling for Project Mangosteen employment changes and term financing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The draft disposal and Q3 revenue guidance constitute MNPI; no external sharing or selective briefing is permitted prior to the formal exchange announcement, and any board circulation must be marked \u201crestricted\u201d and logged.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Draft Term Sheet (RM120,000,000 sukuk murabahah, private placement) with Bank Lembayung Islamik Berhad remains non-public and, as currently framed, does not constitute a material adverse change (MAC) under Clause 12.4 of the SPA draft.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public-source references (e.g., news about the Bandar Selasih logistics park) may be cited, but they cannot be combined with internal forecasts to create implied guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Mangosteen",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "genetic algorithms",
+      "reason": "Software/metaphor reference; not personal genetic data"
+    },
+    {
+      "matched_text": "genetic data",
+      "reason": "General phrase here explicitly negated as not about a person"
+    },
+    {
+      "matched_text": "religion of rugby",
+      "reason": "Metaphor; not an actual religious belief of a person"
+    },
+    {
+      "matched_text": "Seri Purnama Panthers",
+      "reason": "Sports team name; not PII"
+    },
+    {
+      "matched_text": "GateKeeper v2",
+      "reason": "Product name; not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "NebulaSoft Kijang Pro",
+      "reason": "Product name; not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "CloudDobi X1",
+      "reason": "Product name; not PII/MNPI by itself"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "internal MNPI link",
+      "matched_text": "https://portal.serunai-logistics.example/filing?doc=LR12%2F2026%2Fterm",
+      "reason": "Internal board pack URL may be sensitive but not covered by a specific MNPI rule"
+    },
+    {
+      "concept": "cryptographic key reference",
+      "matched_text": "RG-7x_0 2**",
+      "reason": "Security credential reference could be sensitive but not within allowed PII/MNPI categories"
+    },
+    {
+      "concept": "internal ticket reference",
+      "matched_text": "LEG-PRJ/ 20 26 / 0a7",
+      "reason": "Internal tracking ID could be identifiable within systems but not mapped to allowed identifiers"
+    },
+    {
+      "concept": "OCR name variant",
+      "matched_text": "Fa rid",
+      "reason": "Represents a personal name variant but lacks honorific/clear identifier for named_person rule"
+    }
+  ]
+}

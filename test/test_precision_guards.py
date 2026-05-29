@@ -109,6 +109,19 @@ class MacMaePrecisionGuards(unittest.TestCase):
                 f"public/approval-not-required acquisition context should be suppressed; got {matched!r}",
             )
 
+    def test_previously_announced_financing_context_does_not_fire_material_event(self):
+        text = (
+            "As previously announced via Bursa on 2 April 2026, the board authorised "
+            "exploration of a secured term facility; all references herein are to that "
+            "public announcement and contain no new price-sensitive information."
+        )
+        for rule, matched in _rules_matched(text, jurisdiction="MY"):
+            self.assertNotEqual(
+                rule,
+                "material_event",
+                f"previously announced/no-new-price-sensitive context should be suppressed; got {matched!r}",
+            )
+
     def test_negated_material_adverse_change_line_does_not_fire_material_event(self):
         text = "We note no material adverse change is triggered; this is not a MAC and not a profit warning."
         for rule, matched in _rules_matched(text):
@@ -171,6 +184,15 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         phones = [m for r, m in _rules_matched(text) if r == "phone_number"]
         self.assertNotIn("+65 6100 0000", phones)
 
+    def test_public_hotline_and_public_line_do_not_fire(self):
+        text = (
+            "Public hotline for HR queries: 1-300-88-0000. "
+            "The Exchange Investor Helpline is 03-6200 0000 (public line)."
+        )
+        phones = [m for r, m in _rules_matched(text, jurisdiction="MY") if r == "phone_number"]
+        self.assertNotIn("1-300-88-0000", phones)
+        self.assertNotIn("03-6200 0000", phones)
+
     def test_phone_does_not_fire_on_dates_or_ip_literals(self):
         text = "DOB 14-03-1990; session ref 2026-05-28; IP 192.0.2.17."
         phones = [m for r, m in _rules_matched(text) if r == "phone_number"]
@@ -188,6 +210,24 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         text = "IMEI 356000112233445 appears in logs."
         phones = [m for r, m in _rules_matched(text) if r == "phone_number"]
         self.assertNotIn("356000112233445", phones)
+
+    def test_phone_does_not_fire_on_company_or_tax_identifiers(self):
+        text = (
+            "Company No.: 2022012345678-Z and Tax Ref No.: C8765432109 "
+            "are identifiers, not phone numbers."
+        )
+        phones = [m for r, m in _rules_matched(text, jurisdiction="MY") if r == "phone_number"]
+        self.assertNotIn("2022012345678", phones)
+        self.assertNotIn("8765432109", phones)
+
+    def test_phone_does_not_fire_on_ocr_account_or_url_id_fragments(self):
+        text = (
+            "OCR fragment Acc t: 142-7 78-009912-3. "
+            "Project vault: https://example.my/r?id=E M B _0 7-2 0 2 6&sec=Q2."
+        )
+        phones = [m for r, m in _rules_matched(text, jurisdiction="MY") if r == "phone_number"]
+        self.assertNotIn("142-7 78-009912-3", phones)
+        self.assertNotIn("0 7-2 0 2 6", phones)
 
 
 class FunctionalContactGuards(unittest.TestCase):
@@ -336,6 +376,17 @@ class FinancialAmountGuards(unittest.TestCase):
         agreements = [m for r, m in _rules_matched(text) if r == "definitive_agreement"]
         self.assertNotIn("spa", agreements)
 
+    def test_passport_words_without_digits_do_not_fire(self):
+        text = "External releases should mask passport digits and no passport numbers are processed."
+        passports = [m for r, m in _rules_matched(text, jurisdiction="MY") if r == "passport_number"]
+        self.assertNotIn("digits", passports)
+        self.assertNotIn("numbers", passports)
+
+    def test_negated_genetic_data_context_does_not_fire(self):
+        text = "References to genetic algorithms are software features and not about any person's genetic data."
+        findings = [m for r, m in _rules_matched(text, jurisdiction="MY") if r == "genetic_data"]
+        self.assertNotIn("genetic data", findings)
+
 
 class LargeNumberPrecisionGuards(unittest.TestCase):
     def test_large_number_inside_financial_amount_still_fires_for_locked_recall(self):
@@ -352,6 +403,28 @@ class LargeNumberPrecisionGuards(unittest.TestCase):
         text = "Finance provided vendor bank a/c 033-123456-0X (placeholder)."
         numbers = [m for r, m in _rules_matched(text) if r == "large_number"]
         self.assertNotIn("123456", numbers)
+
+    def test_large_number_inside_company_number_is_suppressed(self):
+        text = "Company No.: 2022012345678-Z and Reg. No.: 201801023456 are registry identifiers."
+        numbers = [m for r, m in _rules_matched(text, jurisdiction="MY") if r == "large_number"]
+        self.assertNotIn("2022012345678", numbers)
+        self.assertNotIn("201801023456", numbers)
+
+    def test_large_number_inside_url_identifier_is_suppressed(self):
+        text = "Draft link: https://example.my/deal?uid=EID-840102145019&co=201901012345."
+        numbers = [m for r, m in _rules_matched(text, jurisdiction="MY") if r == "large_number"]
+        self.assertNotIn("840102145019", numbers)
+        self.assertNotIn("201901012345", numbers)
+
+    def test_large_number_inside_url_path_is_suppressed(self):
+        text = "Reference: https://filings.example.my/annc/2025/08/ABBR-20250812-0001.pdf."
+        numbers = [m for r, m in _rules_matched(text, jurisdiction="MY") if r == "large_number"]
+        self.assertNotIn("20250812", numbers)
+
+    def test_zero_mykad_placeholder_is_suppressed(self):
+        text = "Prior draft showing NRIC: 000000-00-0000 is invalid and must be purged."
+        mykad = [m for r, m in _rules_matched(text, jurisdiction="MY") if r == "my_mykad"]
+        self.assertNotIn("000000-00-0000", mykad)
 
     def test_standalone_large_share_count_still_fires(self):
         text = "The seller will transfer 100,000 ordinary shares of Acme Pte. Ltd., UEN 199999999K."

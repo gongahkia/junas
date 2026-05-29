@@ -1,0 +1,298 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled MY Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T04:00:07Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T04:00:07Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T04:00:07Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "owner_approved_my_stage_a_for_internal_benchmarking"
+  },
+  "_strict_label_cleanup": {
+    "new_ideal_must_detect_count": 23,
+    "new_must_detect_count": 9,
+    "notes": "MY Stage A strict tier reconciled to deterministic strict-mode engine after manual mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+    "old_ideal_must_detect_count": 20,
+    "old_must_detect_count": 11,
+    "removed_must_not_detect": [],
+    "reviewed_at_utc": "2026-05-29T03:59:20Z",
+    "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_privacy_events_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nur Afiqah Latif",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Pn. Siti Farah",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Encik Idris Mahzan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pdpa.officer@aurasumber.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E-7Q3\u202219",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Do Not Contact",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hosted in SG",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011Border Addendum",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer policy",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kelip",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal-only; not for external distribution",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Clean Team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Clean Room",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price\u2011sensitive ranges",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "intranet-only (public access disabled)",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "98%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Compliance Memo \u2014 Aurasumber Berhad (Co. No. 2021010-XYZ) \u2014 29 May 2026 \u2014 PDPA handling and CMSA/MMLR disclosure controls for Project Kelip financing (internal-only; not for external distribution).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "pdpa.officer@aurasumber.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nur Afiqah Latif",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Compliance Memo \u2014 Aurasumber Berhad (Co. No. 2021010-XYZ) \u2014 29 May 2026 \u2014 PDPA handling and CMSA/MMLR disclosure controls for Project Kelip financing (internal-only; not for external distribution).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kelip",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "98%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC \u2014 not a live MNPI per rule 8."
+    },
+    {
+      "matched_text": "MAC addresses",
+      "reason": "Explicitly negated false-positive bait; not PII in this memo."
+    },
+    {
+      "matched_text": "bank card PANs",
+      "reason": "Explicitly negated; refers to card PANs, not India PAN."
+    },
+    {
+      "matched_text": "passwords",
+      "reason": "Explicitly negated; statement of absence."
+    },
+    {
+      "matched_text": "selective or premature disclosure",
+      "reason": "Negated; indicates no selective disclosure risk."
+    },
+    {
+      "matched_text": "9f:ac:--g2",
+      "reason": "Not a valid MAC address pattern; avoid false positive."
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "phone_number",
+      "matched_text": "+60 3-88xx xxxx",
+      "reason": "Masked digits may evade strict regex; still a contact number."
+    },
+    {
+      "concept": "DSAR marker",
+      "matched_text": "ASB-DSAR-0118",
+      "reason": "DSAR identifiers are privacy events but no explicit rule token provided."
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "erasure completed",
+      "reason": "Erasure is a privacy event but not an explicit allowed marker rule."
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "Schedule RS\u20115A",
+      "reason": "Indicates retention/purge schedule; retention marker not in allowed rule list."
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "irrecoverable erasure",
+      "reason": "Erasure status relevant but not covered by allowed marker rule."
+    },
+    {
+      "concept": "anonymisation marker",
+      "matched_text": "anonymisation verified",
+      "reason": "Anonymisation is a privacy control; not an explicit allowed marker rule."
+    },
+    {
+      "concept": "sg_nric_fin",
+      "matched_text": "NRIC: ZZZ-00-0000",
+      "reason": "Looks like an NRIC but anonymised and does not match valid NRIC pattern."
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "https://intra.aurasumber.com.my/export?id=Z9_1a",
+      "reason": "URL includes an id parameter that may be an internal token; not a defined rule."
+    },
+    {
+      "concept": "embargo_marker",
+      "matched_text": "will be released only upon signing",
+      "reason": "Embargo intent implied but lacks exact allowed tokens like Signing Date/Embargoed."
+    },
+    {
+      "concept": "cross-border authorization",
+      "matched_text": "DEA-2026-04",
+      "reason": "Approval code ties to data export; not an explicit allowed marker rule."
+    }
+  ]
+}

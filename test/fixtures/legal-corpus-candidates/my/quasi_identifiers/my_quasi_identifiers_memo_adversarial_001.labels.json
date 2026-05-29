@@ -1,0 +1,323 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled MY Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T04:00:07Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T04:00:07Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM45,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM10,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM45,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM10,000,000'"
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T04:00:07Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "status": "owner_approved_my_stage_a_for_internal_benchmarking"
+  },
+  "_strict_label_cleanup": {
+    "new_ideal_must_detect_count": 31,
+    "new_must_detect_count": 10,
+    "notes": "MY Stage A strict tier reconciled to deterministic strict-mode engine after manual mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+    "old_ideal_must_detect_count": 27,
+    "old_must_detect_count": 15,
+    "removed_must_not_detect": [],
+    "reviewed_at_utc": "2026-05-29T03:59:20Z",
+    "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_quasi_identifiers_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kelapa",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Encik Ariff Rahman",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12-05-1984",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "staff ID PRM-AR-084",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "asset tag PTB-LT-AR84",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "session ref s s - 2 9 1 - s d",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ariff.rahman@permaitech.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AC-PTB-0884-001",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "175.1.22.9",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 29",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ZX-9001",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Puan Norhuda Ismail",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+60 3-2020 8899",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@permaitech.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Encik Ariff Rahman, Deputy Finance Manager, Permai Tech Berhad HQ, Level 18A, Menara Seri Permai, Bandar Seri Delima 80090, b. 12-05-1984, staff ID PRM-AR-084, extension 2413",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ariff\u2019s work laptop asset tag PTB-LT-AR84, Windows user ariff.r; session ref s s - 2 9 1 - s d; device backup at https://intranet.permai.local/it/snap?sid=AR84-05-12&loc=bsd and email ariff.rahman@permaitech.my",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Payroll collection account (internal ledger only): AC-PTB-0884-001; no bank name shown; do not circulate externally; IP seen 175.1.22.9 during UAT on 03/04 at 21:17 MYT",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Separately, a contractor record notes age 29, contract role \u201cintern \u2013 operations\u201d, device SN ZX-9001, and city Bandar Selasih; no name, employer, or contact is associated and it is not identifiable on its own",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no term sheet figures to be shared beyond need-to-know",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not circulate externally",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "revolving credit",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "bank guarantee facility",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "job ID S D - 0 1 - 8 4 - 1 2",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sid=AR84-05-12",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 07/10",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PRM-AR-084",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing confidentiality: Draft covenants reference Project Kelapa; public-source references (industry articles) may be appended, but no term sheet figures to be shared beyond need-to-know.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Anticipated Q&A: no director dealings, no profit forecast, and no changes to share capital as at date hereof; hence nothing to pre-clear with the SC pending Board mandate.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ariff.rahman@permaitech.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@permaitech.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+60 3-2020 8899",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PRM-AR-084",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ZX-9001",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing confidentiality: Draft covenants reference Project Kelapa; public-source references (industry articles) may be appended, but no term sheet figures to be shared beyond need-to-know.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Anticipated Q&A: no director dealings, no profit forecast, and no changes to share capital as at date hereof; hence nothing to pre-clear with the SC pending Board mandate.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kelapa",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "NRIC",
+      "reason": "Negated bait; explicitly states none processed."
+    },
+    {
+      "matched_text": "passport numbers",
+      "reason": "Negated bait; explicitly states none processed."
+    },
+    {
+      "matched_text": "MAC address",
+      "reason": "Negated bait; explicitly states none captured."
+    },
+    {
+      "matched_text": "precise GPS coordinates",
+      "reason": "Negated bait; explicitly states none captured."
+    },
+    {
+      "matched_text": "#proj-kelapa",
+      "reason": "Not matching 'Project <CapitalizedName>' transaction codename pattern."
+    },
+    {
+      "matched_text": "Company No. PTB-201199-X",
+      "reason": "Corporate registration is not in the allowed PII/MNPI rules for this taxonomy."
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "material adverse change reference",
+      "matched_text": "MAC designation",
+      "reason": "References MAC acronym without the anchored phrase 'Material Adverse Change'/'Material Adverse Effect'."
+    },
+    {
+      "concept": "effective date marker",
+      "matched_text": "effective 01/07",
+      "reason": "Indicates an effective date but lacks the anchored term 'Effective Date'."
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "print logs retained 30 days",
+      "reason": "Retention period is legally relevant but there is no explicit allowed 'retention_marker' rule name."
+    },
+    {
+      "concept": "information barrier indicator",
+      "matched_text": "limited access",
+      "reason": "Suggests restricted handling but not a standard insider-list or barrier marker phrase."
+    },
+    {
+      "concept": "username/account identifier",
+      "matched_text": "ariff.r",
+      "reason": "Username is identifiable but not clearly covered by the allowed rule set."
+    }
+  ]
+}
