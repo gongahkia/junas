@@ -3,13 +3,209 @@
   "document_type": "memo",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@ndt.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@ndt.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@ndt.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "0800-000-000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber incident"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@ndt.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@ndt.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@ndt.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "0800-000-000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information-barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping content"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout dates"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "need-to-know channel"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "potential acquisition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may indicate"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "NDT",
+      "reason": "Defined abbreviation for the company, not PII/MNPI"
+    },
+    {
+      "matched_text": "crypto",
+      "reason": "Educational example only; not a market-sensitive event"
+    },
+    {
+      "matched_text": "insider-list",
+      "reason": "Educational example only; not a market-sensitive event"
+    },
+    {
+      "matched_text": "information barrier",
+      "reason": "Educational example only; not a market-sensitive event"
+    },
+    {
+      "matched_text": "blackout",
+      "reason": "Educational example only; not a market-sensitive event"
+    },
+    {
+      "matched_text": "SakuKripto",
+      "reason": "Sandbox/training context; no token issuance"
+    },
+    {
+      "matched_text": "KriptaLite",
+      "reason": "Sandbox/training context; no token issuance"
+    },
+    {
+      "matched_text": "Incident Aurora",
+      "reason": "Tabletop drill; not a live cyber incident"
+    },
+    {
+      "matched_text": "volume discount",
+      "reason": "Generic marketing language; not securities MNPI"
+    },
+    {
+      "matched_text": "tiered APR",
+      "reason": "Generic marketing language; not securities MNPI"
+    },
+    {
+      "matched_text": "price collar",
+      "reason": "Generic marketing language; not securities MNPI"
+    },
+    {
+      "matched_text": "KTP/NIK",
+      "reason": "Negated; indicates no ID data collected"
+    },
+    {
+      "matched_text": "NDTX?",
+      "reason": "Training placeholder ticker; not MNPI"
+    },
+    {
+      "matched_text": "IDN000000000X",
+      "reason": "Training placeholder ISIN; not MNPI"
+    },
+    {
+      "matched_text": "AGR-XX-0000",
+      "reason": "Training placeholder reference; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "OJKN disclosure thresholds",
+      "concept": "regulatory disclosure threshold",
+      "reason": "Signals pending assessment of disclosure obligations; not an explicit allowed marker"
+    },
+    {
+      "matched_text": "settlement integrity",
+      "concept": "market infrastructure impact",
+      "reason": "Potentially material operational risk but not mapped to a specific MNPI rule"
+    },
+    {
+      "matched_text": "not yet submitted to BSI",
+      "concept": "pre-filing status",
+      "reason": "Implies pending submission/embargo but not an enumerated embargo marker"
+    },
+    {
+      "matched_text": "access is limited",
+      "concept": "information access control",
+      "reason": "Implies information barrier/selective access but not an explicit rule phrase"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

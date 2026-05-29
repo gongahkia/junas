@@ -3,13 +3,124 @@
   "document_type": "memo",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@nusantaraquanta.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "doctor\u2019s note indicates a temporary cardiac condition"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@nusantaraquanta.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "doctor\u2019s note indicates a temporary cardiac condition"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Subject: Dito Rahardian (HR Case 24-AX9)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no special-category data should be circulated except as strictly necessary"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not attach scans to the board pack"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Bandung Falcons",
+      "reason": "Sports team marketing reference; not PII/MNPI."
+    },
+    {
+      "matched_text": "Makassar Mariners",
+      "reason": "Sports team marketing reference; not PII/MNPI."
+    },
+    {
+      "matched_text": "Surabaya",
+      "reason": "Place name only; not an address or PII."
+    },
+    {
+      "matched_text": "Kendari",
+      "reason": "Place name only; not an address or PII."
+    },
+    {
+      "matched_text": "Bogor",
+      "reason": "Place name only; not an address or PII."
+    },
+    {
+      "matched_text": "Equal Horizon Policy",
+      "reason": "Policy name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Data Harmony Standard",
+      "reason": "Policy name; not PII/MNPI."
+    },
+    {
+      "matched_text": "CendanaPay",
+      "reason": "Product name; not PII/MNPI."
+    },
+    {
+      "matched_text": "SkyWallet Lite",
+      "reason": "Product name; not PII/MNPI."
+    },
+    {
+      "matched_text": "BatikCard",
+      "reason": "Product name; not PII/MNPI."
+    },
+    {
+      "matched_text": "NQTX",
+      "reason": "Public ticker; not PII/MNPI."
+    },
+    {
+      "matched_text": "IDNQTX0000A1",
+      "reason": "Sample ISIN placeholder; not in allowed detection rules."
+    },
+    {
+      "matched_text": "Sekretaris Perusahaan",
+      "reason": "Role noun; not a named person per rules."
+    },
+    {
+      "matched_text": "IDXNet",
+      "reason": "Platform name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Keterbukaan Informasi",
+      "reason": "Regulatory disclosure label; not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "HR Case 24-AX9",
+      "concept": "employee_case_id",
+      "reason": "Internal case identifier linked to a specific employee; not clearly covered by employee_id or customer_account_number rules."
+    },
+    {
+      "matched_text": "77-EMA-PL-001",
+      "concept": "internal_reference_code",
+      "reason": "Internal code may identify a record but is not clearly personal or covered by a specific allowed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
