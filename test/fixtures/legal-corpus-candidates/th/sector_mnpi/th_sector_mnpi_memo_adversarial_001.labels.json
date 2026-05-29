@@ -3,13 +3,316 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 1,200,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "60%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheets"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list maintained"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers\u2014"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "accidental tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure risk\u2014"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout\u2014"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Unpublished terms"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "SEC Thailand approval pending"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet filed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Cyber event (contained)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may materially affect OGX price"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Pailin Mahasri"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Veera Thavorn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Jariya N"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Chantri Roengchai"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 2 990 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimise personal data"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 1,200,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "60%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheets"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list maintained"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers\u2014"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "accidental tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure risk\u2014"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout\u2014"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Unpublished terms"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "SEC Thailand approval pending"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet filed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Cyber event (contained)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may materially affect OGX price"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Pailin Mahasri"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Veera Thavorn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Jariya N"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Chantri Roengchai"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 2 990 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimise personal data"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "THB private placement of sustainability-linked notes"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "cross-border acquisition of a licensed digital asset broker"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "P r o j e c t   B a n y a n"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "non-binding term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "SPT step-up"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 2"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "DPT wallet segregation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "do not forward outside the clean team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Clean Room \u2018CR-OGX-BNY\u2019"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout from 29/05\u201315/06/2569"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "ransomware encryption"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Pre-announcement"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "chantri.r[at]onnexgreen.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "account ref 88-XX19-0047"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "replace names with role codes"
+    }
+  ],
   "must_not_detect": [],
-  "uncertain": [],
+  "uncertain": [
+    {
+      "matched_text": "v3.1 hash a9f0-xx-22",
+      "concept": "internal tracking/hash identifier",
+      "reason": "May function as a unique internal identifier linked to the insider list but not clearly covered by an allowed PII rule."
+    },
+    {
+      "matched_text": "DAX-xx00x",
+      "concept": "regulatory licence number",
+      "reason": "Thai SEC digital-asset broker licence number may be sensitive but no explicit rule category covers Thai licence IDs."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='THB1.2bn'",
+    "drop uncertain: text not verbatim text='BNY-\\x00\\x00/2569'"
+  ],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
