@@ -6,11 +6,6 @@
   "must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Aran Kietkamol"
-    },
-    {
-      "category": "PII",
       "rule": "email_address",
       "matched_text": "w.phongchai@tnd.co.th"
     },
@@ -22,67 +17,37 @@
     {
       "category": "PII",
       "rule": "phone_number",
-      "matched_text": "+66\u20112\u20113 4 5\u20116 7 8 9"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
       "matched_text": "+66 2100 8899"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "Employee No. TH\u2011EMP\u20110 2 7 7"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "HR Ref. TH\u2011INT\u20111 6\u2011S"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "stored facial\u2011geometry templates"
-    },
-    {
-      "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "Type 1 diabetes treatment"
-    },
-    {
-      "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "identifies as Muslim"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "registered to the Eastern Manufacturing Workers\u2019 Union"
-    },
-    {
-      "category": "PII",
-      "rule": "sexual_orientation",
-      "matched_text": "same\u2011sex partnership status"
+      "rule": "named_person",
+      "matched_text": "Mr. Aran Kietkamol"
     },
     {
       "category": "PII",
       "rule": "minor_data_reference",
-      "matched_text": "16\u2011year\u2011old trainee (minor data)"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "retain onshore only and segregate from project dataroom"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "scrub before board packs are compiled"
+      "matched_text": "minor data"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "USD 180,000,000"
+      "rule": "material_event",
+      "matched_text": "Subject: SEA Section 59 MNPI controls for cross‑border financing and SET disclosure; PDPA special‑category data in HR files"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Non‑exhaustive: Mr. Aran Kietkamol (Ops) disclosed same‑sex partnership status to HR for spousal insurance; retain onshore only and segregate from project dataroom; note that the phrase sexual orientation in our DEI policy is generic guidance and not personal data in itself"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "For SEC Thailand queries on Sections 59/241 enforcement and CMSB notifications on PP, contact Legal at legal@tnd.co.th or Compliance Line +66 2100 8899; project‑management chat (lowercase): #financing‑workstream is archived hourly"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Note: the draft Corporate Open Culture Charter and our diversity, equity, and inclusion statement remain unrelated to the financing and should not be attached to the SET immediate report"
     },
     {
       "category": "MNPI",
@@ -91,26 +56,31 @@
     },
     {
       "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project KHWA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "USD 180,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "180,000,000"
+    },
+    {
+      "category": "MNPI",
       "rule": "insider_list_marker",
-      "matched_text": "Insider List v3.2"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout remains in force"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading by directors and their spouses is prohibited until the SET disclosure posts"
+      "matched_text": "Insider List"
     }
   ],
   "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Aran Kietkamol"
-    },
     {
       "category": "PII",
       "rule": "email_address",
@@ -124,27 +94,87 @@
     {
       "category": "PII",
       "rule": "phone_number",
-      "matched_text": "+66\u20112\u20113 4 5\u20116 7 8 9"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
       "matched_text": "+66 2100 8899"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "Employee No. TH\u2011EMP\u20110 2 7 7"
+      "rule": "named_person",
+      "matched_text": "Mr. Aran Kietkamol"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor data"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Subject: SEA Section 59 MNPI controls for cross‑border financing and SET disclosure; PDPA special‑category data in HR files"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Non‑exhaustive: Mr. Aran Kietkamol (Ops) disclosed same‑sex partnership status to HR for spousal insurance; retain onshore only and segregate from project dataroom; note that the phrase sexual orientation in our DEI policy is generic guidance and not personal data in itself"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "For SEC Thailand queries on Sections 59/241 enforcement and CMSB notifications on PP, contact Legal at legal@tnd.co.th or Compliance Line +66 2100 8899; project‑management chat (lowercase): #financing‑workstream is archived hourly"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Note: the draft Corporate Open Culture Charter and our diversity, equity, and inclusion statement remain unrelated to the financing and should not be attached to the SET immediate report"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project KHWA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "USD 180,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "180,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66‑2‑3 4 5‑6 7 8 9"
     },
     {
       "category": "PII",
       "rule": "employee_id",
-      "matched_text": "HR Ref. TH\u2011INT\u20111 6\u2011S"
+      "matched_text": "Employee No. TH‑EMP‑0 2 7 7"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR Ref. TH‑INT‑1 6‑S"
     },
     {
       "category": "PII",
       "rule": "biometric_identifier",
-      "matched_text": "stored facial\u2011geometry templates"
+      "matched_text": "stored facial‑geometry templates"
     },
     {
       "category": "PII",
@@ -159,17 +189,17 @@
     {
       "category": "PII",
       "rule": "trade_union_membership",
-      "matched_text": "registered to the Eastern Manufacturing Workers\u2019 Union"
+      "matched_text": "registered to the Eastern Manufacturing Workers’ Union"
     },
     {
       "category": "PII",
       "rule": "sexual_orientation",
-      "matched_text": "same\u2011sex partnership status"
+      "matched_text": "same‑sex partnership status"
     },
     {
       "category": "PII",
       "rule": "minor_data_reference",
-      "matched_text": "16\u2011year\u2011old trainee (minor data)"
+      "matched_text": "16‑year‑old trainee (minor data)"
     },
     {
       "category": "PII",
@@ -193,18 +223,8 @@
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "USD 180,000,000"
-    },
-    {
-      "category": "MNPI",
       "rule": "material_event",
       "matched_text": "proposed USD 180,000,000 amortising term loan"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
     },
     {
       "category": "MNPI",
@@ -256,12 +276,12 @@
   ],
   "uncertain": [
     {
-      "matched_text": "do not transmit her file cross\u2011border without consent and DPA safeguards",
+      "matched_text": "do not transmit her file cross‑border without consent and DPA safeguards",
       "concept": "cross_border_transfer_control",
       "reason": "Cross-border transfer and consent are mentioned, but as a prohibition rather than a live transfer; rule advises not to tag negated controls."
     },
     {
-      "matched_text": "TH\u2011**\u2011***\u2011****\u2011**",
+      "matched_text": "TH‑**‑***‑****‑**",
       "concept": "masked_thai_national_id",
       "reason": "Appears to be a masked Thai identifier from OCR artefacts; not a full valid ID but indicates potential PII requiring redaction."
     },
@@ -276,6 +296,39 @@
   "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_agent_review": {
+    "status": "strict_tier_cleaned_owner_approved",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "notes": "Reconciled TH Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
+  },
+  "_owner_acceptance": {
+    "status": "owner_approved_th_stage_a_for_internal_benchmarking",
+    "accepted_by": "gongahkia",
+    "accepted_at_utc": "2026-05-29T09:42:20Z",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
+  },
+  "_human_review": {
+    "status": "approved",
+    "decision": "approve",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "reviewed_at_utc": "2026-05-29T09:42:20Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+  },
+  "_human_review_history": [
+    {
+      "status": "approved",
+      "decision": "approve",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "reviewed_at_utc": "2026-05-29T09:42:20Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    }
+  ]
 }

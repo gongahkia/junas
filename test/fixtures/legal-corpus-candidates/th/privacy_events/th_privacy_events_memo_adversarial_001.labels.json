@@ -7,17 +7,12 @@
     {
       "category": "PII",
       "rule": "email_address",
-      "matched_text": "privacy@thanaratdyn.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
       "matched_text": "finance-ops@thanaratdyn.example"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@thanaratdyn.example"
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
     },
     {
       "category": "PII",
@@ -35,56 +30,46 @@
       "matched_text": "Mr. Nopphadon Jitprasert"
     },
     {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "EmpID: TH_xx_00\u20119  81"
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Internal Legal Memo — Thanarat Dynamics Public Company Limited (TND PCL) — PDPA/SEA readiness for bridge financing and HRIS upgrade — 29 May 2026"
     },
     {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "PDPA minimisation"
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Financing/MNPI handling: draft term sheet for privately placed Series B debentures is restricted to Clean Room CR‑02; information barriers active; this memo contains no price‑sensitive terms and omits coupon/tenor; team uses code name “Prai Seua.”"
     },
     {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "mask full DOB to YYYY"
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
     },
     {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "address field blanked per minimisation"
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
     },
     {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border t r a n s f e r"
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
     },
     {
       "category": "MNPI",
       "rule": "information_barrier_marker",
-      "matched_text": "information barriers active"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent withdrawal"
+      "matched_text": "information barriers"
     }
   ],
   "ideal_must_detect": [
     {
       "category": "PII",
       "rule": "email_address",
-      "matched_text": "privacy@thanaratdyn.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
       "matched_text": "finance-ops@thanaratdyn.example"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@thanaratdyn.example"
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
     },
     {
       "category": "PII",
@@ -102,9 +87,49 @@
       "matched_text": "Mr. Nopphadon Jitprasert"
     },
     {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Internal Legal Memo — Thanarat Dynamics Public Company Limited (TND PCL) — PDPA/SEA readiness for bridge financing and HRIS upgrade — 29 May 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Financing/MNPI handling: draft term sheet for privately placed Series B debentures is restricted to Clean Room CR‑02; information barriers active; this memo contains no price‑sensitive terms and omits coupon/tenor; team uses code name “Prai Seua.”"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@thanaratdyn.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@thanaratdyn.example"
+    },
+    {
       "category": "PII",
       "rule": "employee_id",
-      "matched_text": "EmpID: TH_xx_00\u20119  81"
+      "matched_text": "EmpID: TH_xx_00‑9  81"
     },
     {
       "category": "PII",
@@ -148,11 +173,6 @@
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Data Export Approval DEA\u2011TH/ZX\u201121 granted by DPO on 2026\u201105\u201120"
-    },
-    {
-      "category": "PII",
       "rule": "consent_withdrawal_marker",
       "matched_text": "Consent withdrawal"
     },
@@ -163,13 +183,8 @@
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
       "rule": "information_barrier_marker",
-      "matched_text": "Clean Room CR\u201102"
+      "matched_text": "Clean Room CR‑02"
     },
     {
       "category": "MNPI",
@@ -179,12 +194,17 @@
     {
       "category": "MNPI",
       "rule": "transaction_codename",
-      "matched_text": "Project \u201cNok Yai\u201d"
+      "matched_text": "Project “Nok Yai”"
     },
     {
       "category": "PII",
       "rule": "data_minimisation_marker",
       "matched_text": "no further processing of optional contact fields"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers active"
     }
   ],
   "must_not_detect": [
@@ -202,7 +222,7 @@
     },
     {
       "matched_text": "DPO",
-      "reason": "Role acronym, not an individual\u2019s name."
+      "reason": "Role acronym, not an individual’s name."
     },
     {
       "matched_text": "Finance Ops",
@@ -216,12 +236,12 @@
       "reason": "DSAR markers are legally relevant but not listed as an allowed rule."
     },
     {
-      "matched_text": "CUST\u20117x9G",
+      "matched_text": "CUST‑7x9G",
       "concept": "customer_reference",
       "reason": "Customer reference identifier is PII-like but no specific allowed rule category fits."
     },
     {
-      "matched_text": "call recordings for 2025\u2011Q4 erased",
+      "matched_text": "call recordings for 2025‑Q4 erased",
       "concept": "erasure_marker",
       "reason": "Erasure/deletion events are legally relevant but not included in allowed rules."
     },
@@ -231,12 +251,12 @@
       "reason": "Indicates deletion process; category not in allowed rules."
     },
     {
-      "matched_text": "purged 2026\u201105\u201122",
+      "matched_text": "purged 2026‑05‑22",
       "concept": "erasure_marker",
       "reason": "Signals deletion timing; erasure markers not in allowed rules."
     },
     {
-      "matched_text": "ER\u2011SG\u2011024",
+      "matched_text": "ER‑SG‑024",
       "concept": "erasure_confirmation_id",
       "reason": "Deletion confirmation ID is relevant to erasure but not in allowed rules."
     },
@@ -251,16 +271,51 @@
       "reason": "Retention duration is relevant but not covered by allowed rules."
     },
     {
-      "matched_text": "hotline +66\u2011X\u2011XXX\u2011XXXX (masked)",
+      "matched_text": "hotline +66‑X‑XXX‑XXXX (masked)",
       "concept": "phone_number",
       "reason": "Masked phone-like string; may not be matched by strict phone regexes."
     }
   ],
   "_label_source": "azure:gpt-5-2-auto",
   "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
+  "_label_warnings": [
+    "drop ideal_must_detect: drop must-not bait from ideal tier rule='cross_border_transfer_marker' text='Data Export Approval DEA‑TH/ZX‑21 granted by DPO on 2026‑05‑20'"
+  ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_agent_review": {
+    "status": "strict_tier_cleaned_owner_approved",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "notes": "Reconciled TH Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
+  },
+  "_owner_acceptance": {
+    "status": "owner_approved_th_stage_a_for_internal_benchmarking",
+    "accepted_by": "gongahkia",
+    "accepted_at_utc": "2026-05-29T09:42:20Z",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
+  },
+  "_human_review": {
+    "status": "approved",
+    "decision": "approve",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "reviewed_at_utc": "2026-05-29T09:42:20Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+  },
+  "_human_review_history": [
+    {
+      "status": "approved",
+      "decision": "approve",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "reviewed_at_utc": "2026-05-29T09:42:20Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    }
+  ]
 }

@@ -390,6 +390,11 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         phones = [m for r, m in _rules_matched(text, jurisdiction="IN") if r == "phone_number"]
         self.assertNotIn("9999-9999-9999", phones)
 
+    def test_phone_does_not_fire_on_thai_id_like_invalid_example(self):
+        text = "Invalid Thai National ID 1-2345-67890-12-3 is example bait, not a phone."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="TH") if r == "phone_number"]
+        self.assertNotIn("1-2345-67890-12-3", phones)
+
 
 class DeviceIdentifierPrecisionGuards(unittest.TestCase):
     def test_negated_mac_address_example_does_not_fire(self):
@@ -564,6 +569,11 @@ class FinancialAmountGuards(unittest.TestCase):
         text = "The last traded price on 12 Jul 2026 was S$1.42 per share (public information)."
         amounts = [m for r, m in _rules_matched(text) if r == "financial_amount"]
         self.assertNotIn("S$1.42", amounts)
+
+    def test_already_public_exchange_budget_does_not_fire_as_mnpi_amount(self):
+        text = "Plant expansion budget THB 450m is already public per SETNews filing."
+        amounts = [m for r, m in _rules_matched(text, jurisdiction="TH") if r == "financial_amount"]
+        self.assertNotIn("THB 450m", amounts)
 
     def test_percent_encoded_url_fragment_does_not_fire_as_percentage(self):
         text = "Working link: https://example.sg/annc?ref=HPHL%2F2026-05-28%2F0059"

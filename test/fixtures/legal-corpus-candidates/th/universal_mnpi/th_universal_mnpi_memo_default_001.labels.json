@@ -5,6 +5,41 @@
   "destination_jurisdiction": "TH",
   "must_detect": [
     {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "waranya.chai@aurorafibre.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "prasert.kiatkul@aurorafibre.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-20-123-456"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Waranya Chai"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Prasert Kiatkul"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Use of proceeds: refinance THB 600,000,000 short-term bridge and fund Plant 3 expansion; no dividend covenant breach expected (net debt/EBITDA forecast 2.8x post-deal)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Compliance risk: trading blackout applies to all insiders from memo circulation; breach may contravene SEA Section 241 on insider trading and Section 246 on disclosure"
+    },
+    {
       "category": "MNPI",
       "rule": "nonpublic_marker",
       "matched_text": "CONFIDENTIAL"
@@ -20,49 +55,19 @@
       "matched_text": "Project Lotus Banyan"
     },
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "waranya.chai@aurorafibre.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Waranya Chai"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "prasert.kiatkul@aurorafibre.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Prasert Kiatkul"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66-20-123-456"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargo date/time"
-    },
-    {
       "category": "MNPI",
       "rule": "financial_amount",
       "matched_text": "THB 1,250,000,000"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "19.9%"
+      "rule": "financial_amount",
+      "matched_text": "THB 600,000,000"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "THB 600,000,000"
+      "rule": "financial_percentage",
+      "matched_text": "19.9%"
     },
     {
       "category": "MNPI",
@@ -81,22 +86,52 @@
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout"
+      "rule": "large_number",
+      "matched_text": "1,250,000,000"
     },
     {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "limit personal data in the SET filing"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "redact employee IDs and contact details"
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "600,000,000"
     }
   ],
   "ideal_must_detect": [
     {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "waranya.chai@aurorafibre.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "prasert.kiatkul@aurorafibre.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-20-123-456"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Waranya Chai"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Prasert Kiatkul"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Use of proceeds: refinance THB 600,000,000 short-term bridge and fund Plant 3 expansion; no dividend covenant breach expected (net debt/EBITDA forecast 2.8x post-deal)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Compliance risk: trading blackout applies to all insiders from memo circulation; breach may contravene SEA Section 241 on insider trading and Section 246 on disclosure"
+    },
+    {
       "category": "MNPI",
       "rule": "nonpublic_marker",
       "matched_text": "CONFIDENTIAL"
@@ -112,49 +147,19 @@
       "matched_text": "Project Lotus Banyan"
     },
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "waranya.chai@aurorafibre.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Waranya Chai"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "prasert.kiatkul@aurorafibre.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Prasert Kiatkul"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66-20-123-456"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargo date/time"
-    },
-    {
       "category": "MNPI",
       "rule": "financial_amount",
       "matched_text": "THB 1,250,000,000"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "19.9%"
+      "rule": "financial_amount",
+      "matched_text": "THB 600,000,000"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "THB 600,000,000"
+      "rule": "financial_percentage",
+      "matched_text": "19.9%"
     },
     {
       "category": "MNPI",
@@ -170,6 +175,21 @@
       "category": "MNPI",
       "rule": "financial_percentage",
       "matched_text": "6.4%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "1,250,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "600,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo date/time"
     },
     {
       "category": "MNPI",
@@ -278,6 +298,39 @@
   "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_agent_review": {
+    "status": "strict_tier_cleaned_owner_approved",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "notes": "Reconciled TH Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
+  },
+  "_owner_acceptance": {
+    "status": "owner_approved_th_stage_a_for_internal_benchmarking",
+    "accepted_by": "gongahkia",
+    "accepted_at_utc": "2026-05-29T09:42:20Z",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
+  },
+  "_human_review": {
+    "status": "approved",
+    "decision": "approve",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "reviewed_at_utc": "2026-05-29T09:42:20Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+  },
+  "_human_review_history": [
+    {
+      "status": "approved",
+      "decision": "approve",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "reviewed_at_utc": "2026-05-29T09:42:20Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    }
+  ]
 }

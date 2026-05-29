@@ -1252,10 +1252,11 @@ _DATE_LIKE_PHONE_RE = re.compile(
     r"(?:\d{4}[-/]\d{1,2}[-/]\d{1,2}(?:\s+\d{1,2})?|"
     r"\d{1,2}[-/]\d{1,2}[-/]\d{2,4}(?:\s+\d{1,2})?)\Z"
 )
+_THAI_ID_LIKE_PHONE_RE = re.compile(r"\d-\d{4}-\d{5}-\d{2}-\d\Z")
 _IPV4_LITERAL_RE = re.compile(r"(?:\d{1,3}\.){3}\d{1,3}\Z")
 _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
     r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|a/c|acc\s*t|account|"
-    r"rekening|company\s+no|co\.\s+no|"
+    r"rekening|national\s+id|company\s+no|co\.\s+no|"
     r"reg\.\s+no|registration\s+no|tax\s+ref|tax\s+no|TIN|EPF|SWIFT|IMEI|IP|DOB|dated|"
     r"Rp|IDR|harga|nilai|miliar|triliun|billion|million|RSU|"
     r"Aadhaar|PAN|GSTIN|placeholder|sample|specimen|test\s+fields?|training\s+placeholder|"
@@ -1281,7 +1282,8 @@ _PLACEHOLDER_IDENTIFIER_CONTEXT_RE = re.compile(
 _PUBLIC_OR_BENIGN_AMOUNT_CONTEXT_RE = re.compile(
     r"\b(?:"
     r"public\s+(?:information|source|acra|annual\s+report|exchange\s+website)|"
-    r"publicly\s+available|per\s+public\s+ACRA|last\s+traded\s+price|"
+    r"already\s+public|publicly\s+(?:available|announced|disclosed)|"
+    r"per\s+public\s+ACRA|last\s+traded\s+price|"
     r"reimbursement|per\s+diem|wellness|spa[- ]day"
     r")\b",
     re.IGNORECASE,
@@ -1336,6 +1338,8 @@ def _is_non_phone_numeric_context(text: str, start: int, end: int) -> bool:
     if digits and len(set(digits)) == 1 and len(digits) >= 8:
         return True
     if _DATE_LIKE_PHONE_RE.fullmatch(matched):
+        return True
+    if _THAI_ID_LIKE_PHONE_RE.fullmatch(matched):
         return True
     if _IPV4_LITERAL_RE.fullmatch(matched) and _ip_version(matched) == 4:
         return True

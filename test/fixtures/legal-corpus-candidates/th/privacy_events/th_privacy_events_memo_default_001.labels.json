@@ -6,6 +6,26 @@
   "must_detect": [
     {
       "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSARs"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
       "rule": "named_person",
       "matched_text": "Ms. Jintana Viroj"
     },
@@ -30,39 +50,14 @@
       "matched_text": "Ms. Jintana"
     },
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@lannasilk.co.th"
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "To: Board Risk Committee; From: Ms. Jintana Viroj (Data Protection Officer) and Mr. Suthon Peerapat (Head of Legal); Date: 29 May 2026; Subject: Cross‑border payroll onboarding, DSAR/erasure status, and disclosure controls during financing"
     },
     {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent withdrawal"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross\u2011border payroll onboarding"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross\u2011border treasury files"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross\u2011border payroll transfers"
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "In relation to the bridge loan term sheet with LomaBank (Thailand) Ltd., draft covenant ratio projections and the preliminary Q2 earnings bridge are undisclosed information and must be handled as MNPI under the SEA and TSOC notifications; do not upload such figures to any vendor portal."
     },
     {
       "category": "MNPI",
@@ -71,11 +66,36 @@
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout"
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
     }
   ],
   "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSARs"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
     {
       "category": "PII",
       "rule": "named_person",
@@ -102,6 +122,31 @@
       "matched_text": "Ms. Jintana"
     },
     {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "To: Board Risk Committee; From: Ms. Jintana Viroj (Data Protection Officer) and Mr. Suthon Peerapat (Head of Legal); Date: 29 May 2026; Subject: Cross‑border payroll onboarding, DSAR/erasure status, and disclosure controls during financing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "In relation to the bridge loan term sheet with LomaBank (Thailand) Ltd., draft covenant ratio projections and the preliminary Q2 earnings bridge are undisclosed information and must be handled as MNPI under the SEA and TSOC notifications; do not upload such figures to any vendor portal."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
       "category": "PII",
       "rule": "email_address",
       "matched_text": "dpo@lannasilk.co.th"
@@ -110,16 +155,6 @@
       "category": "PII",
       "rule": "consent_withdrawal_marker",
       "matched_text": "Consent withdrawal"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
     },
     {
       "category": "PII",
@@ -134,12 +169,12 @@
     {
       "category": "PII",
       "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross\u2011border payroll onboarding"
+      "matched_text": "Cross‑border payroll onboarding"
     },
     {
       "category": "PII",
       "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross\u2011border treasury files"
+      "matched_text": "Cross‑border treasury files"
     },
     {
       "category": "PII",
@@ -149,22 +184,12 @@
     {
       "category": "PII",
       "rule": "cross_border_transfer_marker",
-      "matched_text": "cross\u2011border payroll transfers"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "cross‑border payroll transfers"
     },
     {
       "category": "MNPI",
       "rule": "blackout_period_reference",
       "matched_text": "trading blackout"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
     },
     {
       "category": "MNPI",
@@ -189,7 +214,7 @@
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "price\u2011sensitive"
+      "matched_text": "price‑sensitive"
     }
   ],
   "must_not_detect": [
@@ -216,7 +241,7 @@
   ],
   "uncertain": [
     {
-      "matched_text": "DSAR case DSAR\u20112026\u2011044",
+      "matched_text": "DSAR case DSAR‑2026‑044",
       "concept": "DSAR marker",
       "reason": "DSAR handling is a privacy event but there is no explicit DSAR rule in the allowed list"
     },
@@ -226,7 +251,7 @@
       "reason": "Erasure completion is a privacy event but not covered by an allowed rule name"
     },
     {
-      "matched_text": "Employee exit erasure tickets for April leavers (ER\u2011APR\u20112026\u201107 to \u201115) have been completed",
+      "matched_text": "Employee exit erasure tickets for April leavers (ER‑APR‑2026‑07 to ‑15) have been completed",
       "concept": "Erasure/deletion",
       "reason": "Erasure/RTBF completion noted; no explicit erasure rule in allowed list"
     },
@@ -236,7 +261,7 @@
       "reason": "Retention periods are privacy handling events but no retention rule is defined in allowed list"
     },
     {
-      "matched_text": "email retention reduced to header\u2011only metadata for 90 days",
+      "matched_text": "email retention reduced to header‑only metadata for 90 days",
       "concept": "Retention/minimisation",
       "reason": "Retention and data minimisation combined; only a generic minimisation rule exists and no retention rule is defined"
     },
@@ -248,27 +273,27 @@
     {
       "matched_text": "destruction certificates filed",
       "concept": "Data destruction evidence",
-      "reason": "Evidence of destruction is privacy\u2011relevant but not mapped to an allowed rule"
+      "reason": "Evidence of destruction is privacy‑relevant but not mapped to an allowed rule"
     },
     {
       "matched_text": "No employee personal data has been transferred offshore",
-      "concept": "Negated cross\u2011border transfer",
-      "reason": "Cross\u2011border concept is present but negated; guidance discourages labeling negated controls"
+      "concept": "Negated cross‑border transfer",
+      "reason": "Cross‑border concept is present but negated; guidance discourages labeling negated controls"
     },
     {
       "matched_text": "no identifiable employee data will be exported",
-      "concept": "Negated cross\u2011border transfer",
+      "concept": "Negated cross‑border transfer",
       "reason": "Export concept is present but negated; guidance discourages labeling negated controls"
     },
     {
-      "matched_text": "explicit consent for cross\u2011border payroll transfers",
+      "matched_text": "explicit consent for cross‑border payroll transfers",
       "concept": "Consent legal basis",
-      "reason": "Consent basis is privacy\u2011relevant but only withdrawal is covered by allowed rules"
+      "reason": "Consent basis is privacy‑relevant but only withdrawal is covered by allowed rules"
     },
     {
       "matched_text": "identity was verified",
       "concept": "Identity verification",
-      "reason": "Verification is privacy\u2011relevant process but not covered by an allowed rule"
+      "reason": "Verification is privacy‑relevant process but not covered by an allowed rule"
     }
   ],
   "_label_source": "azure:gpt-5-2-auto",
@@ -276,6 +301,39 @@
   "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_agent_review": {
+    "status": "strict_tier_cleaned_owner_approved",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "notes": "Reconciled TH Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
+  },
+  "_owner_acceptance": {
+    "status": "owner_approved_th_stage_a_for_internal_benchmarking",
+    "accepted_by": "gongahkia",
+    "accepted_at_utc": "2026-05-29T09:42:20Z",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
+  },
+  "_human_review": {
+    "status": "approved",
+    "decision": "approve",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "reviewed_at_utc": "2026-05-29T09:42:20Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+  },
+  "_human_review_history": [
+    {
+      "status": "approved",
+      "decision": "approve",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "reviewed_at_utc": "2026-05-29T09:42:20Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    }
+  ]
 }

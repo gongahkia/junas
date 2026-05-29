@@ -282,6 +282,19 @@ def _extract_message_content(payload: dict) -> str:
     return content
 
 
+def _request_timeout_seconds() -> float:
+    raw = os.environ.get("KAYPOH_AUTOLABEL_TIMEOUT_SECONDS", "").strip()
+    if not raw:
+        return 180.0
+    try:
+        timeout = float(raw)
+    except ValueError as exc:
+        raise RuntimeError("KAYPOH_AUTOLABEL_TIMEOUT_SECONDS must be numeric") from exc
+    if timeout <= 0:
+        raise RuntimeError("KAYPOH_AUTOLABEL_TIMEOUT_SECONDS must be positive")
+    return timeout
+
+
 def _call_openai(messages: list[dict], *, model: str, api_key: str) -> str:
     body = _chat_body(messages, model=model)
     resp = httpx.post(
@@ -291,7 +304,7 @@ def _call_openai(messages: list[dict], *, model: str, api_key: str) -> str:
             "Content-Type": "application/json",
         },
         json=body,
-        timeout=180.0,
+        timeout=_request_timeout_seconds(),
     )
     if resp.status_code >= 400:
         raise RuntimeError(f"OpenAI {resp.status_code}: {resp.text[:800]}")
@@ -350,7 +363,7 @@ def _call_azure_openai(messages: list[dict], *, model: str, api_key: str) -> tup
             "Content-Type": "application/json",
         },
         json=body,
-        timeout=180.0,
+        timeout=_request_timeout_seconds(),
     )
     if resp.status_code >= 400:
         raise RuntimeError(f"Azure OpenAI {resp.status_code}: {resp.text[:800]}")

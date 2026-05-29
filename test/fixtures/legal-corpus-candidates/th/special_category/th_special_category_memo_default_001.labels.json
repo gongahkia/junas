@@ -5,49 +5,19 @@
   "destination_jurisdiction": "TH",
   "must_detect": [
     {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "prasert.j@nakhontech.co.th"
     },
     {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet announced to the SET"
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-2-555-0199"
     },
     {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "THB 1,200,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "THB 8.00"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": ">5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout communications"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List Register"
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "NT-0297"
     },
     {
       "category": "PII",
@@ -56,33 +26,8 @@
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "employee no. NT-0297"
-    },
-    {
-      "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "was admitted for non-occupational surgery on 3 June"
-    },
-    {
-      "category": "PII",
       "rule": "named_person",
       "matched_text": "Ms. Suksawat"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "has declared membership in the Northern Tech Workers Union (NTWU)"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint access template"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "was transferred to Orchid ID Systems Ltd. (Singapore)"
     },
     {
       "category": "PII",
@@ -90,22 +35,20 @@
       "matched_text": "Mr. Prasert Jitrakorn"
     },
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "prasert.j@nakhontech.co.th"
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "This memo contains MNPI under the Securities and Exchange Act (SEA) and SEC Thailand guidance; circulate only to the insider list per Insider Information Handling Policy No. NT-SEC-07."
     },
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@nakhontech.co.th"
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Analytics note (benign vocabulary reuse): We used a genetic algorithm and the union of two log tables to forecast CloudLedger Aurora demand; no personal or health data was included."
     },
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66-2-555-0199"
-    }
-  ],
-  "ideal_must_detect": [
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Cross-border financing: The draft term sheet with Meridian Pacific includes Singapore-law governing clauses and a covenant to maintain SET free float; legal to review with Azura & Partners (Bangkok)."
+    },
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
@@ -114,7 +57,12 @@
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "not yet announced to the SET"
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
     },
     {
       "category": "MNPI",
@@ -129,17 +77,129 @@
     {
       "category": "MNPI",
       "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "1,200,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "prasert.j@nakhontech.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-2-555-0199"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "NT-0297"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Pailin Suksawat"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Suksawat"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Prasert Jitrakorn"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "This memo contains MNPI under the Securities and Exchange Act (SEA) and SEC Thailand guidance; circulate only to the insider list per Insider Information Handling Policy No. NT-SEC-07."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Analytics note (benign vocabulary reuse): We used a genetic algorithm and the union of two log tables to forecast CloudLedger Aurora demand; no personal or health data was included."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Cross-border financing: The draft term sheet with Meridian Pacific includes Singapore-law governing clauses and a covenant to maintain SET free float; legal to review with Azura & Partners (Bangkok)."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 1,200,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 8.00"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "1,200,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet announced to the SET"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
       "matched_text": ">5%"
     },
     {
       "category": "MNPI",
       "rule": "blackout_period_reference",
       "matched_text": "trading blackout"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
     },
     {
       "category": "MNPI",
@@ -150,11 +210,6 @@
       "category": "MNPI",
       "rule": "insider_list_marker",
       "matched_text": "Insider List Register"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
     },
     {
       "category": "MNPI",
@@ -177,21 +232,6 @@
       "matched_text": "circulate only to the insider list"
     },
     {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "1,200,000,000"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Pailin Suksawat"
-    },
-    {
       "category": "PII",
       "rule": "employee_id",
       "matched_text": "employee no. NT-0297"
@@ -200,11 +240,6 @@
       "category": "PII",
       "rule": "medical_treatment",
       "matched_text": "was admitted for non-occupational surgery on 3 June"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Suksawat"
     },
     {
       "category": "PII",
@@ -223,23 +258,8 @@
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Prasert Jitrakorn"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "prasert.j@nakhontech.co.th"
-    },
-    {
-      "category": "PII",
       "rule": "email_address",
       "matched_text": "compliance@nakhontech.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66-2-555-0199"
     },
     {
       "category": "PII",
@@ -300,6 +320,39 @@
   "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_agent_review": {
+    "status": "strict_tier_cleaned_owner_approved",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "notes": "Reconciled TH Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
+  },
+  "_owner_acceptance": {
+    "status": "owner_approved_th_stage_a_for_internal_benchmarking",
+    "accepted_by": "gongahkia",
+    "accepted_at_utc": "2026-05-29T09:42:20Z",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
+  },
+  "_human_review": {
+    "status": "approved",
+    "decision": "approve",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "reviewed_at_utc": "2026-05-29T09:42:20Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+  },
+  "_human_review_history": [
+    {
+      "status": "approved",
+      "decision": "approve",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "reviewed_at_utc": "2026-05-29T09:42:20Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    }
+  ]
 }

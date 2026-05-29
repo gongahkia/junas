@@ -323,6 +323,20 @@ def _validate_uk_nin(value: str) -> bool:
     return True
 
 
+def _validate_th_national_id(value: str) -> bool:
+    # Thailand personal ID / natural-person TIN: 13 digits, first digit 1-8.
+    # The final digit is (11 - weighted_sum_mod_11) mod 10 over the first 12 digits,
+    # with weights 13..2. Leading 0 is reserved for juristic-person tax IDs.
+    digits = _digits(value)
+    if len(digits) != 13:
+        return False
+    if digits[0] == "0" or digits[0] == "9":
+        return False
+    total = sum(int(digit) * weight for digit, weight in zip(digits[:12], range(13, 1, -1)))
+    check_digit = (11 - (total % 11)) % 10
+    return check_digit == int(digits[12])
+
+
 _VALIDATORS: dict[str, Callable[[str], bool]] = {
     "hk_hkid": _validate_hk_hkid,
     "au_tfn": _validate_au_tfn,
@@ -343,6 +357,7 @@ _VALIDATORS: dict[str, Callable[[str], bool]] = {
     "ae_emirates_id": _validate_ae_emirates_id,
     "sa_national_id": _validate_sa_national_id,
     "sa_iqama": _validate_sa_iqama,
+    "th_national_id": _validate_th_national_id,
 }
 
 

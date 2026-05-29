@@ -6,13 +6,13 @@
   "must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Ratchada Pimvan"
+      "rule": "email_address",
+      "matched_text": "ratchada.p@aurorasiam.co.th"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ratchada.p@aurorasiam.co.th"
+      "rule": "named_person",
+      "matched_text": "Ms. Ratchada Pimvan"
     },
     {
       "category": "PII",
@@ -20,29 +20,14 @@
       "matched_text": "Mr. Sorawit Dech"
     },
     {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Khun Wirote Chanakul"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Khun Wirote"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@aurorasiam.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66\u201120\u2011555\u2011019"
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Status: The Company entered a non-binding term sheet on 27 May 2569 (ยังไม่ได้เปิดเผย/Non‑public) for a THB 450m secured cross‑border facility with Yamato Capital KK and Lanka Trade Finance PLC; closing contingent on CPX clearance and TCMA notification."
     },
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e1b\u0e34\u0e14\u0e40\u0e1c\u0e22/Non\u2011public"
+      "matched_text": "MNPI"
     },
     {
       "category": "MNPI",
@@ -52,32 +37,12 @@
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "remains non\u2011public"
+      "matched_text": "quiet period"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Selective disclosure risk"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Insider trading blackout"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "retain under blackout"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Blackout/quiet period"
+      "rule": "nonpublic_marker",
+      "matched_text": "internal use only"
     },
     {
       "category": "MNPI",
@@ -96,25 +61,100 @@
     },
     {
       "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "1.2m"
+    },
+    {
+      "category": "MNPI",
       "rule": "financial_percentage",
-      "matched_text": "5.25\u20136.10%"
+      "matched_text": "42%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "6.10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to shareholder approval"
     }
   ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Ratchada Pimvan"
-    },
-    {
-      "category": "PII",
       "rule": "email_address",
       "matched_text": "ratchada.p@aurorasiam.co.th"
     },
     {
       "category": "PII",
       "rule": "named_person",
+      "matched_text": "Ms. Ratchada Pimvan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
       "matched_text": "Mr. Sorawit Dech"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Status: The Company entered a non-binding term sheet on 27 May 2569 (ยังไม่ได้เปิดเผย/Non‑public) for a THB 450m secured cross‑border facility with Yamato Capital KK and Lanka Trade Finance PLC; closing contingent on CPX clearance and TCMA notification."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "quiet period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal use only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Lantern"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 450m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "1.2m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "42%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "6.10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to shareholder approval"
     },
     {
       "category": "PII",
@@ -134,22 +174,17 @@
     {
       "category": "PII",
       "rule": "phone_number",
-      "matched_text": "+66\u201120\u2011555\u2011019"
+      "matched_text": "+66‑20‑555‑019"
     },
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e1b\u0e34\u0e14\u0e40\u0e1c\u0e22/Non\u2011public"
+      "matched_text": "ยังไม่ได้เปิดเผย/Non‑public"
     },
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "remains non\u2011public"
+      "matched_text": "remains non‑public"
     },
     {
       "category": "MNPI",
@@ -178,23 +213,8 @@
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Lantern"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "THB 450m"
-    },
-    {
-      "category": "MNPI",
       "rule": "financial_percentage",
-      "matched_text": "5.25\u20136.10%"
+      "matched_text": "5.25–6.10%"
     },
     {
       "category": "MNPI",
@@ -214,12 +234,12 @@
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "non\u2011public items"
+      "matched_text": "non‑public items"
     },
     {
       "category": "MNPI",
       "rule": "selective_disclosure_risk",
-      "matched_text": "Do not discuss non\u2011public items during supplier due\u2011diligence calls or with headhunters"
+      "matched_text": "Do not discuss non‑public items during supplier due‑diligence calls or with headhunters"
     },
     {
       "category": "MNPI",
@@ -262,12 +282,12 @@
       "reason": "Issuer-specific disclosure deadline is compliance-relevant but not covered by an explicit allowed rule token"
     },
     {
-      "matched_text": "KinnareeChat ID \u201cAuroraCompliance\u201d",
+      "matched_text": "KinnareeChat ID “AuroraCompliance”",
       "concept": "internal handle PII",
       "reason": "Internal chat ID may identify a person or team; not clearly covered by allowed PII rules"
     },
     {
-      "matched_text": "\u22643.0x",
+      "matched_text": "≤3.0x",
       "concept": "financial covenant ratio",
       "reason": "Material covenant metric likely MNPI but not mapped to an allowed MNPI rule type"
     },
@@ -277,7 +297,7 @@
       "reason": "Content of a one-to-one disclosure may be MNPI-relevant but lacks a direct allowed-rule tag"
     },
     {
-      "matched_text": "CPXLink \u201cImmediate Report\u201d",
+      "matched_text": "CPXLink “Immediate Report”",
       "concept": "regulatory filing type",
       "reason": "Represents disclosure mechanism/timing; not explicitly covered by allowed markers"
     }
@@ -287,6 +307,39 @@
   "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_agent_review": {
+    "status": "strict_tier_cleaned_owner_approved",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "notes": "Reconciled TH Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
+  },
+  "_owner_acceptance": {
+    "status": "owner_approved_th_stage_a_for_internal_benchmarking",
+    "accepted_by": "gongahkia",
+    "accepted_at_utc": "2026-05-29T09:42:20Z",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
+  },
+  "_human_review": {
+    "status": "approved",
+    "decision": "approve",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "reviewed_at_utc": "2026-05-29T09:42:20Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+  },
+  "_human_review_history": [
+    {
+      "status": "approved",
+      "decision": "approve",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "reviewed_at_utc": "2026-05-29T09:42:20Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    }
+  ]
 }

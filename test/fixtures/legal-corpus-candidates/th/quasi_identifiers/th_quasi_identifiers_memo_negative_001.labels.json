@@ -10,29 +10,29 @@
       "matched_text": "1990-08-14"
     },
     {
-      "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "10.34.55.12"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@siammeridian.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "treasury@eab-labuan.example"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "E-009122"
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Subject: Financing disclosure and PDPA safeguards — Siam Meridian Logistics Public Company Limited (SET-listed)"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout calendar"
+      "rule": "material_event",
+      "matched_text": "We will include only the publicly announced financing narrative in the next SET current report and exclude any staff details or IP addresses from exhibits."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "The internal securities trading blackout calendar is policy-level guidance and contains no issuer performance data; it may be shared with auditors without creating MNPI concerns."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "009122"
     },
     {
       "category": "MNPI",
@@ -47,6 +47,36 @@
       "matched_text": "1990-08-14"
     },
     {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Subject: Financing disclosure and PDPA safeguards — Siam Meridian Logistics Public Company Limited (SET-listed)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "We will include only the publicly announced financing narrative in the next SET current report and exclude any staff details or IP addresses from exhibits."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "The internal securities trading blackout calendar is policy-level guidance and contains no issuer performance data; it may be shared with auditors without creating MNPI concerns."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "009122"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
       "category": "PII",
       "rule": "ip_address",
       "matched_text": "10.34.55.12"
@@ -72,14 +102,9 @@
       "matched_text": "blackout calendar"
     },
     {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
       "category": "PII",
       "rule": "quasi_identifier_combination",
-      "matched_text": "For the incident review last quarter, the procurement analyst (DOB 1990-08-14), based in Pathum Thani Province, using company handset device tag SM-PT-4421 and login alias \u201cproc.ops44\u201d, accessed the vendor portal via home network 10.34.55.12; payroll wallet ref EPAY-7782 and internal staff code E-009122 were recorded"
+      "matched_text": "For the incident review last quarter, the procurement analyst (DOB 1990-08-14), based in Pathum Thani Province, using company handset device tag SM-PT-4421 and login alias “proc.ops44”, accessed the vendor portal via home network 10.34.55.12; payroll wallet ref EPAY-7782 and internal staff code E-009122 were recorded"
     },
     {
       "category": "PII",
@@ -145,7 +170,7 @@
       "reason": "Indicates a retention/purge control; legally relevant privacy marker but no explicit allowed rule name provided for retention."
     },
     {
-      "matched_text": "login alias \u201cproc.ops44\u201d",
+      "matched_text": "login alias “proc.ops44”",
       "concept": "username/account identifier",
       "reason": "Identifies a specific user login; potentially PII but not clearly mapped to an allowed rule (e.g., not explicitly an internal_session_id)."
     },
@@ -160,6 +185,39 @@
   "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_agent_review": {
+    "status": "strict_tier_cleaned_owner_approved",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "notes": "Reconciled TH Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
+  },
+  "_owner_acceptance": {
+    "status": "owner_approved_th_stage_a_for_internal_benchmarking",
+    "accepted_by": "gongahkia",
+    "accepted_at_utc": "2026-05-29T09:42:20Z",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
+  },
+  "_human_review": {
+    "status": "approved",
+    "decision": "approve",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "reviewed_at_utc": "2026-05-29T09:42:20Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+  },
+  "_human_review_history": [
+    {
+      "status": "approved",
+      "decision": "approve",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "reviewed_at_utc": "2026-05-29T09:42:20Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    }
+  ]
 }

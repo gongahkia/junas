@@ -11,13 +11,18 @@
     },
     {
       "category": "PII",
+      "rule": "email_address",
+      "matched_text": "preeda.t@klongsai-renewable.co.th"
+    },
+    {
+      "category": "PII",
       "rule": "phone_number",
       "matched_text": "+66 2 671 9901"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Arisa Thamwong"
+      "rule": "phone_number",
+      "matched_text": "9 1 2 3 4 5 6 7"
     },
     {
       "category": "PII",
@@ -26,33 +31,38 @@
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "preeda.t@klongsai-renewable.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@klongsai-renewable.co.th"
-    },
-    {
-      "category": "PII",
       "rule": "bank_account",
       "matched_text": "123-4-56789-0"
     },
     {
       "category": "PII",
-      "rule": "th_national_id",
-      "matched_text": "1-2222-33333-44-5"
+      "rule": "named_person",
+      "matched_text": "Ms. Arisa Thamwong"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Acquisition target summary and capex schedule at https://dataroom.bxb.co.th/ksrn/pp?uid=EMP%3D414&pid=01 0 8 8 9 9 6 5 0 1 2 1 0 3; do not forward outside the Board."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC clause"
     },
     {
       "category": "MNPI",
       "rule": "financial_percentage",
       "matched_text": "5.20%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information"
     }
   ],
   "ideal_must_detect": [
@@ -63,13 +73,18 @@
     },
     {
       "category": "PII",
+      "rule": "email_address",
+      "matched_text": "preeda.t@klongsai-renewable.co.th"
+    },
+    {
+      "category": "PII",
       "rule": "phone_number",
       "matched_text": "+66 2 671 9901"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Arisa Thamwong"
+      "rule": "phone_number",
+      "matched_text": "9 1 2 3 4 5 6 7"
     },
     {
       "category": "PII",
@@ -78,23 +93,43 @@
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "preeda.t@klongsai-renewable.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@klongsai-renewable.co.th"
-    },
-    {
-      "category": "PII",
       "rule": "bank_account",
       "matched_text": "123-4-56789-0"
     },
     {
       "category": "PII",
-      "rule": "th_national_id",
-      "matched_text": "1-2222-33333-44-5"
+      "rule": "named_person",
+      "matched_text": "Ms. Arisa Thamwong"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Acquisition target summary and capex schedule at https://dataroom.bxb.co.th/ksrn/pp?uid=EMP%3D414&pid=01 0 8 8 9 9 6 5 0 1 2 1 0 3; do not forward outside the Board."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC clause"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5.20%"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@klongsai-renewable.co.th"
     },
     {
       "category": "PII",
@@ -113,18 +148,8 @@
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5.20%"
-    },
-    {
-      "category": "MNPI",
       "rule": "nonpublic_marker",
       "matched_text": "inside information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "internal only"
     },
     {
       "category": "MNPI",
@@ -138,18 +163,13 @@
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
       "rule": "material_event",
       "matched_text": "Proposed private placement"
     },
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "cross\u2011border secondment"
+      "matched_text": "cross‑border secondment"
     },
     {
       "category": "MNPI",
@@ -204,9 +224,45 @@
   ],
   "_label_source": "azure:gpt-5-2-auto",
   "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
+  "_label_warnings": [
+    "drop ideal_must_detect: drop invalid Thai national ID rule='th_national_id' text='1-2222-33333-44-5'",
+    "drop must_detect: drop invalid Thai national ID rule='th_national_id' text='1-2222-33333-44-5'"
+  ],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_agent_review": {
+    "status": "strict_tier_cleaned_owner_approved",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "notes": "Reconciled TH Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
+  },
+  "_owner_acceptance": {
+    "status": "owner_approved_th_stage_a_for_internal_benchmarking",
+    "accepted_by": "gongahkia",
+    "accepted_at_utc": "2026-05-29T09:42:20Z",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
+  },
+  "_human_review": {
+    "status": "approved",
+    "decision": "approve",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "reviewed_at_utc": "2026-05-29T09:42:20Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+  },
+  "_human_review_history": [
+    {
+      "status": "approved",
+      "decision": "approve",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "reviewed_at_utc": "2026-05-29T09:42:20Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    }
+  ]
 }

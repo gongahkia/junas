@@ -5,14 +5,44 @@
   "destination_jurisdiction": "TH",
   "must_detect": [
     {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "THB 1,200,000,000"
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Veera Thavorn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Jariya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Chantri Roengchai"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "60%"
+      "rule": "material_event",
+      "matched_text": "Subject: Pre-announcement MNPI on (i) THB private placement of sustainability-linked notes and (ii) cross-border acquisition of a licensed digital asset broker; deal code P r o j e c t   B a n y a n (BNY-Δ/2569)."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Operations-only note: the cybersecurity awareness webinar titled “Wallets, Whales, and Walls” is for staff education and does not disclose any ongoing incident or insider information."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Pre-announcement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
     },
     {
       "category": "MNPI",
@@ -21,100 +51,100 @@
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheets"
+      "rule": "financial_amount",
+      "matched_text": "THB 1,200,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "3M"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "60%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "1,200,000,000"
     },
     {
       "category": "MNPI",
       "rule": "insider_list_marker",
-      "matched_text": "Insider list maintained"
+      "matched_text": "Insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
     },
     {
       "category": "MNPI",
       "rule": "information_barrier_marker",
-      "matched_text": "Information barriers\u2014"
+      "matched_text": "Information barriers"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "accidental tipping"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Selective disclosure risk\u2014"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Blackout\u2014"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Unpublished terms"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "SEC Thailand approval pending"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet filed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "Cyber event (contained)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "may materially affect OGX price"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Khun Pailin Mahasri"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Veera Thavorn"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Jariya N"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Chantri Roengchai"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66 2 990 0000"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimise personal data"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfer"
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 2"
     }
   ],
   "ideal_must_detect": [
     {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Veera Thavorn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Jariya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Chantri Roengchai"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Subject: Pre-announcement MNPI on (i) THB private placement of sustainability-linked notes and (ii) cross-border acquisition of a licensed digital asset broker; deal code P r o j e c t   B a n y a n (BNY-Δ/2569)."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Operations-only note: the cybersecurity awareness webinar titled “Wallets, Whales, and Walls” is for staff education and does not disclose any ongoing incident or insider information."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Pre-announcement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
       "category": "MNPI",
       "rule": "financial_amount",
       "matched_text": "THB 1,200,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "3M"
     },
     {
       "category": "MNPI",
@@ -123,8 +153,28 @@
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "rule": "large_number",
+      "matched_text": "1,200,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 2"
     },
     {
       "category": "MNPI",
@@ -139,7 +189,7 @@
     {
       "category": "MNPI",
       "rule": "information_barrier_marker",
-      "matched_text": "Information barriers\u2014"
+      "matched_text": "Information barriers—"
     },
     {
       "category": "MNPI",
@@ -149,12 +199,12 @@
     {
       "category": "MNPI",
       "rule": "selective_disclosure_risk",
-      "matched_text": "Selective disclosure risk\u2014"
+      "matched_text": "Selective disclosure risk—"
     },
     {
       "category": "MNPI",
       "rule": "blackout_period_reference",
-      "matched_text": "Blackout\u2014"
+      "matched_text": "Blackout—"
     },
     {
       "category": "MNPI",
@@ -189,17 +239,7 @@
     {
       "category": "PII",
       "rule": "named_person",
-      "matched_text": "Mr. Veera Thavorn"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
       "matched_text": "Ms. Jariya N"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Chantri Roengchai"
     },
     {
       "category": "PII",
@@ -243,11 +283,6 @@
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Scope 2"
-    },
-    {
-      "category": "MNPI",
       "rule": "dpt_protocol_event_marker",
       "matched_text": "DPT wallet segregation"
     },
@@ -259,22 +294,17 @@
     {
       "category": "MNPI",
       "rule": "information_barrier_marker",
-      "matched_text": "Clean Room \u2018CR-OGX-BNY\u2019"
+      "matched_text": "Clean Room ‘CR-OGX-BNY’"
     },
     {
       "category": "MNPI",
       "rule": "blackout_period_reference",
-      "matched_text": "trading blackout from 29/05\u201315/06/2569"
+      "matched_text": "trading blackout from 29/05–15/06/2569"
     },
     {
       "category": "MNPI",
       "rule": "cyber_incident_pre_disclosure",
       "matched_text": "ransomware encryption"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Pre-announcement"
     },
     {
       "category": "PII",
@@ -313,6 +343,39 @@
   ],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_agent_review": {
+    "status": "strict_tier_cleaned_owner_approved",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "notes": "Reconciled TH Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
+  },
+  "_owner_acceptance": {
+    "status": "owner_approved_th_stage_a_for_internal_benchmarking",
+    "accepted_by": "gongahkia",
+    "accepted_at_utc": "2026-05-29T09:42:20Z",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
+  },
+  "_human_review": {
+    "status": "approved",
+    "decision": "approve",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "reviewed_at_utc": "2026-05-29T09:42:20Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+  },
+  "_human_review_history": [
+    {
+      "status": "approved",
+      "decision": "approve",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "reviewed_at_utc": "2026-05-29T09:42:20Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    }
+  ]
 }

@@ -6,6 +6,16 @@
   "must_detect": [
     {
       "category": "PII",
+      "rule": "email_address",
+      "matched_text": "nicha.anuwat@aranyacapital.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-2-555-0199"
+    },
+    {
+      "category": "PII",
       "rule": "named_person",
       "matched_text": "Mr. Prasert Inthanon"
     },
@@ -17,42 +27,17 @@
     {
       "category": "PII",
       "rule": "named_person",
-      "matched_text": "Khun Thirada Wong"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
       "matched_text": "Ms. Nicha Anuwat"
     },
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "nicha.anuwat@aranyacapital.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66-2-555-0199"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "AC-1128"
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Information barriers: restrict access to “Project Banyan” rooms; no forwarding to the Trading or Digital Assets Desk; do not discuss terms with research or sales; any breach may constitute tipping under the Securities and Exchange Act."
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "THB 1.8b"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "has not been disclosed to the market"
+      "rule": "material_event",
+      "matched_text": "For the cyber incident, if materiality thresholds are met, we will submit a clarification via SET’s system within 24 hours and notify the SEC Thailand as required; PDPA breach notification will be evaluated with the DPO in case of any identified data subject impact."
     },
     {
       "category": "MNPI",
@@ -61,28 +46,13 @@
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list"
+      "rule": "nonpublic_marker",
+      "matched_text": "Pre-announcement"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout window"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barriers"
-    },
-    {
-      "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "tipping"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selectively disclose"
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
     },
     {
       "category": "MNPI",
@@ -91,16 +61,46 @@
     },
     {
       "category": "MNPI",
-      "rule": "dpt_pre_listing_marker",
-      "matched_text": "digital asset sandbox"
+      "rule": "financial_amount",
+      "matched_text": "3M"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "A cyber incident was reported"
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_target_revision",
+      "matched_text": "limited assurance"
     }
   ],
   "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "nicha.anuwat@aranyacapital.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-2-555-0199"
+    },
     {
       "category": "PII",
       "rule": "named_person",
@@ -114,22 +114,72 @@
     {
       "category": "PII",
       "rule": "named_person",
-      "matched_text": "Khun Thirada Wong"
+      "matched_text": "Ms. Nicha Anuwat"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Information barriers: restrict access to “Project Banyan” rooms; no forwarding to the Trading or Digital Assets Desk; do not discuss terms with research or sales; any breach may constitute tipping under the Securities and Exchange Act."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "For the cyber incident, if materiality thresholds are met, we will submit a clarification via SET’s system within 24 hours and notify the SEC Thailand as required; PDPA breach notification will be evaluated with the DPO in case of any identified data subject impact."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Pre-announcement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Banyan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "3M"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_target_revision",
+      "matched_text": "limited assurance"
     },
     {
       "category": "PII",
       "rule": "named_person",
-      "matched_text": "Ms. Nicha Anuwat"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "nicha.anuwat@aranyacapital.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66-2-555-0199"
+      "matched_text": "Khun Thirada Wong"
     },
     {
       "category": "PII",
@@ -158,38 +208,13 @@
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "The Company is negotiating a THB 1.8bn sustainability-linked loan"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
       "rule": "nonpublic_marker",
       "matched_text": "has not been disclosed to the market"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list"
-    },
-    {
-      "category": "MNPI",
       "rule": "blackout_period_reference",
       "matched_text": "blackout window"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barriers"
     },
     {
       "category": "MNPI",
@@ -215,11 +240,6 @@
       "category": "MNPI",
       "rule": "selective_disclosure_risk",
       "matched_text": "do not selectively disclose commercial pricing outside the dataroom"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Banyan"
     },
     {
       "category": "MNPI",
@@ -249,7 +269,7 @@
     {
       "category": "MNPI",
       "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "For the cyber incident, if materiality thresholds are met, we will submit a clarification via SET\u2019s system within 24 hours and notify the SEC Thailand as required"
+      "matched_text": "For the cyber incident, if materiality thresholds are met, we will submit a clarification via SET’s system within 24 hours and notify the SEC Thailand as required"
     },
     {
       "category": "MNPI",
@@ -260,6 +280,11 @@
       "category": "MNPI",
       "rule": "esg_climate_pre_disclosure",
       "matched_text": "do not publish intensity targets or climate-aligned capex figures externally"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
     }
   ],
   "must_not_detect": [
@@ -308,9 +333,44 @@
   ],
   "_label_source": "azure:gpt-5-2-auto",
   "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
+  "_label_warnings": [
+    "drop ideal_must_detect: drop must-not bait from ideal tier rule='material_event' text='The Company is negotiating a THB 1.8bn sustainability-linked loan'"
+  ],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_agent_review": {
+    "status": "strict_tier_cleaned_owner_approved",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "notes": "Reconciled TH Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
+  },
+  "_owner_acceptance": {
+    "status": "owner_approved_th_stage_a_for_internal_benchmarking",
+    "accepted_by": "gongahkia",
+    "accepted_at_utc": "2026-05-29T09:42:20Z",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
+  },
+  "_human_review": {
+    "status": "approved",
+    "decision": "approve",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "reviewed_at_utc": "2026-05-29T09:42:20Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+  },
+  "_human_review_history": [
+    {
+      "status": "approved",
+      "decision": "approve",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "reviewed_at_utc": "2026-05-29T09:42:20Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    }
+  ]
 }

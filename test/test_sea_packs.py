@@ -61,8 +61,15 @@ class SeaRecognizerFiringTests(unittest.TestCase):
         self.assertIn("id_nik", {f.rule for f in r.findings})
 
     def test_thai_id_fires_on_dashed_format(self):
-        r = self._review("National ID 1-2345-67890-12-3 attached.", "TH")
+        r = self._review("National ID 1-2345-67890-12-1 attached.", "TH")
         self.assertIn("th_national_id", {f.rule for f in r.findings})
+
+    def test_thai_id_rejects_invalid_checksum_and_juristic_prefix(self):
+        r = self._review(
+            "Bait IDs: 1-2345-67890-12-3 and corporate tax ID 0-9999-12345-66-7.",
+            "TH",
+        )
+        self.assertNotIn("th_national_id", {f.rule for f in r.findings})
 
     def test_philsys_and_tin_fire(self):
         r = self._review("PhilSys 1234-5678-9012 / TIN 123-456-789-000.", "PH")
