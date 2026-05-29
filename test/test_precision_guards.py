@@ -197,10 +197,10 @@ class FinancialAmountGuards(unittest.TestCase):
 
 
 class LargeNumberPrecisionGuards(unittest.TestCase):
-    def test_large_number_inside_financial_amount_is_suppressed(self):
+    def test_large_number_inside_financial_amount_still_fires_for_locked_recall(self):
         text = "Consideration is S$120,000,000 cash."
         numbers = [m for r, m in _rules_matched(text) if r == "large_number"]
-        self.assertNotIn("120,000,000", numbers)
+        self.assertIn("120,000,000", numbers)
 
     def test_large_number_inside_postal_code_is_suppressed(self):
         text = "Registered office: Singapore 049899."

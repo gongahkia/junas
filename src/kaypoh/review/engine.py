@@ -1242,7 +1242,7 @@ def _is_identifier_like_large_number_context(text: str, start: int, end: int) ->
     digits = _digits_only(matched)
     if digits and set(digits) == {"0"}:
         return True
-    context = text[max(0, start - 90): min(len(text), end + 90)]
+    context = _line_context(text, start, end)
     return bool(_LARGE_NUMBER_IDENTIFIER_CONTEXT_RE.search(context))
 
 
@@ -1722,7 +1722,7 @@ _HIGHER_PRIORITY_THAN_PHONE = frozenset({
     "passport_number", "bank_account", "us_itin", "us_driver_license", "imei",
 })
 _HIGHER_PRIORITY_THAN_LARGE_NUMBER = _HIGHER_PRIORITY_THAN_PHONE | frozenset({
-    "financial_amount", "financial_percentage", "date_of_birth", "age_reference",
+    "financial_percentage", "date_of_birth", "age_reference",
     "ip_address", "mac_address", "cookie_id", "advertising_id", "device_serial_number",
     "sg_postal_address", "medical_record_number", "eu_national_id",
 })
