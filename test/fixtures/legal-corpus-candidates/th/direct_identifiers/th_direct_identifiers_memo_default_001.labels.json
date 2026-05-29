@@ -3,13 +3,260 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@khlongbeam.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 2 948 7100"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 600m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "12,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 7.80"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "TA1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 81 245 9931"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealroom@khlongbeam.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "123-4-56789-0"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Araya Boonchai"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Prasert Anurak"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Nicha Rattanakorn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Jirawan Phasuk"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@khlongbeam.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 2 948 7100"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 600m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "12,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 7.80"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "TA1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 81 245 9931"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealroom@khlongbeam.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "123-4-56789-0"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Araya Boonchai"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Prasert Anurak"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Nicha Rattanakorn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Jirawan Phasuk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "limit circulation under SEA ss.241\u2013244"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed Private Placement and Senior Loan"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transfer to Singapore counsel only with PDPA s.28 safeguards and NDA"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "treat as personal data and exclude from market disclosure"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "sign-in sheet must omit visitor badge numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Cleanup: remove \u201cThai Tax ID 0105559999999\u201d inserted by a form auto-fill (checksum invalid per our checker) and the generic field \u201cPassport No: __________\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to Board approval"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "whitelist only domains of our advisors"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "revoke after SEC filing"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Account No.: 000-0-00000-0",
+      "reason": "placeholder sample; not a real account number"
+    },
+    {
+      "matched_text": "1111",
+      "reason": "public helpline number; not a deal contact"
+    },
+    {
+      "matched_text": "Thai Tax ID 0105559999999",
+      "reason": "invalid checksum corporate ID; not personal data"
+    },
+    {
+      "matched_text": "Passport No: __________",
+      "reason": "generic form field placeholder"
+    },
+    {
+      "matched_text": "Chair",
+      "reason": "role-only name; not an identified person"
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "role-only name; not an identified person"
+    },
+    {
+      "matched_text": "Internal Audit",
+      "reason": "role-only name; not an identified person"
+    },
+    {
+      "matched_text": "External Counsel",
+      "reason": "role-only name; not an identified person"
+    }
+  ],
   "uncertain": [],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
