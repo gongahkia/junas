@@ -48,15 +48,40 @@
       "category": "MNPI",
       "rule": "insider_list_marker",
       "matched_text": "insider list"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "standard contractual clauses"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "The proposed acquisition of BlueQuill Dynamics Pte. Ltd. constitutes MNPI under the SFA and SGX Listing Rules; information barriers remain active and the insider list is current."
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "wall-crossed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
     }
   ],
   "must_not_detect": [],
   "uncertain": [
-    {
-      "matched_text": "DSAR",
-      "concept": "DSAR marker",
-      "reason": "DSAR is a privacy handling event under PDPA but there is no explicit DSAR marker in the allowed rules."
-    },
     {
       "matched_text": "erasure",
       "concept": "erasure marker",
@@ -158,5 +183,11 @@
     }
   ],
   "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
-  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending."
+  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending.",
+  "_agent_review": {
+    "reviewer": "codex-agent-review",
+    "status": "technical_reviewed_pending_human_approval",
+    "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+    "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending."
+  }
 }

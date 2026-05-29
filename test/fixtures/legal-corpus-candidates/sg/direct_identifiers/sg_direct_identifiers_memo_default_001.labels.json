@@ -56,8 +56,53 @@
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "cosec@marinex-holdings.sg"
+      "rule": "passport_number",
+      "matched_text": "K1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "719-228-004-1"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_sgx_counter",
+      "matched_text": "MXH"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Teo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Subject: PDPA, MNPI, and SGX considerations for the proposed acquisition by MarineX Holdings Ltd. (SGX: MXH)."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "ACRA extracts, auditor engagement letters, and GST registration status (via UEN) are generally available; MAS approvals not required for ordinary share acquisition below threshold."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$4.60"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "wall-crossed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "wall-crossing"
     }
   ],
   "must_not_detect": [
@@ -68,6 +113,10 @@
     {
       "matched_text": "1800-000-0000",
       "reason": "General hotline; not personal data under PDPA"
+    },
+    {
+      "matched_text": "cosec@marinex-holdings.sg",
+      "reason": "Functional role mailbox; not an individual email address for strict detector-aligned SG PII labels."
     }
   ],
   "uncertain": [
@@ -148,7 +197,7 @@
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "Unpublished valuation range (S$4.20\u2013S$4.60 per share)"
+      "matched_text": "Unpublished valuation range (S$4.20–S$4.60 per share)"
     },
     {
       "category": "MNPI",
@@ -199,13 +248,14 @@
       "category": "PII",
       "rule": "named_person",
       "matched_text": "Ms. Charmaine Ong"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "cosec@marinex-holdings.sg"
     }
   ],
   "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
-  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending."
+  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending.",
+  "_agent_review": {
+    "reviewer": "codex-agent-review",
+    "status": "technical_reviewed_pending_human_approval",
+    "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+    "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending."
+  }
 }

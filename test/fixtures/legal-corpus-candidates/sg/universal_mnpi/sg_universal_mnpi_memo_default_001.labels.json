@@ -58,6 +58,46 @@
       "category": "PII",
       "rule": "named_person",
       "matched_text": "Mr. Julian Koh"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Board update re Project Sandpiper: proposed acquisition by Harbor Quill Capital Pte. Ltd. of a 55.2% stake in Qilin Robotics Ltd. (SGX Mainboard)."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Consideration: SGD 480,000,000 cash; draft Share Purchase Agreement (definitive agreement) and ancillary TSA/SSA attached for review."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Financing: equity cheque from Harbor Quill Fund III (internal), plus a committed SGD 120,000,000 term facility at SORA+195 bps; no security over operating subsidiaries pre-completion."
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "spa"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "SGD 120,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "480,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "120,000,000"
     }
   ],
   "must_not_detect": [
@@ -219,5 +259,11 @@
     }
   ],
   "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
-  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending."
+  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending.",
+  "_agent_review": {
+    "reviewer": "codex-agent-review",
+    "status": "technical_reviewed_pending_human_approval",
+    "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+    "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending."
+  }
 }

@@ -48,6 +48,26 @@
       "category": "PII",
       "rule": "phone_number",
       "matched_text": "+65 6000 1122"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
     }
   ],
   "must_not_detect": [
@@ -77,11 +97,6 @@
     }
   ],
   "uncertain": [
-    {
-      "matched_text": "DSAR",
-      "concept": "dsar_marker",
-      "reason": "DSAR is a privacy event marker but not explicitly listed as a valid rule name."
-    },
     {
       "matched_text": "Erasure",
       "concept": "erasure_marker",
@@ -198,5 +213,11 @@
     }
   ],
   "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
-  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending."
+  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending.",
+  "_agent_review": {
+    "reviewer": "codex-agent-review",
+    "status": "technical_reviewed_pending_human_approval",
+    "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+    "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending."
+  }
 }

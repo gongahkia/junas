@@ -73,6 +73,71 @@
       "category": "PII",
       "rule": "email_address",
       "matched_text": "d.khoo@caravelpacific.com"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "1I-8O-3X-xx"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Caravel Pacific Holdings Ltd. (Mainboard-listed on SGX-ST) to acquire 62.5% of Obsidian Renewables Pte. Ltd. for approx. S$248,000,000 in cash; binding term sheet signed 20 Jun 2026, definitive SPA in near-final form."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "MAC/MAE: closing condition waived except for revocation of core Energy Market Authority permits; general market downturns excluded; due diligence shows no material adverse change since 31 Mar 2026."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Financing: S$120,000,000 bridge from Shoreline Bank (SG) Ltd.; balance from internal resources; net debt cap at completion S$18m; expected EPS accretion ~11% in FY2027."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Timeline: sign by 05 Jul 2026, announce via SGXNet immediately after embargo lifts, closing in Q4 2026; Board blackout continues until release."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "IR draft notes: todo: align ir faq; no change to FY2026 guidance; include non-IFRS bridge; draft investor call deck T+1; strictly con fi den tial // do not forward."
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "spa"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$120,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$80m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "248,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "120,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
     }
   ],
   "must_not_detect": [
@@ -239,5 +304,11 @@
     }
   ],
   "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
-  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending."
+  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending.",
+  "_agent_review": {
+    "reviewer": "codex-agent-review",
+    "status": "technical_reviewed_pending_human_approval",
+    "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+    "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending."
+  }
 }

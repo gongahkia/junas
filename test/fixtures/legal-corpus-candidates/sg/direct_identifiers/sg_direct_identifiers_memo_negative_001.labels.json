@@ -58,6 +58,41 @@
       "category": "PII",
       "rule": "named_person",
       "matched_text": "Ms. Tan"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_nric_fin",
+      "matched_text": "S1234567A"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "201912345K"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "202045678Z"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "123-456-789-0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Subject: Proposed acquisition of OrchidPay Pte. Ltd. (UEN 202045678Z) and related employment/PDPA considerations; Board review under SFA/SGX disclosure controls."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Acquisition escrow to be opened at East Harbor Bank (SG), account 123-456-789-0 in the name of Velorise Holdings Ltd.; treasury contact ap@velorise.com.sg."
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "wall-crossing"
     }
   ],
   "must_not_detect": [
@@ -219,7 +254,7 @@
     {
       "category": "PII",
       "rule": "data_minimisation_marker",
-      "matched_text": "delete \u201cName: ______\u201d form scans lacking purpose"
+      "matched_text": "delete “Name: ______” form scans lacking purpose"
     },
     {
       "category": "MNPI",
@@ -233,5 +268,11 @@
     }
   ],
   "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
-  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending."
+  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending.",
+  "_agent_review": {
+    "reviewer": "codex-agent-review",
+    "status": "technical_reviewed_pending_human_approval",
+    "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+    "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending."
+  }
 }

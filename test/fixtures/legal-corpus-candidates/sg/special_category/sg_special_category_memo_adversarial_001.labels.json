@@ -43,6 +43,36 @@
       "category": "PII",
       "rule": "email_address",
       "matched_text": "mna@arcturus-legal.sg"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "To: Board of Peregrine Harvest Holdings Limited (SGX-ST Mainboard); From: Arcturus Legal LLP; Subject: PDPA/MNPI review — Project Sapphire (proposed acquisition of Riverlynx Biotech Pte. Ltd.)."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$4.28"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "17%"
     }
   ],
   "must_not_detect": [
@@ -193,12 +223,12 @@
     {
       "category": "PII",
       "rule": "religious_belief",
-      "matched_text": "For the same named individual, HR files note his declared religion as Hindu and his membership in the Harbor Quay Technical Workers\u2019 Union, both collected during onboarding"
+      "matched_text": "For the same named individual, HR files note his declared religion as Hindu and his membership in the Harbor Quay Technical Workers’ Union, both collected during onboarding"
     },
     {
       "category": "PII",
       "rule": "trade_union_membership",
-      "matched_text": "For the same named individual, HR files note his declared religion as Hindu and his membership in the Harbor Quay Technical Workers\u2019 Union, both collected during onboarding"
+      "matched_text": "For the same named individual, HR files note his declared religion as Hindu and his membership in the Harbor Quay Technical Workers’ Union, both collected during onboarding"
     },
     {
       "category": "PII",
@@ -237,5 +267,11 @@
     }
   ],
   "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
-  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending."
+  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending.",
+  "_agent_review": {
+    "reviewer": "codex-agent-review",
+    "status": "technical_reviewed_pending_human_approval",
+    "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+    "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending."
+  }
 }

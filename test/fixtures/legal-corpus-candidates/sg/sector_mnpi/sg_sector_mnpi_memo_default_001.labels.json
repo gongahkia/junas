@@ -68,6 +68,41 @@
       "category": "MNPI",
       "rule": "definitive_agreement",
       "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "We have received a non-binding term sheet to acquire 60% of Nimbus Arc Pte. Ltd., a DPT wallet operator with MAS in-principle approval, for S$48m cash plus S$12m earn-out."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Financing assumes a private placement at a 5–8% discount to last 5-day VWAP; such commercial terms and the DPT entry strategy are not generally available and may be price sensitive under Rule 703 of the SGX Listing Manual."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Any reference to the potential emissions restatement, crypto acquisition pipeline, or the placement pricing outside the insider group risks selective disclosure and tipping under Sections 218/219 SFA."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "8%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "wall-crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 2 emissions"
     }
   ],
   "must_not_detect": [
@@ -177,7 +212,7 @@
     {
       "category": "MNPI",
       "rule": "financial_percentage",
-      "matched_text": "5\u20138%"
+      "matched_text": "5–8%"
     },
     {
       "category": "MNPI",
@@ -251,5 +286,11 @@
     }
   ],
   "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
-  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending."
+  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending.",
+  "_agent_review": {
+    "reviewer": "codex-agent-review",
+    "status": "technical_reviewed_pending_human_approval",
+    "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+    "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending."
+  }
 }

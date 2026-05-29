@@ -53,6 +53,26 @@
       "category": "MNPI",
       "rule": "insider_list_marker",
       "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Materiality: expected to add ~22% to consolidated EBITDA (issuer‑relative); likely to trip Rule 1006 thresholds but not a reverse takeover under Rule 1015; draft SIA states this does not constitute a material adverse change."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "22%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "28%"
     }
   ],
   "must_not_detect": [
@@ -77,7 +97,7 @@
       "reason": "Publicly available; not MNPI"
     },
     {
-      "matched_text": "2019 trade\u2011press coverage of EcoFan v2",
+      "matched_text": "2019 trade‑press coverage of EcoFan v2",
       "reason": "Public/stale information; not MNPI"
     },
     {
@@ -85,7 +105,7 @@
       "reason": "Already announced; not MNPI"
     },
     {
-      "matched_text": "Seabright Logistics Ltd.\u2019s Tuas warehouse upgrade",
+      "matched_text": "Seabright Logistics Ltd.’s Tuas warehouse upgrade",
       "reason": "Non-issuer operational update; not issuer MNPI"
     },
     {
@@ -170,7 +190,7 @@
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "expected to be price\u2011sensitive"
+      "matched_text": "expected to be price‑sensitive"
     },
     {
       "category": "MNPI",
@@ -195,12 +215,12 @@
     {
       "category": "MNPI",
       "rule": "selective_disclosure_risk",
-      "matched_text": "Selective disclosure controls: do not brief analysts or major shareholders absent wall\u2011cross"
+      "matched_text": "Selective disclosure controls: do not brief analysts or major shareholders absent wall‑cross"
     },
     {
       "category": "MNPI",
       "rule": "information_barrier_marker",
-      "matched_text": "wall\u2011cross"
+      "matched_text": "wall‑cross"
     },
     {
       "category": "MNPI",
@@ -210,7 +230,7 @@
     {
       "category": "MNPI",
       "rule": "blackout_period_reference",
-      "matched_text": "Closed\u2011window"
+      "matched_text": "Closed‑window"
     },
     {
       "category": "MNPI",
@@ -219,5 +239,11 @@
     }
   ],
   "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
-  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending."
+  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending.",
+  "_agent_review": {
+    "reviewer": "codex-agent-review",
+    "status": "technical_reviewed_pending_human_approval",
+    "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+    "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending."
+  }
 }
