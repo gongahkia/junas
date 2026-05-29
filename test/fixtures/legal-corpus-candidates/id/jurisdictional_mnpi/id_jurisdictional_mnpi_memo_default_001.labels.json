@@ -3,13 +3,256 @@
   "document_type": "memo",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@laksana-dana.co.id"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "70%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Perjanjian Pengikatan Jual Beli Saham"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "belum dipublikasikan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "dilarang mengungkapkan secara selektif"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Sari Mentari"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "0,6%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "dapat mempengaruhi harga"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "paparan selektif"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Dimas Hartanto"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MOU"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Lila Aryasari"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "lila.aryasari@laksana-dana.co.id"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@laksana-dana.co.id"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "70%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Perjanjian Pengikatan Jual Beli Saham"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "belum dipublikasikan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "dilarang mengungkapkan secara selektif"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Sari Mentari"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "0,6%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "dapat mempengaruhi harga"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "paparan selektif"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Dimas Hartanto"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MOU"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Lila Aryasari"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "lila.aryasari@laksana-dana.co.id"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet non-binding"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "akuisisi 70% saham PT KoinOrbit Fintek"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insan Kunci"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Periode larangan transaksi internal (blackout)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "hindari menjawab pertanyaan wartawan sebelum itu"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Informasi ini bersifat belum dipublikasikan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Rencana pengangkatan Ibu Sari Mentari sebagai CTO KoinOrbit pasca-konsolidasi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "publikasi hanya setelah pengajuan di BESnet diterima"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Perseroan",
+      "reason": "Role-noun/defined company term, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Dewan Komisaris",
+      "reason": "Role noun, not a named person PII"
+    },
+    {
+      "matched_text": "Direksi",
+      "reason": "Role noun, not a named person PII"
+    },
+    {
+      "matched_text": "CTO",
+      "reason": "Role title, not a named person PII"
+    },
+    {
+      "matched_text": "Divisi Hukum & Kepatuhan",
+      "reason": "Organisational unit, not PII"
+    },
+    {
+      "matched_text": "Pak Ketua Dewan",
+      "reason": "Role/ honorific role phrase, not a specific named person"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "ditandatangani 27 Mei 2026",
+      "concept": "signing timing",
+      "reason": "Indicates a signing date but does not use the exact keyword 'Signing Date' per rule"
+    },
+    {
+      "matched_text": "sejak tanggal 20 Mei 2026 hingga 1 Hari Bursa setelah publikasi keterbukaan",
+      "concept": "blackout window dates",
+      "reason": "Specific blackout period timing may be sensitive but rule focuses on blackout references not ranges"
+    },
+    {
+      "matched_text": "panggilan manajemen pada 28 Mei 2026 dengan dua analis dari Kelapa Research Consult dan calon investor jangkar",
+      "concept": "selective disclosure event",
+      "reason": "Indicates a potentially selective briefing but not an explicit risk phrase beyond separate 'paparan selektif'"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp185 miliar'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp185 miliar'"
+  ],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

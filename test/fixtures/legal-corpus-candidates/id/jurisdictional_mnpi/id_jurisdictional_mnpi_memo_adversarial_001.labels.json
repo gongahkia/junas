@@ -3,13 +3,364 @@
   "document_type": "memo",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "galpha\u2011pm@anugrahfintek.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dimas.prakoso@anugrahfintek.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rani.siregar@anugrahfintek.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pr@anugrahfintek.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@anugrahfintek.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62\u201121\u20115*23\u201144**"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "88\u20110092\u2011**76\u20110"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "7A**93"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "7A**97"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Dimas Prakoso"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Rani Siregar, S.H"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "LOI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "70%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "1,75%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selektif disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "diseminasi selektif"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Periode tertutup"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "galpha\u2011pm@anugrahfintek.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dimas.prakoso@anugrahfintek.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rani.siregar@anugrahfintek.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pr@anugrahfintek.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@anugrahfintek.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62\u201121\u20115*23\u201144**"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "88\u20110092\u2011**76\u20110"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "7A**93"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "7A**97"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Dimas Prakoso"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Rani Siregar, S.H"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "LOI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "70%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "1,75%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selektif disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "diseminasi selektif"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Periode tertutup"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "belum diumumkan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "penyebaran lebih lanjut dilarang"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "NDA terbatas"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "orang dalam"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "hindari percakapan eksternal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "\u201charga\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "\u201ctimeline closing\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "\u201csyarat persetujuan regulator\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "dilarang melakukan perdagangan AFNX"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "H\u20111 penandatanganan SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Rencana Akuisisi 70% saham PT Citra Bayangan Teknologi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "belum diumumkan dan merupakan MNPI"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Perseroan",
+      "reason": "Defined-term for company; not a PII/MNPI span"
+    },
+    {
+      "matched_text": "CBT",
+      "reason": "Defined-term for target entity; not PII/MNPI"
+    },
+    {
+      "matched_text": "AFNX",
+      "reason": "Issuer ticker reference; not an allowed PII/MNPI rule"
+    },
+    {
+      "matched_text": "vendor",
+      "reason": "Role noun; not PII/MNPI"
+    },
+    {
+      "matched_text": "Keterbukaan Informasi",
+      "reason": "Public filing reference; not MNPI on its own"
+    },
+    {
+      "matched_text": "G\u2011ALPHA/26",
+      "reason": "Project string does not match transaction codename pattern"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC/MAE context; excluded per rule 8"
+    },
+    {
+      "matched_text": "POJK",
+      "reason": "Regulatory acronym; not PII/MNPI"
+    },
+    {
+      "matched_text": "O t o r i t a s  J a s a  K e u a n g a n",
+      "reason": "Regulator name; not PII/MNPI"
+    },
+    {
+      "matched_text": "JIBOR",
+      "reason": "Benchmark rate reference; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "closing tidak boleh dilakukan sebelum persetujuan tertulis diterima",
+      "concept": "closing embargo/gating",
+      "reason": "Embargo-marker list covers 'Closing Date' explicitly; gating language without a date may be relevant MNPI but not a defined rule"
+    },
+    {
+      "matched_text": "H\u20111 penandatanganan SPA",
+      "concept": "press embargo/disclosure timing",
+      "reason": "Pre-signing publication timing is sensitive but not an explicit allowed marker beyond English terms"
+    },
+    {
+      "matched_text": "NDA terbatas",
+      "concept": "information barrier",
+      "reason": "Indicates restricted sharing under NDA; useful for barrier/SD risk but not a strict keyworded marker"
+    },
+    {
+      "matched_text": "orang dalam",
+      "concept": "insider reference",
+      "reason": "Refers to insiders; not explicitly an 'insider list' marker"
+    },
+    {
+      "matched_text": "repo\u2011uploader://AFN/G\u2011ALPHA/26/fin/acq\\ pack",
+      "concept": "internal resource identifier",
+      "reason": "Could be treated like an internal session/resource ID; not covered by explicit rule"
+    },
+    {
+      "matched_text": "covenant leverage 2,5x Net Debt/EBITDA saat closing",
+      "concept": "financing covenant MNPI",
+      "reason": "Leverage covenant is material and non-public; no direct allowed rule type"
+    },
+    {
+      "matched_text": "jadwal penarikan berjenjang (T+3/T+15)",
+      "concept": "financing draw schedule MNPI",
+      "reason": "Sensitive timing detail; not mapped to a specific MNPI rule"
+    },
+    {
+      "matched_text": "tim proyek \u201cG\u2011ALPHA/26\u201d",
+      "concept": "transaction/project codename",
+      "reason": "Codename present but not in the 'Project <Name>' pattern"
+    },
+    {
+      "matched_text": "penandatanganan SPA (target 28 Juni 2026)",
+      "concept": "signing date target",
+      "reason": "Date relates to signing; allowed embargo markers list specific English terms"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp1,15\u20131,30 triliun'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp14,2 miliar'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp1,15\u20131,30 triliun'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp14,2 miliar'"
+  ],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
