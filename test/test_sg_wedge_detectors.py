@@ -187,6 +187,14 @@ class SgSgxCounterPrecisionTests(_SgWedgeBase):
         hits = self._findings_by_rule("Trading volume on SGX in Q3 was elevated.", "sg_sgx_counter")
         self.assertEqual(hits, [])
 
+    def test_sgx_st_exchange_suffix_does_not_fire(self):
+        hits = self._findings_by_rule("The issuer is listed on SGX-ST Mainboard.", "sg_sgx_counter")
+        self.assertEqual(hits, [])
+
+    def test_sgx_listing_rule_abbreviation_does_not_fire(self):
+        hits = self._findings_by_rule("Follow SGX LR 703 for disclosure timing.", "sg_sgx_counter")
+        self.assertEqual(hits, [])
+
     def test_bare_three_letter_uppercase_without_sgx_anchor(self):
         # "DBS is a major bank" — "DBS" alone without SGX anchor must not fire.
         hits = self._findings_by_rule("DBS is a major bank in Singapore.", "sg_sgx_counter")

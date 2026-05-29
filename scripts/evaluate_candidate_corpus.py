@@ -21,6 +21,12 @@ if str(SRC_PATH) not in sys.path:
 from kaypoh.review.engine import PreSendReviewEngine  # noqa: E402
 
 DEFAULT_CORPUS = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"
+UNEXPECTED_TRIAGE_BUCKETS = (
+    "real_detector_hit_missing_from_strict_labels",
+    "actual_detector_false_positive",
+    "ideal_only_statutory_gap",
+    "taxonomy_model_label_mismatch",
+)
 
 
 @dataclass
@@ -253,7 +259,10 @@ def _summary(reports: list[CandidateDocReport]) -> dict[str, Any]:
         "ideal_candidate_recall": round(total_ideal_matched / total_ideal, 4) if total_ideal else 0.0,
         "by_rule": by_rule,
         "ideal_by_rule": ideal_by_rule,
-        "unexpected_triage": dict(sorted(unexpected_triage.items())),
+        "unexpected_triage": {
+            bucket: unexpected_triage.get(bucket, 0)
+            for bucket in UNEXPECTED_TRIAGE_BUCKETS
+        },
     }
 
 
