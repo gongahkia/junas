@@ -1170,6 +1170,21 @@ _ROLE_MAILBOX_LOCAL_PARTS = frozenset({
     "admin", "ap", "ar", "billing", "cosec", "compliance", "contact", "help",
     "helpdesk", "info", "legal", "privacy", "support", "treasury",
 })
+_DATE_LIKE_PHONE_RE = re.compile(
+    r"(?:\d{4}[-/]\d{1,2}[-/]\d{1,2}(?:\s+\d{1,2})?|"
+    r"\d{1,2}[-/]\d{1,2}[-/]\d{2,4}(?:\s+\d{1,2})?)\Z"
+)
+_IPV4_LITERAL_RE = re.compile(r"(?:\d{1,3}\.){3}\d{1,3}\Z")
+_NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
+    r"\b(?:UEN|NRIC|FIN|passport|a/c|account|IMEI|IP|DOB|dated|session\s+ref|"
+    r"asset\s+tag|badge)\b",
+    re.IGNORECASE,
+)
+_LARGE_NUMBER_IDENTIFIER_CONTEXT_RE = re.compile(
+    r"\b(?:UEN|NRIC|FIN|passport|postal|IMEI|IP|account\s+no\.?|"
+    r"generic\s+label)\b",
+    re.IGNORECASE,
+)
 
 
 def _is_negated_context(text: str, match_start: int) -> bool:
@@ -1204,6 +1219,36 @@ def _is_public_or_generic_phone_context(text: str, start: int, end: int) -> bool
         return True
     context = _line_context(text, start, end)
     return bool(_PUBLIC_PHONE_CONTEXT_RE.search(context))
+
+
+def _is_non_phone_numeric_context(text: str, start: int, end: int) -> bool:
+    matched = text[start:end].strip()
+    digits = _digits_only(matched)
+    if _DATE_LIKE_PHONE_RE.fullmatch(matched):
+        return True
+    if _IPV4_LITERAL_RE.fullmatch(matched) and _ip_version(matched) == 4:
+        return True
+    if len(digits) >= 14 and not matched.startswith("+"):
+        return True
+    if matched.startswith("+"):
+        return False
+    context = text[max(0, start - 90): min(len(text), end + 90)]
+    has_separator = bool(re.search(r"[\s.-]", matched))
+    return bool(has_separator and _NON_PHONE_NUMERIC_CONTEXT_RE.search(context))
+
+
+def _is_identifier_like_large_number_context(text: str, start: int, end: int) -> bool:
+    matched = text[start:end].strip()
+    digits = _digits_only(matched)
+    if digits and set(digits) == {"0"}:
+        return True
+    context = text[max(0, start - 90): min(len(text), end + 90)]
+    return bool(_LARGE_NUMBER_IDENTIFIER_CONTEXT_RE.search(context))
+
+
+def _is_identifier_like_financial_amount(text: str, start: int, end: int) -> bool:
+    matched = text[start:end].strip()
+    return bool(re.fullmatch(r"\d{6,}\s*[KMBT]", matched, re.IGNORECASE))
 
 
 def _digits_only(value: str) -> str:
@@ -1675,6 +1720,11 @@ _HIGHER_PRIORITY_THAN_PHONE = frozenset({
     "hk_hkid", "hk_cr_no", "au_tfn", "au_abn", "au_acn",
     "jp_my_number", "jp_corporate_number", "kr_rrn", "kr_business_registration",
     "passport_number", "bank_account", "us_itin", "us_driver_license", "imei",
+})
+_HIGHER_PRIORITY_THAN_LARGE_NUMBER = _HIGHER_PRIORITY_THAN_PHONE | frozenset({
+    "financial_amount", "financial_percentage", "date_of_birth", "age_reference",
+    "ip_address", "mac_address", "cookie_id", "advertising_id", "device_serial_number",
+    "sg_postal_address", "medical_record_number", "eu_national_id",
 })
 
 
@@ -2614,6 +2664,24 @@ def _suppress_redundant_phone_findings(findings: list["ReviewFinding"]) -> list[
     return kept
 
 
+def _suppress_redundant_numeric_findings(text: str, findings: list["ReviewFinding"]) -> list["ReviewFinding"]:
+    """Drop broad numeric MNPI findings already owned by stronger identifier/amount rules."""
+    spans_to_beat_large: list[tuple[int, int]] = [
+        (f.start_char, f.end_char)
+        for f in findings
+        if f.rule in _HIGHER_PRIORITY_THAN_LARGE_NUMBER
+    ]
+    kept: list["ReviewFinding"] = []
+    for f in findings:
+        if f.rule == "large_number":
+            if any(lo <= f.start_char and f.end_char <= hi for lo, hi in spans_to_beat_large):
+                continue
+            if _is_identifier_like_large_number_context(text, f.start_char, f.end_char):
+                continue
+        kept.append(f)
+    return kept
+
+
 def _pack_scope(packs: list[JurisdictionRulePack]) -> str:
     return "+".join(pack.code for pack in packs)
 
@@ -2717,6 +2785,8 @@ class PreSendReviewEngine:
                 if rule == "email_address" and _is_functional_contact_context(text, start, end):
                     continue
                 if rule == "phone_number" and _is_public_or_generic_phone_context(text, start, end):
+                    continue
+                if rule == "phone_number" and _is_non_phone_numeric_context(text, start, end):
                     continue
                 findings.append(
                     _new_finding(
@@ -3072,6 +3142,10 @@ class PreSendReviewEngine:
                 # try to be a general NLP solver — that's the audit_grade LLM tier's job.
                 if rule == "material_adverse_change" and _is_negated_context(text, match.start()):
                     continue
+                if rule == "financial_amount" and _is_identifier_like_financial_amount(
+                    text, match.start(), match.end()
+                ):
+                    continue
                 findings.append(
                     _new_finding(
                         idx=idx,
@@ -3406,6 +3480,7 @@ class PreSendReviewEngine:
                 idx_start=len(findings),
             )
         )
+        findings = _suppress_redundant_numeric_findings(text, findings)
         pii_score = self._score(findings, "PII")
         mnpi_score = self._score(findings, "MNPI")
         document_score = max(pii_score, mnpi_score)

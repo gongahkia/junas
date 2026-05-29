@@ -10,8 +10,11 @@ PHONE_RE = re.compile(r"(?:\+?\d[\d\s().-]{7,}\d)")
 MONEY_RE = re.compile(
     r"(?:S\$|US\$|A\$|HK\$|[\$€£¥]|"
     r"\b(?:SGD|USD|EUR|GBP|JPY|AUD|HKD|KRW|CNY|RMB|MYR|IDR|THB|PHP|VND)\b\s*(?:S\$|US\$|A\$|HK\$|[\$€£¥])?)"
-    r"\s*\d(?:[\d,]*\d)?(?:\.\d+)?(?:\s*(?:thousand|million|billion|trillion|[KMBT]))?"
-    r"|\b\d(?:[\d,]*\d)?(?:\.\d+)?\s*(?:thousand|million|billion|trillion|[KMBT])\b",
+    r"\s*\d(?:[\d,]*\d)?(?:\.\d+)?"
+    r"(?:(?:\s*(?:thousand|million|billion|trillion)\b)|(?:\s*[KMBT]\b))?"
+    r"(?=$|\s|[.,;:)])"
+    r"|\b\d(?:[\d,]*\d)?(?:\.\d+)?"
+    r"(?:(?:\s+(?:thousand|million|billion|trillion)\b)|(?:[KMBT]\b))",
     re.IGNORECASE,
 )
 PERCENT_RE = re.compile(r"\b\d+(?:\.\d+)?\s*%")
