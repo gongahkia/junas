@@ -306,9 +306,17 @@
   "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
   "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending.",
   "_agent_review": {
-    "reviewer": "codex-agent-review",
-    "status": "technical_reviewed_pending_human_approval",
-    "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
-    "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending."
-  }
+    "reviewer": "codex-gpt-agent-second-pass",
+    "status": "second_pass_needs_edit_pending_human_approval",
+    "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+    "notes": "Second-pass GPT-style review found label-quality blockers; do not promote or mark human-approved until labels/detectors are edited and a real human reviewer approves."
+  },
+  "_agent_review_history": [
+    {
+      "reviewer": "codex-agent-review",
+      "status": "technical_reviewed_pending_human_approval",
+      "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+      "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending."
+    }
+  ]
 }
