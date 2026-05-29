@@ -3,13 +3,245 @@
   "document_type": "memo",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@arunikapay.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corporate.secretary@arunikapay.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ratri Wibisono"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Guntur Prasetya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Sari Nirmala"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "marketing consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Diligence data minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List IL-03"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "material transaction"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@arunikapay.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corporate.secretary@arunikapay.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ratri Wibisono"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Guntur Prasetya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Sari Nirmala"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "marketing consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Diligence data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "omit optional family data"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "shared only in aggregate (headcount by band)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List IL-03"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "material transaction"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Corporate Secretary",
+      "reason": "Generic role noun; not PII/MNPI."
+    },
+    {
+      "matched_text": "DPO",
+      "reason": "Generic role noun; not PII/MNPI."
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Generic role noun; not PII/MNPI."
+    },
+    {
+      "matched_text": "insiders",
+      "reason": "Generic role noun; not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR",
+      "concept": "DSAR marker",
+      "reason": "Privacy request event relevant under UU PDP but not listed as an allowed rule token."
+    },
+    {
+      "matched_text": "erasure of marketing profiles has been completed",
+      "concept": "erasure marker (completed)",
+      "reason": "Erasure/completion control is privacy-relevant but not an allowed rule; also negated/completed per guidance."
+    },
+    {
+      "matched_text": "Retention: Payroll and board-committee minutes retained per Policy DP-07 (7 years)",
+      "concept": "retention marker",
+      "reason": "Data retention policy reference is privacy-relevant but not an allowed rule."
+    },
+    {
+      "matched_text": "expired candidate CVs from the 2024 recruitment batch were purged on 15 April 2026",
+      "concept": "data deletion / retention enforcement",
+      "reason": "Deletion/retention execution is privacy-relevant but not an allowed rule."
+    },
+    {
+      "matched_text": "Export of limited hashed user IDs",
+      "concept": "pseudonymous identifiers",
+      "reason": "Potential identifier-like data category, but not clearly mapped to an allowed PII rule token."
+    },
+    {
+      "matched_text": "no MNPI has been shared outside need-to-know personnel",
+      "concept": "selective disclosure control",
+      "reason": "MNPI-sharing risk statement is negated; relevant to market conduct but not an allowed positive rule."
+    },
+    {
+      "matched_text": "no transfers occur without a signed DPA referencing UU PDP cross-border requirements",
+      "concept": "cross-border control statement",
+      "reason": "Control language, not a live transfer event; not covered by allowed marker."
+    },
+    {
+      "matched_text": "Any cross-border HR data flow to the regional HRIS will commence only after employee consents are captured; as of today, no such transfer is in flight",
+      "concept": "cross-border HR data (planned/negated)",
+      "reason": "Planned and currently negated cross-border transfer; do not label as a live marker."
+    },
+    {
+      "matched_text": "no premature public announcement is planned",
+      "concept": "embargo/tipping control",
+      "reason": "Negated disclosure-risk control; relevant to MNPI but not an allowed marker phrase."
+    },
+    {
+      "matched_text": "identity verified",
+      "concept": "identity verification",
+      "reason": "PII processing step; not covered by allowed rule tokens."
+    },
+    {
+      "matched_text": "Data Export Approval DEA-2026-11",
+      "concept": "approval reference identifier",
+      "reason": "Operational reference number; not mapped to any allowed PII/MNPI rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

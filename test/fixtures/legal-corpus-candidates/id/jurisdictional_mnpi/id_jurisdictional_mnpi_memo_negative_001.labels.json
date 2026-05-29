@@ -3,13 +3,198 @@
   "document_type": "memo",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@finsera.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor-relations@finsera.co.id"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "rencana akuisisi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "belum ada keputusan final"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "belum diumumkan di BES"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout reguler pra-laporan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@finsera.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor-relations@finsera.co.id"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "rencana akuisisi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "belum ada keputusan final"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "belum diumumkan di BES"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout reguler pra-laporan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "jangan membahas rencana akuisisi di luar tim terkait"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "sedang menegosiasikan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "PT Karya Paynet Nusantara (perseroan tertutup)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "bukan rujukan publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "telah berakhir pada 25/04/2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "perjanjian pengikatan (SPA)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "dialihkan ke investor-relations@finsera.co.id"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Nomor Rekening",
+      "reason": "Template label only; no bank account number present"
+    },
+    {
+      "matched_text": "Data Karyawan",
+      "reason": "Template label only; no personal data present"
+    },
+    {
+      "matched_text": "ISIN XX-FZRA-000000",
+      "reason": "Test identifier per memo; not PII or MNPI"
+    },
+    {
+      "matched_text": "vendor",
+      "reason": "Generic role noun; not PII"
+    },
+    {
+      "matched_text": "kandidat karyawan",
+      "reason": "Generic role noun; not PII"
+    },
+    {
+      "matched_text": "media",
+      "reason": "Generic role noun; not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "2 Hari Bursa",
+      "concept": "OJK/BES disclosure deadline",
+      "reason": "Disclosure timing is compliance-relevant MNPI handling but not covered by a listed rule"
+    },
+    {
+      "matched_text": "UMA",
+      "concept": "Market-surveillance coordination",
+      "reason": "UMA mention relates to market activity management but not an explicit allowed MNPI rule"
+    },
+    {
+      "matched_text": "bukan MNPI",
+      "concept": "Negative MNPI status",
+      "reason": "Indicates information is public/non-material; relevant for MNPI classification but not an allowed positive marker"
+    },
+    {
+      "matched_text": "perseroan tertutup",
+      "concept": "Private company status of counterparty",
+      "reason": "Counterparty being private supports non-public nature of deal; useful context but not an explicit rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
