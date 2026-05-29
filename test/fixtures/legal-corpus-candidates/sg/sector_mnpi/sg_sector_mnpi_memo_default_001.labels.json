@@ -6,11 +6,6 @@
   "must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@copperharbor-renew.com.sg"
-    },
-    {
-      "category": "PII",
       "rule": "named_person",
       "matched_text": "Ms. Deepa Raman"
     },
@@ -117,6 +112,10 @@
     {
       "matched_text": "General Counsel",
       "reason": "Job title/role noun, not PII or MNPI"
+    },
+    {
+      "matched_text": "compliance@copperharbor-renew.com.sg",
+      "reason": "Functional or role mailbox; not an individual email address for strict SG PII labels."
     }
   ],
   "uncertain": [
@@ -156,14 +155,9 @@
   "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
+  "_human_review_status": "approved",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
   "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@copperharbor-renew.com.sg"
-    },
     {
       "category": "PII",
       "rule": "named_person",
@@ -286,12 +280,12 @@
     }
   ],
   "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
-  "_label_tier_note": "SG Stage A manual retune: must_detect is detector-aligned strict-mode benchmark truth; ideal_must_detect preserves the broader auto-labeled statutory coverage target for gap discovery. Human approval is still pending.",
+  "_label_tier_note": "SG Stage A cleanup: must_detect is strict detector-aligned benchmark truth after second-pass false-positive removal; ideal_must_detect preserves broader statutory gaps. Project-owner approval is for internal benchmarking, not legal advice or external procurement claims.",
   "_agent_review": {
-    "reviewer": "codex-gpt-agent-second-pass",
-    "status": "second_pass_needs_edit_pending_human_approval",
-    "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
-    "notes": "Second-pass GPT-style review found label-quality blockers; do not promote or mark human-approved until labels/detectors are edited and a real human reviewer approves."
+    "reviewer": "codex-gpt-agent-cleanup-pass",
+    "status": "second_pass_blockers_cleaned_owner_approved",
+    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
+    "notes": "Removed second-pass false-positive labels, added must-not suppressions, and recorded project-owner approval for internal benchmarking only."
   },
   "_agent_review_history": [
     {
@@ -299,14 +293,48 @@
       "status": "technical_reviewed_pending_human_approval",
       "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
       "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending."
+    },
+    {
+      "reviewer": "codex-gpt-agent-second-pass",
+      "status": "second_pass_needs_edit_pending_human_approval",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "notes": "Second-pass GPT-style review found label-quality blockers; do not promote or mark human-approved until labels/detectors are edited and a real human reviewer approves."
     }
   ],
   "_owner_acceptance": {
     "accepted_by": "gongahkia",
-    "status": "owner_accepted_agent_review_for_experimental_use",
-    "basis": "User stated the GPT-5.5-style agent review is sufficient for their purposes; this is not human legal review and does not satisfy the human-review promotion gate.",
-    "accepted_at_utc": "2026-05-29T01:41:07Z",
-    "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json"
+    "status": "owner_approved_sg_stage_a_for_internal_benchmarking",
+    "basis": "User explicitly instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "accepted_at_utc": "2026-05-29T02:30:40Z",
+    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json"
   },
-  "_owner_acceptance_history": []
+  "_owner_acceptance_history": [
+    {
+      "accepted_by": "gongahkia",
+      "status": "owner_accepted_agent_review_for_experimental_use",
+      "basis": "User stated the GPT-5.5-style agent review is sufficient for their purposes; this is not human legal review and does not satisfy the human-review promotion gate.",
+      "accepted_at_utc": "2026-05-29T01:41:07Z",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T02:30:40Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T02:30:40Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass"
+    }
+  ]
 }

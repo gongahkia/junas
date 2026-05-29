@@ -97,6 +97,27 @@ class MacMaePrecisionGuards(unittest.TestCase):
         rules = {r for r, _ in _rules_matched(text)}
         self.assertIn("material_event", rules)
 
+    def test_generally_available_acquisition_context_does_not_fire_material_event(self):
+        text = (
+            "ACRA extracts are generally available; MAS approvals are not required "
+            "for ordinary share acquisition below threshold."
+        )
+        for rule, matched in _rules_matched(text):
+            self.assertNotEqual(
+                rule,
+                "material_event",
+                f"public/approval-not-required acquisition context should be suppressed; got {matched!r}",
+            )
+
+    def test_negated_material_adverse_change_line_does_not_fire_material_event(self):
+        text = "We note no material adverse change is triggered; this is not a MAC and not a profit warning."
+        for rule, matched in _rules_matched(text):
+            self.assertNotEqual(
+                rule,
+                "material_event",
+                f"negated MAC/profit-warning line should not be material_event; got {matched!r}",
+            )
+
     def test_nothing_herein_asserts_mac_does_not_fire(self):
         text = "For avoidance of doubt, nothing herein asserts a Material Adverse Change."
         for rule, matched in _rules_matched(text):
@@ -190,6 +211,17 @@ class FunctionalContactGuards(unittest.TestCase):
         emails = [m for r, m in _rules_matched(text) if r == "email_address"]
         self.assertNotIn("docroom@seabrightdynamics.sg", emails)
 
+    def test_dpo_and_corpsec_role_mailboxes_do_not_fire(self):
+        text = "Route privacy to dpo@example.sg and company-secretarial queries to corpsec@example.sg."
+        emails = [m for r, m in _rules_matched(text) if r == "email_address"]
+        self.assertNotIn("dpo@example.sg", emails)
+        self.assertNotIn("corpsec@example.sg", emails)
+
+    def test_dotted_compliance_mailbox_does_not_fire(self):
+        text = "Contact the listing compliance desk at sgx.compliance@issuer.example."
+        emails = [m for r, m in _rules_matched(text) if r == "email_address"]
+        self.assertNotIn("sgx.compliance@issuer.example", emails)
+
     def test_role_only_company_secretary_mailbox_does_not_fire(self):
         text = "Deal lead is named separately; role-only contact: Company Secretary, cosec@velorise.com.sg."
         emails = [m for r, m in _rules_matched(text) if r == "email_address"]
@@ -230,6 +262,11 @@ class BankAccountGuards(unittest.TestCase):
         text = "The form says Account No.: 00000000 as a generic placeholder."
         accounts = [m for r, m in _rules_matched(text) if r == "bank_account"]
         self.assertNotIn("00000000", accounts)
+
+    def test_placeholder_bank_account_does_not_fire(self):
+        text = "Finance provided vendor bank a/c 033-123456-0X (placeholder)."
+        accounts = [m for r, m in _rules_matched(text) if r == "bank_account"]
+        self.assertNotIn("033-123456-0X", accounts)
 
     def test_explicit_bank_account_number_still_fires(self):
         text = "Escrow account 123-456-789-0 is held at East Harbor Bank."
@@ -274,6 +311,31 @@ class FinancialAmountGuards(unittest.TestCase):
         amounts = [m for r, m in _rules_matched(text) if r == "financial_amount"]
         self.assertNotIn("201912345K", amounts)
 
+    def test_public_acra_amount_does_not_fire_as_financial_amount(self):
+        text = "Obsidian's 2023 revenue S$80m per public ACRA abstracts."
+        amounts = [m for r, m in _rules_matched(text) if r == "financial_amount"]
+        self.assertNotIn("S$80m", amounts)
+
+    def test_personal_reimbursement_does_not_fire_as_mnpi_amount(self):
+        text = "May expenses included a SGD 9,800 reimbursement paid to Seahaven Commercial Bank."
+        amounts = [m for r, m in _rules_matched(text) if r == "financial_amount"]
+        self.assertNotIn("SGD 9,800", amounts)
+
+    def test_public_last_traded_price_does_not_fire_as_mnpi_amount(self):
+        text = "The last traded price on 12 Jul 2026 was S$1.42 per share (public information)."
+        amounts = [m for r, m in _rules_matched(text) if r == "financial_amount"]
+        self.assertNotIn("S$1.42", amounts)
+
+    def test_percent_encoded_url_fragment_does_not_fire_as_percentage(self):
+        text = "Working link: https://example.sg/annc?ref=HPHL%2F2026-05-28%2F0059"
+        percentages = [m for r, m in _rules_matched(text) if r == "financial_percentage"]
+        self.assertNotIn("28%", percentages)
+
+    def test_spa_day_does_not_fire_as_definitive_agreement(self):
+        text = "Wellness note: spa-day vouchers are unrelated to the deal."
+        agreements = [m for r, m in _rules_matched(text) if r == "definitive_agreement"]
+        self.assertNotIn("spa", agreements)
+
 
 class LargeNumberPrecisionGuards(unittest.TestCase):
     def test_large_number_inside_financial_amount_still_fires_for_locked_recall(self):
@@ -285,6 +347,11 @@ class LargeNumberPrecisionGuards(unittest.TestCase):
         text = "Registered office: Singapore 049899."
         numbers = [m for r, m in _rules_matched(text) if r == "large_number"]
         self.assertNotIn("049899", numbers)
+
+    def test_large_number_inside_account_reference_is_suppressed(self):
+        text = "Finance provided vendor bank a/c 033-123456-0X (placeholder)."
+        numbers = [m for r, m in _rules_matched(text) if r == "large_number"]
+        self.assertNotIn("123456", numbers)
 
     def test_standalone_large_share_count_still_fires(self):
         text = "The seller will transfer 100,000 ordinary shares of Acme Pte. Ltd., UEN 199999999K."

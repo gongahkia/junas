@@ -86,7 +86,7 @@ Progress is tracked here until the candidate corpus has its own generated report
 
 | Priority | Jurisdiction | Stage A | Stage B | Stage C | Notes |
 |---:|---|---|---|---|---|
-| 1 | SG | needs_edit | pending | pending | Stage A detector alignment: 21 docs; strict recall 1.0, strict precision 1.0; ideal recall 0.4545; 0 must-not violations; unexpected triage = 0 detector FP / 0 taxonomy mismatch / 0 ideal-only / 0 strict-label-review. Second-pass agent review found approval blockers in strict labels (role mailboxes, public/benign values, placeholders, negated MAC/spa-day bait). Owner accepted agent review for experimental use; human legal approval still pending; not promoted. Runs: `/tmp/kaypoh-sg-stage-a-reviewed.json`, `/tmp/kaypoh-sg-agent-second-pass-review.json` (from `/tmp/kaypoh-candidate-run-20260528-080405`). |
+| 1 | SG | reviewed | pending | pending | Stage A cleaned + project-owner approved for internal benchmarking: 21 docs; 318 strict labels; strict recall 1.0, strict precision 1.0; ideal recall 0.4312; 0 missed, 0 unexpected, 0 must-not violations. Second-pass false-positive labels removed (role mailboxes, public/benign values, placeholders, negated MAC/spa-day bait); approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-sg-post-label-cleanup.json` (from `/tmp/kaypoh-candidate-run-20260528-080405`). |
 | 2 | MY | pending | pending | pending | SEA seed pack; Bursa / PDPA coverage depth. |
 | 3 | ID | pending | pending | pending | SEA seed pack; OJK / PDP coverage depth. |
 | 4 | TH | pending | pending | pending | SEA seed pack; SEC / PDPA coverage depth. |

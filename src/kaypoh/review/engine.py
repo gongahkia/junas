@@ -215,9 +215,21 @@ _MATERIAL_EVENT_NEGATED_CONTEXT_RE = re.compile(
     r"profit\s+warning|earnings\s+guidance|mnpi)|"
     r"does\s+not\s+(?:itself\s+)?(?:contain|constitute)\s+(?:mnpi|"
     r"(?:a\s+)?mac|earnings\s+guidance|(?:a\s+)?profit\s+forecast)|"
+    r"no\s+material\s+adverse\s+change|"
     r"no\s+(?:live\s+)?(?:incident|breach|breach\s+specifics|forecast\s+downgrades)|"
     r"public\s+(?:cybersecurity\s+)?training\s+materials|"
     r"education\s+only|public\s+mas\s+guidance"
+    r")\b",
+    re.IGNORECASE,
+)
+_MATERIAL_EVENT_PUBLIC_CONTEXT_RE = re.compile(
+    r"\b(?:"
+    r"generally\s+available|already\s+(?:announced|disclosed)|"
+    r"public(?:ly)?\s+(?:available|announced|disclosed|reported)|"
+    r"public\s+(?:information|reference|source|filings?)|"
+    r"from\s+(?:public|openly\s+available)\s+materials?|"
+    r"not\s+price[- ]sensitive|not\s+mnpi|not\s+required|"
+    r"no\s+(?:sgxnet\s+)?disclosure\s+is\s+required"
     r")\b",
     re.IGNORECASE,
 )
@@ -1173,7 +1185,8 @@ _FUNCTIONAL_CONTACT_CONTEXT_RE = re.compile(
     r"\b(?:"
     r"role[- ]only|role[- ]based|role\s+mailbox|functional\s+mailbox|"
     r"role/functional\s+mailbox|shared\s+inbox|treasury\s+contact|"
-    r"contact\s+compliance|route\s+enquiries|queries\s+to|via\s+docroom|"
+    r"compliance\s+desk|deal\s+desk|contact\s+compliance|route\s+enquiries|"
+    r"queries\s+(?:to|contact)|via\s+docroom|"
     r"generic\s+help\s*desk|public(?:-facing)?\s+help\s*desk|public\s+helpdesk|"
     r"public\s+helpline|general\s+(?:queries|enquiries)|not\s+personal\s+data|"
     r"not\s+linked\s+to\s+an?\s+identifiable\s+individual"
@@ -1182,18 +1195,23 @@ _FUNCTIONAL_CONTACT_CONTEXT_RE = re.compile(
 )
 _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"\b(?:"
+    r"compliance\s+desk|deal\s+desk|"
     r"public(?:-facing)?\s+help\s*desk|public\s+helpdesk|public\s+helpline|"
-    r"general\s+(?:queries|enquiries)|general\s+hotline|not\s+personal\s+data|"
+    r"general\s+(?:queries|enquiries)|queries\s+contact|general\s+hotline|not\s+personal\s+data|"
     r"not\s+a\s+deal\s+contact|not\s+MNPI"
     r")\b",
     re.IGNORECASE,
 )
-_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
-    "admin", "ap", "ar", "billing", "cosec", "compliance", "contact", "help",
-    "docroom", "helpdesk", "info", "legal", "privacy", "support", "treasury",
+_ALWAYS_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
+    "admin", "ap", "ar", "billing", "capitalmarkets", "corpsec", "cosec",
+    "compliance", "dealroom", "docroom", "dpo", "help", "helpdesk",
+    "mna", "privacy", "room", "support", "treasury",
+})
+_CONTEXTUAL_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
+    "contact", "info", "legal",
 })
 _ROLE_MAILBOX_LOCAL_RE = re.compile(
-    r"^(?:sg|hk|au|jp|kr|my|id|th|ph|vn|uk|eu|us)?compliance$"
+    r"^(?:(?:sg|hk|au|jp|kr|my|id|th|ph|vn|uk|eu|us)?compliance|.*[._-]compliance)$"
 )
 _DATE_LIKE_PHONE_RE = re.compile(
     r"(?:\d{4}[-/]\d{1,2}[-/]\d{1,2}(?:\s+\d{1,2})?|"
@@ -1206,8 +1224,21 @@ _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
     re.IGNORECASE,
 )
 _LARGE_NUMBER_IDENTIFIER_CONTEXT_RE = re.compile(
-    r"\b(?:UEN|NRIC|FIN|passport|postal|IMEI|IP|account\s+no\.?|"
+    r"\b(?:UEN|NRIC|FIN|passport|postal|IMEI|IP|account\s+no\.?|a/c|bank\s+account|"
     r"generic\s+label)\b",
+    re.IGNORECASE,
+)
+_PLACEHOLDER_IDENTIFIER_CONTEXT_RE = re.compile(
+    r"\b(?:invalid\s+placeholder|placeholder\s+with\s+an\s+invalid\s+checksum|"
+    r"template\s+field|generic\s+placeholder)\b",
+    re.IGNORECASE,
+)
+_PUBLIC_OR_BENIGN_AMOUNT_CONTEXT_RE = re.compile(
+    r"\b(?:"
+    r"public\s+(?:information|source|acra|annual\s+report|exchange\s+website)|"
+    r"publicly\s+available|per\s+public\s+ACRA|last\s+traded\s+price|"
+    r"reimbursement|per\s+diem|wellness|spa[- ]day"
+    r")\b",
     re.IGNORECASE,
 )
 
@@ -1228,10 +1259,12 @@ def _is_functional_contact_context(text: str, start: int, end: int) -> bool:
     right = min(right_candidates) if right_candidates else len(text)
     context = text[left:right].strip()
     local_part = text[start:end].split("@", 1)[0].casefold()
-    role_like = (
-        local_part in _ROLE_MAILBOX_LOCAL_PARTS
+    if (
+        local_part in _ALWAYS_ROLE_MAILBOX_LOCAL_PARTS
         or bool(_ROLE_MAILBOX_LOCAL_RE.fullmatch(local_part))
-    )
+    ):
+        return True
+    role_like = local_part in _CONTEXTUAL_ROLE_MAILBOX_LOCAL_PARTS
     if role_like and _FUNCTIONAL_CONTACT_CONTEXT_RE.search(context):
         return True
     next_clause = text[end:min(len(text), end + 120)]
@@ -1281,6 +1314,28 @@ def _is_identifier_like_large_number_context(text: str, start: int, end: int) ->
 def _is_identifier_like_financial_amount(text: str, start: int, end: int) -> bool:
     matched = text[start:end].strip()
     return bool(re.fullmatch(r"\d{6,}\s*[KMBT]", matched, re.IGNORECASE))
+
+
+def _is_placeholder_identifier_context(text: str, start: int, end: int) -> bool:
+    context = _line_context(text, start, end)
+    return bool(_PLACEHOLDER_IDENTIFIER_CONTEXT_RE.search(context))
+
+
+def _is_public_or_benign_amount_context(text: str, start: int, end: int) -> bool:
+    context = _line_context(text, start, end)
+    return bool(_PUBLIC_OR_BENIGN_AMOUNT_CONTEXT_RE.search(context))
+
+
+def _is_percent_encoded_fragment(text: str, start: int, end: int) -> bool:
+    return end < len(text) - 1 and text[end:end + 2].lower() in {
+        "20", "21", "22", "23", "24", "25", "26", "27", "28", "29",
+        "2a", "2b", "2c", "2d", "2e", "2f", "3a", "3b", "3c", "3d",
+        "3e", "3f", "40",
+    }
+
+
+def _is_spa_day_reference(text: str, start: int, end: int) -> bool:
+    return text[start:end].casefold() == "spa" and text[end:end + 4].casefold() == "-day"
 
 
 def _digits_only(value: str) -> str:
@@ -2825,9 +2880,13 @@ class PreSendReviewEngine:
                     continue
                 if rule in _PII_NEGATION_GUARDED and _is_negated_context(text, start):
                     continue
+                if rule == "sg_nric_fin" and _is_placeholder_identifier_context(text, start, end):
+                    continue
                 if rule == "bank_account":
                     digits = _digits_only(text[start:end])
                     if digits and set(digits) == {"0"}:
+                        continue
+                    if _is_placeholder_identifier_context(text, start, end):
                         continue
                 if rule == "email_address" and _is_functional_contact_context(text, start, end):
                     continue
@@ -3121,6 +3180,12 @@ class PreSendReviewEngine:
             context = _line_context(text, match.start(), match.end())
             if _MATERIAL_EVENT_NEGATED_CONTEXT_RE.search(context):
                 continue
+            if (
+                _MATERIAL_EVENT_PUBLIC_CONTEXT_RE.search(context)
+                and not NONPUBLIC_RE.search(context)
+                and "not generally available" not in context.casefold()
+            ):
+                continue
             # item 36: phrasing alone ("publicly announced", "press release") no longer softens
             # severity. soften only when the same line carries a citable http(s) URL — the
             # document is self-citing. retrieval-driven softening is layered in by the post-pass
@@ -3186,12 +3251,24 @@ class PreSendReviewEngine:
             for match in pattern.finditer(text):
                 if rule in suppressible_rules and is_defined_term(match.group(), defined):
                     continue
+                if rule == "definitive_agreement" and _is_spa_day_reference(
+                    text, match.start(), match.end()
+                ):
+                    continue
                 # narrow negation guard for MAC/MAE-style rules. catches the most common
                 # "no MAC clause concerns" / "not subject to MAC clause" patterns. doesn't
                 # try to be a general NLP solver — that's the audit_grade LLM tier's job.
                 if rule == "material_adverse_change" and _is_negated_context(text, match.start()):
                     continue
                 if rule == "financial_amount" and _is_identifier_like_financial_amount(
+                    text, match.start(), match.end()
+                ):
+                    continue
+                if rule == "financial_amount" and _is_public_or_benign_amount_context(
+                    text, match.start(), match.end()
+                ):
+                    continue
+                if rule == "financial_percentage" and _is_percent_encoded_fragment(
                     text, match.start(), match.end()
                 ):
                     continue
