@@ -18,7 +18,13 @@ SG_UEN_RE = re.compile(r"\b(?:\d{8,9}[A-Z]|T\d{2}[A-Z]{2}\d{4}[A-Z])\b")
 PASSPORT_RE = re.compile(r"\b(?:passport|pass no\.?|passport no\.?)\s*[:#-]?\s*([A-Z0-9]{6,12})\b", re.IGNORECASE)
 SG_POSTAL_RE = re.compile(r"\b(?:Singapore|S)\s*(\d{6})\b", re.IGNORECASE)
 BANK_ACCOUNT_RE = re.compile(
-    r"\b(?:bank account|account no\.?|acct no\.?|iban|swift)\s*[:#-]?\s*([A-Z0-9 -]{8,34})\b",
+    r"\b(?:account\s+no\.?|acct\s+no\.?|a/c|iban|swift|bank\s+account)\s*[:#-]\s*"
+    r"((?-i:(?=[A-Z0-9x* -]{0,33}\d)[A-Z0-9][A-Z0-9x* -]{5,33}[A-Z0-9x*]))\b"
+    r"|\baccount\s+((?-i:(?=[A-Z0-9-]{0,33}\d)[A-Z0-9][A-Z0-9-]{5,33}[A-Z0-9]))\b",
+    re.IGNORECASE,
+)
+BANK_ACCOUNT_ENDING_RE = re.compile(
+    r"\bbank\s+account\s+ending\s+-?\d{2,6}\b",
     re.IGNORECASE,
 )
 _DOB_MONTH = (
@@ -194,7 +200,10 @@ MATERIAL_EVENT_RE = re.compile(
     r"\b(acquisition|acquire|merger|takeover|buyout|earnings|guidance|forecast|"
     r"profit warning|dividend|buyback|bankruptcy|restructuring|layoff|fraud|"
     r"investigation|subpoena|cybersecurity|breach|financing|offering|ipo|"
-    r"impairment|provision|resignation|ceo|cfo|"
+    r"impairment|provision|resignation|"
+    r"(?:ceo|cfo|chief\s+(?:executive|financial)\s+officer)\s+"
+    r"(?:resign(?:s|ed|ation)?|steps?\s+down|stepped\s+down|"
+    r"depart(?:s|ed|ure)?|appointed|appointment)|"
     # legal-contract additions: deal-closing + definitive-agreement vocabulary
     r"definitive\s+agreement|binding\s+agreement|memorandum\s+of\s+understanding|"
     r"letter\s+of\s+intent|consummation|closing|settlement\s+agreement)\b",
@@ -1152,6 +1161,7 @@ _FUNCTIONAL_CONTACT_CONTEXT_RE = re.compile(
     r"\b(?:"
     r"role[- ]only|role[- ]based|role\s+mailbox|functional\s+mailbox|"
     r"role/functional\s+mailbox|shared\s+inbox|treasury\s+contact|"
+    r"contact\s+compliance|route\s+enquiries|queries\s+to|via\s+docroom|"
     r"generic\s+help\s*desk|public(?:-facing)?\s+help\s*desk|public\s+helpdesk|"
     r"public\s+helpline|general\s+(?:queries|enquiries)|not\s+personal\s+data|"
     r"not\s+linked\s+to\s+an?\s+identifiable\s+individual"
@@ -1168,8 +1178,11 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
 )
 _ROLE_MAILBOX_LOCAL_PARTS = frozenset({
     "admin", "ap", "ar", "billing", "cosec", "compliance", "contact", "help",
-    "helpdesk", "info", "legal", "privacy", "support", "treasury",
+    "docroom", "helpdesk", "info", "legal", "privacy", "support", "treasury",
 })
+_ROLE_MAILBOX_LOCAL_RE = re.compile(
+    r"^(?:sg|hk|au|jp|kr|my|id|th|ph|vn|uk|eu|us)?compliance$"
+)
 _DATE_LIKE_PHONE_RE = re.compile(
     r"(?:\d{4}[-/]\d{1,2}[-/]\d{1,2}(?:\s+\d{1,2})?|"
     r"\d{1,2}[-/]\d{1,2}[-/]\d{2,4}(?:\s+\d{1,2})?)\Z"
@@ -1202,12 +1215,16 @@ def _is_functional_contact_context(text: str, start: int, end: int) -> bool:
     ]
     right = min(right_candidates) if right_candidates else len(text)
     context = text[left:right].strip()
-    if _FUNCTIONAL_CONTACT_CONTEXT_RE.search(context):
-        return True
     local_part = text[start:end].split("@", 1)[0].casefold()
+    role_like = (
+        local_part in _ROLE_MAILBOX_LOCAL_PARTS
+        or bool(_ROLE_MAILBOX_LOCAL_RE.fullmatch(local_part))
+    )
+    if role_like and _FUNCTIONAL_CONTACT_CONTEXT_RE.search(context):
+        return True
     next_clause = text[end:min(len(text), end + 120)]
     return (
-        local_part in _ROLE_MAILBOX_LOCAL_PARTS
+        role_like
         and next_clause.lstrip().startswith(";")
         and bool(_FUNCTIONAL_CONTACT_CONTEXT_RE.search(next_clause))
     )
@@ -2752,6 +2769,7 @@ class PreSendReviewEngine:
                 ("phone_number", PHONE_RE, "medium", "Phone number can identify or contact an individual"),
                 ("passport_number", PASSPORT_RE, "high", "Passport-like identifier"),
                 ("bank_account", BANK_ACCOUNT_RE, "high", "Bank/account-like financial identifier"),
+                ("bank_account", BANK_ACCOUNT_ENDING_RE, "high", "Bank/account-like financial identifier"),
                 # item 99: pseudonymised-but-linkable identifiers. medium standalone; amplified
                 # to high when a named_person finding co-occurs anywhere in the document.
                 ("employee_id", EMPLOYEE_ID_RE, "medium",
@@ -2780,11 +2798,25 @@ class PreSendReviewEngine:
         idx = 0
         for rule, pattern, severity, reason in patterns:
             for match in pattern.finditer(text):
-                start, end = match.span(1) if match.lastindex else match.span()
+                if match.lastindex:
+                    start, end = next(
+                        (
+                            match.span(group_idx)
+                            for group_idx in range(1, match.lastindex + 1)
+                            if match.group(group_idx)
+                        ),
+                        match.span(),
+                    )
+                else:
+                    start, end = match.span()
                 if end <= start:
                     continue
                 if rule in _PII_NEGATION_GUARDED and _is_negated_context(text, start):
                     continue
+                if rule == "bank_account":
+                    digits = _digits_only(text[start:end])
+                    if digits and set(digits) == {"0"}:
+                        continue
                 if rule == "email_address" and _is_functional_contact_context(text, start, end):
                     continue
                 if rule == "phone_number" and _is_public_or_generic_phone_context(text, start, end):

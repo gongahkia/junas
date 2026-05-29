@@ -60,6 +60,20 @@ class MacMaePrecisionGuards(unittest.TestCase):
         rules = {r for r, _ in _rules_matched(text)}
         self.assertIn("material_adverse_change", rules)
 
+    def test_bare_ceo_or_cfo_role_does_not_fire_material_event(self):
+        text = "The CEO and CFO attended the diligence call as role-only participants."
+        for rule, matched in _rules_matched(text):
+            self.assertNotEqual(
+                rule,
+                "material_event",
+                f"bare executive role should not be a material_event; got {matched!r}",
+            )
+
+    def test_ceo_departure_still_fires_material_event(self):
+        text = "The CEO stepped down before announcement."
+        rules = {r for r, _ in _rules_matched(text)}
+        self.assertIn("material_event", rules)
+
     def test_nothing_herein_asserts_mac_does_not_fire(self):
         text = "For avoidance of doubt, nothing herein asserts a Material Adverse Change."
         for rule, matched in _rules_matched(text):
@@ -138,6 +152,21 @@ class FunctionalContactGuards(unittest.TestCase):
         emails = [m for r, m in _rules_matched(text) if r == "email_address"]
         self.assertNotIn("legal@pryce-han.example", emails)
 
+    def test_compliance_routing_mailbox_does_not_fire(self):
+        text = "Contact Compliance at compliance@harbourpine.com.sg for listing-rule queries."
+        emails = [m for r, m in _rules_matched(text) if r == "email_address"]
+        self.assertNotIn("compliance@harbourpine.com.sg", emails)
+
+    def test_region_prefixed_compliance_mailbox_does_not_fire(self):
+        text = "Route enquiries to sgcompliance@seabrightdynamics.sg."
+        emails = [m for r, m in _rules_matched(text) if r == "email_address"]
+        self.assertNotIn("sgcompliance@seabrightdynamics.sg", emails)
+
+    def test_docroom_mailbox_does_not_fire(self):
+        text = "Recipients sign wall-crossing acknowledgments via docroom@seabrightdynamics.sg."
+        emails = [m for r, m in _rules_matched(text) if r == "email_address"]
+        self.assertNotIn("docroom@seabrightdynamics.sg", emails)
+
     def test_role_only_company_secretary_mailbox_does_not_fire(self):
         text = "Deal lead is named separately; role-only contact: Company Secretary, cosec@velorise.com.sg."
         emails = [m for r, m in _rules_matched(text) if r == "email_address"]
@@ -161,6 +190,33 @@ class FunctionalContactGuards(unittest.TestCase):
         text = "For inquiries, email legal@techinsights.sg."
         emails = [m for r, m in _rules_matched(text) if r == "email_address"]
         self.assertIn("legal@techinsights.sg", emails)
+
+
+class BankAccountGuards(unittest.TestCase):
+    def test_bank_account_proof_sentence_does_not_eat_prose(self):
+        text = "Bank account proof is reviewed without retaining images."
+        accounts = [m for r, m in _rules_matched(text) if r == "bank_account"]
+        self.assertEqual(accounts, [])
+
+    def test_bank_account_numbers_phrase_does_not_eat_prose(self):
+        text = "Do not collect bank account numbers unless necessary."
+        accounts = [m for r, m in _rules_matched(text) if r == "bank_account"]
+        self.assertEqual(accounts, [])
+
+    def test_zero_placeholder_account_does_not_fire(self):
+        text = "The form says Account No.: 00000000 as a generic placeholder."
+        accounts = [m for r, m in _rules_matched(text) if r == "bank_account"]
+        self.assertNotIn("00000000", accounts)
+
+    def test_explicit_bank_account_number_still_fires(self):
+        text = "Escrow account 123-456-789-0 is held at East Harbor Bank."
+        accounts = [m for r, m in _rules_matched(text) if r == "bank_account"]
+        self.assertIn("123-456-789-0", accounts)
+
+    def test_partial_bank_account_ending_still_fires(self):
+        text = "Payroll bank account ending -4421 was used for reimbursement."
+        accounts = [m for r, m in _rules_matched(text) if r == "bank_account"]
+        self.assertIn("bank account ending -4421", accounts)
 
 
 class FinancialAmountGuards(unittest.TestCase):
