@@ -184,7 +184,7 @@ class FinancialAmountGuards(unittest.TestCase):
         self.assertNotIn("S$120,000,000 b", amounts)
 
     def test_decimal_currency_amount_still_fires_as_whole_amount(self):
-        text = "Unpublished valuation range is S$4.20 to S$4.60 per share."
+        text = "Unpublished valuation range is S$4.20–S$4.60 per share."
         amounts = [m for r, m in _rules_matched(text) if r == "financial_amount"]
         self.assertIn("S$4.20", amounts)
         self.assertIn("S$4.60", amounts)
