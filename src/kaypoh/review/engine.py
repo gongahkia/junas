@@ -1242,7 +1242,10 @@ def _is_identifier_like_large_number_context(text: str, start: int, end: int) ->
     digits = _digits_only(matched)
     if digits and set(digits) == {"0"}:
         return True
-    context = _line_context(text, start, end)
+    line = _line_context(text, start, end)
+    line_match_start = max(0, line.find(matched))
+    line_match_end = line_match_start + len(matched)
+    context = line[max(0, line_match_start - 40): min(len(line), line_match_end + 16)]
     return bool(_LARGE_NUMBER_IDENTIFIER_CONTEXT_RE.search(context))
 
 

@@ -208,7 +208,7 @@ class LargeNumberPrecisionGuards(unittest.TestCase):
         self.assertNotIn("049899", numbers)
 
     def test_standalone_large_share_count_still_fires(self):
-        text = "The seller will transfer 100,000 ordinary shares."
+        text = "The seller will transfer 100,000 ordinary shares of Acme Pte. Ltd., UEN 199999999K."
         numbers = [m for r, m in _rules_matched(text) if r == "large_number"]
         self.assertIn("100,000", numbers)
 
