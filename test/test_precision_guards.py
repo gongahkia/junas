@@ -137,6 +137,63 @@ class MacMaePrecisionGuards(unittest.TestCase):
             self.assertNotEqual(rule, "material_adverse_change",
                                 f"assertion-negated MAC phrase should be suppressed; got {matched!r}")
 
+    def test_no_upsi_public_guidance_does_not_fire_material_event(self):
+        text = (
+            "This note contains no UPSI and references publicly announced FY25 guidance "
+            "already disclosed on the exchange."
+        )
+        for rule, matched in _rules_matched(text, jurisdiction="IN"):
+            self.assertNotEqual(
+                rule,
+                "material_event",
+                f"no-UPSI public-guidance line should not be material_event; got {matched!r}",
+            )
+
+    def test_format_guidance_only_does_not_fire_material_event(self):
+        text = "Supplier onboarding provides PAN and GSTIN format guidance only."
+        for rule, matched in _rules_matched(text, jurisdiction="IN"):
+            self.assertNotEqual(
+                rule,
+                "material_event",
+                f"format-guidance line should not be material_event; got {matched!r}",
+            )
+
+    def test_non_production_guidance_example_does_not_fire_material_event(self):
+        text = "Screenshots in internal guidance show masked digits and are non-production examples."
+        for rule, matched in _rules_matched(text, jurisdiction="IN"):
+            self.assertNotEqual(
+                rule,
+                "material_event",
+                f"non-production guidance example should not be material_event; got {matched!r}",
+            )
+
+    def test_nonbinding_mou_not_upsi_does_not_fire_definitive_agreement(self):
+        text = "A non-binding distributor MOU is not material and is not UPSI."
+        for rule, matched in _rules_matched(text, jurisdiction="IN"):
+            self.assertNotEqual(
+                rule,
+                "definitive_agreement",
+                f"non-material non-UPSI MOU should not be definitive_agreement; got {matched!r}",
+            )
+
+    def test_not_mnpi_marker_does_not_fire_nonpublic_marker(self):
+        text = "The questionnaire title says undisclosed, but the item is not MNPI."
+        for rule, matched in _rules_matched(text, jurisdiction="IN"):
+            self.assertNotEqual(
+                rule,
+                "nonpublic_marker",
+                f"negated MNPI marker should be suppressed; got {matched!r}",
+            )
+
+    def test_mnpi_marker_heading_without_upsi_does_not_fire(self):
+        text = 'MNPI markers: remove phrases like "not public" unless UPSI is actually present.'
+        for rule, matched in _rules_matched(text, jurisdiction="IN"):
+            self.assertNotEqual(
+                rule,
+                "nonpublic_marker",
+                f"benign MNPI-marker heading should be suppressed; got {matched!r}",
+            )
+
 
 class PhoneNumberSpanDedupGuards(unittest.TestCase):
     def _has_phone_match(self, text: str, matched_text: str, jurisdiction: str = "SG") -> bool:
@@ -229,6 +286,33 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         self.assertNotIn("142-7 78-009912-3", phones)
         self.assertNotIn("0 7-2 0 2 6", phones)
 
+    def test_phone_does_not_fire_on_all_zero_placeholder(self):
+        text = 'Example placeholder "0000 0000 0000" must never be stored as real data.'
+        phones = [m for r, m in _rules_matched(text, jurisdiction="IN") if r == "phone_number"]
+        self.assertNotIn("0000 0000 0000", phones)
+
+    def test_phone_does_not_fire_on_aadhaar_placeholder(self):
+        text = "Aadhaar: 0000 1111 2222 is illustrative and not linked to any individual."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="IN") if r == "phone_number"]
+        self.assertNotIn("0000 1111 2222", phones)
+
+    def test_phone_does_not_fire_on_repeated_digit_placeholder(self):
+        text = "Use clearly invalid placeholders like 9999-9999-9999 in screenshots only."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="IN") if r == "phone_number"]
+        self.assertNotIn("9999-9999-9999", phones)
+
+
+class DeviceIdentifierPrecisionGuards(unittest.TestCase):
+    def test_negated_mac_address_example_does_not_fire(self):
+        text = "Security note: this is not a MAC address aa-bb-cc-dd-ee-ff."
+        macs = [m for r, m in _rules_matched(text, jurisdiction="IN") if r == "mac_address"]
+        self.assertNotIn("aa-bb-cc-dd-ee-ff", macs)
+
+    def test_canonical_mac_address_still_fires(self):
+        text = "Device MAC: aa-bb-cc-dd-ee-ff."
+        macs = [m for r, m in _rules_matched(text, jurisdiction="IN") if r == "mac_address"]
+        self.assertIn("aa-bb-cc-dd-ee-ff", macs)
+
 
 class FunctionalContactGuards(unittest.TestCase):
     def test_role_based_legal_mailbox_does_not_fire(self):
@@ -240,6 +324,17 @@ class FunctionalContactGuards(unittest.TestCase):
         text = "Contact Compliance at compliance@harbourpine.com.sg for listing-rule queries."
         emails = [m for r, m in _rules_matched(text) if r == "email_address"]
         self.assertNotIn("compliance@harbourpine.com.sg", emails)
+
+    def test_in_role_mailboxes_do_not_fire(self):
+        text = (
+            "Route to investor.relations@example.in, noreply@example.in, "
+            "vendor.support@example.in, and infosec@example.in."
+        )
+        emails = [m for r, m in _rules_matched(text, jurisdiction="IN") if r == "email_address"]
+        self.assertNotIn("investor.relations@example.in", emails)
+        self.assertNotIn("noreply@example.in", emails)
+        self.assertNotIn("vendor.support@example.in", emails)
+        self.assertNotIn("infosec@example.in", emails)
 
     def test_region_prefixed_compliance_mailbox_does_not_fire(self):
         text = "Route enquiries to sgcompliance@seabrightdynamics.sg."
@@ -307,6 +402,11 @@ class BankAccountGuards(unittest.TestCase):
         text = "Finance provided vendor bank a/c 033-123456-0X (placeholder)."
         accounts = [m for r, m in _rules_matched(text) if r == "bank_account"]
         self.assertNotIn("033-123456-0X", accounts)
+
+    def test_training_placeholder_account_does_not_fire(self):
+        text = 'Test fields in the KYC form show "Account No.: 1234-XXXX-XXXX".'
+        accounts = [m for r, m in _rules_matched(text) if r == "bank_account"]
+        self.assertNotIn("1234-XXXX-XXXX", accounts)
 
     def test_explicit_bank_account_number_still_fires(self):
         text = "Escrow account 123-456-789-0 is held at East Harbor Bank."

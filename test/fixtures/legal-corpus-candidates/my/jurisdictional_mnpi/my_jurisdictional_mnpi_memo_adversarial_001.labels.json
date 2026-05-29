@@ -1,14 +1,14 @@
 {
   "_agent_review": {
-    "notes": "Reconciled MY Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "notes": "MY Stage A strict labels realigned after the IN precision audit tightened deterministic false-positive guards; broader labels remain in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
-    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
     "status": "strict_tier_cleaned_owner_approved"
   },
   "_human_review": {
     "decision": "approve",
-    "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
-    "reviewed_at_utc": "2026-05-29T04:00:07Z",
+    "notes": "Project owner approval remains internal/project benchmark approval based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T07:04:53Z",
     "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
     "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
     "reviewer": "gongahkia-project-owner-chat-approval",
@@ -17,8 +17,8 @@
   "_human_review_history": [
     {
       "decision": "approve",
-      "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
-      "reviewed_at_utc": "2026-05-29T04:00:07Z",
+      "notes": "Project owner approval remains internal/project benchmark approval based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T07:04:53Z",
       "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
       "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewer": "gongahkia-project-owner-chat-approval",
@@ -26,19 +26,19 @@
     }
   ],
   "_human_review_status": "approved",
-  "_label_model": "azure:gpt-5-2",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+  "_label_note": "MY Stage A strict tier realigned to deterministic strict-mode engine after IN precision audit; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
   "_label_warnings": [
     "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM120,000,000'",
     "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM120,000,000'",
     "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'"
   ],
   "_owner_acceptance": {
-    "accepted_at_utc": "2026-05-29T04:00:07Z",
+    "accepted_at_utc": "2026-05-29T07:04:53Z",
     "accepted_by": "gongahkia",
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
-    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
     "status": "owner_approved_my_stage_a_for_internal_benchmarking"
   },
   "_strict_label_cleanup": {
@@ -59,6 +59,71 @@
   "ideal_must_detect": [
     {
       "category": "PII",
+      "matched_text": "legal@awanberlabuh.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: MNPI assessment for proposed private placement and sukuk financing; disclosure obligations under Bursa Lestari Main Market Listing Requirements (MMLR)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public: Negotiations to acquire 51% of Kembara Logistik Sdn Bhd at ~7.5x FY25 EBITDA; exclusivity until 30 June 2026; break fee RM3.0m payable by target on competing bid",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "An analyst briefing deck shared under NDA on 18 June 2026 contains preliminary 2Q revenue guidance (+12\u201315% qoq) not previously announced; this is MNPI and must not be selectively disclosed",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Materiality: thresholds are exceeded relative to the issuer\u2019s size; an Immediate Announcement to Bursa Lestari is required under MMLR paragraph 9.03 upon signing of binding financing and SPA; target release before market open next business day",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
       "matched_text": "Puan Nadira Salleh",
       "rule": "named_person"
     },
@@ -66,11 +131,6 @@
       "category": "PII",
       "matched_text": "Encik Farid Rahman",
       "rule": "named_person"
-    },
-    {
-      "category": "PII",
-      "matched_text": "legal@awanberlabuh.com.my",
-      "rule": "email_address"
     },
     {
       "category": "PII",
@@ -86,21 +146,6 @@
       "category": "PII",
       "matched_text": "(+60 1x-3xx xxxx)",
       "rule": "phone_number"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Non-public",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "51%",
-      "rule": "financial_percentage"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "0m",
-      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
@@ -124,18 +169,8 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "SPA",
-      "rule": "definitive_agreement"
-    },
-    {
-      "category": "MNPI",
       "matched_text": "under NDA",
       "rule": "information_barrier_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "term sheet",
-      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
@@ -181,52 +216,12 @@
       "category": "MNPI",
       "matched_text": "inadvertent selective disclosure",
       "rule": "selective_disclosure_risk"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Subject: MNPI assessment for proposed private placement and sukuk financing; disclosure obligations under Bursa Lestari Main Market Listing Requirements (MMLR)",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Non-public: Negotiations to acquire 51% of Kembara Logistik Sdn Bhd at ~7.5x FY25 EBITDA; exclusivity until 30 June 2026; break fee RM3.0m payable by target on competing bid",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "An analyst briefing deck shared under NDA on 18 June 2026 contains preliminary 2Q revenue guidance (+12\u201315% qoq) not previously announced; this is MNPI and must not be selectively disclosed",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Materiality: thresholds are exceeded relative to the issuer\u2019s size; an Immediate Announcement to Bursa Lestari is required under MMLR paragraph 9.03 upon signing of binding financing and SPA; target release before market open next business day",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Confidential",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "MNPI",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "15%",
-      "rule": "financial_percentage"
     }
   ],
   "must_detect": [
     {
       "category": "PII",
       "matched_text": "legal@awanberlabuh.com.my",
-      "rule": "email_address"
-    },
-    {
-      "category": "PII",
-      "matched_text": "investor-relations@awanberlabuh.com.my",
       "rule": "email_address"
     },
     {

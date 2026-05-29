@@ -1,14 +1,14 @@
 {
   "_agent_review": {
-    "notes": "Reconciled MY Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "notes": "MY Stage A strict labels realigned after the IN precision audit tightened deterministic false-positive guards; broader labels remain in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
-    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
     "status": "strict_tier_cleaned_owner_approved"
   },
   "_human_review": {
     "decision": "approve",
-    "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
-    "reviewed_at_utc": "2026-05-29T04:00:07Z",
+    "notes": "Project owner approval remains internal/project benchmark approval based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T07:04:53Z",
     "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
     "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
     "reviewer": "gongahkia-project-owner-chat-approval",
@@ -17,8 +17,8 @@
   "_human_review_history": [
     {
       "decision": "approve",
-      "notes": "Project owner approved MY Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
-      "reviewed_at_utc": "2026-05-29T04:00:07Z",
+      "notes": "Project owner approval remains internal/project benchmark approval based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T07:04:53Z",
       "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
       "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewer": "gongahkia-project-owner-chat-approval",
@@ -26,18 +26,18 @@
     }
   ],
   "_human_review_status": "approved",
-  "_label_model": "azure:gpt-5-2",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+  "_label_note": "MY Stage A strict tier realigned to deterministic strict-mode engine after IN precision audit; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
   "_label_warnings": [
     "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM150m'",
     "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM150m'"
   ],
   "_owner_acceptance": {
-    "accepted_at_utc": "2026-05-29T04:00:07Z",
+    "accepted_at_utc": "2026-05-29T07:04:53Z",
     "accepted_by": "gongahkia",
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
-    "source_report": "/tmp/kaypoh-my-stage-a-cleaned-eval.json",
+    "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
     "status": "owner_approved_my_stage_a_for_internal_benchmarking"
   },
   "_strict_label_cleanup": {
@@ -58,6 +58,86 @@
   "ideal_must_detect": [
     {
       "category": "PII",
+      "matched_text": "aisha.rahman@sinarmeridian.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Norina Salleh",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Commercial terms and timing remain subject to Board approval; premature disclosure could influence trading and breach information barriers.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG-linked financing: Bintang Raya Capital Bank Berhad has offered a RM150m sustainability-linked term loan with a 15 bps margin step-down if FY2026 Scope 1 emissions fall 12% year-on-year, and a 10 bps step-up if targets are missed; the draft facility agreement is under NDA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to Board approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 1 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
       "matched_text": "Puan Aisha Rahman",
       "rule": "named_person"
     },
@@ -68,33 +148,13 @@
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Norina Salleh",
-      "rule": "named_person"
-    },
-    {
-      "category": "PII",
       "matched_text": "Puan Aisha",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "aisha.rahman@sinarmeridian.com.my",
-      "rule": "email_address"
-    },
-    {
-      "category": "PII",
       "matched_text": "compliance@sinarmeridian.com.my",
       "rule": "email_address"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "insider list",
-      "rule": "insider_list_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Information barriers",
-      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
@@ -123,21 +183,6 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "non-public",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "confidential",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "term sheet",
-      "rule": "definitive_agreement"
-    },
-    {
-      "category": "MNPI",
       "matched_text": "term sheets",
       "rule": "definitive_agreement"
     },
@@ -145,16 +190,6 @@
       "category": "MNPI",
       "matched_text": "non-binding term sheet",
       "rule": "definitive_agreement"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "2m",
-      "rule": "financial_amount"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "12%",
-      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
@@ -170,11 +205,6 @@
       "category": "MNPI",
       "matched_text": "ransomware attempt",
       "rule": "cyber_incident_pre_disclosure"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Scope 1 emissions",
-      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
@@ -205,36 +235,6 @@
       "category": "MNPI",
       "matched_text": "equal access to information",
       "rule": "selective_disclosure_risk"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Commercial terms and timing remain subject to Board approval; premature disclosure could influence trading and breach information barriers.",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "ESG-linked financing: Bintang Raya Capital Bank Berhad has offered a RM150m sustainability-linked term loan with a 15 bps margin step-down if FY2026 Scope 1 emissions fall 12% year-on-year, and a 10 bps step-up if targets are missed; the draft facility agreement is under NDA.",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "restricted",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "subject to Board approval",
-      "rule": "contingent_mnpi_language"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "wall-crossing",
-      "rule": "insider_list_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "information barriers",
-      "rule": "information_barrier_marker"
     }
   ],
   "must_detect": [

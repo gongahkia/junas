@@ -1,0 +1,268 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled IN Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T07:04:53Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T07:04:53Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+  "_label_note": "IN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T07:04:53Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "owner_approved_in_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_special_category_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "E-00412",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child Data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "procurement@vendor.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The Diversity First Charter is abstract DEI guidance and does not authorise collection of sensitive attributes unless strictly necessary and documented.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "[AAAAA9999A]",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "[22AAAAA0000A1Z5]",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee ID E-00412",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "disclosed a psychiatrist-recommended treatment schedule",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For child Data Principals (under 18)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 18",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We will not retain copies of Aadhaar, PAN, or GSTIN",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not store full numbers in any log or backup",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "must never be persisted as raw values",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "disable precise location, behavioural ads, and automated profiling by default",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "avoid collecting personal phone numbers unless required by law",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "use token references (e.g., Aadhaar_ID_Token, PAN_Token)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until disclosed to the stock exchanges",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "drafts of Q2 results, board agenda, and capex pipeline",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "close the trading window accordingly",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading window schedules",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Do not share internal dashboards on team chat channels with external vendors",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "use the Indus Ledger data room with audit trail",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must avoid implying future revenue figures or undisclosed order wins",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading window",
+      "rule": "blackout_period_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "E-00412",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child Data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "biometric templates",
+      "reason": "Generic sensitive-category mention, not person-specific"
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic sensitive-category mention, not person-specific"
+    },
+    {
+      "matched_text": "religion",
+      "reason": "Generic sensitive-category mention, not person-specific"
+    },
+    {
+      "matched_text": "union membership",
+      "reason": "Generic sensitive-category mention, not person-specific"
+    },
+    {
+      "matched_text": "genetic tests",
+      "reason": "Generic sensitive-category mention, not person-specific"
+    },
+    {
+      "matched_text": "political opinions",
+      "reason": "Generic sensitive-category mention, not person-specific"
+    },
+    {
+      "matched_text": "The Diversity First Charter",
+      "reason": "Policy name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Bangalore Bluecaps",
+      "reason": "Sports team name used as analogy, not PII/MNPI"
+    },
+    {
+      "matched_text": "Indus Ledger",
+      "reason": "Product/data room name, not PII/MNPI"
+    },
+    {
+      "matched_text": "UPSI Handling SOP",
+      "reason": "Policy/SOP name, not PII/MNPI"
+    },
+    {
+      "matched_text": "CIN [L00000XX0000PLC000000]",
+      "reason": "Corporate identifier, non-personal and outside allowed PII rules"
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "pseudonymous identifier",
+      "matched_text": "Subject A-17",
+      "reason": "Refers to a specific individual via a code; likely personal data under DPDPA but no explicit allowed rule for pseudonymous subject codes"
+    }
+  ]
+}

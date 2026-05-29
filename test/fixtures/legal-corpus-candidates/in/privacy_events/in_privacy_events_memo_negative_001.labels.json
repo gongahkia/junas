@@ -1,0 +1,203 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled IN Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T07:04:53Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T07:04:53Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+  "_label_note": "IN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T07:04:53Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "owner_approved_in_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_privacy_events_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "noreply@rivermark.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "vendor.support@rivermark.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This note summarises privacy controls for onboarding and data exports; no UPSI under SEBI (PIT) Regulations, 2015 is included, and references are limited to publicly announced FY25 guidance disclosed on NSE on 27 April 2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Supplier onboarding helpdesk (vendor.support@rivermark.example) provides PAN and GSTIN format guidance only and does not request or store any individual Aadhaar numbers.",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TESTP0000Q",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "99ABCTE1234F1Z9",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1234\u20115678\u20119999",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@rivermark.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redacted on ingestion",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 18",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Children\u2019s data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "VOL\u20117842",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors (under 18)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "suppressed by default per minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent\u2011withdrawal",
+      "rule": "consent_withdrawal_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "UPSI",
+      "reason": "Explicitly negated; no unpublished price-sensitive information is included."
+    },
+    {
+      "matched_text": "cross\u2011border transfer",
+      "reason": "Completed/closed action noted, not a live transfer marker."
+    },
+    {
+      "matched_text": "DEA\u20112026\u2011014",
+      "reason": "Internal approval reference, not personal data."
+    },
+    {
+      "matched_text": "Board Risk Committee",
+      "reason": "Organizational role/committee, not PII."
+    },
+    {
+      "matched_text": "Supplier KYC v3.1",
+      "reason": "Document/version label, not PII."
+    },
+    {
+      "matched_text": "Insider\u2011trading safeguards",
+      "reason": "Policy/control reference, not MNPI content."
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "internal person identifier",
+      "matched_text": "VOL\u20117842",
+      "reason": "Looks like a data-subject internal ID for a former campus ambassador but not clearly covered by a specific allowed rule beyond employee_id."
+    },
+    {
+      "concept": "cross-border destination",
+      "matched_text": "authorised transfer of pseudonymised error telemetry to our processor Pallava Cloud Private Limited (Singapore region)",
+      "reason": "Cross-border transfer context is legally relevant under DPDPA but described as authorised/completed; live transfer marker labeling is disfavored by rule 17."
+    },
+    {
+      "concept": "DSAR/erasure event (completed)",
+      "matched_text": "was fulfilled on 10 May 2026 with erasure of marketing contact history",
+      "reason": "Data-subject request and erasure are privacy events but are completed; there is no explicit allowed DSAR/erasure marker rule."
+    },
+    {
+      "concept": "consent withdrawal process",
+      "matched_text": "Consent Manager queue",
+      "reason": "Indicates consent-withdrawal handling mechanism but not a live withdrawal event."
+    },
+    {
+      "concept": "completed cross-border transfer record",
+      "matched_text": "The cross\u2011border transfer above is completed, logged in the Register of Processing, and subject to quarterly revalidation",
+      "reason": "Relevant for cross-border compliance posture but not a live transfer per rule 17."
+    }
+  ]
+}

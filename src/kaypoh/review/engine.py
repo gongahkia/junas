@@ -215,15 +215,20 @@ MATERIAL_EVENT_RE = re.compile(
 _MATERIAL_EVENT_NEGATED_CONTEXT_RE = re.compile(
     r"\b(?:"
     r"not\s+(?:price[- ]sensitive|a\s+profit\s+forecast|profit\s+forecast|"
-    r"profit\s+warning|earnings\s+guidance|mnpi)|"
-    r"absence\s+of\s+mnpi|no\s+(?:new\s+)?price[- ]sensitive|no\s+unpublished|"
+    r"profit\s+warning|earnings\s+guidance|mnpi|upsi)|"
+    r"absence\s+of\s+mnpi|no\s+(?:new\s+)?(?:price[- ]sensitive|upsi|mnpi)|no\s+unpublished|"
     r"contains\s+no\s+unpublished|public\s+and\s+stale|already[-\s]+announced\s+terms|"
+    r"no\s+upsi\s+(?:is\s+)?included|are\s+not\s+upsi|"
     r"does\s+not\s+(?:itself\s+)?create\s+a\s+current\s+disclosure\s+obligation|"
     r"does\s+not\s+(?:itself\s+)?(?:contain|constitute)\s+(?:mnpi|"
     r"(?:a\s+)?mac|earnings\s+guidance|(?:a\s+)?profit\s+forecast)|"
+    r"does\s+not\s+make\s+the\s+content\s+price\s+sensitive|"
     r"no\s+material\s+adverse\s+change|"
     r"no\s+(?:live\s+)?(?:incident|breach|breach\s+specifics|forecast\s+downgrades)|"
     r"public\s+(?:cybersecurity\s+)?training\s+materials|"
+    r"format\s+guidance\s+only|operational\s+guidance|abstract\s+dei\s+guidance|"
+    r"non-production\s+examples|"
+    r"illustrative\s+case\s+studies|public\s+journals|do\s+not\s+pertain|"
     r"education\s+only|public\s+mas\s+guidance"
     r")\b",
     re.IGNORECASE,
@@ -233,12 +238,14 @@ _MATERIAL_EVENT_PUBLIC_CONTEXT_RE = re.compile(
     r"generally\s+available|"
     r"(?:previously|already)[-\s]+announced|"
     r"public(?:ly)?\s+available|"
-    r"public\s+(?:announcement|disclosures?|information|reference|source|filings?)|"
+    r"public\s+(?:announcement|disclosures?|information|reference|source|filings?|notice)|"
     r"public\s+and\s+stale|"
     r"from\s+(?:public|openly\s+available)\s+materials?|"
-    r"no\s+(?:new\s+)?price[- ]sensitive|no\s+unpublished|"
-    r"not\s+price[- ]sensitive|not\s+mnpi|not\s+required|not\s+an\s+announcement|"
-    r"educational|training|"
+    r"no\s+(?:new\s+)?(?:price[- ]sensitive|upsi|mnpi)|no\s+unpublished|"
+    r"not\s+price[- ]sensitive|not\s+mnpi|not\s+upsi|not\s+required|not\s+an\s+announcement|"
+    r"educational|training|format\s+guidance\s+only|operational\s+guidance|"
+    r"non-production\s+examples|"
+    r"illustrative\s+case\s+studies|public\s+journals|do\s+not\s+pertain|"
     r"no\s+(?:sgxnet\s+)?disclosure\s+is\s+required"
     r")\b",
     re.IGNORECASE,
@@ -1222,7 +1229,13 @@ _CONTEXTUAL_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
     "contact", "info", "legal",
 })
 _ROLE_MAILBOX_LOCAL_RE = re.compile(
-    r"^(?:(?:sg|hk|au|jp|kr|my|id|th|ph|vn|uk|eu|us)?compliance|.*[._-]compliance)$"
+    r"^(?:"
+    r"(?:sg|hk|au|jp|kr|my|id|th|ph|vn|uk|eu|us|in)?compliance|"
+    r".*[._-]compliance|"
+    r"ir|investor[._-]?relations|grievance|noreply|no-reply|procurement|infosec|"
+    r"privacyoffice|pitcompliance|pit-code|"
+    r".*[._-](?:support|helpdesk|procurement|infosec|grievance)$"
+    r")$"
 )
 _DATE_LIKE_PHONE_RE = re.compile(
     r"(?:\d{4}[-/]\d{1,2}[-/]\d{1,2}(?:\s+\d{1,2})?|"
@@ -1232,6 +1245,7 @@ _IPV4_LITERAL_RE = re.compile(r"(?:\d{1,3}\.){3}\d{1,3}\Z")
 _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
     r"\b(?:UEN|NRIC|FIN|MyKad|passport|a/c|acc\s*t|account|company\s+no|co\.\s+no|"
     r"reg\.\s+no|registration\s+no|tax\s+ref|TIN|EPF|SWIFT|IMEI|IP|DOB|dated|"
+    r"Aadhaar|PAN|GSTIN|placeholder|sample|specimen|test\s+fields?|training\s+placeholder|"
     r"session\s+ref|SSA\s+ref|job\s+ID|asset\s+tag|badge)\b",
     re.IGNORECASE,
 )
@@ -1244,7 +1258,10 @@ _LARGE_NUMBER_IDENTIFIER_CONTEXT_RE = re.compile(
 _URL_PARAM_IDENTIFIER_CONTEXT_RE = re.compile(r"[?&](?:id|uid|co|ref)=", re.IGNORECASE)
 _PLACEHOLDER_IDENTIFIER_CONTEXT_RE = re.compile(
     r"\b(?:invalid\s+placeholder|placeholder\s+with\s+an\s+invalid\s+checksum|"
-    r"template\s+field|generic\s+placeholder)\b",
+    r"template\s+field|test\s+fields?|generic\s+placeholder|training\s+placeholder|"
+    r"placeholder|specimen\s+values?|screenshots?\s+only|"
+    r"sample\s+(?:PAN|GSTIN|Aadhaar|NRIC|identifier|values?)|"
+    r"invalid(?:/dummy)?|for\s+illustration|illustrative)\b",
     re.IGNORECASE,
 )
 _PUBLIC_OR_BENIGN_AMOUNT_CONTEXT_RE = re.compile(
@@ -1300,6 +1317,10 @@ def _is_public_or_generic_phone_context(text: str, start: int, end: int) -> bool
 def _is_non_phone_numeric_context(text: str, start: int, end: int) -> bool:
     matched = text[start:end].strip()
     digits = _digits_only(matched)
+    if digits and set(digits) == {"0"}:
+        return True
+    if digits and len(set(digits)) == 1 and len(digits) >= 8:
+        return True
     if _DATE_LIKE_PHONE_RE.fullmatch(matched):
         return True
     if _IPV4_LITERAL_RE.fullmatch(matched) and _ip_version(matched) == 4:
@@ -1313,6 +1334,34 @@ def _is_non_phone_numeric_context(text: str, start: int, end: int) -> bool:
         _NON_PHONE_NUMERIC_CONTEXT_RE.search(context)
         or _URL_PARAM_IDENTIFIER_CONTEXT_RE.search(context)
     )
+
+
+def _is_negated_mac_address_context(text: str, start: int, end: int) -> bool:
+    context = _line_context(text, start, end)
+    return bool(re.search(r"\bnot\s+(?:a\s+|an\s+|the\s+)?MAC\s+address\b", context, re.IGNORECASE))
+
+
+def _is_negated_nonpublic_marker_context(text: str, start: int, end: int) -> bool:
+    context = _line_context(text, start, end)
+    return bool(re.search(
+        r"\b(?:not\s+(?:mnpi|upsi)|no\s+(?:upsi|mnpi)|"
+        r"does\s+not\s+add\s+unpublished\s+price[- ]sensitive\s+information|"
+        r"unless\s+upsi\s+is\s+actually\s+present|mnpi\s+markers?:|"
+        r"disclosed\s+in\s+annual\s+reports|disclosed\s+via\s+public\s+notice)\b",
+        context,
+        re.IGNORECASE,
+    ))
+
+
+def _is_benign_definitive_agreement_context(text: str, start: int, end: int) -> bool:
+    context = _line_context(text, start, end)
+    return bool(re.search(
+        r"\b(?:not\s+(?:material|upsi|mnpi)|are\s+not\s+upsi|"
+        r"routine\s+lease\s+renewal|disclosed\s+via\s+public\s+notice|"
+        r"illustrative\s+case\s+studies|public\s+journals|do\s+not\s+pertain)\b",
+        context,
+        re.IGNORECASE,
+    ))
 
 
 def _is_special_category_false_positive_context(rule_name: str, text: str, start: int, end: int) -> bool:
@@ -1560,6 +1609,8 @@ def _detect_core_identifier_findings(
 
     for match in MAC_ADDRESS_RE.finditer(text):
         value = match.group(1)
+        if _is_negated_mac_address_context(text, match.start(), match.end()):
+            continue
         out.append(
             _new_finding(
                 idx=idx,
@@ -2924,6 +2975,12 @@ class PreSendReviewEngine:
                         continue
                     if _is_placeholder_identifier_context(text, start, end):
                         continue
+                    if "X" in text[start:end].upper() and _is_placeholder_identifier_context(text, start, end):
+                        continue
+                if rule == "employee_id":
+                    digits = _digits_only(text[start:end])
+                    if digits and set(digits) == {"0"}:
+                        continue
                 if rule == "email_address" and _is_functional_contact_context(text, start, end):
                     continue
                 if rule == "phone_number" and _is_public_or_generic_phone_context(text, start, end):
@@ -3289,6 +3346,14 @@ class PreSendReviewEngine:
             effective_severity = MNPI_DOC_TYPE_SEVERITY_OVERRIDES.get((rule, doc_type_key), severity)
             for match in pattern.finditer(text):
                 if rule in suppressible_rules and is_defined_term(match.group(), defined):
+                    continue
+                if rule == "nonpublic_marker" and _is_negated_nonpublic_marker_context(
+                    text, match.start(), match.end()
+                ):
+                    continue
+                if rule == "definitive_agreement" and _is_benign_definitive_agreement_context(
+                    text, match.start(), match.end()
+                ):
                     continue
                 if rule == "definitive_agreement" and _is_spa_day_reference(
                     text, match.start(), match.end()
