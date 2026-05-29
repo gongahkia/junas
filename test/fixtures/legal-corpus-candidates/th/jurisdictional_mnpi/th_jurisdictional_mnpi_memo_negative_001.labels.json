@@ -3,13 +3,145 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosure.office@neplc.internal"
+    },
+    {
+      "category": "PII",
+      "rule": "th_national_id",
+      "matched_text": "0-0000-00000-00-0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not discuss externally"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may be material to the issuer"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosure.office@neplc.internal"
+    },
+    {
+      "category": "PII",
+      "rule": "th_national_id",
+      "matched_text": "0-0000-00000-00-0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not discuss externally"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may be material to the issuer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MoU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "limit access"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "need-to-know group"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "PDPA minimisation principles"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not contact counterparties\u2019 staff directly"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Board",
+      "reason": "Role noun/governance body, not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "The Company",
+      "reason": "Role noun possessive usage, not PII"
+    },
+    {
+      "matched_text": "the Company",
+      "reason": "Role noun possessive usage, not PII"
+    },
+    {
+      "matched_text": "directors and executives",
+      "reason": "Generic role phrase, not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DocRef: TH-SET-0000-XYZ",
+      "concept": "internal_document_identifier",
+      "reason": "Looks like an internal reference code; not covered by allowed PII/MNPI rules but could be mistaken for an official identifier"
+    },
+    {
+      "matched_text": "Reg. No.: 0-0000-00000-00-0",
+      "concept": "thai_national_id_format_placeholder",
+      "reason": "Matches Thai 13-digit hyphenated pattern but explicitly marked as a placeholder and not an official number"
+    },
+    {
+      "matched_text": "cross-border",
+      "concept": "cross_border_data_transfer",
+      "reason": "Mentions cross-border financing, not necessarily personal-data transfer; may be relevant for PDPA cross-border transfer but context is not data movement"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

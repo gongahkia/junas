@@ -3,13 +3,186 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "th_national_id",
+      "matched_text": "1-2345-67890-12-3"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "TA1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "governance@chanthraaerotech-fic.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "treasury-ops@chanthraaerotech-fic.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02-700-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02-800-1234"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border data transfers"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "th_national_id",
+      "matched_text": "1-2345-67890-12-3"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "TA1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "governance@chanthraaerotech-fic.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "treasury-ops@chanthraaerotech-fic.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02-700-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02-800-1234"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border data transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "SCCs"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transfer impact memo"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "pseudonymized datasets"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "anonymization checklist"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not replace with live data"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "Passport No. TA1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "th_national_id",
+      "matched_text": "Thai National ID 1-2345-67890-12-3"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Company A/C 123-4-XX000-0"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "CAPCL",
+      "reason": "Defined-term abbreviation for the company; not PII/MNPI"
+    },
+    {
+      "matched_text": "SET-Fic",
+      "reason": "Defined-term abbreviation; not PII/MNPI"
+    },
+    {
+      "matched_text": "SCT",
+      "reason": "Defined-term abbreviation; not PII/MNPI"
+    },
+    {
+      "matched_text": "SETLink-F",
+      "reason": "Defined-term/portal name; not PII/MNPI"
+    },
+    {
+      "matched_text": "authorized signatory",
+      "reason": "Role noun only; not an identifiable person"
+    },
+    {
+      "matched_text": "directors",
+      "reason": "Role noun only; not an identifiable person"
+    },
+    {
+      "matched_text": "executives",
+      "reason": "Role noun only; not an identifiable person"
+    },
+    {
+      "matched_text": "company secretary",
+      "reason": "Role noun only; not an identifiable person"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Juristic Person Reg. No. 0105556789013",
+      "concept": "thai_company_registration_number",
+      "reason": "Entity identifier relevant in finance docs; not a supported allowed rule and not personal data under PDPA"
+    },
+    {
+      "matched_text": "Tax ID 0993000123456",
+      "concept": "thai_tax_id_entity",
+      "reason": "Entity tax identifier; not covered by allowed rules and not personal data of a natural person"
+    },
+    {
+      "matched_text": "88/9 Moo 4, Soi Chanok 5, Khwaeng Si Lalin, Khet Pathumwan, Bangkok 10999",
+      "concept": "postal_address_company",
+      "reason": "Company registered office address; general address rule not listed and not personal data of a natural person"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

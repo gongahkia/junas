@@ -3,13 +3,279 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Jintana Viroj"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Suthon Peerapat"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Prasert Anan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ploychada Sorn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Jintana"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lannasilk.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border payroll onboarding"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border treasury files"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border payroll transfers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Jintana Viroj"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Suthon Peerapat"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Prasert Anan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ploychada Sorn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Jintana"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lannasilk.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we no longer collect photocopies of national ID"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "bank statement images have been removed"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border payroll onboarding"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border treasury files"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "production export will commence"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border payroll transfers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "remains internal until filing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "closed period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not upload such figures to any vendor portal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "must be handled as MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "price\u2011sensitive"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Board Risk Committee",
+      "reason": "Role/committee title, not PII or MNPI"
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "Role noun, not a personal identifier or MNPI"
+    },
+    {
+      "matched_text": "Head of Legal",
+      "reason": "Role noun, not a personal identifier or MNPI"
+    },
+    {
+      "matched_text": "Corporate Secretary",
+      "reason": "Role noun, not a personal identifier or MNPI"
+    },
+    {
+      "matched_text": "Risk Committee",
+      "reason": "Role/committee title, not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR case DSAR\u20112026\u2011044",
+      "concept": "DSAR marker",
+      "reason": "DSAR handling is a privacy event but there is no explicit DSAR rule in the allowed list"
+    },
+    {
+      "matched_text": "erasure of historical CV attachments completed",
+      "concept": "Erasure/deletion",
+      "reason": "Erasure completion is a privacy event but not covered by an allowed rule name"
+    },
+    {
+      "matched_text": "Employee exit erasure tickets for April leavers (ER\u2011APR\u20112026\u201107 to \u201115) have been completed",
+      "concept": "Erasure/deletion",
+      "reason": "Erasure/RTBF completion noted; no explicit erasure rule in allowed list"
+    },
+    {
+      "matched_text": "retention for successful hires remains 6 years",
+      "concept": "Retention marker",
+      "reason": "Retention periods are privacy handling events but no retention rule is defined in allowed list"
+    },
+    {
+      "matched_text": "email retention reduced to header\u2011only metadata for 90 days",
+      "concept": "Retention/minimisation",
+      "reason": "Retention and data minimisation combined; only a generic minimisation rule exists and no retention rule is defined"
+    },
+    {
+      "matched_text": "Legacy recruiter USB archives were fully sanitised",
+      "concept": "Data destruction",
+      "reason": "Sanitisation/destruction indicates erasure but there is no specific rule for it"
+    },
+    {
+      "matched_text": "destruction certificates filed",
+      "concept": "Data destruction evidence",
+      "reason": "Evidence of destruction is privacy\u2011relevant but not mapped to an allowed rule"
+    },
+    {
+      "matched_text": "No employee personal data has been transferred offshore",
+      "concept": "Negated cross\u2011border transfer",
+      "reason": "Cross\u2011border concept is present but negated; guidance discourages labeling negated controls"
+    },
+    {
+      "matched_text": "no identifiable employee data will be exported",
+      "concept": "Negated cross\u2011border transfer",
+      "reason": "Export concept is present but negated; guidance discourages labeling negated controls"
+    },
+    {
+      "matched_text": "explicit consent for cross\u2011border payroll transfers",
+      "concept": "Consent legal basis",
+      "reason": "Consent basis is privacy\u2011relevant but only withdrawal is covered by allowed rules"
+    },
+    {
+      "matched_text": "identity was verified",
+      "concept": "Identity verification",
+      "reason": "Verification is privacy\u2011relevant process but not covered by an allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
