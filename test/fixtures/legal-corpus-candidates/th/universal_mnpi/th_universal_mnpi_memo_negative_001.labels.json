@@ -3,13 +3,155 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@anemonepcl.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@anemonepcl.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "SEA s.59 insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "50%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@anemonepcl.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@anemonepcl.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "SEA s.59 insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "50%"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "remove direct identifiers from drafts; use generic codes only"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "secondment (th to sg)"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "pdpa-compliant transfer clauses"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive share subscription agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "05 mar 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "no intention to change dividend policy, undertake a tender offer, or effect any control (>50%) change"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day vouchers",
+      "reason": "False-positive bait; not Share Purchase Agreement (SPA)."
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "Negated MAC language; rule excludes detecting negated MAC/MAE."
+    },
+    {
+      "matched_text": "project mgmt",
+      "reason": "Lowercase project-management prose; not a transaction codename."
+    },
+    {
+      "matched_text": "ir refresh",
+      "reason": "Board name; not a transaction codename."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "embargo from the prior press cycle was lifted on 05 mar 2026",
+      "concept": "embargo_marker/date",
+      "reason": "Embargo status and a specific date are referenced, but only 'Embargoed' is enumerated in strict markers."
+    },
+    {
+      "matched_text": "definitive share subscription agreement",
+      "concept": "definitive_agreement (gap)",
+      "reason": "Share Subscription Agreement is a definitive agreement but not enumerated in the narrow list (SPA/SHA/APA/MOU/LOI/Term Sheet)."
+    },
+    {
+      "matched_text": "secondment (th to sg) remains subject to pdpa-compliant transfer clauses",
+      "concept": "cross_border_transfer_marker",
+      "reason": "Indicates cross-border data transfer context, but phrased as compliance control rather than a live transfer event."
+    },
+    {
+      "matched_text": "remove direct identifiers from drafts; use generic codes only",
+      "concept": "data_minimisation_marker",
+      "reason": "Data minimisation control is present; strict regex coverage for such phrasing may be limited."
+    },
+    {
+      "matched_text": "no intention to change dividend policy, undertake a tender offer, or effect any control (>50%) change",
+      "concept": "contingent_mnpi_language",
+      "reason": "Negated but references potential material events; detection may require semantic understanding."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

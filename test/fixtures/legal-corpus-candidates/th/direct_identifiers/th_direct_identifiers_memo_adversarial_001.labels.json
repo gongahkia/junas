@@ -3,13 +3,210 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@klongsai-renewable.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 2 671 9901"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Arisa Thamwong"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "09-4556-2103"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "preeda.t@klongsai-renewable.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@klongsai-renewable.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "123-4-56789-0"
+    },
+    {
+      "category": "PII",
+      "rule": "th_national_id",
+      "matched_text": "1-2222-33333-44-5"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5.20%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@klongsai-renewable.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 2 671 9901"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Arisa Thamwong"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "09-4556-2103"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "preeda.t@klongsai-renewable.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@klongsai-renewable.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "123-4-56789-0"
+    },
+    {
+      "category": "PII",
+      "rule": "th_national_id",
+      "matched_text": "1-2222-33333-44-5"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "T H 9 1 2 3 4 5 6 7"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Preeda Taweephol"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "seconded to Vienthale Power Co., Ltd. (Lao PDR)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5.20%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for distribution beyond directors and designated advisors until the BXB posting is complete"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not forward outside the Board"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed private placement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "cross\u2011border secondment"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Acquisition target summary"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1100",
+      "reason": "Public helpline number; not personal contact data"
+    },
+    {
+      "matched_text": "000-000-0000",
+      "reason": "Placeholder phone number bait"
+    },
+    {
+      "matched_text": "Name: __________  ID No.: __________  Tel: __________",
+      "reason": "Generic form labels; not actual PII"
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Role-only name/position, not a person identifier"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role-only name/position, not a person identifier"
+    },
+    {
+      "matched_text": "Treasury",
+      "reason": "Role-only function, not a person identifier"
+    },
+    {
+      "matched_text": "1-2345-67890-12-3",
+      "reason": "Invalid example national ID used as bait; do not treat as real PII"
+    },
+    {
+      "matched_text": "0-8899-65012-10-3",
+      "reason": "Corporate juristic registration placeholder; not personal data and invalid check digit"
+    },
+    {
+      "matched_text": "0-9999-12345-66-7",
+      "reason": "Corporate tax ID placeholder; not personal data and invalid check digit"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "EMP%3D414",
+      "concept": "employee_id",
+      "reason": "URL parameter likely decodes to EMP=414; may be an employee number but not explicitly labeled as such in text"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

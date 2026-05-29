@@ -3,13 +3,183 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "E-4471"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@teakwave.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@teakwave.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "000-000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "chemotherapy treatment"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border personal data transfers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Palm"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "E-4471"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@teakwave.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@teakwave.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "000-000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "chemotherapy treatment"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Employee E-4471 (Finance Manager) has submitted a hospital certificate confirming ongoing chemotherapy treatment"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "any cross-border personal data transfers follow PDPA s.28 and our Data Transfer Addendum (TH-SG v2.1)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Palm"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no disclosures to third-party processors"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Mango Cloud",
+      "reason": "Product/marketing name bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "LotusBridge",
+      "reason": "Product/marketing name bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "Khlong Runner",
+      "reason": "Product/marketing name bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "Bangkok Meteors playbook",
+      "reason": "Metaphor/team name bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "Mae Ping sprint",
+      "reason": "Metaphor/team name bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "Remote-First Charter",
+      "reason": "Policy/charter name bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "Rainbow Inclusion Policy",
+      "reason": "Policy name bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "ISIN: ZZ-NA-000000",
+      "reason": "Placeholder identifier, not valid PII/MNPI"
+    },
+    {
+      "matched_text": "Tax ID: 0-0000-0000-00-0",
+      "reason": "Placeholder/invalid ID format, do not treat as PII"
+    },
+    {
+      "matched_text": "Employee Code: E-XXXX",
+      "reason": "Placeholder employee code, not real PII"
+    },
+    {
+      "matched_text": "The Company",
+      "reason": "Role noun/defined-term, not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "90-day retention",
+      "concept": "retention_marker",
+      "reason": "Indicates data retention period, but no explicit retention rule name provided in allowed set"
+    },
+    {
+      "matched_text": "PDPA consent form HR\u2011MED\u201101",
+      "concept": "consent_record",
+      "reason": "Mentions consent documentation without withdrawal/DSAR; no direct allowed rule fits"
+    },
+    {
+      "matched_text": "Only HR personnel via hr@teakwave.example will access E-4471\u2019s medical document",
+      "concept": "access_control_marker",
+      "reason": "Access restriction/need-to-know control is privacy-relevant but not an allowed rule name"
+    },
+    {
+      "matched_text": "fingerprints, facial templates, or other biometric identifiers",
+      "concept": "biometric_identifier",
+      "reason": "Biometric data categories mentioned but negated and not anchored to a specific person"
+    },
+    {
+      "matched_text": "religion, union membership, or political opinions",
+      "concept": "special_category_mention",
+      "reason": "Sensitive categories referenced in principle but not tied to an identifiable person"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
