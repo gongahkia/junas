@@ -209,6 +209,18 @@ MATERIAL_EVENT_RE = re.compile(
     r"letter\s+of\s+intent|consummation|closing|settlement\s+agreement)\b",
     re.IGNORECASE,
 )
+_MATERIAL_EVENT_NEGATED_CONTEXT_RE = re.compile(
+    r"\b(?:"
+    r"not\s+(?:price[- ]sensitive|a\s+profit\s+forecast|profit\s+forecast|"
+    r"profit\s+warning|earnings\s+guidance|mnpi)|"
+    r"does\s+not\s+(?:itself\s+)?(?:contain|constitute)\s+(?:mnpi|"
+    r"(?:a\s+)?mac|earnings\s+guidance|(?:a\s+)?profit\s+forecast)|"
+    r"no\s+(?:live\s+)?(?:incident|breach|breach\s+specifics|forecast\s+downgrades)|"
+    r"public\s+(?:cybersecurity\s+)?training\s+materials|"
+    r"education\s+only|public\s+mas\s+guidance"
+    r")\b",
+    re.IGNORECASE,
+)
 # legal-contract MNPI rules. each compiles independently so the engine can emit a
 # distinct `rule` per finding, which lets downstream suggestions cite the right thing.
 TRANSACTION_CODENAME_RE = re.compile(
@@ -3107,6 +3119,8 @@ class PreSendReviewEngine:
         idx = 0
         for match in MATERIAL_EVENT_RE.finditer(text):
             context = _line_context(text, match.start(), match.end())
+            if _MATERIAL_EVENT_NEGATED_CONTEXT_RE.search(context):
+                continue
             # item 36: phrasing alone ("publicly announced", "press release") no longer softens
             # severity. soften only when the same line carries a citable http(s) URL — the
             # document is self-citing. retrieval-driven softening is layered in by the post-pass

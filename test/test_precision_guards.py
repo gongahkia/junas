@@ -74,6 +74,29 @@ class MacMaePrecisionGuards(unittest.TestCase):
         rules = {r for r, _ in _rules_matched(text)}
         self.assertIn("material_event", rules)
 
+    def test_no_live_incident_or_breach_does_not_fire_material_event(self):
+        text = "There is no live incident or breach in the training scenario."
+        for rule, matched in _rules_matched(text):
+            self.assertNotEqual(
+                rule,
+                "material_event",
+                f"negated breach scenario should not be a material_event; got {matched!r}",
+            )
+
+    def test_not_profit_forecast_does_not_fire_material_event(self):
+        text = "This operational update is not a profit forecast."
+        for rule, matched in _rules_matched(text):
+            self.assertNotEqual(
+                rule,
+                "material_event",
+                f"negated profit forecast should not be a material_event; got {matched!r}",
+            )
+
+    def test_not_generally_available_acquisition_still_fires_material_event(self):
+        text = "The acquisition is not generally available and remains confidential."
+        rules = {r for r, _ in _rules_matched(text)}
+        self.assertIn("material_event", rules)
+
     def test_nothing_herein_asserts_mac_does_not_fire(self):
         text = "For avoidance of doubt, nothing herein asserts a Material Adverse Change."
         for rule, matched in _rules_matched(text):
