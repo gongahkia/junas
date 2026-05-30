@@ -3,13 +3,176 @@
   "document_type": "memo",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@tpi.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@tpi.example.vn"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Bamboo"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID E-2045"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Employee ID E-2045 has declared membership in the Lac Hong Workers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data Minimization Policy"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@tpi.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@tpi.example.vn"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Bamboo"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID E-2045"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Employee ID E-2045 has declared membership in the Lac Hong Workers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "membership in the Lac Hong Workers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data Minimization Policy"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "must be blank or redacted when not needed"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "mask irrelevant fields in shared folders"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not include copies of customer onboarding forms"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no customer transaction details are exported to ASE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "convertible note timetable"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "LotusPay wallet pilot",
+      "reason": "Product/feature name, not PII or MNPI"
+    },
+    {
+      "matched_text": "MekongSaver",
+      "reason": "Product name, not PII or MNPI"
+    },
+    {
+      "matched_text": "RiverLine API",
+      "reason": "Product/API name, not PII or MNPI"
+    },
+    {
+      "matched_text": "Harmony Workplace Charter",
+      "reason": "Policy name, not PII or MNPI"
+    },
+    {
+      "matched_text": "Fair Chance Hiring Policy",
+      "reason": "Policy name, not PII or MNPI"
+    },
+    {
+      "matched_text": "Blue Bamboo FC",
+      "reason": "Sports team name, not PII or MNPI"
+    },
+    {
+      "matched_text": "Phu L\u00e2m City",
+      "reason": "Place name, not PII or MNPI"
+    },
+    {
+      "matched_text": "Special-Category",
+      "reason": "Folder label, not personal data itself"
+    },
+    {
+      "matched_text": "No-Fingerprint Mode",
+      "reason": "System setting reference, not an individual's biometric data"
+    },
+    {
+      "matched_text": "9999-XXXX-1234",
+      "reason": "Placeholder string, not a real identifier"
+    },
+    {
+      "matched_text": "CUST-000000",
+      "reason": "Placeholder string, not a real identifier"
+    },
+    {
+      "matched_text": "VN-SEC-000000",
+      "reason": "Placeholder string, not a real identifier"
+    },
+    {
+      "matched_text": "ACC-1234-0000",
+      "reason": "Placeholder string, not a real identifier"
+    },
+    {
+      "matched_text": "Full Name",
+      "reason": "Form label only, no personal value present"
+    },
+    {
+      "matched_text": "Address",
+      "reason": "Form label only, no personal value present"
+    },
+    {
+      "matched_text": "Citizen ID",
+      "reason": "Form label only, no personal value present"
+    },
+    {
+      "matched_text": "Payroll Account No",
+      "reason": "Form label only, no personal value present"
+    }
+  ],
   "uncertain": [],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

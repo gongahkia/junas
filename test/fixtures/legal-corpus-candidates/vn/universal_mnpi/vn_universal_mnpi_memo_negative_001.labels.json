@@ -3,13 +3,166 @@
   "document_type": "memo",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo until 08/07/2026 09:00 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MOU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC clause"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "vendor@lotusridge.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@anphuenertech.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "help@ssc.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "0000-1234-XYZ"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not collect national ID or full account numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimization: remove birth dates, home addresses, and any HR complaints; only aggregate headcount by site"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo until 08/07/2026 09:00 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MOU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC clause"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "vendor@lotusridge.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@anphuenertech.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "help@ssc.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "0000-1234-XYZ"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not collect national ID or full account numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimization: remove birth dates, home addresses, and any HR complaints; only aggregate headcount by site"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet v0.9"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "share purchase agreement"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "employee code (E-000-XX)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "working copy only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "avoid forwarding drafts beyond the deal team list"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day",
+      "reason": "False-positive bait for SPA; not a definitive agreement"
+    },
+    {
+      "matched_text": "spa-day schedule",
+      "reason": "False-positive bait; not MNPI"
+    },
+    {
+      "matched_text": "no MAC/MAE has occurred or is expected as of today",
+      "reason": "Negated MAC language is excluded by rule"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "APEN0000",
+      "concept": "securities code placeholder",
+      "reason": "Potentially relevant issuer identifier but not covered by allowed MNPI rules"
+    },
+    {
+      "matched_text": "dp-pii-014",
+      "concept": "internal tracking ID",
+      "reason": "Internal task identifier may be sensitive but not clearly mapped to an allowed PII rule"
+    },
+    {
+      "matched_text": "ops-update july",
+      "concept": "project nickname / codename",
+      "reason": "Codename-like string but does not match the required 'Project <CapitalizedName>' pattern for transaction_codename"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

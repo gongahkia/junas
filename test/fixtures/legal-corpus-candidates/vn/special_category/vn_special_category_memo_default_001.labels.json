@@ -3,13 +3,406 @@
   "document_type": "memo",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "22%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "potential breach of Lotus River Bank leverage covenant"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Bamboo Bridge"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Le Quoc Thinh"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR\u2011EMP\u20110147"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "thinh.le@tph.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "enrolled fingerprint and retina templates for facility access"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "storage is limited to access control purposes"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Pham Thu Giang"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR\u2011EMP\u20110229"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "submitted oncology screening results and chemo treatment dates to HR"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "submitted oncology screening results and chemo treatment dates to HR"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Tran Huy Kiem"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "kiem.tran@tph.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "self\u2011identified as Catholic on a voluntary HR form"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union steward for TPH Workers Union Chapter 3"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Nguyen Bao Long"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR\u2011EMP\u20110302"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "voluntarily disclosed that he is gay in DEI self\u2011ID"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Giang"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "15\u2011year\u2011old daughter\u2019s vaccination certificate"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "15\u2011year\u2011old daughter\u2019s vaccination certificate"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "15\u2011year\u2011old"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "remove child names from any SCX submission or investor datasite"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "scrub before circulation to bookrunners"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sales@giobien.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Thinh"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@tph.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hoang My Linh"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 90 000 1234"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "22%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "potential breach of Lotus River Bank leverage covenant"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Bamboo Bridge"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "likely to have significant price impact on SCX"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Restrict MNPI to Project Bamboo Bridge room on BambooRoom VDR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "require NDA 08\u2011PP/2026 for Blue Banyan Advisors Co"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Le Quoc Thinh"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR\u2011EMP\u20110147"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "thinh.le@tph.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "enrolled fingerprint and retina templates for facility access"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "storage is limited to access control purposes"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Pham Thu Giang"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR\u2011EMP\u20110229"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "submitted oncology screening results and chemo treatment dates to HR"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "submitted oncology screening results and chemo treatment dates to HR"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Tran Huy Kiem"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "kiem.tran@tph.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "self\u2011identified as Catholic on a voluntary HR form"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union steward for TPH Workers Union Chapter 3"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Nguyen Bao Long"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR\u2011EMP\u20110302"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "voluntarily disclosed that he is gay in DEI self\u2011ID"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "handle via Special Data Lockbox under Policy 27/QD\u2011DataShield"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Giang"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "15\u2011year\u2011old daughter\u2019s vaccination certificate"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "15\u2011year\u2011old daughter\u2019s vaccination certificate"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "15\u2011year\u2011old"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "remove child names from any SCX submission or investor datasite"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "scrub before circulation to bookrunners"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sales@giobien.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Thinh"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@tph.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hoang My Linh"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 90 000 1234"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not transmit medical documents over email"
+    },
+    {
+      "category": "PII",
+      "rule": "crypto_wallet_address",
+      "matched_text": "BambooPay test wallet IDs (merchant test\u201199)"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "biometric edge",
+      "reason": "Metaphorical phrase; not an actual biometric identifier"
+    },
+    {
+      "matched_text": "Thanh Phuc Tigers",
+      "reason": "Sports team name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Quan Nam Stadium",
+      "reason": "Place name; not PII or MNPI"
+    },
+    {
+      "matched_text": "we value diversity, equity, and inclusion across all faiths and orientations",
+      "reason": "Generic DEI policy language; not about a specific individual"
+    },
+    {
+      "matched_text": "LotusGen",
+      "reason": "Product/R&D term; not genetic data of a person"
+    },
+    {
+      "matched_text": "BambooRoom VDR",
+      "reason": "Product/platform name; not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "BambooPay",
+      "reason": "Product name; not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "Policy 27/QD\u2011DataShield",
+      "reason": "Policy name; not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "BambooPay test wallet IDs (merchant test\u201199)",
+      "concept": "crypto wallet identifier",
+      "reason": "Wallet ID is referenced but does not resemble a standard blockchain address format"
+    },
+    {
+      "matched_text": "trading halt",
+      "concept": "market halt/blackout marker",
+      "reason": "Potential market control signal but not an explicit blackout period phrase"
+    },
+    {
+      "matched_text": "NDA 08\u2011PP/2026",
+      "concept": "agreement identifier",
+      "reason": "Confidentiality agreement reference that may serve as an information barrier control but not covered by a specific rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

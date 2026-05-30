@@ -3,13 +3,342 @@
   "document_type": "memo",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. B\u00f9i Linh Chi"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@vanminh-industries.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "it-pii@vanminh-industries.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng \u0110\u00e0o Quang Ph\u00fac"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Staff ID: V M I \u2014 H O P \u2014 0 1 9 8 a"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "has Type\u20112 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "requiring daily metformin"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "his access badge stores a faceprint and right-index fingerprint"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "Mr. Ph\u00fac identifies as gay"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dao.phuc@vanminh-industries.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 2 8 3 9 9 9  1 2 3"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ph\u00fac"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Emp Code V M I / F I N \u2014 0 0 7"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "strict minimization controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12\u201314%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "18,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "must not be shared beyond need-to-know"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC clause"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. B\u00f9i Linh Chi"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@vanminh-industries.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "it-pii@vanminh-industries.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng \u0110\u00e0o Quang Ph\u00fac"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Staff ID: V M I \u2014 H O P \u2014 0 1 9 8 a"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "\u00d4ng \u0110\u00e0o Quang Ph\u00fac (Head of Procurement; Staff ID: V M I \u2014 H O P \u2014 0 1 9 8 a)"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "has Type\u20112 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "requiring daily metformin"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "his access badge stores a faceprint and right-index fingerprint"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "Mr. Ph\u00fac identifies as gay"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dao.phuc@vanminh-industries.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 2 8 3 9 9 9  1 2 3"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ph\u00fac"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Emp Code V M I / F I N \u2014 0 0 7"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "a c c \u2014 3 1 1 . 0 0 2 . 9 x"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "strict minimization controls"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "scrub PII"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12\u201314%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "18,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "planned issuance of 18,000,000 shares"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "must not be shared beyond need-to-know"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "must not be shared beyond need-to-know"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "a vendor earn-out linked to the \u201cLamRidge\u201d project"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "confidential until board sign-off"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC clause"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "strictly internal"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "\u201cPolicy on Religion, Genetic Data & Sex-Life Terminology (ver. Draft-3)\u201d",
+      "reason": "Policy name not about a specific person"
+    },
+    {
+      "matched_text": "\u201cEqual Opportunity & DEI Charter 2026\u201d",
+      "reason": "Generic DEI policy reference, not PII/MNPI"
+    },
+    {
+      "matched_text": "\u201csex-life\u201d",
+      "reason": "Generic term in policy heading, not tied to an individual"
+    },
+    {
+      "matched_text": "\u0110\u00f4ng Phong Tigers",
+      "reason": "Sports team, not PII/MNPI"
+    },
+    {
+      "matched_text": "\u201cwe must cross the river by feeling the stones\u201d",
+      "reason": "Metaphor, not PII/MNPI"
+    },
+    {
+      "matched_text": "NebulaCRM",
+      "reason": "Product name only"
+    },
+    {
+      "matched_text": "LotusPay Core",
+      "reason": "Product name only"
+    },
+    {
+      "matched_text": "FiberSonic routers",
+      "reason": "Product name only"
+    },
+    {
+      "matched_text": "\u201cLamRidge\u201d",
+      "reason": "Project name not matching transaction codename rule"
+    },
+    {
+      "matched_text": "no material adverse change",
+      "reason": "Negated MAC phrase should not be labeled per rule"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "he has opted-in for union communications only",
+      "concept": "trade_union_membership",
+      "reason": "Implies union-related communications but not explicit membership status"
+    },
+    {
+      "matched_text": "URL log id=https://pii.vmi.vn/log?e i d = VMI%2D HOP %2F 0198a",
+      "concept": "internal_session_id",
+      "reason": "Looks like an internal logging identifier embedded in a URL but not clearly a session ID"
+    },
+    {
+      "matched_text": "a c c \u2014 3 1 1 . 0 0 2 . 9 x",
+      "concept": "bank_account",
+      "reason": "Appears to be an obfuscated bank account reference with irregular spacing/characters"
+    },
+    {
+      "matched_text": "sftp://pii.vmi.vn/hr/\u0110QPh\u00fac/",
+      "concept": "quasi_identifier_combination",
+      "reason": "Storage path embeds a person\u2019s initials/name which may identify the individual"
+    },
+    {
+      "matched_text": "h t t p s : / / intranet.vmi.vn/sec?token=vm-pp&doc=\u03b27",
+      "concept": "internal_session_id",
+      "reason": "Contains a token parameter that could be an access token or session identifier"
+    },
+    {
+      "matched_text": "VM-LC/2026-PP-HSE-\u03b27",
+      "concept": "internal_session_id",
+      "reason": "Internal reference identifier that could function as a tracking or document ID"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='22,500\u201324,000 VND'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='22,500\u201324,000 VND'"
+  ],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

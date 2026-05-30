@@ -287,6 +287,28 @@ class MacMaePrecisionGuards(unittest.TestCase):
                 f"negated MAE-trigger line should be suppressed; got {matched!r}",
             )
 
+    def test_vietnamese_negated_material_adverse_change_does_not_fire(self):
+        text = 'Không phải là "material adverse change" theo điều 9.4 của hợp đồng tín dụng.'
+        for rule, matched in _rules_matched(text, jurisdiction="VN"):
+            self.assertNotEqual(
+                rule,
+                "material_adverse_change",
+                f"Vietnamese negated MAC line should be suppressed; got {matched!r}",
+            )
+
+    def test_nothing_herein_material_adverse_change_does_not_fire(self):
+        text = "For avoidance of doubt, nothing herein constitutes or admits a material adverse change."
+        for rule, matched in _rules_matched(text, jurisdiction="VN"):
+            self.assertNotEqual(
+                rule,
+                "material_adverse_change",
+                f"nothing-herein MAC line should be suppressed; got {matched!r}",
+            )
+
+    def test_real_material_adverse_change_still_fires(self):
+        text = "The lender may terminate if a material adverse change occurs before closing."
+        self.assertIn(("material_adverse_change", "material adverse change"), _rules_matched(text, jurisdiction="VN"))
+
 
 class PhoneNumberSpanDedupGuards(unittest.TestCase):
     def _has_phone_match(self, text: str, matched_text: str, jurisdiction: str = "SG") -> bool:
@@ -439,6 +461,35 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         text = "Internal HR mobile contact: + 6 3 9 9 8  21  3 6 700."
         phones = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "phone_number"]
         self.assertIn("6 3 9 9 8  21  3 6 700", phones)
+
+    def test_vietnamese_mst_vat_tin_values_do_not_fire_as_phone(self):
+        text = (
+            "ERC/MST: 0319123456; dependent branch MST 0319123456-001; "
+            "vendor VAT/TINs example 0123456789 is invalid."
+        )
+        phones = [m for r, m in _rules_matched(text, jurisdiction="VN") if r == "phone_number"]
+        self.assertNotIn("0319123456", phones)
+        self.assertNotIn("0319123456-001", phones)
+        self.assertNotIn("0123456789", phones)
+
+    def test_vietnamese_mst_vat_tin_values_do_not_fire_as_large_number(self):
+        text = (
+            "ERC/MST: 0319123456; dependent branch MST 0319123456-001; "
+            "vendor VAT/TINs example 0123456789 is invalid."
+        )
+        numbers = [m for r, m in _rules_matched(text, jurisdiction="VN") if r == "large_number"]
+        self.assertNotIn("0319123456", numbers)
+        self.assertNotIn("0123456789", numbers)
+
+    def test_vietnamese_public_hotline_does_not_fire(self):
+        text = "Đường dây tiếp nhận công bố: 1900 772 233 (tổng đài giả định dùng chung, công khai)."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="VN") if r == "phone_number"]
+        self.assertNotIn("1900 772 233", phones)
+
+    def test_vietnamese_mobile_still_fires(self):
+        text = "Personal mobile for employee follow-up: +84 90 123 4567."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="VN") if r == "phone_number"]
+        self.assertIn("+84 90 123 4567", phones)
 
 
 class DeviceIdentifierPrecisionGuards(unittest.TestCase):
@@ -688,6 +739,16 @@ class FinancialAmountGuards(unittest.TestCase):
         text = "Book HR spa day pilot Friday at 14:00."
         agreements = [m for r, m in _rules_matched(text) if r == "definitive_agreement"]
         self.assertNotIn("spa", agreements)
+
+    def test_wellness_spa_room_does_not_fire_as_definitive_agreement(self):
+        text = "Book the small conference room, not the spa, and ignore the wellness-week vouchers."
+        agreements = [m for r, m in _rules_matched(text, jurisdiction="VN") if r == "definitive_agreement"]
+        self.assertNotIn("spa", agreements)
+
+    def test_share_purchase_agreement_abbreviation_still_fires(self):
+        text = "Draft SPA for the private placement remains confidential before announcement."
+        agreements = [m for r, m in _rules_matched(text, jurisdiction="VN") if r == "definitive_agreement"]
+        self.assertIn("SPA", agreements)
 
     def test_passport_words_without_digits_do_not_fire(self):
         text = "External releases should mask passport digits and no passport numbers are processed."

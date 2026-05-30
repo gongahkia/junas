@@ -1273,7 +1273,7 @@ _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
 )
 _LARGE_NUMBER_IDENTIFIER_CONTEXT_RE = re.compile(
     r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|postal|IMEI|IP|company\s+no|co\.\s+no|"
-    r"reg\.\s+no|registration\s+no|tax\s+ref|TIN|EPF|SWIFT|account\s+no|a/c|"
+    r"reg\.\s+no|registration\s+no|tax\s+ref|TINs?|VAT|MST|EPF|SWIFT|account\s+no|a/c|"
     r"acc\s*t|rekening|rek\.?|escrow|bank\s+account|akun\s+internal|non-bank|"
     r"internal\s+wallet|wa\.me|session\s+ref|SSA\s+ref|job\s+ID|generic\s+label)\b",
     re.IGNORECASE,

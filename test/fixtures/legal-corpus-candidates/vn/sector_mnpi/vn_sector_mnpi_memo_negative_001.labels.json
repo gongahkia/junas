@@ -3,13 +3,289 @@
   "document_type": "memo",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@tamsoninfra.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@tamsoninfra.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "must not request citizen ID numbers or home addresses"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "use role mailboxes and generic form labels only"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "record role-based emails and internal employee codes only"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "mask payroll digits"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not attach scans of IDs or utility bills to ticketing systems"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not transmit personal identifiers via email"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider-list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information-barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing process"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout calendar"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "brief network outage"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet posted on the market portal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "th\u00f4ng tin n\u1ed9i b\u1ed9"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "Do not tip"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout notices"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@tamsoninfra.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@tamsoninfra.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "must not request citizen ID numbers or home addresses"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "use role mailboxes and generic form labels only"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "record role-based emails and internal employee codes only"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "mask payroll digits"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not attach scans of IDs or utility bills to ticketing systems"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not transmit personal identifiers via email"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider-list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information-barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing process"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout calendar"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "brief network outage"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet posted on the market portal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "th\u00f4ng tin n\u1ed9i b\u1ed9"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "Do not tip"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout notices"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "no draft or internal scenario outputs are to be circulated externally"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "solely via the Saigon Securities Market portal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MoUs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "no external communication is authorized"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "use placeholder account strings"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "CryptoSafe",
+      "reason": "Educational branding; not a crypto wallet address or MNPI event"
+    },
+    {
+      "matched_text": "demo wallets",
+      "reason": "Illustrative phrase; not an actual crypto wallet address"
+    },
+    {
+      "matched_text": "test chains",
+      "reason": "Illustrative phrase; not market-sensitive DPT event"
+    },
+    {
+      "matched_text": "cyber incident tabletop exercise",
+      "reason": "Exercise/simulation, not an actual incident pre-disclosure"
+    },
+    {
+      "matched_text": "000-TEST-ACCT-XX",
+      "reason": "Placeholder example; not a real bank account"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "citizen ID numbers",
+      "concept": "vn_cccd reference",
+      "reason": "Mentions national ID category but no actual identifier is present"
+    },
+    {
+      "matched_text": "home addresses",
+      "concept": "postal address reference",
+      "reason": "Mentions sensitive address category but no actual address is provided"
+    },
+    {
+      "matched_text": "keep the list in the compliance vault unless the regulator requests it",
+      "concept": "retention/secure storage",
+      "reason": "Storage/retention instruction is legally relevant but not mapped to an explicit allowed rule key"
+    },
+    {
+      "matched_text": "ESG-linked revolving facility",
+      "concept": "material_event potential",
+      "reason": "Potential financing transaction that could be material, but no amounts/rates and no definitive terms disclosed"
+    },
+    {
+      "matched_text": "publicly announced 2024 targets",
+      "concept": "esg disclosure boundary",
+      "reason": "Indicates boundary between public and internal ESG information; pre-disclosure context but not an explicit rule token"
+    },
+    {
+      "matched_text": "per our Disclosure Policy, after Legal sign-off",
+      "concept": "embargo/approval gate",
+      "reason": "Internal approval gating may function like an embargo but allowed embargo markers are not present"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
