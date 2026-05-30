@@ -1230,6 +1230,7 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"public\s+hotline|public\s+line|"
     r"hr\s+help\s*desk|general\s+line|"
     r"hotline\s+investor|nomor\s+publik|bukan\s+nomor\s+pribadi|"
+    r"tổng\s+đài|công\s+khai|không\s+dùng\s+số\s+cá\s+nhân|"
     r"general\s+(?:queries|enquiries)|queries\s+contact|general\s+hotline|not\s+personal\s+data|"
     r"not\s+a\s+deal\s+contact|not\s+MNPI"
     r")\b",
@@ -1263,7 +1264,7 @@ _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
     r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|a/c|acc\s*t|account|"
     r"bank\s*acct|payroll\s*acct|"
     r"rekening|national\s+id|company\s+no|co\.\s+no|"
-    r"reg\.\s+no|registration\s+no|tax\s+ref|tax\s+no|TIN|EPF|SWIFT|IMEI|IP|DOB|dated|"
+    r"reg\.\s+no|registration\s+no|tax\s+ref|tax\s+no|TINs?|VAT|MST|EPF|SWIFT|IMEI|IP|DOB|dated|"
     r"Pag-?IBIG|PhilHealth|MID|doc\s*code|doccode|OCR|artifacts?|"
     r"Rp|IDR|harga|nilai|miliar|triliun|billion|million|RSU|"
     r"Aadhaar|PAN|GSTIN|placeholder|sample|specimen|test\s+fields?|training\s+placeholder|"
@@ -1408,7 +1409,10 @@ def _is_negated_material_adverse_change_context(text: str, start: int, end: int)
         r"\b(?:"
         r"no\s+event\s+has\s+occurred[^\n.;]{0,120}material\s+adverse\s+change|"
         r"no\s+mac[^\n.;]{0,100}material\s+adverse\s+change|"
+        r"nothing\s+herein\s+constitutes[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
+        r"nothing\s+herein\s+constitutes\s+or\s+admits[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
         r"not\s+intended\s+to\s+trigger[^\n.;]{0,80}(?:mac|mae)|"
+        r"không\s+phải\s+là[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
         r"tidak[^\n.;]{0,80}material\s+adverse\s+change|"
         r"bukan\s+mac|not\s+a\s+mac"
         r")\b",
@@ -1518,7 +1522,16 @@ def _is_percent_encoded_fragment(text: str, start: int, end: int) -> bool:
 
 
 def _is_spa_day_reference(text: str, start: int, end: int) -> bool:
-    return text[start:end].casefold() == "spa" and text[end:end + 4].casefold() in {"-day", " day"}
+    if text[start:end].casefold() != "spa":
+        return False
+    if text[end:end + 4].casefold() in {"-day", " day"}:
+        return True
+    context = _line_context(text, start, end)
+    return bool(re.search(
+        r"\b(?:wellness|voucher|pantry|conference\s+room|not\s+the\s+spa|book\s+the\s+spa)\b",
+        context,
+        re.IGNORECASE,
+    ))
 
 
 def _digits_only(value: str) -> str:
