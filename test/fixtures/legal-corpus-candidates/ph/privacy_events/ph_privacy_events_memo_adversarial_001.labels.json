@@ -3,13 +3,308 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Mirasol P. Quingco"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Paolo I. Nervo"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Fields are minimised to job-essential data"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rhea Daza"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Iker Malonzo"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "facial-scan template"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window closed"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@lumenshore.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lumenshore.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance-ops@lumenshore.ph"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "on blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. J. Tolosa"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation checklist"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Quingco"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Mirasol P. Quingco"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Paolo I. Nervo"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Fields are minimised to job-essential data"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rhea Daza"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Iker Malonzo"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "facial-scan template"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window closed"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@lumenshore.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lumenshore.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance-ops@lumenshore.ph"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "on blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. J. Tolosa"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation checklist"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Quingco"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpID E-0O1-7lI"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "BankAcct PH\u20149800  44  23\u2014x9"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "tokenised PayrollAcctNo"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "masked PH\u2011TIN"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "opted out of marketing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "lock-up list maintained under SRC Rule 12.1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "do not upload drafts to external drives"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Draft SEC Form 17-C"
+    }
+  ],
   "must_not_detect": [],
-  "uncertain": [],
+  "uncertain": [
+    {
+      "matched_text": "DSAR received",
+      "concept": "DSAR marker",
+      "reason": "Data subject access request event is privacy-relevant but DSAR is not an allowed rule label."
+    },
+    {
+      "matched_text": "DSAR queue status",
+      "concept": "DSAR marker",
+      "reason": "Operational DSAR status is privacy-relevant but not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "erasure of facial-scan template",
+      "concept": "erasure marker",
+      "reason": "Erasure event is a privacy handling action but no explicit erasure rule is available."
+    },
+    {
+      "matched_text": "erasure completed 2026-05-18",
+      "concept": "erasure marker",
+      "reason": "Completed erasure is a privacy event but not represented in allowed rules."
+    },
+    {
+      "matched_text": "auto-deletes after 30 days",
+      "concept": "retention marker",
+      "reason": "Retention/auto-deletion is privacy-relevant but no retention rule label is provided."
+    },
+    {
+      "matched_text": "retained 5 years",
+      "concept": "retention marker",
+      "reason": "Retention period is privacy-relevant but not covered by the allowed rules."
+    },
+    {
+      "matched_text": "audit hash 0xA1c9\u2014f7\u2026",
+      "concept": "audit hash",
+      "reason": "Hash values can be unique identifiers; not covered by allowed PII rules."
+    },
+    {
+      "matched_text": "EX-PH//2026-0049",
+      "concept": "internal approval ID",
+      "reason": "Internal approval identifier may be sensitive but does not map to an allowed rule."
+    },
+    {
+      "matched_text": "R\u20148z, M\u20141d",
+      "concept": "masked requester IDs",
+      "reason": "Pseudonymous requester IDs are privacy-relevant but do not match an allowed category."
+    },
+    {
+      "matched_text": "kid LSH-keys//ph//u9",
+      "concept": "key identifier",
+      "reason": "Key ID is sensitive operational data; no matching allowed rule."
+    },
+    {
+      "matched_text": "TAX-T\\nR N-779-2",
+      "concept": "internal form code",
+      "reason": "Internal form code may identify records but is not an allowed category."
+    },
+    {
+      "matched_text": "loc. 7  3  3",
+      "concept": "phone extension",
+      "reason": "Looks like a local phone extension; does not match phone_number rule format."
+    },
+    {
+      "matched_text": "ACCT-0X3F-9l1",
+      "concept": "internal account code",
+      "reason": "Account code in URL query may identify an account but is not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "http://intra/hr/case/DSAR-20  41",
+      "concept": "internal case URL/ID",
+      "reason": "Internal case link contains a case identifier not covered by allowed rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

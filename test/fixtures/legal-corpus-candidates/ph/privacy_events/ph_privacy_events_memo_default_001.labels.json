@@ -3,13 +3,208 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Reina M. Soliman"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "reina.soliman@lakanbay.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jeric Valencia"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. L. Yatco"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Yatco"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "no trading window has been opened"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lakanbay.com.ph"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Reina M. Soliman"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "reina.soliman@lakanbay.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jeric Valencia"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. L. Yatco"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Yatco"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "no trading window has been opened"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lakanbay.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "88-XXX4567-9"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "only necessary banking details"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "will not include birthdates"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "only from anonymised staging"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "only de-identified aggregates are to be included"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "no external sharing has occurred"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Draft ICX offering timetable"
+    }
+  ],
   "must_not_detect": [],
-  "uncertain": [],
+  "uncertain": [
+    {
+      "matched_text": "Retention",
+      "concept": "retention_marker",
+      "reason": "Retention policy marker is privacy-relevant but not listed as an allowed rule key."
+    },
+    {
+      "matched_text": "sets five-year retention for tax support files and 24 months for recruitment logs",
+      "concept": "retention_duration",
+      "reason": "Specific retention durations are privacy-relevant but there is no explicit retention rule key provided."
+    },
+    {
+      "matched_text": "DSAR",
+      "concept": "dsar_marker",
+      "reason": "Access request (DSAR) marker is privacy-relevant but not an allowed rule key."
+    },
+    {
+      "matched_text": "submitted an access request",
+      "concept": "dsar_request",
+      "reason": "DSAR action is privacy-relevant but not covered by a defined rule key."
+    },
+    {
+      "matched_text": "hashed TINs",
+      "concept": "ph_tin_reference",
+      "reason": "References PH TINs without actual identifiers; category relevant but no literal ID present."
+    },
+    {
+      "matched_text": "account numbers (last 4)",
+      "concept": "bank_account_reference",
+      "reason": "Refers to bank account identifiers in truncated form without a full value."
+    },
+    {
+      "matched_text": "employee IDs",
+      "concept": "employee_id_reference",
+      "reason": "Mentions employee ID category without specific identifiers."
+    },
+    {
+      "matched_text": "candidate profile deletion was completed on 20 May",
+      "concept": "erasure_completed",
+      "reason": "Erasure event noted as completed; relevant control but excluded from live-issue markers and no explicit erasure rule key."
+    },
+    {
+      "matched_text": "No special cross-border transfers of customer loan files occurred in May",
+      "concept": "cross_border_negated",
+      "reason": "Negated cross-border transfer mention is privacy-relevant context but should not trigger a live transfer marker."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,212 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list administration"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "TIN 000-000-000-000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No. 0000-1234-56"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@mvhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "payroll@mvhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02) 8123-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 2 8555 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "Passport No. P98765431"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "TIN masking (xxx-xxx-xx0-000 acceptable)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "avoid storing scans in shared folders beyond 30 days per retention policy"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list administration"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "TIN 000-000-000-000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No. 0000-1234-56"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@mvhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "payroll@mvhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02) 8123-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 2 8555 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "Passport No. P98765431"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "TIN masking (xxx-xxx-xx0-000 acceptable)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "avoid storing scans in shared folders beyond 30 days per retention policy"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "blackout list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout from 01\u201315 July 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no material non-public information under the SRC should be circulated outside the blackout list"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Do not add personal mobile numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no name or personal contact accompanies it"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "role noun label, not a person or identifier"
+    },
+    {
+      "matched_text": "Employee Name: [Role only]",
+      "reason": "generic form label and role-only placeholder"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "SSS 00-0000000-0",
+      "concept": "ph_government_id_sss",
+      "reason": "Philippine SSS numbers are personal identifiers but not covered by an allowed rule in this taxonomy."
+    },
+    {
+      "matched_text": "PhilHealth 00-000000000-0",
+      "concept": "ph_government_id_philhealth",
+      "reason": "PhilHealth IDs are personal identifiers but not covered by an allowed rule in this taxonomy."
+    },
+    {
+      "matched_text": "Pag-IBIG MID 0000-0000-0000",
+      "concept": "ph_government_id_pagibig",
+      "reason": "Pag-IBIG member IDs are personal identifiers but not covered by an allowed rule in this taxonomy."
+    },
+    {
+      "matched_text": "SEC Reg. No. CS2026-654321",
+      "concept": "ph_company_registration_number",
+      "reason": "Company registration numbers are direct company identifiers but no PH-specific rule is defined here."
+    },
+    {
+      "matched_text": "PH00MVHI0000",
+      "concept": "security_identifier_isin",
+      "reason": "ISIN-style security identifiers are relevant for capital markets but not listed as a detectable rule."
+    },
+    {
+      "matched_text": "SWIFT MVHIPHMM0XX",
+      "concept": "swift_bic_code",
+      "reason": "BIC/SWIFT codes are financial identifiers but not covered by the allowed rules."
+    },
+    {
+      "matched_text": "Unit 12F Bayanihan Tower, 123 Sampaguita Road, Brgy. Sanligaya, Quezon City 1111, Philippines",
+      "concept": "postal_address",
+      "reason": "A detailed address can be identifying, but there is no PH postal-address rule in the allowed set."
+    },
+    {
+      "matched_text": "Exchange symbol MVHI",
+      "concept": "stock_ticker",
+      "reason": "Ticker symbols are market identifiers but not covered by the allowed rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
