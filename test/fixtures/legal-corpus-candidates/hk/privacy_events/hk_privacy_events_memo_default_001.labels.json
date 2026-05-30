@@ -3,13 +3,204 @@
   "document_type": "memo",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Paulo Tse"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Aria Ng"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Leona Chiu"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harbourpeak.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Paulo Tse"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Aria Ng"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Leona Chiu"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harbourpeak.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean room"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "No MNPI has been shared with potential finance providers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "should a firm intention form"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "do not circulate externally without Legal clearance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Lotus Ferrum Technology Co. with co-investment by Jade Banyan Partners Fund I LP"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation standard"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "HKID numbers are not collected"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "production dataset",
+      "reason": "Quoted defined term; not PII/MNPI"
+    },
+    {
+      "matched_text": "Emergency Export Waiver",
+      "reason": "Quoted defined term; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DEA\u20112026\u2011041",
+      "concept": "internal approval identifier",
+      "reason": "Internal reference ID may be sensitive but not covered by allowed PII rules"
+    },
+    {
+      "matched_text": "EP\u20111441",
+      "concept": "internal ticket identifier",
+      "reason": "Internal ticket ID may be sensitive but not covered by allowed PII rules"
+    },
+    {
+      "matched_text": "EP\u20111443",
+      "concept": "internal ticket identifier",
+      "reason": "Internal ticket ID may be sensitive but not covered by allowed PII rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: invalid rule 'dsar' text='DSAR'",
+    "drop must_detect: invalid rule 'erasure' text='erased'",
+    "drop must_detect: invalid rule 'retention' text='Data retention:'",
+    "drop must_detect: invalid rule 'retention' text='12\u2011month retention period'",
+    "drop must_detect: invalid rule 'retention' text='retention hold'",
+    "drop ideal_must_detect: invalid rule 'dsar' text='DSAR'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='erased'",
+    "drop ideal_must_detect: invalid rule 'retention' text='Data retention:'",
+    "drop ideal_must_detect: invalid rule 'retention' text='12\u2011month retention period'",
+    "drop ideal_must_detect: invalid rule 'retention' text='retention hold'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='Erasure request window:'"
+  ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
