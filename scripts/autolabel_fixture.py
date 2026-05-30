@@ -26,6 +26,7 @@ import json
 import os
 import re
 import sys
+import time
 from pathlib import Path
 
 import httpx
@@ -295,6 +296,32 @@ def _request_timeout_seconds() -> float:
     return timeout
 
 
+def _positive_int_env(name: str, default: int) -> int:
+    raw = os.environ.get(name, "").strip()
+    if not raw:
+        return default
+    try:
+        value = int(raw)
+    except ValueError as exc:
+        raise RuntimeError(f"{name} must be an integer") from exc
+    if value <= 0:
+        raise RuntimeError(f"{name} must be positive")
+    return value
+
+
+def _positive_float_env(name: str, default: float) -> float:
+    raw = os.environ.get(name, "").strip()
+    if not raw:
+        return default
+    try:
+        value = float(raw)
+    except ValueError as exc:
+        raise RuntimeError(f"{name} must be numeric") from exc
+    if value <= 0:
+        raise RuntimeError(f"{name} must be positive")
+    return value
+
+
 def _call_openai(messages: list[dict], *, model: str, api_key: str) -> str:
     body = _chat_body(messages, model=model)
     resp = httpx.post(
@@ -353,21 +380,37 @@ def _call_azure_openai(messages: list[dict], *, model: str, api_key: str) -> tup
     body.pop("model", None)
     body.pop("temperature", None)
     if "max_tokens" in body:
-        body["max_completion_tokens"] = body.pop("max_tokens")
-    body["max_completion_tokens"] = max(int(body.get("max_completion_tokens") or 0), 16000)
-    url = f"{endpoint.rstrip('/')}/openai/deployments/{deployment}/chat/completions?api-version={api_version}"
-    resp = httpx.post(
-        url,
-        headers={
-            "api-key": api_key,
-            "Content-Type": "application/json",
-        },
-        json=body,
-        timeout=_request_timeout_seconds(),
+        body.pop("max_tokens")
+    body["max_completion_tokens"] = _positive_int_env(
+        "KAYPOH_AUTOLABEL_AZURE_MAX_COMPLETION_TOKENS",
+        16000,
     )
-    if resp.status_code >= 400:
-        raise RuntimeError(f"Azure OpenAI {resp.status_code}: {resp.text[:800]}")
-    return _extract_message_content(resp.json()), deployment
+    url = f"{endpoint.rstrip('/')}/openai/deployments/{deployment}/chat/completions?api-version={api_version}"
+    max_attempts = _positive_int_env("KAYPOH_AUTOLABEL_AZURE_MAX_ATTEMPTS", 3)
+    retry_sleep_seconds = _positive_float_env("KAYPOH_AUTOLABEL_AZURE_RETRY_SLEEP_SECONDS", 2.0)
+    last_error = ""
+    for attempt in range(1, max_attempts + 1):
+        try:
+            resp = httpx.post(
+                url,
+                headers={
+                    "api-key": api_key,
+                    "Content-Type": "application/json",
+                },
+                json=body,
+                timeout=_request_timeout_seconds(),
+            )
+        except httpx.HTTPError as exc:
+            last_error = f"Azure OpenAI transport error: {exc}"
+        else:
+            if resp.status_code < 400:
+                return _extract_message_content(resp.json()), deployment
+            last_error = f"Azure OpenAI {resp.status_code}: {resp.text[:800]}"
+            if resp.status_code < 500 and resp.status_code != 429:
+                break
+        if attempt < max_attempts:
+            time.sleep(retry_sleep_seconds)
+    raise RuntimeError(last_error)
 
 
 def _call_model(messages: list[dict], *, model: str, provider: str, api_key: str) -> tuple[str, str]:
