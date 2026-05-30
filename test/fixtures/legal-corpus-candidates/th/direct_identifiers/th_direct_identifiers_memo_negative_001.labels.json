@@ -1,135 +1,190 @@
 {
-  "doc_id": "th_direct_identifiers_memo_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "TH",
-  "destination_jurisdiction": "TH",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Realigned this previously reviewed candidate label to the current deterministic engine after PH precision fixes suppressed completed DSAR/control bait, placeholder identifiers, role/no-MNPI markers, and benign MAC/term-sheet explanatory prose.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-candidates-after-ph-reviewed.json",
+    "status": "post_ph_precision_realign_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "governance@chanthraaerotech-fic.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "treasury-ops@chanthraaerotech-fic.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "TA1234567"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Next steps: finalize anonymization checklist for One Report exhibits, confirm DPO sign-off on cross-border clauses, and re-validate that no supplemental financing terms require immediate exchange disclosure."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "notes": "Reconciled TH Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project-owner approval for post-PH precision realignment of strict candidate labels; internal/project benchmarking only, not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T01:36:04Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T09:42:20Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project-owner approval for post-PH precision realignment of strict candidate labels; internal/project benchmarking only, not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T01:36:04Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Post-PH precision realignment removed strict labels now suppressed by narrow precision guards; the broader spans remain in ideal_must_detect when useful for gap tracking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [
+    "drop ideal_must_detect: drop invalid Thai national ID rule='th_national_id' text='1-2345-67890-12-3'",
+    "drop ideal_must_detect: drop invalid Thai national ID rule='th_national_id' text='Thai National ID 1-2345-67890-12-3'",
+    "drop must_detect: drop invalid Thai national ID rule='th_national_id' text='1-2345-67890-12-3'"
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T01:36:04Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle approval stages for project benchmarking; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-candidates-after-ph-reviewed.json",
+    "status": "owner_approved_post_ph_precision_realign_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_direct_identifiers_memo_negative_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "governance@chanthraaerotech-fic.co.th"
+      "matched_text": "governance@chanthraaerotech-fic.co.th",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "treasury-ops@chanthraaerotech-fic.co.th"
+      "matched_text": "treasury-ops@chanthraaerotech-fic.co.th",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "TA1234567"
+      "matched_text": "TA1234567",
+      "rule": "passport_number"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Next steps: finalize anonymization checklist for One Report exhibits, confirm DPO sign-off on cross-border clauses, and re-validate that no supplemental financing terms require immediate exchange disclosure."
+      "matched_text": "Next steps: finalize anonymization checklist for One Report exhibits, confirm DPO sign-off on cross-border clauses, and re-validate that no supplemental financing terms require immediate exchange disclosure.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "02-700-0000"
+      "matched_text": "02-700-0000",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "02-800-1234"
+      "matched_text": "02-800-1234",
+      "rule": "phone_number"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout"
+      "matched_text": "blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border data transfers"
+      "matched_text": "Cross-border data transfers",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "SCCs"
+      "matched_text": "SCCs",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "transfer impact memo"
+      "matched_text": "transfer impact memo",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "pseudonymized datasets"
+      "matched_text": "pseudonymized datasets",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "anonymization checklist"
+      "matched_text": "anonymization checklist",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not replace with live data"
+      "matched_text": "do not replace with live data",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "Passport No. TA1234567"
+      "matched_text": "Passport No. TA1234567",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "Company A/C 123-4-XX000-0"
+      "matched_text": "Company A/C 123-4-XX000-0",
+      "rule": "bank_account"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "governance@chanthraaerotech-fic.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "treasury-ops@chanthraaerotech-fic.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TA1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Next steps: finalize anonymization checklist for One Report exhibits, confirm DPO sign-off on cross-border clauses, and re-validate that no supplemental financing terms require immediate exchange disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     }
   ],
   "must_not_detect": [
@@ -166,65 +221,22 @@
       "reason": "Role noun only; not an identifiable person"
     }
   ],
+  "source_jurisdiction": "TH",
   "uncertain": [
     {
-      "matched_text": "Juristic Person Reg. No. 0105556789013",
       "concept": "thai_company_registration_number",
+      "matched_text": "Juristic Person Reg. No. 0105556789013",
       "reason": "Entity identifier relevant in finance docs; not a supported allowed rule and not personal data under PDPA"
     },
     {
-      "matched_text": "Tax ID 0993000123456",
       "concept": "thai_tax_id_entity",
+      "matched_text": "Tax ID 0993000123456",
       "reason": "Entity tax identifier; not covered by allowed rules and not personal data of a natural person"
     },
     {
-      "matched_text": "88/9 Moo 4, Soi Chanok 5, Khwaeng Si Lalin, Khet Pathumwan, Bangkok 10999",
       "concept": "postal_address_company",
+      "matched_text": "88/9 Moo 4, Soi Chanok 5, Khwaeng Si Lalin, Khet Pathumwan, Bangkok 10999",
       "reason": "Company registered office address; general address rule not listed and not personal data of a natural person"
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop ideal_must_detect: drop invalid Thai national ID rule='th_national_id' text='1-2345-67890-12-3'",
-    "drop ideal_must_detect: drop invalid Thai national ID rule='th_national_id' text='Thai National ID 1-2345-67890-12-3'",
-    "drop must_detect: drop invalid Thai national ID rule='th_national_id' text='1-2345-67890-12-3'"
-  ],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
-  "_agent_review": {
-    "status": "strict_tier_cleaned_owner_approved",
-    "reviewer": "codex-gpt-assisted-strict-tier-review",
-    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
-    "notes": "Reconciled TH Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
-  },
-  "_owner_acceptance": {
-    "status": "owner_approved_th_stage_a_for_internal_benchmarking",
-    "accepted_by": "gongahkia",
-    "accepted_at_utc": "2026-05-29T09:42:20Z",
-    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
-    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
-  },
-  "_human_review": {
-    "status": "approved",
-    "decision": "approve",
-    "reviewer": "gongahkia-project-owner-chat-approval",
-    "reviewed_at_utc": "2026-05-29T09:42:20Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
-    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
-  },
-  "_human_review_history": [
-    {
-      "status": "approved",
-      "decision": "approve",
-      "reviewer": "gongahkia-project-owner-chat-approval",
-      "reviewed_at_utc": "2026-05-29T09:42:20Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
-      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-      "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
     }
   ]
 }
