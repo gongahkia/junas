@@ -3,13 +3,103 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@orionridge.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosure@orionridge.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No. 00-XYZ-12345"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EE-0741"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@orionridge.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosure@orionridge.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No. 00-XYZ-12345"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EE-0741"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "cross-border transfer",
+      "reason": "Completed and not live; do not flag cross-border transfer marker."
+    },
+    {
+      "matched_text": "Consent withdrawal",
+      "reason": "Workflow mention with zero open tickets; not a live consent withdrawal event."
+    },
+    {
+      "matched_text": "DSAR",
+      "reason": "Fulfilled/closed and none pending; not a live DSAR event."
+    },
+    {
+      "matched_text": "erasure",
+      "reason": "Referenced as a policy label or completed action, not an ongoing incident."
+    },
+    {
+      "matched_text": "ISIN ZX0000000000",
+      "reason": "Placeholder and non-final; not MNPI."
+    },
+    {
+      "matched_text": "CHK-0000-VOID",
+      "reason": "Template cheque series; non-transactional bait and not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "HR-DSAR-0041",
+      "concept": "DSAR reference ID",
+      "reason": "Internal case identifier linked to an identifiable individual but not clearly covered by an allowed PII rule."
+    },
+    {
+      "matched_text": "DEA-2026-07",
+      "concept": "Data export approval ID",
+      "reason": "Control reference number; potentially sensitive process metadata but not mapped to an allowed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
