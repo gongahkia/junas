@@ -217,6 +217,7 @@ _MATERIAL_EVENT_NEGATED_CONTEXT_RE = re.compile(
     r"not\s+(?:price[- ]sensitive|a\s+profit\s+forecast|profit\s+forecast|"
     r"profit\s+warning|earnings\s+guidance|mnpi|upsi)|"
     r"absence\s+of\s+mnpi|no\s+(?:new\s+)?(?:price[- ]sensitive|upsi|mnpi)|no\s+unpublished|"
+    r"no\s+material\s+non[- ]public\s+information|"
     r"no\s+material\s+non[- ]public\s+information\s+remains|"
     r"contains\s+no\s+unpublished|public\s+and\s+stale|public/stale|"
     r"already[-\s]+announced\s+terms|"
@@ -235,6 +236,7 @@ _MATERIAL_EVENT_NEGATED_CONTEXT_RE = re.compile(
     r"no\s+(?:live\s+)?(?:incident|breach|breach\s+specifics|forecast\s+downgrades)|"
     r"public\s+(?:cybersecurity\s+)?training\s+materials|"
     r"format\s+guidance\s+only|operational\s+guidance|abstract\s+dei\s+guidance|"
+    r"compliance\s+guidance|(?:NPC|regulatory)\s+guidance|"
     r"non-production\s+examples|"
     r"illustrative\s+case\s+studies|public\s+journals|do\s+not\s+pertain|"
     r"education\s+only|public\s+mas\s+guidance"
@@ -248,6 +250,7 @@ _MATERIAL_EVENT_PUBLIC_CONTEXT_RE = re.compile(
     r"public(?:ly)?\s+available|"
     r"public\s+(?:announcement|disclosures?|information|reference|source|filings?|notice)|"
     r"public\s+(?:release|transaction\s+status)|"
+    r"materials?\s+are\s+public|public\s+form\s+17-c|"
     r"announced\s+on|e[- ]disclosure|"
     r"public\s+and\s+stale|"
     r"from\s+(?:public|openly\s+available)\s+materials?|"
@@ -1225,6 +1228,7 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"compliance\s+desk|deal\s+desk|"
     r"public(?:-facing)?\s+help\s*desk|public\s+helpdesk|public\s+helpline|"
     r"public\s+hotline|public\s+line|"
+    r"hr\s+help\s*desk|general\s+line|"
     r"hotline\s+investor|nomor\s+publik|bukan\s+nomor\s+pribadi|"
     r"general\s+(?:queries|enquiries)|queries\s+contact|general\s+hotline|not\s+personal\s+data|"
     r"not\s+a\s+deal\s+contact|not\s+MNPI"
@@ -1256,8 +1260,10 @@ _THAI_ID_LIKE_PHONE_RE = re.compile(r"\d-\d{4}-\d{5}-\d{2}-\d\Z")
 _IPV4_LITERAL_RE = re.compile(r"(?:\d{1,3}\.){3}\d{1,3}\Z")
 _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
     r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|a/c|acc\s*t|account|"
+    r"bank\s*acct|payroll\s*acct|"
     r"rekening|national\s+id|company\s+no|co\.\s+no|"
     r"reg\.\s+no|registration\s+no|tax\s+ref|tax\s+no|TIN|EPF|SWIFT|IMEI|IP|DOB|dated|"
+    r"Pag-?IBIG|PhilHealth|MID|doc\s*code|doccode|OCR|artifacts?|"
     r"Rp|IDR|harga|nilai|miliar|triliun|billion|million|RSU|"
     r"Aadhaar|PAN|GSTIN|placeholder|sample|specimen|test\s+fields?|training\s+placeholder|"
     r"session\s+ref|SSA\s+ref|job\s+ID|asset\s+tag|badge)\b",
@@ -1277,6 +1283,25 @@ _PLACEHOLDER_IDENTIFIER_CONTEXT_RE = re.compile(
     r"placeholder|specimen\s+values?|screenshots?\s+only|"
     r"sample\s+(?:PAN|GSTIN|Aadhaar|NRIC|identifier|values?)|"
     r"invalid(?:/dummy)?|for\s+illustration|illustrative)\b",
+    re.IGNORECASE,
+)
+_PH_TIN_NON_TAX_CONTEXT_RE = re.compile(
+    r"\b(?:account|acct|bank|escrow|settlement|routing|sub[- ]?acct|account\s+no)\b",
+    re.IGNORECASE,
+)
+_PH_TIN_TAX_CONTEXT_RE = re.compile(r"\b(?:TIN|tax|BIR|withholding)\b", re.IGNORECASE)
+_PRIVACY_REQUEST_CLOSED_CONTEXT_RE = re.compile(
+    r"\b(?:"
+    r"fulfilled|closed|completed|executed|resolved|"
+    r"zero\s+open\s+tickets|0\s+open\s+tickets|"
+    r"no\s+DSARs?\s+are\s+pending|no\s+(?:request|requests)\s+for\s+correction|"
+    r"currently\s+in\s+flight|not\s+a\s+live\s+DSAR|no\s+residual\s+processing"
+    r")\b",
+    re.IGNORECASE,
+)
+_PRIVACY_REQUEST_LIVE_CONTEXT_RE = re.compile(
+    r"\b(?:received|requested|submitted|seeking|in[- ]progress|queued?|"
+    r"access\s+request|erasure\s+request|full\s+extract\s+queued)\b",
     re.IGNORECASE,
 )
 _PUBLIC_OR_BENIGN_AMOUNT_CONTEXT_RE = re.compile(
@@ -1354,6 +1379,21 @@ def _is_non_phone_numeric_context(text: str, start: int, end: int) -> bool:
     )
 
 
+def _is_closed_or_historical_privacy_request_context(text: str, start: int, end: int) -> bool:
+    context = _line_context(text, start, end)
+    if _PRIVACY_REQUEST_LIVE_CONTEXT_RE.search(context):
+        return False
+    return bool(_PRIVACY_REQUEST_CLOSED_CONTEXT_RE.search(context))
+
+
+def _is_ph_tin_non_tax_context(text: str, start: int, end: int) -> bool:
+    context = _line_context(text, start, end)
+    return (
+        bool(_PH_TIN_NON_TAX_CONTEXT_RE.search(context))
+        and not _PH_TIN_TAX_CONTEXT_RE.search(context)
+    )
+
+
 def _is_negated_mac_address_context(text: str, start: int, end: int) -> bool:
     context = _line_context(text, start, end)
     return bool(re.search(r"\bnot\s+(?:a\s+|an\s+|the\s+)?MAC\s+address\b", context, re.IGNORECASE))
@@ -1366,6 +1406,8 @@ def _is_negated_material_adverse_change_context(text: str, start: int, end: int)
     return bool(re.search(
         r"\b(?:"
         r"no\s+event\s+has\s+occurred[^\n.;]{0,120}material\s+adverse\s+change|"
+        r"no\s+mac[^\n.;]{0,100}material\s+adverse\s+change|"
+        r"not\s+intended\s+to\s+trigger[^\n.;]{0,80}(?:mac|mae)|"
         r"tidak[^\n.;]{0,80}material\s+adverse\s+change|"
         r"bukan\s+mac|not\s+a\s+mac"
         r")\b",
@@ -1378,6 +1420,7 @@ def _is_negated_nonpublic_marker_context(text: str, start: int, end: int) -> boo
     context = _line_context(text, start, end)
     return bool(re.search(
         r"\b(?:not\s+(?:mnpi|upsi)|no\s+(?:upsi|mnpi)|"
+        r"no\s+material\s+non[- ]public\s+information|"
         r"tidak\s+ada\s+mnpi|no\s+material\s+non[- ]public\s+information\s+remains|"
         r"mnpi\s+screening[^\n.;]{0,80}does\s+not\s+trigger|"
         r"does\s+not\s+add\s+unpublished\s+price[- ]sensitive\s+information|"
@@ -3017,6 +3060,11 @@ class PreSendReviewEngine:
                     continue
                 if rule in _PII_NEGATION_GUARDED and _is_negated_context(text, start):
                     continue
+                if (
+                    rule == "consent_withdrawal_marker"
+                    and _is_closed_or_historical_privacy_request_context(text, start, end)
+                ):
+                    continue
                 if rule == "sg_nric_fin" and _is_placeholder_identifier_context(text, start, end):
                     continue
                 if rule == "bank_account":
@@ -3076,6 +3124,10 @@ class PreSendReviewEngine:
                     if digits and set(digits) == {"0"}:
                         continue
                     if not recognizer.is_valid(text[start:end]):
+                        continue
+                    if _is_placeholder_identifier_context(text, start, end):
+                        continue
+                    if recognizer.rule_name == "ph_tin" and _is_ph_tin_non_tax_context(text, start, end):
                         continue
                     span_key = (recognizer.rule_name, start, end)
                     if span_key in seen_spans:

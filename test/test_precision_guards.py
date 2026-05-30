@@ -269,6 +269,24 @@ class MacMaePrecisionGuards(unittest.TestCase):
                 f"no-event MAC line should be suppressed; got {matched!r}",
             )
 
+    def test_no_mac_explainer_does_not_fire_material_adverse_change(self):
+        text = 'The phrase "no MAC" refers to material adverse change, not a hardware address.'
+        for rule, matched in _rules_matched(text, jurisdiction="PH"):
+            self.assertNotEqual(
+                rule,
+                "material_adverse_change",
+                f"explanatory no-MAC line should be suppressed; got {matched!r}",
+            )
+
+    def test_not_intended_to_trigger_mae_clause_does_not_fire(self):
+        text = "This sentence is not intended to trigger any MAC/MAE clause."
+        for rule, matched in _rules_matched(text, jurisdiction="PH"):
+            self.assertNotEqual(
+                rule,
+                "material_adverse_change",
+                f"negated MAE-trigger line should be suppressed; got {matched!r}",
+            )
+
 
 class PhoneNumberSpanDedupGuards(unittest.TestCase):
     def _has_phone_match(self, text: str, matched_text: str, jurisdiction: str = "SG") -> bool:
@@ -394,6 +412,33 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         text = "Invalid Thai National ID 1-2345-67890-12-3 is example bait, not a phone."
         phones = [m for r, m in _rules_matched(text, jurisdiction="TH") if r == "phone_number"]
         self.assertNotIn("1-2345-67890-12-3", phones)
+
+    def test_phone_does_not_fire_on_ph_benefit_identifier_fragments(self):
+        text = "Pag-IBIG MID: 12-345678901-2 and PhilHealth No.: 17-123456789-3 are benefit IDs."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "phone_number"]
+        self.assertNotIn("12-345678901-2", phones)
+        self.assertNotIn("17-123456789-3", phones)
+
+    def test_phone_does_not_fire_on_ph_bankacct_ocr_or_doccode_fragments(self):
+        text = (
+            "BankAcct PH-9800  44  23-x9 is a masked account. "
+            "Draft scan has OCR artifacts like R e f 1 7 - C - 0 5 - 2 2. "
+            "doccode AZC-IR-2026-0715."
+        )
+        phones = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "phone_number"]
+        self.assertNotIn("9800  44  23", phones)
+        self.assertNotIn("0 5 - 2 2", phones)
+        self.assertNotIn("2026-0715", phones)
+
+    def test_ph_public_hr_helpdesk_general_line_does_not_fire(self):
+        text = "Route staff to the HR helpdesk at +63 2 8555 0000 (general line)."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "phone_number"]
+        self.assertNotIn("+63 2 8555 0000", phones)
+
+    def test_ph_obfuscated_mobile_still_fires(self):
+        text = "Internal HR mobile contact: + 6 3 9 9 8  21  3 6 700."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "phone_number"]
+        self.assertIn("6 3 9 9 8  21  3 6 700", phones)
 
 
 class DeviceIdentifierPrecisionGuards(unittest.TestCase):
@@ -600,6 +645,21 @@ class FinancialAmountGuards(unittest.TestCase):
         text = "References to genetic algorithms are software features and not about any person's genetic data."
         findings = [m for r, m in _rules_matched(text, jurisdiction="MY") if r == "genetic_data"]
         self.assertNotIn("genetic data", findings)
+
+    def test_no_material_nonpublic_information_does_not_fire_marker(self):
+        text = "No material non-public information under the SRC should be circulated outside the blackout list."
+        markers = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "nonpublic_marker"]
+        self.assertNotIn("material non-public information", markers)
+
+    def test_ph_public_reference_materials_do_not_fire_material_event(self):
+        text = "Reference materials are public: the press release on dividend policy is posted on our website."
+        events = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "material_event"]
+        self.assertEqual(events, [])
+
+    def test_ph_compliance_or_npc_guidance_does_not_fire_material_event(self):
+        text = "Compliance guidance on cyber tabletop protocols follows NPC guidance and contains no live incident."
+        events = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "material_event"]
+        self.assertEqual(events, [])
 
 
 class LargeNumberPrecisionGuards(unittest.TestCase):
