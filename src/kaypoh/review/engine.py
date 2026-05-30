@@ -1432,6 +1432,10 @@ def _is_negated_nonpublic_marker_context(text: str, start: int, end: int) -> boo
         r"no\s+material\s+non[- ]public\s+information|"
         r"tidak\s+ada\s+mnpi|no\s+material\s+non[- ]public\s+information\s+remains|"
         r"not[^\n.;]{0,80}\bmnpi|mnpi\s+controls|none\s+are\s+included\s+herein|"
+        r"no\s+non[- ]public\s+analyst\s+notes[^\n.;]{0,80}(?:attached|included)|"
+        r"do\s+not\s+summari[sz]e\s+non[- ]public\s+consultations|"
+        r"does\s+not\s+rely\s+on\s+non[- ]public\s+data|"
+        r"avoid[^\n.;]{0,80}\bundisclosed\s+assumptions|"
         r"could\s+be\s+construed\s+as\s+mnpi|"
         r"mnpi\s+screening[^\n.;]{0,80}does\s+not\s+trigger|"
         r"does\s+not\s+add\s+unpublished\s+price[- ]sensitive\s+information|"
@@ -1447,7 +1451,11 @@ def _is_benign_definitive_agreement_context(text: str, start: int, end: int) -> 
     return bool(re.search(
         r"\b(?:not\s+(?:material|upsi|mnpi)|are\s+not\s+upsi|"
         r"routine\s+lease\s+renewal|disclosed\s+via\s+public\s+notice|"
-        r"closed\s+in\s+\d{4}|fully\s+announced|placeholder|"
+        r"closed\s+in\s+\d{4}|fully\s+announced|"
+        r"hkexnews|placeholder|"
+        r"as\s+disclosed[^\n.;]{0,80}executed\s+on\s+\d{4}|"
+        r"as\s+announced[^\n]{0,160}no\s+binding\s+commercial\s+terms|"
+        r"no\s+annexes[^\n.;]{0,80}\bSPA\b|"
         r"not\s+an\s+actual\s+client\s+identifier|"
         r"illustrative\s+case\s+studies|public\s+journals|do\s+not\s+pertain)\b",
         context,

@@ -1,300 +1,384 @@
 {
-  "doc_id": "hk_quasi_identifiers_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "HK",
-  "destination_jurisdiction": "HK",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
+    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Hera Lau"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lau"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "DoB 1986-11-02"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 39"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hera.lau@lotusapex.example.hk"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@lotusapex.example.hk"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+852 5700 0029"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+852 5700 0001"
-    },
-    {
-      "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "10.18.44.7"
-    },
-    {
-      "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "LAH-NTBK-4821"
-    },
-    {
-      "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "LAX-IPH-2231"
-    },
-    {
-      "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "CHX-VPN-2026-0512-1944"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "must be minimised"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Lapis"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "HKD 1.8"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "HKD 36m"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "12\u201315%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout"
-    },
-    {
-      "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "no-tipping"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List"
+      "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
+      "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved HK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T06:38:11Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved HK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T06:38:11Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "HK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered public/stale MoU/SPA/HKEXnews-style definitive-agreement bait and negated non-public/undisclosed-analysis prose.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T06:38:11Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+    "status": "owner_approved_hk_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_quasi_identifiers_memo_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Hera Lau"
+      "matched_text": "Ms. Hera Lau",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lau"
+      "matched_text": "Ms. Lau",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "DoB 1986-11-02"
+      "matched_text": "DoB 1986-11-02",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 39"
+      "matched_text": "age 39",
+      "rule": "age_reference"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hera.lau@lotusapex.example.hk"
+      "matched_text": "hera.lau@lotusapex.example.hk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@lotusapex.example.hk"
+      "matched_text": "compliance@lotusapex.example.hk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+852 5700 0029"
+      "matched_text": "+852 5700 0029",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+852 5700 0001"
+      "matched_text": "+852 5700 0001",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "10.18.44.7"
+      "matched_text": "10.18.44.7",
+      "rule": "ip_address"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "LAH-NTBK-4821"
+      "matched_text": "LAH-NTBK-4821",
+      "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "LAX-IPH-2231"
+      "matched_text": "LAX-IPH-2231",
+      "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "CHX-VPN-2026-0512-1944"
+      "matched_text": "CHX-VPN-2026-0512-1944",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "must be minimised"
+      "matched_text": "must be minimised",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "hlau-ops"
+      "matched_text": "hlau-ops",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "payroll account ending 6682"
+      "matched_text": "payroll account ending 6682",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "account ending 1135"
+      "matched_text": "account ending 1135",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "On 2026-05-12 at 19:44 HKT, Ms. Hera Lau (DoB 1986-11-02; age 39), Assistant Investment Director at Lotus Apex, accessed the VDR \u201cOrchid\u201d via device LAH-NTBK-4821 from Harbourview Office, VPN session CHX-VPN-2026-0512-1944, IP 10.18.44.7"
+      "matched_text": "On 2026-05-12 at 19:44 HKT, Ms. Hera Lau (DoB 1986-11-02; age 39), Assistant Investment Director at Lotus Apex, accessed the VDR \u201cOrchid\u201d via device LAH-NTBK-4821 from Harbourview Office, VPN session CHX-VPN-2026-0512-1944, IP 10.18.44.7",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "1990-07-07; Bayview Ward; account ending 1135"
+      "matched_text": "1990-07-07; Bayview Ward; account ending 1135",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "via her contact channel +852 5700 0029 and the address on file \u201cSuite 1203, Pearl Arc Tower, Harborview District\u201d"
+      "matched_text": "via her contact channel +852 5700 0029 and the address on file \u201cSuite 1203, Pearl Arc Tower, Harborview District\u201d",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "badge numbered 2037"
+      "matched_text": "badge numbered 2037",
+      "rule": "employee_id"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Lapis"
+      "matched_text": "Project Lapis",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "HKD 1.8"
+      "matched_text": "HKD 1.8",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "HKD 36m"
+      "matched_text": "HKD 36m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "12\u201315%"
+      "matched_text": "12\u201315%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not generally known to those dealing in our securities"
+      "matched_text": "not generally known to those dealing in our securities",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout"
+      "matched_text": "blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "no-tipping"
+      "matched_text": "no-tipping",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "no-tipping obligations"
+      "matched_text": "no-tipping obligations",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List"
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "IL-2026-045"
+      "matched_text": "IL-2026-045",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "potential acquisition of North Pearl Logistics Group"
+      "matched_text": "potential acquisition of North Pearl Logistics Group",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "a proposed placing with White Harbor Growth Fund LP"
+      "matched_text": "a proposed placing with White Harbor Growth Fund LP",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "whitewash waiver"
+      "matched_text": "whitewash waiver",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "should not be discussed with dealers, buy-side contacts, or press"
+      "matched_text": "should not be discussed with dealers, buy-side contacts, or press",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1986-11-02",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ending",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential \u2013 Internal Compliance Note (Hong Kong SAR context): Lotus Apex Holdings Limited (City Harbour Exchange main board issuer; ticker LAXF) \u2013 potential acquisition of North Pearl Logistics Group.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Ms. Lau\u2019s internal account hlau-ops and email hera.lau@lotusapex.example.hk viewed the term sheet titled \u201cProject Lapis \u2013 NPLG Acquisition\u201d, and downloaded a draft SPA referencing consideration range HKD 1.8\u20132.0b and a break fee of HKD 36m.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2.0b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hera.lau@lotusapex.example.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 5700 0029",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 5700 0001",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1986-11-02",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ending",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hera Lau",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lau",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential \u2013 Internal Compliance Note (Hong Kong SAR context): Lotus Apex Holdings Limited (City Harbour Exchange main board issuer; ticker LAXF) \u2013 potential acquisition of North Pearl Logistics Group.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Ms. Lau\u2019s internal account hlau-ops and email hera.lau@lotusapex.example.hk viewed the term sheet titled \u201cProject Lapis \u2013 NPLG Acquisition\u201d, and downloaded a draft SPA referencing consideration range HKD 1.8\u20132.0b and a break fee of HKD 36m.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lapis",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 1.8",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2.0b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 36m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -311,43 +395,37 @@
       "reason": "Example non-identifying hardware snippet; not tied to a person"
     }
   ],
+  "source_jurisdiction": "HK",
   "uncertain": [
     {
-      "matched_text": "IL-2026-045",
       "concept": "insider list entry code",
+      "matched_text": "IL-2026-045",
       "reason": "Internal code linked to insider list; sensitive MNPI context but not a standard enumerated pattern beyond the list name"
     },
     {
-      "matched_text": "WHGF-A-2046",
       "concept": "fund code",
+      "matched_text": "WHGF-A-2046",
       "reason": "Internal fund identifier; may be sensitive in context but not covered by PII/MNPI rules"
     },
     {
-      "matched_text": "Suite 1203, Pearl Arc Tower, Harborview District",
       "concept": "physical address",
+      "matched_text": "Suite 1203, Pearl Arc Tower, Harborview District",
       "reason": "Personal address data is PDPO-relevant but there is no generic address rule in the current taxonomy"
     },
     {
-      "matched_text": "badge numbered 2037",
       "concept": "employee badge number",
+      "matched_text": "badge numbered 2037",
       "reason": "Credential/ID that can identify an employee with linkage; not explicitly enumerated in PII rules"
     },
     {
-      "matched_text": "Harbourview Office",
       "concept": "work location",
+      "matched_text": "Harbourview Office",
       "reason": "Location data can be a quasi-identifier when combined but lacks a specific rule by itself"
     },
     {
-      "matched_text": "1990-07-07",
       "concept": "date of birth field",
+      "matched_text": "1990-07-07",
       "reason": "Appears as a KYC sample date; not explicitly anchored as DoB in text"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "quasi_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

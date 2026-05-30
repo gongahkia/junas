@@ -1,15 +1,374 @@
 {
-  "doc_id": "hk_special_category_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "HK",
-  "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "_agent_review": {
+    "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
+    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
+      "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved HK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T06:38:11Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved HK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T06:38:11Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "HK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered public/stale MoU/SPA/HKEXnews-style definitive-agreement bait and negated non-public/undisclosed-analysis prose.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T06:38:11Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+    "status": "owner_approved_hk_stage_a_for_internal_benchmarking"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
-  "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_special_category_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Project Reef",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known to likely dealers",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "entered exclusive talks to acquire 51% of Tidecrest Robotics Limited",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "possible offer",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-clear any analyst or vendor interactions",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Alex Yeung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ongoing HIV treatment at Kingfisher Clinic",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ongoing HIV treatment at Kingfisher Clinic",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "enrolled in the fingerprint-based time clock",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Yeung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Yeung is a dues-paying member of the Progressive Transport Staff Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "canvassing for the Harbour District Reform Council",
+      "rule": "political_opinion"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Natalie Poon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "registered her same-sex partner for dependent medical coverage",
+      "rule": "sexual_orientation"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Kelvin Tsui",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "observes Buddhist fasting days",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Biometric templates (fingerprint minutiae)",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Owen Lau",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redact minor identifiers",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legacy genetic screening outputs inadvertently retained from the wellness pilot",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Yvonne Chow",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "yvonne.chow@harbournova.com.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "reef.vdr@harbournova.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Harbour Nova (Main Board issuer) has entered exclusive talks to acquire 51% of Tidecrest Robotics Limited; this may be a discloseable transaction under Chapter 14 and could trigger a \u201cpossible offer\u201d disclosure under the Takeovers Code.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Reef VDR",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "yvonne.chow@harbournova.com.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "reef.vdr@harbournova.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Alex Yeung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Yeung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Natalie Poon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Kelvin Tsui",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Owen Lau",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Yvonne Chow",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Harbour Nova (Main Board issuer) has entered exclusive talks to acquire 51% of Tidecrest Robotics Limited; this may be a discloseable transaction under Chapter 14 and could trigger a \u201cpossible offer\u201d disclosure under the Takeovers Code.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Reef",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Reef VDR",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Kowloon Kestrels football team",
+      "reason": "Sports team mention is non-PII/MNPI bait"
+    },
+    {
+      "matched_text": "SilverRidge smartwatch",
+      "reason": "Product name is non-PII/MNPI bait"
+    },
+    {
+      "matched_text": "HarborPeak Aura",
+      "reason": "Product name is non-PII/MNPI bait"
+    },
+    {
+      "matched_text": "religion",
+      "reason": "Generic DEI category not tied to a person"
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic DEI category not tied to a person"
+    },
+    {
+      "matched_text": "union status",
+      "reason": "Generic DEI category not tied to a person"
+    },
+    {
+      "matched_text": "Harbour Nova Equal Access Charter 2026",
+      "reason": "Policy name is not PII/MNPI"
+    },
+    {
+      "matched_text": "Reef Room",
+      "reason": "Room label/codename-like phrase not matching Project <Name> pattern"
+    },
+    {
+      "matched_text": "LycheeCloud CRM",
+      "reason": "Product/platform name is non-PII/MNPI"
+    },
+    {
+      "matched_text": "Seaglass Growth Fund",
+      "reason": "Entity/product name is not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "trading halt / market intervention",
+      "matched_text": "trading halt request to HKEX may be required",
+      "reason": "Potential MNPI implication but no explicit rule marker enumerated"
+    },
+    {
+      "concept": "Takeovers Code pre-announcement gate",
+      "matched_text": "before any Rule 3.5 announcement",
+      "reason": "Pre-disclosure control relevant to MNPI but not mapped to an allowed marker"
+    },
+    {
+      "concept": "restricted insider area",
+      "matched_text": "Reef Room",
+      "reason": "Signals insider handling but not an explicit insider list or barrier rule phrase"
+    },
+    {
+      "concept": "data transfer restriction",
+      "matched_text": "the Harbour Nova Data Boundary Protocol prohibits transfer of personal data to Tidecrest systems",
+      "reason": "Privacy transfer control is relevant but not a live cross-border transfer per allowed rules"
+    },
+    {
+      "concept": "contingent MNPI disclosure planning",
+      "matched_text": "prepare a holding announcement",
+      "reason": "Pre-drafted disclosure is relevant but not covered by a specific allowed rule"
+    }
+  ]
 }

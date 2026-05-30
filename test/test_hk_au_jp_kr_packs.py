@@ -94,6 +94,22 @@ class HkAuJpKrRecognizerTests(unittest.TestCase):
             with self.subTest(rule=rule):
                 self.assertNotIn(rule, self._rules(text, code))
 
+    def test_hk_public_stale_deal_terms_do_not_fire_as_definitive_agreements(self):
+        text = (
+            "Public/stale transaction context: as announced on 15 March, Seabright signed "
+            "a non-binding MoU to explore a green steel JV; no binding commercial terms "
+            "have been agreed. As disclosed, the definitive Share Purchase Agreement was "
+            "executed in 2024; no annexes to the SPA will be reproduced."
+        )
+        self.assertNotIn("definitive_agreement", self._rules(text, "HK"))
+
+    def test_hk_negated_nonpublic_marker_examples_do_not_fire(self):
+        text = (
+            "For SFO inside information purposes, drafts must avoid undisclosed assumptions; "
+            "no non-public analyst notes will be attached and do not summarise non-public consultations."
+        )
+        self.assertNotIn("nonpublic_marker", self._rules(text, "HK"))
+
 
 class HkAuJpKrRationaleTests(unittest.TestCase):
     def test_pii_rationales_cite_local_statutes(self):
