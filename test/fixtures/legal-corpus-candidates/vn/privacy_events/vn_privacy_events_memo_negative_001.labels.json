@@ -3,13 +3,114 @@
   "document_type": "memo",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@namphuc.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@namphuc.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EMP-0723-XX"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Cross-border transfers: no new exports this quarter",
+      "reason": "Negated event; not a live cross-border transfer marker"
+    },
+    {
+      "matched_text": "the last approved export (Form VN-CBT/2025-011) sent masked payroll data to a processor in Singapore",
+      "reason": "Completed historical cross-border transfer; not a live privacy event"
+    },
+    {
+      "matched_text": "to date this quarter no consent withdrawals have been recorded",
+      "reason": "Negated consent-withdrawal; avoid false positive for consent_withdrawal_marker"
+    },
+    {
+      "matched_text": "there are no open requests at present",
+      "reason": "Negated DSAR status; not a live DSAR risk"
+    },
+    {
+      "matched_text": "was erased on 15 Mar 2026",
+      "reason": "Completed erasure; not a live deletion request"
+    },
+    {
+      "matched_text": "does not collect passport numbers for interns",
+      "reason": "Negated collection; avoid treating as present passport_number"
+    },
+    {
+      "matched_text": "acct ****1234",
+      "reason": "Illustrative masked placeholder; not a real bank account"
+    },
+    {
+      "matched_text": "NPX",
+      "reason": "Explicitly stated as placeholder ticker; avoid MNPI/ticker detection"
+    },
+    {
+      "matched_text": "no unpublished issuer information with price impact is discussed herein",
+      "reason": "Negated MNPI statement; not a nonpublic/material disclosure"
+    },
+    {
+      "matched_text": "no cross-border transfer, DSAR, consent-withdrawal, or minimisation failure is pending action",
+      "reason": "All events negated; not live privacy issues"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "EMP-0723-XX",
+      "concept": "employee_id",
+      "reason": "Looks like an internal employee/file reference that could identify a specific person, but format is not a standard employee ID pattern"
+    },
+    {
+      "matched_text": "kept for 5 years from termination",
+      "concept": "retention_marker",
+      "reason": "Specifies a data retention period, which is a privacy handling event, but no explicit retention rule is listed in allowed PII rules"
+    },
+    {
+      "matched_text": "DSAR handling",
+      "concept": "dsar_marker",
+      "reason": "DSAR process reference is privacy-relevant but there is no explicit DSAR rule in the allowed list"
+    },
+    {
+      "matched_text": "Cross-border transfers",
+      "concept": "cross_border_transfer_marker",
+      "reason": "Header indicates cross-border transfer context but content indicates no new exports; treatment as a live marker is unclear"
+    },
+    {
+      "matched_text": "withdraw consent",
+      "concept": "consent_withdrawal_marker",
+      "reason": "Describes the ability to withdraw consent rather than an actual withdrawal; borderline for marker labeling"
+    },
+    {
+      "matched_text": "processor in Singapore",
+      "concept": "cross_border_destination",
+      "reason": "Indicates cross-border processing location but refers to a past, approved export and may not be a live transfer"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
