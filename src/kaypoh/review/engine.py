@@ -1287,6 +1287,10 @@ _PLACEHOLDER_IDENTIFIER_CONTEXT_RE = re.compile(
     r"invalid(?:/dummy)?|for\s+illustration|illustrative)\b",
     re.IGNORECASE,
 )
+_VIETNAMESE_PLACEHOLDER_IDENTIFIER_CONTEXT_RE = re.compile(
+    r"\b(?:minh\s+họa|mẫu|không\s+hợp\s+lệ|không\s+kiểm\s+tra\s+được)\b",
+    re.IGNORECASE,
+)
 _PH_TIN_NON_TAX_CONTEXT_RE = re.compile(
     r"\b(?:account|acct|bank|escrow|settlement|routing|sub[- ]?acct|account\s+no)\b",
     re.IGNORECASE,
@@ -1491,7 +1495,10 @@ def _is_identifier_like_financial_amount(text: str, start: int, end: int) -> boo
 
 def _is_placeholder_identifier_context(text: str, start: int, end: int) -> bool:
     context = _line_context(text, start, end)
-    return bool(_PLACEHOLDER_IDENTIFIER_CONTEXT_RE.search(context))
+    return bool(
+        _PLACEHOLDER_IDENTIFIER_CONTEXT_RE.search(context)
+        or _VIETNAMESE_PLACEHOLDER_IDENTIFIER_CONTEXT_RE.search(context)
+    )
 
 
 def _is_public_or_benign_amount_context(text: str, start: int, end: int) -> bool:

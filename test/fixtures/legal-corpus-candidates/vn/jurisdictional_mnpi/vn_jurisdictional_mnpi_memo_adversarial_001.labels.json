@@ -1,240 +1,284 @@
 {
-  "doc_id": "vn_jurisdictional_mnpi_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "VN",
-  "destination_jurisdiction": "VN",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled VN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-vn-stage-a-20260530",
+    "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "thao.vy@mpen.vn"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@mpen.vn"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "09 88 66 44 30"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "B\u00e0 L\u00ea Th\u1ea3o Vy"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "\u00d4ng Ph\u1ea1m Quang V\u0169"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "\u00d4ng \u0110\u1eb7ng Qu\u1ed1c H\u1ea3o"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "1 2 0-77- 3 1 5 9"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "KH\u00d4NG \u0111\u01b0\u1ee3c \u0111\u01b0a v\u00e0o h\u1ed3 s\u01a1 CBTT"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "~48%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": ">20%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "\u201cc\u1eeda s\u1ed5 \u0111en\u201d"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "c\u1eeda s\u1ed5 \u0111en"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "ch\u01b0a CBTT"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "CH\u01afA c\u00f4ng b\u1ed1 ra th\u1ecb tr\u01b0\u1eddng"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "hi\u1ec7n thu\u1ed9c di\u1ec7n ch\u01b0a c\u00f4ng b\u1ed1"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "ti\u1ebft l\u1ed9 ch\u1ecdn l\u1ecdc"
+      "notes": "Reconciled VN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-vn-stage-a-20260530",
+      "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved VN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T03:12:44Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved VN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T03:12:44Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered Vietnam MST/VAT/TIN and public-hotline numeric bait, grouped CCCD recognition, Vietnamese placeholder CCCD context, negated MAC/MAE prose, and wellness spa bait.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='~1.180 tỷ VND'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='700 tỷ VND'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='~1.180 tỷ VND'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='700 tỷ VND'"
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T03:12:44Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+    "status": "owner_approved_vn_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_jurisdictional_mnpi_memo_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "thao.vy@mpen.vn"
+      "matched_text": "thao.vy@mpen.vn",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@mpen.vn"
+      "matched_text": "legal@mpen.vn",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "09 88 66 44 30"
+      "matched_text": "09 88 66 44 30",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "B\u00e0 L\u00ea Th\u1ea3o Vy"
+      "matched_text": "Bà Lê Thảo Vy",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "\u00d4ng Ph\u1ea1m Quang V\u0169"
+      "matched_text": "Ông Phạm Quang Vũ",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "\u00d4ng \u0110\u1eb7ng Qu\u1ed1c H\u1ea3o"
+      "matched_text": "Ông Đặng Quốc Hảo",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "B\u00e0 Vy"
+      "matched_text": "Bà Vy",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "1 2 0-77- 3 1 5 9"
+      "matched_text": "1 2 0-77- 3 1 5 9",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "KH\u00d4NG \u0111\u01b0\u1ee3c \u0111\u01b0a v\u00e0o h\u1ed3 s\u01a1 CBTT"
+      "matched_text": "KHÔNG được đưa vào hồ sơ CBTT",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "C-0-12 7/ b"
+      "matched_text": "C-0-12 7/ b",
+      "rule": "customer_account_number"
     },
     {
       "category": "MNPI",
-      "rule": "total_contract_value",
-      "matched_text": "~1.180 t\u1ef7 VND"
+      "matched_text": "~1.180 tỷ VND",
+      "rule": "total_contract_value"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "D\u1ef1 th\u1ea3o h \u00f4 p \u0111 \u1ed3 n g mua tua-bin gi\u00f3"
+      "matched_text": "Dự thảo h ô p đ ồ n g mua tua-bin gió",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "c\u00f3 th\u1ec3 l\u00e0m thay \u0111\u1ed5i CAPEX >20% t\u1ed5ng m\u1ee9c \u0111\u1ea7u t\u01b0 n\u0103m"
+      "matched_text": "có thể làm thay đổi CAPEX >20% tổng mức đầu tư năm",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "~48%"
+      "matched_text": "~48%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "\u01af\u1edbc t\u00ednh LNST Q2/2026 t\u0103ng ~48% YoY"
+      "matched_text": "Ước tính LNST Q2/2026 tăng ~48% YoY",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "\u201cc\u1eeda s\u1ed5 \u0111en\u201d"
+      "matched_text": "“cửa sổ đen”",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "15/07\u201329/07"
+      "matched_text": "15/07–29/07",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "c\u1eeda s\u1ed5 \u0111en"
+      "matched_text": "cửa sổ đen",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "b\u1ecb c\u1ea5m trong c\u1eeda s\u1ed5 \u0111en"
+      "matched_text": "bị cấm trong cửa sổ đen",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "NDA"
+      "matched_text": "NDA",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "kh\u00f4ng c\u00f4ng khai r\u1ed9ng r\u00e3i"
+      "matched_text": "không công khai rộng rãi",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "nh\u00f3m nh\u1eadn th\u00f4ng tin g\u1ed3m 3 ng\u01b0\u1eddi"
+      "matched_text": "nhóm nhận thông tin gồm 3 người",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "email chuy\u1ec3n ti\u1ebfp n\u1ed9i b\u1ed9 ra ngo\u00e0i nh\u00f3m"
+      "matched_text": "email chuyển tiếp nội bộ ra ngoài nhóm",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "ch\u01b0a CBTT"
+      "matched_text": "chưa CBTT",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "CH\u01afA c\u00f4ng b\u1ed1 ra th\u1ecb tr\u01b0\u1eddng"
+      "matched_text": "CHƯA công bố ra thị trường",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "hi\u1ec7n thu\u1ed9c di\u1ec7n ch\u01b0a c\u00f4ng b\u1ed1"
+      "matched_text": "hiện thuộc diện chưa công bố",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Th\u01b0 ch\u1ea5p thu\u1eadn h\u1ea1n m\u1ee9c 700 t\u1ef7 VND"
+      "matched_text": "Thư chấp thuận hạn mức 700 tỷ VND",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "k\u1ec3 t\u1eeb 10/06/2026"
+      "matched_text": "kể từ 10/06/2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": ">20%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tiết lộ chọn lọc",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 9 9-88-0 1 2",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "48%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "thao.vy@mpen.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@mpen.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "09 88 66 44 30",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 9 9-88-0 1 2",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "48%",
+      "rule": "financial_percentage"
     }
   ],
   "must_not_detect": [
@@ -243,31 +287,31 @@
       "reason": "Negated MAC context ('kh\u0000f4ng ph\u0000ea\u0000i l\u0000e0 \u0000ld\u0000ed\u0000eeketter')"
     },
     {
-      "matched_text": "G\u0110 T\u00e0i ch\u00ednh",
+      "matched_text": "GĐ Tài chính",
       "reason": "Role noun, not a unique personal identifier"
     },
     {
-      "matched_text": "Ph\u00f3 TG\u0110",
+      "matched_text": "Phó TGĐ",
       "reason": "Role noun, not a unique personal identifier"
     },
     {
-      "matched_text": "Ch\u1ee7 t\u1ecbch H\u0110QT",
+      "matched_text": "Chủ tịch HĐQT",
       "reason": "Role noun, not a unique personal identifier"
     },
     {
-      "matched_text": "Tr\u01b0\u1edfng d\u1ef1 \u00e1n",
+      "matched_text": "Trưởng dự án",
       "reason": "Role noun, not a unique personal identifier"
     },
     {
-      "matched_text": "Ban Ki\u1ec3m so\u00e1t",
+      "matched_text": "Ban Kiểm soát",
       "reason": "Role noun/entity, not PII"
     },
     {
-      "matched_text": "ng\u01b0\u1eddi n\u1ed9i b\u1ed9",
+      "matched_text": "người nội bộ",
       "reason": "Generic role reference"
     },
     {
-      "matched_text": "ng\u01b0\u1eddi c\u00f3 li\u00ean quan",
+      "matched_text": "người có liên quan",
       "reason": "Generic role reference"
     },
     {
@@ -287,57 +331,46 @@
       "reason": "Entity name, not PII"
     },
     {
-      "matched_text": "LAC\u2011Power",
+      "matched_text": "LAC‑Power",
       "reason": "Company alias in quotes, not PII"
     }
   ],
+  "source_jurisdiction": "VN",
   "uncertain": [
     {
-      "matched_text": "H\u0110-02 1 9 B//THX",
       "concept": "contract_identifier",
+      "matched_text": "HĐ-02 1 9 B//THX",
       "reason": "Contract number may be sensitive MNPI but not covered by a specific allowed rule"
     },
     {
-      "matched_text": "PNX/29-0 7/ 26//-XQZ-0019",
       "concept": "internal_transaction_code",
+      "matched_text": "PNX/29-0 7/ 26//-XQZ-0019",
       "reason": "Internal transaction/reference code could be sensitive but no explicit rule maps to it"
     },
     {
-      "matched_text": "TK DN 3 9 9-88-0 1 2",
       "concept": "corporate_bank_account",
+      "matched_text": "TK DN 3 9 9-88-0 1 2",
       "reason": "Corporate bank account identifier is sensitive operational data but not personal data under VN PDPA"
     },
     {
-      "matched_text": "https://drive.mpen.vn/f/Projs/SongThao3?v=7f%2F1a",
       "concept": "internal_document_link",
+      "matched_text": "https://drive.mpen.vn/f/Projs/SongThao3?v=7f%2F1a",
       "reason": "Internal document URL may imply sensitive access but not mapped to any allowed rule"
     },
     {
-      "matched_text": "m\u00e3 CK d\u1ef1 ki\u1ebfn: MPEN",
       "concept": "ticker_symbol",
+      "matched_text": "mã CK dự kiến: MPEN",
       "reason": "Proposed ticker is not PII and not inherently MNPI under the given rules"
     },
     {
-      "matched_text": "\u201cfw: EBITDA_draft_v3.xlsx\u201d",
       "concept": "sensitive_filename",
+      "matched_text": "“fw: EBITDA_draft_v3.xlsx”",
       "reason": "Filename may indicate sensitive working papers; only indirectly covered via tipping/SD risk"
     },
     {
-      "matched_text": "2 0 2 6/ Q 2",
       "concept": "ocr_corrupted_period",
+      "matched_text": "2 0 2 6/ Q 2",
       "reason": "Represents a financial period reference but appears OCR-corrupted; not directly covered by allowed rules"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='~1.180 t\u1ef7 VND'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='700 t\u1ef7 VND'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='~1.180 t\u1ef7 VND'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='700 t\u1ef7 VND'"
-  ],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

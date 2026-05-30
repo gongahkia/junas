@@ -1,170 +1,209 @@
 {
-  "doc_id": "vn_privacy_events_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "VN",
-  "destination_jurisdiction": "VN",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled VN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-vn-stage-a-20260530",
+    "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Nguyen Van Soan"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Pham Thi Li\u00ean"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. \u0110\u1ed7 Kim Anh"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@skypine.vn"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@skypine.vn"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal_ops@skypine.vn"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "3 88 77 000"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "NV-0l7A"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross\u2011border HR transfer to Singapore"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Minimisation"
+      "notes": "Reconciled VN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-vn-stage-a-20260530",
+      "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved VN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T03:12:44Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved VN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T03:12:44Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered Vietnam MST/VAT/TIN and public-hotline numeric bait, grouped CCCD recognition, Vietnamese placeholder CCCD context, negated MAC/MAE prose, and wellness spa bait.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T03:12:44Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+    "status": "owner_approved_vn_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_privacy_events_memo_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Nguyen Van Soan"
+      "matched_text": "Mr. Nguyen Van Soan",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Pham Thi Li\u00ean"
+      "matched_text": "Ms. Pham Thi Liên",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. \u0110\u1ed7 Kim Anh"
+      "matched_text": "Ms. Đỗ Kim Anh",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@skypine.vn"
+      "matched_text": "privacy@skypine.vn",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@skypine.vn"
+      "matched_text": "dpo@skypine.vn",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal_ops@skypine.vn"
+      "matched_text": "legal_ops@skypine.vn",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "3 88 77 000"
+      "matched_text": "3 88 77 000",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "NV-0l7A"
+      "matched_text": "NV-0l7A",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross\u2011border HR transfer to Singapore"
+      "matched_text": "cross‑border HR transfer to Singapore",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross\u2011border transfer paused"
+      "matched_text": "cross‑border transfer paused",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "export of HR payroll data"
+      "matched_text": "export of HR payroll data",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross\u2011border audit"
+      "matched_text": "Cross‑border audit",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Minimisation"
+      "matched_text": "Minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "collect only last 4 digits of payroll account"
+      "matched_text": "collect only last 4 digits of payroll account",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "****6994"
+      "matched_text": "****6994",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "ACCT: 12\u201134**\u2011VN\u2011998"
+      "matched_text": "ACCT: 12‑34**‑VN‑998",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "DP-REQ-9z1"
+      "matched_text": "DP-REQ-9z1",
+      "rule": "internal_session_id"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Pre\u2011disclosure deck"
+      "matched_text": "Pre‑disclosure deck",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposed private placement"
+      "matched_text": "proposed private placement",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "access limited to Legal, CFO, and Board"
+      "matched_text": "access limited to Legal, CFO, and Board",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Pham Thi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal_ops@skypine.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 88 77 000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nguyen Van Soan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Pham Thi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     }
   ],
   "must_not_detect": [
@@ -193,48 +232,42 @@
       "reason": "Role noun; not PII"
     }
   ],
+  "source_jurisdiction": "VN",
   "uncertain": [
     {
-      "matched_text": "DSAR",
       "concept": "dsar_marker",
+      "matched_text": "DSAR",
       "reason": "DSAR event is privacy-relevant but there is no explicit DSAR marker category in allowed rules"
     },
     {
-      "matched_text": "DSAR handling",
       "concept": "dsar_marker",
+      "matched_text": "DSAR handling",
       "reason": "DSAR handling reference lacks a dedicated allowed rule category"
     },
     {
-      "matched_text": "Data erasure",
       "concept": "erasure_marker",
+      "matched_text": "Data erasure",
       "reason": "Erasure event is privacy-relevant but no erasure marker rule is listed"
     },
     {
-      "matched_text": "retention 24 months",
       "concept": "retention_marker",
+      "matched_text": "retention 24 months",
       "reason": "Retention period is privacy-relevant but no retention marker category is listed"
     },
     {
-      "matched_text": "export logs for 14\u201105 to 30\u201105 show \u201c0\u201d records sent to SG",
       "concept": "cross_border_transfer_marker (negated)",
+      "matched_text": "export logs for 14‑05 to 30‑05 show “0” records sent to SG",
       "reason": "Indicates absence of cross-border transfers; may be excluded by negation rule"
     },
     {
-      "matched_text": "Data Export Approval 07/2026\u2011SPM",
       "concept": "cross_border_governance_artifact",
+      "matched_text": "Data Export Approval 07/2026‑SPM",
       "reason": "References cross-border export approval but no explicit rule covers such governance artifacts"
     },
     {
-      "matched_text": "identity verified against shareholder register",
       "concept": "identity_verification_marker",
+      "matched_text": "identity verified against shareholder register",
       "reason": "Identity verification step is privacy-relevant but not covered by an allowed rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

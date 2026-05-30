@@ -1,194 +1,298 @@
 {
-  "doc_id": "vn_direct_identifiers_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "VN",
-  "destination_jurisdiction": "VN",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled VN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-vn-stage-a-20260530",
+    "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Tran My Linh"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@hoabinh-agrotech.vn"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+84 90 123 4567"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "1234 5678 9012"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Nguyen Van Khoi"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "HB-2026-004"
-    },
-    {
-      "category": "PII",
-      "rule": "vn_cccd",
-      "matched_text": "079123456789"
-    },
-    {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "VN-P9876543"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+84 28 7777 8888"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "khachhang@hb-agro.vn"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Pham Quoc Dan"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dan.pham@lotus-legal.vn"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "VND 420,000,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "VND 95,000,000,000"
+      "notes": "Reconciled VN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-vn-stage-a-20260530",
+      "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved VN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T03:12:44Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved VN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T03:12:44Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered Vietnam MST/VAT/TIN and public-hotline numeric bait, grouped CCCD recognition, Vietnamese placeholder CCCD context, negated MAC/MAE prose, and wellness spa bait.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T03:12:44Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+    "status": "owner_approved_vn_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_direct_identifiers_memo_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Tran My Linh"
+      "matched_text": "Ms. Tran My Linh",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@hoabinh-agrotech.vn"
+      "matched_text": "legal@hoabinh-agrotech.vn",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+84 90 123 4567"
+      "matched_text": "+84 90 123 4567",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "1234 5678 9012"
+      "matched_text": "1234 5678 9012",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Nguyen Van Khoi"
+      "matched_text": "Mr. Nguyen Van Khoi",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "HB-2026-004"
+      "matched_text": "HB-2026-004",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "vn_cccd",
-      "matched_text": "079123456789"
+      "matched_text": "079123456789",
+      "rule": "vn_cccd"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "VN-P9876543"
+      "matched_text": "VN-P9876543",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+84 28 7777 8888"
+      "matched_text": "+84 28 7777 8888",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "khachhang@hb-agro.vn"
+      "matched_text": "khachhang@hb-agro.vn",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Pham Quoc Dan"
+      "matched_text": "Dr. Pham Quoc Dan",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dan.pham@lotus-legal.vn"
+      "matched_text": "dan.pham@lotus-legal.vn",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "VND 420,000,000,000"
+      "matched_text": "VND 420,000,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "VND 95,000,000,000"
+      "matched_text": "VND 95,000,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "12/5 Alley 63, Truong Chinh Street, Tan Binh District, Ho Chi Minh City"
+      "matched_text": "12/5 Alley 63, Truong Chinh Street, Tan Binh District, Ho Chi Minh City",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "confidential term sheet"
+      "matched_text": "confidential term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "subject to SSC clearance and VSDC settlement procedures"
+      "matched_text": "subject to SSC clearance and VSDC settlement procedures",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "mask in any external deliverables"
+      "matched_text": "mask in any external deliverables",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not for external circulation until official disclosure on the HOSE portal"
+      "matched_text": "not for external circulation until official disclosure on the HOSE portal",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Additional MNPI: confidential term sheet for acquisition of Viet Mekong Seeds Co., Ltd. at an indicative VND 95,000,000,000 consideration, subject to SSC clearance and VSDC settlement procedures",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal use only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "420,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "95,000,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@hoabinh-agrotech.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "khachhang@hb-agro.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dan.pham@lotus-legal.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 90 123 4567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 28 7777 8888",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "079123456789",
+      "rule": "vn_cccd"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tran My Linh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nguyen Van Khoi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Pham Quoc Dan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Additional MNPI: confidential term sheet for acquisition of Viet Mekong Seeds Co., Ltd. at an indicative VND 95,000,000,000 consideration, subject to SSC clearance and VSDC settlement procedures",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal use only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 420,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 95,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "420,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "95,000,000,000",
+      "rule": "large_number"
     }
   ],
   "must_not_detect": [
     {
-      "matched_text": "\u201cContact person name\u201d",
+      "matched_text": "“Contact person name”",
       "reason": "Generic placeholder field label, not PII"
     },
     {
-      "matched_text": "\u201cNational ID _______\u201d",
+      "matched_text": "“National ID _______”",
       "reason": "Blank placeholder, not PII"
     },
     {
@@ -212,33 +316,27 @@
       "reason": "Branch MST identifier, organization data not personal"
     }
   ],
+  "source_jurisdiction": "VN",
   "uncertain": [
     {
-      "matched_text": "no HOSE code assigned",
       "concept": "pre_listing_marker",
+      "matched_text": "no HOSE code assigned",
       "reason": "Indicates pre-listing nonpublic status relevant to MNPI, but not covered by a specific allowed rule"
     },
     {
-      "matched_text": "unaudited Q3 forecasts",
       "concept": "financial_forecast_pre_disclosure",
+      "matched_text": "unaudited Q3 forecasts",
       "reason": "Price-sensitive nonpublic forecasts are MNPI, but there is no explicit rule for forecasts"
     },
     {
-      "matched_text": "circulate MNPI only via company email and encrypted channels",
       "concept": "information_barrier_marker",
+      "matched_text": "circulate MNPI only via company email and encrypted channels",
       "reason": "Indicates internal controls for MNPI handling, but not an explicit information barrier marker per rules"
     },
     {
-      "matched_text": "SWIFT: SPBVVNVX",
       "concept": "bank_identifier_code",
+      "matched_text": "SWIFT: SPBVVNVX",
       "reason": "Financial routing identifier; not clearly covered by allowed PII rules but may warrant masking in practice"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

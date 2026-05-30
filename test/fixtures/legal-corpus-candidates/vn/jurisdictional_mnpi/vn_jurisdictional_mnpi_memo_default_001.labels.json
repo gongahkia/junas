@@ -1,250 +1,364 @@
 {
-  "doc_id": "vn_jurisdictional_mnpi_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "VN",
-  "destination_jurisdiction": "VN",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled VN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-vn-stage-a-20260530",
+    "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Le Thi Bich Ha"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Truong Minh Quang"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Quang"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@pni.test"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "VND 620 billion"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "VND 480 billion"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "15%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Bamboo"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Trading blackout"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "pre\u2011close blackout"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non\u2011public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Selective disclosure risk"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Insider Information Policy"
+      "notes": "Reconciled VN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-vn-stage-a-20260530",
+      "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved VN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T03:12:44Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved VN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T03:12:44Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered Vietnam MST/VAT/TIN and public-hotline numeric bait, grouped CCCD recognition, Vietnamese placeholder CCCD context, negated MAC/MAE prose, and wellness spa bait.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T03:12:44Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+    "status": "owner_approved_vn_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_jurisdictional_mnpi_memo_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Le Thi Bich Ha"
+      "matched_text": "Ms. Le Thi Bich Ha",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Truong Minh Quang"
+      "matched_text": "Mr. Truong Minh Quang",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Quang"
+      "matched_text": "Mr. Quang",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@pni.test"
+      "matched_text": "compliance@pni.test",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "VND 620 billion"
+      "matched_text": "VND 620 billion",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "VND 480 billion"
+      "matched_text": "VND 480 billion",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "15%"
+      "matched_text": "15%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Bamboo"
+      "matched_text": "Project Bamboo",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Trading blackout"
+      "matched_text": "Trading blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "pre\u2011close blackout"
+      "matched_text": "pre‑close blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non\u2011public"
+      "matched_text": "non‑public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Selective disclosure risk"
+      "matched_text": "Selective disclosure risk",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Insider Information Policy"
+      "matched_text": "Insider Information Policy",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "acquiring 100% of Dong Xanh Packaging Co"
+      "matched_text": "acquiring 100% of Dong Xanh Packaging Co",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "issuer\u2011material"
+      "matched_text": "issuer‑material",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "under NDA"
+      "matched_text": "under NDA",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no forward\u2011looking EBITDA figures may be provided unless they are concurrently posted on SGDTT"
+      "matched_text": "no forward‑looking EBITDA figures may be provided unless they are concurrently posted on SGDTT",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "any Q&A must avoid numbers not already public"
+      "matched_text": "any Q&A must avoid numbers not already public",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "all persons on the insider list are restricted from 01/06/2026 until 24 hours after the acquisition announcement is posted on SGDTT (expected window end no earlier than 18:00 ICT on 17/06/2026)"
+      "matched_text": "all persons on the insider list are restricted from 01/06/2026 until 24 hours after the acquisition announcement is posted on SGDTT (expected window end no earlier than 18:00 ICT on 17/06/2026)",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "pre\u2011close blackout for Q2 runs from 30/06/2026 to 24 hours after Q2 results disclosure"
+      "matched_text": "pre‑close blackout for Q2 runs from 30/06/2026 to 24 hours after Q2 results disclosure",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "forwarding is prohibited under the Insider Information Policy"
+      "matched_text": "forwarding is prohibited under the Insider Information Policy",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "restricted drive"
+      "matched_text": "restricted drive",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider Event Register"
+      "matched_text": "Insider Event Register",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "only after definitive signing"
+      "matched_text": "only after definitive signing",
+      "rule": "embargo_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not include staff ID numbers, payroll account details, phone numbers, or private email addresses in any c\u00f4ng b\u1ed1 th\u00f4ng tin\u2014only role titles may appear"
+      "matched_text": "do not include staff ID numbers, payroll account details, phone numbers, or private email addresses in any công bố thông tin—only role titles may appear",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "must be redacted from board packs circulated to non\u2011insiders"
+      "matched_text": "must be redacted from board packs circulated to non‑insiders",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Fair Disclosure Standard"
+      "matched_text": "Fair Disclosure Standard",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "c\u00f4ng b\u1ed1 th\u00f4ng tin b\u1ea5t th\u01b0\u1eddng"
+      "matched_text": "công bố thông tin bất thường",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout dates"
+      "matched_text": "blackout dates",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: MNPI controls for proposed asset acquisition and revolving credit facility; disclosure obligations on Sở Giao dịch Chứng khoán Thủ Thiêm (SGDTT) and the Ủy ban Chứng khoán Việt Lợi (UBCKVL).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A non‑binding term sheet dated 27/05/2026 with An Phu Capital Bank JSC for a VND 480 billion revolving credit facility includes new covenants on leverage and dividend payout; until definitive approval, all terms remain MNPI and limited to the insider list.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Trading blackout: all persons on the insider list are restricted from 01/06/2026 until 24 hours after the acquisition announcement is posted on SGDTT (expected window end no earlier than 18:00 ICT on 17/06/2026); pre‑close blackout for Q2 runs from 30/06/2026 to 24 hours after Q2 results disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Record date planning: if an interim dividend is pursued, the ngày đăng ký cuối cùng must be announced at least 10 days in advance on SGDTT and to UBCKVL; draft dates in the finance calendar are placeholders and non‑public.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public‑status check: the AGM Resolution on charter amendments and 2025 dividend policy (reference PNI‑2026‑AGM‑04) was posted to the SGDTT disclosure portal on 03/05/2026 and mirrored on our website; these items are public and should not be treated as MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Analyst engagement: any guidance discussions must rely solely on figures already posted on SGDTT; if we elect to publish new guidance, it must be released broadly and simultaneously per Circular 08/2025/TT‑TCK and our Fair Disclosure Standard.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Le Thi Bich Ha",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Truong Minh Quang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Quang",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: MNPI controls for proposed asset acquisition and revolving credit facility; disclosure obligations on Sở Giao dịch Chứng khoán Thủ Thiêm (SGDTT) and the Ủy ban Chứng khoán Việt Lợi (UBCKVL).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A non‑binding term sheet dated 27/05/2026 with An Phu Capital Bank JSC for a VND 480 billion revolving credit facility includes new covenants on leverage and dividend payout; until definitive approval, all terms remain MNPI and limited to the insider list.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Trading blackout: all persons on the insider list are restricted from 01/06/2026 until 24 hours after the acquisition announcement is posted on SGDTT (expected window end no earlier than 18:00 ICT on 17/06/2026); pre‑close blackout for Q2 runs from 30/06/2026 to 24 hours after Q2 results disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Record date planning: if an interim dividend is pursued, the ngày đăng ký cuối cùng must be announced at least 10 days in advance on SGDTT and to UBCKVL; draft dates in the finance calendar are placeholders and non‑public.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public‑status check: the AGM Resolution on charter amendments and 2025 dividend policy (reference PNI‑2026‑AGM‑04) was posted to the SGDTT disclosure portal on 03/05/2026 and mirrored on our website; these items are public and should not be treated as MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Analyst engagement: any guidance discussions must rely solely on figures already posted on SGDTT; if we elect to publish new guidance, it must be released broadly and simultaneously per Circular 08/2025/TT‑TCK and our Fair Disclosure Standard.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 620 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 480 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -261,37 +375,31 @@
       "reason": "Role title; not a named_person under the rule"
     },
     {
-      "matched_text": "PNI\u20112026\u2011AGM\u201104",
+      "matched_text": "PNI‑2026‑AGM‑04",
       "reason": "Public filing reference; not MNPI"
     }
   ],
+  "source_jurisdiction": "VN",
   "uncertain": [
     {
-      "matched_text": "Decree 13 applies to personal data in internal and external materials",
       "concept": "local privacy law applicability",
+      "matched_text": "Decree 13 applies to personal data in internal and external materials",
       "reason": "Privacy law applicability is relevant but not mapped to a specific allowed marker rule"
     },
     {
-      "matched_text": "must be c\u00f4ng b\u1ed1 th\u00f4ng tin b\u1ea5t th\u01b0\u1eddng within 24 hours of a Board resolution",
       "concept": "VN ad hoc disclosure timing",
+      "matched_text": "must be công bố thông tin bất thường within 24 hours of a Board resolution",
       "reason": "Disclosure timing requirement is jurisdiction-specific and not clearly covered by the allowed MNPI marker list"
     },
     {
-      "matched_text": "access logs are enabled",
       "concept": "monitoring controls",
+      "matched_text": "access logs are enabled",
       "reason": "Control indicating monitoring/logging may relate to information barriers but not an explicit allowed marker phrase"
     },
     {
-      "matched_text": "ng\u00e0y \u0111\u0103ng k\u00fd cu\u1ed1i c\u00f9ng",
       "concept": "record date disclosure",
+      "matched_text": "ngày đăng ký cuối cùng",
       "reason": "Record date announcement requirement is disclosure-related but not covered by listed MNPI/PII rules"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

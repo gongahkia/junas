@@ -86,6 +86,15 @@ class SeaRecognizerFiringTests(unittest.TestCase):
         cccd = [f for f in r2.findings if f.rule == "vn_cccd"]
         self.assertEqual(len(cccd), 1)
         self.assertEqual(cccd[0].matched_text, "001202012345")
+        r3 = self._review("CCCD 1530 9284 1275 belongs to the employee file.", "VN")
+        cccd_grouped = [f for f in r3.findings if f.rule == "vn_cccd"]
+        self.assertEqual(len(cccd_grouped), 1)
+        self.assertEqual(cccd_grouped[0].matched_text, "1530 9284 1275")
+        self.assertNotIn("phone_number", {f.rule for f in r3.findings})
+
+    def test_cccd_placeholder_context_does_not_fire(self):
+        r = self._review("CCCD: 000000000000 là chuỗi minh họa và không hợp lệ.", "VN")
+        self.assertNotIn("vn_cccd", {f.rule for f in r.findings})
 
 
 class SeaRationaleTests(unittest.TestCase):

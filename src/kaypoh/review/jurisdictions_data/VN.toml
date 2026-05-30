@@ -12,11 +12,11 @@ aliases = ["VN", "VIETNAM"]
 # numbers are too ambiguous to be useful by themselves (collide with MyKad-without-
 # dashes and arbitrary invoice numbers), so the recognizer is anchored on a CCCD /
 # CMND / "citizen ID" prefix within the same span. capture_group=1 selects only the
-# trailing digits as the matched_text so the placeholder replacement is clean.
+# trailing digit span as the matched_text so the placeholder replacement is clean.
 [[recognizers]]
 name = "Vietnam CCCD"
 rule_name = "vn_cccd"
-pattern = '(?:CCCD|CMND|c[aă]n\s+cướ?[ck]\s+công\s+dân|citizen\s+ID)[\s:.#-]+(\d{12})'
+pattern = '(?:CCCD|CMND|c[aă]n\s+cướ?[ck]\s+công\s+dân|citizen\s+ID)[\s:.#-]+(\d(?:[\s-]?\d){11})'
 severity = "high"
 reason = "Vietnam CCCD / CMND citizen identifier"
 capture_group = 1
