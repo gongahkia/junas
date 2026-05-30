@@ -3,13 +3,308 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "+22%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet circulated externally"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not include in external investor decks"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "until the current report is posted"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "eq@aurorafinserve.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@aurorafinserve.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@aurorafinserve.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Elara M. Quinto"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No. 00-228-AX74"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "chemotherapy treatment"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric fingerprint logs"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "religious affiliation \u201cLumina Path Fellowship\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "membership in the AuroraWorks Employee Union"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "political preference \u201cCivic Renewal Party\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 12"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout periods"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redact the child\u2019s name"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "+22%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet circulated externally"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not include in external investor decks"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "until the current report is posted"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "eq@aurorafinserve.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@aurorafinserve.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@aurorafinserve.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Elara M. Quinto"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No. 00-228-AX74"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "chemotherapy treatment"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric fingerprint logs"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "religious affiliation \u201cLumina Path Fellowship\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "membership in the AuroraWorks Employee Union"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "political preference \u201cCivic Renewal Party\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 12"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout periods"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redact the child\u2019s name"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "to acquire Newgrowth Microfinance Corp"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "planned follow-on offering"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "listing event on the Luzon Stock Exchange"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor child Lio S. Quinto"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "Student ID QN-12-771"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "RTB Tax ID RTB-909-447"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "purge this as not necessary for employment processing"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "limit access to the Tax Team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "until public disclosure"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Blue Mango Microloan",
+      "reason": "Product name; not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "Laguna Typhoons",
+      "reason": "Sports team; non-PII bait"
+    },
+    {
+      "matched_text": "Aranga City",
+      "reason": "Place name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Fair Marketing Policy",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Responsible Use Policy",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "We value inclusion, equity, and diversity across all teams",
+      "reason": "Generic DEI prose; non-sensitive"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "account details are confidential until the listing notice is released by the exchange",
+      "concept": "nonpublic_marker",
+      "reason": "Confidentiality instruction may not relate to material investor information; MNPI status unclear"
+    },
+    {
+      "matched_text": "RTB Tax ID RTB-909-447",
+      "concept": "ph_tin",
+      "reason": "Nonstandard format for PH TIN; uncertain if this is a true tax identifier"
+    },
+    {
+      "matched_text": "Student ID QN-12-771",
+      "concept": "student_identifier",
+      "reason": "Personal identifier not explicitly covered by available rule set; mapped to account number in ideal tier"
+    },
+    {
+      "matched_text": "planned follow-on offering",
+      "concept": "material_event",
+      "reason": "Materiality depends on context and stage; event characterization may be ambiguous for strict detectors"
+    },
+    {
+      "matched_text": "attendance devices must not export raw biometric templates to any third-party vendor without a data sharing agreement",
+      "concept": "data_sharing_control",
+      "reason": "Privacy control directive is negated; rule 17 advises not to label negated controls though it\u2019s legally relevant"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

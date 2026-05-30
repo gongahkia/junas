@@ -3,13 +3,150 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor-relations@bafc.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacydesk@bafc.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee Code ZN-2041"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "a chronic health condition (Type 1 diabetes)"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor-relations@bafc.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacydesk@bafc.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee Code ZN-2041"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "a chronic health condition (Type 1 diabetes)"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "TIN"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "bank account numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "phone numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "collect only role data; do not request TIN, SSS No, or bank account numbers\u2014mark fields as \u201cnot applicable for disclosure\u201d to avoid PII spillover"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "store strictly with Medical Services, not with HRIS exports"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no user-specific biometric records are exported to deal rooms"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "potentially material"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Kawayan Card",
+      "reason": "Product name / marketing bait, not PII or MNPI"
+    },
+    {
+      "matched_text": "Sampaguita Savings",
+      "reason": "Product name / marketing bait, not PII or MNPI"
+    },
+    {
+      "matched_text": "MangoPay QR",
+      "reason": "Product name / marketing bait, not PII or MNPI"
+    },
+    {
+      "matched_text": "the Cebu Coral Kings fan promo",
+      "reason": "Sports/marketing reference, not PII or MNPI"
+    },
+    {
+      "matched_text": "The Harana Inclusion Policy",
+      "reason": "Policy name, not personal data"
+    },
+    {
+      "matched_text": "Rainbow Values Policy",
+      "reason": "Policy name, not personal data"
+    },
+    {
+      "matched_text": "Social Harmony Standard",
+      "reason": "Policy/standard name, not personal data"
+    },
+    {
+      "matched_text": "full-court press",
+      "reason": "Metaphor, not health or sponsorship data"
+    },
+    {
+      "matched_text": "MMX-CUST-TEST",
+      "reason": "Placeholder account label indicated as non-personal"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "SSS No",
+      "concept": "Philippine Social Security System number",
+      "reason": "Government ID reference is sensitive but no explicit allowed rule for SSS number"
+    },
+    {
+      "matched_text": "draft allocations",
+      "concept": "Potential MNPI category",
+      "reason": "Could be material to investors but not clearly covered by a specific MNPI rule beyond general contingency"
+    },
+    {
+      "matched_text": "unfinalized board actions",
+      "concept": "Potential MNPI category",
+      "reason": "Could be material corporate actions but not mapped to a specific allowed rule"
+    },
+    {
+      "matched_text": "undisclosed counterparty consents",
+      "concept": "Potential MNPI category",
+      "reason": "Non-public consents may be material but not explicitly covered by listed MNPI rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
