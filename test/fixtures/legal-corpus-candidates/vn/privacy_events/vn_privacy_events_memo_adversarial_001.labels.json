@@ -3,13 +3,238 @@
   "document_type": "memo",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Nguyen Van Soan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Pham Thi Li\u00ean"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. \u0110\u1ed7 Kim Anh"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@skypine.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@skypine.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal_ops@skypine.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "3 88 77 000"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "NV-0l7A"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border HR transfer to Singapore"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Nguyen Van Soan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Pham Thi Li\u00ean"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. \u0110\u1ed7 Kim Anh"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@skypine.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@skypine.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal_ops@skypine.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "3 88 77 000"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "NV-0l7A"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border HR transfer to Singapore"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfer paused"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "export of HR payroll data"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border audit"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "collect only last 4 digits of payroll account"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "****6994"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "ACCT: 12\u201134**\u2011VN\u2011998"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "DP-REQ-9z1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Pre\u2011disclosure deck"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed private placement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "access limited to Legal, CFO, and Board"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no material adverse change (MAC) has occurred",
+      "reason": "Negated MAC reference; not a live material_adverse_change event"
+    },
+    {
+      "matched_text": "this memo does not contain MNPI",
+      "reason": "Explicit negation; not a nonpublic disclosure"
+    },
+    {
+      "matched_text": "device MAC addresses",
+      "reason": "Negated/absent data example; not actual PII present"
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "Legal",
+      "reason": "Role noun; not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR",
+      "concept": "dsar_marker",
+      "reason": "DSAR event is privacy-relevant but there is no explicit DSAR marker category in allowed rules"
+    },
+    {
+      "matched_text": "DSAR handling",
+      "concept": "dsar_marker",
+      "reason": "DSAR handling reference lacks a dedicated allowed rule category"
+    },
+    {
+      "matched_text": "Data erasure",
+      "concept": "erasure_marker",
+      "reason": "Erasure event is privacy-relevant but no erasure marker rule is listed"
+    },
+    {
+      "matched_text": "retention 24 months",
+      "concept": "retention_marker",
+      "reason": "Retention period is privacy-relevant but no retention marker category is listed"
+    },
+    {
+      "matched_text": "export logs for 14\u201105 to 30\u201105 show \u201c0\u201d records sent to SG",
+      "concept": "cross_border_transfer_marker (negated)",
+      "reason": "Indicates absence of cross-border transfers; may be excluded by negation rule"
+    },
+    {
+      "matched_text": "Data Export Approval 07/2026\u2011SPM",
+      "concept": "cross_border_governance_artifact",
+      "reason": "References cross-border export approval but no explicit rule covers such governance artifacts"
+    },
+    {
+      "matched_text": "identity verified against shareholder register",
+      "concept": "identity_verification_marker",
+      "reason": "Identity verification step is privacy-relevant but not covered by an allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

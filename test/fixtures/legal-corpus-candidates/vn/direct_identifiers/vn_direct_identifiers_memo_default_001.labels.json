@@ -3,13 +3,242 @@
   "document_type": "memo",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tran My Linh"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@hoabinh-agrotech.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 90 123 4567"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "1234 5678 9012"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Nguyen Van Khoi"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HB-2026-004"
+    },
+    {
+      "category": "PII",
+      "rule": "vn_cccd",
+      "matched_text": "079123456789"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "VN-P9876543"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 28 7777 8888"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "khachhang@hb-agro.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Pham Quoc Dan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dan.pham@lotus-legal.vn"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 420,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 95,000,000,000"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tran My Linh"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@hoabinh-agrotech.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 90 123 4567"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "1234 5678 9012"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Nguyen Van Khoi"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HB-2026-004"
+    },
+    {
+      "category": "PII",
+      "rule": "vn_cccd",
+      "matched_text": "079123456789"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "VN-P9876543"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 28 7777 8888"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "khachhang@hb-agro.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Pham Quoc Dan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dan.pham@lotus-legal.vn"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 420,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 95,000,000,000"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "12/5 Alley 63, Truong Chinh Street, Tan Binh District, Ho Chi Minh City"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "confidential term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to SSC clearance and VSDC settlement procedures"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "mask in any external deliverables"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for external circulation until official disclosure on the HOSE portal"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "\u201cContact person name\u201d",
+      "reason": "Generic placeholder field label, not PII"
+    },
+    {
+      "matched_text": "\u201cNational ID _______\u201d",
+      "reason": "Blank placeholder, not PII"
+    },
+    {
+      "matched_text": "1900 0000",
+      "reason": "Public helpline number, not personal data"
+    },
+    {
+      "matched_text": "0123456789",
+      "reason": "Invalid example VAT/TIN provided as a dummy, not real PII"
+    },
+    {
+      "matched_text": "HBX-PO-00073",
+      "reason": "Internal reference code, not a personal identifier"
+    },
+    {
+      "matched_text": "0319123456",
+      "reason": "Organization ERC/MST tax number, not personal data"
+    },
+    {
+      "matched_text": "0319123456-001",
+      "reason": "Branch MST identifier, organization data not personal"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "no HOSE code assigned",
+      "concept": "pre_listing_marker",
+      "reason": "Indicates pre-listing nonpublic status relevant to MNPI, but not covered by a specific allowed rule"
+    },
+    {
+      "matched_text": "unaudited Q3 forecasts",
+      "concept": "financial_forecast_pre_disclosure",
+      "reason": "Price-sensitive nonpublic forecasts are MNPI, but there is no explicit rule for forecasts"
+    },
+    {
+      "matched_text": "circulate MNPI only via company email and encrypted channels",
+      "concept": "information_barrier_marker",
+      "reason": "Indicates internal controls for MNPI handling, but not an explicit information barrier marker per rules"
+    },
+    {
+      "matched_text": "SWIFT: SPBVVNVX",
+      "concept": "bank_identifier_code",
+      "reason": "Financial routing identifier; not clearly covered by allowed PII rules but may warrant masking in practice"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

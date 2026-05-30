@@ -3,13 +3,118 @@
   "document_type": "memo",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@trevietenergy.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@trevietenergy.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "vn_cccd",
+      "matched_text": "012345678901"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "ch\u01b0a c\u00f4ng b\u1ed1"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@trevietenergy.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@trevietenergy.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "vn_cccd",
+      "matched_text": "012345678901"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "ch\u01b0a c\u00f4ng b\u1ed1"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "000-000-000-000"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Tr\u00e1nh thu th\u1eadp PII qu\u00e1 m\u1ee9c"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "m\u1eabu bi\u1ec3u n\u1ed9i b\u1ed9 ph\u1ea3i \u0111\u1ec3 tr\u1ed1ng th\u00f4ng tin th\u1ef1c t\u1ebf"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "r\u00e0 so\u00e1t l\u1ea7n cu\u1ed1i \u0111\u1ec3 lo\u1ea1i b\u1ecf s\u1ed1 \u0111i\u1ec7n tho\u1ea1i c\u00e1 nh\u00e2n, email c\u00e1 nh\u00e2n v\u00e0 \u1ea3nh ch\u1ee5p CCCD tr\u01b0\u1edbc khi l\u01b0u tr\u1eef"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "tr\u01b0\u1edbc khi g\u1eedi nh\u00e0 \u0111\u1ea7u t\u01b0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "Nguy c\u01a1 MNPI"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1900 772 233",
+      "reason": "Public/shared hotline number, not personal PII"
+    },
+    {
+      "matched_text": "Tr\u01b0\u1edfng ph\u00f2ng V\u1eadn h\u00e0nh",
+      "reason": "Role-only title, not a named person"
+    },
+    {
+      "matched_text": "TK l\u01b0u k\u00fd: 123-XYZ-888",
+      "reason": "Example/fake organizational code, not personal PII"
+    },
+    {
+      "matched_text": "H\u1ecd t\u00ean",
+      "reason": "Generic form label/placeholder"
+    },
+    {
+      "matched_text": "\u0110\u1ecba ch\u1ec9",
+      "reason": "Generic form label/placeholder"
+    },
+    {
+      "matched_text": "Ng\u00e2n h\u00e0ng",
+      "reason": "Generic form label/placeholder"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "0319999999-000",
+      "concept": "VN company tax code (MST)",
+      "reason": "Company/government identifier not covered by allowed rules; also indicated as invalid sample"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

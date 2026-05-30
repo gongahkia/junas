@@ -3,13 +3,184 @@
   "document_type": "memo",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@vqx.vn-example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@vnx-portal.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been filed with HOSE or UBCKNN"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may be material to VQX"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "avoid any selective disclosure prior to filing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout policy (general)"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@vqx.vn-example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@vnx-portal.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been filed with HOSE or UBCKNN"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may be material to VQX"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "avoid any selective disclosure prior to filing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout policy (general)"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Acct: 0000\u2011XX\u2011123"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redact employee contact sheets from the board pack"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "retain only role\u2011based emails and aggregated headcount"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "acquire 51% of CTCP D\u1ecbch V\u1ee5 \u0110i\u1ec7n M\u00e2y"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window re\u2011opened"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "c\u1eeda s\u1ed5 \u0111\u00f3ng"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "D\u201110 to D+2"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective meetings"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "ISIN: VNVN00000000",
+      "reason": "Instrument identifier placeholder; not PII or MNPI."
+    },
+    {
+      "matched_text": "M\u00e3 CK: VQX",
+      "reason": "Stock ticker; not PII."
+    },
+    {
+      "matched_text": "HOSE placeholder",
+      "reason": "Placeholder note; not PII/MNPI."
+    },
+    {
+      "matched_text": "Vendor",
+      "reason": "Role noun, not a person or MNPI."
+    },
+    {
+      "matched_text": "Nha Trang DC expansion",
+      "reason": "Public media speculation reference; not MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Insider Trading Policy v2.3",
+      "concept": "blackout governance reference",
+      "reason": "Policy citation signals blackout controls but is not an explicit allowed marker type."
+    },
+    {
+      "matched_text": "within 24 hours",
+      "concept": "disclosure timing",
+      "reason": "Statutory disclosure deadline is compliance-relevant but not an explicit MNPI rule category."
+    },
+    {
+      "matched_text": "Draft H\u0110QT agenda for 15/07/2026",
+      "concept": "nonpublic board agenda",
+      "reason": "Internal agenda timing is nonpublic context but coverage is chiefly via adjacent explicit nonpublic/material language."
+    },
+    {
+      "matched_text": "Positive MNPI (restricted)",
+      "concept": "insider list marker",
+      "reason": "\u2018restricted\u2019 suggests restricted-list handling, but not an explicit \u2018insider list\u2019 phrase."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
