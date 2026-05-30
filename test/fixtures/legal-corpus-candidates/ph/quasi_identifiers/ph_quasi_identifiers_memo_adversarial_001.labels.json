@@ -1,245 +1,295 @@
 {
-  "doc_id": "ph_quasi_identifiers_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "PH",
-  "destination_jurisdiction": "PH",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled PH Stage A strict labels to deterministic strict-mode findings after manual precision review; retained broader model-derived labels in ideal_must_detect. Narrow precision fixes covered completed DSAR/no-pending controls, PH benefit-ID/BankAcct/doccode phone bait, invalid/placeholder PH TIN, role mailboxes, training-control MNPI bait, and negated/explanatory MAC/MAE prose.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-ph-stage-a-20260529",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T01:34:00Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lira Monteverde"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Nilo Castrillo"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Monteverde"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "l.monteverde@daluyonggp.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "10.18.34.77"
-    },
-    {
-      "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "s/n TP49B3"
-    },
-    {
-      "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "sid=F0-2A-9B"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1991-07-03"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 34"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "6.25%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 4.0b"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 312m"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 260m"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "decision": "approve",
+      "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T01:34:00Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Manual direct-identifier tuning added one PhilSys PSN positive because generation produced PH TIN coverage but no PhilSys positive.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T01:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_quasi_identifiers_memo_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lira Monteverde"
+      "matched_text": "Ms. Lira Monteverde",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Nilo Castrillo"
+      "matched_text": "Mr. Nilo Castrillo",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Monteverde"
+      "matched_text": "Ms. Monteverde",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "l.monteverde@daluyonggp.ph"
+      "matched_text": "l.monteverde@daluyonggp.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "10.18.34.77"
+      "matched_text": "10.18.34.77",
+      "rule": "ip_address"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "s/n TP49B3"
+      "matched_text": "s/n TP49B3",
+      "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "sid=F0-2A-9B"
+      "matched_text": "sid=F0-2A-9B",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1991-07-03"
+      "matched_text": "1991-07-03",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 34"
+      "matched_text": "age 34",
+      "rule": "age_reference"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Ms. Lira Monteverde, Treasury Supervisor at the Company, born 1991-07-03 (age 34), assigned at Barangay San Lorenzo, Makati, used device DGP-TP-17 (asset tag KASUYO-TP; s/n TP49B3), VPN session 10.18.34.77 at 21:14 PHT"
+      "matched_text": "Ms. Lira Monteverde, Treasury Supervisor at the Company, born 1991-07-03 (age 34), assigned at Barangay San Lorenzo, Makati, used device DGP-TP-17 (asset tag KASUYO-TP; s/n TP49B3), VPN session 10.18.34.77 at 21:14 PHT",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "ph_tin",
-      "matched_text": "TIN 83*-***-**7-0*2"
+      "matched_text": "TIN 83*-***-**7-0*2",
+      "rule": "ph_tin"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "A c c t  N o . 9 4 - 3 3 2 - 1 1 8"
+      "matched_text": "A c c t  N o . 9 4 - 3 3 2 - 1 1 8",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@daluyonggp.ph"
+      "matched_text": "compliance@daluyonggp.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "investor.relations@daluyonggp.ph"
+      "matched_text": "investor.relations@daluyonggp.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo.office@daluyonggp.ph"
+      "matched_text": "dpo.office@daluyonggp.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "10.2.3.9"
+      "matched_text": "10.2.3.9",
+      "rule": "ip_address"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "acct 22-399-0"
+      "matched_text": "acct 22-399-0",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "asset tag KASUYO-TP"
+      "matched_text": "asset tag KASUYO-TP",
+      "rule": "device_serial_number"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "6.25%"
+      "matched_text": "6.25%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 4.0b"
+      "matched_text": "PHP 4.0b",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 312m"
+      "matched_text": "PHP 312m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 260m"
+      "matched_text": "PHP 260m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "unannounced increase in authorized capital"
+      "matched_text": "unannounced increase in authorized capital",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project \u201cHabagat-2\u201d"
+      "matched_text": "Project \u201cHabagat-2\u201d",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout"
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "HR may transmit only redacted PDFs"
+      "matched_text": "HR may transmit only redacted PDFs",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "avoid embedding full account numbers or device IDs in subject lines"
+      "matched_text": "avoid embedding full account numbers or device IDs in subject lines",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "data subject requests"
+      "matched_text": "data subject requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary Q2 (unaudited) metrics accessed by Ms. Monteverde at 21:14 PHT show EBITDA PHP 312m vs prior guidance PHP 260m and a capex deferral for Project \u201cHabagat-2\u201d; this remains material non-public until the 17-C is posted to the PSE EDGE.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9B",
+      "rule": "financial_amount"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "l.monteverde@daluyonggp.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo.office@daluyonggp.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1991-07-03",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lira Monteverde",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Monteverde",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nilo Castrillo",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary Q2 (unaudited) metrics accessed by Ms. Monteverde at 21:14 PHT show EBITDA PHP 312m vs prior guidance PHP 260m and a capex deferral for Project \u201cHabagat-2\u201d; this remains material non-public until the 17-C is posted to the PSE EDGE.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PHP 312m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PHP 260m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.25%",
+      "rule": "financial_percentage"
     }
   ],
   "must_not_detect": [
@@ -272,38 +322,32 @@
       "reason": "OCR artifact; not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "PH",
   "uncertain": [
     {
-      "matched_text": "mango-tab-07",
       "concept": "device_label",
+      "matched_text": "mango-tab-07",
       "reason": "Device label may be a unique identifier but not covered by device_serial_number/IMEI rules"
     },
     {
-      "matched_text": "DOB 03/07",
       "concept": "partial_dob",
+      "matched_text": "DOB 03/07",
       "reason": "Partial date may reference date of birth but lacks full specificity for date_of_birth rule"
     },
     {
-      "matched_text": "barangay code SLO-05",
       "concept": "location_code",
+      "matched_text": "barangay code SLO-05",
       "reason": "Administrative location code could be quasi-identifying but not covered by allowed PII rules"
     },
     {
-      "matched_text": "uid=lmonteverde",
       "concept": "username",
+      "matched_text": "uid=lmonteverde",
       "reason": "Login username is identifying but there is no explicit username rule; could be part of a quasi-identifier"
     },
     {
-      "matched_text": "DGP-TP-17",
       "concept": "device_identifier",
+      "matched_text": "DGP-TP-17",
       "reason": "Device ID appears unique but may not be a serial number per the allowed rule set"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "quasi_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

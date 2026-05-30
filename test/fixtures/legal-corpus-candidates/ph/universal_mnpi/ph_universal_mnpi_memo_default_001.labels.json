@@ -1,245 +1,340 @@
 {
-  "doc_id": "ph_universal_mnpi_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "PH",
-  "destination_jurisdiction": "PH",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled PH Stage A strict labels to deterministic strict-mode findings after manual precision review; retained broader model-derived labels in ideal_must_detect. Narrow precision fixes covered completed DSAR/no-pending controls, PH benefit-ID/BankAcct/doccode phone bait, invalid/placeholder PH TIN, role mailboxes, training-control MNPI bait, and negated/explanatory MAC/MAE prose.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-ph-stage-a-20260529",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T01:34:00Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Tarsier"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargoed until 18 August 2026, 09:00 PHT"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAE"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 2,400,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "15.5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 65,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 780,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "+22%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 950,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not circulate externally prior to the embargo lift"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Atty. Rina Mercado"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "rina.mercado@liyabenergy.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+63 28 555 0199"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Atty. Joaquin Valdez"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Celine Magat"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Engr. Mateo Laxa"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Selene Ordo\u00f1ez"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Paulo Tenorio"
+      "decision": "approve",
+      "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T01:34:00Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Manual direct-identifier tuning added one PhilSys PSN positive because generation produced PH TIN coverage but no PhilSys positive.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T01:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_universal_mnpi_memo_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Tarsier"
+      "matched_text": "Project Tarsier",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargoed until 18 August 2026, 09:00 PHT"
+      "matched_text": "Embargoed until 18 August 2026, 09:00 PHT",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAE"
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 2,400,000,000"
+      "matched_text": "PHP 2,400,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "15.5%"
+      "matched_text": "15.5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 65,000,000"
+      "matched_text": "PHP 65,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 780,000,000"
+      "matched_text": "PHP 780,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "+22%"
+      "matched_text": "+22%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 950,000,000"
+      "matched_text": "PHP 950,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not circulate externally prior to the embargo lift"
+      "matched_text": "do not circulate externally prior to the embargo lift",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Atty. Rina Mercado"
+      "matched_text": "Atty. Rina Mercado",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "rina.mercado@liyabenergy.ph"
+      "matched_text": "rina.mercado@liyabenergy.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+63 28 555 0199"
+      "matched_text": "+63 28 555 0199",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Atty. Joaquin Valdez"
+      "matched_text": "Atty. Joaquin Valdez",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Celine Magat"
+      "matched_text": "Ms. Celine Magat",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Engr. Mateo Laxa"
+      "matched_text": "Engr. Mateo Laxa",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Selene Ordo\u00f1ez"
+      "matched_text": "Ms. Selene Ordo\u00f1ez",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Paulo Tenorio"
+      "matched_text": "Mr. Paulo Tenorio",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Underwriting Agreement"
+      "matched_text": "Underwriting Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Subscription Agreement"
+      "matched_text": "Share Subscription Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "for PSE listing and primary offer"
+      "matched_text": "for PSE listing and primary offer",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "execution of definitive Underwriting Agreement and Share Subscription Agreement for a PHP 2,400,000,000 primary issuance representing approximately 15.5% of the post-offer outstanding shares"
+      "matched_text": "execution of definitive Underwriting Agreement and Share Subscription Agreement for a PHP 2,400,000,000 primary issuance representing approximately 15.5% of the post-offer outstanding shares",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "subject to SEC clearance under the Securities Regulation Code and PSE disclosure timetable"
+      "matched_text": "subject to SEC clearance under the Securities Regulation Code and PSE disclosure timetable",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "Conditions precedent: BSP no-objection and escrow opening at Star Banyan Bank\u2013Ortigas branch, BIR confirmatory ruling on tax-free exchanges, and PSE approval of the listing application"
+      "matched_text": "Conditions precedent: BSP no-objection and escrow opening at Star Banyan Bank\u2013Ortigas branch, BIR confirmatory ruling on tax-free exchanges, and PSE approval of the listing application",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Selene",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financial guidance in the draft IR deck (v12) includes non-public FY2026 EBITDA of PHP 780,000,000 (+22% YoY) and distribution policy targets; do not circulate externally prior to the embargo lift.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,400,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "65,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "780,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "950,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "rina.mercado@liyabenergy.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 28 555 0199",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Celine Magat",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Selene",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Paulo Tenorio",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financial guidance in the draft IR deck (v12) includes non-public FY2026 EBITDA of PHP 780,000,000 (+22% YoY) and distribution policy targets; do not circulate externally prior to the embargo lift.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Tarsier",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PHP 2,400,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PHP 65,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PHP 780,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PHP 950,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,400,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "65,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "780,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "950,000,000",
+      "rule": "large_number"
     }
   ],
   "must_not_detect": [
@@ -256,12 +351,6 @@
       "reason": "Negated MAC reference; not a 'MAC clause'."
     }
   ],
-  "uncertain": [],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "source_jurisdiction": "PH",
+  "uncertain": []
 }

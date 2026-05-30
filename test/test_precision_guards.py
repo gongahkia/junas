@@ -453,6 +453,49 @@ class DeviceIdentifierPrecisionGuards(unittest.TestCase):
         self.assertIn("aa-bb-cc-dd-ee-ff", macs)
 
 
+class PhilippinesPrivacyAndTaxGuards(unittest.TestCase):
+    def test_fulfilled_dsar_without_pending_request_does_not_fire(self):
+        text = (
+            "A DSAR (Ref: HR-DSAR-0041) was fulfilled on 2026-05-12. "
+            "No DSARs are pending, and no request for correction is currently in flight."
+        )
+        markers = [
+            m for r, m in _rules_matched(text, jurisdiction="PH")
+            if r == "consent_withdrawal_marker"
+        ]
+        self.assertNotIn("DSAR", markers)
+        self.assertNotIn("DSARs", markers)
+
+    def test_live_dsar_still_fires(self):
+        text = "DSAR received: Mr. Iker Malonzo requested access to his personnel file."
+        markers = [
+            m for r, m in _rules_matched(text, jurisdiction="PH")
+            if r == "consent_withdrawal_marker"
+        ]
+        self.assertIn("DSAR", markers)
+
+    def test_ph_tin_inside_bank_account_line_does_not_fire(self):
+        text = "Temporary Account No.: 0012-345-678-901 for settlement testing."
+        tins = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "ph_tin"]
+        self.assertNotIn("345-678-901", tins)
+
+    def test_ph_invalid_sample_tin_does_not_fire(self):
+        text = "The sample identifier TIN 123-456-789-001 is invalid and for training only."
+        tins = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "ph_tin"]
+        self.assertNotIn("123-456-789-001", tins)
+
+    def test_ph_real_tin_still_fires(self):
+        text = "Payroll tax details under TIN 074-882-619-000 are stored in HRMS."
+        tins = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "ph_tin"]
+        self.assertIn("074-882-619-000", tins)
+
+    def test_ph_philsys_positive_does_not_become_phone(self):
+        text = "PhilSys PSN: 1234-5678-9012 belongs to the employee file."
+        rules = _rules_matched(text, jurisdiction="PH")
+        self.assertIn(("ph_philsys", "1234-5678-9012"), rules)
+        self.assertNotIn(("phone_number", "1234-5678-9012"), rules)
+
+
 class FunctionalContactGuards(unittest.TestCase):
     def test_role_based_legal_mailbox_does_not_fire(self):
         text = "For SGX submissions, counsel contact: legal@pryce-han.example; role-based signoff acceptable."
@@ -505,6 +548,17 @@ class FunctionalContactGuards(unittest.TestCase):
         text = "Contact Ms Jane Tan at jane.tan@example.sg."
         emails = [m for r, m in _rules_matched(text) if r == "email_address"]
         self.assertIn("jane.tan@example.sg", emails)
+
+    def test_ph_role_mailboxes_do_not_fire(self):
+        text = (
+            "Route disclosure to disclosure@example.ph, privacydesk@example.ph, "
+            "walloffice@example.ph, and irmailbox@example.ph."
+        )
+        emails = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "email_address"]
+        self.assertNotIn("disclosure@example.ph", emails)
+        self.assertNotIn("privacydesk@example.ph", emails)
+        self.assertNotIn("walloffice@example.ph", emails)
+        self.assertNotIn("irmailbox@example.ph", emails)
 
     def test_personal_email_before_later_role_only_contact_still_fires(self):
         text = (
@@ -651,6 +705,15 @@ class FinancialAmountGuards(unittest.TestCase):
         markers = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "nonpublic_marker"]
         self.assertNotIn("material non-public information", markers)
 
+    def test_ph_mnpi_control_and_bait_lines_do_not_fire_marker(self):
+        text = (
+            "MNPI controls are reviewed quarterly. "
+            "This promo should not be treated as PII or MNPI. "
+            "Operational details could be construed as MNPI, so they were avoided."
+        )
+        markers = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "nonpublic_marker"]
+        self.assertEqual(markers, [])
+
     def test_ph_public_reference_materials_do_not_fire_material_event(self):
         text = "Reference materials are public: the press release on dividend policy is posted on our website."
         events = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "material_event"]
@@ -660,6 +723,28 @@ class FinancialAmountGuards(unittest.TestCase):
         text = "Compliance guidance on cyber tabletop protocols follows NPC guidance and contains no live incident."
         events = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "material_event"]
         self.assertEqual(events, [])
+
+    def test_ph_training_week_wall_crossing_does_not_fire(self):
+        text = "Information barriers use a wall-crossing role mailbox during blackout training weeks."
+        rules = _rules_matched(text, jurisdiction="PH")
+        self.assertNotIn(("insider_list_marker", "wall-crossing"), rules)
+        self.assertNotIn(("information_barrier_marker", "Information barriers"), rules)
+
+    def test_ph_fully_announced_term_sheet_does_not_fire(self):
+        text = "The term sheet excerpts cited in the deck are from transactions that closed in 2022 and have been fully announced."
+        agreements = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "definitive_agreement"]
+        self.assertNotIn("term sheet", agreements)
+
+    def test_negated_special_category_list_does_not_fire(self):
+        text = (
+            "Do not include any religion, union membership, political opinions, "
+            "biometric templates, genetic data, or sexual orientation."
+        )
+        findings = [
+            m for r, m in _rules_matched(text, jurisdiction="PH")
+            if r in {"genetic_data", "sexual_orientation", "religious_belief"}
+        ]
+        self.assertEqual(findings, [])
 
 
 class LargeNumberPrecisionGuards(unittest.TestCase):

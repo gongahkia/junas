@@ -1,210 +1,259 @@
 {
-  "doc_id": "ph_privacy_events_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "PH",
-  "destination_jurisdiction": "PH",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled PH Stage A strict labels to deterministic strict-mode findings after manual precision review; retained broader model-derived labels in ideal_must_detect. Narrow precision fixes covered completed DSAR/no-pending controls, PH benefit-ID/BankAcct/doccode phone bait, invalid/placeholder PH TIN, role mailboxes, training-control MNPI bait, and negated/explanatory MAC/MAE prose.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-ph-stage-a-20260529",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T01:34:00Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Atty. Reina M. Soliman"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "reina.soliman@lakanbay.com.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data minimisation"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jeric Valencia"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent withdrawal"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. L. Yatco"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Yatco"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "no trading window has been opened"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@lakanbay.com.ph"
+      "decision": "approve",
+      "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T01:34:00Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Manual direct-identifier tuning added one PhilSys PSN positive because generation produced PH TIN coverage but no PhilSys positive.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T01:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_privacy_events_memo_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Atty. Reina M. Soliman"
+      "matched_text": "Atty. Reina M. Soliman",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "reina.soliman@lakanbay.com.ph"
+      "matched_text": "reina.soliman@lakanbay.com.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer"
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data minimisation"
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jeric Valencia"
+      "matched_text": "Mr. Jeric Valencia",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent withdrawal"
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. L. Yatco"
+      "matched_text": "Ms. L. Yatco",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Yatco"
+      "matched_text": "Ms. Yatco",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "no trading window has been opened"
+      "matched_text": "no trading window has been opened",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@lakanbay.com.ph"
+      "matched_text": "privacy@lakanbay.com.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "88-XXX4567-9"
+      "matched_text": "88-XXX4567-9",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "only necessary banking details"
+      "matched_text": "only necessary banking details",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "will not include birthdates"
+      "matched_text": "will not include birthdates",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "only from anonymised staging"
+      "matched_text": "only from anonymised staging",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "only de-identified aggregates are to be included"
+      "matched_text": "only de-identified aggregates are to be included",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "no external sharing has occurred"
+      "matched_text": "no external sharing has occurred",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Draft ICX offering timetable"
+      "matched_text": "Draft ICX offering timetable",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Yatco",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI controls: Draft ICX offering timetable and unaudited Q2 results remain restricted; no trading window has been opened and no external sharing has occurred.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "reina.soliman@lakanbay.com.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jeric Valencia",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Yatco",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Yatco",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI controls: Draft ICX offering timetable and unaudited Q2 results remain restricted; no trading window has been opened and no external sharing has occurred.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     }
   ],
   "must_not_detect": [],
+  "source_jurisdiction": "PH",
   "uncertain": [
     {
-      "matched_text": "Retention",
       "concept": "retention_marker",
+      "matched_text": "Retention",
       "reason": "Retention policy marker is privacy-relevant but not listed as an allowed rule key."
     },
     {
-      "matched_text": "sets five-year retention for tax support files and 24 months for recruitment logs",
       "concept": "retention_duration",
+      "matched_text": "sets five-year retention for tax support files and 24 months for recruitment logs",
       "reason": "Specific retention durations are privacy-relevant but there is no explicit retention rule key provided."
     },
     {
-      "matched_text": "DSAR",
       "concept": "dsar_marker",
+      "matched_text": "DSAR",
       "reason": "Access request (DSAR) marker is privacy-relevant but not an allowed rule key."
     },
     {
-      "matched_text": "submitted an access request",
       "concept": "dsar_request",
+      "matched_text": "submitted an access request",
       "reason": "DSAR action is privacy-relevant but not covered by a defined rule key."
     },
     {
-      "matched_text": "hashed TINs",
       "concept": "ph_tin_reference",
+      "matched_text": "hashed TINs",
       "reason": "References PH TINs without actual identifiers; category relevant but no literal ID present."
     },
     {
-      "matched_text": "account numbers (last 4)",
       "concept": "bank_account_reference",
+      "matched_text": "account numbers (last 4)",
       "reason": "Refers to bank account identifiers in truncated form without a full value."
     },
     {
-      "matched_text": "employee IDs",
       "concept": "employee_id_reference",
+      "matched_text": "employee IDs",
       "reason": "Mentions employee ID category without specific identifiers."
     },
     {
-      "matched_text": "candidate profile deletion was completed on 20 May",
       "concept": "erasure_completed",
+      "matched_text": "candidate profile deletion was completed on 20 May",
       "reason": "Erasure event noted as completed; relevant control but excluded from live-issue markers and no explicit erasure rule key."
     },
     {
-      "matched_text": "No special cross-border transfers of customer loan files occurred in May",
       "concept": "cross_border_negated",
+      "matched_text": "No special cross-border transfers of customer loan files occurred in May",
       "reason": "Negated cross-border transfer mention is privacy-relevant context but should not trigger a live transfer marker."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

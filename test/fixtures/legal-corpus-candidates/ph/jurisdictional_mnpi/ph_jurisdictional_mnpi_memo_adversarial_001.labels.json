@@ -1,220 +1,320 @@
 {
-  "doc_id": "ph_jurisdictional_mnpi_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "PH",
-  "destination_jurisdiction": "PH",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled PH Stage A strict labels to deterministic strict-mode findings after manual precision review; retained broader model-derived labels in ideal_must_detect. Narrow precision fixes covered completed DSAR/no-pending controls, PH benefit-ID/BankAcct/doccode phone bait, invalid/placeholder PH TIN, role mailboxes, training-control MNPI bait, and negated/explanatory MAC/MAE prose.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-ph-stage-a-20260529",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T01:34:00Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 1.2b"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3.75%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Kalapati"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure risk"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "apply blackout for directors, officers, and covered employees from 29 May until two full trading days after 17\u2011C disclosure"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@bayorion.com.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@bayorion.com.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "Acct No. 74\u2011xx\u20113189"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "Employee ID E\u201114x2"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Liza M. Carandang"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "must be redacted"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not include full birthdates or TINs"
+      "decision": "approve",
+      "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T01:34:00Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Manual direct-identifier tuning added one PhilSys PSN positive because generation produced PH TIN coverage but no PhilSys positive.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T01:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_jurisdictional_mnpi_memo_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Non-public"
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 1.2b"
+      "matched_text": "PHP 1.2b",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3.75%"
+      "matched_text": "3.75%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Kalapati"
+      "matched_text": "Project Kalapati",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure risk"
+      "matched_text": "selective disclosure risk",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "apply blackout for directors, officers, and covered employees from 29 May until two full trading days after 17\u2011C disclosure"
+      "matched_text": "apply blackout for directors, officers, and covered employees from 29 May until two full trading days after 17\u2011C disclosure",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@bayorion.com.ph"
+      "matched_text": "privacy@bayorion.com.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@bayorion.com.ph"
+      "matched_text": "ir@bayorion.com.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "Acct No. 74\u2011xx\u20113189"
+      "matched_text": "Acct No. 74\u2011xx\u20113189",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "Employee ID E\u201114x2"
+      "matched_text": "Employee ID E\u201114x2",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Liza M. Carandang"
+      "matched_text": "Ms. Liza M. Carandang",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "must be redacted"
+      "matched_text": "must be redacted",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not include full birthdates or TINs"
+      "matched_text": "do not include full birthdates or TINs",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 418m"
+      "matched_text": "PHP 418m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 360"
+      "matched_text": "PHP 360",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 0.08"
+      "matched_text": "PHP 0.08",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 5.60"
+      "matched_text": "PHP 5.60",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 1"
+      "matched_text": "PHP 1",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "internal only"
+      "matched_text": "internal only",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout"
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "breaches of blackout will be escalated to the Compliance Officer, Atty. Ramon J. Elazegui"
+      "matched_text": "breaches of blackout will be escalated to the Compliance Officer, Atty. Ramon J. Elazegui",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "avoid any off\u2011the\u2011record mention of pricing ranges or bookbuild timing"
+      "matched_text": "avoid any off\u2011the\u2011record mention of pricing ranges or bookbuild timing",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposal to increase cash dividends"
+      "matched_text": "proposal to increase cash dividends",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "authorization for Project Kalapati (follow-on offering)"
+      "matched_text": "authorization for Project Kalapati (follow-on offering)",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "target signing 10 June"
+      "matched_text": "target signing 10 June",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "no PSE EDGE filing has been made"
+      "matched_text": "no PSE EDGE filing has been made",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Atty. Ramon J. Elazegui"
+      "matched_text": "Atty. Ramon J. Elazegui",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimization queries"
+      "matched_text": "data minimization queries",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liza",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public: preliminary unaudited Q2 re s ult s indicate EBITDA of ~PHP 418m vs. prior guidance of PHP 360\u2013380m; this is potentially material under SRC and PSE Disclosure Rules; apply blackout for directors, officers, and covered employees from 29 May until two full trading days after 17\u2011C disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public: Board agenda (12 June) includes a proposal to increase cash dividends to PHP 0.08/share and authorization for Project Kalapati (follow-on offering); selective disclosure risk applies to any pre-deal investor outreach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Treasury: tentative FOO parameters (internal only) contemplate a PHP 5.60\u20136.10 price range and bookbuild window 12\u201314 July; any guidance to PSE/PTPs will follow a 17\u2011C and PSE Notice; breaches of blackout will be escalated to the Compliance Officer, Atty. Ramon J. Elazegui.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1M",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "380m",
+      "rule": "financial_amount"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liza",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public: preliminary unaudited Q2 re s ult s indicate EBITDA of ~PHP 418m vs. prior guidance of PHP 360\u2013380m; this is potentially material under SRC and PSE Disclosure Rules; apply blackout for directors, officers, and covered employees from 29 May until two full trading days after 17\u2011C disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public: Board agenda (12 June) includes a proposal to increase cash dividends to PHP 0.08/share and authorization for Project Kalapati (follow-on offering); selective disclosure risk applies to any pre-deal investor outreach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Treasury: tentative FOO parameters (internal only) contemplate a PHP 5.60\u20136.10 price range and bookbuild window 12\u201314 July; any guidance to PSE/PTPs will follow a 17\u2011C and PSE Notice; breaches of blackout will be escalated to the Compliance Officer, Atty. Ramon J. Elazegui.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kalapati",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1M",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PHP 418m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PHP 360",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "380m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PHP 5.60",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PHP 1",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.75%",
+      "rule": "financial_percentage"
     }
   ],
   "must_not_detect": [
@@ -231,38 +331,32 @@
       "reason": "Role noun; not PII by itself."
     }
   ],
+  "source_jurisdiction": "PH",
   "uncertain": [
     {
-      "matched_text": "leverage covenant at 3.0x",
       "concept": "financial covenant",
+      "matched_text": "leverage covenant at 3.0x",
       "reason": "Potentially material financing covenant but ratio format isn\u2019t covered by current allowed rules."
     },
     {
-      "matched_text": "bookbuild window 12\u201314 July",
       "concept": "offering timeline",
+      "matched_text": "bookbuild window 12\u201314 July",
       "reason": "Indicative bookbuild window is sensitive scheduling information not explicitly covered by embargo markers."
     },
     {
-      "matched_text": "target signing 10 June",
       "concept": "embargo/scheduling",
+      "matched_text": "target signing 10 June",
       "reason": "Signing target is non-public timing information; allowed embargo markers list specific anchored terms."
     },
     {
-      "matched_text": "internal only",
       "concept": "nonpublic status",
+      "matched_text": "internal only",
       "reason": "Indicates restricted circulation but isn\u2019t a standard non-public anchor phrase in strict detectors."
     },
     {
-      "matched_text": "trading blackout",
       "concept": "blackout reference",
+      "matched_text": "trading blackout",
       "reason": "Mentions a blackout but without explicit window details; strict rules prefer specific blackout period phrasing."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

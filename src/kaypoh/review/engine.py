@@ -1237,8 +1237,9 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
 )
 _ALWAYS_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
     "admin", "ap", "ar", "billing", "capitalmarkets", "corpsec", "cosec",
-    "compliance", "dealroom", "docroom", "dpo", "help", "helpdesk",
-    "mna", "privacy", "room", "support", "treasury",
+    "compliance", "dealroom", "disclosure", "docroom", "dpo", "help", "helpdesk",
+    "irmailbox", "mna", "press", "privacy", "privacydesk", "room", "support",
+    "treasury", "walloffice",
 })
 _CONTEXTUAL_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
     "contact", "info", "legal",
@@ -1422,6 +1423,8 @@ def _is_negated_nonpublic_marker_context(text: str, start: int, end: int) -> boo
         r"\b(?:not\s+(?:mnpi|upsi)|no\s+(?:upsi|mnpi)|"
         r"no\s+material\s+non[- ]public\s+information|"
         r"tidak\s+ada\s+mnpi|no\s+material\s+non[- ]public\s+information\s+remains|"
+        r"not[^\n.;]{0,80}\bmnpi|mnpi\s+controls|none\s+are\s+included\s+herein|"
+        r"could\s+be\s+construed\s+as\s+mnpi|"
         r"mnpi\s+screening[^\n.;]{0,80}does\s+not\s+trigger|"
         r"does\s+not\s+add\s+unpublished\s+price[- ]sensitive\s+information|"
         r"unless\s+upsi\s+is\s+actually\s+present|mnpi\s+markers?:|"
@@ -1436,6 +1439,8 @@ def _is_benign_definitive_agreement_context(text: str, start: int, end: int) -> 
     return bool(re.search(
         r"\b(?:not\s+(?:material|upsi|mnpi)|are\s+not\s+upsi|"
         r"routine\s+lease\s+renewal|disclosed\s+via\s+public\s+notice|"
+        r"closed\s+in\s+\d{4}|fully\s+announced|placeholder|"
+        r"not\s+an\s+actual\s+client\s+identifier|"
         r"illustrative\s+case\s+studies|public\s+journals|do\s+not\s+pertain)\b",
         context,
         re.IGNORECASE,
@@ -1444,6 +1449,8 @@ def _is_benign_definitive_agreement_context(text: str, start: int, end: int) -> 
 
 def _is_special_category_false_positive_context(rule_name: str, text: str, start: int, end: int) -> bool:
     context = _line_context(text, start, end)
+    if re.search(r"\b(?:do\s+not\s+include\s+any|no\s+individual\s+profiles?)\b", context, re.IGNORECASE):
+        return True
     if rule_name == "genetic_data" and re.search(
         r"\b(?:genetic\s+algorithms?|software\s+features?|not\s+about\s+any\s+person|"
         r"not\s+personal\s+data)\b",
@@ -1493,6 +1500,7 @@ def _is_educational_mnpi_marker_context(text: str, start: int, end: int) -> bool
     return bool(re.search(
         r"\b(?:"
         r"training\s+materials?\s+only|policy\s+training\s+examples?|"
+        r"training\s+(?:weeks|decks|drills)|tabletop\s+drills|"
         r"educational\s+and\s+not\s+transaction[- ]related|"
         r"not\s+as\s+market[- ]moving\s+events?|educational\s+example\s+only"
         r")\b",

@@ -1,195 +1,200 @@
 {
-  "doc_id": "ph_sector_mnpi_memo_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "PH",
-  "destination_jurisdiction": "PH",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled PH Stage A strict labels to deterministic strict-mode findings after manual precision review; retained broader model-derived labels in ideal_must_detect. Narrow precision fixes covered completed DSAR/no-pending controls, PH benefit-ID/BankAcct/doccode phone bait, invalid/placeholder PH TIN, role mailboxes, training-control MNPI bait, and negated/explanatory MAC/MAE prose.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-ph-stage-a-20260529",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T01:34:00Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "walloffice@lakan.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@lakan.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "irmailbox@lakan.example"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall-crossing"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout training weeks"
-    },
-    {
-      "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "no tipping"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "until filed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "12 May security incident"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "avoid including PII in attachments"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "must remain internal"
+      "decision": "approve",
+      "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T01:34:00Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Manual direct-identifier tuning added one PhilSys PSN positive because generation produced PH TIN coverage but no PhilSys positive.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T01:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_sector_mnpi_memo_negative_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "walloffice@lakan.example"
+      "matched_text": "walloffice@lakan.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@lakan.example"
+      "matched_text": "compliance@lakan.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "irmailbox@lakan.example"
+      "matched_text": "irmailbox@lakan.example",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall-crossing"
+      "matched_text": "wall-crossing",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barriers"
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout training weeks"
+      "matched_text": "blackout training weeks",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "no tipping"
+      "matched_text": "no tipping",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "no tipping or rumor-sharing"
+      "matched_text": "no tipping or rumor-sharing",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider-list management"
+      "matched_text": "Insider-list management",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider-list hygiene"
+      "matched_text": "insider-list hygiene",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "until filed"
+      "matched_text": "until filed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "12 May security incident"
+      "matched_text": "12 May security incident",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Do not circulate the draft MSE disclosure"
+      "matched_text": "Do not circulate the draft MSE disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "remediation vendor\u2019s commercial term sheet"
+      "matched_text": "remediation vendor\u2019s commercial term sheet",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "as-yet-unannounced"
+      "matched_text": "as-yet-unannounced",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "as-yet-unannounced fee concessions"
+      "matched_text": "as-yet-unannounced fee concessions",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "must remain internal"
+      "matched_text": "must remain internal",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "avoid including PII in attachments"
+      "matched_text": "avoid including PII in attachments",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "use role codes (e.g., HRID-LDH-XXXX)"
+      "matched_text": "use role codes (e.g., HRID-LDH-XXXX)",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "HRID-LDH-XXXX"
+      "matched_text": "HRID-LDH-XXXX",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not upload any production bank data to test servers"
+      "matched_text": "do not upload any production bank data to test servers",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "AcctRef UAT-12-XX-7890"
+      "matched_text": "AcctRef UAT-12-XX-7890",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "de-identified scenarios"
+      "matched_text": "de-identified scenarios",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -226,38 +231,32 @@
       "reason": "Public-facing context; not non-public information."
     }
   ],
+  "source_jurisdiction": "PH",
   "uncertain": [
     {
-      "matched_text": "remediation vendor\u2019s commercial term sheet",
       "concept": "commercial terms MNPI",
+      "matched_text": "remediation vendor\u2019s commercial term sheet",
       "reason": "Commercial-term content may be material and non-public but lacks explicit amounts; mapping beyond generic MNPI markers is unclear."
     },
     {
-      "matched_text": "AcctRef UAT-12-XX-7890",
       "concept": "account reference placeholder",
+      "matched_text": "AcctRef UAT-12-XX-7890",
       "reason": "Looks like an account/customer identifier but explicitly a dummy placeholder; PII treatment may vary."
     },
     {
-      "matched_text": "HRID-LDH-XXXX",
       "concept": "employee ID placeholder",
+      "matched_text": "HRID-LDH-XXXX",
       "reason": "Format resembles an employee identifier but is presented as an example; uncertain if it should trigger PII detectors."
     },
     {
-      "matched_text": "Do not circulate the draft MSE disclosure",
       "concept": "selective disclosure control",
+      "matched_text": "Do not circulate the draft MSE disclosure",
       "reason": "Pre-filing circulation restriction implies selective disclosure risk; some detectors may not have a rule for this phrasing."
     },
     {
-      "matched_text": "insider-list hygiene",
       "concept": "insider list reference",
+      "matched_text": "insider-list hygiene",
       "reason": "Subject-line reference to insider-list controls; detection depends on keyword heuristics and context sensitivity."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

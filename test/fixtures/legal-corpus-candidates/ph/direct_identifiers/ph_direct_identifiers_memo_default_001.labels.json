@@ -1,210 +1,345 @@
 {
-  "doc_id": "ph_direct_identifiers_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "PH",
-  "destination_jurisdiction": "PH",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled PH Stage A strict labels to deterministic strict-mode findings after manual precision review; retained broader model-derived labels in ideal_must_detect. Narrow precision fixes covered completed DSAR/no-pending controls, PH benefit-ID/BankAcct/doccode phone bait, invalid/placeholder PH TIN, role mailboxes, training-control MNPI bait, and negated/explanatory MAC/MAE prose.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-ph-stage-a-20260529",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T01:34:00Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@bayislacapital.com.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+63 990 123 7788"
-    },
-    {
-      "category": "PII",
-      "rule": "ph_tin",
-      "matched_text": "345-678-912-000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 2.4B"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Atty. Renato D. Silang"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jaime O. Laraya"
-    },
-    {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "P1234567"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "jolaraya@bayislacapital.com.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "0012-345-678-901"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hr@bayislacapital.com.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "press@bayislacapital.com.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lila M. Quisan"
-    },
-    {
-      "category": "PII",
-      "rule": "insurance_member_id",
-      "matched_text": "PhilHealth No.: 17-123456789-3"
+      "decision": "approve",
+      "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T01:34:00Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Manual direct-identifier tuning added one PhilSys PSN positive because generation produced PH TIN coverage but no PhilSys positive.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T01:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_direct_identifiers_memo_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@bayislacapital.com.ph"
+      "matched_text": "legal@bayislacapital.com.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+63 990 123 7788"
+      "matched_text": "+63 990 123 7788",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "ph_tin",
-      "matched_text": "345-678-912-000"
+      "matched_text": "345-678-912-000",
+      "rule": "ph_tin"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 2.4B"
+      "matched_text": "PHP 2.4B",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout list"
+      "matched_text": "blackout list",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Atty. Renato D. Silang"
+      "matched_text": "Atty. Renato D. Silang",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jaime O. Laraya"
+      "matched_text": "Mr. Jaime O. Laraya",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "P1234567"
+      "matched_text": "P1234567",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "jolaraya@bayislacapital.com.ph"
+      "matched_text": "jolaraya@bayislacapital.com.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "0012-345-678-901"
+      "matched_text": "0012-345-678-901",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hr@bayislacapital.com.ph"
+      "matched_text": "hr@bayislacapital.com.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "press@bayislacapital.com.ph"
+      "matched_text": "press@bayislacapital.com.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lila M. Quisan"
+      "matched_text": "Ms. Lila M. Quisan",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "insurance_member_id",
-      "matched_text": "PhilHealth No.: 17-123456789-3"
+      "matched_text": "PhilHealth No.: 17-123456789-3",
+      "rule": "insurance_member_id"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Board approved a PHP 2.4B follow-on offering"
+      "matched_text": "Board approved a PHP 2.4B follow-on offering",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "no Form 17-C disclosure has been filed"
+      "matched_text": "no Form 17-C disclosure has been filed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "External sharing of draft MD&A, earnings bridge, and preliminary order book indications remains restricted"
+      "matched_text": "External sharing of draft MD&A, earnings bridge, and preliminary order book indications remains restricted",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "any leak would be material to a reasonable investor"
+      "matched_text": "any leak would be material to a reasonable investor",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "must avoid referencing the PSE ticker or tentative offer size until 17-C is posted"
+      "matched_text": "must avoid referencing the PSE ticker or tentative offer size until 17-C is posted",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "PII",
-      "rule": "insurance_member_id",
-      "matched_text": "SSS No.: 33-1234567-0"
+      "matched_text": "SSS No.: 33-1234567-0",
+      "rule": "insurance_member_id"
     },
     {
       "category": "PII",
-      "rule": "insurance_member_id",
-      "matched_text": "Pag-IBIG MID: 12-345678901-2"
+      "matched_text": "Pag-IBIG MID: 12-345678901-2",
+      "rule": "insurance_member_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1234-5678-9012",
+      "rule": "ph_philsys"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jaime",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: SRC Rule 17 and PSE disclosure readiness; HR/tax data handling for Q3 follow-on offering",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed transaction (MNPI): Board approved a PHP 2.4B follow-on offering on the PSE with target pricing window 12\u201316 June; no Form 17-C disclosure has been filed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft term sheet includes unaudited EBITDA guidance for FY2026 and a standby purchase by Mabini Logistics Corp. (non-public); blackout list to be updated.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "External sharing of draft MD&A, earnings bridge, and preliminary order book indications remains restricted; any leak would be material to a reasonable investor.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "345678901",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "123456789",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@bayislacapital.com.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "jolaraya@bayislacapital.com.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr@bayislacapital.com.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 990 123 7788",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "P1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0012-345-678-901",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1234-5678-9012",
+      "rule": "ph_philsys"
+    },
+    {
+      "category": "PII",
+      "matched_text": "345-678-912-000",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jaime",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: SRC Rule 17 and PSE disclosure readiness; HR/tax data handling for Q3 follow-on offering",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed transaction (MNPI): Board approved a PHP 2.4B follow-on offering on the PSE with target pricing window 12\u201316 June; no Form 17-C disclosure has been filed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft term sheet includes unaudited EBITDA guidance for FY2026 and a standby purchase by Mabini Logistics Corp. (non-public); blackout list to be updated.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "External sharing of draft MD&A, earnings bridge, and preliminary order book indications remains restricted; any leak would be material to a reasonable investor.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PHP 2.4B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "345678901",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "123456789",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -233,23 +368,17 @@
       "reason": "Sample TIN placeholder explicitly noted as not a live identifier"
     }
   ],
+  "source_jurisdiction": "PH",
   "uncertain": [
     {
-      "matched_text": "SEC Reg. No.: CS2023-091234",
       "concept": "PH SEC company registration number",
+      "matched_text": "SEC Reg. No.: CS2023-091234",
       "reason": "Jurisdiction-local company ID not covered by allowed rules"
     },
     {
-      "matched_text": "Registered office: 18/F Cayanan Tower, 1256 Liyab St., Brgy. San Ibon, Makati City, Metro Manila",
       "concept": "Postal address",
+      "matched_text": "Registered office: 18/F Cayanan Tower, 1256 Liyab St., Brgy. San Ibon, Makati City, Metro Manila",
       "reason": "Address PII is legally relevant but no PH address rule is defined in allowed list"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }
