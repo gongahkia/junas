@@ -3,13 +3,140 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@hirayameridian.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 1992-03"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@hirayameridian.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 1992-03"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Positive risk review (intentional example): a Cebu-based payroll analyst (DOB 1992-03), using laptop asset tag HMH-CEB-0421 and badge 08-144, processed payroll to account ending 2719 at Deltora Savings Bank"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "HMH-CEB-0421"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "badge 08-144"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "account ending 2719"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "avoid linking HR and finance fields unless necessary"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "BIR/Tax: use template fields only \u2014 TIN: ___-___-___; RDO Code: ___; do not insert actual digits in working drafts"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Banking controls: use masked references only (Acct No.: XXXX-XXXX-2719), ISIN placeholders (PH-0000-INVALID), and avoid device IMEI entries in service tickets"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Do not replicate the above cluster in working notes; separate location, device tag, and account suffixes across systems where feasible"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "HR files: keep addresses at barangay and city level only in shared trackers; avoid birthdate + barangay + role combinations in a single sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "KYC updates: BSP circular alignment uses anonymized client codes (CL-XXXX) and branch IDs (BR-00), not full names; public customer service numbers may be used for reference only"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not route matters to personal inboxes"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "maintain public-only references and segregate quasi-identifiers"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "TIN: ___-___-___",
+      "reason": "Placeholder template; not an actual ID number"
+    },
+    {
+      "matched_text": "RDO Code: ___",
+      "reason": "Placeholder template; not an actual code"
+    },
+    {
+      "matched_text": "PH-0000-INVALID",
+      "reason": "Invalid sample code placeholder; not PII/MNPI"
+    },
+    {
+      "matched_text": "CUSIP 0000000",
+      "reason": "Invalid sample code; not a real security identifier"
+    },
+    {
+      "matched_text": "PSE symbol TEST",
+      "reason": "Placeholder code; not a real security identifier"
+    },
+    {
+      "matched_text": "CL-XXXX",
+      "reason": "Anonymized placeholder; not a real customer/account code"
+    },
+    {
+      "matched_text": "BR-00",
+      "reason": "Anonymized placeholder; not a real branch identifier"
+    },
+    {
+      "matched_text": "Form 2307.pdf",
+      "reason": "Generic file label; not PII/MNPI"
+    },
+    {
+      "matched_text": "Acct No.: XXXX-XXXX-2719",
+      "reason": "Masked/placeholder account reference; not a full bank account number"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Incident note: a cloud link showed a generic \u201cForm 2307.pdf\u201d label; no personal tax details were uploaded, and the link is no longer accessible",
+      "concept": "cyber_incident_pre_disclosure",
+      "reason": "Mentions an incident and access change but asserts no data exposure; borderline and unlikely to be material MNPI."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

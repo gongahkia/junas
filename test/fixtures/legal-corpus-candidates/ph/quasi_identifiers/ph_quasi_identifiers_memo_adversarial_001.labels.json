@@ -3,13 +3,307 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lira Monteverde"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Nilo Castrillo"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Monteverde"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "l.monteverde@daluyonggp.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.18.34.77"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "s/n TP49B3"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "sid=F0-2A-9B"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1991-07-03"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 34"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "6.25%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 4.0b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 312m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 260m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lira Monteverde"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Nilo Castrillo"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Monteverde"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "l.monteverde@daluyonggp.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.18.34.77"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "s/n TP49B3"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "sid=F0-2A-9B"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1991-07-03"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 34"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Ms. Lira Monteverde, Treasury Supervisor at the Company, born 1991-07-03 (age 34), assigned at Barangay San Lorenzo, Makati, used device DGP-TP-17 (asset tag KASUYO-TP; s/n TP49B3), VPN session 10.18.34.77 at 21:14 PHT"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "TIN 83*-***-**7-0*2"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "A c c t  N o . 9 4 - 3 3 2 - 1 1 8"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@daluyonggp.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@daluyonggp.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo.office@daluyonggp.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.2.3.9"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "acct 22-399-0"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "asset tag KASUYO-TP"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "6.25%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 4.0b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 312m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 260m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "unannounced increase in authorized capital"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project \u201cHabagat-2\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "HR may transmit only redacted PDFs"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "avoid embedding full account numbers or device IDs in subject lines"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "data subject requests"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Company",
+      "reason": "Defined role term, not PII"
+    },
+    {
+      "matched_text": "Sunbay",
+      "reason": "Marketing descriptor; not an identifier"
+    },
+    {
+      "matched_text": "LagunaLite",
+      "reason": "Marketing descriptor; not an identifier"
+    },
+    {
+      "matched_text": "FieldPilot",
+      "reason": "Marketing descriptor; not an identifier"
+    },
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated MAC; not to be labeled as MAC/MAE or MAC address"
+    },
+    {
+      "matched_text": "DLGP-2026",
+      "reason": "Internal issuer code; not personal data"
+    },
+    {
+      "matched_text": "R e f  1 7 - C \u2014 0 5 - 2 2",
+      "reason": "OCR artifact; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "mango-tab-07",
+      "concept": "device_label",
+      "reason": "Device label may be a unique identifier but not covered by device_serial_number/IMEI rules"
+    },
+    {
+      "matched_text": "DOB 03/07",
+      "concept": "partial_dob",
+      "reason": "Partial date may reference date of birth but lacks full specificity for date_of_birth rule"
+    },
+    {
+      "matched_text": "barangay code SLO-05",
+      "concept": "location_code",
+      "reason": "Administrative location code could be quasi-identifying but not covered by allowed PII rules"
+    },
+    {
+      "matched_text": "uid=lmonteverde",
+      "concept": "username",
+      "reason": "Login username is identifying but there is no explicit username rule; could be part of a quasi-identifier"
+    },
+    {
+      "matched_text": "DGP-TP-17",
+      "concept": "device_identifier",
+      "reason": "Device ID appears unique but may not be a serial number per the allowed rule set"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

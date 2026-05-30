@@ -3,13 +3,349 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nara M. Quinto"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jaime R. Lardizabal"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "n.quinto@lunasora.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@lunasora.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal.ops@lunasora.example"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "LHI-PS-1137"
+    },
+    {
+      "category": "PII",
+      "rule": "imei",
+      "matched_text": "358240115140001"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.24.6.19"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1990-11-03"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "(age 35)"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "TIN 074-882-619-000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 1.2 billion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "18%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "28%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout remains in effect"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Bamboo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nara M. Quinto"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jaime R. Lardizabal"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "n.quinto@lunasora.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@lunasora.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal.ops@lunasora.example"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "LHI-PS-1137"
+    },
+    {
+      "category": "PII",
+      "rule": "imei",
+      "matched_text": "358240115140001"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.24.6.19"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1990-11-03"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "(age 35)"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "TIN 074-882-619-000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "account ending 2271"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "account ending 4410"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "LHI-LTP-0932"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "Q2-2025-7F9C"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "circulate only on a need-to-know basis"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "For example, Ms. Nara M. Quinto (Payroll Specialist, Lunasora Holdings, Inc., Vistamar head office) is documented in HRMS as employee ID LHI-PS-1137 with contact n.quinto@lunasora.example"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Her records include date of birth 1990-11-03 (age 35), residence near Barangay Malinaw, a company laptop asset tag LHI-LTP-0932, a mobile IMEI 358240115140001, and VPN session ref Q2-2025-7F9C from 10.24.6.19 at 22:11 PHT"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Payroll shows a salary deposit to Orion Palinia Bank account ending 2271 and tax details under TIN 074-882-619-000; linked together, these are personal data under the PDPA"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "A subtle identifiability signal arises from building access logs noting an 08:17 QR check-in tied to device model Orion X2 and Wi\u2011Fi SSID LHI-Vistamar-5G in the same time window"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 29"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 1.2 billion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "18%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "28%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout remains in effect"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Bamboo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "unannounced acquisition of Aurelio Agro-Systems Corp"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "concurrent private placement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "binding term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_discount_rate",
+      "matched_text": "12% discount"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not reference the target or pricing terms in emails, chat, or external calls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not confirm or deny guidance updates until the disclosure is live"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "Any approaches by analysts or brokers must be routed to Investor Relations"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Prior to public disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Corporate Secretary",
+      "reason": "Role noun/title, not a unique identifier or defined personal name"
+    },
+    {
+      "matched_text": "health",
+      "reason": "Negated sensitive-category bait; explicitly stated as not processed"
+    },
+    {
+      "matched_text": "biometric",
+      "reason": "Negated sensitive-category bait; explicitly stated as not processed"
+    },
+    {
+      "matched_text": "children\u2019s data",
+      "reason": "Negated sensitive-category bait; explicitly stated as not processed"
+    },
+    {
+      "matched_text": "Android device",
+      "reason": "Generic device type; non-identifying on its own"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Wi\u2011Fi SSID LHI-Vistamar-5G",
+      "concept": "network identifier",
+      "reason": "Unique SSID may identify a location/device but not clearly covered by allowed PII rules"
+    },
+    {
+      "matched_text": "Orion X2",
+      "concept": "device model",
+      "reason": "Device model can act as a quasi-identifier but no specific rule for device model names"
+    },
+    {
+      "matched_text": "08:17 QR check-in",
+      "concept": "access log event",
+      "reason": "Timestamp and check-in event could be personal data yet not mapped to a specific allowed PII rule"
+    },
+    {
+      "matched_text": "Vistamar head office",
+      "concept": "work location",
+      "reason": "Location can contribute to identifiability but lacks a direct rule except in combinations"
+    },
+    {
+      "matched_text": "BIR Form 2316",
+      "concept": "tax form identifier",
+      "reason": "Document type implies tax/PII content but is not itself an enumerated identifier in the rule set"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
