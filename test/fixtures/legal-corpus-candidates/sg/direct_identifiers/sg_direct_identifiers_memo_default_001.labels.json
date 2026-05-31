@@ -36,11 +36,6 @@
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+65 6123 0000"
-    },
-    {
-      "category": "PII",
       "rule": "named_person",
       "matched_text": "Ms. Charmaine Ong"
     },
@@ -114,6 +109,11 @@
     {
       "matched_text": "ACRA extracts, auditor engagement letters, and GST registration status (via UEN) are generally available; MAS approvals not required for ordinary share acquisition below threshold.",
       "reason": "Public, benign, or negated material-event context; not strict MNPI truth."
+    },
+    {
+      "matched_text": "+65 6123 0000",
+      "reason": "Published switchboard explicitly marked as not a personal contact; keep out of strict PII expectations.",
+      "rule": "phone_number"
     }
   ],
   "uncertain": [
@@ -144,7 +144,7 @@
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16. Post-AU/CN global precision realignment moved published-switchboard phone bait out of strict must_detect and into must_not_detect.",
   "ideal_must_detect": [
     {
       "category": "MNPI",
@@ -228,11 +228,6 @@
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+65 6123 0000"
-    },
-    {
-      "category": "PII",
       "rule": "named_person",
       "matched_text": "Ms. Charmaine Ong"
     }
@@ -240,10 +235,11 @@
   "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
   "_label_tier_note": "SG Stage A cleanup: must_detect is strict detector-aligned benchmark truth after second-pass false-positive removal; ideal_must_detect preserves broader statutory gaps. Project-owner approval is for internal benchmarking, not legal advice or external procurement claims.",
   "_agent_review": {
-    "reviewer": "codex-gpt-agent-cleanup-pass",
-    "status": "second_pass_blockers_cleaned_owner_approved",
-    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
-    "notes": "Removed second-pass false-positive labels, added must-not suppressions, and recorded project-owner approval for internal benchmarking only."
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "status": "post_au_cn_global_precision_realign_owner_approved",
+    "source_report": "/tmp/kaypoh-candidates-after-au-cn-reviewed.json",
+    "notes": "Moved SG published-switchboard phone bait out of strict must_detect after shared public-phone suppression correctly stopped emitting it; recorded as must_not_detect for future precision gating.",
+    "reviewed_at_utc": "2026-05-31T05:20:21Z"
   },
   "_agent_review_history": [
     {
@@ -257,6 +253,13 @@
       "status": "second_pass_needs_edit_pending_human_approval",
       "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
       "notes": "Second-pass GPT-style review found label-quality blockers; do not promote or mark human-approved until labels/detectors are edited and a real human reviewer approves."
+    },
+    {
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "status": "post_au_cn_global_precision_realign_owner_approved",
+      "source_report": "/tmp/kaypoh-candidates-after-au-cn-reviewed.json",
+      "notes": "Moved SG published-switchboard phone bait out of strict must_detect after shared public-phone suppression correctly stopped emitting it; recorded as must_not_detect for future precision gating.",
+      "reviewed_at_utc": "2026-05-31T05:20:21Z"
     }
   ],
   "_owner_acceptance": {

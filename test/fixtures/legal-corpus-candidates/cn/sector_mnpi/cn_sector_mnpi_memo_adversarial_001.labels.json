@@ -1,0 +1,426 @@
+{
+  "doc_id": "cn_sector_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "source_jurisdiction": "CN",
+  "destination_jurisdiction": "CN",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "lin.ya@qiluo-holdings.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+86-20-0000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lin Ya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Zhou Qi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Qi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Per C S R C guidance and SSE Listing Rules, a blackout window for directors and designated employees is in effect 2026-06-01 to 2026-06-22; insider-list “Project Lantern” is updated in DocSafe Dataroom."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Employment workflows: offer letters for pre-IPO hires must include PIPL consents and acknowledgement of trading restrictions; contractors added to insider list require attestations every 30 days."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Lantern"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "RMB 68"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Lantern"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lin Ya"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "lin.ya@qiluo-holdings.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "CAC 安全评估"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redact PII prior to export"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "RMB 68–74/tonne CO2e"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@qiluo-holdings.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cn_phone",
+      "matched_text": "+86-20-0000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Zhou Qi"
+    },
+    {
+      "category": "PII",
+      "rule": "cn_uscc",
+      "matched_text": "91-8Xo3-0 0 9 7 2 1 9 9"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "QBK-***-**71"
+    },
+    {
+      "category": "PII",
+      "rule": "cn_resident_id",
+      "matched_text": "44************23X"
+    },
+    {
+      "category": "PII",
+      "rule": "cn_resident_id",
+      "matched_text": "32******781X"
+    },
+    {
+      "category": "PII",
+      "rule": "cn_resident_id",
+      "matched_text": "51******09 2 X"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minors under 14"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "digital payment tokens"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "carbon-offset token"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "LanternChain"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "carbon-credit token pilot"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "carbon-offset token pilot"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "detected unauthorized access"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "metadata exfiltration"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "to be transferred to our SG SOC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Confidential"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+86-20-0000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Qi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Per C S R C guidance and SSE Listing Rules, a blackout window for directors and designated employees is in effect 2026-06-01 to 2026-06-22; insider-list “Project Lantern” is updated in DocSafe Dataroom."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Employment workflows: offer letters for pre-IPO hires must include PIPL consents and acknowledgement of trading restrictions; contractors added to insider list require attestations every 30 days."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "RMB 68"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "not a MAC",
+      "reason": "Negated MAC; do not label as Material Adverse Change"
+    },
+    {
+      "matched_text": "information barrier",
+      "reason": "Educational context only; not a live compliance control or MNPI"
+    },
+    {
+      "matched_text": "insider lists",
+      "reason": "Educational context only; not a live insider-list context"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "44************23X",
+      "concept": "cn_resident_id (masked)",
+      "reason": "Masked ID does not match strict CN Resident ID pattern but indicates sensitive identifier"
+    },
+    {
+      "matched_text": "32******781X",
+      "concept": "cn_resident_id (masked)",
+      "reason": "Obfuscated ID fragment; ambiguity prevents deterministic match"
+    },
+    {
+      "matched_text": "51******09 2 X",
+      "concept": "cn_resident_id (masked)",
+      "reason": "Obfuscated with spaces; unclear if valid CN Resident ID"
+    },
+    {
+      "matched_text": "QBK-***-**71",
+      "concept": "bank account (masked)",
+      "reason": "Obfuscated payroll account; pattern not sufficient for strict bank_account rule"
+    },
+    {
+      "matched_text": "91-8Xo3-0 0 9 7 2 1 9 9",
+      "concept": "cn_uscc (non-standard)",
+      "reason": "Formatting and characters deviate from standard 18-char USCC; may evade strict detection"
+    },
+    {
+      "matched_text": "hashed mobile numbers",
+      "concept": "phone PII (hashed)",
+      "reason": "Refers to phone numbers but none present; does not match phone_number pattern"
+    },
+    {
+      "matched_text": "minors under 14",
+      "concept": "minor_data_reference (negated)",
+      "reason": "Mention is negated; may be excluded from strict detection despite sensitivity of minors’ data"
+    },
+    {
+      "matched_text": "ql-compliance://room/insider",
+      "concept": "internal_session_id",
+      "reason": "Looks like an internal room URI; may function as a session or room identifier but rule coverage unclear"
+    },
+    {
+      "matched_text": "https://intra.qiluo/.well-known/cac?ticket=7a9e-PII-xx",
+      "concept": "internal_session_id / tracking token",
+      "reason": "Query ticket resembles a tracking token; not clearly covered by existing ID rules"
+    },
+    {
+      "matched_text": "ext 6291",
+      "concept": "phone extension",
+      "reason": "Extension may be a contact identifier but not covered by phone_number rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "approved",
+  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
+  "_agent_review": {
+    "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-cn-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-cn-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved CN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T05:18:26Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved CN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T05:18:26Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T05:18:26Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+    "status": "owner_approved_cn_stage_a_for_internal_benchmarking"
+  }
+}

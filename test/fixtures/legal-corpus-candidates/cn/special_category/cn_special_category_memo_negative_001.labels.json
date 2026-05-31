@@ -1,0 +1,203 @@
+{
+  "doc_id": "cn_special_category_memo_negative_001",
+  "document_type": "memo",
+  "source_jurisdiction": "CN",
+  "destination_jurisdiction": "CN",
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider lists"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lumenfox.internal"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@orchidcap.example"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "a disclosed Type 1 diabetes condition used for reasonable accommodation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimization"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "engineering test logs sent to our Singapore affiliate rely on CAC standard clauses"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "material event"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ren Qiu"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not include personal phone numbers in tickets"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "excludes resident ID copies"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role defined term, not a person identifier"
+    },
+    {
+      "matched_text": "IR mailbox",
+      "reason": "Role title only, not PII"
+    },
+    {
+      "matched_text": "Board Secretariat",
+      "reason": "Role title only, not PII"
+    },
+    {
+      "matched_text": "DragonWave 3.0",
+      "reason": "Product name false-positive bait"
+    },
+    {
+      "matched_text": "Jade Tigers sponsorship",
+      "reason": "Sports/team sponsorship reference, not PII/MNPI"
+    },
+    {
+      "matched_text": "The Starlight Inclusion Charter",
+      "reason": "Policy name false-positive bait"
+    },
+    {
+      "matched_text": "Lotus Wellness+ policy",
+      "reason": "Policy name false-positive bait"
+    },
+    {
+      "matched_text": "Great Wall perimeter",
+      "reason": "Metaphor/network label, not PII"
+    },
+    {
+      "matched_text": "Silk Road DMZ",
+      "reason": "Metaphor/network label, not PII"
+    },
+    {
+      "matched_text": "Bamboo Net",
+      "reason": "Metaphor/network label, not PII"
+    },
+    {
+      "matched_text": "CloudKoi IDS",
+      "reason": "Product label, not PII"
+    },
+    {
+      "matched_text": "SnowPeony DLP",
+      "reason": "Product label, not PII"
+    },
+    {
+      "matched_text": "9134-00AB-0000-XYZ",
+      "reason": "Placeholder corporate USCC-like string, non-natural-person ID"
+    },
+    {
+      "matched_text": "Resident ID No.: ________",
+      "reason": "Blank template field, not actual ID"
+    },
+    {
+      "matched_text": "HR-00XX-2026",
+      "reason": "Template placeholder, not a real employee ID"
+    },
+    {
+      "matched_text": "9***********X",
+      "reason": "Masked placeholder, not an actual identifiable number"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "requires separate consent",
+      "concept": "consent requirement marker",
+      "reason": "Indicates need for data subject consent under PIPL, but allowed rules only include withdrawal-specific marker"
+    },
+    {
+      "matched_text": "separate PIPL consent file",
+      "concept": "consent record requirement",
+      "reason": "Implies consent documentation requirement; no explicit allowed rule for general consent markers"
+    },
+    {
+      "matched_text": "do not identify natural persons",
+      "concept": "de-identification/anonymization marker",
+      "reason": "Relevant to identifiability under PIPL and cross-border context, but not clearly mapped to an allowed rule"
+    },
+    {
+      "matched_text": "pre-disclosure",
+      "concept": "nonpublic_marker",
+      "reason": "Refers to information before public disclosure; useful MNPI signal but not an explicit allowed trigger phrase"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "approved",
+  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
+  "_agent_review": {
+    "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-cn-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-cn-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved CN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T05:18:26Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved CN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T05:18:26Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T05:18:26Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+    "status": "owner_approved_cn_stage_a_for_internal_benchmarking"
+  }
+}

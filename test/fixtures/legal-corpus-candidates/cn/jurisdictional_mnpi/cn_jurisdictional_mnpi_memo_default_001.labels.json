@@ -1,0 +1,434 @@
+{
+  "doc_id": "cn_jurisdictional_mnpi_memo_default_001",
+  "document_type": "memo",
+  "source_jurisdiction": "CN",
+  "destination_jurisdiction": "CN",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimization"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Zhao Wei"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lin Mei"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Qiu Lanying"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ren Guodong"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "guardian consent"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "MNPI identification (Q2业绩预告): The draft Q2 performance forecast indicates a >50% YoY decline in net profit, meeting the Exchange’s 业绩预告 trigger; until the 临时公告 is released via the designated media before the next trading day open, this is 未公开的内幕信息."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Selective disclosure controls: The analyst briefing on 2026-06-03 must confine discussion to publicly disclosed content; IR must file an 投资者关系活动记录 within two trading days; no guidance or non-public metrics may be shared."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Potential M&A MNPI: The proposed acquisition of Baoyuan Sensors Ltd. (约占最近一期经审计净资产的12%) surpasses the 10% threshold for major transactions; the draft board resolution and term sheet are 未公开 and constitute 内幕信息; expect disclosure by 临时公告 promptly upon board approval, with possible 停牌 per the Exchange rules."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Insider management: Maintain and update the 内幕信息知情人名单 for the earnings forecast and M&A; obtain acknowledgments; Legal will monitor email/calendar invites for selective disclosure risk; questions to IR should be answered by pointing to 公开发文."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Disclosure timing plan: Target to publish the 业绩预告 临时公告 by 07:30 Beijing Time on the next trading day via 指定媒体; until then, 严禁选择性披露 and avoid one-on-one guidance to analysts or key customers."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "50%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "cn_uscc",
+      "matched_text": "9135Z0X9A1B2C3D4E"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Zhao Wei"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lin Mei"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Qiu Lanying"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ren Guodong"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "赵先生"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "林女士"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "邱兰英女士"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "任国东先生"
+    },
+    {
+      "category": "PII",
+      "rule": "cn_resident_id",
+      "matched_text": "41************23X"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "under 14"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "health exam results"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "bank account tail numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "do not transmit data cross-border"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "block any export of employee PI"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "no overseas processing absent security assessment"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimization"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@hengzhi-tech.cn"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": ">50% YoY decline in net profit"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "The proposed acquisition of Baoyuan Sensors Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "未公开"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "窗口期"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no guidance or non-public metrics may be shared"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure risk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "avoid one-on-one guidance to analysts or key customers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "内幕信息知情人名单"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": ">50%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "未公开的内幕信息"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "严禁选择性披露"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "个人信息出境标准合同"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "guardian consent"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "MNPI identification (Q2业绩预告): The draft Q2 performance forecast indicates a >50% YoY decline in net profit, meeting the Exchange’s 业绩预告 trigger; until the 临时公告 is released via the designated media before the next trading day open, this is 未公开的内幕信息."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Selective disclosure controls: The analyst briefing on 2026-06-03 must confine discussion to publicly disclosed content; IR must file an 投资者关系活动记录 within two trading days; no guidance or non-public metrics may be shared."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Potential M&A MNPI: The proposed acquisition of Baoyuan Sensors Ltd. (约占最近一期经审计净资产的12%) surpasses the 10% threshold for major transactions; the draft board resolution and term sheet are 未公开 and constitute 内幕信息; expect disclosure by 临时公告 promptly upon board approval, with possible 停牌 per the Exchange rules."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Insider management: Maintain and update the 内幕信息知情人名单 for the earnings forecast and M&A; obtain acknowledgments; Legal will monitor email/calendar invites for selective disclosure risk; questions to IR should be answered by pointing to 公开发文."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Disclosure timing plan: Target to publish the 业绩预告 临时公告 by 07:30 Beijing Time on the next trading day via 指定媒体; until then, 严禁选择性披露 and avoid one-on-one guidance to analysts or key customers."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "50%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role noun/defined term, not PII or MNPI."
+    },
+    {
+      "matched_text": "Board of Directors",
+      "reason": "Role noun, not PII/MNPI."
+    },
+    {
+      "matched_text": "Independent Director",
+      "reason": "Role noun, not PII/MNPI."
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Role noun, not PII/MNPI."
+    },
+    {
+      "matched_text": "the Company",
+      "reason": "Generic role noun, not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "obtain guardian consent",
+      "concept": "consent requirement for minors",
+      "reason": "Consent is legally relevant under PIPL but only withdrawal is in allowed markers."
+    },
+    {
+      "matched_text": "encryption at rest within the PRC",
+      "concept": "security control",
+      "reason": "Relevant data security measure but not mapped to an allowed rule category."
+    },
+    {
+      "matched_text": "bank account tail numbers",
+      "concept": "partial bank account identifier",
+      "reason": "Indicates financial PI but lacks a numeric string that strict rules would match."
+    },
+    {
+      "matched_text": "possible 停牌",
+      "concept": "trading halt risk",
+      "reason": "Market/compliance sensitive but not explicitly covered by given MNPI rule list."
+    },
+    {
+      "matched_text": "07:30 Beijing Time",
+      "concept": "disclosure timing",
+      "reason": "Embargo-like timing detail but not one of the explicit embargo markers."
+    },
+    {
+      "matched_text": "内幕信息",
+      "concept": "inside information (generic)",
+      "reason": "MNPI conceptually, but without explicit non-public qualifier per the allowed marker."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "approved",
+  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
+  "_agent_review": {
+    "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-cn-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-cn-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved CN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T05:18:26Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved CN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T05:18:26Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T05:18:26Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+    "status": "owner_approved_cn_stage_a_for_internal_benchmarking"
+  }
+}

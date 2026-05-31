@@ -1217,6 +1217,7 @@ _FUNCTIONAL_CONTACT_CONTEXT_RE = re.compile(
     r"role/functional\s+mailbox|shared\s+inbox|treasury\s+contact|"
     r"compliance\s+desk|deal\s+desk|contact\s+compliance|route\s+enquiries|"
     r"queries\s+(?:to|contact)|via\s+docroom|"
+    r"public\s+(?:queries|enquiries)|regulatory\s+liaison|"
     r"generic\s+help\s*desk|public(?:-facing)?\s+help\s*desk|public\s+helpdesk|"
     r"public\s+helplines?|general\s+(?:queries|enquiries)|not\s+personal\s+data|"
     r"not\s+linked\s+to\s+an?\s+identifiable\s+individual"
@@ -1227,7 +1228,9 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"\b(?:"
     r"compliance\s+desk|deal\s+desk|"
     r"public(?:-facing)?\s+help\s*desk|public\s+helpdesk|public\s+helplines?|"
-    r"public\s+hotline|public\s+line|"
+    r"public\s+hotline|public\s+line|public\s+service\s+line|"
+    r"public\s+(?:queries|enquiries)|"
+    r"switchboard|reception|information\s+line|"
     r"hr\s+help\s*desk|general\s+line|"
     r"hotline\s+investor|nomor\s+publik|bukan\s+nomor\s+pribadi|"
     r"tổng\s+đài|công\s+khai|không\s+dùng\s+số\s+cá\s+nhân|"
@@ -1239,8 +1242,8 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
 _ALWAYS_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
     "admin", "ap", "ar", "billing", "capitalmarkets", "corpsec", "cosec",
     "compliance", "dealroom", "disclosure", "docroom", "dpo", "help", "helpdesk",
-    "irmailbox", "mna", "press", "privacy", "privacydesk", "room", "support",
-    "treasury", "walloffice",
+    "irmailbox", "listings", "media", "mna", "press", "privacy", "privacydesk",
+    "room", "support", "treasury", "walloffice",
 })
 _CONTEXTUAL_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
     "contact", "info", "legal",
@@ -1417,6 +1420,8 @@ def _is_negated_material_adverse_change_context(text: str, start: int, end: int)
         r"nothing\s+herein\s+constitutes[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
         r"nothing\s+herein\s+constitutes\s+or\s+admits[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
         r"not\s+intended\s+to\s+trigger[^\n.;]{0,80}(?:mac|mae)|"
+        r"does\s+not\s+include\s+any[^\n.;]{0,120}material\s+adverse\s+change\s+trigger|"
+        r"mac\s+clause[^\n.;]{0,160}does\s+not\s+by\s+itself\s+signal\s+a\s+material\s+adverse\s+change|"
         r"material\s+adverse\s+change[^\n.;]{0,80}not\s+triggered|"
         r"không\s+phải\s+là[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
         r"tidak[^\n.;]{0,80}material\s+adverse\s+change|"
@@ -1461,6 +1466,7 @@ def _is_benign_definitive_agreement_context(text: str, start: int, end: int) -> 
         r"as\s+announced[^\n]{0,160}no\s+binding\s+commercial\s+terms|"
         r"no\s+executed[^\n.;]{0,60}term\s+sheet\s+exists|"
         r"no\s+annexes[^\n.;]{0,80}\bSPA\b|"
+        r"term\s+sheet\s+sample[^\n.;]{0,120}training[^\n.;]{0,120}public[- ]source|"
         r"not\s+an\s+actual\s+client\s+identifier|"
         r"illustrative\s+case\s+studies|public\s+journals|do\s+not\s+pertain)\b",
         context,
@@ -1536,6 +1542,7 @@ def _is_educational_mnpi_marker_context(text: str, start: int, end: int) -> bool
         r"training\s+materials?\s+only|policy\s+training\s+examples?|"
         r"training\s+(?:weeks|decks|drills)|tabletop\s+drills|"
         r"educational\s+and\s+not\s+transaction[- ]related|"
+        r"for\s+educational\s+purposes\s+only|"
         r"not\s+as\s+market[- ]moving\s+events?|educational\s+example\s+only|"
         r"educational\s+note[^\n.;]{0,120}purely\s+instructional"
         r")\b",

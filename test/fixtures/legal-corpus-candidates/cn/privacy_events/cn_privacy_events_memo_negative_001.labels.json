@@ -1,0 +1,240 @@
+{
+  "doc_id": "cn_privacy_events_memo_negative_001",
+  "document_type": "memo",
+  "source_jurisdiction": "CN",
+  "destination_jurisdiction": "CN",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "P0000000"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Registration details: USCC (placeholder) 9Z9Z9Z9Z9Z9Z9Z9Z9; registered in Nanshan, Shenzhen; A‑share STAR Market candidate; all offering milestones already filed and publicly disclosed via CSRC."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@guangyuan-prism.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer status"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation enforced in HRIS"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "P0000000"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID: E-00-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "cn_uscc",
+      "matched_text": "USCC (placeholder) 9Z9Z9Z9Z9Z9Z9Z9Z9"
+    },
+    {
+      "category": "PII",
+      "rule": "cn_uscc",
+      "matched_text": "USCC (if vendor): XXXXX-XXXXXXXX-XXXX"
+    },
+    {
+      "category": "PII",
+      "rule": "cn_resident_id",
+      "matched_text": "Resident ID No"
+    },
+    {
+      "category": "PII",
+      "rule": "cn_resident_id",
+      "matched_text": "11000019990101XXXX"
+    },
+    {
+      "category": "PII",
+      "rule": "cn_resident_id",
+      "matched_text": "Resident ID"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Bank Account"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "6214 **** **** 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "processing purposes narrowed to HR administration"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "fields are suppressed for interns"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "bank account entry is limited to last four digits for verification"
+    },
+    {
+      "category": "PII",
+      "rule": "cn_resident_id",
+      "matched_text": "masked resident-ID copies"
+    },
+    {
+      "category": "PII",
+      "rule": "cn_resident_id",
+      "matched_text": "resident ID images"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "SCC (2024)"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "CAC filing confirmation received"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Data localisation remains the default"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minors under 14"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "Passport No"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Registration details: USCC (placeholder) 9Z9Z9Z9Z9Z9Z9Z9Z9; registered in Nanshan, Shenzhen; A‑share STAR Market candidate; all offering milestones already filed and publicly disclosed via CSRC."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "inside information",
+      "reason": "Negated MNPI context: document states it does not contain inside information."
+    },
+    {
+      "matched_text": "listing timetable",
+      "reason": "Public context only; mirrors CSRC announcements, not MNPI."
+    },
+    {
+      "matched_text": "price-sensitive information",
+      "reason": "Explicitly negated; statement says the memo does not contain price-sensitive information."
+    }
+  ],
+  "uncertain": [],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "approved",
+  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
+  "_agent_review": {
+    "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-cn-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-cn-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved CN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T05:18:26Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved CN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T05:18:26Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T05:18:26Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+    "status": "owner_approved_cn_stage_a_for_internal_benchmarking"
+  }
+}

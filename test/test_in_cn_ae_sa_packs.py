@@ -94,6 +94,34 @@ class RecognizerFiringTests(unittest.TestCase):
         r = self._review("Passport E12345678 issued.", "CN")
         self.assertIn("cn_passport", {f.rule for f in r.findings})
 
+    def test_cn_public_service_line_does_not_fire_as_phone(self):
+        r = self._review(
+            "For queries, call +86 400-000-0000; this is a public service line.",
+            "CN",
+        )
+        self.assertNotIn("phone_number", {f.rule for f in r.findings})
+
+    def test_cn_educational_insider_list_and_barrier_bait_do_not_fire(self):
+        r = self._review(
+            "For educational purposes only: explain how insider lists support "
+            "compliance and what an information barrier is.",
+            "CN",
+        )
+        rules = {f.rule for f in r.findings}
+        self.assertNotIn("insider_list_marker", rules)
+        self.assertNotIn("information_barrier_marker", rules)
+
+    def test_cn_training_term_sheet_and_negated_mac_bait_do_not_fire(self):
+        r = self._review(
+            "The term sheet sample in this training deck is public-source guidance. "
+            "The mac clause language is negated and does not by itself signal a "
+            "material adverse change.",
+            "CN",
+        )
+        rules = {f.rule for f in r.findings}
+        self.assertNotIn("definitive_agreement", rules)
+        self.assertNotIn("material_adverse_change", rules)
+
     # --- AE ---
 
     def test_ae_emirates_id_fires_dashed(self):

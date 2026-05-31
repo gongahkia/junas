@@ -43,6 +43,6 @@ validator = "au_acn"
 [[recognizers]]
 name = "Australian postal address"
 rule_name = "au_postal_address"
-pattern = '\b(NSW|VIC|QLD|WA|SA|TAS|ACT|NT)\s+(\d{4})\b'
+pattern = '(?-i:\b(?:NSW|VIC|QLD|WA|SA|TAS|ACT|NT)\s+\d{4}\b)'
 severity = "medium"
 reason = "Australian state + 4-digit postcode"

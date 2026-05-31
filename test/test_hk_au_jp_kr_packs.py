@@ -66,6 +66,10 @@ class HkAuJpKrRecognizerTests(unittest.TestCase):
         self.assertIn("au_abn", rules)
         self.assertIn("au_acn", rules)
 
+    def test_au_postal_address_is_case_sensitive_for_act(self):
+        self.assertIn("au_postal_address", self._rules("123 George St, Sydney NSW 2000.", "AU"))
+        self.assertNotIn("au_postal_address", self._rules("Corporations Act 2001 applies.", "AU"))
+
     def test_jp_my_number_and_corporate_number_fire(self):
         rules = self._rules("Individual Number 123456789018; Corporate Number 8700110005901.", "JP")
         self.assertIn("jp_my_number", rules)
@@ -155,6 +159,17 @@ class HkAuJpKrRecognizerTests(unittest.TestCase):
             "back-up Q&A references only public-source materials."
         )
         self.assertIn("financial_percentage", self._rules(text, "SG"))
+
+    def test_au_public_contact_channels_and_negated_mac_do_not_fire(self):
+        text = (
+            "Public queries to 1300 555 555 (switchboard) or media@example.com.au; "
+            "regulatory liaison via listings@asx.example.au or reception +61 2 8123 4400. "
+            "This memo does not include any MAC-like clause or material adverse change trigger."
+        )
+        rules = self._rules(text, "AU")
+        self.assertNotIn("phone_number", rules)
+        self.assertNotIn("email_address", rules)
+        self.assertNotIn("material_adverse_change", rules)
 
 
 class HkAuJpKrRationaleTests(unittest.TestCase):

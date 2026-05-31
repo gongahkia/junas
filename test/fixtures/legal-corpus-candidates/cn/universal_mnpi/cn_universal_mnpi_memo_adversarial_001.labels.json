@@ -1,0 +1,411 @@
+{
+  "doc_id": "cn_universal_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "source_jurisdiction": "CN",
+  "destination_jurisdiction": "CN",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "li.anran+deal@qilancloud.cn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance-ops@qilancloud.cn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "88 33 12 0 0 7"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Li Anran"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "todo: circulate pre-read, update annexures to the definitive agreement, reconcile cap table, book data room audit; unrelated: spa-day for the ops team remains optional and not part of the transaction timeline."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Funds flow: escrow at Huayang Commercial Bank (fictional) acct: 3 8 0-***-4 9 2; closing deliverables checklist includes tax clearance letters and employment covenant certificates."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "do not distribute"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Clay Bamboo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "RMB 420,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "18.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "420,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "非公开/内幕信息"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Clay Bamboo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet (2026-06-01)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "d e f i n i t i v e   a g r e e m e n t"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Draft SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "18.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "RMB 420,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "secondary sale of 18.5% of the issuer’s outstanding shares"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to C S R C registration and STAR Market admission"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo=2026-07-15T09%3A30%2B08%3A00"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "for board eyes only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list updates"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "must not be circulated externally"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "do not distribute"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "insider information under PRC Securities Law before public disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading in the issuer’s securities is prohibited until public announcement on the STAR Market bulletin"
+    },
+    {
+      "category": "PII",
+      "rule": "cn_uscc",
+      "matched_text": "9 1 0 0-XY88 33 12 0 0 7 Q"
+    },
+    {
+      "category": "PII",
+      "rule": "cn_uscc",
+      "matched_text": "Unified Social Credit Code (USCC): 9 1 0 0-XY88 33 12 0 0 7 Q"
+    },
+    {
+      "category": "PII",
+      "rule": "cn_resident_id",
+      "matched_text": "居民身份证: 44*****1988 0 7 3 1 ****"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "acct: 3 8 0-***-4 9 2"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "li.anran+deal@qilancloud.cn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance-ops@qilancloud.cn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Li Anran"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "may be transferred to a Singapore HR processor under the Standard Contract"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "CAC 安全评估 filing will be prepared"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "resident ID fields will be masked"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "bank account numbers salted/hashed prior to testing"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "no minors under 14 are included"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "88 33 12 0 0 7"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "todo: circulate pre-read, update annexures to the definitive agreement, reconcile cap table, book data room audit; unrelated: spa-day for the ops team remains optional and not part of the transaction timeline."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Funds flow: escrow at Huayang Commercial Bank (fictional) acct: 3 8 0-***-4 9 2; closing deliverables checklist includes tax clearance letters and employment covenant certificates."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "420,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role noun/defined party, not PII or MNPI"
+    },
+    {
+      "matched_text": "counterparty seller",
+      "reason": "Role noun, not PII or MNPI"
+    },
+    {
+      "matched_text": "arranger",
+      "reason": "Role noun, not PII or MNPI"
+    },
+    {
+      "matched_text": "Issuer’s counsel",
+      "reason": "Role noun, not PII or MNPI"
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Role noun/title, not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "Finance/IR",
+      "reason": "Department/roles, not PII or MNPI"
+    },
+    {
+      "matched_text": "working group",
+      "reason": "Group/role reference, not PII or MNPI"
+    },
+    {
+      "matched_text": "spa-day",
+      "reason": "Adversarial bait; not a Share Purchase Agreement"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "ext. 8029",
+      "concept": "phone extension",
+      "reason": "Contact detail but not a full phone_number; unclear if it should be labeled under phone_number"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "approved",
+  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
+  "_agent_review": {
+    "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-cn-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-cn-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved CN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T05:18:26Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved CN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T05:18:26Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T05:18:26Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+    "status": "owner_approved_cn_stage_a_for_internal_benchmarking"
+  }
+}
