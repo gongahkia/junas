@@ -3,13 +3,271 @@
   "document_type": "memo",
   "source_jurisdiction": "AU",
   "destination_jurisdiction": "AU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya K. Nandakumar"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 03/02/1985"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pnandakumar@wallabygrid.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "WGS\u2011IT\u20111192"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EMP\u201188347"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "au\u2011vpn\u20112026\u201106\u201118T23:14Z/7e1c4"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "au\u20117e1c4\u201123:14"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "medical certificate dated 15 Jun 2026 (non\u2011work sprain; fit to return 20 Jun)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. A. Fenwick"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Leon T. Mariner"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@wallabygrid.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+61 2 7777 4400"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "A$42"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "8\u201310%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya K. Nandakumar"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 03/02/1985"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pnandakumar@wallabygrid.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "WGS\u2011IT\u20111192"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EMP\u201188347"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "au\u2011vpn\u20112026\u201106\u201118T23:14Z/7e1c4"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "au\u20117e1c4\u201123:14"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "medical certificate dated 15 Jun 2026 (non\u2011work sprain; fit to return 20 Jun)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. A. Fenwick"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Leon T. Mariner"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@wallabygrid.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+61 2 7777 4400"
+    },
+    {
+      "category": "PII",
+      "rule": "au_postal_address",
+      "matched_text": "Depot 3, Kestrel Park, Corunda NSW"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "AL\u201151\u201123\u20114567"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "GXY10\u20111029"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "AL\u201100\u201100\u20119999"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 17/09/1984"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1985\u201102\u201103"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Ms. Priya K. Nandakumar (Risk Program Lead, WGS) \u2014 DOB 03/02/1985; location: Depot 3, Kestrel Park, Corunda NSW; device: Dell Latitude asset WGS\u2011IT\u20111192; email: pnandakumar@wallabygrid.com.au; employee ref EMP\u201188347; VPN session au\u2011vpn\u20112026\u201106\u201118T23:14Z/7e1c4; internal ledger acct AL\u201151\u201123\u20114567"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "ht tps://intra.wgs.local/r?emp=EMP\u201188347&dob=1985\u201102\u201103&dev=WGS\u2011IT\u20111192"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "review the URL parameter policy to prevent inadvertent PII leakage"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Draft term sheet to acquire Sunquarry Systems Pty Ltd (private)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "A$42"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "8\u201310%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "would be expected to materially affect WGS securities"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "circulate only on need\u2011to\u2011know"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC reference; do not label as material_adverse_change per rule 8."
+    },
+    {
+      "matched_text": "ab:cd:ef:gh:ij:kl",
+      "reason": "False-positive bait; explicitly noted as not a MAC address."
+    },
+    {
+      "matched_text": "project koala\u2011beta",
+      "reason": "Does not match 'Project <CapitalizedName>' transaction codename pattern."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "ref HC\u20111811",
+      "concept": "medical_record_number",
+      "reason": "Clinic reference could be a patient record identifier but is ambiguous and not clearly a formal medical record number."
+    },
+    {
+      "matched_text": "CreditWorks AU check (score 612, no defaults)",
+      "concept": "credit_score",
+      "reason": "Personal credit score is sensitive but not explicitly covered by a listed PII rule."
+    },
+    {
+      "matched_text": "card suffix \u20266621",
+      "concept": "payment_card_suffix",
+      "reason": "Partial PAN may still be identifying in context but no explicit rule for card suffix; not a full card number."
+    },
+    {
+      "matched_text": "suburb Redfield WA",
+      "concept": "au_postal_address (partial)",
+      "reason": "Suburb and state alone may not meet strict address patterns but could help identify an individual in context."
+    },
+    {
+      "matched_text": "we will action the privacy impact assessment, book stakeholder reviews, and log tasks in project koala\u2011beta per the company privacy by design guideline; this line is operational and benign",
+      "concept": "privacy_governance_marker",
+      "reason": "PIA/Privacy by Design are governance controls; not clearly mapped to a listed privacy-event marker rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

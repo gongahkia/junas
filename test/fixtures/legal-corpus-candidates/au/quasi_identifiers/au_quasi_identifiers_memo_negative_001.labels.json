@@ -3,13 +3,139 @@
   "document_type": "memo",
   "source_jurisdiction": "AU",
   "destination_jurisdiction": "AU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@silvergum.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ap@silvergum.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "payroll@silvergum.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1300 000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "born 03/1979"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "account ending 4421"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@silvergum.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ap@silvergum.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "payroll@silvergum.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1300 000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "born 03/1979"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "account ending 4421"
+    },
+    {
+      "category": "PII",
+      "rule": "au_abn",
+      "matched_text": "00 000 000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "RZ-14-88"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "a contracted network engineer on night shifts at the Newcastle site, born 03/1979, carries device tag RZ-14-88 and is paid to an account ending 4421"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "purge DOB and partial account references from ticketing systems"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "restrict employment/health fields to HR platforms"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Board Secretariat",
+      "reason": "Role noun; not an identified individual"
+    },
+    {
+      "matched_text": "Legal & Compliance",
+      "reason": "Team/role name; not an identified individual"
+    },
+    {
+      "matched_text": "HR",
+      "reason": "Role acronym; not an identified individual"
+    },
+    {
+      "matched_text": "ID: 123-ABC",
+      "reason": "Training placeholder string; not an operational identifier"
+    },
+    {
+      "matched_text": "support technician \u2013 Brisbane depot",
+      "reason": "Generic role/location example; non-identifying"
+    },
+    {
+      "matched_text": "three staff in Perth this quarter",
+      "reason": "Aggregated demographic; non-identifying"
+    },
+    {
+      "matched_text": "staff aged in their 30s",
+      "reason": "Generic demographic; not linked to an identifiable individual"
+    },
+    {
+      "matched_text": "regional NSW personnel",
+      "reason": "Generic demographic/location; non-identifying"
+    },
+    {
+      "matched_text": "laptop model AU-2021",
+      "reason": "Device model class; not a unique device identifier tied to a person"
+    }
+  ],
   "uncertain": [],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

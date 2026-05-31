@@ -3,13 +3,328 @@
   "document_type": "memo",
   "source_jurisdiction": "AU",
   "destination_jurisdiction": "AU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Eliza Carver"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ronit Vale"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "eliza.carver@ochredunes.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@ochredunes.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ronit.vale@ochredunes.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 12/09/1988"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 37"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "payroll ID HR-EC-0198"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "ODR-L-00873"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "ODR-M-4412"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "SYD-APAC-593002"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "migraines"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "bank account suffix 1144"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "ODR-L-00991"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "18%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "restricted from trading in company securities"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Eliza Carver"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ronit Vale"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "eliza.carver@ochredunes.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@ochredunes.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ronit.vale@ochredunes.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 12/09/1988"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 37"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "payroll ID HR-EC-0198"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "ODR-L-00873"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "ODR-M-4412"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "SYD-APAC-593002"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "migraines"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "telehealth GP 10:30 on 16 May re migraines"
+    },
+    {
+      "category": "PII",
+      "rule": "au_postal_address",
+      "matched_text": "Level 22, 9 Quokka Quay, VIC"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Teams alias ecarver-melb"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Banksia Vale"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "corporate expense card ending 7716"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "bank account suffix 1144"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "ODR-L-00991"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Carver"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "18%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "restricted from trading in company securities"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing and clean team controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "No supplier should receive MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "draft Q4 production uplift"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "re-issue the pack with scrubbed metadata"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "replaced with redacted versions"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the CEO",
+      "reason": "Role noun; not a named individual"
+    },
+    {
+      "matched_text": "Senior Geoscience Analyst",
+      "reason": "Role title; not PII by itself"
+    },
+    {
+      "matched_text": "Acting Company Secretary",
+      "reason": "Role title; not PII by itself"
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Collective role noun; not a named person"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DOB 03/1979",
+      "concept": "partial DOB (unlinked)",
+      "reason": "Month-year only and no name linkage; borderline PII status under AU Privacy Act context."
+    },
+    {
+      "matched_text": "WH-Tab-22",
+      "concept": "device identifier (unlinked)",
+      "reason": "Appears in training data example without person linkage; not clearly covered by a rule when unlinked."
+    },
+    {
+      "matched_text": "Redlea",
+      "concept": "suburb/location",
+      "reason": "Generic location in a weak-identifier example; not clearly PII alone."
+    },
+    {
+      "matched_text": "N3",
+      "concept": "internal roster code",
+      "reason": "Internal code without person linkage; not clearly covered by allowed rules."
+    },
+    {
+      "matched_text": "warehouse associate",
+      "concept": "job role only",
+      "reason": "Generic role without identification; typically not PII."
+    },
+    {
+      "matched_text": "29-year-old analyst in Westport",
+      "concept": "quasi-identifier (weak cluster)",
+      "reason": "Combination of age, role, and location noted as non-identifying in the memo; borderline PII relevance."
+    },
+    {
+      "matched_text": "Notifiable Data Breach",
+      "concept": "privacy breach marker",
+      "reason": "Regulatory term relevant to privacy but not included in allowed rule set."
+    },
+    {
+      "matched_text": "desk phone on an 08 prefix",
+      "concept": "partial phone indicator",
+      "reason": "Partial number lacks sufficient specificity for phone_number rule."
+    },
+    {
+      "matched_text": "salary band A2",
+      "concept": "employment attribute",
+      "reason": "Compensation band without identity linkage; not explicitly covered by allowed rules."
+    },
+    {
+      "matched_text": "the only risk analyst on the Launscroft audit rota this quarter",
+      "concept": "re-identification risk statement",
+      "reason": "Uniqueness + location conceptually enables identification but not explicitly covered by current rules."
+    },
+    {
+      "matched_text": "CC-2025-1173",
+      "concept": "application/account identifier",
+      "reason": "Fuel card application ID may function like a customer/account number but is not clearly covered as PII without linkage."
+    },
+    {
+      "matched_text": "internal score B2",
+      "concept": "credit/assessment score",
+      "reason": "Credit assessment datum noted as regulated, but no explicit rule for credit score PII in the provided list."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'"
+  ],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
