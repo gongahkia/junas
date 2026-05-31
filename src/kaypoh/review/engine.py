@@ -1217,7 +1217,7 @@ _FUNCTIONAL_CONTACT_CONTEXT_RE = re.compile(
     r"role[- ]only|role[- ]based|role\s+mailbox|functional\s+mailbox|"
     r"role/functional\s+mailbox|shared\s+inbox|treasury\s+contact|"
     r"compliance\s+desk|deal\s+desk|contact\s+compliance|route\s+enquiries|"
-    r"queries\s+(?:to|contact)|via\s+docroom|"
+    r"queries\s+(?:to|contact)|rout(?:e|ed)\s+to\s+legal|via\s+docroom|"
     r"public\s+(?:queries|enquiries)|regulatory\s+liaison|"
     r"generic\s+help\s*desk|public(?:-facing)?\s+help\s*desk|public\s+helpdesk|"
     r"secretariat\s+mailbox|public\s+helplines?|general\s+(?:queries|enquiries)|"
@@ -1233,8 +1233,9 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"public\s+hotline|public\s+line|public\s+service\s+line|"
     r"public\s+(?:queries|enquiries)|"
     r"switchboard|reception|information\s+line|contact\s+centre|client\s+services|"
+    r"(?:privacy|ethics)\s+helplines?|assistance\s+line|published\s+contacts?|"
     r"generic\s+(?:in[-\u2010-\u2015 ]house\s+)?ivr|in[-\u2010-\u2015 ]house\s+ivr|"
-    r"hr\s+help\s*desk|general\s+line|"
+    r"hr\s+help\s*desk|general\s+line|general\s+help\s+lines?|"
     r"hotline\s+investor|nomor\s+publik|bukan\s+nomor\s+pribadi|"
     r"tổng\s+đài|công\s+khai|không\s+dùng\s+số\s+cá\s+nhân|"
     r"general\s+(?:queries|enquiries)|queries\s+contact|general\s+hotline|label\s+only|"
@@ -1431,6 +1432,7 @@ def _is_negated_material_adverse_change_context(text: str, start: int, end: int)
     return bool(re.search(
         r"\b(?:"
         r"no\s+event\s+has\s+occurred[^\n.;]{0,120}material\s+adverse\s+change|"
+        r"no\s+[\"“]?material\s+adverse\s+effect[\"”]?\s+occurred|"
         r"no\s+mac[^\n.;]{0,100}material\s+adverse\s+change|"
         r"nothing\s+herein\s+constitutes[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
         r"nothing\s+herein\s+constitutes\s+or\s+admits[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
@@ -1499,6 +1501,7 @@ def _is_special_category_false_positive_context(rule_name: str, text: str, start
     if rule_name == "genetic_data" and re.search(
         r"\b(?:no\s+genetic\s+data[^\n.;]{0,80}(?:collected|stored|processed)|"
         r"genetic\s+algorithms?|software\s+features?|not\s+about\s+any\s+person|"
+        r"genetics?\s+of\s+innovation[^\n.;]{0,80}metaphors?|"
         r"not\s+personal\s+data)\b",
         context,
         re.IGNORECASE,
@@ -1561,6 +1564,7 @@ def _is_educational_mnpi_marker_context(text: str, start: int, end: int) -> bool
         r"training\s+materials?\s+only|policy\s+training\s+examples?|"
         r"training\s+(?:weeks|decks|drills)|tabletop\s+drills|"
         r"educational\s+and\s+not\s+transaction[- ]related|training\s+rosters?|"
+        r"training[^\n.;]{0,120}generic\s+examples?|"
         r"for\s+educational\s+purposes\s+only|"
         r"not\s+as\s+market[- ]moving\s+events?|educational\s+example\s+only|"
         r"educational\s+note[^\n.;]{0,120}purely\s+instructional"

@@ -221,6 +221,38 @@ class RecognizerFiringTests(unittest.TestCase):
         self.assertNotIn("insider_list_marker", rules)
         self.assertNotIn("definitive_agreement", rules)
 
+    # --- US / UK ---
+
+    def test_us_role_mailbox_public_helplines_and_training_markers_do_not_fire(self):
+        r = self._review(
+            "Questions should be routed to Legal at legal@issuer.example. "
+            "Call 800-555-0143 (privacy helpline) or 800-555-0176 (ethics helpline); "
+            "these are general help lines. References to insider list and restricted list "
+            "in training are generic examples.",
+            "US",
+        )
+        rules = {f.rule for f in r.findings}
+        self.assertNotIn("email_address", rules)
+        self.assertNotIn("phone_number", rules)
+        self.assertNotIn("insider_list_marker", rules)
+
+    def test_us_negated_material_adverse_effect_does_not_fire(self):
+        r = self._review(
+            "Per the 2024 closing file, no material adverse effect occurred through closing.",
+            "US",
+        )
+        self.assertNotIn("material_adverse_change", {f.rule for f in r.findings})
+
+    def test_uk_public_assistance_line_and_genetic_metaphor_do_not_fire(self):
+        r = self._review(
+            "Do not treat the public HR assistance line 0300 111 0000 as employee PII. "
+            "The genetics of innovation are metaphors and not disclosures of genetic data.",
+            "UK",
+        )
+        rules = {f.rule for f in r.findings}
+        self.assertNotIn("phone_number", rules)
+        self.assertNotIn("genetic_data", rules)
+
 
 class RationaleTests(unittest.TestCase):
     def test_in_aadhaar_rationale_cites_dpdpa(self):
