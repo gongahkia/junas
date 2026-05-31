@@ -3,13 +3,244 @@
   "document_type": "memo",
   "source_jurisdiction": "SA",
   "destination_jurisdiction": "SA",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@al\u2011najmrenewables.example.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance\u2011desk@al\u2011najmrenewables.example.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Layla Al\u2011Harbi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Fahd Al\u2011Qassab"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Noura Al\u2011Saeed"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Sami Al\u2011Duraidi"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "CR\u2011X77\u2011204B"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "insider dealing blackout remains in force"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@al\u2011najmrenewables.example.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance\u2011desk@al\u2011najmrenewables.example.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Layla Al\u2011Harbi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Fahd Al\u2011Qassab"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Noura Al\u2011Saeed"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Sami Al\u2011Duraidi"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "CR\u2011X77\u2011204B"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation controls"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_iqama",
+      "matched_text": "IQ\u20113K92"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_iqama",
+      "matched_text": "IQ\u2011****\u20114392"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew marketing consent"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "opt\u2011out"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "SDAIA Data Transfer Authorisation DT\u2011KSA\u2011Q12"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Bahrain DR site"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "anonymised stakeholder lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "insider dealing blackout remains in force"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list (CMA Form MC\u2011INS\u2011F2)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "segregated VDR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "not circulated by email"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "passport images",
+      "reason": "Generic artefact mention; not a passport number and explicitly a completed control."
+    },
+    {
+      "matched_text": "No live MNPI is included in this note",
+      "reason": "Negated MNPI disclaimer; not a live MNPI signal."
+    },
+    {
+      "matched_text": "Board Risk Committee",
+      "reason": "Role noun/committee, not a named person."
+    },
+    {
+      "matched_text": "Investor Relations",
+      "reason": "Role noun/function, not a named person."
+    },
+    {
+      "matched_text": "PDPL Officer",
+      "reason": "Role noun/title, not a named person."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "IQ\u20113K92",
+      "concept": "sa_iqama token",
+      "reason": "Tokenized/shortened iqama reference; personally identifying but non-standard format for strict detectors."
+    },
+    {
+      "matched_text": "IQ\u2011****\u20114392",
+      "concept": "sa_iqama masked",
+      "reason": "Masked iqama token example; indicative of personal identifier but not a full ID."
+    },
+    {
+      "matched_text": "DT\u2011KSA\u2011Q12",
+      "concept": "transfer authorisation id",
+      "reason": "Regulatory authorisation identifier relevant to cross-border transfer compliance; not a defined PII/MNPI rule."
+    },
+    {
+      "matched_text": "DEL\u2011SA\u20111099",
+      "concept": "deletion log reference",
+      "reason": "Operational deletion-log ID related to erasure; not covered by current rules."
+    },
+    {
+      "matched_text": "CMA Form MC\u2011INS\u2011F2",
+      "concept": "insider list form id",
+      "reason": "Form identifier evidencing insider list maintenance; relevant to MNPI controls but not a listed rule."
+    },
+    {
+      "matched_text": "three years post\u2011termination",
+      "concept": "retention period detail",
+      "reason": "Specific retention duration; relevant to retention compliance but not a standardized marker term."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: invalid rule 'DSAR' text='DSAR:'",
+    "drop must_detect: invalid rule 'erasure' text='Erasure:'",
+    "drop must_detect: invalid rule 'retention' text='Retention:'",
+    "drop ideal_must_detect: invalid rule 'DSAR' text='DSAR:'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='Erasure:'",
+    "drop ideal_must_detect: invalid rule 'retention' text='Retention:'",
+    "drop ideal_must_detect: invalid rule 'DSAR' text='data subject access request'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='erased'",
+    "drop ideal_must_detect: invalid rule 'retention' text='retention limits'"
+  ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

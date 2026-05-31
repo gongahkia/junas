@@ -3,13 +3,128 @@
   "document_type": "memo",
   "source_jurisdiction": "SA",
   "destination_jurisdiction": "SA",
-  "must_detect": [],
-  "ideal_must_detect": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "support@thamar.local"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "support@thamar.local"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_iqama",
+      "matched_text": "Iqama"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_iqama",
+      "matched_text": "Iqama/NID"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_national_id",
+      "matched_text": "national ID"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "Commercial Registration"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "CR 101\u201100X\u2011FAKE"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "CR REF DEMO\u2011RZ\u2011001"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_national_id",
+      "matched_text": "ID 0000\u20110000\u2011VOID"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider\u2011list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    }
+  ],
   "must_not_detect": [],
-  "uncertain": [],
+  "uncertain": [
+    {
+      "matched_text": "DSAR handling",
+      "concept": "dsar_marker",
+      "reason": "DSAR is a valid privacy event but not listed in the allowed rules set; included here for coverage context."
+    },
+    {
+      "matched_text": "Erasure",
+      "concept": "erasure_marker",
+      "reason": "Erasure is a valid privacy event but not listed in the allowed rules set; completed purge noted."
+    },
+    {
+      "matched_text": "NDAIB/24/EX\u2011019",
+      "concept": "cross_border_approval_id",
+      "reason": "Regulatory approval reference relevant to cross\u2011border transfer but not covered by allowed rules."
+    },
+    {
+      "matched_text": "1447\u201108\u201112H",
+      "concept": "regulatory_approval_date",
+      "reason": "A Hijri date tied to an approval; not a date of birth and not covered by allowed rules."
+    },
+    {
+      "matched_text": "deal room",
+      "concept": "transaction_workspace_reference",
+      "reason": "Could relate to selective disclosure or controlled information spaces but not an explicit allowed MNPI marker."
+    },
+    {
+      "matched_text": "earnings window",
+      "concept": "blackout/trading window reference",
+      "reason": "May imply a trading window/blackout concept but not an explicit allowed marker phrase."
+    },
+    {
+      "matched_text": "prospectus",
+      "concept": "issuer_document_reference",
+      "reason": "Issuer document reference that is generally public; not an allowed MNPI marker."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

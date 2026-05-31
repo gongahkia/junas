@@ -3,13 +3,233 @@
   "document_type": "memo",
   "source_jurisdiction": "SA",
   "destination_jurisdiction": "SA",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Layla Al\u2011Qassimi"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "l.alqassimi@alnibras.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Sami Al\u2011Harith"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+966 55 213 7704"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_iqama",
+      "matched_text": "2 45 6789 012"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "r.shamri@alnibras.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "IBAN SA94 8000 0123 4567 8901 2345"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "101-77-009876"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nourah J. Al\u2011Bishi"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "VZ0987654"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@alnibras.sa"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced Q2 revenue guidance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "196m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "black\u2011out dates"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Layla Al\u2011Qassimi"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "l.alqassimi@alnibras.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Sami Al\u2011Harith"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+966 55 213 7704"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_iqama",
+      "matched_text": "2 45 6789 012"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "r.shamri@alnibras.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "IBAN SA94 8000 0123 4567 8901 2345"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "101-77-009876"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nourah J. Al\u2011Bishi"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "VZ0987654"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@alnibras.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Eng. Rakan Al\u2011Shamri"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "ensure accuracy and minimization"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced Q2 revenue guidance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "196m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal Nomu pricing corridor"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "restrict to need\u2011to\u2011know"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal access only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "black\u2011out dates"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "9200 123 456",
+      "reason": "Generic public helpline number; not personal data."
+    },
+    {
+      "matched_text": "Passport No.: ______",
+      "reason": "Blank form label, not actual PII."
+    },
+    {
+      "matched_text": "Customer Success Manager",
+      "reason": "Role-only reference; not a natural person identifier."
+    },
+    {
+      "matched_text": "MAC trigger",
+      "reason": "Negated context; do not tag as Material Adverse Change."
+    },
+    {
+      "matched_text": "312345678900003",
+      "reason": "Invalid VAT checksum and VAT is out of allowed PII rules."
+    },
+    {
+      "matched_text": "Vendor",
+      "reason": "Role noun in context; not a natural person identifier."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "nid=2%2045%206789%20012",
+      "concept": "sa_national_id in URL parameter",
+      "reason": "URL-encoded ID value in query string; may represent national/Iqama ID but detectors may not parse percent-encoding."
+    },
+    {
+      "matched_text": "no cross\u2011border replication",
+      "concept": "cross-border transfer control (negated)",
+      "reason": "References cross-border transfers but explicitly negated; relevant policy context though excluded by strict rules."
+    },
+    {
+      "matched_text": "r . s h a m r i @ a l n i b r a s . s a",
+      "concept": "email with OCR spacing",
+      "reason": "Personal email with interspersed spaces; legally PII but may evade standard regex detectors."
+    },
+    {
+      "matched_text": "AM-2026-SUKUK-01",
+      "concept": "internal deal code",
+      "reason": "Issuer deal identifier likely non-public MNPI, but does not match the 'Project <Name>' codename pattern."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

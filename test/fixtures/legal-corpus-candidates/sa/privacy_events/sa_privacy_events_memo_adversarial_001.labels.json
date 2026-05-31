@@ -3,13 +3,286 @@
   "document_type": "memo",
   "source_jurisdiction": "SA",
   "destination_jurisdiction": "SA",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@nuyumlogistics.example.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+966\u201111\u2011000\u20110000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dr.f.rashad@board\u2011nuyum.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+966\u20115\u2011555\u201112\u201112"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@nuyumlogistics.example.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "m.f.al\u2011qattan@nuyumlogistics.example.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_iqama",
+      "matched_text": "Iqama No: 23 4 9\u202208\u20225127"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Eng. Lina Al\u2011Hazmi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Sami Al\u2011Matrouk"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Huda Al\u2011Rasheed"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Zakariyya Qassim"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Mazin Al\u2011Qattan"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border processing"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "dataset minimised to metadata only"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Retention & minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list tooling active"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list additions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window closed"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@nuyumlogistics.example.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+966\u201111\u2011000\u20110000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dr.f.rashad@board\u2011nuyum.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+966\u20115\u2011555\u201112\u201112"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@nuyumlogistics.example.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "m.f.al\u2011qattan@nuyumlogistics.example.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_iqama",
+      "matched_text": "Iqama No: 23 4 9\u202208\u20225127"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Eng. Lina Al\u2011Hazmi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Sami Al\u2011Matrouk"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Huda Al\u2011Rasheed"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Zakariyya Qassim"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Mazin Al\u2011Qattan"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border processing"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "dataset minimised to metadata only"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Retention & minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list tooling active"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list additions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window closed"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "CR 701\u2022\u202283\u20220021"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_national_id",
+      "matched_text": "Na t io nal ID obfuscated: 1\u20228\u20227\u20223\u2022\u2014\u20224\u20229"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "opted out"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Data\u2011Export Approval ID NLG\u2011DT\u201125\u2011044"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "sealed data room"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC addresses",
+      "reason": "Negated example of data not collected; avoid false-positive device identifier"
+    },
+    {
+      "matched_text": "IMEI",
+      "reason": "Negated example of data not collected; avoid false-positive device identifier"
+    },
+    {
+      "matched_text": "device fingerprints",
+      "reason": "Negated example of data not collected; avoid false-positive device identifier"
+    },
+    {
+      "matched_text": "transfer to US analytics cluster",
+      "reason": "Deprecated/non-live phrase; not an active cross-border flow"
+    },
+    {
+      "matched_text": "pre\u2011approval was completed 2025\u201103\u201114 and is closed",
+      "reason": "Completed control; do not flag as live cross-border transfer"
+    },
+    {
+      "matched_text": "no personal data will move",
+      "reason": "Explicit negation of data transfer; not a live risk"
+    },
+    {
+      "matched_text": "does not contain MNPI",
+      "reason": "Explicit negation of MNPI content"
+    },
+    {
+      "matched_text": "5f:a1:zz:90",
+      "reason": "Audit hash not a valid MAC address; avoid false positive"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR",
+      "concept": "DSAR_marker",
+      "reason": "Data subject access request marker is a privacy event but not enumerated in allowed rules"
+    },
+    {
+      "matched_text": "Erasure",
+      "concept": "erasure_marker",
+      "reason": "Deletion/erasure event is privacy-relevant but not enumerated in allowed rules"
+    },
+    {
+      "matched_text": "keeps issuer onboarding forms for 7 years",
+      "concept": "retention_marker",
+      "reason": "Retention duration policy is privacy-relevant but retention marker not in allowed rules"
+    },
+    {
+      "matched_text": "30\u2011day retention lapse",
+      "concept": "retention_marker",
+      "reason": "Retention/purge timing is privacy-relevant but retention marker not in allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
