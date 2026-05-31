@@ -3,13 +3,293 @@
   "document_type": "memo",
   "source_jurisdiction": "US",
   "destination_jurisdiction": "US",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@northharborhealth.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cmercer@nhhb-internal.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investorrelations@northharborhealth.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Cade Mercer"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tamsin Yule"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Dorian Vale"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Kira Hollis"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID HV-44219"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "CYP2C19 poor-metabolizer genetic result on file"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "undergoing treatment for Type 1 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "registered steward of Finance Workers Local 744"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "Mr. Vale\u2019s fingerprint template used for the Bayford vault timeclock (biometric)"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "private calendar entry noting Sabbath observance accommodations"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor child\u2019s care plan number"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@northharborhealth.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cmercer@nhhb-internal.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investorrelations@northharborhealth.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Cade Mercer"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tamsin Yule"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Dorian Vale"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Kira Hollis"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID HV-44219"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "CYP2C19 poor-metabolizer genetic result on file"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "undergoing treatment for Type 1 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "undergoing treatment for Type 1 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "registered steward of Finance Workers Local 744"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "Mr. Vale\u2019s fingerprint template used for the Bayford vault timeclock (biometric)"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "private calendar entry noting Sabbath observance accommodations"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor child\u2019s care plan number"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_record_number",
+      "matched_text": "minor child\u2019s care plan number"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "restrict outreach to covered market actors"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Until the 8-K posts, restrict outreach to covered market actors"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Clean Team"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "purge the Chronis biometric cache"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "pending a fresh consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "remove religious and union annotations"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MarlinPay",
+      "reason": "Product/portfolio name, not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "PulsePort",
+      "reason": "Product/system name, not PII or MNPI"
+    },
+    {
+      "matched_text": "BlueCedar-9",
+      "reason": "Internal roadmap title, not a transaction codename per rule"
+    },
+    {
+      "matched_text": "Riverton Rockets",
+      "reason": "Sports team name"
+    },
+    {
+      "matched_text": "skate to where the puck will be",
+      "reason": "Metaphor, not MNPI"
+    },
+    {
+      "matched_text": "Policy FIN-102",
+      "reason": "Policy name, not PII/MNPI"
+    },
+    {
+      "matched_text": "HIPAA SOP PR-17",
+      "reason": "Policy/SOP name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Policy PS-22",
+      "reason": "Policy name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Attorneys\u2019 Eyes Only",
+      "reason": "Confidentiality label, not PII/MNPI"
+    },
+    {
+      "matched_text": "DEI town hall",
+      "reason": "Generic DEI reference, not PII/MNPI"
+    },
+    {
+      "matched_text": "Bayford SSO keys",
+      "reason": "System/place reference, not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "555-0148",
+      "concept": "phone_number",
+      "reason": "Looks like a phone number but lacks country/area code; many detectors require 10+ digits"
+    },
+    {
+      "matched_text": "care plan number",
+      "concept": "medical_record_number",
+      "reason": "Healthcare identifier but ambiguous whether it maps to a medical record or insurance member ID"
+    },
+    {
+      "matched_text": "PulsePort EHR encounter codes",
+      "concept": "medical_treatment",
+      "reason": "Indicates PHI/encounter details but not a specific listed identifier"
+    },
+    {
+      "matched_text": "definitive agreements",
+      "concept": "definitive_agreement",
+      "reason": "Refers to signing status but not one of the enumerated agreement names (SPA, LOI, etc.)"
+    },
+    {
+      "matched_text": "non-public Q2 clinic attrition and MarlinPay card charge-off trends",
+      "concept": "material_event",
+      "reason": "Likely material operating metrics disclosed selectively; not captured by a specific MNPI keyword rule"
+    },
+    {
+      "matched_text": "potential VeridianCare JV",
+      "concept": "material_event",
+      "reason": "Potential transaction reference pre-announcement; no codename or enumerated agreement present"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

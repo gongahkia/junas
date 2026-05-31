@@ -3,13 +3,195 @@
   "document_type": "memo",
   "source_jurisdiction": "US",
   "destination_jurisdiction": "US",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor-relations@ivorypine.example"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Employee Marisol Trent (Claims Ops, Lakeshore City) disclosed a Crohn\u2019s disease flare requiring infusion therapy next week"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Employee Marisol Trent (Claims Ops, Lakeshore City) disclosed a Crohn\u2019s disease flare requiring infusion therapy next week"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Reg FD prohibits selective disclosure to analysts or buy-side contacts"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor-relations@ivorypine.example"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Employee Marisol Trent (Claims Ops, Lakeshore City) disclosed a Crohn\u2019s disease flare requiring infusion therapy next week"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Employee Marisol Trent (Claims Ops, Lakeshore City) disclosed a Crohn\u2019s disease flare requiring infusion therapy next week"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Marisol Trent"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Reg FD prohibits selective disclosure to analysts or buy-side contacts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Fair Disclosure Standard"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Blue Sky Wall Policy"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Clean Room Protocol"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Publicly announced items only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not add timing, pipeline, or counterparty color beyond those statements"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "follow the script and use the IR-approved deck only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not discuss forecasts or unannounced partnerships there"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not transmit account data, claims images, diagnostics, or patient narratives to outside parties (including Old Mill Analytics LLC) except as de-identified aggregates approved by Compliance"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Mask any screenshots and redact client-lookalike strings"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Use only sandbox identifiers in demos: sample account TEST-0000-XY, ticket SR-000-ALPHA, and CUSIP-like 123-ABC-999 are placeholders and not tied to any security or customer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "treat any 9-digit number in test files as a dummy token and never as a government identifier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Nothing herein authorizes disclosure beyond our press release and filed materials"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "CareBridge 4.0",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "EverGreen Card",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "VaultShield API",
+      "reason": "Product/API name, not PII/MNPI"
+    },
+    {
+      "matched_text": "River County",
+      "reason": "Place name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Lakeshore City",
+      "reason": "Place name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Pine Rapids Pilots",
+      "reason": "Sports team name, not PII/MNPI"
+    },
+    {
+      "matched_text": "move the goalposts",
+      "reason": "Metaphor/idiom, not PII/MNPI"
+    },
+    {
+      "matched_text": "north star",
+      "reason": "Metaphor/idiom, not PII/MNPI"
+    },
+    {
+      "matched_text": "fourth-quarter push",
+      "reason": "Metaphor/idiom, not PII/MNPI"
+    },
+    {
+      "matched_text": "Belonging and Inclusion",
+      "reason": "Generic DEI prose, not PII/MNPI"
+    },
+    {
+      "matched_text": "TEST-0000-XY",
+      "reason": "Placeholder demo ID, not actual PII"
+    },
+    {
+      "matched_text": "SR-000-ALPHA",
+      "reason": "Placeholder demo ID, not actual PII"
+    },
+    {
+      "matched_text": "123-ABC-999",
+      "reason": "Placeholder token, not actual PII"
+    },
+    {
+      "matched_text": "Old Mill Analytics LLC",
+      "reason": "Company name, not personal data"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Leave & Accommodations channel",
+      "concept": "Need-to-know access channel",
+      "reason": "Indicates internal access control for sensitive HR data; relevant to privacy governance but not clearly mapped to an allowed marker rule."
+    },
+    {
+      "matched_text": "Rule 10b-5 exposure",
+      "concept": "Securities enforcement risk",
+      "reason": "Signals MNPI/tipping enforcement context but not a specific allowed MNPI rule marker."
+    },
+    {
+      "matched_text": "NCEX inquiry",
+      "concept": "Exchange inquiry risk",
+      "reason": "Regulatory escalation context related to MNPI but not an explicit allowed rule marker."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

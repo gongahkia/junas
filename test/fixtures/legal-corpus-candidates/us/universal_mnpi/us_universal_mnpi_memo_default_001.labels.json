@@ -3,13 +3,325 @@
   "document_type": "memo",
   "source_jurisdiction": "US",
   "destination_jurisdiction": "US",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Blue Harbor"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "$312,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "15%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Agreement and Plan of Merger"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Credit Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Effect"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-cross"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "No selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "do not share outside the deal team"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Elowen Dray"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jonah Pike"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@northbridgegenomics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "jonah.pike@northbridgegenomics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@silvergulfbank.example"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Blue Harbor"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "$312,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "15%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Agreement and Plan of Merger"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Credit Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Effect"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-cross"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "No selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "do not share outside the deal team"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Elowen Dray"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jonah Pike"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@northbridgegenomics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "jonah.pike@northbridgegenomics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@silvergulfbank.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo: do not share outside the deal team until 07/15/2026 08:30 ET when the press release is scheduled to cross via GlobeWire"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of HarborPoint Diagnostics, LLC by Northbridge Genomics, Inc"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "closing targeted Q4 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "pre-embargo interactions with sell-side must be wall-crossed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "scripted talking points only after embargo"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not circulate patient names, MRNs, account numbers, or household information"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "HIPAA/CCPA/GLBA restrictions apply"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "restricted list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "quiet-room"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "avoid forward-looking commentary on 2027 synergy targets until after the Form 8-K is furnished"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "post-embargo under open lines"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Internal Board Memorandum"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Reg FD applies"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "employee wellness spa day vouchers",
+      "reason": "HR perk bait; not PII or MNPI"
+    },
+    {
+      "matched_text": "HarborPoint\u2019s 2019 pilot with Avendale County Hospital",
+      "reason": "Described as publicly disclosed; not MNPI"
+    },
+    {
+      "matched_text": "MediMetrics Almanac 2025",
+      "reason": "Public-source citation; not MNPI"
+    },
+    {
+      "matched_text": "FY2025 Form 10-K",
+      "reason": "Public SEC filing; not MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "07/15/2026 08:30 ET",
+      "concept": "embargo timestamp",
+      "reason": "Embargo schedule is legally sensitive but the allowed embargo_marker examples list words like Embargoed/Closing Date; timestamp alone may not be covered"
+    },
+    {
+      "matched_text": "restricted list",
+      "concept": "information_barrier_marker",
+      "reason": "Trading restriction list is a control related to information barriers but not explicitly enumerated in allowed markers"
+    },
+    {
+      "matched_text": "quiet-room",
+      "concept": "information_barrier_marker",
+      "reason": "Physical segregation for wall-cross may indicate information barriers but term is not a standard enumerated marker"
+    },
+    {
+      "matched_text": "Project Blue Harbor",
+      "concept": "transaction_codename",
+      "reason": "Codename fits Project <Name> but includes two words; some strict detectors may only capture single-word codenames"
+    },
+    {
+      "matched_text": "Reg FD/10b-5",
+      "concept": "selective_disclosure_risk",
+      "reason": "Compliance framework reference signals disclosure controls but is not itself an enumerated marker"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
