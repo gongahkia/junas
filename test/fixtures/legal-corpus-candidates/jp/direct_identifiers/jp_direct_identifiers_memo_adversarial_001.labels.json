@@ -1,0 +1,223 @@
+{
+  "doc_id": "jp_direct_identifiers_memo_adversarial_001",
+  "document_type": "memo",
+  "source_jurisdiction": "JP",
+  "destination_jurisdiction": "JP",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@nmi-kk.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@nmi-kk.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "090-2187-4442"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "03-6721-4450"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_postal_code",
+      "matched_text": "\u3012160-0022"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ayumi Kato"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kenji Sakamoto"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "T12345678"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "4587631"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "\u00a51,240 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@nmi-kk.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@nmi-kk.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "090-2187-4442"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "03-6721-4450"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_postal_code",
+      "matched_text": "\u3012160-0022"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ayumi Kato"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kenji Sakamoto"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "T12345678"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "4587631"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "\u00a51,240 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "k a t o . a y u m i @ n m i - k k . j p"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ayumi%40nmi-kk.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "acct-0045-2218893"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not store her My Number in the deal room"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not circulate enumerated facts or tender-offer facts until official disclosure is posted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Hikari Robotics KK via tender offer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "payroll-related personal data must be ring-fenced"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "0120-000-000",
+      "reason": "public helpline (bait) not personal contact"
+    },
+    {
+      "matched_text": "\u500b\u4eba\u756a\u53f7 0000-0000-0000",
+      "reason": "invalid checksum/template bait for My Number"
+    },
+    {
+      "matched_text": "Passport No: [________]",
+      "reason": "generic placeholder field, not actual PII"
+    },
+    {
+      "matched_text": "7105-6430-28\u25fb\ufe0e1",
+      "reason": "obfuscated/invalid corporate number bait"
+    },
+    {
+      "matched_text": "Procurement Lead",
+      "reason": "role-only contact, not a named person"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "negated MAC reference; instruction excludes labeling negated MAC"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "MITSJP22",
+      "concept": "SWIFT/BIC",
+      "reason": "Bank identifier is legally relevant but not explicitly covered by allowed rules; may be treated as financial routing identifier."
+    },
+    {
+      "matched_text": "KCR-58-77-102",
+      "concept": "company registry number",
+      "reason": "JP company registry identifier is relevant but not in allowed rule list; unclear mapping to jp_corporate_number."
+    },
+    {
+      "matched_text": "\u6771\u4eac\u90fd\u6e2f\u533a\u5357\u9752\u5c712-8-9 \u30b9\u30ab\u30a4\u685c\u30cf\u30a4\u30c4305",
+      "concept": "postal_address (JP)",
+      "reason": "Full JP street address is PII, but only jp_postal_code is an allowed rule; lacks explicit address rule."
+    },
+    {
+      "matched_text": "\u6771\u4eac\u90fd\u65b0\u5bbf\u533a\u65b0\u5bbf3-14-5 \u5317\u6953\u30d3\u30eb7F",
+      "concept": "postal_address (JP)",
+      "reason": "Registered office street address is PII, but no explicit JP address rule beyond postal code."
+    },
+    {
+      "matched_text": "http://intranet.nmi-kk.jp/settle?k=acct-0045-2218893&uid=ayumi%40nmi-kk.jp",
+      "concept": "internal_session_id / URL-embedded identifiers",
+      "reason": "URL may contain internal references and encoded email; coverage for URLs and session IDs is not clearly specified."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: text not verbatim rule='jp_corporate_number' text='4269 8145 7023 9'",
+    "drop ideal_must_detect: text not verbatim rule='jp_corporate_number' text='4269 8145 7023 9'"
+  ],
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

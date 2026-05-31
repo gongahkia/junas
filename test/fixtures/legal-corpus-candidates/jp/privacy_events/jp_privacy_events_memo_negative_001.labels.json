@@ -1,0 +1,172 @@
+{
+  "doc_id": "jp_privacy_events_memo_negative_001",
+  "document_type": "memo",
+  "source_jurisdiction": "JP",
+  "destination_jurisdiction": "JP",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@hoshitake.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@hoshitake.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation applied"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "\u500b\u4eba\u756a\u53f7 (My Number)"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "\u500b\u4eba\u756a\u53f7"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "dealing window is closed"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@hoshitake.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@hoshitake.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation applied"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no \u500b\u4eba\u756a\u53f7"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "\u500b\u4eba\u756a\u53f7 (My Number)"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "\u500b\u4eba\u756a\u53f7"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "employee IDs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "dealing window is closed"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MYN-0000-0000",
+      "reason": "Placeholder example; not a real JP My Number"
+    },
+    {
+      "matched_text": "JP00-HSK-000",
+      "reason": "Sample code; not a real ISIN or live securities identifier"
+    },
+    {
+      "matched_text": "tender offer leak",
+      "reason": "Training phrase; does not denote an incident"
+    },
+    {
+      "matched_text": "undisclosed",
+      "reason": "Definitional reference; no live nonpublic MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "HLD-3Y-payroll",
+      "concept": "retention marker",
+      "reason": "Indicates retention period but retention markers are not in the allowed rules"
+    },
+    {
+      "matched_text": "Erasure",
+      "concept": "erasure event",
+      "reason": "Mentions completed erasure; event markers for erasure not covered and completed controls should not be labeled"
+    },
+    {
+      "matched_text": "DSAR",
+      "concept": "DSAR marker (negated)",
+      "reason": "Access-request context is relevant privacy event but negated and not in allowed rules"
+    },
+    {
+      "matched_text": "consent-withdrawal",
+      "concept": "consent withdrawal marker (negated)",
+      "reason": "Relevant privacy event but negated; rule advises not to label negated controls"
+    },
+    {
+      "matched_text": "home address",
+      "concept": "postal address PII",
+      "reason": "Sensitive address type mentioned; no JP postal code and generic address not in allowed PII rules"
+    },
+    {
+      "matched_text": "CloudNova SAS (Silanda)",
+      "concept": "cross-border destination",
+      "reason": "Identifies foreign processor and country; contextual to transfer but not an event marker rule"
+    },
+    {
+      "matched_text": "post-settlement",
+      "concept": "blackout timeline",
+      "reason": "Indicates the end of dealing restriction; not a listed embargo marker"
+    },
+    {
+      "matched_text": "Form HR-APPI-05",
+      "concept": "internal consent/DSAR process identifier",
+      "reason": "Process reference for withdrawal handling; not mapped to an allowed event marker"
+    },
+    {
+      "matched_text": "Schedule JP-RET-190",
+      "concept": "retention schedule reference",
+      "reason": "Denotes retention policy schedule; not covered by allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

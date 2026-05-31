@@ -1,0 +1,256 @@
+{
+  "doc_id": "jp_privacy_events_memo_adversarial_001",
+  "document_type": "memo",
+  "source_jurisdiction": "JP",
+  "destination_jurisdiction": "JP",
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender-offer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer event"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Kayo Mitsuru"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ren Ito"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation applied"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "tender@hinode-exchange.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Seiji Okamoto"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation markers"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender-offer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer event"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Kayo Mitsuru"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ren Ito"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation applied"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "tender@hinode-exchange.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Seiji Okamoto"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation markers"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "\u500b\u4eba\u756a\u53f7"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider registry"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Restricted \u2014 Board circulation only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not circulate MNPI outside the insider ring"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Kokoro Systems GmbH (EU)"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border payroll processing"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimal collection"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender-offer facts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "distribution is restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "sealed email lists"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "No material adverse change (MAC)",
+      "reason": "Negated MAC; do not tag as material_adverse_change per rule."
+    },
+    {
+      "matched_text": "exclude live My Number",
+      "reason": "Completed control; indicates absence of live PII risk."
+    },
+    {
+      "matched_text": "no production of individual codes",
+      "reason": "Completed control; not a live PII disclosure."
+    },
+    {
+      "matched_text": "synthetic IDs only",
+      "reason": "Synthetic data; not real PII."
+    },
+    {
+      "matched_text": "consent is not required",
+      "reason": "Policy-only statement; not a live consent event."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "retention configured at 7 years for payroll records",
+      "concept": "retention marker",
+      "reason": "Retention period is legally relevant but not covered by an allowed rule token."
+    },
+    {
+      "matched_text": "DSAR and erasure",
+      "concept": "DSAR/erasure marker",
+      "reason": "DSAR/erasure events are relevant privacy events but not included in allowed rules list."
+    },
+    {
+      "matched_text": "redundant access logs were erased",
+      "concept": "erasure marker",
+      "reason": "Erasure is a privacy event not explicitly in allowed rules."
+    },
+    {
+      "matched_text": "trading chat transcripts 18 months",
+      "concept": "retention period",
+      "reason": "Retention timing is relevant but not an allowed rule."
+    },
+    {
+      "matched_text": "archives auto-purged quarterly \u2014 already implemented",
+      "concept": "retention/auto-deletion marker",
+      "reason": "Auto-deletion schedule is relevant but not covered by allowed rules."
+    },
+    {
+      "matched_text": "compliance@aob a - r o b o t i c s . example",
+      "concept": "email address (obfuscated)",
+      "reason": "Likely an email address but spacing breaks strict detection; still PII-relevant."
+    },
+    {
+      "matched_text": "audit hash id: h b 3 - r 0 - 9 q - 1 1 \u2014 logged",
+      "concept": "internal technical identifier",
+      "reason": "Internal IDs/hashes can be sensitive but not in allowed PII list."
+    },
+    {
+      "matched_text": "Data Export Approval H X - 2 3 - 0 9 1",
+      "concept": "internal approval ID",
+      "reason": "Transaction/reference IDs may be sensitive but not in allowed rules."
+    },
+    {
+      "matched_text": "https://exports.hinode.exchange/aoba?doc=TOB- 1 2 7 c &route=eu-bridge",
+      "concept": "URL containing potential MNPI route",
+      "reason": "Links can indicate sensitive workflows but URLs are not in allowed rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

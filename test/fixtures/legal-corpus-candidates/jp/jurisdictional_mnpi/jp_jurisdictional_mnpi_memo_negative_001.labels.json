@@ -1,0 +1,202 @@
+{
+  "doc_id": "jp_jurisdictional_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "source_jurisdiction": "JP",
+  "destination_jurisdiction": "JP",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@mokusei.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@mokusei.example.jp"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Earnings blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "\u516c\u958b\u8cb7\u4ed8"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@mokusei.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@mokusei.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number data"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "12-digit individual number"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "\u500b\u4eba\u756a\u53f7"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "remove any 12-digit individual number fields"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "must be stripped before circulation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not send personal data to external distribution lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Earnings blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout timing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "\u516c\u958b\u8cb7\u4ed8"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender offer decision"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "board resolutions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "acquisition terms"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "restrict access to Legal and Corporate Planning only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Board",
+      "reason": "Role noun; not PII or MNPI"
+    },
+    {
+      "matched_text": "Compliance",
+      "reason": "Role noun; not PII or MNPI"
+    },
+    {
+      "matched_text": "HR",
+      "reason": "Role noun; not PII or MNPI"
+    },
+    {
+      "matched_text": "Legal",
+      "reason": "Role noun; not PII or MNPI"
+    },
+    {
+      "matched_text": "Corporate Planning",
+      "reason": "Role noun; not PII or MNPI"
+    },
+    {
+      "matched_text": "vendor",
+      "reason": "Role noun; not PII or MNPI"
+    },
+    {
+      "matched_text": "the company",
+      "reason": "Generic role reference; not PII"
+    },
+    {
+      "matched_text": "ISIN ZZ0000000000",
+      "reason": "Dummy instrument identifier; not PII/MNPI"
+    },
+    {
+      "matched_text": "TDnet",
+      "reason": "Public disclosure platform; references indicate public information"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "ACCT-0099-XY",
+      "concept": "customer_account_number",
+      "reason": "Looks like an account identifier but is described as a dummy securities form code; unclear if it maps to personal account PII"
+    },
+    {
+      "matched_text": "Kogane Tech K.K",
+      "concept": "tender offer target identity",
+      "reason": "Target identity in a planned tender offer can be MNPI under FIEA; rule set lacks explicit target-name marker"
+    },
+    {
+      "matched_text": "pre-clearance resumes",
+      "concept": "trading pre-clearance control",
+      "reason": "Compliance gating around blackout periods is relevant but not explicitly covered by available MNPI rules"
+    },
+    {
+      "matched_text": "planned initiation of a \u516c\u958b\u8cb7\u4ed8",
+      "concept": "tender offer planning",
+      "reason": "Non-public initiation planning is material under FIEA; phrase-level mapping may be too contextual for strict detection"
+    },
+    {
+      "matched_text": "two trading days",
+      "concept": "local blackout timing semantics",
+      "reason": "Exchange-relative blackout timing is compliance-relevant but not a specific allowed rule trigger"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

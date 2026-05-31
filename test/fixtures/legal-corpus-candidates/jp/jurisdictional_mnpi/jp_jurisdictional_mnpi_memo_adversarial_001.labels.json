@@ -1,0 +1,241 @@
+{
+  "doc_id": "jp_jurisdictional_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "source_jurisdiction": "JP",
+  "destination_jurisdiction": "JP",
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender offer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure to third parties before TDnet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "0.8%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@hoshinotech.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@hoshinotech.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "mori.kenji@hoshinotech.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "aya.kondo@hoshinotech.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "1 9 8 4 - 0 3 - 7 6 2 1 - 5 0"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Aya Kondo"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Sho Tanabe"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender offer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure to third parties before TDnet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "0.8%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@hoshinotech.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@hoshinotech.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "mori.kenji@hoshinotech.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "aya.kondo@hoshinotech.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "1 9 8 4 - 0 3 - 7 6 2 1 - 5 0"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Aya Kondo"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Sho Tanabe"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "\u500b\u4eba\u756a\u53f7"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Kondo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Fair Disclosure Rule"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure control"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "avoid any tender-offer facts not yet on TDnet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "A blackout window is in effect for directors, officers, and designated employees from 2026-06-05 through the close of trading on 2026-06-21"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "enumerated material fact"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC clause; excluded per rule 8."
+    },
+    {
+      "matched_text": "not MNPI",
+      "reason": "Explicitly stated as public information."
+    },
+    {
+      "matched_text": "stale/public",
+      "reason": "Explicit public/stale references should not be tagged as MNPI."
+    },
+    {
+      "matched_text": "non-issuer operational update",
+      "reason": "Operational update of another entity; not issuer MNPI."
+    },
+    {
+      "matched_text": "http://ir.hoshinotech.co.jp/notice?doc=TD2026-0510#page=2",
+      "reason": "Public IR link; adversarial bait for MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "project A Q U A - 4 2",
+      "concept": "transaction codename (non-standard)",
+      "reason": "Appears to be an internal project codename but does not match the allowed 'Project <CapitalizedName>' pattern."
+    },
+    {
+      "matched_text": "TOB codename \u201cShirakawa\u201d",
+      "concept": "transaction codename",
+      "reason": "Sensitive codename for tender offer; no matching allowed rule for non-'Project' pattern."
+    },
+    {
+      "matched_text": "account ref 00\u201319xx\u2013HT**\u20137",
+      "concept": "customer/internal account identifier",
+      "reason": "Masked internal reference could be an account number; format not covered by allowed PII rules."
+    },
+    {
+      "matched_text": "\u201cMy No.\u201d",
+      "concept": "jp_my_number anchor phrase",
+      "reason": "Refers to My Number columns but not an actual value; outside strict jp_my_number rule."
+    },
+    {
+      "matched_text": "trading logs will be maintained by IR",
+      "concept": "insider tracking/list",
+      "reason": "Implies insider activity tracking; not explicitly an 'insider list' per allowed rule."
+    },
+    {
+      "matched_text": "silent period",
+      "concept": "blackout/embargo timing",
+      "reason": "Indicates trading restriction timing but lacks the 'blackout' anchor term."
+    },
+    {
+      "matched_text": "E9-HT-0510",
+      "concept": "EDINET code / corporate identifier",
+      "reason": "May be a regulatory filing code; not covered by allowed PII rule set."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

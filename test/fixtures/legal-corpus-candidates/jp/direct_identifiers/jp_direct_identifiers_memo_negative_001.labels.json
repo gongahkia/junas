@@ -1,0 +1,166 @@
+{
+  "doc_id": "jp_direct_identifiers_memo_negative_001",
+  "document_type": "memo",
+  "source_jurisdiction": "JP",
+  "destination_jurisdiction": "JP",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr-onboarding@yamataka.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "board@yamataka.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "\u666e\u901a 1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_postal_code",
+      "matched_text": "111-1111"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr-onboarding@yamataka.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "board@yamataka.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "\u666e\u901a 1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_postal_code",
+      "matched_text": "111-1111"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "must be strictly limited to tax/withholding use"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "segregated from general HR files"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "must not be transmitted via email or chat"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redact in copies retained by non-Travel functions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "tender-offer facts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "unannounced timetable, valuation, price, or counterparty-sensitive terms"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "03-0000-0000",
+      "reason": "public helpline number (fictional) bait"
+    },
+    {
+      "matched_text": "0570-000-000",
+      "reason": "public helpline number (fictional) bait"
+    },
+    {
+      "matched_text": "\u6c0f\u540d",
+      "reason": "generic form label bait"
+    },
+    {
+      "matched_text": "\u4f4f\u6240",
+      "reason": "generic form label bait"
+    },
+    {
+      "matched_text": "\u90e8\u7f72",
+      "reason": "generic form label bait"
+    },
+    {
+      "matched_text": "\u9023\u7d61\u5148",
+      "reason": "generic form label bait"
+    },
+    {
+      "matched_text": "\u7dca\u6025\u9023\u7d61\u5148",
+      "reason": "generic form label bait"
+    },
+    {
+      "matched_text": "\u6cd5\u4eba\u756a\u53f7 9876-5432-1098",
+      "reason": "invalid checksum placeholder (corporate number) bait"
+    },
+    {
+      "matched_text": "Shinagawa Ward Business Permit SG-000000",
+      "reason": "placeholder identifier not in allowed taxonomy"
+    },
+    {
+      "matched_text": "\u5f93\u696d\u54e1 \u500b\u4eba\u756a\u53f7 1234-5678-9012",
+      "reason": "invalid checksum placeholder (My Number) bait"
+    },
+    {
+      "matched_text": "\u65c5\u5238\u756a\u53f7 ZZ0000000",
+      "reason": "sample placeholder (invalid passport number) bait"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "role noun (not a person/identifier)"
+    },
+    {
+      "matched_text": "Board",
+      "reason": "role noun (not a person/identifier)"
+    },
+    {
+      "matched_text": "Board Secretariat",
+      "reason": "role noun (not a person/identifier)"
+    },
+    {
+      "matched_text": "transfer agent",
+      "reason": "role noun (not a person/identifier)"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "announced on TSE TDnet",
+      "concept": "material_event reference",
+      "reason": "Public disclosure venue reference; relevant to MNPI context but not directly covered by allowed MNPI rules for undisclosed facts"
+    },
+    {
+      "matched_text": "Tokyo Securities Transfer Center (fictional)",
+      "concept": "institution identifier",
+      "reason": "Entity reference may be operationally relevant but not covered by allowed PII/MNPI rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}
