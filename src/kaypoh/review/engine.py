@@ -306,8 +306,9 @@ NONPUBLIC_RE = re.compile(
 )
 PUBLIC_RE = re.compile(r"\b(publicly announced|press release|filed|disclosed|published|reported)\b", re.IGNORECASE)
 NAME_RE = re.compile(
-    r"\b(?i:(?:Mr|Ms|Mrs|Mdm|Dr|Prof))\.?[ \t]+[A-Z][a-z]+"
-    r"(?:[ \t]+(?:(?i:bin|binti|s/o|d/o|a/l|a/p|al)[ \t]+)?[A-Z][a-z]+){0,5}\b"
+    r"\b(?i:(?:Mr|Ms|Mrs|Mdm|Dr|Prof))\.?[ \t]+[A-Z][a-z]+(?:[-\u2010-\u2015][A-Z][a-z]+)?"
+    r"(?:[ \t]+(?:(?i:bin|binti|s/o|d/o|a/l|a/p|al)[ \t]+)?"
+    r"[A-Z][a-z]+(?:[-\u2010-\u2015][A-Z][a-z]+)?){0,5}\b"
 )
 # items 95 + 96: contingent / forward-looking MNPI vocabulary (Basic v. Levinson, MAR Art 7(2-3),
 # SFA s215). Standalone these phrases are noise; the co-occurrence amplifier in review() lifts
@@ -1230,7 +1231,8 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"public(?:-facing)?\s+help\s*desk|public\s+helpdesk|public\s+helplines?|"
     r"public\s+hotline|public\s+line|public\s+service\s+line|"
     r"public\s+(?:queries|enquiries)|"
-    r"switchboard|reception|information\s+line|"
+    r"switchboard|reception|information\s+line|contact\s+centre|client\s+services|"
+    r"generic\s+(?:in[-\u2010-\u2015 ]house\s+)?ivr|in[-\u2010-\u2015 ]house\s+ivr|"
     r"hr\s+help\s*desk|general\s+line|"
     r"hotline\s+investor|nomor\s+publik|bukan\s+nomor\s+pribadi|"
     r"tổng\s+đài|công\s+khai|không\s+dùng\s+số\s+cá\s+nhân|"
@@ -1267,7 +1269,8 @@ _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
     r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|a/c|acc\s*t|account|"
     r"bank\s*acct|payroll\s*acct|"
     r"rekening|national\s+id|company\s+no|co\.\s+no|"
-    r"reg\.\s+no|registration\s+no|tax\s+ref|tax\s+no|TINs?|VAT|MST|EPF|SWIFT|IMEI|IP|DOB|dated|"
+    r"reg\.\s+no|registration\s+no|tax\s+ref|tax\s+no|TINs?|VAT|MST|EPF|SWIFT|"
+    r"TRN|CRN|trade\s+licen[cs]e|commercial\s+licen[cs]e|IMEI|IP|DOB|dated|"
     r"Pag-?IBIG|PhilHealth|MID|doc\s*code|doccode|OCR|artifacts?|"
     r"Rp|IDR|harga|nilai|miliar|triliun|billion|million|RSU|"
     r"Aadhaar|PAN|GSTIN|placeholder|sample|specimen|test\s+fields?|training\s+placeholder|"
@@ -1276,7 +1279,8 @@ _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
 )
 _LARGE_NUMBER_IDENTIFIER_CONTEXT_RE = re.compile(
     r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|postal|IMEI|IP|company\s+no|co\.\s+no|"
-    r"reg\.\s+no|registration\s+no|tax\s+ref|TINs?|VAT|MST|EPF|SWIFT|account\s+no|a/c|"
+    r"reg\.\s+no|registration\s+no|tax\s+ref|TINs?|VAT|MST|EPF|SWIFT|TRN|CRN|"
+    r"trade\s+licen[cs]e|commercial\s+licen[cs]e|account\s+no|a/c|"
     r"acc\s*t|rekening|rek\.?|escrow|bank\s+account|akun\s+internal|non-bank|"
     r"internal\s+wallet|wa\.me|session\s+ref|SSA\s+ref|job\s+ID|generic\s+label)\b",
     re.IGNORECASE,
@@ -1464,6 +1468,7 @@ def _is_benign_definitive_agreement_context(text: str, start: int, end: int) -> 
         r"hkexnews|placeholder|"
         r"as\s+disclosed[^\n.;]{0,80}executed\s+on\s+\d{4}|"
         r"as\s+announced[^\n]{0,160}no\s+binding\s+commercial\s+terms|"
+        r"publicly\s+announced\s+mou[^\n]{0,180}no\s+binding\s+obligations|"
         r"no\s+executed[^\n.;]{0,60}term\s+sheet\s+exists|"
         r"no\s+annexes[^\n.;]{0,80}\bSPA\b|"
         r"term\s+sheet\s+sample[^\n.;]{0,120}training[^\n.;]{0,120}public[- ]source|"
@@ -1479,7 +1484,8 @@ def _is_special_category_false_positive_context(rule_name: str, text: str, start
     if re.search(r"\b(?:do\s+not\s+include\s+any|no\s+individual\s+profiles?)\b", context, re.IGNORECASE):
         return True
     if rule_name == "genetic_data" and re.search(
-        r"\b(?:genetic\s+algorithms?|software\s+features?|not\s+about\s+any\s+person|"
+        r"\b(?:no\s+genetic\s+data[^\n.;]{0,80}(?:collected|stored|processed)|"
+        r"genetic\s+algorithms?|software\s+features?|not\s+about\s+any\s+person|"
         r"not\s+personal\s+data)\b",
         context,
         re.IGNORECASE,
@@ -2042,6 +2048,10 @@ _HIGHER_PRIORITY_THAN_PHONE = frozenset({
     "my_mykad", "id_nik", "th_national_id", "ph_philsys", "ph_tin", "vn_cccd",
     "hk_hkid", "hk_cr_no", "au_tfn", "au_abn", "au_acn",
     "jp_my_number", "jp_corporate_number", "kr_rrn", "kr_business_registration",
+    "in_aadhaar", "in_pan", "in_gstin", "in_voter_id",
+    "cn_resident_id", "cn_uscc", "cn_passport",
+    "ae_emirates_id", "ae_trade_licence", "ae_passport",
+    "sa_national_id", "sa_iqama", "sa_commercial_registration",
     "passport_number", "bank_account", "us_itin", "us_driver_license", "imei",
 })
 _HIGHER_PRIORITY_THAN_LARGE_NUMBER = _HIGHER_PRIORITY_THAN_PHONE | frozenset({

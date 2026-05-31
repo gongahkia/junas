@@ -3,13 +3,157 @@
   "document_type": "memo",
   "source_jurisdiction": "AE",
   "destination_jurisdiction": "AE",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "Trade Licence TL-5931-TEST"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "ORH-EMP-1193"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Type 2 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "ongoing treatment for Type 2 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@oasisreef.example"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Religion (do not ask)"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "Trade Licence TL-5931-TEST"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "ORH-EMP-1193"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Type 2 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "ongoing treatment for Type 2 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@oasisreef.example"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Religion (do not ask)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "PDPL Data Minimisation Standard v2.1"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "please do not include personal identifiers in open emails"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "EID-0000-XXXX-TEST"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Desert Falcon Code of Conduct",
+      "reason": "Policy/product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Oasis Safe Harbour Notice",
+      "reason": "Policy/product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Wadi Shield Anti-Harassment Policy",
+      "reason": "Policy/product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "\u201cMarina Strikers,\u201d",
+      "reason": "Sports/metaphor tag; not person-linked data."
+    },
+    {
+      "matched_text": "\u201cLiwa Playbook,\u201d",
+      "reason": "Metaphor tag; not person-linked data."
+    },
+    {
+      "matched_text": "\u201cJebel Surf\u201d",
+      "reason": "Metaphor tag; not person-linked data."
+    },
+    {
+      "matched_text": "union membership",
+      "reason": "Negated generic sensitive category mention; not collected."
+    },
+    {
+      "matched_text": "political opinions",
+      "reason": "Negated generic sensitive category mention; not collected."
+    },
+    {
+      "matched_text": "religious beliefs",
+      "reason": "Negated generic sensitive category mention; not collected."
+    },
+    {
+      "matched_text": "unpublished issuer information",
+      "reason": "Negated; explicitly not present so not MNPI."
+    },
+    {
+      "matched_text": "biometric timekeeping",
+      "reason": "Negated capability; not person-linked record."
+    },
+    {
+      "matched_text": "\u201cbiometric\u201d",
+      "reason": "Generic term mention; not person-linked data."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Family origin (optional)",
+      "concept": "ethnic/family origin special-category",
+      "reason": "Potential special-category attribute under PDPL but not listed in allowed rules."
+    },
+    {
+      "matched_text": "nationality",
+      "concept": "nationality personal data",
+      "reason": "Personal data attribute but no specific allowed rule to tag standalone nationality."
+    },
+    {
+      "matched_text": "Emirates ID",
+      "concept": "government ID type mention",
+      "reason": "Indicates AE ID category without an actual identifier number; may be out of scope for strict detectors."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -28,7 +28,7 @@ validator = "ae_emirates_id"
 [[recognizers]]
 name = "UAE Trade Licence"
 rule_name = "ae_trade_licence"
-pattern = '(?:Trade\s+Licen[cs]e(?:\s+No\.?)?|Commercial\s+Licen[cs]e(?:\s+No\.?)?|DED|DMCC|ADGM\s+Licence|DIFC\s+Licence)[\s:.#-]*([A-Z0-9-]{4,15})\b'
+pattern = '(?:Trade\s+Licen[cs]e(?:\s+No\.?)?|Commercial\s+Licen[cs]e(?:\s+No\.?)?|\bDED\b|\bDMCC\b|ADGM\s+Licence|DIFC\s+Licence)[\s:.#\-\u2010-\u2015]*(?!contact\b|image\b|images\b|copy\b|excerpt\b)(?-i:([A-Z0-9][A-Z0-9\-\u2010-\u2015]{3,29}))\b'
 severity = "medium"
 reason = "UAE Trade / commercial licence number"
 capture_group = 1

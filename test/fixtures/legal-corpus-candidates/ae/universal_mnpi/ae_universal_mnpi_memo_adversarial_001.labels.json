@@ -3,13 +3,325 @@
   "document_type": "memo",
   "source_jurisdiction": "AE",
   "destination_jurisdiction": "AE",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Strictly Non\u2011Public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Inside Information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Falcon"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 17 July 2026 09:00 GST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "These materials are non\u2011public and price\u2011sensitive"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no external circulation until ADX disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean\u2011team access"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "do not discuss over non\u2011secure channels"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "maintain insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo notice posted 3 June 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "83.0%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "17.0%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "\u00b15%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "earn\u2011out up to AED 25,000,000 tied to FY27 EBITDA"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Karim Haddad"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "H.E. Ms. Laila Al Rashid"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "laila.rashid@al-noor.example"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL\u2013DXB\u20132O24\u201300I2"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Strictly Non\u2011Public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Inside Information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Falcon"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 17 July 2026 09:00 GST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Issuer: Al Noor Logistics PJSC (ADGM registration ADGM\u2013A1O3X), Target: Blue Palm Warehousing LLC (Dubai), definitive Share Purchase Agreement (SPA) scheduled for execution on 24 June 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "These materials are non\u2011public and price\u2011sensitive"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no external circulation until ADX disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "IR draft to be staged only post\u2011embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean\u2011team access"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "legal clean team only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "do not discuss over non\u2011secure channels"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "maintain insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo notice posted 3 June 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC/MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "83.0%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "17.0%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "\u00b15%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "earn\u2011out up to AED 25,000,000 tied to FY27 EBITDA"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Karim Haddad"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "H.E. Ms. Laila Al Rashid"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "laila.rashid@al-noor.example"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL\u2013DXB\u20132O24\u201300I2"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "E I D: 7 8 4\u2011xx87\u201113 34 567\u20115"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "restrict access to Emirates ID scans, family\u2011origin notes for the Haddad household, and HR visa files to the legal clean team only"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "family\u2011origin notes for the Haddad household"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "defined-term abbreviation in parentheses"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "the parties",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "lowercase project\u2011management",
+      "reason": "false-positive bait/non-MNPI"
+    },
+    {
+      "matched_text": "spa\u2011day vouchers",
+      "reason": "false-positive bait/non-MNPI"
+    },
+    {
+      "matched_text": "Public\u2011source context only",
+      "reason": "public-source reference; not MNPI"
+    },
+    {
+      "matched_text": "seller",
+      "reason": "role-noun defined term"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "ADGM registration ADGM\u2013A1O3X",
+      "concept": "ADGM corporate registration number",
+      "reason": "jurisdiction-specific corporate identifier not covered by allowed rules"
+    },
+    {
+      "matched_text": "E I D: 7 8 4\u2011xx87\u201113 34 567\u20115",
+      "concept": "masked Emirates ID",
+      "reason": "personal identifier appears partially masked and may not match strict ae_emirates_id patterns"
+    },
+    {
+      "matched_text": "family\u2011origin notes for the Haddad household",
+      "concept": "ethnic/family origin data",
+      "reason": "PDPL special-category personal data notionally implicated but no explicit rule provided"
+    },
+    {
+      "matched_text": "Data room: https://vault.al-noor.example/falcon/index.html?emb=17-07-2026&uid=PRJ%2F-FALC0N%2FQ%CE%9FE",
+      "concept": "MNPI data room URL",
+      "reason": "sensitive access location; no specific MNPI category for URLs"
+    },
+    {
+      "matched_text": "pro forma net leverage 3.1x",
+      "concept": "sensitive financial metric",
+      "reason": "financial ratio not explicitly covered by financial_amount or financial_percentage rules"
+    },
+    {
+      "matched_text": "HR visa files",
+      "concept": "immigration/visa data",
+      "reason": "sensitive personal data category implied but not enumerated in allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 182,500,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 120,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 62,500,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 25,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 182,500,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 120,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 62,500,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 25,000,000'"
+  ],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

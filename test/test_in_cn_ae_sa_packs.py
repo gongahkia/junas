@@ -136,6 +136,41 @@ class RecognizerFiringTests(unittest.TestCase):
         r = self._review("UAE Passport A12345678 issued in DXB.", "AE")
         self.assertIn("ae_passport", {f.rule for f in r.findings})
 
+    def test_ae_trade_licence_captures_full_code_without_phone_overlap(self):
+        r = self._review("Trade Licence GNFC-PJSC-2049-338721 verified.", "AE")
+        rules = {f.rule for f in r.findings}
+        self.assertIn("ae_trade_licence", rules)
+        self.assertNotIn("phone_number", rules)
+
+    def test_ae_trade_licence_does_not_match_words_after_ded_fragment(self):
+        r = self._review("No personal contacts should be recorded. Market conduct is public.", "AE")
+        self.assertNotIn("ae_trade_licence", {f.rule for f in r.findings})
+
+    def test_ae_public_contact_numbers_do_not_fire_as_phone(self):
+        r = self._review(
+            "Telephone bait: +971 600 000 000 is a generic in-house IVR. "
+            "Use the SCA Contact Centre 800-120-0000 or DIFC Client Services +971-600-000000.",
+            "AE",
+        )
+        self.assertNotIn("phone_number", {f.rule for f in r.findings})
+
+    def test_ae_public_non_binding_mou_and_negated_genetic_data_do_not_fire(self):
+        r = self._review(
+            "The publicly announced MoU was posted on the ADX portal and expressly states "
+            "no binding obligations. No genetic data will be collected for the deal.",
+            "AE",
+        )
+        rules = {f.rule for f in r.findings}
+        self.assertNotIn("definitive_agreement", rules)
+        self.assertNotIn("genetic_data", rules)
+
+    def test_ae_al_hyphenated_names_do_not_create_bare_al_hits(self):
+        r = self._review("Mr. Nadir Al\u2011Hafez and Mr. Tariq Al-Najjar attended.", "AE")
+        matched = {f.matched_text for f in r.findings if f.rule == "named_person"}
+        self.assertIn("Mr. Nadir Al\u2011Hafez", matched)
+        self.assertIn("Mr. Tariq Al-Najjar", matched)
+        self.assertNotIn("Al", matched)
+
     # --- SA ---
 
     def test_sa_national_id_fires(self):

@@ -3,13 +3,134 @@
   "document_type": "memo",
   "source_jurisdiction": "AE",
   "destination_jurisdiction": "AE",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@marhabadunes.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@marhabadunes.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@marhabadunes.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@marhabadunes.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@marhabadunes.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@marhabadunes.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "project coral lantern"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "2026\u201101\u201120 09:00 gst"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric attributes"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "EID\u20119999\u2011TEST",
+      "reason": "Placeholder test string; invalid Emirates ID sample and not real PII."
+    },
+    {
+      "matched_text": "TL\u2011ADGM\u2011000000X",
+      "reason": "Placeholder test string; invalid trade licence sample and not real PII."
+    },
+    {
+      "matched_text": "ACCT\u20110000\u2011VOID",
+      "reason": "Placeholder test string; invalid investor account sample and not real PII."
+    },
+    {
+      "matched_text": "spa\u2011day",
+      "reason": "Not a Share Purchase Agreement; spa-day bait in lowercase admin text."
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated context (no MAC asserted); do not label as material_adverse_change."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "embargo",
+      "concept": "embargo marker",
+      "reason": "Embargo label present but not using the enumerated trigger words (Embargoed/Press Hold)."
+    },
+    {
+      "matched_text": "family\u2011origin data",
+      "concept": "sensitive personal data (family origin)",
+      "reason": "Sensitive PDPL concept but not explicitly covered by the allowed PII rule list."
+    },
+    {
+      "matched_text": "vendor kyc",
+      "concept": "KYC processing of personal data",
+      "reason": "Implies handling of personal data but not mapped to a specific allowed PII rule."
+    },
+    {
+      "matched_text": "investor a/c",
+      "concept": "customer_account_number descriptor",
+      "reason": "Indicates an account identifier context without an actual number/value present."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
