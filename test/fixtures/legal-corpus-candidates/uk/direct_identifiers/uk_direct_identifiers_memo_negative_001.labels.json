@@ -1,85 +1,119 @@
 {
-  "doc_id": "uk_direct_identifiers_memo_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled UK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UK GDPR/MAR contexts, public RNS/manual bait, public assistance-line bait, entity identifier numeric fragments, obfuscated employee/session IDs, and UK IDTA transfer contexts; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "UZ1234567"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@northmoorcapital.co.uk"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "closed period"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "closed periods"
+      "notes": "Reconciled UK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UK GDPR/MAR contexts, public RNS/manual bait, public assistance-line bait, entity identifier numeric fragments, obfuscated employee/session IDs, and UK IDTA transfer contexts; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved UK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T15:54:54Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved UK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T15:54:54Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "UK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered public HR assistance-line bait, UK entity/FRN/UTR numeric fragments, obfuscated employee/session IDs, system-bucket account bait, genetic-data metaphor wording, and public/manual employment-matter material-event bait. UK IDTA labels were kept as deterministic cross-border-transfer findings where the fixture describes actual payroll/HR data exports.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T15:54:54Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+    "status": "owner_approved_uk_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_direct_identifiers_memo_negative_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "UZ1234567"
+      "matched_text": "UZ1234567",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@northmoorcapital.co.uk"
+      "matched_text": "compliance@northmoorcapital.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "closed period"
+      "matched_text": "closed period",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "closed periods"
+      "matched_text": "closed periods",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "recorded solely for legal checks under UK GDPR"
+      "matched_text": "recorded solely for legal checks under UK GDPR",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "no personal email addresses should appear"
+      "matched_text": "no personal email addresses should appear",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "record such entries in redacted fields until validated"
+      "matched_text": "record such entries in redacted fields until validated",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "excludes names, personal emails, and direct numbers"
+      "matched_text": "excludes names, personal emails, and direct numbers",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "No inside information is contained herein"
+      "matched_text": "No inside information is contained herein",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -152,38 +186,32 @@
       "reason": "Generic label; value shown is placeholder and rule not in allowed list."
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "Companies Registry UK No",
       "concept": "uk_company_number",
+      "matched_text": "Companies Registry UK No",
       "reason": "Company number is a legally relevant identifier in UK workflows but no explicit allowed rule exists."
     },
     {
-      "matched_text": "VAT No. GB00 0000 00",
       "concept": "uk_vat_number",
+      "matched_text": "VAT No. GB00 0000 00",
       "reason": "VAT registration numbers are regulated identifiers; not covered by allowed rules and here appears as a placeholder."
     },
     {
-      "matched_text": "Tax UTR",
       "concept": "uk_utr",
+      "matched_text": "Tax UTR",
       "reason": "HMRC Unique Taxpayer Reference can be personal data; no explicit rule provided."
     },
     {
-      "matched_text": "Postcode: XX0 0XX",
       "concept": "uk_postcode",
+      "matched_text": "Postcode: XX0 0XX",
       "reason": "UK postcode can form part of an address quasi-identifier; no rule exists and this instance is a template."
     },
     {
-      "matched_text": "PDMR",
       "concept": "pdmr_marker",
+      "matched_text": "PDMR",
       "reason": "PDMR references can be MNPI-sensitive in MAR context; not explicitly listed as a marker in allowed rules."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

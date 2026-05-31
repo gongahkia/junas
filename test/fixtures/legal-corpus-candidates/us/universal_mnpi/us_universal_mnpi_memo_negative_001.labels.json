@@ -1,80 +1,144 @@
 {
-  "doc_id": "us_universal_mnpi_memo_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "US",
-  "destination_jurisdiction": "US",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled US Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, Reg FD/selective-disclosure contexts, public SEC/website bait, role mailbox/public helpline bait, identifier-like numeric fragments, and placeholder/test account IDs; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@verdantharbor.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@verdantharbor.example"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non\u2011public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure control"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "definitive agreement"
+      "notes": "Reconciled US Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, Reg FD/selective-disclosure contexts, public SEC/website bait, role mailbox/public helpline bait, identifier-like numeric fragments, and placeholder/test account IDs; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved US Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T15:54:54Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved US Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T15:54:54Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "US Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered role/legal mailbox bait, public privacy/ethics helplines, generic training-list wording, negated material-adverse-effect wording, Reg FD/10b/Phase shorthand amount bait, placeholder account IDs, entity registry numbers, and public/generic material-event guidance.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T15:54:54Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
+    "status": "owner_approved_us_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_universal_mnpi_memo_negative_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@verdantharbor.example"
+      "matched_text": "ir@verdantharbor.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@verdantharbor.example"
+      "matched_text": "compliance@verdantharbor.example",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non\u2011public"
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure control"
+      "matched_text": "selective disclosure control",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "definitive agreement"
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo"
+      "matched_text": "embargo",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "07/15/2026 08:00 ET"
+      "matched_text": "07/15/2026 08:00 ET",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "executed definitive agreement"
+      "matched_text": "executed definitive agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "reg fd"
+      "matched_text": "reg fd",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "public references only: q4 2025 revenue range \u201cmid\u2011single\u2011digit growth\u201d as stated on 02/10/26 earnings call transcript.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "negated mac language: per prior s\u20114 for the 2024 inland beacon merger, no \u201cmaterial adverse effect\u201d occurred through closing; do not extrapolate to current quarter.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo: do not discuss or hint at the executed definitive agreement with seacove diagnostics llc until 07/15/2026 08:00 ET; file 8\u2011k before market open.",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "public references only: q4 2025 revenue range \u201cmid\u2011single\u2011digit growth\u201d as stated on 02/10/26 earnings call transcript.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "negated mac language: per prior s\u20114 for the 2024 inland beacon merger, no \u201cmaterial adverse effect\u201d occurred through closing; do not extrapolate to current quarter.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "negated mac language: per prior s\u20114 for the 2024 inland beacon merger, no \u201cmaterial adverse effect\u201d occurred through closing; do not extrapolate to current quarter.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo: do not discuss or hint at the executed definitive agreement with seacove diagnostics llc until 07/15/2026 08:00 ET; file 8\u2011k before market open.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
     }
   ],
   "must_not_detect": [
@@ -115,18 +179,12 @@
       "reason": "Placeholder routing number; not covered by allowed rules and not real."
     }
   ],
+  "source_jurisdiction": "US",
   "uncertain": [
     {
-      "matched_text": "aba 000000000",
       "concept": "bank routing number",
+      "matched_text": "aba 000000000",
       "reason": "Potentially sensitive financial identifier, but no specific allowed rule for ABA/routing numbers."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

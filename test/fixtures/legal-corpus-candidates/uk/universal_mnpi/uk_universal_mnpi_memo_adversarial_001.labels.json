@@ -1,290 +1,339 @@
 {
-  "doc_id": "uk_universal_mnpi_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled UK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UK GDPR/MAR contexts, public RNS/manual bait, public assistance-line bait, entity identifier numeric fragments, obfuscated employee/session IDs, and UK IDTA transfer contexts; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Inside Information under UK MAR"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Rowan"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo 18 Sep 2026 at 14:00 BST"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "\u00a3148,500,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "7.5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "32.5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAE"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list updates"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "closed period"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo +1 day"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "price\u2011sensitive content"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "publication contingent on UK MAR Article 17 delay rationale"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lynette Arora"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "lynette.arora@bramblebrook.capital"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 7300 111222"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Dorian Keene"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Nigel Firth"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@bramblebrook.capital"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Arora"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Keene"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non\u2011public"
+      "notes": "Reconciled UK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UK GDPR/MAR contexts, public RNS/manual bait, public assistance-line bait, entity identifier numeric fragments, obfuscated employee/session IDs, and UK IDTA transfer contexts; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved UK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T15:54:54Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved UK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T15:54:54Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "UK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered public HR assistance-line bait, UK entity/FRN/UTR numeric fragments, obfuscated employee/session IDs, system-bucket account bait, genetic-data metaphor wording, and public/manual employment-matter material-event bait. UK IDTA labels were kept as deterministic cross-border-transfer findings where the fixture describes actual payroll/HR data exports.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T15:54:54Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+    "status": "owner_approved_uk_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_universal_mnpi_memo_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Inside Information under UK MAR"
+      "matched_text": "Inside Information under UK MAR",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "CONFIDENTIAL"
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Rowan"
+      "matched_text": "Project Rowan",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "to acquire Itswitch Payments Ltd"
+      "matched_text": "to acquire Itswitch Payments Ltd",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo 18 Sep 2026 at 14:00 BST"
+      "matched_text": "embargo 18 Sep 2026 at 14:00 BST",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo +1 day"
+      "matched_text": "embargo +1 day",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "\u00a3148,500,000"
+      "matched_text": "\u00a3148,500,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "7.5%"
+      "matched_text": "7.5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "32.5%"
+      "matched_text": "32.5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAE"
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAC/MAE"
+      "matched_text": "MAC/MAE",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list updates"
+      "matched_text": "Insider list updates",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "PDMR"
+      "matched_text": "PDMR",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "closed period"
+      "matched_text": "closed period",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "price\u2011sensitive content"
+      "matched_text": "price\u2011sensitive content",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "publication contingent on UK MAR Article 17 delay rationale"
+      "matched_text": "publication contingent on UK MAR Article 17 delay rationale",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UK MAR Article 17 delay rationale"
+      "matched_text": "UK MAR Article 17 delay rationale",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not circulate"
+      "matched_text": "do not circulate",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "restrict external research coverage"
+      "matched_text": "restrict external research coverage",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "only under NDA"
+      "matched_text": "only under NDA",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "recommends tight access"
+      "matched_text": "recommends tight access",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside status remains until release"
+      "matched_text": "inside status remains until release",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "subject to pre\u2011emption disapplication"
+      "matched_text": "subject to pre\u2011emption disapplication",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non\u2011public"
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lynette Arora"
+      "matched_text": "Ms. Lynette Arora",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "lynette.arora@bramblebrook.capital"
+      "matched_text": "lynette.arora@bramblebrook.capital",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 7300 111222"
+      "matched_text": "+44 7300 111222",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Dorian Keene"
+      "matched_text": "Mr. Dorian Keene",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Nigel Firth"
+      "matched_text": "Dr. Nigel Firth",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@bramblebrook.capital"
+      "matched_text": "compliance@bramblebrook.capital",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Arora"
+      "matched_text": "Ms. Arora",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Keene"
+      "matched_text": "Mr. Keene",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Deal codename: Project Rowan; non\u2011public: do not circulate; definitive SPA with Hearthmere Bank Ltd to acquire Itswitch Payments Ltd, execution targeted 19 Sep 2026, embargo 18 Sep 2026 at 14:00 BST.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "148,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "lynette.arora@bramblebrook.capital",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+44 7300 111222",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lynette Arora",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dorian Keene",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Nigel Firth",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Arora",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Keene",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Deal codename: Project Rowan; non\u2011public: do not circulate; definitive SPA with Hearthmere Bank Ltd to acquire Itswitch Payments Ltd, execution targeted 19 Sep 2026, embargo 18 Sep 2026 at 14:00 BST.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Rowan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Rowan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Rowan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a3148,500,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "32.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "148,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -301,28 +350,22 @@
       "reason": "Negated MAC language should not be labeled as MNPI per rule."
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "Acct: BBK****29\u201177",
       "concept": "bank_account",
+      "matched_text": "Acct: BBK****29\u201177",
       "reason": "Masked corporate account reference; not clearly personal PII."
     },
     {
-      "matched_text": "client ref: BBK/FR\u2011I/I\u2011372",
       "concept": "bank_customer_reference",
+      "matched_text": "client ref: BBK/FR\u2011I/I\u2011372",
       "reason": "Internal client reference; unclear if tied to a natural person."
     },
     {
-      "matched_text": "9Z\u2011 BR AM 26",
       "concept": "internal_session_id",
+      "matched_text": "9Z\u2011 BR AM 26",
       "reason": "Meet-me code may function as an internal session identifier but not clearly personal."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

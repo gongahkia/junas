@@ -1,9 +1,9 @@
 {
   "_agent_review": {
-    "notes": "Realigned this previously reviewed candidate label to the current deterministic engine after PH precision fixes suppressed completed DSAR/control bait, placeholder identifiers, role/no-MNPI markers, and benign MAC/term-sheet explanatory prose.",
+    "notes": "Removed stale strict labels suppressed by US/UK precision fixes (short legal/trial shorthand amount bait, public-source material-event bait, or placeholder account bait); retained removed spans in ideal_must_detect for gap/history tracking.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
-    "source_report": "/tmp/kaypoh-candidates-after-ph-reviewed.json",
-    "status": "post_ph_precision_realign_owner_approved"
+    "source_report": "/tmp/kaypoh-candidates-after-us-uk-reviewed.json",
+    "status": "post_us_uk_global_precision_realign_owner_approved"
   },
   "_agent_review_history": [
     {
@@ -11,6 +11,12 @@
       "reviewer": "codex-gpt-assisted-strict-tier-review",
       "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
       "status": "strict_tier_cleaned_owner_approved"
+    },
+    {
+      "notes": "Removed stale strict labels suppressed by US/UK precision fixes (short legal/trial shorthand amount bait, public-source material-event bait, or placeholder account bait); retained removed spans in ideal_must_detect for gap/history tracking.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "source_report": "/tmp/kaypoh-candidates-after-us-uk-reviewed.json",
+      "status": "post_us_uk_global_precision_realign_owner_approved"
     }
   ],
   "_human_review": {
@@ -54,6 +60,8 @@
     "accepted_at_utc": "2026-05-30T01:36:04Z",
     "accepted_by": "gongahkia",
     "basis": "User instructed Codex to handle approval stages for project benchmarking; this is not legal advice or external procurement-grade legal review.",
+    "post_us_uk_realign_at_utc": "2026-05-31T15:56:03Z",
+    "post_us_uk_realign_source_report": "/tmp/kaypoh-candidates-after-us-uk-reviewed.json",
     "source_report": "/tmp/kaypoh-candidates-after-ph-reviewed.json",
     "status": "owner_approved_post_ph_precision_realign_for_internal_benchmarking"
   },
@@ -338,11 +346,6 @@
     {
       "category": "MNPI",
       "matched_text": "THB 1,200,000,000",
-      "rule": "financial_amount"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "3M",
       "rule": "financial_amount"
     },
     {

@@ -1,210 +1,289 @@
 {
-  "doc_id": "us_special_category_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "US",
-  "destination_jurisdiction": "US",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled US Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, Reg FD/selective-disclosure contexts, public SEC/website bait, role mailbox/public helpline bait, identifier-like numeric fragments, and placeholder/test account IDs; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@northharborhealth.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "cmercer@nhhb-internal.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "investorrelations@northharborhealth.example"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Cade Mercer"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Tamsin Yule"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Dorian Vale"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Kira Hollis"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "Employee ID HV-44219"
-    },
-    {
-      "category": "PII",
-      "rule": "genetic_data",
-      "matched_text": "CYP2C19 poor-metabolizer genetic result on file"
-    },
-    {
-      "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "undergoing treatment for Type 1 diabetes"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "registered steward of Finance Workers Local 744"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "Mr. Vale\u2019s fingerprint template used for the Bayford vault timeclock (biometric)"
-    },
-    {
-      "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "private calendar entry noting Sabbath observance accommodations"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minor child\u2019s care plan number"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
+      "notes": "Reconciled US Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, Reg FD/selective-disclosure contexts, public SEC/website bait, role mailbox/public helpline bait, identifier-like numeric fragments, and placeholder/test account IDs; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved US Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T15:54:54Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved US Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T15:54:54Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "US Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered role/legal mailbox bait, public privacy/ethics helplines, generic training-list wording, negated material-adverse-effect wording, Reg FD/10b/Phase shorthand amount bait, placeholder account IDs, entity registry numbers, and public/generic material-event guidance.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T15:54:54Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
+    "status": "owner_approved_us_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_special_category_memo_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@northharborhealth.example"
+      "matched_text": "legal@northharborhealth.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "cmercer@nhhb-internal.example"
+      "matched_text": "cmercer@nhhb-internal.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "investorrelations@northharborhealth.example"
+      "matched_text": "investorrelations@northharborhealth.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Cade Mercer"
+      "matched_text": "Mr. Cade Mercer",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Tamsin Yule"
+      "matched_text": "Ms. Tamsin Yule",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Dorian Vale"
+      "matched_text": "Mr. Dorian Vale",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Kira Hollis"
+      "matched_text": "Ms. Kira Hollis",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "Employee ID HV-44219"
+      "matched_text": "Employee ID HV-44219",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "genetic_data",
-      "matched_text": "CYP2C19 poor-metabolizer genetic result on file"
+      "matched_text": "CYP2C19 poor-metabolizer genetic result on file",
+      "rule": "genetic_data"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "undergoing treatment for Type 1 diabetes"
+      "matched_text": "undergoing treatment for Type 1 diabetes",
+      "rule": "medical_treatment"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "undergoing treatment for Type 1 diabetes"
+      "matched_text": "undergoing treatment for Type 1 diabetes",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "registered steward of Finance Workers Local 744"
+      "matched_text": "registered steward of Finance Workers Local 744",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "Mr. Vale\u2019s fingerprint template used for the Bayford vault timeclock (biometric)"
+      "matched_text": "Mr. Vale\u2019s fingerprint template used for the Bayford vault timeclock (biometric)",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "private calendar entry noting Sabbath observance accommodations"
+      "matched_text": "private calendar entry noting Sabbath observance accommodations",
+      "rule": "religious_belief"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minor child\u2019s care plan number"
+      "matched_text": "minor child\u2019s care plan number",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "medical_record_number",
-      "matched_text": "minor child\u2019s care plan number"
+      "matched_text": "minor child\u2019s care plan number",
+      "rule": "medical_record_number"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "restrict outreach to covered market actors"
+      "matched_text": "restrict outreach to covered market actors",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Until the 8-K posts, restrict outreach to covered market actors"
+      "matched_text": "Until the 8-K posts, restrict outreach to covered market actors",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Clean Team"
+      "matched_text": "Clean Team",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "purge the Chronis biometric cache"
+      "matched_text": "purge the Chronis biometric cache",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "pending a fresh consent"
+      "matched_text": "pending a fresh consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "remove religious and union annotations"
+      "matched_text": "remove religious and union annotations",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HV-44219",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Vale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic result",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: On 5/28, Mr. Cade Mercer (VP, Corporate Development) discussed non-public Q2 clinic attrition and MarlinPay card charge-off trends with Ms. Tamsin Yule, an analyst at Fencrest Securities, ahead of our scheduled 6/3 earnings call.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A second attachment included Ms. Kira Hollis\u2019s patient-financing worksheet showing her minor child\u2019s care plan number (no SSN) and PulsePort EHR encounter codes, which must be removed before any Reg FD corrective posting.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@northharborhealth.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cmercer@nhhb-internal.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HV-44219",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Cade Mercer",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tamsin Yule",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dorian Vale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Vale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Kira Hollis",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Vale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic result",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: On 5/28, Mr. Cade Mercer (VP, Corporate Development) discussed non-public Q2 clinic attrition and MarlinPay card charge-off trends with Ms. Tamsin Yule, an analyst at Fencrest Securities, ahead of our scheduled 6/3 earnings call.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A second attachment included Ms. Kira Hollis\u2019s patient-financing worksheet showing her minor child\u2019s care plan number (no SSN) and PulsePort EHR encounter codes, which must be removed before any Reg FD corrective posting.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     }
   ],
   "must_not_detect": [
@@ -253,43 +332,37 @@
       "reason": "System/place reference, not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "US",
   "uncertain": [
     {
-      "matched_text": "555-0148",
       "concept": "phone_number",
+      "matched_text": "555-0148",
       "reason": "Looks like a phone number but lacks country/area code; many detectors require 10+ digits"
     },
     {
-      "matched_text": "care plan number",
       "concept": "medical_record_number",
+      "matched_text": "care plan number",
       "reason": "Healthcare identifier but ambiguous whether it maps to a medical record or insurance member ID"
     },
     {
-      "matched_text": "PulsePort EHR encounter codes",
       "concept": "medical_treatment",
+      "matched_text": "PulsePort EHR encounter codes",
       "reason": "Indicates PHI/encounter details but not a specific listed identifier"
     },
     {
-      "matched_text": "definitive agreements",
       "concept": "definitive_agreement",
+      "matched_text": "definitive agreements",
       "reason": "Refers to signing status but not one of the enumerated agreement names (SPA, LOI, etc.)"
     },
     {
-      "matched_text": "non-public Q2 clinic attrition and MarlinPay card charge-off trends",
       "concept": "material_event",
+      "matched_text": "non-public Q2 clinic attrition and MarlinPay card charge-off trends",
       "reason": "Likely material operating metrics disclosed selectively; not captured by a specific MNPI keyword rule"
     },
     {
-      "matched_text": "potential VeridianCare JV",
       "concept": "material_event",
+      "matched_text": "potential VeridianCare JV",
       "reason": "Potential transaction reference pre-announcement; no codename or enumerated agreement present"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

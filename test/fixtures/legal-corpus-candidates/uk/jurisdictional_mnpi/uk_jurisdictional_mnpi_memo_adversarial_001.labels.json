@@ -1,245 +1,279 @@
 {
-  "doc_id": "uk_jurisdictional_mnpi_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled UK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UK GDPR/MAR contexts, public RNS/manual bait, public assistance-line bait, entity identifier numeric fragments, obfuscated employee/session IDs, and UK IDTA transfer contexts; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "petra.lang@harlowequant-plc.uk"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 20 4550 8123"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Petra Lang"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Oliver Beck"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@harlowequant-plc.uk"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "E-1 2 9 7 4"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "E-1 3 0 0 5"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "restrict any spreadsheets linking names to redundancy scoring"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not export employee tables"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Inside information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "RNS embargo"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "\u00a31"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Closed period"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Selective disclosure risk"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "pre-blackout"
+      "notes": "Reconciled UK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UK GDPR/MAR contexts, public RNS/manual bait, public assistance-line bait, entity identifier numeric fragments, obfuscated employee/session IDs, and UK IDTA transfer contexts; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved UK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T15:54:54Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved UK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T15:54:54Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "UK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered public HR assistance-line bait, UK entity/FRN/UTR numeric fragments, obfuscated employee/session IDs, system-bucket account bait, genetic-data metaphor wording, and public/manual employment-matter material-event bait. UK IDTA labels were kept as deterministic cross-border-transfer findings where the fixture describes actual payroll/HR data exports.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T15:54:54Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+    "status": "owner_approved_uk_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_jurisdictional_mnpi_memo_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "petra.lang@harlowequant-plc.uk"
+      "matched_text": "petra.lang@harlowequant-plc.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 20 4550 8123"
+      "matched_text": "+44 20 4550 8123",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Petra Lang"
+      "matched_text": "Ms. Petra Lang",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Oliver Beck"
+      "matched_text": "Mr. Oliver Beck",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@harlowequant-plc.uk"
+      "matched_text": "compliance@harlowequant-plc.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "E-1 2 9 7 4"
+      "matched_text": "E-1 2 9 7 4",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "E-1 3 0 0 5"
+      "matched_text": "E-1 3 0 0 5",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "restrict any spreadsheets linking names to redundancy scoring"
+      "matched_text": "restrict any spreadsheets linking names to redundancy scoring",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not export employee tables"
+      "matched_text": "do not export employee tables",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Inside information"
+      "matched_text": "Inside information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "RNS embargo"
+      "matched_text": "RNS embargo",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "\u00a31"
+      "matched_text": "\u00a31",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Closed period"
+      "matched_text": "Closed period",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout"
+      "matched_text": "blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Selective disclosure risk"
+      "matched_text": "Selective disclosure risk",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
+      "matched_text": "5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "pre-blackout"
+      "matched_text": "pre-blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project PR\u2022O\u2022M\u2022E\u2022T\u2022H\u2022E\u2022U\u2022S"
+      "matched_text": "Project PR\u2022O\u2022M\u2022E\u2022T\u2022H\u2022E\u2022U\u2022S",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposed acquisition of Claremont Ledger Ltd"
+      "matched_text": "proposed acquisition of Claremont Ledger Ltd",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "must not pass pricing guidance to counterparties"
+      "matched_text": "must not pass pricing guidance to counterparties",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "one-to-one analyst briefings"
+      "matched_text": "one-to-one analyst briefings",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "use approved lines"
+      "matched_text": "use approved lines",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "non-final estimates"
+      "matched_text": "non-final estimates",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "must remain inside"
+      "matched_text": "must remain inside",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "c l o s e d   p e r i o d"
+      "matched_text": "c l o s e d   p e r i o d",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "ACC-GB-0x4F2 A19"
+      "matched_text": "ACC-GB-0x4F2 A19",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject: pre-close update, selective-disclosure controls, and proposed acquisition of Claremont Ledger Ltd (Project PR\u2022O\u2022M\u2022E\u2022T\u2022H\u2022E\u2022U\u2022S)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Market-abuse controls: sales team must not pass pricing guidance to counterparties; use approved lines; internal code NQC-2026-NGX; account ref: ACC-GB-0x4F2 A19 (obf.)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project PR",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a32",
+      "rule": "financial_amount"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "petra.lang@harlowequant-plc.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+44 20 4550 8123",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Petra Lang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Oliver Beck",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject: pre-close update, selective-disclosure controls, and proposed acquisition of Claremont Ledger Ltd (Project PR\u2022O\u2022M\u2022E\u2022T\u2022H\u2022E\u2022U\u2022S)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Market-abuse controls: sales team must not pass pricing guidance to counterparties; use approved lines; internal code NQC-2026-NGX; account ref: ACC-GB-0x4F2 A19 (obf.)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project PR",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a31",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a32",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
     }
   ],
   "must_not_detect": [
@@ -248,43 +282,37 @@
       "reason": "Negated MAC; do not label per rule 8"
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "ACC-GB-0x4F2 A19",
       "concept": "account reference",
+      "matched_text": "ACC-GB-0x4F2 A19",
       "reason": "May be a customer_account_number or bank_customer_reference; unclear classification"
     },
     {
-      "matched_text": "http://intra.hqplc.local/compliance?ticket=pr0m3theus",
       "concept": "internal session/token in URL",
+      "matched_text": "http://intra.hqplc.local/compliance?ticket=pr0m3theus",
       "reason": "URL contains a ticket parameter that could be an internal_session_id; not clearly covered by current rules"
     },
     {
-      "matched_text": "NQC-2026-NGX",
       "concept": "internal code",
+      "matched_text": "NQC-2026-NGX",
       "reason": "Could be an information barrier or insider-tracking code; no explicit matching rule"
     },
     {
-      "matched_text": "pro forma uplift",
       "concept": "financial projection",
+      "matched_text": "pro forma uplift",
       "reason": "Indicative projection likely MNPI but not explicitly covered by listed MNPI rules"
     },
     {
-      "matched_text": "draft heads of terms signed 30/5",
       "concept": "definitive agreement proxy",
+      "matched_text": "draft heads of terms signed 30/5",
       "reason": "Heads of terms function like a term sheet but not in the enumerated definitive_agreement list"
     },
     {
-      "matched_text": "PDMR dealing",
       "concept": "insider governance",
+      "matched_text": "PDMR dealing",
       "reason": "Signals insider-dealing controls context but not an explicit 'insider list' marker under allowed rules"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

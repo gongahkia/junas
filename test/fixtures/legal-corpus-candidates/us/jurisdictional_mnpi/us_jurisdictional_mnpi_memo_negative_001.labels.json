@@ -1,105 +1,159 @@
 {
-  "doc_id": "us_jurisdictional_mnpi_memo_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "US",
-  "destination_jurisdiction": "US",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled US Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, Reg FD/selective-disclosure contexts, public SEC/website bait, role mailbox/public helpline bait, identifier-like numeric fragments, and placeholder/test account IDs; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "investorrelations@velispring.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@velispring.example"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1-800-000-0000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "material non-public information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "quarterly blackout windows"
+      "notes": "Reconciled US Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, Reg FD/selective-disclosure contexts, public SEC/website bait, role mailbox/public helpline bait, identifier-like numeric fragments, and placeholder/test account IDs; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved US Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T15:54:54Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved US Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T15:54:54Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "US Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered role/legal mailbox bait, public privacy/ethics helplines, generic training-list wording, negated material-adverse-effect wording, Reg FD/10b/Phase shorthand amount bait, placeholder account IDs, entity registry numbers, and public/generic material-event guidance.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T15:54:54Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
+    "status": "owner_approved_us_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_jurisdictional_mnpi_memo_negative_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "investorrelations@velispring.example"
+      "matched_text": "investorrelations@velispring.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@velispring.example"
+      "matched_text": "compliance@velispring.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1-800-000-0000"
+      "matched_text": "1-800-000-0000",
+      "rule": "phone_number"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "material non-public information"
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "quarterly blackout windows"
+      "matched_text": "quarterly blackout windows",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "one-on-one diligence call"
+      "matched_text": "one-on-one diligence call",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "informed an Aldercrest Research analyst"
+      "matched_text": "informed an Aldercrest Research analyst",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Q2 net patient enrollments in VSP-201 are running ahead of previously disclosed guidance"
+      "matched_text": "Q2 net patient enrollments in VSP-201 are running ahead of previously disclosed guidance",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "until broadly disclosed"
+      "matched_text": "until broadly disclosed",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "employees must route any prospective quantitative updates through IR"
+      "matched_text": "employees must route any prospective quantitative updates through IR",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "de-identified patient metrics must comply with HIPAA safe-harbor and GLBA exclusions"
+      "matched_text": "de-identified patient metrics must comply with HIPAA safe-harbor and GLBA exclusions",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not include any patient-level data or customer financial details in correspondence"
+      "matched_text": "do not include any patient-level data or customer financial details in correspondence",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NEOM listing notice dated 05/01 regarding earnings pre-announcement practices is public; no action is required beyond confirming our disclosure calendar.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Intentional sensitivity: On 06/10, during a one-on-one diligence call, our CFO informed an Aldercrest Research analyst that Q2 net patient enrollments in VSP-201 are running ahead of previously disclosed guidance; until broadly disclosed, this statement is material non-public information under Reg FD.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "NEOM listing notice dated 05/01 regarding earnings pre-announcement practices is public; no action is required beyond confirming our disclosure calendar.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Intentional sensitivity: On 06/10, during a one-on-one diligence call, our CFO informed an Aldercrest Research analyst that Q2 net patient enrollments in VSP-201 are running ahead of previously disclosed guidance; until broadly disclosed, this statement is material non-public information under Reg FD.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
     }
   ],
   "must_not_detect": [
@@ -124,28 +178,22 @@
       "reason": "Public press release; stale public information per memo."
     }
   ],
+  "source_jurisdiction": "US",
   "uncertain": [
     {
-      "matched_text": "Aldercrest Research analyst",
       "concept": "covered market actor",
+      "matched_text": "Aldercrest Research analyst",
       "reason": "Identifies a sell-side analyst as the selective disclosure counterparty; relevant to Reg FD but not directly covered by a specific allowed rule."
     },
     {
-      "matched_text": "NEOM listing notice",
       "concept": "exchange policy reference",
+      "matched_text": "NEOM listing notice",
       "reason": "Local exchange guidance that can affect public/non-public status semantics; not mapped to an allowed MNPI rule."
     },
     {
-      "matched_text": "USCMA\u2019s Staff Bulletin on Market Communications",
       "concept": "regulatory guidance reference",
+      "matched_text": "USCMA\u2019s Staff Bulletin on Market Communications",
       "reason": "Regulatory communications policy reference relevant to disclosure controls but not covered by current rule set."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

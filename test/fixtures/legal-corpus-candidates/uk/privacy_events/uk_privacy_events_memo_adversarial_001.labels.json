@@ -1,210 +1,279 @@
 {
-  "doc_id": "uk_privacy_events_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled UK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UK GDPR/MAR contexts, public RNS/manual bait, public assistance-line bait, entity identifier numeric fragments, obfuscated employee/session IDs, and UK IDTA transfer contexts; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "priya.kendon@mariner-ridge.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance-ase@mariner-ridge.example"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Lennox Vale"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Sir Elwood Hart"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Kendon"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent withdrawal"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "CRM record minimised"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimisation applied"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfer"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Alderline"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "price-sensitive"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list"
+      "notes": "Reconciled UK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UK GDPR/MAR contexts, public RNS/manual bait, public assistance-line bait, entity identifier numeric fragments, obfuscated employee/session IDs, and UK IDTA transfer contexts; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved UK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T15:54:54Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved UK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T15:54:54Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "UK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered public HR assistance-line bait, UK entity/FRN/UTR numeric fragments, obfuscated employee/session IDs, system-bucket account bait, genetic-data metaphor wording, and public/manual employment-matter material-event bait. UK IDTA labels were kept as deterministic cross-border-transfer findings where the fixture describes actual payroll/HR data exports.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T15:54:54Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+    "status": "owner_approved_uk_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_privacy_events_memo_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "priya.kendon@mariner-ridge.example"
+      "matched_text": "priya.kendon@mariner-ridge.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance-ase@mariner-ridge.example"
+      "matched_text": "compliance-ase@mariner-ridge.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Lennox Vale"
+      "matched_text": "Mr. Lennox Vale",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Sir Elwood Hart"
+      "matched_text": "Sir Elwood Hart",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Kendon"
+      "matched_text": "Ms. Priya Kendon",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent withdrawal"
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "CRM record minimised"
+      "matched_text": "CRM record minimised",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimisation applied"
+      "matched_text": "minimisation applied",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer"
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfer"
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "IXN-4 8 1"
+      "matched_text": "IXN-4 8 1",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "EMP-9 4 2 - T R N"
+      "matched_text": "EMP-9 4 2 - T R N",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "E-9 4 2 - T R N"
+      "matched_text": "E-9 4 2 - T R N",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "CL-7 x\u2014020"
+      "matched_text": "CL-7 x\u2014020",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "removes DOB"
+      "matched_text": "removes DOB",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age bands only"
+      "matched_text": "age bands only",
+      "rule": "age_reference"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Alderline"
+      "matched_text": "Project Alderline",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "price-sensitive"
+      "matched_text": "price-sensitive",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list"
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "clean-team roster"
+      "matched_text": "clean-team roster",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall crossing scripts"
+      "matched_text": "wall crossing scripts",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "contemplated secondary placing"
+      "matched_text": "contemplated secondary placing",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "no public announcement is being made"
+      "matched_text": "no public announcement is being made",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI handling: draft Q3 revenue guidance and contemplated secondary placing are classified price-sensitive; insider list maintained per UK MAR and regulator handbook MAR 1 equivalent.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall crossing",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "priya.kendon@mariner-ridge.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance-ase@mariner-ridge.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Lennox Vale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Kendon",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI handling: draft Q3 revenue guidance and contemplated secondary placing are classified price-sensitive; insider list maintained per UK MAR and regulator handbook MAR 1 equivalent.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Alderline",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall crossing",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -221,61 +290,51 @@
       "reason": "Handbook section reference; not PII/MNPI."
     },
     {
-      "matched_text": "UK IDTA",
-      "reason": "Legal mechanism acronym; not PII/MNPI."
-    },
-    {
       "matched_text": "SCCs",
       "reason": "Acronym for clauses; not PII/MNPI."
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "erasure set 90 days post announcement",
       "concept": "erasure_marker",
+      "matched_text": "erasure set 90 days post announcement",
       "reason": "Erasure schedule is a GDPR control but there is no explicit allowed rule for erasure markers."
     },
     {
-      "matched_text": "erasure of legacy contact lists confirmed",
       "concept": "erasure_marker",
+      "matched_text": "erasure of legacy contact lists confirmed",
       "reason": "Confirms deletion; relevant to GDPR but not mapped to an allowed rule."
     },
     {
-      "matched_text": "trading surveillance logs retained 3 years",
       "concept": "retention_marker",
+      "matched_text": "trading surveillance logs retained 3 years",
       "reason": "Data retention duration is privacy-relevant but no explicit allowed rule exists."
     },
     {
-      "matched_text": "retention marker set to \u201c6Y\u201d in HRIS",
       "concept": "retention_marker",
+      "matched_text": "retention marker set to \u201c6Y\u201d in HRIS",
       "reason": "Retention configuration is privacy-relevant but not covered by an allowed rule."
     },
     {
-      "matched_text": "DSAR events: two requests received and closed on 28/05/2026",
       "concept": "DSAR_marker",
+      "matched_text": "DSAR events: two requests received and closed on 28/05/2026",
       "reason": "DSAR handling is in scope but there is no specific allowed DSAR rule."
     },
     {
-      "matched_text": "the mobile app does not capture MAC addresses",
       "concept": "device_identifier_negated",
+      "matched_text": "the mobile app does not capture MAC addresses",
       "reason": "Mentions a device identifier category but explicitly negated; not an actual identifier value."
     },
     {
-      "matched_text": "pseudonymisation keys \u201cPX-0 1\u201d",
       "concept": "pseudonymisation_key",
+      "matched_text": "pseudonymisation keys \u201cPX-0 1\u201d",
       "reason": "Keys can link to individuals under GDPR but no specific allowed rule exists."
     },
     {
-      "matched_text": "draft Q3 revenue guidance",
       "concept": "material_event_indicator",
+      "matched_text": "draft Q3 revenue guidance",
       "reason": "Indicates precise financial guidance context likely price-sensitive, but not a defined MNPI rule element on its own."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

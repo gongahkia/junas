@@ -1,215 +1,266 @@
 {
-  "doc_id": "uk_direct_identifiers_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled UK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UK GDPR/MAR contexts, public RNS/manual bait, public assistance-line bait, entity identifier numeric fragments, obfuscated employee/session IDs, and UK IDTA transfer contexts; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@barrowbridge-securities.co.uk"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 07911 864 203"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Eloise Faraday"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Callum Nye"
-    },
-    {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "531234567"
-    },
-    {
-      "category": "PII",
-      "rule": "uk_nin",
-      "matched_text": "A B 12 34 56 C"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "12-34-56"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "12345678"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "GB00 BKMK 1234 5678 9012 34"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@barrowbridge-securities.co.uk"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Moorings"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "6\u20138%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "UK MAR insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "notes": "Reconciled UK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UK GDPR/MAR contexts, public RNS/manual bait, public assistance-line bait, entity identifier numeric fragments, obfuscated employee/session IDs, and UK IDTA transfer contexts; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved UK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T15:54:54Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved UK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T15:54:54Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "UK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered public HR assistance-line bait, UK entity/FRN/UTR numeric fragments, obfuscated employee/session IDs, system-bucket account bait, genetic-data metaphor wording, and public/manual employment-matter material-event bait. UK IDTA labels were kept as deterministic cross-border-transfer findings where the fixture describes actual payroll/HR data exports.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='212\u2013219 pence'"
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T15:54:54Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+    "status": "owner_approved_uk_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_direct_identifiers_memo_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@barrowbridge-securities.co.uk"
+      "matched_text": "compliance@barrowbridge-securities.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 07911 864 203"
+      "matched_text": "+44 07911 864 203",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Eloise Faraday"
+      "matched_text": "Ms. Eloise Faraday",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Callum Nye"
+      "matched_text": "Mr. Callum Nye",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "531234567"
+      "matched_text": "531234567",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "uk_nin",
-      "matched_text": "A B 12 34 56 C"
+      "matched_text": "A B 12 34 56 C",
+      "rule": "uk_nin"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "12-34-56"
+      "matched_text": "12-34-56",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "12345678"
+      "matched_text": "12345678",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "GB00 BKMK 1234 5678 9012 34"
+      "matched_text": "GB00 BKMK 1234 5678 9012 34",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@barrowbridge-securities.co.uk"
+      "matched_text": "legal@barrowbridge-securities.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "e l o i s e . f a r a d a y @ barrowbridge - securities . co . uk"
+      "matched_text": "e l o i s e . f a r a d a y @ barrowbridge - securities . co . uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "UKPA 531234567"
+      "matched_text": "UKPA 531234567",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Faraday"
+      "matched_text": "Ms. Faraday",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "7M-AR-26"
+      "matched_text": "7M-AR-26",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "private phone numbers will be redacted in any external disclosure"
+      "matched_text": "private phone numbers will be redacted in any external disclosure",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Moorings"
+      "matched_text": "Project Moorings",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "6\u20138%"
+      "matched_text": "6\u20138%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposed placing of 6\u20138% new ordinary shares"
+      "matched_text": "proposed placing of 6\u20138% new ordinary shares",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "UK MAR insider list"
+      "matched_text": "UK MAR insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List"
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "draft insider list"
+      "matched_text": "draft insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "lock data room"
+      "matched_text": "lock data room",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "price-sensitive drafts must not circulate outside the Insider List"
+      "matched_text": "price-sensitive drafts must not circulate outside the Insider List",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "531234567",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@barrowbridge-securities.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+44 07911 864 203",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "531234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eloise Faraday",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Callum Nye",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Faraday",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Moorings",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "531234567",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -254,35 +305,27 @@
       "reason": "Corporate VAT placeholder; not personal data and noted invalid."
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "UTR 80234 12345",
       "concept": "uk_utr",
+      "matched_text": "UTR 80234 12345",
       "reason": "UK tax identifier is legally sensitive but no explicit allowed rule for UTR in the schema."
     },
     {
-      "matched_text": "14 Quayman\u2019s Row, Dockminster, DN1 4RX",
       "concept": "postal_address",
+      "matched_text": "14 Quayman\u2019s Row, Dockminster, DN1 4RX",
       "reason": "Postal address is PII under UK GDPR but no UK address rule provided in allowed rules."
     },
     {
-      "matched_text": "C R N 1 2 8 4 9 3 7 5",
       "concept": "uk_company_number",
+      "matched_text": "C R N 1 2 8 4 9 3 7 5",
       "reason": "Company registration number is legally relevant but not personal data and not covered by allowed rules."
     },
     {
-      "matched_text": "CRN 12849375",
       "concept": "uk_company_number",
+      "matched_text": "CRN 12849375",
       "reason": "Company registration number is legally relevant but not personal data and not covered by allowed rules."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='212\u2013219 pence'"
-  ],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

@@ -1,200 +1,274 @@
 {
-  "doc_id": "us_direct_identifiers_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "US",
-  "destination_jurisdiction": "US",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled US Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, Reg FD/selective-disclosure contexts, public SEC/website bait, role mailbox/public helpline bait, identifier-like numeric fragments, and placeholder/test account IDs; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "us_ein",
-      "matched_text": "92-7345671"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Alina Corbett"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "acorbett@mednorthbancorp.example.com"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "415) 555-0134"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargoed"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Theo Park"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "000123456789"
-    },
-    {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "US Passport 999999999"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@mednorthbancorp.example.com"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "212) 555-0179"
-    },
-    {
-      "category": "PII",
-      "rule": "us_ssn",
-      "matched_text": "000-00-0000"
-    },
-    {
-      "category": "PII",
-      "rule": "us_ein",
-      "matched_text": "00-0000000"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Julian Ortega"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@mednorthbancorp.example.com"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "notes": "Reconciled US Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, Reg FD/selective-disclosure contexts, public SEC/website bait, role mailbox/public helpline bait, identifier-like numeric fragments, and placeholder/test account IDs; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved US Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T15:54:54Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved US Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T15:54:54Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "US Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered role/legal mailbox bait, public privacy/ethics helplines, generic training-list wording, negated material-adverse-effect wording, Reg FD/10b/Phase shorthand amount bait, placeholder account IDs, entity registry numbers, and public/generic material-event guidance.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T15:54:54Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
+    "status": "owner_approved_us_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_direct_identifiers_memo_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "us_ein",
-      "matched_text": "92-7345671"
+      "matched_text": "92-7345671",
+      "rule": "us_ein"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Alina Corbett"
+      "matched_text": "Ms. Alina Corbett",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "acorbett@mednorthbancorp.example.com"
+      "matched_text": "acorbett@mednorthbancorp.example.com",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "415) 555-0134"
+      "matched_text": "415) 555-0134",
+      "rule": "phone_number"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargoed"
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Theo Park"
+      "matched_text": "Mr. Theo Park",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "000123456789"
+      "matched_text": "000123456789",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "US Passport 999999999"
+      "matched_text": "US Passport 999999999",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@mednorthbancorp.example.com"
+      "matched_text": "ir@mednorthbancorp.example.com",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "212) 555-0179"
+      "matched_text": "212) 555-0179",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "us_ssn",
-      "matched_text": "000-00-0000"
+      "matched_text": "000-00-0000",
+      "rule": "us_ssn"
     },
     {
       "category": "PII",
-      "rule": "us_ein",
-      "matched_text": "00-0000000"
+      "matched_text": "00-0000000",
+      "rule": "us_ein"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Julian Ortega"
+      "matched_text": "Mr. Julian Ortega",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@mednorthbancorp.example.com"
+      "matched_text": "compliance@mednorthbancorp.example.com",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not selectively disclose"
+      "matched_text": "do not selectively disclose",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet furnished on an 8-K"
+      "matched_text": "not yet furnished on an 8-K",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "has not been announced"
+      "matched_text": "has not been announced",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "IR must limit any call to information already public on our website and in filed 8-Ks/10-Qs"
+      "matched_text": "IR must limit any call to information already public on our website and in filed 8-Ks/10-Qs",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no guidance updates may be given verbally to analysts prior to that furnishing"
+      "matched_text": "no guidance updates may be given verbally to analysts prior to that furnishing",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "definitive agreements"
+      "matched_text": "definitive agreements",
+      "rule": "definitive_agreement"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "use de-identified aggregates only"
+      "matched_text": "use de-identified aggregates only",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "avoid including any direct identifiers unless necessary for a regulated filing"
+      "matched_text": "avoid including any direct identifiers unless necessary for a regulated filing",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "999999999",
+      "rule": "passport_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We will brief IR and business leads before the earnings call; the draft press release is embargoed until 8:30 a.m. ET on July 15 and contains preliminary NCOs and clinic utilization rates not yet furnished on an 8-K.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We intend to furnish an Item 2.02 Form 8-K concurrent with the earnings release; no guidance updates may be given verbally to analysts prior to that furnishing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7345671",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sell-side analyst",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "acorbett@mednorthbancorp.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "415) 555-0134",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "212) 555-0179",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "999999999",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "92-7345671",
+      "rule": "us_ein"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Alina Corbett",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Theo Park",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Julian Ortega",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We will brief IR and business leads before the earnings call; the draft press release is embargoed until 8:30 a.m. ET on July 15 and contains preliminary NCOs and clinic utilization rates not yet furnished on an 8-K.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We intend to furnish an Item 2.02 Form 8-K concurrent with the earnings release; no guidance updates may be given verbally to analysts prior to that furnishing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We intend to furnish an Item 2.02 Form 8-K concurrent with the earnings release; no guidance updates may be given verbally to analysts prior to that furnishing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7345671",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sell-side analyst",
+      "rule": "selective_disclosure_risk"
     }
   ],
   "must_not_detect": [
@@ -211,33 +285,27 @@
       "reason": "role-only title example, not a person identifier"
     }
   ],
+  "source_jurisdiction": "US",
   "uncertain": [
     {
-      "matched_text": "Delaware Division of Corporations File No. D-8745123",
       "concept": "company registration number",
+      "matched_text": "Delaware Division of Corporations File No. D-8745123",
       "reason": "Business identifier is relevant but no explicit US state company file rule is provided."
     },
     {
-      "matched_text": "routing 000000000",
       "concept": "bank routing number",
+      "matched_text": "routing 000000000",
       "reason": "Financial identifier but not clearly covered by allowed bank_account or customer_account_number rules."
     },
     {
-      "matched_text": "on file pursuant to our record retention schedule",
       "concept": "retention marker",
+      "matched_text": "on file pursuant to our record retention schedule",
       "reason": "Indicates data retention, which is legally relevant, but there is no explicit allowed rule for retention markers."
     },
     {
-      "matched_text": "1200 Harbor Plaza, Suite 400, San Orfeo, CA 94000",
       "concept": "US postal address",
+      "matched_text": "1200 Harbor Plaza, Suite 400, San Orfeo, CA 94000",
       "reason": "Postal address/ZIP is PII but there is no explicit US postal address rule in the allowed list."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

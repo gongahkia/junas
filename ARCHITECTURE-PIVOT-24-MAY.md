@@ -13,6 +13,106 @@ Kaypoh should be treated as a pre-send document safety layer first, not as a raw
 
 `POST /review` and `POST /anonymize` are the primary product surfaces. `POST /classify` is retained as a compatibility shim; the legacy `lexicon → embedding → clustering → model1 → model2 → mosaic → regression` pipeline is no longer the product wedge and the team does not invest in further training of that classifier stack. Investment goes into the deterministic engine, LLM-assisted reasoning, and — for accuracy recovery on the LLM tier — targeted distillation and preference-tuning (expansion-sequence items 29–32).
 
+## Dataflow
+
+High-level view of the layers a piece of text flows through, from caller input to response. Each subgraph is a phase; module pointers in the legend below.
+
+```mermaid
+flowchart TD
+    A[Raw input: text / DOCX / PDF / XLSX / PPTX / EML / image / archive]
+
+    subgraph S1["1. API surface"]
+        B[POST /review, /anonymize, /pseudonymize, /reidentify, /classify]
+    end
+
+    subgraph S2["2. Auth and tenant resolution"]
+        C[API key / JWT / local-daemon token<br/>tenant_id, roles, reviewer identity]
+    end
+
+    subgraph S3["3. Ingest and extraction"]
+        D[Format gate and fail-closed checks<br/>magic bytes, encryption, polyglot, zip-bomb]
+        E[Container scan<br/>DOCX/PDF/XLSX/PPTX/EML/ZIP/HTML]
+        F[Text extraction + metadata findings]
+        G[Image OCR<br/>Tesseract / OpenAI / Google / AWS / Azure]
+    end
+
+    subgraph S4["4. Session and matter context"]
+        H[Session-scoped + matter-scoped defined terms<br/>inheritance across linked docs]
+    end
+
+    subgraph S5["5. Deterministic detection engine"]
+        I[Universal PII recognizers<br/>NRIC, UEN, email, phone, named-person, DOB, IP, MRN, ...]
+        J[Jurisdiction packs<br/>SG / SEA / HK / AU / JP / KR / US / UK / EU / IN / CN / AE / SA]
+        K[MNPI lexicons<br/>codename, definitive agreement, MAC, embargo, tipping, Reg FD, ESG, cyber, crypto]
+        L[Defined-term suppression<br/>contract self-references]
+    end
+
+    subgraph S6["6. Post-passes"]
+        M[Severity overrides per doc_type]
+        N[Co-occurrence amplifiers<br/>contingent, tipping, insider-list, pseudonymised-linkable]
+        O[Quasi-identifier combination<br/>k-anonymity seed]
+        P[Entity-relative materiality<br/>SAB99 / ASX GN8 tier ladders]
+        Q[Blackout-window calendrical check]
+    end
+
+    subgraph S7["7. LLM tier — audit_grade only, opt-in"]
+        R[Score-band gate<br/>25 ≤ mnpi_score &lt; 70]
+        SS[Privacy Guard<br/>raw_text vs structured_tokens]
+        T[LLM defined-term extractor]
+        U[LLM adjudicator<br/>local / vLLM / Ollama / OpenAI / distilled]
+        V[LLM coverage audit<br/>'what did we miss']
+    end
+
+    subgraph S8["8. Public-evidence verification"]
+        W[Tinyfish / Exa retrieval<br/>source_verification per finding]
+    end
+
+    subgraph S9["9. Findings assembly"]
+        X[Findings + suggestions + statute citations<br/>per-tenant citation overrides]
+        Y[Scores: pii_score, mnpi_score<br/>coverage_warnings, degraded_modes]
+    end
+
+    subgraph S10["10. Anonymisation surface"]
+        Z[Deterministic placeholder substitution<br/>end-to-start exact-span replacement]
+        AA[Pseudonymise: mapping table returned + persisted<br/>+ /reidentify round-trip]
+        AB[Anonymise v2 — item 117: no mapping, no persist]
+        AC[Redacted document render<br/>DOCX media, flattened PDF, image pixels]
+    end
+
+    subgraph S11["11. Persistence"]
+        AD[Mapping store<br/>Fernet-encrypted, per-tenant, doc-hash keyed]
+        AE[Subject reverse-index<br/>HMAC for erasure / item 59]
+        AF[HMAC-chained journal<br/>review, decision, key-rotation]
+    end
+
+    subgraph S12["12. Observability"]
+        AG[Privacy ledger]
+        AH[SIEM export]
+        AI[Latency SLO metrics<br/>p95 budgets per profile]
+    end
+
+    AJ[Response to caller<br/>findings + scores + anonymized_text + mapping?<br/>+ source_verification + warnings + degraded_modes]
+
+    A --> B --> C --> D --> E --> F
+    F --> G --> H --> I
+    H --> I & J & K
+    I & J & K --> L --> M --> N --> O --> P --> Q
+    Q --> R
+    R -- "in band" --> SS --> T --> U --> V --> W
+    R -- "out of band" --> X
+    V --> W --> X
+    Q --> X
+    X --> Y --> Z
+    Z --> AA
+    Z --> AB
+    Z --> AC
+    AA --> AD --> AE
+    AA & AB & X --> AF
+    AF --> AG --> AH --> AI --> AJ
+```
+
+Module pointers (1→12): `backend/main.py` for the API surface and auth wiring (1–2); `review/container_scan.py` + `review/document.py` + `review/image_scan.py` for ingest/extraction (3); `review/session_store.py` + `review/matter_store.py` for session/matter context (4); `review/engine.py` for the deterministic engine and post-passes (5–6); `workflow/layer8_llm_adjudicator/` + `workflow/privacy_guard.py` + `review/llm_defined_terms.py` + `review/llm_coverage_audit.py` for the LLM tier (7); `workflow/layer7_public_evidence/` for source verification (8); `review/citations.py` for findings assembly (9); `anonymize/engine.py` + `anonymize/mapping_store.py` for the anonymisation surface (10); `anonymize/mapping_store.py` + `review/subject_index.py` + `review/journal.py` for persistence (11); `backend/observability.py` + `backend/siem.py` for the observability tier (12).
+
 ## Positioning and ICP
 
 Kaypoh is a *narrow, defensible* pre-send safety layer for legal-corporate workflows where client/issuer confidentiality is a procurement blocker for GenAI adoption. It is **not** a horizontal DLP replacement. Microsoft Purview, Google Sensitive Data Protection, Netskope, and Nightfall already compete on detector breadth + infrastructure coverage; matching them is a multi-year investment with no defensible wedge. Kaypoh wins where those tools are weakest: SG/SEA-native local-ID + legal-MNPI detection, reversible local pseudonymisation with an opt-in irreversible-anonymisation mode (items 116–118), an HMAC-sealed reviewer-attributed audit trail, and an offline-default desktop SKU that survives an air-gapped review-board demo.
@@ -91,20 +191,20 @@ Progress is tracked here until the candidate corpus has its own generated report
 | 1 | SG | reviewed | pending | pending | Stage A cleaned + project-owner approved for internal benchmarking: 21 docs; 313 strict labels after the post-AU/CN global precision realignment; strict recall 1.0, strict precision 1.0; ideal recall 0.4358; 0 missed, 0 unexpected, 0 must-not violations. Second-pass false-positive labels removed (role mailboxes, public/benign values, placeholders, negated MAC/spa-day bait); post-AU/CN realignment also moved a published-switchboard phone bait out of strict `must_detect` and into `must_not_detect`. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-sg-after-au-cn-global-realign.json` (from `/tmp/kaypoh-candidate-run-20260528-080405`). |
 | 2 | MY | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 252 strict labels after the post-AE/SA global precision realignment; strict recall 1.0, strict precision 1.0; ideal recall 0.4019; 0 missed, 0 unexpected, 0 must-not violations. First-pass strict labels were reconciled to deterministic strict-mode findings while preserving broader legal/model labels in `ideal_must_detect`; narrow precision fixes added for public hotline/helpline phone numbers, placeholder MyKad, passport-word bait, URL/company/tax numeric fragments, negated genetic-data prose, previously-announced/no-unpublished material-event prose, role mailbox noise, placeholder accounts, benign guidance/no-UPSI material-event bait, negated MNPI markers, and lowercase spa-day bait. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-my-after-ae-sa-global-realign.json` (from `/tmp/kaypoh-my-stage-a-20260529`). |
 | 3 | ID | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 152 strict labels after the post-PH precision realignment; strict recall 1.0, strict precision 1.0; ideal recall 0.3108; 0 missed, 0 unexpected, 0 must-not violations. Strict tier reconciled to deterministic findings after Codex/GPT-assisted audit; narrow precision fixes added for Indonesian toll-free/public phone numbers, NIB/NPWP/rekening numeric fragments, `wa.me`/internal-wallet large-number noise, public/no-new-MNPI acquisition-status prose, Indonesian/English negated MAC language, educational insider-list/information-barrier bait, spa-day bait, and audit-hash employee-ID fragments. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-id-after-ph-global-realign.json` (from `/tmp/kaypoh-id-stage-a-20260529`). |
-| 4 | TH | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 257 strict labels after the post-PH precision realignment; strict recall 1.0, strict precision 1.0; ideal recall 0.4509; 0 missed, 0 unexpected, 0 must-not violations. Strict tier reconciled to deterministic findings after Codex/GPT-assisted audit; narrow precision fixes added for Thai national-ID checksum/juristic-prefix validation, invalid Thai-ID-shaped phone bait, and already-public exchange-budget amounts. Direct-identifiers coverage was manually tuned to include one checksum-valid Thai national ID positive after generation produced only invalid-ID bait. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-th-after-ph-global-realign.json` (from `/tmp/kaypoh-th-stage-a-20260529`). |
-| 5 | PH | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 234 strict labels; strict recall 1.0, strict precision 1.0; ideal recall 0.3913; 0 missed, 0 unexpected, 0 must-not violations. Strict tier reconciled to deterministic findings after Codex/GPT-assisted audit; narrow precision fixes added for completed/no-pending DSAR controls, PH benefit-ID / BankAcct / doccode numeric bait, invalid/placeholder PH TINs, PH role mailboxes, training-control MNPI bait, negated/non-live MNPI markers, public/compliance-guidance material-event bait, fully announced term-sheet references, negated special-category lists, and explanatory MAC/MAE prose. Direct-identifiers coverage was manually tuned to include one PhilSys PSN positive after generation produced PH TIN coverage but no PhilSys positive. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-ph-stage-a-reviewed.json` (from `/tmp/kaypoh-ph-stage-a-20260529`). |
-| 6 | VN | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 244 strict labels; strict recall 1.0, strict precision 1.0; ideal recall 0.4143; 0 missed, 0 unexpected, 0 must-not violations. Strict tier reconciled to deterministic findings after Codex/GPT-assisted audit; narrow precision fixes added for Vietnam MST/VAT/TIN and public-hotline numeric bait, grouped CCCD recognition, Vietnamese placeholder CCCD context, negated MAC/MAE prose, and wellness spa bait. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-vn-stage-a-reviewed.json` (from `/tmp/kaypoh-vn-stage-a-20260530`). |
+| 4 | TH | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 256 strict labels after the post-US/UK global precision realignment; strict recall 1.0, strict precision 1.0; ideal recall 0.4491; 0 missed, 0 unexpected, 0 must-not violations. Strict tier reconciled to deterministic findings after Codex/GPT-assisted audit; narrow precision fixes added for Thai national-ID checksum/juristic-prefix validation, invalid Thai-ID-shaped phone bait, and already-public exchange-budget amounts. Direct-identifiers coverage was manually tuned to include one checksum-valid Thai national ID positive after generation produced only invalid-ID bait. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-th-after-us-uk-global-realign.json` (from `/tmp/kaypoh-th-stage-a-20260529`). |
+| 5 | PH | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 232 strict labels after the post-US/UK global precision realignment; strict recall 1.0, strict precision 1.0; ideal recall 0.388; 0 missed, 0 unexpected, 0 must-not violations. Strict tier reconciled to deterministic findings after Codex/GPT-assisted audit; narrow precision fixes added for completed/no-pending DSAR controls, PH benefit-ID / BankAcct / doccode numeric bait, invalid/placeholder PH TINs, PH role mailboxes, training-control MNPI bait, negated/non-live MNPI markers, public/compliance-guidance material-event bait, fully announced term-sheet references, negated special-category lists, and explanatory MAC/MAE prose. Direct-identifiers coverage was manually tuned to include one PhilSys PSN positive after generation produced PH TIN coverage but no PhilSys positive. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-ph-after-us-uk-global-realign.json` (from `/tmp/kaypoh-ph-stage-a-20260529`). |
+| 6 | VN | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 243 strict labels after the post-US/UK global precision realignment; strict recall 1.0, strict precision 1.0; ideal recall 0.4126; 0 missed, 0 unexpected, 0 must-not violations. Strict tier reconciled to deterministic findings after Codex/GPT-assisted audit; narrow precision fixes added for Vietnam MST/VAT/TIN and public-hotline numeric bait, grouped CCCD recognition, Vietnamese placeholder CCCD context, negated MAC/MAE prose, and wellness spa bait. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-vn-after-us-uk-global-realign.json` (from `/tmp/kaypoh-vn-stage-a-20260530`). |
 | 7 | HK | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 289 strict labels after the post-AE/SA global precision realignment; strict recall 1.0, strict precision 1.0; ideal recall 0.4551; 0 missed, 0 unexpected, 0 must-not violations. Strict tier reconciled to deterministic findings after Codex/GPT-assisted audit; narrow precision fixes added for public/stale HKEXnews-style MoU/SPA references and negated non-public/undisclosed-analysis prose. Direct-identifiers coverage was manually tuned to include one checksum-valid HKID positive after generation produced invalid-HKID bait; HK CR No coverage remains present. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-hk-after-ae-sa-global-realign.json` (from `/tmp/kaypoh-hk-stage-a-20260530`). |
 | 8 | AU | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 267 strict labels after the post-AE/SA global precision realignment; strict recall 1.0, strict precision 1.0; ideal recall 0.4169; 0 missed, 0 unexpected, 0 must-not violations. Strict tier reconciled to deterministic findings after Codex/GPT-assisted audit; narrow precision fixes added for AU public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal-address false positives, negated material-adverse-change trigger prose, and checksum-valid TFN/ABN/ACN positives. Generated placeholder/dummy ABN/ACN/TFN labels were removed from strict `must_detect`. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-au-after-ae-sa-global-realign.json` (from `/tmp/kaypoh-au-stage-a-20260531`). |
-| 9 | JP | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 269 strict labels after the post-AE/SA global precision realignment; strict recall 1.0, strict precision 1.0; ideal recall 0.4223; 0 missed, 0 unexpected, 0 must-not violations. Strict tier reconciled to deterministic findings after Codex/GPT-assisted audit; narrow precision fixes added for JP public-helpline phone bait, definitional undisclosed-material-fact prose, negated material-adverse-change wording, and educational insider-list prose. Direct-identifiers coverage was manually tuned to include checksum-valid My Number, Corporate Number, and JP postal-code positives after generation produced invalid/local-ID-lite examples. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-jp-after-ae-sa-global-realign.json` (from `/tmp/kaypoh-jp-stage-a-20260531`). |
+| 9 | JP | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 268 strict labels after the post-US/UK global precision realignment; strict recall 1.0, strict precision 1.0; ideal recall 0.4207; 0 missed, 0 unexpected, 0 must-not violations. Strict tier reconciled to deterministic findings after Codex/GPT-assisted audit; narrow precision fixes added for JP public-helpline phone bait, definitional undisclosed-material-fact prose, negated material-adverse-change wording, and educational insider-list prose. Direct-identifiers coverage was manually tuned to include checksum-valid My Number, Corporate Number, and JP postal-code positives after generation produced invalid/local-ID-lite examples. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-jp-after-us-uk-global-realign.json` (from `/tmp/kaypoh-jp-stage-a-20260531`). |
 | 10 | KR | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 257 strict labels after the post-AE/SA global precision realignment; strict recall 1.0, strict precision 1.0; ideal recall 0.4075; 0 missed, 0 unexpected, 0 must-not violations. Strict tier reconciled to deterministic findings after Codex/GPT-assisted audit; narrow fixes covered KR resident-number shorthand/KR-BRN anchors, checksum-valid RRN/business-registration positives, negated no-executed-term-sheet wording, and public/stale percentage prose. The generated must-not label for `Ms. Hana Park` was rejected because the text is an actual named-person reference. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-kr-after-ae-sa-global-realign.json` (from `/tmp/kaypoh-kr-stage-a-20260531`). |
 | 11 | IN | reviewed | pending | pending | Owner-directed out-of-order Stage A after SG/MY: 21 docs; 210 strict labels after the post-AE/SA global precision realignment; strict recall 1.0, strict precision 1.0; ideal recall 0.3013; 0 missed, 0 unexpected, 0 must-not violations. Cleaned noisy auto-label strict tier after Codex/GPT-assisted audit; narrow precision fixes added for role mailboxes, placeholder phones/accounts, benign no-UPSI / public-guidance material-event bait, negated MNPI markers, and benign/routine definitive-agreement prose. Includes valid synthetic Aadhaar coverage after generation audit. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-in-after-ae-sa-global-realign.json` (from `/tmp/kaypoh-in-stage-a-20260529`). |
 | 12 | CN | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 262 strict labels after the post-AE/SA global precision realignment; strict recall 1.0, strict precision 1.0; ideal recall 0.3722; 0 missed, 0 unexpected, 0 must-not violations. Strict tier reconciled to deterministic findings after Codex/GPT-assisted audit; narrow precision fixes added for CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict `must_detect`. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-cn-after-ae-sa-global-realign.json` (from `/tmp/kaypoh-cn-stage-a-20260531`). |
 | 13 | AE | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 266 strict labels; strict recall 1.0, strict precision 1.0; ideal recall 0.4389; 0 missed, 0 unexpected, 0 must-not violations. Strict tier reconciled to deterministic findings after Codex/GPT-assisted audit; narrow precision fixes added for UAE trade-licence precision/full-code capture, public/generic IVR and contact-centre phone bait, public non-binding MoU wording, negated genetic-data prose, Unicode spa-day bait, masked Emirates-ID fragments, phone-like device/date fragments, and Arabic-style hyphenated names. Generated invalid/placeholder Emirates ID and trade-licence labels were removed from strict `must_detect` when current deterministic strict mode suppresses them. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-ae-stage-a-reviewed.json` (from `/tmp/kaypoh-ae-stage-a-20260531`). |
 | 14 | SA | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 250 strict labels; strict recall 1.0, strict precision 1.0; ideal recall 0.4072; 0 missed, 0 unexpected, 0 must-not violations. Strict tier reconciled to deterministic findings after Codex/GPT-assisted audit; narrow precision fixes added for Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MoU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict `must_detect` when current deterministic strict mode suppresses them. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-sa-stage-a-reviewed.json` (from `/tmp/kaypoh-sa-stage-a-20260531`). |
-| 15 | US | next | pending | pending | Mature market-abuse baseline; Reg FD / sectoral PII stress. |
-| 16 | UK | pending | pending | pending | UK GDPR / UK MAR pack; closed-period and NIN stress. |
-| 17 | EU | pending | pending | pending | GDPR / MAR pack; member-state ID and special-category stress. |
+| 15 | US | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 241 strict labels; strict recall 1.0, strict precision 1.0; ideal recall 0.4104; 0 missed, 0 unexpected, 0 must-not violations. Strict tier reconciled to deterministic findings after Codex/GPT-assisted audit; narrow precision fixes added for role/legal mailbox bait, public privacy/ethics helplines, generic training-list wording, negated material-adverse-effect wording, Reg FD/10b/Phase shorthand amount bait, placeholder account IDs, entity registry numbers, and public/generic material-event guidance. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-us-stage-a-reviewed.json` (from `/tmp/kaypoh-us-uk-stage-a-20260531`). |
+| 16 | UK | reviewed | pending | pending | Stage A generated + project-owner approved for internal benchmarking: 21 docs; 285 strict labels; strict recall 1.0, strict precision 1.0; ideal recall 0.4327; 0 missed, 0 unexpected, 0 must-not violations. Strict tier reconciled to deterministic findings after Codex/GPT-assisted audit; narrow precision fixes added for public HR assistance-line bait, UK entity/FRN/UTR numeric fragments, obfuscated employee/session IDs, system-bucket account bait, genetic-data metaphor wording, and public/manual employment-matter material-event bait. UK IDTA was retained as a deterministic cross-border-transfer finding where fixtures describe actual payroll/HR data exports. Approval metadata is owner/project approval based on Codex/GPT-assisted review, not legal advice or procurement-grade legal approval. Not promoted. Run: `/tmp/kaypoh-uk-stage-a-reviewed.json` (from `/tmp/kaypoh-us-uk-stage-a-20260531`). |
+| 17 | EU | next | pending | pending | GDPR / MAR pack; member-state ID and special-category stress. |
 
 The first executable run is SG Stage A:
 

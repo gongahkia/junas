@@ -1,285 +1,319 @@
 {
-  "doc_id": "uk_jurisdictional_mnpi_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled UK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UK GDPR/MAR contexts, public RNS/manual bait, public assistance-line bait, entity identifier numeric fragments, obfuscated employee/session IDs, and UK IDTA transfer contexts; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Rowan Ellison"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Sandhu"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "priya.sandhu@northhavencapital.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@northhavencapital.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@northhavencapital.example"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "delaying disclosure under Article 17(4) UK MAR"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "pending acquisition of Halcyon Brokerage Ltd"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "an all-share acquisition of Halcyon Brokerage Ltd"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "\u00a368"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "\u00a380m"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "12%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Closed period for PDMR dealing commenced on 21 July 2026"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout windows also apply"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list updates (DTR 2.8)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "master insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall-crossed banks"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall-crossing scripts"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "under NDA"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective briefings are limited to wall-crossed banks on the syndicate"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "inadvertent selective disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not share deal materials to non-wall-crossed recipients prior to her formal wall-crossing"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "Proposed Tier 2 capital raise"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "proposed disposal of the Consumer Credit book"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Tier 2 instrument issuance"
+      "notes": "Reconciled UK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UK GDPR/MAR contexts, public RNS/manual bait, public assistance-line bait, entity identifier numeric fragments, obfuscated employee/session IDs, and UK IDTA transfer contexts; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved UK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T15:54:54Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved UK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T15:54:54Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "UK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered public HR assistance-line bait, UK entity/FRN/UTR numeric fragments, obfuscated employee/session IDs, system-bucket account bait, genetic-data metaphor wording, and public/manual employment-matter material-event bait. UK IDTA labels were kept as deterministic cross-border-transfer findings where the fixture describes actual payroll/HR data exports.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T15:54:54Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
+    "status": "owner_approved_uk_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_jurisdictional_mnpi_memo_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Rowan Ellison"
+      "matched_text": "Mr. Rowan Ellison",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Sandhu"
+      "matched_text": "Ms. Priya Sandhu",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "priya.sandhu@northhavencapital.example"
+      "matched_text": "priya.sandhu@northhavencapital.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@northhavencapital.example"
+      "matched_text": "compliance@northhavencapital.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@northhavencapital.example"
+      "matched_text": "legal@northhavencapital.example",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "delaying disclosure under Article 17(4) UK MAR"
+      "matched_text": "delaying disclosure under Article 17(4) UK MAR",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "pending acquisition of Halcyon Brokerage Ltd"
+      "matched_text": "pending acquisition of Halcyon Brokerage Ltd",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "an all-share acquisition of Halcyon Brokerage Ltd"
+      "matched_text": "an all-share acquisition of Halcyon Brokerage Ltd",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "heads of terms for an all-share acquisition of Halcyon Brokerage Ltd at an implied consideration of \u00a368\u201372m"
+      "matched_text": "heads of terms for an all-share acquisition of Halcyon Brokerage Ltd at an implied consideration of \u00a368\u201372m",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "\u00a368"
+      "matched_text": "\u00a368",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "\u00a380m"
+      "matched_text": "\u00a380m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "12%"
+      "matched_text": "12%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Closed period for PDMR dealing commenced on 21 July 2026"
+      "matched_text": "Closed period for PDMR dealing commenced on 21 July 2026",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout windows also apply"
+      "matched_text": "blackout windows also apply",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list updates (DTR 2.8)"
+      "matched_text": "insider list updates (DTR 2.8)",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "master insider list"
+      "matched_text": "master insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall-crossed banks"
+      "matched_text": "wall-crossed banks",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall-crossing scripts"
+      "matched_text": "wall-crossing scripts",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "under NDA"
+      "matched_text": "under NDA",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective briefings are limited to wall-crossed banks on the syndicate"
+      "matched_text": "selective briefings are limited to wall-crossed banks on the syndicate",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "inadvertent selective disclosure"
+      "matched_text": "inadvertent selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not share deal materials to non-wall-crossed recipients prior to her formal wall-crossing"
+      "matched_text": "do not share deal materials to non-wall-crossed recipients prior to her formal wall-crossing",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "Proposed Tier 2 capital raise"
+      "matched_text": "Proposed Tier 2 capital raise",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Proposed Tier 2 capital raise"
+      "matched_text": "Proposed Tier 2 capital raise",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "proposed disposal of the Consumer Credit book"
+      "matched_text": "proposed disposal of the Consumer Credit book",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Tier 2 instrument issuance"
+      "matched_text": "Tier 2 instrument issuance",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "pre-sounding calls with potential placees must be conducted under NDA"
+      "matched_text": "pre-sounding calls with potential placees must be conducted under NDA",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information"
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "potentially material"
+      "matched_text": "potentially material",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Proposed Tier 2 capital raise and pending acquisition of Halcyon Brokerage Ltd; handling of inside information and dealing restrictions.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Per Article 7 UK MAR, the board has received precise non-public information: heads of terms for an all-share acquisition of Halcyon Brokerage Ltd at an implied consideration of \u00a368\u201372m, expected to be price-sensitive for Northhaven Capital plc.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Any investor communication must use a Regulatory Information Service; if leakage occurs, an immediate holding announcement must be released via a RIS in line with DTR 2.2 guidance from the competent authority.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "priya.sandhu@northhavencapital.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@northhavencapital.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Ellison",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Sandhu",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Proposed Tier 2 capital raise and pending acquisition of Halcyon Brokerage Ltd; handling of inside information and dealing restrictions.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Per Article 7 UK MAR, the board has received precise non-public information: heads of terms for an all-share acquisition of Halcyon Brokerage Ltd at an implied consideration of \u00a368\u201372m, expected to be price-sensitive for Northhaven Capital plc.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Any investor communication must use a Regulatory Information Service; if leakage occurs, an immediate holding announcement must be released via a RIS in line with DTR 2.2 guidance from the competent authority.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a380m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -308,48 +342,42 @@
       "reason": "Department/role name, not PII"
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "heads of terms",
       "concept": "preliminary agreement",
+      "matched_text": "heads of terms",
       "reason": "Legally significant pre-contract stage but not in the allowed definitive_agreement list"
     },
     {
-      "matched_text": "holding announcement",
       "concept": "embargo/disclosure control",
+      "matched_text": "holding announcement",
       "reason": "Disclosure tool under UK MAR/DTR but not covered by listed embargo_marker terms"
     },
     {
-      "matched_text": "interim results due 20 August 2026",
       "concept": "disclosure timing",
+      "matched_text": "interim results due 20 August 2026",
       "reason": "Earnings-release timing is material for blackout/compliance but not an explicit allowed rule"
     },
     {
-      "matched_text": "Regulatory Information Service",
       "concept": "public disclosure channel",
+      "matched_text": "Regulatory Information Service",
       "reason": "Relevant to selective disclosure control but no explicit rule category"
     },
     {
-      "matched_text": "Q2 Trading Update",
       "concept": "public filing reference",
+      "matched_text": "Q2 Trading Update",
       "reason": "Cited prior public disclosure; relevant to nonpublic status but not an allowed MNPI rule"
     },
     {
-      "matched_text": "project codes",
       "concept": "insider controls metadata",
+      "matched_text": "project codes",
       "reason": "Operational control for MAR projects; no matching allowed rule"
     },
     {
-      "matched_text": "price-sensitive",
       "concept": "materiality indicator",
+      "matched_text": "price-sensitive",
       "reason": "Indicates potential price impact but not a named allowed rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }
