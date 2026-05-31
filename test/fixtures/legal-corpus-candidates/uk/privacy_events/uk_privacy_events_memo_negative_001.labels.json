@@ -3,13 +3,92 @@
   "document_type": "memo",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacyoffice@brightonwharf.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@brightonwharf.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacyoffice@brightonwharf.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@brightonwharf.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "ISIN ZZ0-000000-0",
+      "reason": "Placeholder example; not an actual instrument identifier or PII/MNPI."
+    },
+    {
+      "matched_text": "NI: XX-000000-X",
+      "reason": "Explicitly an invalid placeholder; not a real UK NIN."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR handling",
+      "concept": "dsar_marker",
+      "reason": "DSAR process mention is privacy-relevant but there is no explicit DSAR marker rule in the allowed list and the status is negated."
+    },
+    {
+      "matched_text": "Erasure",
+      "concept": "erasure_marker",
+      "reason": "Erasure process reference is privacy-relevant but completed/negated and no explicit erasure marker rule exists in the allowed list."
+    },
+    {
+      "matched_text": "Retention",
+      "concept": "retention_marker",
+      "reason": "Retention policy reference is privacy-relevant but there is no explicit retention marker rule in the allowed list."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

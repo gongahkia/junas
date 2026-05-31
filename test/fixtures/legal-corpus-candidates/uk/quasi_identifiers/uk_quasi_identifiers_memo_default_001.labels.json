@@ -3,13 +3,322 @@
   "document_type": "memo",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Eliza Marris"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "14/02/1984"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "emarris@northbridgecapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "device NB-ARX-17"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "VPN session ORCHID-12"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Rowan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "18.5m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "7\u20139%"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Patrick Wren"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "patrick.wren@northbridgecapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+44 20 7060 2180"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@northbridgecapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+44 20 7000 5588"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossed"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Eliza Marris"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "14/02/1984"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "emarris@northbridgecapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "device NB-ARX-17"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "VPN session ORCHID-12"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "patrick.wren@northbridgecapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+44 20 7060 2180"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@northbridgecapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+44 20 7000 5588"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Patrick Wren"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "tablet Trent-9"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Teams alias EM-73"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "device CN-442-P"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "aged 23"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "mid-40s"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Ms. Eliza Marris (DOB 14/02/1984), Associate Director, Equity Origination at Northbridge Capital plc, based at Canary Wharf E14, accessed draft term sheet v3.1 via device NB-ARX-17 and VPN session ORCHID-12 at 06:42 BST, tied to workmail emarris@northbridgecapital.co.uk and treasury account suffix 7713"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "graduate analyst, Birmingham office, aged 23, device CN-442-P, start date in October"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "tablet Trent-9, session 4E3-22, payroll account ending 0934, postcode XY9 3QQ, and a generic note \u201cmale, mid-40s, Kent,\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "should not be treated as PII in isolation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "are not PII and should not be escalated absent linkage"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "partial internal codes are listed solely for control purposes"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Rowan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "pre-announcement equity raise"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "non-public placing of 18.5m ordinary shares"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "18.5m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "7\u20139%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "disclosure is scheduled for 08:15 BST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "pending board approval"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "any outreach prior to announcement must be wall-crossed and logged with Compliance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not circulate deal specifics beyond the project list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "tablet Trent-9",
+      "reason": "Isolated weak device identifier without linkage to a person; not identifying alone."
+    },
+    {
+      "matched_text": "session 4E3-22",
+      "reason": "Isolated internal session code without linkage; not identifying alone."
+    },
+    {
+      "matched_text": "payroll account ending 0934",
+      "reason": "Partial account reference; generic and non-identifying alone."
+    },
+    {
+      "matched_text": "postcode XY9 3QQ",
+      "reason": "Standalone postcode without linkage to a person; not PII alone."
+    },
+    {
+      "matched_text": "male, mid-40s, Kent",
+      "reason": "Generic demographics/location; non-identifying alone."
+    },
+    {
+      "matched_text": "graduate analyst, Birmingham office, aged 23, device CN-442-P, start date in October",
+      "reason": "Recruitment entry lacks names or direct identifiers; should not be treated as PII in isolation."
+    },
+    {
+      "matched_text": "someone in their thirties in London",
+      "reason": "Example generic demographic; not PII."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "treasury account suffix 7713",
+      "concept": "partial account identifier",
+      "reason": "Partial account suffix may be personal or internal financial account data but not clearly covered by bank_account/customer_account_number rules."
+    },
+    {
+      "matched_text": "disclosure is scheduled for 08:15 BST",
+      "concept": "embargo/scheduled disclosure",
+      "reason": "Functions like an embargo/schedule signal under MAR but not one of the enumerated embargo markers."
+    },
+    {
+      "matched_text": "Teams alias EM-73",
+      "concept": "internal user identifier",
+      "reason": "Could be treated as an employee_id or handle; classification under current rules is ambiguous."
+    },
+    {
+      "matched_text": "NRB-ROWAN-58",
+      "concept": "internal compliance/reference code",
+      "reason": "May relate to project/insider management but no explicit rule for such references."
+    },
+    {
+      "matched_text": "Canary Wharf E14",
+      "concept": "location/postcode quasi-identifier",
+      "reason": "UK postcode district/location may be a quasi-identifier but no explicit UK postal address rule provided."
+    },
+    {
+      "matched_text": "Meeting Room Hawksmoor",
+      "concept": "physical access/location log",
+      "reason": "Room booking/access detail could be PII-adjacent context but not clearly covered by existing PII rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

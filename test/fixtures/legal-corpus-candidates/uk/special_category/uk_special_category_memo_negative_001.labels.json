@@ -3,13 +3,159 @@
   "document_type": "memo",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "marketconduct@brackenfell.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "governance@brackenfell.example"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EK-0423"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "has declared membership of the Horizon Finance Workers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric login"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric templates"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Closed Period Policy v3.1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List Template v2.0"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "marketconduct@brackenfell.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "governance@brackenfell.example"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EK-0423"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Nora Kelm"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "has declared membership of the Horizon Finance Workers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric login"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric templates"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Closed Period Policy v3.1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List Template v2.0"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Aurora Invest+",
+      "reason": "Product/brand name, not PII or MNPI"
+    },
+    {
+      "matched_text": "Paladin Cash ISA",
+      "reason": "Product/brand name, not PII or MNPI"
+    },
+    {
+      "matched_text": "black swan",
+      "reason": "Metaphor, not PII or MNPI"
+    },
+    {
+      "matched_text": "underground market",
+      "reason": "Metaphor, not PII or MNPI"
+    },
+    {
+      "matched_text": "Union Square",
+      "reason": "Place/event name, not PII or MNPI"
+    },
+    {
+      "matched_text": "Northport Ravens",
+      "reason": "Sports team/event reference, not PII or MNPI"
+    },
+    {
+      "matched_text": "Fair Pathways Pledge",
+      "reason": "Policy/pledge name, not PII or MNPI"
+    },
+    {
+      "matched_text": "COCON",
+      "reason": "Handbook/policy reference, not PII or MNPI"
+    },
+    {
+      "matched_text": "SYSC",
+      "reason": "Handbook/policy reference, not PII or MNPI"
+    },
+    {
+      "matched_text": "\u201cpolitics of markets\u201d",
+      "reason": "Generic DEI/training prose, not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "non-public information",
+      "concept": "nonpublic_marker",
+      "reason": "MNPI keyword appears only in a negation; informative for compliance but excluded from strict detection"
+    },
+    {
+      "matched_text": "genetic models",
+      "concept": "genetic_data",
+      "reason": "References genetics in an algorithmic sense, not clearly personal genetic data"
+    },
+    {
+      "matched_text": "does not retain or access biometric templates",
+      "concept": "data_minimisation_marker",
+      "reason": "Indicates retention/minimisation posture but is a negated control, which strict rules avoid labeling"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

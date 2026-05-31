@@ -3,13 +3,344 @@
   "document_type": "memo",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Eliza Beaumont"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daniel Kwan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Freya March"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Owen Ridley"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Rory Lennox"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "eliza.beaumont@auroralattice.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rory.lennox@auroralattice.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "fcaliaison@auroralattice.co.uk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "a targeted breach was detected"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "3%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been disclosed via RNS"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "considered material"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "14%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "An insider list has been created"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "closed period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "no tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list maintenance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Eliza Beaumont"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daniel Kwan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Freya March"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Owen Ridley"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Rory Lennox"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "eliza.beaumont@auroralattice.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rory.lennox@auroralattice.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "fcaliaison@auroralattice.co.uk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "a targeted breach was detected"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "3%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been disclosed via RNS"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "considered material"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "14%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "An insider list has been created"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "closed period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "no tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list maintenance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 2 figures for FY2025 require restatement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "increasing reported emissions by 14%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "contingent on successful cyber remediation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Restricted List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "may affect guidance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "no dealings"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Board",
+      "reason": "Role noun/defined party reference, not PII or MNPI value"
+    },
+    {
+      "matched_text": "Compliance Committee",
+      "reason": "Role noun/defined party reference, not PII or MNPI value"
+    },
+    {
+      "matched_text": "Directors",
+      "reason": "Role noun/defined party reference, not PII or MNPI value"
+    },
+    {
+      "matched_text": "PDMRs",
+      "reason": "Role noun/defined party reference, not PII or MNPI value"
+    },
+    {
+      "matched_text": "Research",
+      "reason": "Role noun/defined party reference, not PII or MNPI value"
+    },
+    {
+      "matched_text": "Sales",
+      "reason": "Role noun/defined party reference, not PII or MNPI value"
+    },
+    {
+      "matched_text": "Deal team members",
+      "reason": "Role noun/defined party reference, not PII or MNPI value"
+    },
+    {
+      "matched_text": "Legal",
+      "reason": "Role noun/defined party reference, not PII or MNPI value"
+    },
+    {
+      "matched_text": "Compliance Officer",
+      "reason": "Role noun/defined party reference, not PII or MNPI value"
+    },
+    {
+      "matched_text": "Sustainability team",
+      "reason": "Role noun/defined party reference, not PII or MNPI value"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Restricted List",
+      "concept": "restriction list marker",
+      "reason": "Indicates trading restrictions and inside information handling but not explicitly an allowed marker type"
+    },
+    {
+      "matched_text": "volume-linked fee holiday",
+      "concept": "commercial terms signal",
+      "reason": "Non-public commercial concession potentially price-sensitive but not covered by specific MNPI term rules"
+    },
+    {
+      "matched_text": "termination fee waiver",
+      "concept": "commercial terms signal",
+      "reason": "Non-public negotiated term potentially price-sensitive without a direct allowed rule"
+    },
+    {
+      "matched_text": "green financing covenants",
+      "concept": "covenant/eligibility risk",
+      "reason": "Potentially price-sensitive financing covenant issue not explicitly in allowed MNPI rules"
+    },
+    {
+      "matched_text": "impairment charge",
+      "concept": "accounting adjustment",
+      "reason": "Possible material accounting impact but not directly mapped to an allowed MNPI marker"
+    },
+    {
+      "matched_text": "Restricted \u2014 Cyber/ESG",
+      "concept": "confidential handling marker",
+      "reason": "Implies restricted storage/handling but not a defined embargo or privacy-event marker"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
