@@ -3,13 +3,288 @@
   "document_type": "memo",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jae-min Oh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Jin-ho Ahn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Sun-hee Park"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "940515-2374611"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@daenova.internal"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02-710-0042"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "remove and reissue with employee IDs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Yeoubi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping risk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "0.15%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "volume_commitment",
+      "matched_text": "client cap 50 wallets"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "ESG/climate audit findings"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_target_revision",
+      "matched_text": "may affect future TCFD-aligned targets"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jae-min Oh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Jin-ho Ahn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Sun-hee Park"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "940515-2374611"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@daenova.internal"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02-710-0042"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "remove and reissue with employee IDs"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "confirm deletion across email archives"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Yeoubi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Cyber Insider Log"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping risk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "0.15%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "volume_commitment",
+      "matched_text": "client cap 50 wallets"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "ESG/climate audit findings"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_target_revision",
+      "matched_text": "may affect future TCFD-aligned targets"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Draft term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "do not upload to DART until"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "IR",
+      "reason": "Department/role abbreviation; not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "HR",
+      "reason": "Department reference; not PII or MNPI"
+    },
+    {
+      "matched_text": "Legal/Compliance",
+      "reason": "Department/role reference; not PII or MNPI"
+    },
+    {
+      "matched_text": "marketing webinar",
+      "reason": "Educational/marketing context explicitly without MNPI"
+    },
+    {
+      "matched_text": "Internal Legal & Compliance Memo",
+      "reason": "Document descriptor/header; not PII or MNPI"
+    },
+    {
+      "matched_text": "BluePineX Exchange",
+      "reason": "Company name; not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "exclusivity for Q4",
+      "concept": "commercial term (exclusivity)",
+      "reason": "Commercial-term signal that could be market-sensitive but lacks a specific allowed rule tag"
+    },
+    {
+      "matched_text": "do not upload to DART until commercial and incident facts are verified and Board sign-off is obtained",
+      "concept": "embargo/nonpublic control",
+      "reason": "Embargo-like instruction on public filing; not matching explicit Embargoed/Press Hold markers"
+    },
+    {
+      "matched_text": "The Sustainability Committee will meet on 6 June",
+      "concept": "material_event (governance meeting)",
+      "reason": "Committee meeting tied to future ESG targets may be material, but materiality is contextual and not an explicit rule phrase"
+    },
+    {
+      "matched_text": "internal restricted",
+      "concept": "nonpublic classification",
+      "reason": "Indicates restricted classification; useful MNPI signal but not an explicitly listed marker"
+    },
+    {
+      "matched_text": "Pre-disclosure controls",
+      "concept": "nonpublic management guidance",
+      "reason": "Governance/process phrasing indicating pre-disclosure handling; not a defined rule trigger"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
