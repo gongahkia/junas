@@ -1,9 +1,11 @@
 {
   "_agent_review": {
-    "notes": "MY Stage A strict labels realigned after the IN precision audit tightened deterministic false-positive guards; broader labels remain in ideal_must_detect.",
+    "notes": "Post-EU global realignment after narrow precision guards for placeholder passport values, obfuscated passport phone-shaped fragments, and tax-ID phone-shaped bait. Strict labels now match current deterministic strict-mode findings; removed false strict labels are kept out of strict benchmark truth.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
-    "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
-    "status": "strict_tier_cleaned_owner_approved"
+    "run_dir": "/tmp/kaypoh-eu-stage-a-20260601",
+    "source_report": "/tmp/kaypoh-candidates-after-eu-reviewed.json",
+    "status": "post_eu_precision_realign",
+    "reviewed_at_utc": "2026-05-31T17:32:45Z"
   },
   "_human_review": {
     "decision": "approve",
@@ -27,7 +29,7 @@
   ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-  "_label_note": "MY Stage A strict tier realigned to deterministic strict-mode engine after IN precision audit; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_note": "MY Stage A strict tier realigned to deterministic strict-mode engine after IN precision audit; broader model-derived labels retained in ideal_must_detect for gap discovery. Post-EU precision realignment removed placeholder/invalid passport or phone-shaped tax/passport bait from strict benchmark truth where current deterministic strict mode correctly suppresses it.",
   "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
   "_label_warnings": [
     "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
@@ -67,11 +69,6 @@
     },
     {
       "category": "PII",
-      "matched_text": "A1234567",
-      "rule": "passport_number"
-    },
-    {
-      "category": "PII",
       "matched_text": "800101-14-7788",
       "rule": "my_mykad"
     },
@@ -92,7 +89,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Subject to the above controls, Legal and Compliance consider the current drafts fit for submission to the exchange portal and lender\u2019s data room without risk of inadvertent PDPA breach or unlawful selective disclosure.",
+      "matched_text": "Subject to the above controls, Legal and Compliance consider the current drafts fit for submission to the exchange portal and lender’s data room without risk of inadvertent PDPA breach or unlawful selective disclosure.",
       "rule": "material_event"
     },
     {
@@ -184,11 +181,6 @@
     },
     {
       "category": "PII",
-      "matched_text": "A1234567",
-      "rule": "passport_number"
-    },
-    {
-      "category": "PII",
       "matched_text": "800101-14-7788",
       "rule": "my_mykad"
     },
@@ -209,7 +201,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Subject to the above controls, Legal and Compliance consider the current drafts fit for submission to the exchange portal and lender\u2019s data room without risk of inadvertent PDPA breach or unlawful selective disclosure.",
+      "matched_text": "Subject to the above controls, Legal and Compliance consider the current drafts fit for submission to the exchange portal and lender’s data room without risk of inadvertent PDPA breach or unlawful selective disclosure.",
       "rule": "material_event"
     },
     {
@@ -279,6 +271,10 @@
     {
       "matched_text": "Accounts Supervisor",
       "reason": "Job title/role, not a named person."
+    },
+    {
+      "matched_text": "A1234567",
+      "reason": "invalid/non-operative passport sample; not live personal data"
     }
   ],
   "source_jurisdiction": "MY",
@@ -302,6 +298,16 @@
       "concept": "tax_identifier_generic",
       "matched_text": "TIN C-1234567890",
       "reason": "Tax identifier reference not mapped to an allowed jurisdictional rule and marked invalid format."
+    }
+  ],
+  "_agent_review_history": [
+    {
+      "notes": "Post-EU global realignment after narrow precision guards for placeholder passport values, obfuscated passport phone-shaped fragments, and tax-ID phone-shaped bait. Strict labels now match current deterministic strict-mode findings; removed false strict labels are kept out of strict benchmark truth.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-eu-stage-a-20260601",
+      "source_report": "/tmp/kaypoh-candidates-after-eu-reviewed.json",
+      "status": "post_eu_precision_realign",
+      "reviewed_at_utc": "2026-05-31T17:32:45Z"
     }
   ]
 }

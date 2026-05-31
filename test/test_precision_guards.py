@@ -309,6 +309,18 @@ class MacMaePrecisionGuards(unittest.TestCase):
         text = "The lender may terminate if a material adverse change occurs before closing."
         self.assertIn(("material_adverse_change", "material adverse change"), _rules_matched(text, jurisdiction="VN"))
 
+    def test_mae_clause_has_not_been_triggered_does_not_fire(self):
+        text = "The definitive agreement is public; the mae clause has not been triggered."
+        self.assertNotIn("material_adverse_change", {r for r, _ in _rules_matched(text, jurisdiction="EU")})
+
+    def test_no_event_expected_to_result_in_mac_does_not_fire_contingent(self):
+        text = (
+            "No event has occurred that would reasonably be expected to result in "
+            "a material adverse change as defined in the filed contract."
+        )
+        rules = {r for r, _ in _rules_matched(text, jurisdiction="EU")}
+        self.assertNotIn("contingent_mnpi_language", rules)
+
 
 class PhoneNumberSpanDedupGuards(unittest.TestCase):
     def _has_phone_match(self, text: str, matched_text: str, jurisdiction: str = "SG") -> bool:
@@ -376,6 +388,48 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         self.assertNotIn("14-03-1990", phones)
         self.assertNotIn("2026-05-28", phones)
         self.assertNotIn("192.0.2.17", phones)
+
+    def test_phone_does_not_fire_on_dotted_eu_dates(self):
+        text = "Board memo dated 31.05.2026; OAM filing was posted on 30.04.2026."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "phone_number"]
+        self.assertNotIn("31.05.2026", phones)
+        self.assertNotIn("30.04.2026", phones)
+
+    def test_phone_does_not_fire_on_obfuscated_vat_or_tax_id(self):
+        text = "VAT N o .: N R 1 2 3 4 5 6 7 Q; branch tax ID L V 3 3 1 2 9 9 9 9 9."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "phone_number"]
+        self.assertNotIn("1 2 3 4 5 6 7", phones)
+        self.assertNotIn("3 3 1 2 9 9 9 9 9", phones)
+
+    def test_phone_does_not_fire_on_obfuscated_passport_digits(self):
+        text = "Data subject row: pa s s p o r t N R - P 1 2 3 4 5 6 7."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "phone_number"]
+        self.assertNotIn("1 2 3 4 5 6 7", phones)
+
+    def test_real_mobile_after_obfuscated_passport_still_fires(self):
+        text = "Contact: pass port T H 9 1 2 3 4 5 6 7 (temporary issue), mobile 09-4556-2103."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="TH") if r == "phone_number"]
+        self.assertIn("09-4556-2103", phones)
+
+    def test_phone_does_not_fire_on_isin_or_lei_fragments(self):
+        text = "Issuer identifiers: LEI 000000ORLANTASE01, ISIN ZX0000000001."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "phone_number"]
+        self.assertNotIn("0000000001", phones)
+
+    def test_public_support_hotline_does_not_fire_as_phone(self):
+        text = "Vendor support hotline +800 555 1212 is public and should not be captured as PII."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "phone_number"]
+        self.assertNotIn("+800 555 1212", phones)
+
+    def test_phone_does_not_fire_inside_filing_reference(self):
+        text = "Regulatory chronology: OCMA filing ref OCM-26-000000 submitted."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "phone_number"]
+        self.assertNotIn("26-000000", phones)
+
+    def test_placeholder_country_code_phone_does_not_fire(self):
+        text = "Contact placeholder tel: +3X-120-000-000; use a real number only after approval."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "phone_number"]
+        self.assertNotIn("120-000-000", phones)
 
     def test_phone_does_not_fire_on_account_or_uen_fragments(self):
         text = "UEN: 2018 998765 K. Escrow account 123-456-789-0 is corporate."
@@ -867,6 +921,43 @@ class LargeNumberPrecisionGuards(unittest.TestCase):
         text = "The seller will transfer 100,000 ordinary shares of Acme Pte. Ltd., UEN 199999999K."
         numbers = [m for r, m in _rules_matched(text) if r == "large_number"]
         self.assertIn("100,000", numbers)
+
+
+class EuCandidatePrecisionGuards(unittest.TestCase):
+    def test_split_obfuscated_email_fragment_does_not_fire(self):
+        text = "Contact Ms. Petra Kovacs at petra.kov   acs@lunara.eu after approval."
+        emails = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "email_address"]
+        self.assertNotIn("acs@lunara.eu", emails)
+
+    def test_role_placeholder_email_does_not_fire(self):
+        text = "Generic form placeholder: Email [role@auroracarbon.eu]."
+        emails = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "email_address"]
+        self.assertNotIn("role@auroracarbon.eu", emails)
+
+    def test_passport_template_value_does_not_fire(self):
+        text = "Passport field in HR template reads Passport No: ORD0000000 solely as a format example."
+        passports = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "passport_number"]
+        self.assertNotIn("ORD0000000", passports)
+
+    def test_real_passport_survives_neighboring_invalid_hkid_note(self):
+        text = "Employee secondee: Ms. Li Mei-yan (HKSAR Passport K1234567; HKID W 1 2 3 4 5 6 (3) invalid in scan)."
+        passports = [m for r, m in _rules_matched(text, jurisdiction="HK") if r == "passport_number"]
+        self.assertIn("K1234567", passports)
+
+    def test_large_number_inside_eu_registry_identifiers_is_suppressed(self):
+        text = (
+            "Oridonia Companies Register No. OCR-2023-004512; "
+            "identifier placeholders include ISIN: ZZ-ARX-123456 and branch tax ID NR-TAX-8842012."
+        )
+        numbers = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "large_number"]
+        self.assertNotIn("004512", numbers)
+        self.assertNotIn("123456", numbers)
+        self.assertNotIn("8842012", numbers)
+
+    def test_log_id_fragment_does_not_fire_as_financial_amount(self):
+        text = "Last purge deleted hashes only, log id: PRG-A9-7b."
+        amounts = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "financial_amount"]
+        self.assertNotIn("7b", amounts)
 
 
 class EducationalMnpiMarkerGuards(unittest.TestCase):

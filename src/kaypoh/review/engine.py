@@ -1240,13 +1240,14 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"public(?:-facing)?\s+help\s*desk|public\s+helpdesk|public\s+helplines?|"
     r"public\s+hotline|public\s+line|public\s+service\s+line|"
     r"public\s+(?:queries|enquiries)|"
-    r"switchboard|reception|information\s+line|contact\s+centre|client\s+services|"
+    r"support\s+hotline|switchboard|reception|information\s+line|contact\s+centre|client\s+services|"
     r"(?:privacy|ethics)\s+helplines?|assistance\s+line|published\s+contacts?|"
     r"generic\s+(?:in[-\u2010-\u2015 ]house\s+)?ivr|in[-\u2010-\u2015 ]house\s+ivr|"
     r"hr\s+help\s*desk|general\s+line|general\s+help\s+lines?|"
     r"hotline\s+investor|nomor\s+publik|bukan\s+nomor\s+pribadi|"
     r"tổng\s+đài|công\s+khai|không\s+dùng\s+số\s+cá\s+nhân|"
     r"general\s+(?:queries|enquiries)|queries\s+contact|general\s+hotline|label\s+only|"
+    r"not\s+be\s+captured\s+as\s+PII|"
     r"not\s+personal\s+data|"
     r"not\s+a\s+deal\s+contact|not\s+MNPI"
     r")\b",
@@ -1256,7 +1257,7 @@ _ALWAYS_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
     "admin", "ap", "ar", "billing", "capitalmarkets", "corpsec", "cosec",
     "compliance", "dealroom", "disclosure", "docroom", "dpo", "help", "helpdesk",
     "irmailbox", "listings", "media", "mna", "press", "privacy", "privacydesk",
-    "room", "secretariat", "support", "treasury", "walloffice",
+    "role", "room", "secretariat", "support", "treasury", "walloffice",
 })
 _CONTEXTUAL_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
     "contact", "info", "legal",
@@ -1273,16 +1274,17 @@ _ROLE_MAILBOX_LOCAL_RE = re.compile(
 _DATE_LIKE_PHONE_RE = re.compile(
     r"(?:\d{4}[-/]\d{1,2}[-/]\d{1,2}(?:\s+\d{1,2})?|"
     r"\d{1,2}[-/]\d{1,2}[-/]\d{2,4}(?:\s+\d{1,2})?|"
+    r"\d{1,2}\.\d{1,2}\.\d{2,4}|"
     r"\d{1,2}[-/]\d{1,2}[-/]\d{4}\s+\(\d+(?:\.\d+)?)\Z"
 )
 _THAI_ID_LIKE_PHONE_RE = re.compile(r"\d-\d{4}-\d{5}-\d{2}-\d\Z")
 _IPV4_LITERAL_RE = re.compile(r"(?:\d{1,3}\.){3}\d{1,3}\Z")
 _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
-    r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|UKPA|EIN|a/c|acc\s*t|account|"
+    r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|UKPA|EIN|ISIN|LEI|a/c|acc\s*t|account|"
     r"bank\s*acct|payroll\s*acct|"
     r"rekening|national\s+id|company\s+no|co\.\s+no|"
     r"reg\.\s+no|registration\s+no|\bCR\b|CRN|commercial\s+registration|"
-    r"tax\s+ref|tax\s+no|TINs?|VAT|ZATCA|GAZT|MST|EPF|SWIFT|"
+    r"filing\s+ref|tax\s+id|tax\s+ref|tax\s+no|TINs?|VAT|V\s*A\s*T|ZATCA|GAZT|MST|EPF|SWIFT|"
     r"TRN|CRN|trade\s+licen[cs]e|commercial\s+licen[cs]e|Emirates\s+I\s*D|EID|"
     r"national\s+address|Bldg|Iqama|IQA\s*MA|National\s+ID|NID|AP\s+No|"
     r"serial|device\s+serial|IMEI|IP|DOB|dated|"
@@ -1296,10 +1298,11 @@ _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
 )
 _LARGE_NUMBER_IDENTIFIER_CONTEXT_RE = re.compile(
     r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|postal|IMEI|IP|company\s+no|co\.\s+no|"
-    r"Companies\s+House|Delaware\s+Div(?:ision)?\.?\s+of\s+Corporations|File\s+No\.?|"
+    r"Companies\s+House|Companies?\s+Register|Delaware\s+Div(?:ision)?\.?\s+of\s+Corporations|"
+    r"File\s+No\.?|ISIN|LEI|"
     r"FRN|firm\s+reference|HMRC\s+UTR|payroll\s+ref|"
     r"reg\.\s+no|registration\s+no|\bCR\b|CRN|commercial\s+registration|"
-    r"tax\s+ref|TINs?|VAT|ZATCA|GAZT|MST|EPF|SWIFT|TRN|CRN|UTR|"
+    r"tax\s+id|tax\s+ref|TINs?|VAT|ZATCA|GAZT|MST|EPF|SWIFT|TRN|CRN|UTR|"
     r"trade\s+licen[cs]e|commercial\s+licen[cs]e|Emirates\s+I\s*D|EID|"
     r"serial|device\s+serial|account\s+no|a/c|"
     r"acc\s*t|rekening|rek\.?|escrow|bank\s+account|akun\s+internal|non-bank|"
@@ -1315,6 +1318,7 @@ _PLACEHOLDER_IDENTIFIER_CONTEXT_RE = re.compile(
     r"template\s+field|test\s+fields?|generic\s+placeholder|training\s+placeholder|"
     r"placeholder|test[- ]only|system\s+bucket|not\s+real\s+data|"
     r"specimen\s+values?|screenshots?\s+only|"
+    r"format\s+example|"
     r"sample\s+(?:PAN|GSTIN|Aadhaar|NRIC|identifier|values?)|"
     r"invalid(?:/dummy)?|for\s+illustration|illustrative)\b",
     re.IGNORECASE,
@@ -1386,9 +1390,37 @@ def _is_functional_contact_context(text: str, start: int, end: int) -> bool:
     )
 
 
+def _is_obfuscated_email_fragment_context(text: str, start: int, end: int) -> bool:
+    before = text[max(0, start - 24):start]
+    return bool(re.search(r"[A-Z0-9._%+-]*\.[A-Z0-9._%+-]*\s{2,}\Z", before, re.IGNORECASE))
+
+
+def _is_spaced_passport_numeric_context(text: str, start: int, end: int) -> bool:
+    before = text[max(0, start - 36):start]
+    return bool(re.search(
+        r"p\s*a\s*s\s*s\s*p\s*o\s*r\s*t(?:\s*[-:]?\s*[A-Z]){0,4}\s*\Z",
+        before,
+        re.IGNORECASE,
+    ))
+
+
+def _is_placeholder_passport_context(text: str, start: int, end: int) -> bool:
+    left = max(text.rfind("\n", 0, start), text.rfind(";", 0, start)) + 1
+    right_candidates = [
+        pos for pos in (text.find("\n", end), text.find(";", end)) if pos >= 0
+    ]
+    right = min(right_candidates) if right_candidates else len(text)
+    context = text[left:right]
+    return bool(re.search(
+        r"\b(?:placeholder|format\s+example|example\s+only|invalid(?:\s+length)?|non[- ]operative)\b",
+        context,
+        re.IGNORECASE,
+    ))
+
+
 def _is_public_or_generic_phone_context(text: str, start: int, end: int) -> bool:
     digits = _digits_only(text[start:end])
-    if digits.startswith("1800") or digits.startswith("0800"):
+    if digits.startswith(("1800", "0800", "00800")):
         return True
     context = _line_context(text, start, end)
     return bool(_PUBLIC_PHONE_CONTEXT_RE.search(context))
@@ -1406,6 +1438,10 @@ def _is_non_phone_numeric_context(text: str, start: int, end: int) -> bool:
     if _THAI_ID_LIKE_PHONE_RE.fullmatch(matched):
         return True
     if _IPV4_LITERAL_RE.fullmatch(matched) and _ip_version(matched) == 4:
+        return True
+    if _is_spaced_passport_numeric_context(text, start, end):
+        return True
+    if re.search(r"\+[A-Z0-9]*[A-Z][A-Z0-9]*[-\s]*\Z", text[max(0, start - 12):start], re.IGNORECASE):
         return True
     if len(digits) >= 14 and not matched.startswith("+"):
         return True
@@ -1450,6 +1486,7 @@ def _is_negated_material_adverse_change_context(text: str, start: int, end: int)
         r"nothing\s+herein\s+constitutes[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
         r"nothing\s+herein\s+constitutes\s+or\s+admits[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
         r"not\s+intended\s+to\s+trigger[^\n.;]{0,80}(?:mac|mae)|"
+        r"(?:mac|mae)\s+clause[^\n.;]{0,80}has\s+not\s+been\s+triggered|"
         r"does\s+not\s+include\s+any[^\n.;]{0,120}material\s+adverse\s+change\s+trigger|"
         r"mac\s+clause[^\n.;]{0,160}does\s+not\s+by\s+itself\s+signal\s+a\s+material\s+adverse\s+change|"
         r"material\s+adverse\s+change[^\n.;]{0,80}not\s+triggered|"
@@ -1457,6 +1494,16 @@ def _is_negated_material_adverse_change_context(text: str, start: int, end: int)
         r"tidak[^\n.;]{0,80}material\s+adverse\s+change|"
         r"bukan\s+mac|not\s+a\s+mac"
         r")\b",
+        context,
+        re.IGNORECASE,
+    ))
+
+
+def _is_negated_contingent_mnpi_context(text: str, start: int, end: int) -> bool:
+    context = _line_context(text, start, end)
+    return bool(re.search(
+        r"\bno\s+event\s+has\s+occurred[^\n.;]{0,120}"
+        r"(?:expected|reasonably\s+expected)\s+to\s+result\s+in\b",
         context,
         re.IGNORECASE,
     ))
@@ -1553,7 +1600,7 @@ def _is_identifier_like_financial_amount(text: str, start: int, end: int) -> boo
             after in "-\u2010\u2011\u2012\u2013\u2014\u2015"
             or re.search(
                 r"\b(?:Rule\s+10b|10b[-\u2010-\u2015]?5|Phase\s+\d+[a-z]|Trial|"
-                r"ticket|sess(?:ion)?|internal\s+payroll|payroll\s+code)\b",
+                r"ticket|log\s+id|sess(?:ion)?|internal\s+payroll|payroll\s+code)\b",
                 context,
                 re.IGNORECASE,
             )
@@ -3198,7 +3245,12 @@ class PreSendReviewEngine:
                         continue
                     if re.search(r"\baudit\s+hash\b", _line_context(text, start, end), re.IGNORECASE):
                         continue
-                if rule == "email_address" and _is_functional_contact_context(text, start, end):
+                if rule == "email_address" and (
+                    _is_functional_contact_context(text, start, end)
+                    or _is_obfuscated_email_fragment_context(text, start, end)
+                ):
+                    continue
+                if rule == "passport_number" and _is_placeholder_passport_context(text, start, end):
                     continue
                 if rule == "phone_number" and _is_public_or_generic_phone_context(text, start, end):
                     continue
@@ -3660,6 +3712,10 @@ class PreSendReviewEngine:
         for pattern, rule, reason in post_pass_rules:
             for match in pattern.finditer(text):
                 if rule in _negation_guarded and _is_negated_context(text, match.start()):
+                    continue
+                if rule == "contingent_mnpi_language" and _is_negated_contingent_mnpi_context(
+                    text, match.start(), match.end()
+                ):
                     continue
                 if rule in {"insider_list_marker", "information_barrier_marker"} and (
                     _is_educational_mnpi_marker_context(text, match.start(), match.end())

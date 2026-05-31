@@ -1,0 +1,492 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled EU Stage A strict labels to current deterministic strict-mode findings after Codex/GPT-assisted audit of GDPR/MAR auto-label mismatches, EU member-state ID gaps, public/placeholder contact and identifier bait, obfuscated tax/passport fragments, split email fragments, negated MAE/contingent-MNPI language, GDPR rights/transfer/minimisation markers, and MAR inside-information contexts; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-eu-stage-a-20260601",
+    "source_report": "/tmp/kaypoh-eu-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled EU Stage A strict labels to current deterministic strict-mode findings after Codex/GPT-assisted audit of GDPR/MAR auto-label mismatches, EU member-state ID gaps, public/placeholder contact and identifier bait, obfuscated tax/passport fragments, split email fragments, negated MAE/contingent-MNPI language, GDPR rights/transfer/minimisation markers, and MAR inside-information contexts; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-eu-stage-a-20260601",
+      "source_report": "/tmp/kaypoh-eu-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved EU Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T17:29:37Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval-via-codex",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved EU Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T17:29:37Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval-via-codex",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "EU Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered public support-hotline bait, obfuscated VAT/tax/passport phone-shaped fragments, dotted-date and filing-reference phone bait, role/placeholder emails, template passport values, EU registry/ISIN/LEI/tax numeric fragments, log-id amount fragments, placeholder country-code phones, and negated MAE/contingent-MNPI language. Full EU member-state national-ID breadth and broader semantic GDPR special-category coverage remain ideal-tier gaps.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T17:29:37Z",
+    "accepted_by": "gongahkia-via-codex",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-eu-stage-a-reviewed.json",
+    "status": "owner_approved_eu_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_sector_mnpi_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lapis",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List “Project Lapis”",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "circulation limited to Insider List “Project Lapis”",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not public and likely price-sensitive",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information until Article 17 MAR disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "€40m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not discuss externally",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber incident (DORA/NIS2)",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "medical leave codes (GDPR Art 9 data)",
+      "rule": "health_condition"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "incident not yet notified",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transfer Impact Assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "freeze any additional exports until DPO sign-off",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "preliminary Scope 3 recalculation indicates +18% upstream emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "+18%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not in the public sustainability statement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list: per Article 18 MAR",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Milo Šarić",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liora Benet",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Oskar Mertens",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "“clean team”",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-close blackout runs 01–30 June",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure in ESG marketing",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Reminder on tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Elina Voracek",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "elina.voracek@nordelectric-se.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+420 990 114 775",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "should not appear on shared agendas",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Treasury is negotiating a private subscription for EURX stablecoin liquidity with Auriga Vault OÜ, coupled with a pilot tokenised REC issuance",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "strictly no investor soundings on crypto treasury before publication of inside information",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "even subject-line references can constitute unlawful disclosure under MAR",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not forward vendor security questionnaires or wallet architecture diagrams to persons outside the list",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "validate SCCs with the DPO",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "maintain timestamps and personal contacts",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lapis_Room",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "would adjust SFDR PAI 4",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "before publication of inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "we detected lateral movement in our cloud IAM",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Milo",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout and communications: pre-close blackout runs 01–30 June; no analyst guidance, no selective disclosure in ESG marketing, and strictly no investor soundings on crypto treasury before publication of inside information.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 3",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "lateral movement",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "elina.voracek@nordelectric-se.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+420 990 114 775",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Milo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liora Benet",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Oskar Mertens",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Elina Voracek",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout and communications: pre-close blackout runs 01–30 June; no analyst guidance, no selective disclosure in ESG marketing, and strictly no investor soundings on crypto treasury before publication of inside information.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lapis",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "€40m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 3",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "lateral movement",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "“Crypto Wallet Operations Handbook”",
+      "reason": "Operational training material explicitly stated as non-deal and not price-sensitive."
+    },
+    {
+      "matched_text": "“Climate Data Catalogue”",
+      "reason": "Operational training material explicitly stated as non-deal and not price-sensitive."
+    }
+  ],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "matched_text": "wallet custodian due diligence",
+      "concept": "crypto due diligence control",
+      "reason": "Relevant to DPT/crypto MNPI workflows and barriers but not clearly mapped to a specific allowed rule."
+    },
+    {
+      "matched_text": "sustainability-linked loan margin ratchet",
+      "concept": "financing covenant sensitivity",
+      "reason": "Potentially market-sensitive commercial term without numeric values; not clearly covered by existing MNPI rules."
+    },
+    {
+      "matched_text": "Datashift Pte Ltd (Singapore)",
+      "concept": "cross-border processor identification",
+      "reason": "Cross-border context is covered, but vendor identity/location is not a specific allowed marker."
+    },
+    {
+      "matched_text": "“Lapis MAR draft”",
+      "concept": "internal embargo/labeling",
+      "reason": "Indicates restricted inside-information materials but not explicitly an embargo marker per allowed rules."
+    }
+  ]
+}

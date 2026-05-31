@@ -1,0 +1,444 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled EU Stage A strict labels to current deterministic strict-mode findings after Codex/GPT-assisted audit of GDPR/MAR auto-label mismatches, EU member-state ID gaps, public/placeholder contact and identifier bait, obfuscated tax/passport fragments, split email fragments, negated MAE/contingent-MNPI language, GDPR rights/transfer/minimisation markers, and MAR inside-information contexts; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-eu-stage-a-20260601",
+    "source_report": "/tmp/kaypoh-eu-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled EU Stage A strict labels to current deterministic strict-mode findings after Codex/GPT-assisted audit of GDPR/MAR auto-label mismatches, EU member-state ID gaps, public/placeholder contact and identifier bait, obfuscated tax/passport fragments, split email fragments, negated MAE/contingent-MNPI language, GDPR rights/transfer/minimisation markers, and MAR inside-information contexts; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-eu-stage-a-20260601",
+      "source_report": "/tmp/kaypoh-eu-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved EU Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T17:29:37Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval-via-codex",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved EU Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T17:29:37Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval-via-codex",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "EU Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered public support-hotline bait, obfuscated VAT/tax/passport phone-shaped fragments, dotted-date and filing-reference phone bait, role/placeholder emails, template passport values, EU registry/ISIN/LEI/tax numeric fragments, log-id amount fragments, placeholder country-code phones, and negated MAE/contingent-MNPI language. Full EU member-state national-ID breadth and broader semantic GDPR special-category coverage remain ideal-tier gaps.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T17:29:37Z",
+    "accepted_by": "gongahkia-via-codex",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-eu-stage-a-reviewed.json",
+    "status": "owner_approved_eu_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_universal_mnpi_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not distribute",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Veldspar",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "72%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "€184.5m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "28.4%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "28%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "€14m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "€9.7m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean-team protocol",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "avoid uploading GDPR Art 9 special-category data to the VDR",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Livia Koenig",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "l.koenig@auroraridge.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+329 555 0142",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Paolo Deren",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "paolo.deren@auroraridge.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "disclosure delayed per Article 17 until 12 Sep 2026 14:00 CET",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "post-embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "the embargo expires",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "leak risk escalates",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Market sounding/wall-crossing has not commenced",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CSRD/SFDR: double materiality and PAI indicators to be refreshed for consolidation on closing",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESRS E1/E2 baselines will be revised",
+      "rule": "esg_target_revision"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Taxonomy Article 8 KPIs",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "acquisition of Nerium Grid SA",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We intend to sign",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent include",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC carve-outs",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "~5.1%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists must be updated today",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no-leak undertaking",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Distribution strictly limited to the Board and named advisers (Cobalt Bridge Partners)",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "limited export of HR datasets to BrightLatitude Inc. (US processor) under SCCs with TIA completed",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "From: Legal & Compliance, Aurora Ridge Industries SE (listed on Mercora Exchange); To: Board of Directors; Subject: Project Veldspar acquisition of Nerium Grid SA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We intend to sign a definitive Share Purchase Agreement on 11 Jun 2026 to acquire 72% of Nerium Grid SA for €184.5m cash, implying a 28.4% premium to the last unaffected close; the remaining 28% will be addressed via a mandatory offer.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CSRD/SFDR: double materiality and PAI indicators to be refreshed for consolidation on closing; Taxonomy Article 8 KPIs and ESRS E1/E2 baselines will be revised for the next investor-relations draft.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Note that the draft includes a bring-down of reps at closing and a no-leak undertaking; this is not expected to trigger a MAC.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5.1%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "l.koenig@auroraridge.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "paolo.deren@auroraridge.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+329 555 0142",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Livia Koenig",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Paolo Deren",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "From: Legal & Compliance, Aurora Ridge Industries SE (listed on Mercora Exchange); To: Board of Directors; Subject: Project Veldspar acquisition of Nerium Grid SA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We intend to sign a definitive Share Purchase Agreement on 11 Jun 2026 to acquire 72% of Nerium Grid SA for €184.5m cash, implying a 28.4% premium to the last unaffected close; the remaining 28% will be addressed via a mandatory offer.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CSRD/SFDR: double materiality and PAI indicators to be refreshed for consolidation on closing; Taxonomy Article 8 KPIs and ESRS E1/E2 baselines will be revised for the next investor-relations draft.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Note that the draft includes a bring-down of reps at closing and a no-leak undertaking; this is not expected to trigger a MAC.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not distribute",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Veldspar",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "€184.5m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "€14m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "€9.7m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "72%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "28.4%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "28%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5.1%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa day voucher",
+      "reason": "False-positive bait for SPA; not a definitive agreement"
+    },
+    {
+      "matched_text": "auroraridge.eu (public)",
+      "reason": "Public-source reference; not MNPI/PII"
+    },
+    {
+      "matched_text": "52%",
+      "reason": "Public-source figure noted as public; avoid MNPI flag"
+    },
+    {
+      "matched_text": "no Material Adverse Change",
+      "reason": "Negated MAC; excluded by rule 8"
+    },
+    {
+      "matched_text": "no MAE/MAC",
+      "reason": "Negated MAC/MAE; excluded by rule 8"
+    }
+  ],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "matched_text": "ad hoc announcement",
+      "concept": "MAR ad hoc disclosure",
+      "reason": "Disclosure control under MAR; not explicitly mapped to an allowed rule token"
+    },
+    {
+      "matched_text": "SCCs with TIA completed",
+      "concept": "Transfer Impact Assessment",
+      "reason": "Cross-border compliance detail; no explicit rule for TIA"
+    },
+    {
+      "matched_text": "VSSA pre-notification template is ready",
+      "concept": "Regulator pre-notification",
+      "reason": "Regulatory workflow item; not in allowed rule list"
+    },
+    {
+      "matched_text": "bring-down of reps at closing",
+      "concept": "Closing mechanics",
+      "reason": "Contractual closing condition language; not mapped to allowed rules"
+    },
+    {
+      "matched_text": "11 Jun 2026",
+      "concept": "Signing date (implied)",
+      "reason": "Embargo/signing timing signal without explicit 'Signing Date' label"
+    }
+  ]
+}

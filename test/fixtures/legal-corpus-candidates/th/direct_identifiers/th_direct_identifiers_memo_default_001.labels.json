@@ -1,9 +1,11 @@
 {
   "_agent_review": {
-    "notes": "Realigned this previously reviewed candidate label to the current deterministic engine after PH precision fixes suppressed completed DSAR/control bait, placeholder identifiers, role/no-MNPI markers, and benign MAC/term-sheet explanatory prose.",
+    "notes": "Post-EU global realignment after narrow precision guards for placeholder passport values, obfuscated passport phone-shaped fragments, and tax-ID phone-shaped bait. Strict labels now match current deterministic strict-mode findings; removed false strict labels are kept out of strict benchmark truth.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
-    "source_report": "/tmp/kaypoh-candidates-after-ph-reviewed.json",
-    "status": "post_ph_precision_realign_owner_approved"
+    "run_dir": "/tmp/kaypoh-eu-stage-a-20260601",
+    "source_report": "/tmp/kaypoh-candidates-after-eu-reviewed.json",
+    "status": "post_eu_precision_realign",
+    "reviewed_at_utc": "2026-05-31T17:32:45Z"
   },
   "_agent_review_history": [
     {
@@ -11,6 +13,14 @@
       "reviewer": "codex-gpt-assisted-strict-tier-review",
       "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
       "status": "strict_tier_cleaned_owner_approved"
+    },
+    {
+      "notes": "Post-EU global realignment after narrow precision guards for placeholder passport values, obfuscated passport phone-shaped fragments, and tax-ID phone-shaped bait. Strict labels now match current deterministic strict-mode findings; removed false strict labels are kept out of strict benchmark truth.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-eu-stage-a-20260601",
+      "source_report": "/tmp/kaypoh-candidates-after-eu-reviewed.json",
+      "status": "post_eu_precision_realign",
+      "reviewed_at_utc": "2026-05-31T17:32:45Z"
     }
   ],
   "_human_review": {
@@ -44,10 +54,10 @@
   ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
-  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Post-PH precision realignment removed strict labels now suppressed by narrow precision guards; the broader spans remain in ideal_must_detect when useful for gap tracking.",
+  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Post-PH precision realignment removed strict labels now suppressed by narrow precision guards; the broader spans remain in ideal_must_detect when useful for gap tracking. Post-EU precision realignment removed placeholder/invalid passport or phone-shaped tax/passport bait from strict benchmark truth where current deterministic strict mode correctly suppresses it.",
   "_label_source": "azure:gpt-5-2-auto",
   "_label_warnings": [
-    "drop ideal_must_detect: drop must-not bait from ideal tier rule='data_minimisation_marker' text='Cleanup: remove \u201cThai Tax ID 0105559999999\u201d inserted by a form auto-fill (checksum invalid per our checker) and the generic field \u201cPassport No: __________\u201d'"
+    "drop ideal_must_detect: drop must-not bait from ideal tier rule='data_minimisation_marker' text='Cleanup: remove “Thai Tax ID 0105559999999” inserted by a form auto-fill (checksum invalid per our checker) and the generic field “Passport No: __________”'"
   ],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-30T01:36:04Z",
@@ -75,11 +85,6 @@
     {
       "category": "PII",
       "matched_text": "+66 81 245 9931",
-      "rule": "phone_number"
-    },
-    {
-      "category": "PII",
-      "matched_text": "0105559999999",
       "rule": "phone_number"
     },
     {
@@ -174,7 +179,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "limit circulation under SEA ss.241\u2013244",
+      "matched_text": "limit circulation under SEA ss.241–244",
       "rule": "selective_disclosure_risk"
     },
     {
@@ -222,11 +227,6 @@
     {
       "category": "PII",
       "matched_text": "+66 81 245 9931",
-      "rule": "phone_number"
-    },
-    {
-      "category": "PII",
-      "matched_text": "0105559999999",
       "rule": "phone_number"
     },
     {
@@ -332,6 +332,14 @@
     {
       "matched_text": "External Counsel",
       "reason": "role-only name; not an identified person"
+    },
+    {
+      "matched_text": "A1234567",
+      "reason": "invalid/non-operative passport sample; not live personal data"
+    },
+    {
+      "matched_text": "0105559999999",
+      "reason": "invalid Thai Tax ID auto-fill; not a phone number"
     }
   ],
   "source_jurisdiction": "TH",
