@@ -3,13 +3,241 @@
   "document_type": "memo",
   "source_jurisdiction": "US",
   "destination_jurisdiction": "US",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "us_ein",
+      "matched_text": "92-7345671"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Alina Corbett"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "acorbett@mednorthbancorp.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "415) 555-0134"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Theo Park"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "000123456789"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "US Passport 999999999"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@mednorthbancorp.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "212) 555-0179"
+    },
+    {
+      "category": "PII",
+      "rule": "us_ssn",
+      "matched_text": "000-00-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "us_ein",
+      "matched_text": "00-0000000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Julian Ortega"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@mednorthbancorp.example.com"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "us_ein",
+      "matched_text": "92-7345671"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Alina Corbett"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "acorbett@mednorthbancorp.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "415) 555-0134"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Theo Park"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "000123456789"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "US Passport 999999999"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@mednorthbancorp.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "212) 555-0179"
+    },
+    {
+      "category": "PII",
+      "rule": "us_ssn",
+      "matched_text": "000-00-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "us_ein",
+      "matched_text": "00-0000000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Julian Ortega"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@mednorthbancorp.example.com"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not selectively disclose"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet furnished on an 8-K"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been announced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "IR must limit any call to information already public on our website and in filed 8-Ks/10-Qs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no guidance updates may be given verbally to analysts prior to that furnishing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreements"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "use de-identified aggregates only"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "avoid including any direct identifiers unless necessary for a regulated filing"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "800-555-1212",
+      "reason": "public helpline number"
+    },
+    {
+      "matched_text": "Charge Nurse",
+      "reason": "role-only title example, not a person identifier"
+    },
+    {
+      "matched_text": "Branch Supervisor",
+      "reason": "role-only title example, not a person identifier"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Delaware Division of Corporations File No. D-8745123",
+      "concept": "company registration number",
+      "reason": "Business identifier is relevant but no explicit US state company file rule is provided."
+    },
+    {
+      "matched_text": "routing 000000000",
+      "concept": "bank routing number",
+      "reason": "Financial identifier but not clearly covered by allowed bank_account or customer_account_number rules."
+    },
+    {
+      "matched_text": "on file pursuant to our record retention schedule",
+      "concept": "retention marker",
+      "reason": "Indicates data retention, which is legally relevant, but there is no explicit allowed rule for retention markers."
+    },
+    {
+      "matched_text": "1200 Harbor Plaza, Suite 400, San Orfeo, CA 94000",
+      "concept": "US postal address",
+      "reason": "Postal address/ZIP is PII but there is no explicit US postal address rule in the allowed list."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

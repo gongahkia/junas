@@ -3,13 +3,149 @@
   "document_type": "memo",
   "source_jurisdiction": "US",
   "destination_jurisdiction": "US",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investorrelations@velispring.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@velispring.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1-800-000-0000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "quarterly blackout windows"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investorrelations@velispring.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@velispring.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1-800-000-0000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "quarterly blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "one-on-one diligence call"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "informed an Aldercrest Research analyst"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Q2 net patient enrollments in VSP-201 are running ahead of previously disclosed guidance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "until broadly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "employees must route any prospective quantitative updates through IR"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "de-identified patient metrics must comply with HIPAA safe-harbor and GLBA exclusions"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not include any patient-level data or customer financial details in correspondence"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Account Ref: 0000-XX-VOID",
+      "reason": "Explicitly stated not a customer account number and not PII or MNPI."
+    },
+    {
+      "matched_text": "not MNPI",
+      "reason": "Explicit negation that the referenced information is MNPI."
+    },
+    {
+      "matched_text": "Form 8-K",
+      "reason": "Public filing reference; not MNPI content by itself."
+    },
+    {
+      "matched_text": "Form 10-Q",
+      "reason": "Public filing reference; not MNPI content by itself."
+    },
+    {
+      "matched_text": "press release 03/15",
+      "reason": "Public press release; stale public information per memo."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Aldercrest Research analyst",
+      "concept": "covered market actor",
+      "reason": "Identifies a sell-side analyst as the selective disclosure counterparty; relevant to Reg FD but not directly covered by a specific allowed rule."
+    },
+    {
+      "matched_text": "NEOM listing notice",
+      "concept": "exchange policy reference",
+      "reason": "Local exchange guidance that can affect public/non-public status semantics; not mapped to an allowed MNPI rule."
+    },
+    {
+      "matched_text": "USCMA\u2019s Staff Bulletin on Market Communications",
+      "concept": "regulatory guidance reference",
+      "reason": "Regulatory communications policy reference relevant to disclosure controls but not covered by current rule set."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

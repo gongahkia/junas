@@ -3,13 +3,161 @@
   "document_type": "memo",
   "source_jurisdiction": "US",
   "destination_jurisdiction": "US",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "U.S. Passport No. 518228764"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not retain this number beyond the trip file"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "U.S. Passport No. 518228764"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not retain this number beyond the trip file"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Regulation FD bars selective disclosure to sell-side analysts, lenders, or buy-side clients"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "must not be discussed outside the disclosure committee"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not transmit Account No: 00000000 or Routing: 000000000 (invalid) outside secure test environments"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "patient encounters may be discussed only in de-identified, aggregated form"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Name: ______",
+      "reason": "Generic form label placeholder; not actual PII."
+    },
+    {
+      "matched_text": "SSN: ___-__-____",
+      "reason": "Generic form label placeholder; invalid/blank SSN example."
+    },
+    {
+      "matched_text": "Address: __________________",
+      "reason": "Generic form label placeholder; not an actual address."
+    },
+    {
+      "matched_text": "Account No: 00000000",
+      "reason": "Deliberate invalid example; not a real bank account."
+    },
+    {
+      "matched_text": "Routing: 000000000 (invalid)",
+      "reason": "Deliberate invalid example; not a real routing number."
+    },
+    {
+      "matched_text": "EIN 00-0000000",
+      "reason": "Placeholder/invalid EIN; bait not to be labeled as real PII."
+    },
+    {
+      "matched_text": "State Reg No. ST-000-0000",
+      "reason": "Placeholder state registration number; not covered by allowed rules and not real."
+    },
+    {
+      "matched_text": "investorrelations@novaliscare.example",
+      "reason": "Role-based placeholder email; not personal PII."
+    },
+    {
+      "matched_text": "press@novaliscare.example",
+      "reason": "Role-based placeholder email; not personal PII."
+    },
+    {
+      "matched_text": "legal@novaliscare.example",
+      "reason": "Role-based placeholder email; not personal PII."
+    },
+    {
+      "matched_text": "800-555-0143",
+      "reason": "Public helpline/placeholder number; not individual PII."
+    },
+    {
+      "matched_text": "800-555-0176",
+      "reason": "Public helpline/placeholder number; not individual PII."
+    },
+    {
+      "matched_text": "123 Any Street, Suite 000, City, ST 00000",
+      "reason": "Training-only example address; not real PII."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Employee 47",
+      "concept": "employee_id",
+      "reason": "Looks like an internal employee identifier but not clearly a formal employee ID and may be a placeholder."
+    },
+    {
+      "matched_text": "State Reg No. ST-000-0000",
+      "concept": "company_registration_number",
+      "reason": "Appears to be a company registration number format, but no explicit allowed rule for US state registration IDs and it is marked as placeholder."
+    },
+    {
+      "matched_text": "outside the disclosure committee",
+      "concept": "information_barrier_marker",
+      "reason": "Indicates restriction of discussion to a specific internal committee, which resembles an information barrier but is not explicitly labeled as such."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
