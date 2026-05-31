@@ -3,13 +3,203 @@
   "document_type": "memo",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr-privacy@kosen-tech.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information-barrier signage"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider-list practice"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout training"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "potential unauthorized access"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "material facts"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr-privacy@kosen-tech.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information-barrier signage"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider-list practice"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout training"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "potential unauthorized access"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "material facts"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number: XX00-000X-123X"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "\u500b\u4eba\u756a\u53f7"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not include My Number or home contacts"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "must limit access to My Number to necessity"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "TEL: XX-0000-000X"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing procedure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "TDnet filing has not been made"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "TOB applicability is under counsel review"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "K-Meal",
+      "reason": "Operational cafeteria tokens with no listing/trading; not market-sensitive MNPI"
+    },
+    {
+      "matched_text": "hypothetical breach",
+      "reason": "Training scenario only; explicitly not an actual event"
+    },
+    {
+      "matched_text": "ESG/climate claims",
+      "reason": "Marketing references to already-published materials; not non-public MNPI"
+    },
+    {
+      "matched_text": "cafeteria tokens",
+      "reason": "Operational example; no securities or market sensitivity"
+    },
+    {
+      "matched_text": "cloud store B",
+      "reason": "Fictional drill label; not an actual incident"
+    },
+    {
+      "matched_text": "timely disclosure (TDnet)",
+      "reason": "General regulatory context; not an undisclosed event by itself"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "My Number: XX00-000X-123X",
+      "concept": "jp_my_number placeholder",
+      "reason": "Obfuscated placeholder rather than a valid 12-digit My Number; rule coverage may be ambiguous"
+    },
+    {
+      "matched_text": "TEL: XX-0000-000X",
+      "concept": "phone_number placeholder",
+      "reason": "Contains non-numeric placeholders; strict phone pattern matching may not trigger"
+    },
+    {
+      "matched_text": "IL-000-TEST",
+      "concept": "insider list code",
+      "reason": "Template code related to insider lists may not be recognized by keyword-based rules"
+    },
+    {
+      "matched_text": "wall-crossing procedure",
+      "concept": "information barrier process",
+      "reason": "Synonym for information-barrier control; detection may rely on exact 'information barrier' phrasing"
+    },
+    {
+      "matched_text": "\u500b\u4eba\u756a\u53f7",
+      "concept": "jp_my_number anchor term",
+      "reason": "Term references My Number but no actual identifier value present"
+    },
+    {
+      "matched_text": "TDnet filing has not been made",
+      "concept": "nonpublic disclosure status",
+      "reason": "Indicates lack of public disclosure; may not be part of the enumerated nonpublic markers"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,156 @@
   "document_type": "memo",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@hinodesys.example"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "0000-0000-0000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "share purchase agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo date"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@hinodesys.example"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "0000-0000-0000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "share purchase agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo date"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal note"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "2026-08-12 09:00 jst"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "no earlier than 2026-08-12 09:00 jst"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "internal calendars must not tag this as public before that time"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "outside counsel-only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "distribution outside counsel-only until exchange upload"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet v0"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not collect, store, or transmit any 12-digit code"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "employee my number handling"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "execution copy signed"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "'deal'",
+      "reason": "Descriptive term; false-positive bait not MNPI"
+    },
+    {
+      "matched_text": "'material'",
+      "reason": "Descriptive term; false-positive bait not MNPI"
+    },
+    {
+      "matched_text": "spa-day bait",
+      "reason": "Wellness-day bait; not a definitive agreement or MNPI"
+    },
+    {
+      "matched_text": "mae",
+      "reason": "Negated MAC/MAE reference; not to be labeled"
+    },
+    {
+      "matched_text": "'\u516c\u958b\u8cb7\u4ed8\u3051'",
+      "reason": "Negated tender-offer mention; not advancing undisclosed facts"
+    },
+    {
+      "matched_text": "'\u00a5x'",
+      "reason": "Placeholder; not a numeric monetary amount"
+    },
+    {
+      "matched_text": "'tbd'",
+      "reason": "Placeholder; not MNPI"
+    },
+    {
+      "matched_text": "2026-07-15",
+      "reason": "Spa-day bait; unrelated and not material"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "execution copy signed",
+      "concept": "definitive agreement signing status",
+      "reason": "Signing may be a material event under FIEA but detection typically keys off named agreements"
+    },
+    {
+      "matched_text": "internal note",
+      "concept": "nonpublic marker",
+      "reason": "Generic internal label indicates non-public status but coverage may be implementation-specific"
+    },
+    {
+      "matched_text": "12-digit code",
+      "concept": "jp_my_number format reference",
+      "reason": "Could refer to My Number but not explicitly identified; ambiguous without explicit anchor"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

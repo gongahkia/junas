@@ -3,13 +3,349 @@
   "document_type": "memo",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Emi Takahata"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ryo Kameda"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Haru Ninomiya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daichi Okamoto, Esq"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@hinodesystems.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "daichi.okamoto@kitayama-legal.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric access templates"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "stored fingerprint hash"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "retina-scan calibration images"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Type 1 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "insulin therapy"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Shinsei Tech Workers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "Seikou Reform League"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 17"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender offer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "TOB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "issuance of new shares"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "appointment of a new representative director"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout-period"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Emi Takahata"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ryo Kameda"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Haru Ninomiya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daichi Okamoto, Esq"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@hinodesystems.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "daichi.okamoto@kitayama-legal.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number records"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric access templates"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "stored fingerprint hash used for door readers (biometric data)"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "retina-scan calibration images"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Mr. Kameda\u2019s file references insulin therapy for Type 1 diabetes (health data)"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Mr. Kameda\u2019s file references insulin therapy for Type 1 diabetes (health data)"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "membership in Shinsei Tech Workers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "attendance at Seikou Reform League meetings"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "Mr. Kameda\u2019s spouse is noted as male"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Ms. Haru Ninomiya (age 17, summer intern)"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 17"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "remove this from transaction folders and segregate per PPC guidance"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "should be purged under retention limits"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Aozora Robotics K.K"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "potential tender offer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "contemplated TOB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "potential issuance of new shares"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "register on the insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout-period confirmations"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout-period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "segregated folders labeled \u201cMNPI\u2014Strict.\u201d"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Harmony Workplace Policy",
+      "reason": "policy name; generic DEI/prose, not PII/MNPI"
+    },
+    {
+      "matched_text": "Sakura Inclusive Guidelines",
+      "reason": "policy name; generic DEI/prose, not PII/MNPI"
+    },
+    {
+      "matched_text": "SakuraBall Tigers",
+      "reason": "sports team; false-positive bait"
+    },
+    {
+      "matched_text": "MiyukiPay Wallet",
+      "reason": "product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Kita-Saito Prefecture",
+      "reason": "place name; not PII/MNPI"
+    },
+    {
+      "matched_text": "opening Pandora\u2019s box",
+      "reason": "metaphor; not PII/MNPI"
+    },
+    {
+      "matched_text": "belt-and-suspenders",
+      "reason": "idiom; not PII/MNPI"
+    },
+    {
+      "matched_text": "AuroraXR Headset",
+      "reason": "product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Akihama Ward office",
+      "reason": "place name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Board of Directors",
+      "reason": "role noun; not a PII/MNPI entity"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "retention limits",
+      "concept": "retention marker",
+      "reason": "Retention control referenced but no explicit allowed retention rule; legally relevant under APPI."
+    },
+    {
+      "matched_text": "PPC guidance",
+      "concept": "regulatory guidance reference",
+      "reason": "Refers to Personal Information Protection Commission guidance; relevant to processing obligations but not an allowed rule type."
+    },
+    {
+      "matched_text": "TDnet disclosure",
+      "concept": "timely disclosure platform",
+      "reason": "Marker for public disclosure mechanism; relevant to MNPI governance but not a defined rule span."
+    },
+    {
+      "matched_text": "insiders",
+      "concept": "insider status reference",
+      "reason": "Indicates insider audience and trading restriction context; not an explicit allowed marker unless paired with list/blackout."
+    },
+    {
+      "matched_text": "data room",
+      "concept": "data transfer context",
+      "reason": "Indicates document repository use; privacy-relevant but not covered by allowed cross-border/minimisation markers."
+    },
+    {
+      "matched_text": "restricted",
+      "concept": "trading restriction",
+      "reason": "Implies blackout or insider trading limits; not an explicit allowed blackout marker as a standalone word."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

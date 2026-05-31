@@ -3,13 +3,194 @@
   "document_type": "memo",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@seihokudynamics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@seihokudynamics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1990-11-12"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@seihokudynamics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@seihokudynamics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1990-11-12"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "\u500b\u4eba\u756a\u53f7: 0000-XXXX-YYYY"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "a temporary procurement assistant in Osaka, born 1990-11-12, living in Fukushima-ku, employer business unit: Kansai Sourcing, laptop model KZR-14, device asset tag SA-7710, internal payroll sub-account PR-0281-OS, VPN alias temp-osk-412"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "SA-7710"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "temp-osk-412"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "PR-0281-OS"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not circulate personal emails in workflow tickets"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "should remain blank unless processing is necessary and lawful"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "omit any personal contact fields"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "avoid storing individual codes unless required"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redact weak identifiers in non-HR files"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "mask placeholders that look like IDs"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not request My Number, resident records, or bank account digits unless required by law and policy"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "ensure no selective disclosure to analysts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "the Board approved the share acquisition"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "mid-career engineer in Kanto",
+      "reason": "generic quasi-identifier not sufficient alone"
+    },
+    {
+      "matched_text": "graduate from a private university",
+      "reason": "generic quasi-identifier not sufficient alone"
+    },
+    {
+      "matched_text": "works in Nagoya",
+      "reason": "generic quasi-identifier not sufficient alone"
+    },
+    {
+      "matched_text": "uses an Android handset",
+      "reason": "generic quasi-identifier not sufficient alone"
+    },
+    {
+      "matched_text": "holds a general staff role",
+      "reason": "generic quasi-identifier not sufficient alone"
+    },
+    {
+      "matched_text": "born in spring",
+      "reason": "generic age/season reference not PII"
+    },
+    {
+      "matched_text": "Account No: ___",
+      "reason": "placeholder label without value"
+    },
+    {
+      "matched_text": "Device ID: ___",
+      "reason": "placeholder label without value"
+    },
+    {
+      "matched_text": "Contact: ___",
+      "reason": "placeholder label without value"
+    },
+    {
+      "matched_text": "ZX-***-***",
+      "reason": "anonymized/masked pattern, not an actual identifier"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention: redact weak identifiers in non-HR files, mask placeholders that look like IDs, and document lawful basis in the APPI processing register before any collection",
+      "concept": "retention / data governance",
+      "reason": "retention and governance directive is legally relevant but no explicit retention rule in allowed list"
+    },
+    {
+      "matched_text": "document lawful basis in the APPI processing register before any collection",
+      "concept": "lawful basis / record of processing",
+      "reason": "privacy compliance control under APPI but not mapped to an allowed marker rule"
+    },
+    {
+      "matched_text": "APPI/My Number controls",
+      "concept": "jp_my_number reference",
+      "reason": "mentions Japan My Number regime but does not include an actual identifier value"
+    },
+    {
+      "matched_text": "Media speculation about a possible TOB by third parties is widely reported",
+      "concept": "tender-offer rumor context",
+      "reason": "tender-offer topic is MNPI-relevant but here is public speculation and not an undisclosed fact"
+    },
+    {
+      "matched_text": "As of 2026-05-20",
+      "concept": "event timing marker",
+      "reason": "date may relate to material/embargo timing but not explicitly a Signing/Closing/Effective Date"
+    },
+    {
+      "matched_text": "there are no undisclosed tender-offer facts at present",
+      "concept": "nonpublic marker (negated)",
+      "reason": "addresses MNPI category but explicitly negates undisclosed status, not clearly covered by allowed rules"
+    },
+    {
+      "matched_text": "content of communications is not retained",
+      "concept": "retention control",
+      "reason": "data retention policy reference but no specific rule available in allowed list"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
