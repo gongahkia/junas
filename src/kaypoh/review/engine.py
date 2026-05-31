@@ -1519,6 +1519,16 @@ def _is_public_or_benign_amount_context(text: str, start: int, end: int) -> bool
     return bool(_PUBLIC_OR_BENIGN_AMOUNT_CONTEXT_RE.search(context))
 
 
+def _is_public_or_benign_percentage_context(text: str, start: int, end: int) -> bool:
+    left = max(text.rfind("\n", 0, start), text.rfind(";", 0, start)) + 1
+    right_candidates = [
+        pos for pos in (text.find("\n", end), text.find(";", end)) if pos >= 0
+    ]
+    right = min(right_candidates) if right_candidates else len(text)
+    context = text[left:right]
+    return bool(_PUBLIC_OR_BENIGN_AMOUNT_CONTEXT_RE.search(context))
+
+
 def _is_educational_mnpi_marker_context(text: str, start: int, end: int) -> bool:
     context = _line_context(text, start, end)
     return bool(re.search(
@@ -3524,7 +3534,7 @@ class PreSendReviewEngine:
                     text, match.start(), match.end()
                 ):
                     continue
-                if rule == "financial_percentage" and _is_public_or_benign_amount_context(
+                if rule == "financial_percentage" and _is_public_or_benign_percentage_context(
                     text, match.start(), match.end()
                 ):
                     continue

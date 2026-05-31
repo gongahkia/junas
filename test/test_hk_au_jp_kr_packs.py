@@ -149,6 +149,13 @@ class HkAuJpKrRecognizerTests(unittest.TestCase):
         self.assertNotIn("definitive_agreement", rules)
         self.assertNotIn("financial_percentage", rules)
 
+    def test_private_projection_percentage_survives_later_public_source_clause(self):
+        text = (
+            "Investor relations draft: if consummated, expected EPS accretion c. 6.2% in FY2027; "
+            "back-up Q&A references only public-source materials."
+        )
+        self.assertIn("financial_percentage", self._rules(text, "SG"))
+
 
 class HkAuJpKrRationaleTests(unittest.TestCase):
     def test_pii_rationales_cite_local_statutes(self):

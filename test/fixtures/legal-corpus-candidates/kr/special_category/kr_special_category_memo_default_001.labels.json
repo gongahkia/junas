@@ -6,63 +6,8 @@
   "must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Park Joon-seo"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Han Soo-jin"
-    },
-    {
-      "category": "PII",
-      "rule": "kr_rrn",
-      "matched_text": "900101-1234567"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "Type 1 diabetes"
-    },
-    {
-      "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "Type 1 diabetes treatment"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "facility\u2019s fingerprint/iris biometric access program"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "union affiliation with Horizon Labor Union Unit 74"
-    },
-    {
-      "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "private attendance at Junghwa Temple services"
-    },
-    {
-      "category": "PII",
-      "rule": "sexual_orientation",
-      "matched_text": "listed a same-sex partner for dependent benefits"
-    },
-    {
-      "category": "PII",
       "rule": "email_address",
       "matched_text": "park.joonseo@cheonhae-innovations.kr"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "010-9876-4421"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@cheonhae-innovations.kr"
     },
     {
       "category": "PII",
@@ -71,23 +16,53 @@
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@cheonhae-innovations.kr"
+      "rule": "phone_number",
+      "matched_text": "010-9876-4421"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "mask or tokenize before sharing with external counsel or lenders"
+      "rule": "kr_rrn",
+      "matched_text": "900101-1234568"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "only anonymized headcount data may be used"
+      "rule": "named_person",
+      "matched_text": "Mr. Park Joon"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "exclude sensitive attachments under IR content standards"
+      "rule": "named_person",
+      "matched_text": "Ms. Han Soo"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Park"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Han"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "genetic data"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Under FSC/FSS guidance, draft IR decks and the data room remain non-public; any distribution beyond need-to-know, including to Dongrim Capital prospective LPs, risks FSCMA violations."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "The preliminary term sheet for the “BoreumSky Router” line and “HarborFox Phone” accessories is MNPI until public notice; margin guidance must not be discussed with Hyangsu Tigers fan-club sponsors or other third parties."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Draft press guidance references Q3 revenue runway and scenarios mentioning Gyeongwon City for illustration only; do not include pricing, customer identities, or supplier exclusivity until KRX disclosure."
     },
     {
       "category": "MNPI",
@@ -101,8 +76,8 @@
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "margin guidance must not be discussed with Hyangsu Tigers fan-club sponsors or other third parties"
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
     }
   ],
   "ideal_must_detect": [
@@ -118,11 +93,6 @@
     },
     {
       "category": "PII",
-      "rule": "kr_rrn",
-      "matched_text": "900101-1234567"
-    },
-    {
-      "category": "PII",
       "rule": "health_condition",
       "matched_text": "Type 1 diabetes"
     },
@@ -134,7 +104,7 @@
     {
       "category": "PII",
       "rule": "biometric_identifier",
-      "matched_text": "facility\u2019s fingerprint/iris biometric access program"
+      "matched_text": "facility’s fingerprint/iris biometric access program"
     },
     {
       "category": "PII",
@@ -240,6 +210,46 @@
       "category": "MNPI",
       "rule": "selective_disclosure_risk",
       "matched_text": "do not include pricing, customer identities, or supplier exclusivity until KRX disclosure"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "900101-1234568"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Park Joon"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Han Soo"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "genetic data"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Under FSC/FSS guidance, draft IR decks and the data room remain non-public; any distribution beyond need-to-know, including to Dongrim Capital prospective LPs, risks FSCMA violations."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "The preliminary term sheet for the “BoreumSky Router” line and “HarborFox Phone” accessories is MNPI until public notice; margin guidance must not be discussed with Hyangsu Tigers fan-club sponsors or other third parties."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Draft press guidance references Q3 revenue runway and scenarios mentioning Gyeongwon City for illustration only; do not include pricing, customer identities, or supplier exclusivity until KRX disclosure."
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
     }
   ],
   "must_not_detect": [
@@ -300,6 +310,38 @@
   "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "KR Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered KR resident-number shorthand/KR-BRN anchors, checksum-valid RRN/business-registration positives, negated no-executed-term-sheet wording, and public/stale percentage prose. The generated must-not label for “Ms. Hana Park” was rejected because the text is an actual named-person reference.",
+  "_agent_review": {
+    "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-kr-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-kr-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved KR Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T02:34:00Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T02:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+    "status": "owner_approved_kr_stage_a_for_internal_benchmarking"
+  }
 }

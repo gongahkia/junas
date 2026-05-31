@@ -6,8 +6,18 @@
   "must_detect": [
     {
       "category": "PII",
+      "rule": "email_address",
+      "matched_text": "jm.ko@hanwoongbd.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr.park@hanwoongbd.kr"
+    },
+    {
+      "category": "PII",
       "rule": "named_person",
-      "matched_text": "Mr. Jae\u2011Min Ko"
+      "matched_text": "Mr. Jae"
     },
     {
       "category": "PII",
@@ -17,27 +27,22 @@
     {
       "category": "PII",
       "rule": "named_person",
-      "matched_text": "Ms. Ha\u2011Rin Park"
+      "matched_text": "Mr. Ko"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "jm.ko@hanwoongbd.kr"
+      "rule": "named_person",
+      "matched_text": "Mr. Ko"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@hanwoongbd.kr"
+      "rule": "named_person",
+      "matched_text": "Ms. Ha"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hr.park@hanwoongbd.kr"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+82\u201170\u20115555\u20112288"
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint template"
     },
     {
       "category": "PII",
@@ -46,75 +51,35 @@
     },
     {
       "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "attends Haneul Light Church"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "his union membership at Metal Workers Unity Union #M\u201107 remains active"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "Type 2 diabetes"
-    },
-    {
-      "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "Type 2 diabetes treatment at Bukhae Medical Center"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "a fingerprint template (index R) stored in the plant access system"
-    },
-    {
-      "category": "PII",
-      "rule": "genetic_data",
-      "matched_text": "genetic screening letter for thalassemia trait"
-    },
-    {
-      "category": "PII",
       "rule": "minor_data_reference",
-      "matched_text": "His minor child"
+      "matched_text": "child data"
     },
     {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "DOB 2016\u201111\u201103"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "biometric gate logs show site entry 06:11 on 2026\u201105\u201128"
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Subject: proposed secondary offering and employee data handling in Korea issuer context; liaison with FSC/FSS and timing constraints"
     },
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "Unpublished"
+      "matched_text": "MNPI"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "FSCMA blackout"
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
     },
     {
       "category": "MNPI",
       "rule": "definitive_agreement",
-      "matched_text": "draft term sheet SJ\u2011\u039417"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Please redact resident\u2011number strings and health/biometric fields in public filings"
+      "matched_text": "term sheet"
     }
   ],
   "ideal_must_detect": [
     {
       "category": "PII",
       "rule": "named_person",
-      "matched_text": "Mr. Jae\u2011Min Ko"
+      "matched_text": "Mr. Jae‑Min Ko"
     },
     {
       "category": "PII",
@@ -124,7 +89,7 @@
     {
       "category": "PII",
       "rule": "named_person",
-      "matched_text": "Ms. Ha\u2011Rin Park"
+      "matched_text": "Ms. Ha‑Rin Park"
     },
     {
       "category": "PII",
@@ -144,7 +109,7 @@
     {
       "category": "PII",
       "rule": "phone_number",
-      "matched_text": "+82\u201170\u20115555\u20112288"
+      "matched_text": "+82‑70‑5555‑2288"
     },
     {
       "category": "PII",
@@ -159,7 +124,7 @@
     {
       "category": "PII",
       "rule": "trade_union_membership",
-      "matched_text": "his union membership at Metal Workers Unity Union #M\u201107 remains active"
+      "matched_text": "his union membership at Metal Workers Unity Union #M‑07 remains active"
     },
     {
       "category": "PII",
@@ -189,12 +154,12 @@
     {
       "category": "PII",
       "rule": "date_of_birth",
-      "matched_text": "DOB 2016\u201111\u201103"
+      "matched_text": "DOB 2016‑11‑03"
     },
     {
       "category": "PII",
       "rule": "biometric_identifier",
-      "matched_text": "biometric gate logs show site entry 06:11 on 2026\u201105\u201128"
+      "matched_text": "biometric gate logs show site entry 06:11 on 2026‑05‑28"
     },
     {
       "category": "MNPI",
@@ -209,22 +174,22 @@
     {
       "category": "MNPI",
       "rule": "definitive_agreement",
-      "matched_text": "draft term sheet SJ\u2011\u039417"
+      "matched_text": "draft term sheet SJ‑Δ17"
     },
     {
       "category": "PII",
       "rule": "data_minimisation_marker",
-      "matched_text": "Please redact resident\u2011number strings and health/biometric fields in public filings"
+      "matched_text": "Please redact resident‑number strings and health/biometric fields in public filings"
     },
     {
       "category": "PII",
       "rule": "kr_rrn",
-      "matched_text": "resident registration no. 90 0412\u20111 1 1*3 45 (obfuscated)"
+      "matched_text": "resident registration no. 90 0412‑1 1 1*3 45 (obfuscated)"
     },
     {
       "category": "PII",
       "rule": "kr_rrn",
-      "matched_text": "rrn=90 0412\u20111 1 1*3 45 (internal)"
+      "matched_text": "rrn=90 0412‑1 1 1*3 45 (internal)"
     },
     {
       "category": "MNPI",
@@ -240,6 +205,41 @@
       "category": "MNPI",
       "rule": "contingent_mnpi_language",
       "matched_text": "may constitute MNPI under FSCMA"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jae"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ha"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint template"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "child data"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Subject: proposed secondary offering and employee data handling in Korea issuer context; liaison with FSC/FSS and timing constraints"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
     }
   ],
   "must_not_detect": [
@@ -272,7 +272,7 @@
       "reason": "Generic DEI reference; not PII"
     },
     {
-      "matched_text": "Guide to FSC E\u2011Disclosure",
+      "matched_text": "Guide to FSC E‑Disclosure",
       "reason": "Public generic reference; not PII"
     },
     {
@@ -282,12 +282,12 @@
   ],
   "uncertain": [
     {
-      "matched_text": "ko\u2011jm\u2011ops",
+      "matched_text": "ko‑jm‑ops",
       "concept": "messaging handle",
       "reason": "Personal KakaoTalk handle; potentially identifying but not covered by allowed PII rules"
     },
     {
-      "matched_text": "Seongyeon HQ, 2F Legal Room, 17\u20113 Suseok\u2011ro, Munhyeon\u2011gu, Ilseong City",
+      "matched_text": "Seongyeon HQ, 2F Legal Room, 17‑3 Suseok‑ro, Munhyeon‑gu, Ilseong City",
       "concept": "physical address (KR)",
       "reason": "Personal/organizational location data; no KR address rule provided in allowed set"
     },
@@ -297,7 +297,7 @@
       "reason": "Internal path may embed username; not explicitly covered by allowed rules"
     },
     {
-      "matched_text": "HBD\u2011KR/INV\u201126",
+      "matched_text": "HBD‑KR/INV‑26",
       "concept": "internal tracking code",
       "reason": "Could be a unique identifier but not among allowed PII rules"
     }
@@ -307,6 +307,38 @@
   "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "KR Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered KR resident-number shorthand/KR-BRN anchors, checksum-valid RRN/business-registration positives, negated no-executed-term-sheet wording, and public/stale percentage prose. The generated must-not label for “Ms. Hana Park” was rejected because the text is an actual named-person reference.",
+  "_agent_review": {
+    "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-kr-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-kr-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved KR Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T02:34:00Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T02:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+    "status": "owner_approved_kr_stage_a_for_internal_benchmarking"
+  }
 }
