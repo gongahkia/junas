@@ -1,0 +1,214 @@
+{
+  "doc_id": "kr_direct_identifiers_memo_adversarial_001",
+  "document_type": "memo",
+  "source_jurisdiction": "KR",
+  "destination_jurisdiction": "KR",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "123-45-67890"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "han.eunji@miraedo.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+82-10-5123-7789"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Han Eun-ji"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "032-441-998877-03"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "911210-1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Park Seon-ho"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "M47392018"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Park"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "782-00-93214"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "010-5123-7789"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "important information not yet publicly disclosed"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "123-45-67890"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "han.eunji@miraedo.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+82-10-5123-7789"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Han Eun-ji"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "032-441-998877-03"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "911210-1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Park Seon-ho"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "M47392018"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Park"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "782-00-93214"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "010-5123-7789"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "important information not yet publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "until KRX notice on 2026-07-15"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "sharing would breach internal policy"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "91 12 10 - 1 23 45 67 8"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "h a n . e u n j i @ m i r a e d o . k r"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "validate and redact"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the CFO",
+      "reason": "Role-only reference; not a personal identifier"
+    },
+    {
+      "matched_text": "Name",
+      "reason": "Generic form label; not personal data"
+    },
+    {
+      "matched_text": "1399",
+      "reason": "Public helpline number; not personal data"
+    },
+    {
+      "matched_text": "02-000-0000",
+      "reason": "Generic placeholder number; not real PII"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC reference; excluded by rule"
+    },
+    {
+      "matched_text": "help@miraedo.kr",
+      "reason": "Generic helpdesk email; not linked to a living individual"
+    },
+    {
+      "matched_text": "02-3450-0000",
+      "reason": "Corporate main line; not personal data"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "MG-2026-0193",
+      "concept": "local permit identifier",
+      "reason": "Permit numbers may be sensitive company identifiers but no explicit rule covers local permit IDs"
+    },
+    {
+      "matched_text": "ticket=KRX2026",
+      "concept": "internal_session_id",
+      "reason": "Looks like an access ticket in a restricted URL but not clearly a personal session identifier"
+    },
+    {
+      "matched_text": "06778",
+      "concept": "postal_code",
+      "reason": "KR postal code appears but there is no KR postal code rule and it is tied to a corporate address"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

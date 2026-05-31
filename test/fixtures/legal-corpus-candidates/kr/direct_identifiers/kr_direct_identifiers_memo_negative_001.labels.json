@@ -1,0 +1,135 @@
+{
+  "doc_id": "kr_direct_identifiers_memo_negative_001",
+  "document_type": "memo",
+  "source_jurisdiction": "KR",
+  "destination_jurisdiction": "KR",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "790101-1234561"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "123-45-67890"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "MA123456"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@bluepine.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "000-000-000000"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "790101-1234561"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "123-45-67890"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "MA123456"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@bluepine.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "000-000-000000"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "must exclude living-individual data"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redacted in filings"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "shall not be retained"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not populate in IR decks"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "avoid adding personal phone numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "confirm redaction"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1332",
+      "reason": "Public helpline short code explicitly stated as not PII."
+    },
+    {
+      "matched_text": "Head of Compliance",
+      "reason": "Role title only; not an individual's name."
+    },
+    {
+      "matched_text": "IR Officer",
+      "reason": "Role title only; not an individual's name."
+    },
+    {
+      "matched_text": "Name",
+      "reason": "Generic form field label, not PII."
+    },
+    {
+      "matched_text": "Address",
+      "reason": "Generic form field label, not PII."
+    },
+    {
+      "matched_text": "Position",
+      "reason": "Generic form field label, not PII."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "110111-2233445",
+      "concept": "KR corporate registry number",
+      "reason": "Company registry identifier in KR; legally relevant company ID but not clearly covered by the allowed kr_business_registration rule and resembles an RRN pattern."
+    },
+    {
+      "matched_text": "Mapo-gu, Seoul",
+      "concept": "address fragment",
+      "reason": "Location detail may constitute address information but no specific allowed rule covers non-SG addresses."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}
